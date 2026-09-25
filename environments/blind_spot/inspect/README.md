@@ -120,30 +120,39 @@ Every number below is read from `certs/blind-spot-inspect-ledger.json`, which
 `api.score` (the counts are this package's reading of the log, not Inspect's
 metrics; a disagreement would be recorded, and the battery refuses on it).
 
-**The pipeline runs end to end.** Three reference policies were run through
-`inspect eval` — dataset, solver, model of record, scorer, log — on the mixed
-task (36 tasks, seed 2027), with the policy as a solver reading the task the
-way the verifiers baseline table's policies do (`run_control.py`). These are
-**controls of the pipeline, not model results**, and the ledger marks them
-`control: true`:
+<!-- results:begin -->
+**Frontier models, through `inspect eval`** (every rollout re-scored offline by the package; the reward is this package's reading, and it equals Inspect's on every row):
 
-| policy | `located` | `profile` | `blind` | all 36 | note |
+| model | effort | rung | n | solved | wrong | missed | undecided | unreadable | errors | mean reward | out-of-box kills | cost floor |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| claude-haiku-4-5-20251001 | default | blind | 12 | 4/12 | 3 | 5 | 0 | 0 | 0 | +0.083 | 0 | $0.10 |
+| claude-haiku-4-5-20251001 | default | located | 12 | 3/12 | 2 | 6 | 1 | 0 | 0 | +0.083 | 0 | $0.07 |
+| claude-haiku-4-5-20251001 | default | profile | 12 | 4/12 | 2 | 5 | 1 | 0 | 0 | +0.167 | 2 | $0.09 |
+| claude-opus-5 | low | located | 12 | 10/12 | 0 | 0 | 0 | 2 | 0 | +0.833 | 3 | $0.09 |
+| claude-opus-5 | low | profile | 12 | 2/12 | 0 | 0 | 0 | 10 | 0 | +0.167 | 0 | $0.02 |
+| claude-opus-5 | low | blind | 12 | 4/12 | 3 | 3 | 0 | 2 | 0 | +0.083 | 1 | $0.29 |
+| claude-sonnet-5 | low | blind | 12 | 3/12 | 3 | 5 | 0 | 1 | 0 | +0.000 | 0 | $0.08 |
+| claude-sonnet-5 | low | located | 12 | 8/12 | 1 | 3 | 0 | 0 | 0 | +0.583 | 0 | $0.12 |
+| claude-sonnet-5 | low | profile | 12 | 6/12 | 0 | 3 | 3 | 0 | 0 | +0.500 | 2 | $0.11 |
+| claude-sonnet-5 | medium | blind | 12 | 5/12 | 3 | 4 | 0 | 0 | 0 | +0.167 | 1 | $0.30 |
+| claude-sonnet-5 | medium | located | 12 | 10/12 | 0 | 2 | 0 | 0 | 0 | +0.833 | 1 | $0.27 |
+| claude-sonnet-5 | medium | profile | 12 | 8/12 | 0 | 3 | 1 | 0 | 0 | +0.667 | 2 | $0.26 |
+| claude-sonnet-5 | high | blind | 12 | 5/12 | 3 | 3 | 0 | 1 | 0 | +0.167 | 1 | $0.54 |
+| claude-sonnet-5 | high | located | 12 | 12/12 | 0 | 0 | 0 | 0 | 0 | +1.000 | 3 | $0.52 |
+| claude-sonnet-5 | high | profile | 12 | 6/12 | 1 | 2 | 0 | 3 | 0 | +0.417 | 1 | $1.01 |
+
+The cost column is a floor: errored rollouts report no usage. Each run is one `inspect eval` of one rung variant; the seed is 2027 and the tasks are the same ids across models and efforts.
+
+**The pipeline controls** — the three reference policies as Inspect solvers on the mixed task (controls of the pipeline, never model results; the ledger marks them `control: true`):
+
+| policy | `located` | `profile` | `blind` | all | note |
 |---|---|---|---|---|---|
-| `sat` — the witness, or the proof | +1.000 | +1.000 | +1.000 | +1.000 | 36/36 solved, 9 through an out-of-box coordinate |
-| `abstain` — UNDECIDED always | +0.000 | +0.000 | +0.000 | +0.000 | 0 false claims |
-| `never` — EQUIVALENT always | -0.667 | -0.500 | -0.500 | −0.556 | 28 false claims: −1 on every killable task, +1 on the 8 equivalent |
+| `sat` — the witness, or the proof | +1.000 | +1.000 | +1.000 | +1.000 | 36/36 solved, 0 false claims |
+| `abstain` — UNDECIDED always | +0.000 | +0.000 | +0.000 | +0.000 | 0/36 solved, 0 false claims |
+| `never` — EQUIVALENT always | -0.667 | -0.500 | -0.500 | -0.556 | 8/36 solved, 28 false claims |
 
-The verifiers README's reference table has the same three rows on its own
-draw (`abstain` 0.000, `sat` +1.000): the two frameworks read the same policy
-the same way.
-
-**No frontier model has been run yet.** `inspect eval …@blind_spot_located
---model anthropic/claude-sonnet-5` reached the API on 2026-09-21 and was
-refused before any generation: *"Your credit balance is too low to access the
-Anthropic API"* (the attempt is kept as `logs/blocked/…json` and listed under
-`blocked` in the ledger; nothing was billed). The command above is the one to
-re-run once the account is topped up; the ledger and this table then take the
-run without any other change.
+Refused attempts are kept, not hidden: 1 under `logs/blocked/` (the last: anthropic/claude-sonnet-5 on 2026-09-21, error, `Error code: 400 - {\'type\': \'error\', \'error\': {\'type\': \'invalid_request_…`).
+<!-- results:end -->
 
 ## Human baselines
 

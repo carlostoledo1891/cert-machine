@@ -684,6 +684,18 @@ B.push(C.section({
    that is not catalogued — and the descriptions are written for someone who
    is smart and is not a number theorist, which is a different job from the
    shelf's. */
+/* the time-horizon lead reads its figures from the ledger here, before the LEAD is built
+   (the portfolio block below reads the same file again; both refuse on a moved number) */
+const hz0 = (() => {
+  const H = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'horizon-ledger.json'), 'utf8'));
+  const live = Object.values(H.agents).filter((a) => a.live && a.live.certified && a.site);
+  const out = { certified: H.counts.certified, fits: H.counts.fits, live: live.length,
+    repro: live.filter((a) => a.live.coefficientsVerdict === 'REPRODUCED').length,
+    dbl: H.trend.certified.from_2023_on.doublingDays[0], printed: H.trend.printed.from_2023_on.point_estimate };
+  if (out.certified !== out.fits) fail('the landing would say every horizon fit is certified while the ledger says otherwise');
+  if (Math.abs(out.dbl - out.printed) / out.printed >= 1e-4) fail('the landing would say the doubling time re-derives to the printed digit');
+  return out;
+})();
 const LEAD = [
   /* THE PORTFOLIO LEAD, set 2026-09-03. Under the position — independent exact certification, with
      refusal as a verdict — the audits lead and one theorem calibrates them. ember.html and
@@ -714,14 +726,19 @@ const LEAD = [
       + '. The finding is not the tally: in all ' + aiClaims.lanes + ', the part a machine '
       + 'can check held, and the part that carries the theorem stayed out of reach.',
     n: aiClaims.checks + ' checks · ' + aiClaims.mutations + ' deliberate forgeries, every one rejected' },
-  { f: 'lambda5.html', k: 'a theorem · erdős #510',
-    title: 'A sequence that was climbing turns down',
-    desc: 'Mercer proved the first two values of Chowla’s cosine dip in 2019 and conjectured the rest. This machine '
-      + 'proved the third, and then the fourth: λ(5) = −L(1,2,4,5,6), an algebraic number of degree exactly five, '
-      + 'with the minimal polynomial exhibited. One family in the reduction admits no classical weight at all — a '
-      + 'structural obstruction the page proves fresh at every build. And a consequence needs nothing further: '
-      + 'λ(6) < λ(5), so the sequence that had been climbing turns down.',
-    n: 'audited over ' + fmt(l5audit.setsWalked) + ' sets, 0 refuters · not peer-reviewed' },
+  /* 2026-09-25: the time-horizon certification takes the fourth slot from lambda5.html — the
+     landing's audience this month is evaluation teams, and the most-quoted graph in AI forecasting,
+     certified to the last bit, is the catch that speaks to them. lambda5 stays fully ranked on the
+     shelf and rejoins shelfHead automatically. Revert by restoring the lambda5 card here. */
+  { f: 'time-horizon.html', k: 'an audit · the time horizon',
+    title: 'METR’s time horizon, certified to the last bit',
+    desc: 'The length of task a frontier model completes half the time is the most-quoted number in AI forecasting, '
+      + 'and it is read off a fit nobody outside METR had checked. Here every fit on METR’s own Time Horizon 1.1 evidence '
+      + 'is proved to hold exactly one optimum in a box below a ten-billionth: ' + hz0.certified + ' of ' + hz0.fits
+      + ' fits certify, METR’s printed coefficients are the rounding of the box for ' + hz0.repro + ' of ' + hz0.live
+      + ' models, and the post-2023 doubling time re-derives as ' + hz0.dbl.toFixed(2) + ' days against the printed ' + hz0.printed
+      + '. The instrument built to put a time-horizon number on tasks graded by an exact verifier, calibrated on the one that exists.',
+    n: hz0.certified + ' fits certified · boxes below 10⁻¹⁰ · not peer-reviewed' },
 ];
 /* LEAD ORDER, set 2026-09-03: the CATCHES lead and the theorems follow.
    Theorems earn respect; catches earn attention, and a theorem read first
@@ -1581,6 +1598,17 @@ const hzDbl = HZ.trend.certified.from_2023_on.doublingDays[0], hzPrinted = HZ.tr
 if (!(Math.abs(hzDbl - hzPrinted) / hzPrinted < 1e-4)) fail('/portfolio/ would state the doubling time re-derives to the printed digit');
 if (GK.test.annotations.EXACT !== GK.test.annotationsTotal) fail('/portfolio/ would state every GSM8K test annotation is exact');
 if (bsiRec.disagreements !== 0 || bsiRec.verdict !== 'PASS') fail('/portfolio/ would state the two blind-spot scorers agree');
+/* the frontier ladder on blind-spot, read from the Inspect ledger: Sonnet 5 on the located rung across three efforts */
+const bsiLadder = BSI.ladder || {};
+const sl = ['low', 'medium', 'high'].map((e) => (bsiLadder['claude-sonnet-5@' + e] || {}).rungs || {});
+if (!sl.every((r) => r.located)) fail('/portfolio/ would quote a Sonnet 5 effort ladder the ledger does not hold');
+const ladderText = sl.map((r) => r.located.solved + '/' + r.located.n).join(' → ');
+const bsiFrontier = (BSI.frontier && BSI.frontier.models_run) || [];
+const bsiRollouts = (BSI.runs || []).filter((r) => !r.control).reduce((a, r) => a + r.concord.rollouts, 0);
+const bsiDis = (BSI.runs || []).filter((r) => !r.control).reduce((a, r) => a + r.concord.disagreements, 0);
+if (bsiFrontier.length !== 3 || bsiDis !== 0) fail('/portfolio/ would state three frontier models with zero disagreements');
+const opusProfile = ((bsiLadder['claude-opus-5@low'] || {}).rungs || {}).profile;
+if (!opusProfile || opusProfile.unreadable < 6) fail('/portfolio/ would state Opus declines the profile rung');
 const portfolioBody = [
   C.header({
     eyebrow: 'Carlos Toledo · portfolio',
@@ -1593,7 +1621,7 @@ const portfolioBody = [
   }),
   C.section({
     lab: '2 · the task', title: 'blind-spot, under Inspect and verifiers',
-    bodyRaw: C.pRaw('An RTL mutation task: a model is handed a mutated netlist (yosys mutants of a comparator, SAT-labelled: ' + BSI.ladder.killable + ' killable with a verified witness, ' + BSI.ladder.equivalent + ' proved equivalent) and must name input pairs that kill the mutant or prove it equivalent; a kill is verified by simulating the netlist, equivalence against the SAT proof. Published on the Prime Intellect hub through verifiers and ported to an inspect_ai Task whose scorer is the rubric’s own function; a battery scores every one of the ' + BSI.ladder.mutations + ' pooled mutants three ways and requires agreement (' + bsiRec.submissionsScoredThreeWays + ' submissions, ' + bsiRec.disagreements + ' disagreements). Three rungs — the defect named, its testbench profile, nothing — make a ladder; human baselines follow the protocol in the repository. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.')
+    bodyRaw: C.pRaw('An RTL mutation task: a model is handed a mutated netlist (yosys mutants of a comparator, SAT-labelled: ' + BSI.ladder.killable + ' killable with a verified witness, ' + BSI.ladder.equivalent + ' proved equivalent) and must name input pairs that kill the mutant or prove it equivalent; a kill is verified by simulating the netlist, equivalence against the SAT proof. Published on the Prime Intellect hub through verifiers and ported to an inspect_ai Task whose scorer is the rubric’s own function; a battery scores every one of the ' + BSI.ladder.mutations + ' pooled mutants three ways and requires agreement (' + bsiRec.submissionsScoredThreeWays + ' submissions, ' + bsiRec.disagreements + ' disagreements). Three rungs — the defect named, its testbench profile, nothing — make a ladder, and a budget ladder crosses it: through <span class="m">inspect eval</span>, ' + bsiFrontier.length + ' frontier models, ' + fmt(bsiRollouts) + ' rollouts, every one re-scored offline with ' + bsiDis + ' disagreements; Sonnet 5 on the located rung solves ' + ladderText + ' as its effort goes low → medium → high, and Opus 5 declines the profile rung on a content policy (' + opusProfile.unreadable + ' of ' + opusProfile.n + ' unreadable), recorded as what it is. Human baselines follow the protocol in the repository. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.')
   }),
   C.section({
     lab: '3 · the audit', title: 'GSM8K’s answer key, re-decided to the last step',

@@ -31,6 +31,38 @@ make site      assemble the public site bundle (site/)
 make drift     re-hash the lifted instruments against the source lab
 ```
 
+## For evaluation teams: tasks graded by an exact verifier
+
+Every task this machine ships is graded by an exact verifier — no answer key,
+no judge model, no tolerance — and every published number is an enclosure or
+an exact decision with a REFUSED third value. Four artifacts, each with a
+battery on every build and a ledger behind every figure:
+
+- **[METR's time horizon, certified](https://carlostoledo.co/reports/time-horizon.html)** —
+  METR's Time Horizon 1.1 estimator re-implemented in standard-library Python with
+  the optimum proved unique by the Krawczyk operator: 44 of 44 fits certified with
+  boxes below 10⁻¹⁰ on METR's own runs and site files; their printed coefficients
+  are the rounding of the box for 22 of 23 models; the post-2023 doubling time
+  re-derives as 128.74 days (`instruments/horizon`, `tools/run-horizon-ledger.py`).
+  The instrument built to decide a time horizon on judge-free tasks, calibrated on
+  the one that exists; the result written for a system card, a regulator and a post.
+- **[blind-spot](https://carlostoledo.co/instruments/blind-spot)** under
+  [Inspect](environments/blind_spot/inspect/) and verifiers — an RTL mutation task
+  (yosys mutants, SAT-labelled; a kill is simulated, equivalence is proved) whose
+  Inspect scorer is the verifiers rubric's own function, with a battery proving the
+  two grade all 400 pooled mutants identically. Three rungs; human baselines by
+  the protocol in `environments/blind_spot/baselines.json`.
+- **[GSM8K's answer key, re-decided](https://carlostoledo.co/reports/gsm8k-audit.html)** —
+  every calculator annotation and prose step of the 8,792 keys evaluated exactly:
+  the arithmetic is clean where humans looked and slips where no model disagreed;
+  GSM8K-Platinum's ten relabellings are readings, not sums (`instruments/gsm8k`).
+- **Three verifier-graded environments on the Prime Intellect hub** —
+  `carlos-toledo/blind-spot`, `break-the-grader`, `lattice-claims`
+  (`environments/`, `instruments/wiring`), each verified from the registry in a
+  clean install and run against live models with every rollout re-scored offline.
+
+The shortest tour: [carlostoledo.co/portfolio](https://carlostoledo.co/portfolio/).
+
 ## Check a result yourself, in ten seconds
 
 Every headline claim detaches into a certificate — a JSON file of exact

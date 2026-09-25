@@ -9,9 +9,24 @@
  "logs": [
   "environments/blind_spot/inspect/logs/2026-09-21T22-07-00-00-00_blind-spot_GeEYUW8Z3Fax5rX3Q94JsG.json",
   "environments/blind_spot/inspect/logs/2026-09-21T22-07-02-00-00_blind-spot_Ca3WwQCoPRRP3a7ACABpPG.json",
-  "environments/blind_spot/inspect/logs/2026-09-21T22-07-02-00-00_blind-spot_XcEZxxzHPCU2HZgLkCRNhp.json"
+  "environments/blind_spot/inspect/logs/2026-09-21T22-07-02-00-00_blind-spot_XcEZxxzHPCU2HZgLkCRNhp.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-22-47-00-00_blind-spot-blind_nhxEY3MY3fgLdfAvVskWSX.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-22-47-00-00_blind-spot-located_id36sTPegphcYKpM3H8AwA.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-22-47-00-00_blind-spot-profile_6QHtgs6ejELWgrxu7UhRbN.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-24-41-00-00_blind-spot-blind_eQAVvuKbVJGnwApZm2TYhX.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-24-41-00-00_blind-spot-located_RnxSdoCh89MwN3zVXb4ikR.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-24-41-00-00_blind-spot-profile_Mh5YE9Nd3WBp7s8mST3HFa.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-28-54-00-00_blind-spot-blind_mjMbix5tfVdyqBSoYstmNC.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-28-54-00-00_blind-spot-located_Nz4S6hftZb9qkoyU7XrD38.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-28-54-00-00_blind-spot-profile_UWoLQ3b3Hy4uUWgu4JD7ut.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-39-45-00-00_blind-spot-located_eSo3S6bWMMYM8TTaeg7M5j.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-39-45-00-00_blind-spot-profile_CkWh4uYeFodZfMDPCgx8Qp.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-39-46-00-00_blind-spot-blind_LwtTHv42KjtToKY9hoxv5U.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-40-57-00-00_blind-spot-blind_TG7qpuuXeb2n73tWcXkRqK.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-40-57-00-00_blind-spot-located_mwmoxaSgCX3fSBCxxsiqhc.json",
+  "environments/blind_spot/inspect/logs/2026-09-25T17-40-57-00-00_blind-spot-profile_o2dwboFMpCrb4y8CXGjCiq.json"
  ],
- "rolloutsRescored": 108,
+ "rolloutsRescored": 288,
  "rolloutDisagreements": 0,
  "mutantIndex": {
   "1": [
@@ -1620,7 +1635,7 @@
   "dead": 0
  },
  "verdict": "PASS",
- "seconds": 264.0,
+ "seconds": 104.6,
  "output": [
   "PASS inspect_ai 0.3.266 under /Users/carlostoledo/Projects/cert-machine/environments/blind_spot/.venv/bin/python",
   "PASS yosys, iverilog and vvp are on PATH",
@@ -1629,17 +1644,17 @@
   "PASS no answer key: target is empty, the prompt names neither the class nor the label",
   "PASS the Inspect prompt is byte-identical to the verifiers `question` for the same (seed, index)",
   "PASS a (seed, index) that draws each of the 400 pooled mutants exists in the seed-2027 taskset  scanned 6194 indices; deepest 6193",
-  "PASS the Inspect scorer, api.score and taskset.grade agree field for field on all 400 pooled mutants × truthful/UNDECIDED/false-claim = 892 submissions  78.8 s",
+  "PASS the Inspect scorer, api.score and taskset.grade agree field for field on all 400 pooled mutants × truthful/UNDECIDED/false-claim = 892 submissions  79.0 s",
   "PASS and the truthful answer scores SOLVED +1 on every one of them (the positive control, 400 times)",
   "PASS the false claim scores WRONG −1 on all 92 mutants it was tried on (52 proved-equivalent + 40 killable)",
   "PASS RED CONTROL: a witness with one coordinate changed stops killing under BOTH scorers — MISSED, reward 0, never SOLVED — on 9 of 25 killable mutants (the first killable among them); on the other 16 the spoiled pair still kills and both say SOLVED; the two scorers never split  stopped: [2, 266, 17, 215, 236, 71, 249, 297, 289]",
   "PASS RED CONTROL: a killing verdict inside a reasoning block under a final UNDECIDED grades UNDECIDED (text parts only); the parser takes the LAST verdict so even the raw rendering reads UNDECIDED — the filter guards the other order  mutant 2",
   "PASS RED CONTROL: …and with the reasoning AFTER the text, the raw rendering would have scored the buried KILL as SOLVED while the Inspect scorer still reads UNDECIDED — the text-only filter is load-bearing  raw: SOLVED, inspect: UNDECIDED",
-  "PASS the 108 recorded rollouts in 3 Inspect log(s) re-score offline to the reward and outcome Inspect wrote  0 disagreements",
+  "PASS the 288 recorded rollouts in 18 Inspect log(s) re-score offline to the reward and outcome Inspect wrote  0 disagreements",
   "PASS certs/blind-spot-inspect-ledger.json exists (python3 environments/blind_spot/inspect/ledger.py)",
-  "PASS the ledger's 6 pins (task.py, baselines.json, every log) re-hash to their values",
-  "PASS the ledger's counts for 3 run(s) re-derive from the logs",
-  "PASS the README quotes the ledger: 12 ledger strings found",
+  "PASS the ledger's 21 pins (task.py, baselines.json, every log) re-hash to their values",
+  "PASS the ledger's counts for 18 run(s) re-derive from the logs",
+  "PASS the README quotes the ledger: 42 ledger strings found",
   "PASS human baselines: 0 attempt(s) on file, every graded one re-grades to its stored outcome; status: NO DATA.",
   "PASS RED CONTROL: a baseline reply with a coordinate no 3-bit pin can carry is REFUSED_PARSE, never masked to −4"
  ]

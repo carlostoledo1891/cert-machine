@@ -56,6 +56,16 @@ from blind_spot import api                        # noqa: E402
 from blind_spot.taskset import RUNGS              # noqa: E402
 
 BASELINE_TASKS_PER_RUNG = 6
+# per-MTok, Anthropic first-party rates (the same table eval/run_verifiers.py carries, 2026-06-24)
+PRICES = {"claude-opus-5": (5.00, 25.00), "claude-sonnet-5": (2.00, 10.00), "claude-haiku-4-5": (1.00, 5.00)}
+
+
+def price_of(model: str):
+    m = model.split("/", 1)[-1]
+    for k, v in PRICES.items():
+        if m.startswith(k):
+            return v
+    return None
 
 
 def sha(p):
@@ -124,6 +134,10 @@ def summarize_log(path):
                      for k in sorted({x["klass"] for x in rows})},
         "totals": tally(rows),
         "usage": {"input": sum(r["in_tokens"] for r in rows), "output": sum(r["out_tokens"] for r in rows)},
+        "costUsd": (round(sum(r["in_tokens"] for r in rows) / 1e6 * price_of(log.eval.model)[0]
+                          + sum(r["out_tokens"] for r in rows) / 1e6 * price_of(log.eval.model)[1], 4)
+                    if price_of(log.eval.model) else None),
+        "costNote": "errored rollouts report no usage, so this is a floor, not the bill",
         "rows": rows,
     }
 
@@ -205,10 +219,19 @@ def build():
     P = json.load(open(os.path.join(ENV, "pool", "pool.json")))["summary"]
     must = []
     for r in runs:
-        must.append(r["model"] if not r["control"] else f"`{r['policy']}`")
+        must.append(r["model"].split("/", 1)[-1] if not r["control"] else f"`{r['policy']}`")
         for rung, t in r["by_rung"].items():
             must.append(f"{t['solved']}/{t['n']}" if not r["control"] else f"{t['mean_reward']:+.3f}")
     models = sorted({r["model"] for r in runs if not r["control"]})
+    ladder = {}
+    for r in runs:
+        if r["control"]:
+            continue
+        key = r["model"].split("/", 1)[-1] + "@" + str(r["config"].get("effort") or "default")
+        row = ladder.setdefault(key, {"model": r["model"], "effort": r["config"].get("effort") or "default", "rungs": {}, "costUsd": 0.0})
+        for rung, t in r["by_rung"].items():
+            row["rungs"][rung] = {"solved": t["solved"], "n": t["n"], "wrong": t["wrong"], "unreadable": t["refused_parse"], "mean_reward": t["mean_reward"]}
+        row["costUsd"] = round(row["costUsd"] + (r["costUsd"] or 0), 4)
     git = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     return {
         "what": "The Inspect binding of blind-spot: every recorded `inspect eval` run re-scored by this package, the "
@@ -224,6 +247,7 @@ def build():
                              "blind": "nothing but the design"}},
         "taskset": {"seed": 2027, "rule": "index i serves rung RUNGS[i % 3]; a rung variant is the indices congruent "
                     "to its offset mod 3; the sample id is `seed-index` = taskset.Task.id"},
+        "ladder": ladder,
         "frontier": {"models_run": models,
                      "status": ("NO FRONTIER RUN YET: every attempt was refused before generation — see `blocked`"
                                 if not models else f"{len(models)} model(s) run end to end")},
@@ -236,8 +260,68 @@ def build():
     }
 
 
+README = os.path.join(HERE, "README.md")
+BEGIN, END = "<!-- results:begin -->", "<!-- results:end -->"
+
+
+def render_results(rec):
+    """The README's results section, from the ledger and nothing else."""
+    L = []
+    frontier = [r for r in rec["runs"] if not r["control"]]
+    controls = [r for r in rec["runs"] if r["control"]]
+    if frontier:
+        L.append("**Frontier models, through `inspect eval`** (every rollout re-scored offline by the package; "
+                 "the reward is this package's reading, and it equals Inspect's on every row):")
+        L.append("")
+        L.append("| model | effort | rung | n | solved | wrong | missed | undecided | unreadable | errors | mean reward | out-of-box kills | cost floor |")
+        L.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+        rank = {"low": 0, "medium": 1, "high": 2}
+        for r in sorted(frontier, key=lambda r: (r["model"], rank.get(str(r["config"].get("effort")), 9), r["ran"])):
+            for rung, t in r["by_rung"].items():
+                L.append(f"| {r['model'].split('/', 1)[-1]} | {r['config'].get('effort') or 'default'} | {rung} | {t['n']} | {t['solved']}/{t['n']} | {t['wrong']} | {t['missed']} | {t['undecided']} | {t['refused_parse']} | {t['errors']} | {t['mean_reward']:+.3f} | {t['out_of_box_kills']} | ${r['costUsd']:.2f} |" if r.get('costUsd') is not None else
+                         f"| {r['model'].split('/', 1)[-1]} | {r['config'].get('effort') or 'default'} | {rung} | {t['n']} | {t['solved']}/{t['n']} | {t['wrong']} | {t['missed']} | {t['undecided']} | {t['refused_parse']} | {t['errors']} | {t['mean_reward']:+.3f} | {t['out_of_box_kills']} | — |")
+        L.append("")
+        L.append("The cost column is a floor: errored rollouts report no usage. Each run is one `inspect eval` "
+                 "of one rung variant; the seed is 2027 and the tasks are the same ids across models and efforts.")
+        L.append("")
+    else:
+        L.append("**No frontier model has been run yet.** " + rec["frontier"]["status"] + ".")
+        L.append("")
+    if controls:
+        L.append("**The pipeline controls** — the three reference policies as Inspect solvers on the mixed task "
+                 "(controls of the pipeline, never model results; the ledger marks them `control: true`):")
+        L.append("")
+        L.append("| policy | " + " | ".join(f"`{rung}`" for rung in RUNGS) + " | all | note |")
+        L.append("|---|" + "---|" * len(RUNGS) + "---|---|")
+        notes = {"sat": "the witness, or the proof", "abstain": "UNDECIDED always", "never": "EQUIVALENT always"}
+        for r in sorted(controls, key=lambda r: ["sat", "abstain", "never"].index(r["policy"]) if r["policy"] in ("sat", "abstain", "never") else 9):
+            cells = " | ".join(f"{r['by_rung'][rung]['mean_reward']:+.3f}" if rung in r["by_rung"] else "—" for rung in RUNGS)
+            L.append(f"| `{r['policy']}` — {notes.get(r['policy'], '')} | {cells} | {r['totals']['mean_reward']:+.3f} | "
+                     f"{r['totals']['solved']}/{r['totals']['n']} solved, {r['totals']['false_claims']} false claims |")
+        L.append("")
+    if rec["blocked"]:
+        b = rec["blocked"][-1]
+        L.append(f"Refused attempts are kept, not hidden: {len(rec['blocked'])} under `logs/blocked/` (the last: {b['model']} on "
+                 f"{b['ran'][:10]}, {b['status']}, `{b['error'][:80]}…`).")
+        L.append("")
+    return "\n".join(L)
+
+
+def splice_readme(rec):
+    if not os.path.exists(README):
+        return
+    txt = open(README, encoding="utf-8").read()
+    if BEGIN not in txt or END not in txt:
+        return
+    i, j = txt.index(BEGIN) + len(BEGIN), txt.index(END)
+    new = txt[:i] + "\n" + render_results(rec) + txt[j:]
+    if new != txt:
+        open(README, "w", encoding="utf-8").write(new)
+
+
 def main():
     rec = build()
+    splice_readme(rec)
     if "--check" in sys.argv:
         old = json.load(open(LEDGER)) if os.path.exists(LEDGER) else {}
         strip = lambda d: json.dumps({k: v for k, v in d.items() if k not in ("builtOn", "git")}, sort_keys=True)

@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANE M — THE METR PLAN (2026-09-21): deliverables 1 and 3 are built; three sends wait, none executed
+## LANE M — THE METR PLAN (2026-09-21): built as far as the world allows; the frontier runs are IN (2026-09-25); four sends wait, none executed
 
 ### M1. The baseline recruiting message — DRAFTED, HELD (the operator sends, one per person)
 File: `outreach/blind-spot-baselines-request-2026-09-21.md`. Five to ten people with a
@@ -38,7 +38,20 @@ is live. MAIN WAS PUSHED 2026-09-22 (72d2fd6..ff37f4e) on the operator's "fix no
 link 404ed for Pedro's message; every link in the three files now resolves (checked 200). Every figure in
 the three files is a ledger field. Each application is a send, per role.
 
-### M0. Not a send but a prerequisite of deliverable 1's last line: the Anthropic Console credit
+### M4. An issue on METR/eval-analysis-public — the TH1.1 fits certified — DRAFTED 2026-09-25, HELD
+File: `outreach/metr-eval-analysis-issue-2026-09-25.md`. Every figure a field of certs/horizon-ledger.json
+(44/44 certified; coefficients the rounding of the box for 22 of 23; the Mythos intercept 5.582 vs the box's
+5.583; the doubling time 128.740 vs 128.744). Offers a `certify_fit` check for their pipeline. Posting it
+before the applications puts the work in front of the exact team that reads them; `gh` can open it on the word.
+
+### M3a. The Lever form answers — DRAFTED 2026-09-25, HELD
+File: `outreach/metr/lever-answers.md`. The Task Dev form (fetched 2026-09-25) has no cover-letter field:
+two free-text questions ("best evidence", "why METR"), a resume upload, four dropdowns. Both roles' answers
+are drafted; the Eval Execution form as fetched showed only the timeline box, so its cover note goes as
+page two of the resume PDF if the live form has no question. [OPERATOR FILLS]: work authorization, the
+relocation dropdown, earliest start, the sharing consent, LinkedIn.
+
+### M0. RESOLVED 2026-09-25: the Anthropic Console credit was topped up; the frontier campaign ran (environments/blind_spot/inspect/run_frontier.sh). The history: the credit
 balance. `inspect eval …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API
 on 2026-09-21 and was refused before generation ("credit balance is too low"; nothing billed;
 the attempt is in environments/blind_spot/inspect/logs/blocked/). The OAuth profile path works

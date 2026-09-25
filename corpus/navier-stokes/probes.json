@@ -4,7 +4,7 @@
   "discipline": "every probe carries red controls — a deliberately wrong variant of the same test that must be rejected; a script whose reds do not all fire is FAIL, whatever its checks say.",
   "method": "sympy symbolic identities; mpmath quadrature at 25 digits for the heat exterior (residuals reported, not interval-certified); the cutoff bound (10.3) is also proved exactly by the two-case argument: 1−η² ≥ 1/2 gives q ≤ 2τ, otherwise |η| > 2^{-1/2} gives q ≤ (√2|z|)^{1/D}, so q ≤ 2^{1/(2D)}(τ + |z|^{1/D}) since 1/(2D) > 1.",
   "note": "A first run on 2026-09-09 reported the integral H failing (A.37) and (A.35); that was this battery's own bug — the m-th Z-derivative of (1+Zv)^{-h} carries (−1)^m (h)_m, not (−h)_m. Recorded so a later reader of the scratch logs does not mistake it for a finding.",
-  "ran": "2026-09-22 08:15:43 -0300",
+  "ran": "2026-09-25 15:06:45 -0300",
   "verdict": "PASS",
   "checks": [
     {
@@ -205,7 +205,7 @@
       "sha256": "bba23116b83c974bc325b5642cd1ca5d74a8f06db93eb2157577f365a3616f7e",
       "what": "C1b: the integral H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{-v} v^h (1+Zv)^{-h} dv of (A.32) satisfies (A.37) and H^{(m)}(0) = (−1)^m (h)_m (1+h)_m of (A.35)",
       "verdict": "PASS",
-      "seconds": 1.8,
+      "seconds": 1.9,
       "redsFired": 3,
       "redsDead": 0,
       "output": [
