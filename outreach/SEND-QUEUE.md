@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANE M — THE METR PLAN (2026-09-21): built as far as the world allows; the frontier runs are IN (2026-09-25); four sends wait, none executed
+## LANE M — THE METR PLAN (2026-09-21): built as far as the world allows; the frontier runs are IN (2026-09-25); the hub push is DONE; three sends wait
 
 ### M1. The baseline recruiting message — DRAFTED, HELD (the operator sends, one per person)
 File: `outreach/blind-spot-baselines-request-2026-09-21.md`. Five to ten people with a
@@ -20,13 +20,11 @@ digital-design background; the task list is `tasks` in environments/blind_spot/b
 `python3 environments/blind_spot/inspect/ledger.py --grade-baselines`. Without these rows
 there is no time horizon (deliverable 2).
 
-### M2. The hub push of the Inspect variant (blind-spot v0.1.1) — READY 2026-09-22, a SEND
-The wheel carries the Inspect task and its README beside the package (pyproject force-include),
-version 0.1.1, built with hatchling (dist/blind_spot-0.1.1-py3-none-any.whl, sha256 624c9d48…),
-installed into a fresh python3.12 venv with inspect_ai and run end to end from site-packages
-(preflight's 11 controls; `inspect eval …/blind_spot/inspect/task.py@blind_spot_located`). After
-the push: verify FROM THE REGISTRY in a clean venv (the step that caught three defects last time)
-and record the pushed sha in .prime/.env-metadata.json. `prime env push` is the operator's.
+### M2. The hub push of the Inspect variant (blind-spot v0.1.1) — DONE 2026-09-25 15:17 -03, on the word
+`prime env push --visibility PUBLIC` from environments/blind_spot; hub wheel sha256 5e73a299af18d268…; verified FROM THE
+REGISTRY in a fresh venv from /tmp (load_environment exported, the Inspect task shipped, the 11 controls, an
+`inspect eval` on the installed task, the verifiers binding building 3 train / 3 eval with disjoint seeds).
+https://app.primeintellect.ai/dashboard/environments/carlos-toledo/blind-spot · `prime env install carlos-toledo/blind-spot`
 
 ### M3. The applications (Task Development Engineer, then MTS Evaluation Execution) — DRAFTED 2026-09-22, HELD
 Files: `outreach/metr/resume.md` (one page; leads with the thesis and the three hub links; education and

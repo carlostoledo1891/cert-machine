@@ -360,15 +360,15 @@
   ]
  },
  "publishing": {
-  "state": "PUBLISHED 2026-09-10 to the Prime Intellect Environments Hub as carlos-toledo/blind-spot v0.1.0, PUBLIC, on the operator's explicit word.",
+  "state": "PUBLISHED 2026-09-10 (v0.1.0) and 2026-09-25 (v0.1.1, the Inspect task in the wheel) to the Prime Intellect Environments Hub as carlos-toledo/blind-spot, PUBLIC, each on the operator's explicit word.",
   "adapter": "blind_spot/adapters_v0.py — load_environment, written against a LIVE verifiers 0.3.1 and then run against live models, never from documentation. The three defects a doc-written binding produced in break-the-grader are each designed out and each has a test.",
   "foundByInstalling": "A FOURTH defect, new and not on frontier's list: sim.simulate passed the case file by ABSOLUTE path and the testbench holds that plusarg in `reg [1023:0] f` — 128 characters. The source lab sits ~70 characters deep so it always worked; a site-packages path 200 deep truncated it, $readmemh read nothing, the memory stayed X and every verdict came back 'xxx' with no error raised. Fixed by running vvp from the pool directory with basenames; tests/test_long_path.py was checked to FAIL against the old call.",
   "hub": {
    "slug": "carlos-toledo/blind-spot",
-   "version": "0.1.0",
+   "version": "0.1.1",
    "environment_id": "irx8jesb80wr5mq0sqan7y0e",
-   "wheel_sha256": "dde50dde06a3b5f350c3a72f5c059976911c7accfbb1bbbf31c72595131e441a",
-   "pushed_at": "2026-09-10T10:26:41.601769",
+   "wheel_sha256": "5e73a299af18d2688de9c207085923465c646ee7e8be6f19f35cf5dbf38994c6",
+   "pushed_at": "2026-09-25T15:17:47.645861",
    "cli": "prime 0.6.31",
    "install": "prime env install carlos-toledo/blind-spot",
    "url": "https://app.primeintellect.ai/dashboard/environments/carlos-toledo/blind-spot",
@@ -381,8 +381,12 @@
    "sha256": "624c9d4879ec6512f8b152e18a0fe10030c63dd2bdf9bb96e8fb69a9f18052a6",
    "carries": "the package, the design (blind_spot/mut), the SAT record (pool/pool.json), and — new — blind_spot/inspect/task.py with its README",
    "verified": "installed into a fresh python3.12 venv with inspect_ai 0.3.266: __version__ 0.1.1; api.preflight() ran the 11 controls (3 positive) from the installed copy, building the simulator in the cache directory; `inspect eval <site-packages>/blind_spot/inspect/task.py@blind_spot_located --model mockllm/model --limit 2` ran end to end (the mock's text is REFUSED_PARSE, reward 0, well_formed 0 — the scorer executed from site-packages)",
-   "pushed": false,
-   "note": "the hub push (`prime env push` from environments/blind_spot) is a SEND and is the operator's; .prime/.env-metadata.json still records 0.1.0 until then"
+   "pushed": true,
+   "note": "the hub push (`prime env push` from environments/blind_spot) is a SEND and is the operator's; .prime/.env-metadata.json still records 0.1.0 until then",
+   "pushedAt": "2026-09-25T15:17:47.645861",
+   "hubWheelSha256": "5e73a299af18d2688de9c207085923465c646ee7e8be6f19f35cf5dbf38994c6",
+   "pushNote": "pushed 2026-09-25 with `prime env push --visibility PUBLIC` on the operator's word ('publish 1. for me'); prime rebuilt the wheel, so the hub's sha256 differs from the locally built one recorded above (timestamps), same contents",
+   "verifiedFromTheHub": "prime env install carlos-toledo/blind-spot@0.1.1 --with pip into a fresh python3.12 venv, then loaded from /tmp with no source tree present: __version__ 0.1.1; load_environment exported; blind_spot/inspect/task.py and README shipped; api.preflight() ran the 11 controls (3 positive) from the installed copy; task 2027-0 rebuilt and an UNDECIDED reply scored 0; `inspect eval <site-packages>/blind_spot/inspect/task.py@blind_spot_located --model mockllm/model` ran end to end; verifiers 0.3.1: SingleTurnEnv 3 train / 3 eval, rungs ['blind', 'located', 'profile'], no task column: True, empty answers: True, disjoint seeds: True"
   }
  }
 }

@@ -177,7 +177,9 @@ THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I woul
      into a fresh python3.12 venv with inspect_ai and run end to end from
      site-packages (preflight's 11 controls, `inspect eval …@blind_spot_
      located` on the mock model); recorded under `publishing.v0.1.1` in
-     PROVENANCE.json with pushed: false; LANE M2 is READY. instruments/
+     PROVENANCE.json — PUSHED 2026-09-25 15:17 -03 on the operator's word
+     (hub sha 5e73a299af18…), verified from the registry in a fresh venv from /tmp
+     (both bindings, the 11 controls, an inspect eval on the installed task). instruments/
      horizon/own.py: the pipeline from this machine's Inspect logs (non-
      control, status success) and environments/*/baselines.json to the same
      certified fit — a task's human time is the median minutes over the
@@ -581,7 +583,15 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     certify_fit check (LANE M4); (v) the resume, the two cover notes and the
     Lever answers carry the campaign's numbers; the portfolio page states the
     ladder, gated on the Inspect ledger. LANE M rewritten; M0 resolved.
-    NOTHING SENT.
+
+  ── 3 · THE HUB PUSH (15:17 -03, on "publish 1. for me") ── prime 0.6.31 at
+    ~/.local/bin/prime, `env push --visibility PUBLIC`; prime rebuilt the wheel
+    (hub sha 5e73a299af18…, contents as verified). Then FROM THE REGISTRY in
+    a fresh 3.12 venv loaded from /tmp: version 0.1.1, load_environment
+    exported, blind_spot/inspect/task.py shipped, the 11 controls, task
+    2027-0 rebuilt, an inspect eval on the installed task, and the verifiers
+    binding building its datasets. PROVENANCE.publishing.v0.1.1 records it.
+    The one send executed this session; the other three wait.
 
 ══════════════════════════════════════════════════════════════════════════
   EIGHTEENTH SESSION, continued (2026-09-22, small hours) — THE TIME-HORIZON
