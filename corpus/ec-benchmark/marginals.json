@@ -1,0 +1,65 @@
+{
+ "what": "The significant-wave-height marginals the benchmark's contributions fitted to the PROVIDED ten years of datasets A, B and C, transcribed digit for digit from Appendix A of the benchmark paper (the preprint pinned in meta.json, sha256 aff4e739…, Tables 8, 9, 10, 13 and 14). Values are strings: the printed digits are the claim, and the box they allow is what the ledger decides. Contributions 5, 6 and 7 printed no Hs marginal for A–C in a form a family can be fitted from (5 fitted generalized Pareto tails by angle, Table 11; 6 and 7 are not in the appendix) and are not here.",
+ "source": {
+  "file": "2021-01-19_EC_Benchmark_Joint_Paper_WithFrontPages.pdf (publications/, commit a1561fe7)",
+  "sha256": "aff4e73974488ac4992a78b9157299d17b835f045f60d1eeb68332ec06e0e130",
+  "published": "Haselsteiner et al., Ocean Engineering 236 (2021) 109504"
+ },
+ "rows": [
+  {
+   "id": "c12",
+   "contribution": "1 & 2",
+   "table": 8,
+   "method": "the benchmark's baseline joint model (Haselsteiner et al. 2019), used by contributions 1 and 2",
+   "family": "weibull",
+   "printedAs": "translated Weibull: α (scale), β (shape), γ (location)",
+   "order": ["lambda", "k", "loc"],
+   "values": { "A": ["0.944", "1.48", "0.0981"], "B": ["1.14", "1.60", "0.188"], "C": ["1.16", "1.56", "0.0566"] },
+   "estimator": "not stated in the table"
+  },
+  {
+   "id": "c3",
+   "contribution": "3",
+   "table": 9,
+   "method": "3-parameter log-normal, 'fitted using the Python software (package scipy)'; §2.3: 'the marginal distributions are fitted with the maximum likelihood method'",
+   "family": "lognormal3",
+   "printedAs": "3-p log-normal: e^μ (scale), σ (shape), γ (location)",
+   "order": ["expmu", "sigma", "loc"],
+   "values": { "A": ["0.717", "0.635", "0.0634"], "B": ["0.972", "0.572", "0.0633"], "C": ["0.937", "0.620", "-0.0318"] },
+   "estimator": "MLE"
+  },
+  {
+   "id": "c4",
+   "contribution": "4",
+   "table": 10,
+   "method": "exponentiated Weibull by weighted least squares that prioritizes high waves (Haselsteiner & Thoben 2020), §2.4",
+   "family": "expweibull",
+   "printedAs": "exponentiated Weibull: α (scale), β (shape), δ (shape) — F = [1 − exp(−(x/α)^β)]^δ",
+   "order": ["lambda", "k", "alpha"],
+   "values": { "A": ["0.207", "0.684", "7.79"], "B": ["0.0988", "0.584", "36.6"], "C": ["0.227", "0.697", "9.85"] },
+   "estimator": "weighted least squares"
+  },
+  {
+   "id": "c8",
+   "contribution": "8",
+   "table": 13,
+   "method": "2-parameter Weibull; §2.8: 'the parameters of all statistical models were estimated with maximum likelihood estimation (MLE)'",
+   "family": "weibull",
+   "printedAs": "2-p Weibull: α (scale), β (shape)",
+   "order": ["lambda", "k"],
+   "values": { "A": ["1.0651", "1.6399"], "B": ["1.3654", "1.8893"], "C": ["5.0475", "5.5633"] },
+   "estimator": "MLE"
+  },
+  {
+   "id": "c9",
+   "contribution": "9",
+   "table": 14,
+   "method": "3-parameter Weibull marginal (Vanem & Huseby 2020), §2.9",
+   "family": "weibull",
+   "printedAs": "translated Weibull: α (scale), β (shape), γ (location)",
+   "order": ["lambda", "k", "loc"],
+   "values": { "A": ["0.4983", "0.8573", "0.4187"], "B": ["0.6539", "0.9710", "0.5658"], "C": ["0.7291", "1.0134", "0.3910"] },
+   "estimator": "not stated in the table"
+  }
+ ]
+}

@@ -41,6 +41,7 @@ const CE = require(path.join(HERE, 'census', 'build.js'));
 const EC = require(path.join(HERE, 'contours', 'build.js'));
 const SR = require(path.join(HERE, 'stereo-reach', 'build.js'));
 const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
+const RLC = require(path.join(HERE, 'return-level-check', 'build.js'));
 /* the affect card's numbers, read out of the record rather than typed. A card
    that repeats a page's figures by hand is a second copy, and a second copy
    drifts. */
@@ -112,7 +113,7 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js' };
+const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
@@ -130,6 +131,7 @@ const MANIFEST = [
   { id: 'pqc', title: 'Solid where it was proved.', blurb: 'The SVP challenge\'s records as six-figure floats with no error bound, re-decided in exact arithmetic from the published vectors.', backing: 'exact', art: () => PQ.cardArt(), scale: `${PQ.facts.records} records` },
   { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
   { id: 'stereo-reach', title: 'How far can two cameras bound a wave?', blurb: 'The error budget of a stereo-video wave rig as enclosures \u2014 the pixel cell, the lag, the slope \u2014 computed in interval arithmetic in your tab; dial the rig and read the range at which the bound first exceeds a tolerance. Two published low-cost rigs re-read: at Caparica the area-minus-point Hs excess is inside the rig\u2019s own cell.', backing: 'exact', art: () => SR.cardArt(), scale: `${(SR.facts.bestAtGauge * 100).toFixed(1)}\u2013${(SR.facts.worstAtGauge * 100).toFixed(0)} cm at ${SR.facts.gauge} m` },
+  { id: 'return-level-check', title: 'Certify a return level. Nothing leaves this page.', blurb: 'Bring a wave-height record: six families fitted and certified in your tab \u2014 each a box proved to hold one maximum of the likelihood, or a refusal \u2014 four criteria and the 100- and 1000-year levels as enclosures, and a certificate that carries your file\u2019s digest, never the data. Then decide a fit someone printed.', backing: 'exact', art: () => RLC.cardArt(), scale: 'six families \u00b7 four criteria' },
   { id: 'contours', title: 'Every hour of sea, against every contour.', blurb: 'Nine groups\u2019 environmental contours over the hourly sea states they were scored on, every count re-decided exactly, and any sea state you click decided inside, outside or on \u2014 by the code that decided the ledger.', backing: 'exact', art: () => EC.cardArt(), scale: `${EC.facts.exact} of ${EC.facts.comparisons} printed counts exact` },
   { id: 'census', title: 'Unique totals, and the split nobody can see.', blurb: 'Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart, its dimension decided in your tab.', backing: 'exact', art: () => CE.cardArt(), scale: `k = ${CE.facts.paper.face.k}` },
   { id: 'transit', title: 'The transit, without a law for the star.', blurb: 'What a planet\'s transit photometry forces on the radius ratio, assuming only that the star darkens toward its limb.', backing: 'exact', art: () => TR.cardArt(), scale: TR.facts.name },
@@ -346,6 +348,17 @@ const body = `
     </div>
   </a>
 
+  <a class="card" href="return-level-check/index.html">
+    <figure class="card-art">
+      ${plate(RLC.cardArt(), 'six families &middot; four criteria &middot; your file')}
+    </figure>
+    <div class="card-body">
+      <h2>Certify a return level. Nothing leaves this page.</h2>
+      <p class="sub">An offshore design value is read off a distribution fitted to wave heights, and the fit is usually wherever an optimiser stopped. Drop a record &mdash; or take the Campos Basin hindcast &mdash; declare the block, and the six families of Reis, Guimar&atilde;es et al. (2026) are fitted and certified in your tab by the code that certified the return-level report: every fit a box proved to hold one maximum of the likelihood or a refusal, four criteria and the 100- and 1000-year levels as enclosures, the choice DECIDED or REFUSED, and a certificate to download that carries your file&rsquo;s sha256, never the data. A second panel decides a fit someone printed: reproduced, off the maximum, or outside its own support.</p>
+      <span class="go">certify a record <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
   <a class="card" href="contours/index.html">
     <figure class="card-art">
       ${plate(EC.cardArt(), `${EC.facts.contours} contours &middot; ${EC.facts.notSimple} cross themselves`)}
@@ -439,6 +452,7 @@ const ce = CE.build(OUT);
 const ec = EC.build(OUT);
 const sr = SR.build(OUT);
 const ns = NS.build(OUT);
+const rlc = RLC.build(OUT);
 
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
@@ -461,5 +475,6 @@ console.log(`site/instruments/occultation/       ${(oc.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/transit/           ${(tr.bytes / 1024).toFixed(0)} KB  ·  ${tr.targets} planets, ${tr.published} published values inside, intervals ${JSON.stringify(tr.intervals)}`);
 console.log(`site/instruments/stereo-reach/      ${(sr.bytes / 1024).toFixed(0)} KB  ·  Leme 2020 cell at the gauge ${(sr.bestAtGauge * 100).toFixed(1)} cm best, ${(sr.worstAtGauge * 100).toFixed(0)} cm worst corner`);
 console.log(`site/instruments/contours/          ${(ec.bytes / 1024).toFixed(0)} KB  ·  ${ec.contours} contours, ${ec.exact}/${ec.comparisons} printed counts exact, ${ec.notSimple} not simple, ${ec.clipped} hours clipped to the drawing's edge`);
+console.log(`site/instruments/return-level-check/ ${(rlc.bytes / 1024).toFixed(0)} KB  ·  ${rlc.modules} modules inlined byte for byte, preset ${rlc.preset ? 'the Campos Basin hindcast' : 'absent (corpus/ww3-points incomplete)'}`);
 console.log(`site/instruments/census/            ${(ce.bytes / 1024).toFixed(0)} KB  ·  k = ${ce.k} on the published network, ${ce.tested} networks in the census, ${ce.failures} fool the shortcut`);
 console.log(`@ git ${git}`);

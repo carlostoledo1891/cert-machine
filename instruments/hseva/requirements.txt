@@ -1,0 +1,10 @@
+# instruments/hseva/.venv — `make hseva-venv`. Two jobs, neither on a certification path:
+#   tools/fetch-ww3-points.py  reads the hindcast's HDF5 chunk index (h5py over HTTP ranges);
+#   tools/run-hseva-scipy.py   records what scipy prints, as the claimant whose numbers the ledger decides.
+# Pinned: a scipy upgrade changes the claimant, and the ledger records which one it decided.
+numpy==2.5.3
+scipy==1.18.1
+h5py==3.16.0
+fsspec==2026.9.0
+aiohttp==3.14.3
+requests==2.34.2

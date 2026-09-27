@@ -15,10 +15,89 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-25, THE CREDIT CAME BACK AND THE FRONTIER CAMPAIGN RAN: 180 rollouts, 0 disagreements; the application elevated — landing lead, README, Lever answers, a METR-repo issue drafted; what remains is baseline rows and the sends)
+## TASKS BACKLOG — the standing menu (updated 2026-09-27, THE UFSC LINE ON THE PAPER'S OWN METHOD AND DATA: the return-level report rebuilt on the paper's six families, four criteria and blocks, on 3 buoys and 13 nodes of its own hindcast; the benchmark teams' printed marginals and scipy's fits decided; a browser instrument that certifies a reader's own series; the METR sends still wait)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-27 (the twentieth session). In the order I would take it:
+
+  0. THE UFSC LINE, FROM "HIS METHOD, APPROXIMATELY" TO "HIS METHOD, ON HIS DATA".
+     A reply from the contact (private correspondence: NOT in this public repo;
+     the operator holds it) asked who the certifier of a marginal fit would be,
+     and said the data source matters less than the probability model and that
+     no family always wins. Read against the paper's FULL TEXT, our record was
+     wrong three ways — the sixth family is the GUMBEL (we had "von Mises"),
+     the blocks are 3-hourly/daily/WEEKLY/monthly (we had annual), there are
+     FOUR criteria — and its data are PUBLIC (Ifremer WAVEWATCH III
+     GLOBMULTI_ERA5_GLOBCUR_01, CC BY-SA). Fixed (claims.json, the menu, the
+     targets row), then built — all COMMITTED, NOT PUSHED, NOTHING SENT:
+       (a) instruments/hseva: the generalized gamma certified (special.js —
+           lnΓ, ψ, ψ′ by Binet with the first omitted term as the bound; P(a,z)
+           by its series with a geometric tail; P⁻¹ by certain-sign bisection;
+           the two Prentice gaps as series in Q, which the naive differences
+           lose to dependency), in Prentice's (μ, σ, Q) as a fallback where the
+           (α, c, λ) ridge is too flat to contract (4 fits), with THE LIMIT
+           TEST (a candidate whose certified ℓ lies below the lognormal's
+           certified maximum is not the family's maximum: edge, decided by two
+           enclosures); the Gumbel; a 3-p lognormal to decide a printed local
+           maximum; survival functions for far tails; the four criteria as
+           enclosures (χ² binned EXACTLY in rationals; a straddled E ≥ 5
+           REFUSES); THE ranking rule in fit.js (rankRule); every data sum by
+           Sum2 with its bound added outward (naive interval sums were ~1000×
+           too wide — the fix that let the GG certify on 175k points);
+           blockrule.js holds THE block rule for Node and the tab.
+       (b) certs/hseva-ledger.json: 3 buoys × 5 blocks × 6 families + 13
+           hindcast nodes × 4 paper blocks — 342 fits certified (4 Prentice),
+           59 refused at an edge, 1 refused otherwise (acc-central hourly GG,
+           whose ranking is therefore REFUSED); the benchmark's printed Hs
+           marginals (corpus/ec-benchmark/marginals.json, the pinned
+           preprint's Appendix A) and scipy 1.18.1's fits (certs/hseva-
+           scipy.json) decided. ~35 min on this machine (tools/run-hseva-
+           ledger.js, 7 workers); the battery re-derives the buoys' non-hourly
+           blocks live in 4 s. corpus/ww3-points: 384 months, 17.8 GB of hs
+           chunks read by byte range, each month's chunk bytes hashed.
+       (c) reports/return-levels.html: the paper's findings on its six
+           families — EW best unfiltered on 1 of 3 buoys and 5 of 13 nodes (the
+           LOGNORMAL wins Campos and Santos); the Weibull the decided best of
+           NOTHING (0 of 12, 0 of 52); criteria split on 2 of 12 and 18 of 52;
+           the GG best on 2 of 12 buoy series and 7 of 52 node series, with NO
+           maximum-likelihood fit on 8 and 42; at the Arabian Sea node the
+           statistic's choice puts the 100-yr wave at 24.07 m vs a 32-year
+           record of 6.87 m. §6: the benchmark teams' marginals for the same
+           ten years of buoy A put the 100-yr wave at 5.25–14.53 m;
+           contribution 8's Hs row for C IS THE CERTIFIED WEIBULL MLE OF Tz;
+           contribution 9 leaves 10,426/10,904/9,410 hours below its location;
+           contribution 3's scipy lognormal is a certified local maximum.
+           scipy floc=0 agrees on 45 of 48 certified fits, prints 12 where no
+           maximum exists, is off on 3 (C hourly GG: 60.7 units, 1.25 m low);
+           default (loc free): 1 outside its support, 7 below a member of their
+           own family (A hourly EW: 19,850 units, 100-yr 8.12 m low). §7 "who
+           certifies": a certificate anyone can check and nobody has to trust.
+       (d) /instruments/return-level-check/ — NEW: drop a series (or the
+           Campos preset), six families certified IN THE TAB by the ledger's
+           modules inlined byte for byte (sha256 in every certificate), a
+           downloadable certificate with the file's sha256 and never the data;
+           a panel decides a printed fit (REPRODUCED / OFF THE MAXIMUM /
+           OUTSIDE ITS SUPPORT / NOT DECIDED). Driven in Chrome end to end.
+  0a. THE SENDS, all the operator's: the PUSH (the pages above go live with
+     it), then the reply to the contact — drafted in the session chat, kept
+     out of the repo (private) — which links both pages. A note to the
+     benchmark's organizers about Table 13's row C and contribution 9's
+     locations is a separate send, after the contact.
+  0b. NEXT on the line, by yield: a stdlib Python verifier of a downloaded
+     certificate (their pipeline is Python); profile-likelihood intervals of
+     the 100/1000-yr levels with certified endpoints (the paper quantifies no
+     parameter uncertainty — statistical, labelled); the Prentice form
+     everywhere, with Q ≤ 0 admitted as the paper's boundary so "no maximum"
+     becomes a certified boundary point; IFORM/ISORM/HD on one joint model;
+     4 more nodes if the contact names his.
+  0c. TWO THINGS LEARNED: (i) a long ledger in the background runs on the
+     efficiency cores at nice 5 (35 min here, where the units take ~5 min in
+     the foreground) and a sleeping Mac stretches it further — run it under
+     `caffeinate -i`; (ii) bars() and intervals() in design/charts.js do not
+     reserve height for a legend that wraps: pass `h`, or keep keys short.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I would take it:
@@ -538,6 +617,58 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTIETH SESSION, 2026-09-26/27 — THE RETURN-LEVEL TABLE ON THE PAPER'S OWN
+  METHOD AND DATA: THE GENERALIZED GAMMA CERTIFIED, THE BENCHMARK'S PRINTED
+  MARGINALS AND SCIPY DECIDED, A BROWSER INSTRUMENT. COMMITTED · make test
+  92/92 · control 92/92 · NOT PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator relayed a reply from the UFSC contact (private; the
+    operator holds it) and asked whether anything could elevate the reports;
+    the evaluation (the paper's full text read; a scratch measurement of scipy
+    against the ledger; the hindcast found public) was accepted with
+    "continue". See the menu above for what was built; the numbers are there.
+
+  ── 1 · THE RECORD, CORRECTED ── the full text (OA, fetched headed through
+    tools/fetch-paper.js) gives six families with the GUMBEL, blocks 3-hourly/
+    daily/weekly/monthly, four criteria, 100- and 1000-year levels, MLE
+    throughout, data = the Ifremer hindcast. corpus/hs-eva/claims.json now
+    carries the method; the menu and the targets row say what they had wrong.
+
+  ── 2 · THE MATHEMATICS THAT HAD TO EXIST ── special.js (Binet bounds, the
+    incomplete gamma, the Prentice gaps, each against closed forms or 50-digit
+    values in the battery); Sum2 accumulators in fit.js; the LM ascent with a
+    Newton-decrement stop and a pure-Newton polish; the limit test; the Prentice
+    fallback. Where it failed first and why is worth reading in the battery
+    comments: the GG on C hourly would not contract until the sums were
+    compensated; four hindcast GG fits would not contract until the Hessian's
+    QQ entry was taken from series in Q.
+
+  ── 3 · WHAT OTHER PEOPLE PRINTED ── the benchmark preprint (pinned by sha256
+    in corpus/ec-benchmark/meta.json) prints each team's Hs marginal in its
+    Appendix A; transcribed digit for digit to corpus/ec-benchmark/marginals.
+    json and decided over the box the digits allow. scipy 1.18.1's floc=0 and
+    default fits recorded by tools/run-hseva-scipy.py (the claimant) and
+    decided by the ledger.
+
+  ── 4 · THE HINDCAST ── tools/fetch-ww3-points.py: every hs chunk of every
+    monthly file of 1993–2024 by byte range (24 concurrent; ~90 min; 17.8 GB),
+    hashed as read, sampled at 13 nodes (corpus/ww3-points/points.json),
+    finalized to meta.json; CC BY-SA with LICENSE-DATA.md beside it.
+
+  ── 5 · THE INSTRUMENT ── playground/return-level-check (build.js inlines the
+    eight modules and a twelve-line require; worker.js runs off-thread;
+    app.js reads, runs, writes the certificate, decides a printed fit), on
+    /instruments with a card; the machine page's manifest takes it.
+
+  ── 6 · GATES ── hseva battery 1005 checks, 8 reds; the report builder gates
+    every sentence on the ledger and the claims; the site card is gated on the
+    ledger (the old card said "the exponentiated Weibull wins every hourly
+    series", false even of the old ledger — B's hourly winner was the
+    lognormal); the three layout ratchets accepted after looking at the pages
+    at 1440 and 390.
 
 ══════════════════════════════════════════════════════════════════════════
   NINETEENTH SESSION, 2026-09-25 — THE CREDIT CAME BACK: THE FRONTIER CAMPAIGN

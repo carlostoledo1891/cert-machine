@@ -181,6 +181,18 @@ const kellerNew = kellerMaps.filter((e) => /generated\+certified here/.test(Stri
 
 /* the two ported theorem programs, gated like everything else */
 const emberT = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ember-theorem.json'), 'utf8'));
+/* the return-level table: the card states the ledger's numbers, and refuses when they move */
+const hsv = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'hseva-ledger.json'), 'utf8'));
+const hsvNative = hsv.findings.buoys.native.map((q) => q.best);
+if (hsvNative.join() !== 'expweibull,lognormal,gengamma') fail('the return-levels card: the hourly winners moved (' + hsvNative.join() + ')');
+const hsvGG = hsv.findings.buoys.gengamma;
+if (!(hsvGG.edge === 8 && hsvGG.certified + hsvGG.edge + hsvGG.refused === 12)) fail('the return-levels card: the generalized-gamma count moved');
+const hsvA = hsv.printed.rows.filter((r) => r.buoy === 'A');
+const hsvLo = Math.min(...hsvA.map((r) => Number(r.rl100.lo))), hsvHi = Math.max(...hsvA.map((r) => Number(r.rl100.hi)));
+if (!hsv.printed.rows.some((r) => r.id === 'c8' && r.buoy === 'C' && r.reproducesTz)) fail('the return-levels card: the period row is no longer decided');
+let hsvCert = 0, hsvAll = 0, hsvDec = 0, hsvRk = 0;
+for (const b of Object.values(hsv.buoys)) for (const blk of Object.values(b.blocks)) { for (const f of Object.values(blk.fits)) { hsvAll++; if (f.certified) hsvCert++; } hsvRk++; if (blk.rankings.ad.verdict === 'DECIDED') hsvDec++; }
+const hsvPts = hsv.ww3 ? Object.keys(hsv.ww3.points).length : 0;
 if (emberT.verdict !== 'VERIFIED') fail('the ember theorem record is not VERIFIED — the card claims a theorem');
 const emberMu1 = emberT.mu1.map(Number);
 if (!(emberMu1[0] > 12.02 && emberMu1[1] < 12.03)) fail('ember μ1 enclosure moved — update the card deliberately');
@@ -429,7 +441,8 @@ const REPORTS = [
     n: '150 contours \u00b7 176 printed numbers \u00b7 173 exact' },
   { g: 'applied', f: 'return-levels.html', k: 'ocean engineering \u00b7 the return-level table',
     title: 'The return-level table as a certificate',
-    desc: 'The method of Reis, Guimar\u00e3es, Farina et al. (Ocean Eng. 2026) \u2014 fit a family to the block maxima of significant wave height, select it by Anderson\u2013Darling, read the 50- and 100-year levels \u2014 repeated on three NDBC buoys with every step certified: each maximum-likelihood fit proved the unique zero of its score in a box, the statistic and the return levels enclosed over the box, the family the statistic prefers DECIDED or REFUSED. The exponentiated Weibull wins every hourly series, as the paper says; the Weibull never wins a block size, which the paper does not.' },
+    desc: 'The extreme-value method of Reis, Guimar\u00e3es et al. (Ocean Eng. 2026) \u2014 six families fitted by maximum likelihood to significant wave height, four goodness-of-fit criteria, block maxima, 100- and 1000-year levels \u2014 repeated with every fit certified on three NDBC buoys' + (hsvPts ? ' and on the paper\u2019s own hindcast at ' + hsvPts + ' grid points' : '') + '. The exponentiated Weibull wins one hourly series of three; the generalized gamma has no maximum-likelihood fit on ' + hsvGG.edge + ' series of 12. And the Hs marginals the benchmark\u2019s teams printed for the same ten years of one buoy put the 100-year wave anywhere from ' + hsvLo.toFixed(1) + ' to ' + hsvHi.toFixed(1) + ' m \u2014 one printed row is the fit of the wave period.',
+    n: hsvCert + ' of ' + hsvAll + ' fits certified \u00b7 ' + hsvDec + ' of ' + hsvRk + ' choices decided' },
   { g: 'applied', f: 'breaking-geometry.html', k: 'ocean engineering · sixteen thousand breakers',
     title: 'Sixteen thousand breaking waves, decided against the laboratory \u2014 and against the paper',
     desc: 'Guimar\u00e3es, Stringari, Filipot, Leckler, Benetazzo and Chapron (GRL, 16 September 2026) published the geometry of 16,369 breaking waves filmed in stereo on the Black Sea. Every number the paper prints read against its own table in exact arithmetic \u2014 the fitted laws and the 4 % self-similar tail reproduced to the digit, the \u03b8 range and the Hs column found to be other columns \u2014 and the sea-state stratification the paper leaves undone, done per record.',

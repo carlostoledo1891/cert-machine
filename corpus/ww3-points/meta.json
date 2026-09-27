@@ -1,0 +1,4624 @@
+{
+ "what": "Significant wave height at the grid points of points.json, read from the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (GLOB-30M, 0.5\u00b0, 3-hourly, 1993-01 to 2024-12) by tools/fetch-ww3-points.py: every hs chunk of every monthly file fetched by byte range, hashed as read, inflated and sampled. The dataset of Reis, Guimar\u00e3es et al., Ocean Engineering 2026.",
+ "dataset": {
+  "name": "GLOBMULTI_ERA5_GLOBCUR_01",
+  "doi": "10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b",
+  "citation": "Accensi, M. GLOBMULTI_ERA5_GLOBCUR_01. IFREMER. https://doi.org/10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b; model: Alday, Accensi, Ardhuin, Dodet (2021), Ocean Modelling 166, 101848",
+  "license": "CC BY-SA 4.0 (the Sextant record); the extracted series in months/ carry the same licence \u2014 see LICENSE-DATA.md",
+  "base": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M"
+ },
+ "fetched": "2026-09-26",
+ "value": "Hs = raw / 500 m; raw -32767 is the fill value (land, ice) and is dropped by the reader, counted",
+ "months": 384,
+ "hsChunkBytesRead": 17786918433,
+ "files": {
+  "months/199301.json": {
+   "sha256": "7dbed15e407edd2d73573b3daed0b89c8a6de4fba8ec203a274726729278e13a",
+   "bytes": 19024,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199301.nc",
+    "contentLength": 2841986050,
+    "lastModified": "Thu, 14 Jan 2021 15:43:11 GMT",
+    "hsChunksSha256": "06cf7fb190e3b4a894e397cbbc586fb1405272d8ace96ae1fd0e89d3f0a82e28",
+    "hsChunkBytes": 47404705
+   }
+  },
+  "months/199302.json": {
+   "sha256": "5c656413b2617ba9bdde86d65ce7b7b23a393dfe68491e72b7a747a6210b90ec",
+   "bytes": 17330,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199302.nc",
+    "contentLength": 2543792755,
+    "lastModified": "Thu, 14 Jan 2021 15:43:10 GMT",
+    "hsChunksSha256": "cf5021db4cb3ddc319b4aa46b4d52a701515065706eb378d4b3bb5285799767a",
+    "hsChunkBytes": 42763980
+   }
+  },
+  "months/199303.json": {
+   "sha256": "98f0d3be90917ed7658d9cba42011f33fa8a644f9a50a9ff6541178363d15a9d",
+   "bytes": 19122,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199303.nc",
+    "contentLength": 2789509102,
+    "lastModified": "Thu, 14 Jan 2021 15:43:08 GMT",
+    "hsChunksSha256": "973d50ac6a29cb022b04d395413672b7e7708b9b05bb00ff916e6bea6e558c87",
+    "hsChunkBytes": 47088294
+   }
+  },
+  "months/199304.json": {
+   "sha256": "515b44366597e921f1c896744d971f189cae77042dca6eef9c61e5c182500274",
+   "bytes": 18524,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199304.nc",
+    "contentLength": 2657331504,
+    "lastModified": "Thu, 14 Jan 2021 15:43:11 GMT",
+    "hsChunksSha256": "c7562eb5a18eccd734fd17e2c126a367dadb14e72a3fb0a7624cf04a2d0df8cd",
+    "hsChunkBytes": 45355334
+   }
+  },
+  "months/199305.json": {
+   "sha256": "6b91f3360fb9e4e74bbdece2b144e3ecd7c6dc7d14a34dd84bde9643fb00edec",
+   "bytes": 19296,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199305.nc",
+    "contentLength": 2713523056,
+    "lastModified": "Thu, 14 Jan 2021 15:43:09 GMT",
+    "hsChunksSha256": "9019cefb14880a2380aefaced5e5ac97352ba6c4758e3b4965de1ddfe409fa42",
+    "hsChunkBytes": 46590554
+   }
+  },
+  "months/199306.json": {
+   "sha256": "8e2637640e542a3d1f5493aa0b5ec52ab79e28b1e5ec8eee00cea2af89872a66",
+   "bytes": 18897,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199306.nc",
+    "contentLength": 2607138919,
+    "lastModified": "Thu, 14 Jan 2021 15:43:07 GMT",
+    "hsChunksSha256": "6aba43770ab48a76f48425b59e7fc9b07ecccaf6e34c8300436403abdeb75bc4",
+    "hsChunkBytes": 45298699
+   }
+  },
+  "months/199307.json": {
+   "sha256": "737ebb48bdf79d3eb2a8a59144ee0c756cd55e2a62ff82d1059d63cb8e466e6d",
+   "bytes": 19494,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199307.nc",
+    "contentLength": 2660400201,
+    "lastModified": "Thu, 14 Jan 2021 15:43:12 GMT",
+    "hsChunksSha256": "63ed007ae3fdc3d1a9b7b4fedd84df5e8a8291671bc84348a463944547c901af",
+    "hsChunkBytes": 47111268
+   }
+  },
+  "months/199308.json": {
+   "sha256": "e9424d89119d8dfd5e50b245de9fd31a93db423bb5ae1e3b79138d30aa765103",
+   "bytes": 19342,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199308.nc",
+    "contentLength": 2737636597,
+    "lastModified": "Thu, 14 Jan 2021 15:43:05 GMT",
+    "hsChunksSha256": "84ec0eccd05ad797432e992d103c26f3d0557b11172dd9f0114a4ebc66979634",
+    "hsChunkBytes": 47374614
+   }
+  },
+  "months/199309.json": {
+   "sha256": "8fd66ae64e80515739b1c033dda12c23228b2ff152aa583d7e3aa348061046ac",
+   "bytes": 18837,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199309.nc",
+    "contentLength": 2631529233,
+    "lastModified": "Thu, 14 Jan 2021 15:43:06 GMT",
+    "hsChunksSha256": "3758886958d52145620a5a727b53484d9fce616862f80bde99febd24a970db76",
+    "hsChunkBytes": 45938226
+   }
+  },
+  "months/199310.json": {
+   "sha256": "a8c74c3f1288095c3afb2675f6416d2d7c4341ca048ccfc3af4320bc23cde9c5",
+   "bytes": 19281,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199310.nc",
+    "contentLength": 2711052569,
+    "lastModified": "Thu, 14 Jan 2021 15:43:09 GMT",
+    "hsChunksSha256": "34d9d87bb0596eb01c12b0c3f015154f77596fd9f97d9068391eff557f7e9272",
+    "hsChunkBytes": 46929941
+   }
+  },
+  "months/199311.json": {
+   "sha256": "e5c53528deb13fa0a00757a1b9aea22f49933c6925e415b2b5e6225e3bc2c917",
+   "bytes": 18638,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199311.nc",
+    "contentLength": 2589173022,
+    "lastModified": "Thu, 14 Jan 2021 15:43:07 GMT",
+    "hsChunksSha256": "8dda041e053d9d471b1fb7e95cb83722d47b105a93c8b39187a053646890ec86",
+    "hsChunkBytes": 45105993
+   }
+  },
+  "months/199312.json": {
+   "sha256": "5e24315eb63cdc72ebf11d99c5382954ecee40eddf3ceaf7e0ae86d055ec6496",
+   "bytes": 19344,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1993/FIELD_NC/LOPS_WW3-GLOB-30M_199312.nc",
+    "contentLength": 2739094759,
+    "lastModified": "Thu, 14 Jan 2021 15:43:12 GMT",
+    "hsChunksSha256": "2097a2cd0ebb225c2841feebc73f2c32c05cfad73094220f7150055e44d9ce48",
+    "hsChunkBytes": 47129236
+   }
+  },
+  "months/199401.json": {
+   "sha256": "f285fd0993f8f712da252b0e382729d0c51a7301d7ad65c49a12faec534b9a96",
+   "bytes": 19250,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199401.nc",
+    "contentLength": 2798335413,
+    "lastModified": "Thu, 14 Jan 2021 15:43:14 GMT",
+    "hsChunksSha256": "f4e217ffc94bc9e9931d9dec41912e329854db83e353d143a05d70d9135093fb",
+    "hsChunkBytes": 47148104
+   }
+  },
+  "months/199402.json": {
+   "sha256": "8890a6dd5ee2a30c3579e7c4fac04a18ebdc8f8fe3e0b2ea6c4ff862332ce2f8",
+   "bytes": 17447,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199402.nc",
+    "contentLength": 2504741949,
+    "lastModified": "Thu, 14 Jan 2021 15:43:20 GMT",
+    "hsChunksSha256": "fcb81836d68a0cac286a969660674bf70ab1eb8a9e255f15531ecfea9ed6ba45",
+    "hsChunkBytes": 42437273
+   }
+  },
+  "months/199403.json": {
+   "sha256": "7395f48d81eb198d4cbb895751511931414a994d239e2ba4f0af4967b83b70dc",
+   "bytes": 19322,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199403.nc",
+    "contentLength": 2748789082,
+    "lastModified": "Thu, 14 Jan 2021 15:43:19 GMT",
+    "hsChunksSha256": "080100e5d8b310496b0b1c5768676a50795d7e19db42e6a32f3ccef7aa58ed08",
+    "hsChunkBytes": 47099367
+   }
+  },
+  "months/199404.json": {
+   "sha256": "cbc6c96007c634ca09dd7f0da5f0342807f22e594b170787fbab6dcb13ff0f44",
+   "bytes": 18725,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199404.nc",
+    "contentLength": 2641883029,
+    "lastModified": "Thu, 14 Jan 2021 15:43:18 GMT",
+    "hsChunksSha256": "13dac90b17d570dfe2a5b3b93fa94a7d80ec802960a19ea444ab108ca00f5885",
+    "hsChunkBytes": 45227703
+   }
+  },
+  "months/199405.json": {
+   "sha256": "9685fb36cdf8f2f8496a9f1c6a0b51c68c26ba70a5fb992b11c9224630c9a750",
+   "bytes": 19005,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199405.nc",
+    "contentLength": 2718493508,
+    "lastModified": "Thu, 14 Jan 2021 15:43:13 GMT",
+    "hsChunksSha256": "ea94f1124be6cb562c0a0c9a7f86c9eeb23ba15b49e34a90770a1654e19c269e",
+    "hsChunkBytes": 46503478
+   }
+  },
+  "months/199406.json": {
+   "sha256": "421b25f3a88f80876285adc891763db9c36ebbf43c5fca551a1cfad8f12a89dd",
+   "bytes": 18767,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199406.nc",
+    "contentLength": 2631545692,
+    "lastModified": "Thu, 14 Jan 2021 15:43:17 GMT",
+    "hsChunksSha256": "9c530799a8e48f05101117f3dfe828be62f257a14f5ae3ec2fd81b338193019b",
+    "hsChunkBytes": 45199342
+   }
+  },
+  "months/199407.json": {
+   "sha256": "da02381e6dc2a91489359007dfde456b56c62fb8174a805794e1a45a8f616eda",
+   "bytes": 19427,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199407.nc",
+    "contentLength": 2697004836,
+    "lastModified": "Thu, 14 Jan 2021 15:43:16 GMT",
+    "hsChunksSha256": "5ddbda8bafeec2bc3b5fe93ddf5fefd6605862768061b335e79eb7bfdd19f2bc",
+    "hsChunkBytes": 46968693
+   }
+  },
+  "months/199408.json": {
+   "sha256": "90a8b01c3f6ea9f03591619abbb6707e21c74bb9dd094dae7bd2b97e342428f8",
+   "bytes": 19318,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199408.nc",
+    "contentLength": 2701022388,
+    "lastModified": "Thu, 14 Jan 2021 15:43:16 GMT",
+    "hsChunksSha256": "7c6dca75ac8b28734c89f8f7cd083230492be286ddb1b6fb70930f06bb860d6f",
+    "hsChunkBytes": 47168207
+   }
+  },
+  "months/199409.json": {
+   "sha256": "dd68119fb9a3cbbe2a31b61cd6ee5b782fdd139eda1fabf7572d17d883151726",
+   "bytes": 18808,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199409.nc",
+    "contentLength": 2659755317,
+    "lastModified": "Thu, 14 Jan 2021 15:43:15 GMT",
+    "hsChunksSha256": "58513080b8b27523ac13d5cfdf60b512df1071496c0bef727ba12c0ea4456653",
+    "hsChunkBytes": 45596466
+   }
+  },
+  "months/199410.json": {
+   "sha256": "f95cba762a4fbdf71f31b6a1589e29246edc75ebf724ef51e81cde5098735c0c",
+   "bytes": 19273,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199410.nc",
+    "contentLength": 2724558664,
+    "lastModified": "Thu, 14 Jan 2021 15:43:20 GMT",
+    "hsChunksSha256": "0f64aa9085e9368d281d7826ea755f0978a22affedaa09fcc2f7134524e607a0",
+    "hsChunkBytes": 46601887
+   }
+  },
+  "months/199411.json": {
+   "sha256": "68b3c3f848a249a97c3b19e04f451f058728c88f71b8959e49b8d151e0d94c41",
+   "bytes": 18748,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199411.nc",
+    "contentLength": 2617931470,
+    "lastModified": "Thu, 14 Jan 2021 15:43:14 GMT",
+    "hsChunksSha256": "45e3126a621586721d03b05734f55fb357148e171abef277ae1d8914563388b2",
+    "hsChunkBytes": 45117501
+   }
+  },
+  "months/199412.json": {
+   "sha256": "d9b16a510def623a946c640030910a8643401032260b9ec47127b9355353ef44",
+   "bytes": 19107,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1994/FIELD_NC/LOPS_WW3-GLOB-30M_199412.nc",
+    "contentLength": 2741973645,
+    "lastModified": "Thu, 14 Jan 2021 15:43:18 GMT",
+    "hsChunksSha256": "d25853b39391be58da9abf85e20af2891d89c621a0245fa1da7ff3ad0dd10441",
+    "hsChunkBytes": 46987812
+   }
+  },
+  "months/199501.json": {
+   "sha256": "1beeb99f3d370cac31ca3bd0ac94aa54bbf366b173ae8d3cfe79420b7c5a0693",
+   "bytes": 19322,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199501.nc",
+    "contentLength": 2765386860,
+    "lastModified": "Thu, 14 Jan 2021 15:43:25 GMT",
+    "hsChunksSha256": "d29444e9f359c711610a9fabba33bc632658b712486d2f5811708431c66a3655",
+    "hsChunkBytes": 47177363
+   }
+  },
+  "months/199502.json": {
+   "sha256": "db4b8076a09b94942b49c43238dbaada031d723c2faa8cebdce5f0a4573a9f73",
+   "bytes": 17443,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199502.nc",
+    "contentLength": 2530715126,
+    "lastModified": "Thu, 14 Jan 2021 15:43:21 GMT",
+    "hsChunksSha256": "2f5b8610823ac5e073da8c94b8675cc61e3e8a0c7ad46bc8b9c884f87e4f72eb",
+    "hsChunkBytes": 42529760
+   }
+  },
+  "months/199503.json": {
+   "sha256": "4a432117dff6323d72c7e6393b2820b98e458bec6ef30675a8603fde66f72f4a",
+   "bytes": 19150,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199503.nc",
+    "contentLength": 2781555078,
+    "lastModified": "Thu, 14 Jan 2021 15:43:28 GMT",
+    "hsChunksSha256": "c8cfb2522402f91a1b636ecc00d75277565083f700e60ae6e00a753f7ed98a13",
+    "hsChunkBytes": 47109931
+   }
+  },
+  "months/199504.json": {
+   "sha256": "778c90629d2c9c7173ec35a3528e0be387d99568b4d1d55c073ac069651c1bcf",
+   "bytes": 18677,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199504.nc",
+    "contentLength": 2639490599,
+    "lastModified": "Thu, 14 Jan 2021 15:43:22 GMT",
+    "hsChunksSha256": "c53d9a553aee1eecfeaf0eadda3601fb0f2c0be7d4976d05f2e2521967606337",
+    "hsChunkBytes": 45379200
+   }
+  },
+  "months/199505.json": {
+   "sha256": "53c17565c178d7be1c45cb337274c836a413805b4bbc20c1d12e1f70834e27d1",
+   "bytes": 19146,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199505.nc",
+    "contentLength": 2702178014,
+    "lastModified": "Thu, 14 Jan 2021 15:43:28 GMT",
+    "hsChunksSha256": "280e8881a101e6724c7d0a753b158f6942188dcee26c1475377be9ff698eef9e",
+    "hsChunkBytes": 46666051
+   }
+  },
+  "months/199506.json": {
+   "sha256": "1bda3e64a7fd48b5f55d20ec560c9e3e2166bd18cc666509d13dc30a4c1eeaa1",
+   "bytes": 18752,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199506.nc",
+    "contentLength": 2642886790,
+    "lastModified": "Thu, 14 Jan 2021 15:43:26 GMT",
+    "hsChunksSha256": "d8a268e815364449d3b46f8e85c69ed54e2e8ed8863c7d8eb9fa1783ed188bf0",
+    "hsChunkBytes": 45337735
+   }
+  },
+  "months/199507.json": {
+   "sha256": "9a34b03875879246a98b05b24d563e35a90b927784fb649b888cd826cc370869",
+   "bytes": 19497,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199507.nc",
+    "contentLength": 2735310123,
+    "lastModified": "Thu, 14 Jan 2021 15:43:27 GMT",
+    "hsChunksSha256": "ec74830bb6e88a7d20f8829e19aaaf96c404b549ff648b152386a20e5c3c2c95",
+    "hsChunkBytes": 46858911
+   }
+  },
+  "months/199508.json": {
+   "sha256": "311259722ddf8f47084352f5a68d776e818938a17050f25b4ae5c4e13a79cb96",
+   "bytes": 19322,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199508.nc",
+    "contentLength": 2718139494,
+    "lastModified": "Thu, 14 Jan 2021 15:43:24 GMT",
+    "hsChunksSha256": "bee11790f8f5fef4fe981fa1f1a8743118710f442fc6ebf998e63e1291631497",
+    "hsChunkBytes": 47393496
+   }
+  },
+  "months/199509.json": {
+   "sha256": "e900a8b009816a902b9d3ac7df5673ed80fa59abd31ea677e4e50b0657eab9c5",
+   "bytes": 18971,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199509.nc",
+    "contentLength": 2659288594,
+    "lastModified": "Thu, 14 Jan 2021 15:43:24 GMT",
+    "hsChunksSha256": "262e10c0ac83605028fccf998b632a8ff0cabcc391f8de46f6ab61a11162fb34",
+    "hsChunkBytes": 46113198
+   }
+  },
+  "months/199510.json": {
+   "sha256": "97925258a7d62cd520ce1313b58fac2a972fae841e6cf9863ea42fc75e048ee5",
+   "bytes": 19346,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199510.nc",
+    "contentLength": 2725917998,
+    "lastModified": "Thu, 14 Jan 2021 15:43:23 GMT",
+    "hsChunksSha256": "31af93e615d6f3c7d5a2a90140ea53900e85b8016e2e984f1b34728be8f6eb4e",
+    "hsChunkBytes": 47071566
+   }
+  },
+  "months/199511.json": {
+   "sha256": "9a52fe840fabaaa557eeb350f9689be937264b1885dddc921717084efcb7b9b1",
+   "bytes": 18742,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199511.nc",
+    "contentLength": 2614816879,
+    "lastModified": "Thu, 14 Jan 2021 15:43:22 GMT",
+    "hsChunksSha256": "9da2b05eb5d9fa1454b016ccf97ff6baa0b4ecefb27dd20c4e4174d9c02c1a5f",
+    "hsChunkBytes": 44994745
+   }
+  },
+  "months/199512.json": {
+   "sha256": "9437c96b020d86ba247b0c26ff23d6e442877e66fbb92c15703d653deb503374",
+   "bytes": 19237,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1995/FIELD_NC/LOPS_WW3-GLOB-30M_199512.nc",
+    "contentLength": 2746203553,
+    "lastModified": "Thu, 14 Jan 2021 15:43:26 GMT",
+    "hsChunksSha256": "0eb11cba73ca305acc9d89e87383f1ae6d0ca228accd2e23fb4fccd3ee6fd44f",
+    "hsChunkBytes": 46914731
+   }
+  },
+  "months/199601.json": {
+   "sha256": "2ec8ec0f838d48e5a8af69c2a829a9e8785512fba3ac49b67ac38ce45bd0c4fd",
+   "bytes": 19079,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199601.nc",
+    "contentLength": 2774396461,
+    "lastModified": "Thu, 14 Jan 2021 15:43:36 GMT",
+    "hsChunksSha256": "7749eb1a8b5470f49a56cb74f091e984f53191c3acb40b3f736bd5486a7f6d44",
+    "hsChunkBytes": 47047723
+   }
+  },
+  "months/199602.json": {
+   "sha256": "dfe0779f88cbb34c9692e19fae9b8aa2177ff4218eff884b494f1546f72450af",
+   "bytes": 17894,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199602.nc",
+    "contentLength": 2617404403,
+    "lastModified": "Thu, 14 Jan 2021 15:43:31 GMT",
+    "hsChunksSha256": "df7f0d37dd7e09f84cafe3e0c348f600547783a139cbabd784ca9b6185669207",
+    "hsChunkBytes": 44026267
+   }
+  },
+  "months/199603.json": {
+   "sha256": "90cd64fee2e1cdff8531185356a5420bc5549301371bb0c6a460672fc4f3d693",
+   "bytes": 19384,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199603.nc",
+    "contentLength": 2774390468,
+    "lastModified": "Thu, 14 Jan 2021 15:43:34 GMT",
+    "hsChunksSha256": "33929145aa0e4b0bcc94ed4c8021deb694d3afa2d8ac3efce38de77adceaf2a4",
+    "hsChunkBytes": 47034137
+   }
+  },
+  "months/199604.json": {
+   "sha256": "ce76e9df03db2fe24956b3cb34897f96013a33c137079994506115e828982902",
+   "bytes": 18663,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199604.nc",
+    "contentLength": 2638253273,
+    "lastModified": "Thu, 14 Jan 2021 15:43:29 GMT",
+    "hsChunksSha256": "c5eb3e7cbcfbd76e055aebea3b0bc6da1229f1accd1df895e14583b4f885be78",
+    "hsChunkBytes": 45183011
+   }
+  },
+  "months/199605.json": {
+   "sha256": "4173fd5724f6cbe12f2cb1fe78a74278c858b3fd053474a2d1ba833dc538e598",
+   "bytes": 19146,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199605.nc",
+    "contentLength": 2702634423,
+    "lastModified": "Thu, 14 Jan 2021 15:43:32 GMT",
+    "hsChunksSha256": "2f3ad4002be495b2bdc833478a25e371742a4084be7e00dd06c2bce5a50bae98",
+    "hsChunkBytes": 46536737
+   }
+  },
+  "months/199606.json": {
+   "sha256": "6136bfd032679a2cb25120f51cdb099cf97c01352ab2c5a03a3678e1d39d3d90",
+   "bytes": 18921,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199606.nc",
+    "contentLength": 2598529833,
+    "lastModified": "Thu, 14 Jan 2021 15:43:30 GMT",
+    "hsChunksSha256": "f568c0713e2643df2ebfb819df61940ef3e35b4c8d75dc141584ca12d7559122",
+    "hsChunkBytes": 45125243
+   }
+  },
+  "months/199607.json": {
+   "sha256": "00e6acf1ff6fd8558b1b5f6c7502a0e1ae546cc78ee3174fac749dc16a62b011",
+   "bytes": 19639,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199607.nc",
+    "contentLength": 2678929910,
+    "lastModified": "Thu, 14 Jan 2021 15:43:36 GMT",
+    "hsChunksSha256": "2bb9ce9b4be3347201324fb0e3a7a19f5111c7d772361aa0ad9b24758fb51b62",
+    "hsChunkBytes": 46774924
+   }
+  },
+  "months/199608.json": {
+   "sha256": "445034baed0cf0081a918e8650ada3c576bda76cac50224cdd7a29faf3b653b5",
+   "bytes": 19469,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199608.nc",
+    "contentLength": 2714617802,
+    "lastModified": "Thu, 14 Jan 2021 15:43:33 GMT",
+    "hsChunksSha256": "8dd5f8ec4d8b76862cbc55aa6221f72ef5ca1c64a1082e69d99102b88dccd009",
+    "hsChunkBytes": 46974585
+   }
+  },
+  "months/199609.json": {
+   "sha256": "1957539ef54a8160e97af669f1494a3089e1556253ced6901be5f1eaca9d5b7a",
+   "bytes": 18976,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199609.nc",
+    "contentLength": 2652285663,
+    "lastModified": "Thu, 14 Jan 2021 15:43:30 GMT",
+    "hsChunksSha256": "e43172a3b6e22f3ab9bf81e88cd878a5f4885e225d9dc734b51dc981bd50c916",
+    "hsChunkBytes": 45582347
+   }
+  },
+  "months/199610.json": {
+   "sha256": "94cb90b4f1d3382e1a1bbb025c92d8b1aed8a5e25dee5eb5b42f0eafe11fef0e",
+   "bytes": 19309,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199610.nc",
+    "contentLength": 2694657643,
+    "lastModified": "Thu, 14 Jan 2021 15:43:34 GMT",
+    "hsChunksSha256": "6f67da2c3c00cfc03d2e493b62e50ee49aebd1eca6bd7d71146d6203372f9a89",
+    "hsChunkBytes": 46871329
+   }
+  },
+  "months/199611.json": {
+   "sha256": "f1d09c56ade9a1e76ba262cd079fd96aec5c665c6b05114c097dd9f316b248df",
+   "bytes": 18844,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199611.nc",
+    "contentLength": 2656195573,
+    "lastModified": "Thu, 14 Jan 2021 15:43:32 GMT",
+    "hsChunksSha256": "954fb30eacc0fb62d5bb64ea562fcc7a2f41a9d6a19d485250605645615afecc",
+    "hsChunkBytes": 45301904
+   }
+  },
+  "months/199612.json": {
+   "sha256": "fceaa1e0bc5b83b4e29a14cd81a1cd014021cd3d2dfb8753a08acea9ffb22e5a",
+   "bytes": 19161,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1996/FIELD_NC/LOPS_WW3-GLOB-30M_199612.nc",
+    "contentLength": 2755189239,
+    "lastModified": "Thu, 14 Jan 2021 15:43:35 GMT",
+    "hsChunksSha256": "5619ab05d8b1ee7a5c386103224fc459a5cadb42c97e99731fbefa7195c556fb",
+    "hsChunkBytes": 46935738
+   }
+  },
+  "months/199701.json": {
+   "sha256": "bf41a1fc54f3d9924d096d9de474497bd6e43a47048747ce1826ab1657fccfd3",
+   "bytes": 19160,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199701.nc",
+    "contentLength": 2798665588,
+    "lastModified": "Thu, 14 Jan 2021 15:42:22 GMT",
+    "hsChunksSha256": "42b460150285afdd5f0b4ab5923fab05b3c5e5c8da2ed83fd90bf14b39ae1909",
+    "hsChunkBytes": 47212775
+   }
+  },
+  "months/199702.json": {
+   "sha256": "0677569d7c7d4d2871a81df77d12058175a75b42acf9cc4f962888b77e1f0148",
+   "bytes": 17675,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199702.nc",
+    "contentLength": 2513515379,
+    "lastModified": "Thu, 14 Jan 2021 15:42:19 GMT",
+    "hsChunksSha256": "0f19c7a5bce687407808689ece65b76f3a108cf11f955ea4741037f605928bbd",
+    "hsChunkBytes": 42781895
+   }
+  },
+  "months/199703.json": {
+   "sha256": "59df24c84bcc542d999d4a86ea004ad7313318775f576e30e587489969c96510",
+   "bytes": 19313,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199703.nc",
+    "contentLength": 2770606212,
+    "lastModified": "Thu, 14 Jan 2021 15:42:21 GMT",
+    "hsChunksSha256": "565e8b589f2a3041998d88782218c0238b02ce6c89fc3971081fbca4581eb57c",
+    "hsChunkBytes": 47294869
+   }
+  },
+  "months/199704.json": {
+   "sha256": "15597e61b61d4c57090550743fafc636a5f4226df3272614fe7c8d2f1e0a1831",
+   "bytes": 18617,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199704.nc",
+    "contentLength": 2662340043,
+    "lastModified": "Thu, 14 Jan 2021 15:42:18 GMT",
+    "hsChunksSha256": "516401469988ca18a998e17335bdaabad1d7154f438667653c66b1a17798876c",
+    "hsChunkBytes": 45292946
+   }
+  },
+  "months/199705.json": {
+   "sha256": "d270754bc7ced62d5c08fca8cc3a16e3ed5dc404e4a33c4d0f6cf21757fe1b0d",
+   "bytes": 19102,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199705.nc",
+    "contentLength": 2714968808,
+    "lastModified": "Thu, 14 Jan 2021 15:42:20 GMT",
+    "hsChunksSha256": "137183ac9b24095d53d53801ca63e316a9e1ed4bcb5f6a2e47bddfd527efde89",
+    "hsChunkBytes": 46658912
+   }
+  },
+  "months/199706.json": {
+   "sha256": "600755284b7e51a9d782d2dbbd04f16fd6af40ab417cab9a5fe2328fef6fd87c",
+   "bytes": 18688,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199706.nc",
+    "contentLength": 2632901467,
+    "lastModified": "Thu, 14 Jan 2021 15:42:17 GMT",
+    "hsChunksSha256": "8ecae5a985996c9e5ec133ca8c1b7fccaf44db7cbe88b2888fb7929f3c1d1198",
+    "hsChunkBytes": 45175523
+   }
+  },
+  "months/199707.json": {
+   "sha256": "0a204e897c8c7aa61f51005942edf7bd67dac150429201093492c7127c6d9570",
+   "bytes": 19254,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199707.nc",
+    "contentLength": 2688427721,
+    "lastModified": "Thu, 14 Jan 2021 15:42:25 GMT",
+    "hsChunksSha256": "174798c7ed4381b560709affb53014395ac6b848d2af7e272da9892a47e492db",
+    "hsChunkBytes": 47003652
+   }
+  },
+  "months/199708.json": {
+   "sha256": "e1c2cab1250d117c451b6d2bf17ee29143a3f4d653c9b7e5c2295d4ec65c9d4a",
+   "bytes": 19515,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199708.nc",
+    "contentLength": 2737402932,
+    "lastModified": "Thu, 14 Jan 2021 15:42:21 GMT",
+    "hsChunksSha256": "5e49f654d1f0be10813bb0fd648a799c61609e7fdc6592ef0f11f65fd06490c7",
+    "hsChunkBytes": 47455948
+   }
+  },
+  "months/199709.json": {
+   "sha256": "745dc95674f1d067d10a660d4de2eda34c396d95a04341dceff76c61aa70cf52",
+   "bytes": 18787,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199709.nc",
+    "contentLength": 2663989396,
+    "lastModified": "Thu, 14 Jan 2021 15:42:24 GMT",
+    "hsChunksSha256": "f1e6996f79f17f3b4d3cc23adaa6f535557c15ebb722cd5b315c433f57273f59",
+    "hsChunkBytes": 46036427
+   }
+  },
+  "months/199710.json": {
+   "sha256": "cfc3a0af47c74d5919e97ad66a558940880fe1a25f195f8e81942d384e0eeeb6",
+   "bytes": 19379,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199710.nc",
+    "contentLength": 2714021684,
+    "lastModified": "Thu, 14 Jan 2021 15:42:19 GMT",
+    "hsChunksSha256": "185929e006308786993fe154640b2b49fef94ce88e583acef28c2510d1deed4f",
+    "hsChunkBytes": 46984131
+   }
+  },
+  "months/199711.json": {
+   "sha256": "b5994034bdf20fb502f1643e00ee9b62c8d542f6beaa903144ee456e26f5f50f",
+   "bytes": 18561,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199711.nc",
+    "contentLength": 2619721484,
+    "lastModified": "Thu, 14 Jan 2021 15:42:24 GMT",
+    "hsChunksSha256": "01d52567ce9807d0727110801cd566765295db55c807660ecb7f463695414c50",
+    "hsChunkBytes": 45219827
+   }
+  },
+  "months/199712.json": {
+   "sha256": "f0df561538acd5cd81ed71228e8e645c0821bb41b02b46aea4e06493c4d9b256",
+   "bytes": 19310,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1997/FIELD_NC/LOPS_WW3-GLOB-30M_199712.nc",
+    "contentLength": 2751579029,
+    "lastModified": "Thu, 14 Jan 2021 15:42:23 GMT",
+    "hsChunksSha256": "7088b0a46b4070f9eff78779d973643a1bd5ef83ef8d33d879f70b7d7db401d3",
+    "hsChunkBytes": 46919630
+   }
+  },
+  "months/199801.json": {
+   "sha256": "8fd759b36b0a0d8de38eadd3448782645be77a3880cf3a613f9871e44b6516de",
+   "bytes": 19365,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199801.nc",
+    "contentLength": 2778886417,
+    "lastModified": "Thu, 14 Jan 2021 15:42:35 GMT",
+    "hsChunksSha256": "6a1cef484dc5ebc26eac6029dac4e148fd6f3c2bfaba4564c61a5e544d1daf04",
+    "hsChunkBytes": 47286467
+   }
+  },
+  "months/199802.json": {
+   "sha256": "771095d0e63d9a53964caca9eb1e78384e0cd224d68c7441adff5d96c21f1232",
+   "bytes": 17467,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199802.nc",
+    "contentLength": 2493121970,
+    "lastModified": "Thu, 14 Jan 2021 15:42:40 GMT",
+    "hsChunksSha256": "967d81c726a35bf20f031827a67627cb4992dd7d03d85b66984df1fa1b75af58",
+    "hsChunkBytes": 42623662
+   }
+  },
+  "months/199803.json": {
+   "sha256": "dd6fdda08b6738b2e8742bc53d4b2ff2c6e7ed3d0d05c588e144f8b5543beafe",
+   "bytes": 19370,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199803.nc",
+    "contentLength": 2770909457,
+    "lastModified": "Thu, 14 Jan 2021 15:42:37 GMT",
+    "hsChunksSha256": "cc4d90ca9aff146fc5aed43c62ebbee1225344b837dad444c5bc7e1ce41bb586",
+    "hsChunkBytes": 47068851
+   }
+  },
+  "months/199804.json": {
+   "sha256": "b876c75e386721c20ed43c41ec5a49583f6bc35962eea7f567d53a6baad2054e",
+   "bytes": 18720,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199804.nc",
+    "contentLength": 2591150068,
+    "lastModified": "Thu, 14 Jan 2021 15:42:38 GMT",
+    "hsChunksSha256": "7aaa5d8881903c3dedccd36eee8ca4695d62a365e7e6cdf990d59c872f77c5bf",
+    "hsChunkBytes": 45126652
+   }
+  },
+  "months/199805.json": {
+   "sha256": "39a64515556e255b060f3e23560664c883ee2785ab2bd4e1e00afe6ce585c9ff",
+   "bytes": 19130,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199805.nc",
+    "contentLength": 2694246164,
+    "lastModified": "Thu, 14 Jan 2021 15:42:35 GMT",
+    "hsChunksSha256": "b7c4dba985b36bb4c88c31f9c6c0682cbf7561c6a93b5fdc43b9869a33a0a743",
+    "hsChunkBytes": 46568599
+   }
+  },
+  "months/199806.json": {
+   "sha256": "920859fd67086498db72988b0b96f764f5e6efc410a3c417b63721dbea319a06",
+   "bytes": 18772,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199806.nc",
+    "contentLength": 2576023143,
+    "lastModified": "Thu, 14 Jan 2021 15:42:36 GMT",
+    "hsChunksSha256": "147d5c724c7d1f4f53475dd182ad50a7069049e74ec13d2ee4bf1a093e61bb58",
+    "hsChunkBytes": 45059003
+   }
+  },
+  "months/199807.json": {
+   "sha256": "4532335f0a108f8e49fc76c943009e3a1a8d4f8d87ff122895016c71e597ee2b",
+   "bytes": 19341,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199807.nc",
+    "contentLength": 2614376826,
+    "lastModified": "Thu, 14 Jan 2021 15:42:33 GMT",
+    "hsChunksSha256": "8ffd7b41c81bee562974462ecadd6878f54eb627af2240d0d11a987bb538f7fd",
+    "hsChunkBytes": 46806526
+   }
+  },
+  "months/199808.json": {
+   "sha256": "f8a42dad996e165badeb2c8310142c16f629c7d60f5f625ccb92d6d6413cff3f",
+   "bytes": 19703,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199808.nc",
+    "contentLength": 2651708800,
+    "lastModified": "Thu, 14 Jan 2021 15:42:41 GMT",
+    "hsChunksSha256": "7eb3544510e0c0a36dd7de53f389241b3ac50d984cacb835025625b9d94d23f5",
+    "hsChunkBytes": 47286074
+   }
+  },
+  "months/199809.json": {
+   "sha256": "a9153deb8e2bb8f51737402953463f1284afb1dfc8c583a981758d7f0c26e4b9",
+   "bytes": 19083,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199809.nc",
+    "contentLength": 2656203801,
+    "lastModified": "Thu, 14 Jan 2021 15:42:39 GMT",
+    "hsChunksSha256": "2adb107d0ce147e6174ddb684326f4f0fea286aaf28ed546d5f6d2680cbdc31f",
+    "hsChunkBytes": 46023207
+   }
+  },
+  "months/199810.json": {
+   "sha256": "84281a9c4c5ef54f9b51c533735c9d7548ac455a29b841e86d1f2d3848193007",
+   "bytes": 19439,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199810.nc",
+    "contentLength": 2682951296,
+    "lastModified": "Thu, 14 Jan 2021 15:42:37 GMT",
+    "hsChunksSha256": "624e4e467bee25c6f0294852f7b09622ad7318430475eec1fa29634fc08ddd1b",
+    "hsChunkBytes": 46895839
+   }
+  },
+  "months/199811.json": {
+   "sha256": "6ffd9827b6e7718218ee1859e3f46c897bb2d3f2182bc6d92e2442f4455dfbb7",
+   "bytes": 18611,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199811.nc",
+    "contentLength": 2599928031,
+    "lastModified": "Thu, 14 Jan 2021 15:42:34 GMT",
+    "hsChunksSha256": "411bbd273cd588aa67251c00ebae7783fc8e0541e2b8cf960786ea4c86441d31",
+    "hsChunkBytes": 45193439
+   }
+  },
+  "months/199812.json": {
+   "sha256": "5a105240a1f520c8c3b95ebb1c6484d55af4e26e4f1ae2ba3dd0da0d6965b3f6",
+   "bytes": 19307,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1998/FIELD_NC/LOPS_WW3-GLOB-30M_199812.nc",
+    "contentLength": 2749765559,
+    "lastModified": "Thu, 14 Jan 2021 15:42:39 GMT",
+    "hsChunksSha256": "71c95323c8f912f171830bf07fdc315951d33d827212ecaddffa4d00445f63d1",
+    "hsChunkBytes": 47347740
+   }
+  },
+  "months/199901.json": {
+   "sha256": "4ffbcb8fc83263b40219883610db0d42d7091556d6faf12fedb71d33eb5f9705",
+   "bytes": 19401,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199901.nc",
+    "contentLength": 2764126891,
+    "lastModified": "Thu, 14 Jan 2021 15:42:55 GMT",
+    "hsChunksSha256": "673054c04813189f86b3157b5b3da320b13ff9466863120fad0769e3875f0ec7",
+    "hsChunkBytes": 47126045
+   }
+  },
+  "months/199902.json": {
+   "sha256": "870f81199949a763e4aed23d176958c10cf72c7fd8c41e0f06585b8a18cc8484",
+   "bytes": 17456,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199902.nc",
+    "contentLength": 2515263109,
+    "lastModified": "Thu, 14 Jan 2021 15:42:56 GMT",
+    "hsChunksSha256": "1bceeba31972bbfa783919fd4302e98f1c5c163eac57e89ee7f02a478be07f51",
+    "hsChunkBytes": 42755272
+   }
+  },
+  "months/199903.json": {
+   "sha256": "ae5ec693b68482e88153ad17e397a8f55afd4c7daa977a07c27393b9c75ea18d",
+   "bytes": 19436,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199903.nc",
+    "contentLength": 2776972813,
+    "lastModified": "Thu, 14 Jan 2021 15:42:49 GMT",
+    "hsChunksSha256": "a86241c54111ee308bb6328b27c341ec1d2111448f1b1099c85b87e7d9f1e94e",
+    "hsChunkBytes": 47011987
+   }
+  },
+  "months/199904.json": {
+   "sha256": "69f796e751a870bf55b26f65271cb71e0bdcf9f3dc8368d343fe136bdac37df8",
+   "bytes": 18779,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199904.nc",
+    "contentLength": 2614866668,
+    "lastModified": "Thu, 14 Jan 2021 15:42:51 GMT",
+    "hsChunksSha256": "04d11716c1040eb7c851927111d45990bdb3a4800b122dd83c5e9b89bf3e2836",
+    "hsChunkBytes": 45197171
+   }
+  },
+  "months/199905.json": {
+   "sha256": "1052fc2ad2a2d58cce91ed575def036cda8283a8507658dde2b2d33696b78442",
+   "bytes": 19399,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199905.nc",
+    "contentLength": 2697858481,
+    "lastModified": "Thu, 14 Jan 2021 15:42:51 GMT",
+    "hsChunksSha256": "863bb08029c0811bdf411bf48470ba58e282cda95ce4bfb9ab2c2b23267e05c1",
+    "hsChunkBytes": 46658094
+   }
+  },
+  "months/199906.json": {
+   "sha256": "a7015a91c7e8997de92892569391e047da048df3e8a1b3b9e4b8e029acacfef9",
+   "bytes": 18700,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199906.nc",
+    "contentLength": 2596985863,
+    "lastModified": "Thu, 14 Jan 2021 15:42:57 GMT",
+    "hsChunksSha256": "ee8f9f5a01b82f0eaf671269b2cd66fceb3237310a43bcc8d11c317bf5a98a60",
+    "hsChunkBytes": 44959373
+   }
+  },
+  "months/199907.json": {
+   "sha256": "f41b86bd1391894c8a60e2cb6b18c233c7b074018d615b1f586064ec48afb250",
+   "bytes": 19672,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199907.nc",
+    "contentLength": 2655916920,
+    "lastModified": "Thu, 14 Jan 2021 15:42:55 GMT",
+    "hsChunksSha256": "4cd34c32552c423d185dfb3e4c50104f5b584a6bac3a1ff4b8a58d90723cafbb",
+    "hsChunkBytes": 46919767
+   }
+  },
+  "months/199908.json": {
+   "sha256": "172ea62ac050b4970f0290e3b5847efc6345d3a78f4883a959508223768ca4a1",
+   "bytes": 19644,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199908.nc",
+    "contentLength": 2719808315,
+    "lastModified": "Thu, 14 Jan 2021 15:42:52 GMT",
+    "hsChunksSha256": "6c29d335f174b078b572702905e271d8d26b6c71d6eb817b3e4b5a07d8fd6fe7",
+    "hsChunkBytes": 47374223
+   }
+  },
+  "months/199909.json": {
+   "sha256": "e099fcbffed7d2ae84ab30bbd1018d983541acd6c5af10595d19f3ed514963e2",
+   "bytes": 19088,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199909.nc",
+    "contentLength": 2631989171,
+    "lastModified": "Thu, 14 Jan 2021 15:42:53 GMT",
+    "hsChunksSha256": "00b9a0d690ed8402016532a728b2c3e9f2de97b02f04fb4ac6ed1610a1290f80",
+    "hsChunkBytes": 46091583
+   }
+  },
+  "months/199910.json": {
+   "sha256": "71f8bc482ccdd53e9d90f91c30185ff14288284c731d541a9c44965dda6f6d81",
+   "bytes": 19484,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199910.nc",
+    "contentLength": 2691356673,
+    "lastModified": "Thu, 14 Jan 2021 15:42:50 GMT",
+    "hsChunksSha256": "38afecf41f20c993b6c71f718da0c16de89f6cd697e2694552697bca8a221672",
+    "hsChunkBytes": 47124344
+   }
+  },
+  "months/199911.json": {
+   "sha256": "d330315a57c5f7febc70ed7809cc7c3c51c7dd259d3f31f36b214902193c07ac",
+   "bytes": 18675,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199911.nc",
+    "contentLength": 2612953777,
+    "lastModified": "Thu, 14 Jan 2021 15:42:56 GMT",
+    "hsChunksSha256": "a79677298e2ecbaebe136948ddfc1c27195d4bfd2baa7e0e5f0ea4bf7168ecc4",
+    "hsChunkBytes": 45236215
+   }
+  },
+  "months/199912.json": {
+   "sha256": "bfaa8c781f182dc4ad335b28e6e101838d19d5c5420d08e24aeeae567b9d03c2",
+   "bytes": 19114,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/1999/FIELD_NC/LOPS_WW3-GLOB-30M_199912.nc",
+    "contentLength": 2736921901,
+    "lastModified": "Thu, 14 Jan 2021 15:42:54 GMT",
+    "hsChunksSha256": "1ed1066190959c9ceb2276f96858bf092299a49e6ed31145abd77ffd48385008",
+    "hsChunkBytes": 46983605
+   }
+  },
+  "months/200001.json": {
+   "sha256": "026d9c057c974391468c4a30accaa367459fcaac647c93b47cb725b7885450ee",
+   "bytes": 19234,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200001.nc",
+    "contentLength": 2791212044,
+    "lastModified": "Thu, 14 Jan 2021 15:41:29 GMT",
+    "hsChunksSha256": "7ebb140e569e55de60e626d258f597a3a4815d4dfd0f8e6042b111f7c66a19d9",
+    "hsChunkBytes": 47260661
+   }
+  },
+  "months/200002.json": {
+   "sha256": "010d7aa436f41961ea0772fefed0dbba4d3d05eb109e9bfbeccac5a21118e996",
+   "bytes": 18040,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200002.nc",
+    "contentLength": 2590992029,
+    "lastModified": "Thu, 14 Jan 2021 15:41:21 GMT",
+    "hsChunksSha256": "9904ccd04879dd7d024823b3aa5f5a16bb2f7d7a738081b61a350a36079c732a",
+    "hsChunkBytes": 44293008
+   }
+  },
+  "months/200003.json": {
+   "sha256": "68cf94ee16978d4cf6a93010ec76fa000f82768db3c2f1f608544bdac08c86ea",
+   "bytes": 19224,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200003.nc",
+    "contentLength": 2768150866,
+    "lastModified": "Thu, 14 Jan 2021 15:41:27 GMT",
+    "hsChunksSha256": "3037a3d323de4c914ade0f1a5cdfc0869f9965637cb560b922d5f416bcdc9ff8",
+    "hsChunkBytes": 47153271
+   }
+  },
+  "months/200004.json": {
+   "sha256": "2cc93d0f8f9cb78ce4a2269aedd6feb21a37968f05bb16993f2217505d101660",
+   "bytes": 18748,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200004.nc",
+    "contentLength": 2632780958,
+    "lastModified": "Thu, 14 Jan 2021 15:41:25 GMT",
+    "hsChunksSha256": "ac0fb672aa3f53eb945e0088bacdf4b64fb1198f1b722367b39cfe387b73a462",
+    "hsChunkBytes": 45271125
+   }
+  },
+  "months/200005.json": {
+   "sha256": "bef77c2efe67aa5d5ecd1dca9cb333757ae41b1a56aad44c9f4e6b179ce8bf86",
+   "bytes": 19457,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200005.nc",
+    "contentLength": 2692317509,
+    "lastModified": "Thu, 14 Jan 2021 15:41:23 GMT",
+    "hsChunksSha256": "57f9830238156520625a479597fadaaad3aaf920d8307674f22efc0403ce1903",
+    "hsChunkBytes": 46468572
+   }
+  },
+  "months/200006.json": {
+   "sha256": "4571a523fcfcccc375492f9fd89675b6cebcde65df75dcc262c95a5653f9e984",
+   "bytes": 18812,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200006.nc",
+    "contentLength": 2605277635,
+    "lastModified": "Thu, 14 Jan 2021 15:41:23 GMT",
+    "hsChunksSha256": "8d65c400f4600f8e80ca94b3090e14bd27b8b82232862bdaa3bea55284091ec7",
+    "hsChunkBytes": 45001996
+   }
+  },
+  "months/200007.json": {
+   "sha256": "51faae5336bbb00b7cdeca90d2d85d0b7f13e9298b0f62a738bf0547a948461a",
+   "bytes": 19514,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200007.nc",
+    "contentLength": 2686415517,
+    "lastModified": "Thu, 14 Jan 2021 15:41:24 GMT",
+    "hsChunksSha256": "403f3f92ada03b7527f94a4e5e0fb2524c533c3e8b22749ce2726166d6bccc0b",
+    "hsChunkBytes": 46835841
+   }
+  },
+  "months/200008.json": {
+   "sha256": "c4712e6270264f574bfb7ea16ed81f3e15862cc89635a8416a1973390911dc8f",
+   "bytes": 19443,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200008.nc",
+    "contentLength": 2707024826,
+    "lastModified": "Thu, 14 Jan 2021 15:41:25 GMT",
+    "hsChunksSha256": "179d389907f867b642f31d6767724efd2ebce23004b0a33fca9e8c042d618d42",
+    "hsChunkBytes": 47312564
+   }
+  },
+  "months/200009.json": {
+   "sha256": "84c943f4666b402fce399180dc33ad8f333e7f6c3aa4f62cde7f5e3d4daf2c9c",
+   "bytes": 18934,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200009.nc",
+    "contentLength": 2663487989,
+    "lastModified": "Thu, 14 Jan 2021 15:41:28 GMT",
+    "hsChunksSha256": "204b1f727281a1aff61441a9521cb3793dfe01cbf6aa49ae4228d064e169a96c",
+    "hsChunkBytes": 45858188
+   }
+  },
+  "months/200010.json": {
+   "sha256": "2a3cbfb5581df65ef5aa7296b2b732ba74b4d3c8f3299a9bbe8eb525d095b1e4",
+   "bytes": 19234,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200010.nc",
+    "contentLength": 2719590178,
+    "lastModified": "Thu, 14 Jan 2021 15:41:27 GMT",
+    "hsChunksSha256": "e7bb80f29b5c67292ea20bbf332544869c5fe8593cedffa4107fb3cb1e28988a",
+    "hsChunkBytes": 47002620
+   }
+  },
+  "months/200011.json": {
+   "sha256": "045f5704f7321f2517ef519104f0bc8e79cf461ca60778fce15df2d80f313dcd",
+   "bytes": 18740,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200011.nc",
+    "contentLength": 2640210084,
+    "lastModified": "Thu, 14 Jan 2021 15:41:22 GMT",
+    "hsChunksSha256": "c7e7e10d69c8c27d4c8bd49f9886c7f0f4e37714ad1ab6f02870d088f1d9d6aa",
+    "hsChunkBytes": 44995966
+   }
+  },
+  "months/200012.json": {
+   "sha256": "09fc253f082f1b93db8e67b1aa9a588f420bbca0058528a42f18f1baeaf14f86",
+   "bytes": 19325,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2000/FIELD_NC/LOPS_WW3-GLOB-30M_200012.nc",
+    "contentLength": 2768304212,
+    "lastModified": "Thu, 14 Jan 2021 15:41:26 GMT",
+    "hsChunksSha256": "a510e4bc62da45ce3c9a3c12ee82d409da4ecce379bf648169f563c841d2c4f2",
+    "hsChunkBytes": 47091012
+   }
+  },
+  "months/200101.json": {
+   "sha256": "328407b6472d6ab80a4f3de38a8b63bb3376373c3ac76fb3cb516814aed76543",
+   "bytes": 19253,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200101.nc",
+    "contentLength": 2806575345,
+    "lastModified": "Thu, 14 Jan 2021 15:41:44 GMT",
+    "hsChunksSha256": "f3bc2c180a0faaea3daf538af81390dede40af6b385fa162d4dc1b7606b6f7f3",
+    "hsChunkBytes": 47047857
+   }
+  },
+  "months/200102.json": {
+   "sha256": "e13c06c1ca81d07d23e07d37b7b021bf0f0e964dd7538a3ff570b98bc123c5a9",
+   "bytes": 17345,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200102.nc",
+    "contentLength": 2528822251,
+    "lastModified": "Thu, 14 Jan 2021 15:41:41 GMT",
+    "hsChunksSha256": "a2a52ac3ee921de0c2e2185f648a5b05aa72539024cbf03cee4bc6c561ffd13d",
+    "hsChunkBytes": 42586997
+   }
+  },
+  "months/200103.json": {
+   "sha256": "fe041ca736c70fc53d315033579364c29c6cd8083a339e480f997f70ffe87276",
+   "bytes": 19240,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200103.nc",
+    "contentLength": 2766362663,
+    "lastModified": "Thu, 14 Jan 2021 15:41:39 GMT",
+    "hsChunksSha256": "ab5f2f46cdf60c31eba6ad1929e4a015be7cfa50d6b8e96030676a69f13f9df7",
+    "hsChunkBytes": 46796334
+   }
+  },
+  "months/200104.json": {
+   "sha256": "c257cc5066f6dec4f2e996fe21ba1725439b0b3417fccb0b227db9ad7ff3d983",
+   "bytes": 18633,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200104.nc",
+    "contentLength": 2630943620,
+    "lastModified": "Thu, 14 Jan 2021 15:41:38 GMT",
+    "hsChunksSha256": "a1387edfed4ef31edc6106229aa5957c546196d59aec5a2e7f46f2e9fcb72116",
+    "hsChunkBytes": 45224453
+   }
+  },
+  "months/200105.json": {
+   "sha256": "8eda3ed25d37995db7dd0b314305c951e90edb08b0d9a831516c844c6d71d3ca",
+   "bytes": 19716,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200105.nc",
+    "contentLength": 2724154163,
+    "lastModified": "Thu, 14 Jan 2021 15:41:42 GMT",
+    "hsChunksSha256": "1550478ee8c3f3721d44d727aaaa1d6af60b4f72bace7e02e78b82cd5c0d048f",
+    "hsChunkBytes": 46503620
+   }
+  },
+  "months/200106.json": {
+   "sha256": "ac8bf24bd478a175b639ad2f180e81ecbd717337fd3f6bafda789b3e777280a7",
+   "bytes": 18680,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200106.nc",
+    "contentLength": 2595229717,
+    "lastModified": "Thu, 14 Jan 2021 15:41:40 GMT",
+    "hsChunksSha256": "c443500338adfd4c2341f4936dc96f85f9ac845c9fcd272b64f06d5e4d4e6cab",
+    "hsChunkBytes": 45083073
+   }
+  },
+  "months/200107.json": {
+   "sha256": "061dce04d8965b46b0ef06111729bcfdbd028dae7f3d2abee83fa2d8cc0422c3",
+   "bytes": 19484,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200107.nc",
+    "contentLength": 2705919389,
+    "lastModified": "Thu, 14 Jan 2021 15:41:45 GMT",
+    "hsChunksSha256": "d3b0116eae62a66d8dc33c5ba87fed46082fce77bf4a0bcb11f7835c467335f6",
+    "hsChunkBytes": 47052454
+   }
+  },
+  "months/200108.json": {
+   "sha256": "054065fe952509e7d9a5c5bf503709e472d9853a55e66bd328c61901e8d54e1d",
+   "bytes": 19575,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200108.nc",
+    "contentLength": 2698781928,
+    "lastModified": "Thu, 14 Jan 2021 15:41:37 GMT",
+    "hsChunksSha256": "1c33af8f5358296a5003a7d911264e270577201a6cba5a4c0cf02d5abf22679e",
+    "hsChunkBytes": 47253398
+   }
+  },
+  "months/200109.json": {
+   "sha256": "2fe47043c803495bda0c1c6ba3ab69f4d515d1278832be57cd371a16cf8648e8",
+   "bytes": 19080,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200109.nc",
+    "contentLength": 2651426970,
+    "lastModified": "Thu, 14 Jan 2021 15:41:44 GMT",
+    "hsChunksSha256": "371fe155360110790208038fa53f93a6aba9157b3e87260b7667d885b862dc8b",
+    "hsChunkBytes": 45859106
+   }
+  },
+  "months/200110.json": {
+   "sha256": "65243991b05b22893ebe712eed3741d5e0ddfee7e748f15b1480d67f8e0688c8",
+   "bytes": 19514,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200110.nc",
+    "contentLength": 2729661243,
+    "lastModified": "Thu, 14 Jan 2021 15:41:41 GMT",
+    "hsChunksSha256": "9803b733336257b1dcb40df7840e30b2c1669e1ae76db7e1fac5025ec484773a",
+    "hsChunkBytes": 46974027
+   }
+  },
+  "months/200111.json": {
+   "sha256": "64c448457158561c76e3a37c7d38baeddc81d300ad76e8308decb9b5e0fafed0",
+   "bytes": 18444,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200111.nc",
+    "contentLength": 2613572572,
+    "lastModified": "Thu, 14 Jan 2021 15:41:39 GMT",
+    "hsChunksSha256": "85d1c889675e6868c83d9fc96dee5d70a8066d45f70581563a2876b8f66e94fd",
+    "hsChunkBytes": 45193724
+   }
+  },
+  "months/200112.json": {
+   "sha256": "32ddd715e370962ccda3cc2f7164d1e633c3dd6a957932afa46031f8e77c0228",
+   "bytes": 19322,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2001/FIELD_NC/LOPS_WW3-GLOB-30M_200112.nc",
+    "contentLength": 2742642772,
+    "lastModified": "Thu, 14 Jan 2021 15:41:43 GMT",
+    "hsChunksSha256": "a2b3600bd18828679921fad0cf3d036d8f375b86a6a5ac790b805a9595c8824c",
+    "hsChunkBytes": 47004423
+   }
+  },
+  "months/200201.json": {
+   "sha256": "8660a43fa1875411688dee574666b7ccc21137f8d8f105907d271a7361f20342",
+   "bytes": 19373,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200201.nc",
+    "contentLength": 2808771237,
+    "lastModified": "Thu, 14 Jan 2021 15:41:58 GMT",
+    "hsChunksSha256": "7f71aabc092c48413b1f294a79256fa98277b89d637db80b3138adf5e3e4b1d5",
+    "hsChunkBytes": 47347032
+   }
+  },
+  "months/200202.json": {
+   "sha256": "a548fdb5cc8521a802d13d017d1a852e4fb44ae671946094515ab8fb0ef95365",
+   "bytes": 17540,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200202.nc",
+    "contentLength": 2527382084,
+    "lastModified": "Thu, 14 Jan 2021 15:41:57 GMT",
+    "hsChunksSha256": "5f9651ad4228aa758d5adc49c8e260fc4bbd6b24447cdd4afb2dd016c3a27209",
+    "hsChunkBytes": 42735288
+   }
+  },
+  "months/200203.json": {
+   "sha256": "ce1f067d4f7260b5e738b1c34bbc6bea536f2b977672adbf60af572cd12ac730",
+   "bytes": 19209,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200203.nc",
+    "contentLength": 2781944580,
+    "lastModified": "Thu, 14 Jan 2021 15:41:59 GMT",
+    "hsChunksSha256": "c807fccc20893777a40915e42239905c3e872f96a0c20bbf840957d1082bcbe3",
+    "hsChunkBytes": 47048637
+   }
+  },
+  "months/200204.json": {
+   "sha256": "a16e2bbf9452b4a33a530b1879ba5a9247dd3edb3a2cf156b17ecc7f9b79a48f",
+   "bytes": 18639,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200204.nc",
+    "contentLength": 2636060765,
+    "lastModified": "Thu, 14 Jan 2021 15:41:56 GMT",
+    "hsChunksSha256": "2c5d49a9a41969e158012ca38481745161923c7256a7847aae6dbcebc03f821e",
+    "hsChunkBytes": 45332940
+   }
+  },
+  "months/200205.json": {
+   "sha256": "d69ab97f6496dbc33018b0df04f660ec493b502fbbfe873032fad7146639e476",
+   "bytes": 19300,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200205.nc",
+    "contentLength": 2746566230,
+    "lastModified": "Thu, 14 Jan 2021 15:41:55 GMT",
+    "hsChunksSha256": "f5cca065db7abedd266cbf79f06904e0354830b1305fec5553d0871d63ebb7e5",
+    "hsChunkBytes": 46666405
+   }
+  },
+  "months/200206.json": {
+   "sha256": "53942eaf6142122d520602161b1f9117f5a49825f5f689550921c9437483e682",
+   "bytes": 18771,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200206.nc",
+    "contentLength": 2633226396,
+    "lastModified": "Thu, 14 Jan 2021 15:41:59 GMT",
+    "hsChunksSha256": "6a52cce11bf692c8ff7e60750d8120b2c907089170189a53b251a61dc04045b5",
+    "hsChunkBytes": 45327579
+   }
+  },
+  "months/200207.json": {
+   "sha256": "2b1c91b75aaa77d2482121dcb3d81789cec22572b63c2cdcc154c8a17bf8fdf5",
+   "bytes": 19551,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200207.nc",
+    "contentLength": 2703788995,
+    "lastModified": "Thu, 14 Jan 2021 15:41:54 GMT",
+    "hsChunksSha256": "1d98b2bdbf164d2248552f53052d8250e8536433bc1256b6e098931f5c8aa336",
+    "hsChunkBytes": 46865806
+   }
+  },
+  "months/200208.json": {
+   "sha256": "2eb9e21852e8c1e5556f102985aebb0b593dbbd3759bfe8b4ebee33cec1cf624",
+   "bytes": 19580,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200208.nc",
+    "contentLength": 2711724252,
+    "lastModified": "Thu, 14 Jan 2021 15:41:55 GMT",
+    "hsChunksSha256": "d31a0bed6a35514f1d56e155d31f688095e05783a0a46be1bbbe9845b8cf22ee",
+    "hsChunkBytes": 47305642
+   }
+  },
+  "months/200209.json": {
+   "sha256": "d6790d5e7703f9381f2aee2defb3ec3a78b53aa0115a05d4023e66e2e619ea27",
+   "bytes": 18794,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200209.nc",
+    "contentLength": 2667128593,
+    "lastModified": "Thu, 14 Jan 2021 15:41:58 GMT",
+    "hsChunksSha256": "67a4c49c84faa3ae3fe7f32ac8e82d202619543ce1dba25f03c2092f7a757d98",
+    "hsChunkBytes": 45949035
+   }
+  },
+  "months/200210.json": {
+   "sha256": "a08e87f6fe7055a9061bd8c88a0a390de93178893508a0177de1d97fba048a4a",
+   "bytes": 19146,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200210.nc",
+    "contentLength": 2732308232,
+    "lastModified": "Thu, 14 Jan 2021 15:41:53 GMT",
+    "hsChunksSha256": "b4d76d844c5fa57c5a034057e16f3b76dc92f201bb7b5e676f0134e528d3c4fe",
+    "hsChunkBytes": 46888406
+   }
+  },
+  "months/200211.json": {
+   "sha256": "5893141741539e9cf07b365458a2a6efd7d68837727812b0045ab4897eb828eb",
+   "bytes": 18661,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200211.nc",
+    "contentLength": 2622698706,
+    "lastModified": "Thu, 14 Jan 2021 15:42:00 GMT",
+    "hsChunksSha256": "25b749cfd4790716b07f30d0ad0b46dd94659e52fb660813fb3c14bbf79ebee9",
+    "hsChunkBytes": 45174601
+   }
+  },
+  "months/200212.json": {
+   "sha256": "f656a24ba32661e9c7e394111f95042f6d2f07cf3d7389480cc2c784bd774ae4",
+   "bytes": 19434,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2002/FIELD_NC/LOPS_WW3-GLOB-30M_200212.nc",
+    "contentLength": 2752870130,
+    "lastModified": "Thu, 14 Jan 2021 15:42:01 GMT",
+    "hsChunksSha256": "073271a16718ae602b655c6618a889abf4128a508fb18912f294091f9df80bdb",
+    "hsChunkBytes": 46882442
+   }
+  },
+  "months/200301.json": {
+   "sha256": "5d379209cf269655ceecc3ddee92e22d80694b8f3924ceac30c03feef9e85598",
+   "bytes": 19285,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200301.nc",
+    "contentLength": 2799898366,
+    "lastModified": "Thu, 14 Jan 2021 15:40:31 GMT",
+    "hsChunksSha256": "8a676d6ef7206bb6cf09a06c2241009b785efd9760134d0adfdaa764a3b6c71c",
+    "hsChunkBytes": 47152879
+   }
+  },
+  "months/200302.json": {
+   "sha256": "c342dfd5c5c846d91014cecb417a848568d9092a362f2afdda02fc399ea23b5c",
+   "bytes": 17376,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200302.nc",
+    "contentLength": 2509277789,
+    "lastModified": "Thu, 14 Jan 2021 15:40:29 GMT",
+    "hsChunksSha256": "e9196a6540dd2008770faa7bd88f1673df5cb7c2acdde06ef01669745fdb72dd",
+    "hsChunkBytes": 42594504
+   }
+  },
+  "months/200303.json": {
+   "sha256": "de27aa4a72327a1c0f0eea55661908d4a086f44c0fa4abc4f5efa78506fdff5b",
+   "bytes": 19254,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200303.nc",
+    "contentLength": 2793893294,
+    "lastModified": "Thu, 14 Jan 2021 15:40:27 GMT",
+    "hsChunksSha256": "35fcd895f98f9b7de4c25dfdf5eb8596cc597d121b55cd6cbc0c84d0f8b90c88",
+    "hsChunkBytes": 46935007
+   }
+  },
+  "months/200304.json": {
+   "sha256": "c60e45fc17cd5af2d13f310b84f5756c60f391364a991207c4932d78a77aa622",
+   "bytes": 18655,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200304.nc",
+    "contentLength": 2640574919,
+    "lastModified": "Thu, 14 Jan 2021 15:40:25 GMT",
+    "hsChunksSha256": "bcfeb235fa79c108f88d10ff82d1980580808864aa71c872e861faee0beba7d8",
+    "hsChunkBytes": 45168952
+   }
+  },
+  "months/200305.json": {
+   "sha256": "b7f388bfcd2932d71fffa543a81d47fe7627fd9c6213c5d1af5f3bb2221ea858",
+   "bytes": 19429,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200305.nc",
+    "contentLength": 2687413788,
+    "lastModified": "Thu, 14 Jan 2021 15:40:29 GMT",
+    "hsChunksSha256": "2728976a2f7aa32902f515dcfb0423cccd4429aec7bfab38efe1844cb4bcfc9a",
+    "hsChunkBytes": 46560495
+   }
+  },
+  "months/200306.json": {
+   "sha256": "5f8fd9a59c3eb1df0bafa513fef6456b5a54f5a356f0492f2f1d9d1ab7a62ae3",
+   "bytes": 18805,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200306.nc",
+    "contentLength": 2641081145,
+    "lastModified": "Thu, 14 Jan 2021 15:40:27 GMT",
+    "hsChunksSha256": "014bc0dbe1feb17c8242dfcf85ad3d1b7441f672490c5695210fbdb0c8a29211",
+    "hsChunkBytes": 44966539
+   }
+  },
+  "months/200307.json": {
+   "sha256": "982cef359ba659d5b7eb8fe14ddf485d6407c0700ae2676ba90630dbdb397002",
+   "bytes": 19435,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200307.nc",
+    "contentLength": 2652848912,
+    "lastModified": "Thu, 14 Jan 2021 15:40:31 GMT",
+    "hsChunksSha256": "30bfd2d2b490a0c5b3a744705e3790c1cf251a3de525c687fac87cbfc56b113f",
+    "hsChunkBytes": 46887966
+   }
+  },
+  "months/200308.json": {
+   "sha256": "ed039fa5069d0300d168d71f2ef419438d1ffab169ad6018b7c18d2f42c70dba",
+   "bytes": 19439,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200308.nc",
+    "contentLength": 2727939349,
+    "lastModified": "Thu, 14 Jan 2021 15:40:26 GMT",
+    "hsChunksSha256": "6299d74cf23f1e5be75e60813791287bd4a831df7623443d738fc01dba0b837c",
+    "hsChunkBytes": 47261756
+   }
+  },
+  "months/200309.json": {
+   "sha256": "785f5bb38679ddc1409dfd8edaf730d09ff6c59f49e9294ca104ac5076d5452b",
+   "bytes": 18770,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200309.nc",
+    "contentLength": 2667507046,
+    "lastModified": "Thu, 14 Jan 2021 15:40:25 GMT",
+    "hsChunksSha256": "0827c58c361d0e807a90dfcd293aa3d6549cfc54d9d6a9c0318060cfe8580bcf",
+    "hsChunkBytes": 46005247
+   }
+  },
+  "months/200310.json": {
+   "sha256": "b91a22a3b15e29f816433942f440aee61f211889f101e051a02eb817bb8a7755",
+   "bytes": 19203,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200310.nc",
+    "contentLength": 2725425474,
+    "lastModified": "Thu, 14 Jan 2021 15:40:32 GMT",
+    "hsChunksSha256": "7f9c2474d38fbc57e7fba7d63c291607020cb4770541f177e73c2ad13f20e713",
+    "hsChunkBytes": 46926520
+   }
+  },
+  "months/200311.json": {
+   "sha256": "4796f3ed6daeafbe6947b92e70679ee8f6f479d799468a537002e00a014bbdc4",
+   "bytes": 18793,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200311.nc",
+    "contentLength": 2622355494,
+    "lastModified": "Thu, 14 Jan 2021 15:40:30 GMT",
+    "hsChunksSha256": "8976a838cd840e7bdc65bf1258b07f062e02d314f577b5ebb8a833d53aaedb40",
+    "hsChunkBytes": 45194257
+   }
+  },
+  "months/200312.json": {
+   "sha256": "067e426aca6f4366cc119f1282bd7b23fd590eca635560d9b7c0a50e1d455b5d",
+   "bytes": 19247,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2003/FIELD_NC/LOPS_WW3-GLOB-30M_200312.nc",
+    "contentLength": 2772194932,
+    "lastModified": "Thu, 14 Jan 2021 15:40:28 GMT",
+    "hsChunksSha256": "5df2e9bda22116435e24a5588142565e1193bc442bf6cc76ab4a33dba66b2797",
+    "hsChunkBytes": 46866195
+   }
+  },
+  "months/200401.json": {
+   "sha256": "b7a886e57ded7dda83c3820e3a6dec3fed0ae64c18ff45e4141f00523ddbda56",
+   "bytes": 19293,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200401.nc",
+    "contentLength": 2774483318,
+    "lastModified": "Thu, 14 Jan 2021 15:40:42 GMT",
+    "hsChunksSha256": "9ad282f74323c702295d31ba1d69bf12d2342704cbc602fd685c1af489643d0c",
+    "hsChunkBytes": 46891775
+   }
+  },
+  "months/200402.json": {
+   "sha256": "6f7417b47a2df31118bd70909a93671e4902081db18d4e9c4a4033cdedc7bbdf",
+   "bytes": 18078,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200402.nc",
+    "contentLength": 2598056159,
+    "lastModified": "Thu, 14 Jan 2021 15:40:42 GMT",
+    "hsChunksSha256": "054e0e58a6ce9ffc9b6ac507fd19675dc53d1ab8d18e41761290b0a3a8138d4d",
+    "hsChunkBytes": 44001143
+   }
+  },
+  "months/200403.json": {
+   "sha256": "056f728185dc39aec607fac042d7ebdb17da5043240bbe02c96983364d67a7ab",
+   "bytes": 19390,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200403.nc",
+    "contentLength": 2771860049,
+    "lastModified": "Thu, 14 Jan 2021 15:40:44 GMT",
+    "hsChunksSha256": "4cd00048d0492824531e4bd0330ad7df64c1115aa2f8b44c9b094d101d138bf4",
+    "hsChunkBytes": 46970700
+   }
+  },
+  "months/200404.json": {
+   "sha256": "8c4a5d237d80b39aaf07d47c3d210f90a1d1fc9dc83e487604b1f917f710c9e7",
+   "bytes": 18528,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200404.nc",
+    "contentLength": 2639597302,
+    "lastModified": "Thu, 14 Jan 2021 15:40:46 GMT",
+    "hsChunksSha256": "7d7a3f19e91a638512abdefaa429a209fb86d3355c7ee2078fcadafee4ff9277",
+    "hsChunkBytes": 45253286
+   }
+  },
+  "months/200405.json": {
+   "sha256": "70096f6983511466b8dcbdddda521be9b88b640483a0311623d56d92e9cfd12d",
+   "bytes": 19399,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200405.nc",
+    "contentLength": 2711081782,
+    "lastModified": "Thu, 14 Jan 2021 15:40:46 GMT",
+    "hsChunksSha256": "ab82bcbe15eb20718ca276fe853d82ed7fa9672a9d90319c65ed372728b19866",
+    "hsChunkBytes": 46652719
+   }
+  },
+  "months/200406.json": {
+   "sha256": "4f61e7fbaffcb21028e0be59ef5457f613f35521834aa32e270e65dcc8816540",
+   "bytes": 18551,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200406.nc",
+    "contentLength": 2584149343,
+    "lastModified": "Thu, 14 Jan 2021 15:40:45 GMT",
+    "hsChunksSha256": "f377e1e23091875979eedee0a64252f9fcf9fbd9e294e994969103b2f352c8f7",
+    "hsChunkBytes": 45106241
+   }
+  },
+  "months/200407.json": {
+   "sha256": "76bbf1875c67bc169bf9c9670d8d244f97891d8045487796714e7e208b01026d",
+   "bytes": 19530,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200407.nc",
+    "contentLength": 2699668991,
+    "lastModified": "Thu, 14 Jan 2021 15:40:41 GMT",
+    "hsChunksSha256": "89ac9e69e4172c61bc7ea6039855f4b0a36c264bf81f464b55979eded73167bb",
+    "hsChunkBytes": 46649449
+   }
+  },
+  "months/200408.json": {
+   "sha256": "f734b7f701e02c52dd6903891f59e616672d671c95da3dd837aed28a05771ddd",
+   "bytes": 19668,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200408.nc",
+    "contentLength": 2731342941,
+    "lastModified": "Thu, 14 Jan 2021 15:40:45 GMT",
+    "hsChunksSha256": "d20eb4f05a80ca43e376e13d47439d81e96016bf9a8ecdbbb624bcb9b5fde45a",
+    "hsChunkBytes": 47326995
+   }
+  },
+  "months/200409.json": {
+   "sha256": "493bfce2d0753fb35c69dbe95af392997b0994a0506ee00b878fc8e2d38c916a",
+   "bytes": 18768,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200409.nc",
+    "contentLength": 2662784778,
+    "lastModified": "Thu, 14 Jan 2021 15:40:47 GMT",
+    "hsChunksSha256": "481841498fe5ab54b4c29226e17a10fa1c594038dd83f173073038160481e719",
+    "hsChunkBytes": 45889101
+   }
+  },
+  "months/200410.json": {
+   "sha256": "89869345dce6e074077daa2c57f3bf14926275e7038a82bdb151e172101a3e5b",
+   "bytes": 19509,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200410.nc",
+    "contentLength": 2703153364,
+    "lastModified": "Thu, 14 Jan 2021 15:40:48 GMT",
+    "hsChunksSha256": "7f5be7ed98b671263fe61831f5dbb8886c98e7e35fa74e9a9eb69ca300a9c7cf",
+    "hsChunkBytes": 46950763
+   }
+  },
+  "months/200411.json": {
+   "sha256": "6e0fdf710e7e85100182dca89dd366201464a0d0d68d9eadec6a72fcdb953236",
+   "bytes": 18756,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200411.nc",
+    "contentLength": 2608592373,
+    "lastModified": "Thu, 14 Jan 2021 15:40:43 GMT",
+    "hsChunksSha256": "db13e0eb99c8e247204e17c72b616acf62a58ce2a113676ba1d6eb54b8478933",
+    "hsChunkBytes": 44890079
+   }
+  },
+  "months/200412.json": {
+   "sha256": "456f8ffd623bc4e4fdaec261022179997a62510e191e852d7ee43f8b318bcabc",
+   "bytes": 19208,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2004/FIELD_NC/LOPS_WW3-GLOB-30M_200412.nc",
+    "contentLength": 2762679647,
+    "lastModified": "Thu, 14 Jan 2021 15:40:43 GMT",
+    "hsChunksSha256": "e5dd8d2ed9634808d02829890d49ef268e88483fa67ab2a324c35ccd99683def",
+    "hsChunkBytes": 47077965
+   }
+  },
+  "months/200501.json": {
+   "sha256": "36d8450695492fed3ba9600f9a4489eecd78c5aa3446a95fccf6323d5b20ca9f",
+   "bytes": 19269,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200501.nc",
+    "contentLength": 2806421127,
+    "lastModified": "Thu, 14 Jan 2021 15:41:01 GMT",
+    "hsChunksSha256": "8c703f360f12cd34535e13df7d4b2fcdaf6508cd8914889f32b30de0348f6ac3",
+    "hsChunkBytes": 47427771
+   }
+  },
+  "months/200502.json": {
+   "sha256": "81dd867a33951ee8c7e0ad645d8ee4c2dd393935225e4c8d37a022957e10e6a4",
+   "bytes": 17385,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200502.nc",
+    "contentLength": 2521394310,
+    "lastModified": "Thu, 14 Jan 2021 15:40:59 GMT",
+    "hsChunksSha256": "f740e1537a9050fa0aa6e292d7227fac69464cc20db7ebeb43f3a3968e0dfb30",
+    "hsChunkBytes": 42694917
+   }
+  },
+  "months/200503.json": {
+   "sha256": "0ef7bf58b8d95db28196ebe9deca0ec494fe41e64895b2387a36bc9fe60c354a",
+   "bytes": 19262,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200503.nc",
+    "contentLength": 2791842617,
+    "lastModified": "Thu, 14 Jan 2021 15:41:02 GMT",
+    "hsChunksSha256": "f8de430a080490a7631158da48cefabcfbcea27f5db99277116be862a9afd3cf",
+    "hsChunkBytes": 47087694
+   }
+  },
+  "months/200504.json": {
+   "sha256": "c4c50774effc22d86230c0fda08fc8797ca4084a184f51b38c50829df28b4cb6",
+   "bytes": 18609,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200504.nc",
+    "contentLength": 2650053534,
+    "lastModified": "Thu, 14 Jan 2021 15:40:58 GMT",
+    "hsChunksSha256": "94f40944f61f9621e8e316653c32fc585d4dc996c9434403b981c5792328cf2c",
+    "hsChunkBytes": 45414918
+   }
+  },
+  "months/200505.json": {
+   "sha256": "4a7832680f102a4c482aa12eda6318efb085db7040eff02aac91fedadc81ef5e",
+   "bytes": 19124,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200505.nc",
+    "contentLength": 2746181496,
+    "lastModified": "Thu, 14 Jan 2021 15:41:00 GMT",
+    "hsChunksSha256": "b541ff7a07cda520a744bbc50597a8f4c5c2a3f29f9d297a11ec00757eb26c1a",
+    "hsChunkBytes": 46678546
+   }
+  },
+  "months/200506.json": {
+   "sha256": "de3c5a2c522b49701f6bd2fc0ac37bfb13186cbc53208ebca490320b62e91c29",
+   "bytes": 18640,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200506.nc",
+    "contentLength": 2635709226,
+    "lastModified": "Thu, 14 Jan 2021 15:41:00 GMT",
+    "hsChunksSha256": "22ff2ac4ab03d9e4a55b73ff5590876d7534b3bace7fc95c110e2540d8ee04e4",
+    "hsChunkBytes": 45132252
+   }
+  },
+  "months/200507.json": {
+   "sha256": "dc9352aabbaa7253ec5f56f1f1317b18e372c42d8589191304e69db3f881de39",
+   "bytes": 19498,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200507.nc",
+    "contentLength": 2684901700,
+    "lastModified": "Thu, 14 Jan 2021 15:41:01 GMT",
+    "hsChunksSha256": "c14cdc705a6b5d1002dcca82da9b0d91d9bc3c2aa66dc52993dd5f0def50f4fe",
+    "hsChunkBytes": 47081192
+   }
+  },
+  "months/200508.json": {
+   "sha256": "4c3f2dc2d5814cf3aada66718703ed1ef3b7913889094885a2b691ee56d56331",
+   "bytes": 19487,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200508.nc",
+    "contentLength": 2755149503,
+    "lastModified": "Thu, 14 Jan 2021 15:41:03 GMT",
+    "hsChunksSha256": "35d9bc78c1c5930ab305b48d957a59163cf6eb853b5c7c5f8f168eb9c8d62e93",
+    "hsChunkBytes": 47518956
+   }
+  },
+  "months/200509.json": {
+   "sha256": "e63c16a677609356cff5eaf76ce55566aac81461d23d7fb46db050e69c81f8c3",
+   "bytes": 19171,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200509.nc",
+    "contentLength": 2643821606,
+    "lastModified": "Thu, 14 Jan 2021 15:41:03 GMT",
+    "hsChunksSha256": "42211641f3bb057ef0c89db7a911a15dbb901cb0a87b7bd49a2ed2aae46df2bb",
+    "hsChunkBytes": 46108737
+   }
+  },
+  "months/200510.json": {
+   "sha256": "cfeca9b154260ed317ba3b24dfc209e3e28aad1c3fbdbc508f0cf1d95b777fd7",
+   "bytes": 19401,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200510.nc",
+    "contentLength": 2716481667,
+    "lastModified": "Thu, 14 Jan 2021 15:40:57 GMT",
+    "hsChunksSha256": "dd372a3fa5ef5f850d77998a5c46a93a5a9877ae7524f53d870ef36a61e5513a",
+    "hsChunkBytes": 47322284
+   }
+  },
+  "months/200511.json": {
+   "sha256": "d72a97ad98c5caa279f085c22e8e84b1a29a89123b21e313d285fd7a8d9ea891",
+   "bytes": 18539,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200511.nc",
+    "contentLength": 2631038127,
+    "lastModified": "Thu, 14 Jan 2021 15:40:58 GMT",
+    "hsChunksSha256": "9b5f329c52a11567cf6e9818d3986b4218ee3c6a51e7127ee391f33ff54b9ce6",
+    "hsChunkBytes": 45084848
+   }
+  },
+  "months/200512.json": {
+   "sha256": "84b3b0fa71a5ba11e5fa3acb908ba2cd5c3b0fa47120939ad48c394fb70faaed",
+   "bytes": 19140,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2005/FIELD_NC/LOPS_WW3-GLOB-30M_200512.nc",
+    "contentLength": 2783944602,
+    "lastModified": "Thu, 14 Jan 2021 15:40:56 GMT",
+    "hsChunksSha256": "74f2e541bed49c4568e0c07ab2ca709637dbe99bae8981716b12151a7e034be6",
+    "hsChunkBytes": 46933864
+   }
+  },
+  "months/200601.json": {
+   "sha256": "11ad42960b0d59b84885e6baf2abf74bef0c9069503a3a9f1a11a50f911a986d",
+   "bytes": 19107,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200601.nc",
+    "contentLength": 2782708867,
+    "lastModified": "Thu, 14 Jan 2021 15:41:11 GMT",
+    "hsChunksSha256": "270b7a419e309f1ee3421813c662ede33af654f801a61029ca8d19d713dba52a",
+    "hsChunkBytes": 47456234
+   }
+  },
+  "months/200602.json": {
+   "sha256": "040feb9cd69fc93584661dd5a3f62aae5e9ec1fa2e5fe8ea2f156a61afcfabec",
+   "bytes": 17437,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200602.nc",
+    "contentLength": 2523811721,
+    "lastModified": "Thu, 14 Jan 2021 15:41:08 GMT",
+    "hsChunksSha256": "8ac5b3c73b7d34cf3816d87f5f78866a83d0020eabdb200186492ea1a3b8b58c",
+    "hsChunkBytes": 42709573
+   }
+  },
+  "months/200603.json": {
+   "sha256": "0ed11fad41cb143f24ea1814e5e05ce009579302f0f2d95902d0b0b353fbf46e",
+   "bytes": 19305,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200603.nc",
+    "contentLength": 2788921889,
+    "lastModified": "Thu, 14 Jan 2021 15:41:07 GMT",
+    "hsChunksSha256": "58e72a28de25298e8675c989902e21c6d18edbc4e76ec85e33def42cf60789bc",
+    "hsChunkBytes": 47171259
+   }
+  },
+  "months/200604.json": {
+   "sha256": "8bcd9bcdf07ba1722e77170f11dd7f52c710edc42b4648a6a44bda3f307ad559",
+   "bytes": 18641,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200604.nc",
+    "contentLength": 2679272625,
+    "lastModified": "Thu, 14 Jan 2021 15:41:11 GMT",
+    "hsChunksSha256": "e032330f0506162ebe57470fce23088057e3e19e4ea549e3b92f151c0e2f7205",
+    "hsChunkBytes": 45532138
+   }
+  },
+  "months/200605.json": {
+   "sha256": "fad884d6851516f58b73f27ca30f3a4b03cad09f62e86ba14688f845cd28f426",
+   "bytes": 19309,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200605.nc",
+    "contentLength": 2731778118,
+    "lastModified": "Thu, 14 Jan 2021 15:41:08 GMT",
+    "hsChunksSha256": "fee2bd661106bda4ebfe9ad609c0cedf3ece52448ed8c044efb545cb62992ef3",
+    "hsChunkBytes": 46833306
+   }
+  },
+  "months/200606.json": {
+   "sha256": "e4e2c585ac4da52261208aff8a378d3b20490882c58d5a861663ca505a330784",
+   "bytes": 18972,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200606.nc",
+    "contentLength": 2599932319,
+    "lastModified": "Thu, 14 Jan 2021 15:41:10 GMT",
+    "hsChunksSha256": "2e8a00492d297e146792cc06b27e12c4563d7fc91dda7926ae4c6da99179f4d9",
+    "hsChunkBytes": 45376756
+   }
+  },
+  "months/200607.json": {
+   "sha256": "9256f1d12ed75dcef567e27ca3b2f6d378e78ee7ffc3da086e8fd175d8c634f1",
+   "bytes": 19435,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200607.nc",
+    "contentLength": 2694867767,
+    "lastModified": "Thu, 14 Jan 2021 15:41:05 GMT",
+    "hsChunksSha256": "35edef75f0eb55f68b697c79c4f75ba60aae413a444a0510c35427f55a4f6373",
+    "hsChunkBytes": 47281151
+   }
+  },
+  "months/200608.json": {
+   "sha256": "53167b4f16867a420a967a3e26d7e07de5e01ccb1734d76bd1fad9e029cfacf2",
+   "bytes": 19623,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200608.nc",
+    "contentLength": 2731876358,
+    "lastModified": "Thu, 14 Jan 2021 15:41:05 GMT",
+    "hsChunksSha256": "7d39726adef00df3f344d7100d834a2e4e10ec0a576d257ee889e1ce5f92b751",
+    "hsChunkBytes": 47338576
+   }
+  },
+  "months/200609.json": {
+   "sha256": "794bfecfcffe656e157870f0d40ff8a3c835085dab3a7dcdb050d43dd54a8dd6",
+   "bytes": 19112,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200609.nc",
+    "contentLength": 2655029334,
+    "lastModified": "Thu, 14 Jan 2021 15:41:06 GMT",
+    "hsChunksSha256": "a709d7f3b78ebe863ffce7d17d6a2ce1d9d6fc1d112362c59a3c91bc2d2eda5e",
+    "hsChunkBytes": 46253985
+   }
+  },
+  "months/200610.json": {
+   "sha256": "0e71b908b322d4a5d655cebe01cf50ebba0d11f35c688baa9d7e28c3112586e2",
+   "bytes": 19362,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200610.nc",
+    "contentLength": 2706478519,
+    "lastModified": "Thu, 14 Jan 2021 15:41:12 GMT",
+    "hsChunksSha256": "abfcd579ce22b78627b0221419dea82027a4ee6941dbe35d41e2414d5a5d1756",
+    "hsChunkBytes": 47161668
+   }
+  },
+  "months/200611.json": {
+   "sha256": "22088d3e64df0cafaa7955e1cd88d0e7c6910f709f19d14764fa667eb4ee27d7",
+   "bytes": 18761,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200611.nc",
+    "contentLength": 2598962564,
+    "lastModified": "Thu, 14 Jan 2021 15:41:09 GMT",
+    "hsChunksSha256": "356e7cbe7d277ede203c2ab9fd30080ef1e9641175ceceb403ec5364ee981558",
+    "hsChunkBytes": 45182307
+   }
+  },
+  "months/200612.json": {
+   "sha256": "f8c6eaaeef405d5ebeaea1edaf84b235ce1903b582880d4d2baab01e5c9dc91f",
+   "bytes": 19188,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2006/FIELD_NC/LOPS_WW3-GLOB-30M_200612.nc",
+    "contentLength": 2749155907,
+    "lastModified": "Thu, 14 Jan 2021 15:41:04 GMT",
+    "hsChunksSha256": "0b8c8c88b192612b1ca0b9fd44013ee7e15f93d9275351e992d256ec13493e83",
+    "hsChunkBytes": 47285139
+   }
+  },
+  "months/200701.json": {
+   "sha256": "ce13a99f3bbf90c8fea60084a619f1008234c08e6c0eca4802cbc52e6ccc4a93",
+   "bytes": 19302,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200701.nc",
+    "contentLength": 2764605688,
+    "lastModified": "Thu, 14 Jan 2021 15:43:39 GMT",
+    "hsChunksSha256": "babb6c83298d29ef7c4ac07869eaaa91e9aa20ad5c3034c2af93368ec357cb68",
+    "hsChunkBytes": 47345325
+   }
+  },
+  "months/200702.json": {
+   "sha256": "c8c73d626fe027fd030693247bbed9721ffea895078e29ef7933f0d97394317f",
+   "bytes": 17527,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200702.nc",
+    "contentLength": 2536306848,
+    "lastModified": "Thu, 14 Jan 2021 15:43:37 GMT",
+    "hsChunksSha256": "e8bbf4e83fe482e48678bf7bb2744ed36f1fef5e39c4e154686717c46e552951",
+    "hsChunkBytes": 42777863
+   }
+  },
+  "months/200703.json": {
+   "sha256": "7c591289c08fbd914f0cd4efa37ab24cc759764bc49093b934165cc83ff378e6",
+   "bytes": 19197,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200703.nc",
+    "contentLength": 2793973132,
+    "lastModified": "Thu, 14 Jan 2021 15:43:44 GMT",
+    "hsChunksSha256": "6257286bfa31f1e99a0af30e1395424441a21316c0f1c0bb4dcfbbf18b081813",
+    "hsChunkBytes": 47419546
+   }
+  },
+  "months/200704.json": {
+   "sha256": "82384efbdc8d017c2d4bc4fb37490fd9fdbe57620d73cba76be2222b49ae0167",
+   "bytes": 18500,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200704.nc",
+    "contentLength": 2664348282,
+    "lastModified": "Thu, 14 Jan 2021 15:43:42 GMT",
+    "hsChunksSha256": "eafa97b149d5c18467e744b53c47cd42c5e30c5a19bd1079de10108e52f3be40",
+    "hsChunkBytes": 45573137
+   }
+  },
+  "months/200705.json": {
+   "sha256": "c0a0db26ef584ace436a433850c69473a07d5ff9afd3df46327d33c9c97ed09a",
+   "bytes": 19336,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200705.nc",
+    "contentLength": 2727162269,
+    "lastModified": "Thu, 14 Jan 2021 15:43:41 GMT",
+    "hsChunksSha256": "ffb9eb5d056e0dcf20db469eb9b0ac5cb149b98c8550e8ed9b1989d84619dfa3",
+    "hsChunkBytes": 46723817
+   }
+  },
+  "months/200706.json": {
+   "sha256": "6035f360cd756a52d0e79fece4cd1b3bf65be5c62d93c7282216abac7aadfe8f",
+   "bytes": 18668,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200706.nc",
+    "contentLength": 2613780123,
+    "lastModified": "Thu, 14 Jan 2021 15:43:44 GMT",
+    "hsChunksSha256": "a1e9ad73816d6259fe21550a6b635f79443b43b4d1f907a92ae09036aa07c5fe",
+    "hsChunkBytes": 45399195
+   }
+  },
+  "months/200707.json": {
+   "sha256": "dd29aba216520add60cb02d1e15b0f79c744f1eabd474848daa0a56161f1fdb6",
+   "bytes": 19575,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200707.nc",
+    "contentLength": 2724481048,
+    "lastModified": "Thu, 14 Jan 2021 15:43:43 GMT",
+    "hsChunksSha256": "817bc31f2410c550f1d161a3f650435e6726ac8ca5f29f483188fa5b112efc8b",
+    "hsChunkBytes": 47213062
+   }
+  },
+  "months/200708.json": {
+   "sha256": "5686ea7b7f1ebb63957fd132b0f7762a794fb54abebe50c29915d0c7c5d12f37",
+   "bytes": 19652,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200708.nc",
+    "contentLength": 2736944958,
+    "lastModified": "Thu, 14 Jan 2021 15:43:45 GMT",
+    "hsChunksSha256": "9dc83374d1db24a2e3d93fc3d8633934d58875fd35e9bf775e0f5af8f2748bbf",
+    "hsChunkBytes": 47719526
+   }
+  },
+  "months/200709.json": {
+   "sha256": "b611b0f379b0c52527e3705b612276e7195250d045133c45e274a905996ca88c",
+   "bytes": 19149,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200709.nc",
+    "contentLength": 2667357579,
+    "lastModified": "Thu, 14 Jan 2021 15:43:40 GMT",
+    "hsChunksSha256": "d60ed9716d6e78779a80600e498fe462ceaac108c59d04584c7e92e6b1a8f10c",
+    "hsChunkBytes": 46470707
+   }
+  },
+  "months/200710.json": {
+   "sha256": "2369183462b59d38a198ff15fa43a38f0afbbbc2328b003e88afbc822b8f0c21",
+   "bytes": 19330,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200710.nc",
+    "contentLength": 2741753252,
+    "lastModified": "Thu, 14 Jan 2021 15:43:41 GMT",
+    "hsChunksSha256": "ef197c1bdc0981ee73185703e049c5be4727aa1ca04e63b90a331205ed84d63f",
+    "hsChunkBytes": 47777651
+   }
+  },
+  "months/200711.json": {
+   "sha256": "cf087d8786730613fb96a47c2c55ebee56e58b9824d928281229ff850d33853b",
+   "bytes": 18877,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200711.nc",
+    "contentLength": 2631978860,
+    "lastModified": "Thu, 14 Jan 2021 15:43:38 GMT",
+    "hsChunksSha256": "224888f873397226cdd7ca03c7ed1922be6de51d6cdc3fac1c838ccf092c1d3a",
+    "hsChunkBytes": 45421286
+   }
+  },
+  "months/200712.json": {
+   "sha256": "f1ce9cfae7e769a0c447435a1065c312949d43b07835139d59f160fff40c17d1",
+   "bytes": 19178,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2007/FIELD_NC/LOPS_WW3-GLOB-30M_200712.nc",
+    "contentLength": 2737790281,
+    "lastModified": "Thu, 14 Jan 2021 15:43:39 GMT",
+    "hsChunksSha256": "0a7391ba4f1b8f6d454793d15260217023e2c93d5a9878193040932c122004af",
+    "hsChunkBytes": 47109173
+   }
+  },
+  "months/200801.json": {
+   "sha256": "ca493079301c3d6397d0efc7530c99c3b5527a5a848c8bb36f4880cf29cc689e",
+   "bytes": 19305,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200801.nc",
+    "contentLength": 2762819099,
+    "lastModified": "Thu, 14 Jan 2021 15:43:53 GMT",
+    "hsChunksSha256": "cb3d7d91583f4dfb15d1d8e4367ba92b5312ba5198fd927391cb16eb7f5c2a21",
+    "hsChunkBytes": 47280594
+   }
+  },
+  "months/200802.json": {
+   "sha256": "9a9cf1175c075ce2dc9ff0a3ed14d669cc7112d19d4c2ffe20cf007d6477eea8",
+   "bytes": 18206,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200802.nc",
+    "contentLength": 2617589980,
+    "lastModified": "Thu, 14 Jan 2021 15:43:49 GMT",
+    "hsChunksSha256": "cb3b8a71c62ebfaf47a2e4afe9677b1780fcb75a53d13231046806b5db6703ba",
+    "hsChunkBytes": 44504107
+   }
+  },
+  "months/200803.json": {
+   "sha256": "c4d515e41566c19941e9e0283b39aaa001cf8539571636747c118c6861ed4cd9",
+   "bytes": 19220,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200803.nc",
+    "contentLength": 2748391534,
+    "lastModified": "Thu, 14 Jan 2021 15:43:48 GMT",
+    "hsChunksSha256": "879d092f286f32ccdc226e94f826da9d5c9d0179b7626bbb1c0b6ccd8c3fafff",
+    "hsChunkBytes": 46851509
+   }
+  },
+  "months/200804.json": {
+   "sha256": "71689777661b835ebe9a6170cde3ffd2e49a0d1fdc0e48011ca2d3c80c77f49e",
+   "bytes": 18739,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200804.nc",
+    "contentLength": 2648920626,
+    "lastModified": "Thu, 14 Jan 2021 15:43:48 GMT",
+    "hsChunksSha256": "da6816b095b9de961b18f2d2117e9f8f79a52a75d6e8c06942a3fb6115f31b5c",
+    "hsChunkBytes": 45222783
+   }
+  },
+  "months/200805.json": {
+   "sha256": "d8208984a257ee57d76612e116495c6cd3a0d40e6a8ae3bc8a2a3f94cc41eaa1",
+   "bytes": 19286,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200805.nc",
+    "contentLength": 2755867611,
+    "lastModified": "Thu, 14 Jan 2021 15:43:52 GMT",
+    "hsChunksSha256": "7731b4d1079e626917dc480c40f5476d9a0b221e1007d528c3f1dd5a75313c3e",
+    "hsChunkBytes": 46592279
+   }
+  },
+  "months/200806.json": {
+   "sha256": "64c5772c27d2b92f769537198068923b6bded43b9c12741cb5783e78f1bffb46",
+   "bytes": 18947,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200806.nc",
+    "contentLength": 2588437728,
+    "lastModified": "Thu, 14 Jan 2021 15:43:50 GMT",
+    "hsChunksSha256": "802b452829d9a3af5d04b33c88be80c526931e35773a37d458d69bea44650ecf",
+    "hsChunkBytes": 45359908
+   }
+  },
+  "months/200807.json": {
+   "sha256": "c0716a142d599a3324627df2b7b64a5250a1b943c6b7a259fba4c9aecc77a088",
+   "bytes": 19362,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200807.nc",
+    "contentLength": 2717224096,
+    "lastModified": "Thu, 14 Jan 2021 15:43:50 GMT",
+    "hsChunksSha256": "8e21580ed56597339432532836f6d379bf01f5a0c6828784325692366f4e744c",
+    "hsChunkBytes": 47144035
+   }
+  },
+  "months/200808.json": {
+   "sha256": "ecea2a57709252b2e599193d8bfa4943206b1b2d76e9daf9f8b5f774365db119",
+   "bytes": 19560,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200808.nc",
+    "contentLength": 2750043172,
+    "lastModified": "Thu, 14 Jan 2021 15:43:46 GMT",
+    "hsChunksSha256": "8dc42003cec2eafa3a46bf6362ccb36cb322584690b37c15f85abdac55a46edc",
+    "hsChunkBytes": 47498177
+   }
+  },
+  "months/200809.json": {
+   "sha256": "b87e199faadc1ae933bf8dc66e92527b0171894105e90c50519692c992dd5331",
+   "bytes": 18894,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200809.nc",
+    "contentLength": 2663938981,
+    "lastModified": "Thu, 14 Jan 2021 15:43:51 GMT",
+    "hsChunksSha256": "bc7669e1b9365f8e7f7f9053a0e27748ef643b414654fc56a2e082a0e15475fb",
+    "hsChunkBytes": 46379347
+   }
+  },
+  "months/200810.json": {
+   "sha256": "2cd0a82d161a0d594563fe7f826c7549b28c6c2296e20c8082d8ecc9a059ee58",
+   "bytes": 19476,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200810.nc",
+    "contentLength": 2697289958,
+    "lastModified": "Thu, 14 Jan 2021 15:43:46 GMT",
+    "hsChunksSha256": "c2f5d6189b3e7fb3332cf6bb61506746d0d2cbb24e41cced225039fe9c4bc799",
+    "hsChunkBytes": 47288657
+   }
+  },
+  "months/200811.json": {
+   "sha256": "5b57b49df990cbaad9a998df6dfd08cdbbc1e733b167984ea3e1bcf289e8ebb9",
+   "bytes": 18842,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200811.nc",
+    "contentLength": 2599244375,
+    "lastModified": "Thu, 14 Jan 2021 15:43:52 GMT",
+    "hsChunksSha256": "f546e46cfe21b96f447185c14019e517e02556674097bef58e936e3bd462422c",
+    "hsChunkBytes": 45106336
+   }
+  },
+  "months/200812.json": {
+   "sha256": "9ea78fb9142ec7563c13683c2f5d72ae50ddd80146972ce6d2f78e58b9795118",
+   "bytes": 19234,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2008/FIELD_NC/LOPS_WW3-GLOB-30M_200812.nc",
+    "contentLength": 2742163760,
+    "lastModified": "Thu, 14 Jan 2021 15:43:47 GMT",
+    "hsChunksSha256": "e0270748390aedbfed4bc2c5470490989878afac2a4a26af5a027de3daa57fa7",
+    "hsChunkBytes": 47036535
+   }
+  },
+  "months/200901.json": {
+   "sha256": "ee69232d4450991ac4a234b33a7c7848b24eecadc2d3dbedfeace8005c967c35",
+   "bytes": 19359,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200901.nc",
+    "contentLength": 2788560842,
+    "lastModified": "Thu, 14 Jan 2021 15:43:54 GMT",
+    "hsChunksSha256": "2aac6fb29cb540c4696ed51ca80de0c2dc483ffd515292f7746545cced98b2ee",
+    "hsChunkBytes": 47242013
+   }
+  },
+  "months/200902.json": {
+   "sha256": "39b31fef9402e5cc7ab850529e9f9cfd97c3f711daa2416fb9419d7b428341cc",
+   "bytes": 17510,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200902.nc",
+    "contentLength": 2511643222,
+    "lastModified": "Thu, 14 Jan 2021 15:44:00 GMT",
+    "hsChunksSha256": "c5141e6d81c67dbe940da2e100af64f59de1e79ae0976e832226bfc5023c346e",
+    "hsChunkBytes": 42640650
+   }
+  },
+  "months/200903.json": {
+   "sha256": "547900f1c3ad693147f34b20d0166af9860ada04e7d6c078161d8924cb882120",
+   "bytes": 19155,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200903.nc",
+    "contentLength": 2778055346,
+    "lastModified": "Thu, 14 Jan 2021 15:43:56 GMT",
+    "hsChunksSha256": "41103ce7ddb0f0eedbf820090c46bd9521421c57e3e4a648325311ca34e4e0e6",
+    "hsChunkBytes": 47094276
+   }
+  },
+  "months/200904.json": {
+   "sha256": "a6be539084a66f925b29cca9b835900db73b72fc419f92d8681c0ff0d66b3836",
+   "bytes": 18851,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200904.nc",
+    "contentLength": 2658935557,
+    "lastModified": "Thu, 14 Jan 2021 15:43:58 GMT",
+    "hsChunksSha256": "2997e0f17c43751b9bb048777417d5b24b39def023c0a51344396334621110e9",
+    "hsChunkBytes": 45232199
+   }
+  },
+  "months/200905.json": {
+   "sha256": "7eb47dc69c99e9fb07c57c5dc256b3fbb259777c6d2b9502e718a6e9dfddff30",
+   "bytes": 19321,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200905.nc",
+    "contentLength": 2732223081,
+    "lastModified": "Thu, 14 Jan 2021 15:43:55 GMT",
+    "hsChunksSha256": "141da8eb18c1dba6ee7b99cdb3f3dffd01a9b7e4f609ce97138cd81d9c0c8aac",
+    "hsChunkBytes": 46629490
+   }
+  },
+  "months/200906.json": {
+   "sha256": "af3ec6b0ddf70884075b220072c62b6160992b083661788c1807bb6d8cf788b7",
+   "bytes": 18702,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200906.nc",
+    "contentLength": 2617698851,
+    "lastModified": "Thu, 14 Jan 2021 15:43:55 GMT",
+    "hsChunksSha256": "6c2ecfe1048a6567c051212858fd127a2eccf56614f987605d6eee2b7a956ce2",
+    "hsChunkBytes": 45068797
+   }
+  },
+  "months/200907.json": {
+   "sha256": "3bb3c4662b07ec109a8192919fb2b105f5774b89cec547172f6fc36a1aaa4227",
+   "bytes": 19498,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200907.nc",
+    "contentLength": 2683913505,
+    "lastModified": "Thu, 14 Jan 2021 15:43:57 GMT",
+    "hsChunksSha256": "bad1afeada1cc285bf1b4db6aeeb26ca0900888683d44425bac18d7af31c4f0d",
+    "hsChunkBytes": 47079812
+   }
+  },
+  "months/200908.json": {
+   "sha256": "2c9ae16b0e5a19bb461c7436b946a907a62521abd6aa2fa69e9297e601458cd4",
+   "bytes": 19522,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200908.nc",
+    "contentLength": 2745763179,
+    "lastModified": "Thu, 14 Jan 2021 15:44:02 GMT",
+    "hsChunksSha256": "cafc9111e8fa7e4f9bcd5aaa294e76e4970d9dccce7d67f6eebe7e52b0e5822f",
+    "hsChunkBytes": 47514644
+   }
+  },
+  "months/200909.json": {
+   "sha256": "ffeececd23803de7d338c20e47dfa0b7b130963e79dafce5d50aaa4054639a23",
+   "bytes": 18983,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200909.nc",
+    "contentLength": 2676008936,
+    "lastModified": "Thu, 14 Jan 2021 15:43:58 GMT",
+    "hsChunksSha256": "3ee008dfbe629f924988579f5dc71b18002d16d2e8202272ffacb5f3664bc709",
+    "hsChunkBytes": 46292767
+   }
+  },
+  "months/200910.json": {
+   "sha256": "589b1855bad345e49cbf47a29e7e7545793ca000d333a80b46f243ba7f82b4c4",
+   "bytes": 19258,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200910.nc",
+    "contentLength": 2770199121,
+    "lastModified": "Thu, 14 Jan 2021 15:43:59 GMT",
+    "hsChunksSha256": "8f80bb97d9b9fbcf89c21df010f28a6bfa2d68292114ee99c62ba8d670234d34",
+    "hsChunkBytes": 47368634
+   }
+  },
+  "months/200911.json": {
+   "sha256": "d186af4b3043131f0e5417f101f3cd95a290fa8798374005d0a9f57fb5764b0f",
+   "bytes": 18642,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200911.nc",
+    "contentLength": 2672501748,
+    "lastModified": "Thu, 14 Jan 2021 15:44:00 GMT",
+    "hsChunksSha256": "b7d6813526f2ee531939c3677cd38c6649395441b1c45eee8aad1611ac62c7cb",
+    "hsChunkBytes": 45460586
+   }
+  },
+  "months/200912.json": {
+   "sha256": "7114c8c2f2b61ccc57a7b593d84642a3b897f5661595e12db312f08d6b8ef8d9",
+   "bytes": 19346,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2009/FIELD_NC/LOPS_WW3-GLOB-30M_200912.nc",
+    "contentLength": 2772629949,
+    "lastModified": "Thu, 14 Jan 2021 15:44:01 GMT",
+    "hsChunksSha256": "4d781cb09e8ace5ced092cfdafa5f45e84e49f56befd9712535094f9cf888248",
+    "hsChunkBytes": 46986277
+   }
+  },
+  "months/201001.json": {
+   "sha256": "6ead54bdf2b9496407e36b41d1ff91c114e370c8019451bc94b1cac51ed5abb8",
+   "bytes": 19270,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201001.nc",
+    "contentLength": 2803720095,
+    "lastModified": "Thu, 14 Jan 2021 15:42:13 GMT",
+    "hsChunksSha256": "e1954267a03ae7fd07d7da093cc24c2bc417a5567c9c20f08f57de4f88e0235d",
+    "hsChunkBytes": 47430501
+   }
+  },
+  "months/201002.json": {
+   "sha256": "72ceec3f870b70e01bde5f4faeabc9e622e2dd97674be2543c70a7ac09430570",
+   "bytes": 17407,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201002.nc",
+    "contentLength": 2546432711,
+    "lastModified": "Thu, 14 Jan 2021 15:42:12 GMT",
+    "hsChunksSha256": "75f4ffa61bef2512ccfa6e97b5194c2f75b12c5c510efc9f4dd58095bf9c5307",
+    "hsChunkBytes": 42661842
+   }
+  },
+  "months/201003.json": {
+   "sha256": "ef6562348d6b2bdfbf4aca870d5a7668ee39d9c37546e628afc4c0f57024b041",
+   "bytes": 19370,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201003.nc",
+    "contentLength": 2777984115,
+    "lastModified": "Thu, 14 Jan 2021 15:42:09 GMT",
+    "hsChunksSha256": "7c9cf3f77c99b77f24272ab11552d7e4f0ea256c794f10633b1968e1deeb68d9",
+    "hsChunkBytes": 47099642
+   }
+  },
+  "months/201004.json": {
+   "sha256": "014fad88f35c8658cdd0331a643595670b3ea7d72c85429ea7841433f9a4d398",
+   "bytes": 18632,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201004.nc",
+    "contentLength": 2631969242,
+    "lastModified": "Thu, 14 Jan 2021 15:42:15 GMT",
+    "hsChunksSha256": "cc4fec6d39789a207294b78171593a1622271bb8041c334756f059453b25d105",
+    "hsChunkBytes": 45298039
+   }
+  },
+  "months/201005.json": {
+   "sha256": "8f5f3f22cb78ecd660cacd18841ce6a78bbc6292362eb02524e8ddf0b15972b3",
+   "bytes": 19298,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201005.nc",
+    "contentLength": 2702186746,
+    "lastModified": "Thu, 14 Jan 2021 15:42:16 GMT",
+    "hsChunksSha256": "8128bd615d454f618dea715dcc276c1f08bf8686c93fefa952952048659e31e5",
+    "hsChunkBytes": 46747725
+   }
+  },
+  "months/201006.json": {
+   "sha256": "1b6966d2c7db43f274136acb221831602734ee025ed8b4c89cff4b156cc7c8a0",
+   "bytes": 19111,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201006.nc",
+    "contentLength": 2569537096,
+    "lastModified": "Thu, 14 Jan 2021 15:42:16 GMT",
+    "hsChunksSha256": "4f988e219bef5176263b799bfb51a9fb30cf19d46d35b94ae78c10026620193f",
+    "hsChunkBytes": 45317376
+   }
+  },
+  "months/201007.json": {
+   "sha256": "0255d52e3018de444e6a3fdc1cc89478b54fff61cae8e17abf69528391984f22",
+   "bytes": 19646,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201007.nc",
+    "contentLength": 2632932354,
+    "lastModified": "Thu, 14 Jan 2021 15:42:10 GMT",
+    "hsChunksSha256": "1efd75af00d52bca56b5fd060754b1cf04d76f8a57c2555b71cb4d006368f28c",
+    "hsChunkBytes": 47195752
+   }
+  },
+  "months/201008.json": {
+   "sha256": "a001025316c7b0585cbdf064f204b769cc1ba7ab3f542f826308c67114474fe0",
+   "bytes": 19512,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201008.nc",
+    "contentLength": 2679876268,
+    "lastModified": "Thu, 14 Jan 2021 15:42:12 GMT",
+    "hsChunksSha256": "4071d0ea2b2e6fffe7ae3e4ab8211feabb3818beba936f4aaceded5628c1e447",
+    "hsChunkBytes": 47401511
+   }
+  },
+  "months/201009.json": {
+   "sha256": "7ebfda07636bfdbaf3d01494e385fadb3bcf13782bd82bd6cf0c1b3df8f3bc49",
+   "bytes": 19356,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201009.nc",
+    "contentLength": 2637905148,
+    "lastModified": "Thu, 14 Jan 2021 15:42:10 GMT",
+    "hsChunksSha256": "3ca0660effe4f7a2ee7b7d8fe11d7007d281755999ee4e76e7daf99fa716af7e",
+    "hsChunkBytes": 46348295
+   }
+  },
+  "months/201010.json": {
+   "sha256": "a5aae5f14bd072c8874e8d2d228c9b161535b390cd81d4bae3ca808e3264b597",
+   "bytes": 19329,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201010.nc",
+    "contentLength": 2722103767,
+    "lastModified": "Thu, 14 Jan 2021 15:42:14 GMT",
+    "hsChunksSha256": "911ea2b450dcaf86c6516121ff5f04bf94683ea3a8be11456e44c640c76c47f3",
+    "hsChunkBytes": 47338930
+   }
+  },
+  "months/201011.json": {
+   "sha256": "56d2dd61ba60ee18bdb92b52a6fa078d7de1ff1588ab84246b64604abe58a556",
+   "bytes": 18585,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201011.nc",
+    "contentLength": 2623929528,
+    "lastModified": "Thu, 14 Jan 2021 15:42:11 GMT",
+    "hsChunksSha256": "d04d0386e1ad557d9659050cd9a92017688061e3a112caaae0cc3fe0555c165e",
+    "hsChunkBytes": 45198584
+   }
+  },
+  "months/201012.json": {
+   "sha256": "b91756b53ec9ffd3441cd6dec96bc2a52be41891ee34406e713d7e245e08da59",
+   "bytes": 19316,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2010/FIELD_NC/LOPS_WW3-GLOB-30M_201012.nc",
+    "contentLength": 2753617419,
+    "lastModified": "Thu, 14 Jan 2021 15:42:14 GMT",
+    "hsChunksSha256": "a5c517a323f68eff74984986e41612dd180f1c329bcaa1fb0651501fb6a835f4",
+    "hsChunkBytes": 47039664
+   }
+  },
+  "months/201101.json": {
+   "sha256": "0cd95cb1dd39a3d11b967e26e247de4c7ec9b04b410bc05d5c9ff40dd3c17b9a",
+   "bytes": 19257,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201101.nc",
+    "contentLength": 2801390277,
+    "lastModified": "Thu, 14 Jan 2021 15:42:31 GMT",
+    "hsChunksSha256": "a76f90ab0a8056b7081ea9a481a5372a6ad13d3cb0297844028f170339a29aea",
+    "hsChunkBytes": 47238797
+   }
+  },
+  "months/201102.json": {
+   "sha256": "85833f3d30519cd54883d46cd386b682aaff8fae0c4b4847c8b95de3197b00bc",
+   "bytes": 17470,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201102.nc",
+    "contentLength": 2526016039,
+    "lastModified": "Thu, 14 Jan 2021 15:42:30 GMT",
+    "hsChunksSha256": "275c701d6bbd899bd1469af85f2c7665892c6e8ef9ea8f483cc613a2f8523d91",
+    "hsChunkBytes": 42971753
+   }
+  },
+  "months/201103.json": {
+   "sha256": "6817407115c953311362655c1f0f9ac7116a8f6eb5c0e9816b97b40ec2de187f",
+   "bytes": 19400,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201103.nc",
+    "contentLength": 2790115516,
+    "lastModified": "Thu, 14 Jan 2021 15:42:26 GMT",
+    "hsChunksSha256": "7d343d9aa14e44c25b631540652f08b2a5cfb7feb1c70fa8fb520949391c45af",
+    "hsChunkBytes": 47391319
+   }
+  },
+  "months/201104.json": {
+   "sha256": "087c4618fc64e900a88921e4d8598b7b0a5eace0385c9b5a1346ccbf47a01ac4",
+   "bytes": 18538,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201104.nc",
+    "contentLength": 2667644729,
+    "lastModified": "Thu, 14 Jan 2021 15:42:27 GMT",
+    "hsChunksSha256": "bc7cc53e46f5eada7f823c7ff588c7e22ced1b8b67e5ba8fab46a2136c1f1ab6",
+    "hsChunkBytes": 45548201
+   }
+  },
+  "months/201105.json": {
+   "sha256": "2fc15ee1283fd06cf9e84076139562c33c99b55116690a2852aafd4540ac353d",
+   "bytes": 19394,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201105.nc",
+    "contentLength": 2696464435,
+    "lastModified": "Thu, 14 Jan 2021 15:42:25 GMT",
+    "hsChunksSha256": "2f96d62e22da7de70a4d77913504db6b22c7800c8ed8cdd7b6314dfbde8a26cc",
+    "hsChunkBytes": 46781882
+   }
+  },
+  "months/201106.json": {
+   "sha256": "cad6f009ef78b68ff6737c72729281ea6a52e0897f2dc561001b1ccc08c9682c",
+   "bytes": 18927,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201106.nc",
+    "contentLength": 2613951571,
+    "lastModified": "Thu, 14 Jan 2021 15:42:28 GMT",
+    "hsChunksSha256": "8d14b7fe9226e4337bc491f6e2e11527123c166fd3b8e06287978bca5cb2f1f2",
+    "hsChunkBytes": 45496813
+   }
+  },
+  "months/201107.json": {
+   "sha256": "b27173f24750c4d02a4ab45603ea2dbcdb4b5a08c1ed40231804321f8dbbf187",
+   "bytes": 19379,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201107.nc",
+    "contentLength": 2700249385,
+    "lastModified": "Thu, 14 Jan 2021 15:42:32 GMT",
+    "hsChunksSha256": "ae49cabf3ccd7404c9b3171d3241285661d8cc7ff8e0aaa042a665652228e8a2",
+    "hsChunkBytes": 47400165
+   }
+  },
+  "months/201108.json": {
+   "sha256": "db7782f52a060222b0436d8437481046b530d32c9850225c87681407c7011147",
+   "bytes": 19703,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201108.nc",
+    "contentLength": 2737247782,
+    "lastModified": "Thu, 14 Jan 2021 15:42:27 GMT",
+    "hsChunksSha256": "eaccefe8d8ef94094c8d2d27581b74b9f04a1f118b36b9098a4037b97a94ad7a",
+    "hsChunkBytes": 47843562
+   }
+  },
+  "months/201109.json": {
+   "sha256": "8c1dd5843e4896b614c6750a16ef4355cca377c167c85e7607de312b677c5b09",
+   "bytes": 19211,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201109.nc",
+    "contentLength": 2672982947,
+    "lastModified": "Thu, 14 Jan 2021 15:42:29 GMT",
+    "hsChunksSha256": "b0178369ed50d7fc291b238bd721b6949b067b11f200b2eb5b81c99c494da44b",
+    "hsChunkBytes": 46299588
+   }
+  },
+  "months/201110.json": {
+   "sha256": "32776b02ad19e015580f9c931ef882f7bd8f8f8de86cb2cef1231e5d422dc0ff",
+   "bytes": 19564,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201110.nc",
+    "contentLength": 2735104435,
+    "lastModified": "Thu, 14 Jan 2021 15:42:33 GMT",
+    "hsChunksSha256": "5ec0ad8756c3a960d560816cfaba833df18be33ee6d3179932f9f585a9be443e",
+    "hsChunkBytes": 47657568
+   }
+  },
+  "months/201111.json": {
+   "sha256": "7b7870d309e5068aae8ab1d62db80d003b090c3564c18031b04d3bf3f20a7c1e",
+   "bytes": 18803,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201111.nc",
+    "contentLength": 2625896752,
+    "lastModified": "Thu, 14 Jan 2021 15:42:29 GMT",
+    "hsChunksSha256": "7ab064cbec7a5102c8a3d524e0ebe6dc6c59b86ddf98d25d6d51d7da22a5ea5e",
+    "hsChunkBytes": 45581167
+   }
+  },
+  "months/201112.json": {
+   "sha256": "5b3285cfa9309f318ada1753c3fb42154735afd1c4fb6cfbca216deeec64a359",
+   "bytes": 19288,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2011/FIELD_NC/LOPS_WW3-GLOB-30M_201112.nc",
+    "contentLength": 2720101118,
+    "lastModified": "Thu, 14 Jan 2021 15:42:31 GMT",
+    "hsChunksSha256": "9d5e804189deebb5e14211e1fb9448d2dc1685fb65621c8ca6d3d7e129804364",
+    "hsChunkBytes": 47225664
+   }
+  },
+  "months/201201.json": {
+   "sha256": "bd0adb3ab821d73032acbec86ebd325b0e99ecd81d323717428fdeca2a418942",
+   "bytes": 19282,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201201.nc",
+    "contentLength": 2791556095,
+    "lastModified": "Thu, 14 Jan 2021 15:42:48 GMT",
+    "hsChunksSha256": "ba1d7ee129f9386852573ea075a96ad2cb979ac0a6700677b625012c07ac71ce",
+    "hsChunkBytes": 47295286
+   }
+  },
+  "months/201202.json": {
+   "sha256": "62be6374f88f72c78c0621e2bb56e98587f310d2c93f761bc327c49bf7a55505",
+   "bytes": 18016,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201202.nc",
+    "contentLength": 2625101583,
+    "lastModified": "Thu, 14 Jan 2021 15:42:42 GMT",
+    "hsChunksSha256": "6fb5a42743a659664d1ef4d7ba1e69fbb04c8ad94c36805f7c5d27b88e32239a",
+    "hsChunkBytes": 44358029
+   }
+  },
+  "months/201203.json": {
+   "sha256": "adae4252e647c7de9a1395815d709f48e1b471a65df806c8ead4c825fc18257a",
+   "bytes": 19226,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201203.nc",
+    "contentLength": 2746467244,
+    "lastModified": "Thu, 14 Jan 2021 15:42:47 GMT",
+    "hsChunksSha256": "fad736ca5be1f4180023e1fa90d2a943b79dd87e8a7f3745b283f126b9c0e883",
+    "hsChunkBytes": 47276558
+   }
+  },
+  "months/201204.json": {
+   "sha256": "ac9062dae0c0dc569c530a488bced62e80a62c6129c5c638a33f927ca6e329d0",
+   "bytes": 18501,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201204.nc",
+    "contentLength": 2625876794,
+    "lastModified": "Thu, 14 Jan 2021 15:42:43 GMT",
+    "hsChunksSha256": "73a9ac0d3f0413af28dc7a0830fc59ca4073a3cf1b398eb1df592197c59f7616",
+    "hsChunkBytes": 45234603
+   }
+  },
+  "months/201205.json": {
+   "sha256": "3e22c3f5b3c6a4f3b935c63b64ee8740b19a97f2d1658d202b8f2faa5fdd8843",
+   "bytes": 19246,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201205.nc",
+    "contentLength": 2698874937,
+    "lastModified": "Thu, 14 Jan 2021 15:42:45 GMT",
+    "hsChunksSha256": "99e779998d3afbe77e6e122d1588b8a88375737b083302287dd7937b19897506",
+    "hsChunkBytes": 46608055
+   }
+  },
+  "months/201206.json": {
+   "sha256": "57cfe2219337a47437428342d48e969330ded66fa138b59e751bea54b047df14",
+   "bytes": 18856,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201206.nc",
+    "contentLength": 2662813992,
+    "lastModified": "Thu, 14 Jan 2021 15:42:46 GMT",
+    "hsChunksSha256": "c68a553f713c01df8c68272aec0a73d4cb54bb26716d4d601800f0f1f994a53e",
+    "hsChunkBytes": 45512216
+   }
+  },
+  "months/201207.json": {
+   "sha256": "8344bab40977fbf788ebe9c5a53ead7d5405fbae163ba6b603fc220bc94a9720",
+   "bytes": 19562,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201207.nc",
+    "contentLength": 2687631849,
+    "lastModified": "Thu, 14 Jan 2021 15:42:44 GMT",
+    "hsChunksSha256": "04485962b683d0f1f4af909a00f91e2c8ffce7bae5d2b563b7776735b19aead6",
+    "hsChunkBytes": 47304926
+   }
+  },
+  "months/201208.json": {
+   "sha256": "fda37a7b6430854d7b431cd53a819128d9a2692c823ffafacd6f89dad134c057",
+   "bytes": 19947,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201208.nc",
+    "contentLength": 2734485610,
+    "lastModified": "Thu, 14 Jan 2021 15:42:49 GMT",
+    "hsChunksSha256": "a7d1ba90a352c144185b87b8caf60fc1b6c812ed47ec0cc14502a5bd394f55a5",
+    "hsChunkBytes": 47890345
+   }
+  },
+  "months/201209.json": {
+   "sha256": "1b5a708c4936f26fdef3fc0f4fc08323beda2b18c410fbe034fd4951c55bfa81",
+   "bytes": 19037,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201209.nc",
+    "contentLength": 2669186621,
+    "lastModified": "Thu, 14 Jan 2021 15:42:43 GMT",
+    "hsChunksSha256": "03d5e4db772dc368cc2da3f88620fa7e272d54b09e52f5eaf4b53c99bc945e35",
+    "hsChunkBytes": 46721334
+   }
+  },
+  "months/201210.json": {
+   "sha256": "d799412657aa225095e43ca2ed10e97b533ee2847fcb8ac9e3410bb47e6342f0",
+   "bytes": 19696,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201210.nc",
+    "contentLength": 2765033553,
+    "lastModified": "Thu, 14 Jan 2021 15:42:41 GMT",
+    "hsChunksSha256": "2f75f6cf5f6fa4be306d626ed616e82c209c7047ebb7206d629a4cdcfeaa4eef",
+    "hsChunkBytes": 47609382
+   }
+  },
+  "months/201211.json": {
+   "sha256": "677278493fb28bf4b23e3aa7234794ba5fc33edf936531cffcd9bb457508c64e",
+   "bytes": 18631,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201211.nc",
+    "contentLength": 2660733688,
+    "lastModified": "Thu, 14 Jan 2021 15:42:47 GMT",
+    "hsChunksSha256": "9593dbd52aca478128c848087fe4d58088a0c3e558459d6774ecabdd83aae085",
+    "hsChunkBytes": 45389107
+   }
+  },
+  "months/201212.json": {
+   "sha256": "e4fa668370dfaa82a367925bfed9c0dceff96060777338a35225ba9a91864b9d",
+   "bytes": 19116,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2012/FIELD_NC/LOPS_WW3-GLOB-30M_201212.nc",
+    "contentLength": 2776606819,
+    "lastModified": "Thu, 14 Jan 2021 15:42:45 GMT",
+    "hsChunksSha256": "52591d7029466ca6db06c96bb96a0d5d2f85272d50180c6d370768eeb4a2cd1a",
+    "hsChunkBytes": 47198996
+   }
+  },
+  "months/201301.json": {
+   "sha256": "6f801c5c876f51730986c439399df91609f4c5543e8575c82a25fa9bf6f5c22d",
+   "bytes": 19447,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201301.nc",
+    "contentLength": 2803947736,
+    "lastModified": "Thu, 14 Jan 2021 15:42:58 GMT",
+    "hsChunksSha256": "f4a2baf3e141513fa877a68c40861c4a0d2c0eeea9cf8f5e89581e0257e3c7a1",
+    "hsChunkBytes": 47515632
+   }
+  },
+  "months/201302.json": {
+   "sha256": "c0317b49287ba38fa6df697e302627966dedbea35beb5f3d5f020d49ec4b5920",
+   "bytes": 17515,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201302.nc",
+    "contentLength": 2515206285,
+    "lastModified": "Thu, 14 Jan 2021 15:43:01 GMT",
+    "hsChunksSha256": "bb174d6459d403c71167a0b14342cb962127162fe5a8e54f95896de270200a25",
+    "hsChunkBytes": 42792807
+   }
+  },
+  "months/201303.json": {
+   "sha256": "0c6b4fb3885447f4d571e879b5b6466a6717540f7ee02ccba3b00acf53b81240",
+   "bytes": 19498,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201303.nc",
+    "contentLength": 2768739864,
+    "lastModified": "Thu, 14 Jan 2021 15:42:59 GMT",
+    "hsChunksSha256": "fa6a1bdc3f7606d65309940e83fb8a9f4c3e1808475b6b901ad86d4311070905",
+    "hsChunkBytes": 47047965
+   }
+  },
+  "months/201304.json": {
+   "sha256": "eb9de69a552e2a0c36e2feed8776e1356300c30cef47a03e174f9ffce64b5928",
+   "bytes": 18709,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201304.nc",
+    "contentLength": 2669486579,
+    "lastModified": "Thu, 14 Jan 2021 15:43:03 GMT",
+    "hsChunksSha256": "f67667b81f04fe3cda0bccb2f2cb12cf105251ab10ed858610f5b65ae0944ffc",
+    "hsChunkBytes": 45391825
+   }
+  },
+  "months/201305.json": {
+   "sha256": "9f7afbda1358ca9570fa9606110b639985cb4512dedd0525a2c55395b9b85ec6",
+   "bytes": 19140,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201305.nc",
+    "contentLength": 2696249156,
+    "lastModified": "Thu, 14 Jan 2021 15:43:01 GMT",
+    "hsChunksSha256": "9f8174d028233849d029a25a1a6c4ce5b538dccead9c883b69489305de0c231d",
+    "hsChunkBytes": 46616769
+   }
+  },
+  "months/201306.json": {
+   "sha256": "2bc5a0d55bd58b44248707a526c4c3a783865f054122ffa236d7760debc1d2bd",
+   "bytes": 18822,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201306.nc",
+    "contentLength": 2604254278,
+    "lastModified": "Thu, 14 Jan 2021 15:43:00 GMT",
+    "hsChunksSha256": "b4530b0fb88da8260b8753cd86b994ba5164ae83bcd274f0b72ee7c5cf9cc2a3",
+    "hsChunkBytes": 45362563
+   }
+  },
+  "months/201307.json": {
+   "sha256": "a29c7f58bde9e2a4b72e64b51f1ca8e204beb853aa0af769e5bb4f29d6407a33",
+   "bytes": 19396,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201307.nc",
+    "contentLength": 2695060355,
+    "lastModified": "Thu, 14 Jan 2021 15:43:04 GMT",
+    "hsChunksSha256": "3a2b7581a956a47983fa5b97807fb545d9118f10275e538cbd160ac511955c66",
+    "hsChunkBytes": 47234732
+   }
+  },
+  "months/201308.json": {
+   "sha256": "59535f1c9eeaebcea363009eb2d0104013fdd76f209a250ca3e5a79ba95ae135",
+   "bytes": 19787,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201308.nc",
+    "contentLength": 2736757169,
+    "lastModified": "Thu, 14 Jan 2021 15:43:02 GMT",
+    "hsChunksSha256": "61fda48d48b79919388b4330b8fda35b95134a75a8420f91d9b9449c9cc1a5e3",
+    "hsChunkBytes": 47422333
+   }
+  },
+  "months/201309.json": {
+   "sha256": "688118e879925831ded40aa3c13bf5a569d31309b6555941b56f0f4c4d453684",
+   "bytes": 19147,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201309.nc",
+    "contentLength": 2659865788,
+    "lastModified": "Thu, 14 Jan 2021 15:43:03 GMT",
+    "hsChunksSha256": "6c4595087984c23bbd3b0f3495975866b43269031c2f723948690e2b7d6608bd",
+    "hsChunkBytes": 46112359
+   }
+  },
+  "months/201310.json": {
+   "sha256": "07a532947bcde3d0880c9e3cd2677cf50f5fc552ae2b80876f069669948682a9",
+   "bytes": 19559,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201310.nc",
+    "contentLength": 2751045492,
+    "lastModified": "Thu, 14 Jan 2021 15:43:02 GMT",
+    "hsChunksSha256": "e588c913f98d2315b1dafde81c2a301e6f120cc012ac0203cf017b83498a22d5",
+    "hsChunkBytes": 47406529
+   }
+  },
+  "months/201311.json": {
+   "sha256": "f9acf6b0da9b857924453ddd20d28e76c6ec51d28f4b75a9b7109920c64fa1d6",
+   "bytes": 18867,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201311.nc",
+    "contentLength": 2650566175,
+    "lastModified": "Thu, 14 Jan 2021 15:43:05 GMT",
+    "hsChunksSha256": "dd7bda788d6e9254209ea234dbe59443aceced7d0ae28f09cecd12fb881ba9d9",
+    "hsChunkBytes": 45299880
+   }
+  },
+  "months/201312.json": {
+   "sha256": "c431b9d20b6fbca2a971cce18ead9625b39f6e71c1cfc3fb512b7b6ab745c060",
+   "bytes": 19442,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2013/FIELD_NC/LOPS_WW3-GLOB-30M_201312.nc",
+    "contentLength": 2745004475,
+    "lastModified": "Thu, 14 Jan 2021 15:42:58 GMT",
+    "hsChunksSha256": "0dcbf419ee05115cc5520476ed205bed49d173e6fcb6b9eec0d8efe5a0e290fc",
+    "hsChunkBytes": 47031585
+   }
+  },
+  "months/201401.json": {
+   "sha256": "5c95d04e4a1e9270a77643f74336e30867d1ee541620957dda3242c0a6233bbd",
+   "bytes": 19242,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201401.nc",
+    "contentLength": 2820127388,
+    "lastModified": "Thu, 14 Jan 2021 15:41:14 GMT",
+    "hsChunksSha256": "5da82ee2d84d3a2949a7cd642da7d26e7f22495e20542517ff63c7c883d71e39",
+    "hsChunkBytes": 47444972
+   }
+  },
+  "months/201402.json": {
+   "sha256": "ff8cce408d604e6e66a7366badcf640dd5dc9e2902e19fcbc80556f19c2bd362",
+   "bytes": 17588,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201402.nc",
+    "contentLength": 2535901764,
+    "lastModified": "Thu, 14 Jan 2021 15:41:19 GMT",
+    "hsChunksSha256": "da952f2b281d0d66cfeb78fd9ecd1fdadafaa2ad81fc71c6ed39410ceaf46776",
+    "hsChunkBytes": 42794694
+   }
+  },
+  "months/201403.json": {
+   "sha256": "1f2eca48b11effdbedb70655d131a87903f33df69e6b69b4945fe8fa0258f2b5",
+   "bytes": 19259,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201403.nc",
+    "contentLength": 2795325348,
+    "lastModified": "Thu, 14 Jan 2021 15:41:17 GMT",
+    "hsChunksSha256": "55d01f92d0c915a2968dd05244f58a110f33baf49a369ca1dada6f2b1bc7c47a",
+    "hsChunkBytes": 47385355
+   }
+  },
+  "months/201404.json": {
+   "sha256": "566441cddb9a5460dcd886cd9cee5c02180f3b614ba7f43005e62d64cedc6160",
+   "bytes": 18825,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201404.nc",
+    "contentLength": 2619145906,
+    "lastModified": "Thu, 14 Jan 2021 15:41:16 GMT",
+    "hsChunksSha256": "8281e9de621838baeb6aeb8fc5846f51f0e35f1107ea1a63cc45a6eaa4bbda4e",
+    "hsChunkBytes": 45145264
+   }
+  },
+  "months/201405.json": {
+   "sha256": "4e22e91d8861b59fdd66664a9331f8d5cacff9b43046c4acb05eef146839238e",
+   "bytes": 19165,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201405.nc",
+    "contentLength": 2718570272,
+    "lastModified": "Thu, 14 Jan 2021 15:41:16 GMT",
+    "hsChunksSha256": "899233ba01492307cb505071ccf5f0a7140b1158daf2484157acb88234168bcb",
+    "hsChunkBytes": 46628708
+   }
+  },
+  "months/201406.json": {
+   "sha256": "d1b9794cf23b41308639dc0a615d43ba1c3e6945bbb87946e504780dde5d0343",
+   "bytes": 18684,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201406.nc",
+    "contentLength": 2599040614,
+    "lastModified": "Thu, 14 Jan 2021 15:41:13 GMT",
+    "hsChunksSha256": "fa69db3cd1e524f57703454cdcdcedc6c062175346d8cadd202e5ebe6f4cf2df",
+    "hsChunkBytes": 45148699
+   }
+  },
+  "months/201407.json": {
+   "sha256": "c308fe3d418066bb3be028dbfb9636702962addd182be32693deae763ce7b621",
+   "bytes": 19652,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201407.nc",
+    "contentLength": 2702066643,
+    "lastModified": "Thu, 14 Jan 2021 15:41:18 GMT",
+    "hsChunksSha256": "81d0da9d67619c63704a11001caa3a43c60ee0a9838851cbd7e10e82d74ba551",
+    "hsChunkBytes": 47056909
+   }
+  },
+  "months/201408.json": {
+   "sha256": "198ffe6d4e33c2254cd9d49dd5f0883b905df8e9ed6b2316f3d289e1fa11432f",
+   "bytes": 19538,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201408.nc",
+    "contentLength": 2745720280,
+    "lastModified": "Thu, 14 Jan 2021 15:41:20 GMT",
+    "hsChunksSha256": "d998f5b21ed6cba467273c6b4f7367539034ffa3c232460bab0b9a4e912fdb41",
+    "hsChunkBytes": 47479926
+   }
+  },
+  "months/201409.json": {
+   "sha256": "9be74bb2fde105fe714e0b293a78776692f9374947f4da1d191469c950f53da0",
+   "bytes": 18959,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201409.nc",
+    "contentLength": 2667128375,
+    "lastModified": "Thu, 14 Jan 2021 15:41:20 GMT",
+    "hsChunksSha256": "aebb1aeb942bdd5db9e10d960eaf7dea56025bed408f736e628e92253294e647",
+    "hsChunkBytes": 46241494
+   }
+  },
+  "months/201410.json": {
+   "sha256": "e6002ff172b0b43c7dfb8950f8fbb3aba14b3fceeba9a93d054765c54782cc20",
+   "bytes": 19554,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201410.nc",
+    "contentLength": 2727682879,
+    "lastModified": "Thu, 14 Jan 2021 15:41:13 GMT",
+    "hsChunksSha256": "6ca703b9b98947493f5f80d5cb1a11809c0509a701ad244da5eedd7e7431b865",
+    "hsChunkBytes": 47490859
+   }
+  },
+  "months/201411.json": {
+   "sha256": "54ba1a5c4e7b022cc8c81096357dfc5e0ee8775d725bee2986081f51ae270723",
+   "bytes": 18653,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201411.nc",
+    "contentLength": 2627608863,
+    "lastModified": "Thu, 14 Jan 2021 15:41:19 GMT",
+    "hsChunksSha256": "78d97743b54f4da7758873f971ead52ad4b2a6c7a10bc47176109ba6a527c56b",
+    "hsChunkBytes": 45046303
+   }
+  },
+  "months/201412.json": {
+   "sha256": "749c9a7772d86dbd3c5f614766300a9a9738981e2559fcf96bddadd6870c86ba",
+   "bytes": 19232,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2014/FIELD_NC/LOPS_WW3-GLOB-30M_201412.nc",
+    "contentLength": 2718664926,
+    "lastModified": "Thu, 14 Jan 2021 15:41:15 GMT",
+    "hsChunksSha256": "0323867b1ed1774f52f5126280f87caa5528bc6e9b5f67a1dfd6cf370f742c4c",
+    "hsChunkBytes": 46985682
+   }
+  },
+  "months/201501.json": {
+   "sha256": "72ed0eaf591422780dd60a84e6ddadc04811ba8268626990d4d174b11c155456",
+   "bytes": 19264,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201501.nc",
+    "contentLength": 2788734060,
+    "lastModified": "Thu, 14 Jan 2021 15:41:31 GMT",
+    "hsChunksSha256": "efdc5b10476cbf0cbfd5d2984440c895198dbdbfd2782f8eb3e0b7604721ca29",
+    "hsChunkBytes": 47405612
+   }
+  },
+  "months/201502.json": {
+   "sha256": "c0bbf03006c7b8ad1e88b6e94d3fc7f61dee0a6c095242f6419873384bd870f8",
+   "bytes": 17474,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201502.nc",
+    "contentLength": 2515589929,
+    "lastModified": "Thu, 14 Jan 2021 15:41:36 GMT",
+    "hsChunksSha256": "905752e26496d3aa9dde1f9368ff0697f0d4a1d41b67accc5e422411252a29ec",
+    "hsChunkBytes": 42800421
+   }
+  },
+  "months/201503.json": {
+   "sha256": "d6543f1c43f6abe6a3c93791e64fe038f86a3d19d013aff05f62c28b1091001d",
+   "bytes": 19249,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201503.nc",
+    "contentLength": 2772273433,
+    "lastModified": "Thu, 14 Jan 2021 15:41:32 GMT",
+    "hsChunksSha256": "825367a1aef3c19441d678a4ba64eac689b97b1089c2b0b89679319fb5330d15",
+    "hsChunkBytes": 47332857
+   }
+  },
+  "months/201504.json": {
+   "sha256": "494a6fc8a02b94370a3f3c99281e8b53061c5d6408279e819678bb76a35abf55",
+   "bytes": 18663,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201504.nc",
+    "contentLength": 2617719077,
+    "lastModified": "Thu, 14 Jan 2021 15:41:31 GMT",
+    "hsChunksSha256": "49c0eacac31647020c206fdd9c11c9cc1224ea608770e38cc740331d897eae35",
+    "hsChunkBytes": 45277115
+   }
+  },
+  "months/201505.json": {
+   "sha256": "d5a016c1691ed9a989e6f2e806b231da8f8ef5f5eb78b0b96da72e229f3a7ded",
+   "bytes": 19447,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201505.nc",
+    "contentLength": 2716451537,
+    "lastModified": "Thu, 14 Jan 2021 15:41:33 GMT",
+    "hsChunksSha256": "643cf483b6a4d60ddb4874179bf887d15e992638bb184123711c18b63c985d57",
+    "hsChunkBytes": 46813506
+   }
+  },
+  "months/201506.json": {
+   "sha256": "e7a51114620642224076a1c97e8069d5f8feb4056f602fae25720251fe0c763c",
+   "bytes": 18837,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201506.nc",
+    "contentLength": 2610442922,
+    "lastModified": "Thu, 14 Jan 2021 15:41:33 GMT",
+    "hsChunksSha256": "c0db20f75c1a0670b52c32caf28d2e684fc36ffa076db50d58b8db215c99c5f0",
+    "hsChunkBytes": 45398408
+   }
+  },
+  "months/201507.json": {
+   "sha256": "55cc7793f0735badd1e062af35c0756ea306c79df446f82b0aab631594598bda",
+   "bytes": 19723,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201507.nc",
+    "contentLength": 2713601610,
+    "lastModified": "Thu, 14 Jan 2021 15:41:30 GMT",
+    "hsChunksSha256": "c66e0117298653852fab32795f15562275e59260386aa91f919b3c54b7c132c8",
+    "hsChunkBytes": 47318999
+   }
+  },
+  "months/201508.json": {
+   "sha256": "caeb526488cae36b6a5d8e50fb0316e73d06ee85081cbebde47acf98e031e6f0",
+   "bytes": 19792,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201508.nc",
+    "contentLength": 2761182204,
+    "lastModified": "Thu, 14 Jan 2021 15:41:34 GMT",
+    "hsChunksSha256": "2808a5f5e35d0fa4d63851eb852d633d63e8d4032a80634f05f3f57e51e7db87",
+    "hsChunkBytes": 48018111
+   }
+  },
+  "months/201509.json": {
+   "sha256": "3ab959f192eb8fc18a350b73b750c172f244be10ef1cb34346ad92d63240ba51",
+   "bytes": 19013,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201509.nc",
+    "contentLength": 2700700939,
+    "lastModified": "Thu, 14 Jan 2021 15:41:34 GMT",
+    "hsChunksSha256": "d582823430bfdee9c987b7ca3002c48b0205caf84323c3cf66c3272c010748a1",
+    "hsChunkBytes": 46585722
+   }
+  },
+  "months/201510.json": {
+   "sha256": "692ff3bc12fdcb4b05f718102cdd0a37b3032abda2a406599f346cf28930bf81",
+   "bytes": 19562,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201510.nc",
+    "contentLength": 2753366630,
+    "lastModified": "Thu, 14 Jan 2021 15:41:29 GMT",
+    "hsChunksSha256": "5f0ca5457eda777af80a46915e7c8548684541d5c1da46610909485c626c13c7",
+    "hsChunkBytes": 47779497
+   }
+  },
+  "months/201511.json": {
+   "sha256": "02c0b0d56d8b665de6ffef6af5ef110063edd057f25bf2d549812fe9120940d3",
+   "bytes": 18754,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201511.nc",
+    "contentLength": 2621863618,
+    "lastModified": "Thu, 14 Jan 2021 15:41:36 GMT",
+    "hsChunksSha256": "eb2264305406f59c0c694973082393cab899daf781aa03f0b0fd36a6b6d8fc08",
+    "hsChunkBytes": 45494182
+   }
+  },
+  "months/201512.json": {
+   "sha256": "da80681c75244c155d3ad6870d66a93a843f987fe302094fd67d3c909609779b",
+   "bytes": 19235,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2015/FIELD_NC/LOPS_WW3-GLOB-30M_201512.nc",
+    "contentLength": 2748431160,
+    "lastModified": "Thu, 14 Jan 2021 15:41:35 GMT",
+    "hsChunksSha256": "e6dc3cd5543d59b2e4ba4d695f977e47695e38486b6b4fdf1479d34cd0301c0c",
+    "hsChunkBytes": 47179267
+   }
+  },
+  "months/201601.json": {
+   "sha256": "4699cc78272394c7dced5aa1083913a1eed3ecb8d73c60b5cc5cd6f3a3741031",
+   "bytes": 19474,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201601.nc",
+    "contentLength": 2796497499,
+    "lastModified": "Thu, 14 Jan 2021 15:41:52 GMT",
+    "hsChunksSha256": "0fe9dfc5c383c9d8a6e2e91bf1f578b163c75c7834e1468257eb28d924f03c4d",
+    "hsChunkBytes": 47460985
+   }
+  },
+  "months/201602.json": {
+   "sha256": "c4dfcdab1b01a29a98453bab639d310e380b7a79de541cac7f8bcd274fb616a3",
+   "bytes": 18040,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201602.nc",
+    "contentLength": 2615126084,
+    "lastModified": "Thu, 14 Jan 2021 15:41:48 GMT",
+    "hsChunksSha256": "496b0c9b67ce83ab7fd418b7df60e4a7f1baff28208ce4e49a4b6188858b6952",
+    "hsChunkBytes": 44615985
+   }
+  },
+  "months/201603.json": {
+   "sha256": "262f2aa6b895c1abf7e47522c741777ed8250ce75b60b43b041ab4aef8bc87ae",
+   "bytes": 19209,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201603.nc",
+    "contentLength": 2736363175,
+    "lastModified": "Thu, 14 Jan 2021 15:41:49 GMT",
+    "hsChunksSha256": "5863efd713ecc90d3296a851d3efe80333e1d35f7e1ab39bcd165e2962303a8b",
+    "hsChunkBytes": 47211481
+   }
+  },
+  "months/201604.json": {
+   "sha256": "016a81f8bb085e1ed94876e16f86adc5673fd8e816c385515a3efaf80c8188c7",
+   "bytes": 18689,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201604.nc",
+    "contentLength": 2663157886,
+    "lastModified": "Thu, 14 Jan 2021 15:41:46 GMT",
+    "hsChunksSha256": "bd349868031aeaa3415bcdce3c73bdd7353c55298fa1b3d40e4059441d81bb9b",
+    "hsChunkBytes": 45622545
+   }
+  },
+  "months/201605.json": {
+   "sha256": "82d879b3ec6d9b2fae37a153680064c50da0b8b0079fcf3b88692cc6d0e3d48b",
+   "bytes": 19269,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201605.nc",
+    "contentLength": 2741009649,
+    "lastModified": "Thu, 14 Jan 2021 15:41:47 GMT",
+    "hsChunksSha256": "40b1152150f6269bf103a5b9f26fa4fb082a2aea6d099e9f3acd7ba93028fb62",
+    "hsChunkBytes": 47011306
+   }
+  },
+  "months/201606.json": {
+   "sha256": "9320e813d3637fe38231d77ef733dd1587243118bbffa4da8242f46a1e8e8b56",
+   "bytes": 18877,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201606.nc",
+    "contentLength": 2601208033,
+    "lastModified": "Thu, 14 Jan 2021 15:41:52 GMT",
+    "hsChunksSha256": "d9ce01122571c65b893106ab7bce088740ff2448af08cf1996999149ad78dcac",
+    "hsChunkBytes": 45595517
+   }
+  },
+  "months/201607.json": {
+   "sha256": "1edd8c5bc6b9aa7879f8e7b408cb7cf0f2de1cd2cf9e232f87ec77620df2dcb4",
+   "bytes": 19423,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201607.nc",
+    "contentLength": 2719746920,
+    "lastModified": "Thu, 14 Jan 2021 15:41:50 GMT",
+    "hsChunksSha256": "81a088b84061b4d81a8bde881fab88a13e186679471fae1af05587fb90d3abed",
+    "hsChunkBytes": 47437517
+   }
+  },
+  "months/201608.json": {
+   "sha256": "1c0f9a54b588716c8e46929d39a0351647945ce4b7dbfad68d0df9c2d773bd55",
+   "bytes": 19532,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201608.nc",
+    "contentLength": 2759200264,
+    "lastModified": "Thu, 14 Jan 2021 15:41:53 GMT",
+    "hsChunksSha256": "f99c46e8c9b07b57e5d84ea2914e1e5a2f68e6733e5e732eaa04a46781c3532f",
+    "hsChunkBytes": 48103744
+   }
+  },
+  "months/201609.json": {
+   "sha256": "4c0d4030dbbbafddc4f22b2ec485c1e955297d7e73f2f38cf60040eef51fd11b",
+   "bytes": 19040,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201609.nc",
+    "contentLength": 2671902875,
+    "lastModified": "Thu, 14 Jan 2021 15:41:48 GMT",
+    "hsChunksSha256": "bf0a63a3d500ec90a100ad0caeab5181fd9a399da5c9aca206c9df852b2a59ce",
+    "hsChunkBytes": 46743132
+   }
+  },
+  "months/201610.json": {
+   "sha256": "a0c0c77351cafc5888399e0182d754a165ce3f98f4a1f65ff4a25e2421c103c1",
+   "bytes": 19500,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201610.nc",
+    "contentLength": 2770929911,
+    "lastModified": "Thu, 14 Jan 2021 15:41:50 GMT",
+    "hsChunksSha256": "9b3bcad2b3a5a31765156107e27cab9ef7b3812709e1977486cc68c790e8ea5f",
+    "hsChunkBytes": 47670229
+   }
+  },
+  "months/201611.json": {
+   "sha256": "6c4dbfe8793899cb3a82ec06ece36b0f383d94a61b264592d8650f4ae0329d28",
+   "bytes": 18847,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201611.nc",
+    "contentLength": 2688543598,
+    "lastModified": "Thu, 14 Jan 2021 15:41:51 GMT",
+    "hsChunksSha256": "bdfa0b60f8ff7a211dc757dd600eb41fa6c731d88efc811a0a7448db53e28af4",
+    "hsChunkBytes": 45965536
+   }
+  },
+  "months/201612.json": {
+   "sha256": "f2aaddde0c88d76f2ca0650d1e942c237fe493b5cdf9e176fdc0de29bd497476",
+   "bytes": 19410,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2016/FIELD_NC/LOPS_WW3-GLOB-30M_201612.nc",
+    "contentLength": 2811249347,
+    "lastModified": "Thu, 14 Jan 2021 15:41:46 GMT",
+    "hsChunksSha256": "a6d5bfa5f16f8ae951a6beaf124ee6eac8e2d88dd61644a19e3d45d8a2508aa4",
+    "hsChunkBytes": 47585628
+   }
+  },
+  "months/201701.json": {
+   "sha256": "188c8d007bff554903c6c09daf98ab505160b8a5bcd52cca3bd0c424b0f70d89",
+   "bytes": 19136,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201701.nc",
+    "contentLength": 2848681842,
+    "lastModified": "Thu, 14 Jan 2021 15:42:02 GMT",
+    "hsChunksSha256": "4f8780f8b130d8fbbc767df505cd686af7f4a321256905bc0dfbaa29dd33ab7f",
+    "hsChunkBytes": 47581572
+   }
+  },
+  "months/201702.json": {
+   "sha256": "407e228877e447ba0e3dab268d93d19496e04fe5fbb000213ed31c806aafae9f",
+   "bytes": 17418,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201702.nc",
+    "contentLength": 2540913171,
+    "lastModified": "Thu, 14 Jan 2021 15:42:04 GMT",
+    "hsChunksSha256": "725929c09b4156e0f8ef7332d609840efa1ac57dad2c0c37528947af6c0ffa45",
+    "hsChunkBytes": 42810520
+   }
+  },
+  "months/201703.json": {
+   "sha256": "2cd2869faf0a790cb8d022dac9c54b3a6dae57ccce5a49b8182fe4f792c1737f",
+   "bytes": 19442,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201703.nc",
+    "contentLength": 2791166077,
+    "lastModified": "Thu, 14 Jan 2021 15:42:05 GMT",
+    "hsChunksSha256": "2c80a039a0016edebbfea5d40dfbcf36ef353f4e2ae21efeb59e71688535b43b",
+    "hsChunkBytes": 47226601
+   }
+  },
+  "months/201704.json": {
+   "sha256": "071360d83489fbbdccd41c5d37ff3110fa8e48671980c5e4bc6dc697ab1b70f2",
+   "bytes": 18718,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201704.nc",
+    "contentLength": 2654562391,
+    "lastModified": "Thu, 14 Jan 2021 15:42:07 GMT",
+    "hsChunksSha256": "b99f93f75de8db3709502f1f65bdc531ae6720a18259a7c27927cf90c862b085",
+    "hsChunkBytes": 45469806
+   }
+  },
+  "months/201705.json": {
+   "sha256": "44ad9c8fdd08623ea1cfc392e2ee7f1e2c7017e42e30fcf9ff9f83cb2762f2fb",
+   "bytes": 19434,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201705.nc",
+    "contentLength": 2690180139,
+    "lastModified": "Thu, 14 Jan 2021 15:42:09 GMT",
+    "hsChunksSha256": "b6a00cac043a6f3ca0544a7ce33f0df1aefd25a2a44e06cf7f7458551cc6af9d",
+    "hsChunkBytes": 46932783
+   }
+  },
+  "months/201706.json": {
+   "sha256": "294c77607117c8c65b8c0fbd7613e512ff8f4f7f1a4e34474cff67f610f0b02c",
+   "bytes": 18795,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201706.nc",
+    "contentLength": 2641410815,
+    "lastModified": "Thu, 14 Jan 2021 15:42:06 GMT",
+    "hsChunksSha256": "c2dd130df775e5bcdbdbede9a38cefddd4c475c8c96beb3b3bef7f5aa405e693",
+    "hsChunkBytes": 45640061
+   }
+  },
+  "months/201707.json": {
+   "sha256": "21f8f208dd83b84fa69b8c643f05e2911b8837945e813d80c04d2baea374c799",
+   "bytes": 19538,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201707.nc",
+    "contentLength": 2692157679,
+    "lastModified": "Thu, 14 Jan 2021 15:42:05 GMT",
+    "hsChunksSha256": "50f2982c0b83067b07723ee1b0f6b72617923099a135f115098813bd6729422f",
+    "hsChunkBytes": 47350412
+   }
+  },
+  "months/201708.json": {
+   "sha256": "319bfaa973dcf1e94dae0e7d6579f38e66547a39e1be518d4c72abd8d536995e",
+   "bytes": 19522,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201708.nc",
+    "contentLength": 2746885733,
+    "lastModified": "Thu, 14 Jan 2021 15:42:02 GMT",
+    "hsChunksSha256": "90ae0ecfa93d57bf38fb6d55b9bc1a5e6684807c3143849fe2d9b7de18a61983",
+    "hsChunkBytes": 47777314
+   }
+  },
+  "months/201709.json": {
+   "sha256": "a0f17c468c5674267c7ba7b3177f21acb54e6e8901ddbfbd5a0534e2a9d9c834",
+   "bytes": 19193,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201709.nc",
+    "contentLength": 2687149812,
+    "lastModified": "Thu, 14 Jan 2021 15:42:08 GMT",
+    "hsChunksSha256": "4c6a14592feea54bc3654cc42edbef949422ec0b10a805e04020761124d6fd99",
+    "hsChunkBytes": 46471868
+   }
+  },
+  "months/201710.json": {
+   "sha256": "6fca86660fca084f3727e22ed5ea05f19654dd0accede99fa2f70144b62251e9",
+   "bytes": 19600,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201710.nc",
+    "contentLength": 2716207311,
+    "lastModified": "Thu, 14 Jan 2021 15:42:01 GMT",
+    "hsChunksSha256": "d9b60fb0768e9de6cf98ba96dad63a701c062b2fac718ad978199a492eff3700",
+    "hsChunkBytes": 47593357
+   }
+  },
+  "months/201711.json": {
+   "sha256": "31a486c3857084a4bd713acd250a3e27dbe73dfe371e9eea3d659554fe9f97be",
+   "bytes": 18740,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201711.nc",
+    "contentLength": 2647588802,
+    "lastModified": "Thu, 14 Jan 2021 15:42:07 GMT",
+    "hsChunksSha256": "6c5d5287d38a365dbdd2d2471285a123771f55c888b6b1c0175eb9b10e5d365e",
+    "hsChunkBytes": 45723323
+   }
+  },
+  "months/201712.json": {
+   "sha256": "215caa5aa8b1cfc4f553d680819241e0baadca573522d0980a2ee472321a961b",
+   "bytes": 19262,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2017/FIELD_NC/LOPS_WW3-GLOB-30M_201712.nc",
+    "contentLength": 2757752987,
+    "lastModified": "Thu, 14 Jan 2021 15:42:03 GMT",
+    "hsChunksSha256": "97303ecb4f6f6171c7a76a1c24c544549f9010cbd415182c5752a4b677bca0fd",
+    "hsChunkBytes": 47262346
+   }
+  },
+  "months/201801.json": {
+   "sha256": "b2dd49295c385df3652b42fff5adbc4536cefc7afddaaf736450a46fd2266e87",
+   "bytes": 19230,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201801.nc",
+    "contentLength": 2799291618,
+    "lastModified": "Thu, 14 Jan 2021 15:40:39 GMT",
+    "hsChunksSha256": "33ad5333a5cadfdb62a0368db62518c2d58fafe84e4ed186f8e066667999bd43",
+    "hsChunkBytes": 47467244
+   }
+  },
+  "months/201802.json": {
+   "sha256": "f76a45e75ec0879b3831535550eacf198aff9a3eb7a7688687ea72f40abd2518",
+   "bytes": 17416,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201802.nc",
+    "contentLength": 2539822965,
+    "lastModified": "Thu, 14 Jan 2021 15:40:33 GMT",
+    "hsChunksSha256": "d929914b5fb0de4fc0c691cef5957757b575d1a21e4ec5007b9a5f2fd7b360f3",
+    "hsChunkBytes": 42932058
+   }
+  },
+  "months/201803.json": {
+   "sha256": "4f48cfa90979601fc5a9fa04fed073f861c96e74a17d581bcbb60c2a25383765",
+   "bytes": 19317,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201803.nc",
+    "contentLength": 2800991408,
+    "lastModified": "Thu, 14 Jan 2021 15:40:37 GMT",
+    "hsChunksSha256": "bd9aab7eca2f90445da3abf4dbeb3e34482d643cbb9d25a52122f9a2ca39d434",
+    "hsChunkBytes": 47216958
+   }
+  },
+  "months/201804.json": {
+   "sha256": "04ab18663a839de0964b2a18bc42f828e8ca7c650ba1568570ee607e5426376b",
+   "bytes": 18509,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201804.nc",
+    "contentLength": 2681615078,
+    "lastModified": "Thu, 14 Jan 2021 15:40:40 GMT",
+    "hsChunksSha256": "bf767cf0d90f76349413c446fa6eab509c1a2e2ea291717ea61ad0f906f2b36a",
+    "hsChunkBytes": 45500943
+   }
+  },
+  "months/201805.json": {
+   "sha256": "a59019711eab7207229e60164b395d0e11f3a9fbad644b40c33c68e2505a133b",
+   "bytes": 19537,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201805.nc",
+    "contentLength": 2742507490,
+    "lastModified": "Thu, 14 Jan 2021 15:40:34 GMT",
+    "hsChunksSha256": "512ada6460142311cf7c6288baebead020603b1fbe5b799fefcd8b5e5fdff969",
+    "hsChunkBytes": 46932877
+   }
+  },
+  "months/201806.json": {
+   "sha256": "15c5f84ad107032ae20c655ce25c57751f7a5641b5cf6225b352f86ccdd513c4",
+   "bytes": 18869,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201806.nc",
+    "contentLength": 2647950816,
+    "lastModified": "Thu, 14 Jan 2021 15:40:38 GMT",
+    "hsChunksSha256": "ac0d740192efc3eede58ad3d5d22879ea5ad43b886c6b334190dcd17b8297bc4",
+    "hsChunkBytes": 45564306
+   }
+  },
+  "months/201807.json": {
+   "sha256": "26d9a8f28c9b5887d679965f3eba91d346ea9e04360f02730efc714980855934",
+   "bytes": 19387,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201807.nc",
+    "contentLength": 2716672028,
+    "lastModified": "Thu, 14 Jan 2021 15:40:35 GMT",
+    "hsChunksSha256": "77299f3936199b6b043e50f4e512646a42b53a5fabc6962e435c2af90ac9d0db",
+    "hsChunkBytes": 47538855
+   }
+  },
+  "months/201808.json": {
+   "sha256": "fc4af2e38e2164e849877cb35f399f8e26b8c15051764a810f8ee173691a928b",
+   "bytes": 19599,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201808.nc",
+    "contentLength": 2775307633,
+    "lastModified": "Thu, 14 Jan 2021 15:40:33 GMT",
+    "hsChunksSha256": "2f099e52574b8422fd46598d1b56d90fe9ff73c3c41c898a8b100fe62d4c066e",
+    "hsChunkBytes": 47733269
+   }
+  },
+  "months/201809.json": {
+   "sha256": "6091b2f24d4910570638f44e1e99b9e65a016121f0a2afc4abcbe5b4c3b8a7da",
+   "bytes": 18926,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201809.nc",
+    "contentLength": 2695772102,
+    "lastModified": "Thu, 14 Jan 2021 15:40:39 GMT",
+    "hsChunksSha256": "fbdef0390f6334d853385608dacd96c81822a80d328faba7c2d3e5a17b4c300b",
+    "hsChunkBytes": 46717272
+   }
+  },
+  "months/201810.json": {
+   "sha256": "c3581c919ac2cd6f27a911ca818b4eb2c2171fdc20e26e2fefc0330ebe91018d",
+   "bytes": 19607,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201810.nc",
+    "contentLength": 2772376668,
+    "lastModified": "Thu, 14 Jan 2021 15:40:36 GMT",
+    "hsChunksSha256": "6c15b36c78b5968e7d83a682d5c26e0c422b2aae5c550aaaaf6a4af5b389fc07",
+    "hsChunkBytes": 47890510
+   }
+  },
+  "months/201811.json": {
+   "sha256": "761796ff217a3620db30320291ff28e6d409498d3e3f262f25e2a0ed719009c8",
+   "bytes": 18895,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201811.nc",
+    "contentLength": 2635314661,
+    "lastModified": "Thu, 14 Jan 2021 15:40:36 GMT",
+    "hsChunksSha256": "8ebd22bc02acd5f49acd1e903abbc5ab88c4381e34231e51e8aa94ba026e246d",
+    "hsChunkBytes": 45729622
+   }
+  },
+  "months/201812.json": {
+   "sha256": "0bba87d591fb2eb10a54500cb2da61c6c8095d948013dd3e7e665dbb2de2b2b8",
+   "bytes": 19233,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2018/FIELD_NC/LOPS_WW3-GLOB-30M_201812.nc",
+    "contentLength": 2767409302,
+    "lastModified": "Thu, 14 Jan 2021 15:40:35 GMT",
+    "hsChunksSha256": "1f808da97aa17185f6501b9120594913f9c2751d1e84aa903426b3aade006637",
+    "hsChunkBytes": 47489371
+   }
+  },
+  "months/201901.json": {
+   "sha256": "984fa1022c52bda309f14673565d37add7b185f1eed8d72be40efb00d06b6c03",
+   "bytes": 19090,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201901.nc",
+    "contentLength": 2811998929,
+    "lastModified": "Thu, 14 Jan 2021 15:40:50 GMT",
+    "hsChunksSha256": "898bc76d46fe7870974f5249d6b9f41160b95b286c9a18e0ba4f61bc46e03f81",
+    "hsChunkBytes": 47325595
+   }
+  },
+  "months/201902.json": {
+   "sha256": "672393a5c552b7099aebbc39129541502606f30b89acd204432b80966c4c3667",
+   "bytes": 17381,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201902.nc",
+    "contentLength": 2575666992,
+    "lastModified": "Thu, 14 Jan 2021 15:40:53 GMT",
+    "hsChunksSha256": "d991e9e15b6df384d193ef4fdd8f21305f473307b244f0614e520ffcbfa7d5ff",
+    "hsChunkBytes": 42948547
+   }
+  },
+  "months/201903.json": {
+   "sha256": "3215d98c1663f02828668ae271940c68d5e276c6cc20b259ba04eae567aa1495",
+   "bytes": 19395,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201903.nc",
+    "contentLength": 2789512929,
+    "lastModified": "Thu, 14 Jan 2021 15:40:52 GMT",
+    "hsChunksSha256": "3a80cd048f2ac608cbdc0c705a6f3a101e02c9c65a97cc44fe9174101d521632",
+    "hsChunkBytes": 47360990
+   }
+  },
+  "months/201904.json": {
+   "sha256": "16efd67c57716a9a77a4dc08473e482b7c0b40910adb2bc78a9fbca9235ed985",
+   "bytes": 18594,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201904.nc",
+    "contentLength": 2662641336,
+    "lastModified": "Thu, 14 Jan 2021 15:40:56 GMT",
+    "hsChunksSha256": "5a1871f6d3148fbf3ffb93418a0c20ba886731da2d523314d14aea88f93079f0",
+    "hsChunkBytes": 45567884
+   }
+  },
+  "months/201905.json": {
+   "sha256": "faec320ce047bfb8c6fdaa45716bc52d81dc3e68296b640c7c1ace9f9a792381",
+   "bytes": 19202,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201905.nc",
+    "contentLength": 2743086200,
+    "lastModified": "Thu, 14 Jan 2021 15:40:52 GMT",
+    "hsChunksSha256": "6b9c07c177a57194f70fc926cbc9de6fdefd266a76af97415cd78b2aac6ed149",
+    "hsChunkBytes": 47018063
+   }
+  },
+  "months/201906.json": {
+   "sha256": "3b7cca1c0db11456f38cc50be8f232288d2e56ae24253c9fc2f3c05f9fe8e5ce",
+   "bytes": 18642,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201906.nc",
+    "contentLength": 2622778774,
+    "lastModified": "Thu, 14 Jan 2021 15:40:54 GMT",
+    "hsChunksSha256": "d4bc1d5c8bece3f7b819c697cb3a19f9adbae2509fd0f14e4534a39641fa47fa",
+    "hsChunkBytes": 45680992
+   }
+  },
+  "months/201907.json": {
+   "sha256": "c18f1e3b8ce9d0193545321d917b037c30fd395224e06857537f4b62ab1e2af0",
+   "bytes": 19479,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201907.nc",
+    "contentLength": 2727659596,
+    "lastModified": "Thu, 14 Jan 2021 15:40:50 GMT",
+    "hsChunksSha256": "88cd205ff7da60e10a4c9017be39aa34f7cf50e546c6abac8c799aeebc64734c",
+    "hsChunkBytes": 47394948
+   }
+  },
+  "months/201908.json": {
+   "sha256": "f32975d62fbcbf1a8ed07a47f6fc0548c62a96bfb2f37b7a72385bb9f57e8e5a",
+   "bytes": 19622,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201908.nc",
+    "contentLength": 2748319567,
+    "lastModified": "Thu, 14 Jan 2021 15:40:51 GMT",
+    "hsChunksSha256": "1ecc36ed985f31019e7def67714fa71a90da7de99b93ce91524f8c2910a1384a",
+    "hsChunkBytes": 47869578
+   }
+  },
+  "months/201909.json": {
+   "sha256": "70f8a0795bc13e5ce12cbf70db75de3b287c8eaa94acdb822f6af33802bac543",
+   "bytes": 19008,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201909.nc",
+    "contentLength": 2700609319,
+    "lastModified": "Thu, 14 Jan 2021 15:40:48 GMT",
+    "hsChunksSha256": "cca6890b209355572bd3df943a092e891072f5088e9bd4b6f6377fe3852ffd5e",
+    "hsChunkBytes": 46733102
+   }
+  },
+  "months/201910.json": {
+   "sha256": "f68274253c7af1a79f619411a3898d0284d903de6351233466c3e920de11ce99",
+   "bytes": 19363,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201910.nc",
+    "contentLength": 2777750693,
+    "lastModified": "Thu, 14 Jan 2021 15:40:54 GMT",
+    "hsChunksSha256": "e4618ebb0783141fa42fc57c78a730e10e8ee07c5dd40b9977d2522b5acf1913",
+    "hsChunkBytes": 47824600
+   }
+  },
+  "months/201911.json": {
+   "sha256": "0825a0b65def6566ae25bdbdee3baeabb6201f0857abf30c0b939604886596cb",
+   "bytes": 18652,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201911.nc",
+    "contentLength": 2692255841,
+    "lastModified": "Thu, 14 Jan 2021 15:40:49 GMT",
+    "hsChunksSha256": "ba11f360737fce47dcb744d6841120d5807fdb16912105b3c6af9fdbd1394a64",
+    "hsChunkBytes": 45560188
+   }
+  },
+  "months/201912.json": {
+   "sha256": "1ab9c786b782ea9dcf18fa3d20bf248dc9c3d489cf57f573f9844d2737caac90",
+   "bytes": 19355,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2019/FIELD_NC/LOPS_WW3-GLOB-30M_201912.nc",
+    "contentLength": 2782924406,
+    "lastModified": "Thu, 14 Jan 2021 15:40:55 GMT",
+    "hsChunksSha256": "e66f88370772528c2c73988225d735c4c8e709b1f8159aa83fedb7c9db6eae51",
+    "hsChunkBytes": 47266623
+   }
+  },
+  "months/202001.json": {
+   "sha256": "d6768867729f126cd35b192869d47b9e20c623715e1c6ccda12dddfa2ab0c6fe",
+   "bytes": 19304,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202001.nc",
+    "contentLength": 2819376819,
+    "lastModified": "Fri, 16 Apr 2021 14:14:50 GMT",
+    "hsChunksSha256": "0930b4912f32e2c4a4af3ba085618e7080a8fc4cdd0f2798b5c5f296e7e43b6e",
+    "hsChunkBytes": 47439297
+   }
+  },
+  "months/202002.json": {
+   "sha256": "541fbb7a1c99eb9925177fc62cfa4593cff1f17545ed0ede7447a8c2ac9b913a",
+   "bytes": 18095,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202002.nc",
+    "contentLength": 2614631965,
+    "lastModified": "Fri, 16 Apr 2021 14:14:49 GMT",
+    "hsChunksSha256": "6b9fdf41d0c7a768faec2babe5423182689200356a592473e0d007bdba351c16",
+    "hsChunkBytes": 44488231
+   }
+  },
+  "months/202003.json": {
+   "sha256": "dc7ee817a2a5e4ab5a7773feb134f6a50a0d173843195eb7e460ee1b8a8e487a",
+   "bytes": 19077,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202003.nc",
+    "contentLength": 2765404285,
+    "lastModified": "Fri, 16 Apr 2021 14:14:46 GMT",
+    "hsChunksSha256": "641a2c0cfb3abce14162001518afe725a6ddf268943c053436879d1e2ce186c0",
+    "hsChunkBytes": 47119103
+   }
+  },
+  "months/202004.json": {
+   "sha256": "a16422ac24304c2c2540074a366ab078a9049c18d795660bea18be10c7d79965",
+   "bytes": 18712,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202004.nc",
+    "contentLength": 2676115401,
+    "lastModified": "Fri, 16 Apr 2021 14:14:51 GMT",
+    "hsChunksSha256": "9f1eeaa4ca652377f180de61564f1364132debd969cda56d42b3d13ce8418759",
+    "hsChunkBytes": 45462358
+   }
+  },
+  "months/202005.json": {
+   "sha256": "51eba3b1dcdcbee3d03a6140987bc6ef8425e3f9dfdc54f1cc6d58ae5c38ac35",
+   "bytes": 19313,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202005.nc",
+    "contentLength": 2713922088,
+    "lastModified": "Fri, 16 Apr 2021 14:14:53 GMT",
+    "hsChunksSha256": "459d7f4683b6a9f840b820024c7f0621ea07490cb3f5f3c7a6ff82db4e28e354",
+    "hsChunkBytes": 47019709
+   }
+  },
+  "months/202006.json": {
+   "sha256": "408257dec7a21153308e37a3114487e75a6f1b82c4abd56f75373c0b948bd80a",
+   "bytes": 18708,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202006.nc",
+    "contentLength": 2598837756,
+    "lastModified": "Fri, 16 Apr 2021 14:14:51 GMT",
+    "hsChunksSha256": "3cf35621397d2a82a3d6137e34cc95f548b7adc81b840385c89728408b194493",
+    "hsChunkBytes": 45553126
+   }
+  },
+  "months/202007.json": {
+   "sha256": "571f8bc4d2fe61e7a4fba8453c5d302f7848b4050b685a8599fe49889b94474d",
+   "bytes": 19437,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202007.nc",
+    "contentLength": 2720794170,
+    "lastModified": "Fri, 16 Apr 2021 14:14:49 GMT",
+    "hsChunksSha256": "88a699d855ed225f027bb2f48282ced665c20903465c6a134719b59b4cac7dad",
+    "hsChunkBytes": 47466138
+   }
+  },
+  "months/202008.json": {
+   "sha256": "7ed6e0444cf3d2540999325cdfd0329108afcb7a7122025b0324e84dbf48d540",
+   "bytes": 19420,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202008.nc",
+    "contentLength": 2722931529,
+    "lastModified": "Fri, 16 Apr 2021 14:14:48 GMT",
+    "hsChunksSha256": "80c725596d1eec3164937a06fc2181b6b6bb1add05539b4c17274e0943c1abd5",
+    "hsChunkBytes": 47753116
+   }
+  },
+  "months/202009.json": {
+   "sha256": "0e1e0975e5c25ecdb7e2e5a2aa66c5ac283d816ff1533be072bcb664a3b5f581",
+   "bytes": 19001,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202009.nc",
+    "contentLength": 2682584769,
+    "lastModified": "Fri, 16 Apr 2021 14:14:53 GMT",
+    "hsChunksSha256": "06171cc77661b755d0afd254600abf609c45684f140e52af7bfd16093a01787c",
+    "hsChunkBytes": 46630577
+   }
+  },
+  "months/202010.json": {
+   "sha256": "f3f02f9afaec44b74f90da8c0fa034ab25d14c2fcb2382c592f10f8db4ba2763",
+   "bytes": 19425,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202010.nc",
+    "contentLength": 2742675141,
+    "lastModified": "Fri, 16 Apr 2021 14:14:47 GMT",
+    "hsChunksSha256": "eaddd9130c501d2e0cc1109285a1b96335bc0509b2f89aeef19ea14d0b5a8bb7",
+    "hsChunkBytes": 47929716
+   }
+  },
+  "months/202011.json": {
+   "sha256": "a1b0f39988ef7901b9f34aba6120892ce82731001752605610dec46353def0e7",
+   "bytes": 18522,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202011.nc",
+    "contentLength": 2637293108,
+    "lastModified": "Fri, 16 Apr 2021 14:14:47 GMT",
+    "hsChunksSha256": "64b71c7123075a54ae8daaaf47f1b6a53d3996568a7f20a68c8c4044ef91d40e",
+    "hsChunkBytes": 45806240
+   }
+  },
+  "months/202012.json": {
+   "sha256": "2894bdbaa43162806f29a3fb247081e90c5fa4fadbcfc37927c065c74a8db0d8",
+   "bytes": 19107,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2020/FIELD_NC/LOPS_WW3-GLOB-30M_202012.nc",
+    "contentLength": 2773605101,
+    "lastModified": "Fri, 16 Apr 2021 14:14:52 GMT",
+    "hsChunksSha256": "16ab8208701ce7abb3efdc93b863a97bb2491bec9f16a28ba024e941d0fe5169",
+    "hsChunkBytes": 47455782
+   }
+  },
+  "months/202101.json": {
+   "sha256": "6f4706cd3bf7c23601256c2cf656bfdd7fc89593ff7da81b07f3b1d9277d21dc",
+   "bytes": 19266,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202101.nc",
+    "contentLength": 2798170846,
+    "lastModified": "Thu, 09 Nov 2023 18:22:27 GMT",
+    "hsChunksSha256": "37d071bc6aca7c7b82859361dad42f77fb96a1d8d6824a1f33fb8ef52815a78c",
+    "hsChunkBytes": 47461152
+   }
+  },
+  "months/202102.json": {
+   "sha256": "bc8e6cbc98c4fbd141a77347721c545d20ee65836a17b1949580d5116a58b958",
+   "bytes": 17594,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202102.nc",
+    "contentLength": 2510882069,
+    "lastModified": "Thu, 09 Nov 2023 18:32:21 GMT",
+    "hsChunksSha256": "fdd62b7452f0a5339d0d55313a91e93235dc93c65e5a484ebd2853dc6c038a00",
+    "hsChunkBytes": 42926575
+   }
+  },
+  "months/202103.json": {
+   "sha256": "b2017c6933af73933234ece3655d48fd710acd2809f7d20006b41e3704892b4b",
+   "bytes": 19228,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202103.nc",
+    "contentLength": 2781437639,
+    "lastModified": "Thu, 09 Nov 2023 18:43:18 GMT",
+    "hsChunksSha256": "2779c124eea86e17b0d8dcb9da0ac7106c9553f9a42ae84f18a77718cd084412",
+    "hsChunkBytes": 47290030
+   }
+  },
+  "months/202104.json": {
+   "sha256": "a52e5c5e15d62da88a492fd960bce5c4f9d039d61342b2f1bc57a7598a5f7ff8",
+   "bytes": 18757,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202104.nc",
+    "contentLength": 2659844195,
+    "lastModified": "Thu, 09 Nov 2023 18:53:51 GMT",
+    "hsChunksSha256": "cfaab4428302f10fe7b6fa93e31794b73c7eb5fc6338a04c5e09d29fd6b6eba6",
+    "hsChunkBytes": 45515618
+   }
+  },
+  "months/202105.json": {
+   "sha256": "171821f497b0ae3ce8117cf76a3a470bc9b341f1d6b7d32de6728cb0926bba5d",
+   "bytes": 19406,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202105.nc",
+    "contentLength": 2706595481,
+    "lastModified": "Thu, 09 Nov 2023 19:04:40 GMT",
+    "hsChunksSha256": "c1bfb89257460a2c364284b752924b3c1299bd3e605c9947e267babb6ab81e54",
+    "hsChunkBytes": 46958325
+   }
+  },
+  "months/202106.json": {
+   "sha256": "e9361473953dc4570fa9069bbc48c8de170108ef4d93f0893d62dbf04ada3814",
+   "bytes": 18984,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202106.nc",
+    "contentLength": 2639298316,
+    "lastModified": "Thu, 09 Nov 2023 19:15:10 GMT",
+    "hsChunksSha256": "190b97a7ef66f2034df0f94f77c245aae48908e2051c3113b50004010db3f987",
+    "hsChunkBytes": 45537219
+   }
+  },
+  "months/202107.json": {
+   "sha256": "24e7c064e75112e1def3efdbb0ba48ba330db4b6c310765e9120585c6cef2516",
+   "bytes": 19319,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202107.nc",
+    "contentLength": 2673044764,
+    "lastModified": "Thu, 09 Nov 2023 19:26:01 GMT",
+    "hsChunksSha256": "62538bd6b73fd99529ccd37b4ba9f54ff1394cc3aa274691067b9153a52e8a59",
+    "hsChunkBytes": 47390357
+   }
+  },
+  "months/202108.json": {
+   "sha256": "42a458b3115cdee6956d36eb1b376050d272cc21c283dcd17f4b5523ca6f6aa8",
+   "bytes": 19506,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202108.nc",
+    "contentLength": 2723620362,
+    "lastModified": "Thu, 09 Nov 2023 19:36:56 GMT",
+    "hsChunksSha256": "7c297eeb5aef637a131dc6b92fd782bca7a4a8902e1c110f0226f654d6a23ede",
+    "hsChunkBytes": 47701116
+   }
+  },
+  "months/202109.json": {
+   "sha256": "b80438499d16abbbb3cd6840529135e4aa051ce423bd5f7d23adec514d42541c",
+   "bytes": 18848,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202109.nc",
+    "contentLength": 2653779089,
+    "lastModified": "Thu, 09 Nov 2023 19:47:31 GMT",
+    "hsChunksSha256": "1109edac6ff581fabad4f82fdaefbb3a95e3fa56f2eb864326b6ba30fdd36272",
+    "hsChunkBytes": 46557232
+   }
+  },
+  "months/202110.json": {
+   "sha256": "2c683e86ab47666f264711312f3f34b847da201134986d28ea6d2cf849c59e7b",
+   "bytes": 19498,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202110.nc",
+    "contentLength": 2716020345,
+    "lastModified": "Thu, 09 Nov 2023 19:58:27 GMT",
+    "hsChunksSha256": "3564316c9fc99b8e19bd2fd62562462f7e73333e9015bdb0dcfc60eab99640e9",
+    "hsChunkBytes": 47468107
+   }
+  },
+  "months/202111.json": {
+   "sha256": "c5bbb0341d994d1c9396f2cd0184b1b7b743d820239caa2cc99ba07697f5f014",
+   "bytes": 18700,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202111.nc",
+    "contentLength": 2631632065,
+    "lastModified": "Thu, 09 Nov 2023 20:08:57 GMT",
+    "hsChunksSha256": "52df3beaa0a5295079ec07bfde1f803de6d9cadbbc0b025e7d68dbe3a360a79a",
+    "hsChunkBytes": 45344974
+   }
+  },
+  "months/202112.json": {
+   "sha256": "c7ac96e06f6f7665197774e57ecff90f116c4d08f29ae922659bd408f43808a4",
+   "bytes": 19214,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2021/FIELD_NC/LOPS_WW3-GLOB-30M_202112.nc",
+    "contentLength": 2736821860,
+    "lastModified": "Thu, 09 Nov 2023 20:19:52 GMT",
+    "hsChunksSha256": "6f10229ae331b26fd0c0ad382245f4c25db97bb2d7c82dec412d9c49b97b21b4",
+    "hsChunkBytes": 47299030
+   }
+  },
+  "months/202201.json": {
+   "sha256": "5e53dfdc82858094a06969ab23da3505a5b3b4fbd498df74f804d959bb825576",
+   "bytes": 19200,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202201.nc",
+    "contentLength": 2806711702,
+    "lastModified": "Wed, 06 Sep 2023 08:28:08 GMT",
+    "hsChunksSha256": "37e3aa3c80f0fae97a523697f5fdac2b5223337f4a50316f3e622452b4ebd1e6",
+    "hsChunkBytes": 47516014
+   }
+  },
+  "months/202202.json": {
+   "sha256": "4c867ef8744148dff65e3f5bae293043b76bf320b3d9e31e3aa193bf7a797059",
+   "bytes": 17352,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202202.nc",
+    "contentLength": 2528057880,
+    "lastModified": "Wed, 06 Sep 2023 08:28:16 GMT",
+    "hsChunksSha256": "fa93ff361440af7ca7113b6b81157076b69249d55e20daccdd4dbd3bf08e3403",
+    "hsChunkBytes": 42869293
+   }
+  },
+  "months/202203.json": {
+   "sha256": "317f998f09a648ecf18d7a86045d3566306e1e56ea6b7e16b034452419b7ca46",
+   "bytes": 19373,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202203.nc",
+    "contentLength": 2784640718,
+    "lastModified": "Wed, 06 Sep 2023 08:28:13 GMT",
+    "hsChunksSha256": "d6f0cb6c25cff5f1cd841f6f1cd487cdd7641c6e0f39ebb8024fb810f0442a4d",
+    "hsChunkBytes": 47446435
+   }
+  },
+  "months/202204.json": {
+   "sha256": "9e9e0195d572ad71648356c2a27dcce48c6b2060a84faec1406fa3dc1f20bec0",
+   "bytes": 18743,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202204.nc",
+    "contentLength": 2621741514,
+    "lastModified": "Wed, 06 Sep 2023 08:27:20 GMT",
+    "hsChunksSha256": "1eb6378e1d5a43c1b6168bebc91ff26826c6aed4fcf195841243833f604c370b",
+    "hsChunkBytes": 45452615
+   }
+  },
+  "months/202205.json": {
+   "sha256": "303cccf4317804e2aacf44a3df3e0a8424143caef83c7e2957398754033c68ba",
+   "bytes": 19375,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202205.nc",
+    "contentLength": 2712970866,
+    "lastModified": "Wed, 06 Sep 2023 08:27:29 GMT",
+    "hsChunksSha256": "7936551614ebf9d7abef6a4ccca012f593429f626aefcf89719b2b42e6c02843",
+    "hsChunkBytes": 46777555
+   }
+  },
+  "months/202206.json": {
+   "sha256": "6c9c7a49f8afcf8628827e0bb24ed2442c120088e3aa4a2d9ff73ea29e61226a",
+   "bytes": 18897,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202206.nc",
+    "contentLength": 2645148703,
+    "lastModified": "Wed, 06 Sep 2023 08:27:54 GMT",
+    "hsChunksSha256": "fabe6a056c615c5e01d56503cff760e5054f7cf45ac297f7d56bb25085a61ba0",
+    "hsChunkBytes": 45536662
+   }
+  },
+  "months/202207.json": {
+   "sha256": "652e86d09a3b41f09635b08a6e243619d4f6f75c8b8feda7b9e43df38717812a",
+   "bytes": 19560,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202207.nc",
+    "contentLength": 2672193806,
+    "lastModified": "Wed, 06 Sep 2023 08:27:18 GMT",
+    "hsChunksSha256": "09a47077416388749955872401871495c7b5a0dc3e2de9a4c2b65f3b5ee0aeb7",
+    "hsChunkBytes": 47386145
+   }
+  },
+  "months/202208.json": {
+   "sha256": "68ec27de79a80ac921af939cb60117e25ee017b05da15447b23e1a673aedb066",
+   "bytes": 19572,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202208.nc",
+    "contentLength": 2699594592,
+    "lastModified": "Wed, 06 Sep 2023 08:28:06 GMT",
+    "hsChunksSha256": "f08459c57b44f26297f7f2ab81ff6f7a606ae763ce9c8b21d98ef1d66ad5aafb",
+    "hsChunkBytes": 47684403
+   }
+  },
+  "months/202209.json": {
+   "sha256": "9f2cf833fde45b99ea49b2996421390651baa9b5d676fb96c4e10b7961ccc882",
+   "bytes": 18947,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202209.nc",
+    "contentLength": 2642840989,
+    "lastModified": "Wed, 06 Sep 2023 08:27:58 GMT",
+    "hsChunksSha256": "efc35f8876c33c5d2d6052e79bfbdae487262ed5f5849bcd7a642eacc7127e34",
+    "hsChunkBytes": 46383122
+   }
+  },
+  "months/202210.json": {
+   "sha256": "af5e355f3baad474575cdc72a7377adad392581da9e228ee07577b60516e40cf",
+   "bytes": 19270,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202210.nc",
+    "contentLength": 2732244915,
+    "lastModified": "Wed, 06 Sep 2023 08:27:26 GMT",
+    "hsChunksSha256": "2717edcc268475fcc1a44cff5dfb6c042aee47c9fec1ebc9aa602d502030e24e",
+    "hsChunkBytes": 47626824
+   }
+  },
+  "months/202211.json": {
+   "sha256": "d099d7a70ffe0f32e827e5cbfbb174956d4c6cff25c9fb26fbca21bb88c75199",
+   "bytes": 18701,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202211.nc",
+    "contentLength": 2617581734,
+    "lastModified": "Wed, 06 Sep 2023 08:27:11 GMT",
+    "hsChunksSha256": "2dec45331062a894fbbb7dbc52a9a7c77b21cf95ce430fadfaa04a9ab22a446b",
+    "hsChunkBytes": 45507066
+   }
+  },
+  "months/202212.json": {
+   "sha256": "ea56060b251df2fdacb8c3db0346e03b5d41cd8d87a04500891dcf01eafc1ebe",
+   "bytes": 19483,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2022/FIELD_NC/LOPS_WW3-GLOB-30M_202212.nc",
+    "contentLength": 2771466817,
+    "lastModified": "Wed, 06 Sep 2023 08:27:15 GMT",
+    "hsChunksSha256": "50ead6c1528cd3bd9e2c58b9fbe8edaf98a556beb270a1f9dbe4dbdecb402e52",
+    "hsChunkBytes": 47452581
+   }
+  },
+  "months/202301.json": {
+   "sha256": "2347786dc1e3f573569045b9f750283afbd29166a2bb974630d9d667a099a31e",
+   "bytes": 19090,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202301.nc",
+    "contentLength": 2756260855,
+    "lastModified": "Mon, 20 May 2024 00:46:34 GMT",
+    "hsChunksSha256": "84a6be74a05e656663b9bf8863054c7932586cd3fa578fed263d4c07ba4354ba",
+    "hsChunkBytes": 47436729
+   }
+  },
+  "months/202302.json": {
+   "sha256": "18f021149f2ab649fccf553ab98a8c53882e841e79bac8d4d2842107f6f3eac6",
+   "bytes": 17376,
+   "steps": 224,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202302.nc",
+    "contentLength": 2538124136,
+    "lastModified": "Mon, 20 May 2024 00:56:30 GMT",
+    "hsChunksSha256": "42b076adaeab6e01fb0d6bbf7b99f11d6f82291f1bc8c6c8b6d5d894b9109fff",
+    "hsChunkBytes": 42934196
+   }
+  },
+  "months/202303.json": {
+   "sha256": "e8f6288d77669731a667eefb58980b2be3a9e2ec2d471c304196801066f1804b",
+   "bytes": 19089,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202303.nc",
+    "contentLength": 2790542325,
+    "lastModified": "Mon, 20 May 2024 01:07:39 GMT",
+    "hsChunksSha256": "75d5da62e82acba19c230f72c286684c29549a8591b74e4fd45e716012996f92",
+    "hsChunkBytes": 47200799
+   }
+  },
+  "months/202304.json": {
+   "sha256": "4697aeda8ede08eb04ceb16e88a8a4fb30ae0331d2421878c6946bd18f5a0c13",
+   "bytes": 18661,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202304.nc",
+    "contentLength": 2668860145,
+    "lastModified": "Mon, 20 May 2024 01:18:12 GMT",
+    "hsChunksSha256": "77135234097df36d80ede38029567805f0bd453e142f340f96484776377dfd7d",
+    "hsChunkBytes": 45347259
+   }
+  },
+  "months/202305.json": {
+   "sha256": "ee919d8bc2fae4c7c4ab891d4aabf093f7e267ca28b3d5622873a51d5c92ab7a",
+   "bytes": 19197,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202305.nc",
+    "contentLength": 2747031217,
+    "lastModified": "Mon, 20 May 2024 01:29:07 GMT",
+    "hsChunksSha256": "b6bf92a99b4ec0abebf1f0f21419e2427f2d6ba21a87952859fe3cd910664a19",
+    "hsChunkBytes": 47191039
+   }
+  },
+  "months/202306.json": {
+   "sha256": "49f592ca79c4f4126b954c8a135e3b163eb346e9884f19029ba1eaba558adce0",
+   "bytes": 18682,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202306.nc",
+    "contentLength": 2675548525,
+    "lastModified": "Mon, 20 May 2024 01:39:43 GMT",
+    "hsChunksSha256": "131db0ef2466afeab8f45ecb2c8b82795e5187a0784f107949c753aac876fcaa",
+    "hsChunkBytes": 45444728
+   }
+  },
+  "months/202307.json": {
+   "sha256": "74e444fe3365326cd5c768852b7fa743af4f2f6c38741bd394ff20377a876be3",
+   "bytes": 19562,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202307.nc",
+    "contentLength": 2692768214,
+    "lastModified": "Mon, 20 May 2024 01:50:35 GMT",
+    "hsChunksSha256": "ce4c426c20c9d6d8fbf9e984a9d286d57003e6df0b681c7c5a009c8923f05148",
+    "hsChunkBytes": 47330067
+   }
+  },
+  "months/202308.json": {
+   "sha256": "936b7c055c5b8099e7f510411e51d66504a63f1682be0fcae9a08ed3e5f5972e",
+   "bytes": 19670,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202308.nc",
+    "contentLength": 2771406068,
+    "lastModified": "Mon, 20 May 2024 02:01:36 GMT",
+    "hsChunksSha256": "d60cd25b7564451278caa0263ea62b5568b836aea8a32aa707dd1eef1b2ef160",
+    "hsChunkBytes": 47975121
+   }
+  },
+  "months/202309.json": {
+   "sha256": "b41fe89c5f6b25b181dcef7a7bfcadd265e1338fbe3f22e611c5710ed19edd58",
+   "bytes": 19189,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202309.nc",
+    "contentLength": 2682397360,
+    "lastModified": "Mon, 20 May 2024 02:12:17 GMT",
+    "hsChunksSha256": "eceeecb0d9f3b12e7bd6717e54b4e11ca97e5bb0837c96ca804f81afc3bf5ad9",
+    "hsChunkBytes": 46751870
+   }
+  },
+  "months/202310.json": {
+   "sha256": "13fe21479bbb82e6f6709c66a4a4b901c6bff8565632413dfb55450a577cc219",
+   "bytes": 19442,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202310.nc",
+    "contentLength": 2770581730,
+    "lastModified": "Mon, 20 May 2024 02:23:17 GMT",
+    "hsChunksSha256": "00a2556edd9c6b93e939e06cbfe3e8034227d1c72d3664f08445f2604a59e2f7",
+    "hsChunkBytes": 47848757
+   }
+  },
+  "months/202311.json": {
+   "sha256": "07c0a7b94c8b71d160d2270f22ae20fd2512fd782ff5d135fa1f7b3f469c0557",
+   "bytes": 18672,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202311.nc",
+    "contentLength": 2638573942,
+    "lastModified": "Mon, 20 May 2024 02:33:50 GMT",
+    "hsChunksSha256": "fb2cdd3086a2fd2b2c762073a8c02b8d5884beb665841f95f50b6c61406a51ac",
+    "hsChunkBytes": 45486339
+   }
+  },
+  "months/202312.json": {
+   "sha256": "245aacad19d3231bc111d29583f64fb61b798e725eb56b19b399d213cce1e1f0",
+   "bytes": 19158,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2023/FIELD_NC/LOPS_WW3-GLOB-30M_202312.nc",
+    "contentLength": 2742282605,
+    "lastModified": "Mon, 20 May 2024 02:44:46 GMT",
+    "hsChunksSha256": "e0676d99a412927a9d0b3d00c83e5aac28a8d39235d19303deed1e3a2798487c",
+    "hsChunkBytes": 47253194
+   }
+  },
+  "months/202401.json": {
+   "sha256": "86a71fa664d9c2fc52b7e5b7b90f27d01a038776c2263ee544fea69bd4f2cf9f",
+   "bytes": 19464,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202401.nc",
+    "contentLength": 2777994664,
+    "lastModified": "Fri, 14 Feb 2025 20:55:31 GMT",
+    "hsChunksSha256": "be16d351160e97204ffb8a34d6dba7e9add910413e21daffd3793a32c1d2bb2e",
+    "hsChunkBytes": 47421845
+   }
+  },
+  "months/202402.json": {
+   "sha256": "07126afda1cdb891a6d82625ee0d063b7beca8fda02a4aaf804ba02e91ef07d7",
+   "bytes": 17959,
+   "steps": 232,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202402.nc",
+    "contentLength": 2636224166,
+    "lastModified": "Fri, 14 Feb 2025 21:05:54 GMT",
+    "hsChunksSha256": "acc0cbcae4d93763281cfdebb2f9b5db7b87d8f39af18c2315cb1cd3084fcdbd",
+    "hsChunkBytes": 44367264
+   }
+  },
+  "months/202403.json": {
+   "sha256": "3d5248e159064c0a2e3af48bdfedd6a60d670add4bee9450a128f7982d5997e3",
+   "bytes": 19188,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202403.nc",
+    "contentLength": 2784725908,
+    "lastModified": "Fri, 14 Feb 2025 21:16:55 GMT",
+    "hsChunksSha256": "6626a62a43140ddbe0d31149aec8f6533a9b3058b24958f94907e43d04883354",
+    "hsChunkBytes": 47166728
+   }
+  },
+  "months/202404.json": {
+   "sha256": "46e95ccc0b7ad9186c2472c244c1ee6b501dc41a0e16fabe7fbace14479ade46",
+   "bytes": 18691,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202404.nc",
+    "contentLength": 2635157376,
+    "lastModified": "Fri, 14 Feb 2025 21:27:40 GMT",
+    "hsChunksSha256": "c765590c7f4e6df304a9b32cceea758c1329424c8d74cfa7b7cf191ad85ff8fa",
+    "hsChunkBytes": 45599930
+   }
+  },
+  "months/202405.json": {
+   "sha256": "b888f048e85a631c930155182a7eb584630f57f1653a4b76fad7c4d30744255b",
+   "bytes": 19319,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202405.nc",
+    "contentLength": 2730308273,
+    "lastModified": "Fri, 14 Feb 2025 21:38:38 GMT",
+    "hsChunksSha256": "db7412ec7b877f43e15e7df2042ffc357a9c5542ce31f0dfe30892bf6ecff930",
+    "hsChunkBytes": 46966334
+   }
+  },
+  "months/202406.json": {
+   "sha256": "17578a9314c9b8ba604221095ca9584134d5f3cd1049d133d1876ad4493315d3",
+   "bytes": 18702,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202406.nc",
+    "contentLength": 2657407211,
+    "lastModified": "Fri, 14 Feb 2025 21:49:18 GMT",
+    "hsChunksSha256": "e2d63dcd036b2ab761e6b0e229eaa0a2c0caf7976242c2459b830a76df4a22c4",
+    "hsChunkBytes": 45623542
+   }
+  },
+  "months/202407.json": {
+   "sha256": "7c1844f126d9faaf3c1e1bd934982f99fedbdf3b023fd84e933df6a280bcb3ed",
+   "bytes": 19349,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202407.nc",
+    "contentLength": 2722783839,
+    "lastModified": "Fri, 14 Feb 2025 22:00:25 GMT",
+    "hsChunksSha256": "64c3682c228a74248191bcac6d305d9b517e5ebd98d708fc65c9ee76dec4ad9b",
+    "hsChunkBytes": 47570088
+   }
+  },
+  "months/202408.json": {
+   "sha256": "043dd0073c9b58e998d9cd432ef0afbb51d6b271bd8ae6aa656a370fe8492ac8",
+   "bytes": 19792,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202408.nc",
+    "contentLength": 2775803065,
+    "lastModified": "Fri, 14 Feb 2025 22:11:32 GMT",
+    "hsChunksSha256": "5345ac8a87fcde33f1c88ca20e4431a9ceca90dbf07b6390ee00fbfa6b33c57b",
+    "hsChunkBytes": 48018807
+   }
+  },
+  "months/202409.json": {
+   "sha256": "fea3eaf8888854aef39581970e001b61a0795e5bb306969e4c67f322ea634946",
+   "bytes": 19020,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202409.nc",
+    "contentLength": 2672244273,
+    "lastModified": "Fri, 14 Feb 2025 22:22:17 GMT",
+    "hsChunksSha256": "b6068db1488079e123b254dbefda2c21316490558e3ab4c93010c2f8ed07d3d5",
+    "hsChunkBytes": 46508896
+   }
+  },
+  "months/202410.json": {
+   "sha256": "af71cd1aca6c24d9f7e5992ee2021f177ca37140fa0e2d005158cf210c49cda7",
+   "bytes": 19410,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202410.nc",
+    "contentLength": 2784859920,
+    "lastModified": "Fri, 14 Feb 2025 22:33:27 GMT",
+    "hsChunksSha256": "066b345979ce061c0e8b88858f8440e5f84462f3b7733d4ead49024219930b54",
+    "hsChunkBytes": 48068713
+   }
+  },
+  "months/202411.json": {
+   "sha256": "6a5eb8bc083eff5efc252aaf2aebf8d5bdbb8131304e9fb8b27f1034f6192ec5",
+   "bytes": 18708,
+   "steps": 240,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202411.nc",
+    "contentLength": 2658642974,
+    "lastModified": "Fri, 14 Feb 2025 22:44:06 GMT",
+    "hsChunksSha256": "0cfc07f74c9d1a8b97cacddc5f589a25fade46bdf28a62c9ae41cf5972ecfb5b",
+    "hsChunkBytes": 45778114
+   }
+  },
+  "months/202412.json": {
+   "sha256": "3eb31d19ce88c17427deeb31b04b8d61e8979e81ab663a5b23b2126b3f976fd9",
+   "bytes": 19302,
+   "steps": 248,
+   "source": {
+    "url": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/2024/FIELD_NC/LOPS_WW3-GLOB-30M_202412.nc",
+    "contentLength": 2769311879,
+    "lastModified": "Fri, 14 Feb 2025 22:55:18 GMT",
+    "hsChunksSha256": "a7ab70b6d637506553c51230f67c6609e1cc8f17e87afa18cb7fb8867762a26e",
+    "hsChunkBytes": 47318561
+   }
+  }
+ }
+}

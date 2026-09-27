@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-22",
-  "browser": "Chrome/153.0.8010.53",
+  "recorded": "2026-09-27",
+  "browser": "Chrome/153.0.8010.54",
   "viewports": [
     1440,
     768,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bad62f1b5b1506b1db986321da58306a110afd3c1d78dfbf1e9cc59deab23715"
+      "sha": "25fc08393c41c8c7602a00eb4f3ab63e70c2519be1e128f3db6cd5d4cdae60e0"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b5ceff325b2671b7c6fb11c7dc2ed326427798afd801f3c3e1913e278756abd4"
+      "sha": "8ca67d909d961fe39b018a39ed46c25878bd676384b79678c35534c622dde9d4"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -434,6 +434,27 @@
       },
       "sha": "ce5389ec792d6701a06e0c078cff49f0330cf32668a34ee91756e4fa5aaf1b96"
     },
+    "site/instruments/return-level-check/index.html": {
+      "390": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "a7ba1bad908525474900d4dbdb3676cc426649350035ab172e59c1a580460992"
+    },
     "site/instruments/rewire/index.html": {
       "390": {
         "spines": 3,
@@ -558,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "cc44462aa407ab5823d6f6352312d34655842a747ce776cfb5915841f1744057"
+      "sha": "0359019983779dd0eed92c51e4ea2ddb46045bf510df58861bd6673c5058b528"
     },
     "site/oracle/index.html": {
       "390": {
@@ -579,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "76dfa65e89df9a3c9e0b57ea85bf372fb1c18099facf06bed3f1daba1754e56f"
+      "sha": "59d5aa8b83dffc9bccee3388c24fc246ec1a0caf225b3f59f0aab9bee23f2a25"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -600,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8858ce62231a83b9c132d46747d335a0453e8f7017557b237dfbd90fc6c93f78"
+      "sha": "16e8156ac191e4ce75f9db61a4d5b9c89d5eeb1cc596feb42f0d55e0b59b487c"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1356,7 +1377,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6cd240ac59f568b4d92227aa2ea79097f7d80565bc1a6b90a68a3c5eb3c80842"
+      "sha": "1cded0733a9f15b8a9f6a9c48ee29e120ec861d83b0c452f8734c8039aac8c0a"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1780,24 +1801,24 @@
     },
     "site/reports/return-levels.html": {
       "390": {
-        "spines": 3,
+        "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3
+        "clipped": 7
       },
       "768": {
-        "spines": 5,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3
+        "clipped": 5
       },
       "1440": {
-        "spines": 7,
+        "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "34be771ca77efbe164514d38292c249e9daefd6962c5feb19fca16371615fb30"
+      "sha": "51e85b81c7d760fdc38bebfe5ed5b5d22de2f5d58fc7a36d8f3e23c872a3fad4"
     },
     "site/reports/rm-audit.html": {
       "390": {
@@ -1902,7 +1923,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ed86ce2648d205e36928430f3c23f04f24fcdd2bfb58795dd7ab13af7bd9103e"
+      "sha": "66b21f28d8f35c432b3b2960b9ea8683f70bfcce087bc5568070fb965fa3b536"
     },
     "site/reports/verifier-loop.html": {
       "390": {

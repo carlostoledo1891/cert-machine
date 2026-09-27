@@ -1,5 +1,5 @@
 {
- "what": "The Ocean Engineering 2026 paper of Reis, Guimarães, Farina, Paul, de Paula and Ribeiro — Global assessment of extreme value analysis for significant wave height — and its corrigendum, read 2026-09-17. Its numbers are map-scale on a reanalysis grid and are not held here; what is transcribed is the method the ledger repeats on public buoys, and the qualitative findings the ledger decides against.",
+ "what": "The Ocean Engineering 2026 paper of Reis, Guimarães, Farina, Paul, de Paula and Ribeiro — Global assessment of extreme value analysis for significant wave height — and its corrigendum. The method was read from the full text (open access, CC BY 4.0) on 2026-09-26; an earlier reading of the abstract alone had the sixth family wrong (it was recorded as von Mises; it is the Gumbel) and the blocks wrong (annual in place of weekly). Its numbers are global maps on a hindcast grid; what is transcribed is the method the ledger repeats, and the findings the ledger decides against.",
  "paper": {
   "citation": "Reis, R. A. N., Guimarães, P. V., Farina, L., Paul, S., de Paula, T. P., Ribeiro, E. O. (2026). Global assessment of extreme value analysis for significant wave height. Ocean Engineering 359 (Part 2), 125841. https://doi.org/10.1016/j.oceaneng.2026.125841",
   "doi": "10.1016/j.oceaneng.2026.125841",
@@ -7,16 +7,42 @@
   "license": "CC-BY-4.0",
   "abstract": "Extreme value analysis is frequently employed to estimate environmental loading on offshore structures. However, there are many possible approaches to applying this method. This study adopts a non-asymptotic framework to investigate the statistical behavior of significant wave height (Hs) extremes across multiple temporal aggregation scales. Six parametric probability distributions were evaluated using four goodness-of-fit criteria, together with different block maxima definitions. The results show that the Anderson–Darling test provides the most robust model selection, due to its higher sensitivity to tail behavior and its ability to produce spatially coherent patterns. The Exponentiated Weibull distribution performs best for high-frequency data, while the traditional Weibull becomes more appropriate as the block size increases, reflecting the smoothing of extremes. The analysis demonstrates that both the choice of goodness-of-fit test and the temporal aggregation significantly influence the selected distribution and the resulting return-level estimates for long return periods. Spatial patterns reveal strong regional variability, indicating that the use of a single distribution or aggregation scale may lead to substantial biases. Therefore, regional heterogeneity and the specific objectives of the analysis must be carefully considered in the statistical modeling of extremes.",
   "method": {
-   "families": "Weibull, Lognormal, Normal, Exponentiated Weibull, Generalized Gamma, and a sixth (per the menu note of 2026-09-12)",
-   "selection": "four goodness-of-fit criteria; Anderson–Darling found the most robust",
-   "aggregation": "block maxima at several block sizes, from the native frequency of the reanalysis upward",
-   "output": "return levels at long return periods, map-scale"
+   "families": [
+    "normal",
+    "lognormal",
+    "weibull",
+    "expweibull",
+    "gengamma",
+    "gumbel"
+   ],
+   "familiesAsPrinted": "§2.1: Normal (1), Log-normal (2), Weibull (3), Exponentiated Weibull (4), Generalized gamma f(x; a, d, p) = p/(a^d Γ(d/p)) x^{d−1} exp[−(x/a)^p] (5), Gumbel (6); GEV and Pareto excluded, with reasons",
+   "fitting": "all by maximum likelihood (§2.1: 'To ensure a consistent comparison among candidate models, all probability distributions were fitted to the data using maximum likelihood estimation (MLE)'); no location parameter in any of the printed densities except the Gumbel's own",
+   "criteria": "Kolmogorov–Smirnov (7), Anderson–Darling (8)–(9), χ² (10) on Sturges bins with at least eight, expected counts from the CDF at the bin edges, bins kept when the expected count is at least five, undefined below two kept bins; MSE (11) against the empirical CDF",
+   "selection": "Anderson–Darling, chosen for its spatial coherence and tail sensitivity (§3.1)",
+   "blocks": [
+    "unfiltered (the 3-hourly model output)",
+    "daily",
+    "weekly",
+    "monthly"
+   ],
+   "returnPeriods": [
+    100,
+    1000
+   ],
+   "uncertainty": "§3.2: 'the present study does not explicitly quantify uncertainty in parameter estimates or return-level estimates'"
   },
   "qualitativeClaims": {
-   "ewHighFrequency": "the Exponentiated Weibull distribution performs best for high-frequency data",
+   "ewHighFrequency": "The Exponentiated Weibull distribution performs best for high-frequency data",
    "weibullLargeBlocks": "the traditional Weibull becomes more appropriate as the block size increases",
-   "aggregationMatters": "both the choice of goodness-of-fit test and the temporal aggregation significantly influence the selected distribution and the resulting return-level estimates for long return periods"
-  }
+   "aggregationMatters": "both the choice of goodness-of-fit test and the temporal aggregation significantly influence the selected distribution and the resulting return-level estimates for long return periods",
+   "gengammaSouth": "At higher southern latitudes, the Generalized Gamma distribution becomes prominent (§3.1); in the daily block the Generalized Gamma gains prominence along the coastal region south of South America"
+  },
+  "data": {
+   "name": "GLOBMULTI_ERA5_GLOBCUR_01 (Ifremer WAVEWATCH III hindcast, Alday et al. 2021 parameterization; ERA5 winds, CMEMS-GLOBCURRENT currents)",
+   "grid": "0.5° global, 3-hourly, 1993–2024",
+   "access": "https://data-dataref.ifremer.fr/ww3/GLOBMULTI_ERA5_GLOBCUR_01/GLOB-30M/ — public; doi 10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b; CC BY-SA 4.0"
+  },
+  "funding": "PETROBRAS and ANP, Project OP 1274 (ANP Project No. 24558-9)"
  },
  "corrigendum": {
   "doi": "10.1016/j.oceaneng.2026.126267",
@@ -24,10 +50,9 @@
   "text": "The authors regret an error in the affiliation of the authors marked with superscript “a”. The affiliation was incorrectly given as “Universidade Federal de Florianópolis”. The correct affiliation is “Universidade Federal de Santa Catarina”. The authors would like to apologise for any inconvenience caused.",
   "whatItCorrects": "an author affiliation only — no number in the paper changes"
  },
- "dataHere": "NDBC buoys A, B, C of the environmental-contour benchmark (corpus/ec-benchmark): hourly Hs, provided and retained years together, 175,320 hours each",
+ "dataHere": "NDBC buoys A, B, C of the environmental-contour benchmark (corpus/ec-benchmark), hourly, provided and retained years together; and the paper's own hindcast at the grid points of corpus/ww3-points (tools/fetch-ww3-points.py)",
  "notHere": [
-  "the paper's reanalysis grid and its printed return levels",
-  "the generalized gamma family (needs a certified digamma)",
-  "the paper's other three goodness-of-fit criteria"
+  "the paper's global maps and their printed return levels (figures, not tables)",
+  "the paper's code (not published): its χ² and MSE are reconstructed from §2.2"
  ]
 }

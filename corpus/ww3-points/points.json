@@ -1,0 +1,18 @@
+{
+ "what": "Grid points of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (GLOB-30M, 0.5°, 3-hourly, 1993–2024) — the dataset of Reis, Guimarães et al., Ocean Engineering 2026 — at which the significant wave height series is extracted by tools/fetch-ww3-points.py. Each point is a node of the model's own grid (latitude −78 + 0.5 j, longitude −180 + 0.5 i); nothing is interpolated.",
+ "points": [
+  { "name": "campos", "lat": -22.5, "lon": -40.0, "why": "Campos Basin, deep water off Rio de Janeiro" },
+  { "name": "santos", "lat": -25.5, "lon": -43.0, "why": "Santos Basin, the pre-salt fields" },
+  { "name": "espirito-santo", "lat": -20.0, "lon": -38.5, "why": "Espírito Santo Basin" },
+  { "name": "pelotas", "lat": -32.0, "lon": -49.0, "why": "Pelotas Basin, off Rio Grande do Sul" },
+  { "name": "potiguar", "lat": -4.0, "lon": -36.5, "why": "equatorial margin, off Rio Grande do Norte" },
+  { "name": "foz-amazonas", "lat": 4.0, "lon": -49.0, "why": "equatorial margin, off Amapá" },
+  { "name": "drake", "lat": -57.0, "lon": -65.0, "why": "Drake Passage — the paper names a region of Gumbel predominance here" },
+  { "name": "acc-central", "lat": -50.0, "lon": 90.0, "why": "central band of the Antarctic Circumpolar Current — the paper's exponentiated-Weibull band" },
+  { "name": "southern-high", "lat": -56.0, "lon": 120.0, "why": "higher southern latitudes — the paper names the generalized gamma prominent there" },
+  { "name": "subantarctic-north", "lat": -42.0, "lon": 20.0, "why": "northern sub-Antarctic — the paper's lognormal band" },
+  { "name": "arabian-sea", "lat": 15.0, "lon": 62.0, "why": "monsoon-driven; the paper describes the exponentiated Weibull giving way to the Weibull as blocks grow" },
+  { "name": "south-of-japan", "lat": 30.0, "lon": 135.0, "why": "western Pacific south of Japan — the paper's region where return levels rise with block size" },
+  { "name": "north-atlantic", "lat": 55.0, "lon": -20.0, "why": "extratropical North Atlantic" }
+ ]
+}

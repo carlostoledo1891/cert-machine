@@ -14,13 +14,22 @@
    D = { n, x: number[] or interval[], L: same, sx, sL, ... } — the data as the
    ops sees it. The sums are re-done per call; nothing is cached across boxes.
 
-   The families and their likelihoods [STANDARD]:
-     normal(μ, σ), lognormal(μ, σ on ln x), exponential(λ, scale),
+   The families and their likelihoods [STANDARD] — the six of the Ocean
+   Engineering 2026 paper, and two more:
+     normal(μ, σ), lognormal(μ, σ on ln x),
      weibull(k, λ): F = 1 − exp(−(x/λ)^k),
-     expweibull(α, k, λ): F = (1 − exp(−(x/λ)^k))^α  (Mudholkar & Srivastava 1993)
-   — the two the Ocean Engineering 2026 paper found best, and three of its
-   other candidates; the generalized gamma needs the digamma function, which
-   this machine does not yet enclose, and is not here. */
+     expweibull(α, k, λ): F = (1 − exp(−(x/λ)^k))^α  (Mudholkar & Srivastava 1993),
+     gengamma(α, c, λ): F = P(α, (x/λ)^c), the regularized incomplete gamma
+       (Stacy 1962; the paper's (a, d, p) are (λ, cα, c); scipy's gengamma(a, c)),
+     gumbel(μ, β): F = exp(−exp(−(x − μ)/β));
+     exponential(λ) — a known-answer anchor for the battery, not the paper's;
+     lognormal3(μ, σ, γ): the lognormal of x − γ, whose likelihood is unbounded
+       as γ → min x (Hill 1963) — here to decide a PRINTED local maximum, never
+       to rank.
+   Every loglik is the full log-likelihood, constants included, so two
+   families' values on the same data can be compared. `signed` names the
+   parameters that may be negative; `edge` names a boundary the float search
+   can run to, where no maximum exists to certify. */
 'use strict';
 
 /* Φ and Φ⁻¹ over the ops: erf by its Taylor series for |z| ≤ 2 (alternating,
@@ -75,22 +84,25 @@ const FAMILIES = {
     init: (D) => { const m = D.sxf / D.n; return [m, Math.sqrt(D.sxxf / D.n - m * m)]; },
     score: (o, th, D) => {
       const [mu, s] = th; const n = o.c(D.n);
-      let s1 = o.c(0), s2 = o.c(0);
-      for (const x of D.x) { const d = o.sub(x, mu); s1 = o.add(s1, d); s2 = o.add(s2, o.mul(d, d)); }
+      const a1 = o.acc(), a2 = o.acc();
+      for (const x of D.x) { const d = o.sub(x, mu); a1.add(d); a2.add(o.mul(d, d)); }
+      const s1 = a1.value(), s2 = a2.value();
       const s2q = o.mul(s, s), s3 = o.mul(s2q, s);
       return [o.div(s1, s2q), o.add(o.neg(o.div(n, s)), o.div(s2, s3))];
     },
     hess: (o, th, D) => {
       const [mu, s] = th; const n = o.c(D.n);
-      let s1 = o.c(0), s2 = o.c(0);
-      for (const x of D.x) { const d = o.sub(x, mu); s1 = o.add(s1, d); s2 = o.add(s2, o.mul(d, d)); }
+      const a1 = o.acc(), a2 = o.acc();
+      for (const x of D.x) { const d = o.sub(x, mu); a1.add(d); a2.add(o.mul(d, d)); }
+      const s1 = a1.value(), s2 = a2.value();
       const s2q = o.mul(s, s), s3 = o.mul(s2q, s), s4 = o.mul(s2q, s2q);
       const a = o.neg(o.div(n, s2q)), b = o.neg(o.div(o.mul(o.c(2), s1), s3)), d = o.sub(o.div(n, s2q), o.div(o.mul(o.c(3), s2), s4));
       return [[a, b], [b, d]];
     },
     cdf: (o, th, x) => o.Phi(o.div(o.sub(x, th[0]), th[1])),
+    sf: (o, th, x) => o.Phi(o.div(o.sub(th[0], x), th[1])),                   /* 1 − Φ(z) = Φ(−z): the far tail without cancellation */
     quantile: (o, th, p) => o.add(th[0], o.mul(th[1], o.PhiInv(p))),
-    loglik: (o, th, D) => { const [mu, s] = th; let q = o.c(0); for (const x of D.x) { const d = o.sub(x, mu); q = o.add(q, o.mul(d, d)); } return o.sub(o.neg(o.mul(o.c(D.n), o.log(s))), o.div(q, o.mul(o.c(2), o.mul(s, s)))); },
+    loglik: (o, th, D) => { const [mu, s] = th; const aq = o.acc(); for (const x of D.x) { const d = o.sub(x, mu); aq.add(o.mul(d, d)); } const q = aq.value(); return o.sub(o.sub(o.neg(o.mul(o.c(D.n), o.log(s))), o.div(q, o.mul(o.c(2), o.mul(s, s)))), o.mul(o.c(D.n / 2), o.log(o.mul(o.c(2), o.PI)))); },
   },
   lognormal: {
     names: ['mu', 'sigma'],
@@ -98,17 +110,18 @@ const FAMILIES = {
     score: (o, th, D) => FAMILIES.normal.score(o, th, { n: D.n, x: D.L }),
     hess: (o, th, D) => FAMILIES.normal.hess(o, th, { n: D.n, x: D.L }),
     cdf: (o, th, x) => o.Phi(o.div(o.sub(o.log(x), th[0]), th[1])),
+    sf: (o, th, x) => o.Phi(o.div(o.sub(th[0], o.log(x)), th[1])),
     quantile: (o, th, p) => o.exp(o.add(th[0], o.mul(th[1], o.PhiInv(p)))),
-    loglik: (o, th, D) => FAMILIES.normal.loglik(o, th, { n: D.n, x: D.L }),
+    loglik: (o, th, D) => { const aL = o.acc(); for (const l of D.L) aL.add(l); const sL = aL.value(); return o.sub(FAMILIES.normal.loglik(o, th, { n: D.n, x: D.L }), sL); },
   },
   exponential: {
     names: ['lambda'],
     init: (D) => [D.sxf / D.n],
-    score: (o, th, D) => { const [l] = th; let sx = o.c(0); for (const x of D.x) sx = o.add(sx, x); return [o.add(o.neg(o.div(o.c(D.n), l)), o.div(sx, o.mul(l, l)))]; },
-    hess: (o, th, D) => { const [l] = th; let sx = o.c(0); for (const x of D.x) sx = o.add(sx, x); const l2 = o.mul(l, l); return [[o.sub(o.div(o.c(D.n), l2), o.div(o.mul(o.c(2), sx), o.mul(l2, l)))]]; },
+    score: (o, th, D) => { const [l] = th; const ax = o.acc(); for (const x of D.x) ax.add(x); const sx = ax.value(); return [o.add(o.neg(o.div(o.c(D.n), l)), o.div(sx, o.mul(l, l)))]; },
+    hess: (o, th, D) => { const [l] = th; const ax = o.acc(); for (const x of D.x) ax.add(x); const sx = ax.value(); const l2 = o.mul(l, l); return [[o.sub(o.div(o.c(D.n), l2), o.div(o.mul(o.c(2), sx), o.mul(l2, l)))]]; },
     cdf: (o, th, x) => o.sub(o.c(1), o.exp(o.neg(o.div(x, th[0])))),
     quantile: (o, th, p) => o.neg(o.mul(th[0], o.log(o.sub(o.c(1), p)))),
-    loglik: (o, th, D) => { let sx = o.c(0); for (const x of D.x) sx = o.add(sx, x); return o.sub(o.neg(o.mul(o.c(D.n), o.log(th[0]))), o.div(sx, th[0])); },
+    loglik: (o, th, D) => { const ax = o.acc(); for (const x of D.x) ax.add(x); const sx = ax.value(); return o.sub(o.neg(o.mul(o.c(D.n), o.log(th[0]))), o.div(sx, th[0])); },
   },
   weibull: {
     names: ['k', 'lambda'],
@@ -121,14 +134,14 @@ const FAMILIES = {
     },
     sums: (o, th, D) => {
       const [k, l] = th; const lnl = o.log(l);
-      let S0 = o.c(0), S1 = o.c(0), S2 = o.c(0), SL = o.c(0);      /* Σ y^k, Σ y^k ln y, Σ y^k (ln y)², Σ ln y */
+      const a0 = o.acc(), a1 = o.acc(), a2 = o.acc(), aL = o.acc();      /* Σ y^k, Σ y^k ln y, Σ y^k (ln y)², Σ ln y */
       for (let i = 0; i < D.n; i++) {
         const ly = o.sub(D.L[i], lnl);
         const yk = o.exp(o.mul(k, ly));
         const t1 = o.mul(yk, ly);
-        S0 = o.add(S0, yk); S1 = o.add(S1, t1); S2 = o.add(S2, o.mul(t1, ly)); SL = o.add(SL, ly);
+        a0.add(yk); a1.add(t1); a2.add(o.mul(t1, ly)); aL.add(ly);
       }
-      return { S0, S1, S2, SL, k, l, n: o.c(D.n) };
+      return { S0: a0.value(), S1: a1.value(), S2: a2.value(), SL: aL.value(), k, l, n: o.c(D.n) };
     },
     score: (o, th, D) => {
       const { S0, S1, SL, k, l, n } = FAMILIES.weibull.sums(o, th, D);
@@ -142,17 +155,18 @@ const FAMILIES = {
       return [[kk, kl], [kl, ll]];
     },
     cdf: (o, th, x) => o.sub(o.c(1), o.exp(o.neg(o.exp(o.mul(th[0], o.sub(o.log(x), o.log(th[1]))))))),
+    sf: (o, th, x) => o.exp(o.neg(o.exp(o.mul(th[0], o.sub(o.log(x), o.log(th[1])))))),
     quantile: (o, th, p) => o.mul(th[1], o.exp(o.div(o.log(o.neg(o.log(o.sub(o.c(1), p)))), th[0]))),
     loglik: (o, th, D) => { const { S0, SL, k, l, n } = FAMILIES.weibull.sums(o, th, D); return o.sub(o.add(o.sub(o.mul(n, o.log(k)), o.mul(o.mul(n, k), o.log(l))), o.mul(o.sub(k, o.c(1)), o.add(SL, o.mul(n, o.log(l))))), S0); },
   },
   expweibull: {
     names: ['alpha', 'k', 'lambda'],
     init: (D) => { const w = FAMILIES.weibull.init(D); return [1.0, w[0], w[1]]; },
+    edge: (th) => (th[0] > 1e4 ? 'the likelihood keeps rising as α → ∞ with λ → 0 (a boundary of the family); no finite maximum to certify' : null),
     sums: (o, th, D) => {
       const [a, k, l] = th; const lnl = o.log(l);
       /* z = y^k, g = 1/(e^z − 1); the sums the score and Hessian need */
-      let Sz = o.c(0), Szl = o.c(0), Szl2 = o.c(0), SL = o.c(0), Slw = o.c(0);
-      let Sgz = o.c(0), Sgzl = o.c(0), Sgzl2a = o.c(0), Sgzb = o.c(0), Sgzc = o.c(0);
+      const A = Array.from({ length: 10 }, () => o.acc());
       for (let i = 0; i < D.n; i++) {
         const ly = o.sub(D.L[i], lnl);
         const z = o.exp(o.mul(k, ly));
@@ -161,12 +175,13 @@ const FAMILIES = {
         const w = o.sub(o.c(1), o.exp(o.neg(z)));                    /* 1 − e^{−z} */
         const gz = o.mul(g, z), zl = o.mul(z, ly), gzl = o.mul(gz, ly);
         const onePlusGz = o.mul(o.add(o.c(1), g), z);               /* (1+g) z */
-        Sz = o.add(Sz, z); Szl = o.add(Szl, zl); Szl2 = o.add(Szl2, o.mul(zl, ly)); SL = o.add(SL, ly); Slw = o.add(Slw, o.log(w));
-        Sgz = o.add(Sgz, gz); Sgzl = o.add(Sgzl, gzl);
-        Sgzl2a = o.add(Sgzl2a, o.mul(o.mul(gzl, ly), o.sub(o.c(1), onePlusGz)));                 /* g z (ln y)² (1 − (1+g) z) */
-        Sgzb = o.add(Sgzb, o.mul(gz, o.sub(o.sub(o.mul(k, o.mul(onePlusGz, ly)), o.mul(k, ly)), o.c(1))));   /* g z [k(1+g) z ln y − k ln y − 1] */
-        Sgzc = o.add(Sgzc, o.mul(gz, o.add(o.c(1), o.mul(k, o.sub(o.c(1), onePlusGz)))));        /* g z [1 + k(1 − (1+g) z)] */
+        A[0].add(z); A[1].add(zl); A[2].add(o.mul(zl, ly)); A[3].add(ly); A[4].add(o.log(w));
+        A[5].add(gz); A[6].add(gzl);
+        A[7].add(o.mul(o.mul(gzl, ly), o.sub(o.c(1), onePlusGz)));                 /* g z (ln y)² (1 − (1+g) z) */
+        A[8].add(o.mul(gz, o.sub(o.sub(o.mul(k, o.mul(onePlusGz, ly)), o.mul(k, ly)), o.c(1))));   /* g z [k(1+g) z ln y − k ln y − 1] */
+        A[9].add(o.mul(gz, o.add(o.c(1), o.mul(k, o.sub(o.c(1), onePlusGz)))));        /* g z [1 + k(1 − (1+g) z)] */
       }
+      const [Sz, Szl, Szl2, SL, Slw, Sgz, Sgzl, Sgzl2a, Sgzb, Sgzc] = A.map((q) => q.value());
       return { Sz, Szl, Szl2, SL, Slw, Sgz, Sgzl, Sgzl2a, Sgzb, Sgzc, a, k, l, n: o.c(D.n), am1: o.sub(a, o.c(1)) };
     },
     score: (o, th, D) => {
@@ -191,8 +206,179 @@ const FAMILIES = {
       /* n ln α + n ln k − n k ln λ + (k−1) Σ ln x − Σ z + (α−1) Σ ln w, with Σ ln x = Σ ln y + n ln λ */
       return o.add(o.sub(o.add(o.sub(o.add(o.mul(S.n, o.log(S.a)), o.mul(S.n, o.log(S.k))), o.mul(o.mul(S.n, S.k), lnl)), o.mul(o.sub(S.k, o.c(1)), o.add(S.SL, o.mul(S.n, lnl)))), S.Sz), o.mul(S.am1, S.Slw)); },
     cdf: (o, th, x) => { const z = o.exp(o.mul(th[1], o.sub(o.log(x), o.log(th[2])))); return o.exp(o.mul(th[0], o.log(o.sub(o.c(1), o.exp(o.neg(z)))))); },
+    /* 1 − (1 − w)^α with w = e^{−z}: for small αw/(1 − w), u = −α ln(1 − w) lies in [αw, αw/(1 − w)] and 1 − e^{−u} in [u − u²/2, u] */
+    sf: (o, th, x) => {
+      const z = o.exp(o.mul(th[1], o.sub(o.log(x), o.log(th[2])))), w = o.exp(o.neg(z));
+      const u = o.mul(th[0], w), uu = o.div(u, o.sub(o.c(1), w));
+      if (o.hi(uu) < 1e-3) return o.hull(o.sub(u, o.mul(o.c(0.5), o.mul(uu, uu))), uu);
+      return o.sub(o.c(1), o.exp(o.mul(th[0], o.log(o.sub(o.c(1), w)))));
+    },
     quantile: (o, th, p) => { const w = o.exp(o.div(o.log(p), th[0])); const z = o.neg(o.log(o.sub(o.c(1), w))); return o.mul(th[2], o.exp(o.div(o.log(z), th[1]))); },
+  },
+  gengamma: {
+    names: ['alpha', 'c', 'lambda'], limit: 'lognormal', fallback: 'gengammaP',
+    /* at α = 1 it is the Weibull: start there */
+    init: (D) => { const w = FAMILIES.weibull.init(D); return [1.0, w[0], w[1]]; },
+    edge: (th) => (th[0] > 500 ? 'the likelihood keeps rising toward the lognormal limit of the family (α → ∞, c → 0); no finite maximum to certify' : null),
+    sums: (o, th, D) => {
+      const [a, cc, l] = th; const lnl = o.log(l);
+      /* y = x/λ, z = y^c: Σ ln y, Σ z, Σ z ln y, Σ z (ln y)² */
+      const aL = o.acc(), az = o.acc(), azL = o.acc(), azL2 = o.acc();
+      for (let i = 0; i < D.n; i++) {
+        const ly = o.sub(D.L[i], lnl);
+        const z = o.exp(o.mul(cc, ly));
+        const zl = o.mul(z, ly);
+        aL.add(ly); az.add(z); azL.add(zl); azL2.add(o.mul(zl, ly));
+      }
+      return { SL: aL.value(), Sz: az.value(), SzL: azL.value(), SzL2: azL2.value(), a, cc, l, n: o.c(D.n) };
+    },
+    score: (o, th, D) => {
+      const S = FAMILIES.gengamma.sums(o, th, D);
+      return [o.add(o.neg(o.mul(S.n, o.digamma(S.a))), o.mul(S.cc, S.SL)),         /* −n ψ(α) + c Σ ln y */
+        o.sub(o.add(o.div(S.n, S.cc), o.mul(S.a, S.SL)), S.SzL),                       /* n/c + α Σ ln y − Σ z ln y */
+        o.mul(o.div(S.cc, S.l), o.sub(S.Sz, o.mul(S.n, S.a)))];                        /* (c/λ)(Σ z − nα) */
+    },
+    hess: (o, th, D) => {
+      const S = FAMILIES.gengamma.sums(o, th, D);
+      const aa = o.neg(o.mul(S.n, o.trigamma(S.a)));
+      const ac = S.SL;
+      const al = o.neg(o.div(o.mul(S.n, S.cc), S.l));
+      const c2 = o.sub(o.neg(o.div(S.n, o.mul(S.cc, S.cc))), S.SzL2);
+      const cl = o.div(o.sub(o.add(S.Sz, o.mul(S.cc, S.SzL)), o.mul(S.n, S.a)), S.l);
+      const l2 = o.mul(o.div(S.cc, o.mul(S.l, S.l)), o.sub(o.mul(S.n, S.a), o.mul(o.add(o.c(1), S.cc), S.Sz)));
+      return [[aa, ac, al], [ac, c2, cl], [al, cl, l2]];
+    },
+    /* n ln c − n ln λ − n lnΓ(α) + (cα − 1) Σ ln y − Σ z */
+    loglik: (o, th, D) => {
+      const S = FAMILIES.gengamma.sums(o, th, D);
+      return o.sub(o.add(o.sub(o.sub(o.mul(S.n, o.log(S.cc)), o.mul(S.n, o.log(S.l))), o.mul(S.n, o.lgamma(S.a))), o.mul(o.sub(o.mul(S.cc, S.a), o.c(1)), S.SL)), S.Sz);
+    },
+    cdf: (o, th, x) => o.gammaP(th[0], o.exp(o.mul(th[1], o.sub(o.log(x), o.log(th[2]))))),
+    quantile: (o, th, p) => o.mul(th[2], o.exp(o.div(o.log(o.gammaPinv(th[0], p)), th[1]))),
+  },
+  /* The same generalized gamma in Prentice's coordinates (Prentice 1974; Lawless 1980):
+     Q = 1/√α, σ = 1/(c√α), μ = ln λ + ln(α)/c, so w = (ln x − μ)/σ and the Stacy
+     variable is z = α e^{Qw}. Along the ridge where the likelihood of the (α, c, λ) form is
+     nearly flat and its three parameters move together exponentially, these three barely
+     move but Q, and the Krawczyk box can be narrow where the other form cannot. Q > 0 is
+     the paper's family; the lognormal is its Q → 0 limit. Used only where the (α, c, λ)
+     certificate cannot contract; the fit it certifies is the same distribution.
+       ℓ = n ln Q + n a ln a − n lnΓ(a) − n ln σ − Σ ln x + Σw/Q − Σe^{Qw}/Q²,  a = Q⁻². */
+  gengammaP: {
+    names: ['mu', 'sigma', 'q'],
+    edge: (th) => (th[2] < 0.03 ? 'the climb runs to Q → 0, the lognormal limit of the family; no finite maximum to certify' : null),
+    sums: (o, th, D) => {
+      const [mu, s, q] = th;
+      const aw = o.acc(), aE = o.acc(), awE = o.acc(), aw2E = o.acc(), ay = o.acc();
+      for (let i = 0; i < D.n; i++) {
+        const w = o.div(o.sub(D.L[i], mu), s);
+        const E = o.exp(o.mul(q, w));
+        const wE = o.mul(w, E);
+        aw.add(w); aE.add(E); awE.add(wE); aw2E.add(o.mul(wE, w)); ay.add(D.L[i]);
+      }
+      return { Sw: aw.value(), SE: aE.value(), SwE: awE.value(), Sw2E: aw2E.value(), Sy: ay.value(), s, q, n: o.c(D.n), a: o.div(o.c(1), o.mul(q, q)) };
+    },
+    score: (o, th, D) => {
+      const S = FAMILIES.gengammaP.sums(o, th, D);
+      const qs = o.mul(S.q, S.s), q2 = o.mul(S.q, S.q), q3 = o.mul(q2, S.q);
+      const G = o.gap1(S.q);                                                           /* ln a + 1 − ψ(a), as a series in Q */
+      const dm = o.div(o.sub(S.SE, S.n), qs);
+      const ds = o.div(o.sub(o.div(o.sub(S.SwE, S.Sw), S.q), S.n), S.s);
+      const dq = o.add(o.sub(o.sub(o.sub(o.div(S.n, S.q), o.div(o.mul(o.mul(o.c(2), S.n), G), q3)), o.div(S.Sw, q2)), o.div(S.SwE, q2)), o.div(o.mul(o.c(2), S.SE), q3));
+      return [dm, ds, dq];
+    },
+    hess: (o, th, D) => {
+      const S = FAMILIES.gengammaP.sums(o, th, D);
+      const s2 = o.mul(S.s, S.s), q2 = o.mul(S.q, S.q), q3 = o.mul(q2, S.q), q4 = o.mul(q2, q2), q6 = o.mul(q4, q2);
+      const G = o.gap1(S.q);
+      const mm = o.neg(o.div(S.SE, s2));
+      const ms = o.sub(o.neg(o.div(S.SwE, s2)), o.div(o.sub(S.SE, S.n), o.mul(S.q, s2)));
+      const mq = o.sub(o.div(S.SwE, o.mul(S.q, S.s)), o.div(o.sub(S.SE, S.n), o.mul(q2, S.s)));
+      const ss = o.div(o.sub(o.sub(S.n, o.div(o.mul(o.c(2), o.sub(S.SwE, S.Sw)), S.q)), S.Sw2E), s2);
+      const sq = o.div(o.sub(o.div(S.Sw2E, S.q), o.div(o.sub(S.SwE, S.Sw), q2)), S.s);
+      /* −n/Q² + 6nG/Q⁴ + 4n(Q² − ψ′(a))/Q⁶ + 2Σw/Q³ − Σw²E/Q² + 4ΣwE/Q³ − 6ΣE/Q⁴ */
+      const qq = o.sub(o.add(o.add(o.sub(o.add(o.add(o.neg(o.div(S.n, q2)), o.div(o.mul(o.mul(o.c(6), S.n), G), q4)),
+        o.div(o.mul(o.mul(o.c(4), S.n), o.gap2(S.q)), q6)), o.neg(o.div(o.mul(o.c(2), S.Sw), q3))), o.neg(o.div(S.Sw2E, q2))), o.div(o.mul(o.c(4), S.SwE), q3)), o.div(o.mul(o.c(6), S.SE), q4));
+      return [[mm, ms, mq], [ms, ss, sq], [mq, sq, qq]];
+    },
+    loglik: (o, th, D) => {
+      const S = FAMILIES.gengammaP.sums(o, th, D);
+      const q2 = o.mul(S.q, S.q);
+      return o.sub(o.add(o.sub(o.sub(o.sub(o.add(o.mul(S.n, o.log(S.q)), o.mul(o.mul(S.n, S.a), o.log(S.a))), o.mul(S.n, o.lgamma(S.a))), o.mul(S.n, o.log(S.s))), S.Sy), o.div(S.Sw, S.q)), o.div(S.SE, q2));
+    },
+    cdf: (o, th, x) => { const a = o.div(o.c(1), o.mul(th[2], th[2])); const w = o.div(o.sub(o.log(x), th[0]), th[1]); return o.gammaP(a, o.mul(a, o.exp(o.mul(th[2], w)))); },
+    quantile: (o, th, p) => { const a = o.div(o.c(1), o.mul(th[2], th[2])); const z = o.gammaPinv(a, p); return o.exp(o.add(th[0], o.mul(th[1], o.div(o.log(o.div(z, a)), th[2])))); },
+    /* the (α, c, λ) point of a (μ, σ, Q) point, and back */
+    toStacy: (th) => { const [m, s, q] = th, a = 1 / (q * q), c = q / s; return [a, c, Math.exp(m - Math.log(a) / c)]; },
+    fromStacy: (th) => { const [a, c, l] = th, q = 1 / Math.sqrt(a); return [Math.log(l) + Math.log(a) / c, q / c, q]; },
+  },
+  gumbel: {
+    names: ['mu', 'beta'],
+    /* the moment start: β = s√6/π, μ = x̄ − γ_E β */
+    init: (D) => { const m = D.sxf / D.n, sd = Math.sqrt(D.sxxf / D.n - m * m), b = sd * Math.sqrt(6) / Math.PI; return [m - 0.5772156649015329 * b, b]; },
+    sums: (o, th, D) => {
+      const [mu, b] = th;
+      /* z = (x − μ)/β: Σ z, Σ e^{−z}, Σ z e^{−z}, Σ z² e^{−z} */
+      const az = o.acc(), ae = o.acc(), aze = o.acc(), az2e = o.acc();
+      for (const x of D.x) {
+        const z = o.div(o.sub(x, mu), b);
+        const e = o.exp(o.neg(z));
+        const ze = o.mul(z, e);
+        az.add(z); ae.add(e); aze.add(ze); az2e.add(o.mul(ze, z));
+      }
+      return { Sz: az.value(), Se: ae.value(), Sze: aze.value(), Sz2e: az2e.value(), b, n: o.c(D.n) };
+    },
+    score: (o, th, D) => { const S = FAMILIES.gumbel.sums(o, th, D); return [o.div(o.sub(S.n, S.Se), S.b), o.div(o.sub(o.sub(S.Sz, S.Sze), S.n), S.b)]; },
+    hess: (o, th, D) => {
+      const S = FAMILIES.gumbel.sums(o, th, D); const b2 = o.mul(S.b, S.b);
+      const mm = o.neg(o.div(S.Se, b2));
+      const mb = o.div(o.sub(o.sub(S.Se, S.Sze), S.n), b2);
+      const bb = o.div(o.sub(o.add(o.sub(S.n, o.mul(o.c(2), S.Sz)), o.mul(o.c(2), S.Sze)), S.Sz2e), b2);
+      return [[mm, mb], [mb, bb]];
+    },
+    loglik: (o, th, D) => { const S = FAMILIES.gumbel.sums(o, th, D); return o.sub(o.sub(o.neg(o.mul(S.n, o.log(S.b))), S.Sz), S.Se); },
+    cdf: (o, th, x) => o.exp(o.neg(o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))))),
+    /* 1 − e^{−t} with t = e^{−z}: in [t − t²/2, t] when t is small */
+    sf: (o, th, x) => { const t = o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))); return o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
+    quantile: (o, th, p) => o.sub(th[0], o.mul(th[1], o.log(o.neg(o.log(p))))),
+  },
+  lognormal3: {
+    names: ['mu', 'sigma', 'gamma'], signed: ['mu', 'gamma'],
+    init: (D) => { const m = D.sLf / D.n; return [m, Math.sqrt(D.sLLf / D.n - m * m), 0]; },
+    sums: (o, th, D) => {
+      const [mu, s, g] = th;
+      /* w = x − γ, y = ln w, d = y − μ, r = 1/w */
+      const A = Array.from({ length: 7 }, () => o.acc());
+      for (const x of D.x) {
+        const w = o.sub(x, g);
+        const y = o.log(w), d = o.sub(y, mu), r = o.div(o.c(1), w), r2 = o.mul(r, r);
+        A[0].add(y); A[1].add(d); A[2].add(o.mul(d, d)); A[3].add(r); A[4].add(o.mul(d, r)); A[5].add(r2); A[6].add(o.mul(d, r2));
+      }
+      const [Sy, Sd, Sd2, Sr, Sdr, Sr2, Sdr2] = A.map((q) => q.value());
+      return { Sy, Sd, Sd2, Sr, Sdr, Sr2, Sdr2, s, n: o.c(D.n) };
+    },
+    score: (o, th, D) => {
+      const S = FAMILIES.lognormal3.sums(o, th, D); const s2 = o.mul(S.s, S.s);
+      return [o.div(S.Sd, s2), o.add(o.neg(o.div(S.n, S.s)), o.div(S.Sd2, o.mul(s2, S.s))), o.add(S.Sr, o.div(S.Sdr, s2))];
+    },
+    hess: (o, th, D) => {
+      const S = FAMILIES.lognormal3.sums(o, th, D); const s2 = o.mul(S.s, S.s), s3 = o.mul(s2, S.s), s4 = o.mul(s2, s2);
+      const mm = o.neg(o.div(S.n, s2)), ms = o.neg(o.div(o.mul(o.c(2), S.Sd), s3)), mg = o.neg(o.div(S.Sr, s2));
+      const ss = o.sub(o.div(S.n, s2), o.div(o.mul(o.c(3), S.Sd2), s4)), sg = o.neg(o.div(o.mul(o.c(2), S.Sdr), s3));
+      const gg = o.add(S.Sr2, o.div(o.sub(S.Sdr2, S.Sr2), s2));
+      return [[mm, ms, mg], [ms, ss, sg], [mg, sg, gg]];
+    },
+    loglik: (o, th, D) => {
+      const S = FAMILIES.lognormal3.sums(o, th, D); const s2 = o.mul(S.s, S.s);
+      return o.sub(o.sub(o.sub(o.neg(S.Sy), o.mul(S.n, o.log(S.s))), o.div(S.Sd2, o.mul(o.c(2), s2))), o.mul(o.c(D.n / 2), o.log(o.mul(o.c(2), o.PI))));
+    },
+    cdf: (o, th, x) => o.Phi(o.div(o.sub(o.log(o.sub(x, th[2])), th[0]), th[1])),
+    sf: (o, th, x) => o.Phi(o.div(o.sub(th[0], o.log(o.sub(x, th[2]))), th[1])),
+    quantile: (o, th, p) => o.add(th[2], o.exp(o.add(th[0], o.mul(th[1], o.PhiInv(p))))),
   },
 };
 
-module.exports = { FAMILIES, makePhi };
+/* The paper's six, in the order its §2.1 introduces them. */
+const PAPER_SIX = ['normal', 'lognormal', 'weibull', 'expweibull', 'gengamma', 'gumbel'];
+
+module.exports = { FAMILIES, PAPER_SIX, makePhi };

@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv
+.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv hseva-venv hseva-scipy ww3-points
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -42,6 +42,19 @@ blind-spot-venv:
 
 erdos1-venv:
 	@/opt/homebrew/bin/python3.12 -m venv instruments/erdos1/.venv && instruments/erdos1/.venv/bin/pip install -q python-flint==0.9.0 && echo "instruments/erdos1/.venv ready"
+
+# instruments/hseva/.venv (pinned in instruments/hseva/requirements.txt) runs two tools, neither on a certification
+# path: the hindcast extraction (h5py reads the HDF5 chunk index over HTTP ranges) and the scipy recorder (the
+# claimant whose printed numbers the ledger decides). The certificates themselves are Node, stdlib only.
+hseva-venv:
+	@/opt/homebrew/bin/python3.12 -m venv instruments/hseva/.venv && instruments/hseva/.venv/bin/pip install -q -r instruments/hseva/requirements.txt && echo "instruments/hseva/.venv ready"
+
+hseva-scipy:
+	@instruments/hseva/.venv/bin/python tools/run-hseva-scipy.py
+
+# ~18 GB read by byte range (about an hour and a half); resumable; then --finalize writes the pins
+ww3-points:
+	@instruments/hseva/.venv/bin/python tools/fetch-ww3-points.py && instruments/hseva/.venv/bin/python tools/fetch-ww3-points.py --finalize
 
 # ~/Documents is iCloud Drive and "Optimize Mac Storage" evicts files: the entry
 # stays, stat reports the size, git sees nothing, and a READ RETURNS EMPTY.
