@@ -1,19 +1,22 @@
 /* return-level-check — the panel and the results; the grammar classes are the shared layer's */
-.rc-wrap { display: grid; gap: var(--s-4); }
-.rc-main { display: grid; gap: var(--s-4); }
+/* one track that may shrink below its content: a wide results table scrolls inside .tw instead of widening the page */
+.rc-wrap, .rc-main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
 .rc-drop { border: 1px dashed var(--border-strong); border-radius: var(--radius-s); padding: var(--s-4); background: var(--surface); font-size: 14px; line-height: 1.55; color: var(--ink-2); }
 .rc-drop.over { border-style: solid; border-color: var(--ink-3); }
 .rc-drop .k, .rc-data .k, .rc-verdict .k, .rc-fams .lab, .rc-check label, .rc-controls label { display: block; font-family: var(--font-mono); color: var(--ink-3); letter-spacing: .06em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 6px; }
 .rc-drop p { margin: 0; }
-.rc-drop .rc-file { display: inline; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; text-transform: none; letter-spacing: 0; font-size: inherit; margin: 0; }
-.rc-drop .rc-file input { display: none; }
+.rc-drop .rc-file { display: inline; position: relative; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; text-transform: none; letter-spacing: 0; font-size: inherit; margin: 0; }
+.rc-drop .rc-file input { position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0; overflow: hidden; }   /* hidden, still reachable by the keyboard */
+.rc-drop .rc-file:focus-within { outline: 2px solid var(--ink-3); outline-offset: 2px; }
 .rc-drop label.inl { display: inline; font: inherit; color: inherit; text-transform: none; letter-spacing: 0; font-size: inherit; margin: 0; }
 .rc-drop select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 1px 4px; }
 .rc-drop button, .rc-go button, .rc-check button { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: 6px 12px; cursor: pointer; }
 .rc-drop button { padding: 2px 8px; font-size: 13px; }
 .rc-go button:disabled { color: var(--ink-4); cursor: default; }
 .rc-data { font-size: 13px; line-height: 1.5; color: var(--ink-2); }
-.rc-data .v { font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+.rc-data .v { font-size: 16px; color: var(--ink); margin-bottom: 4px; overflow-wrap: anywhere; }
+.rc-data .n { overflow-wrap: anywhere; }
+.rc-data b { color: var(--ink); font-weight: var(--weight-mono); }
 .rc-controls { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr) auto; gap: var(--s-4); align-items: end; font-family: var(--font-mono); font-size: 12.5px; }
 @media (max-width: 900px) { .rc-controls { grid-template-columns: minmax(0, 1fr); } }
 .rc-controls select { width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); padding: 5px 7px; }
@@ -37,7 +40,7 @@
 .rc-check .rc-cp label { text-transform: none; letter-spacing: .02em; font-size: 11.5px; }
 .rc-cp { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--s-3); }
 .rc-out { margin-top: var(--s-4); display: grid; gap: 6px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
-.rc-out b { color: var(--ink); font-weight: 500; letter-spacing: .02em; }
+.rc-out b { color: var(--ink); font-weight: var(--weight-mono); letter-spacing: .02em; }
 
 /* the prose rhythm, as the other instrument pages carry it */
 section p + p, section p + ul, section p + ol, section p + figure,

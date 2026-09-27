@@ -28,8 +28,8 @@
    box: ψ increases and ψ′ decreases on (0, ∞); lnΓ decreases up to its
    minimum at x* = 1.46163… and increases after it; P increases in z and
    decreases in a, so P over a box is its value at two corners, and P⁻¹(a, p)
-   increases in both a and p. P⁻¹ is a bisection that tightens only where the
-   sign of P(a, z) − p is certain. */
+   increases in both a and p. P⁻¹ is a bisection that moves an end only where
+   the sign of P(a, z) − p is certain. */
 'use strict';
 
 /* B_2 … B_18, exact */
@@ -75,22 +75,30 @@ function makeGamma(ops) {
     s = ops.widen(s, abs(div(bern(M), zp)));
     return acc ? add(s, acc) : s;
   }
-  /* P(a, z) at a thin point: the series with its geometric tail */
+  /* P(a, z) at a thin point: the series with its geometric tail. The running term and
+     sum are rescaled by 10²⁵⁰ whenever the sum passes it (z ≫ a would overflow them),
+     and the prefactor is taken in logs, so P is exp(a ln z − z − lnΓ(a+1) + ln S + k ln 10²⁵⁰):
+     below e⁻⁷⁰⁸ it is stated as [0, e⁻⁷⁰⁸] instead of underflowing (z ≪ a). */
+  const BIG = 1e250, LN_BIG = log(c(BIG));
   function gammaPPoint(a, z) {
     if (hi(z) <= 0) return c(0);
-    let t = c(1), S = c(1);
-    for (let n = 1; n <= 20000; n++) {
+    let t = c(1), S = c(1), scale = 0;
+    for (let n = 1; n <= 40000; n++) {
       t = mul(t, div(z, add(a, c(n))));
       S = add(S, t);
+      if (hi(S) > BIG) { S = div(S, c(BIG)); t = div(t, c(BIG)); scale++; }
       const r = div(z, add(a, c(n + 1)));
       if (hi(r) < 0.95) {
         const tail = mul(t, div(r, sub(c(1), r)));
         if (hi(tail) <= 1e-18 * lo(S)) { S = ops.widen(S, abs(tail)); break; }
       }
-      if (n === 20000) throw new Error('gammaP: the series did not settle (a ' + lo(a) + ', z ' + lo(z) + ')');
+      if (n === 40000) throw new Error('gammaP: the series did not settle (a ' + lo(a) + ', z ' + lo(z) + ')');
     }
-    const pre = exp(sub(sub(mul(a, log(z)), z), lgammaPoint(add(a, c(1)))));
-    const P = mul(pre, S);
+    let lp = add(sub(sub(mul(a, log(z)), z), lgammaPoint(add(a, c(1)))), log(S));
+    if (scale) lp = add(lp, mul(c(scale), LN_BIG));
+    if (!ops.isInterval) return Math.min(1, Math.exp(lp));
+    if (hi(lp) < -708) return [0, 1e-307];
+    const P = lo(lp) < -708 ? [0, exp(ops.pair(hi(lp), hi(lp)))[1]] : exp(lp);
     return ops.clamp01 ? ops.clamp01(P) : P;
   }
 
@@ -117,9 +125,39 @@ function makeGamma(ops) {
     return ops.widen(s, abs(mul(bern(M), qp)));
   }
 
+  /* The gamma-function part of the Prentice log-likelihood per datum, with a = Q⁻²,
+       C(Q) = ln|Q| + a ln a − lnΓ(a) − a,
+     and its first two derivatives in Q, as polynomials in Q: Binet's series for lnΓ, ψ
+     and ψ′ (the first omitted term the bound, as above) written in Q, where every
+     negative power cancels:
+       C(Q)   = −½ ln 2π − Σ_k B_2k Q^{4k−2} / (2k(2k−1)),   tail ≤ |B_{2m+2}| Q^{4m+2} / ((2m+2)(2m+1))
+       C′(Q)  = −Σ_k B_2k Q^{4k−3} / k,                       tail ≤ |B_{2m+2}| |Q|^{4m+1} / (m+1)
+       C″(Q)  = Σ_k B_2k (3/k − 4) Q^{4k−4},                  tail ≤ |B_{2m+2}| Q^{4m} (6/(2m+2) + 4)
+     (C′ = 1/Q − 2(gap1 − 1)/Q³ and C″ = −1/Q² + 6(gap1 − 1)/Q⁴ + 4 gap2/Q⁶, expanded.) The
+     lognormal, Q = 0, is an ordinary point: C = −½ ln 2π, C′ = 0, C″ = −1/6. Used with
+     |Q| ≤ 0.2 (a ≥ 25), where every tail is below 10⁻²⁰. */
+  function prenticeC(Q) {
+    const Q2 = mul(Q, Q), Q4 = mul(Q2, Q2);
+    let s = ops.neg(HALF_LN_2PI), qp = Q2;                    /* Q^{4k−2} */
+    for (let k = 1; k <= M; k++) { s = sub(s, div(mul(bern(k - 1), qp), c(2 * k * (2 * k - 1)))); qp = mul(qp, Q4); }
+    return ops.widen(s, abs(div(mul(bern(M), qp), c((2 * M + 2) * (2 * M + 1)))));
+  }
+  function prenticeC1(Q) {
+    const Q2 = mul(Q, Q), Q4 = mul(Q2, Q2);
+    let s = c(0), qp = Q;                                     /* Q^{4k−3} */
+    for (let k = 1; k <= M; k++) { s = sub(s, div(mul(bern(k - 1), qp), c(k))); qp = mul(qp, Q4); }
+    return ops.widen(s, abs(div(mul(bern(M), qp), c(M + 1))));
+  }
+  function prenticeC2(Q) {
+    const Q2 = mul(Q, Q), Q4 = mul(Q2, Q2);
+    let s = c(0), qp = c(1);                                  /* Q^{4k−4} */
+    for (let k = 1; k <= M; k++) { s = add(s, mul(mul(bern(k - 1), sub(div(c(3), c(k)), c(4))), qp)); qp = mul(qp, Q4); }
+    return ops.widen(s, abs(mul(mul(bern(M), qp), add(div(c(6), c(2 * M + 2)), c(4)))));
+  }
+
   if (!ops.isInterval) {                                      /* floats: a point is its own box */
     return { lgamma: lgammaPoint, digamma: digammaPoint, trigamma: trigammaPoint, gammaP: gammaPPoint,
-      gammaPinv: (A, Pr) => gammaPinvPoint(A, Pr), gap1, gap2, lgammaPoint, digammaPoint, trigammaPoint, gammaPPoint };
+      gammaPinv: (A, Pr) => gammaPinvPoint(A, Pr), gap1, gap2, prenticeC, prenticeC1, prenticeC2, lgammaPoint, digammaPoint, trigammaPoint, gammaPPoint };
   }
   const lgamma = (X) => {
     if (lo(X) >= XSTAR + 1e-12) return ops.hull(lgammaPoint(thin(lo(X))), lgammaPoint(thin(hi(X))));
@@ -131,22 +169,25 @@ function makeGamma(ops) {
   const trigamma = (X) => ops.hull(trigammaPoint(thin(hi(X))), trigammaPoint(thin(lo(X))));
   const gammaP = (A, Z) => ops.hull(gammaPPoint(thin(hi(A)), thin(lo(Z))), gammaPPoint(thin(lo(A)), thin(hi(Z))));
 
-  /* P⁻¹(a, p) at thin a and thin p: the z with P(a, z) = p, bracketed on certain signs */
+  /* P⁻¹(a, p) at thin a and thin p: the z with P(a, z) = p, bracketed on certain signs.
+     zl only ever moves to a point where P(a, z) < p is certain, zh to one where P(a, z) > p
+     is; a probe whose sign is uncertain (or whose series will not settle) moves neither.
+     Each end is then tightened by its own bisection, so an uncertain midpoint stops one
+     end, not both. */
   function gammaPinvPoint(a, p) {
-    const below = (z) => hi(gammaPPoint(a, c(z))) < lo(p);    /* certainly P(a, z) < p */
-    const above = (z) => lo(gammaPPoint(a, c(z))) > hi(p);    /* certainly P(a, z) > p */
+    const sign = (z) => { try { const v = gammaPPoint(a, c(z)); return hi(v) < lo(p) ? -1 : lo(v) > hi(p) ? 1 : 0; } catch (e) { return 0; } };
     let zl = 0, zh = Math.max(1, 2 * lo(a));
-    for (let i = 0; i < 200 && !above(zh); i++) { zl = zh; zh *= 2; }
-    for (let i = 0; i < 200; i++) {
-      const mid = (zl + zh) / 2;
-      if (above(mid)) zh = mid; else if (below(mid)) zl = mid; else break;
-      if (zh - zl <= 1e-13 * zh) break;
-    }
-    return ops.pair(zl, zh);
+    for (let i = 0; i < 200; i++) { const sg = sign(zh); if (sg > 0) break; if (sg < 0) zl = zh; zh *= 2; if (i === 199) throw new Error('gammaPinv: no point certainly above p'); }
+    let l = zl, u = zh;                                        /* the lower end: the edge of "certainly below" */
+    for (let i = 0; i < 200 && u - l > 1e-13 * u; i++) { const mid = (l + u) / 2; if (sign(mid) < 0) l = mid; else u = mid; }
+    const lower = l;
+    l = zl; u = zh;                                            /* the upper end: the edge of "certainly above" */
+    for (let i = 0; i < 200 && u - l > 1e-13 * u; i++) { const mid = (l + u) / 2; if (sign(mid) > 0) u = mid; else l = mid; }
+    return ops.pair(lower, u);
   }
   const gammaPinv = (A, Pr) => ops.hull(gammaPinvPoint(thin(lo(A)), thin(lo(Pr))), gammaPinvPoint(thin(hi(A)), thin(hi(Pr))));
 
-  return { lgamma, digamma, trigamma, gammaP, gammaPinv, gap1, gap2, lgammaPoint, digammaPoint, trigammaPoint, gammaPPoint };
+  return { lgamma, digamma, trigamma, gammaP, gammaPinv, gap1, gap2, prenticeC, prenticeC1, prenticeC2, lgammaPoint, digammaPoint, trigammaPoint, gammaPPoint };
 }
 
 module.exports = { makeGamma, B2K, XSTAR, LGAMMA_MIN };

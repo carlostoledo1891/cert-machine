@@ -15,13 +15,13 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-27, THE UFSC LINE ON THE PAPER'S OWN METHOD AND DATA: the return-level report rebuilt on the paper's six families, four criteria and blocks, on 3 buoys and 13 nodes of its own hindcast; the benchmark teams' printed marginals and scipy's fits decided; a browser instrument that certifies a reader's own series; the METR sends still wait)
+## TASKS BACKLOG — the standing menu (updated 2026-09-27, THE UFSC LINE REVIEWED, FIXED AND PUSHED: two independent reviews of the return-level work found the "edge" exclusions were heuristics (24 hindcast choices wrong) and the instrument could write a certificate for the wrong file; the method now decides the generalized gamma's lognormal limit with a proof, certifies maxima beside it, proves every fit a maximum (the Hessian), and refuses what it cannot decide; the report and /instruments/return-level-check/ rebuilt and live; the METR sends still wait)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-THE MENU, as of 2026-09-27 (the twentieth session). In the order I would take it:
+THE MENU, as of 2026-09-27 (the twenty-first session). In the order I would take it:
 
   0. THE UFSC LINE, FROM "HIS METHOD, APPROXIMATELY" TO "HIS METHOD, ON HIS DATA".
      A reply from the contact (private correspondence: NOT in this public repo;
@@ -49,29 +49,42 @@ THE MENU, as of 2026-09-27 (the twentieth session). In the order I would take it
            too wide — the fix that let the GG certify on 175k points);
            blockrule.js holds THE block rule for Node and the tab.
        (b) certs/hseva-ledger.json: 3 buoys × 5 blocks × 6 families + 13
-           hindcast nodes × 4 paper blocks — 342 fits certified (4 Prentice),
-           59 refused at an edge, 1 refused otherwise (acc-central hourly GG,
-           whose ranking is therefore REFUSED); the benchmark's printed Hs
+           hindcast nodes × 4 paper blocks — 348 fits certified (20 in
+           Prentice's coordinates; EVERY ONE with the Hessian proved negative
+           definite over its box, so it is a maximum, not just a zero of the
+           score), 47 generalized-gamma fits refused AT THE LOGNORMAL LIMIT
+           WITH A PROOF (∂ℓ/∂Q < 0 over a recorded neighbourhood of the
+           lognormal fit; left out of the ranking, the lognormal standing for
+           it), 7 exp.-Weibull fits refused where the climb passes α = 10⁴
+           still rising (A and C annual, all four Arabian Sea blocks, south
+           of Japan monthly — those 28 choices are REFUSED); the benchmark's printed Hs
            marginals (corpus/ec-benchmark/marginals.json, the pinned
            preprint's Appendix A) and scipy 1.18.1's fits (certs/hseva-
            scipy.json) decided. ~35 min on this machine (tools/run-hseva-
-           ledger.js, 7 workers); the battery re-derives the buoys' non-hourly
+           ledger.js, 7 workers; ~60 min since the three-start GG search);
+           the battery re-derives the buoys' non-hourly
            blocks live in 4 s. corpus/ww3-points: 384 months, 17.8 GB of hs
            chunks read by byte range, each month's chunk bytes hashed.
        (c) reports/return-levels.html: the paper's findings on its six
            families — EW best unfiltered on 1 of 3 buoys and 5 of 13 nodes (the
            LOGNORMAL wins Campos and Santos); the Weibull the decided best of
-           NOTHING (0 of 12, 0 of 52); criteria split on 2 of 12 and 18 of 52;
-           the GG best on 2 of 12 buoy series and 7 of 52 node series, with NO
-           maximum-likelihood fit on 8 and 42; at the Arabian Sea node the
-           statistic's choice puts the 100-yr wave at 24.07 m vs a 32-year
-           record of 6.87 m. §6: the benchmark teams' marginals for the same
+           NOTHING (0 of 12, 0 of 52); criteria split on 2 of 12 and 19 of 52;
+           the GG best on 2 of 12 buoy series and 12 of 52 node series, peaking
+           at its lognormal limit on 8 and 37; ON SIX NODE SERIES THE GG's
+           MAXIMUM SITS BESIDE THE LIMIT (α 951–2,323): certified there it wins
+           17 of their 24 choices, and a fit that stops at α = 500 and calls it
+           the limit hands all 17 to another family; at the Arabian Sea node
+           every choice is REFUSED — left out, the EW would hand the choice to
+           the lognormal, 24.07 m vs a 32-year record of 6.87 m. 13 of 15 buoy
+           choices decided (A and C annual refused). §6: the benchmark teams' marginals for the same
            ten years of buoy A put the 100-yr wave at 5.25–14.53 m;
            contribution 8's Hs row for C IS THE CERTIFIED WEIBULL MLE OF Tz;
            contribution 9 leaves 10,426/10,904/9,410 hours below its location;
            contribution 3's scipy lognormal is a certified local maximum.
-           scipy floc=0 agrees on 45 of 48 certified fits, prints 12 where no
-           maximum exists, is off on 3 (C hourly GG: 60.7 units, 1.25 m low);
+           scipy floc=0 agrees on 45 of 48 certified fits, prints a GG point
+           below the limit the family peaks at on all 10 buoy series where it
+           does (0.69 to 2,529 units below), is off on 3 (C hourly GG: 60.8
+           units, 1.25 m low); prints an EW where the certificate refuses it (2);
            default (loc free): 1 outside its support, 7 below a member of their
            own family (A hourly EW: 19,850 units, 100-yr 8.12 m low). §7 "who
            certifies": a certificate anyone can check and nobody has to trust.
@@ -79,21 +92,39 @@ THE MENU, as of 2026-09-27 (the twentieth session). In the order I would take it
            Campos preset), six families certified IN THE TAB by the ledger's
            modules inlined byte for byte (sha256 in every certificate), a
            downloadable certificate with the file's sha256 and never the data;
-           a panel decides a printed fit (REPRODUCED / OFF THE MAXIMUM /
-           OUTSIDE ITS SUPPORT / NOT DECIDED). Driven in Chrome end to end.
-  0a. THE SENDS, all the operator's: the PUSH (the pages above go live with
-     it), then the reply to the contact — drafted in the session chat, kept
-     out of the repo (private) — which links both pages. A note to the
-     benchmark's organizers about Table 13's row C and contribution 9's
-     locations is a separate send, after the contact.
-  0b. NEXT on the line, by yield: a stdlib Python verifier of a downloaded
-     certificate (their pipeline is Python); profile-likelihood intervals of
-     the 100/1000-yr levels with certified endpoints (the paper quantifies no
-     parameter uncertainty — statistical, labelled); the Prentice form
-     everywhere, with Q ≤ 0 admitted as the paper's boundary so "no maximum"
-     becomes a certified boundary point; IFORM/ISORM/HD on one joint model;
-     4 more nodes if the contact names his.
-  0c. TWO THINGS LEARNED: (i) a long ledger in the background runs on the
+           a panel decides a printed fit (REPRODUCED / CONSISTENT / OFF THE
+           MAXIMUM / NOT THE CERTIFIED FIT / BELOW ITS LIMIT / OUTSIDE ITS
+           SUPPORT / NOT A MEMBER OF THE FAMILY / NOT DECIDED). The parse rule
+           (app.js) and the worker are digested into every certificate beside
+           the ledger modules. Driven in Chrome end to end, before and after
+           the review (the review's own harness re-run).
+  0a. THE SENDS, all the operator's. The push is DONE (2026-09-27; the pages
+     are live). The reply to the contact — drafted in the session chat, kept
+     out of the repo (private) — links both pages; ITS NUMBERS MUST BE THE
+     NEW ONES (the GG beside its limit on six hindcast series; the Arabian
+     Sea refused; 13 of 15 buoy choices). A note to the benchmark's
+     organizers about Table 13's row C and contribution 9's locations is a
+     separate send, after the contact.
+  0b. NEXT on the line, by yield: the exponentiated Weibull's α → ∞ side
+     done the way the GG's was — coordinates in which its maximum at α ≈
+     12,700 (Arabian Sea monthly, found by a longer climb) contracts, and a
+     boundary proof where the climb truly runs off — which would turn most of
+     the 28 refused choices into decided ones; a stdlib Python verifier of a
+     downloaded certificate (their pipeline is Python); profile-likelihood
+     intervals of the 100/1000-yr levels with certified endpoints (statistical,
+     labelled); the SEARCH's claim (no better maximum elsewhere in a family)
+     made a proof by branch-and-bound over the family; IFORM/ISORM/HD on one
+     joint model; 4 more nodes if the contact names his.
+  0c. THINGS LEARNED: (iii) A THRESHOLD IS NOT A PROOF — the α > 500 "edge"
+     excluded the generalized gamma where its maximum sits at α 950–2,300 and
+     moved 17 choices; an exclusion must be decided (now: ∂ℓ/∂Q < 0 proved
+     beside the limit), and anything undecided blocks; (iv) the Prentice
+     likelihood written as power series in u = Qw (with proved tails) removes
+     the 1/Q⁴ cancellation that kept Krawczyk from contracting beside the
+     limit, and makes Q = 0 an ordinary point; (v) a zero of the score is
+     not a maximum until the Hessian says so — secondOrder() now does, by
+     Sylvester over the box or at the candidate with every Hessian in the box
+     nonsingular. (i) a long ledger in the background runs on the
      efficiency cores at nice 5 (35 min here, where the units take ~5 min in
      the foreground) and a sleeping Mac stretches it further — run it under
      `caffeinate -i`; (ii) bars() and intervals() in design/charts.js do not
@@ -617,6 +648,79 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-FIRST SESSION, 2026-09-27 — THE RETURN-LEVEL WORK REVIEWED, FIXED AND
+  PUSHED: "https://carlostoledo.co/instruments/return-level-check/ not live.
+  Review the last implementation and make sure we are ready."
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY IT WAS NOT LIVE ── 76c3781 was committed and never pushed; the site
+    deploys from main. Before pushing, two independent reviews ran in
+    parallel (the math core; the pipeline, report and instrument driven in
+    Chrome over local HTTP). Both found real defects; all confirmed ones are
+    fixed here, then the ledger was rebuilt (~60 min), and the site pushed.
+
+  ── 1 · THE METHOD (fit.js, families.js, special.js) ──
+    · THE EDGE WAS A HEURISTIC. A climb crossing α > 500 (GG), α > 10⁴ (EW)
+      or Q < 0.03 was called "no maximum" and the family left out of the
+      ranking; the limit test proved only that one candidate was not the max.
+      On six hindcast series the GG's maximum is beside the limit (α 951–
+      2,323), certified now, and 17 choices move; on arabian-sea monthly the
+      EW has a maximum at α ≈ 12,700 that a longer climb finds and Krawczyk
+      cannot yet box. NOW: certifyGG searches from α = 1 in (α, c, λ) and from
+      the lognormal at Q = 0.02 in Prentice's coordinates; a certified maximum
+      above the lognormal's is the fit; otherwise the BOUNDARY TEST must prove
+      ∂ℓ/∂Q < 0 over B × (0, q₁] (B around the lognormal fit, the widest of
+      k = 3, 1, 0.3, 0.1 SE or its own box) for the family to be left out;
+      anything else blocks the ranking (rankRule unchanged in shape: only a
+      proved edge is excluded). EW stops block.
+    · THE SERIES FORM. gengammaP's ℓ, score and Hessian as power series in
+      u = Qw (E1, E1′, E2, E2′, E2″ with tails ≤ |u|^J e^|u|/(J+1)!) plus
+      special.js's C, C′, C″ polynomials; nothing divided by Q; checked
+      against the direct form to 1e-11 and at Q = 0 against the lognormal.
+    · THE SECOND ORDER. certify() proved a zero of the score, not a maximum.
+      secondOrder(): Sylvester minors over the box, or definiteness at the
+      candidate plus ‖I − A·H(X)‖_u < 1 (every Hessian in the box nonsingular,
+      so the signature is constant). All 348 recorded with their minors.
+    · P(a, z) rescaled in logs (no overflow at z ≫ a, no underflow throw at
+      z ≪ a); P⁻¹'s bracket moves only on a certain sign (the doubling loop
+      used to take "not above" for "below"), each end bisected alone; Φ⁻¹
+      likewise, its bracket checked; χ² exact only while k·|num| < 2⁵² (else
+      refused, not "undefined"); rankRule refuses on a statistic that cannot
+      be enclosed or is not finite; printedBox takes plain decimals only.
+
+  ── 2 · THE INSTRUMENT (playground/return-level-check) ──
+    · a certificate could carry the wrong file's digest (a run finishing
+      after a new file loaded): the run now owns its series, a new series
+      stops the run, stale messages are dropped;
+    · the parse rule rewritten and digested: "2004-03-01 3.549" is a date and
+      a value (never hour 3); zones applied to UTC; fields split by
+      separators (field n, up to 20, shown on the first line); lines sorted;
+      a time twice with one value kept once, with two values refused; NDBC
+      missing marks 99/999/9999 dropped and counted; ".57" and exponents read;
+      a constant field refused ("is Hs in another field?");
+    · the field re-parsed on change and recorded; a refused file clears the
+      old series; 390 px after a run no longer widens the page (grid track
+      minmax(0, 1fr)); the file input reachable by keyboard;
+    · the printed-fit verdicts no longer overclaim (CONSISTENT, NOT THE
+      CERTIFIED FIT, BELOW ITS LIMIT, NOT A MEMBER OF THE FAMILY added);
+    · "Nothing leaves this page" → "Your file never leaves this page" (the
+      page loads fonts and Vercel's page-view script; the file goes nowhere).
+
+  ── 3 · THE REPORT ── every sentence the review found false or ungated is
+    now generated from the ledger and gated (the box half-width is the
+    recorded box's, not the Krawczyk image's; the normal is not "highest at
+    every block"; the annual Gumbel claim is B's alone). New §5 paragraph:
+    the six maxima beside the limit, and the Arabian Sea refusal with what
+    leaving the EW out would have said (24.07 m vs 6.87 m).
+
+  ── 4 · GATES ── hseva battery 1374 checks, 14 reds (new: right-skewed logs
+    refuse the GG at its limit WITH the proof; a 40,000-point GG at α = 900
+    is certified beside the limit; a boundary stop blocks; a saddle is not a
+    maximum; NaN and unenclosable statistics refuse); the ledger runner
+    decodes child output as UTF-8; scipyDecide's OFF_THE_MAXIMUM needs a
+    likelihood deficit; the shelf and control texts say what is decided.
 
 ══════════════════════════════════════════════════════════════════════════
   TWENTIETH SESSION, 2026-09-26/27 — THE RETURN-LEVEL TABLE ON THE PAPER'S OWN

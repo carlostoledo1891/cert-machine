@@ -29,7 +29,9 @@
    Every loglik is the full log-likelihood, constants included, so two
    families' values on the same data can be compared. `signed` names the
    parameters that may be negative; `edge` names a boundary the float search
-   can run to, where no maximum exists to certify. */
+   can run to with the likelihood still rising, where the climb stops. A stop
+   there is a refusal that proves nothing about the boundary; only the
+   generalized gamma's lognormal limit is decided (fit.js certifyGG). */
 'use strict';
 
 /* Φ and Φ⁻¹ over the ops: erf by its Taylor series for |z| ≤ 2 (alternating,
@@ -162,7 +164,7 @@ const FAMILIES = {
   expweibull: {
     names: ['alpha', 'k', 'lambda'],
     init: (D) => { const w = FAMILIES.weibull.init(D); return [1.0, w[0], w[1]]; },
-    edge: (th) => (th[0] > 1e4 ? 'the likelihood keeps rising as α → ∞ with λ → 0 (a boundary of the family); no finite maximum to certify' : null),
+    edge: (th) => (th[0] > 1e4 ? 'the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family' : null),
     sums: (o, th, D) => {
       const [a, k, l] = th; const lnl = o.log(l);
       /* z = y^k, g = 1/(e^z − 1); the sums the score and Hessian need */
@@ -219,7 +221,7 @@ const FAMILIES = {
     names: ['alpha', 'c', 'lambda'], limit: 'lognormal', fallback: 'gengammaP',
     /* at α = 1 it is the Weibull: start there */
     init: (D) => { const w = FAMILIES.weibull.init(D); return [1.0, w[0], w[1]]; },
-    edge: (th) => (th[0] > 500 ? 'the likelihood keeps rising toward the lognormal limit of the family (α → ∞, c → 0); no finite maximum to certify' : null),
+    edge: (th) => (th[0] > 500 ? 'the climb passed α = 500, the likelihood still rising toward the family\'s lognormal limit (α → ∞, c → 0)' : null),
     sums: (o, th, D) => {
       const [a, cc, l] = th; const lnl = o.log(l);
       /* y = x/λ, z = y^c: Σ ln y, Σ z, Σ z ln y, Σ z (ln y)² */
@@ -261,13 +263,22 @@ const FAMILIES = {
      variable is z = α e^{Qw}. Along the ridge where the likelihood of the (α, c, λ) form is
      nearly flat and its three parameters move together exponentially, these three barely
      move but Q, and the Krawczyk box can be narrow where the other form cannot. Q > 0 is
-     the paper's family; the lognormal is its Q → 0 limit. Used only where the (α, c, λ)
-     certificate cannot contract; the fit it certifies is the same distribution.
+     the paper's family; the lognormal is its Q → 0 limit, and in the series form below an
+     ordinary point, which is how certifyGG (fit.js) searches next to the limit and decides
+     the limit itself. A fit certified here is the same distribution as in (α, c, λ).
        ℓ = n ln Q + n a ln a − n lnΓ(a) − n ln σ − Σ ln x + Σw/Q − Σe^{Qw}/Q²,  a = Q⁻². */
   gengammaP: {
     names: ['mu', 'sigma', 'q'],
-    edge: (th) => (th[2] < 0.03 ? 'the climb runs to Q → 0, the lognormal limit of the family; no finite maximum to certify' : null),
+    edge: (th) => (th[2] < 0.002 ? 'the climb passed Q = 0.002, running to Q → 0, the family\'s lognormal limit' : null),
+    /* near the limit (|Q| ≤ 0.2, every |Qw| ≤ 2) the series form below; the direct form above it */
+    nearLimit: (o, th, D) => {
+      if (o.hi(o.abs(th[2])) > 0.2) return false;
+      if (D.Lmin === undefined) { let a = Infinity, b = -Infinity; for (let i = 0; i < D.n; i++) { a = Math.min(a, o.lo(D.L[i])); b = Math.max(b, o.hi(D.L[i])); } D.Lmin = o.isInterval ? [a, a] : a; D.Lmax = o.isInterval ? [b, b] : b; }
+      const W = Math.max(Math.abs(o.hi(o.sub(D.Lmax, th[0]))), Math.abs(o.lo(o.sub(D.Lmin, th[0])))) / o.lo(th[1]);
+      return o.hi(o.abs(th[2])) * W <= 2;
+    },
     sums: (o, th, D) => {
+      if (FAMILIES.gengammaP.nearLimit(o, th, D)) return FAMILIES.gengammaP.seriesSums(o, th, D);
       const [mu, s, q] = th;
       const aw = o.acc(), aE = o.acc(), awE = o.acc(), aw2E = o.acc(), ay = o.acc();
       for (let i = 0; i < D.n; i++) {
@@ -278,8 +289,52 @@ const FAMILIES = {
       }
       return { Sw: aw.value(), SE: aE.value(), SwE: awE.value(), Sw2E: aw2E.value(), Sy: ay.value(), s, q, n: o.c(D.n), a: o.div(o.c(1), o.mul(q, q)) };
     },
+    /* THE SERIES FORM. ℓ's pieces carry Q⁻², Q⁻³, Q⁻⁴ that cancel; evaluated as written, an
+       interval over a box of Q loses everything to that cancellation. Rewritten with
+       u = Qw, E1(u) = (eᵘ − 1)/u and E2(u) = (eᵘ − 1 − u)/u² as power series with a proved
+       tail, and the gamma-function part as special.js's C, C′, C″, nothing is divided by Q
+       and the lognormal (Q = 0) is an ordinary point:
+         ℓ   = n C(Q) − n ln σ − Σ y − Σ w² E2(u)
+         ∂μ  = Σ w E1 / σ,   ∂σ = (Σ w² E1 − n) / σ,   ∂Q = n C′(Q) − Σ w³ E2′
+         ∂μμ = −Σ eᵘ / σ²,   ∂μσ = −Σ w (E1 + eᵘ) / σ²,   ∂σσ = (n − Σ w² (2E1 + eᵘ)) / σ²
+         ∂μQ = Σ w² E1′ / σ,  ∂σQ = Σ w³ E1′ / σ,  ∂QQ = n C″(Q) − Σ w⁴ E2″.
+       Each series Σ_j c_j uʲ has c_j ≤ 1/(j+s)! (s = 1 for E1, E1′; 2 for E2, E2′, E2″), so
+       the terms from j = J on sum to at most |u|^J e^{|u|} / (J+1)!; J is taken where that is
+       below 10⁻²⁵ and the bound is added as a pad. The coefficients 1/k! are built by
+       exact division, so in intervals they are enclosures too. */
+    seriesSums: (o, th, D) => {
+      const [mu, s, q] = th;
+      if (!o.__prentice) {                                   /* the coefficients, once per arithmetic */
+        const F = [o.c(1)]; for (let k = 1; k <= 48; k++) F.push(o.div(F[k - 1], o.c(k)));
+        const C = { E1: [], E1p: [], E2: [], E2p: [], E2pp: [] };
+        for (let j = 0; j < 44; j++) {
+          C.E1.push(F[j + 1]); C.E1p.push(o.mul(o.c(j + 1), F[j + 2])); C.E2.push(F[j + 2]);
+          C.E2p.push(o.mul(o.c(j + 1), F[j + 3])); C.E2pp.push(o.mul(o.c((j + 1) * (j + 2)), F[j + 4]));
+        }
+        o.__prentice = C;
+      }
+      const C = o.__prentice;
+      const horner = (u, J, cf) => { let v = cf[J - 1]; for (let j = J - 2; j >= 0; j--) v = o.add(cf[j], o.mul(u, v)); return v; };
+      const acc = Array.from({ length: 11 }, () => o.acc());
+      for (let i = 0; i < D.n; i++) {
+        const w = o.div(o.sub(D.L[i], mu), s), u = o.mul(q, w);
+        const U = Math.max(Math.abs(o.lo(u)), Math.abs(o.hi(u)));
+        let J = 4, tail = Math.pow(U, J) * Math.exp(U) / 120;
+        while (tail > 1e-25 && J < 44) { J++; tail = tail * U / (J + 1); }
+        const pad = o.c(tail * 1.001 + 1e-300);
+        const E1 = o.widen(horner(u, J, C.E1), pad), E1p = o.widen(horner(u, J, C.E1p), pad);
+        const E2 = o.widen(horner(u, J, C.E2), pad), E2p = o.widen(horner(u, J, C.E2p), pad), E2pp = o.widen(horner(u, J, C.E2pp), pad);
+        const E = o.exp(u), w2 = o.mul(w, w), w3 = o.mul(w2, w), w4 = o.mul(w2, w2);
+        acc[0].add(o.mul(w, E1)); acc[1].add(o.mul(w2, E1)); acc[2].add(o.mul(w3, E2p)); acc[3].add(o.mul(w2, E2));
+        acc[4].add(E); acc[5].add(o.mul(w, E)); acc[6].add(o.mul(w2, E));
+        acc[7].add(o.mul(w2, E1p)); acc[8].add(o.mul(w3, E1p)); acc[9].add(o.mul(w4, E2pp)); acc[10].add(D.L[i]);
+      }
+      const v = acc.map((x) => x.value());
+      return { series: true, S1: v[0], S2: v[1], S3: v[2], SL: v[3], SE: v[4], SwE: v[5], Sw2E: v[6], T2: v[7], T3: v[8], T4: v[9], Sy: v[10], s, q, n: o.c(D.n) };
+    },
     score: (o, th, D) => {
       const S = FAMILIES.gengammaP.sums(o, th, D);
+      if (S.series) return [o.div(S.S1, S.s), o.div(o.sub(S.S2, S.n), S.s), o.sub(o.mul(S.n, o.prenticeC1(S.q)), S.S3)];
       const qs = o.mul(S.q, S.s), q2 = o.mul(S.q, S.q), q3 = o.mul(q2, S.q);
       const G = o.gap1(S.q);                                                           /* ln a + 1 − ψ(a), as a series in Q */
       const dm = o.div(o.sub(S.SE, S.n), qs);
@@ -289,6 +344,15 @@ const FAMILIES = {
     },
     hess: (o, th, D) => {
       const S = FAMILIES.gengammaP.sums(o, th, D);
+      if (S.series) {
+        const s2 = o.mul(S.s, S.s);
+        const mm = o.neg(o.div(S.SE, s2));
+        const ms = o.neg(o.div(o.add(S.S1, S.SwE), s2));
+        const ss = o.div(o.sub(S.n, o.add(o.mul(o.c(2), S.S2), S.Sw2E)), s2);
+        const mq = o.div(S.T2, S.s), sq = o.div(S.T3, S.s);
+        const qq = o.sub(o.mul(S.n, o.prenticeC2(S.q)), S.T4);
+        return [[mm, ms, mq], [ms, ss, sq], [mq, sq, qq]];
+      }
       const s2 = o.mul(S.s, S.s), q2 = o.mul(S.q, S.q), q3 = o.mul(q2, S.q), q4 = o.mul(q2, q2), q6 = o.mul(q4, q2);
       const G = o.gap1(S.q);
       const mm = o.neg(o.div(S.SE, s2));
@@ -303,6 +367,7 @@ const FAMILIES = {
     },
     loglik: (o, th, D) => {
       const S = FAMILIES.gengammaP.sums(o, th, D);
+      if (S.series) return o.sub(o.sub(o.sub(o.mul(S.n, o.prenticeC(S.q)), o.mul(S.n, o.log(S.s))), S.Sy), S.SL);
       const q2 = o.mul(S.q, S.q);
       return o.sub(o.add(o.sub(o.sub(o.sub(o.add(o.mul(S.n, o.log(S.q)), o.mul(o.mul(S.n, S.a), o.log(S.a))), o.mul(S.n, o.lgamma(S.a))), o.mul(S.n, o.log(S.s))), S.Sy), o.div(S.Sw, S.q)), o.div(S.SE, q2));
     },

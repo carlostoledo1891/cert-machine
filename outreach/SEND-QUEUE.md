@@ -11,6 +11,24 @@ here on request.
 
 ---
 
+## LANE U — THE UFSC LINE (2026-09-27): reviewed, fixed and PUSHED; both pages live; the sends are the operator's
+
+### U1. The reply to the UFSC contact — DRAFTED, HELD BY THE OPERATOR (private correspondence: the text is not in this public repo)
+It links https://carlostoledo.co/reports/return-levels.html and https://carlostoledo.co/instruments/return-level-check/
+(live since the 2026-09-27 push). THE DRAFT'S NUMBERS PREDATE THE REVIEW AND MUST BE REPLACED before it goes: every
+number is a field of certs/hseva-ledger.json as rebuilt — the GG the decided best on 2 of 12 buoy series and 12 of 52
+hindcast series, its likelihood proved to peak at the lognormal limit on 8 and 37 (not "no maximum"); on six hindcast
+series its maximum sits beside that limit (α 951–2,323) and a stop at α = 500 would hand 17 choices to another family;
+the Arabian Sea's choices REFUSED (the exp. Weibull still rising past α = 10⁴); the lognormal at Campos and Santos; the
+benchmark marginals' 5.25–14.53 m; scipy floc=0 45 of 48, and a GG point below its limit on all 10 buoy series where the
+family peaks there; up to 8 m moved by a free location. Two questions in it shape the next build: is the location fixed
+at zero in their pipeline, and which families make "all the main distributions".
+
+### U2. A note to the environmental-contour benchmark's organizers — NOT DRAFTED
+Table 13's Hs row for dataset C (contribution 8) is the certified Weibull MLE of the zero-up-crossing period; contribution
+9's printed locations leave ~10k hours of each buoy below the support. Public on reports/return-levels.html §6 after the
+push. After U1, on the operator's word.
+
 ## LANE M — THE METR PLAN (2026-09-21): built as far as the world allows; the frontier runs are IN (2026-09-25); the hub push is DONE; three sends wait
 
 ### M1. The baseline recruiting message — DRAFTED, HELD (the operator sends, one per person)

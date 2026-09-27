@@ -3,7 +3,9 @@
    A maximum-likelihood fit is a zero of the score equations. Here it is
    CERTIFIED: a float Newton iteration finds a candidate, and the Krawczyk
    operator (instruments/interval/radii.js) proves that a box around it
-   contains exactly one zero of the score — evaluated in outward-rounded
+   contains exactly one zero of the score, and the Hessian is proved negative
+   definite over the same box (secondOrder()), so that zero is the likelihood's
+   maximum in the box — evaluated in outward-rounded
    interval arithmetic over every data point, with exp and log from the
    certified transcendental module and the gamma-function family from
    special.js. Everything downstream is an interval extension over that box:
@@ -96,14 +98,15 @@ for (const ops of [floatOps, intervalOps]) {
   ops.PhiInv = (p) => {
     const isIv = Array.isArray(p);
     const plo = isIv ? p[0] : p, phi = isIv ? p[1] : p;
-    const cert = (z, target, wantAbove) => { const v = intervalOps.Phi(IV.iv(z)); return wantAbove ? v[0] > target : v[1] < target; };
-    let lo = -12, hi = 12;
-    for (let i = 0; i < 200; i++) {
-      const mid = (lo + hi) / 2;
-      if (cert(mid, phi, true)) hi = mid; else if (cert(mid, plo, false)) lo = mid; else break;
-      if (hi - lo < 1e-14) break;
-    }
-    return isIv ? [lo, hi] : (lo + hi) / 2;
+    /* the sign of Φ(z) − p where certain: −1 below, +1 above, 0 undecided */
+    const sign = (z) => { const v = intervalOps.Phi(IV.iv(z)); return v[1] < plo ? -1 : v[0] > phi ? 1 : 0; };
+    if (!(sign(-12) < 0 && sign(12) > 0)) throw new Error('Φ⁻¹: p = [' + plo + ', ' + phi + '] is not certainly inside (Φ(−12), Φ(12))');
+    let l = -12, u = 12;                                     /* the lower end: the edge of "certainly below" */
+    for (let i = 0; i < 200 && u - l > 1e-14; i++) { const mid = (l + u) / 2; if (sign(mid) < 0) l = mid; else u = mid; }
+    const lower = l;
+    l = -12; u = 12;                                         /* the upper end: the edge of "certainly above" */
+    for (let i = 0; i < 200 && u - l > 1e-14; i++) { const mid = (l + u) / 2; if (sign(mid) > 0) u = mid; else l = mid; }
+    return isIv ? [lower, u] : (lower + u) / 2;
   };
   Object.assign(ops, makeGamma(ops));
 }
@@ -241,57 +244,169 @@ function newton(fam, Df, maxIter, start) {
   return { ok: false, why: 'the ascent did not settle; last score norm ' + last, theta: th };
 }
 
-/* ---- the certificate: Krawczyk on the score over the interval data ---- */
+/* ---- the second order ----
+   Krawczyk proves that the box X holds exactly one zero of the score; that zero
+   is the likelihood's maximum in X when the Hessian is negative definite at every
+   point of X. Two proofs; the first that succeeds is recorded:
+     'box'    Sylvester's criterion on −H over X's interval Hessian: each leading
+              principal minor enclosed, every lower end above zero. A Hessian is
+              symmetric, so the two enclosures of an off-diagonal entry are
+              intersected.
+     'point'  Sylvester at the candidate alone (a thin box, so the minors are
+              tight), and every Hessian over X nonsingular: with C = I − A·H(X),
+              A the float inverse Krawczyk used and u > 0 the box's half-widths,
+              |C|u < u componentwise gives ‖I − A·H‖_u < 1, so A·H and H are
+              nonsingular, for each H in H(X). A continuous family of symmetric
+              matrices none of which is singular keeps its signature over the
+              connected X: negative definite at the candidate, negative definite
+              on X.
+   The first fails where the box's Hessian is too ill-conditioned for its minors
+   (the generalized gamma's ridge); the second where the contraction has no room. */
+function sylvester(H) {
+  const n = H.length, M = [];
+  for (let i = 0; i < n; i++) {
+    M.push([]);
+    for (let j = 0; j < n; j++) {
+      const a = H[i][j], b = H[j][i], lo = Math.max(a[0], b[0]), hi = Math.min(a[1], b[1]);
+      if (!(lo <= hi)) throw new Error('the Hessian\'s enclosures of one entry do not meet');
+      M[i].push([-hi, -lo]);
+    }
+  }
+  if (n > 3) throw new Error('sylvester: more than three parameters');
+  const m = [M[0][0]];
+  if (n >= 2) m.push(IV.sub(IV.mul(M[0][0], M[1][1]), IV.sqr(M[0][1])));
+  if (n >= 3) {
+    const a = IV.mul(M[0][0], IV.sub(IV.mul(M[1][1], M[2][2]), IV.sqr(M[1][2])));
+    const b = IV.mul(M[0][1], IV.sub(IV.mul(M[0][1], M[2][2]), IV.mul(M[1][2], M[0][2])));
+    const c = IV.mul(M[0][2], IV.sub(IV.mul(M[0][1], M[1][2]), IV.mul(M[1][1], M[0][2])));
+    m.push(IV.add(IV.sub(a, b), c));
+  }
+  return m;
+}
+function secondOrder(fam, X, th0, A, Di) {
+  const H = (B) => fam.hess(intervalOps, B, Di);
+  const positive = (m) => m && m.every((q) => q[0] > 0);
+  let mb = null, mp = null;
+  try { mb = sylvester(H(X)); } catch (e) { mb = null; }
+  if (positive(mb)) return { ok: true, how: 'box', minors: mb };
+  try { mp = sylvester(H(th0.map((v) => IV.iv(v)))); } catch (e) { mp = null; }
+  if (!positive(mp)) return { ok: false, minors: mb || mp };
+  const J = H(X), n = X.length, u = X.map((b) => (b[1] - b[0]) / 2);
+  for (let i = 0; i < n; i++) {
+    let s = IV.iv(0);
+    for (let j = 0; j < n; j++) {
+      let c = IV.iv(i === j ? 1 : 0);
+      for (let k = 0; k < n; k++) c = IV.sub(c, IV.mul(IV.iv(A[i][k]), J[k][j]));
+      s = IV.add(s, IV.mul(IV.iv(Math.max(Math.abs(c[0]), Math.abs(c[1]))), IV.iv(u[j])));
+    }
+    if (!(s[1] < u[i])) return { ok: false, minors: mb || mp };
+  }
+  return { ok: true, how: 'point', minors: mp };
+}
+
+/* ---- the certificate: Krawczyk on the score over the interval data, then the second order ---- */
 function certify(famName, xs, opts) {
   opts = opts || {};
+  if (famName === 'gengamma') return certifyGG(xs, opts);
   const fam = Object.assign({ name: famName }, FAMILIES[famName]);
   const { Df, Di } = opts.prepared || prepare(xs);
   const cand = newton(fam, Df, opts.maxIter, opts.start);
-  /* THE LIMIT TEST. A family that tends to another at its boundary (the generalized gamma
-     to the lognormal as α → ∞) has a likelihood whose supremum is at least that family's
-     maximum. A candidate whose certified log-likelihood lies wholly below the limit family's
-     certified maximum is therefore not the maximum of its family — whether the climb
-     converged there or not — and no point inside the family that reaches the limit's was
-     found: that is the edge, decided by two enclosures, and no Krawczyk is spent on it. */
-  if (fam.limit && cand.theta && !cand.edge) {
-    const lim = certify(fam.limit, xs, { prepared: { Df, Di } });
-    if (lim.ok) {
-      const llLim = FAMILIES[fam.limit].loglik(intervalOps, lim.box, Di);
-      let llHere = null;
-      try { llHere = fam.loglik(intervalOps, cand.theta.map((v) => IV.iv(v)), Di); } catch (e) { llHere = null; }
-      if (llHere && llHere[1] < llLim[0]) {
-        return { ok: false, family: famName, edge: true, theta: cand.theta, n: Df.n,
-          why: 'the climb stopped at ' + fam.names.map((nm, i) => nm + ' ' + Number(cand.theta[i]).toPrecision(4)).join(', ') + ' with a log-likelihood of at most ' + llHere[1].toFixed(3) + ', below the ' + fam.limit + '\'s certified maximum ' + llLim[0].toFixed(3) + ': the family\'s supremum is at least its ' + fam.limit + ' limit, reached only as α → ∞, and no point inside the family reaches it',
-          limit: { family: fam.limit, ll: llLim, llHere } };
-      }
-    }
-  }
-  /* where a family declares other coordinates for the same distribution (the generalized
-     gamma's Prentice form), a candidate these coordinates could not certify is tried there
-     before it is refused: the certificate is then in those coordinates, of the same fit */
-  const viaFallback = (refusal) => {
-    if (!fam.fallback || !refusal.theta || refusal.edge) return refusal;
-    const P = FAMILIES[fam.fallback];
-    const alt = certify(fam.fallback, xs, { prepared: { Df, Di }, start: P.fromStacy(refusal.theta) });
-    if (alt.ok) {
-      /* the certified box carried back to (α, c, λ), as an enclosure: α = Q⁻², c = Q/σ, λ = exp(μ − ln α / c) */
-      const [m, sg, q] = alt.box, o = intervalOps, a = o.div(o.c(1), o.mul(q, q)), cc = o.div(q, sg);
-      const stacyBox = [a, cc, o.exp(o.sub(m, o.div(o.log(a), cc)))];
-      return Object.assign(alt, { family: famName, coords: fam.fallback, stacy: P.toStacy(alt.theta), stacyBox, firstTry: refusal.why });
-    }
-    return Object.assign(refusal, { why: refusal.why + '; in ' + fam.fallback + ' coordinates too: ' + alt.why });
-  };
-  if (!cand.ok) return viaFallback({ ok: false, family: famName, edge: !!cand.edge, why: (cand.edge ? '' : 'no candidate: ') + cand.why, theta: cand.theta || null, n: Df.n });
-  const th0 = cand.theta;
+  /* a climb stopped at a family's declared boundary is a refusal like any other: that the
+     likelihood keeps rising past it is not proved, so it blocks a ranking (rankRule) */
+  if (!cand.ok) return { ok: false, family: famName, edge: false, stoppedAtBoundary: !!cand.edge, why: cand.edge ? cand.why + ': no maximum found inside the family, and none proved absent' : 'no candidate: ' + cand.why, theta: cand.theta || null, n: Df.n };
+  return certifyAt(fam, cand.theta, Df, Di, opts, cand.iters);
+}
+/* Krawczyk and the second order at a converged candidate */
+function certifyAt(fam, th0, Df, Di, opts, iters) {
+  const famName = fam.name;
   let A;
-  try { A = inverse(fam.hess(floatOps, th0, Df)); } catch (e) { return viaFallback({ ok: false, family: famName, why: 'singular Hessian at the candidate', theta: th0, n: Df.n }); }
+  try { A = inverse(fam.hess(floatOps, th0, Df)); } catch (e) { return { ok: false, family: famName, edge: false, why: 'singular Hessian at the candidate', theta: th0, n: Df.n }; }
   const Fi = (X) => fam.score(intervalOps, X, Di);
   const DFi = (X) => fam.hess(intervalOps, X, Di);
   let K;
-  try { K = krawczyk(Fi, DFi, th0, A, { maxRounds: opts.maxRounds || 12, radCap: opts.radCap || 1 }); }
-  catch (e) { return viaFallback({ ok: false, family: famName, why: 'Krawczyk: the box grew until the score was undefined on it (' + e.message + ')', theta: th0, n: Df.n, newtonIters: cand.iters }); }
-  if (!K.ok) return viaFallback({ ok: false, family: famName, why: 'Krawczyk: ' + K.why, theta: th0, n: Df.n, newtonIters: cand.iters });
-  return { ok: true, family: famName, names: fam.names, theta: th0, box: K.box, maxRad: K.maxRad, rounds: K.rounds, n: Df.n, newtonIters: cand.iters, fam, Di, Df };
+  try { K = krawczyk(Fi, DFi, th0, A, { maxRounds: (opts && opts.maxRounds) || 12, radCap: (opts && opts.radCap) || 1 }); }
+  catch (e) { return { ok: false, family: famName, edge: false, why: 'Krawczyk: the box grew until the score was undefined on it (' + e.message + ')', theta: th0, n: Df.n, newtonIters: iters }; }
+  if (!K.ok) return { ok: false, family: famName, edge: false, why: 'Krawczyk: ' + K.why, theta: th0, n: Df.n, newtonIters: iters };
+  const SO = secondOrder(fam, K.box, th0, A, Di);
+  if (!SO.ok) return { ok: false, family: famName, edge: false, why: 'the box holds one zero of the score, but the Hessian is not proved negative definite over it' + (SO.minors ? ' (leading minors of −H: ' + SO.minors.map((m) => '[' + m[0].toPrecision(3) + ', ' + m[1].toPrecision(3) + ']').join(', ') + ')' : '') + ': not proved a maximum', theta: th0, n: Df.n, newtonIters: iters };
+  return { ok: true, family: famName, names: fam.names, theta: th0, box: K.box, maxRad: K.maxRad, secondOrder: SO.how, minors: SO.minors, rounds: K.rounds, n: Df.n, newtonIters: iters, fam, Di, Df };
+}
+
+/* ---- the generalized gamma: a maximum inside the family, or its lognormal limit, decided ----
+   As α → ∞ with c → 0 the family tends to the lognormal (Prentice's Q → 0), so its
+   likelihood's supremum is at least the lognormal's maximum, and on many series the
+   likelihood keeps rising all the way there. Three searches: the (α, c, λ) climb from the
+   Weibull (α = 1), and two climbs in Prentice's (μ, σ, Q) — from where the first stopped,
+   and from the lognormal fit at Q = 0.02, to find a maximum close to the limit. Each
+   converged point is certified by Krawczyk and the second order (in Prentice's
+   coordinates by their series form, where the (α, c, λ) ridge will not contract).
+     · a certified maximum whose log-likelihood lies wholly above the lognormal's certified
+       maximum is the fit;
+     · otherwise, if THE BOUNDARY TEST holds, the family is refused AT ITS EDGE: over
+       B × (0, q₁] — B the box μ̂ ± kσ̂/√n, σ̂(1 ± k/√(2n)) around the lognormal fit, the
+       widest of k = 3, 1, 0.3, 0.1 that proves it, or the lognormal's own certified box
+       (k = 0) — the Prentice score's Q-component is proved negative, so every member
+       there is less likely than the lognormal at the same (μ, σ), hence than the
+       lognormal's maximum: near its limit the family's likelihood is highest at the limit
+       itself. Like a certified maximum, that is a local fact, and its neighbourhood is
+       recorded; that no better point exists elsewhere in the family is the search's
+       claim, as it is for every fit here. rankRule leaves such a family out, named: the
+       lognormal, which is ranked, is what its likelihood reaches;
+     · otherwise REFUSED, which blocks a ranking. */
+const Q_START = 0.02;
+function boundaryTest(Di, lim) {
+  const P = FAMILIES.gengammaP, o = intervalOps, n = Di.n;
+  const [mu, sg] = lim.theta;
+  for (const k of [3, 1, 0.3, 0.1, 0]) {                     /* k = 0: the lognormal's own certified box */
+    const B = [[IV.nextDown(Math.min(lim.box[0][0], mu - k * sg / Math.sqrt(n))), IV.nextUp(Math.max(lim.box[0][1], mu + k * sg / Math.sqrt(n)))],
+      [IV.nextDown(Math.min(lim.box[1][0], sg * (1 - k / Math.sqrt(2 * n)))), IV.nextUp(Math.max(lim.box[1][1], sg * (1 + k / Math.sqrt(2 * n))))]];
+    if (!(B[1][0] > 0)) continue;
+    for (const q1 of [0.05, 0.02, 0.01, 0.005, 0.002]) {
+      let dq = null;
+      try { dq = P.score(o, [B[0], B[1], [0, q1]], Di)[2]; } catch (e) { dq = null; }
+      if (dq && dq[1] < 0) return { ok: true, k, q1, mu: B[0], sigma: B[1], dq };
+    }
+  }
+  let d0 = null;
+  try { d0 = P.score(o, [lim.box[0], lim.box[1], [0, 0]], Di)[2]; } catch (e) { d0 = null; }
+  return { ok: false, dq0: d0 };
+}
+function certifyGG(xs, opts) {
+  const { Df, Di } = opts.prepared || prepare(xs);
+  const S = Object.assign({ name: 'gengamma' }, FAMILIES.gengamma), P = Object.assign({ name: 'gengammaP' }, FAMILIES.gengammaP);
+  const n = Df.n, notes = [], found = [];
+  let uncertified = null;
+  const lim = certify('lognormal', xs, { prepared: { Df, Di } });
+  if (!lim.ok) return { ok: false, family: 'gengamma', edge: false, why: 'its lognormal limit could not be certified: ' + lim.why, theta: null, n };
+  const llLim = FAMILIES.lognormal.loglik(intervalOps, lim.box, Di), llLimF = FAMILIES.lognormal.loglik(floatOps, lim.theta, Df);
+  const withStacy = (c) => {                            /* a Prentice certificate carried back to (α, c, λ), as an enclosure */
+    const [m, sgm, q] = c.box, o = intervalOps, a = o.div(o.c(1), o.mul(q, q)), cc = o.div(q, sgm);
+    return Object.assign(c, { family: 'gengamma', coords: 'gengammaP', stacy: P.toStacy(c.theta), stacyBox: [a, cc, o.exp(o.sub(m, o.div(o.log(a), cc)))] });
+  };
+  const consider = (fam, cand, label) => {
+    if (!cand.ok) { notes.push(label + ': ' + cand.why); return; }
+    const c = certifyAt(fam, cand.theta, Df, Di, opts, cand.iters);
+    if (c.ok) { c.ll = fam.loglik(intervalOps, c.box, Di); c.family = 'gengamma'; found.push(fam.name === 'gengammaP' ? withStacy(c) : c); return; }
+    const llF = fam.loglik(floatOps, cand.theta, Df);
+    notes.push(label + ': converged, not certified (' + c.why + ')');
+    if (!uncertified || llF > uncertified.llF) uncertified = { llF, theta: cand.theta, coords: fam.name, why: c.why };
+  };
+  const c1 = newton(S, Df, opts.maxIter);
+  consider(S, c1, 'in (α, c, λ) from α = 1');
+  const starts = [];
+  if (c1.theta) { const p = P.fromStacy(c1.theta); if (p.every(Number.isFinite) && p[1] > 0 && p[2] > 0.002) starts.push(['in (μ, σ, Q) from where that climb stopped', p]); }
+  starts.push(['in (μ, σ, Q) from the lognormal fit at Q = ' + Q_START, [lim.theta[0], lim.theta[1], Q_START]]);
+  for (const [label, st] of starts) consider(P, newton(P, Df, opts.maxIter, st), label);
+  const best = found.reduce((m, c) => (!m || c.ll[0] > m.ll[0] ? c : m), null);
+  if (best && best.ll[0] > llLim[1]) return Object.assign(best, { limit: { family: 'lognormal', ll: llLim } });
+  if (uncertified && uncertified.llF > llLimF) return { ok: false, family: 'gengamma', edge: false, theta: uncertified.theta, n, why: 'the search found a stationary point inside the family more likely than the lognormal limit (' + uncertified.coords + ' ' + uncertified.theta.map((v) => Number(v).toPrecision(5)).join(', ') + ') and could not certify it: ' + uncertified.why };
+  if (best && best.ll[1] >= llLim[0]) return { ok: false, family: 'gengamma', edge: false, theta: best.theta, n, why: 'a certified maximum inside the family and the lognormal limit have log-likelihoods the enclosures cannot order' };
+  const bt = boundaryTest(Di, lim);
+  if (bt.ok) {
+    return { ok: false, family: 'gengamma', edge: true, theta: best ? best.theta : null, n, limit: { family: 'lognormal', ll: llLim }, boundary: bt,
+      why: 'its likelihood is highest at the family\'s lognormal limit: over μ in [' + bt.mu[0].toPrecision(6) + ', ' + bt.mu[1].toPrecision(6) + '], σ in [' + bt.sigma[0].toPrecision(6) + ', ' + bt.sigma[1].toPrecision(6) + '] and 0 < Q ≤ ' + bt.q1 + ' the derivative of ℓ in Q is proved negative (at most ' + bt.dq[1].toPrecision(3) + '), so every member there is less likely than the lognormal\'s certified maximum ' + llLim[0].toFixed(3) + (best ? '; the one maximum inside the family the search certified lies below it (' + best.ll[1].toFixed(3) + ')' : '; the search found no maximum inside the family') };
+  }
+  return { ok: false, family: 'gengamma', edge: false, theta: best ? best.theta : null, n, why: 'no certified maximum inside the family above its lognormal limit, and the limit is not proved the likelihood\'s peak near it' + (bt.dq0 ? ' (∂ℓ/∂Q at the limit in [' + bt.dq0[0].toPrecision(3) + ', ' + bt.dq0[1].toPrecision(3) + '])' : '') + (notes.length ? '; ' + notes.join('; ') : '') };
 }
 
 /* ---- the fitted CDF (and survival function) at every sorted datum, once ----
@@ -343,14 +458,23 @@ function mseFrom(F, xs) {
 function chi2From(cert, xs, den) {
   const n = xs.length;
   if (!den) return { value: null, why: 'no exact denominator for the data' };
-  const nums = xs.map((x) => { const m = Math.round(x * den); if (Math.abs(x * den - m) > 1e-6 * Math.max(1, Math.abs(m))) throw new Error('χ²: a datum is not a multiple of 1/' + den); return m; });
+  if (!(den <= 1e22 && Number.isInteger(den))) return { value: null, why: 'the denominator ' + den + ' is not an exact double' };
   let k = 0; while (2 ** k < n) k++;                                   /* ⌈log2 n⌉ */
   k = Math.max(8, k + 1);                                              /* Sturges, at least eight bins */
+  /* the binning is exact while k·|num| < 2⁵²: then x·den rounds to num, and k·num, j·span and their sums are exact */
+  const cap = Math.pow(2, 52) / k;
+  const nums = xs.map((x) => {
+    const m = Math.round(x * den);
+    if (!(Math.abs(m) < cap)) throw new Error('χ²: a datum times ' + den + ' is too large for the binning to stay exact in doubles');
+    if (Math.abs(x * den - m) > 1e-6 * Math.max(1, Math.abs(m))) throw new Error('χ²: a datum is not a multiple of 1/' + den);
+    return m;
+  });
   const m0 = nums[0], m1 = nums[n - 1], span = m1 - m0;
   if (span <= 0) return { value: null, why: 'the data have no spread' };
   const O = new Array(k).fill(0);
   for (const m of nums) { let j = Math.floor((k * (m - m0)) / span); if (j >= k) j = k - 1; O[j]++; }   /* [e_j, e_{j+1}), the last bin closed */
-  const edge = (j) => IV.div(IV.iv(k * m0 + j * span), IV.iv(k * den));          /* e_j = min + j·span/k, a rational */
+  const kden = IV.mul(IV.iv(k), IV.iv(den));
+  const edge = (j) => IV.div(IV.iv(k * m0 + j * span), kden);                    /* e_j = min + j·span/k, a rational */
   const Fe = []; for (let j = 0; j <= k; j++) Fe.push(intervalOps.clamp01(cert.fam.cdf(intervalOps, cert.box, edge(j))));
   let X = IV.iv(0), kept = 0;
   for (let j = 0; j < k; j++) {
@@ -365,7 +489,7 @@ function criteria(cert, den) {
   const { F, S, xs } = sortedCdf(cert);
   const ad = adFrom(F, S), ks = ksFrom(F), mse = mseFrom(F, xs);
   let chi2;
-  try { chi2 = chi2From(cert, xs, den); } catch (e) { chi2 = { value: null, why: e.message }; }
+  try { chi2 = chi2From(cert, xs, den); } catch (e) { chi2 = { value: null, refused: true, why: e.message }; }
   return { ad, ks, mse, chi2 };
 }
 /* the paper's selection statistic alone, for callers that need only it */
@@ -379,7 +503,7 @@ function returnLevel(cert, T, blockHours) {
 }
 /* ---- a ranking under any criterion: decided or refused ---- */
 function rankBy(entries, key) {
-  const ok = entries.filter((e) => e[key] && Array.isArray(e[key]));
+  const ok = entries.filter((e) => e[key] && Array.isArray(e[key]) && Number.isFinite(e[key][0]) && Number.isFinite(e[key][1]));
   if (!ok.length) return { verdict: 'REFUSED', why: 'no family has the statistic' };
   const best = ok.reduce((m, e) => (e[key][1] < m[key][1] ? e : m));
   const tied = ok.filter((e) => e !== best && e[key][0] <= best[key][1]);
@@ -387,15 +511,21 @@ function rankBy(entries, key) {
 }
 const rank = (entries) => rankBy(entries, 'ad');
 /* THE ranking rule, the one place it lives (the ledger and the tab both call it).
-   entries: [{family, refused, edge, ad, ks, mse, chi2, chi2Refused}]. A family
-   refused at its edge has no maximum-likelihood fit and is left out, named; a
-   family refused for any other reason makes the ranking REFUSED, since its
-   fit might exist and win; an undecided χ² bin rule refuses χ². */
+   entries: [{family, refused, edge, ad, ks, mse, chi2, chi2Refused, unstated}]. A
+   family refused AT ITS EDGE — the generalized gamma whose likelihood is proved
+   highest at its lognormal limit near it (certifyGG) — is left out, named, the
+   lognormal being ranked; a family refused for any other reason makes the
+   ranking REFUSED, since its maximum might exist and win. A statistic that could
+   not be enclosed (a log of zero, a throw, a bound that is not finite) refuses
+   the ranking; an undecided χ² bin rule refuses χ²; a χ² the paper leaves
+   undefined (fewer than two kept bins) leaves that family out of χ², named. */
 function rankRule(entries, k) {
   const blocked = entries.filter((e) => e.refused && !e.edge).map((e) => e.family);
   if (blocked.length) return { verdict: 'REFUSED', why: 'no certified fit for ' + blocked.join(', ') + ' — its maximum might exist and win' };
+  const unstated = entries.filter((e) => !e.refused && ((e.unstated && e.unstated.includes(k)) || (e[k] && !(Number.isFinite(e[k][0]) && Number.isFinite(e[k][1]))) || (k !== 'chi2' && !e[k]))).map((e) => e.family);
+  if (unstated.length) return { verdict: 'REFUSED', why: 'the statistic could not be enclosed for ' + unstated.join(', ') };
   const straddle = k === 'chi2' ? entries.filter((e) => e.chi2Refused).map((e) => e.family) : [];
-  if (straddle.length) return { verdict: 'REFUSED', why: 'the χ² bin rule is undecided for ' + straddle.join(', ') };
+  if (straddle.length) return { verdict: 'REFUSED', why: 'χ² is not decided for ' + straddle.join(', ') + ' (an expected count straddling 5, or data the exact binning cannot hold)' };
   const excluded = entries.filter((e) => e.refused).map((e) => e.family);
   const undefinedFor = entries.filter((e) => !e.refused && !e[k]).map((e) => e.family);
   const r = rankBy(entries.filter((e) => !e.refused && e[k]), k);
@@ -405,8 +535,10 @@ function rankRule(entries, k) {
 }
 
 /* ---- printed fits: the box their digits allow, the likelihood and the levels over it ---- */
-function printedBox(s) {                               /* "0.0634" → [0.06335, 0.06345] */
-  const t = String(s).trim(), neg = t.startsWith('-'), u = neg ? t.slice(1) : t;
+function printedBox(s) {                               /* "0.0634" → [0.06335, 0.06345]; plain decimals only */
+  const t = String(s).trim();
+  if (!/^-?\d+(\.\d+)?$/.test(t)) throw new Error('printedBox: "' + t + '" is not a plain decimal');
+  const neg = t.startsWith('-'), u = neg ? t.slice(1) : t;
   const dot = u.indexOf('.'), d = dot < 0 ? 0 : u.length - dot - 1;
   const v = Number(t), h = 0.5 * Math.pow(10, -d);
   return [IV.nextDown(v - h), IV.nextUp(v + h)];
@@ -433,4 +565,4 @@ function levelAt(famName, theta, loc, T, blockHours) {
   return loc ? IV.add(q, loc) : q;
 }
 
-module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt };
+module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, certifyAt, boundaryTest, sylvester, secondOrder, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt };

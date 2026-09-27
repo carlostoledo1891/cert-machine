@@ -48,6 +48,53 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   { const Qb = [0.0854 - 1e-9, 0.0854 + 1e-9], a = oi.div(I(1), oi.mul(Qb, Qb));
     const naive = oi.sub(oi.div(I(1), a), oi.trigamma(a)), series = oi.gap2(Qb);
     ok(IV.width(naive) > 100 * IV.width(series), 'over a 10⁻⁹ box of Q the naive 1/a − ψ′(a) is ' + (IV.width(naive) / IV.width(series)).toExponential(1) + '× wider than the series: the dependency the series removes'); }
+  /* the Prentice polynomials at the lognormal, Q = 0 */
+  ok(within(oi.prenticeC(I(0)), -0.5 * Math.log(2 * Math.PI)) && within(oi.prenticeC1(I(0)), 0) && within(oi.prenticeC2(I(0)), -1 / 6), 'C(0) = −½ ln 2π, C′(0) = 0, C″(0) = −1/6: the lognormal is an ordinary point of the Prentice likelihood');
+  { const a = 1 / (0.15 * 0.15), direct = Math.log(0.15) + a * Math.log(a) - o.lgammaPoint(a) - a;
+    ok(Math.abs(o.prenticeC(0.15) - direct) < 1e-11 && Math.abs(o.prenticeC1(0.15) - (1 / 0.15 - 2 * (o.gap1(0.15) - 1) / Math.pow(0.15, 3))) < 1e-9, 'C and C′ as polynomials are ln Q + a ln a − lnΓ(a) − a and 1/Q − 2(gap1 − 1)/Q³ at Q = 0.15 (' + direct.toFixed(6) + ')'); }
+  /* the incomplete gamma where its series used to overflow or underflow, and its inverse's bracket */
+  { let t1 = null, t2 = null; try { t1 = oi.gammaP(I(2400), I(4800)); } catch (e) { t1 = null; } try { t2 = oi.gammaP(I(480), I(4.8)); } catch (e) { t2 = null; }
+    ok(t1 && t1[1] >= 1 - 1e-12 && t1[0] > 1 - 1e-9 && t2 && t2[0] === 0 && t2[1] < 1e-300, 'P(2400, 4800) ≈ 1 and P(480, 4.8) ≈ 0 enclosed without overflow or underflow'); }
+  { const q = FAMILIES.gengamma.quantile(oi, [I(10), I(1), I(1)], I(0.99999999607354439));
+    red(within(q, 39.9998294743), 'the gamma(10) quantile at p = 1 − 3.93·10⁻⁹ encloses its 50-digit value 39.99983 (a bracket end moves only on a certain sign)'); }
+}
+
+/* ---- the Prentice series form: the same likelihood, with nothing divided by Q ---- */
+{
+  let sd = 7; const rn = () => { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+  const xs = Array.from({ length: 400 }, () => Math.exp(0.3 + 0.4 * (rn() + rn() + rn() - 1.5)));
+  const { Df, Di } = FT.prepare(xs), P = FAMILIES.gengammaP;
+  let worst = 0;
+  for (const th of [[0.3, 0.4, 0.15], [0.3, 0.4, 0.19], [0.25, 0.35, 0.1]]) {
+    const Dd = Object.assign({}, Df, { Lmin: -1e9, Lmax: 1e9 });            /* forces the direct form */
+    const rel = (x, y) => Math.abs(x - y) / Math.max(1, Math.abs(y));
+    const ga = P.score(o, th, Df), gb = P.score(o, th, Dd), Ha = P.hess(o, th, Df), Hb = P.hess(o, th, Dd);
+    worst = Math.max(worst, rel(P.loglik(o, th, Df), P.loglik(o, th, Dd)), ...ga.map((v, i) => rel(v, gb[i])), ...Ha.flat().map((v, i) => rel(v, Hb.flat()[i])));
+  }
+  ok(worst < 1e-9, 'at Q = 0.1–0.19 the series form and the direct form agree: likelihood, score and Hessian to ' + worst.toExponential(1));
+  const ln = FT.certify('lognormal', xs, { prepared: { Df, Di } });
+  const l0 = P.loglik(oi, [ln.box[0], ln.box[1], [0, 0]], Di), lL = FAMILIES.lognormal.loglik(oi, ln.box, Di);
+  ok(l0[0] <= lL[1] && lL[0] <= l0[1], 'at Q = 0 the series likelihood is the lognormal\'s');
+  const w3 = xs.reduce((s, x) => s + Math.pow((Math.log(x) - ln.theta[0]) / ln.theta[1], 3), 0);
+  const dq0 = P.score(o, [ln.theta[0], ln.theta[1], 0], Df)[2];
+  ok(Math.abs(dq0 + w3 / 6) < 1e-9 * Math.max(1, Math.abs(w3)), '∂ℓ/∂Q at Q = 0 is −Σw³/6 (' + dq0.toFixed(4) + ')');
+  const gi = P.score(oi, [I(0.3), I(0.4), [0.0199999, 0.0200001]], Di);
+  ok(gi.every((q) => q[1] - q[0] < 1e-3), 'over a 2·10⁻⁷ box of Q next to the limit the interval score stays narrow (widths ' + gi.map((q) => (q[1] - q[0]).toExponential(0)).join(', ') + '): the cancellation is gone');
+}
+
+/* ---- the second order ---- */
+{
+  const m = FT.sylvester([[[-2, -2], [0.5, 0.5]], [[0.5, 0.5], [-1, -1]]]);
+  ok(m.length === 2 && m.every((q) => q[0] > 0), 'Sylvester on −H of a negative definite 2×2: both minors positive');
+  red(!FT.sylvester([[[-2, -2], [1.5, 1.5]], [[1.5, 1.5], [-1, -1]]]).every((q) => q[0] > 0), 'an indefinite Hessian (a saddle) is not proved a maximum');
+}
+
+/* ---- the ranking rule's refusals ---- */
+{
+  red(FT.rankRule([{ family: 'expweibull', refused: true, edge: false }, { family: 'lognormal', ad: [1, 2] }, { family: 'gumbel', ad: [3, 4] }], 'ad').verdict === 'REFUSED', 'a family stopped at its boundary, not proved, blocks the ranking');
+  ok(FT.rankRule([{ family: 'gengamma', refused: true, edge: true }, { family: 'lognormal', ad: [1, 2] }, { family: 'gumbel', ad: [3, 4] }], 'ad').verdict === 'DECIDED', 'the generalized gamma refused at its proved lognormal limit is left out and the rest decide');
+  red(FT.rankRule([{ family: 'normal', ad: [NaN, NaN] }, { family: 'lognormal', ad: [0.3, 0.31] }], 'ad').verdict === 'REFUSED', 'an enclosure that is not finite refuses the ranking instead of winning it');
+  red(FT.rankRule([{ family: 'normal', ad: null, unstated: ['ad'] }, { family: 'lognormal', ad: [0.3, 0.31] }], 'ad').verdict === 'REFUSED', 'an A² the arithmetic could not enclose refuses the ranking instead of leaving the family out');
 }
 
 /* ---- derivatives: every family's score is the gradient of its log-likelihood, its Hessian the Jacobian of the score ---- */
@@ -112,8 +159,8 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   ok(FT.returnLevel(w, 1, 8766) === null, 'a one-year return level on annual blocks is refused, not printed as a number');
   /* a gamma sample: the generalized gamma's certified c must contain 1 within its sampling reach, and its α be finite */
   const gx = Array.from({ length: 600 }, () => { let t = 0; for (let k = 0; k < 3; k++) t -= Math.log(1 - rnd()); return 0.7 * t; });
-  const gc = FT.certify('gengamma', gx);
-  ok(gc.ok && gc.box[1][0] > 0.6 && gc.box[1][1] < 1.6, 'a 600-point gamma(3, 0.7) sample: the generalized gamma certifies with c near 1 (' + (gc.ok ? gc.theta[1].toFixed(3) : gc.why) + ')');
+  const gc = FT.certify('gengamma', gx), gcS = gc.ok ? (gc.stacyBox || gc.box) : null;
+  ok(gc.ok && gcS[1][0] > 0.6 && gcS[1][1] < 1.6, 'a 600-point gamma(3, 0.7) sample: the generalized gamma certifies with c near 1 (' + (gc.ok ? (gc.stacy || gc.theta)[1].toFixed(3) + (gc.coords ? ', certified in ' + gc.coords : '') : gc.why) + ')');
   /* a generalized gamma deep on its ridge (α = 150, Q = 0.082): certified, in whichever coordinates contract */
   const rg = () => { let t = 0; for (let k = 0; k < 150; k++) t -= Math.log(1 - rnd()); return t; };
   const deep = Array.from({ length: 400 }, () => 0.02 * Math.pow(rg(), 1 / 0.3));
@@ -121,10 +168,27 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   ok(dc.ok || dc.edge, 'a 400-point generalized gamma with α = 150 is certified or refused at its edge, never refused otherwise (' + (dc.ok ? (dc.coords || 'gengamma') + ', ' + dc.names.join(', ') : dc.why.slice(0, 50)) + ')');
   const dp = FT.certify('gengammaP', deep, { start: FAMILIES.gengammaP.fromStacy([150, 0.3, 0.02]) });
   ok(dp.ok || dp.edge, 'the Prentice form certifies it directly from the true point, or reaches its edge (' + (dp.ok ? 'Q ' + dp.theta[2].toFixed(4) : dp.why.slice(0, 50)) + ')');
-  /* a lognormal sample: the generalized gamma climbs to its lognormal edge and is REFUSED there, not certified */
-  const lx = Array.from({ length: 800 }, () => { const u1 = rnd(), u2 = rnd(); return Math.exp(0.2 + 0.5 * Math.sqrt(-2 * Math.log(1 - u1)) * Math.cos(2 * Math.PI * u2)); });
+  /* a lognormal sample: whether the generalized gamma has a maximum just inside the family or
+     peaks at its lognormal limit is the sign of Σw³ in the sample, so either is right — never a
+     refusal for any other reason */
+  const gauss = () => { const u1 = rnd(), u2 = rnd(); return Math.sqrt(-2 * Math.log(1 - u1)) * Math.cos(2 * Math.PI * u2); };
+  const lx = Array.from({ length: 800 }, () => Math.exp(0.2 + 0.5 * gauss()));
   const lr = FT.certify('gengamma', lx);
-  red(!lr.ok && lr.edge, 'a lognormal sample: the generalized gamma has no maximum inside the family and is refused at its edge (' + (lr.ok ? 'certified?!' : lr.why.slice(0, 60)) + ')');
+  ok(lr.ok ? lr.ll[0] > lr.limit.ll[1] : lr.edge === true, 'a lognormal sample: the generalized gamma is certified above its lognormal limit or refused at that limit with a proof, never refused otherwise (' + (lr.ok ? 'certified, Q ' + lr.theta[2].toPrecision(3) : lr.why.slice(0, 60)) + ')');
+  /* logarithms skewed to the right (a gamma of the log): no member with Q > 0 comes near, and the
+     boundary test must PROVE the likelihood's peak at the limit */
+  const rx = Array.from({ length: 800 }, () => { let t = 0; for (let k = 0; k < 4; k++) t -= Math.log(1 - rnd()); return Math.exp(0.3 * t); });
+  const rr = FT.certify('gengamma', rx);
+  red(!rr.ok && rr.edge === true && rr.boundary && rr.boundary.dq[1] < 0, 'right-skewed logarithms: the generalized gamma is refused at its lognormal limit, with ∂ℓ/∂Q proved negative next to it (' + (rr.ok ? 'certified?!' : rr.why.slice(0, 70)) + ')');
+  /* α = 900 (Q = 1/30), past the (α, c, λ) climb's α = 500 stop: the maximum sits next to the limit
+     and must be found from the lognormal side and certified in Prentice's series form */
+  {
+    const gam = (a) => { const d = a - 1 / 3, cc = 1 / Math.sqrt(9 * d); for (;;) { const x = gauss(), v = Math.pow(1 + cc * x, 3); if (v > 0 && Math.log(1 - rnd()) < x * x / 2 + d - d * v + d * Math.log(v)) return d * v; } };
+    const Q0 = 1 / 30, S0 = 0.3, A0 = 1 / (Q0 * Q0), C0 = Q0 / S0, L0 = Math.exp(1 - Math.log(A0) / C0);
+    const nx = Array.from({ length: 40000 }, () => L0 * Math.pow(gam(A0), 1 / C0));
+    const nc = FT.certify('gengamma', nx);
+    red(nc.ok && nc.coords === 'gengammaP' && nc.ll[0] > nc.limit.ll[1] && nc.box[2][0] > 0.02 && nc.box[2][1] < 0.05, 'a 40,000-point generalized gamma with α = 900: certified inside the family (Q ' + (nc.ok ? nc.theta[2].toFixed(4) : '—') + '), above its lognormal limit — the maximum a stop at α = 500 misses (' + (nc.ok ? nc.secondOrder : nc.why.slice(0, 60)) + ')');
+  }
   red((() => { const r = FT.rank([{ family: 'a', ad: [1, 2] }, { family: 'b', ad: [1.5, 3] }]); return r.verdict === 'REFUSED' && r.tied[0] === 'b'; })(), 'overlapping A² enclosures REFUSE the ranking and name the tie');
   ok(FT.rank([{ family: 'a', ad: [1, 2] }, { family: 'b', ad: [2.5, 3] }]).verdict === 'DECIDED', 'separated enclosures decide it');
   red(!FT.certify('weibull', [1, 1, 1, 1]).ok, 'a constant sample has no Weibull MLE and is refused');
@@ -164,8 +228,12 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   const walk = (label, blocks) => {
     for (const [blk, B] of Object.entries(blocks)) {
       for (const [f, F] of Object.entries(B.fits)) {
-        if (F.certified) { certified++; ok(Number(F.criteria.ad.lo) <= Number(F.criteria.ad.hi) && Number(F.maxRad) < 1e-4 && Number(F.ll.lo) <= Number(F.ll.hi), label + ' ' + blk + ' ' + f + ': a certified fit has ordered enclosures and a narrow box'); }
-        else if (F.edge) edge++; else other++;
+        if (F.certified) {
+          certified++;
+          ok(Number(F.criteria.ad.lo) <= Number(F.criteria.ad.hi) && Number(F.maxRad) < 1e-4 && Number(F.ll.lo) <= Number(F.ll.hi), label + ' ' + blk + ' ' + f + ': a certified fit has ordered enclosures and a narrow box');
+          ok((F.secondOrder === 'box' || F.secondOrder === 'point') && F.minors.length === F.names.length && F.minors.every((m) => Number(m.lo) > 0), label + ' ' + blk + ' ' + f + ': the Hessian is proved negative definite over the box (every leading minor of −H above zero)');
+        } else if (F.edge) { edge++; ok(f === 'gengamma' && F.boundary && Number(F.boundary.dqQ.hi) < 0 && F.boundary.q1 > 0, label + ' ' + blk + ' ' + f + ': a refusal at the edge is the generalized gamma\'s, with ∂ℓ/∂Q proved negative next to its limit'); }
+        else other++;
       }
       for (const [k, r] of Object.entries(B.rankings)) {
         if (r.verdict === 'DECIDED') {
@@ -179,7 +247,7 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   };
   for (const [b, B] of Object.entries(led.buoys)) walk('buoy ' + b, B.blocks);
   if (led.ww3) for (const [p, P] of Object.entries(led.ww3.points)) walk(p, P.blocks);
-  ok(certified > 300 && other <= 2, certified + ' fits certified, ' + edge + ' refused at an edge, ' + other + ' refused otherwise (each of those leaves its rankings REFUSED, checked above)');
+  ok(certified > 300, certified + ' fits certified, ' + edge + ' refused at the generalized gamma\'s lognormal limit, ' + other + ' refused otherwise (each of those leaves its block\'s rankings REFUSED, checked above)');
   /* the findings the page states, re-derived here from the fits */
   const Fb = led.findings.buoys;
   const nat = ['A', 'B', 'C'].map((b) => led.buoys[b].blocks.native.rankings.ad);

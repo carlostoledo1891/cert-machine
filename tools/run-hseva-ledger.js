@@ -10,7 +10,9 @@
    (Kolmogorov–Smirnov, Anderson–Darling, χ² on Sturges bins, MSE), Anderson–
    Darling the one that selects; 100- and 1000-year return levels. Here every
    fit is CERTIFIED — the Krawczyk operator proves a box around the candidate
-   holds exactly one zero of the score — and every criterion and level is an
+   holds exactly one zero of the score, and the Hessian is proved negative
+   definite over the box, so that zero is the likelihood's maximum there
+   (fit.js secondOrder) — and every criterion and level is an
    enclosure over that box; each criterion's choice of family is DECIDED or
    REFUSED.
 
@@ -24,11 +26,14 @@
              provided years of A, B, C (corpus/ec-benchmark/marginals.json),
              each decided against the same data.
 
-   A family whose likelihood rises to a boundary of the family (the float
-   climb reaches the family's declared `edge`) has no maximum-likelihood fit;
-   it is REFUSED with that reason and left out of the ranking, since the method
-   has no fit of it to rank. A family refused for any other reason makes the
-   ranking REFUSED: its fit might exist and win.
+   A family without a certified fit makes the ranking REFUSED — its maximum
+   might exist and win — with one exception, decided: the generalized gamma
+   whose likelihood is proved highest at its lognormal limit near it (fit.js
+   certifyGG, the boundary test) is left out, named, since the lognormal, which
+   is ranked, is what its likelihood reaches. A climb that stops at a family's
+   declared boundary proves nothing about it and blocks the ranking. Every fit
+   is a certified local maximum; that no better one exists elsewhere in the
+   family is the search's claim.
 
    usage: node tools/run-hseva-ledger.js            everything (several minutes; workers in parallel)
           node tools/run-hseva-ledger.js --check    re-derive and compare with the shipped ledger, write nothing
@@ -70,6 +75,7 @@ function outward(v, sig, up) {
 const ivOut = (a, sig) => (a ? { lo: outward(a[0], sig || 10, false), hi: outward(a[1], sig || 10, true) } : null);
 
 /* ---- one block: six fits, four criteria, four levels, four rankings ---- */
+const boxOut = (b) => b.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]);
 function fitBlock(S, blk) {
   const BM = BL.blockMaxima(S, blk);
   const prepared = FT.prepare(BM.x);
@@ -78,20 +84,29 @@ function fitBlock(S, blk) {
     const t0 = Date.now();
     const c = FT.certify(f, BM.x, { prepared });
     if (!c.ok) {
-      fits[f] = { certified: false, edge: !!c.edge, why: c.why, stop: c.theta ? c.theta.map((v) => Number(v).toPrecision(6)) : null, seconds: Number(((Date.now() - t0) / 1000).toFixed(1)) };
+      const F = fits[f] = { certified: false, edge: !!c.edge, why: c.why, stop: c.theta ? c.theta.map((v) => Number(v).toPrecision(6)) : null };
+      if (c.stoppedAtBoundary) F.stoppedAtBoundary = true;
+      if (c.boundary) F.boundary = { k: c.boundary.k, q1: c.boundary.q1, mu: [outward(c.boundary.mu[0], 9, false), outward(c.boundary.mu[1], 9, true)], sigma: [outward(c.boundary.sigma[0], 9, false), outward(c.boundary.sigma[1], 9, true)], dqQ: ivOut(c.boundary.dq, 6) };
+      if (c.limit) F.limitLl = ivOut(c.limit.ll, 12);
+      F.seconds = Number(((Date.now() - t0) / 1000).toFixed(1));
       entries.push({ family: f, refused: true, edge: !!c.edge });
       continue;
     }
-    const cr = FT.criteria(c, S.den);
-    const ll = c.fam.loglik(FT.intervalOps, c.box, c.Di);              /* the certificate's own family: its coordinates */
-    const rl = {}; for (const yr of T) { const v = FT.returnLevel(c, yr, BM.hours); rl[yr] = v ? ivOut(v, 8) : null; }
+    /* a criterion or a level the arithmetic cannot enclose is recorded as such, never dropped */
+    let cr = null, crWhy = null;
+    try { cr = FT.criteria(c, S.den); } catch (e) { crWhy = e.message; }
+    const ll = c.ll || c.fam.loglik(FT.intervalOps, c.box, c.Di);              /* the certificate's own family: its coordinates */
+    const rl = {};
+    for (const yr of T) { try { const v = FT.returnLevel(c, yr, BM.hours); rl[yr] = v ? ivOut(v, 8) : null; } catch (e) { rl[yr] = { why: 'not enclosed: ' + e.message }; } }
     fits[f] = {
-      certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy ? c.stacy.map((v) => Number(v).toPrecision(9)) : null, stacyBox: c.stacyBox ? c.stacyBox.map((b) => [outward(b[0], 12, false), outward(b[1], 12, true)]) : null, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: c.box.map((b) => [outward(b[0], 12, false), outward(b[1], 12, true)]),
-      maxRad: c.maxRad.toExponential(2), rounds: c.rounds, iters: c.newtonIters, ll: ivOut(ll, 12),
-      criteria: { ad: ivOut(cr.ad), ks: ivOut(cr.ks), mse: ivOut(cr.mse), chi2: cr.chi2.value ? Object.assign(ivOut(cr.chi2.value), { bins: cr.chi2.bins, kept: cr.chi2.kept }) : { value: null, refused: !!cr.chi2.refused, why: cr.chi2.why, bins: cr.chi2.bins || null } },
+      certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy ? c.stacy.map((v) => Number(v).toPrecision(9)) : null, stacyBox: c.stacyBox ? boxOut(c.stacyBox) : null, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: boxOut(c.box),
+      maxRad: c.maxRad.toExponential(2), secondOrder: c.secondOrder, minors: c.minors.map((m) => ivOut(m, 6)), rounds: c.rounds, iters: c.newtonIters, ll: ivOut(ll, 12),
+      criteria: cr ? { ad: ivOut(cr.ad), ks: ivOut(cr.ks), mse: ivOut(cr.mse), chi2: cr.chi2.value ? Object.assign(ivOut(cr.chi2.value), { bins: cr.chi2.bins, kept: cr.chi2.kept }) : { value: null, refused: !!cr.chi2.refused, why: cr.chi2.why, bins: cr.chi2.bins || null } } : { error: crWhy },
       returnLevel: rl, seconds: Number(((Date.now() - t0) / 1000).toFixed(1)),
     };
-    entries.push({ family: f, ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: cr.chi2.value, chi2Refused: !!cr.chi2.refused });
+    if (c.limit) fits[f].limitLl = ivOut(c.limit.ll, 12);
+    const unstated = cr ? (cr.ad ? [] : ['ad']) : ['ad', 'ks', 'mse', 'chi2'];
+    entries.push(cr ? { family: f, ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: cr.chi2.value, chi2Refused: !!cr.chi2.refused, unstated } : { family: f, unstated });
   }
   const rankings = {}; for (const k of CRIT) rankings[k] = FT.rankRule(entries, k);
   const mx = BM.x.reduce((a, v) => (v > a ? v : a), 0);
@@ -122,7 +137,7 @@ function unitPrinted() {
       const c = FT.certify(f, data, opts);
       if (!c.ok) return { certified: false, why: c.why, edge: !!c.edge };
       const ll = c.fam.loglik(oi, c.box, c.Di);
-      return { certified: true, c, out: { certified: true, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: c.box.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]), maxRad: c.maxRad.toExponential(2), ll: ivOut(ll, 12), rl100: ivOut(FT.returnLevel(c, 100, 1), 8), rl1000: ivOut(FT.returnLevel(c, 1000, 1), 8) }, ll };
+      return { certified: true, c, out: { certified: true, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: c.box.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]), maxRad: c.maxRad.toExponential(2), secondOrder: c.secondOrder, minors: c.minors.map((m) => ivOut(m, 6)), ll: ivOut(ll, 12), rl100: ivOut(FT.returnLevel(c, 100, 1), 8), rl1000: ivOut(FT.returnLevel(c, 1000, 1), 8) }, ll };
     };
     const W = cert('weibull', xs, { prepared }), E = cert('expweibull', xs, { prepared }), LN = cert('lognormal', xs, { prepared });
     ref.mle.weibull = W.out || W; ref.mle.expweibull = E.out || E; ref.mle.lognormal = LN.out || LN;
@@ -200,6 +215,7 @@ function runAll() {
         const args = [__filename, '--unit', u].concat(QUICK ? ['--quick'] : []);
         const ch = cp.spawn(process.execPath, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'inherit'] });
         let buf = '';
+        ch.stdout.setEncoding('utf8');                       /* a character split across two chunks stays whole */
         ch.stdout.on('data', (d) => { buf += d; });
         ch.on('close', (code) => {
           if (code !== 0) die('unit ' + u + ' exited ' + code);
@@ -219,7 +235,15 @@ function runAll() {
    Smith 1985) — whatever it prints is where its optimiser stopped. Decided per
    fit: whether a datum lies below the printed location (the fitted density is
    zero there), and whether the printed point's log-likelihood lies below a
-   certified member of its own family (so it is not a maximum of anything). */
+   certified member of its own family (so it is not the family's most likely
+   member). With floc = 0 and a certified fit: AGREES when its 100-year level is
+   within 5 mm of the certified enclosure; OFF_THE_MAXIMUM when it is not and its
+   log-likelihood lies provably below the certified maximum; NOT_DECIDED when
+   neither. With floc = 0 and the generalized gamma refused at its lognormal
+   limit: BELOW_ITS_LIMIT when its log-likelihood lies below the lognormal's
+   certified maximum, which the family approaches. With no certified fit, or
+   called the default way: BELOW_A_MEMBER when below a certified member (the
+   Weibull at α = 1 for the exponentiated Weibull), else NOT_DECIDED. */
 function scipyDecide(buoys) {
   const file = path.join(ROOT, 'certs', 'hseva-scipy.json');
   if (!fs.existsSync(file)) return null;
@@ -267,12 +291,11 @@ function scipyDecide(buoys) {
             const lv = fits[f].certified && fits[f].returnLevel[100] ? [Number(fits[f].returnLevel[100].lo), Number(fits[f].returnLevel[100].hi)] : null;
             const v = Number(q.level['100']);
             if (lv) e.level100Shift = (v < lv[0] ? v - lv[0] : v > lv[1] ? v - lv[1] : 0).toFixed(4);   /* scipy's level minus the certified one, m */
-            if (mode === 'floc0') {
-              if (fits[f].certified) e.verdict = Math.abs(Number(e.level100Shift)) < 0.005 ? 'AGREES' : 'OFF_THE_MAXIMUM';
-              else e.verdict = 'PRINTED_WITHOUT_A_MAXIMUM';
-            } else e.verdict = e.deficit ? 'BELOW_A_MEMBER' : 'NOT_DECIDED';
+            if (mode === 'floc0' && fits[f].certified) e.verdict = Math.abs(Number(e.level100Shift)) < 0.005 ? 'AGREES' : e.deficit ? 'OFF_THE_MAXIMUM' : 'NOT_DECIDED';
+            else if (mode === 'floc0' && fits[f].edge) e.verdict = e.deficit ? 'BELOW_ITS_LIMIT' : 'NOT_DECIDED';
+            else e.verdict = e.deficit ? 'BELOW_A_MEMBER' : 'NOT_DECIDED';
           }
-          if (mode === 'floc0' && !fits[f].certified && e.verdict !== 'OUTSIDE_SUPPORT') e.noMaximum = fits[f].why;
+          if (mode === 'floc0' && !fits[f].certified && e.verdict !== 'OUTSIDE_SUPPORT') e.uncertified = fits[f].why;
           d[mode] = e;
         }
         rec[f] = d;
@@ -326,8 +349,8 @@ runAll().then(() => {
       hoursPerYear: 8766,
       returnLevel: 'F⁻¹(1 − b/(T·8766)) for a block of b hours (b = 1 for the buoys\' hourly series, 3 for the hindcast\'s, 24, 168, 730.5, 8766); null when fewer than one block falls in the return period',
       criteria: 'A² = −n − (1/n) Σ (2i−1)[ln F(x_(i)) + ln S(x_(n+1−i))], S the survival function; D = max_i max(i/n − F(x_(i)), F(x_(i)) − (i−1)/n); MSE = (1/n) Σ [F(x_i) − F_n(x_i)]², F_n the empirical CDF with ties; χ² on max(8, ⌈log2 n⌉ + 1) equal-width bins over [min, max] (each datum binned exactly as a rational, [e_j, e_{j+1}), the last bin closed), E_j = n[F(e_{j+1}) − F(e_j)] kept when E_j ≥ 5, undefined below two kept bins, REFUSED when an E_j straddles 5; every one an enclosure over the certified box; lower is better for all four',
-      ranking: 'DECIDED when the lowest enclosure lies wholly below every other; REFUSED otherwise, naming the overlap; REFUSED also when a family has no certified fit for a reason other than its edge. A family refused at its edge (the likelihood rising to a boundary of the family) has no maximum-likelihood fit and is left out, named in `excluded`. DECIDED ranks the criterion\'s arithmetic on this sample; it is not a test between models.',
-      certificate: 'Krawczyk (instruments/interval/radii.js) on the score equations over the interval data; data sums by Sum2 with its error bound added outward; the box is the certificate',
+      ranking: 'DECIDED when the lowest enclosure lies wholly below every other; REFUSED otherwise, naming the overlap; REFUSED also when a family has no certified fit, with one exception: the generalized gamma whose likelihood is proved highest at its lognormal limit near it (`edge`, with the proof in `boundary`: ∂ℓ/∂Q < 0 over the box around the lognormal fit and 0 < Q ≤ q1) is left out, named in `excluded`, the lognormal being ranked. A climb stopped at a family\'s declared boundary (`stoppedAtBoundary`) proves nothing and blocks the ranking; so does a statistic the arithmetic cannot enclose. Every fit is a certified local maximum; that no better maximum exists elsewhere in the family is the search\'s claim. DECIDED ranks the criterion\'s arithmetic on this sample; it is not a test between models.',
+      certificate: 'Krawczyk (instruments/interval/radii.js) on the score equations over the interval data, then the second order (fit.js secondOrder): the Hessian proved negative definite over the box, by Sylvester minors over the box (`secondOrder: box`) or at the candidate with every Hessian over the box nonsingular (`point`); `minors` are the leading principal minors of −H as enclosed; data sums by Sum2 with its error bound added outward; the box is the certificate, and maxRad the half-width of the Krawczyk image inside it',
       data: 'each literal enclosed by its neighbouring doubles; a block maximum is the largest value in the calendar block (UTC day, ISO week, month, year)',
     },
     families: FAMS, criteria: CRIT, returnPeriods: T, paperBlocks: PAPER_BLOCKS, buoyBlocks: BUOY_BLOCKS, quick: QUICK,
