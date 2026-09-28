@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-28, end of the twenty-second session: THE RETURN-LEVEL ATLAS LIVE AS A VIEWPORT AND A RESEARCH TOOL — the paper's own map with every one of 2,589 open-sea cells a certificate, its ten §3 claims decided (6 hold, 2 do not, 2 undecided) and re-decided in the reader's tab, a reader's own claim decided by the same rule code, each cell's data and fits drawn, every state a link; the next session's work is SCHEDULED below as N1–N9; nothing sent — the reply to the UFSC contact is the operator's)
+## TASKS BACKLOG — the standing menu (updated 2026-09-28, handed off to a new session: THE RETURN-LEVEL ATLAS LIVE AS A VIEWPORT AND A RESEARCH TOOL; THE OPERATOR FUNDS "BUILD IT ALL" — PHASE A IS DUE LIVE BEFORE 2026-09-30, a meeting with the contact's lab; start at 0b A0; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -46,78 +46,124 @@ THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I w
      FOR THEIR JOINT-MODEL CONVENTIONS (N6 waits on that answer) — any older
      draft's numbers are wrong. U2 the note to the benchmark organizers, after
      U1. LANE M (METR) unchanged.
-  0b. THE NEXT SESSION, SCHEDULED — N1 → N2 + N3 (one atlas re-run) → U1 → N4
-     → N5 → N8; N6 and N7 once the contact has answered. Every edit to
-     instruments/hseva or instruments/interval now REQUIRES re-running the
-     atlas before its page will build (the ledger pins the code), and the
-     served commit must then be re-pointed (the two-commit flow of section 3:
-     commit A with ledgers and code → push → corpus/ww3-grid/SERVED.json → make
-     site → commit B → push). Run every pipeline under ONE `caffeinate -i -s
-     -t 14400` (0c viii).
-     N1. THE 3-HOURLY BLOCK AT THE REPORT'S NODES, IN THE ATLAS (≈2 h, no
-         re-run). The paper stresses the unfiltered series; the atlas has only
-         daily/weekly/monthly. For the 13 report-node cells, carry the report
-         ledger's native block (certs/hseva-ledger.json ww3.points[name]
-         .blocks.native: the four choices and the decided family's 100/1000-yr
-         enclosures) into atlas.json at build time and show it as a fourth
-         column "3-hourly (the report)" with a link to the report; the two ice
-         nodes (southern-high, drake) show it with the ice note. Gate: the
-         numbers are the ledger's, read not retyped; the battery's "decide
-         alike" check stands.
-     N2. THE GEV AS A SEVENTH FAMILY (≈1 day of code + the re-run). families.js
-         `gev` (μ, σ, ξ): the log-density with ξ → 0 as an ordinary point (a
-         series in ξ, as Prentice's Q = 0), the support 1 + ξ(x − μ)/σ > 0
-         enforced, refusal where the maximum is not regular (ξ ≤ −0.5, Smith
-         1985) or sits at the support's edge; score and Hessian by ad2.js;
-         cdf and quantile. Keep the paper's six and its claims untouched: in
-         atlas.js a separate per-block field (the GEV fit and Anderson–Darling's
-         choice among seven), an eighth view "the seventh family" (where the
-         GEV beats the six; the sign of ξ as a map — Fréchet, Gumbel,
-         Weibull-type tails). Test set: the 45 k → 0 cell-blocks and buoys A
-         and C annual. Battery: finite differences, ξ → 0 against the Gumbel,
-         a GEV sample certified, reds (ξ < −0.5 refuses; a support violation
-         refuses).
-     N3. STATISTICAL INTERVALS, LABELLED (≈1–2 days; build before running N2's
-         re-run so one run carries both). Profile-likelihood 95% intervals on
-         the decided family's 100/1000-yr level per cell-block, computed in
-         floats and stored in a separate `stat` section with the method named;
-         drawn as a band in the grammar's CLAIM dash (asserted, not decided),
-         never in the certified ink. The runs-estimator extremal index of the
-         daily maxima beside the design-life level (successive days of one
-         storm are not independent). Stretch: certify the interval's endpoints
-         (the roots of ℓp(x) = ℓ̂ − χ²₁,₀.₉₅/2).
-     N4. BRING YOUR OWN SITE, PRIVATELY (≈1 day). First move the return-level
-         check's parse rule out of playground/return-level-check/app.js into
-         one module both pages load (a rule defined twice diverges). Then in
-         the atlas: drop a file → daily maxima by THE block rule → certified in
-         a worker by atlas.js → pinned on the globe at a typed lat, lon beside
-         the nearest cells, the same four views; the certificate carries the
-         file's sha256, never the data. This is the Petrobras pitch on one
-         screen.
-     N5. AUDIT A PRINTED DESIGN TABLE AGAINST THE NEAREST CELL (≈0.5–1 day).
-         Paste family, parameters, block, printed levels and location; decide
-         them against that cell certified in the tab with the check's
-         vocabulary (REPRODUCED · CONSISTENT · OFF THE MAXIMUM · NOT THE
-         CERTIFIED FIT · OUTSIDE ITS SUPPORT · NOT A MEMBER · NOT DECIDED).
-     N6. JOINT Hs–Tp AND CERTIFIED CONTOURS ON THE BRAZILIAN MARGIN (2–4 days;
-         WAIT for the contact's conventions). A fetch-ww3-grid.py pass for
-         `fp` (~9 GB), the conditional model of DNV-RP-C205, IFORM/ISORM
-         contours with the ec-benchmark instrument's exact exceedance counts.
-     N7. PEAKS OVER THRESHOLD WITH STORM DECLUSTERING (2–3 days). Runs
-         declustering, certified GPD fits, and the level's dependence on the
-         threshold as a certified curve — threshold choice is the next
-         heuristic worth deciding.
-     N8. A STDLIB PYTHON VERIFIER OF A DOWNLOADED CELL CERTIFICATE (≈1 day;
-         their pipeline is Python): the data and code digests against the
-         served commit, every DECIDED choice re-derived from the recorded
-         enclosures by an independently written rank rule, and — where node is
-         present — the record re-derived and compared.
-     N9. SMALL AND LATENT. Interval exp's underflow as an enclosure [0, 2⁻¹⁰⁷⁴]
-         instead of a refusal (sound as it is; the change touches every
-         family, so it rides on a re-run); the threshold-fitter column blocks
-         at the 19 generalized-gamma "other" refusals (documented, not wrong);
-         `node tools/check-measure.js --accept` after the next page change, to
-         refresh the atlas row's page sha (its numbers are current).
+  0b. THE PLAN, FUNDED (operator, 2026-09-28: "I have credits to build it all").
+     PHASE A is due LIVE BEFORE 2026-09-30 (a meeting with the contact's lab and
+     a student; the partnership brief is in the session chat and the operator's
+     memory, not here). PHASE B follows the meeting, ordered by what they ask.
+     The N-numbers of the earlier schedule are kept in brackets.
+
+     HOW TO RUN IT — read before touching anything:
+       · THE CODE PIN. certs/hseva-atlas.json records the sha256 of every module
+         the atlas page bundles (playground/return-level-check/bundle.js CORE +
+         instruments/hseva/atlas.js); every worker of tools/run-hseva-atlas.js
+         refuses other bytes, and the page refuses to build over a ledger its
+         bundle did not write. ANY edit to instruments/hseva/* or
+         instruments/interval/* therefore means: `node tools/run-hseva-ledger.js`
+         (≈6 min) and `node tools/run-hseva-atlas.js` (≈98 min, 7 workers), then
+         `node tools/build-report-hseva.js` (runs the hseva battery). Batch every
+         such edit into ONE re-run; never edit instruments/hseva while it runs.
+       · KEEP THE MAC AWAKE for a whole pipeline with ONE background
+         `caffeinate -i -s -t 21600` (0c viii); kill it at the end.
+       · THE SERVE FLOW after a re-run: commit A (code + ledgers + corpus) →
+         push → write corpus/ww3-grid/SERVED.json {commit: A} → `node
+         playground/build.js` → gates → commit B (SERVED.json + site) → push →
+         verify live. served() refuses a commit that is not pushed or whose
+         corpus, cells, ledger or code differ from the tree.
+       · GATES: node tools/check-measure.js · check-style.js · check-render.js ·
+         check-grammar.js (look at the page, then --accept where a new page or a
+         better number is recorded) · make test (92/92) · make site.
+       · DRIVE IT: `node tools/dev-serve.js &` then `node tools/drive-atlas.js`
+         (the viewport at four sizes, the ten claims re-decided, a typed claim,
+         cells certified identical at 1440 and 390, a link reopened; the live
+         URL works as the argument too). The layout ruler loads pages as
+         file://, where the atlas's data never arrive — that is expected.
+       · REVIEW before any re-run: two independent read-only agents (the math;
+         the page and ledger), as on 2026-09-27/28 — they found the ice defect.
+
+     PHASE A — the demo layer (before 2026-09-30):
+       A0. Setup: the caffeinate above; `git pull`; `node tools/drive-atlas.js`
+           against the live page, to start from a green state.
+       A1. [N1] The report's 3-hourly block inside the atlas (≈2 h, NO re-run):
+           build.js reads certs/hseva-ledger.json ww3.points[name].blocks.native
+           (the four choices, the decided family's 100/1000-yr enclosures) into
+           atlas.json for the 13 report cells; the cell panel shows a column
+           "3-hourly (the report)" with a link to /reports/return-levels.html
+           (the two ice nodes too, with their note). Ship it on its own —
+           page-only, no re-serve needed (SERVED's check covers ledgers/code).
+       A2. [N2] THE GEV FAMILY (≈6–8 h): families.js `gev` (μ, σ, ξ); ξ → 0 as
+           an ordinary point (a series in ξ, as Prentice's Q = 0); the support
+           1 + ξ(x − μ)/σ > 0 enforced; refusal where the maximum is not
+           regular (ξ ≤ −0.5, Smith 1985) or sits at the support's edge; score
+           and Hessian by ad2.js; cdf, sf, quantile. Battery: finite
+           differences; ξ → 0 against the Gumbel to 1e-10; GEV samples at
+           ξ = −0.3, 0, +0.2 certified; reds (ξ < −0.5 refuses; data outside the
+           support refuses).
+       A3. [N2] The seventh family AS A SEPARATE LAYER (≈2 h): PAPER_SIX and the
+           paper's claims untouched; atlas.js records per block the GEV fit and
+           Anderson–Darling's choice among seven (a new field — the rank rule
+           unchanged); run-hseva-ledger.js the same, and the report gets a short
+           section. Test set: the 45 cell-blocks where the EW runs toward k → 0,
+           and buoys A and C annual.
+       A4. [N3] UNCERTAINTY, LABELLED STATISTICAL (≈5–6 h): map level — 95%
+           delta-method intervals on the decided family's 100/1000-yr level from
+           the fitted Hessian (the gradient of the quantile by ad2.js), stored in
+           a separate `stat` section with the method named; cell level —
+           profile-likelihood intervals computed in the tab on demand (the
+           worker); the runs-estimator extremal index of the daily maxima (95th
+           percentile, run length stated). Drawn in design/grammar.js's CLAIM
+           dash ("asserted, not decided"), never in the certified ink, and said
+           in words beside the design-life level.
+       A5. [N9] Interval exp's underflow as the enclosure [0, 2⁻¹⁰⁷⁴] instead
+           of a refusal (≈1 h) — it rides on the same re-run; the battery must
+           show no certified result lost.
+       A6. REVIEW (≈2 h wall): the two agents on A2–A5; fix what they find.
+       A7. RE-RUN (≈2.5 h wall): the hseva ledger, the atlas, the report.
+       A8. PAGE (≈4–5 h, alongside A7): a "seventh family" view (where the GEV
+           beats the six; the sign of ξ as a map — Fréchet, Gumbel, Weibull-type
+           tails); an "uncertainty" view (the interval's width relative to the
+           level); bands on the cell's return-level plot; the interval in the
+           design-life sentence; the method tab's words.
+       A9. SHIP (≈2 h): make site, the gates, make test, drive-atlas locally
+           and live, the serve flow, push, HANDOFF.
+       A10. [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
+           else first after): move the return-level check's parse rule out of
+           playground/return-level-check/app.js into one module both pages
+           load; in the atlas a dropped file → daily maxima by THE block rule →
+           certified in a worker by atlas.js → pinned at a typed lat, lon
+           beside the nearest cells, the four views, a certificate carrying the
+           file's sha256 and never the data.
+       A11. [N5] A PRINTED DESIGN TABLE AUDITED against the nearest cell
+           (≈½ day), with the check's verdict words (REPRODUCED · CONSISTENT ·
+           OFF THE MAXIMUM · NOT THE CERTIFIED FIT · OUTSIDE ITS SUPPORT · NOT A
+           MEMBER · NOT DECIDED).
+       A12. The meeting kit for the operator, in chat (not in this repo): the
+           demo script, a Portuguese one-pager, the questions to ask.
+
+     PHASE B — the partnership layer (after 2026-09-30):
+       B1. [N8] A stdlib Python verifier of a downloaded cell certificate, with
+           an example for their pipeline (≈1 day).
+       B2. [N7] Peaks over threshold with storm declustering: certified GPD
+           fits, the level's dependence on the threshold as a certified curve;
+           an atlas re-run (≈2–3 days).
+       B3. [N6] Joint Hs–Tp and certified contours on the Brazilian margin: a
+           fetch-ww3-grid.py pass for `fp` (≈9 GB — it can run early, it is
+           mostly download), their joint model (DNV-RP-C205's if they have
+           none), IFORM/ISORM with the ec-benchmark instrument's exact
+           exceedance counts (≈3–4 days).
+       B4. Climate windows (their CMIP paper): the atlas method on the
+           hindcast's two 16-year halves or on their runs; point comparisons
+           certified, intervals labelled (≈2 days + runs).
+       B5. Figures and tables from the ledgers for a co-authored methods paper,
+           once agreed (≈1–2 days).
+       B6. Optional: the metastatistical EVD; the extended GPD; branch-and-bound
+           for "no better maximum elsewhere in a family".
+
+     DEFAULTS (operator may override): the GEV goes into the report too; if
+     only one of A10/A11 fits before the meeting, A10; contours wait for their
+     conventions, but B3's data pass may start early. RISK: the GEV's
+     certification at ξ ≈ 0 and at the support edge (A6 exists for it); if A7
+     slips past the evening of 2026-09-29, the meeting demos what is live.
+
   0c. THINGS LEARNED: (vi) a runaway parameter can be a coordinate artefact —
      look for the coordinates in which the limit is an ordinary point
      (Prentice's for the GG; θ = λ^k, β = θ ln α for the EW); (vii) under sea
