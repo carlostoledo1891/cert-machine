@@ -815,6 +815,29 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     return-level check says NOT DECIDED (the printed digits cannot be compared)
     instead of throwing.
 
+  ── 9 · THE VIEWPORT (2026-09-28, on "make sure it will be a perfect 100vw ×
+    100vh experience. Insert lateral panel and tabs if needed. Also, optimize
+    for mobile") ── the atlas is now a viewport, not a document (foot: null,
+    the navier-stokes pattern): the globe fills the window under the nav and
+    nothing scrolls but the panel. Beside the globe on a wide screen (min(460px,
+    38vw), foldable — "hide" / a button to bring it back, the globe resizing to
+    the whole width), over it as a sheet on a phone (a peek with the title and
+    the tabs, half, nearly full; a tap on the grip or the title steps it, a
+    swipe moves it, Escape lowers it; a claim lowers it to show the globe, a cell
+    raises it), beside it again, compact, on a phone held sideways. Three tabs:
+    claims (the ten, quoted, with their counts; the small multiples in the
+    family view), cell (the finder, then the action first — certify in my tab —
+    its result, the ledger's table, the words), method (what is certified, the
+    data, what this opens, the code, the commands). The globe is centred in
+    what the controls, the key and the sheet leave (MapLibre padding from their
+    rectangles) and its zoom fitted by measuring its radius on screen. Phones
+    get selects for the eight views, the family and the criterion, short labels
+    and a short key. Hairlines drawn as shadows so no child sits a pixel off
+    its edge: the ruler reads 2 / 3 / 6 spines at 390 / 768 / 1440 (was 4 / 5 /
+    8); every size from 390×844 to 2560×1440 and 667×375 measured with the
+    document exactly the window (scrollWidth = innerWidth, scrollHeight =
+    innerHeight), a cell certified in the tab at 1440 and at 390, identical.
+
   ── 8 · GATES ── hseva battery 1,449 checks, 16 reds (new: the Gumbel-
     regime red, the atlas section — corpus sha, one record per sea cell, every
     cell file's sha, every decision and every threshold-fitter choice re-derived

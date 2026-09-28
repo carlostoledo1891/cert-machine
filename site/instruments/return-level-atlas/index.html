@@ -514,99 +514,163 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
 }
 
-/* return-level-atlas — the stage (map, controls, legend, side panel) and the claims; the grammar classes are the shared layer's */
-.ra-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 400px; grid-template-areas: "map side"; height: 84vh; min-height: 600px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--paper); margin-top: var(--s-6); }
-.ra-map { grid-area: map; position: relative; min-width: 0; height: 100%; overflow: hidden; background: var(--paper); }
-.ra-side { grid-area: side; min-width: 0; overflow-y: auto; border-left: 1px solid var(--rule); background: var(--sunk); padding: var(--s-5); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+/* return-level-atlas — A VIEWPORT, NOT A DOCUMENT (2026-09-28): the globe fills the window under the nav, the panel
+   stands beside it on a wide screen and rises over it as a sheet on a phone, and nothing scrolls but the panel's own
+   body. Every step, size and duration is a token; the grammar classes (.mono, .n) are the shared layer's. */
+html, body { height: 100%; overflow: hidden; }
+.ra-app { --ra-pw: min(460px, 38vw); position: fixed; inset: var(--nav-h) 0 0 0; display: grid; grid-template-columns: minmax(0, 1fr) var(--ra-pw); background: var(--paper); transition: grid-template-columns var(--dur-med) var(--ease-out); }
+.ra-app[data-panel="closed"] { --ra-pw: 0px; }
+/* the controls and the key wait for the data they drive; if it never comes, the globe's place says why */
+.ra-app[data-ready="0"] .ra-ctl, .ra-app[data-ready="0"] .ra-legend { visibility: hidden; }
+.ra-fail { padding: var(--s-4); max-width: var(--read); }
 
-/* the few rules MapLibre's own sheet would carry, in tokens */
-.ra-map .maplibregl-map { position: relative; overflow: hidden; font: inherit; }
-.ra-map .maplibregl-canvas { position: absolute; left: 0; top: 0; }
+/* ---- the globe and what floats on it ---- */
+.ra-stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.ra-map { position: absolute; inset: 0; background: var(--paper); }
+.ra-map .maplibregl-canvas-container, .ra-map .maplibregl-canvas { position: absolute; left: 0; top: 0; }
 .ra-map .maplibregl-canvas:focus { outline: none; }
 .ra-map .maplibregl-canvas-container.maplibregl-interactive { cursor: grab; }
 .ra-map .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
 .ra-map .maplibregl-control-container { display: none; }
 
-.ra-ctl { position: absolute; left: var(--s-4); top: var(--s-4); right: calc(400px + var(--s-4)); z-index: 2; display: grid; gap: var(--s-2); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: var(--shadow); }
-.ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); }
-.ra-sub { gap: var(--s-2); }
-.ra-find { width: 9.5em; }
-.ra-claim:focus-visible, .ra-seg button:focus-visible, .ra-side button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.ra-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
-.ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); min-width: 4.5em; }
-.ra-seg, .ra-chips { display: flex; flex-wrap: wrap; gap: var(--s-1); }
-.ra-seg button, .ra-chips button, .ra-side button { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-3); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); cursor: pointer; }
-.ra-seg button:hover, .ra-chips button:hover, .ra-side button:hover { color: var(--ink); border-color: var(--rule-strong); }
-.ra-seg button[aria-checked="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
-.ra-side button:disabled { color: var(--ink-5); cursor: default; }
+.ra-ctl { position: absolute; z-index: 2; left: var(--s-4); right: var(--s-4); top: var(--s-4); display: grid; grid-template-columns: auto auto minmax(0, 1fr); grid-template-areas: "modes modes modes" "blocks sub goto"; align-items: center; gap: var(--s-2) var(--s-3); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); }
+.ra-modes { grid-area: modes; }
+.ra-view { display: none; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-blocks { grid-area: blocks; }
+.ra-sub { grid-area: sub; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); min-width: 0; }
 .ra-sub:empty { display: none; }
+.ra-goto { grid-area: goto; justify-self: end; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); min-width: 0; }
+.ra-seg { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.ra-seg button, .ra-panel button, .ra-reopen { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-3); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); cursor: pointer; }
+.ra-seg button:hover, .ra-panel button:hover, .ra-reopen:hover { color: var(--ink); border-color: var(--rule-strong); }
+.ra-seg button[aria-checked="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.ra-panel button:disabled { color: var(--ink-5); cursor: default; }
+.ra-seg button:focus-visible, .ra-panel button:focus-visible, .ra-reopen:focus-visible, .ra-claim:focus-visible, .ra-select:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-.ra-legend { position: absolute; left: var(--s-4); bottom: var(--s-4); z-index: 2; max-width: min(560px, calc(100% - 440px)); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius-m); padding: var(--s-3) var(--s-4); font-size: var(--text-small); color: var(--ink-2); box-shadow: var(--shadow); }
-.ra-legend .t .ra-nt { text-transform: none; }
+/* hairlines drawn as shadows, not borders: a border moves every child a pixel off the edge the layout ruler counts */
+.ra-legend { position: absolute; z-index: 2; left: var(--s-4); bottom: var(--s-4); max-width: min(560px, calc(100% - 9rem)); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-3); font-size: var(--text-small); color: var(--ink-2); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); transition: bottom var(--dur-med) var(--ease-out); }
 .ra-legend .t { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin-bottom: var(--s-2); }
+.ra-legend .t .ra-nt { text-transform: none; }
 .ra-keys { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); align-items: center; }
 .ra-key { display: inline-flex; align-items: center; gap: var(--s-2); }
 .ra-sw { display: inline-block; width: 14px; height: 14px; border-radius: 2px; background: var(--sw); border: 1px solid var(--rule-strong); }
 .ra-sw.hatch { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); }
 .ra-sw.ice { background: radial-gradient(circle, var(--ink-5) 1px, var(--sunk) 1.5px); background-size: 4px 4px; }
-.ra-ramp { display: flex; align-items: flex-start; gap: 0; margin-right: var(--s-3); }
+.ra-ramp { display: flex; align-items: flex-start; margin-right: var(--s-3); }
 .ra-ramp i { display: block; width: 66px; height: 10px; background: var(--sw); }
 .ra-ramp span { display: block; width: 66px; font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); white-space: nowrap; }
 .ra-rampcol { display: flex; flex-direction: column; }
 
 .ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
 .ra-tip .n { color: var(--ink-3); }
+.ra-reopen { position: absolute; z-index: 2; right: var(--s-4); bottom: var(--s-4); display: none; background: var(--surface); border-color: var(--rule-strong); box-shadow: var(--shadow); }
+.ra-app[data-panel="closed"] .ra-reopen { display: block; }
 
-.ra-side h3 { font-size: var(--text-3); color: var(--ink); margin: 0 0 var(--s-2); font-weight: var(--weight-title); }
-.ra-side .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin: var(--s-4) 0 var(--s-2); }
-.ra-side .n { color: var(--ink-3); }
-.ra-side p { margin: 0 0 var(--s-3); }
-.ra-side table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--text-eyebrow); }
-.ra-side td { white-space: nowrap; }
-.ra-side td.w { white-space: normal; }
-.ra-side th { text-align: left; font-weight: var(--weight-body); color: var(--ink-4); padding: var(--s-1); border-bottom: 1px solid var(--rule); white-space: nowrap; }
-.ra-side td { padding: var(--s-1); border-bottom: 1px solid var(--rule-soft); color: var(--ink-2); vertical-align: top; }
-.ra-side td.b { color: var(--ink); }
-.ra-side td.r { color: var(--ink-4); }
-.ra-side .tw { overflow-x: auto; }
+/* ---- the panel: a head, three tabs, and one scrolling body ---- */
+.ra-panel { position: relative; z-index: 3; min-width: 0; min-height: 0; display: flex; flex-direction: column; background: var(--sunk); box-shadow: inset 1px 0 0 var(--rule); overflow: hidden; }
+.ra-app[data-panel="closed"] .ra-panel { visibility: hidden; }
+.ra-grip { display: none; }
+.ra-head { padding: var(--s-5) var(--s-5) var(--s-3); }
+.ra-eyebrow { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.ra-titlerow { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin-top: var(--s-2); }
+.ra-head h1 { margin: 0; font-size: var(--text-2); line-height: var(--leading-tight); letter-spacing: var(--track-title); font-weight: var(--weight-title); color: var(--ink); }
+.ra-lede { margin: var(--s-3) 0 0; font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-3); }
+.ra-panel .ra-close { flex: none; font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); background: none; }
+.ra-tabs { display: flex; gap: var(--s-1); padding: 0 var(--s-5); border-bottom: 1px solid var(--rule); }
+.ra-panel .ra-tabs [role="tab"] { white-space: nowrap; font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: var(--s-3) var(--s-3) var(--s-2); }
+.ra-panel .ra-tabs [role="tab"][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.ra-panel .ra-tabs [role="tab"]:first-child { padding-left: 0; }   /* the first label on the head's edge */
+.ra-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--s-4) var(--s-5) var(--s-6); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.ra-pane[hidden] { display: none; }
+.ra-body p { margin: 0 0 var(--s-3); }
+.ra-body .n { color: var(--ink-3); }
+.ra-body h3 { font-size: var(--text-3); color: var(--ink); margin: 0 0 var(--s-2); font-weight: var(--weight-title); }
+.ra-body .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin: var(--s-4) 0 var(--s-2); }
+.ra-body table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--text-eyebrow); }
+.ra-body th { text-align: left; font-weight: var(--weight-body); color: var(--ink-4); padding: var(--s-1); border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.ra-body td { padding: var(--s-1); border-bottom: 1px solid var(--rule-soft); color: var(--ink-2); vertical-align: top; white-space: nowrap; }
+.ra-body td.w { white-space: normal; }
+.ra-body td.b { color: var(--ink); }
+.ra-body td.r { color: var(--ink-4); }
+.ra-body .tw { overflow-x: auto; }
 .ra-go-row { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-3) 0; }
 .ra-ok { color: var(--ink); }
-.ra-sm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
-.ra-sm figure { margin: 0; }
-.ra-sm canvas { display: block; width: 100%; height: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); }
 .ra-life { color: var(--ink); border-left: 2px solid var(--ink); padding-left: var(--s-3); margin: var(--s-3) 0; }
 .ra-rl { display: block; width: 100%; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); margin-bottom: var(--s-2); }
+.ra-find { display: flex; align-items: center; gap: var(--s-2); margin-bottom: var(--s-4); }
+.ra-find .ra-select { flex: 1 1 auto; }
+.ra-sm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); margin: var(--s-3) 0 var(--s-4); }
+.ra-sm figure { margin: 0; }
+.ra-sm canvas { display: block; width: 100%; height: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); }
 .ra-sm figcaption { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); }
 
-.ra-claims { list-style: none; padding: 0; margin: var(--s-5) 0 0; display: grid; gap: var(--s-3); }
-.ra-claim { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: var(--s-4); padding: var(--s-4); border: 1px solid var(--rule); border-radius: var(--radius-m); background: var(--surface); cursor: pointer; }
-.ra-claim:hover, .ra-claim.on { border-color: var(--rule-strong); background: var(--surface2); }
-.ra-cv { font-family: var(--font-mono); font-size: var(--text-mono); letter-spacing: var(--track-slight); align-self: start; padding: var(--s-1) var(--s-2); border-radius: var(--radius-s); text-align: center; }
+.ra-claims { list-style: none; padding: 0; margin: var(--s-4) 0 0; display: grid; gap: var(--s-3); }
+.ra-claim { display: grid; gap: var(--s-2); padding: var(--s-3) var(--s-4); border-radius: var(--radius-m); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule); cursor: pointer; }
+.ra-claim:hover, .ra-claim.on { box-shadow: inset 0 0 0 1px var(--rule-strong); background: var(--surface2); }
+.ra-cv { justify-self: start; font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-slight); padding: var(--s-1) var(--s-2); border-radius: var(--radius-s); }
 .ra-v-holds { color: var(--verdict-certified-ink); background: var(--verdict-certified-bg); }
 .ra-v-does-not-hold { color: var(--ink); border: 1px solid var(--ink); }
 .ra-v-undecided { color: var(--ink-3); border: 1px dashed var(--ink-4); }
 .ra-cq { color: var(--ink); line-height: var(--leading-snug); }
 .ra-cite { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-4); }
-.ra-cr { color: var(--ink-3); font-size: var(--text-small); margin-top: var(--s-1); }
-.ra-cn { color: var(--ink-4); font-size: var(--text-eyebrow); margin-top: var(--s-1); overflow-wrap: anywhere; }
+.ra-cr { color: var(--ink-3); }
+.ra-cn { color: var(--ink-4); font-size: var(--text-eyebrow); overflow-wrap: anywhere; }
 
-@media (max-width: 1000px) {
-  .ra-stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "ctl" "map" "legend" "side"; height: auto; min-height: 0; }
-  .ra-map { height: 64vh; min-height: 380px; }
-  .ra-ctl, .ra-legend { position: static; max-width: none; right: auto; border-radius: 0; border-left: 0; border-right: 0; box-shadow: none; }
-  .ra-ctl { grid-area: ctl; }
-  .ra-legend { grid-area: legend; }
-  .ra-side { grid-area: side; border-left: 0; border-top: 1px solid var(--rule); max-height: none; }
-  .ra-claim { grid-template-columns: minmax(0, 1fr); }
-  .ra-cv { justify-self: start; }
+.ra-prose h2 { font-size: var(--text-3); line-height: var(--leading-snug); color: var(--ink); font-weight: var(--weight-title); margin: var(--s-5) 0 var(--s-2); }
+.ra-prose h2:first-child { margin-top: 0; }
+.ra-cmd { color: var(--ink-4); font-size: var(--text-eyebrow); overflow-wrap: anywhere; }
+
+/* ---- a phone or a narrow tablet: the globe fills the window, the panel is a sheet over it ---- */
+@media (max-width: 899px) {
+  .ra-app { display: block; --ra-sheet: 8.5rem; }
+  .ra-app[data-sheet="half"] { --ra-sheet: 56%; }
+  .ra-app[data-sheet="full"] { --ra-sheet: calc(100% - var(--s-3)); }
+  .ra-stage { position: absolute; inset: 0; }
+  /* two rows: the view and the region, then the block and the view's own choice */
+  .ra-ctl { left: var(--s-2); right: var(--s-2); top: var(--s-2); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); padding: var(--s-2); }
+  .ra-modes { display: none; }
+  .ra-view { display: flex; order: 1; flex: 1 1 11rem; }
+  .ra-view .ra-select, .ra-goto .ra-select, .ra-sub .ra-select { flex: 1 1 auto; }
+  .ra-goto { order: 2; flex: 1 1 8rem; justify-self: auto; }
+  .ra-goto .ra-lab { display: none; }
+  .ra-blocks { order: 3; }
+  .ra-sub { order: 4; flex: 0 1 auto; flex-wrap: nowrap; }
+  .ra-sub:has(select) { flex: 1 1 12rem; }
+  .ra-legend { left: var(--s-2); right: var(--s-2); max-width: none; bottom: calc(var(--ra-sheet) + var(--s-2)); padding: var(--s-2); }
+  .ra-app[data-sheet="half"] .ra-legend, .ra-app[data-sheet="full"] .ra-legend { visibility: hidden; }
+  .ra-ramp i, .ra-ramp span { width: 3.6rem; }
+  .ra-tip, .ra-app[data-panel="closed"] .ra-reopen { display: none; }
+  .ra-panel { position: absolute; left: 0; right: 0; bottom: 0; height: var(--ra-sheet); border-radius: var(--radius-l) var(--radius-l) 0 0; box-shadow: inset 0 1px 0 var(--rule-strong), var(--shadow); transition: height var(--dur-med) var(--ease-out); }
+  .ra-app[data-panel="closed"] .ra-panel { visibility: visible; }
+  .ra-panel .ra-grip { display: flex; justify-content: center; width: 100%; flex: none; background: none; border: 0; border-radius: 0; padding: var(--s-2) 0; touch-action: none; }
+  .ra-grip i { display: block; width: 44px; height: 4px; border-radius: var(--radius-pill); background: var(--rule-strong); }
+  .ra-eyebrow, .ra-lede, .ra-panel .ra-close { display: none; }
+  .ra-head { padding: 0 var(--s-4) var(--s-1); }
+  .ra-titlerow { margin-top: 0; }
+  .ra-head h1 { font-size: var(--text-3); }
+  .ra-tabs { padding: 0 var(--s-2); }
+  .ra-panel .ra-tabs [role="tab"], .ra-panel .ra-tabs [role="tab"]:first-child { flex: 1 1 0; padding-left: var(--s-3); }
+  .ra-body { padding: var(--s-3) var(--s-4) var(--s-6); }
 }
-
-/* the prose rhythm, as the other instrument pages carry it */
-section p + p, section p + ul, section p + ol, section p + figure,
-section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
-section h2, section h3 { margin-top: var(--s-7); }
-section h2 + *, section h3 + * { margin-top: var(--s-4); }
-.ra-side h3 { margin-top: 0; }
+/* ---- a phone held sideways: too short for a sheet, so the panel stands beside the globe again, compact ---- */
+@media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {
+  .ra-app { display: grid; --ra-pw: min(340px, 44vw); }
+  .ra-stage { position: relative; inset: auto; }
+  .ra-panel { position: relative; left: auto; right: auto; bottom: auto; height: auto; border-radius: 0; box-shadow: inset 1px 0 0 var(--rule); transition: none; }
+  .ra-panel .ra-grip { display: none; }
+  .ra-panel .ra-close { display: inline-block; }
+  .ra-head { padding: var(--s-2) var(--s-4) var(--s-1); }
+  .ra-head h1 { font-size: var(--text-body); }
+  .ra-legend, .ra-app[data-sheet="half"] .ra-legend, .ra-app[data-sheet="full"] .ra-legend { bottom: var(--s-2); visibility: visible; }
+  .ra-legend .t { display: none; }                                  /* the view's own control already names what is shown */
+  .ra-app[data-panel="closed"] .ra-panel { visibility: hidden; }
+  .ra-app[data-panel="closed"] .ra-reopen { display: block; right: var(--s-2); bottom: var(--s-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ra-app, .ra-panel, .ra-legend { transition: none; }
+}
 
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -675,46 +739,59 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
 <body>
 <nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Machine</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
-<main>
-<header class="hero"><div class="wrap">
-  <div class="eyebrow">instruments &middot; return-level atlas &middot; the paper's map, decided</div>
-  <h1>Every cell a certificate.</h1>
-  <p class="lede">Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) map, across the ocean, which of six families fits significant wave height best, block by block, and the 100- and 1000-year wave each implies. Here is that map with every cell certified: at 2,589 open-sea cells of the paper's own hindcast the six families are fitted and proved maxima of their likelihood, the choice is DECIDED or REFUSED, and the paper's regional claims are decided as boxes &mdash; 6 hold, 2 do not, 2 the refusals leave open. Click any cell and certify it again in your own tab, from the pinned data, with the same code.</p>
-</div></header>
 
-<section class="ra-stage" aria-label="The return-level atlas">
-  <div class="ra-map" id="ra-map" role="application" aria-label="A globe of the ocean divided into cells, each shaded by the chosen quantity; refused cells hatched"></div>
+<main class="ra-app" id="ra-app" data-sheet="peek" data-panel="open" data-ready="0">
+<section class="ra-stage" aria-label="The globe">
+  <div class="ra-map" id="ra-map" role="application" aria-label="A globe of the ocean divided into cells, each shaded by the chosen quantity; refused cells hatched, sea-ice cells dotted"></div>
   <div class="ra-ctl" id="ra-ctl">
-    <div class="ra-row"><div class="ra-seg" id="ra-mode" role="radiogroup" aria-label="what the cells show"></div></div>
-    <div class="ra-row"><div class="ra-seg" id="ra-block" role="radiogroup" aria-label="block"></div><div class="ra-row ra-sub" id="ra-sub"></div><label class="ra-lab" for="ra-go">go to</label><select id="ra-go" class="ra-select"></select><label class="ra-lab" for="ra-find">cell</label><input id="ra-find" class="ra-select ra-find" type="text" inputmode="decimal" placeholder="lat, lon" aria-label="open the cell nearest a latitude and longitude, for example -22.5, -40" autocomplete="off"></div>
+    <div class="ra-seg ra-modes" id="ra-mode" role="radiogroup" aria-label="what the cells show"></div>
+    <div class="ra-view"><label class="ra-lab" for="ra-mode-sel">view</label><select id="ra-mode-sel" class="ra-select"></select></div>
+    <div class="ra-seg ra-blocks" id="ra-block" role="radiogroup" aria-label="block"></div>
+    <div class="ra-sub" id="ra-sub"></div>
+    <div class="ra-goto"><label class="ra-lab" for="ra-go">go to</label><select id="ra-go" class="ra-select"></select></div>
   </div>
   <div class="ra-legend" id="ra-legend" aria-live="polite"></div>
   <div class="ra-tip" id="ra-tip" aria-hidden="true"></div>
-  <aside class="ra-side" id="ra-side" aria-label="the claims, or the cell chosen"></aside>
+  <button type="button" class="ra-reopen" id="ra-reopen" aria-controls="ra-panel" aria-expanded="true">the claims &amp; the cell</button>
 </section>
+<aside class="ra-panel" id="ra-panel" aria-label="The paper's claims, the chosen cell, and the method">
+  <button type="button" class="ra-grip" id="ra-grip" aria-controls="ra-panel" aria-label="Show more of the panel"><i></i></button>
+  <header class="ra-head">
+    <div class="ra-eyebrow">instruments &middot; return-level atlas</div>
+    <div class="ra-titlerow"><h1>Every cell a certificate.</h1><button type="button" class="ra-close" id="ra-close" aria-controls="ra-panel" aria-expanded="true">hide</button></div>
+    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the 2,589 open-sea cells of the paper's own hindcast certified, and its regional claims decided: 6 hold, 2 do not, 2 the refusals leave open.</p>
+  </header>
+  <div class="ra-tabs" role="tablist" aria-label="the panel">
+    <button type="button" role="tab" id="ra-t-claims" aria-controls="ra-p-claims" aria-selected="true" tabindex="0">claims &middot; 10</button>
+    <button type="button" role="tab" id="ra-t-cell" aria-controls="ra-p-cell" aria-selected="false" tabindex="-1">cell</button>
+    <button type="button" role="tab" id="ra-t-method" aria-controls="ra-p-method" aria-selected="false" tabindex="-1">method</button>
+  </div>
+  <div class="ra-body" id="ra-body">
+    <section class="ra-pane" id="ra-p-claims" role="tabpanel" aria-labelledby="ra-t-claims">
+      <p class="n">Each claim is quoted from the paper's &sect;3 and read as a region, the blocks it speaks of, and a rule over the certified cells there. A cell counts for a family only where the choice is DECIDED; a REFUSED cell counts for nobody and could count for anybody, so a claim <b>holds</b> when it is true however the refused cells fell, <b>does not hold</b> when it is false however they fell, and is <b>undecided</b> when they could make it either. Choose a claim to see its box.</p>
+      <div id="ra-sm"></div>
+      <ul class="ra-claims" id="ra-claims"><li class="ra-claim" data-claim="weibull-rises" tabindex="0" role="button" aria-label="show on the map: the global 4° lattice"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increased from daily to weekly and monthly, there was a marked reduction in the number of points classified as Exponentiated Weibull – the distribution that previously dominated – and a corresponding increase in the standard Weibull distribution&rdquo; <span class="ra-cite">§3.1, Fig. 2</span></div><div class="ra-cr">the global 4° lattice &middot; the exponentiated Weibull decided at fewer cells, and the Weibull at more, at each step daily → weekly → monthly (Anderson–Darling)</div><div class="ra-cn mono">exp. Weibull, daily: 977 decided, 19 refused of 1810 · exp. Weibull, weekly: 888 decided, 14 refused of 1810 · exp. Weibull, monthly: 728 decided, 42 refused of 1810 · Weibull, daily: 9 decided, 19 refused of 1810 · Weibull, weekly: 11 decided, 14 refused of 1810 · Weibull, monthly: 61 decided, 42 refused of 1810</div></div></li><li class="ra-claim" data-claim="gg-south-america-daily" tabindex="0" role="button" aria-label="show on the map: south of South America (40–58° S, 80–56° W)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the daily block, … the Generalized Gamma gains prominence along the coastal region south of South America&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">south of South America (40–58° S, 80–56° W) &middot; the generalized gamma the most frequent decided choice in the box, daily maxima (Anderson–Darling)</div><div class="ra-cn mono">daily: 9 decided, 0 refused of 22</div></div></li><li class="ra-claim" data-claim="gg-expands-weekly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the weekly block, the distinction between the northern, central, and southern ACC sectors weakens substantially, with the Generalized Gamma expanding its spatial influence&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the generalized gamma decided at more cells in the weekly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">gen. gamma, daily: 166 decided, 1 refused of 382 · gen. gamma, weekly: 131 decided, 3 refused of 382</div></div></li><li class="ra-claim" data-claim="ew-southern-ocean-monthly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;By the monthly block, this diversity nearly disappears: the Exponentiated Weibull dominates most of the Southern Ocean, with only small residual areas of Gumbel&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 227 decided, 1 refused of 382</div></div></li><li class="ra-claim" data-claim="monsoon-weibull" tabindex="0" role="button" aria-label="show on the map: the monsoon Indian Ocean (0–25° N, 45–80° E)"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increases, a transition toward the standard Weibull distribution occurs&rdquo; <span class="ra-cite">§3.2 (Indian Ocean)</span></div><div class="ra-cr">the monsoon Indian Ocean (0–25° N, 45–80° E) &middot; the Weibull decided at more cells in the monthly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">Weibull, daily: 1 decided, 5 refused of 44 · Weibull, monthly: 3 decided, 6 refused of 44</div></div></li><li class="ra-claim" data-claim="japan-ew-monthly" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;in the monthly block, the Exponentiated Weibull again becomes dominant&rdquo; <span class="ra-cite">§3.2 (western Pacific)</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 16 decided, 3 refused of 26</div></div></li><li class="ra-claim" data-claim="levels-fall-north-atlantic" tabindex="0" role="button" aria-label="show on the map: the North Atlantic (40–64° N, 60° W–0°)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Atlantic (40–64° N, 60° W–0°) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 38, not lower at 21, not decided at 3 of 62</div></div></li><li class="ra-claim" data-claim="levels-fall-north-pacific" tabindex="0" role="button" aria-label="show on the map: the North Pacific (40–60° N, 140° E–130° W)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Pacific (40–60° N, 140° E–130° W) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 70, not lower at 9, not decided at 2 of 81</div></div></li><li class="ra-claim" data-claim="levels-fall-arabian-sea" tabindex="0" role="button" aria-label="show on the map: the Arabian Sea (5–25° N, 50–75° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;The Arabian Sea displays a marked reduction in projected extremes as block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the Arabian Sea (5–25° N, 50–75° E) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 16, not lower at 0, not decided at 7 of 23</div></div></li><li class="ra-claim" data-claim="levels-rise-japan" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;In the western Pacific south of Japan, return levels increase for longer block sizes, particularly for the 1000-year period&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; at more than half the certified cells, the 1000-year level of the monthly block's decided family lies wholly above the daily block's</div><div class="ra-cn mono">daily → monthly: higher at 17, not higher at 6, not decided at 3 of 26</div></div></li></ul>
+    </section>
+    <section class="ra-pane" id="ra-p-cell" role="tabpanel" aria-labelledby="ra-t-cell" hidden>
+      <div class="ra-find"><label class="ra-lab" for="ra-find">find a cell</label><input id="ra-find" class="ra-select" type="text" inputmode="decimal" placeholder="lat, lon" aria-label="open the cell nearest a latitude and longitude, for example -22.5, -40" autocomplete="off"></div>
+      <div id="ra-cellbox"><p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger's own code.</p></div>
+    </section>
+    <section class="ra-pane ra-prose" id="ra-p-method" role="tabpanel" aria-labelledby="ra-t-method" hidden>
+      <h2>What is certified, and what is not</h2>
+      <p>At every cell and block, each family's fit is a box the Krawczyk operator proves holds exactly one zero of the score, with the Hessian proved negative definite over it &mdash; the likelihood's one maximum there &mdash; or it is refused with the reason: the generalized gamma is left out only where its likelihood is proved to peak at its lognormal limit beside the lognormal fit; any other refusal blocks the choice. The four criteria and the levels are enclosures over the box; a family is chosen only where its enclosure lies wholly below every other's. That no better maximum lies elsewhere in a family is the search's claim, as it is any optimiser's. Not certified: that a family is the true law of the sea, the sampling width of a 100-year level, or the model's own error against the sea it simulates. A cell certified in your tab also draws its return-level plot from the same certificates: each family's quantile over return periods from two blocks to 10,000 years, every point an enclosure narrower than the line, beside the block maxima and the record.</p>
+      <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each. Land: Natural Earth 1:50m, public domain.</p>
+      <h2>What this opens</h2>
+      <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 33529e5b344f &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 373958751dea &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 74d45794767a &middot; <span class="mono">instruments/hseva/fit.js</span> da704cc844a0 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 36233968b8fe. Cell files served from the public repository at commit <span class="mono">628072d7b237</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/628072d7b237b29a8c37d6734862e4433bb53ecd/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js</p>
+      <p class="n">nothing here is gated · every number came out of the record beside the page</p>
+    </section>
+  </div>
+</aside>
+</main>
 
-<section class="wrap">
-  <h2 class="t2">The paper's claims, decided as boxes</h2>
-  <p class="lede">Each claim below is quoted from the paper's §3 and read as a region, the blocks it speaks of, and a rule over the certified cells there. A cell counts for a family only where the choice is DECIDED; a REFUSED cell counts for nobody and could count for anybody, so a claim <b>holds</b> when it is true however the refused cells fell, <b>does not hold</b> when it is false however they fell, and is <b>undecided</b> when they could make it either. Click a claim to see its box.</p>
-  <ul class="ra-claims" id="ra-claims"><li class="ra-claim" data-claim="weibull-rises" tabindex="0" role="button" aria-label="show on the map: the global 4° lattice"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increased from daily to weekly and monthly, there was a marked reduction in the number of points classified as Exponentiated Weibull – the distribution that previously dominated – and a corresponding increase in the standard Weibull distribution&rdquo; <span class="ra-cite">§3.1, Fig. 2</span></div><div class="ra-cr">the global 4° lattice &middot; the exponentiated Weibull decided at fewer cells, and the Weibull at more, at each step daily → weekly → monthly (Anderson–Darling)</div><div class="ra-cn mono">exp. Weibull, daily: 977 decided, 19 refused of 1810 · exp. Weibull, weekly: 888 decided, 14 refused of 1810 · exp. Weibull, monthly: 728 decided, 42 refused of 1810 · Weibull, daily: 9 decided, 19 refused of 1810 · Weibull, weekly: 11 decided, 14 refused of 1810 · Weibull, monthly: 61 decided, 42 refused of 1810</div></div></li><li class="ra-claim" data-claim="gg-south-america-daily" tabindex="0" role="button" aria-label="show on the map: south of South America (40–58° S, 80–56° W)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the daily block, … the Generalized Gamma gains prominence along the coastal region south of South America&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">south of South America (40–58° S, 80–56° W) &middot; the generalized gamma the most frequent decided choice in the box, daily maxima (Anderson–Darling)</div><div class="ra-cn mono">daily: 9 decided, 0 refused of 22</div></div></li><li class="ra-claim" data-claim="gg-expands-weekly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the weekly block, the distinction between the northern, central, and southern ACC sectors weakens substantially, with the Generalized Gamma expanding its spatial influence&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the generalized gamma decided at more cells in the weekly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">gen. gamma, daily: 166 decided, 1 refused of 382 · gen. gamma, weekly: 131 decided, 3 refused of 382</div></div></li><li class="ra-claim" data-claim="ew-southern-ocean-monthly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;By the monthly block, this diversity nearly disappears: the Exponentiated Weibull dominates most of the Southern Ocean, with only small residual areas of Gumbel&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 227 decided, 1 refused of 382</div></div></li><li class="ra-claim" data-claim="monsoon-weibull" tabindex="0" role="button" aria-label="show on the map: the monsoon Indian Ocean (0–25° N, 45–80° E)"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increases, a transition toward the standard Weibull distribution occurs&rdquo; <span class="ra-cite">§3.2 (Indian Ocean)</span></div><div class="ra-cr">the monsoon Indian Ocean (0–25° N, 45–80° E) &middot; the Weibull decided at more cells in the monthly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">Weibull, daily: 1 decided, 5 refused of 44 · Weibull, monthly: 3 decided, 6 refused of 44</div></div></li><li class="ra-claim" data-claim="japan-ew-monthly" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;in the monthly block, the Exponentiated Weibull again becomes dominant&rdquo; <span class="ra-cite">§3.2 (western Pacific)</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 16 decided, 3 refused of 26</div></div></li><li class="ra-claim" data-claim="levels-fall-north-atlantic" tabindex="0" role="button" aria-label="show on the map: the North Atlantic (40–64° N, 60° W–0°)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Atlantic (40–64° N, 60° W–0°) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 38, not lower at 21, not decided at 3 of 62</div></div></li><li class="ra-claim" data-claim="levels-fall-north-pacific" tabindex="0" role="button" aria-label="show on the map: the North Pacific (40–60° N, 140° E–130° W)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Pacific (40–60° N, 140° E–130° W) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 70, not lower at 9, not decided at 2 of 81</div></div></li><li class="ra-claim" data-claim="levels-fall-arabian-sea" tabindex="0" role="button" aria-label="show on the map: the Arabian Sea (5–25° N, 50–75° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;The Arabian Sea displays a marked reduction in projected extremes as block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the Arabian Sea (5–25° N, 50–75° E) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 16, not lower at 0, not decided at 7 of 23</div></div></li><li class="ra-claim" data-claim="levels-rise-japan" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;In the western Pacific south of Japan, return levels increase for longer block sizes, particularly for the 1000-year period&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; at more than half the certified cells, the 1000-year level of the monthly block's decided family lies wholly above the daily block's</div><div class="ra-cn mono">daily → monthly: higher at 17, not higher at 6, not decided at 3 of 26</div></div></li></ul>
-</section>
 
-<section class="section"><div class="wrap"><div class="prose">
-  <h2 class="t2">What is certified, and what is not</h2>
-  <p>At every cell and block, each family's fit is a box the Krawczyk operator proves holds exactly one zero of the score, with the Hessian proved negative definite over it &mdash; the likelihood's one maximum there &mdash; or it is refused with the reason: the generalized gamma is left out only where its likelihood is proved to peak at its lognormal limit beside the lognormal fit; any other refusal blocks the choice. The four criteria and the levels are enclosures over the box; a family is chosen only where its enclosure lies wholly below every other's. That no better maximum lies elsewhere in a family is the search's claim, as it is any optimiser's. Not certified: that a family is the true law of the sea, the sampling width of a 100-year level, or the model's own error against the sea it simulates. A cell certified in your tab also draws its return-level plot from the same certificates: each family's quantile over return periods from two blocks to 10,000 years, every point an enclosure narrower than the line, beside the block maxima and the record.</p>
-  <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each. Land: Natural Earth 1:50m, public domain.</p>
-  <h2 class="t2">What this opens</h2>
-  <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-  <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 00ebc1b6b8fd &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 373958751dea &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 74d45794767a &middot; <span class="mono">instruments/hseva/fit.js</span> da704cc844a0 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 36233968b8fe. Cell files served from the public repository at commit <span class="mono">628072d7b237</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/628072d7b237b29a8c37d6734862e4433bb53ecd/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
-  <p class="mono ink-4 mt5 cmd">
-  instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>
-  instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>
-  node tools/run-hseva-atlas.js<br>
-  node instruments/hseva/battery.js</p>
-</div></div></section></main>
-
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"00ebc1b6b8fda6502676ad05574ec1f61676bb1361cfcf70795094120bcb7d60","playground/return-level-atlas/worker.js":"373958751dea4502dbb1360ecc7562926aefa239f4eb37d0959d5aa91fe88857","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"74d45794767aff79b8672a431e35cd5c98b48fcb70d1a4c4c93c9284823cff5f","instruments/hseva/fit.js":"da704cc844a008bb4d953e88acf035d28d6402c60339e0979dad3bdaa99b9197","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"36233968b8fe298a270a70538f8c9b968dbbdf591fbaac38bef2fea4baabe5b2"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/628072d7b237b29a8c37d6734862e4433bb53ecd/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"33529e5b344f44e5af2693bb0b4e4b798b0d1b7784496e7d32f7a263b893e75a","playground/return-level-atlas/worker.js":"373958751dea4502dbb1360ecc7562926aefa239f4eb37d0959d5aa91fe88857","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"74d45794767aff79b8672a431e35cd5c98b48fcb70d1a4c4c93c9284823cff5f","instruments/hseva/fit.js":"da704cc844a008bb4d953e88acf035d28d6402c60339e0979dad3bdaa99b9197","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"36233968b8fe298a270a70538f8c9b968dbbdf591fbaac38bef2fea4baabe5b2"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/628072d7b237b29a8c37d6734862e4433bb53ecd/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -3229,7 +3306,7 @@ self.onmessage = function (ev) {
     ['india', 'Indian Ocean', { bounds: [[40, -10], [100, 28]] }], ['japan', 'NW Pacific', { bounds: [[115, 10], [165, 45]] }],
     ['natl', 'North Atlantic', { bounds: [[-70, 30], [10, 68]] }],
   ];
-  const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull' };
+  const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull', tab: 'claims' };
   let A = null, cells = [], byId = new Map(), map = null, sel = null, worker = null, hover = null, claimOn = null, lastCert = null, run = null;
 
   /* ---- the ledger's compact view ---- */
@@ -3369,7 +3446,7 @@ self.onmessage = function (ev) {
     hover = null; $('ra-tip').style.display = 'none'; if (map.getLayer('hov')) map.setFilter('hov', ['==', ['get', 'i'], -1]);   /* the words under the pointer belong to the old view */
     map.getSource('cells').setData(features());
     legend();
-    if (!sel) side();
+    panel();
   }
 
   /* ---- words ---- */
@@ -3404,20 +3481,32 @@ self.onmessage = function (ev) {
   }
   function controls() {
     seg($('ra-mode'), MODES, state.mode, (v) => { state.mode = v; controls(); refresh(); });
-    seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) side(); });
-    const sub = $('ra-sub');
-    if (state.mode === 'family') {
+    const ms = $('ra-mode-sel');                                    /* the same eight views as one control, where eight buttons will not fit */
+    if (!ms.options.length) { ms.innerHTML = MODES.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join(''); ms.onchange = () => { state.mode = ms.value; controls(); refresh(); }; }
+    ms.value = state.mode;
+    seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) panel(); });
+    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
+    if (sub.dataset.kind !== kind) { sub.dataset.kind = kind; sub.innerHTML = ''; }
+    if (kind === 'family') {                                          /* six families and four criteria: buttons where they fit, selects on a phone */
       if (!$('ra-fam')) sub.innerHTML = '<div class="ra-seg" id="ra-fam" role="radiogroup" aria-label="family"></div><div class="ra-seg" id="ra-crit" role="radiogroup" aria-label="criterion"></div>';
       seg($('ra-fam'), FAM.map((f) => [f, FW[f]]), state.fam, (v) => { state.fam = v; controls(); refresh(); });
       seg($('ra-crit'), CRIT.map((k) => [k, k === 'chi2' ? 'χ²' : k.toUpperCase()]), state.crit, (v) => { state.crit = v; controls(); refresh(); });
-    } else if (state.mode === 'wave' || state.mode === 'blocks' || state.mode === 'record') {
+    } else if (kind === 'family-n') {
+      if (!$('ra-fam-s')) {
+        sub.innerHTML = '<select id="ra-fam-s" class="ra-select" aria-label="family">' + FAM.map((f) => '<option value="' + f + '">' + esc(FW[f]) + '</option>').join('') + '</select><select id="ra-crit-s" class="ra-select" aria-label="criterion">' + CRIT.map((k) => '<option value="' + k + '">' + (k === 'chi2' ? 'χ²' : k.toUpperCase()) + '</option>').join('') + '</select>';
+        $('ra-fam-s').onchange = (e) => { state.fam = e.target.value; controls(); refresh(); };
+        $('ra-crit-s').onchange = (e) => { state.crit = e.target.value; controls(); refresh(); };
+      }
+      $('ra-fam-s').value = state.fam; $('ra-crit-s').value = state.crit;
+    } else if (kind) {
       if (!$('ra-T')) sub.innerHTML = '<div class="ra-seg" id="ra-T" role="radiogroup" aria-label="return period"></div>';
-      seg($('ra-T'), [['100', '100 years'], ['1000', '1000 years']], String(state.T), (v) => { state.T = Number(v); controls(); refresh(); });
-    } else sub.innerHTML = '';
+      seg($('ra-T'), [['100', n ? '100 yr' : '100 years'], ['1000', n ? '1000 yr' : '1000 years']], String(state.T), (v) => { state.T = Number(v); controls(); refresh(); });
+    }
     const go = $('ra-go');
     if (!go.options.length) {
       go.innerHTML = GO.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join('');
-      go.onchange = () => fly(GO.find((g) => g[0] === go.value)[2]);
+      go.setAttribute('aria-label', 'go to a region');
+      go.onchange = () => { if (sheetMode()) setSheet('peek'); const g = GO.find((q) => q[0] === go.value)[2]; fly(go.value === 'globe' ? { center: g.center, zoom: globeZoom() } : g); };
     }
     const find = $('ra-find');
     if (find && !find.dataset.on) {                                  /* the keyboard's way to a cell: the one nearest a latitude and longitude */
@@ -3431,51 +3520,110 @@ self.onmessage = function (ev) {
         let best = null, bd = Infinity;
         for (const c of cells) { const d = Math.acos(Math.min(1, Math.sin(la * r) * Math.sin(c.lat * r) + Math.cos(la * r) * Math.cos(c.lat * r) * Math.cos((lo - c.lon) * r))); if (d < bd) { bd = d; best = c; } }
         if (best) { select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
+        find.blur();
       };
     }
   }
+  /* the globe is centred in what the controls, the legend and (on a phone) the sheet leave of the window */
+  function pad() {
+    const m = $('ra-map').getBoundingClientRect();
+    if (!m.height) return { top: 0, bottom: 0, left: 0, right: 0 };
+    const top = Math.max(0, $('ra-ctl').getBoundingClientRect().bottom - m.top);
+    let floor = m.bottom;
+    const lg = $('ra-legend');
+    if (lg.offsetHeight && getComputedStyle(lg).visibility !== 'hidden') floor = Math.min(floor, lg.getBoundingClientRect().top);
+    if (sheetMode()) floor = Math.min(floor, $('ra-panel').getBoundingClientRect().top);
+    return { top: Math.round(top + 12), bottom: Math.round(Math.max(0, m.bottom - floor) + 12), left: 12, right: 12 };
+  }
+  /* the zoom at which the whole globe fills that room: its radius measured on screen (a point 80° from the centre sits
+     at R sin 80°), so the answer holds for any window and any projection detail */
+  function globeZoom() {
+    if (!map) return 1.5;
+    const m = $('ra-map').getBoundingClientRect(), p = pad();
+    const room = Math.max(60, Math.min(m.width - p.left - p.right, m.height - p.top - p.bottom) / 2 * 0.96);
+    const c = map.getCenter(), a = map.project(c), q = map.project([c.lng, c.lat > 0 ? c.lat - 80 : c.lat + 80]);
+    const r = Math.hypot(q.x - a.x, q.y - a.y) / Math.sin(80 * Math.PI / 180);
+    return r > 1 ? Math.min(3, map.getZoom() + Math.log2(room / r)) : map.getZoom();
+  }
   function fly(v) {
     if (!map) return;
-    if (v.bounds) map.fitBounds(v.bounds, { padding: 40, duration: 1400 });
-    else map.flyTo({ center: v.center, zoom: v.zoom, duration: 1400 });
+    if (v.bounds) map.fitBounds(v.bounds, { padding: pad(), duration: 1400 });
+    else map.flyTo({ center: v.center, zoom: v.zoom, padding: pad(), duration: 1400 });
   }
   function legend() {
+    const n = narrow(), L = (long, short) => (n ? short : long);            /* on a phone every line of the key is short */
     const sw = (col, t, cls) => '<span class="ra-key"><i class="ra-sw' + (cls ? ' ' + cls : '') + '" style="--sw:' + col + '"></i>' + esc(t) + '</span>';
-    const HATCH = { wave: 'REFUSED — no family, or no level, decided', family: 'REFUSED — ' + CW[state.crit] + ' decides no family', blocks: 'REFUSED — a block without a decided level', record: 'REFUSED — no family, or no level, decided', criteria: 'REFUSED — a criterion decides no family', gg: 'the generalized gamma REFUSED', naive: 'REFUSED' };
+    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED' };
     let hatch = HATCH[state.mode];
     if (state.mode === 'ew') {                                     /* the refusals in view, counted from the ledger's codes */
-      const n = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) n[0]++; else if (e === 2 || e === 4) n[1]++; }
-      hatch = 'REFUSED — toward k → 0 at ' + fmt(n[0]) + ' cells, otherwise at ' + fmt(n[1]);
+      const k = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) k[0]++; else if (e === 2 || e === 4) k[1]++; }
+      hatch = L('REFUSED — toward k → 0 at ' + fmt(k[0]) + ' cells, otherwise at ' + fmt(k[1]), 'REFUSED (' + fmt(k[0]) + ' toward k → 0)');
     }
-    const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, 'sea ice — not certified', 'ice');
-    const rampH = (br, lab, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, L('sea ice — not certified', 'sea ice'), 'ice');
+    const rampH = (br, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    const B = BW[state.block], b = state.block;
     let t = '', body = '';
     switch (state.mode) {
-      case 'wave': t = 'the ' + state.T + '-year Hs of the family Anderson–Darling decides · ' + BW[state.block]; body = rampH(WAVE_BR, '', ' m'); break;
-      case 'family': t = FW[state.fam] + ', where ' + CW[state.crit] + ' decides it · ' + BW[state.block]; body = sw(C.ink, FW[state.fam] + ' decided') + sw(C.s[0], 'another family decided'); break;
-      case 'blocks': t = 'how far the ' + state.T + '-year Hs moves across daily, weekly and monthly maxima (largest ÷ smallest)'; body = rampH(BLOCK_BR, '', '×'); break;
-      case 'record': t = 'the ' + state.T + '-year Hs ÷ the largest day in 1993–2024 · ' + BW[state.block] + ' · outlined: below the record'; body = rampH(REC_BR, '', '×'); break;
-      case 'criteria': t = 'do Anderson–Darling, KS, MSE and χ² decide the same family? · ' + BW[state.block]; body = sw(C.s[1], 'they agree') + sw(C.ink, 'they split'); break;
-      case 'gg': t = 'the generalized gamma · ' + BW[state.block]; body = sw(C.s[2], 'a maximum inside the family') + sw(C.ink, 'a maximum beside its lognormal limit (α > 500)') + sw(C.s[0], 'peaks at the lognormal limit — proved'); break;
-      case 'ew': t = 'the exponentiated Weibull · ' + BW[state.block]; body = sw(C.s[2], 'certified in (α, k, λ)') + sw(C.ink, 'certified in its Gumbel coordinates — α runs large'); break;
-      case 'naive': t = 'a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + BW[state.block]; body = sw(C.ink, 'names a different family') + sw(C.s[0], 'agrees'); break;
+      case 'wave': t = L('the ' + state.T + '-year Hs of the family Anderson–Darling decides · ' + B, state.T + '-year Hs · ' + b); body = rampH(WAVE_BR, ' m'); break;
+      case 'family': t = L(FW[state.fam] + ', where ' + CW[state.crit] + ' decides it · ' + B, FW[state.fam] + ' · ' + (state.crit === 'chi2' ? 'χ²' : state.crit.toUpperCase()) + ' · ' + b); body = sw(C.ink, L(FW[state.fam] + ' decided', FW[state.fam])) + sw(C.s[0], L('another family decided', 'another family')); break;
+      case 'blocks': t = L('how far the ' + state.T + '-year Hs moves across daily, weekly and monthly maxima (largest ÷ smallest)', state.T + '-year Hs across the blocks · largest ÷ smallest'); body = rampH(BLOCK_BR, '×'); break;
+      case 'record': t = L('the ' + state.T + '-year Hs ÷ the largest day in 1993–2024 · ' + B + ' · outlined: below the record', state.T + '-year Hs ÷ the record · ' + b + ' · outlined: below'); body = rampH(REC_BR, '×'); break;
+      case 'criteria': t = L('do Anderson–Darling, KS, MSE and χ² decide the same family? · ' + B, 'do the four criteria agree? · ' + b); body = sw(C.s[1], L('they agree', 'agree')) + sw(C.ink, L('they split', 'split')); break;
+      case 'gg': t = L('the generalized gamma · ' + B, 'generalized gamma · ' + b); body = sw(C.s[2], L('a maximum inside the family', 'inside')) + sw(C.ink, L('a maximum beside its lognormal limit (α > 500)', 'beside the limit')) + sw(C.s[0], L('peaks at the lognormal limit — proved', 'at the limit, proved')); break;
+      case 'ew': t = L('the exponentiated Weibull · ' + B, 'exp. Weibull · ' + b); body = sw(C.s[2], L('certified in (α, k, λ)', 'in (α, k, λ)')) + sw(C.ink, L('certified in its Gumbel coordinates — α runs large', 'in Gumbel coordinates')); break;
+      case 'naive': t = L('a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + B, 'a threshold fitter vs the certificate · ' + b); body = sw(C.ink, L('names a different family', 'differs')) + sw(C.s[0], L('agrees', 'agrees')); break;
     }
     /* the title is set in capitals: a Greek letter keeps its own case, or α would read as A */
     $('ra-legend').innerHTML = '<div class="t">' + esc(t).replace(/[α-ωχ]/g, (g) => '<span class="ra-nt">' + g + '</span>') + '</div><div class="ra-keys">' + body + base + '</div>';
   }
 
-  /* ---- the side panel: the claims, the small multiples, or a cell ---- */
-  function side() {
-    const el = $('ra-side');
-    if (sel) return cellPanel(el, sel);
-    const V = { HOLDS: 'holds', 'DOES NOT HOLD': 'does-not-hold', UNDECIDED: 'undecided' };
-    let html = '<h3>' + fmt(cells.filter((c) => !c.ice).length) + ' cells, each a certificate</h3><p class="n">Click a cell to open it and certify it again in this tab. The paper\'s claims, decided over the cells in their boxes:</p>';
-    html += '<ul class="ra-claims">' + A.claims.map((k) => '<li class="ra-claim' + (claimOn === k.id ? ' on' : '') + '" data-claim="' + k.id + '" tabindex="0" role="button"><div class="ra-cv ra-v-' + V[k.verdict] + '">' + esc(k.verdict) + '</div><div><div class="ra-cq">' + esc(k.where) + '</div><div class="ra-cr">' + esc(k.rule) + '</div></div></li>').join('') + '</ul>';
-    if (state.mode === 'family') {
-      html += '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
+  /* ---- the panel: three tabs beside the globe, a sheet over it on a phone ---- */
+  const narrow = () => window.matchMedia('(max-width: 899px)').matches;          /* compact controls and a short key */
+  /* the panel is a sheet over the globe on a narrow screen held upright; a phone held sideways keeps it beside the globe */
+  const sheetMode = () => narrow() && !window.matchMedia('(max-height: 540px) and (orientation: landscape)').matches;
+  const TABS = ['claims', 'cell', 'method'];
+  function setTab(t, focus) {
+    state.tab = t;
+    for (const x of TABS) {
+      const b = $('ra-t-' + x), on = x === t;
+      b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1;
+      $('ra-p-' + x).hidden = !on;
     }
-    el.innerHTML = html;
-    el.querySelectorAll('canvas[data-f]').forEach(drawSmall);
+    if (focus) $('ra-t-' + t).focus();
+    $('ra-body').scrollTop = 0;
+    if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
+    panel();
+  }
+  /* the sheet's three heights: a peek (title and tabs), half the window, and nearly all of it */
+  function setSheet(h) {
+    const app = $('ra-app');
+    if (app.dataset.sheet === h) return;
+    app.dataset.sheet = h;
+    $('ra-grip').setAttribute('aria-label', h === 'full' ? 'Show less of the panel' : 'Show more of the panel');
+    later(() => { if (map) map.easeTo({ padding: pad(), duration: 320 }); });
+  }
+  /* the wide screen's panel folds away and the globe takes the whole window */
+  function setPanel(open) {
+    const app = $('ra-app');
+    app.dataset.panel = open ? 'open' : 'closed';
+    for (const id of ['ra-close', 'ra-reopen']) $(id).setAttribute('aria-expanded', String(open));
+    later(() => { if (map) { map.resize(); map.easeTo({ padding: pad(), duration: 0 }); } });
+    (open ? $('ra-close') : $('ra-reopen')).focus();
+  }
+  /* after a transition: the panel's and the sheet's are --dur-med */
+  const later = (f) => setTimeout(f, 320);
+  function panel() {
+    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === claimOn));
+    const sm = $('ra-sm');
+    if (state.mode === 'family' && state.tab === 'claims') {
+      sm.innerHTML = '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
+      sm.querySelectorAll('canvas[data-f]').forEach(drawSmall);
+    } else sm.innerHTML = '';
+    if (state.tab === 'cell') {
+      const box = $('ra-cellbox');
+      if (sel) cellPanel(box, sel);
+      else box.innerHTML = '<p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger\'s own code.</p>';
+    }
   }
   function drawSmall(cv) {
     const g = cv.getContext('2d'), W = cv.width, H = cv.height, f = FAM.indexOf(cv.dataset.f);
@@ -3493,25 +3641,29 @@ self.onmessage = function (ev) {
     state.block = k.blocks[k.blocks.length - 1];
     if (fam) { state.mode = 'family'; state.fam = fam; state.crit = 'ad'; } else { state.mode = 'blocks'; state.T = /1000|japan/.test(id) ? 1000 : 100; }
     if (worker) { worker.terminate(); worker = null; run = null; }
-    sel = null; controls(); refresh();
+    sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]);
+    if (sheetMode()) setSheet('peek');                              /* on a phone the claim is read on the globe: the sheet steps aside */
+    controls(); refresh();
     if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(k.box));
     if (k.box && k.box.lon) {
       const [w, e] = k.box.lon, E = e < w ? e + 360 : e;
       fly({ bounds: [[w, k.box.lat[0]], [E, k.box.lat[1]]] });           /* east past 180 across the antimeridian: the whole box */
     } else if (k.box && k.box.lat[0] > -90) fly({ center: [0, (k.box.lat[0] + k.box.lat[1]) / 2], zoom: 1.6 });
     else fly(GO[0][2]);
-    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === id));
+    panel();
   }
-  const claimFrom = (li) => { claimClick(li.dataset.claim); if (li.closest('#ra-claims')) $('ra-map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+  const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
   document.addEventListener('keydown', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); claimFrom(li); } });
 
   function select(c) {
-    if (c === sel) return;                                          /* the same cell again: a run in progress goes on */
-    sel = c;
-    if (worker) { worker.terminate(); worker = null; run = null; }
-    if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
-    side();
+    if (c !== sel) {                                                /* the same cell again: a run in progress goes on */
+      sel = c;
+      if (worker) { worker.terminate(); worker = null; run = null; }
+      if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
+    }
+    if (state.tab !== 'cell') setTab('cell'); else panel();
+    if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
   }
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   function blockRows(c) {
@@ -3524,18 +3676,20 @@ self.onmessage = function (ev) {
   }
   function cellPanel(el, c) {
     let h = '<h3>' + esc(place(c)) + '</h3><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
-    const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } side(); };
+    const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
       el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p><div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
       $('ra-back').onclick = back;
       return;
     }
+    /* the action first, its result right under it; the ledger's table and the words after */
+    h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger)</div>' + blockRows(c);
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">certify it again, here</div><p>Fetch this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, check their sha256, and run the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds. The result is compared with the ledger\'s record by sha256. The series itself downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
-      + '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-dl" disabled>download the certificate</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-back">← the claims</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
+    h += '<div class="k">what certifying here does</div><p>It fetches this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, pinned by commit, checks their sha256, runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+      + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
     if (SPEC.served) $('ra-cert').onclick = () => certifyCell(c);
@@ -3661,15 +3815,51 @@ self.onmessage = function (ev) {
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
   }
 
+  /* ---- the panel's own controls: tabs (arrow keys between them), the fold, the sheet's grip ---- */
+  function wire() {
+    for (const t of TABS) $('ra-t-' + t).onclick = () => setTab(t);
+    $('ra-t-claims').parentElement.onkeydown = (e) => {
+      const k = TABS.indexOf(state.tab), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); setTab(TABS[(k + d + TABS.length) % TABS.length], true); }
+    };
+    $('ra-close').onclick = () => setPanel(false);
+    $('ra-reopen').onclick = () => setPanel(true);
+    /* the sheet: a tap on the grip or the title steps it up (and from the top back to a peek); a swipe moves it one step */
+    const STEPS = ['peek', 'half', 'full'];
+    const step = (d) => { const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(STEPS[Math.max(0, Math.min(2, k + d))]); };
+    for (const el of [$('ra-grip'), $('ra-panel').querySelector('.ra-titlerow')]) {
+      let y0 = null;
+      el.addEventListener('pointerdown', (e) => { if (sheetMode()) y0 = e.clientY; });
+      el.addEventListener('pointerup', (e) => {
+        if (y0 === null || !sheetMode()) return;
+        const dy = e.clientY - y0; y0 = null;
+        if (Math.abs(dy) < 10) { const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(k === 2 ? 'peek' : STEPS[k + 1]); }
+        else step(dy < 0 ? 1 : -1);
+      });
+    }
+    $('ra-grip').onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(k === 2 ? 'peek' : STEPS[k + 1]); } };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheetMode() && $('ra-app').dataset.sheet !== 'peek') setSheet('peek'); });
+    /* crossing the breakpoint: the fold belongs to the wide screen, the sheet to the narrow one */
+    let wasNarrow = narrow(), wasSheet = sheetMode();
+    window.addEventListener('resize', () => {
+      const n = narrow(), sh = sheetMode();
+      if (sh !== wasSheet) { wasSheet = sh; if (sh) $('ra-app').dataset.panel = 'open'; }
+      if (n !== wasNarrow) { wasNarrow = n; controls(); legend(); }
+      if (map) later(() => map.easeTo({ padding: pad(), duration: 0 }));
+    });
+  }
+
   /* ---- start ---- */
   Promise.all([fetch('atlas.json').then((r) => r.json()), fetch('land.json').then((r) => r.json())]).then(([a, land]) => {
     A = a; cells = a.cells.map(decode); cells.forEach((c) => byId.set(c.id, c));
-    controls(); legend(); side();
-    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed beside it.</p>'; return; }
-    try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims below still stand.</p>'; }
+    wire(); controls(); legend(); panel();
+    $('ra-app').dataset.ready = '1';
+    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; return; }
+    try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims in the panel still stand.</p>'; }
+    if (map) map.on('load', () => { map.jumpTo({ padding: pad() }); map.jumpTo({ zoom: globeZoom() }); });
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
-    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length };
-  }).catch((e) => { $('ra-side').textContent = 'The atlas data could not be read: ' + e.message; });
+    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
+  }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });
 })();
 </script>
 </body>

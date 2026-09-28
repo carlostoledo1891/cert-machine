@@ -42,7 +42,7 @@
     ['india', 'Indian Ocean', { bounds: [[40, -10], [100, 28]] }], ['japan', 'NW Pacific', { bounds: [[115, 10], [165, 45]] }],
     ['natl', 'North Atlantic', { bounds: [[-70, 30], [10, 68]] }],
   ];
-  const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull' };
+  const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull', tab: 'claims' };
   let A = null, cells = [], byId = new Map(), map = null, sel = null, worker = null, hover = null, claimOn = null, lastCert = null, run = null;
 
   /* ---- the ledger's compact view ---- */
@@ -182,7 +182,7 @@
     hover = null; $('ra-tip').style.display = 'none'; if (map.getLayer('hov')) map.setFilter('hov', ['==', ['get', 'i'], -1]);   /* the words under the pointer belong to the old view */
     map.getSource('cells').setData(features());
     legend();
-    if (!sel) side();
+    panel();
   }
 
   /* ---- words ---- */
@@ -217,20 +217,32 @@
   }
   function controls() {
     seg($('ra-mode'), MODES, state.mode, (v) => { state.mode = v; controls(); refresh(); });
-    seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) side(); });
-    const sub = $('ra-sub');
-    if (state.mode === 'family') {
+    const ms = $('ra-mode-sel');                                    /* the same eight views as one control, where eight buttons will not fit */
+    if (!ms.options.length) { ms.innerHTML = MODES.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join(''); ms.onchange = () => { state.mode = ms.value; controls(); refresh(); }; }
+    ms.value = state.mode;
+    seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) panel(); });
+    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
+    if (sub.dataset.kind !== kind) { sub.dataset.kind = kind; sub.innerHTML = ''; }
+    if (kind === 'family') {                                          /* six families and four criteria: buttons where they fit, selects on a phone */
       if (!$('ra-fam')) sub.innerHTML = '<div class="ra-seg" id="ra-fam" role="radiogroup" aria-label="family"></div><div class="ra-seg" id="ra-crit" role="radiogroup" aria-label="criterion"></div>';
       seg($('ra-fam'), FAM.map((f) => [f, FW[f]]), state.fam, (v) => { state.fam = v; controls(); refresh(); });
       seg($('ra-crit'), CRIT.map((k) => [k, k === 'chi2' ? 'χ²' : k.toUpperCase()]), state.crit, (v) => { state.crit = v; controls(); refresh(); });
-    } else if (state.mode === 'wave' || state.mode === 'blocks' || state.mode === 'record') {
+    } else if (kind === 'family-n') {
+      if (!$('ra-fam-s')) {
+        sub.innerHTML = '<select id="ra-fam-s" class="ra-select" aria-label="family">' + FAM.map((f) => '<option value="' + f + '">' + esc(FW[f]) + '</option>').join('') + '</select><select id="ra-crit-s" class="ra-select" aria-label="criterion">' + CRIT.map((k) => '<option value="' + k + '">' + (k === 'chi2' ? 'χ²' : k.toUpperCase()) + '</option>').join('') + '</select>';
+        $('ra-fam-s').onchange = (e) => { state.fam = e.target.value; controls(); refresh(); };
+        $('ra-crit-s').onchange = (e) => { state.crit = e.target.value; controls(); refresh(); };
+      }
+      $('ra-fam-s').value = state.fam; $('ra-crit-s').value = state.crit;
+    } else if (kind) {
       if (!$('ra-T')) sub.innerHTML = '<div class="ra-seg" id="ra-T" role="radiogroup" aria-label="return period"></div>';
-      seg($('ra-T'), [['100', '100 years'], ['1000', '1000 years']], String(state.T), (v) => { state.T = Number(v); controls(); refresh(); });
-    } else sub.innerHTML = '';
+      seg($('ra-T'), [['100', n ? '100 yr' : '100 years'], ['1000', n ? '1000 yr' : '1000 years']], String(state.T), (v) => { state.T = Number(v); controls(); refresh(); });
+    }
     const go = $('ra-go');
     if (!go.options.length) {
       go.innerHTML = GO.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join('');
-      go.onchange = () => fly(GO.find((g) => g[0] === go.value)[2]);
+      go.setAttribute('aria-label', 'go to a region');
+      go.onchange = () => { if (sheetMode()) setSheet('peek'); const g = GO.find((q) => q[0] === go.value)[2]; fly(go.value === 'globe' ? { center: g.center, zoom: globeZoom() } : g); };
     }
     const find = $('ra-find');
     if (find && !find.dataset.on) {                                  /* the keyboard's way to a cell: the one nearest a latitude and longitude */
@@ -244,51 +256,110 @@
         let best = null, bd = Infinity;
         for (const c of cells) { const d = Math.acos(Math.min(1, Math.sin(la * r) * Math.sin(c.lat * r) + Math.cos(la * r) * Math.cos(c.lat * r) * Math.cos((lo - c.lon) * r))); if (d < bd) { bd = d; best = c; } }
         if (best) { select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
+        find.blur();
       };
     }
   }
+  /* the globe is centred in what the controls, the legend and (on a phone) the sheet leave of the window */
+  function pad() {
+    const m = $('ra-map').getBoundingClientRect();
+    if (!m.height) return { top: 0, bottom: 0, left: 0, right: 0 };
+    const top = Math.max(0, $('ra-ctl').getBoundingClientRect().bottom - m.top);
+    let floor = m.bottom;
+    const lg = $('ra-legend');
+    if (lg.offsetHeight && getComputedStyle(lg).visibility !== 'hidden') floor = Math.min(floor, lg.getBoundingClientRect().top);
+    if (sheetMode()) floor = Math.min(floor, $('ra-panel').getBoundingClientRect().top);
+    return { top: Math.round(top + 12), bottom: Math.round(Math.max(0, m.bottom - floor) + 12), left: 12, right: 12 };
+  }
+  /* the zoom at which the whole globe fills that room: its radius measured on screen (a point 80° from the centre sits
+     at R sin 80°), so the answer holds for any window and any projection detail */
+  function globeZoom() {
+    if (!map) return 1.5;
+    const m = $('ra-map').getBoundingClientRect(), p = pad();
+    const room = Math.max(60, Math.min(m.width - p.left - p.right, m.height - p.top - p.bottom) / 2 * 0.96);
+    const c = map.getCenter(), a = map.project(c), q = map.project([c.lng, c.lat > 0 ? c.lat - 80 : c.lat + 80]);
+    const r = Math.hypot(q.x - a.x, q.y - a.y) / Math.sin(80 * Math.PI / 180);
+    return r > 1 ? Math.min(3, map.getZoom() + Math.log2(room / r)) : map.getZoom();
+  }
   function fly(v) {
     if (!map) return;
-    if (v.bounds) map.fitBounds(v.bounds, { padding: 40, duration: 1400 });
-    else map.flyTo({ center: v.center, zoom: v.zoom, duration: 1400 });
+    if (v.bounds) map.fitBounds(v.bounds, { padding: pad(), duration: 1400 });
+    else map.flyTo({ center: v.center, zoom: v.zoom, padding: pad(), duration: 1400 });
   }
   function legend() {
+    const n = narrow(), L = (long, short) => (n ? short : long);            /* on a phone every line of the key is short */
     const sw = (col, t, cls) => '<span class="ra-key"><i class="ra-sw' + (cls ? ' ' + cls : '') + '" style="--sw:' + col + '"></i>' + esc(t) + '</span>';
-    const HATCH = { wave: 'REFUSED — no family, or no level, decided', family: 'REFUSED — ' + CW[state.crit] + ' decides no family', blocks: 'REFUSED — a block without a decided level', record: 'REFUSED — no family, or no level, decided', criteria: 'REFUSED — a criterion decides no family', gg: 'the generalized gamma REFUSED', naive: 'REFUSED' };
+    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED' };
     let hatch = HATCH[state.mode];
     if (state.mode === 'ew') {                                     /* the refusals in view, counted from the ledger's codes */
-      const n = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) n[0]++; else if (e === 2 || e === 4) n[1]++; }
-      hatch = 'REFUSED — toward k → 0 at ' + fmt(n[0]) + ' cells, otherwise at ' + fmt(n[1]);
+      const k = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) k[0]++; else if (e === 2 || e === 4) k[1]++; }
+      hatch = L('REFUSED — toward k → 0 at ' + fmt(k[0]) + ' cells, otherwise at ' + fmt(k[1]), 'REFUSED (' + fmt(k[0]) + ' toward k → 0)');
     }
-    const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, 'sea ice — not certified', 'ice');
-    const rampH = (br, lab, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, L('sea ice — not certified', 'sea ice'), 'ice');
+    const rampH = (br, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    const B = BW[state.block], b = state.block;
     let t = '', body = '';
     switch (state.mode) {
-      case 'wave': t = 'the ' + state.T + '-year Hs of the family Anderson–Darling decides · ' + BW[state.block]; body = rampH(WAVE_BR, '', ' m'); break;
-      case 'family': t = FW[state.fam] + ', where ' + CW[state.crit] + ' decides it · ' + BW[state.block]; body = sw(C.ink, FW[state.fam] + ' decided') + sw(C.s[0], 'another family decided'); break;
-      case 'blocks': t = 'how far the ' + state.T + '-year Hs moves across daily, weekly and monthly maxima (largest ÷ smallest)'; body = rampH(BLOCK_BR, '', '×'); break;
-      case 'record': t = 'the ' + state.T + '-year Hs ÷ the largest day in 1993–2024 · ' + BW[state.block] + ' · outlined: below the record'; body = rampH(REC_BR, '', '×'); break;
-      case 'criteria': t = 'do Anderson–Darling, KS, MSE and χ² decide the same family? · ' + BW[state.block]; body = sw(C.s[1], 'they agree') + sw(C.ink, 'they split'); break;
-      case 'gg': t = 'the generalized gamma · ' + BW[state.block]; body = sw(C.s[2], 'a maximum inside the family') + sw(C.ink, 'a maximum beside its lognormal limit (α > 500)') + sw(C.s[0], 'peaks at the lognormal limit — proved'); break;
-      case 'ew': t = 'the exponentiated Weibull · ' + BW[state.block]; body = sw(C.s[2], 'certified in (α, k, λ)') + sw(C.ink, 'certified in its Gumbel coordinates — α runs large'); break;
-      case 'naive': t = 'a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + BW[state.block]; body = sw(C.ink, 'names a different family') + sw(C.s[0], 'agrees'); break;
+      case 'wave': t = L('the ' + state.T + '-year Hs of the family Anderson–Darling decides · ' + B, state.T + '-year Hs · ' + b); body = rampH(WAVE_BR, ' m'); break;
+      case 'family': t = L(FW[state.fam] + ', where ' + CW[state.crit] + ' decides it · ' + B, FW[state.fam] + ' · ' + (state.crit === 'chi2' ? 'χ²' : state.crit.toUpperCase()) + ' · ' + b); body = sw(C.ink, L(FW[state.fam] + ' decided', FW[state.fam])) + sw(C.s[0], L('another family decided', 'another family')); break;
+      case 'blocks': t = L('how far the ' + state.T + '-year Hs moves across daily, weekly and monthly maxima (largest ÷ smallest)', state.T + '-year Hs across the blocks · largest ÷ smallest'); body = rampH(BLOCK_BR, '×'); break;
+      case 'record': t = L('the ' + state.T + '-year Hs ÷ the largest day in 1993–2024 · ' + B + ' · outlined: below the record', state.T + '-year Hs ÷ the record · ' + b + ' · outlined: below'); body = rampH(REC_BR, '×'); break;
+      case 'criteria': t = L('do Anderson–Darling, KS, MSE and χ² decide the same family? · ' + B, 'do the four criteria agree? · ' + b); body = sw(C.s[1], L('they agree', 'agree')) + sw(C.ink, L('they split', 'split')); break;
+      case 'gg': t = L('the generalized gamma · ' + B, 'generalized gamma · ' + b); body = sw(C.s[2], L('a maximum inside the family', 'inside')) + sw(C.ink, L('a maximum beside its lognormal limit (α > 500)', 'beside the limit')) + sw(C.s[0], L('peaks at the lognormal limit — proved', 'at the limit, proved')); break;
+      case 'ew': t = L('the exponentiated Weibull · ' + B, 'exp. Weibull · ' + b); body = sw(C.s[2], L('certified in (α, k, λ)', 'in (α, k, λ)')) + sw(C.ink, L('certified in its Gumbel coordinates — α runs large', 'in Gumbel coordinates')); break;
+      case 'naive': t = L('a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + B, 'a threshold fitter vs the certificate · ' + b); body = sw(C.ink, L('names a different family', 'differs')) + sw(C.s[0], L('agrees', 'agrees')); break;
     }
     /* the title is set in capitals: a Greek letter keeps its own case, or α would read as A */
     $('ra-legend').innerHTML = '<div class="t">' + esc(t).replace(/[α-ωχ]/g, (g) => '<span class="ra-nt">' + g + '</span>') + '</div><div class="ra-keys">' + body + base + '</div>';
   }
 
-  /* ---- the side panel: the claims, the small multiples, or a cell ---- */
-  function side() {
-    const el = $('ra-side');
-    if (sel) return cellPanel(el, sel);
-    const V = { HOLDS: 'holds', 'DOES NOT HOLD': 'does-not-hold', UNDECIDED: 'undecided' };
-    let html = '<h3>' + fmt(cells.filter((c) => !c.ice).length) + ' cells, each a certificate</h3><p class="n">Click a cell to open it and certify it again in this tab. The paper\'s claims, decided over the cells in their boxes:</p>';
-    html += '<ul class="ra-claims">' + A.claims.map((k) => '<li class="ra-claim' + (claimOn === k.id ? ' on' : '') + '" data-claim="' + k.id + '" tabindex="0" role="button"><div class="ra-cv ra-v-' + V[k.verdict] + '">' + esc(k.verdict) + '</div><div><div class="ra-cq">' + esc(k.where) + '</div><div class="ra-cr">' + esc(k.rule) + '</div></div></li>').join('') + '</ul>';
-    if (state.mode === 'family') {
-      html += '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
+  /* ---- the panel: three tabs beside the globe, a sheet over it on a phone ---- */
+  const narrow = () => window.matchMedia('(max-width: 899px)').matches;          /* compact controls and a short key */
+  /* the panel is a sheet over the globe on a narrow screen held upright; a phone held sideways keeps it beside the globe */
+  const sheetMode = () => narrow() && !window.matchMedia('(max-height: 540px) and (orientation: landscape)').matches;
+  const TABS = ['claims', 'cell', 'method'];
+  function setTab(t, focus) {
+    state.tab = t;
+    for (const x of TABS) {
+      const b = $('ra-t-' + x), on = x === t;
+      b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1;
+      $('ra-p-' + x).hidden = !on;
     }
-    el.innerHTML = html;
-    el.querySelectorAll('canvas[data-f]').forEach(drawSmall);
+    if (focus) $('ra-t-' + t).focus();
+    $('ra-body').scrollTop = 0;
+    if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
+    panel();
+  }
+  /* the sheet's three heights: a peek (title and tabs), half the window, and nearly all of it */
+  function setSheet(h) {
+    const app = $('ra-app');
+    if (app.dataset.sheet === h) return;
+    app.dataset.sheet = h;
+    $('ra-grip').setAttribute('aria-label', h === 'full' ? 'Show less of the panel' : 'Show more of the panel');
+    later(() => { if (map) map.easeTo({ padding: pad(), duration: 320 }); });
+  }
+  /* the wide screen's panel folds away and the globe takes the whole window */
+  function setPanel(open) {
+    const app = $('ra-app');
+    app.dataset.panel = open ? 'open' : 'closed';
+    for (const id of ['ra-close', 'ra-reopen']) $(id).setAttribute('aria-expanded', String(open));
+    later(() => { if (map) { map.resize(); map.easeTo({ padding: pad(), duration: 0 }); } });
+    (open ? $('ra-close') : $('ra-reopen')).focus();
+  }
+  /* after a transition: the panel's and the sheet's are --dur-med */
+  const later = (f) => setTimeout(f, 320);
+  function panel() {
+    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === claimOn));
+    const sm = $('ra-sm');
+    if (state.mode === 'family' && state.tab === 'claims') {
+      sm.innerHTML = '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
+      sm.querySelectorAll('canvas[data-f]').forEach(drawSmall);
+    } else sm.innerHTML = '';
+    if (state.tab === 'cell') {
+      const box = $('ra-cellbox');
+      if (sel) cellPanel(box, sel);
+      else box.innerHTML = '<p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger\'s own code.</p>';
+    }
   }
   function drawSmall(cv) {
     const g = cv.getContext('2d'), W = cv.width, H = cv.height, f = FAM.indexOf(cv.dataset.f);
@@ -306,25 +377,29 @@
     state.block = k.blocks[k.blocks.length - 1];
     if (fam) { state.mode = 'family'; state.fam = fam; state.crit = 'ad'; } else { state.mode = 'blocks'; state.T = /1000|japan/.test(id) ? 1000 : 100; }
     if (worker) { worker.terminate(); worker = null; run = null; }
-    sel = null; controls(); refresh();
+    sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]);
+    if (sheetMode()) setSheet('peek');                              /* on a phone the claim is read on the globe: the sheet steps aside */
+    controls(); refresh();
     if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(k.box));
     if (k.box && k.box.lon) {
       const [w, e] = k.box.lon, E = e < w ? e + 360 : e;
       fly({ bounds: [[w, k.box.lat[0]], [E, k.box.lat[1]]] });           /* east past 180 across the antimeridian: the whole box */
     } else if (k.box && k.box.lat[0] > -90) fly({ center: [0, (k.box.lat[0] + k.box.lat[1]) / 2], zoom: 1.6 });
     else fly(GO[0][2]);
-    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === id));
+    panel();
   }
-  const claimFrom = (li) => { claimClick(li.dataset.claim); if (li.closest('#ra-claims')) $('ra-map').scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+  const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
   document.addEventListener('keydown', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); claimFrom(li); } });
 
   function select(c) {
-    if (c === sel) return;                                          /* the same cell again: a run in progress goes on */
-    sel = c;
-    if (worker) { worker.terminate(); worker = null; run = null; }
-    if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
-    side();
+    if (c !== sel) {                                                /* the same cell again: a run in progress goes on */
+      sel = c;
+      if (worker) { worker.terminate(); worker = null; run = null; }
+      if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
+    }
+    if (state.tab !== 'cell') setTab('cell'); else panel();
+    if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
   }
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   function blockRows(c) {
@@ -337,18 +412,20 @@
   }
   function cellPanel(el, c) {
     let h = '<h3>' + esc(place(c)) + '</h3><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
-    const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } side(); };
+    const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
       el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p><div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
       $('ra-back').onclick = back;
       return;
     }
+    /* the action first, its result right under it; the ledger's table and the words after */
+    h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger)</div>' + blockRows(c);
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">certify it again, here</div><p>Fetch this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, check their sha256, and run the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds. The result is compared with the ledger\'s record by sha256. The series itself downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
-      + '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-dl" disabled>download the certificate</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-back">← the claims</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
+    h += '<div class="k">what certifying here does</div><p>It fetches this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, pinned by commit, checks their sha256, runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+      + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
     if (SPEC.served) $('ra-cert').onclick = () => certifyCell(c);
@@ -474,13 +551,49 @@
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
   }
 
+  /* ---- the panel's own controls: tabs (arrow keys between them), the fold, the sheet's grip ---- */
+  function wire() {
+    for (const t of TABS) $('ra-t-' + t).onclick = () => setTab(t);
+    $('ra-t-claims').parentElement.onkeydown = (e) => {
+      const k = TABS.indexOf(state.tab), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); setTab(TABS[(k + d + TABS.length) % TABS.length], true); }
+    };
+    $('ra-close').onclick = () => setPanel(false);
+    $('ra-reopen').onclick = () => setPanel(true);
+    /* the sheet: a tap on the grip or the title steps it up (and from the top back to a peek); a swipe moves it one step */
+    const STEPS = ['peek', 'half', 'full'];
+    const step = (d) => { const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(STEPS[Math.max(0, Math.min(2, k + d))]); };
+    for (const el of [$('ra-grip'), $('ra-panel').querySelector('.ra-titlerow')]) {
+      let y0 = null;
+      el.addEventListener('pointerdown', (e) => { if (sheetMode()) y0 = e.clientY; });
+      el.addEventListener('pointerup', (e) => {
+        if (y0 === null || !sheetMode()) return;
+        const dy = e.clientY - y0; y0 = null;
+        if (Math.abs(dy) < 10) { const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(k === 2 ? 'peek' : STEPS[k + 1]); }
+        else step(dy < 0 ? 1 : -1);
+      });
+    }
+    $('ra-grip').onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const k = STEPS.indexOf($('ra-app').dataset.sheet); setSheet(k === 2 ? 'peek' : STEPS[k + 1]); } };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheetMode() && $('ra-app').dataset.sheet !== 'peek') setSheet('peek'); });
+    /* crossing the breakpoint: the fold belongs to the wide screen, the sheet to the narrow one */
+    let wasNarrow = narrow(), wasSheet = sheetMode();
+    window.addEventListener('resize', () => {
+      const n = narrow(), sh = sheetMode();
+      if (sh !== wasSheet) { wasSheet = sh; if (sh) $('ra-app').dataset.panel = 'open'; }
+      if (n !== wasNarrow) { wasNarrow = n; controls(); legend(); }
+      if (map) later(() => map.easeTo({ padding: pad(), duration: 0 }));
+    });
+  }
+
   /* ---- start ---- */
   Promise.all([fetch('atlas.json').then((r) => r.json()), fetch('land.json').then((r) => r.json())]).then(([a, land]) => {
     A = a; cells = a.cells.map(decode); cells.forEach((c) => byId.set(c.id, c));
-    controls(); legend(); side();
-    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed beside it.</p>'; return; }
-    try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims below still stand.</p>'; }
+    wire(); controls(); legend(); panel();
+    $('ra-app').dataset.ready = '1';
+    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; return; }
+    try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims in the panel still stand.</p>'; }
+    if (map) map.on('load', () => { map.jumpTo({ padding: pad() }); map.jumpTo({ zoom: globeZoom() }); });
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
-    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length };
-  }).catch((e) => { $('ra-side').textContent = 'The atlas data could not be read: ' + e.message; });
+    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
+  }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });
 })();
