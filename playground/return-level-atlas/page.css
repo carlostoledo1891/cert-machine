@@ -17,13 +17,13 @@ html, body { height: 100%; overflow: hidden; }
 .ra-map .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
 .ra-map .maplibregl-control-container { display: none; }
 
-.ra-ctl { position: absolute; z-index: 2; left: var(--s-4); right: var(--s-4); top: var(--s-4); display: grid; grid-template-columns: auto auto minmax(0, 1fr); grid-template-areas: "modes modes modes" "blocks sub goto"; align-items: center; gap: var(--s-2) var(--s-3); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); }
-.ra-modes { grid-area: modes; }
+.ra-ctl { position: absolute; z-index: 2; left: var(--s-4); right: var(--s-4); top: var(--s-4); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); }
+.ra-modes { flex: 1 1 100%; }
 .ra-view { display: none; align-items: center; gap: var(--s-2); min-width: 0; }
-.ra-blocks { grid-area: blocks; }
-.ra-sub { grid-area: sub; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-blocks { flex: none; }
+.ra-sub { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); min-width: 0; }
 .ra-sub:empty { display: none; }
-.ra-goto { grid-area: goto; justify-self: end; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-goto { margin-left: auto; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
 .ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); min-width: 0; }
 .ra-seg { display: flex; flex-wrap: wrap; gap: var(--s-1); }
@@ -49,6 +49,8 @@ html, body { height: 100%; overflow: hidden; }
 
 .ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
 .ra-tip .n { color: var(--ink-3); }
+.ra-hint { position: absolute; z-index: 3; left: 50%; top: var(--s-4); transform: translateX(-50%); display: none; background: var(--ink); color: var(--paper); border-radius: var(--radius-pill); padding: var(--s-1) var(--s-4); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-slight); box-shadow: var(--shadow); }
+.ra-hint.on { display: block; }
 .ra-reopen { position: absolute; z-index: 2; right: var(--s-4); bottom: var(--s-4); display: none; background: var(--surface); border-color: var(--rule-strong); box-shadow: var(--shadow); }
 .ra-app[data-panel="closed"] .ra-reopen { display: block; }
 
@@ -90,6 +92,21 @@ html, body { height: 100%; overflow: hidden; }
 .ra-sm canvas { display: block; width: 100%; height: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); }
 .ra-sm figcaption { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); }
 
+/* your own claim */
+.ra-mine { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); margin-bottom: var(--s-5); }
+.ra-mine .ra-go-row { margin: 0; }
+.ra-box4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-2); }
+.ra-box4 label { display: grid; gap: var(--s-1); }
+.ra-box4 .ra-select { width: 100%; }
+.ra-mrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.ra-mrow .ra-select { flex: 1 1 8rem; }
+.ra-mrow .ra-lab { min-width: 3.5rem; }
+.ra-mine-out { cursor: default; }
+/* the cell */
+.ra-celltitle { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.ra-panel .ra-linkbtn { flex: none; font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); background: none; }
+.ra-cviews, .ra-cfams { margin: var(--s-3) 0 var(--s-2); }
+.ra-cfams button { font-size: var(--text-eyebrow); }
 .ra-claims { list-style: none; padding: 0; margin: var(--s-4) 0 0; display: grid; gap: var(--s-3); }
 .ra-claim { display: grid; gap: var(--s-2); padding: var(--s-3) var(--s-4); border-radius: var(--radius-m); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule); cursor: pointer; }
 .ra-claim:hover, .ra-claim.on { box-shadow: inset 0 0 0 1px var(--rule-strong); background: var(--surface2); }
@@ -117,7 +134,7 @@ html, body { height: 100%; overflow: hidden; }
   .ra-modes { display: none; }
   .ra-view { display: flex; order: 1; flex: 1 1 11rem; }
   .ra-view .ra-select, .ra-goto .ra-select, .ra-sub .ra-select { flex: 1 1 auto; }
-  .ra-goto { order: 2; flex: 1 1 8rem; justify-self: auto; }
+  .ra-goto { order: 2; flex: 1 1 8rem; margin-left: 0; }
   .ra-goto .ra-lab { display: none; }
   .ra-blocks { order: 3; }
   .ra-sub { order: 4; flex: 0 1 auto; flex-wrap: nowrap; }

@@ -533,13 +533,13 @@ html, body { height: 100%; overflow: hidden; }
 .ra-map .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
 .ra-map .maplibregl-control-container { display: none; }
 
-.ra-ctl { position: absolute; z-index: 2; left: var(--s-4); right: var(--s-4); top: var(--s-4); display: grid; grid-template-columns: auto auto minmax(0, 1fr); grid-template-areas: "modes modes modes" "blocks sub goto"; align-items: center; gap: var(--s-2) var(--s-3); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); }
-.ra-modes { grid-area: modes; }
+.ra-ctl { position: absolute; z-index: 2; left: var(--s-4); right: var(--s-4); top: var(--s-4); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); background: var(--surface); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow); }
+.ra-modes { flex: 1 1 100%; }
 .ra-view { display: none; align-items: center; gap: var(--s-2); min-width: 0; }
-.ra-blocks { grid-area: blocks; }
-.ra-sub { grid-area: sub; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-blocks { flex: none; }
+.ra-sub { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); min-width: 0; }
 .ra-sub:empty { display: none; }
-.ra-goto { grid-area: goto; justify-self: end; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+.ra-goto { margin-left: auto; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
 .ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); min-width: 0; }
 .ra-seg { display: flex; flex-wrap: wrap; gap: var(--s-1); }
@@ -565,6 +565,8 @@ html, body { height: 100%; overflow: hidden; }
 
 .ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
 .ra-tip .n { color: var(--ink-3); }
+.ra-hint { position: absolute; z-index: 3; left: 50%; top: var(--s-4); transform: translateX(-50%); display: none; background: var(--ink); color: var(--paper); border-radius: var(--radius-pill); padding: var(--s-1) var(--s-4); font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-slight); box-shadow: var(--shadow); }
+.ra-hint.on { display: block; }
 .ra-reopen { position: absolute; z-index: 2; right: var(--s-4); bottom: var(--s-4); display: none; background: var(--surface); border-color: var(--rule-strong); box-shadow: var(--shadow); }
 .ra-app[data-panel="closed"] .ra-reopen { display: block; }
 
@@ -606,6 +608,21 @@ html, body { height: 100%; overflow: hidden; }
 .ra-sm canvas { display: block; width: 100%; height: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); }
 .ra-sm figcaption { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); }
 
+/* your own claim */
+.ra-mine { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); margin-bottom: var(--s-5); }
+.ra-mine .ra-go-row { margin: 0; }
+.ra-box4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-2); }
+.ra-box4 label { display: grid; gap: var(--s-1); }
+.ra-box4 .ra-select { width: 100%; }
+.ra-mrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.ra-mrow .ra-select { flex: 1 1 8rem; }
+.ra-mrow .ra-lab { min-width: 3.5rem; }
+.ra-mine-out { cursor: default; }
+/* the cell */
+.ra-celltitle { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+.ra-panel .ra-linkbtn { flex: none; font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); background: none; }
+.ra-cviews, .ra-cfams { margin: var(--s-3) 0 var(--s-2); }
+.ra-cfams button { font-size: var(--text-eyebrow); }
 .ra-claims { list-style: none; padding: 0; margin: var(--s-4) 0 0; display: grid; gap: var(--s-3); }
 .ra-claim { display: grid; gap: var(--s-2); padding: var(--s-3) var(--s-4); border-radius: var(--radius-m); background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule); cursor: pointer; }
 .ra-claim:hover, .ra-claim.on { box-shadow: inset 0 0 0 1px var(--rule-strong); background: var(--surface2); }
@@ -633,7 +650,7 @@ html, body { height: 100%; overflow: hidden; }
   .ra-modes { display: none; }
   .ra-view { display: flex; order: 1; flex: 1 1 11rem; }
   .ra-view .ra-select, .ra-goto .ra-select, .ra-sub .ra-select { flex: 1 1 auto; }
-  .ra-goto { order: 2; flex: 1 1 8rem; justify-self: auto; }
+  .ra-goto { order: 2; flex: 1 1 8rem; margin-left: 0; }
   .ra-goto .ra-lab { display: none; }
   .ra-blocks { order: 3; }
   .ra-sub { order: 4; flex: 0 1 auto; flex-wrap: nowrap; }
@@ -752,6 +769,7 @@ html, body { height: 100%; overflow: hidden; }
   </div>
   <div class="ra-legend" id="ra-legend" aria-live="polite"></div>
   <div class="ra-tip" id="ra-tip" aria-hidden="true"></div>
+  <div class="ra-hint" id="ra-hint" role="status"></div>
   <button type="button" class="ra-reopen" id="ra-reopen" aria-controls="ra-panel" aria-expanded="true">the claims &amp; the cell</button>
 </section>
 <aside class="ra-panel" id="ra-panel" aria-label="The paper's claims, the chosen cell, and the method">
@@ -769,7 +787,10 @@ html, body { height: 100%; overflow: hidden; }
   <div class="ra-body" id="ra-body">
     <section class="ra-pane" id="ra-p-claims" role="tabpanel" aria-labelledby="ra-t-claims">
       <p class="n">Each claim is quoted from the paper's &sect;3 and read as a region, the blocks it speaks of, and a rule over the certified cells there. A cell counts for a family only where the choice is DECIDED; a REFUSED cell counts for nobody and could count for anybody, so a claim <b>holds</b> when it is true however the refused cells fell, <b>does not hold</b> when it is false however they fell, and is <b>undecided</b> when they could make it either. Choose a claim to see its box.</p>
+      <div id="ra-mine"></div>
       <div id="ra-sm"></div>
+      <div class="k">the paper's ten</div>
+      <p class="n" id="ra-recheck"></p>
       <ul class="ra-claims" id="ra-claims"><li class="ra-claim" data-claim="weibull-rises" tabindex="0" role="button" aria-label="show on the map: the global 4° lattice"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increased from daily to weekly and monthly, there was a marked reduction in the number of points classified as Exponentiated Weibull – the distribution that previously dominated – and a corresponding increase in the standard Weibull distribution&rdquo; <span class="ra-cite">§3.1, Fig. 2</span></div><div class="ra-cr">the global 4° lattice &middot; the exponentiated Weibull decided at fewer cells, and the Weibull at more, at each step daily → weekly → monthly (Anderson–Darling)</div><div class="ra-cn mono">exp. Weibull, daily: 977 decided, 19 refused of 1810 · exp. Weibull, weekly: 888 decided, 14 refused of 1810 · exp. Weibull, monthly: 728 decided, 42 refused of 1810 · Weibull, daily: 9 decided, 19 refused of 1810 · Weibull, weekly: 11 decided, 14 refused of 1810 · Weibull, monthly: 61 decided, 42 refused of 1810</div></div></li><li class="ra-claim" data-claim="gg-south-america-daily" tabindex="0" role="button" aria-label="show on the map: south of South America (40–58° S, 80–56° W)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the daily block, … the Generalized Gamma gains prominence along the coastal region south of South America&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">south of South America (40–58° S, 80–56° W) &middot; the generalized gamma the most frequent decided choice in the box, daily maxima (Anderson–Darling)</div><div class="ra-cn mono">daily: 9 decided, 0 refused of 22</div></div></li><li class="ra-claim" data-claim="gg-expands-weekly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-does-not-hold">DOES NOT HOLD</div><div><div class="ra-cq">&ldquo;In the weekly block, the distinction between the northern, central, and southern ACC sectors weakens substantially, with the Generalized Gamma expanding its spatial influence&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the generalized gamma decided at more cells in the weekly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">gen. gamma, daily: 166 decided, 1 refused of 382 · gen. gamma, weekly: 131 decided, 3 refused of 382</div></div></li><li class="ra-claim" data-claim="ew-southern-ocean-monthly" tabindex="0" role="button" aria-label="show on the map: the Southern Ocean (40–65° S)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;By the monthly block, this diversity nearly disappears: the Exponentiated Weibull dominates most of the Southern Ocean, with only small residual areas of Gumbel&rdquo; <span class="ra-cite">§3.2</span></div><div class="ra-cr">the Southern Ocean (40–65° S) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 227 decided, 1 refused of 382</div></div></li><li class="ra-claim" data-claim="monsoon-weibull" tabindex="0" role="button" aria-label="show on the map: the monsoon Indian Ocean (0–25° N, 45–80° E)"><div class="ra-cv ra-v-undecided">UNDECIDED</div><div><div class="ra-cq">&ldquo;as the block size increases, a transition toward the standard Weibull distribution occurs&rdquo; <span class="ra-cite">§3.2 (Indian Ocean)</span></div><div class="ra-cr">the monsoon Indian Ocean (0–25° N, 45–80° E) &middot; the Weibull decided at more cells in the monthly block than in the daily (Anderson–Darling)</div><div class="ra-cn mono">Weibull, daily: 1 decided, 5 refused of 44 · Weibull, monthly: 3 decided, 6 refused of 44</div></div></li><li class="ra-claim" data-claim="japan-ew-monthly" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;in the monthly block, the Exponentiated Weibull again becomes dominant&rdquo; <span class="ra-cite">§3.2 (western Pacific)</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)</div><div class="ra-cn mono">monthly: 16 decided, 3 refused of 26</div></div></li><li class="ra-claim" data-claim="levels-fall-north-atlantic" tabindex="0" role="button" aria-label="show on the map: the North Atlantic (40–64° N, 60° W–0°)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Atlantic (40–64° N, 60° W–0°) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 38, not lower at 21, not decided at 3 of 62</div></div></li><li class="ra-claim" data-claim="levels-fall-north-pacific" tabindex="0" role="button" aria-label="show on the map: the North Pacific (40–60° N, 140° E–130° W)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the North Pacific (40–60° N, 140° E–130° W) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 70, not lower at 9, not decided at 2 of 81</div></div></li><li class="ra-claim" data-claim="levels-fall-arabian-sea" tabindex="0" role="button" aria-label="show on the map: the Arabian Sea (5–25° N, 50–75° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;The Arabian Sea displays a marked reduction in projected extremes as block size increases&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the Arabian Sea (5–25° N, 50–75° E) &middot; at more than half the certified cells, the 100-year level of the monthly block's decided family lies wholly below the daily block's</div><div class="ra-cn mono">daily → monthly: lower at 16, not lower at 0, not decided at 7 of 23</div></div></li><li class="ra-claim" data-claim="levels-rise-japan" tabindex="0" role="button" aria-label="show on the map: the western Pacific south of Japan (24–36° N, 124–148° E)"><div class="ra-cv ra-v-holds">HOLDS</div><div><div class="ra-cq">&ldquo;In the western Pacific south of Japan, return levels increase for longer block sizes, particularly for the 1000-year period&rdquo; <span class="ra-cite">§3.3</span></div><div class="ra-cr">the western Pacific south of Japan (24–36° N, 124–148° E) &middot; at more than half the certified cells, the 1000-year level of the monthly block's decided family lies wholly above the daily block's</div><div class="ra-cn mono">daily → monthly: higher at 17, not higher at 6, not decided at 3 of 26</div></div></li></ul>
     </section>
     <section class="ra-pane" id="ra-p-cell" role="tabpanel" aria-labelledby="ra-t-cell" hidden>
@@ -782,7 +803,7 @@ html, body { height: 100%; overflow: hidden; }
       <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each. Land: Natural Earth 1:50m, public domain.</p>
       <h2>What this opens</h2>
       <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 33529e5b344f &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 373958751dea &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 74d45794767a &middot; <span class="mono">instruments/hseva/fit.js</span> da704cc844a0 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 36233968b8fe. Cell files served from the public repository at commit <span class="mono">628072d7b237</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/628072d7b237b29a8c37d6734862e4433bb53ecd/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 05f5132d719f &middot; <span class="mono">playground/return-level-atlas/worker.js</span> a847c20130f3 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 74d45794767a &middot; <span class="mono">instruments/hseva/fit.js</span> da704cc844a0 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 36233968b8fe &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">628072d7b237</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/628072d7b237b29a8c37d6734862e4433bb53ecd/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
       <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js</p>
       <p class="n">nothing here is gated · every number came out of the record beside the page</p>
     </section>
@@ -791,7 +812,7 @@ html, body { height: 100%; overflow: hidden; }
 </main>
 
 
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"33529e5b344f44e5af2693bb0b4e4b798b0d1b7784496e7d32f7a263b893e75a","playground/return-level-atlas/worker.js":"373958751dea4502dbb1360ecc7562926aefa239f4eb37d0959d5aa91fe88857","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"74d45794767aff79b8672a431e35cd5c98b48fcb70d1a4c4c93c9284823cff5f","instruments/hseva/fit.js":"da704cc844a008bb4d953e88acf035d28d6402c60339e0979dad3bdaa99b9197","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"36233968b8fe298a270a70538f8c9b968dbbdf591fbaac38bef2fea4baabe5b2"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/628072d7b237b29a8c37d6734862e4433bb53ecd/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"05f5132d719f8cb7da04302f5d3f2bcaf7d4552e937f11eb3d5f65b5fff7e0f9","playground/return-level-atlas/worker.js":"a847c20130f3b9c31045222f6354a0183ec1bb55a0655389fdf3973a5defedb8","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"74d45794767aff79b8672a431e35cd5c98b48fcb70d1a4c4c93c9284823cff5f","instruments/hseva/fit.js":"da704cc844a008bb4d953e88acf035d28d6402c60339e0979dad3bdaa99b9197","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"36233968b8fe298a270a70538f8c9b968dbbdf591fbaac38bef2fea4baabe5b2","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/628072d7b237b29a8c37d6734862e4433bb53ecd/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -3214,7 +3235,9 @@ root.HSEVA = { FT: req("fit.js"), FAM: req("families.js"), BR: req("blockrule.js
    the ledger's, as JSON. Beside the record, and never inside it, the return-level
    plot: for each block the maxima at their plotting positions and each certified
    family's quantile over return periods from two blocks to 10,000 years, every
-   point an enclosure from the certified box (fit.js returnLevel). */
+   point an enclosure from the certified box (fit.js returnLevel); and, on the bins
+   and plotting positions the page sends, what each fit expects in a histogram and
+   at each point of a QQ plot. */
 self.onmessage = function (ev) {
   var q = ev.data;
   try {
@@ -3236,7 +3259,7 @@ self.onmessage = function (ev) {
       if (!c.ok) return;
       /* the design-life level (Rootzén & Katz 2013) in a climate that does not change: the level a structure standing L = 25 years
          meets with probability 10%, blocks independent — the return level at T = b / (8766 (1 − 0.9^(b / 8766L))) */
-      var q = -Math.expm1(Math.log(0.9) * BM.hours / (8766 * 25)), Td = BM.hours / (8766 * q);
+      var qd = -Math.expm1(Math.log(0.9) * BM.hours / (8766 * 25)), Td = BM.hours / (8766 * qd);
       try { P.dll[f] = FT.returnLevel(c, Td, BM.hours); } catch (e) { P.dll[f] = null; }
       var t0 = Math.log10(2 * BM.hours / 8766), L = [];
       for (var j = 0; j <= 32; j++) {
@@ -3245,6 +3268,28 @@ self.onmessage = function (ev) {
         if (v && isFinite(v[0]) && isFinite(v[1])) L.push([T, v[0], v[1]]);
       }
       P.fam[f] = L;
+      /* the histogram and the QQ plot, on the bins and plotting positions the page chose for the same maxima: what each
+         certified fit expects — drawn from the certified point, its box being far narrower than any line */
+      var ed = q.bins && q.bins[blk], pp = q.qqp && q.qqp[blk], nb = BM.n;
+      if (ed) {
+        var F = function (x) {
+          try {
+            if (!(x > 0)) { var z = c.fam.cdf(FT.floatOps, c.theta, 0); return isFinite(z) ? z : 0; }   /* the normal and the Gumbel put some mass below zero: it belongs to no bin */
+            if (c.coords === 'expweibullG') {                     /* F = exp(−exp(β/θ + ln(−ln(1 − t)))), t = e^(−x^k/θ): finite for any α */
+              var th = c.theta, t = Math.exp(-Math.pow(x, th[0]) / th[1]);
+              return Math.exp(-Math.exp(th[2] / th[1] + Math.log(-Math.log1p(-t))));
+            }
+            var v = c.fam.cdf(FT.floatOps, c.theta, x); return isFinite(v) ? v : NaN;
+          } catch (e) { return NaN; }
+        };
+        var ex = [], prev = F(ed[0]);
+        for (var j = 1; j < ed.length; j++) { var cur = F(ed[j]); ex.push(nb * (cur - prev)); prev = cur; }
+        P.hist = P.hist || { exp: {} }; P.hist.exp[f] = ex;
+      }
+      if (pp) {
+        P.qq = P.qq || { q: {} };
+        P.qq.q[f] = pp.map(function (p) { try { var v = c.fam.quantile(FT.floatOps, c.theta, p); return isFinite(v) ? v : null; } catch (e) { return null; } });
+      }
     };
     /* atlas.js is left exactly as it wrote the ledger: the plot watches fit.js certify() from outside, returning every result untouched */
     var AT = self.HSEVA.AT, BR = self.HSEVA.BR, k = 0, BMs = {}, certify0 = FT.certify, rec;
@@ -3262,6 +3307,193 @@ self.onmessage = function (ev) {
 };
 </script>
 <script src="vendor/maplibre-gl.js"></script>
+<script>(function () { var R = {};
+(function () { var module = { exports: {} };
+/* instruments/hseva/blockrule.js — THE block rule, the one place it lives: what
+   a day, an ISO week, a month and a year are for a UTC timestamp, and a block
+   maximum as the largest value in its block. No requires, so the same bytes run
+   in Node (blocks.js, the ledger) and in the tab (/instruments/return-levels):
+   a rule defined twice would drift. Timestamps are 'YYYY-MM-DD…' strings. */
+'use strict';
+
+/* ISO 8601 week of a 'YYYY-MM-DD…' timestamp: the Thursday of its week names the year */
+function isoWeek(t) {
+  const d = new Date(Date.UTC(Number(t.slice(0, 4)), Number(t.slice(5, 7)) - 1, Number(t.slice(8, 10))));
+  const dow = (d.getUTCDay() + 6) % 7;                 /* Monday 0 … Sunday 6 */
+  d.setUTCDate(d.getUTCDate() - dow + 3);              /* that week's Thursday */
+  const y = d.getUTCFullYear(), jan4 = new Date(Date.UTC(y, 0, 4));
+  const w = 1 + Math.round(((d - jan4) / 86400000 - 3 + ((jan4.getUTCDay() + 6) % 7)) / 7);
+  return y + '-W' + String(w).padStart(2, '0');
+}
+const BLOCKS = {
+  native: { hours: null, key: null },
+  daily: { hours: 24, key: (t) => t.slice(0, 10) },
+  weekly: { hours: 168, key: isoWeek },
+  monthly: { hours: 730.5, key: (t) => t.slice(0, 7) },
+  annual: { hours: 8766, key: (t) => t.slice(0, 4) },
+};
+/* S = { n, t: timestamps, h: values, step: native hours } */
+function blockMaxima(S, block) {
+  const B = BLOCKS[block]; if (!B) throw new Error('unknown block ' + block);
+  if (block === 'native') return { block, hours: S.step, n: S.n, x: S.h, keys: null };
+  const m = new Map();
+  for (let i = 0; i < S.n; i++) { const k = B.key(S.t[i]); const v = S.h[i]; if (!m.has(k) || v > m.get(k)) m.set(k, v); }
+  const keys = [...m.keys()].sort();
+  return { block, hours: B.hours, n: keys.length, x: keys.map((k) => m.get(k)), keys };
+}
+
+if (typeof module !== 'undefined') module.exports = { BLOCKS, blockMaxima, isoWeek };
+
+R.BR = module.exports; })();
+(function () { var module = { exports: {} };
+/* instruments/hseva/atlas-claims.js — the regional claims of Reis, Guimarães et
+   al. (Ocean Engineering 2026, §3), read from its full text, as BOXES the
+   return-level atlas decides. The one place they live: the atlas page states
+   their verdicts and instruments/hseva/battery.js re-derives them.
+
+   A claim is a region (a latitude/longitude box, or the global 4° lattice), the
+   blocks it speaks of, and a rule over the atlas's certified cells there. Each
+   cell counts for a family only where fit.js rankRule DECIDED that family; a
+   cell whose choice is REFUSED counts for nobody and could count for anybody.
+   So every claim gets one of three verdicts, and the counts behind it:
+     HOLDS         true however the refused cells were to fall;
+     DOES NOT HOLD false however they were to fall;
+     UNDECIDED     the refused cells could make it either.
+   Sea-ice cells (some steps missing) are not certified and are not counted.
+   The atlas holds daily, weekly and monthly blocks; a claim about the
+   unfiltered 3-hourly data is out of its reach and is not listed. */
+'use strict';
+const SIX = ['normal', 'lognormal', 'weibull', 'expweibull', 'gengamma', 'gumbel'];
+
+const inBox = (c, b) => {
+  if (c.lat < b.lat[0] || c.lat > b.lat[1]) return false;
+  if (!b.lon) return true;
+  return b.lon[0] <= b.lon[1] ? c.lon >= b.lon[0] && c.lon <= b.lon[1] : c.lon >= b.lon[0] || c.lon <= b.lon[1];   /* across the antimeridian */
+};
+
+const CLAIMS = [
+  { id: 'weibull-rises', where: 'the global 4° lattice', box: { lat: [-90, 90] }, set: 'global4', blocks: ['daily', 'weekly', 'monthly'],
+    quote: 'as the block size increased from daily to weekly and monthly, there was a marked reduction in the number of points classified as Exponentiated Weibull – the distribution that previously dominated – and a corresponding increase in the standard Weibull distribution',
+    cite: '§3.1, Fig. 2', rule: 'the exponentiated Weibull decided at fewer cells, and the Weibull at more, at each step daily → weekly → monthly (Anderson–Darling)',
+    decide: (S) => risesAndFalls(S, 'weibull', 'expweibull', ['daily', 'weekly', 'monthly']) },
+  { id: 'gg-south-america-daily', where: 'south of South America (40–58° S, 80–56° W)', box: { lat: [-58, -40], lon: [-80, -56] }, set: 'global4', blocks: ['daily'],
+    quote: 'In the daily block, … the Generalized Gamma gains prominence along the coastal region south of South America',
+    cite: '§3.2', rule: 'the generalized gamma the most frequent decided choice in the box, daily maxima (Anderson–Darling)',
+    decide: (S) => plurality(S, 'gengamma', 'daily') },
+  { id: 'gg-expands-weekly', where: 'the Southern Ocean (40–65° S)', box: { lat: [-65, -40] }, set: 'global4', blocks: ['daily', 'weekly'],
+    quote: 'In the weekly block, the distinction between the northern, central, and southern ACC sectors weakens substantially, with the Generalized Gamma expanding its spatial influence',
+    cite: '§3.2', rule: 'the generalized gamma decided at more cells in the weekly block than in the daily (Anderson–Darling)',
+    decide: (S) => monotone(S, 'gengamma', ['daily', 'weekly'], +1) },
+  { id: 'ew-southern-ocean-monthly', where: 'the Southern Ocean (40–65° S)', box: { lat: [-65, -40] }, set: 'global4', blocks: ['monthly'],
+    quote: 'By the monthly block, this diversity nearly disappears: the Exponentiated Weibull dominates most of the Southern Ocean, with only small residual areas of Gumbel',
+    cite: '§3.2', rule: 'the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)',
+    decide: (S) => majority(S, 'expweibull', 'monthly') },
+  { id: 'monsoon-weibull', where: 'the monsoon Indian Ocean (0–25° N, 45–80° E)', box: { lat: [0, 25], lon: [45, 80] }, set: 'global4', blocks: ['daily', 'monthly'],
+    quote: 'as the block size increases, a transition toward the standard Weibull distribution occurs',
+    cite: '§3.2 (Indian Ocean)', rule: 'the Weibull decided at more cells in the monthly block than in the daily (Anderson–Darling)',
+    decide: (S) => monotone(S, 'weibull', ['daily', 'monthly'], +1) },
+  { id: 'japan-ew-monthly', where: 'the western Pacific south of Japan (24–36° N, 124–148° E)', box: { lat: [24, 36], lon: [124, 148] }, set: 'global4', blocks: ['weekly', 'monthly'],
+    quote: 'in the monthly block, the Exponentiated Weibull again becomes dominant',
+    cite: '§3.2 (western Pacific)', rule: 'the exponentiated Weibull the decided choice at more than half the certified cells, monthly maxima (Anderson–Darling)',
+    decide: (S) => majority(S, 'expweibull', 'monthly') },
+  { id: 'levels-fall-north-atlantic', where: 'the North Atlantic (40–64° N, 60° W–0°)', box: { lat: [40, 64], lon: [-60, 0] }, set: 'global4', blocks: ['daily', 'monthly'],
+    quote: 'Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases',
+    cite: '§3.3', rule: 'at more than half the certified cells, the 100-year level of the monthly block\'s decided family lies wholly below the daily block\'s',
+    decide: (S) => levelShift(S, 'l100', 'daily', 'monthly', -1) },
+  { id: 'levels-fall-north-pacific', where: 'the North Pacific (40–60° N, 140° E–130° W)', box: { lat: [40, 60], lon: [140, -130] }, set: 'global4', blocks: ['daily', 'monthly'],
+    quote: 'Across most mid- and high-latitude ocean basins, including the North Atlantic, North Pacific, and Arabian Sea, a systematic reduction in estimated Hs values is observed as the block size increases',
+    cite: '§3.3', rule: 'at more than half the certified cells, the 100-year level of the monthly block\'s decided family lies wholly below the daily block\'s',
+    decide: (S) => levelShift(S, 'l100', 'daily', 'monthly', -1) },
+  { id: 'levels-fall-arabian-sea', where: 'the Arabian Sea (5–25° N, 50–75° E)', box: { lat: [5, 25], lon: [50, 75] }, set: 'global4', blocks: ['daily', 'monthly'],
+    quote: 'The Arabian Sea displays a marked reduction in projected extremes as block size increases',
+    cite: '§3.3', rule: 'at more than half the certified cells, the 100-year level of the monthly block\'s decided family lies wholly below the daily block\'s',
+    decide: (S) => levelShift(S, 'l100', 'daily', 'monthly', -1) },
+  { id: 'levels-rise-japan', where: 'the western Pacific south of Japan (24–36° N, 124–148° E)', box: { lat: [24, 36], lon: [124, 148] }, set: 'global4', blocks: ['daily', 'monthly'],
+    quote: 'In the western Pacific south of Japan, return levels increase for longer block sizes, particularly for the 1000-year period',
+    cite: '§3.3', rule: 'at more than half the certified cells, the 1000-year level of the monthly block\'s decided family lies wholly above the daily block\'s',
+    decide: (S) => levelShift(S, 'l1000', 'daily', 'monthly', +1) },
+];
+
+/* S: { cells: [{ blocks: { <blk>: { rank: { ad }, fits } } }] } restricted to the claim's region */
+function counts(S, blk) {
+  const by = {}; let refused = 0;
+  for (const c of S.cells) { const r = c.blocks[blk].rank.ad; if (r === 'R') refused++; else by[r] = (by[r] || 0) + 1; }
+  return { by, refused, n: S.cells.length };
+}
+const V = { H: 'HOLDS', F: 'DOES NOT HOLD', U: 'UNDECIDED' };
+/* The refused cells of different blocks fall independently (a cell's family at one block does not fix it at
+   another), and within a block each could be any family. So a claim HOLDS when it holds in its worst case at every
+   step, and DOES NOT HOLD only when no assignment at all makes it true — decided jointly over every block, never step
+   by step (1 < c < 2 has no whole number in it). instruments/hseva/battery.js checks both against brute force. */
+function monotone(S, fam, blocks, dir) {
+  const cs = blocks.map((b) => counts(S, b)), m = blocks.length;
+  const lo = cs.map((c) => c.by[fam] || 0), hi = cs.map((c, k) => lo[k] + c.refused);
+  const holds = blocks.every((b, k) => k === 0 || (dir > 0 ? lo[k] > hi[k - 1] : hi[k] < lo[k - 1]));
+  /* possible: the least count at each step that keeps the chain strict, from the end the chain rises away from */
+  let possible = true;
+  if (dir > 0) { let c = lo[0]; for (let k = 1; k < m && possible; k++) { c = Math.max(lo[k], c + 1); if (c > hi[k]) possible = false; } }
+  else { let c = lo[m - 1]; for (let k = m - 2; k >= 0 && possible; k--) { c = Math.max(lo[k], c + 1); if (c > hi[k]) possible = false; } }
+  return { verdict: holds ? V.H : possible ? V.U : V.F, counts: cs.map((c, k) => ({ block: blocks[k], family: fam, decided: lo[k], refused: c.refused, n: c.n })) };
+}
+/* `up` decided at strictly more cells at each step and `down` at strictly fewer, the two sharing each block's refused
+   cells. Possible: from the last block back, `down` as few as the chain allows and `up` as many as the refused cells
+   left over allow — each choice the best the earlier blocks could ask of it, so the greedy is exact. */
+function risesAndFalls(S, up, down, blocks) {
+  const cs = blocks.map((b) => counts(S, b)), m = blocks.length;
+  const lU = cs.map((c) => c.by[up] || 0), lD = cs.map((c) => c.by[down] || 0), r = cs.map((c) => c.refused);
+  const holds = blocks.every((b, k) => k === 0 || (lU[k] > lU[k - 1] + r[k - 1] && lD[k] + r[k] < lD[k - 1]));
+  let possible = true, u = lU[m - 1] + r[m - 1], d = lD[m - 1];
+  for (let k = m - 2; k >= 0 && possible; k--) {
+    const dk = Math.max(lD[k], d + 1);
+    const uk = Math.min(lU[k] + r[k] - (dk - lD[k]), u - 1);
+    if (dk > lD[k] + r[k] || uk < lU[k]) possible = false;
+    d = dk; u = uk;
+  }
+  const row = (fam, l) => cs.map((c, k) => ({ block: blocks[k], family: fam, decided: l[k], refused: c.refused, n: c.n }));
+  return { verdict: holds ? V.H : possible ? V.U : V.F, counts: row(down, lD).concat(row(up, lU)) };
+}
+function majority(S, fam, blk) {
+  const c = counts(S, blk), lo = c.by[fam] || 0, hi = lo + c.refused;
+  return { verdict: lo > c.n / 2 ? V.H : hi <= c.n / 2 ? V.F : V.U, counts: [{ block: blk, decided: lo, refused: c.refused, n: c.n, by: c.by }] };
+}
+function plurality(S, fam, blk) {
+  const c = counts(S, blk), lo = c.by[fam] || 0, hi = lo + c.refused;
+  const others = SIX.filter((f) => f !== fam);                    /* a family decided nowhere could still take every refused cell */
+  const holds = others.every((f) => lo > (c.by[f] || 0) + c.refused);
+  const fails = others.some((f) => (c.by[f] || 0) >= hi);
+  return { verdict: holds ? V.H : fails ? V.F : V.U, counts: [{ block: blk, decided: lo, refused: c.refused, n: c.n, by: c.by }] };
+}
+/* the decided family's level at block b against block a, per cell: lower, higher, or not decided. A level whose
+   enclosure is missing or has an end that is not a finite number (JSON writes ±∞ as null) is not decided. */
+const finite2 = (q) => Array.isArray(q) && q.length === 2 && q.every((x) => typeof x === 'number' && Number.isFinite(x));
+function levelShift(S, lv, a, b, dir) {
+  let yes = 0, no = 0, open = 0;
+  for (const c of S.cells) {
+    const A = c.blocks[a], B = c.blocks[b];
+    const fa = A.rank.ad, fb = B.rank.ad;
+    const la = fa !== 'R' && finite2(A.fits[fa][lv]) ? A.fits[fa][lv] : null, lb = fb !== 'R' && finite2(B.fits[fb][lv]) ? B.fits[fb][lv] : null;
+    if (!la || !lb) { open++; continue; }
+    if (dir < 0 ? lb[1] < la[0] : lb[0] > la[1]) yes++;
+    else if (dir < 0 ? lb[0] >= la[1] : lb[1] <= la[0]) no++;
+    else open++;                                          /* the two enclosures overlap: not ordered */
+  }
+  const n = S.cells.length;
+  return { verdict: yes > n / 2 ? V.H : yes + open <= n / 2 ? V.F : V.U, counts: [{ block: a + ' → ' + b, relation: dir < 0 ? 'lower' : 'higher', level: lv, decided: yes, against: no, refused: open, n }] };
+}
+
+/* cells: the atlas ledger's cells joined with the corpus's lat, lon, sets */
+function evaluate(cells) {
+  return CLAIMS.map((K) => {
+    const S = { cells: cells.filter((c) => c.sets.includes(K.set) && inBox(c, K.box)) };
+    const r = S.cells.length ? K.decide(S) : { verdict: V.U, counts: [] };
+    return Object.assign({ id: K.id, where: K.where, quote: K.quote, cite: K.cite, rule: K.rule, blocks: K.blocks, box: K.box, cells: S.cells.length }, r);
+  });
+}
+
+if (typeof module !== 'undefined') module.exports = { CLAIMS, evaluate, inBox, VERDICTS: V, rules: { counts, monotone, risesAndFalls, majority, plurality, levelShift } };
+
+R.AC = module.exports; })();
+window.ATLAS_RULES = R; })();</script>
 <script>/* app.js — the return-level atlas, in the tab.
    playground/return-level-atlas/ · cert-machine
 
@@ -3437,6 +3669,7 @@ self.onmessage = function (ev) {
     });
     map.on('mouseout', () => { $('ra-tip').style.display = 'none'; hover = null; if (map.getLayer('hov')) map.setFilter('hov', ['==', ['get', 'i'], -1]); });
     map.on('click', (e) => {
+      if (drawing || Date.now() - drew < 500) return;                /* the release of a drawn rectangle is not a choice of cell */
       const f = map.queryRenderedFeatures(e.point, { layers })[0];
       if (f) select(cells[f.properties.i]);
     });
@@ -3447,6 +3680,7 @@ self.onmessage = function (ev) {
     map.getSource('cells').setData(features());
     legend();
     panel();
+    writeHash();
   }
 
   /* ---- words ---- */
@@ -3591,6 +3825,7 @@ self.onmessage = function (ev) {
     }
     if (focus) $('ra-t-' + t).focus();
     $('ra-body').scrollTop = 0;
+    writeHash();
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
     panel();
   }
@@ -3613,7 +3848,8 @@ self.onmessage = function (ev) {
   /* after a transition: the panel's and the sheet's are --dur-med */
   const later = (f) => setTimeout(f, 320);
   function panel() {
-    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === claimOn));
+    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', !!li.dataset.claim && li.dataset.claim === claimOn));
+    if (state.tab === 'claims') mineForm();
     const sm = $('ra-sm');
     if (state.mode === 'family' && state.tab === 'claims') {
       sm.innerHTML = '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
@@ -3636,7 +3872,7 @@ self.onmessage = function (ev) {
   }
   function claimClick(id) {
     const k = A.claims.find((q) => q.id === id); if (!k) return;
-    claimOn = id;
+    claimOn = id; MY.on = false;
     const fam = /weibull-rises/.test(id) ? 'weibull' : /gg-/.test(id) ? 'gengamma' : /ew-|japan-ew/.test(id) ? 'expweibull' : /monsoon/.test(id) ? 'weibull' : null;
     state.block = k.blocks[k.blocks.length - 1];
     if (fam) { state.mode = 'family'; state.fam = fam; state.crit = 'ad'; } else { state.mode = 'blocks'; state.T = /1000|japan/.test(id) ? 1000 : 100; }
@@ -3651,6 +3887,7 @@ self.onmessage = function (ev) {
     } else if (k.box && k.box.lat[0] > -90) fly({ center: [0, (k.box.lat[0] + k.box.lat[1]) / 2], zoom: 1.6 });
     else fly(GO[0][2]);
     panel();
+    writeHash();
   }
   const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
@@ -3662,8 +3899,10 @@ self.onmessage = function (ev) {
       if (worker) { worker.terminate(); worker = null; run = null; }
       if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
     }
+    loadData(c);
     if (state.tab !== 'cell') setTab('cell'); else panel();
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
+    writeHash();
   }
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   function blockRows(c) {
@@ -3675,46 +3914,96 @@ self.onmessage = function (ev) {
     return '<div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
   }
   function cellPanel(el, c) {
-    let h = '<h3>' + esc(place(c)) + '</h3><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
+    let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
     const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
       el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p><div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
-      $('ra-back').onclick = back;
+      $('ra-back').onclick = back; $('ra-link-cell').onclick = (e) => copyLink(e.target);
       return;
     }
-    /* the action first, its result right under it; the ledger's table and the words after */
+    /* the action first, its result right under it; the cell's own data drawn as soon as it arrives; the ledger's table and the words after */
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger)</div>' + blockRows(c);
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>It fetches this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, pinned by commit, checks their sha256, runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
+    $('ra-link-cell').onclick = (e) => copyLink(e.target);
     if (SPEC.served) $('ra-cert').onclick = () => certifyCell(c);
     if (run && run.id === c.id) { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }   /* a run in progress, or how the last one ended */
     else if (lastCert && lastCert.id === c.id) showCert(c, lastCert);
+    const D = data.get(c.id);
+    if (D && D.status === 'ok') enableCsv(c, D);
+    charts(c);
   }
-  /* ---- the cell, certified again in this tab ---- */
+
+  /* ---- the cell's own data: fetched and checked against its pin when the cell is chosen ---- */
+  const data = new Map();
+  const RULES = window.ATLAS_RULES || null;                          /* the ledger's block rule and claims code, inlined by build.js */
   async function digest(buf) { const d = await crypto.subtle.digest('SHA-256', buf); return Array.from(new Uint8Array(d)).map((x) => x.toString(16).padStart(2, '0')).join(''); }
+  function loadData(c) {
+    if (!SPEC.served || c.ice) return null;
+    if (data.has(c.id)) return data.get(c.id).done;
+    const D = { status: 'loading' };
+    D.done = (async () => {
+      try {
+        const r = await fetch(SPEC.served + 'cells/' + c.id + '.i16');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const buf = await r.arrayBuffer(), sh = await digest(buf);
+        if (sh !== c.sha) { D.status = 'refused'; D.why = 'the bytes served are not the pinned bytes (sha256 ' + sh.slice(0, 12) + '…)'; }
+        else {
+          const v = new Int16Array(buf), d0 = Date.parse(A.first + 'T00:00:00Z'), t = new Array(v.length), x = new Array(v.length);
+          for (let i = 0; i < v.length; i++) { t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); x[i] = v[i] / 500; }
+          Object.assign(D, { status: 'ok', buf, sha: sh, t, h: x, bm: {} });
+        }
+      } catch (e) { D.status = 'refused'; D.why = 'the cell file could not be fetched (' + e.message + ')'; }
+      if (sel === c && state.tab === 'cell') { if (D.status === 'ok') enableCsv(c, D); charts(c); }
+      return D;
+    })();
+    data.set(c.id, D);
+    return D.done;
+  }
+  /* the block maxima by THE block rule, with the day each one fell on */
+  function bmOf(D, blk) {
+    if (D.bm[blk]) return D.bm[blk];
+    const BM = RULES.BR.blockMaxima({ n: D.h.length, t: D.t, h: D.h, step: 24 }, blk), key = RULES.BR.BLOCKS[blk].key, at = new Map();
+    for (let i = 0; i < D.h.length; i++) { const k = key(D.t[i]), q = at.get(k); if (q === undefined || D.h[i] > D.h[q]) at.set(k, i); }
+    BM.at = BM.keys.map((k) => at.get(k));
+    /* the histogram's bins and the QQ plot's plotting positions (Gringorten), chosen here and sent to the worker, so the
+       fits are drawn against exactly the counts shown */
+    let mx = 0; for (const v of BM.x) if (v > mx) mx = v;
+    const nb = Math.min(40, Math.max(12, Math.round(Math.sqrt(BM.n) / 1.4))), wd = mx * 1.04 / nb;
+    BM.edges = Array.from({ length: nb + 1 }, (_, k) => k * wd);
+    BM.obs = new Array(nb).fill(0); for (const v of BM.x) BM.obs[Math.min(nb - 1, Math.floor(v / wd))]++;
+    const s = BM.x.slice().sort((a, b) => a - b), n = s.length, keep = new Set();
+    for (let i = Math.max(0, n - 60); i < n; i++) keep.add(i);
+    for (let i = 0; i < n; i += Math.max(1, Math.floor(n / 140))) keep.add(i);
+    const idx = [...keep].sort((a, b) => a - b);
+    BM.qx = idx.map((i) => s[i]); BM.qp = idx.map((i) => (i + 1 - 0.44) / (n + 0.12));
+    return (D.bm[blk] = BM);
+  }
+  function enableCsv(c, D) {
+    const sv = $('ra-csv'); if (!sv) return;
+    sv.disabled = false;
+    sv.onclick = () => { const L = ['date,hs_daily_max_m']; for (let i = 0; i < D.h.length; i++) L.push(D.t[i] + ',' + D.h[i].toFixed(3)); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([L.join('\n') + '\n'], { type: 'text/csv' })); a.download = 'ww3-daily-max-' + c.id + '.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+  }
+
+  /* ---- the cell, certified again in this tab ---- */
   async function certifyCell(c) {
     if (worker) { worker.terminate(); worker = null; }
     const me = run = { id: c.id, text: '' };
     /* every message looks the panel up again: a block switch re-renders it, and the run's words must follow */
     const say = (t, done) => { me.text = t; if (run !== me) return; const p = $('ra-prog'), b = $('ra-cert'); if (sel === c && p) p.textContent = t; if (sel === c && b) b.disabled = !done; };
     say('fetching the daily maxima …');
-    let buf;
-    try {
-      const r = await fetch(SPEC.served + 'cells/' + c.id + '.i16');
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      buf = await r.arrayBuffer();
-    } catch (e) { say('REFUSED: the cell file could not be fetched (' + e.message + ')', true); return; }
-    const h = await digest(buf);
+    const D = await loadData(c);
     if (run !== me) return;
-    if (h !== c.sha) { say('REFUSED: the bytes served are not the pinned bytes (sha256 ' + h.slice(0, 12) + '…)', true); return; }
-    say('sha256 ' + h.slice(0, 12) + '… matches; certifying the daily maxima …');
-    const csv = (() => { const v = new Int16Array(buf.slice(0)), d0 = Date.parse(A.first + 'T00:00:00Z'), L = ['date,hs_daily_max_m']; for (let i = 0; i < v.length; i++) L.push(new Date(d0 + i * 86400000).toISOString().slice(0, 10) + ',' + (v[i] / 500).toFixed(3)); return L.join('\n') + '\n'; })();
+    if (!D || D.status !== 'ok') { say('REFUSED: ' + (D ? D.why : 'no cell file is served'), true); return; }
+    say('sha256 ' + D.sha.slice(0, 12) + '… matches; certifying the daily maxima …');
+    const bins = {}, qqp = {};
+    for (const b of BLK) { const BM = bmOf(D, b); bins[b] = BM.edges; qqp[b] = BM.qp; }
     const w = worker = new Worker(WURL), t0 = Date.now();
     w.onmessage = async (ev) => {
       if (w !== worker || run !== me) return;
@@ -3727,39 +4016,135 @@ self.onmessage = function (ev) {
       /* the same decisions: every criterion's choice, the threshold fitter's, and both hard families' states, block by block */
       const sameDecisions = BLK.every((b, j) => CRIT.every((k) => (rec.blocks[b].rank[k] === 'R' ? 6 : FAM.indexOf(rec.blocks[b].rank[k])) === c.blocks[b][k])
         && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew);
-      lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000, csv };
+      lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000 };
       run = null;
+      if (!state.chartPicked) state.chart = 'rl';
       if (sel === c) showCert(c, lastCert);
     };
     w.onerror = (e) => { if (w !== worker) return; worker = null; say('The run failed in the worker: ' + ((e && e.message) || 'no message'), true); };
-    w.postMessage({ id: c.id, raw: buf, first: A.first }, [buf]);
+    w.postMessage({ id: c.id, raw: D.buf.slice(0), first: A.first, bins, qqp });
   }
-  /* a finished certification, shown (again) in the cell's panel: the verdict against the ledger, the return-level plot of the block in view, every fit */
+  /* a finished certification, shown (again) in the cell's panel: the verdict against the ledger, the design-life level, every fit */
   function showCert(c, R) {
     const prog = $('ra-prog'), rec = R.rec;
     if (!prog) return;
     prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
     const P = R.plot[state.block], B = rec.blocks[state.block];
-    const drawn = P ? FAM.filter((f) => P.fam[f] && P.fam[f].length > 1) : [];
-    const off = FAM.filter((f) => !drawn.includes(f));
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
     const up = dll ? Math.ceil(dll[1] * 100 - 1e-9) / 100 : null;
-    const life = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
-    $('ra-full').innerHTML = life + (P ? '<div class="k">return levels · ' + esc(BW[state.block]) + '</div><canvas class="ra-rl" id="ra-rl" role="img" aria-label="Return level against return period for each certified family, with the block maxima and the largest day on record"></canvas>'
-      + '<p class="n">Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + esc(FW[B.rank.ad]) + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + esc(BW[state.block]) + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => esc(FW[f])).join(', ') + ' (no certified fit).' : '') + '</p>' : '')
-      + fullTable(rec);
-    if (P) drawRL($('ra-rl'), P, B, c, drawn);
-    const dl = $('ra-dl'), sv = $('ra-csv'), btn = $('ra-cert');
+    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
+    $('ra-full').innerHTML = '<div class="k">every fit, certified here</div>' + fullTable(rec);
+    charts(c);
+    const dl = $('ra-dl'), btn = $('ra-cert');
     if (btn) btn.disabled = false;
-    sv.disabled = false; dl.disabled = false;
-    sv.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([R.csv], { type: 'text/csv' })); a.download = 'ww3-daily-max-' + c.id + '.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+    dl.disabled = false;
     dl.onclick = () => {
       const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), six families fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
     };
+  }
+
+  /* ---- four ways to look at a cell: its series, a histogram, a QQ plot, the return levels ---- */
+  const VIEWS = [['series', 'the series'], ['hist', 'histogram'], ['qq', 'QQ'], ['rl', 'return levels']];
+  function charts(c) {
+    const box = $('ra-charts'); if (!box) return;
+    const D = data.get(c.id);
+    if (!SPEC.served) { box.innerHTML = ''; return; }
+    if (!D || D.status === 'loading') { box.innerHTML = '<p class="n">fetching this cell\'s daily maxima from the public repository …</p>'; return; }
+    if (D.status === 'refused') { box.innerHTML = '<p class="n">REFUSED: ' + esc(D.why) + '</p>'; return; }
+    const R = lastCert && lastCert.id === c.id ? lastCert : null, P = R ? R.plot[state.block] : null, B = R ? R.rec.blocks[state.block] : null;
+    const v = state.chart || 'series', BM = bmOf(D, state.block);
+    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : famOf(c.blocks[state.block].ad);
+    const avail = P ? FAM.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
+    const hl = avail.includes(state.hl) ? state.hl : avail.includes(best) ? best : avail[0] || null;
+    let h = '<div class="ra-seg ra-cviews" id="ra-cviews" role="radiogroup" aria-label="how to look at the cell"></div>';
+    if ((v === 'hist' || v === 'qq') && avail.length) h += '<div class="ra-seg ra-cfams" id="ra-cfams" role="radiogroup" aria-label="which fit to draw in ink"></div>';
+    h += '<canvas class="ra-rl" id="ra-cv" role="img" aria-label="' + esc(VIEWS.find((q) => q[0] === v)[1]) + ' of this cell\'s ' + esc(BW[state.block]) + '"></canvas><p class="n" id="ra-cap"></p>';
+    box.innerHTML = h;
+    seg($('ra-cviews'), VIEWS, v, (x) => { state.chart = x; state.chartPicked = true; charts(c); writeHash(); });
+    if ($('ra-cfams')) seg($('ra-cfams'), avail.map((f) => [f, FS[f]]), hl, (x) => { state.hl = x; charts(c); });
+    const cv = $('ra-cv'), cap = $('ra-cap'), need = ' Certify the cell to draw the six fits.';
+    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + A.first.slice(0, 4) + '–' + A.last.slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
+    else if (v === 'hist') { drawHist(cv, BM, P && P.hist, hl); cap.textContent = 'The ' + fmt(BM.n) + ' ' + BW[state.block] + ' (bars) ' + (P && hl ? 'and what each certified fit expects in the same bins (lines); the ' + FW[hl] + ' in ink' + (hl === best ? ', the family Anderson–Darling decides' : '') + '.' : '.' + need); }
+    else if (v === 'qq') { if (P && hl) { const off = drawQQ(cv, BM, P.qq.q[hl]); cap.textContent = 'Each of the ' + fmt(BM.n) + ' ' + BW[state.block] + ' (the top sixty all shown) against the ' + FW[hl] + ' fit\'s quantile at its plotting position (Gringorten): on the diagonal where the fit is right, above it where the data run heavier than the family, below it where the family\'s tail runs heavier than the sea.' + (off.n ? ' ' + off.n + ' point' + (off.n > 1 ? 's lie' : ' lies') + ' past the axis, the fit\'s quantile reaching ' + off.max.toFixed(1) + ' m.' : ''); } else { blank(cv); cap.textContent = 'The QQ plot needs the fits.' + need; } }
+    else { if (P) { const drawn = FAM.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM.filter((f) => !drawn.includes(f)); drawRL(cv, P, B, c, drawn); cap.textContent = 'Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
+  }
+  /* a canvas sized to its column, in device pixels */
+  function canvasOf(cv, ratio) {
+    const dpr = window.devicePixelRatio || 1, W = Math.max(260, cv.clientWidth || 340), H = Math.round(W * ratio);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.height = H + 'px';
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = C.paper; g.fillRect(0, 0, W, H); g.font = '10px ' + (tok('--font-mono') || 'monospace'); g.lineWidth = 1;
+    return { g, W, H };
+  }
+  function blank(cv) { canvasOf(cv, 0.18); }
+  const niceStep = (top, k) => [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200].find((s) => top / s <= (k || 6)) || 500;
+  function yAxis(g, m, W, H, top, Y) {
+    const st = niceStep(top); g.textAlign = 'right';
+    for (let v = 0; v <= top + 1e-9; v += st) { const y = Y(v); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(m.l, y); g.lineTo(W - m.r, y); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), m.l - 4, y + 3); }
+    g.textAlign = 'left'; g.fillText('m', 4, m.t + 8);
+  }
+  function drawSeries(cv, D, BM, c) {
+    const { g, W, H } = canvasOf(cv, 0.5), m = { l: 30, r: 10, t: 10, b: 22 }, n = D.h.length;
+    let mx = 0, im = 0; for (let i = 0; i < n; i++) if (D.h[i] > mx) { mx = D.h[i]; im = i; }
+    const top = Math.ceil(mx * 1.12 / niceStep(mx * 1.12)) * niceStep(mx * 1.12);
+    const X = (i) => m.l + i / (n - 1) * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
+    yAxis(g, m, W, H, top, Y);
+    const y0 = Number(A.first.slice(0, 4)), y1 = Number(A.last.slice(0, 4)) + 1, d0 = Date.parse(A.first + 'T00:00:00Z');
+    g.textAlign = 'center';
+    for (let y = y0; y <= y1; y += 4) { const i = (Date.UTC(y, 0, 1) - d0) / 86400000, x = X(Math.min(n - 1, Math.max(0, i))); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
+    const cols = Math.max(1, Math.floor(W - m.l - m.r)); g.strokeStyle = C.ink4;
+    for (let k = 0; k < cols; k++) {                              /* each pixel column: the range of its days */
+      const a = Math.floor(k / cols * n), b = Math.max(a + 1, Math.floor((k + 1) / cols * n)); let lo = Infinity, hi = -Infinity;
+      for (let i = a; i < b && i < n; i++) { if (D.h[i] < lo) lo = D.h[i]; if (D.h[i] > hi) hi = D.h[i]; }
+      g.beginPath(); g.moveTo(m.l + k + 0.5, Y(lo)); g.lineTo(m.l + k + 0.5, Y(hi) - 0.5); g.stroke();
+    }
+    if (BM.block !== 'daily') { g.fillStyle = C.ink2; for (let k = 0; k < BM.n; k++) { g.beginPath(); g.arc(X(BM.at[k]), Y(BM.x[k]), BM.n > 1000 ? 0.9 : 1.4, 0, 2 * Math.PI); g.fill(); } }
+    g.strokeStyle = C.ink; g.lineWidth = 1.4; g.beginPath(); g.arc(X(im), Y(mx), 4, 0, 2 * Math.PI); g.stroke();
+    g.fillStyle = C.ink; g.textAlign = X(im) > W / 2 ? 'right' : 'left'; g.fillText(mx.toFixed(2) + ' m · ' + D.t[im], X(im) + (X(im) > W / 2 ? -8 : 8), Math.max(m.t + 8, Y(mx) + 3));
+  }
+  function drawHist(cv, BM, HS, hl) {
+    const { g, W, H } = canvasOf(cv, 0.6), m = { l: 30, r: 10, t: 10, b: 22 }, E = BM.edges, nb = E.length - 1, wd = E[1] - E[0];
+    const dens = BM.obs.map((k) => k / (BM.n * wd));
+    let top = Math.max(...dens);
+    if (HS) for (const f in HS.exp) for (const e of HS.exp[f]) if (isFinite(e)) top = Math.max(top, Math.min(e / (BM.n * wd), top * 1.6));
+    top *= 1.08;
+    const X = (v) => m.l + v / E[nb] * (W - m.l - m.r), Y = (d) => H - m.b - Math.min(d, top) / top * (H - m.t - m.b);
+    const st = niceStep(E[nb], 7); g.textAlign = 'center';
+    for (let v = 0; v <= E[nb] + 1e-9; v += st) { const x = X(v); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), x, H - 7); }
+    g.textAlign = 'left'; g.fillText('m', W - m.r - 8, H - 7);
+    g.fillStyle = C.s[0];
+    for (let j = 0; j < nb; j++) g.fillRect(X(E[j]) + 0.5, Y(dens[j]), Math.max(1, X(E[j + 1]) - X(E[j]) - 1), H - m.b - Y(dens[j]));
+    if (HS) {
+      const order = Object.keys(HS.exp).filter((f) => f !== hl).concat(HS.exp[hl] ? [hl] : []);
+      g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
+      for (const f of order) {
+        const e = HS.exp[f], main = f === hl; g.strokeStyle = main ? C.ink : C.ink4; g.lineWidth = main ? 2 : 1; g.beginPath();
+        for (let j = 0; j < nb; j++) { const d = isFinite(e[j]) ? e[j] / (BM.n * wd) : 0; if (j) g.lineTo(X(E[j]), Y(d)); else g.moveTo(X(E[j]), Y(d)); g.lineTo(X(E[j + 1]), Y(d)); }
+        g.stroke();
+      }
+      g.restore();
+    }
+  }
+  function drawQQ(cv, BM, q) {
+    const { g, W, H } = canvasOf(cv, 0.85), m = { l: 30, r: 12, t: 12, b: 22 };
+    const xs = BM.qx, pts = xs.map((x, i) => [q[i], x]).filter((p) => p[0] !== null && isFinite(p[0]));
+    const xmax = Math.max(...xs), lim = Math.max(xmax, Math.min(Math.max(...pts.map((p) => p[0])), xmax * 1.8)) * 1.05;
+    const top = Math.ceil(lim / niceStep(lim)) * niceStep(lim);
+    const X = (v) => m.l + v / top * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
+    yAxis(g, m, W, H, top, Y);
+    const st = niceStep(top); g.textAlign = 'center';
+    for (let v = st; v <= top + 1e-9; v += st) { g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), X(v), H - 7); }
+    g.strokeStyle = C.ink4; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(top), Y(top)); g.stroke(); g.setLineDash([]);   /* design/grammar.js GUIDE */
+    g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
+    g.fillStyle = C.ink; for (const [a, b] of pts) { g.beginPath(); g.arc(X(Math.min(a, top)), Y(b), 1.8, 0, 2 * Math.PI); g.fill(); }
+    g.restore();
+    g.fillStyle = C.ink4; g.textAlign = 'right'; g.fillText('the fit\'s quantile, m', W - m.r, H - m.b - 6);
+    const past = pts.filter((p) => p[0] > top);                        /* drawn on the edge, and counted in the caption */
+    return { n: past.length, max: past.length ? Math.max(...past.map((p) => p[0])) : 0 };
   }
   /* the return-level plot: log return period (years) across, Hs up; the decided family in ink, the others quiet, the maxima as dots, the record dashed */
   function drawRL(cv, P, B, c, drawn) {
@@ -3815,6 +4200,198 @@ self.onmessage = function (ev) {
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
   }
 
+  /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
+  /* the page's compact cell, read the way instruments/hseva/atlas-claims.js reads a ledger cell; for a criterion other
+     than Anderson–Darling only the choice is carried (the levels on the page are the Anderson–Darling family's) */
+  function asLedger(c, crit) {
+    const sets = []; if (c.sets & 1) sets.push('global4'); if (c.sets & 2) sets.push('brazil1'); if (c.sets & 4) sets.push('report:' + c.report);
+    const blocks = {};
+    for (const b of BLK) {
+      const q = c.blocks[b], f = famOf(q[crit || 'ad']) || 'R', fits = {};
+      if (f !== 'R' && (crit || 'ad') === 'ad') fits[f] = { l100: q.l100[0] === null ? null : q.l100, l1000: q.l1000[0] === null ? null : q.l1000 };
+      blocks[b] = { rank: { ad: f }, fits };
+    }
+    return { id: c.id, lat: c.lat, lon: c.lon, sets, blocks };
+  }
+  const RULE_W = [['plurality', 'is the most frequent choice'], ['majority', 'is chosen at more than half the cells'], ['more', 'is chosen at more cells as the block grows'], ['fewer', 'is chosen at fewer cells as the block grows'], ['falls', 'the design wave falls as the block grows'], ['rises', 'the design wave rises as the block grows']];
+  const SEQ = { dw: ['daily', 'weekly'], wm: ['weekly', 'monthly'], dm: ['daily', 'monthly'], dwm: ['daily', 'weekly', 'monthly'] };
+  const MY = { box: null, cells: 'g4', rule: 'plurality', fam: 'expweibull', blk: 'monthly', crit: 'ad', seq: 'dm', T: 100, on: false };
+  const mySpec = () => ['box:' + (MY.box ? (MY.box.lon ? [MY.box.lat[0], MY.box.lat[1], MY.box.lon[0], MY.box.lon[1]] : [MY.box.lat[0], MY.box.lat[1]]).join(',') : 'globe'), 'cells:' + MY.cells, 'rule:' + MY.rule, 'fam:' + MY.fam, 'blk:' + MY.blk, 'crit:' + MY.crit, 'seq:' + MY.seq, 'T:' + MY.T].join(';');
+  function readMy(spec) {
+    for (const part of String(spec).split(';')) {
+      const [k, v] = part.split(':'); if (!v) continue;
+      if (k === 'box') { const n = v === 'globe' ? [] : v.split(',').map(Number); MY.box = n.length === 4 && n.every(isFinite) ? { lat: [Math.min(n[0], n[1]), Math.max(n[0], n[1])], lon: [n[2], n[3]] } : n.length === 2 && n.every(isFinite) ? { lat: [Math.min(n[0], n[1]), Math.max(n[0], n[1])] } : null; }
+      else if (k === 'cells' && ['g4', 'b1', 'all'].includes(v)) MY.cells = v;
+      else if (k === 'rule' && RULE_W.some((r) => r[0] === v)) MY.rule = v;
+      else if (k === 'fam' && FAM.includes(v)) MY.fam = v;
+      else if (k === 'blk' && BLK.includes(v)) MY.blk = v;
+      else if (k === 'crit' && CRIT.includes(v)) MY.crit = v;
+      else if (k === 'seq' && SEQ[v]) MY.seq = v;
+      else if (k === 'T' && (v === '100' || v === '1000')) MY.T = Number(v);
+    }
+  }
+  const boxWords = (b) => (!b ? 'the whole globe' : (b.lon ? latW(b.lat[0]) + ' to ' + latW(b.lat[1]) + ', ' + lonW(b.lon[0]) + ' to ' + lonW(b.lon[1]) : latW(b.lat[0]) + ' to ' + latW(b.lat[1]) + ', all longitudes'));
+  const latW = (v) => Math.abs(v) + '° ' + (v < 0 ? 'S' : 'N'), lonW = (v) => Math.abs(v) + '° ' + (v < 0 ? 'W' : 'E');
+  function mineForm() {
+    const el = $('ra-mine'); if (!el || el.dataset.on) return;
+    el.dataset.on = '1';
+    const opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    el.innerHTML = '<div class="k">your own claim</div><p class="n">Draw a region on the globe or type it, say what should hold there, and it is decided here — the way the paper\'s ten below are, by the same rule code, from the certificates the map shows.</p>'
+      + '<div class="ra-mine"><div class="ra-go-row"><button type="button" id="ra-draw">draw a region on the globe</button><button type="button" id="ra-whole">the whole globe</button></div>'
+      + '<div class="ra-box4"><label class="ra-lab">from<input id="ra-b-s" class="ra-select" type="number" step="0.5" min="-90" max="90" placeholder="lat"></label><label class="ra-lab">to<input id="ra-b-n" class="ra-select" type="number" step="0.5" min="-90" max="90" placeholder="lat"></label><label class="ra-lab">west<input id="ra-b-w" class="ra-select" type="number" step="0.5" min="-180" max="180" placeholder="lon"></label><label class="ra-lab">east<input id="ra-b-e" class="ra-select" type="number" step="0.5" min="-180" max="180" placeholder="lon"></label></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-m-cells">cells</label><select id="ra-m-cells" class="ra-select">' + opt([['g4', 'the 4° globe'], ['b1', 'the 1° Brazilian margin'], ['all', 'both lattices']], MY.cells) + '</select></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-m-rule">claim</label><select id="ra-m-rule" class="ra-select">' + opt(RULE_W, MY.rule) + '</select></div>'
+      + '<div class="ra-mrow" id="ra-m-args"></div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-decide">decide it</button><button type="button" class="ra-linkbtn" id="ra-link-mine" disabled>link to this claim</button></div>'
+      + '<div id="ra-m-out" aria-live="polite"></div></div>';
+    $('ra-draw').onclick = () => startDraw();
+    $('ra-whole').onclick = () => { MY.box = null; fillBox(); decideMine(true); };
+    for (const id of ['ra-b-s', 'ra-b-n', 'ra-b-w', 'ra-b-e']) $(id).onchange = () => { readBox(); };
+    $('ra-m-cells').onchange = (e) => { MY.cells = e.target.value; };
+    $('ra-m-rule').onchange = (e) => { MY.rule = e.target.value; mineArgs(); };
+    $('ra-decide').onclick = () => { readBox(); decideMine(true); };
+    $('ra-link-mine').onclick = (e) => copyLink(e.target);
+    mineArgs(); fillBox();
+  }
+  function mineArgs() {
+    const el = $('ra-m-args'), opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    const lvl = MY.rule === 'falls' || MY.rule === 'rises', seqd = lvl || MY.rule === 'more' || MY.rule === 'fewer';
+    let h = '';
+    if (!lvl) h += '<select id="ra-m-fam" class="ra-select" aria-label="family">' + opt(FAM.map((f) => [f, FW[f]]), MY.fam) + '</select>';
+    if (lvl) h += '<select id="ra-m-T" class="ra-select" aria-label="return period">' + opt([[100, 'the 100-year wave'], [1000, 'the 1000-year wave']], MY.T) + '</select>';
+    h += seqd ? '<select id="ra-m-seq" class="ra-select" aria-label="blocks">' + opt((lvl ? ['dw', 'wm', 'dm'] : ['dw', 'wm', 'dm', 'dwm']).map((k) => [k, SEQ[k].join(' → ')]), MY.seq) + '</select>'
+      : '<select id="ra-m-blk" class="ra-select" aria-label="block">' + opt(BLK.map((b) => [b, BW[b]]), MY.blk) + '</select>';
+    if (!lvl) h += '<select id="ra-m-crit" class="ra-select" aria-label="criterion">' + opt(CRIT.map((k) => [k, CW[k]]), MY.crit) + '</select>';
+    el.innerHTML = h;
+    if (lvl && MY.seq === 'dwm') MY.seq = 'dm';
+    const on = (id, k, num) => { const x = $(id); if (x) x.onchange = (e) => { MY[k] = num ? Number(e.target.value) : e.target.value; }; };
+    on('ra-m-fam', 'fam'); on('ra-m-T', 'T', true); on('ra-m-seq', 'seq'); on('ra-m-blk', 'blk'); on('ra-m-crit', 'crit');
+  }
+  function fillBox() {
+    const b = MY.box, set = (id, v) => { const x = $(id); if (x) x.value = v === undefined || v === null ? '' : v; };
+    set('ra-b-s', b ? b.lat[0] : ''); set('ra-b-n', b ? b.lat[1] : ''); set('ra-b-w', b && b.lon ? b.lon[0] : ''); set('ra-b-e', b && b.lon ? b.lon[1] : '');
+  }
+  function readBox() {
+    const v = (id) => { const x = $(id); return x && x.value !== '' ? Number(x.value) : null; };
+    const s = v('ra-b-s'), n = v('ra-b-n'), w = v('ra-b-w'), e = v('ra-b-e');
+    if (s === null && n === null && w === null && e === null) return;
+    if ([s, n].every((x) => x !== null && isFinite(x))) {
+      const lat = [Math.max(-90, Math.min(s, n)), Math.min(90, Math.max(s, n))];
+      MY.box = w !== null && e !== null && isFinite(w) && isFinite(e) ? { lat, lon: [Math.max(-180, Math.min(180, w)), Math.max(-180, Math.min(180, e))] } : { lat };
+    }
+  }
+  function decideMine(andFly) {
+    if (!RULES) return;
+    const AC = RULES.AC, crit = MY.rule === 'falls' || MY.rule === 'rises' ? 'ad' : MY.crit;
+    const box = MY.box || { lat: [-90, 90] };
+    const inSet = (c) => (MY.cells === 'g4' ? c.sets & 1 : MY.cells === 'b1' ? c.sets & 2 : c.sets & 3);
+    const S = { cells: cells.filter((c) => !c.ice && inSet(c)).map((c) => asLedger(c, crit)).filter((c) => AC.inBox(c, box)) };
+    const R = AC.rules, blocks = SEQ[MY.seq];
+    let r;
+    if (!S.cells.length) r = { verdict: AC.VERDICTS.U, counts: [] };
+    else if (MY.rule === 'plurality') r = R.plurality(S, MY.fam, MY.blk);
+    else if (MY.rule === 'majority') r = R.majority(S, MY.fam, MY.blk);
+    else if (MY.rule === 'more' || MY.rule === 'fewer') r = R.monotone(S, MY.fam, blocks, MY.rule === 'more' ? 1 : -1);
+    else r = R.levelShift(S, 'l' + MY.T, blocks[0], blocks[blocks.length - 1], MY.rule === 'rises' ? 1 : -1);
+    MY.on = true;
+    const V = { HOLDS: 'holds', 'DOES NOT HOLD': 'does-not-hold', UNDECIDED: 'undecided' };
+    const lvl = MY.rule === 'falls' || MY.rule === 'rises';
+    const what = lvl ? 'the ' + MY.T + '-year wave of the decided family is ' + (MY.rule === 'falls' ? 'lower' : 'higher') + ' for the ' + BW[blocks[blocks.length - 1]] + ' than for the ' + BW[blocks[0]] + ' at more than half the cells'
+      : 'the ' + FW[MY.fam] + ' ' + RULE_W.find((q) => q[0] === MY.rule)[1] + ' (' + (MY.rule === 'more' || MY.rule === 'fewer' ? blocks.join(' → ') : BW[MY.blk]) + ', ' + CW[crit] + ')';
+    const cnt = (r.counts || []).map((q) => (q.against !== undefined ? q.block + ': ' + q.relation + ' at ' + q.decided + ', not ' + q.relation + ' at ' + q.against + ', not decided at ' + q.refused + ' of ' + q.n
+      : q.by ? q.block + ': the ' + FS[MY.fam] + ' at ' + q.decided + ' of ' + q.n + ' cells, ' + q.refused + ' refused; decided: ' + Object.entries(q.by).sort((a, b) => b[1] - a[1]).map(([f, k]) => FS[f] + ' ' + k).join(', ')
+      : (q.family ? FS[q.family] + ', ' : '') + q.block + ': ' + q.decided + ' decided, ' + q.refused + ' refused of ' + q.n)).join(' · ');
+    $('ra-m-out').innerHTML = '<div class="ra-claim ra-mine-out"><div class="ra-cv ra-v-' + V[r.verdict] + '">' + esc(r.verdict) + '</div><div class="ra-cq">In ' + esc(boxWords(MY.box)) + ', ' + esc(MY.cells === 'g4' ? 'the 4° globe' : MY.cells === 'b1' ? 'the 1° Brazilian margin' : 'both lattices') + ' (' + fmt(S.cells.length) + ' certified cell' + (S.cells.length === 1 ? '' : 's') + '): ' + esc(what) + '.</div><div class="ra-cn mono">' + esc(cnt || 'no certified cell in the region') + '</div></div>';
+    $('ra-link-mine').disabled = false;
+    /* the globe shows what the claim is about */
+    claimOn = null; state.block = lvl ? blocks[blocks.length - 1] : MY.rule === 'more' || MY.rule === 'fewer' ? blocks[blocks.length - 1] : MY.blk;
+    if (lvl) { state.mode = 'blocks'; state.T = MY.T; } else { state.mode = 'family'; state.fam = MY.fam; state.crit = crit; }
+    controls(); refresh();
+    if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(MY.box));
+    if (andFly && MY.box && MY.box.lon) { const [w, e] = MY.box.lon, E = e < w ? e + 360 : e; if (sheetMode()) setSheet('peek'); later(() => fly({ bounds: [[w, MY.box.lat[0]], [E, MY.box.lat[1]]] })); }
+    writeHash();
+  }
+  /* drawing: press and drag on the globe; the rectangle runs east when the pointer moves right */
+  let drawing = false, d0 = null, drew = 0;
+  function startDraw() {
+    if (!map) return;
+    drawing = true; map.dragPan.disable(); map.touchZoomRotate.disable(); map.getCanvas().style.cursor = 'crosshair';
+    const hint = $('ra-hint'); hint.textContent = 'press and drag across the region · Esc to stop'; hint.classList.add('on');
+    if (sheetMode()) setSheet('peek');
+  }
+  function stopDraw() {
+    drawing = false; d0 = null; if (!map) return;
+    map.dragPan.enable(); map.touchZoomRotate.enable(); map.getCanvas().style.cursor = '';
+    $('ra-hint').classList.remove('on');
+  }
+  function toBox(a, b) {
+    const r = (v) => Math.round(v * 2) / 2, la = [r(Math.min(a.lat, b.lat)), r(Math.max(a.lat, b.lat))];
+    const [w, e] = b.x >= a.x ? [a.lng, b.lng] : [b.lng, a.lng];
+    const wrap = (v) => ((v + 540) % 360) - 180;
+    return { lat: [Math.max(-89.5, la[0]), Math.min(89.5, la[1])], lon: [r(wrap(w)), r(wrap(e))] };
+  }
+  function drawEvents() {
+    const at = (e) => (e.lngLat && isFinite(e.lngLat.lat) && isFinite(e.lngLat.lng) ? { lat: e.lngLat.lat, lng: e.lngLat.lng, x: e.point.x } : null);
+    const down = (e) => { if (!drawing) return; const p = at(e); if (!p) return; e.preventDefault(); d0 = p; };
+    const move = (e) => { if (!drawing || !d0) return; const p = at(e); if (!p) return; map.getSource('box').setData(boxGeo(toBox(d0, p))); };
+    const up = (e) => {
+      if (!drawing || !d0) return;
+      const p = at(e) || d0, b = toBox(d0, p); stopDraw(); drew = Date.now();
+      if (b.lat[1] - b.lat[0] < 1 || Math.abs(b.lon[1] - b.lon[0]) < 1) { $('ra-hint').textContent = ''; return; }
+      MY.box = b; fillBox(); setTab('claims'); if (sheetMode()) setSheet('half'); decideMine(false);
+    };
+    map.on('mousedown', down); map.on('mousemove', move); map.on('mouseup', up);
+    map.on('touchstart', down); map.on('touchmove', move); map.on('touchend', up);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawing) stopDraw(); });
+  }
+
+  /* ---- links: the view, the cell, the claim and the camera, in the address; history is not spammed ---- */
+  let hashTimer = null, ready = false;
+  function writeHash(now) {
+    if (!ready) return;
+    const go = () => {
+      const q = new URLSearchParams();
+      q.set('v', state.mode); q.set('b', state.block);
+      if (['wave', 'blocks', 'record'].includes(state.mode)) q.set('T', state.T);
+      if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
+      if (state.tab !== 'claims') q.set('t', state.tab);
+      if (sel) q.set('c', sel.id);
+      if (sel && state.chartPicked) q.set('ch', state.chart);
+      if (claimOn) q.set('cl', claimOn);
+      if (MY.on) q.set('my', mySpec());
+      if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }
+      history.replaceState(null, '', '#' + q.toString());
+    };
+    clearTimeout(hashTimer);
+    if (now) go(); else hashTimer = setTimeout(go, 250);
+  }
+  function readHash() {
+    const q = new URLSearchParams(location.hash.slice(1)), g = (k) => q.get(k);
+    if (MODES.some(([v]) => v === g('v'))) state.mode = g('v');
+    if (BLK.includes(g('b'))) state.block = g('b');
+    if (g('T') === '100' || g('T') === '1000') state.T = Number(g('T'));
+    if (FAM.includes(g('f'))) state.fam = g('f');
+    if (CRIT.includes(g('k'))) state.crit = g('k');
+    if (VIEWS.some(([v]) => v === g('ch'))) { state.chart = g('ch'); state.chartPicked = true; }
+    const at = (g('at') || '').split(',').map(Number);
+    return { tab: TABS.includes(g('t')) ? g('t') : null, cell: g('c'), claim: g('cl'), my: g('my'), at: at.length === 3 && at.every(isFinite) ? at : null };
+  }
+  function copyLink(btn) {
+    writeHash(true);
+    const done = () => { const t = btn.textContent; btn.textContent = 'link copied'; setTimeout(() => { btn.textContent = t; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.href).then(done, () => window.prompt('the link', location.href));
+    else window.prompt('the link', location.href);
+  }
+
+  /* ---- the paper's ten, decided again in this tab from the map's own data by the ledger's rule code ---- */
+  function recheck() {
+    const el = $('ra-recheck'); if (!el || !RULES) return;
+    const K = RULES.AC.evaluate(cells.filter((c) => !c.ice).map((c) => asLedger(c, 'ad')));
+    const bad = A.claims.filter((k) => { const r = K.find((q) => q.id === k.id); return !r || r.verdict !== k.verdict || JSON.stringify(r.counts) !== JSON.stringify(k.counts); });
+    el.textContent = bad.length ? 'Decided again in this tab from the map\'s data: ' + bad.length + ' of the ' + A.claims.length + ' differ from the build (' + bad.map((k) => k.id).join(', ') + ') — report it.'
+      : 'Decided again in this tab, from the map\'s own data by the ledger\'s rule code: all ' + A.claims.length + ' verdicts and their counts are the build\'s.';
+  }
+
   /* ---- the panel's own controls: tabs (arrow keys between them), the fold, the sheet's grip ---- */
   function wire() {
     for (const t of TABS) $('ra-t-' + t).onclick = () => setTab(t);
@@ -3852,11 +4429,31 @@ self.onmessage = function (ev) {
   /* ---- start ---- */
   Promise.all([fetch('atlas.json').then((r) => r.json()), fetch('land.json').then((r) => r.json())]).then(([a, land]) => {
     A = a; cells = a.cells.map(decode); cells.forEach((c) => byId.set(c.id, c));
-    wire(); controls(); legend(); panel();
+    const H = readHash();
+    if (H.my) readMy(H.my);                                          /* before the form is first drawn, so it opens on the claim */
+    wire(); controls(); legend(); panel(); recheck();
     $('ra-app').dataset.ready = '1';
-    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; return; }
+    /* what the address names: a claim of the paper's or one's own, a cell, a tab — the view after them, as written */
+    const view = { mode: state.mode, block: state.block, T: state.T, fam: state.fam, crit: state.crit };
+    if (H.my) { mineForm(); decideMine(false); }
+    else if (H.claim && A.claims.some((k) => k.id === H.claim)) claimClick(H.claim);
+    Object.assign(state, view); controls(); legend();
+    if (H.cell && byId.has(H.cell)) select(byId.get(H.cell));
+    if (H.tab) setTab(H.tab);
+    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; ready = true; return; }
     try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims in the panel still stand.</p>'; }
-    if (map) map.on('load', () => { map.jumpTo({ padding: pad() }); map.jumpTo({ zoom: globeZoom() }); });
+    if (map) {
+      drawEvents();
+      map.on('load', () => {
+        map.jumpTo({ padding: pad() });
+        if (H.at) map.jumpTo({ center: [H.at[1], H.at[0]], zoom: H.at[2] }); else map.jumpTo({ zoom: globeZoom() });
+        if (sel && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(sel)]);
+        if (MY.on && MY.box) map.getSource('box').setData(boxGeo(MY.box));
+        else if (claimOn) { const k = A.claims.find((q) => q.id === claimOn); if (k) map.getSource('box').setData(boxGeo(k.box)); }
+        ready = true; writeHash();
+        map.on('moveend', () => writeHash());
+      });
+    } else ready = true;
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
     window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
   }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });

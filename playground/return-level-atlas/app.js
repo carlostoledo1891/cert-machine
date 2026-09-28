@@ -173,6 +173,7 @@
     });
     map.on('mouseout', () => { $('ra-tip').style.display = 'none'; hover = null; if (map.getLayer('hov')) map.setFilter('hov', ['==', ['get', 'i'], -1]); });
     map.on('click', (e) => {
+      if (drawing || Date.now() - drew < 500) return;                /* the release of a drawn rectangle is not a choice of cell */
       const f = map.queryRenderedFeatures(e.point, { layers })[0];
       if (f) select(cells[f.properties.i]);
     });
@@ -183,6 +184,7 @@
     map.getSource('cells').setData(features());
     legend();
     panel();
+    writeHash();
   }
 
   /* ---- words ---- */
@@ -327,6 +329,7 @@
     }
     if (focus) $('ra-t-' + t).focus();
     $('ra-body').scrollTop = 0;
+    writeHash();
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
     panel();
   }
@@ -349,7 +352,8 @@
   /* after a transition: the panel's and the sheet's are --dur-med */
   const later = (f) => setTimeout(f, 320);
   function panel() {
-    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', li.dataset.claim === claimOn));
+    document.querySelectorAll('.ra-claim').forEach((li) => li.classList.toggle('on', !!li.dataset.claim && li.dataset.claim === claimOn));
+    if (state.tab === 'claims') mineForm();
     const sm = $('ra-sm');
     if (state.mode === 'family' && state.tab === 'claims') {
       sm.innerHTML = '<div class="k">where each family is decided · ' + esc(CW[state.crit]) + ' · ' + esc(BW[state.block]) + '</div><div class="ra-sm">' + FAM.map((f) => '<figure><canvas width="360" height="180" data-f="' + f + '"></canvas><figcaption>' + esc(FW[f]) + ' · ' + fmt(cells.filter((c) => !c.ice && c.blocks[state.block][state.crit] === FAM.indexOf(f)).length) + '</figcaption></figure>').join('') + '</div>';
@@ -372,7 +376,7 @@
   }
   function claimClick(id) {
     const k = A.claims.find((q) => q.id === id); if (!k) return;
-    claimOn = id;
+    claimOn = id; MY.on = false;
     const fam = /weibull-rises/.test(id) ? 'weibull' : /gg-/.test(id) ? 'gengamma' : /ew-|japan-ew/.test(id) ? 'expweibull' : /monsoon/.test(id) ? 'weibull' : null;
     state.block = k.blocks[k.blocks.length - 1];
     if (fam) { state.mode = 'family'; state.fam = fam; state.crit = 'ad'; } else { state.mode = 'blocks'; state.T = /1000|japan/.test(id) ? 1000 : 100; }
@@ -387,6 +391,7 @@
     } else if (k.box && k.box.lat[0] > -90) fly({ center: [0, (k.box.lat[0] + k.box.lat[1]) / 2], zoom: 1.6 });
     else fly(GO[0][2]);
     panel();
+    writeHash();
   }
   const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
@@ -398,8 +403,10 @@
       if (worker) { worker.terminate(); worker = null; run = null; }
       if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
     }
+    loadData(c);
     if (state.tab !== 'cell') setTab('cell'); else panel();
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
+    writeHash();
   }
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   function blockRows(c) {
@@ -411,46 +418,96 @@
     return '<div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
   }
   function cellPanel(el, c) {
-    let h = '<h3>' + esc(place(c)) + '</h3><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
+    let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
     const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
       el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p><div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
-      $('ra-back').onclick = back;
+      $('ra-back').onclick = back; $('ra-link-cell').onclick = (e) => copyLink(e.target);
       return;
     }
-    /* the action first, its result right under it; the ledger's table and the words after */
+    /* the action first, its result right under it; the cell's own data drawn as soon as it arrives; the ledger's table and the words after */
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger)</div>' + blockRows(c);
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>It fetches this cell\'s ' + fmt(A.days) + ' daily maxima from the public repository, pinned by commit, checks their sha256, runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
+    $('ra-link-cell').onclick = (e) => copyLink(e.target);
     if (SPEC.served) $('ra-cert').onclick = () => certifyCell(c);
     if (run && run.id === c.id) { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }   /* a run in progress, or how the last one ended */
     else if (lastCert && lastCert.id === c.id) showCert(c, lastCert);
+    const D = data.get(c.id);
+    if (D && D.status === 'ok') enableCsv(c, D);
+    charts(c);
   }
-  /* ---- the cell, certified again in this tab ---- */
+
+  /* ---- the cell's own data: fetched and checked against its pin when the cell is chosen ---- */
+  const data = new Map();
+  const RULES = window.ATLAS_RULES || null;                          /* the ledger's block rule and claims code, inlined by build.js */
   async function digest(buf) { const d = await crypto.subtle.digest('SHA-256', buf); return Array.from(new Uint8Array(d)).map((x) => x.toString(16).padStart(2, '0')).join(''); }
+  function loadData(c) {
+    if (!SPEC.served || c.ice) return null;
+    if (data.has(c.id)) return data.get(c.id).done;
+    const D = { status: 'loading' };
+    D.done = (async () => {
+      try {
+        const r = await fetch(SPEC.served + 'cells/' + c.id + '.i16');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const buf = await r.arrayBuffer(), sh = await digest(buf);
+        if (sh !== c.sha) { D.status = 'refused'; D.why = 'the bytes served are not the pinned bytes (sha256 ' + sh.slice(0, 12) + '…)'; }
+        else {
+          const v = new Int16Array(buf), d0 = Date.parse(A.first + 'T00:00:00Z'), t = new Array(v.length), x = new Array(v.length);
+          for (let i = 0; i < v.length; i++) { t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); x[i] = v[i] / 500; }
+          Object.assign(D, { status: 'ok', buf, sha: sh, t, h: x, bm: {} });
+        }
+      } catch (e) { D.status = 'refused'; D.why = 'the cell file could not be fetched (' + e.message + ')'; }
+      if (sel === c && state.tab === 'cell') { if (D.status === 'ok') enableCsv(c, D); charts(c); }
+      return D;
+    })();
+    data.set(c.id, D);
+    return D.done;
+  }
+  /* the block maxima by THE block rule, with the day each one fell on */
+  function bmOf(D, blk) {
+    if (D.bm[blk]) return D.bm[blk];
+    const BM = RULES.BR.blockMaxima({ n: D.h.length, t: D.t, h: D.h, step: 24 }, blk), key = RULES.BR.BLOCKS[blk].key, at = new Map();
+    for (let i = 0; i < D.h.length; i++) { const k = key(D.t[i]), q = at.get(k); if (q === undefined || D.h[i] > D.h[q]) at.set(k, i); }
+    BM.at = BM.keys.map((k) => at.get(k));
+    /* the histogram's bins and the QQ plot's plotting positions (Gringorten), chosen here and sent to the worker, so the
+       fits are drawn against exactly the counts shown */
+    let mx = 0; for (const v of BM.x) if (v > mx) mx = v;
+    const nb = Math.min(40, Math.max(12, Math.round(Math.sqrt(BM.n) / 1.4))), wd = mx * 1.04 / nb;
+    BM.edges = Array.from({ length: nb + 1 }, (_, k) => k * wd);
+    BM.obs = new Array(nb).fill(0); for (const v of BM.x) BM.obs[Math.min(nb - 1, Math.floor(v / wd))]++;
+    const s = BM.x.slice().sort((a, b) => a - b), n = s.length, keep = new Set();
+    for (let i = Math.max(0, n - 60); i < n; i++) keep.add(i);
+    for (let i = 0; i < n; i += Math.max(1, Math.floor(n / 140))) keep.add(i);
+    const idx = [...keep].sort((a, b) => a - b);
+    BM.qx = idx.map((i) => s[i]); BM.qp = idx.map((i) => (i + 1 - 0.44) / (n + 0.12));
+    return (D.bm[blk] = BM);
+  }
+  function enableCsv(c, D) {
+    const sv = $('ra-csv'); if (!sv) return;
+    sv.disabled = false;
+    sv.onclick = () => { const L = ['date,hs_daily_max_m']; for (let i = 0; i < D.h.length; i++) L.push(D.t[i] + ',' + D.h[i].toFixed(3)); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([L.join('\n') + '\n'], { type: 'text/csv' })); a.download = 'ww3-daily-max-' + c.id + '.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+  }
+
+  /* ---- the cell, certified again in this tab ---- */
   async function certifyCell(c) {
     if (worker) { worker.terminate(); worker = null; }
     const me = run = { id: c.id, text: '' };
     /* every message looks the panel up again: a block switch re-renders it, and the run's words must follow */
     const say = (t, done) => { me.text = t; if (run !== me) return; const p = $('ra-prog'), b = $('ra-cert'); if (sel === c && p) p.textContent = t; if (sel === c && b) b.disabled = !done; };
     say('fetching the daily maxima …');
-    let buf;
-    try {
-      const r = await fetch(SPEC.served + 'cells/' + c.id + '.i16');
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      buf = await r.arrayBuffer();
-    } catch (e) { say('REFUSED: the cell file could not be fetched (' + e.message + ')', true); return; }
-    const h = await digest(buf);
+    const D = await loadData(c);
     if (run !== me) return;
-    if (h !== c.sha) { say('REFUSED: the bytes served are not the pinned bytes (sha256 ' + h.slice(0, 12) + '…)', true); return; }
-    say('sha256 ' + h.slice(0, 12) + '… matches; certifying the daily maxima …');
-    const csv = (() => { const v = new Int16Array(buf.slice(0)), d0 = Date.parse(A.first + 'T00:00:00Z'), L = ['date,hs_daily_max_m']; for (let i = 0; i < v.length; i++) L.push(new Date(d0 + i * 86400000).toISOString().slice(0, 10) + ',' + (v[i] / 500).toFixed(3)); return L.join('\n') + '\n'; })();
+    if (!D || D.status !== 'ok') { say('REFUSED: ' + (D ? D.why : 'no cell file is served'), true); return; }
+    say('sha256 ' + D.sha.slice(0, 12) + '… matches; certifying the daily maxima …');
+    const bins = {}, qqp = {};
+    for (const b of BLK) { const BM = bmOf(D, b); bins[b] = BM.edges; qqp[b] = BM.qp; }
     const w = worker = new Worker(WURL), t0 = Date.now();
     w.onmessage = async (ev) => {
       if (w !== worker || run !== me) return;
@@ -463,39 +520,135 @@
       /* the same decisions: every criterion's choice, the threshold fitter's, and both hard families' states, block by block */
       const sameDecisions = BLK.every((b, j) => CRIT.every((k) => (rec.blocks[b].rank[k] === 'R' ? 6 : FAM.indexOf(rec.blocks[b].rank[k])) === c.blocks[b][k])
         && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew);
-      lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000, csv };
+      lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000 };
       run = null;
+      if (!state.chartPicked) state.chart = 'rl';
       if (sel === c) showCert(c, lastCert);
     };
     w.onerror = (e) => { if (w !== worker) return; worker = null; say('The run failed in the worker: ' + ((e && e.message) || 'no message'), true); };
-    w.postMessage({ id: c.id, raw: buf, first: A.first }, [buf]);
+    w.postMessage({ id: c.id, raw: D.buf.slice(0), first: A.first, bins, qqp });
   }
-  /* a finished certification, shown (again) in the cell's panel: the verdict against the ledger, the return-level plot of the block in view, every fit */
+  /* a finished certification, shown (again) in the cell's panel: the verdict against the ledger, the design-life level, every fit */
   function showCert(c, R) {
     const prog = $('ra-prog'), rec = R.rec;
     if (!prog) return;
     prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
     const P = R.plot[state.block], B = rec.blocks[state.block];
-    const drawn = P ? FAM.filter((f) => P.fam[f] && P.fam[f].length > 1) : [];
-    const off = FAM.filter((f) => !drawn.includes(f));
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
     const up = dll ? Math.ceil(dll[1] * 100 - 1e-9) / 100 : null;
-    const life = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
-    $('ra-full').innerHTML = life + (P ? '<div class="k">return levels · ' + esc(BW[state.block]) + '</div><canvas class="ra-rl" id="ra-rl" role="img" aria-label="Return level against return period for each certified family, with the block maxima and the largest day on record"></canvas>'
-      + '<p class="n">Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + esc(FW[B.rank.ad]) + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + esc(BW[state.block]) + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => esc(FW[f])).join(', ') + ' (no certified fit).' : '') + '</p>' : '')
-      + fullTable(rec);
-    if (P) drawRL($('ra-rl'), P, B, c, drawn);
-    const dl = $('ra-dl'), sv = $('ra-csv'), btn = $('ra-cert');
+    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
+    $('ra-full').innerHTML = '<div class="k">every fit, certified here</div>' + fullTable(rec);
+    charts(c);
+    const dl = $('ra-dl'), btn = $('ra-cert');
     if (btn) btn.disabled = false;
-    sv.disabled = false; dl.disabled = false;
-    sv.onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([R.csv], { type: 'text/csv' })); a.download = 'ww3-daily-max-' + c.id + '.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+    dl.disabled = false;
     dl.onclick = () => {
       const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), six families fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
     };
+  }
+
+  /* ---- four ways to look at a cell: its series, a histogram, a QQ plot, the return levels ---- */
+  const VIEWS = [['series', 'the series'], ['hist', 'histogram'], ['qq', 'QQ'], ['rl', 'return levels']];
+  function charts(c) {
+    const box = $('ra-charts'); if (!box) return;
+    const D = data.get(c.id);
+    if (!SPEC.served) { box.innerHTML = ''; return; }
+    if (!D || D.status === 'loading') { box.innerHTML = '<p class="n">fetching this cell\'s daily maxima from the public repository …</p>'; return; }
+    if (D.status === 'refused') { box.innerHTML = '<p class="n">REFUSED: ' + esc(D.why) + '</p>'; return; }
+    const R = lastCert && lastCert.id === c.id ? lastCert : null, P = R ? R.plot[state.block] : null, B = R ? R.rec.blocks[state.block] : null;
+    const v = state.chart || 'series', BM = bmOf(D, state.block);
+    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : famOf(c.blocks[state.block].ad);
+    const avail = P ? FAM.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
+    const hl = avail.includes(state.hl) ? state.hl : avail.includes(best) ? best : avail[0] || null;
+    let h = '<div class="ra-seg ra-cviews" id="ra-cviews" role="radiogroup" aria-label="how to look at the cell"></div>';
+    if ((v === 'hist' || v === 'qq') && avail.length) h += '<div class="ra-seg ra-cfams" id="ra-cfams" role="radiogroup" aria-label="which fit to draw in ink"></div>';
+    h += '<canvas class="ra-rl" id="ra-cv" role="img" aria-label="' + esc(VIEWS.find((q) => q[0] === v)[1]) + ' of this cell\'s ' + esc(BW[state.block]) + '"></canvas><p class="n" id="ra-cap"></p>';
+    box.innerHTML = h;
+    seg($('ra-cviews'), VIEWS, v, (x) => { state.chart = x; state.chartPicked = true; charts(c); writeHash(); });
+    if ($('ra-cfams')) seg($('ra-cfams'), avail.map((f) => [f, FS[f]]), hl, (x) => { state.hl = x; charts(c); });
+    const cv = $('ra-cv'), cap = $('ra-cap'), need = ' Certify the cell to draw the six fits.';
+    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + A.first.slice(0, 4) + '–' + A.last.slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
+    else if (v === 'hist') { drawHist(cv, BM, P && P.hist, hl); cap.textContent = 'The ' + fmt(BM.n) + ' ' + BW[state.block] + ' (bars) ' + (P && hl ? 'and what each certified fit expects in the same bins (lines); the ' + FW[hl] + ' in ink' + (hl === best ? ', the family Anderson–Darling decides' : '') + '.' : '.' + need); }
+    else if (v === 'qq') { if (P && hl) { const off = drawQQ(cv, BM, P.qq.q[hl]); cap.textContent = 'Each of the ' + fmt(BM.n) + ' ' + BW[state.block] + ' (the top sixty all shown) against the ' + FW[hl] + ' fit\'s quantile at its plotting position (Gringorten): on the diagonal where the fit is right, above it where the data run heavier than the family, below it where the family\'s tail runs heavier than the sea.' + (off.n ? ' ' + off.n + ' point' + (off.n > 1 ? 's lie' : ' lies') + ' past the axis, the fit\'s quantile reaching ' + off.max.toFixed(1) + ' m.' : ''); } else { blank(cv); cap.textContent = 'The QQ plot needs the fits.' + need; } }
+    else { if (P) { const drawn = FAM.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM.filter((f) => !drawn.includes(f)); drawRL(cv, P, B, c, drawn); cap.textContent = 'Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
+  }
+  /* a canvas sized to its column, in device pixels */
+  function canvasOf(cv, ratio) {
+    const dpr = window.devicePixelRatio || 1, W = Math.max(260, cv.clientWidth || 340), H = Math.round(W * ratio);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.height = H + 'px';
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = C.paper; g.fillRect(0, 0, W, H); g.font = '10px ' + (tok('--font-mono') || 'monospace'); g.lineWidth = 1;
+    return { g, W, H };
+  }
+  function blank(cv) { canvasOf(cv, 0.18); }
+  const niceStep = (top, k) => [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200].find((s) => top / s <= (k || 6)) || 500;
+  function yAxis(g, m, W, H, top, Y) {
+    const st = niceStep(top); g.textAlign = 'right';
+    for (let v = 0; v <= top + 1e-9; v += st) { const y = Y(v); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(m.l, y); g.lineTo(W - m.r, y); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), m.l - 4, y + 3); }
+    g.textAlign = 'left'; g.fillText('m', 4, m.t + 8);
+  }
+  function drawSeries(cv, D, BM, c) {
+    const { g, W, H } = canvasOf(cv, 0.5), m = { l: 30, r: 10, t: 10, b: 22 }, n = D.h.length;
+    let mx = 0, im = 0; for (let i = 0; i < n; i++) if (D.h[i] > mx) { mx = D.h[i]; im = i; }
+    const top = Math.ceil(mx * 1.12 / niceStep(mx * 1.12)) * niceStep(mx * 1.12);
+    const X = (i) => m.l + i / (n - 1) * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
+    yAxis(g, m, W, H, top, Y);
+    const y0 = Number(A.first.slice(0, 4)), y1 = Number(A.last.slice(0, 4)) + 1, d0 = Date.parse(A.first + 'T00:00:00Z');
+    g.textAlign = 'center';
+    for (let y = y0; y <= y1; y += 4) { const i = (Date.UTC(y, 0, 1) - d0) / 86400000, x = X(Math.min(n - 1, Math.max(0, i))); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
+    const cols = Math.max(1, Math.floor(W - m.l - m.r)); g.strokeStyle = C.ink4;
+    for (let k = 0; k < cols; k++) {                              /* each pixel column: the range of its days */
+      const a = Math.floor(k / cols * n), b = Math.max(a + 1, Math.floor((k + 1) / cols * n)); let lo = Infinity, hi = -Infinity;
+      for (let i = a; i < b && i < n; i++) { if (D.h[i] < lo) lo = D.h[i]; if (D.h[i] > hi) hi = D.h[i]; }
+      g.beginPath(); g.moveTo(m.l + k + 0.5, Y(lo)); g.lineTo(m.l + k + 0.5, Y(hi) - 0.5); g.stroke();
+    }
+    if (BM.block !== 'daily') { g.fillStyle = C.ink2; for (let k = 0; k < BM.n; k++) { g.beginPath(); g.arc(X(BM.at[k]), Y(BM.x[k]), BM.n > 1000 ? 0.9 : 1.4, 0, 2 * Math.PI); g.fill(); } }
+    g.strokeStyle = C.ink; g.lineWidth = 1.4; g.beginPath(); g.arc(X(im), Y(mx), 4, 0, 2 * Math.PI); g.stroke();
+    g.fillStyle = C.ink; g.textAlign = X(im) > W / 2 ? 'right' : 'left'; g.fillText(mx.toFixed(2) + ' m · ' + D.t[im], X(im) + (X(im) > W / 2 ? -8 : 8), Math.max(m.t + 8, Y(mx) + 3));
+  }
+  function drawHist(cv, BM, HS, hl) {
+    const { g, W, H } = canvasOf(cv, 0.6), m = { l: 30, r: 10, t: 10, b: 22 }, E = BM.edges, nb = E.length - 1, wd = E[1] - E[0];
+    const dens = BM.obs.map((k) => k / (BM.n * wd));
+    let top = Math.max(...dens);
+    if (HS) for (const f in HS.exp) for (const e of HS.exp[f]) if (isFinite(e)) top = Math.max(top, Math.min(e / (BM.n * wd), top * 1.6));
+    top *= 1.08;
+    const X = (v) => m.l + v / E[nb] * (W - m.l - m.r), Y = (d) => H - m.b - Math.min(d, top) / top * (H - m.t - m.b);
+    const st = niceStep(E[nb], 7); g.textAlign = 'center';
+    for (let v = 0; v <= E[nb] + 1e-9; v += st) { const x = X(v); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), x, H - 7); }
+    g.textAlign = 'left'; g.fillText('m', W - m.r - 8, H - 7);
+    g.fillStyle = C.s[0];
+    for (let j = 0; j < nb; j++) g.fillRect(X(E[j]) + 0.5, Y(dens[j]), Math.max(1, X(E[j + 1]) - X(E[j]) - 1), H - m.b - Y(dens[j]));
+    if (HS) {
+      const order = Object.keys(HS.exp).filter((f) => f !== hl).concat(HS.exp[hl] ? [hl] : []);
+      g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
+      for (const f of order) {
+        const e = HS.exp[f], main = f === hl; g.strokeStyle = main ? C.ink : C.ink4; g.lineWidth = main ? 2 : 1; g.beginPath();
+        for (let j = 0; j < nb; j++) { const d = isFinite(e[j]) ? e[j] / (BM.n * wd) : 0; if (j) g.lineTo(X(E[j]), Y(d)); else g.moveTo(X(E[j]), Y(d)); g.lineTo(X(E[j + 1]), Y(d)); }
+        g.stroke();
+      }
+      g.restore();
+    }
+  }
+  function drawQQ(cv, BM, q) {
+    const { g, W, H } = canvasOf(cv, 0.85), m = { l: 30, r: 12, t: 12, b: 22 };
+    const xs = BM.qx, pts = xs.map((x, i) => [q[i], x]).filter((p) => p[0] !== null && isFinite(p[0]));
+    const xmax = Math.max(...xs), lim = Math.max(xmax, Math.min(Math.max(...pts.map((p) => p[0])), xmax * 1.8)) * 1.05;
+    const top = Math.ceil(lim / niceStep(lim)) * niceStep(lim);
+    const X = (v) => m.l + v / top * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
+    yAxis(g, m, W, H, top, Y);
+    const st = niceStep(top); g.textAlign = 'center';
+    for (let v = st; v <= top + 1e-9; v += st) { g.fillStyle = C.ink4; g.fillText(String(+v.toFixed(2)), X(v), H - 7); }
+    g.strokeStyle = C.ink4; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(top), Y(top)); g.stroke(); g.setLineDash([]);   /* design/grammar.js GUIDE */
+    g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
+    g.fillStyle = C.ink; for (const [a, b] of pts) { g.beginPath(); g.arc(X(Math.min(a, top)), Y(b), 1.8, 0, 2 * Math.PI); g.fill(); }
+    g.restore();
+    g.fillStyle = C.ink4; g.textAlign = 'right'; g.fillText('the fit\'s quantile, m', W - m.r, H - m.b - 6);
+    const past = pts.filter((p) => p[0] > top);                        /* drawn on the edge, and counted in the caption */
+    return { n: past.length, max: past.length ? Math.max(...past.map((p) => p[0])) : 0 };
   }
   /* the return-level plot: log return period (years) across, Hs up; the decided family in ink, the others quiet, the maxima as dots, the record dashed */
   function drawRL(cv, P, B, c, drawn) {
@@ -551,6 +704,198 @@
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
   }
 
+  /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
+  /* the page's compact cell, read the way instruments/hseva/atlas-claims.js reads a ledger cell; for a criterion other
+     than Anderson–Darling only the choice is carried (the levels on the page are the Anderson–Darling family's) */
+  function asLedger(c, crit) {
+    const sets = []; if (c.sets & 1) sets.push('global4'); if (c.sets & 2) sets.push('brazil1'); if (c.sets & 4) sets.push('report:' + c.report);
+    const blocks = {};
+    for (const b of BLK) {
+      const q = c.blocks[b], f = famOf(q[crit || 'ad']) || 'R', fits = {};
+      if (f !== 'R' && (crit || 'ad') === 'ad') fits[f] = { l100: q.l100[0] === null ? null : q.l100, l1000: q.l1000[0] === null ? null : q.l1000 };
+      blocks[b] = { rank: { ad: f }, fits };
+    }
+    return { id: c.id, lat: c.lat, lon: c.lon, sets, blocks };
+  }
+  const RULE_W = [['plurality', 'is the most frequent choice'], ['majority', 'is chosen at more than half the cells'], ['more', 'is chosen at more cells as the block grows'], ['fewer', 'is chosen at fewer cells as the block grows'], ['falls', 'the design wave falls as the block grows'], ['rises', 'the design wave rises as the block grows']];
+  const SEQ = { dw: ['daily', 'weekly'], wm: ['weekly', 'monthly'], dm: ['daily', 'monthly'], dwm: ['daily', 'weekly', 'monthly'] };
+  const MY = { box: null, cells: 'g4', rule: 'plurality', fam: 'expweibull', blk: 'monthly', crit: 'ad', seq: 'dm', T: 100, on: false };
+  const mySpec = () => ['box:' + (MY.box ? (MY.box.lon ? [MY.box.lat[0], MY.box.lat[1], MY.box.lon[0], MY.box.lon[1]] : [MY.box.lat[0], MY.box.lat[1]]).join(',') : 'globe'), 'cells:' + MY.cells, 'rule:' + MY.rule, 'fam:' + MY.fam, 'blk:' + MY.blk, 'crit:' + MY.crit, 'seq:' + MY.seq, 'T:' + MY.T].join(';');
+  function readMy(spec) {
+    for (const part of String(spec).split(';')) {
+      const [k, v] = part.split(':'); if (!v) continue;
+      if (k === 'box') { const n = v === 'globe' ? [] : v.split(',').map(Number); MY.box = n.length === 4 && n.every(isFinite) ? { lat: [Math.min(n[0], n[1]), Math.max(n[0], n[1])], lon: [n[2], n[3]] } : n.length === 2 && n.every(isFinite) ? { lat: [Math.min(n[0], n[1]), Math.max(n[0], n[1])] } : null; }
+      else if (k === 'cells' && ['g4', 'b1', 'all'].includes(v)) MY.cells = v;
+      else if (k === 'rule' && RULE_W.some((r) => r[0] === v)) MY.rule = v;
+      else if (k === 'fam' && FAM.includes(v)) MY.fam = v;
+      else if (k === 'blk' && BLK.includes(v)) MY.blk = v;
+      else if (k === 'crit' && CRIT.includes(v)) MY.crit = v;
+      else if (k === 'seq' && SEQ[v]) MY.seq = v;
+      else if (k === 'T' && (v === '100' || v === '1000')) MY.T = Number(v);
+    }
+  }
+  const boxWords = (b) => (!b ? 'the whole globe' : (b.lon ? latW(b.lat[0]) + ' to ' + latW(b.lat[1]) + ', ' + lonW(b.lon[0]) + ' to ' + lonW(b.lon[1]) : latW(b.lat[0]) + ' to ' + latW(b.lat[1]) + ', all longitudes'));
+  const latW = (v) => Math.abs(v) + '° ' + (v < 0 ? 'S' : 'N'), lonW = (v) => Math.abs(v) + '° ' + (v < 0 ? 'W' : 'E');
+  function mineForm() {
+    const el = $('ra-mine'); if (!el || el.dataset.on) return;
+    el.dataset.on = '1';
+    const opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    el.innerHTML = '<div class="k">your own claim</div><p class="n">Draw a region on the globe or type it, say what should hold there, and it is decided here — the way the paper\'s ten below are, by the same rule code, from the certificates the map shows.</p>'
+      + '<div class="ra-mine"><div class="ra-go-row"><button type="button" id="ra-draw">draw a region on the globe</button><button type="button" id="ra-whole">the whole globe</button></div>'
+      + '<div class="ra-box4"><label class="ra-lab">from<input id="ra-b-s" class="ra-select" type="number" step="0.5" min="-90" max="90" placeholder="lat"></label><label class="ra-lab">to<input id="ra-b-n" class="ra-select" type="number" step="0.5" min="-90" max="90" placeholder="lat"></label><label class="ra-lab">west<input id="ra-b-w" class="ra-select" type="number" step="0.5" min="-180" max="180" placeholder="lon"></label><label class="ra-lab">east<input id="ra-b-e" class="ra-select" type="number" step="0.5" min="-180" max="180" placeholder="lon"></label></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-m-cells">cells</label><select id="ra-m-cells" class="ra-select">' + opt([['g4', 'the 4° globe'], ['b1', 'the 1° Brazilian margin'], ['all', 'both lattices']], MY.cells) + '</select></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-m-rule">claim</label><select id="ra-m-rule" class="ra-select">' + opt(RULE_W, MY.rule) + '</select></div>'
+      + '<div class="ra-mrow" id="ra-m-args"></div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-decide">decide it</button><button type="button" class="ra-linkbtn" id="ra-link-mine" disabled>link to this claim</button></div>'
+      + '<div id="ra-m-out" aria-live="polite"></div></div>';
+    $('ra-draw').onclick = () => startDraw();
+    $('ra-whole').onclick = () => { MY.box = null; fillBox(); decideMine(true); };
+    for (const id of ['ra-b-s', 'ra-b-n', 'ra-b-w', 'ra-b-e']) $(id).onchange = () => { readBox(); };
+    $('ra-m-cells').onchange = (e) => { MY.cells = e.target.value; };
+    $('ra-m-rule').onchange = (e) => { MY.rule = e.target.value; mineArgs(); };
+    $('ra-decide').onclick = () => { readBox(); decideMine(true); };
+    $('ra-link-mine').onclick = (e) => copyLink(e.target);
+    mineArgs(); fillBox();
+  }
+  function mineArgs() {
+    const el = $('ra-m-args'), opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    const lvl = MY.rule === 'falls' || MY.rule === 'rises', seqd = lvl || MY.rule === 'more' || MY.rule === 'fewer';
+    let h = '';
+    if (!lvl) h += '<select id="ra-m-fam" class="ra-select" aria-label="family">' + opt(FAM.map((f) => [f, FW[f]]), MY.fam) + '</select>';
+    if (lvl) h += '<select id="ra-m-T" class="ra-select" aria-label="return period">' + opt([[100, 'the 100-year wave'], [1000, 'the 1000-year wave']], MY.T) + '</select>';
+    h += seqd ? '<select id="ra-m-seq" class="ra-select" aria-label="blocks">' + opt((lvl ? ['dw', 'wm', 'dm'] : ['dw', 'wm', 'dm', 'dwm']).map((k) => [k, SEQ[k].join(' → ')]), MY.seq) + '</select>'
+      : '<select id="ra-m-blk" class="ra-select" aria-label="block">' + opt(BLK.map((b) => [b, BW[b]]), MY.blk) + '</select>';
+    if (!lvl) h += '<select id="ra-m-crit" class="ra-select" aria-label="criterion">' + opt(CRIT.map((k) => [k, CW[k]]), MY.crit) + '</select>';
+    el.innerHTML = h;
+    if (lvl && MY.seq === 'dwm') MY.seq = 'dm';
+    const on = (id, k, num) => { const x = $(id); if (x) x.onchange = (e) => { MY[k] = num ? Number(e.target.value) : e.target.value; }; };
+    on('ra-m-fam', 'fam'); on('ra-m-T', 'T', true); on('ra-m-seq', 'seq'); on('ra-m-blk', 'blk'); on('ra-m-crit', 'crit');
+  }
+  function fillBox() {
+    const b = MY.box, set = (id, v) => { const x = $(id); if (x) x.value = v === undefined || v === null ? '' : v; };
+    set('ra-b-s', b ? b.lat[0] : ''); set('ra-b-n', b ? b.lat[1] : ''); set('ra-b-w', b && b.lon ? b.lon[0] : ''); set('ra-b-e', b && b.lon ? b.lon[1] : '');
+  }
+  function readBox() {
+    const v = (id) => { const x = $(id); return x && x.value !== '' ? Number(x.value) : null; };
+    const s = v('ra-b-s'), n = v('ra-b-n'), w = v('ra-b-w'), e = v('ra-b-e');
+    if (s === null && n === null && w === null && e === null) return;
+    if ([s, n].every((x) => x !== null && isFinite(x))) {
+      const lat = [Math.max(-90, Math.min(s, n)), Math.min(90, Math.max(s, n))];
+      MY.box = w !== null && e !== null && isFinite(w) && isFinite(e) ? { lat, lon: [Math.max(-180, Math.min(180, w)), Math.max(-180, Math.min(180, e))] } : { lat };
+    }
+  }
+  function decideMine(andFly) {
+    if (!RULES) return;
+    const AC = RULES.AC, crit = MY.rule === 'falls' || MY.rule === 'rises' ? 'ad' : MY.crit;
+    const box = MY.box || { lat: [-90, 90] };
+    const inSet = (c) => (MY.cells === 'g4' ? c.sets & 1 : MY.cells === 'b1' ? c.sets & 2 : c.sets & 3);
+    const S = { cells: cells.filter((c) => !c.ice && inSet(c)).map((c) => asLedger(c, crit)).filter((c) => AC.inBox(c, box)) };
+    const R = AC.rules, blocks = SEQ[MY.seq];
+    let r;
+    if (!S.cells.length) r = { verdict: AC.VERDICTS.U, counts: [] };
+    else if (MY.rule === 'plurality') r = R.plurality(S, MY.fam, MY.blk);
+    else if (MY.rule === 'majority') r = R.majority(S, MY.fam, MY.blk);
+    else if (MY.rule === 'more' || MY.rule === 'fewer') r = R.monotone(S, MY.fam, blocks, MY.rule === 'more' ? 1 : -1);
+    else r = R.levelShift(S, 'l' + MY.T, blocks[0], blocks[blocks.length - 1], MY.rule === 'rises' ? 1 : -1);
+    MY.on = true;
+    const V = { HOLDS: 'holds', 'DOES NOT HOLD': 'does-not-hold', UNDECIDED: 'undecided' };
+    const lvl = MY.rule === 'falls' || MY.rule === 'rises';
+    const what = lvl ? 'the ' + MY.T + '-year wave of the decided family is ' + (MY.rule === 'falls' ? 'lower' : 'higher') + ' for the ' + BW[blocks[blocks.length - 1]] + ' than for the ' + BW[blocks[0]] + ' at more than half the cells'
+      : 'the ' + FW[MY.fam] + ' ' + RULE_W.find((q) => q[0] === MY.rule)[1] + ' (' + (MY.rule === 'more' || MY.rule === 'fewer' ? blocks.join(' → ') : BW[MY.blk]) + ', ' + CW[crit] + ')';
+    const cnt = (r.counts || []).map((q) => (q.against !== undefined ? q.block + ': ' + q.relation + ' at ' + q.decided + ', not ' + q.relation + ' at ' + q.against + ', not decided at ' + q.refused + ' of ' + q.n
+      : q.by ? q.block + ': the ' + FS[MY.fam] + ' at ' + q.decided + ' of ' + q.n + ' cells, ' + q.refused + ' refused; decided: ' + Object.entries(q.by).sort((a, b) => b[1] - a[1]).map(([f, k]) => FS[f] + ' ' + k).join(', ')
+      : (q.family ? FS[q.family] + ', ' : '') + q.block + ': ' + q.decided + ' decided, ' + q.refused + ' refused of ' + q.n)).join(' · ');
+    $('ra-m-out').innerHTML = '<div class="ra-claim ra-mine-out"><div class="ra-cv ra-v-' + V[r.verdict] + '">' + esc(r.verdict) + '</div><div class="ra-cq">In ' + esc(boxWords(MY.box)) + ', ' + esc(MY.cells === 'g4' ? 'the 4° globe' : MY.cells === 'b1' ? 'the 1° Brazilian margin' : 'both lattices') + ' (' + fmt(S.cells.length) + ' certified cell' + (S.cells.length === 1 ? '' : 's') + '): ' + esc(what) + '.</div><div class="ra-cn mono">' + esc(cnt || 'no certified cell in the region') + '</div></div>';
+    $('ra-link-mine').disabled = false;
+    /* the globe shows what the claim is about */
+    claimOn = null; state.block = lvl ? blocks[blocks.length - 1] : MY.rule === 'more' || MY.rule === 'fewer' ? blocks[blocks.length - 1] : MY.blk;
+    if (lvl) { state.mode = 'blocks'; state.T = MY.T; } else { state.mode = 'family'; state.fam = MY.fam; state.crit = crit; }
+    controls(); refresh();
+    if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(MY.box));
+    if (andFly && MY.box && MY.box.lon) { const [w, e] = MY.box.lon, E = e < w ? e + 360 : e; if (sheetMode()) setSheet('peek'); later(() => fly({ bounds: [[w, MY.box.lat[0]], [E, MY.box.lat[1]]] })); }
+    writeHash();
+  }
+  /* drawing: press and drag on the globe; the rectangle runs east when the pointer moves right */
+  let drawing = false, d0 = null, drew = 0;
+  function startDraw() {
+    if (!map) return;
+    drawing = true; map.dragPan.disable(); map.touchZoomRotate.disable(); map.getCanvas().style.cursor = 'crosshair';
+    const hint = $('ra-hint'); hint.textContent = 'press and drag across the region · Esc to stop'; hint.classList.add('on');
+    if (sheetMode()) setSheet('peek');
+  }
+  function stopDraw() {
+    drawing = false; d0 = null; if (!map) return;
+    map.dragPan.enable(); map.touchZoomRotate.enable(); map.getCanvas().style.cursor = '';
+    $('ra-hint').classList.remove('on');
+  }
+  function toBox(a, b) {
+    const r = (v) => Math.round(v * 2) / 2, la = [r(Math.min(a.lat, b.lat)), r(Math.max(a.lat, b.lat))];
+    const [w, e] = b.x >= a.x ? [a.lng, b.lng] : [b.lng, a.lng];
+    const wrap = (v) => ((v + 540) % 360) - 180;
+    return { lat: [Math.max(-89.5, la[0]), Math.min(89.5, la[1])], lon: [r(wrap(w)), r(wrap(e))] };
+  }
+  function drawEvents() {
+    const at = (e) => (e.lngLat && isFinite(e.lngLat.lat) && isFinite(e.lngLat.lng) ? { lat: e.lngLat.lat, lng: e.lngLat.lng, x: e.point.x } : null);
+    const down = (e) => { if (!drawing) return; const p = at(e); if (!p) return; e.preventDefault(); d0 = p; };
+    const move = (e) => { if (!drawing || !d0) return; const p = at(e); if (!p) return; map.getSource('box').setData(boxGeo(toBox(d0, p))); };
+    const up = (e) => {
+      if (!drawing || !d0) return;
+      const p = at(e) || d0, b = toBox(d0, p); stopDraw(); drew = Date.now();
+      if (b.lat[1] - b.lat[0] < 1 || Math.abs(b.lon[1] - b.lon[0]) < 1) { $('ra-hint').textContent = ''; return; }
+      MY.box = b; fillBox(); setTab('claims'); if (sheetMode()) setSheet('half'); decideMine(false);
+    };
+    map.on('mousedown', down); map.on('mousemove', move); map.on('mouseup', up);
+    map.on('touchstart', down); map.on('touchmove', move); map.on('touchend', up);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && drawing) stopDraw(); });
+  }
+
+  /* ---- links: the view, the cell, the claim and the camera, in the address; history is not spammed ---- */
+  let hashTimer = null, ready = false;
+  function writeHash(now) {
+    if (!ready) return;
+    const go = () => {
+      const q = new URLSearchParams();
+      q.set('v', state.mode); q.set('b', state.block);
+      if (['wave', 'blocks', 'record'].includes(state.mode)) q.set('T', state.T);
+      if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
+      if (state.tab !== 'claims') q.set('t', state.tab);
+      if (sel) q.set('c', sel.id);
+      if (sel && state.chartPicked) q.set('ch', state.chart);
+      if (claimOn) q.set('cl', claimOn);
+      if (MY.on) q.set('my', mySpec());
+      if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }
+      history.replaceState(null, '', '#' + q.toString());
+    };
+    clearTimeout(hashTimer);
+    if (now) go(); else hashTimer = setTimeout(go, 250);
+  }
+  function readHash() {
+    const q = new URLSearchParams(location.hash.slice(1)), g = (k) => q.get(k);
+    if (MODES.some(([v]) => v === g('v'))) state.mode = g('v');
+    if (BLK.includes(g('b'))) state.block = g('b');
+    if (g('T') === '100' || g('T') === '1000') state.T = Number(g('T'));
+    if (FAM.includes(g('f'))) state.fam = g('f');
+    if (CRIT.includes(g('k'))) state.crit = g('k');
+    if (VIEWS.some(([v]) => v === g('ch'))) { state.chart = g('ch'); state.chartPicked = true; }
+    const at = (g('at') || '').split(',').map(Number);
+    return { tab: TABS.includes(g('t')) ? g('t') : null, cell: g('c'), claim: g('cl'), my: g('my'), at: at.length === 3 && at.every(isFinite) ? at : null };
+  }
+  function copyLink(btn) {
+    writeHash(true);
+    const done = () => { const t = btn.textContent; btn.textContent = 'link copied'; setTimeout(() => { btn.textContent = t; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.href).then(done, () => window.prompt('the link', location.href));
+    else window.prompt('the link', location.href);
+  }
+
+  /* ---- the paper's ten, decided again in this tab from the map's own data by the ledger's rule code ---- */
+  function recheck() {
+    const el = $('ra-recheck'); if (!el || !RULES) return;
+    const K = RULES.AC.evaluate(cells.filter((c) => !c.ice).map((c) => asLedger(c, 'ad')));
+    const bad = A.claims.filter((k) => { const r = K.find((q) => q.id === k.id); return !r || r.verdict !== k.verdict || JSON.stringify(r.counts) !== JSON.stringify(k.counts); });
+    el.textContent = bad.length ? 'Decided again in this tab from the map\'s data: ' + bad.length + ' of the ' + A.claims.length + ' differ from the build (' + bad.map((k) => k.id).join(', ') + ') — report it.'
+      : 'Decided again in this tab, from the map\'s own data by the ledger\'s rule code: all ' + A.claims.length + ' verdicts and their counts are the build\'s.';
+  }
+
   /* ---- the panel's own controls: tabs (arrow keys between them), the fold, the sheet's grip ---- */
   function wire() {
     for (const t of TABS) $('ra-t-' + t).onclick = () => setTab(t);
@@ -588,11 +933,31 @@
   /* ---- start ---- */
   Promise.all([fetch('atlas.json').then((r) => r.json()), fetch('land.json').then((r) => r.json())]).then(([a, land]) => {
     A = a; cells = a.cells.map(decode); cells.forEach((c) => byId.set(c.id, c));
-    wire(); controls(); legend(); panel();
+    const H = readHash();
+    if (H.my) readMy(H.my);                                          /* before the form is first drawn, so it opens on the claim */
+    wire(); controls(); legend(); panel(); recheck();
     $('ra-app').dataset.ready = '1';
-    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; return; }
+    /* what the address names: a claim of the paper's or one's own, a cell, a tab — the view after them, as written */
+    const view = { mode: state.mode, block: state.block, T: state.T, fam: state.fam, crit: state.crit };
+    if (H.my) { mineForm(); decideMine(false); }
+    else if (H.claim && A.claims.some((k) => k.id === H.claim)) claimClick(H.claim);
+    Object.assign(state, view); controls(); legend();
+    if (H.cell && byId.has(H.cell)) select(byId.get(H.cell));
+    if (H.tab) setTab(H.tab);
+    if (typeof maplibregl === 'undefined') { $('ra-map').innerHTML = '<p class="n">The map could not load here; the claims and the cells are listed in the panel.</p>'; ready = true; return; }
     try { initMap(land); } catch (e) { $('ra-map').innerHTML = '<p class="n">This browser could not draw the map (' + esc(e.message) + '); the claims in the panel still stand.</p>'; }
-    if (map) map.on('load', () => { map.jumpTo({ padding: pad() }); map.jumpTo({ zoom: globeZoom() }); });
+    if (map) {
+      drawEvents();
+      map.on('load', () => {
+        map.jumpTo({ padding: pad() });
+        if (H.at) map.jumpTo({ center: [H.at[1], H.at[0]], zoom: H.at[2] }); else map.jumpTo({ zoom: globeZoom() });
+        if (sel && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(sel)]);
+        if (MY.on && MY.box) map.getSource('box').setData(boxGeo(MY.box));
+        else if (claimOn) { const k = A.claims.find((q) => q.id === claimOn); if (k) map.getSource('box').setData(boxGeo(k.box)); }
+        ready = true; writeHash();
+        map.on('moveend', () => writeHash());
+      });
+    } else ready = true;
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
     window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
   }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });

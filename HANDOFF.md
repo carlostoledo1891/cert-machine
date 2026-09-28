@@ -838,6 +838,37 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     document exactly the window (scrollWidth = innerWidth, scrollHeight =
     innerHeight), a cell certified in the tab at 1440 and at 390, identical.
 
+  ── 10 · LAYER 1: A RESEARCH TOOL (2026-09-28, on "what would you build to
+    make the page even more interesting for both?" → "go") ──
+    · YOUR OWN CLAIM: draw a region on the globe (press and drag; on a phone by
+      touch, the sheet stepping aside) or type it, pick the cells (the 4°
+      globe, the 1° Brazilian margin, both), a rule (most frequent choice;
+      more than half; more / fewer cells as the block grows; the 100- or
+      1000-year wave falls / rises across blocks), a family, a block, a
+      criterion — decided at once by instruments/hseva/atlas-claims.js ITSELF,
+      inlined into the page with the block rule (their sha256s in "the code in
+      your tab"), over the map's compact data read the way the ledger is read.
+      On load the page decides the paper's ten again that way and says so:
+      "all 10 verdicts and their counts are the build's" (checked in Chrome).
+    · THE CELL'S DATA: choosing a cell fetches its pinned file at once (sha256
+      checked) and draws its 11,688 daily maxima; after "certify" four views —
+      the series (the block maxima the fits see, the record ringed), a
+      histogram with what each certified fit expects in the same bins, a QQ
+      plot per family (Gringorten; points past the axis counted), the return
+      levels. The Arabian Sea explains itself: the monsoon's second mode in the
+      histogram, the exponentiated Weibull's quantiles running to 15+ m on the
+      QQ plot against a 6.9 m sea.
+    · LINKS: the view, block, family, criterion, tab, cell, chart, a paper's
+      claim or one's own, and the camera live in the address (replaceState, no
+      history spam); "link to this cell" / "link to this claim" copy it; a
+      link reopens exactly that state (checked).
+    NEXT (layer 2, one atlas re-run each): the GEV as a seventh family (the
+    paper's six hold only its Gumbel case; it also decides the Fréchet corner),
+    and statistical intervals on the levels, drawn apart from the certified
+    numbers, with a clustering estimate for the daily blocks. Layer 3 (the
+    Petrobras layer): a private bring-your-own-site pin, a design-table audit
+    against the nearest cell, joint Hs–Tp contours, POT/GPD with declustering.
+
   ── 8 · GATES ── hseva battery 1,449 checks, 16 reds (new: the Gumbel-
     regime red, the atlas section — corpus sha, one record per sea cell, every
     cell file's sha, every decision and every threshold-fitter choice re-derived

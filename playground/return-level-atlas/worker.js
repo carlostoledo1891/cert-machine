@@ -8,7 +8,9 @@
    the ledger's, as JSON. Beside the record, and never inside it, the return-level
    plot: for each block the maxima at their plotting positions and each certified
    family's quantile over return periods from two blocks to 10,000 years, every
-   point an enclosure from the certified box (fit.js returnLevel). */
+   point an enclosure from the certified box (fit.js returnLevel); and, on the bins
+   and plotting positions the page sends, what each fit expects in a histogram and
+   at each point of a QQ plot. */
 self.onmessage = function (ev) {
   var q = ev.data;
   try {
@@ -30,7 +32,7 @@ self.onmessage = function (ev) {
       if (!c.ok) return;
       /* the design-life level (Rootzén & Katz 2013) in a climate that does not change: the level a structure standing L = 25 years
          meets with probability 10%, blocks independent — the return level at T = b / (8766 (1 − 0.9^(b / 8766L))) */
-      var q = -Math.expm1(Math.log(0.9) * BM.hours / (8766 * 25)), Td = BM.hours / (8766 * q);
+      var qd = -Math.expm1(Math.log(0.9) * BM.hours / (8766 * 25)), Td = BM.hours / (8766 * qd);
       try { P.dll[f] = FT.returnLevel(c, Td, BM.hours); } catch (e) { P.dll[f] = null; }
       var t0 = Math.log10(2 * BM.hours / 8766), L = [];
       for (var j = 0; j <= 32; j++) {
@@ -39,6 +41,28 @@ self.onmessage = function (ev) {
         if (v && isFinite(v[0]) && isFinite(v[1])) L.push([T, v[0], v[1]]);
       }
       P.fam[f] = L;
+      /* the histogram and the QQ plot, on the bins and plotting positions the page chose for the same maxima: what each
+         certified fit expects — drawn from the certified point, its box being far narrower than any line */
+      var ed = q.bins && q.bins[blk], pp = q.qqp && q.qqp[blk], nb = BM.n;
+      if (ed) {
+        var F = function (x) {
+          try {
+            if (!(x > 0)) { var z = c.fam.cdf(FT.floatOps, c.theta, 0); return isFinite(z) ? z : 0; }   /* the normal and the Gumbel put some mass below zero: it belongs to no bin */
+            if (c.coords === 'expweibullG') {                     /* F = exp(−exp(β/θ + ln(−ln(1 − t)))), t = e^(−x^k/θ): finite for any α */
+              var th = c.theta, t = Math.exp(-Math.pow(x, th[0]) / th[1]);
+              return Math.exp(-Math.exp(th[2] / th[1] + Math.log(-Math.log1p(-t))));
+            }
+            var v = c.fam.cdf(FT.floatOps, c.theta, x); return isFinite(v) ? v : NaN;
+          } catch (e) { return NaN; }
+        };
+        var ex = [], prev = F(ed[0]);
+        for (var j = 1; j < ed.length; j++) { var cur = F(ed[j]); ex.push(nb * (cur - prev)); prev = cur; }
+        P.hist = P.hist || { exp: {} }; P.hist.exp[f] = ex;
+      }
+      if (pp) {
+        P.qq = P.qq || { q: {} };
+        P.qq.q[f] = pp.map(function (p) { try { var v = c.fam.quantile(FT.floatOps, c.theta, p); return isFinite(v) ? v : null; } catch (e) { return null; } });
+      }
     };
     /* atlas.js is left exactly as it wrote the ledger: the plot watches fit.js certify() from outside, returning every result untouched */
     var AT = self.HSEVA.AT, BR = self.HSEVA.BR, k = 0, BMs = {}, certify0 = FT.certify, rec;
