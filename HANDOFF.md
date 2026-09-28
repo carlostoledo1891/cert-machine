@@ -15,10 +15,60 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-27, THE UFSC LINE REVIEWED, FIXED AND PUSHED: two independent reviews of the return-level work found the "edge" exclusions were heuristics (24 hindcast choices wrong) and the instrument could write a certificate for the wrong file; the method now decides the generalized gamma's lognormal limit with a proof, certifies maxima beside it, proves every fit a maximum (the Hessian), and refuses what it cannot decide; the report and /instruments/return-level-check/ rebuilt and live; the METR sends still wait)
+## TASKS BACKLOG — the standing menu (updated 2026-09-28, THE RETURN-LEVEL ATLAS LIVE: the paper's own global map with every cell a certificate — 2,589 open-sea cells of its WAVEWATCH III hindcast × daily/weekly/monthly × six families, its §3 regional claims decided as boxes (6 hold, 2 do not, 2 undecided), any cell re-certified in the reader's tab and IDENTICAL to the ledger; the exponentiated Weibull's runaway α shown to be a coordinate artefact and certified in Gumbel coordinates; two independent reviews before the push, one real defect fixed (sea ice missed by an Hs-only rule); nothing sent — the reply to the UFSC contact waits, with new numbers)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-28 (the twenty-second session). In the order I would take it:
+
+  0. THE RETURN-LEVEL ATLAS IS LIVE — /instruments/return-level-atlas/ (see
+     the twenty-second session below). What it holds: corpus/ww3-grid (3,268
+     nodes of the paper's hindcast: 2,589 open sea, 679 that the hindcast's
+     own sea-ice field ever touches), certs/hseva-atlas.json (46,602 fits:
+     40,778 certified — 1,996 in Prentice's coordinates, 219 in the
+     exponentiated Weibull's Gumbel coordinates — 5,751 generalized-gamma
+     refusals at the lognormal limit WITH the proof, 53 EW stops, 45 of them
+     toward k → 0, 20 other refusals), the paper's ten §3 claims decided:
+     6 HOLD, 2 DO NOT HOLD (the generalized gamma south of South America
+     daily; its expansion into the Southern Ocean weekly), 2 UNDECIDED (the
+     global Weibull rise; the monsoon Weibull).
+  0a. THE SENDS, all the operator's (outreach/SEND-QUEUE.md LANE U). U1 the
+     reply to the contact — the chat draft of 2026-09-28 carries the atlas and
+     the current numbers; ANY OLDER DRAFT'S NUMBERS ARE WRONG. U2 the note to
+     the benchmark organizers, after U1.
+  0b. NEXT on the line, by yield:
+       (i) THE SEVENTH FAMILY where six cannot decide: the EW's k → 0 corner is
+           a Gumbel law of ln Hs, the Fréchet tail. The extended GPD of Naveau
+           et al. (WRR 2016) is the EW's own construction — a power of a cdf —
+           on a Pareto base; the GEV/Fréchet is the other candidate. 45 atlas
+           cell-blocks and buoys A/C annual are its test set.
+      (ii) the metastatistical extreme value distribution (Marani & Ignaccolo
+           2015) certified: the atlas already holds every daily maximum (the
+           "ordinary events"), so yearly fits → the MEV level, no asymptotic
+           block assumption — a decidable comparison against the block fits.
+     (iii) design-life levels in the product face (Rootzén & Katz 2013) — done
+           in the tab for a stationary climate; the next step is the paper's
+           own climate line (de Bortoli et al., CMIP windows), where the level
+           moves between windows and "moved" is decidable only for the point
+           estimate — say so.
+      (iv) a stdlib Python verifier of a downloaded atlas cell certificate;
+           profile-likelihood intervals, labelled statistical; IFORM/ISORM on
+           one joint model; the search's claim made a proof by branch-and-bound.
+  0c. THINGS LEARNED: (vi) a runaway parameter can be a coordinate artefact —
+     look for the coordinates in which the limit is an ordinary point
+     (Prentice's for the GG; θ = λ^k, β = θ ln α for the EW); (vii) under sea
+     ice WAVEWATCH III writes Hs ≈ 0.002 m, not the fill value and not 0 — read
+     the model's own `ice` field (tools/fetch-ww3-grid.py --ice) rather than
+     guess from Hs; (viii) A MAC ASLEEP RUNS NOTHING: between stopping one run
+     and starting the next, 60 seconds without a caffeinate assertion let the
+     Mac idle-sleep, and every later process crawled in 20-second dark wakes
+     ("Dark Wake Thermal Emergency") for an hour; hold one long `caffeinate
+     -i -s` for a whole pipeline, and `caffeinate -u -t 3` brings a dark wake
+     to full wake; (ix) a ledger's code must be pinned by sha256 in the ledger
+     and checked by every worker, or one edit during a two-hour run mixes code
+     versions silently.
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-27 (the twenty-first session). In the order I would take it:
@@ -648,6 +698,130 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-SECOND SESSION, 2026-09-27/28 — THE RETURN-LEVEL ATLAS, AND THE
+  EXPONENTIATED WEIBULL'S GUMBEL COORDINATES. COMMITTED · PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Is it valuable to create a visually stunning
+    playground with maplibre, controls, etc? Also focused on Pedro's work?
+    Something only cert-machine could do and that will open new ideas for his
+    research? … Evolve, improve, amaze." The answer built: the paper's own
+    global map, with every cell a certificate.
+
+  ── 1 · THE DATA ── tools/fetch-ww3-grid.py (imports the points fetcher, does
+    not copy it): every hs chunk of every monthly file 1993-2024 again (~18 GB,
+    ~80 min; the chunk hashes equal the ones corpus/ww3-points pinned), keeping
+    each UTC day's largest value at a 2° global lattice + every 0.5° node of the
+    Brazilian margin + the report's 13 nodes (cache ~450 MB in
+    corpus/ww3-grid/cache/, NOT committed). tools/build-ww3-atlas-corpus.py cuts
+    the atlas cells: a 4° global lattice + a 1° Brazilian lattice + the 13
+    nodes; 2,589 sea cells (the hindcast's own sea-ice field zero at every
+    3-hourly step of 32 years, no fill value: certified), 679 ice cells
+    (shown, not certified — see 6 for how the first rule missed 465 of them),
+    land dropped; cells/<lat>_<lon>.i16, 11,688 days each, pinned by sha256 in
+    meta.json (61 MB). Land: Natural Earth 1:50m (corpus/basemap,
+    pinned by commit + sha256, public domain).
+
+  ── 2 · THE LEDGER ── instruments/hseva/atlas.js is THE cell record (the page
+    bundles the same bytes); tools/run-hseva-atlas.js → certs/hseva-atlas.json
+    (5,860 s on 7 workers, under caffeinate): per cell, daily/weekly/monthly
+    × six families × four criteria × 100/1000-yr, each choice DECIDED or
+    REFUSED, and what a threshold fitter (GG past α = 500, EW past α = 10⁴ and
+    every stop taken for "the limit") would choose. 40,778 of 46,602 fits
+    certified (1,996 in Prentice's coordinates, 219 in the EW's Gumbel
+    coordinates), 5,751 GG at the lognormal limit with the proof, 53 EW
+    stops (toward k → 0: 45), 20 other refusals. AD decides
+    2,569/2,573/2,541 of 2,589 cells (daily/weekly/monthly).
+    instruments/hseva/atlas-claims.js: the paper's §3 regional claims as BOXES
+    with three verdicts (HOLDS / DOES NOT HOLD / UNDECIDED — the refused cells
+    could count for anybody): 6 HOLD (the EW majority in the Southern Ocean monthly, 227 of 382 cells; south of Japan monthly, 16 of 26; the 100-year level falls from daily to monthly in the North Atlantic, 38 of 62, the North Pacific, 70 of 81, and the Arabian Sea, 16 of 23; the 1000-year level rises south of Japan, 17 of 26), 2 DO NOT HOLD (the GG the most frequent choice south of South America daily — the EW has 12 of 22 cells, the GG 9; the GG expands weekly in the Southern Ocean — 166 → 131), 2 UNDECIDED (the global rise of the Weibull daily → weekly → monthly: EW 977 → 888 → 728 falls, Weibull 9 → 11 → 61, but 9 → 11 lies inside the 19 refused daily cells; the monsoon Weibull 1 → 3 of 44 with 5 and 6 refused).
+
+  ── 3 · THE PAGE ── /instruments/return-level-atlas/: a MapLibre globe (the
+    vendored, pinned 5.24.0; grayscale tokens; no hue), eight views (design
+    wave, which family, block sensitivity, against the record, criteria
+    agree?, generalized gamma, exp. Weibull, a threshold fitter), the claims in
+    the side panel and below, click a cell → its choices → "certify this cell
+    in my tab": the cell file fetched from raw.githubusercontent pinned by
+    commit (corpus/ww3-grid/SERVED.json), sha256-checked, re-certified in a
+    worker by atlas.js and compared with the ledger's record by sha256 —
+    IDENTICAL in Chrome — then the cell's RETURN-LEVEL PLOT (each certified
+    family's quantile from two blocks to 10,000 years, every point an
+    enclosure from the box, the maxima at plotting positions, the record
+    dashed), the certificate and the series as CSV for the return-level check.
+
+  ── 4 · THE EXPONENTIATED WEIBULL'S GUMBEL COORDINATES (a finding) ── where
+    the (α, k, λ) climb runs past α = 10⁴, write θ = λ^k, β = θ ln α: the family
+    is exp(e^{β/θ} ln(1 − e^{−x^k/θ})), a Gumbel law of H^k once e^{−x^k/θ} is
+    small. The runaway α (10⁹, 10¹⁷, 10²⁷ …) is a coordinate artefact: in
+    (k, θ, β) (families.js expweibullG, score and Hessian by second-order
+    forward differentiation, ad2.js) the maximum is an ordinary point and is
+    certified (fit.js certifyEW). Where the climb runs on even there, it goes
+    to k → 0 — a Gumbel of ln H, the Fréchet corner — and the choice stays
+    refused (buoys A and C annual; 45 atlas cell-blocks). The seventh
+    family that would decide those: the Fréchet, or the extended GPD of Naveau
+    et al. 2016 — the EW's own construction (a power of a cdf) on a Pareto base.
+
+  ── 5 · WHAT IT CHANGED ── certs/hseva-ledger.json rebuilt (5 minutes now):
+    at the Arabian Sea the exponentiated Weibull, certified in Gumbel
+    coordinates at α up to 10²⁷, is the DECIDED choice at every block, with
+    100-year waves of 361, 129, 46 and 24 m against a 32-year record of
+    6.87 m (A² 965 on the 3-hourly series: the best of six bad fits of a
+    bimodal monsoon climate the paper itself warns about); south of Japan
+    monthly decided too. The report's §5 says so. Across the atlas: the
+    100-year wave of the decided family lies below the record at 2,607 of
+    7,663 decided cell-blocks and reaches 18.7× the record (15° N 62° E, the Arabian Sea node, daily: the EW's 128.5 m against 6.87 m); 34% below the record against the 27% base rate a correct 100-year level would give over 32 years.
+
+  ── 6 · TWO REVIEWS BEFORE THE PUSH (independent agents, read-only) ──
+    THE MATH (the Gumbel coordinates, ad2.js, certifyEW, the wrappers): no
+    soundness defect — every enclosure checked against 40–80-digit mpmath held,
+    no path certifies what it did not prove, a wrapped throw can only turn
+    DECIDED into REFUSED. Latent, fixed: a trial step outside the Gumbel regime
+    ended the whole climb (now a rejected step: 0 of 60 hostile starts abort);
+    the Gumbel quantile formed e^(−β/θ) and threw past α ≈ 10³⁰⁴ (now u = β −
+    θ(ln(−ln p) + ln s), never formed); the ledger's printed-fit check compared
+    boxes across coordinates (now in the printed ones, or not at all); the
+    ledger's 9-digit θ lay outside its own 12-digit box (now the exact double).
+    Left, stated: interval exp still refuses an underflow rather than
+    enclosing it in [0, 2⁻¹⁰⁷⁴] (masked in practice, a refusal is sound).
+    THE PAGE AND THE CORPUS — ONE REAL DEFECT: under sea ice the hindcast
+    writes Hs ≈ 0.002 m, not 0, so "a day at zero" missed most of the ice:
+    ~150 high-latitude cells (the Ross Sea, Okhotsk, the Bering) were
+    certified as open sea and fed the claims. NOW: the files' own `ice`
+    variable (sea_ice_area_fraction) read for all 384 months
+    (tools/fetch-ww3-grid.py --ice, 4.2 GB, hashed), and a cell is open sea
+    only if that field is zero at every 3-hourly step. Also fixed: the ledger
+    now records the sha256 of every certifying module and each worker refuses
+    other bytes (the run had been one edit away from mixing code versions);
+    the page refuses to build over a ledger its bundle did not write, and
+    SERVED.json must name a pushed commit whose corpus, cells, ledger and code
+    equal the tree; DOES NOT HOLD is now decided jointly across blocks (the
+    step-by-step test called some impossible claims UNDECIDED) and checked
+    against brute force; null level ends are open, never 0; the rise claim's
+    counts say "higher"; the tooltip, legend and hatch give each view's own
+    reason; the run survives a block switch; the North Pacific box is drawn
+    across the antimeridian; controls keep keyboard focus, claims take Enter,
+    a lat, lon box opens the nearest cell; the design-life sentence says "at
+    most 10%" with its independence and climate caveats; the below-the-record
+    count now carries its base rate (a correct 100-year level is exceeded by a
+    32-year record with probability ≈ 27%).
+
+  ── 7 · ROBUSTNESS FOUND BY THE FIRST FULL RUN ── a Prentice-certified GG whose
+    λ = e^{μ − ln α / c} underflows the doubles threw inside withStacy and
+    killed a worker (k = −1376): certify()/certifyAt() now turn any throw into
+    a refusal with its reason; the Stacy box (and the EW's (α, k, λ) box) may
+    be null — the certificate is then in its own coordinates only, and the
+    return-level check says NOT DECIDED (the printed digits cannot be compared)
+    instead of throwing.
+
+  ── 8 · GATES ── hseva battery 1,449 checks, 16 reds (new: the Gumbel-
+    regime red, the atlas section — corpus sha, one record per sea cell, every
+    cell file's sha, every decision and every threshold-fitter choice re-derived
+    from the recorded enclosures, edges with their proof, blocked blocks
+    REFUSED, three cells re-derived live char for char, the 13 report nodes
+    decided alike in both ledgers, the claims). make test 92/92; the ruler,
+    render and style ratchets accept the new page (1440 and 390 in Chrome).
 
 ══════════════════════════════════════════════════════════════════════════
   TWENTY-FIRST SESSION, 2026-09-27 — THE RETURN-LEVEL WORK REVIEWED, FIXED AND

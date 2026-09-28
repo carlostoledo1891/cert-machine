@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv hseva-venv hseva-scipy ww3-points
+.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -55,6 +55,14 @@ hseva-scipy:
 # ~18 GB read by byte range (about an hour and a half); resumable; then --finalize writes the pins
 ww3-points:
 	@instruments/hseva/.venv/bin/python tools/fetch-ww3-points.py && instruments/hseva/.venv/bin/python tools/fetch-ww3-points.py --finalize
+
+# the return-level atlas: the hindcast's daily maxima on a lattice (~18 GB read by byte range, ~80 min; the cache is not committed),
+# the cells cut from it into corpus/ww3-grid, then every cell certified into certs/hseva-atlas.json (run under caffeinate -i)
+ww3-grid:
+	@instruments/hseva/.venv/bin/python tools/fetch-ww3-grid.py && instruments/hseva/.venv/bin/python tools/build-ww3-atlas-corpus.py
+
+atlas:
+	@$(NODE) tools/run-hseva-atlas.js
 
 # ~/Documents is iCloud Drive and "Optimize Mac Storage" evicts files: the entry
 # stays, stat reports the size, git sees nothing, and a READ RETURNS EMPTY.

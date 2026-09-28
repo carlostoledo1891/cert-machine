@@ -213,7 +213,9 @@
       const F = R.fits[f];
       if (!F.certified) { rows.push('<tr><td>' + FAMW[f] + '</td><td colspan="' + (ncol - 1) + '" title="' + esc(F.why) + '">' + (F.edge ? 'at its lognormal limit, left out — ' : 'REFUSED — ') + esc(F.why) + '</td></tr>'); continue; }
       const c = F.criteria, chi = c.chi2.value ? g(c.chi2.value) : (c.chi2.refused ? 'REFUSED' : 'not defined');
-      const par = F.stacy ? 'α, c, λ = ' + F.stacy.map((x) => x.toPrecision(8)).join(', ') + ' (certified in Prentice\'s ' + F.names.map((nm) => SYM[nm] || nm).join(', ') + ')' : F.names.map((nm) => SYM[nm] || nm).join(', ') + ' = ' + F.theta.map((x) => x.toPrecision(8)).join(', ');
+      const fin = (v) => v && v.every((x) => Number.isFinite(x) && x !== 0), own = F.names.map((nm) => SYM[nm] || nm).join(', ') + ' = ' + F.theta.map((x) => x.toPrecision(8)).join(', ');
+      const par = F.stacy ? (fin(F.stacy) ? 'α, c, λ = ' + F.stacy.map((x) => x.toPrecision(8)).join(', ') + ' (certified in Prentice\'s ' + F.names.map((nm) => SYM[nm] || nm).join(', ') + ')' : own + ' (Prentice\'s coordinates; in α, c, λ it lies past the doubles)')
+        : F.ew ? (fin(F.ew) ? 'α, k, λ = ' + F.ew.map((x) => x.toPrecision(8)).join(', ') + ' (certified in the Gumbel coordinates k, θ = λ^k, β = θ ln α)' : own + ' (the Gumbel coordinates; α or λ lies past the doubles)') : own;
       rows.push('<tr><td>' + FAMW[f] + '</td><td class="n" title="' + esc(par) + '">' + halfWidth(F.box).toExponential(1) + '</td>'
         + '<td class="n" title="' + title(c.ad) + '">' + g(c.ad) + '</td><td class="n" title="' + title(c.ks) + '">' + g(c.ks, 5) + '</td><td class="n" title="' + title(c.mse) + '">' + g(c.mse, 5) + '</td><td class="n" title="' + esc(c.chi2.value ? title(c.chi2.value) : (c.chi2.why || '')) + '">' + chi + '</td>'
         + S.T.map((T) => '<td class="n" title="' + title(F.returnLevel[T]) + '">' + (F.returnLevel[T] ? Number(F.returnLevel[T][1]).toFixed(2) : '—') + '</td>').join('') + '</tr>');
@@ -295,18 +297,20 @@
       if (!verdict) {
         if (!R) verdict = 'Certify this series on this block first (step 3): the printed fit is decided against that certificate.';
         else if (!F) verdict = FAMW[f] + ' was not among the families certified on this block.';
-        else if (!cert && F.edge && !loc && ll && R.fits.lognormal && R.fits.lognormal.certified && ll[1] < R.fits.lognormal.ll[0]) verdict = '<b>BELOW ITS LIMIT</b> — on these values the family\'s likelihood is proved to peak at its lognormal limit, and the printed point is at least ' + gap(R.fits.lognormal.ll[0], ll[1]) + ' log-likelihood units below the lognormal\'s certified maximum, which the family approaches: it is not the family\'s best, only a point on the way.';
+        else if (!cert && F.edge && !loc && ll && R.fits.lognormal && R.fits.lognormal.certified && R.fits.lognormal.ll && ll[1] < R.fits.lognormal.ll[0]) verdict = '<b>BELOW ITS LIMIT</b> — on these values the family\'s likelihood is proved to peak at its lognormal limit, and the printed point is at least ' + gap(R.fits.lognormal.ll[0], ll[1]) + ' log-likelihood units below the lognormal\'s certified maximum, which the family approaches: it is not the family\'s best, only a point on the way.';
         else if (!cert) verdict = F.edge ? 'No maximum inside the family to compare with: on these values its likelihood is proved to peak at the lognormal limit (' + esc(F.why) + ')' + (R.fits.lognormal && R.fits.lognormal.certified ? '.' : '; certify the lognormal too, to compare the printed point with that limit.') : 'No maximum to compare with: the certificate refused ' + FAMW[f] + ' on this block (' + esc(F.why) + ').';
         else if (!loc) {
-          const cbox = f === 'gengamma' && cert.stacyBox ? cert.stacyBox : cert.box;     /* a Prentice certificate, carried back to (α, c, λ) */
-          const rel = theta.map((P, i) => relation(P, cbox[i]));
-          if (ll && ll[1] < cert.ll[0]) verdict = '<b>OFF THE MAXIMUM</b> — its log-likelihood is at least ' + gap(cert.ll[0], ll[1]) + ' below the certified maximum of the same family on the same values.';
+          /* a Prentice or a Gumbel-coordinate certificate, carried back to the printed coordinates — or null, where that box lies past the doubles */
+          const cbox = cert.coords ? cert.stacyBox || cert.ewBox || null : cert.box;
+          const rel = cbox ? theta.map((P, i) => relation(P, cbox[i])) : null;
+          if (ll && cert.ll && ll[1] < cert.ll[0]) verdict = '<b>OFF THE MAXIMUM</b> — its log-likelihood is at least ' + gap(cert.ll[0], ll[1]) + ' below the certified maximum of the same family on the same values.';
+          else if (!rel) verdict = '<b>NOT DECIDED</b> — the certified maximum is a box in ' + (cert.coords === 'gengammaP' ? 'Prentice\'s coordinates (μ, σ, Q)' : 'the Gumbel coordinates (k, θ = λᵏ, β = θ ln α)') + ', and carried back to the printed coordinates it lies past the largest or smallest double: the printed digits cannot be compared with it, and their likelihood is not separated from the maximum\'s.';
           else if (rel.includes('apart')) verdict = '<b>NOT THE CERTIFIED FIT</b> — the certified maximum lies outside every value the printed digits allow (in ' + PARAMS[f].filter((p, i) => rel[i] === 'apart').map(([k]) => SYM[k] || k).join(', ') + ')' + (ll ? ', though the digits are too few to separate their likelihood from the maximum\'s.' : '.');
           else if (rel.every((r) => r === 'rounds')) verdict = '<b>REPRODUCED</b> — the printed digits are the rounding of the certified maximum-likelihood fit.';
           else if (rel.every((r) => r === 'rounds' || r === 'within')) verdict = '<b>CONSISTENT</b> — the printed digits lie inside the certified box: they agree with the maximum-likelihood fit to every digit the certificate resolves.';
           else verdict = '<b>NOT DECIDED</b> — the certified box straddles a rounding boundary of the printed digits (in ' + PARAMS[f].filter((p, i) => rel[i] === 'straddles').map(([k]) => SYM[k] || k).join(', ') + '): the maximum may or may not round to them.';
-        } else if (ll && ll[1] < cert.ll[0]) verdict = '<b>BELOW A MEMBER OF ITS OWN FAMILY</b> — the fit with the location at zero, certified on the same values, is at least ' + gap(cert.ll[0], ll[1]) + ' log-likelihood units more likely: the printed point is not the family\'s most likely member.';
-        else if (ll && ll[0] > cert.ll[1]) verdict = '<b>A DIFFERENT MODEL</b> — the printed location raises the log-likelihood by at least ' + gap(ll[0], cert.ll[1]) + ' over the certified fit at location zero. With a free location the likelihood has no maximum to certify (it is unbounded), so this page decides the printed point only against that fit.';
+        } else if (ll && cert.ll && ll[1] < cert.ll[0]) verdict = '<b>BELOW A MEMBER OF ITS OWN FAMILY</b> — the fit with the location at zero, certified on the same values, is at least ' + gap(cert.ll[0], ll[1]) + ' log-likelihood units more likely: the printed point is not the family\'s most likely member.';
+        else if (ll && cert.ll && ll[0] > cert.ll[1]) verdict = '<b>A DIFFERENT MODEL</b> — the printed location raises the log-likelihood by at least ' + gap(ll[0], cert.ll[1]) + ' over the certified fit at location zero. With a free location the likelihood has no maximum to certify (it is unbounded), so this page decides the printed point only against that fit.';
         else verdict = '<b>NOT DECIDED</b> — with a location the printed fit is a different model from the one certified here (location zero), and the printed digits do not separate the two likelihoods.';
       }
       lines.push(verdict);
@@ -316,7 +320,7 @@
           lines.push(T + '-year level over every value the printed digits allow: [' + L[0].toFixed(3) + ', ' + L[1].toFixed(3) + '] m' + (cert && cert.returnLevel[T] ? '; the certified fit\'s' + (loc ? ' (the family at location zero)' : '') + ': ' + Number(cert.returnLevel[T][1]).toFixed(3) + ' m' : '') + '.');
         } catch (e) { /* a level the box cannot enclose is left out */ }
       }
-      if (ll) lines.push('log-likelihood over the printed box: [' + ll[0].toFixed(3) + ', ' + ll[1].toFixed(3) + ']' + (cert ? '; the certified maximum: [' + cert.ll[0].toFixed(3) + ', ' + cert.ll[1].toFixed(3) + ']' : '') + '.');
+      if (ll) lines.push('log-likelihood over the printed box: [' + ll[0].toFixed(3) + ', ' + ll[1].toFixed(3) + ']' + (cert && cert.ll ? '; the certified maximum: [' + cert.ll[0].toFixed(3) + ', ' + cert.ll[1].toFixed(3) + ']' : '') + '.');
       else if (llWhy && !below[1]) lines.push('The log-likelihood cannot be enclosed over the printed box: ' + esc(llWhy) + '.');
       out.innerHTML = lines.map((l) => '<div>' + l + '</div>').join('');
     } catch (e) { out.innerHTML = 'REFUSED: ' + esc(e.message); }

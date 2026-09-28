@@ -144,7 +144,7 @@ function nelderMead(fam, Df, th0, iters) {
   const sg = signedOf(fam);
   const pos = fam.names.map((nm) => !sg.includes(nm));
   const enc = (th) => th.map((v, i) => (pos[i] ? Math.log(v) : v)), dec = (u) => u.map((v, i) => (pos[i] ? Math.exp(v) : v));
-  const f = (u) => { const v = fam.loglik(floatOps, dec(u), Df); return Number.isFinite(v) ? -v : Infinity; };
+  const f = (u) => { let v = NaN; try { v = fam.loglik(floatOps, dec(u), Df); } catch (e) { v = NaN; } return Number.isFinite(v) ? -v : Infinity; };   /* a point outside the family's formulas is no better than −∞ */
   const n = th0.length; let simplex = [enc(th0)];
   for (let i = 0; i < n; i++) { const p = enc(th0).slice(); p[i] += 0.1; simplex.push(p); }
   let vals = simplex.map(f);
@@ -187,15 +187,16 @@ function decrement(H, g) {
    rising measurably while the root still sits a visible distance along the ridge */
 function polish(fam, Df, th) {
   const sg = signedOf(fam);
-  let best = th, bestStep = Infinity;
+  let best = th, prev = th, bestStep = Infinity;
   for (let it = 0; it < 40; it++) {
-    const g = fam.score(floatOps, best, Df), H = fam.hess(floatOps, best, Df);
+    let g, H;
+    try { g = fam.score(floatOps, best, Df); H = fam.hess(floatOps, best, Df); } catch (e) { best = prev; break; }   /* a step outside the family's formulas is undone */
     let step; try { step = solve(H, g); } catch (e) { break; }
     const rel = Math.max(...step.map((v, i) => Math.abs(v) / Math.max(Math.abs(best[i]), 1e-300)));
     if (!(rel < bestStep)) break;                         /* the steps must shrink */
     const cand = best.map((v, i) => v - step[i]);
     if (!cand.every((v, i) => Number.isFinite(v) && (sg.includes(fam.names[i]) || v > 0))) break;
-    best = cand; bestStep = rel;
+    prev = best; best = cand; bestStep = rel;
     if (rel < 1e-15) break;
   }
   return best;
@@ -224,7 +225,8 @@ function newton(fam, Df, maxIter, start) {
       let step; try { step = solve(M, g); } catch (e) { mu *= 4; continue; }
       const cand = th.map((v, i) => v + step[i]);
       if (admissible(cand)) {
-        const l2 = fam.loglik(floatOps, cand, Df);
+        let l2 = NaN;
+        try { l2 = fam.loglik(floatOps, cand, Df); } catch (e) { l2 = NaN; }     /* a trial outside the family's formulas is a rejected step, not the end of the climb */
         if (Number.isFinite(l2) && l2 >= ll) {
           const same = cand.every((v, i) => v === th[i]);
           th = cand; ll = l2; mu = Math.max(mu / 3, 1e-12); moved = !same; break;
@@ -305,9 +307,16 @@ function secondOrder(fam, X, th0, A, Di) {
 }
 
 /* ---- the certificate: Krawczyk on the score over the interval data, then the second order ---- */
+/* an evaluation the arithmetic cannot enclose — an exp past the doubles, a log of
+   nothing — refuses the fit with its reason; it never escapes as an exception */
 function certify(famName, xs, opts) {
+  try { return certifyAny(famName, xs, opts); }
+  catch (e) { return { ok: false, family: famName, edge: false, why: 'the arithmetic could not enclose a quantity on the way (' + (e && e.message) + ')', theta: null, n: xs.length }; }
+}
+function certifyAny(famName, xs, opts) {
   opts = opts || {};
   if (famName === 'gengamma') return certifyGG(xs, opts);
+  if (famName === 'expweibull' && !opts.start) return certifyEW(xs, opts);
   const fam = Object.assign({ name: famName }, FAMILIES[famName]);
   const { Df, Di } = opts.prepared || prepare(xs);
   const cand = newton(fam, Df, opts.maxIter, opts.start);
@@ -318,6 +327,10 @@ function certify(famName, xs, opts) {
 }
 /* Krawczyk and the second order at a converged candidate */
 function certifyAt(fam, th0, Df, Di, opts, iters) {
+  try { return certifyAtInner(fam, th0, Df, Di, opts, iters); }
+  catch (e) { return { ok: false, family: fam.name, edge: false, why: 'the arithmetic could not enclose a quantity at the candidate (' + (e && e.message) + ')', theta: th0, n: Df.n }; }
+}
+function certifyAtInner(fam, th0, Df, Di, opts, iters) {
   const famName = fam.name;
   let A;
   try { A = inverse(fam.hess(floatOps, th0, Df)); } catch (e) { return { ok: false, family: famName, edge: false, why: 'singular Hessian at the candidate', theta: th0, n: Df.n }; }
@@ -330,6 +343,42 @@ function certifyAt(fam, th0, Df, Di, opts, iters) {
   const SO = secondOrder(fam, K.box, th0, A, Di);
   if (!SO.ok) return { ok: false, family: famName, edge: false, why: 'the box holds one zero of the score, but the Hessian is not proved negative definite over it' + (SO.minors ? ' (leading minors of −H: ' + SO.minors.map((m) => '[' + m[0].toPrecision(3) + ', ' + m[1].toPrecision(3) + ']').join(', ') + ')' : '') + ': not proved a maximum', theta: th0, n: Df.n, newtonIters: iters };
   return { ok: true, family: famName, names: fam.names, theta: th0, box: K.box, maxRad: K.maxRad, secondOrder: SO.how, minors: SO.minors, rounds: K.rounds, n: Df.n, newtonIters: iters, fam, Di, Df };
+}
+
+/* ---- the exponentiated Weibull: its (α, k, λ) coordinates, or its Gumbel coordinates ----
+   Where the climb in (α, k, λ) runs past α = 10⁴ — to the millions, the trillions — the
+   family is in its Gumbel regime: with θ = λ^k and β = θ ln α it is exp(e^{β/θ} ln(1 −
+   e^{−x^k/θ})), a Gumbel law of H^k once e^{−x^k/θ} is small over the data. The runaway is
+   the first coordinates', not the family's: in (k, θ, β) (families.js expweibullG) the
+   same distribution has nothing of order α in it, and its maximum is an ordinary point.
+   So a climb that passes α = 10⁴, or a candidate past α = 100 the first coordinates
+   cannot certify, is carried to (k, θ, β), climbed there and certified there; the box is
+   carried back to (α, k, λ) as an enclosure. Anything else is refused as before. */
+function certifyEW(xs, opts) {
+  const { Df, Di } = opts.prepared || prepare(xs);
+  const E = Object.assign({ name: 'expweibull' }, FAMILIES.expweibull), G = Object.assign({ name: 'expweibullG' }, FAMILIES.expweibullG);
+  const c1 = newton(E, Df, opts.maxIter);
+  let first = null;
+  if (c1.ok) {
+    first = certifyAt(E, c1.theta, Df, Di, opts, c1.iters);
+    if (first.ok || !(c1.theta[0] > 100)) return first;
+  } else if (!c1.edge) return { ok: false, family: 'expweibull', edge: false, why: 'no candidate: ' + c1.why, theta: c1.theta || null, n: Df.n };
+  const said = c1.edge ? c1.why : 'at α = ' + Number(c1.theta[0]).toPrecision(4) + ' the (α, k, λ) certificate did not hold (' + first.why + ')';
+  const st = G.fromEW(c1.theta);
+  const refuse = (why) => ({ ok: false, family: 'expweibull', edge: false, stoppedAtBoundary: !!c1.edge, why: said + '; in Gumbel coordinates (k, θ = λ^k, β = θ ln α): ' + why, theta: c1.theta, n: Df.n });
+  if (!st.every(Number.isFinite)) return refuse('the stop does not carry over');
+  let c2;
+  try { c2 = newton(G, Df, opts.maxIter, st); } catch (e) { return refuse(e.message); }
+  if (!c2.ok) return refuse(c2.why);
+  let c;
+  try { c = certifyAt(G, c2.theta, Df, Di, opts, c2.iters); } catch (e) { return refuse(e.message); }
+  if (!c.ok) return refuse(c.why);
+  /* the certified box carried back to (α, k, λ), as an enclosure: α = e^{β/θ}, λ = θ^{1/k} */
+  const o = intervalOps, [k, T, be] = c.box;
+  let ewBox = null;
+  try { ewBox = [o.exp(o.div(be, T)), k, o.exp(o.div(o.log(T), k))]; } catch (e) { ewBox = null; }   /* α or λ can lie past every double */
+  return Object.assign(c, { family: 'expweibull', coords: 'expweibullG', ew: G.toEW(c.theta), ewBox, firstTry: said },
+    ewBox ? {} : { ewNote: 'α = e^(β/θ) or λ = θ^(1/k) lies past the doubles; the certificate is in (k, θ, β) alone' });
 }
 
 /* ---- the generalized gamma: a maximum inside the family, or its lognormal limit, decided ----
@@ -381,12 +430,16 @@ function certifyGG(xs, opts) {
   const llLim = FAMILIES.lognormal.loglik(intervalOps, lim.box, Di), llLimF = FAMILIES.lognormal.loglik(floatOps, lim.theta, Df);
   const withStacy = (c) => {                            /* a Prentice certificate carried back to (α, c, λ), as an enclosure */
     const [m, sgm, q] = c.box, o = intervalOps, a = o.div(o.c(1), o.mul(q, q)), cc = o.div(q, sgm);
-    return Object.assign(c, { family: 'gengamma', coords: 'gengammaP', stacy: P.toStacy(c.theta), stacyBox: [a, cc, o.exp(o.sub(m, o.div(o.log(a), cc)))] });
+    let lam = null;
+    try { lam = o.exp(o.sub(m, o.div(o.log(a), cc))); } catch (e) { lam = null; }   /* λ = e^{μ − ln α / c} can lie below every double */
+    return Object.assign(c, { family: 'gengamma', coords: 'gengammaP', stacy: P.toStacy(c.theta), stacyBox: lam ? [a, cc, lam] : null },
+      lam ? {} : { stacyNote: 'λ = e^(μ − ln α / c) lies below the smallest double; the certificate is in (μ, σ, Q) alone' });
   };
   const consider = (fam, cand, label) => {
     if (!cand.ok) { notes.push(label + ': ' + cand.why); return; }
     const c = certifyAt(fam, cand.theta, Df, Di, opts, cand.iters);
-    if (c.ok) { c.ll = fam.loglik(intervalOps, c.box, Di); c.family = 'gengamma'; found.push(fam.name === 'gengammaP' ? withStacy(c) : c); return; }
+    if (c.ok) { try { c.ll = fam.loglik(intervalOps, c.box, Di); } catch (e) { c.ok = false; c.why = 'certified, but its log-likelihood could not be enclosed over the box (' + e.message + ')'; } }
+    if (c.ok) { c.family = 'gengamma'; found.push(fam.name === 'gengammaP' ? withStacy(c) : c); return; }
     const llF = fam.loglik(floatOps, cand.theta, Df);
     notes.push(label + ': converged, not certified (' + c.why + ')');
     if (!uncertified || llF > uncertified.llF) uncertified = { llF, theta: cand.theta, coords: fam.name, why: c.why };

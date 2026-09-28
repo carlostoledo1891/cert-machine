@@ -33,6 +33,7 @@
    there is a refusal that proves nothing about the boundary; only the
    generalized gamma's lognormal limit is decided (fit.js certifyGG). */
 'use strict';
+const { makeAD } = require('./ad2.js');
 
 /* Φ and Φ⁻¹ over the ops: erf by its Taylor series for |z| ≤ 2 (alternating,
    terms decreasing from k ≥ z², the truncation bounded by the first dropped
@@ -78,6 +79,16 @@ function makePhi(ops) {
     return ops.hull(A, lo(u) > 0 ? sub(c(1), mul(c(0.5), erfcCF(ops.max(u, c(1))))) : mul(c(0.5), erfcCF(ops.max(neg(u), c(1)))));
   }
   return { Phi, erfTaylor, erfcCF };
+}
+
+
+/* the next double above x (for an outward pad without importing the interval module) */
+function IVup(x) {
+  if (!Number.isFinite(x)) return x;
+  const b = new Float64Array([x]), u = new BigInt64Array(b.buffer);
+  if (x === 0) return Number.MIN_VALUE;
+  u[0] += x > 0 ? 1n : -1n;
+  return b[0];
 }
 
 const FAMILIES = {
@@ -216,6 +227,105 @@ const FAMILIES = {
       return o.sub(o.c(1), o.exp(o.mul(th[0], o.log(o.sub(o.c(1), w)))));
     },
     quantile: (o, th, p) => { const w = o.exp(o.div(o.log(p), th[0])); const z = o.neg(o.log(o.sub(o.c(1), w))); return o.mul(th[2], o.exp(o.div(o.log(z), th[1]))); },
+  },
+  /* The same exponentiated Weibull in its Gumbel coordinates: k, θ = λ^k, β = θ ln α.
+     Where the (α, k, λ) climb runs to α in the millions or trillions, the family is in a
+     regime its first coordinates cannot hold: with u = x^k, w = (u − β)/θ, t = e^{−u/θ},
+       ln f = ln k − ln θ + (k − 1) ln x − w − e^{−w} Λ(t) + t Λ(t),   Λ(t) = −ln(1 − t)/t,
+       F    = exp(−e^{−w} Λ(t)),
+     and as t → 0 over the data that is a Gumbel law of H^k with location β and scale θ.
+     In these coordinates nothing is of order α: the same distribution, its maximum an
+     ordinary point. Used where t ≤ 0.5 at every datum (α ≥ 1 and the data above the
+     family's lower reach); the score and Hessian by second-order forward differentiation
+     (ad2.js) of the per-datum log-density, Λ and its derivatives by their series in t
+     with a proved tail. */
+  expweibullG: {
+    names: ['k', 'theta', 'beta'], signed: ['beta'],
+    edge: (th) => (th[0] < 1e-3 ? 'the climb passed k = 0.001' : null),
+    lam: (o, t) => {                                                /* Λ, Λ′, Λ″ at t (enclosures over an interval t) */
+      const tl = o.lo(t), th = o.hi(t);
+      if (!(tl >= 0 && th <= 0.5)) throw new Error('expweibullG: e^(-x^k/θ) = ' + th + ' at a datum, outside the Gumbel regime (≤ 0.5)');
+      let J = 3; while (J < 160 && Math.pow(th, J - 2) * (J + 1) / ((1 - th) * (1 - th)) > 1e-22) J++;
+      const at = (x) => {                                           /* partial sums at a thin point */
+        const X = o.c(x); let p = o.c(1), s0 = o.c(0), s1 = o.c(0), s2 = o.c(0), pm1 = o.c(0), pm2 = o.c(0);
+        for (let j = 0; j < J; j++) {
+          s0 = o.add(s0, o.div(p, o.c(j + 1)));
+          if (j >= 1) s1 = o.add(s1, o.div(o.mul(o.c(j), pm1), o.c(j + 1)));
+          if (j >= 2) s2 = o.add(s2, o.div(o.mul(o.c(j * (j - 1)), pm2), o.c(j + 1)));
+          pm2 = pm1; pm1 = p; p = o.mul(p, X);
+        }
+        return [s0, s1, s2];
+      };
+      const lo = at(tl), hi = tl === th ? lo : at(th);
+      const pad = [Math.pow(th, J) / ((J + 1) * (1 - th)), Math.pow(th, J - 1) / (1 - th), Math.pow(th, J - 2) * (J + 1) / ((1 - th) * (1 - th))];
+      if (!o.isInterval) return lo;
+      return lo.map((L, i) => [L[0], IVup(hi[i][1] + pad[i] * 1.0001)]);   /* each of Λ, Λ′, Λ″ increases in t */
+    },
+    perDatum: (o, A, P, L) => {                                    /* the log-density at one datum, as an AD number */
+      const [k, th, be] = P;
+      const u = A.exp(A.mul(k, A.K(L)));
+      const w = A.div(A.sub(u, be), th);
+      const E = A.exp(A.neg(w));
+      const t = A.exp(A.neg(A.div(u, th)));
+      const [l0, l1, l2] = FAMILIES.expweibullG.lam(o, t.v);
+      const Lam = A.unary(t, l0, l1, l2);
+      return { u, w, E, t, Lam, ll: A.sub(A.sub(A.neg(w), A.mul(E, Lam)), A.neg(A.mul(t, Lam))) };
+    },
+    ad: (o, th, D) => {
+      const A = makeAD(o, 3), P = [A.V(th[0], 0), A.V(th[1], 1), A.V(th[2], 2)];
+      const acc = Array.from({ length: 13 }, () => o.acc());
+      let SL = o.acc();
+      for (let i = 0; i < D.n; i++) {
+        const r = FAMILIES.expweibullG.perDatum(o, A, P, D.L[i]).ll;
+        acc[0].add(r.v); for (let a = 0; a < 3; a++) acc[1 + a].add(r.g[a]); for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) acc[4 + 3 * a + b].add(r.H[a][b]);
+        SL.add(D.L[i]);
+      }
+      const n = o.c(D.n), v = acc.map((x) => x.value()), sL = SL.value();
+      const [k, T] = th;
+      /* + n ln k − n ln θ + (k − 1) Σ ln x, and its derivatives */
+      const ll = o.add(o.add(v[0], o.sub(o.mul(n, o.log(k)), o.mul(n, o.log(T)))), o.mul(o.sub(k, o.c(1)), sL));
+      const g = [o.add(v[1], o.add(o.div(n, k), sL)), o.sub(v[2], o.div(n, T)), v[3]];
+      const H = [[o.sub(v[4], o.div(n, o.mul(k, k))), v[5], v[6]], [v[7], o.add(v[8], o.div(n, o.mul(T, T))), v[9]], [v[10], v[11], v[12]]];
+      return { ll, g, H };
+    },
+    score: (o, th, D) => FAMILIES.expweibullG.ad(o, th, D).g,
+    hess: (o, th, D) => FAMILIES.expweibullG.ad(o, th, D).H,
+    loglik: (o, th, D) => FAMILIES.expweibullG.ad(o, th, D).ll,
+    /* F = exp(−e^{−w} Λ(t)) */
+    cdf: (o, th, x) => {
+      const [k, T, be] = th, u = o.exp(o.mul(k, o.log(x))), w = o.div(o.sub(u, be), T), t = o.exp(o.neg(o.div(u, T)));
+      return o.exp(o.neg(o.mul(o.exp(o.neg(w)), FAMILIES.expweibullG.lam(o, t)[0])));
+    },
+    /* 1 − F with s = e^{−w} Λ(t): in [s − s²/2, s] once s is small */
+    sf: (o, th, x) => {
+      const [k, T, be] = th, u = o.exp(o.mul(k, o.log(x))), w = o.div(o.sub(u, be), T), t = o.exp(o.neg(o.div(u, T)));
+      const s = o.mul(o.exp(o.neg(w)), FAMILIES.expweibullG.lam(o, t)[0]);
+      if (o.hi(s) < 1e-3) return o.hull(o.sub(s, o.mul(o.c(0.5), o.mul(s, s))), s);
+      return o.sub(o.c(1), o.exp(o.neg(s)));
+    },
+    /* F⁻¹(p): (1 − t)^α = p with α = e^{β/θ}, so t = −expm1(a), a = ln p · e^{−β/θ}, and u = −θ ln t.
+       Where a is small, t = −a·s with s = (e^a − 1)/a = 1 + a/2 + a²/6 + …, and u = β − θ (ln(−ln p) + ln s):
+       e^{−β/θ} is never formed, so a β/θ past the doubles (α beyond 10³⁰⁸) still has its quantile. */
+    quantile: (o, th, p) => {
+      const [k, T, be] = th, bT = o.div(be, T), lp = o.log(p);                 /* ln p < 0 */
+      const lnA = Math.log(o.hi(o.abs(lp))) - o.lo(bT);                        /* ln of a bound on |a|, in floats: only chooses the branch */
+      let u;
+      if (lnA < -600) {
+        /* |a| < e^(−600)·(1 + 1e-12): s ∈ [1 + a/2, 1] (e^a between 1 + a and 1 + a + a²/2 for a < 0), so ln s ∈ [−1e-260, 0] */
+        u = o.sub(be, o.mul(T, o.add(o.log(o.neg(lp)), o.hull(o.c(-1e-260), o.c(0)))));
+      } else {
+        const a = o.mul(lp, o.exp(o.neg(bT)));                                /* ln p / α, negative */
+        if (o.hi(o.abs(a)) < 0.1) {                                            /* s by its series, tail by the next term's geometric bound */
+          let s = o.c(1), term = o.c(1);
+          for (let j = 2; j <= 24; j++) { term = o.div(o.mul(term, a), o.c(j)); s = o.add(s, term); }
+          const pad = Math.pow(o.hi(o.abs(a)), 24) / 6.2e23 * 2;
+          u = o.sub(be, o.mul(T, o.add(o.log(o.neg(lp)), o.log(o.widen(s, o.c(pad))))));
+        } else u = o.neg(o.mul(T, o.log(o.sub(o.c(1), o.exp(a)))));
+      }
+      return o.exp(o.div(o.log(u), k));
+    },
+    toEW: (th) => { const [k, T, be] = th; return [Math.exp(be / T), k, Math.pow(T, 1 / k)]; },
+    fromEW: (th) => { const [a, k, l] = th, T = Math.pow(l, k); return [k, T, T * Math.log(a)]; },
   },
   gengamma: {
     names: ['alpha', 'c', 'lambda'], limit: 'lognormal', fallback: 'gengammaP',

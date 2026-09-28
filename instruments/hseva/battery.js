@@ -101,7 +101,7 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
 {
   const xs = [0.8, 1.2, 2.5, 0.4, 3.1, 1.7, 0.9, 2.2, 1.1, 0.6, 4.0, 1.4];
   const { Df } = FT.prepare(xs);
-  for (const [name, th, h] of [['weibull', [1.7, 1.5], 1e-6], ['expweibull', [2.3, 0.9, 1.4], 1e-6], ['normal', [1.5, 1.1], 1e-6], ['lognormal', [0.3, 0.7], 1e-6], ['exponential', [1.6], 1e-6], ['gengamma', [2.1, 1.3, 0.8], 1e-6], ['gumbel', [1.3, 0.8], 1e-6], ['lognormal3', [0.1, 0.8, 0.2], 1e-7], ['gengammaP', [0.3, 0.6, 0.4], 1e-6], ['gengammaP', [0.1, 0.5, 0.08], 1e-6]]) {
+  for (const [name, th, h] of [['weibull', [1.7, 1.5], 1e-6], ['expweibull', [2.3, 0.9, 1.4], 1e-6], ['normal', [1.5, 1.1], 1e-6], ['lognormal', [0.3, 0.7], 1e-6], ['exponential', [1.6], 1e-6], ['gengamma', [2.1, 1.3, 0.8], 1e-6], ['gumbel', [1.3, 0.8], 1e-6], ['lognormal3', [0.1, 0.8, 0.2], 1e-7], ['gengammaP', [0.3, 0.6, 0.4], 1e-6], ['gengammaP', [0.1, 0.5, 0.08], 1e-6], ['expweibullG', [0.9, 0.3, 1.2], 1e-6], ['expweibullG', [0.3, 0.1, 1.05], 1e-7]]) {
     const F = FAMILIES[name];
     const g = F.score(o, th, Df), H = F.hess(o, th, Df);
     const gn = th.map((v, i) => { const a = th.slice(), b = th.slice(); a[i] += h; b[i] -= h; return (F.loglik(o, a, Df) - F.loglik(o, b, Df)) / (2 * h); });
@@ -119,6 +119,12 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
     ok(Math.abs(gg.loglik(o, [a, c, l], Df) - FAMILIES.lognormal.loglik(o, [m, s], Df)) < 0.05, 'at α = 10⁴ the generalized gamma\'s likelihood is the lognormal\'s to 0.05: the limit the edge refusals climb toward');
   }
   ok(Math.abs(FAMILIES.lognormal3.loglik(o, [0.3, 0.7, 0], Df) - FAMILIES.lognormal.loglik(o, [0.3, 0.7], Df)) < 1e-9, 'the three-parameter lognormal at γ = 0 is the lognormal');
+  { /* the Gumbel coordinates are the same exponentiated Weibull */
+    const G = FAMILIES.expweibullG, e = FAMILIES.expweibull;
+    const D2 = FT.prepare([3.1, 4.5, 5.2, 6.8, 8.0, 9.4, 11.2, 7.7]).Df;       /* data inside the Gumbel regime of the three points (e^(-x^k/θ) ≤ 0.5) */
+    const ok1 = [[3.0, 1.2, 2.5], [40, 0.6, 1.0], [0.7, 1.5, 1.8]].every((ew) => { const q = G.fromEW(ew); return Math.abs(G.loglik(o, q, D2) - e.loglik(o, ew, D2)) < 1e-9 && Math.abs(G.cdf(o, q, 5.0) - e.cdf(o, ew, 5.0)) < 1e-12 && Math.abs(G.quantile(o, q, 0.99) - e.quantile(o, ew, 0.99)) < 1e-9 && G.toEW(q).every((v, i) => Math.abs(v - ew[i]) < 1e-9 * Math.max(1, ew[i])); });
+    ok(ok1, 'the Gumbel coordinates (k, θ = λ^k, β = θ ln α) are the exponentiated Weibull: likelihood, CDF, quantile and the round trip agree');
+  }
   { /* Prentice's coordinates are the same distribution */
     const P = FAMILIES.gengammaP, ph = [0.2, 0.7, 0.3], st = P.toStacy(ph);
     ok(Math.abs(P.loglik(o, ph, Df) - gg.loglik(o, st, Df)) < 1e-9 && Math.abs(P.cdf(o, ph, 2.0) - gg.cdf(o, st, 2.0)) < 1e-12 && P.fromStacy(st).every((v, i) => Math.abs(v - ph[i]) < 1e-12), 'the Prentice form (μ, σ, Q) is the (α, c, λ) generalized gamma: likelihood, CDF and the round trip agree');
@@ -168,6 +174,40 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   ok(dc.ok || dc.edge, 'a 400-point generalized gamma with α = 150 is certified or refused at its edge, never refused otherwise (' + (dc.ok ? (dc.coords || 'gengamma') + ', ' + dc.names.join(', ') : dc.why.slice(0, 50)) + ')');
   const dp = FT.certify('gengammaP', deep, { start: FAMILIES.gengammaP.fromStacy([150, 0.3, 0.02]) });
   ok(dp.ok || dp.edge, 'the Prentice form certifies it directly from the true point, or reaches its edge (' + (dp.ok ? 'Q ' + dp.theta[2].toFixed(4) : dp.why.slice(0, 50)) + ')');
+  /* an exponentiated Weibull deep in its Gumbel regime (α = e^30): the (α, k, λ) climb runs past α = 10⁴,
+     the Gumbel coordinates hold the maximum as an ordinary point */
+  {
+    const k0 = 0.5, T0 = 0.25, B0 = 12 * T0;                  /* β/θ = 12: the family at α = e^12 and beyond */
+    const gx = Array.from({ length: 3000 }, () => { const w = -Math.log(-Math.log(1 - rnd())); return Math.pow(B0 + T0 * w, 1 / k0); });   /* a Gumbel of x^k: the family's α → ∞ face */
+    const eg = FT.certify('expweibull', gx);
+    red(eg.ok && eg.coords === 'expweibullG' && eg.ew[0] > 1e4, 'a 3,000-point sample from the exponentiated Weibull\'s Gumbel regime: certified in (k, θ, β) at α = ' + (eg.ok && eg.ew ? eg.ew[0].toExponential(1) : '—') + ', where (α, k, λ) runs off (' + (eg.ok ? eg.secondOrder : eg.why.slice(0, 60)) + ')');
+  }
+  /* a climb in Gumbel coordinates whose trial step leaves the regime (e^(−x^k/θ) > 0.5 at the smallest datum) rejects the
+     step and goes on — it used to end the climb, a refusal for nothing (the second review's third finding). Its own
+     generator, so the battery's random stream below is the one it always was. */
+  {
+    let q = 7; const r2 = () => { q = (q * 16807) % 2147483647; return q / 2147483647; };
+    const Gf = Object.assign({ name: 'expweibullG' }, FAMILIES.expweibullG), k0 = 1.2, T0 = 2, B0 = 10;
+    const gx = Array.from({ length: 500 }, () => { const a = Math.log(r2()) * Math.exp(-B0 / T0); return Math.pow(-T0 * Math.log(-Math.expm1(a)), 1 / k0); });
+    const { Df } = FT.prepare(gx), xmin = Math.min(...gx);
+    let threw = 0, conv = 0;
+    for (let i = 0; i < 20; i++) {
+      const k = k0 * (0.6 + 0.8 * r2()), tmin = 0.2 + 0.29 * r2(), T = Math.pow(xmin, k) / -Math.log(tmin);
+      try { if (FT.newton(Gf, Df, undefined, [k, T, T * (1 + 8 * r2())]).ok) conv++; } catch (e) { threw++; }
+    }
+    ok(threw === 0 && conv > 0, 'twenty climbs in Gumbel coordinates started beside the regime\'s edge: a trial step outside it is a rejected step, never the end of the climb (' + conv + ' converged, ' + threw + ' threw)');
+  }
+  /* the Gumbel-coordinate quantile where α = e^(β/θ) lies past every double: u = β − θ (ln(−ln p) + ln s), e^(−β/θ) never formed */
+  {
+    const G = FAMILIES.expweibullG, io = FT.intervalOps;
+    let bad = 0, n = 0;
+    for (const [k, T, bT] of [[0.7, 1.3, 800], [2.1, 0.05, 5000], [0.05, 40, 720]]) for (const p of [0.5, 1 - 24 / (100 * 8766)]) {
+      const qv = G.quantile(io, [[k, k], [T, T], [bT * T, bT * T]], io.c(p));
+      const x = Math.pow(T * (bT - Math.log(-Math.log(p))), 1 / k); n++;
+      if (!(qv[0] <= x * (1 + 1e-12) && x * (1 - 1e-12) <= qv[1] && qv[1] - qv[0] < 1e-9 * x)) bad++;
+    }
+    ok(bad === 0, 'the Gumbel-coordinate quantile past the doubles (β/θ from 720 to 5,000, α beyond 10³⁰⁸): a tight enclosure of β − θ ln(−ln p) at ' + n + ' points');
+  }
   /* a lognormal sample: whether the generalized gamma has a maximum just inside the family or
      peaks at its lognormal limit is the sign of Σw³ in the sample, so either is right — never a
      refusal for any other reason */
@@ -280,6 +320,118 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
   /* live: the quick blocks re-derived by the ledger runner */
   const r = cp.spawnSync('node', [path.join(ROOT, 'tools', 'run-hseva-ledger.js'), '--quick'], { cwd: ROOT });
   ok(r.status === 0, 'the daily, weekly, monthly and annual blocks re-derive identically (' + String(r.stdout).trim().split('\n').pop() + ')');
+}
+
+/* ---- the return-level atlas (certs/hseva-atlas.json over corpus/ww3-grid) ---- */
+{
+  const LP = path.join(ROOT, 'certs', 'hseva-atlas.json'), MP = path.join(ROOT, 'corpus', 'ww3-grid', 'meta.json');
+  if (fs.existsSync(LP) && fs.existsSync(MP)) {
+    const crypto = require('crypto');
+    const AT = require('./atlas.js'), AC = require('./atlas-claims.js');
+    const metaBytes = fs.readFileSync(MP), M = JSON.parse(metaBytes), A = JSON.parse(fs.readFileSync(LP, 'utf8'));
+    ok(A.corpus.sha256 === crypto.createHash('sha256').update(metaBytes).digest('hex'), 'the atlas ledger was made from the corpus on disk (meta.json sha256)');
+    const rec = new Map(A.cells.map((c) => [c.id, c]));
+    const sea = M.cells.filter((c) => c.status === 'sea');
+    ok(sea.length === A.cells.length && sea.every((c) => rec.has(c.id)), sea.length + ' open-sea cells, each with one atlas record, and no record without one');
+    ok(M.cells.filter((c) => c.status === 'sea').every((c) => !c.iceSteps && !c.fillDays) && M.cells.filter((c) => c.status === 'ice').every((c) => c.iceSteps > 0 || c.fillDays > 0 || c.fillSteps > 0), 'no certified cell has sea ice (the hindcast\'s own ice field) or a missing day, and every cell left out has one (' + M.cells.filter((c) => c.status === 'ice').length + ')');
+    {
+      const { CORE } = require(path.join(ROOT, 'playground', 'return-level-check', 'bundle.js'));
+      const now = Object.fromEntries(CORE.map(([, rel]) => rel).concat(['instruments/hseva/atlas.js']).map((rel) => [rel, crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex')]));
+      ok(A.code && JSON.stringify(A.code) === JSON.stringify(now), 'the atlas ledger was written by the code on disk, module for module (' + Object.keys(now).length + ' sha256s): the page\'s bundle is the ledger\'s code');
+    }
+    let badFile = 0;
+    for (const c of sea) { const b = fs.readFileSync(path.join(ROOT, 'corpus', 'ww3-grid', c.file)); if (crypto.createHash('sha256').update(b).digest('hex') !== c.sha256 || b.length !== 2 * M.days) badFile++; }
+    ok(badFile === 0, 'every cell file is its pinned sha256 and ' + M.days + ' days long (' + sea.length + ' files)');
+    /* every decision re-checked from the recorded enclosures */
+    /* a pair of printed enclosures that overlap by less than their printing (eight digits, outward) cannot be re-decided
+       from the record: that cell is re-derived live below and must come out identical; a wider overlap is a defect */
+    const within = (lo, hi) => lo <= hi && hi - lo <= 4e-7 * Math.max(Math.abs(hi), Math.abs(lo));
+    const relive = new Set();
+    let decided = 0, bad = 0, edges = 0, badEdge = 0, blocked = 0, badBlock = 0;
+    for (const c of A.cells) for (const blk of AT.BLOCKS) {
+      const B = c.blocks[blk], fams = Object.keys(B.fits);
+      const nonEdge = fams.filter((f) => !B.fits[f].c && !B.fits[f].e);
+      for (const f of fams) if (B.fits[f].e) { edges++; if (!(f === 'gengamma' && B.fits[f].k >= 0 && B.fits[f].q1 > 0)) badEdge++; }
+      if (nonEdge.length) { blocked++; if (AT.CRIT.some((k) => B.rank[k] !== 'R') || B.naive === undefined) badBlock++; }
+      for (const k of AT.CRIT) {
+        const best = B.rank[k]; if (best === 'R') continue;
+        decided++;
+        const bi = B.fits[best][k];
+        const others = fams.filter((f) => f !== best && B.fits[f].c && Array.isArray(B.fits[f][k]));
+        if (!Array.isArray(bi)) { bad++; continue; }
+        for (const f of others) if (!(B.fits[f][k][0] > bi[1])) { if (within(B.fits[f][k][0], bi[1])) relive.add(c.id); else bad++; }
+      }
+    }
+    ok(decided > 0 && bad === 0, decided + ' DECIDED choices in the atlas, each with its enclosure wholly below every other certified family\'s');
+    ok(badEdge === 0, edges + ' refusals at the generalized gamma\'s lognormal limit, each with its proof\'s neighbourhood recorded');
+    ok(badBlock === 0, blocked + ' blocks with a family refused for a reason other than the proved limit, and every choice there REFUSED');
+    /* the threshold fitter's choice, re-checked from the recorded enclosures: the generalized gamma past α = 500, the exponentiated
+       Weibull past α = 10⁴ (null: past the doubles) and every stop at a boundary left out as "the limit", any other refusal blocking */
+    let naiveDecided = 0, badNaive = 0;
+    for (const c of A.cells) for (const blk of AT.BLOCKS) {
+      const B = c.blocks[blk]; if (B.naive === 'R') continue; naiveDecided++;
+      const out = (f) => { const F = B.fits[f]; return !F.c || (f === 'gengamma' && F.a > 500) || (f === 'expweibull' && (F.a === null || F.a > 1e4)); };
+      const bi = B.fits[B.naive] && B.fits[B.naive].ad, fams = Object.keys(B.fits);
+      if (out(B.naive) || !Array.isArray(bi) || !fams.every((f) => B.fits[f].c || B.fits[f].e || B.fits[f].s)) { badNaive++; continue; }
+      for (const f of fams.filter((g) => g !== B.naive && !out(g))) {
+        if (!Array.isArray(B.fits[f].ad)) { badNaive++; break; }
+        if (!(B.fits[f].ad[0] > bi[1])) { if (within(B.fits[f].ad[0], bi[1])) relive.add(c.id); else { badNaive++; break; } }
+      }
+    }
+    ok(naiveDecided > 0 && badNaive === 0, naiveDecided + ' threshold-fitter choices in the atlas, each re-derived from the recorded enclosures with that rule\'s exclusions');
+    /* live: a sample of cells re-derived from the corpus, the record compared as JSON, character for character */
+    const d0 = Date.UTC(1993, 0, 1), days = Array.from({ length: M.days }, (_, k) => new Date(d0 + k * 86400000).toISOString().slice(0, 10));
+    const pick = [];
+    for (const want of [(c) => /report:campos/.test(c.sets.join()), (c) => c.sets.includes('brazil1') && !/report/.test(c.sets.join()), (c) => c.lat <= -44 && c.sets.includes('global4')]) { const c = sea.find(want); if (c && !pick.includes(c)) pick.push(c); }
+    ok(relive.size <= 12, relive.size + ' cells whose printed enclosures are too close to re-decide from the record, each re-derived live below');
+    for (const id of relive) { const c = sea.find((x) => x.id === id); if (c && !pick.includes(c)) pick.push(c); }
+    for (const c of pick) {
+      const b = fs.readFileSync(path.join(ROOT, 'corpus', 'ww3-grid', c.file)), v = new Int16Array(b.buffer, b.byteOffset, b.length / 2);
+      const S = { n: v.length, t: days, h: Array.from(v, (x) => x / 500), den: 500, step: 24 };
+      ok(JSON.stringify(AT.cellRecord(c.id, S)) === JSON.stringify(rec.get(c.id)), 'atlas cell ' + c.id + ' re-derived live from its pinned file: the record is identical, character for character');
+    }
+    /* the report's nodes: the atlas and the return-level ledger must decide alike on the same data */
+    const HL = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'hseva-ledger.json'), 'utf8'));
+    let agree = 0, nodes = 0;
+    for (const c of sea) { const r = c.sets.find((s) => /^report:/.test(s)); if (!r || !HL.ww3) continue; const name = r.slice(7), P = HL.ww3.points[name]; if (!P) continue; nodes++;
+      if (AT.BLOCKS.every((blk) => AT.CRIT.every((k) => (P.blocks[blk].rankings[k].verdict === 'DECIDED' ? P.blocks[blk].rankings[k].best : 'R') === rec.get(c.id).blocks[blk].rank[k]))) agree++; }
+    ok(nodes > 0 && agree === nodes, 'at the ' + nodes + ' report nodes, the atlas and certs/hseva-ledger.json decide every daily, weekly and monthly choice alike (' + agree + ' of ' + nodes + ')');
+    const K = AC.evaluate(M.cells.filter((c) => c.status === 'sea').map((c) => Object.assign({}, c, rec.get(c.id))));
+    ok(K.length === AC.CLAIMS.length && K.every((k) => ['HOLDS', 'DOES NOT HOLD', 'UNDECIDED'].includes(k.verdict)), 'the paper\'s ' + K.length + ' regional claims decided over the atlas: ' + K.map((k) => k.id + ' ' + k.verdict).join('; '));
+    /* three cells, every choice REFUSED: the refused cells could make the three-step claim true (2 > 1 > 0 and 0 < 1 < 2) or false;
+       one cell could not (a strict three-step fall needs two cells), and that is DOES NOT HOLD — decided jointly, not step by step */
+    const allR = () => ({ lat: 0, lon: 0, sets: ['global4'], blocks: { daily: { rank: { ad: 'R' } }, weekly: { rank: { ad: 'R' } }, monthly: { rank: { ad: 'R' } } } });
+    red(AC.evaluate([allR(), allR(), allR()])[0].verdict === 'UNDECIDED' && AC.evaluate([allR()])[0].verdict === 'DOES NOT HOLD', 'a claim over cells whose choices are all REFUSED is UNDECIDED when they could make it either way (three cells), and DOES NOT HOLD when no way could make it true (one cell cannot fall three steps)');
+    /* the three verdicts against brute force: every way the refused cells could fall, enumerated, on small random maps */
+    {
+      const { monotone, risesAndFalls, majority, plurality } = AC.rules, V = AC.VERDICTS, SIX = PAPER_SIX, B3 = AT.BLOCKS;
+      let q = 99; const r3 = () => { q = (q * 16807) % 2147483647; return q / 2147483647; };
+      const cnt = (X, b, f) => X.filter((c) => c[b] === f).length;
+      const brute = (S, truth) => {
+        const slots = []; S.cells.forEach((c, i) => B3.forEach((b) => { if (c.blocks[b].rank.ad === 'R') slots.push([i, b]); }));
+        let t = 0, f = 0;
+        for (let m = 0; m < Math.pow(6, slots.length) && !(t && f); m++) {
+          let x = m; const X = S.cells.map((c) => Object.fromEntries(B3.map((b) => [b, c.blocks[b].rank.ad])));
+          for (const [i, b] of slots) { X[i][b] = SIX[x % 6]; x = Math.floor(x / 6); }
+          if (truth(X)) t++; else f++;
+        }
+        return t && f ? V.U : t ? V.H : V.F;
+      };
+      let n = 0, miss = 0;
+      for (let it = 0; it < 400; it++) {
+        const cellsR = [], nc = 1 + Math.floor(r3() * 5); let R = 0;
+        for (let i = 0; i < nc; i++) { const blocks = {}; for (const b of B3) { const f = r3() < 0.35 && R < 5 ? 'R' : ['weibull', 'expweibull', 'weibull', 'expweibull', 'normal', 'gumbel'][Math.floor(r3() * 6)]; if (f === 'R') R++; blocks[b] = { rank: { ad: f } }; } cellsR.push({ blocks }); }
+        const S = { cells: cellsR };
+        const incW = (X) => cnt(X, 'daily', 'weibull') < cnt(X, 'weekly', 'weibull') && cnt(X, 'weekly', 'weibull') < cnt(X, 'monthly', 'weibull');
+        const decE = (X) => cnt(X, 'daily', 'expweibull') > cnt(X, 'weekly', 'expweibull') && cnt(X, 'weekly', 'expweibull') > cnt(X, 'monthly', 'expweibull');
+        for (const [got, truth] of [[monotone(S, 'weibull', B3, +1).verdict, incW], [monotone(S, 'expweibull', B3, -1).verdict, decE], [risesAndFalls(S, 'weibull', 'expweibull', B3).verdict, (X) => incW(X) && decE(X)],
+          [majority(S, 'expweibull', 'monthly').verdict, (X) => cnt(X, 'monthly', 'expweibull') > X.length / 2], [plurality(S, 'weibull', 'daily').verdict, (X) => SIX.every((f) => f === 'weibull' || cnt(X, 'daily', 'weibull') > cnt(X, 'daily', f))]]) {
+          n++; if (got !== brute(S, truth)) miss++;
+        }
+      }
+      ok(miss === 0, 'the claims\' three verdicts equal brute force on ' + n + ' small random maps — HOLDS when every way the refused cells fall makes the claim true, DOES NOT HOLD when none does, decided jointly across blocks');
+    }
+  }
 }
 
 console.log('hseva battery: ' + pass + ' pass, ' + fail + ' fail, ' + redsFired + '/' + reds + ' red controls fired');

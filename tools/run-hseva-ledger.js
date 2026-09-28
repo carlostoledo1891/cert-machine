@@ -95,11 +95,12 @@ function fitBlock(S, blk) {
     /* a criterion or a level the arithmetic cannot enclose is recorded as such, never dropped */
     let cr = null, crWhy = null;
     try { cr = FT.criteria(c, S.den); } catch (e) { crWhy = e.message; }
-    const ll = c.ll || c.fam.loglik(FT.intervalOps, c.box, c.Di);              /* the certificate's own family: its coordinates */
+    let ll = c.ll || null;                                                      /* the certificate's own family: its coordinates */
+    if (!ll) try { ll = c.fam.loglik(FT.intervalOps, c.box, c.Di); } catch (e) { ll = null; }
     const rl = {};
     for (const yr of T) { try { const v = FT.returnLevel(c, yr, BM.hours); rl[yr] = v ? ivOut(v, 8) : null; } catch (e) { rl[yr] = { why: 'not enclosed: ' + e.message }; } }
     fits[f] = {
-      certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy ? c.stacy.map((v) => Number(v).toPrecision(9)) : null, stacyBox: c.stacyBox ? boxOut(c.stacyBox) : null, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: boxOut(c.box),
+      certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy ? c.stacy.map(String) : null, stacyBox: c.stacyBox ? boxOut(c.stacyBox) : null, ew: c.ew ? c.ew.map(String) : null, ewBox: c.ewBox ? boxOut(c.ewBox) : null, theta: c.theta.map(String), box: boxOut(c.box),   /* the candidate as the double it is (inside its box), never rounded out of it */
       maxRad: c.maxRad.toExponential(2), secondOrder: c.secondOrder, minors: c.minors.map((m) => ivOut(m, 6)), rounds: c.rounds, iters: c.newtonIters, ll: ivOut(ll, 12),
       criteria: cr ? { ad: ivOut(cr.ad), ks: ivOut(cr.ks), mse: ivOut(cr.mse), chi2: cr.chi2.value ? Object.assign(ivOut(cr.chi2.value), { bins: cr.chi2.bins, kept: cr.chi2.kept }) : { value: null, refused: !!cr.chi2.refused, why: cr.chi2.why, bins: cr.chi2.bins || null } } : { error: crWhy },
       returnLevel: rl, seconds: Number(((Date.now() - t0) / 1000).toFixed(1)),
@@ -137,7 +138,9 @@ function unitPrinted() {
       const c = FT.certify(f, data, opts);
       if (!c.ok) return { certified: false, why: c.why, edge: !!c.edge };
       const ll = c.fam.loglik(oi, c.box, c.Di);
-      return { certified: true, c, out: { certified: true, theta: c.theta.map((v) => Number(v).toPrecision(9)), box: c.box.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]), maxRad: c.maxRad.toExponential(2), secondOrder: c.secondOrder, minors: c.minors.map((m) => ivOut(m, 6)), ll: ivOut(ll, 12), rl100: ivOut(FT.returnLevel(c, 100, 1), 8), rl1000: ivOut(FT.returnLevel(c, 1000, 1), 8) }, ll };
+      /* the box in the family's printed coordinates: a Gumbel-coordinate or Prentice certificate carried back, or null past the doubles */
+      const printedBox = c.coords === 'expweibullG' ? c.ewBox || null : c.coords === 'gengammaP' ? c.stacyBox || null : c.box;
+      return { certified: true, c, printedBox, out: { certified: true, coords: c.coords || null, theta: c.theta.map(String), box: c.box.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]), ew: c.ew ? c.ew.map(String) : null, ewBox: c.ewBox ? boxOut(c.ewBox) : null, maxRad: c.maxRad.toExponential(2), secondOrder: c.secondOrder, minors: c.minors.map((m) => ivOut(m, 6)), ll: ivOut(ll, 12), rl100: ivOut(FT.returnLevel(c, 100, 1), 8), rl1000: ivOut(FT.returnLevel(c, 1000, 1), 8) }, ll };
     };
     const W = cert('weibull', xs, { prepared }), E = cert('expweibull', xs, { prepared }), LN = cert('lognormal', xs, { prepared });
     ref.mle.weibull = W.out || W; ref.mle.expweibull = E.out || E; ref.mle.lognormal = LN.out || LN;
@@ -170,7 +173,7 @@ function unitPrinted() {
         if (L3.certified) row.reproduces = L3.c.box.every((q, i) => theta[i][0] <= q[0] && q[1] <= theta[i][1]);
       }
       if (refFam && refFam.certified) {
-        row.reproduces = refFam.c.box.every((q, i) => theta[i][0] <= q[0] && q[1] <= theta[i][1]);
+        row.reproduces = refFam.printedBox ? refFam.printedBox.every((q, i) => theta[i][0] <= q[0] && q[1] <= theta[i][1]) : null;   /* compared in the printed coordinates, or not at all */
         if (ll) row.deficit = ivOut(IV.sub(refFam.ll, ll), 8);      /* how far below the certified maximum of its own family */
       }
       if (R.id === 'c8' && tzW.certified) row.reproducesTz = tzW.c.box.every((q, i) => [P.k, P.lambda][i][0] <= q[0] && q[1] <= [P.k, P.lambda][i][1]);
@@ -256,7 +259,7 @@ function scipyDecide(buoys) {
     return { theta: [I(v[0]), I(v[1]), I(v[3])], loc: v[2] };           /* expweibull, gengamma: (a, c, loc, scale) */
   };
   const lowerBoundOfSup = (fits, f) => {             /* a certified member or limit of the family: its log-likelihood */
-    if (fits[f].certified) return { lo: Number(fits[f].ll.lo), via: f };
+    if (fits[f].certified && fits[f].ll) return { lo: Number(fits[f].ll.lo), via: f };
     if (f === 'gengamma' && fits.lognormal.certified) return { lo: Number(fits.lognormal.ll.lo), via: 'lognormal (the limit of the family as α → ∞)' };
     if (f === 'expweibull' && fits.weibull.certified) return { lo: Number(fits.weibull.ll.lo), via: 'weibull (the family at α = 1)' };
     return null;

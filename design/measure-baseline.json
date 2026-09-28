@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-27",
+  "recorded": "2026-09-28",
   "browser": "Chrome/153.0.8010.54",
   "viewports": [
     1440,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "25fc08393c41c8c7602a00eb4f3ab63e70c2519be1e128f3db6cd5d4cdae60e0"
+      "sha": "15d400b5094eec330b5bc2f050a93ed298edc7bc49ead12fc5b5a1ada9158567"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8ca67d909d961fe39b018a39ed46c25878bd676384b79678c35534c622dde9d4"
+      "sha": "cecc3696cf4ca83dc72638437495b03bac6f6df6c1a7b8995d73125471709298"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -434,6 +434,27 @@
       },
       "sha": "ce5389ec792d6701a06e0c078cff49f0330cf32668a34ee91756e4fa5aaf1b96"
     },
+    "site/instruments/return-level-atlas/index.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "768": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "d0e5792b04a37573f160888ac6198d3fdd4cb84f20fac98fc2b50ae7a8278b5f"
+    },
     "site/instruments/return-level-check/index.html": {
       "390": {
         "spines": 5,
@@ -453,7 +474,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a7ba1bad908525474900d4dbdb3676cc426649350035ab172e59c1a580460992"
+      "sha": "333827d18146c5f4d9525072b3a117add9db54884e9711f6e52cc1eacc5f4e1d"
     },
     "site/instruments/rewire/index.html": {
       "390": {
@@ -579,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0359019983779dd0eed92c51e4ea2ddb46045bf510df58861bd6673c5058b528"
+      "sha": "ae8e556adcdb008c9589edcfbd2cc5f693e3caa0c8ab2ba0af573c3f2b1d2208"
     },
     "site/oracle/index.html": {
       "390": {
@@ -600,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "59d5aa8b83dffc9bccee3388c24fc246ec1a0caf225b3f59f0aab9bee23f2a25"
+      "sha": "2910d9cad4f7e8ce59a21182e586537ffbeadc442fd52bef0e70a63926735552"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -1377,7 +1398,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1cded0733a9f15b8a9f6a9c48ee29e120ec861d83b0c452f8734c8039aac8c0a"
+      "sha": "53537389dbf6df63aaf02fb01116907d850783ac2e153e414f2223a7f2317c79"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1818,7 +1839,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "51e85b81c7d760fdc38bebfe5ed5b5d22de2f5d58fc7a36d8f3e23c872a3fad4"
+      "sha": "898c9cb6313a25cadf8e8988e3b527c9749bfb188ca1ffdca51f1f039c3a1316"
     },
     "site/reports/rm-audit.html": {
       "390": {

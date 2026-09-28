@@ -30,10 +30,11 @@ self.onmessage = function (ev) {
       /* a criterion or a level the arithmetic cannot enclose is said so, never dropped */
       var cr = null, crWhy = null;
       try { cr = FT.criteria(c, q.den); } catch (e) { crWhy = String((e && e.message) || e); }
-      var ll = c.ll || c.fam.loglik(FT.intervalOps, c.box, c.Di);   /* the certificate's own coordinates */
+      var ll = c.ll || null;   /* the certificate's own coordinates; null where the arithmetic cannot enclose it */
+      if (!ll) try { ll = c.fam.loglik(FT.intervalOps, c.box, c.Di); } catch (e) { ll = null; }
       var rl = {}, rlWhy = {};
       q.T.forEach(function (T) { try { rl[T] = FT.returnLevel(c, T, BM.hours); } catch (e) { rl[T] = null; rlWhy[T] = String((e && e.message) || e); } });
-      fits[f] = { certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy || null, stacyBox: c.stacyBox || null, theta: c.theta, box: c.box, maxRad: c.maxRad, secondOrder: c.secondOrder, minors: c.minors, rounds: c.rounds, ll: ll,
+      fits[f] = { certified: true, names: c.names, coords: c.coords || null, stacy: c.stacy || null, stacyBox: c.stacyBox || null, ew: c.ew || null, ewBox: c.ewBox || null, theta: c.theta, box: c.box, maxRad: c.maxRad, secondOrder: c.secondOrder, minors: c.minors, rounds: c.rounds, ll: ll,
         criteria: cr ? { ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: { value: cr.chi2.value, refused: !!cr.chi2.refused, why: cr.chi2.why || null, bins: cr.chi2.bins || null, kept: cr.chi2.kept || null } } : { error: crWhy },
         returnLevel: rl, returnLevelWhy: rlWhy, seconds: (Date.now() - t0) / 1000 };
       var unstated = cr ? (cr.ad ? [] : ['ad']) : ['ad', 'ks', 'mse', 'chi2'];

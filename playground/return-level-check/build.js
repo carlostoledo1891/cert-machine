@@ -29,34 +29,15 @@ const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
 const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.js'));
 const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
 
-/* the ledger's modules, byte for byte, behind a twelve-line require */
-const MODS = [
-  ['interval.js', 'instruments/interval/interval.js'], ['rational.js', 'instruments/interval/rational.js'],
-  ['transcendental.js', 'instruments/interval/transcendental.js'], ['radii.js', 'instruments/interval/radii.js'],
-  ['special.js', 'instruments/hseva/special.js'], ['families.js', 'instruments/hseva/families.js'],
-  ['fit.js', 'instruments/hseva/fit.js'], ['blockrule.js', 'instruments/hseva/blockrule.js'],
-];
-const modules = {}, parts = [];
+/* the ledger's modules, byte for byte, behind a twelve-line require (bundle.js, shared with the atlas) */
+const { bundle } = require(path.join(HERE, 'bundle.js'));
+const B = bundle();
+const BUNDLE = B.BUNDLE;
+const modules = {};
 /* the page's own code is named too: app.js holds THE parse rule (bytes → series), worker.js the run */
 modules['playground/return-level-check/app.js'] = sha(APP);
 modules['playground/return-level-check/worker.js'] = sha(WORKER);
-for (const [name, rel] of MODS) {
-  const t = fs.readFileSync(path.join(ROOT, rel), 'utf8');
-  if (/<\/script/i.test(t)) throw new Error('return-level-check: ' + rel + ' holds a closing script tag');
-  modules[rel] = sha(t);
-  parts.push('  ' + JSON.stringify(name) + ': function (module, exports, require, __dirname) {\n' + t + '\n  }');
-}
-const BUNDLE = '(function (root) {\n"use strict";\nvar SRC = {\n' + parts.join(',\n') + '\n};\n'
-  + 'var cache = {};\n'
-  + 'function req(name) {\n'
-  + '  if (name === "path") return { join: function () { return Array.prototype.join.call(arguments, "/"); } };\n'
-  + '  var base = String(name).split("/").pop();\n'
-  + '  if (cache[base]) return cache[base].exports;\n'
-  + '  if (!SRC[base]) throw new Error("bundle: no module " + name);\n'
-  + '  var m = { exports: {} }; cache[base] = m; SRC[base](m, m.exports, req, ""); return m.exports;\n'
-  + '}\n'
-  + 'root.HSEVA = { FT: req("fit.js"), FAM: req("families.js"), BR: req("blockrule.js") };\n'
-  + '})(typeof self !== "undefined" ? self : this);\n';
+Object.assign(modules, B.modules);
 
 /* the preset: the Campos Basin node of the paper's own hindcast, if the extraction is complete and contiguous */
 function preset() {
@@ -83,7 +64,7 @@ function build(OUTDIR) {
 <header class="hero"><div class="wrap">
   <div class="eyebrow">instruments &middot; return-level check &middot; a marginal fit, certified in your tab</div>
   <h1>Certify a return level. Your file never leaves this page.</h1>
-  <p class="lede">Bring a significant-wave-height record; declare the block. The six families of <a href="https://doi.org/10.1016/j.oceaneng.2026.125841">Reis, Guimar&atilde;es, Farina, Paul, de Paula and Ribeiro (Ocean Engineering, 2026)</a> are fitted by maximum likelihood and each fit is <em>certified</em> &mdash; a box the Krawczyk operator proves holds exactly one zero of the score, over which the likelihood is proved concave, so that zero is its maximum there; all of it evaluated in outward-rounded interval arithmetic over every value &mdash; or refused with the reason. The paper's four criteria and the 100- and 1000-year levels come back as enclosures, the choice of family as DECIDED or REFUSED, and you can download the certificate: it carries your file's sha256 and the digest of every file of code that ran, the rule that read your file included, never the data. The code is the one that certified <a href="/reports/return-levels.html">the return-level table</a>, running in your browser; your file is read here and sent nowhere.</p>
+  <p class="lede">Bring a significant-wave-height record; declare the block. The six families of <a href="https://doi.org/10.1016/j.oceaneng.2026.125841">Reis, Guimar&atilde;es, Farina, Paul, de Paula and Ribeiro (Ocean Engineering, 2026)</a> are fitted by maximum likelihood and each fit is <em>certified</em> &mdash; a box the Krawczyk operator proves holds exactly one zero of the score, over which the likelihood is proved concave, so that zero is its maximum there; all of it evaluated in outward-rounded interval arithmetic over every value &mdash; or refused with the reason. The paper's four criteria and the 100- and 1000-year levels come back as enclosures, the choice of family as DECIDED or REFUSED, and you can download the certificate: it carries your file's sha256 and the digest of every file of code that ran, the rule that read your file included, never the data. The code is the one that certified <a href="/reports/return-levels.html">the return-level table</a> and every cell of <a href="/instruments/return-level-atlas/">the return-level atlas</a>, running in your browser; your file is read here and sent nowhere.</p>
 </div></header>
 
 <section class="wrap">
@@ -120,7 +101,7 @@ function build(OUTDIR) {
 <section class="section"><div class="wrap">
   <div class="prose">
     <h2 class="t2">What is certified, and what is not</h2>
-    <p>Certified: that each fit is the unique stationary point of the likelihood in its box, and its maximum there &mdash; the Hessian is proved negative definite over the whole box; that each criterion and level is what that box implies; that a ranking follows from the enclosures. The float search that finds a candidate is never trusted for a number &mdash; the box is. The generalized gamma tends to the lognormal as its shape grows, and on many records its likelihood peaks there: where the certificate proves that next to the limit (the derivative in Prentice's Q negative over a stated neighbourhood of the lognormal fit) and a search from both ends of the family finds no maximum inside it above the lognormal's, the family is left out of the ranking, named &mdash; the lognormal it tends to is ranked. Any other family without a certified maximum &mdash; the exponentiated Weibull whose climb passes &alpha; = 10<sup>4</sup> still rising, say &mdash; makes the ranking REFUSED rather than handing the choice to the families that did converge. A certified maximum is a maximum in its box; that no better one exists elsewhere in the family is the search's claim, as it is any optimiser's. The location is fixed at zero, as the paper writes the families: with a free location the likelihood of every one of them is unbounded, and a number printed for it is where an optimiser stopped.</p>
+    <p>Certified: that each fit is the unique stationary point of the likelihood in its box, and its maximum there &mdash; the Hessian is proved negative definite over the whole box; that each criterion and level is what that box implies; that a ranking follows from the enclosures. The float search that finds a candidate is never trusted for a number &mdash; the box is. The generalized gamma tends to the lognormal as its shape grows, and on many records its likelihood peaks there: where the certificate proves that next to the limit (the derivative in Prentice's Q negative over a stated neighbourhood of the lognormal fit) and a search from both ends of the family finds no maximum inside it above the lognormal's, the family is left out of the ranking, named &mdash; the lognormal it tends to is ranked. The exponentiated Weibull whose climb runs past &alpha; = 10<sup>4</sup> is in its Gumbel regime &mdash; with &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha; it is a Gumbel law of H<sub>s</sub><sup>k</sup> &mdash; and is carried to (k, &theta;, &beta;), where its maximum is an ordinary point, and certified there. Any family still without a certified maximum makes the ranking REFUSED rather than handing the choice to the families that did converge. A certified maximum is a maximum in its box; that no better one exists elsewhere in the family is the search's claim, as it is any optimiser's. The location is fixed at zero, as the paper writes the families: with a free location the likelihood of every one of them is unbounded, and a number printed for it is where an optimiser stopped.</p>
     <p>Not certified: that any family is the true law of the sea, that the data are right, or how uncertain a 100- or 1000-year level is &mdash; that uncertainty is statistical and is not in these enclosures. Values are treated as independent draws, as the paper treats them. And "certified" here is the arithmetic's word, not a regulator's: offshore units are approved by classification societies under their own rules. A certificate from this page is evidence anyone can re-check without trusting the page &mdash; the same code, the same digest, the same boxes.</p>
     <p>The code, as inlined here: ${Object.entries(modules).map(([rel, h]) => '<span class="mono">' + esc(rel) + '</span> ' + h.slice(0, 12)).join(' &middot; ')}.${P ? ' The preset is the Campos Basin node of the paper\'s own hindcast: ' + P.n.toLocaleString('en-US') + ' three-hourly values, ' + P.start.slice(0, 10) + ' to ' + P.last.slice(0, 10) + ', sha256 ' + P.sha256.slice(0, 12) + '…, CC BY-SA 4.0 (Ifremer; Alday et al. 2021).' : ''}</p>
     <p class="mono ink-4 mt5 cmd">

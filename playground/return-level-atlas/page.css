@@ -1,0 +1,93 @@
+/* return-level-atlas — the stage (map, controls, legend, side panel) and the claims; the grammar classes are the shared layer's */
+.ra-stage { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 400px; grid-template-areas: "map side"; height: 84vh; min-height: 600px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--paper); margin-top: var(--s-6); }
+.ra-map { grid-area: map; position: relative; min-width: 0; height: 100%; overflow: hidden; background: var(--paper); }
+.ra-side { grid-area: side; min-width: 0; overflow-y: auto; border-left: 1px solid var(--rule); background: var(--sunk); padding: var(--s-5); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+
+/* the few rules MapLibre's own sheet would carry, in tokens */
+.ra-map .maplibregl-map { position: relative; overflow: hidden; font: inherit; }
+.ra-map .maplibregl-canvas { position: absolute; left: 0; top: 0; }
+.ra-map .maplibregl-canvas:focus { outline: none; }
+.ra-map .maplibregl-canvas-container.maplibregl-interactive { cursor: grab; }
+.ra-map .maplibregl-canvas-container.maplibregl-interactive:active { cursor: grabbing; }
+.ra-map .maplibregl-control-container { display: none; }
+
+.ra-ctl { position: absolute; left: var(--s-4); top: var(--s-4); right: calc(400px + var(--s-4)); z-index: 2; display: grid; gap: var(--s-2); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius-m); padding: var(--s-2) var(--s-3); box-shadow: var(--shadow); }
+.ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); }
+.ra-sub { gap: var(--s-2); }
+.ra-find { width: 9.5em; }
+.ra-claim:focus-visible, .ra-seg button:focus-visible, .ra-side button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ra-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); min-width: 4.5em; }
+.ra-seg, .ra-chips { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.ra-seg button, .ra-chips button, .ra-side button { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-3); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); cursor: pointer; }
+.ra-seg button:hover, .ra-chips button:hover, .ra-side button:hover { color: var(--ink); border-color: var(--rule-strong); }
+.ra-seg button[aria-checked="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.ra-side button:disabled { color: var(--ink-5); cursor: default; }
+.ra-sub:empty { display: none; }
+
+.ra-legend { position: absolute; left: var(--s-4); bottom: var(--s-4); z-index: 2; max-width: min(560px, calc(100% - 440px)); background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius-m); padding: var(--s-3) var(--s-4); font-size: var(--text-small); color: var(--ink-2); box-shadow: var(--shadow); }
+.ra-legend .t .ra-nt { text-transform: none; }
+.ra-legend .t { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin-bottom: var(--s-2); }
+.ra-keys { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); align-items: center; }
+.ra-key { display: inline-flex; align-items: center; gap: var(--s-2); }
+.ra-sw { display: inline-block; width: 14px; height: 14px; border-radius: 2px; background: var(--sw); border: 1px solid var(--rule-strong); }
+.ra-sw.hatch { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); }
+.ra-sw.ice { background: radial-gradient(circle, var(--ink-5) 1px, var(--sunk) 1.5px); background-size: 4px 4px; }
+.ra-ramp { display: flex; align-items: flex-start; gap: 0; margin-right: var(--s-3); }
+.ra-ramp i { display: block; width: 56px; height: 10px; background: var(--sw); }
+.ra-ramp span { display: block; width: 56px; font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); white-space: nowrap; }
+.ra-rampcol { display: flex; flex-direction: column; }
+
+.ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
+.ra-tip .n { color: var(--ink-3); }
+
+.ra-side h3 { font-size: var(--text-3); color: var(--ink); margin: 0 0 var(--s-2); font-weight: var(--weight-title); }
+.ra-side .k { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin: var(--s-4) 0 var(--s-2); }
+.ra-side .n { color: var(--ink-3); }
+.ra-side p { margin: 0 0 var(--s-3); }
+.ra-side table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: var(--text-eyebrow); }
+.ra-side td { white-space: nowrap; }
+.ra-side td.w { white-space: normal; }
+.ra-side th { text-align: left; font-weight: var(--weight-body); color: var(--ink-4); padding: var(--s-1); border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.ra-side td { padding: var(--s-1); border-bottom: 1px solid var(--rule-soft); color: var(--ink-2); vertical-align: top; }
+.ra-side td.b { color: var(--ink); }
+.ra-side td.r { color: var(--ink-4); }
+.ra-side .tw { overflow-x: auto; }
+.ra-go-row { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-3) 0; }
+.ra-ok { color: var(--ink); }
+.ra-sm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3); }
+.ra-sm figure { margin: 0; }
+.ra-sm canvas { display: block; width: 100%; height: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); }
+.ra-life { color: var(--ink); border-left: 2px solid var(--ink); padding-left: var(--s-3); margin: var(--s-3) 0; }
+.ra-rl { display: block; width: 100%; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-s); margin-bottom: var(--s-2); }
+.ra-sm figcaption { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); }
+
+.ra-claims { list-style: none; padding: 0; margin: var(--s-5) 0 0; display: grid; gap: var(--s-3); }
+.ra-claim { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: var(--s-4); padding: var(--s-4); border: 1px solid var(--rule); border-radius: var(--radius-m); background: var(--surface); cursor: pointer; }
+.ra-claim:hover, .ra-claim.on { border-color: var(--rule-strong); background: var(--surface2); }
+.ra-cv { font-family: var(--font-mono); font-size: var(--text-mono); letter-spacing: var(--track-slight); align-self: start; padding: var(--s-1) var(--s-2); border-radius: var(--radius-s); text-align: center; }
+.ra-v-holds { color: var(--verdict-certified-ink); background: var(--verdict-certified-bg); }
+.ra-v-does-not-hold { color: var(--ink); border: 1px solid var(--ink); }
+.ra-v-undecided { color: var(--ink-3); border: 1px dashed var(--ink-4); }
+.ra-cq { color: var(--ink); line-height: var(--leading-snug); }
+.ra-cite { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-4); }
+.ra-cr { color: var(--ink-3); font-size: var(--text-small); margin-top: var(--s-1); }
+.ra-cn { color: var(--ink-4); font-size: var(--text-eyebrow); margin-top: var(--s-1); overflow-wrap: anywhere; }
+
+@media (max-width: 1000px) {
+  .ra-stage { grid-template-columns: minmax(0, 1fr); grid-template-areas: "ctl" "map" "legend" "side"; height: auto; min-height: 0; }
+  .ra-map { height: 64vh; min-height: 380px; }
+  .ra-ctl, .ra-legend { position: static; max-width: none; right: auto; border-radius: 0; border-left: 0; border-right: 0; box-shadow: none; }
+  .ra-ctl { grid-area: ctl; }
+  .ra-legend { grid-area: legend; }
+  .ra-side { grid-area: side; border-left: 0; border-top: 1px solid var(--rule); max-height: none; }
+  .ra-claim { grid-template-columns: minmax(0, 1fr); }
+  .ra-cv { justify-self: start; }
+}
+
+/* the prose rhythm, as the other instrument pages carry it */
+section p + p, section p + ul, section p + ol, section p + figure,
+section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section h2, section h3 { margin-top: var(--s-7); }
+section h2 + *, section h3 + * { margin-top: var(--s-4); }
+.ra-side h3 { margin-top: 0; }

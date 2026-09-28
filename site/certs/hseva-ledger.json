@@ -1,6 +1,6 @@
 {
  "what": "The method of Reis, Guimarães, Farina, Paul, de Paula, Ribeiro (Ocean Eng. 359, 2026, 125841) — six families fitted by maximum likelihood to the unfiltered series and to daily, weekly and monthly block maxima, four goodness-of-fit criteria, 100- and 1000-year return levels — with every fit certified by the Krawczyk operator as the unique zero of its score in a box, every criterion and level an enclosure over that box, and each criterion's choice of family DECIDED or REFUSED; on the benchmark's NDBC buoys A–C (annual maxima besides), on the paper's own WAVEWATCH III hindcast at the grid points of corpus/ww3-points, and against the Hs marginals the benchmark's contributions printed.",
- "generated": "2026-09-27",
+ "generated": "2026-09-28",
  "conventions": {
   "hoursPerYear": 8766,
   "returnLevel": "F⁻¹(1 − b/(T·8766)) for a block of b hours (b = 1 for the buoys' hourly series, 3 for the hindcast's, 24, 168, 730.5, 8766); null when fewer than one block falls in the return period",
@@ -77,9 +77,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.941216575",
-        "0.642479395"
+        "0.9412165754049344",
+        "0.6424793954960153"
        ],
        "box": [
         [
@@ -147,7 +149,7 @@
          "hi": "4.2659195"
         }
        },
-       "seconds": 3.8
+       "seconds": 3.9
       },
       "lognormal": {
        "certified": true,
@@ -158,9 +160,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "-0.235997941",
-        "0.578593310"
+        "-0.23599794080393202",
+        "0.5785933102736993"
        ],
        "box": [
         [
@@ -228,7 +232,7 @@
          "hi": "15.769966"
         }
        },
-       "seconds": 6.1
+       "seconds": 6.2
       },
       "weibull": {
        "certified": true,
@@ -239,9 +243,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.63511033",
-        "1.06112837"
+        "1.6351103343832936",
+        "1.0611283711724626"
        ],
        "box": [
         [
@@ -309,7 +315,7 @@
          "hi": "5.7803888"
         }
        },
-       "seconds": 8.2
+       "seconds": 8.9
       },
       "expweibull": {
        "certified": true,
@@ -321,10 +327,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "41.1885800",
-        "0.485730835",
-        "0.0424505566"
+        "41.18858002912541",
+        "0.4857308349246177",
+        "0.042450556635247945"
        ],
        "box": [
         [
@@ -400,7 +408,7 @@
          "hi": "19.637073"
         }
        },
-       "seconds": 2319.4
+       "seconds": 31.9
       },
       "gengamma": {
        "certified": false,
@@ -427,7 +435,7 @@
         "lo": "-111465.851442",
         "hi": "-111465.851441"
        },
-       "seconds": 1045.4
+       "seconds": 53.2
       },
       "gumbel": {
        "certified": true,
@@ -438,9 +446,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.691087005",
-        "0.386210248"
+        "0.6910870051365171",
+        "0.3862102476377522"
        ],
        "box": [
         [
@@ -508,7 +518,7 @@
          "hi": "6.8651951"
         }
        },
-       "seconds": 6.2
+       "seconds": 6.1
       }
      },
      "rankings": {
@@ -556,9 +566,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.34773498",
-        "0.888654883"
+        "1.3477349763673188",
+        "0.8886548832025387"
        ],
        "box": [
         [
@@ -637,9 +649,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.137973662",
-        "0.547290802"
+        "0.13797366177128056",
+        "0.5472908019333721"
        ],
        "box": [
         [
@@ -718,9 +732,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.68663095",
-        "1.52291763"
+        "1.6866309520283267",
+        "1.5229176264695894"
        ],
        "box": [
         [
@@ -800,10 +816,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "104.758038",
-        "0.423944048",
-        "0.0246914367"
+        "104.75803810048072",
+        "0.4239440482988249",
+        "0.024691436714342797"
        ],
        "box": [
         [
@@ -879,7 +897,7 @@
          "hi": "21.003032"
         }
        },
-       "seconds": 2.9
+       "seconds": 2.8
       },
       "gengamma": {
        "certified": false,
@@ -906,7 +924,7 @@
         "lo": "-7065.38602333",
         "hi": "-7065.38602332"
        },
-       "seconds": 2.7
+       "seconds": 2.8
       },
       "gumbel": {
        "certified": true,
@@ -917,9 +935,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.00278083",
-        "0.528858750"
+        "1.0027808334600095",
+        "0.5288587497164657"
        ],
        "box": [
         [
@@ -1035,9 +1055,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.31862334",
-        "1.30080206"
+        "2.3186233426704015",
+        "1.3008020615956049"
        ],
        "box": [
         [
@@ -1116,9 +1138,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.710754704",
-        "0.498696397"
+        "0.710754704058321",
+        "0.4986963973938827"
        ],
        "box": [
         [
@@ -1197,9 +1221,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.92196715",
-        "2.63026246"
+        "1.9219671461501528",
+        "2.6302624604114944"
        ],
        "box": [
         [
@@ -1279,10 +1305,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "230.136857",
-        "0.403120558",
-        "0.0249475436"
+        "230.13685661878966",
+        "0.4031205582231097",
+        "0.024947543551036212"
        ],
        "box": [
         [
@@ -1396,9 +1424,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.77760101",
-        "0.849875533"
+        "1.7776010098355621",
+        "0.8498755330644358"
        ],
        "box": [
         [
@@ -1514,9 +1544,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.45362080",
-        "1.63034885"
+        "3.4536208000000013",
+        "1.630348849064933"
        ],
        "box": [
         [
@@ -1595,9 +1627,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.13576150",
-        "0.455844593"
+        "1.1357614974027697",
+        "0.45584459347171985"
        ],
        "box": [
         [
@@ -1676,9 +1710,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.24468299",
-        "3.91130870"
+        "2.244682993145079",
+        "3.911308698792234"
        ],
        "box": [
         [
@@ -1758,10 +1794,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "18.0210478",
-        "0.758876594",
-        "0.647181288"
+        "18.021047846466164",
+        "0.7588765943354308",
+        "0.6471812875829661"
        ],
        "box": [
         [
@@ -1875,9 +1913,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.73099511",
-        "1.19719286"
+        "2.7309951081435244",
+        "1.1971928585457974"
        ],
        "box": [
         [
@@ -1993,9 +2033,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "6.49225000",
-        "1.60104761"
+        "6.492250000000001",
+        "1.6010476126444628"
        ],
        "box": [
         [
@@ -2074,9 +2116,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.84583532",
-        "0.212525280"
+        "1.845835318228602",
+        "0.21252527956179737"
        ],
        "box": [
         [
@@ -2155,9 +2199,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.77658185",
-        "7.12588988"
+        "3.776581853929162",
+        "7.125889882433381"
        ],
        "box": [
         [
@@ -2230,14 +2276,14 @@
       "expweibull": {
        "certified": false,
        "edge": false,
-       "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
+       "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family; in Gumbel coordinates (k, θ = λ^k, β = θ ln α): the climb passed k = 0.001",
        "stop": [
         "2.81230e+12",
         "0.224292",
         "0.00000184136"
        ],
        "stoppedAtBoundary": true,
-       "seconds": 0
+       "seconds": 0.1
       },
       "gengamma": {
        "certified": false,
@@ -2275,9 +2321,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.85454222",
-        "0.979205098"
+        "5.85454221512876",
+        "0.9792050979321536"
        ],
        "box": [
         [
@@ -2402,9 +2450,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.18908272",
-        "0.661845428"
+        "1.189082723020765",
+        "0.6618454283340933"
        ],
        "box": [
         [
@@ -2483,9 +2533,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.0368257549",
-        "0.521608395"
+        "0.03682575490569097",
+        "0.5216083946036373"
        ],
        "box": [
         [
@@ -2564,9 +2616,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.92526210",
-        "1.34730356"
+        "1.9252621015878422",
+        "1.3473035567931937"
        ],
        "box": [
         [
@@ -2634,7 +2688,7 @@
          "hi": "5.6846696"
         }
        },
-       "seconds": 8.2
+       "seconds": 8.8
       },
       "expweibull": {
        "certified": true,
@@ -2646,10 +2700,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "18.1597279",
-        "0.661640983",
-        "0.170670078"
+        "18.159727878592804",
+        "0.6616409832153703",
+        "0.17067007752365457"
        ],
        "box": [
         [
@@ -2725,7 +2781,7 @@
          "hi": "14.484161"
         }
        },
-       "seconds": 2317
+       "seconds": 29.4
       },
       "gengamma": {
        "certified": false,
@@ -2752,7 +2808,7 @@
         "lo": "-141119.646230",
         "hi": "-141119.646229"
        },
-       "seconds": 1043.9
+       "seconds": 53.1
       },
       "gumbel": {
        "certified": true,
@@ -2763,9 +2819,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.907696573",
-        "0.456646706"
+        "0.9076965727162674",
+        "0.45664670649866546"
        ],
        "box": [
         [
@@ -2881,9 +2939,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.49860066",
-        "0.789724672"
+        "1.4986006613578062",
+        "0.7897246720875036"
        ],
        "box": [
         [
@@ -2962,9 +3022,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.285214958",
-        "0.485030299"
+        "0.2852149580116306",
+        "0.485030299090512"
        ],
        "box": [
         [
@@ -3043,9 +3105,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.01686846",
-        "1.69752137"
+        "2.016868456566966",
+        "1.6975213658460722"
        ],
        "box": [
         [
@@ -3125,10 +3189,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "25.2463526",
-        "0.651034244",
-        "0.182999072"
+        "25.24635263652889",
+        "0.6510342439861806",
+        "0.18299907184780576"
        ],
        "box": [
         [
@@ -3242,9 +3308,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.16525643",
-        "0.543284193"
+        "1.1652564266363084",
+        "0.5432841933674527"
        ],
        "box": [
         [
@@ -3360,9 +3428,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.20165318",
-        "1.03856982"
+        "2.201653183520602",
+        "1.0385698153458605"
        ],
        "box": [
         [
@@ -3441,9 +3511,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.692535453",
-        "0.438355397"
+        "0.692535452761755",
+        "0.4383553973529979"
        ],
        "box": [
         [
@@ -3511,7 +3583,7 @@
          "hi": "12.150692"
         }
        },
-       "seconds": 0
+       "seconds": 0.1
       },
       "weibull": {
        "certified": true,
@@ -3522,9 +3594,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.20793527",
-        "2.48803859"
+        "2.2079352652887336",
+        "2.4880385867618178"
        ],
        "box": [
         [
@@ -3604,10 +3678,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "14.2854695",
-        "0.842153506",
-        "0.531222099"
+        "14.28546950659139",
+        "0.8421535061886294",
+        "0.5312220988646332"
        ],
        "box": [
         [
@@ -3721,9 +3797,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.76090900",
-        "0.740916238"
+        "1.7609089996101415",
+        "0.7409162378187699"
        ],
        "box": [
         [
@@ -3839,9 +3917,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.11840754",
-        "1.32410560"
+        "3.1184075396825404",
+        "1.3241055950369753"
        ],
        "box": [
         [
@@ -3920,9 +4000,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.05943849",
-        "0.391023946"
+        "1.0594384890940316",
+        "0.39102394642205157"
        ],
        "box": [
         [
@@ -4001,9 +4083,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.41875080",
-        "3.51473432"
+        "2.4187507959162398",
+        "3.5147343238687876"
        ],
        "box": [
         [
@@ -4083,10 +4167,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "18.1914490",
-        "0.881196232",
-        "0.744799554"
+        "18.191448996663084",
+        "0.8811962316647368",
+        "0.7447995538924913"
        ],
        "box": [
         [
@@ -4200,9 +4286,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.55642766",
-        "0.954042352"
+        "2.5564276616820094",
+        "0.9540423524496623"
        ],
        "box": [
         [
@@ -4318,9 +4406,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.65064545",
-        "1.91769326"
+        "5.650645454545455",
+        "1.9176932584197146"
        ],
        "box": [
         [
@@ -4399,9 +4489,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.67333044",
-        "0.348078605"
+        "1.6733304403391047",
+        "0.34807860520602535"
        ],
        "box": [
         [
@@ -4480,9 +4572,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.15039651",
-        "6.31839070"
+        "3.1503965143044836",
+        "6.318390696116237"
        ],
        "box": [
         [
@@ -4562,10 +4656,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.15923600",
-        "1.52151283",
-        "3.35041244"
+        "5.159236002785855",
+        "1.5215128342219912",
+        "3.35041243756286"
        ],
        "box": [
         [
@@ -4652,9 +4748,9 @@
        ],
        "coords": "gengammaP",
        "stacy": [
-        "10.6718950",
-        "0.900827029",
-        "0.405710815"
+        "10.671894992686804",
+        "0.9008270288796594",
+        "0.4057108151439016"
        ],
        "stacyBox": [
         [
@@ -4670,10 +4766,12 @@
          "0.405710815377"
         ]
        ],
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.72615201",
-        "0.339811302",
-        "0.306111206"
+        "1.7261520123860161",
+        "0.3398113024693311",
+        "0.3061112059831748"
        ],
        "box": [
         [
@@ -4764,9 +4862,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "4.75405258",
-        "1.60179313"
+        "4.75405258066195",
+        "1.601793125050052"
        ],
        "box": [
         [
@@ -4899,9 +4999,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.09376722",
-        "0.713275370"
+        "1.0937672245037253",
+        "0.7132753698408861"
        ],
        "box": [
         [
@@ -4969,7 +5071,7 @@
          "hi": "4.7848252"
         }
        },
-       "seconds": 3.7
+       "seconds": 3.8
       },
       "lognormal": {
        "certified": true,
@@ -4980,9 +5082,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "-0.110132368",
-        "0.647978873"
+        "-0.11013236783016883",
+        "0.6479788730573511"
        ],
        "box": [
         [
@@ -5050,7 +5154,7 @@
          "hi": "25.611187"
         }
        },
-       "seconds": 6.1
+       "seconds": 6.2
       },
       "weibull": {
        "certified": true,
@@ -5061,9 +5165,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.65298849",
-        "1.23091968"
+        "1.652988491832926",
+        "1.2309196786493763"
        ],
        "box": [
         [
@@ -5131,7 +5237,7 @@
          "hi": "6.5834943"
         }
        },
-       "seconds": 8.3
+       "seconds": 8.8
       },
       "expweibull": {
        "certified": true,
@@ -5143,10 +5249,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.89201492",
-        "0.769371377",
-        "0.329506984"
+        "5.892014924134733",
+        "0.769371376630393",
+        "0.32950698381314814"
        ],
        "box": [
         [
@@ -5222,7 +5330,7 @@
          "hi": "13.862556"
         }
        },
-       "seconds": 2316
+       "seconds": 27.9
       },
       "gengamma": {
        "certified": true,
@@ -5233,9 +5341,9 @@
        ],
        "coords": "gengammaP",
        "stacy": [
-        "19.6190608",
-        "0.352613073",
-        "0.000207888012"
+        "19.61906077293423",
+        "0.3526130731698661",
+        "0.00020788801214072827"
        ],
        "stacyBox": [
         [
@@ -5251,10 +5359,12 @@
          "0.000207888013160"
         ]
        ],
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "-0.0372426545",
-        "0.640269013",
-        "0.225767224"
+        "-0.03724265445628916",
+        "0.640269013193775",
+        "0.2257672243976946"
        ],
        "box": [
         [
@@ -5330,7 +5440,7 @@
          "hi": "14.996560"
         }
        },
-       "seconds": 1019.3,
+       "seconds": 31.4,
        "limitLl": {
         "lo": "-153389.042182",
         "hi": "-153389.042181"
@@ -5345,9 +5455,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.789203196",
-        "0.492388506"
+        "0.7892031956983936",
+        "0.49238850633598574"
        ],
        "box": [
         [
@@ -5415,7 +5527,7 @@
          "hi": "8.6607185"
         }
        },
-       "seconds": 6.1
+       "seconds": 5.5
       }
      },
      "rankings": {
@@ -5451,9 +5563,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.43585032",
-        "0.901178625"
+        "1.435850315987622",
+        "0.9011786251542083"
        ],
        "box": [
         [
@@ -5532,9 +5646,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.174179545",
-        "0.628879458"
+        "0.17417954469689653",
+        "0.6288794576755584"
        ],
        "box": [
         [
@@ -5613,9 +5729,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.71123469",
-        "1.61905869"
+        "1.7112346904300164",
+        "1.6190586932880506"
        ],
        "box": [
         [
@@ -5683,7 +5801,7 @@
          "hi": "7.1854154"
         }
        },
-       "seconds": 0.5
+       "seconds": 0.4
       },
       "expweibull": {
        "certified": true,
@@ -5695,10 +5813,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.35090683",
-        "0.822717989",
-        "0.493786754"
+        "5.350906832103529",
+        "0.822717989287273",
+        "0.4937867540663939"
        ],
        "box": [
         [
@@ -5774,7 +5894,7 @@
          "hi": "12.724434"
         }
        },
-       "seconds": 2.5
+       "seconds": 1.9
       },
       "gengamma": {
        "certified": true,
@@ -5785,9 +5905,9 @@
        ],
        "coords": "gengammaP",
        "stacy": [
-        "15.3127679",
-        "0.412623635",
-        "0.00173136986"
+        "15.312767850429209",
+        "0.4126236354279801",
+        "0.00173136986379741"
        ],
        "stacyBox": [
         [
@@ -5803,10 +5923,12 @@
          "0.00173136986838"
         ]
        ],
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.254174317",
-        "0.619325625",
-        "0.255548391"
+        "0.2541743171711719",
+        "0.6193256251149805",
+        "0.25554839094864956"
        ],
        "box": [
         [
@@ -5882,7 +6004,7 @@
          "hi": "13.211917"
         }
        },
-       "seconds": 2.3,
+       "seconds": 1.8,
        "limitLl": {
         "lo": "-8398.62191935",
         "hi": "-8398.62191933"
@@ -5897,9 +6019,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.04739277",
-        "0.633907801"
+        "1.047392765389207",
+        "0.6339078012057641"
        ],
        "box": [
         [
@@ -5967,7 +6091,7 @@
          "hi": "9.1666969"
         }
        },
-       "seconds": 0.3
+       "seconds": 0.2
       }
      },
      "rankings": {
@@ -6003,9 +6127,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.30314234",
-        "1.18977480"
+        "2.303142339832868",
+        "1.1897748035200941"
        ],
        "box": [
         [
@@ -6084,9 +6210,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.697892779",
-        "0.542061969"
+        "0.697892779275402",
+        "0.542061968768915"
        ],
        "box": [
         [
@@ -6154,7 +6282,7 @@
          "hi": "18.722704"
         }
        },
-       "seconds": 0.1
+       "seconds": 0
       },
       "weibull": {
        "certified": true,
@@ -6165,9 +6293,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.04728140",
-        "2.60604358"
+        "2.047281399183611",
+        "2.606043579283212"
        ],
        "box": [
         [
@@ -6247,10 +6377,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.00057524",
-        "1.22608547",
-        "1.44566960"
+        "3.0005752383248",
+        "1.2260854670937056",
+        "1.445669597121228"
        ],
        "box": [
         [
@@ -6337,9 +6469,9 @@
        ],
        "coords": "gengammaP",
        "stacy": [
-        "4.81845207",
-        "0.883289358",
-        "0.382584446"
+        "4.8184520703277",
+        "0.8832893578356794",
+        "0.38258444587548956"
        ],
        "stacyBox": [
         [
@@ -6355,10 +6487,12 @@
          "0.382584445931"
         ]
        ],
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "0.819417915",
-        "0.515754743",
-        "0.455560676"
+        "0.8194179145530758",
+        "0.5157547428061287",
+        "0.4555606755739314"
        ],
        "box": [
         [
@@ -6434,7 +6568,7 @@
          "hi": "11.047049"
         }
        },
-       "seconds": 0.3,
+       "seconds": 0.2,
        "limitLl": {
         "lo": "-1620.29950180",
         "hi": "-1620.29950179"
@@ -6449,9 +6583,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.76705058",
-        "0.921191837"
+        "1.767050584821094",
+        "0.9211918368643748"
        ],
        "box": [
         [
@@ -6555,9 +6691,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.23735977",
-        "1.39082392"
+        "3.2373597656250017",
+        "1.3908239232942996"
        ],
        "box": [
         [
@@ -6636,9 +6774,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.08274098",
-        "0.443344215"
+        "1.082740977882413",
+        "0.4433442149853404"
        ],
        "box": [
         [
@@ -6717,9 +6857,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.40872971",
-        "3.64678744"
+        "2.408729707278045",
+        "3.646787438064281"
        ],
        "box": [
         [
@@ -6799,10 +6941,12 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.47703421",
-        "1.41051227",
-        "2.08287168"
+        "3.4770342115694444",
+        "1.4105122709075244",
+        "2.0828716757698813"
        ],
        "box": [
         [
@@ -6889,9 +7033,9 @@
        ],
        "coords": "gengammaP",
        "stacy": [
-        "6.03571598",
-        "0.960758510",
-        "0.496694165"
+        "6.035715982418439",
+        "0.9607585101007989",
+        "0.4966941651699717"
        ],
        "stacyBox": [
         [
@@ -6907,10 +7051,12 @@
          "0.496694165214"
         ]
        ],
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.17133922",
-        "0.423663805",
-        "0.407038606"
+        "1.1713392192259142",
+        "0.42366380495192496",
+        "0.4070386060292469"
        ],
        "box": [
         [
@@ -7001,9 +7147,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "2.61147953",
-        "1.11988658"
+        "2.6114795257372987",
+        "1.119886583294715"
        ],
        "box": [
         [
@@ -7107,9 +7255,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "5.71247826",
-        "1.80669681"
+        "5.712478260869565",
+        "1.8066968143804942"
        ],
        "box": [
         [
@@ -7188,9 +7338,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "1.70230985",
-        "0.270338270"
+        "1.7023098471397724",
+        "0.2703382702298885"
        ],
        "box": [
         [
@@ -7269,9 +7421,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "3.13205945",
-        "6.36299768"
+        "3.132059448475108",
+        "6.36299767968225"
        ],
        "box": [
         [
@@ -7344,14 +7498,14 @@
       "expweibull": {
        "certified": false,
        "edge": false,
-       "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
+       "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family; in Gumbel coordinates (k, θ = λ^k, β = θ ln α): the climb passed k = 0.001",
        "stop": [
         "3.11607e+12",
         "0.176814",
         "2.74502e-8"
        ],
        "stoppedAtBoundary": true,
-       "seconds": 0
+       "seconds": 0.1
       },
       "gengamma": {
        "certified": false,
@@ -7389,9 +7543,11 @@
        "coords": null,
        "stacy": null,
        "stacyBox": null,
+       "ew": null,
+       "ewBox": null,
        "theta": [
-        "4.98168777",
-        "1.09051347"
+        "4.981687773498566",
+        "1.0905134716873832"
        ],
        "box": [
         [
@@ -7511,9 +7667,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.96724369",
-         "0.522482760"
+         "1.9672436901094836",
+         "0.5224827603365341"
         ],
         "box": [
          [
@@ -7581,7 +7739,7 @@
           "hi": "4.5617474"
          }
         },
-        "seconds": 2.2
+        "seconds": 2.1
        },
        "lognormal": {
         "certified": true,
@@ -7592,9 +7750,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.643001762",
-         "0.258709543"
+         "0.6430017622578008",
+         "0.25870954313981886"
         ],
         "box": [
          [
@@ -7662,7 +7822,7 @@
           "hi": "6.8735534"
          }
         },
-        "seconds": 3.4
+        "seconds": 3.2
        },
        "weibull": {
         "certified": true,
@@ -7673,9 +7833,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.78052969",
-         "2.16617598"
+         "3.7805296863597038",
+         "2.166175981073979"
         ],
         "box": [
          [
@@ -7743,7 +7905,7 @@
           "hi": "4.4250964"
          }
         },
-        "seconds": 5.5
+        "seconds": 5.1
        },
        "expweibull": {
         "certified": true,
@@ -7755,10 +7917,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "16.7909754",
-         "1.36482889",
-         "0.807802028"
+         "16.79097537706862",
+         "1.364828888355815",
+         "0.8078020278072033"
         ],
         "box": [
          [
@@ -7834,7 +7998,7 @@
           "hi": "6.6349955"
          }
         },
-        "seconds": 1996.1
+        "seconds": 15.5
        },
        "gengamma": {
         "certified": false,
@@ -7861,7 +8025,7 @@
          "lo": "-66377.6474863",
          "hi": "-66377.6474859"
         },
-        "seconds": 1336
+        "seconds": 28.8
        },
        "gumbel": {
         "certified": true,
@@ -7872,9 +8036,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.72697516",
-         "0.427955775"
+         "1.7269751630240295",
+         "0.4279557746809788"
         ],
         "box": [
          [
@@ -7942,7 +8108,7 @@
           "hi": "8.0982861"
          }
         },
-        "seconds": 2.7
+        "seconds": 2.8
        }
       },
       "rankings": {
@@ -7990,9 +8156,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.15759240",
-         "0.573362473"
+         "2.157592402464056",
+         "0.5733624727618646"
         ],
         "box": [
          [
@@ -8071,9 +8239,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.735541217",
-         "0.257550988"
+         "0.7355412166643128",
+         "0.2575509879590747"
         ],
         "box": [
          [
@@ -8152,9 +8322,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.77379582",
-         "2.37614078"
+         "3.7737958181103406",
+         "2.376140784428249"
         ],
         "box": [
          [
@@ -8222,7 +8394,7 @@
           "hi": "4.6702631"
          }
         },
-        "seconds": 0.7
+        "seconds": 0.6
        },
        "expweibull": {
         "certified": true,
@@ -8234,10 +8406,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "20.2491439",
-         "1.30168062",
-         "0.813127325"
+         "20.24914394876128",
+         "1.3016806185741756",
+         "0.8131273247968718"
         ],
         "box": [
          [
@@ -8313,7 +8487,7 @@
           "hi": "6.7820215"
          }
         },
-        "seconds": 3
+        "seconds": 3.3
        },
        "gengamma": {
         "certified": false,
@@ -8340,7 +8514,7 @@
          "lo": "-9326.34823353",
          "hi": "-9326.34823349"
         },
-        "seconds": 6.3
+        "seconds": 4
        },
        "gumbel": {
         "certified": true,
@@ -8351,9 +8525,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.89507071",
-         "0.465293355"
+         "1.895070711925785",
+         "0.46529335503147606"
         ],
         "box": [
          [
@@ -8469,9 +8645,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.76123998",
-         "0.631768723"
+         "2.761239976062237",
+         "0.6317687228661035"
         ],
         "box": [
          [
@@ -8550,9 +8728,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.990497704",
-         "0.223583141"
+         "0.9904977037096385",
+         "0.22358314113246874"
         ],
         "box": [
          [
@@ -8631,9 +8811,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.41538934",
-         "3.01452539"
+         "4.415389337623002",
+         "3.01452539071583"
         ],
         "box": [
          [
@@ -8713,10 +8895,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "22.8238572",
-         "1.45267630",
-         "1.12920317"
+         "22.823857201775727",
+         "1.4526762979122012",
+         "1.1292031663990423"
         ],
         "box": [
          [
@@ -8792,7 +8976,7 @@
           "hi": "6.9428880"
          }
         },
-        "seconds": 0.7
+        "seconds": 0.5
        },
        "gengamma": {
         "certified": false,
@@ -8819,7 +9003,7 @@
          "lo": "-1523.05684352",
          "hi": "-1523.05684351"
         },
-        "seconds": 1.2
+        "seconds": 0.6
        },
        "gumbel": {
         "certified": true,
@@ -8830,9 +9014,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.46744526",
-         "0.524253169"
+         "2.467445255318824",
+         "0.524253168613006"
         ],
         "box": [
          [
@@ -8900,7 +9086,7 @@
           "hi": "8.1621022"
          }
         },
-        "seconds": 0.1
+        "seconds": 0
        }
       },
       "rankings": {
@@ -8948,9 +9134,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.37570313",
-         "0.616941571"
+         "3.375703125000001",
+         "0.6169415705304281"
         ],
         "box": [
          [
@@ -9029,9 +9217,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.20005178",
-         "0.182148393"
+         "1.2000517815504481",
+         "0.18214839315727366"
         ],
         "box": [
          [
@@ -9110,9 +9300,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.64792345",
-         "3.63603299"
+         "5.647923448221115",
+         "3.63603299405274"
         ],
         "box": [
          [
@@ -9192,10 +9384,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "12.1453488",
-         "2.13437324",
-         "2.01952502"
+         "12.14534882697219",
+         "2.1343732380029197",
+         "2.0195250236148445"
         ],
         "box": [
          [
@@ -9282,9 +9476,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "1286.99391",
-         "0.153061725",
-         "1.60858884e-20"
+         "1286.9939066039324",
+         "0.15306172514010538",
+         "1.6085888371452167e-20"
         ],
         "stacyBox": [
          [
@@ -9300,10 +9494,12 @@
           "1.60858883841e-20"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.20259032",
-         "0.182114762",
-         "0.0278747997"
+         "1.2025903165033294",
+         "0.18211476206157656",
+         "0.02787479965462472"
         ],
         "box": [
          [
@@ -9379,7 +9575,7 @@
           "hi": "6.5196114"
          }
         },
-        "seconds": 0.8,
+        "seconds": 0.4,
         "limitLl": {
          "lo": "-351.765787260",
          "hi": "-351.765787257"
@@ -9394,9 +9590,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.07983956",
-         "0.540935532"
+         "3.0798395593720755",
+         "0.5409355321738681"
         ],
         "box": [
          [
@@ -9512,9 +9710,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.05071963",
-         "0.616728279"
+         "2.050719626967822",
+         "0.6167282791441119"
         ],
         "box": [
          [
@@ -9593,9 +9793,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.675292116",
-         "0.292463742"
+         "0.6752921155624565",
+         "0.2924637418287709"
         ],
         "box": [
          [
@@ -9674,9 +9876,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.36865972",
-         "2.27457314"
+         "3.3686597220818255",
+         "2.2745731427807816"
         ],
         "box": [
          [
@@ -9756,10 +9960,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "15.3238705",
-         "1.23925991",
-         "0.783304707"
+         "15.323870510948252",
+         "1.2392599114851848",
+         "0.7833047069516565"
         ],
         "box": [
          [
@@ -9835,7 +10041,7 @@
           "hi": "7.9308260"
          }
         },
-        "seconds": 943.1
+        "seconds": 15.7
        },
        "gengamma": {
         "certified": false,
@@ -9862,7 +10068,7 @@
          "lo": "-80863.7617359",
          "hi": "-80863.7617355"
         },
-        "seconds": 2389.8
+        "seconds": 32.6
        },
        "gumbel": {
         "certified": true,
@@ -9873,9 +10079,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.76919309",
-         "0.495585043"
+         "1.7691930904651867",
+         "0.49558504314953933"
         ],
         "box": [
          [
@@ -9943,7 +10151,7 @@
           "hi": "9.1473536"
          }
         },
-        "seconds": 2.5
+        "seconds": 2.8
        }
       },
       "rankings": {
@@ -9991,9 +10199,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.28099914",
-         "0.682838649"
+         "2.2809991444216373",
+         "0.6828386486736289"
         ],
         "box": [
          [
@@ -10072,9 +10282,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.782448221",
-         "0.289440182"
+         "0.7824482214777448",
+         "0.2894401819993673"
         ],
         "box": [
          [
@@ -10153,9 +10365,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.37016332",
-         "2.52935007"
+         "3.3701633236932205",
+         "2.529350067286586"
         ],
         "box": [
          [
@@ -10223,7 +10437,7 @@
           "hi": "5.3904607"
          }
         },
-        "seconds": 0.6
+        "seconds": 0.7
        },
        "expweibull": {
         "certified": true,
@@ -10235,10 +10449,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "17.3933458",
-         "1.20783363",
-         "0.823233858"
+         "17.393345838370482",
+         "1.2078336261287672",
+         "0.8232338575080034"
         ],
         "box": [
          [
@@ -10314,7 +10530,7 @@
           "hi": "8.0320619"
          }
         },
-        "seconds": 2.8
+        "seconds": 3.1
        },
        "gengamma": {
         "certified": false,
@@ -10341,7 +10557,7 @@
          "lo": "-11238.9485145",
          "hi": "-11238.9485143"
         },
-        "seconds": 4.4
+        "seconds": 4.7
        },
        "gumbel": {
         "certified": true,
@@ -10352,9 +10568,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.97095690",
-         "0.544969204"
+         "1.9709569020818043",
+         "0.544969203772692"
         ],
         "box": [
          [
@@ -10470,9 +10688,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.01868462",
-         "0.767624634"
+         "3.0186846199880364",
+         "0.7676246342913914"
         ],
         "box": [
          [
@@ -10540,7 +10760,7 @@
           "hi": "6.1792430"
          }
         },
-        "seconds": 0
+        "seconds": 0.1
        },
        "lognormal": {
         "certified": true,
@@ -10551,9 +10771,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.07445977",
-         "0.244642810"
+         "1.0744597657061397",
+         "0.24464280965704804"
         ],
         "box": [
          [
@@ -10632,9 +10854,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.91499242",
-         "3.31620008"
+         "3.9149924185503955",
+         "3.3162000753897383"
         ],
         "box": [
          [
@@ -10714,10 +10938,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "27.9327897",
-         "1.26160905",
-         "1.02951574"
+         "27.93278971305015",
+         "1.2616090518295058",
+         "1.0295157416225023"
         ],
         "box": [
          [
@@ -10820,7 +11046,7 @@
          "lo": "-1813.77399459",
          "hi": "-1813.77399457"
         },
-        "seconds": 0.7
+        "seconds": 0.6
        },
        "gumbel": {
         "certified": true,
@@ -10831,9 +11057,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.66933933",
-         "0.617999582"
+         "2.66933932771332",
+         "0.6179995816939794"
         ],
         "box": [
          [
@@ -10949,9 +11177,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.77390104",
-         "0.784894593"
+         "3.773901041666662",
+         "0.7848945925774254"
         ],
         "box": [
          [
@@ -11030,9 +11260,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.30759498",
-         "0.200755447"
+         "1.3075949765505779",
+         "0.20075544688045685"
         ],
         "box": [
          [
@@ -11111,9 +11343,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.77545801",
-         "4.09743432"
+         "4.7754580114646545",
+         "4.097434320605073"
         ],
         "box": [
          [
@@ -11193,10 +11427,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "96.6380432",
-         "1.16875567",
-         "0.931061422"
+         "96.63804322595419",
+         "1.1687556679985107",
+         "0.9310614220771899"
         ],
         "box": [
          [
@@ -11310,9 +11546,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.41201513",
-         "0.631712502"
+         "3.412015133466688",
+         "0.6317125016120084"
         ],
         "box": [
          [
@@ -11440,9 +11678,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.79526812",
-         "0.478232144"
+         "1.7952681168720008",
+         "0.47823214408961057"
         ],
         "box": [
          [
@@ -11510,7 +11750,7 @@
           "hi": "4.1700356"
          }
         },
-        "seconds": 2.1
+        "seconds": 2
        },
        "lognormal": {
         "certified": true,
@@ -11521,9 +11761,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.551692702",
-         "0.257131967"
+         "0.5516927021878398",
+         "0.25713196679349415"
         ],
         "box": [
          [
@@ -11602,9 +11844,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.77036986",
-         "1.97766893"
+         "3.7703698636301146",
+         "1.9776689299576873"
         ],
         "box": [
          [
@@ -11672,7 +11916,7 @@
           "hi": "4.0477953"
          }
         },
-        "seconds": 5.1
+        "seconds": 5.2
        },
        "expweibull": {
         "certified": true,
@@ -11684,10 +11928,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "26.5643388",
-         "1.21404818",
-         "0.592502175"
+         "26.56433878215667",
+         "1.2140481828652339",
+         "0.5925021751294581"
         ],
         "box": [
          [
@@ -11763,7 +12009,7 @@
           "hi": "6.4558954"
          }
         },
-        "seconds": 1995.8
+        "seconds": 16.3
        },
        "gengamma": {
         "certified": false,
@@ -11790,7 +12036,7 @@
          "lo": "-57267.9646668",
          "hi": "-57267.9646664"
         },
-        "seconds": 1333.1
+        "seconds": 35.9
        },
        "gumbel": {
         "certified": true,
@@ -11801,9 +12047,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.57680907",
-         "0.383946091"
+         "1.576809074800946",
+         "0.38394609065217217"
         ],
         "box": [
          [
@@ -11871,7 +12119,7 @@
           "hi": "7.2929136"
          }
         },
-        "seconds": 2.5
+        "seconds": 2.9
        }
       },
       "rankings": {
@@ -11919,9 +12167,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.94540880",
-         "0.524884891"
+         "1.9454087953456598",
+         "0.5248848912934038"
         ],
         "box": [
          [
@@ -12000,9 +12250,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.631245452",
-         "0.259817268"
+         "0.6312454517648317",
+         "0.2598172678479693"
         ],
         "box": [
          [
@@ -12070,7 +12322,7 @@
           "hi": "6.1244734"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "weibull": {
         "certified": true,
@@ -12081,9 +12333,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.73336943",
-         "2.14498143"
+         "3.73336943112509",
+         "2.1449814293190483"
         ],
         "box": [
          [
@@ -12163,10 +12417,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "30.7415046",
-         "1.15877144",
-         "0.588897513"
+         "30.74150463197656",
+         "1.1587714381043759",
+         "0.5888975131625726"
         ],
         "box": [
          [
@@ -12242,7 +12498,7 @@
           "hi": "6.5255207"
          }
         },
-        "seconds": 3.1
+        "seconds": 3.6
        },
        "gengamma": {
         "certified": false,
@@ -12269,7 +12525,7 @@
          "lo": "-8209.73621786",
          "hi": "-8209.73621782"
         },
-        "seconds": 5.7
+        "seconds": 6.5
        },
        "gumbel": {
         "certified": true,
@@ -12280,9 +12536,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.70615455",
-         "0.418352915"
+         "1.7061545537328222",
+         "0.4183529151390638"
         ],
         "box": [
          [
@@ -12398,9 +12656,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.45542071",
-         "0.590860918"
+         "2.4554207061639715",
+         "0.5908609179180059"
         ],
         "box": [
          [
@@ -12479,9 +12739,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.870094119",
-         "0.237280634"
+         "0.8700941192487255",
+         "0.23728063443520872"
         ],
         "box": [
          [
@@ -12560,9 +12822,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.28578524",
-         "2.68904233"
+         "4.285785236014481",
+         "2.6890423290595797"
         ],
         "box": [
          [
@@ -12642,10 +12906,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "17.3279072",
-         "1.47540164",
-         "1.07314707"
+         "17.327907172268027",
+         "1.4754016381774044",
+         "1.073147068898607"
         ],
         "box": [
          [
@@ -12759,9 +13025,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.17826325",
-         "0.493107179"
+         "2.1782632547750818",
+         "0.49310717866286125"
         ],
         "box": [
          [
@@ -12877,9 +13145,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.99998958",
-         "0.596035304"
+         "2.9999895833333334",
+         "0.5960353036732151"
         ],
         "box": [
          [
@@ -12958,9 +13228,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.07830290",
-         "0.203727173"
+         "1.0783029044912096",
+         "0.20372717252615274"
         ],
         "box": [
          [
@@ -13039,9 +13311,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.43663809",
-         "3.24506419"
+         "5.436638091397708",
+         "3.2450641859969935"
         ],
         "box": [
          [
@@ -13121,10 +13395,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.70056199",
-         "2.96333037",
-         "2.45796125"
+         "3.7005619867595483",
+         "2.9633303669917",
+         "2.4579612540399545"
         ],
         "box": [
          [
@@ -13211,9 +13487,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "6.97099939",
-         "1.92252124",
-         "1.11237227"
+         "6.970999387175497",
+         "1.9225212395589293",
+         "1.1123722665868767"
         ],
         "stacyBox": [
          [
@@ -13229,10 +13505,12 @@
           "1.11237226675"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.11650123",
-         "0.197006852",
-         "0.378749857"
+         "1.1165012299932284",
+         "0.19700685192211087",
+         "0.37874985715889903"
         ],
         "box": [
          [
@@ -13323,9 +13601,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.70673290",
-         "0.549713333"
+         "2.7067328992079145",
+         "0.549713333203803"
         ],
         "box": [
          [
@@ -13441,9 +13721,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.27867702",
-         "0.839475251"
+         "2.2786770191649417",
+         "0.8394752505275425"
         ],
         "box": [
          [
@@ -13511,7 +13793,7 @@
           "hi": "6.4472770"
          }
         },
-        "seconds": 1.9
+        "seconds": 2.3
        },
        "lognormal": {
         "certified": true,
@@ -13522,9 +13804,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.763220255",
-         "0.343265014"
+         "0.7632202545759592",
+         "0.3432650139833288"
         ],
         "box": [
          [
@@ -13592,7 +13876,7 @@
           "hi": "11.796214"
          }
         },
-        "seconds": 3.1
+        "seconds": 3.4
        },
        "weibull": {
         "certified": true,
@@ -13603,9 +13887,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.75882851",
-         "2.55455746"
+         "2.758828505968271",
+         "2.5545574605732084"
         ],
         "box": [
          [
@@ -13673,7 +13959,7 @@
           "hi": "6.7988349"
          }
         },
-        "seconds": 4.6
+        "seconds": 5.3
        },
        "expweibull": {
         "certified": true,
@@ -13685,10 +13971,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "36.1186784",
-         "0.843201820",
-         "0.414117448"
+         "36.11867842399452",
+         "0.8432018200852309",
+         "0.41411744844986986"
         ],
         "box": [
          [
@@ -13764,7 +14052,7 @@
           "hi": "13.159068"
          }
         },
-        "seconds": 21.8
+        "seconds": 18.2
        },
        "gengamma": {
         "certified": false,
@@ -13791,7 +14079,7 @@
          "lo": "-104061.190036",
          "hi": "-104061.190035"
         },
-        "seconds": 41.2
+        "seconds": 42.5
        },
        "gumbel": {
         "certified": true,
@@ -13802,9 +14090,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.91223688",
-         "0.619421668"
+         "1.9122368767134408",
+         "0.6194216682953664"
         ],
         "box": [
          [
@@ -13872,7 +14162,7 @@
           "hi": "11.134050"
          }
         },
-        "seconds": 3.3
+        "seconds": 3.7
        }
       },
       "rankings": {
@@ -13920,9 +14210,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.60726335",
-         "0.967179943"
+         "2.607263347022588",
+         "0.9671799433922398"
         ],
         "box": [
          [
@@ -13990,7 +14282,7 @@
           "hi": "7.0037582"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -14001,9 +14293,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.897401467",
-         "0.344181012"
+         "0.8974014669749947",
+         "0.34418101231125414"
         ],
         "box": [
          [
@@ -14071,7 +14365,7 @@
           "hi": "11.727538"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.8
        },
        "weibull": {
         "certified": true,
@@ -14082,9 +14376,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.74412386",
-         "2.92426951"
+         "2.7441238594786808",
+         "2.924269506764492"
         ],
         "box": [
          [
@@ -14152,7 +14448,7 @@
           "hi": "7.4063531"
          }
         },
-        "seconds": 0.8
+        "seconds": 1
        },
        "expweibull": {
         "certified": true,
@@ -14164,10 +14460,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "43.7730441",
-         "0.804760571",
-         "0.412431219"
+         "43.77304414974945",
+         "0.8047605708490205",
+         "0.4124312188744709"
         ],
         "box": [
          [
@@ -14243,7 +14541,7 @@
           "hi": "13.522389"
          }
         },
-        "seconds": 4.2
+        "seconds": 5.3
        },
        "gengamma": {
         "certified": false,
@@ -14270,7 +14568,7 @@
          "lo": "-14607.1065042",
          "hi": "-14607.1065041"
         },
-        "seconds": 7.3
+        "seconds": 10
        },
        "gumbel": {
         "certified": true,
@@ -14281,9 +14579,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.18629719",
-         "0.707958147"
+         "2.1862971942100486",
+         "0.7079581467185992"
         ],
         "box": [
          [
@@ -14351,7 +14651,7 @@
           "hi": "11.254063"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        }
       },
       "rankings": {
@@ -14399,9 +14699,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.65818312",
-         "1.15448609"
+         "3.6581831238779117",
+         "1.15448608724914"
         ],
         "box": [
          [
@@ -14480,9 +14782,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.25176997",
-         "0.296642815"
+         "1.2517699697144693",
+         "0.29664281528266684"
         ],
         "box": [
          [
@@ -14561,9 +14865,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.19637580",
-         "4.07009848"
+         "3.196375798455544",
+         "4.070098480308928"
         ],
         "box": [
          [
@@ -14643,10 +14949,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "69.2294525",
-         "0.846294939",
-         "0.565978661"
+         "69.22945250110926",
+         "0.8462949393725155",
+         "0.5659786614035079"
         ],
         "box": [
          [
@@ -14722,7 +15030,7 @@
           "hi": "13.992615"
          }
         },
-        "seconds": 0.7
+        "seconds": 0.8
        },
        "gengamma": {
         "certified": false,
@@ -14749,7 +15057,7 @@
          "lo": "-2432.11041673",
          "hi": "-2432.11041671"
         },
-        "seconds": 1.1
+        "seconds": 1.3
        },
        "gumbel": {
         "certified": true,
@@ -14760,9 +15068,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.14524747",
-         "0.869756171"
+         "3.1452474683059433",
+         "0.8697561705398386"
         ],
         "box": [
          [
@@ -14878,9 +15188,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.83062500",
-         "1.24873872"
+         "4.830625000000004",
+         "1.2487387157481282"
         ],
         "box": [
          [
@@ -14959,9 +15271,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.54380397",
-         "0.247014677"
+         "1.5438039726659731",
+         "0.24701467683237457"
         ],
         "box": [
          [
@@ -15040,9 +15354,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.87075286",
-         "5.31268902"
+         "3.8707528625488905",
+         "5.312689017712996"
         ],
         "box": [
          [
@@ -15122,10 +15438,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "109.921846",
-         "0.926173402",
-         "0.798954842"
+         "109.92184559913802",
+         "0.9261734022376341",
+         "0.7989548416175306"
         ],
         "box": [
          [
@@ -15228,7 +15546,7 @@
          "lo": "-600.743033137",
          "hi": "-600.743033135"
         },
-        "seconds": 0.3
+        "seconds": 0.2
        },
        "gumbel": {
         "certified": true,
@@ -15239,9 +15557,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.26258661",
-         "0.974463749"
+         "4.2625866085043365",
+         "0.9744637490463323"
         ],
         "box": [
          [
@@ -15369,9 +15689,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.62827505",
-         "0.297069983"
+         "1.6282750470568015",
+         "0.29706998314891797"
         ],
         "box": [
          [
@@ -15439,7 +15761,7 @@
           "hi": "3.1034418"
          }
         },
-        "seconds": 2.4
+        "seconds": 2.3
        },
        "lognormal": {
         "certified": true,
@@ -15450,9 +15772,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.470772628",
-         "0.184051262"
+         "0.47077262754684224",
+         "0.1840512618123956"
         ],
         "box": [
          [
@@ -15520,7 +15844,7 @@
           "hi": "3.9937070"
          }
         },
-        "seconds": 4
+        "seconds": 3.4
        },
        "weibull": {
         "certified": true,
@@ -15531,9 +15855,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.70707236",
-         "1.75304791"
+         "5.707072355005366",
+         "1.7530479143648947"
         ],
         "box": [
          [
@@ -15601,7 +15927,7 @@
           "hi": "2.8138338"
          }
         },
-        "seconds": 6.6
+        "seconds": 5.4
        },
        "expweibull": {
         "certified": true,
@@ -15613,10 +15939,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.88427234",
-         "2.56070117",
-         "1.15393219"
+         "6.884272344275914",
+         "2.5607011682997443",
+         "1.1539321886749618"
         ],
         "box": [
          [
@@ -15692,7 +16020,7 @@
           "hi": "3.4742206"
          }
         },
-        "seconds": 17.9
+        "seconds": 17.3
        },
        "gengamma": {
         "certified": true,
@@ -15703,9 +16031,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "28.8258568",
-         "1.02072181",
-         "0.0604964340"
+         "28.82585683241679",
+         "1.020721813406363",
+         "0.06049643395946953"
         ],
         "stacyBox": [
          [
@@ -15721,10 +16049,12 @@
           "0.0604964339603"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.487864273",
-         "0.182474210",
-         "0.186255406"
+         "0.48786427299891905",
+         "0.18247420968451586",
+         "0.18625540620907194"
         ],
         "box": [
          [
@@ -15800,7 +16130,7 @@
           "hi": "3.5447224"
          }
         },
-        "seconds": 29.1,
+        "seconds": 31.7,
         "limitLl": {
          "lo": "-18436.2021365",
          "hi": "-18436.2021358"
@@ -15815,9 +16145,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.48431431",
-         "0.270879978"
+         "1.4843143089278663",
+         "0.2708799775050274"
         ],
         "box": [
          [
@@ -15885,7 +16217,7 @@
           "hi": "5.5171155"
          }
         },
-        "seconds": 3.3
+        "seconds": 3.7
        }
       },
       "rankings": {
@@ -15921,9 +16253,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.74603251",
-         "0.321567000"
+         "1.7460325119781037",
+         "0.3215670003258986"
         ],
         "box": [
          [
@@ -15991,7 +16325,7 @@
           "hi": "3.2077747"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -16002,9 +16336,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.540221811",
-         "0.186234052"
+         "0.540221810535736",
+         "0.1862340518233307"
         ],
         "box": [
          [
@@ -16083,9 +16419,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.70741098",
-         "1.88087043"
+         "5.707410983656322",
+         "1.8808704252232813"
         ],
         "box": [
          [
@@ -16165,10 +16503,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.31591922",
-         "2.61272268",
-         "1.26323072"
+         "6.315919224359384",
+         "2.6127226757533815",
+         "1.2632307161624088"
         ],
         "box": [
          [
@@ -16244,7 +16584,7 @@
           "hi": "3.5295089"
          }
         },
-        "seconds": 3.5
+        "seconds": 3.8
        },
        "gengamma": {
         "certified": true,
@@ -16255,9 +16595,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "22.1647574",
-         "1.15319595",
-         "0.119199902"
+         "22.164757386663776",
+         "1.153195954398892",
+         "0.11919990241933125"
         ],
         "stacyBox": [
          [
@@ -16273,10 +16613,12 @@
           "0.119199902642"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.559930452",
-         "0.184189725",
-         "0.212406845"
+         "0.5599304520343036",
+         "0.1841897247561682",
+         "0.21240684543065866"
         ],
         "box": [
          [
@@ -16352,7 +16694,7 @@
           "hi": "3.5700694"
          }
         },
-        "seconds": 3.5,
+        "seconds": 4.3,
         "limitLl": {
          "lo": "-3254.04778806",
          "hi": "-3254.04778801"
@@ -16367,9 +16709,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.58981594",
-         "0.293690205"
+         "1.5898159381596584",
+         "0.2936902054690284"
         ],
         "box": [
          [
@@ -16437,7 +16781,7 @@
           "hi": "5.3514988"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        }
       },
       "rankings": {
@@ -16473,9 +16817,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.00097068",
-         "0.310246756"
+         "2.000970676241773",
+         "0.3102467556791114"
         ],
         "box": [
          [
@@ -16554,9 +16900,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.681468421",
-         "0.156848490"
+         "0.6814684214687421",
+         "0.1568484901218068"
         ],
         "box": [
          [
@@ -16635,9 +16983,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.82362355",
-         "2.13491093"
+         "6.823623551087925",
+         "2.134910931174513"
         ],
         "box": [
          [
@@ -16717,10 +17067,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.90807070",
-         "3.18020828",
-         "1.55141646"
+         "5.908070700694894",
+         "3.180208282802441",
+         "1.5514164642750292"
         ],
         "box": [
          [
@@ -16796,7 +17148,7 @@
           "hi": "3.4447160"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "gengamma": {
         "certified": true,
@@ -16807,9 +17159,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "18.6721697",
-         "1.49462871",
-         "0.283987678"
+         "18.6721697299601",
+         "1.494628708226628",
+         "0.28398767799522734"
         ],
         "stacyBox": [
          [
@@ -16825,10 +17177,12 @@
           "0.283987678268"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.699544328",
-         "0.154835053",
-         "0.231420915"
+         "0.6995443279478152",
+         "0.154835052969767",
+         "0.23142091520840435"
         ],
         "box": [
          [
@@ -16904,7 +17258,7 @@
           "hi": "3.4615981"
          }
         },
-        "seconds": 0.5,
+        "seconds": 0.7,
         "limitLl": {
          "lo": "-414.294345311",
          "hi": "-414.294345304"
@@ -16919,9 +17273,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.84877019",
-         "0.288918899"
+         "1.8487701903624512",
+         "0.28891889926997816"
         ],
         "box": [
          [
@@ -17025,9 +17381,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.23920833",
-         "0.276305534"
+         "2.239208333333334",
+         "0.27630553426213433"
         ],
         "box": [
          [
@@ -17106,9 +17464,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.798442331",
-         "0.124419868"
+         "0.7984423307866123",
+         "0.12441986774705559"
         ],
         "box": [
          [
@@ -17187,9 +17547,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "8.49990440",
-         "2.36222025"
+         "8.499904399340544",
+         "2.3622202541353685"
         ],
         "box": [
          [
@@ -17269,10 +17631,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.49931980",
-         "3.86661917",
-         "1.80039197"
+         "6.499319804172269",
+         "3.8666191703079535",
+         "1.80039197487481"
         ],
         "box": [
          [
@@ -17348,7 +17712,7 @@
           "hi": "3.3679305"
          }
         },
-        "seconds": 0.1
+        "seconds": 0.2
        },
        "gengamma": {
         "certified": true,
@@ -17359,9 +17723,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "24.9384742",
-         "1.62521273",
-         "0.310922989"
+         "24.938474172212615",
+         "1.6252127346495429",
+         "0.3109229892573675"
         ],
         "stacyBox": [
          [
@@ -17377,10 +17741,12 @@
           "0.310922989740"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.810861205",
-         "0.123212521",
-         "0.200246558"
+         "0.8108612050519661",
+         "0.12321252118372383",
+         "0.20024655849606454"
         ],
         "box": [
          [
@@ -17471,9 +17837,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.10287943",
-         "0.261326509"
+         "2.1028794316787502",
+         "0.2613265090650494"
         ],
         "box": [
          [
@@ -17589,9 +17957,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.68847275",
-         "0.486705283"
+         "1.6884727498288725",
+         "0.4867052834360103"
         ],
         "box": [
          [
@@ -17659,7 +18029,7 @@
           "hi": "4.1053155"
          }
         },
-        "seconds": 2.6
+        "seconds": 2.3
        },
        "lognormal": {
         "certified": true,
@@ -17670,9 +18040,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.482365718",
-         "0.289479552"
+         "0.4823657175830976",
+         "0.2894795523562062"
         ],
         "box": [
          [
@@ -17740,7 +18112,7 @@
           "hi": "6.8198702"
          }
         },
-        "seconds": 4.4
+        "seconds": 3.5
        },
        "weibull": {
         "certified": true,
@@ -17751,9 +18123,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.70506575",
-         "1.87017985"
+         "3.7050657481554556",
+         "1.8701798539172065"
         ],
         "box": [
          [
@@ -17821,7 +18195,7 @@
           "hi": "3.8764220"
          }
         },
-        "seconds": 6.3
+        "seconds": 5.3
        },
        "expweibull": {
         "certified": true,
@@ -17833,10 +18207,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "9.89968748",
-         "1.43343009",
-         "0.813555887"
+         "9.899687477125983",
+         "1.4334300872370138",
+         "0.8135558871274029"
         ],
         "box": [
          [
@@ -17912,7 +18288,7 @@
           "hi": "5.9153204"
          }
         },
-        "seconds": 18.6
+        "seconds": 17.8
        },
        "gengamma": {
         "certified": true,
@@ -17923,9 +18299,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "111.925650",
-         "0.327179469",
-         "8.97479591e-7"
+         "111.92565004104111",
+         "0.32717946947519005",
+         "8.974795910057929e-7"
         ],
         "stacyBox": [
          [
@@ -17941,10 +18317,12 @@
           "8.97479591076e-7"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.496039874",
-         "0.288901065",
-         "0.0945224973"
+         "0.49603987420071705",
+         "0.2889010654265187",
+         "0.09452249731706557"
         ],
         "box": [
          [
@@ -18020,7 +18398,7 @@
           "hi": "6.1664982"
          }
         },
-        "seconds": 47.3,
+        "seconds": 61.5,
         "limitLl": {
          "lo": "-61865.3914474",
          "hi": "-61865.3914471"
@@ -18035,9 +18413,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.45787157",
-         "0.405624811"
+         "1.457871571854178",
+         "0.40562481130157596"
         ],
         "box": [
          [
@@ -18105,7 +18485,7 @@
           "hi": "7.4967241"
          }
         },
-        "seconds": 3.3
+        "seconds": 4.1
        }
       },
       "rankings": {
@@ -18141,9 +18521,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.76957358",
-         "0.503193539"
+         "1.7695735797399044",
+         "0.5031935387096835"
         ],
         "box": [
          [
@@ -18211,7 +18593,7 @@
           "hi": "4.0569327"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -18222,9 +18604,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.530420397",
-         "0.285277583"
+         "0.5304203967784509",
+         "0.28527758280059834"
         ],
         "box": [
          [
@@ -18292,7 +18676,7 @@
           "hi": "6.2164704"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "weibull": {
         "certified": true,
@@ -18303,9 +18687,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.76046271",
-         "1.95847301"
+         "3.7604627068303818",
+         "1.9584730062198632"
         ],
         "box": [
          [
@@ -18373,7 +18759,7 @@
           "hi": "3.8585781"
          }
         },
-        "seconds": 0.8
+        "seconds": 0.9
        },
        "expweibull": {
         "certified": true,
@@ -18385,10 +18771,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "10.8390185",
-         "1.41224392",
-         "0.824810032"
+         "10.839018540113319",
+         "1.4122439192627116",
+         "0.8248100316011673"
         ],
         "box": [
          [
@@ -18464,7 +18852,7 @@
           "hi": "5.6628731"
          }
         },
-        "seconds": 3.6
+        "seconds": 4.3
        },
        "gengamma": {
         "certified": true,
@@ -18475,9 +18863,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "181.502420",
-         "0.260508403",
-         "3.66354408e-9"
+         "181.50242017975245",
+         "0.26050840317724533",
+         "3.6635440805671927e-9"
         ],
         "stacyBox": [
          [
@@ -18493,10 +18881,12 @@
           "3.66354408102e-9"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.541004753",
-         "0.284929262",
-         "0.0742264670"
+         "0.5410047532681055",
+         "0.2849292618549371",
+         "0.07422646702430087"
         ],
         "box": [
          [
@@ -18572,7 +18962,7 @@
           "hi": "5.8190592"
          }
         },
-        "seconds": 10.8,
+        "seconds": 15.9,
         "limitLl": {
          "lo": "-8123.93528847",
          "hi": "-8123.93528843"
@@ -18587,9 +18977,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.53094632",
-         "0.418906799"
+         "1.53094632120976",
+         "0.4189067986593605"
         ],
         "box": [
          [
@@ -18657,7 +19049,7 @@
           "hi": "6.8964454"
          }
         },
-        "seconds": 0.4
+        "seconds": 0.5
        }
       },
       "rankings": {
@@ -18693,9 +19085,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.03782047",
-         "0.527327679"
+         "2.0378204667863553",
+         "0.5273276791832692"
         ],
         "box": [
          [
@@ -18774,9 +19168,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.678379765",
-         "0.259709088"
+         "0.6783797651646023",
+         "0.25970908756628763"
         ],
         "box": [
          [
@@ -18855,9 +19251,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.17274974",
-         "2.24247962"
+         "4.172749741003971",
+         "2.2424796175365365"
         ],
         "box": [
          [
@@ -18937,10 +19335,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "13.7090878",
-         "1.44107445",
-         "0.915879071"
+         "13.709087806880014",
+         "1.441074447693655",
+         "0.9158790712382309"
         ],
         "box": [
          [
@@ -19016,7 +19416,7 @@
           "hi": "5.5689172"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.7
        },
        "gengamma": {
         "certified": true,
@@ -19027,9 +19427,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "950.653175",
-         "0.124910389",
-         "2.85218179e-24"
+         "950.6531752426584",
+         "0.12491038886628021",
+         "2.852181788666405e-24"
         ],
         "stacyBox": [
          [
@@ -19045,10 +19445,12 @@
           "2.85218179187e-24"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.682591155",
-         "0.259651232",
-         "0.0324331364"
+         "0.682591155283499",
+         "0.25965123228015663",
+         "0.032433136393723215"
         ],
         "box": [
          [
@@ -19124,7 +19526,7 @@
           "hi": "5.6166159"
          }
         },
-        "seconds": 4.3,
+        "seconds": 6.5,
         "limitLl": {
          "lo": "-1251.78809223",
          "hi": "-1251.78809222"
@@ -19139,9 +19541,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.78549616",
-         "0.441594131"
+         "1.7854961589935545",
+         "0.4415941311952802"
         ],
         "box": [
          [
@@ -19245,9 +19649,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.31400521",
-         "0.543513138"
+         "2.3140052083333345",
+         "0.5435131380407201"
         ],
         "box": [
          [
@@ -19326,9 +19732,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.811130979",
-         "0.236969540"
+         "0.8111309786710583",
+         "0.23696953963402773"
         ],
         "box": [
          [
@@ -19407,9 +19815,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.66725390",
-         "2.53086544"
+         "4.667253895156004",
+         "2.530865440716313"
         ],
         "box": [
          [
@@ -19489,10 +19899,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "11.1249103",
-         "1.68201245",
-         "1.21901358"
+         "11.124910251962627",
+         "1.6820124538787717",
+         "1.2190135841807688"
         ],
         "box": [
          [
@@ -19568,7 +19980,7 @@
           "hi": "5.2882235"
          }
         },
-        "seconds": 0.1
+        "seconds": 0.2
        },
        "gengamma": {
         "certified": true,
@@ -19579,9 +19991,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "136.932046",
-         "0.361156373",
-         "0.00000276014432"
+         "136.93204579814096",
+         "0.36115637329344374",
+         "0.0000027601443200690517"
         ],
         "stacyBox": [
          [
@@ -19597,10 +20009,12 @@
           "0.00000276014432079"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.821253714",
-         "0.236620391",
-         "0.0854569624"
+         "0.8212537144506047",
+         "0.2366203914237598",
+         "0.08545696241388016"
         ],
         "box": [
          [
@@ -19676,7 +20090,7 @@
           "hi": "5.2638360"
          }
         },
-        "seconds": 0.4,
+        "seconds": 0.6,
         "limitLl": {
          "lo": "-303.454402952",
          "hi": "-303.454402950"
@@ -19691,9 +20105,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.05068184",
-         "0.461221096"
+         "2.050681835846154",
+         "0.46122109641266695"
         ],
         "box": [
          [
@@ -19809,9 +20225,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.61835297",
-         "1.37008892"
+         "3.618352968856883",
+         "1.3700889221154966"
         ],
         "box": [
          [
@@ -19879,7 +20297,7 @@
           "hi": "10.421833"
          }
         },
-        "seconds": 3
+        "seconds": 2.3
        },
        "lognormal": {
         "certified": true,
@@ -19890,9 +20308,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.21868602",
-         "0.366430877"
+         "1.2186860161113764",
+         "0.3664308774937336"
         ],
         "box": [
          [
@@ -19960,7 +20380,7 @@
           "hi": "20.869308"
          }
         },
-        "seconds": 4.3
+        "seconds": 3.4
        },
        "weibull": {
         "certified": true,
@@ -19971,9 +20391,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.74760206",
-         "4.06495785"
+         "2.747602061220483",
+         "4.064957853031231"
         ],
         "box": [
          [
@@ -20041,7 +20463,7 @@
           "hi": "10.862052"
          }
         },
-        "seconds": 5.8
+        "seconds": 5.2
        },
        "expweibull": {
         "certified": true,
@@ -20053,10 +20475,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "18.2019107",
-         "0.941699359",
-         "0.951054753"
+         "18.201910674179473",
+         "0.9416993587234518",
+         "0.9510547531333017"
         ],
         "box": [
          [
@@ -20132,7 +20556,7 @@
           "hi": "20.219104"
          }
         },
-        "seconds": 18.2
+        "seconds": 17.8
        },
        "gengamma": {
         "certified": false,
@@ -20159,7 +20583,7 @@
          "lo": "-152755.537320",
          "hi": "-152755.537319"
         },
-        "seconds": 40.6
+        "seconds": 46
        },
        "gumbel": {
         "certified": true,
@@ -20170,9 +20594,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.00114250",
-         "1.04999341"
+         "3.0011425022087557",
+         "1.0499934114218124"
         ],
         "box": [
          [
@@ -20240,7 +20666,7 @@
           "hi": "18.633213"
          }
         },
-        "seconds": 3.4
+        "seconds": 4.1
        }
       },
       "rankings": {
@@ -20288,9 +20714,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.24994268",
-         "1.58765833"
+         "4.24994267624914",
+         "1.5876583320287183"
         ],
         "box": [
          [
@@ -20358,7 +20786,7 @@
           "hi": "11.466937"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -20369,9 +20797,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.38065623",
-         "0.364860278"
+         "1.380656230822128",
+         "0.3648602779790815"
         ],
         "box": [
          [
@@ -20439,7 +20869,7 @@
           "hi": "20.888441"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "weibull": {
         "certified": true,
@@ -20450,9 +20880,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.77494269",
-         "4.76964539"
+         "2.7749426869089318",
+         "4.769645391329402"
         ],
         "box": [
          [
@@ -20520,7 +20952,7 @@
           "hi": "11.956136"
          }
         },
-        "seconds": 0.8
+        "seconds": 0.9
        },
        "expweibull": {
         "certified": true,
@@ -20532,10 +20964,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "12.5518319",
-         "1.05402311",
-         "1.43767939"
+         "12.551831868296631",
+         "1.054023109357143",
+         "1.4376793869534692"
         ],
         "box": [
          [
@@ -20611,7 +21045,7 @@
           "hi": "19.171699"
          }
         },
-        "seconds": 3.8
+        "seconds": 4.7
        },
        "gengamma": {
         "certified": true,
@@ -20622,9 +21056,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "1669.88786",
-         "0.0670799104",
-         "3.62275950e-48"
+         "1669.8878592593576",
+         "0.06707991040198373",
+         "3.622759504380584e-48"
         ],
         "stacyBox": [
          [
@@ -20640,10 +21074,12 @@
           "3.62275950947e-48"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.38512033",
-         "0.364807596",
-         "0.0244712608"
+         "1.3851203272463117",
+         "0.36480759594210493",
+         "0.024471260849759483"
         ],
         "box": [
          [
@@ -20719,7 +21155,7 @@
           "hi": "20.295458"
          }
         },
-        "seconds": 10.5,
+        "seconds": 13.1,
         "limitLl": {
          "lo": "-20937.3451463",
          "hi": "-20937.3451462"
@@ -20734,9 +21170,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.53105282",
-         "1.23669914"
+         "3.5310528248661806",
+         "1.2366991420204383"
         ],
         "box": [
          [
@@ -20804,7 +21242,7 @@
           "hi": "19.371111"
          }
         },
-        "seconds": 0.4
+        "seconds": 0.5
        }
       },
       "rankings": {
@@ -20840,9 +21278,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.96356194",
-         "1.77365622"
+         "5.9635619389587",
+         "1.7736562188341058"
         ],
         "box": [
          [
@@ -20921,9 +21361,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.74345001",
-         "0.291361851"
+         "1.7434500093813832",
+         "0.29136185098423056"
         ],
         "box": [
          [
@@ -21002,9 +21444,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.36028735",
-         "6.60570029"
+         "3.36028735138783",
+         "6.605700287415321"
         ],
         "box": [
          [
@@ -21084,10 +21528,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "10.1518096",
-         "1.41137613",
-         "2.82554119"
+         "10.15180961034171",
+         "1.41137613471239",
+         "2.8255411923166576"
         ],
         "box": [
          [
@@ -21163,7 +21609,7 @@
           "hi": "17.562855"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "gengamma": {
         "certified": true,
@@ -21174,9 +21620,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "191.377290",
-         "0.248442939",
-         "3.77550618e-9"
+         "191.37728978907327",
+         "0.2484429387587608",
+         "3.7755061800247164e-9"
         ],
         "stacyBox": [
          [
@@ -21192,10 +21638,12 @@
           "3.77550618043e-9"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.75397522",
-         "0.290956553",
-         "0.0722861010"
+         "1.753975224948456",
+         "0.29095655255108754",
+         "0.07228610096691002"
         ],
         "box": [
          [
@@ -21271,7 +21719,7 @@
           "hi": "17.977789"
          }
         },
-        "seconds": 1,
+        "seconds": 1.2,
         "limitLl": {
          "lo": "-3223.69191747",
          "hi": "-3223.69191746"
@@ -21286,9 +21734,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.15238361",
-         "1.45660739"
+         "5.152383614750366",
+         "1.4566073949752367"
         ],
         "box": [
          [
@@ -21392,9 +21842,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "7.75137500",
-         "1.88484297"
+         "7.751374999999999",
+         "1.8848429711892893"
         ],
         "box": [
          [
@@ -21473,9 +21925,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.02165003",
-         "0.224239353"
+         "2.0216500326393225",
+         "0.22423935260921404"
         ],
         "box": [
          [
@@ -21554,9 +22008,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.89980637",
-         "8.49227319"
+         "3.899806365080518",
+         "8.4922731940019"
         ],
         "box": [
          [
@@ -21636,10 +22092,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "176.608460",
-         "0.942087089",
-         "1.20819555"
+         "176.6084601282197",
+         "0.9420870886431782",
+         "1.2081955478299906"
         ],
         "box": [
          [
@@ -21715,7 +22173,7 @@
           "hi": "20.749572"
          }
         },
-        "seconds": 0.1
+        "seconds": 0.2
        },
        "gengamma": {
         "certified": false,
@@ -21753,9 +22211,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.93066208",
-         "1.41647183"
+         "6.930662082291441",
+         "1.4164718326765218"
         ],
         "box": [
          [
@@ -21883,9 +22343,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.93172848",
-         "1.55835440"
+         "4.9317284822039635",
+         "1.5583544009162935"
         ],
         "box": [
          [
@@ -21953,7 +22415,7 @@
           "hi": "12.670082"
          }
         },
-        "seconds": 2.7
+        "seconds": 2.3
        },
        "lognormal": {
         "certified": true,
@@ -21964,9 +22426,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.54783315",
-         "0.309845932"
+         "1.5478331458260797",
+         "0.3098459319594338"
         ],
         "box": [
          [
@@ -22034,7 +22498,7 @@
           "hi": "21.899015"
          }
         },
-        "seconds": 3.7
+        "seconds": 3.4
        },
        "weibull": {
         "certified": true,
@@ -22045,9 +22509,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.23696741",
-         "5.48558924"
+         "3.2369674137969975",
+         "5.485589240657596"
         ],
         "box": [
          [
@@ -22127,10 +22593,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "12.2989392",
-         "1.24926424",
-         "2.00401508"
+         "12.298939160266315",
+         "1.2492642439340071",
+         "2.0040150769115077"
         ],
         "box": [
          [
@@ -22206,7 +22674,7 @@
           "hi": "19.718360"
          }
         },
-        "seconds": 19.1
+        "seconds": 20.6
        },
        "gengamma": {
         "certified": true,
@@ -22217,9 +22685,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "1370.01287",
-         "0.0872107966",
-         "5.09182397e-36"
+         "1370.0128658578908",
+         "0.0872107965804832",
+         "5.091823971480395e-36"
         ],
         "stacyBox": [
          [
@@ -22235,10 +22703,12 @@
           "5.09182397880e-36"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.55201846",
-         "0.309790021",
-         "0.0270170345"
+         "1.5520184587596528",
+         "0.30979002081401497",
+         "0.027017034487874715"
         ],
         "box": [
          [
@@ -22314,7 +22784,7 @@
           "hi": "21.201576"
          }
         },
-        "seconds": 93.9,
+        "seconds": 107.8,
         "limitLl": {
          "lo": "-167848.243126",
          "hi": "-167848.243124"
@@ -22329,9 +22799,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.21691337",
-         "1.25605706"
+         "4.2169133722070145",
+         "1.2560570580584856"
         ],
         "box": [
          [
@@ -22399,7 +22871,7 @@
           "hi": "22.916813"
          }
         },
-        "seconds": 2.9
+        "seconds": 2.8
        }
       },
       "rankings": {
@@ -22435,9 +22907,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.74317402",
-         "1.77896248"
+         "5.7431740246406475",
+         "1.77896248357574"
         ],
         "box": [
          [
@@ -22516,9 +22990,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.70238550",
-         "0.302243665"
+         "1.7023854991260452",
+         "0.30224366513816575"
         ],
         "box": [
          [
@@ -22597,9 +23073,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.27003797",
-         "6.37957433"
+         "3.270037966419088",
+         "6.379574331280178"
         ],
         "box": [
          [
@@ -22679,10 +23157,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "12.5097461",
-         "1.27396929",
-         "2.36751514"
+         "12.509746084230684",
+         "1.2739692899439192",
+         "2.367515136468195"
         ],
         "box": [
          [
@@ -22769,9 +23249,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "2322.77273",
-         "0.0686573669",
-         "5.18254703e-49"
+         "2322.772731472802",
+         "0.0686573668994534",
+         "5.182547033017789e-49"
         ],
         "stacyBox": [
          [
@@ -22787,10 +23267,12 @@
           "5.18254704861e-49"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.70552100",
-         "0.302210463",
-         "0.0207489747"
+         "1.705521002718651",
+         "0.30221046346880953",
+         "0.020748974671231914"
         ],
         "box": [
          [
@@ -22866,7 +23348,7 @@
           "hi": "21.242539"
          }
         },
-        "seconds": 11.2,
+        "seconds": 11,
         "limitLl": {
          "lo": "-22497.0890909",
          "hi": "-22497.0890908"
@@ -22881,9 +23363,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.93139488",
-         "1.43427749"
+         "4.9313948829335725",
+         "1.4342774872688533"
         ],
         "box": [
          [
@@ -22951,7 +23435,7 @@
           "hi": "23.302103"
          }
         },
-        "seconds": 0.4
+        "seconds": 0.3
        }
       },
       "rankings": {
@@ -22987,9 +23471,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "7.81925314",
-         "1.98662562"
+         "7.8192531418312266",
+         "1.9866256244161082"
         ],
         "box": [
          [
@@ -23068,9 +23554,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.02641407",
-         "0.243767781"
+         "2.0264140735814333",
+         "0.2437677809809706"
         ],
         "box": [
          [
@@ -23149,9 +23637,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.88048968",
-         "8.58747921"
+         "3.880489677153366",
+         "8.587479205682497"
         ],
         "box": [
          [
@@ -23231,10 +23721,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "28.3107985",
-         "1.25969289",
-         "2.65568783"
+         "28.31079848776208",
+         "1.2596928853319802",
+         "2.65568783209416"
         ],
         "box": [
          [
@@ -23337,7 +23829,7 @@
          "lo": "-3398.50216239",
          "hi": "-3398.50216238"
         },
-        "seconds": 0.9
+        "seconds": 0.8
        },
        "gumbel": {
         "certified": true,
@@ -23348,9 +23840,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.91703443",
-         "1.59722399"
+         "6.917034428911416",
+         "1.5972239937752777"
         ],
         "box": [
          [
@@ -23466,9 +23960,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
          "9.82096875",
-         "2.11017617"
+         "2.1101761673748456"
         ],
         "box": [
          [
@@ -23547,9 +24043,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.26286379",
-         "0.205930634"
+         "2.2628637901770747",
+         "0.20593063445831136"
         ],
         "box": [
          [
@@ -23628,9 +24126,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.58093166",
-         "10.6844871"
+         "4.580931657151945",
+         "10.684487087723886"
         ],
         "box": [
          [
@@ -23710,10 +24210,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "67.7387513",
-         "1.22643520",
-         "2.74662476"
+         "67.73875125304657",
+         "1.2264351998432659",
+         "2.7466247637591388"
         ],
         "box": [
          [
@@ -23827,9 +24329,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "8.85932053",
-         "1.69224173"
+         "8.859320529495434",
+         "1.6922417275347004"
         ],
         "box": [
          [
@@ -23957,9 +24461,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.53725216",
-         "1.47492614"
+         "4.5372521603353375",
+         "1.4749261379210301"
         ],
         "box": [
          [
@@ -24027,7 +24533,7 @@
           "hi": "11.861324"
          }
         },
-        "seconds": 2.5
+        "seconds": 2.6
        },
        "lognormal": {
         "certified": true,
@@ -24038,9 +24544,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.46242838",
-         "0.315212898"
+         "1.462428380553887",
+         "0.3152128976008791"
         ],
         "box": [
          [
@@ -24108,7 +24616,7 @@
           "hi": "20.649430"
          }
         },
-        "seconds": 3.8
+        "seconds": 4
        },
        "weibull": {
         "certified": true,
@@ -24119,9 +24627,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.14555706",
-         "5.05554859"
+         "3.1455570552980534",
+         "5.055548586633424"
         ],
         "box": [
          [
@@ -24189,7 +24699,7 @@
           "hi": "11.929470"
          }
         },
-        "seconds": 5.7
+        "seconds": 6.4
        },
        "expweibull": {
         "certified": true,
@@ -24201,10 +24711,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "17.3998730",
-         "1.10841611",
-         "1.48791711"
+         "17.399873016419196",
+         "1.1084161091165663",
+         "1.4879171129760114"
         ],
         "box": [
          [
@@ -24280,7 +24792,7 @@
           "hi": "19.928000"
          }
         },
-        "seconds": 18.8
+        "seconds": 22.9
        },
        "gengamma": {
         "certified": false,
@@ -24307,7 +24819,7 @@
          "lo": "-161468.309091",
          "hi": "-161468.309090"
         },
-        "seconds": 37.1
+        "seconds": 45.1
        },
        "gumbel": {
         "certified": true,
@@ -24318,9 +24830,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.86693362",
-         "1.16361728"
+         "3.866933616916964",
+         "1.1636172768269504"
         ],
         "box": [
          [
@@ -24388,7 +24902,7 @@
           "hi": "21.190611"
          }
         },
-        "seconds": 3.4
+        "seconds": 3.7
        }
       },
       "rankings": {
@@ -24436,9 +24950,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.27135934",
-         "1.70706317"
+         "5.271359342915786",
+         "1.7070631725617265"
         ],
         "box": [
          [
@@ -24506,7 +25022,7 @@
           "hi": "13.031130"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -24517,9 +25033,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.61268451",
-         "0.314498962"
+         "1.6126845103821856",
+         "0.31449896180596093"
         ],
         "box": [
          [
@@ -24598,9 +25116,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.15651969",
-         "5.87217181"
+         "3.1565196873080037",
+         "5.87217180663728"
         ],
         "box": [
          [
@@ -24668,7 +25188,7 @@
           "hi": "13.172178"
          }
         },
-        "seconds": 0.8
+        "seconds": 0.9
        },
        "expweibull": {
         "certified": true,
@@ -24680,10 +25200,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "16.0645781",
-         "1.13642503",
-         "1.81536677"
+         "16.06457809980977",
+         "1.1364250344746636",
+         "1.8153667708949752"
         ],
         "box": [
          [
@@ -24759,7 +25281,7 @@
           "hi": "20.346444"
          }
         },
-        "seconds": 3.7
+        "seconds": 4.1
        },
        "gengamma": {
         "certified": false,
@@ -24786,7 +25308,7 @@
          "lo": "-21913.2297314",
          "hi": "-21913.2297313"
         },
-        "seconds": 5.1
+        "seconds": 5.5
        },
        "gumbel": {
         "certified": true,
@@ -24797,9 +25319,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.49489672",
-         "1.35171121"
+         "4.494896720105739",
+         "1.3517112127526558"
         ],
         "box": [
          [
@@ -24867,7 +25391,7 @@
           "hi": "21.808069"
          }
         },
-        "seconds": 0.4
+        "seconds": 0.5
        }
       },
       "rankings": {
@@ -24915,9 +25439,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "7.20449671",
-         "1.94500197"
+         "7.204496708557745",
+         "1.9450019729770334"
         ],
         "box": [
          [
@@ -24996,9 +25522,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.93995582",
-         "0.263038440"
+         "1.9399558234792427",
+         "0.2630384402712619"
         ],
         "box": [
          [
@@ -25077,9 +25605,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.73048120",
-         "7.94140347"
+         "3.7304812018007585",
+         "7.941403470910674"
         ],
         "box": [
          [
@@ -25159,10 +25689,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "16.1490342",
-         "1.35746674",
-         "2.96853136"
+         "16.149034188060753",
+         "1.357466736529461",
+         "2.9685313582616764"
         ],
         "box": [
          [
@@ -25238,7 +25770,7 @@
           "hi": "20.352675"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "gengamma": {
         "certified": false,
@@ -25276,9 +25808,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.31066221",
-         "1.59110056"
+         "6.310662206810497",
+         "1.591100555111979"
         ],
         "box": [
          [
@@ -25394,9 +25928,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "9.13847396",
-         "2.07413145"
+         "9.138473958333334",
+         "2.07413144832887"
         ],
         "box": [
          [
@@ -25475,9 +26011,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.18752746",
-         "0.223137352"
+         "2.187527463588285",
+         "0.22313735162304596"
         ],
         "box": [
          [
@@ -25556,9 +26094,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.46258801",
-         "9.97116705"
+         "4.46258800706346",
+         "9.971167049129521"
         ],
         "box": [
          [
@@ -25638,10 +26178,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "15.9266344",
-         "1.60847830",
-         "4.35453469"
+         "15.926634373928774",
+         "1.6084782977253398",
+         "4.354534689833273"
         ],
         "box": [
          [
@@ -25755,9 +26297,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "8.16961401",
-         "1.75227810"
+         "8.169614006884578",
+         "1.7522781033879948"
         ],
         "box": [
          [
@@ -25885,9 +26429,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.85657683",
-         "1.34404001"
+         "3.8565768309376502",
+         "1.3440400139267301"
         ],
         "box": [
          [
@@ -25966,9 +26512,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.29425827",
-         "0.329918626"
+         "1.2942582651592314",
+         "0.32991862560813023"
         ],
         "box": [
          [
@@ -26036,7 +26584,7 @@
           "hi": "18.775300"
          }
         },
-        "seconds": 3.8
+        "seconds": 4.2
        },
        "weibull": {
         "certified": true,
@@ -26047,9 +26595,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.93467171",
-         "4.31373740"
+         "2.9346717051940474",
+         "4.3137374008462235"
         ],
         "box": [
          [
@@ -26117,7 +26667,7 @@
           "hi": "10.826791"
          }
         },
-        "seconds": 5.9
+        "seconds": 6.5
        },
        "expweibull": {
         "certified": true,
@@ -26129,10 +26679,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "46.3688447",
-         "0.828205428",
-         "0.633962896"
+         "46.36884467291817",
+         "0.8282054278247492",
+         "0.6339628959435809"
         ],
         "box": [
          [
@@ -26208,7 +26760,7 @@
           "hi": "21.797536"
          }
         },
-        "seconds": 19.8
+        "seconds": 24.3
        },
        "gengamma": {
         "certified": false,
@@ -26235,7 +26787,7 @@
          "lo": "-150007.303484",
          "hi": "-150007.303483"
         },
-        "seconds": 43.7
+        "seconds": 40.7
        },
        "gumbel": {
         "certified": true,
@@ -26246,9 +26798,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.25755955",
-         "1.01204607"
+         "3.2575595519387597",
+         "1.0120460652547134"
         ],
         "box": [
          [
@@ -26316,7 +26870,7 @@
           "hi": "18.324678"
          }
         },
-        "seconds": 3.2
+        "seconds": 3.6
        }
       },
       "rankings": {
@@ -26364,9 +26918,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.42484651",
-         "1.55103476"
+         "4.424846509240233",
+         "1.551034760381669"
         ],
         "box": [
          [
@@ -26434,7 +26990,7 @@
           "hi": "11.475362"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.4
        },
        "lognormal": {
         "certified": true,
@@ -26445,9 +27001,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.43072194",
-         "0.333556908"
+         "1.430721943029943",
+         "0.3335569078948483"
         ],
         "box": [
          [
@@ -26526,9 +27084,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.91946982",
-         "4.95031855"
+         "2.91946981771532",
+         "4.95031854783523"
         ],
         "box": [
          [
@@ -26596,7 +27156,7 @@
           "hi": "11.857152"
          }
         },
-        "seconds": 0.7
+        "seconds": 0.9
        },
        "expweibull": {
         "certified": true,
@@ -26608,10 +27168,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "34.8360937",
-         "0.874723119",
-         "0.865193823"
+         "34.83609373076885",
+         "0.8747231194040935",
+         "0.8651938231096765"
         ],
         "box": [
          [
@@ -26687,7 +27249,7 @@
           "hi": "21.120431"
          }
         },
-        "seconds": 3.6
+        "seconds": 4.4
        },
        "gengamma": {
         "certified": false,
@@ -26714,7 +27276,7 @@
          "lo": "-20474.0880069",
          "hi": "-20474.0880068"
         },
-        "seconds": 6.8
+        "seconds": 5.3
        },
        "gumbel": {
         "certified": true,
@@ -26725,9 +27287,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.73134214",
-         "1.17718486"
+         "3.7313421449814324",
+         "1.177184859268269"
         ],
         "box": [
          [
@@ -26843,9 +27407,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.05820826",
-         "1.74734263"
+         "6.058208258527826",
+         "1.7473426258921652"
         ],
         "box": [
          [
@@ -26924,9 +27490,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.76290088",
-         "0.275535308"
+         "1.7629008817270566",
+         "0.27553530810328736"
         ],
         "box": [
          [
@@ -27005,9 +27573,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.42868372",
-         "6.70044750"
+         "3.4286837248863016",
+         "6.700447497075032"
         ],
         "box": [
          [
@@ -27087,10 +27657,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "25.0505540",
-         "1.14816239",
-         "1.89790662"
+         "25.050553963514776",
+         "1.1481623926113882",
+         "1.8979066223443666"
         ],
         "box": [
          [
@@ -27166,7 +27738,7 @@
           "hi": "18.999725"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.6
        },
        "gengamma": {
         "certified": false,
@@ -27193,7 +27765,7 @@
          "lo": "-3162.86866034",
          "hi": "-3162.86866032"
         },
-        "seconds": 1.1
+        "seconds": 0.8
        },
        "gumbel": {
         "certified": true,
@@ -27204,9 +27776,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.27118871",
-         "1.37957691"
+         "5.271188706036614",
+         "1.3795769057360692"
         ],
         "box": [
          [
@@ -27322,9 +27896,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "7.75284896",
-         "1.88285507"
+         "7.752848958333331",
+         "1.8828550733358145"
         ],
         "box": [
          [
@@ -27403,9 +27979,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.02169056",
-         "0.225352381"
+         "2.021690564916071",
+         "0.22535238116935788"
         ],
         "box": [
          [
@@ -27484,9 +28062,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.91640336",
-         "8.49253661"
+         "3.9164033562794054",
+         "8.49253661291313"
         ],
         "box": [
          [
@@ -27566,10 +28146,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "121.628394",
-         "1.00066413",
-         "1.44248410"
+         "121.62839407138756",
+         "1.0006641294868799",
+         "1.442484102394522"
         ],
         "box": [
          [
@@ -27683,9 +28265,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.92720373",
-         "1.43284478"
+         "6.927203729670535",
+         "1.4328447831573936"
         ],
         "box": [
          [
@@ -27813,9 +28397,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.82194114",
-         "1.23882815"
+         "1.8219411362080744",
+         "1.2388281504318204"
         ],
         "box": [
          [
@@ -27883,7 +28469,7 @@
           "hi": "7.9736162"
          }
         },
-        "seconds": 2.6
+        "seconds": 3.2
        },
        "lognormal": {
         "certified": true,
@@ -27894,9 +28480,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.397752752",
-         "0.618693348"
+         "0.39775275193457704",
+         "0.6186933475956995"
         ],
         "box": [
          [
@@ -27964,7 +28552,7 @@
           "hi": "32.137108"
          }
         },
-        "seconds": 4
+        "seconds": 5
        },
        "weibull": {
         "certified": true,
@@ -27975,9 +28563,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.60622165",
-         "2.05309774"
+         "1.6062216537035567",
+         "2.0530977423934567"
         ],
         "box": [
          [
@@ -28045,19 +28635,117 @@
           "hi": "11.030343"
          }
         },
-        "seconds": 6.2
+        "seconds": 7.4
        },
        "expweibull": {
-        "certified": false,
-        "edge": false,
-        "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
-        "stop": [
-         "1.52859e+11",
-         "0.0761993",
-         "3.43269e-19"
+        "certified": true,
+        "names": [
+         "k",
+         "theta",
+         "beta"
         ],
-        "stoppedAtBoundary": true,
-        "seconds": 55.5
+        "coords": "expweibullG",
+        "stacy": null,
+        "stacyBox": null,
+        "ew": [
+         "9.798782934099426e+26",
+         "0.0319091069433377",
+         "6.966093714378117e-57"
+        ],
+        "ewBox": [
+         [
+          "9.79877703984e+26",
+          "9.79878882836e+26"
+         ],
+         [
+          "0.0319091067525",
+          "0.0319091071342"
+         ],
+         [
+          "6.96608700932e-57",
+          "6.96610041945e-57"
+         ]
+        ],
+        "theta": [
+         "0.0319091069433377",
+         "0.016146557383211545",
+         "1.0034999934664948"
+        ],
+        "box": [
+         [
+          "0.0319091067525",
+          "0.0319091071342"
+         ],
+         [
+          "0.0161465572856",
+          "0.0161465574808"
+         ],
+         [
+          "1.00349999344",
+          "1.00349999349"
+         ]
+        ],
+        "maxRad": "9.55e-11",
+        "secondOrder": "box",
+        "minors": [
+         {
+          "lo": "1.49154e+8",
+          "hi": "1.49155e+8"
+         },
+         {
+          "lo": "2.62892e+15",
+          "hi": "2.62896e+15"
+         },
+         {
+          "lo": "6.34518e+21",
+          "hi": "6.36437e+21"
+         }
+        ],
+        "rounds": 1,
+        "iters": 7,
+        "ll": {
+         "lo": "-120660.257748",
+         "hi": "-120660.250674"
+        },
+        "criteria": {
+         "ad": {
+          "lo": "964.8163569",
+          "hi": "964.8191251"
+         },
+         "ks": {
+          "lo": "0.07898597615",
+          "hi": "0.07898598587"
+         },
+         "mse": {
+          "lo": "0.001513788354",
+          "hi": "0.001513788861"
+         },
+         "chi2": {
+          "lo": "20677.87797",
+          "hi": "20677.93003",
+          "bins": 18,
+          "kept": 18
+         }
+        },
+        "returnLevel": {
+         "10": {
+          "lo": "135.32910",
+          "hi": "135.32912"
+         },
+         "50": {
+          "lo": "269.46634",
+          "hi": "269.46638"
+         },
+         "100": {
+          "lo": "360.85017",
+          "hi": "360.85022"
+         },
+         "1000": {
+          "lo": "933.97238",
+          "hi": "933.97258"
+         }
+        },
+        "seconds": 101.1
        },
        "gengamma": {
         "certified": false,
@@ -28084,7 +28772,7 @@
          "lo": "-124972.374408",
          "hi": "-124972.374407"
         },
-        "seconds": 29.9
+        "seconds": 19.5
        },
        "gumbel": {
         "certified": true,
@@ -28095,9 +28783,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.28862800",
-         "0.800711184"
+         "1.2886280039436218",
+         "0.8007111835669729"
         ],
         "box": [
          [
@@ -28165,25 +28855,37 @@
           "hi": "13.209439"
          }
         },
-        "seconds": 2
+        "seconds": 1.6
        }
       },
       "rankings": {
        "ad": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "ks": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "mse": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "chi2": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        }
       }
      },
@@ -28201,9 +28903,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.93124572",
-         "1.29326100"
+         "1.9312457221081418",
+         "1.2932610048043132"
         ],
         "box": [
          [
@@ -28282,9 +28986,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.461959184",
-         "0.609897157"
+         "0.4619591838022255",
+         "0.6098971565434136"
         ],
         "box": [
          [
@@ -28352,7 +29058,7 @@
           "hi": "25.390097"
          }
         },
-        "seconds": 0.3
+        "seconds": 0.2
        },
        "weibull": {
         "certified": true,
@@ -28363,9 +29069,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.63011299",
-         "2.17881567"
+         "1.630112992322115",
+         "2.1788156674463592"
         ],
         "box": [
          [
@@ -28433,19 +29141,117 @@
           "hi": "10.413982"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.4
        },
        "expweibull": {
-        "certified": false,
-        "edge": false,
-        "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
-        "stop": [
-         "3.53844e+11",
-         "0.0746500",
-         "9.86217e-20"
+        "certified": true,
+        "names": [
+         "k",
+         "theta",
+         "beta"
         ],
-        "stoppedAtBoundary": true,
-        "seconds": 6
+        "coords": "expweibullG",
+        "stacy": null,
+        "stacyBox": null,
+        "ew": [
+         "312122079161618050",
+         "0.04955681865150377",
+         "4.8833201411483866e-33"
+        ],
+        "ewBox": [
+         [
+          "3.12122055589e+17",
+          "3.12122102734e+17"
+         ],
+         [
+          "0.0495568185612",
+          "0.0495568187418"
+         ],
+         [
+          "4.88331879541e-33",
+          "4.88332148689e-33"
+         ]
+        ],
+        "theta": [
+         "0.04955681865150377",
+         "0.025046988628885093",
+         "1.0089470736125914"
+        ],
+        "box": [
+         [
+          "0.0495568185612",
+          "0.0495568187418"
+         ],
+         [
+          "0.0250469885823",
+          "0.0250469886755"
+         ],
+         [
+          "1.00894707359",
+          "1.00894707363"
+         ]
+        ],
+        "maxRad": "4.51e-11",
+        "secondOrder": "box",
+        "minors": [
+         {
+          "lo": "7.71225e+6",
+          "hi": "7.71226e+6"
+         },
+         {
+          "lo": "1.92409e+13",
+          "hi": "1.92410e+13"
+         },
+         {
+          "lo": "2.11396e+18",
+          "hi": "2.11476e+18"
+         }
+        ],
+        "rounds": 1,
+        "iters": 6,
+        "ll": {
+         "lo": "-15694.5209447",
+         "hi": "-15694.5206588"
+        },
+        "criteria": {
+         "ad": {
+          "lo": "113.1915099",
+          "hi": "113.1916285"
+         },
+         "ks": {
+          "lo": "0.07681660234",
+          "hi": "0.07681660528"
+         },
+         "mse": {
+          "lo": "0.001408593697",
+          "hi": "0.001408593870"
+         },
+         "chi2": {
+          "lo": "2387.872609",
+          "hi": "2387.874352",
+          "bins": 15,
+          "kept": 15
+         }
+        },
+        "returnLevel": {
+         "10": {
+          "lo": "50.394561",
+          "hi": "50.394564"
+         },
+         "50": {
+          "lo": "97.404809",
+          "hi": "97.404815"
+         },
+         "100": {
+          "lo": "128.53179",
+          "hi": "128.53180"
+         },
+         "1000": {
+          "lo": "314.47450",
+          "hi": "314.47452"
+         }
+        },
+        "seconds": 10.1
        },
        "gengamma": {
         "certified": false,
@@ -28483,9 +29289,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.37412217",
-         "0.838427017"
+         "1.3741221730365942",
+         "0.8384270174017234"
         ],
         "box": [
          [
@@ -28558,20 +29366,32 @@
       },
       "rankings": {
        "ad": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "ks": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "mse": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "chi2": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        }
       }
      },
@@ -28589,9 +29409,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.29433154",
-         "1.41330919"
+         "2.2943315380012",
+         "1.4133091947302288"
         ],
         "box": [
          [
@@ -28670,9 +29492,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.660069806",
-         "0.571438785"
+         "0.6600698059721027",
+         "0.5714387846969722"
         ],
         "box": [
          [
@@ -28751,9 +29575,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.76257836",
-         "2.60020106"
+         "1.7625783639597619",
+         "2.6002010563020543"
         ],
         "box": [
          [
@@ -28824,16 +29650,114 @@
         "seconds": 0.1
        },
        "expweibull": {
-        "certified": false,
-        "edge": false,
-        "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
-        "stop": [
-         "9.81609e+8",
-         "0.100765",
-         "1.29683e-13"
+        "certified": true,
+        "names": [
+         "k",
+         "theta",
+         "beta"
         ],
-        "stoppedAtBoundary": true,
-        "seconds": 0.6
+        "coords": "expweibullG",
+        "stacy": null,
+        "stacyBox": null,
+        "ew": [
+         "1019200665.9881008",
+         "0.10058283801090596",
+         "1.2062116545867378e-13"
+        ],
+        "ewBox": [
+         [
+          "1019200656.31",
+          "1019200675.67"
+         ],
+         [
+          "0.100582837973",
+          "0.100582838049"
+         ],
+         [
+          "1.20621163641e-13",
+          "1.20621167276e-13"
+         ]
+        ],
+        "theta": [
+         "0.10058283801090596",
+         "0.050189505253777814",
+         "1.0410449966985873"
+        ],
+        "box": [
+         [
+          "0.100582837973",
+          "0.100582838049"
+         ],
+         [
+          "0.0501895052338",
+          "0.0501895052737"
+         ],
+         [
+          "1.04104499668",
+          "1.04104499672"
+         ]
+        ],
+        "maxRad": "1.87e-11",
+        "secondOrder": "box",
+        "minors": [
+         {
+          "lo": "318232",
+          "hi": "318233"
+         },
+         {
+          "lo": "1.26880e+11",
+          "hi": "1.26881e+11"
+         },
+         {
+          "lo": "3.40859e+14",
+          "hi": "3.40871e+14"
+         }
+        ],
+        "rounds": 1,
+        "iters": 4,
+        "ll": {
+         "lo": "-2479.57216066",
+         "hi": "-2479.57215020"
+        },
+        "criteria": {
+         "ad": {
+          "lo": "17.29359338",
+          "hi": "17.29359851"
+         },
+         "ks": {
+          "lo": "0.08362945947",
+          "hi": "0.08362946022"
+         },
+         "mse": {
+          "lo": "0.001497867133",
+          "hi": "0.001497867187"
+         },
+         "chi2": {
+          "lo": "373.8193776",
+          "hi": "373.8194284",
+          "bins": 12,
+          "kept": 12
+         }
+        },
+        "returnLevel": {
+         "10": {
+          "lo": "20.506548",
+          "hi": "20.506549"
+         },
+         "50": {
+          "lo": "36.477045",
+          "hi": "36.477046"
+         },
+         "100": {
+          "lo": "46.280682",
+          "hi": "46.280684"
+         },
+         "1000": {
+          "lo": "98.182890",
+          "hi": "98.182892"
+         }
+        },
+        "seconds": 1.1
        },
        "gengamma": {
         "certified": false,
@@ -28860,7 +29784,7 @@
          "lo": "-2538.93481901",
          "hi": "-2538.93481900"
         },
-        "seconds": 0.5
+        "seconds": 0.3
        },
        "gumbel": {
         "certified": true,
@@ -28871,9 +29795,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.67564095",
-         "0.945463992"
+         "1.675640949688405",
+         "0.9454639915991416"
         ],
         "box": [
          [
@@ -28946,20 +29872,32 @@
       },
       "rankings": {
        "ad": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "ks": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "mse": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "chi2": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        }
       }
      },
@@ -28977,9 +29915,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.88954167",
-         "1.56838201"
+         "2.889541666666666",
+         "1.568382014720019"
         ],
         "box": [
          [
@@ -29058,9 +29998,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.918273531",
-         "0.532084261"
+         "0.918273531084104",
+         "0.5320842612730973"
         ],
         "box": [
          [
@@ -29139,9 +30081,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.98897509",
-         "3.28352395"
+         "1.9889750948884835",
+         "3.2835239549867543"
         ],
         "box": [
          [
@@ -29212,16 +30156,114 @@
         "seconds": 0
        },
        "expweibull": {
-        "certified": false,
-        "edge": false,
-        "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
-        "stop": [
-         "12714.5",
-         "0.225875",
-         "0.0000952760"
+        "certified": true,
+        "names": [
+         "k",
+         "theta",
+         "beta"
         ],
-        "stoppedAtBoundary": true,
-        "seconds": 0.1
+        "coords": "expweibullG",
+        "stacy": null,
+        "stacyBox": null,
+        "ew": [
+         "12715.598112094443",
+         "0.22587269065058058",
+         "0.00009526303426946693"
+        ],
+        "ewBox": [
+         [
+          "12715.5980908",
+          "12715.5981333"
+         ],
+         [
+          "0.225872690632",
+          "0.225872690669"
+         ],
+         [
+          "0.0000952630340915",
+          "0.0000952630344474"
+         ]
+        ],
+        "theta": [
+         "0.22587269065058058",
+         "0.12352328625168726",
+         "1.16736728119829"
+        ],
+        "box": [
+         [
+          "0.225872690632",
+          "0.225872690669"
+         ],
+         [
+          "0.123523286240",
+          "0.123523286264"
+         ],
+         [
+          "1.16736728118",
+          "1.16736728122"
+         ]
+        ],
+        "maxRad": "8.76e-12",
+        "secondOrder": "box",
+        "minors": [
+         {
+          "lo": "24491.4",
+          "hi": "24491.5"
+         },
+         {
+          "lo": "6.76408e+8",
+          "hi": "6.76409e+8"
+         },
+         {
+          "lo": "8.06850e+10",
+          "hi": "8.06855e+10"
+         }
+        ],
+        "rounds": 1,
+        "iters": 0,
+        "ll": {
+         "lo": "-649.349951585",
+         "hi": "-649.349950832"
+        },
+        "criteria": {
+         "ad": {
+          "lo": "5.619282144",
+          "hi": "5.619282552"
+         },
+         "ks": {
+          "lo": "0.1013985303",
+          "hi": "0.1013985308"
+         },
+         "mse": {
+          "lo": "0.002077635600",
+          "hi": "0.002077635622"
+         },
+         "chi2": {
+          "lo": "128.5851637",
+          "hi": "128.5851685",
+          "bins": 10,
+          "kept": 9
+         }
+        },
+        "returnLevel": {
+         "10": {
+          "lo": "12.161952",
+          "hi": "12.161953"
+         },
+         "50": {
+          "lo": "19.560435",
+          "hi": "19.560436"
+         },
+         "100": {
+          "lo": "23.645138",
+          "hi": "23.645139"
+         },
+         "1000": {
+          "lo": "42.109718",
+          "hi": "42.109719"
+         }
+        },
+        "seconds": 0.2
        },
        "gengamma": {
         "certified": false,
@@ -29259,9 +30301,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.17479671",
-         "1.13515065"
+         "2.1747967057498543",
+         "1.1351506496322157"
         ],
         "box": [
          [
@@ -29334,20 +30378,32 @@
       },
       "rankings": {
        "ad": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "ks": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "lognormal",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "mse": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "chi2": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "lognormal",
+        "excluded": [
+         "gengamma"
+        ]
        }
       }
      }
@@ -29377,9 +30433,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.89123434",
-         "1.01760711"
+         "1.8912343429158027",
+         "1.0176071099633008"
         ],
         "box": [
          [
@@ -29447,7 +30505,7 @@
           "hi": "6.9443875"
          }
         },
-        "seconds": 2.6
+        "seconds": 3.2
        },
        "lognormal": {
         "certified": true,
@@ -29458,9 +30516,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.529026241",
-         "0.448981883"
+         "0.5290262413661925",
+         "0.4489818833468509"
         ],
         "box": [
          [
@@ -29528,7 +30588,7 @@
           "hi": "15.776872"
          }
         },
-        "seconds": 4
+        "seconds": 4.8
        },
        "weibull": {
         "certified": true,
@@ -29539,9 +30599,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.97640749",
-         "2.14059799"
+         "1.97640749334723",
+         "2.1405979904705097"
         ],
         "box": [
          [
@@ -29609,7 +30671,7 @@
           "hi": "8.3936363"
          }
         },
-        "seconds": 6
+        "seconds": 7.1
        },
        "expweibull": {
         "certified": true,
@@ -29621,10 +30683,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "329.335925",
-         "0.422887818",
-         "0.0222017890"
+         "329.33592525907477",
+         "0.4228878177120741",
+         "0.02220178896247848"
         ],
         "box": [
          [
@@ -29700,7 +30764,7 @@
           "hi": "28.674963"
          }
         },
-        "seconds": 25
+        "seconds": 29.2
        },
        "gengamma": {
         "certified": false,
@@ -29727,7 +30791,7 @@
          "lo": "-107267.043913",
          "hi": "-107267.043911"
         },
-        "seconds": 36.4
+        "seconds": 35.2
        },
        "gumbel": {
         "certified": true,
@@ -29738,9 +30802,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.49069314",
-         "0.633627876"
+         "1.4906931375760732",
+         "0.6336278758159747"
         ],
         "box": [
          [
@@ -29808,7 +30874,7 @@
           "hi": "10.924005"
          }
         },
-        "seconds": 2.9
+        "seconds": 2.8
        }
       },
       "rankings": {
@@ -29856,9 +30922,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.25374264",
-         "1.24753005"
+         "2.2537426420260167",
+         "1.2475300534440104"
         ],
         "box": [
          [
@@ -29937,9 +31005,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "0.700052437",
-         "0.459207638"
+         "0.7000524371353309",
+         "0.45920763753467675"
         ],
         "box": [
          [
@@ -30018,9 +31088,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.92990133",
-         "2.54948617"
+         "1.9299013338343243",
+         "2.54948616543829"
         ],
         "box": [
          [
@@ -30100,10 +31172,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "119.002463",
-         "0.490511984",
-         "0.0693120658"
+         "119.00246333621612",
+         "0.49051198428160414",
+         "0.06931206584531134"
         ],
         "box": [
          [
@@ -30179,7 +31253,7 @@
           "hi": "23.954564"
          }
         },
-        "seconds": 3.5
+        "seconds": 3.7
        },
        "gengamma": {
         "certified": false,
@@ -30217,9 +31291,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.76899203",
-         "0.773142298"
+         "1.7689920258050515",
+         "0.7731422981593101"
         ],
         "box": [
          [
@@ -30335,9 +31411,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.49967923",
-         "1.86799018"
+         "3.4996792339916243",
+         "1.867990179480065"
         ],
         "box": [
          [
@@ -30416,9 +31494,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.15366928",
-         "0.425375715"
+         "1.1536692827537205",
+         "0.42537571464575546"
         ],
         "box": [
          [
@@ -30497,9 +31577,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.98541210",
-         "3.95879812"
+         "1.985412096899085",
+         "3.9587981205122706"
         ],
         "box": [
          [
@@ -30579,10 +31661,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "80.0388315",
-         "0.573065110",
-         "0.204557232"
+         "80.03883152697327",
+         "0.5730651098404185",
+         "0.2045572319234938"
         ],
         "box": [
          [
@@ -30696,9 +31780,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.80191174",
-         "1.11450460"
+         "2.801911742273794",
+         "1.11450459921373"
         ],
         "box": [
          [
@@ -30814,9 +31900,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.27650521",
-         "2.67049033"
+         "5.276505208333332",
+         "2.6704903312590154"
         ],
         "box": [
          [
@@ -30895,9 +31983,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.57394684",
-         "0.393864901"
+         "1.5739468380498371",
+         "0.3938649007156648"
         ],
         "box": [
          [
@@ -30976,9 +32066,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.08971609",
-         "5.98079454"
+         "2.089716089616727",
+         "5.980794537481937"
         ],
         "box": [
          [
@@ -31049,16 +32141,114 @@
         "seconds": 0
        },
        "expweibull": {
-        "certified": false,
-        "edge": false,
-        "why": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent",
-        "stop": [
-         "7.78987e+9",
-         "0.138597",
-         "6.53873e-10"
+        "certified": true,
+        "names": [
+         "k",
+         "theta",
+         "beta"
         ],
-        "stoppedAtBoundary": true,
-        "seconds": 0.4
+        "coords": "expweibullG",
+        "stacy": null,
+        "stacyBox": null,
+        "ew": [
+         "11538173447.927326",
+         "0.13628178195728738",
+         "3.931280823659739e-10"
+        ],
+        "ewBox": [
+         [
+          "11538173153.7",
+          "11538173742.2"
+         ],
+         [
+          "0.136281781849",
+          "0.136281782066"
+         ],
+         [
+          "3.93128069083e-10",
+          "3.93128095649e-10"
+         ]
+        ],
+        "theta": [
+         "0.13628178195728738",
+         "0.05226444496256338",
+         "1.2109110998636967"
+        ],
+        "box": [
+         [
+          "0.136281781849",
+          "0.136281782066"
+         ],
+         [
+          "0.0522644449129",
+          "0.0522644450122"
+         ],
+         [
+          "1.21091109967",
+          "1.21091110005"
+         ]
+        ],
+        "maxRad": "9.20e-11",
+        "secondOrder": "box",
+        "minors": [
+         {
+          "lo": "373376",
+          "hi": "373377"
+         },
+         {
+          "lo": "9.88262e+10",
+          "hi": "9.88263e+10"
+         },
+         {
+          "lo": "3.34733e+12",
+          "hi": "3.35141e+12"
+         }
+        ],
+        "rounds": 1,
+        "iters": 6,
+        "ll": {
+         "lo": "-759.533115183",
+         "hi": "-759.533099973"
+        },
+        "criteria": {
+         "ad": {
+          "lo": "2.278425388",
+          "hi": "2.278434440"
+         },
+         "ks": {
+          "lo": "0.06286120686",
+          "hi": "0.06286121212"
+         },
+         "mse": {
+          "lo": "0.001053279852",
+          "hi": "0.001053280227"
+         },
+         "chi2": {
+          "lo": "20.23599974",
+          "hi": "20.23600998",
+          "bins": 10,
+          "kept": 6
+         }
+        },
+        "returnLevel": {
+         "10": {
+          "lo": "16.142092",
+          "hi": "16.142093"
+         },
+         "50": {
+          "lo": "24.362348",
+          "hi": "24.362349"
+         },
+         "100": {
+          "lo": "28.881071",
+          "hi": "28.881072"
+         },
+         "1000": {
+          "lo": "49.472873",
+          "hi": "49.472875"
+         }
+        },
+        "seconds": 0.6
        },
        "gengamma": {
         "certified": false,
@@ -31085,7 +32275,7 @@
          "lo": "-791.477011656",
          "hi": "-791.477011654"
         },
-        "seconds": 0.2
+        "seconds": 0.1
        },
        "gumbel": {
         "certified": true,
@@ -31096,9 +32286,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.27048147",
-         "1.48730862"
+         "4.270481472587472",
+         "1.48730862263166"
         ],
         "box": [
          [
@@ -31171,20 +32363,32 @@
       },
       "rankings": {
        "ad": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "ks": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "mse": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        },
        "chi2": {
-        "verdict": "REFUSED",
-        "why": "no certified fit for expweibull — its maximum might exist and win"
+        "verdict": "DECIDED",
+        "best": "expweibull",
+        "excluded": [
+         "gengamma"
+        ]
        }
       }
      }
@@ -31214,9 +32418,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.66812181",
-         "1.84610167"
+         "3.668121812970528",
+         "1.8461016712897105"
         ],
         "box": [
          [
@@ -31284,7 +32490,7 @@
           "hi": "12.835348"
          }
         },
-        "seconds": 2.6
+        "seconds": 2.9
        },
        "lognormal": {
         "certified": true,
@@ -31295,9 +32501,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.18410132",
-         "0.481292121"
+         "1.1841013224403374",
+         "0.4812921211637614"
         ],
         "box": [
          [
@@ -31365,7 +32573,7 @@
           "hi": "35.661218"
          }
         },
-        "seconds": 3.9
+        "seconds": 4.3
        },
        "weibull": {
         "certified": true,
@@ -31376,9 +32584,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.11168623",
-         "4.15747115"
+         "2.111686226630029",
+         "4.15747115127904"
         ],
         "box": [
          [
@@ -31446,7 +32656,7 @@
           "hi": "14.935816"
          }
         },
-        "seconds": 6
+        "seconds": 6.7
        },
        "expweibull": {
         "certified": true,
@@ -31458,10 +32668,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "15.8599934",
-         "0.745446861",
-         "0.697385317"
+         "15.859993391943103",
+         "0.745446861130615",
+         "0.6973853165490961"
         ],
         "box": [
          [
@@ -31537,7 +32749,7 @@
           "hi": "32.809875"
          }
         },
-        "seconds": 18.8
+        "seconds": 21.3
        },
        "gengamma": {
         "certified": false,
@@ -31564,7 +32776,7 @@
          "lo": "-175016.951941",
          "hi": "-175016.951939"
         },
-        "seconds": 37.3
+        "seconds": 37.8
        },
        "gumbel": {
         "certified": true,
@@ -31575,9 +32787,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.86346078",
-         "1.32527646"
+         "2.8634607764990396",
+         "1.3252764617034005"
         ],
         "box": [
          [
@@ -31645,7 +32859,7 @@
           "hi": "22.593884"
          }
         },
-        "seconds": 2
+        "seconds": 2.2
        }
       },
       "rankings": {
@@ -31693,9 +32907,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "4.33042984",
-         "2.19456958"
+         "4.330429842573587",
+         "2.194569583724543"
         ],
         "box": [
          [
@@ -31774,9 +32990,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.34814566",
-         "0.486043429"
+         "1.3481456567493457",
+         "0.4860434287962338"
         ],
         "box": [
          [
@@ -31855,9 +33073,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.09810467",
-         "4.90826367"
+         "2.0981046671560204",
+         "4.908263673552161"
         ],
         "box": [
          [
@@ -31925,7 +33145,7 @@
           "hi": "16.549383"
          }
         },
-        "seconds": 0.5
+        "seconds": 0.4
        },
        "expweibull": {
         "certified": true,
@@ -31937,10 +33157,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "14.1113017",
-         "0.763894182",
-         "0.897052642"
+         "14.111301732223996",
+         "0.763894181828699",
+         "0.8970526417933843"
         ],
         "box": [
          [
@@ -32043,7 +33265,7 @@
          "lo": "-23909.2870967",
          "hi": "-23909.2870966"
         },
-        "seconds": 4.2
+        "seconds": 4.3
        },
        "gumbel": {
         "certified": true,
@@ -32054,9 +33276,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "3.37400730",
-         "1.57767187"
+         "3.3740072981984146",
+         "1.5776718698003744"
         ],
         "box": [
          [
@@ -32172,9 +33396,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "6.24067026",
-         "2.77234741"
+         "6.2406702573309385",
+         "2.7723474075235064"
         ],
         "box": [
          [
@@ -32253,9 +33479,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.73857345",
-         "0.431503525"
+         "1.7385734501703183",
+         "0.4315035245194138"
         ],
         "box": [
          [
@@ -32334,9 +33562,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.37595632",
-         "7.05676584"
+         "2.3759563237434027",
+         "7.056765837490265"
         ],
         "box": [
          [
@@ -32416,10 +33646,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "12.6392191",
-         "0.890171462",
-         "1.70031130"
+         "12.639219131578491",
+         "0.8901714618961265",
+         "1.7003112956619955"
         ],
         "box": [
          [
@@ -32506,9 +33738,9 @@
         ],
         "coords": "gengammaP",
         "stacy": [
-         "2315.41405",
-         "0.0481666382",
-         "7.99975088e-70"
+         "2315.4140496286864",
+         "0.04816663819496539",
+         "7.999750879309729e-70"
         ],
         "stacyBox": [
          [
@@ -32524,10 +33756,12 @@
           "7.99975089722e-70"
          ]
         ],
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "1.74305704",
-         "0.431458801",
-         "0.0207819200"
+         "1.7430570440169313",
+         "0.4314588009813056",
+         "0.020781919962900127"
         ],
         "box": [
          [
@@ -32603,7 +33837,7 @@
           "hi": "32.840119"
          }
         },
-        "seconds": 1.3,
+        "seconds": 1.2,
         "limitLl": {
          "lo": "-3871.76111191",
          "hi": "-3871.76111190"
@@ -32618,9 +33852,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "5.00746520",
-         "2.07235393"
+         "5.007465204707794",
+         "2.0723539344291626"
         ],
         "box": [
          [
@@ -32724,9 +33960,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "8.50102604",
-         "3.24850580"
+         "8.501026041666664",
+         "3.2485058038512404"
         ],
         "box": [
          [
@@ -32805,9 +34043,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.07060708",
-         "0.372288712"
+         "2.0706070842191786",
+         "0.37228871219549914"
         ],
         "box": [
          [
@@ -32886,9 +34126,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "2.76919284",
-         "9.56482882"
+         "2.769192835400621",
+         "9.564828821770048"
         ],
         "box": [
          [
@@ -32968,10 +34210,12 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "27.3306415",
-         "0.832110356",
-         "1.63458399"
+         "27.330641540034648",
+         "0.8321103562106401",
+         "1.6345839886233349"
         ],
         "box": [
          [
@@ -33085,9 +34329,11 @@
         "coords": null,
         "stacy": null,
         "stacyBox": null,
+        "ew": null,
+        "ewBox": null,
         "theta": [
-         "7.02142088",
-         "2.49039556"
+         "7.021420875115096",
+         "2.490395556572179"
         ],
         "box": [
          [
@@ -33205,9 +34451,10 @@
     "mle": {
      "weibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "1.63991075",
-       "1.06510616"
+       "1.6399107462050282",
+       "1.065106157493268"
       ],
       "box": [
        [
@@ -33219,6 +34466,8 @@
         "1.06510615750"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "2.54e-14",
       "secondOrder": "box",
       "minors": [
@@ -33246,10 +34495,11 @@
      },
      "expweibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "49.1745038",
-       "0.468193690",
-       "0.0348518506"
+       "49.17450379752017",
+       "0.4681936902276274",
+       "0.03485185062102953"
       ],
       "box": [
        [
@@ -33265,6 +34515,8 @@
         "0.0348518506317"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "6.04e-9",
       "secondOrder": "box",
       "minors": [
@@ -33296,9 +34548,10 @@
      },
      "lognormal": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "-0.231960796",
-       "0.576770685"
+       "-0.23196079578347992",
+       "0.5767706845493935"
       ],
       "box": [
        [
@@ -33310,6 +34563,8 @@
         "0.576770684550"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "3.21e-15",
       "secondOrder": "box",
       "minors": [
@@ -33337,9 +34592,10 @@
      },
      "tzWeibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "3.83799334",
-       "5.88538841"
+       "3.837993336013761",
+       "5.885388407228986"
       ],
       "box": [
        [
@@ -33351,6 +34607,8 @@
         "5.88538840723"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "2.01e-13",
       "secondOrder": "box",
       "minors": [
@@ -33387,9 +34645,10 @@
     "mle": {
      "weibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "1.88926882",
-       "1.36536882"
+       "1.8892688152304427",
+       "1.3653688207442716"
       ],
       "box": [
        [
@@ -33401,6 +34660,8 @@
         "1.36536882075"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "4.64e-14",
       "secondOrder": "box",
       "minors": [
@@ -33428,10 +34689,11 @@
      },
      "expweibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "17.3925673",
-       "0.656318387",
-       "0.173086515"
+       "17.392567339090977",
+       "0.6563183868213406",
+       "0.17308651538048495"
       ],
       "box": [
        [
@@ -33447,6 +34709,8 @@
         "0.173086515397"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "8.14e-10",
       "secondOrder": "box",
       "minors": [
@@ -33478,9 +34742,10 @@
      },
      "lognormal": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "0.0449806503",
-       "0.532243780"
+       "0.04498065031572697",
+       "0.5322437798327018"
       ],
       "box": [
        [
@@ -33492,6 +34757,8 @@
         "0.532243779833"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "3.28e-15",
       "secondOrder": "box",
       "minors": [
@@ -33519,9 +34786,10 @@
      },
      "tzWeibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "4.41673422",
-       "5.71517805"
+       "4.416734223599762",
+       "5.7151780525266025"
       ],
       "box": [
        [
@@ -33533,6 +34801,8 @@
         "5.71517805253"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "2.40e-13",
       "secondOrder": "box",
       "minors": [
@@ -33569,9 +34839,10 @@
     "mle": {
      "weibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "1.64818923",
-       "1.23498850"
+       "1.6481892309117478",
+       "1.2349884971998057"
       ],
       "box": [
        [
@@ -33583,6 +34854,8 @@
         "1.23498849720"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "3.06e-14",
       "secondOrder": "box",
       "minors": [
@@ -33610,10 +34883,11 @@
      },
      "expweibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "6.44349752",
-       "0.744532305",
-       "0.302609318"
+       "6.443497522158421",
+       "0.7445323051898644",
+       "0.3026093175233297"
       ],
       "box": [
        [
@@ -33629,6 +34903,8 @@
         "0.302609317531"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "7.85e-11",
       "secondOrder": "box",
       "minors": [
@@ -33660,9 +34936,10 @@
      },
      "lognormal": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "-0.107210929",
-       "0.647365735"
+       "-0.10721092902914048",
+       "0.6473657353738121"
       ],
       "box": [
        [
@@ -33674,6 +34951,8 @@
         "0.647365735374"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "3.28e-15",
       "secondOrder": "box",
       "minors": [
@@ -33701,9 +34980,10 @@
      },
      "tzWeibull": {
       "certified": true,
+      "coords": null,
       "theta": [
-       "5.56325245",
-       "5.04754502"
+       "5.563252453300216",
+       "5.047545022151696"
       ],
       "box": [
        [
@@ -33715,6 +34995,8 @@
         "5.04754502217"
        ]
       ],
+      "ew": null,
+      "ewBox": null,
       "maxRad": "3.08e-13",
       "secondOrder": "box",
       "minors": [
@@ -33801,10 +35083,11 @@
     },
     "localMax": {
      "certified": true,
+     "coords": null,
      "theta": [
-      "-0.332329431",
-      "0.635368787",
-      "0.0633660506"
+      "-0.33232943122661623",
+      "0.6353687870476546",
+      "0.06336605057923107"
      ],
      "box": [
       [
@@ -33820,6 +35103,8 @@
        "0.0633660505794"
       ]
      ],
+     "ew": null,
+     "ewBox": null,
      "maxRad": "3.38e-14",
      "secondOrder": "box",
      "minors": [
@@ -34003,10 +35288,11 @@
     },
     "localMax": {
      "certified": true,
+     "coords": null,
      "theta": [
-      "-0.0280102303",
-      "0.571974739",
-      "0.0632983667"
+      "-0.0280102302906544",
+      "0.5719747394878159",
+      "0.0632983667495591"
      ],
      "box": [
       [
@@ -34022,6 +35308,8 @@
        "0.0632983667498"
       ]
      ],
+     "ew": null,
+     "ewBox": null,
      "maxRad": "8.16e-14",
      "secondOrder": "box",
      "minors": [
@@ -34205,10 +35493,11 @@
     },
     "localMax": {
      "certified": true,
+     "coords": null,
      "theta": [
-      "-0.0647981144",
-      "0.620220248",
-      "-0.0317652313"
+      "-0.0647981144157486",
+      "0.6202202476171689",
+      "-0.031765231277867324"
      ],
      "box": [
       [
@@ -34224,6 +35513,8 @@
        "-0.0317652312776"
       ]
      ],
+     "ew": null,
+     "ewBox": null,
      "maxRad": "7.15e-14",
      "secondOrder": "box",
      "minors": [
@@ -35014,7 +36305,7 @@
         "hi": "-35.2783284421"
        },
        "verdict": "NOT_DECIDED",
-       "uncertified": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent"
+       "uncertified": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family; in Gumbel coordinates (k, θ = λ^k, β = θ ln α): the climb passed k = 0.001"
       },
       "default": {
        "params": [
@@ -36424,7 +37715,7 @@
         "hi": "-39.3095931704"
        },
        "verdict": "NOT_DECIDED",
-       "uncertified": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family: no maximum found inside the family, and none proved absent"
+       "uncertified": "the climb passed α = 10⁴ with λ → 0, the likelihood still rising toward a boundary of the family; in Gumbel coordinates (k, θ = λ^k, β = θ ln α): the climb passed k = 0.001"
       },
       "default": {
        "params": [
@@ -36649,9 +37940,9 @@
     },
     {
      "series": "arabian-sea",
-     "verdict": "REFUSED",
-     "best": null,
-     "why": "no certified fit for expweibull — its maximum might exist and win"
+     "verdict": "DECIDED",
+     "best": "expweibull",
+     "why": null
     },
     {
      "series": "south-of-japan",
@@ -36856,6 +38147,16 @@
      }
     },
     {
+     "series": "arabian-sea",
+     "block": "monthly",
+     "winners": {
+      "ad": "expweibull",
+      "ks": "lognormal",
+      "mse": "expweibull",
+      "chi2": "lognormal"
+     }
+    },
+    {
      "series": "north-atlantic",
      "block": "weekly",
      "winners": {
@@ -36988,15 +38289,26 @@
      "blocksDecided": 4
     },
     {
+     "series": "arabian-sea",
+     "lo": "23.65",
+     "loBlock": "monthly",
+     "loFamily": "expweibull",
+     "hi": "360.85",
+     "hiBlock": "native",
+     "hiFamily": "expweibull",
+     "factor": "15.261",
+     "blocksDecided": 4
+    },
+    {
      "series": "south-of-japan",
      "lo": "17.84",
      "loBlock": "weekly",
      "loFamily": "expweibull",
-     "hi": "21.69",
-     "hiBlock": "native",
+     "hi": "28.88",
+     "hiBlock": "monthly",
      "hiFamily": "expweibull",
-     "factor": "1.216",
-     "blocksDecided": 3
+     "factor": "1.619",
+     "blocksDecided": 4
     },
     {
      "series": "north-atlantic",
@@ -37030,9 +38342,9 @@
     ]
    },
    "series": 13,
-   "nativeEw": 5,
-   "nativeDecided": 12
+   "nativeEw": 6,
+   "nativeDecided": 13
   }
  },
- "seconds": 3565.5
+ "seconds": 322.6
 }
