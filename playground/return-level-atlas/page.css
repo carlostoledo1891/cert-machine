@@ -34,8 +34,8 @@
 .ra-sw.hatch { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); }
 .ra-sw.ice { background: radial-gradient(circle, var(--ink-5) 1px, var(--sunk) 1.5px); background-size: 4px 4px; }
 .ra-ramp { display: flex; align-items: flex-start; gap: 0; margin-right: var(--s-3); }
-.ra-ramp i { display: block; width: 56px; height: 10px; background: var(--sw); }
-.ra-ramp span { display: block; width: 56px; font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); white-space: nowrap; }
+.ra-ramp i { display: block; width: 66px; height: 10px; background: var(--sw); }
+.ra-ramp span { display: block; width: 66px; font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); white-space: nowrap; }
 .ra-rampcol { display: flex; flex-direction: column; }
 
 .ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
