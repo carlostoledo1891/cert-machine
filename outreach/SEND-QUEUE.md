@@ -25,7 +25,9 @@ every block with 100-year waves of 361, 129, 46 and 24 m against a 6.87 m record
 its lognormal limit on six hindcast series (α 951–2,323), 17 choices a stop at α = 500 would hand away; 13 of 15 buoy
 choices decided; the benchmark marginals' 5.25–14.53 m; scipy floc=0 on 45 of 48; the sea ice the hindcast's own field
 shows at two of the thirteen report nodes. Any older draft's numbers are wrong. The two questions stay: is the location
-fixed at zero in their pipeline, and which families make "all the main distributions".
+fixed at zero in their pipeline, and which families make "all the main distributions" — and a third, since the next
+work waits on it (HANDOFF N6): which joint Hs–Tp model and contour method their project uses. Since the draft, the atlas
+also decides a reader's own claims (a region drawn on the globe) and draws each cell's data and fits; worth one line.
 
 ### U2. A note to the environmental-contour benchmark's organizers — NOT DRAFTED
 Table 13's Hs row for dataset C (contribution 8) is the certified Weibull MLE of the zero-up-crossing period; contribution
