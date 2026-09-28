@@ -5,6 +5,7 @@
      · the paper's ten claims decided again in the tab and equal to the build's;
      · a reader's own claim, typed, reproducing the paper's DOES NOT HOLD south of South America;
      · a cell certified in the tab and IDENTICAL to the ledger's record, at 1440 and at 390;
+     · a report node showing the report's 3-hourly block first, and an ice report node its note and that block;
      · the phone's sheet stepping on a tap and a swipe, a claim lowering it, a cell raising it;
      · a link reopening the same cell, tab, chart and block.
    Screenshots go to <tmp>/atlas-drive/. Written 2026-09-28 from the twenty-second session's own drives.
@@ -46,6 +47,12 @@ withChrome(async (send) => {
   const mine = await ev('document.getElementById("ra-m-out").innerText');
   check(/^DOES NOT HOLD/.test(mine) && /exp\. Weib\. 12, gen\. gamma 9/.test(mine), 'a typed claim reproduces the paper\'s DOES NOT HOLD south of South America');
   await ev('window.__atlas.select("-22.5_-40")'); await settle(2500);
+  const n3 = JSON.parse(await ev('JSON.stringify((() => { const t = document.querySelector("#ra-cellbox table"); const a = t && t.querySelector("thead a"); return { head: t ? Array.from(t.querySelectorAll("thead th")).map((h) => h.innerText) : [], href: a ? a.getAttribute("href") : null, ad: t ? Array.from(t.querySelectorAll("tbody tr")[0].querySelectorAll("td")).map((d) => d.innerText) : [] }; })())'));
+  check(n3.head.join('|') === '|3-hourly|daily|weekly|monthly' && n3.href === '/reports/return-levels.html' && n3.ad[0] === 'lognormal', 'a report node shows the report\'s 3-hourly block first, linked to the report (Campos: A² picks ' + n3.ad[0] + ')');
+  await ev('window.__atlas.select("-57_-65")'); await settle(1200);
+  const ice = await ev('document.getElementById("ra-cellbox").innerText');
+  check(/shown and not certified/.test(ice) && /3-HOURLY BLOCK|3-hourly block/i.test(ice) && /ice\'s millimetres included/.test(ice), 'an ice report node (Drake) shows its ice note and the report\'s 3-hourly block');
+  await ev('window.__atlas.select("-22.5_-40")'); await settle(1500);
   const p1 = await certify();
   check(/Identical to the ledger/.test(p1), '1440: the Campos cell certified in the tab, identical to the ledger (' + p1.slice(0, 60) + ')');
   await ev('document.querySelector("#ra-cviews button[data-v=\\"qq\\"]").click()'); await settle(500);

@@ -47,10 +47,15 @@
 
   /* ---- the ledger's compact view ---- */
   function decode(r) {
-    if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10] };
+    if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nativeOf(r[5]) };
     const blocks = {};
     BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11] }; });
-    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks };
+    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]) };
+  }
+  /* a report node's unfiltered 3-hourly block: the report ledger's record (build.js nativeOf), shown beside the atlas's own */
+  function nativeOf(name) {
+    const q = name && A.native && A.native.nodes[name];
+    return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12] } : null;
   }
   const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
   function square(c) {
@@ -409,26 +414,38 @@
     writeHash();
   }
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
+  /* the choice by criterion, block by block; at a report node the report's 3-hourly block stands first, its header the
+     link to the report (an ice node has that column alone: the atlas certifies no block there) */
+  const REPORT = '/reports/return-levels.html';
   function blockRows(c) {
+    const cols = (c.native ? [['3-hourly', c.native]] : []).concat(c.ice ? [] : BLK.map((b) => [b, c.blocks[b]]));
     const cell = (k) => (famOf(k) ? '<td class="b">' + esc(FS[famOf(k)]) + '</td>' : '<td class="r">REFUSED</td>');
     const lvl = (q, T) => '<td>' + (famOf(q.ad) && q['l' + T][1] !== null ? q['l' + T][1].toFixed(2) + ' m' : '—') + '</td>';
-    const rows = CRIT.map((k) => '<tr><th>' + (k === 'chi2' ? 'χ²' : k === 'ad' ? 'A²' : k.toUpperCase()) + '</th>' + BLK.map((b) => cell(c.blocks[b][k])).join('') + '</tr>')
-      .concat(['<tr><th>100-yr</th>' + BLK.map((b) => lvl(c.blocks[b], 100)).join('') + '</tr>', '<tr><th>1000-yr</th>' + BLK.map((b) => lvl(c.blocks[b], 1000)).join('') + '</tr>',
-        '<tr><th>threshold</th>' + BLK.map((b) => cell(c.blocks[b].naive)).join('') + '</tr>']);
-    return '<div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+    const rows = CRIT.map((k) => '<tr><th>' + (k === 'chi2' ? 'χ²' : k === 'ad' ? 'A²' : k.toUpperCase()) + '</th>' + cols.map(([, q]) => cell(q[k])).join('') + '</tr>')
+      .concat(['<tr><th>100-yr</th>' + cols.map(([, q]) => lvl(q, 100)).join('') + '</tr>', '<tr><th>1000-yr</th>' + cols.map(([, q]) => lvl(q, 1000)).join('') + '</tr>']);
+    if (!c.ice) rows.push('<tr><th>threshold</th>' + cols.map(([b, q]) => (b === '3-hourly' ? '<td class="r">—</td>' : cell(q.naive))).join('') + '</tr>');
+    return '<div class="tw"><table><thead><tr><th></th>' + cols.map(([b]) => '<th>' + (b === '3-hourly' ? '<a href="' + REPORT + '">3-hourly</a>' : b) + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
+  }
+  /* what the 3-hourly column is, in words: whose record, how many values, the two hard families there */
+  function nativeWords(c) {
+    const q = c.native;
+    return (c.ice ? 'The column is' : '3-hourly:') + ' the unfiltered series, ' + fmt(q.n) + ' values to ' + q.max.toFixed(2) + ' m, as <a href="' + REPORT + '">the return-level report</a> certifies it (§5): that ledger\'s record, not certified again in this tab. There the generalized gamma '
+      + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit (proved)', 'is refused'][q.gg] + ', and the exponentiated Weibull ' + EWW[q.ew] + (c.ice ? '.' : '; the report runs no threshold fitter.');
   }
   function cellPanel(el, c) {
-    let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + (c.report ? 'the report\'s ' + esc(c.report) + ' node · ' : '') + ((c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : 'a report node') + '</p>';
+    let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + [c.report ? 'the report\'s ' + esc(c.report) + ' node' : '', (c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : ''].filter(Boolean).join(' · ') + '</p>';
     const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
-      el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p><div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
+      el.innerHTML = h + '<p>The hindcast\'s own sea-ice field reaches this node on ' + fmt(c.iceSteps) + ' three-hourly steps, in ' + fmt(c.iceMonths) + ' of the 384 months, at up to ' + Math.round(100 * c.iceMax) + '% cover' + (c.fillDays ? '; on ' + fmt(c.fillDays) + ' days the model writes no wave at all' : '') + '. Under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice\'s: the cell is shown and not certified.</p>'
+        + (c.native ? '<div class="k">the report\'s 3-hourly block</div>' + blockRows(c) + '<p class="n">The return-level report certifies this node\'s series as the model gives it, the ice\'s millimetres included; the atlas, which certifies only water the ice never touches, does not. ' + nativeWords(c) + '</p>' : '')
+        + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
       $('ra-back').onclick = back; $('ra-link-cell').onclick = (e) => copyLink(e.target);
       return;
     }
     /* the action first, its result right under it; the cell's own data drawn as soon as it arrives; the ledger's table and the words after */
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
       + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
-    h += '<div class="k">the choice, by criterion (the ledger)</div>' + blockRows(c);
+    h += '<div class="k">the choice, by criterion (the ledger' + (c.native ? 's' : '') + ')</div>' + blockRows(c) + (c.native ? '<p class="n">' + nativeWords(c) + '</p>' : '');
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
     h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'

@@ -83,13 +83,18 @@ THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I w
      PHASE A — the demo layer (before 2026-09-30):
        A0. Setup: the caffeinate above; `git pull`; `node tools/drive-atlas.js`
            against the live page, to start from a green state.
-       A1. [N1] The report's 3-hourly block inside the atlas (≈2 h, NO re-run):
-           build.js reads certs/hseva-ledger.json ww3.points[name].blocks.native
-           (the four choices, the decided family's 100/1000-yr enclosures) into
-           atlas.json for the 13 report cells; the cell panel shows a column
-           "3-hourly (the report)" with a link to /reports/return-levels.html
-           (the two ice nodes too, with their note). Ship it on its own —
-           page-only, no re-serve needed (SERVED's check covers ledgers/code).
+       A1. DONE 2026-09-28 (the twenty-third session), shipped on its own.
+           [N1] The report's 3-hourly block inside the atlas (NO re-run):
+           build.js nativeOf() reads certs/hseva-ledger.json ww3.points[name].
+           blocks.native into atlas.json `native` (per node: n, max, the four
+           choices, the A² family's 100/1000-yr enclosures, the GG/EW codes by
+           AT.codes over the report's fields; the ledger's sha256 and date named
+           in the method tab; the build dies if a report node is missing or not
+           at its atlas cell); the cell panel's table gets a first column
+           "3-hourly" whose header links /reports/return-levels.html, with a
+           line saying whose record it is; the two ice nodes (Drake, the high
+           southern latitudes) show that column alone under their ice note.
+           tools/drive-atlas.js checks both (13/13 locally and live).
        A2. [N2] THE GEV FAMILY (≈6–8 h): families.js `gev` (μ, σ, ξ); ξ → 0 as
            an ordinary point (a series in ξ, as Prentice's Q = 0); the support
            1 + ξ(x − μ)/σ > 0 enforced; refusal where the maximum is not

@@ -154,6 +154,7 @@ html, body { height: 100%; overflow: hidden; }
   .ra-tabs { padding: 0 var(--s-2); }
   .ra-panel .ra-tabs [role="tab"], .ra-panel .ra-tabs [role="tab"]:first-child { flex: 1 1 0; padding-left: var(--s-3); }
   .ra-body { padding: var(--s-3) var(--s-4) var(--s-6); }
+  .ra-body th, .ra-body td { padding: var(--s-1) 0 var(--s-1) var(--s-1); }   /* a report node's five columns in a phone's width */
 }
 /* ---- a phone held sideways: too short for a sheet, so the panel stands beside the globe again, compact ---- */
 @media (max-width: 899px) and (max-height: 540px) and (orientation: landscape) {

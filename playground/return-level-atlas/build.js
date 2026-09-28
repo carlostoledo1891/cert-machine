@@ -13,8 +13,9 @@
    NO FICTION ON /instruments: every number the page shows is a field of the
    ledger or of the corpus meta; the claims' verdicts are computed here and
    gated; the cell files are served from the public repository pinned by
-   commit and checked by sha256 in the tab. What is not in the ledger — the
-   unfiltered 3-hourly block — is not drawn. */
+   commit and checked by sha256 in the tab. The unfiltered 3-hourly block is
+   not in this ledger: at the thirteen report nodes the cell shows the report
+   ledger's record of it (certs/hseva-ledger.json), named as the report's. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -91,6 +92,34 @@ function row(c) {
   return [c.id, c.lat, c.lon, sets, 0, report, c.sha256, c.recSha, Number(c.blocks.daily.max.toFixed(3))].concat(B);
 }
 
+/* THE REPORT'S 3-HOURLY BLOCK: the paper's unfiltered block is certified at the thirteen report nodes by the report's
+   ledger (six fits of 93,504 values take minutes each — not a block to run at 3,268 cells), so a report node's panel
+   shows that ledger's record beside the atlas's own, named as the report's and never re-certified in the tab. Per node:
+   [n, the largest value, the block in hours, the four criteria's choices, the Anderson–Darling family's 100- and
+   1000-year enclosures, the two hard families' codes by AT.codes — the map's own rule, over the report's fields]. */
+function nativeOf(cells) {
+  const f = path.join(ROOT, 'certs', 'hseva-ledger.json');
+  if (!fs.existsSync(f)) return null;
+  const bytes = fs.readFileSync(f), R = JSON.parse(bytes);
+  const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'ww3-points', 'points.json'), 'utf8')).points;
+  const asAtlas = (F, fam) => (F.certified ? { c: 1, a: fam === 'gengamma' ? (F.stacy ? F.stacy[0] : F.theta[0]) : fam === 'expweibull' ? (F.ew ? F.ew[0] : F.theta[0]) : undefined, g: F.coords === 'expweibullG' ? 1 : undefined }
+    : { c: 0, e: F.edge ? 1 : undefined, s: F.stoppedAtBoundary ? 1 : undefined, w: F.why || '' });
+  const nodes = {};
+  for (const c of cells) {
+    const name = (c.sets.find((s) => /^report:/.test(s)) || '').replace('report:', '');
+    if (!name) continue;
+    const pt = P.find((q) => q.name === name), W = R.ww3 && R.ww3.points[name];
+    if (!pt || !W || !W.blocks.native) die('the report node ' + name + ' has no 3-hourly record in certs/hseva-ledger.json');
+    if (pt.lat !== c.lat || pt.lon !== c.lon) die('the report node ' + name + ' (' + pt.lat + ', ' + pt.lon + ') is not the atlas cell ' + c.id);
+    const nb = W.blocks.native, ch = (r) => (r && r.verdict === 'DECIDED' ? FAMC(r.best) : 6);
+    const ad = nb.rankings.ad, F = ad.verdict === 'DECIDED' ? nb.fits[ad.best] : null;
+    const lv = (T) => { const q = F && F.returnLevel && F.returnLevel[T]; const v = q ? [Number(q.lo), Number(q.hi)] : null; return fin2(v) ? v : [null, null]; };
+    const { gg, ew } = AT.codes({ fits: { gengamma: asAtlas(nb.fits.gengamma, 'gengamma'), expweibull: asAtlas(nb.fits.expweibull, 'expweibull') } });
+    nodes[name] = [nb.n, Number(nb.max), nb.hours].concat(['ad', 'ks', 'mse', 'chi2'].map((k) => ch(nb.rankings[k]))).concat(lv(100), lv(1000), [gg, ew]);
+  }
+  return { from: 'certs/hseva-ledger.json', generated: R.generated, sha256: sha(bytes), nodes };
+}
+
 function landJson() {
   const pins = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'basemap', 'PINS.json'), 'utf8'));
   const src = fs.readFileSync(path.join(ROOT, 'corpus', 'basemap', 'ne_50m_land.geojson'));
@@ -143,8 +172,10 @@ function build(OUTDIR) {
   facts.years = M.days / 365.25; facts.baseRate = -Math.expm1(-facts.years / 100);
   facts.worst = null;
   for (const c of sea) for (const blk of ['daily', 'weekly', 'monthly']) { const B = c.blocks[blk], f = B.rank.ad; if (f === 'R' || !fin2(B.fits[f].l100)) continue; const r = B.fits[f].l100[1] / B.max; if (!facts.worst || r > facts.worst.r) facts.worst = { r, id: c.id, lat: c.lat, lon: c.lon, blk, f, v: B.fits[f].l100[1], max: B.max }; }
+  const N = nativeOf(cells);
+  if (N && Object.keys(N.nodes).length !== cells.filter((c) => c.sets.some((s) => /^report:/.test(s))).length) die('a report node has no 3-hourly record');
   const data = JSON.stringify({ fam: PAPER_SIX, blocks: ['daily', 'weekly', 'monthly'], generated: L.generated, days: M.days, first: M.first, last: M.last,
-    served: S, cells: cells.map(row), claims: claims.map((k) => ({ id: k.id, where: k.where, quote: k.quote, cite: k.cite, rule: k.rule, blocks: k.blocks, box: k.box, cells: k.cells, verdict: k.verdict, counts: k.counts })) });
+    served: S, native: N, cells: cells.map(row), claims: claims.map((k) => ({ id: k.id, where: k.where, quote: k.quote, cite: k.cite, rule: k.rule, blocks: k.blocks, box: k.box, cells: k.cells, verdict: k.verdict, counts: k.counts })) });
 
   const B = bundle([['atlas.js', 'instruments/hseva/atlas.js']], { AT: 'atlas.js' });
   /* the page re-derives cells with these bytes and says "the ledger's own code": so they must be the code the ledger recorded */
@@ -229,7 +260,7 @@ function build(OUTDIR) {
     <section class="ra-pane ra-prose" id="ra-p-method" role="tabpanel" aria-labelledby="ra-t-method" hidden>
       <h2>What is certified, and what is not</h2>
       <p>At every cell and block, each family's fit is a box the Krawczyk operator proves holds exactly one zero of the score, with the Hessian proved negative definite over it &mdash; the likelihood's one maximum there &mdash; or it is refused with the reason: the generalized gamma is left out only where its likelihood is proved to peak at its lognormal limit beside the lognormal fit; any other refusal blocks the choice. The four criteria and the levels are enclosures over the box; a family is chosen only where its enclosure lies wholly below every other's. That no better maximum lies elsewhere in a family is the search's claim, as it is any optimiser's. Not certified: that a family is the true law of the sea, the sampling width of a 100-year level, or the model's own error against the sea it simulates. A cell certified in your tab also draws its return-level plot from the same certificates: each family's quantile over return periods from two blocks to 10,000 years, every point an enclosure narrower than the line, beside the block maxima and the record.</p>
-      <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, ${esc(M.first)} to ${esc(M.last)}), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. ${ice.length.toLocaleString('en-US')} cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each. Land: Natural Earth 1:50m, public domain.</p>
+      <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, ${esc(M.first)} to ${esc(M.last)}), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. ${ice.length.toLocaleString('en-US')} cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own${N ? ' (certs/hseva-ledger.json of ' + esc(N.generated) + ', sha256 <span class="mono">' + N.sha256.slice(0, 12) + '</span>)' : ''}. Land: Natural Earth 1:50m, public domain.</p>
       <h2>What this opens</h2>
       <p>${OPENS}</p>
       <p>The code in your tab: ${Object.entries(modules).map(([rel, h]) => '<span class="mono">' + esc(rel) + '</span> ' + h.slice(0, 12)).join(' &middot; ')}. ${S ? 'Cell files served from the public repository at commit <span class="mono">' + S.commit.slice(0, 12) + '</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/' + REPO + '/blob/' + S.commit + '/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.' : 'Cell files are not yet served from a published commit; the map and the claims stand, re-certification in the tab waits for them.'}</p>
@@ -250,7 +281,7 @@ function build(OUTDIR) {
     script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
-  return { bytes: html.length, data: data.length, sea: sea.length, ice: ice.length, claims: claims.map((k) => k.id + ':' + k.verdict), served: S ? S.commit.slice(0, 12) : null, facts };
+  return { bytes: html.length, data: data.length, sea: sea.length, ice: ice.length, claims: claims.map((k) => k.id + ':' + k.verdict), served: S ? S.commit.slice(0, 12) : null, native: N ? Object.keys(N.nodes).length : 0, facts };
 }
 
 /* the card: a mosaic of cells on a globe's limb */
