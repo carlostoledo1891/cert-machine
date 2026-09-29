@@ -45,6 +45,7 @@ const KINDS = {
   'outside-support': 'the printed model gives observed data zero density',
   'clause-missing-from-formal-statement': 'a clause the prose claims is absent from the formal statement that is proved',
   'data-not-public': 'the data behind the claim are not public, so no one outside can decide it',
+  'depends-on-reading': 'the claim holds under one of two definitions its own text gives, and not under the other',
 };
 const kindCount = (list) => { const o = {}; for (const k of list) { if (!KINDS[k]) die('unknown kind ' + k); o[k] = (o[k] || 0) + 1; } return o; };
 /* the first commit whose record holds the key; today for a record not yet committed */
@@ -235,6 +236,19 @@ function firstSeen(file, key) {
       origin: 'self-initiated', verdict: 'CERTIFIED',
       scope: 'the entropy ratio of the cited ' + r.certificate.points + '-point certificate, enclosed to 40 digits: ' + r.rho[0].slice(0, 22) + '…',
       kind: 'none', key: '"id": "' + r.id + '"', decidedFrom: 'certs/sumdiff-ledger.json', page: '/reports/optimization-constants.html'
+    });
+  }
+}
+
+/* 14 · an AI counterexample library (S. Sra, arXiv 2608.29595), decided case by case from its published certificates */
+{
+  const d = J('certs/countex-ledger.json');
+  for (const r of d.rows) {
+    if (r.verdict !== 'CERTIFIED' && r.verdict !== 'PARTIAL') die('a countex row is neither certified nor partial: ' + r.id);
+    rows.push({
+      id: 'countex-' + r.id, claim: r.title, claimant: ([...new Set(r.foundBy.map((f) => f.by.replace(/^bugfixed by /, '')))].join(', ') || 'the library') + ' (S. Sra\'s counterexample library)',
+      source: 'github.com/suvrit/count-ex-machina @ ' + d.source.commit.slice(0, 8), origin: 'self-initiated', verdict: r.verdict,
+      scope: r.scope, kind: r.kind, key: '"id": "' + r.id + '"', decidedFrom: 'certs/countex-ledger.json', page: '/reports/counterexample-machine.html'
     });
   }
 }

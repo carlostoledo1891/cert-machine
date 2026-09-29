@@ -1,0 +1,36 @@
+{
+  "id": "variance-only-matrix-discrepancy",
+  "title": "Variance-sensitive Matrix Spencer",
+  "status": "refuted",
+  "order": 7,
+  "prose": "case.tex",
+  "bib_keys": [
+    "Bandeira2016",
+    "AkbasSra2026"
+  ],
+  "results": [
+    {
+      "id": "variance-only-matrix-discrepancy",
+      "uid": "Z32YZNA5",
+      "class": "external conjecture",
+      "certificate_level": "exact",
+      "theorem_label": "thm:discrepancy",
+      "provenance": {
+        "url": "https://arxiv.org/abs/2606.16005",
+        "retrieved": "2026-08-01",
+        "fidelity": "verbatim"
+      }
+    }
+  ],
+  "verify": {
+    "python": "verify.py",
+    "sage": [],
+    "requires": []
+  },
+  "artifacts": [
+    {
+      "file": "artifacts/certificate.json",
+      "description": "Exact record of the d=n diagonal family: the variance parameter, the exhaustive discrepancy minimum over all 2^n signings, and the ratio identity, for each checked m."
+    }
+  ]
+}

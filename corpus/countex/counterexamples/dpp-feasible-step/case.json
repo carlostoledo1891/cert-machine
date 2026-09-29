@@ -1,0 +1,37 @@
+{
+  "id": "dpp-feasible-step",
+  "title": "Feasible Picard steps for DPP likelihood",
+  "status": "refuted",
+  "order": 6,
+  "prose": "case.tex",
+  "bib_keys": [
+    "MarietSra2015"
+  ],
+  "results": [
+    {
+      "id": "dpp-feasible-step",
+      "uid": "7X8N5PV5",
+      "class": "published conjecture",
+      "certificate_level": "exact",
+      "theorem_label": "thm:dpp",
+      "provenance": {
+        "url": "https://proceedings.mlr.press/v37/mariet15.pdf",
+        "retrieved": "2026-08-01",
+        "fidelity": "verbatim"
+      },
+      "ledger_label": "the unnumbered claim in §2"
+    }
+  ],
+  "verify": {
+    "python": "verify.py",
+    "sage": [],
+    "requires": []
+  },
+  "artifacts": [
+    {
+      "file": "artifacts/certificate.json",
+      "description": "Exact rational kernels $L_0,L_1$ and the positive rational likelihood gap."
+    }
+  ],
+  "appendix": true
+}

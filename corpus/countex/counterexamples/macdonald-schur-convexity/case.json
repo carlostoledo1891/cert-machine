@@ -1,0 +1,39 @@
+{
+  "id": "macdonald-schur-convexity",
+  "title": "Macdonald lattice Schur-convexity",
+  "status": "refuted",
+  "order": 4,
+  "prose": "case.tex",
+  "bib_keys": [
+    "McSwiggenSahi2026"
+  ],
+  "results": [
+    {
+      "id": "macdonald-schur-convexity",
+      "uid": "C4RWCJF1",
+      "class": "published theorem",
+      "certificate_level": "exact",
+      "theorem_label": "thm:macdonald",
+      "provenance": {
+        "url": "https://arxiv.org/abs/2605.12680v2",
+        "retrieved": "2026-08-01",
+        "fidelity": "verbatim"
+      }
+    }
+  ],
+  "verify": {
+    "python": "verify.py",
+    "sage": [
+      "verify_macdonald.sage"
+    ],
+    "requires": [
+      "sympy"
+    ]
+  },
+  "artifacts": [
+    {
+      "file": "artifacts/certificate.json",
+      "description": "Exact rank-two reversal at sample parameters, the general (q,t) gap identity, lattice membership, the determinant-shift diagnosis, and the 1^n-normalized scope check."
+    }
+  ]
+}

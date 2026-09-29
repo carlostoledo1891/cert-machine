@@ -1,0 +1,49 @@
+{
+  "id": "lorentzian-jensen",
+  "title": "Log-volume midpoint gap and its Lorentzian generalization",
+  "status": "refuted",
+  "order": 10,
+  "appendix": true,
+  "prose": "case.tex",
+  "bib_keys": [
+    "BrandenHuh",
+    "Shephard"
+  ],
+  "results": [
+    {
+      "id": "log-volume-distance",
+      "uid": "22S7HJGF",
+      "class": "user formal problem",
+      "certificate_level": "exact",
+      "theorem_label": "thm:volume-distance",
+      "provenance": {
+        "retrieved": null,
+        "fidelity": "paraphrase"
+      },
+      "ledger_label": "the geometric specialization, as posed"
+    },
+    {
+      "id": "lorentzian-jensen",
+      "uid": "VRP253K2",
+      "class": "user formal problem",
+      "certificate_level": "exact",
+      "theorem_label": "thm:lorentzian",
+      "provenance": {
+        "retrieved": null,
+        "fidelity": "paraphrase"
+      },
+      "ledger_label": "the proposed master theorem, as posed"
+    }
+  ],
+  "verify": {
+    "python": "verify.py",
+    "sage": [],
+    "requires": []
+  },
+  "artifacts": [
+    {
+      "file": "artifacts/certificate.json",
+      "description": "Exact rational triangle-inequality violation bound with the three witness points."
+    }
+  ]
+}

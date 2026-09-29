@@ -563,6 +563,15 @@
    "finding": "At commit 2c1968cd (2026-09-26) the table has 17 asterisked entries: 1a 1.292*, 3a 1.19519192*, 3b 1.77898884*, 3c 1.6747338950414058*, 10c 3.65*, 19 0.423*, 21 0.1875*, 22a 10.02*, 31 0.79970*, 41a 2.2195*, 42 0.6906538*, 43 0.860*, 49 >=1.554*, 71 6.521845710923046575*, 80 0.833* (both sides), 84a 1.03583*, 84b 1.999281*. The finite-certificate ones are the targets; 3a (Lean-formalised masked-digit limit constructions, K2026b) and 84a (a chain of MathOverflow rows given Sawin’s theorem) are the next heavier ones; 1a (a Sidon autocorrelation step function, repository AndreiPiterbarg/sidon-autocorrelation) fits the EinsteinArena autocorrelation instrument.",
    "fit": "Exactly the grammar: a finite law or object plus logarithms or identities, decided by enclosures; a registry that says its bounds are not certified.",
    "next": "1a, 71, 49, 42, 43 by what their sources publish; a pull request removing a star is a SEND (operator)."
+  },
+  {
+   "id": "countex-machina-sweep",
+   "name": "S. Sra’s open AI counterexample library (github.com/suvrit/count-ex-machina, Apache-2.0; arXiv 2608.29595 “GPT, the Counterexample Machine”) decided case by case (attack plan A2, wave 1)",
+   "verdict": "BUILT 2026-09-29 at commit dbf67374: 14 cases, 9 CERTIFIED whole, 5 PARTIAL (AIM 35 rests on cited universal theorems; the log-volume distance needs bodies only Shephard’s theorem supplies; O’Donnell and the variance-only discrepancy argue all m in prose; the DPP case holds under one of the two definitions of “feasible” its own text gives), none refuted; none of the 14 checkers reads the certificate it publishes (instruments/countex, certs/countex-ledger.json, reports/counterexample-machine.html). OPEN: the library grows; the watch re-queues new cases",
+   "scouted": "2026-09-29",
+   "finding": "Found by the scouting pass (arXiv 2608.29595, 2026-08-30). Cases are case.json + case.tex + artifacts + verify.py; every verify.py writes artifacts/ from a witness in its own source and the CI diffs the regeneration bit for bit. Found by: GPT-5 / 5.5 / 5.6 (Pro, Sol), OpenAI Codex, Opus 5, one by hand. The DPP statement block equates feasibility with Prop. A.1’s bound (about 1.90 for the witness’s L0), which a = 5 exceeds.",
+   "fit": "Exactly the grammar: exhibited finite objects and identities, a few transcendental enclosures; the refusals name cited theorems and all-m arguments.",
+   "next": "A note to the library’s maintainer (the DPP reading; checkers that read the published certificate) is a SEND (operator). New cases join the sweep as they land."
   }
  ]
 }

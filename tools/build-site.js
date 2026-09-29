@@ -332,6 +332,14 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'counterexample-machine.html', k: 'audit · AI-found counterexamples',
+    title: 'The counterexample machine, decided',
+    desc: 'Suvrit Sra\'s open library of counterexamples, most found by language models, decided case by case by programs that read the published '
+      + 'certificate and never the authors\' checker: every case\'s mathematics holds where it can be decided, some rest partly on what no finite '
+      + 'computation reaches, one holds under only one of the two definitions its own text gives — and none of the authors\' checkers reads the '
+      + 'certificate it publishes.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'countex-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
+      return L.rows.length + ' cases decided · ' + c('CERTIFIED') + ' whole, ' + c('PARTIAL') + ' partly, ' + c('REFUTED') + ' refuted'; })() },
   { g: 'ai', f: 'optimization-constants.html', k: 'audit · the registry\'s asterisks',
     title: 'Two asterisks, replayed',
     desc: 'The optimization-constants registry marks a bound with an asterisk when its verification is at minimal levels. C3b >= 1.77898884 and '

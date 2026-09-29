@@ -78,12 +78,28 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       prints OK for the false C3c >= 1.6747338950414059 (run on the pinned script,
       recorded as an observation). The other 15 asterisks are the targets row
       optconst-registry-asterisks. A pull request removing a star is a SEND.
-      NEXT — Suvrit Sra's AI counterexample library (github.com/suvrit/count-ex-
-      machina @ dbf67374, Apache-2.0, arXiv 2608.29595 "GPT, the Counterexample
-      Machine": 14 cases, 12 "exact"), each decided independently of its verify.py;
-      then K1, HorizonMath, the polynomial maps not yet in keller (Gao 2608.00222;
-      the weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
-      Erdős's AI-formalised statements.
+      DONE — K1: instruments/mathbench/families.py (seven construction families,
+      28 green and 20 red controls, a dumb baseline each; Family/Verdict moved to
+      tools/llm_harness_base.py; the harness gains current rates and --cap-usd) and
+      MATHBENCH V0 PRE-REGISTERED (notes/mathbench-v0-preregistration-2026-09-29.md,
+      US$30 of the US$100; the baseline certifies 6 of 46 rungs — the b72295a commit
+      message says 7, the ledger says 6). THE MODEL RUN IS BLOCKED: the Anthropic
+      OAuth profile on this machine expired 2026-09-25 with no refresh token (every
+      call 401, nothing billed). The operator runs `ant auth login` (or sets
+      ANTHROPIC_API_KEY); then `python3 tools/run-mathbench.py --cap 30`.
+      DONE — S. Sra's AI counterexample library (reports/counterexample-machine.html;
+      github.com/suvrit/count-ex-machina @ dbf67374, arXiv 2608.29595): 14 cases,
+      9 CERTIFIED whole, 5 PARTIAL, none refuted — instruments/countex (fourteen
+      stdlib deciders written by three parallel agents from the statements before the
+      authors' checkers were read, each reading the PUBLISHED certificate, each with a
+      forge), certs/countex-ledger.json. The DPP case holds under "feasible = keeps
+      the iterate positive definite" and not under its own statement block's "Prop.
+      A.1's bound" (≈1.90 < a = 5). None of the 14 verify.py reads the certificate it
+      writes. A note to the maintainer is a SEND.
+      NEXT — HorizonMath (enclose the credited discoveries), the polynomial maps not
+      yet in keller (Gao 2608.00222; the weak Markus–Yamabe field in dimension 14,
+      2608.05392), K3(a) on FrontierMath Erdős's AI-formalised statements, more
+      registry asterisks (1a, 71, 49).
 
   NEXT, in this order:
     0. The attack program's current wave (above).

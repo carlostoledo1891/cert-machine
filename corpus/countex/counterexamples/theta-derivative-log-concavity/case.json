@@ -1,0 +1,39 @@
+{
+  "id": "theta-derivative-log-concavity",
+  "title": "Derivatives of the Jacobi-theta kernel",
+  "status": "refuted",
+  "order": 5,
+  "prose": "case.tex",
+  "bib_keys": [
+    "Csordas2014"
+  ],
+  "results": [
+    {
+      "id": "theta-derivative-log-concavity",
+      "uid": "740DPSAS",
+      "class": "external conjecture",
+      "certificate_level": "computer-assisted",
+      "theorem_label": "thm:theta",
+      "provenance": {
+        "url": "https://arxiv.org/abs/1309.0055v2",
+        "retrieved": "2026-08-01",
+        "fidelity": "verbatim"
+      }
+    }
+  ],
+  "verify": {
+    "python": "verify.py",
+    "sage": [
+      "verify_theta.sage"
+    ],
+    "requires": [
+      "mpmath"
+    ]
+  },
+  "artifacts": [
+    {
+      "file": "artifacts/certificate.json",
+      "description": "High-precision value of $J_9(1/50)$; the Sage script provides the outward-rounded interval certificate."
+    }
+  ]
+}

@@ -782,14 +782,196 @@
    "decidedFrom": "certs/sumdiff-ledger.json",
    "page": "/reports/optimization-constants.html",
    "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-aim-problems",
+   "claim": "Borcea-Branden AIM problems",
+   "claimant": "GPT-5 (Pro), GPT-5.6 (Pro), Opus 5 (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "Problems 36, 37 and 38 certified; Problem 35's nonexistence over all positive semidefinite A rests on universal theorems the case cites (Marcus 1963, Lieb 1966, via Wanless 2022) — the witness's own violations of both are certified, the universal step is not re-derived",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-courtade-volume-conjecture",
+   "claim": "Courtade's volume conjecture for Minkowski sums is false",
+   "claimant": "Suvrit Sra, by hand (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-dpp-feasible-step",
+   "claim": "Feasible Picard steps for DPP likelihood",
+   "claimant": "GPT-5.6 (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "CERTIFIED when \"feasible\" means the step keeps the iterate positive definite (the case's context paragraph): a = 5 does, and the likelihood falls. The case's statement block reads \"feasibility is the bound a ≤ 1/(1 − γ) of Prop. A.1\", and for this L0 that bound is about 1.90, which a = 5 exceeds; under that reading the witness refutes nothing, and the steps tried inside the bound (a = 1, 3/2, 9/5, 1899/1000) all ascend",
+   "kind": "depends-on-reading",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-hamiltonian-nepv-identity",
+   "claim": "Failure of the proposed Hamiltonian NEPv Rayleigh identity",
+   "claimant": "OpenAI Codex (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-lorentzian-jensen",
+   "claim": "Log-volume midpoint gap and its Lorentzian generalization",
+   "claimant": "GPT-5.6 Pro (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "the Lorentzian generalization certified (G strictly Lorentzian, the triangle violation enclosed to 60 digits); the log-volume-distance result needs convex bodies that exist only through a cited realization theorem (Shephard), none exhibited",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-macdonald-schur-convexity",
+   "claim": "Macdonald lattice Schur-convexity",
+   "claimant": "GPT-5.6 (Pro) (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-odonnell-matrix-conjecture",
+   "claim": "No dimension-free constant in O'Donnell's matrix conjecture",
+   "claimant": "GPT-5.6 Pro (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "every family member to m = 11 certified (unit trace, PSD, ratio above m/32; built exactly, densely at n = 512); unboundedness over all m, which refuting a universal constant needs, is argued in prose (a trace-norm duality bound and dyadic sums past m = 14)",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-osi-sketch-and-solve",
+   "claim": "An oblivious subspace injection need not give relative-error sketch-and-solve",
+   "claimant": "OpenAI Codex (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-qrcp-orthonormal-greedy",
+   "claim": "Exact QRCP can miss the orthonormal-row conditioning bound",
+   "claimant": "OpenAI Codex (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-quantum-coupon-collector",
+   "claim": "Quantum coupon collection: positivity of an alternating sum of inverses",
+   "claimant": "GPT Pro (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-rank-two-mixed-norm",
+   "claim": "A mixed-norm Cauchy-Schwarz question of Sah, Sawhney, Stoner and Zhao",
+   "claimant": "GPT-5.6 Sol (Pro), Opus 5 (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-sdd-nystrom-diminishing-returns",
+   "claim": "Strict diagonal dominance does not ensure diminishing Nyström error reductions",
+   "claimant": "OpenAI Codex (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-theta-derivative-log-concavity",
+   "claim": "Derivatives of the Jacobi-theta kernel",
+   "claimant": "GPT-5.5 (Pro) (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "kind": "none",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "countex-variance-only-matrix-discrepancy",
+   "claim": "Variance-sensitive Matrix Spencer",
+   "claimant": "GPT-5.5 (Pro) (S. Sra's counterexample library)",
+   "source": "github.com/suvrit/count-ex-machina @ dbf67374",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "m = 2..10 certified exactly (discrepancy by exhaustion, ratio squared up to 81/11 at m = 10); unboundedness over all m, which refuting a universal constant needs, is a three-line argument in the case's prose, checked by hand and not by code",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/countex-ledger.json",
+   "page": "/reports/counterexample-machine.html",
+   "recordedOn": "2026-09-29"
   }
  ],
- "count": 58,
- "decided": 57,
+ "count": 72,
+ "decided": 71,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 44,
-  "PARTIAL": 2,
+  "CERTIFIED": 53,
+  "PARTIAL": 7,
   "REFUTED": 1,
   "QUEUED": 1,
   "MIXED": 5,
@@ -797,7 +979,7 @@
   "NEEDS DATA": 1
  },
  "byOrigin": {
-  "self-initiated": 58
+  "self-initiated": 72
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -811,11 +993,12 @@
   "not-from-the-published-data": "the printed number is not what the published data give, and the arithmetic is not why",
   "outside-support": "the printed model gives observed data zero density",
   "clause-missing-from-formal-statement": "a clause the prose claims is absent from the formal statement that is proved",
-  "data-not-public": "the data behind the claim are not public, so no one outside can decide it"
+  "data-not-public": "the data behind the claim are not public, so no one outside can decide it",
+  "depends-on-reading": "the claim holds under one of two definitions its own text gives, and not under the other"
  },
  "byKind": {
-  "none": 45,
-  "narrower-scope": 1,
+  "none": 54,
+  "narrower-scope": 5,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
   "tolerance-witness": 4,
@@ -824,15 +1007,16 @@
   "not-the-optimum": 1,
   "wrong-quantity": 1,
   "data-not-public": 1,
-  "clause-missing-from-formal-statement": 1
+  "clause-missing-from-formal-statement": 1,
+  "depends-on-reading": 1
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 40
+  "2026-09": 54
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "d9e2f20"
+  "git": "b72295a"
  }
 }

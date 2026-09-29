@@ -1,0 +1,413 @@
+{
+ "what": "The AI counterexample library of S. Sra (github.com/suvrit/count-ex-machina @ dbf67374, Apache-2.0; arXiv 2608.29595), decided case by case by standard-library deciders written from each case's statement and reading its published artifact, never the authors' checker. CERTIFIED: every fact the counterexample needs re-derived; PARTIAL: a certified part beside a part that rests on a cited theorem, an all-m argument, or one of two readings the case's own text gives — each named in scope.",
+ "generated": "2026-09-29",
+ "source": {
+  "repo": "suvrit/count-ex-machina",
+  "commit": "dbf673741a54c7dc9d88a6aec0e8148a538f4a3a",
+  "license": "Apache-2.0",
+  "paper": "arXiv:2608.29595",
+  "corpus": "corpus/countex",
+  "metaSha256": "a3cbf546b526098dd0bc3d92f58633903962a6b7e67e77bf03b0b4f4efd1004e"
+ },
+ "code": {
+  "instruments/countex/cases/aim_problems.py": "56168e7a354fb3b95f2714c8b3c07a38c7f7467f749f088c4577faf393d3cddb",
+  "instruments/countex/cases/courtade_volume_conjecture.py": "f8421d5d5b33e5db4d0cf856276ceabab691af1cb0e6262aa8f4b8ae0df29e9e",
+  "instruments/countex/cases/dpp_feasible_step.py": "26e50a515bee10448bbaf2325885fafd8087edac2533148abc70cf5c253c93d7",
+  "instruments/countex/cases/hamiltonian_nepv_identity.py": "0c767e92e93fb921c943f6d343d86c761db3d39e2b23ca02f2d3c823617d2dfc",
+  "instruments/countex/cases/lorentzian_jensen.py": "ecb38e1874d2c0cf60b38637c253da5dd2011085e5e78bc5ad705f7ac2907ae4",
+  "instruments/countex/cases/macdonald_schur_convexity.py": "7938c5d3610272464893d02a8267798bd12dff19365dbc8f6a1cfee4792b1eeb",
+  "instruments/countex/cases/odonnell_matrix_conjecture.py": "ee3163c6cf82eca2024321efd12ba1bc759e3d63676dae66d713e71d09637fe7",
+  "instruments/countex/cases/osi_sketch_and_solve.py": "592d0412bb2a6994b5ca16eda54c508dab52d773222a47bc8cd9aeffe1011e6c",
+  "instruments/countex/cases/qrcp_orthonormal_greedy.py": "e684ef032a41f6534047e80f6918aec74ef046c325c96a12410abd1fd996bc4e",
+  "instruments/countex/cases/quantum_coupon_collector.py": "91ddcea5d389b2773cdb19332e06662397077cb7a62b16aeb122ce61edb0831c",
+  "instruments/countex/cases/rank_two_mixed_norm.py": "2e8bffd49be9e547add5895b540a6777252603c34269c3cfc48145b76963da67",
+  "instruments/countex/cases/sdd_nystrom_diminishing_returns.py": "370bb9f044c1b075461a280baa997a8c07cd37b7d2fb9236d2c0739e92a542fd",
+  "instruments/countex/cases/theta_derivative_log_concavity.py": "70b71de83289f25701e269c33302dc090132df92d1f9a4e33ba80c8a6bbaac04",
+  "instruments/countex/cases/variance_only_matrix_discrepancy.py": "65ca97f1b29e763afe363d3d76c50bd3d41ce0b3f059f187a3db2ba1a35c2e27"
+ },
+ "theirCheckers": "Every case's verify.py builds its witness from values in its own source and WRITES artifacts/ from them; none of the fourteen reads the published certificate. The library's CI then regenerates the artifacts and requires `git diff --exit-code`, so the committed files equal what the code writes — but a reader holding only a certificate cannot check it with verify.py. The deciders here read the published artifacts.",
+ "byVerdict": {
+  "PARTIAL": 5,
+  "CERTIFIED": 9
+ },
+ "rows": [
+  {
+   "id": "aim-problems",
+   "title": "Borcea-Branden AIM problems",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5 (Pro)",
+     "when": "2026-01-10"
+    },
+    {
+     "by": "GPT-5.6 (Pro)",
+     "when": "2026-07-30"
+    },
+    {
+     "by": "GPT-5.6 (Pro)",
+     "when": "2026-07-30"
+    },
+    {
+     "by": "bugfixed by Opus 5",
+     "when": "2026-08-10"
+    }
+   ],
+   "classes": [
+    "external formal problem",
+    "external formal problem",
+    "external formal problem",
+    "external formal problem"
+   ],
+   "claim": "Four AIM problems (Borcea--Branden 35, 36, 37, 38) have negative answers, witnessed by p = prod(5S-4x_i) (35, 38) and two positive-definite determinantal pencils (36, 37).",
+   "deciderVerdict": "REFUSED",
+   "results": {
+    "aim-problem-38": "CERTIFIED",
+    "aim-problem-35": "REFUSED",
+    "aim-problem-36": "CERTIFIED",
+    "aim-problem-37": "CERTIFIED"
+   },
+   "checks": 50,
+   "checksFailed": [],
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "scope": "Problems 36, 37 and 38 certified; Problem 35's nonexistence over all positive semidefinite A rests on universal theorems the case cites (Marcus 1963, Lieb 1966, via Wanless 2022) — the witness's own violations of both are certified, the universal step is not re-derived",
+   "theirChecker": "verify_pot.py types in the Kostka matrix and the f^λ values and reads coefficients only at partition exponents, without checking symmetry; nothing is computed for Problem 35 (verify_pencil.py is exact and thorough).",
+   "seconds": 0.5
+  },
+  {
+   "id": "courtade-volume-conjecture",
+   "title": "Courtade's volume conjecture for Minkowski sums is false",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "Suvrit Sra, by hand",
+     "when": "2022-05"
+    }
+   ],
+   "classes": [
+    "published conjecture"
+   ],
+   "claim": "In R^4 the zonotope B (7 integer generators) and segments K=[0,b], L=[0,c] satisfy |B||K+L+B| > |K+B||L+B| with |K|=|L|=0, so Courtade's inequality |K+L+B|^(1/4)|B|^(1/4) + |K|^(1/4)|L|^(1/4) <= |K+B|^(1/4)|L+B|^(1/4) fails; it still fails for full-dimensional eps-thickened segments and for d > 4 after padding B with a cube.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 14,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "exact.",
+   "seconds": 1.0
+  },
+  {
+   "id": "dpp-feasible-step",
+   "title": "Feasible Picard steps for DPP likelihood",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.6",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "published conjecture"
+   ],
+   "claim": "For observations {1},{2},{1,2} and the rational PD kernel L0, the Picard step with a = 5 keeps the kernel positive definite yet strictly lowers the DPP log-likelihood, refuting ascent for every feasible a >= 1.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 8,
+   "checksFailed": [
+    "reading B (statement block: feasibility = Prop. A.1 bound a <= 1/(1-gamma)): is a = 5 within the bound?"
+   ],
+   "verdict": "PARTIAL",
+   "kind": "depends-on-reading",
+   "scope": "CERTIFIED when \"feasible\" means the step keeps the iterate positive definite (the case's context paragraph): a = 5 does, and the likelihood falls. The case's statement block reads \"feasibility is the bound a ≤ 1/(1 − γ) of Prop. A.1\", and for this L0 that bound is about 1.90, which a = 5 exceeds; under that reading the witness refutes nothing, and the steps tried inside the bound (a = 1, 3/2, 9/5, 1899/1000) all ascend",
+   "theirChecker": "exact; never checks the Prop. A.1 bound the statement names.",
+   "seconds": 0.0
+  },
+  {
+   "id": "hamiltonian-nepv-identity",
+   "title": "Failure of the proposed Hamiltonian NEPv Rayleigh identity",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "OpenAI Codex",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "published theorem"
+   ],
+   "claim": "For n=2, d=1, Hermitian F_1=0, G_11=diag(1,0), K_11=diag(0,-1) of norm <= 1 and x_1=(1,2), the product-state objective f(x_1) and the Rayleigh quotient of the proposed NEPv matrix A(z) differ (0 vs -4/25), so the identity asserted after eq. (20) is false.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 6,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "exact.",
+   "seconds": 0.0
+  },
+  {
+   "id": "lorentzian-jensen",
+   "title": "Log-volume midpoint gap and its Lorentzian generalization",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.6 Pro",
+     "when": "2026-07-31"
+    }
+   ],
+   "classes": [
+    "user formal problem",
+    "user formal problem"
+   ],
+   "claim": "The cubic G = y^3 + 11/5 xy^2 + 3/2 x^2y + 1/10 x^3 is homogeneous and strictly Lorentzian, yet sqrt of its log-midpoint Jensen gap violates the triangle inequality at p=(35,2), q=(11/2,23/2), r=(1/500,15); via Shephard realization the same numbers refute the log-volume distance on convex bodies.",
+   "deciderVerdict": "REFUSED",
+   "results": {
+    "lorentzian-jensen": "CERTIFIED",
+    "log-volume-distance": "REFUSED"
+   },
+   "checks": 14,
+   "checksFailed": [
+    "(log-volume-distance) existence of convex K, L in R^3 with these mixed volumes"
+   ],
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "scope": "the Lorentzian generalization certified (G strictly Lorentzian, the triangle violation enclosed to 60 digits); the log-volume-distance result needs convex bodies that exist only through a cited realization theorem (Shephard), none exhibited",
+   "theirChecker": "the arithmetic is exact with a stated series remainder; that G is Lorentzian, and the Shephard inequalities, appear only in prose.",
+   "seconds": 0.3
+  },
+  {
+   "id": "macdonald-schur-convexity",
+   "title": "Macdonald lattice Schur-convexity",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.6 (Pro)",
+     "when": "2026-05-14"
+    }
+   ],
+   "classes": [
+    "published theorem"
+   ],
+   "claim": "McSwiggen-Sahi Theorem 2.1 (Schur-convexity of lambda -> Omega_lambda on the lattice) fails: with n=2, q=t=r in (0,1), a=1 and the lattice point x=(1,1), lambda=(2,0) dominates mu=(1,1) yet Omega_(2,0)(x)=3/(1+r+r^2) < 1/r=Omega_(1,1)(x).",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 23,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "rests on SymPy's simplify (a heuristic, not a decision procedure); positivity for every r is asserted in a comment; the determinant-shift block checks expressions typed in by hand.",
+   "seconds": 0.0
+  },
+  {
+   "id": "odonnell-matrix-conjecture",
+   "title": "No dimension-free constant in O'Donnell's matrix conjecture",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.6 Pro",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "external conjecture"
+   ],
+   "claim": "Each member R_m of the Givens family (m = 1..11, including the certificate's n = 512) is an exact real symmetric unit-trace PSD matrix with strictly decreasing spectrum and diagonal and ||R-Diag R||_1^2 / sum|lambda_i-d_i| > m/32 (> 1.96 at n = 512); the proof extends this to every m, so no absolute constant c exists.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 45,
+   "checksFailed": [],
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "scope": "every family member to m = 11 certified (unit trace, PSD, ratio above m/32; built exactly, densely at n = 512); unboundedness over all m, which refuting a universal constant needs, is argued in prose (a trace-norm duality bound and dyadic sums past m = 14)",
+   "theirChecker": "never builds R: the diagonal is assigned (`diagonal = list(eigenvalues); diagonal[0] -= delta; diagonal[-1] += delta`), the induction is written in rather than run, and the dyadic bounds are not checked.",
+   "seconds": 22.5
+  },
+  {
+   "id": "osi-sketch-and-solve",
+   "title": "An oblivious subspace injection need not give relative-error sketch-and-solve",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "OpenAI Codex",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "external formal problem"
+   ],
+   "claim": "A 3-atom isotropic sketch on R^2 that is a (1,1,1/100) oblivious subspace injection makes sketch-and-solve for A=(1,0)^T, b=(0,1)^T return residual sqrt(2)*OPT with probability 1/50 > 1/100, so no (1+O(eps)) relative-error guarantee holds at the OSI success probability.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 15,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "the residual formula and OPT = 1 are typed in (`residual_squared = x_tilde * x_tilde + F(1)`).",
+   "seconds": 0.0
+  },
+  {
+   "id": "qrcp-orthonormal-greedy",
+   "title": "Exact QRCP can miss the orthonormal-row conditioning bound",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "OpenAI Codex",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "external formal problem"
+   ],
+   "claim": "For the rank-3 orthogonal projector P = V H^{-1} V^T on R^8 (V = [I_3; W], W rational), exact QRCP on Q^T (any Q with QQ^T = P) makes three strict pivots I = (1,2,3), and ||Q(I,:)^{-1}||_2^2 = lambda_max(H) > 18 = k(n-k+1).",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 17,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "exact; relies on the prose step Q(I,:) = H^(-1/2) and does not check P_II^(-1) = H.",
+   "seconds": 0.0
+  },
+  {
+   "id": "quantum-coupon-collector",
+   "title": "Quantum coupon collection: positivity of an alternating sum of inverses",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT Pro",
+     "when": "2026-02-16"
+    }
+   ],
+   "classes": [
+    "user formal problem"
+   ],
+   "claim": "Six explicit 3x3 SPD matrices X_i = w_i u_i u_i^T + I/100 make the alternating inverse sum Q_6 = sum_S (-1)^{|S|-1} X_S^{-1} indefinite: v=(4,1,3) gives -96 < v^T Q_6 v < -95, so the conjecture Q_n > 0 fails at n=6 (and tr Q_10 < 0 for ten moment-curve matrices).",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 20,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "exact; writes \"proved_positive_definite_for_n\": [1, 2, 3, 4, 5] into the certificate without a check.",
+   "seconds": 0.6
+  },
+  {
+   "id": "rank-two-mixed-norm",
+   "title": "A mixed-norm Cauchy-Schwarz question of Sah, Sawhney, Stoner and Zhao",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.6 Sol (Pro)",
+     "when": "2026-07-13"
+    },
+    {
+     "by": "Opus 5",
+     "when": "2026-08"
+    },
+    {
+     "by": "GPT-5.6 Sol (Pro)",
+     "when": "2026-07-13"
+    }
+   ],
+   "classes": [
+    "external formal problem",
+    "external formal problem"
+   ],
+   "claim": "Two refutations of the Sah-Sawhney-Stoner-Zhao mixed-norm question: nonnegative integer 3x2 matrices A, B with ||A^T B||_{3/2,3/2}^2 > ||A^T A||_{3/2,3/2} ||B^T B||_{3/2,3/2}, and a 21x21 rank-two completely positive Z = X X^T with ||Z||_{6/5,6}^2 > ||Z||_{6/5,6/5} ||Z||_{6,6}.",
+   "deciderVerdict": "CERTIFIED",
+   "results": {
+    "mixed-norm-general-s": "CERTIFIED",
+    "yufei-psd": "CERTIFIED"
+   },
+   "checks": 25,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "the general result rests on SymPy's `deficit.is_negative is True`, which settles the sign of such a number by evaluating it (sound here, the deficit is about −5.15); the B = A result is an mpmath point value, `assert ratio > mp.mpf(\"1.0000006\")`, the interval certificate living in a Sage script verify.py does not run.",
+   "seconds": 0.0
+  },
+  {
+   "id": "sdd-nystrom-diminishing-returns",
+   "title": "Strict diagonal dominance does not ensure diminishing Nyström error reductions",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "OpenAI Codex",
+     "when": "2026-08"
+    }
+   ],
+   "classes": [
+    "external formal problem"
+   ],
+   "claim": "For the integer matrix M and gamma = 1/2, L = M - I/2 is symmetric, strictly diagonally dominant and positive definite, and with K = (L + gamma I)^{-1} the nuclear Nystrom error F satisfies F({2}) - F({2,3}) < F({2,4}) - F({2,3,4}), so adding index 3 helps more after index 4 is selected: diminishing returns fail for SDD L (Amsel et al. Problem 4.6(b)).",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 22,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "exact; positive semidefiniteness is checked on the complement block only.",
+   "seconds": 0.0
+  },
+  {
+   "id": "theta-derivative-log-concavity",
+   "title": "Derivatives of the Jacobi-theta kernel",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.5 (Pro)",
+     "when": "2026-02-22"
+    }
+   ],
+   "classes": [
+    "external conjecture"
+   ],
+   "claim": "At n = 9 and t = 1/50 the Turan expression J_9(t) = (Phi^(9)(t))^2 - Phi^(8)(t) Phi^(10)(t) of the Jacobi theta kernel Phi is negative, so Phi^(8) is not log-concave on R and the Coffey-Csordas conjecture (Csordas Problem 4.13) is false.",
+   "deciderVerdict": "CERTIFIED",
+   "results": null,
+   "checks": 13,
+   "checksFailed": [],
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the counterexample needs, re-derived from the published artifact",
+   "theirChecker": "no tail bound (\"m>=20 is astronomically negligible; see Sage certificate for rigorous tail\"), a point comparison; the rigorous part is a Sage script verify.py does not run.",
+   "seconds": 0.0
+  },
+  {
+   "id": "variance-only-matrix-discrepancy",
+   "title": "Variance-sensitive Matrix Spencer",
+   "claimedStatus": "refuted",
+   "foundBy": [
+    {
+     "by": "GPT-5.5 (Pro)",
+     "when": "2026-05-24"
+    }
+   ],
+   "classes": [
+    "external conjecture"
+   ],
+   "claim": "For n = 2^m, the n diagonal n x n contractions of Akbas-Sra Thm A.1 have discrepancy exactly (m-1)/sqrt(m) while ||sum A_i^2||_op^{1/2} = sqrt(1+1/m), so the ratio (m-1)/sqrt(m+1) is unbounded and no universal C makes the variance-sensitive Matrix Spencer bound hold.",
+   "deciderVerdict": "REFUSED",
+   "results": null,
+   "checks": 23,
+   "checksFailed": [
+    "unboundedness over all m (needed to refute a universal C)"
+   ],
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "scope": "m = 2..10 certified exactly (discrepancy by exhaustion, ratio squared up to 81/11 at m = 10); unboundedness over all m, which refuting a universal constant needs, is a three-line argument in the case's prose, checked by hand and not by code",
+   "theirChecker": "exact, for m in (2, 3, 4) with three U each; \"unbounded in m\" appears only as a string in the certificate.",
+   "seconds": 8.2
+  }
+ ]
+}
