@@ -21,6 +21,67 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+START HERE — THE NEXT SESSION (handed off 2026-09-28 night, the twenty-third session)
+
+  STATE. Phase A1–A10 is LIVE on carlostoledo.co: 7416b79 (A1, the report's
+  3-hourly block in the atlas), 3385237 (A2–A8: the GEV as a seventh family,
+  the statistical layer, the underflow enclosed, both ledgers re-run after two
+  reviews, the report's §7, the atlas's three views and cell rows), 291aad9
+  (A9: served at 3385237, the site, the gates), d842355 (A10: bring your own
+  site; the parse rule in playground/return-level-check/parse.js). Every gate
+  green, make site 92/92, the hseva battery 1,678 checks and 20/20 reds;
+  tools/drive-atlas.js 21/21 live. THE MEETING with the contact's lab and a
+  student is WEDNESDAY 2026-09-30 (the brief is in the operator's memory,
+  ufsc-labeco-line; his messages never enter this repo). Nothing was sent.
+
+  NEXT, in this order:
+    1. A12 THE MEETING KIT, before the meeting, IN CHAT, NOT IN THIS REPO: a
+       demo script (the ten claims decided in the tab → draw one of his own →
+       Campos certified in the tab, identical to the ledger → its histogram and
+       QQ → "a seventh family" (the GEV wins the Brazilian margin's block maxima
+       with ξ < 0: a finite upper end the six cannot have) → "the GEV's tail" →
+       "uncertainty" (7% / 12% / 17% of the 100-year level at the median cell)
+       → the Arabian Sea running away (the six AND the GEV, 128 m and 350 m
+       daily against 6.9 m) → bring your own site (ten years of a node, pinned
+       beside its nearest cells) → the return-level check on a printed fit), a
+       Portuguese one-pager, the questions (floc = 0? their family list? their
+       joint Hs–Tp model and contour method? the student's topic?). Every number
+       from the ledgers; "certificado matemático", never "certificadora".
+    2. A11 A PRINTED DESIGN TABLE AUDITED against the nearest cell (0b A11).
+    3. After the meeting, PHASE B ordered by what they ask (0b below).
+    4. NEW FROM THIS SESSION, each one atlas re-run:
+       (a) THE FRÉCHET-LIMIT PROOF. Where the exponentiated Weibull runs to
+           k → 0 it tends to a two-parameter Fréchet (a GEV with lower end 0).
+           A boundary proof like the generalized gamma's lognormal limit (the
+           likelihood proved rising toward the limit beside the Fréchet fit)
+           would let the Fréchet stand for the family there. That would decide
+           the 45 corner cell-blocks and buoys A and C annual, both for the six
+           and for `seven` — the GEV is already certified with ξ > 0 and the
+           lowest A² at all 45;
+       (b) A RESUMABLE ATLAS RUNNER: each unit's result written to disk as it
+           lands, so a dead machine costs one unit, not the run;
+       (c) optional: `seven` in the reader's own-claim rules.
+
+  HOW, on this machine (the rest of "how to run it" is in 0b below):
+    · SERVED.json names 3385237. Any edit to instruments/hseva, instruments/
+      interval or playground/return-level-check/bundle.js means a full re-run:
+      about 2.3 h of compute, 4.6 h of wall time on 2026-09-28. The machine is a
+      fanless M2 on a 30 W adapter, so ASK THE OPERATOR TO PLUG IN first.
+      Hold one caffeinate; `setopt NO_BG_NICE` before a background `&`;
+      run tools/battery-guard.sh beside the runner.
+    · Before committing a re-run: `node tools/compare-hseva-ledgers.js` (the
+      six must come back byte-identical, and nothing certified may be lost).
+    · The page can be built and driven DURING a re-run on a development ledger.
+      Build a copy of certs/hseva-atlas.json with a few dozen cells recomputed by
+      the new atlas.js and its `code` deleted. Then build with ATLAS_DEV=1
+      ATLAS_DEV_LEDGER=<that file> ATLAS_DEV_SERVED=http://127.0.0.1:<port>/
+      corpus/ww3-grid/ into a scratch dir, and serve it with DEV_SITE=<dir>
+      tools/dev-serve.js <port>.
+    · The sends stay the operator's (outreach/SEND-QUEUE.md LANE U). U1, the
+      reply to the contact, should now carry Phase A and ask for their joint-model
+      conventions (B3 waits on that answer).
+
+────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I would take it:
 
   0. PHASE A1–A9 ARE LIVE (the twenty-third session below): 7416b79 the
