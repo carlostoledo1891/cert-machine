@@ -362,11 +362,11 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'countex-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
       return L.rows.length + ' cases decided · ' + c('CERTIFIED') + ' whole, ' + c('PARTIAL') + ' partly, ' + c('REFUTED') + ' refuted'; })() },
   { g: 'ai', f: 'optimization-constants.html', k: 'audit · the registry\'s asterisks',
-    title: 'Four asterisks, replayed',
+    title: 'Five asterisks, replayed',
     desc: 'The optimization-constants registry marks a bound with an asterisk when its verification is at minimal levels. Three hold as printed '
-      + '(C3b, C3c, C71); the fourth, C84b <= 1.999281, quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the '
-      + 'checker published with C3c prints OK for a false bound.',
-    n: '3 asterisked bounds certified · 1 repaired · 1 checker that compares in doubles' },
+      + '(C3b, C3c, C71); C42 holds in its limiting inequality, the rest an argument in prose; C84b <= 1.999281 quotes a constant its source only suggests '
+      + 'and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.',
+    n: '3 certified · 1 partly · 1 repaired · 1 checker that compares in doubles' },
   { g: 'ai', f: 'claims.html', k: 'the claims desk',
     title: 'Send us a claim',
     desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '

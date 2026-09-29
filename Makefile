@@ -101,6 +101,7 @@ test:
 	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -189,6 +190,7 @@ reports:
 	@$(NODE) tools/run-sumdiff-ledger.js
 	@$(PY) tools/run-fei-ledger.py
 	@$(PY) tools/run-sumproduct-ledger.py
+	@$(PY) tools/run-turan-ledger.py
 	@$(NODE) tools/build-report-optconst.js
 	@$(PY) tools/run-countex-ledger.py
 	@$(NODE) tools/build-report-countex.js

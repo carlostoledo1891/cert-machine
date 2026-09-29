@@ -147,12 +147,20 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       per the gist). DONE — the registry's C71 > 6.521845710923046575* CERTIFIED
       from the n = 18 truth table (instruments/fei, certs/fei-ledger.json; the
       optimization-constants page is now "Three asterisks, replayed").
+      DONE — the registry's C84b REPAIRED to 1.9993 (instruments/sumproduct: the
+      note's chain holds with 0.0007; for every s, X, Y it gives c <= 0.0007150507,
+      so the quoted 0.000719 is out of reach) and C42 PARTIAL (instruments/turan:
+      the limiting inequality |Y|/D <= 0.69065369515 < 0.6906538, the asymptotic
+      reduction prose), plus the OPEN PR #184 (C42 <= 0.688983, eight blocks,
+      Röhrig with Codex): its limiting inequality holds too, |Y|/D <= 0.6889820985.
+      The optimization-constants page is "Five asterisks, replayed".
       SCOUTED (targets rows): K3(a) — the 18 AI-autoformalised FrontierMath Erdős
       statements read faithful; 548's statement is equivalent to the classical
-      one (a lemma to certify). Registry wave 2 — C42 next (3-5 h, + PR #184), then
-      the C84b chain (the registry quotes an unchecked 0.000719), C84a stale.
-      NEXT — the spinor enclosure; C42; the C84b chain; F7's determinant through a
-      formalised chain rule; Gao's generic fiber sizes; the polynomial maps not yet in keller (Gao 2608.00222; the
+      one (a lemma to certify). Registry: C1a (1-2 days), C84a stale (NEEDS DATA).
+      NEXT — MathBench v0's page (the campaign runs under its US$30 ceiling);
+      the spinor closed form (an enclosure only gives agreement digits — check the
+      printed derivation's steps instead); F7's determinant through a formalised
+      chain rule; Gao's generic fiber sizes; the polynomial maps not yet in keller (Gao 2608.00222; the
       weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
       Erdős's AI-formalised statements, more registry asterisks (1a, 71, 49).
 

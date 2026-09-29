@@ -810,6 +810,32 @@
    "recordedOn": "2026-09-29"
   },
   {
+   "id": "optconst-42a",
+   "claim": "C42 <= 0.6906538 (the registry's asterisked upper bound)",
+   "claimant": "S. Griego (github.com/sebastian-griego/turan-c42-certificate v1.0.0)",
+   "source": "github.com/sebastian-griego/turan-c42-certificate v1.0.0 (the certificate pinned by sha256 a76e91323002…)",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "the limiting certificate decided (|Y|/D <= 0.690653695151… < 0.6906538, |1-alpha| < C, |eta| < C, tau > 1/3); the asymptotic reduction to it, with no finite threshold, is the note's prose",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/turan-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "optconst-42a-pr184",
+   "claim": "C42 <= 0.688983 (an open pull request to the registry)",
+   "claimant": "A. Röhrig with Codex (teorth/optimizationproblems PR #184, 9 Sep 2026)",
+   "source": "github.com/teorth/optimizationproblems/pull/184 (open on 2026-09-29) (its certificate transcribed; note and checker pinned by sha256)",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "the eight-block limiting certificate decided (|Y|/D <= 0.688982098504… < 0.688983, every block inside C, gap 9.7997e-07); the asymptotic reduction is the note's prose",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/turan-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
    "id": "countex-aim-problems",
    "claim": "Borcea-Branden AIM problems",
    "claimant": "GPT-5 (Pro), GPT-5.6 (Pro), Opus 5 (S. Sra's counterexample library)",
@@ -1148,12 +1174,12 @@
    "recordedOn": "2026-09-29"
   }
  ],
- "count": 86,
- "decided": 85,
+ "count": 88,
+ "decided": 87,
  "pending": 1,
  "byVerdict": {
   "CERTIFIED": 63,
-  "PARTIAL": 8,
+  "PARTIAL": 10,
   "REFUTED": 2,
   "QUEUED": 1,
   "MIXED": 5,
@@ -1161,7 +1187,7 @@
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 86
+  "self-initiated": 88
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -1181,7 +1207,7 @@
  },
  "byKind": {
   "none": 64,
-  "narrower-scope": 6,
+  "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
   "tolerance-witness": 4,
@@ -1196,11 +1222,11 @@
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 68
+  "2026-09": 70
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "08d1bbb"
+  "git": "d00c7af"
  }
 }

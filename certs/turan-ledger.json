@@ -1,0 +1,115 @@
+{
+ "what": "The registry's asterisked C42 <= 0.6906538, decided from the certificate it cites: the four exact facts the note's asymptotic argument needs, the limiting inequality |Y| < C D among them, in Decimal intervals; the argument itself is the note's.",
+ "generated": "2026-09-29",
+ "registry": {
+  "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
+  "row": "C42 <= 0.6906538*"
+ },
+ "source": {
+  "repo": "github.com/sebastian-griego/turan-c42-certificate",
+  "tag": "v1.0.0",
+  "commit": "c8ddce14 (HEAD 93942ae34b7ac2888644c8e8db731bb19bc726f6 identical for the certificate)",
+  "license": "none stated: the parameters and the printed enclosures are transcribed here, nothing is copied",
+  "certificateSha256": "a76e913230028706416590367d86550d6834333041d21fc6635e09dc612e3a81",
+  "noteSha256": "2988b68fbe2421c0ce7071362f04d80cc86461b8e12f4062a4b29ee6e0d21f7f",
+  "verifierSha256": "eacf7eaeb2f0e7380ec6ae162b13075fde0f5f9eb62dea7ead8816e3503cdc98",
+  "ai": "\"AI assistance was used for formatting, exposition, and preparation of verification scripts.\" (the repo); the registry asterisk added 2026-07-29 (commit 79c1f5c)"
+ },
+ "code": {
+  "instruments/turan/c42.py": "d1568c515ba24ac515124e67d9e1a0ed445ae6cea09ed313151fea15ff224729"
+ },
+ "rows": [
+  {
+   "id": "42a",
+   "claim": "C42 <= 0.6906538",
+   "claimant": "S. Griego (github.com/sebastian-griego/turan-c42-certificate v1.0.0)",
+   "scope": "the limiting certificate decided (|Y|/D <= 0.690653695151… < 0.6906538, |1-alpha| < C, |eta| < C, tau > 1/3); the asymptotic reduction to it, with no finite threshold, is the note's prose",
+   "verdict": "PARTIAL",
+   "checks": [
+    {
+     "name": "s = 1 - alpha and w = eta - s are the certificate's",
+     "ok": true
+    },
+    {
+     "name": "|1 - alpha|^2 < C^2 (exactly)",
+     "ok": true,
+     "detail": "693863919/5000000000000000"
+    },
+    {
+     "name": "|eta|^2 < C^2 (exactly)",
+     "ok": true,
+     "detail": "1374484479/10000000000000000"
+    },
+    {
+     "name": "tau > 1/3 (three middle corrections cannot reach z^n)",
+     "ok": true
+    },
+    {
+     "name": "C < 0.69368, the previous public bound",
+     "ok": true
+    },
+    {
+     "name": "|Y|^2 < C^2 D^2: the limiting inequality",
+     "ok": true,
+     "detail": "gap 1.5501e-07"
+    },
+    {
+     "name": "every enclosure the certificate prints (K, A1, A2, D) meets the one computed here",
+     "ok": true
+    }
+   ],
+   "Y": [
+    "0.49054380049407394032",
+    "-0.5195122928242195445"
+   ],
+   "D": "1.0345433556496055446433",
+   "ratioUpper": "0.6906536951516311",
+   "bound": "0.6906538"
+  },
+  {
+   "id": "42a-pr184",
+   "claim": "C42 <= 0.688983 (an open pull request to the registry)",
+   "claimant": "A. Röhrig with Codex (teorth/optimizationproblems PR #184, 9 Sep 2026)",
+   "scope": "the eight-block limiting certificate decided (|Y|/D <= 0.688982098504… < 0.688983, every block inside C, gap 9.7997e-07); the asymptotic reduction is the note's prose",
+   "verdict": "PARTIAL",
+   "checks": [
+    {
+     "name": "the cuts rise from 1/3 <= t_0 to 1 - t_0, one eta per block",
+     "ok": true
+    },
+    {
+     "name": "|s| < C and |eta_j| < C for every block (exactly)",
+     "ok": true,
+     "detail": "smallest margin 6210826259987/5000000000000000000"
+    },
+    {
+     "name": "|Y|^2 < C^2 D^2: the limiting inequality",
+     "ok": true,
+     "detail": "gap 9.7997e-07"
+    }
+   ],
+   "D": "0.8881906504525119541782",
+   "ratioUpper": "0.6889820985040607",
+   "bound": "0.688983",
+   "Y": [
+    "0.41810722618164745369",
+    "-0.4468400597945179222"
+   ]
+  }
+ ],
+ "pr184": {
+  "source": {
+   "pr": "github.com/teorth/optimizationproblems/pull/184 (open on 2026-09-29)",
+   "author": "André Röhrig",
+   "date": "2026-09-09",
+   "files": {
+    "certificates/turan.json": "18c2090611339e86e389161d90fac1ac1dd7fc1312bc80ab9729c51946b330f4",
+    "notes/turan.md": "4705e635c8dde1904adb4e44d1e9ef0845c1663f8c419ce6543788c2e2e2748d",
+    "scripts/certify_turan.py": "97ec6db896fedcd561eb1966b84db60ff9aff421a1288cbd17ee9e6609116b45"
+   },
+   "ai": "\"This result, its verification code, and the exposition were developed with AI assistance using Codex.\" (the note); the PR is labelled gpt-6-astra by the registry scout",
+   "stored": "the parameters transcribed; the note and checker pinned by sha256, not copied"
+  },
+  "construction": "piecewise constant profile, eight middle blocks, tau=1/3"
+ }
+}

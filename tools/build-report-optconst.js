@@ -31,6 +31,12 @@ const sm = /sumproduct battery: (\d+) pass, 0 fail, (\d+)\/(\d+) red controls fi
 if (!sm || sm[2] !== sm[3]) die('the C84b battery did not pass whole');
 const SP = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'sumproduct-ledger.json'), 'utf8')).rows[0];
 if (SP.verdict !== 'REPAIRED') die('C84b is not the repaired row this page describes');
+let tb = ''; try { cp.execFileSync('python3', ['tools/run-turan-ledger.py', '--check'], { cwd: ROOT, encoding: 'utf8' }); tb = cp.execFileSync('python3', ['instruments/turan/battery.py'], { cwd: ROOT, encoding: 'utf8' }); } catch (e) { die('the C42 ledger or battery did not pass: ' + (e.stdout || e.message)); }
+const tm = /turan battery: (\d+) pass, 0 fail, (\d+)\/(\d+) red controls fired/.exec(tb);
+if (!tm || tm[2] !== tm[3]) die('the C42 battery did not pass whole');
+const TUL = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'turan-ledger.json'), 'utf8'));
+const TU = TUL.rows[0], PR = TUL.rows.find((r) => r.id === '42a-pr184') || die('no PR #184 row');
+if (TU.verdict !== 'PARTIAL') die('C42 is not the partial row this page describes');
 const reg = L.rows.filter((r) => r.registry), sup = L.rows.filter((r) => !r.registry);
 if (reg.length !== 2 || reg.some((r) => r.verdict !== 'CERTIFIED')) die('the two registry rows are not both certified');
 if ((py.match(/^CERTIFIED/gm) || []).length !== 4 || !/fired\s+RED control/.test(py)) die('the stdlib verifier does not agree');
@@ -41,18 +47,19 @@ const shortRho = (r, k) => r.rho[0].slice(0, k) + '…';
 const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · the registry\'s asterisks',
-  title: 'Four asterisks, replayed',
-  deck: 'The optimization-constants registry marks a bound with an asterisk when its verification is "at minimal levels". Four of its '
+  title: 'Five asterisks, replayed',
+  deck: 'The optimization-constants registry marks a bound with an asterisk when its verification is "at minimal levels". Five of its '
     + 'bounds rest on arithmetic small enough to decide exactly. Three hold as printed — two entropy laws and one Boolean function on 18 variables. '
-    + 'The fourth, an upper bound on the sum–product exponent, quotes a constant its own source calls only "suggested", and the source\'s calculation '
-    + 'cannot reach it; what that source proves holds. One of the checkers published with the entropy laws would also have accepted a false bound.'
+    + 'For Turán\'s power sums the limiting certificate holds and the passage to it is the author\'s argument. The sum–product row quotes a constant its own '
+    + 'source calls only "suggested", and the source\'s calculation cannot reach it; what that source proves holds. One of the checkers published with the '
+    + 'entropy laws would also have accepted a false bound.'
 }));
 B.push(C.scope('Decided: that the law each cited certificate writes down gives the ratio the registry prints — a lower bound on the constant, '
   + 'never its value. Not decided: the upper bounds, the constants themselves, and the registry\'s other asterisked rows. The asterisk is the '
   + 'maintainers\' to keep or remove; this page is evidence, and nothing has been sent to them.'));
 B.push(C.tldr({
-  findingRaw: '<b>Three hold as printed; one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as '
-    + '1.9993, what its source proves (§4). And C3b &ge; ' + R('3b').claim.split('>= ')[1] + ' and C3c &ge; ' + R('3c').claim.split('>= ')[1] + ' are CERTIFIED from the '
+  findingRaw: '<b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as '
+    + '1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; ' + TU.ratioUpper.slice(0, 12) + '…, and on an asymptotic argument in prose (§5). And C3b &ge; ' + R('3b').claim.split('>= ')[1] + ' and C3c &ge; ' + R('3c').claim.split('>= ')[1] + ' are CERTIFIED from the '
     + 'certificates the registry cites: the ratios are ' + C.m(shortRho(R('3b'), 24)) + ' and ' + C.m(shortRho(R('3c'), 24)) + ', each enclosed to 40 digits. '
     + 'The 147-point certificate\'s own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, '
     + '2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for '
@@ -65,7 +72,7 @@ B.push(C.tldr({
     + C.m('node instruments/sumdiff/battery.js') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls.'
 }));
 B.push(C.stats([
-  { k: 'asterisked bounds decided', v: String(reg.length + 2), n: 'C3b, C3c and C71 CERTIFIED; C84b REPAIRED. The registry\'s table is pinned at commit ' + L.registry.commit.slice(0, 8) + '.' },
+  { k: 'asterisked bounds decided', v: String(reg.length + 3), n: 'C3b, C3c and C71 CERTIFIED; C42 PARTIAL; C84b REPAIRED. The registry\'s table is pinned at commit ' + L.registry.commit.slice(0, 8) + '.' },
   { k: 'digits of each ratio', v: '40', n: 'Enclosed, not estimated; the 60-digit bound the 147-point certificate prints is decided at ' + A('1.674733895041405870063135756722213999136383713818148696811828').bits + ' bits.' },
   { k: 'implementations', v: '2', n: 'JavaScript over BigInt and dyadic intervals; Python over the standard library. They agree to every digit shown.' },
   { k: 'false bounds the checker accepts', v: String(L.observed.runs.filter((r) => /REFUTED/.test(r.truth)).length), n: 'Observed, run on the pinned script: its last comparison is at 53 bits. Both are refuted here.' }
@@ -128,7 +135,21 @@ B.push(C.section({
   ].join('\n')
 }));
 B.push(C.section({
-  lab: '§5 · how', title: 'How it is decided',
+  lab: '§5 · the fifth asterisk', title: 'C42: a limiting inequality, and the argument that reaches it',
+  bodyRaw: [
+    C.pRaw('Turán\'s pure power-sum constant is the limsup of R_n, the least possible max over k ≤ n of |Σ z_iᵏ| when max |z_i| = 1. The registry\'s asterisked '
+      + C.m('C42 ≤ 0.6906538') + ' cites S. Griego\'s certificate: power sums set to s = 1 − α on the first τn indices, to η in the middle, and to values on the last block '
+      + 'that force b_n = 0, so the numbers built from them have every power sum at most C in modulus — for all large n, by an asymptotic argument that reduces everything '
+      + 'to four exact facts.'),
+    C.plainList([
+      { b: 'Decided.', text: 'The four facts, in Decimal intervals: |1 − α| < C and |η| < C exactly, τ > 1/3, and the limiting inequality |Y| < C·D, with K, A₁, A₂ and D as convergent series in a complex exponent, each summed with its tail bound (the note\'s, checked). |Y|/D ≤ ' + TU.ratioUpper.slice(0, 14) + '…, below 0.6906538; every enclosure the certificate prints meets the one computed here. Written apart from the claimant\'s verifier, which is pinned and not run.' },
+      { b: 'Not decided.', text: 'The passage from the limit to every large n — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — which the note argues in prose and for which it gives no finite threshold. Verdict: PARTIAL.' },
+      { b: 'And the pull request after it.', text: 'An open pull request to the registry (#184, A. Röhrig with Codex) replaces the single middle value by eight and claims C42 ≤ 0.688983. The same decider, written for step profiles and checked to reproduce Griego\'s number with one block, decides its limiting inequality: |Y|/D ≤ ' + PR.ratioUpper.slice(0, 14) + '… < 0.688983, every block inside C. PARTIAL for the same reason: the limit is decided, the passage to it is prose.' }
+    ])
+  ].join('\n')
+}));
+B.push(C.section({
+  lab: '§6 · how', title: 'How it is decided',
   bodyRaw: C.plainList([
     { b: 'The formulation.', text: 'The registry states both constants in their entropy form (Green–Ruzsa 2019): C3b is the least C with H(X−Y) ≤ C·max(H(X), H(Y), H(X+Y)); C3c adds H(X+2Y) to the maximum. One law gives a lower bound.' },
     { b: 'The door.', text: 'Weights must be positive integers over the common denominator and sum to it exactly; a point may not repeat. The 320-digit numerators are read as integers — a reader that parses them as doubles is refused, a red control.' },
@@ -136,10 +157,10 @@ B.push(C.section({
     { b: 'The pins.', text: 'The registry at commit ' + L.registry.commit.slice(0, 8) + ' (Apache-2.0), the Zenodo archive (CC BY 4.0) with its own manifest checked, the gist at revision ' + L.rows.find((r) => r.id === '3c').source.split('@ ')[1].slice(0, 8) + '. corpus/optimization-constants/meta.json holds every sha256.' }
   ])
 }));
-const foot = '<p>' + C.esc('Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (' + L.generated + '), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json and certs/sumproduct-ledger.json re-derived, their batteries ' + fm[1] + ' + ' + sm[1] + ' checks, ' + fm[3] + ' + ' + sm[3] + ' red controls.') + '</p><p>' + C.esc('git ' + git) + '</p>';
+const foot = '<p>' + C.esc('Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (' + L.generated + '), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json, certs/sumproduct-ledger.json and certs/turan-ledger.json re-derived, their batteries ' + fm[1] + ' + ' + sm[1] + ' + ' + tm[1] + ' checks, ' + fm[3] + ' + ' + sm[3] + ' + ' + tm[3] + ' red controls.') + '</p><p>' + C.esc('git ' + git) + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'optimization-constants.html'), TPL.render({
-  title: 'Four asterisks, replayed · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
-  desc: 'The optimization-constants registry\'s asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C84b <= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.',
+  title: 'Five asterisks, replayed · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
+  desc: 'The optimization-constants registry\'s asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C42 <= 0.6906538 holds in its limiting inequality; C84b <= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.',
   path: '/reports/optimization-constants.html'
 }));
 console.log('reports/optimization-constants.html written: ' + reg.length + ' asterisked bounds CERTIFIED, battery ' + bm[1] + '/' + bm[3] + ' reds @ git ' + git);

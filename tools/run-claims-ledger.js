@@ -268,6 +268,20 @@ function firstSeen(file, key) {
   });
 }
 
+/* 13d · the registry's asterisked C42 (Turán's pure power-sum constant), decided from the certificate it cites */
+{
+  const d = J('certs/turan-ledger.json');
+  for (const r of d.rows) {
+    if (r.verdict !== 'PARTIAL') die('a C42 row is not partial: ' + r.id);
+    const pr = r.id === '42a-pr184';
+    rows.push({
+      id: 'optconst-' + r.id, claim: r.claim + (pr ? '' : ' (the registry\'s asterisked upper bound)'), claimant: r.claimant,
+      source: pr ? d.pr184.source.pr + ' (its certificate transcribed; note and checker pinned by sha256)' : d.source.repo + ' ' + d.source.tag + ' (the certificate pinned by sha256 ' + d.source.certificateSha256.slice(0, 12) + '…)',
+      origin: 'self-initiated', verdict: 'PARTIAL', scope: r.scope, kind: 'narrower-scope', key: '"id": "' + r.id + '"', decidedFrom: 'certs/turan-ledger.json', page: '/reports/optimization-constants.html'
+    });
+  }
+}
+
 /* 14 · an AI counterexample library (S. Sra, arXiv 2608.29595), decided case by case from its published certificates */
 {
   const d = J('certs/countex-ledger.json');
