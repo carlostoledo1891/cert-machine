@@ -332,6 +332,14 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'diagonal-ramsey.html', k: 'decided · diagonal Ramsey numbers',
+    title: 'An unverified Ramsey bound, verified: 3.7823',
+    desc: 'Gupta, Ndiaye, Norin and Wei print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as preliminary and unverified. '
+      + 'Decided in exact interval arithmetic on their own Theorem 14, with a witness chosen here: it holds, so the diagonal Ramsey numbers satisfy '
+      + 'R(k, k) ≤ 3.7823^(k+o(k)), below the 3.7992 the paper proves.',
+    n: (() => { const Z = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'gnnw-certificate.json'), 'utf8'));
+      if (Z.decided.verdict !== 'CERTIFIED') fail('the Ramsey card would say certified while the certificate says ' + Z.decided.verdict);
+      return 'CERTIFIED · c = ' + Z.decided.c[0].slice(0, 12) + '… · ' + (Z.decided.stats.tailIntervals + Z.decided.stats.mainIntervals) + ' intervals · one-file verifier'; })() },
   { g: 'ai', f: 'horizonmath.html', k: 'audit · a benchmark\'s discoveries',
     title: 'HorizonMath\'s discoveries, decided',
     desc: 'A benchmark of unsolved problems credits frontier models with six discoveries and prints three. The Kakeya area holds, exactly; the '

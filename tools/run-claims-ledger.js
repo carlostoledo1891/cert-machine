@@ -266,6 +266,20 @@ function firstSeen(file, key) {
   }
 }
 
+
+/* 16 · a result a paper prints as "preliminary, unverified" (GNNW v2, proposed by ChatGPT 5.6 Sol), decided on the paper's own theorem */
+{
+  const z = J('certs/gnnw-certificate.json');
+  if (z.decided.verdict !== 'CERTIFIED') die('the GNNW certificate is not certified');
+  rows.push({
+    id: 'gnnw-gai-3782', claim: 'R(k,k) <= 3.78233^(k+o(k)): Theorem 1 of Gupta–Ndiaye–Norin–Wei holds with G_AI (one more iteration of Theorem 14)',
+    claimant: 'ChatGPT 5.6 Sol, printed by Gupta, Ndiaye, Norin and Wei as preliminary and unverified (arXiv 2407.19026v2)', source: 'arXiv:2407.19026v2, the remark after Remark 17 (the PDF pinned by sha256)',
+    origin: 'self-initiated', verdict: 'CERTIFIED',
+    scope: 'Theorem 14\'s inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03; the theorem, the lemma and Theorem 1 are the paper\'s. Base e^F(1) = ' + z.decided.c[0].slice(0, 16) + '…; the printed 3.78233 is ' + z.decided.printedIs,
+    kind: 'none', key: '"verdict": "CERTIFIED"', decidedFrom: 'certs/gnnw-certificate.json', page: '/reports/diagonal-ramsey.html'
+  });
+}
+
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';

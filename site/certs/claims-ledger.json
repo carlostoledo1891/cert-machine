@@ -1003,13 +1003,26 @@
    "decidedFrom": "certs/horizonmath-ledger.json",
    "page": "/reports/horizonmath.html",
    "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "gnnw-gai-3782",
+   "claim": "R(k,k) <= 3.78233^(k+o(k)): Theorem 1 of Gupta–Ndiaye–Norin–Wei holds with G_AI (one more iteration of Theorem 14)",
+   "claimant": "ChatGPT 5.6 Sol, printed by Gupta, Ndiaye, Norin and Wei as preliminary and unverified (arXiv 2407.19026v2)",
+   "source": "arXiv:2407.19026v2, the remark after Remark 17 (the PDF pinned by sha256)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "Theorem 14's inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03; the theorem, the lemma and Theorem 1 are the paper's. Base e^F(1) = 3.78232877553731…; the printed 3.78233 is its rounding",
+   "kind": "none",
+   "decidedFrom": "certs/gnnw-certificate.json",
+   "page": "/reports/diagonal-ramsey.html",
+   "recordedOn": "2026-09-29"
   }
  ],
- "count": 75,
- "decided": 74,
+ "count": 76,
+ "decided": 75,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 54,
+  "CERTIFIED": 55,
   "PARTIAL": 7,
   "REFUTED": 2,
   "QUEUED": 1,
@@ -1018,7 +1031,7 @@
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 75
+  "self-initiated": 76
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -1037,7 +1050,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 55,
+  "none": 56,
   "narrower-scope": 5,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -1053,11 +1066,11 @@
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 57
+  "2026-09": 58
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "d8af048"
+  "git": "27eb5f0"
  }
 }

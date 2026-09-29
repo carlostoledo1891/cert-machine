@@ -112,9 +112,22 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       which is METR's time horizon), certs/horizonmath-ledger.json, register source
       15, kind checker-wider-than-definition. Notes to the HorizonMath authors (and,
       courtesy, GNNW) are SENDS.
-      NEXT — a legitimate Ramsey certificate search (F, M, Y against the two-sided
-      region, Y from Lemma 15 with f = F_0.03: does anything beat 3.7992?), the
-      spinor enclosure, the polynomial maps not yet in keller (Gao 2608.00222; the
+      DONE — THE GNNW "PRELIMINARY, UNVERIFIED" ITERATION IS CERTIFIED
+      (reports/diagonal-ramsey.html): arXiv 2407.19026v2 prints, after Remark 17,
+      G_AI (from ChatGPT 5.6 Sol) and "if verified ... R(k,k) <= 3.78233^(k+o(k))".
+      tools/verify_gnnw_gai.py (ONE stdlib file, ~8 s) decides Theorem 14 on all of
+      (0, 1] for F = h + G_AI, with Y = Y_f(X) from Lemma 15 for the PROVED F_0.03
+      and a continuous witness M = l m(l) chosen here (corpus/gnnw/m-nodes.json,
+      m(0) = 1.505717): CERTIFIED, c = 3.7823287755373…; 79 tail intervals (slack/l,
+      ln l cancelled by hand) + 336 mean-value intervals; margins ~6.3e-5·l at 0 and
+      ~6.2e-5·l near l = 0.93. certs/gnnw-certificate.json, instruments/gnnw/battery.py
+      (18 checks, 5 forgeries refused), register source 16. CONDITIONAL on the
+      paper's Theorem 14, Lemma 15, Theorem 1. BEFORE ANY SEND: a second, independent
+      implementation (another arithmetic, or a LeanCert/Lean export). A note to the
+      authors (S. Norin) is a SEND.
+      NEXT — the second implementation of the G_AI decision; a further iteration
+      (F = h + G_AI as the next region: does the base drop further?); the spinor
+      enclosure, the polynomial maps not yet in keller (Gao 2608.00222; the
       weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
       Erdős's AI-formalised statements, more registry asterisks (1a, 71, 49).
 

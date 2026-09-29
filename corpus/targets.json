@@ -581,6 +581,15 @@
    "finding": "The paper's Appendix A prints A.1 (spinor closed form + derivation), A.2 (128 dyadic intercepts), A.3 (the Ramsey certificate as generating code: GNNW cubic − 0.0778 λ⁵, 200 piecewise-constant M values, Y = 0.12% below min(1, e^−U(1)/X) everywhere). Page 8 says all six were verified by domain experts and are detailed in Appendix A; it details three. GNNW (arXiv 2407.19026) v1 and v2 both define R two-sided (all k, ℓ); v2's Lemma 15 proves both orientations before placing a point. The benchmark's own tests/test_ramsey_baseline.py notes GNNW's baseline cannot pass its validator (R_0 margins ~3e-10).",
    "fit": "Exactly the grammar: printed finite constructions, a checker whose encoding of a definition can be decided against the definition, exact rationals and decimal intervals.",
    "next": "Whether a certificate with pairs inside R beats 3.7992 is OPEN and a real K1/K2 target (search F, M, Y against the two-sided region, Lemma 15's Y_f with f = F_0.03). The spinor integral: an enclosure to hundreds of digits. Notes to the HorizonMath authors (the region rule) and, courtesy, to GNNW are SENDS (operator)."
+  },
+  {
+   "id": "gnnw-gai-iteration",
+   "name": "The iteration Gupta–Ndiaye–Norin–Wei print as \"preliminary, unverified\" (arXiv 2407.19026, v2 of 2026-08-29; G_AI from ChatGPT 5.6 Sol): R(k,k) <= 3.78233^(k+o(k)) if verified",
+   "verdict": "BUILT 2026-09-29: CERTIFIED — Theorem 14 of the paper holds on all of (0, 1] for F = h + G_AI with a continuous M chosen here (M = l m(l), m piecewise linear through 101 rationals, m(0) = 1.505717) and Y = Y_f(X) from Lemma 15 for the proved F_0.03; so R(k,k) <= 3.7823287755373…^(k+o(k)). 79 tail intervals (slack/l with ln l cancelled by hand) + 336 mean-value intervals, 7.5 s; margins ~6.3e-5·l at 0 and ~6.2e-5·l near l = 0.93. tools/verify_gnnw_gai.py (one stdlib file), certs/gnnw-certificate.json, reports/diagonal-ramsey.html",
+   "scouted": "2026-09-29",
+   "finding": "Found while scouting a legitimate Ramsey search after the HorizonMath refutation (reports/horizonmath.html): the remark after Remark 17 of GNNW v2. arXiv listings searched 2026-09-29 (abs:\"diagonal Ramsey\", book-algorithm follow-ups) show nothing below 3.7992; the authors expect below 3.75 to need new ideas. The remark names neither M nor Y; Y is forced by Lemma 15 for F_0.03 (Remark 17), M is the witness.",
+   "fit": "Exactly the grammar: a one-variable inequality over (0, 1], decided in interval arithmetic, a witness chosen by a proposer and checked by the certifier, the tail by hand-cancelled logarithms.",
+   "next": "A second, independent implementation (another arithmetic library, or a Lean/LeanCert export of the inequality) before any claim leaves the site; a note to the authors (S. Norin) is a SEND (operator). Then a further iteration: F_new = h + G_AI as the next region, searched for a smaller base."
   }
  ]
 }

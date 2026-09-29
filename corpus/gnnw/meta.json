@@ -1,0 +1,36 @@
+{
+ "what": "The preliminary, unverified iteration in Gupta, Ndiaye, Norin and Wei (arXiv 2407.19026v2), transcribed; the paper pinned by sha256, not stored (arXiv non-exclusive licence).",
+ "source": {
+  "url": "https://arxiv.org/pdf/2407.19026v2",
+  "title": "Optimizing the CGMS upper bound on Ramsey numbers (v2, 29 August 2026)",
+  "authors": "Parth Gupta, Ndiamé Ndiaye, Sergey Norin, Louis Wei",
+  "sha256": "2d5be61d04424f096ab1e4f6d94aefaacda71189276f281807ee5e8650c2eae9",
+  "stored": false,
+  "v1": {
+   "url": "https://arxiv.org/pdf/2407.19026v1",
+   "sha256": "148e722db6411e893595213e00bed6cae90ccb5228b27437dbb75e93a1b16124",
+   "read": "(its R, defined two-sided over all k, l with k + l >= N0; its Theorem 13 is v2's Theorem 14)"
+  }
+ },
+ "remark": {
+  "page": "20 (pdf page), the remark after the proof of Theorem 1 and Remark 17",
+  "text": "We asked ChatGPT 5.6 Sol to perform an additional iteration of optimization in Theorem 14. A preliminary, unverified iteration suggests that Theorem 1 holds with G_AI(λ) = e^{−λ}(−0.3864λ + 0.8347λ^2 − 2.0156λ^3 + 2.7171λ^4 − 1.7541λ^5 + 0.4522λ^6). If verified it would improve the upper bound on the diagonal Ramsey numbers to R(k, k) ≤ (3.78233 . . .)^{k+o(k)}. Further improvements by performing additional iterations are possible, but we expect that lowering the base of the exponent below 3.7 and, likely, even below 3.75 would require new ideas.",
+  "q": [
+   "-0.3864",
+   "0.8347",
+   "-2.0156",
+   "2.7171",
+   "-1.7541",
+   "0.4522"
+  ],
+  "printedBase": "3.78233"
+ },
+ "usedFromThePaper": [
+  "Theorem 14 (v2; Theorem 13 in v1): the three conditions and the conclusion R(k, l) <= e^{F(l/k)k + o(k)} for k >= l; M continuous",
+  "Theorem 1: R(k, l) <= e^{G(l/k)k + o(k)} binom(k+l, l), G = (-0.25 l + 0.03 l^2 + 0.08 l^3) e^-l, i.e. the bound F_0.03 = h + G",
+  "Lemma 15 and Remark 17: (x, Y_f(x)) in R for every x in (0, 1), f = F_0.03 (f strictly concave by (34), f' > 0 by (35); A < B because (1+t)f'(t) - f(t) decreases and is positive at t = 1)"
+ ],
+ "files": {
+  "m-nodes.json": "c86ed6e1090051a28a03aa976869a7f84e473b5a2b08cc2e1f5bb6febe0ca87f"
+ }
+}
