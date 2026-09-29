@@ -241,6 +241,33 @@ function firstSeen(file, key) {
   }
 }
 
+/* 13b · the registry's asterisked C71 (Fourier entropy–influence), decided from the cited truth table */
+{
+  const d = J('certs/fei-ledger.json');
+  for (const r of d.rows) {
+    if (r.verdict !== 'CERTIFIED') die('the C71 row is not certified');
+    rows.push({
+      id: 'optconst-71', claim: r.claim + ' (the registry\'s asterisked lower bound)', claimant: r.claimant, source: d.source.source + ' (CC BY 4.0), the n = 18 truth table',
+      origin: 'self-initiated', verdict: 'CERTIFIED',
+      scope: 'H/(I-1) for the balanced n = 18 function, I = ' + r.I + ' exact and H in outward-rounded intervals: ' + r.ratio[0].slice(0, 22) + '…; the amplification rule (O\'Donnell–Tan, Hod) is cited, not re-proved',
+      kind: 'none', key: '"id": "71"', decidedFrom: 'certs/fei-ledger.json', page: '/reports/optimization-constants.html'
+    });
+  }
+}
+
+/* 13c · the registry's asterisked C84b (real sum–product exponent), decided from the note it cites */
+{
+  const d = J('certs/sumproduct-ledger.json');
+  const r = d.rows[0];
+  if (r.verdict !== 'REPAIRED') die('the C84b row is not repaired');
+  rows.push({
+    id: 'optconst-84b', claim: r.claim + ' (the registry\'s asterisked upper bound)', claimant: r.claimant, source: 'the note (' + d.note.tex + ', sha256 ' + d.note.texSha256.slice(0, 12) + '…), as registry/84b.md cites it',
+    origin: 'self-initiated', verdict: 'REPAIRED',
+    scope: 'holds as ' + r.repairedTo + '; for every choice of the chain\'s parameters c <= ' + r.ceiling + ' < 0.000719, so the quoted constant is out of reach of the calculation cited',
+    kind: 'arithmetic-slip', key: '"id": "84b"', decidedFrom: 'certs/sumproduct-ledger.json', page: '/reports/optimization-constants.html'
+  });
+}
+
 /* 14 · an AI counterexample library (S. Sra, arXiv 2608.29595), decided case by case from its published certificates */
 {
   const d = J('certs/countex-ledger.json');
@@ -275,9 +302,24 @@ function firstSeen(file, key) {
     id: 'gnnw-gai-3782', claim: 'R(k,k) <= 3.78233^(k+o(k)): Theorem 1 of Gupta–Ndiaye–Norin–Wei holds with G_AI (one more iteration of Theorem 14)',
     claimant: 'ChatGPT 5.6 Sol, printed by Gupta, Ndiaye, Norin and Wei as preliminary and unverified (arXiv 2407.19026v2)', source: 'arXiv:2407.19026v2, the remark after Remark 17 (the PDF pinned by sha256)',
     origin: 'self-initiated', verdict: 'CERTIFIED',
-    scope: 'Theorem 14\'s inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03; the theorem, the lemma and Theorem 1 are the paper\'s. Base e^F(1) = ' + z.decided.c[0].slice(0, 16) + '…; the printed 3.78233 is ' + z.decided.printedIs,
+    scope: 'Theorem 14\'s inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03, by two independent programs; the theorem, the lemma and Theorem 1 are the paper\'s. Base e^F(1) = ' + z.decided.c[0].slice(0, 16) + '…; the printed 3.78233 is ' + z.decided.printedIs,
     kind: 'none', key: '"verdict": "CERTIFIED"', decidedFrom: 'certs/gnnw-certificate.json', page: '/reports/diagonal-ramsey.html'
   });
+}
+
+
+/* 17 · polynomial maps two 2026 papers print (Gao's Keller maps; the weak Markus–Yamabe fields), decided from their TeX */
+{
+  const d = J('certs/polymaps-ledger.json');
+  for (const r of d.rows) {
+    if (r.verdict !== 'CERTIFIED' && r.verdict !== 'PARTIAL') die('a polymaps row is neither certified nor partial: ' + r.id);
+    rows.push({
+      id: 'polymaps-' + r.id, claim: r.claim, claimant: r.id.startsWith('gao') ? 'S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)' : (r.id === 'chv-phi' ? 'Castañeda, Honorato, Valenzuela-Henríquez (arXiv 2608.05392); the map first published in a gist that says ChatGPT generated it' : 'Castañeda, Honorato, Valenzuela-Henríquez (arXiv 2608.05392)'),
+      source: r.source + ' (the TeX mirrored in corpus/polymaps, CC BY 4.0)', origin: 'self-initiated', verdict: r.verdict,
+      scope: r.verdict === 'PARTIAL' ? 'non-injective and the factors\' determinants decided; the constant determinant of the whole rests on the paper\'s factorisation lemma (the full map is not printed; rebuilt from the printed construction)' : 'every fact the claim needs, as an exact identity or evaluation' + (r.id === 'gao-f6' ? ' (the full map is not printed; rebuilt from the printed construction)' : ''),
+      kind: r.verdict === 'PARTIAL' ? 'narrower-scope' : 'none', key: '"id": "' + r.id + '"', decidedFrom: 'certs/polymaps-ledger.json', page: '/reports/polymaps.html'
+    });
+  }
 }
 
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */

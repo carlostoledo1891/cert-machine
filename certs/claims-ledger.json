@@ -784,6 +784,32 @@
    "recordedOn": "2026-09-29"
   },
   {
+   "id": "optconst-71",
+   "claim": "C71 > 6.521845710923046575 (the registry's asterisked lower bound)",
+   "claimant": "Numaro (numaro.tech, \"AI Autoresearch\"), Zenodo 10.5281/zenodo.21497769",
+   "source": "https://doi.org/10.5281/zenodo.21497769 (CC BY 4.0), the n = 18 truth table",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "H/(I-1) for the balanced n = 18 function, I = 261/128 exact and H in outward-rounded intervals: 6.52184571092304657565…; the amplification rule (O'Donnell–Tan, Hod) is cited, not re-proved",
+   "kind": "none",
+   "decidedFrom": "certs/fei-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "optconst-84b",
+   "claim": "C84b <= 1.999281 (c >= 0.000719) (the registry's asterisked upper bound)",
+   "claimant": "I. Althoefer with ChatGPT 5.5 (the note, 28 May 2026), as the registry quotes it",
+   "source": "the note (https://althofer.de/improved_constant_052.tex, sha256 2f6bbdcbf38c…), as registry/84b.md cites it",
+   "origin": "self-initiated",
+   "verdict": "REPAIRED",
+   "scope": "holds as C84b <= 1.9993 (c >= 0.0007, the note's own theorem); for every choice of the chain's parameters c <= 0.0007150507 < 0.000719, so the quoted constant is out of reach of the calculation cited",
+   "kind": "arithmetic-slip",
+   "decidedFrom": "certs/sumproduct-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
    "id": "countex-aim-problems",
    "claim": "Borcea-Branden AIM problems",
    "claimant": "GPT-5 (Pro), GPT-5.6 (Pro), Opus 5 (S. Sra's counterexample library)",
@@ -1011,27 +1037,131 @@
    "source": "arXiv:2407.19026v2, the remark after Remark 17 (the PDF pinned by sha256)",
    "origin": "self-initiated",
    "verdict": "CERTIFIED",
-   "scope": "Theorem 14's inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03; the theorem, the lemma and Theorem 1 are the paper's. Base e^F(1) = 3.78232877553731…; the printed 3.78233 is its rounding",
+   "scope": "Theorem 14's inequality decided on all of (0, 1] in interval arithmetic for F = h + G_AI, with a continuous M chosen here and Y from Lemma 15 for the proved F_0.03, by two independent programs; the theorem, the lemma and Theorem 1 are the paper's. Base e^F(1) = 3.78232877553731…; the printed 3.78233 is its rounding",
    "kind": "none",
    "decidedFrom": "certs/gnnw-certificate.json",
    "page": "/reports/diagonal-ramsey.html",
    "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-gao-g",
+   "claim": "G: a polynomial map of C^3 with det J = 2 that is not injective (a counterexample to the Jacobian conjecture), printed in full",
+   "claimant": "S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)",
+   "source": "arXiv 2608.00222, Thm 3.5 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-gao-f4",
+   "claim": "F4: a polynomial map of C^4 with det J = -44/9 that is not injective (a counterexample to the Jacobian conjecture), printed in full",
+   "claimant": "S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)",
+   "source": "arXiv 2608.00222, Thm 4.3 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-gao-f5",
+   "claim": "F5: a polynomial map of C^4 with det J = 160/29 that is not injective (a counterexample to the Jacobian conjecture), printed in full",
+   "claimant": "S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)",
+   "source": "arXiv 2608.00222, Thm 4.4 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-gao-f6",
+   "claim": "F6: the map the printed construction defines (n = 5), det J = -290, not injective",
+   "claimant": "S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)",
+   "source": "arXiv 2608.00222, Thm 4.5 (the full map is not printed; the promised ancillary files are not on arXiv) (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation (the full map is not printed; rebuilt from the printed construction)",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-gao-f7",
+   "claim": "F7: the map the printed construction defines (n = 5), det J = 119377, not injective",
+   "claimant": "S. Gao, with Claude Fable 5 assisting (arXiv 2608.00222)",
+   "source": "arXiv 2608.00222, Thm 4.13 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "non-injective and the factors' determinants decided; the constant determinant of the whole rests on the paper's factorisation lemma (the full map is not printed; rebuilt from the printed construction)",
+   "kind": "narrower-scope",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-chv-x14",
+   "claim": "X on R^14 (degree 7): JX has spectrum {-1} at every point and X has three zeros, so the weak Markus–Yamabe conjecture fails in dimension 14",
+   "claimant": "Castañeda, Honorato, Valenzuela-Henríquez (arXiv 2608.05392)",
+   "source": "arXiv 2608.05392, Thm 5.1 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-chv-phi",
+   "claim": "Phi, a cubic map of C^11 with det J = -2 that is not injective (the gist that first published it says ChatGPT generated it)",
+   "claimant": "Castañeda, Honorato, Valenzuela-Henríquez (arXiv 2608.05392); the map first published in a gist that says ChatGPT generated it",
+   "source": "arXiv 2608.05392, Prop 6.2 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "polymaps-chv-xhat18",
+   "claim": "X-hat on R^18 (degree 3): spectrum {-1} everywhere, three zeros — decided as a symbolic identity where the paper's appendix checks one sample point",
+   "claimant": "Castañeda, Honorato, Valenzuela-Henríquez (arXiv 2608.05392)",
+   "source": "arXiv 2608.05392, Thm 8.1 (the TeX mirrored in corpus/polymaps, CC BY 4.0)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation",
+   "kind": "none",
+   "decidedFrom": "certs/polymaps-ledger.json",
+   "page": "/reports/polymaps.html",
+   "recordedOn": "2026-09-29"
   }
  ],
- "count": 76,
- "decided": 75,
+ "count": 86,
+ "decided": 85,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 55,
-  "PARTIAL": 7,
+  "CERTIFIED": 63,
+  "PARTIAL": 8,
   "REFUTED": 2,
   "QUEUED": 1,
   "MIXED": 5,
-  "REPAIRED": 4,
+  "REPAIRED": 5,
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 76
+  "self-initiated": 86
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -1050,13 +1180,13 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 56,
-  "narrower-scope": 5,
+  "none": 64,
+  "narrower-scope": 6,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
   "tolerance-witness": 4,
   "not-from-the-published-data": 1,
-  "arithmetic-slip": 1,
+  "arithmetic-slip": 2,
   "not-the-optimum": 1,
   "wrong-quantity": 1,
   "data-not-public": 2,
@@ -1066,11 +1196,11 @@
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 58
+  "2026-09": 68
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "27eb5f0"
+  "git": "08d1bbb"
  }
 }

@@ -1,0 +1,81 @@
+{
+ "what": "The optimization-constants registry's asterisked C71 lower bound, decided from the cited truth table: balanced, exact spectrum, exact influence, entropy in outward-rounded Decimal intervals, and the amplification rule C71 >= H/(I-1) (O'Donnell–Tan 2013; Hod 2017, Prop 1.2 — cited, not re-proved).",
+ "generated": "2026-09-29",
+ "registry": {
+  "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
+  "row": "C71 > 6.521845710923046575*"
+ },
+ "source": {
+  "source": "https://doi.org/10.5281/zenodo.21497769",
+  "by": "Numaro (numaro.tech, \"AI Autoresearch\")",
+  "published": "2026-07-22",
+  "license": "CC-BY-4.0 (the Zenodo record)",
+  "checker": {
+   "file": "check_c71_n18.py",
+   "sha256": "17cb71a11f3492fe2279039413c1a620c6e8395f900ffdb543577c16cb88f8f3",
+   "stored": false,
+   "what": "mpmath interval entropy, exact Fraction spectrum; not run by this decision"
+  }
+ },
+ "code": {
+  "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+ },
+ "rows": [
+  {
+   "id": "71",
+   "claim": "C71 > 6.521845710923046575",
+   "claimant": "Numaro (numaro.tech, \"AI Autoresearch\"), Zenodo 10.5281/zenodo.21497769",
+   "verdict": "CERTIFIED",
+   "checks": [
+    {
+     "name": "the truth table is the one the artifact binds by sha256",
+     "ok": true
+    },
+    {
+     "name": "balanced: fhat(emptyset) = 0",
+     "ok": true
+    },
+    {
+     "name": "Parseval: sum of the weights is 1",
+     "ok": true
+    },
+    {
+     "name": "I = 261/128, the artifact's 261/128",
+     "ok": true
+    },
+    {
+     "name": "H > 0",
+     "ok": true
+    },
+    {
+     "name": "H/(I-1) > 6.521845710923046575, the registry's bound",
+     "ok": true
+    },
+    {
+     "name": "the artifact's certified floor 6.5218457109230465756581... is inside the enclosure",
+     "ok": true
+    },
+    {
+     "name": "above the record it replaced (6.514326913930565372...)",
+     "ok": true
+    },
+    {
+     "name": "logic-monotone (the artifact's second claim; the bound then holds among monotone functions too)",
+     "ok": true
+    }
+   ],
+   "n": 18,
+   "I": "261/128",
+   "distinctWeights": 10,
+   "nonzero": 2770,
+   "ratio": [
+    "6.521845710923046575658143972948578468366662",
+    "6.521845710923046575658143972948578468366662"
+   ],
+   "H": [
+    "6.7766053090059780825197902218",
+    "6.7766053090059780825197902218"
+   ]
+  }
+ ]
+}

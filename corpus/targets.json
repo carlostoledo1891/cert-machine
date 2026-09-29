@@ -590,6 +590,33 @@
    "finding": "Found while scouting a legitimate Ramsey search after the HorizonMath refutation (reports/horizonmath.html): the remark after Remark 17 of GNNW v2. arXiv listings searched 2026-09-29 (abs:\"diagonal Ramsey\", book-algorithm follow-ups) show nothing below 3.7992; the authors expect below 3.75 to need new ideas. The remark names neither M nor Y; Y is forced by Lemma 15 for F_0.03 (Remark 17), M is the witness.",
    "fit": "Exactly the grammar: a one-variable inequality over (0, 1], decided in interval arithmetic, a witness chosen by a proposer and checked by the certifier, the tail by hand-cancelled logarithms.",
    "next": "A second, independent implementation (another arithmetic library, or a Lean/LeanCert export of the inequality) before any claim leaves the site; a note to the authors (S. Norin) is a SEND (operator). Then a further iteration: F_new = h + G_AI as the next region, searched for a smaller base."
+  },
+  {
+   "id": "polymaps-gao-and-markus-yamabe",
+   "name": "Gao's Jacobian counterexamples (arXiv 2608.00222, Claude Fable 5 assisting) and the weak Markus–Yamabe fields (arXiv 2608.05392, Phi first published by a ChatGPT-generated gist)",
+   "verdict": "BUILT 2026-09-29: 7 CERTIFIED, 1 PARTIAL — G, F4, F5 (printed in full) and F6 (rebuilt from the printed construction; det -290 by a 45 s direct expansion) are non-injective with constant determinant; F7 non-injective and its factors' determinants decided, the whole determinant resting on the paper's lemma; X14 ((JX+I)^14 = 0) and X-hat18 ((JX+I)^17 = 0, where the paper checks one sample point) have three zeros; Phi has det -2 and three colliding points. instruments/polymaps, certs/polymaps-ledger.json, reports/polymaps.html",
+   "scouted": "2026-09-29",
+   "finding": "Scouted by a subagent this session: the paper's promised ancillary files (F6, F7, scripts) are not on arXiv; the pith.science review flags the 18-dimensional unipotency wording; a repo claiming a Lean proof of Gao's 3-D maps (incrediblecrab/learning-jacobian-conjecture) returns 404 and has no snapshot.",
+   "fit": "Exactly the grammar: exact polynomial identities and evaluations over Q.",
+   "next": "The generic fiber sizes (gcd/squarefree certificates at witness targets + Krawczyk boxes from instruments/keller/fibers.js); F7's determinant through a formalised chain rule; the Markus–Yamabe paper's \"cannot be shortened\" claim; notes to the authors are SENDS."
+  },
+  {
+   "id": "k3a-frontiermath-erdos-autoformalized",
+   "name": "K3(a): the 18 AI-autoformalised statements of FrontierMath Erdős (epoch-research/LeanOpenProblems apn/data/erdos_autoformalized @ 77882c43 / 4d490a84; Adamczewski–Bloom arXiv 2609.25050)",
+   "verdict": "OPEN — scouted 2026-09-29, no fidelity defect found on a first reading of all 18 Lean statements (86, 104, 181, 322, 431, 478, 548, 571, 583, 713.i, 713.ii, 714, 773, 970, 1020, 1083, 1159, 1206.i). Added clauses in 713.i (>= 2 edges) and 1020 (k >= 1, n >= rk-1) are documented and correct. 548's formal statement, which its proof repo calls \"very slightly weaker than the classical\", is in fact equivalent (two disjoint copies of G) — a short lemma worth certifying.",
+   "scouted": "2026-09-29",
+   "finding": "Pipeline: two frontier LLMs drafted, an adjudication stage cross-checked, T. Bloom reviewed (\"briefly reviewed all 18 formalizations and found them satisfactory\", FC PR #5229). 548 and 571 proved by GPT-6 Astra (tadamcz/erdos548 @ 4d1fc53e, erdos571 @ 99b6bebd: no sorry/axiom/native_decide). The proof repos run on Mathlib v4.28.0 while the benchmark pinned v4.27.0 (SimpleGraph.loopless changed form; extremalNumber, Copy unchanged). Toolchains v4.27/4.28 not installed; FC must build from source.",
+   "fit": "A Lean audit (statement fidelity, axioms, build) as for the Navier–Stokes certificate; low expected yield on fidelity.",
+   "next": "Certify the 548 equivalence lemma and per-statement non-vacuity lemmas for the sInf/sSup statements (181, 970, 104, 1083); build 548/571 with Comparator (the Navier–Stokes macOS recipe) — hours of compute, 5-7 GB."
+  },
+  {
+   "id": "optconst-registry-asterisks-wave2",
+   "name": "Tao's optimization-constants registry, the other 15 asterisked entries (teorth/optimizationproblems @ 2c1968cd, still HEAD)",
+   "verdict": "PARTLY BUILT 2026-09-29: C71 CERTIFIED (instruments/fei); C84b REPAIRED to 1.9993 — the chain the note prints gives c <= 0.000715 for every choice, so the quoted 0.000719 is out of reach (instruments/sumproduct). Both on reports/optimization-constants.html. OPEN for the rest — scouted 2026-09-29. Decidable with finite certificates: C71 (Fourier entropy-influence, n = 18 truth table, ~2 h), C42 (Turán power sums, four rationals + a limiting reduction, 3-5 h; the claimant's stdlib checker passes), C1a (Sidon autocorrelation, a Bessel-kernel integral the hard part, 1-2 days), C84b (numerics 2-3 h). FINDINGS to decide: C84b's registry value 1.999281 quotes a figure the note itself only \"suggests\" (its checked theorem gives 1.9993; the printed chain reaches c ~ 0.000707); C84a's 1.03583 is stale against the author's own revision 10 (delta > 0.0357). No certificate: 49, 22a, 10c, 41a. Refused by kind: 31 (a Monte Carlo + Hoeffding bound). Infeasible in stdlib: 43, 21, 19.",
+   "scouted": "2026-09-29",
+   "finding": "Subagent scout; downloads in the session scratchpad. Open PRs #184 (C42 0.688983), #180 (C21), #148 (C3a), #198.",
+   "fit": "The sumdiff pattern: finite certificates, exact or interval arithmetic, the claimant's checker observed.",
+   "next": "C71 first, then C42 (+ PR #184), then the C84b chain; record C84a as NEEDS DATA/stale."
   }
  ]
 }

@@ -101,6 +101,9 @@ test:
 	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -184,6 +187,8 @@ reports:
 	@$(NODE) tools/run-envs.js
 	@$(NODE) tools/build-report-envs.js
 	@$(NODE) tools/run-sumdiff-ledger.js
+	@$(PY) tools/run-fei-ledger.py
+	@$(PY) tools/run-sumproduct-ledger.py
 	@$(NODE) tools/build-report-optconst.js
 	@$(PY) tools/run-countex-ledger.py
 	@$(NODE) tools/build-report-countex.js
@@ -191,6 +196,8 @@ reports:
 	@$(NODE) tools/build-report-horizonmath.js
 	@$(PY) tools/run-gnnw-ledger.py
 	@$(NODE) tools/build-report-ramsey.js
+	@$(PY) tools/run-polymaps-ledger.py
+	@$(NODE) tools/build-report-polymaps.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
 	@$(NODE) tools/build-report-monthly.js

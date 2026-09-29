@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Two asterisks, replayed · cert-machine</title>
-<meta name="description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884 and C3c &gt;= 1.6747338950414058, decided from their entropy certificates by two implementations sharing no code with the claimants: both hold — and the checker published with the second prints OK for a false bound.">
+<title>Four asterisks, replayed · cert-machine</title>
+<meta name="description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/optimization-constants.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/optimization-constants.html">
-<meta property="og:title" content="Two asterisks, replayed · cert-machine">
-<meta property="og:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884 and C3c &gt;= 1.6747338950414058, decided from their entropy certificates by two implementations sharing no code with the claimants: both hold — and the checker published with the second prints OK for a false bound.">
+<meta property="og:title" content="Four asterisks, replayed · cert-machine">
+<meta property="og:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Two asterisks, replayed · cert-machine">
-<meta name="twitter:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884 and C3c &gt;= 1.6747338950414058, decided from their entropy certificates by two implementations sharing no code with the claimants: both hold — and the checker published with the second prints OK for a false bound.">
+<meta name="twitter:title" content="Four asterisks, replayed · cert-machine">
+<meta name="twitter:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Two asterisks, replayed · cert-machine","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884 and C3c >= 1.6747338950414058, decided from their entropy certificates by two implementations sharing no code with the claimants: both hold — and the checker published with the second prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Four asterisks, replayed · cert-machine","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C84b \u003c= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -679,20 +679,20 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · the registry&#39;s asterisks</div>
-  <h1>Two asterisks, replayed</h1>
-  <p class="deck">The optimization-constants registry marks a bound with an asterisk when its verification is &quot;at minimal levels&quot;. Two of its lower bounds rest on entropy certificates small enough to decide exactly, and both hold. One of the two checkers published with them would also have accepted a false bound.</p>
+  <h1>Four asterisks, replayed</h1>
+  <p class="deck">The optimization-constants registry marks a bound with an asterisk when its verification is &quot;at minimal levels&quot;. Four of its bounds rest on arithmetic small enough to decide exactly. Three hold as printed — two entropy laws and one Boolean function on 18 variables. The fourth, an upper bound on the sum–product exponent, quotes a constant its own source calls only &quot;suggested&quot;, and the source&#39;s calculation cannot reach it; what that source proves holds. One of the checkers published with the entropy laws would also have accepted a false bound.</p>
 </header>
 
 <p class="scope">Decided: that the law each cited certificate writes down gives the ratio the registry prints — a lower bound on the constant, never its value. Not decided: the upper bounds, the constants themselves, and the registry&#39;s other asterisked rows. The asterisk is the maintainers&#39; to keep or remove; this page is evidence, and nothing has been sent to them.</p>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <b>Both hold.</b> C3b &ge; 1.77898884 and C3c &ge; 1.6747338950414058 are CERTIFIED from the certificates the registry cites: the ratios are <span class="m">1.7789888414206935498051…</span> and <span class="m">1.6747338950414058700631…</span>, each enclosed to 40 digits. The 147-point certificate's own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, 2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for <span class="m">C3c &gt;= 1.6747338950414059</span>, which is false</b>: it encloses the ratio at 100 digits, then compares in doubles.</li><li><b>The mechanism.</b> A law on Z&sup2; with rational weights gives C &ge; H(X&minus;Y) / max of the entropies of the other forms. The pushforwards are exact; each entropy term is an interval whose logarithm is rounded outward. Two implementations share no code with each other or with the claimants: instruments/sumdiff (JavaScript, BigInt and dyadic intervals at 128–1024 bits) and tools/verify_sumdiff.py (the Python standard library, decimal at 120 digits).</li><li><b>Check it.</b> <span class="m">python3 tools/verify_sumdiff.py</span> — standard library only, four CERTIFIED and one red control. <span class="m">node instruments/sumdiff/battery.js</span> — 22 checks, 7 red controls.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <b>Three hold as printed; one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as 1.9993, what its source proves (§4). And C3b &ge; 1.77898884 and C3c &ge; 1.6747338950414058 are CERTIFIED from the certificates the registry cites: the ratios are <span class="m">1.7789888414206935498051…</span> and <span class="m">1.6747338950414058700631…</span>, each enclosed to 40 digits. The 147-point certificate's own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, 2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for <span class="m">C3c &gt;= 1.6747338950414059</span>, which is false</b>: it encloses the ratio at 100 digits, then compares in doubles.</li><li><b>The mechanism.</b> A law on Z&sup2; with rational weights gives C &ge; H(X&minus;Y) / max of the entropies of the other forms. The pushforwards are exact; each entropy term is an interval whose logarithm is rounded outward. Two implementations share no code with each other or with the claimants: instruments/sumdiff (JavaScript, BigInt and dyadic intervals at 128–1024 bits) and tools/verify_sumdiff.py (the Python standard library, decimal at 120 digits).</li><li><b>Check it.</b> <span class="m">python3 tools/verify_sumdiff.py</span> — standard library only, four CERTIFIED and one red control. <span class="m">node instruments/sumdiff/battery.js</span> — 22 checks, 7 red controls.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="4">
-    <div class="stat"><div class="k">asterisked bounds decided</div><div class="v">2</div><div class="n">Both CERTIFIED. The registry&#39;s table is pinned at commit 2c1968cd.</div></div>
+    <div class="stat"><div class="k">asterisked bounds decided</div><div class="v">4</div><div class="n">C3b, C3c and C71 CERTIFIED; C84b REPAIRED. The registry&#39;s table is pinned at commit 2c1968cd.</div></div>
     <div class="stat"><div class="k">digits of each ratio</div><div class="v">40</div><div class="n">Enclosed, not estimated; the 60-digit bound the 147-point certificate prints is decided at 256 bits.</div></div>
     <div class="stat"><div class="k">implementations</div><div class="v">2</div><div class="n">JavaScript over BigInt and dyadic intervals; Python over the standard library. They agree to every digit shown.</div></div>
     <div class="stat"><div class="k">false bounds the checker accepts</div><div class="v">2</div><div class="n">Observed, run on the pinned script: its last comparison is at 53 bits. Both are refuted here.</div></div>
@@ -719,7 +719,25 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§3 · how</div>
+    <div class="lab">§3 · the third asterisk</div>
+    <h2>C71: a Boolean function on 18 variables</h2>
+  </div>
+<p>The Fourier entropy–influence constant is the least C with H[f] ≤ C·I[f] for every Boolean f, where H is the entropy of the Fourier weights (base 2) and I the total influence. For a balanced g the amplification rule of O'Donnell–Tan (2013) and Hod (2017, Prop. 1.2), cited and not re-proved here, gives C71 ≥ H[g]/(I[g] − 1). The registry's asterisked <span class="m">C71 &gt; 6.521845710923046575</span> cites a truth table on 18 variables published by Numaro (numaro.tech, &quot;AI Autoresearch&quot;), Zenodo 10.5281/zenodo.21497769.</p>
+<ul class="plain"><li><b>Decided.</b> The table read from its hex and bound by its published sha256; the integer Walsh–Hadamard transform of all 262,144 entries; balance, Parseval, I = 261/128 exactly; H from 10 distinct weight sizes over 2,770 nonzero coefficients, each logarithm in an outward-rounded Decimal interval. The ratio is 6.5218457109230465756581439729…, above the registry&#39;s number, and above the record it replaced. The function is also logic-monotone, as claimed.</li><li><b>Not decided.</b> The amplification rule itself, which is a published theorem; the claimant&#39;s checker (mpmath intervals), pinned and not run.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · the fourth asterisk</div>
+    <h2>C84b: a suggested constant, quoted as a bound</h2>
+  </div>
+<p>The registry's asterisked row for the real sum–product exponent reads <span class="m">C84b ≤ 1.999281</span>: "a ChatGPT 5.5 long-thinking optimization of the explicit constant of [BSSZ2026, §5] giving c ≥ 0.000719. Unverified." The note it cites states its theorem with 0.0007 and adds: "The optimized value suggested by the same calculation is about 0.000719, but 0.0007 is the safer quoted constant."</p>
+<ul class="plain"><li><b>What the note proves holds.</b> Its chain, decided in intervals: the regulator estimate at s = 1.371966384 is 101.95607583… ≤ 103; at Y = 1415 and X = ⌊e¹⁴²³⌋ the product factor 515/Y &lt; 0.364, the additive factor 0.1352394769… &lt; 0.136, log|A|/d &lt; 1432, and −log 0.364 &gt; 0.0007 · 1432. So C84b ≤ 1.9993, given BSSZ2026 §5, the note&#39;s lattice-doubling lemma and the regulator bound.</li><li><b>What the registry quotes is out of its reach.</b> For every s &gt; 1 and every X and Y the same chain gives c ≤ 0.0007150507: the regulator estimate is at least 101.9 for every s (a sweep of s with ζ by Euler–Maclaurin and Γ by Stirling, each with its remainder), the additive factor forces log X &gt; Y + log M₁ − 2 log Y, and the product factor caps the gain at log(Y/5R). 0.000719 is not reached; at the note&#39;s own choice the chain gives 0.0007062455…</li><li><b>Verdict: REPAIRED.</b> The row holds as C84b ≤ 1.9993, which is what its source proves.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · how</div>
     <h2>How it is decided</h2>
   </div>
 <ul class="plain"><li><b>The formulation.</b> The registry states both constants in their entropy form (Green–Ruzsa 2019): C3b is the least C with H(X−Y) ≤ C·max(H(X), H(Y), H(X+Y)); C3c adds H(X+2Y) to the maximum. One law gives a lower bound.</li><li><b>The door.</b> Weights must be positive integers over the common denominator and sum to it exactly; a point may not repeat. The 320-digit numerators are read as integers — a reader that parses them as doubles is refused, a red control.</li><li><b>The arithmetic.</b> Pushforwards exact; each −p ln p an interval; the maximum taken end by end; the ratio by interval division; precision doubled from 128 bits while a verdict straddles. An exact equality is refused at every precision, never certified.</li><li><b>The pins.</b> The registry at commit 2c1968cd (Apache-2.0), the Zenodo archive (CC BY 4.0) with its own manifest checked, the gist at revision 62621d2d. corpus/optimization-constants/meta.json holds every sha256.</li></ul>
@@ -727,7 +745,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-09-29), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build.</p><p>git d9e2f20</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-09-29), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json and certs/sumproduct-ledger.json re-derived, their batteries 7 + 8 checks, 4 + 4 red controls.</p><p>git 08d1bbb</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

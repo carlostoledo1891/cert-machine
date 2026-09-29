@@ -5,7 +5,9 @@ It checks what the decision takes from the paper (Lemma 15's hypotheses for f = 
 calculus against central differences and its tail form against the direct slack, re-runs the certificate, and
 requires every forgery to be refused: a linear coefficient moved past the edge, a witness M whose slope at 0 is
 wrong, a sixth coefficient that lowers F(1) below the slack, an M that reaches 1, and a proposer that lies about
-a branch parameter. A green control: GNNW's own proved F_0.03 passes in its own region.
+a branch parameter. A green control: GNNW's own proved F_0.03 passes in its own region. The chain: every step's bound
+meets Lemma 15's hypotheses, step 2 re-decides in G_AI's region, a forged step 2 and a non-concave region are refused,
+and the second implementation's record is current and agrees.
 
 Prints: "gnnw battery: N pass, 0 fail, R/R red controls fired". """
 import hashlib
@@ -124,6 +126,33 @@ except ArithmeticError:
     lied = True
 V._fsolve = real
 red(lied, 'RED: a float proposer that puts the branch parameter at 0.5 is refused by the interval bracket')
+
+# ---- THE CHAIN: step 2 in the region G_AI establishes, the second implementation's record, a forged step refused
+CH = json.load(open(os.path.join(ROOT, 'certs', 'gnnw-chain-certificate.json')))
+D = __import__('decimal').Decimal
+ok(meta['files'].get('chain.json') == hashlib.sha256(open(os.path.join(ROOT, 'corpus', 'gnnw', 'chain.json'), 'rb').read()).hexdigest(), 'pin: corpus/gnnw/chain.json')
+ok(CH['steps'][0]['q'] == C['q'] and CH['steps'][0]['m'] == C['m'], 'the chain\'s first step is the G_AI certificate')
+bases = [float(b) for b in CH['decided']['bases']]
+ok(all(x > y for x, y in zip(bases, bases[1:])) and CH['decided']['verdict'] == 'CERTIFIED', 'the chain\'s bases decrease step by step: ' + ' > '.join('%.6f' % b for b in bases))
+okr = all(V.region_ok([Fr(D(x)) for x in st['q']])[0] for st in CH['steps'])
+ok(okr, 'every step\'s bound meets Lemma 15\'s hypotheses (strictly concave, increasing, A < B), so it can serve as the next region')
+V.set_region([Fr(D(x)) for x in CH['steps'][0]['q']])
+r2 = V.certify_step({'q': CH['steps'][1]['q'], 'm': CH['steps'][1]['m']})
+ok(r2['verdict'] == 'CERTIFIED' and r2['stats']['mainIntervals'] == CH['decided']['perStep'][1]['main'], 'GREEN: step 2 re-decides in the region of G_AI, interval for interval')
+f5 = json.loads(json.dumps(CH['steps'][1]['q']))
+f5[-1] = '%.6f' % (float(f5[-1]) - 0.003)
+try:
+    V.certify_step({'q': f5, 'm': CH['steps'][1]['m']})
+    forged = False
+except (ArithmeticError, ValueError):
+    forged = True
+red(forged, 'RED: step 2 with its last coefficient lowered by 0.003 (a smaller base than it earns) is refused')
+V.set_region(V.P03)
+bad = [Fr(0), Fr(0), Fr(0), Fr(5)]                     # q = 5 l^4: f''(1) = -1/2 + 25/e > 0, not concave
+red(not V.region_ok(bad)[0], 'RED: a region that is not concave (q = 5 l^4) is refused as a next region')
+sec = CH['second']
+ok(sec['current'] and sec['agrees'] and sec['result']['verdict'] == 'CERTIFIED' and len(sec['result']['steps']) == len(CH['steps']),
+   'the second implementation (JavaScript, bigfloat, monotone endpoints) certified every step, its record current for this code and this chain, c agreeing to 21 digits')
 
 print(f'gnnw battery: {passed} pass, {failed} fail, {fired}/{reds} red controls fired')
 sys.exit(1 if failed else 0)

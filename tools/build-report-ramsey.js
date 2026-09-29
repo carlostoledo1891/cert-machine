@@ -21,6 +21,11 @@ let bat = ''; try { bat = py(['instruments/gnnw/battery.py']); } catch (e) { die
 const bm = /gnnw battery: (\d+) pass, 0 fail, (\d+)\/(\d+) red controls fired/.exec(bat);
 if (!bm || bm[2] !== bm[3]) die('the battery did not pass whole');
 const Z = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'gnnw-certificate.json'), 'utf8'));
+const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'gnnw-chain-certificate.json'), 'utf8'));
+if (K.decided.verdict !== 'CERTIFIED' || !K.second.agrees || !K.second.current) die('the chain is not certified by both implementations');
+const cK = K.decided.c[0], bases = K.decided.bases, NS = bases.length;
+const nInt = K.decided.perStep.reduce((a, r) => a + r.tail + r.main, 0);
+const nInt2 = K.second.result.steps.reduce((a, r) => a + r.tail + r.main, 0);
 const D = Z.decided;
 if (D.verdict !== 'CERTIFIED' || !D.printedDigitsHold) die('the certificate is not the certified one this page describes');
 const c = D.c[0], c10 = c.slice(0, 12);
@@ -42,11 +47,11 @@ const FIG = CH.lines({
 const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · decided · diagonal Ramsey numbers',
-  title: 'An unverified Ramsey bound, verified: 3.7823',
-  deck: 'Gupta, Ndiaye, Norin and Wei prove R(k, k) ≤ 3.7992^(k+o(k)), and print one more iteration of their optimisation, proposed by '
-    + 'ChatGPT 5.6 Sol, as "preliminary, unverified": if it held, the base would drop to 3.78233. Decided here with exact interval arithmetic, '
-    + 'on the paper\'s own Theorem 14 and the region its Theorem 1 already proves: it holds. The inequality the theorem needs is true at every '
-    + 'λ in (0, 1], with a witness chosen here, so R(k, k) ≤ ' + c10 + '…^(k+o(k)) follows from the paper as written.'
+  title: 'Diagonal Ramsey below 3.7992: 3.7823, then 3.7721',
+  deck: 'Gupta, Ndiaye, Norin and Wei prove R(k, k) ≤ 3.7992^(k+o(k)) and print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as '
+    + '"preliminary, unverified": 3.78233. Decided here on the paper\'s own Theorem 14, by two independent programs: it holds. The paper adds that "further '
+    + 'improvements by performing additional iterations are possible"; five more rounds, each proposed here by a float optimiser and each decided in the '
+    + 'region the round before it establishes, reach R(k, k) ≤ ' + cK.slice(0, 12) + '…^(k+o(k)).'
 }));
 B.push(C.scope('The paper: arXiv 2407.19026v2 (29 August 2026), pinned by sha256 in corpus/gnnw. What is decided is the numerical hypothesis of its '
   + 'Theorem 14 for this F; the theorem itself, Lemma 15 and Theorem 1 are the authors\' (the paper reports its main results formalised in Lean). '
@@ -54,18 +59,20 @@ B.push(C.scope('The paper: arXiv 2407.19026v2 (29 August 2026), pinned by sha256
 B.push(C.tldr({
   findingRaw: '<b>CERTIFIED.</b> For F(λ) = (1+λ)ln(1+λ) − λ ln λ + G_AI(λ), with the paper\'s G_AI, a continuous M chosen here and Y taken from '
     + 'the region the paper\'s proved bound F₀.₀₃ gives (Lemma 15), all four conditions of Theorem 14 hold on (0, 1]. Its conclusion is '
-    + 'R(k, ℓ) ≤ e^(F(ℓ/k)k + o(k)), and at ℓ = k the base is e^F(1) = 4·e^G_AI(1) = <b>' + c.slice(0, 22) + '…</b>; the paper\'s 3.78233 is ' + D.printedIs + '.',
+    + 'R(k, ℓ) ≤ e^(F(ℓ/k)k + o(k)), and at ℓ = k the base is e^F(1) = 4·e^G_AI(1) = <b>' + c.slice(0, 22) + '…</b>; the paper\'s 3.78233 is ' + D.printedIs + '. <b>Five more rounds, CERTIFIED:</b> the bases ' + bases.map((b) => b.slice(0, 8)).join(' → ') + ', the last '
+    + '<b>' + cK.slice(0, 22) + '…</b>. A second program, written apart in another language and arithmetic, certifies every round and agrees to 25 digits.',
   mechanismRaw: 'The inequality holds with little room: its slack is about ' + e3(lim) + '·λ as λ → 0 and ' + e3(minPt[1]) + '·λ near λ = ' + minPt[0].toFixed(2)
     + '. It is decided on ' + (S.tailIntervals + S.mainIntervals) + ' intervals of λ, each enclosed in 40-digit decimal arithmetic with every rounding outward: '
     + 'below λ = 0.01 the slack divided by λ with its ln λ terms cancelled by hand, above it a mean-value bound with the derivative written out.',
-  checkRaw: C.m('python3 verify/verify_gnnw_gai.py certs/gnnw-certificate.json') + ' — one standard-library file, ' + D.seconds + ' s here · '
+  checkRaw: C.m('python3 verify/verify_gnnw_gai.py certs/gnnw-chain-certificate.json') + ' — one standard-library file, ' + K.decided.seconds + ' s here · '
+    + C.m('node instruments/gnnw/second.js certs/gnnw-chain-certificate.json') + ' — the second program, ' + Math.round(K.second.result.seconds / 60) + ' min · '
     + C.m('python3 instruments/gnnw/battery.py') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' forgeries refused.'
 }));
 B.push(C.stats([
-  { k: 'base of the bound', v: '3.7823', n: 'From the 3.7992 the paper proves; c = ' + c.slice(0, 16) + '…' },
-  { k: 'slack as λ → 0', v: e3(lim), n: 'Per unit λ: thin. Moving G_AI\'s linear coefficient from −0.3864 to −0.3870 already breaks it (a forgery the battery refuses).' },
-  { k: 'intervals decided', v: String(S.tailIntervals + S.mainIntervals), n: S.tailIntervals + ' on (0, 0.01], ' + S.mainIntervals + ' on [0.01, 1].' },
-  { k: 'seconds', v: String(D.seconds), n: 'The whole decision, re-run at every build of this page.' }
+  { k: 'base, the remark\'s round', v: '3.7823', n: 'Printed as unverified; decided here. c = ' + c.slice(0, 16) + '…' },
+  { k: 'base, five rounds more', v: cK.slice(0, 6), n: 'c = ' + cK.slice(0, 16) + '…, each round in the region of the one before.' },
+  { k: 'intervals decided', v: nInt.toLocaleString('en-US'), n: 'By the first program; the second, with its coarser method, used ' + nInt2.toLocaleString('en-US') + '.' },
+  { k: 'implementations', v: '2', n: 'Python and Decimal with a written derivative; JavaScript and dyadic intervals with monotone bounds. They agree to 25 digits.' }
 ]));
 B.push(C.section({
   lab: '§1 · the claim', title: 'One more iteration, printed as unverified',
@@ -94,7 +101,7 @@ B.push(C.section({
   ].join('\n')
 }));
 B.push(C.section({
-  lab: '§3 · the decision', title: 'Four hundred intervals, every rounding outward',
+  lab: '§3 · the decision', title: 'The remark\'s round: four hundred intervals',
   bodyRaw: [
     C.plainList([
       { b: 'Below λ = 0.01.', text: 'F carries −λ ln λ and the two logarithms carry +½ λ ln λ each (M ≈ 1.5λ, and Y through t ≈ 3λ); cancelled by hand, slack/λ is a smooth function of λ, enclosed on intervals that contain 0, with ln(1+z)/z and ln(1−z)/z bracketed by their series. ' + S.tailIntervals + ' intervals, the smallest lower bound ' + e3(S.minTailS) + '.' },
@@ -104,18 +111,35 @@ B.push(C.section({
     ])
   ].join('\n')
 }));
+const TABLE = C.table({
+  cols: [{ h: 'round' }, { h: 'base e^F(1)', cls: 'n' }, { h: 'second program', cls: 'n' }],
+  rows: bases.map((b, i) => [String(i + 1), b.slice(0, 12), K.second.result.steps[i].c[0].slice(0, 12)])
+});
 B.push(C.section({
-  lab: '§4 · limits', title: 'What this does and does not say',
+  lab: '§4 · further rounds', title: 'Five more rounds, each in the region of the last', wide: true,
+  bodyRaw: [
+    C.pRaw('Once F is established, it is a better bound on R(k, ℓ) than F₀.₀₃, and Lemma 15 turns it into a larger region — provided it is strictly concave, '
+      + 'increasing, and 2F′(1) − F(1) > 0, which both programs decide on intervals before using it. Theorem 14 can then be applied again. Each new F is h + q(λ)e^−λ with '
+      + 'q a polynomial of degree 9, found by a float optimiser here: minimise q(1) while the slack stays at least 5·10⁻⁵·λ on 215 points, with M chosen as before. The '
+      + 'optimiser only proposes; every round is decided like the first. Round 1 is the remark\'s, in the region of F₀.₀₃; round k is in the region of round k − 1.'),
+    TABLE,
+    C.pRaw('In floats, the rounds converge: degree 6 settles near 3.7732 and degree 9 near 3.77213, so further rounds of this kind buy almost nothing. The authors expect '
+      + 'that going below 3.75 would need new ideas; nothing here disagrees.')
+  ].join('\n')
+}));
+B.push(C.section({
+  lab: '§5 · limits', title: 'What this does and does not say',
   bodyRaw: C.plainList([
     { b: 'It rests on the paper.', text: 'Theorem 14, Lemma 15 and Theorem 1 are the authors\' and are used, not re-proved. What was missing, the numerical hypothesis for G_AI and a witness M, is supplied and decided here.' },
     { b: 'It is the paper\'s own next step.', text: 'The authors expect that going below 3.75 would need new ideas. The certificate HorizonMath credits with 3.6961 does not satisfy this theorem; it is decided on the HorizonMath page.' },
-    { b: 'It is not yet reviewed.', text: 'A single program by one author, with its controls; a second independent implementation, or the authors\' own check, is the next step. The verifier is one file with no dependencies, so anyone can run it.' }
+    { b: 'It is not yet reviewed.', text: 'Two programs agree, but they share an author and a reading of the paper; the authors\' own check is the next step. The first verifier is one file with no dependencies, so anyone can run it.' },
+    { b: 'Each round rests on the one before.', text: 'Round k uses the bound round k − 1 establishes; the chain is only as good as its first link, the paper\'s Theorem 1.' }
   ])
 }));
-const foot = '<p>' + C.esc('Generated by tools/build-report-ramsey.js from certs/gnnw-certificate.json (' + Z.generated + '), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls fired.') + '</p><p>' + C.esc('git ' + git) + '</p>';
+const foot = '<p>' + C.esc('Generated by tools/build-report-ramsey.js from certs/gnnw-certificate.json and certs/gnnw-chain-certificate.json (' + Z.generated + '), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls fired.') + '</p><p>' + C.esc('git ' + git) + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'diagonal-ramsey.html'), TPL.render({
-  title: 'An unverified Ramsey bound, verified · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot,
-  desc: 'The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided in exact interval arithmetic on their own Theorem 14: it holds, so R(k,k) ≤ ' + c10 + '…^(k+o(k)).',
+  title: 'Diagonal Ramsey below 3.7992 · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot,
+  desc: 'The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ ' + cK.slice(0, 10) + '…^(k+o(k)).',
   path: '/reports/diagonal-ramsey.html'
 }));
-console.log('reports/diagonal-ramsey.html written: ' + D.verdict + ', c = ' + c.slice(0, 16) + ' @ git ' + git);
+console.log('reports/diagonal-ramsey.html written: ' + D.verdict + ', c = ' + c.slice(0, 16) + '; chain c = ' + cK.slice(0, 16) + ' @ git ' + git);

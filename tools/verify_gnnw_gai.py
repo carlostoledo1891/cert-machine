@@ -21,6 +21,10 @@ which Theorem 1 of the same paper proves is an upper bound (R(k,l) <= e^{F_0.03(
 Then R(k, l) <= e^{F(l/k)k + o(k)} for k >= l, and at l = k the base is e^{F(1)} = 4 e^{G_AI(1)} = 3.78233...
 The functions M and Y are this program's choice (the remark names neither); Theorem 14 asks only that some exist.
 
+A CHAIN ({"steps": [...]}, certs/gnnw-chain-certificate.json) applies the theorem again and again: step 1 in the region of
+F_0.03; step k in the region of the bound F_{k-1} = h + q_{k-1} e^-l that step k-1 establishes, after Lemma 15's
+hypotheses for that bound (strictly concave, increasing, 2f'(1) - f(1) > 0) are decided here on intervals.
+
 HOW (Decimal intervals, every operation in a named context; ln and exp correctly rounded and widened one ulp):
   * on [L0, 1], split at the nodes of m (so M is smooth on each piece) and bisected adaptively, the mean-value form
         slack([a, b]) is inside slack(mid) + slack'([a, b]) [-(b-a)/2, (b-a)/2],
@@ -44,7 +48,8 @@ UP = Context(prec=PREC, rounding=ROUND_CEILING, **_E)
 NE = Context(prec=PREC, rounding=ROUND_HALF_EVEN, **_E)
 
 Q_AI = [Fr(Decimal(s)) for s in ('-0.3864', '0.8347', '-2.0156', '2.7171', '-1.7541', '0.4522')]   # replaced by the certificate's q
-P03 = [Fr(-1, 4), Fr(3, 100), Fr(8, 100)]   # GNNW Theorem 1's G: the PROVED bound whose Lemma 15 region is used; never read from a certificate
+P03 = [Fr(-1, 4), Fr(3, 100), Fr(8, 100)]   # GNNW Theorem 1's G: the PROVED bound whose Lemma 15 region the first step uses; never read from a certificate
+PR = P03   # the region's q: F_0.03 for the first step of a chain, then each step's own certified q
 
 
 class Iv:
@@ -153,23 +158,23 @@ def Fpp_of(c, x):
 
 def beta(t):
     """beta(t) = f(t) - t f'(t) = ln(1+t) - (t p'(t) - (1+t) p(t)) e^-t for f = F_0.03: B(t) = e^-beta(t); increasing"""
-    return (1 + t).ln() - (t * horner(dcoef(P03), t, 0) - (1 + t) * horner(P03, t, 1)) * (-t).exp()
+    return (1 + t).ln() - (t * horner(dcoef(PR), t, 0) - (1 + t) * horner(PR, t, 1)) * (-t).exp()
 
 
 def fprime(t):
-    return Fp_of(P03, t)
+    return Fp_of(PR, t)
 
 
 # floats, for proposing only
 def _ffp(t):
-    p = sum(a * t ** (i + 1) for i, a in enumerate(map(float, P03)))
-    dp = sum((i + 1) * a * t ** i for i, a in enumerate(map(float, P03)))
+    p = sum(a * t ** (i + 1) for i, a in enumerate(map(float, PR)))
+    dp = sum((i + 1) * a * t ** i for i, a in enumerate(map(float, PR)))
     return math.log((1 + t) / t) + (dp - p) * math.exp(-t)
 
 
 def _fbeta(t):
-    p = sum(a * t ** (i + 1) for i, a in enumerate(map(float, P03)))
-    dp = sum((i + 1) * a * t ** i for i, a in enumerate(map(float, P03)))
+    p = sum(a * t ** (i + 1) for i, a in enumerate(map(float, PR)))
+    dp = sum((i + 1) * a * t ** i for i, a in enumerate(map(float, PR)))
     return math.log1p(t) - (t * dp - (1 + t) * p) * math.exp(-t)
 
 
@@ -213,10 +218,42 @@ def bracket(fun_iv, fun_f, s, increasing):
 
 
 ONE = Iv.q(1)
-FA1 = fprime(ONE)
-LN_a = -FA1                                   # a = A(1) = e^-f'(1)
-LN_b = -beta(ONE)                             # b = B(1) = e^-beta(1)
-F03_1 = F_of(P03, ONE)
+LN_a = LN_b = F03_1 = None
+
+
+def set_region(coeffs):
+    """the region Y_f comes from: f = h + q e^-l for q = coeffs (a bound already established); a = A(1), b = B(1)"""
+    global PR, LN_a, LN_b, F03_1
+    PR = list(coeffs)
+    LN_a = -fprime(ONE)                           # a = A(1) = e^-f'(1)
+    LN_b = -beta(ONE)                             # b = B(1) = e^-beta(1)
+    F03_1 = F_of(PR, ONE)
+
+
+set_region(P03)
+
+
+def region_ok(coeffs):
+    """Lemma 15's hypotheses for f = h + q e^-l on (0, 1]: f'' < 0 (strictly concave), f' > 0, and 2f'(1) - f(1) > 0,
+    which with (1+t) f'' < 0 gives A < B; A = e^-f' rises from 0 and B = e^(t f' - f) falls from 1 because q(0) = 0.
+    Decided on intervals down to 1e-9; below it -1/(t(1+t)) < -4e8 and ln(1/t) > 20 dominate the polynomial terms,
+    whose size on [0, 1] is at most K = sum |c_i| ((i+1)^2 + 1) (checked < 1e6)."""
+    K = sum(abs(c) * ((i + 1) ** 2 + 1) for i, c in enumerate(coeffs))
+    if K >= 10 ** 6:
+        return False, 'coefficients too large for the tail argument'
+    stack = [(Fr(1, 10 ** 9), Fr(1))]
+    while stack:
+        a, b = stack.pop()
+        X = Iv.span(a, b)
+        if Fpp_of(coeffs, X).hi < 0 and Fp_of(coeffs, X).lo > 0:
+            continue
+        if b - a < Fr(1, 10 ** 12):
+            return False, 'f\'\' < 0 or f\' > 0 not decided near %s' % float(a)
+        m = (a + b) / 2
+        stack += [(a, m), (m, b)]
+    if not (2 * Fp_of(coeffs, ONE) - F_of(coeffs, ONE)).lo > 0:
+        return False, '2f\'(1) - f(1) > 0 not decided'
+    return True, 'strictly concave and increasing on (0, 1]; A < B'
 
 
 def lnY_at(lnx):
@@ -347,15 +384,24 @@ def S_tail(a, b, mfun):
     if not beta(Iv.q(Fr(1, 2))).lo > (-lnX).hi:
         raise ArithmeticError('the branch parameter may exceed 1/2 on the tail')
     # tau = t / l from beta(t) = -ln X, beta(t)/t = ln(1+t)/t - e^-t (p'(t) - (1+t) p(t)/t)
-    P = horner(P03, Iv.q(0), 0)
-    T = Iv(Decimal(0), Decimal('0.5'))
+    # an a-priori upper end for t: the first g in 1.5 s, 3 s, ... (s = the upper end of -ln X) with beta(g) > s; beta increases
+    sup = float((-lnX).hi)
+    g = None
+    for mult in (1.5, 3, 6, 12, 24):
+        cand = Fr(min(sup * mult, 0.5))
+        if beta(Iv.q(cand)).lo > (-lnX).hi:
+            g = cand
+            break
+    if g is None:
+        raise ArithmeticError('no a-priori bound for the branch parameter on the tail')
+    T = Iv(Decimal(0), Iv.q(g).hi)
     tau = None
     for _ in range(4):
-        bt = l1(T) - (-T).exp() * (horner(dcoef(P03), T, 0) - (1 + T) * horner(P03, T, 0))
+        bt = l1(T) - (-T).exp() * (horner(dcoef(PR), T, 0) - (1 + T) * horner(PR, T, 0))
         tau = (-lnX_over_l) / bt
         T2 = X * tau
         T = Iv(max(T2.lo, Decimal(0)), min(T2.hi, T.hi))
-    lnY_rest = tau.ln() - (1 + T).ln() - (horner(dcoef(P03), T, 0) - horner(P03, T, 1)) * (-T).exp()
+    lnY_rest = tau.ln() - (1 + T).ln() - (horner(dcoef(PR), T, 0) - horner(PR, T, 1)) * (-T).exp()
     S = (1 + X) * l1(X) + Q * (-X).exp() + lnX_over_l * Fr(1, 2) + mx.ln() * Fr(1, 2) + lnY_rest * Fr(1, 2)
     # F' = ln(1+l) - ln l + (q' - q) e^-l >= -ln b + (q' - q) e^-l on (0, b]
     Fp_lo = (-(Iv(X.hi).ln()) + dq_minus_q * (-X).exp()).lo
@@ -363,7 +409,28 @@ def S_tail(a, b, mfun):
 
 
 def certify(cert, log=None):
-    """cert: {'q': [coefficient strings of q, l^1 upward], 'm': {'N', 'm0', 'values'}}"""
+    """cert: {'q': [...], 'm': {...}} — one iteration in the region of F_0.03 — or {'steps': [{'q', 'm'}, ...]}, a chain in
+    which step k's region is the bound step k-1 established (its Lemma 15 hypotheses decided here first)."""
+    if 'steps' in cert:
+        region, results = P03, []
+        for k, st in enumerate(cert['steps']):
+            okr, why = region_ok(region)
+            if not okr:
+                raise ArithmeticError('step %d: the region fails Lemma 15\'s hypotheses: %s' % (k + 1, why))
+            set_region(region)
+            r = certify_step(st, log)
+            r['regionOk'] = why
+            results.append(r)
+            region = [Fr(Decimal(x)) for x in st['q']]
+        set_region(P03)
+        last = results[-1]
+        return {'claim': 'a chain of %d iterations of GNNW Theorem 14, each in the region of the bound before it (the first in F_0.03\'s); so R(k,k) <= e^{F(1)(k+o(k))} for the last' % len(results),
+                'verdict': 'CERTIFIED', 'c': last['c'], 'steps': results}
+    set_region(P03)
+    return certify_step(cert, log)
+
+
+def certify_step(cert, log=None):
     global Q_AI
     Q_AI = [Fr(Decimal(x)) for x in cert['q']]
     N, vals = load_m(cert['m'])
@@ -419,7 +486,7 @@ if __name__ == '__main__':
     import sys
     import time
     if len(sys.argv) < 2:
-        sys.exit('usage: python3 verify_gnnw_gai.py gnnw-certificate.json')
+        sys.exit('usage: python3 verify_gnnw_gai.py gnnw-certificate.json | gnnw-chain-certificate.json')
     cert = json.load(open(sys.argv[1]))
     t0 = time.time()
     try:
@@ -427,7 +494,10 @@ if __name__ == '__main__':
     except (ArithmeticError, ValueError) as e:
         print('REFUSED: ' + str(e))
         sys.exit(1)
-    print('CERTIFIED: Theorem 14 of Gupta-Ndiaye-Norin-Wei holds on all of (0, 1] for F = h + q e^-l with this M and Y = Y_f(X), f = F_0.03')
-    print('  %d tail intervals, %d main intervals, smallest certified lower bound %.3e; %.1f s' % (
-        r['stats']['tailIntervals'], r['stats']['mainIntervals'], r['stats']['minMainLower'], time.time() - t0))
+    for k, st in enumerate(r.get('steps', [r])):
+        print('CERTIFIED%s: Theorem 14 of Gupta-Ndiaye-Norin-Wei holds on all of (0, 1] for F = h + q e^-l with this M and Y = Y_f(X), f = %s' % (
+            ' step %d' % (k + 1) if 'steps' in r else '', 'F_0.03' if k == 0 else 'the bound of step %d' % k))
+        print('  %d tail intervals, %d main intervals, smallest certified lower bound %.3e; base in [%s, %s]' % (
+            st['stats']['tailIntervals'], st['stats']['mainIntervals'], st['stats']['minMainLower'], st['c'][0][:14], st['c'][1][:14]))
+    print('  %.1f s' % (time.time() - t0))
     print('  so R(k,k) <= c^(k+o(k)) with c = e^F(1) in [%s, %s]' % (r['c'][0], r['c'][1]))

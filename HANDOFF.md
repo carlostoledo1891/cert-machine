@@ -125,9 +125,34 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       paper's Theorem 14, Lemma 15, Theorem 1. BEFORE ANY SEND: a second, independent
       implementation (another arithmetic, or a LeanCert/Lean export). A note to the
       authors (S. Norin) is a SEND.
-      NEXT — the second implementation of the G_AI decision; a further iteration
-      (F = h + G_AI as the next region: does the base drop further?); the spinor
-      enclosure, the polynomial maps not yet in keller (Gao 2608.00222; the
+      DONE (the same day, after the charger) — THE SECOND IMPLEMENTATION AND FIVE MORE
+      ROUNDS: instruments/gnnw/second.js (JavaScript, instruments/bigfloat, monotone
+      endpoint bounds, no written derivative) certifies G_AI and the whole chain;
+      corpus/gnnw/second-run.json keeps its result with the sha256 of its code and
+      of the chain (re-run: python3 tools/run-gnnw-ledger.py --second, ~35 min).
+      THE CHAIN (corpus/gnnw/chain.json → certs/gnnw-chain-certificate.json): five
+      degree-9 corrections proposed by a float SLSQP optimiser (scratch, not in the
+      repo), each decided in the region the round before establishes after Lemma
+      15's hypotheses for that bound are decided (region_ok): bases 3.782329 →
+      3.775471 → 3.772573 → 3.772275 → 3.772152 → 3.7721307629 (R(k,k) <=
+      3.7721307629^(k+o(k)), conditional on the paper's theorems). In floats the
+      iteration converges near 3.7732 (degree 6) and 3.77213 (degree 9).
+      DONE — polynomial maps (reports/polymaps.html, instruments/polymaps, certs/
+      polymaps-ledger.json): Gao's G, F4, F5, F6 CERTIFIED as Jacobian
+      counterexamples (F6 rebuilt from the printed construction, det -290 in 45 s),
+      F7 PARTIAL (non-injective; the factors' determinants; the assembly is the
+      paper's lemma); the weak Markus–Yamabe fields X14 and X-hat18 CERTIFIED
+      ((JX+I)^14 = 0, (JX+I)^17 = 0 as identities — the paper checks the 18-dim one
+      at a sample point) and Phi (det -2, three colliding points; ChatGPT-generated
+      per the gist). DONE — the registry's C71 > 6.521845710923046575* CERTIFIED
+      from the n = 18 truth table (instruments/fei, certs/fei-ledger.json; the
+      optimization-constants page is now "Three asterisks, replayed").
+      SCOUTED (targets rows): K3(a) — the 18 AI-autoformalised FrontierMath Erdős
+      statements read faithful; 548's statement is equivalent to the classical
+      one (a lemma to certify). Registry wave 2 — C42 next (3-5 h, + PR #184), then
+      the C84b chain (the registry quotes an unchecked 0.000719), C84a stale.
+      NEXT — the spinor enclosure; C42; the C84b chain; F7's determinant through a
+      formalised chain rule; Gao's generic fiber sizes; the polynomial maps not yet in keller (Gao 2608.00222; the
       weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
       Erdős's AI-formalised statements, more registry asterisks (1a, 71, 49).
 

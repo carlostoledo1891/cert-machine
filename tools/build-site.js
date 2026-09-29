@@ -332,14 +332,20 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'polymaps.html', k: 'decided · polynomial maps',
+    title: 'Gao\'s Keller maps and a Markus–Yamabe field, decided',
+    desc: 'Five new counterexamples to the Jacobian conjecture written with Claude Fable 5\'s help, and a field on ℝ¹⁴ with every Jacobian eigenvalue −1 '
+      + 'and three zeros: decided in exact rational arithmetic from the TeX the papers print, the largest map rebuilt from its construction.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'polymaps-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
+      return L.rows.length + ' maps decided · ' + c('CERTIFIED') + ' whole, ' + c('PARTIAL') + ' partly, ' + c('REFUTED') + ' refuted'; })() },
   { g: 'ai', f: 'diagonal-ramsey.html', k: 'decided · diagonal Ramsey numbers',
-    title: 'An unverified Ramsey bound, verified: 3.7823',
+    title: 'Diagonal Ramsey below 3.7992: 3.7823, then 3.7721',
     desc: 'Gupta, Ndiaye, Norin and Wei print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as preliminary and unverified. '
-      + 'Decided in exact interval arithmetic on their own Theorem 14, with a witness chosen here: it holds, so the diagonal Ramsey numbers satisfy '
-      + 'R(k, k) ≤ 3.7823^(k+o(k)), below the 3.7992 the paper proves.',
-    n: (() => { const Z = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'gnnw-certificate.json'), 'utf8'));
-      if (Z.decided.verdict !== 'CERTIFIED') fail('the Ramsey card would say certified while the certificate says ' + Z.decided.verdict);
-      return 'CERTIFIED · c = ' + Z.decided.c[0].slice(0, 12) + '… · ' + (Z.decided.stats.tailIntervals + Z.decided.stats.mainIntervals) + ' intervals · one-file verifier'; })() },
+      + 'Decided on their own Theorem 14 by two independent programs: it holds (3.7823). Five further rounds, each in the region the last establishes, '
+      + 'reach R(k, k) ≤ 3.7721^(k+o(k)).',
+    n: (() => { const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'gnnw-chain-certificate.json'), 'utf8'));
+      if (K.decided.verdict !== 'CERTIFIED' || !K.second.agrees) fail('the Ramsey card would say certified by both programs while the chain certificate says otherwise');
+      return 'CERTIFIED · two programs · c = ' + K.decided.c[0].slice(0, 12) + '… after ' + K.decided.bases.length + ' rounds · one-file verifier'; })() },
   { g: 'ai', f: 'horizonmath.html', k: 'audit · a benchmark\'s discoveries',
     title: 'HorizonMath\'s discoveries, decided',
     desc: 'A benchmark of unsolved problems credits frontier models with six discoveries and prints three. The Kakeya area holds, exactly; the '
@@ -356,11 +362,11 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'countex-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
       return L.rows.length + ' cases decided · ' + c('CERTIFIED') + ' whole, ' + c('PARTIAL') + ' partly, ' + c('REFUTED') + ' refuted'; })() },
   { g: 'ai', f: 'optimization-constants.html', k: 'audit · the registry\'s asterisks',
-    title: 'Two asterisks, replayed',
-    desc: 'The optimization-constants registry marks a bound with an asterisk when its verification is at minimal levels. C3b >= 1.77898884 and '
-      + 'C3c >= 1.6747338950414058 rest on entropy certificates small enough to decide exactly: both hold, each ratio enclosed to 40 digits by two '
-      + 'implementations sharing no code with the claimants — and the checker published with the second prints OK for a false bound.',
-    n: '2 asterisked bounds certified · 1 checker that compares in doubles' },
+    title: 'Four asterisks, replayed',
+    desc: 'The optimization-constants registry marks a bound with an asterisk when its verification is at minimal levels. Three hold as printed '
+      + '(C3b, C3c, C71); the fourth, C84b <= 1.999281, quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the '
+      + 'checker published with C3c prints OK for a false bound.',
+    n: '3 asterisked bounds certified · 1 repaired · 1 checker that compares in doubles' },
   { g: 'ai', f: 'claims.html', k: 'the claims desk',
     title: 'Send us a claim',
     desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '
