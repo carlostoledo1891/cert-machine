@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-29, the twenty-fourth session: A11 LIVE — a printed fit decided in the atlas's tab by ONE module shared with the return-level check, and a published design table decided against the nearest cells; A12, the meeting kit, given in chat and as a private page; the meeting with the contact's lab is 2026-09-30; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-29, the twenty-fourth session: THE ATTACK PROGRAM APPROVED — notes/attack-plan-2026-09-29.md, US$100 total ceiling, wave 0 shipped (the register + September's monthly ledger); A11 LIVE — a printed fit decided in the atlas's tab by ONE module shared with the return-level check, and a published design table decided against the nearest cells; A12, the meeting kit, given in chat and as a private page; the meeting with the contact's lab is 2026-09-30; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -57,7 +57,25 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
   2026-09-29 (demo script, questions) and the Portuguese one-pager is a
   PRIVATE claude.ai page (the operator shares it); none of it is in this repo.
 
+  THE ATTACK PROGRAM (approved 2026-09-29; the plan is notes/attack-plan-2026-09-29.md —
+  six capabilities K1–K6, seven campaigns A1–A7, four waves). RULINGS: US$100 IN TOTAL
+  for everything that costs money (model calls and GPU together), each spend priced on
+  the page before it happens; A6's pre-registration published before the first GPU hour;
+  the novelty watch as a weekly scheduled routine (NOT YET CREATED: a cloud routine
+  cannot clone the repository until GitHub is connected to the operator's claude.ai
+  account — /web-setup — or it writes to a Claude Doc instead; the operator's call).
+    · WAVE 0 — DONE 2026-09-29: THE REGISTER (tools/run-claims-ledger.js extended:
+      12 sources, 55 rows, a closed vocabulary of defect kinds, each row dated by the
+      first commit whose record held it) and THE MONTHLY LEDGER (tools/build-report-
+      monthly.js → reports/decided-2026-09.html, D6's first instance, rebuilt with
+      every site build until the month closes).
+    · WAVE 1 — IN PROGRESS: the registry's starred constants first
+      (instruments/sumdiff: C3b and C3c entropy certificates, bigfloat, no code shared
+      with the claimants'), then K1, HorizonMath, the polynomial maps, K3(a) on
+      FrontierMath Erdős's AI-formalised statements.
+
   NEXT, in this order:
+    0. The attack program's current wave (above).
     1. After the meeting, PHASE B ordered by what they ask (0b below). Ask them
        for a table printed from GLOBMULTI at a node: the only kind a
        certificate can REPRODUCE.

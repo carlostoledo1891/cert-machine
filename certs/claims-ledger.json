@@ -1,5 +1,5 @@
 {
- "what": "Externally published mathematical claims this machine has decided, one row per claim, each derived from the record that decided it. The verdicts are the instrument's, not a summary: CERTIFIED and REFUTED are theorems, PARTIAL names the fragment that was reached, NEEDS DATA measures the claimant rather than the claim, and MIXED means the row is an aggregate whose record holds both.",
+ "what": "Externally published mathematical claims this machine has decided, one row per claim, each derived from the record that decided it. The verdicts are the instrument's, not a summary: CERTIFIED and REFUTED are theorems, PARTIAL names the fragment that was reached, NEEDS DATA measures the claimant rather than the claim, MIXED means the row is an aggregate whose record holds both, and REPAIRED means the claim as printed is refuted and an object next to it is certified. Each row names its defect kind from one closed vocabulary (kindsDefined); an aggregate row counts them. recordedOn is the first commit whose deciding record held the row.",
  "honestCounting": "Every row is DERIVED from a record; a claim with no record gets no row. ORIGIN is tracked separately: everything here is self-initiated — we chose the claim. Nothing has been submitted yet, and the submitted count stays zero until it is not.",
  "scope": "What can be decided here: claims that come down to finitely many exact arithmetic facts — exhibit a witness, verify an identity, bound a quantity, decide a constant. Everything else is REFUSED as out of scope rather than guessed at.",
  "rows": [
@@ -13,7 +13,9 @@
    "scope": "at ε = 1/6 only",
    "checks": 17,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "none",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "ai-korenblum",
@@ -25,7 +27,9 @@
    "scope": "the numerical criterion",
    "checks": 15,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "none",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "ai-lemniscate",
@@ -37,7 +41,9 @@
    "scope": "the computational fragment",
    "checks": 22,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "none",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "ai-ranteng",
@@ -49,7 +55,9 @@
    "scope": "machine-checkable fragment only",
    "checks": 38,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "narrower-scope",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "ai-mathieu",
@@ -61,7 +69,9 @@
    "scope": "supporting identities only",
    "checks": null,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "none",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "ai-poisson",
@@ -73,7 +83,9 @@
    "scope": "the explicit counterexample",
    "checks": null,
    "decidedFrom": "certs/ai-claims-summary.json",
-   "page": "/reports/ai-claims-audit.html"
+   "page": "/reports/ai-claims-audit.html",
+   "kind": "none",
+   "recordedOn": "2026-08-30"
   },
   {
    "id": "erdos852-cstar",
@@ -85,7 +97,9 @@
    "scope": "the constant itself, to its printed digits",
    "mechanism": "outside a certified enclosure; the corrected value is certified and public in the thread",
    "decidedFrom": "certs/erdos852-certificate.json",
-   "page": "/reports/erdos852.html"
+   "page": "/reports/erdos852.html",
+   "kind": "float-printed-as-exact",
+   "recordedOn": "2026-08-25"
   },
   {
    "id": "kiss-cal-d4-24",
@@ -96,7 +110,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-cal-e8-240",
@@ -107,7 +123,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-alphaevolve-593",
@@ -118,7 +136,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-ea-594-winner",
@@ -129,7 +149,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-station-604-1",
@@ -140,7 +162,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-station-604-2",
@@ -151,7 +175,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-station-604-3",
@@ -162,7 +188,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-station-shell-582",
@@ -173,7 +201,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-station-d12-lift",
@@ -184,7 +214,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-ea-604",
@@ -195,7 +227,9 @@
    "verdict": "CERTIFIED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "kiss-ganzhinov-592",
@@ -206,7 +240,9 @@
    "verdict": "QUEUED",
    "scope": "the configuration as published, in exact arithmetic",
    "decidedFrom": "certs/kissing-ledger.json",
-   "page": "/reports/kissing.html"
+   "page": "/reports/kissing.html",
+   "kind": "none",
+   "recordedOn": "2026-09-03"
   },
   {
    "id": "rm-registry",
@@ -217,25 +253,547 @@
    "verdict": "MIXED",
    "scope": "51 rows survive their certified enclosure, 1 refuted exactly",
    "decidedFrom": "ledger.json (family ramanujan-audit)",
-   "page": "/reports/rm-audit.html"
+   "page": "/reports/rm-audit.html",
+   "kind": "sign-slip",
+   "kinds": {
+    "none": 51,
+    "sign-slip": 1
+   },
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-strassen-1969",
+   "claim": "2×2×2 matrix multiplication in 7 multiplications over Q",
+   "claimant": "Strassen",
+   "source": "Strassen, Numer. Math. 13 (1969) — the textbook transcription; the audit is the check",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-strassen-squared-4x4x4",
+   "claim": "4×4×4 matrix multiplication in 49 multiplications over Q",
+   "claimant": "generated here: Strassen ⊗ Strassen by exact Kronecker composition",
+   "source": "generated here: Strassen ⊗ Strassen by exact Kronecker composition, re-decided from scratch",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-q-2x2x2",
+   "claim": "2×2×2 matrix multiplication in 7 multiplications over Q",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 2,2,2 of alphatensor_r.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-q-3x3x3",
+   "claim": "3×3×3 matrix multiplication in 23 multiplications over Q",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 3,3,3 of alphatensor_r.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-q-4x4x4",
+   "claim": "4×4×4 matrix multiplication in 49 multiplications over Q",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,4,4 of alphatensor_r.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-q-3x4x5",
+   "claim": "3×4×5 matrix multiplication in 47 multiplications over Q",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 3,4,5 of alphatensor_r.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-q-4x5x5",
+   "claim": "4×5×5 matrix multiplication in 76 multiplications over Q",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,5,5 of alphatensor_r.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Q",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-f2-4x4x4",
+   "claim": "4×4×4 matrix multiplication in 47 multiplications over F2",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 4,4,4 of alphatensor_f2.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over F2; the same scheme is refuted over Q — the claim is a characteristic-2 claim",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphatensor-f2-5x5x5",
+   "claim": "5×5×5 matrix multiplication in 96 multiplications over F2",
+   "claimant": "AlphaTensor",
+   "source": "AlphaTensor (DeepMind, Nature 610, 2022), key 5,5,5 of alphatensor_f2.npz",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over F2; the same scheme is refuted over Q — the claim is a characteristic-2 claim",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-25"
+  },
+  {
+   "id": "mm-alphaevolve-48-4x4x4",
+   "claim": "4×4×4 matrix multiplication in 48 multiplications over Z[i]",
+   "claimant": "AlphaEvolve",
+   "source": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131), mathematical_results.ipynb of google-deepmind/alphaevolve_results @ commit 4226acb - the first-party byte source",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every tensor-identity equation, exactly, over Z[i]",
+   "kind": "none",
+   "decidedFrom": "certs/strassen-certificate.json",
+   "page": "/reports/alphaevolve.html",
+   "recordedOn": "2026-08-26"
+  },
+  {
+   "id": "ea-circles-alphaevolve_2025",
+   "claim": "n = 21 circles in a rectangle of perimeter 4 (bounding box w + h ≤ 2), no overlaps: Σ r = 2.3658321334",
+   "claimant": "AlphaEvolve V2 (Georgiev, Gómez-Serrano, Tao, Wagner — arXiv:2511.02864)",
+   "source": "corpus/easota/circles-rectangle/alphaevolve_2025.json (sha256 ede505bcbca6…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-circles-ours_2026",
+   "claim": "n = 21 circles in a rectangle of perimeter 4 (bounding box w + h ≤ 2), no overlaps: Σ r = 2.3658323759",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/circles-rectangle/ours_2026.json (sha256 6060cc9f78f9…)",
+   "origin": "self-initiated",
+   "verdict": "REPAIRED",
+   "scope": "as published, a witness only within the platform's tolerance; a repaired construction next to it is certified",
+   "kind": "tolerance-witness",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-heilbronn-alphaevolve_2025",
+   "claim": "n = 14 points, min triangle area / convex-hull area = 0.0278355715",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "source": "corpus/easota/heilbronn-convex/alphaevolve_2025.json (sha256 0006a49a12e1…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-heilbronn-ours_2026",
+   "claim": "n = 14 points, min triangle area / convex-hull area = 0.0278355805",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/heilbronn-convex/ours_2026.json (sha256 2b16263e2994…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-mindist-alphaevolve_2025",
+   "claim": "n = 16 points, (max distance / min distance)² = 12.889266",
+   "claimant": "AlphaEvolve (Novikov et al. — arXiv:2506.13131)",
+   "source": "corpus/easota/min-distance-ratio-2d/alphaevolve_2025.json (sha256 07c7449a55b9…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-mindist-ours_2026",
+   "claim": "n = 16 points, (max distance / min distance)² = 12.889230",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/min-distance-ratio-2d/ours_2026.json (sha256 9236e69edf32…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-overlap-haugland_2016",
+   "claim": "a step function h with 51 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380927",
+   "claimant": "J. K. Haugland (arXiv:1609.08000)",
+   "source": "corpus/easota/erdos-minimum-overlap/haugland_2016.py (sha256 93bce13461a1…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-overlap-alphaevolve_2025",
+   "claim": "a step function h with 95 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380924",
+   "claimant": "AlphaEvolve (arXiv:2506.13131)",
+   "source": "corpus/easota/erdos-minimum-overlap/alphaevolve_2025.py (sha256 11f33879398e…)",
+   "origin": "self-initiated",
+   "verdict": "REPAIRED",
+   "scope": "as published, a witness only within the platform's tolerance; a repaired construction next to it is certified",
+   "kind": "tolerance-witness",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-overlap-ttt_discover_2026",
+   "claim": "a step function h with 600 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380876",
+   "claimant": "TTT-Discover (Yuksekgonul et al. — arXiv:2601.16175)",
+   "source": "corpus/easota/erdos-minimum-overlap/ttt_discover_2026.py (sha256 586e77b49e07…)",
+   "origin": "self-initiated",
+   "verdict": "REPAIRED",
+   "scope": "as published, a witness only within the platform's tolerance; a repaired construction next to it is certified",
+   "kind": "tolerance-witness",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-overlap-together_ai_2026",
+   "claim": "a step function h with 600 steps, 0 ≤ h ≤ 1, Σh = n/2: upper bound 0.380871",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/erdos-minimum-overlap/together_ai_2026.py (sha256 3a2d93e27438…)",
+   "origin": "self-initiated",
+   "verdict": "REPAIRED",
+   "scope": "as published, a witness only within the platform's tolerance; a repaired construction next to it is certified",
+   "kind": "tolerance-witness",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-edges-alphaevolve_2025",
+   "claim": "100 rows of 20 weights → (edge density, triangle density) points; the platform's envelope score = -0.712494",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "source": "corpus/easota/edges-vs-triangles/alphaevolve_2025.py (sha256 7be8fc911181…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-edges-ours_2026",
+   "claim": "100 rows of 20 weights → (edge density, triangle density) points; the platform's envelope score = -0.712256",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/edges-vs-triangles/ours_2026.py (sha256 350cbf63494f…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_2025",
+   "claim": "f ≥ 0 as 600 values on [−1/4, 1/4]: C₁ ≤ 1.50529397",
+   "claimant": "AlphaEvolve (arXiv:2506.13131)",
+   "source": "corpus/easota/first-autocorrelation/alphaevolve_2025.py (sha256 dea4517da376…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_v2_2025",
+   "claim": "f ≥ 0 as 1319 values on [−1/4, 1/4]: C₁ ≤ (no value printed for this file)",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "source": "corpus/easota/first-autocorrelation/alphaevolve_v2_2025.json (sha256 92a023d37ea8…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-autocorr-ttt_discover_2026",
+   "claim": "f ≥ 0 as 30000 values on [−1/4, 1/4]: C₁ ≤ 1.50286290",
+   "claimant": "TTT-Discover (arXiv:2601.16175)",
+   "source": "corpus/easota/first-autocorrelation/ttt_discover_2026.json (sha256 4f24a0ef2515…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-autocorr-ours_2026",
+   "claim": "f ≥ 0 as 30000 values on [−1/4, 1/4]: C₁ ≤ 1.50286286",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/first-autocorrelation/ours_2026.json (sha256 6cc34889cb40…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-flat-alphaevolve_2025",
+   "claim": "70 coefficients ±1: C⁺ = max_{|z|=1} |g(z)| / √71 = 1.340925",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "source": "corpus/easota/flat-polynomials/alphaevolve_2025.py (sha256 c403c792b179…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-flat-ours_2026",
+   "claim": "70 coefficients ±1: C⁺ = max_{|z|=1} |g(z)| / √71 = 1.280932",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/flat-polynomials/ours_2026.py (sha256 d2a51b1c92cf…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-hexagons-alphaevolve_2025",
+   "claim": "12 unit hexagons inside a hexagon of side 3.9419123, no overlaps, all inside: score = the outer side",
+   "claimant": "AlphaEvolve V2 (arXiv:2511.02864)",
+   "source": "corpus/easota/hexagon-packing/alphaevolve_2025.json (sha256 daa887e9ba08…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ea-hexagons-ours_2026",
+   "claim": "12 unit hexagons inside a hexagon of side 3.9416523, no overlaps, all inside: score = the outer side",
+   "claimant": "Together AI agents (the EinsteinArena repository)",
+   "source": "corpus/easota/hexagon-packing/ours_2026.json (sha256 1d83e40b7786…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the construction as published, in exact arithmetic",
+   "kind": "none",
+   "decidedFrom": "certs/easota-ledger.json",
+   "page": "/reports/easota.html",
+   "recordedOn": "2026-09-08"
+  },
+  {
+   "id": "ecbench-counts",
+   "claim": "the exceedance counts printed for the environmental-contour benchmark's 150 contours",
+   "claimant": "the benchmark's contributing teams (Haselsteiner et al., Ocean Eng. 2021)",
+   "source": "the benchmark repository, pinned by commit",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "174 of 176 printed counts agree with the exact count (173 exactly), 2 do not; 30 contours are not simple curves",
+   "kind": "not-from-the-published-data",
+   "kinds": {
+    "none": 174,
+    "not-from-the-published-data": 2
+   },
+   "decidedFrom": "certs/ecbench-ledger.json",
+   "page": "/reports/ec-benchmark.html",
+   "recordedOn": "2026-09-15"
+  },
+  {
+   "id": "gsm8k-keys",
+   "claim": "the worked solutions of GSM8K's 8,792 test and train keys",
+   "claimant": "GSM8K (Cobbe et al., 2021)",
+   "source": "the dataset, pinned by commit",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "every calculator annotation exact (27,998, two train ones refused); 26 printed prose steps do not hold (2 test, 24 train); equations that are not arithmetic are counted UNREAD, not decided",
+   "kind": "arithmetic-slip",
+   "kinds": {
+    "arithmetic-slip": 26
+   },
+   "decidedFrom": "certs/gsm8k-ledger.json",
+   "page": "/reports/gsm8k-audit.html",
+   "recordedOn": "2026-09-21"
+  },
+  {
+   "id": "metr-horizon",
+   "claim": "the time-horizon coefficients and 50% horizons METR prints for 23 models",
+   "claimant": "METR (Time Horizon 1.1)",
+   "source": "METR's runs and site files, pinned by commit",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "44 of 44 fits certified; the printed coefficients are the rounding of the certified optimum for 22 of 23; the printed 50% horizons lie inside the enclosure for 0 of 23 (an optimiser's tolerance, all inside METR's own bootstrap interval)",
+   "kind": "not-the-optimum",
+   "kinds": {
+    "none": 22,
+    "not-the-optimum": 1
+   },
+   "decidedFrom": "certs/horizon-ledger.json",
+   "page": "/reports/time-horizon.html",
+   "recordedOn": "2026-09-22"
+  },
+  {
+   "id": "ecbench-marginals",
+   "claim": "the 15 Hs marginal fits the benchmark teams printed for buoys A, B and C",
+   "claimant": "the environmental-contour benchmark's contributing teams",
+   "source": "Appendix A of the benchmark paper, pinned by sha256",
+   "origin": "self-initiated",
+   "verdict": "MIXED",
+   "scope": "5 reproduce a certified maximum-likelihood fit; 1 printed as Hs reproduce the certified fit of Tz; 0 stated as maximum likelihood are off its maximum; 3 use another estimator (least squares) and are not decided here; 6 are not decidable at the printed precision",
+   "kind": "wrong-quantity",
+   "kinds": {
+    "none": 5,
+    "wrong-quantity": 1
+   },
+   "decidedFrom": "certs/hseva-ledger.json",
+   "page": "/reports/return-levels.html",
+   "recordedOn": "2026-09-27"
+  },
+  {
+   "id": "design-table-bhaskaran-2023",
+   "claim": "the annual-maximum Hs fits of 20 printed rows for five South Atlantic lease areas",
+   "claimant": "Bhaskaran et al. (Energies 16, 6935, 2023)",
+   "source": "corpus/design-tables/bhaskaran-2023.json (the PDF pinned by sha256 828c27607aee…)",
+   "origin": "self-initiated",
+   "verdict": "NEEDS DATA",
+   "scope": "the fits are to a commercial hindcast nobody outside can re-run; against the nearest cells of the public one they are 19 OFF THE MAXIMUM, 1 OUTSIDE ITS SUPPORT — the distance between two records, not an error",
+   "kind": "data-not-public",
+   "decidedFrom": "certs/design-table-audit.json",
+   "page": "/instruments/return-level-atlas/",
+   "recordedOn": "2026-09-28"
+  },
+  {
+   "id": "navier-stokes-openai-2026",
+   "claim": "finite-time blowup for the 3D Navier–Stokes equations with finite energy (Clay alternatives C and D)",
+   "claimant": "OpenAI (2026-09-08)",
+   "source": "github.com/openai/NavierStokesAndEuler @ 8937a8f4 and the paper, pinned by sha256",
+   "origin": "self-initiated",
+   "verdict": "PARTIAL",
+   "scope": "the Lean certificate holds for Clay's (C) and (D) — 2,486 modules built here, only the standard axioms, Comparator on both — and the finite-energy clause the paper's Theorem 1.1 states is not in the formal statement",
+   "kind": "clause-missing-from-formal-statement",
+   "decidedFrom": "corpus/navier-stokes/audit.json",
+   "page": "/reports/navier-stokes.html",
+   "recordedOn": "2026-09-09"
   }
  ],
- "count": 19,
- "decided": 18,
+ "count": 55,
+ "decided": 54,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 15,
-  "PARTIAL": 1,
+  "CERTIFIED": 41,
+  "PARTIAL": 2,
   "REFUTED": 1,
   "QUEUED": 1,
-  "MIXED": 1
+  "MIXED": 5,
+  "REPAIRED": 4,
+  "NEEDS DATA": 1
  },
  "byOrigin": {
-  "self-initiated": 19
+  "self-initiated": 55
+ },
+ "kindsDefined": {
+  "none": "the claim holds as printed",
+  "narrower-scope": "decided only in a narrower scope than printed; the rest is out of reach, not wrong",
+  "float-printed-as-exact": "a floating-point result printed as the exact quantity",
+  "sign-slip": "a sign wrong in a printed constant",
+  "arithmetic-slip": "a printed arithmetic step that does not hold",
+  "tolerance-witness": "a witness only within a numerical tolerance; the printed value is the tolerance's",
+  "not-the-optimum": "printed as an optimum, but not the one the definition names (a stop short of it, or a local one)",
+  "wrong-quantity": "the printed number is a correct answer to a different question",
+  "not-from-the-published-data": "the printed number is not what the published data give, and the arithmetic is not why",
+  "outside-support": "the printed model gives observed data zero density",
+  "clause-missing-from-formal-statement": "a clause the prose claims is absent from the formal statement that is proved",
+  "data-not-public": "the data behind the claim are not public, so no one outside can decide it"
+ },
+ "byKind": {
+  "none": 42,
+  "narrower-scope": 1,
+  "float-printed-as-exact": 1,
+  "sign-slip": 1,
+  "tolerance-witness": 4,
+  "not-from-the-published-data": 1,
+  "arithmetic-slip": 1,
+  "not-the-optimum": 1,
+  "wrong-quantity": 1,
+  "data-not-public": 1,
+  "clause-missing-from-formal-statement": 1
+ },
+ "byMonth": {
+  "2026-08": 18,
+  "2026-09": 37
  },
  "submitted": 0,
  "meta": {
-  "date": "2026-09-16",
-  "git": "4ba347a"
+  "date": "2026-09-29",
+  "git": "c56ab5f"
  }
 }

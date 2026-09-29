@@ -30,7 +30,7 @@ for (const r of R.rows) if (!r.decidedFrom) die('a row names no record: ' + r.id
 
 const GH = 'https://github.com/carlostoledo1891/cert-machine';
 const NEW = GH + '/issues/new?template=claim.yml';
-const tagOf = (v) => v === 'CERTIFIED' ? 'held' : (v === 'REFUTED' ? 'cert' : (v === 'NEEDS DATA' || v === 'QUEUED' ? 'open' : 'dep'));
+const tagOf = (v) => v === 'CERTIFIED' ? 'held' : (v === 'REFUTED' || v === 'REPAIRED' ? 'cert' : (v === 'NEEDS DATA' || v === 'QUEUED' ? 'open' : 'dep'));
 
 const B = [];
 
@@ -57,7 +57,9 @@ B.push(C.tldr({
     + 'other, and not evidence either way. The other labels in the ledger are COMPOSITIONS of those three, not '
     + 'extra verdicts: PARTIAL is a certified fragment beside a refused core, and names which is which; '
     + 'NEEDS DATA is a refusal whose reason belongs to the claimant (the bytes were never published); MIXED is '
-    + 'an aggregate row whose record holds both a certification and a refutation.',
+    + 'an aggregate row whose record holds both a certification and a refutation; REPAIRED is a refutation of '
+    + 'the object as printed beside a certification of the object next to it. Every row also names what went '
+    + 'wrong, from one closed vocabulary — and for most rows that is nothing.',
   checkRaw: 'Submit through <a href="' + NEW + '">the claim form</a>. Everything decided is on this page, '
     + 'and every verdict links to the record it came from.'
 }));
@@ -116,13 +118,14 @@ B.push(C.section({
     { raw: C.esc(r.claimant || '—') },
     { raw: C.tag(r.verdict, tagOf(r.verdict)) },
     { raw: C.esc(r.scope || '—') },
+    { raw: r.kind === 'none' ? C.esc('—') : '<span title="' + C.escAttr(R.kindsDefined[r.kind]) + '">' + C.esc(r.kind.replace(/-/g, ' ')) + '</span>' },
     { raw: '<a href="' + C.escAttr(r.page) + '">' + C.esc('the record') + '</a>' }
   ]);
   B.push(C.section({
     lab: '§3 · the ledger', title: 'Every claim decided, and by what', wide: true,
     bodyRaw: [
       C.table({
-        cols: [{ h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }, { h: 'what was actually decided' }, { h: 'where' }],
+        cols: [{ h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }, { h: 'what was actually decided' }, { h: 'what went wrong' }, { h: 'where' }],
         rows
       }),
       '<div class="col">' + C.pRaw('The scope column is the load-bearing one. "CERTIFIED" without it says '

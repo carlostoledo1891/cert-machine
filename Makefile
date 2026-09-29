@@ -180,6 +180,7 @@ reports:
 	@$(NODE) tools/build-report-envs.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
+	@$(NODE) tools/build-report-monthly.js
 	@$(NODE) tools/build-paper-grading.js
 	@$(NODE) tools/run-gym-record.js
 	@$(NODE) tools/build-report-gym.js
