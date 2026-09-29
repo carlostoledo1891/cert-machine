@@ -15,15 +15,30 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-28, handed off to a new session: THE RETURN-LEVEL ATLAS LIVE AS A VIEWPORT AND A RESEARCH TOOL; THE OPERATOR FUNDS "BUILD IT ALL" — PHASE A IS DUE LIVE BEFORE 2026-09-30, a meeting with the contact's lab; start at 0b A0; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-28, the twenty-third session: PHASE A1–A9 LIVE — the report's 3-hourly block in the atlas; the GEV as a seventh family; the sampling width drawn apart as statistical; one reviewed re-run, nothing lost; A10 bring-your-own-site built and tested, shipping next; the meeting with the contact's lab is 2026-09-30; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I would take it:
+THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I would take it:
 
-  0. THE RETURN-LEVEL ATLAS IS LIVE — /instruments/return-level-atlas/ (the
+  0. PHASE A1–A9 ARE LIVE (the twenty-third session below): 7416b79 the
+     report's 3-hourly block in the atlas; 3385237 the GEV as a seventh family,
+     the statistical layer, the underflow enclosed, both ledgers re-run after
+     two reviews (nothing lost: all 46,602 of the atlas's six-family fits and
+     402 of the report's byte-identical); then the serve commit. The GEV is
+     certified at 7,765 of 7,767 atlas cell-blocks and on 67 of 67 report
+     series; Anderson–Darling among seven names it at 1,489 cell-blocks and 16
+     series (on the Brazilian margin's block maxima with ξ certified below zero:
+     a finite upper end none of the six can have); at all 45 Fréchet-corner
+     cell-blocks it is certified with ξ > 0 and the lowest A², the choice there
+     still refused (the proof that the exp. Weibull's supremum is that Fréchet
+     limit is the next one). Statistical, drawn apart: the decided family's
+     100-year interval is 7% / 12% / 17% of the level at the median cell
+     (daily / weekly / monthly); the extremal index of the daily maxima 0.16
+     (the Arabian Sea) to 0.68, median 0.44.
+  0'. THE RETURN-LEVEL ATLAS IS LIVE — /instruments/return-level-atlas/ (the
      twenty-second session below, sections 1–10; commits 628072d the atlas,
      3a8a166 served, 9009038 the key, fc3277d the viewport, 7be88e9 layer 1).
      corpus/ww3-grid (3,268 nodes: 2,589 open sea, 679 the hindcast's own
@@ -95,6 +110,13 @@ THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I w
            line saying whose record it is; the two ice nodes (Drake, the high
            southern latitudes) show that column alone under their ice note.
            tools/drive-atlas.js checks both (13/13 locally and live).
+       A2–A9. DONE 2026-09-28 (the twenty-third session; 3385237 + the serve
+           commit): what each became is in that session's log below. Two
+           departures from the plan, both on review: the GEV's fit is its
+           REGULAR local maximum (its likelihood has no global one), and the
+           delta interval on a level is taken on ln q (the symmetric one went
+           below zero). The quantile's gradient is by central differences, not
+           ad2.js (the generalized gamma's P⁻¹ has no closed-form derivative).
        A2. [N2] THE GEV FAMILY (≈6–8 h): families.js `gev` (μ, σ, ξ); ξ → 0 as
            an ordinary point (a series in ξ, as Prentice's Q = 0); the support
            1 + ξ(x − μ)/σ > 0 enforced; refusal where the maximum is not
@@ -130,7 +152,11 @@ THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I w
            design-life sentence; the method tab's words.
        A9. SHIP (≈2 h): make site, the gates, make test, drive-atlas locally
            and live, the serve flow, push, HANDOFF.
-       A10. [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
+       A10. BUILT AND TESTED 2026-09-28, NOT YET SHIPPED at the A9 commit: the
+           patch is ready (the session's scratch a10/patch-site.py, applied
+           and driven in an isolated tree: drive-atlas 21/21 with a ten-year
+           Santos record as the reader's file, the return-level check 4/4 with
+           its rule moved). [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
            else first after): move the return-level check's parse rule out of
            playground/return-level-check/app.js into one module both pages
            load; in the atlas a dropped file → daily maxima by THE block rule →
@@ -169,7 +195,19 @@ THE MENU, as of 2026-09-28 (the twenty-second session, closed). In the order I w
      certification at ξ ≈ 0 and at the support edge (A6 exists for it); if A7
      slips past the evening of 2026-09-29, the meeting demos what is live.
 
-  0c. THINGS LEARNED: (vi) a runaway parameter can be a coordinate artefact —
+  0c. THINGS LEARNED: (xi) zsh's BG_NICE puts every `cmd &` at nice 5 — the
+     "efficiency cores at nice 5" of (i) below; `setopt NO_BG_NICE` before the
+     `&` (checked: the job then starts at nice 0). It did not decide this run's
+     pace: a nice-5 loop still took a fast core when one was free. (xii) THE
+     MACHINE IS A FANLESS M2 ON A 30 W ADAPTER: charging from 20% under an
+     8-core load, the seven workers got about half a core each with the idle
+     counter at 50%, and the atlas took 16,662 s (about 1 h 40 of it paused).
+     Run the re-run charged, lid open, on a larger adapter if there is one.
+     A run on battery must be guarded: the session's battery-guard.sh
+     SIGSTOPs the runner and its workers at 20% and SIGCONTs them on AC (it
+     fired twice). A stopped run loses nothing; a dead machine loses the whole
+     run, because the parent holds every finished unit in memory until the end.
+     (vi) a runaway parameter can be a coordinate artefact —
      look for the coordinates in which the limit is an ordinary point
      (Prentice's for the GG; θ = λ^k, β = θ ln α for the EW); (vii) under sea
      ice WAVEWATCH III writes Hs ≈ 0.002 m, not the fill value and not 0 — read
@@ -814,6 +852,152 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-THIRD SESSION, 2026-09-28 — PHASE A: THE REPORT'S 3-HOURLY BLOCK IN
+  THE ATLAS (A1); THE GEV AS A SEVENTH FAMILY, LABELLED STATISTICAL INTERVALS,
+  THE EXTREMAL INDEX, THE UNDERFLOW ENCLOSED (A2–A5); TWO REVIEWS (A6); ONE
+  RE-RUN (A7); THE PAGE (A8); SHIPPED (A9). COMMITTED · PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Read HANDOFF.md's task menu and start Phase A at A0.
+    Phase A has to be live before my UFSC meeting on Wednesday 2026-09-30. Do
+    A1 first and ship it on its own, then A2–A9 as one reviewed re-run, then
+    A10 if there's time."
+
+  ── A1 · SHIPPED ALONE (7416b79) ── see the menu's A1.
+
+  ── A2 · THE GEV (families.js gev, fit.js certifyGEV) ── F = exp(−(1 + ξz)^(−1/ξ))
+    written with y = z·L(ξz), L(u) = ln(1 + u)/u, so ln f = −ln σ − (1 + ξ)y − e^(−y)
+    and ξ = 0 is an ordinary point (nothing divided by ξ), as Prentice's Q = 0 is
+    for the generalized gamma. L = ∫₀¹ dt/(1 + ut): L ↓, L′ ↑, L″ ↓ on u > −1, so
+    an interval of u is enclosed by its two ends; at an end the series for
+    |u| ≤ 1/20 with three proved tails, the closed forms beyond. The quantile
+    μ + σ v E(ξv), E(w) = (eʷ − 1)/w, the same way. Score and Hessian by ad2.js.
+    THE GEV'S LIKELIHOOD HAS NO GLOBAL MAXIMUM (below ξ = −1 it is unbounded as
+    the upper end reaches the largest datum): its fit is the certified maximum in
+    the region where the estimator is regular, ξ > −0.5 (Smith 1985); a box
+    reaching −0.5 is refused; a climb past −0.5 stops.
+
+  ── A3 · THE SEVENTH LAYER ── atlas.js: per block `gev` (a fit record + x, its ξ
+    enclosed) and `seven` (Anderson–Darling among the six and the GEV, the rank
+    rule UNCHANGED — a family refused other than at its proved edge blocks it, so
+    the GEV decides only where the six are decided or tied); `fits`, `rank`,
+    `naive` untouched, the paper's claims untouched. run-hseva-ledger.js the same
+    (B.gev, B.seven). The report's §7.
+
+  ── A4 · STATISTICAL, LABELLED ── fit.js deltaLevel/deltaParam: the delta method
+    from the observed information at the float candidate, in the certificate's
+    coordinates; a level's interval on ln q (positive; the symmetric one went to
+    −11 m on a heavy monthly tail), ξ's symmetric; −H tested positive definite
+    by Cholesky; the difference step as realized. atlas.js extremalIndex: the
+    runs estimator (u the ⌈0.95n⌉-th day, a new storm after 3 quiet days). All of
+    it in a separate `stat` section (the atlas ledger's top level; the report
+    ledger's B.stat), never inside a record. In the tab: the band on the
+    return-level plot and the design-life interval (the worker, for the decided
+    family and the GEV), and the PROFILE LIKELIHOOD of the decided family's
+    100-year wave on demand (worker.js profile: one parameter eliminated per
+    family so the level is the coordinate, Nelder–Mead over the rest, the 3.84
+    crossing bisected). Drawn apart from the certified ink: screened cells, dashed
+    lines, dash-underlined numbers (.w-computed).
+
+  ── A5 · THE UNDERFLOW ── fit.js expIv: below x = −744 the interval exp is
+    [0, 2⁻¹⁰⁷³] (e^(−744) < 2⁻¹⁰⁷³.³; the plan's 2⁻¹⁰⁷⁴ would not enclose it),
+    an interval starting there [0, its upper end]; the LIFTED transcendental.js
+    untouched (it is sin-mfg's, and other instruments use it). The Stacy λ and
+    the exp.-Weibull α and λ boxes still null on an underflow (an enclosure
+    reaching 0 says nothing of a positive parameter).
+
+  ── A6 · TWO REVIEWS (independent, read-only, as on 2026-09-27/28) ──
+    THE MATH: no soundness defect — 2,424 thin and 13,530 interval checks of
+    L, L′, L″ against mpmath at 60–80 digits, 532 + 2,266 of E(w), the log-
+    likelihood/score/Hessian at 13 points and over 11 boxes, cdf/sf/quantile at
+    386, expIv at 217 inputs: zero failures; the mpmath MLE inside every
+    certified GEV box (13 synthetic samples, the Arabian Sea daily and monthly);
+    the paper's six fields byte-identical on the cells and units re-derived.
+    Its findings, all fixed: (1) the GEV's likelihood is unbounded below ξ = −1,
+    so "the search's claim" is false for it — the fit is now stated as the
+    regular local maximum (fit.js, families.js header, the ledgers' conventions,
+    the page and the report say so); (2) nothing re-checked `seven` — the
+    battery now re-decides it from the recorded enclosures in both ledgers;
+    (3) the exp.-Weibull α unguarded against an enclosed underflow — guarded;
+    (4) a difference step below an ulp would zero a gradient — divided by the
+    realized step; (5) covariance() tested diag(Σ) > 0, not definiteness —
+    Cholesky now, with a red control (an indefinite −H gives no interval);
+    (6) the float sf's small-t branch took a midpoint — floats take expm1 (GEV,
+    Gumbel, both exp.-Weibull forms); (7) small words.
+    THE LEDGER AND THE PAGE: nothing breaks the build. Fixed: the delta
+    interval on a level went below zero on a heavy tail (16_64 monthly:
+    [−11.47, 150.3] m) — now on ln q; `seven` can decide only where the six are
+    decided or tied (the rule unchanged) — now said everywhere it is shown; the
+    GEV's runaway levels where it wins (the Arabian Sea: 1,278 m 3-hourly, 350 m
+    daily) — said against the record wherever shown; the report ledger kept a
+    statistical interval inside a certified record (B.gev.xiStat) — moved to
+    B.stat.gevXi; the battery now checks `seven` at the report nodes against
+    the atlas, the `stat` section's form, and the GEV's interval score and
+    Hessian over boxes straddling ξ = 0; the tab's comparison with the ledger
+    covers `seven` and the GEV's state; stale "six families" words; the
+    runner's dead code; "no certified result lost" made a check (below).
+
+  ── A7 · THE RE-RUN ── certs/hseva-ledger.json in 457 s; certs/hseva-atlas.json
+    in 16,662 s wall (on a power-limited Mac, about 1 h 40 of it paused on battery
+    — see 0c (xii)). NOTHING LOST, checked against the committed ledgers: all
+    46,602 six-family atlas fits and all 402 report fits byte-identical, 0 of
+    40,778 and 0 of 353 certified fits lost, `rank` and `naive` identical, the
+    printed, scipy and findings sections identical. The atlas: the GEV certified
+    at 7,765 of 7,767 cell-blocks (2 refused at ξ ≤ −0.5), ξ certified above zero
+    at 2,840 and below at 4,925; among seven: the GEV 1,489, one of the six
+    6,193, refused 85; the GEV displaces the six's choice at 1,488 and decides a
+    tie among them at 1; at the 45 Fréchet-corner cell-blocks, certified with
+    ξ > 0 and the lowest A² at all 45, the choice refused at all 45 (the
+    exp. Weibull's refusal blocks it). Where the GEV wins it runs as far as the
+    six: 397 m daily against a 5.2 m record at 12° N 52° E. Statistical: the
+    decided family's 100-year interval 7% / 12% / 17% of the level at the median
+    cell (daily / weekly / monthly), wider than 40% at 144 monthly cells; ξ's
+    interval above zero at 2,048, below at 3,591, holding zero at 2,126; the
+    extremal index 0.16 (15° N 62° E) to 0.68 (32° S 52° W), median 0.44. The
+    report ledger: the GEV certified on 67 of 67 series, chosen among seven on
+    16 (on the Brazilian margin with ξ < 0 at Campos monthly, Santos weekly,
+    Espírito Santo daily/weekly/monthly, Potiguar daily/weekly; and on three
+    unfiltered series — buoy A 43 m, Pelotas 12.8 m, the Arabian Sea 1,278 m —
+    a fit to the bulk read in the tail); A's and C's annual choice still
+    refused, the GEV there ξ = 0.257 and 0.311.
+
+  ── A8 · THE PAGE ── three views: "a seventh family" (Anderson–Darling among
+    seven: the GEV in ink, one of the six quiet, refused hatched; the tooltip
+    gives the GEV's ξ and its 100-year wave against the record), "the GEV's
+    tail" (the certified ξ on a five-step ramp, a DASHED outline where its 95%
+    interval — statistical — holds 0: the Gumbel not ruled out), "uncertainty"
+    (the decided family's 100- or 1000-year interval ÷ the level, SCREENED: the
+    ramp's colour with a thin gap every fourth row, never a solid fill). The cell's table gains
+    "among 7", "GEV ξ" and "100-yr 95%" (dash-underlined, .w-computed); the
+    report node's 3-hourly column carries the report ledger's seventh family and
+    interval too; the extremal index said in words (storms of 1/θ days above the
+    95th percentile). After certifying: the design-life sentence carries its
+    statistical interval and the storms; the return-level plot draws the GEV a
+    step lighter and the decided family's band as two DASHED edges; the full
+    table gains the GEV row and "among the seven"; a button runs the PROFILE
+    LIKELIHOOD of the decided family's 100-year wave in its own worker. The
+    method tab: "A seventh family" and "Statistical, not certified", every
+    number counted from the ledger at build.
+
+  ── A9 · GATES AND THE SERVE FLOW ── the hseva battery 1,678 checks, 20/20 reds;
+    the report rebuilt (its §7: the GEV beside the six and the width a certificate
+    does not give, a compact table keyed under it; "who certifies" is §8 now);
+    commit 3385237 (code, ledgers, report, page) pushed; corpus/ww3-grid/
+    SERVED.json names it; make site 92/92. Two gates spoke and were answered:
+    check-wiring — a page drawing the grammar's marks (the atlas's dash-underlined
+    statistical numbers) must print its legend: the method tab now prints
+    warrant.js legendHtml (decided · computed · refused); check-measure — the
+    report's new table adds two column spines at 1440 and at 390 one more table
+    scrolling inside its own box, as every table there does: recorded with
+    --accept-worse, after the table was narrowed from four clipped widths to
+    that one. Style, render and dash gates pass (433 conforming dashes, +2: the
+    band's CLAIM). tools/drive-atlas.js 19/19 locally over the served commit.
+
+
+  ── THINGS LEARNED ── the menu's 0c (xi) and (xii): zsh's BG_NICE; a fanless M2 on a 30 W
+    adapter, and a battery guard for long runs.
 
 ══════════════════════════════════════════════════════════════════════════
   TWENTY-SECOND SESSION, 2026-09-27/28 — THE RETURN-LEVEL ATLAS, AND THE

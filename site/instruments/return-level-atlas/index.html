@@ -558,10 +558,14 @@ html, body { height: 100%; overflow: hidden; }
 .ra-sw { display: inline-block; width: 14px; height: 14px; border-radius: 2px; background: var(--sw); border: 1px solid var(--rule-strong); }
 .ra-sw.hatch { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); }
 .ra-sw.ice { background: radial-gradient(circle, var(--ink-5) 1px, var(--sunk) 1.5px); background-size: 4px 4px; }
+/* STATISTICAL marks: the ramp's colour screened by a thin gap every fourth row, an outline dashed — never a solid fill */
+.ra-sw.dash { background: var(--sunk); border: 1px dashed var(--ink); }
+.ra-ramp i.st { background: repeating-linear-gradient(180deg, var(--sw) 0 3px, var(--sunk) 3px 4px); }
 .ra-ramp { display: flex; align-items: flex-start; margin-right: var(--s-3); }
 .ra-ramp i { display: block; width: 66px; height: 10px; background: var(--sw); }
 .ra-ramp span { display: block; width: 66px; font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); margin-top: var(--s-1); white-space: nowrap; }
 .ra-rampcol { display: flex; flex-direction: column; }
+.ra-ramp.wide i, .ra-ramp.wide span { width: 6.4rem; }            /* the GEV's ξ: labels of a range each */
 
 .ra-tip { position: absolute; z-index: 3; display: none; pointer-events: none; max-width: 320px; background: var(--surface2); border: 1px solid var(--rule-strong); border-radius: var(--radius-s); padding: var(--s-2) var(--s-3); font-size: var(--text-small); color: var(--ink); box-shadow: var(--shadow); }
 .ra-tip .n { color: var(--ink-3); }
@@ -778,7 +782,7 @@ html, body { height: 100%; overflow: hidden; }
   <header class="ra-head">
     <div class="ra-eyebrow">instruments &middot; return-level atlas</div>
     <div class="ra-titlerow"><h1>Every cell a certificate.</h1><button type="button" class="ra-close" id="ra-close" aria-controls="ra-panel" aria-expanded="true">hide</button></div>
-    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the 2,589 open-sea cells of the paper's own hindcast certified, and its regional claims decided: 6 hold, 2 do not, 2 the refusals leave open.</p>
+    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the 2,589 open-sea cells of the paper's own hindcast certified, and its regional claims decided: 6 hold, 2 do not, 2 the refusals leave open. Beside the six, a seventh family &mdash; the GEV &mdash; and, drawn apart as statistical, the width another 32 years of the same sea could give each number.</p>
   </header>
   <div class="ra-tabs" role="tablist" aria-label="the panel">
     <button type="button" role="tab" id="ra-t-claims" aria-controls="ra-p-claims" aria-selected="true" tabindex="0">claims &middot; 10</button>
@@ -801,10 +805,13 @@ html, body { height: 100%; overflow: hidden; }
     <section class="ra-pane ra-prose" id="ra-p-method" role="tabpanel" aria-labelledby="ra-t-method" hidden>
       <h2>What is certified, and what is not</h2>
       <p>At every cell and block, each family's fit is a box the Krawczyk operator proves holds exactly one zero of the score, with the Hessian proved negative definite over it &mdash; the likelihood's one maximum there &mdash; or it is refused with the reason: the generalized gamma is left out only where its likelihood is proved to peak at its lognormal limit beside the lognormal fit; any other refusal blocks the choice. The four criteria and the levels are enclosures over the box; a family is chosen only where its enclosure lies wholly below every other's. That no better maximum lies elsewhere in a family is the search's claim, as it is any optimiser's. Not certified: that a family is the true law of the sea, the sampling width of a 100-year level, or the model's own error against the sea it simulates. A cell certified in your tab also draws its return-level plot from the same certificates: each family's quantile over return periods from two blocks to 10,000 years, every point an enclosure narrower than the line, beside the block maxima and the record.</p>
-      <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own (certs/hseva-ledger.json of 2026-09-28, sha256 <span class="mono">f8eb56d5f241</span>). Land: Natural Earth 1:50m, public domain.</p>
+      <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own (certs/hseva-ledger.json of 2026-09-28, sha256 <span class="mono">a6971779e880</span>). Land: Natural Earth 1:50m, public domain.</p>
+      <h2>A seventh family</h2><p>The paper's six hold one extreme-value law, the Gumbel, and it is the &xi; = 0 member of the generalized extreme value law (GEV), the limit law of block maxima. Here the GEV joins the six at every cell and block &mdash; written so that &xi; = 0 is an ordinary point, as Prentice's Q = 0 is for the generalized gamma, and refused where its box reaches &xi; = &minus;0.5, where the maximum is no longer regular (Smith 1985) &mdash; and never ranked among them: the claims and the six-family views are the paper's. It is certified at 7,765 cell-blocks, refused at &xi; &le; &minus;0.5 at 2; its &xi; is certified above 0 (a Fr&eacute;chet-type tail, heavier than any exponential) at 2,840 and below 0 (a finite upper end) at 4,925. Anderson&ndash;Darling's choice among the seven (the seventh-family view) follows the paper's rank rule unchanged &mdash; a family refused other than at its proved edge blocks it, so the GEV can decide only where the six are decided or tied &mdash; and names the GEV at 1,489 cell-blocks and one of the six at 6,193; at 1,488 the GEV displaces the family the six decided, and at 1 it decides a tie among them. Where it wins it can run as far from the sea as the six do: at 12&deg; N 52&deg; E (daily maxima, the Arabian Sea's two-mode monsoon climate) its 100-year wave is 397.2 m against a record of 5.23 m. At the 45 cell-blocks where the exponentiated Weibull runs toward k &rarr; 0 &mdash; its Fr&eacute;chet corner: a Gumbel law of ln H<sub>s</sub> is a Fr&eacute;chet law &mdash; the GEV is certified at 45, its &xi; positive at 45 and its A&sup2; below every certified family's at 45: the tail the corner points to. The choice among seven stays REFUSED there, because the exponentiated Weibull's supremum is not yet proved to be that Fr&eacute;chet limit itself &mdash; the generalized gamma's lognormal limit is decided that way, and this is the next proof.</p>
+      <h2>Statistical, not certified</h2><p>A certificate says what a fit IS on these 32 years. It does not say how far another 32 years of the same sea could move it: that is a statement of another kind, and it is drawn apart &mdash; screened cells, dashed lines and <span class="w-val w-computed">dash-underlined</span> numbers are STATISTICAL, asserted and not decided (design/grammar.js). The uncertainty view, the cell's intervals and the band on its return-level plot are the delta method's 95% intervals, taken on the log of the level so they stay positive: the observed information at the fitted point in the certificate's own coordinates, the level's gradient by central differences &mdash; asymptotic, with the blocks taken as independent and the family as right. A cell certified in your tab can also profile the likelihood of its 100-year wave, an interval that need not be symmetric. The decided family's 100-year wave carries an interval 7% of its level wide at the median cell (daily maxima), 12% (weekly), 17% (monthly); at 144 monthly cells it is wider than 40% of the level. The GEV's &xi;: its 95% interval lies above 0 at 2,048 cell-blocks, below it at 3,591, and holds 0 &mdash; the Gumbel not ruled out &mdash; at 2,126 (dashed outlines in the tail view). Daily maxima come in storms: the runs estimator of the extremal index (days above the series' 95th percentile, a new storm after 3 quiet days) runs from 0.16 (15&deg; N 62&deg; E) to 0.68 (32&deg; S 52&deg; W), median 0.44 over 2,589 cells &mdash; so the design-life level's "successive maxima independent" counts more independent chances than the sea gives.</p>
+      <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
       <h2>What this opens</h2>
-      <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 64e15fac4483 &middot; <span class="mono">playground/return-level-atlas/worker.js</span> a847c20130f3 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 74d45794767a &middot; <span class="mono">instruments/hseva/fit.js</span> da704cc844a0 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 36233968b8fe &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">628072d7b237</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/628072d7b237b29a8c37d6734862e4433bb53ecd/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: there the seventh family below, the GEV, finds a Fr&eacute;chet tail; the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016) &mdash; the exponentiated Weibull&rsquo;s own construction, a power of a distribution function, on a Pareto base &mdash; is the other candidate. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 76b976b87ebb &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 1a1709e76745 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 027a859c72d7 &middot; <span class="mono">instruments/hseva/fit.js</span> b6b67a513590 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">33852376c32b</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/33852376c32b07d191e387df7872bfe2899412de/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
       <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js</p>
       <p class="n">nothing here is gated · every number came out of the record beside the page</p>
     </section>
@@ -813,7 +820,7 @@ html, body { height: 100%; overflow: hidden; }
 </main>
 
 
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"64e15fac4483712d05edd254f9b4a21f9f13967769070ea2e7bcf01aa8915c5e","playground/return-level-atlas/worker.js":"a847c20130f3b9c31045222f6354a0183ec1bb55a0655389fdf3973a5defedb8","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"74d45794767aff79b8672a431e35cd5c98b48fcb70d1a4c4c93c9284823cff5f","instruments/hseva/fit.js":"da704cc844a008bb4d953e88acf035d28d6402c60339e0979dad3bdaa99b9197","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"36233968b8fe298a270a70538f8c9b968dbbdf591fbaac38bef2fea4baabe5b2","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/628072d7b237b29a8c37d6734862e4433bb53ecd/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"76b976b87ebbec92b00e22e0d8efc4b05d0085a8f3219669200b7a5ba6f9ae01","playground/return-level-atlas/worker.js":"1a1709e76745e5b0ed28f5ef1fb18c7032e0f1513c819a21f1fec0e936451ce8","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49","instruments/hseva/fit.js":"b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/33852376c32b07d191e387df7872bfe2899412de/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -1920,13 +1927,17 @@ if (typeof module !== 'undefined') module.exports = { makeAD };
    ops sees it. The sums are re-done per call; nothing is cached across boxes.
 
    The families and their likelihoods [STANDARD] — the six of the Ocean
-   Engineering 2026 paper, and two more:
+   Engineering 2026 paper, a seventh beside them, and two more:
      normal(μ, σ), lognormal(μ, σ on ln x),
      weibull(k, λ): F = 1 − exp(−(x/λ)^k),
      expweibull(α, k, λ): F = (1 − exp(−(x/λ)^k))^α  (Mudholkar & Srivastava 1993),
      gengamma(α, c, λ): F = P(α, (x/λ)^c), the regularized incomplete gamma
        (Stacy 1962; the paper's (a, d, p) are (λ, cα, c); scipy's gengamma(a, c)),
      gumbel(μ, β): F = exp(−exp(−(x − μ)/β));
+     gev(μ, σ, ξ): F = exp(−(1 + ξ(x − μ)/σ)^(−1/ξ)), the generalized extreme value law
+       (Jenkinson 1955), of which the Gumbel is ξ = 0 — a SEVENTH family, never ranked
+       among the paper's six; its likelihood has no global maximum (below ξ = −1 it is
+       unbounded at the support's upper end), so its fit is the regular local maximum;
      exponential(λ) — a known-answer anchor for the battery, not the paper's;
      lognormal3(μ, σ, γ): the lognormal of x − γ, whose likelihood is unbounded
        as γ → min x (Hill 1963) — here to decide a PRINTED local maximum, never
@@ -2128,6 +2139,7 @@ const FAMILIES = {
     sf: (o, th, x) => {
       const z = o.exp(o.mul(th[1], o.sub(o.log(x), o.log(th[2])))), w = o.exp(o.neg(z));
       const u = o.mul(th[0], w), uu = o.div(u, o.sub(o.c(1), w));
+      if (!o.isInterval) return -Math.expm1(th[0] * Math.log1p(-w));    /* floats: 1 − (1 − w)^α exactly; the hull below would be a midpoint */
       if (o.hi(uu) < 1e-3) return o.hull(o.sub(u, o.mul(o.c(0.5), o.mul(uu, uu))), uu);
       return o.sub(o.c(1), o.exp(o.mul(th[0], o.log(o.sub(o.c(1), w)))));
     },
@@ -2205,6 +2217,7 @@ const FAMILIES = {
     sf: (o, th, x) => {
       const [k, T, be] = th, u = o.exp(o.mul(k, o.log(x))), w = o.div(o.sub(u, be), T), t = o.exp(o.neg(o.div(u, T)));
       const s = o.mul(o.exp(o.neg(w)), FAMILIES.expweibullG.lam(o, t)[0]);
+      if (!o.isInterval) return -Math.expm1(-s);                   /* floats: the hull below would be a midpoint */
       if (o.hi(s) < 1e-3) return o.hull(o.sub(s, o.mul(o.c(0.5), o.mul(s, s))), s);
       return o.sub(o.c(1), o.exp(o.neg(s)));
     },
@@ -2419,8 +2432,116 @@ const FAMILIES = {
     loglik: (o, th, D) => { const S = FAMILIES.gumbel.sums(o, th, D); return o.sub(o.sub(o.neg(o.mul(S.n, o.log(S.b))), S.Sz), S.Se); },
     cdf: (o, th, x) => o.exp(o.neg(o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))))),
     /* 1 − e^{−t} with t = e^{−z}: in [t − t²/2, t] when t is small */
-    sf: (o, th, x) => { const t = o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))); return o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
+    sf: (o, th, x) => { const t = o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))); return !o.isInterval ? -Math.expm1(-t) : o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
     quantile: (o, th, p) => o.sub(th[0], o.mul(th[1], o.log(o.neg(o.log(p))))),
+  },
+  /* The generalized extreme value law (Jenkinson 1955), a SEVENTH family, not the paper's: the limit law of block maxima,
+     of which the paper's Gumbel is the ξ = 0 member (ξ > 0 the Fréchet tail, ξ < 0 a finite upper end):
+       F = exp(−(1 + ξz)^(−1/ξ)),  z = (x − μ)/σ,  on 1 + ξz > 0.
+     Written with y = ln(1 + ξz)/ξ = z·L(ξz), L(u) = ln(1 + u)/u, it is
+       ln f = −ln σ − (1 + ξ) y − e^(−y),   F = exp(−e^(−y)),
+     and ξ = 0 is an ordinary point (L(0) = 1: the Gumbel), as Prentice's Q = 0 is for the generalized gamma: nothing is
+     divided by ξ. L(u) = ∫₀¹ dt/(1 + ut), so on u > −1 it is positive and decreasing, L′ increasing and L″ decreasing:
+     over an interval of u each is enclosed by its values at the two ends. At an end, for |u| ≤ 1/20 the series
+     Σ (−u)ʲ/(j + 1) and its two derivatives with the tails bounded geometrically; beyond it the closed forms, whose
+     cancellation costs at most three digits there. The quantile μ + σ v E(ξv), v = −ln(−ln p), with E(w) = (eʷ − 1)/w
+     (= ∫₀¹ e^(wt) dt, increasing) the same way. The score and Hessian by ad2.js, as for expweibullG. `edge` stops a climb
+     past ξ = −0.5, where the maximum is no longer regular (Smith, Biometrika 72, 1985) — below ξ = −1 the likelihood is
+     unbounded at the support's upper end; fit.js refuses a certified box that reaches ξ = −0.5. */
+  gev: {
+    names: ['mu', 'sigma', 'xi'], signed: ['mu', 'xi'],
+    init: (D) => { const g = FAMILIES.gumbel.init(D); return [g[0], g[1], 0]; },
+    edge: (th) => (th[2] < -0.5 ? 'the climb passed ξ = −0.5, where the maximum is no longer regular (Smith 1985) and below ξ = −1 the likelihood is unbounded at the support\'s upper end' : null),
+    /* L, L′, L″ at a double u > −1 (as ops values; only L when `one`) */
+    Lpt: (o, u0, one) => {
+      const r = Math.abs(u0);
+      if (r <= 0.05) {
+        if (!o.__gevL) {                                            /* the series' coefficients, once per arithmetic */
+          const a0 = [], a1 = [], a2 = [];
+          for (let m = 0; m < 40; m++) {
+            a0.push(o.div(o.c(m % 2 ? -1 : 1), o.c(m + 1)));
+            a1.push(o.div(o.c(m % 2 ? m + 1 : -(m + 1)), o.c(m + 2)));
+            a2.push(o.div(o.c(m % 2 ? -(m + 2) * (m + 1) : (m + 2) * (m + 1)), o.c(m + 3)));
+          }
+          o.__gevL = { a0, a1, a2 };
+        }
+        const C = o.__gevL;
+        let J = 4;
+        const t2 = () => Math.pow(r, J - 2) * ((J - 1) / (1 - r) + r / ((1 - r) * (1 - r)));
+        while (J < 40 && t2() > 1e-24) J++;
+        const U = o.c(u0), hor = (cf, K) => { let v = cf[K - 1]; for (let k = K - 2; k >= 0; k--) v = o.add(cf[k], o.mul(U, v)); return v; };
+        const L0 = o.widen(hor(C.a0, J), o.c(Math.pow(r, J) / ((J + 1) * (1 - r)) * 1.0001));
+        if (one) return [L0];
+        return [L0, o.widen(hor(C.a1, J - 1), o.c(Math.pow(r, J - 1) / (1 - r) * 1.0001)), o.widen(hor(C.a2, J - 2), o.c(t2() * 1.0001))];
+      }
+      const U = o.c(u0), P1 = o.add(o.c(1), U), g = o.log(P1);
+      const L0 = o.div(g, U);
+      if (one) return [L0];
+      const q = o.div(U, P1), U2 = o.mul(U, U);
+      return [L0, o.div(o.sub(q, g), U2), o.div(o.sub(o.sub(o.mul(o.c(2), g), o.mul(o.c(2), q)), o.mul(q, q)), o.mul(U2, U))];
+    },
+    /* over an interval of u: each at the end where it is extreme */
+    L: (o, u, one) => {
+      const P = FAMILIES.gev.Lpt;
+      if (!o.isInterval) return P(o, u, one);
+      const a = u[0], b = u[1];
+      if (!(a > -1)) throw new Error('gev: 1 + ξz reaches 0 at a datum — outside the support');
+      const A = P(o, a, one), B = a === b ? A : P(o, b, one);
+      const out = [[B[0][0], A[0][1]]];                              /* L decreasing */
+      if (!one) out.push([A[1][0], B[1][1]], [B[2][0], A[2][1]]);   /* L′ increasing, L″ decreasing */
+      return out;
+    },
+    /* E(w) = (eʷ − 1)/w at a double, then over an interval (increasing) */
+    Ept: (o, w0) => {
+      const r = Math.abs(w0);
+      if (r <= 0.05) {
+        let J = 3, t = Math.pow(r, J) * Math.exp(r) / 24;
+        while (J < 30 && t > 1e-24) { J++; t = t * r / (J + 1); }
+        const W = o.c(w0); let v = o.c(0), f = o.c(1);
+        const cf = []; for (let j = 0; j < J; j++) { f = o.div(f, o.c(j + 1)); cf.push(f); }   /* 1/(j + 1)! */
+        for (let j = J - 1; j >= 0; j--) v = o.add(cf[j], o.mul(W, v));
+        return o.widen(v, o.c(t * 1.0001 + 1e-300));
+      }
+      const W = o.c(w0);
+      return o.div(o.sub(o.exp(W), o.c(1)), W);
+    },
+    E: (o, w) => (o.isInterval ? [FAMILIES.gev.Ept(o, w[0])[0], FAMILIES.gev.Ept(o, w[1])[1]] : FAMILIES.gev.Ept(o, w)),
+    ad: (o, th, D) => {
+      const A = makeAD(o, 3), P = [A.V(th[0], 0), A.V(th[1], 1), A.V(th[2], 2)];
+      const rs = A.recip(P[1]), onePx = A.add(A.K(1), P[2]);
+      const acc = Array.from({ length: 13 }, () => o.acc());
+      for (let i = 0; i < D.n; i++) {
+        const z = A.mul(A.sub(A.K(D.x[i]), P[0]), rs);
+        const u = A.mul(P[2], z);
+        const [l0, l1, l2] = FAMILIES.gev.L(o, u.v);
+        const y = A.mul(z, A.unary(u, l0, l1, l2));
+        const r = A.add(A.mul(onePx, y), A.exp(A.neg(y)));        /* −ln f − ln σ at the datum */
+        acc[0].add(r.v); for (let a = 0; a < 3; a++) acc[1 + a].add(r.g[a]); for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) acc[4 + 3 * a + b].add(r.H[a][b]);
+      }
+      const n = o.c(D.n), v = acc.map((x) => x.value()), s = th[1];
+      /* ℓ = −n ln σ − Σ r: ∂σ gains −n/σ, ∂σσ gains n/σ² */
+      const ll = o.neg(o.add(o.mul(n, o.log(s)), v[0]));
+      const g = [o.neg(v[1]), o.sub(o.neg(v[2]), o.div(n, s)), o.neg(v[3])];
+      const H = [[o.neg(v[4]), o.neg(v[5]), o.neg(v[6])], [o.neg(v[7]), o.add(o.neg(v[8]), o.div(n, o.mul(s, s))), o.neg(v[9])], [o.neg(v[10]), o.neg(v[11]), o.neg(v[12])]];
+      return { ll, g, H };
+    },
+    score: (o, th, D) => FAMILIES.gev.ad(o, th, D).g,
+    hess: (o, th, D) => FAMILIES.gev.ad(o, th, D).H,
+    loglik: (o, th, D) => {
+      const [mu, s, xi] = th, rs = o.div(o.c(1), s), one = o.add(o.c(1), xi), a = o.acc();
+      for (let i = 0; i < D.n; i++) {
+        const z = o.mul(o.sub(D.x[i], mu), rs), y = o.mul(z, FAMILIES.gev.L(o, o.mul(xi, z), true)[0]);
+        a.add(o.add(o.mul(one, y), o.exp(o.neg(y))));
+      }
+      return o.neg(o.add(o.mul(o.c(D.n), o.log(s)), a.value()));
+    },
+    yOf: (o, th, x) => { const z = o.div(o.sub(x, th[0]), th[1]); return o.mul(z, FAMILIES.gev.L(o, o.mul(th[2], z), true)[0]); },
+    /* in floats a point outside the support has F = 0 below a lower end (ξ > 0) and 1 above an upper end (ξ < 0), for the
+       page's histogram bins; in intervals it throws, as a certificate never evaluates there */
+    cdf: (o, th, x) => (!o.isInterval && !(1 + th[2] * (x - th[0]) / th[1] > 0) ? (th[2] > 0 ? 0 : 1) : o.exp(o.neg(o.exp(o.neg(FAMILIES.gev.yOf(o, th, x)))))),
+    /* 1 − e^{−t} with t = e^{−y}: in [t − t²/2, t] when t is small */
+    sf: (o, th, x) => { const t = o.exp(o.neg(FAMILIES.gev.yOf(o, th, x))); return !o.isInterval ? -Math.expm1(-t) : o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
+    quantile: (o, th, p) => { const v = o.neg(o.log(o.neg(o.log(p)))); return o.add(th[0], o.mul(th[1], o.mul(v, FAMILIES.gev.E(o, o.mul(th[2], v))))); },
   },
   lognormal3: {
     names: ['mu', 'sigma', 'gamma'], signed: ['mu', 'gamma'],
@@ -2545,9 +2666,15 @@ const floatOps = {
   pair: (l, h) => (l + h) / 2, PI: Math.PI, isInterval: false, acc: flAcc,
 };
 const sqrtIv = (a) => { if (!(a[0] >= 0)) throw new Error('sqrt below zero'); return [IV.nextDown(Math.sqrt(a[0])), IV.nextUp(Math.sqrt(a[1]))]; };
+/* exp with its underflow ENCLOSED rather than refused (2026-09-28): the lifted transcendental.js throws once 2^k leaves
+   the doubles (x below about −744.8). Below x = −744, e^x < e^(−744) < 2⁻¹⁰⁷³, so [0, 2⁻¹⁰⁷³] encloses it; an interval
+   that only starts there is [0, the enclosure at its upper end] (exp is increasing). Overflow still throws: a number
+   past the doubles has no enclosure to give. */
+const EXP_FLOOR = -744, TINY2 = 2 * Number.MIN_VALUE;
+const expIv = (a) => (a[1] <= EXP_FLOOR ? [0, TINY2] : a[0] < EXP_FLOOR ? [0, TR.exp(IV.iv(a[1]))[1]] : TR.exp(a));
 const intervalOps = {
   c: (v) => IV.iv(v), add: IV.add, sub: IV.sub, mul: IV.mul, div: IV.div,
-  exp: TR.exp, log: TR.log, neg: IV.neg, abs: IV.abs, sqrt: sqrtIv,
+  exp: expIv, log: TR.log, neg: IV.neg, abs: IV.abs, sqrt: sqrtIv,
   lo: (a) => a[0], hi: (a) => a[1],
   widen: (a, pad) => [IV.nextDown(a[0] - pad[1]), IV.nextUp(a[1] + pad[1])],
   hull: (a, b) => [Math.min(a[0], b[0]), Math.max(a[1], b[1])],
@@ -2784,6 +2911,7 @@ function certifyAny(famName, xs, opts) {
   opts = opts || {};
   if (famName === 'gengamma') return certifyGG(xs, opts);
   if (famName === 'expweibull' && !opts.start) return certifyEW(xs, opts);
+  if (famName === 'gev') return certifyGEV(xs, opts);
   const fam = Object.assign({ name: famName }, FAMILIES[famName]);
   const { Df, Di } = opts.prepared || prepare(xs);
   const cand = newton(fam, Df, opts.maxIter, opts.start);
@@ -2810,6 +2938,23 @@ function certifyAtInner(fam, th0, Df, Di, opts, iters) {
   const SO = secondOrder(fam, K.box, th0, A, Di);
   if (!SO.ok) return { ok: false, family: famName, edge: false, why: 'the box holds one zero of the score, but the Hessian is not proved negative definite over it' + (SO.minors ? ' (leading minors of −H: ' + SO.minors.map((m) => '[' + m[0].toPrecision(3) + ', ' + m[1].toPrecision(3) + ']').join(', ') + ')' : '') + ': not proved a maximum', theta: th0, n: Df.n, newtonIters: iters };
   return { ok: true, family: famName, names: fam.names, theta: th0, box: K.box, maxRad: K.maxRad, secondOrder: SO.how, minors: SO.minors, rounds: K.rounds, n: Df.n, newtonIters: iters, fam, Di, Df };
+}
+
+/* ---- the generalized extreme value law: a certified maximum, and a regular one ----
+   The climb and the certificate are the generic ones (families.js gev: ξ = 0 an ordinary point). THE GEV'S LIKELIHOOD HAS
+   NO GLOBAL MAXIMUM on any sample: below ξ = −1 it grows without bound as the support's upper end reaches the largest
+   datum (Smith, Biometrika 72, 1985). So its fit here is not "the maximum, with none better elsewhere in the family" (the
+   search's claim for the six) but the maximum in the region where the estimator is regular, ξ > −0.5 — the estimator the
+   extreme-value literature means by the GEV's MLE. A certificate is kept only where the whole box lies at ξ > −0.5; a box
+   there or straddling −0.5 is refused, as a climb that passes −0.5 is. */
+function certifyGEV(xs, opts) {
+  const fam = Object.assign({ name: 'gev' }, FAMILIES.gev);
+  const { Df, Di } = opts.prepared || prepare(xs);
+  const cand = newton(fam, Df, opts.maxIter, opts.start);
+  if (!cand.ok) return { ok: false, family: 'gev', edge: false, stoppedAtBoundary: !!cand.edge, why: cand.edge ? cand.why + ': no regular maximum found' : 'no candidate: ' + cand.why, theta: cand.theta || null, n: Df.n };
+  const c = certifyAt(fam, cand.theta, Df, Di, opts, cand.iters);
+  if (c.ok && !(c.box[2][0] > -0.5)) return { ok: false, family: 'gev', edge: false, stoppedAtBoundary: true, why: 'a maximum certified at ξ in [' + c.box[2][0].toPrecision(4) + ', ' + c.box[2][1].toPrecision(4) + '], reaching ξ = −0.5, where it is no longer regular (Smith 1985): refused', theta: c.theta, n: Df.n };
+  return c;
 }
 
 /* ---- the exponentiated Weibull: its (α, k, λ) coordinates, or its Gumbel coordinates ----
@@ -2844,6 +2989,7 @@ function certifyEW(xs, opts) {
   const o = intervalOps, [k, T, be] = c.box;
   let ewBox = null;
   try { ewBox = [o.exp(o.div(be, T)), k, o.exp(o.div(o.log(T), k))]; } catch (e) { ewBox = null; }   /* α or λ can lie past every double */
+  if (ewBox && !(ewBox[0][0] > 0 && ewBox[2][0] > 0)) ewBox = null;               /* α or λ below every double: an underflow enclosed as [0, 2⁻¹⁰⁷³] */
   return Object.assign(c, { family: 'expweibull', coords: 'expweibullG', ew: G.toEW(c.theta), ewBox, firstTry: said },
     ewBox ? {} : { ewNote: 'α = e^(β/θ) or λ = θ^(1/k) lies past the doubles; the certificate is in (k, θ, β) alone' });
 }
@@ -2899,6 +3045,7 @@ function certifyGG(xs, opts) {
     const [m, sgm, q] = c.box, o = intervalOps, a = o.div(o.c(1), o.mul(q, q)), cc = o.div(q, sgm);
     let lam = null;
     try { lam = o.exp(o.sub(m, o.div(o.log(a), cc))); } catch (e) { lam = null; }   /* λ = e^{μ − ln α / c} can lie below every double */
+    if (lam && !(lam[0] > 0)) lam = null;                                            /* an underflow enclosed as [0, 2⁻¹⁰⁷³] says nothing of λ */
     return Object.assign(c, { family: 'gengamma', coords: 'gengammaP', stacy: P.toStacy(c.theta), stacyBox: lam ? [a, cc, lam] : null },
       lam ? {} : { stacyNote: 'λ = e^(μ − ln α / c) lies below the smallest double; the certificate is in (μ, σ, Q) alone' });
   };
@@ -3021,6 +3168,54 @@ function returnLevel(cert, T, blockHours) {
   if (!(p[0] > 0)) return null;                       /* fewer than one block per return period: no level to name */
   return cert.fam.quantile(intervalOps, cert.box, p);
 }
+/* ---- STATISTICAL, NOT CERTIFIED: the delta method ----
+   A 95% Wald interval from the observed information at the float candidate: Σ = (−H)⁻¹ in the certificate's own
+   coordinates (a change of coordinates changes nothing to first order), a return level's gradient by central
+   differences, each step 10⁻⁴ of that parameter's standard error. For a return level the interval is taken on ln q —
+   q·exp(∓1.96·se/q) — so it stays positive and leans the way a level's sampling does (a symmetric one in q went below
+   zero on a heavy monthly tail); for a parameter (the GEV's ξ) it is symmetric. Asymptotic and labelled as such, never
+   an enclosure: it says how far another record of the same length could move the number — the sampling width a
+   certificate does not speak to — and it assumes the blocks independent and the model right. null where −H is not
+   positive definite at the candidate (Cholesky) or the level cannot be evaluated. */
+const Z95 = 1.959963984540054;
+function posdef(M) {                                    /* Cholesky: true when M is positive definite (in floats) */
+  const n = M.length, L = M.map(() => new Array(n).fill(0));
+  for (let i = 0; i < n; i++) for (let j = 0; j <= i; j++) {
+    let s = M[i][j]; for (let k = 0; k < j; k++) s -= L[i][k] * L[j][k];
+    if (i === j) { if (!(s > 0)) return false; L[i][i] = Math.sqrt(s); } else L[i][j] = s / L[j][j];
+  }
+  return true;
+}
+function covariance(c) {
+  if (c._cov !== undefined) return c._cov;
+  let S = null;
+  try {
+    const I = c.fam.hess(floatOps, c.theta, c.Df).map((r) => r.map((v) => -v));
+    if (I.every((r) => r.every(Number.isFinite)) && posdef(I)) { S = inverse(I); if (!S.every((r, i) => r[i] > 0 && r.every(Number.isFinite))) S = null; }
+  } catch (e) { S = null; }
+  return (c._cov = S);
+}
+function deltaParam(c, j) {
+  const S = covariance(c); if (!S) return null;
+  const se = Math.sqrt(S[j][j]), est = c.theta[j];
+  return { est, se, lo: est - Z95 * se, hi: est + Z95 * se };
+}
+function deltaLevel(c, T, blockHours) {
+  const p = 1 - blockHours / (T * 8766);
+  if (!(p > 0)) return null;
+  const S = covariance(c); if (!S) return null;
+  const q = (t) => c.fam.quantile(floatOps, t, p);
+  let est, g;
+  try {
+    est = q(c.theta);
+    g = c.theta.map((v, j) => { const h = 1e-4 * Math.sqrt(S[j][j]), a = c.theta.slice(), b = c.theta.slice(); a[j] += h; b[j] -= h; const d = a[j] - b[j]; return d > 0 ? (q(a) - q(b)) / d : NaN; });   /* the step as realized: a step below an ulp is no step */
+  } catch (e) { return null; }
+  let v = 0; for (let i = 0; i < g.length; i++) for (let j = 0; j < g.length; j++) v += g[i] * S[i][j] * g[j];
+  if (!(v >= 0) || !Number.isFinite(v) || !(est > 0) || !Number.isFinite(est)) return null;
+  const se = Math.sqrt(v), r = Z95 * se / est;                  /* on ln q: se(ln q) = se/q */
+  return { est, se, lo: est * Math.exp(-r), hi: est * Math.exp(r) };
+}
+
 /* ---- a ranking under any criterion: decided or refused ---- */
 function rankBy(entries, key) {
   const ok = entries.filter((e) => e[key] && Array.isArray(e[key]) && Number.isFinite(e[key][0]) && Number.isFinite(e[key][1]));
@@ -3085,7 +3280,7 @@ function levelAt(famName, theta, loc, T, blockHours) {
   return loc ? IV.add(q, loc) : q;
 }
 
-module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, certifyAt, boundaryTest, sylvester, secondOrder, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt };
+module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, certifyAt, boundaryTest, sylvester, secondOrder, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt, deltaLevel, deltaParam, Z95 };
 
   },
   "blockrule.js": function (module, exports, require, __dirname) {
@@ -3141,7 +3336,16 @@ if (typeof module !== 'undefined') module.exports = { BLOCKS, blockMaxima, isoWe
    Weibull past α = 10⁴ (α as recorded, five significant digits) and a family
    whose (α, k, λ) climb stopped at its boundary taken for "the limit" and left
    out, any other refusal blocking — would choose by Anderson–Darling. The claims the atlas decides live in their own module,
-   atlas-claims.js, and read only these records. */
+   atlas-claims.js, and read only these records.
+
+   THE SEVENTH FAMILY (2026-09-28), a separate layer: the generalized extreme value law certified beside the six (`gev`,
+   the same record, with its ξ enclosed as `x`), and `seven`, Anderson–Darling's choice among the seven by the same rank
+   rule. `fits`, `rank` and `naive` stay the paper's six: nothing the paper's claims read has moved.
+
+   STATISTICAL, NEVER IN THE RECORD: a caller that passes `stat` gets beside the record, per block, the delta method's 95%
+   intervals on the Anderson–Darling family's 100- and 1000-year levels and on the GEV's ξ and levels (fit.js
+   deltaLevel — floats, asymptotic, labelled); extremalIndex() is the runs estimator on the daily maxima. The record stays
+   the certificate the reader's tab re-derives character for character. */
 'use strict';
 const FT = require('./fit.js');
 const BR = require('./blockrule.js');
@@ -3160,10 +3364,26 @@ const iv = (a) => (a ? [outward(a[0], false), outward(a[1], true)] : null);
 /* a refusal's reason, kept to its head and its tail: where it started, and where the last climb stopped */
 const said = (why) => { const w = String(why); return w.length <= 220 ? w : w.slice(0, 100) + ' … ' + w.slice(-110); };
 
-function fitBlock(S, blk) {
+/* one family's fit, as the record holds it, and its entry for the rank rule */
+function fitOf(f, c, S, BM) {
+  let cr = null; try { cr = FT.criteria(c, S.den); } catch (e) { cr = null; }
+  const F = { c: 1 };
+  if (cr) { F.ad = iv(cr.ad); F.ks = iv(cr.ks); F.mse = iv(cr.mse); F.chi2 = cr.chi2.value ? iv(cr.chi2.value) : cr.chi2.refused ? 'R' : 'U'; }
+  else F.crit = 'not enclosed';
+  for (const T of [100, 1000]) { let v = null; try { v = FT.returnLevel(c, T, BM.hours); } catch (e) { v = null; } F['l' + T] = iv(v); }
+  const e = cr ? { family: f, ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: cr.chi2.value, chi2Refused: !!cr.chi2.refused, unstated: cr.ad ? [] : ['ad'] } : { family: f, unstated: CRIT.slice() };
+  return { F, e };
+}
+/* a 95% interval, rounded to four significant figures outward; null where the delta method has none */
+const s4 = (v, up) => { if (!Number.isFinite(v) || v === 0) return v; const e = Math.floor(Math.log10(Math.abs(v))), st = Math.pow(10, e - 3); return Number(((up ? Math.ceil(v / st) : Math.floor(v / st)) * st).toPrecision(4)); };
+const ci = (d) => (d ? [s4(d.lo, false), s4(d.hi, true)] : null);
+function statOf(c, BM) {
+  return { l100: ci(FT.deltaLevel(c, 100, BM.hours)), l1000: ci(FT.deltaLevel(c, 1000, BM.hours)) };
+}
+function fitBlock(S, blk, st) {
   const BM = BR.blockMaxima(S, blk);
   const prepared = FT.prepare(BM.x);
-  const fits = {}, entries = [], naive = [];
+  const fits = {}, entries = [], naive = [], certs = {};
   for (const f of PAPER_SIX) {
     const c = FT.certify(f, BM.x, { prepared });
     if (!c.ok) {
@@ -3172,24 +3392,45 @@ function fitBlock(S, blk) {
       naive.push({ family: f, refused: true, edge: !!(c.edge || c.stoppedAtBoundary) });   /* the threshold fitter: a stop is the limit */
       continue;
     }
-    let cr = null; try { cr = FT.criteria(c, S.den); } catch (e) { cr = null; }
-    const F = fits[f] = { c: 1 };
-    if (cr) { F.ad = iv(cr.ad); F.ks = iv(cr.ks); F.mse = iv(cr.mse); F.chi2 = cr.chi2.value ? iv(cr.chi2.value) : cr.chi2.refused ? 'R' : 'U'; }
-    else F.crit = 'not enclosed';
-    for (const T of [100, 1000]) { let v = null; try { v = FT.returnLevel(c, T, BM.hours); } catch (e) { v = null; } F['l' + T] = iv(v); }
+    certs[f] = c;
+    const { F, e } = fitOf(f, c, S, BM);
+    fits[f] = F;
     if (f === 'gengamma') F.a = Number((c.stacy ? c.stacy[0] : c.theta[0]).toPrecision(5));
     if (f === 'expweibull') F.a = Number((c.ew ? c.ew[0] : c.theta[0]).toPrecision(5));
     if (c.coords === 'gengammaP') F.p = 1;
     if (c.coords === 'expweibullG') F.g = 1;
-    const e = cr ? { family: f, ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: cr.chi2.value, chi2Refused: !!cr.chi2.refused, unstated: cr.ad ? [] : ['ad'] } : { family: f, unstated: CRIT.slice() };
     entries.push(e);
     naive.push((f === 'gengamma' && F.a > 500) || (f === 'expweibull' && !(F.a <= 1e4)) ? { family: f, refused: true, edge: true } : e);
   }
   const rank = {};
   for (const k of CRIT) { const r = FT.rankRule(entries, k); rank[k] = r.verdict === 'DECIDED' ? r.best : 'R'; }
   const nv = FT.rankRule(naive, 'ad');
+  /* the seventh family: certified beside the six, ranked with them only in `seven` */
+  const g = FT.certify('gev', BM.x, { prepared });
+  let G, ge;
+  if (!g.ok) { G = g.stoppedAtBoundary ? { c: 0, s: 1, w: said(g.why) } : { c: 0, w: said(g.why) }; ge = { family: 'gev', refused: true, edge: false }; }
+  else { const q = fitOf('gev', g, S, BM); G = q.F; G.x = iv(g.box[2]); ge = q.e; }
+  const r7 = FT.rankRule(entries.concat([ge]), 'ad');
   let mx = 0; for (let i = 0; i < BM.x.length; i++) if (BM.x[i] > mx) mx = BM.x[i];
-  return { n: BM.n, h: BM.hours, max: mx, fits, rank, naive: nv.verdict === 'DECIDED' ? nv.best : 'R' };
+  if (st) {
+    const S0 = st[blk] = {};
+    if (rank.ad !== 'R') { S0.f = rank.ad; Object.assign(S0, statOf(certs[rank.ad], BM)); }
+    if (g.ok) { const d = FT.deltaParam(g, 2); S0.gev = Object.assign({ x: d ? [s4(d.lo, false), s4(d.hi, true)] : null }, statOf(g, BM)); }
+  }
+  return { n: BM.n, h: BM.hours, max: mx, fits, rank, naive: nv.verdict === 'DECIDED' ? nv.best : 'R', gev: G, seven: r7.verdict === 'DECIDED' ? r7.best : 'R' };
+}
+/* THE RUNS ESTIMATOR of the extremal index (Smith & Weissman 1994) on the daily maxima: the days above u, the series'
+   95th percentile (the ⌈0.95 n⌉-th smallest value), fall into clusters, a new one after at least r = 3 days at or below
+   u; θ = clusters / days above. Counting, exact; statistical in what it estimates — how many independent extremes the
+   daily maxima hold (about θ per day above u), which the design-life level's "successive maxima independent" ignores. */
+const EI_Q = 0.95, EI_R = 3;
+function extremalIndex(h) {
+  const s = Array.from(h).sort((a, b) => a - b), u = s[Math.ceil(EI_Q * s.length) - 1];
+  let exc = 0, clu = 0, gap = Infinity;
+  for (let i = 0; i < h.length; i++) {
+    if (h[i] > u) { exc++; if (gap >= EI_R) clu++; gap = 0; } else gap++;
+  }
+  return { u, q: EI_Q, r: EI_R, exc, clu, theta: exc ? Number((clu / exc).toFixed(4)) : null };
 }
 /* the map's view of one block's two hard families — one rule for the page's map (build.js, from the ledger's JSON) and
    for the reader's tab (the worker, from the record in memory), so the two cannot name a state differently.
@@ -3204,14 +3445,15 @@ function codes(B) {
     ew: E.c ? (E.g ? 3 : 0) : /passed k = 0\.001/.test(E.w || '') ? 1 : E.s ? 4 : 2,
   };
 }
-/* S = { n, t, h, den, step: 24 } — the cell's daily maxima */
-function cellRecord(id, S, onBlock) {
+/* S = { n, t, h, den, step: 24 } — the cell's daily maxima; `stat`, if given, receives the statistical layer beside the record */
+function cellRecord(id, S, onBlock, stat) {
   const out = { id, blocks: {} };
-  for (const blk of BLOCKS) { out.blocks[blk] = fitBlock(S, blk); if (onBlock) onBlock(blk); }
+  for (const blk of BLOCKS) { out.blocks[blk] = fitBlock(S, blk, stat); if (onBlock) onBlock(blk); }
+  if (stat) stat.ei = extremalIndex(S.h);
   return out;
 }
 
-if (typeof module !== 'undefined') module.exports = { BLOCKS, CRIT, outward, fitBlock, cellRecord, codes };
+if (typeof module !== 'undefined') module.exports = { BLOCKS, CRIT, outward, fitBlock, cellRecord, codes, extremalIndex };
 
   }
 };
@@ -3238,9 +3480,88 @@ root.HSEVA = { FT: req("fit.js"), FAM: req("families.js"), BR: req("blockrule.js
    family's quantile over return periods from two blocks to 10,000 years, every
    point an enclosure from the certified box (fit.js returnLevel); and, on the bins
    and plotting positions the page sends, what each fit expects in a histogram and
-   at each point of a QQ plot. */
+   at each point of a QQ plot. And, STATISTICAL and labelled so on the page, the
+   delta method's 95% interval (fit.js deltaLevel) along each certified family's
+   curve and at its design-life level — asserted from the fit's sampling, never
+   an enclosure, never in the record. The seventh family (the GEV) comes through
+   the same watch as the six. */
+/* THE PROFILE LIKELIHOOD of a return level, on demand — STATISTICAL, never an enclosure, never in the record. For the
+   family's own coordinates, one parameter is eliminated so that the T-year level is x (the forms below, each the
+   family's quantile solved for its location or scale); ℓp(x) is the likelihood maximised over the rest (Nelder–Mead in
+   floats, warm-started along x); the 95% interval is where 2(ℓ̂ − ℓp(x)) ≤ 3.8415 (χ²₁), found by stepping out from the
+   fitted level and bisecting. Asymptotic, blocks independent, the family right — and said so on the page. */
+var CHI95 = 3.841458820694124;
+function eliminate(FAM, name, p) {
+  var o = self.HSEVA.FT.floatOps, z, v = -Math.log(-Math.log(p));
+  switch (name) {
+    case 'normal': z = o.PhiInv(p); return { free: [1], full: function (x, r) { return [x - r[0] * z, r[0]]; } };
+    case 'lognormal': z = o.PhiInv(p); return { free: [1], full: function (x, r) { return [Math.log(x) - r[0] * z, r[0]]; } };
+    case 'weibull': return { free: [0], full: function (x, r) { return [r[0], x / Math.pow(-Math.log1p(-p), 1 / r[0])]; } };
+    case 'expweibull': return { free: [0, 1], full: function (x, r) { return [r[0], r[1], x / Math.pow(-Math.log1p(-Math.pow(p, 1 / r[0])), 1 / r[1])]; } };
+    case 'expweibullG': return { free: [0, 1], full: function (x, r) {
+      var k = r[0], T = r[1], u = Math.pow(x, k), lp = Math.log(p), be = u + T * Math.log(-lp);
+      for (var i = 0; i < 40; i++) { var a = lp * Math.exp(-be / T), sv = Math.abs(a) < 1e-8 ? 1 + a / 2 : Math.expm1(a) / a, nb = u + T * (Math.log(-lp) + Math.log(sv)); if (Math.abs(nb - be) <= 1e-13 * Math.max(1, Math.abs(be))) { be = nb; break; } be = nb; }
+      return [k, T, be]; } };
+    case 'gengamma': return { free: [0, 1], full: function (x, r) { return [r[0], r[1], x / Math.pow(o.gammaPinv(r[0], p), 1 / r[1])]; } };
+    case 'gengammaP': return { free: [1, 2], full: function (x, r) { var a = 1 / (r[1] * r[1]); return [Math.log(x) - r[0] * Math.log(o.gammaPinv(a, p) / a) / r[1], r[0], r[1]]; } };
+    case 'gumbel': return { free: [1], full: function (x, r) { return [x + r[0] * Math.log(-Math.log(p)), r[0]]; } };
+    case 'gev': return { free: [1, 2], full: function (x, r) { return [x - r[0] * v * FAM.gev.Ept(o, r[1] * v), r[0], r[1]]; } };
+  }
+  return null;
+}
+function profile(q) {
+  var FT = self.HSEVA.FT, FAMS = self.HSEVA.FAM.FAMILIES, fam = FAMS[q.fam], o = FT.floatOps;
+  var D = FT.prepare(q.x).Df, p = 1 - q.hours / (q.T * 8766), E = eliminate(FAMS, q.fam, p);
+  if (!E || !(p > 0)) throw new Error('no profile for this family here');
+  var signed = fam.signed || ['mu'], pos = E.free.map(function (i) { return signed.indexOf(fam.names[i]) < 0; });
+  var ll = function (th) { var v; try { v = fam.loglik(o, th, D); } catch (e) { v = NaN; } return isFinite(v) ? v : -Infinity; };
+  var th0 = q.theta.slice(), l0 = ll(th0), x0 = fam.quantile(o, th0, p);
+  var enc = function (r) { return r.map(function (v, i) { return pos[i] ? Math.log(v) : v; }); }, dec = function (u) { return u.map(function (v, i) { return pos[i] ? Math.exp(v) : v; }); };
+  var best = E.free.map(function (i) { return th0[i]; });
+  /* ℓp at x: Nelder–Mead over the free parameters from the last optimum */
+  function lp(x) {
+    var f = function (u) { var th = E.full(x, dec(u)); return th.every(isFinite) ? -ll(th) : Infinity; };
+    var n = best.length, S = [enc(best)]; for (var i = 0; i < n; i++) { var s0 = enc(best).slice(); s0[i] += 0.05; S.push(s0); }
+    var V = S.map(f);
+    for (var it = 0; it < 400; it++) {
+      var ord = V.map(function (v, i) { return i; }).sort(function (a, b) { return V[a] - V[b]; }); S = ord.map(function (i) { return S[i]; }); V = ord.map(function (i) { return V[i]; });
+      if (Math.abs(V[n] - V[0]) < 1e-10 * Math.max(1, Math.abs(V[0])) && it > 20) break;
+      var c = []; for (var j = 0; j < n; j++) { var t = 0; for (var k = 0; k < n; k++) t += S[k][j]; c.push(t / n); }
+      var R = c.map(function (cj, j) { return cj + (cj - S[n][j]); }), fr = f(R);
+      if (fr < V[0]) { var X = c.map(function (cj, j) { return cj + 2 * (cj - S[n][j]); }), fx = f(X); if (fx < fr) { S[n] = X; V[n] = fx; } else { S[n] = R; V[n] = fr; } continue; }
+      if (fr < V[n - 1]) { S[n] = R; V[n] = fr; continue; }
+      var K = c.map(function (cj, j) { return cj + 0.5 * (S[n][j] - cj); }), fk = f(K);
+      if (fk < V[n]) { S[n] = K; V[n] = fk; continue; }
+      for (var i2 = 1; i2 <= n; i2++) { S[i2] = S[i2].map(function (v, j) { return S[0][j] + 0.5 * (v - S[0][j]); }); V[i2] = f(S[i2]); }
+    }
+    if (isFinite(V[0])) best = dec(S[0]);
+    return -V[0];
+  }
+  var dev = function (x) { return 2 * (l0 - lp(x)); };
+  var h0 = q.se && isFinite(q.se) && q.se > 0 ? q.se : 0.05 * x0, ends = [], saved = best.slice();
+  for (var side = -1; side <= 1; side += 2) {
+    best = saved.slice();
+    var a = x0, b = null, h = h0, steps = 0;
+    while (steps < 40) {
+      var x = a + side * h; if (!(x > 0)) { x = a / 2; }
+      var d = dev(x); steps++;
+      self.postMessage({ kind: 'pstep', side: side, x: x, d: d });
+      if (d >= CHI95) { b = x; break; }
+      a = x; if (d < 0.5) h *= 2;
+    }
+    if (b === null) { ends.push(null); continue; }
+    var lo = Math.min(a, b), hi = Math.max(a, b);
+    for (var it2 = 0; it2 < 30 && hi - lo > 1e-4 * x0; it2++) { var mid = (lo + hi) / 2, dm = dev(mid); if ((dm >= CHI95) === (side > 0)) hi = mid; else lo = mid; }
+    ends.push(side > 0 ? hi : lo);
+  }
+  return { x0: x0, lo: ends[0], hi: ends[1], chi: CHI95 };
+}
 self.onmessage = function (ev) {
   var q = ev.data;
+  if (q && q.kind === 'profile') {
+    try { self.postMessage({ kind: 'profile', result: profile(q) }); } catch (e) { self.postMessage({ kind: 'error', message: String((e && e.message) || e) }); }
+    return;
+  }
   try {
     var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
     var d0 = Date.parse(q.first + 'T00:00:00Z');
@@ -3249,15 +3570,17 @@ self.onmessage = function (ev) {
       t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
     }
     var S = { n: v.length, t: t, h: h, den: 500, step: 24 };
-    var plot = {}, FT = self.HSEVA.FT;
+    var plot = {}, keep = {}, FT = self.HSEVA.FT;
     var onFit = function (blk, f, c, BM) {
       var P = plot[blk];
       if (!P) {
         var xs = Array.from(BM.x).sort(function (a, b) { return b - a; }), pts = [], n = xs.length;
         for (var k = 0; k < n; k++) if (k < 160 || k % Math.ceil(n / 240) === 0) pts.push([(n + 1) / (k + 1) * BM.hours / 8766, xs[k]]);
-        P = plot[blk] = { hours: BM.hours, n: n, pts: pts, fam: {}, dll: {} };
+        P = plot[blk] = { hours: BM.hours, n: n, pts: pts, fam: {}, dll: {}, dllStat: {}, band: {} };
       }
       if (!c.ok) return;
+      P.th = P.th || {}; P.th[f] = { fam: c.fam.name, theta: Array.from(c.theta) };
+      (keep[blk] = keep[blk] || {})[f] = { c: c, hours: BM.hours };
       /* the design-life level (Rootzén & Katz 2013) in a climate that does not change: the level a structure standing L = 25 years
          meets with probability 10%, blocks independent — the return level at T = b / (8766 (1 − 0.9^(b / 8766L))) */
       var qd = -Math.expm1(Math.log(0.9) * BM.hours / (8766 * 25)), Td = BM.hours / (8766 * qd);
@@ -3301,7 +3624,28 @@ self.onmessage = function (ev) {
     };
     try { rec = AT.cellRecord(q.id, S, function (blk) { k++; self.postMessage({ kind: 'progress', block: blk }); }); }
     finally { FT.certify = certify0; }
-    self.postMessage({ kind: 'done', record: rec, plot: plot, codes: AT.BLOCKS.map(function (b) { return AT.codes(rec.blocks[b]); }) });   /* the map's states, by the map's own rule */
+    /* STATISTICAL, beside the record: for the family Anderson–Darling decides and for the GEV, the delta method's 95%
+       interval at twelve return periods (the plot's dashed band) and at the design-life level */
+    AT.BLOCKS.forEach(function (blk) {
+      var P = plot[blk], K = keep[blk] || {}, R = rec.blocks[blk];
+      if (!P) return;
+      [R.rank.ad, 'gev'].forEach(function (f) {
+        var q2 = K[f]; if (!q2) return;
+        var c = q2.c, h = q2.hours, t0 = Math.log10(2 * h / 8766), Bd = [];
+        for (var jb = 0; jb <= 11; jb++) {
+          var Tb = Math.pow(10, t0 + jb * (4 - t0) / 11), db = null;
+          try { db = FT.deltaLevel(c, Tb, h); } catch (e) { db = null; }
+          if (db && isFinite(db.lo) && isFinite(db.hi)) Bd.push([Tb, db.lo, db.hi]);
+        }
+        P.band[f] = Bd;
+        var qd = -Math.expm1(Math.log(0.9) * h / (8766 * 25)), ds = null;
+        try { ds = FT.deltaLevel(c, h / (8766 * qd), h); } catch (e) { ds = null; }
+        P.dllStat[f] = ds ? [ds.lo, ds.hi] : null;
+        if (f === R.rank.ad) [100, 1000].forEach(function (T) { var d = null; try { d = FT.deltaLevel(c, T, h); } catch (e) { d = null; } P['s' + T] = d ? [d.lo, d.hi] : null; });
+        if (f === 'gev') { var dx = null; try { dx = FT.deltaParam(c, 2); } catch (e) { dx = null; } P.xiCI = dx ? [dx.lo, dx.hi] : null; }
+      });
+    });
+    self.postMessage({ kind: 'done', record: rec, plot: plot, codes: AT.BLOCKS.map(function (b) { return AT.codes(rec.blocks[b]); }), ei: AT.extremalIndex ? AT.extremalIndex(S.h) : null });   /* the map's states, by the map's own rule */
   } catch (e) {
     self.postMessage({ kind: 'error', message: String((e && e.message) || e) });
   }
@@ -3521,10 +3865,12 @@ window.ATLAS_RULES = R; })();</script>
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const C = { paper: tok('--paper'), sunk: tok('--sunk'), surface: tok('--surface'), surface2: tok('--surface2'), ink: tok('--ink'), ink2: tok('--ink-2'), ink3: tok('--ink-3'), ink4: tok('--ink-4'), ink5: tok('--ink-5'), rule: tok('--rule'), ruleStrong: tok('--rule-strong'), ruleSoft: tok('--rule-soft'), s: [tok('--c-s1'), tok('--c-s2'), tok('--c-s3'), tok('--c-s4'), tok('--c-s5')] };
   const FAM = ['normal', 'lognormal', 'weibull', 'expweibull', 'gengamma', 'gumbel'];
-  const FW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
+  const FAM7 = FAM.concat(['gev']);                                  /* the paper's six and the seventh family, never ranked among them */
+  const FW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
   const BLK = ['daily', 'weekly', 'monthly'], BW = { daily: 'daily maxima', weekly: 'weekly maxima', monthly: 'monthly maxima' };
   const CRIT = ['ad', 'ks', 'mse', 'chi2'], CW = { ad: 'Anderson–Darling', ks: 'Kolmogorov–Smirnov', mse: 'MSE', chi2: 'χ²' };
   const famOf = (k) => (k === 6 || k === null || k === undefined ? null : FAM[k]);
+  const famOf7 = (k) => (k === 7 ? 'gev' : famOf(k));                /* the choice among seven: 7 is the GEV */
   /* the exponentiated Weibull's state at a cell-block (build.js row) */
   const EWW = ['is certified in (α, k, λ)', 'climbs past α = 10⁴ and, in its Gumbel coordinates, on toward k → 0 — the Fréchet corner, nothing proved: refused', 'is refused', 'is certified in its Gumbel coordinates (k, θ = λᵏ, β = θ ln α), where (α, k, λ) could not hold it — α runs large', 'climbs past α = 10⁴ and is not certified in its Gumbel coordinates either: refused'];
   const place = (c) => Math.abs(c.lat) + '° ' + (c.lat < 0 ? 'S' : 'N') + ' · ' + Math.abs(c.lon) + '° ' + (c.lon < 0 ? 'W' : 'E');
@@ -3532,6 +3878,7 @@ window.ATLAS_RULES = R; })();</script>
   const MODES = [
     ['wave', 'design wave'], ['family', 'which family'], ['blocks', 'block sensitivity'], ['record', 'against the record'],
     ['criteria', 'criteria agree?'], ['gg', 'generalized gamma'], ['ew', 'exp. Weibull'], ['naive', 'a threshold fitter'],
+    ['seven', 'a seventh family'], ['xi', 'the GEV\'s tail'], ['unc', 'uncertainty'],
   ];
   const GO = [
     ['globe', 'the whole globe', { center: [-28, -14], zoom: 1.75 }], ['brazil', 'Brazilian margin', { bounds: [[-58, -38], [-24, 8]] }],
@@ -3546,13 +3893,17 @@ window.ATLAS_RULES = R; })();</script>
   function decode(r) {
     if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nativeOf(r[5]) };
     const blocks = {};
-    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11] }; });
-    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]) };
+    /* after the paper's fields, the seventh family and the statistical layer (undefined in a ledger older than them) */
+    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11],
+      seven: q[12], g7: q[13], xi: q[14], xiCI: [q[15], q[16]], g100: q[17], s100: [q[18], q[19]], s1000: [q[20], q[21]] }; });
+    const ei = r[12] ? { theta: r[12][0], u: r[12][1], r: r[12][2] } : null;
+    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]), ei };
   }
   /* a report node's unfiltered 3-hourly block: the report ledger's record (build.js nativeOf), shown beside the atlas's own */
   function nativeOf(name) {
     const q = name && A.native && A.native.nodes[name];
-    return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12] } : null;
+    return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12],
+      seven: q[13], g7: q[14], xi: q[15], s100: [q[16], q[17]], s1000: [q[18], q[19]] } : null;
   }
   const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
   function square(c) {
@@ -3561,8 +3912,11 @@ window.ATLAS_RULES = R; })();</script>
   }
 
   /* ---- what a cell shows: a colour and a kind (D decided, R refused, I ice) ---- */
-  const ramp = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return C.s[Math.min(4, Math.max(0, k - 1))]; };
+  const rampK = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return Math.min(4, Math.max(0, k - 1)); };
+  const ramp = (v, br) => C.s[rampK(v, br)];
   const WAVE_BR = [0, 4, 8, 12, 16];
+  const XI_BR = [-Infinity, -0.2, -0.05, 0.05, 0.2];                /* the GEV's ξ: a finite upper end below 0, a Fréchet tail above */
+  const UNC_BR = [0, 0.1, 0.2, 0.4, 0.8];                           /* a statistical interval's width ÷ the level */
   const BLOCK_BR = [1, 1.05, 1.15, 1.3, 1.5];
   const REC_BR = [0, 1, 1.25, 1.6, 2.2];
   /* a refused cell says why in the words of the view it is refused in */
@@ -3601,15 +3955,37 @@ window.ATLAS_RULES = R; })();</script>
         const differ = b.naive !== b.ad;
         return { k: 'D', col: differ ? C.ink : C.s[0], v: differ ? 'differs' : 'same' };
       }
+      /* THE SEVENTH FAMILY — decided, drawn solid */
+      case 'seven':
+        if (b.seven === undefined || b.seven === null) return { k: 'R', why: 'this ledger has no seventh family' };
+        if (b.seven === 6) return { k: 'R', why: 'no family decided among seven by Anderson–Darling' };
+        return { k: 'D', col: b.seven === 7 ? C.ink : C.s[0], v: famOf7(b.seven) };
+      /* the GEV's ξ, certified; where its 95% interval (statistical) holds 0, a dashed outline says so */
+      case 'xi':
+        if (b.g7 !== 1) return { k: 'R', why: b.g7 === 2 ? 'the GEV is refused: its maximum reaches ξ = −0.5, where it is not regular' : 'the GEV is refused' };
+        return { k: 'D', col: ramp(b.xi, XI_BR), v: b.xi, st0: b.xiCI[0] !== null && b.xiCI[0] !== undefined && b.xiCI[0] <= 0 && b.xiCI[1] >= 0 };
+      /* STATISTICAL throughout: screened, never a solid fill */
+      case 'unc': {
+        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        const q = state.T === 100 ? b.s100 : b.s1000;
+        if (!q || q[0] === null || q[0] === undefined) return { k: 'R', why: 'no statistical interval here (the observed information is not positive definite at the fit)' };
+        const f = (q[1] - q[0]) / lv[1];
+        return { k: 'S', col: ramp(f, UNC_BR), pat: 'st' + rampK(f, UNC_BR), v: f, lo: q[0], hi: q[1] };
+      }
     }
     return { k: 'R', why: 'not decided' };
   }
   function features() {
-    return { type: 'FeatureCollection', features: cells.map((c, i) => { const L = look(c); return { type: 'Feature', id: i, properties: { i, k: L.k, col: L.col || C.rule, below: L.below ? 1 : 0, rep: (c.sets & 4) ? 1 : 0 }, geometry: { type: 'Polygon', coordinates: square(c) } }; }) };
+    return { type: 'FeatureCollection', features: cells.map((c, i) => { const L = look(c); return { type: 'Feature', id: i, properties: { i, k: L.k, col: L.col || C.rule, pat: L.pat || '', st0: L.st0 ? 1 : 0, below: L.below ? 1 : 0, rep: (c.sets & 4) ? 1 : 0 }, geometry: { type: 'Polygon', coordinates: square(c) } }; }) };
   }
 
   /* ---- the map ---- */
   function pattern(kind) {
+    if (/^st\d$/.test(kind)) {                                    /* STATISTICAL: the ramp's colour screened by a thin gap every fourth row — never a solid fill, never the refusals' diagonal */
+      const cv = document.createElement('canvas'); cv.width = 4; cv.height = 4;
+      const g = cv.getContext('2d'); g.fillStyle = C.sunk; g.fillRect(0, 0, 4, 4); g.fillStyle = C.s[Number(kind[2])]; g.fillRect(0, 0, 4, 3);
+      return { width: 4, height: 4, data: new Uint8Array(g.getImageData(0, 0, 4, 4).data.buffer) };
+    }
     const s = 8, cv = document.createElement('canvas'); cv.width = s; cv.height = s;
     const g = cv.getContext('2d');
     g.fillStyle = C.sunk; g.fillRect(0, 0, s, s);
@@ -3644,9 +4020,11 @@ window.ATLAS_RULES = R; })();</script>
           { id: 'ocean', type: 'background', paint: { 'background-color': C.sunk } },
           { id: 'grat', type: 'line', source: 'grat', paint: { 'line-color': C.ruleSoft, 'line-width': 0.6 } },
           { id: 'cells', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'D'], paint: { 'fill-color': ['get', 'col'], 'fill-opacity': 0.95 } },
+          { id: 'cells-s', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'S'], paint: { 'fill-pattern': ['get', 'pat'] } },   /* statistical: screened */
           { id: 'cells-r', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'R'], paint: { 'fill-pattern': 'hatch' } },
           { id: 'cells-i', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'I'], paint: { 'fill-pattern': 'dots', 'fill-opacity': 0.8 } },
           { id: 'below', type: 'line', source: 'cells', filter: ['==', ['get', 'below'], 1], paint: { 'line-color': C.ink, 'line-width': 1.4 } },   /* a fact, drawn solid: dash is reserved for standing (design/grammar.js) */
+          { id: 'xi0', type: 'line', source: 'cells', filter: ['==', ['get', 'st0'], 1], paint: { 'line-color': C.ink, 'line-width': 1.2, 'line-dasharray': [5, 4] } },   /* design/grammar.js CLAIM: asserted, not decided */
           { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': C.surface2 } },
           { id: 'coast', type: 'line', source: 'land', paint: { 'line-color': C.ruleStrong, 'line-width': 0.7 } },
           { id: 'rep', type: 'line', source: 'cells', filter: ['==', ['get', 'rep'], 1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
@@ -3658,9 +4036,10 @@ window.ATLAS_RULES = R; })();</script>
     });
     map.on('style.load', () => { map.setProjection({ type: 'globe' }); });
     const img = (id) => { if (!map.hasImage(id)) map.addImage(id, pattern(id)); };
-    map.on('load', () => { img('hatch'); img('dots'); });
-    map.on('styleimagemissing', (e) => { if (e.id === 'hatch' || e.id === 'dots') img(e.id); });
-    const layers = ['cells', 'cells-r', 'cells-i'];
+    const PATS = ['hatch', 'dots', 'st0', 'st1', 'st2', 'st3', 'st4'];
+    map.on('load', () => { PATS.forEach(img); });
+    map.on('styleimagemissing', (e) => { if (PATS.includes(e.id)) img(e.id); });
+    const layers = ['cells', 'cells-s', 'cells-r', 'cells-i'];
     map.on('mousemove', (e) => {
       const f = map.queryRenderedFeatures(e.point, { layers })[0];
       const tip = $('ra-tip');
@@ -3704,6 +4083,9 @@ window.ATLAS_RULES = R; })();</script>
       case 'gg': return ['a maximum inside the family', 'a maximum beside its lognormal limit (α > 500)', 'its likelihood peaks at the lognormal limit (proved)'][b.gg];
       case 'ew': return EWW[b.ew];
       case 'naive': return L.v === 'differs' ? 'a threshold fitter says ' + (famOf(b.naive) ? FW[famOf(b.naive)] : 'REFUSED') + '; the certificate ' + (famOf(b.ad) ? FW[famOf(b.ad)] : 'REFUSES') : 'the threshold fitter and the certificate agree';
+      case 'seven': return FW[L.v] + ' decided among seven by Anderson–Darling' + (L.v === 'gev' && b.xi !== null ? ' (ξ = ' + b.xi.toFixed(3) + (b.g100 !== null && b.g100 !== undefined ? '; its 100-year wave ' + b.g100.toFixed(1) + ' m, the record ' + c.max.toFixed(1) + ' m' : '') + ')' : '') + (famOf(b.ad) && famOf(b.ad) !== L.v ? '; among the paper\'s six, the ' + FW[famOf(b.ad)] : '');
+      case 'xi': return 'the GEV\'s ξ = ' + b.xi.toFixed(3) + ', certified — ' + (b.xi > 0 ? 'a Fréchet-type tail' : 'a finite upper end') + (b.xiCI[0] !== null && b.xiCI[0] !== undefined ? '; its 95% interval (statistical) [' + b.xiCI[0].toFixed(3) + ', ' + b.xiCI[1].toFixed(3) + ']' + (L.st0 ? ' holds 0: the Gumbel is not ruled out' : '') : '');
+      case 'unc': { const lv = state.T === 100 ? b.l100 : b.l1000; return state.T + '-year wave ' + lv[1].toFixed(2) + ' m, certified; its 95% interval [' + L.lo.toFixed(2) + ', ' + L.hi.toFixed(2) + '] m is statistical (the delta method): ' + (100 * L.v).toFixed(0) + '% of the level'; }
     }
     return '';
   }
@@ -3725,7 +4107,7 @@ window.ATLAS_RULES = R; })();</script>
     if (!ms.options.length) { ms.innerHTML = MODES.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join(''); ms.onchange = () => { state.mode = ms.value; controls(); refresh(); }; }
     ms.value = state.mode;
     seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) panel(); });
-    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
+    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record', 'unc'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
     if (sub.dataset.kind !== kind) { sub.dataset.kind = kind; sub.innerHTML = ''; }
     if (kind === 'family') {                                          /* six families and four criteria: buttons where they fit, selects on a phone */
       if (!$('ra-fam')) sub.innerHTML = '<div class="ra-seg" id="ra-fam" role="radiogroup" aria-label="family"></div><div class="ra-seg" id="ra-crit" role="radiogroup" aria-label="criterion"></div>';
@@ -3793,7 +4175,8 @@ window.ATLAS_RULES = R; })();</script>
   function legend() {
     const n = narrow(), L = (long, short) => (n ? short : long);            /* on a phone every line of the key is short */
     const sw = (col, t, cls) => '<span class="ra-key"><i class="ra-sw' + (cls ? ' ' + cls : '') + '" style="--sw:' + col + '"></i>' + esc(t) + '</span>';
-    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED' };
+    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED',
+      seven: L('REFUSED — no family decided among seven', 'REFUSED'), xi: L('the GEV REFUSED', 'REFUSED'), unc: L('REFUSED — no decided level, or no interval', 'REFUSED') };
     let hatch = HATCH[state.mode];
     if (state.mode === 'ew') {                                     /* the refusals in view, counted from the ledger's codes */
       const k = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) k[0]++; else if (e === 2 || e === 4) k[1]++; }
@@ -3801,6 +4184,8 @@ window.ATLAS_RULES = R; })();</script>
     }
     const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, L('sea ice — not certified', 'sea ice'), 'ice');
     const rampH = (br, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    /* a ramp with its own labels; `st` draws it screened — STATISTICAL, as the cells are */
+    const rampL = (labels, st, wide) => '<div class="ra-ramp' + (wide ? ' wide' : '') + '">' + C.s.map((col, k) => '<div class="ra-rampcol"><i' + (st ? ' class="st"' : '') + ' style="--sw:' + col + '"></i><span>' + esc(labels[k]) + '</span></div>').join('') + '</div>';
     const B = BW[state.block], b = state.block;
     let t = '', body = '';
     switch (state.mode) {
@@ -3812,6 +4197,9 @@ window.ATLAS_RULES = R; })();</script>
       case 'gg': t = L('the generalized gamma · ' + B, 'generalized gamma · ' + b); body = sw(C.s[2], L('a maximum inside the family', 'inside')) + sw(C.ink, L('a maximum beside its lognormal limit (α > 500)', 'beside the limit')) + sw(C.s[0], L('peaks at the lognormal limit — proved', 'at the limit, proved')); break;
       case 'ew': t = L('the exponentiated Weibull · ' + B, 'exp. Weibull · ' + b); body = sw(C.s[2], L('certified in (α, k, λ)', 'in (α, k, λ)')) + sw(C.ink, L('certified in its Gumbel coordinates — α runs large', 'in Gumbel coordinates')); break;
       case 'naive': t = L('a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + B, 'a threshold fitter vs the certificate · ' + b); body = sw(C.ink, L('names a different family', 'differs')) + sw(C.s[0], L('agrees', 'agrees')); break;
+      case 'seven': t = L('which family Anderson–Darling decides among seven — the paper\'s six and the GEV · ' + B, 'among seven · ' + b); body = sw(C.ink, L('the GEV', 'GEV')) + sw(C.s[0], L('one of the paper\'s six', 'one of the six')); break;
+      case 'xi': t = L('the GEV\'s ξ, certified · ' + B + ' · dashed: its 95% interval, statistical, holds 0', 'GEV ξ · ' + b + ' · dashed: 0 in the 95% interval'); body = rampL(n ? ['<−.2', '−.2–−.05', '±.05', '.05–.2', '≥.2'] : ['< −0.2', '−0.2 to −0.05', '−0.05 to 0.05', '0.05 to 0.2', '≥ 0.2'], false, !n) + '<span class="ra-key"><i class="ra-sw dash"></i>' + esc(L('0 in the 95% interval — statistical', '0 inside, statistical')) + '</span>'; break;
+      case 'unc': t = L('STATISTICAL — the 95% interval of the decided family\'s ' + state.T + '-year Hs (the delta method), its width ÷ the level · ' + B, 'statistical · ' + state.T + '-yr interval ÷ level · ' + b); body = rampL(['<10%', '10–20%', '20–40%', '40–80%', '≥80%'], true); break;
     }
     /* the title is set in capitals: a Greek letter keeps its own case, or α would read as A */
     $('ra-legend').innerHTML = '<div class="t">' + esc(t).replace(/[α-ωχ]/g, (g) => '<span class="ra-nt">' + g + '</span>') + '</div><div class="ra-keys">' + body + base + '</div>';
@@ -3903,6 +4291,7 @@ window.ATLAS_RULES = R; })();</script>
     if (c !== sel) {                                                /* the same cell again: a run in progress goes on */
       sel = c;
       if (worker) { worker.terminate(); worker = null; run = null; }
+      if (pw) { pw.terminate(); pw = null; profs.forEach((e, k) => { if (e.running) profs.delete(k); }); }   /* a profile of the last cell stops */
       if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
     }
     loadData(c);
@@ -3910,7 +4299,10 @@ window.ATLAS_RULES = R; })();</script>
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
     writeHash();
   }
-  const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
+  const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
+  /* a STATISTICAL number wears the computed voice (playground/warrant.js): dash-underlined, its title saying what it is */
+  const statSpan = (a, b, d) => '<span class="w-val w-computed" title="statistical: the delta method\'s 95% interval — asserted, not decided">' + a.toFixed(d === undefined ? 2 : d) + '–' + b.toFixed(d === undefined ? 2 : d) + '</span>';
+  const has = (q) => Array.isArray(q) && q[0] !== null && q[0] !== undefined && q[1] !== null && q[1] !== undefined;
   /* the choice by criterion, block by block; at a report node the report's 3-hourly block stands first, its header the
      link to the report (an ice node has that column alone: the atlas certifies no block there) */
   const REPORT = '/reports/return-levels.html';
@@ -3921,6 +4313,12 @@ window.ATLAS_RULES = R; })();</script>
     const rows = CRIT.map((k) => '<tr><th>' + (k === 'chi2' ? 'χ²' : k === 'ad' ? 'A²' : k.toUpperCase()) + '</th>' + cols.map(([, q]) => cell(q[k])).join('') + '</tr>')
       .concat(['<tr><th>100-yr</th>' + cols.map(([, q]) => lvl(q, 100)).join('') + '</tr>', '<tr><th>1000-yr</th>' + cols.map(([, q]) => lvl(q, 1000)).join('') + '</tr>']);
     if (!c.ice) rows.push('<tr><th>threshold</th>' + cols.map(([b, q]) => (b === '3-hourly' ? '<td class="r">—</td>' : cell(q.naive))).join('') + '</tr>');
+    /* the seventh family (decided) and the statistical interval (dash-underlined), where the ledger has them */
+    if (cols.some(([, q]) => q.seven !== undefined && q.seven !== null)) {
+      rows.push('<tr><th>among 7</th>' + cols.map(([, q]) => (q.seven === undefined || q.seven === null ? '<td class="r">—</td>' : famOf7(q.seven) ? '<td class="b">' + esc(FS[famOf7(q.seven)]) + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>');
+      rows.push('<tr><th>GEV ξ</th>' + cols.map(([, q]) => (q.xi !== null && q.xi !== undefined ? '<td>' + q.xi.toFixed(3) + '</td>' : '<td class="r">' + (q.g7 === 2 ? 'ξ ≤ −0.5' : q.g7 === 0 ? 'REFUSED' : '—') + '</td>')).join('') + '</tr>');
+      rows.push('<tr><th>100-yr 95%</th>' + cols.map(([, q]) => (famOf(q.ad) && has(q.s100) ? '<td>' + statSpan(q.s100[0], q.s100[1]) + '</td>' : '<td class="r">—</td>')).join('') + '</tr>');
+    }
     return '<div class="tw"><table><thead><tr><th></th>' + cols.map(([b]) => '<th>' + (b === '3-hourly' ? '<a href="' + REPORT + '">3-hourly</a>' : b) + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
   }
   /* what the 3-hourly column is, in words: whose record, how many values, the two hard families there */
@@ -3943,9 +4341,11 @@ window.ATLAS_RULES = R; })();</script>
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
       + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger' + (c.native ? 's' : '') + ')</div>' + blockRows(c) + (c.native ? '<p class="n">' + nativeWords(c) + '</p>' : '');
+    if (BLK.some((b) => c.blocks[b].seven !== undefined && c.blocks[b].seven !== null)) h += '<p class="n">Among 7: the choice Anderson–Darling makes once the GEV joins the paper\'s six — never counted in the paper\'s claims. GEV ξ: its certified shape (above 0 a Fréchet-type tail, below 0 a finite upper end). 100-yr 95%: <span class="w-val w-computed">dash-underlined</span> because it is STATISTICAL — the delta method\'s interval for the decided family\'s level, asserted from the fit\'s sampling, not decided.</p>';
+    if (c.ei) h += '<p class="n">Daily maxima come in storms: above ' + c.ei.u.toFixed(2) + ' m (the series\' 95th percentile) a new storm starts after ' + c.ei.r + ' quiet days, and the runs estimator puts the extremal index at <span class="w-val w-computed" title="statistical: an estimate, not decided">θ = ' + c.ei.theta.toFixed(2) + '</span>: storms of about ' + (1 / c.ei.theta).toFixed(1) + ' days above that level on average. Statistical, not certified; the design-life level takes successive maxima as independent, which here they are not.</p>';
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
@@ -4033,7 +4433,9 @@ window.ATLAS_RULES = R; })();</script>
       const rh = (await digest(new TextEncoder().encode(json))).slice(0, 32);
       /* the same decisions: every criterion's choice, the threshold fitter's, and both hard families' states, block by block */
       const sameDecisions = BLK.every((b, j) => CRIT.every((k) => (rec.blocks[b].rank[k] === 'R' ? 6 : FAM.indexOf(rec.blocks[b].rank[k])) === c.blocks[b][k])
-        && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew);
+        && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew
+        && (rec.blocks[b].seven === undefined || (rec.blocks[b].seven === 'R' ? 6 : rec.blocks[b].seven === 'gev' ? 7 : FAM.indexOf(rec.blocks[b].seven)) === c.blocks[b].seven)
+        && (!rec.blocks[b].gev || c.blocks[b].g7 === undefined || (rec.blocks[b].gev.c ? 1 : rec.blocks[b].gev.s ? 2 : 0) === c.blocks[b].g7));
       lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000 };
       run = null;
       if (!state.chartPicked) state.chart = 'rl';
@@ -4051,14 +4453,16 @@ window.ATLAS_RULES = R; })();</script>
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
     const up = dll ? Math.ceil(dll[1] * 100 - 1e-9) / 100 : null;
-    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
+    const dst = P && best !== 'R' && P.dllStat && P.dllStat[best];
+    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number, decided. The fit\'s sampling is not in it: '
+      + (dst ? 'another 32 years of the same sea could put it anywhere in ' + statSpan(dst[0], dst[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : 'no statistical interval could be formed here') + '. Successive ' + esc(BW[state.block]) + ' are taken as independent' + (c.ei && state.block === 'daily' ? ' (they come in storms: extremal index θ = ' + c.ei.theta.toFixed(2) + ')' : '') + ', and the climate as unchanging.</p>' : '';
     $('ra-full').innerHTML = '<div class="k">every fit, certified here</div>' + fullTable(rec);
     charts(c);
     const dl = $('ra-dl'), btn = $('ra-cert');
     if (btn) btn.disabled = false;
     dl.disabled = false;
     dl.onclick = () => {
-      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), six families fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
+      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
@@ -4075,21 +4479,55 @@ window.ATLAS_RULES = R; })();</script>
     if (D.status === 'refused') { box.innerHTML = '<p class="n">REFUSED: ' + esc(D.why) + '</p>'; return; }
     const R = lastCert && lastCert.id === c.id ? lastCert : null, P = R ? R.plot[state.block] : null, B = R ? R.rec.blocks[state.block] : null;
     const v = state.chart || 'series', BM = bmOf(D, state.block);
-    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : famOf(c.blocks[state.block].ad);
-    const avail = P ? FAM.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
+    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : c.blocks ? famOf(c.blocks[state.block].ad) : null;
+    const avail = P ? FAM7.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
     const hl = avail.includes(state.hl) ? state.hl : avail.includes(best) ? best : avail[0] || null;
     let h = '<div class="ra-seg ra-cviews" id="ra-cviews" role="radiogroup" aria-label="how to look at the cell"></div>';
     if ((v === 'hist' || v === 'qq') && avail.length) h += '<div class="ra-seg ra-cfams" id="ra-cfams" role="radiogroup" aria-label="which fit to draw in ink"></div>';
     h += '<canvas class="ra-rl" id="ra-cv" role="img" aria-label="' + esc(VIEWS.find((q) => q[0] === v)[1]) + ' of this cell\'s ' + esc(BW[state.block]) + '"></canvas><p class="n" id="ra-cap"></p>';
+    const canProf = v === 'rl' && P && B && B.rank.ad !== 'R' && P.th && P.th[B.rank.ad];
+    if (canProf) h += '<div class="ra-go-row"><button type="button" id="ra-prof-go">the profile-likelihood interval (statistical)</button></div><p class="n" id="ra-prof" aria-live="polite"></p>';
     box.innerHTML = h;
+    if (canProf) { $('ra-prof-go').onclick = () => profileRun(c, state.block, B.rank.ad, 100); showProfile(c); }
     seg($('ra-cviews'), VIEWS, v, (x) => { state.chart = x; state.chartPicked = true; charts(c); writeHash(); });
     if ($('ra-cfams')) seg($('ra-cfams'), avail.map((f) => [f, FS[f]]), hl, (x) => { state.hl = x; charts(c); });
     const cv = $('ra-cv'), cap = $('ra-cap'), need = ' Certify the cell to draw the six fits.';
-    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + A.first.slice(0, 4) + '–' + A.last.slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
+    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + D.t[0].slice(0, 4) + '–' + D.t[D.t.length - 1].slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
     else if (v === 'hist') { drawHist(cv, BM, P && P.hist, hl); cap.textContent = 'The ' + fmt(BM.n) + ' ' + BW[state.block] + ' (bars) ' + (P && hl ? 'and what each certified fit expects in the same bins (lines); the ' + FW[hl] + ' in ink' + (hl === best ? ', the family Anderson–Darling decides' : '') + '.' : '.' + need); }
     else if (v === 'qq') { if (P && hl) { const off = drawQQ(cv, BM, P.qq.q[hl]); cap.textContent = 'Each of the ' + fmt(BM.n) + ' ' + BW[state.block] + ' (the top sixty all shown) against the ' + FW[hl] + ' fit\'s quantile at its plotting position (Gringorten): on the diagonal where the fit is right, above it where the data run heavier than the family, below it where the family\'s tail runs heavier than the sea.' + (off.n ? ' ' + off.n + ' point' + (off.n > 1 ? 's lie' : ' lies') + ' past the axis, the fit\'s quantile reaching ' + off.max.toFixed(1) + ' m.' : ''); } else { blank(cv); cap.textContent = 'The QQ plot needs the fits.' + need; } }
-    else { if (P) { const drawn = FAM.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM.filter((f) => !drawn.includes(f)); drawRL(cv, P, B, c, drawn); cap.textContent = 'Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
+    else { if (P) { const drawn = FAM7.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM7.filter((f) => !drawn.includes(f)); const band = drawRL(cv, P, B, c, drawn); cap.innerHTML = esc('Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + (drawn.includes('gev') ? '; the GEV, the seventh family, a step lighter' : '') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; the record: the largest day, dotted.') + (band ? ' <span class="w-val w-computed">Dashed</span>: the decided family\'s 95% interval from the fit\'s sampling (the delta method) — STATISTICAL, asserted, not decided.' : '') + esc(off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
   }
+  /* ---- the profile likelihood of the decided family's 100-year wave, on demand, in its own worker (worker.js profile) ---- */
+  const profs = new Map(); let pw = null;
+  const profKey = (c, blk, f, T) => c.id + '|' + blk + '|' + f + '|' + T;
+  function profileRun(c, blk, f, T) {
+    const key = profKey(c, blk, f, T), R = lastCert, D = data.get(c.id);
+    if (!R || R.id !== c.id || !D || D.status !== 'ok' || (profs.has(key) && !profs.get(key).err)) return;
+    if (pw) { pw.terminate(); pw = null; profs.forEach((e, k) => { if (e.running) profs.delete(k); }); }
+    const P = R.plot[blk], BM = bmOf(D, blk), e = { running: true, text: 'profiling the likelihood …', f, T };
+    profs.set(key, e);
+    const w = pw = new Worker(WURL);
+    w.onmessage = (ev) => {
+      if (w !== pw) return;
+      const m = ev.data;
+      if (m.kind === 'pstep') e.text = 'profiling ' + (m.side < 0 ? 'below' : 'above') + ' the level: at ' + m.x.toFixed(2) + ' m twice the fall of the log-likelihood is ' + m.d.toFixed(2) + ' (the edge is 3.84)';
+      else { e.running = false; if (m.kind === 'profile') e.res = m.result; else e.err = m.message; w.terminate(); pw = null; }
+      if (sel === c && state.block === blk) showProfile(c);
+    };
+    w.postMessage({ kind: 'profile', fam: P.th[f].fam, theta: P.th[f].theta, x: Array.from(BM.x), hours: P.hours, T });
+    showProfile(c);
+  }
+  function showProfile(c) {
+    const el = $('ra-prof'), R = lastCert; if (!el || !R || R.id !== c.id) return;
+    const B = R.rec.blocks[state.block], e = B && B.rank.ad !== 'R' ? profs.get(profKey(c, state.block, B.rank.ad, 100)) : null;
+    const btn = $('ra-prof-go'); if (btn) btn.disabled = !!(e && (e.running || e.res));
+    if (!e) { el.textContent = ''; return; }
+    if (e.running) { el.textContent = e.text; return; }
+    if (e.err) { el.textContent = 'The profile could not be formed here (' + e.err + ').'; return; }
+    const r = e.res;
+    el.innerHTML = 'The profile likelihood of the ' + esc(FW[e.f]) + '\'s 100-year wave: ' + (r.lo !== null && r.hi !== null ? statSpan(r.lo, r.hi) + ' m' : r.lo !== null ? 'above ' + r.lo.toFixed(2) + ' m, and the profile does not close upward within the search' : 'the profile does not close') + ' at 95% — where twice the fall of the log-likelihood from its maximum stays under 3.84 (χ²₁), the other parameters maximised at each level. STATISTICAL, asserted, not decided; unlike the delta method\'s dashed band it need not be symmetric, as the tail is not.';
+  }
+
   /* a canvas sized to its column, in device pixels */
   function canvasOf(cv, ratio) {
     const dpr = window.devicePixelRatio || 1, W = Math.max(260, cv.clientWidth || 340), H = Math.round(W * ratio);
@@ -4111,9 +4549,10 @@ window.ATLAS_RULES = R; })();</script>
     const top = Math.ceil(mx * 1.12 / niceStep(mx * 1.12)) * niceStep(mx * 1.12);
     const X = (i) => m.l + i / (n - 1) * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
     yAxis(g, m, W, H, top, Y);
-    const y0 = Number(A.first.slice(0, 4)), y1 = Number(A.last.slice(0, 4)) + 1, d0 = Date.parse(A.first + 'T00:00:00Z');
+    /* the years along the axis from the days themselves (a cell's are contiguous; a reader's site may have gaps) */
+    const y0 = Number(D.t[0].slice(0, 4)), y1 = Number(D.t[n - 1].slice(0, 4)) + 1, ys = Math.max(1, Math.ceil((y1 - y0) / 8));
     g.textAlign = 'center';
-    for (let y = y0; y <= y1; y += 4) { const i = (Date.UTC(y, 0, 1) - d0) / 86400000, x = X(Math.min(n - 1, Math.max(0, i))); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
+    for (let y = y0; y <= y1; y += ys) { let i = 0; const key = String(y); while (i < n && D.t[i].slice(0, 4) < key) i++; const x = X(Math.min(n - 1, i)); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
     const cols = Math.max(1, Math.floor(W - m.l - m.r)); g.strokeStyle = C.ink4;
     for (let k = 0; k < cols; k++) {                              /* each pixel column: the range of its days */
       const a = Math.floor(k / cols * n), b = Math.max(a + 1, Math.floor((k + 1) / cols * n)); let lo = Infinity, hi = -Infinity;
@@ -4189,10 +4628,17 @@ window.ATLAS_RULES = R; })();</script>
     g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
     g.strokeStyle = C.ink3; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(m.l, Y(c.max)); g.lineTo(W - m.r, Y(c.max)); g.stroke(); g.setLineDash([]);   /* design/grammar.js GUIDE: a ruler, not a claim */
     g.fillStyle = C.ink3; for (const p of P.pts) { g.beginPath(); g.arc(X(p[0]), Y(p[1]), 1.4, 0, 2 * Math.PI); g.fill(); }
+    /* STATISTICAL: the decided family's 95% interval (the delta method), its two edges dashed — design/grammar.js CLAIM */
+    const bd = best !== 'R' && P.band && P.band[best] && P.band[best].length > 1 ? P.band[best] : null;
+    if (bd) {
+      g.strokeStyle = C.ink3; g.lineWidth = 1.2; g.setLineDash([5, 4]);   /* design/grammar.js CLAIM: asserted, not decided */
+      for (const k of [1, 2]) { g.beginPath(); bd.forEach((p, i) => { const x = X(p[0]), y = Y(p[k]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke(); }
+      g.setLineDash([]);
+    }
     const ends = [];
     for (const f of drawn.filter((x) => x !== best).concat(drawn.includes(best) ? [best] : [])) {
-      const L = P.fam[f], main = f === best;
-      g.strokeStyle = main ? C.ink : C.ink4; g.lineWidth = main ? 2.2 : 1; g.beginPath();
+      const L = P.fam[f], main = f === best, gev = f === 'gev';
+      g.strokeStyle = main ? C.ink : gev ? C.ink3 : C.ink4; g.lineWidth = main ? 2.2 : gev ? 1.5 : 1; g.beginPath();   /* identity by weight, never by dash */
       L.forEach((p, k) => { const x = X(p[0]), y = Y((p[1] + p[2]) / 2); if (k) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
       let e = L[L.length - 1]; for (const p of L) if ((p[1] + p[2]) / 2 > yMax) { e = p; break; }
       ends.push({ f, y: Math.max(m.t + 6, Math.min(H - m.b - 2, Y(Math.min(yMax, (e[1] + e[2]) / 2)))), main });
@@ -4203,6 +4649,7 @@ window.ATLAS_RULES = R; })();</script>
     g.textAlign = 'left'; g.font = '10px ' + mono;
     for (const e of ends) { g.fillStyle = e.main ? C.ink : C.ink4; g.fillText(FS[e.f], W - m.r + 4, e.y + 3); }
     g.fillStyle = C.ink3; g.fillText('record', W - m.r + 4, Math.min(H - m.b - 2, Math.max(m.t + 8, Y(c.max) + 3)) + (ends.some((e) => Math.abs(e.y - Y(c.max)) < 10) ? 11 : 0));
+    return !!bd;
   }
   function fullTable(rec) {
     const g = (a, d) => (a && a.length === 2 ? Number(a[1]).toPrecision(d || 5) : '—');
@@ -4214,8 +4661,10 @@ window.ATLAS_RULES = R; })();</script>
           if (!F.c) return '<tr><td>' + esc(FW[f]) + '</td><td class="r" colspan="5">' + (F.e ? 'peaks at its lognormal limit (proved, k = ' + F.k + ', Q ≤ ' + F.q1 + ')' : F.s ? (/passed k = 0\.001/.test(F.w || '') ? 'past α = 10⁴, and toward k → 0 in its Gumbel coordinates: REFUSED' : 'past α = 10⁴, not certified in its Gumbel coordinates: REFUSED — ' + esc(F.w || '')) : 'REFUSED — ' + esc(F.w || '')) + '</td></tr>';
           const best = B.rank.ad === f;
           return '<tr><td' + (best ? ' class="b"' : '') + '>' + esc(FW[f]) + (F.p ? ' ᴾ' : '') + (F.g ? ' ᴳ' : '') + '</td><td>' + g(F.ad) + '</td><td>' + g(F.ks, 4) + '</td><td>' + (Array.isArray(F.chi2) ? g(F.chi2, 4) : F.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (F.l100 ? F.l100[1].toFixed(2) : '—') + '</td><td>' + (F.l1000 ? F.l1000[1].toFixed(2) : '—') + '</td></tr>';
-        }).join('') + '</tbody></table></div>';
-    }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
+        }).join('') + (B.gev ? (B.gev.c ? '<tr><td' + (B.seven === 'gev' ? ' class="b"' : '') + '>GEV, ξ ' + B.gev.x[1].toFixed(3) + '</td><td>' + g(B.gev.ad) + '</td><td>' + g(B.gev.ks, 4) + '</td><td>' + (Array.isArray(B.gev.chi2) ? g(B.gev.chi2, 4) : B.gev.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (B.gev.l100 ? B.gev.l100[1].toFixed(2) : '—') + '</td><td>' + (B.gev.l1000 ? B.gev.l1000[1].toFixed(2) : '—') + '</td></tr>'
+          : '<tr><td>GEV</td><td class="r" colspan="5">REFUSED — ' + esc(B.gev.w || '') + '</td></tr>') : '') + '</tbody></table></div>'
+        + (B.seven !== undefined ? '<p class="n">Among the seven, Anderson–Darling decides: ' + (B.seven === 'R' ? 'REFUSED' : esc(FW[B.seven])) + '.</p>' : '');
+    }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
   /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
@@ -4370,7 +4819,7 @@ window.ATLAS_RULES = R; })();</script>
     const go = () => {
       const q = new URLSearchParams();
       q.set('v', state.mode); q.set('b', state.block);
-      if (['wave', 'blocks', 'record'].includes(state.mode)) q.set('T', state.T);
+      if (['wave', 'blocks', 'record', 'unc'].includes(state.mode)) q.set('T', state.T);
       if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
       if (state.tab !== 'claims') q.set('t', state.tab);
       if (sel) q.set('c', sel.id);

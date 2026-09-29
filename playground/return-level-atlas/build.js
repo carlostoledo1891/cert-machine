@@ -25,6 +25,7 @@ const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { page, esc } = require(path.join(PG, 'design', 'shell.js'));
+const W = require(path.join(PG, 'warrant.js'));                     /* the grammar's legend: a page that draws its marks prints it */
 const { bundle } = require(path.join(PG, 'return-level-check', 'bundle.js'));
 const AC = require(path.join(ROOT, 'instruments', 'hseva', 'atlas-claims.js'));
 const AT = require(path.join(ROOT, 'instruments', 'hseva', 'atlas.js'));
@@ -320,6 +321,7 @@ function build(OUTDIR) {
       <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, ${esc(M.first)} to ${esc(M.last)}), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. ${ice.length.toLocaleString('en-US')} cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own${N ? ' (certs/hseva-ledger.json of ' + esc(N.generated) + ', sha256 <span class="mono">' + N.sha256.slice(0, 12) + '</span>)' : ''}. Land: Natural Earth 1:50m, public domain.</p>
       ${SEVENTH}
       ${STATW}
+      ${has7 ? W.legendHtml({ exclude: [W.CHOSEN] }) : ''}
       <h2>What this opens</h2>
       <p>${OPENS}</p>
       <p>The code in your tab: ${Object.entries(modules).map(([rel, h]) => '<span class="mono">' + esc(rel) + '</span> ' + h.slice(0, 12)).join(' &middot; ')}. ${S ? 'Cell files served from the public repository at commit <span class="mono">' + S.commit.slice(0, 12) + '</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/' + REPO + '/blob/' + S.commit + '/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.' : 'Cell files are not yet served from a published commit; the map and the claims stand, re-certification in the tab waits for them.'}</p>
