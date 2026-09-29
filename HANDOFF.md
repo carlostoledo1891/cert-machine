@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-28, the twenty-third session: PHASE A1–A9 LIVE — the report's 3-hourly block in the atlas; the GEV as a seventh family; the sampling width drawn apart as statistical; one reviewed re-run, nothing lost; A10 bring-your-own-site built and tested, shipping next; the meeting with the contact's lab is 2026-09-30; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-28, the twenty-third session: PHASE A1–A10 LIVE — the report's 3-hourly block in the atlas; the GEV as a seventh family; the sampling width drawn apart as statistical; one reviewed re-run, nothing lost; bring your own site; the meeting with the contact's lab is 2026-09-30; A11 and A12 open; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -152,11 +152,19 @@ THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I woul
            design-life sentence; the method tab's words.
        A9. SHIP (≈2 h): make site, the gates, make test, drive-atlas locally
            and live, the serve flow, push, HANDOFF.
-       A10. BUILT AND TESTED 2026-09-28, NOT YET SHIPPED at the A9 commit: the
-           patch is ready (the session's scratch a10/patch-site.py, applied
-           and driven in an isolated tree: drive-atlas 21/21 with a ten-year
-           Santos record as the reader's file, the return-level check 4/4 with
-           its rule moved). [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
+       A10. DONE 2026-09-28, its own commit after the serve commit: THE parse
+           rule moved to playground/return-level-check/parse.js (window.HS_PARSE;
+           the check loads it first and digests it into every certificate, 12
+           modules); the atlas's cell tab gains "or bring your own site" — a file
+           read by that rule, cut to daily maxima by THE block rule, certified in
+           the worker by atlas.js (the page's own code, so no re-serve), pinned
+           on the globe at a typed lat, lon, read against the three nearest
+           cells (their A² family and 100-year wave beside the site's), the four
+           views, a certificate with the file's sha256 and never the data; the
+           site stays out of the address. tools/drive-atlas.js now writes ten
+           years of the hindcast's Santos node as a reader's file and certifies
+           it (21/21 locally and live); the check still reads and certifies with
+           its rule moved (4/4). [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
            else first after): move the return-level check's parse rule out of
            playground/return-level-check/app.js into one module both pages
            load; in the atlas a dropped file → daily maxima by THE block rule →
@@ -995,6 +1003,9 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
     that one. Style, render and dash gates pass (433 conforming dashes, +2: the
     band's CLAIM). tools/drive-atlas.js 19/19 locally over the served commit.
 
+
+  ── A10 · BRING YOUR OWN SITE ── see the menu's A10: shipped after the serve
+    commit, page-only (the parse rule moved to one module both pages load).
 
   ── THINGS LEARNED ── the menu's 0c (xi) and (xii): zsh's BG_NICE; a fanless M2 on a 30 W
     adapter, and a battery guard for long runs.

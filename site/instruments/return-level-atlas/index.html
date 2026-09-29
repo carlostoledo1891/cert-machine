@@ -800,6 +800,7 @@ html, body { height: 100%; overflow: hidden; }
     </section>
     <section class="ra-pane" id="ra-p-cell" role="tabpanel" aria-labelledby="ra-t-cell" hidden>
       <div class="ra-find"><label class="ra-lab" for="ra-find">find a cell</label><input id="ra-find" class="ra-select" type="text" inputmode="decimal" placeholder="lat, lon" aria-label="open the cell nearest a latitude and longitude, for example -22.5, -40" autocomplete="off"></div>
+      <div id="ra-site"></div>
       <div id="ra-cellbox"><p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger's own code.</p></div>
     </section>
     <section class="ra-pane ra-prose" id="ra-p-method" role="tabpanel" aria-labelledby="ra-t-method" hidden>
@@ -811,7 +812,7 @@ html, body { height: 100%; overflow: hidden; }
       <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
       <h2>What this opens</h2>
       <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: there the seventh family below, the GEV, finds a Fr&eacute;chet tail; the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016) &mdash; the exponentiated Weibull&rsquo;s own construction, a power of a distribution function, on a Pareto base &mdash; is the other candidate. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 76b976b87ebb &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 1a1709e76745 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 027a859c72d7 &middot; <span class="mono">instruments/hseva/fit.js</span> b6b67a513590 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">33852376c32b</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/33852376c32b07d191e387df7872bfe2899412de/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> d265e298bf5d &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 36cf46bd8993 &middot; <span class="mono">playground/return-level-check/parse.js</span> 7bf7c1eed533 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 027a859c72d7 &middot; <span class="mono">instruments/hseva/fit.js</span> b6b67a513590 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">33852376c32b</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/33852376c32b07d191e387df7872bfe2899412de/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
       <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js</p>
       <p class="n">nothing here is gated · every number came out of the record beside the page</p>
     </section>
@@ -820,7 +821,7 @@ html, body { height: 100%; overflow: hidden; }
 </main>
 
 
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"76b976b87ebbec92b00e22e0d8efc4b05d0085a8f3219669200b7a5ba6f9ae01","playground/return-level-atlas/worker.js":"1a1709e76745e5b0ed28f5ef1fb18c7032e0f1513c819a21f1fec0e936451ce8","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49","instruments/hseva/fit.js":"b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/33852376c32b07d191e387df7872bfe2899412de/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"d265e298bf5d4d3eaa7ce9cbdfefa8cefe9a8e0b8e073d613d06e461fc3609c6","playground/return-level-atlas/worker.js":"36cf46bd899399f51ba25707814a53ba932e981dec981fe36414fac5b583fbb2","playground/return-level-check/parse.js":"7bf7c1eed53368e27e6da939de4eff03fd4ee4e5468d6b2c98f82dad521fcd85","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49","instruments/hseva/fit.js":"b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/33852376c32b07d191e387df7872bfe2899412de/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -3563,13 +3564,18 @@ self.onmessage = function (ev) {
     return;
   }
   try {
-    var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
-    var d0 = Date.parse(q.first + 'T00:00:00Z');
-    for (var i = 0; i < v.length; i++) {
-      if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
-      t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+    var S;
+    if (q.site) {                                                   /* a reader's own site: its daily maxima by THE block rule, made on the page */
+      S = { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };
+    } else {
+      var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
+      var d0 = Date.parse(q.first + 'T00:00:00Z');
+      for (var i = 0; i < v.length; i++) {
+        if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
+        t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+      }
+      S = { n: v.length, t: t, h: h, den: 500, step: 24 };
     }
-    var S = { n: v.length, t: t, h: h, den: 500, step: 24 };
     var plot = {}, keep = {}, FT = self.HSEVA.FT;
     var onFit = function (blk, f, c, BM) {
       var P = plot[blk];
@@ -3839,6 +3845,87 @@ if (typeof module !== 'undefined') module.exports = { CLAIMS, evaluate, inBox, V
 
 R.AC = module.exports; })();
 window.ATLAS_RULES = R; })();</script>
+<script>/* parse.js — THE parse rule of a significant-wave-height record, one module for every page that reads a reader's file:
+   the return-level check (playground/return-level-check) and the return-level atlas's own-site pin. Moved here from the
+   check's app.js on 2026-09-29, the rule's text unchanged; its sha256 goes into every certificate either page writes,
+   so a checker reads the same bytes into the same series. Loaded as a plain script (window.HS_PARSE) or required by Node.
+
+   usage: HS_PARSE.parse(text, col) -> { t, h, n, den, decimals, step, counts, reordered, first, col }, or throws */
+(function (root) {
+  'use strict';
+  const fmt = (x) => Number(x).toLocaleString('en-US');
+  const plural = (n, one, many) => fmt(n) + ' ' + (n === 1 ? one : many);
+  /* ---- reading a series: THE parse rule ----
+     A line opens with its timestamp: YYYY-MM-DD, then an hour after 'T', '-' or
+     '_' (2004-03-01T06, 2004-03-01-06), or after a space, comma or semicolon only
+     when a colon follows it (2004-03-01 06:00) — so "2004-03-01 3.549" is a date
+     and a value, never hour 3. Minutes and seconds are optional; a zone after the
+     time (Z, UTC, +03:00, -0300, -03) is applied, so every time is UTC. A
+     timestamp that runs into other characters skips the line. The rest of the
+     line is split into fields at spaces, tabs, commas, semicolons and bars; Hs is
+     field `col`, a decimal (an exponent allowed). Dropped and counted: a field
+     that is not a number, NDBC's missing marks 99, 999 and 9999 (any decimals),
+     and a value not above zero. The lines are put in time order; a time given
+     twice with the same value is kept once, and with two values refuses the file.
+     The exact denominator is 10^d, d the most decimals any kept value carries. */
+  const TS = /^\s*(\d{4})-(\d{2})-(\d{2})(?:(?:[T_-]|[\s,;]+(?=\d{1,2}:))(\d{1,2})(?::(\d{2})(?::(\d{2})(?:\.\d+)?)?)?(Z|[+-]\d{2}(?::?\d{2})?|\s*(?:UTC|GMT)\b)?)?/;
+  const SEP = /[\s,;|]+/;
+  const NUM = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?$/;
+  const FILL = /^\+?9{2,4}(?:\.0*)?$/;
+  function decimalsOf(tok) {
+    const m = /^[^eE]*?\.(\d+)/.exec(tok), e = /[eE]([-+]?\d+)$/.exec(tok);
+    return Math.max(0, (m ? m[1].length : 0) - (e ? Number(e[1]) : 0));
+  }
+  function parse(text, col) {
+    const c = { skipped: 0, unreadable: 0, notNumber: 0, fill: 0, notPositive: 0, repeated: 0, zoned: 0 };
+    const rows = []; let first = null;
+    for (const line of text.split(/\r\n|\r|\n/)) {
+      const m = TS.exec(line);
+      if (!m) { if (line.trim()) c.skipped++; continue; }
+      const after = line.charAt(m[0].length);
+      if (after && !/[\s,;|]/.test(after)) { c.unreadable++; continue; }
+      const y = +m[1], mo = +m[2], d = +m[3], hh = m[4] ? +m[4] : 0, mi = m[5] ? +m[5] : 0, ss = m[6] ? +m[6] : 0;
+      let ms = Date.UTC(y, mo - 1, d, hh, mi, ss);
+      const D = new Date(ms);
+      if (D.getUTCFullYear() !== y || D.getUTCMonth() !== mo - 1 || D.getUTCDate() !== d || D.getUTCHours() !== hh || mi > 59 || ss > 59) { c.unreadable++; continue; }
+      const z = m[7] ? m[7].trim() : '';
+      if (z && z !== 'Z' && z !== 'UTC' && z !== 'GMT') {
+        const zm = /^([+-])(\d{2}):?(\d{2})?$/.exec(z);
+        const off = (zm[1] === '-' ? -1 : 1) * (Number(zm[2]) * 60 + Number(zm[3] || 0));
+        if (off) { ms -= off * 60000; c.zoned++; }
+      }
+      const fields = line.slice(m[0].length).split(SEP).filter(Boolean);
+      const tok = fields[col - 1];
+      if (!first) first = { ts: m[0].trim(), fields: fields.slice(0, 12).map((f) => f.slice(0, 16)), more: fields.length > 12, pick: tok === undefined ? null : tok.slice(0, 16) };
+      if (tok === undefined || !NUM.test(tok)) { c.notNumber++; continue; }
+      if (FILL.test(tok)) { c.fill++; continue; }
+      const v = Number(tok);
+      if (!(v > 0) || !Number.isFinite(v)) { c.notPositive++; continue; }
+      rows.push({ ms, v, dec: decimalsOf(tok) });
+    }
+    if (!first) throw new Error('no line opens with a timestamp YYYY-MM-DD');
+    if (rows.length < 20) throw new Error('fewer than twenty lines hold a timestamp and a positive number in field ' + col + ' (' + fmt(rows.length) + ' do)');
+    let reordered = false;
+    for (let i = 1; i < rows.length; i++) if (rows[i].ms < rows[i - 1].ms) { reordered = true; break; }
+    if (reordered) rows.sort((a, b) => a.ms - b.ms);
+    const t = [], h = [], ms = []; let clashes = 0, clash = null, decimals = 0;
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      if (i && r.ms === rows[i - 1].ms) { if (r.v === rows[i - 1].v) c.repeated++; else { clashes++; if (clash === null) clash = r.ms; } continue; }
+      t.push(new Date(r.ms).toISOString().slice(0, 19)); h.push(r.v); ms.push(r.ms); decimals = Math.max(decimals, r.dec);
+    }
+    if (clashes) throw new Error(plural(clashes, 'time is', 'times are') + ' given twice with different values (the first at ' + new Date(clash).toISOString().slice(0, 16).replace('T', ' ') + ' UTC): is the hour in a field of its own?');
+    if (h.every((v) => v === h[0])) throw new Error('every value in field ' + col + ' is ' + h[0] + ': is Hs in another field?');
+    /* the native step: the most common gap, in hours */
+    const gaps = new Map();
+    for (let i = 1; i < ms.length; i++) { const g = (ms[i] - ms[i - 1]) / 3600000; gaps.set(g, (gaps.get(g) || 0) + 1); }
+    let step = null, best = 0; for (const [g, k] of gaps) if (k > best) { best = k; step = g; }
+    return { t, h, n: h.length, den: Number('1e' + decimals), decimals, step, counts: c, reordered, first, col };
+  }
+  const API = { parse, decimalsOf, TS, SEP, NUM, FILL };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.HS_PARSE = API;
+})(typeof self !== 'undefined' ? self : this);
+</script>
 <script>/* app.js — the return-level atlas, in the tab.
    playground/return-level-atlas/ · cert-machine
 
@@ -4015,7 +4102,7 @@ window.ATLAS_RULES = R; })();</script>
       center: GO[0][2].center, zoom: GO[0][2].zoom - ($('ra-map').clientWidth < 600 ? 0.75 : 0), minZoom: 0.6, maxZoom: 7,
       style: {
         version: 8, projection: { type: 'globe' },
-        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) } },
+        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) }, site: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } },
         layers: [
           { id: 'ocean', type: 'background', paint: { 'background-color': C.sunk } },
           { id: 'grat', type: 'line', source: 'grat', paint: { 'line-color': C.ruleSoft, 'line-width': 0.6 } },
@@ -4031,6 +4118,7 @@ window.ATLAS_RULES = R; })();</script>
           { id: 'box', type: 'line', source: 'box', paint: { 'line-color': C.ink, 'line-width': 1.6, 'line-dasharray': [2, 3] } },   /* design/grammar.js GUIDE */
           { id: 'hov', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
           { id: 'sel', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink, 'line-width': 2.4 } },
+          { id: 'site', type: 'circle', source: 'site', paint: { 'circle-radius': 6, 'circle-color': C.paper, 'circle-stroke-color': C.ink, 'circle-stroke-width': 2.4 } },   /* a reader's own site */
         ],
       },
     });
@@ -4251,6 +4339,7 @@ window.ATLAS_RULES = R; })();</script>
     } else sm.innerHTML = '';
     if (state.tab === 'cell') {
       const box = $('ra-cellbox');
+      siteForm();
       if (sel) cellPanel(box, sel);
       else box.innerHTML = '<p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger\'s own code.</p>';
     }
@@ -4328,6 +4417,7 @@ window.ATLAS_RULES = R; })();</script>
       + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit (proved)', 'is refused'][q.gg] + ', and the exponentiated Weibull ' + EWW[q.ew] + (c.ice ? '.' : '; the report runs no threshold fitter.');
   }
   function cellPanel(el, c) {
+    if (c.site) { sitePanel(el, c); return; }
     let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + [c.report ? 'the report\'s ' + esc(c.report) + ' node' : '', (c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : ''].filter(Boolean).join(' · ') + '</p>';
     const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
@@ -4448,7 +4538,7 @@ window.ATLAS_RULES = R; })();</script>
   function showCert(c, R) {
     const prog = $('ra-prog'), rec = R.rec;
     if (!prog) return;
-    prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
+    prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (c.site ? 'Your file\'s sha256 ' + esc(c.sha.slice(0, 12)) + '… is in the certificate; no ledger holds this place, so the nearest cells below are what it is read against.' : R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
     const P = R.plot[state.block], B = rec.blocks[state.block];
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
@@ -4462,10 +4552,13 @@ window.ATLAS_RULES = R; })();</script>
     if (btn) btn.disabled = false;
     dl.disabled = false;
     dl.onclick = () => {
-      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
+      const cert = c.site ? { what: 'A reader\'s own site, certified in the reader\'s browser by /instruments/return-level-atlas/: the file read by THE parse rule (playground/return-level-check/parse.js), cut into daily maxima by THE block rule, the paper\'s six families and the GEV fitted by maximum likelihood on the daily, weekly and monthly maxima by the atlas\'s own code (instruments/hseva/atlas.js), each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED. The data are not in this file: its sha256 is.',
+        site: { lat: c.lat, lon: c.lon, file: c.fileName, sha256: c.sha, field: c.col, values: c.values, days: c.days, first: c.first, last: c.last },
+        code: SPEC.modules, record: rec, generated: new Date().toISOString() }
+        : { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = c.site ? 'atlas-site-' + c.sha.slice(0, 12) + '.json' : 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
     };
   }
 
@@ -4667,6 +4760,116 @@ window.ATLAS_RULES = R; })();</script>
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
+  /* ---- YOUR OWN SITE: a reader's record read by THE parse rule (parse.js, the return-level check's), cut to daily maxima by
+     THE block rule, certified in a worker by the atlas's own code, pinned on the globe and read against the nearest cells.
+     The file is read here and sent nowhere; the certificate carries its sha256, never the data. ---- */
+  const PARSE = window.HS_PARSE || null;
+  const SITE = { name: null, text: null, sha: null, col: 1 };
+  function siteForm() {
+    const el = $('ra-site'); if (!el || el.dataset.on || !PARSE || !RULES) return;
+    el.dataset.on = '1';
+    el.innerHTML = '<button type="button" class="ra-linkbtn" id="ra-site-open" aria-expanded="false" aria-controls="ra-site-form">or bring your own site</button>'
+      + '<div id="ra-site-form" class="ra-mine" hidden><p class="n">A record of significant wave height at a place of your own — a text file, a timestamp and Hs on each line, read by the rule of <a href="../return-level-check/">the return-level check</a> — is cut into daily maxima and certified here by the atlas\'s own code, then pinned on the globe and read against the nearest cells. Your file never leaves this page.</p>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-site-file">record</label><input id="ra-site-file" class="ra-select" type="file" accept=".txt,.csv,.dat,.tsv,text/plain,text/csv"></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-site-col">field</label><input id="ra-site-col" class="ra-select" type="number" min="1" max="20" step="1" value="1"><label class="ra-lab" for="ra-site-at">lat, lon</label><input id="ra-site-at" class="ra-select" type="text" inputmode="decimal" placeholder="-22.5, -40" autocomplete="off"></div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-site-go" disabled>open my site</button></div><p class="n" id="ra-site-msg" aria-live="polite"></p></div>';
+    $('ra-site-open').onclick = () => { const f = $('ra-site-form'), open = f.hidden; f.hidden = !open; $('ra-site-open').setAttribute('aria-expanded', String(open)); };
+    $('ra-site-file').onchange = async (e) => {
+      const file = e.target.files && e.target.files[0]; if (!file) return;
+      const buf = await file.arrayBuffer();
+      SITE.name = file.name; SITE.text = new TextDecoder().decode(buf); SITE.sha = await digest(buf);
+      siteRead();
+    };
+    $('ra-site-col').onchange = () => siteRead();
+    $('ra-site-at').oninput = () => siteRead();
+    $('ra-site-go').onclick = () => siteOpen();
+  }
+  const siteAt = () => { const m = ($('ra-site-at').value || '').match(/(-?\d+(?:\.\d+)?)\s*[,; ]\s*(-?\d+(?:\.\d+)?)/); if (!m) return null; const la = Number(m[1]), lo = Number(m[2]); return Math.abs(la) <= 90 && Math.abs(lo) <= 180 ? [la, lo] : null; };
+  function siteRead() {
+    const msg = $('ra-site-msg'), go = $('ra-site-go');
+    SITE.series = null; go.disabled = true;
+    if (!SITE.text) { msg.textContent = ''; return; }
+    SITE.col = Math.max(1, Math.min(20, Math.round(Number($('ra-site-col').value) || 1)));
+    try { SITE.series = PARSE.parse(SITE.text, SITE.col); }
+    catch (e) { msg.textContent = 'REFUSED: ' + e.message; return; }
+    const S = SITE.series, D = RULES.BR.blockMaxima({ n: S.n, t: S.t, h: S.h, step: S.step }, 'daily');
+    SITE.days = D;
+    const at = siteAt();
+    msg.textContent = fmt(S.n) + ' values in field ' + SITE.col + ', ' + S.t[0].slice(0, 10) + ' to ' + S.t[S.n - 1].slice(0, 10) + ', mostly every ' + S.step + ' h: ' + fmt(D.n) + ' days of daily maxima. ' + (D.n < 3 * 365 ? 'Fewer than three years: the monthly fits may refuse. ' : '') + (at ? '' : 'Give its latitude and longitude to pin it.');
+    go.disabled = !at;
+  }
+  function siteOpen() {
+    const at = siteAt(), S = SITE.series, D = SITE.days; if (!at || !S || !D) return;
+    let mx = 0; for (const v of D.x) if (v > mx) mx = v;
+    const c = { id: 'site', site: true, lat: at[0], lon: at[1], sets: 0, ice: false, report: '', native: null, max: mx, sha: SITE.sha, fileName: SITE.name, col: SITE.col, values: S.n, days: D.n, first: D.keys[0], last: D.keys[D.n - 1], den: S.den, blocks: null, ei: null };
+    data.set('site', { status: 'ok', t: D.keys, h: D.x, bm: {}, sha: SITE.sha });
+    if (lastCert && lastCert.id === 'site') lastCert = null;
+    select(c);
+    if (map && map.getSource('site')) map.getSource('site').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [c.lon, c.lat] } }] });
+    fly({ center: [c.lon, c.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) });
+  }
+  /* the nearest open-sea cells, by great circle */
+  function nearest(c, k) {
+    const r = Math.PI / 180, out = [];
+    for (const q of cells) { if (q.ice) continue; const d = 6371 * Math.acos(Math.min(1, Math.sin(c.lat * r) * Math.sin(q.lat * r) + Math.cos(c.lat * r) * Math.cos(q.lat * r) * Math.cos((c.lon - q.lon) * r))); out.push([d, q]); }
+    return out.sort((a, b) => a[0] - b[0]).slice(0, k);
+  }
+  /* the tab's record in the map's compact form (build.js row), so the cell's table reads it */
+  function compactOf(rec, codes, plot) {
+    const f7 = (f) => (f === 'R' ? 6 : f === 'gev' ? 7 : f === undefined ? null : FAM.indexOf(f)), B = {};
+    BLK.forEach((b, j) => {
+      const R = rec.blocks[b], F = R.rank.ad !== 'R' ? R.fits[R.rank.ad] : null, P = (plot && plot[b]) || {}, lv = (k) => (F && Array.isArray(F[k]) ? F[k] : [null, null]);
+      B[b] = { ad: f7(R.rank.ad), ks: f7(R.rank.ks), mse: f7(R.rank.mse), chi2: f7(R.rank.chi2), naive: f7(R.naive), gg: codes[j].gg, ew: codes[j].ew, l100: lv('l100'), l1000: lv('l1000'),
+        below: F && Array.isArray(F.l100) ? (F.l100[1] < R.max ? 1 : 0) : null, seven: f7(R.seven), g7: R.gev ? (R.gev.c ? 1 : R.gev.s ? 2 : 0) : null,
+        xi: R.gev && R.gev.c && Array.isArray(R.gev.x) ? Number(R.gev.x[1].toFixed(3)) : null, xiCI: P.xiCI || [null, null], g100: R.gev && R.gev.c && R.gev.l100 ? R.gev.l100[1] : null, s100: P.s100 || [null, null], s1000: P.s1000 || [null, null] };
+    });
+    return B;
+  }
+  function sitePanel(el, c) {
+    let h = '<div class="ra-celltitle"><h3>your site · ' + esc(place(c)) + '</h3></div><p class="n">' + esc(c.fileName || 'your file') + ' · field ' + c.col + ' · ' + fmt(c.values) + ' values · ' + fmt(c.days) + ' days of daily maxima, ' + esc(c.first) + ' to ' + esc(c.last) + ' · sha256 ' + esc(c.sha.slice(0, 12)) + '…</p>';
+    h += '<div class="ra-go-row"><button type="button" id="ra-cert">certify my site in this tab</button><button type="button" id="ra-csv">the daily maxima (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
+      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+    if (c.blocks) h += '<div class="k">the choice, by criterion (this tab)</div>' + blockRows(c);
+    const nb = nearest(c, 3);
+    if (nb.length) {
+      h += '<div class="k">the nearest cells of the atlas</div><div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>'
+        + (c.blocks ? '<tr><th>your site</th>' + BLK.map((b) => (famOf(c.blocks[b].ad) ? '<td class="b">' + esc(FS[famOf(c.blocks[b].ad)]) + (c.blocks[b].l100[1] !== null ? ' ' + c.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>' : '')
+        + nb.map(([d, q]) => '<tr><th><button type="button" class="ra-linkbtn" data-near="' + esc(q.id) + '">' + Math.round(d) + ' km</button></th>' + BLK.map((b) => (famOf(q.blocks[b].ad) ? '<td>' + esc(FS[famOf(q.blocks[b].ad)]) + (q.blocks[b].l100[1] !== null ? ' ' + q.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>').join('')
+        + '</tbody></table></div><p class="n">The family Anderson–Darling decides and its 100-year wave in metres, block by block: your site as certified here, and the three nearest cells as the ledger holds them (a cell is a node\'s series of the paper\'s hindcast, not your instrument). A cell\'s distance opens it.</p>';
+    }
+    el.innerHTML = h;
+    el.querySelectorAll('[data-near]').forEach((b) => { b.onclick = () => select(byId.get(b.dataset.near)); });
+    $('ra-cert').onclick = () => certifySite(c);
+    const D = data.get('site');
+    $('ra-csv').onclick = () => { const L = ['date,hs_daily_max_m']; for (let i = 0; i < D.h.length; i++) L.push(D.t[i] + ',' + D.h[i]); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([L.join('\n') + '\n'], { type: 'text/csv' })); a.download = 'site-daily-max.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+    if (run && run.id === 'site') { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }
+    else if (lastCert && lastCert.id === 'site') showCert(c, lastCert);
+    charts(c);
+  }
+  function certifySite(c) {
+    if (worker) { worker.terminate(); worker = null; }
+    const me = run = { id: 'site', text: '' }, D = data.get('site');
+    const say = (t, done) => { me.text = t; if (run !== me) return; const p = $('ra-prog'), b = $('ra-cert'); if (sel === c && p) p.textContent = t; if (sel === c && b) b.disabled = !done; };
+    say('certifying the daily maxima …');
+    const bins = {}, qqp = {};
+    for (const b of BLK) { const BM = bmOf(D, b); bins[b] = BM.edges; qqp[b] = BM.qp; }
+    const w = worker = new Worker(WURL), t0 = Date.now();
+    w.onmessage = (ev) => {
+      if (w !== worker || run !== me) return;
+      const m = ev.data;
+      if (m.kind === 'progress') { const k = BLK.indexOf(m.block); say(BW[m.block] + ' certified' + (k < 2 ? '; certifying the ' + BW[BLK[k + 1]] + ' …' : '')); return; }
+      w.terminate(); worker = null;
+      if (m.kind === 'error') { say('REFUSED: ' + m.message, true); return; }
+      c.blocks = compactOf(m.record, m.codes, m.plot); c.ei = m.ei && Number.isFinite(m.ei.theta) ? m.ei : null;
+      lastCert = { id: 'site', rec: m.record, plot: m.plot || {}, rh: null, same: null, sameDecisions: null, secs: (Date.now() - t0) / 1000 };
+      run = null;
+      if (!state.chartPicked) state.chart = 'rl';
+      if (sel === c) panel();
+    };
+    w.onerror = (e) => { if (w !== worker) return; worker = null; say('The run failed in the worker: ' + ((e && e.message) || 'no message'), true); };
+    w.postMessage({ id: 'site', site: { t: D.t, h: D.h, den: c.den } });
+  }
+
   /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
   /* the page's compact cell, read the way instruments/hseva/atlas-claims.js reads a ledger cell; for a criterion other
      than Anderson–Darling only the choice is carried (the levels on the page are the Anderson–Darling family's) */
@@ -4822,8 +5025,8 @@ window.ATLAS_RULES = R; })();</script>
       if (['wave', 'blocks', 'record', 'unc'].includes(state.mode)) q.set('T', state.T);
       if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
       if (state.tab !== 'claims') q.set('t', state.tab);
-      if (sel) q.set('c', sel.id);
-      if (sel && state.chartPicked) q.set('ch', state.chart);
+      if (sel && !sel.site) q.set('c', sel.id);                    /* a reader's site stays in the tab: its data never leave it */
+      if (sel && !sel.site && state.chartPicked) q.set('ch', state.chart);
       if (claimOn) q.set('cl', claimOn);
       if (MY.on) q.set('my', mySpec());
       if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }

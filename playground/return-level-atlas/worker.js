@@ -93,13 +93,18 @@ self.onmessage = function (ev) {
     return;
   }
   try {
-    var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
-    var d0 = Date.parse(q.first + 'T00:00:00Z');
-    for (var i = 0; i < v.length; i++) {
-      if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
-      t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+    var S;
+    if (q.site) {                                                   /* a reader's own site: its daily maxima by THE block rule, made on the page */
+      S = { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };
+    } else {
+      var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
+      var d0 = Date.parse(q.first + 'T00:00:00Z');
+      for (var i = 0; i < v.length; i++) {
+        if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
+        t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+      }
+      S = { n: v.length, t: t, h: h, den: 500, step: 24 };
     }
-    var S = { n: v.length, t: t, h: h, den: 500, step: 24 };
     var plot = {}, keep = {}, FT = self.HSEVA.FT;
     var onFit = function (blk, f, c, BM) {
       var P = plot[blk];

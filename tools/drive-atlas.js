@@ -10,7 +10,9 @@
        table carrying the choice among seven, the GEV's ξ and the statistical interval; after certifying, the
        design-life sentence carrying its statistical interval and the return-level plot its band;
      · the phone's sheet stepping on a tap and a swipe, a claim lowering it, a cell raising it;
-     · a link reopening the same cell, tab, chart and block.
+     · a link reopening the same cell, tab, chart and block;
+     · a reader's own site (SITE_FILE, a record of Hs) read by THE parse rule, certified in the tab, pinned beside the nearest
+       cells, its certificate carrying the file's sha256 and never the data.
    Screenshots go to <tmp>/atlas-drive/. Written 2026-09-28 from the twenty-second session's own drives.
    usage: node tools/dev-serve.js &   then   node tools/drive-atlas.js [url]
           (default http://127.0.0.1:8765/instruments/return-level-atlas/; the live page works too) */
@@ -18,7 +20,16 @@
 const fs = require('fs'), os = require('os'), path = require('path');
 const { withChrome, settle } = require(path.join(__dirname, '..', 'design', 'cdp.js'));
 const URL0 = process.argv[2] || 'http://127.0.0.1:8765/instruments/return-level-atlas/';
+
 const OUT = path.join(os.tmpdir(), 'atlas-drive'); fs.mkdirSync(OUT, { recursive: true });
+/* a record of Hs for the own-site check: SITE_FILE, or ten years of the hindcast's Santos node written from corpus/ww3-points */
+const SITE_FILE = process.env.SITE_FILE || (() => {
+  const dir = path.join(__dirname, '..', 'corpus', 'ww3-points', 'months');
+  if (!fs.existsSync(dir)) return null;
+  const L = ['time,hs_m'];
+  for (const f of fs.readdirSync(dir).filter((q) => /^20(1\d)\d{2}\.json$/.test(q)).sort()) { const r = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')); for (let i = 0; i < r.steps; i++) L.push(r.times[i] + ':00Z,' + (r.points.santos[i] / 500).toFixed(3)); }
+  const f = path.join(OUT, 'site-santos-2010-2019.csv'); fs.writeFileSync(f, L.join('\n') + '\n'); return f;
+})();
 let bad = 0;
 const check = (ok, what) => { console.log((ok ? '  ok    ' : '  FAIL  ') + what); if (!ok) bad++; };
 withChrome(async (send) => {
@@ -78,6 +89,22 @@ withChrome(async (send) => {
   await go(link, 1440, 900, false); await settle(2500);
   const st = JSON.parse(await ev('JSON.stringify({ cell: (document.querySelector("#ra-cellbox h3") || {}).innerText, tab: window.__atlas.state.tab, chart: window.__atlas.state.chart, block: window.__atlas.state.block })'));
   check(/22\.5° S/.test(st.cell) && st.tab === 'cell' && st.chart === 'qq' && st.block === 'monthly', 'a link reopens the same cell, tab, chart and block (' + JSON.stringify(st) + ')');
+  if (SITE_FILE) {
+    await go(URL0, 1440, 900, false);
+    await ev('window.__atlas.setTab("cell")'); await settle(500);
+    await ev('document.getElementById("ra-site-open").click()'); await settle(300);
+    const doc = await send('DOM.getDocument', { depth: -1 }), q = await send('DOM.querySelector', { nodeId: doc.root.nodeId, selector: '#ra-site-file' });
+    await send('DOM.setFileInputFiles', { nodeId: q.nodeId, files: [SITE_FILE] }); await settle(2500);
+    await ev('(() => { const x = document.getElementById("ra-site-at"); x.value = "-25.5, -43"; x.dispatchEvent(new Event("input")); })()'); await settle(300);
+    const msg = await ev('document.getElementById("ra-site-msg").innerText');
+    check(/values in field 1/.test(msg) && !(await ev('document.getElementById("ra-site-go").disabled')), 'a reader\'s record read by THE parse rule (' + msg.slice(0, 70) + '…)');
+    await ev('document.getElementById("ra-site-go").click()'); await settle(1500);
+    await ev('document.getElementById("ra-cert").click()');
+    let p = ''; for (let i = 0; i < 150; i++) { await settle(1000); p = await ev('(document.getElementById("ra-prog") || {}).innerText || ""'); if (/certified here|REFUSED|failed/.test(p)) break; }
+    const near = await ev('(document.getElementById("ra-cellbox") || {}).innerText || ""');
+    check(/certified here/.test(p) && /sha256/.test(p) && /the nearest cells of the atlas/i.test(near) && /your site/.test(near), 'the own site certified in the tab and read against the nearest cells (' + p.slice(0, 60) + ')');
+    await shot('1440-site');
+  }
   await go(URL0, 390, 844, true);
   await ev('document.getElementById("ra-grip").dispatchEvent(new PointerEvent("pointerdown", { clientY: 600, bubbles: true })); document.getElementById("ra-grip").dispatchEvent(new PointerEvent("pointerup", { clientY: 600, bubbles: true }))'); await settle(900);
   const s1 = await ev('document.getElementById("ra-app").dataset.sheet');

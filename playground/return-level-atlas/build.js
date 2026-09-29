@@ -33,6 +33,8 @@ const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
+/* THE parse rule of a reader's record, shared with the return-level check (a reader's own site, read the same way) */
+const PARSE_REL = 'playground/return-level-check/parse.js', PARSE = fs.readFileSync(path.join(ROOT, PARSE_REL), 'utf8');
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const die = (m) => { throw new Error('return-level-atlas: ' + m); };
 const FW = { normal: 'the normal', lognormal: 'the lognormal', weibull: 'the Weibull', expweibull: 'the exponentiated Weibull', gengamma: 'the generalized gamma', gumbel: 'the Gumbel' };
@@ -244,7 +246,7 @@ function build(OUTDIR) {
     if (/<\/script/i.test(t)) die(rel + ' holds a closing script tag');
     return '(function () { var module = { exports: {} };\n' + t + '\nR.' + k + ' = module.exports; })();';
   }).join('\n') + '\nwindow.ATLAS_RULES = R; })();';
-  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), 'playground/return-level-atlas/worker.js': sha(WORKER) }, B.modules,
+  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), 'playground/return-level-atlas/worker.js': sha(WORKER), [PARSE_REL]: sha(PARSE) }, B.modules,
     Object.fromEntries(RULES.map(([, rel]) => [rel, sha(fs.readFileSync(path.join(ROOT, rel), 'utf8'))])));
   const vpins = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-PINS.json'), 'utf8'));
   const vsha = Object.fromEntries(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-SHA256.txt'), 'utf8').trim().split('\n').map((l) => l.trim().split(/\s+/).reverse()));
@@ -313,6 +315,7 @@ function build(OUTDIR) {
     </section>
     <section class="ra-pane" id="ra-p-cell" role="tabpanel" aria-labelledby="ra-t-cell" hidden>
       <div class="ra-find"><label class="ra-lab" for="ra-find">find a cell</label><input id="ra-find" class="ra-select" type="text" inputmode="decimal" placeholder="lat, lon" aria-label="open the cell nearest a latitude and longitude, for example -22.5, -40" autocomplete="off"></div>
+      <div id="ra-site"></div>
       <div id="ra-cellbox"><p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger's own code.</p></div>
     </section>
     <section class="ra-pane ra-prose" id="ra-p-method" role="tabpanel" aria-labelledby="ra-t-method" hidden>
@@ -339,7 +342,7 @@ function build(OUTDIR) {
     css: CSS,
     body,
     foot: null,
-    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${APP}</script>`,
+    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${PARSE}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, data: data.length, sea: sea.length, ice: ice.length, claims: claims.map((k) => k.id + ':' + k.verdict), served: S ? S.commit.slice(0, 12) : null, native: N ? Object.keys(N.nodes).length : 0, facts };

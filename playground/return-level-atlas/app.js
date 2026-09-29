@@ -174,7 +174,7 @@
       center: GO[0][2].center, zoom: GO[0][2].zoom - ($('ra-map').clientWidth < 600 ? 0.75 : 0), minZoom: 0.6, maxZoom: 7,
       style: {
         version: 8, projection: { type: 'globe' },
-        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) } },
+        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) }, site: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } },
         layers: [
           { id: 'ocean', type: 'background', paint: { 'background-color': C.sunk } },
           { id: 'grat', type: 'line', source: 'grat', paint: { 'line-color': C.ruleSoft, 'line-width': 0.6 } },
@@ -190,6 +190,7 @@
           { id: 'box', type: 'line', source: 'box', paint: { 'line-color': C.ink, 'line-width': 1.6, 'line-dasharray': [2, 3] } },   /* design/grammar.js GUIDE */
           { id: 'hov', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
           { id: 'sel', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink, 'line-width': 2.4 } },
+          { id: 'site', type: 'circle', source: 'site', paint: { 'circle-radius': 6, 'circle-color': C.paper, 'circle-stroke-color': C.ink, 'circle-stroke-width': 2.4 } },   /* a reader's own site */
         ],
       },
     });
@@ -410,6 +411,7 @@
     } else sm.innerHTML = '';
     if (state.tab === 'cell') {
       const box = $('ra-cellbox');
+      siteForm();
       if (sel) cellPanel(box, sel);
       else box.innerHTML = '<p class="n">Choose a cell on the globe, or type a latitude and longitude: its choices open here, and it can be certified again in this tab from the pinned data, with the ledger\'s own code.</p>';
     }
@@ -487,6 +489,7 @@
       + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit (proved)', 'is refused'][q.gg] + ', and the exponentiated Weibull ' + EWW[q.ew] + (c.ice ? '.' : '; the report runs no threshold fitter.');
   }
   function cellPanel(el, c) {
+    if (c.site) { sitePanel(el, c); return; }
     let h = '<div class="ra-celltitle"><h3>' + esc(place(c)) + '</h3><button type="button" class="ra-linkbtn" id="ra-link-cell">link to this cell</button></div><p class="n">' + [c.report ? 'the report\'s ' + esc(c.report) + ' node' : '', (c.sets & 2) ? '1° Brazilian lattice' : (c.sets & 1) ? '4° global lattice' : ''].filter(Boolean).join(' · ') + '</p>';
     const back = () => { sel = null; if (map) map.setFilter('sel', ['==', ['get', 'i'], -1]); if (worker) { worker.terminate(); worker = null; run = null; } setTab('claims'); };
     if (c.ice) {
@@ -607,7 +610,7 @@
   function showCert(c, R) {
     const prog = $('ra-prog'), rec = R.rec;
     if (!prog) return;
-    prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
+    prog.innerHTML = 'certified here in ' + R.secs.toFixed(1) + ' s. ' + (c.site ? 'Your file\'s sha256 ' + esc(c.sha.slice(0, 12)) + '… is in the certificate; no ledger holds this place, so the nearest cells below are what it is read against.' : R.same ? '<span class="ra-ok">Identical to the ledger\'s record</span> (sha256 ' + R.rh.slice(0, 12) + '…).' : R.sameDecisions ? 'Every choice and every family\'s state is the ledger\'s; the enclosures differ in their last printed digits — this browser\'s own Math.exp and Math.log steered the floating-point search to a candidate a few bits away, and both boxes are certificates.' : '<b>Not the ledger\'s decisions</b> — report it: this tab and the ledger disagree.');
     const P = R.plot[state.block], B = rec.blocks[state.block];
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
@@ -621,10 +624,13 @@
     if (btn) btn.disabled = false;
     dl.disabled = false;
     dl.onclick = () => {
-      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
+      const cert = c.site ? { what: 'A reader\'s own site, certified in the reader\'s browser by /instruments/return-level-atlas/: the file read by THE parse rule (playground/return-level-check/parse.js), cut into daily maxima by THE block rule, the paper\'s six families and the GEV fitted by maximum likelihood on the daily, weekly and monthly maxima by the atlas\'s own code (instruments/hseva/atlas.js), each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED. The data are not in this file: its sha256 is.',
+        site: { lat: c.lat, lon: c.lon, file: c.fileName, sha256: c.sha, field: c.col, values: c.values, days: c.days, first: c.first, last: c.last },
+        code: SPEC.modules, record: rec, generated: new Date().toISOString() }
+        : { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
-      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = c.site ? 'atlas-site-' + c.sha.slice(0, 12) + '.json' : 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
     };
   }
 
@@ -826,6 +832,116 @@
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
+  /* ---- YOUR OWN SITE: a reader's record read by THE parse rule (parse.js, the return-level check's), cut to daily maxima by
+     THE block rule, certified in a worker by the atlas's own code, pinned on the globe and read against the nearest cells.
+     The file is read here and sent nowhere; the certificate carries its sha256, never the data. ---- */
+  const PARSE = window.HS_PARSE || null;
+  const SITE = { name: null, text: null, sha: null, col: 1 };
+  function siteForm() {
+    const el = $('ra-site'); if (!el || el.dataset.on || !PARSE || !RULES) return;
+    el.dataset.on = '1';
+    el.innerHTML = '<button type="button" class="ra-linkbtn" id="ra-site-open" aria-expanded="false" aria-controls="ra-site-form">or bring your own site</button>'
+      + '<div id="ra-site-form" class="ra-mine" hidden><p class="n">A record of significant wave height at a place of your own — a text file, a timestamp and Hs on each line, read by the rule of <a href="../return-level-check/">the return-level check</a> — is cut into daily maxima and certified here by the atlas\'s own code, then pinned on the globe and read against the nearest cells. Your file never leaves this page.</p>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-site-file">record</label><input id="ra-site-file" class="ra-select" type="file" accept=".txt,.csv,.dat,.tsv,text/plain,text/csv"></div>'
+      + '<div class="ra-mrow"><label class="ra-lab" for="ra-site-col">field</label><input id="ra-site-col" class="ra-select" type="number" min="1" max="20" step="1" value="1"><label class="ra-lab" for="ra-site-at">lat, lon</label><input id="ra-site-at" class="ra-select" type="text" inputmode="decimal" placeholder="-22.5, -40" autocomplete="off"></div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-site-go" disabled>open my site</button></div><p class="n" id="ra-site-msg" aria-live="polite"></p></div>';
+    $('ra-site-open').onclick = () => { const f = $('ra-site-form'), open = f.hidden; f.hidden = !open; $('ra-site-open').setAttribute('aria-expanded', String(open)); };
+    $('ra-site-file').onchange = async (e) => {
+      const file = e.target.files && e.target.files[0]; if (!file) return;
+      const buf = await file.arrayBuffer();
+      SITE.name = file.name; SITE.text = new TextDecoder().decode(buf); SITE.sha = await digest(buf);
+      siteRead();
+    };
+    $('ra-site-col').onchange = () => siteRead();
+    $('ra-site-at').oninput = () => siteRead();
+    $('ra-site-go').onclick = () => siteOpen();
+  }
+  const siteAt = () => { const m = ($('ra-site-at').value || '').match(/(-?\d+(?:\.\d+)?)\s*[,; ]\s*(-?\d+(?:\.\d+)?)/); if (!m) return null; const la = Number(m[1]), lo = Number(m[2]); return Math.abs(la) <= 90 && Math.abs(lo) <= 180 ? [la, lo] : null; };
+  function siteRead() {
+    const msg = $('ra-site-msg'), go = $('ra-site-go');
+    SITE.series = null; go.disabled = true;
+    if (!SITE.text) { msg.textContent = ''; return; }
+    SITE.col = Math.max(1, Math.min(20, Math.round(Number($('ra-site-col').value) || 1)));
+    try { SITE.series = PARSE.parse(SITE.text, SITE.col); }
+    catch (e) { msg.textContent = 'REFUSED: ' + e.message; return; }
+    const S = SITE.series, D = RULES.BR.blockMaxima({ n: S.n, t: S.t, h: S.h, step: S.step }, 'daily');
+    SITE.days = D;
+    const at = siteAt();
+    msg.textContent = fmt(S.n) + ' values in field ' + SITE.col + ', ' + S.t[0].slice(0, 10) + ' to ' + S.t[S.n - 1].slice(0, 10) + ', mostly every ' + S.step + ' h: ' + fmt(D.n) + ' days of daily maxima. ' + (D.n < 3 * 365 ? 'Fewer than three years: the monthly fits may refuse. ' : '') + (at ? '' : 'Give its latitude and longitude to pin it.');
+    go.disabled = !at;
+  }
+  function siteOpen() {
+    const at = siteAt(), S = SITE.series, D = SITE.days; if (!at || !S || !D) return;
+    let mx = 0; for (const v of D.x) if (v > mx) mx = v;
+    const c = { id: 'site', site: true, lat: at[0], lon: at[1], sets: 0, ice: false, report: '', native: null, max: mx, sha: SITE.sha, fileName: SITE.name, col: SITE.col, values: S.n, days: D.n, first: D.keys[0], last: D.keys[D.n - 1], den: S.den, blocks: null, ei: null };
+    data.set('site', { status: 'ok', t: D.keys, h: D.x, bm: {}, sha: SITE.sha });
+    if (lastCert && lastCert.id === 'site') lastCert = null;
+    select(c);
+    if (map && map.getSource('site')) map.getSource('site').setData({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [c.lon, c.lat] } }] });
+    fly({ center: [c.lon, c.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) });
+  }
+  /* the nearest open-sea cells, by great circle */
+  function nearest(c, k) {
+    const r = Math.PI / 180, out = [];
+    for (const q of cells) { if (q.ice) continue; const d = 6371 * Math.acos(Math.min(1, Math.sin(c.lat * r) * Math.sin(q.lat * r) + Math.cos(c.lat * r) * Math.cos(q.lat * r) * Math.cos((c.lon - q.lon) * r))); out.push([d, q]); }
+    return out.sort((a, b) => a[0] - b[0]).slice(0, k);
+  }
+  /* the tab's record in the map's compact form (build.js row), so the cell's table reads it */
+  function compactOf(rec, codes, plot) {
+    const f7 = (f) => (f === 'R' ? 6 : f === 'gev' ? 7 : f === undefined ? null : FAM.indexOf(f)), B = {};
+    BLK.forEach((b, j) => {
+      const R = rec.blocks[b], F = R.rank.ad !== 'R' ? R.fits[R.rank.ad] : null, P = (plot && plot[b]) || {}, lv = (k) => (F && Array.isArray(F[k]) ? F[k] : [null, null]);
+      B[b] = { ad: f7(R.rank.ad), ks: f7(R.rank.ks), mse: f7(R.rank.mse), chi2: f7(R.rank.chi2), naive: f7(R.naive), gg: codes[j].gg, ew: codes[j].ew, l100: lv('l100'), l1000: lv('l1000'),
+        below: F && Array.isArray(F.l100) ? (F.l100[1] < R.max ? 1 : 0) : null, seven: f7(R.seven), g7: R.gev ? (R.gev.c ? 1 : R.gev.s ? 2 : 0) : null,
+        xi: R.gev && R.gev.c && Array.isArray(R.gev.x) ? Number(R.gev.x[1].toFixed(3)) : null, xiCI: P.xiCI || [null, null], g100: R.gev && R.gev.c && R.gev.l100 ? R.gev.l100[1] : null, s100: P.s100 || [null, null], s1000: P.s1000 || [null, null] };
+    });
+    return B;
+  }
+  function sitePanel(el, c) {
+    let h = '<div class="ra-celltitle"><h3>your site · ' + esc(place(c)) + '</h3></div><p class="n">' + esc(c.fileName || 'your file') + ' · field ' + c.col + ' · ' + fmt(c.values) + ' values · ' + fmt(c.days) + ' days of daily maxima, ' + esc(c.first) + ' to ' + esc(c.last) + ' · sha256 ' + esc(c.sha.slice(0, 12)) + '…</p>';
+    h += '<div class="ra-go-row"><button type="button" id="ra-cert">certify my site in this tab</button><button type="button" id="ra-csv">the daily maxima (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
+      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+    if (c.blocks) h += '<div class="k">the choice, by criterion (this tab)</div>' + blockRows(c);
+    const nb = nearest(c, 3);
+    if (nb.length) {
+      h += '<div class="k">the nearest cells of the atlas</div><div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>'
+        + (c.blocks ? '<tr><th>your site</th>' + BLK.map((b) => (famOf(c.blocks[b].ad) ? '<td class="b">' + esc(FS[famOf(c.blocks[b].ad)]) + (c.blocks[b].l100[1] !== null ? ' ' + c.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>' : '')
+        + nb.map(([d, q]) => '<tr><th><button type="button" class="ra-linkbtn" data-near="' + esc(q.id) + '">' + Math.round(d) + ' km</button></th>' + BLK.map((b) => (famOf(q.blocks[b].ad) ? '<td>' + esc(FS[famOf(q.blocks[b].ad)]) + (q.blocks[b].l100[1] !== null ? ' ' + q.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>').join('')
+        + '</tbody></table></div><p class="n">The family Anderson–Darling decides and its 100-year wave in metres, block by block: your site as certified here, and the three nearest cells as the ledger holds them (a cell is a node\'s series of the paper\'s hindcast, not your instrument). A cell\'s distance opens it.</p>';
+    }
+    el.innerHTML = h;
+    el.querySelectorAll('[data-near]').forEach((b) => { b.onclick = () => select(byId.get(b.dataset.near)); });
+    $('ra-cert').onclick = () => certifySite(c);
+    const D = data.get('site');
+    $('ra-csv').onclick = () => { const L = ['date,hs_daily_max_m']; for (let i = 0; i < D.h.length; i++) L.push(D.t[i] + ',' + D.h[i]); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([L.join('\n') + '\n'], { type: 'text/csv' })); a.download = 'site-daily-max.csv'; document.body.appendChild(a); a.click(); a.remove(); };
+    if (run && run.id === 'site') { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }
+    else if (lastCert && lastCert.id === 'site') showCert(c, lastCert);
+    charts(c);
+  }
+  function certifySite(c) {
+    if (worker) { worker.terminate(); worker = null; }
+    const me = run = { id: 'site', text: '' }, D = data.get('site');
+    const say = (t, done) => { me.text = t; if (run !== me) return; const p = $('ra-prog'), b = $('ra-cert'); if (sel === c && p) p.textContent = t; if (sel === c && b) b.disabled = !done; };
+    say('certifying the daily maxima …');
+    const bins = {}, qqp = {};
+    for (const b of BLK) { const BM = bmOf(D, b); bins[b] = BM.edges; qqp[b] = BM.qp; }
+    const w = worker = new Worker(WURL), t0 = Date.now();
+    w.onmessage = (ev) => {
+      if (w !== worker || run !== me) return;
+      const m = ev.data;
+      if (m.kind === 'progress') { const k = BLK.indexOf(m.block); say(BW[m.block] + ' certified' + (k < 2 ? '; certifying the ' + BW[BLK[k + 1]] + ' …' : '')); return; }
+      w.terminate(); worker = null;
+      if (m.kind === 'error') { say('REFUSED: ' + m.message, true); return; }
+      c.blocks = compactOf(m.record, m.codes, m.plot); c.ei = m.ei && Number.isFinite(m.ei.theta) ? m.ei : null;
+      lastCert = { id: 'site', rec: m.record, plot: m.plot || {}, rh: null, same: null, sameDecisions: null, secs: (Date.now() - t0) / 1000 };
+      run = null;
+      if (!state.chartPicked) state.chart = 'rl';
+      if (sel === c) panel();
+    };
+    w.onerror = (e) => { if (w !== worker) return; worker = null; say('The run failed in the worker: ' + ((e && e.message) || 'no message'), true); };
+    w.postMessage({ id: 'site', site: { t: D.t, h: D.h, den: c.den } });
+  }
+
   /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
   /* the page's compact cell, read the way instruments/hseva/atlas-claims.js reads a ledger cell; for a criterion other
      than Anderson–Darling only the choice is carried (the levels on the page are the Anderson–Darling family's) */
@@ -981,8 +1097,8 @@
       if (['wave', 'blocks', 'record', 'unc'].includes(state.mode)) q.set('T', state.T);
       if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
       if (state.tab !== 'claims') q.set('t', state.tab);
-      if (sel) q.set('c', sel.id);
-      if (sel && state.chartPicked) q.set('ch', state.chart);
+      if (sel && !sel.site) q.set('c', sel.id);                    /* a reader's site stays in the tab: its data never leave it */
+      if (sel && !sel.site && state.chartPicked) q.set('ch', state.chart);
       if (claimOn) q.set('cl', claimOn);
       if (MY.on) q.set('my', mySpec());
       if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }
