@@ -103,6 +103,11 @@ html, body { height: 100%; overflow: hidden; }
 .ra-box4 label { display: grid; gap: var(--s-1); }
 .ra-box4 .ra-select { width: 100%; }
 .ra-mrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.ra-pr-ps { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--s-2); }
+.ra-pr-ps label { display: grid; gap: var(--s-1); align-content: end; }
+.ra-pr-ps .ra-lab { text-transform: none; letter-spacing: 0; }
+.ra-pr-ps .ra-select { width: 100%; }
+.ra-pr-v { color: var(--ink); margin: var(--s-3) 0 var(--s-2); }
 .ra-mrow .ra-select { flex: 1 1 8rem; }
 .ra-mrow .ra-lab { min-width: 3.5rem; }
 .ra-mine-out { cursor: default; }

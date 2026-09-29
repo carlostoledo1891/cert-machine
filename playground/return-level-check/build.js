@@ -27,6 +27,7 @@ const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
 const PARSE = fs.readFileSync(path.join(HERE, 'parse.js'), 'utf8');       /* THE parse rule, shared with the atlas's own-site pin */
+const PRINTED = fs.readFileSync(path.join(HERE, 'printed.js'), 'utf8');   /* THE decision of a printed fit, shared with the atlas */
 const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.js'));
 const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
 
@@ -39,6 +40,7 @@ const modules = {};
 modules['playground/return-level-check/app.js'] = sha(APP);
 modules['playground/return-level-check/worker.js'] = sha(WORKER);
 modules['playground/return-level-check/parse.js'] = sha(PARSE);
+modules['playground/return-level-check/printed.js'] = sha(PRINTED);
 Object.assign(modules, B.modules);
 
 /* the preset: the Campos Basin node of the paper's own hindcast, if the extraction is complete and contiguous */
@@ -121,7 +123,7 @@ function build(OUTDIR) {
     path: '/instruments/return-level-check/',
     css: CSS,
     body: `<main>${body}</main>`,
-    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${APP}</script>`,
+    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, preset: !!P, modules: Object.keys(modules).length };

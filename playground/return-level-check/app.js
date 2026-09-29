@@ -25,15 +25,7 @@
   const FAMW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   const BLK = { native: 'the series itself', daily: 'daily maxima', weekly: 'weekly maxima (ISO)', monthly: 'monthly maxima', annual: 'annual maxima' };
   const CRN = { ad: 'Anderson–Darling', ks: 'Kolmogorov–Smirnov', mse: 'MSE', chi2: 'χ²' };
-  const SYM = { mu: 'μ', sigma: 'σ', k: 'k', lambda: 'λ', alpha: 'α', c: 'c', beta: 'β', q: 'Q' };
-  const PARAMS = {
-    normal: [['mu', 'μ, the mean'], ['sigma', 'σ, the standard deviation']],
-    lognormal: [['mu', 'μ, the mean of ln x (scipy: ln scale)'], ['sigma', 'σ (scipy: s)']],
-    weibull: [['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
-    expweibull: [['alpha', 'α, the exponent (scipy: a)'], ['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
-    gengamma: [['alpha', 'α, the gamma shape (scipy: a)'], ['c', 'c, the power (scipy: c)'], ['lambda', 'λ, the scale']],
-    gumbel: [['mu', 'μ, the location'], ['beta', 'β, the scale']],
-  };
+  const SYM = window.HS_PRINTED.SYM;
   /* the bundle on this thread too, for the printed-fit check */
   const main = document.createElement('script');
   main.src = URL.createObjectURL(new Blob([BUNDLE], { type: 'text/javascript' }));
@@ -187,78 +179,29 @@
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'return-level-certificate-' + last.block + '.json'; document.body.appendChild(a); a.click(); a.remove();
   }
 
-  /* ---- a fit someone printed, decided against the same series and block ---- */
-  const DEC = /^-?\d+(\.\d+)?$/;
+  /* ---- a fit someone printed, decided against the same series and block: THE decision is printed.js beside this
+     file (loaded first, as HS_PRINTED), one module with the atlas, which decides the same way against a cell ---- */
+  const { PARAMS, LOCATED } = window.HS_PRINTED;
   function fillParams() {
     const f = $('rc-cf').value;
     $('rc-cp').innerHTML = PARAMS[f].map(([k, lab]) => '<div><label for="rc-p-' + k + '">' + esc(lab) + '</label><input id="rc-p-' + k + '" type="text" inputmode="decimal" placeholder="as printed"></div>').join('')
-      + (f === 'normal' || f === 'gumbel' ? '' : '<div><label for="rc-p-loc">location (blank: none)</label><input id="rc-p-loc" type="text" inputmode="decimal" placeholder="as printed"></div>');
-  }
-  /* each printed coordinate against the certified box: the box inside the printed digits'
-     (they are its rounding), the digits inside the box (they agree as far as it resolves),
-     the two apart, or straddling a rounding boundary */
-  function relation(P, C) {
-    if (C[1] < P[0] || P[1] < C[0]) return 'apart';
-    if (P[0] <= C[0] && C[1] <= P[1]) return 'rounds';
-    if (C[0] <= P[0] && P[1] <= C[1]) return 'within';
-    return 'straddles';
+      + (LOCATED(f) ? '<div><label for="rc-p-loc">location (blank: none)</label><input id="rc-p-loc" type="text" inputmode="decimal" placeholder="as printed"></div>' : '');
   }
   function check() {
     const out = $('rc-check-out');
     if (!series) { out.innerHTML = 'Choose a series first.'; return; }
     if (!self.HSEVA) { out.innerHTML = 'The code is still loading.'; return; }
-    const FT = self.HSEVA.FT, BR = self.HSEVA.BR, FAMILIES = self.HSEVA.FAM.FAMILIES;
     const f = $('rc-cf').value, block = $('rc-block').value, s = series;
     try {
-      const strs = PARAMS[f].map(([k]) => $('rc-p-' + k).value.trim());
-      if (strs.some((x) => !DEC.test(x))) throw new Error('type every parameter as a plain decimal, as printed');
-      const theta = strs.map(FT.printedBox);
-      const signed = FAMILIES[f].signed || ['mu'];
-      const outside = PARAMS[f].filter(([k], i) => !signed.includes(k) && !(theta[i][0] > 0)).map(([k]) => SYM[k] || k);
-      if (outside.length) { out.innerHTML = '<div><b>NOT A MEMBER OF THE FAMILY</b> — ' + outside.join(' and ') + ' must be positive, and the printed digits allow ' + (outside.length > 1 ? 'values' : 'a value') + ' at or below zero. There is no ' + FAMW[f] + ' distribution to decide.</div>'; return; }
-      const locStr = $('rc-p-loc') ? $('rc-p-loc').value.trim() : '';
-      if (locStr && !DEC.test(locStr)) throw new Error('type the location as a plain decimal');
-      const loc = locStr && Number(locStr) !== 0 ? FT.printedBox(locStr) : null;
-      const BM = BR.blockMaxima({ n: s.n, t: s.t, h: s.h, step: s.step }, block);
-      const { Di } = FT.prepare(BM.x);
-      const lines = [];
-      const below = loc ? [BM.x.filter((x) => x < loc[0]).length, BM.x.filter((x) => x < loc[1]).length] : [0, 0];
-      let ll = null, llWhy = null, verdict = null;
-      if (below[0] > 0) verdict = '<b>OUTSIDE ITS SUPPORT</b> — ' + fmt(below[0]) + ' of the ' + fmt(BM.n) + ' values lie below the printed location: the fitted density is zero there, the log-likelihood minus infinity.';
-      else if (below[1] > 0) verdict = '<b>UNDECIDED AT THE PRINTED PRECISION</b> — the location may lie above the smallest value; the digits cannot say.';
-      else { try { ll = FT.llAt(f, theta, loc, Di); } catch (e) { llWhy = e.message; } if (!ll && !llWhy) llWhy = 'a value sits at the printed location'; }
+      const BM = self.HSEVA.BR.blockMaxima({ n: s.n, t: s.t, h: s.h, step: s.step }, block);
       const R = last && last.series === s && last.block === block ? last : null;
-      const F = R ? R.fits[f] : null, cert = F && F.certified ? F : null;
-      const gap = (a, b) => (a - b).toPrecision(4);
-      if (!verdict) {
-        if (!R) verdict = 'Certify this series on this block first (step 3): the printed fit is decided against that certificate.';
-        else if (!F) verdict = FAMW[f] + ' was not among the families certified on this block.';
-        else if (!cert && F.edge && !loc && ll && R.fits.lognormal && R.fits.lognormal.certified && R.fits.lognormal.ll && ll[1] < R.fits.lognormal.ll[0]) verdict = '<b>BELOW ITS LIMIT</b> — on these values the family\'s likelihood is proved to peak at its lognormal limit, and the printed point is at least ' + gap(R.fits.lognormal.ll[0], ll[1]) + ' log-likelihood units below the lognormal\'s certified maximum, which the family approaches: it is not the family\'s best, only a point on the way.';
-        else if (!cert) verdict = F.edge ? 'No maximum inside the family to compare with: on these values its likelihood is proved to peak at the lognormal limit (' + esc(F.why) + ')' + (R.fits.lognormal && R.fits.lognormal.certified ? '.' : '; certify the lognormal too, to compare the printed point with that limit.') : 'No maximum to compare with: the certificate refused ' + FAMW[f] + ' on this block (' + esc(F.why) + ').';
-        else if (!loc) {
-          /* a Prentice or a Gumbel-coordinate certificate, carried back to the printed coordinates — or null, where that box lies past the doubles */
-          const cbox = cert.coords ? cert.stacyBox || cert.ewBox || null : cert.box;
-          const rel = cbox ? theta.map((P, i) => relation(P, cbox[i])) : null;
-          if (ll && cert.ll && ll[1] < cert.ll[0]) verdict = '<b>OFF THE MAXIMUM</b> — its log-likelihood is at least ' + gap(cert.ll[0], ll[1]) + ' below the certified maximum of the same family on the same values.';
-          else if (!rel) verdict = '<b>NOT DECIDED</b> — the certified maximum is a box in ' + (cert.coords === 'gengammaP' ? 'Prentice\'s coordinates (μ, σ, Q)' : 'the Gumbel coordinates (k, θ = λᵏ, β = θ ln α)') + ', and carried back to the printed coordinates it lies past the largest or smallest double: the printed digits cannot be compared with it, and their likelihood is not separated from the maximum\'s.';
-          else if (rel.includes('apart')) verdict = '<b>NOT THE CERTIFIED FIT</b> — the certified maximum lies outside every value the printed digits allow (in ' + PARAMS[f].filter((p, i) => rel[i] === 'apart').map(([k]) => SYM[k] || k).join(', ') + ')' + (ll ? ', though the digits are too few to separate their likelihood from the maximum\'s.' : '.');
-          else if (rel.every((r) => r === 'rounds')) verdict = '<b>REPRODUCED</b> — the printed digits are the rounding of the certified maximum-likelihood fit.';
-          else if (rel.every((r) => r === 'rounds' || r === 'within')) verdict = '<b>CONSISTENT</b> — the printed digits lie inside the certified box: they agree with the maximum-likelihood fit to every digit the certificate resolves.';
-          else verdict = '<b>NOT DECIDED</b> — the certified box straddles a rounding boundary of the printed digits (in ' + PARAMS[f].filter((p, i) => rel[i] === 'straddles').map(([k]) => SYM[k] || k).join(', ') + '): the maximum may or may not round to them.';
-        } else if (ll && cert.ll && ll[1] < cert.ll[0]) verdict = '<b>BELOW A MEMBER OF ITS OWN FAMILY</b> — the fit with the location at zero, certified on the same values, is at least ' + gap(cert.ll[0], ll[1]) + ' log-likelihood units more likely: the printed point is not the family\'s most likely member.';
-        else if (ll && cert.ll && ll[0] > cert.ll[1]) verdict = '<b>A DIFFERENT MODEL</b> — the printed location raises the log-likelihood by at least ' + gap(ll[0], cert.ll[1]) + ' over the certified fit at location zero. With a free location the likelihood has no maximum to certify (it is unbounded), so this page decides the printed point only against that fit.';
-        else verdict = '<b>NOT DECIDED</b> — with a location the printed fit is a different model from the one certified here (location zero), and the printed digits do not separate the two likelihoods.';
-      }
-      lines.push(verdict);
-      for (const T of S.T) {
-        try {
-          const L = FT.levelAt(f, theta, loc, T, BM.hours);
-          lines.push(T + '-year level over every value the printed digits allow: [' + L[0].toFixed(3) + ', ' + L[1].toFixed(3) + '] m' + (cert && cert.returnLevel[T] ? '; the certified fit\'s' + (loc ? ' (the family at location zero)' : '') + ': ' + Number(cert.returnLevel[T][1]).toFixed(3) + ' m' : '') + '.');
-        } catch (e) { /* a level the box cannot enclose is left out */ }
-      }
-      if (ll) lines.push('log-likelihood over the printed box: [' + ll[0].toFixed(3) + ', ' + ll[1].toFixed(3) + ']' + (cert && cert.ll ? '; the certified maximum: [' + cert.ll[0].toFixed(3) + ', ' + cert.ll[1].toFixed(3) + ']' : '') + '.');
-      else if (llWhy && !below[1]) lines.push('The log-likelihood cannot be enclosed over the printed box: ' + esc(llWhy) + '.');
-      out.innerHTML = lines.map((l) => '<div>' + l + '</div>').join('');
+      const D = window.HS_PRINTED.decide(self.HSEVA, {
+        f, strs: PARAMS[f].map(([k]) => $('rc-p-' + k).value), loc: $('rc-p-loc') ? $('rc-p-loc').value : '',
+        x: BM.x, hours: BM.hours, T: S.T,
+        pending: R ? null : 'Certify this series on this block first (step 3): the printed fit is decided against that certificate.',
+        fit: R ? R.fits[f] || null : null, lognormal: R ? R.fits.lognormal || null : null,
+      });
+      out.innerHTML = D.lines.map((l) => '<div>' + l + '</div>').join('');
     } catch (e) { out.innerHTML = 'REFUSED: ' + esc(e.message); }
   }
 

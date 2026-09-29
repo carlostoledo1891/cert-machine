@@ -545,6 +545,15 @@
    "class": "audit",
    "page": "reports/time-horizon.html",
    "record": "certs/horizon-ledger.json"
+  },
+  {
+   "id": "printed-design-tables",
+   "name": "A printed design table of Hs extremes, audited against the nearest cells of the return-level atlas (HANDOFF Phase A11, [N5]) — which public tables print fitted parameters at coordinates near the Brazilian margin",
+   "verdict": "BUILT 2026-09-29 on Bhaskaran et al. (Energies 16, 6935, 2023, CC BY): corpus/design-tables/bhaskaran-2023.json (LA12–16 of Table 3, the PDF pinned by sha256), tools/run-design-table-audit.js → certs/design-table-audit.json, decided in the atlas tab by playground/return-level-check/printed.js. 20 printed annual-maximum fits: 19 OFF THE MAXIMUM, 1 OUTSIDE ITS SUPPORT at the nearest cells (31–61 km); printed 100-year waves −2.03 to +3.14 m from the certified fits, outside the statistical 95% at 19 of 20 — the distance between a commercial hindcast and the public one, not an error in the table. OPEN: a table printed from THIS hindcast at an atlas node (the only kind a certificate can REPRODUCE); the GPD tables below wait for the POT layer (B2)",
+   "scouted": "2026-09-29",
+   "finding": "Read from the sources: (1) Bhaskaran et al. 2023 — annual maxima, 1992–2022, WaveClimate (Infoplaza, WW3 + SWRT nearshore, coordinates rounded ±0.5°, proprietary); Gumbel LS/ML/MOM and GEV ML by WAFO; GEV printed with k = −ξ (Eq. 1); Eq. 6 as printed is not the GEV quantile (it has (ln p)^k with p an exceedance probability); two decimals. (2) Aguiar et al., An. Acad. Bras. Ciênc. 93(1) e20190011 (2021, CC BY) — NCEP CFSR WW3 1979–2009 beside the Minuano buoy (32°54′S 50°48′W), POT with 213-h declustering, GPD ML u = 4.78 m, ξ = 0.0286, β = 0.6561; the abstract’s bias-corrected 50/100-yr levels (10.54/11.18 m, as a scouting agent read them — not yet checked against the paper) sit 1.8–1.9 m above what the printed GPD gives with 5.29 events a year (8.75/9.29 m, recomputed here) — worth a look when B2 exists. (3) Campos (2009, COPPE MSc) — GPD by moments at 38°W 23°S and 42°W 25°S (NCEP WW3 1986–2005). Checked, no usable table: Reis et al. 2026 (maps), de Bortoli et al. 2026 (figures), Cotrim 2022, Pinho 2003, Godoi 2011. Not read (paywalled/dead): Campos et al. Ocean Eng. 179 (2019) — probably the best Brazilian GEV table; Campos et al. Ocean Modelling 2018; Dias et al. 2021. AVOID: Petrobras I-ET metocean specs circulating on Scribd (proprietary).",
+   "fit": "The atlas’s own-site pin and the printed-fit form were built for exactly this; a table from another hindcast can only be decided against ours, so the finding is the distance between records and the node choice (at Projeto Açu the two nearest cells, 1° apart, give Gumbel 100-yr waves of 3.21 and 5.47 m).",
+   "next": "Ask the UFSC lab for a table printed from GLOBMULTI at a node (REPRODUCED is then possible); decide Aguiar 2021 and Campos 2009 once POT/GPD is certified (B2); a library copy of Campos et al. 2019."
   }
  ]
 }

@@ -2,7 +2,8 @@
    playground/return-level-atlas/ · cert-machine
 
    Concatenated after the bundle, so self.HSEVA.AT is instruments/hseva/atlas.js,
-   the same bytes that wrote certs/hseva-atlas.json. Takes the cell's
+   the same bytes that wrote certs/hseva-atlas.json (and after the return-level
+   check's printed.js, THE decision of a printed fit: see printed() below). Takes the cell's
    daily maxima (int16, raw units, one per UTC day from the corpus's first day),
    answers with the record — progress per block — and the page compares it with
    the ledger's, as JSON. Beside the record, and never inside it, the return-level
@@ -86,25 +87,47 @@ function profile(q) {
   }
   return { x0: x0, lo: ends[0], hi: ends[1], chi: CHI95 };
 }
+/* the daily maxima the page sends: a cell's pinned int16 file, or a reader's own site cut to days on the page */
+function seriesOf(q) {
+  if (q.site) return { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };   /* by THE block rule, on the page */
+  var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
+  var d0 = Date.parse(q.first + 'T00:00:00Z');
+  for (var i = 0; i < v.length; i++) {
+    if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
+    t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+  }
+  return { n: v.length, t: t, h: h, den: 500, step: 24 };
+}
+/* A FIT SOMEONE PRINTED for this place, decided by THE decision of the return-level check (printed.js, concatenated
+   before this file): the printed family certified by fit.js certify() on the printed block of the same daily maxima —
+   for the daily, weekly and monthly blocks the certificate the ledger records, for the annual block (not one of the
+   paper's) certified here only — the lognormal beside the generalized gamma (its limit), and the printed digits decided
+   against it. Digits that are not a member of the family are decided before anything is certified. Nothing is kept. */
+function printed(q) {
+  var H = self.HSEVA, P = self.HS_PRINTED, FT = H.FT, S = seriesOf(q), BM = H.BR.blockMaxima(S, q.block), T = [100, 1000];
+  if (BM.n < 5) throw new Error('only ' + BM.n + ' blocks: too few to fit');
+  var mx = -Infinity; for (var i = 0; i < BM.x.length; i++) if (BM.x[i] > mx) mx = BM.x[i];
+  var base = { f: q.f, strs: q.strs, loc: q.loc, x: BM.x, hours: BM.hours, T: T };
+  var pre = P.decide(H, Object.assign({ pending: 'certifying' }, base));
+  if (pre.code === 'NOT A MEMBER OF THE FAMILY') return { code: pre.code, lines: pre.lines, n: BM.n, hours: BM.hours, max: mx, fit: null };
+  var prepared = FT.prepare(BM.x);
+  var fit = P.recordOf(H, FT.certify(q.f, BM.x, { prepared: prepared }), T, BM.hours);
+  var ln = q.f === 'gengamma' ? P.recordOf(H, FT.certify('lognormal', BM.x, { prepared: prepared }), T, BM.hours) : null;
+  var D = P.decide(H, Object.assign({ fit: fit, lognormal: ln }, base));
+  return { code: D.code, lines: D.lines, n: BM.n, hours: BM.hours, max: mx, fit: fit.certified ? { theta: fit.theta, l100: fit.returnLevel[100], l1000: fit.returnLevel[1000] } : { why: fit.why, edge: fit.edge } };
+}
 self.onmessage = function (ev) {
   var q = ev.data;
   if (q && q.kind === 'profile') {
     try { self.postMessage({ kind: 'profile', result: profile(q) }); } catch (e) { self.postMessage({ kind: 'error', message: String((e && e.message) || e) }); }
     return;
   }
+  if (q && q.kind === 'printed') {
+    try { self.postMessage({ kind: 'printed', result: printed(q) }); } catch (e) { self.postMessage({ kind: 'error', message: String((e && e.message) || e) }); }
+    return;
+  }
   try {
-    var S;
-    if (q.site) {                                                   /* a reader's own site: its daily maxima by THE block rule, made on the page */
-      S = { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };
-    } else {
-      var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
-      var d0 = Date.parse(q.first + 'T00:00:00Z');
-      for (var i = 0; i < v.length; i++) {
-        if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
-        t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
-      }
-      S = { n: v.length, t: t, h: h, den: 500, step: 24 };
-    }
+    var S = seriesOf(q);
     var plot = {}, keep = {}, FT = self.HSEVA.FT;
     var onFit = function (blk, f, c, BM) {
       var P = plot[blk];

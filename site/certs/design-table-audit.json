@@ -1,0 +1,1483 @@
+{
+ "what": "A printed design table decided against the nearest open-sea cells of the return-level atlas. The table: Bhaskaran, S. K., Verma, A. S., Goupee, A. J., Bhattacharya, S., Nejad, A. R., Shi, W. (2023). Comparison of Extreme Wind and Waves Using Different Statistical Methods in 40 Offshore Wind Energy Lease Areas Worldwide. Energies 16(19), 6935. — annual-maximum Hs fits for the five South Atlantic lease areas (Table 3), from a commercial hindcast (WaveClimate, 1992–2022) that cannot be re-run outside it. The record: the paper's public hindcast (Ifremer GLOBMULTI_ERA5_GLOBCUR_01, 1993–2024, CC BY-SA 4.0) at the two nearest cells of corpus/ww3-grid, their calendar-year maxima by THE block rule, the Gumbel and the GEV certified (fit.js), the printed digits decided by playground/return-level-check/printed.js. A verdict says whether the digits are THIS record's maximum-likelihood fit; the two records are different hindcasts at different points, so OFF THE MAXIMUM measures how far apart their fits lie, not an error in the table.",
+ "generated": "2026-09-29",
+ "table": {
+  "file": "corpus/design-tables/bhaskaran-2023.json",
+  "sha256": "bded89d0e152e7e430cdaaeeeaadc275b55cabdcc68bb543a9fec8c31e61651b",
+  "source": {
+   "citation": "Bhaskaran, S. K., Verma, A. S., Goupee, A. J., Bhattacharya, S., Nejad, A. R., Shi, W. (2023). Comparison of Extreme Wind and Waves Using Different Statistical Methods in 40 Offshore Wind Energy Lease Areas Worldwide. Energies 16(19), 6935.",
+   "doi": "10.3390/en16196935",
+   "license": "CC-BY-4.0",
+   "url": "https://mdpi-res.com/d_attachment/energies/energies-16-06935/article_deploy/energies-16-06935.pdf",
+   "sha256": "828c27607aee86b599d95a99eb9df7ae8e330676ccac213d23fbf71a39b3807a",
+   "bytes": 21480818,
+   "fetched": "2026-09-29"
+  }
+ },
+ "conventions": {
+  "block": "annual: the calendar year's largest daily maximum (instruments/hseva/blockrule.js), 32 values at every cell",
+  "gev": "the table prints (k, σ, µ) with F = exp(−(1 − k(x − µ)/σ)^{1/k}); decided as (µ, σ, ξ) with ξ = −k — the digits of k with the sign changed",
+  "levels": "printed100: the 100-year level over every value the printed digits allow, on these annual blocks; l100/l1000: the certified fit's, enclosures printed outward to eight digits",
+  "s100": "STATISTICAL, NOT CERTIFIED: the delta method's 95% interval on the certified fit's 100-year level (fit.js deltaLevel, on ln q), four figures rounded outward",
+  "cells": "cells[0] is the nearest open-sea cell, cells[1] the next; km by great circle from the printed coordinates"
+ },
+ "code": {
+  "playground/return-level-check/printed.js": "8f54767742da0ea2f4cad12ea35ae78666b52a7f00828de22d8d4a9dfe28adb4",
+  "instruments/interval/interval.js": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "instruments/interval/transcendental.js": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
+  "instruments/interval/radii.js": "38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b",
+  "instruments/hseva/special.js": "cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550",
+  "instruments/hseva/ad2.js": "39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2",
+  "instruments/hseva/families.js": "027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49",
+  "instruments/hseva/fit.js": "b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458",
+  "instruments/hseva/blockrule.js": "375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc"
+ },
+ "rows": [
+  {
+   "la": 12,
+   "name": "UY01",
+   "lat": -34.2333,
+   "lon": -51.6667,
+   "depth": "≈50",
+   "cells": [
+    {
+     "id": "-34_-52",
+     "km": 40,
+     "sha256": "dfe29fe2904c6cebe150323df6ad5e9cd922be5d6cb19c19d3b1682fb511da20",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 6.12,
+     "max": 9.622,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        5.7611585,
+        5.7611586
+       ],
+       [
+        0.56988604,
+        0.56988605
+       ]
+      ],
+      "ll": [
+       -34.14478,
+       -34.144779
+      ],
+      "l100": [
+       8.3827194,
+       8.3827195
+      ],
+      "l1000": [
+       9.6975068,
+       9.6975069
+      ],
+      "s100": [
+       7.596,
+       9.251
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        5.700513,
+        5.7005131
+       ],
+       [
+        0.51531563,
+        0.51531564
+       ],
+       [
+        0.2016875,
+        0.20168751
+       ]
+      ],
+      "ll": [
+       -32.9499,
+       -32.949899
+      ],
+      "l100": [
+       9.6069362,
+       9.6069363
+      ],
+      "l1000": [
+       13.435437,
+       13.435438
+      ],
+      "s100": [
+       6.835,
+       13.51
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "6.80",
+        "0.71"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        10.038105,
+        10.094107
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "6.83",
+        "0.57"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        9.4240843,
+        9.4800859
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "6.82",
+        "0.62"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        9.6440917,
+        9.7000933
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "6.81",
+        "0.56",
+        "-0.08"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        8.9181032,
+        9.0131331
+       ]
+      }
+     }
+    },
+    {
+     "id": "-34_-51",
+     "km": 67,
+     "sha256": "64a2b7ecd14d507903246c35523a12edb85b5ba1e1bf5200c2a28bda988569e1",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 7.356,
+     "max": 10.686,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        6.8570585,
+        6.8570586
+       ],
+       [
+        0.75261641,
+        0.75261642
+       ]
+      ],
+      "ll": [
+       -44.106487,
+       -44.106486
+      ],
+      "l100": [
+       10.319206,
+       10.319207
+      ],
+      "l1000": [
+       12.055572,
+       12.055573
+      ],
+      "s100": [
+       9.253,
+       11.51
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        6.7461297,
+        6.7461298
+       ],
+       [
+        0.63320808,
+        0.63320809
+       ],
+       [
+        0.30360151,
+        0.30360152
+       ]
+      ],
+      "ll": [
+       -41.5215,
+       -41.521499
+      ],
+      "l100": [
+       13.089619,
+       13.08962
+      ],
+      "l1000": [
+       21.642172,
+       21.642173
+      ],
+      "s100": [
+       8.372,
+       20.47
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "6.80",
+        "0.71"
+       ],
+       "verdict": "NOT THE CERTIFIED FIT",
+       "printed100": [
+        10.038105,
+        10.094107
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "6.83",
+        "0.57"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        9.4240843,
+        9.4800859
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "6.82",
+        "0.62"
+       ],
+       "verdict": "NOT THE CERTIFIED FIT",
+       "printed100": [
+        9.6440917,
+        9.7000933
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "6.81",
+        "0.56",
+        "-0.08"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        8.9181032,
+        9.0131331
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "la": 13,
+   "name": "Projeto Açu",
+   "lat": -22.1333,
+   "lon": -40.7333,
+   "depth": "≈50",
+   "cells": [
+    {
+     "id": "-22_-41",
+     "km": 31,
+     "sha256": "cae29d56ff5357a08742a7309855e6b3557969a580151621b29103f27c5ac5e0",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 2.581,
+     "max": 3.07,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        2.4888578,
+        2.4888579
+       ],
+       [
+        0.15716161,
+        0.15716162
+       ]
+      ],
+      "ll": [
+       8.4923122,
+       8.4923123
+      ],
+      "l100": [
+       3.2118247,
+       3.2118248
+      ],
+      "l1000": [
+       3.5744132,
+       3.5744133
+      ],
+      "s100": [
+       2.995,
+       3.445
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        2.488041,
+        2.4880411
+       ],
+       [
+        0.15655781,
+        0.15655782
+       ],
+       [
+        0.009639167,
+        0.0096391671
+       ]
+      ],
+      "ll": [
+       8.4939146,
+       8.4939147
+      ],
+      "l100": [
+       3.2244362,
+       3.2244363
+      ],
+      "l1000": [
+       3.6062376,
+       3.6062377
+      ],
+      "s100": [
+       2.757,
+       3.771
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "3.68",
+        "0.40"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.4920589,
+        5.5480605
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "3.68",
+        "0.38"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.4000559,
+        5.4560575
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "3.69",
+        "0.35"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.2720514,
+        5.328053
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "3.71",
+        "0.40",
+        "0.14"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        6.2237113,
+        6.3640507
+       ]
+      }
+     }
+    },
+    {
+     "id": "-22_-40",
+     "km": 77,
+     "sha256": "c525a9fdb28e44d9439a9dad44ceb747aca2b843221b41c70ddf1b040f2856d0",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 4.1,
+     "max": 4.86,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        3.9091632,
+        3.9091633
+       ],
+       [
+        0.34000306,
+        0.34000307
+       ]
+      ],
+      "ll": [
+       -15.427563,
+       -15.427562
+      ],
+      "l100": [
+       5.473228,
+       5.4732281
+      ],
+      "l1000": [
+       6.257651,
+       6.2576511
+      ],
+      "s100": [
+       5.015,
+       5.974
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        3.9469763,
+        3.9469764
+       ],
+       [
+        0.36477701,
+        0.36477702
+       ],
+       [
+        -0.20154929,
+        -0.20154928
+       ]
+      ],
+      "ll": [
+       -14.885241,
+       -14.88524
+      ],
+      "l100": [
+       5.0407192,
+       5.0407193
+      ],
+      "l1000": [
+       5.3070179,
+       5.307018
+      ],
+      "s100": [
+       4.529,
+       5.611
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "3.68",
+        "0.40"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.4920589,
+        5.5480605
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "3.68",
+        "0.38"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.4000559,
+        5.4560575
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "3.69",
+        "0.35"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        5.2720514,
+        5.328053
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "3.71",
+        "0.40",
+        "0.14"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        6.2237113,
+        6.3640507
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "la": 14,
+   "name": "Farol wind",
+   "lat": -28.85,
+   "lon": -48.6833,
+   "depth": "≈50",
+   "cells": [
+    {
+     "id": "-29_-49",
+     "km": 35,
+     "sha256": "dc40a252eefbde97952cc3e7a49af37162d2092f144012769e9096918a736a21",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 4.313,
+     "max": 5.698,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        4.0941443,
+        4.0941444
+       ],
+       [
+        0.38304472,
+        0.38304473
+       ]
+      ],
+      "ll": [
+       -19.570922,
+       -19.570921
+      ],
+      "l100": [
+       5.8562072,
+       5.8562073
+      ],
+      "l1000": [
+       6.7399319,
+       6.739932
+      ],
+      "s100": [
+       5.345,
+       6.416
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        4.1004762,
+        4.1004763
+       ],
+       [
+        0.38646172,
+        0.38646173
+       ],
+       [
+        -0.030534797,
+        -0.030534796
+       ]
+      ],
+      "ll": [
+       -19.543669,
+       -19.543668
+      ],
+      "l100": [
+       5.7590465,
+       5.7590466
+      ],
+      "l1000": [
+       6.507153,
+       6.5071531
+      ],
+      "s100": [
+       4.938,
+       6.716
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "5.10",
+        "0.59"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.7860872,
+        7.8420888
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "5.12",
+        "0.51"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.4380753,
+        7.4940769
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "5.12",
+        "0.52"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.4840768,
+        7.5400784
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "5.11",
+        "0.51",
+        "-0.02"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.299471,
+        7.4041891
+       ]
+      }
+     }
+    },
+    {
+     "id": "-29_-48",
+     "km": 69,
+     "sha256": "ad0ed61b90d12a66866ffe7331fd4c48e2db9afd312012f5fe7593f4cc36a550",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 5.968,
+     "max": 7.184,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        5.637479,
+        5.6374791
+       ],
+       [
+        0.62665171,
+        0.62665172
+       ]
+      ],
+      "ll": [
+       -33.935177,
+       -33.935176
+      ],
+      "l100": [
+       8.5201703,
+       8.5201704
+      ],
+      "l1000": [
+       9.9659222,
+       9.9659223
+      ],
+      "s100": [
+       7.718,
+       9.405
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        5.7312769,
+        5.731277
+       ],
+       [
+        0.65907765,
+        0.65907766
+       ],
+       [
+        -0.2809047,
+        -0.28090469
+       ]
+      ],
+      "ll": [
+       -32.339107,
+       -32.339106
+      ],
+      "l100": [
+       7.4331073,
+       7.4331074
+      ],
+      "l1000": [
+       7.7404713,
+       7.7404714
+      ],
+      "s100": [
+       6.797,
+       8.129
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "5.10",
+        "0.59"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.7860872,
+        7.8420888
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "5.12",
+        "0.51"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.4380753,
+        7.4940769
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "5.12",
+        "0.52"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.4840768,
+        7.5400784
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "5.11",
+        "0.51",
+        "-0.02"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        7.299471,
+        7.4041891
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "la": 15,
+   "name": "Sopros do RJ",
+   "lat": -21.6167,
+   "lon": -40.4167,
+   "depth": "≈27",
+   "cells": [
+    {
+     "id": "-22_-40",
+     "km": 61,
+     "sha256": "c525a9fdb28e44d9439a9dad44ceb747aca2b843221b41c70ddf1b040f2856d0",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 4.1,
+     "max": 4.86,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        3.9091632,
+        3.9091633
+       ],
+       [
+        0.34000306,
+        0.34000307
+       ]
+      ],
+      "ll": [
+       -15.427563,
+       -15.427562
+      ],
+      "l100": [
+       5.473228,
+       5.4732281
+      ],
+      "l1000": [
+       6.257651,
+       6.2576511
+      ],
+      "s100": [
+       5.015,
+       5.974
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        3.9469763,
+        3.9469764
+       ],
+       [
+        0.36477701,
+        0.36477702
+       ],
+       [
+        -0.20154929,
+        -0.20154928
+       ]
+      ],
+      "ll": [
+       -14.885241,
+       -14.88524
+      ],
+      "l100": [
+       5.0407192,
+       5.0407193
+      ],
+      "l1000": [
+       5.3070179,
+       5.307018
+      ],
+      "s100": [
+       4.529,
+       5.611
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "2.84",
+        "0.26"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        4.008038,
+        4.0640396
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "2.85",
+        "0.24"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.926035,
+        3.9820366
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "2.85",
+        "0.23"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.8800335,
+        3.9360351
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "2.85",
+        "0.24",
+        "0.05"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        4.0460632,
+        4.1374363
+       ]
+      }
+     }
+    },
+    {
+     "id": "-22_-41",
+     "km": 74,
+     "sha256": "cae29d56ff5357a08742a7309855e6b3557969a580151621b29103f27c5ac5e0",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 2.581,
+     "max": 3.07,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        2.4888578,
+        2.4888579
+       ],
+       [
+        0.15716161,
+        0.15716162
+       ]
+      ],
+      "ll": [
+       8.4923122,
+       8.4923123
+      ],
+      "l100": [
+       3.2118247,
+       3.2118248
+      ],
+      "l1000": [
+       3.5744132,
+       3.5744133
+      ],
+      "s100": [
+       2.995,
+       3.445
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        2.488041,
+        2.4880411
+       ],
+       [
+        0.15655781,
+        0.15655782
+       ],
+       [
+        0.009639167,
+        0.0096391671
+       ]
+      ],
+      "ll": [
+       8.4939146,
+       8.4939147
+      ],
+      "l100": [
+       3.2244362,
+       3.2244363
+      ],
+      "l1000": [
+       3.6062376,
+       3.6062377
+      ],
+      "s100": [
+       2.757,
+       3.771
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "2.84",
+        "0.26"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        4.008038,
+        4.0640396
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "2.85",
+        "0.24"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.926035,
+        3.9820366
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "2.85",
+        "0.23"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.8800335,
+        3.9360351
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "2.85",
+        "0.24",
+        "0.05"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        4.0460632,
+        4.1374363
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "la": 16,
+   "name": "Projeto Ubu",
+   "lat": -20.85,
+   "lon": -40.3833,
+   "depth": "≈27",
+   "cells": [
+    {
+     "id": "-21_-40",
+     "km": 43,
+     "sha256": "64f571772325b113e73c3036e1a550d4da9bde78cb2a74eb8139e6c34c5186ff",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 3.633,
+     "max": 4.82,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        3.4469945,
+        3.4469946
+       ],
+       [
+        0.32166174,
+        0.32166175
+       ]
+      ],
+      "ll": [
+       -14.195867,
+       -14.195866
+      ],
+      "l100": [
+       4.9266865,
+       4.9266866
+      ],
+      "l1000": [
+       5.6687942,
+       5.6687943
+      ],
+      "s100": [
+       4.489,
+       5.407
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        3.4516345,
+        3.4516346
+       ],
+       [
+        0.32498713,
+        0.32498714
+       ],
+       [
+        -0.026366012,
+        -0.026366011
+       ]
+      ],
+      "ll": [
+       -14.182944,
+       -14.182943
+      ],
+      "l100": [
+       4.8595189,
+       4.859519
+      ],
+      "l1000": [
+       5.5038621,
+       5.5038622
+      ],
+      "s100": [
+       4.067,
+       5.806
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "2.16",
+        "0.22"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.144032,
+        3.2000336
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "2.17",
+        "0.18"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        2.9700261,
+        3.0260277
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "2.17",
+        "0.19"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.0160276,
+        3.0720291
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "2.16",
+        "0.17",
+        "-0.09"
+       ],
+       "verdict": "OUTSIDE ITS SUPPORT",
+       "printed100": [
+        2.7699076,
+        2.8312939
+       ]
+      }
+     }
+    },
+    {
+     "id": "-20_-40",
+     "km": 103,
+     "sha256": "271b48b039c862c978df82bbc7ed021780799c9f538fbdde74aca8464d24a5b8",
+     "years": 32,
+     "first": "1993",
+     "last": "2024",
+     "mean": 3.213,
+     "max": 3.986,
+     "gumbel": {
+      "c": 1,
+      "box": [
+       [
+        3.0643592,
+        3.0643593
+       ],
+       [
+        0.26053066,
+        0.26053067
+       ]
+      ],
+      "ll": [
+       -7.2542506,
+       -7.2542505
+      ],
+      "l100": [
+       4.2628392,
+       4.2628393
+      ],
+      "l1000": [
+       4.863911,
+       4.8639111
+      ],
+      "s100": [
+       3.91,
+       4.647
+      ]
+     },
+     "gev": {
+      "c": 1,
+      "box": [
+       [
+        3.0740862,
+        3.0740863
+       ],
+       [
+        0.26676976,
+        0.26676977
+       ],
+       [
+        -0.068998849,
+        -0.068998848
+       ]
+      ],
+      "ll": [
+       -7.1652993,
+       -7.1652992
+      ],
+      "l100": [
+       4.1255794,
+       4.1255795
+      ],
+      "l1000": [
+       4.5398157,
+       4.5398158
+      ],
+      "s100": [
+       3.561,
+       4.78
+      ]
+     },
+     "decided": {
+      "gumbelLS": {
+       "family": "gumbel",
+       "digits": [
+        "2.16",
+        "0.22"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.144032,
+        3.2000336
+       ]
+      },
+      "gumbelML": {
+       "family": "gumbel",
+       "digits": [
+        "2.17",
+        "0.18"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        2.9700261,
+        3.0260277
+       ]
+      },
+      "gumbelMOM": {
+       "family": "gumbel",
+       "digits": [
+        "2.17",
+        "0.19"
+       ],
+       "verdict": "OFF THE MAXIMUM",
+       "printed100": [
+        3.0160276,
+        3.0720291
+       ]
+      },
+      "gevML": {
+       "family": "gev",
+       "digits": [
+        "2.16",
+        "0.17",
+        "-0.09"
+       ],
+       "verdict": "UNDECIDED AT THE PRINTED PRECISION",
+       "printed100": [
+        2.7699076,
+        2.8312939
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "decided": 20,
+  "verdicts": {
+   "OFF THE MAXIMUM": 19,
+   "OUTSIDE ITS SUPPORT": 1
+  },
+  "sameAtSecondCell": false,
+  "levels": [
+   {
+    "la": 12,
+    "method": "gumbelLS",
+    "printed": 10.094107,
+    "certified": 8.3827195,
+    "d": 1.71,
+    "outside": true
+   },
+   {
+    "la": 12,
+    "method": "gumbelML",
+    "printed": 9.4800859,
+    "certified": 8.3827195,
+    "d": 1.1,
+    "outside": true
+   },
+   {
+    "la": 12,
+    "method": "gumbelMOM",
+    "printed": 9.7000933,
+    "certified": 8.3827195,
+    "d": 1.32,
+    "outside": true
+   },
+   {
+    "la": 12,
+    "method": "gevML",
+    "printed": 9.0131331,
+    "certified": 9.6069363,
+    "d": -0.59,
+    "outside": false
+   },
+   {
+    "la": 13,
+    "method": "gumbelLS",
+    "printed": 5.5480605,
+    "certified": 3.2118248,
+    "d": 2.34,
+    "outside": true
+   },
+   {
+    "la": 13,
+    "method": "gumbelML",
+    "printed": 5.4560575,
+    "certified": 3.2118248,
+    "d": 2.24,
+    "outside": true
+   },
+   {
+    "la": 13,
+    "method": "gumbelMOM",
+    "printed": 5.328053,
+    "certified": 3.2118248,
+    "d": 2.12,
+    "outside": true
+   },
+   {
+    "la": 13,
+    "method": "gevML",
+    "printed": 6.3640507,
+    "certified": 3.2244363,
+    "d": 3.14,
+    "outside": true
+   },
+   {
+    "la": 14,
+    "method": "gumbelLS",
+    "printed": 7.8420888,
+    "certified": 5.8562073,
+    "d": 1.99,
+    "outside": true
+   },
+   {
+    "la": 14,
+    "method": "gumbelML",
+    "printed": 7.4940769,
+    "certified": 5.8562073,
+    "d": 1.64,
+    "outside": true
+   },
+   {
+    "la": 14,
+    "method": "gumbelMOM",
+    "printed": 7.5400784,
+    "certified": 5.8562073,
+    "d": 1.68,
+    "outside": true
+   },
+   {
+    "la": 14,
+    "method": "gevML",
+    "printed": 7.4041891,
+    "certified": 5.7590466,
+    "d": 1.65,
+    "outside": true
+   },
+   {
+    "la": 15,
+    "method": "gumbelLS",
+    "printed": 4.0640396,
+    "certified": 5.4732281,
+    "d": -1.41,
+    "outside": true
+   },
+   {
+    "la": 15,
+    "method": "gumbelML",
+    "printed": 3.9820366,
+    "certified": 5.4732281,
+    "d": -1.49,
+    "outside": true
+   },
+   {
+    "la": 15,
+    "method": "gumbelMOM",
+    "printed": 3.9360351,
+    "certified": 5.4732281,
+    "d": -1.54,
+    "outside": true
+   },
+   {
+    "la": 15,
+    "method": "gevML",
+    "printed": 4.1374363,
+    "certified": 5.0407193,
+    "d": -0.9,
+    "outside": true
+   },
+   {
+    "la": 16,
+    "method": "gumbelLS",
+    "printed": 3.2000336,
+    "certified": 4.9266866,
+    "d": -1.73,
+    "outside": true
+   },
+   {
+    "la": 16,
+    "method": "gumbelML",
+    "printed": 3.0260277,
+    "certified": 4.9266866,
+    "d": -1.9,
+    "outside": true
+   },
+   {
+    "la": 16,
+    "method": "gumbelMOM",
+    "printed": 3.0720291,
+    "certified": 4.9266866,
+    "d": -1.85,
+    "outside": true
+   },
+   {
+    "la": 16,
+    "method": "gevML",
+    "printed": 2.8312939,
+    "certified": 4.859519,
+    "d": -2.03,
+    "outside": true
+   }
+  ]
+ }
+}

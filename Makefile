@@ -86,6 +86,7 @@ test:
 	@printf "%-30s " "stereo (rig error budget)"; $(NODE) instruments/stereo/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "breaking (Black Sea waves)"; $(NODE) instruments/breaking/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "hseva (certified return levels)"; $(NODE) instruments/hseva/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "printed fits (one decision)"; $(NODE) playground/return-level-check/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "covering (the shared module)"; $(NODE) instruments/covering/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "ember band (P3a audit)"; $(NODE) instruments/emberband/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

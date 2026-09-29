@@ -12,7 +12,12 @@
      · the phone's sheet stepping on a tap and a swipe, a claim lowering it, a cell raising it;
      · a link reopening the same cell, tab, chart and block;
      · a reader's own site (SITE_FILE, a record of Hs) read by THE parse rule, certified in the tab, pinned beside the nearest
-       cells, its certificate carrying the file's sha256 and never the data.
+       cells, its certificate carrying the file's sha256 and never the data;
+     · a fit someone printed, decided in the cell's tab by THE decision (playground/return-level-check/printed.js): the
+       Campos cell found from a typed place, the certified monthly Weibull printed to four decimals REPRODUCED, its scale
+       2% off OFF THE MAXIMUM, the digits kept out of the address; a printed design table's site opened from the method
+       tab and a row decided in the tab as the ledger decided it; on the own site too; and the return-level check
+       deciding a printed fit with the same module.
    Screenshots go to <tmp>/atlas-drive/. Written 2026-09-28 from the twenty-second session's own drives.
    usage: node tools/dev-serve.js &   then   node tools/drive-atlas.js [url]
           (default http://127.0.0.1:8765/instruments/return-level-atlas/; the live page works too) */
@@ -89,6 +94,36 @@ withChrome(async (send) => {
   await go(link, 1440, 900, false); await settle(2500);
   const st = JSON.parse(await ev('JSON.stringify({ cell: (document.querySelector("#ra-cellbox h3") || {}).innerText, tab: window.__atlas.state.tab, chart: window.__atlas.state.chart, block: window.__atlas.state.block })'));
   check(/22\.5° S/.test(st.cell) && st.tab === 'cell' && st.chart === 'qq' && st.block === 'monthly', 'a link reopens the same cell, tab, chart and block (' + JSON.stringify(st) + ')');
+  /* a fit someone printed: typed for a place, decided against the nearest cell by printed.js in the tab's worker */
+  const printedRun = async (f, blk, vals) => {
+    const set = (id, v) => ev('(() => { const x = document.getElementById("' + id + '"); x.value = ' + JSON.stringify(v) + '; x.dispatchEvent(new Event("change")); })()');
+    await set('ra-pr-f', f); await settle(200); await set('ra-pr-b', blk);
+    const ks = await ev('Array.from(document.querySelectorAll(".ra-pr-ps input")).map((x) => x.id)');
+    for (let i = 0; i < vals.length; i++) await set(ks[i], vals[i]);
+    await ev('document.getElementById("ra-pr-go").click()');
+    let o = ''; for (let i = 0; i < 120; i++) { await settle(700); o = await ev('(document.getElementById("ra-pr-out") || {}).innerText || ""'); if (o && !/^(certifying|fetching)/.test(o)) break; }
+    return o;
+  };
+  await go(URL0, 1440, 900, false);
+  await ev('window.__atlas.setTab("cell")'); await settle(400);
+  await ev('(() => { const x = document.getElementById("ra-find"); x.value = "-22.4, -40.1"; x.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" })); })()'); await settle(2500);
+  await ev('document.getElementById("ra-pr-open").click()'); await settle(300);
+  const pr1 = await printedRun('weibull', 'monthly', ['5.6479', '3.6360']);
+  check(/REPRODUCED/.test(pr1) && /15 km from 22\.4° S 40\.1° W/.test(pr1) && /the certificate the ledger records/.test(pr1), 'a printed fit typed for a place 15 km from the Campos node: the certified monthly Weibull printed to four decimals is REPRODUCED (' + pr1.split('\n').find((l) => /REPRODUCED/.test(l) || /^[A-Z ]{8,} —/.test(l)).slice(0, 50) + ')');
+  const pr2 = await printedRun('weibull', 'monthly', ['5.6479', '3.7088']);
+  check(/OFF THE MAXIMUM/.test(pr2) && /statistical/.test(pr2), 'its scale 2% off is OFF THE MAXIMUM, the decided family\'s statistical interval beside it');
+  const pr3 = await printedRun('gev', 'annual', ['4.5', '0.4', '0.1']);
+  check(/annual block is not one of the paper/.test(pr3) && /GEV/.test(pr3) && /(REPRODUCED|CONSISTENT|OFF THE MAXIMUM|NOT THE CERTIFIED FIT|OUTSIDE ITS SUPPORT|NOT DECIDED)/.test(pr3), 'a printed GEV of the annual maxima, certified here only, decided (' + ((pr3.match(/(REPRODUCED|CONSISTENT|OFF THE MAXIMUM|NOT THE CERTIFIED FIT|OUTSIDE ITS SUPPORT|NOT DECIDED)/) || ['—'])[0]) + ')');
+  check(!/5\.6479|3\.7088|4\.5/.test(await ev('location.href')) && !(await ev('window.__errs.length')), 'the printed digits stay out of the address, no page error');
+  await ev('document.getElementById("ra-pr-open").scrollIntoView()'); await settle(300); await shot('1440-printed');
+  /* the printed design table: its site opened from the method tab's words, a row decided in the tab, the ledger's verdict beside */
+  await ev('window.__atlas.setTab("method")'); await settle(400);
+  await ev('Array.from(document.querySelectorAll("[data-cell]")).find((b) => /LA13/.test(b.innerText)).click()'); await settle(2500);
+  const t13 = await ev('JSON.stringify({ cell: (document.querySelector("#ra-cellbox h3") || {}).innerText, tab: window.__atlas.state.tab, presets: document.querySelectorAll("[data-pr]").length })');
+  await ev(`document.querySelector("[data-pr='13:0:gevML']").click()`);
+  let p13 = ''; for (let i = 0; i < 60; i++) { await settle(700); p13 = await ev('(document.getElementById("ra-pr-out") || {}).innerText || ""'); if (p13 && !/^(certifying|fetching)/.test(p13)) break; }
+  check(/22° S · 41° W/.test(t13) && /"tab":"cell"/.test(t13) && /OFF THE MAXIMUM/.test(p13) && /holds the same verdict for LA13/.test(p13) && /k = −ξ/.test(p13), 'a printed design table: LA13 Projeto Açu opened from the method tab, its GEV decided in the tab OFF THE MAXIMUM, the ledger\'s verdict the same (' + t13 + ')');
+  await ev('document.getElementById("ra-pr-out").scrollIntoView()'); await settle(300); await shot('1440-printed-table');
   if (SITE_FILE) {
     await go(URL0, 1440, 900, false);
     await ev('window.__atlas.setTab("cell")'); await settle(500);
@@ -104,6 +139,20 @@ withChrome(async (send) => {
     const near = await ev('(document.getElementById("ra-cellbox") || {}).innerText || ""');
     check(/certified here/.test(p) && /sha256/.test(p) && /the nearest cells of the atlas/i.test(near) && /your site/.test(near), 'the own site certified in the tab and read against the nearest cells (' + p.slice(0, 60) + ')');
     await shot('1440-site');
+    await ev('document.getElementById("ra-pr-open").click()'); await settle(300);
+    const ps = await printedRun('lognormal', 'weekly', ['1.3', '0.2']);
+    check(/Your site's/.test(ps) && /(REPRODUCED|CONSISTENT|OFF THE MAXIMUM|NOT THE CERTIFIED FIT|NOT DECIDED)/.test(ps), 'a printed fit decided on the own site\'s weekly maxima (' + ((ps.match(/(REPRODUCED|CONSISTENT|OFF THE MAXIMUM|NOT THE CERTIFIED FIT|NOT DECIDED)/) || ['—'])[0]) + ')');
+  }
+  /* the return-level check decides a printed fit with the same module: the Campos preset, monthly, the Weibull */
+  {
+    const CHECK = new URL('../return-level-check/', URL0).href;
+    await go(CHECK, 1440, 900, false);
+    await ev('document.getElementById("rc-preset").click()'); await settle(1500);
+    await ev('(() => { const b = document.getElementById("rc-block"); b.value = "monthly"; b.dispatchEvent(new Event("change")); ["normal", "lognormal", "expweibull", "gengamma", "gumbel"].forEach((f) => { document.getElementById("rc-f-" + f).checked = false; }); document.getElementById("rc-run").click(); })()');
+    let r = ''; for (let i = 0; i < 60; i++) { await settle(1000); r = await ev('document.getElementById("rc-progress").innerText'); if (/done|REFUSED/.test(r)) break; }
+    const out = await ev(`(() => { const s = document.getElementById("rc-cf"); s.value = "weibull"; s.dispatchEvent(new Event("change"));
+      document.getElementById("rc-p-k").value = "9"; document.getElementById("rc-p-lambda").value = "-1"; document.getElementById("rc-check").click(); return document.getElementById("rc-check-out").innerText; })()`);
+    check(/done/.test(r) && /NOT A MEMBER OF THE FAMILY/.test(out) && /printed\.js/.test(await ev('document.body.innerText')), 'the return-level check decides a printed fit by the same module (a negative scale: NOT A MEMBER OF THE FAMILY), printed.js named in its code');
   }
   await go(URL0, 390, 844, true);
   await ev('document.getElementById("ra-grip").dispatchEvent(new PointerEvent("pointerdown", { clientY: 600, bubbles: true })); document.getElementById("ra-grip").dispatchEvent(new PointerEvent("pointerup", { clientY: 600, bubbles: true }))'); await settle(900);

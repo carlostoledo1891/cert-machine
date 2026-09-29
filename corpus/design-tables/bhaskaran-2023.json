@@ -1,0 +1,32 @@
+{
+ "what": "A printed design table: the annual-maximum Hs fits of Bhaskaran, Verma, Goupee, Bhattacharya, Nejad and Shi (2023) for the five South Atlantic lease areas of their forty (LA12–LA16: Uruguay and Brazil), transcribed digit for digit from Table 1 (the coordinates) and Table 3 (the parameters) of the published PDF pinned below, read on 2026-09-29. Values are strings: the printed digits are the claim, and the box they allow is what certs/design-table-audit.json decides. The other thirty-five lease areas (North America, Europe, Asia) are not transcribed: the atlas's lattice there is 4°, too coarse to name a nearest node for a coastal site.",
+ "source": {
+  "citation": "Bhaskaran, S. K., Verma, A. S., Goupee, A. J., Bhattacharya, S., Nejad, A. R., Shi, W. (2023). Comparison of Extreme Wind and Waves Using Different Statistical Methods in 40 Offshore Wind Energy Lease Areas Worldwide. Energies 16(19), 6935.",
+  "doi": "10.3390/en16196935",
+  "license": "CC-BY-4.0",
+  "url": "https://mdpi-res.com/d_attachment/energies/energies-16-06935/article_deploy/energies-16-06935.pdf",
+  "sha256": "828c27607aee86b599d95a99eb9df7ae8e330676ccac213d23fbf71a39b3807a",
+  "bytes": 21480818,
+  "fetched": "2026-09-29"
+ },
+ "data": "WaveClimate (Infoplaza), a commercial portal: WAVEWATCH III offshore with a wave-ray model (SWRT) for nearshore translations, calibrated with satellites; Hs every 3 h, 1 January 1992 to 31 December 2022; 'the latitude and longitude coordinates were rounded off to ±0.5° by the website' (§2.2). Not public: the series behind this table cannot be re-run by anyone outside the portal.",
+  "block": "annual maxima, one per calendar year (§2.3): 31 values",
+ "methods": {
+  "gumbelLS": "Gumbel by least squares (WAFO, MATLAB)",
+  "gumbelML": "Gumbel by maximum likelihood (WAFO)",
+  "gumbelMOM": "Gumbel by the method of moments, β = √6 s/π, µ = mean − 0.577β (Eqs. 3–4)",
+  "gevML": "GEV by maximum likelihood (WAFO)"
+ },
+ "conventions": "Gumbel F = exp(−e^{−(x−µ)/β}) (Eq. 2): (µ, β) as this repository writes it. GEV F = exp(−(1 − k(x−µ)/σ)^{1/k}) (Eq. 1), WAFO's and Hosking's sign: k = −ξ, so the printed k is decided as ξ with its sign changed (the box of '−0.14' is the box of '0.14' negated, exactly). As printed, Eq. 6 (the GEV quantile, x_q = µ − (σ/k)[(ln p)^k − 1] with p the exceedance probability) is not that law's quantile, which has (−ln(1 − p))^k; nothing here uses it.",
+ "rows": [
+  { "la": 12, "name": "UY01", "country": "Uruguay", "printedAt": "34° 14′ S, 51° 40′ W", "lat": -34.2333, "lon": -51.6667, "depth": "≈50", "gumbelLS": ["6.80", "0.71"], "gumbelML": ["6.83", "0.57"], "gumbelMOM": ["6.82", "0.62"], "gevML": { "k": "0.08", "sigma": "0.56", "mu": "6.81" } },
+  { "la": 13, "name": "Projeto Açu", "country": "Brazil", "printedAt": "22° 8′ S, 40° 44′ W", "lat": -22.1333, "lon": -40.7333, "depth": "≈50", "gumbelLS": ["3.68", "0.40"], "gumbelML": ["3.68", "0.38"], "gumbelMOM": ["3.69", "0.35"], "gevML": { "k": "-0.14", "sigma": "0.40", "mu": "3.71" } },
+  { "la": 14, "name": "Farol wind", "country": "Brazil", "printedAt": "28° 51′ S, 48° 41′ W", "lat": -28.85, "lon": -48.6833, "depth": "≈50", "gumbelLS": ["5.10", "0.59"], "gumbelML": ["5.12", "0.51"], "gumbelMOM": ["5.12", "0.52"], "gevML": { "k": "0.02", "sigma": "0.51", "mu": "5.11" } },
+  { "la": 15, "name": "Sopros do RJ", "country": "Brazil", "printedAt": "21° 37′ S, 40° 25′ W", "lat": -21.6167, "lon": -40.4167, "depth": "≈27", "gumbelLS": ["2.84", "0.26"], "gumbelML": ["2.85", "0.24"], "gumbelMOM": ["2.85", "0.23"], "gevML": { "k": "-0.05", "sigma": "0.24", "mu": "2.85" } },
+  { "la": 16, "name": "Projeto Ubu", "country": "Brazil", "printedAt": "20° 51′ S, 40° 23′ W", "lat": -20.85, "lon": -40.3833, "depth": "≈27", "gumbelLS": ["2.16", "0.22"], "gumbelML": ["2.17", "0.18"], "gumbelMOM": ["2.17", "0.19"], "gevML": { "k": "0.09", "sigma": "0.17", "mu": "2.16" } }
+ ],
+ "printedText": [
+  "Table 1 prints minutes with a prime the PDF's text layer renders as '0' (\"34◦ 140 S\" is 34° 14′ S); the transcription reads the prime.",
+  "§3.1: 'LA16 (Projeto Ubu, Brazil) had the least mean annual maximum HS of 2.27 m.'"
+ ]
+}

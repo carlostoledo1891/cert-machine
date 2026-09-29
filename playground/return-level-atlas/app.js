@@ -301,7 +301,7 @@
         const la = Number(m[1]), lo = Number(m[2]), r = Math.PI / 180;
         let best = null, bd = Infinity;
         for (const c of cells) { const d = Math.acos(Math.min(1, Math.sin(la * r) * Math.sin(c.lat * r) + Math.cos(la * r) * Math.cos(c.lat * r) * Math.cos((lo - c.lon) * r))); if (d < bd) { bd = d; best = c; } }
-        if (best) { select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
+        if (best) { FIND = { lat: la, lon: lo, id: best.id, km: 6371 * bd }; select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
         find.blur();
       };
     }
@@ -446,6 +446,8 @@
   }
   const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
+  /* a cell named in the method tab's words (the printed table's sites) opens in the cell tab */
+  document.addEventListener('click', (e) => { const b = e.target.closest && e.target.closest('[data-cell]'); const c = b && byId.get(b.dataset.cell); if (c) { PRN.open = true; select(c); if (map) fly({ center: [c.lon, c.lat], zoom: Math.max(map.getZoom(), 4) }); } });
   document.addEventListener('keydown', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); claimFrom(li); } });
 
   function select(c) {
@@ -501,13 +503,13 @@
     }
     /* the action first, its result right under it; the cell's own data drawn as soon as it arrives; the ledger's table and the words after */
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div><div id="ra-printed"></div>';
     h += '<div class="k">the choice, by criterion (the ledger' + (c.native ? 's' : '') + ')</div>' + blockRows(c) + (c.native ? '<p class="n">' + nativeWords(c) + '</p>' : '');
     if (BLK.some((b) => c.blocks[b].seven !== undefined && c.blocks[b].seven !== null)) h += '<p class="n">Among 7: the choice Anderson–Darling makes once the GEV joins the paper\'s six — never counted in the paper\'s claims. GEV ξ: its certified shape (above 0 a Fréchet-type tail, below 0 a finite upper end). 100-yr 95%: <span class="w-val w-computed">dash-underlined</span> because it is STATISTICAL — the delta method\'s interval for the decided family\'s level, asserted from the fit\'s sampling, not decided.</p>';
     if (c.ei) h += '<p class="n">Daily maxima come in storms: above ' + c.ei.u.toFixed(2) + ' m (the series\' 95th percentile) a new storm starts after ' + c.ei.r + ' quiet days, and the runs estimator puts the extremal index at <span class="w-val w-computed" title="statistical: an estimate, not decided">θ = ' + c.ei.theta.toFixed(2) + '</span>: storms of about ' + (1 / c.ei.theta).toFixed(1) + ' days above that level on average. Statistical, not certified; the design-life level takes successive maxima as independent, which here they are not.</p>';
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. A fit someone printed for this place — a design table\'s row — is decided against the same maxima above, by the rule of <a href="../return-level-check/">the return-level check</a>; the series downloads as CSV for the check too.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
@@ -518,6 +520,7 @@
     const D = data.get(c.id);
     if (D && D.status === 'ok') enableCsv(c, D);
     charts(c);
+    printedForm(c);
   }
 
   /* ---- the cell's own data: fetched and checked against its pin when the cell is chosen ---- */
@@ -832,6 +835,94 @@
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
+  /* ---- A FIT SOMEONE PRINTED for this place — a design table's row: a family, a block and its parameters as printed —
+     decided in a worker against this cell's block maxima (or a reader's own site's) by THE decision of the return-level
+     check (playground/return-level-check/printed.js, one module for both pages): the printed family certified on the
+     printed block by the ledger's own fit.js, the digits decided against it. The digits stay in this tab: they are
+     sent nowhere and never written into the address. ---- */
+  const PR = window.HS_PRINTED || null;
+  const PRB = [['daily', 'daily maxima'], ['weekly', 'weekly maxima'], ['monthly', 'monthly maxima'], ['annual', 'annual maxima']];
+  const PRN = { f: 'weibull', block: null, vals: {}, open: false, res: null, run: null, preset: null };
+  let prw = null, FIND = null;
+  const llWords = (la, lo) => Math.abs(la) + '° ' + (la < 0 ? 'S' : 'N') + ' ' + Math.abs(lo) + '° ' + (lo < 0 ? 'W' : 'E');
+  function printedForm(c) {
+    const el = $('ra-printed'); if (!el || !PR) return;
+    const blk = PRN.block || state.block, P = PR.PARAMS[PRN.f];
+    const opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    const inp = (k, lab) => '<label class="ra-lab">' + esc(lab) + '<input id="ra-pr-' + k + '" class="ra-select" type="text" inputmode="decimal" placeholder="as printed" autocomplete="off" value="' + esc(PRN.vals[PRN.f + ':' + k] || '') + '"></label>';
+    el.innerHTML = '<div class="ra-go-row"><button type="button" class="ra-linkbtn" id="ra-pr-open" aria-expanded="' + PRN.open + '" aria-controls="ra-pr-form">decide a printed fit here</button></div>'
+      + '<div id="ra-pr-form" class="ra-mine"' + (PRN.open ? '' : ' hidden') + '><p class="n">A design table, a report or a pipeline printed a fitted distribution for this place. Type its family, its block and its parameters as printed: the family is certified on ' + (c.site ? 'your site\'s' : 'this cell\'s') + ' maxima of that block, here, by the ledger\'s own code, and the digits are decided against it by the rule of <a href="../return-level-check/">the return-level check</a> — <b>REPRODUCED</b>, <b>CONSISTENT</b>, <b>OFF THE MAXIMUM</b>, <b>NOT THE CERTIFIED FIT</b>, <b>OUTSIDE ITS SUPPORT</b>, <b>NOT A MEMBER OF THE FAMILY</b> or <b>NOT DECIDED</b>. Nothing you type leaves this page or enters the address.</p>'
+      + '<div class="ra-pr-ps"><label class="ra-lab">family<select id="ra-pr-f" class="ra-select">' + opt(FAM7.map((f) => [f, FW[f]]), PRN.f) + '</select></label><label class="ra-lab">block<select id="ra-pr-b" class="ra-select">' + opt(PRB, blk) + '</select></label>'
+      + P.map(([k, lab]) => inp(k, lab)).join('') + (PR.LOCATED(PRN.f) ? inp('loc', 'location (blank: none)') : '') + '</div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-pr-go">decide it</button></div>' + presetsHtml(c) + '<div id="ra-pr-out" aria-live="polite"></div></div>';
+    const keep = () => { el.querySelectorAll('.ra-pr-ps input').forEach((x) => { PRN.vals[PRN.f + ':' + x.id.slice(6)] = x.value; }); };   /* 'ra-pr-' + the parameter */
+    $('ra-pr-open').onclick = () => { PRN.open = !PRN.open; $('ra-pr-form').hidden = !PRN.open; $('ra-pr-open').setAttribute('aria-expanded', String(PRN.open)); };
+    $('ra-pr-f').onchange = (e) => { keep(); PRN.f = e.target.value; printedForm(c); $('ra-pr-f').focus(); };
+    $('ra-pr-b').onchange = (e) => { PRN.block = e.target.value; };
+    $('ra-pr-go').onclick = () => { keep(); PRN.preset = null; decidePrinted(c); };
+    el.querySelectorAll('[data-pr]').forEach((b) => { b.onclick = () => usePreset(c, b.dataset.pr); });
+    if (PRN.run && PRN.run.id === c.id) $('ra-pr-out').innerHTML = '<p class="n">' + esc(PRN.run.text) + '</p>';
+    else if (PRN.res && PRN.res.id === c.id) showPrinted(c, PRN.res);
+  }
+  /* A PRINTED TABLE near this cell (certs/design-table-audit.json, carried in atlas.json by build.js): each of its rows whose
+     two nearest cells include this one, a button that types the row's digits into the form — the GEV's ξ as the table's k
+     with its sign changed — and decides them here; the ledger's verdict is said beside the tab's */
+  const METHW = { gumbelLS: 'Gumbel, least squares', gumbelML: 'Gumbel, max. likelihood', gumbelMOM: 'Gumbel, moments', gevML: 'GEV, max. likelihood' };
+  const nearRows = (c) => (A.printed ? A.printed.rows.flatMap((r) => r.cells.map((q, j) => ({ r, q, j })).filter((x) => x.q.id === c.id)) : []);
+  function presetsHtml(c) {
+    const N = nearRows(c); if (!N.length) return '';
+    return '<div class="k">printed near this cell</div>' + N.map(({ r, q, j }) => '<p class="n">' + esc(A.printed.cite) + ', Table 3: LA' + r.la + ' ' + esc(r.name) + ' (' + esc(r.at) + ', ' + esc(r.depth) + ' m deep), ' + fmt(q.km) + ' km from this node' + (j ? ' (the next-nearest cell)' : '') + '. Annual maxima of a commercial hindcast, 1992–2022:</p><div class="ra-go-row">'
+      + Object.keys(q.v).map((m) => '<button type="button" data-pr="' + r.la + ':' + j + ':' + m + '">' + esc(METHW[m] || m) + '</button>').join('') + '</div>').join('');
+  }
+  function usePreset(c, key) {
+    const [la, j, m] = key.split(':'), r = A.printed.rows.find((x) => String(x.la) === la), q = r && r.cells[Number(j)];
+    if (!q || !q.v[m]) return;
+    const [f, digits, verdict] = q.v[m];
+    PRN.f = f; PRN.block = 'annual'; PRN.open = true;
+    PR.PARAMS[f].forEach(([k], i) => { PRN.vals[f + ':' + k] = digits[i]; });
+    if (PR.LOCATED(f)) PRN.vals[f + ':loc'] = '';
+    PRN.preset = { id: c.id, la: r.la, name: r.name, m, verdict, gev: f === 'gev' };
+    printedForm(c);
+    decidePrinted(c);
+  }
+  async function decidePrinted(c) {
+    const f = PRN.f, block = PRN.block || state.block, P = PR.PARAMS[f];
+    const strs = P.map(([k]) => PRN.vals[f + ':' + k] || ''), loc = PR.LOCATED(f) ? PRN.vals[f + ':loc'] || '' : '';
+    if (prw) { prw.terminate(); prw = null; }
+    const me = PRN.run = { id: c.id, text: '' };
+    const say = (t) => { me.text = t; const o = $('ra-pr-out'); if (PRN.run === me && sel === c && o) o.innerHTML = '<p class="n">' + esc(t) + '</p>'; };
+    const done = (res) => { if (PRN.run !== me) return; PRN.run = null; PRN.res = res; if (sel === c) showPrinted(c, res); };
+    say('fetching the daily maxima …');
+    const D = c.site ? data.get('site') : await loadData(c);
+    if (PRN.run !== me) return;
+    if (!D || D.status !== 'ok') { done({ id: c.id, error: D ? D.why : 'no cell file is served' }); return; }
+    say('certifying the ' + FW[f] + ' on the ' + (PRB.find((b) => b[0] === block) || [0, block])[1] + ' …');
+    const w = prw = new Worker(WURL), t0 = Date.now();
+    w.onmessage = (ev) => {
+      if (w !== prw) return;
+      w.terminate(); prw = null;
+      const m = ev.data;
+      done(m.kind === 'printed' ? { id: c.id, f, block, m: m.result, secs: (Date.now() - t0) / 1000 } : { id: c.id, error: m.message });
+    };
+    w.onerror = (e) => { if (w !== prw) return; prw = null; done({ id: c.id, error: 'the run failed in the worker: ' + ((e && e.message) || 'no message') }); };
+    w.postMessage(c.site ? { kind: 'printed', site: { t: D.t, h: D.h, den: c.den }, f, block, strs, loc } : { kind: 'printed', raw: D.buf.slice(0), first: A.first, f, block, strs, loc });
+  }
+  function showPrinted(c, R) {
+    const out = $('ra-pr-out'); if (!out) return;
+    if (R.error) { out.innerHTML = '<p class="n">REFUSED: ' + esc(R.error) + '</p>'; return; }
+    const m = R.m, bw = (PRB.find((b) => b[0] === R.block) || [0, R.block])[1];
+    const far = !c.site && FIND && FIND.id === c.id ? (FIND.km < 1 ? ', where you typed' : ', ' + fmt(Math.round(FIND.km)) + ' km from ' + llWords(FIND.lat, FIND.lon) + ', where you typed') : '';
+    let h = '<p class="n">' + (c.site ? 'Your site\'s ' : 'This cell\'s ') + fmt(m.n) + ' ' + esc(bw) + ' (the largest ' + m.max.toFixed(2) + ' m)' + (c.site ? '' : ' — the series of the hindcast\'s node at ' + esc(place(c)) + far) + '. '
+      + (m.fit ? 'The ' + esc(FW[R.f]) + ' ' + (m.fit.theta ? 'certified on them here' : 'refused on them here') + (R.secs < 0.1 ? ' in under a tenth of a second' : ' in ' + R.secs.toFixed(1) + ' s') + (R.block === 'annual' ? ' (the annual block is not one of the paper\'s: the atlas ledger holds no fit of it)' : c.site ? '' : m.fit.theta ? ' — the certificate the ledger records for this block' : ', as the ledger records for this block') + '.' : 'Nothing certified: the digits leave the family.') + '</p>';
+    h += m.lines.map((l, i) => '<p class="' + (i ? 'n' : 'ra-pr-v') + '">' + l + '</p>').join('');
+    const P0 = PRN.preset;
+    if (P0 && P0.id === c.id && R.block === 'annual' && R.f === (P0.gev ? 'gev' : 'gumbel')) h += '<p class="n">' + (P0.gev ? 'The table prints the GEV as (k, σ, µ) with k = −ξ; its k was typed here as ξ with the sign changed. ' : '') + (m.code === P0.verdict ? 'The ledger, <span class="mono">certs/design-table-audit.json</span>, holds the same verdict for LA' + P0.la + ' ' + esc(P0.name) + ' here: ' + esc(P0.verdict) + '.' : '<b>Not the ledger\'s verdict</b> (' + esc(P0.verdict) + ') for LA' + P0.la + ' here — report it: this tab and the ledger disagree.') + '</p>';
+    const B = m.fit && c.blocks && c.blocks[R.block];
+    if (B && famOf(B.ad) && B.l100[1] !== null) h += '<p class="n">For comparison, Anderson–Darling decides the ' + esc(FW[famOf(B.ad)]) + ' on these ' + esc(bw) + (c.site ? ' (this tab)' : ' (the ledger)') + ': its 100-year wave is ' + B.l100[1].toFixed(2) + ' m' + (has(B.s100) ? ', and another 32 years of the same sea could put it anywhere in ' + statSpan(B.s100[0], B.s100[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : '') + '.</p>';
+    if (m.fit) h += '<p class="n">' + (c.site ? 'Decided on the record itself: a fit made from this file is decided exactly.' : 'A fit made from this hindcast at this node is decided exactly. One made from another series — a buoy, another model, another node, other years — is not expected to be this series\' maximum: there NOT THE CERTIFIED FIT or OFF THE MAXIMUM says how far the two records\' fits lie apart, not that the report erred. To decide it on its own record, bring that record as your own site.') + '</p>';
+    out.innerHTML = h;
+  }
+
   /* ---- YOUR OWN SITE: a reader's record read by THE parse rule (parse.js, the return-level check's), cut to daily maxima by
      THE block rule, certified in a worker by the atlas's own code, pinned on the globe and read against the nearest cells.
      The file is read here and sent nowhere; the certificate carries its sha256, never the data. ---- */
@@ -900,7 +991,7 @@
   function sitePanel(el, c) {
     let h = '<div class="ra-celltitle"><h3>your site · ' + esc(place(c)) + '</h3></div><p class="n">' + esc(c.fileName || 'your file') + ' · field ' + c.col + ' · ' + fmt(c.values) + ' values · ' + fmt(c.days) + ' days of daily maxima, ' + esc(c.first) + ' to ' + esc(c.last) + ' · sha256 ' + esc(c.sha.slice(0, 12)) + '…</p>';
     h += '<div class="ra-go-row"><button type="button" id="ra-cert">certify my site in this tab</button><button type="button" id="ra-csv">the daily maxima (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div><div id="ra-printed"></div>';
     if (c.blocks) h += '<div class="k">the choice, by criterion (this tab)</div>' + blockRows(c);
     const nb = nearest(c, 3);
     if (nb.length) {
@@ -917,6 +1008,7 @@
     if (run && run.id === 'site') { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }
     else if (lastCert && lastCert.id === 'site') showCert(c, lastCert);
     charts(c);
+    printedForm(c);
   }
   function certifySite(c) {
     if (worker) { worker.terminate(); worker = null; }
@@ -1197,6 +1289,6 @@
       });
     } else ready = true;
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
-    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
+    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel, printed: PRN };
   }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });
 })();

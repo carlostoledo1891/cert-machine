@@ -619,6 +619,11 @@ html, body { height: 100%; overflow: hidden; }
 .ra-box4 label { display: grid; gap: var(--s-1); }
 .ra-box4 .ra-select { width: 100%; }
 .ra-mrow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.ra-pr-ps { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--s-2); }
+.ra-pr-ps label { display: grid; gap: var(--s-1); align-content: end; }
+.ra-pr-ps .ra-lab { text-transform: none; letter-spacing: 0; }
+.ra-pr-ps .ra-select { width: 100%; }
+.ra-pr-v { color: var(--ink); margin: var(--s-3) 0 var(--s-2); }
 .ra-mrow .ra-select { flex: 1 1 8rem; }
 .ra-mrow .ra-lab { min-width: 3.5rem; }
 .ra-mine-out { cursor: default; }
@@ -809,11 +814,12 @@ html, body { height: 100%; overflow: hidden; }
       <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, 1993-01-01 to 2024-12-31), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. 679 cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own (certs/hseva-ledger.json of 2026-09-28, sha256 <span class="mono">a6971779e880</span>). Land: Natural Earth 1:50m, public domain.</p>
       <h2>A seventh family</h2><p>The paper's six hold one extreme-value law, the Gumbel, and it is the &xi; = 0 member of the generalized extreme value law (GEV), the limit law of block maxima. Here the GEV joins the six at every cell and block &mdash; written so that &xi; = 0 is an ordinary point, as Prentice's Q = 0 is for the generalized gamma, and refused where its box reaches &xi; = &minus;0.5, where the maximum is no longer regular (Smith 1985) &mdash; and never ranked among them: the claims and the six-family views are the paper's. It is certified at 7,765 cell-blocks, refused at &xi; &le; &minus;0.5 at 2; its &xi; is certified above 0 (a Fr&eacute;chet-type tail, heavier than any exponential) at 2,840 and below 0 (a finite upper end) at 4,925. Anderson&ndash;Darling's choice among the seven (the seventh-family view) follows the paper's rank rule unchanged &mdash; a family refused other than at its proved edge blocks it, so the GEV can decide only where the six are decided or tied &mdash; and names the GEV at 1,489 cell-blocks and one of the six at 6,193; at 1,488 the GEV displaces the family the six decided, and at 1 it decides a tie among them. Where it wins it can run as far from the sea as the six do: at 12&deg; N 52&deg; E (daily maxima, the Arabian Sea's two-mode monsoon climate) its 100-year wave is 397.2 m against a record of 5.23 m. At the 45 cell-blocks where the exponentiated Weibull runs toward k &rarr; 0 &mdash; its Fr&eacute;chet corner: a Gumbel law of ln H<sub>s</sub> is a Fr&eacute;chet law &mdash; the GEV is certified at 45, its &xi; positive at 45 and its A&sup2; below every certified family's at 45: the tail the corner points to. The choice among seven stays REFUSED there, because the exponentiated Weibull's supremum is not yet proved to be that Fr&eacute;chet limit itself &mdash; the generalized gamma's lognormal limit is decided that way, and this is the next proof.</p>
       <h2>Statistical, not certified</h2><p>A certificate says what a fit IS on these 32 years. It does not say how far another 32 years of the same sea could move it: that is a statement of another kind, and it is drawn apart &mdash; screened cells, dashed lines and <span class="w-val w-computed">dash-underlined</span> numbers are STATISTICAL, asserted and not decided (design/grammar.js). The uncertainty view, the cell's intervals and the band on its return-level plot are the delta method's 95% intervals, taken on the log of the level so they stay positive: the observed information at the fitted point in the certificate's own coordinates, the level's gradient by central differences &mdash; asymptotic, with the blocks taken as independent and the family as right. A cell certified in your tab can also profile the likelihood of its 100-year wave, an interval that need not be symmetric. The decided family's 100-year wave carries an interval 7% of its level wide at the median cell (daily maxima), 12% (weekly), 17% (monthly); at 144 monthly cells it is wider than 40% of the level. The GEV's &xi;: its 95% interval lies above 0 at 2,048 cell-blocks, below it at 3,591, and holds 0 &mdash; the Gumbel not ruled out &mdash; at 2,126 (dashed outlines in the tail view). Daily maxima come in storms: the runs estimator of the extremal index (days above the series' 95th percentile, a new storm after 3 quiet days) runs from 0.16 (15&deg; N 62&deg; E) to 0.68 (32&deg; S 52&deg; W), median 0.44 over 2,589 cells &mdash; so the design-life level's "successive maxima independent" counts more independent chances than the sea gives.</p>
+      <h2>A fit someone printed</h2><p>A design table, a report or a pipeline prints a fitted distribution for a place: a family, a block, parameters to so many digits. In a cell's tab it is decided against that cell's block maxima by the rule of <a href="../return-level-check/">the return-level check</a> &mdash; one module, <span class="mono">playground/return-level-check/printed.js</span>, decides on both pages. The printed family is certified on the printed block by the ledger's own code, in a worker (the annual block too, which is not one of the paper's), and the digits are read as the box they allow: <b>REPRODUCED</b> when they are the rounding of the certified fit; <b>CONSISTENT</b> when they lie inside its box; <b>OFF THE MAXIMUM</b> when their likelihood is proved lower than the certified maximum's; <b>NOT THE CERTIFIED FIT</b> when the digits exclude the maximum but cannot separate the likelihoods; <b>OUTSIDE ITS SUPPORT</b> when a printed location, or a printed GEV's end, leaves observed values where the density is zero; <b>NOT A MEMBER OF THE FAMILY</b> when the digits allow a scale or a shape at or below zero; <b>NOT DECIDED</b> when they are too few to say. A fit made from the paper's hindcast at a cell's node is decided exactly; one made from another record is decided against this one, and the tab says how far the node lies from the place typed &mdash; to decide it on its own record, bring that record as your own site. What is typed stays in the tab: nothing is sent, and the address does not carry it.</p><h3>A printed table, decided</h3><p>Bhaskaran et al. (2023), Energies 16, 6935 (<a href="https://doi.org/10.3390/en16196935">doi:10.3390/en16196935</a>, CC BY) print the annual-maximum H<sub>s</sub> fits of offshore-wind lease areas &mdash; the Gumbel by least squares, by maximum likelihood and by moments, the GEV by maximum likelihood &mdash; from a commercial hindcast (WaveClimate, 1992&ndash;2022) that cannot be re-run outside it. Their five South Atlantic sites, decided against the nearest cells of this public hindcast (31&ndash;61 km away; <span class="mono">certs/design-table-audit.json</span>): of the 20 printed fits, 19 are OFF THE MAXIMUM and 1 is OUTSIDE ITS SUPPORT. The printed 100-year waves differ from the certified fits' on these annual maxima by &minus;2.03 to +3.14 m, outside the certified fit's statistical 95% interval at 19 of 20. That is not an error in the table. It is the distance between two records: another model, another point &mdash; two of the five sit in 27 m of water, where the portal offers a wave-ray translation inshore &mdash; and at Projeto Açu the two nearest cells, one degree apart, put the Gumbel's 100-year wave at 3.21 and 5.47 m. A printed number can be certified only against a record anyone can re-run. Each site opens its nearest cell, where every row is decided again in your tab: <button type="button" class="ra-linkbtn" data-cell="-34_-52">LA12 UY01</button> <button type="button" class="ra-linkbtn" data-cell="-22_-41">LA13 Projeto Açu</button> <button type="button" class="ra-linkbtn" data-cell="-29_-49">LA14 Farol wind</button> <button type="button" class="ra-linkbtn" data-cell="-22_-40">LA15 Sopros do RJ</button> <button type="button" class="ra-linkbtn" data-cell="-21_-40">LA16 Projeto Ubu</button>.</p>
       <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
       <h2>What this opens</h2>
       <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: there the seventh family below, the GEV, finds a Fr&eacute;chet tail; the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016) &mdash; the exponentiated Weibull&rsquo;s own construction, a power of a distribution function, on a Pareto base &mdash; is the other candidate. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> d265e298bf5d &middot; <span class="mono">playground/return-level-atlas/worker.js</span> 36cf46bd8993 &middot; <span class="mono">playground/return-level-check/parse.js</span> 7bf7c1eed533 &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 027a859c72d7 &middot; <span class="mono">instruments/hseva/fit.js</span> b6b67a513590 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">33852376c32b</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/33852376c32b07d191e387df7872bfe2899412de/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
-      <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 8838b9318484 &middot; <span class="mono">playground/return-level-atlas/worker.js</span> c2d98e753808 &middot; <span class="mono">playground/return-level-check/parse.js</span> 7bf7c1eed533 &middot; <span class="mono">playground/return-level-check/printed.js</span> 8f54767742da &middot; <span class="mono">instruments/interval/interval.js</span> 59556ef98bdd &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 29da890cec15 &middot; <span class="mono">instruments/interval/radii.js</span> 38f29dfe4d5e &middot; <span class="mono">instruments/hseva/special.js</span> cdfa6ac130b8 &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 027a859c72d7 &middot; <span class="mono">instruments/hseva/fit.js</span> b6b67a513590 &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">33852376c32b</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/33852376c32b07d191e387df7872bfe2899412de/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js<br>node tools/run-design-table-audit.js<br>node playground/return-level-check/battery.js</p>
       <p class="n">nothing here is gated · every number came out of the record beside the page</p>
     </section>
   </div>
@@ -821,7 +827,7 @@ html, body { height: 100%; overflow: hidden; }
 </main>
 
 
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"d265e298bf5d4d3eaa7ce9cbdfefa8cefe9a8e0b8e073d613d06e461fc3609c6","playground/return-level-atlas/worker.js":"36cf46bd899399f51ba25707814a53ba932e981dec981fe36414fac5b583fbb2","playground/return-level-check/parse.js":"7bf7c1eed53368e27e6da939de4eff03fd4ee4e5468d6b2c98f82dad521fcd85","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49","instruments/hseva/fit.js":"b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/33852376c32b07d191e387df7872bfe2899412de/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"8838b931848435a3c88ad602f9e5a6aaa92988a8917e8e7352a7337a6ea65a22","playground/return-level-atlas/worker.js":"c2d98e753808f926562b59a55ef114371227d658d7500235060db1b2ed4b55ec","playground/return-level-check/parse.js":"7bf7c1eed53368e27e6da939de4eff03fd4ee4e5468d6b2c98f82dad521fcd85","playground/return-level-check/printed.js":"8f54767742da0ea2f4cad12ea35ae78666b52a7f00828de22d8d4a9dfe28adb4","instruments/interval/interval.js":"59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53","instruments/interval/radii.js":"38f29dfe4d5e3701a7626b57c9f4d5a9541c63c3231ce186bb739de6ce7e176b","instruments/hseva/special.js":"cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"027a859c72d715d7ab600e54d87956697ffc258846ca217ca2f41b1f0df11c49","instruments/hseva/fit.js":"b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/33852376c32b07d191e387df7872bfe2899412de/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -3469,11 +3475,133 @@ function req(name) {
 root.HSEVA = { FT: req("fit.js"), FAM: req("families.js"), BR: req("blockrule.js"), AT: req("atlas.js") };
 })(typeof self !== "undefined" ? self : this);
 </script>
-<script id="ra-worker" type="text/plain">/* worker.js — the atlas's re-certification of one cell, off the page's thread.
+<script id="ra-worker" type="text/plain">/* printed.js — THE decision of a fit someone printed, one module for every page that decides one: the return-level
+   check (against the reader's series) and the return-level atlas (against a cell of the paper's hindcast, or a reader's
+   own site, in its worker). Moved here from the check's app.js on 2026-09-29, its words unchanged; the GEV added, whose
+   printed support is decided as a location's is. Loaded as a plain script (self.HS_PRINTED — a page, or a worker after
+   the bundle) or required by Node; it holds no arithmetic of its own: fit.js printedBox, llAt and levelAt do the work.
+
+   usage: HS_PRINTED.decide(HSEVA, q) -> { code, verdict, lines } (HTML), or throws on digits that are not plain decimals
+     HSEVA  the bundle's { FT, FAM }, or { FT: require('fit.js'), FAM: require('families.js') }
+     q = { f, strs: the parameters as printed, in PARAMS[f]'s order; loc: the location as printed, '' for none;
+           x: the block maxima the fit is decided on; hours: the block's length;
+           fit: the family's certified record on those values ({ certified, edge, why, coords, box, stacyBox, ewBox, ll,
+                returnLevel: { T: [lo, hi] } }), or null when it was not among the families certified there;
+           lognormal: the lognormal's record there (the generalized gamma's limit), or null;
+           pending: the page's words when nothing is certified yet (then fit is ignored); T: [100, 1000] } */
+(function (root) {
+  'use strict';
+  const fmt = (x) => Number(x).toLocaleString('en-US');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const FAMW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
+  const SYM = { mu: 'μ', sigma: 'σ', k: 'k', lambda: 'λ', alpha: 'α', c: 'c', beta: 'β', q: 'Q', xi: 'ξ' };
+  const PARAMS = {
+    normal: [['mu', 'μ, the mean'], ['sigma', 'σ, the standard deviation']],
+    lognormal: [['mu', 'μ, the mean of ln x (scipy: ln scale)'], ['sigma', 'σ (scipy: s)']],
+    weibull: [['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
+    expweibull: [['alpha', 'α, the exponent (scipy: a)'], ['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
+    gengamma: [['alpha', 'α, the gamma shape (scipy: a)'], ['c', 'c, the power (scipy: c)'], ['lambda', 'λ, the scale']],
+    gumbel: [['mu', 'μ, the location'], ['beta', 'β, the scale']],
+    gev: [['mu', 'μ, the location'], ['sigma', 'σ, the scale'], ['xi', 'ξ, the shape (scipy: c = −ξ)']],
+  };
+  /* the families a location can be printed for: the normal, the Gumbel and the GEV carry their own */
+  const LOCATED = (f) => !(f === 'normal' || f === 'gumbel' || f === 'gev');
+  const DEC = /^-?\d+(\.\d+)?$/;
+  /* each printed coordinate against the certified box: the box inside the printed digits'
+     (they are its rounding), the digits inside the box (they agree as far as it resolves),
+     the two apart, or straddling a rounding boundary */
+  function relation(P, C) {
+    if (C[1] < P[0] || P[1] < C[0]) return 'apart';
+    if (P[0] <= C[0] && C[1] <= P[1]) return 'rounds';
+    if (C[0] <= P[0] && P[1] <= C[1]) return 'within';
+    return 'straddles';
+  }
+  /* the values the printed GEV leaves outside its support, 1 + ξ(x − μ)/σ > 0: [certainly, possibly], over the digits' box */
+  function gevOutside(o, theta, x) {
+    let certain = 0, possible = 0;
+    for (const v of x) {
+      const t = o.add(o.c(1), o.mul(theta[2], o.div(o.sub(o.c(v), theta[0]), theta[1])));
+      if (t[1] <= 0) certain++;
+      if (t[0] <= 0) possible++;
+    }
+    return [certain, possible];
+  }
+  function decide(H, q) {
+    const FT = H.FT, FAMILIES = H.FAM.FAMILIES, f = q.f, P = PARAMS[f];
+    if (!P) throw new Error('no printed form for the family ' + f);
+    const strs = q.strs.map((s) => String(s).trim());
+    if (strs.length !== P.length || strs.some((x) => !DEC.test(x))) throw new Error('type every parameter as a plain decimal, as printed');
+    const theta = strs.map(FT.printedBox);
+    const signed = FAMILIES[f].signed || ['mu'];
+    const outside = P.filter(([k], i) => !signed.includes(k) && !(theta[i][0] > 0)).map(([k]) => SYM[k] || k);
+    if (outside.length) {
+      const v = '<b>NOT A MEMBER OF THE FAMILY</b> — ' + outside.join(' and ') + ' must be positive, and the printed digits allow ' + (outside.length > 1 ? 'values' : 'a value') + ' at or below zero. There is no ' + FAMW[f] + ' distribution to decide.';
+      return { code: 'NOT A MEMBER OF THE FAMILY', verdict: v, lines: [v] };
+    }
+    const locStr = LOCATED(f) ? String(q.loc || '').trim() : '';
+    if (locStr && !DEC.test(locStr)) throw new Error('type the location as a plain decimal');
+    const loc = locStr && Number(locStr) !== 0 ? FT.printedBox(locStr) : null;
+    const x = q.x, n = x.length;
+    const { Di } = FT.prepare(x);
+    const lines = [];
+    const below = loc ? [x.filter((v) => v < loc[0]).length, x.filter((v) => v < loc[1]).length] : f === 'gev' ? gevOutside(FT.intervalOps, theta, x) : [0, 0];
+    let ll = null, llWhy = null, verdict = null, code = null;
+    if (below[0] > 0) { code = 'OUTSIDE ITS SUPPORT'; verdict = '<b>OUTSIDE ITS SUPPORT</b> — ' + fmt(below[0]) + ' of the ' + fmt(n) + ' values lie ' + (loc ? 'below the printed location' : 'beyond the printed GEV\'s end, where 1 + ξ(x − μ)/σ ≤ 0') + ': the fitted density is zero there, the log-likelihood minus infinity.'; }
+    else if (below[1] > 0) { code = 'UNDECIDED AT THE PRINTED PRECISION'; verdict = '<b>UNDECIDED AT THE PRINTED PRECISION</b> — ' + (loc ? 'the location may lie above the smallest value' : 'the printed GEV\'s end may fall inside the values') + '; the digits cannot say.'; }
+    else { try { ll = FT.llAt(f, theta, loc, Di); } catch (e) { llWhy = e.message; } if (!ll && !llWhy) llWhy = 'a value sits at the printed location'; }
+    const F = q.pending ? null : q.fit, cert = F && F.certified ? F : null, LN = q.lognormal;
+    const gap = (a, b) => (a - b).toPrecision(4);
+    const reg = f === 'gev' ? ' (its regular maximum, ξ > −0.5: the GEV\'s likelihood has no global one)' : '';
+    if (!verdict) {
+      if (q.pending) verdict = q.pending;
+      else if (!F) verdict = FAMW[f] + ' was not among the families certified on this block.';
+      else if (!cert && F.edge && !loc && ll && LN && LN.certified && LN.ll && ll[1] < LN.ll[0]) { code = 'BELOW ITS LIMIT'; verdict = '<b>BELOW ITS LIMIT</b> — on these values the family\'s likelihood is proved to peak at its lognormal limit, and the printed point is at least ' + gap(LN.ll[0], ll[1]) + ' log-likelihood units below the lognormal\'s certified maximum, which the family approaches: it is not the family\'s best, only a point on the way.'; }
+      else if (!cert) verdict = F.edge ? 'No maximum inside the family to compare with: on these values its likelihood is proved to peak at the lognormal limit (' + esc(F.why) + ')' + (LN && LN.certified ? '.' : '; certify the lognormal too, to compare the printed point with that limit.') : 'No maximum to compare with: the certificate refused ' + FAMW[f] + ' on this block (' + esc(F.why) + ').';
+      else if (!loc) {
+        /* a Prentice or a Gumbel-coordinate certificate, carried back to the printed coordinates — or null, where that box lies past the doubles */
+        const cbox = cert.coords ? cert.stacyBox || cert.ewBox || null : cert.box;
+        const rel = cbox ? theta.map((Pb, i) => relation(Pb, cbox[i])) : null;
+        if (ll && cert.ll && ll[1] < cert.ll[0]) { code = 'OFF THE MAXIMUM'; verdict = '<b>OFF THE MAXIMUM</b> — its log-likelihood is at least ' + gap(cert.ll[0], ll[1]) + ' below the certified maximum of the same family on the same values' + reg + '.'; }
+        else if (!rel) { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — the certified maximum is a box in ' + (cert.coords === 'gengammaP' ? 'Prentice\'s coordinates (μ, σ, Q)' : 'the Gumbel coordinates (k, θ = λᵏ, β = θ ln α)') + ', and carried back to the printed coordinates it lies past the largest or smallest double: the printed digits cannot be compared with it, and their likelihood is not separated from the maximum\'s.'; }
+        else if (rel.includes('apart')) { code = 'NOT THE CERTIFIED FIT'; verdict = '<b>NOT THE CERTIFIED FIT</b> — the certified maximum' + reg + ' lies outside every value the printed digits allow (in ' + P.filter((p, i) => rel[i] === 'apart').map(([k]) => SYM[k] || k).join(', ') + ')' + (ll ? ', though the digits are too few to separate their likelihood from the maximum\'s.' : '.'); }
+        else if (rel.every((r) => r === 'rounds')) { code = 'REPRODUCED'; verdict = '<b>REPRODUCED</b> — the printed digits are the rounding of the certified maximum-likelihood fit' + reg + '.'; }
+        else if (rel.every((r) => r === 'rounds' || r === 'within')) { code = 'CONSISTENT'; verdict = '<b>CONSISTENT</b> — the printed digits lie inside the certified box: they agree with the maximum-likelihood fit' + reg + ' to every digit the certificate resolves.'; }
+        else { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — the certified box straddles a rounding boundary of the printed digits (in ' + P.filter((p, i) => rel[i] === 'straddles').map(([k]) => SYM[k] || k).join(', ') + '): the maximum may or may not round to them.'; }
+      } else if (ll && cert.ll && ll[1] < cert.ll[0]) { code = 'BELOW A MEMBER OF ITS OWN FAMILY'; verdict = '<b>BELOW A MEMBER OF ITS OWN FAMILY</b> — the fit with the location at zero, certified on the same values, is at least ' + gap(cert.ll[0], ll[1]) + ' log-likelihood units more likely: the printed point is not the family\'s most likely member.'; }
+      else if (ll && cert.ll && ll[0] > cert.ll[1]) { code = 'A DIFFERENT MODEL'; verdict = '<b>A DIFFERENT MODEL</b> — the printed location raises the log-likelihood by at least ' + gap(ll[0], cert.ll[1]) + ' over the certified fit at location zero. With a free location the likelihood has no maximum to certify (it is unbounded), so this page decides the printed point only against that fit.'; }
+      else { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — with a location the printed fit is a different model from the one certified here (location zero), and the printed digits do not separate the two likelihoods.'; }
+    }
+    lines.push(verdict);
+    for (const T of q.T || [100, 1000]) {
+      try {
+        const L = FT.levelAt(f, theta, loc, T, q.hours);
+        lines.push(T + '-year level over every value the printed digits allow: [' + L[0].toFixed(3) + ', ' + L[1].toFixed(3) + '] m' + (cert && cert.returnLevel && cert.returnLevel[T] ? '; the certified fit\'s' + (loc ? ' (the family at location zero)' : '') + ': ' + Number(cert.returnLevel[T][1]).toFixed(3) + ' m' : '') + '.');
+      } catch (e) { /* a level the box cannot enclose is left out */ }
+    }
+    if (ll) lines.push('log-likelihood over the printed box: [' + ll[0].toFixed(3) + ', ' + ll[1].toFixed(3) + ']' + (cert && cert.ll ? '; the certified maximum: [' + cert.ll[0].toFixed(3) + ', ' + cert.ll[1].toFixed(3) + ']' : '') + '.');
+    else if (llWhy && !below[1]) lines.push('The log-likelihood cannot be enclosed over the printed box: ' + esc(llWhy) + '.');
+    return { code, verdict, lines };
+  }
+  /* a certificate as the decision reads it, from fit.js certify()'s result (the lognormal's too) — for a worker that
+     certifies and decides in one place; ll over the certified box when the certificate did not carry it */
+  function recordOf(H, c, T, hours) {
+    if (!c.ok) return { certified: false, edge: !!c.edge, why: c.why };
+    let ll = c.ll || null;
+    if (!ll) try { ll = c.fam.loglik(H.FT.intervalOps, c.box, c.Di); } catch (e) { ll = null; }
+    const rl = {};
+    for (const t of T || [100, 1000]) { try { rl[t] = H.FT.returnLevel(c, t, hours); } catch (e) { rl[t] = null; } }
+    return { certified: true, coords: c.coords || null, box: c.box, stacyBox: c.stacyBox || null, ewBox: c.ewBox || null, ll, returnLevel: rl, theta: Array.from(c.theta) };
+  }
+  const API = { decide, recordOf, relation, PARAMS, SYM, FAMW, LOCATED, DEC };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.HS_PRINTED = API;
+})(typeof self !== 'undefined' ? self : this);
+
+/* worker.js — the atlas's re-certification of one cell, off the page's thread.
    playground/return-level-atlas/ · cert-machine
 
    Concatenated after the bundle, so self.HSEVA.AT is instruments/hseva/atlas.js,
-   the same bytes that wrote certs/hseva-atlas.json. Takes the cell's
+   the same bytes that wrote certs/hseva-atlas.json (and after the return-level
+   check's printed.js, THE decision of a printed fit: see printed() below). Takes the cell's
    daily maxima (int16, raw units, one per UTC day from the corpus's first day),
    answers with the record — progress per block — and the page compares it with
    the ledger's, as JSON. Beside the record, and never inside it, the return-level
@@ -3557,25 +3685,47 @@ function profile(q) {
   }
   return { x0: x0, lo: ends[0], hi: ends[1], chi: CHI95 };
 }
+/* the daily maxima the page sends: a cell's pinned int16 file, or a reader's own site cut to days on the page */
+function seriesOf(q) {
+  if (q.site) return { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };   /* by THE block rule, on the page */
+  var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
+  var d0 = Date.parse(q.first + 'T00:00:00Z');
+  for (var i = 0; i < v.length; i++) {
+    if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
+    t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
+  }
+  return { n: v.length, t: t, h: h, den: 500, step: 24 };
+}
+/* A FIT SOMEONE PRINTED for this place, decided by THE decision of the return-level check (printed.js, concatenated
+   before this file): the printed family certified by fit.js certify() on the printed block of the same daily maxima —
+   for the daily, weekly and monthly blocks the certificate the ledger records, for the annual block (not one of the
+   paper's) certified here only — the lognormal beside the generalized gamma (its limit), and the printed digits decided
+   against it. Digits that are not a member of the family are decided before anything is certified. Nothing is kept. */
+function printed(q) {
+  var H = self.HSEVA, P = self.HS_PRINTED, FT = H.FT, S = seriesOf(q), BM = H.BR.blockMaxima(S, q.block), T = [100, 1000];
+  if (BM.n < 5) throw new Error('only ' + BM.n + ' blocks: too few to fit');
+  var mx = -Infinity; for (var i = 0; i < BM.x.length; i++) if (BM.x[i] > mx) mx = BM.x[i];
+  var base = { f: q.f, strs: q.strs, loc: q.loc, x: BM.x, hours: BM.hours, T: T };
+  var pre = P.decide(H, Object.assign({ pending: 'certifying' }, base));
+  if (pre.code === 'NOT A MEMBER OF THE FAMILY') return { code: pre.code, lines: pre.lines, n: BM.n, hours: BM.hours, max: mx, fit: null };
+  var prepared = FT.prepare(BM.x);
+  var fit = P.recordOf(H, FT.certify(q.f, BM.x, { prepared: prepared }), T, BM.hours);
+  var ln = q.f === 'gengamma' ? P.recordOf(H, FT.certify('lognormal', BM.x, { prepared: prepared }), T, BM.hours) : null;
+  var D = P.decide(H, Object.assign({ fit: fit, lognormal: ln }, base));
+  return { code: D.code, lines: D.lines, n: BM.n, hours: BM.hours, max: mx, fit: fit.certified ? { theta: fit.theta, l100: fit.returnLevel[100], l1000: fit.returnLevel[1000] } : { why: fit.why, edge: fit.edge } };
+}
 self.onmessage = function (ev) {
   var q = ev.data;
   if (q && q.kind === 'profile') {
     try { self.postMessage({ kind: 'profile', result: profile(q) }); } catch (e) { self.postMessage({ kind: 'error', message: String((e && e.message) || e) }); }
     return;
   }
+  if (q && q.kind === 'printed') {
+    try { self.postMessage({ kind: 'printed', result: printed(q) }); } catch (e) { self.postMessage({ kind: 'error', message: String((e && e.message) || e) }); }
+    return;
+  }
   try {
-    var S;
-    if (q.site) {                                                   /* a reader's own site: its daily maxima by THE block rule, made on the page */
-      S = { n: q.site.h.length, t: q.site.t, h: q.site.h, den: q.site.den, step: 24 };
-    } else {
-      var v = new Int16Array(q.raw), t = new Array(v.length), h = new Array(v.length);
-      var d0 = Date.parse(q.first + 'T00:00:00Z');
-      for (var i = 0; i < v.length; i++) {
-        if (!(v[i] > 0)) throw new Error('day ' + i + ' is not a positive value');
-        t[i] = new Date(d0 + i * 86400000).toISOString().slice(0, 10); h[i] = v[i] / 500;
-      }
-      S = { n: v.length, t: t, h: h, den: 500, step: 24 };
-    }
+    var S = seriesOf(q);
     var plot = {}, keep = {}, FT = self.HSEVA.FT;
     var onFit = function (blk, f, c, BM) {
       var P = plot[blk];
@@ -3926,6 +4076,127 @@ window.ATLAS_RULES = R; })();</script>
   if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.HS_PARSE = API;
 })(typeof self !== 'undefined' ? self : this);
 </script>
+<script>/* printed.js — THE decision of a fit someone printed, one module for every page that decides one: the return-level
+   check (against the reader's series) and the return-level atlas (against a cell of the paper's hindcast, or a reader's
+   own site, in its worker). Moved here from the check's app.js on 2026-09-29, its words unchanged; the GEV added, whose
+   printed support is decided as a location's is. Loaded as a plain script (self.HS_PRINTED — a page, or a worker after
+   the bundle) or required by Node; it holds no arithmetic of its own: fit.js printedBox, llAt and levelAt do the work.
+
+   usage: HS_PRINTED.decide(HSEVA, q) -> { code, verdict, lines } (HTML), or throws on digits that are not plain decimals
+     HSEVA  the bundle's { FT, FAM }, or { FT: require('fit.js'), FAM: require('families.js') }
+     q = { f, strs: the parameters as printed, in PARAMS[f]'s order; loc: the location as printed, '' for none;
+           x: the block maxima the fit is decided on; hours: the block's length;
+           fit: the family's certified record on those values ({ certified, edge, why, coords, box, stacyBox, ewBox, ll,
+                returnLevel: { T: [lo, hi] } }), or null when it was not among the families certified there;
+           lognormal: the lognormal's record there (the generalized gamma's limit), or null;
+           pending: the page's words when nothing is certified yet (then fit is ignored); T: [100, 1000] } */
+(function (root) {
+  'use strict';
+  const fmt = (x) => Number(x).toLocaleString('en-US');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const FAMW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
+  const SYM = { mu: 'μ', sigma: 'σ', k: 'k', lambda: 'λ', alpha: 'α', c: 'c', beta: 'β', q: 'Q', xi: 'ξ' };
+  const PARAMS = {
+    normal: [['mu', 'μ, the mean'], ['sigma', 'σ, the standard deviation']],
+    lognormal: [['mu', 'μ, the mean of ln x (scipy: ln scale)'], ['sigma', 'σ (scipy: s)']],
+    weibull: [['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
+    expweibull: [['alpha', 'α, the exponent (scipy: a)'], ['k', 'k, the shape (scipy: c)'], ['lambda', 'λ, the scale']],
+    gengamma: [['alpha', 'α, the gamma shape (scipy: a)'], ['c', 'c, the power (scipy: c)'], ['lambda', 'λ, the scale']],
+    gumbel: [['mu', 'μ, the location'], ['beta', 'β, the scale']],
+    gev: [['mu', 'μ, the location'], ['sigma', 'σ, the scale'], ['xi', 'ξ, the shape (scipy: c = −ξ)']],
+  };
+  /* the families a location can be printed for: the normal, the Gumbel and the GEV carry their own */
+  const LOCATED = (f) => !(f === 'normal' || f === 'gumbel' || f === 'gev');
+  const DEC = /^-?\d+(\.\d+)?$/;
+  /* each printed coordinate against the certified box: the box inside the printed digits'
+     (they are its rounding), the digits inside the box (they agree as far as it resolves),
+     the two apart, or straddling a rounding boundary */
+  function relation(P, C) {
+    if (C[1] < P[0] || P[1] < C[0]) return 'apart';
+    if (P[0] <= C[0] && C[1] <= P[1]) return 'rounds';
+    if (C[0] <= P[0] && P[1] <= C[1]) return 'within';
+    return 'straddles';
+  }
+  /* the values the printed GEV leaves outside its support, 1 + ξ(x − μ)/σ > 0: [certainly, possibly], over the digits' box */
+  function gevOutside(o, theta, x) {
+    let certain = 0, possible = 0;
+    for (const v of x) {
+      const t = o.add(o.c(1), o.mul(theta[2], o.div(o.sub(o.c(v), theta[0]), theta[1])));
+      if (t[1] <= 0) certain++;
+      if (t[0] <= 0) possible++;
+    }
+    return [certain, possible];
+  }
+  function decide(H, q) {
+    const FT = H.FT, FAMILIES = H.FAM.FAMILIES, f = q.f, P = PARAMS[f];
+    if (!P) throw new Error('no printed form for the family ' + f);
+    const strs = q.strs.map((s) => String(s).trim());
+    if (strs.length !== P.length || strs.some((x) => !DEC.test(x))) throw new Error('type every parameter as a plain decimal, as printed');
+    const theta = strs.map(FT.printedBox);
+    const signed = FAMILIES[f].signed || ['mu'];
+    const outside = P.filter(([k], i) => !signed.includes(k) && !(theta[i][0] > 0)).map(([k]) => SYM[k] || k);
+    if (outside.length) {
+      const v = '<b>NOT A MEMBER OF THE FAMILY</b> — ' + outside.join(' and ') + ' must be positive, and the printed digits allow ' + (outside.length > 1 ? 'values' : 'a value') + ' at or below zero. There is no ' + FAMW[f] + ' distribution to decide.';
+      return { code: 'NOT A MEMBER OF THE FAMILY', verdict: v, lines: [v] };
+    }
+    const locStr = LOCATED(f) ? String(q.loc || '').trim() : '';
+    if (locStr && !DEC.test(locStr)) throw new Error('type the location as a plain decimal');
+    const loc = locStr && Number(locStr) !== 0 ? FT.printedBox(locStr) : null;
+    const x = q.x, n = x.length;
+    const { Di } = FT.prepare(x);
+    const lines = [];
+    const below = loc ? [x.filter((v) => v < loc[0]).length, x.filter((v) => v < loc[1]).length] : f === 'gev' ? gevOutside(FT.intervalOps, theta, x) : [0, 0];
+    let ll = null, llWhy = null, verdict = null, code = null;
+    if (below[0] > 0) { code = 'OUTSIDE ITS SUPPORT'; verdict = '<b>OUTSIDE ITS SUPPORT</b> — ' + fmt(below[0]) + ' of the ' + fmt(n) + ' values lie ' + (loc ? 'below the printed location' : 'beyond the printed GEV\'s end, where 1 + ξ(x − μ)/σ ≤ 0') + ': the fitted density is zero there, the log-likelihood minus infinity.'; }
+    else if (below[1] > 0) { code = 'UNDECIDED AT THE PRINTED PRECISION'; verdict = '<b>UNDECIDED AT THE PRINTED PRECISION</b> — ' + (loc ? 'the location may lie above the smallest value' : 'the printed GEV\'s end may fall inside the values') + '; the digits cannot say.'; }
+    else { try { ll = FT.llAt(f, theta, loc, Di); } catch (e) { llWhy = e.message; } if (!ll && !llWhy) llWhy = 'a value sits at the printed location'; }
+    const F = q.pending ? null : q.fit, cert = F && F.certified ? F : null, LN = q.lognormal;
+    const gap = (a, b) => (a - b).toPrecision(4);
+    const reg = f === 'gev' ? ' (its regular maximum, ξ > −0.5: the GEV\'s likelihood has no global one)' : '';
+    if (!verdict) {
+      if (q.pending) verdict = q.pending;
+      else if (!F) verdict = FAMW[f] + ' was not among the families certified on this block.';
+      else if (!cert && F.edge && !loc && ll && LN && LN.certified && LN.ll && ll[1] < LN.ll[0]) { code = 'BELOW ITS LIMIT'; verdict = '<b>BELOW ITS LIMIT</b> — on these values the family\'s likelihood is proved to peak at its lognormal limit, and the printed point is at least ' + gap(LN.ll[0], ll[1]) + ' log-likelihood units below the lognormal\'s certified maximum, which the family approaches: it is not the family\'s best, only a point on the way.'; }
+      else if (!cert) verdict = F.edge ? 'No maximum inside the family to compare with: on these values its likelihood is proved to peak at the lognormal limit (' + esc(F.why) + ')' + (LN && LN.certified ? '.' : '; certify the lognormal too, to compare the printed point with that limit.') : 'No maximum to compare with: the certificate refused ' + FAMW[f] + ' on this block (' + esc(F.why) + ').';
+      else if (!loc) {
+        /* a Prentice or a Gumbel-coordinate certificate, carried back to the printed coordinates — or null, where that box lies past the doubles */
+        const cbox = cert.coords ? cert.stacyBox || cert.ewBox || null : cert.box;
+        const rel = cbox ? theta.map((Pb, i) => relation(Pb, cbox[i])) : null;
+        if (ll && cert.ll && ll[1] < cert.ll[0]) { code = 'OFF THE MAXIMUM'; verdict = '<b>OFF THE MAXIMUM</b> — its log-likelihood is at least ' + gap(cert.ll[0], ll[1]) + ' below the certified maximum of the same family on the same values' + reg + '.'; }
+        else if (!rel) { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — the certified maximum is a box in ' + (cert.coords === 'gengammaP' ? 'Prentice\'s coordinates (μ, σ, Q)' : 'the Gumbel coordinates (k, θ = λᵏ, β = θ ln α)') + ', and carried back to the printed coordinates it lies past the largest or smallest double: the printed digits cannot be compared with it, and their likelihood is not separated from the maximum\'s.'; }
+        else if (rel.includes('apart')) { code = 'NOT THE CERTIFIED FIT'; verdict = '<b>NOT THE CERTIFIED FIT</b> — the certified maximum' + reg + ' lies outside every value the printed digits allow (in ' + P.filter((p, i) => rel[i] === 'apart').map(([k]) => SYM[k] || k).join(', ') + ')' + (ll ? ', though the digits are too few to separate their likelihood from the maximum\'s.' : '.'); }
+        else if (rel.every((r) => r === 'rounds')) { code = 'REPRODUCED'; verdict = '<b>REPRODUCED</b> — the printed digits are the rounding of the certified maximum-likelihood fit' + reg + '.'; }
+        else if (rel.every((r) => r === 'rounds' || r === 'within')) { code = 'CONSISTENT'; verdict = '<b>CONSISTENT</b> — the printed digits lie inside the certified box: they agree with the maximum-likelihood fit' + reg + ' to every digit the certificate resolves.'; }
+        else { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — the certified box straddles a rounding boundary of the printed digits (in ' + P.filter((p, i) => rel[i] === 'straddles').map(([k]) => SYM[k] || k).join(', ') + '): the maximum may or may not round to them.'; }
+      } else if (ll && cert.ll && ll[1] < cert.ll[0]) { code = 'BELOW A MEMBER OF ITS OWN FAMILY'; verdict = '<b>BELOW A MEMBER OF ITS OWN FAMILY</b> — the fit with the location at zero, certified on the same values, is at least ' + gap(cert.ll[0], ll[1]) + ' log-likelihood units more likely: the printed point is not the family\'s most likely member.'; }
+      else if (ll && cert.ll && ll[0] > cert.ll[1]) { code = 'A DIFFERENT MODEL'; verdict = '<b>A DIFFERENT MODEL</b> — the printed location raises the log-likelihood by at least ' + gap(ll[0], cert.ll[1]) + ' over the certified fit at location zero. With a free location the likelihood has no maximum to certify (it is unbounded), so this page decides the printed point only against that fit.'; }
+      else { code = 'NOT DECIDED'; verdict = '<b>NOT DECIDED</b> — with a location the printed fit is a different model from the one certified here (location zero), and the printed digits do not separate the two likelihoods.'; }
+    }
+    lines.push(verdict);
+    for (const T of q.T || [100, 1000]) {
+      try {
+        const L = FT.levelAt(f, theta, loc, T, q.hours);
+        lines.push(T + '-year level over every value the printed digits allow: [' + L[0].toFixed(3) + ', ' + L[1].toFixed(3) + '] m' + (cert && cert.returnLevel && cert.returnLevel[T] ? '; the certified fit\'s' + (loc ? ' (the family at location zero)' : '') + ': ' + Number(cert.returnLevel[T][1]).toFixed(3) + ' m' : '') + '.');
+      } catch (e) { /* a level the box cannot enclose is left out */ }
+    }
+    if (ll) lines.push('log-likelihood over the printed box: [' + ll[0].toFixed(3) + ', ' + ll[1].toFixed(3) + ']' + (cert && cert.ll ? '; the certified maximum: [' + cert.ll[0].toFixed(3) + ', ' + cert.ll[1].toFixed(3) + ']' : '') + '.');
+    else if (llWhy && !below[1]) lines.push('The log-likelihood cannot be enclosed over the printed box: ' + esc(llWhy) + '.');
+    return { code, verdict, lines };
+  }
+  /* a certificate as the decision reads it, from fit.js certify()'s result (the lognormal's too) — for a worker that
+     certifies and decides in one place; ll over the certified box when the certificate did not carry it */
+  function recordOf(H, c, T, hours) {
+    if (!c.ok) return { certified: false, edge: !!c.edge, why: c.why };
+    let ll = c.ll || null;
+    if (!ll) try { ll = c.fam.loglik(H.FT.intervalOps, c.box, c.Di); } catch (e) { ll = null; }
+    const rl = {};
+    for (const t of T || [100, 1000]) { try { rl[t] = H.FT.returnLevel(c, t, hours); } catch (e) { rl[t] = null; } }
+    return { certified: true, coords: c.coords || null, box: c.box, stacyBox: c.stacyBox || null, ewBox: c.ewBox || null, ll, returnLevel: rl, theta: Array.from(c.theta) };
+  }
+  const API = { decide, recordOf, relation, PARAMS, SYM, FAMW, LOCATED, DEC };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.HS_PRINTED = API;
+})(typeof self !== 'undefined' ? self : this);
+</script>
 <script>/* app.js — the return-level atlas, in the tab.
    playground/return-level-atlas/ · cert-machine
 
@@ -4229,7 +4500,7 @@ window.ATLAS_RULES = R; })();</script>
         const la = Number(m[1]), lo = Number(m[2]), r = Math.PI / 180;
         let best = null, bd = Infinity;
         for (const c of cells) { const d = Math.acos(Math.min(1, Math.sin(la * r) * Math.sin(c.lat * r) + Math.cos(la * r) * Math.cos(c.lat * r) * Math.cos((lo - c.lon) * r))); if (d < bd) { bd = d; best = c; } }
-        if (best) { select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
+        if (best) { FIND = { lat: la, lon: lo, id: best.id, km: 6371 * bd }; select(best); fly({ center: [best.lon, best.lat], zoom: Math.max(map ? map.getZoom() : 2, 3) }); }
         find.blur();
       };
     }
@@ -4374,6 +4645,8 @@ window.ATLAS_RULES = R; })();</script>
   }
   const claimFrom = (li) => claimClick(li.dataset.claim);
   document.addEventListener('click', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li) claimFrom(li); });
+  /* a cell named in the method tab's words (the printed table's sites) opens in the cell tab */
+  document.addEventListener('click', (e) => { const b = e.target.closest && e.target.closest('[data-cell]'); const c = b && byId.get(b.dataset.cell); if (c) { PRN.open = true; select(c); if (map) fly({ center: [c.lon, c.lat], zoom: Math.max(map.getZoom(), 4) }); } });
   document.addEventListener('keydown', (e) => { const li = e.target.closest && e.target.closest('.ra-claim'); if (li && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); claimFrom(li); } });
 
   function select(c) {
@@ -4429,13 +4702,13 @@ window.ATLAS_RULES = R; })();</script>
     }
     /* the action first, its result right under it; the cell's own data drawn as soon as it arrives; the ledger's table and the words after */
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div><div id="ra-printed"></div>';
     h += '<div class="k">the choice, by criterion (the ledger' + (c.native ? 's' : '') + ')</div>' + blockRows(c) + (c.native ? '<p class="n">' + nativeWords(c) + '</p>' : '');
     if (BLK.some((b) => c.blocks[b].seven !== undefined && c.blocks[b].seven !== null)) h += '<p class="n">Among 7: the choice Anderson–Darling makes once the GEV joins the paper\'s six — never counted in the paper\'s claims. GEV ξ: its certified shape (above 0 a Fréchet-type tail, below 0 a finite upper end). 100-yr 95%: <span class="w-val w-computed">dash-underlined</span> because it is STATISTICAL — the delta method\'s interval for the decided family\'s level, asserted from the fit\'s sampling, not decided.</p>';
     if (c.ei) h += '<p class="n">Daily maxima come in storms: above ' + c.ei.u.toFixed(2) + ' m (the series\' 95th percentile) a new storm starts after ' + c.ei.r + ' quiet days, and the runs estimator puts the extremal index at <span class="w-val w-computed" title="statistical: an estimate, not decided">θ = ' + c.ei.theta.toFixed(2) + '</span>: storms of about ' + (1 / c.ei.theta).toFixed(1) + ' days above that level on average. Statistical, not certified; the design-life level takes successive maxima as independent, which here they are not.</p>';
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. A fit someone printed for this place — a design table\'s row — is decided against the same maxima above, by the rule of <a href="../return-level-check/">the return-level check</a>; the series downloads as CSV for the check too.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
@@ -4446,6 +4719,7 @@ window.ATLAS_RULES = R; })();</script>
     const D = data.get(c.id);
     if (D && D.status === 'ok') enableCsv(c, D);
     charts(c);
+    printedForm(c);
   }
 
   /* ---- the cell's own data: fetched and checked against its pin when the cell is chosen ---- */
@@ -4760,6 +5034,94 @@ window.ATLAS_RULES = R; })();</script>
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
+  /* ---- A FIT SOMEONE PRINTED for this place — a design table's row: a family, a block and its parameters as printed —
+     decided in a worker against this cell's block maxima (or a reader's own site's) by THE decision of the return-level
+     check (playground/return-level-check/printed.js, one module for both pages): the printed family certified on the
+     printed block by the ledger's own fit.js, the digits decided against it. The digits stay in this tab: they are
+     sent nowhere and never written into the address. ---- */
+  const PR = window.HS_PRINTED || null;
+  const PRB = [['daily', 'daily maxima'], ['weekly', 'weekly maxima'], ['monthly', 'monthly maxima'], ['annual', 'annual maxima']];
+  const PRN = { f: 'weibull', block: null, vals: {}, open: false, res: null, run: null, preset: null };
+  let prw = null, FIND = null;
+  const llWords = (la, lo) => Math.abs(la) + '° ' + (la < 0 ? 'S' : 'N') + ' ' + Math.abs(lo) + '° ' + (lo < 0 ? 'W' : 'E');
+  function printedForm(c) {
+    const el = $('ra-printed'); if (!el || !PR) return;
+    const blk = PRN.block || state.block, P = PR.PARAMS[PRN.f];
+    const opt = (items, cur) => items.map(([v, t]) => '<option value="' + v + '"' + (String(v) === String(cur) ? ' selected' : '') + '>' + esc(t) + '</option>').join('');
+    const inp = (k, lab) => '<label class="ra-lab">' + esc(lab) + '<input id="ra-pr-' + k + '" class="ra-select" type="text" inputmode="decimal" placeholder="as printed" autocomplete="off" value="' + esc(PRN.vals[PRN.f + ':' + k] || '') + '"></label>';
+    el.innerHTML = '<div class="ra-go-row"><button type="button" class="ra-linkbtn" id="ra-pr-open" aria-expanded="' + PRN.open + '" aria-controls="ra-pr-form">decide a printed fit here</button></div>'
+      + '<div id="ra-pr-form" class="ra-mine"' + (PRN.open ? '' : ' hidden') + '><p class="n">A design table, a report or a pipeline printed a fitted distribution for this place. Type its family, its block and its parameters as printed: the family is certified on ' + (c.site ? 'your site\'s' : 'this cell\'s') + ' maxima of that block, here, by the ledger\'s own code, and the digits are decided against it by the rule of <a href="../return-level-check/">the return-level check</a> — <b>REPRODUCED</b>, <b>CONSISTENT</b>, <b>OFF THE MAXIMUM</b>, <b>NOT THE CERTIFIED FIT</b>, <b>OUTSIDE ITS SUPPORT</b>, <b>NOT A MEMBER OF THE FAMILY</b> or <b>NOT DECIDED</b>. Nothing you type leaves this page or enters the address.</p>'
+      + '<div class="ra-pr-ps"><label class="ra-lab">family<select id="ra-pr-f" class="ra-select">' + opt(FAM7.map((f) => [f, FW[f]]), PRN.f) + '</select></label><label class="ra-lab">block<select id="ra-pr-b" class="ra-select">' + opt(PRB, blk) + '</select></label>'
+      + P.map(([k, lab]) => inp(k, lab)).join('') + (PR.LOCATED(PRN.f) ? inp('loc', 'location (blank: none)') : '') + '</div>'
+      + '<div class="ra-go-row"><button type="button" id="ra-pr-go">decide it</button></div>' + presetsHtml(c) + '<div id="ra-pr-out" aria-live="polite"></div></div>';
+    const keep = () => { el.querySelectorAll('.ra-pr-ps input').forEach((x) => { PRN.vals[PRN.f + ':' + x.id.slice(6)] = x.value; }); };   /* 'ra-pr-' + the parameter */
+    $('ra-pr-open').onclick = () => { PRN.open = !PRN.open; $('ra-pr-form').hidden = !PRN.open; $('ra-pr-open').setAttribute('aria-expanded', String(PRN.open)); };
+    $('ra-pr-f').onchange = (e) => { keep(); PRN.f = e.target.value; printedForm(c); $('ra-pr-f').focus(); };
+    $('ra-pr-b').onchange = (e) => { PRN.block = e.target.value; };
+    $('ra-pr-go').onclick = () => { keep(); PRN.preset = null; decidePrinted(c); };
+    el.querySelectorAll('[data-pr]').forEach((b) => { b.onclick = () => usePreset(c, b.dataset.pr); });
+    if (PRN.run && PRN.run.id === c.id) $('ra-pr-out').innerHTML = '<p class="n">' + esc(PRN.run.text) + '</p>';
+    else if (PRN.res && PRN.res.id === c.id) showPrinted(c, PRN.res);
+  }
+  /* A PRINTED TABLE near this cell (certs/design-table-audit.json, carried in atlas.json by build.js): each of its rows whose
+     two nearest cells include this one, a button that types the row's digits into the form — the GEV's ξ as the table's k
+     with its sign changed — and decides them here; the ledger's verdict is said beside the tab's */
+  const METHW = { gumbelLS: 'Gumbel, least squares', gumbelML: 'Gumbel, max. likelihood', gumbelMOM: 'Gumbel, moments', gevML: 'GEV, max. likelihood' };
+  const nearRows = (c) => (A.printed ? A.printed.rows.flatMap((r) => r.cells.map((q, j) => ({ r, q, j })).filter((x) => x.q.id === c.id)) : []);
+  function presetsHtml(c) {
+    const N = nearRows(c); if (!N.length) return '';
+    return '<div class="k">printed near this cell</div>' + N.map(({ r, q, j }) => '<p class="n">' + esc(A.printed.cite) + ', Table 3: LA' + r.la + ' ' + esc(r.name) + ' (' + esc(r.at) + ', ' + esc(r.depth) + ' m deep), ' + fmt(q.km) + ' km from this node' + (j ? ' (the next-nearest cell)' : '') + '. Annual maxima of a commercial hindcast, 1992–2022:</p><div class="ra-go-row">'
+      + Object.keys(q.v).map((m) => '<button type="button" data-pr="' + r.la + ':' + j + ':' + m + '">' + esc(METHW[m] || m) + '</button>').join('') + '</div>').join('');
+  }
+  function usePreset(c, key) {
+    const [la, j, m] = key.split(':'), r = A.printed.rows.find((x) => String(x.la) === la), q = r && r.cells[Number(j)];
+    if (!q || !q.v[m]) return;
+    const [f, digits, verdict] = q.v[m];
+    PRN.f = f; PRN.block = 'annual'; PRN.open = true;
+    PR.PARAMS[f].forEach(([k], i) => { PRN.vals[f + ':' + k] = digits[i]; });
+    if (PR.LOCATED(f)) PRN.vals[f + ':loc'] = '';
+    PRN.preset = { id: c.id, la: r.la, name: r.name, m, verdict, gev: f === 'gev' };
+    printedForm(c);
+    decidePrinted(c);
+  }
+  async function decidePrinted(c) {
+    const f = PRN.f, block = PRN.block || state.block, P = PR.PARAMS[f];
+    const strs = P.map(([k]) => PRN.vals[f + ':' + k] || ''), loc = PR.LOCATED(f) ? PRN.vals[f + ':loc'] || '' : '';
+    if (prw) { prw.terminate(); prw = null; }
+    const me = PRN.run = { id: c.id, text: '' };
+    const say = (t) => { me.text = t; const o = $('ra-pr-out'); if (PRN.run === me && sel === c && o) o.innerHTML = '<p class="n">' + esc(t) + '</p>'; };
+    const done = (res) => { if (PRN.run !== me) return; PRN.run = null; PRN.res = res; if (sel === c) showPrinted(c, res); };
+    say('fetching the daily maxima …');
+    const D = c.site ? data.get('site') : await loadData(c);
+    if (PRN.run !== me) return;
+    if (!D || D.status !== 'ok') { done({ id: c.id, error: D ? D.why : 'no cell file is served' }); return; }
+    say('certifying the ' + FW[f] + ' on the ' + (PRB.find((b) => b[0] === block) || [0, block])[1] + ' …');
+    const w = prw = new Worker(WURL), t0 = Date.now();
+    w.onmessage = (ev) => {
+      if (w !== prw) return;
+      w.terminate(); prw = null;
+      const m = ev.data;
+      done(m.kind === 'printed' ? { id: c.id, f, block, m: m.result, secs: (Date.now() - t0) / 1000 } : { id: c.id, error: m.message });
+    };
+    w.onerror = (e) => { if (w !== prw) return; prw = null; done({ id: c.id, error: 'the run failed in the worker: ' + ((e && e.message) || 'no message') }); };
+    w.postMessage(c.site ? { kind: 'printed', site: { t: D.t, h: D.h, den: c.den }, f, block, strs, loc } : { kind: 'printed', raw: D.buf.slice(0), first: A.first, f, block, strs, loc });
+  }
+  function showPrinted(c, R) {
+    const out = $('ra-pr-out'); if (!out) return;
+    if (R.error) { out.innerHTML = '<p class="n">REFUSED: ' + esc(R.error) + '</p>'; return; }
+    const m = R.m, bw = (PRB.find((b) => b[0] === R.block) || [0, R.block])[1];
+    const far = !c.site && FIND && FIND.id === c.id ? (FIND.km < 1 ? ', where you typed' : ', ' + fmt(Math.round(FIND.km)) + ' km from ' + llWords(FIND.lat, FIND.lon) + ', where you typed') : '';
+    let h = '<p class="n">' + (c.site ? 'Your site\'s ' : 'This cell\'s ') + fmt(m.n) + ' ' + esc(bw) + ' (the largest ' + m.max.toFixed(2) + ' m)' + (c.site ? '' : ' — the series of the hindcast\'s node at ' + esc(place(c)) + far) + '. '
+      + (m.fit ? 'The ' + esc(FW[R.f]) + ' ' + (m.fit.theta ? 'certified on them here' : 'refused on them here') + (R.secs < 0.1 ? ' in under a tenth of a second' : ' in ' + R.secs.toFixed(1) + ' s') + (R.block === 'annual' ? ' (the annual block is not one of the paper\'s: the atlas ledger holds no fit of it)' : c.site ? '' : m.fit.theta ? ' — the certificate the ledger records for this block' : ', as the ledger records for this block') + '.' : 'Nothing certified: the digits leave the family.') + '</p>';
+    h += m.lines.map((l, i) => '<p class="' + (i ? 'n' : 'ra-pr-v') + '">' + l + '</p>').join('');
+    const P0 = PRN.preset;
+    if (P0 && P0.id === c.id && R.block === 'annual' && R.f === (P0.gev ? 'gev' : 'gumbel')) h += '<p class="n">' + (P0.gev ? 'The table prints the GEV as (k, σ, µ) with k = −ξ; its k was typed here as ξ with the sign changed. ' : '') + (m.code === P0.verdict ? 'The ledger, <span class="mono">certs/design-table-audit.json</span>, holds the same verdict for LA' + P0.la + ' ' + esc(P0.name) + ' here: ' + esc(P0.verdict) + '.' : '<b>Not the ledger\'s verdict</b> (' + esc(P0.verdict) + ') for LA' + P0.la + ' here — report it: this tab and the ledger disagree.') + '</p>';
+    const B = m.fit && c.blocks && c.blocks[R.block];
+    if (B && famOf(B.ad) && B.l100[1] !== null) h += '<p class="n">For comparison, Anderson–Darling decides the ' + esc(FW[famOf(B.ad)]) + ' on these ' + esc(bw) + (c.site ? ' (this tab)' : ' (the ledger)') + ': its 100-year wave is ' + B.l100[1].toFixed(2) + ' m' + (has(B.s100) ? ', and another 32 years of the same sea could put it anywhere in ' + statSpan(B.s100[0], B.s100[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : '') + '.</p>';
+    if (m.fit) h += '<p class="n">' + (c.site ? 'Decided on the record itself: a fit made from this file is decided exactly.' : 'A fit made from this hindcast at this node is decided exactly. One made from another series — a buoy, another model, another node, other years — is not expected to be this series\' maximum: there NOT THE CERTIFIED FIT or OFF THE MAXIMUM says how far the two records\' fits lie apart, not that the report erred. To decide it on its own record, bring that record as your own site.') + '</p>';
+    out.innerHTML = h;
+  }
+
   /* ---- YOUR OWN SITE: a reader's record read by THE parse rule (parse.js, the return-level check's), cut to daily maxima by
      THE block rule, certified in a worker by the atlas's own code, pinned on the globe and read against the nearest cells.
      The file is read here and sent nowhere; the certificate carries its sha256, never the data. ---- */
@@ -4828,7 +5190,7 @@ window.ATLAS_RULES = R; })();</script>
   function sitePanel(el, c) {
     let h = '<div class="ra-celltitle"><h3>your site · ' + esc(place(c)) + '</h3></div><p class="n">' + esc(c.fileName || 'your file') + ' · field ' + c.col + ' · ' + fmt(c.values) + ' values · ' + fmt(c.days) + ' days of daily maxima, ' + esc(c.first) + ' to ' + esc(c.last) + ' · sha256 ' + esc(c.sha.slice(0, 12)) + '…</p>';
     h += '<div class="ra-go-row"><button type="button" id="ra-cert">certify my site in this tab</button><button type="button" id="ra-csv">the daily maxima (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
-      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
+      + '<p class="n" id="ra-prog" aria-live="polite"></p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div><div id="ra-printed"></div>';
     if (c.blocks) h += '<div class="k">the choice, by criterion (this tab)</div>' + blockRows(c);
     const nb = nearest(c, 3);
     if (nb.length) {
@@ -4845,6 +5207,7 @@ window.ATLAS_RULES = R; })();</script>
     if (run && run.id === 'site') { $('ra-prog').textContent = run.text; if (worker) $('ra-cert').disabled = true; }
     else if (lastCert && lastCert.id === 'site') showCert(c, lastCert);
     charts(c);
+    printedForm(c);
   }
   function certifySite(c) {
     if (worker) { worker.terminate(); worker = null; }
@@ -5125,7 +5488,7 @@ window.ATLAS_RULES = R; })();</script>
       });
     } else ready = true;
     /* a handle for the page's own gates (tools/check-*.js drive it in Chrome); it changes nothing */
-    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel };
+    window.__atlas = { map: () => map, select: (id) => select(byId.get(id)), state, cells: () => cells.length, setTab, setSheet, setPanel, printed: PRN };
   }).catch((e) => { $('ra-map').innerHTML = '<p class="n ra-fail">The atlas data could not be read here (' + esc(e.message) + '); the paper\'s claims beside the globe stand, decided when the page was built.</p>'; });
 })();
 </script>

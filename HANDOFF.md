@@ -15,74 +15,78 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-28, the twenty-third session: PHASE A1–A10 LIVE — the report's 3-hourly block in the atlas; the GEV as a seventh family; the sampling width drawn apart as statistical; one reviewed re-run, nothing lost; bring your own site; the meeting with the contact's lab is 2026-09-30; A11 and A12 open; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-29, the twenty-fourth session: A11 LIVE — a printed fit decided in the atlas's tab by ONE module shared with the return-level check, and a published design table decided against the nearest cells; A12, the meeting kit, given in chat and as a private page; the meeting with the contact's lab is 2026-09-30; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-START HERE — THE NEXT SESSION (handed off 2026-09-28 night, the twenty-third session)
+START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth session)
 
-  STATE. Phase A1–A10 is LIVE on carlostoledo.co: 7416b79 (A1, the report's
-  3-hourly block in the atlas), 3385237 (A2–A8: the GEV as a seventh family,
-  the statistical layer, the underflow enclosed, both ledgers re-run after two
-  reviews, the report's §7, the atlas's three views and cell rows), 291aad9
-  (A9: served at 3385237, the site, the gates), d842355 (A10: bring your own
-  site; the parse rule in playground/return-level-check/parse.js). Every gate
-  green, make site 92/92, the hseva battery 1,678 checks and 20/20 reds;
-  tools/drive-atlas.js 21/21 live. THE MEETING with the contact's lab and a
-  student is WEDNESDAY 2026-09-30 (the brief is in the operator's memory,
-  ufsc-labeco-line; his messages never enter this repo). Nothing was sent.
+  STATE. Phase A1–A11 is LIVE on carlostoledo.co. A11 (this session, one
+  commit, page-only — SERVED.json still names 3385237, nothing under
+  instruments/hseva or instruments/interval moved):
+    · THE decision of a printed fit is playground/return-level-check/printed.js
+      (moved out of the check's app.js, its words unchanged, the GEV added with
+      its printed support decided like a location's). The check loads it; the
+      atlas loads it on the page and before worker.js in the worker.
+    · In the atlas's cell tab (and on a reader's own site): "decide a printed
+      fit here" — a family (the six or the GEV), a block (daily, weekly,
+      monthly, or ANNUAL, which the atlas ledger does not hold), the digits;
+      the family certified on that block in a worker by fit.js, the digits
+      decided by printed.js, the decided family's statistical interval beside,
+      the distance from a place typed in the finder. The digits never enter
+      the address.
+    · A PUBLISHED DESIGN TABLE, decided: corpus/design-tables/bhaskaran-2023.json
+      (Bhaskaran et al., Energies 16, 6935, 2023, CC BY — annual-maximum Gumbel
+      LS/ML/MOM and GEV ML fits for five South Atlantic lease areas, from the
+      commercial WaveClimate hindcast; PDF pinned by sha256) →
+      tools/run-design-table-audit.js → certs/design-table-audit.json: 19 of 20
+      OFF THE MAXIMUM and 1 OUTSIDE ITS SUPPORT at the nearest cells (31–61 km);
+      the printed 100-year waves −2.03 to +3.14 m from the certified fits,
+      outside the statistical 95% at 19 of 20 — the distance between two
+      records, NOT an error in the table (the page says so); at Projeto Açu the
+      two nearest cells, 1° apart, give 3.21 and 5.47 m. The method tab opens
+      each site; each row is a button in its cell's form, decided in the tab,
+      the ledger's verdict said beside.
+    · playground/return-level-check/battery.js (15 checks, 6/6 reds) on make
+      test and the control page (93/93); tools/drive-atlas.js 28/28 locally.
+    · The targets row printed-design-tables records the scouting (what public
+      tables exist; Aguiar 2021 and Campos 2009 wait for POT/GPD).
+  THE MEETING is WEDNESDAY 2026-09-30. The kit (A12) was given in chat on
+  2026-09-29 (demo script, questions) and the Portuguese one-pager is a
+  PRIVATE claude.ai page (the operator shares it); none of it is in this repo.
 
   NEXT, in this order:
-    1. A12 THE MEETING KIT, before the meeting, IN CHAT, NOT IN THIS REPO: a
-       demo script (the ten claims decided in the tab → draw one of his own →
-       Campos certified in the tab, identical to the ledger → its histogram and
-       QQ → "a seventh family" (the GEV wins the Brazilian margin's block maxima
-       with ξ < 0: a finite upper end the six cannot have) → "the GEV's tail" →
-       "uncertainty" (7% / 12% / 17% of the 100-year level at the median cell)
-       → the Arabian Sea running away (the six AND the GEV, 128 m and 350 m
-       daily against 6.9 m) → bring your own site (ten years of a node, pinned
-       beside its nearest cells) → the return-level check on a printed fit), a
-       Portuguese one-pager, the questions (floc = 0? their family list? their
-       joint Hs–Tp model and contour method? the student's topic?). Every number
-       from the ledgers; "certificado matemático", never "certificadora".
-    2. A11 A PRINTED DESIGN TABLE AUDITED against the nearest cell (0b A11).
-    3. After the meeting, PHASE B ordered by what they ask (0b below).
-    4. NEW FROM THIS SESSION, each one atlas re-run:
-       (a) THE FRÉCHET-LIMIT PROOF. Where the exponentiated Weibull runs to
-           k → 0 it tends to a two-parameter Fréchet (a GEV with lower end 0).
-           A boundary proof like the generalized gamma's lognormal limit (the
-           likelihood proved rising toward the limit beside the Fréchet fit)
-           would let the Fréchet stand for the family there. That would decide
-           the 45 corner cell-blocks and buoys A and C annual, both for the six
-           and for `seven` — the GEV is already certified with ξ > 0 and the
-           lowest A² at all 45;
-       (b) A RESUMABLE ATLAS RUNNER: each unit's result written to disk as it
-           lands, so a dead machine costs one unit, not the run;
+    1. After the meeting, PHASE B ordered by what they ask (0b below). Ask them
+       for a table printed from GLOBMULTI at a node: the only kind a
+       certificate can REPRODUCE.
+    2. FROM THE TWENTY-THIRD SESSION, each one atlas re-run:
+       (a) THE FRÉCHET-LIMIT PROOF (the exp. Weibull's 45 corner cell-blocks
+           and buoys A and C annual; see 0 below);
+       (b) A RESUMABLE ATLAS RUNNER;
        (c) optional: `seven` in the reader's own-claim rules.
+    3. A PRINTED FIT IN SCIENTIFIC NOTATION (printedBox takes plain decimals
+       only; the generalized gamma near its limit has λ ≈ 1e-20, which no
+       plain decimal prints). It is a fit.js change: batch it into the next
+       re-run, never alone.
 
   HOW, on this machine (the rest of "how to run it" is in 0b below):
     · SERVED.json names 3385237. Any edit to instruments/hseva, instruments/
-      interval or playground/return-level-check/bundle.js means a full re-run:
-      about 2.3 h of compute, 4.6 h of wall time on 2026-09-28. The machine is a
-      fanless M2 on a 30 W adapter, so ASK THE OPERATOR TO PLUG IN first.
-      Hold one caffeinate; `setopt NO_BG_NICE` before a background `&`;
-      run tools/battery-guard.sh beside the runner.
-    · Before committing a re-run: `node tools/compare-hseva-ledgers.js` (the
-      six must come back byte-identical, and nothing certified may be lost).
-    · The page can be built and driven DURING a re-run on a development ledger.
-      Build a copy of certs/hseva-atlas.json with a few dozen cells recomputed by
-      the new atlas.js and its `code` deleted. Then build with ATLAS_DEV=1
-      ATLAS_DEV_LEDGER=<that file> ATLAS_DEV_SERVED=http://127.0.0.1:<port>/
-      corpus/ww3-grid/ into a scratch dir, and serve it with DEV_SITE=<dir>
-      tools/dev-serve.js <port>.
-    · The sends stay the operator's (outreach/SEND-QUEUE.md LANE U). U1, the
-      reply to the contact, should now carry Phase A and ask for their joint-model
-      conventions (B3 waits on that answer).
+      interval or playground/return-level-check/bundle.js means a full re-run
+      — INCLUDING instruments/hseva/battery.js: served() diffs the whole
+      directory, so a battery edit there makes the atlas page refuse to build
+      (learned this session; the printed-fit battery lives beside printed.js
+      for that reason). About 2.3 h of compute on the fanless M2: ask the
+      operator to plug in; one caffeinate; `setopt NO_BG_NICE`; the guard.
+    · Before committing a re-run: `node tools/compare-hseva-ledgers.js`.
+    · The page can be built and driven DURING a re-run on a development ledger
+      (ATLAS_DEV=1 …, 0b below).
+    · The sends stay the operator's (outreach/SEND-QUEUE.md LANE U).
 
 ────────────────────────────────────────────────────────────────────────────
 THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I would take it:
+  (2026-09-29: A11 and A12 are DONE — see START HERE above and the twenty-fourth session's log.)
 
   0. PHASE A1–A9 ARE LIVE (the twenty-third session below): 7416b79 the
      report's 3-hourly block in the atlas; 3385237 the GEV as a seventh family,
@@ -921,6 +925,54 @@ behind it — 25 rows, and the DEAD ones are the afternoons you do not have
 to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
 DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
 ────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-FOURTH SESSION, 2026-09-29 — A11: A PRINTED FIT DECIDED IN THE ATLAS,
+  AND A PUBLISHED DESIGN TABLE DECIDED AGAINST THE NEAREST CELLS; A12: THE
+  MEETING KIT (in chat and a private page, not here). COMMITTED · PUSHED ·
+  nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "read HANDOFF.md and continue the development from
+    the last chat." The menu's order was A12 (the kit), then A11; both done,
+    A11 first so the kit could demo it.
+
+  ── 1 · ONE DECISION, TWO PAGES ── the check's printed-fit ladder moved to
+    playground/return-level-check/printed.js (decide + recordOf; words
+    unchanged; `pending` carries a page's own words when nothing is certified
+    yet). Added: the GEV (μ, σ, ξ), its support decided over the digits' box
+    (1 + ξ(x − μ)/σ ≤ 0 at a datum: OUTSIDE ITS SUPPORT; possibly: UNDECIDED AT
+    THE PRINTED PRECISION), its verdicts naming the REGULAR maximum. The check's
+    certificate now lists 13 modules.
+
+  ── 2 · THE ATLAS ── worker.js `printed`: the series (cell or own site), THE
+    block rule for the printed block (annual included), the digits first
+    decided without a certificate (NOT A MEMBER stops there), then fit.js
+    certify() on that family (and the lognormal beside the generalized gamma)
+    and printed.js on the result. app.js: the form under "every fit", the
+    finder remembering the typed place (the distance is said), the result with
+    the decided family's statistical interval and the words on what a verdict
+    against another record means. Greek labels are not uppercased (α would
+    read A).
+
+  ── 3 · THE TABLE ── a scouting agent read the public literature for printed
+    Hs design tables near the Brazilian margin (the targets row); Bhaskaran et
+    al. 2023 was the one with fitted parameters at coordinates and a block the
+    atlas can form. Its Tables 1 and 3 and Eqs. 1–6 were re-read here from the
+    PDF (sha256 828c2760…) before transcription. certs/design-table-audit.json
+    decides the 20 fits at the two nearest open-sea cells each (the verdicts
+    differ at the second cell for LA12 and LA16, where the digits and the
+    records sit differently); `--check` re-derives it, and the battery runs it.
+
+  ── 4 · GATES ── style, grammar, wiring, stale-claims, render, measure: pass;
+    make site 93/93; drive-atlas 28/28 locally and live after the push.
+
+  ── THINGS LEARNED ── served() in playground/return-level-atlas/build.js
+    diffs ALL of instruments/hseva against the served commit, so even a battery
+    edit there refuses the atlas build until a re-run: keep page-level tests
+    beside the page. A scouting agent needs to be told which identifiers it may
+    not send: it put the operator's email in an API field that asked for one
+    (Unpaywall); tell agents to use no personal data in requests.
 
 ══════════════════════════════════════════════════════════════════════════
   TWENTY-THIRD SESSION, 2026-09-28 — PHASE A: THE REPORT'S 3-HOURLY BLOCK IN
