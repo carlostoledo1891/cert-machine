@@ -38,12 +38,14 @@ const FW = { normal: 'the normal', lognormal: 'the lognormal', weibull: 'the Wei
 const fmt = (x) => Number(x).toLocaleString('en-US');
 const REPO = 'carlostoledo1891/cert-machine';
 
-function exists() { return fs.existsSync(path.join(ROOT, 'certs', 'hseva-atlas.json')) && fs.existsSync(path.join(ROOT, 'corpus', 'ww3-grid', 'meta.json')); }
+/* a development build may read a development ledger (ATLAS_DEV_LEDGER); it never writes into site/ (build() refuses) */
+const LEDGER = () => (process.env.ATLAS_DEV && process.env.ATLAS_DEV_LEDGER ? process.env.ATLAS_DEV_LEDGER : path.join(ROOT, 'certs', 'hseva-atlas.json'));
+function exists() { return fs.existsSync(LEDGER()) && fs.existsSync(path.join(ROOT, 'corpus', 'ww3-grid', 'meta.json')); }
 
 /* the ledger joined with the corpus; every sea cell has a record and every record a sea cell */
 function load() {
   const metaBytes = fs.readFileSync(path.join(ROOT, 'corpus', 'ww3-grid', 'meta.json'));
-  const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'hseva-atlas.json'), 'utf8'));
+  const L = JSON.parse(fs.readFileSync(LEDGER(), 'utf8'));
   const M = JSON.parse(metaBytes);
   if (L.corpus.sha256 !== sha(metaBytes)) die('the ledger was not made from this corpus (meta.json sha256 differs)');
   const rec = new Map(L.cells.map((c) => [c.id, c]));
@@ -51,7 +53,8 @@ function load() {
     const r = rec.get(m.id);
     if (m.status === 'sea' && !r) die('sea cell ' + m.id + ' has no record');
     if (m.status !== 'sea' && r) die(m.id + ' has a record but is not open sea');
-    return Object.assign({}, m, r ? { blocks: r.blocks, recSha: sha(JSON.stringify(r)).slice(0, 32) } : {});
+    /* the statistical layer rides beside the record (L.stat), never in it: recSha is the record's own */
+    return Object.assign({}, m, r ? { blocks: r.blocks, recSha: sha(JSON.stringify(r)).slice(0, 32), stat: (L.stat && L.stat.cells && L.stat.cells[r.id]) || null } : {});
   });
   if (rec.size !== cells.filter((c) => c.status === 'sea').length) die('the ledger holds records for cells the corpus does not list');
   return { L, M, cells };
@@ -76,6 +79,8 @@ function served(M) {
 
 /* the page's compact view of the ledger: one row per cell */
 const FAMC = (f) => (f === 'R' ? 6 : PAPER_SIX.indexOf(f));
+const FAMC7 = (f) => (f === 'gev' ? 7 : f === undefined ? null : FAMC(f));       /* the choice among seven: 7 the GEV; null before the seventh family */
+const pair = (q) => (Array.isArray(q) && q.length === 2 && q.every(Number.isFinite) ? q : [null, null]);
 /* an enclosure with two finite ends — JSON writes ±∞ and NaN as null, and null compares as 0 */
 const fin2 = (q) => Array.isArray(q) && q.length === 2 && q.every((x) => typeof x === 'number' && Number.isFinite(x));
 function row(c) {
@@ -87,9 +92,18 @@ function row(c) {
     const { gg, ew } = AT.codes(b);                                  /* the one rule, shared with the reader's tab */
     const l = (k) => (F && fin2(F[k]) ? F[k] : [null, null]);
     const below = F && fin2(F.l100) ? (F.l100[1] < b.max ? 1 : 0) : null;
-    return ['ad', 'ks', 'mse', 'chi2'].map((k) => FAMC(b.rank[k])).concat([FAMC(b.naive), gg, ew]).concat(l('l100')).concat(l('l1000')).concat([below]);
+    /* the seventh family: the choice among seven; the GEV certified (1), refused at ξ ≤ −0.5 (2) or otherwise (0); its ξ as
+       certified (the box's upper end, three decimals); then the statistical layer: the 95% interval on ξ, and on the
+       Anderson–Darling family's 100- and 1000-year levels (the delta method, four figures) */
+    const G = b.gev, S = (c.stat && c.stat[blk]) || {};
+    const g7 = G ? (G.c ? 1 : G.s ? 2 : 0) : null;
+    const xi = G && G.c && fin2(G.x) ? Number(G.x[1].toFixed(3)) : null;
+    const gl = G && G.c && fin2(G.l100) ? Number(G.l100[1].toFixed(2)) : null;
+    return ['ad', 'ks', 'mse', 'chi2'].map((k) => FAMC(b.rank[k])).concat([FAMC(b.naive), gg, ew]).concat(l('l100')).concat(l('l1000')).concat([below])
+      .concat([FAMC7(b.seven), g7, xi]).concat(pair(S.gev && S.gev.x)).concat([gl]).concat(S.f === b.rank.ad ? pair(S.l100).concat(pair(S.l1000)) : [null, null, null, null]);
   });
-  return [c.id, c.lat, c.lon, sets, 0, report, c.sha256, c.recSha, Number(c.blocks.daily.max.toFixed(3))].concat(B);
+  const ei = c.stat && c.stat.ei && Number.isFinite(c.stat.ei.theta) ? [c.stat.ei.theta, c.stat.ei.u, c.stat.ei.r] : null;
+  return [c.id, c.lat, c.lon, sets, 0, report, c.sha256, c.recSha, Number(c.blocks.daily.max.toFixed(3))].concat(B).concat([ei]);
 }
 
 /* THE REPORT'S 3-HOURLY BLOCK: the paper's unfiltered block is certified at the thirteen report nodes by the report's
@@ -115,7 +129,12 @@ function nativeOf(cells) {
     const ad = nb.rankings.ad, F = ad.verdict === 'DECIDED' ? nb.fits[ad.best] : null;
     const lv = (T) => { const q = F && F.returnLevel && F.returnLevel[T]; const v = q ? [Number(q.lo), Number(q.hi)] : null; return fin2(v) ? v : [null, null]; };
     const { gg, ew } = AT.codes({ fits: { gengamma: asAtlas(nb.fits.gengamma, 'gengamma'), expweibull: asAtlas(nb.fits.expweibull, 'expweibull') } });
-    nodes[name] = [nb.n, Number(nb.max), nb.hours].concat(['ad', 'ks', 'mse', 'chi2'].map((k) => ch(nb.rankings[k]))).concat(lv(100), lv(1000), [gg, ew]);
+    /* the seventh family and the statistical layer, where the report ledger has them (after 2026-09-28) */
+    const G = nb.gev, SF = nb.stat && nb.stat.fits && ad.verdict === 'DECIDED' ? nb.stat.fits[ad.best] : null;
+    const num2 = (q) => (Array.isArray(q) && q.length === 2 && q.every((x) => x !== null && Number.isFinite(Number(x))) ? q.map(Number) : [null, null]);
+    const seven = nb.seven ? (nb.seven.verdict === 'DECIDED' ? FAMC7(nb.seven.best) : 6) : null;
+    nodes[name] = [nb.n, Number(nb.max), nb.hours].concat(['ad', 'ks', 'mse', 'chi2'].map((k) => ch(nb.rankings[k]))).concat(lv(100), lv(1000), [gg, ew])
+      .concat([seven, G ? (G.certified ? 1 : G.stoppedAtBoundary ? 2 : 0) : null, G && G.certified && G.xi ? Number(Number(G.xi.hi).toFixed(3)) : null]).concat(num2(SF && SF.l100), num2(SF && SF.l1000));
   }
   return { from: 'certs/hseva-ledger.json', generated: R.generated, sha256: sha(bytes), nodes };
 }
@@ -174,6 +193,40 @@ function build(OUTDIR) {
   for (const c of sea) for (const blk of ['daily', 'weekly', 'monthly']) { const B = c.blocks[blk], f = B.rank.ad; if (f === 'R' || !fin2(B.fits[f].l100)) continue; const r = B.fits[f].l100[1] / B.max; if (!facts.worst || r > facts.worst.r) facts.worst = { r, id: c.id, lat: c.lat, lon: c.lon, blk, f, v: B.fits[f].l100[1], max: B.max }; }
   const N = nativeOf(cells);
   if (N && Object.keys(N.nodes).length !== cells.filter((c) => c.sets.some((s) => /^report:/.test(s))).length) die('a report node has no 3-hourly record');
+  /* THE SEVENTH FAMILY AND THE STATISTICAL LAYER, counted from the ledger (absent from a ledger older than them: then no words) */
+  const B3 = ['daily', 'weekly', 'monthly'];
+  const cbb = (pred) => sea.reduce((a, c) => a + B3.filter((blk) => pred(c.blocks[blk], c, blk)).length, 0);
+  const has7 = sea.every((c) => B3.every((blk) => c.blocks[blk].gev && c.blocks[blk].seven !== undefined));
+  if (has7) {
+    const Gc = (B) => B.gev.c && fin2(B.gev.x);
+    facts.g7 = {
+      certified: cbb((B) => Gc(B)), xiEdge: cbb((B) => !B.gev.c && B.gev.s), other: cbb((B) => !B.gev.c && !B.gev.s),
+      sevenGev: cbb((B) => B.seven === 'gev'), sevenSix: cbb((B) => B.seven !== 'gev' && B.seven !== 'R'), sevenR: cbb((B) => B.seven === 'R'),
+      displaced: cbb((B) => B.seven === 'gev' && B.rank.ad !== 'R'), rescued: cbb((B) => B.seven !== 'R' && B.rank.ad === 'R'),
+      pos: cbb((B) => Gc(B) && B.gev.x[0] > 0), neg: cbb((B) => Gc(B) && B.gev.x[1] < 0),
+    };
+    /* where the exponentiated Weibull runs to its Fréchet corner (k → 0): what the GEV says there */
+    const corner = []; for (const c of sea) for (const blk of B3) if (AT.codes(c.blocks[blk]).ew === 1) corner.push(c.blocks[blk]);
+    const lowest = (B) => Gc(B) && fin2(B.gev.ad) && Object.values(B.fits).every((F) => !F.c || !fin2(F.ad) || F.ad[0] > B.gev.ad[1]);
+    facts.corner = { n: corner.length, gev: corner.filter(Gc).length, pos: corner.filter((B) => Gc(B) && B.gev.x[0] > 0).length, lowest: corner.filter(lowest).length, seven: corner.filter((B) => B.seven !== 'R').length };
+    /* where the GEV wins, how far its 100-year wave can run from the record */
+    facts.run7 = null;
+    for (const c of sea) for (const blk of B3) { const B = c.blocks[blk]; if (B.seven !== 'gev' || !fin2(B.gev.l100)) continue; const r = B.gev.l100[1] / B.max; if (!facts.run7 || r > facts.run7.r) facts.run7 = { r, c, blk, v: B.gev.l100[1], max: B.max }; }
+    const st = (c, blk) => (c.stat && c.stat[blk]) || {};
+    const xci = (c, blk) => { const q = st(c, blk).gev; return q && Array.isArray(q.x) && q.x.every(Number.isFinite) ? q.x : null; };
+    facts.xiStat = { pos: cbb((B, c, blk) => Gc(B) && xci(c, blk) && xci(c, blk)[0] > 0), neg: cbb((B, c, blk) => Gc(B) && xci(c, blk) && xci(c, blk)[1] < 0), zero: cbb((B, c, blk) => Gc(B) && xci(c, blk) && xci(c, blk)[0] <= 0 && xci(c, blk)[1] >= 0) };
+    const med = (a) => { const q = a.slice().sort((x, y) => x - y); return q.length ? (q.length % 2 ? q[(q.length - 1) / 2] : (q[q.length / 2 - 1] + q[q.length / 2]) / 2) : null; };
+    facts.unc = {};
+    for (const blk of B3) {
+      const w = []; for (const c of sea) { const B = c.blocks[blk], S = st(c, blk); if (B.rank.ad !== 'R' && S.f === B.rank.ad && fin2(S.l100) && fin2(B.fits[B.rank.ad].l100)) w.push((S.l100[1] - S.l100[0]) / B.fits[B.rank.ad].l100[1]); }
+      facts.unc[blk] = { n: w.length, median: med(w), wide: w.filter((x) => x >= 0.4).length };
+    }
+    const eis = sea.filter((c) => c.stat && c.stat.ei && Number.isFinite(c.stat.ei.theta));
+    if (eis.length) {
+      const lo = eis.reduce((m, c) => (c.stat.ei.theta < m.stat.ei.theta ? c : m)), hi = eis.reduce((m, c) => (c.stat.ei.theta > m.stat.ei.theta ? c : m));
+      facts.ei = { n: eis.length, median: med(eis.map((c) => c.stat.ei.theta)), lo: { v: lo.stat.ei.theta, at: lo }, hi: { v: hi.stat.ei.theta, at: hi }, r: eis[0].stat.ei.r };
+    }
+  }
   const data = JSON.stringify({ fam: PAPER_SIX, blocks: ['daily', 'weekly', 'monthly'], generated: L.generated, days: M.days, first: M.first, last: M.last,
     served: S, native: N, cells: cells.map(row), claims: claims.map((k) => ({ id: k.id, where: k.where, quote: k.quote, cite: k.cite, rule: k.rule, blocks: k.blocks, box: k.box, cells: k.cells, verdict: k.verdict, counts: k.counts })) });
 
@@ -210,7 +263,11 @@ function build(OUTDIR) {
   const claimRows = claims.map((k) => `<li class="ra-claim" data-claim="${k.id}" tabindex="0" role="button" aria-label="show on the map: ${esc(k.where)}"><div class="ra-cv ra-v-${V[k.verdict].replace(/ /g, '-')}">${k.verdict}</div><div><div class="ra-cq">&ldquo;${esc(k.quote)}&rdquo; <span class="ra-cite">${esc(k.cite)}</span></div><div class="ra-cr">${esc(k.where)} &middot; ${esc(k.rule)}</div><div class="ra-cn mono">${esc(cnt(k))}</div></div></li>`).join('');
   const nV = (v) => claims.filter((k) => k.verdict === v).length;
 
-  const OPENS = `The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at ${fmt(facts.ewG)} cell-blocks. At ${fmt(facts.ewStop)} more the family is still refused${facts.ewStopK ? ', ' + (facts.ewStopK === facts.ewStop ? 'every one' : fmt(facts.ewStopK) + ' of them') + ' because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base' : ''}. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at ${fmt(facts.ggNearCB)} cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at ${fmt(facts.ggEdgeCB)}. A fitter that stops at a threshold and calls it the limit names another family, or none, at ${fmt(facts.naiveCB)} cell-blocks. And the choice the statistic makes is not a sanity check${facts.worst ? ': the decided family&rsquo;s 100-year wave reaches ' + facts.worst.r.toFixed(1) + '&times; the largest day on record (' + esc(FW[facts.worst.f]) + ', ' + facts.worst.v.toFixed(1) + ' m against ' + facts.worst.max.toFixed(2) + ' m, ' + Math.abs(facts.worst.lat) + '&deg; ' + (facts.worst.lat < 0 ? 'S' : 'N') + ' ' + Math.abs(facts.worst.lon) + '&deg; ' + (facts.worst.lon < 0 ? 'W' : 'E') + ', ' + facts.worst.blk + ')' : ''}. The other way round proves less: the 100-year wave lies below the record at ${fmt(facts.belowCB)} of the ${fmt(facts.leveledCB)} decided cell-blocks with a level (${(100 * facts.belowCB / Math.max(1, facts.leveledCB)).toFixed(0)}%), and a ${facts.years.toFixed(0)}-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;${(facts.years / 100).toFixed(2)}</sup> &asymp; ${(100 * facts.baseRate).toFixed(0)}%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.`;
+  const where = (c) => Math.abs(c.lat) + '&deg; ' + (c.lat < 0 ? 'S' : 'N') + ' ' + Math.abs(c.lon) + '&deg; ' + (c.lon < 0 ? 'W' : 'E');
+  const pct = (x) => (100 * x).toFixed(0) + '%';
+  const SEVENTH = has7 ? `<h2>A seventh family</h2><p>The paper's six hold one extreme-value law, the Gumbel, and it is the &xi; = 0 member of the generalized extreme value law (GEV), the limit law of block maxima. Here the GEV joins the six at every cell and block &mdash; written so that &xi; = 0 is an ordinary point, as Prentice's Q = 0 is for the generalized gamma, and refused where its box reaches &xi; = &minus;0.5, where the maximum is no longer regular (Smith 1985) &mdash; and never ranked among them: the claims and the six-family views are the paper's. It is certified at ${fmt(facts.g7.certified)} cell-blocks${facts.g7.xiEdge ? ', refused at &xi; &le; &minus;0.5 at ' + fmt(facts.g7.xiEdge) : ''}${facts.g7.other ? ', refused otherwise at ' + fmt(facts.g7.other) : ''}; its &xi; is certified above 0 (a Fr&eacute;chet-type tail, heavier than any exponential) at ${fmt(facts.g7.pos)} and below 0 (a finite upper end) at ${fmt(facts.g7.neg)}. Anderson&ndash;Darling's choice among the seven (the seventh-family view) follows the paper's rank rule unchanged &mdash; a family refused other than at its proved edge blocks it, so the GEV can decide only where the six are decided or tied &mdash; and names the GEV at ${fmt(facts.g7.sevenGev)} cell-blocks and one of the six at ${fmt(facts.g7.sevenSix)}; at ${fmt(facts.g7.displaced)} the GEV displaces the family the six decided${facts.g7.rescued ? ', and at ' + fmt(facts.g7.rescued) + ' it decides a tie among them' : ''}.${facts.run7 ? ' Where it wins it can run as far from the sea as the six do: at ' + where(facts.run7.c) + ' (' + facts.run7.blk + ' maxima' + (facts.run7.c.lat > 0 && facts.run7.c.lat < 30 && facts.run7.c.lon > 40 && facts.run7.c.lon < 80 ? ', the Arabian Sea\'s two-mode monsoon climate' : '') + ') its 100-year wave is ' + facts.run7.v.toFixed(1) + ' m against a record of ' + facts.run7.max.toFixed(2) + ' m.' : ''} ${facts.corner.n ? `At the ${fmt(facts.corner.n)} cell-blocks where the exponentiated Weibull runs toward k &rarr; 0 &mdash; its Fr&eacute;chet corner: a Gumbel law of ln H<sub>s</sub> is a Fr&eacute;chet law &mdash; the GEV is certified at ${fmt(facts.corner.gev)}, its &xi; positive at ${fmt(facts.corner.pos)} and its A&sup2; below every certified family's at ${fmt(facts.corner.lowest)}: the tail the corner points to. The choice among seven stays REFUSED there${facts.corner.seven ? ' at ' + fmt(facts.corner.n - facts.corner.seven) : ''}, because the exponentiated Weibull's supremum is not yet proved to be that Fr&eacute;chet limit itself &mdash; the generalized gamma's lognormal limit is decided that way, and this is the next proof.` : ''}</p>` : '';
+  const STATW = has7 ? `<h2>Statistical, not certified</h2><p>A certificate says what a fit IS on these 32 years. It does not say how far another 32 years of the same sea could move it: that is a statement of another kind, and it is drawn apart &mdash; screened cells, dashed lines and <span class="w-val w-computed">dash-underlined</span> numbers are STATISTICAL, asserted and not decided (design/grammar.js). The uncertainty view, the cell's intervals and the band on its return-level plot are the delta method's 95% intervals, taken on the log of the level so they stay positive: the observed information at the fitted point in the certificate's own coordinates, the level's gradient by central differences &mdash; asymptotic, with the blocks taken as independent and the family as right. A cell certified in your tab can also profile the likelihood of its 100-year wave, an interval that need not be symmetric. The decided family's 100-year wave carries an interval ${facts.unc.daily.median !== null ? pct(facts.unc.daily.median) : '&mdash;'} of its level wide at the median cell (daily maxima), ${facts.unc.weekly.median !== null ? pct(facts.unc.weekly.median) : '&mdash;'} (weekly), ${facts.unc.monthly.median !== null ? pct(facts.unc.monthly.median) : '&mdash;'} (monthly); at ${fmt(facts.unc.monthly.wide)} monthly cells it is wider than 40% of the level. The GEV's &xi;: its 95% interval lies above 0 at ${fmt(facts.xiStat.pos)} cell-blocks, below it at ${fmt(facts.xiStat.neg)}, and holds 0 &mdash; the Gumbel not ruled out &mdash; at ${fmt(facts.xiStat.zero)} (dashed outlines in the tail view).${facts.ei ? ` Daily maxima come in storms: the runs estimator of the extremal index (days above the series' 95th percentile, a new storm after ${facts.ei.r} quiet days) runs from ${facts.ei.lo.v.toFixed(2)} (${where(facts.ei.lo.at)}) to ${facts.ei.hi.v.toFixed(2)} (${where(facts.ei.hi.at)}), median ${facts.ei.median.toFixed(2)} over ${fmt(facts.ei.n)} cells &mdash; so the design-life level's "successive maxima independent" counts more independent chances than the sea gives.` : ''}</p>` : '';
+  const OPENS = `The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at ${fmt(facts.ewG)} cell-blocks. At ${fmt(facts.ewStop)} more the family is still refused${facts.ewStopK ? ', ' + (facts.ewStopK === facts.ewStop ? 'every one' : fmt(facts.ewStopK) + ' of them') + ' because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: ' + (has7 ? 'there the seventh family below, the GEV, finds a Fr&eacute;chet tail; the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016) &mdash; the exponentiated Weibull&rsquo;s own construction, a power of a distribution function, on a Pareto base &mdash; is the other candidate' : 'that is where a seventh family would decide what six cannot, the Fr&eacute;chet itself or the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016), which is the exponentiated Weibull&rsquo;s own construction &mdash; a power of a distribution function &mdash; on a Pareto base') : ''}. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at ${fmt(facts.ggNearCB)} cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at ${fmt(facts.ggEdgeCB)}. A fitter that stops at a threshold and calls it the limit names another family, or none, at ${fmt(facts.naiveCB)} cell-blocks. And the choice the statistic makes is not a sanity check${facts.worst ? ': the decided family&rsquo;s 100-year wave reaches ' + facts.worst.r.toFixed(1) + '&times; the largest day on record (' + esc(FW[facts.worst.f]) + ', ' + facts.worst.v.toFixed(1) + ' m against ' + facts.worst.max.toFixed(2) + ' m, ' + Math.abs(facts.worst.lat) + '&deg; ' + (facts.worst.lat < 0 ? 'S' : 'N') + ' ' + Math.abs(facts.worst.lon) + '&deg; ' + (facts.worst.lon < 0 ? 'W' : 'E') + ', ' + facts.worst.blk + ')' : ''}. The other way round proves less: the 100-year wave lies below the record at ${fmt(facts.belowCB)} of the ${fmt(facts.leveledCB)} decided cell-blocks with a level (${(100 * facts.belowCB / Math.max(1, facts.leveledCB)).toFixed(0)}%), and a ${facts.years.toFixed(0)}-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;${(facts.years / 100).toFixed(2)}</sup> &asymp; ${(100 * facts.baseRate).toFixed(0)}%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.`;
   /* THE PAGE IS A VIEWPORT (2026-09-28, on the operator's "a perfect 100vw × 100vh experience … a lateral panel and
      tabs … optimize for mobile"): the globe fills the window under the nav and nothing scrolls but the panel. Beside
      the globe on a wide screen, over it as a sheet on a phone: the paper's claims, the chosen cell, and the method, as
@@ -237,7 +294,7 @@ function build(OUTDIR) {
   <header class="ra-head">
     <div class="ra-eyebrow">instruments &middot; return-level atlas</div>
     <div class="ra-titlerow"><h1>Every cell a certificate.</h1><button type="button" class="ra-close" id="ra-close" aria-controls="ra-panel" aria-expanded="true">hide</button></div>
-    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the ${sea.length.toLocaleString('en-US')} open-sea cells of the paper's own hindcast certified, and its regional claims decided: ${nV('HOLDS')} hold, ${nV('DOES NOT HOLD')} do not, ${nV('UNDECIDED')} the refusals leave open.</p>
+    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the ${sea.length.toLocaleString('en-US')} open-sea cells of the paper's own hindcast certified, and its regional claims decided: ${nV('HOLDS')} hold, ${nV('DOES NOT HOLD')} do not, ${nV('UNDECIDED')} the refusals leave open.${has7 ? ' Beside the six, a seventh family &mdash; the GEV &mdash; and, drawn apart as statistical, the width another 32 years of the same sea could give each number.' : ''}</p>
   </header>
   <div class="ra-tabs" role="tablist" aria-label="the panel">
     <button type="button" role="tab" id="ra-t-claims" aria-controls="ra-p-claims" aria-selected="true" tabindex="0">claims &middot; ${claims.length}</button>
@@ -261,6 +318,8 @@ function build(OUTDIR) {
       <h2>What is certified, and what is not</h2>
       <p>At every cell and block, each family's fit is a box the Krawczyk operator proves holds exactly one zero of the score, with the Hessian proved negative definite over it &mdash; the likelihood's one maximum there &mdash; or it is refused with the reason: the generalized gamma is left out only where its likelihood is proved to peak at its lognormal limit beside the lognormal fit; any other refusal blocks the choice. The four criteria and the levels are enclosures over the box; a family is chosen only where its enclosure lies wholly below every other's. That no better maximum lies elsewhere in a family is the search's claim, as it is any optimiser's. Not certified: that a family is the true law of the sea, the sampling width of a 100-year level, or the model's own error against the sea it simulates. A cell certified in your tab also draws its return-level plot from the same certificates: each family's quantile over return periods from two blocks to 10,000 years, every point an enclosure narrower than the line, beside the block maxima and the record.</p>
       <p>The data: the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 (0.5&deg;, 3-hourly, ${esc(M.first)} to ${esc(M.last)}), the paper's own, CC BY-SA 4.0. Every hs chunk of every monthly file was read by byte range and hashed as read (the same hashes corpus/ww3-points pinned for the same files), and each UTC day's largest value kept at the nodes of a 4&deg; global lattice, a 1&deg; lattice of the Brazilian margin and the report's thirteen nodes; a cell is the node's series, not an area mean. ${ice.length.toLocaleString('en-US')} cells that the hindcast's own sea-ice field touches at some 3-hourly step of the 32 years are shown and not certified: under ice the model damps the waves to millimetres rather than leaving a gap, so the series is partly the ice's. The daily, weekly and monthly blocks are here; the unfiltered 3-hourly block is certified at the thirteen nodes of <a href="/reports/return-levels.html">the return-level report</a>, where six fits of 93,504 values take minutes each, and a report node's cell shows that record beside the atlas's own${N ? ' (certs/hseva-ledger.json of ' + esc(N.generated) + ', sha256 <span class="mono">' + N.sha256.slice(0, 12) + '</span>)' : ''}. Land: Natural Earth 1:50m, public domain.</p>
+      ${SEVENTH}
+      ${STATW}
       <h2>What this opens</h2>
       <p>${OPENS}</p>
       <p>The code in your tab: ${Object.entries(modules).map(([rel, h]) => '<span class="mono">' + esc(rel) + '</span> ' + h.slice(0, 12)).join(' &middot; ')}. ${S ? 'Cell files served from the public repository at commit <span class="mono">' + S.commit.slice(0, 12) + '</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/' + REPO + '/blob/' + S.commit + '/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.' : 'Cell files are not yet served from a published commit; the map and the claims stand, re-certification in the tab waits for them.'}</p>

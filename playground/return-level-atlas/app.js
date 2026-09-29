@@ -24,10 +24,12 @@
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const C = { paper: tok('--paper'), sunk: tok('--sunk'), surface: tok('--surface'), surface2: tok('--surface2'), ink: tok('--ink'), ink2: tok('--ink-2'), ink3: tok('--ink-3'), ink4: tok('--ink-4'), ink5: tok('--ink-5'), rule: tok('--rule'), ruleStrong: tok('--rule-strong'), ruleSoft: tok('--rule-soft'), s: [tok('--c-s1'), tok('--c-s2'), tok('--c-s3'), tok('--c-s4'), tok('--c-s5')] };
   const FAM = ['normal', 'lognormal', 'weibull', 'expweibull', 'gengamma', 'gumbel'];
-  const FW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
+  const FAM7 = FAM.concat(['gev']);                                  /* the paper's six and the seventh family, never ranked among them */
+  const FW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
   const BLK = ['daily', 'weekly', 'monthly'], BW = { daily: 'daily maxima', weekly: 'weekly maxima', monthly: 'monthly maxima' };
   const CRIT = ['ad', 'ks', 'mse', 'chi2'], CW = { ad: 'Anderson–Darling', ks: 'Kolmogorov–Smirnov', mse: 'MSE', chi2: 'χ²' };
   const famOf = (k) => (k === 6 || k === null || k === undefined ? null : FAM[k]);
+  const famOf7 = (k) => (k === 7 ? 'gev' : famOf(k));                /* the choice among seven: 7 is the GEV */
   /* the exponentiated Weibull's state at a cell-block (build.js row) */
   const EWW = ['is certified in (α, k, λ)', 'climbs past α = 10⁴ and, in its Gumbel coordinates, on toward k → 0 — the Fréchet corner, nothing proved: refused', 'is refused', 'is certified in its Gumbel coordinates (k, θ = λᵏ, β = θ ln α), where (α, k, λ) could not hold it — α runs large', 'climbs past α = 10⁴ and is not certified in its Gumbel coordinates either: refused'];
   const place = (c) => Math.abs(c.lat) + '° ' + (c.lat < 0 ? 'S' : 'N') + ' · ' + Math.abs(c.lon) + '° ' + (c.lon < 0 ? 'W' : 'E');
@@ -35,6 +37,7 @@
   const MODES = [
     ['wave', 'design wave'], ['family', 'which family'], ['blocks', 'block sensitivity'], ['record', 'against the record'],
     ['criteria', 'criteria agree?'], ['gg', 'generalized gamma'], ['ew', 'exp. Weibull'], ['naive', 'a threshold fitter'],
+    ['seven', 'a seventh family'], ['xi', 'the GEV\'s tail'], ['unc', 'uncertainty'],
   ];
   const GO = [
     ['globe', 'the whole globe', { center: [-28, -14], zoom: 1.75 }], ['brazil', 'Brazilian margin', { bounds: [[-58, -38], [-24, 8]] }],
@@ -49,13 +52,17 @@
   function decode(r) {
     if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nativeOf(r[5]) };
     const blocks = {};
-    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11] }; });
-    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]) };
+    /* after the paper's fields, the seventh family and the statistical layer (undefined in a ledger older than them) */
+    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11],
+      seven: q[12], g7: q[13], xi: q[14], xiCI: [q[15], q[16]], g100: q[17], s100: [q[18], q[19]], s1000: [q[20], q[21]] }; });
+    const ei = r[12] ? { theta: r[12][0], u: r[12][1], r: r[12][2] } : null;
+    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]), ei };
   }
   /* a report node's unfiltered 3-hourly block: the report ledger's record (build.js nativeOf), shown beside the atlas's own */
   function nativeOf(name) {
     const q = name && A.native && A.native.nodes[name];
-    return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12] } : null;
+    return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12],
+      seven: q[13], g7: q[14], xi: q[15], s100: [q[16], q[17]], s1000: [q[18], q[19]] } : null;
   }
   const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
   function square(c) {
@@ -64,8 +71,11 @@
   }
 
   /* ---- what a cell shows: a colour and a kind (D decided, R refused, I ice) ---- */
-  const ramp = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return C.s[Math.min(4, Math.max(0, k - 1))]; };
+  const rampK = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return Math.min(4, Math.max(0, k - 1)); };
+  const ramp = (v, br) => C.s[rampK(v, br)];
   const WAVE_BR = [0, 4, 8, 12, 16];
+  const XI_BR = [-Infinity, -0.2, -0.05, 0.05, 0.2];                /* the GEV's ξ: a finite upper end below 0, a Fréchet tail above */
+  const UNC_BR = [0, 0.1, 0.2, 0.4, 0.8];                           /* a statistical interval's width ÷ the level */
   const BLOCK_BR = [1, 1.05, 1.15, 1.3, 1.5];
   const REC_BR = [0, 1, 1.25, 1.6, 2.2];
   /* a refused cell says why in the words of the view it is refused in */
@@ -104,15 +114,37 @@
         const differ = b.naive !== b.ad;
         return { k: 'D', col: differ ? C.ink : C.s[0], v: differ ? 'differs' : 'same' };
       }
+      /* THE SEVENTH FAMILY — decided, drawn solid */
+      case 'seven':
+        if (b.seven === undefined || b.seven === null) return { k: 'R', why: 'this ledger has no seventh family' };
+        if (b.seven === 6) return { k: 'R', why: 'no family decided among seven by Anderson–Darling' };
+        return { k: 'D', col: b.seven === 7 ? C.ink : C.s[0], v: famOf7(b.seven) };
+      /* the GEV's ξ, certified; where its 95% interval (statistical) holds 0, a dashed outline says so */
+      case 'xi':
+        if (b.g7 !== 1) return { k: 'R', why: b.g7 === 2 ? 'the GEV is refused: its maximum reaches ξ = −0.5, where it is not regular' : 'the GEV is refused' };
+        return { k: 'D', col: ramp(b.xi, XI_BR), v: b.xi, st0: b.xiCI[0] !== null && b.xiCI[0] !== undefined && b.xiCI[0] <= 0 && b.xiCI[1] >= 0 };
+      /* STATISTICAL throughout: screened, never a solid fill */
+      case 'unc': {
+        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        const q = state.T === 100 ? b.s100 : b.s1000;
+        if (!q || q[0] === null || q[0] === undefined) return { k: 'R', why: 'no statistical interval here (the observed information is not positive definite at the fit)' };
+        const f = (q[1] - q[0]) / lv[1];
+        return { k: 'S', col: ramp(f, UNC_BR), pat: 'st' + rampK(f, UNC_BR), v: f, lo: q[0], hi: q[1] };
+      }
     }
     return { k: 'R', why: 'not decided' };
   }
   function features() {
-    return { type: 'FeatureCollection', features: cells.map((c, i) => { const L = look(c); return { type: 'Feature', id: i, properties: { i, k: L.k, col: L.col || C.rule, below: L.below ? 1 : 0, rep: (c.sets & 4) ? 1 : 0 }, geometry: { type: 'Polygon', coordinates: square(c) } }; }) };
+    return { type: 'FeatureCollection', features: cells.map((c, i) => { const L = look(c); return { type: 'Feature', id: i, properties: { i, k: L.k, col: L.col || C.rule, pat: L.pat || '', st0: L.st0 ? 1 : 0, below: L.below ? 1 : 0, rep: (c.sets & 4) ? 1 : 0 }, geometry: { type: 'Polygon', coordinates: square(c) } }; }) };
   }
 
   /* ---- the map ---- */
   function pattern(kind) {
+    if (/^st\d$/.test(kind)) {                                    /* STATISTICAL: the ramp's colour screened by a thin gap every fourth row — never a solid fill, never the refusals' diagonal */
+      const cv = document.createElement('canvas'); cv.width = 4; cv.height = 4;
+      const g = cv.getContext('2d'); g.fillStyle = C.sunk; g.fillRect(0, 0, 4, 4); g.fillStyle = C.s[Number(kind[2])]; g.fillRect(0, 0, 4, 3);
+      return { width: 4, height: 4, data: new Uint8Array(g.getImageData(0, 0, 4, 4).data.buffer) };
+    }
     const s = 8, cv = document.createElement('canvas'); cv.width = s; cv.height = s;
     const g = cv.getContext('2d');
     g.fillStyle = C.sunk; g.fillRect(0, 0, s, s);
@@ -147,9 +179,11 @@
           { id: 'ocean', type: 'background', paint: { 'background-color': C.sunk } },
           { id: 'grat', type: 'line', source: 'grat', paint: { 'line-color': C.ruleSoft, 'line-width': 0.6 } },
           { id: 'cells', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'D'], paint: { 'fill-color': ['get', 'col'], 'fill-opacity': 0.95 } },
+          { id: 'cells-s', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'S'], paint: { 'fill-pattern': ['get', 'pat'] } },   /* statistical: screened */
           { id: 'cells-r', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'R'], paint: { 'fill-pattern': 'hatch' } },
           { id: 'cells-i', type: 'fill', source: 'cells', filter: ['==', ['get', 'k'], 'I'], paint: { 'fill-pattern': 'dots', 'fill-opacity': 0.8 } },
           { id: 'below', type: 'line', source: 'cells', filter: ['==', ['get', 'below'], 1], paint: { 'line-color': C.ink, 'line-width': 1.4 } },   /* a fact, drawn solid: dash is reserved for standing (design/grammar.js) */
+          { id: 'xi0', type: 'line', source: 'cells', filter: ['==', ['get', 'st0'], 1], paint: { 'line-color': C.ink, 'line-width': 1.2, 'line-dasharray': [5, 4] } },   /* design/grammar.js CLAIM: asserted, not decided */
           { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': C.surface2 } },
           { id: 'coast', type: 'line', source: 'land', paint: { 'line-color': C.ruleStrong, 'line-width': 0.7 } },
           { id: 'rep', type: 'line', source: 'cells', filter: ['==', ['get', 'rep'], 1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
@@ -161,9 +195,10 @@
     });
     map.on('style.load', () => { map.setProjection({ type: 'globe' }); });
     const img = (id) => { if (!map.hasImage(id)) map.addImage(id, pattern(id)); };
-    map.on('load', () => { img('hatch'); img('dots'); });
-    map.on('styleimagemissing', (e) => { if (e.id === 'hatch' || e.id === 'dots') img(e.id); });
-    const layers = ['cells', 'cells-r', 'cells-i'];
+    const PATS = ['hatch', 'dots', 'st0', 'st1', 'st2', 'st3', 'st4'];
+    map.on('load', () => { PATS.forEach(img); });
+    map.on('styleimagemissing', (e) => { if (PATS.includes(e.id)) img(e.id); });
+    const layers = ['cells', 'cells-s', 'cells-r', 'cells-i'];
     map.on('mousemove', (e) => {
       const f = map.queryRenderedFeatures(e.point, { layers })[0];
       const tip = $('ra-tip');
@@ -207,6 +242,9 @@
       case 'gg': return ['a maximum inside the family', 'a maximum beside its lognormal limit (α > 500)', 'its likelihood peaks at the lognormal limit (proved)'][b.gg];
       case 'ew': return EWW[b.ew];
       case 'naive': return L.v === 'differs' ? 'a threshold fitter says ' + (famOf(b.naive) ? FW[famOf(b.naive)] : 'REFUSED') + '; the certificate ' + (famOf(b.ad) ? FW[famOf(b.ad)] : 'REFUSES') : 'the threshold fitter and the certificate agree';
+      case 'seven': return FW[L.v] + ' decided among seven by Anderson–Darling' + (L.v === 'gev' && b.xi !== null ? ' (ξ = ' + b.xi.toFixed(3) + (b.g100 !== null && b.g100 !== undefined ? '; its 100-year wave ' + b.g100.toFixed(1) + ' m, the record ' + c.max.toFixed(1) + ' m' : '') + ')' : '') + (famOf(b.ad) && famOf(b.ad) !== L.v ? '; among the paper\'s six, the ' + FW[famOf(b.ad)] : '');
+      case 'xi': return 'the GEV\'s ξ = ' + b.xi.toFixed(3) + ', certified — ' + (b.xi > 0 ? 'a Fréchet-type tail' : 'a finite upper end') + (b.xiCI[0] !== null && b.xiCI[0] !== undefined ? '; its 95% interval (statistical) [' + b.xiCI[0].toFixed(3) + ', ' + b.xiCI[1].toFixed(3) + ']' + (L.st0 ? ' holds 0: the Gumbel is not ruled out' : '') : '');
+      case 'unc': { const lv = state.T === 100 ? b.l100 : b.l1000; return state.T + '-year wave ' + lv[1].toFixed(2) + ' m, certified; its 95% interval [' + L.lo.toFixed(2) + ', ' + L.hi.toFixed(2) + '] m is statistical (the delta method): ' + (100 * L.v).toFixed(0) + '% of the level'; }
     }
     return '';
   }
@@ -228,7 +266,7 @@
     if (!ms.options.length) { ms.innerHTML = MODES.map(([v, t]) => '<option value="' + v + '">' + esc(t) + '</option>').join(''); ms.onchange = () => { state.mode = ms.value; controls(); refresh(); }; }
     ms.value = state.mode;
     seg($('ra-block'), BLK.map((b) => [b, b]), state.block, (v) => { state.block = v; controls(); refresh(); if (sel) panel(); });
-    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
+    const sub = $('ra-sub'), n = narrow(), kind = state.mode === 'family' ? 'family' + (n ? '-n' : '') : ['wave', 'blocks', 'record', 'unc'].includes(state.mode) ? 'T' + (n ? '-n' : '') : '';
     if (sub.dataset.kind !== kind) { sub.dataset.kind = kind; sub.innerHTML = ''; }
     if (kind === 'family') {                                          /* six families and four criteria: buttons where they fit, selects on a phone */
       if (!$('ra-fam')) sub.innerHTML = '<div class="ra-seg" id="ra-fam" role="radiogroup" aria-label="family"></div><div class="ra-seg" id="ra-crit" role="radiogroup" aria-label="criterion"></div>';
@@ -296,7 +334,8 @@
   function legend() {
     const n = narrow(), L = (long, short) => (n ? short : long);            /* on a phone every line of the key is short */
     const sw = (col, t, cls) => '<span class="ra-key"><i class="ra-sw' + (cls ? ' ' + cls : '') + '" style="--sw:' + col + '"></i>' + esc(t) + '</span>';
-    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED' };
+    const HATCH = { wave: L('REFUSED — no family, or no level, decided', 'REFUSED'), family: L('REFUSED — ' + CW[state.crit] + ' decides no family', 'REFUSED'), blocks: L('REFUSED — a block without a decided level', 'REFUSED'), record: L('REFUSED — no family, or no level, decided', 'REFUSED'), criteria: L('REFUSED — a criterion decides no family', 'REFUSED'), gg: L('the generalized gamma REFUSED', 'REFUSED'), naive: 'REFUSED',
+      seven: L('REFUSED — no family decided among seven', 'REFUSED'), xi: L('the GEV REFUSED', 'REFUSED'), unc: L('REFUSED — no decided level, or no interval', 'REFUSED') };
     let hatch = HATCH[state.mode];
     if (state.mode === 'ew') {                                     /* the refusals in view, counted from the ledger's codes */
       const k = [0, 0]; for (const c of cells) if (!c.ice) { const e = c.blocks[state.block].ew; if (e === 1) k[0]++; else if (e === 2 || e === 4) k[1]++; }
@@ -304,6 +343,8 @@
     }
     const base = sw(C.sunk, hatch, 'hatch') + sw(C.sunk, L('sea ice — not certified', 'sea ice'), 'ice');
     const rampH = (br, unit) => '<div class="ra-ramp">' + C.s.map((col, k) => '<div class="ra-rampcol"><i style="--sw:' + col + '"></i><span>' + (k === 0 ? '<' + br[1] : k === 4 ? '≥' + br[4] : br[k] + '–' + br[k + 1]) + unit + '</span></div>').join('') + '</div>';
+    /* a ramp with its own labels; `st` draws it screened — STATISTICAL, as the cells are */
+    const rampL = (labels, st, wide) => '<div class="ra-ramp' + (wide ? ' wide' : '') + '">' + C.s.map((col, k) => '<div class="ra-rampcol"><i' + (st ? ' class="st"' : '') + ' style="--sw:' + col + '"></i><span>' + esc(labels[k]) + '</span></div>').join('') + '</div>';
     const B = BW[state.block], b = state.block;
     let t = '', body = '';
     switch (state.mode) {
@@ -315,6 +356,9 @@
       case 'gg': t = L('the generalized gamma · ' + B, 'generalized gamma · ' + b); body = sw(C.s[2], L('a maximum inside the family', 'inside')) + sw(C.ink, L('a maximum beside its lognormal limit (α > 500)', 'beside the limit')) + sw(C.s[0], L('peaks at the lognormal limit — proved', 'at the limit, proved')); break;
       case 'ew': t = L('the exponentiated Weibull · ' + B, 'exp. Weibull · ' + b); body = sw(C.s[2], L('certified in (α, k, λ)', 'in (α, k, λ)')) + sw(C.ink, L('certified in its Gumbel coordinates — α runs large', 'in Gumbel coordinates')); break;
       case 'naive': t = L('a fitter that stops at α = 500 or α = 10⁴ and calls it the limit, against the certificate · ' + B, 'a threshold fitter vs the certificate · ' + b); body = sw(C.ink, L('names a different family', 'differs')) + sw(C.s[0], L('agrees', 'agrees')); break;
+      case 'seven': t = L('which family Anderson–Darling decides among seven — the paper\'s six and the GEV · ' + B, 'among seven · ' + b); body = sw(C.ink, L('the GEV', 'GEV')) + sw(C.s[0], L('one of the paper\'s six', 'one of the six')); break;
+      case 'xi': t = L('the GEV\'s ξ, certified · ' + B + ' · dashed: its 95% interval, statistical, holds 0', 'GEV ξ · ' + b + ' · dashed: 0 in the 95% interval'); body = rampL(n ? ['<−.2', '−.2–−.05', '±.05', '.05–.2', '≥.2'] : ['< −0.2', '−0.2 to −0.05', '−0.05 to 0.05', '0.05 to 0.2', '≥ 0.2'], false, !n) + '<span class="ra-key"><i class="ra-sw dash"></i>' + esc(L('0 in the 95% interval — statistical', '0 inside, statistical')) + '</span>'; break;
+      case 'unc': t = L('STATISTICAL — the 95% interval of the decided family\'s ' + state.T + '-year Hs (the delta method), its width ÷ the level · ' + B, 'statistical · ' + state.T + '-yr interval ÷ level · ' + b); body = rampL(['<10%', '10–20%', '20–40%', '40–80%', '≥80%'], true); break;
     }
     /* the title is set in capitals: a Greek letter keeps its own case, or α would read as A */
     $('ra-legend').innerHTML = '<div class="t">' + esc(t).replace(/[α-ωχ]/g, (g) => '<span class="ra-nt">' + g + '</span>') + '</div><div class="ra-keys">' + body + base + '</div>';
@@ -406,6 +450,7 @@
     if (c !== sel) {                                                /* the same cell again: a run in progress goes on */
       sel = c;
       if (worker) { worker.terminate(); worker = null; run = null; }
+      if (pw) { pw.terminate(); pw = null; profs.forEach((e, k) => { if (e.running) profs.delete(k); }); }   /* a profile of the last cell stops */
       if (map && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(c)]);
     }
     loadData(c);
@@ -413,7 +458,10 @@
     if (sheetMode() && $('ra-app').dataset.sheet === 'peek') setSheet('half');
     writeHash();
   }
-  const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
+  const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weib.', gengamma: 'gen. gamma', gumbel: 'Gumbel', gev: 'GEV' };
+  /* a STATISTICAL number wears the computed voice (playground/warrant.js): dash-underlined, its title saying what it is */
+  const statSpan = (a, b, d) => '<span class="w-val w-computed" title="statistical: the delta method\'s 95% interval — asserted, not decided">' + a.toFixed(d === undefined ? 2 : d) + '–' + b.toFixed(d === undefined ? 2 : d) + '</span>';
+  const has = (q) => Array.isArray(q) && q[0] !== null && q[0] !== undefined && q[1] !== null && q[1] !== undefined;
   /* the choice by criterion, block by block; at a report node the report's 3-hourly block stands first, its header the
      link to the report (an ice node has that column alone: the atlas certifies no block there) */
   const REPORT = '/reports/return-levels.html';
@@ -424,6 +472,12 @@
     const rows = CRIT.map((k) => '<tr><th>' + (k === 'chi2' ? 'χ²' : k === 'ad' ? 'A²' : k.toUpperCase()) + '</th>' + cols.map(([, q]) => cell(q[k])).join('') + '</tr>')
       .concat(['<tr><th>100-yr</th>' + cols.map(([, q]) => lvl(q, 100)).join('') + '</tr>', '<tr><th>1000-yr</th>' + cols.map(([, q]) => lvl(q, 1000)).join('') + '</tr>']);
     if (!c.ice) rows.push('<tr><th>threshold</th>' + cols.map(([b, q]) => (b === '3-hourly' ? '<td class="r">—</td>' : cell(q.naive))).join('') + '</tr>');
+    /* the seventh family (decided) and the statistical interval (dash-underlined), where the ledger has them */
+    if (cols.some(([, q]) => q.seven !== undefined && q.seven !== null)) {
+      rows.push('<tr><th>among 7</th>' + cols.map(([, q]) => (q.seven === undefined || q.seven === null ? '<td class="r">—</td>' : famOf7(q.seven) ? '<td class="b">' + esc(FS[famOf7(q.seven)]) + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>');
+      rows.push('<tr><th>GEV ξ</th>' + cols.map(([, q]) => (q.xi !== null && q.xi !== undefined ? '<td>' + q.xi.toFixed(3) + '</td>' : '<td class="r">' + (q.g7 === 2 ? 'ξ ≤ −0.5' : q.g7 === 0 ? 'REFUSED' : '—') + '</td>')).join('') + '</tr>');
+      rows.push('<tr><th>100-yr 95%</th>' + cols.map(([, q]) => (famOf(q.ad) && has(q.s100) ? '<td>' + statSpan(q.s100[0], q.s100[1]) + '</td>' : '<td class="r">—</td>')).join('') + '</tr>');
+    }
     return '<div class="tw"><table><thead><tr><th></th>' + cols.map(([b]) => '<th>' + (b === '3-hourly' ? '<a href="' + REPORT + '">3-hourly</a>' : b) + '</th>').join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
   }
   /* what the 3-hourly column is, in words: whose record, how many values, the two hard families there */
@@ -446,9 +500,11 @@
     h += '<div class="ra-go-row"><button type="button" id="ra-cert"' + (SPEC.served ? '' : ' disabled') + '>certify this cell in my tab</button><button type="button" id="ra-csv" disabled>the series (CSV)</button><button type="button" id="ra-dl" disabled>the certificate</button></div>'
       + '<p class="n" id="ra-prog" aria-live="polite">' + (SPEC.served ? '' : 'The cell files are not yet served from a published commit.') + '</p><div id="ra-life"></div><div id="ra-charts"></div><div id="ra-full"></div>';
     h += '<div class="k">the choice, by criterion (the ledger' + (c.native ? 's' : '') + ')</div>' + blockRows(c) + (c.native ? '<p class="n">' + nativeWords(c) + '</p>' : '');
+    if (BLK.some((b) => c.blocks[b].seven !== undefined && c.blocks[b].seven !== null)) h += '<p class="n">Among 7: the choice Anderson–Darling makes once the GEV joins the paper\'s six — never counted in the paper\'s claims. GEV ξ: its certified shape (above 0 a Fréchet-type tail, below 0 a finite upper end). 100-yr 95%: <span class="w-val w-computed">dash-underlined</span> because it is STATISTICAL — the delta method\'s interval for the decided family\'s level, asserted from the fit\'s sampling, not decided.</p>';
+    if (c.ei) h += '<p class="n">Daily maxima come in storms: above ' + c.ei.u.toFixed(2) + ' m (the series\' 95th percentile) a new storm starts after ' + c.ei.r + ' quiet days, and the runs estimator puts the extremal index at <span class="w-val w-computed" title="statistical: an estimate, not decided">θ = ' + c.ei.theta.toFixed(2) + '</span>: storms of about ' + (1 / c.ei.theta).toFixed(1) + ' days above that level on average. Statistical, not certified; the design-life level takes successive maxima as independent, which here they are not.</p>';
     const b = c.blocks[state.block];
     h += '<p class="n">' + esc(BW[state.block]) + ': the generalized gamma ' + ['has a maximum inside the family', 'has a maximum beside its lognormal limit (α > 500)', 'peaks at its lognormal limit — proved', 'is refused'][b.gg] + '; the exponentiated Weibull ' + EWW[b.ew] + '; a threshold fitter would name ' + (famOf(b.naive) ? esc(FW[famOf(b.naive)]) : 'no family') + '. The largest day on record: ' + c.max.toFixed(2) + ' m.</p>';
-    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — six families, three blocks, about ten seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
+    h += '<div class="k">what certifying here does</div><p>The cell\'s ' + fmt(A.days) + ' daily maxima come from the public repository, pinned by commit, and are checked against their sha256 before anything is drawn. Certifying runs the ledger\'s own code on them in this tab — the paper\'s six families and the GEV, three blocks, about fifteen seconds — and compares the record with the ledger\'s by sha256. The series downloads as CSV, ready for <a href="../return-level-check/">the return-level check</a>, which decides a fit someone printed for this place.</p>'
       + '<div class="ra-go-row"><button type="button" id="ra-back">← the claims</button></div>';
     el.innerHTML = h;
     $('ra-back').onclick = back;
@@ -536,7 +592,9 @@
       const rh = (await digest(new TextEncoder().encode(json))).slice(0, 32);
       /* the same decisions: every criterion's choice, the threshold fitter's, and both hard families' states, block by block */
       const sameDecisions = BLK.every((b, j) => CRIT.every((k) => (rec.blocks[b].rank[k] === 'R' ? 6 : FAM.indexOf(rec.blocks[b].rank[k])) === c.blocks[b][k])
-        && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew);
+        && (rec.blocks[b].naive === 'R' ? 6 : FAM.indexOf(rec.blocks[b].naive)) === c.blocks[b].naive && m.codes && m.codes[j].gg === c.blocks[b].gg && m.codes[j].ew === c.blocks[b].ew
+        && (rec.blocks[b].seven === undefined || (rec.blocks[b].seven === 'R' ? 6 : rec.blocks[b].seven === 'gev' ? 7 : FAM.indexOf(rec.blocks[b].seven)) === c.blocks[b].seven)
+        && (!rec.blocks[b].gev || c.blocks[b].g7 === undefined || (rec.blocks[b].gev.c ? 1 : rec.blocks[b].gev.s ? 2 : 0) === c.blocks[b].g7));
       lastCert = { id: c.id, rec, plot: m.plot || {}, rh, same: rh === c.recSha, sameDecisions, secs: (Date.now() - t0) / 1000 };
       run = null;
       if (!state.chartPicked) state.chart = 'rl';
@@ -554,14 +612,16 @@
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
     const up = dll ? Math.ceil(dll[1] * 100 - 1e-9) / 100 : null;
-    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number: the fit\'s sampling error is not in it, successive ' + esc(BW[state.block]) + ' are taken as independent, and the climate as unchanging.</p>' : '';
+    const dst = P && best !== 'R' && P.dllStat && P.dllStat[best];
+    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number, decided. The fit\'s sampling is not in it: '
+      + (dst ? 'another 32 years of the same sea could put it anywhere in ' + statSpan(dst[0], dst[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : 'no statistical interval could be formed here') + '. Successive ' + esc(BW[state.block]) + ' are taken as independent' + (c.ei && state.block === 'daily' ? ' (they come in storms: extremal index θ = ' + c.ei.theta.toFixed(2) + ')' : '') + ', and the climate as unchanging.</p>' : '';
     $('ra-full').innerHTML = '<div class="k">every fit, certified here</div>' + fullTable(rec);
     charts(c);
     const dl = $('ra-dl'), btn = $('ra-cert');
     if (btn) btn.disabled = false;
     dl.disabled = false;
     dl.onclick = () => {
-      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), six families fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
+      const cert = { what: 'A return-level atlas cell, certified in the reader\'s browser by /instruments/return-level-atlas/: the daily maxima of the Ifremer WAVEWATCH III hindcast GLOBMULTI_ERA5_GLOBCUR_01 at this node (CC BY-SA 4.0), the paper\'s six families and the GEV (a seventh, never ranked among them) fitted by maximum likelihood on the daily, weekly and monthly maxima, each fit a box proved to hold the likelihood\'s one maximum or a refusal with its reason, the criteria and levels as enclosures, each choice DECIDED or REFUSED (instruments/hseva/atlas.js).',
         cell: { id: c.id, lat: c.lat, lon: c.lon, data: SPEC.served + 'cells/' + c.id + '.i16', sha256: c.sha, days: A.days, first: A.first },
         code: SPEC.modules, record: rec, ledgerRecordSha256: c.recSha, identical: R.same, generated: new Date().toISOString() };
       const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' })); a.download = 'atlas-cell-' + c.id + '.json'; document.body.appendChild(a); a.click(); a.remove();
@@ -578,21 +638,55 @@
     if (D.status === 'refused') { box.innerHTML = '<p class="n">REFUSED: ' + esc(D.why) + '</p>'; return; }
     const R = lastCert && lastCert.id === c.id ? lastCert : null, P = R ? R.plot[state.block] : null, B = R ? R.rec.blocks[state.block] : null;
     const v = state.chart || 'series', BM = bmOf(D, state.block);
-    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : famOf(c.blocks[state.block].ad);
-    const avail = P ? FAM.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
+    const best = B ? (B.rank.ad !== 'R' ? B.rank.ad : null) : c.blocks ? famOf(c.blocks[state.block].ad) : null;
+    const avail = P ? FAM7.filter((f) => (v === 'qq' ? P.qq && P.qq.q[f] : P.hist && P.hist.exp[f])) : [];
     const hl = avail.includes(state.hl) ? state.hl : avail.includes(best) ? best : avail[0] || null;
     let h = '<div class="ra-seg ra-cviews" id="ra-cviews" role="radiogroup" aria-label="how to look at the cell"></div>';
     if ((v === 'hist' || v === 'qq') && avail.length) h += '<div class="ra-seg ra-cfams" id="ra-cfams" role="radiogroup" aria-label="which fit to draw in ink"></div>';
     h += '<canvas class="ra-rl" id="ra-cv" role="img" aria-label="' + esc(VIEWS.find((q) => q[0] === v)[1]) + ' of this cell\'s ' + esc(BW[state.block]) + '"></canvas><p class="n" id="ra-cap"></p>';
+    const canProf = v === 'rl' && P && B && B.rank.ad !== 'R' && P.th && P.th[B.rank.ad];
+    if (canProf) h += '<div class="ra-go-row"><button type="button" id="ra-prof-go">the profile-likelihood interval (statistical)</button></div><p class="n" id="ra-prof" aria-live="polite"></p>';
     box.innerHTML = h;
+    if (canProf) { $('ra-prof-go').onclick = () => profileRun(c, state.block, B.rank.ad, 100); showProfile(c); }
     seg($('ra-cviews'), VIEWS, v, (x) => { state.chart = x; state.chartPicked = true; charts(c); writeHash(); });
     if ($('ra-cfams')) seg($('ra-cfams'), avail.map((f) => [f, FS[f]]), hl, (x) => { state.hl = x; charts(c); });
     const cv = $('ra-cv'), cap = $('ra-cap'), need = ' Certify the cell to draw the six fits.';
-    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + A.first.slice(0, 4) + '–' + A.last.slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
+    if (v === 'series') { drawSeries(cv, D, BM, c); cap.textContent = 'The ' + fmt(D.h.length) + ' daily maxima, ' + D.t[0].slice(0, 4) + '–' + D.t[D.t.length - 1].slice(0, 4) + ' (each pixel column the range of its days)' + (state.block === 'daily' ? '' : '; dots: the ' + fmt(BM.n) + ' ' + BW[state.block] + ' the fits see') + '; ringed: the largest day.'; }
     else if (v === 'hist') { drawHist(cv, BM, P && P.hist, hl); cap.textContent = 'The ' + fmt(BM.n) + ' ' + BW[state.block] + ' (bars) ' + (P && hl ? 'and what each certified fit expects in the same bins (lines); the ' + FW[hl] + ' in ink' + (hl === best ? ', the family Anderson–Darling decides' : '') + '.' : '.' + need); }
     else if (v === 'qq') { if (P && hl) { const off = drawQQ(cv, BM, P.qq.q[hl]); cap.textContent = 'Each of the ' + fmt(BM.n) + ' ' + BW[state.block] + ' (the top sixty all shown) against the ' + FW[hl] + ' fit\'s quantile at its plotting position (Gringorten): on the diagonal where the fit is right, above it where the data run heavier than the family, below it where the family\'s tail runs heavier than the sea.' + (off.n ? ' ' + off.n + ' point' + (off.n > 1 ? 's lie' : ' lies') + ' past the axis, the fit\'s quantile reaching ' + off.max.toFixed(1) + ' m.' : ''); } else { blank(cv); cap.textContent = 'The QQ plot needs the fits.' + need; } }
-    else { if (P) { const drawn = FAM.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM.filter((f) => !drawn.includes(f)); drawRL(cv, P, B, c, drawn); cap.textContent = 'Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; dashed: the largest day on record.' + (off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
+    else { if (P) { const drawn = FAM7.filter((f) => P.fam[f] && P.fam[f].length > 1), off = FAM7.filter((f) => !drawn.includes(f)); const band = drawRL(cv, P, B, c, drawn); cap.innerHTML = esc('Each curve is a certified fit\'s quantile F⁻¹(1 − b/(8766 T)), b the block in hours and T the return period in years, every point an enclosure narrower than the line; ' + (B.rank.ad !== 'R' ? 'the family Anderson–Darling decides, ' + FW[B.rank.ad] + ', in ink' : 'no family decided') + (drawn.includes('gev') ? '; the GEV, the seventh family, a step lighter' : '') + '. Dots: the ' + fmt(P.n) + ' ' + BW[state.block] + ' at their plotting positions, T = (n + 1)/i blocks; the record: the largest day, dotted.') + (band ? ' <span class="w-val w-computed">Dashed</span>: the decided family\'s 95% interval from the fit\'s sampling (the delta method) — STATISTICAL, asserted, not decided.' : '') + esc(off.length ? ' Not drawn: ' + off.map((f) => FW[f]).join(', ') + ' (no certified fit).' : ''); } else { blank(cv); cap.textContent = 'The return levels need the fits.' + need; } }
   }
+  /* ---- the profile likelihood of the decided family's 100-year wave, on demand, in its own worker (worker.js profile) ---- */
+  const profs = new Map(); let pw = null;
+  const profKey = (c, blk, f, T) => c.id + '|' + blk + '|' + f + '|' + T;
+  function profileRun(c, blk, f, T) {
+    const key = profKey(c, blk, f, T), R = lastCert, D = data.get(c.id);
+    if (!R || R.id !== c.id || !D || D.status !== 'ok' || (profs.has(key) && !profs.get(key).err)) return;
+    if (pw) { pw.terminate(); pw = null; profs.forEach((e, k) => { if (e.running) profs.delete(k); }); }
+    const P = R.plot[blk], BM = bmOf(D, blk), e = { running: true, text: 'profiling the likelihood …', f, T };
+    profs.set(key, e);
+    const w = pw = new Worker(WURL);
+    w.onmessage = (ev) => {
+      if (w !== pw) return;
+      const m = ev.data;
+      if (m.kind === 'pstep') e.text = 'profiling ' + (m.side < 0 ? 'below' : 'above') + ' the level: at ' + m.x.toFixed(2) + ' m twice the fall of the log-likelihood is ' + m.d.toFixed(2) + ' (the edge is 3.84)';
+      else { e.running = false; if (m.kind === 'profile') e.res = m.result; else e.err = m.message; w.terminate(); pw = null; }
+      if (sel === c && state.block === blk) showProfile(c);
+    };
+    w.postMessage({ kind: 'profile', fam: P.th[f].fam, theta: P.th[f].theta, x: Array.from(BM.x), hours: P.hours, T });
+    showProfile(c);
+  }
+  function showProfile(c) {
+    const el = $('ra-prof'), R = lastCert; if (!el || !R || R.id !== c.id) return;
+    const B = R.rec.blocks[state.block], e = B && B.rank.ad !== 'R' ? profs.get(profKey(c, state.block, B.rank.ad, 100)) : null;
+    const btn = $('ra-prof-go'); if (btn) btn.disabled = !!(e && (e.running || e.res));
+    if (!e) { el.textContent = ''; return; }
+    if (e.running) { el.textContent = e.text; return; }
+    if (e.err) { el.textContent = 'The profile could not be formed here (' + e.err + ').'; return; }
+    const r = e.res;
+    el.innerHTML = 'The profile likelihood of the ' + esc(FW[e.f]) + '\'s 100-year wave: ' + (r.lo !== null && r.hi !== null ? statSpan(r.lo, r.hi) + ' m' : r.lo !== null ? 'above ' + r.lo.toFixed(2) + ' m, and the profile does not close upward within the search' : 'the profile does not close') + ' at 95% — where twice the fall of the log-likelihood from its maximum stays under 3.84 (χ²₁), the other parameters maximised at each level. STATISTICAL, asserted, not decided; unlike the delta method\'s dashed band it need not be symmetric, as the tail is not.';
+  }
+
   /* a canvas sized to its column, in device pixels */
   function canvasOf(cv, ratio) {
     const dpr = window.devicePixelRatio || 1, W = Math.max(260, cv.clientWidth || 340), H = Math.round(W * ratio);
@@ -614,9 +708,10 @@
     const top = Math.ceil(mx * 1.12 / niceStep(mx * 1.12)) * niceStep(mx * 1.12);
     const X = (i) => m.l + i / (n - 1) * (W - m.l - m.r), Y = (v) => H - m.b - v / top * (H - m.t - m.b);
     yAxis(g, m, W, H, top, Y);
-    const y0 = Number(A.first.slice(0, 4)), y1 = Number(A.last.slice(0, 4)) + 1, d0 = Date.parse(A.first + 'T00:00:00Z');
+    /* the years along the axis from the days themselves (a cell's are contiguous; a reader's site may have gaps) */
+    const y0 = Number(D.t[0].slice(0, 4)), y1 = Number(D.t[n - 1].slice(0, 4)) + 1, ys = Math.max(1, Math.ceil((y1 - y0) / 8));
     g.textAlign = 'center';
-    for (let y = y0; y <= y1; y += 4) { const i = (Date.UTC(y, 0, 1) - d0) / 86400000, x = X(Math.min(n - 1, Math.max(0, i))); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
+    for (let y = y0; y <= y1; y += ys) { let i = 0; const key = String(y); while (i < n && D.t[i].slice(0, 4) < key) i++; const x = X(Math.min(n - 1, i)); g.strokeStyle = C.ruleSoft; g.beginPath(); g.moveTo(x, m.t); g.lineTo(x, H - m.b); g.stroke(); g.fillStyle = C.ink4; g.fillText(String(y), x, H - 7); }
     const cols = Math.max(1, Math.floor(W - m.l - m.r)); g.strokeStyle = C.ink4;
     for (let k = 0; k < cols; k++) {                              /* each pixel column: the range of its days */
       const a = Math.floor(k / cols * n), b = Math.max(a + 1, Math.floor((k + 1) / cols * n)); let lo = Infinity, hi = -Infinity;
@@ -692,10 +787,17 @@
     g.save(); g.beginPath(); g.rect(m.l, m.t, W - m.l - m.r, H - m.t - m.b); g.clip();
     g.strokeStyle = C.ink3; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(m.l, Y(c.max)); g.lineTo(W - m.r, Y(c.max)); g.stroke(); g.setLineDash([]);   /* design/grammar.js GUIDE: a ruler, not a claim */
     g.fillStyle = C.ink3; for (const p of P.pts) { g.beginPath(); g.arc(X(p[0]), Y(p[1]), 1.4, 0, 2 * Math.PI); g.fill(); }
+    /* STATISTICAL: the decided family's 95% interval (the delta method), its two edges dashed — design/grammar.js CLAIM */
+    const bd = best !== 'R' && P.band && P.band[best] && P.band[best].length > 1 ? P.band[best] : null;
+    if (bd) {
+      g.strokeStyle = C.ink3; g.lineWidth = 1.2; g.setLineDash([5, 4]);   /* design/grammar.js CLAIM: asserted, not decided */
+      for (const k of [1, 2]) { g.beginPath(); bd.forEach((p, i) => { const x = X(p[0]), y = Y(p[k]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke(); }
+      g.setLineDash([]);
+    }
     const ends = [];
     for (const f of drawn.filter((x) => x !== best).concat(drawn.includes(best) ? [best] : [])) {
-      const L = P.fam[f], main = f === best;
-      g.strokeStyle = main ? C.ink : C.ink4; g.lineWidth = main ? 2.2 : 1; g.beginPath();
+      const L = P.fam[f], main = f === best, gev = f === 'gev';
+      g.strokeStyle = main ? C.ink : gev ? C.ink3 : C.ink4; g.lineWidth = main ? 2.2 : gev ? 1.5 : 1; g.beginPath();   /* identity by weight, never by dash */
       L.forEach((p, k) => { const x = X(p[0]), y = Y((p[1] + p[2]) / 2); if (k) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
       let e = L[L.length - 1]; for (const p of L) if ((p[1] + p[2]) / 2 > yMax) { e = p; break; }
       ends.push({ f, y: Math.max(m.t + 6, Math.min(H - m.b - 2, Y(Math.min(yMax, (e[1] + e[2]) / 2)))), main });
@@ -706,6 +808,7 @@
     g.textAlign = 'left'; g.font = '10px ' + mono;
     for (const e of ends) { g.fillStyle = e.main ? C.ink : C.ink4; g.fillText(FS[e.f], W - m.r + 4, e.y + 3); }
     g.fillStyle = C.ink3; g.fillText('record', W - m.r + 4, Math.min(H - m.b - 2, Math.max(m.t + 8, Y(c.max) + 3)) + (ends.some((e) => Math.abs(e.y - Y(c.max)) < 10) ? 11 : 0));
+    return !!bd;
   }
   function fullTable(rec) {
     const g = (a, d) => (a && a.length === 2 ? Number(a[1]).toPrecision(d || 5) : '—');
@@ -717,8 +820,10 @@
           if (!F.c) return '<tr><td>' + esc(FW[f]) + '</td><td class="r" colspan="5">' + (F.e ? 'peaks at its lognormal limit (proved, k = ' + F.k + ', Q ≤ ' + F.q1 + ')' : F.s ? (/passed k = 0\.001/.test(F.w || '') ? 'past α = 10⁴, and toward k → 0 in its Gumbel coordinates: REFUSED' : 'past α = 10⁴, not certified in its Gumbel coordinates: REFUSED — ' + esc(F.w || '')) : 'REFUSED — ' + esc(F.w || '')) + '</td></tr>';
           const best = B.rank.ad === f;
           return '<tr><td' + (best ? ' class="b"' : '') + '>' + esc(FW[f]) + (F.p ? ' ᴾ' : '') + (F.g ? ' ᴳ' : '') + '</td><td>' + g(F.ad) + '</td><td>' + g(F.ks, 4) + '</td><td>' + (Array.isArray(F.chi2) ? g(F.chi2, 4) : F.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (F.l100 ? F.l100[1].toFixed(2) : '—') + '</td><td>' + (F.l1000 ? F.l1000[1].toFixed(2) : '—') + '</td></tr>';
-        }).join('') + '</tbody></table></div>';
-    }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α). The download carries every enclosure.</p>';
+        }).join('') + (B.gev ? (B.gev.c ? '<tr><td' + (B.seven === 'gev' ? ' class="b"' : '') + '>GEV, ξ ' + B.gev.x[1].toFixed(3) + '</td><td>' + g(B.gev.ad) + '</td><td>' + g(B.gev.ks, 4) + '</td><td>' + (Array.isArray(B.gev.chi2) ? g(B.gev.chi2, 4) : B.gev.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (B.gev.l100 ? B.gev.l100[1].toFixed(2) : '—') + '</td><td>' + (B.gev.l1000 ? B.gev.l1000[1].toFixed(2) : '—') + '</td></tr>'
+          : '<tr><td>GEV</td><td class="r" colspan="5">REFUSED — ' + esc(B.gev.w || '') + '</td></tr>') : '') + '</tbody></table></div>'
+        + (B.seven !== undefined ? '<p class="n">Among the seven, Anderson–Darling decides: ' + (B.seven === 'R' ? 'REFUSED' : esc(FW[B.seven])) + '.</p>' : '');
+    }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
   }
 
   /* ---- your own claim: a region drawn or typed, a rule, decided here by the ledger's own claims code ---- */
@@ -873,7 +978,7 @@
     const go = () => {
       const q = new URLSearchParams();
       q.set('v', state.mode); q.set('b', state.block);
-      if (['wave', 'blocks', 'record'].includes(state.mode)) q.set('T', state.T);
+      if (['wave', 'blocks', 'record', 'unc'].includes(state.mode)) q.set('T', state.T);
       if (state.mode === 'family') { q.set('f', state.fam); q.set('k', state.crit); }
       if (state.tab !== 'claims') q.set('t', state.tab);
       if (sel) q.set('c', sel.id);

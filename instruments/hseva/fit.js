@@ -78,9 +78,15 @@ const floatOps = {
   pair: (l, h) => (l + h) / 2, PI: Math.PI, isInterval: false, acc: flAcc,
 };
 const sqrtIv = (a) => { if (!(a[0] >= 0)) throw new Error('sqrt below zero'); return [IV.nextDown(Math.sqrt(a[0])), IV.nextUp(Math.sqrt(a[1]))]; };
+/* exp with its underflow ENCLOSED rather than refused (2026-09-28): the lifted transcendental.js throws once 2^k leaves
+   the doubles (x below about −744.8). Below x = −744, e^x < e^(−744) < 2⁻¹⁰⁷³, so [0, 2⁻¹⁰⁷³] encloses it; an interval
+   that only starts there is [0, the enclosure at its upper end] (exp is increasing). Overflow still throws: a number
+   past the doubles has no enclosure to give. */
+const EXP_FLOOR = -744, TINY2 = 2 * Number.MIN_VALUE;
+const expIv = (a) => (a[1] <= EXP_FLOOR ? [0, TINY2] : a[0] < EXP_FLOOR ? [0, TR.exp(IV.iv(a[1]))[1]] : TR.exp(a));
 const intervalOps = {
   c: (v) => IV.iv(v), add: IV.add, sub: IV.sub, mul: IV.mul, div: IV.div,
-  exp: TR.exp, log: TR.log, neg: IV.neg, abs: IV.abs, sqrt: sqrtIv,
+  exp: expIv, log: TR.log, neg: IV.neg, abs: IV.abs, sqrt: sqrtIv,
   lo: (a) => a[0], hi: (a) => a[1],
   widen: (a, pad) => [IV.nextDown(a[0] - pad[1]), IV.nextUp(a[1] + pad[1])],
   hull: (a, b) => [Math.min(a[0], b[0]), Math.max(a[1], b[1])],
@@ -317,6 +323,7 @@ function certifyAny(famName, xs, opts) {
   opts = opts || {};
   if (famName === 'gengamma') return certifyGG(xs, opts);
   if (famName === 'expweibull' && !opts.start) return certifyEW(xs, opts);
+  if (famName === 'gev') return certifyGEV(xs, opts);
   const fam = Object.assign({ name: famName }, FAMILIES[famName]);
   const { Df, Di } = opts.prepared || prepare(xs);
   const cand = newton(fam, Df, opts.maxIter, opts.start);
@@ -343,6 +350,23 @@ function certifyAtInner(fam, th0, Df, Di, opts, iters) {
   const SO = secondOrder(fam, K.box, th0, A, Di);
   if (!SO.ok) return { ok: false, family: famName, edge: false, why: 'the box holds one zero of the score, but the Hessian is not proved negative definite over it' + (SO.minors ? ' (leading minors of −H: ' + SO.minors.map((m) => '[' + m[0].toPrecision(3) + ', ' + m[1].toPrecision(3) + ']').join(', ') + ')' : '') + ': not proved a maximum', theta: th0, n: Df.n, newtonIters: iters };
   return { ok: true, family: famName, names: fam.names, theta: th0, box: K.box, maxRad: K.maxRad, secondOrder: SO.how, minors: SO.minors, rounds: K.rounds, n: Df.n, newtonIters: iters, fam, Di, Df };
+}
+
+/* ---- the generalized extreme value law: a certified maximum, and a regular one ----
+   The climb and the certificate are the generic ones (families.js gev: ξ = 0 an ordinary point). THE GEV'S LIKELIHOOD HAS
+   NO GLOBAL MAXIMUM on any sample: below ξ = −1 it grows without bound as the support's upper end reaches the largest
+   datum (Smith, Biometrika 72, 1985). So its fit here is not "the maximum, with none better elsewhere in the family" (the
+   search's claim for the six) but the maximum in the region where the estimator is regular, ξ > −0.5 — the estimator the
+   extreme-value literature means by the GEV's MLE. A certificate is kept only where the whole box lies at ξ > −0.5; a box
+   there or straddling −0.5 is refused, as a climb that passes −0.5 is. */
+function certifyGEV(xs, opts) {
+  const fam = Object.assign({ name: 'gev' }, FAMILIES.gev);
+  const { Df, Di } = opts.prepared || prepare(xs);
+  const cand = newton(fam, Df, opts.maxIter, opts.start);
+  if (!cand.ok) return { ok: false, family: 'gev', edge: false, stoppedAtBoundary: !!cand.edge, why: cand.edge ? cand.why + ': no regular maximum found' : 'no candidate: ' + cand.why, theta: cand.theta || null, n: Df.n };
+  const c = certifyAt(fam, cand.theta, Df, Di, opts, cand.iters);
+  if (c.ok && !(c.box[2][0] > -0.5)) return { ok: false, family: 'gev', edge: false, stoppedAtBoundary: true, why: 'a maximum certified at ξ in [' + c.box[2][0].toPrecision(4) + ', ' + c.box[2][1].toPrecision(4) + '], reaching ξ = −0.5, where it is no longer regular (Smith 1985): refused', theta: c.theta, n: Df.n };
+  return c;
 }
 
 /* ---- the exponentiated Weibull: its (α, k, λ) coordinates, or its Gumbel coordinates ----
@@ -377,6 +401,7 @@ function certifyEW(xs, opts) {
   const o = intervalOps, [k, T, be] = c.box;
   let ewBox = null;
   try { ewBox = [o.exp(o.div(be, T)), k, o.exp(o.div(o.log(T), k))]; } catch (e) { ewBox = null; }   /* α or λ can lie past every double */
+  if (ewBox && !(ewBox[0][0] > 0 && ewBox[2][0] > 0)) ewBox = null;               /* α or λ below every double: an underflow enclosed as [0, 2⁻¹⁰⁷³] */
   return Object.assign(c, { family: 'expweibull', coords: 'expweibullG', ew: G.toEW(c.theta), ewBox, firstTry: said },
     ewBox ? {} : { ewNote: 'α = e^(β/θ) or λ = θ^(1/k) lies past the doubles; the certificate is in (k, θ, β) alone' });
 }
@@ -432,6 +457,7 @@ function certifyGG(xs, opts) {
     const [m, sgm, q] = c.box, o = intervalOps, a = o.div(o.c(1), o.mul(q, q)), cc = o.div(q, sgm);
     let lam = null;
     try { lam = o.exp(o.sub(m, o.div(o.log(a), cc))); } catch (e) { lam = null; }   /* λ = e^{μ − ln α / c} can lie below every double */
+    if (lam && !(lam[0] > 0)) lam = null;                                            /* an underflow enclosed as [0, 2⁻¹⁰⁷³] says nothing of λ */
     return Object.assign(c, { family: 'gengamma', coords: 'gengammaP', stacy: P.toStacy(c.theta), stacyBox: lam ? [a, cc, lam] : null },
       lam ? {} : { stacyNote: 'λ = e^(μ − ln α / c) lies below the smallest double; the certificate is in (μ, σ, Q) alone' });
   };
@@ -554,6 +580,54 @@ function returnLevel(cert, T, blockHours) {
   if (!(p[0] > 0)) return null;                       /* fewer than one block per return period: no level to name */
   return cert.fam.quantile(intervalOps, cert.box, p);
 }
+/* ---- STATISTICAL, NOT CERTIFIED: the delta method ----
+   A 95% Wald interval from the observed information at the float candidate: Σ = (−H)⁻¹ in the certificate's own
+   coordinates (a change of coordinates changes nothing to first order), a return level's gradient by central
+   differences, each step 10⁻⁴ of that parameter's standard error. For a return level the interval is taken on ln q —
+   q·exp(∓1.96·se/q) — so it stays positive and leans the way a level's sampling does (a symmetric one in q went below
+   zero on a heavy monthly tail); for a parameter (the GEV's ξ) it is symmetric. Asymptotic and labelled as such, never
+   an enclosure: it says how far another record of the same length could move the number — the sampling width a
+   certificate does not speak to — and it assumes the blocks independent and the model right. null where −H is not
+   positive definite at the candidate (Cholesky) or the level cannot be evaluated. */
+const Z95 = 1.959963984540054;
+function posdef(M) {                                    /* Cholesky: true when M is positive definite (in floats) */
+  const n = M.length, L = M.map(() => new Array(n).fill(0));
+  for (let i = 0; i < n; i++) for (let j = 0; j <= i; j++) {
+    let s = M[i][j]; for (let k = 0; k < j; k++) s -= L[i][k] * L[j][k];
+    if (i === j) { if (!(s > 0)) return false; L[i][i] = Math.sqrt(s); } else L[i][j] = s / L[j][j];
+  }
+  return true;
+}
+function covariance(c) {
+  if (c._cov !== undefined) return c._cov;
+  let S = null;
+  try {
+    const I = c.fam.hess(floatOps, c.theta, c.Df).map((r) => r.map((v) => -v));
+    if (I.every((r) => r.every(Number.isFinite)) && posdef(I)) { S = inverse(I); if (!S.every((r, i) => r[i] > 0 && r.every(Number.isFinite))) S = null; }
+  } catch (e) { S = null; }
+  return (c._cov = S);
+}
+function deltaParam(c, j) {
+  const S = covariance(c); if (!S) return null;
+  const se = Math.sqrt(S[j][j]), est = c.theta[j];
+  return { est, se, lo: est - Z95 * se, hi: est + Z95 * se };
+}
+function deltaLevel(c, T, blockHours) {
+  const p = 1 - blockHours / (T * 8766);
+  if (!(p > 0)) return null;
+  const S = covariance(c); if (!S) return null;
+  const q = (t) => c.fam.quantile(floatOps, t, p);
+  let est, g;
+  try {
+    est = q(c.theta);
+    g = c.theta.map((v, j) => { const h = 1e-4 * Math.sqrt(S[j][j]), a = c.theta.slice(), b = c.theta.slice(); a[j] += h; b[j] -= h; const d = a[j] - b[j]; return d > 0 ? (q(a) - q(b)) / d : NaN; });   /* the step as realized: a step below an ulp is no step */
+  } catch (e) { return null; }
+  let v = 0; for (let i = 0; i < g.length; i++) for (let j = 0; j < g.length; j++) v += g[i] * S[i][j] * g[j];
+  if (!(v >= 0) || !Number.isFinite(v) || !(est > 0) || !Number.isFinite(est)) return null;
+  const se = Math.sqrt(v), r = Z95 * se / est;                  /* on ln q: se(ln q) = se/q */
+  return { est, se, lo: est * Math.exp(-r), hi: est * Math.exp(r) };
+}
+
 /* ---- a ranking under any criterion: decided or refused ---- */
 function rankBy(entries, key) {
   const ok = entries.filter((e) => e[key] && Array.isArray(e[key]) && Number.isFinite(e[key][0]) && Number.isFinite(e[key][1]));
@@ -618,4 +692,4 @@ function levelAt(famName, theta, loc, T, blockHours) {
   return loc ? IV.add(q, loc) : q;
 }
 
-module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, certifyAt, boundaryTest, sylvester, secondOrder, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt };
+module.exports = { floatOps, intervalOps, prepare, newton, nelderMead, certify, certifyAt, boundaryTest, sylvester, secondOrder, sortedCdf, criteria, andersonDarling, returnLevel, rank, rankBy, rankRule, inverse, printedBox, shifted, zeroDensity, llAt, levelAt, deltaLevel, deltaParam, Z95 };

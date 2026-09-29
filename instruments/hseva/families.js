@@ -15,13 +15,17 @@
    ops sees it. The sums are re-done per call; nothing is cached across boxes.
 
    The families and their likelihoods [STANDARD] — the six of the Ocean
-   Engineering 2026 paper, and two more:
+   Engineering 2026 paper, a seventh beside them, and two more:
      normal(μ, σ), lognormal(μ, σ on ln x),
      weibull(k, λ): F = 1 − exp(−(x/λ)^k),
      expweibull(α, k, λ): F = (1 − exp(−(x/λ)^k))^α  (Mudholkar & Srivastava 1993),
      gengamma(α, c, λ): F = P(α, (x/λ)^c), the regularized incomplete gamma
        (Stacy 1962; the paper's (a, d, p) are (λ, cα, c); scipy's gengamma(a, c)),
      gumbel(μ, β): F = exp(−exp(−(x − μ)/β));
+     gev(μ, σ, ξ): F = exp(−(1 + ξ(x − μ)/σ)^(−1/ξ)), the generalized extreme value law
+       (Jenkinson 1955), of which the Gumbel is ξ = 0 — a SEVENTH family, never ranked
+       among the paper's six; its likelihood has no global maximum (below ξ = −1 it is
+       unbounded at the support's upper end), so its fit is the regular local maximum;
      exponential(λ) — a known-answer anchor for the battery, not the paper's;
      lognormal3(μ, σ, γ): the lognormal of x − γ, whose likelihood is unbounded
        as γ → min x (Hill 1963) — here to decide a PRINTED local maximum, never
@@ -223,6 +227,7 @@ const FAMILIES = {
     sf: (o, th, x) => {
       const z = o.exp(o.mul(th[1], o.sub(o.log(x), o.log(th[2])))), w = o.exp(o.neg(z));
       const u = o.mul(th[0], w), uu = o.div(u, o.sub(o.c(1), w));
+      if (!o.isInterval) return -Math.expm1(th[0] * Math.log1p(-w));    /* floats: 1 − (1 − w)^α exactly; the hull below would be a midpoint */
       if (o.hi(uu) < 1e-3) return o.hull(o.sub(u, o.mul(o.c(0.5), o.mul(uu, uu))), uu);
       return o.sub(o.c(1), o.exp(o.mul(th[0], o.log(o.sub(o.c(1), w)))));
     },
@@ -300,6 +305,7 @@ const FAMILIES = {
     sf: (o, th, x) => {
       const [k, T, be] = th, u = o.exp(o.mul(k, o.log(x))), w = o.div(o.sub(u, be), T), t = o.exp(o.neg(o.div(u, T)));
       const s = o.mul(o.exp(o.neg(w)), FAMILIES.expweibullG.lam(o, t)[0]);
+      if (!o.isInterval) return -Math.expm1(-s);                   /* floats: the hull below would be a midpoint */
       if (o.hi(s) < 1e-3) return o.hull(o.sub(s, o.mul(o.c(0.5), o.mul(s, s))), s);
       return o.sub(o.c(1), o.exp(o.neg(s)));
     },
@@ -514,8 +520,116 @@ const FAMILIES = {
     loglik: (o, th, D) => { const S = FAMILIES.gumbel.sums(o, th, D); return o.sub(o.sub(o.neg(o.mul(S.n, o.log(S.b))), S.Sz), S.Se); },
     cdf: (o, th, x) => o.exp(o.neg(o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))))),
     /* 1 − e^{−t} with t = e^{−z}: in [t − t²/2, t] when t is small */
-    sf: (o, th, x) => { const t = o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))); return o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
+    sf: (o, th, x) => { const t = o.exp(o.neg(o.div(o.sub(x, th[0]), th[1]))); return !o.isInterval ? -Math.expm1(-t) : o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
     quantile: (o, th, p) => o.sub(th[0], o.mul(th[1], o.log(o.neg(o.log(p))))),
+  },
+  /* The generalized extreme value law (Jenkinson 1955), a SEVENTH family, not the paper's: the limit law of block maxima,
+     of which the paper's Gumbel is the ξ = 0 member (ξ > 0 the Fréchet tail, ξ < 0 a finite upper end):
+       F = exp(−(1 + ξz)^(−1/ξ)),  z = (x − μ)/σ,  on 1 + ξz > 0.
+     Written with y = ln(1 + ξz)/ξ = z·L(ξz), L(u) = ln(1 + u)/u, it is
+       ln f = −ln σ − (1 + ξ) y − e^(−y),   F = exp(−e^(−y)),
+     and ξ = 0 is an ordinary point (L(0) = 1: the Gumbel), as Prentice's Q = 0 is for the generalized gamma: nothing is
+     divided by ξ. L(u) = ∫₀¹ dt/(1 + ut), so on u > −1 it is positive and decreasing, L′ increasing and L″ decreasing:
+     over an interval of u each is enclosed by its values at the two ends. At an end, for |u| ≤ 1/20 the series
+     Σ (−u)ʲ/(j + 1) and its two derivatives with the tails bounded geometrically; beyond it the closed forms, whose
+     cancellation costs at most three digits there. The quantile μ + σ v E(ξv), v = −ln(−ln p), with E(w) = (eʷ − 1)/w
+     (= ∫₀¹ e^(wt) dt, increasing) the same way. The score and Hessian by ad2.js, as for expweibullG. `edge` stops a climb
+     past ξ = −0.5, where the maximum is no longer regular (Smith, Biometrika 72, 1985) — below ξ = −1 the likelihood is
+     unbounded at the support's upper end; fit.js refuses a certified box that reaches ξ = −0.5. */
+  gev: {
+    names: ['mu', 'sigma', 'xi'], signed: ['mu', 'xi'],
+    init: (D) => { const g = FAMILIES.gumbel.init(D); return [g[0], g[1], 0]; },
+    edge: (th) => (th[2] < -0.5 ? 'the climb passed ξ = −0.5, where the maximum is no longer regular (Smith 1985) and below ξ = −1 the likelihood is unbounded at the support\'s upper end' : null),
+    /* L, L′, L″ at a double u > −1 (as ops values; only L when `one`) */
+    Lpt: (o, u0, one) => {
+      const r = Math.abs(u0);
+      if (r <= 0.05) {
+        if (!o.__gevL) {                                            /* the series' coefficients, once per arithmetic */
+          const a0 = [], a1 = [], a2 = [];
+          for (let m = 0; m < 40; m++) {
+            a0.push(o.div(o.c(m % 2 ? -1 : 1), o.c(m + 1)));
+            a1.push(o.div(o.c(m % 2 ? m + 1 : -(m + 1)), o.c(m + 2)));
+            a2.push(o.div(o.c(m % 2 ? -(m + 2) * (m + 1) : (m + 2) * (m + 1)), o.c(m + 3)));
+          }
+          o.__gevL = { a0, a1, a2 };
+        }
+        const C = o.__gevL;
+        let J = 4;
+        const t2 = () => Math.pow(r, J - 2) * ((J - 1) / (1 - r) + r / ((1 - r) * (1 - r)));
+        while (J < 40 && t2() > 1e-24) J++;
+        const U = o.c(u0), hor = (cf, K) => { let v = cf[K - 1]; for (let k = K - 2; k >= 0; k--) v = o.add(cf[k], o.mul(U, v)); return v; };
+        const L0 = o.widen(hor(C.a0, J), o.c(Math.pow(r, J) / ((J + 1) * (1 - r)) * 1.0001));
+        if (one) return [L0];
+        return [L0, o.widen(hor(C.a1, J - 1), o.c(Math.pow(r, J - 1) / (1 - r) * 1.0001)), o.widen(hor(C.a2, J - 2), o.c(t2() * 1.0001))];
+      }
+      const U = o.c(u0), P1 = o.add(o.c(1), U), g = o.log(P1);
+      const L0 = o.div(g, U);
+      if (one) return [L0];
+      const q = o.div(U, P1), U2 = o.mul(U, U);
+      return [L0, o.div(o.sub(q, g), U2), o.div(o.sub(o.sub(o.mul(o.c(2), g), o.mul(o.c(2), q)), o.mul(q, q)), o.mul(U2, U))];
+    },
+    /* over an interval of u: each at the end where it is extreme */
+    L: (o, u, one) => {
+      const P = FAMILIES.gev.Lpt;
+      if (!o.isInterval) return P(o, u, one);
+      const a = u[0], b = u[1];
+      if (!(a > -1)) throw new Error('gev: 1 + ξz reaches 0 at a datum — outside the support');
+      const A = P(o, a, one), B = a === b ? A : P(o, b, one);
+      const out = [[B[0][0], A[0][1]]];                              /* L decreasing */
+      if (!one) out.push([A[1][0], B[1][1]], [B[2][0], A[2][1]]);   /* L′ increasing, L″ decreasing */
+      return out;
+    },
+    /* E(w) = (eʷ − 1)/w at a double, then over an interval (increasing) */
+    Ept: (o, w0) => {
+      const r = Math.abs(w0);
+      if (r <= 0.05) {
+        let J = 3, t = Math.pow(r, J) * Math.exp(r) / 24;
+        while (J < 30 && t > 1e-24) { J++; t = t * r / (J + 1); }
+        const W = o.c(w0); let v = o.c(0), f = o.c(1);
+        const cf = []; for (let j = 0; j < J; j++) { f = o.div(f, o.c(j + 1)); cf.push(f); }   /* 1/(j + 1)! */
+        for (let j = J - 1; j >= 0; j--) v = o.add(cf[j], o.mul(W, v));
+        return o.widen(v, o.c(t * 1.0001 + 1e-300));
+      }
+      const W = o.c(w0);
+      return o.div(o.sub(o.exp(W), o.c(1)), W);
+    },
+    E: (o, w) => (o.isInterval ? [FAMILIES.gev.Ept(o, w[0])[0], FAMILIES.gev.Ept(o, w[1])[1]] : FAMILIES.gev.Ept(o, w)),
+    ad: (o, th, D) => {
+      const A = makeAD(o, 3), P = [A.V(th[0], 0), A.V(th[1], 1), A.V(th[2], 2)];
+      const rs = A.recip(P[1]), onePx = A.add(A.K(1), P[2]);
+      const acc = Array.from({ length: 13 }, () => o.acc());
+      for (let i = 0; i < D.n; i++) {
+        const z = A.mul(A.sub(A.K(D.x[i]), P[0]), rs);
+        const u = A.mul(P[2], z);
+        const [l0, l1, l2] = FAMILIES.gev.L(o, u.v);
+        const y = A.mul(z, A.unary(u, l0, l1, l2));
+        const r = A.add(A.mul(onePx, y), A.exp(A.neg(y)));        /* −ln f − ln σ at the datum */
+        acc[0].add(r.v); for (let a = 0; a < 3; a++) acc[1 + a].add(r.g[a]); for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) acc[4 + 3 * a + b].add(r.H[a][b]);
+      }
+      const n = o.c(D.n), v = acc.map((x) => x.value()), s = th[1];
+      /* ℓ = −n ln σ − Σ r: ∂σ gains −n/σ, ∂σσ gains n/σ² */
+      const ll = o.neg(o.add(o.mul(n, o.log(s)), v[0]));
+      const g = [o.neg(v[1]), o.sub(o.neg(v[2]), o.div(n, s)), o.neg(v[3])];
+      const H = [[o.neg(v[4]), o.neg(v[5]), o.neg(v[6])], [o.neg(v[7]), o.add(o.neg(v[8]), o.div(n, o.mul(s, s))), o.neg(v[9])], [o.neg(v[10]), o.neg(v[11]), o.neg(v[12])]];
+      return { ll, g, H };
+    },
+    score: (o, th, D) => FAMILIES.gev.ad(o, th, D).g,
+    hess: (o, th, D) => FAMILIES.gev.ad(o, th, D).H,
+    loglik: (o, th, D) => {
+      const [mu, s, xi] = th, rs = o.div(o.c(1), s), one = o.add(o.c(1), xi), a = o.acc();
+      for (let i = 0; i < D.n; i++) {
+        const z = o.mul(o.sub(D.x[i], mu), rs), y = o.mul(z, FAMILIES.gev.L(o, o.mul(xi, z), true)[0]);
+        a.add(o.add(o.mul(one, y), o.exp(o.neg(y))));
+      }
+      return o.neg(o.add(o.mul(o.c(D.n), o.log(s)), a.value()));
+    },
+    yOf: (o, th, x) => { const z = o.div(o.sub(x, th[0]), th[1]); return o.mul(z, FAMILIES.gev.L(o, o.mul(th[2], z), true)[0]); },
+    /* in floats a point outside the support has F = 0 below a lower end (ξ > 0) and 1 above an upper end (ξ < 0), for the
+       page's histogram bins; in intervals it throws, as a certificate never evaluates there */
+    cdf: (o, th, x) => (!o.isInterval && !(1 + th[2] * (x - th[0]) / th[1] > 0) ? (th[2] > 0 ? 0 : 1) : o.exp(o.neg(o.exp(o.neg(FAMILIES.gev.yOf(o, th, x)))))),
+    /* 1 − e^{−t} with t = e^{−y}: in [t − t²/2, t] when t is small */
+    sf: (o, th, x) => { const t = o.exp(o.neg(FAMILIES.gev.yOf(o, th, x))); return !o.isInterval ? -Math.expm1(-t) : o.hi(t) < 1e-3 ? o.hull(o.sub(t, o.mul(o.c(0.5), o.mul(t, t))), t) : o.sub(o.c(1), o.exp(o.neg(t))); },
+    quantile: (o, th, p) => { const v = o.neg(o.log(o.neg(o.log(p)))); return o.add(th[0], o.mul(th[1], o.mul(v, FAMILIES.gev.E(o, o.mul(th[2], v))))); },
   },
   lognormal3: {
     names: ['mu', 'sigma', 'gamma'], signed: ['mu', 'gamma'],

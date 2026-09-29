@@ -74,15 +74,23 @@ function outward(v, sig, up) {
 }
 const ivOut = (a, sig) => (a ? { lo: outward(a[0], sig || 10, false), hi: outward(a[1], sig || 10, true) } : null);
 
-/* ---- one block: six fits, four criteria, four levels, four rankings ---- */
+/* ---- one block: six fits, four criteria, four levels, four rankings ----
+   and beside them, never among them, THE SEVENTH FAMILY (2026-09-28): the generalized extreme value law certified the
+   same way (`gev`), and `seven`, Anderson–Darling's choice among the seven by the same rank rule; and the STATISTICAL
+   layer (`stat`): the delta method's 95% intervals on each certified family's 100- and 1000-year levels and on the
+   GEV's ξ — asymptotic, from the observed information at the candidate, labelled, never an enclosure (fit.js deltaLevel). */
 const boxOut = (b) => b.map((q) => [outward(q[0], 12, false), outward(q[1], 12, true)]);
+const s4 = (v, up) => (Number.isFinite(v) ? outward(v, 4, up) : null);
+const ci = (d) => (d ? [s4(d.lo, false), s4(d.hi, true)] : null);
 function fitBlock(S, blk) {
   const BM = BL.blockMaxima(S, blk);
   const prepared = FT.prepare(BM.x);
-  const fits = {}, entries = [];
-  for (const f of FAMS) {
+  const fits = {}, entries = [], certs = {};
+  let gev = null;
+  for (const f of FAMS.concat(['gev'])) {
     const t0 = Date.now();
     const c = FT.certify(f, BM.x, { prepared });
+    if (f === 'gev') { gev = c; }
     if (!c.ok) {
       const F = fits[f] = { certified: false, edge: !!c.edge, why: c.why, stop: c.theta ? c.theta.map((v) => Number(v).toPrecision(6)) : null };
       if (c.stoppedAtBoundary) F.stoppedAtBoundary = true;
@@ -92,6 +100,7 @@ function fitBlock(S, blk) {
       entries.push({ family: f, refused: true, edge: !!c.edge });
       continue;
     }
+    certs[f] = c;
     /* a criterion or a level the arithmetic cannot enclose is recorded as such, never dropped */
     let cr = null, crWhy = null;
     try { cr = FT.criteria(c, S.den); } catch (e) { crWhy = e.message; }
@@ -109,9 +118,15 @@ function fitBlock(S, blk) {
     const unstated = cr ? (cr.ad ? [] : ['ad']) : ['ad', 'ks', 'mse', 'chi2'];
     entries.push(cr ? { family: f, ad: cr.ad, ks: cr.ks, mse: cr.mse, chi2: cr.chi2.value, chi2Refused: !!cr.chi2.refused, unstated } : { family: f, unstated });
   }
-  const rankings = {}; for (const k of CRIT) rankings[k] = FT.rankRule(entries, k);
+  const six = entries.filter((e) => e.family !== 'gev'), G = fits.gev; delete fits.gev;
+  const rankings = {}; for (const k of CRIT) rankings[k] = FT.rankRule(six, k);
+  const seven = FT.rankRule(entries, 'ad');
+  if (gev && gev.ok) G.xi = ivOut(gev.box[2], 10);
+  /* the statistical layer beside the certified one, never inside a fit's record */
+  const stat = { method: 'delta', fits: {}, gevXi: gev && gev.ok ? ci(FT.deltaParam(gev, 2)) : null };
+  for (const [f, c] of Object.entries(certs)) stat.fits[f] = { l100: ci(FT.deltaLevel(c, 100, BM.hours)), l1000: ci(FT.deltaLevel(c, 1000, BM.hours)) };
   const mx = BM.x.reduce((a, v) => (v > a ? v : a), 0);
-  return { hours: BM.hours, n: BM.n, max: mx.toFixed(4), fits, rankings };
+  return { hours: BM.hours, n: BM.n, max: mx.toFixed(4), fits, rankings, gev: G, seven, stat };
 }
 function unitBuoy(b) {
   const S = BL.series(b);
@@ -355,8 +370,10 @@ runAll().then(() => {
       ranking: 'DECIDED when the lowest enclosure lies wholly below every other; REFUSED otherwise, naming the overlap; REFUSED also when a family has no certified fit, with one exception: the generalized gamma whose likelihood is proved highest at its lognormal limit near it (`edge`, with the proof in `boundary`: ∂ℓ/∂Q < 0 over the box around the lognormal fit and 0 < Q ≤ q1) is left out, named in `excluded`, the lognormal being ranked. A climb stopped at a family\'s declared boundary (`stoppedAtBoundary`) proves nothing and blocks the ranking; so does a statistic the arithmetic cannot enclose. Every fit is a certified local maximum; that no better maximum exists elsewhere in the family is the search\'s claim. DECIDED ranks the criterion\'s arithmetic on this sample; it is not a test between models.',
       certificate: 'Krawczyk (instruments/interval/radii.js) on the score equations over the interval data, then the second order (fit.js secondOrder): the Hessian proved negative definite over the box, by Sylvester minors over the box (`secondOrder: box`) or at the candidate with every Hessian over the box nonsingular (`point`); `minors` are the leading principal minors of −H as enclosed; data sums by Sum2 with its error bound added outward; the box is the certificate, and maxRad the half-width of the Krawczyk image inside it',
       data: 'each literal enclosed by its neighbouring doubles; a block maximum is the largest value in the calendar block (UTC day, ISO week, month, year)',
+      seventh: 'per block, `gev` is the generalized extreme value law (μ, σ, ξ; families.js gev, ξ = 0 an ordinary point) certified as the six are, with `xi` its ξ enclosed — but its likelihood has no global maximum (below ξ = −1 it is unbounded as the support\'s upper end reaches the largest datum), so its fit is the certified maximum in the region where it is regular, ξ > −0.5 (Smith 1985), and a box reaching −0.5 is refused (stoppedAtBoundary). It is never ranked among the paper\'s six — `rankings` are theirs — and `seven` is Anderson–Darling\'s choice among the seven by the same rule, unchanged: a family refused other than at its proved edge blocks it, so the GEV decides only where the six are decided or tied',
+      stat: 'STATISTICAL, NOT CERTIFIED: per block, `stat.fits[f]` the 95% intervals of the delta method on each certified family\'s 100- and 1000-year levels, taken on the log of the level so they stay positive (Σ = (−H)⁻¹, the observed information at the float candidate in the certificate\'s coordinates, −H tested positive definite by Cholesky; the level\'s gradient by central differences), and `stat.gevXi` the symmetric one on the GEV\'s ξ; asymptotic, blocks independent and the model taken as right; four significant figures, printed outward; null where it cannot be formed',
     },
-    families: FAMS, criteria: CRIT, returnPeriods: T, paperBlocks: PAPER_BLOCKS, buoyBlocks: BUOY_BLOCKS, quick: QUICK,
+    families: FAMS, seventh: 'gev', criteria: CRIT, returnPeriods: T, paperBlocks: PAPER_BLOCKS, buoyBlocks: BUOY_BLOCKS, quick: QUICK,
     buoys,
     ww3,
     printed: QUICK ? null : results.printed,

@@ -19,12 +19,19 @@
      · what a threshold fitter would have chosen by Anderson–Darling — the
        generalized gamma past α = 500 and the exponentiated Weibull past α = 10⁴
        treated as "the limit" and left out — so the map can show where that rule
-       and the certificate part.
+       and the certificate part;
+     · THE SEVENTH FAMILY (2026-09-28): the generalized extreme value law
+       certified beside the six (`gev`, its ξ enclosed) and Anderson–Darling's
+       choice among the seven (`seven`), the paper's own fields untouched.
+   BESIDE THE RECORDS, never in them, the section `stat` — STATISTICAL, NOT
+   CERTIFIED: per cell and block the delta method's 95% intervals on the
+   Anderson–Darling family's 100- and 1000-year levels and on the GEV's ξ and
+   levels, and per cell the runs estimator of the daily maxima's extremal index.
    The cell's full certificate (boxes, minors, parameters) is not repeated here:
    it is re-derived, the same bytes into the same code, by the atlas page in the
    reader's tab and by instruments/hseva/battery.js on a sample of cells.
 
-   usage: node tools/run-hseva-atlas.js                 every cell (workers in parallel; ~an hour)
+   usage: node tools/run-hseva-atlas.js                 every cell (workers in parallel; about two hours on 7)
           node tools/run-hseva-atlas.js --unit a:b      cells a..b-1 as JSON on stdout (a worker)
           node tools/run-hseva-atlas.js --cell ID       one cell as JSON on stdout */
 'use strict';
@@ -66,8 +73,6 @@ function series(meta, c) {
   return { n: v.length, t: days(meta), h, den: 500, step: 24 };
 }
 
-function cellRecord(meta, c) { return AT.cellRecord(c.id, series(meta, c)); }
-
 const UNIT = arg('--unit'), ONE = arg('--cell');
 if (UNIT || ONE) {
   if (process.env.HSEVA_ATLAS_PIN) {
@@ -79,8 +84,8 @@ if (UNIT || ONE) {
   let pick;
   if (ONE) { pick = sea.filter((c) => c.id === ONE); if (!pick.length) die('no sea cell ' + ONE); }
   else { const [a, b] = UNIT.split(':').map(Number); pick = sea.slice(a, b); }
-  const res = pick.map((c) => cellRecord(meta, c));
-  process.stdout.write(JSON.stringify(ONE ? res[0] : res), () => process.exit(0));
+  const res = pick.map((c) => { const st = {}, rec = AT.cellRecord(c.id, series(meta, c), null, st); return { rec, st }; });
+  process.stdout.write(JSON.stringify(ONE ? res[0].rec : res), () => process.exit(0));
 } else {
   const meta = META(), sea = meta.cells.filter((c) => c.status === 'sea');
   const PIN = { code: codeNow(), meta: metaNow() };
@@ -109,21 +114,27 @@ if (UNIT || ONE) {
   });
   runAll().then(() => {
     if (JSON.stringify(codeNow()) !== JSON.stringify(PIN.code) || metaNow() !== PIN.meta) die('the code or the corpus changed during the run');
-    const cells = [].concat(...results);
+    const both = [].concat(...results), cells = both.map((q) => q.rec);
     const atlas = {
       what: 'The return-level atlas: the method of Reis, Guimarães, Farina, Paul, de Paula and Ribeiro (Ocean Engineering 359, 2026, 125841) — six families by maximum likelihood, four criteria, 100- and 1000-year levels — certified on the daily, weekly and monthly maxima of every open-sea cell of corpus/ww3-grid (a 4° global lattice, a 1° lattice of the Brazilian margin and the report\'s thirteen nodes of the paper\'s own WAVEWATCH III hindcast, 1993-2024).',
       generated: new Date().toISOString().slice(0, 10),
       conventions: {
-        fit: 'c: 1 certified (the likelihood\'s one maximum in a box — fit.js certify: Krawczyk and the second order); c: 0 with e: 1 — the generalized gamma refused at its lognormal limit with the proof (∂ℓ/∂Q < 0 over the k-SE box around the lognormal fit and 0 < Q ≤ q1); c: 0 with s: 1 — the exponentiated Weibull\'s (α, k, λ) climb stopped at α = 10⁴ and its Gumbel coordinates (k, θ = λ^k, β = θ ln α) did not certify it either ("the climb passed k = 0.001" in w: toward the Fréchet corner), nothing proved; c: 0 without s — refused; w the reason, its head and its tail',
+        fit: 'c: 1 certified (the likelihood\'s one maximum in a box — fit.js certify: Krawczyk and the second order); c: 0 with e: 1 — the generalized gamma refused at its lognormal limit with the proof (∂ℓ/∂Q < 0 over the k-SE box around the lognormal fit and 0 < Q ≤ q1); c: 0 with s: 1 — the exponentiated Weibull\'s (α, k, λ) climb stopped at α = 10⁴ and its Gumbel coordinates (k, θ = λ^k, β = θ ln α) did not certify it either ("the climb passed k = 0.001" in w: toward the Fréchet corner), nothing proved; for the GEV, s: 1 is a maximum at or past ξ = −0.5, where it is not regular; c: 0 without s — refused; w the reason, its head and its tail',
         numbers: 'every pair an enclosure printed outward to eight significant digits; ad, ks, mse, chi2 the criteria (chi2 "U" undefined as the paper has it, "R" refused); l100, l1000 the return levels F⁻¹(1 − b/(T·8766)) in metres; a the generalized gamma\'s α (Stacy) or the exponentiated Weibull\'s α (null past the doubles); p: 1 certified in Prentice\'s coordinates (μ, σ, Q); g: 1 certified in the exponentiated Weibull\'s Gumbel coordinates (k, θ = λ^k, β = θ ln α)',
         rank: 'per criterion, the family fit.js rankRule decides, or "R" (REFUSED)',
         naive: 'what Anderson–Darling decides if the generalized gamma past α = 500, the exponentiated Weibull past α = 10⁴ (α as recorded) and a family whose (α, k, λ) climb stopped at its boundary are taken for "the limit" and left out, any other refusal blocking — the rule this repository used before 2026-09-27, kept to show where it and the certificate part',
         max: 'the largest daily maximum in 1993-2024, m (the record)',
+        gev: 'the SEVENTH family, not the paper\'s: the generalized extreme value law (μ, σ, ξ), certified as the six are (families.js gev, ξ = 0 an ordinary point) — its likelihood has no global maximum (below ξ = −1 it is unbounded at the support\'s upper end), so its fit is the certified maximum where it is regular, ξ > −0.5 (Smith 1985), and a box reaching −0.5 is refused; the same fields as a fit, and x, its ξ enclosed',
+        seven: 'what Anderson–Darling decides among the six and the GEV by the same rank rule, unchanged (fit.js rankRule), or "R": a family refused other than at its proved edge blocks it, so the GEV decides only where the six are decided or tied; rank and naive remain the paper\'s six',
       },
       corpus: { meta: 'corpus/ww3-grid/meta.json', sha256: PIN.meta },
       code: PIN.code,
-      families: PAPER_SIX, blocks: BLOCKS, criteria: CRIT, returnPeriods: [100, 1000],
+      families: PAPER_SIX, seventh: 'gev', blocks: BLOCKS, criteria: CRIT, returnPeriods: [100, 1000],
       cells,
+      stat: {
+        what: 'STATISTICAL, NOT CERTIFIED — beside the records, never in them. Per cell and block: f the family Anderson–Darling decides; l100, l1000 the 95% intervals of the delta method on its 100- and 1000-year levels, taken on the log of the level so they stay positive (fit.js deltaLevel: Σ = (−H)⁻¹, the observed information at the float candidate in the certificate\'s own coordinates, −H tested positive definite by Cholesky; the level\'s gradient by central differences); gev: the same for the GEV, and x the symmetric 95% interval on its ξ. Asymptotic: successive blocks taken as independent and the model as right; four significant figures, rounded outward; null where it cannot be formed. Per cell, ei: the runs estimator of the extremal index of the daily maxima (Smith & Weissman 1994) — u the ⌈0.95 n⌉-th smallest day, a new cluster after at least r = 3 days at or below u, θ = clusters/exceedances.',
+        cells: Object.fromEntries(both.map((q) => [q.rec.id, q.st])),
+      },
       seconds: Number(((Date.now() - t0) / 1000).toFixed(1)),
     };
     fs.writeFileSync(OUT, JSON.stringify(atlas) + '\n');

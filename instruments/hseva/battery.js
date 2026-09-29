@@ -101,7 +101,7 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
 {
   const xs = [0.8, 1.2, 2.5, 0.4, 3.1, 1.7, 0.9, 2.2, 1.1, 0.6, 4.0, 1.4];
   const { Df } = FT.prepare(xs);
-  for (const [name, th, h] of [['weibull', [1.7, 1.5], 1e-6], ['expweibull', [2.3, 0.9, 1.4], 1e-6], ['normal', [1.5, 1.1], 1e-6], ['lognormal', [0.3, 0.7], 1e-6], ['exponential', [1.6], 1e-6], ['gengamma', [2.1, 1.3, 0.8], 1e-6], ['gumbel', [1.3, 0.8], 1e-6], ['lognormal3', [0.1, 0.8, 0.2], 1e-7], ['gengammaP', [0.3, 0.6, 0.4], 1e-6], ['gengammaP', [0.1, 0.5, 0.08], 1e-6], ['expweibullG', [0.9, 0.3, 1.2], 1e-6], ['expweibullG', [0.3, 0.1, 1.05], 1e-7]]) {
+  for (const [name, th, h] of [['weibull', [1.7, 1.5], 1e-6], ['expweibull', [2.3, 0.9, 1.4], 1e-6], ['normal', [1.5, 1.1], 1e-6], ['lognormal', [0.3, 0.7], 1e-6], ['exponential', [1.6], 1e-6], ['gengamma', [2.1, 1.3, 0.8], 1e-6], ['gumbel', [1.3, 0.8], 1e-6], ['lognormal3', [0.1, 0.8, 0.2], 1e-7], ['gengammaP', [0.3, 0.6, 0.4], 1e-6], ['gengammaP', [0.1, 0.5, 0.08], 1e-6], ['expweibullG', [0.9, 0.3, 1.2], 1e-6], ['expweibullG', [0.3, 0.1, 1.05], 1e-7], ['gev', [1.3, 0.8, 0.12], 1e-6], ['gev', [1.3, 0.8, -0.15], 1e-6], ['gev', [1.3, 0.8, 0], 1e-6], ['gev', [1.3, 0.8, 0.03], 1e-6]]) {
     const F = FAMILIES[name];
     const g = F.score(o, th, Df), H = F.hess(o, th, Df);
     const gn = th.map((v, i) => { const a = th.slice(), b = th.slice(); a[i] += h; b[i] -= h; return (F.loglik(o, a, Df) - F.loglik(o, b, Df)) / (2 * h); });
@@ -129,7 +129,20 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
     const P = FAMILIES.gengammaP, ph = [0.2, 0.7, 0.3], st = P.toStacy(ph);
     ok(Math.abs(P.loglik(o, ph, Df) - gg.loglik(o, st, Df)) < 1e-9 && Math.abs(P.cdf(o, ph, 2.0) - gg.cdf(o, st, 2.0)) < 1e-12 && P.fromStacy(st).every((v, i) => Math.abs(v - ph[i]) < 1e-12), 'the Prentice form (μ, σ, Q) is the (α, c, λ) generalized gamma: likelihood, CDF and the round trip agree');
   }
-  for (const [name, th] of [['weibull', [1.7, 1.5]], ['expweibull', [2.3, 0.9, 1.4]], ['lognormal', [0.3, 0.7]], ['gengamma', [2.1, 1.3, 0.8]], ['gumbel', [1.3, 0.8]], ['normal', [1.5, 1.1]]]) {
+  { /* the GEV at ξ = 0 is the Gumbel — an ordinary point, nothing divided by ξ — and next to it by a term of order ξ */
+    const G = FAMILIES.gev, Gu = FAMILIES.gumbel;
+    const d0 = [Math.abs(G.loglik(o, [1.3, 0.8, 0], Df) - Gu.loglik(o, [1.3, 0.8], Df)), Math.abs(G.cdf(o, [1.3, 0.8, 0], 2.0) - Gu.cdf(o, [1.3, 0.8], 2.0)), Math.abs(G.quantile(o, [1.3, 0.8, 0], 0.99) - Gu.quantile(o, [1.3, 0.8], 0.99))];
+    const d1 = [Math.abs(G.loglik(o, [1.3, 0.8, 1e-12], Df) - Gu.loglik(o, [1.3, 0.8], Df)), Math.abs(G.quantile(o, [1.3, 0.8, 1e-12], 0.99) - Gu.quantile(o, [1.3, 0.8], 0.99))];
+    ok(d0.every((v) => v < 1e-10) && d1.every((v) => v < 1e-10), 'the GEV at ξ = 0 and at ξ = 10⁻¹² is the Gumbel to 1e-10: likelihood, CDF and quantile (' + Math.max(...d0, ...d1).toExponential(1) + ')');
+    const Di0 = FT.prepare(xs).Di, lI = G.loglik(oi, [I(1.3), I(0.8), [-1e-9, 1e-9]], Di0), lg = Gu.loglik(oi, [I(1.3), I(0.8)], Di0);
+    ok(lI[0] <= lg[1] && lg[0] <= lI[1] && IV.width(lI) < 1e-6, 'over a box of ξ straddling 0 the interval likelihood encloses the Gumbel\'s and stays narrow (' + IV.width(lI).toExponential(1) + ')');
+    /* the series and the closed forms of L(u) = ln(1 + u)/u meet at the series' edge, |u| = 1/20 */
+    let worst = 0;
+    for (const u of [0.05, -0.05, 0.0499999, -0.0499999]) { const a = G.Lpt(o, u), b = [Math.log1p(u) / u, (u / (1 + u) - Math.log1p(u)) / (u * u), (2 * Math.log1p(u) - 2 * u / (1 + u) - (u / (1 + u)) ** 2) / (u * u * u)]; worst = Math.max(worst, ...a.map((v, i) => Math.abs(v - b[i]))); }
+    const Lw = G.L(oi, [0.04, 0.06]), Lp = [0.04, 0.06].map((u) => Math.log1p(u) / u);
+    ok(worst < 1e-10 && within(Lw[0], Lp[0]) && within(Lw[0], Lp[1]), 'L(u) = ln(1 + u)/u and its two derivatives by the series and by the closed forms agree at the series\' edge (' + worst.toExponential(1) + '), and over an interval straddling it L is enclosed by its ends');
+  }
+  for (const [name, th] of [['weibull', [1.7, 1.5]], ['expweibull', [2.3, 0.9, 1.4]], ['lognormal', [0.3, 0.7]], ['gengamma', [2.1, 1.3, 0.8]], ['gumbel', [1.3, 0.8]], ['normal', [1.5, 1.1]], ['gev', [1.3, 0.8, 0.12]], ['gev', [1.3, 0.8, -0.15]]]) {
     ok(Math.abs(FAMILIES[name].quantile(o, th, FAMILIES[name].cdf(o, th, 2.0)) - 2.0) < 1e-7, name + ': quantile ∘ cdf is the identity');
     if (FAMILIES[name].sf) ok(Math.abs(FAMILIES[name].sf(o, th, 2.0) + FAMILIES[name].cdf(o, th, 2.0) - 1) < 1e-12, name + ': sf + cdf = 1');
   }
@@ -229,6 +242,56 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
     const nc = FT.certify('gengamma', nx);
     red(nc.ok && nc.coords === 'gengammaP' && nc.ll[0] > nc.limit.ll[1] && nc.box[2][0] > 0.02 && nc.box[2][1] < 0.05, 'a 40,000-point generalized gamma with α = 900: certified inside the family (Q ' + (nc.ok ? nc.theta[2].toFixed(4) : '—') + '), above its lognormal limit — the maximum a stop at α = 500 misses (' + (nc.ok ? nc.secondOrder : nc.why.slice(0, 60)) + ')');
   }
+  /* THE SEVENTH FAMILY: GEV samples at ξ = −0.3, 0, +0.2 certified near the truth; ξ = −0.7, where the maximum is not
+     regular, refused; a box whose support leaves a datum out cannot be evaluated. Its own generator, so the stream above
+     is the one it always was. */
+  {
+    let q = 20260928; const r4 = () => { q = (q * 16807) % 2147483647; return q / 2147483647; };
+    const gevx = (n, mu, sg, xi) => Array.from({ length: n }, () => { const v = -Math.log(-Math.log(r4())); return mu + sg * (xi === 0 ? v : Math.expm1(xi * v) / xi); });
+    const got = [-0.3, 0, 0.2].map((xi) => { const c = FT.certify('gev', gevx(600, 3, 0.8, xi)); return { xi, c }; });
+    ok(got.every(({ xi, c }) => c.ok && Math.abs(c.theta[2] - xi) < 0.15 && c.maxRad < 1e-9 && within(c.box[2], c.theta[2])), 'GEV samples at ξ = −0.3, 0 and +0.2 (600 points): each certified, ξ̂ within 0.15 of the truth, the box narrower than 1e-9 (' + got.map(({ c }) => (c.ok ? c.theta[2].toFixed(3) + ' ' + c.secondOrder : c.why.slice(0, 40))).join('; ') + ')');
+    const g0 = got[1].c, cr = g0.ok ? FT.criteria(g0, null) : null, l100 = g0.ok ? FT.returnLevel(g0, 100, 24) : null;
+    ok(cr && cr.ad && cr.ad[0] > 0 && IV.width(cr.ad) < 1e-4 && l100 && IV.width(l100) < 1e-8, 'its A² and its 100-year level are enclosed over the box, tight');
+    const non = FT.certify('gev', gevx(600, 3, 0.8, -0.7));
+    red(!non.ok && /ξ = −0\.5/.test(non.why), 'a GEV sample at ξ = −0.7, where the maximum is not regular (Smith 1985), is refused, never certified (' + (non.ok ? 'certified?!' : non.why.slice(0, 60)) + ')');
+    {
+      const xb = gevx(300, 3, 0.8, 0.02), P2 = FT.prepare(xb), G = FAMILIES.gev;
+      let bad = 0, n = 0;
+      for (const [m0, s0, x0, r] of [[3, 0.8, 0.02, 1e-3], [3, 0.8, 0, 1e-4], [2.9, 0.85, -0.03, 1e-3], [3.1, 0.75, 0.06, 5e-4]]) {
+        const X = [[m0 - r, m0 + r], [s0 - r, s0 + r], [x0 - r, x0 + r]], gi = G.score(oi, X, P2.Di), Hi = G.hess(oi, X, P2.Di);
+        for (let t = 0; t < 12; t++) {
+          const pt = X.map((b) => b[0] + (b[1] - b[0]) * r4()), gf = G.score(o, pt, P2.Df), Hf = G.hess(o, pt, P2.Df); n++;
+          if (!gf.every((v, i) => within(gi[i], v)) || !Hf.every((row, i) => row.every((v, j) => within(Hi[i][j], v)))) bad++;
+        }
+      }
+      ok(bad === 0, 'over four boxes, two straddling ξ = 0 and the series\' edge |ξz| = 1/20, the GEV\'s interval score and Hessian enclose the float values at ' + n + ' points inside');
+    }
+    const xsS = gevx(200, 3, 0.8, 0.2), mn = Math.min(...xsS), DiS = FT.prepare(xsS).Di;
+    let threw = false; try { FAMILIES.gev.loglik(oi, [I(mn + 0.8 / 0.2 + 0.5), I(0.8), I(0.2)], DiS); } catch (e) { threw = /outside the support/.test(e.message); }
+    red(threw, 'a GEV whose lower end μ − σ/ξ lies above the smallest datum cannot be evaluated over the data: it throws "outside the support", never a finite likelihood');
+  }
+  /* the interval exp's underflow ENCLOSED (fit.js expIv), the lifted transcendental.js untouched: e^(−800) lies in (0, 2⁻¹⁰⁷³] */
+  {
+    let tr = false; try { require(path.join(ROOT, 'instruments', 'interval', 'transcendental.js')).exp(I(-800)); } catch (e) { tr = true; }
+    const e1 = oi.exp(I(-800)), e2 = oi.exp([-760, -700]), e3 = oi.exp([-700, -699]);
+    red(tr && e1[0] === 0 && e1[1] === 2 * Number.MIN_VALUE && e2[0] === 0 && within(e2, Math.exp(-700)) && e3[0] > 0 && within(e3, Math.exp(-699.5)), 'the lifted interval exp still refuses e^(−800); the ledger\'s arithmetic encloses it in [0, 2⁻¹⁰⁷³], [e^(−760), e^(−700)] in [0, e^(−700)], and leaves a representable one alone');
+  }
+  /* STATISTICAL, labelled: the delta method on a normal's quantile against its closed form, σ√(1/n + z²/(2n)) */
+  {
+    const xsN = Array.from({ length: 500 }, () => 3 + 0.7 * gauss()), cN = FT.certify('normal', xsN), T = 100, b = 24;
+    const d = FT.deltaLevel(cN, T, b), z = o.PhiInv(1 - b / (T * 8766)), se = cN.theta[1] * Math.sqrt(1 / 500 + z * z / 1000);
+    ok(d && Math.abs(d.se - se) < 1e-6 * se && Math.abs(d.est - (cN.theta[0] + cN.theta[1] * z)) < 1e-9 && Math.abs(d.lo - d.est * Math.exp(-FT.Z95 * se / d.est)) < 1e-6 * se && Math.abs(d.hi - d.est * Math.exp(FT.Z95 * se / d.est)) < 1e-6 * se, 'the delta method on a normal\'s 100-year daily quantile reproduces its closed form σ√(1/n + z²/(2n)), the interval taken on ln q (' + (d ? d.se.toExponential(4) : '—') + ')');
+    const ind = { fam: FAMILIES.normal, theta: cN.theta, Df: { n: 3, x: [0, 1, 2] } };
+    red(FT.deltaLevel(Object.assign({}, ind, { fam: Object.assign({}, FAMILIES.normal, { hess: () => [[1, -2], [-2, 1]] }) }), 100, 24) === null, 'an indefinite −H (eigenvalues 3 and −1) gives no delta interval: positive definiteness is tested, not the diagonal of the inverse');
+  }
+  /* the runs estimator of the extremal index: three clusters of exceedances in a crafted series */
+  {
+    const AT = require('./atlas.js');
+    const h = Array.from({ length: 200 }, (_, i) => (i % 7) / 10);                      /* below 1 everywhere */
+    for (const i of [20, 21, 22, 80, 84, 150]) h[i] = 5;                               /* 80 and 84: three quiet days between — two clusters */
+    const ei = AT.extremalIndex(h);
+    ok(ei.exc === 6 && ei.clu === 4 && ei.theta === Number((4 / 6).toFixed(4)) && ei.r === 3, 'the runs estimator (u the 95th percentile, runs of 3 days): six days above u in four clusters, θ = 4/6 (' + JSON.stringify({ exc: ei.exc, clu: ei.clu, theta: ei.theta }) + ')');
+  }
   red((() => { const r = FT.rank([{ family: 'a', ad: [1, 2] }, { family: 'b', ad: [1.5, 3] }]); return r.verdict === 'REFUSED' && r.tied[0] === 'b'; })(), 'overlapping A² enclosures REFUSE the ranking and name the tie');
   ok(FT.rank([{ family: 'a', ad: [1, 2] }, { family: 'b', ad: [2.5, 3] }]).verdict === 'DECIDED', 'separated enclosures decide it');
   red(!FT.certify('weibull', [1, 1, 1, 1]).ok, 'a constant sample has no Weibull MLE and is refused');
@@ -282,6 +345,17 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
           ok(Object.entries(B.fits).filter(([g, v]) => g !== r.best && v.certified && v.criteria[k] && v.criteria[k].lo !== undefined).every(([, v]) => Number(v.criteria[k].lo) > Number(best.hi)), label + ' ' + blk + ' ' + k + ': a DECIDED ranking has its best wholly below every other');
           ok(Object.values(B.fits).every((v) => v.certified || v.edge), label + ' ' + blk + ' ' + k + ': nothing is ranked past a family refused for a reason other than its edge');
         } else rankRef++;
+      }
+      /* THE SEVENTH FAMILY: the GEV certified like the six (a regular maximum, ξ above −0.5), and the choice among seven
+         re-decided from the recorded A² enclosures, the GEV's among them */
+      if (B.gev) {
+        const G = B.gev, all = Object.assign({}, B.fits, { gev: G });
+        if (G.certified) ok(G.xi && Number(G.xi.lo) <= Number(G.xi.hi) && Number(G.xi.lo) > -0.5 && G.minors.every((m) => Number(m.lo) > 0), label + ' ' + blk + ' gev: certified at a regular maximum (ξ above −0.5), the Hessian proved negative definite');
+        ok(B.seven && (B.seven.verdict === 'DECIDED' || B.seven.verdict === 'REFUSED'), label + ' ' + blk + ': the choice among seven is recorded');
+        if (B.seven && B.seven.verdict === 'DECIDED') {
+          const bs = all[B.seven.best].criteria.ad;
+          ok(Object.entries(all).filter(([g, v]) => g !== B.seven.best && v.certified && v.criteria.ad && v.criteria.ad.lo !== undefined).every(([, v]) => Number(v.criteria.ad.lo) > Number(bs.hi)) && Object.values(all).every((v) => v.certified || v.edge), label + ' ' + blk + ': the choice among seven has its A² wholly below every other certified family\'s, the GEV\'s included, and nothing refused past');
+        } else if (B.seven) ok(Object.values(all).some((v) => !v.certified && !v.edge) || Object.entries(all).filter(([, v]) => v.certified && v.criteria.ad && v.criteria.ad.lo !== undefined).length >= 2, label + ' ' + blk + ': a refused choice among seven has a blocking refusal or a tie behind it');
       }
     }
   };
@@ -379,6 +453,22 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
       }
     }
     ok(naiveDecided > 0 && badNaive === 0, naiveDecided + ' threshold-fitter choices in the atlas, each re-derived from the recorded enclosures with that rule\'s exclusions');
+    /* the seventh family: every certified GEV at a regular maximum, and the choice among seven re-decided from the recorded
+       A² enclosures, the GEV's among them — a family refused otherwise than at the generalized gamma's proved limit blocks it */
+    let sevenDecided = 0, badSeven = 0, gevCert = 0, badGev = 0;
+    for (const c of A.cells) for (const blk of AT.BLOCKS) {
+      const B = c.blocks[blk]; if (!B.gev || B.seven === undefined) { badSeven++; continue; }
+      if (B.gev.c) { gevCert++; if (!(Array.isArray(B.gev.x) && B.gev.x[0] <= B.gev.x[1] && B.gev.x[0] > -0.5)) badGev++; }
+      const all = Object.assign({}, B.fits, { gev: B.gev }), fams = Object.keys(all);
+      const blocked = fams.some((f) => !all[f].c && !all[f].e);
+      if (B.seven === 'R') continue;
+      sevenDecided++;
+      if (blocked || !all[B.seven] || !Array.isArray(all[B.seven].ad)) { badSeven++; continue; }
+      const bi = all[B.seven].ad;
+      for (const f of fams.filter((g) => g !== B.seven && all[g].c && Array.isArray(all[g].ad))) if (!(all[f].ad[0] > bi[1])) { if (within(all[f].ad[0], bi[1])) relive.add(c.id); else { badSeven++; break; } }
+    }
+    ok(gevCert > 0 && badGev === 0, gevCert + ' GEV fits certified in the atlas, each at a regular maximum (its ξ enclosed above −0.5)');
+    ok(sevenDecided > 0 && badSeven === 0, sevenDecided + ' choices among seven in the atlas, each re-derived from the recorded enclosures, the GEV\'s among them');
     /* live: a sample of cells re-derived from the corpus, the record compared as JSON, character for character */
     const d0 = Date.UTC(1993, 0, 1), days = Array.from({ length: M.days }, (_, k) => new Date(d0 + k * 86400000).toISOString().slice(0, 10));
     const pick = [];
@@ -396,6 +486,19 @@ red(!within(oi.Phi(I(1)), 0.85), 'Φ(1) does not enclose 0.85 (it is 0.8413)');
     for (const c of sea) { const r = c.sets.find((s) => /^report:/.test(s)); if (!r || !HL.ww3) continue; const name = r.slice(7), P = HL.ww3.points[name]; if (!P) continue; nodes++;
       if (AT.BLOCKS.every((blk) => AT.CRIT.every((k) => (P.blocks[blk].rankings[k].verdict === 'DECIDED' ? P.blocks[blk].rankings[k].best : 'R') === rec.get(c.id).blocks[blk].rank[k]))) agree++; }
     ok(nodes > 0 && agree === nodes, 'at the ' + nodes + ' report nodes, the atlas and certs/hseva-ledger.json decide every daily, weekly and monthly choice alike (' + agree + ' of ' + nodes + ')');
+    let agree7 = 0, nodes7 = 0;
+    for (const c of sea) { const r = c.sets.find((q) => /^report:/.test(q)); if (!r || !HL.ww3) continue; const P = HL.ww3.points[r.slice(7)]; if (!P || !P.blocks.daily.seven) continue; nodes7++;
+      if (AT.BLOCKS.every((blk) => (P.blocks[blk].seven.verdict === 'DECIDED' ? P.blocks[blk].seven.best : 'R') === rec.get(c.id).blocks[blk].seven)) agree7++; }
+    ok(nodes7 > 0 && agree7 === nodes7, 'at the ' + nodes7 + ' report nodes the two ledgers choose alike among seven too (' + agree7 + ' of ' + nodes7 + ')');
+    /* STATISTICAL, and well formed: every interval ordered, every level's positive (on ln q), every cell with its extremal index */
+    let statBad = 0, statN = 0;
+    const iv2 = (q, pos) => q === null || q === undefined || (Array.isArray(q) && q[0] <= q[1] && (!pos || q[0] > 0));
+    for (const c of A.cells) {
+      const S = A.stat && A.stat.cells[c.id]; if (!S) { statBad++; continue; }
+      if (!S.ei || !(S.ei.theta > 0 && S.ei.theta <= 1) || S.ei.r !== 3) statBad++;
+      for (const blk of AT.BLOCKS) { const q = S[blk] || {}; statN++; if (!iv2(q.l100, true) || !iv2(q.l1000, true) || (q.f && q.f !== c.blocks[blk].rank.ad) || (q.gev && (!iv2(q.gev.x) || !iv2(q.gev.l100, true) || !iv2(q.gev.l1000, true)))) statBad++; }
+    }
+    ok(statN > 0 && statBad === 0, 'the statistical section: ' + statN + ' cell-blocks, every interval ordered and every level\'s above zero, each for the family the certificate decided, and every cell\'s extremal index in (0, 1] with runs of 3 days');
     const K = AC.evaluate(M.cells.filter((c) => c.status === 'sea').map((c) => Object.assign({}, c, rec.get(c.id))));
     ok(K.length === AC.CLAIMS.length && K.every((k) => ['HOLDS', 'DOES NOT HOLD', 'UNDECIDED'].includes(k.verdict)), 'the paper\'s ' + K.length + ' regional claims decided over the atlas: ' + K.map((k) => k.id + ' ' + k.verdict).join('; '));
     /* three cells, every choice REFUSED: the refused cells could make the three-step claim true (2 > 1 > 0 and 0 < 1 < 2) or false;

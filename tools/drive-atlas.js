@@ -6,6 +6,9 @@
      · a reader's own claim, typed, reproducing the paper's DOES NOT HOLD south of South America;
      · a cell certified in the tab and IDENTICAL to the ledger's record, at 1440 and at 390;
      · a report node showing the report's 3-hourly block first, and an ice report node its note and that block;
+     · the seventh family's two views and the uncertainty view drawn with a key and no page error; the cell's
+       table carrying the choice among seven, the GEV's ξ and the statistical interval; after certifying, the
+       design-life sentence carrying its statistical interval and the return-level plot its band;
      · the phone's sheet stepping on a tap and a swipe, a claim lowering it, a cell raising it;
      · a link reopening the same cell, tab, chart and block.
    Screenshots go to <tmp>/atlas-drive/. Written 2026-09-28 from the twenty-second session's own drives.
@@ -52,9 +55,22 @@ withChrome(async (send) => {
   await ev('window.__atlas.select("-57_-65")'); await settle(1200);
   const ice = await ev('document.getElementById("ra-cellbox").innerText');
   check(/shown and not certified/.test(ice) && /3-HOURLY BLOCK|3-hourly block/i.test(ice) && /ice\'s millimetres included/.test(ice), 'an ice report node (Drake) shows its ice note and the report\'s 3-hourly block');
+  for (const [mode, re] of [['seven', /among seven/i], ['xi', /ξ/], ['unc', /statistical/i]]) {
+    await ev('document.querySelector("#ra-mode button[data-v=\\"' + mode + '\\"]").click()'); await settle(900);
+    const key = await ev('document.getElementById("ra-legend").innerText'), g = await geom();
+    check(re.test(key) && !g.errs.length, 'the ' + mode + ' view draws with its key (' + key.split('\n')[0].slice(0, 70) + ')');
+  }
+  await ev('document.querySelector("#ra-mode button[data-v=\\"wave\\"]").click()'); await settle(500);
   await ev('window.__atlas.select("-22.5_-40")'); await settle(1500);
+  const rows7 = await ev('Array.from(document.querySelectorAll("#ra-cellbox tbody th")).map((t) => t.innerText).join("|")');
+  check(/among 7/.test(rows7) && /GEV ξ/.test(rows7) && /100-yr 95%/.test(rows7) && (await ev('document.querySelectorAll("#ra-cellbox .w-computed").length')) > 0, 'the cell\'s table carries the choice among seven, the GEV\'s ξ and the statistical interval, dash-underlined');
   const p1 = await certify();
   check(/Identical to the ledger/.test(p1), '1440: the Campos cell certified in the tab, identical to the ledger (' + p1.slice(0, 60) + ')');
+  const life = await ev('document.getElementById("ra-life").innerText');
+  check(/statistical/.test(life) && /asserted, not decided/.test(life), 'the design-life sentence carries its statistical interval, labelled (' + life.slice(0, 50) + '…)');
+  await ev('document.querySelector("#ra-cviews button[data-v=\\"rl\\"]").click()'); await settle(600);
+  check(/Dashed/.test(await ev('document.getElementById("ra-cap").innerText')), 'the return-level plot draws the decided family\'s statistical band, and its caption says what it is');
+  await shot('1440-rl-band');
   await ev('document.querySelector("#ra-cviews button[data-v=\\"qq\\"]").click()'); await settle(500);
   await ev('document.querySelector("#ra-block button[data-v=\\"monthly\\"]").click()'); await settle(900);
   await shot('1440-cell');
