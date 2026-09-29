@@ -50,51 +50,7 @@ from typing import Any, Callable, Iterable, Optional
 # 1. Family interface (mirrors enumerate / value / interesting / certify / key / statement)
 # --------------------------------------------------------------------------
 
-@dataclass(frozen=True)
-class Verdict:
-    """An exact decision. `holds` is a proof outcome, never a float comparison."""
-    holds: bool
-    witness: str            # human-readable exact witness (rational, box, etc.)
-    certificate: dict       # machine-checkable payload, stdlib-serialisable
-
-
-class Family:
-    name: str = "abstract"
-
-    # -- generate stage: what the model is asked, and how we parse the reply --
-    def prompt(self, target: Any) -> str:
-        raise NotImplementedError
-
-    def parse(self, reply: str) -> Optional[Any]:
-        """Return a candidate object or None if malformed."""
-        raise NotImplementedError
-
-    # -- the six functions --
-    def enumerate(self, n: int, seed: int) -> Iterable[Any]:
-        """Targets to pose to the model (not candidates — the model produces those)."""
-        raise NotImplementedError
-
-    def value(self, obj: Any) -> float:
-        """Float evaluation. Used ONLY by `interesting`. May be wrong."""
-        raise NotImplementedError
-
-    def interesting(self, obj: Any, target: Any) -> bool:
-        """Float screen. May only prune. Must never be the reason something is admitted."""
-        raise NotImplementedError
-
-    def certify(self, obj: Any, target: Any) -> Optional[Verdict]:
-        """Exact decision or None (undecided)."""
-        raise NotImplementedError
-
-    def key(self, obj: Any) -> str:
-        return hashlib.sha256(repr(obj).encode()).hexdigest()[:16]
-
-    def statement(self, obj: Any, target: Any) -> str:
-        raise NotImplementedError
-
-    # -- red controls: proposals that MUST be refuted, or the harness is not discriminating --
-    def red_controls(self, target: Any) -> list[Any]:
-        return []
+from llm_harness_base import Family, Verdict  # noqa: E402 — one definition, shared with tools/bench_families.py
 
 
 # --------------------------------------------------------------------------
@@ -610,6 +566,11 @@ class MatmulFamily(Family):
 
 
 FAMILIES = {"egyptian": EgyptianFamily, "matmul": MatmulFamily}
+# Certified MathBench v0 (instruments/mathbench/families.py): seven construction families, each decided exactly,
+# each rung with green controls where a witness is on record and red controls forged from it
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'instruments', 'mathbench'))
+from families import BENCH  # noqa: E402
+FAMILIES.update(BENCH)
 
 
 # --------------------------------------------------------------------------
@@ -628,6 +589,9 @@ RATES = {
     "claude-opus-5": (5.0, 25.0),
     "claude-sonnet-5": (2.0, 10.0),
     "claude-haiku-4-5-20251001": (1.0, 5.0),
+    "claude-haiku-4-5": (1.0, 5.0),
+    "claude-opus-5-5": (4.0, 20.0),        # rates from the claude-api skill's model table, cached 2026-06-24
+    "claude-fable-5-1": (10.0, 50.0),
 }
 USAGE = {"calls": 0, "in": 0, "out": 0, "usd": 0.0}
 LAST_USAGE: dict = {}
@@ -955,6 +919,9 @@ def main():
                          "receives the grader's own refutation mechanism as feedback and retries. "
                          "Requires --model and --target; writes to --loop-ledger")
     ap.add_argument("--trajectories", type=int, default=1, help="independent loop trajectories")
+    ap.add_argument("--cap-usd", type=float, default=None,
+                    help="stop before any call whose WORST case (max_tokens of output at the model's rate, plus 4k input) "
+                         "would take the run's metered spend past this many dollars; the stop is printed, never silent")
     ap.add_argument("--effort", default=None,
                     choices=["low", "medium", "high", "xhigh", "max"],
                     help="thinking-depth budget (output_config.effort). Lower effort makes the model "
@@ -1031,6 +998,15 @@ def main():
             if pre is not None:
                 raw, stop = pre, None
             else:
+                if args.cap_usd is not None and args.model:
+                    rin, rout = RATES.get(args.model, (0.0, 0.0))
+                    if not rin:
+                        sys.exit(f"--cap-usd needs a known rate for {args.model}; add it to RATES first")
+                    worst = (4000 * rin + args.max_tokens * rout) / 1e6
+                    if USAGE["usd"] + worst > args.cap_usd:
+                        print(f"SPEND CAP: stopped before the call for {t} — ${USAGE['usd']:.4f} spent, worst case "
+                              f"${worst:.4f} would pass the ${args.cap_usd:.2f} cap", file=sys.stderr)
+                        break
                 try:
                     raw, stop = propose(fam.prompt(t))
                 except RuntimeError as e:

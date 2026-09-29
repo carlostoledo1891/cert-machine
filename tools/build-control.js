@@ -165,6 +165,7 @@ const NSPROBES = (() => {
 const PY = [
   ['skyaudit stdlib verifier', ['apps/skyaudit/audit/verify_skyaudit.py'], 'the pinned ADS-B day re-audited in the Python standard library, no code from the app in the trust path'],
   ['tensorlb (lower-bound audit)', ['instruments/tensorlb/battery.py'], 'tensor-rank lower bounds re-decided exactly; the red control must fire'],
+  ['mathbench (v0 families)', ['instruments/mathbench/battery.py'], 'Certified MathBench v0 (attack plan A1, K1): seven construction families a model proposes into — Golomb rulers, cap sets, binary codes, Ramsey witnesses, sum-difference entropy laws, kissing configurations, polynomial-multiplication algorithms over F2 — each decided exactly, every rung\'s on-record witness certifying, the parser refusing prose and floats, and the harness run end to end offline with its controls first · 20 red controls (near-misses forged from the witnesses: a repeated ruler difference, a completed line, two codewords at distance 2, one circulant distance too many, a law with ratio 1, a duplicated vector, one flipped coefficient)'],
   ['oracle claim library', ['oracle/battery.py'],
     'certify() for AI math search: Strassen calibrates, the characteristic-2 pair reproduced, the sub-float forgery refuted with its exact mechanism; red controls also run at import — a broken grader refuses to exist · 6 red controls'],
   /* THROUGH PYTEST, not as a script (2026-09-05): `python3 test_wiring.py` defines

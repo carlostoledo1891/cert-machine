@@ -99,6 +99,7 @@ test:
 	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL

@@ -31,8 +31,8 @@ import sys
 from collections import defaultdict
 from decimal import Decimal, Context, ROUND_FLOOR, ROUND_CEILING, setcontext
 
-# every operation below names its context; the default one is made unusable so none can round silently
-setcontext(Context(prec=1, traps=[]))
+# every operation below names its context; main() makes the default one unusable, so none can round silently
+# (done in main, not at import: a module that imports these functions keeps its own default context)
 from fractions import Fraction
 
 PREC = 120
@@ -110,6 +110,7 @@ CLAIMS = [
 
 
 def main():
+    setcontext(Context(prec=1, traps=[]))
     root = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'corpus', 'optimization-constants')
     good = True
     cache = {}
