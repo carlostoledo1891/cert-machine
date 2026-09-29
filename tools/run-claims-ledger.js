@@ -46,6 +46,7 @@ const KINDS = {
   'clause-missing-from-formal-statement': 'a clause the prose claims is absent from the formal statement that is proved',
   'data-not-public': 'the data behind the claim are not public, so no one outside can decide it',
   'depends-on-reading': 'the claim holds under one of two definitions its own text gives, and not under the other',
+  'checker-wider-than-definition': 'the checker that accepted the claim admits what the definition it encodes excludes',
 };
 const kindCount = (list) => { const o = {}; for (const k of list) { if (!KINDS[k]) die('unknown kind ' + k); o[k] = (o[k] || 0) + 1; } return o; };
 /* the first commit whose record holds the key; today for a record not yet committed */
@@ -249,6 +250,18 @@ function firstSeen(file, key) {
       id: 'countex-' + r.id, claim: r.title, claimant: ([...new Set(r.foundBy.map((f) => f.by.replace(/^bugfixed by /, '')))].join(', ') || 'the library') + ' (S. Sra\'s counterexample library)',
       source: 'github.com/suvrit/count-ex-machina @ ' + d.source.commit.slice(0, 8), origin: 'self-initiated', verdict: r.verdict,
       scope: r.scope, kind: r.kind, key: '"id": "' + r.id + '"', decidedFrom: 'certs/countex-ledger.json', page: '/reports/counterexample-machine.html'
+    });
+  }
+}
+
+/* 15 · a benchmark's credited discoveries (HorizonMath, arXiv 2603.15617v2), decided from what its Appendix A prints */
+{
+  const d = J('certs/horizonmath-ledger.json');
+  for (const r of d.rows) {
+    rows.push({
+      id: 'horizonmath-' + r.id, claim: r.claim, claimant: r.claimant,
+      source: 'arXiv:2603.15617v2, Appendix A; github.com/ewang26/HorizonMath @ ' + d.source.commit.slice(0, 8), origin: 'self-initiated', verdict: r.verdict,
+      scope: r.scope, kind: r.kind, key: '"id": "' + r.id + '"', decidedFrom: 'certs/horizonmath-ledger.json', page: '/reports/horizonmath.html'
     });
   }
 }

@@ -96,10 +96,27 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       the iterate positive definite" and not under its own statement block's "Prop.
       A.1's bound" (≈1.90 < a = 5). None of the 14 verify.py reads the certificate it
       writes. A note to the maintainer is a SEND.
-      NEXT — HorizonMath (enclose the credited discoveries), the polynomial maps not
-      yet in keller (Gao 2608.00222; the weak Markus–Yamabe field in dimension 14,
-      2608.05392), K3(a) on FrontierMath Erdős's AI-formalised statements, more
-      registry asterisks (1a, 71, 49).
+      DONE — HorizonMath's six credited discoveries (reports/horizonmath.html;
+      arXiv 2603.15617v2 Appendix A, github.com/ewang26/HorizonMath @ 4ef0b61a):
+      THE DIAGONAL-RAMSEY CERTIFICATE (GPT-5.4 Pro, c = 3.6961 < GNNW's 3.7992) IS
+      REFUTED — its pair (X(1), Y(1)) = (0.22745, 0.9988), where c is read, lies
+      outside GNNW's region R (Erdős 1947 at e = 13/2000, p = 11981/500000; 56 of
+      201 points outside R, 128 more not placed by the problem's U). Cause: the
+      problem statement and validators/ramsey_asymptotic.py:299 accept a pair if
+      EITHER orientation passes a one-sided test; R needs BOTH (GNNW v1 and v2 define
+      R over all k, l; Lemma 15 proves both). With min -> max their validator fails
+      the certificate on its first interval. The Kakeya area CERTIFIED exactly
+      (6008623/55050240). The three GPT-5.6-only closed forms NEEDS DATA (not
+      printed; p. 8 says all six are in Appendix A, which has three). The spinor
+      closed form not decided yet. instruments/horizonmath (NOT instruments/horizon,
+      which is METR's time horizon), certs/horizonmath-ledger.json, register source
+      15, kind checker-wider-than-definition. Notes to the HorizonMath authors (and,
+      courtesy, GNNW) are SENDS.
+      NEXT — a legitimate Ramsey certificate search (F, M, Y against the two-sided
+      region, Y from Lemma 15 with f = F_0.03: does anything beat 3.7992?), the
+      spinor enclosure, the polynomial maps not yet in keller (Gao 2608.00222; the
+      weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
+      Erdős's AI-formalised statements, more registry asterisks (1a, 71, 49).
 
   NEXT, in this order:
     0. The attack program's current wave (above).

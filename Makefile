@@ -101,6 +101,7 @@ test:
 	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -185,6 +186,8 @@ reports:
 	@$(NODE) tools/build-report-optconst.js
 	@$(PY) tools/run-countex-ledger.py
 	@$(NODE) tools/build-report-countex.js
+	@$(PY) tools/run-horizonmath-ledger.py
+	@$(NODE) tools/build-report-horizonmath.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
 	@$(NODE) tools/build-report-monthly.js

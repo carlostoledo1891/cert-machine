@@ -332,6 +332,13 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'horizonmath.html', k: 'audit · a benchmark\'s discoveries',
+    title: 'HorizonMath\'s discoveries, decided',
+    desc: 'A benchmark of unsolved problems credits frontier models with six discoveries and prints three. The Kakeya area holds, exactly; the '
+      + 'certificate for a better diagonal-Ramsey base does not satisfy the theorem it is applied to — its checker admits pairs the theorem\'s region '
+      + 'cannot contain, and the certificate uses one where the constant is read.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'horizonmath-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
+      return L.rows.length + ' credited results decided · ' + c('CERTIFIED') + ' certified, ' + c('REFUTED') + ' refuted, ' + c('NEEDS DATA') + ' needs data'; })() },
   { g: 'ai', f: 'counterexample-machine.html', k: 'audit · AI-found counterexamples',
     title: 'The counterexample machine, decided',
     desc: 'Suvrit Sra\'s open library of counterexamples, most found by language models, decided case by case by programs that read the published '

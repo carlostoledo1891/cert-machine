@@ -572,6 +572,15 @@
    "finding": "Found by the scouting pass (arXiv 2608.29595, 2026-08-30). Cases are case.json + case.tex + artifacts + verify.py; every verify.py writes artifacts/ from a witness in its own source and the CI diffs the regeneration bit for bit. Found by: GPT-5 / 5.5 / 5.6 (Pro, Sol), OpenAI Codex, Opus 5, one by hand. The DPP statement block equates feasibility with Prop. A.1’s bound (about 1.90 for the witness’s L0), which a = 5 exceeds.",
    "fit": "Exactly the grammar: exhibited finite objects and identities, a few transcendental enclosures; the refusals name cited theorems and all-m arguments.",
    "next": "A note to the library’s maintainer (the DPP reading; checkers that read the published certificate) is a SEND (operator). New cases join the sweep as they land."
+  },
+  {
+   "id": "horizonmath-credited-discoveries",
+   "name": "HorizonMath (arXiv 2603.15617, v2 of 2026-09-10, CC BY 4.0; github.com/ewang26/HorizonMath @ 4ef0b61a): the six discoveries it credits to GPT-5.4 Pro and GPT-5.6 Sol Max (attack plan A1, wave 1)",
+   "verdict": "BUILT 2026-09-29: the diagonal-Ramsey certificate (c = 3.6960839126 < 3.7992) REFUTED — its pair (X(1), Y(1)) = (0.22745, 0.9988), at the point that sets c, lies outside Gupta–Ndiaye–Norin–Wei's region R (Erdős 1947 at e = 13/2000, p = 11981/500000, gap 0.0013), 56 of 201 decided points outside R, 128 more not placed by the problem's U; the problem's rule accepts a pair if EITHER orientation passes a one-sided test where R needs BOTH (their validator line 299, min(bu, bs); with max it fails on the first interval). The Kakeya union area CERTIFIED exactly, 6008623/55050240 = 0.109147989182245…. The three GPT-5.6-only closed forms NEEDS DATA (not in the paper). The spinor-norm closed form OPEN here (a printed derivation; no enclosure built). instruments/horizonmath, certs/horizonmath-ledger.json, reports/horizonmath.html",
+   "scouted": "2026-09-29",
+   "finding": "The paper's Appendix A prints A.1 (spinor closed form + derivation), A.2 (128 dyadic intercepts), A.3 (the Ramsey certificate as generating code: GNNW cubic − 0.0778 λ⁵, 200 piecewise-constant M values, Y = 0.12% below min(1, e^−U(1)/X) everywhere). Page 8 says all six were verified by domain experts and are detailed in Appendix A; it details three. GNNW (arXiv 2407.19026) v1 and v2 both define R two-sided (all k, ℓ); v2's Lemma 15 proves both orientations before placing a point. The benchmark's own tests/test_ramsey_baseline.py notes GNNW's baseline cannot pass its validator (R_0 margins ~3e-10).",
+   "fit": "Exactly the grammar: printed finite constructions, a checker whose encoding of a definition can be decided against the definition, exact rationals and decimal intervals.",
+   "next": "Whether a certificate with pairs inside R beats 3.7992 is OPEN and a real K1/K2 target (search F, M, Y against the two-sided region, Lemma 15's Y_f with f = F_0.03). The spinor integral: an enclosure to hundreds of digits. Notes to the HorizonMath authors (the region rule) and, courtesy, to GNNW are SENDS (operator)."
   }
  ]
 }

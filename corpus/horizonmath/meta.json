@@ -1,0 +1,57 @@
+{
+ "what": "HorizonMath (Wang, Motwani et al., arXiv 2603.15617v2, 2026-09-10): the constructions its Appendix A prints for the discoveries it credits to GPT-5.4 Pro and GPT-5.6 Sol Max, transcribed here; the papers and the benchmark code pinned by sha256, not copied.",
+ "sources": {
+  "paper": {
+   "url": "https://arxiv.org/pdf/2603.15617v2",
+   "license": "CC BY 4.0",
+   "sha256": "9616325eadb6975c5d63df8dafc0fdfc1c54ff717c94da9fced8616bac236328",
+   "stored": false,
+   "read": "Appendix A.2 (the 128 intercepts, p. 19), A.3 (the Ramsey certificate's generating code, pp. 21-23); p. 8: \"All six problems and proposed solutions have been verified by domain experts and are detailed in Appendix A\" \u2014 Appendix A has A.1-A.3 only"
+  },
+  "gnnw": {
+   "url": "https://arxiv.org/pdf/2407.19026v2",
+   "title": "Gupta, Ndiaye, Norin, Wei, Optimizing the CGMS upper bound on Ramsey numbers (v2, 2026-08-29)",
+   "license": "arXiv non-exclusive distribution",
+   "sha256": "2d5be61d04424f096ab1e4f6d94aefaacda71189276f281807ee5e8650c2eae9",
+   "stored": false,
+   "read": "(12): R0 = pairs with R(k,l) <= x^-k y^-l for all k + l >= N, R its closure; Observation 10; Theorem 13; Theorem 14 (the conditions the certificate claims); Lemma 15 (both orientations proved before a point is placed in R); Theorem 1 (G with 0.03)"
+  },
+  "benchmark": {
+   "repo": "github.com/ewang26/HorizonMath",
+   "commit": "4ef0b61a8a6d4c5ded661fab7c2e896af84abe6e",
+   "license": "none stated",
+   "stored": false,
+   "sha256": {
+    "validators/ramsey_asymptotic.py": "0c8e144e4c7419774be17608413487448969d58a5636423b2fe4bd46e7a14cc2",
+    "validators/keich_thin_triangles_128.py": "01e7d2bd27b908efa0e9eb69bddf1750fb35eece69aaf5c030ee5dca4bbd1e07",
+    "data/problems_full.json": "a908e879f8a474527916ff863bb900863135972f516d8fbb6558aa394a85492a",
+    "data/baselines.json": "a646102fd231f4924701b0cced88f021b3dd90d9701506fce14c4e3b3be3e818",
+    "tests/test_ramsey_baseline.py": "e8d0950ea0f70d67392fc3e28564cd18719b1cea7dffece13854462a8aeb4ecf"
+   }
+  }
+ },
+ "observed": {
+  "ramseyValidator": {
+   "command": "python -m validators.ramsey_asymptotic ramsey-a3-certificate.json (Python 3.12.13, mpmath 1.3.0, at the pinned commit)",
+   "on": "2026-09-29",
+   "seconds": 107,
+   "output": "valid: true \u2014 \"Valid split certificate; c = e^{F(1)} = 3.69608391263; polynomial_coeffs degree = 5; analytic tail endpoint = 0.00010846; worst small-lambda slack = 0.000272305; worst large R_0 slack = 0.000951234; worst large main slack = 0.000318787\""
+  },
+  "kakeyaValidator": {
+   "command": "python -m validators.keich_thin_triangles_128 (the 128 intercepts)",
+   "on": "2026-09-29",
+   "output": "valid: true \u2014 \"Valid. Union area=0.109147989182245, baseline=0.119207265425702.\" (its baseline is Keich's construction, the problem statement's is AlphaEvolve's 0.1148103258186177)"
+  },
+  "ramseyValidatorWithAnd": {
+   "change": "validators/ramsey_asymptotic.py line 299, `return max(mp.mpf(0), min(bu, bs))` -> `max(bu, bs)`: the pair must clear BOTH orientations' thresholds, as membership in R requires",
+   "on": "2026-09-29",
+   "output": "valid: false \u2014 \"R_0 check failed somewhere on [0.001000000000000000020816681711721685132943093776702880859375, 0.00100138829520408798266616040823038247253862209618091583251953125]\" (the first interval; 0.2 s)"
+  }
+ },
+ "files": {
+  "ramsey-a3-printed.json": "d1e5b837d731d214da95d98d1adf7811f5b0e9df59e014581da83f359d4570c2",
+  "ramsey-a3-certificate.json": "f6246cb3c05fcff6f9f666787d2c1c129d53a6584364b35c3cddcf90ac349c20",
+  "rebuild_ramsey_a3.py": "9cd2557cceac6b1e6a151a9ea1257f7926bfd3b385bce3f65b8994eb621343fa",
+  "kakeya-a2-intercepts.json": "b8293194b82d7a2cc9adc1a5cc4b6fe50fd5a50eead241f3c48c8341a144b463"
+ }
+}

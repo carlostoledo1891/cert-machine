@@ -964,22 +964,61 @@
    "decidedFrom": "certs/countex-ledger.json",
    "page": "/reports/counterexample-machine.html",
    "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "horizonmath-ramsey-asymptotic",
+   "claim": "R(k,k) <= 3.6960839126^(k+o(k)), improving 3.7992 (Gupta–Ndiaye–Norin–Wei), by a certificate that satisfies their Theorem 14",
+   "claimant": "GPT-5.4 Pro, reproduced by GPT-5.6 Sol Max (HorizonMath, arXiv 2603.15617v2, Appendix A.3)",
+   "source": "arXiv:2603.15617v2, Appendix A; github.com/ewang26/HorizonMath @ 4ef0b61a",
+   "origin": "self-initiated",
+   "verdict": "REFUTED",
+   "scope": "the certificate is refuted, not the inequality: its pair (X(1), Y(1)) = (0.22745, 0.9988), at the point that sets c, lies outside R — Erdos's 1947 bound at e = 13/2000, p = 11981/500000 exceeds the pair's rate by 0.00130 — and 56 of its 201 decided points are outside R, 128 more not placed in R by the bound the problem names. The problem's own rule accepts every pair with x <= e^-U(1) = 0.26292, whatever y is: it asks one of the two inequalities membership needs",
+   "kind": "checker-wider-than-definition",
+   "decidedFrom": "certs/horizonmath-ledger.json",
+   "page": "/reports/horizonmath.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "horizonmath-keich-thin-triangles-128",
+   "claim": "Area(E) = 0.1091479892... < 0.1148103258186177 (the AlphaEvolve baseline)",
+   "claimant": "GPT-5.4 Pro, reproduced by GPT-5.6 Sol Max (HorizonMath, arXiv 2603.15617v2, Appendix A.2)",
+   "source": "arXiv:2603.15617v2, Appendix A; github.com/ewang26/HorizonMath @ 4ef0b61a",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the union of the 128 printed triangles has area exactly 6008623/55050240 = 0.10914798918224…, 0.00566233 below the printed AlphaEvolve baseline; the printed 0.1091479892 is its rounding",
+   "kind": "none",
+   "decidedFrom": "certs/horizonmath-ledger.json",
+   "page": "/reports/horizonmath.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "horizonmath-gpt56-closed-forms",
+   "claim": "three closed forms that \"pass the compliance check and match the high-precision reference\"",
+   "claimant": "GPT-5.6 Sol Max (HorizonMath, arXiv 2603.15617v2)",
+   "source": "arXiv:2603.15617v2, Appendix A; github.com/ewang26/HorizonMath @ 4ef0b61a",
+   "origin": "self-initiated",
+   "verdict": "NEEDS DATA",
+   "scope": "the expressions are not published: the paper says all six discoveries \"are detailed in Appendix A\", which details three (A.1–A.3), none of these; agreement with a reference to 20 digits would not decide equality in any case",
+   "kind": "data-not-public",
+   "decidedFrom": "certs/horizonmath-ledger.json",
+   "page": "/reports/horizonmath.html",
+   "recordedOn": "2026-09-29"
   }
  ],
- "count": 72,
- "decided": 71,
+ "count": 75,
+ "decided": 74,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 53,
+  "CERTIFIED": 54,
   "PARTIAL": 7,
-  "REFUTED": 1,
+  "REFUTED": 2,
   "QUEUED": 1,
   "MIXED": 5,
   "REPAIRED": 4,
-  "NEEDS DATA": 1
+  "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 72
+  "self-initiated": 75
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -994,10 +1033,11 @@
   "outside-support": "the printed model gives observed data zero density",
   "clause-missing-from-formal-statement": "a clause the prose claims is absent from the formal statement that is proved",
   "data-not-public": "the data behind the claim are not public, so no one outside can decide it",
-  "depends-on-reading": "the claim holds under one of two definitions its own text gives, and not under the other"
+  "depends-on-reading": "the claim holds under one of two definitions its own text gives, and not under the other",
+  "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 54,
+  "none": 55,
   "narrower-scope": 5,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -1006,17 +1046,18 @@
   "arithmetic-slip": 1,
   "not-the-optimum": 1,
   "wrong-quantity": 1,
-  "data-not-public": 1,
+  "data-not-public": 2,
   "clause-missing-from-formal-statement": 1,
-  "depends-on-reading": 1
+  "depends-on-reading": 1,
+  "checker-wider-than-definition": 1
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 54
+  "2026-09": 57
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "b72295a"
+  "git": "d8af048"
  }
 }
