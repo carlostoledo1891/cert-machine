@@ -1,0 +1,62 @@
+{
+ "what": "The optimization-constants registry of teorth/optimizationproblems (Apache-2.0) at a pinned commit, and the certificates behind two of its asterisked (\"unverified\") lower bounds: C3b >= 1.77898884 (Mosaic Intelligence, a 13-point entropy certificate) and C3c >= 1.6747338950414058 (Y. Lin, a 147-point entropy certificate), with the 95-point C3c certificate it superseded. Every file is verbatim; the sha256 of each is below and re-hashed by instruments/sumdiff/battery.js.",
+ "fetched": "2026-09-29",
+ "registry": {
+  "repo": "teorth/optimizationproblems",
+  "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
+  "committed": "2026-09-26T17:07:53Z",
+  "license": "Apache-2.0",
+  "files": [
+   "registry/README.md",
+   "registry/3b.md",
+   "registry/3c.md"
+  ],
+  "starNote": "README: \"Bounds for which the level of available verification is currently at minimal levels will be marked with an asterisk\""
+ },
+ "mi2026": {
+  "source": "https://doi.org/10.5281/zenodo.20794135",
+  "title": "Certified sum-difference lower-bound certificates for C_3a, C_3b, and C_3c",
+  "published": "2026-06-22",
+  "license": "CC-BY-4.0 (data and text), MIT (code), per the archive README",
+  "zip": "mi2026/sumdiff_certs_upload.zip",
+  "zipMd5": "8a0cef8e975109a5b1144eb5c4fd0d92",
+  "note": "extracted verbatim beside the zip; the archive carries its own MANIFEST.sha256, checked by the battery"
+ },
+ "l2026": {
+  "source": "https://gist.github.com/CoolRmal/5368357cd781d7e5c676c9d68ad24d22/62621d2d30df0a4405dce760cde8a5b59af51281",
+  "revision": "62621d2d30df0a4405dce760cde8a5b59af51281",
+  "created": "2026-09-09T22:45:35Z",
+  "license": "none stated; the certificate data are mirrored here for verification, with attribution (Y. Lin), as the registry cites them",
+  "files": [
+   "l2026/certificate_3c_147pt.json",
+   "l2026/README.md"
+  ],
+  "notMirrored": {
+   "check_cert.py": "b25d24ed82e7aa73ff22066383b0be5589e83bb28850b90e5c592e3f6a83c5af",
+   "reproduce_3c.py": "f7bc7f62e8db53b7c9c25157331e21365933d61c11a1a7fb1d7fbed924a869b9"
+  },
+  "notMirroredWhy": "the claimant's own scripts, pinned by sha256 at the revision and not copied"
+ },
+ "files": {
+  "registry/README.md": "cde80d28a7ea136b4c11d9edf40bf66dd6f85f7484182fcfb3cd714c99ba905e",
+  "registry/3b.md": "001a53952025b46978a837b268bef847505e8bf945c94f1c34e20c15da645bb0",
+  "registry/3c.md": "2a74be64aec702042b2a7222c468dcc99c85bb6028e0bce0e9e34915a6a8211f",
+  "mi2026/sumdiff_certs_upload.zip": "8b0ae7571bbb9e584ed8f6a4e40a9d63031c9aba1526b660d6f56b12dfabfb87",
+  "mi2026/MANIFEST.sha256": "67fe0300cc21e5aeb89bc1d5b2b25ec0987fbce743ffeb38afae9d9e0a6e49b8",
+  "mi2026/README.md": "395845ec1e20e1f0fdeebb6b801303e633c7cb63c615bd23e9aa2993e5cd6535",
+  "mi2026/METADATA.md": "130ffef9ac8d0ef694b5bf63dd84959babb00641773ad2196b80629d3e6f32ab",
+  "mi2026/c3b_pr92/certificate_3b_13pt.json": "2efe99360a1ff5e3736e734ed06e5ab8e0cdcc33583ef22ece9e927e9e45365c",
+  "mi2026/c3b_pr92/check_3b.py": "221167c4e33db3b0f56743a85b8b935918f411f4d7cdf08e39cf94c0306781fa",
+  "mi2026/c3b_pr92/README.md": "652f955e52c188f198d9ca6214888fdf8894242065f2479622d75158e79cd4d3",
+  "mi2026/c3c_pr93/certificate_3c_v3_95pt.json": "2ebd7ba7a32e776ff5d271510b63a0999869fecfb148087a3d0fdd57cc4ffc3e",
+  "mi2026/c3c_pr93/check_3c.py": "75d0213782c39ea4c72f27005e9d72ee6622c5dcfcd7418fc49a674cd8dbc754",
+  "mi2026/c3c_pr93/README.md": "9eb98e0ee2aa6dbee841d76cb012d9a1ab37b4ec117b17d2b7e494c9a07043a4",
+  "mi2026/c3a_pr95/README.md": "af7633d472a7a13d518d1c2c862d3bea8ee6226f39f3fd6cde3a9a9b7ece490a",
+  "mi2026/c3a_pr95/crt_verify_d420.json": "b3de5dbb3e5b7af4b89e10e3eaeda3d0049c40669b86f1dea7874d274de2def8",
+  "mi2026/c3a_pr95/gh3a_b33_d420_T1392_counts.json": "7acecfea1298e444c7d1045f0019d1bdfcc43ecca67f4b8b174f4e26655545f1",
+  "mi2026/c3a_pr95/independent_check_3a.py": "23877b4a7e34fa1394180845fa6ffd93a5156a313691ed82ed3ae10ec0a36c93",
+  "mi2026/c3a_pr95/spot_check_3a.py": "8af8a6cdaeb0d05cce600709fae96b02e4b2069c64eccc8b3c3b7c537e1716a4",
+  "l2026/certificate_3c_147pt.json": "b3dc9587ba7a733a3f68b66017d7b5936f38040f8e9ca31a057bb65a6f227999",
+  "l2026/README.md": "9b7f318e8fba04201dcab5d83602b85802e9bb9c6865f4e78dc333f248c404fe"
+ }
+}

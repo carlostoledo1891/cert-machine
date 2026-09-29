@@ -69,10 +69,21 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       first commit whose record held it) and THE MONTHLY LEDGER (tools/build-report-
       monthly.js → reports/decided-2026-09.html, D6's first instance, rebuilt with
       every site build until the month closes).
-    · WAVE 1 — IN PROGRESS: the registry's starred constants first
-      (instruments/sumdiff: C3b and C3c entropy certificates, bigfloat, no code shared
-      with the claimants'), then K1, HorizonMath, the polynomial maps, K3(a) on
-      FrontierMath Erdős's AI-formalised statements.
+    · WAVE 1 — IN PROGRESS:
+      DONE — the registry's first two asterisks (reports/optimization-constants.html):
+      C3b >= 1.77898884* and C3c >= 1.6747338950414058* CERTIFIED from their entropy
+      certificates by instruments/sumdiff (BigInt pushforwards, bigfloat logs, no code
+      shared with the claimants') and tools/verify_sumdiff.py (the Python standard
+      library alone); the 147-point certificate's own checker compares in doubles and
+      prints OK for the false C3c >= 1.6747338950414059 (run on the pinned script,
+      recorded as an observation). The other 15 asterisks are the targets row
+      optconst-registry-asterisks. A pull request removing a star is a SEND.
+      NEXT — Suvrit Sra's AI counterexample library (github.com/suvrit/count-ex-
+      machina @ dbf67374, Apache-2.0, arXiv 2608.29595 "GPT, the Counterexample
+      Machine": 14 cases, 12 "exact"), each decided independently of its verify.py;
+      then K1, HorizonMath, the polynomial maps not yet in keller (Gao 2608.00222;
+      the weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
+      Erdős's AI-formalised statements.
 
   NEXT, in this order:
     0. The attack program's current wave (above).
@@ -985,6 +996,12 @@ DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
   ── 4 · GATES ── style, grammar, wiring, stale-claims, render, measure: pass;
     make site 93/93; drive-atlas 28/28 locally and live after the push.
 
+  ── THINGS LEARNED (later the same day) ── a verifier's LAST comparison must be as exact
+    as its enclosure: the 147-point C3c checker encloses the ratio at 100 digits and then
+    compares with mpmath.mpf at the default 53 bits. The mirror image bit us too: Python's
+    unary minus on a Decimal rounds to the DEFAULT context's 28 digits; the stdlib verifier's
+    first draft disagreed with the JavaScript instrument at the 28th digit until the two were
+    compared (it now names a context for every operation and poisons the default one).
   ── THINGS LEARNED ── served() in playground/return-level-atlas/build.js
     diffs ALL of instruments/hseva against the served commit, so even a battery
     edit there refuses the atlas build until a re-run: keep page-level tests

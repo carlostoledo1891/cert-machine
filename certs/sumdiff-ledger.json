@@ -1,0 +1,236 @@
+{
+ "what": "Two asterisked lower bounds of the optimization-constants registry (teorth/optimizationproblems @ 2c1968cd) decided from the certificates it cites: the entropy ratio H(X−Y)/max(H over the other forms) of each certificate's law enclosed by exact BigInt pushforwards and outward-rounded bigfloat logarithms, with no code shared with the claimants' mpmath checkers; a claim \"C >= c\" is CERTIFIED when the enclosure lies above c. Independently, tools/verify_sumdiff.py re-derives the same verdicts with the Python standard library alone.",
+ "generated": "2026-09-29",
+ "registry": {
+  "repo": "teorth/optimizationproblems",
+  "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
+  "committed": "2026-09-26T17:07:53Z",
+  "license": "Apache-2.0",
+  "files": [
+   "registry/README.md",
+   "registry/3b.md",
+   "registry/3c.md"
+  ],
+  "starNote": "README: \"Bounds for which the level of available verification is currently at minimal levels will be marked with an asterisk\""
+ },
+ "corpus": {
+  "meta": "corpus/optimization-constants/meta.json",
+  "sha256": "f84c8e490de0c185f315220bd44dc0731753a8df78244c6e172cd7eaa32a3ddf"
+ },
+ "code": {
+  "instruments/sumdiff/sumdiff.js": "e5919271fff8d04171120437a6fc78e537489f9459826f58cefb3387fdeca487",
+  "instruments/bigfloat/bigfloat.js": "106ead607bf310a02ecc1df8d23574a8c8a9aee017a48ec613cb5e7dececefb3",
+  "instruments/bigfloat/functions.js": "b66409f2295613c4b8410736394fdf42007b8ea014e84757fd16cac87a3145ce"
+ },
+ "rows": [
+  {
+   "id": "3b",
+   "constant": "C3b",
+   "claim": "C3b >= 1.77898884",
+   "claimant": "Mosaic Intelligence (2026)",
+   "source": "doi:10.5281/zenodo.20794135 (teorth/optimizationproblems PR #92)",
+   "registry": {
+    "row": "3b",
+    "printedLower": "1.77898 (1.77898884*)",
+    "printedUpper": "1.83333",
+    "asterisk": true
+   },
+   "certificate": {
+    "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json",
+    "sha256": "2efe99360a1ff5e3736e734ed06e5ab8e0cdcc33583ef22ece9e927e9e45365c",
+    "points": 13,
+    "denominatorDigits": 37
+   },
+   "verdict": "CERTIFIED",
+   "bits": 128,
+   "rho": [
+    "1.7789888414206935498051938874772894343542",
+    "1.7789888414206935498051938874772894344895"
+   ],
+   "entropies": {
+    "target": [
+     "1.223823395883792401230642456658",
+     "1.223823395883792401230642456659"
+    ],
+    "forms": [
+     [
+      "0.687932024861073221126046776533",
+      "0.687932024861073221126046776534"
+     ],
+     [
+      "0.687932024861073221126046776533",
+      "0.687932024861073221126046776534"
+     ],
+     [
+      "0.687932024861073221126046776533",
+      "0.687932024861073221126046776534"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "3c",
+   "constant": "C3c",
+   "claim": "C3c >= 1.6747338950414058",
+   "claimant": "Y. Lin (2026)",
+   "source": "gist CoolRmal/5368357c @ 62621d2d (teorth/optimizationproblems PR #185)",
+   "registry": {
+    "row": "3c",
+    "printedLower": "1.67473389 (1.6747338950414058*)",
+    "printedUpper": "1.75",
+    "asterisk": true
+   },
+   "certificate": {
+    "file": "corpus/optimization-constants/l2026/certificate_3c_147pt.json",
+    "sha256": "b3dc9587ba7a733a3f68b66017d7b5936f38040f8e9ca31a057bb65a6f227999",
+    "points": 147,
+    "denominatorDigits": 321
+   },
+   "verdict": "CERTIFIED",
+   "bits": 128,
+   "rho": [
+    "1.6747338950414058700631357567222139986329",
+    "1.6747338950414058700631357567222139998144"
+   ],
+   "entropies": {
+    "target": [
+     "1.901182660434269479340286352512",
+     "1.901182660434269479340286352513"
+    ],
+    "forms": [
+     [
+      "1.135214774158055076509779436185",
+      "1.135214774158055076509779436186"
+     ],
+     [
+      "1.135214774158055076509779436185",
+      "1.135214774158055076509779436186"
+     ],
+     [
+      "1.135214774158055076509779436185",
+      "1.135214774158055076509779436186"
+     ],
+     [
+      "1.135214774158055076509779436185",
+      "1.135214774158055076509779436186"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "3c-95",
+   "constant": "C3c",
+   "claim": "C3c >= 1.6747338950208249",
+   "claimant": "Mosaic Intelligence (2026)",
+   "source": "doi:10.5281/zenodo.20794135 (teorth/optimizationproblems PR #93), superseded by the 147-point certificate",
+   "registry": null,
+   "certificate": {
+    "file": "corpus/optimization-constants/mi2026/c3c_pr93/certificate_3c_v3_95pt.json",
+    "sha256": "2ebd7ba7a32e776ff5d271510b63a0999869fecfb148087a3d0fdd57cc4ffc3e",
+    "points": 95,
+    "denominatorDigits": 201
+   },
+   "verdict": "CERTIFIED",
+   "bits": 128,
+   "rho": [
+    "1.6747338950208249933782075776022651846547",
+    "1.6747338950208249933782075776022651853483"
+   ],
+   "entropies": {
+    "target": [
+     "1.901182654877701480702351787556",
+     "1.901182654877701480702351787557"
+    ],
+    "forms": [
+     [
+      "1.135214770854124643256516408713",
+      "1.135214770854124643256516408714"
+     ],
+     [
+      "1.135214770854124643256516408713",
+      "1.135214770854124643256516408714"
+     ],
+     [
+      "1.135214770854124643256516408713",
+      "1.135214770854124643256516408714"
+     ],
+     [
+      "1.135214770854124643256516408713",
+      "1.135214770854124643256516408714"
+     ]
+    ]
+   }
+  }
+ ],
+ "also": [
+  {
+   "of": "3b",
+   "claim": "1.778988841420693549",
+   "what": "the certificate's printed \"true value\" prefix",
+   "verdict": "CERTIFIED",
+   "bits": 128
+  },
+  {
+   "of": "3b",
+   "claim": "1.778988841420693550",
+   "what": "the prefix's next value (the prefix is a truncation iff this is refuted)",
+   "verdict": "REFUTED",
+   "bits": 128
+  },
+  {
+   "of": "3c-95",
+   "claim": "1.674733895020824993378207577602265184970",
+   "what": "the 95-point certificate's 39-digit bound",
+   "verdict": "CERTIFIED",
+   "bits": 256
+  },
+  {
+   "of": "3c",
+   "claim": "1.674733895041405870063135756722213999136383713818148696811828",
+   "what": "the 147-point certificate's 60-digit bound",
+   "verdict": "CERTIFIED",
+   "bits": 256
+  },
+  {
+   "of": "3c",
+   "claim": "1.6747338950414059",
+   "what": "a FALSE claim one unit above in the 17th significant digit — the same double as the true bound",
+   "verdict": "REFUTED",
+   "bits": 128
+  }
+ ],
+ "improvement": {
+  "printed": "2.06e-11",
+  "enclosure": [
+   "0.0000000000205808",
+   "0.0000000000205809"
+  ],
+  "rounds": true
+ },
+ "observed": {
+  "what": "The 147-point certificate's own checker, check_cert.py at the pinned gist revision (sha256 b25d24ed82e7…, not mirrored), run on 2026-09-29 with mpmath 1.3.0: it encloses the ratio at 100 digits (iv.dps = 100) but makes its final comparison, mpmath.mpf(verified) >= mpmath.mpf(claimed), in the default context of 53 bits, so any claim within a double of the true bound prints OK.",
+  "runs": [
+   {
+    "claimed": "1.674733895041405870063135756722213999136383713818148696811828",
+    "printed": "OK",
+    "truth": "CERTIFIED here (the certificate's own bound)"
+   },
+   {
+    "claimed": "1.674733895041405870063135756722213999136383713818148696811900",
+    "printed": "OK",
+    "truth": "not certified here: above the certified lower end at the 58th decimal"
+   },
+   {
+    "claimed": "1.6747338950414058800",
+    "printed": "OK",
+    "truth": "REFUTED here: above the ratio at the 17th significant digit"
+   },
+   {
+    "claimed": "1.67473389504140590",
+    "printed": "OK",
+    "truth": "REFUTED here"
+   }
+  ],
+  "note": "The bound the registry prints is TRUE (decided above); the checker that accompanies it would also have accepted a false one. The Mosaic Intelligence checkers set mp.dps = 80 before comparing and do not have this weakness."
+ }
+}

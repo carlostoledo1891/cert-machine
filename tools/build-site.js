@@ -332,6 +332,12 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'optimization-constants.html', k: 'audit · the registry\'s asterisks',
+    title: 'Two asterisks, replayed',
+    desc: 'The optimization-constants registry marks a bound with an asterisk when its verification is at minimal levels. C3b >= 1.77898884 and '
+      + 'C3c >= 1.6747338950414058 rest on entropy certificates small enough to decide exactly: both hold, each ratio enclosed to 40 digits by two '
+      + 'implementations sharing no code with the claimants — and the checker published with the second prints OK for a false bound.',
+    n: '2 asterisked bounds certified · 1 checker that compares in doubles' },
   { g: 'ai', f: 'claims.html', k: 'the claims desk',
     title: 'Send us a claim',
     desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '

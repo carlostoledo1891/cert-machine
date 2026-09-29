@@ -225,6 +225,20 @@ function firstSeen(file, key) {
   });
 }
 
+/* 13 · the optimization-constants registry's asterisked sum–difference bounds, decided from their certificates */
+{
+  const d = J('certs/sumdiff-ledger.json');
+  for (const r of d.rows) {
+    if (r.verdict !== 'CERTIFIED') die('a sumdiff row is not certified: ' + r.id);
+    rows.push({
+      id: 'optconst-' + r.id, claim: r.claim + (r.registry ? ' (the registry\'s asterisked lower bound)' : ' (superseded in the registry)'), claimant: r.claimant, source: r.source,
+      origin: 'self-initiated', verdict: 'CERTIFIED',
+      scope: 'the entropy ratio of the cited ' + r.certificate.points + '-point certificate, enclosed to 40 digits: ' + r.rho[0].slice(0, 22) + '…',
+      kind: 'none', key: '"id": "' + r.id + '"', decidedFrom: 'certs/sumdiff-ledger.json', page: '/reports/optimization-constants.html'
+    });
+  }
+}
+
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';

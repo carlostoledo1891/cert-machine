@@ -743,13 +743,52 @@
    "decidedFrom": "corpus/navier-stokes/audit.json",
    "page": "/reports/navier-stokes.html",
    "recordedOn": "2026-09-09"
+  },
+  {
+   "id": "optconst-3b",
+   "claim": "C3b >= 1.77898884 (the registry's asterisked lower bound)",
+   "claimant": "Mosaic Intelligence (2026)",
+   "source": "doi:10.5281/zenodo.20794135 (teorth/optimizationproblems PR #92)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the entropy ratio of the cited 13-point certificate, enclosed to 40 digits: 1.77898884142069354980…",
+   "kind": "none",
+   "decidedFrom": "certs/sumdiff-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "optconst-3c",
+   "claim": "C3c >= 1.6747338950414058 (the registry's asterisked lower bound)",
+   "claimant": "Y. Lin (2026)",
+   "source": "gist CoolRmal/5368357c @ 62621d2d (teorth/optimizationproblems PR #185)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the entropy ratio of the cited 147-point certificate, enclosed to 40 digits: 1.67473389504140587006…",
+   "kind": "none",
+   "decidedFrom": "certs/sumdiff-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "optconst-3c-95",
+   "claim": "C3c >= 1.6747338950208249 (superseded in the registry)",
+   "claimant": "Mosaic Intelligence (2026)",
+   "source": "doi:10.5281/zenodo.20794135 (teorth/optimizationproblems PR #93), superseded by the 147-point certificate",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "the entropy ratio of the cited 95-point certificate, enclosed to 40 digits: 1.67473389502082499337…",
+   "kind": "none",
+   "decidedFrom": "certs/sumdiff-ledger.json",
+   "page": "/reports/optimization-constants.html",
+   "recordedOn": "2026-09-29"
   }
  ],
- "count": 55,
- "decided": 54,
+ "count": 58,
+ "decided": 57,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 41,
+  "CERTIFIED": 44,
   "PARTIAL": 2,
   "REFUTED": 1,
   "QUEUED": 1,
@@ -758,7 +797,7 @@
   "NEEDS DATA": 1
  },
  "byOrigin": {
-  "self-initiated": 55
+  "self-initiated": 58
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -775,7 +814,7 @@
   "data-not-public": "the data behind the claim are not public, so no one outside can decide it"
  },
  "byKind": {
-  "none": 42,
+  "none": 45,
   "narrower-scope": 1,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -789,11 +828,11 @@
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 37
+  "2026-09": 40
  },
  "submitted": 0,
  "meta": {
   "date": "2026-09-29",
-  "git": "c56ab5f"
+  "git": "d9e2f20"
  }
 }
