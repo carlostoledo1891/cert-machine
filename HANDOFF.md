@@ -101,6 +101,32 @@ INSTRUCTIONS — do not act before reading them.
     economic valuation with Petrobras interlocutors. Both answers-*.json are final;
     only the six PREENCHER fields and the operator's word remain.
 
+  2026-09-30 ~19:30 BRT: CONTRAPROVA REBUILT TO THE SAME PLAN AS DECIDÍVEL (ten
+  sections in the evaluator's language, sourced costs, references, Nota Técnica, the
+  contact's three notes): page.js rewritten (0 header with glosses VÁLIDO/INVÁLIDO/
+  INDETERMINADO; 1 the problem in numbers — Petrobras's own digital-twin figures [>US$
+  200 mi in refineries; Jubarte ≈ 1%], P-84/P-85 US$ 8.15 bn / 225 kbpd, SGSO practices
+  13 and 16; 2 what it adds vs V&V / UQ / second calculation / SGSO; 3 how it decides
+  with a hand-recomputable Colebrook example at the violating corner; 4 demonstration:
+  the live gate, the seven faults, MONTE CARLO FACE TO FACE — 10,000 uniform draws say
+  0.3% over 360 bar, max 360.7, while the proved corner reaches 361.6 —, the atlas/
+  scipy/design-table block, the frontier-AI table; 5 six decisions with costs; 6 state
+  of the art (ASME V&V 20, NASA-STD-7009, Oberkampf–Roy, Moore–Kearfott–Cloud, Hansen–
+  Walster, Coles, ISO 19901-1, DNV-RP-C205, API RP 14E); 7 E1–E6 + E3b valuation with
+  synthetic data; 8 risks/business/IP/deployment; 9 maturity; 10 the ask; 17
+  references). build.js now records `mc` in gate-ledger.json (written with --accept)
+  and prints /contraprova/nota-tecnica-exemplo.pdf (nota.js). Deck rewritten in the
+  page's order, 12 slides checked. Form texts 1,992 / 468 chars (the four full URLs in
+  the free field). Gates: style, measure (--accept-worse, same reason), render accepted.
+  ALSO 20:48 UTC: an independent audit of the λ(4) proof landed on teorth/erdosproblems
+  #392 (user rainrzk; repo rainrzk/erdos510-lambda4-audit): "it doesn't break" — every
+  step re-certified with their own code, plus a brute-force sweep to max ≤ 80; five
+  documentation nits (the write-up says {1,2,3,4} is skipped "exactly once" — the
+  record skips it six times; §5.8's list omits cone ii's 89 sets; PR #411 calls the
+  cubic's root "unique" — it has three real roots, λ(4) the largest). A reply is
+  drafted in chat, NOT posted (a send). Fix the write-up sentences in
+  tools/build-lambda4-writeup.js / paper/lambda4-proof.md when the operator says.
+
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
       — engineering and AI numbers decided; portfolios Reservatórios + Submarina +

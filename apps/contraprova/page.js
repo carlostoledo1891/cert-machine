@@ -145,69 +145,109 @@ details.cp-why[open] > summary{margin-bottom:20px}
 
 function build(N, bundleText, git) {
   const G = N.gate, S = G.scenarios;
-  const lead = G.lead.receipt, fixed = G.fixed.receipt;
+  const lead = G.lead.receipt, fixed = G.fixed.receipt, MC = G.mc;
+  const F = require('./gate/flowline.js');
   const B = [];
+  const NOTA = '/contraprova/nota-tecnica-exemplo.pdf', DECK = '/contraprova/contraprova-apresentacao.pdf';
+  const GL = { PROVADO: 'VÁLIDO — vale para toda entrada dentro da incerteza declarada', REFUTADO: 'INVÁLIDO — a falha está provada: a equação, o limite ou a entrada que a derruba', RECUSADO: 'INDETERMINADO — entradas admissíveis dos dois lados, e o limiar que decide' };
+  const gl = (v) => RC.chip(v, true) + '<p class="cp-k">' + esc(GL[v]) + '</p>';
+  const REF = {
+    seatrium: 'https://www.offshore-technology.com/news/petrobras-fpso-construction-contract-seatrium/',
+    twins: 'https://nossaenergia.petrobras.com.br/w/inovacao/digital-twins-na-petrobras-impulsionam-eficiencia-operacional-1-1',
+    jubarte: 'https://agencia.petrobras.com.br/w/inovacao/petrobras-usara-gemeo-digital-para-otimizar-producao-e-escoamento-de-petroleo',
+    sgso: 'https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/seguranca-operacional/arq/regulamento_sgso.pdf',
+    conexoes: 'https://mercadoeconsumo.com.br/04/07/2022/economia/petrobras-lanca-oportunidades-para-aquisicao-de-solucoes-inovadoras/',
+    doi: 'https://doi.org/10.5281/zenodo.22800699'
+  };
+  const a = (k, t) => '<a href="' + REF[k] + '">' + esc(t) + '</a>';
+  const bar1 = (x) => br.dec(x, 1) + ' bar';
 
-  /* ---- hero ---- */
+  /* ---- 0 · header ---- */
   B.push('<header class="col cp-hero">'
-    + '<div class="eyebrow">Contraprova · verificação independente para computação de engenharia e IA</div>'
-    + '<h1>Antes de um número decidir uma operação, ele passa pela contraprova.</h1>'
-    + '<p class="deck">Modelos de IA, simuladores, otimizadores e planilhas propõem números — uma vazão de injeção, uma pressão na cabeça do poço, a onda de projeto de uma plataforma. '
-    + 'A Contraprova decide cada número com aritmética exata, sem compartilhar código com quem calculou, e responde com uma de três palavras. '
-    + 'Cada resposta sai com um recibo que qualquer engenheiro refaz.</p>'
+    + '<div class="eyebrow">Contraprova · Engenharia de Reservatórios, Elevação e Escoamento · Tecnologia Submarina · Geração de Energia · verificação independente de números de IA e simulação</div>'
+    + '<h1>Desafio: decidir, antes de agir, se um número produzido por IA, simulação ou planilha vale para toda a incerteza declarada.</h1>'
+    + '<p class="deck">Gêmeos digitais, otimizadores e modelos de IA já recomendam vazões, pressões e valores de projeto na Petrobras [1, 2]. Cada recomendação termina num número que chega sozinho: “previsão 352 bar, confiança 97%”. A Contraprova acrescenta ao fluxo de decisão o que a validação do modelo não dá: sobre o <b>modelo físico declarado</b> e o <b>envelope de incerteza declarado</b> das entradas (faixas com fonte), calcula por <b>aritmética intervalar rigorosa</b> o intervalo garantido da saída — a <b>garantia de pior caso</b> — e devolve um de três vereditos sobre cada número, com um <b>contraexemplo</b> de cada lado quando a evidência não decide e o <b>limiar que decide</b>. Cada veredito sai num certificado de uma página que um engenheiro refaz sem o nosso código.</p>'
     + '<div class="cp-trio">'
-    + '<div>' + RC.chip('PROVADO', true) + '<p>Vale para <b>toda</b> entrada declarada — não para uma amostra, não em média.</p></div>'
-    + '<div>' + RC.chip('REFUTADO', true) + '<p>Falha, e a falha está provada: o recibo aponta a equação, o limite ou a entrada que a derruba.</p></div>'
-    + '<div>' + RC.chip('RECUSADO', true) + '<p>A evidência declarada não decide — e o recibo publica exatamente o que decidiria.</p></div>'
+    + '<div>' + gl('PROVADO') + '<p>O número respeita as equações e as regras declaradas para toda entrada do envelope — não numa amostra, não em média.</p></div>'
+    + '<div>' + gl('REFUTADO') + '<p>Falha, e a falha está provada: um número que não resolve a sua própria equação, viola conservação, uma unidade ou o domínio do modelo.</p></div>'
+    + '<div>' + gl('RECUSADO') + '<p>O envelope contém entradas que respeitam a regra e entradas que a violam, ambas verificadas; o certificado publica a medição ou o ajuste que decide.</p></div>'
     + '</div>'
-    + '<div class="cp-cta"><a class="go" href="#portao">Ver o portão ao vivo ↓</a><a href="/contraprova/contraprova-apresentacao.pdf">Apresentação (PDF)</a><a href="#projeto">O projeto de PD&amp;I</a></div>'
+    + '<div class="cp-cta"><a class="go" href="#portao">O portão ao vivo ↓</a><a href="' + NOTA + '">Nota Técnica de exemplo (PDF)</a><a href="' + DECK + '">Apresentação (PDF)</a><a href="#plano">Plano de trabalho</a></div>'
     + '</header>');
 
   B.push(C.stats([
-    { k: 'ondas de projeto decididas', v: br.int(N.atlas.fits), n: br.int(N.atlas.certified) + ' provadas e ' + br.int(N.atlas.refused) + ' recusadas com motivo, em ' + br.int(N.atlas.cells) + ' células do hindcast público' },
-    { k: 'mesmo software, mesmos dados', v: N.scipy.free.agree + ' de ' + N.scipy.free.of, n: 'ajustes do scipy na chamada padrão que são o que dizem ser; ' + N.scipy.fixed.agree + ' de ' + N.scipy.fixed.of + ' com a locação fixa' },
-    { k: 'falhas injetadas pegas', v: G.faults.caught + ' de ' + G.faults.of, n: 'no portão de injeção de água; ' + G.battery.fired + '/' + G.battery.reds + ' controles vermelhos a cada build' },
-    { k: 'resultados de IA de fronteira', v: br.int(N.ai.decided), n: 'afirmações publicadas decididas no registro público — entre elas de GPT-5.4 Pro, GPT-5.6 e Codex' }
+    { k: 'custo em jogo', v: '225 mil bpd', n: 'a capacidade de cada um dos FPSOs P-84 e P-85 (US$ 8,15 bilhões pelos dois, Seatrium, 2025): uma decisão operacional errada custa horas ou dias disso [3]' },
+    { k: 'IA já decide', v: '> US$ 200 mi', n: 'ganhos declarados pela Petrobras com gêmeos digitais nas refinarias; no campo de Jubarte, cerca de 1% de produção a mais num piloto de gêmeo digital [1, 2]' },
+    { k: 'no demonstrador', v: G.faults.caught + ' de ' + G.faults.of, n: 'falhas injetadas pegas no portão de injeção de água, cada uma com o motivo provado; ' + G.battery.fired + '/' + G.battery.reds + ' casos de controle negativos a cada build' },
+    { k: 'o que o Monte Carlo diria', v: br.pct ? br.pct(100 * MC.pOver, 1) : (100 * MC.pOver).toFixed(1).replace('.', ',') + '%', n: 'dos ' + br.int(MC.draws) + ' sorteios do mesmo envelope passam de 360 bar na recomendação de IA; a Contraprova prova uma entrada admissível a ' + bar1(MC.cornerAbove) + ' e outra a ' + bar1(MC.cornerBelow) }
   ]));
 
-  /* ---- 1 the problem ---- */
-  B.push(C.section({
-    lab: '1 · o problema', title: 'Números que decidem, sem recibo',
+  /* ---- 1 · the problem in numbers ---- */
+  B.push(C.section({ lab: '1 · o problema em números', title: 'Na Petrobras, gêmeos digitais e IA já propõem números de operação e de projeto; a decisão de agir sobre cada um continua sem prova [1, 2].',
     bodyRaw: '<div class="col">'
-      + C.p('Operadoras como a Petrobras usam cada vez mais IA, gêmeos digitais, simulação e otimização para apoiar decisões de engenharia e de operação. Cada um desses sistemas termina num número — e o número chega sozinho: “previsão 352 bar, confiança 97%”. Quem vai agir sobre ele não tem como refazê-lo; dois programas dão dois números para os mesmos dados; e, quando a matemática não tem resposta, o software imprime uma assim mesmo.')
-      + C.pRaw('A pergunta que ninguém responde hoje não é <em>“o modelo é bom em média?”</em>. É: <b>este número, esta recomendação, vale para as condições que declaramos?</b> A Contraprova responde a essa pergunta — sobre a saída, sem precisar abrir o modelo.')
-      + '</div>'
-  }));
+      + C.pRaw('A Petrobras declara mais de ' + a('twins', 'US$ 200 milhões de ganhos com gêmeos digitais nas refinarias') + ' e prepara a evolução para a otimização autônoma; no campo de Jubarte, um piloto de gêmeo digital para produção e escoamento ' + a('jubarte', 'aumentou a produção em cerca de 1%') + ' e foi validado para uso [1, 2]. Cada um desses sistemas termina num número — uma vazão de injeção, uma pressão na cabeça do poço, uma onda de projeto — e o número chega sozinho, com uma confiança que fala do modelo, não daquela saída.')
+      + C.pRaw('O que está em jogo por número: a capacidade de um FPSO do pré-sal é de ' + a('seatrium', '225 mil barris por dia (P-84 e P-85, US$ 8,15 bilhões pelos dois)') + ' [3]; uma linha de injeção tem um limite de pressão na cabeça do poço e um limite de erosão (API RP 14E [12]); a onda de 100 anos fixa a base de projeto de cascos, ancoragens e risers (ISO 19901-1, DNV-RP-C205 [10, 11]). O Sistema de Gerenciamento da Segurança Operacional exige que qualquer desvio das especificações de projeto passe pelo gerenciamento de mudanças e pela integridade mecânica (' + a('sgso', 'Resolução ANP 43/2007, práticas 13 e 16') + ' [4]) — e uma recomendação de IA que muda uma vazão é uma mudança.')
+      + C.pRaw('Três fatos do demonstrador desta página. Dois programas dão dois números para os mesmos dados: o mesmo scipy, nos mesmos ' + br.int(N.scipy.n) + ' registros, imprime ' + br.dec(N.scipy.ew.free, 2) + ' m ou ' + br.dec(N.scipy.ew.fixed, 2) + ' m de onda de 100 anos. Quando o máximo não existe, o otimizador imprime a última iteração como resultado: ' + br.int(N.atlas.ggLimit) + ' casos só no atlas público. E uma recomendação plausível de IA, “352 bar, 97%”, tem entradas declaradas dos dois lados do limite de 360 bar. A pergunta que o fluxo atual não responde não é “o modelo é bom em média?”; é: <b>este número vale para as condições que declaramos?</b>')
+      + '</div>' }));
 
-  /* ---- 2 the architecture ---- */
-  B.push(C.section({
-    lab: '2 · a arquitetura', title: 'A IA propõe. A Contraprova decide.',
+  /* ---- 2 · what Petrobras does today, and what is added ---- */
+  B.push(C.section({ lab: '2 · o que a Petrobras já faz, e o que acrescenta', title: 'A validação de modelos, a UQ e a revisão por pares avaliam o modelo; a Contraprova acrescenta a decisão sobre cada saída, com prova.',
+    bodyRaw: '<div class="col">' + C.p('Nada é substituído: o gêmeo digital, o simulador e a revisão continuam como hoje. A Contraprova entra como um portão ao lado do modelo e como anexo do relatório: o certificado de decisão de cada número.') + '</div>'
+      + C.table({ cols: [{ h: 'hoje' }, { h: 'entrega' }, { h: 'o que a Contraprova acrescenta' }], rows: [
+        ['Validação e métricas do modelo (MLOps, V&amp;V de código, ASME V&amp;V 20 [7], NASA-STD-7009 [8])', 'desempenho médio e credibilidade do modelo', 'uma decisão sobre ESTA saída, nestas condições: o intervalo garantido e o veredito'],
+        ['Quantificação de incerteza, intervalos de confiança', 'a dispersão estatística', 'se a saída respeita as equações que declara e as regras, em todo o envelope; a estatística nunca se passa por prova'],
+        ['Segundo cálculo, outro software', 'um segundo número', 'o árbitro: qual número é o máximo que diz ser, qual parou antes (' + br.dec(N.scipy.ew.free, 2) + ' × ' + br.dec(N.scipy.ew.fixed, 2) + ' m)'],
+        ['Revisão por par ou por classificadora', 'o julgamento de um especialista', 'a re-derivação mecânica de cada número, como insumo da revisão; não a substitui'],
+        ['Gerenciamento de mudanças (SGSO, prática 16)', 'o registro da mudança', 'o certificado de decisão como registro técnico da mudança, reexecutável na auditoria'],
+        ['Auditoria, meses depois', 'refazer o estudo', 'refazer o certificado: um arquivo, segundos, sem o nosso código']
+      ] })
+      + '<div class="col"><p class="scope"><b>Glossário.</b> Envelope declarado (nas páginas do motor, “caixa”): as faixas das entradas, com fonte. Contraexemplos (“testemunhas”): uma entrada verificada de cada lado da regra. Certificado de decisão (“recibo”): a Nota Técnica de uma página, reexecutável sem o nosso código. Casos de controle negativos (“controles vermelhos”): erros plantados que cada build precisa recusar. Os selos PROVADO, REFUTADO e RECUSADO leem-se VÁLIDO, INVÁLIDO e INDETERMINADO. “Certificação” tem dono no offshore (sociedades classificadoras, ANP): a Contraprova entrega uma prova matemática reexecutável sobre um número, não uma certificação de classe.</p></div>' }));
+
+  /* ---- 3 · how it decides ---- */
+  const hand = (() => {
+    const p = { L: 5990, D: 0.1528, eps: 0.00002, rho: 1028, mu: 0.00108, dz: 2105 }, Qd = 7000, Pd = 206;
+    const q = Qd / 86400, A = Math.PI * p.D * p.D / 4, v = q / A, Re = p.rho * v * p.D / p.mu;
+    const x = F.newton(p.eps / (3.7 * p.D), 2.51 / Re), f = 1 / (x * x);
+    const dpf = (p.L / p.D) * p.rho * v * v / 2 / 1e5, hyd = p.rho * 9.80665 * p.dz / 1e5, Pwh = Pd + hyd - dpf * 1;
+    const d = (v_, n) => br.dec(v_, n);
+    return [
+      ['área e velocidade', 'A = πD²/4; v = Q/A', d(A, 5) + ' m² · ' + d(v, 3) + ' m/s'],
+      ['número de Reynolds', 'Re = ρvD/μ', br.int(Re)],
+      ['fator de atrito (Colebrook, x = 1/√f)', 'x + (2/ln 10)·ln(ε/(3,7D) + 2,51x/Re) = 0', 'x = ' + d(x, 3) + ' → f = ' + d(f, 5)],
+      ['perda por atrito', 'Δp = f·(L/D)·ρv²/2', d(f * (p.L / p.D) * p.rho * v * v / 2 / 1e5, 1) + ' bar'],
+      ['ganho hidrostático', 'ρgΔz', d(hyd, 1) + ' bar'],
+      ['pressão na cabeça do poço', 'P_wh = P_d + ρgΔz − Δp', '<b>' + d(Pd + hyd - f * (p.L / p.D) * p.rho * v * v / 2 / 1e5, 1) + ' bar</b> (limite 360)']
+    ];
+  })();
+  B.push(C.section({ lab: '3 · como decide', title: 'Modelo físico declarado com fonte; intervalo garantido por aritmética intervalar; contraexemplos verificados.',
     bodyRaw: '<div class="wide"><div class="cp-arch">'
-      + '<div class="cp-st"><div class="cp-k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro da linha, histórico de poço — dentro da Petrobras. O piloto não pede dados reais: dados sintéticos no formato dos reais, e os scripts rodados por ela.</p></div><div class="cp-ar" aria-hidden="true"></div>'
-      + '<div class="cp-st claim"><div class="cp-k">quem propõe</div><h3>IA · simulador · otimizador · planilha</h3><p>Entrega uma <em>proposta</em>: um número e o que ele afirma. Pode ser qualquer modelo — inclusive um que ninguém consegue abrir.</p></div><div class="cp-ar" aria-hidden="true"></div>'
-      + '<div class="cp-st core"><div class="cp-k">contraprova</div><h3>Três camadas, em aritmética exata</h3><ol>'
-      + '<li><b>Consistência matemática</b> — o número resolve as equações que declara? (Colebrook, máxima verossimilhança, balanços)</li>'
-      + '<li><b>Limites físicos</b> — conservação de massa e energia, domínio de validade de cada correlação</li>'
-      + '<li><b>Restrições operacionais</b> — as regras declaradas, em toda a caixa de incerteza</li></ol>'
-      + '<p>Intervalos com arredondamento dirigido; nenhum código compartilhado com quem propôs.</p></div><div class="cp-ar" aria-hidden="true"></div>'
-      + '<div class="cp-st"><div class="cp-k">recibo</div><h3>Verificável por máquina</h3><div class="cp-vs">' + RC.chip('PROVADO') + RC.chip('REFUTADO') + RC.chip('RECUSADO') + '</div><p>Veredito, intervalo, testemunhas e limiares — refeito por qualquer um em segundos.</p></div>'
+      + '<div class="cp-st"><div class="cp-k">envelope declarado</div><h3>Entradas como faixas, com fonte</h3><p>Comprimento, diâmetro, rugosidade, massa específica, viscosidade e desnível da linha, cada um como intervalo; as regras de operação declaradas (P_wh ≤ 360 bar; v ≤ 5 m/s). No piloto, do cadastro e dos perfis, em dados sintéticos no formato da Petrobras.</p></div><div class="cp-ar" aria-hidden="true"></div>'
+      + '<div class="cp-st claim"><div class="cp-k">quem propõe</div><h3>IA · simulador · otimizador · planilha</h3><p>Uma proposta: um número e o que ele afirma. O modelo não precisa ser aberto; decide-se a saída.</p></div><div class="cp-ar" aria-hidden="true"></div>'
+      + '<div class="cp-st core"><div class="cp-k">o método</div><h3>Garantia de pior caso sobre o envelope</h3><ol>'
+      + '<li><b>Modelo físico declarado</b>: Colebrook [13] e Darcy–Weisbach com o ganho hidrostático; para extremos, máxima verossimilhança nas famílias de Coles [14]. O veredito fala do modelo declarado e do envelope declarado.</li>'
+      + '<li><b>Intervalo garantido</b>: aritmética intervalar com arredondamento para fora [5, 6]; a raiz de Colebrook cercada pela monotonicidade em x = 1/√f, cada extremo provado; a regra decidida por bissecção do envelope.</li>'
+      + '<li><b>Contraexemplos</b>: uma entrada verificada de cada lado da regra, e o limiar (descarga, rugosidade) que decide.</li></ol></div><div class="cp-ar" aria-hidden="true"></div>'
+      + '<div class="cp-st"><div class="cp-k">o que sai</div><h3>Certificado de decisão</h3><div class="cp-vs">' + RC.chip('PROVADO') + RC.chip('REFUTADO') + RC.chip('RECUSADO') + '</div><p>Veredito, intervalo garantido, contraexemplos, limiares e reprodução, numa página (<a href="' + NOTA + '">exemplo em PDF</a>).</p></div>'
       + '</div></div>'
-      + '<div class="wide"><div class="cp-diff">'
-      + '<div><b>Decide a saída, não o modelo</b><p>Não é preciso provar uma rede neural. Decide-se o que ela entregou, antes de virar ação.</p></div>'
-      + '<div><b>A caixa inteira, não uma amostra</b><p>Um PROVADO vale para toda entrada dentro da incerteza declarada — não num ponto, não em média.</p></div>'
-      + '<div><b>Recusar é um veredito</b><p>Quando a evidência não decide, o recibo mostra uma entrada provada de cada lado e publica o limiar que mudaria a resposta.</p></div>'
-      + '<div><b>Independente de quem calculou</b><p>Nenhum código em comum com o autor do número; uma segunda implementação, em outra linguagem, confere a primeira.</p></div>'
-      + '<div><b>Adversarial por construção</b><p>Cada verificador carrega falsificações que precisa recusar a cada build: ' + G.battery.fired + ' de ' + G.battery.reds + ' neste portão.</p></div>'
-      + '<div><b>O recibo viaja, os dados ficam</b><p>O verificador roda onde os dados estão; quem audita recebe o recibo, não a base.</p></div>'
-      + '</div></div>'
-  }));
+      + '<div class="col">' + C.pRaw('<b>Verificação.</b> Uma segunda implementação em Python (módulo decimal, 50 dígitos, sem código em comum) calcula P_wh em ' + G.battery.refPoints + ' entradas — os 64 cantos e pontos sorteados de duas operações — e o intervalo do portão contém todas. ' + G.battery.checks + ' verificações e ' + G.battery.fired + '/' + G.battery.reds + ' casos de controle negativos a cada build: uma pressão 0,1 bar fora do intervalo, um manifold com 1 m³/d a mais, um f 10⁻⁴ fora das soluções, uma vazão 1 m³/d abaixo do regime turbulento, um “verificador” que avalia só o centro do envelope — todos recusados. Cada caso é decidido de novo no navegador pelo mesmo código que gerou o registro.')
+      + C.pRaw('<b>Fora desta versão, dito aqui.</b> Escoamento monofásico, permanente e isotérmico: transientes, multifásico, perfil térmico e a erosão como modelo entram por domínio na E5, cada um como modelo declarado com o seu envelope. Um PROVADO fala do modelo declarado e das entradas declaradas — não do poço.')
+      + '</div>'
+      + '<div class="col sec-head cp-sub"><h3>Um contraexemplo recalculável à mão</h3></div>'
+      + '<div class="col">' + C.p('A entrada admissível que viola o limite na recomendação de IA (+4,2%: Q = 7.000 m³/d, P_d = 206 bar): ε = 0,020 mm, μ = 1,08 mPa·s, D = 152,8 mm, ρ = 1.028 kg/m³, Δz = 2.105 m, L = 5.990 m — a linha mais lisa, a água mais fluida e mais densa, o diâmetro maior, a lâmina maior. Linha a linha, numa planilha; o portão garante o mesmo valor com intervalo (≥ ' + bar1(MC.cornerAbove) + ').') + '</div>'
+      + C.table({ cols: [{ h: 'passo' }, { h: 'fórmula' }, { h: 'valor' }], rows: hand.map((r) => [r[0], { raw: '<code>' + esc(r[1]) + '</code>' }, { raw: r[2] }]) }) }));
 
-  /* ---- 3 the live gate ---- */
+  /* ---- 4 · demonstration: the live gate, the faults, Monte Carlo, real data, frontier AI ---- */
   const caseBtn = (c, i) => '<button type="button" class="cp-case" data-i="' + i + '" aria-pressed="' + (i === 0 ? 'true' : 'false') + '"><small>' + esc(c.kind === 'proposta' ? 'proposta de IA' : c.fault) + '</small><span>' + esc(c.title) + '</span></button>';
   const rows = S.cases.map(caseBtn);
   const boxRows = Object.keys(S.box).map((k) => { const [w, u, sc, d] = S.boxWords[k]; const f = (x) => (d ? br.dec(x, d) : br.int(x)); return [w, f(Number(S.box[k][0]) * sc) + ' – ' + f(Number(S.box[k][1]) * sc) + ' ' + u]; });
-  B.push('<section id="portao">' + '<div class="col sec-head"><div class="lab">3 · o portão ao vivo</div><h2>Uma recomendação de IA, decidida na sua frente</h2></div>'
-    + '<div class="col">' + C.p(S.line + '. Nove propostas: duas recomendações que um modelo de IA poderia fazer, e sete saídas de referência com uma falha injetada em cada — as sete falhas que um verificador industrial precisa pegar. Cada uma é decidida agora, no seu navegador, pelo mesmo código que gerou o registro publicado.') + '</div>'
+  const tRows = N.table.rows.slice().sort((x, y) => x.d - y.d);
+  const lo = Math.floor(Math.min(...tRows.map((r) => Math.min(r.printed, r.decided)))) - 1, hi = Math.ceil(Math.max(...tRows.map((r) => Math.max(r.printed, r.decided)))) + 1;
+  const ticks = []; for (let v = lo; v <= hi; v += 2) ticks.push({ v, t: v + ' m' });
+  const dumb = CH.dumbbell({ w: 900, rows: tRows.map((r) => ({ k: r.k, a: r.decided, b: r.printed, lab: br.sgn(r.d, 2) + ' m' })), x0: lo, x1: hi, xTicks: ticks,
+    aName: 'decidido no registro público', bName: 'impresso na tabela', padL: 250, vOf: (v) => br.dec(v, 2) + ' m',
+    alt: 'Ondas de 100 anos: a tabela publicada contra o registro público mais próximo, vinte ajustes em cinco áreas.' });
+  B.push('<section id="portao"><div class="col sec-head"><div class="lab">4 · demonstração</div><h2>Uma recomendação de IA de +4,2% de injeção é INDETERMINADA no envelope declarado: há entradas admissíveis a ' + bar1(MC.cornerAbove) + ' e a ' + bar1(MC.cornerBelow) + '; com P_d ≤ ' + br.dec(lead.flip.pdGreen, 1) + ' bar fica VÁLIDA.</h2></div>'
+    + '<div class="col">' + C.p(S.line + '. Valores típicos e ilustrativos, não dados da Petrobras. Nove propostas: duas recomendações que um modelo de IA poderia fazer, e sete saídas de referência com uma falha injetada em cada — as sete falhas que um verificador industrial precisa pegar. Cada uma é decidida agora, no seu navegador, pelo mesmo código que gerou o registro publicado.') + '</div>'
     + '<div class="wide"><div class="cp-gate">'
     + '<div class="cp-cases" role="group" aria-label="Propostas"><div class="cp-k">recomendações</div>' + rows.slice(0, 2).join('') + '<div class="cp-k">falhas injetadas</div>' + rows.slice(2).join('') + '</div>'
     + '<div id="cp-panel" aria-live="polite">' + RC.receiptHtml(S.cases[0], lead, S.rules.PwhMax, 'registro publicado') + '</div>'
@@ -217,105 +257,144 @@ function build(N, bundleText, git) {
     + '<label>descarga P_d (bar)<input name="pd" inputmode="decimal" value="204"></label>'
     + '<label>P_wh prevista (bar)<input name="pwh" inputmode="decimal" value="350"></label>'
     + '<button type="submit">Decidir esta proposta</button>'
-    + '<p>Digite a sua proposta: a mesma linha, a mesma caixa, as mesmas regras. O veredito sai em milissegundos, na sua máquina.</p></form></div>'
-    + '<details class="cp-why wide"><summary>Por que confiar — a caixa, as regras e a matemática</summary>'
-    + '<div class="col">' + C.p('Valores típicos e ilustrativos, não dados da Petrobras. A caixa declarada (toda entrada dentro dela é decidida):') + '</div>'
+    + '<p>Digite a sua proposta: a mesma linha, o mesmo envelope, as mesmas regras. O veredito sai em milissegundos, na sua máquina.</p></form></div>'
+    + '<div class="col">' + C.p('O envelope declarado (toda entrada dentro dele é decidida) e as duas regras:') + '</div>'
     + '<div class="cp-box">' + C.table({ cols: [{ h: 'entrada' }, { h: 'intervalo declarado' }], rows: boxRows.concat([['regra 1', S.rulesWords.PwhMax], ['regra 2', S.rulesWords.vMax]]) }) + '</div>'
-    + '<div class="col">'
-    + C.pRaw('<b>O modelo declarado.</b> v = Q/A, Re = ρvD/μ, Colebrook 1/√f = −2 log₁₀(ε/3,7D + 2,51/(Re√f)) só para Re ≥ 4.000, e Darcy–Weisbach com o ganho hidrostático: P_wh = P_d + ρgΔz − f(L/D)ρv²/2. Um PROVADO afirma algo sobre o modelo e as entradas declaradas — não sobre o mar.')
-    + C.pRaw('<b>Como a caixa inteira é decidida.</b> Com x = 1/√f, Colebrook vira h(x) = x + (2/ln 10)·ln(a + bx) = 0, crescente em x, a e b; logo a raiz decresce em a e b, e os dois cantos (a₊, b₊) e (a₋, b₋) cercam todas as raízes da caixa. Um passo de Newton em ponto flutuante só <em>localiza</em> cada canto; ele só vale quando h é provado negativo logo abaixo e positivo logo acima, em aritmética intervalar com arredondamento para fora e logaritmo por série com resto rigoroso. A regra é decidida por bissecção da caixa; um RECUSADO exige dois cantos provados, um de cada lado.')
-    + C.pRaw('<b>Quem confere o conferente.</b> Uma segunda implementação em Python (<span class="m">decimal</span>, 50 dígitos, sem código em comum) calcula P_wh em ' + G.battery.refPoints + ' entradas — os 64 cantos e 24 pontos sorteados de duas operações — e o intervalo do portão contém todas. ' + G.battery.checks + ' verificações e ' + G.battery.fired + '/' + G.battery.reds + ' controles vermelhos: uma pressão 0,1 bar fora do intervalo, um manifold com 1 m³/d a mais, um f 10⁻⁴ fora das soluções, uma vazão 1 m³/d abaixo do regime turbulento, um “verificador” que avalia só o centro da caixa — todos pegos.')
-    + C.pRaw('Código: <a href="' + REPO + '/tree/main/apps/contraprova/gate">apps/contraprova/gate</a> — <span class="m">node battery.js</span> refaz tudo.')
-    + '</div></details>'
+    + '<div class="col">' + C.pRaw('<b>As sete falhas, pegas com o motivo.</b> ' + G.scenarios.cases.filter((c) => c.kind === 'falha').map((c) => { const r = G.receipts.find((x) => x.id === c.id).receipt; return esc(c.fault) + ' → ' + r.verdict; }).join(' · ') + '. Cada uma é uma saída de referência com um erro que um modelo comete na prática; nenhuma passa.') + '</div>'
+
+    + '<div class="col sec-head cp-sub"><h3>Monte Carlo cara a cara, na mesma recomendação</h3></div>'
+    + '<div class="wide"><div class="cp-ev">'
+    + '<div class="claim"><div class="cp-k">o que um estudo por sorteio diria</div><div class="big">' + (100 * MC.pOver).toFixed(1).replace('.', ',') + '%</div><p>dos ' + br.int(MC.draws) + ' sorteios uniformes do envelope passam de 360 bar (com ' + br.int(MC.draws1k) + ' sorteios: ' + (100 * MC.pOver1k).toFixed(1).replace('.', ',') + '%); o maior sorteio chega a ' + bar1(MC.max) + '. Um estudo que confiasse nisso diria “risco de ' + (100 * MC.pOver).toFixed(0) + '%” e agiria, ou não, por esse número.</p></div>'
+    + '<div><div class="cp-k">o que a Contraprova garante</div><div class="big">' + bar1(MC.cornerAbove) + '</div><p>Uma entrada admissível, com valor garantido, passa do limite; outra, a ' + bar1(MC.cornerBelow) + ', o respeita. O intervalo garantido da saída é [' + br.dec(lead.enclosure[0], 1) + '; ' + br.dec(lead.enclosure[1], 1) + '] bar. A fração do envelope que viola é uma estimativa por sorteio, rotulada como tal; a decisão não depende dela.</p></div>'
+    + '<div><div class="cp-k">o que decide</div><div class="big">P_d ≤ ' + br.dec(lead.flip.pdGreen, 1) + ' bar</div><p>' + esc(lead.thresholds.join(' ')) + ' A recomendação com a descarga em 200 bar é VÁLIDA no envelope inteiro: P_wh ∈ [' + br.dec(fixed.enclosure[0], 1) + '; ' + br.dec(fixed.enclosure[1], 1) + '] bar.</p></div>'
+    + '</div></div>'
+
+    + '<div class="col sec-head cp-sub"><h3>Já funciona em dados reais: a onda de projeto de uma plataforma</h3></div>'
+    + '<div class="col">' + C.p('Os valores extremos de altura de onda que dimensionam FPSOs, ancoragens, risers e turbinas eólicas offshore — a onda de 100 anos da base de projeto [10, 11]. O método é o de Reis, Guimarães et al. (Ocean Engineering, 2026) [15]: seis famílias, quatro critérios, níveis de 100 e 1.000 anos; os dados, o hindcast público WAVEWATCH III 1993–2024.') + '</div>'
+    + '<div class="wide"><div class="cp-ev">'
+    + '<div><div class="cp-k">o mesmo software</div><div class="big">' + br.dec(N.scipy.ew.free, 2) + ' m × ' + br.dec(N.scipy.ew.fixed, 2) + ' m</div><p>A mesma onda de 100 anos, dos mesmos ' + br.int(N.scipy.n) + ' registros horários, pelo mesmo scipy ' + esc(N.scipy.version) + ' chamado de dois jeitos. Só um é o máximo de verossimilhança que os dois dizem calcular: o outro fica ' + br.int(N.scipy.ew.deficit) + ' unidades de log-verossimilhança abaixo de um membro da própria família. Na chamada padrão, ' + N.scipy.free.agree + ' de ' + N.scipy.free.of + ' ajustes conferem; com a locação fixa, ' + N.scipy.fixed.agree + ' de ' + N.scipy.fixed.of + '.</p><a href="../reports/return-levels.html">o relatório →</a></div>'
+    + '<div><div class="cp-k">a escala</div><div class="big">' + br.int(N.atlas.fits) + '</div><p>Ajustes em ' + br.int(N.atlas.cells) + ' células, três blocos, seis famílias — ' + br.int(N.atlas.certified) + ' provados como máximo; ' + br.int(N.atlas.ggLimit) + ' recusados com a prova de que o máximo não existe dentro da família (o otimizador imprimiria um ponto do caminho). Qualquer célula é refeita no navegador.</p><a href="../instruments/return-level-atlas/">o atlas →</a></div>'
+    + '<div><div class="cp-k">uma tabela publicada</div><div class="big">' + N.table.outside95 + ' de ' + N.table.decided + '</div><p>Ondas de 100 anos de uma tabela de projeto eólico offshore (' + esc(N.table.cite) + ' [16], cinco áreas do Atlântico Sul) fora do intervalo estatístico de 95% do registro público mais próximo (' + N.table.kmMin + '–' + N.table.kmMax + ' km): de ' + br.sgn(N.table.dMin, 2) + ' a ' + br.sgn(N.table.dMax, 2) + ' m. A tabela vem de um hindcast comercial que ninguém de fora refaz: é a distância entre dois registros, e o motivo para um certificado.</p><a href="../instruments/return-level-check/">decida um ajuste impresso →</a></div>'
+    + '</div></div>'
+    + '<div class="cp-gap"></div><div class="cp-dumb">' + C.figure({ svgRaw: dumb, caption: 'Vinte ajustes impressos (MQ mínimos quadrados, MV máxima verossimilhança, MM momentos) contra o ajuste decidido na célula pública mais próxima. Diferença de registros, não erro da tabela: é exatamente o que um certificado torna visível.' }) + '</div>'
+
+    + '<div class="col sec-head cp-sub"><h3>Calibrado contra a IA de fronteira</h3></div>'
+    + '<div class="col">' + C.p('Antes da engenharia, o motor foi calibrado onde a IA é mais difícil de conferir: matemática publicada, produzida com ou por modelos de fronteira. Em público, com data, e com cada verificador disponível.') + '</div>'
+    + C.table({ cols: [{ h: 'o que a IA afirmou' }, { h: 'veredito' }, { h: 'por quê' }], rows: [
+      ['Um certificado de GPT-5.4 Pro que melhoraria o limite de Ramsey diagonal (benchmark HorizonMath, 2026)', { raw: RC.chip('REFUTADO') }, 'O verificador do próprio benchmark aceitava um par se UMA orientação passasse; a definição exige as DUAS.'],
+      ['A iteração “preliminar, não verificada” de ChatGPT 5.6 Sol impressa por Gupta, Ndiaye, Norin e Wei: R(k,k) ≤ 3,78233^(k+o(k))', { raw: RC.chip('PROVADO') }, 'Decidida por dois programas independentes, em duas linguagens, com aritmética diferente; concordam em 25 dígitos.'],
+      ['A biblioteca de contraexemplos encontrados por IA de S. Sra (' + N.ai.countex.of + ' casos)', { raw: RC.chip('PROVADO') + ' <span class="m">' + N.ai.countex.certified + ' inteiros · ' + N.ai.countex.partial + ' parciais</span>' }, 'Cada caso decidido do certificado publicado, com um verificador escrito a partir do enunciado.'],
+      ['O registro inteiro', { raw: '<span class="m">' + br.int(N.ai.decided) + ' decididas</span>' }, 'Cada linha com o arquivo que a decidiu; nada é contado duas vezes.']
+    ] })
+    + '<div class="col">' + C.pRaw('Relatórios: <a href="../reports/horizonmath.html">HorizonMath</a> · <a href="../reports/diagonal-ramsey.html">Ramsey diagonal</a> · <a href="../reports/counterexample-machine.html">contraexemplos</a> · <a href="../reports/decided-2026-09.html">o registro de setembro</a>.') + '</div>'
     + '</section>');
 
-  /* ---- 4 real data ---- */
-  const tRows = N.table.rows.slice().sort((a, b) => a.d - b.d);
-  const lo = Math.floor(Math.min(...tRows.map((r) => Math.min(r.printed, r.decided)))) - 1, hi = Math.ceil(Math.max(...tRows.map((r) => Math.max(r.printed, r.decided)))) + 1;
-  const ticks = []; for (let v = lo; v <= hi; v += 2) ticks.push({ v, t: v + ' m' });
-  const dumb = CH.dumbbell({ w: 900, rows: tRows.map((r) => ({ k: r.k, a: r.decided, b: r.printed, lab: br.sgn(r.d, 2) + ' m' })), x0: lo, x1: hi, xTicks: ticks,
-    aName: 'decidido no registro público', bName: 'impresso na tabela', padL: 250, vOf: (v) => br.dec(v, 2) + ' m',
-    alt: 'Ondas de 100 anos: a tabela publicada contra o registro público mais próximo, vinte ajustes em cinco áreas.' });
-  B.push(C.section({
-    lab: '4 · já funciona em dados reais', title: 'A onda de projeto de uma plataforma',
-    bodyRaw: '<div class="col">' + C.p('O primeiro domínio da Contraprova já roda em escala: os valores extremos de altura de onda que dimensionam FPSOs, ancoragens, risers e turbinas eólicas offshore — o número que um projeto usa como “onda de 100 anos”. O método é o de Reis, Guimarães et al. (Ocean Engineering, 2026) — seis famílias, quatro critérios, níveis de 100 e 1.000 anos; os dados, o hindcast público WAVEWATCH III 1993–2024.') + '</div>'
-      + '<div class="wide"><div class="cp-ev">'
-      + '<div><div class="cp-k">o mesmo software</div><div class="big">' + br.dec(N.scipy.ew.free, 2) + ' m × ' + br.dec(N.scipy.ew.fixed, 2) + ' m</div><p>A mesma onda de 100 anos, dos mesmos ' + br.int(N.scipy.n) + ' registros horários, pelo mesmo scipy ' + esc(N.scipy.version) + ' chamado de dois jeitos. Só um é o máximo de verossimilhança que os dois dizem calcular: o outro fica ' + br.int(N.scipy.ew.deficit) + ' unidades de log-verossimilhança abaixo de um membro da própria família. Na chamada padrão, ' + N.scipy.free.agree + ' de ' + N.scipy.free.of + ' ajustes conferem.</p><a href="../reports/return-levels.html">o relatório →</a></div>'
-      + '<div><div class="cp-k">a escala</div><div class="big">' + br.int(N.atlas.fits) + '</div><p>Ajustes em ' + br.int(N.atlas.cells) + ' células, três blocos, seis famílias — ' + br.int(N.atlas.certified) + ' provados como máximo; ' + br.int(N.atlas.ggLimit) + ' recusados com a prova de que o máximo não existe dentro da família (o otimizador imprimiria um ponto do caminho). Qualquer célula é refeita no navegador.</p><a href="../instruments/return-level-atlas/">o atlas →</a></div>'
-      + '<div><div class="cp-k">uma tabela publicada</div><div class="big">' + N.table.outside95 + ' de ' + N.table.decided + '</div><p>Ondas de 100 anos de uma tabela de projeto eólico offshore (' + esc(N.table.cite) + ', cinco áreas do Atlântico Sul) fora do intervalo estatístico de 95% do registro público mais próximo (' + N.table.kmMin + '–' + N.table.kmMax + ' km): de ' + br.sgn(N.table.dMin, 2) + ' a ' + br.sgn(N.table.dMax, 2) + ' m. A tabela vem de um hindcast comercial que ninguém de fora refaz — é a distância entre dois registros, e o motivo para um recibo.</p><a href="../instruments/return-level-check/">decida um ajuste impresso →</a></div>'
-      + '</div></div>'
-      + '<div class="cp-gap"></div><div class="cp-dumb">' + C.figure({ svgRaw: dumb, caption: 'Vinte ajustes impressos (MQ mínimos quadrados, MV máxima verossimilhança, MM momentos) contra o ajuste decidido na célula pública mais próxima. Diferença de registros, não erro da tabela: é exatamente o que um recibo torna visível.' }) + '</div>'
-  }));
-
-  /* ---- 5 frontier AI ---- */
-  B.push(C.section({
-    lab: '5 · já enfrentou a IA de fronteira', title: 'A mesma arquitetura, contra os modelos mais fortes',
-    bodyRaw: '<div class="col">' + C.p('Antes da engenharia, o motor foi calibrado onde a IA é mais difícil de conferir: matemática publicada, produzida com ou por modelos de fronteira. Em público, com data, e com cada verificador disponível.') + '</div>'
-      + C.table({ cols: [{ h: 'o que a IA afirmou' }, { h: 'veredito' }, { h: 'por quê' }], rows: [
-        ['Um certificado de GPT-5.4 Pro que melhoraria o limite de Ramsey diagonal (benchmark HorizonMath, 2026)', { raw: RC.chip('REFUTADO') }, 'O verificador do próprio benchmark aceitava um par se UMA orientação passasse; a definição exige as DUAS. Com a correção de uma palavra, ele recusa o certificado no primeiro intervalo.'],
-        ['A iteração “preliminar, não verificada” de ChatGPT 5.6 Sol impressa por Gupta, Ndiaye, Norin e Wei: R(k,k) ≤ 3,78233^(k+o(k))', { raw: RC.chip('PROVADO') }, 'Decidida por dois programas independentes, em duas linguagens, com aritmética diferente; ambos concordam em 25 dígitos.'],
-        ['A biblioteca de contraexemplos encontrados por IA de S. Sra (' + N.ai.countex.of + ' casos: GPT-5.x, Codex, Opus)', { raw: RC.chip('PROVADO') + ' <span class="m">' + N.ai.countex.certified + ' inteiros · ' + N.ai.countex.partial + ' parciais</span>' }, 'Cada caso decidido do certificado publicado, com um verificador escrito a partir do enunciado, antes de ler o do autor.'],
-        ['O registro inteiro', { raw: '<span class="m">' + br.int(N.ai.decided) + ' decididas</span>' }, 'Cada linha com o arquivo que a decidiu; nada é contado duas vezes.']
-      ] })
-      + '<div class="col">' + C.pRaw('Relatórios: <a href="../reports/horizonmath.html">HorizonMath</a> · <a href="../reports/diagonal-ramsey.html">Ramsey diagonal</a> · <a href="../reports/counterexample-machine.html">contraexemplos</a> · <a href="../reports/decided-2026-09.html">o registro de setembro</a>.') + '</div>'
-  }));
-
-  /* ---- 6 what it replaces ---- */
-  B.push(C.section({
-    lab: '6 · o que substitui', title: 'Da segunda opinião para a contraprova',
-    bodyRaw: C.table({ cols: [{ h: 'momento' }, { h: 'hoje' }, { h: 'com a Contraprova' }], rows: [
-      ['Uma IA recomenda mudar a operação', '“previsão 352 bar · confiança 97%”', 'RECUSADO: há entradas declaradas que passam de 360 bar (provado); com P_d ≤ ' + br.dec(lead.flip.pdGreen, 1) + ' bar, PROVADO'],
-      ['Um solver devolve um número', 'aceito se parece razoável', 'conferido contra as equações que declara: f = 0,0110 não resolve Colebrook — REFUTADO'],
-      ['Dois programas discordam', 'uma reunião; ninguém sabe quem está certo', 'o recibo diz qual é o máximo e qual parou antes (' + br.dec(N.scipy.ew.free, 2) + ' × ' + br.dec(N.scipy.ew.fixed, 2) + ' m)'],
-      ['A matemática não tem resposta', 'o otimizador imprime a última iteração como resultado', 'RECUSADO, com a prova (' + br.int(N.atlas.ggLimit) + ' casos no atlas)'],
-      ['Incerteza estatística × erro numérico', 'misturados num número só', 'separados e rotulados: o intervalo estatístico nunca se passa por prova'],
-      ['Dados confidenciais', 'precisam sair para serem auditados', 'o verificador roda onde os dados estão; o recibo viaja'],
-      ['Auditoria, meses depois', 'refazer o estudo', 'refazer o recibo: um arquivo, segundos']
+  /* ---- 5 · value case ---- */
+  B.push(C.section({ lab: '5 · caso de valor', title: 'Seis decisões em que o certificado entra; a de maior custo é agir sobre uma recomendação de operação.',
+    bodyRaw: C.table({ cols: [{ h: 'decisão da Petrobras' }, { h: 'custo em jogo' }, { h: 'o que muda com a Contraprova' }, { h: 'evidência no demonstrador' }], rows: [
+      ['Agir sobre uma recomendação de IA ou gêmeo digital (vazão, pressão, injeção)', { raw: 'horas ou dias de um FPSO de 225 mil bpd [3]; a integridade de uma linha com limite de 360 bar; a mudança sob o SGSO [4]' }, 'veredito sobre o envelope inteiro antes de agir; o limiar que torna a recomendação VÁLIDA', 'a recomendação de +4,2%: INDETERMINADA; VÁLIDA com P_d ≤ ' + br.dec(lead.flip.pdGreen, 1) + ' bar'],
+      ['Fixar um valor de projeto metoceânico (onda de 100 anos)', { raw: 'a base de projeto de cascos, ancoragens e risers; dois FPSOs custam US$ 8,15 bilhões [3]' }, 'o máximo provado, ou a recusa com a prova de que o máximo não existe', br.int(N.atlas.certified) + ' provados, ' + br.int(N.atlas.ggLimit) + ' recusados com motivo'],
+      ['Arbitrar dois programas que discordam', 'um estudo, semanas, uma reunião sem árbitro', 'qual número é o máximo que diz ser, qual parou antes', br.dec(N.scipy.ew.free, 2) + ' × ' + br.dec(N.scipy.ew.fixed, 2) + ' m; ' + N.scipy.free.agree + ' de ' + N.scipy.free.of],
+      ['Aceitar um número de fornecedor ou consultor', 'o custo do estudo e da decisão que ele informa', 'a distância entre o número impresso e o registro público, célula a célula', N.table.outside95 + ' de ' + N.table.decided + ' ondas de uma tabela publicada fora do intervalo de 95%'],
+      ['Registrar uma mudança de operação (SGSO, práticas 13 e 16 [4])', 'conformidade; o registro técnico da mudança', 'o certificado de decisão como o registro: modelo, envelope, veredito, limiar', 'a Nota Técnica de exemplo'],
+      ['Auditar meses depois', 'refazer o estudo', 'refazer o certificado: um arquivo, segundos, sem o nosso código', 'cada caso re-decidido no navegador']
     ] })
-      + '<div class="col sec-head cp-sub"><h3>E as alternativas?</h3></div>'
-      + C.table({ cols: [{ h: 'alternativa' }, { h: 'entrega' }, { h: 'não entrega' }], rows: [
-        ['Segundo consultor, segundo cálculo', 'um segundo número', 'um árbitro entre os dois'],
-        ['Rodar em outro software', 'outra resposta, com outros padrões', 'qual delas está certa (scipy: ' + N.scipy.fixed.agree + '/' + N.scipy.fixed.of + ' ou ' + N.scipy.free.agree + '/' + N.scipy.free.of + ', conforme a chamada)'],
-        ['Métricas do modelo, MLOps', 'desempenho médio no conjunto de teste', 'uma decisão sobre ESTA saída, nestas condições'],
-        ['IA que confere IA', 'uma segunda opinião', 'uma prova — é outro gerador'],
-        ['Intervalos de confiança, UQ', 'a dispersão estatística', 'se o ajuste é mesmo o máximo; se a saída respeita as equações'],
-        ['Revisão de método por par ou classificadora', 'o julgamento de um especialista', 'a re-derivação mecânica de cada número — a Contraprova é insumo para ela'],
-        ['Verificação formal (Lean, Coq)', 'provas completas de programas', 'escala de engenharia hoje: caixas de incerteza, 175 mil registros']
-      ] })
-  }));
+    + '<div class="col">' + C.pRaw('<b>Frequência e dono da decisão.</b> A frequência é a do fluxo: cada recomendação de gêmeo digital ou de IA que vira ação, cada revisão de base de projeto, cada mudança sob o SGSO. Dono na Fase 1: engenharia de reservatórios, elevação e escoamento do ativo (o portão ao lado do modelo); engenharia submarina e naval (valores de projeto); segurança operacional (gerenciamento de mudanças). A viabilidade financeira não é estimada de fora: é a entrega E3b, com interlocutores da Petrobras.')
+    + C.pRaw('<b>Onde entra no fluxo atual (nada é substituído).</b> (1) O modelo propõe → o portão decide a saída → o certificado acompanha a decisão. (2) O relatório de base de projeto → o anexo com o máximo provado ou a recusa. (3) A mudança sob o SGSO → o certificado como registro técnico. (4) A auditoria → o certificado refeito. (5) Cada certificado adquirido volta como caso de controle do domínio.')
+    + '</div>' }));
 
-  /* ---- 7 the PD&I project ---- */
-  B.push('<section id="projeto"><div class="col sec-head"><div class="lab">7 · o projeto de PD&amp;I proposto</div><h2>Doze meses para um recibo em cada decisão</h2></div>'
-    + '<div class="col">' + C.p('O motor existe e está publicado. O projeto de PD&I o leva para um fluxo de decisão da Petrobras sobre dados sintéticos fornecidos por ela no formato dos reais (nenhum dado real é pedido; os scripts, entregues prontos, são rodados pela Petrobras dentro do seu ambiente) — e mede o que muda quando cada número chega com recibo. A viabilidade financeira não é estimada de fora: entrevistas com interlocutores da Petrobras para a valoração econômica do portão fazem parte do plano.') + '</div>'
-    + C.table({ cols: [{ h: 'frente' }, { h: 'meses', cls: 'n' }, { h: 'o que entrega' }, { h: 'TRL', cls: 'n' }], rows: [
-      ['1 · Piloto em um fluxo real', '0–4', 'Com os engenheiros da Petrobras: UM fluxo em que uma saída de IA ou simulação vira decisão (ex.: injeção de água). Modelo, caixa e regras declarados; o portão rodando ao lado do modelo; recibos para decisões reais, com os limiares publicados.', '4 → 6'],
-      ['2 · Valores de projeto metoceânicos', '0–6', 'Os ajustes de extremos (sete famílias, quatro critérios) sobre dados sintéticos no formato da Petrobras e o hindcast público; um verificador em Python de um arquivo; o formato do recibo para a base de projeto.', '4 → 6'],
-      ['3 · Contornos ambientais conjuntos', '4–12', 'Pesquisa: decidir o modelo conjunto altura–período e o contorno ambiental (IFORM/ISORM), cada um com o seu recibo.', '2 → 4'],
-      ['4 · O portão como serviço', '6–12', 'API ao lado de modelos de IA; biblioteca de modelos físicos declarados (escoamento, balanços, hidrostática, extremos); controles vermelhos por domínio.', '3 → 6']
+  /* ---- 6 · state of the art ---- */
+  const cites = [
+    ['ASME V&V 20-2009 (R2016) [7]; NASA-STD-7009A [8]; Oberkampf e Roy 2010 [9]', 'Verificação e validação de códigos e modelos: credibilidade do modelo, erro numérico e incerteza de validação — não uma decisão sobre uma saída num envelope declarado.'],
+    ['Moore, Kearfott e Cloud 2009 [5]; Hansen e Walster 2004 [6]; Rump 1999 (INTLAB)', 'Aritmética intervalar e otimização global verificada: o método que a Contraprova aplica a números de engenharia.'],
+    ['Coles 2001 [14]; ISO 19901-1 [10]; DNV-RP-C205 [11]', 'Extremos e valores de projeto metoceânicos: as famílias, os critérios e os períodos de retorno que a base de projeto usa.'],
+    ['Reis, Guimarães et al. 2026 [15]; Bhaskaran et al. 2023 [16]', 'O método de ajuste do atlas; a tabela de projeto eólico decidida contra o registro público.'],
+    ['Resolução ANP 43/2007, Regulamento Técnico do SGSO [4]', 'Integridade mecânica (prática 13) e gerenciamento de mudanças (prática 16): onde o certificado de decisão entra como registro.'],
+    ['MLOps, monitoramento de modelos, UQ bayesiana', 'Desempenho médio e dispersão: nenhum decide esta saída, nestas condições, com prova.'],
+    ['Verificação formal (Lean, Coq)', 'Provas completas de programas; fora da escala de engenharia de hoje (envelopes de incerteza, centenas de milhares de registros).']
+  ];
+  B.push(C.section({ lab: '6 · estado da arte', title: 'Nas referências consultadas, a V&amp;V e a UQ avaliam o modelo; nenhuma decide uma saída sobre o envelope declarado com um certificado reexecutável.',
+    bodyRaw: '<div class="col">' + C.p('A busca não foi sistemática; a revisão de literatura por domínio é parte de E4. O que encontramos: normas e livros de V&V que qualificam códigos e modelos, métodos intervalares que garantem limites, e práticas de MLOps que medem desempenho médio. Não encontramos, nessas referências, o veredito de três valores sobre cada saída, com contraexemplos e o limiar que decide.')
+      + '<ul class="cp-cites">' + cites.map(([x, y]) => '<li><b>' + esc(x) + '.</b> ' + esc(y) + '</li>').join('') + '</ul></div>' }));
+
+  /* ---- 7 · work plan ---- */
+  B.push('<section id="plano"><div class="col sec-head"><div class="lab">7 · plano de trabalho</div><h2>Doze meses, uma fase central: um fluxo de decisão da Petrobras com certificado em cada número, sobre dados sintéticos no formato dos seus dados, rodado dentro da Petrobras.</h2></div>'
+    + '<div class="col">' + C.pRaw('<b>Objetivo geral.</b> Num fluxo em que uma saída de IA ou simulação vira decisão (por exemplo, injeção de água), com dados sintéticos que a Petrobras fornece no formato dos seus dados reais, decidir cada número sobre o envelope declarado e medir o que muda quando a decisão chega com certificado. <b>Objetivos específicos.</b> (1) modelo, envelope e regras declarados com fonte; (2) o portão rodando ao lado do modelo, com certificados por decisão; (3) para cada INDETERMINADO, o limiar ou a medição que decide; (4) valores de projeto metoceânicos com certificado; (5) valoração econômica com interlocutores da Petrobras; (6) scripts entregues prontos, rodados pela Petrobras sobre os dados reais sem o autor.') + '</div>'
+    + C.table({ cols: [{ h: 'entrega' }, { h: 'meses', cls: 'n' }, { h: 'o que entrega' }, { h: 'critério de aceitação' }, { h: 'TRL', cls: 'n' }], rows: [
+      ['E1 · Fluxo e envelope declarados', '0–2', 'UM fluxo de decisão escolhido com a Petrobras; o modelo físico, as faixas das entradas (cadastro, perfis, PVT) e as regras, com fonte por linha — a partir de dados sintéticos fornecidos pela Petrobras no formato dos reais; nenhum dado real é pedido', 'assinado pelo engenheiro-par; nenhum parâmetro sem fonte', '4'],
+      ['E2 · O portão ao lado do modelo', '2–5', 'certificados para cada saída do fluxo (VÁLIDO, INVÁLIDO, INDETERMINADO com contraexemplos e limiar); casos de controle negativos do domínio', '100% dos controles recusados a cada build; três certificados recalculados à mão por engenheiro da Petrobras', '5'],
+      ['E3 · Plano de redução de incerteza', '3–6', 'para cada INDETERMINADO: a medição, a inspeção ou o ajuste operacional que decide, com o custo e a ordem', 'lista priorizada aceita pela equipe do ativo', '5'],
+      ['E3b · Valoração econômica', '3–6', 'entrevistas e consultas com interlocutores da Petrobras (reservatórios e escoamento, engenharia submarina, segurança operacional): que decisão muda, com que frequência, quanto custa errar, quanto vale para a Petrobras e para a startup — a viabilidade financeira do negócio, que não se estima de fora', 'relatório de valoração com premissas explícitas, validado pelos interlocutores', '—'],
+      ['E4 · Valores de projeto metoceânicos', '4–8', 'os ajustes de extremos (famílias e critérios de Reis, Guimarães et al.) sobre dados sintéticos no formato da Petrobras e o hindcast público; o verificador em Python de um arquivo; o formato do certificado para a base de projeto; revisão de literatura por domínio', 'certificados aceitos pela engenharia submarina; um máximo provado ou a recusa provada por ajuste', '5'],
+      ['E5 · Integração', '6–10', 'scripts e certificados por decisão entregues prontos, no formato dos dados da Petrobras, para ela rodar sobre os dados reais dentro do seu ambiente; a biblioteca de modelos declarados por domínio (escoamento, balanços, hidrostática, extremos); o certificado como registro de mudança (SGSO)', 'a Petrobras roda sobre os seus dados sem o autor; controles negativos recusados em cada build', '5–6'],
+      ['E6 · Contornos ambientais conjuntos (pesquisa)', '8–12', 'o modelo conjunto altura–período e o contorno ambiental (IFORM/ISORM), cada um com o seu certificado', 'revisão com a engenharia submarina; um contorno decidido de ponta a ponta', '2 → 4']
     ] })
+    + '<div class="col">' + C.pRaw('<b>Marcos e portões.</b> M0 (mês 0): kick-off; dados sintéticos no formato da Petrobras entregues; NDA. M3: primeiros certificados no fluxo; portão técnico — se mais de 50% das saídas forem INDETERMINADAS, estreitar o envelope com as medições de E3 antes de E4. M6: revisão de meio-termo com o portfólio, com o relatório de valoração (E3b); go/no-go para E4–E6. M12: entrega final; decisão de implantação (o portão como serviço ao lado dos modelos, ou licença por ativo).') + '</div>'
     + '<div class="wide"><div class="cp-ask">'
-    + '<div><div class="cp-k">como medimos</div><ul><li>100% dos controles vermelhos recusados, a cada build</li><li>cada RECUSADO sai com o limiar que o decidiria</li><li>um engenheiro da Petrobras refaz o recibo sem o nosso código</li><li>nenhum dado real é pedido; os scripts rodam dentro da Petrobras</li></ul></div>'
-    + '<div><div class="cp-k">o que pedimos à Petrobras</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>dados sintéticos no formato dos dados da Petrobras — nenhum dado real</li><li>mentoria técnica do portfólio de PD&amp;I e interlocutores para a valoração econômica</li><li>doze meses</li></ul></div>'
-    + '</div></div></section>');
+    + '<div><div class="cp-k">o que pedimos</div><ul><li>um fluxo de decisão e uma pergunta de operação ou de projeto</li><li>dados sintéticos (cadastro, perfis, PVT, séries) no formato dos dados da Petrobras — nenhum dado real</li><li>um engenheiro-par (4 h/semana), mentoria do portfólio e interlocutores para a valoração</li><li>doze meses</li></ul></div>'
+    + '<div><div class="cp-k">o que a Petrobras recebe</div><ul><li>o portão rodando ao lado do modelo, com certificados por decisão</li><li>o plano de redução de incerteza e o relatório de valoração</li><li>os scripts prontos, no formato dos seus dados, para rodar sobre os dados reais dentro da Petrobras</li><li>um método que qualquer engenheiro da casa refaz sem o nosso código</li></ul></div></div></div></section>');
 
-  /* ---- 8 maturity + who ---- */
-  B.push(C.section({
-    lab: '8 · maturidade e equipe', title: 'Onde estamos',
+  /* ---- 8 · risks, business model, IP, deployment ---- */
+  B.push(C.section({ lab: '8 · riscos, modelo de negócio, implantação', title: 'O maior risco técnico é o modelo declarado ficar aquém do fluxo real; a mitigação está no plano.',
+    bodyRaw: C.table({ cols: [{ h: 'risco' }, { h: 'efeito' }, { h: 'mitigação' }, { h: 'onde' }], rows: [
+      ['Modelo declarado aquém do fluxo (transiente, multifásico, térmico)', 'um VÁLIDO que o campo desmente', 'o escopo dito na seção 3; cada modelo entra declarado com o seu envelope e os seus controles; “o veredito fala do modelo declarado” na primeira página', 'E1, E5'],
+      ['Excesso de INDETERMINADO', 'ferramenta lida como conservadora demais', 'todo INDETERMINADO sai com o limiar ou a medição que decide; portão M3; envelopes estreitados por medição, nunca por hipótese', 'E3; M3'],
+      ['Acesso a dados', 'os dados de operação e de projeto da Petrobras são confidenciais; um plano que dependa deles não anda', 'o projeto não pede dados reais: dados sintéticos fornecidos pela Petrobras no formato dos reais, complementados pelos públicos (hindcast, boias); os scripts são entregues prontos e a Petrobras os roda sobre os dados reais dentro do seu ambiente', 'M0, E1, E5'],
+      ['A palavra “certificação”', 'leitura como certificação de classe', 'a Contraprova entrega uma prova matemática reexecutável sobre um número; não substitui a responsabilidade técnica de quem assina', 'seção 2'],
+      ['Equipe de uma pessoa', 'risco de execução', 'engenheiro-par; segunda implementação independente já existente; colaboração acadêmica em negociação', 'seção 9'],
+      ['Adoção interna', 'portão paralelo, não usado', 'formato de anexo ao relatório e de registro de mudança; o portão como API ao lado do modelo, sem trocar o modelo', 'E2, E5'],
+      ['Viabilidade financeira não estimada', 'a pergunta “quanto vale para a Petrobras e para a startup” fica sem resposta', 'a valoração é uma entrega do projeto (E3b): entrevistas com interlocutores, relatório com premissas explícitas, revisto no M6', 'E3b']
+    ] })
+    + '<div class="col">' + C.pRaw('<b>Modelo de negócio (CRL 3 → o que falta dizer).</b> Fase de PD&amp;I: contrato de inovação de 12 meses no instrumento do módulo em que a submissão cair; como referência, o módulo Aquisição de Soluções do Conexões previu ' + a('conexoes', 'até R$ 1,6 milhão por proposta, contratos de até 12 meses prorrogáveis por 12') + ' (2022) [17]. Depois: o portão como serviço ao lado dos modelos (licença anual por ativo, com a biblioteca de modelos declarados, os controles por domínio e o suporte) ou o certificado como anexo por relatório; a Petrobras escolhe no M12. O núcleo de aritmética é MIT e fica aberto — auditável, condição do próprio método; o valor pago está na declaração dos modelos e envelopes do ativo, na integração ao fluxo, na suíte de controles por domínio e no suporte. <b>Viabilidade financeira.</b> Não a estimamos de fora: é o objeto de E3b.')
+    + C.pRaw('<b>Escalabilidade e abrangência.</b> O mesmo método decide outras saídas de modelo: balanços de massa e energia de plantas de processo, hidrostática e estabilidade, contornos ambientais, tempo de vida à fadiga sob envelope de carga, e a decidibilidade de sísmica 4D (a solução Decidível, no outro formulário). Uma frase cada, sem prazo prometido.')
+    + C.pRaw('<b>Propriedade intelectual e confidencialidade.</b> Titularidade do que for desenvolvido no projeto conforme a regra do módulo; aceita. Modelos declarados, envelopes e certificados do ativo são da Petrobras; nenhum dado ou derivado sai do ambiente. O método permanece público; a Petrobras recebe direito de uso irrestrito do núcleo.')
+    + C.pRaw('<b>Implantação ao final do projeto — o critério de sucesso.</b> Ao final do M12, um engenheiro da Petrobras roda o portão sobre uma saída nova do seu fluxo, dentro da Petrobras e sem o autor, obtém o certificado e o anexa ao registro da decisão.')
+    + '</div>' }));
+
+  /* ---- 9 · maturity and team ---- */
+  B.push(C.section({ lab: '9 · maturidade e equipe', title: 'TRL 4 com evidência pública; colaboração acadêmica em negociação; engenheiro-par da Petrobras no piloto.',
     bodyRaw: '<div class="col">'
-      + C.pRaw('<b>TRL 4</b> — validado em laboratório, em dados públicos e em escala: o atlas de ondas de projeto, os relatórios decididos, o portão demonstrador desta página. <b>CRL 3</b> — a aplicação da tecnologia definida; o piloto é o próximo passo.')
-      + C.pRaw('<b>Equipe.</b> Carlos Toledo, fundador — construiu o motor de verificação (código aberto, licença MIT, cada resultado com o arquivo que o decidiu). Uma pessoa hoje; o piloto define as próximas.')
+      + C.pRaw('<b>TRL 4</b> — validado em laboratório, em dados públicos e em escala: o atlas de ondas de projeto (' + br.int(N.atlas.fits) + ' ajustes), os relatórios decididos, o portão demonstrador desta página, o código e os registros arquivados com DOI (' + a('doi', '10.5281/zenodo.22800699') + '). <b>CRL 3</b> — a aplicação da tecnologia definida; o piloto é o próximo passo.')
+      + C.pRaw('<b>Equipe.</b> Carlos Toledo, fundador: design industrial, direção de arte e desenvolvimento; ex-EmbraerX (inovação corporativa em aeroespacial); construiu o motor de verificação (código aberto, licença MIT, cada resultado com o arquivo que o decidiu). Colaboração acadêmica em negociação com um laboratório universitário; engenheiro-par da Petrobras no piloto. Uma pessoa hoje; o piloto define as próximas.')
       + (PARTNER ? C.pRaw('<b>Parceria acadêmica.</b> ' + esc(PARTNER)) : '')
-      + C.pRaw('<b>Contato.</b> <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a> · <a href="/contraprova/contraprova-apresentacao.pdf">apresentação (PDF)</a> · <a href="' + REPO + '">código</a>')
-      + C.pRaw('<span class="scope">A palavra “certificação” tem dono no offshore (sociedades classificadoras, ANP). A Contraprova entrega uma <em>prova matemática reexecutável</em> sobre um número — não uma certificação de classe, e não substitui a responsabilidade técnica de quem assina o projeto.</span>')
-      + '</div>'
-  }));
+      + C.pRaw('<b>Contato.</b> <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a> · <a href="' + DECK + '">apresentação (PDF)</a> · <a href="' + NOTA + '">Nota Técnica de exemplo (PDF)</a> · <a href="' + REPO + '/tree/main/apps/contraprova">código</a>')
+      + C.pRaw('<span class="scope">Demonstrador com valores típicos e ilustrativos, não dados da Petrobras. Um PROVADO fala do modelo declarado e das entradas declaradas, não do poço nem do mar. A Contraprova entrega uma prova matemática reexecutável sobre um número — não uma certificação de classe, e não substitui a responsabilidade técnica de quem assina o projeto.</span>')
+      + '</div>' }));
+
+  /* ---- 10 · the ask ---- */
+  B.push(C.section({ lab: '10 · o pedido', title: 'Primeiro passo: um fluxo de decisão e dados sintéticos no formato da Petrobras; certificados das suas saídas em quatro semanas.',
+    bodyRaw: '<div class="col">' + C.p('É o pedido que um representante de portfólio consegue aprovar sozinho: um fluxo em que uma saída de modelo vira decisão, as faixas das entradas como dados sintéticos no formato da Petrobras, e em quatro semanas os certificados dessas saídas — VÁLIDO, INVÁLIDO ou INDETERMINADO com o limiar — em scripts que a Petrobras roda sobre o fluxo real dentro do seu ambiente. Depois, os doze meses da seção 7.')
+      + '<div class="cp-cta"><a class="go" href="mailto:carlos@carlostoledo.co?subject=Contraprova%20%E2%80%94%20primeiro%20passo">carlos@carlostoledo.co</a><a href="' + NOTA + '">Nota Técnica de exemplo (PDF)</a><a href="' + DECK + '">Apresentação (PDF)</a></div></div>' }));
+
+  /* ---- references ---- */
+  const refs = [
+    'Petrobras, Nossa Energia. Digital twins na Petrobras impulsionam eficiência operacional (mais de US$ 200 milhões de ganhos nas refinarias; evolução para a otimização autônoma), 2026.',
+    'Agência Petrobras. Petrobras usará gêmeo digital para otimizar produção e escoamento de petróleo (piloto em Jubarte, FPSO Cidade de Anchieta e P-57, cerca de 1% de produção a mais; tecnologia da ESSS), 2026.',
+    'Offshore Technology; JPT/SPE. Petrobras awards US$ 8.15 bn FPSO construction contract to Seatrium (P-84 e P-85, Atapu e Sépia, 225 mil bpd cada), 2025.',
+    'ANP. Resolução n.º 43, de 6 de dezembro de 2007 — Regulamento Técnico do Sistema de Gerenciamento da Segurança Operacional (SGSO): 17 práticas de gestão; prática 13, integridade mecânica; prática 16, gerenciamento de mudanças.',
+    'Moore, R. E.; Kearfott, R. B.; Cloud, M. J. Introduction to Interval Analysis. SIAM, 2009.',
+    'Hansen, E.; Walster, G. W. Global Optimization Using Interval Analysis, 2.ª ed. Marcel Dekker, 2004. Rump, S. M. INTLAB — INTerval LABoratory, em Developments in Reliable Computing, Kluwer, 1999.',
+    'ASME V&V 20-2009 (R2016). Standard for Verification and Validation in Computational Fluid Dynamics and Heat Transfer.',
+    'NASA-STD-7009A. Standard for Models and Simulations, 2016.',
+    'Oberkampf, W. L.; Roy, C. J. Verification and Validation in Scientific Computing. Cambridge University Press, 2010.',
+    'ISO 19901-1:2015. Petroleum and natural gas industries — Specific requirements for offshore structures — Part 1: Metocean design and operating considerations.',
+    'DNV-RP-C205. Environmental conditions and environmental loads, 2021.',
+    'API RP 14E. Recommended Practice for Design and Installation of Offshore Production Platform Piping Systems (velocidade erosional), 5.ª ed., 1991.',
+    'Colebrook, C. F. Turbulent flow in pipes, with particular reference to the transition region between the smooth and rough pipe laws. Journal of the Institution of Civil Engineers 11(4):133–156, 1939.',
+    'Coles, S. An Introduction to Statistical Modeling of Extreme Values. Springer, 2001.',
+    'Reis, Guimarães et al. Return levels of significant wave height from hindcast data: families, criteria and diagnostics (método do atlas). Ocean Engineering, 2026.',
+    'Bhaskaran, S. et al. Offshore wind resource and design-wave assessment in the South Atlantic (tabela de projeto decidida). Energies 16, 6935, 2023.',
+    'Petrobras. Conexões para Inovação — módulo Aquisição de Soluções: critérios e valores (Mercado&Consumo, 4 de julho de 2022).'
+  ];
+  B.push(C.section({ lab: 'referências', title: 'Referências citadas',
+    bodyRaw: '<div class="col">' + C.p('Cada número e cada afirmação da página aponta para uma destas fontes ou para o registro do próprio demonstrador (apps/contraprova/data/gate-ledger.json e os registros em certs/). Onde a fonte é uma notícia e não um documento técnico, o número é dado como ordem de grandeza.') + '<ol class="cp-cites">' + refs.map((r) => '<li>' + esc(r) + '</li>').join('') + '</ol></div>' }));
 
   const ledgerJson = JSON.stringify({ receipts: G.receipts.map((r) => ({ id: r.id, receipt: r.receipt })) }).replace(/</g, '\\u003c');
   const script = '<script>' + bundleText + '</script>\n<script type="application/json" id="cp-ledger">' + ledgerJson + '</script>\n<script>' + CLIENT + '</script>';
   const foot = '<p>' + esc('Gerado por apps/contraprova/build.js a partir de certs/hseva-atlas.json, certs/hseva-ledger.json, certs/design-table-audit.json, certs/claims-ledger.json e apps/contraprova/data/gate-ledger.json; bateria do portão ' + G.battery.checks + ' verificações, ' + G.battery.fired + '/' + G.battery.reds + ' controles vermelhos.') + '</p><p>' + esc('git ' + git) + '</p>';
   return TPL.render({
     title: 'Contraprova — verificação independente de números de engenharia e IA', lang: 'pt-BR',
-    desc: 'Contraprova decide, com aritmética exata e sem compartilhar código com quem calculou, se um número proposto por IA, simulação ou planilha vale para toda entrada declarada: PROVADO, REFUTADO ou RECUSADO — com um recibo que qualquer engenheiro refaz.',
+    desc: 'Contraprova decide, sobre o modelo físico declarado e o envelope de incerteza declarado, se um número proposto por IA, simulação ou planilha vale para toda entrada: VÁLIDO, INVÁLIDO ou INDETERMINADO com contraexemplos e o limiar que decide — num certificado que um engenheiro refaz sem o nosso código.',
     path: '/contraprova/', bodyRaw: B.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script
   });
 }

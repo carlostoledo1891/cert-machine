@@ -44,6 +44,23 @@ const ledger = {
   receipts: scenarios.cases.map((c) => ({ id: c.id, expect: c.expect, receipt: F.decide(c.proposal, scenarios.box, scenarios.rules) }))
 };
 for (const r of ledger.receipts) if (r.receipt.verdict !== r.expect) die(r.id + ' decided ' + r.receipt.verdict + ', its scenario states ' + r.expect);
+/* what a Monte Carlo study would have said about the lead recommendation: seeded uniform
+   draws of the declared box, the fraction that passes the 360 bar rule — an estimate,
+   recorded beside the two proved corners the receipt names */
+ledger.mc = (() => {
+  const c = scenarios.cases[0], lim = Number(scenarios.rules.PwhMax);
+  const run = (draws) => {
+    let seed = 20260930; const rnd = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+    let over = 0, max = -Infinity, min = Infinity;
+    for (let i = 0; i < draws; i++) { const p = {}; for (const k of F.DIMS) { const a = Number(scenarios.box[k][0]), b = Number(scenarios.box[k][1]); p[k] = a + (b - a) * rnd(); } const P = F.pointP(p, Number(c.proposal.Q), Number(c.proposal.Pd)); if (P > lim) over++; max = Math.max(max, P); min = Math.min(min, P); }
+    return { draws, over, pOver: Math.round(1e4 * over / draws) / 1e4, max: Math.round(max * 10) / 10, min: Math.round(min * 10) / 10 };
+  };
+  const r1 = run(1000), r2 = run(10000);
+  const lead = ledger.receipts[0].receipt, lc = lead.checks.find((k) => k.id === 'limite');
+  const m = /P_wh ≥ ([\d.,]+) bar[\s\S]*P_wh ≤ ([\d.,]+) bar/.exec(lc.text);
+  return { case: c.id, limit: lim, draws: r2.draws, over: r2.over, pOver: r2.pOver, max: r2.max, min: r2.min, draws1k: r1.draws, pOver1k: r1.pOver, cornerAbove: m ? Number(m[1].replace('.', '').replace(',', '.')) : null, cornerBelow: m ? Number(m[2].replace('.', '').replace(',', '.')) : null };
+})();
+if (ledger.mc.cornerAbove === null || ledger.mc.cornerAbove <= ledger.mc.limit || ledger.mc.cornerBelow > ledger.mc.limit) die('the lead receipt no longer names a proved corner on each side of the limit');
 const fresh = JSON.stringify(ledger, null, 1) + '\n';
 if (fs.existsSync(LEDGER) && fs.readFileSync(LEDGER, 'utf8') !== fresh) {
   if (!ACCEPT) die('the receipts or the gate\'s code deviate from ' + path.relative(ROOT, LEDGER) + ' (the record is untouched; --accept writes the new one)');
@@ -75,11 +92,17 @@ fs.mkdirSync(SITE, { recursive: true });
 fs.writeFileSync(path.join(SITE, 'index.html'), html);
 console.log('site/contraprova/index.html written (' + Math.round(html.length / 1024) + ' KB) @ git ' + git);
 
-const DECK = require('./deck.js');
-const deckHtml = DECK.build(N);
-const pdf = path.join(SITE, 'contraprova-apresentacao.pdf');
-const want = sha(deckHtml);
-if (!fs.existsSync(pdf) || !fs.existsSync(DECKSHA) || fs.readFileSync(DECKSHA, 'utf8').trim() !== want) {
-  DECK.print(deckHtml, pdf).then(() => { fs.writeFileSync(DECKSHA, want + '\n'); console.log('site/contraprova/contraprova-apresentacao.pdf printed'); })
-    .catch((e) => die('the deck did not print: ' + e.message));
-} else console.log('deck unchanged (' + want.slice(0, 12) + ')');
+/* the deck and the Nota Técnica, each re-printed only when its HTML changes */
+const DECK = require('./deck.js'), NOTA = require('./nota.js');
+const jobs = [
+  { html: DECK.build(N), pdf: path.join(SITE, 'contraprova-apresentacao.pdf'), pin: DECKSHA, name: 'contraprova-apresentacao.pdf' },
+  { html: NOTA.build(N, git), pdf: path.join(SITE, 'nota-tecnica-exemplo.pdf'), pin: path.join(APP, 'data', 'nota.sha256'), name: 'nota-tecnica-exemplo.pdf' }
+];
+(async () => {
+  for (const j of jobs) {
+    const want = sha(j.html);
+    if (fs.existsSync(j.pdf) && fs.existsSync(j.pin) && fs.readFileSync(j.pin, 'utf8').trim() === want) { console.log(j.name + ' unchanged (' + want.slice(0, 12) + ')'); continue; }
+    await DECK.print(j.html, j.pdf).catch((e) => die(j.name + ' did not print: ' + e.message));
+    fs.writeFileSync(j.pin, want + '\n'); console.log('site/contraprova/' + j.name + ' printed');
+  }
+})();
