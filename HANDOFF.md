@@ -157,7 +157,13 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       SCOUTED (targets rows): K3(a) — the 18 AI-autoformalised FrontierMath Erdős
       statements read faithful; 548's statement is equivalent to the classical
       one (a lemma to certify). Registry: C1a (1-2 days), C84a stale (NEEDS DATA).
-      NEXT — MathBench v0's page (the campaign runs under its US$30 ceiling);
+      DONE — MATHBENCH V0 (reports/mathbench.html): certified of graded — Haiku 4.5
+      5/46, Sonnet 5 18/21 (25 rungs out of tokens), Opus 5 21/23 (23 out of tokens);
+      no beyond-the-record rung certified; US$22.30 of US$30. Five Opus calls failed
+      at the API (HTTP 400, nothing billed) and were re-issued once — recorded as a
+      deviation in the pre-registration. The operator added US$20 of API credit.
+      NEXT — MathBench v1, pre-registered first (a larger output cap: finishing, not
+      correctness, is what v0 measured);
       the spinor closed form (an enclosure only gives agreement digits — check the
       printed derivation's steps instead); F7's determinant through a formalised
       chain rule; Gao's generic fiber sizes; the polynomial maps not yet in keller (Gao 2608.00222; the

@@ -332,6 +332,15 @@ const REPORTS = [
       + gymBy('claude-haiku-4-5').false_claims + '.',
     n: 'v' + gymHub.version + ' on the Hub · ' + gymPilot.meta.calls + ' model calls, $'
       + gymPilot.meta.spent.toFixed(2) + ' · the reference table needs no key' },
+  { g: 'ai', f: 'mathbench.html', k: 'benchmark · pre-registered',
+    title: 'Certified MathBench v0',
+    desc: 'Three Claude models asked, once each, for 46 constructions in seven families — rulers, caps, codes, graphs, laws, sphere packings, bilinear '
+      + 'algorithms — every answer decided exactly, no answer key and no judge, under a pre-registered ceiling.',
+    n: (() => { const rows = fs.readFileSync(path.join(ROOT, 'certs', 'mathbench-ledger.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l)).filter((r) => r.tag === 'v0');
+      const last = new Map(); for (const r of rows) last.set(r.model + '|' + r.family + '|' + r.target, r);
+      const c = (m) => [...last.values()].filter((r) => r.model === m && r.outcome === 'certified').length;
+      const usd = rows.reduce((a, r) => a + ((r.usage && r.usage.usd) || 0), 0);
+      return 'certified: Haiku ' + c('claude-haiku-4-5-20251001') + ', Sonnet ' + c('claude-sonnet-5') + ', Opus ' + c('claude-opus-5') + ' of 46 · US$' + usd.toFixed(2); })() },
   { g: 'ai', f: 'polymaps.html', k: 'decided · polynomial maps',
     title: 'Gao\'s Keller maps and a Markus–Yamabe field, decided',
     desc: 'Five new counterexamples to the Jacobian conjecture written with Claude Fable 5\'s help, and a field on ℝ¹⁴ with every Jacobian eigenvalue −1 '

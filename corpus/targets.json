@@ -617,6 +617,15 @@
    "finding": "Subagent scout; downloads in the session scratchpad. Open PRs #184 (C42 0.688983), #180 (C21), #148 (C3a), #198.",
    "fit": "The sumdiff pattern: finite certificates, exact or interval arithmetic, the claimant's checker observed.",
    "next": "C1a (the Bessel-kernel integral, 1-2 days); C84a as NEEDS DATA/stale; C80 (Ding–Sun/Huang conditions, weeks)."
+  },
+  {
+   "id": "mathbench-v0",
+   "name": "Certified MathBench v0 — three Claude models, seven construction families, 46 rungs, one sample each, every answer decided exactly (attack plan A1/K1)",
+   "verdict": "BUILT 2026-09-29: certified of graded — Haiku 4.5 5/46, Sonnet 5 18/21 (25 out of tokens), Opus 5 21/23 (23 out of tokens); beyond the textbook baseline 2, 13 and 15 rungs; no rung beyond the published record certified (Haiku and Opus proposed objects there that are refuted; the rest ran out of tokens). US$22.30 of the pre-registered US$30. One deviation, recorded in the pre-registration: five Opus calls failed at the API (HTTP 400, nothing billed) and were issued once more. reports/mathbench.html",
+   "scouted": "2026-09-29",
+   "finding": "The 24,000-token cap binds: Sonnet and Opus certify almost everything they finish, and fail to finish more than half the rungs.",
+   "fit": "The grammar exactly: exhibited objects, exact certifiers, red controls before the first call.",
+   "next": "v1, pre-registered first: a larger output cap (or effort settings) so that finishing is not the measurement; the extra credit the operator added could pay for it — his decision."
   }
  ]
 }

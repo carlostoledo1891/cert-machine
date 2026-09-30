@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-29",
+  "recorded": "2026-09-30",
   "browser": "Chrome/154.0.8037.59",
   "viewports": [
     1440,
@@ -96,7 +96,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3810fb7f28dc059daab124141ab5d87ab4a303ad720ab1707af5d0b831ea9dca"
+      "sha": "e4db640b72f3d033c1269f74aa7d5d85037f20504d2bce4586628ddfc3b44d0a"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -600,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2c7a7b9b69820bfa498c0d9c64430f9d72dbfb6e989d68f99d11041be827562e"
+      "sha": "a33bb62b207dcde4d931f1cf7983174f71bf8135c3a4015535eadb777a70cdec"
     },
     "site/oracle/index.html": {
       "390": {
@@ -621,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4181278a397e3f202f50969150a9cfe94ed368d0e34e9385274a2bf479bed249"
+      "sha": "3c4412f6b89d2552e17f39d2ec5df81ebd7abf812d684d33284827405d5948cf"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -642,7 +642,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "032b97a4a8272b96c7bedbe45aab37a01671fcc8863a0c8bf93e2d788351bcb4"
+      "sha": "97ecc8a2dcc42e1c074784df94bbca2b752204d75f9e2e5a60d20a50199e6eba"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1482,7 +1482,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d85c0c79ccb5596163d3a1e6b3bac1e75b940be79f53d8a2ea964a5d3c3d5f00"
+      "sha": "9a75defc2193498612c4e4f6ba3fdbb9b31c42141de5d61bcfc6dc44b53c8f5c"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1567,6 +1567,27 @@
         "clipped": 0
       },
       "sha": "a85faec1ee30e4a3f47b102f5e76106fc2b6800aa0650f914c259daf169406d6"
+    },
+    "site/reports/mathbench.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "59e459074d56c9724adddf3fbce80972ff64bab1ad41e698abe57ff462842687"
     },
     "site/reports/matmul-additions.html": {
       "390": {

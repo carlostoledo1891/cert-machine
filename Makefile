@@ -200,6 +200,7 @@ reports:
 	@$(NODE) tools/build-report-ramsey.js
 	@$(PY) tools/run-polymaps-ledger.py
 	@$(NODE) tools/build-report-polymaps.js
+	@$(NODE) tools/build-report-mathbench.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
 	@$(NODE) tools/build-report-monthly.js

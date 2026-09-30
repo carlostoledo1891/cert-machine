@@ -49,3 +49,11 @@ made, and the stop is printed. Rates: the claude-api skill's table cached 2026-0
 If no model certifies a rung the baseline does not, v0 says so: the families' easy rungs are recall and the
 hard ones out of reach at one sample. A certified row on a "beyond the record" rung is NOT announced from
 this run: it is re-decided by a second implementation first.
+
+## Deviation recorded after the run (2026-09-29)
+
+Five Opus 5 calls on the sum–difference family (rungs 1.725, 1.77, 1.778, 1.77898, 1.77898884) came back from the
+API with HTTP 400 on all five attempts each, with no reply and nothing billed; the harness recorded them as skipped
+and the run went on (the family's next call succeeded). The account's credit was topped up by the operator during the
+run. Those five rungs had no sample, so each was issued exactly once more after the run, with the same prompt, model,
+settings and the remaining ceiling; no rung was sampled twice. Everything else ran as registered.
