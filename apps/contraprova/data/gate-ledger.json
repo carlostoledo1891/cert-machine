@@ -1,0 +1,486 @@
+{
+ "what": "The Contraprova gate's nine demonstrator receipts, each decided by apps/contraprova/gate/flowline.js over the declared box of apps/contraprova/gate/scenarios.json. Illustrative, typical values: not Petrobras data.",
+ "modules": {
+  "instruments/interval/interval.js": "59556ef98bdd25a9f74a9d1b09b6bf8f9f2749fa461f04f4d01e6eecb64a9cd5",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "instruments/interval/transcendental.js": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
+  "apps/contraprova/gate/flowline.js": "8463913d4354bf14332b7d8a608423d34d8d982b352faf3aeb226ec4048b7d02",
+  "apps/contraprova/receipt.js": "7166ae3fba1b3e5b32ff35e9388151015c6b2bc81eba2e2a6ea018e9e02f73fe"
+ },
+ "scenariosSha256": "199bb6f8170f6353b2d6348c3bf60d4488cd3691b15f346a5c8fab35f443b934",
+ "battery": {
+  "checks": 24,
+  "fired": 9,
+  "reds": 9,
+  "refPoints": 176
+ },
+ "receipts": [
+  {
+   "id": "ia-mais-4-2",
+   "expect": "RECUSADO",
+   "receipt": {
+    "verdict": "RECUSADO",
+    "enclosure": [
+     343.7,
+     362
+    ],
+    "claim": "352",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 418,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [493.773; 649.382] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 4,465 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "PROVADO",
+      "text": "P_wh declarada está em [343,7; 362,0] bar, que contém P_wh para toda entrada declarada."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "RECUSADO",
+      "text": "A caixa declarada contém entradas dos dois lados, ambos provados. Viola: ε = 0,020 mm, μ = 1,08 mPa·s, D = 152,8 mm, ρ = 1.028 kg/m³, Δz = 2.105 m, L = 5.990 m → P_wh ≥ 361,6 bar. Respeita: ε = 0,080 mm, μ = 1,39 mPa·s, D = 152,0 mm, ρ = 1.022 kg/m³, Δz = 2.095 m, L = 6.010 m → P_wh ≤ 344,2 bar. A evidência declarada não decide."
+     }
+    ],
+    "thresholds": [
+     "Com P_d ≤ 204,0 bar a regra fica PROVADA na caixa inteira; acima de 222,3 bar fica REFUTADA.",
+     "Ou inspecionar a linha e mostrar rugosidade ε ≥ 0,027 mm (a caixa declara 0,020–0,080 mm): com isso a regra fica PROVADA."
+    ],
+    "flip": {
+     "pdGreen": 204,
+     "pdRed": 222.3,
+     "eps": 0.027
+    },
+    "evals": 588,
+    "proved": 4,
+    "of": 5
+   }
+  },
+  {
+   "id": "ia-ajustada",
+   "expect": "PROVADO",
+   "receipt": {
+    "verdict": "PROVADO",
+    "enclosure": [
+     337.7,
+     356
+    ],
+    "claim": "346",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 412,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [493.773; 649.382] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 4,465 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "PROVADO",
+      "text": "P_wh declarada está em [337,7; 356,0] bar, que contém P_wh para toda entrada declarada."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 5,
+    "of": 5
+   }
+  },
+  {
+   "id": "parametro",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "350.9",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "REFUTADO",
+      "text": "P_wh declarada, 350,9 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 0,7 bar acima do máximo possível."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 4,
+    "of": 5
+   }
+  },
+  {
+   "id": "massa",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "344",
+    "checks": [
+     {
+      "id": "massa",
+      "name": "Conservação de massa no manifold",
+      "verdict": "REFUTADO",
+      "text": "Entram 12.000 m³/d e saem 12.400 m³/d pelos poços — a diferença é exata, não arredondamento."
+     },
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "PROVADO",
+      "text": "P_wh declarada está em [336,6; 350,2] bar, que contém P_wh para toda entrada declarada."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 5,
+    "of": 6
+   }
+  },
+  {
+   "id": "instabilidade",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "358.9",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "colebrook",
+      "name": "Solução de Colebrook",
+      "verdict": "REFUTADO",
+      "text": "f = 0,0110 não resolve Colebrook para nenhuma entrada declarada: as soluções estão em [0,01459; 0,01798]. O solver parou antes de convergir."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "REFUTADO",
+      "text": "P_wh declarada, 358,9 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 8,7 bar acima do máximo possível."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 4,
+    "of": 6
+   }
+  },
+  {
+   "id": "contorno",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "395",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "REFUTADO",
+      "text": "A pressão declarada, 395 bar, excede P_d + ρgΔz ≤ 392,3 bar: exigiria atrito negativo, energia criada na linha."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "REFUTADO",
+      "text": "P_wh declarada, 395 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 44,8 bar acima do máximo possível."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 3,
+    "of": 5
+   }
+  },
+  {
+   "id": "unidade",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "4989",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "REFUTADO",
+      "text": "A pressão declarada, 4989 bar, excede P_d + ρgΔz ≤ 392,3 bar: exigiria atrito negativo, energia criada na linha."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "REFUTADO",
+      "text": "P_wh declarada, 4989 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Dividido por 14,504, cai dentro: é compatível com psi informado como bar."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 3,
+    "of": 5
+   }
+  },
+  {
+   "id": "alucinada",
+   "expect": "REFUTADO",
+   "receipt": {
+    "verdict": "REFUTADO",
+    "enclosure": [
+     336.6,
+     350.2
+    ],
+    "claim": "344",
+    "checks": [
+     {
+      "id": "cinematica",
+      "name": "Coerência interna (v = Q/A)",
+      "verdict": "REFUTADO",
+      "text": "A velocidade declarada, 2,9 m/s, não é Q/A para nenhum diâmetro declarado: Q/A ∈ [3,787; 3,828] m/s."
+     },
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "PROVADO",
+      "text": "Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 3,828 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "PROVADO",
+      "text": "P_wh declarada está em [336,6; 350,2] bar, que contém P_wh para toda entrada declarada."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "PROVADO",
+      "text": "Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."
+     }
+    ],
+    "thresholds": [],
+    "flip": {},
+    "evals": 193,
+    "proved": 5,
+    "of": 6
+   }
+  },
+  {
+   "id": "dominio",
+   "expect": "RECUSADO",
+   "receipt": {
+    "verdict": "RECUSADO",
+    "enclosure": null,
+    "claim": "391",
+    "checks": [
+     {
+      "id": "energia",
+      "name": "Limite físico (atrito ≥ 0)",
+      "verdict": "PROVADO",
+      "text": "A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."
+     },
+     {
+      "id": "dominio",
+      "name": "Domínio do modelo (Re ≥ 4.000)",
+      "verdict": "RECUSADO",
+      "text": "Re ∈ [2.821; 3.711]: parte da caixa não é turbulenta, e nenhum modelo declarado vale ali. Não há decisão a dar."
+     },
+     {
+      "id": "velocidade",
+      "name": "Regra: v ≤ 5 m/s",
+      "verdict": "PROVADO",
+      "text": "v ≤ 0,026 m/s em toda a caixa."
+     },
+     {
+      "id": "modelo",
+      "name": "Consistência com o modelo físico",
+      "verdict": "NÃO AVALIADO",
+      "text": "Fora do domínio do modelo: nenhum intervalo de P_wh é afirmado."
+     },
+     {
+      "id": "limite",
+      "name": "Regra: P_wh ≤ 360 bar",
+      "verdict": "NÃO AVALIADO",
+      "text": "Fora do domínio do modelo."
+     }
+    ],
+    "thresholds": [
+     "Com Q ≥ 57 m³/d o escoamento é turbulento em toda a caixa e o portão decide."
+    ],
+    "flip": {
+     "qMin": 57
+    },
+    "evals": 0,
+    "proved": 2,
+    "of": 3
+   }
+  }
+ ]
+}

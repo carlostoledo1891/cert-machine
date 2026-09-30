@@ -1,0 +1,83 @@
+{
+  "what": "The Contraprova gate's demonstrator: one water-injection line, its declared inputs as a box, two declared operating rules, and nine proposals — two recommendations an AI model could make and seven reference outputs with one fault injected into each. ILLUSTRATIVE, TYPICAL VALUES: not Petrobras data, not any real line.",
+  "line": "Linha de injeção de água do FPSO ao poço injetor, lâmina d'água de 2.100 m",
+  "box": {
+    "L": ["5990", "6010"],
+    "D": ["0.1520", "0.1528"],
+    "eps": ["0.00002", "0.00008"],
+    "rho": ["1022", "1028"],
+    "mu": ["0.00108", "0.00139"],
+    "dz": ["2095", "2105"]
+  },
+  "boxWords": {
+    "L": ["comprimento da linha", "m", 1, 0],
+    "D": ["diâmetro interno", "mm", 1000, 1],
+    "eps": ["rugosidade", "mm", 1000, 2],
+    "rho": ["massa específica da água", "kg/m³", 1, 0],
+    "mu": ["viscosidade (água do mar, ~10–20 °C)", "mPa·s", 1000, 2],
+    "dz": ["desnível (lâmina d'água)", "m", 1, 0]
+  },
+  "rules": { "PwhMax": "360", "vMax": "5" },
+  "rulesWords": {
+    "PwhMax": "pressão na cabeça do poço ≤ 360 bar (limite operacional declarado)",
+    "vMax": "velocidade ≤ 5 m/s (limite de erosão declarado)"
+  },
+  "cases": [
+    {
+      "id": "ia-mais-4-2", "kind": "proposta", "title": "Proposta de IA: +4,2% de injeção",
+      "story": "Um modelo de IA recomenda subir a injeção de 6.720 para 7.000 m³/d (+4,2%), elevando a descarga da bomba para 206 bar, e prevê 352 bar na cabeça do poço — abaixo do limite de 360 bar.",
+      "confidence": "97%",
+      "proposal": { "Q": "7000", "Pd": "206", "claim": { "Pwh": "352" } },
+      "expect": "RECUSADO"
+    },
+    {
+      "id": "ia-ajustada", "kind": "proposta", "title": "A mesma vazão, P_d = 200 bar",
+      "story": "A mesma recomendação com a descarga em 200 bar, dentro do limiar que o portão publicou para a proposta anterior. O modelo prevê 346 bar.",
+      "confidence": "97%",
+      "proposal": { "Q": "7000", "Pd": "200", "claim": { "Pwh": "346" } },
+      "expect": "PROVADO"
+    },
+    {
+      "id": "parametro", "kind": "falha", "fault": "Parâmetro errado", "title": "O diâmetro de catálogo",
+      "story": "Operação de referência: 6.000 m³/d com 180 bar na descarga. O modelo usou 158 mm de diâmetro interno (valor de catálogo) em vez dos 152,0–152,8 mm declarados, e prevê 350,9 bar.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "350.9" } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "massa", "kind": "falha", "fault": "Conservação violada", "title": "O manifold que cria água",
+      "story": "O manifold recebe 12.000 m³/d e o modelo distribui 6.000 e 6.400 m³/d entre dois poços; para o primeiro prevê 344 bar.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "344" }, "split": { "header": "12000", "wells": ["6000", "6400"] } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "instabilidade", "kind": "falha", "fault": "Instabilidade numérica", "title": "O solver que parou cedo",
+      "story": "O solver iterativo parou antes de convergir e devolveu fator de atrito f = 0,0110; com ele, o modelo prevê 358,9 bar.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "358.9", "f": "0.0110" } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "contorno", "kind": "falha", "fault": "Condição de contorno impossível", "title": "Pressão que a física não permite",
+      "story": "Com 180 bar na descarga, o modelo prevê 395 bar na cabeça do poço.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "395" } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "unidade", "kind": "falha", "fault": "Conversão de unidade", "title": "psi com rótulo de bar",
+      "story": "O modelo informa 4.989 bar na cabeça do poço — o número de uma pressão em psi, com o rótulo errado.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "4989" } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "alucinada", "kind": "falha", "fault": "Saída alucinada", "title": "Uma velocidade que não existe",
+      "story": "Junto com uma pressão plausível, 344 bar, o modelo afirma velocidade de 2,9 m/s na linha.",
+      "proposal": { "Q": "6000", "Pd": "180", "claim": { "Pwh": "344", "v": "2.9" } },
+      "expect": "REFUTADO"
+    },
+    {
+      "id": "dominio", "kind": "falha", "fault": "Fora do domínio", "title": "A correlação fora do seu regime",
+      "story": "Para um teste de fall-off a vazão cai para 40 m³/d, e o modelo prevê 391 bar com a mesma correlação de escoamento turbulento.",
+      "proposal": { "Q": "40", "Pd": "180", "claim": { "Pwh": "391" } },
+      "expect": "RECUSADO"
+    }
+  ]
+}

@@ -1781,7 +1781,9 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
 
 /* site/apps/ is an APP-OWNED ZONE: each app's own gated build
    (apps/<name>/build.js, invoked by `make site`) emits it, with its own
-   batteries and drift gates. The site sync neither generates nor prunes
+   batteries and drift gates. site/contraprova/ is the same arrangement at a
+   top-level path (apps/contraprova/build.js; the URL was chosen by the
+   operator, 2026-09-29). The site sync neither generates nor prunes
    under it — two builders writing one tree is how files get eaten. */
 /* site/instruments/ is the same arrangement for the opposite reason. It is
    emitted by playground/build.js, which is not wired into this file and to
@@ -1793,7 +1795,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/'];
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/'];
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
@@ -1831,7 +1833,7 @@ let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {
   const rel = String(e).split(path.sep).join('/');
   const abs = path.join(SITE, String(e));
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/')) continue;
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/')) continue;
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

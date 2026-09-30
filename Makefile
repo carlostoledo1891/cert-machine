@@ -29,6 +29,7 @@ control:
 site: playground control
 	@$(NODE) tools/build-site.js
 	@$(NODE) apps/skyaudit/build.js
+	@$(NODE) apps/contraprova/build.js
 
 playground:
 	@$(NODE) playground/build.js
@@ -157,6 +158,7 @@ test:
 	@printf "%-30s " "cert-unit replay (TERRA 39)"; $(NODE) instruments/cert-unit/replay.mjs 2>/dev/null | grep -q "39 cells identically, 0 disagreed" && echo PASS || echo FAIL
 	@printf "%-30s " "render (what a page shows)"; $(NODE) tools/check-render.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "contraprova gate"; $(NODE) apps/contraprova/gate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

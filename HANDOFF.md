@@ -21,6 +21,34 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night; the
+operator: "the only goal is a perfect submission"; everything else below is HELD)
+
+  WHAT. Petrobras Conexões para Inovação, Radar de Soluções — Ciclo 3 (Módulo
+  Startups). The form (forms.office.com/r/K40NMxWTrN) CLOSES 2026-09-30 23:59 BRT.
+  It is a REGISTRY, not a funded selection (the form's own clause); best outcome, a
+  chat with a PD&I portfolio. Fields: portfolios (multi), description <= 2,000 chars,
+  extra <= 500, ONE link, TRL, CRL, CNPJ year. The form pack (answers + both texts)
+  was given in chat, never in the repo; the OPERATOR submits.
+  BUILT (this commit): CONTRAPROVA, the product face — /contraprova/ (pt-BR) and
+  /contraprova/contraprova-apresentacao.pdf (12 slides), apps/contraprova:
+    · gate/flowline.js — a water-injection line's wellhead pressure decided over the
+      whole declared box (Colebrook via x = 1/sqrt f, monotone in a and b, float
+      Newton only locates, interval ln from instruments/interval; the rule by
+      bisection; RECUSADO needs two proved corners, one per side; flip thresholds).
+    · gate/scenarios.json — 2 AI recommendations + 7 injected faults, ILLUSTRATIVE.
+    · gate/battery.js — 24 checks, 9/9 reds, gate/reference.py (Python decimal at 50
+      digits, no shared code) contained at 176 inputs.
+    · numbers.js (ONE module for page and deck: atlas, scipy, design table, register),
+      receipt.js (ONE receipt renderer, build and browser), page.js, deck.js, build.js
+      (battery -> receipts vs data/gate-ledger.json, refuse on drift -> page -> deck,
+      re-printed only when its HTML changes). `make site` runs it; site/contraprova/ is
+      an app-owned zone in tools/build-site.js; template.render takes `lang`.
+  NEXT. The meeting with the UFSC contact (2026-09-30): the partner line (NOTHING about
+  him or UFSC is on the page until he agrees), the portfolio routing, then revise,
+  push, and the operator submits before 23:59.
+
+────────────────────────────────────────────────────────────────────────────
 START HERE — THE NEXT SESSION (handed off 2026-09-29 night, end of the twenty-fourth session)
 
   STATE. Everything is committed, pushed and LIVE (last commit 8b32bee, then this

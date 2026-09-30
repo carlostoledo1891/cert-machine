@@ -458,7 +458,7 @@ ${pagePath ? ldJson(pagePath, title, d, canon) : ''}
    <body>NAV · body · ONE FOOTER · scripts</body></html>. A builder passes only
    what is its own; a whole <footer> passed as footRaw is unwrapped, so the
    older builders keep working while they migrate. */
-function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', sheet = 'report', bodyClass = '' }) {
+function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', sheet = 'report', bodyClass = '', lang = 'en' }) {
   const root = rootOf(pagePath);
   const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root });
   /* footRaw === null: a VIEWPORT page, not a document — it carries its own
@@ -475,7 +475,7 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
     + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
   const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
   return `<!doctype html>
-<html lang="en">
+<html lang="${lang}">
 <head>
 ${headHtml({ title, desc, path: pagePath })}
 <style>

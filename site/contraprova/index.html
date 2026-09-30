@@ -1,0 +1,2031 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contraprova — verificação independente de números de engenharia e IA</title>
+<meta name="description" content="Contraprova decide, com aritmética exata e sem compartilhar código com quem calculou, se um número proposto por IA, simulação ou planilha vale para toda entrada declarada: PROVADO, REFUTADO ou RECUSADO — com um recibo que qualquer engenheiro refaz.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/contraprova/">
+<meta property="og:url" content="https://carlostoledo.co/contraprova/">
+<meta property="og:title" content="Contraprova — verificação independente de números de engenharia e IA">
+<meta property="og:description" content="Contraprova decide, com aritmética exata e sem compartilhar código com quem calculou, se um número proposto por IA, simulação ou planilha vale para toda entrada declarada: PROVADO, REFUTADO ou RECUSADO — com um recibo que qualquer engenheiro refaz.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contraprova — verificação independente de números de engenharia e IA">
+<meta name="twitter:description" content="Contraprova decide, com aritmética exata e sem compartilhar código com quem calculou, se um número proposto por IA, simulação ou planilha vale para toda entrada declarada: PROVADO, REFUTADO ou RECUSADO — com um recibo que qualquer engenheiro refaz.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- Contraprova (apps/contraprova/page.js) ---- */
+.cp-hero{padding:8px 0 0}
+.cp-hero h1{font-size:var(--text-display);max-width:15ch;letter-spacing:-.04em}
+.cp-hero .deck{max-width:62ch}
+.cp-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden;margin:40px 0 0}
+.cp-trio > div{background:var(--sunk);padding:22px 24px;display:flex;flex-direction:column;gap:12px}
+.cp-trio p{margin:0;color:var(--ink-3);font-size:var(--text-small);line-height:1.55}
+@media (max-width:760px){.cp-trio{grid-template-columns:1fr}}
+.cp-chip{display:inline-flex;align-items:center;font-family:var(--f-mono);font-size:.625rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;padding:.4em .85em;border-radius:var(--radius-pill);white-space:nowrap;
+  align-self:flex-start;border:1px solid transparent}
+.cp-chip.big{font-size:.8125rem;padding:.5em 1.05em}
+.cp-chip.provado{background:var(--ink);color:var(--paper)}
+.cp-chip.refutado{border-color:var(--ink-2);color:var(--ink)}
+.cp-chip.recusado{border:1px dashed var(--ink-4);color:var(--ink-3)}
+.cp-chip.nao{border:1px dotted var(--rule-strong);color:var(--ink-5)}
+.cp-cta{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
+.cp-cta a{border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:10px 18px;
+  font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink)}
+.cp-cta a.go{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cp-cta a:hover{border-color:var(--ink)}
+
+/* the architecture, as boxes that stack on a phone */
+.cp-arch{display:grid;grid-template-columns:1fr auto 1fr auto 1.5fr auto 1fr;align-items:stretch;gap:0;margin:8px 0 0}
+.cp-st{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 18px;display:flex;flex-direction:column;gap:8px}
+.cp-st.core{border-color:var(--ink-3);background:var(--surface2)}
+.cp-st.claim{border-style:dashed}
+.cp-st .cp-k{margin:0}
+.cp-st h3{font-size:1.05rem;margin:0}
+.cp-st p{margin:0;font-size:var(--text-small);line-height:1.5;color:var(--ink-3)}
+.cp-st ol{margin:4px 0 0;padding-left:18px;font-size:var(--text-small);line-height:1.5;color:var(--ink-2)}
+.cp-st ol li{margin:0 0 6px}
+.cp-st .cp-vs{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.cp-ar{display:flex;align-items:center;justify-content:center;padding:0 8px;color:var(--ink-4);font-family:var(--f-mono)}
+.cp-ar::before{content:'\2192'}
+@media (max-width:1000px){.cp-arch{grid-template-columns:1fr}.cp-ar{padding:6px 0}.cp-ar::before{content:'\2193'}}
+
+.cp-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin:0 0 10px}
+.cp-diff{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:36px 0 0}
+.cp-diff > div{border-top:1px solid var(--rule-strong);padding-top:14px}
+.cp-diff b{display:block;color:var(--ink);font-weight:500;margin-bottom:6px}
+.cp-diff p{margin:0;color:var(--ink-3);font-size:var(--text-small);line-height:1.55}
+@media (max-width:900px){.cp-diff{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cp-diff{grid-template-columns:1fr}}
+
+/* the live gate */
+.cp-gate{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:900px){.cp-gate{grid-template-columns:1fr}}
+.cp-cases{display:flex;flex-direction:column;gap:6px}
+.cp-cases .cp-k{margin:14px 0 4px}
+.cp-cases .cp-k:first-child{margin-top:0}
+@media (max-width:900px){.cp-cases{flex-direction:row;flex-wrap:wrap}.cp-cases .cp-k{flex-basis:100%}}
+.cp-case{font:inherit;text-align:left;cursor:pointer;background:var(--surface);color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:var(--radius-s);padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+.cp-case small{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.cp-case span{font-size:var(--text-small);line-height:1.35}
+.cp-case:hover{border-color:var(--rule-strong)}
+.cp-case[aria-pressed="true"]{border-color:var(--ink-3);background:var(--surface2);color:var(--ink)}
+.cp-case:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.cp-rc{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+@media (max-width:760px){.cp-rc{grid-template-columns:1fr}}
+.cp-common,.cp-cert{background:var(--sunk);padding:22px 22px}
+.cp-common{background:var(--paper)}
+.cp-story{font-style:italic;color:var(--ink-3);font-size:var(--text-small);line-height:1.55;margin:0 0 16px}
+.cp-pred{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;border:1px dashed var(--ink-5);
+  border-radius:var(--radius-s);padding:12px 14px}
+.cp-pred span{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.cp-pred b{font-style:italic;font-weight:400;color:var(--ink-3);font-size:1.25rem;font-family:var(--f-display)}
+.cp-vline{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.cp-means{color:var(--ink-2);font-size:var(--text-small)}
+.cp-enc-t{font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink);margin:14px 0 4px}
+svg.cp-nl{display:block;width:100%;height:auto;margin:4px 0 8px}
+svg.cp-nl.narrow{display:none}
+@media (max-width:560px){svg.cp-nl.wide{display:none}svg.cp-nl.narrow{display:block}}
+.cp-nl .cp-axis{stroke:var(--c-axis);stroke-width:1}
+.cp-nl .cp-enc{fill:var(--band-fill);stroke:var(--ink);stroke-width:1.5}
+.cp-nl .cp-guide{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 3}
+.cp-nl .cp-claim{stroke:var(--ink-3);stroke-width:2;stroke-dasharray:5 4}
+.cp-nl text{font-family:var(--f-mono);font-size:12px;fill:var(--ink-2)}
+.cp-nl text.claim{font-style:italic;fill:var(--ink-3)}
+.cp-nl text.dim{fill:var(--ink-4)}
+ul.cp-checks{list-style:none;padding:0;margin:8px 0 0}
+ul.cp-checks li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--rule);align-items:start}
+ul.cp-checks li .cp-chip{justify-self:start}
+ul.cp-checks li b{display:block;color:var(--ink);font-weight:500;font-size:var(--text-small)}
+ul.cp-checks li span{display:block;color:var(--ink-3);font-size:var(--text-small);line-height:1.5}
+@media (max-width:560px){ul.cp-checks li{grid-template-columns:1fr;gap:6px}}
+.cp-flip{margin:12px 0 0;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:14px 16px}
+.cp-flip ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:var(--text-small);line-height:1.55}
+.cp-run{margin-top:14px;font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-4);line-height:1.5}
+.cp-form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:20px 0 0;padding:16px;border:1px dashed var(--ink-5);border-radius:var(--radius-m)}
+.cp-form label{display:flex;flex-direction:column;gap:6px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.cp-form input{font:inherit;font-family:var(--f-mono);font-size:var(--text-small);width:120px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:8px 10px;text-transform:none;letter-spacing:0}
+.cp-form button{font:inherit;font-family:var(--f-mono);font-size:var(--text-small);cursor:pointer;background:var(--ink);color:var(--paper);
+  border:0;border-radius:var(--radius-pill);padding:9px 18px}
+.cp-form p{flex-basis:100%;margin:0;color:var(--ink-4);font-size:var(--text-small)}
+
+.cp-ev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:900px){.cp-ev{grid-template-columns:1fr}}
+.cp-ev > div{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);padding:22px;display:flex;flex-direction:column;gap:10px}
+.cp-ev .big{font-family:var(--f-display);font-size:clamp(1.6rem,1.2rem + 1.2vw,2.3rem);color:var(--ink);letter-spacing:-.02em;line-height:1.05}
+.cp-ev p{margin:0;color:var(--ink-3);font-size:var(--text-small);line-height:1.55}
+.cp-ev a{align-self:flex-start;font-family:var(--f-mono);font-size:var(--text-eyebrow);margin-top:auto}
+.cp-ask{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.cp-ask{grid-template-columns:1fr}}
+.cp-ask > div{border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:22px}
+.cp-ask ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:var(--text-small);line-height:1.6}
+details.cp-why{margin:24px 0 0}
+.cp-sub{margin-top:56px}
+.cp-gap{height:28px}
+@media (max-width:760px){.cp-dumb .figbox svg{min-width:760px}}
+details.cp-why > summary{cursor:pointer;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;display:inline-block;list-style:none}
+details.cp-why > summary::-webkit-details-marker{display:none}
+details.cp-why[open] > summary{margin-bottom:20px}
+.cp-box td:first-child{color:var(--ink);white-space:nowrap}
+
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col cp-hero"><div class="eyebrow">Contraprova · verificação independente para computação de engenharia e IA</div><h1>Antes de um número decidir uma operação, ele passa pela contraprova.</h1><p class="deck">Modelos de IA, simuladores, otimizadores e planilhas propõem números — uma vazão de injeção, uma pressão na cabeça do poço, a onda de projeto de uma plataforma. A Contraprova decide cada número com aritmética exata, sem compartilhar código com quem calculou, e responde com uma de três palavras. Cada resposta sai com um recibo que qualquer engenheiro refaz.</p><div class="cp-trio"><div><span class="cp-chip provado big">PROVADO</span><p>Vale para <b>toda</b> entrada declarada — não para uma amostra, não em média.</p></div><div><span class="cp-chip refutado big">REFUTADO</span><p>Falha, e a falha está provada: o recibo aponta a equação, o limite ou a entrada que a derruba.</p></div><div><span class="cp-chip recusado big">RECUSADO</span><p>A evidência declarada não decide — e o recibo publica exatamente o que decidiria.</p></div></div><div class="cp-cta"><a class="go" href="#portao">Ver o portão ao vivo ↓</a><a href="contraprova-apresentacao.pdf">Apresentação (PDF)</a><a href="#projeto">O projeto de PD&amp;I</a></div></header>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">ondas de projeto decididas</div><div class="v">46.602</div><div class="n">40.778 provadas e 5.824 recusadas com motivo, em 2.589 células do hindcast público</div></div>
+    <div class="stat"><div class="k">mesmo software, mesmos dados</div><div class="v">0 de 60</div><div class="n">ajustes do scipy na chamada padrão que são o que dizem ser; 45 de 60 com a locação fixa</div></div>
+    <div class="stat"><div class="k">falhas injetadas pegas</div><div class="v">7 de 7</div><div class="n">no portão de injeção de água; 9/9 controles vermelhos a cada build</div></div>
+    <div class="stat"><div class="k">resultados de IA de fronteira</div><div class="v">87</div><div class="n">afirmações publicadas decididas no registro público — entre elas de GPT-5.4 Pro, GPT-5.6 e Codex</div></div>
+  </div>
+</div>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">1 · o problema</div>
+    <h2>Números que decidem, sem recibo</h2>
+  </div>
+<div class="col"><p>Operadoras como a Petrobras usam cada vez mais IA, gêmeos digitais, simulação e otimização para apoiar decisões de engenharia e de operação. Cada um desses sistemas termina num número — e o número chega sozinho: “previsão 352 bar, confiança 97%”. Quem vai agir sobre ele não tem como refazê-lo; dois programas dão dois números para os mesmos dados; e, quando a matemática não tem resposta, o software imprime uma assim mesmo.</p><p>A pergunta que ninguém responde hoje não é <em>“o modelo é bom em média?”</em>. É: <b>este número, esta recomendação, vale para as condições que declaramos?</b> A Contraprova responde a essa pergunta — sobre a saída, sem precisar abrir o modelo.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">2 · a arquitetura</div>
+    <h2>A IA propõe. A Contraprova decide.</h2>
+  </div>
+<div class="wide"><div class="cp-arch"><div class="cp-st"><div class="cp-k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro da linha, histórico de poço — no ambiente da Petrobras.</p></div><div class="cp-ar" aria-hidden="true"></div><div class="cp-st claim"><div class="cp-k">quem propõe</div><h3>IA · simulador · otimizador · planilha</h3><p>Entrega uma <em>proposta</em>: um número e o que ele afirma. Pode ser qualquer modelo — inclusive um que ninguém consegue abrir.</p></div><div class="cp-ar" aria-hidden="true"></div><div class="cp-st core"><div class="cp-k">contraprova</div><h3>Três camadas, em aritmética exata</h3><ol><li><b>Consistência matemática</b> — o número resolve as equações que declara? (Colebrook, máxima verossimilhança, balanços)</li><li><b>Limites físicos</b> — conservação de massa e energia, domínio de validade de cada correlação</li><li><b>Restrições operacionais</b> — as regras declaradas, em toda a caixa de incerteza</li></ol><p>Intervalos com arredondamento dirigido; nenhum código compartilhado com quem propôs.</p></div><div class="cp-ar" aria-hidden="true"></div><div class="cp-st"><div class="cp-k">recibo</div><h3>Verificável por máquina</h3><div class="cp-vs"><span class="cp-chip provado">PROVADO</span><span class="cp-chip refutado">REFUTADO</span><span class="cp-chip recusado">RECUSADO</span></div><p>Veredito, intervalo, testemunhas e limiares — refeito por qualquer um em segundos.</p></div></div></div><div class="wide"><div class="cp-diff"><div><b>Decide a saída, não o modelo</b><p>Não é preciso provar uma rede neural. Decide-se o que ela entregou, antes de virar ação.</p></div><div><b>A caixa inteira, não uma amostra</b><p>Um PROVADO vale para toda entrada dentro da incerteza declarada — não num ponto, não em média.</p></div><div><b>Recusar é um veredito</b><p>Quando a evidência não decide, o recibo mostra uma entrada provada de cada lado e publica o limiar que mudaria a resposta.</p></div><div><b>Independente de quem calculou</b><p>Nenhum código em comum com o autor do número; uma segunda implementação, em outra linguagem, confere a primeira.</p></div><div><b>Adversarial por construção</b><p>Cada verificador carrega falsificações que precisa recusar a cada build: 9 de 9 neste portão.</p></div><div><b>O recibo viaja, os dados ficam</b><p>O verificador roda onde os dados estão; quem audita recebe o recibo, não a base.</p></div></div></div>
+</section>
+
+<section id="portao"><div class="col sec-head"><div class="lab">3 · o portão ao vivo</div><h2>Uma recomendação de IA, decidida na sua frente</h2></div><div class="col"><p>Linha de injeção de água do FPSO ao poço injetor, lâmina d&#39;água de 2.100 m. Nove propostas: duas recomendações que um modelo de IA poderia fazer, e sete saídas de referência com uma falha injetada em cada — as sete falhas que um verificador industrial precisa pegar. Cada uma é decidida agora, no seu navegador, pelo mesmo código que gerou o registro publicado.</p></div><div class="wide"><div class="cp-gate"><div class="cp-cases" role="group" aria-label="Propostas"><div class="cp-k">recomendações</div><button type="button" class="cp-case" data-i="0" aria-pressed="true"><small>proposta de IA</small><span>Proposta de IA: +4,2% de injeção</span></button><button type="button" class="cp-case" data-i="1" aria-pressed="false"><small>proposta de IA</small><span>A mesma vazão, P_d = 200 bar</span></button><div class="cp-k">falhas injetadas</div><button type="button" class="cp-case" data-i="2" aria-pressed="false"><small>Parâmetro errado</small><span>O diâmetro de catálogo</span></button><button type="button" class="cp-case" data-i="3" aria-pressed="false"><small>Conservação violada</small><span>O manifold que cria água</span></button><button type="button" class="cp-case" data-i="4" aria-pressed="false"><small>Instabilidade numérica</small><span>O solver que parou cedo</span></button><button type="button" class="cp-case" data-i="5" aria-pressed="false"><small>Condição de contorno impossível</small><span>Pressão que a física não permite</span></button><button type="button" class="cp-case" data-i="6" aria-pressed="false"><small>Conversão de unidade</small><span>psi com rótulo de bar</span></button><button type="button" class="cp-case" data-i="7" aria-pressed="false"><small>Saída alucinada</small><span>Uma velocidade que não existe</span></button><button type="button" class="cp-case" data-i="8" aria-pressed="false"><small>Fora do domínio</small><span>A correlação fora do seu regime</span></button></div><div id="cp-panel" aria-live="polite"><div class="cp-rc"><div class="cp-common"><div class="cp-k">O que o modelo entrega</div><p class="cp-story">Um modelo de IA recomenda subir a injeção de 6.720 para 7.000 m³/d (+4,2%), elevando a descarga da bomba para 206 bar, e prevê 352 bar na cabeça do poço — abaixo do limite de 360 bar.</p><div class="cp-pred"><span>previsão</span><b>352 bar</b><span>confiança</span><b>97%</b></div></div><div class="cp-cert"><div class="cp-k">O que a Contraprova decide</div><div class="cp-vline"><span class="cp-chip recusado big">RECUSADO</span><span class="cp-means">a evidência declarada não decide</span></div><p class="cp-enc-t">P_wh ∈ [343,7; 362,0] bar para toda entrada declarada</p><svg class="cp-nl wide" viewBox="0 0 640 98" role="img" aria-label="Intervalo decidido de 343,7 a 362,0 bar; limite 360 bar; proposta 352 bar"><line class="cp-axis" x1="18" y1="40" x2="622" y2="40"/><rect class="cp-enc" x="118.7" y="31" width="402.7" height="18" rx="3"/><text class="cp-t" x="118.7" y="68" text-anchor="middle">343,7</text><text class="cp-t" x="521.3" y="68" text-anchor="middle">362,0</text><line class="cp-guide" x1="477.3" y1="18" x2="477.3" y2="54"/><text class="cp-t" x="477.3" y="13" text-anchor="middle">limite 360</text><line class="cp-claim" x1="301.3" y1="24" x2="301.3" y2="56"/><text class="cp-t claim" x="301.3" y="82" text-anchor="middle">proposta 352</text></svg><svg class="cp-nl narrow" viewBox="0 0 360 98" role="img" aria-label="Intervalo decidido de 343,7 a 362,0 bar; limite 360 bar; proposta 352 bar"><line class="cp-axis" x1="18" y1="40" x2="342" y2="40"/><rect class="cp-enc" x="72.0" y="31" width="216.0" height="18" rx="3"/><text class="cp-t" x="72.0" y="68" text-anchor="middle">343,7</text><text class="cp-t" x="288.0" y="68" text-anchor="middle">362,0</text><line class="cp-guide" x1="264.4" y1="18" x2="264.4" y2="54"/><text class="cp-t" x="264.4" y="13" text-anchor="middle">limite 360</text><line class="cp-claim" x1="170.0" y1="24" x2="170.0" y2="56"/><text class="cp-t claim" x="170.0" y="82" text-anchor="middle">proposta 352</text></svg><ul class="cp-checks"><li><span class="cp-chip provado">PROVADO</span><div><b>Limite físico (atrito ≥ 0)</b><span>A pressão declarada não excede P_d + ρgΔz ≤ 418,3 bar.</span></div></li><li><span class="cp-chip provado">PROVADO</span><div><b>Domínio do modelo (Re ≥ 4.000)</b><span>Re ∈ [493.773; 649.382] em toda a caixa: turbulento, Colebrook se aplica.</span></div></li><li><span class="cp-chip provado">PROVADO</span><div><b>Regra: v ≤ 5 m/s</b><span>v ≤ 4,465 m/s em toda a caixa.</span></div></li><li><span class="cp-chip provado">PROVADO</span><div><b>Consistência com o modelo físico</b><span>P_wh declarada está em [343,7; 362,0] bar, que contém P_wh para toda entrada declarada.</span></div></li><li><span class="cp-chip recusado">RECUSADO</span><div><b>Regra: P_wh ≤ 360 bar</b><span>A caixa declarada contém entradas dos dois lados, ambos provados. Viola: ε = 0,020 mm, μ = 1,08 mPa·s, D = 152,8 mm, ρ = 1.028 kg/m³, Δz = 2.105 m, L = 5.990 m → P_wh ≥ 361,6 bar. Respeita: ε = 0,080 mm, μ = 1,39 mPa·s, D = 152,0 mm, ρ = 1.022 kg/m³, Δz = 2.095 m, L = 6.010 m → P_wh ≤ 344,2 bar. A evidência declarada não decide.</span></div></li></ul><div class="cp-flip"><div class="cp-k">O que decidiria</div><ul><li>Com P_d ≤ 204,0 bar a regra fica PROVADA na caixa inteira; acima de 222,3 bar fica REFUTADA.</li><li>Ou inspecionar a linha e mostrar rugosidade ε ≥ 0,027 mm (a caixa declara 0,020–0,080 mm): com isso a regra fica PROVADA.</li></ul></div><div class="cp-run">4 de 5 verificações provadas · 588 avaliações intervalares · registro publicado</div></div></div></div></div></div><div class="wide"><form class="cp-form" id="cp-form" autocomplete="off"><label>vazão Q (m³/d)<input name="q" inputmode="decimal" value="7000"></label><label>descarga P_d (bar)<input name="pd" inputmode="decimal" value="204"></label><label>P_wh prevista (bar)<input name="pwh" inputmode="decimal" value="350"></label><button type="submit">Decidir esta proposta</button><p>Digite a sua proposta: a mesma linha, a mesma caixa, as mesmas regras. O veredito sai em milissegundos, na sua máquina.</p></form></div><details class="cp-why wide"><summary>Por que confiar — a caixa, as regras e a matemática</summary><div class="col"><p>Valores típicos e ilustrativos, não dados da Petrobras. A caixa declarada (toda entrada dentro dela é decidida):</p></div><div class="cp-box"><div class="wide"><div class="tw"><table><thead><tr><th>entrada</th><th>intervalo declarado</th></tr></thead><tbody><tr><td>comprimento da linha</td><td>5.990 – 6.010 m</td></tr><tr><td>diâmetro interno</td><td>152,0 – 152,8 mm</td></tr><tr><td>rugosidade</td><td>0,02 – 0,08 mm</td></tr><tr><td>massa específica da água</td><td>1.022 – 1.028 kg/m³</td></tr><tr><td>viscosidade (água do mar, ~10–20 °C)</td><td>1,08 – 1,39 mPa·s</td></tr><tr><td>desnível (lâmina d&#39;água)</td><td>2.095 – 2.105 m</td></tr><tr><td>regra 1</td><td>pressão na cabeça do poço ≤ 360 bar (limite operacional declarado)</td></tr><tr><td>regra 2</td><td>velocidade ≤ 5 m/s (limite de erosão declarado)</td></tr></tbody></table></div></div></div><div class="col"><p><b>O modelo declarado.</b> v = Q/A, Re = ρvD/μ, Colebrook 1/√f = −2 log₁₀(ε/3,7D + 2,51/(Re√f)) só para Re ≥ 4.000, e Darcy–Weisbach com o ganho hidrostático: P_wh = P_d + ρgΔz − f(L/D)ρv²/2. Um PROVADO afirma algo sobre o modelo e as entradas declaradas — não sobre o mar.</p><p><b>Como a caixa inteira é decidida.</b> Com x = 1/√f, Colebrook vira h(x) = x + (2/ln 10)·ln(a + bx) = 0, crescente em x, a e b; logo a raiz decresce em a e b, e os dois cantos (a₊, b₊) e (a₋, b₋) cercam todas as raízes da caixa. Um passo de Newton em ponto flutuante só <em>localiza</em> cada canto; ele só vale quando h é provado negativo logo abaixo e positivo logo acima, em aritmética intervalar com arredondamento para fora e logaritmo por série com resto rigoroso. A regra é decidida por bissecção da caixa; um RECUSADO exige dois cantos provados, um de cada lado.</p><p><b>Quem confere o conferente.</b> Uma segunda implementação em Python (<span class="m">decimal</span>, 50 dígitos, sem código em comum) calcula P_wh em 176 entradas — os 64 cantos e 24 pontos sorteados de duas operações — e o intervalo do portão contém todas. 24 verificações e 9/9 controles vermelhos: uma pressão 0,1 bar fora do intervalo, um manifold com 1 m³/d a mais, um f 10⁻⁴ fora das soluções, uma vazão 1 m³/d abaixo do regime turbulento, um “verificador” que avalia só o centro da caixa — todos pegos.</p><p>Código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/contraprova/gate">apps/contraprova/gate</a> — <span class="m">node battery.js</span> refaz tudo.</p></div></details></section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">4 · já funciona em dados reais</div>
+    <h2>A onda de projeto de uma plataforma</h2>
+  </div>
+<div class="col"><p>O primeiro domínio da Contraprova já roda em escala: os valores extremos de altura de onda que dimensionam FPSOs, ancoragens, risers e turbinas eólicas offshore — o número que um projeto usa como “onda de 100 anos”. O método é o de Reis, Guimarães et al. (Ocean Engineering, 2026) — seis famílias, quatro critérios, níveis de 100 e 1.000 anos; os dados, o hindcast público WAVEWATCH III 1993–2024.</p></div><div class="wide"><div class="cp-ev"><div><div class="cp-k">o mesmo software</div><div class="big">7,08 m × 15,20 m</div><p>A mesma onda de 100 anos, dos mesmos 175.320 registros horários, pelo mesmo scipy 1.18.1 chamado de dois jeitos. Só um é o máximo de verossimilhança que os dois dizem calcular: o outro fica 19.850 unidades de log-verossimilhança abaixo de um membro da própria família. Na chamada padrão, 0 de 60 ajustes conferem.</p><a href="../reports/return-levels.html">o relatório →</a></div><div><div class="cp-k">a escala</div><div class="big">46.602</div><p>Ajustes em 2.589 células, três blocos, seis famílias — 40.778 provados como máximo; 5.751 recusados com a prova de que o máximo não existe dentro da família (o otimizador imprimiria um ponto do caminho). Qualquer célula é refeita no navegador.</p><a href="../instruments/return-level-atlas/">o atlas →</a></div><div><div class="cp-k">uma tabela publicada</div><div class="big">19 de 20</div><p>Ondas de 100 anos de uma tabela de projeto eólico offshore (Bhaskaran et al., Energies 16, 6935 (2023), cinco áreas do Atlântico Sul) fora do intervalo estatístico de 95% do registro público mais próximo (31–61 km): de −2,03 a +3,14 m. A tabela vem de um hindcast comercial que ninguém de fora refaz — é a distância entre dois registros, e o motivo para um recibo.</p><a href="../instruments/return-level-check/">decida um ajuste impresso →</a></div></div></div><div class="cp-gap"></div><div class="cp-dumb"><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 674" role="img" aria-label="Ondas de 100 anos: a tabela publicada contra o registro público mais próximo, vinte ajustes em cinco áreas.">
+    <line x1="250.0" y1="12" x2="250.0" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="250.0" y="632.0" text-anchor="middle" class="t-ax">1 m</text>
+    <line x1="355.5" y1="12" x2="355.5" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="355.5" y="632.0" text-anchor="middle" class="t-ax">3 m</text>
+    <line x1="460.9" y1="12" x2="460.9" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="460.9" y="632.0" text-anchor="middle" class="t-ax">5 m</text>
+    <line x1="566.4" y1="12" x2="566.4" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="566.4" y="632.0" text-anchor="middle" class="t-ax">7 m</text>
+    <line x1="671.8" y1="12" x2="671.8" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="671.8" y="632.0" text-anchor="middle" class="t-ax">9 m</text>
+    <line x1="777.3" y1="12" x2="777.3" y2="612" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="777.3" y="632.0" text-anchor="middle" class="t-ax">11 m</text>
+    <line x1="453.5" y1="27" x2="346.6" y2="27" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="453.5" cy="27" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · GEV MV · decidido no registro público" data-cmv="4,86 m" tabindex="0"/>
+    <circle cx="346.6" cy="27" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · GEV MV · impresso na tabela" data-cmv="2,83 m" tabindex="0"/>
+    <text x="240.0" y="31.0" text-anchor="end" class="t-ax">Projeto Ubu · GEV MV</text>
+    <text x="842.0" y="31.0" text-anchor="start" class="t-lab">−2,03 m</text>
+    <line x1="457.0" y1="57" x2="356.8" y2="57" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="457.0" cy="57" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MV · decidido no registro público" data-cmv="4,93 m" tabindex="0"/>
+    <circle cx="356.8" cy="57" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MV · impresso na tabela" data-cmv="3,03 m" tabindex="0"/>
+    <text x="240.0" y="61.0" text-anchor="end" class="t-ax">Projeto Ubu · Gumbel MV</text>
+    <text x="842.0" y="61.0" text-anchor="start" class="t-lab">−1,90 m</text>
+    <line x1="457.0" y1="87" x2="359.3" y2="87" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="457.0" cy="87" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MM · decidido no registro público" data-cmv="4,93 m" tabindex="0"/>
+    <circle cx="359.3" cy="87" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MM · impresso na tabela" data-cmv="3,07 m" tabindex="0"/>
+    <text x="240.0" y="91.0" text-anchor="end" class="t-ax">Projeto Ubu · Gumbel MM</text>
+    <text x="842.0" y="91.0" text-anchor="start" class="t-lab">−1,85 m</text>
+    <line x1="457.0" y1="117" x2="366.0" y2="117" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="457.0" cy="117" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MQ · decidido no registro público" data-cmv="4,93 m" tabindex="0"/>
+    <circle cx="366.0" cy="117" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Ubu · Gumbel MQ · impresso na tabela" data-cmv="3,20 m" tabindex="0"/>
+    <text x="240.0" y="121.0" text-anchor="end" class="t-ax">Projeto Ubu · Gumbel MQ</text>
+    <text x="842.0" y="121.0" text-anchor="start" class="t-lab">−1,73 m</text>
+    <line x1="485.9" y1="147" x2="404.8" y2="147" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="485.9" cy="147" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MM · decidido no registro público" data-cmv="5,47 m" tabindex="0"/>
+    <circle cx="404.8" cy="147" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MM · impresso na tabela" data-cmv="3,94 m" tabindex="0"/>
+    <text x="240.0" y="151.0" text-anchor="end" class="t-ax">Sopros do RJ · Gumbel MM</text>
+    <text x="842.0" y="151.0" text-anchor="start" class="t-lab">−1,54 m</text>
+    <line x1="485.9" y1="177" x2="407.2" y2="177" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="485.9" cy="177" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MV · decidido no registro público" data-cmv="5,47 m" tabindex="0"/>
+    <circle cx="407.2" cy="177" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MV · impresso na tabela" data-cmv="3,98 m" tabindex="0"/>
+    <text x="240.0" y="181.0" text-anchor="end" class="t-ax">Sopros do RJ · Gumbel MV</text>
+    <text x="842.0" y="181.0" text-anchor="start" class="t-lab">−1,49 m</text>
+    <line x1="485.9" y1="207" x2="411.6" y2="207" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="485.9" cy="207" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MQ · decidido no registro público" data-cmv="5,47 m" tabindex="0"/>
+    <circle cx="411.6" cy="207" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · Gumbel MQ · impresso na tabela" data-cmv="4,06 m" tabindex="0"/>
+    <text x="240.0" y="211.0" text-anchor="end" class="t-ax">Sopros do RJ · Gumbel MQ</text>
+    <text x="842.0" y="211.0" text-anchor="start" class="t-lab">−1,41 m</text>
+    <line x1="463.1" y1="237" x2="415.4" y2="237" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="463.1" cy="237" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · GEV MV · decidido no registro público" data-cmv="5,04 m" tabindex="0"/>
+    <circle cx="415.4" cy="237" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Sopros do RJ · GEV MV · impresso na tabela" data-cmv="4,14 m" tabindex="0"/>
+    <text x="240.0" y="241.0" text-anchor="end" class="t-ax">Sopros do RJ · GEV MV</text>
+    <text x="842.0" y="241.0" text-anchor="start" class="t-lab">−0,90 m</text>
+    <line x1="703.8" y1="267" x2="672.5" y2="267" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="703.8" cy="267" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · GEV MV · decidido no registro público" data-cmv="9,61 m" tabindex="0"/>
+    <circle cx="672.5" cy="267" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · GEV MV · impresso na tabela" data-cmv="9,01 m" tabindex="0"/>
+    <text x="240.0" y="271.0" text-anchor="end" class="t-ax">UY01 · GEV MV</text>
+    <text x="842.0" y="271.0" text-anchor="start" class="t-lab">−0,59 m</text>
+    <line x1="639.3" y1="297" x2="697.1" y2="297" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="639.3" cy="297" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MV · decidido no registro público" data-cmv="8,38 m" tabindex="0"/>
+    <circle cx="697.1" cy="297" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MV · impresso na tabela" data-cmv="9,48 m" tabindex="0"/>
+    <text x="240.0" y="301.0" text-anchor="end" class="t-ax">UY01 · Gumbel MV</text>
+    <text x="842.0" y="301.0" text-anchor="start" class="t-lab">+1,10 m</text>
+    <line x1="639.3" y1="327" x2="708.7" y2="327" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="639.3" cy="327" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MM · decidido no registro público" data-cmv="8,38 m" tabindex="0"/>
+    <circle cx="708.7" cy="327" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MM · impresso na tabela" data-cmv="9,70 m" tabindex="0"/>
+    <text x="240.0" y="331.0" text-anchor="end" class="t-ax">UY01 · Gumbel MM</text>
+    <text x="842.0" y="331.0" text-anchor="start" class="t-lab">+1,32 m</text>
+    <line x1="506.1" y1="357" x2="592.4" y2="357" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="506.1" cy="357" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MV · decidido no registro público" data-cmv="5,86 m" tabindex="0"/>
+    <circle cx="592.4" cy="357" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MV · impresso na tabela" data-cmv="7,49 m" tabindex="0"/>
+    <text x="240.0" y="361.0" text-anchor="end" class="t-ax">Farol wind · Gumbel MV</text>
+    <text x="842.0" y="361.0" text-anchor="start" class="t-lab">+1,64 m</text>
+    <line x1="500.9" y1="387" x2="587.7" y2="387" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="500.9" cy="387" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · GEV MV · decidido no registro público" data-cmv="5,76 m" tabindex="0"/>
+    <circle cx="587.7" cy="387" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · GEV MV · impresso na tabela" data-cmv="7,40 m" tabindex="0"/>
+    <text x="240.0" y="391.0" text-anchor="end" class="t-ax">Farol wind · GEV MV</text>
+    <text x="842.0" y="391.0" text-anchor="start" class="t-lab">+1,65 m</text>
+    <line x1="506.1" y1="417" x2="594.8" y2="417" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="506.1" cy="417" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MM · decidido no registro público" data-cmv="5,86 m" tabindex="0"/>
+    <circle cx="594.8" cy="417" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MM · impresso na tabela" data-cmv="7,54 m" tabindex="0"/>
+    <text x="240.0" y="421.0" text-anchor="end" class="t-ax">Farol wind · Gumbel MM</text>
+    <text x="842.0" y="421.0" text-anchor="start" class="t-lab">+1,68 m</text>
+    <line x1="639.3" y1="447" x2="729.5" y2="447" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="639.3" cy="447" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MQ · decidido no registro público" data-cmv="8,38 m" tabindex="0"/>
+    <circle cx="729.5" cy="447" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="UY01 · Gumbel MQ · impresso na tabela" data-cmv="10,09 m" tabindex="0"/>
+    <text x="240.0" y="451.0" text-anchor="end" class="t-ax">UY01 · Gumbel MQ</text>
+    <text x="842.0" y="451.0" text-anchor="start" class="t-lab">+1,71 m</text>
+    <line x1="506.1" y1="477" x2="610.8" y2="477" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="506.1" cy="477" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MQ · decidido no registro público" data-cmv="5,86 m" tabindex="0"/>
+    <circle cx="610.8" cy="477" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Farol wind · Gumbel MQ · impresso na tabela" data-cmv="7,84 m" tabindex="0"/>
+    <text x="240.0" y="481.0" text-anchor="end" class="t-ax">Farol wind · Gumbel MQ</text>
+    <text x="842.0" y="481.0" text-anchor="start" class="t-lab">+1,99 m</text>
+    <line x1="366.6" y1="507" x2="478.2" y2="507" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="366.6" cy="507" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MM · decidido no registro público" data-cmv="3,21 m" tabindex="0"/>
+    <circle cx="478.2" cy="507" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MM · impresso na tabela" data-cmv="5,33 m" tabindex="0"/>
+    <text x="240.0" y="511.0" text-anchor="end" class="t-ax">Projeto Açu · Gumbel MM</text>
+    <text x="842.0" y="511.0" text-anchor="start" class="t-lab">+2,12 m</text>
+    <line x1="366.6" y1="537" x2="485.0" y2="537" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="366.6" cy="537" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MV · decidido no registro público" data-cmv="3,21 m" tabindex="0"/>
+    <circle cx="485.0" cy="537" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MV · impresso na tabela" data-cmv="5,46 m" tabindex="0"/>
+    <text x="240.0" y="541.0" text-anchor="end" class="t-ax">Projeto Açu · Gumbel MV</text>
+    <text x="842.0" y="541.0" text-anchor="start" class="t-lab">+2,24 m</text>
+    <line x1="366.6" y1="567" x2="489.8" y2="567" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="366.6" cy="567" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MQ · decidido no registro público" data-cmv="3,21 m" tabindex="0"/>
+    <circle cx="489.8" cy="567" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · Gumbel MQ · impresso na tabela" data-cmv="5,55 m" tabindex="0"/>
+    <text x="240.0" y="571.0" text-anchor="end" class="t-ax">Projeto Açu · Gumbel MQ</text>
+    <text x="842.0" y="571.0" text-anchor="start" class="t-lab">+2,34 m</text>
+    <line x1="367.3" y1="597" x2="532.8" y2="597" stroke="var(--c-s3)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="367.3" cy="597" r="5" fill="var(--c-s2)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · GEV MV · decidido no registro público" data-cmv="3,22 m" tabindex="0"/>
+    <circle cx="532.8" cy="597" r="5" fill="var(--c-s5)" stroke="var(--sunk)" stroke-width="2" data-cm="Projeto Açu · GEV MV · impresso na tabela" data-cmv="6,36 m" tabindex="0"/>
+    <text x="240.0" y="601.0" text-anchor="end" class="t-ax">Projeto Açu · GEV MV</text>
+    <text x="842.0" y="601.0" text-anchor="start" class="t-lab">+3,14 m</text>
+    <rect x="250" y="658" width="11" height="10" rx="2" fill="var(--c-s2)"/>
+    <text x="269.0" y="668.0" text-anchor="start" class="t-note">decidido no registro público</text>
+    <rect x="489" y="658" width="11" height="10" rx="2" fill="var(--c-s5)"/>
+    <text x="508.0" y="668.0" text-anchor="start" class="t-note">impresso na tabela</text>
+  </svg>
+  </div>
+  <figcaption>Vinte ajustes impressos (MQ mínimos quadrados, MV máxima verossimilhança, MM momentos) contra o ajuste decidido na célula pública mais próxima. Diferença de registros, não erro da tabela: é exatamente o que um recibo torna visível.</figcaption>
+</figure></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">5 · já enfrentou a IA de fronteira</div>
+    <h2>A mesma arquitetura, contra os modelos mais fortes</h2>
+  </div>
+<div class="col"><p>Antes da engenharia, o motor foi calibrado onde a IA é mais difícil de conferir: matemática publicada, produzida com ou por modelos de fronteira. Em público, com data, e com cada verificador disponível.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>o que a IA afirmou</th><th>veredito</th><th>por quê</th></tr></thead><tbody><tr><td>Um certificado de GPT-5.4 Pro que melhoraria o limite de Ramsey diagonal (benchmark HorizonMath, 2026)</td><td><span class="cp-chip refutado">REFUTADO</span></td><td>O verificador do próprio benchmark aceitava um par se UMA orientação passasse; a definição exige as DUAS. Com a correção de uma palavra, ele recusa o certificado no primeiro intervalo.</td></tr><tr><td>A iteração “preliminar, não verificada” de ChatGPT 5.6 Sol impressa por Gupta, Ndiaye, Norin e Wei: R(k,k) ≤ 3,78233^(k+o(k))</td><td><span class="cp-chip provado">PROVADO</span></td><td>Decidida por dois programas independentes, em duas linguagens, com aritmética diferente; ambos concordam em 25 dígitos.</td></tr><tr><td>A biblioteca de contraexemplos encontrados por IA de S. Sra (14 casos: GPT-5.x, Codex, Opus)</td><td><span class="cp-chip provado">PROVADO</span> <span class="m">9 inteiros · 5 parciais</span></td><td>Cada caso decidido do certificado publicado, com um verificador escrito a partir do enunciado, antes de ler o do autor.</td></tr><tr><td>O registro inteiro</td><td><span class="m">87 decididas</span></td><td>Cada linha com o arquivo que a decidiu; nada é contado duas vezes.</td></tr></tbody></table></div></div><div class="col"><p>Relatórios: <a href="../reports/horizonmath.html">HorizonMath</a> · <a href="../reports/diagonal-ramsey.html">Ramsey diagonal</a> · <a href="../reports/counterexample-machine.html">contraexemplos</a> · <a href="../reports/decided-2026-09.html">o registro de setembro</a>.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">6 · o que substitui</div>
+    <h2>Da segunda opinião para a contraprova</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>momento</th><th>hoje</th><th>com a Contraprova</th></tr></thead><tbody><tr><td>Uma IA recomenda mudar a operação</td><td>“previsão 352 bar · confiança 97%”</td><td>RECUSADO: há entradas declaradas que passam de 360 bar (provado); com P_d ≤ 204,0 bar, PROVADO</td></tr><tr><td>Um solver devolve um número</td><td>aceito se parece razoável</td><td>conferido contra as equações que declara: f = 0,0110 não resolve Colebrook — REFUTADO</td></tr><tr><td>Dois programas discordam</td><td>uma reunião; ninguém sabe quem está certo</td><td>o recibo diz qual é o máximo e qual parou antes (7,08 × 15,20 m)</td></tr><tr><td>A matemática não tem resposta</td><td>o otimizador imprime a última iteração como resultado</td><td>RECUSADO, com a prova (5.751 casos no atlas)</td></tr><tr><td>Incerteza estatística × erro numérico</td><td>misturados num número só</td><td>separados e rotulados: o intervalo estatístico nunca se passa por prova</td></tr><tr><td>Dados confidenciais</td><td>precisam sair para serem auditados</td><td>o verificador roda onde os dados estão; o recibo viaja</td></tr><tr><td>Auditoria, meses depois</td><td>refazer o estudo</td><td>refazer o recibo: um arquivo, segundos</td></tr></tbody></table></div></div><div class="col sec-head cp-sub"><h3>E as alternativas?</h3></div><div class="wide"><div class="tw"><table><thead><tr><th>alternativa</th><th>entrega</th><th>não entrega</th></tr></thead><tbody><tr><td>Segundo consultor, segundo cálculo</td><td>um segundo número</td><td>um árbitro entre os dois</td></tr><tr><td>Rodar em outro software</td><td>outra resposta, com outros padrões</td><td>qual delas está certa (scipy: 45/60 ou 0/60, conforme a chamada)</td></tr><tr><td>Métricas do modelo, MLOps</td><td>desempenho médio no conjunto de teste</td><td>uma decisão sobre ESTA saída, nestas condições</td></tr><tr><td>IA que confere IA</td><td>uma segunda opinião</td><td>uma prova — é outro gerador</td></tr><tr><td>Intervalos de confiança, UQ</td><td>a dispersão estatística</td><td>se o ajuste é mesmo o máximo; se a saída respeita as equações</td></tr><tr><td>Revisão de método por par ou classificadora</td><td>o julgamento de um especialista</td><td>a re-derivação mecânica de cada número — a Contraprova é insumo para ela</td></tr><tr><td>Verificação formal (Lean, Coq)</td><td>provas completas de programas</td><td>escala de engenharia hoje: caixas de incerteza, 175 mil registros</td></tr></tbody></table></div></div>
+</section>
+
+<section id="projeto"><div class="col sec-head"><div class="lab">7 · o projeto de PD&amp;I proposto</div><h2>Doze meses para um recibo em cada decisão</h2></div><div class="col"><p>O motor existe e está publicado. O projeto de PD&amp;I o leva para um fluxo real da Petrobras, com os dados da Petrobras, dentro da Petrobras — e mede o que muda quando cada número chega com recibo.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>frente</th><th>meses</th><th>o que entrega</th><th>TRL</th></tr></thead><tbody><tr><td>1 · Piloto em um fluxo real</td><td class="n">0–4</td><td>Com os engenheiros da Petrobras: UM fluxo em que uma saída de IA ou simulação vira decisão (ex.: injeção de água). Modelo, caixa e regras declarados; o portão rodando ao lado do modelo; recibos para decisões reais, com os limiares publicados.</td><td class="n">4 → 6</td></tr><tr><td>2 · Valores de projeto metoceânicos</td><td class="n">0–6</td><td>Os ajustes de extremos (sete famílias, quatro critérios) nos dados da Petrobras; um verificador em Python de um arquivo; o formato do recibo para a base de projeto.</td><td class="n">4 → 6</td></tr><tr><td>3 · Contornos ambientais conjuntos</td><td class="n">4–12</td><td>Pesquisa: decidir o modelo conjunto altura–período e o contorno ambiental (IFORM/ISORM), cada um com o seu recibo.</td><td class="n">2 → 4</td></tr><tr><td>4 · O portão como serviço</td><td class="n">6–12</td><td>API ao lado de modelos de IA; biblioteca de modelos físicos declarados (escoamento, balanços, hidrostática, extremos); controles vermelhos por domínio.</td><td class="n">3 → 6</td></tr></tbody></table></div></div><div class="wide"><div class="cp-ask"><div><div class="cp-k">como medimos</div><ul><li>100% dos controles vermelhos recusados, a cada build</li><li>cada RECUSADO sai com o limiar que o decidiria</li><li>um engenheiro da Petrobras refaz o recibo sem o nosso código</li><li>nenhum dado sai do ambiente da Petrobras</li></ul></div><div><div class="cp-k">o que pedimos à Petrobras</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>acesso aos dados no ambiente da Petrobras</li><li>mentoria técnica do portfólio de PD&amp;I</li><li>doze meses</li></ul></div></div></div></section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">8 · maturidade e equipe</div>
+    <h2>Onde estamos</h2>
+  </div>
+<div class="col"><p><b>TRL 4</b> — validado em laboratório, em dados públicos e em escala: o atlas de ondas de projeto, os relatórios decididos, o portão demonstrador desta página. <b>CRL 3</b> — a aplicação da tecnologia definida; o piloto é o próximo passo.</p><p><b>Equipe.</b> Carlos Toledo, fundador — construiu o motor de verificação (código aberto, licença MIT, cada resultado com o arquivo que o decidiu). Uma pessoa hoje; o piloto define as próximas.</p><p><b>Contato.</b> <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a> · <a href="contraprova-apresentacao.pdf">apresentação (PDF)</a> · <a href="https://github.com/carlostoledo1891/cert-machine">código</a></p><p><span class="scope">A palavra “certificação” tem dono no offshore (sociedades classificadoras, ANP). A Contraprova entrega uma <em>prova matemática reexecutável</em> sobre um número — não uma certificação de classe, e não substitui a responsabilidade técnica de quem assina o projeto.</span></p></div>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/contraprova/build.js a partir de certs/hseva-atlas.json, certs/hseva-ledger.json, certs/design-table-audit.json, certs/claims-ledger.json e apps/contraprova/data/gate-ledger.json; bateria do portão 24 verificações, 9/9 controles vermelhos.</p><p>git d78eb0e</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<script>(function (root) {
+"use strict";
+var SRC = {
+  "interval.js": function (module, exports, require) {
+/* interval.js — outward-rounded interval arithmetic over IEEE-754 doubles.
+
+   RIGOR MODEL, stated once and relied on everywhere downstream. JavaScript has
+   no access to the FPU rounding mode, so directed rounding is SIMULATED: every
+   IEEE-754 basic operation (+ − × ÷ and sqrt) returns the correctly rounded
+   nearest double, so the exact real result lies strictly within half an ulp of
+   the computed value. Widening the computed bounds outward by ONE ulp (nextDown
+   on the lower end, nextUp on the upper) therefore encloses the exact result.
+   This is conservative by a factor of ~2 in the last bit and costs nothing at
+   the accuracy we need.
+
+   The library is not trusted on assertion: tests/test-interval.js checks every
+   operation against EXACT BigInt rational arithmetic on thousands of random
+   operands, and mutation-tests the widening (removing it turns the check red).
+
+   That sentence was FALSE from the day it was written until 2026-07-28: the file it
+   names did not exist, and the battery that did cover intervals (test-eqcert.js I2)
+   exercises 4 of these exports. `pow` therefore had no coverage and was wrong —
+   it returned [1,1] for every negative exponent. The file now exists, runs first in
+   `make check-eqcert`, and covers every export. Left as a standing reminder that a cited
+   test is not a test: the citation was read as evidence for months.
+
+   Sequence algebra (weighted ell^1_nu, convolution, parity) lives in
+   src/sequence.js; this file is arithmetic only.
+
+   MIT licensed. Part of eqcert — the single source of truth for interval
+   arithmetic across every project here. Vendored copies are gated
+   byte-identical; never edit a copy. */
+'use strict';
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+function nextUp(x) {
+  if (Number.isNaN(x) || x === Infinity) return x;
+  if (x === 0) return Number.MIN_VALUE;
+  _f64[0] = x; _u64[0] += (x > 0 ? 1n : -1n); return _f64[0];
+}
+function nextDown(x) { return -nextUp(-x); }
+
+/* an interval is a 2-array [lo, hi]; `iv(x)` is the thin (point) interval */
+const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
+const ZERO = iv(0), ONE = iv(1);
+
+function add(a, b) { return [nextDown(a[0] + b[0]), nextUp(a[1] + b[1])]; }
+function sub(a, b) { return [nextDown(a[0] - b[1]), nextUp(a[1] - b[0])]; }
+function mul(a, b) {
+  const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
+  return [nextDown(Math.min(p[0], p[1], p[2], p[3])),
+          nextUp(Math.max(p[0], p[1], p[2], p[3]))];
+}
+function div(a, b) {
+  if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
+  const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
+  return [nextDown(Math.min(q[0], q[1], q[2], q[3])),
+          nextUp(Math.max(q[0], q[1], q[2], q[3]))];
+}
+function neg(a) { return [-a[1], -a[0]]; }
+/* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
+   sqr([0,0]) returned [-5e-324, 5e-324] — nextDown(0) steps to the smallest negative
+   denormal — and a consumer testing `sqr(x)[0] >= 0` to prove non-negativity would be
+   defeated by the one case where non-negativity is certain. Clamping only TIGHTENS: 0 is
+   a true lower bound for x² always, so enclosure is preserved. The third branch below
+   already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
+function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
+  if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
+  const m = Math.max(-a[0], a[1]);
+  return [0, nextUp(m * m)];
+}
+/* |a| as an interval of the modulus, and the scalar sup|a| */
+function abs(a) {
+  if (a[0] >= 0) return [a[0], a[1]];
+  if (a[1] <= 0) return [-a[1], -a[0]];
+  return [0, Math.max(-a[0], a[1])];
+}
+const mag = a => Math.max(Math.abs(a[0]), Math.abs(a[1]));   /* sup |a| */
+const mig = a => (a[0] > 0 ? a[0] : a[1] < 0 ? -a[1] : 0);   /* inf |a| */
+const contains = (a, x) => a[0] <= x && x <= a[1];
+const subset = (a, b) => b[0] <= a[0] && a[1] <= b[1];       /* a ⊆ b */
+const interior = (a, b) => b[0] < a[0] && a[1] < b[1];       /* a ⊂ int(b) */
+const width = a => nextUp(a[1] - a[0]);
+
+/* Integer power with a rigorous enclosure (repeated squaring).
+   NEGATIVE EXPONENTS: `while (e > 0)` never runs for n < 0, so this silently returned
+   ONE = [1,1] for every negative n — pow([2,2],-1) claimed to enclose 0.5 and did not.
+   A wrong enclosure is worse than a refusal, and this one was silent. n < 0 now goes
+   through div, which REFUSES a base straddling 0 (there 1/x is unbounded and no finite
+   interval encloses it). Non-integer n is refused rather than truncated: `e >>= 1` would
+   have quietly floored it. Found 2026-07-28 with 0 call sites in the tree — a loaded
+   trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
+function pow(a, n) {
+  if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  if (n < 0) return div(ONE, pow(a, -n));
+  let r = ONE, base = a, e = n;
+  while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
+  return r;
+}
+
+/* ---------- Stage 2.4 — thin floats and the trigonometric pad ----------
+   Math.cos / Math.sin are implementation-approximated with NO ECMAScript accuracy
+   bound. The positivity kernels used a remembered ±1e-15 pad that under-covered the
+   float mul-chain argument error by ≥16× on the Fourier grids in this monorepo
+   (TOPIC B6: measured 1.641e-14). Until a Taylor / Payne–Hanek interval cos ships
+   (sound interval exp/log: src/transcendental.js), enclose the float evaluation
+   by a DERIVED absolute pad: |d cos/dθ|≤1 and |d sin/dθ|≤1, so
+     pad(ang) = 2·ε·|ang| + ε
+   dominates a 2-ulp relative argument defect plus one ulp of the result.
+   encloseFloat widens a correctly-rounded image of a real (e.g. Math.PI) by one
+   ulp each side — the last-ulp thin-scalar hardening for 2π. */
+function trigAbsPad(ang) {
+  return nextUp(2 * Number.EPSILON * Math.abs(ang) + Number.EPSILON);
+}
+function encloseCos(ang) {
+  const cv = Math.cos(ang), p = trigAbsPad(ang);
+  return [nextDown(cv - p), nextUp(cv + p)];
+}
+function encloseSin(ang) {
+  const sv = Math.sin(ang), p = trigAbsPad(ang);
+  return [nextDown(sv - p), nextUp(sv + p)];
+}
+function encloseFloat(x) {
+  return [nextDown(x), nextUp(x)];
+}
+
+module.exports = {
+  nextUp, nextDown, iv, ZERO, ONE,
+  add, sub, mul, div, neg, sqr, abs, mag, mig,
+  contains, subset, interior, width, pow,
+  trigAbsPad, encloseCos, encloseSin, encloseFloat
+};
+
+  },
+  "rational.js": function (module, exports, require) {
+/* rational.js — exact arithmetic over BigInt fractions.
+
+   Why this exists next to interval arithmetic rather than instead of it: the
+   two answer different questions, and choosing the wrong one silently weakens
+   a certificate.
+
+     · INTERVAL arithmetic bounds a quantity you cannot compute exactly. It is
+       the right tool when the problem is genuinely nonlinear (a Krawczyk
+       enclosure, a radii polynomial).
+     · EXACT arithmetic DECIDES. It is the right tool when the data is rational
+       and the question is a sign — and it is the ONLY tool when the answer is
+       a tie, because no interval method can ever decide whether a quantity is
+       exactly zero.
+
+   That distinction was learned, not designed. Certifying a multi-population
+   Wardrop equilibrium, an unused edge turned out to carry a slack of exactly
+   zero — an unused route exactly as short as the used ones. Interval
+   arithmetic returned −1.6e−12 and could not conclude; exact rational
+   arithmetic settled it immediately. Weak complementarity is invisible to
+   floating point and to intervals alike.
+
+   Every finite double is exactly m·2^e, so `fromDouble` is lossless and the
+   bridge between the two worlds is exact in that direction.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
+
+/* canonical: denominator > 0, reduced */
+function R(n, d) {
+  n = BigInt(n); d = d === undefined ? 1n : BigInt(d);
+  if (d === 0n) throw new Error('rational: zero denominator');
+  if (d < 0n) { n = -n; d = -d; }
+  const g = gcd(n, d) || 1n;
+  return { n: n / g, d: d / g };
+}
+const ZERO = R(0n), ONE = R(1n);
+
+/* every finite double is exactly m·2^e — this conversion loses nothing */
+function fromDouble(x) {
+  if (!Number.isFinite(x)) throw new Error('rational: non-finite double');
+  let e = 0n, y = x;
+  while (!Number.isInteger(y)) { y *= 2; e += 1n; if (e > 1200n) throw new Error('rational: conversion did not terminate'); }
+  return R(BigInt(y), 1n << e);
+}
+
+const add = (a, b) => R(a.n * b.d + b.n * a.d, a.d * b.d);
+const sub = (a, b) => R(a.n * b.d - b.n * a.d, a.d * b.d);
+const mul = (a, b) => R(a.n * b.n, a.d * b.d);
+const div = (a, b) => { if (b.n === 0n) throw new Error('rational: division by zero'); return R(a.n * b.d, a.d * b.n); };
+const neg = a => R(-a.n, a.d);
+const sign = a => (a.n < 0n ? -1 : a.n > 0n ? 1 : 0);
+const cmp = (a, b) => { const l = a.n * b.d, r = b.n * a.d; return l < r ? -1 : l > r ? 1 : 0; };
+const isZero = a => a.n === 0n;
+const abs = a => (a.n < 0n ? neg(a) : a);
+
+/* a double that is >= (resp <=) the exact value — for reporting only.
+   Number(n)/Number(d) overflows on large heights, so scale first. */
+function toDouble(a) {
+  if (a.n === 0n) return 0;
+  const sign = (a.n < 0n) !== (a.d < 0n) ? -1 : 1;
+  const N = a.n < 0n ? -a.n : a.n;
+  const D = a.d < 0n ? -a.d : a.d;
+  const bn = N.toString(2).length, bd = D.toString(2).length;
+  if (bn < 1000 && bd < 1000) return sign * (Number(N) / Number(D));
+  const shift = BigInt(Math.max(bn, bd) - 1000);
+  return sign * (Number(N >> shift) / Number(D >> shift));
+}
+const toString = a => (a.d === 1n ? a.n.toString() : a.n + '/' + a.d);
+
+/* is the exact value inside the closed float interval [lo, hi]? */
+const inClosed = (a, lo, hi) => cmp(fromDouble(lo), a) <= 0 && cmp(a, fromDouble(hi)) <= 0;
+
+/* ---- exact dense linear algebra (Gaussian elimination, no pivoting error) ----
+   Returns null iff the matrix is EXACTLY singular — which is information, not
+   a failure: a singular exact system is a proof of degeneracy, whereas a small
+   float determinant is only a suspicion. */
+function solve(A, b, n) {
+  A = A.map(r => r.slice()); b = b.slice();
+  for (let k = 0; k < n; k++) {
+    let p = -1;
+    for (let r = k; r < n; r++) if (sign(A[r][k]) !== 0) { p = r; break; }
+    if (p < 0) return null;
+    if (p !== k) { const t = A[k]; A[k] = A[p]; A[p] = t; const tb = b[k]; b[k] = b[p]; b[p] = tb; }
+    for (let r = k + 1; r < n; r++) {
+      if (sign(A[r][k]) === 0) continue;
+      const f = div(A[r][k], A[k][k]);
+      for (let c = k; c < n; c++) A[r][c] = sub(A[r][c], mul(f, A[k][c]));
+      b[r] = sub(b[r], mul(f, b[k]));
+    }
+  }
+  const x = new Array(n).fill(ZERO);
+  for (let k = n - 1; k >= 0; k--) {
+    let s = b[k];
+    for (let c = k + 1; c < n; c++) s = sub(s, mul(A[k][c], x[c]));
+    x[k] = div(s, A[k][k]);
+  }
+  return x;
+}
+
+/* residual of A x − b, exactly. Zero here is a proof, not a tolerance. */
+function residual(A, x, b, n) {
+  const out = new Array(n);
+  for (let i = 0; i < n; i++) {
+    let s = ZERO;
+    for (let j = 0; j < n; j++) if (sign(A[i][j]) !== 0) s = add(s, mul(A[i][j], x[j]));
+    out[i] = sub(s, b[i]);
+  }
+  return out;
+}
+const allZero = v => v.every(isZero);
+
+module.exports = {
+  R, ZERO, ONE, fromDouble, toDouble, toString,
+  add, sub, mul, div, neg, abs, sign, cmp, isZero, inClosed,
+  solve, residual, allZero, gcd
+};
+
+  },
+  "transcendental.js": function (module, exports, require) {
+/* transcendental.js — sound interval exp / log / sin / cos / tanh.
+
+   WHY THIS FILE EXISTS. PLAN.md §5.3 once said JS cannot soundly enclose
+   transcendentals without Rust. core/interval/tests/probe-transcendental.js measured
+   the opposite: a truncated series with a rigorous remainder, evaluated inside
+   the already-validated interval model, produces a valid enclosure. Rust still
+   buys tightness, speed, and a cross-language witness — not soundness.
+
+   RIGOR. Every returned interval must CONTAIN the true real value. Containment
+   is checked in tests/test-transcendental.js against independent exact-rational
+   brackets (and red controls that omit the tail bound). Bad domains refuse by
+   throw — never a silent wrong box.
+
+   SCOPE (closed list). exp, log, sin, cos, tanh. Named consumers:
+   attention-geometry / softmax H/PR enclose (exp/log); edge-of-chaos /
+   aerospace / Path 5 (sin/cos/tanh). No fractional pow until a battery demands it.
+   See research/interval-transcendentals.html.
+
+   MIT licensed. Part of eqcert. */
+'use strict';
+
+const I = require('./interval.js');
+const Q = require('./rational.js');
+const { iv, add, sub, mul, div, neg, ONE, ZERO, nextUp, nextDown } = I;
+
+const _buf = new ArrayBuffer(8);
+const _f64 = new Float64Array(_buf);
+const _u64 = new BigUint64Array(_buf);
+
+const EXP_TERMS = 24;
+const LOG_TERMS = 40;
+const LN2_SERIES_TERMS = 48;
+const TRIG_TERMS = 16;
+const PI_ARCTAN_TERMS = 40;
+const TANH_SAT = 20;
+
+function qpowInt(a, n) {
+  let r = Q.ONE;
+  for (let i = 0; i < n; i++) r = Q.mul(r, a);
+  return r;
+}
+
+function qToIv(loQ, hiQ) {
+  let lo = Q.toDouble(loQ), hi = Q.toDouble(hiQ);
+  while (Q.cmp(Q.fromDouble(lo), loQ) > 0) lo = nextDown(lo);
+  while (Q.cmp(Q.fromDouble(hi), hiQ) < 0) hi = nextUp(hi);
+  return iv(lo, hi);
+}
+
+/* ln(2) = 2 Σ_{k=0}^∞ 1/((2k+1) 3^{2k+1}), with a geometric remainder bound. */
+function ln2Interval() {
+  let sum = Q.ZERO;
+  for (let k = 0; k < LN2_SERIES_TERMS; k++) {
+    const odd = 2 * k + 1;
+    const denom = Q.mul(Q.R(odd), qpowInt(Q.R(3), odd));
+    sum = Q.add(sum, Q.div(Q.ONE, denom));
+  }
+  sum = Q.mul(Q.R(2), sum);
+  const K = LN2_SERIES_TERMS;
+  const oddK = 2 * K + 1;
+  const rem = Q.div(Q.mul(Q.R(2), Q.R(9)), Q.mul(qpowInt(Q.R(3), oddK), Q.R(8)));
+  return qToIv(Q.sub(sum, rem), Q.add(sum, rem));
+}
+
+const LN2 = ln2Interval();
+
+/* arctan(u) for 0 < u < 1: Σ (-1)^k u^{2k+1}/(2k+1), |R| < u^{2K+1}/(2K+1). */
+function arctanPosQ(uNum, uDen, terms) {
+  const U = Q.div(Q.R(uNum), Q.R(uDen));
+  let sum = Q.ZERO;
+  let pow = U;
+  const U2 = Q.mul(U, U);
+  for (let k = 0; k < terms; k++) {
+    const term = Q.div(pow, Q.R(2 * k + 1));
+    sum = (k % 2 === 0) ? Q.add(sum, term) : Q.sub(sum, term);
+    pow = Q.mul(pow, U2);
+  }
+  const rem = Q.div(pow, Q.R(2 * terms + 1));
+  return [Q.sub(sum, rem), Q.add(sum, rem)];
+}
+
+/* Machin: π/4 = 4 arctan(1/5) − arctan(1/239). */
+function piInterval() {
+  const [aLo, aHi] = arctanPosQ(1, 5, PI_ARCTAN_TERMS);
+  const [bLo, bHi] = arctanPosQ(1, 239, PI_ARCTAN_TERMS);
+  const fourALo = Q.mul(Q.R(4), aLo);
+  const fourAHi = Q.mul(Q.R(4), aHi);
+  const qLo = Q.mul(Q.R(4), Q.sub(fourALo, bHi));
+  const qHi = Q.mul(Q.R(4), Q.sub(fourAHi, bLo));
+  return qToIv(qLo, qHi);
+}
+
+const PI = piInterval();
+const TWO_PI = mul(iv(2), PI);
+const HALF_PI = div(PI, iv(2));
+
+/* Exact split x = m · 2^e for positive finite normals, m ∈ [1, 2). */
+function splitPow2(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental: splitPow2 needs positive finite, got ' + x);
+  }
+  _f64[0] = x;
+  let bits = _u64[0];
+  const eBits = Number((bits >> 52n) & 0x7ffn);
+  if (eBits === 0 || eBits === 2047) {
+    throw new Error('transcendental: splitPow2 refuses subnormal/non-finite');
+  }
+  const e = eBits - 1023;
+  bits = (bits & 0x800fffffffffffffn) | (1023n << 52n);
+  _u64[0] = bits;
+  return { m: _f64[0], e };
+}
+
+/* exp on a thin/narrow interval: x = k ln2 + r with |r| < 1, Taylor + tail. */
+function expNarrow(X) {
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.exp: non-finite or inverted interval');
+  }
+  const mid = (X[0] + X[1]) / 2;
+  const k = Math.round(mid / 0.6931471805599453);
+  const r = sub(X, mul(iv(k), LN2));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag < 1)) {
+    throw new Error('transcendental.exp: argument reduction left |r|=' + rmag + ' >= 1');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 1; n <= EXP_TERMS; n++) {
+    term = div(mul(term, r), iv(n));
+    sum = add(sum, term);
+  }
+  let fact = 1, p = 1;
+  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact *= n; p *= rmag; }
+  const tail = nextUp((p / fact) / (1 - rmag / (EXP_TERMS + 2)));
+  sum = add(sum, iv(-tail, tail));
+  if (k > 1023 || k < -1074) {
+    throw new Error('transcendental.exp: 2^k out of finite range, k=' + k);
+  }
+  return mul(sum, iv(Math.pow(2, k)));
+}
+
+/** Interval exponential. Monotone ⇒ wide boxes use endpoint enclosures. */
+function exp(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (X[1] - X[0] > 1e-6) {
+    return [expNarrow(iv(X[0]))[0], expNarrow(iv(X[1]))[1]];
+  }
+  return expNarrow(X);
+}
+
+function logMantissa(m) {
+  if (m === 1) return ZERO;
+  if (!(m >= 1 && m < 2)) {
+    throw new Error('transcendental.logMantissa: need m in [1,2), got ' + m);
+  }
+  const V = div(sub(iv(m), ONE), add(iv(m), ONE));
+  const vmax = Math.max(Math.abs(V[0]), Math.abs(V[1]));
+  if (!(vmax < 0.34)) {
+    throw new Error('transcendental.logMantissa: |v|=' + vmax + ' not in [0,1/3)');
+  }
+  let sum = ZERO;
+  let vpow = V;
+  const V2 = mul(V, V);
+  for (let k = 0; k < LOG_TERMS; k++) {
+    const odd = 2 * k + 1;
+    sum = add(sum, div(vpow, iv(odd)));
+    vpow = mul(vpow, V2);
+  }
+  let p = 1;
+  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p *= vmax;
+  const denom = (2 * LOG_TERMS + 1) * (1 - vmax * vmax);
+  const tail = nextUp(p / denom);
+  return mul(iv(2), add(sum, iv(0, tail)));
+}
+
+function logPoint(x) {
+  if (!(x > 0) || !Number.isFinite(x)) {
+    throw new Error('transcendental.log: need positive finite, got ' + x);
+  }
+  if (x === 1) return ZERO;
+  const { m, e } = splitPow2(x);
+  const lm = logMantissa(m);
+  if (e === 0) return lm;
+  return add(lm, mul(iv(e), LN2));
+}
+
+/** Interval natural log. Domain: lo > 0. Monotone ⇒ endpoints. */
+function log(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] > 0) || !(X[1] > 0) || !(X[0] <= X[1])) {
+    throw new Error('transcendental.log: need positive interval, got [' + X[0] + ',' + X[1] + ']');
+  }
+  return [logPoint(X[0])[0], logPoint(X[1])[1]];
+}
+
+/* Taylor sin/cos on a box with |x| ≤ 2 (covers reduced [-π/2, π/2]).
+   |R_n| ≤ |x|^{n+1}/(n+1)! since |f^{(n+1)}| ≤ 1. */
+function sinSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.sinSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ZERO, term = X;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    sum = add(sum, term);
+    const k = 2 * n + 2;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+  }
+  let fact = 1, p = 1;
+  const deg = 2 * TRIG_TERMS + 1;
+  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }
+  const tail = nextUp(p / fact);
+  return add(sum, iv(-tail, tail));
+}
+
+function cosSeries(X) {
+  const rmag = Math.max(Math.abs(X[0]), Math.abs(X[1]));
+  if (!(rmag <= 2)) {
+    throw new Error('transcendental.cosSeries: |x|=' + rmag + ' > 2');
+  }
+  let sum = ONE, term = ONE;
+  for (let n = 0; n < TRIG_TERMS; n++) {
+    const k = 2 * n + 1;
+    term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
+    sum = add(sum, term);
+  }
+  let fact = 1, p = 1;
+  const deg = 2 * TRIG_TERMS + 2;
+  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }
+  const tail = nextUp(p / fact);
+  return add(sum, iv(-tail, tail));
+}
+
+/** Reduce x = n·(π/2) + r with |r| ≲ π/4…π/2; return series args + quadrant n mod 4.
+   Quadrant table (n mod 4):
+     0: sin=sin r,  cos=cos r
+     1: sin=cos r,  cos=−sin r
+     2: sin=−sin r, cos=−cos r
+     3: sin=−cos r, cos=sin r */
+function reduceTrigPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.reduce: non-finite angle');
+  }
+  const halfPiMid = (HALF_PI[0] + HALF_PI[1]) / 2;
+  const n = Math.round(x / halfPiMid);
+  const r = sub(iv(x), mul(iv(n), HALF_PI));
+  const rmag = Math.max(Math.abs(r[0]), Math.abs(r[1]));
+  if (!(rmag <= HALF_PI[1] + 0.02)) {
+    throw new Error('transcendental.reduce: |r|=' + rmag + ' after n=' + n);
+  }
+  return { r, q: ((n % 4) + 4) % 4 };
+}
+
+function sinPoint(x) {
+  if (x === 0) return ZERO;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return s;
+  if (q === 1) return c;
+  if (q === 2) return neg(s);
+  return neg(c);
+}
+
+function cosPoint(x) {
+  if (x === 0) return ONE;
+  const { r, q } = reduceTrigPoint(x);
+  const s = sinSeries(r), c = cosSeries(r);
+  if (q === 0) return c;
+  if (q === 1) return neg(s);
+  if (q === 2) return neg(c);
+  return s;
+}
+
+/* Enclosure of 3*pi/2, outward-rounded, for the sin minimum. */
+const THREE_HALF_PI = [nextDown(PI[0] + HALF_PI[0]), nextUp(PI[1] + HALF_PI[1])];
+
+/** Might [a,b] contain a real of the form BASE + k*2pi for some integer k?
+ *
+ *  CONSERVATIVE BY CONSTRUCTION: it may answer true when the critical point is
+ *  merely near the box, and must NEVER answer false when one is inside. A false
+ *  positive only widens the result; a false negative makes it unsound. Every
+ *  candidate phase is built as an interval and pushed outward one ulp before the
+ *  overlap test, and the k window carries one extra step on each side, so the
+ *  error can only ever land on the safe side. */
+function containsPhase(a, b, BASE) {
+  if (b - a >= TWO_PI[0]) return true;
+  const kLo = Math.floor((a - BASE[1]) / TWO_PI[0]) - 1;
+  const kHi = Math.ceil((b - BASE[0]) / TWO_PI[0]) + 1;
+  if (!Number.isFinite(kLo) || !Number.isFinite(kHi)) return true;   /* refuse to guess */
+  for (let k = kLo; k <= kHi; k++) {
+    /* enclosure of BASE + k*2pi; multiplying by a negative k swaps the bounds */
+    const lo = k >= 0 ? BASE[0] + k * TWO_PI[0] : BASE[0] + k * TWO_PI[1];
+    const hi = k >= 0 ? BASE[1] + k * TWO_PI[1] : BASE[1] + k * TWO_PI[0];
+    if (nextUp(hi) >= a && nextDown(lo) <= b) return true;
+  }
+  return false;
+}
+
+/** Interval sin — a true enclosure over the whole box.
+ *
+ *  REWRITTEN 2026-08-08. Both previous branches were UNSOUND, and the file's own
+ *  header ("Every returned interval must CONTAIN the true real value") was the
+ *  claim they broke:
+ *
+ *    narrow (width <= 1e-6)  returned sinPoint(midpoint) — an enclosure of sin at
+ *                            ONE POINT, not over the box. sin([1,1+1e-9]) came back
+ *                            strictly INSIDE the true range, missing both endpoints.
+ *    wide                    hulled the two endpoints and only widened to [-1,1]
+ *                            when the width exceeded pi/2. But a critical point
+ *                            needs no such width to sit inside: sin([1,2]) returned
+ *                            [0.8415, 0.9093] while the true maximum is 1 at pi/2.
+ *
+ *  Why the battery never caught it: T10 tests sin(iv(x)) for SCALAR x — degenerate
+ *  boxes, where the midpoint IS the whole interval and sinPoint is trivially right.
+ *  The suite exercised D1 (accepts correct) and never D3 (rejects wrong), which is
+ *  the exact failure research/evidence-first-bench measures in other people's
+ *  suites. See tests/test-transcendental-enclosure.js, written with this fix.
+ *
+ *  Now: hull the endpoint enclosures, then force the bound to +/-1 whenever a
+ *  critical point may lie inside. Monotone boxes stay tight; boxes straddling an
+ *  extremum widen to the truth instead of reporting the chord. */
+function sin(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.sin: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = sinPoint(X[0]), b = sinPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], HALF_PI)) hi = 1;            /* sin = +1 */
+  if (containsPhase(X[0], X[1], THREE_HALF_PI)) lo = -1;     /* sin = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+/** Interval cos. Same rewrite, same reasons; extrema at 2k*pi and pi + 2k*pi. */
+function cos(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.cos: bad interval');
+  }
+  if (X[1] - X[0] >= TWO_PI[0]) return iv(-1, 1);
+  const a = cosPoint(X[0]), b = cosPoint(X[1]);
+  let lo = Math.min(a[0], b[0]), hi = Math.max(a[1], b[1]);
+  if (containsPhase(X[0], X[1], [0, 0])) hi = 1;             /* cos = +1 */
+  if (containsPhase(X[0], X[1], PI)) lo = -1;                /* cos = -1 */
+  return iv(Math.max(-1, lo), Math.min(1, hi));
+}
+
+function tanhPoint(x) {
+  if (!Number.isFinite(x)) {
+    throw new Error('transcendental.tanh: non-finite');
+  }
+  if (x === 0) return ZERO;
+  if (x < 0) return neg(tanhPoint(-x));
+  if (x >= TANH_SAT) {
+    /* 0 < 1 − tanh(x) = 2/(e^{2x}+1) < 2 e^{-2x} ≤ 2 e^{-40} < 4e-17 */
+    const gap = nextUp(4e-17);
+    return iv(nextDown(1 - gap), 1);
+  }
+  const E = exp(iv(2 * x));
+  return div(sub(E, ONE), add(E, ONE));
+}
+
+/** Interval tanh. Odd, strictly increasing ⇒ endpoints. */
+function tanh(X) {
+  if (!Array.isArray(X) || X.length !== 2) X = iv(X);
+  if (!(X[0] <= X[1]) || !Number.isFinite(X[0]) || !Number.isFinite(X[1])) {
+    throw new Error('transcendental.tanh: bad interval');
+  }
+  return [tanhPoint(X[0])[0], tanhPoint(X[1])[1]];
+}
+
+module.exports = {
+  exp, log, logPoint, sin, cos, tanh,
+  LN2, PI, HALF_PI, TWO_PI,
+  splitPow2, EXP_TERMS, LOG_TERMS, TRIG_TERMS
+};
+
+  },
+  "flowline.js": function (module, exports, require) {
+/* flowline.js — Contraprova's gate for one engineering number: the pressure at
+   the wellhead of a water-injection line, as a model proposes it (an AI
+   surrogate, a solver, a spreadsheet), decided over the WHOLE box of declared
+   inputs — never at one sample of it. apps/contraprova · cert-machine
+
+   THE COMPUTATION, and the only physics this gate asserts:
+     A   = π D²/4,  v = Q/A,  Re = ρ v D / μ
+     1/√f = −2 log10( ε/(3.7 D) + 2.51/(Re √f) )          Colebrook, turbulent only
+     P_wh = P_d + ρ g Δz − f (L/D) ρ v²/2                   Darcy–Weisbach, descending line
+   A PROVADO here means: for EVERY input in the declared box, this model gives a
+   wellhead pressure inside the enclosure and every declared rule holds. It is a
+   statement about the declared model and the declared inputs, not about the sea.
+
+   THE COLEBROOK ENCLOSURE WITHOUT A SQUARE ROOT. Write x = 1/√f. Then x is the
+   root of h(x; a, b) = x + (2/ln 10) ln(a + b x), a = ε/(3.7D), b = 2.51/Re.
+   For x > 0, a ≥ 0, b > 0, h is strictly increasing in x, in a and in b (ln is
+   increasing and its argument is), so the root x*(a, b) is DECREASING in a and
+   in b. Over a box where a ∈ [a₋, a₊] and b ∈ [b₋, b₊] every root therefore lies
+   in [x*(a₊, b₊), x*(a₋, b₋)]. A float Newton step only LOCATES each end; the end
+   counts when h is PROVED negative just below it (a lower bound) or positive
+   just above it (an upper bound), in outward-rounded interval arithmetic with
+   ln from instruments/interval/transcendental.js (a series with its remainder).
+
+   THE THREE WORDS. Each check returns PROVADO (holds on the whole box),
+   REFUTADO (fails, proved — on the whole box, or at a named impossibility), or
+   RECUSADO (the declared evidence does not decide it: the box holds inputs on
+   both sides, both sides proved, or the model does not apply). The receipt's
+   verdict is REFUTADO if any check refutes, else RECUSADO if any refuses, else
+   PROVADO. A refusal says what would decide it (the flip thresholds).       MIT */
+'use strict';
+
+const I = require('../../../instruments/interval/interval.js');
+const T = require('../../../instruments/interval/transcendental.js');
+const Q = require('../../../instruments/interval/rational.js');
+const { iv, add, sub, mul, div, sqr, nextUp, nextDown } = I;
+
+const PROVADO = 'PROVADO', REFUTADO = 'REFUTADO', RECUSADO = 'RECUSADO', NAO = 'NÃO AVALIADO';
+const DIMS = ['L', 'D', 'eps', 'rho', 'mu', 'dz'];
+const LN10 = T.log(iv(10));
+const C2 = div(iv(2), LN10);                          /* 2 / ln 10 */
+const G = dec('9.80665');                             /* standard gravity, exact by definition */
+const RE_TURB = 4000;                                 /* Colebrook's stated domain */
+const PSI_PER_BAR = '14.503773773';                   /* 1 bar = 14.5037737730 psi */
+
+/* a declared decimal, enclosed: the double nearest it, widened one ulp each side */
+function dec(s) { const d = Number(s); if (!Number.isFinite(d)) throw new Error('flowline: not a number: ' + s); return [nextDown(d), nextUp(d)]; }
+function box(b) { const o = {}; for (const k of DIMS) { if (!b[k]) throw new Error('flowline: box needs ' + k); o[k] = [dec(b[k][0])[0], dec(b[k][1])[1]]; if (!(o[k][0] <= o[k][1])) throw new Error('flowline: empty ' + k); } return o; }
+const lo = (x) => x[0], hi = (x) => x[1];
+
+/* ------------------------------------------------------------ the physics -- */
+function kinematics(B, Qd) {
+  const q = div(Qd, iv(86400));                       /* m³/d → m³/s */
+  const A = div(mul(T.PI, sqr(B.D)), iv(4));
+  const v = div(q, A);
+  const Re = div(mul(mul(B.rho, v), B.D), B.mu);
+  return { q, A, v, Re };
+}
+/* h(x; a, b) enclosed at a thin x and thin a, b */
+function h(x, a, b) { return add(iv(x), mul(C2, T.log(add(iv(a), mul(iv(b), iv(x)))))); }
+function newton(a, b) {
+  let x = 8;
+  for (let k = 0; k < 60; k++) {
+    const u = a + b * x, fx = x + (2 / Math.LN10) * Math.log(u), d = 1 + (2 / Math.LN10) * b / u;
+    const nx = x - fx / d; if (Math.abs(nx - x) < 1e-15 * x) { x = nx; break; } x = nx;
+  }
+  return x;
+}
+/* [a lower bound of x*(a₊,b₊), an upper bound of x*(a₋,b₋)] — each end PROVED */
+function colebrookX(aI, bI) {
+  let xl = newton(aI[1], bI[1]), xr = newton(aI[0], bI[0]), step = 1e-13;
+  for (let k = 0; ; k++) { const t = xl * (1 - step); if (hi(h(t, aI[1], bI[1])) < 0) { xl = t; break; } step *= 4; if (k > 30) throw new Error('flowline: Colebrook lower end not proved'); }
+  step = 1e-13;
+  for (let k = 0; ; k++) { const t = xr * (1 + step); if (lo(h(t, aI[0], bI[0])) > 0) { xr = t; break; } step *= 4; if (k > 30) throw new Error('flowline: Colebrook upper end not proved'); }
+  return [xl, xr];
+}
+/* the wellhead pressure over a box, in bar, and the pieces it came from */
+function wellhead(B, Qd, Pd) {
+  const K = kinematics(B, Qd);
+  const a = div(B.eps, mul(dec('3.7'), B.D)), b = div(dec('2.51'), K.Re);
+  const X = colebrookX(a, b);
+  const fI = div(iv(1), sqr(X));
+  const dPf = div(mul(mul(div(B.L, B.D), B.rho), sqr(K.v)), mul(iv(2), sqr(X)));  /* Pa */
+  const hyd = mul(mul(B.rho, G), B.dz);
+  const P = div(sub(add(mul(Pd, iv(1e5)), hyd), dPf), iv(1e5));
+  return { P, f: fI, v: K.v, Re: K.Re, dPf: div(dPf, iv(1e5)), hyd: div(hyd, iv(1e5)) };
+}
+
+/* ----------------------------------------------------- deciding on a box -- */
+/* the float model at one point — a PROPOSER only: it chooses which dimension to
+   bisect and nothing else; no verdict ever reads it */
+function pointP(p, Qd, Pd) {
+  const q = Qd / 86400, A = Math.PI * p.D * p.D / 4, v = q / A, Re = p.rho * v * p.D / p.mu;
+  const x = newton(p.eps / (3.7 * p.D), 2.51 / Re);
+  return Pd + (p.rho * 9.80665 * p.dz - (p.L / p.D) * p.rho * v * v / (2 * x * x)) / 1e5;
+}
+const mid = (B) => { const o = {}; for (const k of DIMS) o[k] = (B[k][0] + B[k][1]) / 2; return o; };
+/* bisect the dimension that moves P_wh most across the box */
+function split(B, Qd, Pd) {
+  const c = mid(B); let best = DIMS[0], bw = -1;
+  for (const k of DIMS) {
+    const a = Object.assign({}, c, { [k]: B[k][0] }), b = Object.assign({}, c, { [k]: B[k][1] });
+    const w = Math.abs(pointP(b, Qd, Pd) - pointP(a, Qd, Pd)); if (w > bw) { bw = w; best = k; }
+  }
+  const m = (B[best][0] + B[best][1]) / 2, L = Object.assign({}, B), R = Object.assign({}, B);
+  L[best] = [B[best][0], m]; R[best] = [m, B[best][1]];
+  return [L, R];
+}
+/* decide P_wh ≤ bound on the box: the proved-ok subboxes, the proved-violating
+   ones, the ones left open at the depth, and the enclosure over all of them */
+function decideLE(B, Qd, Pd, bound, depth, acc) {
+  acc = acc || { ok: 0, bad: 0, open: 0, env: [Infinity, -Infinity], evals: 0 };
+  const w = wellhead(B, Qd, Pd); acc.evals++;
+  if (hi(w.P) <= bound) { acc.ok++; widen(acc.env, w.P); return acc; }
+  if (lo(w.P) > bound) { acc.bad++; widen(acc.env, w.P); return acc; }
+  if (depth <= 0) { acc.open++; widen(acc.env, w.P); return acc; }
+  const md = [(Qd[0] + Qd[1]) / 2, (Pd[0] + Pd[1]) / 2];
+  for (const S of split(B, md[0], md[1])) decideLE(S, Qd, Pd, bound, depth - 1, acc);
+  return acc;
+}
+function widen(env, P) { env[0] = Math.min(env[0], P[0]); env[1] = Math.max(env[1], P[1]); }
+/* a tight enclosure of P_wh over the box: the union over a fixed bisection */
+function envelope(B, Qd, Pd, depth) {
+  const env = [Infinity, -Infinity]; let evals = 0;
+  const md = [(Qd[0] + Qd[1]) / 2, (Pd[0] + Pd[1]) / 2];
+  (function go(S, d) { if (d === 0) { widen(env, wellhead(S, Qd, Pd).P); evals++; return; } for (const X of split(S, md[0], md[1])) go(X, d - 1); })(B, depth);
+  return { env, evals };
+}
+/* the 64 corners of the box, each a THIN box decided on its own: a corner with
+   P_wh proved above the bound is a declared input that violates the rule; one
+   proved at or below it is a declared input that respects it */
+function corners(B, Qd, Pd, bound) {
+  let above = null, below = null, evals = 0;
+  for (let m = 0; m < 1 << DIMS.length; m++) {
+    const C = {}; DIMS.forEach((k, i) => { const x = B[k][(m >> i) & 1]; C[k] = [x, x]; });
+    const P = wellhead(C, Qd, Pd).P; evals++;
+    if (lo(P) > bound && (!above || lo(P) > above.P[0])) above = { at: C, P };
+    if (hi(P) <= bound && (!below || hi(P) < below.P[1])) below = { at: C, P };
+  }
+  return { above, below, evals };
+}
+function pointText(C) {
+  const n = (x, d) => x.toFixed(d).replace('.', ',');
+  return 'ε = ' + n(C.eps[0] * 1e3, 3) + ' mm, μ = ' + n(C.mu[0] * 1e3, 2) + ' mPa·s, D = ' + n(C.D[0] * 1e3, 1) + ' mm, ρ = ' + Math.round(C.rho[0]).toLocaleString('pt-BR')
+    + ' kg/m³, Δz = ' + Math.round(C.dz[0]).toLocaleString('pt-BR') + ' m, L = ' + Math.round(C.L[0]).toLocaleString('pt-BR') + ' m';
+}
+
+/* ------------------------------------------------------------ exact bits -- */
+function ratOf(s) {
+  const m = /^\s*(-?)(\d+)(?:[.,](\d+))?\s*$/.exec(String(s)); if (!m) throw new Error('flowline: not a decimal: ' + s);
+  const frac = m[3] || '', n = BigInt(m[2] + frac) * (m[1] ? -1n : 1n);
+  return Q.R(n, 10n ** BigInt(frac.length));
+}
+const ratStr = (r) => (Number(r.n) / Number(r.d)).toLocaleString('pt-BR', { maximumFractionDigits: 3 });
+
+/* ------------------------------------------------------------ the receipt -- */
+/* proposal: { Q (m³/d), Pd (bar), claim: { Pwh (bar), v (m/s)?, f? },
+               split: { header, wells: [..] }? }   all decimals as strings
+   rules:    { PwhMax (bar), vMax (m/s) }                                      */
+function decide(proposal, boxDecl, rules, opts) {
+  const depth = (opts && opts.depth) || 12;
+  const B = box(boxDecl);
+  const Qd = dec(proposal.Q), Pd = dec(proposal.Pd);
+  const checks = [], thresholds = [], flip = {};
+  const K = kinematics(B, Qd);
+  const put = (id, name, verdict, text) => checks.push({ id, name, verdict, text });
+  const f1 = (x) => x.toFixed(1).replace('.', ','), f3 = (x) => x.toFixed(3).replace('.', ',');
+  /* every printed bound is rounded OUTWARD, so the printed interval still contains the proved one */
+  const dn = (x, d) => (Math.floor(x * 10 ** d) / 10 ** d).toFixed(d).replace('.', ','), up = (x, d) => (Math.ceil(x * 10 ** d) / 10 ** d).toFixed(d).replace('.', ',');
+
+  /* 1 — conservation of mass at the manifold (exact rationals) */
+  if (proposal.split) {
+    const hdr = ratOf(proposal.split.header);
+    const sum = proposal.split.wells.reduce((s, w) => Q.add(s, ratOf(w)), Q.ZERO);
+    if (Q.cmp(hdr, sum) !== 0) put('massa', 'Conservação de massa no manifold', REFUTADO, 'Entram ' + ratStr(hdr) + ' m³/d e saem ' + ratStr(sum) + ' m³/d pelos poços — a diferença é exata, não arredondamento.');
+    else put('massa', 'Conservação de massa no manifold', PROVADO, 'Entram e saem ' + ratStr(hdr) + ' m³/d, em aritmética racional exata.');
+  }
+
+  /* 2 — kinematics: a claimed velocity must be Q/A for some declared D */
+  if (proposal.claim.v !== undefined) {
+    const cv = dec(proposal.claim.v);
+    if (hi(cv) < lo(K.v) || lo(cv) > hi(K.v)) put('cinematica', 'Coerência interna (v = Q/A)', REFUTADO, 'A velocidade declarada, ' + proposal.claim.v.replace('.', ',') + ' m/s, não é Q/A para nenhum diâmetro declarado: Q/A ∈ [' + dn(lo(K.v), 3) + '; ' + up(hi(K.v), 3) + '] m/s.');
+    else put('cinematica', 'Coerência interna (v = Q/A)', PROVADO, 'A velocidade declarada está em Q/A ∈ [' + dn(lo(K.v), 3) + '; ' + up(hi(K.v), 3) + '] m/s.');
+  }
+
+  /* 3 — the model-free bound: friction cannot add pressure */
+  const cP = dec(proposal.claim.Pwh);
+  const hydMax = div(mul(mul(iv(B.rho[1]), G), iv(B.dz[1])), iv(1e5));
+  const ceiling = add(Pd, hydMax);
+  if (lo(cP) > hi(ceiling)) put('energia', 'Limite físico (atrito ≥ 0)', REFUTADO, 'A pressão declarada, ' + proposal.claim.Pwh.replace('.', ',') + ' bar, excede P_d + ρgΔz ≤ ' + up(hi(ceiling), 1) + ' bar: exigiria atrito negativo, energia criada na linha.');
+  else put('energia', 'Limite físico (atrito ≥ 0)', PROVADO, 'A pressão declarada não excede P_d + ρgΔz ≤ ' + up(hi(ceiling), 1) + ' bar.');
+
+  /* 4 — the model's domain: Colebrook is stated for turbulent flow only */
+  const inDomain = lo(K.Re) >= RE_TURB;
+  const qMin = (() => {                                /* Re₋ ≥ 4000 ⇔ Q ≥ 4000·π·D₊·μ₊/(4 ρ₋) · 86400 */
+    const q = mul(div(mul(mul(iv(RE_TURB), T.PI), mul(iv(B.D[1]), iv(B.mu[1]))), mul(iv(4), iv(B.rho[0]))), iv(86400));
+    return Math.ceil(hi(q));
+  })();
+  if (inDomain) put('dominio', 'Domínio do modelo (Re ≥ 4.000)', PROVADO, 'Re ∈ [' + Math.floor(lo(K.Re)).toLocaleString('pt-BR') + '; ' + Math.ceil(hi(K.Re)).toLocaleString('pt-BR') + '] em toda a caixa: turbulento, Colebrook se aplica.');
+  else {
+    put('dominio', 'Domínio do modelo (Re ≥ 4.000)', RECUSADO, 'Re ∈ [' + Math.floor(lo(K.Re)).toLocaleString('pt-BR') + '; ' + Math.ceil(hi(K.Re)).toLocaleString('pt-BR') + ']: parte da caixa não é turbulenta, e nenhum modelo declarado vale ali. Não há decisão a dar.');
+    flip.qMin = qMin;
+    thresholds.push('Com Q ≥ ' + qMin.toLocaleString('pt-BR') + ' m³/d o escoamento é turbulento em toda a caixa e o portão decide.');
+  }
+
+  /* 5 — the velocity rule */
+  if (rules.vMax !== undefined) {
+    const vm = dec(rules.vMax);
+    if (hi(K.v) <= lo(vm)) put('velocidade', 'Regra: v ≤ ' + rules.vMax.replace('.', ',') + ' m/s', PROVADO, 'v ≤ ' + up(hi(K.v), 3) + ' m/s em toda a caixa.');
+    else if (lo(K.v) > hi(vm)) put('velocidade', 'Regra: v ≤ ' + rules.vMax.replace('.', ',') + ' m/s', REFUTADO, 'v ≥ ' + dn(lo(K.v), 3) + ' m/s em toda a caixa.');
+    else put('velocidade', 'Regra: v ≤ ' + rules.vMax.replace('.', ',') + ' m/s', RECUSADO, 'v ∈ [' + dn(lo(K.v), 3) + '; ' + up(hi(K.v), 3) + '] m/s atravessa o limite dentro da caixa.');
+  }
+
+  let env = null, evals = 0;
+  if (inDomain) {
+    /* 6 — a claimed friction factor must solve Colebrook for some declared input */
+    if (proposal.claim.f !== undefined) {
+      const fc = dec(proposal.claim.f);
+      const a = div(B.eps, mul(dec('3.7'), B.D)), b = div(dec('2.51'), K.Re);
+      const X = colebrookX(a, b), fI = div(iv(1), sqr(iv(X[0], X[1])));
+      if (hi(fc) < lo(fI) || lo(fc) > hi(fI)) put('colebrook', 'Solução de Colebrook', REFUTADO, 'f = ' + proposal.claim.f.replace('.', ',') + ' não resolve Colebrook para nenhuma entrada declarada: as soluções estão em [' + dn(lo(fI), 5) + '; ' + up(hi(fI), 5) + ']. O solver parou antes de convergir.');
+      else put('colebrook', 'Solução de Colebrook', PROVADO, 'f declarado está entre as soluções provadas, [' + dn(lo(fI), 5) + '; ' + up(hi(fI), 5) + '].');
+    }
+    /* 7 — the claimed pressure against the enclosure */
+    const E = envelope(B, Qd, Pd, 7); env = E.env; evals += E.evals;
+    if (hi(cP) < env[0] || lo(cP) > env[1]) {
+      let why = '';
+      const psi = div(cP, dec(PSI_PER_BAR));
+      if (lo(psi) >= env[0] && hi(psi) <= env[1]) why = ' Dividido por 14,504, cai dentro: é compatível com psi informado como bar.';
+      else if (hi(cP) < env[0]) why = ' Fica ' + dn(env[0] - hi(cP), 1) + ' bar abaixo do mínimo possível.';
+      else why = ' Fica ' + dn(lo(cP) - env[1], 1) + ' bar acima do máximo possível.';
+      put('modelo', 'Consistência com o modelo físico', REFUTADO, 'P_wh declarada, ' + proposal.claim.Pwh.replace('.', ',') + ' bar, está fora de [' + dn(env[0], 1) + '; ' + up(env[1], 1) + '] bar — o intervalo que contém P_wh para TODA entrada declarada.' + why);
+    } else put('modelo', 'Consistência com o modelo físico', PROVADO, 'P_wh declarada está em [' + dn(env[0], 1) + '; ' + up(env[1], 1) + '] bar, que contém P_wh para toda entrada declarada.');
+
+    /* 8 — the operational rule, decided on the whole box */
+    const bound = Number(rules.PwhMax);
+    const name = 'Regra: P_wh ≤ ' + rules.PwhMax + ' bar';
+    const W = corners(B, Qd, Pd, bound); evals += W.evals;
+    /* whether the WHOLE box respects the bound: impossible once a violating corner is proved */
+    const allOk = (S) => { const r = decideLE(S, Qd, Pd, bound, depth); evals += r.evals; return r.bad === 0 && r.open === 0; };
+    const allBad = (S) => { const r = decideLE(S, Qd, Pd, bound, depth); evals += r.evals; return r.ok === 0 && r.open === 0; };
+    if (!W.above && allOk(B)) put('limite', name, PROVADO, 'Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de ' + rules.PwhMax + ' bar.');
+    else if (!W.below && allBad(B)) put('limite', name, REFUTADO, 'Violada em toda a caixa: P_wh > ' + rules.PwhMax + ' bar para toda entrada declarada.');
+    else {
+      put('limite', name, RECUSADO, W.above && W.below
+        ? 'A caixa declarada contém entradas dos dois lados, ambos provados. Viola: ' + pointText(W.above.at) + ' → P_wh ≥ ' + dn(lo(W.above.P), 1) + ' bar. Respeita: ' + pointText(W.below.at) + ' → P_wh ≤ ' + up(hi(W.below.P), 1) + ' bar. A evidência declarada não decide.'
+        : 'Não decidido na profundidade do portão.');
+      /* the flip thresholds: P_wh = P_d + G(box), so the pump pressure moves the whole enclosure */
+      const Gl = env[0] - hi(Pd), Gh = env[1] - lo(Pd);   /* bounds on G over the box */
+      const greenPd = Math.floor((bound - Gh) * 10) / 10, redPd = Math.ceil((bound - Gl) * 10) / 10;
+      flip.pdGreen = greenPd; flip.pdRed = redPd;
+      thresholds.push('Com P_d ≤ ' + f1(greenPd) + ' bar a regra fica PROVADA na caixa inteira; acima de ' + f1(redPd) + ' bar fica REFUTADA.');
+      /* and the disclosure that would decide it: for each input whose higher values
+         only add friction (μ, ε), the smallest lower end at which the whole box is safe */
+      const DISC = { mu: ['medir a viscosidade da água injetada e mostrar μ ≥ ', 1e3, 2, ' mPa·s'], eps: ['inspecionar a linha e mostrar rugosidade ε ≥ ', 1e3, 3, ' mm'] };
+      for (const k of Object.keys(DISC)) {
+        let a0 = B[k][0], b0 = B[k][1];
+        const safe = (m) => allOk(Object.assign({}, B, { [k]: [m, B[k][1]] }));
+        if (!safe(b0)) continue;
+        for (let j = 0; j < 16; j++) { const m = (a0 + b0) / 2; if (safe(m)) b0 = m; else a0 = m; }
+        const [t, sc, d, u] = DISC[k];
+        flip[k] = Math.ceil(b0 * sc * 10 ** d) / 10 ** d;
+        thresholds.push('Ou ' + t + up(b0 * sc, d) + u + ' (a caixa declara ' + (Number(boxDecl[k][0]) * sc).toFixed(d).replace('.', ',') + '–' + (Number(boxDecl[k][1]) * sc).toFixed(d).replace('.', ',') + u + '): com isso a regra fica PROVADA.');
+      }
+    }
+  } else {
+    if (proposal.claim.f !== undefined) put('colebrook', 'Solução de Colebrook', NAO, 'Fora do domínio do modelo.');
+    put('modelo', 'Consistência com o modelo físico', NAO, 'Fora do domínio do modelo: nenhum intervalo de P_wh é afirmado.');
+    put('limite', 'Regra: P_wh ≤ ' + rules.PwhMax + ' bar', NAO, 'Fora do domínio do modelo.');
+  }
+
+  const vs = checks.map((c) => c.verdict);
+  const verdict = vs.includes(REFUTADO) ? REFUTADO : vs.includes(RECUSADO) ? RECUSADO : PROVADO;
+  return {
+    verdict,
+    enclosure: env ? [Math.floor(env[0] * 10) / 10, Math.ceil(env[1] * 10) / 10] : null,
+    claim: proposal.claim.Pwh,
+    checks, thresholds, flip, evals,
+    proved: checks.filter((c) => c.verdict === PROVADO).length,
+    of: checks.filter((c) => c.verdict !== NAO).length
+  };
+}
+
+module.exports = { decide, ratOf, wellhead, colebrookX, newton, box, dec, decideLE, envelope, corners, pointP, kinematics, PROVADO, REFUTADO, RECUSADO, NAO, DIMS };
+
+  },
+  "receipt.js": function (module, exports, require) {
+/* receipt.js — THE receipt, drawn once: the page's first render at build time
+   and every re-decision in the reader's tab call this same function, so the
+   receipt a crawler reads and the one a reader re-runs cannot be two designs.
+   INK: the proposal is a claim — italic, dashed, in the claim ink; what the
+   gate decided is solid. They never share a stroke or a type style.
+   apps/contraprova · cert-machine                                        MIT */
+'use strict';
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const CLS = { 'PROVADO': 'provado', 'REFUTADO': 'refutado', 'RECUSADO': 'recusado', 'NÃO AVALIADO': 'nao' };
+const MEANS = {
+  'PROVADO': 'vale para toda entrada declarada',
+  'REFUTADO': 'falha — e a falha está provada',
+  'RECUSADO': 'a evidência declarada não decide'
+};
+function chip(v, big) { return '<span class="cp-chip ' + (CLS[v] || 'nao') + (big ? ' big' : '') + '">' + esc(v) + '</span>'; }
+const br = (x, d) => Number(x).toFixed(d).replace('.', ',');
+const brNum = (s) => { const x = Number(s); return Math.abs(x) >= 1000 ? Math.round(x).toLocaleString('pt-BR') : String(s).replace('.', ','); };
+
+/* the number line: the decided enclosure solid, the declared limit a guide,
+   the proposal a dashed claim. A claim far off the scale is pinned to the edge
+   with its value written, never allowed to stretch the scale into a line. */
+function numberLine(r, limit, narrow) {
+  const W = narrow ? 360 : 640, H = 98, L = 18, R = 18, y = 40;
+  const claim = Number(r.claim), lim = Number(limit);
+  const pts = [lim].concat(r.enclosure || []);
+  let lo = Math.min(...pts), hi = Math.max(...pts);
+  const pad = Math.max(4, (hi - lo) * 0.25); lo -= pad; hi += pad;
+  const inView = claim >= lo && claim <= hi;
+  if (!inView && claim >= lo - 25 && claim <= hi + 25) { lo = Math.min(lo, claim - 3); hi = Math.max(hi, claim + 3); }
+  const x = (v) => L + (W - L - R) * (Math.min(Math.max(v, lo), hi) - lo) / (hi - lo);
+  const o = ['<svg class="cp-nl' + (narrow ? ' narrow' : ' wide') + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc('Intervalo decidido' + (r.enclosure ? ' de ' + br(r.enclosure[0], 1) + ' a ' + br(r.enclosure[1], 1) + ' bar' : ': nenhum') + '; limite ' + limit + ' bar; proposta ' + brNum(r.claim) + ' bar') + '">'];
+  o.push('<line class="cp-axis" x1="' + L + '" y1="' + y + '" x2="' + (W - R) + '" y2="' + y + '"/>');
+  if (r.enclosure) {
+    const a = x(r.enclosure[0]), b = x(r.enclosure[1]);
+    o.push('<rect class="cp-enc" x="' + a.toFixed(1) + '" y="' + (y - 9) + '" width="' + Math.max(2, b - a).toFixed(1) + '" height="18" rx="3"/>');
+    o.push('<text class="cp-t" x="' + a.toFixed(1) + '" y="' + (y + 28) + '" text-anchor="middle">' + br(r.enclosure[0], 1) + '</text>');
+    o.push('<text class="cp-t" x="' + b.toFixed(1) + '" y="' + (y + 28) + '" text-anchor="middle">' + br(r.enclosure[1], 1) + '</text>');
+  } else o.push('<text class="cp-t dim" x="' + (W / 2) + '" y="' + (y + 28) + '" text-anchor="middle">' + (narrow ? 'nenhum intervalo afirmado' : 'nenhum intervalo afirmado: fora do domínio do modelo') + '</text>');
+  const xl = x(lim);
+  o.push('<line class="cp-guide" x1="' + xl.toFixed(1) + '" y1="' + (y - 22) + '" x2="' + xl.toFixed(1) + '" y2="' + (y + 14) + '"/>');
+  o.push('<text class="cp-t" x="' + xl.toFixed(1) + '" y="' + (y - 27) + '" text-anchor="middle">limite ' + esc(limit) + '</text>');
+  const off = claim < lo || claim > hi, xc = x(claim);
+  o.push('<line class="cp-claim" x1="' + xc.toFixed(1) + '" y1="' + (y - 16) + '" x2="' + xc.toFixed(1) + '" y2="' + (y + 16) + '"/>');
+  const anchor = xc > W - 90 ? 'end' : xc < 90 ? 'start' : 'middle';
+  /* a narrow line has no room for a phrase under the axis */
+  o.push('<text class="cp-t claim" x="' + xc.toFixed(1) + '" y="' + (y + 28 + (r.enclosure ? 14 : 0)) + '" text-anchor="' + anchor + '">' + (off ? (claim > hi ? '→ ' : '← ') : '') + 'proposta ' + brNum(r.claim) + '</text>');
+  o.push('</svg>');
+  return o.join('');
+}
+
+/* c: the case (title, story, confidence, fault); r: the receipt; meta: the run line */
+function receiptHtml(c, r, limit, meta) {
+  const o = [];
+  o.push('<div class="cp-rc">');
+  o.push('<div class="cp-common"><div class="cp-k">' + (c.kind === 'proposta' ? 'O que o modelo entrega' : 'Falha injetada: ' + esc(c.fault)) + '</div>'
+    + '<p class="cp-story">' + esc(c.story) + '</p>'
+    + '<div class="cp-pred"><span>previsão</span><b>' + esc(brNum(r.claim)) + ' bar</b>' + (c.confidence ? '<span>confiança</span><b>' + esc(c.confidence) + '</b>' : '') + '</div></div>');
+  o.push('<div class="cp-cert"><div class="cp-k">O que a Contraprova decide</div>'
+    + '<div class="cp-vline">' + chip(r.verdict, true) + '<span class="cp-means">' + esc(MEANS[r.verdict]) + '</span></div>'
+    + (r.enclosure ? '<p class="cp-enc-t">P_wh ∈ [' + br(r.enclosure[0], 1) + '; ' + br(r.enclosure[1], 1) + '] bar para toda entrada declarada</p>' : '<p class="cp-enc-t">Nenhum intervalo afirmado: o modelo declarado não se aplica a toda a caixa.</p>')
+    + numberLine(r, limit) + numberLine(r, limit, true)
+    + '<ul class="cp-checks">' + r.checks.map((k) => '<li>' + chip(k.verdict) + '<div><b>' + esc(k.name) + '</b><span>' + esc(k.text) + '</span></div></li>').join('') + '</ul>'
+    + (r.thresholds.length ? '<div class="cp-flip"><div class="cp-k">O que decidiria</div><ul>' + r.thresholds.map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' : '')
+    + '<div class="cp-run">' + esc(r.proved + ' de ' + r.of + ' verificações provadas · ' + r.evals + ' avaliações intervalares') + (meta ? ' · ' + esc(meta) : '') + '</div>'
+    + '</div>');
+  o.push('</div>');
+  return o.join('');
+}
+
+const api = { receiptHtml, numberLine, chip, esc, MEANS };
+if (typeof module !== 'undefined' && module.exports) module.exports = api;
+
+  }
+};
+var cache = {};
+function req(name) { var base = String(name).split("/").pop(); if (cache[base]) return cache[base].exports; if (!SRC[base]) throw new Error("bundle: no module " + name); var m = { exports: {} }; cache[base] = m; SRC[base](m, m.exports, req); return m.exports; }
+root.CONTRAPROVA = { F: req("flowline.js"), RC: req("receipt.js"), S: {"what":"The Contraprova gate's demonstrator: one water-injection line, its declared inputs as a box, two declared operating rules, and nine proposals — two recommendations an AI model could make and seven reference outputs with one fault injected into each. ILLUSTRATIVE, TYPICAL VALUES: not Petrobras data, not any real line.","line":"Linha de injeção de água do FPSO ao poço injetor, lâmina d'água de 2.100 m","box":{"L":["5990","6010"],"D":["0.1520","0.1528"],"eps":["0.00002","0.00008"],"rho":["1022","1028"],"mu":["0.00108","0.00139"],"dz":["2095","2105"]},"boxWords":{"L":["comprimento da linha","m",1,0],"D":["diâmetro interno","mm",1000,1],"eps":["rugosidade","mm",1000,2],"rho":["massa específica da água","kg/m³",1,0],"mu":["viscosidade (água do mar, ~10–20 °C)","mPa·s",1000,2],"dz":["desnível (lâmina d'água)","m",1,0]},"rules":{"PwhMax":"360","vMax":"5"},"rulesWords":{"PwhMax":"pressão na cabeça do poço ≤ 360 bar (limite operacional declarado)","vMax":"velocidade ≤ 5 m/s (limite de erosão declarado)"},"cases":[{"id":"ia-mais-4-2","kind":"proposta","title":"Proposta de IA: +4,2% de injeção","story":"Um modelo de IA recomenda subir a injeção de 6.720 para 7.000 m³/d (+4,2%), elevando a descarga da bomba para 206 bar, e prevê 352 bar na cabeça do poço — abaixo do limite de 360 bar.","confidence":"97%","proposal":{"Q":"7000","Pd":"206","claim":{"Pwh":"352"}},"expect":"RECUSADO"},{"id":"ia-ajustada","kind":"proposta","title":"A mesma vazão, P_d = 200 bar","story":"A mesma recomendação com a descarga em 200 bar, dentro do limiar que o portão publicou para a proposta anterior. O modelo prevê 346 bar.","confidence":"97%","proposal":{"Q":"7000","Pd":"200","claim":{"Pwh":"346"}},"expect":"PROVADO"},{"id":"parametro","kind":"falha","fault":"Parâmetro errado","title":"O diâmetro de catálogo","story":"Operação de referência: 6.000 m³/d com 180 bar na descarga. O modelo usou 158 mm de diâmetro interno (valor de catálogo) em vez dos 152,0–152,8 mm declarados, e prevê 350,9 bar.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"350.9"}},"expect":"REFUTADO"},{"id":"massa","kind":"falha","fault":"Conservação violada","title":"O manifold que cria água","story":"O manifold recebe 12.000 m³/d e o modelo distribui 6.000 e 6.400 m³/d entre dois poços; para o primeiro prevê 344 bar.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"344"},"split":{"header":"12000","wells":["6000","6400"]}},"expect":"REFUTADO"},{"id":"instabilidade","kind":"falha","fault":"Instabilidade numérica","title":"O solver que parou cedo","story":"O solver iterativo parou antes de convergir e devolveu fator de atrito f = 0,0110; com ele, o modelo prevê 358,9 bar.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"358.9","f":"0.0110"}},"expect":"REFUTADO"},{"id":"contorno","kind":"falha","fault":"Condição de contorno impossível","title":"Pressão que a física não permite","story":"Com 180 bar na descarga, o modelo prevê 395 bar na cabeça do poço.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"395"}},"expect":"REFUTADO"},{"id":"unidade","kind":"falha","fault":"Conversão de unidade","title":"psi com rótulo de bar","story":"O modelo informa 4.989 bar na cabeça do poço — o número de uma pressão em psi, com o rótulo errado.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"4989"}},"expect":"REFUTADO"},{"id":"alucinada","kind":"falha","fault":"Saída alucinada","title":"Uma velocidade que não existe","story":"Junto com uma pressão plausível, 344 bar, o modelo afirma velocidade de 2,9 m/s na linha.","proposal":{"Q":"6000","Pd":"180","claim":{"Pwh":"344","v":"2.9"}},"expect":"REFUTADO"},{"id":"dominio","kind":"falha","fault":"Fora do domínio","title":"A correlação fora do seu regime","story":"Para um teste de fall-off a vazão cai para 40 m³/d, e o modelo prevê 391 bar com a mesma correlação de escoamento turbulento.","proposal":{"Q":"40","Pd":"180","claim":{"Pwh":"391"}},"expect":"RECUSADO"}]} };
+})(typeof self !== "undefined" ? self : this);</script>
+<script type="application/json" id="cp-ledger">{"receipts":[{"id":"ia-mais-4-2","receipt":{"verdict":"RECUSADO","enclosure":[343.7,362],"claim":"352","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 418,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [493.773; 649.382] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 4,465 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"PROVADO","text":"P_wh declarada está em [343,7; 362,0] bar, que contém P_wh para toda entrada declarada."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"RECUSADO","text":"A caixa declarada contém entradas dos dois lados, ambos provados. Viola: ε = 0,020 mm, μ = 1,08 mPa·s, D = 152,8 mm, ρ = 1.028 kg/m³, Δz = 2.105 m, L = 5.990 m → P_wh ≥ 361,6 bar. Respeita: ε = 0,080 mm, μ = 1,39 mPa·s, D = 152,0 mm, ρ = 1.022 kg/m³, Δz = 2.095 m, L = 6.010 m → P_wh ≤ 344,2 bar. A evidência declarada não decide."}],"thresholds":["Com P_d ≤ 204,0 bar a regra fica PROVADA na caixa inteira; acima de 222,3 bar fica REFUTADA.","Ou inspecionar a linha e mostrar rugosidade ε ≥ 0,027 mm (a caixa declara 0,020–0,080 mm): com isso a regra fica PROVADA."],"flip":{"pdGreen":204,"pdRed":222.3,"eps":0.027},"evals":588,"proved":4,"of":5}},{"id":"ia-ajustada","receipt":{"verdict":"PROVADO","enclosure":[337.7,356],"claim":"346","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 412,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [493.773; 649.382] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 4,465 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"PROVADO","text":"P_wh declarada está em [337,7; 356,0] bar, que contém P_wh para toda entrada declarada."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":5,"of":5}},{"id":"parametro","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"350.9","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"REFUTADO","text":"P_wh declarada, 350,9 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 0,7 bar acima do máximo possível."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":4,"of":5}},{"id":"massa","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"344","checks":[{"id":"massa","name":"Conservação de massa no manifold","verdict":"REFUTADO","text":"Entram 12.000 m³/d e saem 12.400 m³/d pelos poços — a diferença é exata, não arredondamento."},{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"PROVADO","text":"P_wh declarada está em [336,6; 350,2] bar, que contém P_wh para toda entrada declarada."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":5,"of":6}},{"id":"instabilidade","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"358.9","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"colebrook","name":"Solução de Colebrook","verdict":"REFUTADO","text":"f = 0,0110 não resolve Colebrook para nenhuma entrada declarada: as soluções estão em [0,01459; 0,01798]. O solver parou antes de convergir."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"REFUTADO","text":"P_wh declarada, 358,9 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 8,7 bar acima do máximo possível."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":4,"of":6}},{"id":"contorno","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"395","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"REFUTADO","text":"A pressão declarada, 395 bar, excede P_d + ρgΔz ≤ 392,3 bar: exigiria atrito negativo, energia criada na linha."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"REFUTADO","text":"P_wh declarada, 395 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Fica 44,8 bar acima do máximo possível."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":3,"of":5}},{"id":"unidade","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"4989","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"REFUTADO","text":"A pressão declarada, 4989 bar, excede P_d + ρgΔz ≤ 392,3 bar: exigiria atrito negativo, energia criada na linha."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"REFUTADO","text":"P_wh declarada, 4989 bar, está fora de [336,6; 350,2] bar — o intervalo que contém P_wh para TODA entrada declarada. Dividido por 14,504, cai dentro: é compatível com psi informado como bar."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":3,"of":5}},{"id":"alucinada","receipt":{"verdict":"REFUTADO","enclosure":[336.6,350.2],"claim":"344","checks":[{"id":"cinematica","name":"Coerência interna (v = Q/A)","verdict":"REFUTADO","text":"A velocidade declarada, 2,9 m/s, não é Q/A para nenhum diâmetro declarado: Q/A ∈ [3,787; 3,828] m/s."},{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"PROVADO","text":"Re ∈ [423.234; 556.613] em toda a caixa: turbulento, Colebrook se aplica."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 3,828 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"PROVADO","text":"P_wh declarada está em [336,6; 350,2] bar, que contém P_wh para toda entrada declarada."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"PROVADO","text":"Provado em toda a caixa: nenhuma entrada declarada leva P_wh acima de 360 bar."}],"thresholds":[],"flip":{},"evals":193,"proved":5,"of":6}},{"id":"dominio","receipt":{"verdict":"RECUSADO","enclosure":null,"claim":"391","checks":[{"id":"energia","name":"Limite físico (atrito ≥ 0)","verdict":"PROVADO","text":"A pressão declarada não excede P_d + ρgΔz ≤ 392,3 bar."},{"id":"dominio","name":"Domínio do modelo (Re ≥ 4.000)","verdict":"RECUSADO","text":"Re ∈ [2.821; 3.711]: parte da caixa não é turbulenta, e nenhum modelo declarado vale ali. Não há decisão a dar."},{"id":"velocidade","name":"Regra: v ≤ 5 m/s","verdict":"PROVADO","text":"v ≤ 0,026 m/s em toda a caixa."},{"id":"modelo","name":"Consistência com o modelo físico","verdict":"NÃO AVALIADO","text":"Fora do domínio do modelo: nenhum intervalo de P_wh é afirmado."},{"id":"limite","name":"Regra: P_wh ≤ 360 bar","verdict":"NÃO AVALIADO","text":"Fora do domínio do modelo."}],"thresholds":["Com Q ≥ 57 m³/d o escoamento é turbulento em toda a caixa e o portão decide."],"flip":{"qMin":57},"evals":0,"proved":2,"of":3}}]}</script>
+<script>(function () {
+  var CP = self.CONTRAPROVA; if (!CP) return;
+  var F = CP.F, S = CP.S, RC = CP.RC, LED = JSON.parse(document.getElementById('cp-ledger').textContent).receipts;
+  var panel = document.getElementById('cp-panel'), btns = [].slice.call(document.querySelectorAll('.cp-case'));
+  function core(r) { return JSON.stringify([r.verdict, r.enclosure, r.checks.map(function (c) { return [c.verdict, c.text]; }), r.thresholds]); }
+  function show(i, push) {
+    var c = S.cases[i];
+    btns.forEach(function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+    var t0 = performance.now(), r = F.decide(c.proposal, S.box, S.rules), ms = performance.now() - t0;
+    var same = core(r) === core(LED[i].receipt);
+    panel.innerHTML = RC.receiptHtml(c, r, S.rules.PwhMax, 'refeito agora no seu navegador em ' + Math.max(1, Math.round(ms)) + ' ms · ' + (same ? 'mesmo veredito e mesmo intervalo do registro publicado' : 'DIFERENTE do registro publicado'));
+    if (push) history.replaceState(null, '', '#caso=' + c.id);
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-i'), true); }); });
+  var form = document.getElementById('cp-form');
+  function num(s) { s = String(s).trim().replace(/\s/g, '').replace(',', '.'); return /^\d+(\.\d+)?$/.test(s) ? s : null; }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = num(form.q.value), pd = num(form.pd.value), pwh = num(form.pwh.value);
+    if (!q || !pd || !pwh || +q <= 0) { panel.innerHTML = '<p class="cp-story">Digite números positivos, por exemplo 7000, 204 e 350.</p>'; return; }
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    var c = { kind: 'proposta', title: 'Sua proposta', story: 'Proposta digitada: Q = ' + q + ' m³/d, P_d = ' + pd + ' bar, P_wh prevista = ' + pwh + ' bar.' };
+    var t0 = performance.now(), r;
+    try { r = F.decide({ Q: q, Pd: pd, claim: { Pwh: pwh } }, S.box, S.rules); } catch (err) { panel.innerHTML = '<p class="cp-story">' + RC.esc(err.message) + '</p>'; return; }
+    panel.innerHTML = RC.receiptHtml(c, r, S.rules.PwhMax, 'decidido agora no seu navegador em ' + Math.max(1, Math.round(performance.now() - t0)) + ' ms');
+    history.replaceState(null, '', '#q=' + q + '&pd=' + pd + '&pwh=' + pwh);
+    panel.scrollIntoView({ block: 'nearest' });
+  });
+  /* the dev hook: #caso=<id> or #q=..&pd=..&pwh=.. drive the same paths the controls use */
+  function fromHash() {
+    var h = decodeURIComponent(location.hash.slice(1)), m = /^caso=(.+)$/.exec(h);
+    if (m) { for (var i = 0; i < S.cases.length; i++) if (S.cases[i].id === m[1]) show(i, false); }
+    else if (/^q=/.test(h)) { h.split('&').forEach(function (kv) { var p = kv.split('='); if (form[p[0]]) form[p[0]].value = p[1]; }); form.requestSubmit(); }
+  }
+  fromHash(); addEventListener('hashchange', fromHash);
+})();</script>
+</body>
+</html>
