@@ -74,6 +74,28 @@ INSTRUCTIONS — do not act before reading them.
       (the published scenarios plotted inside the envelope) needs the paper's parameters:
       E4. Sg per cell from the simulator: not in the corpus, E1.
 
+  2026-09-30 ~18:00 BRT: THE UFSC CONTACT'S THREE AUDIO NOTES (transcribed locally with
+  faster-whisper; the transcripts stay OUT of the repo, in the session scratchpad) applied
+  to page, deck and form texts, committed and pushed:
+    1. DATA. Petrobras seismic and reservoir data are confidential even inside the company;
+       a plan that depends on them gets rejected. Every "dados da Petrobras / no ambiente
+       da Petrobras" became: dados sintéticos fornecidos pela Petrobras no formato dos
+       reais + os públicos (Tupi, UNISIM-IV); scripts entregues prontos, rodados por ela
+       sobre os dados reais dentro do seu ambiente (E1, E5, M0, risks, the ask, the first
+       step, the success criterion, the form).
+    2. REFERENCES, NO HEADLINE PHRASES. A numbered "Referências citadas" section (21
+       entries) with [n] citations in sections 1 and 3; the headline-style titles were
+       made factual ("Nas referências consultadas, ..."; "da mesma ordem"; the state of
+       the art now says the search was not systematic and the review is part of E4).
+    3. FINANCIAL VIABILITY. New deliverable E3b (months 3–6): interviews with Petrobras
+       interlocutors for the economic valuation (what changes, how often, what it is
+       worth to Petrobras and to the startup), a report with explicit premises reviewed at
+       M6; a risk row; the business-model paragraph says viability is not estimated from
+       outside. He offered a CLAUDE.md of his own and professors for the seismic part
+       "if approved" — both for later.
+    Form description 1,995 / extra 449 chars. Gates: style, measure (--accept-worse
+    again, same reason) and render accepted.
+
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
       — engineering and AI numbers decided; portfolios Reservatórios + Submarina +
