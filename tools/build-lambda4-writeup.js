@@ -35,10 +35,11 @@ for (const n of NINE) if (!fams[n] || fams[n].status !== 'CLOSED') die('family '
 const gen = rec.lambda4generic;
 if (gen.exceptions.length !== 14 || gen.worklist.length !== 9 || gen.closedFree.length !== 5) die('generic structure moved');
 
-let setsClosed = 0;
+let setsClosed = 0, skips4 = 0;
 (function walk(o) { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(walk);
-  if (o.enumerated !== undefined && o.undecided !== undefined) { if (o.undecided.length) die('undecided finite part'); setsClosed += o.closed; }
+  if (o.enumerated !== undefined && o.undecided !== undefined) { if (o.undecided.length) die('undecided finite part'); setsClosed += o.closed; if (Array.isArray(o.skipped)) { for (const x of o.skipped) { if (x !== '1,2,3,4') die('a set other than the extremizer was skipped: ' + x); skips4++; } } }
   Object.values(o).forEach(walk); })(fams);
+if (skips4 !== 6) die('the extremizer is skipped ' + skips4 + ' times; the text says six (one in d = a+c, three in d = 2b, two in 2d = 2c+b)');
 
 const exTable = gen.exceptions.map(e =>
   '| `' + e.label + '` | ' + e.delta + ' | ' + (parseFloat(e.delta.replace('/', '/')) > 0 || (!e.delta.startsWith('-')) ? 'must be handled' : 'closes itself') + ' | {' + [e.example.a, e.example.b, e.example.c, e.example.d].join(',') + '} |').join('\n');
@@ -65,7 +66,7 @@ const famClosures = (name) => {
   }
   if (f.cones) for (const cn of Object.keys(f.cones)) {
     const c = f.cones[cn];
-    if (c.closure) emit('cone ' + cn + ' (direct closure)', c.closures || c.closure, c.finite);
+    if (c.closure || c.closures) emit('cone ' + cn + (c.closures ? ' (two-closure union)' : ' (direct closure)'), c.closures || c.closure, c.finite);
   }
   return lines.join('\n');
 };
@@ -234,14 +235,27 @@ Each family is closed by the same three moves, one level down:
    closures, one per tail.
 3. **Finite decisions** below the thresholds, one certificate per set. In the three
    families containing {1,2,3,4} (the equality families d = 2b, d = a+c, 2d = 2c+b),
-   the extremal set appears exactly once, in a single cone or ray, where the finite
+   the extremal set appears on every cone or ray it lies on — ${skips4} finite parts in
+   all (one in d = a+c, three in d = 2b, two in 2d = 2c+b) — and in each the finite
    decision SKIPS it as the definitional witness — equality, not a violation — and
    certifies every neighbour strictly below the target.
 
 Two conditions of the family 2d = 2c+b are not closed by new work at all: their sets
 satisfy d = 2a (respectively d = a+b) identically, families already closed — the record
 marks them DELEGATED. In total ${setsClosed} finite sets were decided across the nine families,
-zero undecided, and the only skipped set — ever — is {1,2,3,4}.
+zero undecided, and the only skipped set — ever — is {1,2,3,4} (skipped ${skips4} times, once
+per finite part it lies on).
+
+**Independent audit (2026-09-30).** An outside audit with no shared code
+([rainrzk/erdos510-lambda4-audit](https://github.com/rainrzk/erdos510-lambda4-audit),
+posted on [teorth/erdosproblems #392](https://github.com/teorth/erdosproblems/issues/392))
+re-derived the cubic, the 14 generic collisions and the nine families from this
+write-up, re-certified all finite cases with interval arithmetic, and swept every
+gcd-reduced 4-set with largest element <= 80 as a proof-independent control ({1,2,3,4}
+deepest; the nearest rival {2,3,4,6} at about -1.774). Its documentation findings are
+folded into this version: the skip count above, the cone listing in Section 5, and the
+note that the cubic has three real roots (about -0.1556, 1.0325 and 1.5196), lambda(4)
+being the largest — not a unique root.
 
 ## 5. The nine families
 

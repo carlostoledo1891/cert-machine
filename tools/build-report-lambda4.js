@@ -275,7 +275,8 @@ B.push(C.section({
       + 'the paper is the first thing to read: arXiv:1709.06612.'),
     C.pRaw('<strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and '
       + 'the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> '
-      + '(all versions: doi:10.5281/zenodo.22225860); the release tag is ' + C.m('lambda4-v1.0.1') + '.')
+      + '(all versions: doi:10.5281/zenodo.22225860); the release tag is ' + C.m('lambda4-v1.0.1') + '. '
+      + '<strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="https://github.com/teorth/erdosproblems/issues/392">teorth/erdosproblems #392</a>), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about &minus;1.774). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.')
   ].join('\n')
 }));
 
