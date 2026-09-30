@@ -15,14 +15,53 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= 3.7721^(k+o(k)) by two programs, HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= 3.7721^(k+o(k)) by two programs, HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night; the
-operator: "the only goal is a perfect submission"; everything else below is HELD)
+FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night to
+2026-09-30 afternoon; the operator: "the only goal is a perfect submission";
+everything else below is HELD). The next session starts from the OPERATOR'S
+INSTRUCTIONS — do not act before reading them.
+
+  STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
+    · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
+      — engineering and AI numbers decided; portfolios Reservatórios + Submarina +
+      Geração de Energia; TRL 4, CRL 3, Seed.
+    · DECIDÍVEL    carlostoledo.co/decidivel (+ decidivel-apresentacao.pdf)
+      — 4D seismic detectability decided (Geofísica e Petrofísica); portfolios
+      Geofísica e Petrofísica + CCS + Reservatórios; TRL 3, CRL 2, Pré-Seed.
+    The form allows ONE solution per submission: two forms. Both texts are within
+    the limits (Contraprova 1,836/2,000 + 372/500; Decidível 1,757/2,000 + 371/500).
+  THE FILLER. outreach/petrobras-radar/radar-submit.js fills the real form page by
+    page (ticks, types, picks the dropdowns, consents) from answers-contraprova.json
+    / answers-decidivel.json, screenshots each page, and stops BEFORE Submit unless
+    --submit. DRY-RUN on 2026-09-30 for both: every field filled, every page accepted.
+    The answers carry PREENCHER for the operator's data: startup name, CNPJ, CNPJ
+    year, phone, state (the dropdown's exact option), city. Fill COPIES named
+    *.filled.json (git-ignored; the repository is PUBLIC — never commit them), then
+      node outreach/petrobras-radar/radar-submit.js outreach/petrobras-radar/answers-X.filled.json outreach/petrobras-radar/run-X --submit
+    SUBMITTING IS A SEND: only on the operator's word, per form.
+  WHAT REMAINS, in order:
+    1. The six data fields + the operator's go-ahead → submit both forms (the form
+       CLOSED 2026-09-30 23:59 BRT; if the next session is later, Ciclo 3 is over —
+       the Radar runs quarterly, so the same pack goes to the next cycle's form: check
+       its questions against answers-*.json before running the filler).
+    2. The UFSC contact (the 2026-09-30 meeting happened; he advised that seismic PD&I
+       is better funded — hence Decidível). Whether he agreed to be NAMED is unknown:
+       nothing about him or UFSC is on the pages or in the answers. If he agrees:
+       apps/contraprova/data/partner.json { "line": "..." } adds the line on
+       Contraprova; the form's "parceiros" field stays blank until then.
+    3. `make site` was NOT re-run after Decidível's battery was registered (the laptop
+       was at 30% on battery): the control page still reads 103 batteries, the
+       registries 104. Plugged in: `caffeinate -i -s make site`, revert timing churn,
+       commit, push.
+    4. Decidível before any pilot: a geophysicist's review of the rock physics; PVT
+       boxes per gas composition from an EOS (today CH4..CO2 NIST endpoints); the
+       salt-velocity depth front. Natural academic partner: the UNISIM group
+       (UNICAMP) — any contact is a SEND.
 
   WHAT. Petrobras Conexões para Inovação, Radar de Soluções — Ciclo 3 (Módulo
   Startups). The form (forms.office.com/r/K40NMxWTrN) CLOSES 2026-09-30 23:59 BRT.
