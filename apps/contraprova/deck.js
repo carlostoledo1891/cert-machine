@@ -102,7 +102,7 @@ function build(N) {
     + '</div>' + ft(2) + '</section>');
 
   S_.push('<section class="s"><div class="ey">2 · a arquitetura</div><h2>A IA propõe. A Contraprova decide.</h2><div class="arch">'
-    + '<div class="card"><div class="k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro — no ambiente da Petrobras.</p></div><div class="arr">→</div>'
+    + '<div class="card"><div class="k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro — dentro da Petrobras; o piloto usa dados sintéticos no formato dos reais.</p></div><div class="arr">→</div>'
     + '<div class="card claim"><div class="k">quem propõe</div><h3>IA · simulador · otimizador · planilha</h3><p>Uma proposta: um número e o que ele afirma.</p></div><div class="arr">→</div>'
     + '<div class="card core"><div class="k">contraprova</div><h3>Três camadas, em aritmética exata</h3><ol><li><b>Consistência matemática</b> — resolve as equações que declara?</li><li><b>Limites físicos</b> — massa, energia, domínio de validade</li><li><b>Restrições operacionais</b> — em toda a caixa de incerteza</li></ol></div><div class="arr">→</div>'
     + '<div class="card"><div class="k">recibo</div><h3>Verificável por máquina</h3>' + RC.chip('PROVADO') + RC.chip('REFUTADO') + RC.chip('RECUSADO') + '</div>'
@@ -165,7 +165,7 @@ function build(N) {
     + '<div class="tlr"><div class="lab">Contornos ambientais conjuntos<span>pesquisa: altura–período, IFORM/ISORM</span></div>' + bar(4, 12, 'TRL 2 → 4') + '</div>'
     + '<div class="tlr"><div class="lab">O portão como serviço<span>API ao lado dos modelos de IA</span></div>' + bar(6, 12, 'TRL 3 → 6') + '</div>'
     + '</div><div class="col2" style="margin-top:30px"><div><div class="k">como medimos</div><ul><li>100% dos controles vermelhos recusados</li><li>cada RECUSADO com o limiar que o decide</li><li>recibo refeito por engenheiro da Petrobras</li></ul></div>'
-    + '<div><div class="k">o que pedimos</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>dados no ambiente da Petrobras</li><li>mentoria técnica, doze meses</li></ul></div></div>' + ft(11) + '</section>');
+    + '<div><div class="k">o que pedimos</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>dados sintéticos no formato da Petrobras — nenhum dado real; scripts rodados por ela</li><li>mentoria técnica, interlocutores para a valoração, doze meses</li></ul></div></div>' + ft(11) + '</section>');
 
   S_.push('<section class="s"><div class="ey">11 · maturidade e contato</div><h2>O motor existe. O piloto é o próximo passo.</h2><div class="col3">'
     + '<div class="card"><div class="k">tecnologia</div><div class="big">TRL 4</div><p>Validado em laboratório, em dados públicos e em escala.</p></div>'

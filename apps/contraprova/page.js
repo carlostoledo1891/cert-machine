@@ -183,7 +183,7 @@ function build(N, bundleText, git) {
   B.push(C.section({
     lab: '2 · a arquitetura', title: 'A IA propõe. A Contraprova decide.',
     bodyRaw: '<div class="wide"><div class="cp-arch">'
-      + '<div class="cp-st"><div class="cp-k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro da linha, histórico de poço — no ambiente da Petrobras.</p></div><div class="cp-ar" aria-hidden="true"></div>'
+      + '<div class="cp-st"><div class="cp-k">dados</div><h3>Ficam onde estão</h3><p>Hindcast, boias, sensores, cadastro da linha, histórico de poço — dentro da Petrobras. O piloto não pede dados reais: dados sintéticos no formato dos reais, e os scripts rodados por ela.</p></div><div class="cp-ar" aria-hidden="true"></div>'
       + '<div class="cp-st claim"><div class="cp-k">quem propõe</div><h3>IA · simulador · otimizador · planilha</h3><p>Entrega uma <em>proposta</em>: um número e o que ele afirma. Pode ser qualquer modelo — inclusive um que ninguém consegue abrir.</p></div><div class="cp-ar" aria-hidden="true"></div>'
       + '<div class="cp-st core"><div class="cp-k">contraprova</div><h3>Três camadas, em aritmética exata</h3><ol>'
       + '<li><b>Consistência matemática</b> — o número resolve as equações que declara? (Colebrook, máxima verossimilhança, balanços)</li>'
@@ -286,16 +286,16 @@ function build(N, bundleText, git) {
 
   /* ---- 7 the PD&I project ---- */
   B.push('<section id="projeto"><div class="col sec-head"><div class="lab">7 · o projeto de PD&amp;I proposto</div><h2>Doze meses para um recibo em cada decisão</h2></div>'
-    + '<div class="col">' + C.p('O motor existe e está publicado. O projeto de PD&I o leva para um fluxo real da Petrobras, com os dados da Petrobras, dentro da Petrobras — e mede o que muda quando cada número chega com recibo.') + '</div>'
+    + '<div class="col">' + C.p('O motor existe e está publicado. O projeto de PD&I o leva para um fluxo de decisão da Petrobras sobre dados sintéticos fornecidos por ela no formato dos reais (nenhum dado real é pedido; os scripts, entregues prontos, são rodados pela Petrobras dentro do seu ambiente) — e mede o que muda quando cada número chega com recibo. A viabilidade financeira não é estimada de fora: entrevistas com interlocutores da Petrobras para a valoração econômica do portão fazem parte do plano.') + '</div>'
     + C.table({ cols: [{ h: 'frente' }, { h: 'meses', cls: 'n' }, { h: 'o que entrega' }, { h: 'TRL', cls: 'n' }], rows: [
       ['1 · Piloto em um fluxo real', '0–4', 'Com os engenheiros da Petrobras: UM fluxo em que uma saída de IA ou simulação vira decisão (ex.: injeção de água). Modelo, caixa e regras declarados; o portão rodando ao lado do modelo; recibos para decisões reais, com os limiares publicados.', '4 → 6'],
-      ['2 · Valores de projeto metoceânicos', '0–6', 'Os ajustes de extremos (sete famílias, quatro critérios) nos dados da Petrobras; um verificador em Python de um arquivo; o formato do recibo para a base de projeto.', '4 → 6'],
+      ['2 · Valores de projeto metoceânicos', '0–6', 'Os ajustes de extremos (sete famílias, quatro critérios) sobre dados sintéticos no formato da Petrobras e o hindcast público; um verificador em Python de um arquivo; o formato do recibo para a base de projeto.', '4 → 6'],
       ['3 · Contornos ambientais conjuntos', '4–12', 'Pesquisa: decidir o modelo conjunto altura–período e o contorno ambiental (IFORM/ISORM), cada um com o seu recibo.', '2 → 4'],
       ['4 · O portão como serviço', '6–12', 'API ao lado de modelos de IA; biblioteca de modelos físicos declarados (escoamento, balanços, hidrostática, extremos); controles vermelhos por domínio.', '3 → 6']
     ] })
     + '<div class="wide"><div class="cp-ask">'
-    + '<div><div class="cp-k">como medimos</div><ul><li>100% dos controles vermelhos recusados, a cada build</li><li>cada RECUSADO sai com o limiar que o decidiria</li><li>um engenheiro da Petrobras refaz o recibo sem o nosso código</li><li>nenhum dado sai do ambiente da Petrobras</li></ul></div>'
-    + '<div><div class="cp-k">o que pedimos à Petrobras</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>acesso aos dados no ambiente da Petrobras</li><li>mentoria técnica do portfólio de PD&amp;I</li><li>doze meses</li></ul></div>'
+    + '<div><div class="cp-k">como medimos</div><ul><li>100% dos controles vermelhos recusados, a cada build</li><li>cada RECUSADO sai com o limiar que o decidiria</li><li>um engenheiro da Petrobras refaz o recibo sem o nosso código</li><li>nenhum dado real é pedido; os scripts rodam dentro da Petrobras</li></ul></div>'
+    + '<div><div class="cp-k">o que pedimos à Petrobras</div><ul><li>um fluxo de decisão e um engenheiro-par</li><li>dados sintéticos no formato dos dados da Petrobras — nenhum dado real</li><li>mentoria técnica do portfólio de PD&amp;I e interlocutores para a valoração econômica</li><li>doze meses</li></ul></div>'
     + '</div></div></section>');
 
   /* ---- 8 maturity + who ---- */

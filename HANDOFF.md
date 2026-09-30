@@ -93,8 +93,13 @@ INSTRUCTIONS — do not act before reading them.
        M6; a risk row; the business-model paragraph says viability is not estimated from
        outside. He offered a CLAUDE.md of his own and professors for the seismic part
        "if approved" — both for later.
-    Form description 1,995 / extra 449 chars. Gates: style, measure (--accept-worse
+    Form description 1,995 / extra 466 chars. Gates: style, measure (--accept-worse
     again, same reason) and render accepted.
+    THE SAME DATA POINT APPLIED TO CONTRAPROVA (~18:20): its page, deck (slides 3 and
+    11) and form texts (1,985 / 434 chars) no longer ask for Petrobras data — synthetic
+    data in Petrobras's format, scripts run by Petrobras — and its plan names the
+    economic valuation with Petrobras interlocutors. Both answers-*.json are final;
+    only the six PREENCHER fields and the operator's word remain.
 
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
