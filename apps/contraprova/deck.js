@@ -194,4 +194,4 @@ async function print(html, outPath) {
   } finally { fs.unlinkSync(tmp); }
 }
 
-module.exports = { build, print };
+module.exports = { build, print, css, reason };

@@ -1,0 +1,34 @@
+{
+ "what": "UNISIM-IV-2026 (UNICAMP), a public benchmark of a pre-salt-like carbonate reservoir with CO2-rich light oil and WAG injection. Only the porosity and rock-type grids are read here; this file and porosity-histogram.json are a DERIVED database, published under the ODbL like their source.",
+ "benchmark": "UNISIM-IV-2026, Nominal model",
+ "page": "https://www.unisim.cepetro.unicamp.br/benchmarks/en/unisim-iv/unisim-iv-2026",
+ "archive": {
+  "url": "https://www.unisim.cepetro.unicamp.br/benchmarks/files/UNISIM-IV-2026/Nominal.rar",
+  "bytes": 3656712,
+  "sha256": "a3ef823a8c9ee2148ce6715a27ccc3eae0b7573321577f249aa824325a3437c9"
+ },
+ "files": {
+  "POR_055.inc": "0e8075228dff707a525be02e9c4be04bd00760f7a8eca65288c8af3a92411b97",
+  "RTYPE_055.inc": "cb287adbf44be7f5a2b9a3c05c0b9e15d74e27cfddc184a193b4df9a0e20603e",
+  "KR_coq_1.inc": "c87f2841c1f7eb23edd33d106790dc45e40a933d7befff164a319f52cb7ead8f",
+  "KR_est_1_5.inc": "45f0ccdde712be0e33d149083606b57bea688b1e9970d903012967cee98d5f9c"
+ },
+ "proposal": {
+  "url": "https://www.unisim.cepetro.unicamp.br/benchmarks/files/UNISIM-IV-benchmark-proposal-BJPG.pdf",
+  "sha256": "354bd3f5d834e1572f7461898b88002d0c1b6fbcf87b719dd21dd53cf601d04a"
+ },
+ "license": "Open Database License (ODbL) 1.0 with the Database Contents License; any publication must name the benchmark.",
+ "read": {
+  "grid": "47 x 39 x 291 = 533,403 cells",
+  "active": 72321,
+  "rule": "a cell is active when POR > 1e-6 and RTYPE > 0 (inactive cells carry 1.2345e-12)",
+  "relperm": "Swi = 0.18 and Sorg = 0.35 in the stromatolite and coquina tables (KR_est_1_5.inc, KR_coq_1.inc): the largest mobile gas saturation is 1 - 0.18 - 0.35 = 0.47",
+  "state": "REFPRES 62000 kPa at REFDEPTH 5300 m (UNISIM-IV-2026_Base_Case.dat); ZGAS CO2 0.4392 (the injected gas is 44% CO2)"
+ },
+ "rockTypes": {
+  "1": "estromatólito",
+  "2": "coquina",
+  "3": "carste",
+  "4": "carste (tipo 4)"
+ }
+}

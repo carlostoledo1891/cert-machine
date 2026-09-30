@@ -47,6 +47,23 @@ operator: "the only goal is a perfect submission"; everything else below is HELD
   NEXT. The meeting with the UFSC contact (2026-09-30): the partner line (NOTHING about
   him or UFSC is on the page until he agrees), the portfolio routing, then revise,
   push, and the operator submits before 23:59.
+  2026-09-30 (the twenty-fifth session, continued): the contact advised that SEISMIC
+  PD&I is better funded; the operator asked for a new vertical in Geophysics and
+  Petrophysics — DECIDÍVEL, a SECOND solution (one form per solution), BUILT and LIVE:
+  /decidivel/ (pt-BR) and /decidivel/decidivel-apresentacao.pdf, apps/decidivel:
+    · engine/rockphys.js — is a 4D change (WAG/CO2 gas replacing oil) visible for EVERY
+      model in a box? Gassmann, Reuss–Voigt mixing (w), frame Kdry = s(1 − φ/φc)Kmin;
+      r = Ip2²/Ip1² in DIFFERENCE form; interval forward differentiation; best-first
+      branch and bound with monotone pinning + the mean-value form + a float proposer
+      for witnesses; absRange → four proved numbers per box; classifyAbs(θ).
+    · engine/battery.js — 13 checks, 6/6 reds (a Monte Carlo PROVADO refused, a centre
+      point caught, domain refusals); engine/reference.py (Python decimal, textbook form).
+    · declared.json — every range with its source (Iracema plugs → s, gk; Batzle–Wang;
+      NIST CH4..CO2; UNISIM-IV Swi/Sorg; Tupi thresholds) and five knowledge scenarios.
+    · run.js — the ledger (1,800 boxes, 8 worker threads, ~4 min; --check re-derives);
+      build.js pins the ledger to the engine and declared.json by sha256 and re-decides
+      the headline + 24 seeded cells. corpus/unisim-iv: meta + porosity histogram (ODbL).
+  The form answers for both solutions were given in chat; the operator submits both.
 
 ────────────────────────────────────────────────────────────────────────────
 START HERE — THE NEXT SESSION (handed off 2026-09-29 night, end of the twenty-fourth session)

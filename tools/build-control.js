@@ -114,6 +114,7 @@ const BATTERIES = [
   ['style (the stylesheet gate)', ['tools/check-style.js'], 'what every built page\'s CSS is made of, ratcheted against design/style-baseline.json: style attributes (target zero — a datum is an SVG mark, a rhythm is a class), var() names the page cannot resolve (how every report shipped square corners for ten days, 2026-09-05 to -15, with every gate green), literal fallbacks, extra <style> blocks, and literal values where a token exists · 21 red controls'],
   ['skyaudit app', ['apps/skyaudit/battery.js'], 'segmentation and mission calibration for the pinned ADS-B day'],
   ['contraprova gate', ['apps/contraprova/gate/battery.js'], 'the water-injection gate: nine receipts, a Python decimal second implementation at 176 inputs, nine forgeries refused'],
+  ['decidivel engine', ['apps/decidivel/engine/battery.js'], '4D detectability decided over whole boxes: a Python decimal second implementation, proved extremes checked inside random boxes, a Monte Carlo PROVADO refused'],
   ['bilinear certifier', ['instruments/bilinear/battery.js'], 'bilinear identities over Q and F2'],
   ['slp additive circuits', ['instruments/slp/battery.js'], 'straight-line programs, additive cost'],
   ['mfg lab (box certifier)', ['labs/mfg/battery.js'], 'the box certifier for the MFG lab'],

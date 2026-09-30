@@ -1,0 +1,39 @@
+{
+  "what": "Every range Decidível's demonstrator declares, each with where it comes from. A range is a box the engine decides over in full; narrowing one is a measurement, and the page prices which.",
+  "box": {
+    "s": ["0.49", "0.90"],
+    "phic": ["0.40", "0.40"],
+    "gk": ["0.27", "0.68"],
+    "Kmin": ["61", "71"],
+    "rhomin": ["2.70", "2.75"],
+    "Kw": ["3.2", "3.8"],
+    "rhow": ["1.06", "1.17"],
+    "Ko": ["0.77", "1.02"],
+    "rhoo": ["0.66", "0.73"],
+    "Kg": ["0.22", "0.60"],
+    "rhog": ["0.26", "0.97"],
+    "Swi": ["0.18", "0.18"],
+    "dSw": ["0", "0"],
+    "w": ["0", "1"]
+  },
+  "sources": {
+    "s": "The dry frame, Kdry = s·(1 − φ/φc)·Kmin (Nur's critical-porosity trend, φc = 0.40): the box of s is the hull of the nine pre-salt plugs of Quadros et al. 2025 (Sci. Rep. 15:33467, doi 10.1038/s41598-025-11646-y, Iracema, Santos Basin; lab Vp, Vs and dry bulk density), each read as Kdry = ρ(Vp² − 4/3·Vs²) against its Hill mineral modulus from the paper's XRD and mineral table.",
+    "gk": "Gdry/Kdry on the same nine plugs: 0.278 to 0.672.",
+    "Kmin": "From 61 GPa (the plugs' Hill average of calcite 63.7, dolomite 69.4 and quartz 37 GPa, Quadros et al. 2025) to 71 GPa (calcite as usually tabulated, Mavko et al.).",
+    "Kw": "Brine by Batzle & Wang 1992 (Geophysics 57:1396) at 60 MPa and 90 °C, salinity 0.10 to 0.225: 3.21 to 3.75 GPa; densities 1.07 to 1.17 g/cm³ (computed at 65 °C, widened).",
+    "Ko": "Live oil by Batzle & Wang 1992, API 28–30 and GOR 200–300 m³/m³ (the Tupi oil, Cruz et al. 2021): 0.77 to 1.02 GPa, 0.67 to 0.73 g/cm³.",
+    "Kg": "The injected gas, from methane (0.219 GPa, 0.263 g/cm³ at 60 MPa and 65 °C) to pure CO2 (0.430 GPa and 0.890 g/cm³ at 60 MPa and 90 °C; 0.604 GPa and 0.970 g/cm³ at 65 MPa and 65 °C), NIST Webbook (Span–Wagner). Tupi reinjects high-CO2 (≈80%) and low-CO2 (≈5%) gas (Cruz et al. 2021); UNISIM-IV's gas is 44% CO2.",
+    "Swi": "UNISIM-IV-2026 relative-permeability tables for stromatolites and coquinas: Swi = 0.18, Sorg = 0.35, so the largest mobile gas saturation is 0.47.",
+    "w": "How the injected gas sits in the pores, from uniform (Reuss, w = 0) to patchy (Voigt, w = 1): every Brie exponent lies between. Nobody measures it before the survey.",
+    "theta": "Detection thresholds on |ΔIp/Ip|: 2% was the pre-salt feasibility threshold and ≈1.5% the limit reached with ocean-bottom nodes at the Tupi pilot, with NRMS ≈2–3% (Cruz et al. 2021, SBGf 17th International Congress; The Leading Edge 40(12):886)."
+  },
+  "scenarios": {
+    "K0": { "label": "Só a faixa física", "note": "gás entre metano e CO₂ puro; distribuição desconhecida", "mod": {} },
+    "K1": { "label": "Gás rico em CO₂ (≈80%)", "note": "a composição do gás medida (PVT); distribuição desconhecida", "mod": { "Kg": ["0.38", "0.55"], "rhog": ["0.75", "0.93"] } },
+    "K2": { "label": "Gás pobre em CO₂ (≈5%)", "note": "a composição do gás medida (PVT); distribuição desconhecida", "mod": { "Kg": ["0.22", "0.30"], "rhog": ["0.26", "0.40"] } },
+    "K3": { "label": "Gás pobre em CO₂, uniforme", "note": "composição medida e a distribuição conhecida uniforme (w ≤ 0,25)", "mod": { "Kg": ["0.22", "0.30"], "rhog": ["0.26", "0.40"], "w": ["0", "0.25"] } },
+    "K4": { "label": "Gás pobre, uniforme, arcabouço medido", "note": "e a rigidez do arcabouço medida no intervalo (s ≤ 0,65)", "mod": { "Kg": ["0.22", "0.30"], "rhog": ["0.26", "0.40"], "w": ["0", "0.25"], "s": ["0.49", "0.65"] } }
+  },
+  "headline": { "phi": ["0.13", "0.15"], "dSg": ["0.15", "0.30"], "theta": "0.015", "why": "A coquina cell at the benchmark's median porosity (0.139), a WAG gas front between 15% and 30% saturation, and the Tupi pilot's 1.5% detection limit." },
+  "grid": { "phi": { "from": 0, "to": 0.30, "step": 0.01 }, "sg": { "from": 0, "to": 0.48, "step": 0.04 }, "sgFloor": "0.005", "phiFloor": "0.002" }
+}
