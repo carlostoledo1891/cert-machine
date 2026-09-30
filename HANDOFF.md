@@ -123,9 +123,13 @@ INSTRUCTIONS — do not act before reading them.
   step re-certified with their own code, plus a brute-force sweep to max ≤ 80; five
   documentation nits (the write-up says {1,2,3,4} is skipped "exactly once" — the
   record skips it six times; §5.8's list omits cone ii's 89 sets; PR #411 calls the
-  cubic's root "unique" — it has three real roots, λ(4) the largest). A reply is
-  drafted in chat, NOT posted (a send). Fix the write-up sentences in
-  tools/build-lambda4-writeup.js / paper/lambda4-proof.md when the operator says.
+  cubic's root "unique" — it has three real roots, λ(4) the largest). ON THE OPERATOR'S
+  WORD (2026-09-30 ~20:00 BRT): the write-up and the report page were fixed and cite the
+  audit (commit 1c248ca; the skip count is now computed from the record and the build
+  refuses if it moves; cone ii listed), and the REPLY WAS POSTED:
+  https://github.com/teorth/erdosproblems/issues/392#issuecomment-5920750192. This is the
+  first outside, no-shared-code re-certification of a lab theorem; a Lean formalization
+  of Lemmas A–F is the natural next step if the auditor engages.
 
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
