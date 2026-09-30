@@ -160,7 +160,7 @@ function build(N, bundleText, git) {
     + '<div>' + RC.chip('REFUTADO', true) + '<p>Falha, e a falha está provada: o recibo aponta a equação, o limite ou a entrada que a derruba.</p></div>'
     + '<div>' + RC.chip('RECUSADO', true) + '<p>A evidência declarada não decide — e o recibo publica exatamente o que decidiria.</p></div>'
     + '</div>'
-    + '<div class="cp-cta"><a class="go" href="#portao">Ver o portão ao vivo ↓</a><a href="contraprova-apresentacao.pdf">Apresentação (PDF)</a><a href="#projeto">O projeto de PD&amp;I</a></div>'
+    + '<div class="cp-cta"><a class="go" href="#portao">Ver o portão ao vivo ↓</a><a href="/contraprova/contraprova-apresentacao.pdf">Apresentação (PDF)</a><a href="#projeto">O projeto de PD&amp;I</a></div>'
     + '</header>');
 
   B.push(C.stats([
@@ -305,7 +305,7 @@ function build(N, bundleText, git) {
       + C.pRaw('<b>TRL 4</b> — validado em laboratório, em dados públicos e em escala: o atlas de ondas de projeto, os relatórios decididos, o portão demonstrador desta página. <b>CRL 3</b> — a aplicação da tecnologia definida; o piloto é o próximo passo.')
       + C.pRaw('<b>Equipe.</b> Carlos Toledo, fundador — construiu o motor de verificação (código aberto, licença MIT, cada resultado com o arquivo que o decidiu). Uma pessoa hoje; o piloto define as próximas.')
       + (PARTNER ? C.pRaw('<b>Parceria acadêmica.</b> ' + esc(PARTNER)) : '')
-      + C.pRaw('<b>Contato.</b> <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a> · <a href="contraprova-apresentacao.pdf">apresentação (PDF)</a> · <a href="' + REPO + '">código</a>')
+      + C.pRaw('<b>Contato.</b> <a href="mailto:carlos@carlostoledo.co">carlos@carlostoledo.co</a> · <a href="/contraprova/contraprova-apresentacao.pdf">apresentação (PDF)</a> · <a href="' + REPO + '">código</a>')
       + C.pRaw('<span class="scope">A palavra “certificação” tem dono no offshore (sociedades classificadoras, ANP). A Contraprova entrega uma <em>prova matemática reexecutável</em> sobre um número — não uma certificação de classe, e não substitui a responsabilidade técnica de quem assina o projeto.</span>')
       + '</div>'
   }));
