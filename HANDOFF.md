@@ -131,6 +131,10 @@ INSTRUCTIONS — do not act before reading them.
   first outside, no-shared-code re-certification of a lab theorem; a Lean formalization
   of Lemmas A–F is the natural next step if the auditor engages.
 
+  2026-09-30 ~20:30 BRT: BOTH FORMS SUBMITTED BY THE OPERATOR (Contraprova and Decidível).
+  The Radar is a registry; the next event is a contact from a portfolio, if any. Keep the
+  two pages and their PDFs live and unchanged in substance.
+
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
       — engineering and AI numbers decided; portfolios Reservatórios + Submarina +
