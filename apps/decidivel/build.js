@@ -3,8 +3,9 @@
    other ranges refuses); the headline and 24 seeded map cells re-decided and
    compared with the ledger (the whole map is re-derived by `node
    apps/decidivel/run.js --check`, ~4 min on eight threads); then the page
-   (site/decidivel/index.html) and the deck (site/decidivel/
-   decidivel-apresentacao.pdf, re-printed only when its HTML changes).
+   (site/decidivel/index.html), the deck (site/decidivel/decidivel-apresentacao.pdf)
+   and the Nota Técnica (site/decidivel/nota-tecnica-exemplo.pdf), each re-printed
+   only when its HTML changes.
 
    usage: node apps/decidivel/build.js                apps/decidivel · cert-machine  MIT */
 'use strict';
@@ -71,10 +72,17 @@ fs.mkdirSync(SITE, { recursive: true });
 fs.writeFileSync(path.join(SITE, 'index.html'), html);
 console.log('site/decidivel/index.html written (' + Math.round(html.length / 1024) + ' KB) @ git ' + git);
 
-const DECK = require('./deck.js');
-const deckHtml = DECK.build(N);
-const pdf = path.join(SITE, 'decidivel-apresentacao.pdf'), want = sha(deckHtml);
-if (!fs.existsSync(pdf) || !fs.existsSync(DECKSHA) || fs.readFileSync(DECKSHA, 'utf8').trim() !== want) {
-  DECK.print(deckHtml, pdf).then(() => { fs.writeFileSync(DECKSHA, want + '\n'); console.log('site/decidivel/decidivel-apresentacao.pdf printed'); })
-    .catch((e) => die('the deck did not print: ' + e.message));
-} else console.log('deck unchanged (' + want.slice(0, 12) + ')');
+/* the deck and the Nota Técnica, each re-printed only when its HTML changes */
+const DECK = require('./deck.js'), NOTA = require('./nota.js');
+const jobs = [
+  { html: DECK.build(N), pdf: path.join(SITE, 'decidivel-apresentacao.pdf'), pin: DECKSHA, name: 'decidivel-apresentacao.pdf' },
+  { html: NOTA.build(N, git), pdf: path.join(SITE, 'nota-tecnica-exemplo.pdf'), pin: path.join(APP, 'data', 'nota.sha256'), name: 'nota-tecnica-exemplo.pdf' }
+];
+(async () => {
+  for (const j of jobs) {
+    const want = sha(j.html);
+    if (fs.existsSync(j.pdf) && fs.existsSync(j.pin) && fs.readFileSync(j.pin, 'utf8').trim() === want) { console.log(j.name + ' unchanged (' + want.slice(0, 12) + ')'); continue; }
+    await DECK.print(j.html, j.pdf).catch((e) => die(j.name + ' did not print: ' + e.message));
+    fs.writeFileSync(j.pin, want + '\n'); console.log('site/decidivel/' + j.name + ' printed');
+  }
+})();

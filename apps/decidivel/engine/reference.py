@@ -8,7 +8,7 @@ battery asks the engine's thin-point interval to contain it at every sampled
 input — and a written-out algebra error in either program (the difference form
 is the easy place to make one) shows up as a miss.
 
-usage: python3 reference.py < points.json > values.json
+usage: python3 reference.py [--parts] < points.json > values.json
   points: [{"phi","s","phic","gk","Kmin","rhomin","Kw","rhow","Ko","rhoo","Kg","rhog","Swi","dSw","dSg","w"}, ...]
   values: ["r = Ip2^2/Ip1^2", ...]                                         MIT
 """
@@ -51,9 +51,13 @@ def ratio(p):
     rho2 = (1 - phi) * g['rhomin'] + phi * rho_f2
     m1 = ksat(k1) + Decimal(4) / 3 * gdry
     m2 = ksat(k2) + Decimal(4) / 3 * gdry
-    return (rho2 * m2) / (rho1 * m1)
+    return (rho2 * m2) / (rho1 * m1), rho2 / rho1, m2 / m1
 
 
 if __name__ == '__main__':
     pts = json.load(sys.stdin)
-    json.dump([str(ratio(p)) for p in pts], sys.stdout)
+    if '--parts' in sys.argv:
+        # [r, rho2/rho1, M2/M1] per point: the density and modulus factors, for the attributes
+        json.dump([[str(x) for x in ratio(p)] for p in pts], sys.stdout)
+    else:
+        json.dump([str(ratio(p)[0]) for p in pts], sys.stdout)

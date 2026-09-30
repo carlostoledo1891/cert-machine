@@ -26,6 +26,54 @@ FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night t
 everything else below is HELD). The next session starts from the OPERATOR'S
 INSTRUCTIONS — do not act before reading them.
 
+  2026-09-30 EVENING (the twenty-sixth session, 16:40–~19:00 BRT): DECIDÍVEL REBUILT TO
+  THE OPERATOR'S SUBMISSION PLAN (the plan was pasted in chat: the evaluator's language,
+  the three verdicts at the real resolution, the value case with numbers, ten sections,
+  the Nota Técnica). Everything below is built, gated and committed; NOT submitted.
+    · ENGINE OUTPUTS (no rewrite): rockphys.js gained attrRange (ΔIs/Is = √(ρ₂/ρ₁) − 1,
+      ΔVp/Vs = √(M₂/M₁) − 1, the two factors of r searched by the same extreme()),
+      signDensity (bisection on the gas density for the smallest ρg at which a PROVED
+      model GAINS impedance — one-sided on purpose: the proof of "always negative" does
+      not close on K0 boxes at any budget tried), coreD/factorD. run.js writes the sign
+      map (360 cells, K0), the headline's attributes per scenario, the Monte Carlo AT
+      1.5% (1,000 and 10,000 draws, K0 and K4), the correlated frame (the nine Iracema
+      plugs' (s, G/K) convex hull, widened ±0.02, covered by 56 of 64 grid boxes, SAT
+      test; decided as a union), and the price of information at 1.5% (K0, K4: NO single
+      measurement decides). declared.json now carries the plug points (from the paper's
+      table: PMC12479986). Battery 16 checks, 7/7 reds (new: the factors vs
+      reference.py --parts; a red "gas always softens" refused by a proved gaining model).
+    · THE NUMBERS THAT CARRY THE SUBMISSION (all from the ledger): at 1.5%, a thin front
+      (Sg < 4%) is INDETECTÁVEL in 50,186 cells (K0) / 68,880 (K4); Sg 4–28% is
+      INDETERMINADO in all 72,321 cells in EVERY knowledge state; K4 at Sg 44–48% gives 177
+      DETECTÁVEL cells (φ ≥ 0.23). At 3% with CO2-rich gas the front is INDETECTÁVEL up to
+      28% saturation in most of the field. Headline coquina cell: Monte Carlo at 1.5%
+      says "detectable in 34.1% of 10,000 draws" (K4; 0.7% under K0) while the proved
+      minimum is 0.35% (attained 0.39%); the sign flips from ρg = 0.696 g/cm³ (map:
+      0.69–0.81, found in 348/360 cells); Ip is the most sensitive attribute (|ΔIp| ≈
+      |ΔIs| + |ΔVpVs| for a saturation change); the correlated frame tightens bounds
+      (5.66 → 4.94%) but changes no verdict; correlating gas (K, ρ) cannot either (the
+      undetectable witness is the pure-CO2 endpoint).
+    · RESEARCH VERIFIED AND WRITTEN IN: Lei 14.993/2024 art. 26 § 4º EXCLUDES injection
+      for enhanced recovery from the storage regime — the old CO2/ANP hook was wrong for
+      the 19.6 Mt reinjection; the page now says so and E6 is dedicated storage only.
+      Cost anchors with sources: Mero PRM US$ 450 mi (Agência Brasil 2026-04); Búzios
+      3,500 nodes / 780 km² / 8 months (Agência Petrobras 2024-08-16); PXGEO two OBN 4C
+      contracts for 2026. Tupi numbers from the SBGf 2021 abstract (NRMS ≈ 3% std, ≈ 2%
+      LSM; ≈ 1.5% distinguishable; WAG1 below the 2% cut-off; saturation-only
+      overestimates; ≈ 80% vs ≈ 5% CO2). Conexões criteria + "até R$ 1,6 mi / 12 meses"
+      (Aquisição de Soluções, 2022). da Silva et al.: BrJG 43(2) 2025 is the petro-
+      elastic modelling paper; the feasibility one is J. Appl. Geophys. 245 (2026).
+    · PAGE (ten sections, page.js), DECK (12 slides, deck.js, verified slide by slide),
+      NOTA TÉCNICA (nota.js → /decidivel/nota-tecnica-exemplo.pdf, one A4 page, the
+      headline cell, sections 1–7 of the plan's template), form texts in
+      outreach/petrobras-radar/answers-decidivel.json (1,757 / 395 chars). The page was
+      looked at at 1440 and 390 (no horizontal overflow).
+    · NOT DONE: `make site` (15 min) and `run.js --check` (4 min) were not re-run (the
+      laptop was at 5–15% on battery); check-style/measure/render --accept were started
+      at the end (see /tmp/dv-gates.log if the session is the same day). Demo D
+      (the published scenarios plotted inside the envelope) needs the paper's parameters:
+      E4. Sg per cell from the simulator: not in the corpus, E1.
+
   STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
     · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
       — engineering and AI numbers decided; portfolios Reservatórios + Submarina +
@@ -34,7 +82,7 @@ INSTRUCTIONS — do not act before reading them.
       — 4D seismic detectability decided (Geofísica e Petrofísica); portfolios
       Geofísica e Petrofísica + CCS + Reservatórios; TRL 3, CRL 2, Pré-Seed.
     The form allows ONE solution per submission: two forms. Both texts are within
-    the limits (Contraprova 1,836/2,000 + 372/500; Decidível 1,757/2,000 + 371/500).
+    the limits (Contraprova 1,836/2,000 + 372/500; Decidível 1,757/2,000 + 395/500).
   THE FILLER. outreach/petrobras-radar/radar-submit.js fills the real form page by
     page (ticks, types, picks the dropdowns, consents) from answers-contraprova.json
     / answers-decidivel.json, screenshots each page, and stops BEFORE Submit unless

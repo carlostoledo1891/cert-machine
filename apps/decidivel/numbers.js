@@ -32,8 +32,18 @@ function load() {
   const count = (k, th) => { const o = { PROVADO: 0, REFUTADO: 0, RECUSADO: 0, open: 0 }; L.maps[k].forEach((v) => { o[cls(v, th) || 'open']++; }); return o; };
   const H = L.headline;
   need(H.receipt.verdict === 'RECUSADO', 'the headline is no longer RECUSADO');
+  need(Array.isArray(L.sign) && L.sign.length === nx * ny, 'the sign map is missing');
+  need(H.attributes && H.mc15 && H.correlated && H.price, 'the ledger lacks the attributes, the Monte Carlo at the threshold, the correlated frame or the price');
+  /* THE RESOLUTION TABLE: for a scenario and a threshold, every gas-saturation row of the
+     field — the benchmark's cells by verdict when the front reaches that saturation */
+  const resolution = (k, th) => L.axes.sg.map((sg, row) => Object.assign({ sg }, field(k, th, row)));
+  /* existence: the first (lowest-porosity) cell of a verdict in a row, with its four numbers */
+  const first = (k, th, row, verdict) => { for (let i = 0; i < nx; i++) { const v = L.maps[k][row * nx + i]; if (cls(v, th) === verdict) return { phi: L.axes.phi[i], sg: L.axes.sg[row], v, cells: perCol[i] }; } return null; };
+  /* the sign map: the smallest gas density at which a proved model gains impedance, by cell */
+  const signAt = (row, i) => L.sign[row * nx + i];
+  const signStats = (() => { const v = L.sign.filter((x) => x !== null); v.sort((a, b) => a - b); return { found: v.length, of: L.sign.length, min: v[0], median: v[Math.floor(v.length / 2)], max: v[v.length - 1] }; })();
   return {
-    L, D, perCol, field, count, cls,
+    L, D, perCol, field, count, cls, resolution, first, signAt, signStats,
     active: Hst.active, rockCounts: Object.fromEntries(Object.entries(Hst.counts).map(([k, v]) => [M.rockTypes[k], v.reduce((a, b) => a + b, 0)])),
     unisim: M, cells: nx * ny, boxes: nx * ny * L.scenarios.length, theta: Number(H.theta) * 100,
     H

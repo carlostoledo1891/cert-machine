@@ -1,7 +1,7 @@
 /* battery.js — Decidível's battery. apps/decidivel · cert-machine
 
    GREEN: at 200 random inputs the engine's thin-point interval CONTAINS the
-   value of reference.py (Python decimal at 50 digits, the textbook Gassmann
+   value of reference.py, and its two factors (density, modulus) the reference's parts (Python decimal at 50 digits, the textbook Gassmann
    form, the ratio taken directly — no shared code, no difference form); the
    proved extremes of 24 random sub-boxes contain the reference at every one of
    12 points drawn inside each; every witness lies in its box and its interval
@@ -63,6 +63,17 @@ const refW = refOf(wpts);
 refW.forEach((v, i) => { if (wr[i].inBox && wr[i].r[0] <= v * (1 + 1e-12) && v * (1 - 1e-12) <= wr[i].r[1]) witOk++; });
 ok(witOk === wpts.length, 'witnesses lie in their box and enclose the reference: ' + witOk + ' of ' + wpts.length);
 
+/* ---- green: the attributes — the density factor and the modulus factor, against the reference's parts ---- */
+{
+  const parts = JSON.parse(cp.execFileSync('python3', [path.join(__dirname, 'reference.py'), '--parts'], { input: JSON.stringify(pts), encoding: 'utf8' }));
+  let okA = 0, okB = 0;
+  pts.forEach((p, i) => { const c = R.coreD(thin(p)); const A = Number(parts[i][1]), Bm = Number(parts[i][2]); if (c.A.v[0] <= A && A <= c.A.v[1]) okA++; if (c.Bm.v[0] <= Bm && Bm <= c.Bm.v[1]) okB++; });
+  ok(okA === pts.length && okB === pts.length, 'the density and modulus factors contain the reference at ' + okA + ' and ' + okB + ' of ' + pts.length);
+  /* Gassmann leaves G alone, so Is² changes by the density factor only and (Vp/Vs)² by the modulus factor only: their product is r */
+  const c = R.coreD(thin(pts[0])); const prod = c.A.v[0] * c.Bm.v[0], r = R.changeD(thin(pts[0])).v;
+  ok(prod <= r[1] * (1 + 1e-12) && r[0] * (1 - 1e-12) <= c.A.v[1] * c.Bm.v[1], 'the two factors multiply back to r');
+}
+
 /* ---- green: three verdicts on declared boxes ---- */
 const soft = Object.assign({}, D.box, D.scenarios.K4.mod, { phi: ['0.24', '0.25'], dSg: ['0.44', '0.47'] });
 ok(R.decide(soft, { theta: '0.005' }, { noPrice: true }).verdict === R.PROVADO, 'a soft, porous, gas-rich box at 0.5% is PROVADO');
@@ -91,6 +102,14 @@ ok(JSON.stringify(R.decide(H, { theta: D.headline.theta }, { noPrice: true })) =
   red(A.loA !== null && A.hiA !== null && (A.loA < centre - 0.1 || A.hiA > centre + 0.1), 'the centre value ' + centre.toFixed(2) + '% is not "the change": witnesses at ' + (A.loA || 0).toFixed(2) + '% and ' + A.hiA.toFixed(2) + '%');
   red(R.classifyAbs(A, A.hi + 0.01) === R.REFUTADO, 'a threshold just above the proved upper bound is REFUTADO');
   red(A.lo <= 0 || R.classifyAbs(A, A.lo - 0.01) === R.PROVADO, 'a threshold just below the proved lower bound is PROVADO');
+}
+/* ---- red: the sign of the change, sold as guaranteed ---- */
+{
+  const HK = Object.assign({}, D.box, { phi: D.headline.phi, dSg: D.headline.dSg });
+  const S = R.signDensity(HK, { budget: 300 });
+  const lightest = Number(D.box.rhoo[0]);
+  /* "gas replacing oil always softens": refused — at a gas density the declared range admits, a proved model GAINS impedance; and never below the lightest admissible oil */
+  red(S.rhoFlip !== null && S.witness && S.witness.r[0] > 1 && S.rhoFlip >= lightest, 'a proved model gains impedance at gas density ' + S.rhoFlip + ' g/cm³ (≥ the lightest oil, ' + lightest + '): the sign is not guaranteed');
 }
 /* ---- red: outside the domain ---- */
 red(R.decide(Object.assign({}, H, { phi: ['0.38', '0.42'] }), { theta: '0.015' }, { noPrice: true }).checks[0].id === 'dominio' && R.decide(Object.assign({}, H, { phi: ['0.38', '0.42'] }), { theta: '0.015' }, { noPrice: true }).verdict === R.RECUSADO, 'porosity reaching the critical porosity is refused');

@@ -1,6 +1,6 @@
-/* deck.js — Decidível's pitch deck (pt-BR, 16:9, 12 slides), from the same
-   numbers object as the page; the stylesheet and the printer are the
-   Contraprova deck's (one deck design for both products).
+/* deck.js — Decidível's pitch deck (pt-BR, 16:9, 12 slides), one slide per
+   section of the page and from the same numbers object; the stylesheet and
+   the printer are the Contraprova deck's (one deck design for both products).
    apps/decidivel · cert-machine                                          MIT */
 'use strict';
 const path = require('path');
@@ -10,6 +10,8 @@ const CP = require(path.join(ROOT, 'apps', 'contraprova', 'deck.js'));
 const { br } = require('./numbers.js');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const chip = (v, big) => '<span class="cp-chip ' + ({ PROVADO: 'provado', REFUTADO: 'refutado', RECUSADO: 'recusado' }[v] || 'recusado') + (big ? ' big' : '') + '">' + esc(v || 'NÃO DECIDIDO') + '</span>';
+const GL = { PROVADO: 'detectável para todo cenário admissível', REFUTADO: 'indetectável: nenhum levantamento nesta resolução vê', RECUSADO: 'indeterminado: contraexemplos dos dois lados e a medição que decide' };
+const gl = (v) => '<div>' + chip(v, true) + '<div class="gl">' + esc(GL[v]) + '</div></div>';
 
 function miniMap(N, k, th) {
   const L = N.L, nx = L.axes.phi.length, ny = L.axes.sg.length, cw = 16, ch = 14, W = nx * cw + 50, H = ny * ch + 30;
@@ -27,72 +29,84 @@ function miniMap(N, k, th) {
 }
 
 function build(N) {
-  const L = N.L, D = N.D, H = N.H, rc = H.receipt, mc = H.mc;
+  const L = N.L, D = N.D, H = N.H, rc = H.receipt, MC = H.mc15, A = H.attributes, CR = H.correlated;
   const w = (x) => br.dec(x, 2) + '%';
   const ft = (n) => '<div class="ft"><span>DECIDÍVEL · carlostoledo.co/decidivel</span><span>Radar de Soluções Petrobras · Ciclo 3 · 2026</span><span>' + n + '/12</span></div>';
+  const res15 = { K0: N.resolution('K0', 1.5), K4: N.resolution('K4', 1.5) }, res3 = { K1: N.resolution('K1', 3), K4: N.resolution('K4', 3) };
+  const thin0 = res15.K0[0];
+  const detK4 = res15.K4.map((r) => r.PROVADO).reduce((x, y) => Math.max(x, y), 0);
+  const signH = N.signAt(L.axes.sg.findIndex((s) => s[0] === '0.16'), L.axes.phi.findIndex((p) => p[0] === '0.13'));
   const S = [];
-  S.push('<section class="s"><div class="ey">Decidível · geofísica e petrofísica · sísmica 4D e CO₂</div><div class="cover"><div><h1>Antes de pagar por um levantamento 4D, saiba se ele pode responder.</h1>'
-    + '<p style="margin-top:28px;max-width:44ch">Para toda rocha e todo fluido que a evidência admite, com aritmética exata: PROVADO, REFUTADO ou RECUSADO, e o que medir para decidir.</p></div>'
-    + '<div class="card core"><div class="k">uma célula de coquina, a 1,5% de Tupi</div>' + chip(rc.verdict, true)
-    + '<p style="font-size:15px">Mil sorteios de Monte Carlo viram no mínimo <b>' + w(mc.min) + '</b> de mudança. O Decidível provou um modelo admissível com <b>' + w(mc.attainedLo) + '</b>: um estudo por sorteio diria “detectável” e estaria errado.</p></div></div>'
-    + '<div class="row" style="margin-top:auto;margin-bottom:34px;gap:14px">' + chip('PROVADO', true) + chip('REFUTADO', true) + chip('RECUSADO', true) + '</div>' + ft(1) + '</section>');
-  S.push('<section class="s"><div class="ey">1 · o problema</div><h2>O 4D no pré-sal ainda está em debate</h2><div class="col2">'
-    + '<div class="card"><ul><li>No piloto OBN de Tupi: NRMS de 2 a 3%; mudanças de impedância de cerca de <b>1,5%</b> distinguíveis.</li><li>A saturação sozinha superestima o sinal.</li><li>Quanto mais CO₂ no gás, mais denso, <b>menor o contraste</b>.</li></ul><p style="font-size:13px;margin-top:10px">Cruz et al. 2021 (SBGf; The Leading Edge 40:886)</p></div>'
-    + '<div class="card claim"><div class="k">o que os estudos entregam</div><p>Um modelo, alguns cenários, ou uma probabilidade de detecção. Nenhum responde: <b>este levantamento vê a injeção para toda rocha e todo fluido admissíveis?</b> E se não sabe: <b>o que medir?</b></p></div>'
-    + '</div>' + ft(2) + '</section>');
-  S.push('<section class="s"><div class="ey">2 · como decide</div><h2>Caixas, não amostras</h2><div class="arch" style="grid-template-columns:1fr 34px 1.5fr 34px 1fr">'
-    + '<div class="card"><div class="k">declarado, com fonte</div><h3>Faixas</h3><p>Porosidade e saturação; arcabouço de 9 plugues do pré-sal; fluidos de Batzle–Wang e NIST; a distribuição do gás de uniforme a em manchas.</p></div><div class="arr">→</div>'
-    + '<div class="card core"><div class="k">o motor</div><h3>A caixa inteira, exata</h3><ol><li>Gassmann, Reuss a Voigt (toda lei de Brie), arcabouço na tendência de porosidade crítica</li><li>Extremos provados por intervalos e derivadas intervalares</li><li>Testemunhas: modelos reais de cada lado</li></ol></div><div class="arr">→</div>'
-    + '<div class="card"><div class="k">o que sai</div><h3>Veredito</h3>' + chip('PROVADO') + chip('REFUTADO') + chip('RECUSADO') + '<p>e a medição que decide</p></div>'
-    + '</div>' + ft(3) + '</section>');
+  S.push('<section class="s"><div class="ey">Decidível · Geofísica e Petrofísica · estudo de viabilidade 4D · WAG-CO₂</div><div class="cover"><div><h1>Decidir, antes de adquirir, se um 4D pode ver a injeção de gás ou CO₂ no pré-sal.</h1>'
+    + '<p style="margin-top:26px;max-width:46ch">Sobre o envelope de incerteza declarado e o modelo petroelástico padrão: o mínimo e o máximo garantidos de ΔIp/Ip por célula, por aritmética intervalar rigorosa — a garantia de pior caso — e um de três vereditos na resolução do levantamento.</p></div>'
+    + '<div class="card core"><div class="k">coquina mediana · frente WAG 15–30% · 1,5% de Tupi</div>' + chip(rc.verdict, true)
+    + '<p style="font-size:15px">ΔIp/Ip garantido em [' + w(rc.envelope[0]) + '; ' + w(rc.envelope[1]) + ']. Um estudo por sorteio diria “detectável em <b>' + br.pct(100 * MC.K4[1].pDetect, 0) + '</b> dos sorteios”; existe um cenário admissível, com valor garantido, que muda <b>' + w(H.table[4].range[1]) + '</b>; a especificação que o elimina: resolver <b>' + w(H.table[4].range[0]) + '</b>.</p></div></div>'
+    + '<div class="row" style="margin-top:auto;margin-bottom:34px;gap:22px">' + gl('PROVADO') + gl('REFUTADO') + gl('RECUSADO') + '</div>' + ft(1) + '</section>');
+  S.push('<section class="s"><div class="ey">1 · o problema em números</div><h2>Um 4D OBN no pré-sal custa centenas de milhões; a 1,5%, Tupi mostrou que o sinal pode sumir</h2><div class="col2">'
+    + '<div class="card"><div class="k">o custo em jogo</div><ul><li><b>US$ 450 milhões</b> no monitoramento 4D permanente de Mero (Consórcio de Libra, abril de 2026).</li><li>Búzios: <b>3.500 nós OBN</b> em 780 km², oito meses (2024), o primeiro 4D do campo.</li><li>Dois contratos OBN 4C de aquisição e monitoramento para 2026 (PXGEO).</li></ul></div>'
+    + '<div class="card claim"><div class="k">a resolução real · Tupi Nodes (Cruz et al. 2021)</div><ul><li>NRMS ≈ 3% no processamento 4D padrão; ≈ 2% com LSM.</li><li>Variações de impedância de <b>≈ 1,5%</b> distinguíveis; em torno de WAG1, <b>abaixo do corte de 2%</b>.</li><li>A saturação sozinha <b>superestima</b> o sinal; mais CO₂ no gás (≈ 80% vs ≈ 5%), <b>menos contraste</b>.</li></ul></div>'
+    + '</div><p style="margin-top:22px">A resolução que o levantamento alcança e a variação que a rocha produz são do mesmo tamanho. A pergunta não é “qual a probabilidade de detectar”: é <b>para todo cenário compatível com a evidência, este levantamento vê?</b> E se não vê, <b>o que medir antes de adquirir?</b></p>' + ft(2) + '</section>');
+  S.push('<section class="s"><div class="ey">2 · o que a Petrobras já faz, e o que acrescenta</div><h2>O estudo entrega um número por cenário ou uma probabilidade; o Decidível acrescenta o envelope garantido</h2><table style="font-size:14px"><thead><tr><th>hoje</th><th>entrega</th><th>o que acrescenta (anexo; nada é substituído)</th></tr></thead><tbody>'
+    + '<tr><td>Modelagem petroelástica, cenários P10/P50/P90</td><td>um ΔIp/Ip por cenário</td><td>mínimo e máximo garantidos sobre o envelope inteiro</td></tr>'
+    + '<tr><td>Monte Carlo, probabilidade de detecção</td><td>“detectável em 97% dos sorteios”</td><td>o cenário que os sorteios não amostraram, com valor garantido</td></tr>'
+    + '<tr><td>Regra de NRMS</td><td>um limiar único</td><td>o requisito de resolução, célula a célula, como especificação de aquisição</td></tr>'
+    + '<tr><td>VOI em esperança</td><td>quanto vale medir, em média</td><td>o plano de redução de incerteza deste caso, na ordem do custo</td></tr>'
+    + '<tr><td>Inversão bayesiana</td><td>uma distribuição do prior</td><td>o conjunto admissível inteiro; o contraexemplo é um modelo</td></tr>'
+    + '<tr><td>Interpretação 4D</td><td>endurecimento ou amolecimento por experiência</td><td>a densidade de gás acima da qual o sinal não é garantido</td></tr>'
+    + '</tbody></table>' + ft(3) + '</section>');
+  S.push('<section class="s"><div class="ey">3 · como decide</div><h2>Modelo petroelástico com fonte; limites garantidos por intervalos; contraexemplos verificados</h2><div class="arch" style="grid-template-columns:1fr 34px 1.5fr 34px 1fr">'
+    + '<div class="card"><div class="k">envelope declarado</div><h3>Faixas, com fonte</h3><p>φ e Sg da célula; arcabouço de 9 plugues de Iracema na tendência de porosidade crítica; Batzle–Wang e NIST; mistura de Reuss a Voigt; Swi e Sorg do UNISIM-IV.</p></div><div class="arr">→</div>'
+    + '<div class="card core"><div class="k">o método</div><h3>Garantia de pior caso sobre o envelope</h3><ol><li>Gassmann; Reuss–Brie–Voigt; Kdry = s(1 − φ/φc)Kmin</li><li>Intervalos com arredondamento para fora; derivadas intervalares; ramificação e poda; parâmetros monótonos fixados no extremo</li><li>Um contraexemplo verificado de cada lado, e a medição que o elimina</li></ol></div><div class="arr">→</div>'
+    + '<div class="card"><div class="k">certificado de decisão</div><h3>Uma página</h3>' + chip('PROVADO') + chip('REFUTADO') + chip('RECUSADO') + '<p>ΔIp/Ip, ΔIs/Is, ΔVp/Vs garantidos; requisito de resolução; plano de redução de incerteza; reprodução.</p></div>'
+    + '</div><p style="margin-top:16px;font-size:14px"><b>Verificação:</b> segunda implementação em Python (decimal, 50 dígitos, sem código em comum) em 452 entradas; 7/7 casos de controle negativos a cada build. <b>Fora desta versão, dito:</b> efeito de pressão (Fase 1, plugues sob tensão); espessura e sintonia (veredito da etapa petroelástica).</p>' + ft(4) + '</section>');
+  const pick = ['0.005', '0.04', '0.12', '0.20', '0.28', '0.44'];
+  const cell = (r) => { const p = []; if (r.PROVADO) p.push('<b>DET ' + br.int(r.PROVADO) + '</b>'); if (r.REFUTADO) p.push('IND ' + br.int(r.REFUTADO)); if (r.RECUSADO) p.push('indet. ' + br.int(r.RECUSADO)); if (r.open) p.push('n.d. ' + br.int(r.open)); return p.join(' · '); };
+  S.push('<section class="s"><div class="ey">4 · demonstração · ' + br.int(N.active) + ' células do UNISIM-IV</div><h2 style="font-size:30px;margin-bottom:16px">A 1,5%: ' + br.int(detK4) + ' células DETECTÁVEIS, ' + br.int(thin0.REFUTADO) + ' INDETECTÁVEIS, o resto INDETERMINADO — em frentes diferentes</h2><table style="font-size:13px"><thead><tr><th>frente de gás</th><th>só a faixa física · 1,5%</th><th>gás pobre, uniforme, arcabouço medido · 1,5%</th><th>gás rico em CO₂ · 3%</th><th>gás pobre, uniforme, medido · 3%</th></tr></thead><tbody>'
+    + L.axes.sg.map((sg, j) => pick.includes(sg[0]) ? '<tr><td>Sg ' + br.dec(Number(sg[0]) < 0.01 ? 0 : Number(sg[0]), 2) + '–' + br.dec(Number(sg[1]), 2) + '</td><td>' + cell(res15.K0[j]) + '</td><td>' + cell(res15.K4[j]) + '</td><td>' + cell(res3.K1[j]) + '</td><td>' + cell(res3.K4[j]) + '</td></tr>' : '').join('')
+    + '</tbody></table><p style="margin-top:10px;font-size:13px">DET detectável · IND indetectável · indet. indeterminado (contraexemplos dos dois lados) · n.d. não decidido. Frente fina: INDETECTÁVEL com prova. 4–28%: INDETERMINADO em todo estado. Frente alta, gás medido e uniforme: DETECTÁVEL de φ ≈ 0,23. A 3% com gás rico em CO₂: INDETECTÁVEL até 28% na maior parte do campo.</p>' + ft(5) + '</section>');
   const c1 = rc.checks.find((c) => c.id === 'deteccao');
-  S.push('<section class="s"><div class="ey">3 · uma pergunta, decidida</div><h2>Coquina (φ 0,13–0,15), frente de gás 15–30%, limite de 1,5%</h2><div class="col2">'
-    + '<div class="card claim"><div class="k">a pergunta</div><p>Um levantamento 4D que resolve 1,5% de impedância vai ver a injeção de gás desta célula, para toda rocha e todo fluido admissíveis?</p></div>'
-    + '<div class="card core">' + chip(rc.verdict, true) + '<p style="font-family:var(--f-mono);font-size:14px;color:var(--ink)">ΔIp/Ip provado em [' + w(rc.envelope[0]) + '; ' + w(rc.envelope[1]) + ']</p><p style="font-size:13.5px">' + esc(c1.text) + '</p></div>'
-    + '</div>' + ft(4) + '</section>');
-  S.push('<section class="s"><div class="ey">4 · o preço da informação</div><h2>Se você souber isto, o veredito vira aquilo</h2><table><thead><tr><th>o que se sabe</th><th>a 1,5%</th><th>mudança provada</th><th>o que decide</th></tr></thead><tbody>'
-    + H.table.map((t) => '<tr><td>' + esc(D.scenarios[t.k].label) + '</td><td>' + chip(t.verdict) + '</td><td>' + w(t.range[0]) + ' – ' + w(t.range[3]) + '</td><td>' + (t.range[0] > 0 ? 'resolver ' + w(t.range[0]) + ' → PROVADO' : 'há modelo sem mudança') + '</td></tr>').join('')
-    + '</tbody></table>' + ft(5) + '</section>');
-  S.push('<section class="s"><div class="ey">5 · o mapa</div><h2>O que se sabe muda onde o 4D decide</h2><div class="col2">'
-    + '<div class="card"><div class="k">só a faixa física · 1,5%</div>' + miniMap(N, L.scenarios[0], 1.5) + '</div>'
-    + '<div class="card"><div class="k">' + esc(D.scenarios[L.scenarios[4]].label) + ' · 0,5%</div>' + miniMap(N, L.scenarios[4], 0.5) + '</div>'
-    + '</div><p style="margin-top:18px;font-size:15px">Cheio: PROVADO · meio cheio: RECUSADO · anel: REFUTADO · vazio: não decidido neste orçamento. Cada célula, uma caixa decidida.</p>' + ft(6) + '</section>');
-  const f0 = N.field(L.scenarios[0], 1.5, 5), f4 = N.field(L.scenarios[4], 0.5, 5);
-  S.push('<section class="s"><div class="ey">6 · um análogo público do pré-sal</div><h2>' + br.int(N.active) + ' células do UNISIM-IV, frente de gás em 20–24%</h2><div class="col2">'
-    + '<div class="card"><div class="k">só a faixa física · 1,5%</div><p>PROVADO <b>' + br.int(f0.PROVADO) + '</b> · RECUSADO <b>' + br.int(f0.RECUSADO) + '</b> · REFUTADO <b>' + br.int(f0.REFUTADO) + '</b> · não decidido ' + br.int(f0.open) + '</p></div>'
-    + '<div class="card core"><div class="k">' + esc(D.scenarios[L.scenarios[4]].label) + ' · 0,5%</div><p>PROVADO <b>' + br.int(f4.PROVADO) + '</b> · RECUSADO <b>' + br.int(f4.RECUSADO) + '</b> · REFUTADO <b>' + br.int(f4.REFUTADO) + '</b> · não decidido ' + br.int(f4.open) + '</p></div>'
-    + '</div><p style="margin-top:22px">Benchmark UNISIM-IV-2026 (UNICAMP): porosidade e tipo de rocha de cada célula ativa, Swi e Sorg das tabelas de permeabilidade relativa, gás 44% CO₂.</p>' + ft(7) + '</section>');
-  S.push('<section class="s"><div class="ey">7 · estado da arte</div><h2>Toda detectabilidade publicada é probabilística ou por cenários</h2><ul style="font-size:16px">'
-    + '<li><b>Tupi (Cruz et al. 2021)</b>: limiar por volta de 1,5%, sem garantia por modelo</li><li><b>da Silva, Davolio et al. 2025 (UNISIM)</b>: viabilidade por cenários</li><li><b>Sleipner (Chadwick et al. 2014)</b>: probabilidade de detecção</li><li><b>Bergmann e Chadwick 2015</b>: limites por enumeração, sem aritmética rigorosa nem decisão — o antecedente mais próximo</li><li><b>FWI bayesiana (Zhang et al. 2023)</b>: a incerteza é subestimada</li><li><b>Valor da informação (Anyosa et al. 2021)</b>: em esperança, não caso a caso</li></ul>'
-    + '<p style="margin-top:18px">Não encontramos veredito garantido de detectabilidade, com recusa e a medição que decide.</p>' + ft(8) + '</section>');
-  S.push('<section class="s"><div class="ey">8 · o que substitui</div><h2>Da probabilidade de detecção para a decisão</h2><table><thead><tr><th>hoje</th><th>entrega</th><th>com o Decidível</th></tr></thead><tbody>'
-    + '<tr><td>Monte Carlo</td><td>“detectável em 97% dos sorteios”</td><td>o modelo que os sorteios não viram, provado</td></tr>'
-    + '<tr><td>Regra de NRMS</td><td>um limiar para qualquer rocha</td><td>o limiar exato desta caixa</td></tr>'
-    + '<tr><td>Valor da informação</td><td>quanto vale medir, em média</td><td>qual medição decide este caso</td></tr>'
-    + '<tr><td>Inversão bayesiana</td><td>uma distribuição do prior</td><td>o conjunto admissível inteiro</td></tr>'
-    + '<tr><td>Monitoramento de CO₂</td><td>simulações e curvas</td><td>um recibo reexecutável para a ANP</td></tr>'
-    + '</tbody></table>' + ft(9) + '</section>');
-  S.push('<section class="s"><div class="ey">9 · onde vale</div><h2>Aquisição 4D, WAG e CO₂ que precisa ser comprovado</h2><div class="col3">'
-    + '<div class="card"><div class="k">aquisição</div><p>Decidir antes de adquirir: onde um levantamento vê, onde nenhum vê, onde depende do que medir.</p></div>'
-    + '<div class="card"><div class="k">WAG</div><p>Onde a frente de gás é visível, para calibrar ciclos e varrido.</p></div>'
-    + '<div class="card core"><div class="k">CO₂</div><p>A Petrobras reinjetou <b>19,6 Mt</b> de CO₂ em 2025 (20-F). O Decreto 13.095/2026 encerra a estocagem só com estabilidade <b>comprovada perante a ANP</b>.</p></div>'
-    + '</div>' + ft(10) + '</section>');
+  S.push('<section class="s"><div class="ey">5 · o mapa e uma célula decidida</div><h2>Onde o 4D vê, onde não vê, onde depende — e a coquina mediana, a 1,5%</h2><div class="col2">'
+    + '<div><div class="col2" style="gap:14px"><div class="card"><div class="k">só a faixa física · 1,5%</div>' + miniMap(N, 'K0', 1.5) + '</div><div class="card"><div class="k">gás pobre, uniforme, medido · 1,5%</div>' + miniMap(N, 'K4', 1.5) + '</div></div><p style="font-size:13px;margin-top:10px">Cheio: DETECTÁVEL · meio cheio: INDETERMINADO · anel: INDETECTÁVEL · vazio: não decidido. Cada célula, um envelope decidido; ao vivo em carlostoledo.co/decidivel.</p></div>'
+    + '<div class="card core"><div class="k">φ 0,13–0,15 · Sg 0,15–0,30 · 1,5%</div>' + chip(rc.verdict, true) + '<p style="font-family:var(--f-mono);font-size:14px;color:var(--ink)">ΔIp/Ip ∈ [' + w(rc.envelope[0]) + '; ' + w(rc.envelope[1]) + '] garantido</p><p style="font-size:13px">' + esc(c1.text.replace('A caixa contém modelos', 'O envelope contém cenários')) + '</p><p style="font-size:13px">Com gás pobre, uniforme e arcabouço medido: mudança garantida ≥ ' + w(H.table[4].range[0]) + '; <b>resolver ' + w(H.table[4].range[0]) + ' decide DETECTÁVEL</b>. Nenhuma medição isolada decide a 1,5%.</p></div>'
+    + '</div>' + ft(6) + '</section>');
+  S.push('<section class="s"><div class="ey">6 · Monte Carlo cara a cara · o sinal · os atributos</div><h2>O que o sorteio esconde, o que o envelope garante</h2><div class="col3">'
+    + '<div class="card claim"><div class="k">o estudo por sorteio, a 1,5%</div><div class="big">' + br.pct(100 * MC.K4[1].pDetect, 1) + '</div><p style="font-size:14px">dos ' + br.int(MC.K4[1].draws) + ' sorteios detectam (gás pobre, uniforme, medido); menor sorteio ' + w(MC.K4[1].min) + '. O Decidível garante um cenário com <b>' + w(H.table[4].range[1]) + '</b> e a fração do envelope que não detecta: ' + br.pct(100 * (1 - MC.K4[1].pDetect), 0) + ' (estimativa por sorteio).</p></div>'
+    + '<div class="card core"><div class="k">o sinal pode mudar de sinal</div><div class="big">' + (signH !== null ? br.dec(signH, 2) + ' g/cm³' : '—') + '</div><p style="font-size:14px">Na coquina, a partir dessa densidade de gás um cenário verificado <b>ganha</b> impedância. No mapa: ' + br.dec(N.signStats.min, 2) + '–' + br.dec(N.signStats.max, 2) + ' g/cm³. Metano 0,26; CO₂ puro 0,89–0,97 (NIST). Com gás rico em CO₂, o 4D a 1,5% não garante nem o sinal.</p></div>'
+    + '<div class="card"><div class="k">Is e Vp/Vs, do mesmo envelope</div><p style="font-size:14px">Gás pobre, uniforme, medido: |ΔIp/Ip| ' + w(A.K4.Ip[0]) + '–' + w(A.K4.Ip[3]) + '; |ΔIs/Is| ' + w(A.K4.Is[0]) + '–' + w(A.K4.Is[3]) + '; |ΔVp/Vs| ' + w(A.K4.VpVs[0]) + '–' + w(A.K4.VpVs[3]) + '. Ip é o atributo mais sensível; Is e Vp/Vs separam densidade de módulo, o caminho para isolar a pressão nos dados 4C.</p><p style="font-size:13px">Arcabouço correlacionado (9 plugues): limites mais apertados (máx. ' + w(CR.K0.range[3]) + ' vs ' + w(H.table[0].range[3]) + '), mesmo veredito.</p></div>'
+    + '</div>' + ft(7) + '</section>');
+  S.push('<section class="s"><div class="ey">7 · caso de valor</div><h2>Seis decisões da Petrobras mudam; a mais cara é a aquisição</h2><table style="font-size:13px"><thead><tr><th>decisão</th><th>custo em jogo</th><th>o que muda</th><th>evidência</th></tr></thead><tbody>'
+    + '<tr><td>Adquirir ou não um 4D (go/no-go)</td><td>centenas de milhões de dólares (Mero US$ 450 mi; Búzios 3.500 nós)</td><td>veredito garantido antes da aquisição</td><td>frente fina INDETECTÁVEL em ' + br.int(thin0.REFUTADO) + ' células</td></tr>'
+    + '<tr><td>Especificar o levantamento (repetibilidade; OBN, PRM)</td><td>diferença entre tecnologias (ordem de grandeza)</td><td>“resolver ≤ X%” por célula</td><td>' + w(H.table[4].range[0]) + ' na coquina mediana</td></tr>'
+    + '<tr><td>Sequenciar medições baratas antes da cara</td><td>PVT, plugues: ordem de grandeza abaixo</td><td>a medição que decide, por custo; ou “nenhuma decide”</td><td>Nota Técnica, seção 6</td></tr>'
+    + '<tr><td>Interpretar a frente WAG-CO₂</td><td>ler endurecimento como ausência de gás</td><td>a densidade acima da qual o sinal não é garantido</td><td>' + (signH !== null ? br.dec(signH, 2) + ' g/cm³' : '—') + '</td></tr>'
+    + '<tr><td>Auditar um estudo de viabilidade</td><td>o estudo e a decisão que informa</td><td>o cenário não amostrado, com valor garantido</td><td>Monte Carlo cara a cara; E4</td></tr>'
+    + '<tr><td>Comprovar armazenamento dedicado de CO₂</td><td>obrigações do operador (Lei 14.993/2024, art. 29) — não alcança a recuperação avançada (art. 26, § 4º)</td><td>certificado reexecutável</td><td>E6, condicionado ao CCUS</td></tr>'
+    + '</tbody></table><p style="margin-top:10px;font-size:13px">Dono: geofísica e gerenciamento de reservatórios do ativo; CCUS na Fase 2. Cinco campanhas 4D OBN nomeadas publicamente em três anos. Entra como anexo ao estudo de viabilidade → plano de aquisição → interpretação; cada levantamento aperta o envelope do próximo campo.</p>' + ft(8) + '</section>');
+  S.push('<section class="s"><div class="ey">8 · estado da arte</div><h2>Toda detectabilidade publicada é probabilística ou por cenários; nenhuma garante o envelope</h2><ul style="font-size:16px">'
+    + '<li><b>Tupi (Cruz et al. 2021)</b>: ≈ 1,5% distinguível; sem garantia por modelo</li><li><b>da Silva, Davolio, dos Santos e Schiozer (BrJG 2025; J. Appl. Geophys. 2026)</b>: modelagem petroelástica 4D e viabilidade por cenários no UNISIM</li><li><b>Sleipner (Chadwick et al. 2014)</b>: probabilidade de detecção</li><li><b>Bergmann e Chadwick 2015</b>: limites por enumeração, sem aritmética rigorosa nem decisão — o antecedente mais próximo</li><li><b>FWI bayesiana (Zhang et al. 2023)</b>: a incerteza é subestimada</li><li><b>VOI (Anyosa et al. 2021)</b>: em esperança, não caso a caso</li><li><b>Hansen e Walster 2004</b>: o método intervalar, aqui aplicado a Gassmann</li></ul>'
+    + '<p style="margin-top:18px">Não encontramos veredito garantido de detectabilidade, com recusa por contraexemplos e a medição que decide.</p>' + ft(9) + '</section>');
   const bar = (a, b, t) => '<div class="bar" style="grid-column:' + (a + 2) + ' / ' + (b + 2) + '">' + t + '</div>';
-  S.push('<section class="s"><div class="ey">10 · o projeto de PD&amp;I</div><h2>Doze meses para decidir antes de adquirir</h2><div class="tl">'
+  S.push('<section class="s"><div class="ey">9 · plano de trabalho</div><h2>Doze meses: viabilidade 4D decidida num campo do pré-sal, no ambiente da Petrobras</h2><div class="tl" style="font-size:13px">'
     + '<div class="tlr"><div></div>' + Array.from({ length: 12 }, (_, i) => '<div class="h">' + (i + 1) + '</div>').join('') + '</div>'
-    + '<div class="tlr"><div class="lab">Viabilidade 4D decidida<span>um campo do pré-sal, dados da Petrobras</span></div>' + bar(0, 5, 'TRL 3 → 5') + '</div>'
-    + '<div class="tlr"><div class="lab">Conformidade de CO₂<span>o que o levantamento prova sobre a pluma</span></div>' + bar(3, 9, 'TRL 2 → 4') + '</div>'
-    + '<div class="tlr"><div class="lab">Profundidade sob o sal<span>velocidade dos evaporitos decidida</span></div>' + bar(6, 12, 'TRL 2 → 4') + '</div>'
-    + '<div class="tlr"><div class="lab">No fluxo de interpretação<span>recibos por decisão</span></div>' + bar(6, 12, 'TRL 3 → 6') + '</div>'
-    + '</div><div class="col2" style="margin-top:28px"><div><div class="k">o que pedimos</div><ul><li>um campo e uma pergunta de aquisição</li><li>perfis, plugues e PVT no ambiente da Petrobras</li><li>um geofísico-par e doze meses</li></ul></div>'
-    + '<div><div class="k">como medimos</div><ul><li>veredito refeito sem o nosso código</li><li>cada RECUSADO com a medição que o decide</li></ul></div></div>' + ft(11) + '</section>');
-  S.push('<section class="s"><div class="ey">11 · maturidade e contato</div><h2>O motor existe. O campo é o próximo passo.</h2><div class="col3">'
-    + '<div class="card"><div class="k">tecnologia</div><div class="big">TRL 3</div><p>Motor, bateria com segunda implementação e mapa sobre um benchmark público.</p></div>'
-    + '<div class="card"><div class="k">comercial</div><div class="big">CRL 2</div><p>Problema e comprador identificados; piloto a seguir.</p></div>'
-    + '<div class="card core"><div class="k">contato</div><p><b>Carlos Toledo</b>, fundador</p><p>carlos@carlostoledo.co</p><p>carlostoledo.co/decidivel</p></div>'
-    + '</div><p style="margin-top:28px;font-size:14px;color:var(--ink-4)">Faixas declaradas com fonte (Quadros et al. 2025; Batzle e Wang 1992; NIST; Cruz et al. 2021; UNISIM-IV-2026). Não são dados da Petrobras. Um PROVADO fala do modelo declarado e da caixa declarada.</p>' + ft(12) + '</section>');
+    + '<div class="tlr"><div class="lab">E1 Envelope declarado<span>perfis, plugues sob tensão, PVT, Sg do simulador · TRL 3</span></div>' + bar(0, 2, 'assinado pelo geofísico-par') + '</div>'
+    + '<div class="tlr"><div class="lab">E2 Mapa decidido<span>1,5% e 3%; Ip, Is, Vp/Vs · TRL 4</span></div>' + bar(2, 4, '3 vereditos refeitos à mão') + '</div>'
+    + '<div class="tlr"><div class="lab">E3 Plano de redução de incerteza<span>por INDETERMINADO, por custo · TRL 4</span></div>' + bar(3, 5, 'aceito pelo reservatório') + '</div>'
+    + '<div class="tlr"><div class="lab">E4 Auditoria do estudo interno<span>cenários no envelope · TRL 5</span></div>' + bar(5, 8, 'um contraexemplo ou a sua ausência') + '</div>'
+    + '<div class="tlr"><div class="lab">E5 Integração<span>pressão, espessura, controles · TRL 5–6</span></div>' + bar(6, 10, 'roda sem o autor') + '</div>'
+    + '<div class="tlr"><div class="lab">E6 Módulo CO₂ dedicado (opcional)<span>condicionado ao CCUS · TRL 4</span></div>' + bar(8, 12, 'revisão CCUS e regulatório') + '</div>'
+    + '</div><p style="margin-top:12px;font-size:13px"><b>Portões:</b> M0 kick-off, dados no ambiente, NDA · M3 primeiro mapa (se &gt; 90% INDETERMINADO a 3%: caixas correlacionadas, Sg do simulador, atributos) · M6 go/no-go E4–E6 · M12 entrega e implantação. <b>Pedimos:</b> um campo e uma pergunta; perfis, plugues e PVT no ambiente da Petrobras; um geofísico-par (4 h/semana); doze meses.</p>' + ft(10) + '</section>');
+  S.push('<section class="s"><div class="ey">10 · riscos, modelo de negócio, implantação</div><h2>O maior risco é o excesso de INDETERMINADO; a mitigação está no plano</h2><div class="col2">'
+    + '<div class="card" style="padding:16px 18px"><table style="font-size:12.5px"><thead><tr><th>risco</th><th>mitigação</th></tr></thead><tbody><tr><td>Excesso de INDETERMINADO</td><td>caixas correlacionadas; Sg do simulador; Is e Vp/Vs; todo INDETERMINADO com a medição que decide ou o requisito de resolução; portão M3</td></tr><tr><td>Modelo fora da rocha; pressão ausente</td><td>plugues da Petrobras com tipo de poro e sob tensão; Hashin–Shtrikman como sanidade; “o veredito fala do modelo declarado”</td></tr><tr><td>Equipe de uma pessoa</td><td>colaboração acadêmica em negociação; geofísico-par; segunda implementação já existente</td></tr><tr><td>Escopo legal do CO₂</td><td>verificado: art. 26, § 4º exclui a recuperação avançada; E6 só para o armazenamento dedicado</td></tr></tbody></table></div>'
+    + '<div><div class="card core"><div class="k">modelo de negócio</div><p style="font-size:14px">PD&amp;I: contrato de inovação de 12 meses no instrumento do módulo (referência: até R$ 1,6 mi por proposta no módulo Aquisição de Soluções, 2022). Depois: anexo de decisão por estudo (serviço) ou licença anual por ativo com certificados e suporte; a Petrobras escolhe no M12. O núcleo de aritmética é MIT e fica aberto; o valor está no envelope do ativo, na integração, nos controles por domínio e no suporte.</p></div>'
+    + '<div class="card" style="margin-top:14px"><div class="k">PI e implantação</div><p style="font-size:14px">Titularidade conforme a regra do módulo; envelopes, mapas e certificados do campo são da Petrobras; nenhum dado sai do ambiente. <b>Critério de sucesso:</b> ao final do M12, um geofísico da Petrobras produz o mapa decidido de um novo campo sem o autor, e o anexo acompanha o estudo de viabilidade 4D do ativo.</p></div></div>'
+    + '</div>' + ft(11) + '</section>');
+  S.push('<section class="s"><div class="ey">11 · maturidade, equipe e o pedido</div><h2>O motor existe. Primeiro passo: PVT e plugues de um poço; mapa decidido em quatro semanas.</h2><div class="col3">'
+    + '<div class="card"><div class="k">tecnologia</div><div class="big">TRL 3</div><p>Método, suíte com segunda implementação, demonstrador público, DOI 10.5281/zenodo.22800699.</p></div>'
+    + '<div class="card"><div class="k">comercial</div><div class="big">CRL 2</div><p>Problema e comprador identificados; piloto a seguir. Equipe: Carlos Toledo (ex-EmbraerX); colaboração de geociência em negociação; geofísico-par no piloto.</p></div>'
+    + '<div class="card core"><div class="k">contato</div><p><b>Carlos Toledo</b>, fundador</p><p>carlos@carlostoledo.co</p><p>carlostoledo.co/decidivel</p><p style="font-size:13px">Nota Técnica de exemplo: carlostoledo.co/decidivel/nota-tecnica-exemplo.pdf</p></div>'
+    + '</div><p style="margin-top:26px;font-size:14px;color:var(--ink-4)">Faixas declaradas com fonte (Quadros et al. 2025; Batzle e Wang 1992; NIST; Cruz et al. 2021; UNISIM-IV-2026). Não são dados da Petrobras. Um PROVADO fala do modelo declarado e do envelope declarado, não da rocha.</p>' + ft(12) + '</section>');
   if (S.length !== 12) throw new Error('deck: expected 12 slides, built ' + S.length);
-  const extra = '.mm{width:100%;height:auto}.mm .bg{fill:var(--sunk);stroke:var(--rule);stroke-width:1}.mm .full{fill:var(--ink)}.mm .tri{fill:var(--ink-3)}.mm .ring{fill:none;stroke:var(--ink-4);stroke-width:1}.mm text{font-family:var(--f-mono);font-size:10px;fill:var(--ink-3)}.arch .card h3{margin:0;font-size:20px}';
+  const extra = '.mm{width:100%;height:auto}.mm .bg{fill:var(--sunk);stroke:var(--rule);stroke-width:1}.mm .full{fill:var(--ink)}.mm .tri{fill:var(--ink-3)}.mm .ring{fill:none;stroke:var(--ink-4);stroke-width:1}.mm text{font-family:var(--f-mono);font-size:10px;fill:var(--ink-3)}.arch .card h3{margin:0;font-size:20px}.gl{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);margin-top:6px;max-width:26ch;line-height:1.35}';
   return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Decidível — apresentação</title>'
     + '<link rel="stylesheet" href="' + T.GOOGLE_FONTS + '"><style>' + CP.css() + extra + '</style></head><body>' + S.join('\n') + '</body></html>';
 }

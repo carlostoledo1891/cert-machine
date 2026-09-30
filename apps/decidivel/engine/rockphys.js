@@ -138,7 +138,7 @@ function states(P) {
      ΔK = (1 − kr)² φ (Kfl₂ − Kfl₁) / (d₁ d₂ Kfl₁ Kfl₂),  dᵢ = φ/Kflᵢ + (1 − φ − kr)/Kmin
    Evaluating ρM before and after and dividing would carry the rock's whole
    uncertainty into a change of a few percent. */
-function changeD(B) {
+function coreD(B) {
   const P = {}; for (const k of DIMS) P[k] = V(B, k);
   /* the frame follows porosity: Kdry/Kmin = s·(1 − φ/φc), Nur's critical-porosity
      trend scaled by a stiffness factor s — the box of s is what the plugs measured */
@@ -157,12 +157,20 @@ function changeD(B) {
   const rho1 = dAdd(dMul(dSub(C(one), P.phi), P.rhomin), dMul(P.phi, F1.rho));
   const drho = dMul(P.phi, dAdd(dMul(P.dSw, dSub(P.rhow, P.rhoo)), dMul(P.dSg, dSub(P.rhog, P.rhoo))));
   const dK = dDiv(dMul(dMul(om, P.phi), dSub(F2.K, F1.K)), dMul(dMul(d1, d2), dMul(F1.K, F2.K)));
-  const r = dMul(dAdd(C(one), dDiv(drho, rho1)), dAdd(C(one), dDiv(dK, M1)));
+  /* the two factors of r: A = ρ₂/ρ₁ (the density part — Is²₂/Is²₁, since Gassmann
+     leaves G alone) and Bm = M₂/M₁ (the modulus part — (Vp/Vs)²₂/(Vp/Vs)²₁) */
+  const A = dAdd(C(one), dDiv(drho, rho1)), Bm = dAdd(C(one), dDiv(dK, M1));
+  const r = dMul(A, Bm);
   /* r is a ratio of two positive impedances: positive, whatever a wide box says */
-  r.v = [Math.max(r.v[0], 0), Math.max(r.v[1], 0)];
+  for (const x of [A, Bm, r]) x.v = [Math.max(x.v[0], 0), Math.max(x.v[1], 0)];
   if (!Number.isFinite(r.v[1])) return null;
-  return r;
+  return { r, A, Bm };
 }
+function changeD(B) { const c = coreD(B); return c ? c.r : null; }
+/* the density factor or the modulus factor alone, as a function of the box —
+   the same interval differentiation, so extreme() runs on it unchanged */
+const ATTR = { Ip: 'r', Is: 'A', VpVs: 'Bm' };
+function factorD(which) { const k = ATTR[which]; return (B) => { const c = coreD(B); return c ? c[k] : null; }; }
 /* the domain, decided on the declared box: a box that can leave it is never decided */
 function domain(B) {
   if (!(hi(B.phi) < lo(B.phic))) return 'a porosidade pode passar da porosidade crítica φc';
@@ -188,6 +196,8 @@ function extreme(B0, dir, opts) {
      one side of T (the best edge standing is past... not past T) or finds a
      witness beyond it; a decision never needs the extreme itself */
   const T = opts && opts.stop !== undefined ? opts.stop : null;
+  /* the function searched: r by default, or one of its factors (attributes) */
+  const F = (opts && opts.fn) || changeD, FP = (opts && opts.fp) || pointR;
   let evals = 0, best = null;
   const better = (v, w) => (dir > 0 ? v > w : v < w);
   const span = {}; for (const k of DIMS) span[k] = (B0[k][1] - B0[k][0]) || 1;
@@ -196,10 +206,10 @@ function extreme(B0, dir, opts) {
      shrinks — both are proved, so their intersection is */
   const point = (B) => {
     evals++;
-    const r = changeD(B); if (!r) return null;
+    const r = F(B); if (!r) return null;
     const free = DIMS.filter((k) => !thin(B, k));
     if (!free.length) return r;
-    const c = thinAt(B), rc = changeD(c); evals++;
+    const c = thinAt(B), rc = F(c); evals++;
     if (!rc) return r;
     let m = rc.v;
     for (let i = 0; i < N; i++) {
@@ -259,7 +269,7 @@ function extreme(B0, dir, opts) {
      witness after changeD encloses it — the bound still comes from the boxes. */
   {
     const P = {}; for (const k of DIMS) P[k] = (B0[k][0] + B0[k][1]) / 2;
-    const f = (p) => { try { return dir * pointR(p); } catch (e) { return -Infinity; } };
+    const f = (p) => { try { return dir * FP(p); } catch (e) { return -Infinity; } };
     for (let round = 0; round < 4; round++) {
       let moved = false;
       for (const k of DIMS) {
@@ -272,7 +282,7 @@ function extreme(B0, dir, opts) {
       if (!moved) break;
     }
     const W = {}; for (const k of DIMS) W[k] = thin(B0, k) ? B0[k] : [P[k], P[k]];
-    const rw = changeD(W); evals++;
+    const rw = F(W); evals++;
     if (rw) best = { B: W, r: rw.v, inner: dir > 0 ? lo(rw.v) : hi(rw.v) };
   }
   enter(B0);
@@ -337,9 +347,15 @@ function range(B, opts) {
    witness the engine says it has not decided. When the change can take both
    signs, some model shows none at all (r is continuous on a connected box, so
    it passes through 1): lo = loA = 0. */
-function absRange(B, opts) {
-  const G = range(B, opts);
-  const p = (x) => (Math.sqrt(x) - 1) * 100;
+function absRange(B, opts) { return absFromRange(range(B, opts)); }
+/* the same four numbers for an attribute: 'Ip' (ΔIp/Ip), 'Is' (ΔIs/Is = √(ρ₂/ρ₁) − 1)
+   or 'VpVs' (Δ(Vp/Vs)/(Vp/Vs) = √(M₂/M₁) − 1), each searched over the whole box */
+function attrRange(B, which, opts) {
+  if (which === 'Ip') return absRange(B, opts);
+  const k = ATTR[which]; if (!k) throw new Error('rockphys: no attribute ' + which);
+  return absFromRange(range(B, Object.assign({}, opts, { fn: factorD(which), fp: (p) => pointParts(p)[k] })));
+}
+function absFromRange(G) {
   const pl = (x) => pctLo(x), ph = (x) => pctHi(x);
   const ur = G.wmax ? G.wmax.r : null, lr = G.wmin ? G.wmin.r : null;
   let lo, loA, hiA, hi;
@@ -463,7 +479,45 @@ function map(decl, q, ax, opts) {
   return { x: xk, y: yk, nx, ny, X, Y, cells, evals };
 }
 
+/* THE SIGN OF THE CHANGE AND THE GAS DENSITY. r rises with the gas density
+   (∂r/∂ρg = (1 + ΔK/M₁)·φ·ΔSg/ρ₁ > 0), so if one admissible model GAINS
+   impedance at a gas density ρ, one does at every density above ρ. This
+   bisects the declared gas-density range for the smallest density at which
+   the engine finds a proved model that gains impedance: above it the sign of
+   the 4D change is no longer guaranteed — a softening read as "gas arrived"
+   and a hardening read as "no gas" are both admissible. A gas denser than
+   the lightest admissible oil is where it starts; CO2-rich gas at pre-salt
+   conditions (0.89–0.97 g/cm³) is well past it. One-sided on purpose: the
+   witness is a proof, the absence of one at this budget is not. */
+function signDensity(decl, opts) {
+  const budget = (opts && opts.budget) || 300, steps = (opts && opts.steps) || 10;
+  const [a0, b0] = decl.rhog.map(Number);
+  const gain = (rho) => {
+    const B = box(Object.assign({}, decl, { rhog: [String(rho), String(rho)] }));
+    if (domain(B)) return null;
+    const e = extreme(B, +1, { stop: 1, budget });
+    return e.witness && e.witness.r[0] > 1 ? e.witness : null;
+  };
+  const top = gain(b0);
+  if (!top) return { rhoFlip: null, witness: null };
+  if (gain(a0)) return { rhoFlip: a0, witness: top };
+  let no = a0, yes = b0, w = top;
+  for (let i = 0; i < steps; i++) { const m = (no + yes) / 2, g = gain(m); if (g) { yes = m; w = g; } else no = m; }
+  return { rhoFlip: Math.ceil(yes * 1e4) / 1e4, witness: w };
+}
+
 /* a float point value, for the second implementation's comparison only */
+function pointParts(p) {
+  const sw2 = p.Swi + p.dSw, so2 = 1 - sw2 - p.dSg, so1 = 1 - p.Swi;
+  const Kl = (sw, so) => (sw + so) / (sw / p.Kw + so / p.Ko);
+  const K1 = Kl(p.Swi, so1), L2 = Kl(sw2, so2), sl = 1 - p.dSg;
+  const R = 1 / (sl / L2 + p.dSg / p.Kg), Vv = sl * L2 + p.dSg * p.Kg, K2 = R + p.w * (Vv - R);
+  const kr = p.s * (1 - p.phi / p.phic), Kdry = kr * p.Kmin;
+  const M = (K) => Kdry + (1 - kr) ** 2 / (p.phi / K + (1 - p.phi - kr) / p.Kmin) + 4 / 3 * p.gk * Kdry;
+  const rho1 = (1 - p.phi) * p.rhomin + p.phi * (p.Swi * p.rhow + so1 * p.rhoo);
+  const rho2 = rho1 + p.phi * (p.dSw * (p.rhow - p.rhoo) + p.dSg * (p.rhog - p.rhoo));
+  return { A: rho2 / rho1, Bm: M(K2) / M(K1) };
+}
 function pointR(p) {
   const sw2 = p.Swi + p.dSw, so2 = 1 - sw2 - p.dSg, so1 = 1 - p.Swi;
   const Kl = (sw, so) => (sw + so) / (sw / p.Kw + so / p.Ko);
@@ -476,4 +530,4 @@ function pointR(p) {
   return (rho2 * M(K2)) / (rho1 * M(K1));
 }
 
-module.exports = { decide, decideBox, range, absRange, classifyAbs, extreme, map, box, dec, domain, changeD, isqrt, pointR, priceOfInformation, pctOf, DIMS, MEASURABLE, PROVADO, REFUTADO, RECUSADO };
+module.exports = { decide, decideBox, range, absRange, attrRange, absFromRange, factorD, signDensity, classifyAbs, extreme, map, box, dec, domain, changeD, coreD, isqrt, pointR, pointParts, priceOfInformation, pctOf, DIMS, MEASURABLE, ATTR, PROVADO, REFUTADO, RECUSADO };
