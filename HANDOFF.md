@@ -15,16 +15,93 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-29, the twenty-fourth session: THE ATTACK PROGRAM APPROVED — notes/attack-plan-2026-09-29.md, US$100 total ceiling, wave 0 shipped (the register + September's monthly ledger); A11 LIVE — a printed fit decided in the atlas's tab by ONE module shared with the return-level check, and a published design table decided against the nearest cells; A12, the meeting kit, given in chat and as a private page; the meeting with the contact's lab is 2026-09-30; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= 3.7721^(k+o(k)) by two programs, HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth session)
+START HERE — THE NEXT SESSION (handed off 2026-09-29 night, end of the twenty-fourth session)
 
-  STATE. Phase A1–A11 is LIVE on carlostoledo.co. A11 (this session, one
-  commit, page-only — SERVED.json still names 3385237, nothing under
+  STATE. Everything is committed, pushed and LIVE (last commit 8b32bee, then this
+  handoff); make control 102/102; style, measure, render, grammar, wiring and
+  stale-claims pass. NOTHING HAS BEEN SENT. Pages built this session, newest first:
+    reports/mathbench.html            Certified MathBench v0 (pre-registered)
+    reports/diagonal-ramsey.html      GNNW's unverified 3.78233 verified; chain to 3.7721
+    reports/polymaps.html             Gao's Keller maps; weak Markus–Yamabe in dims 14, 18
+    reports/optimization-constants.html  "Five asterisks, replayed" (3b, 3c, 71, 42, 84b)
+    reports/horizonmath.html          the benchmark's Ramsey certificate REFUTED
+    reports/counterexample-machine.html  Sra's library: 9 certified, 5 partial
+    reports/decided-2026-09.html      the September ledger (rebuilt until the month closes)
+  The register (certs/claims-ledger.json) holds 87 decided rows + 1 queued.
+
+  THE HEADLINES, for whoever reads this cold:
+    · R(k,k) <= 3.7721307629^(k+o(k)), CONDITIONAL on Gupta–Ndiaye–Norin–Wei's
+      Theorem 14, Lemma 15 and Theorem 1 (arXiv 2407.19026v2). Their remark's
+      "preliminary, unverified" G_AI (ChatGPT 5.6 Sol) holds (3.78233), and five more
+      rounds, each in the region the round before establishes, reach 3.77213.
+      Decided by tools/verify_gnnw_gai.py (one stdlib file) AND instruments/gnnw/
+      second.js (JavaScript, bigfloat, a different method): both certify every round,
+      c agreeing to 25 digits. The rounds were proposed by instruments/gnnw/propose/
+      (float SLSQP; needs instruments/hseva/.venv; buildchain.py reproduces
+      corpus/gnnw/chain.json byte for byte). In floats the iteration converges near
+      3.7732 (degree 6) and 3.77213 (degree 9): more rounds of this kind buy ~nothing.
+    · HorizonMath's "discovery" 3.6961 is REFUTED: its checker accepts a region pair
+      if EITHER orientation passes (validators/ramsey_asymptotic.py:299, min for max).
+    · The registry: C3b, C3c, C71 CERTIFIED; C42 PARTIAL (its limiting inequality
+      holds; the asymptotic passage is prose) and the OPEN PR #184 (C42 <= 0.688983)
+      the same; C84b REPAIRED to 1.9993 (the quoted 0.000719 is out of reach of the
+      note's own calculation: c <= 0.0007150507 for every choice).
+    · MathBench v0: certified of graded — Haiku 4.5 5/46, Sonnet 5 18/21, Opus 5
+      21/23; Sonnet and Opus ran out of their 24,000 tokens on 25 and 23 rungs; no
+      beyond-the-record rung certified. US$22.30 of its US$30. One deviation (five
+      Opus calls got HTTP 400 while the credit ran out; re-issued once) is written
+      into notes/mathbench-v0-preregistration-2026-09-29.md.
+
+  WHAT IS MISSING, in the order worth doing:
+    1. SENDS — all drafted in chat only, each needs the operator's per-item word:
+       (a) S. Norin / GNNW: the verified G_AI and the 3.7721 chain, the one-file
+           verifier (the strongest item; both programs agree);
+       (b) the HorizonMath authors: the either-orientation rule, the certificate's
+           pair at lambda = 1 outside R, the one-token fix;
+       (c) a pull request to teorth/optimizationproblems: stars off 3b, 3c, 71;
+           42 and PR #184 decided in their limits; 84b to 1.9993;
+       (d) S. Sra: the DPP reading; checkers that write their certificates;
+       (e) courtesy notes to Gao and to Castañeda–Honorato–Valenzuela-Henríquez
+           (F6/F7's missing ancillary files; the 18-dim identity decided).
+    2. MATHBENCH V1 — pre-register FIRST (a larger output cap or effort setting:
+       finishing, not correctness, is what v0 measured). Budget: US$77.70 of the
+       US$100 ruling is left; the operator added US$20 of API credit on 2026-09-29
+       (the ruling's ceiling is his to raise). The Anthropic OAuth token expires
+       every ~8 h: `ant auth login` when calls return 401.
+    3. SCOUTED, READY TO BUILD (targets rows carry the details):
+       · the registry's C1a (Sidon autocorrelation; the Bessel-kernel integral is
+         the hard part; 1-2 days) and C84a (stale: NEEDS DATA);
+       · Gao's generic fiber sizes (gcd/squarefree certificates at the paper's
+         witness targets + instruments/keller/fibers.js boxes) and F7's whole
+         determinant (a formalised chain rule, or a faster multivariate engine);
+       · K3(a): the 18 AI-autoformalised FrontierMath Erdős statements read
+         faithful; 548's statement is EQUIVALENT to the classical conjecture (two
+         disjoint copies of G) — a short Lean lemma; non-vacuity lemmas for the
+         sInf/sSup statements; Lean v4.27/4.28 + Mathlib cache (5-7 GB) needed;
+       · the HorizonMath spinor closed form: an enclosure only shows agreeing
+         digits — check the printed Landen/Beltrami derivation step by step instead;
+       · the Markus–Yamabe paper's "the chain cannot be shortened" (a finite family).
+    4. BLOCKED ON THE OPERATOR: the weekly novelty watch (connect GitHub to the
+       claude.ai account — /web-setup — or choose a Claude-Docs output).
+
+  HOW TO RUN ON THIS MACHINE (unchanged, re-learned): make control takes ~15 min
+  (all 102 batteries); build a new page, LOOK at it at 1440 and 390, then
+  `node tools/check-style.js --accept`, `check-measure.js --accept`,
+  `check-render.js --accept` BEFORE make control, or the gates count red in that run;
+  revert the timing-only churn in corpus/navier-stokes/probes.json and
+  corpus/blindspot/*record.json before committing. A NEW FILE: check the name is
+  free first (instruments/horizon is METR's time horizon; this session overwrote it
+  once and restored it from HEAD before any commit). Hold one `caffeinate -i -s`.
+
+  (The twenty-fourth session's earlier state — A11 LIVE, the meeting kit for the
+  UFSC lab meeting of 2026-09-30 given in chat and as a private page — is below.)
+  A11 (one commit, page-only — SERVED.json still names 3385237, nothing under
   instruments/hseva or instruments/interval moved):
     · THE decision of a printed fit is playground/return-level-check/printed.js
       (moved out of the check's app.js, its words unchanged, the GEV added with
@@ -83,10 +160,8 @@ START HERE — THE NEXT SESSION (handed off 2026-09-29, the twenty-fourth sessio
       tools/llm_harness_base.py; the harness gains current rates and --cap-usd) and
       MATHBENCH V0 PRE-REGISTERED (notes/mathbench-v0-preregistration-2026-09-29.md,
       US$30 of the US$100; the baseline certifies 6 of 46 rungs — the b72295a commit
-      message says 7, the ledger says 6). THE MODEL RUN IS BLOCKED: the Anthropic
-      OAuth profile on this machine expired 2026-09-25 with no refresh token (every
-      call 401, nothing billed). The operator runs `ant auth login` (or sets
-      ANTHROPIC_API_KEY); then `python3 tools/run-mathbench.py --cap 30`.
+      message says 7, the ledger says 6). THE MODEL RUN happened later the same day,
+      after the operator's `ant auth login` — see MATHBENCH V0 below.
       DONE — S. Sra's AI counterexample library (reports/counterexample-machine.html;
       github.com/suvrit/count-ex-machina @ dbf67374, arXiv 2608.29595): 14 cases,
       9 CERTIFIED whole, 5 PARTIAL, none refuted — instruments/countex (fourteen
