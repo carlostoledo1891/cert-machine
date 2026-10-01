@@ -15,10 +15,85 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= 3.7721^(k+o(k)) by two programs, HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+FIRST — THE PRE-PAPER SHELF (2026-10-01, the twenty-seventh session, second half).
+On the operator's word ("scavenge the cert-machine and build all pre papers we
+can … create a html index so they can see the links, descriptions and access the
+pdf papers"): TWENTY-SIX PAPERS on the shelf and THE INDEX at /papers/
+(site/papers/index.html, rendered by tools/build-papers-index.js from
+paper/INDEX.json — the manifest: title, 40–60-word description, status, form,
+venue, report page, tex, records — and from the PDFs' own page counts via
+pdfinfo; it REFUSES when the shelf and the manifest differ in either direction;
+wired into tools/build-site.js as 'papers/index.html'; the PDFs are served at
+/paper/<name>.pdf). The reviewing group: BOTH LabECO members will review ALL the
+mathematics papers and the operator plans to offer co-authorship on all of them
+— an offer, not yet an agreement: NOBODY is named in the repo, every author
+block is Carlos alone with "author list to be agreed".
+  THE SEVENTEEN NEW DRAFTS (one agent each, in parallel; every number a macro
+  written by tools/paper-numbers/<name>.js from the records and refusing on
+  drift; figures by the sibling <name>-figs.py; compiled by tectonic through
+  tools/build-paper-tex.js, which since today also refuses a PDF that prints an
+  undefined citation): register (15 pp — THE METHOD PAPER), ramsey-chain (13),
+  jacobian-counterexamples (14), matmul-records (14), erdos290 (12), erdos852
+  (12), erdos1038-sup (12), lambda5 (14), henon-entropy (12), digits-not-
+  evidence (14), ec-benchmark (23, Ocean Engineering form), breaking-waves (21,
+  Coastal Engineering form — for the dataset's authors first; seven questions
+  addressed to them), mfg-multiplicity (15), mfg-redecided (14), terra-peaks
+  (11, converted from the markdown draft, the record winning over its rounding;
+  tools/build-terra-{writeup,pdf}.js now refuse like ember's), certified-
+  evaluation (18; consolidates certificate-grounded-grading.md and verified-
+  reward-oracle.md), navier-stokes-audit (11). With P1–P3 + the abstract and the
+  five older LaTeX/markdown papers: 26 PDFs, ≈350 pages, 57 records cited.
+  `make papers` = the kissing paper + build-paper-numbers.js (P1–P3) + every
+  tools/paper-numbers/*.js + tectonic --all + the index (several minutes: the
+  numbers tools run batteries; mfg-redecided --check and hseva are the slow
+  ones; matplotlib lives in instruments/hseva/.venv).
+  WHAT THE PAPER AGENTS FOUND ON THE PAGES AND RECORDS — debts, none fixed
+  unless marked:
+    · reports/diagonal-ramsey.html rounded the base DOWN to 3.7721 — FIXED
+      (title and stat read 3.77213…; the backlog headline too).
+    · reports/easota.html: "the largest improvement is the benchmark score" is
+      stale since the flat-polynomial (6.0e-2) and hexagon rows were added.
+    · reports/erdos852.html: the log1p sum lies 9.4e-14 BELOW the enclosure,
+      not "inside"; "digit 12" = the 12th decimal = the 11th significant digit
+      (the claims page and the posted correction share the ambiguity).
+    · reports/erdos1038-sup.html + certs/sublevel-tao179.json provenance:
+      "Tao's conjecture" is stale — sup = 2√2 has been a THEOREM since
+      2025-12-21 (forum post 2337; T. Tao's notes 2025-12-27, Thm 2.1); "drops
+      discontinuously" is wrong (continuous; the quintic set splits past
+      r = 905/1024). The DPT manuscript's "Tao" is Runzhou Tao, not Terence.
+    · tools/run-claims-ledger.js block 4: the rm-registry row counts OUR
+      correction row among the printed rows (52/51 vs the page's 51/50),
+      against the counting rule — one-line fix (printed = certified − 1,
+      survivors = hits − 1), then regenerate the register.
+    · reports/rm-audit.html "every row of every published sheet": the record
+      covers the five 2020–22 tables and 3+2 rows of the two 2018 sheets; three
+      of the ten PDFs are not pinned; "ten red controls" is 12 today.
+      reports/impostors.html "~14,000 spellings" is 3,763 generated / 3,742
+      tested. reports/zeta3-audit.html "exponent 2 is sharp" is not what the
+      band certificates measure (c = 0, 1, 2 certified, 3 refused).
+    · reports/time-horizon.html "differ by 3 to 12%" vs the ledger's 0.6–12%.
+    · reports/entropy.html: ceiling 0.4658 (p = 15) vs HANDOFF's 0.4648
+      (p = 16); the instrument header's "covering relations compose" should
+      say chains; the semantic red control never exercises composition (every
+      duration-2 candidate is refused at a = 6) and no control exercises the
+      slab condition.
+    · corpus/blacksea-breaking: "multiples of 1/256" is loose (denominators
+      reach 1024); the pinned loader assigns three columns off by one (name
+      sv_fp2 ← Hs_ev, sv_fb0 ← svfp2_ev, Hs ← svfb0_ev) — a question for the
+      dataset's authors, asked in the paper.
+    · the GNNW records' `what` strings name verify/verify_gnnw_gai.py; the file
+      is tools/verify_gnnw_gai.py (the report page's check line too).
+    · the kissing paper quotes 74 ms for the 604 decision; the record says 70.
+  EACH PAPER'S OPEN QUESTIONS FOR REVIEWERS are in its own "what is not claimed
+  / points for review" section; the agents' reports (in the session) list them
+  too. NOTHING IS SENT: the index link and the PDFs reach the reviewers through
+  the operator.
 
 ────────────────────────────────────────────────────────────────────────────
 FIRST — THE PAPERS ARE DRAFTED (2026-10-01, the twenty-seventh session). On the
@@ -184,7 +259,9 @@ INSTRUCTIONS — do not act before reading them.
       reference.py --parts; a red "gas always softens" refused by a proved gaining model).
     · THE NUMBERS THAT CARRY THE SUBMISSION (all from the ledger): at 1.5%, a thin front
       (Sg < 4%) is INDETECTÁVEL in 50,186 cells (K0) / 68,880 (K4); Sg 4–28% is
-      INDETERMINADO in all 72,321 cells in EVERY knowledge state; K4 at Sg 44–48% gives 177
+      INDETERMINADO in all 72,321 cells in K0, K2, K3 and K4 (NOT K1: with CO2-rich gas the
+      4–8% row is REFUTED in 53,443 cells with 18,878 open, 8–16% mostly open — corrected
+      2026-10-01 on the page and in P3); K4 at Sg 44–48% gives 177
       DETECTÁVEL cells (φ ≥ 0.23). At 3% with CO2-rich gas the front is INDETECTÁVEL up to
       28% saturation in most of the field. Headline coquina cell: Monte Carlo at 1.5%
       says "detectable in 34.1% of 10,000 draws" (K4; 0.7% under K0) while the proved

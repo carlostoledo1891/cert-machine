@@ -1,0 +1,660 @@
+\documentclass[11pt]{article}
+\usepackage{certmachine}
+\input{terra-peaks-numbers.tex}
+
+\newcommand{\Torus}{\mathbb{T}}
+\newcommand{\lnu}{\ell^1_\nu}
+
+\title{Gain-weighted well-counting in a congestion mean-field game}
+\author{\cmauthor}
+\date{October 2026 --- draft v0.3 for review; every number interpolated from the record; machine-derived, not peer-reviewed; author list to be agreed}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove, by validated numerics, that a stationary discounted congestion
+mean-field game on the torus admits equilibria whose population density has
+strictly more local maxima than the cost potential has wells. With
+$V(x)=A_1\cos 2\pi x+A_2\cos 4\pi x$ and $A_1>4A_2$---exactly one well---the
+certified equilibrium density at our main instance has exactly \TOnePeaks{}
+strict local maxima (Theorem~\ref{thm:two}); a third-harmonic instance yields
+exactly \TSixPeaks{} (Theorem~\ref{thm:three}). The mechanism is elementary and
+we state it as such: the equilibrium re-weights harmonics \emph{the potential
+already contains} through the band-pass linear-response gain
+$c(\kappa)=\kappa/[(1+\sigma\kappa)^2+\gamma\kappa]$, so the density counts
+wells with gain-weighted amplitudes while the potential counts them flat. The
+second-versus-first harmonic crossover $\sigma^*=1/(8\pi^2)$ is independent of
+the coupling $\gamma$---decided here as an exact-rational polynomial identity
+(the $\gamma$-coefficient of the crossover polynomial is identically zero), not
+by float agreement---and the limiting splitting window is the exact rational
+interval $(\WindowTwoLo,\,\WindowTwoHi)$ (third harmonic:
+$(\WindowThreeLo,\,\WindowThreeHi)$, the Chebyshev $U_{k-1}$ law). Around the
+two theorems sit \NumBracketRowsWord{} further certified instances forming a
+bracket table: negatives below the amplitude threshold and above $\sigma^*$,
+replications, and a threshold pin---the splitting threshold at
+$\sigma=\TOneSigma$, $\gamma=\TOneGamma$ lies in $[\PinLo,\PinHi]$ by certified
+counts, with the exact-rational linear-response prediction
+$r_c=\RcDigits\ldots$ inside. All enclosures are radii-polynomial certificates
+at radii between $\RadiusMin$ and $\RadiusMax$, with local uniqueness in the
+full sequence-space ball (even and odd blocks) and both positivity walls
+certified. Every number in this document is interpolated from those
+certificates.
+\end{abstract}
+
+\section{Introduction}
+
+Under Lasry--Lions monotonicity \cite{LasryLions}, mean-field-game theory
+guarantees a unique equilibrium, and the intuition that travels with the theory
+is stronger than the theorem: the population's density is expected to mirror
+the cost---wells of the potential become peaks of the crowd, one for one. The
+known rigorous results reinforce that reading (in the Cesaroni--Cirant regime
+\cite{CesaroniCirant}, density peaks sit where the potential's wells sit), and
+the natural working assumption is a \emph{ceiling}: the equilibrium cannot
+carry more local maxima than the cost has wells.
+
+This paper proves the ceiling false, by validated numerics, for a congestion
+system with a monotone coupling. At explicit parameters of a stationary
+discounted congestion mean-field game on the torus we certify exact equilibria
+whose density carries exactly two---and, at a third-harmonic instance, exactly
+three---strict local maxima over a potential with exactly one well. The
+mechanism is not exotic and we state it at its true altitude: the linearized
+response to the cost is a band-pass filter in harmonic frequency, so the
+equilibrium counts wells with \emph{gain-weighted} amplitudes while the
+potential counts them flat, and between those two counts a single well splits
+the crowd. What the linear analysis cannot give---and the certificates do---is
+the nonlinear statement: these are exact equilibria of the full congestion
+system, with local uniqueness in the full sequence-space ball and both
+positivity walls certified. The uniqueness is the certificate's own, local to
+the enclosure ball; no uniqueness theorem for the congestion system is invoked.
+
+\paragraph{Contributions.}
+(i) The phenomenon theorem and its three-peak companion
+(Sections~\ref{sec:two}--\ref{sec:three}), by radii-polynomial enclosures whose
+certified balls fix the exact critical-point count of the exact solution.
+(ii) The crossover constant $\sigma^*=1/(8\pi^2)$, independent of the coupling
+$\gamma$, decided as an exact-rational polynomial identity rather than observed
+numerically (Section~\ref{sec:linear}). (iii) A bracket table of
+\NumBracketRows{} further certified instances pinning the splitting threshold
+inside $[\PinLo,\PinHi]$, with the exact-rational linear-response prediction
+landing inside the pin (Section~\ref{sec:bracket}). (iv) An exact solution
+count for the companion ergodic system---exactly \CensusCount{} Galerkin
+solutions, box-bounded---together with function-space multiplicity: at least
+three distinct exact solutions per coupling in pairwise disjoint uniqueness
+balls (Section~\ref{sec:companion}). Every number in this document is
+interpolated at build time from machine-written certificates, named where
+used; the build refuses to render if any certificate is missing, refused, or
+structurally moved (Section~\ref{sec:method} and the reproduction note).
+
+\paragraph{Honest counting.}
+The finding is two theorems and one table. Rows of the bracket table are rows
+of a table, not further theorems; the companion results are stated at their
+own level---a truncation-level count, and a function-space lower bound.
+
+\section{The model and the exact instances}\label{sec:model}
+
+The stationary discounted congestion mean-field game on the unit torus
+$\Torus=\R/\Z$, with congestion exponent $a=1/2$, is the system
+\begin{align}
+u-\sigma u''+\tfrac12\,\frac{(u')^2}{\sqrt m} &= V(x)+\gamma m, \label{eq:hjb}\\
+m-\sigma m''-\bigl(\sqrt m\,u'\bigr)' &= 1, \qquad m>0, \label{eq:fp}
+\end{align}
+with the congestion Hamiltonian $H(p,m)=\tfrac12|p|^2m^{-1/2}$, viscosity
+$\sigma>0$ and the coupling $\gamma m$ with $\gamma>0$, which is increasing in
+$m$: the crowd pays for density. The discount enters both equations as the
+zero-order terms at unit rate, and the Fokker--Planck equation \eqref{eq:fp}
+carries the uniform unit source of a population renewed at that rate. The
+potential is the trigonometric polynomial
+\begin{equation}\label{eq:V}
+V(x)=A_1\cos 2\pi x+A_2\cos 4\pi x+A_3\cos 6\pi x .
+\end{equation}
+The system is augmented with the branch variable $w=m^{-1/2}$ and the
+reciprocal constraint $m\,w^2=1$, so that the congestion terms become
+polynomial in the unknowns, and solved in even cosine Fourier space---$u$, $m$
+and $w$ are even---with the derivative field $p=u'$ carried as an odd (sine)
+sequence. The unknown is the tuple $(a_0,p,m,w)$: the mean of $u$ and the
+coefficient sequences of $p$, $m$ and $w$.
+
+\paragraph{Coefficient honesty.}
+Each theorem is a statement about specific binary64 doubles, not about the
+decimal strings that name them. The main instance (T1) and the three-peak
+instance (T6) share $\sigma$, $\gamma$, $A_1$, the truncation $N$ and the
+weight $\nu$:
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+parameter & decimal name & exact binary64 & instance \\
+\midrule
+$\sigma$ & \TOneSigma & \texttt{\TOneSigmaHex} & T1, T6 \\
+$\gamma$ & \TOneGamma & \texttt{\TOneGammaHex} & T1, T6 \\
+$A_1$ & \TOneAOne & \texttt{\TOneAOneHex} & T1, T6 \\
+$A_2$ & \TOneATwo & \texttt{\TOneATwoHex} & T1 ($A_3=0$) \\
+$A_3$ & \TSixAThree & \texttt{\TSixAThreeHex} & T6 ($A_2=0$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+with $N=\TOneN$ cosine modes, $\nu=\TOneNu$, and $\TOneG$ grid points in the
+positivity certificates. The value of $A_2$ is the binary64 product
+$0.003\times0.2$ as the origin computation evaluated it, which lies
+\ATwoUlps{} unit in the last place above the double nearest $0.0006$; the
+theorem is about that double. At T1, $A_2/A_1=\TOneRatio$, so $A_1>4A_2$ and
+$V$ has exactly one well; at T6, $A_3/A_1=\TSixRatio<\FlatThresholdThree$ and
+again $V$ has exactly one well (Proposition~\ref{prop:windows}). Both well
+counts are also certified directly, by the same instrument that counts the
+density's peaks (Sections~\ref{sec:two}--\ref{sec:three}).
+
+\section{Linear response: the band-pass gain and the exact crossover}\label{sec:linear}
+
+At first order in the potential amplitudes the congestion term drops out and
+each harmonic responds independently. Linearize
+\eqref{eq:hjb}--\eqref{eq:fp} about the flat state $(u,m)=(\gamma,1)$ of
+$V\equiv0$: writing $u=\gamma+\hat u$, $m=1+\hat m$ and keeping first-order
+terms,
+\[
+\hat u-\sigma\hat u''=V+\gamma\hat m,\qquad \hat m-\sigma\hat m''=\hat u'' .
+\]
+For the $k$-th cosine mode, with $\kappa_k=(2\pi k)^2$, this reads
+$(1+\sigma\kappa_k)\hat u_k=A_k+\gamma\hat m_k$ and
+$(1+\sigma\kappa_k)\hat m_k=-\kappa_k\hat u_k$, whence
+$\hat m_k=-c(\kappa_k)A_k$ with
+\begin{equation}\label{eq:gain}
+c(\kappa)=\frac{\kappa}{(1+\sigma\kappa)^2+\gamma\kappa}.
+\end{equation}
+To first order the density is $m\approx1-\sum_k c(\kappa_k)A_k\cos 2\pi kx$:
+the crowd's harmonics are the potential's, each multiplied by the gain
+$c(\kappa_k)$ and reflected. Three facts about \eqref{eq:gain} are decided in
+exact rationals (\texttt{certs/terra-sigmastar.json}; standard-library
+fractions, no floating point in any verdict).
+
+\begin{proposition}[band-pass]\label{prop:bandpass}
+Let $D(\kappa)=(1+\sigma\kappa)^2+\gamma\kappa$ be the denominator of
+\eqref{eq:gain}. As polynomials in $\Q[\sigma,\kappa,\gamma]$,
+\[
+D-\kappa\,\partial_\kappa D=(1+\sigma\kappa)(1-\sigma\kappa)=\BandpassLhs .
+\]
+The $\gamma$-term cancels identically, so
+$\operatorname{sign}c'(\kappa)=\operatorname{sign}(1-\sigma\kappa)$ for every
+$\gamma$: the gain peaks at $\kappa=1/\sigma$.
+\end{proposition}
+
+\begin{proposition}[$\gamma$-free crossover]\label{prop:crossover}
+With $s=\sigma\kappa_1$ and $g=\gamma\kappa_1$, the $k$-th-versus-first
+crossover polynomial
+\[
+N_k(s,g)=k^2\bigl[(1+s)^2+g\bigr]-\bigl[(1+k^2s)^2+k^2g\bigr]
+\]
+factors as $(k^2-1)(1-k^2s^2)$: its $g$-coefficient is the zero polynomial and
+its positive root is $s=1/k$ exactly, with $N_k>0$ below the root and $N_k<0$
+above it (decided for $k=2,\dots,\KMax$). Hence $c(\kappa_k)=c(\kappa_1)$
+exactly at $\sigma=1/(4\pi^2k)$; at $k=2$,
+\begin{equation}\label{eq:sigmastar}
+\sigma^*=\frac{1}{8\pi^2}=\SigmaStarDigits\ldots
+\end{equation}
+\end{proposition}
+
+The decimal digits in \eqref{eq:sigmastar} are read from an exact rational
+bracket of $\sigma^*$ of width below $\SigmaStarWidth$, obtained from a
+rational bracket of $\pi$ (Machin's formula with alternating-series bounds)
+and outward division; the certificate carries the rational endpoints, and the
+digits shown are those the two endpoints share. The $\gamma$-independence is
+an exact cancellation, not numerical smallness. The crossover polynomials as
+the certificate prints them after the cancellation of $g$ are
+\begin{gather*}
+\CrossoverList .
+\end{gather*}
+
+\begin{proposition}[the splitting windows]\label{prop:windows}
+Since $\sin 2\pi kx=\sin 2\pi x\;U_{k-1}(\cos 2\pi x)$, with $U_{k-1}$ the
+Chebyshev polynomial of the second kind, the two-harmonic potential
+$V=A_1\cos2\pi x+A_k\cos2\pi kx$ with $r=A_k/A_1>0$ has
+\[
+V'(x)=-2\pi A_1\sin 2\pi x\,\bigl[1+k\,r\,U_{k-1}(\cos 2\pi x)\bigr],
+\]
+so $V$ acquires interior critical points beyond $x=0,\tfrac12$ if and only if
+$k\,r\,|\min U_{k-1}|>1$. The flat thresholds are exact rationals read from the
+ranges of $U_1=2c$ and $U_2=4c^2-1$ on $(-1,1)$: $r=\FlatThresholdTwo$ at $k=2$
+and $r=\FlatThresholdThree$ at $k=3$. To first order the equilibrium density
+obeys the same criterion with the gain-weighted ratio
+$r_{\mathrm{eff}}=r\,c(\kappa_k)/c(\kappa_1)$, and
+$c(\kappa_k)/c(\kappa_1)\to k^2$ as $(\sigma,\gamma)\to0$ (the limits
+$\GainLimitTwo$ and $\GainLimitThree$ are exact evaluations), so the limiting
+splitting windows---where the density splits while the potential does not---are
+exactly
+\[
+\bigl(\WindowTwoLo,\ \WindowTwoHi\bigr)\ \text{at } k=2, \qquad
+\bigl(\WindowThreeLo,\ \WindowThreeHi\bigr)\ \text{at } k=3 .
+\]
+\end{proposition}
+
+One sentence, stated honestly: between the gain-weighted count and the flat
+count, the crowd splits at the bottom of a single well. The mechanism---a
+non-flat linear gain changing the critical-point count of a two-harmonic
+signal---is elementary, and Proposition~\ref{prop:windows} is its complete
+statement; stating it as elementary isolates the actual contribution, which is
+the mean-field-game setting, the exact $\gamma$-free constant, and the
+nonlinear certificates below. Linear response predicts; only the certificates
+prove.
+
+\section{Theorem 1: two peaks over one well}\label{sec:two}
+
+Write $\lnu$ for the weighted sequence space with norm
+$\|f\|_\nu=|f_0|+2\sum_{k\ge1}|f_k|\nu^k$ on even (cosine) sequences, and the
+same weights on odd (sine) sequences; the augmented unknown $(a_0,p,m,w)$ lives
+in a product of such spaces, and ``the ball'' below is the ball of radius $r$
+about the stored candidate in that augmented space.
+
+\begin{theorem}[two peaks over one well]\label{thm:two}
+At the instance T1 of Section~\ref{sec:model} ($A_1>4A_2$: $V$ has exactly one
+well) there is an exact equilibrium $(u,m,w)$ of the full congestion system
+\eqref{eq:hjb}--\eqref{eq:fp} within $\lnu$ distance $r=\TOneR$ of the stored
+candidate, locally unique in the full sequence-space ball---even (cosine) and
+odd (sine) blocks alike---with $m\ge\TOneMinM$ and $w\ge\TOneMinW$ over the
+whole ball. Every density in that ball has exactly \TOnePeaks{} strict local
+maxima and \TOneMinima{} strict local minima on the torus, while $V$ has
+exactly \TOneWells{} well. (Records: \texttt{certs/terra-recert-t1.json},
+\texttt{certs/terra-peakcount-t1.json}.)
+\end{theorem}
+
+\paragraph{The enclosure.}
+The radii-polynomial (Newton--Kantorovich) argument \cite{vdBL} fixes an
+approximate inverse $A$ of the Jacobian $DF(\bar x)$ at the candidate $\bar x$
+and bounds, in outward-rounded interval arithmetic, the defect
+$Y_0\ge\|A\,F(\bar x)\|$, the contraction constant $Z_1\ge\|I-A\,DF(\bar x)\|$
+(taken over the even and the odd block) and a second-order constant $Z_2$; a
+radius $r$ with
+\begin{equation}\label{eq:radii}
+p(r)=\tfrac12 Z_2\,r^2-(1-Z_1)\,r+Y_0<0
+\end{equation}
+yields a unique zero of $F$ in the ball of radius $r$, and the same zero is the
+unique one in the ball of any radius in $(r_{\min},r_{\max})$, the roots of
+$p$. The T1 numbers are
+\[
+Y_0=\TOneYZero,\qquad
+Z_1=\TOneZOne\ \text{(even and odd blocks alike)},\qquad
+Z_2=\TOneZTwo,
+\]
+with admissible radii $(r_{\min},r_{\max})\supseteq(\TOneRMin,\ \TOneRMax)$;
+the certificate takes $r$ one factor-$\RStep$ step above $r_{\min}$ and
+verifies $p(r)<0$ in interval arithmetic with margin $\TOneClosure$. The tail
+of the sequence space is controlled through the Banach-algebra property of
+$\lnu$, so the enclosed object solves the system, not an $N$-mode
+approximation; and the odd block is certified because that is where a
+symmetry-breaking solution would live---evenness of the equilibrium is a
+corollary of the full-ball uniqueness, not an assumption. Positivity of $m$ and
+of the branch selector $w$ is certified over the whole ball by an interval
+evaluation of the candidate on $\TOneG$ grid points with a
+modulus-of-continuity slack, less the radius: $m\ge\TOneMinM$ and
+$w\ge\TOneMinW$ everywhere in the ball, which pins the physical branch
+$w=+m^{-1/2}$. The floors are stated rounded down, the radii and contraction
+constants rounded up, here and throughout.
+
+\paragraph{The count.}
+The peak count derives only from certified region signs. For an even function
+$f$ on $\Torus$ it suffices to work on $[0,\tfrac12]$, where
+$f'(0)=f'(\tfrac12)=0$. A float scan proposes the interior critical points and
+the inflection gaps; the machine then builds an alternating chain of
+regions---a curvature region on which the sign of $f''$ is certified, a slope
+region on which the sign of $f'$ is certified, and so on---covering
+$[0,\tfrac12]$ contiguously, and asserts on the certified signs that each slope
+sign equals the curvature sign before it and negates the one after it. That
+forces exactly one zero of $f'$ in each curvature region and none elsewhere, so
+the critical points on $[0,\tfrac12]$ are exactly one per curvature region,
+with kinds given by the certified curvature signs; torus counts follow by
+evenness (interior points mirror, the endpoints do not). Every sign is
+certified over the whole ball: the derivative pads
+$\sup_{\text{ball}}|\delta m'|\le\TOnePadOne$ and
+$\sup_{\text{ball}}|\delta m''|\le\TOnePadTwo$, which follow from
+$\|\delta m\|_\nu\le r$ through
+$\sup|\delta m^{(j)}|\le r\,(2\pi)^j\max_k k^j\nu^{-k}$, are folded into every
+cell bound, every coefficient product is enclosed outward, and the rounding
+chain of the trigonometric arguments is bounded. Each region is certified on
+an adaptive grid of \TOneRegionGrid{} cells. The T1 chain for the density is:
+\begin{center}\small
+\begin{tabular}{@{}llcl@{}}
+\toprule
+region & interval & certified sign & margin \\
+\midrule
+\TOneRegionRows
+\bottomrule
+\end{tabular}
+\end{center}
+Three curvature regions with signs $+,-,+$ give, on $[0,\tfrac12]$, a minimum
+at $0$, a maximum inside the certified region $\TOneMaxRegions$ (the float
+proposal is $x\approx\TOneChainInterior$) and a minimum at $\tfrac12$; on the
+torus, maxima at $x\approx\TOneTorusMaxima$ and minima at
+$x=\TOneTorusMinima$: exactly \TOnePeaks{} strict maxima and \TOneMinima{}
+strict minima. The smallest certified margin, $\TOneMinMargin$, is more than
+\TOneMarginOrders{} orders of magnitude above the pads. The same chain for $V$,
+\begin{center}\small
+\begin{tabular}{@{}llcl@{}}
+\toprule
+region & interval & certified sign & margin \\
+\midrule
+\TOneVRegionRows
+\bottomrule
+\end{tabular}
+\end{center}
+certifies that $V$ has exactly one well, at $x=\tfrac12$, so the theorem's
+``one well'' is a certified count too, not only the consequence of $A_1>4A_2$.
+The region breakpoints are the proposer's floats, shown to four decimals; the
+record holds them exactly, and the signs are certified on the exact intervals.
+
+\section{Theorem 2: three peaks over one well}\label{sec:three}
+
+\begin{theorem}[three peaks over one well]\label{thm:three}
+At the instance T6 of Section~\ref{sec:model} (third harmonic,
+$A_3/A_1=\TSixRatio$, $A_2=0$: $V$ has exactly one well) the analogous
+statement holds with radius $r=\TSixR$, $m\ge\TSixMinM$ and $w\ge\TSixMinW$
+over the whole ball, and every density in the ball has exactly \TSixPeaks{}
+strict local maxima and \TSixMinima{} strict local minima on the torus, while
+$V$ has exactly \TSixWells{} well. (Records:
+\texttt{certs/terra-recert-t6.json}, \texttt{certs/terra-peakcount-t6.json}.)
+\end{theorem}
+
+The enclosure numbers are $Y_0=\TSixYZero$, $Z_1=\TSixZOne$ (both blocks),
+$Z_2=\TSixZTwo$, admissible radii $\supseteq(\TSixRMin,\ \TSixRMax)$ and
+closure margin $\TSixClosure$. The chain has \TSixRegions{} regions:
+\begin{center}\small
+\begin{tabular}{@{}llcl@{}}
+\toprule
+region & interval & certified sign & margin \\
+\midrule
+\TSixRegionRows
+\bottomrule
+\end{tabular}
+\end{center}
+Four curvature regions with signs $+,-,+,-$ give a minimum at $0$, then a
+maximum, a minimum and a maximum at $\tfrac12$; the interior maximum lies in
+the certified region $\TSixMaxRegions$, and the float proposals for the two
+interior critical points are $x\approx\TSixChainInterior$. On the torus,
+maxima at $x\approx\TSixTorusMaxima$ and minima at $x\approx\TSixTorusMinima$:
+exactly \TSixPeaks{} strict maxima and \TSixMinima{} strict minima, with
+smallest certified margin $\TSixMinMargin$ against pads $\TSixPadOne$ and
+$\TSixPadTwo$---\TSixMarginOrders{} orders of magnitude. The potential's own
+chain certifies one well (smallest margin $\TSixVMinMargin$):
+$A_3/A_1=\TSixRatio$ lies inside the third-harmonic window
+$(\WindowThreeLo,\,\WindowThreeHi)$ and below the flat threshold
+$\FlatThresholdThree$, which is the splitting the crowd then performs.
+
+\section{The bracket table: the certified instances under the theorems}\label{sec:bracket}
+
+Honest counting: the finding is the two theorems above plus this table---rows
+of a table are rows of a table, not further theorems. Each row is an enclosure
+with full-ball local uniqueness (even and odd blocks) and a certified
+critical-point count, built by the same two instruments; every bound is shown
+(Table~\ref{tab:bracket}).
+
+\begin{table}[t]
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llllllllll@{}}
+\toprule
+instance & $\sigma$ & $r_k=A_k/A_1$ & $N$ & $\nu$ & radius $r$ & $Z_1$ & closure & $\min m$ & peaks / wells \\
+\midrule
+\BracketRows
+\bottomrule
+\end{tabular}
+\caption{The bracket table (\texttt{certs/terra-bracket-table.json};
+$\gamma=\TOneGamma$ throughout). The ratio column is $r_2=A_2/A_1$ with
+$A_3=0$, or $r_3=A_3/A_1$ with $A_2=0$; ``closure'' is the margin by which
+$p(r)<0$ in \eqref{eq:radii}. Radii and $Z_1$ are rounded up, margins and
+density floors rounded down. T1 and T6 are the theorems; T2 ($r=\TTwoRatio$)
+and T3 ($\sigma=\TThreeSigma>\sigma^*$) are one-peak negatives exactly where
+the linear response predicts none; T4 and T5 ($\sigma=\TFiveSigma$,
+$N=\TFiveN$) replicate the split at $r=\TFourRatio$; T7 and T8 pin the
+threshold. The tightest ball is T3's, at $\RadiusMin$; the lowest certified
+density floor over all \NumInstances{} balls is $\MinMFloor$.}
+\label{tab:bracket}
+\end{table}
+
+\paragraph{The threshold pin.}
+T7 ($r=\PinLo$, one peak) and T8 ($r=\PinHi$, two peaks) pin the splitting
+threshold at $\sigma=\TOneSigma$, $\gamma=\TOneGamma$ inside $[\PinLo,\PinHi]$
+by certified counts alone: every crossing of the threshold lies between them.
+The linear-response prediction for the threshold---the ratio $r$ at which
+$r_{\mathrm{eff}}=r\,c(\kappa_2)/c(\kappa_1)$ reaches the flat threshold
+$\FlatThresholdTwo$---is
+\begin{equation}\label{eq:rc}
+r_c=\frac{(1+4s)^2+4g}{16\bigl[(1+s)^2+g\bigr]}=\RcDigits\ldots,\qquad
+s=4\pi^2\sigma,\ g=4\pi^2\gamma,
+\end{equation}
+decided as an exact rational bracket (the rational bracket of $\pi$ again; the
+record holds the endpoints and the digits shown are those they share), and it
+lands inside the pin. The prediction is linear response; the pin is carried by
+the certified counts alone. T3 sits past the crossover ($\sigma=\TThreeSigma>
+\sigma^*$), where Proposition~\ref{prop:crossover} makes the second harmonic's
+gain smaller than the first's, and its single peak is the negative the
+proposition predicts; T2 sits below $r_c$ and T4 above it, on the predicted
+sides.
+
+\section{Companion results: an exact count, and certified multiplicity}\label{sec:companion}
+
+The companion system is the ergodic quadratic mean-field game on the torus
+with no potential,
+\begin{equation}\label{eq:cap}
+-\sigma u''+\tfrac12(u')^2+\rho=c\,m,\qquad -\sigma m''-(m\,u')'=0,\qquad
+\textstyle\int m=1,\ \int u=0,\ m>0,
+\end{equation}
+with the ergodic constant $\rho$ among the unknowns and a coupling $c$ that is
+crowd-averse (monotone) for $c\ge0$ and herding for $c<0$. The symmetry-broken
+branch bifurcates from the constant state $(u,m)=(0,1)$ at the pitchfork
+$c^*=-\sigma^2(2\pi)^2=-\pi^2\approx\MultCStar$ at $\sigma=\MultSigma$.
+
+\paragraph{An exact count at truncation level.}
+At $\sigma=\MultSigma$ and $c=\CensusC$, a Krawczyk exhaustion census proves
+that the $N$-mode even Galerkin truncation of \eqref{eq:cap}---unknowns
+$\rho,a_1,\dots,a_N,b_1,\dots,b_N$, with $2\pi$ carried as an enclosure---has
+exactly \CensusCount{} solutions in an explicit printed box for
+$N=\CensusLevels$: in an adaptive partition of the box every subbox is
+eliminated by an interval-residual or a Krawczyk exclusion, and each surviving
+box is isolated by the Moore--Krawczyk condition $K(X)\subset\operatorname{int}X$,
+existence and uniqueness per box \cite{Rump}; the three surviving boxes are
+matched one-to-one to the constant solution, the symmetry-broken branch and
+its half-shift mirror.
+\begin{center}\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+$N$ & dimension & boxes processed & by residual & by Krawczyk & seconds \\
+\midrule
+\CensusRows
+\bottomrule
+\end{tabular}
+\end{center}
+The claim is stated box-bounded and at truncation level; the PDE-level count
+is an open problem, not an implication. (Records:
+\texttt{certs/mfg-cap-census-N\{2..5\}-c-12.json}.)
+
+\paragraph{Function-space multiplicity.}
+At each of \NumCouplingsWord{} couplings $c\in\{\MultCouplings\}$---all below
+the pitchfork $c^*$, far from the monotone half-line---the constant solution,
+the symmetry-broken branch and its half-shift mirror are enclosed in pairwise
+disjoint $\lnu$ uniqueness balls ($\nu=\MultNu$) with certified positive
+density: at least three distinct exact solutions of \eqref{eq:cap} at every
+listed coupling. The half-shift $x\mapsto x+\tfrac12$ maps solutions to
+solutions when $V\equiv0$, and the mirror candidate is that image of the
+branch, so once the two sit in disjoint balls the symmetry is proved to produce
+a different solution, not a relabeling. At $c=\MultBoundaryC$, above the
+pitchfork, the branch continuation collapses onto the constant and no claim is
+made---the recorded boundary.
+\begin{center}\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+$c$ & $N$ & $r_{\mathrm{const}}$ & $r_{\mathrm{branch}}$ & $\max Z_1$ & $\min m$ & gap \\
+\midrule
+\MultRows
+\bottomrule
+\end{tabular}
+\end{center}
+Here $r_{\mathrm{const}}$ is the radius of the constant solution's ball,
+$r_{\mathrm{branch}}$ that of the branch and of its mirror (equal to the
+printed digits), $\max Z_1$ the largest contraction constant of the three,
+$\min m$ the certified density floor over the branch and mirror balls, and the
+gap the certified $\lnu$ distance between the nearest two balls less the sum of
+their radii. The radii grow and the density digs toward vacuum as the coupling
+deepens, down to $\min m\ge\MultMinM$ at $c=\MultDeepestC$.
+(Record: \texttt{certs/mfg-cap-multiplicity.json}.)
+
+\section{Method and verification posture}\label{sec:method}
+
+\paragraph{The enclosure instrument.}
+The enclosures are radii-polynomial certificates on the augmented
+$(a_0,p,m,w)$ system with the reciprocal constraint, with $\lnu$
+Banach-algebra tail bounds and both blocks of the linearization certified. The
+verifier is the frozen standard-library Python verifier that ships, byte for
+byte, inside the companion page of the program's base instance,
+\texttt{reports/mfg-congest.html}; the file re-extracted from that page is
+pinned by its sha256, whose first digits are \texttt{\FrozenVerifierSha}. A
+living module extends it by only the second- and third-harmonic data terms of
+$V$ and the construction of the approximate inverses by Gauss--Jordan
+elimination. The
+extension is battery-pinned to the frozen file: on the frozen file's own
+embedded instance the extended validation must reproduce the frozen one bit
+for bit. An approximate inverse is only ever a \emph{candidate} for a
+contraction---every bound is recomputed from it rigorously, so a bad inverse
+fails $Z_1<1$ and cannot fake a proof.
+
+\paragraph{Two implementations.}
+The candidates were first enclosed by a JavaScript kernel at the origin bench;
+the certificates here are the re-certification by the Python lineage, with
+independently computed approximate inverses on each side. On T1 the two agree
+on the certified radius exactly (ratio $1$ to the last digit) and on $Z_1$ and
+on the floor of $w$ exactly; the density floors differ by
+$\TOneCrossMinMDiff$ (origin $\TOneCrossMinMOrigin$, here $\TOneMinM$),
+because the positivity routine here subtracts a modulus-of-continuity slack
+the origin did not---ours is the lower, and it is the one stated. Float
+witnesses accompany the certificate and are labeled as such: on a pointwise
+grid the candidate's HJB residual is below $\TOneWitHjb$, the Fokker--Planck
+residual below $\TOneWitFp$, and $|\sqrt m\,w-1|$ below $\TOneWitRecip$. No
+proof step consumes them.
+
+\paragraph{The falsifier battery.}
+Every certificate carries \NumFalsifiers{} controls that must fire for the
+record to be accepted; all \NumFalsifiers{} fire on all \NumInstances{}
+instances. Two of them attack the extension's own new lines.
+\begin{center}\small
+\begin{tabular}{@{}lp{0.86\textwidth}@{}}
+\toprule
+control & what must happen \\
+\midrule
+X1 & outward rounding is load-bearing: the frozen verifier's instance-free control \\
+X2 & perturbing the candidate's mean $a_0$ by $10^{-2}$ explodes $Y_0$ and the radii polynomial refuses \\
+X3 & the same perturbed candidate fails the pointwise PDE witness, by more than $10^{-4}$ and by more than $10^6\,r$ \\
+X4 & dropping a mode from the rebuilt branch variable $w$ explodes $Y_0$ and the radii polynomial refuses \\
+X5 & the residual built with the parity of $p$ forged dwarfs the true residual by $10^6$ and the defect by $10^3$ \\
+X6 & the positivity certificate for $m$ refuses at radius $10$ \\
+X7 & the positivity certificate for $w$ refuses at radius $10$ and the validation refuses for that stated reason \\
+X8 & zeroing the instance's own harmonic data term ($A_2$ at T1, $A_3$ at T6) explodes $Y_0$ and the radii polynomial refuses \\
+X9 & applying the data term at the wrong mode ($A_2$ and $A_3$ swapped) explodes $Y_0$ and the radii polynomial refuses \\
+\bottomrule
+\end{tabular}
+\end{center}
+The peak counter carries its own red controls: a chain whose signs do not
+alternate, a slope sign that does not match its neighbours, a region whose
+sign cannot be certified, and a cell pad without the ball's derivative folded
+in, must each refuse. Positivity of $m$ and of the branch selector $w$ is
+certified over the whole ball, never observed on a plot. Peak counts never
+trust a float sign: floats propose, certified region chains decide, and
+anything uncertifiable refuses.
+
+\paragraph{The float map, and the falsified prior.}
+The companion atlas page draws a float phase map of $\PhaseMapSolves$
+equilibrium solves at $N=\PhaseMapN$ over $(\sigma,A_2/A_1)$, pinned by
+sha256 (\texttt{\PhaseMapSha\ldots}); it is a guide to where the theorems sit,
+and no proof step consumes it. The falsified prior worth naming: the belief
+that equilibrium peaks cannot exceed potential wells was this program's own
+working assumption, formed on an unreproduced \PriorSamples-sample float
+campaign at the origin bench---not folk belief, and not literature. The
+certificates above refute it.
+
+\section{Related work and fences}\label{sec:related}
+
+\begin{itemize}
+\item Karuturi \cite{Karuturi}---the mandatory fence: spontaneous instability
+of the uniform state under an interaction kernel with \emph{no} potential,
+with a cognate $8\pi^2\nu^2$ constant for a different quantity. Ours is the
+driven response to a structured cost under a fixed potential, with a monotone
+coupling.
+\item Cesaroni--Cirant \cite{CesaroniCirant}---the foil: there, density peaks
+mirror the potential's wells; here they certifiably exceed them.
+\item Osborne--Smears \cite{OsborneSmears}---different in kind: a posteriori
+finite-element analysis, not equilibrium enclosures.
+\item Cecchin--Dai Pra--Fischer--Pelino \cite{CecchinEtAl}---non-uniqueness via
+a different mechanism, on a finite state space.
+\item van den Berg--Lessard \cite{vdBL} (radii polynomials) and Rump
+\cite{Rump} (the Krawczyk operator and interval verification)---the
+computer-assisted-proof lineage this work instantiates.
+\end{itemize}
+
+\section{Open problems}\label{sec:open}
+
+A PDE-level census (the count of Section~\ref{sec:companion} lifted from the
+truncation to the system); $k$-peak uniformity in $k$; sharper digits of the
+splitting threshold than the pin $[\PinLo,\PinHi]$; non-even branches as
+$\gamma\to0$; and the time-dependent forward--backward computer-assisted
+proof.
+
+\section{Status and priority}\label{sec:status}
+
+Released from the repository; not peer-reviewed; not independently rerun. Two
+priority claims, each stated with its fence and open to refutation:
+\begin{enumerate}
+\item To our knowledge, these are the \textbf{first certified equilibria of a
+mean-field game whose exact peak count strictly exceeds the potential's well
+count}. The nearest published phenomena are spontaneous instability
+\cite{Karuturi} and peaks that mirror the potential \cite{CesaroniCirant};
+neither carries validated-numerics certificates, and we found no
+validated-numerics equilibrium enclosures for mean-field games anywhere in the
+literature.
+\item The base instance of this program---the $\sigma=1/2$ single-harmonic
+enclosure of the companion page \texttt{reports/mfg-congest.html}, released
+together with this paper and its atlas---is, to our knowledge, the
+\textbf{first validated-numerics enclosure of a mean-field-game equilibrium at
+all}: an exact solution within an explicit radius, locally unique in the full
+sequence-space ball, with strictly positive density.
+\end{enumerate}
+The companion page's embedded verifier serves as the calibration gate of every
+certificate here; the two are one program, released together, and the
+priority claims above are made by that joint release.
+
+\cmrepro{The records:
+\begin{center}\footnotesize
+\begin{tabular}{@{}ll@{}}
+\texttt{certs/terra-recert-t\{1..8\}.json} & the \NumInstances{} enclosures, dated \RecDate \\
+\texttt{certs/terra-peakcount-t\{1..8\}.json} & the \NumInstances{} certified critical-point counts \\
+\texttt{certs/terra-sigmastar.json} & $\sigma^*$, the band-pass identity, the windows (exact rationals) \\
+\texttt{certs/terra-bracket-table.json} & the table and the threshold pin (exact rationals) \\
+\texttt{certs/mfg-cap-census-N\{2..5\}-c-12.json} & the exactly-\CensusCount{} census, truncation level \\
+\texttt{certs/mfg-cap-multiplicity.json} & the disjoint uniqueness balls, dated \MultDate \\
+\end{tabular}
+\end{center}
+Every certificate re-runs from the repository:
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\texttt{python3 instruments/mfgcap/run\_recert.py t1} & the T1 enclosure, \NumFalsifiers{} falsifiers \\
+\texttt{node instruments/critcount/run.js t1} & exactly \TOnePeaks{} maxima over the whole ball \\
+\texttt{python3 instruments/mfgcap/sigmastar.py} & $\sigma^*=1/(8\pi^2)$, exact rationals \\
+\texttt{python3 instruments/mfgcap/bracket\_table.py} & the bracket table and the threshold pin \\
+\texttt{node labs/mfg/census.js --N 5 --c -12} & exactly \CensusCount{} (\CensusNFiveBoxes{} boxes, about \CensusNFiveSeconds{} s) \\
+\texttt{node labs/mfg/multiplicity.js} & at least three solutions per coupling \\
+\texttt{make test} & every battery, every red control \\
+\end{tabular}
+\end{center}
+The macros of this document are
+written by \texttt{tools/paper-numbers/terra-peaks.js}, which reads the records
+above, rounds every bound outward, derives the digits of $\sigma^*$ and $r_c$
+from the rational brackets in exact integer arithmetic, and refuses when a
+record no longer supports a sentence; the T1 candidate record is pinned by
+sha256 \texttt{\TOneRecordSha\ldots}. Repository commit \texttt{\RepoCommit}.}
+
+\begin{thebibliography}{9}\small
+\bibitem{LasryLions} J.-M.~Lasry, P.-L.~Lions, Mean field games, \emph{Jpn.\ J.\ Math.} 2 (2007) 229--260.
+\bibitem{CesaroniCirant} A.~Cesaroni, M.~Cirant, Concentration of ground states in stationary mean-field games systems, \emph{Anal.\ PDE} 12 (2019) 737--787; arXiv:1705.10741.
+\bibitem{Karuturi} Karuturi, arXiv:2605.20213 (2026).
+\bibitem{OsborneSmears} Y.~Osborne, I.~Smears, arXiv:2502.14687 (2025).
+\bibitem{CecchinEtAl} A.~Cecchin, P.~Dai~Pra, M.~Fischer, G.~Pelino, arXiv:1810.05492 (2018).
+\bibitem{vdBL} J.~B.~van den Berg, J.-P.~Lessard, Rigorous numerics in dynamics, \emph{Notices Amer.\ Math.\ Soc.} 62 (2015) 1057--1061.
+\bibitem{Rump} S.~M.~Rump, Verification methods: rigorous results using floating-point arithmetic, \emph{Acta Numer.} 19 (2010) 287--449.
+\end{thebibliography}
+
+\end{document}

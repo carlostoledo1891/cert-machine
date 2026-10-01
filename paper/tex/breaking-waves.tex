@@ -1,0 +1,251 @@
+\documentclass[preprint,11pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{breaking-waves-numbers.tex}
+\journal{Coastal Engineering}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{The geometry of 16,369 breaking waves, re-decided in exact arithmetic from the published table, with the sea-state stratification the dataset allows\tnoteref{t1}}
+\tnotetext[t1]{Draft for review, version 0.1 of 2026-10-01. The author list and the CRediT roles are to be agreed with the authors of the dataset paper. Every number in this manuscript is read at build time from the records named in the Data availability statement (repository commit \RepoCommit); the prose is authored and should be reviewed like any other.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+A dataset paper prints a few dozen numbers that summarise a table: counts, ranges, fitted coefficients, correlation coefficients, the size of a tail. \citet{guimaraes2026} measured the geometry of \NEvents\ actively breaking waves by stereo video on the Black Sea and published the per-event table and the analysis scripts beside the paper \citep{zenodo2026}. This paper reads every number the paper prints against that table in exact rational arithmetic, with the definitions the scripts use: each literal of the table is the rational its digits denote, a fit through the origin is a ratio of two integer sums, a correlation coefficient has an exact square, a quantile is a value that occurs in the table, and a printed digit is a box that the exact value either rounds into or does not. Of \ItemsTotal\ numbers in the text, \ItemsReproduced\ are the rounding of the exact value, \ItemsTruncation\ its truncation and \ItemsIntegerParts\ its integer parts; \ItemsRansac\ are coefficients of a randomised fitter that no exact procedure can reproduce; \ItemsNot\ are not the table's under the scripts' definitions. Of \TOneCells\ cells of the paper's Table 1, \TOneReproduced\ are the rounding. The three quadratic laws $L_b = \FitLbPrinted\,c_b^2/g$, $L_{D81} = \FitLDPrinted\,c_b^2/g$ and $\Delta z_b = \FitDzPrinted\,c_b^2/g$ reproduce to the printed digit, and so do the \SelfSimPrinted\ self-similar tail and the fit on it. Two printed quantities are shown to be other columns of the public table: the printed range of the inclination $\theta$ is, to the integer part, the range of $\tan^{-1}(\Delta z_b/e_B)$, while the column named $\theta$ runs \ThetaColMin$^\circ$ to \ThetaColMax$^\circ$; and the printed significant wave height of Table 1 is the column the table names \texttt{sv\_fp2}, not the column it names \texttt{Hs}. Duncan's laboratory geometry is decided event by event, and the stratification by sea state that the paper names as beyond its scope is done per record: the coefficient of $L_b$ on $c_b^2/g$ runs from \SlopeMin\ to \SlopeMax\ across the twenty records and ranks with the record's $H_s$ at Spearman $\rho = \RhoSlopeHs$, with wave age at \RhoSlopeAge. The novelty claimed is the decision grammar --- a verdict per printed number, with the quantity that justifies it --- and the public record that any reader can re-run without the authors' code.
+\end{abstract}
+
+\begin{highlights}
+\item Every number a dataset paper prints is re-derived from its own table, exactly.
+\item The three quadratic laws and the 4\% self-similar tail reproduce to the printed digit.
+\item Two printed quantities are shown to be other columns of the public table.
+\item Per record, $gL_b/c_b^2$ spans a factor \SlopeSpread\ and ranks with $H_s$ at $\rho = \RhoSlopeHs$.
+\item A printed digit is read as a box; the verdict names which column reproduces it.
+\end{highlights}
+
+\begin{keyword}
+breaking waves \sep whitecaps \sep stereo video \sep self-similarity \sep exact arithmetic \sep verified computation \sep reproducibility
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+The geometry of a breaking wave --- how long the whitecap is, how much area it covers, how steep its face, how fast it travels --- has been measured mostly in tanks. \citet{duncan1981} towed a hydrofoil and found a breaking region of fixed shape: a face inclined between 10$^\circ$ and 14.7$^\circ$ and a cross-sectional area equal to $0.11 \pm 0.01$ of the square of its length. \citet{phillips1985} built the spectral framework of whitecap statistics on constants of that kind, and the framework is used today to estimate whitecap coverage, air entrainment, momentum flux and dissipation \citep{gemmrich2008,banner2014,sutherland2013}. Field observations of the geometry itself are few \citep{kleiss2011}. \citet{guimaraes2026} published the largest set so far: \NEvents\ actively breaking events filmed in stereo from a platform in the Black Sea over \NRecords\ records, with the area, length, vertical extent, duration and speed of each, and found that the field geometry does not conform to a single self-similar shape, that the breaking speed is a weak predictor of the geometry while the geometric properties scale together, and that only a \SelfSimPrinted\ tail of events is self-similar. Beside the paper they published the per-event table and the scripts that drew its figures \citep{zenodo2026}.
+
+The findings of such a paper are statements about arithmetic on a table as much as about the sea. A fitted coefficient is a ratio of two sums over the table; a correlation coefficient is another; the size of a tail is a count of the events beyond a threshold that is itself a function of the table; the range of a quantity is its two extreme entries. Each is a finite computation, and because the table was published, each can be repeated by a reader with no access to the authors' environment. What a reader cannot do with the usual tools is say, of a printed ``0.83'', whether it is the rounding of the exact value, its truncation, or neither: floating-point arithmetic over sixteen thousand terms does not settle the last digit, and the scripts' own procedures include randomised fitters whose output no re-run reproduces. This paper repeats every number the paper prints in exact rational arithmetic --- every literal of the table read as the rational its digits denote, every sum an integer sum, every root and every $\pi$ an enclosure --- with the definitions the authors' own scripts use, and gives each printed number a verdict: the rounding of the exact value, its truncation, its integer parts, not the table's, or not decidable. A statement is called \emph{certified} here, in the mathematical sense only, when it comes with a machine-checkable proof; for this table that is an exact rational computation from the pinned literals, or an enclosure whose two ends are such computations.
+
+The contribution is therefore not a new measurement, a new scaling or a new test. It is (i) a verdict for each of the \ItemsTotal\ numbers in the paper's text and each of the \TOneCells\ cells of its Table 1, read against the public table; (ii) the identification, from the table alone, of the column that each printed quantity is --- two of them turn out to be columns other than the ones their names suggest, which is stated as what the table shows; (iii) Duncan's laboratory band and ratio decided event by event, as the authors' scripts draw them; (iv) the stratification by sea state that the paper's conclusions name as requiring ``a dedicated stratified analysis by $H_s$, $T_p$, or wave age, which is beyond the scope of this study'', done per record with the paper's own fit and offered as the extension the dataset allows; and (v) the public, re-runnable record of all of it. Section~\ref{sec:data} describes the dataset as published; Section~\ref{sec:method} the arithmetic and the reading rule; Section~\ref{sec:results} the results; Section~\ref{sec:discussion} what a certificate adds to a dataset paper and what is not claimed.
+
+\section{The dataset}\label{sec:data}
+
+\subsection{The measurements}
+The dataset is described by \citet{guimaraes2026}, and only what the present reading depends on is repeated. Twenty stereo-video records were acquired from the Marine Hydrophysical Institute platform off Katsiveli in the Black Sea, in about 30 m of water, with a pair of synchronised 5-megapixel cameras 11 m above the surface, on \RecordDays\ days between \RecordFirst\ and \RecordLast, at \FpsLo\ to \FpsHi\ frames per second for \DurLo\ to \DurHi\ minutes each over a reconstructed area of \AreaLo\ to \AreaHi\ m$^2$; the reconstruction follows \citet{benetazzo2006,benetazzo2012}, and the data collection is described by \citet{guimaraes2020}. As the paper's Table 1 prints them, the records span $H_s$ from \HsPrintedLo\ to \HsPrintedHi\ m, $T_p$ from \TpPrintedLo\ to \TpPrintedHi\ s and $U_{10}$ from \UPrintedLo\ to \UPrintedHi\ m\,s$^{-1}$, with \NbLo\ to \NbHi\ active breaking events per record. Active breaking was detected by the pixel-intensity threshold of \citet{mironov2008}, with an event defined as foam connected in space and time \citep{kleiss2011}; \InitiallyDetected\ events were detected automatically and \NEvents\ kept after manual inspection. For each event the contour of the foam patch at each frame gives its area $A_b$ and its length $L_b$ (half the perimeter of the contour), a minimum enclosing ellipse gives the across-wave and along-wave extents $e_A$ and $e_B$, the three-dimensional reconstruction gives the vertical extent $\Delta z_b$, and the displacement of the barycentre between frames gives the speed $c_b$; the Duncan length $L_{D81}$ and the inclination $\theta$ are built from $\Delta z_b$ and $e_B$ as Section~\ref{sec:table} states.
+
+\subsection{The table as published}\label{sec:table}
+The Zenodo record \citep{zenodo2026} is a single \ArchiveGB\ GB archive of \ArchiveEntries\ entries, of which all but seven are per-event files and frames. The seven under \texttt{codes/} --- the per-event table, a pandas pickle, and six analysis scripts --- were extracted without downloading the archive, by reading its ZIP64 central directory over an HTTP range request and fetching each entry by its own range; each extracted file is pinned by its SHA-256 and the archive by the MD5 that Zenodo publishes (\ArchiveMd). The pickle was converted once to a CSV in which every number is the shortest decimal that round-trips to the double the pickle holds, verified column by column against the pickle with a correctly rounded parser; that CSV (SHA-256 \CsvSha\ldots) is the record every number below is computed from. It holds \NEvents\ rows and \NColumns\ columns; a row is one event, and a record's wind speed, peak frequency and the two columns discussed below are constant within the record (this is verified: no record carries two values).
+
+The columns used, with the names the table gives them and the definitions the authors' loader script assigns (pinned, SHA-256 \LoaderSha\ldots), are: \texttt{DT}, the duration $\Delta t_b$ in seconds, which takes \DistinctDT\ distinct values because it is a multiple of the frame interval; \texttt{cm}, the mean speed $c_b$; \texttt{c0}, the initial speed; \texttt{cB}, the speed component along the minor axis, the paper's $c_e$; \texttt{Ab\_max}, the largest area of the aerated region during the event, the paper's $A_b$; \texttt{Pb\_max}, the largest perimeter, from which the scripts take $L_b = \texttt{Pb\_max}/2$; \texttt{LA\_max} and \texttt{LB\_max}, the largest major and minor axes of the enclosing ellipse, the paper's $e_A$ and $e_B$; \texttt{Ae\_max}, the largest ellipse area; \texttt{Dz\_max}, the largest vertical extent; \texttt{LD81} and \texttt{theta}, which the loader computes at the frame of the event's largest minor axis $B$ as $L_{D81} = (\Delta z^2 + B^2)^{1/2}$ and $\theta = \tan^{-1}(\Delta z / L_{D81})$ in degrees, so that $\theta$ cannot exceed 45$^\circ$; \texttt{Ab\_Lmax}, the area at that same frame; \texttt{Ab\_sum}, the area summed over the event's frames; \texttt{sv\_fp}, the record's peak frequency; \texttt{wnd}, its wind speed; \texttt{svA} and \texttt{svT}, the reconstructed area and the duration of the record. Two further columns are constant within each record: one named \texttt{Hs}, which takes \HsNamedDistinct\ distinct values over the twenty records, between \HsNamedLo\ and \HsNamedHi, each within one unit in the last place of the double of a multiple of $1/1024$; and one named \texttt{sv\_fp2}, whose twenty values lie between \SvLo\ and \SvHi. In the loader, the list of column names and the assignment of values to them differ by one position across three columns, so that the column the public table names \texttt{sv\_fp2} holds the quantity the loader reads as the significant wave height and the column it names \texttt{Hs} holds the quantity the loader names \texttt{sv\_fb0}. Section~\ref{sec:tableone} decides which of the two the paper's Table 1 prints.
+
+\subsection{The paper as pinned}
+The paper's numbers are read from the publisher's full-text XML, fetched on \PaperFetched\ and pinned by its SHA-256 (\XmlSha\ldots), because the MathML in the XML carries digits that the HTML rendering drops. \ItemsTotal\ printed numbers in the text and the \TOneCells\ cells of Table 1 (twenty records, seven numeric columns) were transcribed with their location in the paper; the event counts of Table 1 sum to \NEvents, as the abstract states. Two numbers printed in the paper are not about the table and are not decided: the \InitiallyDetected\ events detected before manual inspection, which are not in the table, and the $c_b \approx 0.8\,c$ of \citet{banner2014prl}, which the paper quotes.
+
+\section{The decision}\label{sec:method}
+
+\subsection{Exact arithmetic on the literals}
+Every numeric cell of the table is read as the rational number its decimal digits denote; the literal in the file is the number, never its floating-point image. Every quantity below is then a rational function of those literals computed in arbitrary-precision integer arithmetic: a ratio is a ratio, a comparison with a stated constant is an exact sign, a quantile is the $k$-th smallest value with $k = \lceil p\,n \rceil$ (a value that occurs in the table, never the average of two), and a least-squares slope through the origin, $k = \sum x_i y_i / \sum x_i^2$, is an exact rational of the literals once each series is multiplied up to a common denominator. Pearson's $r$ is treated through its square, $r^2 = (n\sum xy - \sum x \sum y)^2 / [(n \sum x^2 - (\sum x)^2)(n \sum y^2 - (\sum y)^2)]$, which is exact; $r$ itself is enclosed to twelve decimals by integer square roots, with its sign carried. Spearman's $\rho$ is Pearson's $r$ on average ranks \citep{spearman1904}; the ranks are doubled so that tied values share an integer mean rank, and $\rho^2$ is again an exact rational. Only one quantity needs a transcendental constant, the breaking speed as a fraction of the peak phase speed $c_p = g/(2\pi f_p)$, and there $\pi$ enters as a certified enclosure \citep{moore2009,rump2010}, so that every quantile of $c_b/c_p$ is an enclosure. The whole table is decided in \LedgerSeconds\ s.
+
+\subsection{The scripts' definitions}\label{sec:defs}
+A printed number can be reproduced only under a definition, and the definitions are taken from the scripts the authors published, not chosen. A fit ``$y = a\,c_b^2/g$'' is \texttt{curve\_fit} on the objective $a\,x^2/9.81$ with no intercept, that is, least squares through the origin on the regressor $c_b^2/g$ with $g = 9.81$: $a = g \sum c_b^2 y / \sum c_b^4$, an exact rational. The $r$ printed beside such a fit is \texttt{linregress}$(c_b^2, y)$, the Pearson correlation of $c_b^2$ with $y$, and both it and the correlation of $c_b$ with $y$ are given. The self-similar subset of a ratio is the set of events with the ratio at or above its mean plus twice its sample standard deviation (\texttt{pandas}' \texttt{.std()}, \texttt{ddof} $= 1$) \citep{mckinney2010}. The mean of \NEvents\ ratios is a rational whose denominator is the least common multiple of their denominators and is useless as such; each ratio is instead enclosed by two integers at the scale $10^{30}$, the sums are integer sums, and the mean, the variance and the standard deviation come out as enclosures $10^{-30}$ wide, decisive for any printed rounding. The threshold is therefore an enclosure, and an event is certainly at or above it, certainly below it, or --- counted separately --- inside the enclosure and undecided. The peak of a histogram is the mode bin of \texttt{numpy}'s histogram with the Freedman--Diaconis rule \citep{freedman1981,harris2020}: a bin width of $2\,\mathrm{IQR}\,n^{-1/3}$ with \texttt{numpy}'s linearly interpolated quartiles, $n^{1/3}$ enclosed by integer cube roots, and the bin count $\lceil \mathrm{range}/\mathrm{width} \rceil$ decided only when both ends of the enclosure give the same integer, after which the bins are exact. Two coefficients in the paper are read off a RANSAC regressor \citep{fischler1981,pedregosa2011}, a randomised robust fitter whose output depends on its seed; they are not reproducible by any exact procedure and are reported as such, with the least-squares slope through the origin and the Pearson $r$ --- which the same script prints beside them --- given instead.
+
+\subsection{The reading rule}\label{sec:rule}
+A printed literal with $d$ decimal places is read as the box of width $10^{-d}$ centred on it. The verdict is \textsc{the rounding} when the exact value lies strictly inside the box (it rounds, half away from zero, to the printed digits); \textsc{the truncation} when it does not but the printed digits are the exact value's digits cut at the $d$-th place; \textsc{a rounding tie} when the exact value lies on the box's edge; \textsc{the integer parts} when a printed pair of integers is the integer parts of the two ends of a range under a named definition; \textsc{not the table's} when none of these holds under the definition the scripts use; and \textsc{not decidable} for a RANSAC coefficient. Where the exact value is an enclosure, both ends must give the same verdict, and otherwise the verdict is withheld at that width (this did not occur). The rule is one function, applied to the \ItemsTotal\ numbers of the text and the \TOneCells\ cells of Table 1 alike.
+
+\subsection{Controls and the record}
+A battery of \BatteryChecks\ checks runs before any page or manuscript is written, with \BatteryReds\ red controls that must fire, among them: a non-numeric or comma-decimal literal is refused; a reversed line carries its sign; one literal of the table moved by $10^{-17}$ changes the exact $r^2$ of area with length; a printed 3 against an exact 1.376 is not the table's; a Table 1 count moved by one is refused; a printed 0.84 against an exact 0.8268 is refused; a value sitting on an enclosed threshold is undecided, never silently in or out; and a histogram whose range is an exact multiple of its bin width has its bin count refused rather than guessed. The battery then re-decides the whole table and the whole paper live and compares the result with the shipped record by digest. The record holds every exact value as a rational string beside its decimal reading, every enclosure as its two ends, and the digests of the \PinnedFiles\ pinned files; any reader can recompute any entry from the CSV in any exact arithmetic.
+
+\section{Results}\label{sec:results}
+
+\subsection{Table 1 read against the table}\label{sec:tableone}
+Table~\ref{tab:tableone} reads the paper's Table 1 against the public table record by record. Every frame rate and every event count is exact; the durations and areas are the roundings of the record's \texttt{svT} and \texttt{svA} with one truncation; of the \TOneCells\ cells, \TOneReproduced\ are the rounding of the exact value, \TOneTruncation\ its truncation, \TOneTies\ a rounding tie and \TOneNot\ neither. The printed $H_s$ is the rounding or the truncation of the column named \texttt{sv\_fp2} in \TOneHsSv\ of the twenty records, and it is the rounding of the column named \texttt{Hs} in \TOneHsNamed\ of them: the significant wave height the paper prints is the column the public table names \texttt{sv\_fp2}, which is what the loader's assignment of Section~\ref{sec:table} shows. A reader of the public table who takes the column by its name reads a quantity between \HsNamedLo\ and \HsNamedHi\ instead, one that takes \HsNamedDistinct\ distinct values over the twenty records; what that quantity is in the underlying per-event files, and what the two names refer to there, is for the authors to say. The paper's Table 1 is the correct column.
+
+\begin{table}[p]
+\centering\scriptsize
+\caption{The paper's Table 1 \citep{guimaraes2026} read against the public table: the printed frame rate, duration, reconstructed area and event count $N_b$; the printed $H_s$ beside the record's column named \texttt{sv\_fp2} and its column named \texttt{Hs}; the printed $T_p$ and $U_{10}$ beside the record's $1/\texttt{sv\_fp}$ and \texttt{wnd}. A printed cell with no mark is the rounding of the exact value; $^{\mathrm{t}}$ its truncation; $^{\mathrm{b}}$ a rounding tie; $^{\mathrm{n}}$ neither.}
+\label{tab:tableone}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+record (UTC) & Hz & min & m$^2$ & $N_b$ & $H_s$ (m) & \texttt{sv\_fp2} & \texttt{Hs} & $T_p$ (s) & $1/\texttt{sv\_fp}$ & $U_{10}$ (m\,s$^{-1}$) & \texttt{wnd} \\
+\midrule
+\TableOneRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{The fitted laws and the self-similar tail}
+The paper's central numbers survive exact re-derivation (Table~\ref{tab:items}, Fig.~\ref{fig:laws}). The three quadratic laws of its Figure 3, least squares through the origin on $c_b^2/g$, have exact coefficients \FitLbExact, \FitLDExact\ and \FitDzExact, of which the printed \FitLbPrinted, \FitLDPrinted\ and \FitDzPrinted\ are the roundings, each inside its printed bootstrap interval. The self-similar fraction --- every event at or beyond the mean plus two sample standard deviations of a ratio --- is \TailCountA\ events (\TailPctA) on $c_b^2/(gL_b)$, \TailCountB\ (\TailPctB) on $A_b/L_b^2$ and \TailCountC\ (\TailPctC) on $A_b/L_{D81}^2$, all inside the printed \SelfSimPrinted, with the thresholds \TailThresholdA, \TailThresholdB\ and \TailThresholdC\ and no event inside any threshold's enclosure. On the \TailN\ tail events of $c_b^2/(gL_b)$ the fit is $gL_b/c_b^2 = \FitLbTailExact$ with $r(c_b^2, L_b) = \TailRSq$: the paper's \FitLbTailPrinted\ and \TailRPrinted. On the \RestN\ remaining events the same fit is \FitLbRestExact\ and $r = \RestRSq$; the printed \FitLbRestPrinted\ for that subset is the all-events coefficient, and the printed $r = \RestRPrinted$ is the rounding of the subset's \RestRSq\ (and of the pooled $r(c_b, L_b) = \PooledRcbLb$).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{breaking-waves-laws.pdf}
+\caption{The three quadratic laws against the table: (a) $L_b$, (b) $L_{D81}$ and (c) $\Delta z_b$ against $c_b^2/g$ for every event, on logarithmic axes, with the exact least-squares line through the origin ($a$ = \FitLbExact, \FitLDExact, \FitDzExact). In (a) the \TailN\ events at or beyond mean + 2 sd of $c_b^2/(gL_b)$ --- the paper's self-similar subset --- are drawn apart with their own fit ($a$ = \FitLbTailExact). The points are the table's; the lines are the record's.}
+\label{fig:laws}
+\end{figure}
+
+\begin{table}[p]
+\centering\footnotesize
+\caption{The \ItemsTotal\ numbers printed in the text of \citet{guimaraes2026}, the exact value under the scripts' definitions, and the verdict of Section~\ref{sec:rule}. $r$ beside a fit is Pearson's $r$ of $c_b^2$ (or of the regressor) with the response, as \texttt{linregress} prints it.}
+\label{tab:items}
+\resizebox{\linewidth}{!}{\begin{tabular}{llll}
+\toprule
+printed quantity & printed & exact (the table, the scripts' definitions) & verdict \\
+\midrule
+\ItemRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{The correlations and the slopes of area on length}
+The correlations between geometric properties print as the roundings of their exact values: $r(A_b, L_b) = \RAbLbPrinted$ is \RAbLbExact, $r(A_b, L_{D81}) = \RAbLDPrinted$ is \RAbLDExact, $r(\Delta z_b, e_B) = \RDzEBPrinted$ is \RDzEBExact, $r(L_b, \Delta t_b) = \RLbDtPrinted$ is \RLbDtExact\ and $r(\Delta z_b, \Delta t_b) = \RDzDtPrinted$ is \RDzDtExact. The printed $r(A_b, \Delta t_b) = \RAbDtPrinted$ is \RAbDtExact\ with the largest area of the event and \RAbDtSum\ with the area summed over its frames (the column \texttt{Ab\_sum}); the table reproduces the printed value under the second definition. The sentence ``Pearson $r < 0.45$ in all cases'', about the alternative speeds, holds for \SpeedPairsBelow\ of the \SpeedPairs\ speed--geometry pairs the table allows (four speeds against eight properties); the remaining pair, the mean speed against the vertical extent $\Delta z_b$ of the paper's Figure 3c, is \SpeedRMax. The two coefficients read off RANSAC fits, $e_A/e_B = \FitEAEBPrinted$ and $A_e = \FitAeAbPrinted\,A_b$, are not decidable; the least-squares slopes through the origin on the columns the script sets are \FitEAEBLs\ and \FitAeAbLs, the $r = \FitEAEBRPrinted$ printed beside the first is the rounding of \FitEAEBR, and the $r = \FitAeAbRPrinted$ beside the second is the rounding of \FitAeAbRSum\ on the summed columns (\texttt{Ae\_sum}, \texttt{Ab\_sum}) and not of \FitAeAbR\ on the maxima.
+
+The two printed slopes of area on length squared, ``$A_b/L_{D81}^2 = \FitAbLDPrinted$ and $A_b/L_b^2 = \FitAbLbPrinted$'', are read against every subset and both area columns. The slope of $A_b$ on $L_{D81}^2$ through the origin is \FitAbLDAll\ with the largest area of the event (\texttt{Ab\_max}, the column the histogram, the mean and the tail use) and \FitAbLDLmax\ with the area at the frame of the largest minor axis (\texttt{Ab\_Lmax}, the column the script's Figure 3d uses); the slope of $A_b$ on $L_b^2$ is \FitAbLbAll\ on all events, \FitAbLbRest\ on the events outside the tail and \FitAbLbTail\ on the tail. What the table shows is therefore that \FitAbLDLmax\ rounds to the printed \FitAbLDPrinted, that \FitAbLDAll\ rounds to the printed \FitAbLbPrinted, and that no slope of $A_b$ on $L_b^2$ rounds to either; the reading is left to the authors. The mean and spread of the aspect ratio are the table's: $A_b/L_{D81}^2 = \AspectMeanPrinted \pm \AspectSdPrinted$ with a coefficient of variation of \AspectCVPrinted\% is, exactly, \AspectMeanExact\ (printed as its truncation) $\pm$ \AspectSdExact\ (the sample standard deviation; the population value is \AspectSdPop) with \AspectCVExact\%. The histogram of that ratio under the Freedman--Diaconis rule on the table has \AspectPeakBins\ bins of width \AspectPeakWidth, a single mode bin $[\AspectPeakModeLo, \AspectPeakModeHi)$ with \AspectPeakCount\ events, and no tie; the printed peak of \AspectPeakPrinted\ lies two bins to its left. The paper's Figure 2d describes its ratio as ``calculated at the maximum length'', and the table holds the area at that frame as a separate column; the mode of that column's ratio was not decided here.
+
+\subsection{The range of the inclination}
+``The range of $\theta$ observed here (\ThetaPrintedLo$^\circ$ to \ThetaPrintedHi$^\circ$)'' is not the range of the column the table names \texttt{theta}, which the histogram script plots and which runs from \ThetaColMin$^\circ$ to \ThetaColMax$^\circ$ with no event beyond 45$^\circ$, as the loader's definition $\theta = \tan^{-1}(\Delta z / L_{D81})$ with $L_{D81} = (\Delta z^2 + B^2)^{1/2}$ requires. It is, to the integer part, the range of a different angle in the same table: $\tan^{-1}(\Delta z_{b,\max} / e_{B,\max})$, whose tangent runs from \ThetaAltTanLo\ to \ThetaAltTanHi\ over the events, that is, from \ThetaAltDegLo$^\circ$ to \ThetaAltDegHi$^\circ$, decided through enclosed tangents of 3$^\circ$, 4$^\circ$, 71$^\circ$ and 72$^\circ$. The paper takes $\Delta z_b$ as equivalent to $L_{D81} \sin\theta$; the table holds both angles, and which one the sentence intends is for the authors to say. Duncan's band of \DuncanAngleLo$^\circ$ to \DuncanAngleHi$^\circ$, drawn by the authors' script on the column named \texttt{theta}, is decided on that column in the next section.
+
+\subsection{Duncan's geometry as the record treats it}
+The authors' histogram script draws two laboratory references \citep{duncan1981}: the band \DuncanAngleLo$^\circ$ to \DuncanAngleHi$^\circ$ on the inclination and the line \DuncanAspect\ on the aspect ratio $A_b/L_{D81}^2$. Both are decided event by event with no tolerance, by an exact comparison of the literal with the stated constants (Fig.~\ref{fig:duncan}). Of the \NEvents\ events, \AngleInside\ (\AngleInsidePct) have their inclination strictly inside the band, \AngleBelow\ (\AngleBelowPct) are flatter, \AngleAbove\ (\AngleAbovePct) are steeper and \AngleOn\ lie on an edge. The aspect ratio lies above \DuncanAspect\ at \AspectAbove\ events and below it at \AspectBelow, with \AspectWithinQuarter\ events within a quarter of it and \AspectWithinHalf\ within half; its median, \AspectMedian, is \AspectMedianOverDuncan\ times the laboratory value, and the ratio runs from \AspectMinExact\ to \AspectMaxExact\ over the table. One caveat belongs to the comparison itself and is the authors' as much as this paper's: Duncan's \DuncanAspect\ relates the cross-sectional area of the breaking region to its length, whereas the area measured from above a natural sea is the plan view of the whitecap. The script draws the line on that histogram, the paper prints the comparison as $\AspectMeanPrinted \pm \AspectSdPrinted$ against $\DuncanAspectPrinted$, and the comparison is decided here as drawn.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{breaking-waves-duncan.pdf}
+\caption{Duncan's references as the authors' script draws them, on the table: (a) the inclination $\theta$ of the column named \texttt{theta}, in 1$^\circ$ bins, with the band \DuncanAngleLo$^\circ$ to \DuncanAngleHi$^\circ$ that holds \AngleInside\ events; (b) the aspect ratio $A_b/L_{D81}^2$ in bins of 0.025, with the laboratory value \DuncanAspect, the median \AspectMedian\ and the tail threshold mean + 2 sd of the paper's self-similarity test. Bin membership is drawn in float; every count stated in the text is exact.}
+\label{fig:duncan}
+\end{figure}
+
+\subsection{Three ratios a self-similar breaker would hold constant}
+If breaking waves were geometrically similar, a length made from the speed, $c_b^2/g$, would be a fixed multiple of the measured length and the area a fixed multiple of the length squared: each of the paper's three ratios would be a constant up to measurement noise. Table~\ref{tab:ratios} gives their order statistics, each the $k$-th smallest exact ratio. The middle half of the events spans a factor of about two in every ratio ($q_{75}/q_{25}$ = \SpreadIQA, \SpreadIQB, \SpreadIQC) and the central ninety per cent a factor of four to six ($q_{95}/q_{05}$ = \SpreadNinetyA, \SpreadNinetyB, \SpreadNinetyC). The paper's test \citep{patel2011,clauset2009} marks the tail beyond the mean plus two standard deviations and calls the events in it self-similar; the spread factors are the same finding in a form that depends on no distribution. The rank correlations the paper's second finding rests on are in Table~\ref{tab:corr}: the breaking speed ranks with any geometric property at $\rho \le \RhoSpeedMax$ (with $\Delta z_b$; $\rho^2 = \RhoSpeedMaxSq$), against \RhoAbLb\ for area with length. The breaking speed is a fraction \CbCpMedian\ of the peak phase speed at the median event (the central ninety per cent from \CbCpQlo\ to \CbCpQhi, each an enclosure through $\pi$), and \FasterThanHalfCp\ events are faster than half of it.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The three self-similarity ratios as order statistics of the exact values ($q_p$ is the $\lceil p\,n \rceil$-th smallest), their spread factors, and the paper's tail: the threshold mean + 2 sd (sample sd, enclosed; the lower end is shown) and the exact count and share of events at or beyond it. No event lies inside a threshold's enclosure.}
+\label{tab:ratios}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrrrr}
+\toprule
+ratio & $q_{05}$ & $q_{25}$ & median & $q_{75}$ & $q_{95}$ & $q_{75}/q_{25}$ & $q_{95}/q_{05}$ & mean + 2 sd & tail & share \\
+\midrule
+\RatioRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Rank and linear correlations between the breaking speed and the geometric properties, and between geometric properties, over the \NEvents\ events: Spearman's $\rho$ (an exact rational, its root read to three decimals) and Pearson's $r$ on the literals.}
+\label{tab:corr}
+\begin{tabular}{lrr}
+\toprule
+pair & Spearman $\rho$ & Pearson $r$ \\
+\midrule
+\CorrRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The stratification by sea state}\label{sec:strata}
+The paper's abstract states that ``geometric scaling is not constant but varies with the sea state''; its discussion notes that the fitted coefficients vary from record to record and that a dedicated stratified analysis by $H_s$, $T_p$ or wave age would be required to test the hypothesis, and places that analysis beyond its scope. The table allows it at the level of the record: each of the twenty records is one sea state, with $H_s$, $T_p$ and $U_{10}$ constant within it, and the paper's own fit --- least squares through the origin on $c_b^2/g$ --- can be made on each record's events alone. Table~\ref{tab:records} gives, per record, the fitted coefficient $gL_b/c_b^2$, the correlation $r(c_b^2, L_b)$, the share of events inside Duncan's band, the mean aspect ratio and the share of events in the $c_b^2/(gL_b)$ tail; Fig.~\ref{fig:strata} draws the coefficient against the four sea-state variables, and Table~\ref{tab:seastate} gives the rank correlations across the twenty records, each $\rho^2$ an exact rational on twenty ranks (the wave age $c_p/U_{10} = g/(2\pi f_p U_{10})$ needs no $\pi$ for a rank: its order is the order of $1/(f_p U_{10})$).
+
+The coefficient runs from \SlopeMin\ to \SlopeMax\ --- a factor of \SlopeSpread\ --- around the pooled \PooledSlope, and the \RoughCount\ records with $H_s$ above 1.5 m, all of 1 October 2013 with winds of \RoughULo\ to \RoughUHi\ m\,s$^{-1}$, carry the four lowest values, \RoughSlopes: in the roughest seas a breaker of a given speed is shorter. Across the twenty records the coefficient ranks with $H_s$ at $\rho = \RhoSlopeHs$ and with $T_p$ at \RhoSlopeTp, with $U_{10}$ at \RhoSlopeU, and with wave age at \RhoSlopeAge. The within-record correlation $r(c_b^2, L_b)$ runs from \RecordRLo\ to \RecordRHi\ and never approaches the \TailRSq\ of the pooled tail; the share of events inside Duncan's band runs from \BandShareLo\ to \BandShareHi\ and ranks with nothing (with $H_s$ at \RhoBandHs, with $U_{10}$ at \RhoBandU); the mean aspect ratio runs from \RecordAspectLo\ to \RecordAspectHi\ and ranks with $H_s$ at \RhoAspectHs. The share of a record's events in the self-similar tail runs from \RecordTailLo\ to \RecordTailHi\ and is concentrated in the four roughest records (\RoughTailPcts\ of their events against \TailPctOverall\ overall), which is the direction of the paper's observation that the self-similar events are the smaller and faster ones relative to the sea they occur in. Twenty points do not make a law, and the records are neither independent nor equal in size (\LargestRecordN\ events in the largest, \SmallestRecordN\ in the smallest); what they make is the sentence the paper's abstract states, with a number under it and the variable named --- at the level of the record, the dependence is on the wave height and the period, and not on the wave age. A stratification by wave age alone, which the paper's discussion names first, would not show it on this table.
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{breaking-waves-strata.pdf}
+\caption{The coefficient of $L_b = a\,c_b^2/g$ fitted separately on each record's events, the same least squares through the origin the paper uses on all \NEvents, against the record's (a) $H_s$, (b) $T_p$, (c) $U_{10}$ and (d) wave age $c_p/U_{10}$, with the pooled coefficient as a dashed line and the four records with $H_s > 1.5$ m drawn apart. Spearman's $\rho$ on the twenty ranks is from the record; the wave age is drawn from the record's $T_p$ and $U_{10}$.}
+\label{fig:strata}
+\end{figure}
+
+\begin{table}[p]
+\centering\footnotesize
+\caption{The stratification by record: the number of events, the record's $H_s$, $T_p$ and $U_{10}$ (the columns \texttt{sv\_fp2}, $1/\texttt{sv\_fp}$ and \texttt{wnd}), the coefficient $gL_b/c_b^2$ of the paper's fit made on the record's events alone, the correlation $r(c_b^2, L_b)$ within the record, the share of the record's events inside Duncan's band, the mean of $A_b/L_{D81}^2$ (enclosed; the lower end is shown) and the share of the record's events in the pooled $c_b^2/(gL_b)$ tail.}
+\label{tab:records}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrrr}
+\toprule
+record (UTC) & events & $H_s$ (m) & $T_p$ (s) & $U_{10}$ (m\,s$^{-1}$) & $gL_b/c_b^2$ & $r(c_b^2, L_b)$ & in band (\%) & mean $A_b/L_{D81}^2$ & in tail (\%) \\
+\midrule
+\RecordRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Spearman's $\rho$ across the twenty records between a per-record quantity and the record's sea state; each $\rho^2$ is an exact rational on twenty ranks, read to three decimals with its sign.}
+\label{tab:seastate}
+\begin{tabular}{lrrrr}
+\toprule
+per-record quantity & $H_s$ & $T_p$ & $U_{10}$ & $c_p/U_{10}$ \\
+\midrule
+\SeaStateRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What a certificate adds to a dataset paper}
+A dataset paper is already the most reproducible kind of paper: its table is public and its numbers are functions of it. What the exact re-run adds is the last digit and the definition. The printed digits become a box, the exact value either rounds into the box or does not, and when it does not the record says which column, which subset or which definition does reproduce the digits --- the summed area for $r(A_b, \Delta t_b)$, the area at the frame of maximum length for the slope \FitAbLDPrinted, the angle $\tan^{-1}(\Delta z_b/e_B)$ for the printed range of $\theta$, the column named \texttt{sv\_fp2} for the printed $H_s$. None of these is visible in the printed digits, and all of them are visible in the record. Refusal is a result of the same kind: the two RANSAC coefficients are recorded as not decidable, with the deterministic slope and the $r$ beside them, rather than re-run with a seed and called reproduced; a histogram's bin count is refused when the enclosure of $n^{1/3}$ straddles an integer rather than guessed. For a reader of the public table the column identity is the practical part: the column named \texttt{Hs} is not the significant wave height of the records, and the column named \texttt{theta} is an angle that cannot exceed 45$^\circ$, so that the paper's Table 1 and its printed range of $\theta$ are the quantities to use. The grammar --- a verdict per printed number, with the exact value and the definition under it, and a record that can be re-run without the authors' code --- is what is proposed, and it is independent of this dataset.
+
+\paragraph{What is not claimed}
+Nothing about the ocean is decided here, only about the table and about the paper's arithmetic on it. The table is the authors' measurement, with whatever error the stereo reconstruction and the whitecap detection carry; the record describes neither, and a stereo rig's geometry alone can move a length by an amount that the companion instrument of the same project bounds \citep{toledo2026report}. Duncan's band and ratio are taken as the authors' scripts state them, and the plan-view caveat of the aspect-ratio comparison is real. The \InitiallyDetected\ events detected before manual inspection are not in the table and cannot be checked. The Kolmogorov--Smirnov $p$-values, the Akaike ranking of the distributions of a scientific library \citep{virtanen2020}, the Pareto and log-normal fits, the kernel densities, the bootstrap confidence intervals on the fitted coefficients and the maximum-likelihood cross-check of the tail are floating-point procedures about a distribution and are not reproduced; a RANSAC coefficient is a random variable and is reproducible by nothing. The stratification is by record, and twenty records of unequal size from \RecordDays\ days at one site are a description of this table, not a law; it is offered as the extension the dataset allows, in the form the paper's discussion asks for, for the authors to take further with the wave ages and wind directions the records carry.
+
+\paragraph{Cost}
+The whole table --- \NEvents\ events, every ratio, quantile, correlation and fit, the \ItemsTotal\ printed numbers, the \TOneCells\ cells and the twenty records --- is decided in \LedgerSeconds\ s of integer arithmetic on a laptop; the battery of \BatteryChecks\ checks takes a few seconds more. The arithmetic is arbitrary-precision rational arithmetic with no floating point anywhere except the one enclosure of $\pi$, and the cost of exactness at this scale is nil.
+
+\section{Conclusions}\label{sec:conclusions}
+Every number printed in a dataset paper on the geometry of \NEvents\ breaking waves was re-decided in exact arithmetic from the paper's own public table with the definitions of the paper's own scripts. \ItemsRoundingOrTruncation\ of the \ItemsTotal\ numbers in the text and \TOneReproduced\ of the \TOneCells\ cells of its Table 1 are the rounding, the truncation or the integer parts of the exact value; the three quadratic laws, the correlations between geometric properties, the \SelfSimPrinted\ self-similar tail and the fit on it reproduce to the printed digit. Two printed quantities are shown to be other columns of the public table than the ones their names suggest, and the record states which; two are coefficients of a randomised fitter and are recorded as not decidable. Duncan's laboratory geometry is decided event by event, with \AngleInsidePct\ of the events inside his band of inclination and the aspect ratio's median \AspectMedianOverDuncan\ times his value. The stratification by sea state that the paper leaves for a dedicated analysis is done per record on the same table with the same fit: the coefficient of $L_b$ on $c_b^2/g$ spans a factor of \SlopeSpread\ across the twenty records and ranks with the wave height and the period, not with the wave age. What is proposed to the authors of such datasets is not a different number but a different object to accompany each printed one: a verdict, the exact value under it, and a record that any reader can re-run.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The dataset paper is cited as the reference work; its authors are being consulted on this manuscript.
+
+\section*{Data availability}
+The record, the instrument and the figure and table sources are public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \RepoCommit): the ledger \texttt{certs/breaking-ledger.json} (generated \LedgerGenerated), the pinned corpus under \texttt{corpus/blacksea-breaking} (the per-event table as a CSV, the seven files of the Zenodo record with their archive offsets and digests, the transcription of the paper's printed numbers, and the digest of the paper's full-text XML), the instrument under \texttt{instruments/breaking} (MIT) and the number and figure builders under \texttt{tools/paper-numbers}. The report with every event re-decided at each build is at \url{https://carlostoledo.co/reports/breaking-geometry.html}. The dataset is \citet{zenodo2026} (CC BY 4.0); the paper is \citet{guimaraes2026}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration
+
+\section*{Funding}
+This work received no external funding.
+
+\begin{thebibliography}{99}
+\bibitem[Banner et~al.(2014a)]{banner2014prl} Banner, M.L., Barthelemy, X., Fedele, F., Allis, M., Benetazzo, A., Dias, F., Peirson, W.L., 2014a. Linking reduced breaking crest speeds to unsteady nonlinear water wave group behavior. Physical Review Letters 112, 114502.
+\bibitem[Banner et~al.(2014b)]{banner2014} Banner, M.L., Zappa, C.J., Gemmrich, J.R., 2014b. A note on the Phillips spectral framework for ocean whitecaps. Journal of Physical Oceanography 44, 1727--1734.
+\bibitem[Benetazzo(2006)]{benetazzo2006} Benetazzo, A., 2006. Measurements of short water waves using stereo matched image sequences. Coastal Engineering 53, 1013--1032.
+\bibitem[Benetazzo et~al.(2012)]{benetazzo2012} Benetazzo, A., Fedele, F., Gallego, G., Shih, P.-C., Yezzi, A., 2012. Offshore stereo measurements of gravity waves. Coastal Engineering 64, 127--138.
+\bibitem[Clauset et~al.(2009)]{clauset2009} Clauset, A., Shalizi, C.R., Newman, M.E.J., 2009. Power-law distributions in empirical data. SIAM Review 51, 661--703.
+\bibitem[Duncan(1981)]{duncan1981} Duncan, J.H., 1981. An experimental investigation of breaking waves produced by a towed hydrofoil. Proceedings of the Royal Society of London A 377, 331--348.
+\bibitem[Fischler and Bolles(1981)]{fischler1981} Fischler, M.A., Bolles, R.C., 1981. Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography. Communications of the ACM 24, 381--395.
+\bibitem[Freedman and Diaconis(1981)]{freedman1981} Freedman, D., Diaconis, P., 1981. On the histogram as a density estimator: $L_2$ theory. Zeitschrift f\"ur Wahrscheinlichkeitstheorie und verwandte Gebiete 57, 453--476.
+\bibitem[Gemmrich et~al.(2008)]{gemmrich2008} Gemmrich, J.R., Banner, M.L., Garrett, C., 2008. Spectrally resolved energy dissipation rate and momentum flux of breaking waves. Journal of Physical Oceanography 38, 1296--1312.
+\bibitem[Guimar\~aes et~al.(2020)]{guimaraes2020} Guimar\~aes, P.V., Ardhuin, F., Bergamasco, F., Leckler, F., Filipot, J.-F., Yoo, J., Benetazzo, A., 2020. A data set of sea surface stereo images to resolve space-time wave fields. Scientific Data 7, 145.
+\bibitem[Guimar\~aes et~al.(2026a)]{guimaraes2026} Guimar\~aes, P.V., Stringari, C.E., Filipot, J.-F., Leckler, F., Benetazzo, A., Chapron, B., 2026a. Geometry of breaking waves under natural sea conditions. Geophysical Research Letters. \url{https://doi.org/10.1029/2026GL122293}
+\bibitem[Guimar\~aes et~al.(2026b)]{zenodo2026} Guimar\~aes, P.V., Stringari, C.E., Leckler, F., Ardhuin, F., 2026b. Geometry of breaking waves at natural sea [data set]. Zenodo. \url{https://doi.org/10.5281/zenodo.18408002}
+\bibitem[Harris et~al.(2020)]{harris2020} Harris, C.R., Millman, K.J., van der Walt, S.J., et~al., 2020. Array programming with NumPy. Nature 585, 357--362.
+\bibitem[Kleiss and Melville(2011)]{kleiss2011} Kleiss, J.M., Melville, W.K., 2011. The analysis of sea surface imagery for whitecap kinematics. Journal of Atmospheric and Oceanic Technology 28, 219--243.
+\bibitem[McKinney(2010)]{mckinney2010} McKinney, W., 2010. Data structures for statistical computing in Python. Proceedings of the 9th Python in Science Conference, 56--61.
+\bibitem[Mironov and Dulov(2008)]{mironov2008} Mironov, A.S., Dulov, V.A., 2008. Detection of wave breaking using sea surface video records. Measurement Science and Technology 19, 015405.
+\bibitem[Moore et~al.(2009)]{moore2009} Moore, R.E., Kearfott, R.B., Cloud, M.J., 2009. Introduction to Interval Analysis. SIAM, Philadelphia.
+\bibitem[Patel and Schoenberg(2011)]{patel2011} Patel, R.D., Schoenberg, F.P., 2011. A graphical test for local self-similarity in univariate data. Journal of Applied Statistics 38, 2547--2562.
+\bibitem[Pedregosa et~al.(2011)]{pedregosa2011} Pedregosa, F., Varoquaux, G., Gramfort, A., et~al., 2011. Scikit-learn: machine learning in Python. Journal of Machine Learning Research 12, 2825--2830.
+\bibitem[Phillips(1985)]{phillips1985} Phillips, O.M., 1985. Spectral and statistical properties of the equilibrium range in wind-generated gravity waves. Journal of Fluid Mechanics 156, 505--531.
+\bibitem[Rump(2010)]{rump2010} Rump, S.M., 2010. Verification methods: rigorous results using floating-point arithmetic. Acta Numerica 19, 287--449.
+\bibitem[Spearman(1904)]{spearman1904} Spearman, C., 1904. The proof and measurement of association between two things. The American Journal of Psychology 15, 72--101.
+\bibitem[Sutherland and Melville(2013)]{sutherland2013} Sutherland, P., Melville, W.K., 2013. Field measurements and scaling of ocean surface wave-breaking statistics. Geophysical Research Letters 40, 3074--3079.
+\bibitem[Toledo(2026)]{toledo2026report} Toledo, C., 2026. The reach of a stereo rig, as enclosures (an instrument of the cert-machine project). \url{https://carlostoledo.co/instruments/stereo-reach/}
+\bibitem[Virtanen et~al.(2020)]{virtanen2020} Virtanen, P., Gommers, R., Oliphant, T.E., et~al., 2020. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nature Methods 17, 261--272.
+\end{thebibliography}
+
+\end{document}

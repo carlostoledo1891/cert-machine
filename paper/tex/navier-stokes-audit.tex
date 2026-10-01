@@ -1,0 +1,514 @@
+\documentclass[11pt]{article}
+\usepackage{certmachine}
+\input{navier-stokes-audit-numbers.tex}
+
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\lean}[1]{\texttt{#1}}
+\newcommand{\Lp}[1]{L^{#1}}
+
+\title{An audit of the 2026 Navier--Stokes finite-time blowup claim:\\
+the formal statement read against Clay's wording and Mathlib's definitions,\\
+the Lean proof built and its axioms asked of the kernel, and what remains open}
+\author{\cmauthor}
+\date{October 2026 --- draft v0.1 for review; every number interpolated from the record; machine-derived, not peer-reviewed; author list to be agreed}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+On 8 September 2026 OpenAI published a \PaperPages-page proof, with a Lean~4 formalisation,
+that for every positive viscosity a smooth compactly supported force drives the
+three-dimensional incompressible Navier--Stokes flow from rest to unbounded velocity in
+finite time, and stated that this establishes alternatives (C) and (D) of the Clay problem
+statement \cite{OAIann,OAINS,Fef00}. This note records an audit made the following day from
+a corpus pinned by digest: the formal statement read hypothesis by hypothesis against
+Fefferman's wording and Mathlib's definitions; the \LeanLines-line repository built on a
+laptop and the kernel asked for the axioms of each main declaration; Comparator run with a
+second kernel; the paper mapped onto the certificate clause by clause; the writeup dissected
+by \Readers{} independent readings and set against every classical obstruction; every
+printed identity a computer can decide re-run with red controls. What
+holds: the statement is Clay's with nothing added or dropped, the build passes on the three
+standard axioms, both kernels accept, and no error or counterexample was found. Not decided:
+the paper's finite-energy clause has no formal counterpart; the smallness parameter is
+bounded numerically nowhere; \EulerChecksUnrun{} checks of the companion Euler paper are
+listed and unrun. The register row reads \textsc{\LedgerVerdict}. Nothing is claimed about
+the mathematics beyond what the kernel and the readings establish, nor about priority.
+\end{abstract}
+
+\section{Introduction}
+
+The claim is Theorem~1.1 of \cite{OAINS}: for every $\nu>0$ there are a force
+$f\in C_c^\infty(\R^3\times(0,\infty);\R^3)$, a compact $K\subset\R^3$ and smooth $(u,p)$
+on $\R^3\times[0,1)$, supported in $K$, solving the Navier--Stokes equations from rest, with
+$\sup_{0\le t<1}\norm{u(t)}_{\Lp2}<\infty$ and $\limsup_{t\uparrow1}\norm{u(t)}_{\Lp\infty}
+=\infty$; consequently no smooth solution on $\R^3\times[0,\infty)$ with the same force and
+datum has uniformly bounded kinetic energy. The paper says this is alternative (C) of the
+Clay problem statement \cite{Fef00} and, through its Corollary~10.6, alternative (D). A
+Lean~4 repository \cite{OAIrepo} formalises both; the announcement \cite{OAIann} says the
+proof was produced by an internal model and formalised by another.
+
+A formal certificate changes what an audit of such a claim can be: three questions become
+decidable by machine and one by reading. Is the formal statement the theorem the prose
+names; does the proof term check, and on which axioms; does the paper say what the
+certificate says; and where the paper asserts rather than displays, does the certificate
+discharge the assertion? The position throughout is the one the records state: \emph{the
+Lean certificate is the claim; the paper is its human-readable evidence.} A gap in the paper
+is a gap in the writeup unless the Lean shows the same, and a printed identity that failed
+would refute the formula, not the theorem \cite{Records}. The contribution is not a theorem
+but the grammar of the audit and its public record; every number below is interpolated from
+a record by a tool that refuses when a record no longer supports a sentence.
+Sections~\ref{sec:claim}--\ref{sec:dates} give the claim and the corpus, the audit, what the
+record decides, what is not claimed, and the dates as the parties state them, weighed by
+nobody here.
+
+\section{What was claimed, and what was pinned}\label{sec:claim}
+
+\paragraph{Clay's alternatives.} Fefferman's statement \cite{Fef00} asks for a proof of one
+of four assertions; in its wording, (C) \emph{Breakdown of Navier--Stokes solutions on
+$\R^3$}: take $\nu>0$ and $n=3$; then there exist a smooth, divergence-free vector field
+$u^\circ(x)$ on $\R^3$ and a smooth $f(x,t)$ on $\R^3\times[0,\infty)$, satisfying (4), (5),
+for which there exist no solutions $(p,u)$ of (1), (2), (3), (6), (7) on
+$\R^3\times[0,\infty)$; and (D) the same on $\R^3/\Z^3$ with (8), (9) in place of (4), (5)
+and (10), (11) in place of (6), (7), the errata adding that the pressure is periodic. The
+numbered conditions are those of Table~\ref{tab:fidelity}.
+
+\paragraph{The mechanism.} As the records describe it \cite{Records}: a self-similar
+axisymmetric core with radial scale $\tau^{1/2}$, axial scale $\tau^{1/2-h}$ and azimuthal
+and axial speeds $\tau^{-1/2-h}$, $\tau=1-t$, $0<h<1/100$, whose momentum residual is
+unbounded in an annulus; two families of shear-amplified oscillatory pulses on an auxiliary
+torus that supply the missing stress through their averaged quadratic flux; corrections at
+every order in $q^{2h}$; an exact radial-heat exterior; cutoffs. The force is
+\emph{defined} as the residual of the constructed flow and shown to extend smoothly through
+$t=1$; uniqueness among smooth finite-energy solutions with a merely smooth pressure
+transfers the growth to any competitor, in the forced-blowup program of C\'ordoba and
+Mart\'{\i}nez-Zoroa \cite{CMZ}.
+
+\paragraph{The corpus.} Everything read was pinned on \CorpusFetched{} with its digest:
+\CorpusFiles{} files: the two papers, the Clay statement, the Lean bridge files, the Formal
+Conjectures statement, the announcement and the concurrent papers and statements \cite{OAINS,OAIE,OAIann,OAIrepo,FC,AB}. The
+repository \cite{OAIrepo} has one commit, \lean{\LeanCommit}, at \LeanCommitDate{}
+\LeanCommitTime; it pins Lean \LeanToolchain{} \cite{LeanMathlib} and Mathlib at \lean{\MathlibRev}
+\cite{LeanMathlib}; it holds \LeanFiles{} files and \LeanLines{} lines, of which \NSLines{} lines
+in \NSFiles{} files are the Navier--Stokes library, \EulerLines{} in \EulerFiles{} the Euler
+library and \ChalLines{} in \ChalFiles{} the challenge statements. Its
+\lean{formalization.yaml} declares the review \emph{\FormalReview} and the automation
+\emph{\FormalAutomation}, with no \lean{sorry} \cite{Records}.
+
+\section{The audit}\label{sec:audit}
+
+\subsection{The statement, hypothesis by hypothesis}\label{sec:statement}
+
+The theorem the certificate proves was not written by the prover. The Comparator challenge
+module is the Formal Conjectures statement of the Clay alternatives \cite{FC}, added by
+DeepMind on \FormalConjAdded{} (pull request \#\FormalConjPR), last touched on
+\FormalConjTouched{} at revision \lean{\FormalConjRev}, the revision OpenAI pinned and the
+revision on \lean{main} on the day of the audit. OpenAI's copy differs from upstream in
+\UpstreamDiffLines{} lines, every one an \lean{open} or a notation, and the solution side
+re-declares the same definitions under the same names, byte-identical once comments are
+stripped \cite{Records}. Comparator compares every constant reachable from the theorem's
+type for exact equality, so the only question is whether that statement is Clay's.
+
+Both theorems have the shape $\exists\,u_0\,f,\ H(u_0)\wedge H(f)\wedge\neg\exists\,v\,p,\
+S(v,p)$: the prover must \emph{establish} $H$ for the constructed data and \emph{exclude}
+every $(v,p)$ in $S$. A junk value or a weak definition inside $S$ only enlarges the class
+and strengthens the theorem; a gap could hide only in an $S$ stronger than Clay's (6)(7) or
+(10)(11), excluding competitors Clay admits, or in an $H$ weaker than Clay's (4)(5) or
+(8)(9), admitting data Clay rejects. Every row of Table~\ref{tab:fidelity} is read in that
+direction, with the Mathlib definition located at the pinned revision \cite{Records}.
+
+\begin{table}[t]\centering\footnotesize
+\begin{tabular}{L{3.3cm}L{8.6cm}L{2.6cm}}\toprule
+Clay & Lean (Formal Conjectures) and the Mathlib definition at \lean{\MathlibRev} & direction\\\midrule
+(1) $\partial_tu+(u\cdot\nabla)u=\nu\Delta u-\nabla p+f$ on $\R^3\times[0,\infty)$ &
+\lean{derivWithin (v x $\cdot$) (Ici 0) t + fderiv $\mathbb{R}$ (v $\cdot$ t) x (v x t) = nu $\bullet$ $\Delta$ (v $\cdot$ t) x - gradient (p $\cdot$ t) x + f x t}, $\forall x$, $\forall t\ge0$: the one-sided time derivative at $t=0$ within $[0,\infty)$; \lean{fderiv} applied to $v$ is $(v\cdot\nabla)v$; \lean{$\Delta$} the ordinary Laplacian (trace of the second derivative); \lean{gradient} the Riesz representative of \lean{fderiv} & same \\
+(2) $\operatorname{div}u=0$ & \lean{$\nabla\!\cdot$ (v $\cdot$ t) x = 0}, the trace of the Jacobian & same \\
+(3) $u(x,0)=u^\circ$ & \lean{v x 0 = u$_0$ x} & same \\
+(6) $p,u\in C^\infty(\R^3\times[0,\infty))$ & \lean{ContDiffOn $\mathbb{R}$ $\infty$ ($\upharpoonleft$v) (univ $\times^{s}$ Ici 0)}, likewise $p$: $C^\infty$ up to $t=0$ in the Taylor-series sense, not analytic & same \\
+(7) $\int|u|^2dx<C$ for all $t$ & \lean{integrable : $\forall$ t $\ge$ 0, MemLp ($\|$v $\cdot$ t$\|$) 2} with \lean{globally\_bounded\_energy : $\exists$ E, $\forall$ t $\ge$ 0, $\int$ $\|$v x t$\|$$^2$ < E}; the Bochner integral of a non-integrable function is $0$, which the first field forbids & same \\
+(10) $u$ periodic; errata: $p$ periodic; (11) smooth & \lean{IsOnePeriodic (v $\cdot$ t)}, \lean{IsOnePeriodic (p $\cdot$ t)} for $t\ge0$, along \lean{EuclideanSpace.single i 1}; smoothness as (6) & same as Clay plus the errata \\
+(4) $u^\circ$ smooth, divergence-free, $|\partial^\alpha u^\circ|\le C(1+|x|)^{-K}$ $\forall\alpha,K$ & \lean{InitialVelocityConditionDecay}: divergence-free, \lean{ContDiff $\mathbb{R}$ $\infty$ u$_0$}, $\forall m\,K\ \exists C$, \lean{$\|$iteratedFDeriv $\mathbb{R}$ m u$_0$ x$\|$ $\le$ C/(1+$\|$x$\|$)\^{}K}; the operator norm of the $m$-th derivative is comparable to the largest order-$m$ partial & equivalent; the paper takes $u^\circ=0$ \\
+(5) $f$ smooth on $\R^3\times[0,\infty)$, $|\partial_x^\alpha\partial_t^mf|\le C(1+|x|+t)^{-K}$ & \lean{ForceConditionDecay}: \lean{ContDiffOn $\mathbb{R}$ $\infty$ ($\upharpoonleft$f) (univ $\times^{s}$ Ici 0)} and the same bound on \lean{iteratedFDerivWithin} of total space-time order $m$ in place of Clay's split $(\alpha,m)$ & equivalent; a $C_c^\infty$ force satisfies it trivially \\
+(8) $u^\circ$, $f$ periodic in $x$; (9) $|\partial^\alpha\partial^mf|\le C(1+t)^{-K}$ & \lean{InitialVelocityConditionPeriodic}; \lean{ForceConditionPeriodic} with the time-decay bound on \lean{iteratedFDerivWithin} & same \\
+\bottomrule\end{tabular}
+\caption{Clay's hypotheses against the formal statement, one row per hypothesis
+(\FidelityRows{} rows; \FidelitySame{} read \emph{same}, \FidelityEquivalent{}
+\emph{equivalent}). The first six rows are the competitor class $S$, the last three the
+data hypotheses $H$. Transcribed from the record \cite{Records}.}\label{tab:fidelity}
+\end{table}
+
+\begin{proposition}[statement fidelity; the record's verdict]\label{prop:fidelity}
+The formal statements of (C) and (D), \lean{navier\_stokes\_breakdown\_R3} and
+\lean{navier\_stokes\_breakdown\_periodic}, are Clay's with no hypothesis added to the
+competitor class and none dropped from the data; in particular no decay, growth or
+integrability condition is imposed on the pressure or on $\nabla v$ beyond smoothness, so the
+formal uniqueness argument must handle every competitor Clay admits. The dimension is
+\lean{Fin~3} and $\nu$ is any positive real.
+\end{proposition}
+
+A negation is cheap if the class it negates is empty for a trivial reason, so a witness was
+written for this audit and compiled against OpenAI's challenge module: the fluid at rest
+satisfies every field of both competitor structures and the zero data all four data
+conditions (\lean{\NonVacuityFile}, \NonVacuityDecls{} declarations, \NonVacuityErrors{}
+errors, the three standard axioms for \lean{classes\_inhabited}) \cite{Records}. It shows
+the definitions are satisfiable, not that they admit every classical solution, which is
+Table~\ref{tab:fidelity}'s job.
+
+\subsection{The build, the axioms and the second kernel}\label{sec:build}
+
+{\sloppy The repository was built on \BuildDate{} on an ordinary laptop (\BuildMachine, \BuildCpus{}
+cores, \BuildMemory~GB, \BuildOS, \BuildArch) with the pinned toolchain: all \BuildJobs{}
+modules in \BuildMinutes{} minutes after the Mathlib cache (\BuildJobsTotal{} Lake jobs in
+all; two legs, \BuildLegOne{} modules at \BuildLegOneThreads{} threads then \BuildLegTwo{} at
+\BuildLegTwoThreads, after eight parallel Lean processes drove the machine into swap), exit
+\BuildExit, no errors \cite{Records}. A scratch file importing the two solution
+modules then asked \lean{\#print axioms} of the \AxiomDecls{} declarations
+\lean{formalization.yaml} names, and the kernel reported exactly \AxiomList{} for each. In
+code lines, comments blanked, the proof libraries contain no \lean{sorry} beyond the
+\HygSorryChal{} intentional placeholders of the challenge files, no axiom declaration, no
+\lean{native\_decide}, \lean{unsafe}, \lean{opaque} or \lean{partial def}, no custom syntax
+and no heartbeat override (\HygHeartbeatComments{} docstrings record earlier overrides
+removed).\par}
+
+Then the judge. Comparator \cite{Comparator}, the Lean FRO's tool for exactly this
+situation, exports both sides with \lean{lean4export}, compares every constant reachable
+from each theorem's type for exact equality, walks the axioms, and replays the proof through
+Lean's kernel and through nanoda, a kernel written independently of Lean's in Rust and built
+from source for this run. On the \ComparatorConfigs{} configurations, Navier--Stokes and
+Euler, all \ComparatorKernelAccepts{} kernel replays accept and \ComparatorAccepted{} of
+\ComparatorConfigs{} return \emph{``Your solution is okay!''} with exit $0$, in
+\ComparatorMinutesNS{} and \ComparatorMinutesEuler{} minutes. One component did not run and
+the record says so: Comparator's Landlock process isolation is Linux-only and a pass-through
+stand-in took its place; the statement comparison, the axiom walk and both kernel replays
+were performed, the isolation was not, and on a machine where both sides come from one
+pinned commit it guards against nothing this audit needed. What the build establishes is
+bounded by its trusted base, the two kernels, Mathlib's definitions at the pinned revision,
+the elaborator and the hardware: the proof terms exist and check against the third party's
+statement, and nothing about the paper.
+
+\subsection{The paper against the certificate}\label{sec:map}
+
+Each clause of the stated theorem was located in the formal library or named as absent
+(Table~\ref{tab:map}; \PaperVsLeanRows{} rows in the record, \PaperClausesNotFormal{} of them
+not formal) \cite{Records}.
+
+\begin{table}[t]\centering\footnotesize
+\begin{tabular}{L{2.5cm}L{4.0cm}L{5.6cm}L{2.4cm}}\toprule
+item & the paper & the Lean & status\\\midrule
+the two theorems & Theorem~1.1 (C), Corollary~10.6 (D) & \lean{navier\_stokes\_breakdown\_R3}, \lean{\_periodic}, through \lean{ComparatorBridge} adapters; solution-side definitions byte-identical to the challenge & proved, subject to the build record \\
+uniqueness, Lemma~10.5 & $v$ smooth, $\Lp\infty_t\Lp2_x$, zero datum, same force $\Rightarrow v=u$; no growth condition on the pressure & \lean{classical\_uniqueness\_on\_Icc} (\lean{R3/WholeSpaceUniqueness.lean:30}): competitor smooth, divergence-free, uniformly finite energy, pressure only smooth; pressure recovered (\lean{R3/PressureRecovery.lean:419}), flux bounded uniformly in the radius (\lean{R3/PressureFlux.lean:576}) & covers every competitor Clay admits \\
+the viscosity rescaling & (10.22): space rescaled, singular time $1$ & time rescaled, $f_\nu(x,t)=\nu^2f(\nu t,x)$ (\lean{ComparatorR3Theorem.lean:19}), singular time $1/\nu$ & equivalent; the statement names no time \\
+the uniform energy bound & Theorem~1.1's $\sup_{t<1}\norm{u(t)}_{\Lp2}<\infty$; Lemma~10.4; the announcement's ``its energy remains finite through the entire dynamics'' & \lean{uniform\_finite\_energy} (\lean{R3/CompactEnergy.lean:343}) proves it for any smooth compactly supported force and is used by nothing; the structure carrying \lean{energy\_bounded} has no producer; the candidate's \lean{Properties} structure has ten fields and no energy field & \textsc{not formal}; every other clause of Theorem~1.1 is \\
+the force's support in time & $f\in C_c^\infty(\R^3\times(0,\infty))$: zero near $t=0$ & smooth for $t\ge0$, compact spatial support, zero for $t\ge T$; no field states $f=0$ near $t=0$ & weaker in Lean; the challenge's force condition does not require it \\
+the growth & (10.20)--(10.21): $u_\theta=\tau^{-A}(e_0+O(\tau^{2h}))$ along a named off-axis path & \lean{SpeedUnboundedAtOne}: $\forall M\,\delta\ \exists t\,x$, $1-\delta<t<1$, $M<\norm{u(t,x)}$; on the torus also $\norm{u(t,0)}\to\infty$ on the axis & pointwise $\limsup\norm u_\infty=\infty$; no rate \\
+the numbering & Propositions 5.5, 7.5, 9.6, 9.9, Theorem~3.1 & docstrings cite a manuscript numbering absent from the published paper & the map is by content \\
+\bottomrule\end{tabular}
+\caption{The paper mapped onto the certificate, from the record \cite{Records}.}\label{tab:map}
+\end{table}
+
+One difference bears on the announcement, which says the fluid's ``energy remains finite
+through the entire dynamics, from rest to the formation of the singularity'' \cite{OAIann}.
+Theorem~1.1 states it and Lemma~10.4 proves it in a few lines, re-derived in the reading;
+the repository contains the general lemma, nothing invokes it, and
+\lean{breakdownStatement}, the file's own ``full assertion of Theorem~1.1'', is never
+proved. Clay's (C) does not need the clause, since a global smooth competitor is excluded by
+uniqueness on every $[0,T]$, $T<1$, where the candidate's energy is finite by compact support
+alone; so the formal result stands as Clay's and the physically striking clause rests on the
+paper. The Euler theorem in the same repository carries its energy bound
+(Section~\ref{sec:euler}); the record reads the asymmetry as an oversight rather than an
+obstacle, and this note repeats that reading as a reading.
+
+\subsection{The writeup, read}\label{sec:read}
+
+The paper was taken apart the day after it appeared by \Readers{} independent readings,
+\SectionMemos{} section memos (\S3 with \S10, \S4 with Appendix~B, \S5 with Appendix~A,
+\S6 with \S7, \S8 and \S9 with Appendix~C) and one map of the Lean library against all of
+them, each from the pinned PDF, written in the machine-assisted setting the author's
+disclosure describes and consolidated into one record \cite{Records}. Each reading
+transcribed the statements, traced the order in which every parameter is fixed and
+re-derived what it could; no circularity and no error were found. What was verified by hand holds as printed in all \VerifiedRows{} groups of
+the record: the closing argument of \S10 term by term; the leading equations of \S4
+re-derived in the similarity coordinates; the heat exterior of Appendix~A with Lemma~A.8's
+two zero-integral identities; the identities of \S\S6--7; the moment system of \S8 and the
+loop of Lemma~C.1 on \ConeLoopTrials{} random relaxed-cone data, where choosing $\delta_L$
+from the base point alone breaks the cone in about \ConeBreakPct\% of trials, so the
+ordering ``$\delta_L$ after $\mu_{\max}$, uniformly'' is load-bearing; and the coefficient
+equations of \S5, by computer (Section~\ref{sec:probes}).
+
+What the paper asserts rather than displays was listed and ranked by how much rests on it,
+\WeakPoints{} points in all \cite{Records}. Point~0 is the subject of
+Section~\ref{sec:obstructions}; the other \WeakPointsAfterZero, in the record's order, are
+the endpoint regularity of the local field up to $\tau=0$ in Proposition~9.9 (one paragraph,
+no estimate displayed, on which the force's smoothness at $t=1$ rests);
+the uniformity in $\eta$ of the flatness (3.4) that (10.9) needs; the admissibility of
+next-cycle sources in Proposition~9.3(i), the one unstated induction hypothesis of \S9; the
+smallness parameters, every one ``sufficiently small'' and none numeric, the printed
+$h<1/100$ not being the operative bound (Lemma~4.8 needs $h<\min\{\lambda,e^{-T_d}\}$ with
+$T_d=e^{M_d}+10$, the derivative scale of \S6 exceeds one only from dyadic level about
+$3\times10^{8}$, and flatness to order $N$ needs more than $1000(N+K_m)$ cycles and about
+$10^{7}N$ integrations by parts); the Lipschitz bounds of Proposition~B.2; the inequality
+$2+h<a$ of Lemma~4.9 on the terminal collar; the continuation of Proposition~B.5; the
+analyticity region of Lemma~5.1 against Theorem~4.6(i); the coefficient equations
+(5.3)--(5.6), since discharged by computer algebra; the two correction routes of \S7 and
+\S8.5; the hypothesis $|T_0|\ge c\zeta$ of Proposition~C.3, never cited in \S9; and the
+overloading of $q_*$. None is an error. \Slips{} bookkeeping slips were found, each
+harmless with a positive margin (a dropped $-\kappa_s$ in the zero harmonic of two-wave
+products has margins $0.08$ and $0.4$ against $\kappa_s=10^{-5}$). One is a warning to
+anyone auditing from extracted text: the cutoff family of Lemma~10.5 on p.~122 extracts as
+the dilations $\varphi_{4R},\varphi_{8R}$, under which three inequalities are false, while
+the glyphs are the powers $\varphi_R^4,\varphi_R^8$, under which every step is exact; no
+inequality is a finding until its glyphs have been seen.
+
+\subsection{The asserted steps, traced into the kernel}\label{sec:traced}
+
+Each asserted step was traced into the Lean library at the pinned commit and asked a harsher
+question than ``is it discharged'': whether the formal statement there is \emph{weaker}
+than the paper's claim \cite{Records}. \TracedFull{} are discharged by a proved theorem at
+full strength, \TracedStronger{} of them stronger than the paper: the endpoint regularity is
+a genuine $C^\infty$ extension across $t=1$ (\lean{OneSidedExtension},
+\lean{JointResidualLimits.lean:72}) and the flatness a joint space-time limit,
+$\eta$-uniform by construction (\lean{VanishingJointJets},
+\lean{JointResidualLimits.lean:84}), exactly the uniformity the reading found missing.
+\TracedAltered{} are discharged with something altered, among them the smallness
+parameters: $h$ is not a number in Lean but \lean{Classical.choice} of a nonempty profile
+datum, constrained by $2h<\lambda<1/10$ and the hypothesis $h\le1/1000$
+(\lean{NaturalAxisData.lean:41}); $N$, $\Lambda$, $C$, $q_*$ and the cycle schedule are
+existentials; the only numeric constants are $\kappa=10^{-5}$,
+$\Lambda_{\mathrm{chart}}=4-\sqrt2$, $X_{\mathrm{big}}=100$ and $X_i=110$; the Lipschitz
+machinery of Proposition~B.2 and the analyticity region are proved as machinery, their
+instantiation for the actual profile not traced to a line. \TracedNone{} point, Lemma~4.9's
+collar inequality, has no counterpart, the formal tail being a different plateau
+construction; \SlipsProseOnly{} of the slips are prose only, and two of the paper's
+arithmetic slips are absent from the formal object.
+
+Two more answers were read from the source. The construction's non-axisymmetry, which
+Section~\ref{sec:obstructions} needs, is a theorem, \lean{angularMode\_ne\_zero}
+(\lean{ActualInitialization.lean:52}), not an assumption. And the growth witness,
+\lean{FinalSlowBase.axis\_tendsto}, is the \emph{axial} component on the axis along
+$t\mapsto(t,0)$, not the paper's off-axis azimuthal path (10.20)--(10.21); both give
+$\limsup\norm u_\infty=\infty$, and no Lean theorem bounds the swirl $r\,u_\theta$ from below.
+
+\subsection{The adversarial pass}\label{sec:obstructions}
+
+The question an audit of a singularity must ask is whether a theorem says this cannot
+happen. \ObstructionRows{} classical obstructions were set against the construction's own
+exponents \cite{Records}. Of these,
+\ObstructionsMet{} are necessary conditions and are met: Serrin's
+$\int\norm u_\infty^2dt=\infty$ \cite{Serrin}, with $\norm u_\infty^2\asymp\tau^{-1-2h}$;
+Escauriaza--Seregin--\v{S}ver\'ak's $\norm{u(t)}_{\Lp3}\to\infty$ \cite{ESS}, met slowly, as
+$\tau^{-4h/3}$; the Beale--Kato--Majda integral \cite{BKM}; Leray's lower bounds
+\cite{Leray}; finite energy and finite dissipation, the dissipation rate $\tau^{-1/2-3h}$
+being integrable exactly when $h<1/6$; and the Caffarelli--Kohn--Nirenberg measure bound
+\cite{CKN}, one point at one time. The other \ObstructionsEvaded{} are exclusions and are
+evaded: the type-I exclusions for axisymmetric flows \cite{CSYT,KNSS} twice, the flow being
+type II by the factor $\tau^{-h}$ and not axisymmetric, and the classical no-swirl
+regularity, the force injecting swirl.
+
+The third is load-bearing and unstated. For an axisymmetric flow the swirl $\Gamma=r\,u_\theta$
+satisfies
+\[
+\partial_t\Gamma+u_r\partial_r\Gamma+u_z\partial_z\Gamma
+=\Gamma_{rr}-\Gamma_r/r+\Gamma_{zz}+r f_\theta ,
+\]
+a drift--diffusion equation with no zeroth-order term, derived in the battery from the
+$\theta$-momentum equation and checked symbolically; so from rest with a bounded compactly
+supported force, $\sup|\Gamma(t)|\le\int_0^t\sup|rf_\theta|$ and $|u_\theta|\le C/r$ for every
+$t<1$. The paper's leading field has $r\,u_\theta^{(0)}=q^{-h}H$, in its own words on p.~27,
+unbounded as $q\downarrow0$. The axisymmetric background alone is therefore impossible as a
+forced flow from rest; the theorem survives because the physical field is not axisymmetric,
+the pulses carrying nonzero integer angular frequencies (p.~12) whose Reynolds flux breaks
+the maximum principle for the angular mean. The paper does not say this anywhere; it is the
+sentence a referee would ask for, and it is why $h>0$ is forced rather than chosen. The
+formal object evades the obstruction by \lean{angularMode\_ne\_zero}
+(Section~\ref{sec:traced}). This is a reading, not a refutation: the record is explicit that
+no obstruction refutes the construction.
+
+\subsection{The printed identities, re-run}\label{sec:probes}
+
+The proof carries no numerics and fixes no constant to a number, so there is nothing for an
+interval certifier to certify. What the paper prints are identities, and each was re-run
+from the formula as printed by \ProbeScripts{} probe scripts carrying \ProbeReds{} red
+controls, a deliberately wrong variant of each test that must be rejected, \ProbeRedsDead{}
+of which failed to fire \cite{Records}. Symbolically: the similarity-coordinate derivatives
+of Lemma~4.1, the commutator kernel norm $16\pi/R$ of Lemma~10.5, the derivative count
+(10.12), the rescalings (10.22)--(10.23) and of Corollary~10.6, the exterior
+$q$-cancellation, the cutoff bound (10.3), and the exact exterior swirl
+$K=(r^2/2)^{-A}H(4\tau/r^2)$ against its equation (A.37). At \HeatDigits{} digits: the
+integral $H$ of (A.32) against (A.37), worst relative residual \HeatResidual, and against
+its Taylor coefficients (A.35) to order \HeatTaylorOrder. By exact algebra: the expansion
+(5.1) substituted into the axisymmetric operator and compared term by term with the printed
+coefficient equations (5.2)--(5.6), the sparsity and block nilpotency of $A_1$ in (5.7) and
+the divisibility of $\Omega_k$ by $X$, \CoeffIdentities{} identities. In exact rationals:
+the admissible stress cone of \S4.3, where Lemma~4.5's square-root-free form (4.22) agrees
+with the relaxed condition on a sweep of \ConeSweepPoints{} points (\ConeAdmissible{}
+admissible, \ConeNotAdmissible{} not), a planted sign flip disagrees at
+\ConeSignFlipDisagree{} of them, and Proposition~7.5's printed amplitudes are real exactly on
+the reference cone at \ConeRefPoints{} points (\ConeRefInside{} inside); and the swirl
+equation above. In floating point, deciding nothing, as the record says: the axis
+initial-value problem of Appendix~B at representative data the paper never fixes, whose
+solved profile tends to the closed form of Proposition~B.2 as $1/\Lambda$, with (B.17)
+holding from $\Lambda=\AxisLambdaFrom$ on. The record also keeps this battery's own first
+bug, a wrong derivative factor ($(-h)_m$ for $(-1)^m(h)_m$) that made a first run report $H$
+failing its equation; it is now a red control, so that a scratch log reading \textsc{fail}
+against a Millennium claim is not mistaken for a finding.
+
+\subsection{The companion theorem}\label{sec:euler}
+
+The same repository formalises Theorem~1.1 of \cite{OAIE}: there is
+$u_0\in C^\infty_{c,\sigma}(\R^3)$ with $0<T^*(u_0)<\infty$ whose smooth unforced Euler
+solution has $\limsup_{t\uparrow T^*}\norm{\nabla u(t)}_{\Lp\infty}=\infty$ and
+$\int_0^{T^*}\norm{\operatorname{curl}u(t)}_{\Lp\infty}dt=\infty$, a breakdown with no
+force, read in full \cite{Records}. {\sloppy Of its two formal shapes,
+\lean{exists\_compact\_smooth\_euler\_singularity} asserts a nonzero smooth compactly
+supported datum, $0<T^*\le1$, a uniform energy bound on the whole lifespan, maximality as
+an equivalence, infinite $\limsup$ of the $C^1$ norm and infinite Beale--Kato--Majda
+integral at $T^*$, and no global smooth finite-energy solution; \lean{euler\_breakdown\_R3}
+is the strictly weaker non-existence form, equivalent to blowup for these data only because
+the formal class imposes square integrability and bounded energy.\par}
+
+The step where such arguments die is the
+transfer from the approximants $U_j$ to the limiting datum, Euler's stability constant
+$\exp(C\int\norm{\nabla U_j}_\infty)$ being the diverging quantity; the reading finds \S6.2
+complete as written, because it compares each $U_j$ with the hypothetical smooth solution
+of the limiting datum under the contradiction hypothesis $T^*(u_0)>T_\infty$, so the
+Gronwall constant is $C\sup\norm u_{H^4}$, fixed before $j$ is chosen. The reading's
+sharpest candidate error, (3.16) on p.~13 apparently printing $(k\cdot C_*)^{n+1}$ with
+$C_*=80$, false at $n=0$, was \textsc{withdrawn}: the page rendered at 150~dpi shows
+$(k^{C_*})^{n+1}(n!)^2$; the extraction had flattened the superscript, the second such
+artifact of this audit. The record lists \EulerChecksUnrun{}
+checks the reading transcribed and did not run: the frozen-frame WKB model as an exact ODE
+system, every scale inequality of \S5.5 and (6.1)--(6.2) in exact logarithmic arithmetic,
+and the symbolic identities of \S3 including the trace check that fixes the $-2$ in (3.14).
+The Euler result is audited separately and not folded into the Navier--Stokes verdict.
+
+\section{What the record decides}\label{sec:decides}
+
+The register row \lean{\LedgerId}, recorded \LedgerRecorded, reads \textsc{\LedgerVerdict}:
+the Lean certificate holds for Clay's (C) and (D), and the finite-energy clause the paper's
+Theorem~1.1 states is not in the formal statement \cite{Records}. Exactly:
+
+\begin{enumerate}
+\item \emph{Held.} The formal statements are Clay's (C) and (D) with nothing added to the
+competitor class and nothing dropped from the data, written by a third party before the
+proof existed; the competitor classes are inhabited (Section~\ref{sec:statement}).
+\item \emph{Held.} All \BuildJobs{} modules build on this machine with the pinned toolchain;
+the kernel reports exactly \AxiomList{} for each of the \AxiomDecls{} main declarations;
+Comparator accepts both configurations through Lean's kernel and nanoda
+(Section~\ref{sec:build}).
+\item \emph{Held.} Every clause of Theorem~1.1 except the uniform energy bound and the
+vanishing of the force near $t=0$ has a formal counterpart, and the formal uniqueness covers
+every competitor Clay admits (Section~\ref{sec:map}).
+\item \emph{Held, as readings.} No error, circularity or counterexample was found in
+\Readers{} independent readings; \TracedFull{} of the \WeakPointsAfterZero{} asserted steps
+are discharged in Lean at full strength, \TracedStronger{} more strongly than the paper
+states; no classical obstruction refutes the construction; all \ProbeScripts{} probe scripts
+pass with all \ProbeReds{} red controls firing; the Euler transfer step reads complete
+(Sections~\ref{sec:read}--\ref{sec:euler}).
+\item \emph{Not decided.} The paper's $\sup_{t<1}\norm{u(t)}_{\Lp2}<\infty$ and the force's
+vanishing near $t=0$ are paper claims with no formal counterpart; the first rests on the
+paper's Lemma~10.4, re-derived by hand.
+\item \emph{Not decided.} The smallness parameter $h$ is bounded numerically in neither
+artifact; the proof is asymptotic in a parameter no one has quantified, and nothing here
+makes it effective.
+\item \emph{Not decided.} The instantiation of Proposition~B.2's machinery for the actual
+profile was not traced to a line; Lemma~4.9's collar inequality has no formal counterpart;
+the paper names no sentence for the swirl obstruction it evades; the \EulerChecksUnrun{}
+Euler checks are listed and unrun; Comparator's process isolation did not run.
+\item \emph{Not decided.} The mathematics of the writeup beyond what the kernel and the
+readings establish. An audit is not a referee report, and the readings were not peer review.
+\end{enumerate}
+
+\section{What is not claimed}\label{sec:not}
+
+Nothing is claimed about the correctness of the mathematics beyond items 1--4 above: the
+kernel establishes that the proof terms check against the third party's statement, the
+readings that nobody here found an error, and the verdict on the theorem is the build's and
+the kernels', not the reading's. No numerical computation here certifies anything: the
+paper contains no numerics and none of its constants is a number. Nothing is claimed about
+priority: the record holds the dates each party states (Section~\ref{sec:dates}) and
+adjudicates nothing, and the concurrent results \cite{AB} are different theorems from the
+one audited here. Nothing is claimed about the prize: the papers are published and not
+peer-reviewed, the Clay Mathematics Institute had said nothing at the time of the record,
+and OpenAI has said it does not intend to claim it \cite{OAIann}. The word \emph{certified}
+is used here only for what a kernel checked.
+
+\section{The dates, as the parties state them}\label{sec:dates}
+
+The record holds \DateRowsCount{} dates, each from the document named in it: OpenAI's
+announcement \cite{OAIann}, Buckmaster's statement and the concurrent papers \cite{AB},
+Tao's posts \cite{Tao}, or a repository's own timestamps \cite{OAIrepo,FC}. Nothing here
+weighs them \cite{Records}.
+
+{\footnotesize\DateList\par}
+
+\cmrepro{\sloppy The records are in \texttt{corpus/navier-stokes/} \cite{Records}:
+\texttt{lean-repo.json} is computed from a clone at \texttt{\LeanCommit} by
+\texttt{tools/pin-navierstokes-lean.js}, \texttt{build.json} by
+\texttt{tools/record-navierstokes-build.js}, and \texttt{probes.json} by
+\texttt{python3 instruments/navierstokes/battery.py}, which re-runs the \ProbeScripts{}
+probe scripts with their \ProbeReds{} red controls. The macros of this document are
+written by \texttt{node tools/paper-numbers/navier-stokes-audit.js} from those records at
+repository commit \texttt{\RepoCommit}; the timing fields of \texttt{probes.json}, which
+change on every run, are never read. Rebuilding the Lean repository needs the clone and
+toolchain the two tools name and about \BuildMinutes{} minutes on an eight-core machine;
+nothing here depends on re-running it, and every number above is read from the record of
+the run of \BuildDate.}
+
+\begin{thebibliography}{99}\footnotesize
+\bibitem{Fef00} C.~L. Fefferman, Existence and smoothness of the Navier--Stokes equation,
+Clay Mathematics Institute, 2000, with errata,
+\url{https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf}, pinned \CorpusFetched.
+\bibitem{OAINS} OpenAI, Finite time blowup for Navier--Stokes, \PaperPages~pp., 8 September
+2026, \url{https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf}, pinned sha256 \texttt{\PaperSha}\ldots
+\bibitem{OAIE} OpenAI, Finite time blowup for the Euler equation, \EulerPages~pp., 8 September
+2026, \url{https://cdn.openai.com/pdf/315b36cd-ec98-4023-8342-93345194ece1/euler.pdf}.
+\bibitem{OAIann} OpenAI, On the Navier--Stokes Millennium Prize Problem, 8 September 2026,
+\url{https://openai.com/index/navier-stokes-solution/}, pinned \CorpusFetched{} via the Internet Archive.
+\bibitem{OAIrepo} OpenAI, NavierStokesAndEuler: Lean 4 formalizations,
+\url{https://github.com/openai/NavierStokesAndEuler}, commit \texttt{\LeanCommit}, \LeanCommitDate.
+\bibitem{FC} Google DeepMind, Formal Conjectures,
+\texttt{FormalConjectures/Millenium/NavierStokes.lean},
+\url{https://github.com/google-deepmind/formal-conjectures}, revision
+\texttt{\FormalConjRev}; the statement added \FormalConjAdded{} in \#\FormalConjPR.
+\bibitem{LeanMathlib} L. de Moura, S. Ullrich, The Lean 4 theorem prover and programming
+language, in: Automated Deduction -- CADE 28, LNCS 12699, Springer, 2021, 625--635; The
+mathlib Community, The Lean mathematical library, in: Proc.\ CPP 2020, ACM, 367--381;
+Mathlib revision \texttt{\MathlibRev} as pinned.
+\bibitem{Comparator} Lean FRO, Comparator, \url{https://github.com/leanprover/comparator},
+revision \texttt{\ComparatorRev}; lean4export,
+\url{https://github.com/leanprover/lean4export}, revision \texttt{\LeanExportRev}; nanoda
+(\texttt{ammkrn/nanoda\_lib}), a Lean kernel written in Rust, built from source for the run.
+\bibitem{CMZ} D. C\'ordoba, L. Mart\'{\i}nez-Zoroa, Finite time singularities of smooth
+solutions for the 2D incompressible porous media (IPM) equation with a smooth source,
+arXiv:2410.22920v3 (2025).
+\bibitem{AB} L. Alp\"oge, T. Buckmaster, Blowup for the Boussinesq equations with smooth
+forcing, and Blowup for the Euler equations with smooth forcing; with M.~P. Coiculescu,
+Extending the C\'ordoba--Mart\'{\i}nez-Zoroa IPM blow-up to uniformly space-time smooth
+forcing; T. Buckmaster, statement of 8 September 2026; all at
+\url{https://cims.nyu.edu/~tristanb/}, pinned \CorpusFetched.
+\bibitem{Tao} T. Tao, posts of 3 and 5 September 2026,
+\url{https://mathstodon.xyz/@tao/117207849921390904}, pinned \CorpusFetched.
+\bibitem{Leray} J. Leray, Sur le mouvement d'un liquide visqueux emplissant l'espace, Acta
+Math.\ 63 (1934), 193--248.
+\bibitem{Serrin} J. Serrin, On the interior regularity of weak solutions of the Navier--Stokes
+equations, Arch.\ Rational Mech.\ Anal.\ 9 (1962), 187--195.
+\bibitem{CKN} L. Caffarelli, R. Kohn, L. Nirenberg, Partial regularity of suitable weak
+solutions of the Navier--Stokes equations, Comm.\ Pure Appl.\ Math.\ 35 (1982), 771--831.
+\bibitem{BKM} J.~T. Beale, T. Kato, A. Majda, Remarks on the breakdown of smooth solutions
+for the 3-D Euler equations, Comm.\ Math.\ Phys.\ 94 (1984), 61--66.
+\bibitem{ESS} L. Escauriaza, G. Seregin, V. \v{S}ver\'ak, $L_{3,\infty}$-solutions of
+Navier--Stokes equations and backward uniqueness, Russian Math.\ Surveys 58 (2003), 211--250.
+\bibitem{KNSS} G. Koch, N. Nadirashvili, G. Seregin, V. \v{S}ver\'ak, Liouville theorems for
+the Navier--Stokes equations and applications, Acta Math.\ 203 (2009), 83--105.
+\bibitem{CSYT} C.-C. Chen, R.~M. Strain, H.-T. Yau, T.-P. Tsai, Lower bound on the blow-up
+rate of the axisymmetric Navier--Stokes equations, Int.\ Math.\ Res.\ Not.\ IMRN 2008, Art.\
+ID rnn016.
+\bibitem{Records} cert-machine, the records of the audit in \texttt{corpus/navier-stokes/}
+(\texttt{MANIFEST.json}, \texttt{lean-repo.json}, \texttt{build.json},
+\texttt{nonvacuity.json}, \texttt{fidelity-clay-vs-lean.md}, \texttt{dissection.md},
+\texttt{audit.json}, \texttt{euler.md}, \texttt{probes.json}), all of 2026-09-09; the
+register row \texttt{\LedgerId} in \texttt{certs/claims-ledger.json}; and the page built
+from them, \url{https://carlostoledo.co/reports/navier-stokes.html}.
+\end{thebibliography}
+
+\end{document}

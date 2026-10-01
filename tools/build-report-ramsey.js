@@ -47,7 +47,7 @@ const FIG = CH.lines({
 const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · decided · diagonal Ramsey numbers',
-  title: 'Diagonal Ramsey below 3.7992: 3.7823, then 3.7721',
+  title: 'Diagonal Ramsey below 3.7992: 3.7823, then 3.77213…',
   deck: 'Gupta, Ndiaye, Norin and Wei prove R(k, k) ≤ 3.7992^(k+o(k)) and print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as '
     + '"preliminary, unverified": 3.78233. Decided here on the paper\'s own Theorem 14, by two independent programs: it holds. The paper adds that "further '
     + 'improvements by performing additional iterations are possible"; five more rounds, each proposed here by a float optimiser and each decided in the '
@@ -70,7 +70,9 @@ B.push(C.tldr({
 }));
 B.push(C.stats([
   { k: 'base, the remark\'s round', v: '3.7823', n: 'Printed as unverified; decided here. c = ' + c.slice(0, 16) + '…' },
-  { k: 'base, five rounds more', v: cK.slice(0, 6), n: 'c = ' + cK.slice(0, 16) + '…, each round in the region of the one before.' },
+  /* the base is printed truncated with its ellipsis, never rounded down: under an o(k) exponent 3.7721^(k+o(k)) would
+     claim more than c = 3.77213… proves (the paper agent's correction, 2026-10-01); the valid rounded form is 3.7722 */
+  { k: 'base, five rounds more', v: cK.slice(0, 7) + '…', n: 'c = ' + cK.slice(0, 16) + '…, each round in the region of the one before; rounded, 3.7722, never 3.7721.' },
   { k: 'intervals decided', v: nInt.toLocaleString('en-US'), n: 'By the first program; the second, with its coarser method, used ' + nInt2.toLocaleString('en-US') + '.' },
   { k: 'implementations', v: '2', n: 'Python and Decimal with a written derivative; JavaScript and dyadic intervals with monotone bounds. They agree to 25 digits.' }
 ]));

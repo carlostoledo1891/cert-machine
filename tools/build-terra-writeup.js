@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+/* SUPERSEDED 2026-10-01: the paper of record is now LaTeX (paper/tex/terra-peaks.tex, built by
+   tools/build-paper-tex.js from paper/tex/terra-peaks-numbers.tex, which tools/paper-numbers/
+   terra-peaks.js writes from the same records). This generator is kept for history and refuses
+   to emit, so it can never overwrite the superseded note with a stale markdown draft. */
+if (!process.env.ALLOW_STALE_MD) { console.error('build-terra-writeup.js: superseded by the LaTeX paper — run tools/build-paper-tex.js terra-peaks'); process.exit(1); }
 /* build-terra-writeup.js — generate paper/terra-peaks.md, the record-driven
    rebuild of the terra peak-splitting paper (TERRA-PORT paper-rebuild notes;
    elevated by the operator's 2026-09-01 ruling that everything on the

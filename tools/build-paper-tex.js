@@ -17,7 +17,10 @@ const die = (m) => { console.error('PAPER TEX REFUSED: ' + m); process.exit(1); 
 
 let names = process.argv.slice(2);
 if (names.includes('--all')) {
-  names = fs.readdirSync(TEX).filter((f) => f.endsWith('.tex')).map((f) => f.replace(/\.tex$/, ''));
+  /* every manuscript, and only manuscripts: the generated <name>-numbers.tex macro files are \input by their
+     papers and are not documents (the first --all run over the shelf, 2026-10-01, tried to compile one) */
+  names = fs.readdirSync(TEX).filter((f) => f.endsWith('.tex') && !f.endsWith('-numbers.tex')
+    && /\\documentclass/.test(fs.readFileSync(path.join(TEX, f), 'utf8'))).map((f) => f.replace(/\.tex$/, ''));
 }
 if (!names.length) die('usage: node tools/build-paper-tex.js <name> | --all');
 
@@ -34,6 +37,15 @@ for (const n of names) {
   if (/undefined (reference|citation)/i.test(out)) die(n + ': undefined reference or citation');
   const pdf = path.join(ROOT, 'paper', n + '.pdf');
   if (!fs.existsSync(pdf)) die(n + ': no PDF was written');
+  /* tectonic words a missing bibitem "Citation `x' on page N undefined" on its last pass and the regex above misses
+     it (the register paper's agent caught one by hand, 2026-10-01): a missing citation renders as [?] in the numeric
+     styles and as "(author?)" / "(?)" under natbib, so the printed text is checked where poppler is available */
+  const txt = cp.spawnSync('pdftotext', [pdf, '-']);
+  if (txt.status === 0) {
+    const t = String(txt.stdout);
+    const m = /\[\?\]|\(\?\)|\(author\?\)|\?\?\)/.exec(t);
+    if (m) die(n + ': the PDF prints "' + m[0] + '" — a citation or reference is undefined');
+  }
   /* placeholders must never reach a compiled paper */
   const tex = fs.readFileSync(src, 'utf8');
   for (const bad of ['[OPERATOR]', 'TODO', 'XXX']) {

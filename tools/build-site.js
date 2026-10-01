@@ -1746,6 +1746,9 @@ put('og.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og.png')));
 for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) {
   if (f.endsWith('.pdf') || f.endsWith('.md')) put('paper/' + f, fs.readFileSync(path.join(ROOT, 'paper', f)));
 }
+/* the index of the pre-papers, for the reviewing group: rendered from paper/INDEX.json and the PDFs
+   themselves (page counts and sizes read from the files); refuses when the shelf and the manifest differ */
+put('papers/index.html', Buffer.from(require(path.join(__dirname, 'build-papers-index.js')).html()));
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', fs.readFileSync(path.join(ROOT, 'index.html')));
 for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {

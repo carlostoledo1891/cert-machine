@@ -1,0 +1,279 @@
+\documentclass[preprint,11pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{ec-benchmark-numbers.tex}
+\journal{Ocean Engineering}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{The environmental-contour benchmark re-decided exactly: \EContours\ submitted contours as exact polygons, \EHoursTotalMillions\ million hourly sea states classified in exact arithmetic, and the counts the organizers printed\tnoteref{t1}}
+\tnotetext[t1]{Draft for review, version 0.1 of 2026-10-01. The author list and the CRediT roles are to be agreed. Every number in this manuscript is read at build time from the records named in the Data availability statement (repository commit \RepoCommit); the prose is authored and should be reviewed like any other.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+The benchmarking exercise for environmental contours of \citet{haselsteiner2021} asked nine groups to submit 1-, 20- and 50-year contours for six hourly metocean datasets and scored each submission by counting the observations that fall outside it, with a floating-point point-in-polygon test. This paper re-decides that count. Each of the \EContours\ submitted contour files is read as the polygon its decimal digits denote; each of the \EHoursTotal\ hourly sea states is classified inside, outside or on that polygon under the even-odd rule the organizers' script used, every sign decided --- in floating point where a proved forward-error bound fixes it, in integer arithmetic otherwise --- and the organizers' counting procedure is then applied as their script defines it. Of the \EComparisons\ numbers printed in the benchmark's two tables, \EExact\ are the exact count to the integer; one more is the exact mean once two observations lying exactly on a contour are counted outside, which is what the float test does; two, the one-year row of one contribution, are not the count of any file the repository now holds, and the repository's own history traces them to three files rewritten after the count was made. \ENotSimple\ of the \EContours\ polygons cross themselves, up to \EMaxCross\ times, and \ENotClosed\ are not closed in the file, so the region that was counted includes an edge nobody listed; no observation changes side between the even-odd and the nonzero-winding rule, so the printed counts do not depend on that choice. The benchmark's expected numbers are certified: its \EPrintedIformOne, \EPrintedIformTwenty, \EPrintedIformDOne\ and \EPrintedIformDFifty\ are the roundings of enclosures, and its \EPrintedTotalOne\ and \EPrintedTotalTwenty\ are exact. Nothing is claimed about which contour construction is better. The contribution is the decision grammar --- a verdict with its witness, and a file's defects reported rather than counted over --- and a public record that any reader can re-run.
+\end{abstract}
+
+\begin{highlights}
+\item Every submitted contour read as the exact polygon its decimal digits denote.
+\item \EHoursTotalMillions\ million hourly sea states classified inside, outside or on, every sign decided.
+\item \EExact\ of \EComparisons\ printed counts reproduced to the integer; 2 traced to a rewritten file.
+\item \ENotSimple\ of \EContours\ polygons cross themselves; \ENotClosed\ are closed by an edge nobody listed.
+\item The benchmark's expected numbers certified as enclosures; its 20 and 1 are exact.
+\end{highlights}
+
+\begin{keyword}
+environmental contours \sep metocean design \sep benchmarking \sep point in polygon \sep exact geometric computation \sep verified computation \sep IFORM
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+An environmental contour is a closed curve in the plane of two metocean variables --- significant wave height against zero-up-crossing period, or wind speed against wave height --- along which a structure is analysed for the sea states of a given return period \citep{winterstein1993,dnv2021,iso19901}. Several constructions compete: the inverse first-order reliability method \citep{winterstein1993}, inverse second-order variants \citep{chai2018}, direct sampling \citep{huseby2013} and highest-density regions \citep{haselsteiner2017}, built on joint models whose fitting is itself a field \citep{jonathan2013,ross2020}, and differing in what probability the contour encloses \citep{mackay2021}. To compare them on common ground, \citet{haselsteiner2021} organised a benchmarking exercise: six hourly datasets, three from buoys and three from a hindcast, were distributed with ten or twenty-five years each, a further ten or twenty-five years were retained, and nine groups submitted their 1-, 20- and 50-year contours as lists of vertices. The organizers then counted, for every contour, the observations of the provided and retained years together that fall outside it, printed the count beside the number expected for the contour's definition, and left the comparison of methods to the reader.
+
+That count is the benchmark's metric, and it is a finite, decidable quantity: given a polygon, a rule for ``inside'', and a list of points, the number outside is an integer. Whether a program returns that integer depends on three things which the exercise, like any exercise of its kind, left to its software: whether the file denotes a polygon at all, which rule for ``inside'' is applied and what it answers on the boundary, and whether the arithmetic that evaluates the rule gets every sign right. The organizers' procedure, which is public, fixes the rule by the library it calls --- the crossing-number test of matplotlib's \texttt{Path.contains\_points} \citep{hunter2007} --- and leaves the arithmetic to that library's double precision. Floating-point orientation tests are known to answer wrongly near degeneracy, and to do so silently \citep{kettner2008,shewchuk1997}; the remedy, exact geometric computation behind a floating-point filter \citep{yap1997,fortune1996}, is standard in computational geometry and, to our knowledge, has not been applied to a metocean benchmark.
+
+This paper applies it. Every submitted file is read as the polygon its decimal digits denote, exactly; every hourly sea state is classified inside, outside or \emph{on} that polygon with every sign decided; the organizers' counting procedure is reproduced as their script defines it; and each number they printed receives a verdict with the quantity that justifies it. Three things motivate the effort beyond the metric itself. First, a floating-point test has no third answer: a point on an edge is returned on one side or the other by rounding, and in this benchmark two observations do lie exactly on a submitted contour. Second, the exact reading surfaces properties of the files that a float count passes over --- polylines that cross themselves, polygons closed by an edge nobody listed, vertices repeated, a file rewritten after it was counted --- which bear on what the printed number is a count of. Third, a benchmark is the one place where a number ought to be a decision rather than an observation, because it is the number on which methods are compared.
+
+The contribution is therefore not a new contour method and not a judgement on any existing one. It is (i) a reading of each submitted file as an exact polygon with its diagnostics, (ii) an exact classification of every observation with \emph{on} as a third answer, (iii) the organizers' procedure reproduced and every printed number decided against it, (iv) the benchmark's expected numbers certified, (v) numbers the benchmark did not print --- the out-of-sample counts on the retained years alone, and the highest wave along each contour against the highest observed --- and (vi) the public, re-runnable record of all of this. The word \emph{certified} is used in this paper in its mathematical sense only, for a statement with a machine-checkable proof: an enclosure computed with outward rounding, or an integer decided with every sign certain. A count obtained that way is said to be \emph{decided}, and a printed number read against it \emph{re-decided}. Section~\ref{sec:benchmark} describes the exercise and its procedure; Section~\ref{sec:method} the exact re-decision; Section~\ref{sec:results} the results; Section~\ref{sec:discussion} what a certificate adds to a benchmark of this kind and what a next exercise could require.
+
+\section{The benchmark and its counting procedure}\label{sec:benchmark}
+
+\subsection{The exercise}
+Exercise 1 of the benchmark \citep{haselsteiner2021} concerns six datasets. Datasets A, B and C are hourly sea states $(\Hs, T_z)$ from three NDBC buoys; D, E and F are hourly wind--wave states $(u_{10}, \Hs)$ at three points of the coastDat hindcast distributed by the World Data Center for Climate. Participants received the ``provided'' part of each --- ten years for A--C, twenty-five for D--F --- and the organizers kept a ``retained'' part of the same length. Contours were requested for return periods of 1 and 20 years on A--C and 1 and 50 years on D--F. Nine groups contributed; one of them submitted three sets of contours (direct sampling, direct sampling smoothed, and IFORM), so that \EContributions\ contour sets are compared, listed in Table~\ref{tab:contrib} with the organizers' classification of each as a marginal-exceedance or a total-exceedance construction \citep{mackay2021}. \EFilesTwelve\ sets hold twelve files (six datasets at two return periods) and \EFilesEighteen\ hold eighteen (the third set also supplied 50-year contours for A--C and 20-year ones for D--F); \EContours\ files in all, which are the objects of this paper.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The \EContributions\ contour sets of Exercise 1, as the benchmark's Table 2 lists them: the construction (IFORM and ISORM, the inverse first- and second-order reliability methods; DSCM, direct sampling; HDCM, highest-density contours; IDSCM and DIFORM, the inverse directional simulation and direct-IFORM variants of contributions 3 and 5), the joint model as the benchmark abbreviates it, the organizers' class, the number of files, and the range of listed vertices per file.}
+\label{tab:contrib}
+\begin{tabular}{llllllr}
+\toprule
+set & authors & construction & model & class & files & vertices \\
+\midrule
+\EContribRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The datasets}
+Table~\ref{tab:datasets} gives the six datasets as the ledger read them. The provided and retained parts of A--C together hold \EHoursABC\ hourly states each, which is $20 \times 8766$ hours to the hour; those of D--F hold \EHoursDEF\ each; \EHoursTotal\ hourly states in all. The retained parts of the buoys hold their ten years of hours over a longer span of calendar years, because a buoy record has gaps; the counts of hours are what the expected numbers use. The highest sea state of dataset A, \EMaxA\ m on \EMaxAWhen, lies in the retained years, \EMaxAGap\ m above anything in the provided ten.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The six datasets: the variables, the number of hourly states in the provided and the retained part with the calendar years each spans, their total, and the highest significant wave height observed in the full dataset with its hour. Every value is read from the pinned files; the maximum is a literal compared as a literal.}
+\label{tab:datasets}
+\resizebox{\linewidth}{!}{\begin{tabular}{llrlrlrl}
+\toprule
+set & variables & provided & years & retained & years & full & max $\Hs$ (m) \\
+\midrule
+\EDatasetRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{The submitted files}
+A submission is a semicolon-separated text file: a header naming the two columns, then one vertex per line as decimal literals. The column order differs between authors --- some put wave height first, some second --- and the organizers' scripts carry a hand-coded list of who did which (participants \EAbcHsSecond\ read as period-then-height on A--C; participants \EDefHsFirst\ read as height-then-wind on D--F). The present reading takes the order from each file's header instead, which one file spells ``heigth''; the two readings agree on all \EContours\ files. Files hold between \EVerticesMin\ and \EVerticesMax\ vertices. \ENotClosed\ of them do not repeat their first vertex at the end, so the polygon that was counted contains an edge, from the last listed vertex back to the first, that the author did not list; the organizers' test closes the path implicitly (Section~\ref{sec:count}), and so does this paper, because that is the polygon the count was made on.
+
+\subsection{The organizers' count}\label{sec:count}
+The two scripts that produced the benchmark's Tables 5 and 6, \path{create_points_outside_table_abc.py} and \path{create_points_outside_table_def.py}, are held in the repository with the version of \texttt{viroconcom} \citep{haselsteiner2019viroconcom} they call. For each contour set and dataset the script concatenates the provided and retained hours, reads the contour file in the column order it assumes for that participant, and calls \texttt{points\_outside}, which builds a matplotlib \texttt{Path} from the vertices and asks \texttt{contains\_points} for every hour \citep{hunter2007}: a crossing-number (even-odd) test in double precision on the polygon closed implicitly from its last vertex to its first, with no defined answer for a point on the boundary. An observation is outside when the test says it is not inside. A second count keeps only the observations outside with $\Hs > 1$ m (A--C) or with $u_{10} > 1$ m/s and $\Hs > 1$ m (D--F), the organizers' severity threshold. For the long return period the tables print the mean over the three datasets and the three per-dataset integers, for both counts; for the one-year contours they print the two three-dataset means to one decimal; and beside each the expected number of the benchmark's Table 1 (Section~\ref{sec:expected}). That is $11 \times (3 + 3 + 1 + 1) = 88$ numbers per table, \EComparisons\ in all.
+
+\subsection{What is compared}
+The numbers re-decided here are those of the preprint held in the benchmark's repository at the pinned commit (\texttt{\EPaperFile}, \EPaperBytes\ bytes, SHA-256 \texttt{\EPaperSha\ldots}), transcribed digit for digit into the record; the published article's tables were not read, and whether they differ from the preprint's is an open point for the review. The contour files, the organizers' scripts and the twelve datasets are pinned at the same commit, \texttt{\ECommit}, by their SHA-256 digests (\ECorpusFiles\ files, fetched \EFetched).
+
+\section{The exact re-decision}\label{sec:method}
+
+\subsection{Literals, not doubles}
+Every number in the benchmark is a decimal literal: an hourly state ``0.2845; 4.7252'', a vertex ``4.283446918632201; 7.469377172830912''. Each is read as the rational its digits denote and kept as that string beside its double image. The fast path of every predicate runs on the doubles; the exact path, entered only where the fast path cannot decide, scales each literal to an integer at a fixed decimal scale (sixty-four places; the benchmark's longest literal has seventeen) and computes in arbitrary-precision integers, where every sign is exact. A literal that would need more places than the scale carries is refused rather than rounded; so is a token that is not a decimal literal, such as \texttt{nan}.
+
+\subsection{The polygon a file denotes}
+A file's vertices, in the frame $(u, h)$ with $u$ the second variable and $h$ the wave height, define a polygon closed from the last vertex to the first. A file that repeats its first vertex at the end denotes the same polygon and is recorded as explicitly closed; a vertex repeated consecutively is a zero-length edge, removed and counted; fewer than three distinct vertices is not a polygon and is refused. For each polygon the record holds, exactly: whether any two non-adjacent edges cross properly (each segment's endpoints on strictly opposite sides of the other), whether any touch, whether any adjacent pair folds back along itself, the first crossing pairs by edge index, whether the implicit closing edge is among the crossing edges, its length and whether it is the longest edge, the signed area, and the maximum of $h$ along the contour, which is attained at a vertex because $h$ is linear on an edge. A polygon with no crossing, touch or fold is \emph{simple}; the others are reported as such and counted all the same, because the organizers' test counted them.
+
+\subsection{Classification: inside, outside, on}
+A point is classified by the even-odd crossing number of a horizontal ray \citep{shimrat1962,hormann2001}, in the half-open convention of the organizers' library: an edge counts when exactly one of its endpoints lies strictly above the ray. Every predicate is a sign --- of the $2 \times 2$ determinant that orients a point against an edge, or of the difference of two literals. Each is evaluated first in double precision and trusted only when its magnitude clears a forward-error bound proved for the inputs at hand \citep{higham2002,fortune1996}: with every coordinate of magnitude at most $M$ and $u = 2^{-53}$, each difference of two literals carries an error of at most $4uM$, each product at most $20uM^2$, and the determinant at most $48uM^2$, which is $8.7 \times 10^{-11}$ at the $M = 128$ that covers the benchmark's coordinates; a computed determinant larger than $10^{-10}$ in magnitude therefore has the right sign, and one smaller is re-decided exactly. A point found on an edge or at a vertex is \textsc{on}, a third answer the float test does not have. The nonzero-winding count is kept beside the even-odd answer; the two can differ only where a contour crosses itself, and the record says whether they do. The filter is the ordinary static filter of exact geometric computation \citep{fortune1996,shewchuk1997,yap1997}; what is particular here is only that it is written against the literals the files contain rather than against doubles, so that a vertex printed to three decimals and an observation printed to four can be found to coincide.
+
+\subsection{The counting procedure, reproduced}\label{sec:rule}
+For each contour the provided, the retained and the full (concatenated) datasets are classified, and the counts outside, inside, on, outside above the severity threshold, and outside by the winding rule are recorded with the hours of the first few \textsc{on} points. The printed tables are then read against the full-dataset counts by one rule: a printed integer \emph{agrees} when it lies in $[n_{\mathrm{out}},\, n_{\mathrm{out}} + n_{\mathrm{on}}]$, the boundary points being the ones a float test may put on either side, and is \emph{exact} when it equals $n_{\mathrm{out}}$; a printed one-decimal mean agrees when it lies within the rounding of the three-dataset mean with the boundary points on either side, and is exact when it is the rounding of the mean of the exact counts. Nothing else is tolerated: a printed number that agrees under neither reading is recorded as \emph{not the count of the file on record}, with the exact counts beside it.
+
+\subsection{The expected numbers, enclosed}\label{sec:expected}
+The benchmark prints beside every count the number expected for the contour's definition, $E = n\,\alpha_t$, with $\alpha = 1/(T \times 365.25 \times 24)$ the hourly exceedance probability of a $T$-year contour and $\alpha_t$ the probability that the contour is exceeded anywhere: $\alpha$ itself for a total-exceedance construction, and for IFORM $\alpha_t = 1 - \chi^2_2(\beta^2) = \exp(-\beta^2/2)$ with $\beta = \Phi^{-1}(1 - \alpha)$, because the IFORM contour is the image of the circle of radius $\beta$ in standard normal space and the squared norm of a standard bivariate normal is $\chi^2_2$ \citep{haselsteiner2021,mackay2021}. The total-exceedance value is an exact rational. The IFORM value needs $\Phi^{-1}$, which is enclosed: $\operatorname{erfc}$ on $x \geq 1$ by Laplace's continued fraction \citep[\S7.1.14]{abramowitz1964}, whose elements are positive so that consecutive convergents bracket the value, both evaluated in outward-rounded interval arithmetic \citep{moore2009,rump2010}; $\beta$ by bisection on $\tfrac12\operatorname{erfc}(\beta/\sqrt2) - \alpha$ that tightens only where the sign is certain; and $\exp(-\beta^2/2)$ and the product with $n$ as interval arithmetic. The result is an interval containing the expected number, and the printed value is read as a rounding of it or not.
+
+\subsection{The record and its controls}
+The decision is one JavaScript module with no dependencies, so that the page which lets a reader classify any sea state in a browser runs the same bytes as the ledger. A battery of \EBatteryChecks\ checks runs before the ledger is accepted, \EBatteryReds\ of them red controls that must fire: among them a determinant, found by random search, whose double-precision value is $+3.6 \times 10^{-15}$ and whose exact sign is negative, which the filter must send to exact arithmetic; a bow-tie that must be reported as one crossing; a square traced twice, on which even-odd and winding must part company; a fold; a \texttt{nan} token; the two columns swapped, which must move a planted point across the contour; and a point $10^{-20}$ outside an edge, which must not be \textsc{on}. The ledger runner re-hashes the \ECorpusFiles\ pinned files, fetching the datasets from the pinned commit when absent, and re-decides the \EContours\ contours against the \EHoursTotal\ hours in \ESeconds\ s on a laptop: \EPredicates\ predicates, of which \EExactPredicates\ (\EExactPredicatesPerMillion\ per million) fell below the filter's bound and were decided in integer arithmetic. The shipped ledger re-derives identically from the bytes on every check.
+
+\section{Results}\label{sec:results}
+
+\subsection{The printed counts}
+Tables~\ref{tab:abc} and \ref{tab:def} give, for every contour set and dataset, the exact count outside the long-return-period polygon with the printed count where it differs, the exact count above the severity threshold, and the exact one-year means. Fig.~\ref{fig:counts} reads all \EComparisons\ printed numbers against the exact ones. \EExact\ are the exact count to the integer, or the exact mean to the digit printed. One more agrees within the boundary points: the one-year wind--wave mean of contribution 2 (Section~\ref{sec:on}). Two, the one-year sea-state row of contribution 3, agree under neither reading (Section~\ref{sec:rewritten}). The organizers' arithmetic is, in other words, reproduced wherever the file they counted is the file on record; what the exact re-decision adds in those \EExact\ cells is not a different number but the standing of the number as a decision, with the polygon's digest, the rule and the boundary points recorded beside it.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.6\linewidth]{ec-benchmark-counts.pdf}
+\caption{The \EComparisons\ numbers printed in the benchmark's Tables 5 and 6 against the exact counts (both axes symmetric-logarithmic). \EExact\ lie on the diagonal; the one that agrees within the two boundary points and the two that are not the count of the file on record are marked.}
+\label{fig:counts}
+\end{figure}
+
+\begin{table}[p]
+\centering\scriptsize
+\caption{Sea-state datasets A, B, C, the 20-year contours on the full \EHoursABC\ hours (sets as in Table~\ref{tab:contrib}): the exact one-year means of observations outside, and outside with $\Hs > 1$ m (the benchmark prints only these means; the printed value follows in parentheses where it differs); the exact count outside the 20-year polygon for A, B and C (printed value in parentheses where it differs; $\dagger$ marks a polygon that is not simple); and the same counts above the threshold $\Hs > 1$ m. T, total-exceedance construction; M, marginal-exceedance. The counts on the retained years alone are in \ref{app:retained}.}
+\label{tab:abc}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrr}
+\toprule
+ & \multicolumn{2}{c}{1-year, mean of A, B, C} & \multicolumn{3}{c}{20-year, outside} & \multicolumn{3}{c}{20-year, $\Hs > 1$ m} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+set & outside & $\Hs > 1$ m & A & B & C & A & B & C \\
+\midrule
+\ETableAbcRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[p]
+\centering\scriptsize
+\caption{Wind--wave datasets D, E, F, the 50-year contours on the full \EHoursDEF\ hours, as Table~\ref{tab:abc}; the threshold is $u_{10} > 1$ m/s and $\Hs > 1$ m.}
+\label{tab:def}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrrrrrr}
+\toprule
+ & \multicolumn{2}{c}{1-year, mean of D, E, F} & \multicolumn{3}{c}{50-year, outside} & \multicolumn{3}{c}{50-year, threshold} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+set & outside & threshold & D & E & F & D & E & F \\
+\midrule
+\ETableDefRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Two numbers traced to a rewritten file}\label{sec:rewritten}
+The one-year sea-state contours of contribution 3 give \EThreeOutEach\ observations outside on A, B and C, a mean of \EThreeOutMean\ against a printed \EThreePrintedOut; above the threshold \EThreeAboveEach, a mean of \EThreeAboveMean\ against a printed \EThreePrintedAbove. The repository's history, \ELinRead, says why. The three files were added on \ELinAddedDate\ (commit \texttt{\ELinAddedCommit}) with \ELinAddedRows\ rows each, and rewritten on \ELinRewrittenDate\ (commit \texttt{\ELinRewrittenCommit}, ``\ELinMessage''), which removed \ELinRemoved\ rows in which one coordinate was \texttt{nan}, leaving \ELinAfter. The 20-year files of the same contribution have a single commit, and their counts, \EThreeLongEach, are the printed ones to the integer, as are their counts above the threshold. A vertex with a coordinate that is not a number has no place in a crossing test, and what a floating-point path returns for a polyline that contains one is a property of the library and its version, not of any polygon; the printed row therefore corresponds to no polygon that can now be constructed from the repository, and the exact decision refuses to reproduce it rather than reproduce it approximately. The verdict recorded is \emph{not the count of the file on record}: a statement of provenance, not of error in the organizers' arithmetic, which on the files that were not rewritten is reproduced to the integer in every cell.
+
+\subsection{Two observations exactly on a contour}\label{sec:on}
+Two hourly observations lie exactly on a submitted contour, both on contribution 2's one-year wind--wave contours: in dataset E the state of \EOnEWhen\ ($\Hs = \EOnEHs$ m, $u_{10} = \EOnEU$ m/s) and in dataset F the state of \EOnFWhen\ ($\Hs = \EOnFHs$ m, $u_{10} = \EOnFU$ m/s), both in the provided years. The vertices of those contours are given to \ETwoVertexDecimals\ decimals and the observations to four, and they coincide. The exact counts outside are \ETwoEach\ on D, E and F, a mean of \ETwoMean; the printed mean is \ETwoPrinted, which is the mean once the two boundary points are counted outside (\ETwoMeanWithOn). That is what the float test does: run today with matplotlib \EFloatMatplotlib\ on the same files it returns \EFloatOutE\ and \EFloatOutF\ outside on E and F, the boundary point on the outer side in both. The record does not pick a side; it says \textsc{on}, and reads the printed mean as consistent with either. One more digit on either observation and it would be inside or outside; the battery plants exactly that case.
+
+\subsection{Polygons that cross themselves, and the edge nobody listed}\label{sec:polygons}
+A point-in-polygon test presumes a polygon. \ENotSimple\ of the \EContours\ files describe a closed polyline whose edges cross each other properly (none merely touches or folds): \ENsTwo\ of contribution 2's \EFilesTwo\ direct-sampling contours, which list \ETwoVertices\ vertices each with \ETwoDuplicates\ consecutive duplicates among them; \ENsNineDS\ of contribution 9's \EFilesNineDS\ direct-sampling contours and \ENsNineDSs\ of its \EFilesNineDS\ smoothed ones, with between \ENsNineDSCrossMin\ and \ENsNineDSCrossMax\ crossings each; \ENsFive\ of contribution 5's \EFilesFive\ declustered direct-IFORM contours; and, with one crossing each, \ENsSeven\ of contribution 7's IFORM contours and the highest-density contour of contribution 4 for dataset A at 20 years. \ref{app:polygons} lists all thirty. Fig.~\ref{fig:contours}c draws the direct-sampling 20-year contour for A, vertex to vertex in the order the file lists them: a three-cornered loop of \EDSADistinct\ distinct vertices whose edges cross \EDSACross\ times, the crossings clustered at the corners where successive sampling directions return nearly the same boundary point and the listed order zigzags at the scale of centimetres. The highest-density case is of another kind (Fig.~\ref{fig:contours}d): its \EHDVertices\ listed vertices trace a simple staircase along the cells of a grid, and the one crossing is the implicit closing edge --- \EHDClosingLen\ long in the plane's units, the longest edge of the polygon --- cutting across the curve's own tail, which the author's software had not joined. In \EClosingCrossers\ of the \ENotSimple\ the closing edge is one of the crossing edges.
+
+Under the even-odd rule a self-crossing polygon still has an inside, but it is not the region a reader sees when the curve is drawn: the loops between crossings alternate in and out, and the nonzero-winding rule would fill them. Both rules were applied to every observation on every contour, and no observation is classified differently by the two, so the printed counts do not depend on the choice of rule. What depends on it is what the number is a count of. \ENotClosed\ files are closed by an edge the author did not list (\ENotClosedBy); for most it is short, and for some contours of contributions 4 and 5 it is the longest edge of the polygon. These are properties of the files as submitted, decided exactly and recorded as such; whether they are properties of the constructions that produced the files is not decided here, and a reader of the benchmark who wants to know what a count means for a given file now has the file's diagnostics beside it.
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{ec-benchmark-contours.pdf}
+\caption{Dataset A. (a) The eleven 20-year contours as the polygons their files denote, each closed from its last vertex to its first, over the \EHoursABC\ hourly sea states. (b) One of them, contribution 1's ISORM contour, with the \EISORMAOut\ hours decided outside it marked; the count is the ledger's, and the drawing refuses to build if matplotlib's own test on the same polygon does not reproduce it. (c) Contribution 9's direct-sampling contour drawn vertex to vertex in file order, with its \EDSACross\ proper self-crossings (the count is decided; the positions are drawn in floating point). (d) The tail of contribution 4's highest-density contour: the listed polyline ends at the square and the implicit closing edge back to the circle, the longest edge of the polygon, crosses the staircase.}
+\label{fig:contours}
+\end{figure}
+
+\subsection{The expected numbers, certified}
+Table~\ref{tab:expected} gives the enclosures. On the sea-state datasets the total-exceedance expectation is exactly \EExpTotalOne\ for a one-year contour and exactly \EExpTotalTwenty\ for twenty years, because the full datasets hold $175{,}320 = 20 \times 8766$ hours; on the wind--wave datasets it is $\EExpTotalDOne = \EExpTotalDOneDec$ and $\EExpTotalDFifty = \EExpTotalDFiftyDec$, which the benchmark prints as \EPrintedTotalDOne\ and \EPrintedTotalDFifty. For IFORM, $\beta = \EExpBetaOne$ for the one-year contour and \EExpBetaTwenty\ for twenty years, both ends of the enclosure agreeing to the digits shown, giving $E = \EExpIformOne$ and \EExpIformTwenty\ --- the benchmark's \EPrintedIformOne\ and \EPrintedIformTwenty\ --- and on the wind--wave datasets \EExpIformDOne\ and \EExpIformDFifty, its \EPrintedIformDOne\ and \EPrintedIformDFifty. The out-of-sample expectation follows from the same formula: a long-return-period total-exceedance contour fitted on the provided years should be exceeded $n_{\mathrm{retained}}\,\alpha$ times on the retained years, \ERetTotalA, \ERetTotalB\ and \ERetTotalC\ on A, B and C and $\ERetTotalDExact = \ERetTotalD$ on each of D, E and F; an IFORM contour between \ERetIformRange\ times.
+
+\begin{table}[t]
+\centering\scriptsize
+\caption{The benchmark's Table 1 certified: for $n$ hourly states and a $T$-year contour, the hourly exceedance probability $\alpha$ as an exact rational, the total-exceedance expectation $n\alpha$ (exact) against the printed value, and the IFORM expectation $n\exp(-\beta^2/2)$ with $\beta = \Phi^{-1}(1-\alpha)$ as enclosures against the printed value. Where an enclosure's two ends agree to the digits shown, one number is printed.}
+\label{tab:expected}
+\resizebox{\linewidth}{!}{\begin{tabular}{llrllrllr}
+\toprule
+datasets & $T$ (yr) & $n$ & $\alpha$ & $n\alpha$ & printed & $\beta$ & IFORM $E$ & printed \\
+\midrule
+\EExpectedRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{Numbers the benchmark did not print}
+\ref{app:retained} gives the count on the retained years alone --- the years the contributors did not see --- for every long-return-period contour. The highest-density contours of contribution 4 are exceeded \ERetHD\ times on A--F, \ERetHDSum\ in all against an expectation of \ERetExpectedSumTotal\ summed over the six; the ISORM contours of contribution 1, built for the same exceedance, \ERetISORM\ times; the inverse-directional contours of contribution 3, \ERetIDSCM. The benchmark's own caution applies with more force here than to its full-data counts: hourly sea states are serially correlated, a storm that crosses a contour is counted at every hour it stays outside, and these are counts, not tests \citep{haselsteiner2021}. The second number is the maximum along each contour (Fig.~\ref{fig:maxima}): in dataset A the highest observed state, \EMaxA\ m on \EMaxAWhen, sits above the maximum of every one of the eleven 20-year contours, the highest of which, contribution \EMaxAHighestWho, reaches \EMaxAHighestContour\ m; that contour has exactly \EHDAOut\ observation outside it on the full dataset, which is that hour. The benchmark says as much from a figure; here each maximum is a literal read from the file. Over the six datasets, \EAboveObservedTotal\ of the \EContours\ contours reach above the highest observed wave; among the long-return-period contours, none on A and between \EAboveLongMin\ and \EAboveLongMax\ of the eleven on each of the other five (\EAboveLongList).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{ec-benchmark-maxima.pdf}
+\caption{For each dataset, the highest significant wave height along each of the eleven long-return-period contours (a literal read from the file: a linear function on a polygon peaks at a vertex) against the highest wave height observed in the full dataset.}
+\label{fig:maxima}
+\end{figure}
+
+\subsection{The printed marginals}
+The benchmark's appendix prints the $\Hs$ marginal each contributing team fitted to the provided ten years of A, B and C. Those printed digits are decided in the companion paper \citep{toledo2026} by a different instrument --- a maximum-likelihood fit certified as the likelihood's one maximum in a box, the printed parameters read as the box their digits allow --- and only the result is recalled here: \PRows\ printed rows from \PContributions\ contributions can be read as a family and decided on the hours they were fitted to; on buoy A they put the hourly 100-year level anywhere between \PSpreadLo\ and \PSpreadHi\ m, where the certified maximum-likelihood fits of the Weibull, the lognormal and the exponentiated Weibull on the same \PRefAN\ hours give \PRefAWeibull, \PRefALognormal\ and \PRefAEw\ m; one contribution's two-parameter Weibull is the certified fit to its last printed digit on A and B and, on C, the certified fit of the period rather than of the wave height; one translated Weibull leaves \PCNineBelow\ observed hours of A, B and C below its printed location. None of this is visible in the printed digits and none of it bears on the counts above, which take each contour as submitted.
+
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What a certificate adds to a benchmark of this kind}
+For \EExact\ of \EComparisons\ printed numbers the exact re-decision returns the number the organizers printed, and a reader may ask what was gained. Three things. The number is now a decision: for each contour the record holds the file's digest, the polygon it denotes with its diagnostics, the rule and its boundary convention, the counts under both rules, and the hours of the boundary points, and anyone can re-derive the integer from those bytes in any exact arithmetic. Refusal is a result: a file that does not denote a simple polygon is reported, with its crossings, rather than counted over, and a file that no longer denotes the polygon that was counted is traced rather than reproduced approximately. And the boundary has a name: two of the \EHoursTotal\ classifications are \textsc{on}, which no float test can say, and the one printed mean they touch is read as consistent with either side rather than as right or wrong. None of this changes which construction looks better in the tables. It changes what the tables are: counts a reader must take on trust become counts a reader can check.
+
+\paragraph{What the next exercise could require}
+Two requirements would make a future benchmark of contours decidable by construction, at no cost to the participants. The first concerns the files: a contour should be submitted as an explicit polygon --- closed, with no vertex repeated consecutively, no coordinate that is not a number, a header naming the columns --- and the organizers' reader should refuse anything else, or report it, before counting; whether a simple polygon is required or a self-crossing one is accepted with its crossings declared is a choice the exercise should make in writing, since \ENotSimple\ of \EContours\ submissions here would have been affected. The second concerns the count: the rule for ``inside'' (even-odd or winding), the convention for a point on the boundary (counted inside, outside, or reported), the concatenation of the data, the thresholds, and the arithmetic should be declared in the call for contributions, and the count itself published as an integer per contour per dataset with the file's digest beside it, rather than as a three-dataset mean. An exact point-in-polygon decider is a few hundred lines in any language and runs over the whole exercise in seconds; the organizers' float count reproduced the exact one in every cell where the file was the file on record, so the change is not to the arithmetic but to what is written down. A third, cheaper requirement follows from Section~\ref{sec:expected}: the expected number beside each count should be printed with its enclosure or, where it is a rational, exactly, and an out-of-sample column on the retained years should be printed beside the full-data one.
+
+\paragraph{What is not claimed}
+No contour is called right or wrong. Which construction an offshore designer should use is a modelling question that this paper does not touch; a count of exceedances is the benchmark's own metric, taken here on its own terms, and the benchmark itself notes the serial correlation that makes such counts rough \citep{haselsteiner2021}. The two numbers that are not the count of the file on record are not an error in the organizers' arithmetic; the file they were computed from is not the file the repository holds. A self-crossing polygon is a property of a file as submitted, not necessarily of the method that produced the boundary it lists, and nothing here measures how far the region counted differs from the region intended. The enclosures of Section~\ref{sec:expected} certify the benchmark's formula, not the independence it assumes. The numbers compared are the preprint's; the published article was not read. The datasets are NDBC's and the World Data Center for Climate's and are not redistributed; the contours are held verbatim as the published record, for verification only. And in the regulatory sense nothing here certifies anything: a design basis is accepted by a classification society under national rules \citep{dnv2021,iso19901}, and the word is used in this paper for machine-checkable statements only.
+
+\paragraph{Cost}
+The whole exercise is re-decided in \ESeconds\ s on a laptop: \EPredicatesSci\ predicates, of which \EExactPredicates\ fell below the filter's bound. The exact path costs nothing a benchmark would notice; the cost of the method is in writing the filter's bound down and in planting the controls that must fire.
+
+\section{Conclusions}\label{sec:conclusions}
+The \EContours\ contours submitted to Exercise 1 of the environmental-contour benchmark of \citet{haselsteiner2021} were read as the exact polygons their files denote and every one of the \EHoursTotal\ hourly sea states they were tested against was classified inside, outside or on each, with every sign decided. The organizers' counting procedure, applied as their script defines it, reproduces \EExact\ of their \EComparisons\ printed numbers to the integer; one more within the two observations that lie exactly on a contour; and two, the one-year sea-state row of one contribution, are traced through the repository's history to three files rewritten after they were counted. \ENotSimple\ of the \EContours\ polygons cross themselves and \ENotClosed\ are closed by an edge nobody listed, properties of the files that bear on what each count is a count of and that no float count reports; no observation changes side between the two rules for ``inside''. The benchmark's expected numbers are the roundings of certified enclosures, two of them exact. What is proposed to the metocean community is not a verdict on any contour method but a different object to accompany a benchmark's number: an explicit polygon, a declared rule, and a record in which the count is a decision and a file's defects are a result.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The benchmark's organizers and contributors have not been consulted on this draft.
+
+\section*{Data availability}
+The records, the decider and the figure and table sources are public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \RepoCommit): the ledger \texttt{certs/ecbench-ledger.json} (generated \EGenerated), the pinned corpus \texttt{corpus/ec-benchmark} (the \EContours\ contour files verbatim, the organizers' scripts, the preprint's tables transcribed in \texttt{claims.json}, the pin of the twelve datasets, which are fetched from commit \texttt{\ECommit} of \url{https://github.com/ec-benchmark-organizers/ec-benchmark} and verified by digest), the decider \texttt{instruments/ecbench} with its battery (MIT), the ledger runner \texttt{tools/run-ecbench-ledger.js}, and the manuscript's number and figure builders \texttt{tools/paper-numbers/ec-benchmark.js} and \texttt{ec-benchmark-figs.py}. The report with every sentence gated on the ledger is at \url{https://carlostoledo.co/reports/ec-benchmark.html}, and the instrument in which any sea state can be classified against any submitted contour in the browser, by the same bytes, at \url{https://carlostoledo.co/instruments/contours}. The companion decision of the printed marginals is in \texttt{certs/hseva-ledger.json} (\PGenerated).
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration
+
+\section*{Funding}
+This work received no external funding.
+
+\appendix
+\section{The thirty polygons that are not simple}\label{app:polygons}
+\begin{table}[H]
+\centering\scriptsize
+\caption{Every submitted contour whose edges cross properly: the listed vertices, the distinct vertices after consecutive duplicates are removed, the duplicates, whether the file repeats its first vertex, the number of proper crossings, whether the implicit closing edge is a crossing edge, and the closing edge's length in the plane's units ($\ast$: the longest edge of the polygon).}
+\begin{tabular}{llrrrlrlr}
+\toprule
+set & dataset / yr & listed & distinct & dupl. & closed & crossings & closing edge crosses & closing edge \\
+\midrule
+\ENonSimpleRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The retained years alone}\label{app:retained}
+\begin{table}[H]
+\centering\scriptsize
+\caption{Observations outside each long-return-period contour on the retained years alone (20-year contours on A--C, 50-year on D--F), with the expected number for a total-exceedance and for an IFORM contour (Section~\ref{sec:expected}). T, total-exceedance construction; M, marginal-exceedance.}
+\begin{tabular}{lrrrrrr}
+\toprule
+set & A & B & C & D & E & F \\
+\midrule
+\ERetainedRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{thebibliography}{99}
+\bibitem[Abramowitz and Stegun(1964)]{abramowitz1964} Abramowitz, M., Stegun, I.A., 1964. Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables. National Bureau of Standards, Applied Mathematics Series 55, Washington.
+\bibitem[Chai and Leira(2018)]{chai2018} Chai, W., Leira, B.J., 2018. Environmental contours based on inverse SORM. Marine Structures 60, 34--51.
+\bibitem[DNV(2021)]{dnv2021} DNV, 2021. DNV-RP-C205: Environmental conditions and environmental loads. Recommended practice.
+\bibitem[Fortune and Van Wyk(1996)]{fortune1996} Fortune, S., Van Wyk, C.J., 1996. Static analysis yields efficient exact integer arithmetic for computational geometry. ACM Transactions on Graphics 15, 223--248.
+\bibitem[Haselsteiner et~al.(2017)]{haselsteiner2017} Haselsteiner, A.F., Ohlendorf, J.-H., Wosniok, W., Thoben, K.-D., 2017. Deriving environmental contours from highest density regions. Coastal Engineering 123, 42--51.
+\bibitem[Haselsteiner et~al.(2019)]{haselsteiner2019viroconcom} Haselsteiner, A.F., Lehmkuhl, J., Pape, T., Windmeier, K.-L., Thoben, K.-D., 2019. ViroCon: A software to compute multivariate extremes using the environmental contour method. SoftwareX 9, 95--101.
+\bibitem[Haselsteiner et~al.(2021)]{haselsteiner2021} Haselsteiner, A.F., Coe, R.G., Manuel, L., Chai, W., Leira, B., Clarindo, G., Guedes Soares, C., Hannesd\'ottir, \'A., Dimitrov, N., Sander, A., Ohlendorf, J.-H., Thoben, K.-D., de~Hauteclocque, G., Mackay, E., Jonathan, P., Qiao, C., Myers, A., Rode, A., Hildebrandt, A., Schmidt, B., Vanem, E., Huseby, A.B., 2021. A benchmarking exercise for environmental contours. Ocean Engineering 236, 109504.
+\bibitem[Higham(2002)]{higham2002} Higham, N.J., 2002. Accuracy and Stability of Numerical Algorithms, 2nd ed. SIAM, Philadelphia.
+\bibitem[Hormann and Agathos(2001)]{hormann2001} Hormann, K., Agathos, A., 2001. The point in polygon problem for arbitrary polygons. Computational Geometry 20, 131--144.
+\bibitem[Hunter(2007)]{hunter2007} Hunter, J.D., 2007. Matplotlib: A 2D graphics environment. Computing in Science \& Engineering 9, 90--95.
+\bibitem[Huseby et~al.(2013)]{huseby2013} Huseby, A.B., Vanem, E., Natvig, B., 2013. A new approach to environmental contours for ocean engineering applications based on direct Monte Carlo simulations. Ocean Engineering 60, 124--135.
+\bibitem[ISO(2015)]{iso19901} ISO, 2015. ISO 19901-1:2015 Petroleum and natural gas industries --- Specific requirements for offshore structures --- Part 1: Metocean design and operating considerations.
+\bibitem[Jonathan and Ewans(2013)]{jonathan2013} Jonathan, P., Ewans, K., 2013. Statistical modelling of extreme ocean environments for marine design: A review. Ocean Engineering 62, 91--109.
+\bibitem[Kettner et~al.(2008)]{kettner2008} Kettner, L., Mehlhorn, K., Pion, S., Schirra, S., Yap, C., 2008. Classroom examples of robustness problems in geometric computations. Computational Geometry 40, 61--78.
+\bibitem[Mackay and Haselsteiner(2021)]{mackay2021} Mackay, E., Haselsteiner, A.F., 2021. Marginal and total exceedance probabilities of environmental contours. Marine Structures 75, 102863.
+\bibitem[Moore et~al.(2009)]{moore2009} Moore, R.E., Kearfott, R.B., Cloud, M.J., 2009. Introduction to Interval Analysis. SIAM, Philadelphia.
+\bibitem[Ross et~al.(2020)]{ross2020} Ross, E., Astrup, O.C., Bitner-Gregersen, E., Bunn, N., Feld, G., Gouldby, B., Huseby, A., Liu, Y., Randell, D., Vanem, E., Jonathan, P., 2020. On environmental contours for marine and coastal design. Ocean Engineering 195, 106194.
+\bibitem[Rump(2010)]{rump2010} Rump, S.M., 2010. Verification methods: rigorous results using floating-point arithmetic. Acta Numerica 19, 287--449.
+\bibitem[Shewchuk(1997)]{shewchuk1997} Shewchuk, J.R., 1997. Adaptive precision floating-point arithmetic and fast robust geometric predicates. Discrete \& Computational Geometry 18, 305--363.
+\bibitem[Shimrat(1962)]{shimrat1962} Shimrat, M., 1962. Algorithm 112: Position of point relative to polygon. Communications of the ACM 5, 434.
+\bibitem[Toledo(2026)]{toledo2026} Toledo, C., 2026. Certified return levels: deciding maximum-likelihood extreme-value fits of significant wave height over a public global hindcast. Companion manuscript, draft for review of 2026-10-01, in the cert-machine repository.
+\bibitem[Winterstein et~al.(1993)]{winterstein1993} Winterstein, S.R., Ude, T.C., Cornell, C.A., Bjerager, P., Haver, S., 1993. Environmental parameters for extreme response: inverse FORM with omission factors. In: Proceedings of the 6th International Conference on Structural Safety and Reliability (ICOSSAR 93), Innsbruck.
+\bibitem[Yap(1997)]{yap1997} Yap, C.K., 1997. Towards exact geometric computation. Computational Geometry 7, 3--23.
+\end{thebibliography}
+
+\end{document}

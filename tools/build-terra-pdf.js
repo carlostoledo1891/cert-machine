@@ -3,6 +3,9 @@
    design/paper.js, THE print engine (journal-article look; one module).
    requires: tools/build-terra-writeup.js run first (it gates on the certs). */
 'use strict';
+/* SUPERSEDED 2026-10-01: paper/terra-peaks.pdf is now written by tectonic from paper/tex/terra-peaks.tex;
+   printing the superseded markdown note over it would destroy the paper. Refuses unless ALLOW_STALE_MD. */
+if (!process.env.ALLOW_STALE_MD) { console.error('build-terra-pdf.js: superseded by the LaTeX paper — run tools/build-paper-tex.js terra-peaks'); process.exit(1); }
 const path = require('path');
 const fs = require('fs');
 const P = require('../design/paper.js');

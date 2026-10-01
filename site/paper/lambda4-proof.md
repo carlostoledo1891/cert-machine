@@ -2,7 +2,7 @@
 
 **A machine-derived proof that lambda(4) = -L(1,2,3,4), completing the program of Mercer's Section 5.**
 
-Draft v0.9 · 2026-09-01 · repository cert-machine @ git e8daa11 · record `certs/lambda4-campaign.json` · archived: doi:10.5281/zenodo.22225861
+Draft v0.9 · 2026-09-01 · repository cert-machine @ git ef023d3 · record `certs/lambda4-campaign.json` · archived: doi:10.5281/zenodo.22225861
 
 ## Status
 
@@ -173,14 +173,27 @@ Each family is closed by the same three moves, one level down:
    closures, one per tail.
 3. **Finite decisions** below the thresholds, one certificate per set. In the three
    families containing {1,2,3,4} (the equality families d = 2b, d = a+c, 2d = 2c+b),
-   the extremal set appears exactly once, in a single cone or ray, where the finite
+   the extremal set appears on every cone or ray it lies on — 6 finite parts in
+   all (one in d = a+c, three in d = 2b, two in 2d = 2c+b) — and in each the finite
    decision SKIPS it as the definitional witness — equality, not a violation — and
    certifies every neighbour strictly below the target.
 
 Two conditions of the family 2d = 2c+b are not closed by new work at all: their sets
 satisfy d = 2a (respectively d = a+b) identically, families already closed — the record
 marks them DELEGATED. In total 2231 finite sets were decided across the nine families,
-zero undecided, and the only skipped set — ever — is {1,2,3,4}.
+zero undecided, and the only skipped set — ever — is {1,2,3,4} (skipped 6 times, once
+per finite part it lies on).
+
+**Independent audit (2026-09-30).** An outside audit with no shared code
+([rainrzk/erdos510-lambda4-audit](https://github.com/rainrzk/erdos510-lambda4-audit),
+posted on [teorth/erdosproblems #392](https://github.com/teorth/erdosproblems/issues/392))
+re-derived the cubic, the 14 generic collisions and the nine families from this
+write-up, re-certified all finite cases with interval arithmetic, and swept every
+gcd-reduced 4-set with largest element <= 80 as a proof-independent control ({1,2,3,4}
+deepest; the nearest rival {2,3,4,6} at about -1.774). Its documentation findings are
+folded into this version: the skip count above, the cone listing in Section 5, and the
+note that the cubic has three real roots (about -0.1556, 1.0325 and 1.5196), lambda(4)
+being the largest — not a unique root.
 
 ## 5. The nine families
 
@@ -279,6 +292,7 @@ Closures and finite parts (from the record):
   - d = 2c-2a: N0 = 6 ; finite 1 enumerated / 1 certified
   - c = 2a: N0 = 19 (floor 12) ; finite 50 enumerated / 50 certified
   - 2c = 3a: N0 = 7 ; finite 5 enumerated / 5 certified
+  - cone ii (two-closure union): N0 = 13 (floor 6) OR N0 = 25 (floor 12) ; finite 89 enumerated / 88 certified / skipped 1,2,3,4
 
 ### 5.9  Family 2d = 3c
 

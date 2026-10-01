@@ -271,7 +271,9 @@ reports:
 papers:
 	@$(NODE) tools/build-kissing-paper.js
 	@$(NODE) tools/build-paper-numbers.js
+	@for f in tools/paper-numbers/*.js; do $(NODE) $$f || exit 1; done
 	@$(NODE) tools/build-paper-tex.js --all
+	@$(NODE) tools/build-papers-index.js
 
 # the Elsevier manuscripts' figures, drawn from the records (needs matplotlib in the hseva venv)
 paper-figs:
