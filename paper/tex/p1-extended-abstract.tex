@@ -1,0 +1,75 @@
+\documentclass[preprint,10pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{p1-numbers.tex}
+\journal{Ocean Engineering}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Certified return levels: deciding maximum-likelihood extreme-value fits of significant wave height over a public global hindcast\\[2pt]\normalsize Extended abstract for the agreement of scope, version 0.1 of 2026-10-01}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author. Author list and roles to be agreed with the group that published the reference method.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+\textbf{Problem.} A return level of significant wave height is read off a fitted distribution, and a fitted distribution is, in practice, the point at which an optimiser stopped. For two of the six families used in the global study of \citet{reis2026}, the likelihood has no interior maximum on many series, and a general-purpose fitter prints a point on the way; for every family, a free location parameter makes the likelihood unbounded, so the same library returns two 100-year levels for one series. \textbf{Method.} The method of \citet{reis2026} --- six families by maximum likelihood on the unfiltered series and on daily, weekly and monthly maxima, four goodness-of-fit criteria, 100- and 1000-year levels --- is repeated on its own public hindcast with every step decided in outward-rounded interval arithmetic: a fit is a box proved by the Krawczyk operator to hold exactly one zero of the score, with the Hessian proved negative definite over it; the criteria and the levels are enclosures over the box; a ranking is \vDecided\ only where its enclosures separate, \vRefused\ otherwise; the generalized gamma is left out only with a proof that its likelihood peaks at its lognormal limit; a seventh family, the GEV, is certified beside the six. \textbf{Results.} Over \ACells\ open-sea cells, \AFits\ fits were attempted: \ACertified\ certified, \AGGLimit\ refused at the limit with the proof; a threshold in place of the proof changes the selected family at \ANaiveDiff\ cell-blocks and the verdict of \AClaimsMoved\ of the method paper's ten regional claims, which are decided as boxes (\AClaimsHold\ hold, \AClaimsFail\ do not, \AClaimsOpen\ undecided). The same decision applied to other people's numbers: a scientific library's default call is the maximum it reports on none of \SFits\ fits (\SFixedAgree\ with the location fixed), the benchmark marginals of \citet{haselsteiner2021} span \BSpreadLo--\BSpreadHi\ m for one buoy's hourly 100-year level, and \TOff\ of \TRows\ rows of the design table of \citet{bhaskaran2023} are off the maximum of the nearest public cell. \textbf{Novelty.} Not interval arithmetic, which is standard, but the decision grammar --- a verdict with a witness, refusal as a result --- and the public record, re-run in a browser by the same bytes.
+\end{abstract}
+
+\begin{highlights}
+\item Each extreme-value fit is proved the likelihood's one maximum in a recorded box.
+\item \AFits\ fits over a public global hindcast; \AGGLimit\ refused with the proof of a limit.
+\item A ranking by a criterion is a decision only where its enclosures separate.
+\item A library's default call matches none of \SFits\ certified fits; location fixed, \SFixedAgree.
+\item A published design table decided row by row against the nearest public cell.
+\end{highlights}
+
+\begin{keyword}
+significant wave height \sep extreme value analysis \sep return level \sep maximum likelihood \sep interval arithmetic \sep verified computation
+\end{keyword}
+
+\end{frontmatter}
+
+\section*{Scope proposed for the full manuscript}
+\begin{enumerate}
+\item \emph{Data.} The Ifremer WAVEWATCH III hindcast GLOBMULTI\_ERA5\_GLOBCUR\_01 (1993--2024, 3-hourly, CC BY-SA): daily maxima at \ANodes\ nodes (\ACells\ open sea, \AIce\ touched by sea ice and excluded), the full 3-hourly series at \RNodes\ named nodes, and the three NDBC buoys of the environmental-contour benchmark.
+\item \emph{The certificate.} The fit as a box; criteria and levels as enclosures; rankings as decisions; the generalized gamma's lognormal limit and the exponentiated Weibull's Gumbel coordinates treated by proof; the GEV beside the six; the delta-method and extremal-index statistics kept apart and labelled.
+\item \emph{Results.} The atlas (Table~\ref{tab:choice}, Fig.~\ref{fig:map}); the ten regional claims decided; the 3-hourly ledger read against the method paper's three findings; the same library called two ways; the benchmark's marginals and a design table decided.
+\item \emph{Discussion.} What a certificate says and does not say; what a standard for marginal fits could fix; cost.
+\end{enumerate}
+\textbf{Questions for the co-authors.} The journal (Ocean Engineering or Applied Ocean Research); whether the ten claims should be re-boxed by their authors before the table is final; whether the GEV section stays or becomes a note; whether a Python verifier of a downloaded cell certificate should be part of this paper or of a software note.
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{The family the Anderson--Darling statistic selects among the six at the \ACells\ open-sea cells, with the certificate (left) and with a threshold rule in place of the boundary proof (right).}
+\label{tab:choice}
+\begin{tabular}{lrrr}
+\toprule
+certificate & daily & weekly & monthly \\
+\midrule
+\AChoiceRows
+\bottomrule
+\end{tabular}\hspace{8mm}
+\begin{tabular}{lrrr}
+\toprule
+threshold rule & daily & weekly & monthly \\
+\midrule
+\ANaiveRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{p1-map-choice.pdf}
+\caption{The selected family at every open-sea cell, (a) daily and (b) monthly maxima; hollow squares are refused choices.}
+\label{fig:map}
+\end{figure}
+
+\begin{thebibliography}{9}
+\bibitem[Bhaskaran et~al.(2023)]{bhaskaran2023} Bhaskaran, S.K., et~al., 2023. Comparison of extreme wind and waves using different statistical methods in 40 offshore wind energy lease areas worldwide. Energies 16, 6935.
+\bibitem[Haselsteiner et~al.(2021)]{haselsteiner2021} Haselsteiner, A.F., et~al., 2021. A benchmarking exercise for environmental contours. Ocean Engineering 236, 109504.
+\bibitem[Reis et~al.(2026)]{reis2026} Reis, R.A.N., Guimar\~aes, P.V., Farina, L., Paul, S., de~Paula, T.P., Ribeiro, E.O., 2026. Global assessment of extreme value analysis for significant wave height. Ocean Engineering 359, 125841.
+\end{thebibliography}
+\end{document}

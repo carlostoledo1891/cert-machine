@@ -1,0 +1,290 @@
+\documentclass[preprint,11pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{p3-numbers.tex}
+\journal{Journal of Applied Geophysics}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Guaranteed 4D seismic detectability of gas and CO$_2$ injection fronts in a pre-salt-type carbonate: a decision over a declared petro-elastic envelope\tnoteref{t1}}
+\tnotetext[t1]{Draft for review, version 0.1 of 2026-10-01. This draft precedes the review of its rock physics by a geoscience group, and says so in Section~\ref{sec:limits}; the author list is to be agreed. Every number in this manuscript is read at build time from the records named in the Data availability statement (repository commit \DEngineSha\ of the engine); the prose is authored and should be reviewed like any other.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+A time-lapse (4D) seismic feasibility study for a gas or CO$_2$ injection front delivers an impedance change per scenario, or a probability of detection from a few hundred Monte Carlo draws of the rock and fluid properties. In the Brazilian pre-salt the change the rock produces and the resolution the survey reaches are of the same order --- about 1.5\% of acoustic impedance distinguishable at the Tupi ocean-bottom-node pilot, with repeatability of 2--3\% --- so the question that matters before an acquisition is not the probability of detection but whether every admissible model sees the change, and if not, which measurement would decide. This paper decides that question. A petro-elastic model (Gassmann fluid substitution, a fluid mixing law between the Reuss and Voigt limits that contains every Brie exponent, a dry frame on the critical-porosity trend) is evaluated over a declared envelope --- every rock and fluid parameter as an interval with its source --- by interval branch and bound with a monotonicity test, in outward-rounded arithmetic, returning for each cell of a porosity--saturation grid four proved numbers: a lower bound of the smallest relative impedance change over the envelope, the smallest change a named model attains, the largest attained, and an upper bound of the largest. At a survey resolution $\theta$ the cell is \vProved\ (detectable for every admissible model), \vRefuted\ (undetectable for every admissible model), or \vRefused\ with a witness on each side and the resolution that would decide. On the public UNISIM-IV pre-salt analogue (\DActive\ active cells) at the pilot's resolution of \DTheta, a thin front below 4\% gas saturation is \vRefuted\ in \DThinRefutedZero\ cells on the physical range alone; between \DMidSgLo\ and \DMidSgHi\ saturation the whole field is \vRefused\ in four of five knowledge states, and the certificate returns, cell by cell, the resolution that decides; with a saturated front, a CO$_2$-lean gas known to be uniformly distributed and the frame stiffness measured, \DDetFour\ cells are \vProved. In a coquina cell at the benchmark's median porosity a Monte Carlo study reports detection in \DMcFourTenKP\ of \DMcFourTenKDraws\ draws while a proved admissible model changes impedance by \DKFourAttLo\ and the proved minimum is \DKFourProvedLo. The sign of the change is not guaranteed above an injected-gas density of about \DSignMedian\ g/cm$^3$, which CO$_2$-rich gas exceeds. No single measurement decides the headline cell; the survey resolution does, and it is an acquisition specification.
+\end{abstract}
+
+\begin{highlights}
+\item 4D detectability decided for every admissible model in a declared envelope, cell by cell.
+\item Three verdicts with witnesses; a refusal returns the survey resolution that decides.
+\item At 1.5\%, \DThinRefutedZero\ UNISIM-IV cells are proved undetectable for a thin gas front.
+\item Monte Carlo reports \DMcFourTenKP\ detection where a proved admissible model changes \DKFourAttLo.
+\item Above a gas density of about \DSignMedian\ g/cm$^3$ the sign of the 4D change is not guaranteed.
+\end{highlights}
+
+\begin{keyword}
+time-lapse seismic \sep 4D feasibility \sep rock physics \sep Gassmann \sep interval arithmetic \sep pre-salt carbonate \sep CO$_2$ injection \sep uncertainty
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+Time-lapse seismic monitoring answers questions of reservoir management --- where the injected gas front has reached, where water has advanced, where oil remains --- and its acquisition is among the larger discretionary costs of a producing field \citep{lumley2001}. Before an acquisition a feasibility study asks whether the expected change will be seen. The common forms of the answer are a petro-elastic model run on a few scenarios, a Monte Carlo propagation of rock and fluid uncertainty to a probability of detection, and a repeatability rule in terms of normalised root-mean-square difference \citep{kragh2002,costa2019,silva2025,silva2026}. In the Brazilian pre-salt carbonates these answers meet a hard case. At the Tupi ocean-bottom-node pilot, \citet{cruz2021a,cruz2021b} report an average NRMS of about 3\% with standard 4D processing and about 2\% with least-squares migration \citep{cypriano2019}; acoustic-impedance changes of about 1.5\% were distinguishable beyond the near-well region; around the first water-alternating-gas injector the change stayed below the 2\% that had been taken as the pre-salt cut-off; petro-elastic modelling that considered only saturation effects overestimated the 4D amplitudes and impedance changes; and the higher the CO$_2$ content of the injected gas (about 80\% in the rich stream, about 5\% in the lean one) the smaller the impedance contrast with oil or water. The resolution the survey reaches and the change the rock produces are of the same order.
+
+In that regime the feasibility question is better posed as a decision than as a probability: \emph{for every scenario compatible with the declared evidence, does a survey of this resolution see the injection?} And when it does not: \emph{which measurement, taken to which resolution, decides before the acquisition is paid for?} This paper answers both over a declared envelope --- each petro-elastic parameter as an interval with the source of its bounds --- using the standard model and standard tools of validated numerics: Gassmann's relation \citep{gassmann1951,mavko2009}, a fluid mixing law spanning the Reuss and Voigt limits \citep{brie1995}, a dry frame on the critical-porosity trend \citep{nur1998}, and interval branch and bound with a monotonicity test \citep{hansen2004,moore2009}. The novelty claimed is not any of these. It is the grammar of the answer: three verdicts per cell, each with the model that justifies it; refusal as a result that returns the survey resolution and the measurement that would decide; a guarantee on the sign of the change, not only its size; and a record that is re-run in a browser by the same bytes. Related bounding approaches exist for storage monitoring --- \citet{bergmann2015} bound substituted fluid volumes from 4D time shifts at Sleipner, and \citet{chadwick2014} review detection and measurement for CO$_2$ storage --- and probabilistic inversion frameworks give posterior distributions of petrophysical properties conditioned on a prior \citep{grana2022,zhang2023}; the value of seismic monitoring has been assessed in expectation \citep{anyosa2021}. None of these, to our knowledge, returns a verdict that holds for the whole admissible set, with a counterexample when it does not, and this is the gap the paper addresses.
+
+Section~\ref{sec:model} states the model and the declared envelope; Section~\ref{sec:decision} the decision; Section~\ref{sec:results} the results on a public pre-salt analogue, the UNISIM-IV benchmark \citep{unisim}; Section~\ref{sec:limits} what the verdicts do and do not say, including what this draft does not yet include.
+
+\section{The model and the declared envelope}\label{sec:model}
+
+\subsection{The petro-elastic model}
+The only physics asserted is the textbook one \citep{mavko2009}. The dry frame is declared as ratios on the critical-porosity trend, $K_{dry} = s\,(1 - \varphi/\varphi_c)\,K_{\min}$ with $\varphi_c = \DRangePhic$ \citep{nur1998} and $G_{dry} = (G/K)\,K_{dry}$. Gassmann's relation gives the saturated bulk modulus,
+\begin{equation}
+K_{sat} = K_{dry} + \frac{(1 - K_{dry}/K_{\min})^2}{\varphi/K_{fl} + (1-\varphi)/K_{\min} - K_{dry}/K_{\min}^2},
+\end{equation}
+with the fluid modulus a mix between the Reuss (uniform saturation) and Voigt (patchy) limits, $K_{fl} = K_R + w\,(K_V - K_R)$ with $w \in [0, 1]$: every Brie exponent \citep{brie1995} lies between them, and nobody measures the distribution of the injected gas before the survey. The density is $\rho = (1-\varphi)\rho_{\min} + \varphi\sum_i S_i\rho_i$, $M = K_{sat} + \tfrac{4}{3}G_{dry}$ and $I_p^2 = \rho M$. The 4D change is $\Delta I_p/I_p = \sqrt{r} - 1$ with $r = I_{p2}^2/I_{p1}^2$, written in difference form so that the interval carries the change's uncertainty and not the rock's; the decision compares $r$ with $(1 \pm \theta)^2$ and no square root enters a verdict. Gassmann's assumptions --- connected pores, low frequency, a frame the fluid does not soften --- are the model's; a \vProved\ speaks for this model over this envelope, not for the rock. The domain is enforced: the frame must lie under the Voigt bound, $s(1 - \varphi/\varphi_c) \le 1 - \varphi$, and saturations must stay in $[0, 1]$; a box that leaves the domain is \vRefused, never decided. The shear modulus is unchanged by the fluid, so $I_s$ changes only through the density and $V_p/V_s$ only through the modulus; both are decided over the same box.
+
+\subsection{The declared envelope}
+Table~\ref{tab:envelope} gives every range and its source. The frame stiffness $s$ and the ratio $G/K$ are the hull of \DPlugs\ pre-salt plugs from the Iracema area of the Santos Basin \citep{quadros2025}, each read as $K_{dry} = \rho(V_p^2 - \tfrac{4}{3}V_s^2)$ against its Hill mineral modulus from the paper's mineralogy; brine and live oil follow \citet{batzle1992} at pre-salt pressure and temperature and the Tupi oil's gravity and gas--oil ratio \citep{cruz2021a}; the injected gas runs from methane to pure CO$_2$ at reservoir conditions from the NIST equation-of-state tables \citep{nist,span1996,setzmann1991}; the irreducible water and residual oil saturations are the benchmark's own relative-permeability tables, so that the largest mobile gas saturation is 0.47; the mixing parameter $w$ spans $[0, 1]$. The detection thresholds are the pilot's: 2\% was the feasibility cut-off and about 1.5\% the limit reached with ocean-bottom nodes \citep{cruz2021a,cruz2021b}. A range is a box the engine decides over in full; narrowing one is a measurement, and Section~\ref{sec:price} prices which.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The declared envelope: every parameter as an interval with the source of its bounds. Units: moduli in GPa, densities in g/cm$^3$.}
+\label{tab:envelope}
+\begin{tabular}{llp{86mm}}
+\toprule
+parameter & declared range & source \\
+\midrule
+frame stiffness $s$ & \DRangeS & hull of \DPlugs\ Iracema plugs on the critical-porosity trend \citep{quadros2025} \\
+$G_{dry}/K_{dry}$ & \DRangeGk & the same plugs \\
+critical porosity $\varphi_c$ & \DRangePhic & \citet{nur1998} \\
+mineral modulus $K_{\min}$ & \DRangeKmin & Hill average of the plugs' calcite, dolomite and quartz, to calcite as tabulated \citep{mavko2009} \\
+mineral density $\rho_{\min}$ & \DRangeRhomin & calcite to dolomite-bearing \\
+brine $K_w$, $\rho_w$ & \DRangeKw, \DRangeRhow & \citet{batzle1992} at 60 MPa and 90$^\circ$C, salinity 0.10--0.225 \\
+live oil $K_o$, $\rho_o$ & \DRangeKo, \DRangeRhoo & \citet{batzle1992}, API 28--30, GOR 200--300 m$^3$/m$^3$ \citep{cruz2021a} \\
+injected gas $K_g$, $\rho_g$ & \DRangeKg, \DRangeRhog & methane to pure CO$_2$ at 60--65 MPa, 65--90$^\circ$C \citep{nist} \\
+$S_{wi}$ & \DRangeSwi & UNISIM-IV relative-permeability tables ($S_{org} = 0.35$) \citep{unisim} \\
+mixing $w$ & \DRangeW & Reuss (0) to Voigt (1): every Brie exponent \citep{brie1995} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Knowledge states}
+Five states of knowledge are decided, each an envelope: K0, the physical range alone; K1, the gas composition measured as CO$_2$-rich (\DScenKOneMods); K2, measured as CO$_2$-lean (\DScenKTwoMods); K3, lean and known to be uniformly distributed (\DScenKThreeMods); K4, in addition the frame stiffness measured in the interval (\DScenKFourMods). A sixth, the \emph{correlated frame}, replaces the rectangle in $(s, G/K)$ by the convex hull of the plugs widened by \DPlugTol\ in each coordinate, covered by \DCorrBoxes\ grid boxes that meet the hull (a separating-axis test, both convex), and decides the union: a frame that is stiff in $K$ is not free to be anything in $G/K$.
+
+\section{The decision}\label{sec:decision}
+
+\subsection{Four proved numbers per box}
+Every quantity is an interval in outward-rounded arithmetic. The extremes of $r$ over a box are found by interval branch and bound with a monotonicity test \citep{hansen2004}: $r$ and its gradient are evaluated together by interval forward-mode differentiation; a dimension whose partial derivative is proved of one sign over the box is pinned at the end that extremises $r$, which removes it from the problem exactly; only the dimensions left are bisected, best-first, within a budget of \DBudget\ box evaluations. The result for each extreme is a proved bound and a thin point that attains a value within it --- the witness, proposed in floating point and verified in intervals. A cell of the map thus carries four numbers for $|\Delta I_p/I_p|$: a proved lower bound of the smallest change over the envelope, the smallest change a named model attains, the largest attained, and a proved upper bound of the largest. At a survey resolution $\theta$ the cell is
+\begin{description}
+\item[\vProved] when $\theta$ is at most the proved lower bound: every admissible model changes impedance by more than the survey resolves;
+\item[\vRefuted] when $\theta$ exceeds the proved upper bound: no admissible model reaches the resolution, so no survey at this resolution can answer the question;
+\item[\vRefused] when $\theta$ lies between the two attained values: the envelope holds a model on each side, each proved, and the receipt names the resolution that would turn the cell \vProved\ --- the proved lower bound --- and the measurements that would narrow the envelope;
+\item[undecided] otherwise, within the budget: $\theta$ lies between a proved bound and the attained value next to it.
+\end{description}
+
+\subsection{The sign, the attributes and the price of information}\label{sec:price}
+Gas denser than the lightest admissible live oil can \emph{stiffen} the rock: the density rises more than the modulus falls. For each cell under the physical range the engine bisects the injected-gas density and returns the smallest density at which a proved model \emph{gains} impedance; above it the sign of the 4D change is not guaranteed. The search is one-sided by design: a proof that the change is negative for every model does not close on these boxes at any budget tried, and the record says so. The two factors of $r$ --- $\Delta I_s/I_s = \sqrt{\rho_2/\rho_1} - 1$ and $\Delta(V_p/V_s) = \sqrt{M_2/M_1} - 1$ --- are decided by the same search, so that $I_s$ and $V_p/V_s$ are reported over the same envelope. The price of information cuts each measurable range (gas modulus by PVT, frame stiffness in a plug, gas distribution, saturation from a log) into \DPriceSlices\ slices and re-decides the cell on each slice: a measurement \emph{decides} when every slice comes out \vProved\ or \vRefuted.
+
+\subsection{Controls}
+A second implementation in Python's decimal arithmetic at fifty digits --- the textbook Gassmann form, the impedance ratio computed directly, no interval arithmetic, no difference form and no shared code --- is compared with the engine at \DRefPoints\ inputs; the engine's thin-point interval contains the reference at every one (tightest margin \DRefMargin), and so do the proved extremes of random sub-boxes at points drawn inside them. The battery has \DChecks\ checks and \DReds\ red controls that must fire: a Monte Carlo feasibility study of 1\,000 seeded draws that finds every draw detectable and calls the box \vProved\ is refused, the engine returning a model the draws missed, proved below the threshold; a point estimate at the box centre passed off as ``the change'' is caught by the witnesses; a porosity above the critical porosity and an oil saturation driven negative are refused as outside the domain; a threshold one hundredth of a per cent above a proved upper bound is \vRefuted, one below a proved lower bound \vProved. The engine and the declared envelope are pinned by SHA-256 in the ledger (\DEngineSha, \DDeclaredSha), and every cell of the map can be decided again in a browser by the same bytes.
+
+\section{Results on a pre-salt analogue}\label{sec:results}
+
+\subsection{The field}
+The analogue is the UNISIM-IV-2026 benchmark \citep{unisim}: a pre-salt-type carbonate with CO$_2$-rich light oil and water-alternating-gas injection, \DActive\ active cells on a \DGrid\ grid (\DRockStrom\ stromatolite, \DRockCoq\ coquina, \DRockKarst\ karst), of which only the porosity and rock-type grids are read, as a derived database under the benchmark's licence. Each cell of the field sits in the porosity column of its own value; the decidability map is a grid of \DPhiBins\ porosity bins of width \DPhiStep\ by \DSgBins\ gas-saturation bins of width \DSgStep, \DCells\ cells, each a box (its porosity range by its saturation range by every declared range), decided under each of the \DScenarios\ knowledge states: \DBoxes\ boxes in all.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p3-maps.pdf}
+\caption{The decidability map: each cell a porosity bin by an injected-gas-saturation bin, decided over every declared range. (a) The physical range alone at the pilot's resolution of \DTheta; (b) CO$_2$-lean gas, uniformly distributed, frame stiffness measured, at \DTheta; (c) CO$_2$-rich gas at 3\%; (d) as (b) at 3\%.}
+\label{fig:maps}
+\end{figure}
+
+\subsection{The map and the field}
+Fig.~\ref{fig:maps} gives the map under four envelopes and two resolutions, and Table~\ref{tab:counts} the cells by verdict under every state at 1.5, 2 and 3\%. Three readings follow, each with its proof (Table~\ref{tab:field}, Fig.~\ref{fig:field}). First, a thin front, below 4\% gas saturation, is \vRefuted\ at \DTheta\ in \DThinRefutedZero\ of the field's cells on the physical range alone and in \DThinRefutedFour\ with the gas measured, uniform and the frame known: the verdict ``do not acquire for this question'' exists, with proof --- the first refuted column, porosity \DRefZeroPhi, has a guaranteed change of at most \DRefZeroHi. Second, between \DMidSgLo\ and \DMidSgHi\ saturation the whole field is \vRefused\ at \DTheta\ in \DMidScenarios\ --- the band in which the Tupi injectors operated --- and the certificate returns, cell by cell, the resolution that decides; from \DAllRefusedSgLo\ to \DAllRefusedSgHi\ it is refused in every state. The exception is instructive: with CO$_2$-rich gas (K1) the 4--8\% row is \vRefuted\ in \DKOneRowOneRefuted\ cells and undecided within the budget in \DKOneRowOneOpen, and the 8--16\% rows are mostly undecided (\DKOneRowTwoOpen\ and \DKOneRowThreeOpen\ cells): a denser, stiffer gas pushes the change toward the resolution from below rather than across it. Third, with a saturated front (\DDetFourSg), CO$_2$-lean gas known to be uniform and the frame measured, \DDetFour\ cells are \vProved\ at \DTheta, from porosity \DDetFourPhi\ up. At 3\% with CO$_2$-rich gas the front is \vRefuted\ in most of the field up to \DRefUpKOneThree\ saturation: the resolution of standard processing does not answer the WAG-CO$_2$ question.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The \DCells\ map cells by verdict under each knowledge state at three survey resolutions.}
+\label{tab:counts}
+\resizebox{\linewidth}{!}{\begin{tabular}{l rrrr c rrrr c rrrr}
+\toprule
+ & \multicolumn{4}{c}{$\theta = 1.5\%$} & & \multicolumn{4}{c}{$\theta = 2\%$} & & \multicolumn{4}{c}{$\theta = 3\%$} \\
+\cmidrule{2-5}\cmidrule{7-10}\cmidrule{12-15}
+state & proved & refuted & refused & open & & proved & refuted & refused & open & & proved & refuted & refused & open \\
+\midrule
+\DCountRowsJoined
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The field's \DActive\ active cells by verdict when the gas front reaches each saturation, at \DTheta: the physical range alone (K0) and the lean, uniform, measured-frame state (K4).}
+\label{tab:field}
+\begin{tabular}{l rrrr c rrrr}
+\toprule
+ & \multicolumn{4}{c}{K0, physical range only} & & \multicolumn{4}{c}{K4, lean, uniform, frame measured} \\
+\cmidrule{2-5}\cmidrule{7-10}
+gas saturation & proved & refuted & refused & open & & proved & refuted & refused & open \\
+\midrule
+\DResRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p3-field.pdf}
+\caption{The share of the field's active cells by verdict at \DTheta\ for each gas saturation of the front: (a) the physical range alone; (b) CO$_2$-lean gas, uniform, frame measured.}
+\label{fig:field}
+\end{figure}
+
+\subsection{One cell, decided}
+The headline cell is a coquina cell at the benchmark's median porosity (\DHeadPhi), a water-alternating-gas front between \DHeadSg\ saturation, and the pilot's resolution of \DTheta. Under the physical range alone it is \vRefused\ after \DHeadEvals\ box evaluations: $\Delta I_p/I_p$ lies in $[\DHeadEnvLo, \DHeadEnvHi]\%$ for every admissible model, and the envelope holds a model that changes impedance by \DWitDet\ (a soft frame, uniform methane) and one that changes it by \DWitUnd\ (a stiff frame, patchy pure CO$_2$), each proved (Table~\ref{tab:witnesses}); the declared evidence does not decide. Table~\ref{tab:scenarios} and Fig.~\ref{fig:headline} follow the cell through the knowledge states: measuring the gas composition, learning that it is uniformly distributed and measuring the frame each tighten the proved range, and none changes the verdict at \DTheta; in K4 the smallest change is proved at least \DKFourProvedLo\ and attained at \DKFourAttLo, so the resolution that would make the cell \vProved\ is \DKFourProvedLo\ of impedance --- an acquisition specification (nodes, permanent reservoir monitoring), not a rock measurement. The correlated frame tightens the bounds (the proved maximum on the physical range falls from \DUncorrZeroHi\ to \DCorrZeroHi; with lean uniform gas the smallest attained change rises from \DUncorrThreeAttLo\ to \DCorrThreeAttLo) and changes no verdict. Correlating the gas composition with $(K_g, \rho_g)$ cannot change it either: the undetectable witness sits at the pure-CO$_2$ endpoint, which every composition curve contains. Cutting each measurable range into \DPriceSlices\ slices, no single one of the \DPriceMeasures\ measurements decides the cell at \DTheta\ in either K0 or K4.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The two witnesses of the headline cell under the physical range: the admissible model with the largest change (detectable) and the one with the smallest (undetectable), each with its change proved. Moduli in GPa, densities in g/cm$^3$.}
+\label{tab:witnesses}
+\begin{tabular}{lrr}
+\toprule
+parameter & detectable (\DWitDet) & undetectable (\DWitUnd) \\
+\midrule
+\DWitnessRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The headline cell through the knowledge states at \DTheta: the proved lower bound and the attained minimum of $|\Delta I_p/I_p|$, the attained maximum and the proved upper bound, the verdict, and the resolution that would make the cell \vProved.}
+\label{tab:scenarios}
+\begin{tabular}{llrrrrll}
+\toprule
+state & envelope & proved $\ge$ & attained & attained & proved $\le$ & verdict & decides at \\
+\midrule
+\DScenarioRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p3-headline.pdf}
+\caption{The headline cell: the proved range of $|\Delta I_p/I_p|$ and the attained extremes under each knowledge state, against the pilot's resolution; beside K0 and K4, the range, the 5--95\% band and the median of \DMcFourTenKDraws\ uniform draws of the same envelope (statistical, not certified).}
+\label{fig:headline}
+\end{figure}
+
+\subsection{Monte Carlo face to face}
+The study a feasibility workflow would run draws the envelope and counts detections. In K4 at \DTheta, \DMcFourTenKDetect\ of \DMcFourTenKDraws\ uniform draws detect (\DMcFourTenKP; with \DMcFourKDraws\ draws, \DMcFourKP), the smallest change among the draws being \DMcFourTenKMin; on the physical range alone \DMcZeroTenKP\ of \DMcZeroTenKDraws\ detect. The draws do find undetectable scenarios; what they do not find is the floor: the proved admissible model changes impedance by \DKFourAttLo, below any draw, and the proved minimum is \DKFourProvedLo. At zero threshold in K3, \DMcThreeDraws\ draws never fall below \DMcThreeMin\ while a proved scenario attains \DMcThreeAttained. The fraction of the envelope that detects is a statement about a uniform prior over the envelope that nobody declared and is labelled as such in the record; the verdict, the witnesses and the resolution that decides do not depend on it. A study that reported ``detectable in \DMcFourTenKP\ of draws'' and a study that reported ``\vRefused, with a proved undetectable model and a resolution that decides'' are reporting different things, and only the second is an acquisition specification.
+
+\subsection{The sign of the change}
+Fig.~\ref{fig:sign} gives, for each cell under the physical range, the smallest injected-gas density at which a proved model gains impedance: from \DSignMin\ to \DSignMax\ g/cm$^3$ (median \DSignMedian), found in \DSignFound\ of \DSignOf\ cells; in the headline cell, \DSignHead\ g/cm$^3$. Methane at 60 MPa and 65$^\circ$C has a density of 0.26 g/cm$^3$; pure CO$_2$ at pre-salt conditions 0.89--0.97 \citep{nist}. Above the mapped density a 4D survey at \DTheta\ does not guarantee even the sign of the change: a softening read as ``the gas has arrived'' and a stiffening read as ``it has not'' are both admissible. The molar CO$_2$ fraction corresponding to a given density comes from the PVT of the field's gas; with the CO$_2$-rich stream of the pilot (about 80\%) the cell's envelope already contains both signs. The pressure--saturation ambiguity of 4D interpretation is well known \citep{landro2001}; what is added here is a proved density threshold per cell for the saturation effect alone.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.6\linewidth]{p3-sign.pdf}
+\caption{The sign map under the physical range: the smallest injected-gas density at which a proved admissible model gains impedance, per cell; hatched cells are those where no gaining model was found within the budget. Above the mapped density the sign of the 4D change is not guaranteed.}
+\label{fig:sign}
+\end{figure}
+
+\subsection{The attributes}
+For a saturation change alone, the change of $I_p$ is in magnitude the sum of its two parts, so $I_p$ is the most sensitive attribute and no attribute rescues a cell that is \vRefused\ in $I_p$ (Table~\ref{tab:attr}). What $I_s$ and $V_p/V_s$ add is the separation of the density part from the modulus part, which is how a pressure effect would be isolated with four-component node data. The published pilot scenarios fit inside the envelope: at Tupi the impedance change around the first WAG injector stayed below 2\% and the distinguishable changes were about 1.5\% \citep{cruz2021a}, inside the headline cell's proved range of $[\DHeadEnvLo, \DHeadEnvHi]\%$.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The three attributes of the headline cell, the proved lower and upper bounds of the absolute relative change over the envelope, in per cent.}
+\label{tab:attr}
+\begin{tabular}{ll rr rr rr}
+\toprule
+ & & \multicolumn{2}{c}{$|\Delta I_p/I_p|$} & \multicolumn{2}{c}{$|\Delta I_s/I_s|$} & \multicolumn{2}{c}{$|\Delta(V_p/V_s)|$} \\
+\cmidrule{3-4}\cmidrule{5-6}\cmidrule{7-8}
+state & envelope & $\ge$ & $\le$ & $\ge$ & $\le$ & $\ge$ & $\le$ \\
+\midrule
+\DAttrRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A scenario recomputed by hand}
+The undetectable witness of the headline cell can be recomputed line by line (Table~\ref{tab:hand}): a geophysicist repeats it in a spreadsheet and arrives at \DHandPct, which the engine's interval at that point contains.
+
+\begin{table}[t]
+\centering\scriptsize
+\caption{The undetectable witness of the headline cell recomputed step by step, at the parameters of Table~\ref{tab:witnesses}.}
+\label{tab:hand}
+\begin{tabular}{lp{70mm}l}
+\toprule
+step & formula & value \\
+\midrule
+\DHandRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{What the verdicts say, and what this draft does not yet include}\label{sec:limits}
+
+\paragraph{The verdict is the model's}
+A \vProved\ or \vRefuted\ cell is a statement about Gassmann's model with the declared mixing law and frame trend, over the declared envelope. It is not a statement about the rock, the survey's noise, or the seismic response of a layer of finite thickness. Three things are outside this version and are said here rather than in a footnote. The pressure effect --- the frame modulus against effective stress --- is not included; at injectors the saturation effect alone overestimates the signal, as the Tupi pilot recorded \citep{cruz2021a}, and the term enters as a declared range from stress-dependent plug measurements. Thickness and tuning: the verdict is at the petro-elastic step (cell detectability), not the convolved seismic response; a thickness range enters as a further dimension of the box. Frequency and dissolution in carbonate: Gassmann's assumptions, the model's.
+
+\paragraph{The inputs that would sharpen it}
+The gas properties are endpoints from NIST tables; a PVT-based equation of state for the field's gas compositions would replace the methane-to-CO$_2$ box by a curve, which the sign map already shows cannot change the headline verdict but would tighten others. Gas saturation per cell and per time from the simulator would replace the saturation range by the front the simulation predicts. A review of the rock-physics choices --- the critical-porosity frame, the mineral moduli, the plug hull --- by a geoscience group is pending at the time of this draft and is the next step before any field use; the decision machinery is indifferent to the model it is given, and a different frame model is a different declared envelope, re-decided in the same way.
+
+\paragraph{Relation to probabilistic and expectation-based feasibility}
+Bayesian and variational inversion \citep{grana2022,zhang2023} condition on a prior and return a distribution; the decision here uses no prior and returns the admissible set's extremes with the models that attain them. Value-of-information analysis \citep{anyosa2021} prices a measurement in expectation; the price of information here says which measurement \emph{decides}, in the worst case, and finds that in the headline cell none does alone. Volumetric bounds from time shifts \citep{bergmann2015} bound a quantity after the survey; the bounds here are before it, on the detectability of the change the survey is meant to see. The three are complementary, and the record carries the Monte Carlo result beside the verdict, labelled.
+
+\paragraph{Regulatory note}
+In Brazil the storage regime of Lei 14.993/2024 applies to dedicated geological storage; its article 26, paragraph 4 excludes injection for enhanced recovery, so pre-salt WAG-CO$_2$ reinjection is not a storage activity under that law, and the monitoring obligations of a storage operator do not attach to it. Where the same decision is applied to dedicated storage, the detectability verdict is what a monitoring plan would need to state.
+
+\section{Conclusions}\label{sec:conclusions}
+Whether a 4D survey of a given resolution sees a gas or CO$_2$ injection front can be decided for every admissible model of a declared petro-elastic envelope, cell by cell, with three verdicts and the models that justify them. On a public pre-salt analogue at the Tupi pilot's resolution of \DTheta, a thin front is proved undetectable in \DThinRefutedZero\ cells on the physical range alone; the saturation band in which the pilot operated is refused in the whole field in four of five knowledge states, with the resolution that decides returned per cell; and \DDetFour\ cells are proved detectable with a saturated front, lean uniform gas and a measured frame. A Monte Carlo study of the headline cell reports detection in \DMcFourTenKP\ of its draws while a proved admissible model changes impedance by \DKFourAttLo; the sign of the change is not guaranteed above a gas density of about \DSignMedian\ g/cm$^3$; and no single rock or fluid measurement decides that cell --- the survey resolution does. What is proposed to the 4D feasibility workflow is not a replacement for scenario modelling or for probabilistic inversion but an annex to them: the guaranteed envelope, the counterexample, and the measurement that decides, in a record that re-runs in a browser.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. No operator's data were used; the analogue is a public benchmark.
+
+\section*{Data availability}
+The engine, the declared envelope with its sources, the ledger, the battery and the reference implementation are public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}) under \texttt{apps/decidivel} (MIT), with the ledger at \texttt{apps/decidivel/data/decidivel-ledger.json}; the UNISIM-IV porosity and rock-type grids are read as a derived database under the benchmark's Open Database License (archive digest \DUnisimSha); the live map, in which any cell is decided again in the browser, is at \url{https://carlostoledo.co/decidivel/}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration
+
+\section*{Funding}
+This work received no external funding.
+
+\begin{thebibliography}{99}
+\bibitem[Anyosa et~al.(2021)]{anyosa2021} Anyosa, S., Bunting, S., Eidsvik, J., Romdhane, A., Bergmo, P., 2021. Assessing the value of seismic monitoring of CO$_2$ storage using simulations and statistical analysis. International Journal of Greenhouse Gas Control 105, 103242.
+\bibitem[Batzle and Wang(1992)]{batzle1992} Batzle, M., Wang, Z., 1992. Seismic properties of pore fluids. Geophysics 57, 1396--1408.
+\bibitem[Bergmann and Chadwick(2015)]{bergmann2015} Bergmann, P., Chadwick, A., 2015. Volumetric bounds on subsurface fluid substitution using 4D seismic time shifts with an application at Sleipner, North Sea. Geophysics 80, B153--B165.
+\bibitem[Brie et~al.(1995)]{brie1995} Brie, A., Pampuri, F., Marsala, A.F., Meazza, O., 1995. Shear sonic interpretation in gas-bearing sands. SPE Annual Technical Conference and Exhibition, SPE 30595.
+\bibitem[Chadwick et~al.(2014)]{chadwick2014} Chadwick, R.A., Marchant, B.P., Williams, G.A., 2014. CO$_2$ storage monitoring: leakage detection and measurement in subsurface and atmosphere. Energy Procedia 63, 4224--4239.
+\bibitem[Costa et~al.(2019)]{costa2019} Costa, M., et~al., 2019. 4D seismic feasibility in pre-salt carbonate reservoirs. Brazilian Journal of Geophysics 37(4).
+\bibitem[Cruz et~al.(2021a)]{cruz2021a} Cruz, N.M., Cruz, J.M.N., Costa, M.M.M., Urasaki, E.N.A., Teixeira, L.M., Santos, M.S., Grochau, M.H., 2021. First 4D seismic results for Tupi Field, Santos Basin. 17th International Congress of the Brazilian Geophysical Society, Rio de Janeiro.
+\bibitem[Cruz and Cruz(2021b)]{cruz2021b} Cruz, N.M., Cruz, J.M.N., 2021. Tupi Nodes pilot: a successful 4D seismic case for Brazilian presalt reservoirs. The Leading Edge 40, 886--896.
+\bibitem[Cypriano et~al.(2019)]{cypriano2019} Cypriano, L., et~al., 2019. Repeatability of OBN 4D processing at the pre-salt level. As cited in \citet{cruz2021a}.
+\bibitem[Gassmann(1951)]{gassmann1951} Gassmann, F., 1951. \"Uber die Elastizit\"at por\"oser Medien. Vierteljahrsschrift der Naturforschenden Gesellschaft in Z\"urich 96, 1--23.
+\bibitem[Grana et~al.(2022)]{grana2022} Grana, D., de~Figueiredo, L., Mosegaard, K., 2022. Probabilistic inversion of seismic data for reservoir petrophysical characterization: review and examples. Geophysics 87, M199--M216.
+\bibitem[Hansen and Walster(2004)]{hansen2004} Hansen, E., Walster, G.W., 2004. Global Optimization Using Interval Analysis, 2nd ed. Marcel Dekker, New York.
+\bibitem[Kragh and Christie(2002)]{kragh2002} Kragh, E., Christie, P., 2002. Seismic repeatability, normalized rms, and predictability. The Leading Edge 21, 640--647.
+\bibitem[Landr\o(2001)]{landro2001} Landr\o, M., 2001. Discrimination between pressure and fluid saturation changes from time-lapse seismic data. Geophysics 66, 836--844.
+\bibitem[Lumley(2001)]{lumley2001} Lumley, D.E., 2001. Time-lapse seismic reservoir monitoring. Geophysics 66, 50--53.
+\bibitem[Mavko et~al.(2009)]{mavko2009} Mavko, G., Mukerji, T., Dvorkin, J., 2009. The Rock Physics Handbook, 2nd ed. Cambridge University Press, Cambridge.
+\bibitem[Moore et~al.(2009)]{moore2009} Moore, R.E., Kearfott, R.B., Cloud, M.J., 2009. Introduction to Interval Analysis. SIAM, Philadelphia.
+\bibitem[NIST(2026)]{nist} NIST Chemistry WebBook, 2026. Thermophysical properties of fluid systems. National Institute of Standards and Technology. \url{https://webbook.nist.gov/chemistry/fluid/}
+\bibitem[Nur et~al.(1998)]{nur1998} Nur, A., Mavko, G., Dvorkin, J., Galmudi, D., 1998. Critical porosity: a key to relating physical properties to porosity in rocks. The Leading Edge 17, 357--362.
+\bibitem[Quadros et~al.(2025)]{quadros2025} Quadros, P.S.M., de~Figueiredo, J.J.S., et~al., 2025. Integrative rock physics and computer vision analysis of elastic properties and pore aspect ratios in Brazilian pre-salt carbonates. Scientific Reports 15, 33467.
+\bibitem[Setzmann and Wagner(1991)]{setzmann1991} Setzmann, U., Wagner, W., 1991. A new equation of state and tables of thermodynamic properties for methane covering the range from the melting line to 625 K at pressures up to 1000 MPa. Journal of Physical and Chemical Reference Data 20, 1061--1155.
+\bibitem[Silva et~al.(2025)]{silva2025} Silva, E.P.A., Davolio, A., Santos, M.S., Schiozer, D.J., 2025. Methodology for 4D petro-elastic modeling including rock-fluid interaction in pre-salt carbonate reservoir. Brazilian Journal of Geophysics 43(2).
+\bibitem[Silva et~al.(2026)]{silva2026} Silva, E.P.A., Davolio, A., Santos, M.S., Schiozer, D.J., 2026. Methodology to feasibility and 4D interpretation support in a pre-salt carbonate reservoir. Journal of Applied Geophysics 245.
+\bibitem[Span and Wagner(1996)]{span1996} Span, R., Wagner, W., 1996. A new equation of state for carbon dioxide covering the fluid region from the triple-point temperature to 1100 K at pressures up to 800 MPa. Journal of Physical and Chemical Reference Data 25, 1509--1596.
+\bibitem[UNISIM(2026)]{unisim} UNISIM, 2026. UNISIM-IV-2026 benchmark: a pre-salt-type carbonate reservoir model, nominal case. CEPETRO, Universidade Estadual de Campinas. \url{https://www.unisim.cepetro.unicamp.br/benchmarks/en/unisim-iv/unisim-iv-2026}
+\bibitem[Zhang et~al.(2023)]{zhang2023} Zhang, X., Lomas, A., Zhou, M., Zheng, Y., Curtis, A., 2023. 3-D Bayesian variational full waveform inversion. Geophysical Journal International 234, 546--561.
+\end{thebibliography}
+
+\end{document}

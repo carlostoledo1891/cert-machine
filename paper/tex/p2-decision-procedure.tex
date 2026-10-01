@@ -1,0 +1,258 @@
+\documentclass[preprint,11pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{p1-numbers.tex}
+\input{p2-numbers.tex}
+\journal{Reliability Engineering \& System Safety}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{A decision procedure for machine-proposed engineering numbers: three-valued verdicts over a declared uncertainty envelope, with witnesses and the threshold that decides\tnoteref{t1}}
+\tnotetext[t1]{Draft for review, version 0.1 of 2026-10-01. Every number in this manuscript is read at build time from the records named in the Data availability statement (repository commit \RepoCommit); the prose is authored and should be reviewed like any other.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+Digital twins, surrogate models and optimisers now propose operating and design numbers --- an injection rate, a wellhead pressure, a design wave --- and each arrives with a confidence that speaks of the model, not of that output. Verification and validation qualify the model; uncertainty quantification gives a dispersion; neither decides whether this number holds for the conditions the engineer has declared. This paper describes a decision procedure that does. The engineer declares a physical model, an envelope of inputs as intervals with their sources, and the operating rules; a proposer --- any model, opened or not --- submits a number and what it asserts; the procedure evaluates the declared model over the whole envelope in outward-rounded interval arithmetic and returns one of three verdicts for each check: \vProved\ (holds for every input in the envelope), \vRefuted\ (fails, with a proof), or \vRefused\ (the envelope holds inputs on both sides of the rule, one proved on each side), together with the witnesses and the threshold on a declared quantity that would turn a refusal into a proof. The procedure is demonstrated on a water-injection flowline with the Colebrook and Darcy--Weisbach equations, where a plausible recommendation to raise injection by 4.2\% is \vRefused: inputs in the declared envelope give wellhead pressures of \GCornerAbove\ and \GCornerBelow\ bar against a limit of \GRulePwh\ bar, and the recommendation becomes \vProved\ at a pump discharge of \GFlipGreen\ bar or less. Seven injected faults of the kinds an industrial verifier must catch are each refuted or refused with the reason. A Monte Carlo study of the same recommendation finds exceedances in \MPOver\ of \MDraws\ uniform draws with a worst draw of \MMax\ bar; the proved worst case is \GCornerAbove\ bar, and the verdict does not depend on a prior over the envelope. The same grammar is then applied to numbers that were not produced for a demonstrator: maximum-likelihood extreme-value fits of significant wave height over a public hindcast, a scientific library's two answers for one 100-year wave, and a published design table. A second implementation in another language and arithmetic, sharing no code, agrees with the gate at \GRefPoints\ inputs, and an outside group has re-certified one of the project's records without its code. The contribution is the grammar and the re-runnable record, not the interval arithmetic that carries them.
+\end{abstract}
+
+\begin{highlights}
+\item A proposed number is decided over the whole declared envelope, not at a sample of it.
+\item Three verdicts with witnesses: proved, refuted, or refused with the threshold that decides.
+\item Monte Carlo found \MPOver\ exceedances and a worst draw of \MMax\ bar; the proof reaches \GCornerAbove.
+\item Seven injected faults, each refuted or refused with its reason; none passes.
+\item The record re-runs without the authors' code; a second implementation agrees at \GRefPoints\ inputs.
+\end{highlights}
+
+\begin{keyword}
+decision procedure \sep interval arithmetic \sep verification and validation \sep digital twin \sep uncertainty envelope \sep counterexample \sep management of change
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+A model that proposes a number has become ordinary in production engineering. Digital twins recommend set points, surrogate models replace simulators inside optimisation loops, and large language models now draft operating recommendations with a stated confidence. Operators report the gains in aggregate \citep{petrobras2026twins,petrobras2026jubarte}; the obligation that follows each number is older: under process-safety regimes a change to an operating specification is a managed change, with a technical record and an integrity review \citep{anp2007}. What the record should contain for a number a model proposed is the question this paper takes up.
+
+Current practice answers it with two instruments, both aimed at the model. Verification and validation qualify a code and a model against reference solutions and experiments, and estimate numerical and validation uncertainty \citep{asme2009,nasa2016,oberkampf2010,roy2011}; the result is a statement about the model's credibility in a domain. Uncertainty quantification propagates input distributions to an output dispersion, by sampling or by surrogates, and reports a probability of exceedance; imprecise-probability methods widen the input description to intervals and probability boxes and propagate those \citep{ferson1996,beer2013}. Neither instrument decides the question an engineer faces at the moment of acting: \emph{for the inputs we have declared, does this number hold?} A credible model can be run outside its envelope; a sampled probability of exceedance of 0.3\% says nothing about the input the sampler did not draw; and the proposer's own confidence is a property of the proposer.
+
+This paper describes a decision procedure that answers that question directly and records the answer so that anyone can re-run it. The ingredients are standard: a declared model, a declared box of inputs, interval arithmetic with outward rounding \citep{moore2009}, and branch-and-bound or monotonicity arguments to bound an output over a box \citep{hansen2004,jaulin2001,rump2010}. What is new is the grammar of the result and the discipline around it. Every check returns one of three verdicts --- \vProved, \vRefuted, \vRefused\ --- and a refusal is not a failure of the method but a finding: the declared evidence does not decide, and here are an input on each side of the rule, each with a proved value, and the threshold on a declared quantity that would decide. The record of a decision carries the model, the envelope, the verdicts, the witnesses and the thresholds, and it is re-run by a second implementation that shares no code with the first. Refusal as a verdict is what turns the procedure from a bound into an instrument: the output of a refusal is a measurement to make or a parameter to disclose, priced by what it would decide.
+
+Section~\ref{sec:grammar} defines the grammar. Section~\ref{sec:instrument} describes the instrument on a water-injection flowline, chosen as the pilot because single-phase, steady, isothermal flow is covered whole by the declared model, so that the limits of the declared model are a design choice rather than an omission. Section~\ref{sec:demo} demonstrates it on a proposed recommendation and seven injected faults, and sets a Monte Carlo study of the same recommendation beside it. Section~\ref{sec:real} applies the same grammar to numbers that were not produced for a demonstrator: extreme-value fits of significant wave height over a public hindcast, a library's two answers for one design wave, and a published design table, which are the subject of a companion paper \citep{toledo2026p1}. Section~\ref{sec:related} places the procedure beside verification and validation, uncertainty quantification and formal methods; Section~\ref{sec:discussion} discusses what a verdict means and what it costs.
+
+\section{The decision grammar}\label{sec:grammar}
+
+\subsection{Objects}
+A \emph{declared model} $M$ is a set of equations with a stated domain --- here Colebrook's equation for the friction factor in turbulent pipe flow and the Darcy--Weisbach pressure drop with the hydrostatic gain of a descending line. A \emph{declared envelope} $B$ is a box: each input as an interval with the source of its bounds (a pipe survey, a fluid analysis, a bathymetric chart). The \emph{rules} $R$ are inequalities on quantities the model computes, each with its source --- an operating limit on wellhead pressure, an erosional velocity limit \citep{api14e}. A \emph{proposal} is a number with what it asserts: an operating point (flow rate $Q$, pump discharge $P_d$) and the output the proposer claims for it (a wellhead pressure $P_{wh}$), optionally with further asserted quantities (a velocity, a split of flow at a manifold). The proposer may be anything: an optimiser, a simulator, a spreadsheet, a language model. It need not be opened; the procedure decides its output.
+
+\subsection{Checks}
+A proposal is decided by a list of \emph{checks}, each a statement about the declared model over the declared envelope:
+\begin{itemize}
+\item \emph{physical bounds} that hold in any flow regime, such as a friction loss that cannot be negative, so that the claimed pressure cannot exceed the discharge plus the hydrostatic gain;
+\item \emph{domain} conditions under which the declared model applies, such as a Reynolds number above the turbulent threshold for Colebrook's correlation;
+\item \emph{rules}, the declared operating limits;
+\item \emph{consistency}, whether the claimed output lies inside the enclosure the declared model gives over the envelope, and whether further asserted quantities (a velocity, a mass balance) are what the inputs give.
+\end{itemize}
+
+\subsection{Verdicts}
+Each check returns one of three words:
+\begin{description}
+\item[\vProved] the statement holds for every input in the envelope. For a rule, the enclosure of the quantity over the whole box lies on the allowed side; for a consistency check, the claim lies inside the enclosure.
+\item[\vRefuted] the statement fails with a proof: for every input in the envelope (the enclosure lies wholly on the forbidden side), or at a named impossibility (a claimed pressure above the physical bound, a mass balance that does not close by an exact amount, a claimed velocity outside what the inputs allow).
+\item[\vRefused] the declared evidence does not decide: the envelope holds inputs on both sides of the rule, one on each side with its value proved by a thin-box evaluation, and the procedure publishes those two \emph{witnesses} together with the \emph{thresholds} --- the values of a declared quantity (here the pump discharge, or the pipe roughness) at which the verdict over the unchanged envelope becomes \vProved\ or \vRefuted.
+\end{description}
+The verdict of the whole receipt is \vRefuted\ if any check refutes, otherwise \vRefused\ if any check refuses, otherwise \vProved. The three words are deliberately not probabilities: a refusal says that the question is open under the declared evidence, and names what would close it.
+
+\subsection{Rules and flags}
+A consistency check compares the proposer's number with a declared reference model. When the proposer's physics is richer than the declared model --- a thermal profile, a multiphase correlation --- a number outside the declared enclosure is not wrong; it is inconsistent with a cruder reference. The procedure therefore distinguishes two kinds of check. Rule checks and physical bounds are evaluated with bounding models that hold in any regime (a friction loss cannot be negative whatever the correlation), so their verdicts stand on their own. Consistency checks are flags for the engineer to arbitrate: in the demonstrator of Section~\ref{sec:demo} a consistency failure is reported as \vRefuted\ relative to the declared model, and in a deployment the asset's engineer decides, when the model and the envelope are declared, which checks are rules and which are flags. The pilot domain was chosen so that the question does not arise: single-phase, steady, isothermal water injection is covered whole by Colebrook and Darcy--Weisbach, and the declared model is the proposer's own physics or a bound on it.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=4mm and 6mm, every node/.style={font=\footnotesize}, box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt, text width=27mm, minimum height=10mm}, verdict/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, text width=24mm, font=\footnotesize\scshape}, arr/.style={-{Stealth[length=2mm]}, thick}]
+\node[box] (env) {declared model,\\envelope $B$, rules $R$\\(each with its source)};
+\node[box, right=of env] (prop) {a proposal:\\inputs and the\\number it asserts};
+\node[box, right=of prop] (enc) {enclosure of every\\quantity over $B$\\(outward rounding)};
+\draw[arr] (env) -- (prop); \draw[arr] (prop) -- (enc);
+\node[verdict, below=of enc, xshift=-34mm, fill=black!5] (p) {proved\\for all of $B$};
+\node[verdict, below=of enc, fill=black!5] (r) {refused:\\two witnesses,\\the threshold};
+\node[verdict, below=of enc, xshift=34mm, fill=black!5] (f) {refuted:\\a proof};
+\draw[arr] (enc) -- (p); \draw[arr] (enc) -- (r); \draw[arr] (enc) -- (f);
+\node[box, below=of r, text width=60mm] (rec) {the receipt: model, envelope, verdicts, witnesses, thresholds, digests --- re-run by a second implementation without the first's code};
+\draw[arr] (p) -- (rec); \draw[arr] (r) -- (rec); \draw[arr] (f) -- (rec);
+\end{tikzpicture}
+\caption{The decision grammar. The proposer is not opened; its number is decided over the declared envelope, and a refusal names what would decide it.}
+\label{fig:grammar}
+\end{figure}
+
+\section{The instrument}\label{sec:instrument}
+
+\subsection{The declared model}
+The pilot is a water-injection flowline from a floating production unit to an injection well in about 2\,100 m of water (Table~\ref{tab:box}), with the physics an engineer would write on one page:
+\begin{align}
+A &= \tfrac{\pi}{4} D^2, \qquad v = Q/A, \qquad \mathrm{Re} = \rho v D/\mu, \\
+\frac{1}{\sqrt f} &= -2\log_{10}\!\left(\frac{\varepsilon}{3.7 D} + \frac{2.51}{\mathrm{Re}\sqrt f}\right) \qquad\text{\citep{colebrook1939}, turbulent flow only}, \\
+P_{wh} &= P_d + \rho g \Delta z - f \frac{L}{D}\frac{\rho v^2}{2},
+\end{align}
+with $g$ the standard gravity, exact by definition. A \vProved\ here means: for every input in the declared envelope, this model gives a wellhead pressure inside the enclosure and every declared rule holds. It is a statement about the declared model and the declared inputs, not about the sea.
+
+\subsection{The enclosure without a square root}
+Write $x = 1/\sqrt f$. Then $x$ is the root of $h(x; a, b) = x + (2/\ln 10)\ln(a + b x)$ with $a = \varepsilon/(3.7 D)$ and $b = 2.51/\mathrm{Re}$. For $x > 0$, $a \ge 0$ and $b > 0$, $h$ is strictly increasing in $x$, in $a$ and in $b$, so the root $x^*(a, b)$ is decreasing in $a$ and in $b$; over a box where $a \in [a_-, a_+]$ and $b \in [b_-, b_+]$ every root lies in $[x^*(a_+, b_+), x^*(a_-, b_-)]$. A floating-point Newton iteration only locates each end; the end counts when $h$ is proved negative just below it (a lower bound) or positive just above it (an upper bound), in outward-rounded interval arithmetic with the logarithm from a series with its remainder. Every other quantity is an interval extension; the rule $P_{wh} \le \GRulePwh$ bar is decided over the envelope by bisection, and a refusal requires two proved corners, one on each side. Decimal inputs are read as the exact rationals they denote, widened by one unit in the last place each way where the double is not exact.
+
+\subsection{Thresholds}
+When the rule is refused, the procedure bisects on a declared quantity with the envelope otherwise unchanged and reports the largest value at which the rule is \vProved\ over the whole box and the smallest at which it is \vRefuted; here on the pump discharge $P_d$ and on the lower end of the roughness interval, the latter being a quantity an inspection could narrow. The thresholds are the product of a refusal: they turn an open question into a measurement or an operating change with a known effect on the verdict.
+
+\subsection{Controls}
+A battery of \GChecks\ checks runs before any receipt is published, with \GReds\ red controls that must fire: a claim a tenth of a bar outside the enclosure, a manifold off by one cubic metre per day, a friction factor just outside the proved solutions, a velocity just outside $Q/A$, a flow just below the turbulent regime, a limit lowered under a proved violating corner, and a ``gate'' that evaluates the float model at the centre of the box --- which is what a point pipeline does --- each of which the battery must refuse. A second implementation in Python's decimal arithmetic at fifty digits, Colebrook solved by bisection on its own bracket, every constant written out again and no code shared, computes $P_{wh}$ at the 64 corners and 24 random points of two operating points (\GRefPoints\ inputs); the gate's thin-box interval contains the reference at every one, the tightest margin being \GRefMargin\ bar, and so does the whole-box enclosure. Every published receipt is re-decided in the reader's browser by the same code that wrote the record, and compared with it; the scenarios and the modules are pinned by SHA-256 (\GScenariosSha, \GGateSha).
+
+\section{Demonstration}\label{sec:demo}
+
+\subsection{The envelope and the proposals}
+Table~\ref{tab:box} gives the declared envelope --- typical, illustrative values, not any real line --- and the two rules: a wellhead pressure of at most \GRulePwh\ bar and a velocity of at most \GRuleV\ m/s. Nine proposals were decided (Table~\ref{tab:receipts}): two recommendations a model could make, and seven reference outputs each with one injected fault of a kind a verifier must catch --- a catalogue diameter used in place of the surveyed one, a manifold that creates water, a solver that stopped before converging, a pressure the physics forbids, a unit conversion, an asserted velocity the inputs cannot give, and a correlation used outside its regime. Every receipt is what its scenario says it should be; no fault passes: \GFaultsRefuted\ of the \GFaults\ are \vRefuted\ and \GFaultsRefused\ is \vRefused\ (the laminar fall-off test, where the declared model does not apply and the procedure says so rather than decide).
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The declared envelope of the demonstrator's flowline (illustrative values) and its two rules.}
+\label{tab:box}
+\begin{tabular}{lll}
+\toprule
+input & declared interval & unit \\
+\midrule
+\GBoxRows
+rule 1 & $P_{wh} \le \GRulePwh$ & bar \\
+rule 2 & $v \le \GRuleV$ & m/s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The nine proposals decided over the envelope of Table~\ref{tab:box}: the operating point, the claimed wellhead pressure, the proved enclosure of $P_{wh}$ over the envelope, the verdict of the receipt, and the number of checks proved.}
+\label{tab:receipts}
+\resizebox{\linewidth}{!}{\begin{tabular}{lrrrllr}
+\toprule
+proposal & $Q$ (m$^3$/d) & $P_d$ (bar) & claimed $P_{wh}$ & enclosure (bar) & verdict & proved \\
+\midrule
+\GReceiptRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\subsection{The recommendation}
+A model recommends raising injection from \GLeadBase\ to \GLeadQ\ m$^3$/d ($+4.2\%$), raising the pump discharge to \GLeadPd\ bar, and predicts \GLeadClaim\ bar at the wellhead, below the limit, with a stated confidence of 97\%. Over the declared envelope the wellhead pressure lies in \GLeadEnclosure\ bar: the claim is consistent with the model, the physical bound, the domain and the velocity rule are \vProved, and the pressure rule is \vRefused. The envelope holds an admissible input --- the smoothest pipe, the least viscous and densest water, the largest diameter, the deepest water --- at which $P_{wh} \ge \GCornerAbove$ bar, and another at which $P_{wh} \le \GCornerBelow$ bar, each proved (Table~\ref{tab:corners}). The receipt then publishes what decides: with $P_d \le \GFlipGreen$ bar the rule is \vProved\ over the whole envelope, above \GFlipRed\ bar it is \vRefuted; or an inspection showing a roughness of at least \GFlipEps\ mm (the envelope declares 0.020 to 0.080 mm) makes it \vProved\ at the proposed discharge. The second proposal, the same flow at \GFixedPd\ bar, is \vProved: $P_{wh} \in \GFixedEnclosure$ bar for every declared input (Fig.~\ref{fig:receipt}). The engineer who must act has, in place of ``352 bar, 97\%'', a verdict, two inputs to check and a set point that would decide.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The two witnesses of the refusal: an admissible input at which the proposed operating point violates the rule, and one at which it respects it, each with its wellhead pressure proved.}
+\label{tab:corners}
+\begin{tabular}{lrr}
+\toprule
+input & violates ($P_{wh} \ge \GCornerAbove$ bar) & respects ($P_{wh} \le \GCornerBelow$ bar) \\
+\midrule
+\GCornerRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p2-receipt.pdf}
+\caption{Top: the recommendation and its correction on the wellhead-pressure axis --- the proved enclosure over the declared envelope, the two witnesses, the proposer's number, and the range of \MDraws\ uniform draws of the envelope, against the rule. Bottom: the verdict of the pressure rule as a function of the pump discharge with the envelope unchanged, and the thresholds the receipt publishes.}
+\label{fig:receipt}
+\end{figure}
+
+\subsection{A corner recomputed by hand}
+The violating witness can be recomputed line by line in a spreadsheet: $Q = \GHandQ$ m$^3$/d and $P_d = \GHandPd$ bar at $\varepsilon = 0.020$ mm, $\mu = 1.08$ mPa\,s, $D = 152.8$ mm, $\rho = 1\,028$ kg/m$^3$, $\Delta z = 2\,105$ m and $L = 5\,990$ m give $A = \GHandArea$ m$^2$ and $v = \GHandV$ m/s, $\mathrm{Re} = \GHandRe$, $x = \GHandX$ and $f = \GHandF$ from Colebrook, a friction loss of \GHandDpf\ bar and a hydrostatic gain of \GHandHyd\ bar, hence $P_{wh} = \GHandPwh$ bar, which the gate's enclosure at that point contains. The promise that a receipt can be checked without the authors' code is kept at the level of a hand calculation.
+
+\subsection{Monte Carlo face to face}\label{sec:mc}
+The study an uncertainty-quantification workflow would run on the same recommendation draws inputs from the envelope and counts exceedances. With \MDraws\ uniform draws, \MOver\ exceed the limit (\MPOver; with \MDrawsK\ draws, \MPOverK), the largest draw reaching \MMax\ bar and the smallest \MMin\ bar. The draws do find the exceedance; the difference lies elsewhere. First, the worst draw underestimates the worst case: the proved corner is \GCornerAbove\ bar, \MGapCorner\ bar above the largest of \MDraws\ draws, because the violating region is a corner of a six-dimensional box that uniform sampling rarely visits. Second, the fraction \MPOver\ is a statement about a uniform prior over the envelope that nobody declared; the procedure's verdict, its witnesses and its thresholds do not depend on any prior. A study that reported ``0.3\% risk'' would be reporting a property of its sampler; a study that reported ``\vRefused, with a proved violating input and a set point that decides'' would be reporting a property of the declared evidence. The two are complementary --- the fraction of the envelope that violates is useful once the envelope is a distribution --- and the receipt records the Monte Carlo result beside the verdict, labelled as statistical.
+
+\section{The same grammar on numbers nobody produced for a demonstrator}\label{sec:real}
+
+A decision procedure for proposed numbers is only as useful as its reach beyond a demonstrator. The companion paper \citep{toledo2026p1} applies the same grammar --- proved, refused, decided, with witnesses and a public record --- to the chain that produces a design wave: the extreme-value method of \citet{reis2026}, six families fitted by maximum likelihood to significant wave height at four block sizes, ranked by four criteria, with 100- and 1000-year levels, repeated on the method's own public hindcast. Three results of that work are the evidence that the grammar decides numbers of consequence. Over \ACells\ open-sea cells, \AFits\ fits were attempted and \ACertified\ are proved to be the likelihood's one maximum in a recorded box; \AGGLimit\ are refused with the proof that the family's likelihood is highest at a limit the optimiser can only approach, where a float routine prints a point on the way as the fit. The same scientific library \citep[SciPy \ScipyVersion;][]{virtanen2020} called two ways on the same \RBuoyN\ hourly records prints \SEwFree\ m or \SEwFixed\ m for the 100-year wave; the decision names which is the maximum it claims to be --- the second --- and measures the first as \SEwDeficit\ log-likelihood units below a member of its own family; across \SFits\ default calls none agrees with the certified maximum, and with the location parameter fixed \SFixedAgree\ do. And a published design table for five South Atlantic wind lease areas \citep{bhaskaran2023}, printed from a commercial hindcast that cannot be re-run outside it, is decided row by row against the nearest cell of the public record (\TKmMin\ to \TKmMax\ km away): \TOff\ of \TRows\ rows are off the maximum, by between \TDMin\ and \TDMax\ m in the 100-year wave --- the distance between two records, made a number per row.
+
+Before the engineering domains the procedure was calibrated where a proposed number is hardest to check by eye: published mathematics produced with or by frontier language models, decided in public with every verifier available. The register holds \KDecided\ decided claims, among them a benchmark certificate that would have improved the diagonal Ramsey bound, refuted because the benchmark's own checker accepted a construction when either of two required orientations passed \citep{horizonmath2026}; a ``preliminary, unverified'' iteration printed in a published paper, proved by two independent programs in two languages agreeing to 25 digits \citep{gnnw2024}; and a library of \KCountex\ machine-found counterexamples of which \KCountexCertified\ are certified whole and \KCountexPartial\ in part \citep{sra2026}. The strongest evidence that records of this kind re-certify is external: on 30 September 2026 an outside group re-derived every computational step of the project's proof of the value of $\lambda(4)$ in Chowla's cosine problem with their own code, re-certified all 2\,231 finite cases and swept every reduced four-element set with maximum element at most 80 without finding a refuter \citep{rainrzk2026}. Nothing in that audit used the project's code; that is what a re-runnable record is for.
+
+\section{Relation to existing practice}\label{sec:related}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{What existing instruments deliver about a model and what the decision procedure adds about one output under the declared conditions. Nothing is replaced; the procedure is a gate beside the model and an annex to its report.}
+\label{tab:related}
+\begin{tabular}{p{42mm}p{40mm}p{58mm}}
+\toprule
+instrument & delivers & the procedure adds \\
+\midrule
+code and model verification and validation \citep{asme2009,nasa2016,oberkampf2010} & credibility of the model in a domain; numerical and validation uncertainty & a decision about this output, under these declared inputs: the proved enclosure and the verdict \\
+uncertainty quantification, confidence intervals, probability boxes \citep{ferson1996,beer2013} & a dispersion, or bounds on a distribution, under a declared input description & whether the output respects its equations and the rules over the whole envelope; the witnesses the sampler did not draw; no prior \\
+a second calculation in another code & a second number & the arbiter: which number is the maximum (or the solution) it claims to be, and which stopped short \\
+peer or classification-society review & an expert judgement & the mechanical re-derivation of each number as an input to the review, not a substitute for it \\
+management of change \citep{anp2007} & the record of the change & the receipt as the technical record: model, envelope, verdict, thresholds, re-runnable at audit \\
+formal verification (proof assistants) & a complete proof of a program & out of reach for today's engineering pipelines; the procedure proves the number, not the program \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:related} places the procedure. Validated numerics is the method it applies, not its contribution: interval Newton and Krawczyk operators, monotonicity tests and branch-and-bound are textbook \citep{moore2009,hansen2004,tucker2011}, and probability-bounds analysis already propagates intervals through engineering models \citep{ferson1996}. The procedure differs in what it returns and in what it refuses to return. It returns a verdict about an output under declared conditions, with the two inputs that justify a refusal and the threshold that would remove it; it refuses to return a probability it has not been given a distribution for; and it records enough that a second implementation sharing no code can repeat it. Verification and validation standards \citep{asme2009,nasa2016} describe how to establish a model's credibility and how to report its uncertainty; the receipt is the artefact such a standard would want for each number the model then proposes. In process-safety regimes a change to an operating specification already requires a technical record \citep{anp2007}; the receipt is one that can be re-run at audit, months later, from a single file.
+
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What a verdict means}
+A \vProved\ speaks for the declared model and the declared envelope: it says that no input the engineer declared makes the declared physics violate the declared rule. It does not say that the physics is right, that the envelope is wide enough, or that a regime the model excludes is absent. The pilot was chosen so that the last is a design choice --- single-phase, steady, isothermal water injection is covered whole --- and extensions to transients, multiphase flow, thermal profiles or erosion as a model enter as further declared models with their own envelopes and their own rule-or-flag classification, never as silent widenings of this one.
+
+\paragraph{What a refusal buys}
+A refusal is the procedure's sharpest output. It measures the opacity of the declared evidence and prices what would remove it: a set point, an inspection, a measurement to a stated resolution. In the demonstrator the recommendation is \vRefused\ at \GLeadPd\ bar and \vProved\ at \GFixedPd\ bar; a line inspection narrowing the roughness to at least \GFlipEps\ mm would prove it as proposed. The thresholds are an incentive for disclosure: the proposer who wants a \vProved\ knows exactly what to declare.
+
+\paragraph{What is at stake}
+The cost chain of a wrong operating set point is not the production of a floating unit; it is overpressure, an integrity question on the line, a shut-in of the injector and deferred pressure support, and the managed change that the regime requires in any case. The larger and more defensible number is the design basis: a 100-year wave fixes the design of hulls, moorings and risers \citep{iso19901,dnv2021}, and the companion paper shows that the chain producing it returns, for the same data and the same library, two numbers a factor of two apart with no warning. The economic value of a verdict in either chain is not estimated here; it is a question for the operators who would use it.
+
+\paragraph{Cost}
+A receipt is decided in milliseconds in a browser; the thresholds by bisection in under a second; the battery and the reference implementation in a few seconds. The arithmetic is IEEE-754 doubles with simulated directed rounding, one unit in the last place outward per operation.
+
+\section{Conclusions}\label{sec:conclusions}
+A number a model proposes can be decided, not estimated, over the envelope the engineer declares: \vProved\ for every declared input, \vRefuted\ with a proof, or \vRefused\ with an input on each side and the threshold that would decide. On a water-injection flowline the procedure refuses a plausible recommendation that a sampling study would have reported as a 0.3\% risk, names the admissible input that violates the limit by a margin the sampler never reached, and names the set point that proves it; it refutes or refuses seven injected faults with the reason; and its receipts are re-run by a second implementation and by any reader. The same grammar decides maximum-likelihood fits over a public hindcast, a library's two answers for one design wave, and a published design table. What is proposed to the reliability community is a small vocabulary and a discipline: a verdict with a witness, refusal as a result, and a record that travels without the code that made it.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The demonstrator uses illustrative values and no operator's data.
+
+\section*{Data availability}
+The gate, its scenarios, its battery and its reference implementation are public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \RepoCommit) under \texttt{apps/contraprova} (MIT); the receipts and the Monte Carlo record are \texttt{apps/contraprova/data/gate-ledger.json}; the live demonstrator, in which every receipt is re-decided in the browser, is at \url{https://carlostoledo.co/contraprova/}. The extreme-value records are those of the companion paper; the register of decided mathematical claims is \texttt{certs/claims-ledger.json}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration
+
+\section*{Funding}
+This work received no external funding.
+
+\begin{thebibliography}{99}
+\bibitem[ANP(2007)]{anp2007} Ag\^encia Nacional do Petr\'oleo, G\'as Natural e Biocombust\'iveis, 2007. Resolu\c{c}\~ao ANP n.$^{\circ}$ 43, de 6 de dezembro de 2007: Regulamento T\'ecnico do Sistema de Gerenciamento da Seguran\c{c}a Operacional (SGSO), pr\'aticas de gest\~ao 13 (integridade mec\^anica) e 16 (gerenciamento de mudan\c{c}as).
+\bibitem[API(1991)]{api14e} American Petroleum Institute, 1991. API RP 14E: Recommended practice for design and installation of offshore production platform piping systems, 5th ed.
+\bibitem[ASME(2009)]{asme2009} ASME, 2009. V\&V 20-2009 (R2016): Standard for verification and validation in computational fluid dynamics and heat transfer. American Society of Mechanical Engineers, New York.
+\bibitem[Beer et~al.(2013)]{beer2013} Beer, M., Ferson, S., Kreinovich, V., 2013. Imprecise probabilities in engineering analyses. Mechanical Systems and Signal Processing 37, 4--29.
+\bibitem[Bhaskaran et~al.(2023)]{bhaskaran2023} Bhaskaran, S.K., Verma, A.S., Goupee, A.J., Bhattacharya, S., Nejad, A.R., Shi, W., 2023. Comparison of extreme wind and waves using different statistical methods in 40 offshore wind energy lease areas worldwide. Energies 16, 6935.
+\bibitem[Colebrook(1939)]{colebrook1939} Colebrook, C.F., 1939. Turbulent flow in pipes, with particular reference to the transition region between the smooth and rough pipe laws. Journal of the Institution of Civil Engineers 11, 133--156.
+\bibitem[DNV(2021)]{dnv2021} DNV, 2021. DNV-RP-C205: Environmental conditions and environmental loads. Recommended practice.
+\bibitem[Ferson and Ginzburg(1996)]{ferson1996} Ferson, S., Ginzburg, L.R., 1996. Different methods are needed to propagate ignorance and variability. Reliability Engineering \& System Safety 54, 133--144.
+\bibitem[Gupta et~al.(2024)]{gnnw2024} Gupta, P., Ndiaye, N., Norin, S., Wei, L., 2024. Optimizing the CGMS upper bound on Ramsey numbers. arXiv:2407.19026.
+\bibitem[Hansen and Walster(2004)]{hansen2004} Hansen, E., Walster, G.W., 2004. Global Optimization Using Interval Analysis, 2nd ed. Marcel Dekker, New York.
+\bibitem[HorizonMath(2026)]{horizonmath2026} HorizonMath, 2026. The HorizonMath benchmark, arXiv:2603.15617v2 (10 September 2026), Appendix A; code at github.com/ewang26/HorizonMath, commit 4ef0b61a.
+\bibitem[ISO(2015)]{iso19901} ISO, 2015. ISO 19901-1:2015 Petroleum and natural gas industries --- Specific requirements for offshore structures --- Part 1: Metocean design and operating considerations.
+\bibitem[Jaulin et~al.(2001)]{jaulin2001} Jaulin, L., Kieffer, M., Didrit, O., Walter, \'E., 2001. Applied Interval Analysis. Springer, London.
+\bibitem[Moore et~al.(2009)]{moore2009} Moore, R.E., Kearfott, R.B., Cloud, M.J., 2009. Introduction to Interval Analysis. SIAM, Philadelphia.
+\bibitem[NASA(2016)]{nasa2016} NASA, 2016. NASA-STD-7009A: Standard for models and simulations. National Aeronautics and Space Administration.
+\bibitem[Oberkampf and Roy(2010)]{oberkampf2010} Oberkampf, W.L., Roy, C.J., 2010. Verification and Validation in Scientific Computing. Cambridge University Press, Cambridge.
+\bibitem[Petrobras(2026a)]{petrobras2026twins} Petrobras, 2026. Digital twins na Petrobras impulsionam efici\^encia operacional. Nossa Energia (corporate publication).
+\bibitem[Petrobras(2026b)]{petrobras2026jubarte} Ag\^encia Petrobras, 2026. Petrobras usar\'a g\^emeo digital para otimizar produ\c{c}\~ao e escoamento de petr\'oleo (Jubarte pilot).
+\bibitem[rainrzk(2026)]{rainrzk2026} rainrzk, 2026. An independent audit of the $\lambda(4)$ proof. Repository erdos510-lambda4-audit; report on teorth/erdosproblems, issue 392, 30 September 2026.
+\bibitem[Reis et~al.(2026)]{reis2026} Reis, R.A.N., Guimar\~aes, P.V., Farina, L., Paul, S., de~Paula, T.P., Ribeiro, E.O., 2026. Global assessment of extreme value analysis for significant wave height. Ocean Engineering 359, 125841.
+\bibitem[Roy and Oberkampf(2011)]{roy2011} Roy, C.J., Oberkampf, W.L., 2011. A comprehensive framework for verification, validation, and uncertainty quantification in scientific computing. Computer Methods in Applied Mechanics and Engineering 200, 2131--2144.
+\bibitem[Rump(2010)]{rump2010} Rump, S.M., 2010. Verification methods: rigorous results using floating-point arithmetic. Acta Numerica 19, 287--449.
+\bibitem[Sra(2026)]{sra2026} Sra, S., 2026. GPT, the counterexample machine. arXiv:2608.29595; the library at github.com/suvrit/count-ex-machina, commit dbf67374.
+\bibitem[Toledo(2026)]{toledo2026p1} Toledo, C., 2026. Certified return levels: deciding maximum-likelihood extreme-value fits of significant wave height over a public global hindcast. Companion manuscript, in preparation.
+\bibitem[Tucker(2011)]{tucker2011} Tucker, W., 2011. Validated Numerics: A Short Introduction to Rigorous Computations. Princeton University Press, Princeton.
+\bibitem[Virtanen et~al.(2020)]{virtanen2020} Virtanen, P., Gommers, R., Oliphant, T.E., et~al., 2020. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nature Methods 17, 261--272.
+\end{thebibliography}
+
+\end{document}

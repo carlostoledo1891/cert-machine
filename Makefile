@@ -270,4 +270,9 @@ reports:
 
 papers:
 	@$(NODE) tools/build-kissing-paper.js
+	@$(NODE) tools/build-paper-numbers.js
 	@$(NODE) tools/build-paper-tex.js --all
+
+# the Elsevier manuscripts' figures, drawn from the records (needs matplotlib in the hseva venv)
+paper-figs:
+	@instruments/hseva/.venv/bin/python tools/build-paper-figs.py

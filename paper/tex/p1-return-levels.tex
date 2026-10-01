@@ -1,0 +1,359 @@
+\documentclass[preprint,11pt,authoryear]{elsarticle}
+\usepackage{cmelsevier}
+\input{p1-numbers.tex}
+\journal{Ocean Engineering}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Certified return levels: deciding maximum-likelihood extreme-value fits of significant wave height over a public global hindcast\tnoteref{t1}}
+\tnotetext[t1]{Draft for review, version 0.1 of 2026-10-01. The author list and the CRediT roles are to be agreed with the group that published the reference method. Every number in this manuscript is read at build time from the records named in the Data availability statement (repository commit \RepoCommit); the prose is authored and should be reviewed like any other.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}}
+
+\begin{abstract}
+A return level of significant wave height is read off a fitted distribution, and a fitted distribution is, in practice, the point at which an optimiser stopped. This paper repeats the extreme-value method of \citet{reis2026} --- six parametric families fitted by maximum likelihood to the unfiltered series and to daily, weekly and monthly block maxima, ranked by four goodness-of-fit criteria, with 100- and 1000-year levels --- on the method's own public hindcast, with every step decided rather than estimated. A fit is accepted only when the Krawczyk operator proves that a box around the candidate contains exactly one zero of the score equations and the Hessian is proved negative definite over that box, both in outward-rounded interval arithmetic over every datum; the four criteria and the levels are then enclosures over the box; a ranking is \vDecided\ only when the best enclosure lies wholly below every other, and \vRefused\ otherwise, with the reason recorded. Over \ACells\ open-sea cells of the hindcast, \AFits\ fits were attempted: \ACertified\ are certified maxima, and \AGGLimit\ are generalized-gamma fits refused with the proof that the likelihood is highest at the family's lognormal limit, where a float optimiser prints a point on the way. A threshold rule in place of that proof changes the selected family at \ANaiveDiff\ of \ABlocks\ cell-blocks. The method paper's ten regional claims, read as boxes over the certified cells, are decided: \AClaimsHold\ hold, \AClaimsFail\ do not, \AClaimsOpen\ the refusals leave open. The same procedure decides numbers other people printed for the same data: of \SFits\ fits by a standard scientific library called with a free location parameter, none is the maximum it reports and \SFreeBelow\ lie below a member of their own family; called with the location fixed, \SFixedAgree\ agree with the certificate. Of twenty rows of a published design table, \TOff\ are off the maximum of the nearest public cell. The novelty claimed is not interval arithmetic, which is standard, but the decision grammar --- a verdict with a witness, refusal as a result, and a record that any reader can re-run without the authors' code.
+\end{abstract}
+
+\begin{highlights}
+\item Each extreme-value fit is proved the likelihood's one maximum in a recorded box.
+\item \AFits\ fits over a public global hindcast; \AGGLimit\ refused with the proof of a limit.
+\item A ranking by a criterion is a decision only where its enclosures separate.
+\item A library's default call matches none of \SFits\ certified fits; location fixed, \SFixedAgree.
+\item A published design table decided row by row against the nearest public cell.
+\end{highlights}
+
+\begin{keyword}
+significant wave height \sep extreme value analysis \sep return level \sep maximum likelihood \sep interval arithmetic \sep verified computation \sep metocean design
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+A metocean design basis states a significant wave height with a return period, and that number comes out of a chain: a record is blocked, a distribution is fitted to the blocks, one distribution is chosen by a goodness-of-fit statistic, and its tail is inverted at the return period \citep{coles2001,dnv2021,iso19901}. Each link is a computation, and each is usually carried out by a general-purpose optimiser whose stopping point is then called ``the fit''. \citet{reis2026} applied this chain over a global wave hindcast: six parametric families --- normal, lognormal, Weibull, exponentiated Weibull, generalized gamma and Gumbel --- fitted by maximum likelihood to the unfiltered 3-hourly series and to daily, weekly and monthly block maxima, ranked by the Kolmogorov--Smirnov, Anderson--Darling, chi-square and mean-squared-error criteria, with the Anderson--Darling statistic chosen as the selector and 100- and 1000-year levels read off the selected family. Their conclusion, that the choice of criterion and of block size both move the selected distribution and the long-period return level, is a statement about the arithmetic of the method as much as about the sea.
+
+This paper asks a narrower question of the same chain: at each step, is the number what the method says it is? A maximum-likelihood estimate is a zero of the score equations at which the Hessian is negative definite; a goodness-of-fit statistic is a sum over the data; a ranking is a comparison of such sums; a return level is a quantile of the chosen law. Each is decidable in finite arithmetic with rigorous error bounds, and the tools for doing so --- interval arithmetic with outward rounding \citep{moore2009}, the Krawczyk operator for the existence and uniqueness of a zero \citep{krawczyk1969,rump2010}, and validated global optimisation \citep{hansen2004,tucker2011} --- are decades old. What has not been done, to our knowledge, is to apply them to the whole chain of an extreme-value study and to record the result so that a reader can re-run it. The present work does that for the method of \citet{reis2026} on their own data, and adds a grammar for the outcome: every fit, every ranking and every printed number receives one of a small set of verdicts, each with the quantity that justifies it, and refusal is a result that is counted, not an error that is dropped.
+
+Three motivations come from practice. First, the likelihood of several families used for $\Hs$ has no interior maximum on many series: the generalized gamma's supremum is at its lognormal limit \citep{prentice1974,stacy1962}, and the exponentiated Weibull's runs to a Gumbel-type regime or to a Fr\'echet corner; an optimiser then prints the last iterate as the fit, and nothing in its output says so. Second, the same library called two ways returns two different 100-year levels for the same data, because a location parameter makes the likelihood unbounded \citep{hill1963,harper2011}; which of the two is a maximum is a question of fact, and this paper decides it. Third, design tables are printed from hindcasts that cannot be re-run outside the organisation that produced them \citep{bhaskaran2023}; a certificate at the nearest public cell measures the distance between the two records and says which of the printed digits are a maximum-likelihood fit of anything.
+
+The contribution is therefore not a new distribution, a new criterion or a new estimate of the 100-year wave. It is (i) a certificate per fit, (ii) a decision rule for rankings in which refusal is explicit, (iii) proofs, rather than thresholds, for the two families whose supremum is at a limit, (iv) a verdict vocabulary for numbers printed elsewhere, and (v) the public, re-runnable record of all of this over the hindcast's open-sea cells, with the method paper's own regional claims decided against it. Sections~\ref{sec:data} and \ref{sec:method} describe the data and the certifier; Section~\ref{sec:results} reports the results; Section~\ref{sec:discussion} discusses what a certificate does and does not say, and what a standard for marginal fits could take from it.
+
+\section{Data}\label{sec:data}
+
+\subsection{The hindcast}
+The reference method was applied by \citet{reis2026} to the Ifremer WAVEWATCH III hindcast GLOBMULTI\_ERA5\_GLOBCUR\_01 \citep{accensi,alday2021}: a global 0.5$^\circ$ grid at 3-hourly resolution, 1993 to 2024, forced by ERA5 winds and the global currents of the same system, distributed under CC BY-SA 4.0. The whole significant-wave-height field was read from the monthly files by byte range, each chunk hashed as read, and two cuts were kept. The first is a lattice of \ANodes\ nodes --- a 4$^\circ$ global lattice, a 1$^\circ$ lattice of the Brazilian margin from 6$^\circ$N to 36$^\circ$S, and thirteen named nodes --- at each of which the largest 3-hourly value of every UTC day was kept, \ADays\ days from \AFirst\ to \ALast. Of these nodes, \AIce\ are touched by the model's own sea-ice field at some step of the \AYears\ years; under ice the model damps the waves to millimetres rather than leaving a gap, so those series are partly the ice's and are recorded but not certified. The remaining \ACells\ open-sea cells (\AGlobalFour\ on the global lattice, \ABrazil\ on the Brazilian margin) are the atlas of Section~\ref{sec:atlas}. The second cut is the full 3-hourly series, \RNodeN\ values each, at \RNodes\ nodes chosen for the regions the method paper names: the Campos, Santos, Esp\'irito Santo, Pelotas, Potiguar and Foz do Amazonas basins on the Brazilian margin; the Drake Passage, the central Antarctic Circumpolar Current, the high southern latitudes and the northern sub-Antarctic; the Arabian Sea, the western Pacific south of Japan and the extratropical North Atlantic. A cell is the series at its node, not an area mean; nothing is interpolated.
+
+\subsection{Three buoys}
+To decide numbers other people printed for the same data, the three NDBC buoys of the environmental-contour benchmark of \citet{haselsteiner2021} --- its datasets A, B and C, hourly, the provided and the retained years together, \RBuoyN\ values each over \RBuoyYears\ years --- are certified at five block sizes (hourly, daily, weekly, monthly, annual). The benchmark's appendix prints the $\Hs$ marginal that each contributing team fitted to the provided ten years, and a scientific library's fits to the same series were recorded as printed (Section~\ref{sec:printed}).
+
+\subsection{The block rule}
+A block maximum is the largest value in its calendar block, with the UTC day, the ISO 8601 week, the calendar month and the calendar year as the blocks; the rule lives in one module used by the ledger, the atlas and the browser so that it cannot drift between them. The $T$-year return level of a block of $b$ hours is $F^{-1}(1 - b/(8766\,T))$, with $365.25 \times 24 = 8766$ hours in a year, as the method paper defines it; it is left undefined where fewer than one block falls in the return period.
+
+\section{The certificate}\label{sec:method}
+
+\subsection{Families and criteria}
+The six families are those of \citet[\S2.1]{reis2026}, written in the same parameterisation: the normal and the lognormal in $(\mu, \sigma)$; the Weibull $F(x) = 1 - \exp[-(x/\lambda)^k]$; the exponentiated Weibull $F(x) = (1 - \exp[-(x/\lambda)^k])^\alpha$ \citep{mudholkar1993}; the generalized gamma $F(x) = P(\alpha, (x/\lambda)^c)$ with $P$ the regularized incomplete gamma function \citep{stacy1962}; and the Gumbel $F(x) = \exp(-\exp[-(x-\mu)/\beta])$. None carries a location parameter except the Gumbel's own; this is the form the method paper prints and, as Section~\ref{sec:scipy} shows, the form a library's default call does not use. The four criteria are the Anderson--Darling statistic $A^2 = -n - \frac{1}{n}\sum_i (2i-1)[\ln F(x_{(i)}) + \ln S(x_{(n+1-i)})]$ \citep{anderson1954}, the Kolmogorov--Smirnov distance $D = \max_i \max(i/n - F(x_{(i)}),\, F(x_{(i)}) - (i-1)/n)$, the mean squared error $\frac{1}{n}\sum_i [F(x_i) - F_n(x_i)]^2$ against the empirical distribution function with ties, and a chi-square statistic on $\max(8, \lceil \log_2 n \rceil + 1)$ equal-width bins over $[\min x, \max x]$ with expected counts $E_j = n[F(e_{j+1}) - F(e_j)]$ kept where $E_j \ge 5$ and undefined below two kept bins, as \citet[\S2.2]{reis2026} describe. Lower is better for all four. A seventh family, the generalized extreme value law \citep{jenkinson1955}, of which the Gumbel is the $\xi = 0$ member, is certified beside the six and never ranked among them (Section~\ref{sec:gev}).
+
+\subsection{A fit as a box}\label{sec:box}
+A maximum-likelihood estimate is a zero of the score $\nabla_\theta \ell(\theta)$. The certifier finds a candidate in floating point --- Nelder--Mead on the log-likelihood followed by a Levenberg--Marquardt ascent --- and then proves two things about a box $X$ around it, both in outward-rounded interval arithmetic in which every datum is enclosed by its two neighbouring doubles and every elementary operation rounds outward \citep{moore2009}:
+\begin{enumerate}
+\item the Krawczyk operator $K(X) = \hat\theta - Y\,\nabla\ell(\hat\theta) + (I - Y\,H(X))(X - \hat\theta)$, with $Y$ an approximate inverse of the Hessian at the centre and $H(X)$ the interval Hessian over $X$, maps $X$ strictly into its interior, so that $X$ contains exactly one zero of the score \citep{krawczyk1969,rump2010};
+\item the Hessian is negative definite over $X$: the leading principal minors of $-H(X)$ are enclosed by Sylvester's criterion and proved positive over the whole box, or, where the box's Hessian is too ill-conditioned for its minors, positive at the candidate with every Hessian over the box proved nonsingular, which gives the same conclusion on a connected box.
+\end{enumerate}
+The zero is then the likelihood's one maximum in $X$, and $X$ is the certificate: its half-width is recorded (at most \RMaxBox\ in the parameters on the 3-hourly ledger, where the widest 100-year level enclosure is \RWidestLevel\ m). Everything downstream is an interval extension over $X$: each criterion, each return level, and the log-likelihood itself, so that two families' values on the same data can be compared. Sums over the data are the delicate part: a running interval sum rounds outward at every one of $n$ additions, and at $n = \RBuoyN$ its width is a thousand times what the terms carry; each endpoint stream is instead summed by the Sum2 algorithm with the error bound of \citet{ogita2005} added outward. The transcendental functions are series with proved remainders; the gamma-function family ($\ln\Gamma$, $\psi$, $\psi'$, $P$, $P^{-1}$) is enclosed by Binet's formula with the first omitted term as the bound, the series of $P$ with a geometric tail, and bisection with certain sign for $P^{-1}$. The score and Hessian of the families that need them are produced by second-order forward differentiation over the same arithmetic, so that no derivative is written by hand.
+
+What this does not prove is that no better maximum exists elsewhere in the family: that is the search's claim, as it is any optimiser's, and the paper says so wherever a fit is stated. It also does not say that the family is the law of the sea, nor how far another record of the same length would move the number; the sampling width is a statistical statement and is kept apart (Section~\ref{sec:stat}).
+
+\subsection{Rankings as decisions}\label{sec:rank}
+With every statistic an enclosure, a ranking of families under a criterion is \vDecided\ when the lowest enclosure lies wholly below every other, and \vRefused\ otherwise, naming the overlap. A family without a certified fit refuses the ranking --- its maximum might exist and win --- with one exception: the generalized gamma whose likelihood is proved highest at its lognormal limit (Section~\ref{sec:limits}) is left out, named, and the lognormal, which is what its likelihood reaches, is ranked in its stead. A climb stopped at a family's declared boundary proves nothing and blocks the ranking; so does a statistic the arithmetic cannot enclose, and a chi-square bin whose expected count straddles five. \vDecided\ ranks the criterion's arithmetic on this sample; it is not a test between models. The rule is one function, called by the ledger and by the browser, and the atlas's regional claims are decided through it.
+
+\subsection{Families whose supremum is at a limit}\label{sec:limits}
+As $\alpha \to \infty$ with $c \to 0$ the generalized gamma tends to the lognormal \citep{prentice1974}, so its likelihood's supremum is at least the lognormal's maximum, and on many series the likelihood rises all the way there. In Stacy's coordinates the ridge is too flat for any contraction argument. In Prentice's $(\mu, \sigma, Q)$, with $Q = 1/\sqrt{\alpha}$ and the likelihood written as a power series in $Q$ with proved tails, $Q = 0$ is an ordinary point, and a maximum beside the limit contracts (\APrentice\ such fits are certified in these coordinates on the atlas, \RPrentice\ on the 3-hourly ledger). Where no maximum is found the family is refused at its edge only with a proof: over a box $B \times (0, q_1]$, with $B$ a neighbourhood of the lognormal fit of the form $\hat\mu \pm k\hat\sigma/\sqrt n$, $\hat\sigma(1 \pm k/\sqrt{2n})$ for the widest $k$ among $3, 1, 0.3, 0.1$ that proves it, the $Q$-component of the Prentice score is proved negative, so every member there is less likely than the lognormal at the same $(\mu, \sigma)$ and hence than the lognormal's maximum. Like a certified maximum this is a local fact, and its neighbourhood is recorded. On buoy A's hourly series, for instance, the proof holds with $k = \RGGABoundaryK$ and $q_1 = \RGGABoundaryQ$, the score's $Q$-component at most $\RGGADqHi$ over the box.
+
+The exponentiated Weibull's $\alpha$ runs away on another kind of series. With $\theta = \lambda^k$ and $\beta = \theta \ln\alpha$ the family reads $F(x) = \exp\{e^{\beta/\theta}\ln(1 - e^{-x^k/\theta})\}$, a Gumbel law of $\Hs^k$ with location $\beta$ and scale $\theta$ once $e^{-x^k/\theta}$ is small over the data; the runaway $\alpha$ is a regime that the $(\alpha, k, \lambda)$ coordinates place in the millions or beyond, not an edge, and in $(k, \theta, \beta)$ the maximum is an ordinary point, certified there at \AEwG\ atlas cell-blocks. Where the climb runs on even in those coordinates, toward $k \to 0$ --- a Gumbel law of $\ln\Hs$, which is a Fr\'echet law --- the family is refused with that reason (\AEwStop\ atlas cell-blocks), and the ranking with it, because the family's supremum there is not yet proved to be the Fr\'echet limit itself. An earlier version of the ledger used a threshold ($\alpha > 500$ for the generalized gamma) in place of the boundary proof; on six 3-hourly series the family's maximum sits beside the limit at $\alpha$ between \RNearAlphaLo\ and \RNearAlphaHi, certified there, and the threshold rule handed \RNearMoves\ of their \RNearChoices\ choices to another family. The present ledger keeps that rule's outcome beside the certificate's at every cell-block, so that the difference between a threshold and a proof can be counted (Section~\ref{sec:atlas}).
+
+\subsection{The seventh family}\label{sec:gev}
+The method paper's six hold one extreme-value law, the Gumbel. The generalized extreme value law $F(x) = \exp\{-[1 + \xi(x-\mu)/\sigma]^{-1/\xi}\}$ is certified beside them at every cell and block, written so that $\xi = 0$ is an ordinary point and with the support condition $1 + \xi(x-\mu)/\sigma > 0$ enforced on every datum. Its likelihood has no global maximum --- below $\xi = -1$ it is unbounded as the support's upper end reaches the largest datum --- so its fit is the certified maximum in the region where the estimator is regular, $\xi > -0.5$ \citep{smith1985}, and a box that reaches $-0.5$ is refused. The GEV is never ranked among the six: the tables that read against the method paper are the paper's; a separate column records what the Anderson--Darling statistic decides among the seven by the same rule.
+
+\subsection{Statistical, not certified}\label{sec:stat}
+A certificate says what a fit \emph{is} on these \AYears\ years; it does not say how far another \AYears\ years of the same sea could move it. The ledger carries that width beside the records, labelled: the delta method's 95\% intervals on the decided family's 100- and 1000-year levels, taken on the logarithm of the level so that they stay positive, from the observed information at the fitted point in the certificate's own coordinates and the level's gradient by central differences --- asymptotic, with successive blocks taken as independent and the family as right \citep{coles2001}; the runs estimator of the extremal index of the daily maxima \citep{smith1994}; and, on request in the browser, a profile-likelihood interval. These are statements of another kind and are drawn apart from the certified ones in every figure of this paper.
+
+\subsection{Printed fits}\label{sec:printedmethod}
+A number someone printed is decided over the box its digits allow: a printed ``0.0634'' is the interval $[0.06335, 0.06345]$, and the full log-likelihood and the levels are evaluated over that box against the certified fit on the same values. The verdict is \textsc{reproduced} when the certified box lies inside the printed digits (they are its rounding); \textsc{consistent} when the digits lie inside the certified box; \textsc{off the maximum} when the two are apart and the printed likelihood lies below the certified maximum by a proved margin; \textsc{not the certified fit} when they are apart without such a margin; \textsc{outside its support} when the printed location leaves data with zero density; \textsc{not a member} when a printed parameter lies outside the family; and \textsc{not decided} otherwise. The words are the same for the benchmark's marginals, the library's fits and the design table.
+
+\subsection{The record and its controls}\label{sec:controls}
+Every certifying module is pinned by its SHA-256 in the atlas ledger (\ACodeModules\ modules), every worker of the atlas run refuses other bytes, and the page that serves the atlas refuses to build over a ledger its own bundle did not write; the corpus is pinned the same way (digest \ACorpusSha). A battery of \HsevaChecks\ checks runs before any page is written, with \HsevaReds\ red controls that must fire: among them, logarithms skewed to the right refuse the generalized gamma at its limit with the proof; a 40,000-point generalized gamma with $\alpha \approx 900$ is certified beside its limit, where a stop at $\alpha = 500$ would miss it; a family stopped at its boundary blocks the ranking; a saddle point is refused by the second-order test; and the printed-fit decision has \PrintedChecks\ checks with \PrintedReds\ red controls of its own. Any cell can be re-certified in a browser from the pinned data by the same bytes, and the result is compared with the ledger's record by digest. The atlas took \ASecondsHours\ hours on seven worker threads of a laptop; the 3-hourly ledger \RSeconds\ seconds.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=5mm and 7mm, every node/.style={font=\footnotesize}, box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt, minimum height=9mm, text width=24mm}, verdict/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, text width=20mm, font=\footnotesize\scshape}, arr/.style={-{Stealth[length=2mm]}, thick}]
+\node[box] (data) {data as\\intervals};
+\node[box, right=of data] (cand) {float candidate\\(Nelder--Mead, LM)};
+\node[box, right=of cand] (kraw) {Krawczyk:\\one zero in $X$};
+\node[box, right=of kraw] (hess) {Hessian\\$\prec 0$ over $X$};
+\node[box, right=of hess] (crit) {criteria and levels\\as enclosures over $X$};
+\draw[arr] (data) -- (cand); \draw[arr] (cand) -- (kraw); \draw[arr] (kraw) -- (hess); \draw[arr] (hess) -- (crit);
+\node[verdict, below=of kraw, fill=black!5] (ref1) {refused\\(no contraction)};
+\node[verdict, below=of hess, fill=black!5] (ref2) {refused\\(saddle, boundary)};
+\node[verdict, below=of crit, fill=black!5] (rank) {decided /\\refused ranking};
+\draw[arr, dashed] (kraw) -- (ref1); \draw[arr, dashed] (hess) -- (ref2); \draw[arr] (crit) -- (rank);
+\node[verdict, below=of ref1, fill=black!5] (edge) {refused at the edge\\with the proof $\partial\ell/\partial Q < 0$};
+\draw[arr, dashed] (ref1) -- (edge);
+\end{tikzpicture}
+\caption{The certificate of one fit. A float search only proposes; the Krawczyk operator and the second-order test decide; every statistic is an interval extension over the certified box $X$. A refusal is a recorded result with its reason, and the generalized gamma can be refused at its lognormal limit only with the boundary proof of Section~\ref{sec:limits}.}
+\label{fig:pipeline}
+\end{figure}
+
+\section{Results}\label{sec:results}
+
+\subsection{The atlas}\label{sec:atlas}
+Table~\ref{tab:choice} and Fig.~\ref{fig:mapchoice} give the selection by the Anderson--Darling statistic over the \ACells\ open-sea cells at the three block sizes the atlas holds. Of the \AFits\ fits, \ACertified\ (\ACertifiedPct) are certified maxima; \AGGLimit\ (\AGGLimitPct) are generalized-gamma fits refused at the lognormal limit with the proof; \AEwStop\ are exponentiated-Weibull climbs that run toward the Fr\'echet corner in both coordinate systems; and \AOther\ are refused for other reasons. The choice is \vDecided\ at \ADecidedDaily\ cells on the daily maxima, \ADecidedWeekly\ on the weekly and \ADecidedMonthly\ on the monthly, and \vRefused\ at \ARefusedChoiceDaily, \ARefusedChoiceWeekly\ and \ARefusedChoiceMonthly. The exponentiated Weibull is the decided choice at \AEwDaily\ cells on the daily maxima and \AEwMonthly\ on the monthly; the Weibull at \AWeibullDaily\ and \AWeibullMonthly. The threshold rule of Section~\ref{sec:limits} --- the generalized gamma past $\alpha = 500$ and the exponentiated Weibull past $10^4$ taken for ``the limit'' and left out --- names a different family, or none, at \ANaiveDiff\ cell-blocks (\ANaiveDiffPct): \ANaiveDiffDaily\ daily, \ANaiveDiffWeekly\ weekly, \ANaiveDiffMonthly\ monthly (Fig.~\ref{fig:mapthreshold}).
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The family the Anderson--Darling statistic selects among the six, by block, over the \ACells\ open-sea cells: with the certificate (left) and with the threshold rule of Section~\ref{sec:limits} in place of the boundary proof (right). A refused cell is one where the enclosures overlap or a family has no certified fit.}
+\label{tab:choice}
+\begin{tabular}{lrrr}
+\toprule
+certificate & daily & weekly & monthly \\
+\midrule
+\AChoiceRows
+\bottomrule
+\end{tabular}\hspace{8mm}
+\begin{tabular}{lrrr}
+\toprule
+threshold rule & daily & weekly & monthly \\
+\midrule
+\ANaiveRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{p1-map-choice.pdf}
+\caption{The family the Anderson--Darling statistic selects among the six at every open-sea cell, (a) daily and (b) monthly maxima; a hollow square is a refused choice. Cells are drawn as squares centred on their node: 4$^\circ$ on the global lattice, 1$^\circ$ on the Brazilian margin. The Weibull and the normal, selected at few cells, share one colour.}
+\label{fig:mapchoice}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p1-map-threshold.pdf}
+\caption{Where a threshold rule in place of the boundary proof names a different family, or none, at one, two or all three of the daily, weekly and monthly blocks.}
+\label{fig:mapthreshold}
+\end{figure}
+
+The selection the statistic makes is not a sanity check. The decided family's 100-year level lies below the largest daily maximum of the \AYears-year record at \ABelow\ of the \ALeveled\ decided cell-blocks with a level (\ABelowPct); the median ratio of the level to the record is \ARatioMedian, the ninetieth percentile \ARatioNinety, and it exceeds two at \ARatioAboveTwo\ cell-blocks and five at \ARatioAboveFive\ (Fig.~\ref{fig:ratio}). The largest is at \AWorstLat$^\circ$N, \AWorstLon$^\circ$E in the Arabian Sea on the \AWorstBlock\ maxima, where the \AWorstFamily\ is the decided choice and its 100-year level is \AWorstLevel\ m against a record of \AWorstMax\ m, \AWorstRatio\ times the record. Table~\ref{tab:arabian} gives the node's full 3-hourly series: the exponentiated Weibull is decided at every block in its Gumbel coordinates, with a 100-year level of \RArabianNative\ m on the unfiltered series and \RArabianMonthly\ m on the monthly maxima against a record of \RArabianMax\ m. The certificate proves what the method yields, including where the method yields a number no engineer would use: the two-mode monsoon climate of that sea puts the family's maximum in a regime where the fitted law is a Gumbel law of a small power of $\Hs$, and nothing in the selection rule objects. A design standard built on this method would have to say so.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p1-ratio.pdf}
+\caption{The decided family's 100-year level divided by the largest daily maximum on record, over every decided cell-block of the atlas (daily, weekly and monthly maxima). The dashed line is the record itself.}
+\label{fig:ratio}
+\end{figure}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The Arabian Sea node (15$^\circ$N, 62$^\circ$E): the family the Anderson--Darling statistic selects, its 100-year level, the exponentiated Weibull's shape $k$ in its Gumbel coordinates, and the largest value on record, by block. On the 3-hourly ledger the exponentiated Weibull is certified at every block in the coordinates $(k, \theta, \beta)$ of Section~\ref{sec:limits}.}
+\label{tab:arabian}
+\begin{tabular}{llrrr}
+\toprule
+block & selected & 100-year $\Hs$ (m) & $k$ & record (m) \\
+\midrule
+\RArabianRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The method paper's regional claims}\label{sec:claims}
+Section 3 of \citet{reis2026} describes its maps in words: where a family gains or loses as the block grows, and where the return levels fall or rise with it. Ten of those sentences speak of the blocks the atlas holds, and each was read as a box (a latitude--longitude region or the global lattice), the blocks it names and a rule over the certified cells there (Appendix~\ref{app:claims} gives the quotations). A cell counts for a family only where the choice is \vDecided; a refused cell counts for nobody and could count for anybody, so a claim \vHolds\ when it is true however the refused cells fell, \vFails\ when it is false however they fell, and is \vOpen\ when they could make it either. Table~\ref{tab:claims} gives the result: \AClaimsHold\ hold, \AClaimsFail\ do not, \AClaimsOpen\ are undecided. The two that do not hold concern the generalized gamma in the Southern Ocean. The two undecided ones are the global rise of the Weibull with block size and the same transition in the monsoon Indian Ocean, where the refused cells are enough to turn either way. The same ten claims were decided a second time with the threshold rule of Section~\ref{sec:limits} in place of the boundary proof (the table's sixth column): \AClaimsNaiveHold\ hold, \AClaimsNaiveFail\ do not and \AClaimsNaiveOpen\ are undecided under that rule, and \AClaimsMoved\ of the ten (claims \AClaimsMovedList) change verdict between the two readings --- which is to say that the difference between a threshold and a proof reaches the sentences a reader takes from the maps. A reader who disagrees with a box can redraw it: the atlas decides any region typed or drawn in the browser by the same function.
+
+\begin{table}[p]
+\centering\footnotesize
+\caption{The ten regional claims of \citet[\S3]{reis2026} decided over the certified cells (``verdict''), and decided again with the threshold rule of Section~\ref{sec:limits} in place of the boundary proof (``threshold''). A count ``decided'' is the number of cells where the named family (or the named relation between the two blocks' levels) is \vDecided; ``refused'' the cells where the choice is refused; ``of'' the cells in the box.}
+\label{tab:claims}
+\begin{tabular}{p{4mm}p{26mm}p{11mm}p{13mm}p{19mm}p{19mm}p{46mm}}
+\toprule
+\# & region & cited & blocks & verdict & threshold & counts \\
+\midrule
+\AClaimRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The seventh family}
+The GEV is certified at \AGevCertified\ of \ABlocks\ atlas cell-blocks and refused at \AGevStop\ where its box reaches $\xi = -0.5$. Its shape is certified below zero --- a finite upper end, which none of the six families can have --- at \AXiNeg\ cell-blocks, and above zero at \AXiPos\ (Fig.~\ref{fig:mapgev}a); no certified box straddles zero. Among the seven, the Anderson--Darling statistic names the GEV at \ASevenGev\ cell-blocks (\ASevenGevDaily\ daily, \ASevenGevWeekly\ weekly, \ASevenGevMonthly\ monthly; Fig.~\ref{fig:mapgev}b). On the 1$^\circ$ Brazilian margin it is named at \ABrazilGev\ cell-blocks, at \ABrazilGevNeg\ of them with $\xi$ certified below zero. At the \ACorner\ cell-blocks where the exponentiated Weibull runs toward its Fr\'echet corner the GEV is certified at \ACornerGev, its $\xi$ positive at \ACornerPos\ and its $A^2$ below every certified family's at \ACornerLowest\ --- the tail the corner points to --- and the choice among seven stays refused at \ACornerSevenRefused\ of them, because the exponentiated Weibull's supremum there is not yet proved to be that limit. The GEV runs away where the six do: at the Arabian Sea node its daily 100-year level is of the same order as theirs (Table~\ref{tab:arabian}).
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{p1-map-gev.pdf}
+\caption{The seventh family on the daily maxima. (a) The sign of the GEV shape $\xi$, certified: below zero (a finite upper end) or above zero (a Fr\'echet-type tail); no certified box contains zero. (b) The cells where the Anderson--Darling statistic, applied to the seven families by the rule of Section~\ref{sec:rank}, names the GEV.}
+\label{fig:mapgev}
+\end{figure}
+
+On the statistical side, kept apart: the decided family's 100-year level carries a delta-method 95\% interval of \AUncDaily\ of its value at the median cell on the daily maxima, \AUncWeekly\ on the weekly and \AUncMonthly\ on the monthly; the runs estimator of the extremal index of the daily maxima runs from \AEiLo\ to \AEiHi\ over \AEiCells\ cells, median \AEiMedian, so that a design-life computation which takes successive daily maxima as independent counts more independent chances than the sea gives.
+
+\subsection{The 3-hourly series: buoys and nodes}\label{sec:nodes}
+On the three buoys at five blocks and the thirteen nodes at the method paper's four blocks, \RCertified\ of \RFits\ fits are certified maxima, \RGGLimit\ are generalized-gamma fits refused at the limit with the proof, and \REwStop\ --- the exponentiated Weibull on buoys A's and C's annual maxima --- are refused where the climb runs toward $k \to 0$. The Anderson--Darling choice is \vDecided\ on \RDecided\ of \RRanked\ series; the two refused are those annual series. Read against the method paper's three findings: ``the exponentiated Weibull performs best for high-frequency data'' is decided for it on buoy A's hourly series and against it on B's (\RNativeB) and C's (\RNativeC), and on the hindcast's unfiltered 3-hourly series it is the decided choice at \RNodeNativeEw\ of \RNodes\ nodes, the lognormal winning Campos and Santos; ``the traditional Weibull becomes more appropriate as the block size increases'' is decided against on every series --- the Weibull is the decided best of \RBuoyWeibullWins\ of the \RBuoyPaperSeries\ buoy series and \RNodeWeibullWins\ of the \RNodePaperSeries\ node series at the paper's blocks; and ``the choice of goodness-of-fit test significantly influences the selected distribution'' holds, the four criteria naming different families on \RBuoyDisagree\ of \RBuoyPaperSeries\ buoy series and \RNodeDisagree\ of \RNodePaperSeries\ node series. Reading only the family the statistic selects at each of the four blocks, the 100-year level at buoy \RAggMaxBuoy\ runs from \RAggMaxLo\ m (\RAggMaxLoBlock) to \RAggMaxHi\ m (\RAggMaxHiBlock), a factor of \RAggMaxFactor; on the nodes the factor runs from \RAggNodeMinFactor\ (\RAggNodeMinSeries) to \RAggNodeMaxFactor\ (\RAggNodeMaxSeries) apart from the Arabian Sea (Appendix~\ref{app:agg}). The generalized gamma's maximum sits beside its lognormal limit on \RNearLimit\ node series, at $\alpha$ between \RNearAlphaLo\ and \RNearAlphaHi\ (Table~\ref{tab:near}); certified there, it wins \RNearMoves\ of their \RNearChoices\ choices, every one of which a stop at $\alpha = 500$ hands to another family.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The 3-hourly series on which the generalized gamma's certified maximum lies beside its lognormal limit ($\alpha > 500$ in Stacy's coordinates, certified in Prentice's), and how many of the four criteria's choices move when the family is left out as a threshold rule would.}
+\label{tab:near}
+\begin{tabular}{llrr}
+\toprule
+node & block & $\alpha$ & choices moved \\
+\midrule
+\RNearRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The same software, two calls}\label{sec:scipy}
+A scientific library's maximum-likelihood fitter \citep[SciPy \ScipyVersion;][]{virtanen2020} was called on every buoy block series two ways and its output recorded as printed: with the location parameter fixed at zero, which is the families as the method paper writes them, and with the default call, in which the location is free. Each printed fit was then decided against the certificate by the rule of Section~\ref{sec:printedmethod}. With the location fixed, \SFixedAgree\ of \SFits\ fits agree with the certificate to half a centimetre in the 100-year level; \SFixedBelowLimit\ are generalized-gamma fits printed below the limit the family's likelihood is proved to rise to; \SFixedOff\ are off the maximum; \SFixedUndecided\ are the exponentiated Weibull where the certificate refuses it. With the location free, no fit agrees: \SFreeUndecided\ cannot be decided at all, because a location parameter below the smallest datum makes the likelihood unbounded \citep{hill1963} and the printed point is a stationary point of a function with no maximum; \SFreeBelow\ lie below a member of their own family at location zero, by a proved margin; and \SFreeOutside\ places a Weibull location above one of buoy A's monthly maxima, which then has zero density (Table~\ref{tab:scipy}). The pair that matters for a design basis is buoy A's hourly exponentiated Weibull: the fixed-location call returns a 100-year level of \SEwFixed\ m and is the certified maximum; the default call returns \SEwFree\ m from a point \SEwDeficit\ log-likelihood units below that member of its own family (Fig.~\ref{fig:scipy}). Across the default calls the printed 100-year level differs from the certified one by between \SShiftLo\ and \SShiftHi\ m. This is not a defect of the library, which does what it is asked; it is a property of the likelihood, documented for the three-parameter Weibull by \citet{harper2011}, and a reason for a certificate to travel with the number.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.55\linewidth]{p1-scipy.pdf}
+\caption{The 100-year level printed by the library against the certified maximum on the same block maxima, for the four families with a scale parameter on the three buoys at five blocks: location fixed at zero (filled) and the default call with a free location (hollow). The dashed line is equality.}
+\label{fig:scipy}
+\end{figure}
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{The library's fits that are neither the certified maximum nor undecidable, with the printed 100-year level (its difference from the certified one in parentheses) and the proved log-likelihood deficit below the certified maximum or, for a location-free fit, below the family's member at location zero.}
+\label{tab:scipy}
+\begin{tabular}{llllrr}
+\toprule
+series & family & call & verdict & 100-year $\Hs$ (m) & $\ell$ below \\
+\midrule
+\SRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Printed fits: a benchmark's marginals and a design table}\label{sec:printed}
+The environmental-contour benchmark \citep{haselsteiner2021} gave its contributing teams the same ten years of the three buoys and printed, in its appendix, the $\Hs$ marginal each fitted; \BRows\ printed rows can be read as a family and decided on the hours they were fitted to (Appendix~\ref{app:printed}). For buoy A the printed marginals put the hourly 100-year level anywhere between \BSpreadLo\ m and \BSpreadHi\ m, while the certified maximum-likelihood fits of the Weibull, the lognormal and the exponentiated Weibull on the same \BRefAN\ hours give \BRefAWeibull, \BRefALognormal\ and \BRefAEw\ m. One contribution's two-parameter Weibull for A and B is the certified maximum-likelihood fit to its last printed digit, and its row for C is exactly the certified Weibull fit of the zero-up-crossing period, not of $\Hs$; another's translated Weibull leaves \BCNineBelow\ observed hours of A, B and C below its printed location, where its density is zero; a third's three-parameter lognormal is a certified local maximum of a likelihood that has no global one. None of this is visible in the printed digits. It is visible in the certificate.
+
+A design table was decided the same way. \citet{bhaskaran2023} print annual-maximum fits of $\Hs$ --- the Gumbel by least squares, maximum likelihood and moments, and the GEV by maximum likelihood --- for forty offshore wind lease areas, from a commercial hindcast that cannot be re-run outside it. For the five South Atlantic areas, the two nearest open-sea cells of the public hindcast (\TKmMin\ to \TKmMax\ km from the printed coordinates) were blocked by the calendar year, the Gumbel and the GEV were certified on the \AYears\ annual maxima, and the printed digits were decided against them. Of the \TRows\ rows, \TOff\ are \textsc{off the maximum} and \TOutsideSupport\ is \textsc{outside its support}; the printed 100-year wave lies between \TDMin\ and \TDMax\ m from the certified fit's, outside the certified fit's 95\% delta-method interval at \TOutsideNinetyFive\ of \TRows\ (Table~\ref{tab:design}, Fig.~\ref{fig:table}). This is the distance between two records --- a commercial hindcast at the lease area and a public one at the nearest cell --- and not an error in the table: at the Projeto A\c{c}u area the two nearest public cells, \TAcuKm\ and \TAcuKmNext\ km away, give Gumbel 100-year levels of \TAcuNear\ and \TAcuNext\ m. What the certificate adds is exactly that the distance is now a number, per row, with the method's own arithmetic on the public side decided rather than estimated.
+
+\begin{table}[htbp]
+\centering\scriptsize
+\caption{The South Atlantic rows of the design table of \citet{bhaskaran2023} decided against the nearest open-sea cell of the public hindcast: the printed parameters (the GEV's shape with the sign convention of this paper), the 100-year level the printed digits imply, the certified fit's 100-year level and its 95\% delta-method interval (statistical, not certified), their difference, and the verdict of Section~\ref{sec:printedmethod}.}
+\label{tab:design}
+\resizebox{\linewidth}{!}{\begin{tabular}{llllllll}
+\toprule
+area & method & printed & printed 100-yr & certified 100-yr & 95\% interval & difference & verdict \\
+\midrule
+\TLevelRows
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{p1-table.pdf}
+\caption{Twenty printed 100-year waves of a design table \citep{bhaskaran2023} against the certified fit at the nearest public cell, with the latter's 95\% delta-method interval. The difference measures the distance between two hindcasts at two points; the certificate makes it a number per row.}
+\label{fig:table}
+\end{figure}
+
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What a certificate says}
+For each fit the record holds the digest of the data, the choices made (the family, the block rule, the coordinates), a box proved to contain the likelihood's one maximum, the enclosure of each statistic and level over it, and the digests of the code; for each ranking it holds the verdict and, where refused, the overlap; for each printed number it holds the box the digits allow and the verdict. Anyone can check these claims from the record alone, in any arithmetic that rounds outward, and the atlas does so in a browser from the pinned data. In the regulatory sense nothing here certifies anything: offshore units are approved by classification societies under national rules, and a design basis is theirs to accept \citep{dnv2021,iso19901}. The word is used in this paper in its mathematical sense only, for a statement with a machine-checkable proof, and the objects offered are such proofs.
+
+\paragraph{What it does not say}
+A certificate does not rank models: \vDecided\ means that one criterion's arithmetic separates the families on this sample, and the Arabian Sea node shows a decided choice that no one would design to. It does not say that a better maximum is absent elsewhere in a family, which remains the search's claim; a branch-and-bound proof over the family would close that gap and is the natural next step. It does not give the sampling width of a level, which is a statistical statement made beside the record and labelled; nor the hindcast's own error against the sea it simulates. And a decided regional claim depends on the box drawn for it; the atlas lets the method paper's authors redraw their own.
+
+\paragraph{What it changes}
+Two practical consequences follow. The first is for software: the same library returns two 100-year levels for the same data depending on a default, neither of which announces whether it is a maximum, and the generalized gamma's likelihood has no interior maximum on \AGGLimit\ of \AFits\ atlas fits, where any optimiser prints a point on the way. A pipeline that fixes the location and uses the boundary proof agrees with the certificate; one that does not can be a factor of two off at the 100-year level with no warning. The second is for standards. A standard for marginal fits --- which the operators of the Brazilian margin's fields have reason to want, since every contractor builds its own model \citep{reis2026} --- can be read off the atlas: which choices it must fix (the location, the block rule, the coordinates in which a family is fitted, the treatment of a family at its limit, the criterion), and where a certificate rather than an optimiser has to say what the fit is. The certificate is the second half of such a standard: the data stay where they are, and the proof travels.
+
+\paragraph{Cost}
+The atlas's \AFits\ fits took \ASecondsHours\ hours on a laptop's seven worker threads, with the generalized gamma's three climbs and the Prentice fallback the largest part; six fits of a \RNodeN-value 3-hourly series take minutes each. Re-certifying one cell in a browser takes seconds. The arithmetic is JavaScript on IEEE-754 doubles with simulated directed rounding (one ulp outward per operation), which is conservative by a factor of about two in the last bit and costs nothing at the accuracy needed here.
+
+\section{Conclusions}\label{sec:conclusions}
+The extreme-value chain of \citet{reis2026} was repeated on its own public hindcast with every fit certified as the likelihood's one maximum in a recorded box, every statistic and level an enclosure, every ranking a decision or a refusal with its reason, and the two families whose supremum lies at a limit treated by proof rather than by threshold. Over \ACells\ open-sea cells, \ACertified\ of \AFits\ fits are certified and \AGGLimit\ are refused at the generalized gamma's lognormal limit with the proof; a threshold in place of that proof changes the selected family at \ANaiveDiff\ cell-blocks and the verdict of \AClaimsMoved\ of the method paper's ten regional claims. The same decision applied to other people's numbers finds that a library's default call is the maximum it reports on none of \SFits\ fits, that the printed marginals of a benchmark span a factor of nearly three in the hourly 100-year level on one buoy, and that \TOff\ of \TRows\ rows of a published design table are off the maximum of the nearest public cell by a measured amount. What is proposed to the metocean community is not a different estimate of the 100-year wave but a different object to accompany it: a record that any reader can re-run, in which refusal is a verdict.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The method paper is cited as the reference method; its authors are being consulted on this manuscript.
+
+\section*{Data availability}
+The records, the certifier and the figure and table sources are public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \RepoCommit): the atlas ledger \texttt{certs/hseva-atlas.json} (generated \AGenerated), the 3-hourly ledger \texttt{certs/hseva-ledger.json} (\LGenerated), the library's fits as printed \texttt{certs/hseva-scipy.json} (\ScipyRecorded), the design-table audit \texttt{certs/design-table-audit.json} (\TGenerated), the extracted hindcast series under \texttt{corpus/ww3-grid} and \texttt{corpus/ww3-points} (CC BY-SA 4.0, as the hindcast), and the certifier under \texttt{instruments/hseva} and \texttt{instruments/interval} (MIT). The atlas with every cell re-certifiable in the browser is at \url{https://carlostoledo.co/instruments/return-level-atlas/}; the 3-hourly report at \url{https://carlostoledo.co/reports/return-levels.html}. The hindcast is \citet{accensi}; the buoy data are NDBC's as redistributed by the benchmark's repository; the design table is \citet{bhaskaran2023} (CC BY 4.0).
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration
+
+\section*{Funding}
+This work received no external funding.
+
+\appendix
+\section{The ten claims as read}\label{app:claims}
+\begin{table}[H]
+\centering\scriptsize
+\begin{tabular}{p{4mm}p{80mm}p{62mm}}
+\toprule
+\# & quotation from \citet{reis2026} & rule over the certified cells \\
+\midrule
+\AClaimQuoteRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Aggregation on every 3-hourly series}\label{app:agg}
+\begin{table}[H]
+\centering\scriptsize
+\caption{Reading only the family the Anderson--Darling statistic selects at each of the four paper blocks (and the annual block on the buoys), the lowest and highest 100-year level and their ratio.}
+\begin{tabular}{llll}
+\toprule
+series & lowest (block, family) & highest (block, family) & factor \\
+\midrule
+\RAggRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The benchmark's printed marginals, decided}\label{app:printed}
+\begin{table}[H]
+\centering\scriptsize
+\caption{The $\Hs$ marginals printed in the appendix of \citet{haselsteiner2021} for the provided ten years of buoys A, B and C, decided on those hours, with the hourly 100-year level over the box the printed digits allow.}
+\begin{tabular}{llllp{62mm}l}
+\toprule
+contribution & buoy & family & printed & decided & 100-yr $\Hs$ (m) \\
+\midrule
+\BPrintedRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{thebibliography}{99}
+\bibitem[Accensi(2021)]{accensi} Accensi, M., 2021. GLOBMULTI\_ERA5\_GLOBCUR\_01. IFREMER. \url{https://doi.org/10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b}
+\bibitem[Alday et~al.(2021)]{alday2021} Alday, M., Accensi, M., Ardhuin, F., Dodet, G., 2021. A global wave parameter database for geophysical applications. Part 3: Improved forcing and spectral resolution. Ocean Modelling 166, 101848.
+\bibitem[Anderson and Darling(1954)]{anderson1954} Anderson, T.W., Darling, D.A., 1954. A test of goodness of fit. Journal of the American Statistical Association 49, 765--769.
+\bibitem[Bhaskaran et~al.(2023)]{bhaskaran2023} Bhaskaran, S.K., Verma, A.S., Goupee, A.J., Bhattacharya, S., Nejad, A.R., Shi, W., 2023. Comparison of extreme wind and waves using different statistical methods in 40 offshore wind energy lease areas worldwide. Energies 16, 6935.
+\bibitem[Coles(2001)]{coles2001} Coles, S., 2001. An Introduction to Statistical Modeling of Extreme Values. Springer, London.
+\bibitem[DNV(2021)]{dnv2021} DNV, 2021. DNV-RP-C205: Environmental conditions and environmental loads. Recommended practice.
+\bibitem[Hansen and Walster(2004)]{hansen2004} Hansen, E., Walster, G.W., 2004. Global Optimization Using Interval Analysis, 2nd ed. Marcel Dekker, New York.
+\bibitem[Harper et~al.(2011)]{harper2011} Harper, W.V., Eschenbach, T.G., James, T.R., 2011. Concerns about maximum likelihood estimation for the three-parameter Weibull distribution: case study of statistical software. The American Statistician 65, 44--54.
+\bibitem[Haselsteiner et~al.(2021)]{haselsteiner2021} Haselsteiner, A.F., Coe, R.G., Manuel, L., Chai, W., Leira, B., Clarindo, G., Guedes Soares, C., Hannesd\'ottir, \'A., Dimitrov, N., Sander, A., Ohlendorf, J.-H., Thoben, K.-D., de~Hauteclocque, G., Mackay, E., Jonathan, P., Qiao, C., Myers, A., Rode, A., Hildebrandt, A., Schmidt, B., Vanem, E., Huseby, A.B., 2021. A benchmarking exercise for environmental contours. Ocean Engineering 236, 109504.
+\bibitem[Hill(1963)]{hill1963} Hill, B.M., 1963. The three-parameter lognormal distribution and Bayesian analysis of a point-source epidemic. Journal of the American Statistical Association 58, 72--84.
+\bibitem[ISO(2015)]{iso19901} ISO, 2015. ISO 19901-1:2015 Petroleum and natural gas industries --- Specific requirements for offshore structures --- Part 1: Metocean design and operating considerations.
+\bibitem[Jenkinson(1955)]{jenkinson1955} Jenkinson, A.F., 1955. The frequency distribution of the annual maximum (or minimum) values of meteorological elements. Quarterly Journal of the Royal Meteorological Society 81, 158--171.
+\bibitem[Krawczyk(1969)]{krawczyk1969} Krawczyk, R., 1969. Newton-Algorithmen zur Bestimmung von Nullstellen mit Fehlerschranken. Computing 4, 187--201.
+\bibitem[Moore et~al.(2009)]{moore2009} Moore, R.E., Kearfott, R.B., Cloud, M.J., 2009. Introduction to Interval Analysis. SIAM, Philadelphia.
+\bibitem[Mudholkar and Srivastava(1993)]{mudholkar1993} Mudholkar, G.S., Srivastava, D.K., 1993. Exponentiated Weibull family for analyzing bathtub failure-rate data. IEEE Transactions on Reliability 42, 299--302.
+\bibitem[Ogita et~al.(2005)]{ogita2005} Ogita, T., Rump, S.M., Oishi, S., 2005. Accurate sum and dot product. SIAM Journal on Scientific Computing 26, 1955--1988.
+\bibitem[Prentice(1974)]{prentice1974} Prentice, R.L., 1974. A log gamma model and its maximum likelihood estimation. Biometrika 61, 539--544.
+\bibitem[Reis et~al.(2026)]{reis2026} Reis, R.A.N., Guimar\~aes, P.V., Farina, L., Paul, S., de~Paula, T.P., Ribeiro, E.O., 2026. Global assessment of extreme value analysis for significant wave height. Ocean Engineering 359, 125841. Corrigendum: Ocean Engineering 361, 126267.
+\bibitem[Rump(2010)]{rump2010} Rump, S.M., 2010. Verification methods: rigorous results using floating-point arithmetic. Acta Numerica 19, 287--449.
+\bibitem[Smith(1985)]{smith1985} Smith, R.L., 1985. Maximum likelihood estimation in a class of nonregular cases. Biometrika 72, 67--90.
+\bibitem[Smith and Weissman(1994)]{smith1994} Smith, R.L., Weissman, I., 1994. Estimating the extremal index. Journal of the Royal Statistical Society, Series B 56, 515--528.
+\bibitem[Stacy(1962)]{stacy1962} Stacy, E.W., 1962. A generalization of the gamma distribution. The Annals of Mathematical Statistics 33, 1187--1192.
+\bibitem[Tucker(2011)]{tucker2011} Tucker, W., 2011. Validated Numerics: A Short Introduction to Rigorous Computations. Princeton University Press, Princeton.
+\bibitem[Virtanen et~al.(2020)]{virtanen2020} Virtanen, P., Gommers, R., Oliphant, T.E., et~al., 2020. SciPy 1.0: fundamental algorithms for scientific computing in Python. Nature Methods 17, 261--272.
+\end{thebibliography}
+
+\end{document}

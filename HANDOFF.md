@@ -21,6 +21,79 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+FIRST — THE PAPERS ARE DRAFTED (2026-10-01, the twenty-seventh session). On the
+operator's word ("build the full pre papers to help [the contact] review"; the
+partnership has started; a second LabECO member — the method paper's first
+author — joined the thread, and the operator will help with his work too; names
+stay OUT of the repo until they agree to be named). FOUR MANUSCRIPTS BUILT, in
+paper/, every number interpolated from the records:
+  · p1-return-levels.pdf (29 pp, Ocean Engineering form): the atlas (2,589 cells,
+    46,602 fits, 40,778 certified, 5,751 generalized-gamma fits refused at the
+    lognormal limit WITH the proof); the threshold rule against the proof (544 of
+    7,767 cell-blocks change family; 4 of the paper's ten regional claims — 3, 5,
+    6, 10 — change verdict); the ten claims decided (6 hold, 2 do not, 2 open);
+    the GEV beside the six; the 3-hourly ledger read against the paper's three
+    findings; scipy called two ways (0 of 60 agree location-free, 45 of 60 fixed;
+    15.20 vs 7.08 m); the benchmark's printed marginals; the design table (19 of
+    20 off the maximum). Six record-drawn figures + a TikZ pipeline, 24 refs.
+  · p1-extended-abstract.pdf: the two-page scope abstract agreed as the first
+    deliverable, ending with the questions the co-authors must settle.
+  · p2-decision-procedure.pdf (17 pp, RESS form): the grammar (proved / refuted /
+    refused with witnesses and the threshold that decides), the flowline
+    instrument, the nine receipts, the Monte Carlo face to face WORDED AS THE
+    OUTSIDE REVIEW ASKED (the draws DID find exceedances, 0.3% of 10,000; the
+    worst draw 360.7 vs the proved corner 361.6; the 0.3% is about a uniform
+    prior nobody declared), the rules-vs-flags policy, water injection as the
+    pilot BECAUSE single-phase steady flow is covered whole, the cost chain
+    (overpressure → integrity → shut-in → deferred pressure support; the design
+    wave the larger number), the AI-math calibration in one paragraph, the λ(4)
+    outside audit as evidence that records re-certify; 26 refs.
+  · p3-4d-detectability.pdf (19 pp, J. Appl. Geophys. form): the model and the
+    declared envelope with sources, the four proved numbers per box, UNISIM-IV
+    results (maps, counts at 1.5/2/3%, the field by gas-saturation row — with
+    the CO2-rich exception stated: the 4–28% band is wholly RECUSADO at 1.5% in
+    K0, K2, K3 and K4, NOT in K1, where 4–16% is REFUTED or undecided), the
+    headline cell through the knowledge states, Monte Carlo face to face (34.1%
+    of 10,000 draws detect; a proved model changes 0.39%), the sign map, the
+    attributes, the hand example; §5 says the rock-physics review, the pressure
+    effect, tuning and EOS PVT are OUTSIDE this version; 26 refs.
+  HOW THEY ARE BUILT. tools/build-paper-numbers.js reads the records (certs/hseva-
+  atlas, hseva-ledger, design-table-audit, corpus/ww3-grid, instruments/hseva/
+  atlas-claims.js, apps/contraprova gate-ledger + scenarios, certs/claims-ledger,
+  apps/decidivel ledger + declared.json, corpus/unisim-iv) and writes paper/tex/
+  p{1,2,3}-numbers.tex (≈410 \newcommand macros); it REFUSES (need()) when a
+  record no longer supports a sentence, and runs the gate, Decidível and printed-
+  fit batteries live (the hseva count is read from the report's foot; --hseva
+  runs it, ~90 s). tools/build-paper-figs.py (matplotlib, installed in
+  instruments/hseva/.venv) draws the eleven figures of paper/tex/fig from the
+  records; palette per the dataviz skill (four validated categorical slots,
+  Weibull+normal folded to grey). `make papers` = the kissing paper + numbers +
+  tectonic --all (compiles every paper/tex/*.tex, the old ones included);
+  `make paper-figs`. Class: elsarticle [preprint,authoryear] + paper/tex/
+  cmelsevier.sty (the verdict words, float, the ONE AI declaration — Elsevier
+  requires it). tectonic fetches elsarticle on first use.
+  RULES KEPT. Carlos is the only author on all four; a title note says the author
+  list and CRediT roles are to be agreed; NOBODY from LabECO is named in the repo
+  (the method paper is cited as literature, as the public pages already do).
+  "Certified" is defined once per paper, in the mathematical sense; every claim
+  carries a reference; the novelty line is the decision grammar + the record.
+  WHAT THE CO-AUTHORS MUST SETTLE (the extended abstract's last paragraph): the
+  journal; whether the ten claims are re-boxed by their authors before Table 3
+  is final; whether the GEV section stays; a Python verifier inside P1 or as a
+  software note; co-authorship and CRediT on P1, and whether they want P2/P3.
+  NOTHING IS SENT: the PDFs reach them through the operator.
+  ROUGH EDGES (fine for a review draft): P1's map figures are 1.2 MB each (full
+  Natural Earth coastlines — thin them if a journal limit bites); the design
+  table and two P2/P3 tables are \resizebox'd small; the P3 hand table's
+  Gassmann line wraps; P1 is 29 pages because of full-page map floats.
+  THE OUTSIDE REVIEW of the two Radar pages (pasted by the operator 2026-10-01)
+  was checked against the CURRENT sources and applied to apps/contraprova and
+  apps/decidivel by a review agent (its commit follows this one); the review's
+  P2-relevant wording is already in the manuscript. One page defect found while
+  reading the ledger for P3 — "INDETERMINADO em todos os estados" for Sg 4–28%
+  is false for K1 — was handed to the same agent.
+
+────────────────────────────────────────────────────────────────────────────
 FIRST — THE PAPERS (handed off 2026-10-01, start of the twenty-seventh session).
 The operator's geoscience contact (the UFSC line; his name and messages stay OUT
 of the public repo until he agrees to be named) offered to help publish the

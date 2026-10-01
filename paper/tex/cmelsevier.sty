@@ -1,0 +1,41 @@
+%% cmelsevier.sty — the shared preamble of this repository's Elsevier manuscripts
+%% (P1 certified return levels, P2 the decision procedure, P3 guaranteed 4D
+%% detectability). The class is elsarticle; this file holds what the three share:
+%% packages, the verdict words, the figure path, and the one AI-involvement
+%% statement, so that no paper can word it differently.
+\ProvidesPackage{cmelsevier}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.misc,calc}
+\RequirePackage[hidelinks]{hyperref}
+\graphicspath{{fig/}}
+
+%% the verdict words, in one typography across the three papers
+\newcommand{\vDecided}{\textsc{decided}}
+\newcommand{\vRefused}{\textsc{refused}}
+\newcommand{\vProved}{\textsc{proved}}
+\newcommand{\vRefuted}{\textsc{refuted}}
+\newcommand{\vCertified}{\textsc{certified}}
+\newcommand{\vHolds}{\textsc{holds}}
+\newcommand{\vFails}{\textsc{does not hold}}
+\newcommand{\vOpen}{\textsc{undecided}}
+
+\newcommand{\Hs}{H_s}
+
+%% the AI-involvement statement, adapted to Elsevier's required declaration
+\newcommand{\cmaideclaration}{During the preparation of this work the author used
+large language models (Claude, Anthropic) to draft code, exposition and this
+manuscript in a certified-verification setting: constructions and prose were
+proposed with the help of the models, and every quantitative claim is decided by
+outward-rounded interval arithmetic or exact rational arithmetic, with adversarial
+controls that must fire for a record to be accepted. After using the tool the
+author reviewed and edited the content and takes full responsibility for the
+content of the publication. The records, not the models, are the evidence
+offered; they are public and re-runnable.}
+
+%% a boxed rule statement
+\newenvironment{rulebox}{\par\medskip\noindent\begin{minipage}{\linewidth}\itshape}{\end{minipage}\par\medskip}
