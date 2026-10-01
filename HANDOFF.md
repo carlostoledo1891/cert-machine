@@ -21,6 +21,64 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+FIRST — THE PAPERS (handed off 2026-10-01, start of the twenty-seventh session).
+The operator's geoscience contact (the UFSC line; his name and messages stay OUT
+of the public repo until he agrees to be named) offered to help publish the
+method in Elsevier journals. The operator wants to start with the cert-machine
+method as seen through Decidível and Contraprova. THE PLAN AGREED IN CHAT:
+THREE PAPERS, STAGGERED — never one omnibus paper — in this order:
+
+  P1 · CERTIFIED RETURN LEVELS (first; Pedro-carried). Claim: a fitted 100-year
+     wave is a design value only if the fit is the maximum it claims to be;
+     decided exactly over a public hindcast, most default-call fits are not.
+     Evidence on disk: certs/hseva-atlas.json (46,602 fits in 2,589 cells;
+     40,778 proved; 5,751 refused with the proof the maximum does not exist),
+     certs/hseva-ledger.json + certs/hseva-scipy.json (the same scipy, same
+     data, 7.08 vs 15.20 m; 0 of 60 default-call fits agree, 45 of 60 with
+     the location fixed), certs/design-table-audit.json (19 of 20 rows of a
+     published design table outside the 95% interval of the nearest public
+     cell), reports/return-levels.html, reports/regatlas.html,
+     reports/agtable.html, instruments/hseva/, playground/return-level-check/
+     (printed.js decides a printed fit). The method reference is the contact's
+     own Ocean Engineering 2026 paper (Reis, Guimarães et al.).
+     Venue: Ocean Engineering or Applied Ocean Research (Elsevier).
+     FIRST DELIVERABLE: a two-page extended abstract in English (structured
+     abstract + highlights in Elsevier's form), built from reports/
+     return-levels.html and the atlas figures, so scope is agreed before a
+     manuscript. tools/build-paper-tex.js / build-paper-pdf.js already turn
+     paper/*.md into PDFs (make papers) — reuse them.
+  P2 · THE DECISION PROCEDURE (Contraprova). Claim: a model output is decidable
+     over its declared uncertainty envelope with a three-valued verdict,
+     counterexamples and the flipping threshold, without the model's code.
+     Evidence: apps/contraprova (the flowline gate, the seven faults, the Monte
+     Carlo face-to-face in gate-ledger.json `mc`, gate/reference.py), the λ(4)
+     outside audit as evidence that records re-certify. Venue: Reliability
+     Engineering & System Safety, or Computers & Geosciences if the code is
+     the centrepiece (SoftwareX for a short software paper, optional).
+  P3 · GUARANTEED 4D DETECTABILITY (Decidível). Claim: over a declared
+     petro-elastic envelope, 4D detectability is decidable cell by cell; at
+     Tupi's 1.5% the pre-salt analogue is undetermined in its working band and
+     the resolution that decides is the deliverable. Evidence: apps/decidivel
+     (ledger, resolution table, sign map, attributes, plug hull). NEEDS FIRST:
+     a geophysicist's review of the rock physics, PVT from an EOS instead of
+     NIST endpoints, ideally Sg per cell from the simulator — the contact's
+     seismic professors. Venue: Journal of Applied Geophysics (where da Silva
+     et al. 2026 is) or Geoenergy Science and Engineering.
+
+  RULES FOR THE MANUSCRIPTS (the contact's three notes, now standing): every
+  claim with a literature reference; no headline phrases; "certified" only in
+  the mathematical sense, defined once — "decided"/"proved" elsewhere; the
+  novelty line is the decision grammar with witnesses and the public re-runnable
+  record, NOT interval arithmetic (Moore; Hansen–Walster) nor bounding by
+  enumeration (Bergmann–Chadwick). Nothing is sent to a journal or a co-author
+  without the operator's word; drafts live in paper/ and are pushed like code.
+
+  TO SETTLE WITH THE CONTACT BEFORE WRITING: his journal of choice and
+  co-authorship on P1; whether he can be named on the pages; the two-page
+  abstract's scope. The Radar forms were SUBMITTED 2026-09-30; the pages stay
+  live and unchanged in substance until a portfolio replies.
+
+────────────────────────────────────────────────────────────────────────────
 FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night to
 2026-09-30 afternoon; the operator: "the only goal is a perfect submission";
 everything else below is HELD). The next session starts from the OPERATOR'S
