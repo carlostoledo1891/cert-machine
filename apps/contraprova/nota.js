@@ -37,7 +37,7 @@ function build(N, git) {
     + '</table>'
     + '<h2>5 · Veredito na regra P_wh ≤ ' + esc(lim) + ' bar: ' + esc(verdict) + '</h2>'
     + '<p>' + esc(r.checks.find((k) => k.id === 'limite').text.replace('A caixa declarada contém entradas', 'O envelope declarado contém entradas')) + '</p>'
-    + '<p>Um estudo por ' + br.int(MC.draws) + ' sorteios uniformes do mesmo envelope diria “' + (100 * MC.pOver).toFixed(1).replace('.', ',') + '% acima do limite” (maior sorteio ' + br.dec(MC.max, 1) + ' bar): uma estimativa, rotulada como tal; a decisão acima não depende dela.</p></div>'
+    + '<p>Um estudo por ' + br.int(MC.draws) + ' sorteios uniformes do mesmo envelope diria “' + (100 * MC.pOver).toFixed(1).replace('.', ',') + '% acima do limite”, com o pior sorteio em ' + br.dec(MC.max, 1) + ' bar — abaixo da entrada provada acima: o sorteio subestima o pior caso, e a fração depende de um prior uniforme não declarado. A decisão acima não depende dela.</p></div>'
     + '</div>'
     + '<h2>6 · O que decide</h2><table class="dec">'
     + '<tr><td>ajuste operacional</td><td>' + esc(r.thresholds[0]) + ' Com P_d = 200 bar: VÁLIDO, P_wh ∈ [' + br.dec(f.enclosure[0], 1) + '; ' + br.dec(f.enclosure[1], 1) + '] bar.</td></tr>'

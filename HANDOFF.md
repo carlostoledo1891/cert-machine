@@ -88,10 +88,19 @@ paper/, every number interpolated from the records:
   Gassmann line wraps; P1 is 29 pages because of full-page map floats.
   THE OUTSIDE REVIEW of the two Radar pages (pasted by the operator 2026-10-01)
   was checked against the CURRENT sources and applied to apps/contraprova and
-  apps/decidivel by a review agent (its commit follows this one); the review's
-  P2-relevant wording is already in the manuscript. One page defect found while
-  reading the ledger for P3 — "INDETERMINADO em todos os estados" for Sg 4–28%
-  is false for K1 — was handed to the same agent.
+  apps/decidivel (committed the same day, after the papers: the Monte Carlo box
+  no longer says "risco de 0%" — the draws find the violation, the worst draw
+  stops at 360,7 against the proved 361,6, the fraction is about an undeclared
+  uniform prior; the rules-vs-flags policy under "O modelo não precisa ser
+  aberto"; one lead portfolio in the header, the others under abrangência; the
+  AI-math calibration one paragraph; the value case led by the design wave with
+  the overpressure → integridade → parada → suporte adiado chain; "colaboração
+  acadêmica iniciada" and nobody named; the two pages link each other; the
+  Decidível "em todos os estados" sentence corrected to the four states, K1 read
+  apart). Both pages rebuilt, decks unchanged by hash, Notas re-printed; style,
+  measure (--accept, the pages moved) and render gates green; both batteries
+  green. The review's Decidível "unchanged" status was stale — that page had
+  already been rebuilt to the plan on 09-30 and the Lei 14.993 point applied.
 
 ────────────────────────────────────────────────────────────────────────────
 FIRST — THE PAPERS (handed off 2026-10-01, start of the twenty-seventh session).

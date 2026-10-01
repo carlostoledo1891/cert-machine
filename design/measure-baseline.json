@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-09-30",
+  "recorded": "2026-10-01",
   "browser": "Chrome/154.0.8037.59",
   "viewports": [
     1440,
@@ -82,7 +82,7 @@
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 8
+        "clipped": 7
       },
       "768": {
         "spines": 25,
@@ -91,12 +91,12 @@
         "clipped": 1
       },
       "1440": {
-        "spines": 39,
+        "spines": 38,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e642283f08c002cc36f367e169aac5b607cc40f20f8c71c2bc39c17da32db33e"
+      "sha": "d2c9f30e6e939edba7fd8c0f2286d5c8dc8b820618ba2c9684f88c92cf2d1fa5"
     },
     "site/decidivel/index.html": {
       "390": {
@@ -117,7 +117,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "cf2bb0337745f713cc316e5adb2bb0b5410cdd7a0873c0d6e2d12c4c1e11a229"
+      "sha": "2a7a2b78d2dfa13f33c39eb9422bbaa1dc3ba557c7c80958008b419e9965a394"
     },
     "site/index.html": {
       "390": {
@@ -1587,7 +1587,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d1647acde6d2463662dacdd417ea09ef1f1c5cb5b0d59aa84017a084da006d19"
+      "sha": "feb2b6a048aade14ddc34ff4f638dea8f575a3c0f8890206ca3c2a7663f91735"
     },
     "site/reports/lambda5.html": {
       "390": {
