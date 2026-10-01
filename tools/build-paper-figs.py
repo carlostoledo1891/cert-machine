@@ -41,6 +41,8 @@ plt.rcParams.update({'font.size': 8, 'font.family': 'sans-serif', 'axes.linewidt
 def land_patches(ax):
     g = J('corpus/basemap/ne_50m_land.geojson')
     pats = []
+    # thinned as the atlas page thins it: islands under 0.25 degrees across dropped, one vertex in three kept
+    # (a cell here is 1 to 4 degrees; the full 1:50m coastline would make each map figure a megabyte)
     for f in g['features']:
         geom = f['geometry']
         polys = [geom['coordinates']] if geom['type'] == 'Polygon' else geom['coordinates']
@@ -48,7 +50,12 @@ def land_patches(ax):
             ring = p[0]
             if len(ring) < 4:
                 continue
-            pats.append(Polygon(ring, closed=True))
+            xs = [q[0] for q in ring]
+            ys = [q[1] for q in ring]
+            if max(xs) - min(xs) < 0.25 and max(ys) - min(ys) < 0.25:
+                continue
+            thin = ring[::3] if len(ring) > 30 else ring
+            pats.append(Polygon([(round(q[0], 2), round(q[1], 2)) for q in thin], closed=True))
     ax.add_collection(PatchCollection(pats, facecolor='#ecebe7', edgecolor='#c8c7c2', linewidth=0.2, zorder=1))
 
 
