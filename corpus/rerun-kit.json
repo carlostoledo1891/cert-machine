@@ -1,0 +1,165 @@
+{
+  "what": "The rerun kit's manifest: one entry per record the claims register (certs/claims-ledger.json) derives its rows from. For each: the command that re-derives the record from the repository, the standard-library verifier where one exists (python3, no engine code), the independent second implementation where one exists (another author or another arithmetic), and what the commands need. The rows a record decides are read from the register at build and never typed here; the record's sha256 is computed at build. tools/build-report-rerun.js refuses when the register names a record this manifest does not, or the reverse, or when a command names a file that is not on disk. `--run` executes every command, times it, and compares the register's rows before and after (certs/rerun-kit-run.json).",
+  "entries": [
+    {
+      "record": "certs/ai-claims-summary.json",
+      "rederive": null,
+      "verifier": null,
+      "second": null,
+      "needs": "nothing to run",
+      "note": "The consolidated summary of the six-lane audit of a frontier-model manuscript (reports/ai-claims-audit.html): six verdicts, each a named PASS row of its lane's battery. No single command re-derives this record; the lanes' batteries are the re-derivation and the page names them. A kit debt."
+    },
+    {
+      "record": "certs/erdos852-certificate.json",
+      "rederive": "node tools/export-erdos852-certificate.js",
+      "verifier": "python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources",
+      "second": null,
+      "needs": "node for the export; python3 standard library for the verifier; corpus/sources for the pinned paper",
+      "note": "The published C* for Erdős #852, refuted at its printed digits: the certificate detaches the enclosure and the pins; the verifier re-derives the mathematics from the certificate alone, re-hashes the pinned sources and must refute a forged value before it exits green."
+    },
+    {
+      "record": "certs/kissing-ledger.json",
+      "rederive": "node tools/run-kissing-ledger.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node",
+      "note": "Every kissing configuration decided from its published vectors in exact rational arithmetic (D4, E8, AlphaEvolve's 593, the station_data and EinsteinArena 604s and the rest)."
+    },
+    {
+      "record": "ledger.json",
+      "rederive": "make engine",
+      "verifier": null,
+      "second": null,
+      "needs": "node; about four minutes",
+      "note": "The engine's ledger. The register reads its ramanujan-audit family: the Ramanujan Machine's printed result-sheet rows re-decided against certified enclosures (one sign slip refuted). `make engine` regenerates every family, this one included."
+    },
+    {
+      "record": "certs/strassen-certificate.json",
+      "rederive": "node tools/export-strassen-certificate.js",
+      "verifier": "python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources",
+      "second": null,
+      "needs": "node for the export; python3 standard library for the verifier; corpus/sources for the pinned bytes",
+      "note": "Fast matrix-multiplication algorithms decided from commit-pinned bytes: Strassen 1969, its Kronecker square, AlphaTensor's and AlphaEvolve's decompositions, every tensor equation checked exactly over the ring the claim names."
+    },
+    {
+      "record": "certs/easota-ledger.json",
+      "rederive": "node tools/run-easota-ledger.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node",
+      "note": "The EinsteinArena SOTA table's constructions (circle packings, Heilbronn, edges-vs-triangles, hexagons, the rest) re-scored exactly from the published coordinates."
+    },
+    {
+      "record": "certs/ecbench-ledger.json",
+      "rederive": "node tools/run-ecbench-ledger.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node; about a minute",
+      "note": "The environmental-contour benchmark's printed counts, re-derived from the benchmark's own data."
+    },
+    {
+      "record": "certs/gsm8k-ledger.json",
+      "rederive": "python3 tools/run-gsm8k-ledger.py",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and the instrument's own modules (instruments/gsm8k)",
+      "note": "GSM8K's answer keys re-derived from each problem's printed solution text; the rows whose key the arithmetic does not give."
+    },
+    {
+      "record": "certs/horizon-ledger.json",
+      "rederive": "python3 tools/run-horizon-ledger.py",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and the instrument's own modules (instruments/horizon)",
+      "note": "METR's time-horizon fits re-derived from METR's published per-task data in exact arithmetic, each printed horizon enclosed."
+    },
+    {
+      "record": "certs/hseva-ledger.json",
+      "rederive": "node tools/run-hseva-ledger.js --check",
+      "verifier": null,
+      "second": null,
+      "needs": "node; several minutes with workers in parallel",
+      "note": "Certified return levels: every fit of the benchmark's printed marginals decided as the maximum it claims to be, or refused with the proof it is not. `--check` re-derives and compares with the shipped ledger without writing."
+    },
+    {
+      "record": "certs/design-table-audit.json",
+      "rederive": "node tools/run-design-table-audit.js --check",
+      "verifier": null,
+      "second": null,
+      "needs": "node",
+      "note": "A published design table (Bhaskaran et al. 2023) decided row by row against the certified fits of the nearest public hindcast cells."
+    },
+    {
+      "record": "corpus/navier-stokes/audit.json",
+      "rederive": null,
+      "verifier": null,
+      "second": null,
+      "needs": "a Lean 4 toolchain at the pinned commit, for the counts the record points at",
+      "note": "The qualitative findings of the 2026-09-09 audit of OpenAI's Navier–Stokes claim. The record itself is read, not computed; every count on its page comes from lean-repo.json, probes.json and build.json, which the pinned Lean build (corpus/navier-stokes/MANIFEST.json) re-derives. A kit debt: the Lean rebuild is not a one-line command here."
+    },
+    {
+      "record": "certs/sumdiff-ledger.json",
+      "rederive": "node tools/run-sumdiff-ledger.js --check",
+      "verifier": "python3 tools/verify_sumdiff.py",
+      "second": null,
+      "needs": "node; python3 standard library for the verifier",
+      "note": "The optimization-constants registry's C3b and C3c asterisks decided from their entropy certificates: BigInt pushforwards and bigfloat logarithms in the engine; the Python standard library alone in the verifier, which must refute the double-rounded false bound before it exits green."
+    },
+    {
+      "record": "certs/fei-ledger.json",
+      "rederive": "python3 tools/run-fei-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/fei",
+      "note": "The registry's C71 asterisk decided from the n = 18 truth table."
+    },
+    {
+      "record": "certs/sumproduct-ledger.json",
+      "rederive": "python3 tools/run-sumproduct-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/sumproduct",
+      "note": "The registry's C84b repaired: the note's chain re-derived for every choice; the quoted constant out of reach, the reachable one certified."
+    },
+    {
+      "record": "certs/turan-ledger.json",
+      "rederive": "python3 tools/run-turan-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/turan",
+      "note": "The registry's C42 and the open pull request #184: each limiting inequality decided exactly; the asymptotic passage left as prose."
+    },
+    {
+      "record": "certs/countex-ledger.json",
+      "rederive": "python3 tools/run-countex-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/countex (fourteen deciders, each reading only the published certificate)",
+      "note": "Sra's AI counterexample library decided case by case by programs written from the statements before the authors' checkers were read."
+    },
+    {
+      "record": "certs/horizonmath-ledger.json",
+      "rederive": "python3 tools/run-horizonmath-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/horizonmath",
+      "note": "HorizonMath's credited discoveries decided from what its appendix prints: the Kakeya area certified, the diagonal-Ramsey certificate refuted."
+    },
+    {
+      "record": "certs/gnnw-certificate.json",
+      "rederive": "python3 tools/run-gnnw-ledger.py --check",
+      "verifier": "python3 tools/verify_gnnw_gai.py certs/gnnw-certificate.json",
+      "second": "node instruments/gnnw/second.js certs/gnnw-certificate.json",
+      "needs": "python3 standard library for the ledger and the verifier; node for the second implementation (bigfloat, monotone bounds, no written derivative)",
+      "note": "Gupta–Ndiaye–Norin–Wei's \"preliminary, unverified\" iteration decided on their own Theorem 14 by two programs in two arithmetics that agree to 25 digits; the one-file verifier is the thing to send."
+    },
+    {
+      "record": "certs/polymaps-ledger.json",
+      "rederive": "python3 tools/run-polymaps-ledger.py --check",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/polymaps",
+      "note": "Gao's Jacobian counterexamples and the weak Markus–Yamabe fields decided as polynomial identities in exact arithmetic."
+    }
+  ]
+}

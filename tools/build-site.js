@@ -376,6 +376,13 @@ const REPORTS = [
       + '(C3b, C3c, C71); C42 holds in its limiting inequality, the rest an argument in prose; C84b <= 1.999281 quotes a constant its source only suggests '
       + 'and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.',
     n: '3 certified · 1 partly · 1 repaired · 1 checker that compares in doubles' },
+  { g: 'ai', f: 'rerun.html', k: 'the rerun kit',
+    title: 'Re-run any decided claim',
+    desc: 'For every record the claims register is derived from: the command that re-derives it, the standard-library verifier and '
+      + 'the second implementation where they exist, the record\'s hash at this build — and the registry of who outside has re-run what, '
+      + 'the one number that measures the independence this machine claims.',
+    n: (() => { const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'rerun-kit.json'), 'utf8')), X = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'));
+      return K.entries.length + ' records · ' + K.entries.filter((e) => e.verifier).length + ' stdlib verifiers · ' + X.length + ' independent rerun' + (X.length === 1 ? '' : 's') + ' recorded'; })() },
   { g: 'ai', f: 'claims.html', k: 'the claims desk',
     title: 'Send us a claim',
     desc: 'A mathematical claim that comes down to finitely many exact arithmetic facts is decided here — '
@@ -1534,17 +1541,18 @@ const oracleBody = [
         + 'engine; Python\'s fractions in the detached verifiers; a handful of named external theorems consumed '
         + 'and cross-checked, not machine-proved; and one operator on one machine.'),
       C.pRaw('That last item is the real limit, and the remedy is not more of the operator\'s own tests — it is '
-        + 'someone else\'s. The registry of independent reruns lives on this page and is empty until it isn\'t: '
-        + '<span class="m">' + reruns.length + ' recorded</span> at this build, read from '
-        + '<span class="m">corpus/external-reruns.json</span>. To be in it: clone '
-        + '<a href="https://github.com/carlostoledo1891/cert-machine">the repo</a>, run any detached verifier or '
-        + '<span class="m">oracle/battery.py</span>, and send the printed sha256 with your name and date to '
-        + '<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> — name, '
-        + 'date and hash get recorded here and on <a href="/machine/">the control page</a>.')
+        + 'someone else\'s. The registry of independent reruns is read from '
+        + '<span class="m">corpus/external-reruns.json</span>: <span class="m">' + reruns.length + ' recorded</span> at this build, '
+        + reruns.filter((r) => r.kind === 'own-code').length + ' with no code of ours. To be in it: '
+        + '<a href="/reports/rerun.html">the rerun kit</a> lists one line per record — a standard-library verifier, the tool that '
+        + 'wrote the record, or your own code — and <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=rerun.yml">'
+        + 'the rerun report</a> takes the verdict you obtained and the sha256 printed; name, date, kind and hash are recorded here, on the kit '
+        + 'and on <a href="/machine/">the control page</a>.')
     ].join('\n')
       + (reruns.length ? C.table({
-        cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'hash printed' }],
-        rows: reruns.map((r) => [r.who, r.date, r.what, { raw: '<span class="m">' + r.hash + '</span>' }])
+        cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'how' }, { h: 'hash · code' }],
+        rows: reruns.map((r) => [r.who, r.date, r.what, { raw: '<span class="m">' + r.kind + '</span>' },
+          { raw: (r.hash ? '<span class="m">' + r.hash.slice(0, 16) + '…</span><br>' : '') + '<a href="' + C.escAttr(r.where) + '">code</a>' }])
       }) : '')
   })
 ];

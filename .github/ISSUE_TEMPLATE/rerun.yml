@@ -1,0 +1,76 @@
+name: Report an independent rerun
+description: You re-derived one of the decided claims — with our detached verifier, with the tool that wrote the record, or with your own code — and want it recorded.
+title: "[rerun] "
+labels: ["rerun"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **What this is.** The registry of independent reruns (`corpus/external-reruns.json`, shown on
+        `/reports/rerun.html` and `/oracle/`) records who re-derived which decided claim, how, and what
+        they obtained. A rerun that disagrees with us is the most valuable kind and is recorded like any other.
+
+        **The kit.** `/reports/rerun.html` (or `RERUN.md` in the repository) lists, for every record the
+        claims register is derived from, the command that re-derives it, the standard-library verifier where
+        one exists, and the record's sha256 at the last build.
+  - type: input
+    id: record
+    attributes:
+      label: Which record or row
+      description: The record's path as the kit prints it (for example `certs/gnnw-certificate.json`), or the register row id.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: How you reran it
+      options:
+        - own code — I re-derived the claim from the published statement with my own program; none of this repository's code ran
+        - detached verifier — I ran one of the standard-library verifiers on a copy of the record
+        - full re-derivation — I ran the tool that writes the record and compared the register's rows
+    validations:
+      required: true
+  - type: input
+    id: verdict
+    attributes:
+      label: The verdict you obtained
+      description: CERTIFIED / REFUTED / REFUSED, or the number you reached, in your own words if it differs from ours.
+    validations:
+      required: true
+  - type: input
+    id: hash
+    attributes:
+      label: The sha256 printed
+      description: For a detached verifier, the sha256 it prints at the end; for a full re-derivation, the sha256 of the record you obtained. Leave blank for own code.
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Where it ran
+      description: Operating system, the Python or Node version, the commit you cloned, how long it took.
+    validations:
+      required: true
+  - type: input
+    id: code
+    attributes:
+      label: Your code (for an own-code rerun)
+      description: A link to the repository or gist, pinned to a commit if you can.
+    validations:
+      required: false
+  - type: input
+    id: name
+    attributes:
+      label: How to record you
+      description: The name or handle to print in the registry, with the date.
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Before you send
+      options:
+        - label: I agree to be listed in the public registry with the name above, the date, what I reran and what I obtained.
+          required: true
+        - label: I understand a disagreement is recorded as reported, and that whichever of us is wrong is decided in public.
+          required: true

@@ -207,6 +207,7 @@ reports:
 	@$(NODE) tools/build-report-mathbench.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
+	@$(NODE) tools/build-report-rerun.js
 	@$(NODE) tools/build-report-monthly.js
 	@$(NODE) tools/build-paper-grading.js
 	@$(NODE) tools/run-gym-record.js

@@ -60,7 +60,7 @@ B.push(C.tldr({
     + 'an aggregate row whose record holds both a certification and a refutation; REPAIRED is a refutation of '
     + 'the object as printed beside a certification of the object next to it. Every row also names what went '
     + 'wrong, from one closed vocabulary — and for most rows that is nothing.',
-  checkRaw: 'Submit through <a href="' + NEW + '">the claim form</a>. Everything decided is on this page, '
+  checkRaw: 'Submit through <a href="' + NEW + '">the claim form</a>. To re-run any row yourself, <a href="/reports/rerun.html">the rerun kit</a> gives one line per record. Everything decided is on this page, '
     + 'and every verdict links to the record it came from.'
 }));
 

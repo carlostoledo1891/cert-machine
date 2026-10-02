@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-01",
-  "browser": "Chrome/154.0.8037.59",
+  "recorded": "2026-10-02",
+  "browser": "Chrome/154.0.8037.93",
   "viewports": [
     1440,
     768,
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5e3dd7d87045b1d6deb49b9d28b742aa0cd05a0da1c91574af7f96d786cf8bc4"
+      "sha": "eb4a0d73c092bdfd3668d15287dff4c7f5703270b0d67fbe5dc829214d9e2cb3"
     },
     "site/portfolio/index.html": {
       "390": {

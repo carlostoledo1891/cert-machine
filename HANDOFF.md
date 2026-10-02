@@ -15,10 +15,89 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phases 2–4 queued at the top of the menu; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-02 — THE RERUN PROGRAM (the twenty-eighth session). ORIGIN: an outside
+reading of the project (Vivian Altebarmakian, 2026-10-02, pasted in chat: the map
+of AlphaEvolve / AlphaProof / Ramanujan Machine / AI Scientist with cert-machine as
+the verification layer between generators and the literature; the four-rung ladder;
+the oracle as the lever; the critique that the project sells independence it has not
+yet earned — "0 independent reruns"). AGREED: the positioning, the ladder, the oracle
+lane, "verifiable computational science" as the territory. CORRECTED against the
+disk: one outside no-shared-code re-certification exists (rainrzk, λ(4), 2026-09-30)
+and the page said none; stdlib second implementations already exist per family (GNNW,
+sumdiff, Contraprova, Decidível, countex) — independence comes from another author,
+not from a Rust port by the same one; the registry-as-standard was killed in
+corpus/targets.json (nanopublications, Trusty URIs: built, unadopted); a general Lean
+exporter is low yield for witness claims. The operator's word: "Build the ToDos list
+with phases and start building. Stop at each phase and handoff."
+  PHASE 1 — THE RERUN KIT — DONE 2026-10-02 (this session, one commit). What was built
+    is exactly the list below. MEASURED: all 23 kit commands executed from this
+    repository under caffeinate (certs/rerun-kit-run.json; Apple M2, Node 24.14, the
+    system Python 3.9.6): every one green, the register's 88 rows (verdict, scope, kind) unchanged.
+    The slow ones: make engine 302 s, hseva --check 379 s, gnnw --check 185 s, gnnw
+    second.js 127 s, horizon 116 s, polymaps 84 s; the rest seconds. The page shows
+    every runtime from that record. The rewritten records were reverted to HEAD
+    (timing and date churn only) EXCEPT one observation: `make engine`'s
+    export-keller-certificate.js now writes 17 MORE pins than the committed
+    certs/keller-certificate.json holds (corpus/sources grew since it was last
+    exported) — reverted here, not a defect, but the next make engine will commit
+    it; say so in that commit. Gates: style, measure, render accepted for the new
+    page; wiring, grammar, stale-claims green; build-site.js run (the /reports/ card
+    and /oracle/ §9 live in site/). OWED: `make control` (15 min, all batteries) was
+    NOT run — the laptop was at 17% on battery — so site/machine/ still prints the
+    old "none has yet" sentence until the next plugged-in `make site`. ALSO OWED
+    (kit debts the page itself counts): a one-line re-derivation for
+    certs/ai-claims-summary.json (the six lanes' batteries) and for the Navier–
+    Stokes audit record (the Lean rebuild); tools/certs-shelf.js and the two GNNW
+    records still say verify/verify_gnnw_gai.py (the served path; the repo path is
+    tools/) — the kit table names both. One manifest error caught by running:
+    instruments/tensorlb/verify.py is Wang's lower-bound auditor, not a Strassen
+    second implementation; removed before the run.
+    NEXT SESSION STARTS AT PHASE 2 (below): the ten rows, the five asks, every one
+    a SEND on the operator's per-item word. The kit as built:
+    · corpus/rerun-kit.json: ONE manifest, one entry per record the register's rows
+      are decided from (the 20 `decidedFrom` records): the command that re-derives
+      it, the standard-library verifier where one exists, the independent second
+      implementation where one exists, what it needs. Rows per record are read from
+      the register at build, never typed.
+    · tools/build-report-rerun.js → reports/rerun.html + RERUN.md (generated, one
+      source): the protocol (what to run, what to hash, where to report), the kit
+      table with each record's sha256 at this build, the register-row schema and the
+      closed defect vocabulary read from certs/claims-ledger.json, the oracle's
+      certificate schema named, the EXTERNAL-RERUN REGISTRY (corpus/external-reruns.
+      json, with a `kind` per row: own-code / detached-verifier / full-rederive), the
+      trust base. REFUSES when a register record lacks a kit entry or vice versa, or
+      a named file is missing. `--run` re-derives every record, times it, and writes
+      certs/rerun-kit-run.json (the measured runtimes; the register's rows compared
+      before and after: a verdict that moves refuses).
+    · corpus/external-reruns.json gains its first row (rainrzk, λ(4), own code); the
+      oracle's §9 and the control page read the count instead of saying "none".
+    · .github/ISSUE_TEMPLATE/rerun.yml: "Report an independent rerun".
+    · the card on /reports/, the Makefile `reports:` line, the README pointer.
+  PHASE 2 — FIVE OUTSIDE RERUNS OF ONE CORPUS (weeks; every send gated on the
+    operator's per-item word): pick the ten strongest register rows; ask the people
+    already in the threads — rainrzk (engaged), S. Norin (GNNW), the Dualverse and
+    EinsteinArena authors (kissing), S. Sra (countex), the LabECO pair (the wave
+    rows); the milestone is "five independent parties obtained the same verdicts",
+    measured on /reports/rerun.html from corpus/external-reruns.json.
+  PHASE 3 — THE ORACLE AS THE LAB-FACING PRODUCT (in parallel): two or three more
+    hub environments from families that already have deciders and forgery batteries
+    (matrix-multiplication rank, kissing, packings); MathBench v1 pre-registered first
+    with the larger output cap; the test of the lane is one lab running one
+    environment.
+  PHASE 4 — 100 PRE-REGISTERED MACHINE CLAIMS: the census first (a targets row per
+    pool: AlphaTensor npz keys, AlphaEvolve's notebook, EinsteinArena best solutions,
+    station_data, the registry's 15 asterisks, FunSearch, erdosproblems AI rows, the
+    18 FrontierMath Erdős statements); witness-type only; each pool capped (~20);
+    the manifest and the 100 named BEFORE any is decided; a dropped claim stays as
+    NEEDS DATA; the register paper's second edition reports the defect rate by kind.
+  NOT DOING (decided 2026-10-02): a Rust port; a general Lean exporter; a registry
+    product; a consortium.
 
 ────────────────────────────────────────────────────────────────────────────
 HANDOFF 2026-10-01, END OF THE TWENTY-SEVENTH SESSION — THE BRAINSTORM (talk only, no

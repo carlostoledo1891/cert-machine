@@ -1,0 +1,201 @@
+{
+ "what": "The rerun kit, executed: every command of corpus/rerun-kit.json run from this repository, timed, the register's rows (verdict, scope, kind) compared before and after. Written by tools/build-report-rerun.js --run; the page reads the runtimes from here and never types one.",
+ "date": "2026-10-02",
+ "git": "916d077",
+ "machine": {
+  "os": "Darwin 27.0.0",
+  "cpu": "Apple M2",
+  "node": "v24.14.1",
+  "python": "Python 3.9.6"
+ },
+ "partial": false,
+ "runs": [
+  {
+   "record": "certs/erdos852-certificate.json",
+   "kind": "rederive",
+   "command": "node tools/export-erdos852-certificate.js",
+   "seconds": 4.8,
+   "status": 0,
+   "sha256After": "8b532ba9db0ee19df30d820695ccf12224d011f001c5cf437e161a62f7f258f3"
+  },
+  {
+   "record": "certs/erdos852-certificate.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources",
+   "seconds": 0.6,
+   "status": 0,
+   "sha256After": "8b532ba9db0ee19df30d820695ccf12224d011f001c5cf437e161a62f7f258f3"
+  },
+  {
+   "record": "certs/kissing-ledger.json",
+   "kind": "rederive",
+   "command": "node tools/run-kissing-ledger.js",
+   "seconds": 2.9,
+   "status": 0,
+   "sha256After": "ce41485393a7fc080449fac3387412f4de2c5c7b4192895267dcade6a9597add"
+  },
+  {
+   "record": "ledger.json",
+   "kind": "rederive",
+   "command": "make engine",
+   "seconds": 302.4,
+   "status": 0,
+   "sha256After": "e53fd06e78e3cc4242fa63ff8421de7bce612dbca9fdfd43e8a8e09298c2730b"
+  },
+  {
+   "record": "certs/strassen-certificate.json",
+   "kind": "rederive",
+   "command": "node tools/export-strassen-certificate.js",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "54939d7f94f702e4ae131aaf73ff4d0bd5fe215a87f86c44d5066af7a82e62ff"
+  },
+  {
+   "record": "certs/strassen-certificate.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources",
+   "seconds": 0.3,
+   "status": 0,
+   "sha256After": "54939d7f94f702e4ae131aaf73ff4d0bd5fe215a87f86c44d5066af7a82e62ff"
+  },
+  {
+   "record": "certs/easota-ledger.json",
+   "kind": "rederive",
+   "command": "node tools/run-easota-ledger.js",
+   "seconds": 3,
+   "status": 0,
+   "sha256After": "5ab5577a6d8055aa08fbdffde145d067be4f1b61a07b24a73b92572217ca9d9c"
+  },
+  {
+   "record": "certs/ecbench-ledger.json",
+   "kind": "rederive",
+   "command": "node tools/run-ecbench-ledger.js",
+   "seconds": 5.8,
+   "status": 0,
+   "sha256After": "65064f838d382eeb4159d6127f88d5077ae2b02f57c38bfaeba85e784268f53e"
+  },
+  {
+   "record": "certs/gsm8k-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-gsm8k-ledger.py",
+   "seconds": 1.5,
+   "status": 0,
+   "sha256After": "56092a5fe580d9e001c525e5e034151686fe99222b8a6695185f0ea1d12231d8"
+  },
+  {
+   "record": "certs/horizon-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-horizon-ledger.py",
+   "seconds": 115.7,
+   "status": 0,
+   "sha256After": "b562ca7f61b0ff61c7aad4b5134be36c19e6d41693547e6418bc69c03b61fe86"
+  },
+  {
+   "record": "certs/hseva-ledger.json",
+   "kind": "rederive",
+   "command": "node tools/run-hseva-ledger.js --check",
+   "seconds": 378.7,
+   "status": 0,
+   "sha256After": "a6971779e880a3594337dd448fe29eb7723c290b6e807a6b13fb3a1a4822ae79"
+  },
+  {
+   "record": "certs/design-table-audit.json",
+   "kind": "rederive",
+   "command": "node tools/run-design-table-audit.js --check",
+   "seconds": 0.3,
+   "status": 0,
+   "sha256After": "e8278b62a87d2e0ae3f53a2645359b4d5e9ab2d013fa1c5a097888b65afccb06"
+  },
+  {
+   "record": "certs/sumdiff-ledger.json",
+   "kind": "rederive",
+   "command": "node tools/run-sumdiff-ledger.js --check",
+   "seconds": 1.1,
+   "status": 0,
+   "sha256After": "5b4ce435f0d004fc76da050fff454b46169ec36324110adf59488f3e988b06ef"
+  },
+  {
+   "record": "certs/sumdiff-ledger.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_sumdiff.py",
+   "seconds": 0.2,
+   "status": 0,
+   "sha256After": "5b4ce435f0d004fc76da050fff454b46169ec36324110adf59488f3e988b06ef"
+  },
+  {
+   "record": "certs/fei-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-fei-ledger.py --check",
+   "seconds": 1.4,
+   "status": 0,
+   "sha256After": "38d06c5e779f366e6b8ea2cd10698ea3610b600ea2be90b661629209e64152d0"
+  },
+  {
+   "record": "certs/sumproduct-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-sumproduct-ledger.py --check",
+   "seconds": 36.7,
+   "status": 0,
+   "sha256After": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0"
+  },
+  {
+   "record": "certs/turan-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-turan-ledger.py --check",
+   "seconds": 1.6,
+   "status": 0,
+   "sha256After": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef"
+  },
+  {
+   "record": "certs/countex-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-countex-ledger.py --check",
+   "seconds": 33.3,
+   "status": 0,
+   "sha256After": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc"
+  },
+  {
+   "record": "certs/horizonmath-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-horizonmath-ledger.py --check",
+   "seconds": 1.6,
+   "status": 0,
+   "sha256After": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a"
+  },
+  {
+   "record": "certs/gnnw-certificate.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-gnnw-ledger.py --check",
+   "seconds": 185,
+   "status": 0,
+   "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+  },
+  {
+   "record": "certs/gnnw-certificate.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_gnnw_gai.py certs/gnnw-certificate.json",
+   "seconds": 7.7,
+   "status": 0,
+   "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+  },
+  {
+   "record": "certs/gnnw-certificate.json",
+   "kind": "second",
+   "command": "node instruments/gnnw/second.js certs/gnnw-certificate.json",
+   "seconds": 126.9,
+   "status": 0,
+   "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+  },
+  {
+   "record": "certs/polymaps-ledger.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-polymaps-ledger.py --check",
+   "seconds": 83.5,
+   "status": 0,
+   "sha256After": "63ce598a073c1718239f8ce036227a8f645d852a26ac97bf624cc7cd1c5d6953"
+  }
+ ],
+ "registerRows": 88,
+ "rowsMoved": [],
+ "failed": []
+}

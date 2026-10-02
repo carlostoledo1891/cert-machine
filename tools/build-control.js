@@ -263,9 +263,11 @@ B.push(C.stats([
   { k: 'batteries green', v: green + ' / ' + ran, role: 'held', n: 'Executed during this build; every red control must fire.' }
 ]));
 
-B.push(C.scope('Published, not peer-reviewed, not independently rerun. Every claim below is rerunnable from the '
-  + 'public repository; external reruns will be recorded here as they arrive — none has yet. Enclosures are '
-  + 'proofs-of-object pending that independent verification.'));
+const externalReruns = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'));
+B.push(C.scope('Published, not peer-reviewed. Every claim below is rerunnable from the public repository (the kit is '
+  + '/reports/rerun.html); independent reruns recorded so far: ' + externalReruns.length + ' ('
+  + externalReruns.filter((r) => r.kind === 'own-code').length + ' with no code of ours), read from corpus/external-reruns.json. '
+  + 'Enclosures are proofs-of-object pending that independent verification of the rest.'));
 
 /* ---- §0 · the concept ------------------------------------------------------
    The page where the position is stated. Every rule below carries a measured
