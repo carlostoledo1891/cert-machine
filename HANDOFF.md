@@ -21,6 +21,80 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-01, END OF THE TWENTY-SEVENTH SESSION — THE BRAINSTORM (talk only, no
+development; the operator's words: "no development for now, just talk"). State: the
+shelf below is committed and pushed (c814c9a); the partnership with the LabECO pair is
+ongoing and they hold the index link; the Radar forms are in. Three menus were given in
+chat and are recorded here so the next session does not redo them.
+  A. RESEARCH EVOLUTIONS OFFERED (the operator picks with the partners): (1) the ten
+     regional claims re-boxed by their own authors (P1's natural joint follow-up); (2)
+     POT/GPD certified with the threshold curve; (3) climate windows on the hindcast
+     halves then their CMIP runs; (4) certified environmental contours with THEIR joint
+     Hs–Tp model and conventions (their funded topic — ask for the model, not the
+     data); (5) the breaking-waves second paper (the seven questions in the draft are
+     the agenda); (6) buoys vs hindcast as a "distance between two records" map of the
+     Brazilian margin; (7) the marginal-fit STANDARD as a specification paper (what a
+     fit must fix + the certificate as its second half); (8) an open registry of
+     design values (passes the killer-app test; hazard words); (9) the stdlib Python
+     verifier in their pipeline (+ a software note); (10) ask what the first author's
+     own line is. Suggested first three: 1, 4, 7. Scout the targets row before any
+     build.
+  B. THE LRCAP/BESS FRONT, re-scouted: NO open comment window (ANEEL CP 022/023-2026
+     closed 2026-09-14); the auctions are 2026-12-02 (national content, 05/2026) and
+     12-04 (open, 06/2026); 297 GW registered against an unpublished demand; still to
+     come: the ONS/EPE remaining-capacity note (was due 09-30), the FINAL EDITAL WITH
+     THE CEILING (~10-26), EPE qualification (~11-17), the CRCAP penalty annexes. The
+     bench (frontier-apps/experiments/lrcap-bid, lrcap-bess, fleet-dispatch; targets
+     rows bench-ignorance-budget, bench-greedy-overclaim) holds the bid-floor
+     enclosure + ignorance budget, the Aurora-vs-EPE adjudication (capex ≈ R$ 5.4 M/MW
+     at 8% real is the boundary), the audit-targets list and the fleet-rebound kernel
+     (proprietary at source; crowding not found; floor pin). Options ranked: "the
+     ceiling, decided" the day the edital lands (hours); sealed clearing predictions
+     before Dec 2 (Forecast Gym pattern; publishing a hash is a SEND); the bid book as
+     a Contraprova vertical only if a bidder appears; the audit-targets page; the
+     rebound paper (weeks, not LabECO's domain); the contract as a decidable object
+     after the auction.
+  C. PUBLIC CALLS SCANNED (web, 2026-10-01; verify every date on the official edital):
+     · CNPq RHAE IA 29/2026 — DEADLINE 2026-10-09 — AI researchers in innovative
+       companies; fits Contraprova/certified evaluation; needs a CNPJ with R&D history
+       and a named researcher.
+     · CNPq/CAPES MAI/DAI 30/2026 — 2026-12-11 — the ICT proposes, the company gives
+       counterpart for MSc/PhD scholarships: THE PARTNERSHIP'S FUNDING VEHICLE (thesis
+       on the standard / contours / POT); find UFSC's internal deadline first.
+     · Finep Mais Inovação Rodada 2, Tecnologias Digitais — 2026-10-14 per one source,
+       09-30 per another — companies/startups, subsidy; heavy proposal.
+     · FAPESC Horizonte Europa 65/2025 — continuous to 2028-06-30, up to R$ 700 k per
+       SC company inside an approved Horizon Europe project (Ifremer/CNR door).
+     · Free registrations: 100 Open Startups Energy challenge; FAPESC Inova Talentos.
+     · Recurring, nothing open: ONS Inovação Aberta (with ACATE, Florianópolis), the
+       Petrobras Conexões Módulo Startups 5th call (unannounced; the Radar is our
+       entry), ANP NAVE 2nd edition (unannounced), SENAI MOVER Aliança Startup (next
+       mid-2027), Vale/Mining Hub M-Spot cycles. No open ANEEL strategic call, no
+       Embraer/ANAC call, PIPE needs a São Paulo institution.
+     · Decidable objects coming without a call: offshore-wind area offers (design
+       values per site = P1's product); the LRCAP ceiling (B).
+  D. R&D ROUTES (standing pipes, not contests): (1) the ANP PD&I clause through
+     LabECO — Res. 918/2023 lets Brazilian companies co-execute, and up to 30% of the
+     credentialed-institution share may go to partnerships with Brazilian companies for
+     product/process/service innovation; our entry is co-executor in their existing
+     Petrobras/ANP project or in a CENPES thematic-network term of cooperation; needs a
+     CNPJ meeting the 70% small-ownership rule. (2) Embrapii at UFSC — inoVARE/UFSC and
+     MOVE-UFSC (the latter in LabECO's own department): a client contracts the unit,
+     Embrapii pays about a third; ask whether LabECO can execute under MOVE-UFSC.
+     (3) CNPq/ANR Brazil–France 32/2026 — open to 2027-03-31, digital-continuum axis
+     (modeling, simulation, HPC, AI), up to 4 projects nationally — the only open
+     international window; needs a French group (Ifremer Brest; validated numerics).
+     (4) the CNPq people lines above. (5) Horizon Europe via FAPESC. (6) ANEEL PDI via a
+     utility (storage/AI themes; needs a utility). Closed this year, calendar for next:
+     CNPq Universal 06/2026 (results 11-03 / 12-04; next mid-2027), CAPES/COFECUB
+     07/2026 (closed 05-29; next spring 2027), Belmont Forum Ocean 2 (closed 08-27).
+     Suggested order to raise with the partners: ANP co-execution → MOVE-UFSC →
+     a French partner for 32/2026.
+  CALENDAR, dated: 10-09 RHAE IA · 10-14 Finep rodada 2 (verify) · ~10-26 LRCAP edital
+  + ceiling · 11-03/12-04 Universal results · ~11-17 EPE qualification · 12-02/12-04
+  the auctions · 12-11 MAI/DAI · 2027-03-31 CNPq/ANR.
+
+────────────────────────────────────────────────────────────────────────────
 FIRST — THE PRE-PAPER SHELF (2026-10-01, the twenty-seventh session, second half).
 On the operator's word ("scavenge the cert-machine and build all pre papers we
 can … create a html index so they can see the links, descriptions and access the
