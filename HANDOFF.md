@@ -21,6 +21,48 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-02, END OF THE TWENTY-EIGHTH SESSION — STATE AND THE OPEN LIST.
+  COMMITS: c25cc61 phase 1 (the rerun kit), 302260a phase 2 (the corpus + five asks,
+  held), 0e2cb0c phase 3 (certified-mathbench + v1 pre-registered, held), 52ec164
+  phase 4a (the census + the hundred pre-registered), then the correction commit
+  below. A CORRECTION: 52ec164's message says "control build 106/106 green"; that
+  build had REFUSED at its first line (the new battery row was filed in the control
+  build's Python list while its file is JavaScript — bat() dies on the mismatch
+  before running anything) and the exit code was read as green by a grep that
+  matched nothing. The row was moved to the Node list, wiring green, the control
+  build re-run; the correction commit says so. Lesson, standing: after a control
+  build, read the exit line, not the absence of RED.
+  WHAT IS OPEN, by who acts:
+  · THE OPERATOR'S WORD (built, waiting): the five phase-2 asks (outreach/rerun-
+    asks-2026-10-02.md, LANE R); the hub push of certified-mathbench (`pip install
+    prime` first); the MathBench v1 run (US$50 ceiling, `ant auth login` first).
+  · PHASE 4b, THE DECIDING (the next session's work): ~45 of the 100 have a decider
+    (the tensor pools + the notebook's 15 through instruments/strassen and tools/
+    convert_alphaevolve.js, which must learn the 0.5*C ring; the kissing and easota-
+    shaped EinsteinArena rows; the Station's Jacobian through polymaps); the rest
+    new finite exact checks (Kakeya sets, difference bases, cap/admissible sets,
+    the cyclic independent set, Hadamard, sorting network, Shannon capacity, no-
+    three-in-line, deletion code, snake), then exact-rational scoring of printed
+    constructions, the three registry entries, the AlphaEvolve repository rows
+    (NEEDS DATA where only programs are published). Each run writes its own ledger
+    and reaches the register through run-claims-ledger.js; the page for the hundred
+    is built only when verdicts exist; the register paper's second edition is the
+    product. Order in notes/machine-claims-100-preregistration-2026-10-02.md.
+  · KIT DEBTS (the page counts them): a one-line re-derivation for certs/ai-claims-
+    summary.json and the Navier–Stokes audit record; the two GNNW records and
+    tools/certs-shelf.js print verify/ (the served path) where the repo path is
+    tools/.
+  · OLDER DEBTS, untouched this session: the paper agents' page/record findings of
+    2026-10-01 (listed under "THE PRE-PAPER SHELF" below — easota, erdos852,
+    erdos1038-sup, the rm-registry counting fix, rm-audit, impostors, zeta3, time-
+    horizon, entropy, the Black Sea loader columns, the GNNW `what` paths, the
+    kissing paper's 74 vs 70 ms); the older send queue (HorizonMath authors, the
+    optimizationproblems PR, Gao, Castañeda–Honorato–Valenzuela-Henríquez, the
+    EinsteinArena table-audit reply, the Woett and OEIS packs); the next `make
+    engine` adds 17 pins to certs/keller-certificate.json (say so in that commit).
+  · HOUSEKEEPING: environments/blind_spot/.venv holds verifiers 0.3.1 again (it had
+    lost it); /tmp/cm-clean is a scratch venv, disposable.
+
 HANDOFF 2026-10-02 — THE RERUN PROGRAM (the twenty-eighth session). ORIGIN: an outside
 reading of the project (Vivian Altebarmakian, 2026-10-02, pasted in chat: the map
 of AlphaEvolve / AlphaProof / Ramanujan Machine / AI Scientist with cert-machine as
