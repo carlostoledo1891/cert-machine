@@ -102,6 +102,7 @@ test:
 	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL

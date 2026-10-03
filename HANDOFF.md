@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phases 2–4 queued at the top of the menu; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4 queued; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -95,11 +95,42 @@ with phases and start building. Stop at each phase and handoff."
     operator's per-item word; after a reply, add the registry row with its `rows`
     and rebuild. Phase 2 is then measured, not declared: the page says 0 of 5 today.
     WHAT PHASE 2 STILL NEEDS FROM THE WORLD: the replies. Nothing else to build.
-  PHASE 3 — THE ORACLE AS THE LAB-FACING PRODUCT (in parallel): two or three more
-    hub environments from families that already have deciders and forgery batteries
-    (matrix-multiplication rank, kissing, packings); MathBench v1 pre-registered first
-    with the larger output cap; the test of the lane is one lab running one
-    environment.
+  PHASE 3 — THE ORACLE AS THE LAB-FACING PRODUCT — BUILT 2026-10-02, THE PUSH AND
+    THE RUN HELD. (a) environments/certified_mathbench: the seven MathBench families
+    as a `verifiers` environment for the Prime Intellect hub — ONE grader: the
+    package reads instruments/mathbench/families.py + tools/llm_harness_base.py +
+    tools/verify_sumdiff.py + the pinned 13-point certificate from the repository
+    (a source tree) or from byte-identical copies force-included in the wheel; all
+    pinned by sha256 in its PROVENANCE.json (battery.py, --pin after a deliberate
+    change). api.py (ENV_ID, 46 rungs, 5 beyond the record, sample/score/grade,
+    preflight = 28 green certify + 20 red refute, baseline_table 6/46),
+    adapters_v0.py (load_environment: SingleTurnEnv over the ladder; rubric reward
+    = certified, metrics refuted/rejected/malformed at weight 0; the ladder IS the
+    dataset, eval = the same ladder in another order — nothing to hold out, nothing
+    to leak), cli.py (gate · tasks · baseline · rungs), README (the hub front page),
+    three test files (13 tests: framework-free, grading, the binding against
+    verifiers 0.3.1). VERIFIED FROM A CLEAN INSTALL: the wheel built with the
+    framework venv (environments/blind_spot/.venv now holds verifiers 0.3.1 again;
+    it had lost it), installed into a fresh python3.12 venv in /tmp with no source
+    tree: preflight green, 46/46, reward 1.0 on the optimal 13-mark ruler and on the
+    record entropy law, 0.0 on prose; the 13 tests pass against the installed wheel.
+    Battery registered in make test and build-control (105 now; wiring green).
+    ONE EDIT TO THE GRADER: families.py's _record() gained a second lookup path for
+    the pinned certificate (beside the file, for the wheel) — no decision touched;
+    the v0 battery 83/83. THE HUB PUSH IS A SEND, HELD:
+      cd environments/certified_mathbench && prime env push --visibility PUBLIC
+    (the `prime` CLI is not installed on this machine today: `pip install prime` in
+    the framework venv first; then verify FROM THE REGISTRY in a fresh venv as the
+    siblings were). (b) MATHBENCH V1 PRE-REGISTERED: notes/mathbench-v1-
+    preregistration-2026-10-02.md — the same families (pinned), Sonnet 5 then Opus 5
+    (Haiku dropped: never out of tokens in v0), the cap doubled to 48,000, one sample
+    per rung, ceiling US$50 of the US$77.70 left, the three pre-registered readings.
+    THE RUN IS A SPEND, HELD for the operator's word (`ant auth login` first):
+      python3 tools/run-mathbench.py --tag v1 --max-tokens 48000 --models claude-sonnet-5,claude-opus-5 --cap 50
+    (c) NOT BUILT (judged lower yield than (a)): separate kissing/packing hub
+    environments — the kissing family is already a rung of (a); a packings
+    environment needs easota's deciders wrapped as families, a day. The test of the
+    lane stands: one lab running one environment; nothing here measures that yet.
   PHASE 4 — 100 PRE-REGISTERED MACHINE CLAIMS: the census first (a targets row per
     pool: AlphaTensor npz keys, AlphaEvolve's notebook, EinsteinArena best solutions,
     station_data, the registry's 15 asterisks, FunSearch, erdosproblems AI rows, the

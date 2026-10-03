@@ -408,7 +408,11 @@ class SumdiffFamily(Family):
         return f"C3b >= {c} from a {len(obj)}-point law"
 
     def _record(self):
-        d = json.load(open(os.path.join(HERE, '..', 'corpus', 'optimization-constants', 'mi2026', 'c3b_pr92', 'certificate_3b_13pt.json')))
+        # the pinned 13-point certificate: beside the repository's tools/ (HERE/..), or beside this file when the
+        # file travels in a wheel (environments/certified_mathbench force-includes it) — one record, two homes
+        rel = os.path.join('corpus', 'optimization-constants', 'mi2026', 'c3b_pr92', 'certificate_3b_13pt.json')
+        path = next(p for p in (os.path.join(b, rel) for b in (os.path.join(HERE, '..'), os.path.dirname(os.path.abspath(__file__)))) if os.path.exists(p))
+        d = json.load(open(path))
         L = 1
         for w in d['weights']:
             L = L * w['den'] // __import__('math').gcd(L, w['den'])

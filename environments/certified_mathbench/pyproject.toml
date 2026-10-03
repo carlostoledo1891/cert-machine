@@ -1,0 +1,59 @@
+[project]
+name = "certified-mathbench"
+version = "0.1.0"
+description = "Seven construction families decided exactly — Golomb rulers, cap sets, codes, Ramsey witnesses, entropy laws, kissing configurations, bilinear algorithms — 46 rungs to the published record and past it; reward 1 means a certificate exists, no answer key, no judge, no tolerance."
+readme = "README.md"
+# The floor of the WHEEL, not of the grader: `verifiers` needs 3.11. The grader is stdlib and 3.9-clean —
+# cert-machine's battery runs it on the system interpreter at every build with the framework nowhere near it.
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+tags = [
+    "eval",
+    "train",
+    "single-turn",
+    "math",
+    "exact-arithmetic",
+    "constructions",
+    "verifier-soundness",
+    "no-answer-key",
+    "v1",
+]
+keywords = ["rl-environment", "mathematics", "constructions", "exact-arithmetic", "certificates", "reward-oracle"]
+# The adapter needs the framework. Nothing else does: the seven families and the grader import only the standard
+# library, and tests/test_framework_free.py proves it by blocking every third-party import and grading anyway.
+dependencies = ["verifiers>=0.2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://carlostoledo.co/reports/mathbench.html"
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+certified-mathbench = "certified_mathbench.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["certified_mathbench"]
+
+# THE GRADER RIDES IN THE WHEEL, BYTE-IDENTICAL. The seven families live in cert-machine's instruments/mathbench
+# (where the battery, the eval harness and the report read them) and the Family/Verdict types in tools; they are
+# force-included from where they live, one copy, at build time. A source tree resolves the repository's files
+# instead (api._bench); the battery pins both by sha256 so the wheel can never carry a grader the repo does not.
+[tool.hatch.build.targets.wheel.force-include]
+"../../instruments/mathbench/families.py" = "certified_mathbench/families.py"
+"../../tools/llm_harness_base.py" = "certified_mathbench/llm_harness_base.py"
+"../../tools/verify_sumdiff.py" = "certified_mathbench/verify_sumdiff.py"
+"../../corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json" = "certified_mathbench/corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
+
+[tool.hatch.build.targets.sdist]
+include = ["certified_mathbench", "tests", "README.md"]
+
+[tool.verifiers.eval]
+num_examples = 46
+rollouts_per_example = 1
