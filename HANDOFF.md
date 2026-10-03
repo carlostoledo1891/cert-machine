@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4 queued; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -131,12 +131,38 @@ with phases and start building. Stop at each phase and handoff."
     environments — the kissing family is already a rung of (a); a packings
     environment needs easota's deciders wrapped as families, a day. The test of the
     lane stands: one lab running one environment; nothing here measures that yet.
-  PHASE 4 — 100 PRE-REGISTERED MACHINE CLAIMS: the census first (a targets row per
-    pool: AlphaTensor npz keys, AlphaEvolve's notebook, EinsteinArena best solutions,
-    station_data, the registry's 15 asterisks, FunSearch, erdosproblems AI rows, the
-    18 FrontierMath Erdős statements); witness-type only; each pool capped (~20);
-    the manifest and the 100 named BEFORE any is decided; a dropped claim stays as
-    NEEDS DATA; the register paper's second edition reports the defect rate by kind.
+  PHASE 4 — 100 PRE-REGISTERED MACHINE CLAIMS — 4a THE CENSUS AND THE
+    PRE-REGISTRATION DONE 2026-10-02; 4b THE DECIDING NOT STARTED.
+    THE CENSUS (eight rows in corpus/targets.json, `node tools/targets.js
+    machine-claims`): AlphaTensor 113 keys on disk (7 decided); the AlphaEvolve
+    notebook 16 + 13 (1 + 7 decided); EinsteinArena's API 29 problems, every one
+    with a current best (three unsolved targets whose best is an infeasible
+    near-miss); the Station 14 folders, 10 constructions; FunSearch 6 files;
+    the registry 3 decidable asterisks; the AlphaEvolve repository 67 problems,
+    19 world records, pages that are JavaScript templates; the erdosproblems AI
+    wiki ~180 proofs and ONE number (#513) — DEAD as a witness pool.
+    THE HUNDRED: corpus/machine-claims-100.json, built by tools/run-machine-claims.js
+    --write from the pinned bytes; the check (a battery now, 106 in both
+    registries) re-hashes 97 pins (3 hash-only: the 14.6 MB Station witness and
+    FunSearch's two large admissible sets, by sha256 + commit URL), holds the
+    declared pool sizes (alphatensor-q 12 · alphatensor-f2 8 · alphaevolve-nb-matmul
+    15 · alphaevolve-nb-b 6 · einstein-arena 29 · station-v2 10 · funsearch 6 ·
+    optconst 3 · alphaevolve-repo 10 · erdos-513 1), refuses any verdict field, and
+    refuses a manifest the rules do not rebuild — no row can be added, dropped or
+    re-chosen by hand. The rules and the readings are in notes/machine-claims-100-
+    preregistration-2026-10-02.md. NEW CORPORA, pinned at commits: corpus/einstein-
+    arena (29 bests of 2026-10-02 + problems.json, 4 MB, best-3 gzip),
+    corpus/station-v2 (a4ae9192), corpus/funsearch (cc53f274), corpus/alphaevolve-
+    problems (8f447457; the 10 pages + the experiments listing), corpus/optimization-
+    constants/registry (1a, 3a, 84a @ 2c1968cd), corpus/sources/erdosproblems-513.
+    4b — THE DECIDING, pool by pool, each run its own ledger reaching the register
+    through run-claims-ledger.js (the order is in the note): deciders exist for
+    ~45 rows (the tensor pools through instruments/strassen + convert_alphaevolve.js,
+    which must learn the 0.5*C ring; the kissing and easota-shaped EinsteinArena
+    rows; the Station's Jacobian through polymaps); the rest are new instruments,
+    mostly finite exact checks. A row published only as a program is NEEDS DATA
+    (claimant code is never run) and stays. The register paper's second edition is
+    the product: the defect rate by kind on a corpus chosen by rule.
   NOT DOING (decided 2026-10-02): a Rust port; a general Lean exporter; a registry
     product; a consortium.
 

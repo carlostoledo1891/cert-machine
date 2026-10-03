@@ -1,0 +1,1035 @@
+{
+ "what": "One hundred machine claims, named before any is decided (the rerun program's phase 4, pre-registered 2026-10-02): each row the bytes that carry the claim pinned by sha256, the pool whose rule chose it, the claimant and the decider expected. NO verdicts live here; the deciding runs write their own ledgers and the register derives its rows from them. A row whose object turns out not to be published is NEEDS DATA and stays; nothing is dropped. The rules per pool are in tools/run-machine-claims.js; the census per pool is in corpus/targets.json.",
+ "registered": "2026-10-02",
+ "count": 100,
+ "caps": {
+  "alphatensor-q": 12,
+  "alphatensor-f2": 8,
+  "alphaevolve-nb-matmul": 15,
+  "alphaevolve-nb-b": 6,
+  "einstein-arena": 29,
+  "station-v2": 10,
+  "funsearch": 6,
+  "optconst": 3,
+  "alphaevolve-repo": 10,
+  "erdos-513": 1
+ },
+ "rows": [
+  {
+   "id": "at-q-2x2x3",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,3 of alphatensor_r.npz are a decomposition of the ⟨2,2,3⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,3",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x2x4",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,4 of alphatensor_r.npz are a decomposition of the ⟨2,2,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,4",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x3x3",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,3 of alphatensor_r.npz are a decomposition of the ⟨2,3,3⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,3",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x2x5",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,5 of alphatensor_r.npz are a decomposition of the ⟨2,2,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,5",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x2x6",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,6 of alphatensor_r.npz are a decomposition of the ⟨2,2,6⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,6",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x3x4",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,4 of alphatensor_r.npz are a decomposition of the ⟨2,3,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,4",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x2x7",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,7 of alphatensor_r.npz are a decomposition of the ⟨2,2,7⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,7",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x3x5",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,5 of alphatensor_r.npz are a decomposition of the ⟨2,3,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,5",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x2x8",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,8 of alphatensor_r.npz are a decomposition of the ⟨2,2,8⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,8",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x4x4",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,4,4 of alphatensor_r.npz are a decomposition of the ⟨2,4,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,4,4",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-3x3x4",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 3,3,4 of alphatensor_r.npz are a decomposition of the ⟨3,3,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 3,3,4",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-q-2x4x5",
+   "pool": "alphatensor-q",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,4,5 of alphatensor_r.npz are a decomposition of the ⟨2,4,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphatensor_r.npz key 2,4,5",
+   "sha256": "4d59571a2537a9472e8229176d5ebe2925f3e041ad403c095b41853026caec33",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x2x3",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,3 of alphatensor_f2.npz are a decomposition of the ⟨2,2,3⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,3",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x2x4",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,4 of alphatensor_f2.npz are a decomposition of the ⟨2,2,4⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,4",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x3x3",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,3 of alphatensor_f2.npz are a decomposition of the ⟨2,3,3⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,3",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x2x5",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,2,5 of alphatensor_f2.npz are a decomposition of the ⟨2,2,5⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,5",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x3x4",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,4 of alphatensor_f2.npz are a decomposition of the ⟨2,3,4⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,4",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x3x5",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,3,5 of alphatensor_f2.npz are a decomposition of the ⟨2,3,5⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,5",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-2x4x4",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 2,4,4 of alphatensor_f2.npz are a decomposition of the ⟨2,4,4⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,4,4",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "at-f2-3x3x4",
+   "pool": "alphatensor-f2",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "claim": "the factors stored under key 3,3,4 of alphatensor_f2.npz are a decomposition of the ⟨3,3,4⟩ tensor over F2 of the rank the array's shape states",
+   "object": "three factor matrices over F2",
+   "source": "corpus/sources/alphatensor_f2.npz key 3,3,4",
+   "sha256": "70f09f349d8d2874ef0e0e089459c7320f5aa3eef277df5ffa67f573709db2da",
+   "decider": "instruments/strassen + tools/verify_strassen.py (exists)"
+  },
+  {
+   "id": "ae-nb-2x4x5-r32",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-32 decomposition of <2,4,5> over 0.5*Z\" is a decomposition of that tensor of rank 32 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-32 decomposition of <2,4,5>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-2x4x7-r45",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-45 decomposition of <2,4,7> over Z\" is a decomposition of that tensor of rank 45 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-45 decomposition of <2,4,7>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-2x4x8-r51",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-51 decomposition of <2,4,8> over Z\" is a decomposition of that tensor of rank 51 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-51 decomposition of <2,4,8>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-2x5x6-r47",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-47 decomposition of <2,5,6> over Z\" is a decomposition of that tensor of rank 47 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-47 decomposition of <2,5,6>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x3x3-r23",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-23 decomposition of <3,3,3> over Z\" is a decomposition of that tensor of rank 23 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-23 decomposition of <3,3,3>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x4x6-r54",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-54 decomposition of <3,4,6> over 0.5*Z\" is a decomposition of that tensor of rank 54 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-54 decomposition of <3,4,6>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x4x7-r63",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-63 decomposition of <3,4,7> over 0.5*C\" is a decomposition of that tensor of rank 63 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-63 decomposition of <3,4,7>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x4x8-r74",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-74 decomposition of <3,4,8> over Z\" is a decomposition of that tensor of rank 74 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-74 decomposition of <3,4,8>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x5x6-r68",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-68 decomposition of <3,5,6> over Z\" is a decomposition of that tensor of rank 68 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-68 decomposition of <3,5,6>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-3x5x7-r80",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-80 decomposition of <3,5,7> over Z\" is a decomposition of that tensor of rank 80 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-80 decomposition of <3,5,7>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-4x4x8-r96",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-96 decomposition of <4,4,8> over 0.5*C\" is a decomposition of that tensor of rank 96 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-96 decomposition of <4,4,8>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-4x4x5-r61",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-61 decomposition of <4,4,5> over Z\" is a decomposition of that tensor of rank 61 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-61 decomposition of <4,4,5>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-4x4x7-r85",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-85 decomposition of <4,4,7> over Z\" is a decomposition of that tensor of rank 85 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-85 decomposition of <4,4,7>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-4x5x6-r90",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-90 decomposition of <4,5,6> over Z\" is a decomposition of that tensor of rank 90 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-90 decomposition of <4,5,6>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-5x5x5-r93",
+   "pool": "alphaevolve-nb-matmul",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the notebook's \"Rank-93 decomposition of <5,5,5> over Z\" is a decomposition of that tensor of rank 93 over that ring",
+   "object": "three factor matrices",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-93 decomposition of <5,5,5>\"",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "tools/convert_alphaevolve.js + instruments/strassen (exists; the ring 0.5*C is new)"
+  },
+  {
+   "id": "ae-nb-second-autocorrelation",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the step function printed in B.2 attains the printed value of the second autocorrelation inequality's ratio",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.2",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ae-nb-third-autocorrelation",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the step function printed in B.3 attains the printed value of the third autocorrelation inequality's ratio",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.3",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ae-nb-uncertainty",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the function printed in B.4 attains the printed value of the uncertainty inequality's constant",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.4",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ae-nb-sums-differences",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the finite set printed in B.6 attains the printed ratio for sums and differences of finite sets",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.6",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ae-nb-heilbronn-triangles",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the point set printed in B.9 attains the printed minimum triangle area for the Heilbronn problem",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.9",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ae-nb-circles-unit-square",
+   "pool": "alphaevolve-nb-b",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "claim": "the circles printed in B.12 are disjoint, inside the unit square, and have the printed sum of radii",
+   "object": "the construction as printed in the notebook",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb section B.12",
+   "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+   "decider": "new (exact rational scoring of a printed construction; instruments/easota has the shape)"
+  },
+  {
+   "id": "ea-best-erdos-min-overlap",
+   "pool": "einstein-arena",
+   "claimant": "CodexProLong (EinsteinArena, solution 2507, 2026-08-15)",
+   "claim": "the object is a feasible solution of \"Erdős Minimum Overlap (Upper Bound)\" and the platform's score of it is 0.3808585748578584 (minimize)",
+   "object": "values[3584]",
+   "source": "corpus/einstein-arena/best-1.json",
+   "sha256": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-first-autocorrelation-inequality",
+   "pool": "einstein-arena",
+   "claimant": "CodexProLong (EinsteinArena, solution 2504, 2026-08-14)",
+   "claim": "the object is a feasible solution of \"First Autocorrelation Inequality (Upper Bound)\" and the platform's score of it is 1.5027436492326165 (minimize)",
+   "object": "values[65536]",
+   "source": "corpus/einstein-arena/best-2.json",
+   "sha256": "50abacd697b1545a4c4723a66f164a445539472c7a7c33533685519f5313cd9e",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-second-autocorrelation-inequality",
+   "pool": "einstein-arena",
+   "claimant": "ClaudeExplorer (EinsteinArena, solution 2416, 2026-07-22)",
+   "claim": "the object is a feasible solution of \"Second Autocorrelation Inequality (Lower Bound)\" and the platform's score of it is 0.963588110582029 (maximize)",
+   "object": "values[1999999]",
+   "source": "corpus/einstein-arena/best-3.json.gz (gzip; sha256 of the JSON)",
+   "sha256": "cbe98de1c67ff22158053b635a5854ba38b8a5da31b7abbdd73b2e19349e45db",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-third-autocorrelation-inequality",
+   "pool": "einstein-arena",
+   "claimant": "Poolish (EinsteinArena, solution 2510, 2026-08-23)",
+   "claim": "the object is a feasible solution of \"Third Autocorrelation Inequality (Upper Bound)\" and the platform's score of it is 1.4508066395052834 (minimize)",
+   "object": "values[16384]",
+   "source": "corpus/einstein-arena/best-4.json",
+   "sha256": "fcb94502274522cbaa5f954066b35e411f1a3b785238e28b1e1b7d1ae9fab169",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-min-distance-ratio-2d",
+   "pool": "einstein-arena",
+   "claimant": "Together-AI (EinsteinArena, solution 14, 2026-03-19)",
+   "claim": "the object is a feasible solution of \"Minimizing Max/Min Distance Ratio (2D, n=16)\" and the platform's score of it is 12.889229907717521 (minimize)",
+   "object": "vectors[16]",
+   "source": "corpus/einstein-arena/best-5.json",
+   "sha256": "3954bce1147e175701bb56560b1795c08f7f711c7055aa17394a52489002bbed",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-kissing-number-d11",
+   "pool": "einstein-arena",
+   "claimant": "KawaiiCorgi (EinsteinArena, solution 1492, 2026-04-10)",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 11 (n=594)\" and the platform's score of it is 0 (minimize)",
+   "object": "vectors[594]",
+   "source": "corpus/einstein-arena/best-6.json",
+   "sha256": "4ff52e989f3ef0b9c3f3d97ef078c6201eb4fda73eecc1bb09163094b43f27c0",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-prime-number-theorem",
+   "pool": "einstein-arena",
+   "claimant": "CodexProLong (EinsteinArena, solution 2506, 2026-08-15)",
+   "claim": "the object is a feasible solution of \"The Prime Number Theorem\" and the platform's score of it is 0.9976572852677297 (maximize)",
+   "object": "partial_function[2000]",
+   "source": "corpus/einstein-arena/best-7.json",
+   "sha256": "5382b697a7920edd92edc8c4770441925042bde3d3719456e84f248fbb8bd333",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-uncertainty-principle",
+   "pool": "einstein-arena",
+   "claimant": "CodexProLong (EinsteinArena, solution 2505, 2026-08-14)",
+   "claim": "the object is a feasible solution of \"Uncertainty Principle (Upper Bound)\" and the platform's score of it is 0.3130922465438896 (minimize)",
+   "object": "laguerre_double_roots[25]",
+   "source": "corpus/einstein-arena/best-9.json",
+   "sha256": "618a1274a86199e868a0ac5f4777526939cd4087673107a4fb6d1a20002b54a8",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-thomson-problem",
+   "pool": "einstein-arena",
+   "claimant": "AlphaEvolve (EinsteinArena, solution 541, 2026-03-24)",
+   "claim": "the object is a feasible solution of \"Thomson Problem (n = 282)\" and the platform's score of it is 37147.29441846226 (minimize)",
+   "object": "vectors[282]",
+   "source": "corpus/einstein-arena/best-10.json",
+   "sha256": "a0d8ce35f9a9e0839df23589110b0e1e65c43a2999cd0146da61794ce9141257",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-tammes-problem",
+   "pool": "einstein-arena",
+   "claimant": "CodexProLong (EinsteinArena, solution 2497, 2026-08-14)",
+   "claim": "the object is a feasible solution of \"Tammes Problem (n = 50)\" and the platform's score of it is 0.5633081876528571 (maximize)",
+   "object": "vectors[50]",
+   "source": "corpus/einstein-arena/best-11.json",
+   "sha256": "a3d3982fdf04df7baae0dd5b0b949af297304ed46e56a03634fd00472ea45d40",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-flat-polynomials",
+   "pool": "einstein-arena",
+   "claimant": "white (EinsteinArena, solution 2475, 2026-08-10)",
+   "claim": "the object is a feasible solution of \"Flat Polynomials (degree 69)\" and the platform's score of it is 1.2807274949642549 (minimize)",
+   "object": "coefficients[70]",
+   "source": "corpus/einstein-arena/best-12.json",
+   "sha256": "772b895b2cb8b9511dc0b57f1508aeb7b66ce480b2a633bfe04140cd956793d2",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-edges-vs-triangles",
+   "pool": "einstein-arena",
+   "claimant": "CHRONOS (EinsteinArena, solution 2367, 2026-06-27)",
+   "claim": "the object is a feasible solution of \"Edges vs Triangles (Minimal Triangle Density)\" and the platform's score of it is -0.7117091757692579 (maximize)",
+   "object": "weights[500]",
+   "source": "corpus/einstein-arena/best-13.json",
+   "sha256": "91be01ed42c02f5123af1c0c44831ad6c0dc2f030cf894feff2c46e6ed01aa7a",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-circle-packing",
+   "pool": "einstein-arena",
+   "claimant": "AlphaEvolve (EinsteinArena, solution 542, 2026-03-24)",
+   "claim": "the object is a feasible solution of \"Circle Packing in a Square\" and the platform's score of it is 2.6359830849176076 (maximize)",
+   "object": "circles[26]",
+   "source": "corpus/einstein-arena/best-14.json",
+   "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-heilbronn-triangles",
+   "pool": "einstein-arena",
+   "claimant": "AlphaEvolve (EinsteinArena, solution 630, 2026-03-26)",
+   "claim": "the object is a feasible solution of \"Heilbronn Problem for Triangles (n = 11)\" and the platform's score of it is 0.036529889880030156 (maximize)",
+   "object": "points[11]",
+   "source": "corpus/einstein-arena/best-15.json",
+   "sha256": "b49dfb11ee83130ce626e48859eb312d74dc6e500faa8c244928d7aad4ee4cd4",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-circles-rectangle",
+   "pool": "einstein-arena",
+   "claimant": "ExoMind-TTS (EinsteinArena, solution 2544, 2026-08-30)",
+   "claim": "the object is a feasible solution of \"Circles in a Rectangle (n = 21)\" and the platform's score of it is 2.3658323759098576 (maximize)",
+   "object": "circles[21]",
+   "source": "corpus/einstein-arena/best-18.json",
+   "sha256": "b38b661088eda8a1814771a780025dce3308cd9ff8b14c420068aedba09ef7e6",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-difference-bases",
+   "pool": "einstein-arena",
+   "claimant": "AlphaEvolve (EinsteinArena, solution 634, 2026-03-26)",
+   "claim": "the object is a feasible solution of \"Difference Bases\" and the platform's score of it is 2.639027469506608 (minimize)",
+   "object": "set[360]",
+   "source": "corpus/einstein-arena/best-19.json",
+   "sha256": "ffd03f1eda5929276463559b09e2c3d2c18e8b7338ce3e8130d1beda9df8e75a",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-kissing-number-d12",
+   "pool": "einstein-arena",
+   "claimant": "CHRONOS (EinsteinArena, solution 2081, 2026-04-23)",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 12 (n=841)\" and the platform's score of it is 2 (minimize)",
+   "object": "vectors[841]",
+   "source": "corpus/einstein-arena/best-22.json",
+   "sha256": "5d9d2124947a496e0581d344e738c4f4899c85bf036cbe151a4ce4ff5e8fe66f",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-kissing-number-d11-605",
+   "pool": "einstein-arena",
+   "claimant": "ExoMind-TTS (EinsteinArena, solution 2560, 2026-09-05)",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 11 (n=605)\" and the platform's score of it is 1.7102381876301676 (minimize)",
+   "object": "vectors[605]",
+   "source": "corpus/einstein-arena/best-24.json",
+   "sha256": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-kissing-number-d12-842",
+   "pool": "einstein-arena",
+   "claimant": "ExoMind-TTS (EinsteinArena, solution 2561, 2026-09-05)",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 12 (n=842)\" and the platform's score of it is 0.5469062458557645 (minimize)",
+   "object": "vectors[842]",
+   "source": "corpus/einstein-arena/best-25.json",
+   "sha256": "0a58d04ac86fcea33f5fafe0f618e18ef5ebd38d7d9f8cbe6d0159b6e7aca7b9",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-kakeya-needle-128",
+   "pool": "einstein-arena",
+   "claimant": "CrossingPaths (EinsteinArena, solution 2578, 2026-09-15)",
+   "claim": "the object is a feasible solution of \"Discretized Kakeya Needle (n = 128)\" and the platform's score of it is 0.10679779034341574 (minimize)",
+   "object": "offsets[128]",
+   "source": "corpus/einstein-arena/best-26.json",
+   "sha256": "d1649a163f5f107152ccd37cee75c0e0c45ea36e2083db724bce3383cb08ed14",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-hadamard-det-51",
+   "pool": "einstein-arena",
+   "claimant": "Caltech-MathAI (EinsteinArena, solution 2562, 2026-09-08)",
+   "claim": "the object is a feasible solution of \"Hadamard Maximal Determinant (order 51)\" and the platform's score of it is 43.301336781918444 (maximize)",
+   "object": "matrix[51]",
+   "source": "corpus/einstein-arena/best-27.json",
+   "sha256": "85e51b683d73739c6fefef9cbda58aeb3153139af226ec2b159108dc1c4207b9",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-sorting-network-16",
+   "pool": "einstein-arena",
+   "claimant": "Wilhelmina (EinsteinArena, solution 2580, 2026-09-17)",
+   "claim": "the object is a feasible solution of \"Sorting Network (16 inputs)\" and the platform's score of it is 60 (minimize)",
+   "object": "comparators[60]",
+   "source": "corpus/einstein-arena/best-28.json",
+   "sha256": "c66ef83a934e356b9dc7d89dcbe42d6aa3f6050663b9bc9477dfa0054404ab07",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-shannon-capacity-c7-5",
+   "pool": "einstein-arena",
+   "claimant": "Polak-Schrijver (EinsteinArena, solution 2565, 2026-09-11)",
+   "claim": "the object is a feasible solution of \"Shannon Capacity of the 7-Cycle (Fifth Power)\" and the platform's score of it is 367 (maximize)",
+   "object": "words[367]",
+   "source": "corpus/einstein-arena/best-29.json",
+   "sha256": "59b31ea158c0beaf7437071240e9c1c78befcaf6517317b840e7d517ae3bc0d5",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-ring-loading-15",
+   "pool": "einstein-arena",
+   "claimant": "JSAgent-Ring15 (EinsteinArena, solution 2576, 2026-09-12)",
+   "claim": "the object is a feasible solution of \"Ring Loading Problem (15 pairs)\" and the platform's score of it is 1.125 (maximize)",
+   "object": "pairs[15]",
+   "source": "corpus/einstein-arena/best-30.json",
+   "sha256": "7ed0822a56671060b9e06555a3a7c9498b123ec75096f9cbc16cc7a4d494e957",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-spencer-discrepancy",
+   "pool": "einstein-arena",
+   "claimant": "Youhua-Li (EinsteinArena, solution 2567, 2026-09-11)",
+   "claim": "the object is a feasible solution of \"Spencer Discrepancy Constant\" and the platform's score of it is 1.697749375254331 (maximize)",
+   "object": "matrix[17]",
+   "source": "corpus/einstein-arena/best-31.json",
+   "sha256": "e30263341a680f63f86d13b95d3cd7f3f03496057c36cf980f8e56a1ee78fe4a",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-sidon-45-set",
+   "pool": "einstein-arena",
+   "claimant": "Ma-Tang (EinsteinArena, solution 2568, 2026-09-11)",
+   "claim": "the object is a feasible solution of \"Sidon Subsets of (4,5)-Sets\" and the platform's score of it is 0.5714285714285714 (minimize)",
+   "object": "elements[14]",
+   "source": "corpus/einstein-arena/best-32.json",
+   "sha256": "7cabb4fd1c4f08fd74aee3351de8add9b2aaa1a4bbb18d97337cfcf16eaa43ca",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-no-three-in-line-75",
+   "pool": "einstein-arena",
+   "claimant": "Thomas-Prellberg (EinsteinArena, solution 2577, 2026-09-13)",
+   "claim": "the object is a feasible solution of \"No-Three-in-Line (75 × 75 grid)\" and the platform's score of it is 148 (maximize)",
+   "object": "points[148]",
+   "source": "corpus/einstein-arena/best-33.json",
+   "sha256": "b3d56aea63aed5565ebb8bf34facfa31dc01cc64467d9029fc2e8ea1662342ec",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-two-deletion-code-16",
+   "pool": "einstein-arena",
+   "claimant": "GLM-Arena (EinsteinArena, solution 2599, 2026-10-03)",
+   "claim": "the object is a feasible solution of \"Two-Deletion-Correcting Code (length 16)\" and the platform's score of it is 211 (maximize)",
+   "object": "words[211]",
+   "source": "corpus/einstein-arena/best-34.json",
+   "sha256": "29fb4e8f0835a9c514a2e17c5418b74a3f7581fa74051de264fbb490b519585b",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "ea-best-snake-in-the-box-13",
+   "pool": "einstein-arena",
+   "claimant": "Nathaniel-Itty (EinsteinArena, solution 2597, 2026-09-18)",
+   "claim": "the object is a feasible solution of \"Snake-in-the-Box (13-dimensional hypercube)\" and the platform's score of it is 2934 (maximize)",
+   "object": "actions[2934]",
+   "source": "corpus/einstein-arena/best-35.json",
+   "sha256": "5ebdb73d057b679a6352b00f6f3e344a8f919c2c8bc803a96fcbe30f6d78b98e",
+   "decider": "per problem: exists for kissing, circles, heilbronn, min-distance, flat polynomials, edges-vs-triangles, overlap, autocorrelation (instruments/kissing, easota); new for the rest"
+  },
+  {
+   "id": "st-kakeya-f3-d3-13",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "a 13-point Kakeya set in F3^3 (every direction is contained in a line inside the set)",
+   "object": "the file as published",
+   "source": "corpus/station-v2/finite_kakeya/kakeya_F3_d3_13.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/finite_kakeya/kakeya_F3_d3_13.npy",
+   "sha256": "8b1cac563e00cc53ecb5c0d38e23078fbbde36e6b6796f6c375769fbfa393737",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration)"
+  },
+  {
+   "id": "st-kakeya-f3-d4-27",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "a 27-point Kakeya set in F3^4",
+   "object": "the file as published",
+   "source": "corpus/station-v2/finite_kakeya/kakeya_F3_d4_27.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/finite_kakeya/kakeya_F3_d4_27.npy",
+   "sha256": "dae8bf4b72750146aadad1de525be39fbfa49e78473202581363bacc82c14f2d",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration)"
+  },
+  {
+   "id": "st-kakeya-f3-d5-53",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "a 53-point Kakeya set in F3^5",
+   "object": "the file as published",
+   "source": "corpus/station-v2/finite_kakeya/kakeya_F3_d5_53.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/finite_kakeya/kakeya_F3_d5_53.npy",
+   "sha256": "4ddbba43b2cff772e4eb1ffe42064fb05e95a03972a2c448472acdcf803da812",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration)"
+  },
+  {
+   "id": "st-difference-basis-q89",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "a 360-mark difference basis for the group of order 89² (every nonzero element is a difference of two marks)",
+   "object": "the file as published",
+   "source": "corpus/station-v2/difference_bases/difference_basis_q89.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/difference_bases/difference_basis_q89.npy",
+   "sha256": "7b3032fa66098cf6af4c151bd7303366a05fd41cd442848c504322c0731f852a",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration)"
+  },
+  {
+   "id": "st-jacobian",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the polynomial map with the sparse rational coefficients given has the Jacobian property claimed and the collision witnesses listed collide",
+   "object": "the file as published",
+   "source": "corpus/station-v2/jacobian/construction.json — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/jacobian/construction.json",
+   "sha256": "ba0d49ac35c97eb24d0082457d5602a66761344d80db30c722de1ed06eb78e67",
+   "hashOnly": false,
+   "decider": "instruments/polymaps (exists)"
+  },
+  {
+   "id": "st-kakeya-needle",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the discretized Kakeya needle construction with the given offsets attains the bound in construction_metadata.json",
+   "object": "the file as published",
+   "source": "corpus/station-v2/kakeya_needle/kakeya_needle_offsets.npz — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/kakeya_needle/kakeya_needle_offsets.npz",
+   "sha256": "ba68158d6e077aa55d3b5e8132936d2d006cc291a9989b37c05b607a21b4cc8e",
+   "hashOnly": false,
+   "decider": "new (exact rational scoring)"
+  },
+  {
+   "id": "st-flat-autoconvolution",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the nonnegative step function with these weights attains the autocorrelation bound the README states",
+   "object": "the file as published",
+   "source": "corpus/station-v2/flat_autoconvolution/autocorr_6-3_weights.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/flat_autoconvolution/autocorr_6-3_weights.npy",
+   "sha256": "0d1f1f2a65b8db8cf7d97a4bca7d49d85a74be4c2f7639d7267cd29c655bdf83",
+   "hashOnly": false,
+   "decider": "new (exact rational scoring)"
+  },
+  {
+   "id": "st-peak-autoconvolution",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the step function with these weights attains the peak bound the README states (its local-minimum certificate in local_minima_n14_certificate.json)",
+   "object": "the file as published",
+   "source": "corpus/station-v2/peak_autoconvolution/autocorr_6-2_weights.npy — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/peak_autoconvolution/autocorr_6-2_weights.npy",
+   "sha256": "10094879a82ea22ea499c529cdb45f259b08d3155e6a38a184ce5f2fa0165a50",
+   "hashOnly": false,
+   "decider": "new (exact rational scoring)"
+  },
+  {
+   "id": "st-min-overlap",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the upper-bound step function in the archive attains the printed minimum-overlap bound, and the lower-bound certificate data decide the printed lower bound",
+   "object": "the file as published",
+   "source": "corpus/station-v2/erdos_minimum_overlap/autocorr_6_5_certificate_data.npz — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/erdos_minimum_overlap/autocorr_6_5_certificate_data.npz",
+   "sha256": "c9fdb2881874c4797acca21be2ab4fcf7b7a43e75ed763ce1f17d17e269e7453",
+   "hashOnly": false,
+   "decider": "new (exact rational scoring)"
+  },
+  {
+   "id": "st-sign-uncertainty",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the witness in the archive (exact coefficients and roots) attains the sign-uncertainty bound the README states",
+   "object": "the file as published",
+   "source": "https://raw.githubusercontent.com/dualverse-ai/station_data_v2/a4ae9192fa75/artifacts/sign_uncertainty/uncertainty_data.json.gz (hash only, 14.6 MB) — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/sign_uncertainty/uncertainty_data.json.gz",
+   "sha256": "04440bb9d0239a68ed38b7d780462380c2b698fdf54f0917c628ff7df35b9826",
+   "hashOnly": true,
+   "decider": "new (exact rational scoring)"
+  },
+  {
+   "id": "fs-capset-n8-512",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 512 points listed form a cap set in F3^8 (no three on a line)",
+   "object": "the file as published",
+   "source": "corpus/funsearch/cap_set/n8_size512.txt — github.com/google-deepmind/funsearch @ cc53f274237d cap_set/n8_size512.txt",
+   "sha256": "8d6df45c3039b6a7ee1aae7216b100c3f4c075179dc6471f4f51b968a26d8905",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "fs-admissible-n12-w7-792",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 792 vectors listed form an admissible set with parameters n = 12, w = 7",
+   "object": "the file as published",
+   "source": "corpus/funsearch/admissible_set/admissible_set_n12_w7_size792.txt — github.com/google-deepmind/funsearch @ cc53f274237d admissible_set/admissible_set_n12_w7_size792.txt",
+   "sha256": "fb8c8f2a55d4c6c68b1316b80ad891c9675b2e44ba9e0ab92a3f4f90216b15a3",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "fs-admissible-n15-w10-3003",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 3003 vectors listed form an admissible set with n = 15, w = 10",
+   "object": "the file as published",
+   "source": "corpus/funsearch/admissible_set/admissible_set_n15_w10_size3003.txt — github.com/google-deepmind/funsearch @ cc53f274237d admissible_set/admissible_set_n15_w10_size3003.txt",
+   "sha256": "b88b9feb416affbf8369443d2ebc88ff989bdfbec2591bbd910417d6c788da71",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "fs-admissible-n21-w15-43596",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 43,596 vectors listed form an admissible set with n = 21, w = 15",
+   "object": "the file as published",
+   "source": "https://raw.githubusercontent.com/google-deepmind/funsearch/cc53f274237d/admissible_set/admissible_set_n21_w15_size43596.txt (hash only) — github.com/google-deepmind/funsearch @ cc53f274237d admissible_set/admissible_set_n21_w15_size43596.txt",
+   "sha256": "9244c0bdbe325b9e9a086492968c40510a940c22aaa9bc71e37e2f3ee15d802d",
+   "hashOnly": true,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "fs-admissible-n24-w17-237984",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 237,984 vectors listed form an admissible set with n = 24, w = 17",
+   "object": "the file as published",
+   "source": "https://raw.githubusercontent.com/google-deepmind/funsearch/cc53f274237d/admissible_set/admissible_set_n24_w17_size237984.txt (hash only) — github.com/google-deepmind/funsearch @ cc53f274237d admissible_set/admissible_set_n24_w17_size237984.txt",
+   "sha256": "4ea8df561f46898c9069c0c87f00fa9aaa65cb731c66977302f585442812f86e",
+   "hashOnly": true,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "fs-cyclic-nodes11-n4-754",
+   "pool": "funsearch",
+   "claimant": "FunSearch (DeepMind, Nature 625, 2023)",
+   "claim": "the 754 vertices listed form an independent set in the fourth strong power of the cyclic graph on 11 nodes",
+   "object": "the file as published",
+   "source": "corpus/funsearch/cyclic_graphs/nodes11_n4_size754.txt — github.com/google-deepmind/funsearch @ cc53f274237d cyclic_graphs/nodes11_n4_size754.txt",
+   "sha256": "7baeb8319a673a1cfc9c439a130711b07f0a810c0c8741eba310996253ebe794",
+   "hashOnly": false,
+   "decider": "new, finite (exact enumeration of the defining property)"
+  },
+  {
+   "id": "oc-1a",
+   "pool": "optconst",
+   "claimant": "teorth/optimizationproblems contributors (AI-assisted entries)",
+   "claim": "Sidon autocorrelation constant C1a: the asterisked bound 1.292* holds for the published step function",
+   "object": "the certificate the entry links",
+   "source": "corpus/optimization-constants/registry/1a.md (teorth/optimizationproblems @ 2c1968cd520b constants/1a.md)",
+   "sha256": "75184a18c9c2c6cb963bac975a4359d409f698990995f3ec16848cc2161d7040",
+   "decider": "new (a Bessel-kernel integral; the EinsteinArena autocorrelation instrument has the shape)"
+  },
+  {
+   "id": "oc-3a",
+   "pool": "optconst",
+   "claimant": "teorth/optimizationproblems contributors (AI-assisted entries)",
+   "claim": "the Gyarmati–Hennecart–Ruzsa constant C3a: the asterisked bound 1.19519192* holds for the published (Lean-formalised) masked-digit constructions",
+   "object": "the certificate the entry links",
+   "source": "corpus/optimization-constants/registry/3a.md (teorth/optimizationproblems @ 2c1968cd520b constants/3a.md)",
+   "sha256": "2ebc3954e674a94481435e422e5c0b82f53581a537e8d8e85ffae1684826641a",
+   "decider": "new"
+  },
+  {
+   "id": "oc-84a",
+   "pool": "optconst",
+   "claimant": "teorth/optimizationproblems contributors (AI-assisted entries)",
+   "claim": "the Erdős unit-distance exponent C84a: the asterisked bound 1.03583* follows from the chain of rows the entry cites",
+   "object": "the certificate the entry links",
+   "source": "corpus/optimization-constants/registry/84a.md (teorth/optimizationproblems @ 2c1968cd520b constants/84a.md)",
+   "sha256": "69714404c78ac4c459baa0978f5befe8ba9b295ec9d86eeb464c3dd52d8ab275",
+   "decider": "new"
+  },
+  {
+   "id": "ae-repo-1",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 1 (status.json: world_record; experiments: finite_field_kakeya_problem / finite_field_nikodym_problem): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/1.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/1.html",
+   "sha256": "b89661360a9be3913286bda2115bd00db8ec57cbd01a364c3d9e9d58f30cf0bf",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-2",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 2 (status.json: world_record; experiments: autocorrelation_problems): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/2.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/2.html",
+   "sha256": "646585d70e1605f6c8693450ec7921b8b38313ebd0f18a5f1b8da565a3bbd3d1",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-4",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 4 (status.json: world_record; experiments: (experiment not named in the page)): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/4.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/4.html",
+   "sha256": "a0c53173c842a90801f8d8187ffd065355a4ad4c3256768df47eb027caed8221",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-5",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 5 (status.json: world_record; experiments: autocorrelation_problems): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/5.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/5.html",
+   "sha256": "237765d9009c938a6bb101e0d7e11e10fb3e8c270cc485e71f822d4e9d60bb25",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-7",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 7 (status.json: world_record; experiments: difference_bases): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/7.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/7.html",
+   "sha256": "a41d53032e293a190a6069603c2b25be7f04dfb7fa80675a29ac25d41beb9169",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-8",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 8 (status.json: world_record; experiments: (experiment not named in the page)): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/8.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/8.html",
+   "sha256": "ce81f9adaab67df783dfc587b0f457493e5eeff31c818881084da715468cad6b",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-9",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 9 (status.json: world_record; experiments: kakeya_needle_2d): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/9.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/9.html",
+   "sha256": "401d94597707a735a75f86597d90a52ebb2b11ef2f5d04808d361cc258f687f0",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-10",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 10 (status.json: world_record; experiments: kakeya_needle_3d): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/10.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/10.html",
+   "sha256": "b0f013739a79ead72e305f6098ffaf940ffe49d4b86e9a9b6940a048b33bae92",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-30",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 30 (status.json: world_record; experiments: arithmetic_kakeya_conjecture): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/30.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/30.html",
+   "sha256": "c8dc45f65746f99927ea8d3ebf0389d7cecc179ca9285b08e54e526a6f9e5493",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "ae-repo-32",
+   "pool": "alphaevolve-repo",
+   "claimant": "AlphaEvolve (Georgiev, Gómez-Serrano, Tao, Wagner; arXiv:2511.02864)",
+   "claim": "problem 32 (status.json: world_record; experiments: spherical_t_designs): the construction the repository publishes attains the record it states",
+   "object": "whatever the experiments folder at the pinned commit holds — a construction file decides, a program alone is NEEDS DATA (claimant code is never run)",
+   "source": "corpus/alphaevolve-problems/32.html — github.com/google-deepmind/alphaevolve_repository_of_problems @ 8f447457957d problems/32.html",
+   "sha256": "c1d6aa9cdffad09f00fdd9c733aa52c24fdd6a649692beae6a805899529ab481",
+   "decider": "per problem; new unless the shape matches an existing instrument"
+  },
+  {
+   "id": "erdos-513-gpt",
+   "pool": "erdos-513",
+   "claimant": "GPT (prompted by Sothanaphan), as erdosproblems.com/513 records it",
+   "claim": "B > 0.5850788 for Erdős #513 (the liminf ratio of the maximal term to the maximum modulus of a transcendental entire function)",
+   "object": "none published on the page — the extremal function would decide it",
+   "source": "corpus/sources/erdosproblems-513_2026-10-02.html",
+   "sha256": "f33802721ec81476d992abc3d00005b9c9c017db08b6e35688f243b2dbe5b38c",
+   "decider": "NEEDS DATA unless the function is published"
+  }
+ ]
+}

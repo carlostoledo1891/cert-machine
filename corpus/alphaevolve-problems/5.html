@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Problem Template</title>
+    <link rel="stylesheet" href="https://www.gstatic.com/external_hosted/katex/dist/katex.min.css">
+    <script defer src="https://www.gstatic.com/external_hosted/katex/dist/katex.min.js"></script>
+    <script defer src="https://www.gstatic.com/external_hosted/katex/dist/contrib/auto-render.min.js" onload="initializeAndRender()"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9fafb; /* gray-50 */
+            color: #1f2937; /* gray-800 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Main container for content */
+        .container {
+            max-width: 56rem; /* 896px */
+            margin: 0 auto;
+            padding: 3rem 1.5rem; /* py-12 px-6 */
+        }
+
+        /* Card holding the problem */
+        .problem-card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* shadow-md */
+        }
+
+        /* General section spacing */
+        .problem-section {
+            margin-bottom: 2rem;
+        }
+
+        /* Headers */
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #111827; /* gray-900 */
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6; /* border-gray-100 */
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            color: #1f2937; /* gray-800 */
+            margin-bottom: 1rem;
+        }
+
+        /* Problem statement text */
+        #problem-statement {
+            color: #374151; /* gray-700 */
+        }
+        #problem-statement p {
+            margin-bottom: 1.25em;
+        }
+
+        /* Comments Box */
+        .comments-box {
+            background-color: #f9fafb; /* gray-50 */
+            padding: 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            color: #374151; /* gray-700 */
+        }
+        .comments-box p {
+            margin: 0;
+        }
+
+        table {
+          border: 2px solid rgb(140 140 140);
+        }
+
+        th,
+        td {
+          border: 1px solid rgb(160 160 160);
+        }
+        /* Resources List */
+        .resources-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .resources-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .resources-list li:last-child {
+            margin-bottom: 0;
+        }
+        .resources-list svg {
+            height: 1.5rem;
+            width: 1.5rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        .resources-list a {
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .resources-list a:hover {
+            text-decoration: underline;
+        }
+        .colab-link { color: #2563eb; } /* blue-600 */
+        .colab-link:hover { color: #1d4ed8; } /* blue-800 */
+        .colab-icon { color: #3b82f6; } /* blue-500 */
+
+        .paper-link { color: #7c3aed; } /* purple-600 */
+        .paper-link:hover { color: #5b21b6; } /* purple-800 */
+        .paper-icon { color: #8b5cf6; } /* purple-500 */
+
+        /* KaTeX display math scroll */
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.5em 0;
+        }
+        /* ====================================================================== */
+        /* START: ADDED CSS FOR NAVIGATION                                        */
+        /* ====================================================================== */
+        .problem-navigation {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            border-top: 2px solid #f3f4f6; /* Uses the same border style as h1 */
+        }
+.nav-link {            background-color: #f3f4f6; /* gray-100 */            color: #374151; /* gray-700 */            font-weight: 600;            text-decoration: none;            padding: 0.5rem 1rem; /* Vertical and horizontal padding */            border-radius: 0.375rem; /* rounded-md */            border: 1px solid #e5e7eb; /* gray-200 */            transition: background-color 0.2s;        }        .nav-link:hover {            background-color: #e5e7eb; /* gray-200 */            color: #1f2937; /* gray-800 */            text-decoration: none; /* Keep underline off */        }
+            color: #1d4ed8; /* blue-800 */
+            text-decoration: underline;
+        }
+        .nav-link.hidden {
+            /* Hides the link while preserving layout space */
+            visibility: hidden;
+        }
+        /* ====================================================================== */
+        /* END: ADDED CSS FOR NAVIGATION                                          */
+        /* ====================================================================== */
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="problem-card">
+
+            <header>
+                <h1 id="problem-title"></h1>
+            </header>
+
+            <section class="problem-section">
+                <h2>Problem Statement</h2>
+                <div id="problem-statement">
+                    </div>
+            </section>
+
+            <section class="problem-section">
+                <h2>Comments</h2>
+                <div id="problem-comments" class="comments-box">
+                    </div>
+            </section>
+
+            <section>
+                <h2>Resources</h2>
+                <ul class="resources-list">
+                    <li>
+                        <svg class="colab-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <a id="colab-link" href="#" target="_blank" rel="noopener noreferrer" class="colab-link">
+                            </a>
+                    </li>
+                    <li>
+                         <svg class="paper-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <a id="paper-link" href="#" target="_blank" rel="noopener noreferrer" class="paper-link">
+                            </a>
+                    </li>
+                </ul>
+            </section>
+
+
+
+
+            <nav class="problem-navigation">
+                <a id="prev-link" class="nav-link" href="#">&larr; Previous Problem</a>
+                <a id="next-link" class="nav-link" href="#">Next Problem &rarr;</a>
+            </nav>
+
+
+
+        </div>
+    </div>
+
+    <script>
+        // ======================================================================
+        //
+        //                  EDIT THIS SECTION FOR EACH NEW PROBLEM
+        //
+        // ======================================================================
+
+
+        const problemData = {
+            title: "5. Erdős minimum overlap problem",
+
+            // Use backticks ` for multi-line strings.
+            // Wrap LaTeX in $...$ for inline and $$...$$ for display.
+            statement: `
+                <p>
+                    Let $C$ be the largest constant for which
+$$ \\sup_{x \\in [-2,2]} \\int_{-1}^1 f(t) g(x+t)\ dt\\geq C$$
+for all non-negative $f,g: [-1,1] \\to [0,1]$ with $f+g=1$ on $[-1,1]$ and $\\int_\\mathbb{R} f = 1$, where we extend $f,g$ by zero outside of $[-1,1]$.  What is $C$?
+                </p>
+            `,
+
+            comments: `
+                <p>
+                                         <table>
+  <caption>
+    Upper bounds for $C$
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Bound</th>
+      <th scope="col">Source</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">$0.380927$</td>
+      <td>Haugland</td>
+      <td>2016</td>
+    </tr>
+    <tr>
+      <td scope="row">$0.380924$</td>
+      <td><A HREF="https://arxiv.org/abs/2511.02864">Georgiev-Gómez-Serrano-Tao-Wagner</A> [<A HREF="https://colab.research.google.com/github/google-deepmind/alphaevolve_results/blob/master/mathematical_results.ipynb">Colab 1</A>] [<A HREF="https://github.com/google-deepmind/alphaevolve_repository_of_problems/blob/main/experiments/autocorrelation_problems/autocorrelation_problems.ipynb">Colab 2</A>]</td>
+      <td>14 May 2025</td>
+    </tr>
+    <tr>
+      <td scope="row">$0.380876$</td>
+      <td><A HREF="https://test-time-training.github.io/discover.pdf">Yuksekgonul et al.</A></td>
+      <td>Jan 2026</td>
+    </tr>
+  </tbody>
+</table>           
+
+
+     <table>
+  <caption>
+    Lower bounds for $C$
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Bound</th>
+      <th scope="col">Source</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td scope="row">$1$</td>
+    <td>Trivial</td>
+    </tr>
+    <tr>
+      <td scope="row">$0.379005$</td>
+      <td>White</td>
+      <td>2022</td>
+    </tr>
+  </tbody>
+</table> 
+                </p>
+            `,
+
+            colabURL: "https://colab.research.google.com/github/google-deepmind/alphaevolve_results/blob/master/mathematical_results.ipynb",
+            colabText: "Explore in Google Colab",
+
+            paperURL: "https://arxiv.org/abs/2511.02864",
+            paperText: "See Section 6.2 in \"Mathematical Exploration and Discovery at Scale \" paper"
+        };
+
+        // ======================================================================
+        //             (No need to edit anything below this line)
+        // ======================================================================
+
+        // MODIFICATION: This function is now called by the `onload` attribute
+        // of the auto-render script tag. This ensures all the KaTeX logic
+        // is loaded and ready before we try to use it.
+        function initializeAndRender() {
+            // Populate the page with the data from the problemData object
+            document.title = problemData.title; // Also update the page title
+            document.getElementById('problem-title').innerHTML = problemData.title;
+            document.getElementById('problem-statement').innerHTML = problemData.statement;
+            document.getElementById('problem-comments').innerHTML = problemData.comments;
+
+            const colabLink = document.getElementById('colab-link');
+            colabLink.href = problemData.colabURL;
+            colabLink.textContent = problemData.colabText;
+
+            const paperLink = document.getElementById('paper-link');
+            paperLink.href = problemData.paperURL;
+            paperLink.textContent = problemData.paperText;
+
+            // Render LaTeX after the content has been inserted
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\(', right: '\\)', display: false},
+                    {left: '\\[', right: '\\]', display: true}
+                ],
+                throwOnError : false
+            });
+
+            // ======================================================================
+            // START: ADDED JAVASCRIPT FOR NAVIGATION
+            // ======================================================================
+            const totalProblems = 67;
+            const path = window.location.pathname;
+            const filename = path.split('/').pop(); // e.g., "31.html"
+            // Use parseInt with a radix of 10 to ensure correct number parsing
+            const currentProblemNumber = parseInt(filename, 10);
+
+            const prevLink = document.getElementById('prev-link');
+            const nextLink = document.getElementById('next-link');
+
+            // Handle the "Previous" link
+            if (currentProblemNumber > 1) {
+                prevLink.href = `${currentProblemNumber - 1}.html`;
+            } else {
+                prevLink.classList.add('hidden');
+            }
+
+            // Handle the "Next" link
+            if (currentProblemNumber < totalProblems) {
+                nextLink.href = `${currentProblemNumber + 1}.html`;
+            } else {
+                nextLink.classList.add('hidden');
+            }
+            // ======================================================================
+            // END: ADDED JAVASCRIPT FOR NAVIGATION
+            // ======================================================================
+        }
+    </script>
+</body>
+</html>

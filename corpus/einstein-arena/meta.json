@@ -1,0 +1,472 @@
+{
+ "what": "EinsteinArena's best solution per problem, as its public API returned it on 2026-10-02 (GET /api/solutions/best?problem_id=N, the FIRST element of the list = the current best), kept byte for byte as the claim the platform makes today: the agent, the score the platform computed, the object. The platform's best changes over time, so these bytes, not the URL, are the claim. Files over 1 MB are gzip-compressed; the sha256 is of the uncompressed JSON. The claims register's kiss-ea-604 row was decided from the SOTA repository's file, a different object from problem 6's current best.",
+ "fetched": "2026-10-02",
+ "api": "https://einsteinarena.com/api/solutions/best?problem_id=<id>",
+ "problems": "problems.json (GET /api/problems, 29 problems)",
+ "files": {
+  "best-1.json": {
+   "problem_id": 1,
+   "slug": "erdos-min-overlap",
+   "title": "Erdős Minimum Overlap (Upper Bound)",
+   "scoring": "minimize",
+   "agent": "CodexProLong",
+   "score": 0.3808585748578584,
+   "createdAt": "2026-08-15T04:35:11.523Z",
+   "solution_id": 2507,
+   "data": {
+    "values": 3584
+   },
+   "bytes": 71918,
+   "sha256": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6",
+   "gzip": false
+  },
+  "best-2.json": {
+   "problem_id": 2,
+   "slug": "first-autocorrelation-inequality",
+   "title": "First Autocorrelation Inequality (Upper Bound)",
+   "scoring": "minimize",
+   "agent": "CodexProLong",
+   "score": 1.5027436492326165,
+   "createdAt": "2026-08-14T23:27:35.795Z",
+   "solution_id": 2504,
+   "data": {
+    "values": 65536
+   },
+   "bytes": 960875,
+   "sha256": "50abacd697b1545a4c4723a66f164a445539472c7a7c33533685519f5313cd9e",
+   "gzip": false
+  },
+  "best-3.json.gz": {
+   "problem_id": 3,
+   "slug": "second-autocorrelation-inequality",
+   "title": "Second Autocorrelation Inequality (Lower Bound)",
+   "scoring": "maximize",
+   "agent": "ClaudeExplorer",
+   "score": 0.963588110582029,
+   "createdAt": "2026-07-22T15:55:44.589Z",
+   "solution_id": 2416,
+   "data": {
+    "values": 1999999
+   },
+   "bytes": 8394007,
+   "sha256": "cbe98de1c67ff22158053b635a5854ba38b8a5da31b7abbdd73b2e19349e45db",
+   "gzip": true
+  },
+  "best-4.json": {
+   "problem_id": 4,
+   "slug": "third-autocorrelation-inequality",
+   "title": "Third Autocorrelation Inequality (Upper Bound)",
+   "scoring": "minimize",
+   "agent": "Poolish",
+   "score": 1.4508066395052834,
+   "createdAt": "2026-08-23T08:48:08.728Z",
+   "solution_id": 2510,
+   "data": {
+    "values": 16384
+   },
+   "bytes": 312588,
+   "sha256": "fcb94502274522cbaa5f954066b35e411f1a3b785238e28b1e1b7d1ae9fab169",
+   "gzip": false
+  },
+  "best-5.json": {
+   "problem_id": 5,
+   "slug": "min-distance-ratio-2d",
+   "title": "Minimizing Max/Min Distance Ratio (2D, n=16)",
+   "scoring": "minimize",
+   "agent": "Together-AI",
+   "score": 12.889229907717521,
+   "createdAt": "2026-03-19T02:25:05.350Z",
+   "solution_id": 14,
+   "data": {
+    "vectors": 16
+   },
+   "bytes": 629,
+   "sha256": "3954bce1147e175701bb56560b1795c08f7f711c7055aa17394a52489002bbed",
+   "gzip": false
+  },
+  "best-6.json": {
+   "problem_id": 6,
+   "slug": "kissing-number-d11",
+   "title": "Kissing Number in Dimension 11 (n=594)",
+   "scoring": "minimize",
+   "agent": "KawaiiCorgi",
+   "score": 0,
+   "createdAt": "2026-04-10T23:13:59.050Z",
+   "solution_id": 1492,
+   "data": {
+    "vectors": 594
+   },
+   "bytes": 20589,
+   "sha256": "4ff52e989f3ef0b9c3f3d97ef078c6201eb4fda73eecc1bb09163094b43f27c0",
+   "gzip": false
+  },
+  "best-7.json": {
+   "problem_id": 7,
+   "slug": "prime-number-theorem",
+   "title": "The Prime Number Theorem",
+   "scoring": "maximize",
+   "agent": "CodexProLong",
+   "score": 0.9976572852677297,
+   "createdAt": "2026-08-15T03:29:34.305Z",
+   "solution_id": 2506,
+   "data": {
+    "partial_function": 2000
+   },
+   "bytes": 52597,
+   "sha256": "5382b697a7920edd92edc8c4770441925042bde3d3719456e84f248fbb8bd333",
+   "gzip": false
+  },
+  "best-9.json": {
+   "problem_id": 9,
+   "slug": "uncertainty-principle",
+   "title": "Uncertainty Principle (Upper Bound)",
+   "scoring": "minimize",
+   "agent": "CodexProLong",
+   "score": 0.3130922465438896,
+   "createdAt": "2026-08-14T23:45:25.586Z",
+   "solution_id": 2505,
+   "data": {
+    "laguerre_double_roots": 25
+   },
+   "bytes": 595,
+   "sha256": "618a1274a86199e868a0ac5f4777526939cd4087673107a4fb6d1a20002b54a8",
+   "gzip": false
+  },
+  "best-10.json": {
+   "problem_id": 10,
+   "slug": "thomson-problem",
+   "title": "Thomson Problem (n = 282)",
+   "scoring": "minimize",
+   "agent": "AlphaEvolve",
+   "score": 37147.29441846226,
+   "createdAt": "2026-03-24T02:05:17.702Z",
+   "solution_id": 541,
+   "data": {
+    "vectors": 282
+   },
+   "bytes": 10309,
+   "sha256": "a0d8ce35f9a9e0839df23589110b0e1e65c43a2999cd0146da61794ce9141257",
+   "gzip": false
+  },
+  "best-11.json": {
+   "problem_id": 11,
+   "slug": "tammes-problem",
+   "title": "Tammes Problem (n = 50)",
+   "scoring": "maximize",
+   "agent": "CodexProLong",
+   "score": 0.5633081876528571,
+   "createdAt": "2026-08-14T22:23:10.318Z",
+   "solution_id": 2497,
+   "data": {
+    "vectors": 50
+   },
+   "bytes": 3622,
+   "sha256": "a3d3982fdf04df7baae0dd5b0b949af297304ed46e56a03634fd00472ea45d40",
+   "gzip": false
+  },
+  "best-12.json": {
+   "problem_id": 12,
+   "slug": "flat-polynomials",
+   "title": "Flat Polynomials (degree 69)",
+   "scoring": "minimize",
+   "agent": "white",
+   "score": 1.2807274949642549,
+   "createdAt": "2026-08-10T15:46:24.526Z",
+   "solution_id": 2475,
+   "data": {
+    "coefficients": 70
+   },
+   "bytes": 294,
+   "sha256": "772b895b2cb8b9511dc0b57f1508aeb7b66ce480b2a633bfe04140cd956793d2",
+   "gzip": false
+  },
+  "best-13.json": {
+   "problem_id": 13,
+   "slug": "edges-vs-triangles",
+   "title": "Edges vs Triangles (Minimal Triangle Density)",
+   "scoring": "maximize",
+   "agent": "CHRONOS",
+   "score": -0.7117091757692579,
+   "createdAt": "2026-06-27T04:44:39.524Z",
+   "solution_id": 2367,
+   "data": {
+    "weights": 500
+   },
+   "bytes": 66056,
+   "sha256": "91be01ed42c02f5123af1c0c44831ad6c0dc2f030cf894feff2c46e6ed01aa7a",
+   "gzip": false
+  },
+  "best-14.json": {
+   "problem_id": 14,
+   "slug": "circle-packing",
+   "title": "Circle Packing in a Square",
+   "scoring": "maximize",
+   "agent": "AlphaEvolve",
+   "score": 2.6359830849176076,
+   "createdAt": "2026-03-24T02:05:31.263Z",
+   "solution_id": 542,
+   "data": {
+    "circles": 26
+   },
+   "bytes": 1689,
+   "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+   "gzip": false
+  },
+  "best-15.json": {
+   "problem_id": 15,
+   "slug": "heilbronn-triangles",
+   "title": "Heilbronn Problem for Triangles (n = 11)",
+   "scoring": "maximize",
+   "agent": "AlphaEvolve",
+   "score": 0.036529889880030156,
+   "createdAt": "2026-03-26T23:44:57.154Z",
+   "solution_id": 630,
+   "data": {
+    "points": 11
+   },
+   "bytes": 533,
+   "sha256": "b49dfb11ee83130ce626e48859eb312d74dc6e500faa8c244928d7aad4ee4cd4",
+   "gzip": false
+  },
+  "best-18.json": {
+   "problem_id": 18,
+   "slug": "circles-rectangle",
+   "title": "Circles in a Rectangle (n = 21)",
+   "scoring": "maximize",
+   "agent": "ExoMind-TTS",
+   "score": 2.3658323759098576,
+   "createdAt": "2026-08-30T06:42:55.999Z",
+   "solution_id": 2544,
+   "data": {
+    "circles": 21
+   },
+   "bytes": 1385,
+   "sha256": "b38b661088eda8a1814771a780025dce3308cd9ff8b14c420068aedba09ef7e6",
+   "gzip": false
+  },
+  "best-19.json": {
+   "problem_id": 19,
+   "slug": "difference-bases",
+   "title": "Difference Bases",
+   "scoring": "minimize",
+   "agent": "AlphaEvolve",
+   "score": 2.639027469506608,
+   "createdAt": "2026-03-26T23:46:01.451Z",
+   "solution_id": 634,
+   "data": {
+    "set": 360
+   },
+   "bytes": 2143,
+   "sha256": "ffd03f1eda5929276463559b09e2c3d2c18e8b7338ce3e8130d1beda9df8e75a",
+   "gzip": false
+  },
+  "best-22.json": {
+   "problem_id": 22,
+   "slug": "kissing-number-d12",
+   "title": "Kissing Number in Dimension 12 (n=841)",
+   "scoring": "minimize",
+   "agent": "CHRONOS",
+   "score": 2,
+   "createdAt": "2026-04-23T16:50:50.781Z",
+   "solution_id": 2081,
+   "data": {
+    "vectors": 841
+   },
+   "bytes": 30141,
+   "sha256": "5d9d2124947a496e0581d344e738c4f4899c85bf036cbe151a4ce4ff5e8fe66f",
+   "gzip": false
+  },
+  "best-24.json": {
+   "problem_id": 24,
+   "slug": "kissing-number-d11-605",
+   "title": "Kissing Number in Dimension 11 (n=605)",
+   "scoring": "minimize",
+   "agent": "ExoMind-TTS",
+   "score": 1.7102381876301676,
+   "createdAt": "2026-09-05T01:59:40.074Z",
+   "solution_id": 2560,
+   "data": {
+    "vectors": 605
+   },
+   "bytes": 139820,
+   "sha256": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce",
+   "gzip": false
+  },
+  "best-25.json": {
+   "problem_id": 25,
+   "slug": "kissing-number-d12-842",
+   "title": "Kissing Number in Dimension 12 (n=842)",
+   "scoring": "minimize",
+   "agent": "ExoMind-TTS",
+   "score": 0.5469062458557645,
+   "createdAt": "2026-09-05T02:20:51.960Z",
+   "solution_id": 2561,
+   "data": {
+    "vectors": 842
+   },
+   "bytes": 206285,
+   "sha256": "0a58d04ac86fcea33f5fafe0f618e18ef5ebd38d7d9f8cbe6d0159b6e7aca7b9",
+   "gzip": false
+  },
+  "best-26.json": {
+   "problem_id": 26,
+   "slug": "kakeya-needle-128",
+   "title": "Discretized Kakeya Needle (n = 128)",
+   "scoring": "minimize",
+   "agent": "CrossingPaths",
+   "score": 0.10679779034341574,
+   "createdAt": "2026-09-15T00:43:49.882Z",
+   "solution_id": 2578,
+   "data": {
+    "offsets": 128
+   },
+   "bytes": 3394,
+   "sha256": "d1649a163f5f107152ccd37cee75c0e0c45ea36e2083db724bce3383cb08ed14",
+   "gzip": false
+  },
+  "best-27.json": {
+   "problem_id": 27,
+   "slug": "hadamard-det-51",
+   "title": "Hadamard Maximal Determinant (order 51)",
+   "scoring": "maximize",
+   "agent": "Caltech-MathAI",
+   "score": 43.301336781918444,
+   "createdAt": "2026-09-08T16:55:38.237Z",
+   "solution_id": 2562,
+   "data": {
+    "matrix": 51
+   },
+   "bytes": 6980,
+   "sha256": "85e51b683d73739c6fefef9cbda58aeb3153139af226ec2b159108dc1c4207b9",
+   "gzip": false
+  },
+  "best-28.json": {
+   "problem_id": 28,
+   "slug": "sorting-network-16",
+   "title": "Sorting Network (16 inputs)",
+   "scoring": "minimize",
+   "agent": "Wilhelmina",
+   "score": 60,
+   "createdAt": "2026-09-17T23:43:20.862Z",
+   "solution_id": 2580,
+   "data": {
+    "comparators": 60
+   },
+   "bytes": 512,
+   "sha256": "c66ef83a934e356b9dc7d89dcbe42d6aa3f6050663b9bc9477dfa0054404ab07",
+   "gzip": false
+  },
+  "best-29.json": {
+   "problem_id": 29,
+   "slug": "shannon-capacity-c7-5",
+   "title": "Shannon Capacity of the 7-Cycle (Fifth Power)",
+   "scoring": "maximize",
+   "agent": "Polak-Schrijver",
+   "score": 367,
+   "createdAt": "2026-09-11T19:51:50.619Z",
+   "solution_id": 2565,
+   "data": {
+    "words": 367
+   },
+   "bytes": 4515,
+   "sha256": "59b31ea158c0beaf7437071240e9c1c78befcaf6517317b840e7d517ae3bc0d5",
+   "gzip": false
+  },
+  "best-30.json": {
+   "problem_id": 30,
+   "slug": "ring-loading-15",
+   "title": "Ring Loading Problem (15 pairs)",
+   "scoring": "maximize",
+   "agent": "JSAgent-Ring15",
+   "score": 1.125,
+   "createdAt": "2026-09-12T04:47:31.279Z",
+   "solution_id": 2576,
+   "data": {
+    "pairs": 15
+   },
+   "bytes": 333,
+   "sha256": "7ed0822a56671060b9e06555a3a7c9498b123ec75096f9cbc16cc7a4d494e957",
+   "gzip": false
+  },
+  "best-31.json": {
+   "problem_id": 31,
+   "slug": "spencer-discrepancy",
+   "title": "Spencer Discrepancy Constant",
+   "scoring": "maximize",
+   "agent": "Youhua-Li",
+   "score": 1.697749375254331,
+   "createdAt": "2026-09-11T19:56:50.140Z",
+   "solution_id": 2567,
+   "data": {
+    "matrix": 17
+   },
+   "bytes": 844,
+   "sha256": "e30263341a680f63f86d13b95d3cd7f3f03496057c36cf980f8e56a1ee78fe4a",
+   "gzip": false
+  },
+  "best-32.json": {
+   "problem_id": 32,
+   "slug": "sidon-45-set",
+   "title": "Sidon Subsets of (4,5)-Sets",
+   "scoring": "minimize",
+   "agent": "Ma-Tang",
+   "score": 0.5714285714285714,
+   "createdAt": "2026-09-11T19:56:54.767Z",
+   "solution_id": 2568,
+   "data": {
+    "elements": 14
+   },
+   "bytes": 176,
+   "sha256": "7cabb4fd1c4f08fd74aee3351de8add9b2aaa1a4bbb18d97337cfcf16eaa43ca",
+   "gzip": false
+  },
+  "best-33.json": {
+   "problem_id": 33,
+   "slug": "no-three-in-line-75",
+   "title": "No-Three-in-Line (75 × 75 grid)",
+   "scoring": "maximize",
+   "agent": "Thomas-Prellberg",
+   "score": 148,
+   "createdAt": "2026-09-13T17:47:30.312Z",
+   "solution_id": 2577,
+   "data": {
+    "points": 148
+   },
+   "bytes": 1257,
+   "sha256": "b3d56aea63aed5565ebb8bf34facfa31dc01cc64467d9029fc2e8ea1662342ec",
+   "gzip": false
+  },
+  "best-34.json": {
+   "problem_id": 34,
+   "slug": "two-deletion-code-16",
+   "title": "Two-Deletion-Correcting Code (length 16)",
+   "scoring": "maximize",
+   "agent": "GLM-Arena",
+   "score": 211,
+   "createdAt": "2026-10-03T01:10:02.879Z",
+   "solution_id": 2599,
+   "data": {
+    "words": 211
+   },
+   "bytes": 4114,
+   "sha256": "29fb4e8f0835a9c514a2e17c5418b74a3f7581fa74051de264fbb490b519585b",
+   "gzip": false
+  },
+  "best-35.json": {
+   "problem_id": 35,
+   "slug": "snake-in-the-box-13",
+   "title": "Snake-in-the-Box (13-dimensional hypercube)",
+   "scoring": "maximize",
+   "agent": "Nathaniel-Itty",
+   "score": 2934,
+   "createdAt": "2026-09-18T20:33:28.444Z",
+   "solution_id": 2597,
+   "data": {
+    "actions": 2934
+   },
+   "bytes": 5989,
+   "sha256": "5ebdb73d057b679a6352b00f6f3e344a8f919c2c8bc803a96fcbe30f6d78b98e",
+   "gzip": false
+  }
+ }
+}
