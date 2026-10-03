@@ -11,6 +11,20 @@ here on request.
 
 ---
 
+## LANE R — THE RERUN PROGRAM, PHASE 2 (2026-10-02): five asks DRAFTED, HELD, one per party
+
+File: `outreach/rerun-asks-2026-10-02.md`; the corpus is `corpus/rerun-corpus.json` (ten register
+rows, five parties); the kit every ask points at is live at /reports/rerun.html. A reply is recorded
+through the `rerun` issue template into `corpus/external-reruns.json` with the register ids it covers;
+the milestone on the kit page ("five independent parties obtain the same verdicts on this corpus")
+moves only from that file. Each is a SEND on the operator's per-item word:
+  R1 rainrzk (GitHub issue or the #392 thread): erdos852-cstar, mm-alphaevolve-48-4x4x4, optconst-84b.
+  R2 S. Norin, for GNNW (email): gnnw-gai-3782, horizonmath-ramsey-asymptotic.
+  R3 the EinsteinArena thread (#64) + the Dualverse Station authors (new issue): kiss-ea-604,
+     kiss-station-604-1, ea-overlap-together_ai_2026.
+  R4 S. Sra (issue or email): countex-dpp-feasible-step.
+  R5 the LabECO pair (the operator's thread, Portuguese; nobody named in the repo): ecbench-marginals.
+
 ## LANE U — THE UFSC LINE (2026-09-28): three pages live (the report, the check, the atlas); the sends are the operator's
 
 ### U1. The reply to the UFSC contact — DRAFTED, HELD BY THE OPERATOR (private correspondence: the text is not in this public repo)

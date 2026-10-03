@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-02",
+  "recorded": "2026-10-03",
   "browser": "Chrome/154.0.8037.93",
   "viewports": [
     1440,
@@ -138,7 +138,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "65dc698627de3859918f84235d8e19ca6903237c36db3e35bcadff74f7d17d04"
+      "sha": "089f76b5e850e577f8882789191f70297707cac1dc1bf080b3c820c02a9b6b26"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8c751060392c42f73ee93bb96289c71d0686735c4578d37abccf6ea87b7484b1"
+      "sha": "550822ba08e05a389e154f675fe74cf987245caee1a57f0785391c5a8dec4cbf"
     },
     "site/papers/index.html": {
       "390": {
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "eb4a0d73c092bdfd3668d15287dff4c7f5703270b0d67fbe5dc829214d9e2cb3"
+      "sha": "31124bfd26ca141a32d95ae2a336307e622d479e97396f7039ee9065035847af"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -1015,12 +1015,12 @@
         "clipped": 1
       },
       "1440": {
-        "spines": 7,
+        "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5b395d21c308f7ad1a50bed3a7515189f778a33ee8be67aed6d2d43b30a496bd"
+      "sha": "fa318257d0400a5b88d7b8efeb7a9baac87bb33342bde7610240c7a012ffd262"
     },
     "site/reports/counterexample-machine.html": {
       "390": {
@@ -1083,7 +1083,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b2857cdc4fe9c7acc452732457b316d3f5c8d67e983343a28863a1a230334eed"
+      "sha": "035d5d049d0ea3855f3e4f5145727e49aa467ca433004ecf3021b39cf00aa989"
     },
     "site/reports/easota.html": {
       "390": {
@@ -1545,7 +1545,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d356966d8afd945d0ea73b542713cef9b87973a1dcce1438f2a1daf296e349cf"
+      "sha": "0cdcba9bde38acc8a8202a46d87c0d77c19dae421c6319337faa6c409d7e5e87"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2029,6 +2029,27 @@
         "clipped": 0
       },
       "sha": "79ad1f7dbc5d5a31479874aced12f2f99e082d7d8e8433c7e1b92328011e31e4"
+    },
+    "site/reports/rerun.html": {
+      "390": {
+        "spines": 5,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 4
+      },
+      "768": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "e91e164643c6a02098850fa141a201859928bc702b19ec49b207a7b53807d94e"
     },
     "site/reports/return-levels.html": {
       "390": {

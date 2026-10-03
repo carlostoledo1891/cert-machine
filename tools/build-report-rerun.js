@@ -54,6 +54,7 @@ const RERUN_KINDS = {
 const R = J('certs/claims-ledger.json');
 const KIT = J('corpus/rerun-kit.json');
 const EXT = J('corpus/external-reruns.json');
+const CORPUS = J('corpus/rerun-corpus.json');
 
 /* ---- gates ---------------------------------------------------------------- */
 const recOf = (s) => s.split(' ')[0];
@@ -72,12 +73,27 @@ for (const e of KIT.entries) {
   }
   if (!e.needs || !e.note) die('kit entry for ' + e.record + ' lacks needs/note');
 }
+const rowIds = new Set(R.rows.map((r) => r.id));
 for (const x of EXT) {
   for (const k of ['who', 'date', 'what', 'kind', 'where']) if (!x[k]) die('external rerun row lacks ' + k + ': ' + JSON.stringify(x));
   if (!RERUN_KINDS[x.kind]) die('external rerun row has a kind outside the vocabulary: ' + x.kind);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(x.date)) die('external rerun date is not ISO: ' + x.date);
   if (x.hash && !/^[0-9a-f]{64}$/.test(x.hash)) die('external rerun hash is not a sha256: ' + x.hash);
+  for (const id of x.rows || []) if (!rowIds.has(id)) die('external rerun row names a register id that does not exist: ' + id);
 }
+/* THE CORPUS for outside reruns: ten register rows, five parties. A row must exist in the register and its party
+   in the corpus's own list; a party COUNTS toward the milestone only when a registry row of theirs names one of
+   the corpus ids — the milestone is read, never declared. */
+if (!CORPUS.rows || !CORPUS.parties) die('corpus/rerun-corpus.json lacks rows or parties');
+for (const c of CORPUS.rows) {
+  if (!rowIds.has(c.id)) die('the corpus names a register row that does not exist: ' + c.id);
+  if (!CORPUS.parties[c.party]) die('the corpus row ' + c.id + ' names an unlisted party: ' + c.party);
+  if (!c.why) die('the corpus row ' + c.id + ' has no why');
+}
+if (new Set(CORPUS.rows.map((c) => c.id)).size !== CORPUS.rows.length) die('a corpus row is listed twice');
+const corpusIds = new Set(CORPUS.rows.map((c) => c.id));
+const rerunsOf = (id) => EXT.filter((x) => (x.rows || []).includes(id));
+const partiesDone = new Set(EXT.filter((x) => (x.rows || []).some((id) => corpusIds.has(id))).map((x) => x.who));
 
 /* ---- the register's rows per record ---------------------------------------- */
 const rowsOf = (rec) => R.rows.filter((r) => recOf(r.decidedFrom) === rec);
@@ -155,6 +171,10 @@ const N = {
   debts: KIT.entries.filter((e) => !e.rederive).length,
   external: EXT.length,
   externalOwnCode: EXT.filter((x) => x.kind === 'own-code').length,
+  corpusRows: CORPUS.rows.length,
+  corpusParties: Object.keys(CORPUS.parties).length,
+  corpusPartiesDone: partiesDone.size,
+  corpusRowsRerun: CORPUS.rows.filter((c) => rerunsOf(c.id).length).length,
   timed: RUNREC ? RUNREC.runs.length : 0
 };
 const verifierHref = (cmd) => { const m = /tools\/(verify_[\w]+\.py)/.exec(cmd); return m ? '/verify/' + m[1] : null; };
@@ -191,7 +211,7 @@ B.push(C.stats([
   { k: 'stdlib verifiers', v: String(N.withVerifier), n: 'Python standard library only, zero code shared with the engine; each must refute a forgery before it exits green.' },
   { k: 'second implementations', v: String(N.withSecond), n: 'The same decision in another arithmetic or by another program.' },
   { k: 'independent reruns', v: String(N.external), role: 'held', n: 'Recorded from corpus/external-reruns.json. ' + N.externalOwnCode + ' with no code of ours.' },
-  { k: 'operators', v: '1', n: 'One person, one machine. The registry above is the only thing that changes this.' }
+  { k: 'the milestone', v: N.corpusPartiesDone + ' of ' + N.corpusParties, role: 'held', n: 'Parties who re-ran a row of the corpus in §3 (' + N.corpusRowsRerun + ' of its ' + N.corpusRows + ' rows re-run). Read from the registry, never declared. One operator, one machine until this moves.' }
 ]));
 
 B.push(C.section({
@@ -231,8 +251,23 @@ B.push(C.section({
     + '</div>'
 }));
 
+const partyRows = (key) => CORPUS.rows.filter((c) => c.party === key);
 B.push(C.section({
-  lab: '§3 · the row', title: 'What a register row is, and the closed vocabulary of what goes wrong',
+  lab: '§3 · the corpus', title: N.corpusRows + ' rows for ' + N.corpusParties + ' outside parties', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('The milestone of this program is one sentence: <b>' + C.esc(CORPUS.milestone) + '</b>. These rows were chosen for one property — '
+    + 'someone outside this lab has a reason to re-derive them and the means to do it in a line. Each party\'s ask is drafted in the repository '
+    + '(<span class="m">outreach/rerun-asks-2026-10-02.md</span>) and is sent only on the operator\'s word, one at a time; a party counts below when a '
+    + 'row of theirs in the registry names one of these ids, and not before.') + '</div>'
+    + C.table({
+      cols: [{ h: 'party' }, { h: 'why them' }, { h: 'rows' }, { h: 'status' }],
+      rows: Object.entries(CORPUS.parties).map(([key, p]) => [p.who, p.why,
+        { raw: partyRows(key).map((c) => { const r = R.rows.find((x) => x.id === c.id); return '<a href="' + C.escAttr(r.page) + '"><span class="m">' + C.esc(c.id) + '</span></a> · ' + C.esc(r.verdict) + '<br><small>' + C.esc(c.why) + '</small>'; }).join('<br>') },
+        { raw: partiesDone.has(p.who) ? '<b>re-run</b>' : partyRows(key).some((c) => rerunsOf(c.id).length) ? 're-run by another party' : 'open' }])
+    })
+}));
+
+B.push(C.section({
+  lab: '§4 · the row', title: 'What a register row is, and the closed vocabulary of what goes wrong',
   bodyRaw: C.pRaw('Every row of <a href="/reports/claims.html">the register</a> carries the same fields, filled from its record by '
     + '<span class="m">tools/run-claims-ledger.js</span> and never typed: <span class="m">id</span>, <span class="m">claim</span> (what the '
     + 'claimant printed), <span class="m">claimant</span>, <span class="m">source</span> (the bytes, pinned where they exist), '
@@ -250,10 +285,10 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§4 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true,
+  lab: '§5 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true,
   bodyRaw: (EXT.length ? C.table({
     cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'how' }, { h: 'obtained' }, { h: 'hash · code' }],
-    rows: EXT.map((x) => [x.who, x.date, x.what, { raw: '<span class="m">' + C.esc(x.kind) + '</span>' }, x.outcome || '',
+    rows: EXT.map((x) => [x.who, x.date, { raw: C.esc(x.what) + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id) + '</span>').join(', ') + '</small>' : '<br><small>not a register row (a lab theorem)</small>') }, { raw: '<span class="m">' + C.esc(x.kind) + '</span>' }, x.outcome || '',
       { raw: (x.hash ? '<span class="m">' + x.hash.slice(0, 16) + '…</span><br>' : '') + '<a href="' + C.escAttr(x.where) + '">code</a>' + (x.posted ? ' · <a href="' + C.escAttr(x.posted) + '">posted</a>' : '') }])
   }) : '<div class="col">' + C.p('None recorded yet.') + '</div>')
     + '<div class="col">' + C.pRaw('Three kinds and no fourth: ' + Object.entries(RERUN_KINDS).map(([k, d]) => '<span class="m">' + C.esc(k) + '</span> — ' + C.esc(d)).join('; ') + '. '
@@ -261,7 +296,7 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§5 · the trust base', title: 'What you are trusting when you trust a verdict here',
+  lab: '§6 · the trust base', title: 'What you are trusting when you trust a verdict here',
   bodyRaw: C.p('V8\'s BigInt and IEEE-754 directed rounding in the engine; Python\'s fractions and decimal in the detached verifiers; a handful of '
     + 'named external theorems consumed and cross-checked, never machine-proved; the operating system\'s hashing; and one operator on one machine. '
     + 'Each item on that list is shrunk by a different thing: the verifiers shrink the engine, the second implementations shrink the verifiers, and '
@@ -306,6 +341,14 @@ md.push(RUNREC ? 'Runtimes measured ' + RUNREC.date + ' on ' + RUNREC.machine.cp
 md.push('');
 md.push('**Debts** (no one-line re-derivation yet): ' + KIT.entries.filter((e) => !e.rederive).map((e) => '`' + e.record + '` — ' + e.note).join(' '));
 md.push('');
+md.push('## The corpus for outside reruns');
+md.push('');
+md.push('Milestone: ' + CORPUS.milestone + '. ' + N.corpusPartiesDone + ' of ' + N.corpusParties + ' parties have re-run a row (' + N.corpusRowsRerun + ' of ' + N.corpusRows + ' rows), read from the registry below.');
+md.push('');
+md.push('| party | rows | status |');
+md.push('|---|---|---|');
+for (const [key, p] of Object.entries(CORPUS.parties)) md.push('| ' + p.who + ' | ' + partyRows(key).map((c) => '`' + c.id + '` (' + R.rows.find((x) => x.id === c.id).verdict + ')').join(', ') + ' | ' + (partiesDone.has(p.who) ? 're-run' : 'open') + ' |');
+md.push('');
 md.push('## The registry of independent reruns');
 md.push('');
 if (EXT.length) {
@@ -323,4 +366,4 @@ md.push('');
 md.push('git ' + git);
 fs.writeFileSync(path.join(ROOT, 'RERUN.md'), md.join('\n') + '\n');
 
-console.log('reports/rerun.html + RERUN.md written: ' + N.records + ' records, ' + N.decided + ' rows, ' + N.withVerifier + ' verifiers, ' + N.external + ' external reruns @ git ' + git);
+console.log('reports/rerun.html + RERUN.md written: ' + N.records + ' records, ' + N.decided + ' rows, ' + N.withVerifier + ' verifiers, ' + N.external + ' external reruns, corpus ' + N.corpusPartiesDone + '/' + N.corpusParties + ' parties @ git ' + git);

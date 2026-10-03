@@ -79,12 +79,22 @@ with phases and start building. Stop at each phase and handoff."
       oracle's §9 and the control page read the count instead of saying "none".
     · .github/ISSUE_TEMPLATE/rerun.yml: "Report an independent rerun".
     · the card on /reports/, the Makefile `reports:` line, the README pointer.
-  PHASE 2 — FIVE OUTSIDE RERUNS OF ONE CORPUS (weeks; every send gated on the
-    operator's per-item word): pick the ten strongest register rows; ask the people
-    already in the threads — rainrzk (engaged), S. Norin (GNNW), the Dualverse and
-    EinsteinArena authors (kissing), S. Sra (countex), the LabECO pair (the wave
-    rows); the milestone is "five independent parties obtained the same verdicts",
-    measured on /reports/rerun.html from corpus/external-reruns.json.
+  PHASE 2 — FIVE OUTSIDE RERUNS OF ONE CORPUS — BUILT 2026-10-02, THE SENDS HELD.
+    corpus/rerun-corpus.json: ten register rows, five parties (rainrzk ×3: erdos852-
+    cstar, mm-alphaevolve-48-4x4x4, optconst-84b · Norin ×2: gnnw-gai-3782,
+    horizonmath-ramsey-asymptotic · the EinsteinArena thread + Dualverse ×3: kiss-ea-
+    604, kiss-station-604-1, ea-overlap-together_ai_2026 · Sra ×1: countex-dpp-
+    feasible-step · the LabECO pair ×1: ecbench-marginals). The kit page's §3 draws
+    the corpus and the milestone stat "n of 5 parties" is READ from corpus/external-
+    reruns.json (a registry row may now carry `rows: [register ids]`; a party counts
+    when one of its rows names a corpus id; the build refuses an unknown id or
+    party). The five asks are DRAFTED in outreach/rerun-asks-2026-10-02.md (LANE R
+    in outreach/SEND-QUEUE.md): R1 rainrzk, R2 Norin (email, English), R3 the #64
+    thread + a Dualverse issue, R4 Sra, R5 the LabECO pair (Portuguese, salutation
+    and signature left to the operator; nobody named). EVERY ONE IS A SEND on the
+    operator's per-item word; after a reply, add the registry row with its `rows`
+    and rebuild. Phase 2 is then measured, not declared: the page says 0 of 5 today.
+    WHAT PHASE 2 STILL NEEDS FROM THE WORLD: the replies. Nothing else to build.
   PHASE 3 — THE ORACLE AS THE LAB-FACING PRODUCT (in parallel): two or three more
     hub environments from families that already have deciders and forgery batteries
     (matrix-multiplication rank, kissing, packings); MathBench v1 pre-registered first

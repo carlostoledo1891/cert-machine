@@ -40,6 +40,18 @@ Runtimes measured 2026-10-02 on Apple M2 (Darwin 27.0.0, v24.14.1, Python 3.9.6)
 
 **Debts** (no one-line re-derivation yet): `certs/ai-claims-summary.json` — The consolidated summary of the six-lane audit of a frontier-model manuscript (reports/ai-claims-audit.html): six verdicts, each a named PASS row of its lane's battery. No single command re-derives this record; the lanes' batteries are the re-derivation and the page names them. A kit debt. `corpus/navier-stokes/audit.json` — The qualitative findings of the 2026-09-09 audit of OpenAI's Navier–Stokes claim. The record itself is read, not computed; every count on its page comes from lean-repo.json, probes.json and build.json, which the pinned Lean build (corpus/navier-stokes/MANIFEST.json) re-derives. A kit debt: the Lean rebuild is not a one-line command here.
 
+## The corpus for outside reruns
+
+Milestone: five independent parties obtain the same verdicts on this corpus — or record where they do not. 0 of 5 parties have re-run a row (0 of 10 rows), read from the registry below.
+
+| party | rows | status |
+|---|---|---|
+| rainrzk (GitHub) — re-certified λ(4) with no shared code on 2026-09-30 | `erdos852-cstar` (REFUTED), `mm-alphaevolve-48-4x4x4` (CERTIFIED), `optconst-84b` (REPAIRED) | open |
+| S. Norin (Gupta–Ndiaye–Norin–Wei), for the authors | `gnnw-gai-3782` (CERTIFIED), `horizonmath-ramsey-asymptotic` (REFUTED) | open |
+| the EinsteinArena thread (vinid/einstein-arena #64) and the Dualverse Station authors | `kiss-ea-604` (CERTIFIED), `kiss-station-604-1` (CERTIFIED), `ea-overlap-together_ai_2026` (REPAIRED) | open |
+| S. Sra (count-ex-machina) | `countex-dpp-feasible-step` (PARTIAL) | open |
+| the LabECO pair (UFSC; not named in this repository) | `ecbench-marginals` (MIXED) | open |
+
 ## The registry of independent reruns
 
 | who | date | what | how | obtained | where |
@@ -52,4 +64,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git 916d077
+git c25cc61
