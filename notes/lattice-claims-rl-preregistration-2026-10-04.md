@@ -98,3 +98,12 @@ Any change after the first training call is recorded here with its date and its 
    identically to 0.2.0's. The new pins are version_id n5e7f2fsicscudba4wrvyxk9 and wheel sha256
    e9ec0328312de9f26f9a45761ba9724491a9c6f3a9a3b41d8207dc620578b741. Every config now names `version =
    "0.2.1"`. The arms, the measures, the eval set and the readings are unchanged.
+2. **2026-10-04: the held-out eval was missing from the configs, and was restored before any training step.**
+   The two pilot runs created at 01:13 UTC (luhp7l5yeem8a41ngcjliw01 for A, pwwg5x3olaeyvnyvu9txepb1 for B;
+   free) showed `eval_config: null` in their run records. The configs had an `[eval]` section and no
+   `[[eval.env]]`, and prime CLI 0.6.31 drops the whole section silently when no eval environment is named
+   (prime_cli/commands/rl.py, `EvalConfig.to_api_dict` returns None). Both runs were stopped with
+   `latest_step` still None. Every config now names the eval environment explicitly. Both of its splits are
+   the fixed eval set (seed 9999, 300 tasks), so the hosted evaluator scores those 300 tasks whichever split it
+   reads. All six configs were re-read through the CLI's own `load_config` before relaunch. The arms, the
+   measures, the eval set and the readings are unchanged.

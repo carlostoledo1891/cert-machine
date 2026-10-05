@@ -22,3 +22,12 @@ interval = 25
 num_examples = 300
 rollouts_per_example = 1
 skip_first_step = false
+
+# Without at least one [[eval.env]] the CLI drops the whole [eval] section
+# silently (prime_cli EvalConfig.to_api_dict returns None). Both splits of this
+# env are the fixed eval set -- seed 9999, 300 tasks -- so whichever split the
+# hosted evaluator reads, every run is scored on the same 300 tasks.
+[[eval.env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.1"
+args = { grader = "exact", dims = [8, 12, 16], num_tasks = 300, seed = 9999, eval_seed = 9999, eval_num_tasks = 300 }
