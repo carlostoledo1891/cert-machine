@@ -1,0 +1,49 @@
+# THE GATE + A TRAINER PROBE for Qwen3.5-9B (deviation 7): the 4B hosted trainer delivers no policy
+# updates; the 2B trains but fails the gate (avg@8 0.0225, pass@8 0.16). Same gate, same thresholds, read
+# at the step-0 eval; the 10 training steps ask only whether the 9B trainer delivers updates (Max Off-Policy
+# moving past step 5). Eval interval 100 > max_steps, so the step-0 eval is the only one.
+# THE GATE before stage 2 (notes/lattice-claims-rl-preregistration-2026-10-04.md):
+# does Qwen3.5-4B, at stage 2's sampling settings, ever abstain correctly? The step-0
+# eval below is the measurement: 100 tasks that each withhold one quantity (mix 0, 0, 1;
+# seed 7777, outside every training stream and the 9999 eval set), 8 samples each,
+# graded by the exact grader, whose reward on these tasks is exactly the rate of correct
+# NEEDS_DATA. avg@1 is that rate; pass@8 the share of tasks with at least one correct
+# sample. GO iff avg@1 >= 0.05 AND pass@8 >= 0.20. The one training step is incidental
+# (a run needs max_steps >= 1). v2: the first gate run (k6pxpzv1s0t8i96k0wq8ozko) sampled
+# its eval with the platform defaults (~9,000 output tokens per rollout), not stage 2's
+# settings; this one sets [eval.sampling] to them. Estimated cost under US$1.
+name = "lc-gate-probe-qwen9b"
+model = "Qwen/Qwen3.5-9B"
+max_steps = 10
+batch_size = 128
+rollouts_per_example = 8
+
+[sampling]
+max_tokens = 1536
+temperature = 1.0
+enable_thinking = false
+
+[[env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.1"
+args = { grader = "exact", dims = [8, 12, 16], num_tasks = 16, seed = 2026, eval_seed = 9999, eval_num_tasks = 1 }
+
+[eval]
+interval = 100
+num_examples = 100
+rollouts_per_example = 8
+skip_first_step = false
+
+# The eval samples with the platform's defaults unless told otherwise (seen in the
+# first gate: ~9,000 output tokens per eval rollout under a 1,536-token [sampling]).
+# Eval sampling is set to the training sampling, so the eval measures the policy
+# that trains.
+[eval.sampling]
+max_tokens = 1536
+temperature = 1.0
+enable_thinking = false
+
+[[eval.env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.1"
+args = { grader = "exact", dims = [8, 12, 16], mix = [0, 0, 1], num_tasks = 100, seed = 7777, eval_seed = 7777, eval_num_tasks = 100 }

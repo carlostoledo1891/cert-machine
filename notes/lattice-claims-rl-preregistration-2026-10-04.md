@@ -141,6 +141,33 @@ Any change after the first training call is recorded here with its date and its 
    is the service, not the arms. The next step is then the operator's: wait, report it to Prime, or run
    prime-rl on rented GPUs.
 
+6. **2026-10-05, about 06:25 UTC: the stall reported to Prime, and a diagnostic on another model.** The fresh
+   relaunch (ro1xyg… A, gdbww9… B) completed steps 1–4 in about 30 s on policy v0. At 05:05 UTC it logged
+   "Pausing dispatcher to prevent orchestrator from racing from trainer. Waiting for new policy...". It then
+   waited with 0 rollouts in flight; no policy update was ever delivered, and Max Off-Policy was 0 on every
+   step. That is three launches stalled the same way on Qwen3.5-4B, while the free 1B pilot trained normally.
+   On the operator's word ("proceed as you suggested"), the fault was reported through `prime feedback` (a
+   bug report naming all four runs). The two current runs are left up for inspection; nothing bills while
+   they wait. A DIAGNOSTIC, not an arm, was launched: probe-qwen2b.toml, 10 steps of the exact arm's training
+   config on Qwen3.5-2B, run jlw7quu2re47f02u5tpkblol. It asks whether the trainer delivers updates for
+   another model; it is not read for the hypothesis. If the 4B stays down, the fallback is open-source
+   prime-rl on rented GPUs, with the same configs and readings. Switching the model would be a further dated
+   deviation.
+
+7. **2026-10-05, about 06:35 UTC: the 4B trainer is down on the service, and the 2B fails the gate.**
+   - The 2B probe (jlw7quu2re47f02u5tpkblol, 10 steps, US$0.19) trained normally: policy updates arrived,
+     Max Off-Policy rose to 1 from step 7, and all 10 steps completed. So the fault is specific to the 4B on
+     Hosted Training.
+   - The same gate on Qwen3.5-2B (ym7w2wxibxk0qw93vmyhxep0, US$0.13) is **NO-GO**: avg@8 0.0225 < 0.05 and
+     pass@8 0.16 < 0.20. Stage 2 on the 2B would reproduce the pilot's collapse.
+   - Next, one run that is both the gate and a trainer probe on Qwen3.5-9B (gate-probe-qwen9b.toml): the
+     step-0 eval is the gate, unchanged; ten training steps ask whether its trainer delivers updates.
+   - If both pass, stage 2 moves to the 9B: same arms, configs, readings and eval set, with only the model
+     changed. That is about US$13 per run at the listed prices (about US$26 for the pair, under the US$80
+     ceiling). This entry records that change before any 9B arm starts.
+   - If the 9B fails either check, stage 2 waits for the 4B fix (reported to Prime) or moves to self-hosted
+     prime-rl.
+
 ## The pilot (stage 1), 2026-10-04 — plumbing and base rates, NOT the result
 
 Runs e6zvxsdjgs5tbed7r2prswjo (A) and icx69k02mx5lokcxbj8t3b7e (B); sprints/Llama-3.2-1B-Instruct, free. The
@@ -193,4 +220,17 @@ under the US$17 estimated. The US$80 ceiling and the US$40 stop are unchanged.
 
 Stage 2 launched the same evening on the operator's word ("Proceed with lattice-claims"):
 yd2rjf3gy2n38kr2umg2jbea (A, answer key) and xrlpdj7kqu2n6q0gph67j494 (B, exact).
+
+## The 9B check, 2026-10-05 — GO; stage 2 moves to Qwen3.5-9B (deviation 7 applied)
+
+Run nwgmmfqbzfweev3kngijasdf (gate-probe-qwen9b.toml, US$0.97).
+
+- **The gate,** read at its step-0 eval and unchanged: **avg@8 = 0.141**, **pass@8 = 0.57**, so **GO**.
+- **The trainer:** all 10 steps completed and Max Off-Policy reached 2–3, so policy updates arrived.
+- **The configs:** stage 2 runs the qwen9b-*-s2026 configs. They are the 4B configs with only the model and
+  the name changed; the stage-3 replicates are qwen9b-*-s3026.
+- **The stuck 4B runs** (ro1xyg…, gdbww9…) were stopped first, so a recovered 4B trainer cannot bill
+  behind them.
+- **The cost estimate,** recalibrated from this run (about US$0.00047 per rollout at the 9B's prices): about
+  US$10 per 150-step run with its evals, about US$20 for the pair. The ceiling stands.
 
