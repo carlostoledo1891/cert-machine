@@ -162,3 +162,21 @@ rate is at least 5% AND at least 20 of the 100 tasks have one or more correct sa
 stage 2 as designed would reproduce the pilot's collapse. It is not run, and that measurement is reported as the
 finding. The check costs well under US$1 at the listed prices, and it is a spend on the operator's word.
 
+## The gate, 2026-10-04 — GO
+
+Run yosieffsj0fdw9nke2wxxmsa (gate-qwen4b-v2.toml, the gate's own setting: thinking off, 1,536 tokens,
+temperature 1.0). On the 100 incomplete tasks (seed 7777, 8 samples each), the base model's exact-grader reward,
+which is the rate of correct NEEDS_DATA, was **avg@8 = 0.161**, and **pass@8 = 0.60**: 60 of the 100 tasks had at
+least one correct sample. The thresholds were 0.05 and 0.20, so **GO**. Cost US$0.22.
+
+The first gate run (k6pxpzv1s0t8i96k0wq8ozko, the platform's default eval sampling, thinking evidently on, about
+9,000 output tokens per rollout) gave avg@8 0.593 and pass@8 0.73 at its step-0 eval. It is kept as the
+thinking-on upper bound and does not decide anything.
+
+Cost recalibrated from the gate's usage: about 1,000 input and about 115 output tokens per rollout with thinking
+off. A 150-step run is therefore roughly US$3 of inference plus at most about US$6 of training tokens, well
+under the US$17 estimated. The US$80 ceiling and the US$40 stop are unchanged.
+
+Stage 2 launched the same evening on the operator's word ("Proceed with lattice-claims"):
+yd2rjf3gy2n38kr2umg2jbea (A, answer key) and xrlpdj7kqu2n6q0gph67j494 (B, exact).
+
