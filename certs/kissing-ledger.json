@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-05T05:59:33.150Z",
- "git": "f721476",
+ "generated": "2026-10-05T06:05:08.397Z",
+ "git": "2bf1e3f",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 102,
+   "ms": 109,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 70,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 60,
+   "ms": 67,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 56,
+   "ms": 63,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -172,7 +172,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 57,
+   "ms": 62,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -200,7 +200,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 50,
+   "ms": 54,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors",
    "date": "1980-01-01",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 64,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 64,
+   "ms": 67,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 202
+     "ms": 198
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 205
+     "ms": 200
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 92
+    "ms": 91
    }
   },
   {
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 106
+    "ms": 108
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 183
+    "ms": 184
    }
   }
  ],
@@ -407,8 +407,8 @@
    "NEEDS DATA": "no vector list is published; the row states what would decide it",
    "QUEUED": "bytes exist; not decided in this wave"
   },
-  "generated": "2026-10-05T05:54:50Z",
-  "commit": "f721476",
+  "generated": "2026-10-05T06:04:21Z",
+  "commit": "2bf1e3f",
   "machine": {
    "platform": "macOS-27.0-arm64-arm-64bit",
    "python": "3.9.6",
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3473,
+    "ms": 3431,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -1207,6 +1207,19 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
+    "jsCheck": {
+     "n": 666,
+     "pairs": 221445,
+     "pythonContacts": 8504,
+     "jsContacts": 8504,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 29,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
+    },
     "families": [
      {
       "name": "equator",
@@ -1272,6 +1285,21 @@
      "pairs": 5400,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 443,
+     "pairs": 97903,
+     "pythonContacts": 3669,
+     "jsContacts": 3669,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [
+      "rational caps"
+     ],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 20,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1356,6 +1384,22 @@
      "pairs": 13194,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 664,
+     "pairs": 220116,
+     "pythonContacts": 15732,
+     "jsContacts": 15732,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [
+      "rational caps",
+      "repair points"
+     ],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 50,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1451,6 +1495,19 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
+    "jsCheck": {
+     "n": 442,
+     "pairs": 97461,
+     "pythonContacts": 796,
+     "jsContacts": 796,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 20,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
+    },
     "families": [
      {
       "name": "bulk",
@@ -1510,6 +1567,19 @@
      "pairs": 3933,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 666,
+     "pairs": 221445,
+     "pythonContacts": 3409,
+     "jsContacts": 3409,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 37,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1575,6 +1645,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -1609,6 +1680,19 @@
      "pairs": 3964,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "pythonContacts": 1643,
+     "jsContacts": 1643,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 51,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1681,6 +1765,19 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "pythonContacts": 1634,
+     "jsContacts": 1634,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 51,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
+    },
     "families": [
      {
       "name": "equator",
@@ -1751,6 +1848,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -1785,6 +1883,19 @@
      "pairs": 3972,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 676,
+     "pairs": 228150,
+     "pythonContacts": 4352,
+     "jsContacts": 4352,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 50,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1848,6 +1959,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -1882,6 +1994,19 @@
      "pairs": 3987,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 692,
+     "pairs": 239086,
+     "pythonContacts": 4167,
+     "jsContacts": 4167,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 55,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -1946,6 +2071,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -1980,6 +2106,19 @@
      "pairs": 3996,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 728,
+     "pairs": 264628,
+     "pythonContacts": 4385,
+     "jsContacts": 4385,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 63,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -2044,6 +2183,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2078,6 +2218,19 @@
      "pairs": 3994,
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "jsCheck": {
+     "n": 778,
+     "pairs": 302253,
+     "pythonContacts": 5073,
+     "jsContacts": 5073,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "excludedFamilies": [],
+     "seed": 11,
+     "perFamily": 220,
+     "jsMs": 73,
+     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
      {
@@ -2142,6 +2295,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2173,6 +2327,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2204,6 +2359,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2235,6 +2391,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2266,6 +2423,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2297,6 +2455,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2328,6 +2487,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2359,6 +2519,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2390,6 +2551,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2421,6 +2583,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2452,6 +2615,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2483,6 +2647,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2514,6 +2679,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2545,6 +2711,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2576,6 +2743,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2607,6 +2775,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2638,6 +2807,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2669,6 +2839,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2700,6 +2871,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2731,6 +2903,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2762,6 +2935,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2793,6 +2967,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2824,6 +2999,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2855,6 +3031,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2886,6 +3063,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2917,6 +3095,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2948,6 +3127,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -2979,6 +3159,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3010,6 +3191,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3041,6 +3223,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3072,6 +3255,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3103,6 +3287,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3134,6 +3319,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3165,6 +3351,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3196,6 +3383,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3227,6 +3415,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3258,6 +3447,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3289,6 +3479,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3320,6 +3511,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3351,6 +3543,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3382,6 +3575,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3413,6 +3607,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3444,6 +3639,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3475,6 +3671,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3506,6 +3703,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3537,6 +3735,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3568,6 +3767,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,
@@ -3599,6 +3799,7 @@
     "seconds": null,
     "bigintFallbacks": null,
     "spotCheck": null,
+    "jsCheck": null,
     "families": [],
     "delta": null,
     "decode": null,

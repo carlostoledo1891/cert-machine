@@ -363,6 +363,7 @@ if (!W24 || !W24.ok || !Wico || !Wico.ok) die('the wave calibrations (the whole 
 const live18 = WV.live && WV.live['kravatsky-18'];
 const r18 = WR.find((r) => r.id === 'kravatsky-18');
 if (!live18 || !r18 || live18.contacts !== r18.contacts || live18.pairs !== r18.pairs) die('the dimension-18 two-language agreement is missing');
+if (wDecided.some((r) => !r.jsCheck || !r.jsCheck.agree)) die('a decided wave row has no agreeing JavaScript sample check');
 const WHO = { kravatsky: 'Kravatsky', 'takhanov-yun': 'Takhanov–Yun', qiushi: 'Qiushi Engine', ours: 'this lab' };
 const deg = (c) => (Math.acos(c) * 180 / Math.PI);
 const dimsDecided = [...new Set(wDecided.map((r) => r.dim))].sort((a, b) => a - b);
@@ -393,7 +394,9 @@ B.push(C.section({
     + 'checked bound that makes every partial sum an exact integer (2<sup>24</sup> or 2<sup>53</sup>), and every sign is '
     + 'decided in the tower Q(&radic;2)(&radic;3). Dimension 18 was decided twice, in Python and again live in '
     + 'JavaScript by a separate implementation, ' + fmt(live18.pairs) + ' pairs each, the same ' + fmt(live18.contacts)
-    + ' contacts.')
+    + ' contacts; and every other row had a seeded sample of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
+    + fmt(Math.max(...wDecided.map((r) => r.jsCheck.n))) + ' of its vectors decided whole by both implementations, agreeing on every contact count'
+    + (wDecided.some((r) => r.jsCheck.excludedFamilies.length) ? ' (the 10<sup>19</sup>-denominator rational heads and the two irrationally normalised Qiushi points sit outside the JavaScript guard and are decided by the Python digit and integer paths only)' : '') + '.')
   + C.plainList(wDecided.slice().sort((x, y) => x.dim - y.dim || y.claimed - x.claimed).map((r) => ({
     b: 'K(' + r.dim + ') ≥ ' + fmt(r.claimed),
     raw: esc(WHO[r.claimant] + (r.ours ? ' (ours)' : '')) + (r.previous ? ' · over their stated previous ' + fmt(r.previous) + ' by +' + fmt(r.claimed - r.previous) : '')

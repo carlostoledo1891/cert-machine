@@ -120,6 +120,39 @@ def red_controls():
     return out
 
 
+def js_cross_check(c, per_family=220, seed=11):
+    """a seeded sample of the configuration (every non-big family, up to per_family vectors each),
+    decided pair for pair by the Python engine AND by instruments/kissing/wave/jscheck.js (basis.js,
+    a separate implementation in JavaScript); the two must agree on pairs, contacts and violations.
+    Families of 10^19-denominator rationals and free-norm points are outside basis.js's guard and
+    are named as excluded."""
+    import random as _r, tempfile
+    rng = _r.Random(seed)
+    fams, excluded = [], []
+    for F in c['families']:
+        if F.big or F.free_norm:
+            excluded.append(F.name)
+            continue
+        k = min(F.n, per_family)
+        idx = sorted(rng.sample(range(F.n), k))
+        fams.append(engine.Family(F.name, F.C[:, idx, :]))
+    py = engine.decide(fams, c['N'], spot=0, log=lambda *x: None)
+    vecs = []
+    for F in fams:
+        for i in range(F.n):
+            vecs.append([[int(x) for x in F.C[b, i]] for b in range(4)])
+    tmp = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False)
+    json.dump({'vectors': vecs}, tmp)
+    tmp.close()
+    out = subprocess.check_output(['node', os.path.join(ROOT, 'instruments', 'kissing', 'wave', 'jscheck.js'), tmp.name]).decode()
+    os.unlink(tmp.name)
+    js = json.loads(out.strip().splitlines()[-1])
+    agree = (js['verdict'] == 'CERTIFIED' and py['verdict'] == 'CERTIFIED' and js['pairs'] == py['pairs'] and js['contacts'] == py['contacts'])
+    return {'n': len(vecs), 'pairs': py['pairs'], 'pythonContacts': py['contacts'], 'jsContacts': js['contacts'], 'jsVerdict': js['verdict'],
+            'agree': agree, 'excludedFamilies': excluded, 'seed': seed, 'perFamily': per_family, 'jsMs': js['ms'],
+            'how': 'a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared'}
+
+
 def verdict_of(c, r):
     if r['verdict'] == 'CERTIFIED':
         return 'REPAIRED' if c.get('decode') else 'WITNESSED'
@@ -152,6 +185,9 @@ def run_claim(rid, tables, log):
     }
     if c.get('decode'):
         row['delta'] = c['decode'].get('maxFloatResidual')
+    row['jsCheck'] = js_cross_check(c)
+    if not row['jsCheck']['agree']:
+        raise AssertionError('%s: the JavaScript cross-check disagrees: %s' % (rid, row['jsCheck']))
     return row
 
 
@@ -192,7 +228,21 @@ def main():
     ap.add_argument('--only', default='')
     ap.add_argument('--no-calibration', action='store_true')
     ap.add_argument('--merge-hunt', action='store_true', help='only fold instruments/kissing/holes/proposals-wave.json into the record')
+    ap.add_argument('--js-check', action='store_true', help='only run the JavaScript cross-check on every decided row and record it')
     a = ap.parse_args()
+    if a.js_check:
+        rec = json.load(open(OUT))
+        for r in rec['rows']:
+            if r.get('engine') and r['id'] in claims.BUILDERS:
+                c = claims.BUILDERS[r['id']]()
+                r['jsCheck'] = js_cross_check(c)
+                print('%-18s js cross-check on %d vectors: %d pairs, python %d / js %d contacts, %s' % (
+                    r['id'], r['jsCheck']['n'], r['jsCheck']['pairs'], r['jsCheck']['pythonContacts'], r['jsCheck']['jsContacts'],
+                    'AGREE' if r['jsCheck']['agree'] else 'DISAGREE'), flush=True)
+                if not r['jsCheck']['agree']:
+                    sys.exit('KISSING WAVE REFUSED: the JavaScript cross-check disagrees on ' + r['id'])
+        _write(rec, readme_tables())
+        return
     if a.merge_hunt:
         rec = json.load(open(OUT))
         tables = readme_tables()

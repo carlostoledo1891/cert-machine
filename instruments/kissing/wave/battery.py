@@ -229,6 +229,7 @@ if os.path.exists(OUT):
     decided = [r_ for r_ in rec['rows'] if r_.get('engine')]
     ok(all(r_['engine']['pairs'] == r_['engine']['n'] * (r_['engine']['n'] - 1) // 2 for r_ in decided), 'record: every decided row accounts for all n(n-1)/2 pairs')
     ok(all(r_['engine']['spotCheck']['disagreements'] == 0 for r_ in decided), 'record: no plain-integer spot check disagreed')
+    ok(all(r_.get('jsCheck', {}).get('agree') for r_ in decided), 'record: every decided row has a seeded sample decided whole in JavaScript (basis.js) that agrees with the Python engine')
     ok(all(r_['verdict'] == ('REPAIRED' if r_.get('decode') else 'WITNESSED') for r_ in decided if r_['engine']['verdict'] == 'CERTIFIED'),
        'record: WITNESSED exactly when no float decode was needed, REPAIRED otherwise')
     ok(all(r_['engine']['n'] == r_['claimed'] for r_ in decided if not r_.get('hunt')), 'record: every decided configuration has exactly the claimed number of points')

@@ -177,6 +177,7 @@ let wave = null;
       if (e.n !== r.claimed && !r.hunt) die('wave row ' + r.id + ' decided ' + e.n + ' points, claims ' + r.claimed);
       if (e.pairs !== e.n * (e.n - 1) / 2) die('wave row ' + r.id + ' decided ' + e.pairs + ' pairs of ' + e.n * (e.n - 1) / 2);
       if (e.spotCheck.disagreements) die('wave row ' + r.id + ': the plain-integer spot check disagreed');
+      if (!r.jsCheck || !r.jsCheck.agree) die('wave row ' + r.id + ': no agreeing JavaScript cross-check on its sample');
       const want = e.verdict === 'CERTIFIED' ? (r.decode ? 'REPAIRED' : 'WITNESSED') : 'UNWITNESSED';
       if (r.verdict !== want) die('wave row ' + r.id + ' says ' + r.verdict + ', its decision says ' + want);
     }
@@ -210,7 +211,7 @@ let wave = null;
           gain: r.previous ? r.claimed - r.previous : null, verdict: r.verdict, ours: !!r.hunt,
           pairs: show(e.pairs), contacts: show(e.contacts), violations: show(e.violations), maxCos: show(e.maxCos), maxDotShow: show(e.maxDotShow),
           norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), bigintFallbacks: show(e.bigintFallbacks),
-          spotCheck: e.spotCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
+          spotCheck: e.spotCheck || null, jsCheck: r.jsCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
           delta: show(r.delta), decode: r.decode ? r.decode.how : null, choices: r.choices || [], facts: r.facts || [], scale: show(r.scale),
           bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package),
         };
