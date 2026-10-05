@@ -92,22 +92,38 @@ from contextlib import contextmanager
 
 @contextmanager
 def _container_sandbox_request():
-    """A local repair, scoped to building the environment. verifiers 0.3.1's SandboxEnv builds
-    `CreateSandboxRequest(start_command=<a shell string>, ...)` and never passes `vm`; every
-    prime-sandboxes release it accepts (>= 0.2.39) refuses a string start command unless
-    `vm=False` ("String start_command values are container-only"), and from 0.3.0 the field
-    takes only a StartCommand. So `vf.PythonEnv` cannot be constructed with any compatible
-    release. A string start command IS a container sandbox, which is what verifiers means, so
-    for the duration of this construction a string command gets `vm=False` and nothing else
-    changes; the original class is restored on exit."""
+    """A local repair, scoped to building the environment, for the one place verifiers 0.3.1's
+    legacy SandboxEnv and prime-sandboxes disagree: SandboxEnv builds
+    `CreateSandboxRequest(start_command=<a shell string>, ...)` and never passes `vm`.
+      * prime-sandboxes 0.2.39-0.2.42 refuse a string command unless `vm=False`
+        ("String start_command values are container-only");
+      * 0.3.0 and later take only `StartCommand(executable, args)`.
+    So `vf.PythonEnv` cannot be built with ANY release verifiers 0.3.1 accepts. A string command
+    is a container shell line, which is what verifiers means: where the model has `vm`, it gets
+    `vm=False`; where a string is refused outright, it is split exactly as a POSIX shell would
+    split it (shlex) into the executable and its arguments. Nothing else changes, and the
+    original class is restored on exit. (2026-10-05: an earlier version pinned
+    prime-sandboxes<0.3 instead, and the hosted env-server never started -- the runtime holds a
+    newer release.)"""
+    import shlex
     import verifiers.legacy.envs.sandbox_env as se
     orig = se.CreateSandboxRequest
     fields = getattr(orig, "model_fields", {})
 
     def request(**kw):
-        if isinstance(kw.get("start_command"), str) and "vm" in fields and "vm" not in kw:
+        sc = kw.get("start_command")
+        if not isinstance(sc, str):
+            return orig(**kw)
+        if "vm" in fields and "vm" not in kw:
             kw["vm"] = False
-        return orig(**kw)
+        try:
+            return orig(**kw)
+        except Exception:
+            from prime_sandboxes import StartCommand
+            argv = shlex.split(sc)
+            kw.pop("vm", None) if "vm" not in fields else None
+            kw["start_command"] = StartCommand(executable=argv[0], args=argv[1:])
+            return orig(**kw)
 
     se.CreateSandboxRequest = request
     try:

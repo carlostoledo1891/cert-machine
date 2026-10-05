@@ -1,6 +1,6 @@
 [project]
 name = "lattice-claims"
-version = "0.4.0"
+version = "0.4.1"
 # 80 characters or fewer: the Hub's listing cuts a longer one off mid-sentence
 # (0.1.0's was 186). The long form is the README's first paragraph.
 description = "Decide claims exactly or abstain; an answer-key switch shows guessing win."
@@ -33,10 +33,10 @@ keywords = ["rl-environment", "lattice", "post-quantum", "exact-arithmetic", "ve
 # certifier and the grader import only the standard library, and
 # tests/test_framework_free.py proves it by blocking every third-party import and
 # grading a submission anyway.
-# prime-sandboxes only for tools="python" (0.4.0). Pinned below 0.3: from 0.3.0 the sandbox
-# request takes only a StartCommand, which verifiers 0.3.1's legacy SandboxEnv cannot build;
-# 0.2.39–0.2.42 accept its string command with vm=False, which the adapter supplies.
-dependencies = ["verifiers>=0.2.0", "prime-sandboxes>=0.2.39,<0.3"]
+# prime-sandboxes only for tools="python" (0.4.0). NOT pinned: an upper bound (<0.3, 0.4.0)
+# kept the hosted env-server from starting at all. The adapter adapts instead: vm=False for
+# 0.2.39–0.2.42, a shell-split StartCommand for 0.3.0 and later.
+dependencies = ["verifiers>=0.2.0", "prime-sandboxes>=0.2.39"]
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]

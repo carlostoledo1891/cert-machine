@@ -212,8 +212,11 @@ in a Prime sandbox per rollout (container, 1 vCPU, 1 GB), `max_turns` 6 by
 default, the answer read from the closing assistant message only. The tool gives
 the model the means to decide the arithmetic; it never sees the grader.
 verifiers 0.3.1's legacy SandboxEnv sends a string start command without `vm`,
-which every prime-sandboxes release it accepts refuses. The adapter supplies
-`vm=False` while it builds, and nothing else, and pins `prime-sandboxes<0.3`.
+which every prime-sandboxes release it accepts refuses. While it builds, the
+adapter supplies `vm=False` (0.2.39–0.2.42), or splits the string as a shell
+would into a `StartCommand` (0.3.0 and later), and nothing else. 0.4.0 pinned
+`prime-sandboxes<0.3`, and the hosted env-server never started; 0.4.1 adapts
+instead of pinning.
 
 ```python
 env = vf.load_environment("lattice-claims", grader="ternary", dims=[8, 12, 16], tools="python")
