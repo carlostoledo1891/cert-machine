@@ -352,6 +352,8 @@ const mc100Same = [];
   const seen = new Set();
   for (const f of files) {
     const L = J('certs/' + f);
+    const raw = fs.readFileSync(path.join(ROOT, 'certs', f), 'utf8');
+    const idKey = (id) => (raw.includes('"id":"' + id + '"') ? '"id":"' + id + '"' : '"id": "' + id + '"');   /* the pickaxe needs the bytes the record carries */
     if (!Array.isArray(L.rows) || !L.rows.length) die('certs/' + f + ' holds no rows');
     for (const r of L.rows) {
       const m = byId.get(r.id);
@@ -367,7 +369,7 @@ const mc100Same = [];
         id: 'mc100-' + r.id, claim: m.claim, claimant: m.claimant, source: m.source + ' (sha256 ' + m.sha256.slice(0, 12) + '…)',
         origin: 'self-initiated', verdict: r.verdict, scope: r.scope, kind: r.kind,
         preregistered: { corpus: 'corpus/machine-claims-100.json', id: r.id, pool: r.pool },
-        key: '"id":"' + r.id + '"', decidedFrom: 'certs/' + f, page: 'https://github.com/carlostoledo1891/cert-machine/blob/main/certs/' + f
+        key: idKey(r.id), decidedFrom: 'certs/' + f, page: 'https://github.com/carlostoledo1891/cert-machine/blob/main/certs/' + f
       });
     }
   }

@@ -89,3 +89,19 @@ rank 96, only "This decomposition can be obtained by doubling the rank-48 decomp
 above." A recipe is not a program, so the row is not NEEDS DATA: the object is rebuilt from the printed rank-48
 (one copy per 4-column block of B) and the rebuild is decided like a printed object, the row saying so (the
 precedent is the register's `polymaps-gao-f6`, rebuilt from a printed construction).
+
+**2026-10-05 — readings for the EinsteinArena rows (no rule, cap or pin changed).** Each row's claim is "the
+object is a feasible solution and the platform's score of it is S". Three readings, written into
+`certs/mc100-einstein-arena.json` (`rules`) before the six easota-shaped rows were decided, and after one probe of
+the kissing penalty: (1) S is a float64 evaluation printed as a double; it AGREES with the exact value when they
+differ by no more than the platform's own minImprovement for the problem (1e-12 relative where that is 0), and
+the side on which S falls is recorded beside it. (2) For the penalty-scored kissing rungs, feasible is what the
+platform scores — n nonzero vectors in R^d — and the score is Σ max(0, 2 − |c_i − c_j|), c_i = 2x_i/|x_i|: inferred,
+not quoted, and reproduced to every printed digit on all four kissing rows; a score above 0 is the platform's own
+statement that the object is not a kissing configuration, so the 841, 605 and 842 rows are CERTIFIED as printed,
+their scope saying, pair by pair, that the object is NOT a solution (the pre-registration's expected decision).
+(3) A constraint that holds only within the platform's verifier tolerance is REPAIRED, kind tolerance-witness —
+the grammar the register already applies to the platform's repository copies (certs/easota-ledger.json). Two
+of the 29 objects were already in the register from another copy of the same bytes (the 594, solution #1492 =
+`kiss-ea-594-winner`; the 16-point min-distance set, solution #14 = `ea-mindist-ours_2026`): they are decided
+again from the pinned bytes and counted once, the register row annotated with the corpus id.

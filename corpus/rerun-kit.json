@@ -184,6 +184,14 @@
       "second": null,
       "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
       "note": "The AlphaEvolve results notebook's fifteen undecided part-A decompositions over Z, 0.5*Z and 0.5*C, read exactly by the converter that learned the three rings; the <4,4,8> rebuilt from its printed recipe (pool alphaevolve-nb-matmul of the hundred)."
+    },
+    {
+      "record": "certs/mc100-einstein-arena.json",
+      "rederive": "node tools/run-mc100-einstein.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate)",
+      "note": "The EinsteinArena pool of the hundred, wave 1: the platform's bests of 2026-10-02 for the four kissing rows and the six easota shapes, every number read as the literal the file carries; the 605 and 842 open rungs decided not solutions with their penalty reproduced; the other nineteen rows listed with what they need."
     }
   ]
 }

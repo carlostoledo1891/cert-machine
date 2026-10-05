@@ -157,12 +157,90 @@ if (TL['alphatensor-f2']) {
   ok(r448 && /rebuilt/.test(r448.scope) && r448.decision.rebuilt && r448.sha256 === nbSha, 'the <4,4,8> row says it was rebuilt from the printed recipe, and names the notebook\'s pin');
 }
 
+/* ================================================================================
+   THE EINSTEINARENA ROWS, WAVE 1 — tools/run-mc100-einstein.js
+   ================================================================================ */
+console.log('-- the einstein-arena pool, wave 1 (kissing + the easota shapes)');
+const EA = require(path.join(ROOT, 'tools', 'run-mc100-einstein.js'));
+const EAL = fs.existsSync(path.join(ROOT, 'certs', 'mc100-einstein-arena.json')) ? J('certs/mc100-einstein-arena.json') : null;
+ok(!!EAL, 'certs/mc100-einstein-arena.json exists');
+if (EAL) {
+  const want = M.rows.filter((r) => r.pool === 'einstein-arena');
+  const ids = EAL.rows.map((r) => r.id), und = EAL.undecided.map((u) => u.id);
+  ok(ids.length + und.length === want.length && want.every((w) => ids.includes(w.id) !== und.includes(w.id)) && new Set(ids.concat(und)).size === want.length,
+    'every one of the pool\'s ' + want.length + ' rows is either decided (' + ids.length + ') or listed undecided with a reason (' + und.length + '), never both, nothing else');
+  ok(EAL.rows.every((r) => { const m = want.find((w) => w.id === r.id); return m && r.sha256 === m.sha256; }), 'every decided row was read from bytes that hash to the manifest\'s pin');
+  ok(EAL.undecided.every((u) => u.needs && u.needs.length > 10), 'every undecided row says what it needs');
+  ok(EAL.literalReading.literals > 100000 && EAL.literalReading.notShortestForm === 0, 'all ' + EAL.literalReading.literals.toLocaleString('en-US') + ' number literals read as text; every one is the shortest form of its double');
+  const byId = (id) => EAL.rows.find((r) => r.id === id);
+  /* LIVE: the cheap rows re-decided from the pinned bytes and compared with the ledger */
+  const P = J('corpus/einstein-arena/problems.json');
+  const live = (id) => {
+    const mr = M.rows.find((r) => r.id === id), slug = id.replace(/^ea-best-/, '');
+    const B = EA.parseJsonExact(fs.readFileSync(path.join(ROOT, mr.source.split(' ')[0]), 'utf8'));
+    const prob = P.find((p) => p.slug === slug);
+    return { B, prob, mr, res: /kissing/.test(slug) ? EA.kissingRow(mr, B, prob) : EA.easotaRow(mr, B, prob) };
+  };
+  for (const id of ['ea-best-kissing-number-d11', 'ea-best-kissing-number-d12', 'ea-best-kissing-number-d11-605', 'ea-best-kissing-number-d12-842', 'ea-best-min-distance-ratio-2d', 'ea-best-circles-rectangle', 'ea-best-erdos-min-overlap', 'ea-best-flat-polynomials']) {
+    const { res } = live(id), r = byId(id);
+    const same = res.verdict === r.verdict && res.kind === r.kind && JSON.stringify(res.decision) === JSON.stringify(r.decision);
+    ok(same, 'LIVE: ' + id + ' re-decided from the pinned bytes — ' + res.verdict + ', the decision identical to the ledger\'s');
+  }
+  /* CROSS-CHECK: the open rungs as the kissing ledger measured them on 2026-09-08 (K.measure, another code path, the same solutions) */
+  const KL = J('certs/kissing-ledger.json');
+  for (const [slug, id] of [['kissing-number-d11-605', 'ea-best-kissing-number-d11-605'], ['kissing-number-d12', 'ea-best-kissing-number-d12'], ['kissing-number-d12-842', 'ea-best-kissing-number-d12-842']]) {
+    const o = KL.openRungs.find((x) => x.slug === slug), r = byId(id);
+    const agree = o && r && o.best.id === r.solution && o.measured.violations === r.decision.violations && o.measured.coincident === r.decision.coincident
+      && o.measured.worst.i === r.decision.worst.i && o.measured.worst.j === r.decision.worst.j && Math.abs(o.measured.worstAngleDeg - r.decision.worst.angleDegApprox) < 1e-9;
+    ok(agree, 'CROSS-CHECK: ' + slug + ' — ' + (r ? r.decision.violations.toLocaleString('en-US') + ' violating pairs, worst (' + r.decision.worst.i + ', ' + r.decision.worst.j + ')' : '?') + ', as the kissing ledger measured the same solution by another code path');
+  }
+  const r605 = byId('ea-best-kissing-number-d11-605'), r842 = byId('ea-best-kissing-number-d12-842');
+  ok(r605 && /NOT a kissing configuration/.test(r605.scope) && r605.decision.agreement.agrees && r842 && r842.decision.agreement.agrees,
+    'the 605 and 842 rungs decided NOT solutions, and the platform\'s penalty reproduced to every printed digit (' + (r605 ? r605.decision.penaltyEnclosure[0].slice(0, 20) : '') + '…, ' + (r842 ? r842.decision.penaltyEnclosure[0].slice(0, 20) : '') + '…)');
+  ok(byId('ea-best-kissing-number-d11').sameClaimAs === 'kiss-ea-594-winner' && byId('ea-best-min-distance-ratio-2d').sameClaimAs === 'ea-mindist-ours_2026',
+    'the two objects the register already held (the 594 and the min-distance 16 points) are named, not counted twice');
+  /* RED controls */
+  {
+    const { B, prob, mr } = live('ea-best-kissing-number-d11');
+    const F = clone(B); F.data.vectors[1] = clone(F.data.vectors[0]);
+    const res = EA.kissingRow(mr, F, prob);
+    red(res.verdict === 'REFUTED' && res.decision && res.decision.coincident === 1, 'the 594 with vector 1 overwritten by vector 0: no longer a kissing configuration, and its printed score 0 is no longer reproduced — REFUTED');
+  }
+  {
+    const { B, prob, mr } = live('ea-best-kissing-number-d11-605');
+    const F = clone(B); F.score = { lit: '1.7102381876401676' };
+    red(EA.kissingRow(mr, F, prob).verdict === 'REFUTED', 'the 605 with its printed score moved by 1e-11 (above the 1e-12 resolution) is REFUTED — the score is reproduced, not assumed');
+  }
+  {
+    const { B, prob, mr } = live('ea-best-circles-rectangle');
+    const F = clone(B); const c = F.data.circles[10]; c[2] = { lit: String(Number(c[2].lit) + 1e-9) };
+    const res = EA.easotaRow(mr, F, prob);
+    red(res.verdict !== 'CERTIFIED', 'a circle\'s radius grown by 1e-9: the bytes no longer give the printed Σr nor an exact witness — ' + res.verdict + ', not CERTIFIED');
+  }
+  {
+    const { B, prob, mr } = live('ea-best-erdos-min-overlap');
+    const F = clone(B); F.data.values[100] = { lit: '1.0000001' };
+    red(EA.easotaRow(mr, F, prob).verdict === 'REFUTED', 'a minimum-overlap value set to 1.0000001 (outside [0, 1]) is REFUTED');
+  }
+  {
+    const x = EA.parseJsonExact('{"x":[0.1000000000000000055511151231257827]}').x[0].lit;
+    red(x === '0.1000000000000000055511151231257827' && JSON.parse('[0.1000000000000000055511151231257827]')[0] === 0.1, 'the reader keeps a literal JSON.parse would round (0.1000000000000000055511151231257827 stays itself, not 0.1)');
+  }
+}
+
 /* ---- the register reads the ledgers ------------------------------------------- */
 {
   const R = J('certs/claims-ledger.json');
   const mine = Object.values(TL).reduce((n, L) => n + L.rows.length, 0);
   ok(R.preregistered && R.rows.filter((r) => r.preregistered && /^certs\/mc100-(alphatensor|alphaevolve-nb)/.test(r.decidedFrom)).length === mine,
     'the register holds the ' + mine + ' tensor rows, each derived from its pool\'s ledger');
+  if (EAL) {
+    const own = EAL.rows.filter((r) => !r.sameClaimAs), twins = EAL.rows.filter((r) => r.sameClaimAs);
+    ok(own.every((r) => R.rows.some((x) => x.id === 'mc100-' + r.id && x.verdict === r.verdict && x.kind === r.kind))
+      && twins.every((r) => { const x = R.rows.find((y) => y.id === r.sameClaimAs); return x && x.preregistered && x.preregistered.id === r.id && x.verdict === r.verdict; })
+      && !R.rows.some((x) => twins.some((r) => x.id === 'mc100-' + r.id)),
+      'the register holds the ' + own.length + ' new EinsteinArena rows and annotates the ' + twins.length + ' it already held (counted once)');
+  }
 }
 
 console.log('\nmc100 battery: ' + pass + ' pass, ' + fail + ' fail · red controls ' + redsFired + '/' + reds + ' fired');

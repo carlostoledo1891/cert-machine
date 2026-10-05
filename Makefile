@@ -209,6 +209,7 @@ reports:
 	@$(NODE) tools/build-report-polymaps.js
 	@$(NODE) tools/build-report-mathbench.js
 	@$(NODE) tools/run-mc100-tensors.js all
+	@$(NODE) tools/run-mc100-einstein.js
 	@$(NODE) tools/run-claims-ledger.js
 	@$(NODE) tools/build-report-claims.js
 	@$(NODE) tools/build-report-rerun.js
