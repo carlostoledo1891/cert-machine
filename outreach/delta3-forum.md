@@ -1,8 +1,8 @@
 # δ₃ = 117/2192: the erdosproblems.com/1186 texts (paste by hand) and the teorth/erdosproblems note
 
 STATUS: DRAFT, NOT SENT (2026-10-05). Every item here is a SEND on the operator's per-item word.
-- **Already met:** the author's line-by-line reading (operator, 2026-10-05). The Zenodo deposit v2026.10 was authorised the same day.
-- **Before pasting:** fill DOI below from corpus/zenodo.json (`latest`) once the record is verified public, and check that the three links resolve.
+- **Already met:** the author's line-by-line reading (operator, 2026-10-05), and the Zenodo deposit: v2026.10, doi:10.5281/zenodo.23171167, verified public 2026-10-05 and filled in below.
+- **Before pasting:** check that the three links resolve (the site deploys from main).
 
 THE SITE'S FORMAT (read off its preview renderer for the Erdős #1 comment, outreach/erdos1-forum-comment.md):
 - Plain text; newlines become line breaks.
@@ -31,7 +31,7 @@ The range $\int\sigma\le\frac12$ is cut into five regions, each closed by an exa
 
 The certificates are checked in exact arithmetic by two verifiers that share no code. The second was written from the mathematics and the file format alone. Planted forgeries and one-line mutations of the verifier are refused.
 
-Write-up (8 pages, the reduction re-derived in full): <a href="https://carlostoledo.co/paper/delta3.pdf">PDF</a>. Certificates, both verifiers and every number's provenance: <a href="https://carlostoledo.co/reports/delta3.html">the page</a>, archived at <a href="https://doi.org/DOI">doi:DOI</a>.
+Write-up (8 pages, the reduction re-derived in full): <a href="https://carlostoledo.co/paper/delta3.pdf">PDF</a>. Certificates, both verifiers and every number's provenance: <a href="https://carlostoledo.co/reports/delta3.html">the page</a>, archived at <a href="https://doi.org/10.5281/zenodo.23171167">doi:10.5281/zenodo.23171167</a>.
 
 Nothing here concerns $k\ge4$ or the $\mathbb{F}_p$ analogue.
 
@@ -55,7 +55,7 @@ The honest moves are:
 
 > **Title:** #1186: the case k = 3 (δ₃ = 117/2192) — a partial result, for the maintainers' information
 >
-> **Body:** A partial proof claim for #1186 is on the site: δ₃ = 117/2192, the Parrilo–Robertson–Saracino conjecture (the twelve-block colouring is optimal). The general question stays open, so this proposes no status change. Write-up and certificates: https://carlostoledo.co/reports/delta3.html (archived at doi:DOI). AI-assisted and disclosed; read and checked by the author; not peer reviewed; not formalised.
+> **Body:** A partial proof claim for #1186 is on the site: δ₃ = 117/2192, the Parrilo–Robertson–Saracino conjecture (the twelve-block colouring is optimal). The general question stays open, so this proposes no status change. Write-up and certificates: https://carlostoledo.co/reports/delta3.html (archived at doi:10.5281/zenodo.23171167). AI-assisted and disclosed; read and checked by the author; not peer reviewed; not formalised.
 
 ---
 

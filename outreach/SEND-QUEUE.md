@@ -13,7 +13,7 @@ here on request.
 
 ## LANE D — δ₃ = 117/2192 AND THE ζ(7) AUDIT (2026-10-05)
 
-- **D0. The Zenodo deposit v2026.10 — AUTHORISED by the operator 2026-10-05.**
+- **D0. The Zenodo deposit v2026.10 — DONE 2026-10-05: doi:10.5281/zenodo.23171167**, minted by the GitHub release, verified public, stamped (corpus/zenodo.json, CITATION.cff).
   - Steps: the GitHub release mints the DOI; tools/stamp-release.py records it; then the DOI is filled into D1.
 - **D1. The partial proof claim on erdosproblems.com/1186 — DRAFTED, HELD.**
   - Draft: `outreach/delta3-forum.md` A (submit-proof form, marked partial; k = 3 only).

@@ -113,6 +113,12 @@ def('LadderRows', [32, 64, 128, 192, 256].map((Lc) => {
   return Lc + ' & ' + m[2] + ' & ' + CEIL[Lc].delta.toFixed(6) + ' \\\\';
 }).join('\n'));
 def('RepoCommit', '\\texttt{' + git + '}');
+/* the archive: the deposit record names the version that holds these files */
+const Z = J('corpus/zenodo.json');
+const dep = Z.versions.find((v) => v.version === Z.latest);
+need(dep && /^10\.5281\/zenodo\.\d+$/.test(dep.doi), 'the deposit record has no DOI for its latest version');
+def('ArchiveDoi', dep.doi);
+def('ArchiveVersion', Z.latest);
 
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('paper/tex/delta3-numbers.tex written — ' + (M.length - 1) + ' macros (min slab ' + minSlab.boundDecimal + ', battery ' + bm[1] + ' green / ' + nReds + ' reds, mutations ' + MU.counts.caught + '/' + MU.counts.mutants + ')');
