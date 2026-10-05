@@ -56,3 +56,6 @@ corpus/ww3-grid/cache/
 # Petrobras Radar form answers with the operator's personal data, and dry-run screenshots
 outreach/petrobras-radar/*.filled.json
 outreach/petrobras-radar/run-*/
+# kissing wave: the unlicensed Takhanov-Yun archives (and any file over 3 MB), pinned by hash in
+# corpus/kissing/wave.meta.json and fetched on demand (tools/pin-kissing-wave.py --fetch)
+corpus/kissing/wave/.cache/
