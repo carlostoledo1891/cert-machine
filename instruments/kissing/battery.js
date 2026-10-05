@@ -120,6 +120,62 @@ ok(e8.contacts > 0, 'E8 has exact contacts (60-degree pairs decided as equality,
   ok(ok8.violations === 0 && ok8.contacts === 6720, 'measure on E8: no violation, the textbook contact count');
 }
 
+/* ---- the September 2026 wave: the fields it lives in, and dimension 18 from its pinned bytes ---- */
+const FD = require('./fields.js');
+const BS = require('./basis.js');
+{
+  let r1 = false; try { FD.quad(FD.INT, 4); } catch (e) { r1 = true; }
+  red(r1, 'quad(Z, 4) is refused: sqrt4 adds nothing');
+  let r2 = false; try { FD.quad(FD.Z2, 8); } catch (e) { r2 = true; }
+  red(r2, 'Z[sqrt2][sqrt8] is refused: sqrt8 already lies in Z[sqrt2]');
+  let r3 = false; try { FD.quad(FD.INT, 4, { unchecked: true }).sign([2n, -1n]); } catch (e) { r3 = /impossible/.test(e.message); }
+  red(r3, 'a forced tie 2 - 1*sqrt4 THROWS in the tower instead of returning a sign');
+  ok(FD.Z3.sign([1351n, -780n]) === 1 && FD.Z3.sign([-1351n, 780n]) === -1 && FD.Z3.sign([1351n, -781n]) === -1,
+    'Z[sqrt3] decides the Pell near-tie 1351 - 780 sqrt3 = 3.7e-4 > 0 and its neighbours');
+  ok(FD.Z23.sign(FD.z23(0, 0, 0, 0)) === 0 && FD.Z23.sign(FD.z23(-5, 0, 0, 2)) === -1 && FD.Z23.sign(FD.z23(5, 0, 0, -2)) === 1
+    && FD.Z23.sign(FD.z23(0, 3, -2, 0)) === 1 && FD.Z23.sign(FD.z23(1, 1, -1, 0)) === 1 && FD.Z23.sign(FD.z23(1, 1, 1, -1)) === 1,
+    'Q(sqrt2, sqrt3) signs: zero, 2sqrt6 vs 5, 3sqrt2 vs 2sqrt3, 1 + sqrt2 vs sqrt3, 1 + sqrt2 + sqrt3 vs sqrt6');
+  /* the fast sign of basis.js against the BigInt tower on 60,000 seeded inputs, most of them mixed-signed */
+  let seed = 20261005, bad = 0;
+  const rnd = (m) => { seed = (seed * 1103515245 + 12345) % 2147483648; return (seed % (2 * m + 1)) - m; };
+  for (let t = 0; t < 60000; t++) {
+    const m = t % 3 ? 100000 : 40;
+    const a = rnd(m), b = t % 5 ? rnd(m) : 0, c = rnd(m), d = t % 7 ? rnd(m) : 0;
+    if (BS.sign4(a, b, c, d) !== FD.Z23.sign(FD.z23(a, b, c, d))) bad++;
+  }
+  ok(bad === 0, 'basis.sign4 agrees with the BigInt tower on 60,000 seeded elements of Q(sqrt2, sqrt3)');
+  /* the icosahedron: K(3) = 12, no pair touching, the nearest pairs at cos^2 = 1/5 exactly */
+  const ico = FD.icosahedron();
+  const ri = FD.certifyField(FD.Z5, ico);
+  const s = FD.Z5.mul([2n, 2n], [2n, 2n]), Nn = FD.Z5.mul([10n, 2n], [10n, 2n]);
+  ok(ri.verdict === 'CERTIFIED' && ri.n === 12 && ri.contacts === 0 && ri.worst && ri.worst.dot === '(2)+(2)*sqrt5' && FD.Z5.eq(FD.Z5.scale(s, 5n), Nn),
+    'calibration: the icosahedron (12 in R^3, Z[sqrt5]) certifies with no contact and cos^2 = 1/5 exactly at its nearest pairs');
+  red(FD.certifyField(FD.Z5, ico.concat([[[0n, 0n], [0n, 0n], [1n, 0n]]])).verdict === 'REFUTED', 'a 13th point next to the icosahedron refutes (K(3) = 12)');
+  /* dimension 18, rebuilt from the pinned bytes: tier B against everything here; the full 34.9M pairs run in the ledger */
+  const D18 = require('./wave/d18.js');
+  const b18 = D18.build();
+  ok(b18.vectors.length === 8358 && b18.counts['tier B'] === 960 && b18.counts.tier === 3072 && b18.counts.pole === 6, 'd18: 8358 vectors rebuilt from the three pinned JSON files and the README table');
+  const against = (V, rows) => { /* every pair with at least one end in rows, exact */
+    const N = BS.dot4(V[0], V[0], 18)[0]; let viol = 0, cont = 0, pairs = 0; const inRows = new Set(rows);
+    for (const i of rows) for (let j = 0; j < V.length; j++) {
+      if (j === i || (inRows.has(j) && j < i)) continue;
+      const d = BS.dot4(V[i], V[j], 18); pairs++;
+      const sg = BS.sign4(N - 2 * d[0], -2 * d[1], -2 * d[2], -2 * d[3]);
+      if (sg < 0) viol++; else if (sg === 0) cont++;
+    }
+    return { viol, cont, pairs };
+  };
+  const tb = []; b18.kind.forEach((k, i) => { if (k === 'tier B') tb.push(i); });
+  const a18 = against(b18.vectors, tb);
+  ok(a18.viol === 0 && a18.pairs === 960 * 7398 + 960 * 959 / 2 && a18.cont === 267264, 'd18: tier B against all 8358 — ' + a18.pairs + ' pairs, no violation, 267,264 exact contacts');
+  const V1 = b18.vectors.slice(); const i0 = tb[7];
+  V1[i0] = BS.vec(V1[i0].c1.slice(), V1[i0].c2, V1[i0].c3, V1[i0].c6); V1[i0].c1[3] = -V1[i0].c1[3];
+  red(against(V1, [i0]).viol > 0, 'd18: one sign of one tier-B word flipped is caught against the other 8357');
+  const V2 = b18.vectors.slice(); const i1 = tb[0];
+  V2[i1] = D18.point(V2[i1].c1.slice(0, 16), 4, 0);
+  red(against(V2, [i1]).viol > 0, 'd18: a tier-B point rotated by 30 degrees (from 30 to 0) violates the 60-degree condition');
+}
+
 /* ---- the shipped record, re-walked ---- */
 const CERT = path.join(ROOT, 'certs', 'kissing-ledger.json');
 if (fs.existsSync(CERT)) {
