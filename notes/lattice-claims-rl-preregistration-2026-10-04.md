@@ -134,6 +134,12 @@ Any change after the first training call is recorded here with its date and its 
    at about 04:08 UTC with `prime train restart`, from their latest on-cluster checkpoint; no cloud checkpoint
    existed. Arms, configs and readings are unchanged. If the restart replays steps, the per-step series is
    read by step index as logged, and the replay is reported beside it.
+   The restart did not hold. The exact arm logged step 5 at 04:10 UTC and both runs were stalled again by
+   05:03, with no queue reason, no notice and capacity available. Both were STOPPED (yd2rjf…, xrlpdj…, kept
+   as aborted attempts, steps 1–4/5 not read as results) and relaunched fresh from the same configs at about
+   05:04 UTC: ro1xyg6t4kmny6tk2ah05l2m (A) and gdbww9hf5tauvokqz74vhsph (B). If these stall too, the cause
+   is the service, not the arms. The next step is then the operator's: wait, report it to Prime, or run
+   prime-rl on rented GPUs.
 
 ## The pilot (stage 1), 2026-10-04 — plumbing and base rates, NOT the result
 
