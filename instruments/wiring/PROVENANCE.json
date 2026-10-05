@@ -175,19 +175,19 @@
     },
     {
       "file": "README.md",
-      "sha256": "494f2233fee81d105721f39adf61cbc14b9602e9fd937a1bbd0b6dca31e74178",
+      "sha256": "0f38aa6634b4c09ce0ff835e0ceae90ae72d739872dc8a1cd3b5e397e7f8c927",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
       "patched": true,
-      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers)."
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL)."
     },
     {
       "file": "pyproject.toml",
-      "sha256": "ee24a145ae8ccdfc127d9b472556813bcf8e24745d77561f9ddf12260b27893e",
+      "sha256": "8048276fbdf95b1f004adf6e883b6ac9470cba86a40dcc9f5837178eeb3e56f8",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
       "patched": true,
-      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`."
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`."
     },
     {
       "file": "lattice_claims/api.py",
@@ -327,5 +327,21 @@
       "verifiedFromTheHub": "the wheel downloaded from the registry URL hashes to the pushed sha256; pip-installed into a fresh python3.12 venv with verifiers 0.3.1 and loaded with no source tree: vf.load_environment('lattice-claims', grader='exact'|'answer_key', dims=[8, 12, 16]) returns a SingleTurnEnv, 6 train / 6 eval across all three rungs, train seed 2026 and eval seed 2027, no task column; the 43 tests pass against the installed package. The registry lists the 74-character description and the `hallucination` tag."
     },
     "cleanInstall": "pip wheel built the 0.2.0 wheel (sha256 5fc5c0a64a43302814768f4b222f65354c77f25fa18107155e1fb0e6f761166b, 16 entries, 39,527 bytes; hatchling stamps every entry 2020-02-02). Installed into a fresh python3.12 venv with verifiers 0.3.1 and loaded from a directory with no source tree: vf.load_environment('lattice-claims', grader='exact'|'answer_key', dims=[8, 12, 16]) returns a SingleTurnEnv, 6 train / 6 eval across all three rungs, prompts at most 1,841 characters; an unknown grader is refused with the message naming the two; the 43 tests pass against the INSTALLED package."
+  },
+  "v021": {
+    "what": "lattice-claims 0.2.1, 2026-10-04: README and pyproject only. The README opens with a 'Reward hacking sprint submission' section and pyproject gains the tag `reward-hacking-sprint`; the package's code is byte-identical to 0.2.0.",
+    "why": "Prime's free Hosted Training model (sprints/Llama-3.2-1B-Instruct) refused the pilot with HTTP 400, \"'carlos-toledo/lattice-claims' does not meet the free-tier environment requirements\". The Sprints program asks for a public environment whose README names the sprint and states its hypotheses and experiments (primeintellect.ai/blog/reward-hacking), and an accepted submission (dp-learning-rl/silent-exit) opens that way. The experiment is in that track on its merits: the answer key is a proxy reward with a flaw, and the exact grader is the gold metric logged beside it.",
+    "acceptance": {
+      "package code": "the 12 files under lattice_claims/ in the 0.2.1 wheel hash identically to 0.2.0's",
+      "python3 battery.py": "all green",
+      "verifiedOn": "2026-10-04"
+    },
+    "hubPush": {
+      "state": "PUBLISHED 2026-10-04 as carlos-toledo/lattice-claims v0.2.1, PUBLIC, under the operator's 'start free pilot' (the free model requires it).",
+      "version_id": "n5e7f2fsicscudba4wrvyxk9",
+      "wheel_sha256": "e9ec0328312de9f26f9a45761ba9724491a9c6f3a9a3b41d8207dc620578b741",
+      "wheel_url": "https://hub.primeintellect.ai/carlos-toledo/lattice-claims/@215261d8/lattice_claims-0.2.1-py3-none-any.whl",
+      "verifiedFromTheHub": "downloaded wheel hashes to the pushed sha256; installed in the fresh 3.12 venv with verifiers 0.3.1: version 0.2.1, load_environment(grader='answer_key', dims=[8, 12, 16]) a SingleTurnEnv, 43 tests pass against the installed package."
+    }
   }
 }

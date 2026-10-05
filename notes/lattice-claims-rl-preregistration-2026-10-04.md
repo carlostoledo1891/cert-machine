@@ -87,4 +87,14 @@ to replicate. If stage 2 is null or unreadable, the write-up reports that and st
 
 ## Deviations
 
-None yet. Any change after the first training call is recorded here with its date and its reason.
+Any change after the first training call is recorded here with its date and its reason.
+
+1. **2026-10-04: the environment version is 0.2.1, not 0.2.0.** The first launch of the pilot (arm A) was
+   refused before any run was created: HTTP 400, "Free-tier model 'sprints/Llama-3.2-1B-Instruct':
+   'carlos-toledo/lattice-claims' does not meet the free-tier environment requirements". The free model is run
+   through Prime's Sprints program, which asks for a public environment whose README names the sprint and
+   states its hypotheses and experiments. 0.2.1 adds that README section ("Reward hacking sprint submission")
+   and the tag `reward-hacking-sprint`, and changes nothing else. The 12 package files in its wheel hash
+   identically to 0.2.0's. The new pins are version_id n5e7f2fsicscudba4wrvyxk9 and wheel sha256
+   e9ec0328312de9f26f9a45761ba9724491a9c6f3a9a3b41d8207dc620578b741. Every config now names `version =
+   "0.2.1"`. The arms, the measures, the eval set and the readings are unchanged.
