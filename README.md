@@ -4,7 +4,15 @@
 
 *Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22225861.svg)](https://doi.org/10.5281/zenodo.22225861)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22225860.svg)](https://doi.org/10.5281/zenodo.22225860)
+**δ₃ = 117/2192** — Graham's $100 question, the case k = 3 of Erdős #1186: the twelve-block colouring of
+Parrilo, Robertson and Saracino (2008) is optimal, so a two-colouring of {1,…,n} has at least
+(117/2192 + o(1))n² monochromatic three-term progressions. Five exact certificates, re-decided by a second
+verifier that shares no code with the first. [The page](https://carlostoledo.co/reports/delta3.html) ·
+[the paper](https://carlostoledo.co/paper/delta3.pdf) · archived at
+[doi:10.5281/zenodo.23171167](https://doi.org/10.5281/zenodo.23171167) · read line by line by the author;
+not refereed, not formalised.
+
 **λ(4) = −L(1,2,3,4)** — the third exact value of Chowla's cosine dip (Erdős #510, finite front),
 proved by executing and completing Mercer's 2019 strategy. [The proof page](https://carlostoledo.co/reports/lambda4.html) ·
 [the write-up](paper/lambda4-proof.md) · machine-derived, not peer-reviewed, refutations invited.
