@@ -128,3 +128,40 @@ def test_the_exact_grader_is_untouched_by_the_key():
     before = grade(t, sub)
     t.key = "REFUSED" if t.key == "ADMISSIBLE" else "ADMISSIBLE"
     assert grade(t, sub) == before
+
+
+# --- 0.3.0: the ternary grader and the due-split metrics ----------------------
+
+def test_ternary_pays_decided_right_penalises_refuted_and_unreadable():
+    ts = Taskset(seed=7, dims=(8, 12, 16))
+    seen = {1.0: 0, 0.0: 0, -1.0: 0}
+    for i in range(45):
+        t = ts.sample(i)
+        g = api.score_task(t, '{"verdict": "%s", "missing": "%s"}' % (t._truth, (t.data.missing or "q.q").split(".")[1]))
+        assert g["ternary"] == g["certified"] == 1.0 or t._truth in ABSTAIN
+        wrong = "REFUSED" if t._truth != "REFUSED" else "ADMISSIBLE"
+        assert api.score_task(t, '{"verdict": "%s"}' % wrong)["ternary"] == -1.0
+        assert api.score_task(t, "no json at all")["ternary"] == -1.0
+        if t._truth in DEFINITE:
+            assert api.score_task(t, '{"verdict": "STRADDLES"}')["ternary"] == 0.0
+        for v in (1.0, 0.0, -1.0):
+            seen[v] += 1
+    assert all(seen.values())
+
+
+def test_the_due_split_adds_up_and_is_a_property_of_the_task():
+    ts = Taskset(seed=7, dims=(8, 12, 16))
+    for i in range(30):
+        t = ts.sample(i)
+        for reply in ('{"verdict": "NEEDS_DATA", "missing": "q"}', '{"verdict": "ADMISSIBLE"}', "nothing"):
+            g = api.score_task(t, reply)
+            assert g["due"] == (1.0 if t._truth in ABSTAIN else 0.0)
+            assert g["abstained_due"] + g["abstained_not_due"] == g["abstained"]
+            assert g["abstained_due"] <= g["due"]
+
+
+def test_under_the_ternary_grader_the_honest_policy_beats_the_guesser():
+    ts = Taskset(seed=2026, dims=(8, 12, 16))
+    tasks = [ts.sample(i * 3 + RUNGS.index(r), rung=r) for r in RUNGS for i in range(15)]
+    tot = {p: sum(g["ternary"] for g in run_policy(p, tasks)) for p in ("exact", "careful", "admissible")}
+    assert tot["exact"] == 45 and tot["exact"] > tot["careful"] > tot["admissible"]

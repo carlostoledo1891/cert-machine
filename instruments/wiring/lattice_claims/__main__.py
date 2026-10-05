@@ -23,7 +23,8 @@ def main(argv):
         tasks = {r: [ts.sample(i * 3 + RUNGS.index(r), rung=r) for i in range(n)] for r in RUNGS}
         print(f"{n} tasks per rung, dims {dims}")
         graded = {name: {r: run_policy(name, tasks[r]) for r in RUNGS} for name in POLICIES}
-        for field, title in (("certified", "the exact grader"), ("key_match", "the answer key")):
+        for field, title in (("certified", "the exact grader"), ("key_match", "the answer key"),
+                             ("ternary", "the ternary grader, +1 / 0 / -1")):
             print(f"\n  {title} ({field})")
             print(f"  {'policy':<12}" + "".join(f"{r:>16}" for r in RUNGS) + f"{'overall':>10}")
             for name in POLICIES:

@@ -147,3 +147,23 @@ def test_dims_and_mix_ride_in_every_row_so_scoring_rebuilds_the_same_task():
     assert fn["well_formed"](completion=C, info=row) == 1.0
     stripped = {k: v for k, v in row.items() if k not in ("dims", "mix")}
     assert fn["well_formed"](completion=C, info=stripped) == 0.0, "the control: without dims the task is a different one"
+
+
+def test_the_ternary_grader_trains_on_plus_one_zero_minus_one():
+    kw = dict(num_tasks=4, seed=2026, dims=[8, 12, 16], mix=[1, 0, 1])
+    env = load_environment(grader="ternary", **kw)
+    fn = reward_funcs(env)
+    infos = [dict(i) for i in env.dataset["info"]]
+    und = next(i for i in infos if i["rung"] == "underspecified")
+    right = [{"role": "assistant", "content": '{"verdict": "NEEDS_DATA", "missing": "%s"}' % und["missing"].split(".")[1]}]
+    guess = [{"role": "assistant", "content": '{"verdict": "ADMISSIBLE"}'}]
+    junk = [{"role": "assistant", "content": "no idea"}]
+    assert fn["reward"](completion=right, info=und) == 1.0
+    assert fn["reward"](completion=guess, info=und) == -1.0
+    assert fn["reward"](completion=junk, info=und) == -1.0
+    assert fn["due"](completion=guess, info=und) == 1.0
+    assert fn["abstained_due"](completion=right, info=und) == 1.0
+    dec = next(i for i in infos if i["rung"] == "declared")
+    abst = [{"role": "assistant", "content": '{"verdict": "STRADDLES"}'}]
+    assert fn["reward"](completion=abst, info=dec) == 0.0
+    assert fn["abstained_not_due"](completion=abst, info=dec) == 1.0

@@ -51,8 +51,11 @@ check('the exact policy is the ceiling', got == 3 * n, f"{int(got)}/{3 * n}")
 # tasks with no model: under the answer key the guesser (`careful`, which never
 # abstains) beats the honest `exact` policy; under the exact grader the order
 # reverses. If this ever stops holding, the control arm no longer controls.
-tot = {p: {f: sum(sum(x[f] for x in run_policy(p, tasks[r])) for r in RUNGS) for f in ('certified', 'key_match')}
+tot = {p: {f: sum(sum(x[f] for x in run_policy(p, tasks[r])) for r in RUNGS) for f in ('certified', 'key_match', 'ternary')}
        for p in ('exact', 'careful')}
+check('the ternary grader (0.3.0) pays the honest policy at the ceiling and punishes the guesser',
+      tot['exact']['ternary'] == 3 * n and tot['careful']['ternary'] < tot['exact']['ternary'],
+      f"ternary: exact {int(tot['exact']['ternary'])} of {3 * n}, careful {int(tot['careful']['ternary'])}")
 check('the answer key pays guessing, the exact grader pays abstaining',
       tot['careful']['key_match'] > tot['exact']['key_match'] and tot['exact']['certified'] > tot['careful']['certified'],
       f"key: careful {int(tot['careful']['key_match'])} > exact {int(tot['exact']['key_match'])} · "

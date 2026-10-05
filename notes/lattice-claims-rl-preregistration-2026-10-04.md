@@ -280,3 +280,45 @@ wrong**. It also sharpens it: an exact, decided abstention credit is not enough 
 is a third arm with −1 for a confident wrong verdict on the exact grader, which needs lattice-claims 0.3 and
 its own pre-registration, written before any run.
 
+## Arm C — the ternary grader: pre-registration, 2026-10-05 (written before any run of it)
+
+On the operator's choice ("1") after the stage-2 result.
+
+**The question.** Does adding TruthRL's −1 for a confident wrong answer, on a grader that still DECIDES when
+abstaining is right, keep abstention alive under GRPO where the exact grader did not? And does it keep it
+where it belongs (tasks with a missing quantity or a straddling norm), not everywhere?
+
+**What is fixed**
+- **Environment:** carlos-toledo/lattice-claims **0.3.0**, with `grader = "ternary"`:
+  - +1 when the exact grader certifies the verdict, a decided abstention included;
+  - 0 for an abstention that is not the decided answer;
+  - −1 for a definite verdict the exact grader refutes, and −1 for a reply with no readable verdict.
+- **Everything else is stage 2's:** Qwen3.5-9B, LoRA, thinking off, 1,536 tokens, temperature 1.0, 150 steps,
+  batch 128 × 8, dims 8–16, mix 1:1:1, training seed 2026 (the same stream as A and B), eval seed 9999 with
+  300 tasks every 25 steps. Config instruments/wiring/train/qwen9b-ternary-s2026.toml, which differs from the
+  exact arm's only in `grader`, `version` and `name`.
+- **Comparison:** the recorded stage-2 arms A and B, same model and same stream. No new A or B is run.
+- **Measures** come from the batch metrics, which the new rubric reports over every rollout:
+  - P(abstain | due) = mean `abstained_due` / mean `due`;
+  - P(abstain | not due) = mean `abstained_not_due` / (1 − mean `due`);
+  - `confident_wrong`, `certified`, `ternary` and `refused_parse`;
+  - the held-out eval's avg@1, which is the ternary reward.
+- **Start and final:** start is the first logged step; final is the mean of the last 10 logged steps, whether
+  the run completes or is aborted.
+
+**Readings, in this order**
+- **UNREADABLE:** final `refused_parse` above 0.30. Reported as such, and nothing else is read.
+- **COLLAPSE** (as in stage 2): final P(abstain | due) below 0.05.
+- **PROTECTS ABSTENTION** (the prediction): all three of
+  - final P(abstain | due) at least 0.20;
+  - final P(abstain | due) − P(abstain | not due) at least 0.15;
+  - final `confident_wrong` at or below its start.
+- **OVER-ABSTENTION:** final P(abstain | not due) at least 0.50, reported whatever else holds.
+- **MIXED:** anything else, reported with its numbers.
+
+**Spend.** A ceiling of US$15 for this run. It is stopped if it is on course to pass that. The Prime wallet
+held US$31.07 before it.
+
+**Replicate.** A second seed (3026) runs only on the operator's word and funds; a single run is reported as a
+single run.
+

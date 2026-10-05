@@ -93,12 +93,13 @@ def run_policy(name, tasks):
     the same submission alongside as `key_match` (0.2.0) -- so one table shows
     what each grader pays for: under the key, `careful`, which never abstains,
     outscores `exact`, which abstains exactly when it should."""
-    from .taskset import grade, grade_key
+    from .taskset import grade, grade_key, grade_ternary
     pol = POLICIES[name]
     out = []
     for t in tasks:
         sub = pol(t)
         g = grade(t, sub)
         g["key_match"] = grade_key(t, sub)
+        g["ternary"] = grade_ternary(t, sub)
         out.append(g)
     return out

@@ -117,9 +117,10 @@ def load_environment(
     declared / printed / underspecified — and splitting on index would hand the
     two halves different rung mixtures.
 
-    `grader` chooses what TRAINS (0.2.0): "exact" (the default) or "answer_key",
-    the binary key of the complete instance, under which an abstention never
-    scores. Every other number is computed under both, at weight 0, so two runs
+    `grader` chooses what TRAINS: "exact" (the default), "answer_key" (0.2.0: the
+    binary key of the complete instance, under which an abstention never scores) or
+    "ternary" (0.3.0: +1 decided-correct, 0 an abstention that is not due, -1 a
+    refuted definite verdict or no readable verdict). Every other number is computed under both, at weight 0, so two runs
     that differ only in `grader` are read on the same columns. `dims` sets the
     lattice dimensions (default 24, 40, 60, 90; (8, 12, 16) keeps a prompt near
     1,500 characters) and `mix` weights the rungs as a deterministic cycle
@@ -135,7 +136,7 @@ def load_environment(
     eval_num_tasks = num_tasks if eval_num_tasks is None else eval_num_tasks
     eval_seed = seed + 1 if eval_seed is None else eval_seed
     eval_start = start if eval_start is None else eval_start
-    trains_on = "certified" if grader == "exact" else "key_match"
+    trains_on = {"exact": "certified", "answer_key": "key_match", "ternary": "ternary"}[grader]
 
     def reward(completion, info, **_) -> float:
         """What trains: `certified` under the exact grader, `key_match` under the
@@ -149,6 +150,23 @@ def load_environment(
     def key_match(completion, info, **_) -> float:
         """The answer key's verdict on the reply, whichever grader trains."""
         return float(_decide(completion, info)["key_match"])
+
+    def ternary(completion, info, **_) -> float:
+        """+1 decided-correct, 0 an abstention that is not due, -1 a refuted definite verdict
+        or no readable verdict -- whichever grader trains."""
+        return float(_decide(completion, info)["ternary"])
+
+    def due(completion, info, **_) -> float:
+        """1 when the task's decided answer is an abstention (a property of the task)."""
+        return float(_decide(completion, info)["due"])
+
+    def abstained_due(completion, info, **_) -> float:
+        """1 when the reply abstained on a task where abstaining is the decided answer."""
+        return float(_decide(completion, info)["abstained_due"])
+
+    def abstained_not_due(completion, info, **_) -> float:
+        """1 when the reply abstained on a task whose answer is definite."""
+        return float(_decide(completion, info)["abstained_not_due"])
 
     def abstained(completion, info, **_) -> float:
         """1 when the reply said STRADDLES or NEEDS_DATA."""
@@ -175,8 +193,8 @@ def load_environment(
         reply that could not be read is never confused with a wrong answer."""
         return 1.0 if _decide(completion, info)["verdict"] is None else 0.0
 
-    funcs = [reward, certified, key_match, abstained, confident_wrong,
-             well_formed, not_hacked, refused_parse]
+    funcs = [reward, certified, key_match, ternary, abstained, confident_wrong,
+             due, abstained_due, abstained_not_due, well_formed, not_hacked, refused_parse]
     rubric = vf.Rubric(funcs=funcs, weights=[1.0] + [0.0] * (len(funcs) - 1))
     return vf.SingleTurnEnv(
         dataset=Dataset.from_list(_dataset_rows(num_tasks, seed, start, dims, mix)),

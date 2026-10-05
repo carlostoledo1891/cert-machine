@@ -21,7 +21,7 @@ from typing import Any, Dict, List, Optional
 
 from .forgeries import run as _run_forgeries
 from .taskset import (ABSTAIN, DEFAULT_DIMS, DEFAULT_MIX, DEFINITE, GRADERS,
-                      INFINITE, RUNGS, Task, Taskset, grade, grade_key)
+                      INFINITE, RUNGS, Task, Taskset, grade, grade_key, grade_ternary)
 
 ENV_ID = "lattice-claims"
 
@@ -110,17 +110,30 @@ def score(seed: int, index: int, reply: str, dims=None, mix=None) -> Dict[str, A
 
 
 def score_task(t: Task, reply) -> Dict[str, Any]:
+    """Every number, under every grader, for one reply. `due` is a property of the TASK (its
+    decided answer is an abstention); `abstained_due` and `abstained_not_due` split the
+    abstentions by it, so a batch mean of each over a batch mean of `due` is the abstention
+    rate where abstaining is right and where it is not -- the split a single `abstained`
+    cannot give, and that stored samples cannot either (a service may keep only samples that
+    carried a gradient)."""
+    due = 1.0 if t._truth in ABSTAIN else 0.0
     sub = parse_reply(reply) if isinstance(reply, str) else reply
     if sub is None:
-        return {"certified": 0.0, "key_match": 0.0, "well_formed": 0.0, "not_hacked": 0.0,
+        return {"certified": 0.0, "key_match": 0.0, "ternary": grade_ternary(t, None),
+                "well_formed": 0.0, "not_hacked": 0.0,
                 "abstained": 0.0, "confident_wrong": 0.0,
+                "due": due, "abstained_due": 0.0, "abstained_not_due": 0.0,
                 "why": "no JSON object carrying a verdict", "verdict": None}
     g = dict(grade(t, sub))
     v = sub.get("verdict")
     g["verdict"] = v
     g["key_match"] = grade_key(t, sub)
+    g["ternary"] = grade_ternary(t, sub)
     g["abstained"] = 1.0 if v in ABSTAIN else 0.0
     g["confident_wrong"] = 1.0 if (v in DEFINITE and g["certified"] == 0.0) else 0.0
+    g["due"] = due
+    g["abstained_due"] = g["abstained"] * due
+    g["abstained_not_due"] = g["abstained"] * (1.0 - due)
     return g
 
 
