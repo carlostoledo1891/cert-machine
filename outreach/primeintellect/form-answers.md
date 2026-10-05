@@ -13,10 +13,9 @@ The form has five fields: name, email, project links / cool things built (option
    decide, not the reward. On the way I found two platform faults: the hosted 4B trainer delivered no policy
    updates (reported via `prime feedback`), and verifiers 0.3.1's SandboxEnv cannot be built with any
    prime-sandboxes it accepts (repaired and verified on a real sandbox).
-   → [WRITE-UP URL, once published]
-   · github.com/carlostoledo1891/cert-machine/blob/main/notes/lattice-claims-rl-preregistration-2026-10-04.md
+   → github.com/carlostoledo1891/cert-machine/blob/main/notes/lattice-claims-rl-preregistration-2026-10-04.md
 2. **`carlos-toledo/lattice-claims` on the Environments Hub.** Three graders, a due-split rubric and a
-   Python-tool mode. → app.primeintellect.ai/dashboard/environments/carlos-toledo/lattice-claims
+   calculator-tool mode. → app.primeintellect.ai/dashboard/environments/carlos-toledo/lattice-claims
 3. **The September 2026 kissing-number wave, decided exactly.** 215 billion pairs, 0 violations, and the first
    independent certification of K(18) ≥ 8,358. → carlostoledo.co/reports/kissing.html
 
@@ -38,6 +37,7 @@ reward looks right and the model learns something else. I would like to do that 
 Lab.
 
 ---
-Before sending: the write-up URL; the resume's two OPERATOR FILLS; the "optimize for" answer; and the
-operator's word. Filing the verifiers/prime-sandboxes issue on GitHub is a separate send; the draft text is
+Before sending: the resume's two OPERATOR FILLS (contact line, education and prior employment), the
+"optimize for" answer, and the operator's word. The pre-registration note stands in for a write-up page; a
+page can follow as an update. Filing the verifiers/prime-sandboxes issue on GitHub is a separate send; the draft text is
 in verifiers-issue.md.

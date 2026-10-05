@@ -30,14 +30,17 @@ Sandboxes.
     lattice-claims 0.4.1 carries a scoped repair (`vm=False` or a shell-split `StartCommand`), verified on a
     real sandbox. A pin to `<0.3` silently kept the hosted env-server from starting, which a two-control probe
     isolated.
-- **Environments Hub.** `carlos-toledo/lattice-claims` v0.4.1:
+- **Environments Hub.** `carlos-toledo/lattice-claims` v0.5.1:
   - three graders and a due-split rubric;
-  - a Python-tool mode with a Prime sandbox per rollout;
+  - a calculator-tool mode (`tools="calc"`), with the sandbox mode kept;
   - its task generator pinned byte-identical to 0.1.0 through every release;
   - each release verified by installing from the registry.
 
   Also `blind-spot` (RTL mutation kills checked by simulating the netlist; SAT-proved equivalence) and
   `break-the-grader` (adversarial submissions minted from exact certificates).
+- **A hosted-sandbox blocker isolated by controls.** On Hosted Training, every run of the sandbox-tool
+  environment sat without loading, while the same package without the tool trained in under 90 s. Shipped an
+  in-process calculator tool instead; it loads and trains.
 
 ## Verification work (the same discipline, outside RL)
 
