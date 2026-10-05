@@ -1,4 +1,5 @@
-# Draft GitHub issue for PrimeIntellect-ai/verifiers (a SEND: the operator's word first)
+# GitHub issue for PrimeIntellect-ai/verifiers — POSTED 2026-10-05 on the operator's word: https://github.com/PrimeIntellect-ai/verifiers/issues/2775
+# (the posted body adds the 0.4.2 error text, today's fresh-venv repro, and that main is v1-only; this file keeps the draft)
 
 **Title:** legacy `SandboxEnv`/`PythonEnv` (0.3.1) can't be constructed with any prime-sandboxes it accepts
 

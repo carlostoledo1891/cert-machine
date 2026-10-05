@@ -26,6 +26,8 @@
         by the operator; shout + snapshot when it shows.
      3e. gmDevi/zeta-7-21-lean issue #1 — our reply posted 2026-10-05; a new
         comment, or a new Zenodo version of Anand's preprint, is a finding.
+     3f. the GitHub sends of 2026-10-05 (verifiers, METR, the three re-run asks):
+        a new comment on any of them is a finding.
      4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
@@ -165,6 +167,24 @@ for (const [key, url] of [['delta3Thread', 'https://www.erdosproblems.com/forum/
     else if (nv !== null) say('zeta7: ' + nv + ' Zenodo version(s)');
     if (nv !== null) state.zeta7Versions = nv;
   }
+}
+
+/* 3f · the GitHub sends of 2026-10-05 (each posted on the operator's word): a new comment on any of them is a
+   finding — read it, record a rerun through the `rerun` template if it is one, and answer only on the word */
+for (const [repo, num, label] of [
+  ['PrimeIntellect-ai/verifiers', 2775, 'verifiers legacy SandboxEnv'],
+  ['METR/eval-analysis-public', 43, 'METR TH1.1 fits certified'],
+  ['rainrzk/erdos510-lambda4-audit', 1, 'rerun R1 (rainrzk)'],
+  ['vinid/einstein-arena', 64, 'rerun R3 (EinsteinArena #64)'],
+  ['dualverse-ai/station_data_v2', 2, 'rerun R3 (Station)'],
+  ['suvrit/count-ex-machina', 1, 'rerun R4 (Sra)']]) {
+  let out = null;
+  try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
+  if (out === null) { say(label + ': gh api failed (transient)'); continue; }
+  const [nStr, st] = out.split('\t'); const n = Number(nStr), key = 'gh:' + repo + '#' + num;
+  if (state[key] !== undefined && state[key] !== null && n > state[key]) finding(label + ': ' + (n - state[key]) + ' NEW comment(s) on https://github.com/' + repo + '/issues/' + num);
+  else say(label + ': ' + n + ' comment(s), ' + st);
+  state[key] = n;
 }
 
 /* 4 · arXiv — Ramanujan Machine mentions */

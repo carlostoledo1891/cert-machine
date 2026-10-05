@@ -11,6 +11,14 @@ here on request.
 
 ---
 
+## LANE P — PRIME INTELLECT (2026-10-05)
+
+- **P1. The application** — SENT by the operator (2026-10-05).
+- **P2. The verifiers issue** — POSTED 2026-10-05: https://github.com/PrimeIntellect-ai/verifiers/issues/2775.
+  - Re-checked first: verifiers 0.3.1 is still the latest release and pulls prime-sandboxes 0.4.2.
+  - A fresh venv reproduces the construction failure.
+  - `main` is v1-only, so the issue asks for a 0.3.x patch.
+
 ## LANE D — δ₃ = 117/2192 AND THE ζ(7) AUDIT (2026-10-05)
 
 - **D0. The Zenodo deposit v2026.10 — DONE 2026-10-05: doi:10.5281/zenodo.23171167**, minted by the GitHub release, verified public, stamped (corpus/zenodo.json, CITATION.cff).
@@ -25,18 +33,20 @@ here on request.
   - Draft: `outreach/zeta7-anand-issue-reply.md`.
   - Before sending, re-fetch the issue: a v2 on Zenodo changes the text.
 
-## LANE R — THE RERUN PROGRAM, PHASE 2 (2026-10-02): five asks DRAFTED, HELD, one per party
+## LANE R — THE RERUN PROGRAM, PHASE 2 (2026-10-02): R1, R3, R4 POSTED 2026-10-05 on the operator's word; R2 (email) and R5 (WhatsApp) are the operator's
 
 File: `outreach/rerun-asks-2026-10-02.md`; the corpus is `corpus/rerun-corpus.json` (ten register
 rows, five parties); the kit every ask points at is live at /reports/rerun.html. A reply is recorded
 through the `rerun` issue template into `corpus/external-reruns.json` with the register ids it covers;
 the milestone on the kit page ("five independent parties obtain the same verdicts on this corpus")
 moves only from that file. Each is a SEND on the operator's per-item word:
-  R1 rainrzk (GitHub issue or the #392 thread): erdos852-cstar, mm-alphaevolve-48-4x4x4, optconst-84b.
+  R1 rainrzk — POSTED 2026-10-05: https://github.com/rainrzk/erdos510-lambda4-audit/issues/1 (erdos852-cstar,
+     mm-alphaevolve-48-4x4x4, optconst-84b; every cited command re-run green the same evening).
   R2 S. Norin, for GNNW (email): gnnw-gai-3782, horizonmath-ramsey-asymptotic.
-  R3 the EinsteinArena thread (#64) + the Dualverse Station authors (new issue): kiss-ea-604,
-     kiss-station-604-1, ea-overlap-together_ai_2026.
-  R4 S. Sra (issue or email): countex-dpp-feasible-step.
+  R3 — POSTED 2026-10-05: https://github.com/vinid/einstein-arena/issues/64#issuecomment-6004578974 (the thread was
+     closed; the comment notifies its participants) and https://github.com/dualverse-ai/station_data_v2/issues/2
+     (kiss-ea-604, kiss-station-604-1, ea-overlap-together_ai_2026).
+  R4 S. Sra — POSTED 2026-10-05: https://github.com/suvrit/count-ex-machina/issues/1 (countex-dpp-feasible-step).
   R5 the LabECO pair (the operator's thread, Portuguese; nobody named in the repo): ecbench-marginals.
 
 ## LANE U — THE UFSC LINE (2026-09-28): three pages live (the report, the check, the atlas); the sends are the operator's
@@ -87,7 +97,9 @@ is live. MAIN WAS PUSHED 2026-09-22 (72d2fd6..ff37f4e) on the operator's "fix no
 link 404ed for Pedro's message; every link in the three files now resolves (checked 200). Every figure in
 the three files is a ledger field. Each application is a send, per role.
 
-### M4. An issue on METR/eval-analysis-public — the TH1.1 fits certified — DRAFTED 2026-09-25, HELD
+### M4. An issue on METR/eval-analysis-public — the TH1.1 fits certified — POSTED 2026-10-05: https://github.com/METR/eval-analysis-public/issues/43
+(re-checked first: the live site files byte-identical to the pins, the repo unchanged since 52cb829, the Mythos box and
+the doubling-time enclosure read from certs/horizon-ledger.json).
 File: `outreach/metr-eval-analysis-issue-2026-09-25.md`. Every figure a field of certs/horizon-ledger.json
 (44/44 certified; coefficients the rounding of the box for 22 of 23; the Mythos intercept 5.582 vs the box's
 5.583; the doubling time 128.740 vs 128.744). Offers a `certify_fit` check for their pipeline. Posting it
@@ -106,16 +118,17 @@ on 2026-09-21 and was refused before generation ("credit balance is too low"; no
 the attempt is in environments/blind_spot/inspect/logs/blocked/). The OAuth profile path works
 under Inspect as `ANTHROPIC_AUTH_TOKEN=$(ant auth print-credentials --access-token)`.
 
-## LANE 0 — ERDŐS #1 (2026-09-16): the comment is OUT and in moderation; the issue is next
+## LANE 0 — ERDŐS #1 (2026-09-16): the comment is PUBLIC (snapshot 2026-10-05) and the issue is out; Mathstodon may go
 
-### 0a. erdosproblems.com/1 comment — POSTED 2026-09-16 ~11:25 -03 by Carlos, awaiting moderator approval
+### 0a. erdosproblems.com/1 comment — POSTED 2026-09-16 ~11:25 -03 by Carlos; PUBLIC (snapshot pinned 2026-10-05:
+corpus/sources/erdos1/erdosproblems-1-forum-discuss_2026-10-05.html)
 File: `outreach/erdos1-forum-comment.md` (the site's own format; reviewed against its five rules, rule-1
 disclosure in the text). `node tools/sweep-claims.js` reports when it is shown; then snapshot the thread.
 
 ### 0b. Issue on github.com/tadamcz/erdos1 — POSTED 2026-09-16 11:40 -03 as issue #2 (gh, on the word)
 File: `outreach/erdos1-tadamcz-issue.md` holds the posted body. https://github.com/tadamcz/erdos1/issues/2
 
-### 0c. Mathstodon — READY (495 characters), HELD until the forum comment is shown and the thread has looked
+### 0c. Mathstodon — READY (495 characters); its gate is MET (the forum comment is public) — paste by hand, the operator's
 File: `outreach/erdos1-mastodon.md`. The site's advice page: no social-media announcement before
 community assessment.
 

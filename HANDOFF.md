@@ -66,6 +66,16 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     42 green / 9 reds, reports/zeta7-anand.html. The confirming reply on the issue was POSTED on the operator's word
     (2026-10-05, issuecomment-6004122031; the earlier draft's "all 24 scenarios" corrected before posting);
     tools/sweep-claims.js watches the issue and Zenodo for a reply or a v2.
+  THE SENDS OF 2026-10-05 EVENING, on the operator's "proceed the ones you can" — every GitHub item posted after a
+    freshness check (each cited command re-run green; METR's live files byte-identical to the pins; a fresh-venv repro
+    of the verifiers bug): PrimeIntellect-ai/verifiers#2775; METR/eval-analysis-public#43; the re-run asks R1
+    (rainrzk/erdos510-lambda4-audit#1), R3 (vinid/einstein-arena#64 comment — the thread was closed — and
+    dualverse-ai/station_data_v2#2), R4 (suvrit/count-ex-machina#1); the ζ(7) reply (gmDevi#1). The #1186 proof claim
+    SENT by the operator (moderation). The Erdős #1 forum comment is PUBLIC — snapshot pinned 2026-10-05 — so
+    Mathstodon (outreach/erdos1-mastodon.md) may go. tools/sweep-claims.js watches all of it. LEFT FOR THE
+    OPERATOR (no transport here): R2 (email to Norin), R5 (the LabECO thread), METR M1 (recruiting), M3/M3a (the
+    Lever applications), Mathstodon, and — after the #1186 claim shows — D (the k = 4 comment); C (the teorth
+    note) is mine once the claim shows.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
     (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
     (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄
