@@ -1,0 +1,276 @@
+{
+ "what": "The station-v2 pool of the hundred pre-registered machine claims (corpus/machine-claims-100.json, registered 2026-10-02 before any was decided), WAVE 1: the one row a decider already existed for (st-jacobian, through instruments/polymaps), decided by tools/run-mc100-station.py from the pinned bytes. The other nine rows are listed in `undecided` with what they need; nothing is dropped. The Station's notebooks and Lean folders are never run.",
+ "pool": "station-v2",
+ "wave": 1,
+ "manifest": "corpus/machine-claims-100.json",
+ "registered": "2026-10-02",
+ "decider": "instruments/polymaps/decide.py (keller: det JF expanded symbolically over Q; the witnesses only evaluated) + poly.py; code sha256 decide.py c9f9cfac98bc, poly.py 3a9ec0288bf8",
+ "rows": [
+  {
+   "id": "st-jacobian",
+   "pool": "station-v2",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "claim": "the polynomial map with the sparse rational coefficients given has the Jacobian property claimed and the collision witnesses listed collide",
+   "source": "corpus/station-v2/jacobian/construction.json",
+   "sha256": "ba0d49ac35c97eb24d0082457d5602a66761344d80db30c722de1ed06eb78e67",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "scope": "every fact the claim needs, as an exact identity or evaluation: det JF = -6 identically (the 3×3 Jacobian determinant expanded over Q), components of degrees 4, 6, 7 with 3, 6, 7 terms, and three distinct rational points with the one image (1, 7/3, 0) — a non-injective Keller map of C^3, a counterexample to the Jacobian conjecture in dimension 3 (the claim the register already certifies for Gao's G, here with 16 terms and degrees 4, 6, 7); the file's family checks for a = 1, 2, -3, 3 (a3_transfer) name points of maps it does not print and are not decided here",
+   "decision": {
+    "map": {
+     "components": [
+      "3 terms, degree 4",
+      "6 terms, degree 6",
+      "7 terms, degree 7"
+     ],
+     "polynomials": [
+      [
+       {
+        "coefficient": "6",
+        "powers": [
+         1,
+         0,
+         0
+        ]
+       },
+       {
+        "coefficient": "9",
+        "powers": [
+         2,
+         1,
+         0
+        ]
+       },
+       {
+        "coefficient": "1",
+        "powers": [
+         3,
+         0,
+         1
+        ]
+       }
+      ],
+      [
+       {
+        "coefficient": "1",
+        "powers": [
+         0,
+         1,
+         0
+        ]
+       },
+       {
+        "coefficient": "-12",
+        "powers": [
+         1,
+         2,
+         0
+        ]
+       },
+       {
+        "coefficient": "9",
+        "powers": [
+         2,
+         3,
+         0
+        ]
+       },
+       {
+        "coefficient": "1",
+        "powers": [
+         1,
+         0,
+         1
+        ]
+       },
+       {
+        "coefficient": "-2",
+        "powers": [
+         2,
+         1,
+         1
+        ]
+       },
+       {
+        "coefficient": "1",
+        "powers": [
+         3,
+         2,
+         1
+        ]
+       }
+      ],
+      [
+       {
+        "coefficient": "12",
+        "powers": [
+         0,
+         2,
+         0
+        ]
+       },
+       {
+        "coefficient": "-21",
+        "powers": [
+         1,
+         3,
+         0
+        ]
+       },
+       {
+        "coefficient": "9",
+        "powers": [
+         2,
+         4,
+         0
+        ]
+       },
+       {
+        "coefficient": "-1",
+        "powers": [
+         0,
+         0,
+         1
+        ]
+       },
+       {
+        "coefficient": "3",
+        "powers": [
+         1,
+         1,
+         1
+        ]
+       },
+       {
+        "coefficient": "-3",
+        "powers": [
+         2,
+         2,
+         1
+        ]
+       },
+       {
+        "coefficient": "1",
+        "powers": [
+         3,
+         3,
+         1
+        ]
+       }
+      ]
+     ]
+    },
+    "checks": [
+     {
+      "name": "det JF is identically the printed constant -6",
+      "ok": true,
+      "detail": "constant -6",
+      "seconds": 0.0
+     },
+     {
+      "name": "component degrees are the printed [4, 6, 7]",
+      "ok": true,
+      "detail": "[4, 6, 7]"
+     },
+     {
+      "name": "3 distinct rational points with one image: F is not injective",
+      "ok": true,
+      "detail": "image (1, 7/3, 0)"
+     },
+     {
+      "name": "term counts are the printed [3, 6, 7] (total 16)",
+      "ok": true,
+      "detail": "[3, 6, 7]"
+     },
+     {
+      "name": "every printed image is the exact image of its point, and all equal the printed common image",
+      "ok": true,
+      "detail": "(1, 7/3, 0)"
+     },
+     {
+      "name": "the map is the family member of one spot check (its points and image are the witnesses')",
+      "ok": true,
+      "detail": "a = 6"
+     }
+    ],
+    "seconds": 0.003,
+    "jacobianDeterminant": "-6",
+    "commonImage": [
+     "1",
+     "7/3",
+     "0"
+    ],
+    "witnesses": [
+     [
+      "-6/7",
+      "-7/6",
+      "-4753/216"
+     ],
+     [
+      "3/4",
+      "7/3",
+      "-980/27"
+     ],
+     [
+      "3/28",
+      "7/3",
+      "2548/27"
+     ]
+    ],
+    "notDecided": "family_checks for a = 1, 2, -3, 3 (a3_transfer): points and images of maps the file does not print (no object to decide)"
+   },
+   "ms": 4.0
+  }
+ ],
+ "count": 1,
+ "byVerdict": {
+  "CERTIFIED": 1
+ },
+ "byKind": {
+  "none": 1
+ },
+ "undecided": [
+  {
+   "id": "st-kakeya-f3-d3-13",
+   "needs": "a new finite exact check (every direction of F3^3 on a line inside the set)"
+  },
+  {
+   "id": "st-kakeya-f3-d4-27",
+   "needs": "a new finite exact check (Kakeya in F3^4)"
+  },
+  {
+   "id": "st-kakeya-f3-d5-53",
+   "needs": "a new finite exact check (Kakeya in F3^5)"
+  },
+  {
+   "id": "st-difference-basis-q89",
+   "needs": "a new finite exact check (every nonzero element of the group of order 89² a difference of two marks)"
+  },
+  {
+   "id": "st-kakeya-needle",
+   "needs": "a new exact scorer (the discretized Kakeya needle bound)"
+  },
+  {
+   "id": "st-flat-autoconvolution",
+   "needs": "a new exact scorer (the flat autoconvolution bound)"
+  },
+  {
+   "id": "st-peak-autoconvolution",
+   "needs": "a new exact scorer (the peak bound and its local-minimum certificate)"
+  },
+  {
+   "id": "st-min-overlap",
+   "needs": "a new exact scorer for the upper-bound step function and a decider for the lower-bound certificate data"
+  },
+  {
+   "id": "st-sign-uncertainty",
+   "needs": "the 14.6 MB witness is pinned by hash only (not stored); fetch it at the pinned commit, then a new exact scorer"
+  }
+ ],
+ "timing": {
+  "runMs": 5.9
+ },
+ "generated": "2026-10-05T00:15:19",
+ "git": "3e80be6",
+ "python": "3.9.6"
+}

@@ -227,6 +227,12 @@ if os.path.exists(OUT):
        'record: E8 and the whole Leech shell (19,317,818,520 pairs) certified in the run')
     ok(all(rd['caught'] for rd in rec.get('reds', [])) and len(rec.get('reds', [])) >= 5, 'record: every red control of the run was caught')
     decided = [r_ for r_ in rec['rows'] if r_.get('engine')]
+    # the runner writes after every claim so a long run can resume; a run that stops part-way therefore
+    # leaves a well-formed record with rows missing, and every check below is happy with fewer rows
+    # (2026-10-05: a crash at takhanov-yun-25 left exactly that, and this battery passed it 29/0)
+    want, have = set(claims.BUILDERS), {r_['id'] for r_ in decided}
+    ok(want <= have, 'record: every buildable claim was decided in the run (%d of %d)' % (len(want & have), len(want)))
+    red(not (want <= (have - {sorted(want)[0]})), 'a record with one buildable claim missing is refused')
     ok(all(r_['engine']['pairs'] == r_['engine']['n'] * (r_['engine']['n'] - 1) // 2 for r_ in decided), 'record: every decided row accounts for all n(n-1)/2 pairs')
     ok(all(r_['engine']['spotCheck']['disagreements'] == 0 for r_ in decided), 'record: no plain-integer spot check disagreed')
     ok(all(r_.get('jsCheck', {}).get('agree') for r_ in decided), 'record: every decided row has a seeded sample decided whole in JavaScript (basis.js) that agrees with the Python engine')

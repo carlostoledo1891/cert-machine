@@ -35,6 +35,9 @@ def audit(entry):
     r = entry['rank']
     mod2 = entry['ring'] == 'F2'
     layout = entry['layout']
+    scale = entry.get('scale', 1)  # sum u*v*w = scale*T: a (1/2)Z claim with its factors doubled has scale 8
+    if not isinstance(scale, int) or scale < 1 or (mod2 and scale != 1):
+        return False, 'scale must be a positive integer (and 1 over F2)'
     if len(U) != n * m or len(V) != m * p or len(W) != n * p:
         return False, 'factor shapes do not match dims'
     if any(len(row) != r for row in U + V + W):
@@ -47,13 +50,13 @@ def audit(entry):
             kk = (a * p + c) if layout == 'AC' else (c * n + a)
             for k in range(n * p):
                 s = sum(uv[t] * W[k][t] for t in range(r))
-                want = 1 if (b == b2 and k == kk) else 0
+                want = scale if (b == b2 and k == kk) else 0
                 if (s - want) % 2 != 0 if mod2 else s != want:
                     return False, 'equation (ab=%d, bc=%d, k=%d): sum %d, target %d' % (ab, bc, k, s, want)
     if r >= n * m * p:
         return False, 'rank %d is not below naive %d' % (r, n * m * p)
-    return True, '%dx%d times %dx%d in %d multiplications over %s (layout %s): all %d equations hold' % (
-        n, m, m, p, r, entry['ring'], layout, (n * m) * (m * p) * (n * p))
+    return True, '%dx%d times %dx%d in %d multiplications over %s (%slayout %s): all %d equations hold' % (
+        n, m, m, p, r, entry['ring'], ('scale %d, ' % scale) if scale != 1 else '', layout, (n * m) * (m * p) * (n * p))
 
 
 def audit_zi(entry):

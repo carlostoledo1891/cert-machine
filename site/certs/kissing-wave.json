@@ -63,7 +63,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 1.5,
+    "seconds": 0.6,
     "maxDot": [
      144,
      0,
@@ -103,7 +103,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.08
+     "seconds": 0.04
     },
     {
      "a": "equator",
@@ -133,7 +133,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.09
+     "seconds": 0.05
     },
     {
      "a": "equator",
@@ -163,7 +163,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.15
+     "seconds": 0.07
     },
     {
      "a": "equator",
@@ -193,7 +193,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.09
+     "seconds": 0.04
     },
     {
      "a": "tiers",
@@ -223,7 +223,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.11
+     "seconds": 0.05
     },
     {
      "a": "tiers",
@@ -253,7 +253,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.07
+     "seconds": 0.04
     },
     {
      "a": "tiers",
@@ -283,7 +283,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.34
+     "seconds": 0.16
     },
     {
      "a": "poles",
@@ -313,7 +313,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.16
+     "seconds": 0.03
     },
     {
      "a": "poles",
@@ -343,7 +343,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.28
+     "seconds": 0.06
     },
     {
      "a": "tier B",
@@ -373,7 +373,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.09
+     "seconds": 0.04
     }
    ],
    "facts": [
@@ -392,7 +392,7 @@
     "kravatsky:verifications/improved/dim18-bent-hexagon/data/octads.json": "a31d49dcfd5a90bc9067b0db5473180351590827b0b003e2a9b261090deb661a",
     "kravatsky:verifications/improved/dim18-bent-hexagon/data/tierB.json": "ed70867cd96c4dcc53b80c1c2669f57edea78e337639d22bce89657a0c2406b1"
    },
-   "seconds": 1.5,
+   "seconds": 0.6,
    "jsCheck": {
     "n": 666,
     "pairs": 221445,
@@ -403,7 +403,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 29,
+    "jsMs": 30,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -478,7 +478,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 36.0,
+    "seconds": 29.0,
     "maxCos": 0.5000000000000001,
     "nearestNonContactCos": 0.4910687750670014
    },
@@ -511,7 +511,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 25.77
+     "seconds": 21.15
     },
     {
      "a": "equator",
@@ -541,7 +541,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 0.31
+     "seconds": 0.25
     },
     {
      "a": "equator",
@@ -571,7 +571,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 6.03
+     "seconds": 4.37
     },
     {
      "a": "equator",
@@ -585,7 +585,7 @@
       "path": "balanced base-2^22 digits (5), a float64 GEMM per digit (exact), top-down int64 sign",
       "digits": 5
      },
-     "seconds": 1.54
+     "seconds": 1.02
     },
     {
      "a": "equator",
@@ -615,7 +615,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.41
+     "seconds": 0.37
     },
     {
      "a": "extra point",
@@ -685,7 +685,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.06
+     "seconds": 0.07
     },
     {
      "a": "class caps",
@@ -715,7 +715,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.21
+     "seconds": 0.2
     },
     {
      "a": "class caps",
@@ -725,7 +725,7 @@
      "violations": 0,
      "maxCos": 0.4910687750670014,
      "nearestNonContactCos": 0.4910687750670014,
-     "seconds": 1.32
+     "seconds": 1.21
     },
     {
      "a": "class caps",
@@ -775,7 +775,7 @@
      "violations": 0,
      "maxCos": 0.5000000000000001,
      "nearestNonContactCos": -0.49999999999999994,
-     "seconds": 0.04
+     "seconds": 0.03
     },
     {
      "a": "poles",
@@ -835,14 +835,9 @@
     "kravatsky:verifications/improved/dim25-lens-heads/data/extra_P.npy": "913a37630f2f347abc8db591e4ec96f7b2247d9fbd4e7c20400274dae240f6ca",
     "kravatsky:verifications/improved/dim25-lens-heads/data/heads_U.npy": "3c62c8c01585fbe04bd6e687475345b566522815022d72a05e7038f8bfab8043",
     "kravatsky:verifications/improved/dim25-lens-heads/data/heads_X.npy": "e32c1dba40ad376b90a4eadf0508c9b251925e363f4308923b81eab6056621b1",
-    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d",
-    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_u.npy": "8f722bf903f5324e3e4f35f9c271d62949d39d4e56a21b0ca58b6c93bd7a54fa",
-    "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/classes.npy": "8ef3caeeb2b15fe3ab0855de24fcfbd645798fa4280b5f938d179e86ab5984f6",
-    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners29.npy": "fe9b850c5d73ece11a19b43c0cc2589fd1fd4b5363a1337513da63387f15a171",
-    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners30.npy": "0b0ce4fbe3796151e6db3ef08134656243f5e958223e9d6ff7e3df5167f7669b",
-    "kravatsky:verifications/improved/dim31-frame-layer/data/owners31.npy": "8c4ac307d22396e79b84234c8f7207fc7b735277a219b580217dab2336274c40"
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d"
    },
-   "seconds": 36.4,
+   "seconds": 29.0,
    "delta": 0.0,
    "jsCheck": {
     "n": 443,
@@ -955,7 +950,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 1118436,
-    "seconds": 50.2,
+    "seconds": 36.6,
     "maxCos": 0.5000000000000001,
     "nearestNonContactCos": 0.49984298862787674
    },
@@ -988,7 +983,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 27.43
+     "seconds": 20.93
     },
     {
      "a": "equator",
@@ -1018,7 +1013,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 0.26
+     "seconds": 0.25
     },
     {
      "a": "equator",
@@ -1048,7 +1043,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 5.58
+     "seconds": 3.73
     },
     {
      "a": "equator",
@@ -1078,7 +1073,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.29
+     "seconds": 0.25
     },
     {
      "a": "equator",
@@ -1108,7 +1103,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 6.86
+     "seconds": 4.38
     },
     {
      "a": "equator",
@@ -1122,7 +1117,7 @@
       "path": "balanced base-2^22 digits (5), a float64 GEMM per digit (exact), top-down int64 sign",
       "digits": 5
      },
-     "seconds": 2.39
+     "seconds": 0.96
     },
     {
      "a": "equator",
@@ -1152,7 +1147,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.52
+     "seconds": 0.39
     },
     {
      "a": "equator",
@@ -1162,7 +1157,7 @@
      "violations": 0,
      "maxCos": 0.4984926533212103,
      "nearestNonContactCos": 0.4984926533212103,
-     "seconds": 3.03
+     "seconds": 2.72
     },
     {
      "a": "extra point",
@@ -1222,7 +1217,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.07
+     "seconds": 0.06
     },
     {
      "a": "extra point",
@@ -1292,7 +1287,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.07
+     "seconds": 0.06
     },
     {
      "a": "extra point",
@@ -1302,7 +1297,7 @@
      "violations": 0,
      "maxCos": -0.22925299293450435,
      "nearestNonContactCos": -0.22925299293450435,
-     "seconds": 0.04
+     "seconds": 0.03
     },
     {
      "a": "moved",
@@ -1354,7 +1349,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.07
+     "seconds": 0.05
     },
     {
      "a": "moved",
@@ -1384,7 +1379,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.14
+     "seconds": 0.12
     },
     {
      "a": "moved",
@@ -1394,7 +1389,7 @@
      "violations": 0,
      "maxCos": 0.49984298862787674,
      "nearestNonContactCos": 0.49984298862787674,
-     "seconds": 0.47
+     "seconds": 0.42
     },
     {
      "a": "moved",
@@ -1434,7 +1429,7 @@
      "violations": 0,
      "maxCos": 0.4984145871655858,
      "nearestNonContactCos": 0.4984145871655858,
-     "seconds": 0.06
+     "seconds": 0.05
     },
     {
      "a": "Q",
@@ -1464,7 +1459,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.08
+     "seconds": 0.07
     },
     {
      "a": "Q",
@@ -1544,7 +1539,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.21
+     "seconds": 0.19
     },
     {
      "a": "class caps",
@@ -1554,7 +1549,7 @@
      "violations": 0,
      "maxCos": 0.4910687750670014,
      "nearestNonContactCos": 0.4910687750670014,
-     "seconds": 1.5
+     "seconds": 1.19
     },
     {
      "a": "class caps",
@@ -1584,7 +1579,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.05
+     "seconds": 0.04
     },
     {
      "a": "class caps",
@@ -1594,7 +1589,7 @@
      "violations": 0,
      "maxCos": 0.49868031868891444,
      "nearestNonContactCos": 0.49868031868891444,
-     "seconds": 0.18
+     "seconds": 0.07
     },
     {
      "a": "rational caps",
@@ -1604,7 +1599,7 @@
      "violations": 0,
      "maxCos": 0.5000000000000001,
      "nearestNonContactCos": 0.4826332065738474,
-     "seconds": 0.12
+     "seconds": 0.06
     },
     {
      "a": "rational caps",
@@ -1614,7 +1609,7 @@
      "violations": 0,
      "maxCos": 0.5000000000000001,
      "nearestNonContactCos": -0.49999999999999994,
-     "seconds": 0.07
+     "seconds": 0.03
     },
     {
      "a": "rational caps",
@@ -1624,7 +1619,7 @@
      "violations": 0,
      "maxCos": 0.49830315010301396,
      "nearestNonContactCos": 0.49830315010301396,
-     "seconds": 0.08
+     "seconds": 0.04
     },
     {
      "a": "poles",
@@ -1654,7 +1649,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.04
+     "seconds": 0.02
     },
     {
      "a": "poles",
@@ -1664,7 +1659,7 @@
      "violations": 0,
      "maxCos": 0.4982155979294737,
      "nearestNonContactCos": 0.4982155979294737,
-     "seconds": 0.04
+     "seconds": 0.03
     },
     {
      "a": "repair points",
@@ -1701,7 +1696,7 @@
     "qiushi:constructions/d25/baseline-heads.json": "b6b1dff1172ca723595c19bc4daf49448f0e8d04d506033786a8e96afbf515d6",
     "qiushi:constructions/d25/repair-points.json": "daeabf4a2614779749bf9a5c30f55d502c830e45a88ef2b52fdbbc7f87703677"
    },
-   "seconds": 50.4,
+   "seconds": 36.8,
    "jsCheck": {
     "n": 664,
     "pairs": 220116,
@@ -1715,7 +1710,7 @@
     ],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 50,
+    "jsMs": 54,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -1774,7 +1769,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 39.4,
+    "seconds": 25.9,
     "maxDot": [
      64,
      0,
@@ -1814,7 +1809,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 30.52
+     "seconds": 21.1
     },
     {
      "a": "bulk",
@@ -1844,7 +1839,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 7.75
+     "seconds": 4.27
     },
     {
      "a": "bulk",
@@ -1874,7 +1869,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.77
+     "seconds": 0.38
     },
     {
      "a": "lifted",
@@ -1904,7 +1899,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.12
+     "seconds": 0.04
     },
     {
      "a": "lifted",
@@ -1934,7 +1929,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.11
+     "seconds": 0.04
     },
     {
      "a": "poles",
@@ -1964,7 +1959,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.04
+     "seconds": 0.02
     }
    ],
    "facts": [
@@ -1986,7 +1981,7 @@
     "takhanov-yun:README.md": "619c878b641811268e075f7343baf92c8455f9f40d00be68d24ad7979a617952",
     "takhanov-yun:kissing_r25_197058_float64.zip": "de418c9d16c48dc7717702cafa85d0466d681c164fae89402d82eb0120521f54"
    },
-   "seconds": 41.3,
+   "seconds": 27.4,
    "delta": 1.1102230246251565e-16,
    "jsCheck": {
     "n": 442,
@@ -1998,7 +1993,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 20,
+    "jsMs": 19,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -2065,7 +2060,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 74.6,
+    "seconds": 25.8,
     "maxDot": [
      576,
      0,
@@ -2105,7 +2100,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 61.21
+     "seconds": 20.88
     },
     {
      "a": "equator",
@@ -2135,7 +2130,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 1.49
+     "seconds": 0.95
     },
     {
      "a": "equator",
@@ -2165,7 +2160,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 2.17
+     "seconds": 0.82
     },
     {
      "a": "equator",
@@ -2195,7 +2190,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 7.27
+     "seconds": 2.66
     },
     {
      "a": "caps",
@@ -2225,7 +2220,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.23
+     "seconds": 0.07
     },
     {
      "a": "caps",
@@ -2255,7 +2250,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.16
+     "seconds": 0.05
     },
     {
      "a": "caps",
@@ -2285,7 +2280,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.83
+     "seconds": 0.24
     },
     {
      "a": "axis",
@@ -2315,7 +2310,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.28
+     "seconds": 0.04
     },
     {
      "a": "axis",
@@ -2345,7 +2340,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.11
+     "seconds": 0.04
     },
     {
      "a": "second layer",
@@ -2375,7 +2370,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.23
+     "seconds": 0.05
     }
    ],
    "facts": [
@@ -2400,7 +2395,7 @@
     "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_layer2_u.npy": "61f11eb16091f75390f132511bcc6fa11935989f1b891d967f4fcd982bc13ae7",
     "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_side.npy": "e063c6d27a934d92aab639b79511f3b892ad8a87d40baae67b11cee803209230"
    },
-   "seconds": 81.0,
+   "seconds": 27.1,
    "jsCheck": {
     "n": 666,
     "pairs": 221445,
@@ -2488,8 +2483,8 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
-    "bigintFallbacks": 1872806,
-    "seconds": 79.2,
+    "bigintFallbacks": 0,
+    "seconds": 27.0,
     "maxDot": [
      576,
      0,
@@ -2529,7 +2524,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 51.98
+     "seconds": 20.78
     },
     {
      "a": "equator",
@@ -2559,7 +2554,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 3.09
+     "seconds": 1.51
     },
     {
      "a": "equator",
@@ -2589,7 +2584,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 4.0
+     "seconds": 1.52
     },
     {
      "a": "equator",
@@ -2619,7 +2614,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 9.57
+     "seconds": 2.57
     },
     {
      "a": "caps",
@@ -2649,7 +2644,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.35
+     "seconds": 0.08
     },
     {
      "a": "caps",
@@ -2679,7 +2674,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.76
+     "seconds": 0.09
     },
     {
      "a": "caps",
@@ -2709,7 +2704,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 8.66
+     "seconds": 0.21
     },
     {
      "a": "axis",
@@ -2739,7 +2734,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.1
+     "seconds": 0.04
     },
     {
      "a": "axis",
@@ -2769,7 +2764,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.19
+     "seconds": 0.07
     },
     {
      "a": "second layer",
@@ -2799,7 +2794,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.13
+     "seconds": 0.05
     }
    ],
    "facts": [
@@ -2827,7 +2822,7 @@
     "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_u.npy": "8f722bf903f5324e3e4f35f9c271d62949d39d4e56a21b0ca58b6c93bd7a54fa",
     "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_side.npy": "b0e1457e2793db1ddd2fcc23a9110f8f956757ee08e017fac99200cae5199fb2"
    },
-   "seconds": 92.7,
+   "seconds": 28.7,
    "jsCheck": {
     "n": 672,
     "pairs": 225456,
@@ -2838,7 +2833,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 51,
+    "jsMs": 52,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -2904,8 +2899,8 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
-    "bigintFallbacks": 1880070,
-    "seconds": 88.0,
+    "bigintFallbacks": 0,
+    "seconds": 27.0,
     "maxDot": [
      576,
      0,
@@ -2945,7 +2940,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 67.13
+     "seconds": 20.81
     },
     {
      "a": "equator",
@@ -2975,7 +2970,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 3.04
+     "seconds": 1.51
     },
     {
      "a": "equator",
@@ -3005,7 +3000,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 3.14
+     "seconds": 1.52
     },
     {
      "a": "equator",
@@ -3035,7 +3030,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 4.8
+     "seconds": 2.54
     },
     {
      "a": "caps",
@@ -3065,7 +3060,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.17
+     "seconds": 0.08
     },
     {
      "a": "caps",
@@ -3095,7 +3090,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.31
+     "seconds": 0.1
     },
     {
      "a": "caps",
@@ -3125,7 +3120,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 8.5
+     "seconds": 0.21
     },
     {
      "a": "axis",
@@ -3155,7 +3150,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.14
+     "seconds": 0.04
     },
     {
      "a": "axis",
@@ -3185,7 +3180,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.28
+     "seconds": 0.07
     },
     {
      "a": "second layer",
@@ -3215,7 +3210,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.18
+     "seconds": 0.04
     }
    ],
    "facts": [
@@ -3246,7 +3241,7 @@
     "qiushi:constructions/d27/data/heads27_layer2_u.npy": "7d7a4bcd341d9104bad1dc17ac2f6e4daec71c0b2a9ab4b98e1766c12235bca2",
     "qiushi:constructions/d27/data/heads27_side.npy": "b0e1457e2793db1ddd2fcc23a9110f8f956757ee08e017fac99200cae5199fb2"
    },
-   "seconds": 95.4,
+   "seconds": 28.7,
    "jsCheck": {
     "n": 672,
     "pairs": 225456,
@@ -3257,7 +3252,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 51,
+    "jsMs": 52,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -3334,8 +3329,8 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
-    "bigintFallbacks": 571496,
-    "seconds": 240.3,
+    "bigintFallbacks": 0,
+    "seconds": 78.5,
     "maxDot": [
      576,
      0,
@@ -3375,7 +3370,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 60.61
+     "seconds": 20.6
     },
     {
      "a": "equator",
@@ -3405,7 +3400,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 170.9
+     "seconds": 55.23
     },
     {
      "a": "equator",
@@ -3435,7 +3430,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 4.84
+     "seconds": 1.91
     },
     {
      "a": "equator",
@@ -3465,7 +3460,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.44
+     "seconds": 0.12
     },
     {
      "a": "caps",
@@ -3495,7 +3490,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.31
+     "seconds": 0.15
     },
     {
      "a": "caps",
@@ -3525,7 +3520,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 0.29
+     "seconds": 0.11
     },
     {
      "a": "caps",
@@ -3555,7 +3550,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 2.3
+     "seconds": 0.18
     },
     {
      "a": "axis",
@@ -3585,7 +3580,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.09
+     "seconds": 0.04
     },
     {
      "a": "axis",
@@ -3615,7 +3610,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.22
+     "seconds": 0.07
     },
     {
      "a": "layer",
@@ -3645,7 +3640,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.1
+     "seconds": 0.04
     }
    ],
    "facts": [
@@ -3664,7 +3659,7 @@
     "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/classes.npy": "8ef3caeeb2b15fe3ab0855de24fcfbd645798fa4280b5f938d179e86ab5984f6",
     "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/heads.npy": "46af3924a8804b7ac27356e577333b0a606b97241c58f04ec5f9cde69575de51"
    },
-   "seconds": 240.8,
+   "seconds": 78.6,
    "jsCheck": {
     "n": 676,
     "pairs": 228150,
@@ -3675,7 +3670,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 50,
+    "jsMs": 51,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -3753,7 +3748,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 1000054,
-    "seconds": 220.9,
+    "seconds": 116.3,
     "maxDot": [
      5184,
      0,
@@ -3793,7 +3788,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 46.72
+     "seconds": 19.98
     },
     {
      "a": "equator",
@@ -3823,7 +3818,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 163.17
+     "seconds": 89.98
     },
     {
      "a": "equator",
@@ -3853,7 +3848,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 7.72
+     "seconds": 3.85
     },
     {
      "a": "equator",
@@ -3883,7 +3878,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.18
+     "seconds": 0.13
     },
     {
      "a": "caps",
@@ -3913,7 +3908,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.44
+     "seconds": 0.33
     },
     {
      "a": "caps",
@@ -3943,7 +3938,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.26
+     "seconds": 0.2
     },
     {
      "a": "caps",
@@ -3973,7 +3968,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 2.02
+     "seconds": 1.58
     },
     {
      "a": "axis",
@@ -4003,7 +3998,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.06
+     "seconds": 0.04
     },
     {
      "a": "axis",
@@ -4033,7 +4028,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.09
+     "seconds": 0.07
     },
     {
      "a": "layer",
@@ -4063,7 +4058,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.05
+     "seconds": 0.04
     }
    ],
    "facts": [
@@ -4086,7 +4081,7 @@
     "kravatsky:verifications/improved/dim29-30-frame-layer/data/geom29.json": "0d6bf24c0103a5007a13abda6d5d7f1ff20726648ebd2bd0318250f184613835",
     "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners29.npy": "fe9b850c5d73ece11a19b43c0cc2589fd1fd4b5363a1337513da63387f15a171"
    },
-   "seconds": 221.4,
+   "seconds": 116.4,
    "jsCheck": {
     "n": 692,
     "pairs": 239086,
@@ -4174,8 +4169,8 @@
      "disagreements": 0,
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
-    "bigintFallbacks": 3635760,
-    "seconds": 331.8,
+    "bigintFallbacks": 3477000,
+    "seconds": 197.4,
     "maxDot": [
      5184,
      0,
@@ -4215,7 +4210,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 33.11
+     "seconds": 19.19
     },
     {
      "a": "equator",
@@ -4245,7 +4240,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 272.83
+     "seconds": 162.75
     },
     {
      "a": "equator",
@@ -4275,7 +4270,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 15.28
+     "seconds": 8.35
     },
     {
      "a": "equator",
@@ -4305,7 +4300,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.18
+     "seconds": 0.14
     },
     {
      "a": "caps",
@@ -4335,7 +4330,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 1.5
+     "seconds": 1.24
     },
     {
      "a": "caps",
@@ -4365,7 +4360,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 1.52
+     "seconds": 1.09
     },
     {
      "a": "caps",
@@ -4395,7 +4390,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 6.73
+     "seconds": 4.36
     },
     {
      "a": "axis",
@@ -4425,7 +4420,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt3]"
      },
-     "seconds": 0.19
+     "seconds": 0.07
     },
     {
      "a": "axis",
@@ -4455,7 +4450,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 0.18
+     "seconds": 0.07
     },
     {
      "a": "layer",
@@ -4485,7 +4480,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.11
+     "seconds": 0.04
     }
    ],
    "facts": [
@@ -4508,7 +4503,7 @@
     "kravatsky:verifications/improved/dim29-30-frame-layer/data/geom30.json": "51df6f12068c36aaeee0c98efe4c7c21c15f001ce7cb30a19c2f4343d44c3f13",
     "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners30.npy": "0b0ce4fbe3796151e6db3ef08134656243f5e958223e9d6ff7e3df5167f7669b"
    },
-   "seconds": 332.3,
+   "seconds": 197.6,
    "jsCheck": {
     "n": 728,
     "pairs": 264628,
@@ -4519,7 +4514,7 @@
     "excludedFamilies": [],
     "seed": 11,
     "perFamily": 220,
-    "jsMs": 63,
+    "jsMs": 65,
     "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
    }
   },
@@ -4597,7 +4592,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 11089006,
-    "seconds": 500.7,
+    "seconds": 312.4,
     "maxDot": [
      5184,
      0,
@@ -4637,7 +4632,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 22.49
+     "seconds": 17.18
     },
     {
      "a": "equator",
@@ -4667,7 +4662,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt6]"
      },
-     "seconds": 420.32
+     "seconds": 261.07
     },
     {
      "a": "equator",
@@ -4697,7 +4692,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 24.96
+     "seconds": 14.64
     },
     {
      "a": "equator",
@@ -4727,7 +4722,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.39
+     "seconds": 0.15
     },
     {
      "a": "caps",
@@ -4757,7 +4752,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 4.62
+     "seconds": 2.92
     },
     {
      "a": "caps",
@@ -4787,7 +4782,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 5.32
+     "seconds": 2.44
     },
     {
      "a": "caps",
@@ -4817,7 +4812,7 @@
       "bound": "2^24",
       "path": "Q(sqrt2,sqrt3)"
      },
-     "seconds": 22.1
+     "seconds": 13.8
     },
     {
      "a": "axis",
@@ -4847,7 +4842,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.06
+     "seconds": 0.05
     },
     {
      "a": "axis",
@@ -4877,7 +4872,7 @@
       "bound": "2^24",
       "path": "two-component Z[sqrt2]"
      },
-     "seconds": 0.09
+     "seconds": 0.08
     },
     {
      "a": "layer",
@@ -4907,7 +4902,7 @@
       "bound": "2^24",
       "path": "rational"
      },
-     "seconds": 0.06
+     "seconds": 0.05
     }
    ],
    "facts": [
@@ -4930,7 +4925,7 @@
     "kravatsky:verifications/improved/dim31-frame-layer/data/geom31.json": "c97f5adcc31e5c188635294673f7264a62e9baa93ef3b51cbe0e59273bc8e75c",
     "kravatsky:verifications/improved/dim31-frame-layer/data/owners31.npy": "8c4ac307d22396e79b84234c8f7207fc7b735277a219b580217dab2336274c40"
    },
-   "seconds": 501.7,
+   "seconds": 312.7,
    "jsCheck": {
     "n": 778,
     "pairs": 302253,
@@ -5586,7 +5581,7 @@
        "bound": "2^24",
        "path": "rational"
       },
-      "seconds": 0.1
+      "seconds": 0.03
      }
     ],
     "spotCheck": {
@@ -5595,7 +5590,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 0.1,
+    "seconds": 0.0,
     "maxDot": [
      4,
      0,
@@ -5666,7 +5661,7 @@
        "bound": "2^24",
        "path": "rational"
       },
-      "seconds": 67.87
+      "seconds": 21.53
      }
     ],
     "spotCheck": {
@@ -5675,7 +5670,7 @@
      "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
     },
     "bigintFallbacks": 0,
-    "seconds": 68.1,
+    "seconds": 21.6,
     "maxDot": [
      16,
      0,
@@ -6135,7 +6130,7 @@
  },
  "pins": {
   "manifest": "corpus/kissing/wave.meta.json",
-  "manifestSha256": "3f8e0ba73b0106b22f5ac27573952ac9f37e370d34f1154deb2e54a6935a9e58"
+  "manifestSha256": "46944fd54423669b8240c2e3fafe7c1b1fd45a4b9eeba285e7e3a1fed80fd4c7"
  },
  "machine": {
   "platform": "macOS-27.0-arm64-arm-64bit",
@@ -6144,8 +6139,8 @@
   "cpus": 8,
   "blas": "Accelerate (numpy build config)"
  },
- "generated": "2026-10-05T06:10:23Z",
- "git": "bf9b7f0",
+ "generated": "2026-10-05T06:46:59Z",
+ "git": "f7c6c9a",
  "reds": [
   {
    "red": "d18: one sign of one tier-B word flipped",

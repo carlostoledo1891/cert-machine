@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave being audited and hunted by an agent; lattice-claims stage 2 training; before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 training; before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -57,6 +57,32 @@ THE KISSING HUNT.
     Heilbronn-triangles, circle packing, Kakeya needle; notebook B.2/3/4/6/9/12; the Station's five scorers,
     sign-uncertainty fetched at its pin), the three registry asterisks, the AlphaEvolve repository rows, #513
     (expected NEEDS DATA). EA prime-number-theorem is Monte-Carlo scored: expected REFUSED.
+  THE SEPTEMBER KISSING WAVE — DECIDED 2026-10-05 (a second worktree agent; merged as 33d1734 from
+    87e1edd … 874d313). Pinned: corpus/kissing/wave.meta.json (62 files; Kravatsky @86b7de1 MIT, Qiushi
+    @f3060ec code MIT + data CC BY 4.0, Takhanov–Yun @12a06bc NO LICENSE — every T–Y file incl. its
+    README pinned by hash in the git-ignored cache, never redistributed: `python3 tools/pin-kissing-wave.py
+    --fetch`; the README was moved out of the tracked tree at the merge, before any push, and the wave
+    re-decided against the corrected manifest). Built: instruments/kissing/fields.js + basis.js (Z[√3],
+    Q(√2,√3), Z[√5]); instruments/kissing/wave/ (engine, Leech from its owners, an INERT pickle reader —
+    never unpickled —, claims, battery 29 checks / 10 reds, jscheck.js); tools/run-kissing-wave.py →
+    certs/kissing-wave.json (~25 min on the M2); the ledger's `wave` section; reports/kissing.html §4;
+    holes.py --wave. DECIDED, EVERY PAIR, 0 VIOLATIONS (215.0e9 pairs): K(18) >= 8,358 (Kravatsky, +704 on
+    Cohn–Li, WITNESSED), K(26) >= 199,806, K(28) >= 204,896, K(29) >= 209,968, K(30) >= 221,012,
+    K(31) >= 238,662 (Kravatsky, WITNESSED); K(25) >= 197,580 and K(27) >= 201,567 (Qiushi, WITNESSED —
+    their +1s hold exactly); K(25) >= 197,579 Kravatsky and 197,058 Takhanov–Yun (REPAIRED: float decode /
+    snap, every decoded point the published float bit for bit). Calibration each run: the Leech shell
+    196,560, E8, the icosahedron in Z[√5]; a JS second implementation agrees on sampled blocks of every
+    row. NEEDS DATA 45 rows (counts only: Kravatsky 49–63, 68–71, 73–96; Qiushi 43, 45). QUEUED 8
+    (Takhanov–Yun 26–31; Kravatsky 38, 39). MEASURED: Takhanov–Yun's d31 array stores its four added points
+    as (±0.501179·u, 0.865343·v) where their README writes (±u/2, (√3/2)·v) — the array and the text
+    describe two configurations. THE HUNT (insertion, two passes of 1.2M directions per config): no
+    insertion anywhere; widest caps 55.5°–58.7° (best K(18), 58.694°); Qiushi's +1 needed 552 points
+    moved first. One engine bug found and fixed in-session (a fast path read one coordinate component and
+    dropped 1,944 d25 contacts); only post-fix runs are recorded; a red control now catches it.
+    NEXT: T–Y 26–31 exact rotation repair (d31 tractable: one 7×7 rotation); Kravatsky 38/39; Qiushi 32–39,
+    49–55 (not yet in the ledger); a MOTION hunt (move points, then insert). Not in the claims register yet
+    (run-claims-ledger.js does not read the wave): wire it in the next ledger pass. Nothing sent; any word
+    to the claimants (Cohn's table, Kravatsky, Qiushi, Takhanov–Yun) waits for the operator.
   THE LOCKING RULES, REVIEWED AND DECIDED (operator: "review and maybe drop; decide"):
     notes/locking-rules-review-2026-10-05.md (ee3feef). DROPPED: the kissing campaign's "lower bounds only, no
     SDP upper-bound work, no record hunting"; the expired "no new instruments while S1–S2 unshipped"; the

@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-05T06:14:29.014Z",
- "git": "9834a11",
+ "generated": "2026-10-05T07:03:57.191Z",
+ "git": "f7c6c9a",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 9
+   "ms": 10
   },
   {
    "id": "alphaevolve-593",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 62,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 61,
+   "ms": 59,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1048
+     "ms": 1052
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 202
+     "ms": 200
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 204
+     "ms": 210
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 90
+    "ms": 92
    }
   },
   {
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 106
+    "ms": 115
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 184
+    "ms": 191
    }
   }
  ],
@@ -407,8 +407,8 @@
    "NEEDS DATA": "no vector list is published; the row states what would decide it",
    "QUEUED": "bytes exist; not decided in this wave"
   },
-  "generated": "2026-10-05T06:10:23Z",
-  "commit": "bf9b7f0",
+  "generated": "2026-10-05T06:46:59Z",
+  "commit": "f7c6c9a",
   "machine": {
    "platform": "macOS-27.0-arm64-arm-64bit",
    "python": "3.9.6",
@@ -416,7 +416,7 @@
    "cpus": 8,
    "blas": "Accelerate (numpy build config)"
   },
-  "manifestSha256": "3f8e0ba73b0106b22f5ac27573952ac9f37e370d34f1154deb2e54a6935a9e58",
+  "manifestSha256": "46944fd54423669b8240c2e3fafe7c1b1fd45a4b9eeba285e7e3a1fed80fd4c7",
   "calibrations": [
    {
     "id": "cal-e8-240",
@@ -425,7 +425,7 @@
     "n": 240,
     "pairs": 28680,
     "contacts": 6720,
-    "seconds": 0.1
+    "seconds": 0
    },
    {
     "id": "cal-leech-196560",
@@ -434,7 +434,7 @@
     "n": 196560,
     "pairs": 19317818520,
     "contacts": 452088000,
-    "seconds": 68.1
+    "seconds": 21.6
    },
    {
     "id": "cal-icosahedron-12",
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3420,
+    "ms": 3428,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -1200,7 +1200,7 @@
     "maxDotShow": "144",
     "norm": "288",
     "nearestNonContactCos": 0.4776709006307398,
-    "seconds": 1.5,
+    "seconds": 0.6,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3931,
@@ -1217,7 +1217,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 29,
+     "jsMs": 30,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1280,7 +1280,7 @@
     "maxDotShow": null,
     "norm": "1152",
     "nearestNonContactCos": 0.4910687750670014,
-    "seconds": 36,
+    "seconds": 29,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 5400,
@@ -1351,12 +1351,7 @@
      "kravatsky:verifications/improved/dim25-lens-heads/data/extra_P.npy": "913a37630f2f347abc8db591e4ec96f7b2247d9fbd4e7c20400274dae240f6ca",
      "kravatsky:verifications/improved/dim25-lens-heads/data/heads_U.npy": "3c62c8c01585fbe04bd6e687475345b566522815022d72a05e7038f8bfab8043",
      "kravatsky:verifications/improved/dim25-lens-heads/data/heads_X.npy": "e32c1dba40ad376b90a4eadf0508c9b251925e363f4308923b81eab6056621b1",
-     "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d",
-     "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_u.npy": "8f722bf903f5324e3e4f35f9c271d62949d39d4e56a21b0ca58b6c93bd7a54fa",
-     "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/classes.npy": "8ef3caeeb2b15fe3ab0855de24fcfbd645798fa4280b5f938d179e86ab5984f6",
-     "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners29.npy": "fe9b850c5d73ece11a19b43c0cc2589fd1fd4b5363a1337513da63387f15a171",
-     "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners30.npy": "0b0ce4fbe3796151e6db3ef08134656243f5e958223e9d6ff7e3df5167f7669b",
-     "kravatsky:verifications/improved/dim31-frame-layer/data/owners31.npy": "8c4ac307d22396e79b84234c8f7207fc7b735277a219b580217dab2336274c40"
+     "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d"
     },
     "detail": null,
     "status": null,
@@ -1380,7 +1375,7 @@
     "maxDotShow": null,
     "norm": "4608",
     "nearestNonContactCos": 0.49984298862787674,
-    "seconds": 50.2,
+    "seconds": 36.6,
     "bigintFallbacks": 1118436,
     "spotCheck": {
      "pairs": 13194,
@@ -1400,7 +1395,7 @@
      ],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 50,
+     "jsMs": 54,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1491,7 +1486,7 @@
     "maxDotShow": "64",
     "norm": "128",
     "nearestNonContactCos": 0.4375,
-    "seconds": 39.4,
+    "seconds": 25.9,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 2185,
@@ -1508,7 +1503,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 20,
+     "jsMs": 19,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1565,7 +1560,7 @@
     "maxDotShow": "576",
     "norm": "1152",
     "nearestNonContactCos": 0.46650635094610965,
-    "seconds": 74.6,
+    "seconds": 25.8,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3933,
@@ -1680,8 +1675,8 @@
     "maxDotShow": "576",
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
-    "seconds": 79.2,
-    "bigintFallbacks": 1872806,
+    "seconds": 27,
+    "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3964,
      "disagreements": 0,
@@ -1697,7 +1692,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 51,
+     "jsMs": 52,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1765,8 +1760,8 @@
     "maxDotShow": "576",
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
-    "seconds": 88,
-    "bigintFallbacks": 1880070,
+    "seconds": 27,
+    "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3966,
      "disagreements": 0,
@@ -1782,7 +1777,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 51,
+     "jsMs": 52,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1886,8 +1881,8 @@
     "maxDotShow": "576",
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
-    "seconds": 240.3,
-    "bigintFallbacks": 571496,
+    "seconds": 78.5,
+    "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3972,
      "disagreements": 0,
@@ -1903,7 +1898,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 50,
+     "jsMs": 51,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -1999,7 +1994,7 @@
     "maxDotShow": "5184",
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
-    "seconds": 220.9,
+    "seconds": 116.3,
     "bigintFallbacks": 1000054,
     "spotCheck": {
      "pairs": 3987,
@@ -2113,8 +2108,8 @@
     "maxDotShow": "5184",
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
-    "seconds": 331.8,
-    "bigintFallbacks": 3635760,
+    "seconds": 197.4,
+    "bigintFallbacks": 3477000,
     "spotCheck": {
      "pairs": 3996,
      "disagreements": 0,
@@ -2130,7 +2125,7 @@
      "excludedFamilies": [],
      "seed": 11,
      "perFamily": 220,
-     "jsMs": 63,
+     "jsMs": 65,
      "how": "a seeded sample decided whole by the Python engine and by basis.js in JavaScript; no code shared"
     },
     "families": [
@@ -2227,7 +2222,7 @@
     "maxDotShow": "5184",
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
-    "seconds": 500.7,
+    "seconds": 312.4,
     "bigintFallbacks": 11089006,
     "spotCheck": {
      "pairs": 3994,
