@@ -222,6 +222,14 @@ unpinned in 0.4.1) kept the hosted env-server from loading at all.
 env = vf.load_environment("lattice-claims", grader="ternary", dims=[8, 12, 16], tools="python")
 ```
 
+**With a calculator tool (0.5.0).** `tools="calc"` is the same environment as a
+multi-turn `ToolEnv` with one in-process tool, `calc`. It evaluates one whitelisted
+arithmetic expression per call (integers and `Fraction` exactly; `sqrt`, `log`,
+`lgamma`, `factorial`, `pi` as in Python), with no statements, names, attributes
+or strings. It is bounded so no expression can run away, and it needs no sandbox:
+the sandbox path would not load on Hosted Training on 2026-10-05. A test shows the
+tool alone decides every sampled declared task the way the exact grader does.
+
 **What training showed (2026-10-05, Qwen3.5-9B, LoRA, GRPO; pre-registered).**
 The exact grader did NOT protect abstention: trained against it, the model
 stopped abstaining within about ten steps, exactly as it did against the answer
@@ -304,14 +312,15 @@ lattice_claims/
 ├── certify/exact.py    int and Fraction only; floats refused at ingest
 ├── certify/naive.py    both float graders, shipped for the canary
 ├── forgeries.py        planted, with the abort gate
+├── calc.py             the calculator tool of tools="calc" (0.5.0): whitelisted, bounded, stdlib
 ├── policies.py         four reference policies, graded under both graders, no API key
 ├── wiring.py           the second taskset, where the graph is the submission
 ├── api.py              the framework-free surface every consumer shares: parse_reply,
 │                       make_taskset, task_row, sample, score, preflight
 ├── adapters_v0.py      load_environment — the ONLY module that imports verifiers
 └── __main__.py         gate / baseline / tasks
-tests/                  49 tests across five files. Thirty-six run without verifiers
-                        installed; the thirteen binding tests SKIP rather than pass,
+tests/                  70 tests across six files. Fifty-six run without verifiers
+                        installed; the fourteen binding tests SKIP rather than pass,
                         because a binding test that passes without the framework is
                         the same lie as a control that cannot fire. test_graders.py
                         pins the generator's output as it was in 0.1.0.
@@ -534,7 +543,7 @@ bug, not a result.**
 ## Reproduce
 
 ```bash
-python3 -m pytest tests/ -q                       # 49 with verifiers; 36 without (the binding module skips)
+python3 -m pytest tests/ -q                       # 70 with verifiers; 56 without (the binding module skips)
 python3 -m lattice_claims gate                    # the ten planted forgeries
 python3 -m lattice_claims baseline --n 15         # the reference table, under both graders
 python3 eval/regrade.py [--write]                 # re-grade the stored replies, no API call

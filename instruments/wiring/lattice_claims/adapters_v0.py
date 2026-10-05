@@ -79,6 +79,12 @@ def _final_text(completion) -> str:
     return ""
 
 
+CALC_SYSTEM_PROMPT = (
+    "You have a `calc` tool: it evaluates ONE arithmetic expression per call -- integers and Fraction(...) "
+    "exactly; sqrt, log, log10, lgamma, exp, factorial and pi as in Python. Use it for the arithmetic. When "
+    "you have decided, end with a message that contains ONLY the JSON object the task asks for."
+)
+
 TOOL_SYSTEM_PROMPT = (
     "You have a `python` tool: a persistent Python 3.11 REPL in a sandbox, standard library only "
     "(fractions, decimal, math, itertools, ...). Use it for the arithmetic -- exactly, with integers "
@@ -205,8 +211,9 @@ def load_environment(
     1,500 characters) and `mix` weights the rungs as a deterministic cycle
     (default 1, 1, 1). Both ride in every row, so scoring rebuilds the same task.
 
-    `tools` (0.4.0): "none" (the default, a SingleTurnEnv) or "python", a multi-turn
-    PythonEnv with a persistent standard-library REPL in a Prime sandbox per rollout;
+    `tools` (0.4.0): "none" (the default, a SingleTurnEnv), "python", a multi-turn
+    PythonEnv with a persistent standard-library REPL in a Prime sandbox per rollout, or
+    (0.5.0) "calc", a multi-turn ToolEnv with an in-process bounded calculator;
     `max_turns` bounds the conversation. The answer is read from the final assistant
     message only.
     """
@@ -215,8 +222,8 @@ def load_environment(
 
     if grader not in GRADERS:
         raise ValueError(f"grader must be one of {GRADERS}, not {grader!r}")
-    if tools not in ("none", "python"):
-        raise ValueError(f"tools must be 'none' or 'python', not {tools!r}")
+    if tools not in ("none", "python", "calc"):
+        raise ValueError(f"tools must be 'none', 'python' or 'calc', not {tools!r}")
     preflight()          # the forgery gate, before anything a model could be scored against
 
     eval_num_tasks = num_tasks if eval_num_tasks is None else eval_num_tasks
@@ -305,4 +312,11 @@ def load_environment(
                 timeout_per_command_seconds=sandbox_timeout_per_command_seconds,
                 **kwargs,
             )
+    if tools == "calc":
+        # 0.5.0: the same tasks, graders and rubric, with an in-process calculator tool
+        # (lattice_claims/calc.py: one whitelisted expression per call, stdlib, bounded). It needs
+        # no sandbox: the sandbox path would not load on Hosted Training on 2026-10-05.
+        from .calc import calc
+        return vf.ToolEnv(dataset=train, eval_dataset=evals, tools=[calc], max_turns=max_turns,
+                          system_prompt=CALC_SYSTEM_PROMPT, rubric=rubric, **kwargs)
     return vf.SingleTurnEnv(dataset=train, eval_dataset=evals, rubric=rubric, **kwargs)

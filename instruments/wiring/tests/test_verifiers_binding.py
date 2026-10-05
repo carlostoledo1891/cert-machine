@@ -202,3 +202,18 @@ def test_in_the_tool_environment_only_the_closing_message_is_the_answer():
     assert fn["reward"](completion=C, info=und) == 1.0
     C2 = C[:2] + [{"role": "assistant", "content": '{"verdict": "ADMISSIBLE"}'}]
     assert fn["reward"](completion=C2, info=und) == -1.0
+
+
+# --- 0.5.0: the calculator-tool environment --------------------------------------
+
+def test_the_calc_environment_is_a_tool_env_with_one_tool_and_reads_the_closing_message():
+    env = load_environment(num_tasks=4, grader="ternary", dims=[8, 12, 16], mix=[1, 0, 1], tools="calc")
+    assert type(env).__name__ == "ToolEnv"
+    assert [t.__name__ for t in env.tools] == ["calc"]
+    assert all(i["tools"] == "calc" for i in env.dataset["info"])
+    fn = reward_funcs(env)
+    und = next(dict(i) for i in env.dataset["info"] if i["rung"] == "underspecified")
+    C = [{"role": "assistant", "content": 'calc("Fraction(1,2)") then {"verdict": "ADMISSIBLE"}'},
+         {"role": "tool", "content": "Fraction(1, 2)"},
+         {"role": "assistant", "content": '{"verdict": "NEEDS_DATA", "missing": "%s"}' % und["missing"].split(".")[1]}]
+    assert fn["reward"](completion=C, info=und) == 1.0
