@@ -73,15 +73,23 @@ def main(run_id, out_dir):
         per_step.append(cell)
     keep = ("reward", "certified", "key_match", "abstained", "confident_wrong", "refused_parse", "well_formed")
     series = []
+    # Two key schemas seen on the service: the pilot's (Llama, 2026-10-04 evening) logged
+    # `metrics/<env>/<name>` and `filters/all/zero_advantage`; the Qwen runs an hour later log
+    # `train/agg/all/metrics/<name>/mean` and `train/agg/all/filters/zero_advantage/mean`.
+    # Both are read; a key in neither form is ignored rather than guessed at.
     for m in sorted(metrics, key=lambda m: m["step"]):
         row = {"step": m["step"]}
         for k, v in m.items():
-            tail = k.rsplit("/", 1)[-1]
-            if k.startswith("metrics/") and tail in keep:
-                row[tail] = v
-            if k.startswith("eval/") and tail == "avg@1":
-                row["eval_avg@1"] = v
-            if k.startswith("filters/all/zero_advantage"):
+            if v is None:
+                continue
+            parts = k.split("/")
+            if k.startswith("metrics/") and parts[-1] in keep:
+                row[parts[-1]] = v
+            elif k.startswith("train/agg/all/metrics/") and parts[-1] == "mean" and parts[-2] in keep:
+                row[parts[-2]] = v
+            elif k.startswith("eval/") and parts[-1] in ("avg@1", "avg@8"):
+                row["eval_" + parts[-1]] = v
+            elif k in ("filters/all/zero_advantage", "train/agg/all/filters/zero_advantage/mean"):
                 row["zero_advantage"] = v
         series.append(row)
     rec = {"run_id": run_id, "name": run.get("name"), "model": run.get("base_model"),
