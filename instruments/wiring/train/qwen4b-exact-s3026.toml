@@ -1,0 +1,24 @@
+# Stage 3 (paid, only if stage 2 separates). Arm B, replicate 2.
+# Pre-registered in notes/lattice-claims-rl-preregistration-2026-10-04.md; the two
+# arms of a pair differ ONLY in `grader`. Launch: prime train <this file> -y
+name = "lc-qwen4b-exact-s3026"
+model = "Qwen/Qwen3.5-4B"
+max_steps = 150
+batch_size = 128
+rollouts_per_example = 8
+
+[sampling]
+max_tokens = 1536
+temperature = 1.0
+enable_thinking = false
+
+[[env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.0"
+args = { grader = "exact", dims = [8, 12, 16], num_tasks = 2400, seed = 3026, eval_seed = 9999, eval_num_tasks = 300 }
+
+[eval]
+interval = 25
+num_examples = 300
+rollouts_per_example = 1
+skip_first_step = false
