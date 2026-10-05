@@ -56,8 +56,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
   ANAND'S ζ(7) PROOF — AUDITED, THE ROUTE REFUTED (arithmetic-slip), 2026-10-05. Zenodo 22920911 v1 (CC-BY-4.0,
     pinned). I_out recomputed exactly from the paper's own (54), (58), (59), (62): +453803/288000 ≈ +1.576 under
     the faithful reading (+445163/288000 under the literal one), not the printed −11002997/720000 (that is Table
-    5's integral; its last row is wrong) — so A₂₀₀ + U = +4.86 where (118) needs < 0; positive in all 24 decided
-    scenarios, no cutoff rescues it. The integrator is calibrated on Fauzan's printed 127751/96000 three ways;
+    5's integral; its last row is wrong) — so A₂₀₀ + U = +4.86 where (118) needs < 0; positive in every scenario that takes
+    I_out from the paper's formulas (smallest decided +2.256), no cutoff rescues it. The integrator is calibrated on Fauzan's printed 127751/96000 three ways;
     finite-K sums converge to the R2 value. Theorem 1.1 REFUSED (not established, not shown false); the paper's own
     family measured +0.80, +0.87, +0.88 at n = 1–3 (needs < −11.87). The third-party issue #1 is right on all four
     points. The Lean repo proves a different statement (one of ζ(7..21) irrational; 1 sorry = the Challenge stub;
