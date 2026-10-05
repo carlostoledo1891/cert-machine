@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 training; before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -57,6 +57,23 @@ THE KISSING HUNT.
     Heilbronn-triangles, circle packing, Kakeya needle; notebook B.2/3/4/6/9/12; the Station's five scorers,
     sign-uncertainty fetched at its pin), the three registry asterisks, the AlphaEvolve repository rows, #513
     (expected NEEDS DATA). EA prime-number-theorem is Monte-Carlo scored: expected REFUSED.
+  LATTICE-CLAIMS UNDER RL — STAGE 2 RESULT (2026-10-05; notes/lattice-claims-rl-preregistration-2026-10-04.md,
+    deviations 1–7 and the result section; records instruments/wiring/train/{pilot,stage2}/ via read_run.py).
+    The road: the free 1B pilot collapsed (it never abstains correctly); the 4B passed the gate (16.1%), but
+    Prime's hosted 4B trainer delivers NO policy updates (3 launches stalled at "Waiting for new policy";
+    reported via `prime feedback` on the operator's word); the 2B trains but fails the gate (2.3%); the 9B
+    passes (14.1%, pass@8 0.57) and trains. STAGE 2 ON 9B: no separation — BOTH arms extinguished
+    abstention within ~10 steps (A key 0.414 -> 0.000, B exact 0.344 -> 0.000; confident_wrong up to
+    0.69 / 0.64), both aborted by the trainer on uniform-reward collapse (A step 93, B step 67). Mechanism:
+    the exact grader credits a decided NEEDS_DATA but does not penalise a confident wrong answer, so once
+    the model guesses on every incomplete task those groups carry no gradient (B's stored incomplete-task
+    samples fall from 19/66 to 7/896). None of the four pre-registered readings; stage 3 does not run.
+    Spend: Prime wallet US$50 -> US$31.07 (gates US$5.3, probes US$1.3, stage 2 US$11.7, the rest the
+    stalled 4B steps). NEXT (for the application write-up and a real result): a third arm, `grader="ternary"`
+    (+1 decided-correct, 0 abstain-when-not-due?, −1 confident wrong) in lattice-claims 0.3, pre-registered
+    first; the 9B, ~US$12 per run. The write-up (PI case-study form) can already tell the plumbing story,
+    the 4B fault, and the negative result honestly.
+
   THE SEPTEMBER KISSING WAVE — DECIDED 2026-10-05 (a second worktree agent; merged as 33d1734 from
     87e1edd … 874d313). Pinned: corpus/kissing/wave.meta.json (62 files; Kravatsky @86b7de1 MIT, Qiushi
     @f3060ec code MIT + data CC BY 4.0, Takhanov–Yun @12a06bc NO LICENSE — every T–Y file incl. its
