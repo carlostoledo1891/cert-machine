@@ -119,6 +119,15 @@ Any change after the first training call is recorded here with its date and its 
    about 43% at the 1:1:1 mix, in place of the eval set's 42.3%. The thresholds, in points, are unchanged.
    The held-out `avg@1` is reported beside each run as its own reward on the fixed 300.
 
+4. **2026-10-04, during the gate: the eval's sampling was not the training's.** The first gate run
+   (k6pxpzv1s0t8i96k0wq8ozko) set `[sampling]` (1,536 tokens, thinking off). Its step-0 eval nonetheless
+   averaged about 9,000 output tokens per rollout ($1.51 of tokens at 58% of the eval): the eval samples with
+   the platform's defaults unless an `[eval.sampling]` block says otherwise. That run measures Qwen3.5-4B
+   *with* the platform's default eval sampling, which is not the gate's setting. It is kept as an upper bound,
+   labelled as such. The gate is re-run as gate-qwen4b-v2.toml with `[eval.sampling]` equal to stage 2's
+   (1,536 tokens, temperature 1.0, thinking off), and that run decides GO or not. The four stage-2/3 configs gain
+   the same block, so every eval measures the policy that trains. Thresholds unchanged.
+
 ## The pilot (stage 1), 2026-10-04 — plumbing and base rates, NOT the result
 
 Runs e6zvxsdjgs5tbed7r2prswjo (A) and icx69k02mx5lokcxbj8t3b7e (B); sprints/Llama-3.2-1B-Instruct, free. The

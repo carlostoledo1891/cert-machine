@@ -23,6 +23,15 @@ num_examples = 300
 rollouts_per_example = 1
 skip_first_step = false
 
+# The eval samples with the platform's defaults unless told otherwise (seen in the
+# first gate: ~9,000 output tokens per eval rollout under a 1,536-token [sampling]).
+# Eval sampling is set to the training sampling, so the eval measures the policy
+# that trains.
+[eval.sampling]
+max_tokens = 1536
+temperature = 1.0
+enable_thinking = false
+
 # Without at least one [[eval.env]] the CLI drops the whole [eval] section
 # silently (prime_cli EvalConfig.to_api_dict returns None). Both splits of this
 # env are the fixed eval set -- seed 9999, 300 tasks -- so whichever split the
