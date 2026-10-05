@@ -175,19 +175,19 @@
     },
     {
       "file": "README.md",
-      "sha256": "94175d3a16301aa8b22293287ac2f0ea82a69e49b6e08d2535eca75919a63b42",
+      "sha256": "f6a2d295e3e9ace61748a6924a93964f6467248e0a66bd32acaa64f6338353b0",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
       "patched": true,
-      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md). 0.4.0: 'With a Python tool'; tests 49. 0.4.1: the repair paragraph (adapt, not pin)."
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md). 0.4.0: 'With a Python tool'; tests 49. 0.4.1: the repair paragraph (adapt, not pin). 0.4.2: the dependency paragraph."
     },
     {
       "file": "pyproject.toml",
-      "sha256": "578a6f6a041555d441a3b7d3dd90fbaf7f1c05ad4b723b556452fd7e271cc245",
+      "sha256": "cb003d8b7d4e52283ba31b6a78168820c28620871a68103c7560651a6e50e735",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
       "patched": true,
-      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version. 0.4.0: version; prime-sandboxes>=0.2.39,<0.3; tags tool-use, sandbox. 0.4.1: version; the prime-sandboxes upper bound removed (it kept the hosted env-server from starting)."
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version. 0.4.0: version; prime-sandboxes>=0.2.39,<0.3; tags tool-use, sandbox. 0.4.1: version; the prime-sandboxes upper bound removed (it kept the hosted env-server from starting). 0.4.2: prime-sandboxes no longer declared (verifiers brings it)."
     },
     {
       "file": "lattice_claims/api.py",
@@ -384,6 +384,10 @@
   "v041": {
     "what": "lattice-claims 0.4.1, 2026-10-05: the prime-sandboxes upper bound removed; the construction repair adapts to the installed release (vm=False for 0.2.39–0.2.42; a shlex-split StartCommand('bash', ['-lc', script]) for 0.3.0+).",
     "evidence": "locally with prime-sandboxes 0.4.2: the converted request created a REAL Prime sandbox (htmo2vjju3p0af8cz4scua9a) that was running in 3 s, its REPL worker wrote the ready flag, exact Python ran in it; deleted after the check. 49 tests pass with 0.4.2.",
+    "hubPush": "PUBLISHED 2026-10-05 as v0.4.1 (version_id m98ast48dfqowcgv5q21qfnz, wheel d8209c62…), verified from the registry (49 tests; prime-sandboxes 0.4.2 + verifiers 0.3.1). On Hosted Training the env-server still did not load: the tool probe td0h1710… sat at 'Loading training environments' and a NO-TOOL control s8anltst… logged no step in 18 min — the declared prime-sandboxes dependency itself, not the tool. Superseded by 0.4.2."
+  },
+  "v042": {
+    "what": "lattice-claims 0.4.2, 2026-10-05: prime-sandboxes removed from the declared dependencies (verifiers 0.3.1 requires it; declaring it, pinned or not, kept the hosted env-server from loading). Code unchanged from 0.4.1.",
     "hubPush": "pending"
   }
 }

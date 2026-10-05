@@ -214,9 +214,9 @@ the model the means to decide the arithmetic; it never sees the grader.
 verifiers 0.3.1's legacy SandboxEnv sends a string start command without `vm`,
 which every prime-sandboxes release it accepts refuses. While it builds, the
 adapter supplies `vm=False` (0.2.39–0.2.42), or splits the string as a shell
-would into a `StartCommand` (0.3.0 and later), and nothing else. 0.4.0 pinned
-`prime-sandboxes<0.3`, and the hosted env-server never started; 0.4.1 adapts
-instead of pinning.
+would into a `StartCommand` (0.3.0 and later), and nothing else. prime-sandboxes
+is not declared: verifiers already requires it. Declaring it (pinned in 0.4.0,
+unpinned in 0.4.1) kept the hosted env-server from loading at all.
 
 ```python
 env = vf.load_environment("lattice-claims", grader="ternary", dims=[8, 12, 16], tools="python")
