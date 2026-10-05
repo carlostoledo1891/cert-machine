@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install; the Hub push, the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -85,10 +85,14 @@ HANDOFF 2026-10-04, THE TWENTY-NINTH SESSION — THE PRIME INTELLECT APPLICATION
     2509.25760 (binary vs ternary reward under GRPO, ICML 2026). A positive result
     is a REPLICATION and must be written as one; what is added is abstention
     DECIDED, not labelled (abstaining on a complete task scores 0 too).
+  PUSHED (on the operator's "Push if ready", 2026-10-04): carlos-toledo/lattice-
+    claims v0.2.0 is on the Hub, PUBLIC (prime 0.6.31 lives at ~/.local/bin/prime,
+    not on PATH; version_id s40ntzyzd6m5610tfnovd4r5). The Hub's wheel hashes to the
+    one verified from the clean install (5fc5c0a6…); verified FROM THE REGISTRY in a
+    fresh 3.12 venv: both graders load, 6/6 across three rungs, seeds 2026/2027, 43
+    tests pass against the installed package. PROVENANCE `v020.hubPush` records it;
+    dist/ now holds the 0.2.0 wheel (prime cleaned the 0.1.0 one).
   HELD — EACH ON THE OPERATOR'S WORD:
-  · THE HUB PUSH of 0.2.0 (a SEND): `pip install prime` in a venv first, then
-    `cd instruments/wiring && prime env push --visibility PUBLIC`, then verify FROM
-    THE REGISTRY in a fresh venv; record it under PROVENANCE `v020`.
   · THE BASELINE MEASUREMENT (a spend + a model choice — the open model Lab will
     train): 200 tasks per rung at dims 8–16, e.g. `vf-eval lattice-claims -a
     '{"grader": "exact", "dims": [8, 12, 16], "num_tasks": 600}' -m <model> -n 600`

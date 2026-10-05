@@ -315,7 +315,17 @@
       "python3 battery.py": "all green, incl. 'the answer key pays guessing, the exact grader pays abstaining' (key: careful 43 > exact 26; exact: exact 45 > careful 26, of 45)",
       "verifiedOn": "2026-10-04"
     },
-    "hubPush": "NOT PUSHED. carlos-toledo/lattice-claims is 0.1.0 on the Hub; pushing 0.2.0 is a SEND, on the operator's word.",
+    "hubPush": {
+      "state": "PUBLISHED 2026-10-04 (2026-10-05T00:57 UTC) to the Prime Intellect Environments Hub as carlos-toledo/lattice-claims v0.2.0, PUBLIC, on the operator's word ('Push if ready').",
+      "slug": "carlos-toledo/lattice-claims",
+      "version": "0.2.0",
+      "environment_id": "tpczhvy40rae2ed8i821w06u",
+      "version_id": "s40ntzyzd6m5610tfnovd4r5",
+      "wheel_sha256": "5fc5c0a64a43302814768f4b222f65354c77f25fa18107155e1fb0e6f761166b",
+      "wheel_url": "https://hub.primeintellect.ai/carlos-toledo/lattice-claims/@234a4fd7/lattice_claims-0.2.0-py3-none-any.whl",
+      "cli": "prime 0.6.31 (~/.local/bin/prime), `env push --visibility PUBLIC`; it rebuilt the wheel and the hash is the one verified from the clean install, byte for byte. It also cleaned dist/: the tracked 0.1.0 wheel is replaced by the 0.2.0 wheel.",
+      "verifiedFromTheHub": "the wheel downloaded from the registry URL hashes to the pushed sha256; pip-installed into a fresh python3.12 venv with verifiers 0.3.1 and loaded with no source tree: vf.load_environment('lattice-claims', grader='exact'|'answer_key', dims=[8, 12, 16]) returns a SingleTurnEnv, 6 train / 6 eval across all three rungs, train seed 2026 and eval seed 2027, no task column; the 43 tests pass against the installed package. The registry lists the 74-character description and the `hallucination` tag."
+    },
     "cleanInstall": "pip wheel built the 0.2.0 wheel (sha256 5fc5c0a64a43302814768f4b222f65354c77f25fa18107155e1fb0e6f761166b, 16 entries, 39,527 bytes; hatchling stamps every entry 2020-02-02). Installed into a fresh python3.12 venv with verifiers 0.3.1 and loaded from a directory with no source tree: vf.load_environment('lattice-claims', grader='exact'|'answer_key', dims=[8, 12, 16]) returns a SingleTurnEnv, 6 train / 6 eval across all three rungs, prompts at most 1,841 characters; an unknown grader is refused with the message naming the two; the 43 tests pass against the INSTALLED package."
   }
 }
