@@ -233,7 +233,7 @@ const out = {
     + 'arithmetic over Z[sqrt2] on BigInt — shared-nothing with every producer\'s own verifier. '
     + 'A direction set with pairwise angles >= 60 degrees IS a kissing configuration; the decision is '
     + '<x,y> <= 0 or 4<x,y>^2 <= <x,x><y,y>, exact, per pair.',
-  scope: 'Lower-bound witnesses only. No upper-bound (SDP) claims are touched, and no search for new records is performed.',
+  scope: 'Lower-bound witnesses. No upper-bound (SDP) claim is touched. Since 2026-10-05 the deepest-empty-cap search runs on decided configurations (instruments/kissing/holes): it only proposes, in floating point, and nothing it returns is a row until it is decided exactly. The September wave (wave) is decided over Q(sqrt2, sqrt3) by tools/run-kissing-wave.py and re-checked here.',
   provenance: {
     'corpus/kissing/alphaevolve-d11-593.json': corpus('alphaevolve-d11-593.json').upstream_sha256,
     'corpus/kissing/ea-d11-594-winner.json': corpus('ea-d11-594-winner.json').upstream_sha256,

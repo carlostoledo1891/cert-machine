@@ -1,6 +1,6 @@
 {
  "what": "The kissing ledger: every public record configuration for the kissing number, re-decided in exact arithmetic over Z[sqrt2] on BigInt — shared-nothing with every producer's own verifier. A direction set with pairwise angles >= 60 degrees IS a kissing configuration; the decision is <x,y> <= 0 or 4<x,y>^2 <= <x,x><y,y>, exact, per pair.",
- "scope": "Lower-bound witnesses only. No upper-bound (SDP) claims are touched, and no search for new records is performed.",
+ "scope": "Lower-bound witnesses. No upper-bound (SDP) claim is touched. Since 2026-10-05 the deepest-empty-cap search runs on decided configurations (instruments/kissing/holes): it only proposes, in floating point, and nothing it returns is a row until it is decided exactly. The September wave (wave) is decided over Q(sqrt2, sqrt3) by tools/run-kissing-wave.py and re-checked here.",
  "provenance": {
   "corpus/kissing/alphaevolve-d11-593.json": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
   "corpus/kissing/ea-d11-594-winner.json": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-05T06:10:45.391Z",
- "git": "bf9b7f0",
+ "generated": "2026-10-05T06:14:29.014Z",
+ "git": "9834a11",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 10
+   "ms": 9
   },
   {
    "id": "alphaevolve-593",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 75,
+   "ms": 63,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 59,
+   "ms": 61,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 57,
+   "ms": 56,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -172,7 +172,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 55,
+   "ms": 56,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 64,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1054
+     "ms": 1048
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 203
+     "ms": 204
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 91
+    "ms": 90
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 181
+    "ms": 184
    }
   }
  ],
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3417,
+    "ms": 3420,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
