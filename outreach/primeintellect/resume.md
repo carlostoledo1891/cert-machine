@@ -35,9 +35,8 @@ Sandboxes.
   - a calculator-tool mode (`tools="calc"`), with the sandbox mode kept;
   - its task generator pinned byte-identical to 0.1.0 through every release;
   - each release verified by installing from the registry.
-
-  Also `blind-spot` (RTL mutation kills checked by simulating the netlist; SAT-proved equivalence) and
-  `break-the-grader` (adversarial submissions minted from exact certificates).
+- **Also on the Hub:** `blind-spot` (RTL mutation kills checked by simulating the netlist; SAT-proved
+  equivalence) and `break-the-grader` (adversarial submissions minted from exact certificates).
 - **A hosted-sandbox blocker isolated by controls.** On Hosted Training, every run of the sandbox-tool
   environment sat without loading, while the same package without the tool trained in under 90 s. Shipped an
   in-process calculator tool instead; it loads and trains.
