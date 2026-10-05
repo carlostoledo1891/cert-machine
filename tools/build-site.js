@@ -252,7 +252,7 @@ const REPORTS = [
     n: 'statement faithful · built here · one clause of Theorem 1.1 not formal' },
   { g: 'ai', f: 'kissing.html', k: 'audit · the AI-held record',
     title: 'The kissing ledger: dimension eleven, decided',
-    desc: 'K(11)’s record moved three times in eighteen months — every mover an AI, each validated by its producer’s own verifier. The whole ladder (AlphaEvolve 593, EinsteinArena 594, the Station’s three exact 604s, and EinsteinArena’s headline 604 — NEEDS DATA until its coordinates were published on request, four days after the ledger asked) re-decided here in exact Z[√2] arithmetic from published bytes — and the two platforms’ 604s decided congruent, with a certificate.',
+    desc: 'K(11)’s record moved three times in eighteen months — every mover an AI, each validated by its producer’s own verifier. The whole ladder (AlphaEvolve 593, EinsteinArena 594, the Station’s three exact 604s, and EinsteinArena’s headline 604 — NEEDS DATA until its coordinates were published on request, four days after the ledger asked) re-decided here in exact Z[√2] arithmetic from published bytes — and the two platforms’ 604s decided congruent, with a certificate. Since 2026-10-05 also the September wave in dimensions 18 and 25–31: every pair of every published configuration decided exactly.',
     n: 'two platforms’ 604s: one configuration, with a certificate' },
   /* lane 'erdos', ranked here: the theorem and the refutation head the shelf */
   { g: 'erdos', f: 'lambda5.html', k: 'erdős #510 · a theorem',

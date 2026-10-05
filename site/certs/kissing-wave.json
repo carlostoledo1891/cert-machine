@@ -1,0 +1,6711 @@
+{
+ "rows": [
+  {
+   "id": "kravatsky-18",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 18,
+   "claimed": 8358,
+   "previous": 7654,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 8358,
+    "dim": 18,
+    "norm": [
+     288,
+     0,
+     0,
+     0
+    ],
+    "normShow": "288",
+    "families": [
+     {
+      "name": "equator",
+      "n": 4320,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     },
+     {
+      "name": "tiers",
+      "n": 3072,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 6
+     },
+     {
+      "name": "poles",
+      "n": 6,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     },
+     {
+      "name": "tier B",
+      "n": 960,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 4
+     }
+    ],
+    "pairs": 34923903,
+    "pairsExpected": 34923903,
+    "contacts": 1621638,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3931,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 1.5,
+    "maxDot": [
+     144,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "144",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4776709006307398
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 9329040,
+     "contacts": 604800,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      72,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "72",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 2592,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.08
+    },
+    {
+     "a": "equator",
+     "b": "tiers",
+     "pairs": 13271040,
+     "contacts": 414720,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      72,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "72",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 1296,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "equator",
+     "b": "poles",
+     "pairs": 25920,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.15
+    },
+    {
+     "a": "equator",
+     "b": "tier B",
+     "pairs": 4147200,
+     "contacts": 230400,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      96,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "96",
+     "nearestNonContactCos": 0.3333333333333333,
+     "gemm": {
+      "worstPartialSum": 864,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "tiers",
+     "b": "tiers",
+     "pairs": 4717056,
+     "contacts": 331776,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      72,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "72",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 648,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.11
+    },
+    {
+     "a": "tiers",
+     "b": "poles",
+     "pairs": 18432,
+     "contacts": 3072,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      72,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "72",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 1296,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "tiers",
+     "b": "tier B",
+     "pairs": 2949120,
+     "contacts": 24576,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      96,
+      0,
+      24,
+      0
+     ],
+     "nearestNonContactShow": "96 + 24\u221a3",
+     "nearestNonContactCos": 0.4776709006307398,
+     "gemm": {
+      "worstPartialSum": 432,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.34
+    },
+    {
+     "a": "poles",
+     "b": "poles",
+     "pairs": 15,
+     "contacts": 6,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -144,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-144",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 2592,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.16
+    },
+    {
+     "a": "poles",
+     "b": "tier B",
+     "pairs": 5760,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      48,
+      0
+     ],
+     "maxDotShow": "48\u221a3",
+     "maxCos": 0.28867513459481287,
+     "nearestNonContactDot": [
+      0,
+      0,
+      48,
+      0
+     ],
+     "nearestNonContactShow": "48\u221a3",
+     "nearestNonContactCos": 0.28867513459481287,
+     "gemm": {
+      "worstPartialSum": 432,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.28
+    },
+    {
+     "a": "tier B",
+     "b": "tier B",
+     "pairs": 460320,
+     "contacts": 12288,
+     "violations": 0,
+     "maxDot": [
+      144,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "144",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      112,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "112",
+     "nearestNonContactCos": 0.3888888888888889,
+     "gemm": {
+      "worstPartialSum": 288,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.09
+    }
+   ],
+   "facts": [
+    "30 octads of 8 coordinates",
+    "three families of sixteen 6-sets",
+    "odd sign patterns; tier-B radius^2 = 8/9",
+    "tier-B bit order as tierB.json states it: 'bit 15-i is coordinate i'",
+    "160 words at each of 30, 90, ..., 330 degrees"
+   ],
+   "decode": null,
+   "choices": [],
+   "scale": "norm-8 units of the README times 6: every coordinate an integer combination of 1, sqrt2, sqrt6",
+   "counts": null,
+   "bytes": {
+    "kravatsky:verifications/improved/dim18-bent-hexagon/data/families.json": "997fc58c733fb19ce40521163572e6f762b824e6929fe52a9f609a9c88337e4a",
+    "kravatsky:verifications/improved/dim18-bent-hexagon/data/octads.json": "a31d49dcfd5a90bc9067b0db5473180351590827b0b003e2a9b261090deb661a",
+    "kravatsky:verifications/improved/dim18-bent-hexagon/data/tierB.json": "ed70867cd96c4dcc53b80c1c2669f57edea78e337639d22bce89657a0c2406b1"
+   },
+   "seconds": 1.5
+  },
+  {
+   "id": "kravatsky-25",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 25,
+   "claimed": 197579,
+   "previous": 197056,
+   "verdict": "REPAIRED",
+   "engine": {
+    "n": 197579,
+    "dim": 25,
+    "norm": [
+     1152,
+     0,
+     0,
+     0
+    ],
+    "normShow": "1152",
+    "families": [
+     {
+      "name": "equator",
+      "n": 195544,
+      "note": "Leech minimal vectors that are not owners",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "extra point",
+      "n": 1,
+      "note": "-(2/sqrt6) v, the one non-lattice equator point",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 10
+     },
+     {
+      "name": "class caps",
+      "n": 1944,
+      "note": "(u + ((3 - sqrt3)/6) v, +-1), two per class head",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 21
+     },
+     {
+      "name": "rational caps",
+      "n": 88,
+      "note": "(x, +-1), x one of the 44 exact rational heads",
+      "path": "object",
+      "freeNorm": false,
+      "maxAbsCoefficient": null
+     },
+     {
+      "name": "poles",
+      "n": 2,
+      "note": "(0, +-2)",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     }
+    ],
+    "pairs": 19518631831,
+    "pairsExpected": 19518631831,
+    "contacts": 448266844,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 5400,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 36.0,
+    "maxCos": 0.5000000000000001,
+    "nearestNonContactCos": 0.4910687750670014
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 19118630196,
+     "contacts": 447516678,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 14400,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 25.77
+    },
+    {
+     "a": "equator",
+     "b": "extra point",
+     "pairs": 195544,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "maxDotShow": "192\u221a6",
+     "maxCos": 0.40824829046386296,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "nearestNonContactShow": "192\u221a6",
+     "nearestNonContactCos": 0.40824829046386296,
+     "gemm": {
+      "worstPartialSum": 6000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 0.31
+    },
+    {
+     "a": "equator",
+     "b": "class caps",
+     "pairs": 380137536,
+     "contacts": 534600,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      432,
+      0,
+      48,
+      0
+     ],
+     "nearestNonContactShow": "432 + 48\u221a3",
+     "nearestNonContactCos": 0.4471687836487032,
+     "gemm": {
+      "worstPartialSum": 12600,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 6.03
+    },
+    {
+     "a": "equator",
+     "b": "rational caps",
+     "pairs": 17207872,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4821375500008384,
+     "nearestNonContactCos": 0.4821375500008384,
+     "gemm": {
+      "path": "balanced base-2^22 digits (5), a float64 GEMM per digit (exact), top-down int64 sign",
+      "digits": 5
+     },
+     "seconds": 1.54
+    },
+    {
+     "a": "equator",
+     "b": "poles",
+     "pairs": 391088,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.41
+    },
+    {
+     "a": "extra point",
+     "b": "class caps",
+     "pairs": 1944,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "maxDotShow": "288\u221a2",
+     "maxCos": 0.3535533905932738,
+     "nearestNonContactDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 5250,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "extra point",
+     "b": "rational caps",
+     "pairs": 88,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": -0.23757175527868926,
+     "nearestNonContactCos": -0.23757175527868926,
+     "seconds": 0.04
+    },
+    {
+     "a": "extra point",
+     "b": "poles",
+     "pairs": 2,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.06
+    },
+    {
+     "a": "class caps",
+     "b": "class caps",
+     "pairs": 1888596,
+     "contacts": 213490,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      480,
+      0,
+      48,
+      0
+     ],
+     "nearestNonContactShow": "480 + 48\u221a3",
+     "nearestNonContactCos": 0.4888354503153699,
+     "gemm": {
+      "worstPartialSum": 11025,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.21
+    },
+    {
+     "a": "class caps",
+     "b": "rational caps",
+     "pairs": 171072,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4910687750670014,
+     "nearestNonContactCos": 0.4910687750670014,
+     "seconds": 1.32
+    },
+    {
+     "a": "class caps",
+     "b": "poles",
+     "pairs": 3888,
+     "contacts": 1944,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -576,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-576",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 7200,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.04
+    },
+    {
+     "a": "rational caps",
+     "b": "rational caps",
+     "pairs": 3828,
+     "contacts": 44,
+     "violations": 0,
+     "maxCos": 0.5000000000000001,
+     "nearestNonContactCos": 0.4826332065738474,
+     "seconds": 0.07
+    },
+    {
+     "a": "rational caps",
+     "b": "poles",
+     "pairs": 176,
+     "contacts": 88,
+     "violations": 0,
+     "maxCos": 0.5000000000000001,
+     "nearestNonContactCos": -0.49999999999999994,
+     "seconds": 0.04
+    },
+    {
+     "a": "poles",
+     "b": "poles",
+     "pairs": 1,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      -1152,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "-1152",
+     "maxCos": -1.0,
+     "nearestNonContactDot": [
+      -1152,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-1152",
+     "nearestNonContactCos": -1.0,
+     "gemm": {
+      "worstPartialSum": 14400,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.02
+    }
+   ],
+   "facts": [
+    "the pickle (read opcode by opcode, 8758 opcodes, never unpickled) holds rat, cls, U",
+    "its U is a 1016 x 24 little-endian int64 array",
+    "its U equals heads_U.npy entry for entry",
+    "972 class heads and 44 rational heads partition the 1016",
+    "the 1016 owners are distinct Leech minimal vectors",
+    "every class head decodes to x = u + t v with v of norm 48 (norm 6) and <u, v> = -24 (-3)",
+    "every decoded lean is a Leech vector (Conway-Sloane test)",
+    "w = u + v is minimal for every class head",
+    "all 44 rational heads have |x|^2 = 24 exactly (3 in norm-4 units)",
+    "the extra point decodes to p = -(2/sqrt6) v with v a norm-6 Leech vector",
+    "its v is one of the leans of the class heads",
+    "the block {z : <z, v> = -24} has 552 members, all removed"
+   ],
+   "decode": {
+    "classHeads": 972,
+    "maxFloatResidual": 0.0,
+    "rationalVsFloat": 7.850462293418875e-17,
+    "how": "class heads x = u + ((3 - sqrt3)/6) v: v rounded from the float64 heads (README: \"(x - u)/t is an integral vector of norm 6\"); the extra point p = -(2/sqrt6) v likewise; the 44 interior heads are exact rationals from the pickle; owners are exact integers"
+   },
+   "choices": [],
+   "scale": "Cohn units (norm-4 picture times sqrt8) times 6",
+   "counts": null,
+   "bytes": {
+    "kravatsky:verifications/improved/dim25-lens-heads/data/extra_P.npy": "913a37630f2f347abc8db591e4ec96f7b2247d9fbd4e7c20400274dae240f6ca",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_U.npy": "3c62c8c01585fbe04bd6e687475345b566522815022d72a05e7038f8bfab8043",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_X.npy": "e32c1dba40ad376b90a4eadf0508c9b251925e363f4308923b81eab6056621b1",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_u.npy": "8f722bf903f5324e3e4f35f9c271d62949d39d4e56a21b0ca58b6c93bd7a54fa",
+    "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/classes.npy": "8ef3caeeb2b15fe3ab0855de24fcfbd645798fa4280b5f938d179e86ab5984f6",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners29.npy": "fe9b850c5d73ece11a19b43c0cc2589fd1fd4b5363a1337513da63387f15a171",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners30.npy": "0b0ce4fbe3796151e6db3ef08134656243f5e958223e9d6ff7e3df5167f7669b",
+    "kravatsky:verifications/improved/dim31-frame-layer/data/owners31.npy": "8c4ac307d22396e79b84234c8f7207fc7b735277a219b580217dab2336274c40"
+   },
+   "seconds": 36.4,
+   "delta": 0.0
+  },
+  {
+   "id": "qiushi-25",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 25,
+   "claimed": 197580,
+   "previous": 197579,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 197580,
+    "dim": 25,
+    "norm": [
+     4608,
+     0,
+     0,
+     0
+    ],
+    "normShow": "4608",
+    "families": [
+     {
+      "name": "equator",
+      "n": 194992,
+      "note": "Leech minimal vectors that are neither owners nor moved",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 48
+     },
+     {
+      "name": "extra point",
+      "n": 1,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 20
+     },
+     {
+      "name": "moved",
+      "n": 552,
+      "note": "W(r) = (r + a n, b), a = sqrt3/2 + sqrt2/4, b = (sqrt6 - 2)/4, one per block owner",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 42
+     },
+     {
+      "name": "Q",
+      "n": 1,
+      "note": "(sqrt3 n, -1) = (V/4, -1): the added point",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 30
+     },
+     {
+      "name": "class caps",
+      "n": 1944,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 42
+     },
+     {
+      "name": "rational caps",
+      "n": 86,
+      "note": "",
+      "path": "object",
+      "freeNorm": false,
+      "maxAbsCoefficient": null
+     },
+     {
+      "name": "poles",
+      "n": 2,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 48
+     },
+     {
+      "name": "repair points",
+      "n": 2,
+      "note": "R+ = 2k/sqrt(1007176), R- = 2l/sqrt(10209), decided by the scale-invariant test",
+      "path": "object",
+      "freeNorm": true,
+      "maxAbsCoefficient": 500
+     }
+    ],
+    "pairs": 19518829410,
+    "pairsExpected": 19518829410,
+    "contacts": 446074805,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 13194,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 1118436,
+    "seconds": 50.2,
+    "maxCos": 0.5000000000000001,
+    "nearestNonContactCos": 0.49984298862787674
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 19010842536,
+     "contacts": 445096390,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      1152,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "1152",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 57600,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 27.43
+    },
+    {
+     "a": "equator",
+     "b": "extra point",
+     "pairs": 194992,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      768
+     ],
+     "maxDotShow": "768\u221a6",
+     "maxCos": 0.40824829046386296,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      768
+     ],
+     "nearestNonContactShow": "768\u221a6",
+     "nearestNonContactCos": 0.40824829046386296,
+     "gemm": {
+      "worstPartialSum": 24000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 0.26
+    },
+    {
+     "a": "equator",
+     "b": "moved",
+     "pairs": 107635584,
+     "contacts": 151800,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      1728,
+      288,
+      96,
+      0
+     ],
+     "nearestNonContactShow": "1728 + 288\u221a2 + 96\u221a3",
+     "nearestNonContactCos": 0.49947273947267007,
+     "gemm": {
+      "worstPartialSum": 50400,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 5.58
+    },
+    {
+     "a": "equator",
+     "b": "Q",
+     "pairs": 194992,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      1152,
+      0,
+      0
+     ],
+     "maxDotShow": "1152\u221a2",
+     "maxCos": 0.3535533905932738,
+     "nearestNonContactDot": [
+      0,
+      1152,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "1152\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 36000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.29
+    },
+    {
+     "a": "equator",
+     "b": "class caps",
+     "pairs": 379064448,
+     "contacts": 534600,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      1728,
+      0,
+      192,
+      0
+     ],
+     "nearestNonContactShow": "1728 + 192\u221a3",
+     "nearestNonContactCos": 0.4471687836487032,
+     "gemm": {
+      "worstPartialSum": 50400,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 6.86
+    },
+    {
+     "a": "equator",
+     "b": "rational caps",
+     "pairs": 16769312,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4821375500008384,
+     "nearestNonContactCos": 0.4821375500008384,
+     "gemm": {
+      "path": "balanced base-2^22 digits (5), a float64 GEMM per digit (exact), top-down int64 sign",
+      "digits": 5
+     },
+     "seconds": 2.39
+    },
+    {
+     "a": "equator",
+     "b": "poles",
+     "pairs": 389984,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.52
+    },
+    {
+     "a": "equator",
+     "b": "repair points",
+     "pairs": 389984,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4984926533212103,
+     "nearestNonContactCos": 0.4984926533212103,
+     "seconds": 3.03
+    },
+    {
+     "a": "extra point",
+     "b": "moved",
+     "pairs": 552,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      -576,
+      -1152,
+      0
+     ],
+     "maxDotShow": "-576\u221a2 \u2212 1152\u221a3",
+     "maxCos": -0.6097893971888562,
+     "nearestNonContactDot": [
+      0,
+      -576,
+      -1152,
+      0
+     ],
+     "nearestNonContactShow": "-576\u221a2 \u2212 1152\u221a3",
+     "nearestNonContactCos": -0.6097893971888562,
+     "gemm": {
+      "worstPartialSum": 21000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.06
+    },
+    {
+     "a": "extra point",
+     "b": "Q",
+     "pairs": 1,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      -2304,
+      0
+     ],
+     "maxDotShow": "-2304\u221a3",
+     "maxCos": -0.8660254037844386,
+     "nearestNonContactDot": [
+      0,
+      0,
+      -2304,
+      0
+     ],
+     "nearestNonContactShow": "-2304\u221a3",
+     "nearestNonContactCos": -0.8660254037844386,
+     "gemm": {
+      "worstPartialSum": 15000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "extra point",
+     "b": "class caps",
+     "pairs": 1944,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      1152,
+      0,
+      0
+     ],
+     "maxDotShow": "1152\u221a2",
+     "maxCos": 0.3535533905932738,
+     "nearestNonContactDot": [
+      0,
+      1152,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "1152\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 21000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "extra point",
+     "b": "rational caps",
+     "pairs": 86,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": -0.23757175527868926,
+     "nearestNonContactCos": -0.23757175527868926,
+     "seconds": 0.04
+    },
+    {
+     "a": "extra point",
+     "b": "poles",
+     "pairs": 2,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "extra point",
+     "b": "repair points",
+     "pairs": 2,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": -0.22925299293450435,
+     "nearestNonContactCos": -0.22925299293450435,
+     "seconds": 0.04
+    },
+    {
+     "a": "moved",
+     "b": "moved",
+     "pairs": 152076,
+     "contacts": 75900,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      1152,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "1152",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 44100,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "moved",
+     "b": "Q",
+     "pairs": 552,
+     "contacts": 552,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "gemm": {
+      "worstPartialSum": 31500,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "moved",
+     "b": "class caps",
+     "pairs": 1073088,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      576,
+      288,
+      288,
+      288
+     ],
+     "maxDotShow": "576 + 288\u221a2 + 288\u221a3 + 288\u221a6",
+     "maxCos": 0.4747346320453219,
+     "nearestNonContactDot": [
+      576,
+      288,
+      288,
+      288
+     ],
+     "nearestNonContactShow": "576 + 288\u221a2 + 288\u221a3 + 288\u221a6",
+     "nearestNonContactCos": 0.4747346320453219,
+     "gemm": {
+      "worstPartialSum": 44100,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.14
+    },
+    {
+     "a": "moved",
+     "b": "rational caps",
+     "pairs": 47472,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.49984298862787674,
+     "nearestNonContactCos": 0.49984298862787674,
+     "seconds": 0.47
+    },
+    {
+     "a": "moved",
+     "b": "poles",
+     "pairs": 1104,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      -1152,
+      0,
+      0,
+      576
+     ],
+     "maxDotShow": "-1152 + 576\u221a6",
+     "maxCos": 0.05618621784789725,
+     "nearestNonContactDot": [
+      -1152,
+      0,
+      0,
+      576
+     ],
+     "nearestNonContactShow": "-1152 + 576\u221a6",
+     "nearestNonContactCos": 0.05618621784789725,
+     "gemm": {
+      "worstPartialSum": 18000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 0.07
+    },
+    {
+     "a": "moved",
+     "b": "repair points",
+     "pairs": 1104,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4984145871655858,
+     "nearestNonContactCos": 0.4984145871655858,
+     "seconds": 0.06
+    },
+    {
+     "a": "Q",
+     "b": "class caps",
+     "pairs": 1944,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      1152,
+      288,
+      0,
+      288
+     ],
+     "maxDotShow": "1152 + 288\u221a2 + 288\u221a6",
+     "maxCos": 0.4914814565722671,
+     "nearestNonContactDot": [
+      1152,
+      288,
+      0,
+      288
+     ],
+     "nearestNonContactShow": "1152 + 288\u221a2 + 288\u221a6",
+     "nearestNonContactCos": 0.4914814565722671,
+     "gemm": {
+      "worstPartialSum": 31500,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.08
+    },
+    {
+     "a": "Q",
+     "b": "rational caps",
+     "pairs": 86,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.46038067041836617,
+     "nearestNonContactCos": 0.46038067041836617,
+     "seconds": 0.04
+    },
+    {
+     "a": "Q",
+     "b": "poles",
+     "pairs": 2,
+     "contacts": 1,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -2304,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-2304",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 36000,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.04
+    },
+    {
+     "a": "Q",
+     "b": "repair points",
+     "pairs": 2,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.488669807259448,
+     "nearestNonContactCos": 0.488669807259448,
+     "seconds": 0.04
+    },
+    {
+     "a": "class caps",
+     "b": "class caps",
+     "pairs": 1888596,
+     "contacts": 213490,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      1920,
+      0,
+      192,
+      0
+     ],
+     "nearestNonContactShow": "1920 + 192\u221a3",
+     "nearestNonContactCos": 0.4888354503153699,
+     "gemm": {
+      "worstPartialSum": 44100,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.21
+    },
+    {
+     "a": "class caps",
+     "b": "rational caps",
+     "pairs": 167184,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4910687750670014,
+     "nearestNonContactCos": 0.4910687750670014,
+     "seconds": 1.5
+    },
+    {
+     "a": "class caps",
+     "b": "poles",
+     "pairs": 3888,
+     "contacts": 1944,
+     "violations": 0,
+     "maxDot": [
+      2304,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "2304",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -2304,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-2304",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 28800,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.05
+    },
+    {
+     "a": "class caps",
+     "b": "repair points",
+     "pairs": 3888,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.49868031868891444,
+     "nearestNonContactCos": 0.49868031868891444,
+     "seconds": 0.18
+    },
+    {
+     "a": "rational caps",
+     "b": "rational caps",
+     "pairs": 3655,
+     "contacts": 42,
+     "violations": 0,
+     "maxCos": 0.5000000000000001,
+     "nearestNonContactCos": 0.4826332065738474,
+     "seconds": 0.12
+    },
+    {
+     "a": "rational caps",
+     "b": "poles",
+     "pairs": 172,
+     "contacts": 86,
+     "violations": 0,
+     "maxCos": 0.5000000000000001,
+     "nearestNonContactCos": -0.49999999999999994,
+     "seconds": 0.07
+    },
+    {
+     "a": "rational caps",
+     "b": "repair points",
+     "pairs": 172,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.49830315010301396,
+     "nearestNonContactCos": 0.49830315010301396,
+     "seconds": 0.08
+    },
+    {
+     "a": "poles",
+     "b": "poles",
+     "pairs": 1,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      -4608,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "-4608",
+     "maxCos": -1.0,
+     "nearestNonContactDot": [
+      -4608,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-4608",
+     "nearestNonContactCos": -1.0,
+     "gemm": {
+      "worstPartialSum": 57600,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.04
+    },
+    {
+     "a": "poles",
+     "b": "repair points",
+     "pairs": 4,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": 0.4982155979294737,
+     "nearestNonContactCos": 0.4982155979294737,
+     "seconds": 0.04
+    },
+    {
+     "a": "repair points",
+     "b": "repair points",
+     "pairs": 1,
+     "contacts": 0,
+     "violations": 0,
+     "maxCos": -0.05573883240703434,
+     "nearestNonContactCos": -0.05573883240703434,
+     "seconds": 0.02
+    }
+   ],
+   "facts": [
+    "baseline-heads.json lists the 1016 heads in order",
+    "its owners are 1016 distinct Leech minimal vectors",
+    "its owners equal Kravatsky's heads_U.npy",
+    "its 972 integer leans equal the leans decoded here from Kravatsky's float heads",
+    "its 44 rational heads equal Kravatsky's pickle, fraction for fraction",
+    "its extra-equator lean equals the one decoded from Kravatsky's extra_P.npy",
+    "the repair vectors have squared norms 1007176 and 10209 as stated",
+    "the block U = {u : <u, v> = -24} has 552 members, all owners",
+    "each w = u + v is a kept minimal vector",
+    "the two replaced cap points are (x_984, +1) and (x_1008, -1) (construction.tex)"
+   ],
+   "decode": null,
+   "choices": [],
+   "scale": "Cohn units times 12",
+   "counts": null,
+   "bytes": {
+    "kravatsky:verifications/improved/dim25-lens-heads/data/extra_P.npy": "913a37630f2f347abc8db591e4ec96f7b2247d9fbd4e7c20400274dae240f6ca",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_U.npy": "3c62c8c01585fbe04bd6e687475345b566522815022d72a05e7038f8bfab8043",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_X.npy": "e32c1dba40ad376b90a4eadf0508c9b251925e363f4308923b81eab6056621b1",
+    "kravatsky:verifications/improved/dim25-lens-heads/data/heads_exact.pkl": "8bf7cf039bca7f0752c06c8b0f2982db32fbb4da848b1733c2afa3a38cf0eb4d",
+    "qiushi:constructions/d25/baseline-heads.json": "b6b1dff1172ca723595c19bc4daf49448f0e8d04d506033786a8e96afbf515d6",
+    "qiushi:constructions/d25/repair-points.json": "daeabf4a2614779749bf9a5c30f55d502c830e45a88ef2b52fdbbc7f87703677"
+   },
+   "seconds": 50.4
+  },
+  {
+   "id": "takhanov-yun-25",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 25,
+   "claimed": 197058,
+   "previous": 197056,
+   "verdict": "REPAIRED",
+   "engine": {
+    "n": 197058,
+    "dim": 25,
+    "norm": [
+     128,
+     0,
+     0,
+     0
+    ],
+    "normShow": "128",
+    "families": [
+     {
+      "name": "bulk",
+      "n": 196064,
+      "note": "the Leech minimal vectors outside S1",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 8
+     },
+     {
+      "name": "lifted",
+      "n": 992,
+      "note": "((sqrt3/2) u, +-1/2), u in the 496-point subset S1",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 4
+     },
+     {
+      "name": "poles",
+      "n": 2,
+      "note": "+-e25",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 8
+     }
+    ],
+    "pairs": 19415829153,
+    "pairsExpected": 19415829153,
+    "contacts": 449807888,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 2185,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 39.4,
+    "maxDot": [
+     64,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "64",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4375
+   },
+   "blocks": [
+    {
+     "a": "bulk",
+     "b": "bulk",
+     "pairs": 19220448016,
+     "contacts": 449806400,
+     "violations": 0,
+     "maxDot": [
+      64,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "64",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      32,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "32",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 1600,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 30.52
+    },
+    {
+     "a": "bulk",
+     "b": "lifted",
+     "pairs": 194495488,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      32,
+      0
+     ],
+     "maxDotShow": "32\u221a3",
+     "maxCos": 0.4330127018922193,
+     "nearestNonContactDot": [
+      0,
+      0,
+      32,
+      0
+     ],
+     "nearestNonContactShow": "32\u221a3",
+     "nearestNonContactCos": 0.4330127018922193,
+     "gemm": {
+      "worstPartialSum": 800,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 7.75
+    },
+    {
+     "a": "bulk",
+     "b": "poles",
+     "pairs": 392128,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.77
+    },
+    {
+     "a": "lifted",
+     "b": "lifted",
+     "pairs": 491536,
+     "contacts": 496,
+     "violations": 0,
+     "maxDot": [
+      64,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "64",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      56,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "56",
+     "nearestNonContactCos": 0.4375,
+     "gemm": {
+      "worstPartialSum": 400,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.12
+    },
+    {
+     "a": "lifted",
+     "b": "poles",
+     "pairs": 1984,
+     "contacts": 992,
+     "violations": 0,
+     "maxDot": [
+      64,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "64",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -64,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-64",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 800,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.11
+    },
+    {
+     "a": "poles",
+     "b": "poles",
+     "pairs": 1,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      -128,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "-128",
+     "maxCos": -1.0,
+     "nearestNonContactDot": [
+      -128,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-128",
+     "nearestNonContactCos": -1.0,
+     "gemm": {
+      "worstPartialSum": 1600,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.04
+    }
+   ],
+   "facts": [
+    "the inner array kissing_r25_197058.npy hashes to the sha256 the README prints for it",
+    "197058 rows of 25 float64 coordinates",
+    "rows split as 196064 bulk (height 0), 992 lifted (height +-1/2), 2 poles (+-e25)",
+    "every bulk row decodes to u = z/sqrt32 and every lifted row to ((sqrt3/2) u, +-1/2), z a Leech minimal vector of B's own Golay code (recovered from its bulk)",
+    "the 496 lifted directions are exactly the shell vectors missing from the bulk; each is lifted at both heights"
+   ],
+   "decode": {
+    "maxFloatResidual": 1.1102230246251565e-16,
+    "rows": 197058,
+    "how": "every row snapped to the README's construction: bulk z/sqrt32, lifted ((sqrt3/2) z/sqrt32, +-1/2), poles +-e25, z an integer Leech vector recovered by rounding sqrt32 times the float"
+   },
+   "choices": [],
+   "scale": "unit vectors times 8 sqrt2 (Cohn units times 2)",
+   "counts": null,
+   "bytes": {
+    "takhanov-yun:README.md": "619c878b641811268e075f7343baf92c8455f9f40d00be68d24ad7979a617952",
+    "takhanov-yun:kissing_r25_197058_float64.zip": "de418c9d16c48dc7717702cafa85d0466d681c164fae89402d82eb0120521f54"
+   },
+   "seconds": 41.3,
+   "delta": 1.1102230246251565e-16
+  },
+  {
+   "id": "kravatsky-26",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 26,
+   "claimed": 199806,
+   "previous": 198550,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 199806,
+    "dim": 26,
+    "norm": [
+     1152,
+     0,
+     0,
+     0
+    ],
+    "normShow": "1152",
+    "families": [
+     {
+      "name": "equator",
+      "n": 194778,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "caps",
+      "n": 4374,
+      "note": "(Y/3, (2/sqrt3) z), z the three edge-midpoint directions of the head's triangle",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 22
+     },
+     {
+      "name": "axis",
+      "n": 6,
+      "note": "(0, a), the hexagon |a| = 2 at 0, 60, ..., 300 degrees",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "second layer",
+      "n": 648,
+      "note": "((sqrt3/2) u, +-y), y the unit vector of line 0/1/2 at 0/60/120 degrees",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     }
+    ],
+    "pairs": 19961118915,
+    "pairsExpected": 19961118915,
+    "contacts": 445937784,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3933,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 74.6,
+    "maxDot": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "576",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.46650635094610965
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 18969137253,
+     "contacts": 444082428,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 14976,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 61.21
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 851958972,
+     "contacts": 1207224,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      480,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "480",
+     "nearestNonContactCos": 0.4166666666666667,
+     "gemm": {
+      "worstPartialSum": 13728,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 1.49
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 1168668,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 2.17
+    },
+    {
+     "a": "equator",
+     "b": "second layer",
+     "pairs": 126216144,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "maxDotShow": "288\u221a3",
+     "maxCos": 0.4330127018922193,
+     "nearestNonContactDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a3",
+     "nearestNonContactCos": 0.4330127018922193,
+     "gemm": {
+      "worstPartialSum": 7488,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 7.27
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 9563751,
+     "contacts": 634230,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      480,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "480",
+     "nearestNonContactCos": 0.4166666666666667,
+     "gemm": {
+      "worstPartialSum": 12584,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.23
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 26244,
+     "contacts": 8748,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 7488,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.16
+    },
+    {
+     "a": "caps",
+     "b": "second layer",
+     "pairs": 2834352,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      288,
+      0,
+      144,
+      0
+     ],
+     "maxDotShow": "288 + 144\u221a3",
+     "maxCos": 0.46650635094610965,
+     "nearestNonContactDot": [
+      288,
+      0,
+      144,
+      0
+     ],
+     "nearestNonContactShow": "288 + 144\u221a3",
+     "nearestNonContactCos": 0.46650635094610965,
+     "gemm": {
+      "worstPartialSum": 6864,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.83
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 15,
+     "contacts": 6,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      -576,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "-576",
+     "nearestNonContactCos": -0.5,
+     "gemm": {
+      "worstPartialSum": 14976,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.28
+    },
+    {
+     "a": "axis",
+     "b": "second layer",
+     "pairs": 3888,
+     "contacts": 648,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 7488,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.11
+    },
+    {
+     "a": "second layer",
+     "b": "second layer",
+     "pairs": 209628,
+     "contacts": 4500,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      504,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "504",
+     "nearestNonContactCos": 0.4375,
+     "gemm": {
+      "worstPartialSum": 3744,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.23
+    }
+   ],
+   "facts": [
+    "every first-layer head Y has norm 192 (x = Y/3 at |x|^2 = 8/3)",
+    "1458 class heads Y = 3u + v with distinct owners u, 0 free heads Y = 2v",
+    "the 324 second-layer owners are distinct minimal vectors, disjoint from the first-layer owners",
+    "two sides, three second-layer lines"
+   ],
+   "decode": null,
+   "choices": [
+    "side 0 carries the directions at 30/150/270 degrees and side 1 those at 90/210/330; second-layer line l is the axis line at 60 l degrees. The README fixes the hexagon and its edge midpoints; a 60-degree rotation of the plane exchanges the two triangles and permutes the lines, so the labelling is a symmetry."
+   ],
+   "scale": "Cohn units times 6",
+   "counts": {
+    "classHeads": 1458,
+    "freeHeads": 0,
+    "secondLayer": 324
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_Y.npy": "8ab95d32a8746fb86cc58f540ef7ab4e43795c67fd2eb816aeadbbb6801953b9",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_layer2_line.npy": "9b96e029eda25a8fdb1d7ea11f6fcdf05fc3db51e5ac3e9798fcc5e66a16a7f6",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_layer2_u.npy": "61f11eb16091f75390f132511bcc6fa11935989f1b891d967f4fcd982bc13ae7",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads26_side.npy": "e063c6d27a934d92aab639b79511f3b892ad8a87d40baae67b11cee803209230"
+   },
+   "seconds": 81.0
+  },
+  {
+   "id": "takhanov-yun-26",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 26,
+   "claimed": 198552,
+   "previous": 198550,
+   "verdict": "QUEUED",
+   "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-27",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 27,
+   "claimed": 201566,
+   "previous": 200044,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 201566,
+    "dim": 27,
+    "norm": [
+     1152,
+     0,
+     0,
+     0
+    ],
+    "normShow": "1152",
+    "families": [
+     {
+      "name": "equator",
+      "n": 194160,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "caps",
+      "n": 6774,
+      "note": "(Y/3, (2/sqrt3) z), z the three cuboctahedral directions of the head's triangle",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 22
+     },
+     {
+      "name": "axis",
+      "n": 12,
+      "note": "(0, a), the cuboctahedron of radius 2 rotated by 45 degrees about the third coordinate axis",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "second layer",
+      "n": 620,
+      "note": "((sqrt3/2) u, +-e_l), l the line of the head",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     }
+    ],
+    "pairs": 20314325395,
+    "pairsExpected": 20314325395,
+    "contacts": 444144191,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3964,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 1872806,
+    "seconds": 79.2,
+    "maxDot": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "576",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267444
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 18848955720,
+     "contacts": 441328644,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 15552,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 51.98
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 1315239840,
+     "contacts": 2001480,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      480,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "480",
+     "nearestNonContactCos": 0.4166666666666667,
+     "gemm": {
+      "worstPartialSum": 14256,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 3.09
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 2329920,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 4.0
+    },
+    {
+     "a": "equator",
+     "b": "second layer",
+     "pairs": 120379200,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "maxDotShow": "288\u221a3",
+     "maxCos": 0.4330127018922193,
+     "nearestNonContactDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a3",
+     "nearestNonContactCos": 0.4330127018922193,
+     "gemm": {
+      "worstPartialSum": 7776,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 9.57
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 22940151,
+     "contacts": 813315,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      512,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "512",
+     "nearestNonContactCos": 0.4444444444444444,
+     "gemm": {
+      "worstPartialSum": 13068,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.35
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 81288,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "maxDotShow": "192\u221a3 + 96\u221a6",
+     "maxCos": 0.4927992798267444,
+     "nearestNonContactDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "nearestNonContactShow": "192\u221a3 + 96\u221a6",
+     "nearestNonContactCos": 0.4927992798267444,
+     "gemm": {
+      "worstPartialSum": 5184,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.76
+    },
+    {
+     "a": "caps",
+     "b": "second layer",
+     "pairs": 4199880,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "maxDotShow": "192\u221a3 + 96\u221a6",
+     "maxCos": 0.4927992798267444,
+     "nearestNonContactDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "nearestNonContactShow": "192\u221a3 + 96\u221a6",
+     "nearestNonContactCos": 0.4927992798267444,
+     "gemm": {
+      "worstPartialSum": 7128,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 8.66
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 66,
+     "contacts": 24,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 15552,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.1
+    },
+    {
+     "a": "axis",
+     "b": "second layer",
+     "pairs": 7440,
+     "contacts": 418,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 7776,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.19
+    },
+    {
+     "a": "second layer",
+     "b": "second layer",
+     "pairs": 191890,
+     "contacts": 310,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      504,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "504",
+     "nearestNonContactCos": 0.4375,
+     "gemm": {
+      "worstPartialSum": 3888,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.13
+    }
+   ],
+   "facts": [
+    "every first-layer head Y has norm 192 (x = Y/3 at |x|^2 = 8/3)",
+    "2090 class heads Y = 3u + v with distinct owners u, 168 free heads Y = 2v",
+    "the 310 second-layer owners are distinct minimal vectors, disjoint from the first-layer owners",
+    "the twelve cuboctahedral directions split into four zero-sum triangles",
+    "four sides, three second-layer lines"
+   ],
+   "decode": null,
+   "choices": [
+    "side s carries the s-th triangle of the first zero-sum partition of the cuboctahedron found by a fixed lexicographic search [[[-1, -1, 0], [0, 1, -1], [1, 0, 1]], [[-1, 0, -1], [0, 1, 1], [1, -1, 0]], [[-1, 0, 1], [0, -1, -1], [1, 1, 0]], [[-1, 1, 0], [0, -1, 1], [1, 0, -1]]]; the README fixes only that the four sides are the four triangles. Any partition gives the same thresholds (same side 2/3, across sides 4/3 in norm-4 units), and the exact decision below is made on this one.",
+    "the axis is rotated about the THIRD coordinate axis; the README says \"about a coordinate axis\".",
+    "second-layer line l is e_(l+1)."
+   ],
+   "scale": "Cohn units times 6",
+   "counts": {
+    "classHeads": 2090,
+    "freeHeads": 168,
+    "secondLayer": 310
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_Y.npy": "e137a6e3b11e6f70a0bc631b474f4ea340078f453893c56d5452513da5264bd1",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_line.npy": "1aa7054bf9f85ce9b52c887481607348dcd117016d991ab56148b869921ebf4f",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_layer2_u.npy": "8f722bf903f5324e3e4f35f9c271d62949d39d4e56a21b0ca58b6c93bd7a54fa",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_side.npy": "b0e1457e2793db1ddd2fcc23a9110f8f956757ee08e017fac99200cae5199fb2"
+   },
+   "seconds": 92.7
+  },
+  {
+   "id": "qiushi-27",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 27,
+   "claimed": 201567,
+   "previous": 201566,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 201567,
+    "dim": 27,
+    "norm": [
+     1152,
+     0,
+     0,
+     0
+    ],
+    "normShow": "1152",
+    "families": [
+     {
+      "name": "equator",
+      "n": 194159,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "caps",
+      "n": 6774,
+      "note": "(Y/3, (2/sqrt3) z), z the three cuboctahedral directions of the head's triangle",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 22
+     },
+     {
+      "name": "axis",
+      "n": 12,
+      "note": "(0, a), the cuboctahedron of radius 2 rotated by 45 degrees about the third coordinate axis",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "second layer",
+      "n": 622,
+      "note": "((sqrt3/2) u, +-e_l), l the line of the head",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     }
+    ],
+    "pairs": 20314526961,
+    "pairsExpected": 20314526961,
+    "contacts": 444139680,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3966,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 1880070,
+    "seconds": 88.0,
+    "maxDot": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "576",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267444
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 18848761561,
+     "contacts": 441324134,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 15552,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 67.13
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 1315233066,
+     "contacts": 2001480,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      480,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "480",
+     "nearestNonContactCos": 0.4166666666666667,
+     "gemm": {
+      "worstPartialSum": 14256,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 3.04
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 2329908,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 3.14
+    },
+    {
+     "a": "equator",
+     "b": "second layer",
+     "pairs": 120766898,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "maxDotShow": "288\u221a3",
+     "maxCos": 0.4330127018922193,
+     "nearestNonContactDot": [
+      0,
+      0,
+      288,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a3",
+     "nearestNonContactCos": 0.4330127018922193,
+     "gemm": {
+      "worstPartialSum": 7776,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 4.8
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 22940151,
+     "contacts": 813315,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      512,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "512",
+     "nearestNonContactCos": 0.4444444444444444,
+     "gemm": {
+      "worstPartialSum": 13068,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.17
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 81288,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "maxDotShow": "192\u221a3 + 96\u221a6",
+     "maxCos": 0.4927992798267444,
+     "nearestNonContactDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "nearestNonContactShow": "192\u221a3 + 96\u221a6",
+     "nearestNonContactCos": 0.4927992798267444,
+     "gemm": {
+      "worstPartialSum": 5184,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.31
+    },
+    {
+     "a": "caps",
+     "b": "second layer",
+     "pairs": 4213428,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "maxDotShow": "192\u221a3 + 96\u221a6",
+     "maxCos": 0.4927992798267444,
+     "nearestNonContactDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "nearestNonContactShow": "192\u221a3 + 96\u221a6",
+     "nearestNonContactCos": 0.4927992798267444,
+     "gemm": {
+      "worstPartialSum": 7128,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 8.5
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 66,
+     "contacts": 24,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 15552,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.14
+    },
+    {
+     "a": "axis",
+     "b": "second layer",
+     "pairs": 7464,
+     "contacts": 416,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 7776,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.28
+    },
+    {
+     "a": "second layer",
+     "b": "second layer",
+     "pairs": 193131,
+     "contacts": 311,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      504,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "504",
+     "nearestNonContactCos": 0.4375,
+     "gemm": {
+      "worstPartialSum": 3888,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.18
+    }
+   ],
+   "facts": [
+    "every first-layer head Y has norm 192 (x = Y/3 at |x|^2 = 8/3)",
+    "2090 class heads Y = 3u + v with distinct owners u, 168 free heads Y = 2v",
+    "the 311 second-layer owners are distinct minimal vectors, disjoint from the first-layer owners",
+    "the twelve cuboctahedral directions split into four zero-sum triangles",
+    "four sides, three second-layer lines",
+    "the first layer is Kravatsky's (Lindow's) byte for byte"
+   ],
+   "decode": null,
+   "choices": [
+    "side s carries the s-th triangle of the first zero-sum partition of the cuboctahedron found by a fixed lexicographic search [[[-1, -1, 0], [0, 1, -1], [1, 0, 1]], [[-1, 0, -1], [0, 1, 1], [1, -1, 0]], [[-1, 0, 1], [0, -1, -1], [1, 1, 0]], [[-1, 1, 0], [0, -1, 1], [1, 0, -1]]]; the README fixes only that the four sides are the four triangles. Any partition gives the same thresholds (same side 2/3, across sides 4/3 in norm-4 units), and the exact decision below is made on this one.",
+    "the axis is rotated about the THIRD coordinate axis; the README says \"about a coordinate axis\".",
+    "second-layer line l is e_(l+1)."
+   ],
+   "scale": "Cohn units times 6",
+   "counts": {
+    "classHeads": 2090,
+    "freeHeads": 168,
+    "secondLayer": 311
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_Y.npy": "e137a6e3b11e6f70a0bc631b474f4ea340078f453893c56d5452513da5264bd1",
+    "kravatsky:verifications/improved/dim26-27-iota-triangles/data/heads27_side.npy": "b0e1457e2793db1ddd2fcc23a9110f8f956757ee08e017fac99200cae5199fb2",
+    "qiushi:constructions/d27/data/heads27_Y.npy": "e137a6e3b11e6f70a0bc631b474f4ea340078f453893c56d5452513da5264bd1",
+    "qiushi:constructions/d27/data/heads27_layer2_line.npy": "f7b018510118faeda6d4d73b28a86ca0c6162bbf0d88da1244262b2c39b95fb7",
+    "qiushi:constructions/d27/data/heads27_layer2_u.npy": "7d7a4bcd341d9104bad1dc17ac2f6e4daec71c0b2a9ab4b98e1766c12235bca2",
+    "qiushi:constructions/d27/data/heads27_side.npy": "b0e1457e2793db1ddd2fcc23a9110f8f956757ee08e017fac99200cae5199fb2"
+   },
+   "seconds": 95.4
+  },
+  {
+   "id": "takhanov-yun-27",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 27,
+   "claimed": 200046,
+   "previous": 200044,
+   "verdict": "QUEUED",
+   "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-28",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 28,
+   "claimed": 204896,
+   "previous": 204520,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 204896,
+    "dim": 28,
+    "norm": [
+     1152,
+     0,
+     0,
+     0
+    ],
+    "normShow": "1152",
+    "families": [
+     {
+      "name": "equator",
+      "n": 192592,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "caps",
+      "n": 11904,
+      "note": "(sqrt(2/3) u, (2/sqrt3) z), z the three directions of the class triangle",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 8
+     },
+     {
+      "name": "axis",
+      "n": 16,
+      "note": "(0, 2z), z the 16 half-vectors (+-1/2)^4 of the dual 24-cell",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 12
+     },
+     {
+      "name": "layer",
+      "n": 384,
+      "note": "(v/2, sqrt2 w), v one of the 48 frame vectors, w one of +-e1..+-e4",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     }
+    ],
+    "pairs": 20991082960,
+    "pairsExpected": 20991082960,
+    "contacts": 435490580,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3972,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 571496,
+    "seconds": 240.3,
+    "maxDot": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "576",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267444
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 18545742936,
+     "contacts": 433996896,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      288,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 16128,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 60.61
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 2292615168,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "maxDotShow": "192\u221a6",
+     "maxCos": 0.40824829046386296,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "nearestNonContactShow": "192\u221a6",
+     "nearestNonContactCos": 0.40824829046386296,
+     "gemm": {
+      "worstPartialSum": 2688,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 170.9
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 3081472,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 4.84
+    },
+    {
+     "a": "equator",
+     "b": "layer",
+     "pairs": 73955328,
+     "contacts": 17664,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      432,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "432",
+     "nearestNonContactCos": 0.375,
+     "gemm": {
+      "worstPartialSum": 16128,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.44
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 70846656,
+     "contacts": 1466004,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      384,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "384",
+     "nearestNonContactCos": 0.3333333333333333,
+     "gemm": {
+      "worstPartialSum": 1792,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.31
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 190464,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "maxDotShow": "192\u221a6",
+     "maxCos": 0.40824829046386296,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      192
+     ],
+     "nearestNonContactShow": "192\u221a6",
+     "nearestNonContactCos": 0.40824829046386296,
+     "gemm": {
+      "worstPartialSum": 2688,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 0.29
+    },
+    {
+     "a": "caps",
+     "b": "layer",
+     "pairs": 4571136,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "maxDotShow": "192\u221a3 + 96\u221a6",
+     "maxCos": 0.4927992798267444,
+     "nearestNonContactDot": [
+      0,
+      0,
+      192,
+      96
+     ],
+     "nearestNonContactShow": "192\u221a3 + 96\u221a6",
+     "nearestNonContactCos": 0.4927992798267444,
+     "gemm": {
+      "worstPartialSum": 5376,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 2.3
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 120,
+     "contacts": 32,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 4032,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "axis",
+     "b": "layer",
+     "pairs": 6144,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "maxDotShow": "288\u221a2",
+     "maxCos": 0.3535533905932738,
+     "nearestNonContactDot": [
+      0,
+      288,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "288\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 8064,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.22
+    },
+    {
+     "a": "layer",
+     "b": "layer",
+     "pairs": 73536,
+     "contacts": 9984,
+     "violations": 0,
+     "maxDot": [
+      576,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "576",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 16128,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.1
+    }
+   ],
+   "facts": [
+    "8 classes of 248 owner lines; 24 frame heads",
+    "the 1984 owner lines give 3968 distinct minimal vectors",
+    "the heads are 24 mutually orthogonal norm-64 Leech vectors: a frame",
+    "the 24 roots of D4 split into eight zero-sum triangles"
+   ],
+   "decode": null,
+   "choices": [
+    "class k carries the k-th triangle of the first zero-sum partition of the D4 roots found by a fixed lexicographic search [[[-1, -1, 0, 0], [0, 1, -1, 0], [1, 0, 1, 0]], [[-1, 0, -1, 0], [0, -1, 1, 0], [1, 1, 0, 0]], [[-1, 0, 0, -1], [0, 0, 1, 1], [1, 0, -1, 0]], [[-1, 0, 0, 1], [0, 1, 0, -1], [1, -1, 0, 0]], [[-1, 0, 1, 0], [0, 0, -1, -1], [1, 0, 0, 1]], [[-1, 1, 0, 0], [0, -1, 0, 1], [1, 0, 0, -1]], [[0, -1, -1, 0], [0, 0, 1, -1], [0, 1, 0, 1]], [[0, -1, 0, -1], [0, 0, -1, 1], [0, 1, 1, 0]]]. The README fixes the 24-cell directions (D4 roots), the axis (the 16 half-vectors) and the layer (+-e_i) but not which partition; any two distinct roots meet at cosine <= 1/2, so every partition gives the same thresholds, and the exact decision is made on this one."
+   ],
+   "scale": "Cohn units times 6",
+   "counts": null,
+   "bytes": {
+    "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/classes.npy": "8ef3caeeb2b15fe3ab0855de24fcfbd645798fa4280b5f938d179e86ab5984f6",
+    "kravatsky:verifications/improved/dim28-norm8-frame-layer/data/heads.npy": "46af3924a8804b7ac27356e577333b0a606b97241c58f04ec5f9cde69575de51"
+   },
+   "seconds": 240.8
+  },
+  {
+   "id": "takhanov-yun-28",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 28,
+   "claimed": 204522,
+   "previous": 204520,
+   "verdict": "QUEUED",
+   "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-29",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 29,
+   "claimed": 209968,
+   "previous": 209496,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 209968,
+    "dim": 29,
+    "norm": [
+     10368,
+     0,
+     0,
+     0
+    ],
+    "normShow": "10368",
+    "families": [
+     {
+      "name": "equator",
+      "n": 189616,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "caps",
+      "n": 19840,
+      "note": "(sqrt(2/3) u, (2/sqrt3) z), z a direction of the class group",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "axis",
+      "n": 32,
+      "note": "(0, 2a)",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "layer",
+      "n": 480,
+      "note": "(v/2, sqrt2 w), v = +-8 e_i (a Leech frame), w = +- a frame vector of R^5",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     }
+    ],
+    "pairs": 22043175528,
+    "pairsExpected": 22043175528,
+    "contacts": 423613740,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3987,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 1000054,
+    "seconds": 220.9,
+    "maxDot": [
+     5184,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "5184",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267443
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 17977018920,
+     "contacts": 420671788,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      2592,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "2592",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 150336,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 46.72
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 3761981440,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "maxDotShow": "1728\u221a6",
+     "maxCos": 0.408248290463863,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "nearestNonContactShow": "1728\u221a6",
+     "nearestNonContactCos": 0.408248290463863,
+     "gemm": {
+      "worstPartialSum": 25056,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 163.17
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 6067712,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 7.72
+    },
+    {
+     "a": "equator",
+     "b": "layer",
+     "pairs": 91015680,
+     "contacts": 22080,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3888,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3888",
+     "nearestNonContactCos": 0.375,
+     "gemm": {
+      "worstPartialSum": 150336,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.18
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 196802880,
+     "contacts": 2906000,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3456,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3456",
+     "nearestNonContactCos": 0.3333333333333333,
+     "gemm": {
+      "worstPartialSum": 16704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.44
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 634880,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 50112,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.26
+    },
+    {
+     "a": "caps",
+     "b": "layer",
+     "pairs": 9523200,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 50112,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 2.02
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 496,
+     "contacts": 144,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 150336,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.06
+    },
+    {
+     "a": "axis",
+     "b": "layer",
+     "pairs": 15360,
+     "contacts": 768,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      2592,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "2592\u221a2",
+     "nearestNonContactCos": 0.3535533905932738,
+     "gemm": {
+      "worstPartialSum": 150336,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "layer",
+     "b": "layer",
+     "pairs": 114960,
+     "contacts": 12960,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 150336,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.05
+    }
+   ],
+   "facts": [
+    "geom29.json: k = 5, quadruples over 24",
+    "every direction, frame vector and axis point is a unit vector, exactly",
+    "14 classes, 14 direction groups partitioning the 40 directions",
+    "the layer frame is 5 orthonormal vectors",
+    "the 3472 owner lines give 6944 distinct minimal vectors",
+    "geom29.json states the total 209968"
+   ],
+   "decode": null,
+   "choices": [],
+   "scale": "Cohn units times 18",
+   "counts": {
+    "ownerLines": 3472,
+    "classes": 14
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/bounds29.npy": "019c488545dec076a4a8ae8c21fe7c331ac6f965b79abe7d59f954b202b14dc8",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/geom29.json": "0d6bf24c0103a5007a13abda6d5d7f1ff20726648ebd2bd0318250f184613835",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners29.npy": "fe9b850c5d73ece11a19b43c0cc2589fd1fd4b5363a1337513da63387f15a171"
+   },
+   "seconds": 221.4
+  },
+  {
+   "id": "takhanov-yun-29",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 29,
+   "claimed": 209497,
+   "previous": 209496,
+   "verdict": "QUEUED",
+   "modification": "Rotate the lifted and auxiliary blocks together; add one point.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add one point.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-30",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 30,
+   "claimed": 221012,
+   "previous": 220440,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 221012,
+    "dim": 30,
+    "norm": [
+     10368,
+     0,
+     0,
+     0
+    ],
+    "normShow": "10368",
+    "families": [
+     {
+      "name": "equator",
+      "n": 184656,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "caps",
+      "n": 35712,
+      "note": "(sqrt(2/3) u, (2/sqrt3) z), z a direction of the class group",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 36
+     },
+     {
+      "name": "axis",
+      "n": 68,
+      "note": "(0, 2a)",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "layer",
+      "n": 576,
+      "note": "(v/2, sqrt2 w), v = +-8 e_i (a Leech frame), w = +- a frame vector of R^6",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     }
+    ],
+    "pairs": 24423041566,
+    "pairsExpected": 24423041566,
+    "contacts": 405861644,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3996,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 3635760,
+    "seconds": 331.8,
+    "maxDot": [
+     5184,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "5184",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267443
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 17048826840,
+     "contacts": 398923312,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      2592,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "2592",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 155520,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 33.11
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 6594435072,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "maxDotShow": "1728\u221a6",
+     "maxCos": 0.408248290463863,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "nearestNonContactShow": "1728\u221a6",
+     "nearestNonContactCos": 0.408248290463863,
+     "gemm": {
+      "worstPartialSum": 25920,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 272.83
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 12556608,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 15.28
+    },
+    {
+     "a": "equator",
+     "b": "layer",
+     "pairs": 106361856,
+     "contacts": 26496,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3888,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3888",
+     "nearestNonContactCos": 0.375,
+     "gemm": {
+      "worstPartialSum": 155520,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.18
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 637655616,
+     "contacts": 6893532,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3456,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3456",
+     "nearestNonContactCos": 0.3333333333333333,
+     "gemm": {
+      "worstPartialSum": 38880,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 1.5
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 2428416,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 77760,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 1.52
+    },
+    {
+     "a": "caps",
+     "b": "layer",
+     "pairs": 20570112,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 77760,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 6.73
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 2278,
+     "contacts": 640,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 155520,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt3]"
+     },
+     "seconds": 0.19
+    },
+    {
+     "a": "axis",
+     "b": "layer",
+     "pairs": 39168,
+     "contacts": 1536,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      1296,
+      0,
+      1296
+     ],
+     "nearestNonContactShow": "1296\u221a2 + 1296\u221a6",
+     "nearestNonContactCos": 0.48296291314453416,
+     "gemm": {
+      "worstPartialSum": 155520,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 0.18
+    },
+    {
+     "a": "layer",
+     "b": "layer",
+     "pairs": 165600,
+     "contacts": 16128,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 155520,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.11
+    }
+   ],
+   "facts": [
+    "geom30.json: k = 6, quadruples over 24",
+    "every direction, frame vector and axis point is a unit vector, exactly",
+    "24 classes, 24 direction groups partitioning the 72 directions",
+    "the layer frame is 6 orthonormal vectors",
+    "the 5952 owner lines give 11904 distinct minimal vectors",
+    "geom30.json states the total 221012"
+   ],
+   "decode": null,
+   "choices": [],
+   "scale": "Cohn units times 18",
+   "counts": {
+    "ownerLines": 5952,
+    "classes": 24
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/bounds30.npy": "7f1c705e6e69b29e648306718be894b947778c6bde8d75bb40194f3fae2175a0",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/geom30.json": "51df6f12068c36aaeee0c98efe4c7c21c15f001ce7cb30a19c2f4343d44c3f13",
+    "kravatsky:verifications/improved/dim29-30-frame-layer/data/owners30.npy": "0b0ce4fbe3796151e6db3ef08134656243f5e958223e9d6ff7e3df5167f7669b"
+   },
+   "seconds": 332.3
+  },
+  {
+   "id": "takhanov-yun-30",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 30,
+   "claimed": 220442,
+   "previous": 220440,
+   "verdict": "QUEUED",
+   "modification": "Transform the six additional coordinates, then rotate the entire lifted block; add an antipodal pair.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Transform the six additional coordinates, then rotate the entire lifted block; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-31",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 31,
+   "claimed": 238662,
+   "previous": 238350,
+   "verdict": "WITNESSED",
+   "engine": {
+    "n": 238662,
+    "dim": 31,
+    "norm": [
+     10368,
+     0,
+     0,
+     0
+    ],
+    "normShow": "10368",
+    "families": [
+     {
+      "name": "equator",
+      "n": 175904,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "caps",
+      "n": 61968,
+      "note": "(sqrt(2/3) u, (2/sqrt3) z), z a direction of the class group",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     },
+     {
+      "name": "axis",
+      "n": 118,
+      "note": "(0, 2a)",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     },
+     {
+      "name": "layer",
+      "n": 672,
+      "note": "(v/2, sqrt2 w), v = +-8 e_i (a Leech frame), w = +- a frame vector of R^7",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 72
+     }
+    ],
+    "pairs": 28479655791,
+    "pairsExpected": 28479655791,
+    "contacts": 378148820,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "spotCheck": {
+     "pairs": 3994,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 11089006,
+    "seconds": 500.7,
+    "maxDot": [
+     5184,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "5184",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4927992798267443
+   },
+   "blocks": [
+    {
+     "a": "equator",
+     "b": "equator",
+     "pairs": 15471020656,
+     "contacts": 361954336,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      2592,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "2592",
+     "nearestNonContactCos": 0.25,
+     "gemm": {
+      "worstPartialSum": 160704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 22.49
+    },
+    {
+     "a": "equator",
+     "b": "caps",
+     "pairs": 10900419072,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "maxDotShow": "1728\u221a6",
+     "maxCos": 0.408248290463863,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      1728
+     ],
+     "nearestNonContactShow": "1728\u221a6",
+     "nearestNonContactCos": 0.408248290463863,
+     "gemm": {
+      "worstPartialSum": 53568,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt6]"
+     },
+     "seconds": 420.32
+    },
+    {
+     "a": "equator",
+     "b": "axis",
+     "pairs": 20756672,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "0",
+     "maxCos": 0.0,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 0,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 24.96
+    },
+    {
+     "a": "equator",
+     "b": "layer",
+     "pairs": 118207488,
+     "contacts": 30912,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3888,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3888",
+     "nearestNonContactCos": 0.375,
+     "gemm": {
+      "worstPartialSum": 160704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.39
+    },
+    {
+     "a": "caps",
+     "b": "caps",
+     "pairs": 1919985528,
+     "contacts": 16141172,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      3456,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "3456",
+     "nearestNonContactCos": 0.3333333333333333,
+     "gemm": {
+      "worstPartialSum": 17856,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 4.62
+    },
+    {
+     "a": "caps",
+     "b": "axis",
+     "pairs": 7312224,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 53568,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 5.32
+    },
+    {
+     "a": "caps",
+     "b": "layer",
+     "pairs": 41642496,
+     "contacts": 0,
+     "violations": 0,
+     "maxDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "maxDotShow": "1728\u221a3 + 864\u221a6",
+     "maxCos": 0.4927992798267443,
+     "nearestNonContactDot": [
+      0,
+      0,
+      1728,
+      864
+     ],
+     "nearestNonContactShow": "1728\u221a3 + 864\u221a6",
+     "nearestNonContactCos": 0.4927992798267443,
+     "gemm": {
+      "worstPartialSum": 53568,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "Q(sqrt2,sqrt3)"
+     },
+     "seconds": 22.1
+    },
+    {
+     "a": "axis",
+     "b": "axis",
+     "pairs": 6903,
+     "contacts": 1760,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 160704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.06
+    },
+    {
+     "a": "axis",
+     "b": "layer",
+     "pairs": 79296,
+     "contacts": 1152,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      2592,
+      1296,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "2592 + 1296\u221a2",
+     "nearestNonContactCos": 0.4267766952966369,
+     "gemm": {
+      "worstPartialSum": 160704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "two-component Z[sqrt2]"
+     },
+     "seconds": 0.09
+    },
+    {
+     "a": "layer",
+     "b": "layer",
+     "pairs": 225456,
+     "contacts": 19488,
+     "violations": 0,
+     "maxDot": [
+      5184,
+      0,
+      0,
+      0
+     ],
+     "maxDotShow": "5184",
+     "maxCos": 0.5,
+     "nearestNonContactDot": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "nearestNonContactShow": "0",
+     "nearestNonContactCos": 0.0,
+     "gemm": {
+      "worstPartialSum": 160704,
+      "precision": "float32",
+      "bound": "2^24",
+      "path": "rational"
+     },
+     "seconds": 0.06
+    }
+   ],
+   "facts": [
+    "geom31.json: k = 7, quadruples over 24",
+    "every direction, frame vector and axis point is a unit vector, exactly",
+    "42 classes, 42 direction groups partitioning the 126 directions",
+    "the layer frame is 7 orthonormal vectors",
+    "the 10328 owner lines give 20656 distinct minimal vectors",
+    "geom31.json states the total 238662"
+   ],
+   "decode": null,
+   "choices": [],
+   "scale": "Cohn units times 18",
+   "counts": {
+    "ownerLines": 10328,
+    "classes": 42
+   },
+   "bytes": {
+    "kravatsky:verifications/improved/dim31-frame-layer/data/bounds31.npy": "efee8dcbbf64c1768c723a982e1ff27e6261c8d5408f0c84ec585ea904d85aba",
+    "kravatsky:verifications/improved/dim31-frame-layer/data/geom31.json": "c97f5adcc31e5c188635294673f7264a62e9baa93ef3b51cbe0e59273bc8e75c",
+    "kravatsky:verifications/improved/dim31-frame-layer/data/owners31.npy": "8c4ac307d22396e79b84234c8f7207fc7b735277a219b580217dab2336274c40"
+   },
+   "seconds": 501.7
+  },
+  {
+   "id": "takhanov-yun-31",
+   "claimant": "takhanov-yun",
+   "claimantName": "R. Takhanov and S. Yun \u2014 arXiv:2609.21591, github.com/k-nic/Leech_lifting",
+   "dim": 31,
+   "claimed": 238354,
+   "previous": 238350,
+   "verdict": "QUEUED",
+   "modification": "Rotate only the seven additional coordinates of the lifted vectors; add four points.",
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate only the seven additional coordinates of the lifted vectors; add four points.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+  },
+  {
+   "id": "kravatsky-38",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 38,
+   "claimed": 591612,
+   "previous": 566652,
+   "verdict": "QUEUED",
+   "status": "exhausted",
+   "package": "verifications/improved/dim38-leech-large-codimension/",
+   "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25\u201331 first)."
+  },
+  {
+   "id": "kravatsky-39",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 39,
+   "claimed": 756116,
+   "previous": 755988,
+   "verdict": "QUEUED",
+   "status": "external",
+   "package": "verifications/improved/dim39-ers-constant-weight/",
+   "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25\u201331 first)."
+  },
+  {
+   "id": "qiushi-43",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 43,
+   "claimed": 2553792,
+   "previous": 2545056,
+   "verdict": "NEEDS DATA",
+   "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form."
+  },
+  {
+   "id": "qiushi-45",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 45,
+   "claimed": 7380090,
+   "previous": 7379838,
+   "verdict": "NEEDS DATA",
+   "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form."
+  },
+  {
+   "id": "kravatsky-49",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 49,
+   "claimed": 52430140,
+   "previous": 52416002,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-50",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 50,
+   "claimed": 52458418,
+   "previous": 52416006,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-51",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 51,
+   "claimed": 52500816,
+   "previous": 52416012,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-52",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 52,
+   "claimed": 52585516,
+   "previous": 52416024,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-53",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 53,
+   "claimed": 52698222,
+   "previous": 52416040,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-54",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 54,
+   "claimed": 52922906,
+   "previous": 52416072,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-55",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 55,
+   "claimed": 53299730,
+   "previous": 52416126,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-56",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 56,
+   "claimed": 54085392,
+   "previous": 52416240,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-57",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 57,
+   "claimed": 54534176,
+   "previous": 52416306,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-58",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 58,
+   "claimed": 55893422,
+   "previous": 52416510,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-59",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 59,
+   "claimed": 56505668,
+   "previous": 52416604,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-60",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 60,
+   "claimed": 57477123,
+   "previous": 52416841,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-61",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 61,
+   "claimed": 59898694,
+   "previous": 52417154,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim49-63-p48-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-62",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 62,
+   "claimed": 71310732,
+   "previous": 52417932,
+   "verdict": "NEEDS DATA",
+   "status": "external",
+   "package": "verifications/improved/dim62-63-ers-chain/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-63",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 63,
+   "claimed": 138419844,
+   "previous": 52418564,
+   "verdict": "NEEDS DATA",
+   "status": "external",
+   "package": "verifications/improved/dim62-63-ers-chain/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-68",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 68,
+   "claimed": 361275480,
+   "previous": 331737984,
+   "verdict": "NEEDS DATA",
+   "status": "lp-exact",
+   "package": "verifications/improved/dim68-69-gamma72-cross-sections/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-69",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 69,
+   "claimed": 627822180,
+   "previous": 331737984,
+   "verdict": "NEEDS DATA",
+   "status": "lp-exact",
+   "package": "verifications/improved/dim68-69-gamma72-cross-sections/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-70",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 70,
+   "claimed": 1249778250,
+   "previous": 331737984,
+   "verdict": "NEEDS DATA",
+   "status": "lp-exact",
+   "package": "verifications/improved/dim70-71-gamma72-cross-sections/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-71",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 71,
+   "claimed": 2603658750,
+   "previous": 331737984,
+   "verdict": "NEEDS DATA",
+   "status": "lp-exact",
+   "package": "verifications/improved/dim70-71-gamma72-cross-sections/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-73",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 73,
+   "claimed": 6218179814,
+   "previous": 6218175602,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-74",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 74,
+   "claimed": 6218192454,
+   "previous": 6218175606,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-75",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 75,
+   "claimed": 6218209308,
+   "previous": 6218175612,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-76",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 76,
+   "claimed": 6218243016,
+   "previous": 6218175624,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-77",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 77,
+   "claimed": 6218285152,
+   "previous": 6218175640,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-78",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 78,
+   "claimed": 6218377840,
+   "previous": 6218175672,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-79",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 79,
+   "claimed": 6218529454,
+   "previous": 6218175726,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-80",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 80,
+   "claimed": 6218849228,
+   "previous": 6218175840,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-81",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 81,
+   "claimed": 6219034270,
+   "previous": 6218175906,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-82",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 82,
+   "claimed": 6219605578,
+   "previous": 6218176110,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-83",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 83,
+   "claimed": 6219621690,
+   "previous": 6218176204,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-84",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 84,
+   "claimed": 6220293304,
+   "previous": 6218176441,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-85",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 85,
+   "claimed": 6220745414,
+   "previous": 6218176754,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-86",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 86,
+   "claimed": 6223567844,
+   "previous": 6218177532,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-87",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 87,
+   "claimed": 6224703598,
+   "previous": 6218178164,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-88",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 88,
+   "claimed": 6230206492,
+   "previous": 6218179920,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-89",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 89,
+   "claimed": 6233054848,
+   "previous": 6218181330,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-90",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 90,
+   "claimed": 6238744788,
+   "previous": 6218183254,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-91",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 91,
+   "claimed": 6247801034,
+   "previous": 6218187548,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-92",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 92,
+   "claimed": 6266405667,
+   "previous": 6218195048,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-93",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 93,
+   "claimed": 6294850360,
+   "previous": 6218205368,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-94",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 94,
+   "claimed": 6355739600,
+   "previous": 6218225496,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-95",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 95,
+   "claimed": 6473065046,
+   "previous": 6218268750,
+   "verdict": "NEEDS DATA",
+   "status": "classes",
+   "package": "verifications/improved/dim73-95-gamma72-caps/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  },
+  {
+   "id": "kravatsky-96",
+   "claimant": "kravatsky",
+   "claimantName": "A. Kravatsky \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25\u201331 per its README)",
+   "dim": 96,
+   "claimed": 12886999232,
+   "previous": 6218372160,
+   "verdict": "NEEDS DATA",
+   "status": "external",
+   "package": "verifications/closed/dim96-ers-takeover/",
+   "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code."
+  }
+ ],
+ "calibrations": [
+  {
+   "id": "cal-e8-240",
+   "claim": "K(8) = 240: the E8 roots, 6720 contacts",
+   "expectContacts": 6720,
+   "ok": true,
+   "result": {
+    "n": 240,
+    "dim": 8,
+    "norm": [
+     8,
+     0,
+     0,
+     0
+    ],
+    "normShow": "8",
+    "families": [
+     {
+      "name": "E8 roots",
+      "n": 240,
+      "note": "",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 2
+     }
+    ],
+    "pairs": 28680,
+    "pairsExpected": 28680,
+    "contacts": 6720,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "blocks": [
+     {
+      "a": "E8 roots",
+      "b": "E8 roots",
+      "pairs": 28680,
+      "contacts": 6720,
+      "violations": 0,
+      "maxDot": [
+       4,
+       0,
+       0,
+       0
+      ],
+      "maxDotShow": "4",
+      "maxCos": 0.5,
+      "nearestNonContactDot": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "nearestNonContactShow": "0",
+      "nearestNonContactCos": 0.0,
+      "gemm": {
+       "worstPartialSum": 32,
+       "precision": "float32",
+       "bound": "2^24",
+       "path": "rational"
+      },
+      "seconds": 0.1
+     }
+    ],
+    "spotCheck": {
+     "pairs": 397,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 0.1,
+    "maxDot": [
+     4,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "4",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.0
+   }
+  },
+  {
+   "id": "cal-leech-196560",
+   "claim": "K(24) = 196560 (Odlyzko\u2013Sloane, Levenshtein 1979): the Leech minimal vectors",
+   "expectContacts": 452088000,
+   "ok": true,
+   "result": {
+    "n": 196560,
+    "dim": 24,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32",
+    "families": [
+     {
+      "name": "Leech shell",
+      "n": 196560,
+      "note": "the 196560 minimal vectors, Cohn units",
+      "path": "gemm",
+      "freeNorm": false,
+      "maxAbsCoefficient": 4
+     }
+    ],
+    "pairs": 19317818520,
+    "pairsExpected": 19317818520,
+    "contacts": 452088000,
+    "violations": 0,
+    "verdict": "CERTIFIED",
+    "blocks": [
+     {
+      "a": "Leech shell",
+      "b": "Leech shell",
+      "pairs": 19317818520,
+      "contacts": 452088000,
+      "violations": 0,
+      "maxDot": [
+       16,
+       0,
+       0,
+       0
+      ],
+      "maxDotShow": "16",
+      "maxCos": 0.5,
+      "nearestNonContactDot": [
+       8,
+       0,
+       0,
+       0
+      ],
+      "nearestNonContactShow": "8",
+      "nearestNonContactCos": 0.25,
+      "gemm": {
+       "worstPartialSum": 384,
+       "precision": "float32",
+       "bound": "2^24",
+       "path": "rational"
+      },
+      "seconds": 67.87
+     }
+    ],
+    "spotCheck": {
+     "pairs": 400,
+     "disagreements": 0,
+     "how": "sampled pairs re-decided in plain Python integers (no numpy, no BLAS)"
+    },
+    "bigintFallbacks": 0,
+    "seconds": 68.1,
+    "maxDot": [
+     16,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "16",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.25
+   }
+  }
+ ],
+ "what": "The September 2026 wave of kissing-number lower-bound claims (dimensions 18 and 25\u201331, three claimants), every published configuration rebuilt from pinned bytes and every pair decided exactly over Q(sqrt2, sqrt3).",
+ "grammar": {
+  "WITNESSED": "the published bytes are already an exact proof",
+  "REPAIRED": "our exact witness built from their bytes, the float-to-exact distance measured",
+  "UNWITNESSED": "the bytes fail exactly and no repair was built \u2014 a finding about the bytes, never a refutation of the bound",
+  "NEEDS DATA": "no vector list is published; the row states what would decide it",
+  "QUEUED": "bytes exist; not decided in this wave"
+ },
+ "tables": {
+  "kravatsky": {
+   "18": {
+    "claimed": 8358,
+    "previous": 7654,
+    "status": "exhausted",
+    "package": "verifications/improved/dim18-bent-hexagon/"
+   },
+   "25": {
+    "claimed": 197579,
+    "previous": 197056,
+    "status": "exhausted",
+    "package": "verifications/improved/dim25-lens-heads/"
+   },
+   "26": {
+    "claimed": 199806,
+    "previous": 198550,
+    "status": "exhausted",
+    "package": "verifications/improved/dim26-27-iota-triangles/"
+   },
+   "27": {
+    "claimed": 201566,
+    "previous": 200044,
+    "status": "exhausted",
+    "package": "verifications/improved/dim26-27-iota-triangles/"
+   },
+   "28": {
+    "claimed": 204896,
+    "previous": 204520,
+    "status": "classes",
+    "package": "verifications/improved/dim28-norm8-frame-layer/"
+   },
+   "29": {
+    "claimed": 209968,
+    "previous": 209496,
+    "status": "classes",
+    "package": "verifications/improved/dim29-30-frame-layer/"
+   },
+   "30": {
+    "claimed": 221012,
+    "previous": 220440,
+    "status": "classes",
+    "package": "verifications/improved/dim29-30-frame-layer/"
+   },
+   "31": {
+    "claimed": 238662,
+    "previous": 238350,
+    "status": "classes",
+    "package": "verifications/improved/dim31-frame-layer/"
+   },
+   "38": {
+    "claimed": 591612,
+    "previous": 566652,
+    "status": "exhausted",
+    "package": "verifications/improved/dim38-leech-large-codimension/"
+   },
+   "39": {
+    "claimed": 756116,
+    "previous": 755988,
+    "status": "external",
+    "package": "verifications/improved/dim39-ers-constant-weight/"
+   },
+   "49": {
+    "claimed": 52430140,
+    "previous": 52416002,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "50": {
+    "claimed": 52458418,
+    "previous": 52416006,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "51": {
+    "claimed": 52500816,
+    "previous": 52416012,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "52": {
+    "claimed": 52585516,
+    "previous": 52416024,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "53": {
+    "claimed": 52698222,
+    "previous": 52416040,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "54": {
+    "claimed": 52922906,
+    "previous": 52416072,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "55": {
+    "claimed": 53299730,
+    "previous": 52416126,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "56": {
+    "claimed": 54085392,
+    "previous": 52416240,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "57": {
+    "claimed": 54534176,
+    "previous": 52416306,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "58": {
+    "claimed": 55893422,
+    "previous": 52416510,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "59": {
+    "claimed": 56505668,
+    "previous": 52416604,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "60": {
+    "claimed": 57477123,
+    "previous": 52416841,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "61": {
+    "claimed": 59898694,
+    "previous": 52417154,
+    "status": "classes",
+    "package": "verifications/improved/dim49-63-p48-caps/"
+   },
+   "62": {
+    "claimed": 71310732,
+    "previous": 52417932,
+    "status": "external",
+    "package": "verifications/improved/dim62-63-ers-chain/"
+   },
+   "63": {
+    "claimed": 138419844,
+    "previous": 52418564,
+    "status": "external",
+    "package": "verifications/improved/dim62-63-ers-chain/"
+   },
+   "68": {
+    "claimed": 361275480,
+    "previous": 331737984,
+    "status": "lp-exact",
+    "package": "verifications/improved/dim68-69-gamma72-cross-sections/"
+   },
+   "69": {
+    "claimed": 627822180,
+    "previous": 331737984,
+    "status": "lp-exact",
+    "package": "verifications/improved/dim68-69-gamma72-cross-sections/"
+   },
+   "70": {
+    "claimed": 1249778250,
+    "previous": 331737984,
+    "status": "lp-exact",
+    "package": "verifications/improved/dim70-71-gamma72-cross-sections/"
+   },
+   "71": {
+    "claimed": 2603658750,
+    "previous": 331737984,
+    "status": "lp-exact",
+    "package": "verifications/improved/dim70-71-gamma72-cross-sections/"
+   },
+   "73": {
+    "claimed": 6218179814,
+    "previous": 6218175602,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "74": {
+    "claimed": 6218192454,
+    "previous": 6218175606,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "75": {
+    "claimed": 6218209308,
+    "previous": 6218175612,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "76": {
+    "claimed": 6218243016,
+    "previous": 6218175624,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "77": {
+    "claimed": 6218285152,
+    "previous": 6218175640,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "78": {
+    "claimed": 6218377840,
+    "previous": 6218175672,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "79": {
+    "claimed": 6218529454,
+    "previous": 6218175726,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "80": {
+    "claimed": 6218849228,
+    "previous": 6218175840,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "81": {
+    "claimed": 6219034270,
+    "previous": 6218175906,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "82": {
+    "claimed": 6219605578,
+    "previous": 6218176110,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "83": {
+    "claimed": 6219621690,
+    "previous": 6218176204,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "84": {
+    "claimed": 6220293304,
+    "previous": 6218176441,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "85": {
+    "claimed": 6220745414,
+    "previous": 6218176754,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "86": {
+    "claimed": 6223567844,
+    "previous": 6218177532,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "87": {
+    "claimed": 6224703598,
+    "previous": 6218178164,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "88": {
+    "claimed": 6230206492,
+    "previous": 6218179920,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "89": {
+    "claimed": 6233054848,
+    "previous": 6218181330,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "90": {
+    "claimed": 6238744788,
+    "previous": 6218183254,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "91": {
+    "claimed": 6247801034,
+    "previous": 6218187548,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "92": {
+    "claimed": 6266405667,
+    "previous": 6218195048,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "93": {
+    "claimed": 6294850360,
+    "previous": 6218205368,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "94": {
+    "claimed": 6355739600,
+    "previous": 6218225496,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "95": {
+    "claimed": 6473065046,
+    "previous": 6218268750,
+    "status": "classes",
+    "package": "verifications/improved/dim73-95-gamma72-caps/"
+   },
+   "96": {
+    "claimed": 12886999232,
+    "previous": 6218372160,
+    "status": "external",
+    "package": "verifications/closed/dim96-ers-takeover/"
+   }
+  },
+  "takhanov-yun": {
+   "25": {
+    "claimed": 197058,
+    "previous": 197056,
+    "modification": "Change the lifting height; add the antipodal poles."
+   },
+   "26": {
+    "claimed": 198552,
+    "previous": 198550,
+    "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair."
+   },
+   "27": {
+    "claimed": 200046,
+    "previous": 200044,
+    "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair."
+   },
+   "28": {
+    "claimed": 204522,
+    "previous": 204520,
+    "modification": "Rotate the lifted and auxiliary blocks together; add an antipodal pair."
+   },
+   "29": {
+    "claimed": 209497,
+    "previous": 209496,
+    "modification": "Rotate the lifted and auxiliary blocks together; add one point."
+   },
+   "30": {
+    "claimed": 220442,
+    "previous": 220440,
+    "modification": "Transform the six additional coordinates, then rotate the entire lifted block; add an antipodal pair."
+   },
+   "31": {
+    "claimed": 238354,
+    "previous": 238350,
+    "modification": "Rotate only the seven additional coordinates of the lifted vectors; add four points."
+   }
+  },
+  "qiushi": {
+   "25": {
+    "claimed": 197580,
+    "previous": 197579
+   },
+   "27": {
+    "claimed": 201567,
+    "previous": 201566
+   },
+   "32": {
+    "claimed": 347584,
+    "previous": 346944
+   },
+   "33": {
+    "claimed": 363968,
+    "previous": 362048
+   },
+   "34": {
+    "claimed": 384196,
+    "previous": 381124
+   },
+   "35": {
+    "claimed": 409676,
+    "previous": 409548
+   },
+   "36": {
+    "claimed": 484760,
+    "previous": 484568
+   },
+   "37": {
+    "claimed": 498024,
+    "previous": 496232
+   },
+   "38": {
+    "claimed": 591900,
+    "previous": 591612
+   },
+   "39": {
+    "claimed": 763668,
+    "previous": 756116
+   },
+   "43": {
+    "claimed": 2553792,
+    "previous": 2545056
+   },
+   "45": {
+    "claimed": 7380090,
+    "previous": 7379838
+   },
+   "49": {
+    "claimed": 52430156,
+    "previous": 52430140
+   },
+   "50": {
+    "claimed": 52458468,
+    "previous": 52458418
+   },
+   "51": {
+    "claimed": 52500930,
+    "previous": 52500816
+   },
+   "52": {
+    "claimed": 52585772,
+    "previous": 52585516
+   },
+   "53": {
+    "claimed": 52698696,
+    "previous": 52698222
+   },
+   "54": {
+    "claimed": 52923774,
+    "previous": 52922906
+   },
+   "55": {
+    "claimed": 53301140,
+    "previous": 53299730
+   }
+  }
+ },
+ "pins": {
+  "manifest": "corpus/kissing/wave.meta.json",
+  "manifestSha256": "3f8e0ba73b0106b22f5ac27573952ac9f37e370d34f1154deb2e54a6935a9e58"
+ },
+ "machine": {
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "python": "3.9.6",
+  "numpy": "2.0.2",
+  "cpus": 8,
+  "blas": "Accelerate (numpy build config)"
+ },
+ "generated": "2026-10-05T05:54:50Z",
+ "git": "f721476",
+ "reds": [
+  {
+   "red": "d18: one sign of one tier-B word flipped",
+   "caught": true,
+   "violations": 34
+  },
+  {
+   "red": "d18: a tier-B point rotated by 30 degrees, from 30 to 0",
+   "caught": true,
+   "violations": 8
+  },
+  {
+   "red": "d18: one equator vector listed twice",
+   "caught": true,
+   "violations": 1
+  },
+  {
+   "red": "d18: one coordinate moved by 1/6, off the sphere",
+   "caught": true
+  },
+  {
+   "red": "a forced tie 2 - 1*sqrt4 raises instead of returning a sign",
+   "caught": true
+  }
+ ],
+ "hunt": {
+  "what": "PROPOSED deepest empty caps of the September-wave configurations (floating point; nothing here is certified). A configuration admits one more sphere by INSERTION iff some unit u has max_c <u, c> <= 1/2 (a cap of 60 degrees or more).",
+  "file": "instruments/kissing/holes/proposals-wave.json",
+  "sha256": "1e0b4d5e2015e5c79307dd4c6a57129fadc2c0dc10fb8f707aaa9bd9b398953c",
+  "rows": {
+   "kravatsky-18": {
+    "n": 8358,
+    "dim": 18,
+    "samples": 200000,
+    "keep": 400,
+    "seed": 2026,
+    "deepest_h_float": 0.5196152422706647,
+    "deepest_angle_deg_float": 58.69355375132685,
+    "gap_to_60_deg_float": -1.3064462486731472,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 4.6,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.519615,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5196152422706702
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5196152422706647,
+     "angle_deg": 58.69355375132685,
+     "supporting": 256,
+     "u": [
+      0.24494897427831877,
+      -0.24494897427831777,
+      -0.24494897427831763,
+      0.24494897427831785,
+      -0.2449489742783166,
+      0.2449489742783171,
+      0.2449489742783172,
+      -0.24494897427831805,
+      -0.24494897427831772,
+      0.2449489742783166,
+      0.244948974278318,
+      -0.24494897427831752,
+      -0.2449489742783198,
+      0.24494897427831758,
+      0.24494897427831702,
+      -0.24494897427831783,
+      0.20000000000000207,
+      -7.673342080618737e-16
+     ]
+    }
+   },
+   "takhanov-yun-25": {
+    "n": 197058,
+    "dim": 25,
+    "samples": 200000,
+    "keep": 400,
+    "seed": 2026,
+    "deepest_h_float": 0.5438319367902692,
+    "deepest_angle_deg_float": 57.055121629078194,
+    "gap_to_60_deg_float": -2.9448783709218063,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 36.1,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.543832,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5438319367902692
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5438319367902692,
+     "angle_deg": 57.055121629078194,
+     "supporting": 582,
+     "u": [
+      2.9905901532661573e-16,
+      -3.120615812103816e-17,
+      0.2563648335534755,
+      1.053207836585038e-16,
+      0.25636483355347545,
+      6.804676145837488e-17,
+      6.111205965369973e-17,
+      -0.2563648335534754,
+      6.934701804675147e-17,
+      -0.2563648335534753,
+      -1.8203592237272263e-16,
+      0.2563648335534751,
+      1.191901872678541e-16,
+      0.2563648335534749,
+      0.2563648335534754,
+      -0.25636483355347506,
+      1.2829198338649023e-16,
+      -2.0804105414025444e-17,
+      1.0835471569804918e-17,
+      0.2563648335534754,
+      0.2563648335534754,
+      -8.473338767587446e-17,
+      0.25636483355347534,
+      -0.25636483355347545,
+      -0.4597008433809829
+     ]
+    }
+   },
+   "kravatsky-25": {
+    "n": 197579,
+    "dim": 25,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.5660975798507262,
+    "deepest_angle_deg_float": 55.52145602558894,
+    "gap_to_60_deg_float": -4.4785439744110604,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 56.8,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.570074,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5660975798507262
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5660975798507262,
+     "angle_deg": 55.52145602558894,
+     "supporting": 25,
+     "u": [
+      -0.040827506051016774,
+      -0.05602812434543033,
+      -0.0985205740887947,
+      -0.16408492171224237,
+      0.10763561573350026,
+      -0.12159247196888123,
+      -0.3453302173019075,
+      0.45525265774957036,
+      0.13435885960133778,
+      -0.13373697856905062,
+      0.05537959659312593,
+      0.07969525652664484,
+      -0.133736978569062,
+      0.0748267951923341,
+      -0.1392006742052449,
+      -0.1592431070979617,
+      -0.008045332251470907,
+      -0.04872543234355757,
+      -0.12462193694033356,
+      -0.31679462378077733,
+      0.16165069105027358,
+      -0.08453707114654044,
+      -0.1130726646280711,
+      -0.08515895217881388,
+      0.5660975798507225
+     ]
+    }
+   },
+   "qiushi-25": {
+    "n": 197580,
+    "dim": 25,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.5660975798507307,
+    "deepest_angle_deg_float": 55.52145602558862,
+    "gap_to_60_deg_float": -4.47854397441138,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 54.6,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.570074,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5660975798507307
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5660975798507307,
+     "angle_deg": 55.52145602558862,
+     "supporting": 25,
+     "u": [
+      -0.040827506051012305,
+      -0.056028124345444706,
+      -0.09852057408879451,
+      -0.16408492171223377,
+      0.10763561573350156,
+      -0.12159247196888455,
+      -0.3453302173019033,
+      0.45525265774957385,
+      0.1343588596013589,
+      -0.13373697856905356,
+      0.05537959659311927,
+      0.0796952565266484,
+      -0.13373697856906192,
+      0.07482679519233713,
+      -0.13920067420524382,
+      -0.159243107097968,
+      -0.008045332251484747,
+      -0.048725432343561206,
+      -0.12462193694032964,
+      -0.3167946237807739,
+      0.16165069105026722,
+      -0.08453707114653365,
+      -0.11307266462805195,
+      -0.08515895217882868,
+      0.566097579850722
+     ]
+    }
+   },
+   "kravatsky-26": {
+    "n": 199806,
+    "dim": 26,
+    "samples": 200000,
+    "keep": 400,
+    "seed": 2026,
+    "deepest_h_float": 0.5256337158195824,
+    "deepest_angle_deg_float": 58.28908550646805,
+    "gap_to_60_deg_float": -1.710914493531952,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 32.8,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.525634,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5256337158195826
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5256337158195824,
+     "angle_deg": 58.28908550646805,
+     "supporting": 568,
+     "u": [
+      -0.1238930549587696,
+      -0.12389305495876991,
+      -0.12389305495876987,
+      -0.1238930549587695,
+      -0.3716791648763091,
+      0.12389305495876937,
+      0.12389305495876911,
+      0.12389305495877001,
+      -0.12389305495877002,
+      0.12389305495876927,
+      0.12389305495876946,
+      0.1238930549587697,
+      0.12389305495876957,
+      0.12389305495877002,
+      0.12389305495876957,
+      -0.1238930549587692,
+      -0.12389305495876995,
+      -0.37167916487630887,
+      -0.3716791648763086,
+      -0.12389305495876961,
+      0.12389305495876989,
+      0.12389305495876946,
+      0.12389305495876932,
+      0.12389305495876879,
+      -0.44431789699200575,
+      0.2565270574341031
+     ]
+    }
+   },
+   "kravatsky-27": {
+    "n": 201566,
+    "dim": 27,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.5353165672916469,
+    "deepest_angle_deg_float": 57.634617226921584,
+    "gap_to_60_deg_float": -2.365382773078416,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 87.2,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.537579,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5353165672916469
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5353165672916469,
+     "angle_deg": 57.634617226921584,
+     "supporting": 30,
+     "u": [
+      0.23675220683603898,
+      -0.022992933473781552,
+      -0.014016672018146239,
+      -0.21879968392477106,
+      -0.017318474479890197,
+      -0.020369032878366708,
+      -0.003006704963527019,
+      0.49124954595503034,
+      0.008681163957419847,
+      0.01596267074723367,
+      -0.23878591243502367,
+      -0.001650901230872494,
+      0.2547924366172056,
+      -0.23776905963553205,
+      4.385343495005262e-05,
+      0.23345040437429773,
+      -0.014694573884475471,
+      0.015711426683967775,
+      -0.01503352481763966,
+      0.24979587948964224,
+      0.24479932236207885,
+      -0.009020114890583086,
+      -0.0076643111579263005,
+      -0.017657425413052815,
+      0.23565496165701522,
+      -0.4759812464216594,
+      -0.12016314238232167
+     ]
+    }
+   },
+   "qiushi-27": {
+    "n": 201567,
+    "dim": 27,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.526234811584223,
+    "deepest_angle_deg_float": 58.2485925838404,
+    "gap_to_60_deg_float": -1.7514074161596014,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 64.3,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.537556,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.526234811584223
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.526234811584223,
+     "angle_deg": 58.2485925838404,
+     "supporting": 627,
+     "u": [
+      -0.12403473458920726,
+      -0.12403473458920886,
+      0.12403473458920983,
+      -0.12403473458920893,
+      0.12403473458920772,
+      -0.12403473458921108,
+      0.12403473458920694,
+      0.12403473458920819,
+      -0.1240347345892127,
+      0.12403473458920718,
+      -0.12403473458920898,
+      -0.3721042037676285,
+      0.12403473458920618,
+      0.12403473458920738,
+      -0.37210420376762443,
+      -0.12403473458921264,
+      0.12403473458920869,
+      -0.12403473458920594,
+      -0.37210420376762543,
+      -0.12403473458920682,
+      -0.1240347345892109,
+      0.124034734589206,
+      -0.12403473458920687,
+      -0.12403473458920054,
+      0.3580574370197162,
+      -0.35805743701971715,
+      -0.07161148740394264
+     ]
+    }
+   },
+   "kravatsky-28": {
+    "n": 204896,
+    "dim": 28,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.5584407128868445,
+    "deepest_angle_deg_float": 56.05196890197465,
+    "gap_to_60_deg_float": -3.9480310980253535,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 47.7,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.561854,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5584407128868445
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5584407128868445,
+     "angle_deg": 56.05196890197465,
+     "supporting": 30,
+     "u": [
+      0.07073232848324681,
+      0.2280403039060006,
+      0.10422370389583185,
+      0.2741052854548227,
+      0.20165315964153904,
+      -0.16816178422895228,
+      -0.17526601537707634,
+      -0.0839259006154771,
+      -0.09610458258369042,
+      0.14075974980047273,
+      0.0839259006154775,
+      -0.3309391346398173,
+      0.03216650225057228,
+      -0.03622606290664349,
+      -0.0940748022556554,
+      -0.08392590061547714,
+      0.35022204775615556,
+      -0.1813553563611824,
+      0.023652456770406956,
+      0.07377699897529937,
+      -0.07479188913931764,
+      0.08900035143556646,
+      0.19454892849341346,
+      0.04941963503887278,
+      0.07212238957221796,
+      -0.3425119263300649,
+      -0.31954758338169714,
+      -0.38269952648970806
+     ]
+    }
+   },
+   "kravatsky-29": {
+    "n": 209968,
+    "dim": 29,
+    "samples": 1000000,
+    "keep": 1000,
+    "seed": 7,
+    "deepest_h_float": 0.538807429000744,
+    "deepest_angle_deg_float": 57.397507781561615,
+    "gap_to_60_deg_float": -2.6024922184383854,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 82.8,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.545164,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.538807429000744
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.538807429000744,
+     "angle_deg": 57.397507781561615,
+     "supporting": 29,
+     "u": [
+      -0.05216692507000227,
+      0.03484751572588757,
+      0.2644026637096813,
+      -0.21667477933043247,
+      0.0020231201062852135,
+      0.2196490639117445,
+      0.02356512936610314,
+      -0.07016079827672365,
+      0.015461033334758189,
+      -0.2717195199411362,
+      0.0855253625708742,
+      -0.24269203848423918,
+      0.0220918100974463,
+      -0.038194969960269894,
+      0.1209304228718369,
+      -0.20340935393633294,
+      0.007413325272065651,
+      0.044119217007322874,
+      0.031215345660117886,
+      -0.22475068137743948,
+      -0.23401463892142457,
+      0.23608945570586556,
+      -0.19345931692357163,
+      0.043609497241655866,
+      -0.23020169865925735,
+      0.28082867771444375,
+      -0.3055206079716376,
+      -0.2610638736561287,
+      0.36135304452615735
+     ]
+    }
+   },
+   "kravatsky-30": {
+    "n": 221012,
+    "dim": 30,
+    "samples": 200000,
+    "keep": 400,
+    "seed": 2026,
+    "deepest_h_float": 0.5461456823716356,
+    "deepest_angle_deg_float": 56.897009626489314,
+    "gap_to_60_deg_float": -3.1029903735106856,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 33.7,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.546146,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5465408435842307
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5461456823716356,
+     "angle_deg": 56.897009626489314,
+     "supporting": 30,
+     "u": [
+      -0.07015060286080328,
+      -0.06929143674229665,
+      -0.15996074784898073,
+      -0.018546851580453882,
+      -0.20667711153716614,
+      -0.11755711638189172,
+      0.022465212468463457,
+      0.11530919978330212,
+      -0.20179254088309267,
+      0.15534378631378534,
+      0.11389509686038729,
+      -0.34302615311364687,
+      0.11576836069254111,
+      0.022989162953844646,
+      -0.06747732861010346,
+      0.0654012452352177,
+      -0.206801056813282,
+      -0.34245149774257916,
+      -0.024124389005519005,
+      0.022262392925737416,
+      -0.06545195012089967,
+      -0.0684463553142546,
+      -0.15393250032895933,
+      -0.1610959739006453,
+      -0.3793762407804325,
+      -0.18468916475618807,
+      0.25042941220017456,
+      0.2536801538779913,
+      0.37351215775378593,
+      -0.10680974057351454
+     ]
+    }
+   },
+   "kravatsky-31": {
+    "n": 238662,
+    "dim": 31,
+    "samples": 200000,
+    "keep": 400,
+    "seed": 2026,
+    "deepest_h_float": 0.5384883528757448,
+    "deepest_angle_deg_float": 57.419206349350134,
+    "gap_to_60_deg_float": -2.5807936506498663,
+    "admits_insertion_float": false,
+    "distinct_local_holes": 12,
+    "seconds": 37.6,
+    "passes": [
+     {
+      "samples": 200000,
+      "keep": 400,
+      "seed": 2026,
+      "deepest_h_float": 0.538488,
+      "note": "h as printed to 6 digits by the first pass"
+     },
+     {
+      "samples": 1000000,
+      "keep": 1000,
+      "seed": 7,
+      "deepest_h_float": 0.5400008776164744
+     }
+    ],
+    "samples_total": 1200000,
+    "top_hole": {
+     "h": 0.5384883528757448,
+     "angle_deg": 57.419206349350134,
+     "supporting": 31,
+     "u": [
+      -0.14419330986714746,
+      -0.027660534386872514,
+      -0.1595676261035407,
+      -0.07133793078670618,
+      0.11061488143851811,
+      -0.12442113263984483,
+      -0.24260245521719637,
+      0.05461881681042302,
+      -0.13341155508837169,
+      -0.2421481296736181,
+      0.024815168751890073,
+      0.24477022801342094,
+      0.12303998934556076,
+      0.05786917751255699,
+      0.2381033485163217,
+      -0.059813683013602625,
+      0.004601650903039762,
+      -0.10518116603371917,
+      0.11330707390270392,
+      -0.08276093284984566,
+      -0.3368551857623599,
+      -0.07958326325650127,
+      -0.1250571859553939,
+      -0.040916408303468786,
+      -0.30782237103972937,
+      0.3041178366962713,
+      -0.2645758763992253,
+      -0.2815638649269439,
+      -0.22301459338558874,
+      0.29723746253119865,
+      0.010893388426365922
+     ]
+    }
+   }
+  }
+ }
+}

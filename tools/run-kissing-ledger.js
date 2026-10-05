@@ -154,6 +154,76 @@ const openRungs = [];
   }
 }
 
+/* ---- the September 2026 wave: decided by tools/run-kissing-wave.py (2e10 pairs a row, Python + BLAS
+   under checked exactness bounds); re-checked here — the manifest the run read must be the one on
+   disk, every decided row must account for all n(n-1)/2 pairs, and dimension 18 is re-decided LIVE in
+   JavaScript (basis.js: integers in doubles under a 2^50 guard, BigInt tower for the hard signs),
+   a second implementation in a second language that must agree pair count for pair count ---- */
+let wave = null;
+{
+  const WF = path.join(ROOT, 'certs', 'kissing-wave.json');
+  if (fs.existsSync(WF)) {
+    const BS = require(path.join(ROOT, 'instruments', 'kissing', 'basis.js'));
+    const FD = require(path.join(ROOT, 'instruments', 'kissing', 'fields.js'));
+    const D18 = require(path.join(ROOT, 'instruments', 'kissing', 'wave', 'd18.js'));
+    const W = JSON.parse(fs.readFileSync(WF, 'utf8'));
+    const msha = crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', 'wave.meta.json'))).digest('hex');
+    if (msha !== W.pins.manifestSha256) die('certs/kissing-wave.json was decided against another wave.meta.json — re-run tools/run-kissing-wave.py');
+    for (const c of W.calibrations || []) if (!c.ok) die('wave calibration ' + c.id + ' did not hold');
+    for (const r of W.reds || []) if (!r.caught) die('wave red control not caught: ' + r.red);
+    const decided = W.rows.filter((r) => r.engine);
+    for (const r of decided) {
+      const e = r.engine;
+      if (e.n !== r.claimed && !r.hunt) die('wave row ' + r.id + ' decided ' + e.n + ' points, claims ' + r.claimed);
+      if (e.pairs !== e.n * (e.n - 1) / 2) die('wave row ' + r.id + ' decided ' + e.pairs + ' pairs of ' + e.n * (e.n - 1) / 2);
+      if (e.spotCheck.disagreements) die('wave row ' + r.id + ': the plain-integer spot check disagreed');
+      const want = e.verdict === 'CERTIFIED' ? (r.decode ? 'REPAIRED' : 'WITNESSED') : 'UNWITNESSED';
+      if (r.verdict !== want) die('wave row ' + r.id + ' says ' + r.verdict + ', its decision says ' + want);
+    }
+    console.log('september wave (' + decided.length + ' rows decided at ' + W.generated + '):');
+    const live = {};
+    const r18 = W.rows.find((r) => r.id === 'kravatsky-18');
+    if (r18) {
+      const b = D18.build();
+      const j = BS.certify(b.vectors);
+      const agree = j.verdict === 'CERTIFIED' && j.pairs === r18.engine.pairs && j.contacts === r18.engine.contacts
+        && j.maxDot.join() === r18.engine.maxDot.join() && 2 * j.maxDot[0] === j.norm;
+      if (!agree) die('dimension 18: the JavaScript re-decision disagrees with the Python row');
+      live['kravatsky-18'] = { verdict: j.verdict, pairs: j.pairs, contacts: j.contacts, maxDot: j.maxDot, norm: j.norm, ms: j.ms, bigintFallbacks: j.bigintFallbacks,
+        how: 'basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)' };
+      console.log('  kravatsky-18       re-decided LIVE in JS: ' + j.pairs + ' pairs, ' + j.contacts + ' contacts, agrees');
+    }
+    const ico = FD.certifyField(FD.Z5, FD.icosahedron());
+    if (ico.verdict !== 'CERTIFIED' || ico.n !== 12 || ico.contacts !== 0) die('icosahedron calibration');
+    const show = (x) => (x === null || x === undefined ? null : x);
+    wave = {
+      what: W.what, grammar: W.grammar, generated: W.generated, commit: W['git'], machine: W.machine, manifestSha256: W.pins.manifestSha256,
+      calibrations: (W.calibrations || []).map((c) => ({ id: c.id, claim: c.claim, ok: c.ok, n: c.result.n, pairs: c.result.pairs, contacts: c.result.contacts, seconds: c.result.seconds }))
+        .concat([{ id: 'cal-icosahedron-12', claim: 'K(3) = 12 (Schutte - van der Waerden 1953): the icosahedron in Z[sqrt5], no pair touching, nearest pairs at cos^2 = 1/5', ok: true, n: 12, pairs: ico.pairs, contacts: ico.contacts, seconds: ico.ms / 1000 }]),
+      reds: W.reds || [],
+      live,
+      hunt: W.hunt || null,
+      rows: W.rows.map((r) => {
+        const e = r.engine || {};
+        return {
+          id: r.id, claimant: r.claimant, claimantName: r.claimantName, dim: r.dim, claimed: r.claimed, previous: show(r.previous),
+          gain: r.previous ? r.claimed - r.previous : null, verdict: r.verdict, ours: !!r.hunt,
+          pairs: show(e.pairs), contacts: show(e.contacts), violations: show(e.violations), maxCos: show(e.maxCos), maxDotShow: show(e.maxDotShow),
+          norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), bigintFallbacks: show(e.bigintFallbacks),
+          spotCheck: e.spotCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
+          delta: show(r.delta), decode: r.decode ? r.decode.how : null, choices: r.choices || [], facts: r.facts || [], scale: show(r.scale),
+          bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package),
+        };
+      }),
+    };
+    for (const r of wave.rows) if (r.pairs) console.log('  ' + r.id.padEnd(18) + ' ' + r.verdict + ' (' + r.pairs + ' pairs, ' + r.contacts + ' contacts)');
+    for (const v of ['QUEUED', 'NEEDS DATA']) {
+      const these = wave.rows.filter((r) => r.verdict === v);
+      if (these.length) console.log('  ' + v + ': ' + these.map((r) => r.id).join(' '));
+    }
+  }
+}
+
 /* ---- write the record ---- */
 const decided = rows.filter((r) => r.verdict === 'CERTIFIED' || r.verdict === 'REFUTED');
 if (decided.some((r) => r.verdict === 'REFUTED')) die('a record row REFUTED — that is a finding, write it up before shipping');
@@ -174,6 +244,7 @@ const out = {
   git: (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })(),
   rows,
   openRungs,
+  wave,
 };
 fs.writeFileSync(path.join(ROOT, 'certs', 'kissing-ledger.json'), JSON.stringify(out, null, 1) + '\n');
 console.log('wrote certs/kissing-ledger.json — ' + rows.length + ' rows, '
