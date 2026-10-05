@@ -15,7 +15,7 @@ here on request.
 
 - **D0. The Zenodo deposit v2026.10 — DONE 2026-10-05: doi:10.5281/zenodo.23171167**, minted by the GitHub release, verified public, stamped (corpus/zenodo.json, CITATION.cff).
   - Steps: the GitHub release mints the DOI; tools/stamp-release.py records it; then the DOI is filled into D1.
-- **D1. The partial proof claim on erdosproblems.com/1186 — APPROVED 2026-10-05, PASTE BY HAND** (no erdosproblems account here); tools/sweep-claims.js shouts when it shows.
+- **D1. The partial proof claim on erdosproblems.com/1186 — SENT by the operator 2026-10-05 ~19:25 -03** (submit-proof form, field by field as in `outreach/delta3-forum.md` A); not visible at 19:28, so presumably in the moderation queue. tools/sweep-claims.js shouts when it shows; then snapshot the thread and the proof-claims page, and C and D may go.
   - Draft: `outreach/delta3-forum.md` A (submit-proof form, marked partial; k = 3 only).
   - Rule 4(a) is met: the operator read the proof line by line on 2026-10-05.
   - B, an optional thread comment, rides along. C: no teorth status PR; an issue only after A is visible.

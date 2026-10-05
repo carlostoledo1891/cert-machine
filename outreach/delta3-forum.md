@@ -1,6 +1,6 @@
 # δ₃ = 117/2192: the erdosproblems.com/1186 texts (paste by hand) and the teorth/erdosproblems note
 
-STATUS: DRAFT, NOT SENT (2026-10-05). Every item here is a SEND on the operator's per-item word.
+STATUS: A SENT by the operator 2026-10-05 ~19:25 -03 (awaiting moderation); B, C, D not sent. Every item here is a SEND on the operator's per-item word.
 - **Already met:** the author's line-by-line reading (operator, 2026-10-05), and the Zenodo deposit: v2026.10, doi:10.5281/zenodo.23171167, verified public 2026-10-05 and filled in below.
 - **Before pasting:** check that the three links resolve (the site deploys from main).
 

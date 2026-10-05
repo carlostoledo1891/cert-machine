@@ -42,7 +42,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     say "read line by line by the author; not refereed"); (2) the Zenodo deposit — DONE: release v2026.10
     at 422b952 minted doi:10.5281/zenodo.23171167 within a minute, verified public (isNewVersionOf 22800699,
     erdosproblems.com/1186 linked), stamped into corpus/zenodo.json + CITATION.cff; the paper and page cite it; (3) the forum texts —
-    DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
+    A (the partial proof claim) SENT by the operator 2026-10-05 ~19:25 -03, awaiting moderation (the sweep watches);
+    the rest DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
     optional thread comment; C, teorth/erdosproblems: NO status PR — #1186 stays open for k ≥ 4 — an issue only
     after the claim is visible). Every paste is still the operator's. Lean: weeks. targets rows:
     delta3-graham-1186-k3 (BUILT), delta4-centring-transfer (being scouted).
