@@ -13,7 +13,11 @@ Nothing here is trusted: this tool converts bytes to JSON; the family's
 exact audit decides whether each factorization is a correct algorithm. A
 conversion mistake cannot ship as a certificate — it would be REFUTED.
 
-usage: python3 tools/convert_alphatensor.py"""
+usage: python3 tools/convert_alphatensor.py
+       python3 tools/convert_alphatensor.py --emit FILE KEY [KEY ...]
+           transcribe the named keys of corpus/sources/FILE to JSON on stdout
+           (the machine-claims-100 runs read it; corpus/strassen-corpus.json
+           is not touched in this mode)"""
 
 import ast
 import io
@@ -129,5 +133,28 @@ def main():
     print('corpus/strassen-corpus.json: %d factorizations' % len(corpus))
 
 
+def emit(fn, keys):
+    """the named keys, transcribed to JSON on stdout; the bytes' sha256 travels with them"""
+    import sys
+    path = os.path.join(SRC, fn)
+    raw = open(path, 'rb').read()
+    z = zipfile.ZipFile(path)
+    names = set(z.namelist())
+    out = {'file': fn, 'sha256': hashlib.sha256(raw).hexdigest(), 'entries': []}
+    for key in keys:
+        if key + '.npy' not in names:
+            out['entries'].append({'npzKey': key, 'missing': True})
+            continue
+        U, V, W = load_factors(z.read(key + '.npy'))
+        out['entries'].append({'npzKey': key, 'shape': [3, len(U), len(U[0]) if U else 0],
+                               'U': U, 'V': V, 'W': W})
+    json.dump(out, sys.stdout)
+    sys.stdout.write('\n')
+
+
 if __name__ == '__main__':
-    main()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == '--emit':
+        emit(sys.argv[2], sys.argv[3:])
+    else:
+        main()

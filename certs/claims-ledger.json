@@ -1172,13 +1172,643 @@
    "decidedFrom": "certs/polymaps-ledger.json",
    "page": "/reports/polymaps.html",
    "recordedOn": "2026-09-29"
+  },
+  {
+   "id": "mc100-ae-nb-2x4x5-r32",
+   "claim": "the notebook's \"Rank-32 decomposition of <2,4,5> over 0.5*Z\" is a decomposition of that tensor of rank 32 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-32 decomposition of <2,4,5>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,600 tensor-identity equations, exactly, over (1/2)Z, decided as the integer identity 8·T after the factors were scaled by 2·2·2 (so the scheme holds over every commutative ring in which 2 is invertible) — C-layout CA; rank 32 < 40 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-2x4x5-r32",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-2x4x7-r45",
+   "claim": "the notebook's \"Rank-45 decomposition of <2,4,7> over Z\" is a decomposition of that tensor of rank 45 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-45 decomposition of <2,4,7>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 3,136 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 45 < 56 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-2x4x7-r45",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-2x4x8-r51",
+   "claim": "the notebook's \"Rank-51 decomposition of <2,4,8> over Z\" is a decomposition of that tensor of rank 51 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-51 decomposition of <2,4,8>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 4,096 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 51 < 64 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-2x4x8-r51",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-2x5x6-r47",
+   "claim": "the notebook's \"Rank-47 decomposition of <2,5,6> over Z\" is a decomposition of that tensor of rank 47 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-47 decomposition of <2,5,6>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 3,600 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 47 < 60 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-2x5x6-r47",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x3x3-r23",
+   "claim": "the notebook's \"Rank-23 decomposition of <3,3,3> over Z\" is a decomposition of that tensor of rank 23 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-23 decomposition of <3,3,3>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 729 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 23 < 27 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x3x3-r23",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x4x6-r54",
+   "claim": "the notebook's \"Rank-54 decomposition of <3,4,6> over 0.5*Z\" is a decomposition of that tensor of rank 54 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-54 decomposition of <3,4,6>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 5,184 tensor-identity equations, exactly, over (1/2)Z, decided as the integer identity 8·T after the factors were scaled by 2·2·2 (so the scheme holds over every commutative ring in which 2 is invertible) — C-layout CA; rank 54 < 72 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x4x6-r54",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x4x7-r63",
+   "claim": "the notebook's \"Rank-63 decomposition of <3,4,7> over 0.5*C\" is a decomposition of that tensor of rank 63 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-63 decomposition of <3,4,7>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 7,056 tensor-identity equations, exactly, over (1/2)Z[i], decided as the Gaussian-integer identity 8·T after the factors were scaled by 2·2·2, imaginary part exactly 0 — C-layout CA; rank 63 < 84 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x4x7-r63",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x4x8-r74",
+   "claim": "the notebook's \"Rank-74 decomposition of <3,4,8> over Z\" is a decomposition of that tensor of rank 74 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-74 decomposition of <3,4,8>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 9,216 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 74 < 96 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x4x8-r74",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x5x6-r68",
+   "claim": "the notebook's \"Rank-68 decomposition of <3,5,6> over Z\" is a decomposition of that tensor of rank 68 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-68 decomposition of <3,5,6>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 8,100 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 68 < 90 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x5x6-r68",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-3x5x7-r80",
+   "claim": "the notebook's \"Rank-80 decomposition of <3,5,7> over Z\" is a decomposition of that tensor of rank 80 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-80 decomposition of <3,5,7>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 11,025 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 80 < 105 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-3x5x7-r80",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-4x4x8-r96",
+   "claim": "the notebook's \"Rank-96 decomposition of <4,4,8> over 0.5*C\" is a decomposition of that tensor of rank 96 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-96 decomposition of <4,4,8>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 16,384 tensor-identity equations, exactly, over (1/2)Z[i], decided as the Gaussian-integer identity 8·T after the factors were scaled by 2·2·2, imaginary part exactly 0 — C-layout CA; rank 96 < 128 naive; the object is not printed; rebuilt here from the printed recipe and the printed <4,4,4>",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-4x4x8-r96",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-4x4x5-r61",
+   "claim": "the notebook's \"Rank-61 decomposition of <4,4,5> over Z\" is a decomposition of that tensor of rank 61 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-61 decomposition of <4,4,5>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 6,400 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 61 < 80 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-4x4x5-r61",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-4x4x7-r85",
+   "claim": "the notebook's \"Rank-85 decomposition of <4,4,7> over Z\" is a decomposition of that tensor of rank 85 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-85 decomposition of <4,4,7>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 12,544 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 85 < 112 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-4x4x7-r85",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-4x5x6-r90",
+   "claim": "the notebook's \"Rank-90 decomposition of <4,5,6> over Z\" is a decomposition of that tensor of rank 90 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-90 decomposition of <4,5,6>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 14,400 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 90 < 120 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-4x5x6-r90",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-ae-nb-5x5x5-r93",
+   "claim": "the notebook's \"Rank-93 decomposition of <5,5,5> over Z\" is a decomposition of that tensor of rank 93 over that ring",
+   "claimant": "AlphaEvolve (DeepMind, 2025; arXiv:2506.13131)",
+   "source": "corpus/sources/alphaevolve_mathematical_results.ipynb (google-deepmind/alphaevolve_results @ 4226acb), section \"Rank-93 decomposition of <5,5,5>\" (sha256 2cce2543e48c…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 15,625 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 93 < 125 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "ae-nb-5x5x5-r93",
+    "pool": "alphaevolve-nb-matmul"
+   },
+   "decidedFrom": "certs/mc100-alphaevolve-nb-matmul.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x2x3",
+   "claim": "the factors stored under key 2,2,3 of alphatensor_f2.npz are a decomposition of the ⟨2,2,3⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,3 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 144 tensor-identity equations, exactly, over F2 — C-layout CA; rank 11 < 12 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x2x3",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x2x4",
+   "claim": "the factors stored under key 2,2,4 of alphatensor_f2.npz are a decomposition of the ⟨2,2,4⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,4 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 256 tensor-identity equations, exactly, over F2 — C-layout CA; rank 14 < 16 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x2x4",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x3x3",
+   "claim": "the factors stored under key 2,3,3 of alphatensor_f2.npz are a decomposition of the ⟨2,3,3⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,3 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 324 tensor-identity equations, exactly, over F2 — C-layout CA; rank 15 < 18 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x3x3",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x2x5",
+   "claim": "the factors stored under key 2,2,5 of alphatensor_f2.npz are a decomposition of the ⟨2,2,5⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,2,5 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 400 tensor-identity equations, exactly, over F2 — C-layout CA; rank 18 < 20 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x2x5",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x3x4",
+   "claim": "the factors stored under key 2,3,4 of alphatensor_f2.npz are a decomposition of the ⟨2,3,4⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,4 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 576 tensor-identity equations, exactly, over F2 — C-layout CA; rank 20 < 24 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x3x4",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x3x5",
+   "claim": "the factors stored under key 2,3,5 of alphatensor_f2.npz are a decomposition of the ⟨2,3,5⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,3,5 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 900 tensor-identity equations, exactly, over F2 — C-layout CA; rank 25 < 30 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x3x5",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-2x4x4",
+   "claim": "the factors stored under key 2,4,4 of alphatensor_f2.npz are a decomposition of the ⟨2,4,4⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 2,4,4 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,024 tensor-identity equations, exactly, over F2 — C-layout CA; rank 26 < 32 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-2x4x4",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-f2-3x3x4",
+   "claim": "the factors stored under key 3,3,4 of alphatensor_f2.npz are a decomposition of the ⟨3,3,4⟩ tensor over F2 of the rank the array's shape states",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_f2.npz key 3,3,4 (sha256 70f09f349d8d…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,296 tensor-identity equations, exactly, over F2 — C-layout CA; rank 29 < 36 naive; the same factors are refuted over Q",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-f2-3x3x4",
+    "pool": "alphatensor-f2"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-f2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x3",
+   "claim": "the factors stored under key 2,2,3 of alphatensor_r.npz are a decomposition of the ⟨2,2,3⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,3 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 144 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 11 < 12 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x3",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x4",
+   "claim": "the factors stored under key 2,2,4 of alphatensor_r.npz are a decomposition of the ⟨2,2,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,4 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 256 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 14 < 16 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x4",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x3x3",
+   "claim": "the factors stored under key 2,3,3 of alphatensor_r.npz are a decomposition of the ⟨2,3,3⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,3 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 324 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 15 < 18 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x3x3",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x5",
+   "claim": "the factors stored under key 2,2,5 of alphatensor_r.npz are a decomposition of the ⟨2,2,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,5 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 400 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 18 < 20 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x5",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x6",
+   "claim": "the factors stored under key 2,2,6 of alphatensor_r.npz are a decomposition of the ⟨2,2,6⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,6 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 576 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 21 < 24 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x6",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x3x4",
+   "claim": "the factors stored under key 2,3,4 of alphatensor_r.npz are a decomposition of the ⟨2,3,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,4 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 576 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 20 < 24 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x3x4",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x7",
+   "claim": "the factors stored under key 2,2,7 of alphatensor_r.npz are a decomposition of the ⟨2,2,7⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,7 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 784 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 25 < 28 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x7",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x3x5",
+   "claim": "the factors stored under key 2,3,5 of alphatensor_r.npz are a decomposition of the ⟨2,3,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,3,5 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 900 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 25 < 30 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x3x5",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x2x8",
+   "claim": "the factors stored under key 2,2,8 of alphatensor_r.npz are a decomposition of the ⟨2,2,8⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,2,8 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,024 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 28 < 32 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x2x8",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x4x4",
+   "claim": "the factors stored under key 2,4,4 of alphatensor_r.npz are a decomposition of the ⟨2,4,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,4,4 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,024 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 26 < 32 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x4x4",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-3x3x4",
+   "claim": "the factors stored under key 3,3,4 of alphatensor_r.npz are a decomposition of the ⟨3,3,4⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 3,3,4 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,296 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 29 < 36 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-3x3x4",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-at-q-2x4x5",
+   "claim": "the factors stored under key 2,4,5 of alphatensor_r.npz are a decomposition of the ⟨2,4,5⟩ matrix-multiplication tensor of the rank the array's shape states, over the ring the paper names",
+   "claimant": "AlphaTensor (DeepMind, Nature 610, 2022)",
+   "source": "corpus/sources/alphatensor_r.npz key 2,4,5 (sha256 4d59571a2537…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every one of the 1,600 tensor-identity equations, exactly, over Z (an integer identity, so the scheme holds over every commutative ring) — C-layout CA; rank 33 < 40 naive",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "at-q-2x4x5",
+    "pool": "alphatensor-q"
+   },
+   "decidedFrom": "certs/mc100-alphatensor-q.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "recordedOn": "2026-10-05"
   }
  ],
- "count": 88,
- "decided": 87,
+ "count": 123,
+ "decided": 122,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 63,
+  "CERTIFIED": 98,
   "PARTIAL": 10,
   "REFUTED": 2,
   "QUEUED": 1,
@@ -1187,7 +1817,7 @@
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 88
+  "self-initiated": 123
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -1206,7 +1836,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 64,
+  "none": 99,
   "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -1222,11 +1852,19 @@
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 70
+  "2026-09": 70,
+  "2026-10": 35
  },
  "submitted": 0,
+ "preregistered": {
+  "corpus": "corpus/machine-claims-100.json",
+  "of": 100,
+  "decided": 35,
+  "ownRows": 35,
+  "alreadyInRegister": []
+ },
  "meta": {
-  "date": "2026-09-29",
-  "git": "d00c7af"
+  "date": "2026-10-05",
+  "git": "a3004ba"
  }
 }

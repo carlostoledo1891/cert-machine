@@ -75,3 +75,17 @@ uncertainty, Heilbronn, packings), then the three registry entries, then the Alp
 
 None yet. Any change to a rule, a cap or a pin after today is written here, dated, with the reason, and the
 manifest's check refuses until the rules in the tool and the manifest agree again.
+
+**2026-10-04 — a reading, not a change (found while deciding the tensor pools).** The alphatensor-f2 rule says
+"the 8 keys of `alphatensor_f2.npz` with the smallest n·m·p not already in the register". The register holds F2
+keys 4,4,4 and 5,5,5 only, so read literally the rule names 2,2,2 and 3,3,3 (n·m·p 8 and 27) among the eight; the
+manifest instead skipped them, applying the alphatensor-q exclusion (2,2,2 and 3,3,3 are in the register over Q) by
+dimensions, and took 2,4,4 and 3,3,4 in their place. The rows stand as pinned — the manifest is the
+pre-registration, and its check refuses any re-choice — and nothing is re-chosen; F2 2,2,2 and 3,3,3 are simply
+outside the hundred. The rule's words should have said "whose dimensions are not already in the register".
+
+**2026-10-04 — one row printed only as prose.** `ae-nb-4x4x8-r96`: the notebook prints no factors for <4,4,8>
+rank 96, only "This decomposition can be obtained by doubling the rank-48 decomposition of <4,4,4> provided
+above." A recipe is not a program, so the row is not NEEDS DATA: the object is rebuilt from the printed rank-48
+(one copy per 4-column block of B) and the rebuild is decided like a printed object, the row saying so (the
+precedent is the register's `polymaps-gao-f6`, rebuilt from a printed construction).
