@@ -73,6 +73,13 @@ THE KISSING HUNT.
     (+1 decided-correct, 0 abstain-when-not-due?, −1 confident wrong) in lattice-claims 0.3, pre-registered
     first; the 9B, ~US$12 per run. The write-up (PI case-study form) can already tell the plumbing story,
     the 4B fault, and the negative result honestly.
+    ARM C, TERNARY (0.3.0, pre-registered b5b95b2, run beec1a…, US$1.69): OVER-ABSTENTION — the model
+    abstained on every task by step 10 (P(abst|due) 0.998, P(abst|not due) 0.995, confident_wrong 0.42 ->
+    0.00), aborted at step 27 on uniform groups. THE THREE ARMS TOGETHER: none taught the discriminating
+    policy; each found the constant policy its reward prefers when answering the decidable tasks is a coin
+    flip (no tool, 100+-digit arithmetic). The binding constraint is the policy's ability to DECIDE, not the
+    reward. NEXT (not pre-registered): give it the means — a Python tool (multi-turn + sandbox) or
+    hand-computable tasks — then re-run B and C; prediction: C separates. Prime wallet US$29.37.
 
   THE SEPTEMBER KISSING WAVE — DECIDED 2026-10-05 (a second worktree agent; merged as 33d1734 from
     87e1edd … 874d313). Pinned: corpus/kissing/wave.meta.json (62 files; Kravatsky @86b7de1 MIT, Qiushi

@@ -322,3 +322,55 @@ held US$31.07 before it.
 **Replicate.** A second seed (3026) runs only on the operator's word and funds; a single run is reported as a
 single run.
 
+## Arm C — THE RESULT, 2026-10-05: OVER-ABSTENTION
+
+Run beec1ayzgf5z8uxnh1f0rg6i (lattice-claims 0.3.0, `grader = "ternary"`, Qwen3.5-9B, the stage-2 stream and
+eval). The trainer aborted it at step 27 on "10 consecutive empty train batches": every group abstained
+alike, so the groups were uniform. Cost US$1.69. Record: instruments/wiring/train/stage2/beec1ayzgf5z8uxnh1f0rg6i.json.
+
+| | start (step 1) | final (mean of steps 17–26) |
+|---|---|---|
+| P(abstain \| due) | 0.438 | 0.998 |
+| P(abstain \| not due) | 0.344 | 0.995 |
+| confident_wrong | 0.422 | 0.000 |
+| certified (exact) | 0.203 | 0.282 |
+| ternary (its reward) | −0.250 | +0.279 |
+| refused_parse | 0.031 | 0.003 |
+| groups with no gradient | 0.047 | 0.914 |
+| held-out avg@1 (ternary) | −0.203 (step 1) | +0.333 (step 25) |
+
+The readings, in the pre-registered order:
+- **UNREADABLE:** no (refused_parse 0.003).
+- **COLLAPSE:** no (P(abstain | due) 0.998).
+- **PROTECTS ABSTENTION:** NOT met. P(abstain | due) is at least 0.20, but the gap to P(abstain | not due) is
+  0.003, not 0.15.
+- **OVER-ABSTENTION: YES** (P(abstain | not due) 0.995 >= 0.50).
+
+The −1 removed confident errors entirely (0.42 → 0.00) by teaching the model to abstain on EVERY task. It
+abstained by step 10. Its remaining exact-grader credit (0.28) comes from naming the missing quantity on the
+incomplete tasks, which is about 0.65 of the due share.
+
+## The three arms together — what was learned (2026-10-05)
+
+| arm (Qwen3.5-9B, same stream) | what the grader pays a guess on an incomplete task | outcome |
+|---|---|---|
+| A, answer key | about half the time (the key holds a side) | never abstains (COLLAPSE-like) |
+| B, exact | 0, the same as a wrong abstention | never abstains: no separation, collapse |
+| C, ternary | −1 | always abstains: OVER-ABSTENTION |
+
+None of the three graders taught the DISCRIMINATING policy: abstain exactly when a quantity is missing or the
+rounded norm straddles, and answer otherwise. In each arm the model found the constant policy its reward
+prefers when answering the decidable tasks is close to a coin flip.
+- **B:** a guess on a complete task pays about half the time, and nothing penalises guessing elsewhere, so
+  it always answers.
+- **C:** a definite answer is worth 2p − 1 against 0 for abstaining. With p near 1/2 on these tasks (100-plus
+  digit arithmetic, no tool), that is about 0, so the −1 on the incomplete tasks makes it always abstain.
+
+**The binding constraint is the policy's ability to DECIDE the complete tasks, not the reward.** A reward can
+only teach the discrimination the policy can execute. The natural next experiment follows directly and is not
+pre-registered here:
+- give the model the means to decide, a Python tool (a multi-turn environment with a sandbox) or tasks small
+  enough to compute by hand;
+- re-run B and C there. The prediction would be that C then separates, because answering a decidable task
+  becomes worth about +1, not 0.
+
