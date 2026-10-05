@@ -62,8 +62,9 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     family measured +0.80, +0.87, +0.88 at n = 1–3 (needs < −11.87). The third-party issue #1 is right on all four
     points. The Lean repo proves a different statement (one of ζ(7..21) irrational; 1 sorry = the Challenge stub;
     grep-level). instruments/zeta7audit/, certs/zeta7-anand-audit.json, certs/zeta7-anand/measure.json, battery
-    42 green / 9 reds, reports/zeta7-anand.html. HELD: a reply on the issue confirming it with the exact values —
-    a SEND, the operator's call.
+    42 green / 9 reds, reports/zeta7-anand.html. The confirming reply on the issue was POSTED on the operator's word
+    (2026-10-05, issuecomment-6004122031; the earlier draft's "all 24 scenarios" corrected before posting);
+    tools/sweep-claims.js watches the issue and Zenodo for a reply or a v2.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
     (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
     (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄

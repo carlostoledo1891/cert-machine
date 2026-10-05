@@ -22,6 +22,10 @@
         and Mathstodon is held until it is shown.
      3c. tadamcz/erdos1 issue #2 — posted 2026-09-16; a new comment there is
         a finding (gh api, no scraping).
+     3d. erdosproblems #1186 thread + proof claims — the δ₃ partial claim, pasted
+        by the operator; shout + snapshot when it shows.
+     3e. gmDevi/zeta-7-21-lean issue #1 — our reply posted 2026-10-05; a new
+        comment, or a new Zenodo version of Anand's preprint, is a finding.
      4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
@@ -122,6 +126,44 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
     if (state.erdos1IssueComments !== undefined && state.erdos1IssueComments !== null && n > state.erdos1IssueComments) finding('erdos1-issue: ' + (n - state.erdos1IssueComments) + ' NEW comment(s) on https://github.com/tadamcz/erdos1/issues/2 — read and answer (the operator sends)');
     else say('erdos1-issue: ' + n + ' comment(s) on tadamcz/erdos1#2' + (n ? '' : ', no reply yet'));
     state.erdos1IssueComments = n;
+  }
+}
+
+/* 3d · the #1186 thread and proof claims (δ₃ = 117/2192): the partial proof claim is pasted by the operator
+   (outreach/delta3-forum.md A); the signature is the paper's URL. When it shows, snapshot the thread beside
+   corpus/sources/delta3/erdosproblems-1186-forum_2026-10-05.html — and only then may the teorth/erdosproblems
+   note (C) and the k = 4 comment (D) go. */
+for (const [key, url] of [['delta3Thread', 'https://www.erdosproblems.com/forum/thread/1186'],
+  ['delta3Claims', 'https://www.erdosproblems.com/forum/thread/1186/proof-claims']]) {
+  const html = fetchText(url + '?cb=' + Math.floor(Math.random() * 1e9));
+  if (!html) { say('delta3 (' + key + '): fetch failed (transient)'); continue; }
+  const visible = /carlostoledo\.co\/paper\/delta3\.pdf/.test(html);
+  if (visible && !state[key + 'Visible']) finding('delta3: OUR TEXT IS PUBLIC on ' + url + ' — snapshot it into corpus/sources/delta3/ now; C (teorth note) and D (k = 4) may then go');
+  else say('delta3 (' + key + '): ' + (visible ? 'our text public' : 'our text not visible (not posted yet, or in moderation)'));
+  state[key + 'Visible'] = visible;
+}
+
+/* 3e · gmDevi/zeta-7-21-lean issue #1 (Anand's ζ(7)): our confirming reply posted 2026-10-05 (comment 6004122031);
+   any later comment, or the author's v2 on Zenodo, is a finding to read against certs/zeta7-anand-audit.json */
+{
+  let out = null;
+  try { out = execFileSync('gh', ['api', 'repos/gmDevi/zeta-7-21-lean/issues/1', '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
+  if (out === null) say('zeta7-issue: gh api failed (transient)');
+  else {
+    const [nStr, st] = out.split('\t'); const n = Number(nStr);
+    if (state.zeta7IssueComments !== undefined && state.zeta7IssueComments !== null && n > state.zeta7IssueComments) finding('zeta7-issue: ' + (n - state.zeta7IssueComments) + ' NEW comment(s) on https://github.com/gmDevi/zeta-7-21-lean/issues/1 — read against the audit record (the operator answers)');
+    else say('zeta7-issue: ' + n + ' comment(s), ' + st);
+    state.zeta7IssueComments = n;
+  }
+  /* Zenodo answers a browser UA with HTML; ask for JSON plainly */
+  let z = null;
+  try { z = execFileSync('curl', ['-sL', '--max-time', '30', '-H', 'Accept: application/json', 'https://zenodo.org/api/records/22920911/versions?size=5'], { maxBuffer: 16 * 1024 * 1024 }).toString(); } catch (e) { z = null; }
+  if (!z) say('zeta7: Zenodo fetch failed (transient)');
+  if (z) {
+    let nv = null; try { nv = JSON.parse(z).hits.total; } catch (e) { nv = null; }
+    if (nv !== null && state.zeta7Versions !== undefined && nv > state.zeta7Versions) finding('zeta7: Anand posted a NEW VERSION on Zenodo (' + nv + ' versions) — re-audit before anything else is said');
+    else if (nv !== null) say('zeta7: ' + nv + ' Zenodo version(s)');
+    if (nv !== null) state.zeta7Versions = nv;
   }
 }
 

@@ -15,13 +15,13 @@ here on request.
 
 - **D0. The Zenodo deposit v2026.10 — DONE 2026-10-05: doi:10.5281/zenodo.23171167**, minted by the GitHub release, verified public, stamped (corpus/zenodo.json, CITATION.cff).
   - Steps: the GitHub release mints the DOI; tools/stamp-release.py records it; then the DOI is filled into D1.
-- **D1. The partial proof claim on erdosproblems.com/1186 — DRAFTED, HELD.**
+- **D1. The partial proof claim on erdosproblems.com/1186 — APPROVED 2026-10-05, PASTE BY HAND** (no erdosproblems account here); tools/sweep-claims.js shouts when it shows.
   - Draft: `outreach/delta3-forum.md` A (submit-proof form, marked partial; k = 3 only).
   - Rule 4(a) is met: the operator read the proof line by line on 2026-10-05.
   - B, an optional thread comment, rides along. C: no teorth status PR; an issue only after A is visible.
 - **D2. A k = 4 comment citing Lu–Peng's 1/72 — DRAFTED, HELD.**
   - Draft: `outreach/delta3-forum.md` D. Optional, after D1.
-- **D3. A reply on gmDevi/zeta-7-21-lean #1 confirming the third-party report with exact values — DRAFTED, HELD.**
+- **D3. A reply on gmDevi/zeta-7-21-lean #1 confirming the third-party report with exact values — POSTED 2026-10-05** on the operator's word: https://github.com/gmDevi/zeta-7-21-lean/issues/1#issuecomment-6004122031 (watched by tools/sweep-claims.js).
   - Draft: `outreach/zeta7-anand-issue-reply.md`.
   - Before sending, re-fetch the issue: a v2 on Zenodo changes the text.
 
