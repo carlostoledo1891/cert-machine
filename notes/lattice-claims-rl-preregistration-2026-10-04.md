@@ -171,7 +171,8 @@ least one correct sample. The thresholds were 0.05 and 0.20, so **GO**. Cost US$
 
 The first gate run (k6pxpzv1s0t8i96k0wq8ozko, the platform's default eval sampling, thinking evidently on, about
 9,000 output tokens per rollout) gave avg@8 0.593 and pass@8 0.73 at its step-0 eval. It is kept as the
-thinking-on upper bound and does not decide anything.
+thinking-on upper bound and does not decide anything. Its final cost was US$4.87 (17.3M tokens), against
+the gate's "under US$1". That is the price of the missing `[eval.sampling]` (deviation 4).
 
 Cost recalibrated from the gate's usage: about 1,000 input and about 115 output tokens per rollout with thinking
 off. A 150-step run is therefore roughly US$3 of inference plus at most about US$6 of training tokens, well
