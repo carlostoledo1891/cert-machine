@@ -15,9 +15,16 @@ PROPOSES: it searches for the nearest facet in floating point and reports the ca
 a hole is certified exactly elsewhere, and "no hole is deeper" needs a covering proof.
 
     python3 holes.py [--samples N] [--keep K] [--seed S] [--out FILE]
+    python3 holes.py --wave kravatsky-18,kravatsky-25,...     (any row of the September wave)
 
 Configurations read (all from corpus/kissing, pinned there): the Station's three 604s in
-Q(sqrt2), EinsteinArena's 604 in Z[sqrt2], AlphaEvolve's 593 and EinsteinArena's 594.
+Q(sqrt2), EinsteinArena's 604 in Z[sqrt2], AlphaEvolve's 593 and EinsteinArena's 594 — and, with
+--wave, any configuration instruments/kissing/wave/claims.py rebuilds (dimensions 18 and 25-31,
+up to 238,662 points), converted to floating point here only to PROPOSE. For those sizes the
+search is the same three steps made local: random directions screened in float32 chunks, a
+smoothed-max descent over each candidate's nearest few thousand codewords (refreshed as it moves),
+and the LP polish on the codewords within 0.2 of the candidate's maximum. Output for --wave goes to
+proposals-wave.json, keyed by row id.
 """
 import argparse, json, math, os, sys, time
 import numpy as np
@@ -131,14 +138,113 @@ def deepest(C, samples, keep, seed, rounds=(20., 60., 200., 600., 2000.), polish
     return maxcos, distinct
 
 
+def load_wave(rid):
+    """a September-wave row as float unit vectors (proposal only: the exact rows live in claims.py)"""
+    sys.path.insert(0, os.path.join(HERE, '..', 'wave'))
+    import claims
+    c = claims.BUILDERS[rid]()
+    rows = []
+    r2, r3, r6 = math.sqrt(2), math.sqrt(3), math.sqrt(6)
+    for F in c['families']:
+        Cf = np.array(F.C, dtype=np.float64) if not F.big else np.array([[[float(x) for x in row] for row in comp] for comp in F.C])
+        V = Cf[0] + r2 * Cf[1] + r3 * Cf[2] + r6 * Cf[3]
+        if F.den is not None:
+            V = V / np.array([float(d) for d in F.den])[:, None]
+        rows.append(V)
+    return unit(np.concatenate(rows)), c
+
+
+def deepest_large(C, samples, keep, seed, top=32, neigh=4096, iters=240, polish_top=12, radius=0.2):
+    """the three steps of deepest(), local enough for 2e5 codewords in R^31"""
+    rng = np.random.default_rng(seed)
+    C32 = C.astype(np.float32)
+    n, d = C.shape
+    best_h, best_U = [], []
+    chunk = max(1000, int(4e8 // (n * 4)))
+    for start in range(0, samples, chunk):
+        U = unit(rng.standard_normal((min(chunk, samples - start), d))).astype(np.float32)
+        hv = (U @ C32.T).max(axis=1)
+        o = np.argsort(hv)[:keep]
+        best_h.append(hv[o]); best_U.append(U[o])
+    hv = np.concatenate(best_h); U = np.concatenate(best_U).astype(np.float64)
+    U = U[np.argsort(hv)[:top]]
+    # local smoothed-max descent: each candidate against its nearest `neigh` codewords
+    for beta in (40., 120., 400., 1500.):
+        for it in range(iters // 4):
+            if it % 15 == 0:
+                S = U.astype(np.float32) @ C32.T
+                NB = np.argpartition(-S, neigh, axis=1)[:, :neigh]
+            for q in range(len(U)):
+                Cn = C[NB[q]]
+                s_ = Cn @ U[q]
+                w = np.exp(beta * (s_ - s_.max()))
+                g = (w / w.sum()) @ Cn
+                g -= (g @ U[q]) * U[q]
+                U[q] = U[q] - (0.5 / beta) * g
+                U[q] /= np.linalg.norm(U[q])
+    hv = (U @ C.T).max(axis=1)
+    holes = []
+    for u in U[np.argsort(hv)[:polish_top]]:
+        holes.append(polish(C, u, iters=90, radius=radius))
+    holes = sorted(((ph, pu, sup) for pu, ph, sup in holes), key=lambda t: t[0])
+    distinct = []
+    for ph, pu, sup in holes:
+        if all(float(pu @ q) < 1 - 1e-9 for _, q, _ in distinct):
+            distinct.append((ph, pu, sup))
+    return distinct
+
+
+def main_wave(ids, samples, keep, seed, out):
+    rec = json.load(open(out)) if os.path.exists(out) else {
+        'what': 'PROPOSED deepest empty caps of the September-wave configurations (floating point; nothing here is certified). '
+                'A configuration admits one more sphere by INSERTION iff some unit u has max_c <u, c> <= 1/2 (a cap of 60 degrees or more).',
+        'rows': {}}
+    for rid in ids:
+        t0 = time.time()
+        C, c = load_wave(rid)
+        G = None
+        distinct = deepest_large(C, samples, keep, seed)
+        hmin = distinct[0][0]
+        prev = rec['rows'].get(rid)
+        passes = (prev.get('passes', []) if prev else []) + [{'samples': samples, 'keep': keep, 'seed': seed, 'deepest_h_float': hmin}]
+        if prev and prev['deepest_h_float'] <= hmin:
+            # an earlier pass found a deeper (or equal) cap: keep it, record this pass beside it
+            prev['passes'] = passes
+            print('%-18s pass with seed %d: deepest %.4f deg; the earlier pass stays deeper (%.4f deg)' % (
+                rid, seed, math.degrees(math.acos(min(1, hmin))), prev['deepest_angle_deg_float']), flush=True)
+            json.dump(rec, open(out, 'w'), indent=1)
+            continue
+        rec['rows'][rid] = {
+            'n': int(C.shape[0]), 'dim': int(C.shape[1]), 'samples': samples, 'keep': keep, 'seed': seed,
+            'deepest_h_float': hmin, 'deepest_angle_deg_float': math.degrees(math.acos(min(1, hmin))),
+            'gap_to_60_deg_float': math.degrees(math.acos(min(1, hmin))) - 60.0,
+            'admits_insertion_float': bool(hmin <= 0.5),
+            'distinct_local_holes': len(distinct),
+            'top_holes': [{'h': ph, 'angle_deg': math.degrees(math.acos(min(1, ph))), 'supporting': int(len(sup)),
+                           'u': [float(x) for x in pu]} for ph, pu, sup in distinct[:8]],
+            'seconds': round(time.time() - t0, 1),
+            'passes': passes,
+        }
+        r = rec['rows'][rid]
+        print('%-18s n=%d d=%d  deepest hole %.4f deg (h=%.6f, %d supporting)  gap to 60: %+.4f deg  %s  %.0f s' % (
+            rid, r['n'], r['dim'], r['deepest_angle_deg_float'], hmin, r['top_holes'][0]['supporting'], r['gap_to_60_deg_float'],
+            'PROPOSES AN INSERTION' if r['admits_insertion_float'] else 'no insertion proposed', r['seconds']), flush=True)
+        json.dump(rec, open(out, 'w'), indent=1)
+    print('wrote', out)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--samples', type=int, default=400000)
     ap.add_argument('--keep', type=int, default=2000)
     ap.add_argument('--seed', type=int, default=2026)
     ap.add_argument('--only', default='')
-    ap.add_argument('--out', default=os.path.join(HERE, 'proposals.json'))
+    ap.add_argument('--out', default=None)
+    ap.add_argument('--wave', default='')
     a = ap.parse_args()
+    if a.wave:
+        return main_wave(a.wave.split(','), a.samples, a.keep, a.seed, a.out or os.path.join(HERE, 'proposals-wave.json'))
+    a.out = a.out or os.path.join(HERE, 'proposals.json')
     configs = load_configs()
     rec = {'what': 'PROPOSED deepest empty caps (floating point; nothing here is certified)',
            'samples': a.samples, 'keep': a.keep, 'seed': a.seed, 'configs': {}}

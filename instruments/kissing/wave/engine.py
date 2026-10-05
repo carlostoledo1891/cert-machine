@@ -169,8 +169,12 @@ class Tally:
             d['witness'] = self.witness
         if self.max_s is not None:
             d['maxDot'] = list(self.max_s); d['maxDotShow'] = QF.show(self.max_s); d['maxCos'] = self.max_cos
+        elif self.max_cos is not None:
+            d['maxCos'] = self.max_cos          # display only (object / digit paths): the verdict never reads it
         if self.near_s is not None:
             d['nearestNonContactDot'] = list(self.near_s); d['nearestNonContactShow'] = QF.show(self.near_s); d['nearestNonContactCos'] = self.near_cos
+        elif self.near_cos is not None:
+            d['nearestNonContactCos'] = self.near_cos
         if self.gemm:
             d['gemm'] = self.gemm
         return d
@@ -645,6 +649,9 @@ def decide(fams, N, chunk=512, spot=400, seed=2026, log=print, skip=None):
             if best is None or QF.sign(*QF.sub(s, best)) > 0:
                 best = s
         res['maxDot'] = list(best); res['maxDotShow'] = QF.show(best); res['maxCos'] = QF.approx(best) / QF.approx(N)
+    mcs = [t['maxCos'] for t in tallies if t.get('maxCos') is not None]
+    if 'maxCos' not in res and mcs:
+        res['maxCos'] = max(mcs)
     nc = [t['nearestNonContactCos'] for t in tallies if t.get('nearestNonContactCos') is not None]
     if nc:
         res['nearestNonContactCos'] = max(nc)

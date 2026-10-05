@@ -195,7 +195,13 @@ def main():
     a = ap.parse_args()
     if a.merge_hunt:
         rec = json.load(open(OUT))
-        _write(rec, readme_tables())
+        tables = readme_tables()
+        rows = {r['id']: r for r in rec['rows']}
+        for r in needs_data_rows(tables):
+            if r['id'] not in rows or rows[r['id']]['verdict'] in ('NEEDS DATA', 'QUEUED'):
+                rows[r['id']] = r
+        rec['rows'] = sorted(rows.values(), key=lambda r: (r['dim'], r['claimant']))
+        _write(rec, tables)
         print('merged the hunt into %s' % os.path.relpath(OUT, ROOT))
         return
     log = lambda *x: print(*x, flush=True)
