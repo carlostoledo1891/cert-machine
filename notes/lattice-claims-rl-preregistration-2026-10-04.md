@@ -374,3 +374,29 @@ pre-registered here:
 - re-run B and C there. The prediction would be that C then separates, because answering a decidable task
   becomes worth about +1, not 0.
 
+## The tool path, 2026-10-05: probes only, no arm run yet
+
+These are the operator's option 1 ("give the model the means to decide"). All are diagnostics, none read for
+the hypothesis.
+- **The sandbox tool (`tools="python"`, 0.4.0–0.4.2)** never loaded on Hosted Training. Runs js9zmspk…,
+  td0h1710… and ioudwjk8… sat with no step, and the last two with no logs either. Controls:
+  - 0.4.0 without the tool (nr3k86xa…) and 0.4.1 without the tool (s8anltst…): stuck the same way, which
+    traced to declaring prime-sandboxes;
+  - 0.3.0 (u8hhjwsq…): step 2 in 100 s;
+  - 0.4.2 without the tool (mbtleb6c…): step 2 in 84 s. So the package loads, and the hosted
+    PythonEnv/sandbox construction does not.
+
+  Separately, verifiers 0.3.1's legacy SandboxEnv cannot be built with any prime-sandboxes release it accepts
+  (repaired locally and verified on a real sandbox; draft issue in outreach/primeintellect/verifiers-issue.md).
+- **The calculator tool (`tools="calc"`)** loads and trains.
+  - 0.5.0, probe bx5i538k… (US$0.48): 91–97% of rollouts ended with no readable verdict. The one-expression
+    calculator refused `sum()`, imports and assignments, and the 6 turns were spent retyping numbers.
+  - 0.5.1 (programs, `sum`, `pow`, 10 turns), probe zhn7wva9… (US$0.81): still 88–97% with no verdict.
+  - The closing messages show why: rollouts ending on a tool call at the turn limit; long reasoning cut at
+    the 1,536-token per-turn cap; numbers passed as quoted strings and list comprehensions refused. When a
+    verdict IS given it parses; the fenced ```json form is read.
+- **What would make tool arms readable:** a larger per-turn token cap, string numerals accepted by `int()`
+  and `Fraction()`, bounded comprehensions, and more turns. GRPO may also learn the format itself, as the
+  pilot's parse failures fell from 20–27% to about 1%. Not run: the operator chose to send the application
+  first. Spend so far on the tool path: US$1.29.
+
