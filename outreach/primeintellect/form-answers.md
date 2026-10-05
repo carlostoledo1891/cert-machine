@@ -21,7 +21,7 @@ The form has five fields: name, email, project links / cool things built (option
 
 ## What do you optimize for in life?
 
-[OPERATOR WRITES THIS. It has to be his voice. A possible angle, from how the lab works: being right in
+[OPERATOR WRITES THIS. It has to be in your own voice. A possible angle, from how the lab works: being right in
 public. That means numbers anyone can recheck, refusals stated as verdicts, errors published with their date,
 and negative results reported as results.]
 
