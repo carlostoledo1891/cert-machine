@@ -319,7 +319,7 @@ with phases and start building. Stop at each phase and handoff."
     mostly finite exact checks. A row published only as a program is NEEDS DATA
     (claimant code is never run) and stays. The register paper's second edition is
     the product: the defect rate by kind on a corpus chosen by rule.
-  NOT DOING (decided 2026-10-02): a Rust port; a general Lean exporter; a registry
+  JUDGED LOW-YIELD 2026-10-02 (information, not a ban — reclassified 2026-10-05): a Rust port; a general Lean exporter; a registry
     product; a consortium.
 
 ────────────────────────────────────────────────────────────────────────────
@@ -8868,6 +8868,7 @@ S6/S7 entries above:
   - notes/alphaevolve-48.md holds the pin story; UI verified via CDP
     probe + emulated-mobile screenshots (drawer, X-morph, no overflow).
 
+[DROPPED 2026-10-05, notes/locking-rules-review-2026-10-05.md — its condition expired]
 STANDING RULE while S1-S2 are unshipped: no new instruments, no new
 families; new math only where a report needs a missing number. The build
 menus further down are PARKED, not deleted — their technical context
