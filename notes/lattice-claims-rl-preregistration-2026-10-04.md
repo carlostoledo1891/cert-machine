@@ -234,3 +234,49 @@ Run nwgmmfqbzfweev3kngijasdf (gate-probe-qwen9b.toml, US$0.97).
 - **The cost estimate,** recalibrated from this run (about US$0.00047 per rollout at the 9B's prices): about
   US$10 per 150-step run with its evals, about US$20 for the pair. The ceiling stands.
 
+## Stage 2 — THE RESULT, 2026-10-05: no separation; both arms extinguished abstention
+
+Qwen3.5-9B, LoRA, thinking off. A (answer key) ndzl22rf9hs4jfc5jjzfm0v4, B (exact) gyccvbsi7xbbxjaq8y50ntbw.
+Both used the same training stream (seed 2026) and the same 300-task eval set (seed 9999). Both were aborted
+by the trainer on "10 consecutive empty train batches", when every group's eight answers scored alike: A at
+step 93, B at step 67. Neither reached 150 steps. Records: instruments/wiring/train/stage2/, read by
+read_run.py. Cost: US$7.73 (A) and US$3.98 (B).
+
+Read as deviation 3 says: start = the first logged step, final = the mean of the last 10 logged steps.
+
+| | A: answer key | B: exact grader |
+|---|---|---|
+| abstained, start → final | 0.414 → 0.000 | 0.344 → 0.000 |
+| confident_wrong | 0.367 → 0.693 | 0.398 → 0.639 |
+| certified (exact) | 0.250 → 0.299 | 0.234 → 0.354 |
+| key_match (answer key) | 0.289 → 0.518 | 0.336 → 0.534 |
+| refused_parse | 0.016 → 0.008 | 0.039 → 0.004 |
+| groups with no gradient (zero advantage) | 0.125 → 0.952 | 0.375 → 0.849 |
+| held-out avg@1, its own reward | 0.261 (step 1) → 0.487 (step 75) | 0.173 (step 1) → 0.287 (step 50) |
+
+The pre-registered readings, checked in order:
+- **Separation.** A's abstention falls by at least 10 points: yes (−41). B's ends within 15 points of the due
+  share (about 43%): no (0.000). B's ends at least 20 points above A's: no (0 against 0). **NOT met.**
+- **Over-abstention under B:** no.
+- **Null** (neither arm moves abstention by more than 5 points): no, both fell 34–41 points.
+- **Unreadable** (refused_parse above 30%): no.
+
+**The outcome is none of the four readings, and it is reported as what it is:** both graders trained the model
+to stop abstaining within about 10 steps (abstention 0.2% from steps 11–20 on, in both arms).
+
+**The mechanism is visible in the stored samples.** Tasks with a missing quantity are about a third of the
+early stored samples (B, steps 1–3: 19 of 66) and almost vanish later (B, steps 11+: 7 of 896). The service
+stores only samples that carry a gradient. Once the model guesses on every incomplete task, the exact grader
+scores all eight answers 0, so the group carries no advantage and drops out of training. The exact grader
+pays a correct NEEDS_DATA but does not penalise a confident wrong answer, so nothing pushes back once
+abstention is rare. Meanwhile a guess on a complete task still pays about half the time. The model learned
+the cheap global move (never abstain) faster than the discriminating one (abstain exactly when a quantity is
+missing).
+
+This agrees with TruthRL (arXiv:2509.25760), whose working arm is ternary: +1 correct, 0 abstain, **−1
+wrong**. It also sharpens it: an exact, decided abstention credit is not enough under GRPO without the penalty.
+
+**Stage 3 does not run:** it was pre-registered to run only if stage 2 separated. The natural next experiment
+is a third arm with −1 for a confident wrong verdict on the exact grader, which needs lattice-claims 0.3 and
+its own pre-registration, written before any run.
+

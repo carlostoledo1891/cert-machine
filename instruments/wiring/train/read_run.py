@@ -28,8 +28,14 @@ ENV = dict(os.environ, PRIME_DISABLE_VERSION_CHECK="1")
 
 
 def prime(*args):
+    """The CLI's JSON, or {} when it answers in prose (a step with no stored samples — e.g.
+    an aborted run's last, empty batches — prints a message, not JSON). Absence is recorded
+    by the caller as zero samples, never guessed at."""
     out = subprocess.run([PRIME, "--plain", *args], capture_output=True, text=True, env=ENV)
-    return json.loads(out.stdout)
+    try:
+        return json.loads(out.stdout)
+    except json.JSONDecodeError:
+        return {}
 
 
 def withheld(prompt):
@@ -49,7 +55,9 @@ def withheld(prompt):
 
 def main(run_id, out_dir):
     run = prime("train", "get", run_id, "--output", "json")["run"]
-    metrics = prime("train", "metrics", run_id, "-n", "10000")["metrics"]
+    metrics = prime("train", "metrics", run_id, "-n", "10000").get("metrics")
+    if not metrics:
+        sys.exit("read_run: no metrics came back for " + run_id)
     steps = sorted({m["step"] for m in metrics if m.get("step") is not None})
     per_step = []
     for st in steps:
