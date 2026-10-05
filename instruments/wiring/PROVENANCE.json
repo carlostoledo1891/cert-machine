@@ -175,19 +175,19 @@
     },
     {
       "file": "README.md",
-      "sha256": "e2ad1902967b163e292302f019370ed28586b9d9bbe1f46275c196b277a82299",
+      "sha256": "a07cdb32360f3bcecc0f8d5588e36ea29b73bc9d0fdf2e07f7140cf077f8b195",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
       "patched": true,
-      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md)."
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md). 0.4.0: 'With a Python tool'; tests 49."
     },
     {
       "file": "pyproject.toml",
-      "sha256": "191f2851ea17ef387c79b17887b7f56c23e26a6b3b0312d02f7429edd8200f50",
+      "sha256": "add739a9a7ebc6afc71e24a45db03ab07245ff7f6a7619cb35be8e6b33e7bc6b",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
       "patched": true,
-      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version."
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version. 0.4.0: version; prime-sandboxes>=0.2.39,<0.3; tags tool-use, sandbox."
     },
     {
       "file": "lattice_claims/api.py",
@@ -199,11 +199,11 @@
     },
     {
       "file": "lattice_claims/adapters_v0.py",
-      "sha256": "9c32e8adb9db1b1ce33ce31e98aef075c5b6dad926e20bfe4d0827bfa8ed4821",
+      "sha256": "b95ddafc94f3a2442b269d47b9cb3622b943301ba201c7ca50203bd0d33cce11",
       "sourceSha256": null,
-      "bytes": 9505,
+      "bytes": 13658,
       "patched": false,
-      "note": "written here, against a live verifiers 0.3.1: load_environment. 0.2.0 (2026-10-04): `grader` ('exact' | 'answer_key') chooses what trains, an unknown one raises; `dims` and `mix` ride in every row; the rubric reports reward, certified, key_match, abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1, then 0); scoring is memoised per (seed, index, dims, mix, reply) and returns a copy. 0.3.0: grader=\"ternary\"; the rubric reports twelve numbers (ternary, due, abstained_due, abstained_not_due added)."
+      "note": "written here, against a live verifiers 0.3.1: load_environment. 0.2.0 (2026-10-04): `grader` ('exact' | 'answer_key') chooses what trains, an unknown one raises; `dims` and `mix` ride in every row; the rubric reports reward, certified, key_match, abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1, then 0); scoring is memoised per (seed, index, dims, mix, reply) and returns a copy. 0.3.0: grader=\"ternary\"; the rubric reports twelve numbers (ternary, due, abstained_due, abstained_not_due added). 0.4.0 (2026-10-05): tools=\"python\" returns a multi-turn PythonEnv (Prime sandbox per rollout, stdlib REPL, max_turns 6); _final_text reads the closing assistant message only; _container_sandbox_request supplies vm=False to a string start command while building, the one repair verifiers 0.3.1 + prime-sandboxes need."
     },
     {
       "file": "tests/test_framework_free.py",
@@ -215,11 +215,11 @@
     },
     {
       "file": "tests/test_verifiers_binding.py",
-      "sha256": "661a9fd826a0fd3b02a87c078c879672e12599c6384a5a97beb59bc8e5fec260",
+      "sha256": "625b7be856f53adea6f4eb7fdc90f9bac24eb3bbb4f2e71087149d25464c0f6e",
       "sourceSha256": null,
-      "bytes": 8772,
+      "bytes": 10777,
       "patched": false,
-      "note": "written here: the binding, exercised live or SKIPPED. 0.2.0 (2026-10-04): three more -- an unknown grader refused, the switch changing what trains and nothing that is measured, dims/mix carried through with a red control (the same reply scored without dims is a different task). 0.3.0: the ternary grader through the framework (+1 / -1 / -1 / 0, the due split)."
+      "note": "written here: the binding, exercised live or SKIPPED. 0.2.0 (2026-10-04): three more -- an unknown grader refused, the switch changing what trains and nothing that is measured, dims/mix carried through with a red control (the same reply scored without dims is a different task). 0.3.0: the ternary grader through the framework (+1 / -1 / -1 / 0, the due split). 0.4.0: two tool-environment tests (container request + class restored; only the closing message is the answer)."
     },
     {
       "file": "eval/run_verifiers.py",
@@ -370,5 +370,15 @@
       "wheel_url": "https://hub.primeintellect.ai/carlos-toledo/lattice-claims/@66150ef2/lattice_claims-0.3.0-py3-none-any.whl",
       "verifiedFromTheHub": "downloaded wheel hashes to the pushed sha256; installed in the fresh 3.12 venv with verifiers 0.3.1: version 0.3.0, load_environment(grader='ternary', dims=[8, 12, 16]) a SingleTurnEnv; 47 tests pass against the installed package."
     }
+  },
+  "v040": {
+    "what": "lattice-claims 0.4.0, 2026-10-05: tools='python' — the same tasks, graders and rubric as a multi-turn verifiers PythonEnv with a standard-library REPL in a Prime sandbox per rollout, so the model has the means to DECIDE the arithmetic (the binding constraint the three stage-2/arm-C runs exposed).",
+    "repair": "verifiers 0.3.1 (latest on PyPI) builds CreateSandboxRequest(start_command=<string>) without `vm`; prime-sandboxes 0.2.39–0.2.42 refuse a string command unless vm=False, and 0.3.0+ accept only StartCommand — so vf.PythonEnv cannot be constructed with any release verifiers accepts. The adapter wraps the construction to add vm=False to a string command (a container sandbox, verifiers' intent) and restores the class; the package pins prime-sandboxes<0.3. A candidate report to Prime, held (a send).",
+    "acceptance": {
+      "pytest (verifiers 0.3.1, prime-sandboxes 0.2.42)": "49 passed",
+      "pytest (no verifiers)": "36 passed, binding skipped",
+      "verifiedOn": "2026-10-05"
+    },
+    "hubPush": "pending"
   }
 }

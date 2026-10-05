@@ -167,3 +167,38 @@ def test_the_ternary_grader_trains_on_plus_one_zero_minus_one():
     abst = [{"role": "assistant", "content": '{"verdict": "STRADDLES"}'}]
     assert fn["reward"](completion=abst, info=dec) == 0.0
     assert fn["abstained_not_due"](completion=abst, info=dec) == 1.0
+
+
+# --- 0.4.0: the Python-tool environment -----------------------------------------
+
+def test_the_tool_environment_builds_a_container_sandbox_and_restores_the_request_class():
+    """verifiers 0.3.1's SandboxEnv passes a STRING start command and no `vm`; every
+    prime-sandboxes it accepts refuses that unless vm=False. The adapter repairs exactly
+    that, only while it builds, and the module's class is the original again afterwards."""
+    pytest.importorskip("prime_sandboxes")
+    import verifiers.legacy.envs.sandbox_env as se
+    before = se.CreateSandboxRequest
+    env = load_environment(num_tasks=2, grader="ternary", dims=[8, 12, 16], tools="python")
+    assert se.CreateSandboxRequest is before
+    assert type(env).__name__ == "PythonEnv"
+    assert [t.__name__ for t in env.tools] == ["python"]
+    assert getattr(env.sandbox_request, "vm", False) is False
+    assert all(i["tools"] == "python" for i in env.dataset["info"])
+    with pytest.raises(ValueError):
+        load_environment(num_tasks=1, tools="bash")
+
+
+def test_in_the_tool_environment_only_the_closing_message_is_the_answer():
+    """A dict literal with a 'verdict' key inside the model's own code must not be read as
+    its verdict: the answer is the last assistant message that carries text."""
+    pytest.importorskip("prime_sandboxes")
+    env = load_environment(num_tasks=4, grader="ternary", dims=[8, 12, 16], mix=[1, 0, 1], tools="python")
+    fn = reward_funcs(env)
+    und = next(dict(i) for i in env.dataset["info"] if i["rung"] == "underspecified")
+    name = und["missing"].split(".")[1]
+    C = [{"role": "assistant", "content": 'Let me check. d = {"verdict": "ADMISSIBLE"}'},
+         {"role": "tool", "content": "ok"},
+         {"role": "assistant", "content": '{"verdict": "NEEDS_DATA", "missing": "%s"}' % name}]
+    assert fn["reward"](completion=C, info=und) == 1.0
+    C2 = C[:2] + [{"role": "assistant", "content": '{"verdict": "ADMISSIBLE"}'}]
+    assert fn["reward"](completion=C2, info=und) == -1.0

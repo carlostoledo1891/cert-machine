@@ -206,6 +206,19 @@ env = vf.load_environment("lattice-claims", grader="answer_key", dims=[8, 12, 16
 vf-eval lattice-claims -a '{"grader": "exact", "dims": [8, 12, 16], "num_tasks": 600}' -m <model> -n 600
 ```
 
+**With a Python tool (0.4.0).** `tools="python"` returns the same tasks, graders
+and rubric as a multi-turn `PythonEnv`: a persistent standard-library Python REPL
+in a Prime sandbox per rollout (container, 1 vCPU, 1 GB), `max_turns` 6 by
+default, the answer read from the closing assistant message only. The tool gives
+the model the means to decide the arithmetic; it never sees the grader.
+verifiers 0.3.1's legacy SandboxEnv sends a string start command without `vm`,
+which every prime-sandboxes release it accepts refuses. The adapter supplies
+`vm=False` while it builds, and nothing else, and pins `prime-sandboxes<0.3`.
+
+```python
+env = vf.load_environment("lattice-claims", grader="ternary", dims=[8, 12, 16], tools="python")
+```
+
 **What training showed (2026-10-05, Qwen3.5-9B, LoRA, GRPO; pre-registered).**
 The exact grader did NOT protect abstention: trained against it, the model
 stopped abstaining within about ten steps, exactly as it did against the answer
@@ -294,8 +307,8 @@ lattice_claims/
 │                       make_taskset, task_row, sample, score, preflight
 ├── adapters_v0.py      load_environment — the ONLY module that imports verifiers
 └── __main__.py         gate / baseline / tasks
-tests/                  47 tests across five files. Thirty-six run without verifiers
-                        installed; the eleven binding tests SKIP rather than pass,
+tests/                  49 tests across five files. Thirty-six run without verifiers
+                        installed; the thirteen binding tests SKIP rather than pass,
                         because a binding test that passes without the framework is
                         the same lie as a control that cannot fire. test_graders.py
                         pins the generator's output as it was in 0.1.0.
@@ -518,7 +531,7 @@ bug, not a result.**
 ## Reproduce
 
 ```bash
-python3 -m pytest tests/ -q                       # 47 with verifiers; 36 without (the binding module skips)
+python3 -m pytest tests/ -q                       # 49 with verifiers; 36 without (the binding module skips)
 python3 -m lattice_claims gate                    # the ten planted forgeries
 python3 -m lattice_claims baseline --n 15         # the reference table, under both graders
 python3 eval/regrade.py [--write]                 # re-grade the stored replies, no API call

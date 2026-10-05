@@ -62,14 +62,69 @@ def _reply_text(completion) -> str:
     return ""
 
 
+def _final_text(completion) -> str:
+    """The LAST assistant message that carries text. In the tool environment (0.4.0) a reply
+    is a conversation -- code sent to the tool, outputs read back -- and only the closing
+    message is the answer; joining every assistant turn would let a dict literal inside the
+    model's own code be read as its verdict. With one assistant message (the single-turn
+    environment) this is the same text `_reply_text` returns."""
+    if isinstance(completion, str):
+        return completion
+    if isinstance(completion, list):
+        for m in reversed(completion):
+            if _field(m, "role") == "assistant":
+                t = _content_text(_field(m, "content"))
+                if t.strip():
+                    return t
+    return ""
+
+
+TOOL_SYSTEM_PROMPT = (
+    "You have a `python` tool: a persistent Python 3.11 REPL in a sandbox, standard library only "
+    "(fractions, decimal, math, itertools, ...). Use it for the arithmetic -- exactly, with integers "
+    "and Fractions where it matters. When you have decided, end with a message that contains ONLY the "
+    "JSON object the task asks for."
+)
+
+
+from contextlib import contextmanager
+
+
+@contextmanager
+def _container_sandbox_request():
+    """A local repair, scoped to building the environment. verifiers 0.3.1's SandboxEnv builds
+    `CreateSandboxRequest(start_command=<a shell string>, ...)` and never passes `vm`; every
+    prime-sandboxes release it accepts (>= 0.2.39) refuses a string start command unless
+    `vm=False` ("String start_command values are container-only"), and from 0.3.0 the field
+    takes only a StartCommand. So `vf.PythonEnv` cannot be constructed with any compatible
+    release. A string start command IS a container sandbox, which is what verifiers means, so
+    for the duration of this construction a string command gets `vm=False` and nothing else
+    changes; the original class is restored on exit."""
+    import verifiers.legacy.envs.sandbox_env as se
+    orig = se.CreateSandboxRequest
+    fields = getattr(orig, "model_fields", {})
+
+    def request(**kw):
+        if isinstance(kw.get("start_command"), str) and "vm" in fields and "vm" not in kw:
+            kw["vm"] = False
+        return orig(**kw)
+
+    se.CreateSandboxRequest = request
+    try:
+        yield
+    finally:
+        se.CreateSandboxRequest = orig
+
+
 def _decide(completion, info) -> Dict[str, Any]:
     """The framework layer owns no scoring of its own: `api.score`
     rebuilds the task from (seed, index, dims, mix) and decides the reply exactly.
     A row without dims or mix is a 0.1.0 row and means the 0.1.0 defaults."""
     dims, mix = info.get("dims"), info.get("mix")
+    text = _final_text(completion) if info.get("tools") else _reply_text(completion)
     return dict(_decide_cached(int(info["seed"]), int(info["index"]),
                                tuple(dims) if dims else None, tuple(mix) if mix else None,
-                               _reply_text(completion)))
+                               text))
 
 
 @lru_cache(maxsize=4096)
@@ -81,7 +136,7 @@ def _decide_cached(seed, index, dims, mix, text) -> Dict[str, Any]:
     return score(seed, index, text, dims, mix)
 
 
-def _dataset_rows(num_tasks: int, seed: int, start: int, dims=None, mix=None) -> List[Dict[str, Any]]:
+def _dataset_rows(num_tasks: int, seed: int, start: int, dims=None, mix=None, tools=None) -> List[Dict[str, Any]]:
     """`api.sample` rows in the column shape the framework wants.
 
     `answer` is the empty string because the framework asks for the column, not
@@ -93,6 +148,8 @@ def _dataset_rows(num_tasks: int, seed: int, start: int, dims=None, mix=None) ->
     for row in sample(num_tasks, seed, start, dims, mix):
         info = dict(row)
         info["env_id"] = ENV_ID
+        if tools:
+            info["tools"] = tools
         out.append({"question": info.pop("prompt"), "answer": "", "info": info})
     return out
 
@@ -107,6 +164,12 @@ def load_environment(
     grader: str = "exact",
     dims: Optional[List[int]] = None,
     mix: Optional[List[int]] = None,
+    tools: str = "none",
+    max_turns: int = 6,
+    sandbox_memory_gb: int = 1,
+    sandbox_disk_size_gb: int = 2,
+    sandbox_timeout_minutes: int = 10,
+    sandbox_timeout_per_command_seconds: int = 30,
     **kwargs,
 ):
     """A `SingleTurnEnv` over the procedural generator.
@@ -125,12 +188,19 @@ def load_environment(
     lattice dimensions (default 24, 40, 60, 90; (8, 12, 16) keeps a prompt near
     1,500 characters) and `mix` weights the rungs as a deterministic cycle
     (default 1, 1, 1). Both ride in every row, so scoring rebuilds the same task.
+
+    `tools` (0.4.0): "none" (the default, a SingleTurnEnv) or "python", a multi-turn
+    PythonEnv with a persistent standard-library REPL in a Prime sandbox per rollout;
+    `max_turns` bounds the conversation. The answer is read from the final assistant
+    message only.
     """
     import verifiers as vf
     from datasets import Dataset
 
     if grader not in GRADERS:
         raise ValueError(f"grader must be one of {GRADERS}, not {grader!r}")
+    if tools not in ("none", "python"):
+        raise ValueError(f"tools must be 'none' or 'python', not {tools!r}")
     preflight()          # the forgery gate, before anything a model could be scored against
 
     eval_num_tasks = num_tasks if eval_num_tasks is None else eval_num_tasks
@@ -196,9 +266,27 @@ def load_environment(
     funcs = [reward, certified, key_match, ternary, abstained, confident_wrong,
              due, abstained_due, abstained_not_due, well_formed, not_hacked, refused_parse]
     rubric = vf.Rubric(funcs=funcs, weights=[1.0] + [0.0] * (len(funcs) - 1))
-    return vf.SingleTurnEnv(
-        dataset=Dataset.from_list(_dataset_rows(num_tasks, seed, start, dims, mix)),
-        eval_dataset=Dataset.from_list(_dataset_rows(eval_num_tasks, eval_seed, eval_start, dims, mix)),
-        rubric=rubric,
-        **kwargs,
-    )
+    tag = None if tools == "none" else tools
+    train = Dataset.from_list(_dataset_rows(num_tasks, seed, start, dims, mix, tag))
+    evals = Dataset.from_list(_dataset_rows(eval_num_tasks, eval_seed, eval_start, dims, mix, tag))
+    if tools == "python":
+        # 0.4.0: the same tasks, grader and rubric, plus a persistent Python REPL in a Prime
+        # sandbox per rollout (verifiers' PythonEnv, the pattern of primeintellect/math-python).
+        # Standard library only: nothing to pip-install, so a sandbox is ready in seconds. The
+        # tool gives the model the MEANS to decide the arithmetic; it never sees the grader.
+        with _container_sandbox_request():
+            return vf.PythonEnv(
+                dataset=train,
+                eval_dataset=evals,
+                system_prompt=TOOL_SYSTEM_PROMPT,
+                rubric=rubric,
+                max_turns=max_turns,
+                pip_install_packages="",
+                cpu_cores=1,
+                memory_gb=sandbox_memory_gb,
+                disk_size_gb=sandbox_disk_size_gb,
+                timeout_minutes=sandbox_timeout_minutes,
+                timeout_per_command_seconds=sandbox_timeout_per_command_seconds,
+                **kwargs,
+            )
+    return vf.SingleTurnEnv(dataset=train, eval_dataset=evals, rubric=rubric, **kwargs)
