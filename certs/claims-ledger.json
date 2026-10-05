@@ -1958,13 +1958,31 @@
    "decidedFrom": "certs/mc100-einstein-arena.json",
    "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
    "recordedOn": "2026-10-05"
+  },
+  {
+   "id": "mc100-st-jacobian",
+   "claim": "the polynomial map with the sparse rational coefficients given has the Jacobian property claimed and the collision witnesses listed collide",
+   "claimant": "The Station agents (dualverse-ai; station_data_v2)",
+   "source": "corpus/station-v2/jacobian/construction.json — github.com/dualverse-ai/station_data_v2 @ a4ae9192fa75 artifacts/jacobian/construction.json (sha256 ba0d49ac35c9…)",
+   "origin": "self-initiated",
+   "verdict": "CERTIFIED",
+   "scope": "every fact the claim needs, as an exact identity or evaluation: det JF = -6 identically (the 3×3 Jacobian determinant expanded over Q), components of degrees 4, 6, 7 with 3, 6, 7 terms, and three distinct rational points with the one image (1, 7/3, 0) — a non-injective Keller map of C^3, a counterexample to the Jacobian conjecture in dimension 3 (the claim the register already certifies for Gao's G, here with 16 terms and degrees 4, 6, 7); the file's family checks for a = 1, 2, -3, 3 (a3_transfer) name points of maps it does not print and are not decided here",
+   "kind": "none",
+   "preregistered": {
+    "corpus": "corpus/machine-claims-100.json",
+    "id": "st-jacobian",
+    "pool": "station-v2"
+   },
+   "decidedFrom": "certs/mc100-station-v2.json",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-station-v2.json",
+   "recordedOn": "2026-10-05"
   }
  ],
- "count": 131,
- "decided": 130,
+ "count": 132,
+ "decided": 131,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 105,
+  "CERTIFIED": 106,
   "PARTIAL": 10,
   "REFUTED": 2,
   "QUEUED": 1,
@@ -1973,7 +1991,7 @@
   "NEEDS DATA": 2
  },
  "byOrigin": {
-  "self-initiated": 131
+  "self-initiated": 132
  },
  "kindsDefined": {
   "none": "the claim holds as printed",
@@ -1992,7 +2010,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 106,
+  "none": 107,
   "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -2009,14 +2027,14 @@
  "byMonth": {
   "2026-08": 18,
   "2026-09": 70,
-  "2026-10": 43
+  "2026-10": 44
  },
  "submitted": 0,
  "preregistered": {
   "corpus": "corpus/machine-claims-100.json",
   "of": 100,
-  "decided": 45,
-  "ownRows": 43,
+  "decided": 46,
+  "ownRows": 44,
   "alreadyInRegister": [
    "ea-best-min-distance-ratio-2d = ea-mindist-ours_2026",
    "ea-best-kissing-number-d11 = kiss-ea-594-winner"
@@ -2024,6 +2042,6 @@
  },
  "meta": {
   "date": "2026-10-05",
-  "git": "3066376"
+  "git": "3e80be6"
  }
 }
