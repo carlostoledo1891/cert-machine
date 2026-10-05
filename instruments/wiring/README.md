@@ -223,10 +223,11 @@ env = vf.load_environment("lattice-claims", grader="ternary", dims=[8, 12, 16], 
 ```
 
 **With a calculator tool (0.5.0).** `tools="calc"` is the same environment as a
-multi-turn `ToolEnv` with one in-process tool, `calc`. It evaluates one whitelisted
-arithmetic expression per call (integers and `Fraction` exactly; `sqrt`, `log`,
-`lgamma`, `factorial`, `pi` as in Python), with no statements, names, attributes
-or strings. It is bounded so no expression can run away, and it needs no sandbox:
+multi-turn `ToolEnv` with one in-process tool, `calc`. It evaluates a short
+whitelisted program per call: `;`-separated assignments and expressions, with
+integers and `Fraction` exact and `sum`, `sqrt`, `log`, `lgamma`, `factorial` and
+`pi` built in. There are no imports, loops, attributes or strings. 0.5.1 added
+programs, `sum` and `pow` after the probe showed models writing exactly these. It is bounded so no expression can run away, and it needs no sandbox:
 the sandbox path would not load on Hosted Training on 2026-10-05. A test shows the
 tool alone decides every sampled declared task the way the exact grader does.
 
@@ -319,7 +320,7 @@ lattice_claims/
 │                       make_taskset, task_row, sample, score, preflight
 ├── adapters_v0.py      load_environment — the ONLY module that imports verifiers
 └── __main__.py         gate / baseline / tasks
-tests/                  70 tests across six files. Fifty-six run without verifiers
+tests/                  83 tests across six files. Sixty-nine run without verifiers
                         installed; the fourteen binding tests SKIP rather than pass,
                         because a binding test that passes without the framework is
                         the same lie as a control that cannot fire. test_graders.py
@@ -543,7 +544,7 @@ bug, not a result.**
 ## Reproduce
 
 ```bash
-python3 -m pytest tests/ -q                       # 70 with verifiers; 56 without (the binding module skips)
+python3 -m pytest tests/ -q                       # 83 with verifiers; 69 without (the binding module skips)
 python3 -m lattice_claims gate                    # the ten planted forgeries
 python3 -m lattice_claims baseline --n 15         # the reference table, under both graders
 python3 eval/regrade.py [--write]                 # re-grade the stored replies, no API call

@@ -80,9 +80,11 @@ def _final_text(completion) -> str:
 
 
 CALC_SYSTEM_PROMPT = (
-    "You have a `calc` tool: it evaluates ONE arithmetic expression per call -- integers and Fraction(...) "
-    "exactly; sqrt, log, log10, lgamma, exp, factorial and pi as in Python. Use it for the arithmetic. When "
-    "you have decided, end with a message that contains ONLY the JSON object the task asks for."
+    "You have a `calc` tool for the arithmetic: a short program per call, statements separated by ';' "
+    "(e.g. `q = 1117; n = 16; ns = sum([3**2, 4**2]); 0.5*log(ns) <= log(q)/n`), integers and Fraction(...) "
+    "exact, sqrt, log, lgamma, pi and the rest built in -- no imports. Put a whole computation in one or two "
+    "calls; you have a limited number of turns, and a reply that never states the JSON scores as no answer. "
+    "When you have decided, end with a message that contains ONLY the JSON object the task asks for."
 )
 
 TOOL_SYSTEM_PROMPT = (
@@ -187,7 +189,7 @@ def load_environment(
     dims: Optional[List[int]] = None,
     mix: Optional[List[int]] = None,
     tools: str = "none",
-    max_turns: int = 6,
+    max_turns: int = 10,
     sandbox_memory_gb: int = 1,
     sandbox_disk_size_gb: int = 2,
     sandbox_timeout_minutes: int = 10,

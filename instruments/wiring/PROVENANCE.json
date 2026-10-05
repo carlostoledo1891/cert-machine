@@ -175,19 +175,19 @@
     },
     {
       "file": "README.md",
-      "sha256": "57264bc4ac65cc610af74247fc1bdca79397356521d8d0ed6901a0129b6ef916",
+      "sha256": "70bdf988f5ba4f69fde80655ab53ee9002038ae1be3a973508e79ad7a6cd1f3a",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
       "patched": true,
-      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md). 0.4.0: 'With a Python tool'; tests 49. 0.4.1: the repair paragraph (adapt, not pin). 0.4.2: the dependency paragraph. 0.5.0: 'With a calculator tool'; tests 70 across six files; calc.py in the layout."
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers). 0.2.1 (2026-10-04): a 'Reward hacking sprint submission' section (the flaw in the reward, the hypothesis, the experiments, the pre-registration's URL). 0.3.0 (2026-10-05): Three graders; the stage-2 training result in one paragraph; the rewards table's ternary/due rows; tests 47 across five files; the cryptosystem paragraph reworded from 'standing rule' to scope (notes/locking-rules-review-2026-10-05.md). 0.4.0: 'With a Python tool'; tests 49. 0.4.1: the repair paragraph (adapt, not pin). 0.4.2: the dependency paragraph. 0.5.0: 'With a calculator tool'; tests 70 across six files; calc.py in the layout. 0.5.1: the calc paragraph; tests 83."
     },
     {
       "file": "pyproject.toml",
-      "sha256": "539da0f3ff5ff0a405a425d865bb8b2c7d3713037f2469b2765e33daeaf09b0d",
+      "sha256": "8e28b92448f48167797bcfdcf5af0166fac666c432e71a5f16205e7de560181f",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
       "patched": true,
-      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version. 0.4.0: version; prime-sandboxes>=0.2.39,<0.3; tags tool-use, sandbox. 0.4.1: version; the prime-sandboxes upper bound removed (it kept the hosted env-server from starting). 0.4.2: prime-sandboxes no longer declared (verifiers brings it). 0.5.0: version."
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`. 0.2.1 (2026-10-04): version 0.2.1; the tag `reward-hacking-sprint`. 0.3.0: version. 0.4.0: version; prime-sandboxes>=0.2.39,<0.3; tags tool-use, sandbox. 0.4.1: version; the prime-sandboxes upper bound removed (it kept the hosted env-server from starting). 0.4.2: prime-sandboxes no longer declared (verifiers brings it). 0.5.0: version. 0.5.1: version."
     },
     {
       "file": "lattice_claims/api.py",
@@ -199,11 +199,11 @@
     },
     {
       "file": "lattice_claims/adapters_v0.py",
-      "sha256": "613a811af41c2f946bdc7728a483eb9f2f6d791e769f58f80305dc5fcea02682",
+      "sha256": "13a8c0ee897fb95c36cfea09be94d0a9fda5006e7c72870ad488ae4ac259a7c6",
       "sourceSha256": null,
-      "bytes": 15323,
+      "bytes": 15545,
       "patched": false,
-      "note": "written here, against a live verifiers 0.3.1: load_environment. 0.2.0 (2026-10-04): `grader` ('exact' | 'answer_key') chooses what trains, an unknown one raises; `dims` and `mix` ride in every row; the rubric reports reward, certified, key_match, abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1, then 0); scoring is memoised per (seed, index, dims, mix, reply) and returns a copy. 0.3.0: grader=\"ternary\"; the rubric reports twelve numbers (ternary, due, abstained_due, abstained_not_due added). 0.4.0 (2026-10-05): tools=\"python\" returns a multi-turn PythonEnv (Prime sandbox per rollout, stdlib REPL, max_turns 6); _final_text reads the closing assistant message only; _container_sandbox_request supplies vm=False to a string start command while building, the one repair verifiers 0.3.1 + prime-sandboxes need. 0.4.1 (2026-10-05): _container_sandbox_request adapts to the installed prime-sandboxes — vm=False for 0.2.39–0.2.42, a shlex-split StartCommand for 0.3.0+ — instead of relying on a pin. 0.5.0 (2026-10-05): tools=\"calc\" returns a multi-turn ToolEnv with the in-process calculator (CALC_SYSTEM_PROMPT)."
+      "note": "written here, against a live verifiers 0.3.1: load_environment. 0.2.0 (2026-10-04): `grader` ('exact' | 'answer_key') chooses what trains, an unknown one raises; `dims` and `mix` ride in every row; the rubric reports reward, certified, key_match, abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1, then 0); scoring is memoised per (seed, index, dims, mix, reply) and returns a copy. 0.3.0: grader=\"ternary\"; the rubric reports twelve numbers (ternary, due, abstained_due, abstained_not_due added). 0.4.0 (2026-10-05): tools=\"python\" returns a multi-turn PythonEnv (Prime sandbox per rollout, stdlib REPL, max_turns 6); _final_text reads the closing assistant message only; _container_sandbox_request supplies vm=False to a string start command while building, the one repair verifiers 0.3.1 + prime-sandboxes need. 0.4.1 (2026-10-05): _container_sandbox_request adapts to the installed prime-sandboxes — vm=False for 0.2.39–0.2.42, a shlex-split StartCommand for 0.3.0+ — instead of relying on a pin. 0.5.0 (2026-10-05): tools=\"calc\" returns a multi-turn ToolEnv with the in-process calculator (CALC_SYSTEM_PROMPT). 0.5.1: max_turns default 10; CALC_SYSTEM_PROMPT says to batch the computation and that a reply with no JSON scores as no answer."
     },
     {
       "file": "tests/test_framework_free.py",
@@ -255,19 +255,19 @@
     },
     {
       "file": "lattice_claims/calc.py",
-      "sha256": "4eaceb1e2a3d2e99f6ac76d8858da24d2254d4796f22e6e6d6633722e4f84665",
+      "sha256": "c35eab69bed73e36674ae1348ce7b18e89cdb71ce269ed790a0f15d82ea89150",
       "sourceSha256": null,
-      "bytes": 6498,
+      "bytes": 8669,
       "patched": false,
-      "note": "written here (0.5.0, 2026-10-05): the calculator tool — one whitelisted expression per call, exact ints/Fractions, bounded (exponents, factorial, comb, integer bits, text length, tree size), stdlib only."
+      "note": "written here (0.5.0, 2026-10-05): the calculator tool — one whitelisted expression per call, exact ints/Fractions, bounded (exponents, factorial, comb, integer bits, text length, tree size), stdlib only. 0.5.1: programs (';'-separated assignments + expressions), sum, pow, helpful refusals for imports; limits 4000 chars / 1200 nodes / 30 statements."
     },
     {
       "file": "tests/test_calc.py",
-      "sha256": "7e3814324f44720042a1f2a7db8ea20eb61e77a0b074acee136eab7d9e7aa0eb",
+      "sha256": "6c5416b414d6691eb14de44f7bb8dd46e46a0731e18f5d70225d7c054c8bbe0d",
       "sourceSha256": null,
-      "bytes": 2164,
+      "bytes": 3585,
       "patched": false,
-      "note": "written here (0.5.0): 20 tests — exactness, the whitelist refuses 11 escape attempts, 6 runaway expressions refused, errors as text, and the tool alone decides every sampled declared task as the exact grader does."
+      "note": "written here (0.5.0): 20 tests — exactness, the whitelist refuses 11 escape attempts, 6 runaway expressions refused, errors as text, and the tool alone decides every sampled declared task as the exact grader does. 0.5.1: 33 tests (programs, refusals, a task decided in one call as a model writes it)."
     }
   ],
   "publishingLayer": {
@@ -412,6 +412,14 @@
       "pytest (verifiers 0.3.1)": "70 passed",
       "pytest (no verifiers)": "56 passed, binding skipped",
       "verifiedOn": "2026-10-05"
+    },
+    "hubPush": "PUBLISHED 2026-10-05 as v0.5.0 (wheel 33164880…). Probe bx5i538k… (5 steps x 32 rollouts, 9B, ternary, US$0.48): LOADS AND TRAINS on Hosted Training — but 91–97% of rollouts ended with no readable verdict: the model called sum(), import, and q = ...; ... (all refused by 0.5.0's one-expression calculator) and spent its 6 turns retyping 50-digit numbers, ending on a tool call. Superseded by 0.5.1."
+  },
+  "v051": {
+    "what": "lattice-claims 0.5.1, 2026-10-05: the calculator accepts what the probe showed models write — ';'-separated assignments and expressions, sum, pow, a helpful answer to imports — and max_turns 10 with a prompt to batch the computation.",
+    "acceptance": {
+      "pytest (verifiers 0.3.1)": "83 passed",
+      "pytest (no verifiers)": "69 passed, binding skipped"
     },
     "hubPush": "pending"
   }
