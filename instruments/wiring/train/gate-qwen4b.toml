@@ -1,0 +1,34 @@
+# THE GATE before stage 2 (notes/lattice-claims-rl-preregistration-2026-10-04.md):
+# does Qwen3.5-4B, at stage 2's sampling settings, ever abstain correctly? The step-0
+# eval below is the measurement: 100 tasks that each withhold one quantity (mix 0, 0, 1;
+# seed 7777, outside every training stream and the 9999 eval set), 8 samples each,
+# graded by the exact grader, whose reward on these tasks is exactly the rate of correct
+# NEEDS_DATA. avg@1 is that rate; pass@8 the share of tasks with at least one correct
+# sample. GO iff avg@1 >= 0.05 AND pass@8 >= 0.20. The one training step is incidental
+# (a run needs max_steps >= 1). Estimated cost under US$1.
+name = "lc-gate-qwen4b"
+model = "Qwen/Qwen3.5-4B"
+max_steps = 1
+batch_size = 128
+rollouts_per_example = 8
+
+[sampling]
+max_tokens = 1536
+temperature = 1.0
+enable_thinking = false
+
+[[env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.1"
+args = { grader = "exact", dims = [8, 12, 16], num_tasks = 16, seed = 2026, eval_seed = 9999, eval_num_tasks = 1 }
+
+[eval]
+interval = 1
+num_examples = 100
+rollouts_per_example = 8
+skip_first_step = false
+
+[[eval.env]]
+id = "carlos-toledo/lattice-claims"
+version = "0.2.1"
+args = { grader = "exact", dims = [8, 12, 16], mix = [0, 0, 1], num_tasks = 100, seed = 7777, eval_seed = 7777, eval_num_tasks = 100 }
