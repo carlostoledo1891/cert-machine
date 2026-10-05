@@ -92,6 +92,35 @@ HANDOFF 2026-10-04, THE TWENTY-NINTH SESSION — THE PRIME INTELLECT APPLICATION
     fresh 3.12 venv: both graders load, 6/6 across three rungs, seeds 2026/2027, 43
     tests pass against the installed package. PROVENANCE `v020.hubPush` records it;
     dist/ now holds the 0.2.0 wheel (prime cleaned the 0.1.0 one).
+  THE FREE PILOT, STARTED (operator: "start free pilot", 2026-10-04 evening).
+    Pre-registered FIRST: notes/lattice-claims-rl-preregistration-2026-10-04.md
+    (3ea8e0e) — arms, the fixed eval set (seed 9999, 300 tasks: 173 definite, 127
+    where the decided answer is an abstention, so 42.3% = perfect abstention), the
+    readings in numbers, ceiling US$80 for the paid stages. Configs in
+    instruments/wiring/train/ (six; a pair differs only in `grader`). Two
+    deviations, both before any training step, both in the note: (1) the free
+    model (sprints/Llama-3.2-1B-Instruct) runs through Prime's Sprints program,
+    which refused 0.2.0 ("does not meet the free-tier environment requirements");
+    0.2.1 = README "Reward hacking sprint submission" section + tag, code
+    byte-identical, pushed and verified from the registry (3007a57); (2) the
+    configs lacked [[eval.env]] and CLI 0.6.31 drops [eval] silently without it —
+    the first two runs (luhp7l…, pwwg5x…) were stopped at step None and relaunched.
+    THE RUNS: e6zvxsdjgs5tbed7r2prswjo (A, answer key) and icx69k02mx5lokcxbj8t3b7e
+    (B, exact), $0, 60 steps, eval every 20 on the 300. Read with `prime train
+    get|progress|metrics|rollouts <id>` (prime at ~/.local/bin/prime). The pilot
+    is plumbing and base rates, never the result.
+    THE PILOT'S OUTCOME (both arms aborted by the trainer on "10 consecutive zero-
+    trainable batches": B at step 26, A at step 44; records in instruments/wiring/
+    train/pilot/, read by read_run.py): plumbing works, all eight rubric numbers
+    logged per step. But the 1B model NEVER abstained correctly (0 of 54 due
+    abstentions in steps 0–3 named the missing quantity), so BOTH graders trained
+    it to always answer (0 abstentions from step 10 on, confident_wrong 0.15–0.19
+    → 0.70, groups uniform). At this capability the arms cannot separate.
+    Written into the pre-registration with deviation 3 (the hosted eval reports
+    only each arm's own reward, so the readings come from per-step training
+    metrics + rollout classification) and THE GATE: stage 2 runs only if
+    Qwen3.5-4B abstains correctly on >= 5% of samples and on >= 20 of 100
+    incomplete tasks (8 samples each) — a < US$1 check, on the operator's word.
   HELD — EACH ON THE OPERATOR'S WORD:
   · THE BASELINE MEASUREMENT (a spend + a model choice — the open model Lab will
     train): 200 tasks per rung at dims 8–16, e.g. `vf-eval lattice-claims -a

@@ -107,3 +107,49 @@ Any change after the first training call is recorded here with its date and its 
    the fixed eval set (seed 9999, 300 tasks), so the hosted evaluator scores those 300 tasks whichever split it
    reads. All six configs were re-read through the CLI's own `load_config` before relaunch. The arms, the
    measures, the eval set and the readings are unchanged.
+3. **2026-10-04, after the pilot and before any paid run: where the readings are measured.** The hosted eval
+   reports only each run's OWN reward on the 300 fixed tasks (`avg@1`: the answer key's score in arm A, the
+   exact grader's in arm B), not `abstained` or `confident_wrong`. Eval rollouts cannot be downloaded either:
+   `prime train rollouts` returns training samples only, 64 of the 128 per step, each with the rubric's
+   metrics. The readings of stages 2 and 3 are therefore taken from the training side. "Start" is step 0 and
+   "final" is the mean of the last 10 steps, over the full batch's rubric metrics. Both arms of a pair see the
+   same tasks in the same order, because they share the training seed. The rollouts are classified by
+   instruments/wiring/train/read_run.py: abstention where a quantity is missing versus where none is, and
+   whether a due abstention named the right quantity. B's target is the due share of those same batches,
+   about 43% at the 1:1:1 mix, in place of the eval set's 42.3%. The thresholds, in points, are unchanged.
+   The held-out `avg@1` is reported beside each run as its own reward on the fixed 300.
+
+## The pilot (stage 1), 2026-10-04 — plumbing and base rates, NOT the result
+
+Runs e6zvxsdjgs5tbed7r2prswjo (A) and icx69k02mx5lokcxbj8t3b7e (B); sprints/Llama-3.2-1B-Instruct, free. The
+records were downloaded by read_run.py into instruments/wiring/train/pilot/.
+
+- **Plumbing works.** v0.2.1 installs and scores on Hosted Training. All eight rubric numbers are logged every
+  step. The eval runs at step 0 and every 20 steps on the fixed 300. About 30–44% of step-0 groups have
+  uniform rewards; the rest carry a gradient.
+- **The base model never abstains correctly.** At step 0 it abstained on 34–38% of rollouts. Over steps 0–3,
+  in both arms, its abstentions on tasks with a missing quantity numbered 54 of 162, and **none named the
+  missing quantity**: its `missing` field was absent, "missing", "norm", "norm_squared", or "q" when the
+  relation was missing. It abstained on complete tasks just as often (70 of 205). The grader was checked
+  against the replies themselves: they are wrong, not misread.
+- **Both arms extinguished abstention and collapsed.** A's abstention fell to 0 at step 4 (one stray at step
+  5), B's to 0 at step 6; neither arm abstained once from step 10 to the end (0 of 1,030 due samples, 0 of 1,082 complete).
+  `confident_wrong` rose from 0.15–0.19 to 0.70 (mean of the last 10 steps) in both. Parse failures fell from 20–27% to
+  about 1%. The model learned the format and to always answer. Groups went uniform (zero-advantage share 0.95
+  over the last 10 steps), and the trainer aborted both runs on "10 consecutive zero-trainable batches": B at
+  step 26, A at step 44. Held-out `avg@1`: A (the key) 0.227 → 0.487 at steps 20 and 40; B (exact) 0.173 →
+  0.263 at step 20.
+- **What it means for the design** (not for the hypothesis). GRPO reinforces only what it samples. A model
+  that never produces a correct abstention gets nothing for abstaining under the exact grader either, while a
+  guess on a complete task pays about half the time. So at this capability the exact grader ALSO trains
+  guessing, and the two arms cannot separate. The prediction needs a base model that sometimes abstains
+  correctly.
+
+**THE GATE BEFORE STAGE 2** (added here, before any paid run). Stage 2 runs only if Qwen3.5-4B, thinking off,
+abstains correctly often enough for GRPO to have something to reinforce. That is measured on 100 tasks where a
+quantity is missing (mix 0, 0, 1; a seed outside every training stream), 8 samples each, at stage 2's sampling
+settings. The exact grader's mean reward on that set is exactly the rate of correct NEEDS_DATA. **GO** if that
+rate is at least 5% AND at least 20 of the 100 tasks have one or more correct samples among their 8. Otherwise
+stage 2 as designed would reproduce the pilot's collapse. It is not run, and that measurement is reported as the
+finding. The check costs well under US$1 at the listed prices, and it is a spend on the operator's word.
+
