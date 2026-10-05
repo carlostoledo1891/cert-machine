@@ -81,6 +81,13 @@ THE KISSING HUNT.
     reward. NEXT (not pre-registered): give it the means — a Python tool (multi-turn + sandbox) or
     hand-computable tasks — then re-run B and C; prediction: C separates. Prime wallet US$29.37.
 
+  THE PRIME INTELLECT PACKET (outreach/primeintellect/, 2026-10-05) — READY BUT FOR ONE ANSWER AND THE
+    SEND. resume.md -> resume.pdf by build-pdf.js (two pages, Inter's static cuts, live links, refuses if
+    Inter does not load). The personal lines (phone, availability, prior employment, education) live in
+    the git-ignored resume.private.md and replace the [OPERATOR FILLS name] marks at build time; the
+    tracked file never carries them. form-answers.md: the links and "Why Prime Intellect" drafted; "What do
+    you optimize for in life?" is the operator's to write. verifiers-issue.md is a separate held send.
+
   THE SEPTEMBER KISSING WAVE — DECIDED 2026-10-05 (a second worktree agent; merged as 33d1734 from
     87e1edd … 874d313). Pinned: corpus/kissing/wave.meta.json (62 files; Kravatsky @86b7de1 MIT, Qiushi
     @f3060ec code MIT + data CC BY 4.0, Takhanov–Yun @12a06bc NO LICENSE — every T–Y file incl. its
