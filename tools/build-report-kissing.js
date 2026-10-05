@@ -70,6 +70,7 @@ for (const c of [s1, s2, s3]) if (c.uniformNorm !== true) die('a 604 configurati
 const distinct = new Set([s1.contacts, s2.contacts, s3.contacts]).size === 3;
 if (!distinct) die('the three 604 contact counts collided — the non-congruence sentence would be false');
 const fmt = (x) => x.toLocaleString('en-US');
+const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 /* ---- figures: every mark from a ledger field; the kit applies the chart rules ---- */
 const gz = row('ganzhinov-592');
@@ -343,16 +344,118 @@ B.push(C.section({
     + 'submission is a later fetch.') + '</div>'
 }));
 
+/* ---- §4 · the September 2026 wave, from L.wave (run-kissing-ledger.js re-checks certs/kissing-wave.json
+   and re-decides dimension 18 live in JavaScript); every number below is a ledger field ---- */
+const WV = L.wave;
+if (!WV) die('the ledger has no wave section — run tools/run-kissing-wave.py');
+const WR = WV.rows;
+if (WR.some((r) => r.verdict === 'UNWITNESSED')) die('an UNWITNESSED wave row reached the page — the prose assumes none; write it up');
+const wDecided = WR.filter((r) => r.verdict === 'WITNESSED' || r.verdict === 'REPAIRED');
+const wNeeds = WR.filter((r) => r.verdict === 'NEEDS DATA');
+const wQueued = WR.filter((r) => r.verdict === 'QUEUED');
+if (!wDecided.length) die('no decided wave row');
+for (const r of wDecided) if (r.violations !== 0 || r.pairs !== r.claimed * (r.claimed - 1) / 2) die('wave row ' + r.id + ' is not a whole decision');
+const wPairs = wDecided.reduce((a, r) => a + r.pairs, 0);
+const wContacts = wDecided.reduce((a, r) => a + r.contacts, 0);
+const W24 = WV.calibrations.find((c) => c.id === 'cal-leech-196560');
+const Wico = WV.calibrations.find((c) => c.id === 'cal-icosahedron-12');
+if (!W24 || !W24.ok || !Wico || !Wico.ok) die('the wave calibrations (the whole Leech shell; the icosahedron) are not both held');
+const live18 = WV.live && WV.live['kravatsky-18'];
+const r18 = WR.find((r) => r.id === 'kravatsky-18');
+if (!live18 || !r18 || live18.contacts !== r18.contacts || live18.pairs !== r18.pairs) die('the dimension-18 two-language agreement is missing');
+if (wDecided.some((r) => !r.jsCheck || !r.jsCheck.agree)) die('a decided wave row has no agreeing JavaScript sample check');
+const WHO = { kravatsky: 'Kravatsky', 'takhanov-yun': 'Takhanov–Yun', qiushi: 'Qiushi Engine', ours: 'this lab' };
+const deg = (c) => (Math.acos(c) * 180 / Math.PI);
+const dimsDecided = [...new Set(wDecided.map((r) => r.dim))].sort((a, b) => a - b);
+const best = dimsDecided.map((d) => wDecided.filter((r) => r.dim === d).sort((a, b) => b.claimed - a.claimed)[0]);
+const krav = (d) => WR.find((r) => r.claimant === 'kravatsky' && r.dim === d);
+const span = (ds) => { const out = []; let a = ds[0], b = ds[0]; for (const d of ds.slice(1).concat([null])) { if (d === b + 1) { b = d; continue; } out.push(a === b ? String(a) : a + '–' + b); a = b = d; } return out.join(', '); };
+const repaired = wDecided.filter((r) => r.verdict === 'REPAIRED');
+const hunt = WV.hunt && WV.hunt.rows ? WV.hunt.rows : null;
+const huntIds = hunt ? Object.keys(hunt) : [];
+const huntProposals = huntIds.filter((k) => hunt[k].admits_insertion_float);
+const huntDeepest = huntIds.map((k) => ({ id: k, a: hunt[k].deepest_angle_deg_float })).sort((x, y) => y.a - x.a)[0];
+const ours = WR.filter((r) => r.ours);
+const wChoice = wDecided.filter((r) => r.choices && r.choices.length);
+const ty31 = WR.find((r) => r.id === 'takhanov-yun-31');
+const q25 = WR.find((r) => r.id === 'qiushi-25');
+const qMoved = q25 && q25.families ? q25.families.find((f) => f.name === 'moved') : null;
+B.push(C.section({
+  lab: '§4 · the September wave', title: 'Three claimants, ' + dimsDecided.length + ' dimensions, every pair decided',
+  wide: true,
+  bodyRaw: '<div class="col">'
+  + C.pRaw('In September 2026 three groups published new kissing lower bounds in dimensions ' + span(dimsDecided) + ': '
+    + 'A. Kravatsky\'s repository (no paper; dimensions 25–31 described there as joint work with H. Cohn and B. Lindow), '
+    + 'R. Takhanov and S. Yun (arXiv:2609.21591), and the Qiushi Engine (arXiv:2609.35051), whose dimension-25 and -27 '
+    + 'records are one point more than Kravatsky\'s, built on his configurations. Each configuration below was rebuilt '
+    + 'from bytes pinned by commit and sha256 and the claimant\'s own construction table, and <strong>every pair was '
+    + 'decided exactly</strong>: ' + fmt(wPairs) + ' pairs over ' + wDecided.length + ' configurations, '
+    + fmt(wContacts) + ' of them touching at exactly 60&deg;, none closer. The arithmetic is integer: coordinates are '
+    + 'integer combinations of 1, &radic;2, &radic;3, &radic;6; inner products come from float BLAS only under a '
+    + 'checked bound that makes every partial sum an exact integer (2<sup>24</sup> or 2<sup>53</sup>), and every sign is '
+    + 'decided in the tower Q(&radic;2)(&radic;3). Dimension 18 was decided twice, in Python and again live in '
+    + 'JavaScript by a separate implementation, ' + fmt(live18.pairs) + ' pairs each, the same ' + fmt(live18.contacts)
+    + ' contacts; and every other row had a seeded sample of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
+    + fmt(Math.max(...wDecided.map((r) => r.jsCheck.n))) + ' of its vectors decided whole by both implementations, agreeing on every contact count'
+    + (wDecided.some((r) => r.jsCheck.excludedFamilies.length) ? ' (the 10<sup>19</sup>-denominator rational heads and the two irrationally normalised Qiushi points sit outside the JavaScript guard and are decided by the Python digit and integer paths only)' : '') + '.')
+  + C.plainList(wDecided.slice().sort((x, y) => x.dim - y.dim || y.claimed - x.claimed).map((r) => ({
+    b: 'K(' + r.dim + ') ≥ ' + fmt(r.claimed),
+    raw: esc(WHO[r.claimant] + (r.ours ? ' (ours)' : '')) + (r.previous ? ' · over their stated previous ' + fmt(r.previous) + ' by +' + fmt(r.claimed - r.previous) : '')
+      + ' · ' + C.tag(r.verdict, r.verdict === 'WITNESSED' ? 'cert' : 'held') + ' · ' + C.m(fmt(r.pairs)) + ' pairs, ' + C.m(fmt(r.contacts)) + ' exact contacts'
+      + (r.nearestNonContactCos ? ', nearest non-contact ' + C.m(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + Math.round(r.seconds) + ' s',
+  })))
+  + '</div>'
+  + '<div class="col">'
+  + C.pRaw('After this wave the best bound decided here in each dimension is '
+    + best.map((r) => 'K(' + r.dim + ') ≥ ' + fmt(r.claimed) + ' (' + WHO[r.claimant] + ')').join(', ') + '. '
+    + 'WITNESSED means the published integers, rationals and printed closed forms are already the exact configuration. '
+    + 'REPAIRED means some coordinates were published only as binary64 floats of irrational numbers and the exact point '
+    + 'had to be decoded from them by the claimant\'s own formula. Each decoded point, rounded back to binary64, is the published '
+    + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + C.m(r.delta.toExponential(1)))).join(', ') + ': '
+    + 'a decode, not a correction. '
+    + 'A slip in a witness would not have refuted any bound, and none occurred.')
+  + C.pRaw('Calibrations ran in the same engine at the same build: the whole Leech shell, K(24) = 196,560, every one of its '
+    + fmt(W24.pairs) + ' pairs, with the textbook ' + fmt(W24.contacts) + ' contacts; E8\'s 240; and the icosahedron\'s 12 in '
+    + 'Z[&radic;5], where no pair touches and the nearest sit at cos² = 1/5 exactly.')
+  + C.pRaw(fmt(wChoice.length) + ' rebuilds (' + wChoice.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ') + ') had to fix something '
+    + 'the claimant\'s text leaves free, and the ledger row says what: which hexagon triangle or which zero-sum triangle of the '
+    + 'cuboctahedron or of the D₄ roots carries which side or class, and about which coordinate axis the dimension-27 axis is turned. '
+    + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on the one chosen. The Leech shell itself '
+    + 'is built here, from the Golay code spanned by the claimants\' own published owner vectors.')
+  + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: Kravatsky\'s dimensions '
+    + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim)) + ' and the Qiushi Engine\'s '
+    + span(wNeeds.filter((r) => r.claimant === 'qiushi').map((r) => r.dim)) + ' publish counts — from lattices, class-size '
+    + 'tables, moment identities — and no vector list. Each row names what would decide it.') : '')
+  + (wQueued.length ? C.pRaw('<strong>QUEUED</strong>, ' + wQueued.length + ' rows: ' + wQueued.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ')
+    + '. ' + (wQueued.some((r) => r.claimant === 'takhanov-yun') ? 'Takhanov and Yun publish dimensions 26–31 as float64 arrays whose lifted block is turned by a generic rotation; '
+      + 'an exact witness needs that rotation as an exactly orthogonal matrix (their paper bounds the polar factor instead). '
+      + 'Their dimension 25 needs no rotation and is decided above. ' : '') + 'Kravatsky\'s 38 and 39 ship rebuildable data and wait their turn.'
+    + (ty31 && ty31.addedPoints ? ' One fact about those bytes is already measured: the four points added in dimension 31 are stored as '
+      + '(±' + ty31.addedPoints.horizontalCoefficient.toFixed(6) + ' u<sub>j</sub>, ' + ty31.addedPoints.verticalCoefficient.toFixed(6) + ' v<sub>j</sub>) '
+      + '(to ' + ty31.addedPoints.residual.toExponential(0) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
+      + 'so the array and the text describe two configurations. Which one the paper certifies is theirs to say; neither is refuted here.' : '')) : '')
+  + (hunt ? C.pRaw('<strong>The hunt.</strong> On every configuration decided here the deepest empty cap was searched in floating point '
+    + '(random directions, a smoothed-max descent, an LP polish to a facet normal) — floats propose, nothing more. '
+    + (huntProposals.length ? huntProposals.length + ' configurations returned a candidate with a cap of 60° or more; see the rows marked ours.'
+      : 'None returned a cap of 60° or more: no insertion is proposed in any of the ' + huntIds.length + ' configurations, the widest cap found being '
+        + huntDeepest.a.toFixed(3) + '° (' + WHO[WR.find((r) => r.id === huntDeepest.id).claimant] + '\'s K(' + WR.find((r) => r.id === huntDeepest.id).dim + ')) and the gap to 60° '
+        + Math.min(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '° to ' + Math.max(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '°, after '
+        + fmt(Math.min(...huntIds.map((k) => hunt[k].samples_total || hunt[k].samples))) + ' random directions or more per configuration. That is a search result, not a proof that no hole exists; '
+        + (qMoved ? 'the Qiushi Engine\'s +1 in dimension 25 needed ' + fmt(qMoved.n) + ' points MOVED first, which an insertion search does not try.' : '')) ) : '')
+  + '</div>',
+}));
+
 B.push(C.note({
   lab: 'what this page does NOT claim',
-  bodyRaw: C.pRaw('No new mathematics: no bound is improved, no configuration searched for, and the upper bound '
-    + 'is untouched. The Station\'s own exact verification of the 604s predates this page — the claim here is '
+  bodyRaw: C.pRaw((ours.length ? 'One configuration here is ours, decided by the same engine and marked as such; ' : 'No bound is improved by this lab: ') + 'the deepest-empty-cap search '
+    + 'proposes in floating point and decides nothing, and the upper bound is untouched. The Station\'s own exact verification of the 604s predates this page — the claim here is '
     + 'independence (shared-nothing re-decision from their sha-pinned bytes), not priority of verification. '
     + 'What is, to our knowledge, first here: a third-party exact certification of the 604 record from both '
     + 'platforms\' bytes, the exact reading of the EinsteinArena winner\'s bytes, the non-congruence of the three '
     + 'Station 604s stated as a certified corollary, and the congruence of the EinsteinArena 604 with the Station\'s '
     + 'configuration 1 decided with an explicit, re-verified certificate. The open-rung readings decide nothing about '
-    + 'any bound. Sources are published, not peer-reviewed; the Ganzhinov 592 row and the '
+    + 'any bound. The September wave rows decide witnesses, not priority: who reached a bound first is the claimants\' to say. '
+    + 'Sources are published, not peer-reviewed; the Ganzhinov 592 row and the '
     + 'dimension-12 record 841 (arXiv:2606.18984) are queued, not forgotten.')
 }));
 
@@ -360,10 +463,11 @@ const foot = '<p>Generated by tools/build-report-kissing.js @ git ' + git + '. G
   + 'build: the ledger recomputed live from pinned corpus bytes (upstream sha256 recorded per row; the Station '
   + 'npz hash matches the value their own notebook asserts), the kissing battery (' + nChecks + ' checks, '
   + nReds + ' red controls, all fired), D4 and E8 re-proved from generated bytes. A REFUTED row, a lost '
-  + 'shell-norm, or a contact-count collision refuses this page.</p>';
+  + 'shell-norm, or a contact-count collision refuses this page. The September wave is re-checked from certs/kissing-wave.json '
+  + '(the pinned manifest re-hashed, every row a whole decision, dimension 18 re-decided live in JavaScript); an UNWITNESSED wave row refuses it too.</p>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'kissing.html'),
   TPL.render({ title: 'The kissing ledger: dimension eleven, decided', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/kissing.html',
-    desc: 'Two AI platforms announced K(11) >= 604 four months apart; exact arithmetic finds the two configurations congruent — a signed permutation of the coordinates, with a certificate. The whole AI-era ladder (AlphaEvolve 593, EinsteinArena 594, four 604s) re-decided in exact Z[sqrt2] arithmetic from published bytes.' }));
+    desc: 'Two AI platforms announced K(11) >= 604 four months apart; exact arithmetic finds the two configurations congruent — a signed permutation of the coordinates, with a certificate. The whole AI-era ladder (AlphaEvolve 593, EinsteinArena 594, four 604s) re-decided in exact Z[sqrt2] arithmetic from published bytes — and the September 2026 wave in dimensions 18 and 25–31, every pair of every published configuration decided in Q(sqrt2, sqrt3).' }));
 console.log('reports/kissing.html written: ' + certified + '/' + L.rows.length + ' rows certified, battery '
   + nChecks + ' checks / ' + nReds + ' reds @ git ' + git);
