@@ -377,6 +377,7 @@ const huntProposals = huntIds.filter((k) => hunt[k].admits_insertion_float);
 const huntDeepest = huntIds.map((k) => ({ id: k, a: hunt[k].deepest_angle_deg_float })).sort((x, y) => y.a - x.a)[0];
 const ours = WR.filter((r) => r.ours);
 const wChoice = wDecided.filter((r) => r.choices && r.choices.length);
+const ty31 = WR.find((r) => r.id === 'takhanov-yun-31');
 const q25 = WR.find((r) => r.id === 'qiushi-25');
 const qMoved = q25 && q25.families ? q25.families.find((f) => f.name === 'moved') : null;
 B.push(C.section({
@@ -428,7 +429,11 @@ B.push(C.section({
   + (wQueued.length ? C.pRaw('<strong>QUEUED</strong>, ' + wQueued.length + ' rows: ' + wQueued.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ')
     + '. ' + (wQueued.some((r) => r.claimant === 'takhanov-yun') ? 'Takhanov and Yun publish dimensions 26–31 as float64 arrays whose lifted block is turned by a generic rotation; '
       + 'an exact witness needs that rotation as an exactly orthogonal matrix (their paper bounds the polar factor instead). '
-      + 'Their dimension 25 needs no rotation and is decided above. ' : '') + 'Kravatsky\'s 38 and 39 ship rebuildable data and wait their turn.') : '')
+      + 'Their dimension 25 needs no rotation and is decided above. ' : '') + 'Kravatsky\'s 38 and 39 ship rebuildable data and wait their turn.'
+    + (ty31 && ty31.addedPoints ? ' One fact about those bytes is already measured: the four points added in dimension 31 are stored as '
+      + '(±' + ty31.addedPoints.horizontalCoefficient.toFixed(6) + ' u<sub>j</sub>, ' + ty31.addedPoints.verticalCoefficient.toFixed(6) + ' v<sub>j</sub>) '
+      + '(to ' + ty31.addedPoints.residual.toExponential(0) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
+      + 'so the array and the text describe two configurations. Which one the paper certifies is theirs to say; neither is refuted here.' : '')) : '')
   + (hunt ? C.pRaw('<strong>The hunt.</strong> On every configuration decided here the deepest empty cap was searched in floating point '
     + '(random directions, a smoothed-max descent, an LP polish to a facet normal) — floats propose, nothing more. '
     + (huntProposals.length ? huntProposals.length + ' configurations returned a candidate with a cap of 60° or more; see the rows marked ours.'

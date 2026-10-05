@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-05T06:05:08.397Z",
- "git": "2bf1e3f",
+ "generated": "2026-10-05T06:10:45.391Z",
+ "git": "bf9b7f0",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 109,
+   "ms": 102,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 70,
+   "ms": 75,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 67,
+   "ms": 59,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 63,
+   "ms": 57,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -172,7 +172,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 62,
+   "ms": 55,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -200,7 +200,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 54,
+   "ms": 50,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors",
    "date": "1980-01-01",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 64,
+   "ms": 63,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 67,
+   "ms": 63,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1053
+     "ms": 1054
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 198
+     "ms": 202
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 200
+     "ms": 203
     }
    },
    "integerVectors": 496,
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 108
+    "ms": 106
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 184
+    "ms": 181
    }
   }
  ],
@@ -407,8 +407,8 @@
    "NEEDS DATA": "no vector list is published; the row states what would decide it",
    "QUEUED": "bytes exist; not decided in this wave"
   },
-  "generated": "2026-10-05T06:04:21Z",
-  "commit": "2bf1e3f",
+  "generated": "2026-10-05T06:10:23Z",
+  "commit": "bf9b7f0",
   "machine": {
    "platform": "macOS-27.0-arm64-arm-64bit",
    "python": "3.9.6",
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3431,
+    "ms": 3417,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -1260,7 +1260,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-25",
@@ -1359,7 +1360,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "qiushi-25",
@@ -1469,7 +1471,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-25",
@@ -1542,7 +1545,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-26",
@@ -1623,7 +1627,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-26",
@@ -1655,7 +1660,8 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-27",
@@ -1739,7 +1745,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "qiushi-27",
@@ -1826,7 +1833,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-27",
@@ -1858,7 +1866,8 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-28",
@@ -1937,7 +1946,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-28",
@@ -1969,7 +1979,8 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-29",
@@ -2049,7 +2060,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-29",
@@ -2081,7 +2093,8 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate the lifted and auxiliary blocks together; add one point.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-30",
@@ -2161,7 +2174,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-30",
@@ -2193,7 +2207,8 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Transform the six additional coordinates, then rotate the entire lifted block; add an antipodal pair.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-31",
@@ -2273,7 +2288,8 @@
     },
     "detail": null,
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "takhanov-yun-31",
@@ -2305,7 +2321,16 @@
     "bytes": null,
     "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate only the seven additional coordinates of the lifted vectors; add four points.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": {
+     "horizontalCoefficient": 0.5011793879226719,
+     "verticalCoefficient": 0.8653434122484744,
+     "residual": 1.5432100042289676e-14,
+     "readme": [
+      0.5,
+      0.8660254037844386
+     ]
+    }
    },
    {
     "id": "kravatsky-38",
@@ -2337,7 +2362,8 @@
     "bytes": null,
     "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25–31 first).",
     "status": "exhausted",
-    "package": "verifications/improved/dim38-leech-large-codimension/"
+    "package": "verifications/improved/dim38-leech-large-codimension/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-39",
@@ -2369,7 +2395,8 @@
     "bytes": null,
     "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25–31 first).",
     "status": "external",
-    "package": "verifications/improved/dim39-ers-constant-weight/"
+    "package": "verifications/improved/dim39-ers-constant-weight/",
+    "addedPoints": null
    },
    {
     "id": "qiushi-43",
@@ -2401,7 +2428,8 @@
     "bytes": null,
     "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form.",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "qiushi-45",
@@ -2433,7 +2461,8 @@
     "bytes": null,
     "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form.",
     "status": null,
-    "package": null
+    "package": null,
+    "addedPoints": null
    },
    {
     "id": "kravatsky-49",
@@ -2465,7 +2494,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-50",
@@ -2497,7 +2527,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-51",
@@ -2529,7 +2560,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-52",
@@ -2561,7 +2593,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-53",
@@ -2593,7 +2626,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-54",
@@ -2625,7 +2659,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-55",
@@ -2657,7 +2692,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-56",
@@ -2689,7 +2725,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-57",
@@ -2721,7 +2758,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-58",
@@ -2753,7 +2791,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-59",
@@ -2785,7 +2824,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-60",
@@ -2817,7 +2857,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-61",
@@ -2849,7 +2890,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim49-63-p48-caps/"
+    "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-62",
@@ -2881,7 +2923,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "external",
-    "package": "verifications/improved/dim62-63-ers-chain/"
+    "package": "verifications/improved/dim62-63-ers-chain/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-63",
@@ -2913,7 +2956,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "external",
-    "package": "verifications/improved/dim62-63-ers-chain/"
+    "package": "verifications/improved/dim62-63-ers-chain/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-68",
@@ -2945,7 +2989,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "lp-exact",
-    "package": "verifications/improved/dim68-69-gamma72-cross-sections/"
+    "package": "verifications/improved/dim68-69-gamma72-cross-sections/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-69",
@@ -2977,7 +3022,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "lp-exact",
-    "package": "verifications/improved/dim68-69-gamma72-cross-sections/"
+    "package": "verifications/improved/dim68-69-gamma72-cross-sections/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-70",
@@ -3009,7 +3055,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "lp-exact",
-    "package": "verifications/improved/dim70-71-gamma72-cross-sections/"
+    "package": "verifications/improved/dim70-71-gamma72-cross-sections/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-71",
@@ -3041,7 +3088,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `lp-exact`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "lp-exact",
-    "package": "verifications/improved/dim70-71-gamma72-cross-sections/"
+    "package": "verifications/improved/dim70-71-gamma72-cross-sections/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-73",
@@ -3073,7 +3121,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-74",
@@ -3105,7 +3154,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-75",
@@ -3137,7 +3187,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-76",
@@ -3169,7 +3220,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-77",
@@ -3201,7 +3253,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-78",
@@ -3233,7 +3286,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-79",
@@ -3265,7 +3319,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-80",
@@ -3297,7 +3352,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-81",
@@ -3329,7 +3385,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-82",
@@ -3361,7 +3418,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-83",
@@ -3393,7 +3451,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-84",
@@ -3425,7 +3484,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-85",
@@ -3457,7 +3517,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-86",
@@ -3489,7 +3550,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-87",
@@ -3521,7 +3583,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-88",
@@ -3553,7 +3616,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-89",
@@ -3585,7 +3649,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-90",
@@ -3617,7 +3682,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-91",
@@ -3649,7 +3715,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-92",
@@ -3681,7 +3748,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-93",
@@ -3713,7 +3781,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-94",
@@ -3745,7 +3814,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-95",
@@ -3777,7 +3847,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
-    "package": "verifications/improved/dim73-95-gamma72-caps/"
+    "package": "verifications/improved/dim73-95-gamma72-caps/",
+    "addedPoints": null
    },
    {
     "id": "kravatsky-96",
@@ -3809,7 +3880,8 @@
     "bytes": null,
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `external`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "external",
-    "package": "verifications/closed/dim96-ers-takeover/"
+    "package": "verifications/closed/dim96-ers-takeover/",
+    "addedPoints": null
    }
   ]
  }

@@ -4954,7 +4954,16 @@
    "previous": 238350,
    "verdict": "QUEUED",
    "modification": "Rotate only the seven additional coordinates of the lifted vectors; add four points.",
-   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate only the seven additional coordinates of the lifted vectors; add four points.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode)."
+   "detail": "published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose lifted-and-auxiliary block is turned by a generic rotation (\"Rotate only the seven additional coordinates of the lifted vectors; add four points.\"). An exact witness needs that rotation as an exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).",
+   "addedPoints": {
+    "horizontalCoefficient": 0.5011793879226719,
+    "verticalCoefficient": 0.8653434122484744,
+    "residual": 1.5432100042289676e-14,
+    "readme": [
+     0.5,
+     0.8660254037844386
+    ]
+   }
   },
   {
    "id": "kravatsky-38",
@@ -6135,8 +6144,8 @@
   "cpus": 8,
   "blas": "Accelerate (numpy build config)"
  },
- "generated": "2026-10-05T06:04:21Z",
- "git": "2bf1e3f",
+ "generated": "2026-10-05T06:10:23Z",
+ "git": "bf9b7f0",
  "reds": [
   {
    "red": "d18: one sign of one tier-B word flipped",

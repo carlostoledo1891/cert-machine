@@ -213,7 +213,7 @@ let wave = null;
           norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), bigintFallbacks: show(e.bigintFallbacks),
           spotCheck: e.spotCheck || null, jsCheck: r.jsCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
           delta: show(r.delta), decode: r.decode ? r.decode.how : null, choices: r.choices || [], facts: r.facts || [], scale: show(r.scale),
-          bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package),
+          bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package), addedPoints: r.addedPoints || null,
         };
       }),
     };

@@ -191,6 +191,30 @@ def run_claim(rid, tables, log):
     return row
 
 
+def ty31_added_points():
+    """a measured fact about the Takhanov-Yun dimension-31 bytes: the four added points in the array
+    against the README's formula z = (+-u_j/2, (sqrt3/2) v_j). Floats, a measurement of the bytes,
+    never a verdict."""
+    import io, zipfile
+    try:
+        X, _, _, _ = claims.ty_array('kissing_r31_238354.zip')
+        zc = zipfile.ZipFile(io.BytesIO(claims.Bytes.raw('takhanov-yun', 'certificate_D31.zip')))
+    except FileNotFoundError:
+        return None
+    U = np.array([[float(x) for x in l.split()] for l in zc.read('certificate_D31/u1_and_u2_vectors.txt').decode().split('\n') if l.strip()])
+    v1 = -np.array([1 / 3 ** 0.5, 0, 0, 0, 0, 0, (2 / 3) ** 0.5])
+    hs, vs, res = [], [], 0.0
+    for k in range(4):
+        row = X[len(X) - 4 + k]
+        j = k % 2
+        h = float(row[:24] @ U[j] / (U[j] @ U[j]))
+        v = float(row[24:] @ v1)
+        res = max(res, float(np.abs(row[:24] - h * U[j]).max()), float(np.abs(row[24:] - v * v1).max()))
+        hs.append(abs(h)); vs.append(abs(v))
+    return {'horizontalCoefficient': max(hs), 'verticalCoefficient': max(vs), 'residual': res,
+            'readme': [0.5, 3 ** 0.5 / 2]}
+
+
 def needs_data_rows(tables):
     rows = []
     for d, t in sorted(tables['kravatsky'].items()):
@@ -208,12 +232,17 @@ def needs_data_rows(tables):
     for d, t in sorted(tables['takhanov-yun'].items()):
         if d == 25:
             continue
-        rows.append({'id': 'takhanov-yun-%d' % d, 'claimant': 'takhanov-yun', 'claimantName': CLAIMANTS['takhanov-yun'], 'dim': d,
+        extra = {}
+        if d == 31:
+            m = ty31_added_points()
+            if m:
+                extra['addedPoints'] = m
+        rows.append(dict({'id': 'takhanov-yun-%d' % d, 'claimant': 'takhanov-yun', 'claimantName': CLAIMANTS['takhanov-yun'], 'dim': d,
                      'claimed': t['claimed'], 'previous': t['previous'], 'verdict': 'QUEUED', 'modification': t['modification'],
                      'detail': 'published as a float64 array (pinned by hash; the inner array matches the sha256 the README prints) whose '
                                'lifted-and-auxiliary block is turned by a generic rotation ("%s"). An exact witness needs that rotation as an '
                                'exactly orthogonal matrix, or the polar-factor interval argument of the paper re-derived; neither was built in '
-                               'this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).' % t['modification']})
+                               'this wave. The bulk decodes to exact Leech vectors (dimension 25 shows the decode).' % t['modification']}, **extra))
     for d in (43, 45):
         t = tables['qiushi'].get(d)
         if t:
