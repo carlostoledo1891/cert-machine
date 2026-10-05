@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage{certmachine}
+\input{delta3-numbers.tex}
+
+\newcommand{\vphi}{\varphi}
+
+\title{The twelve-block colouring is optimal: $\delta_3=117/2192$\\[2pt]
+\large a computer-assisted proof, its certificates re-decided by two programs that share no code}
+\author{\cmauthor}
+\date{October 2026 --- draft v0.2, rebuilt in cert-machine; every number interpolated from the record; not refereed, not formalised}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $V(n)$ be the least number of monochromatic three-term arithmetic progressions over all two-colourings of $\{1,\dots,n\}$. Graham offered \$100 for the value of $\delta_3=\lim V(n)/n^2$, the case $k=3$ of Erd\H{o}s problem \#1186. Parrilo, Robertson and Saracino (2008) proved $1675/32768\le\delta_3\le117/2192$, with the upper bound attained by a colouring in twelve blocks, and conjectured the upper bound correct. We prove it: $\delta_3=117/2192$. By their counting lemma the statement reduces to a quadratic-form inequality, $Q(\vphi)=\iint_{a/2\le b\le(1+a)/2}\vphi(a)\vphi(b)\ge-5/137$ for every measurable $\vphi:[0,1]\to[-1,1]$, and we show more: the twelve-block function and its negative are the only minimisers. The proof expands $Q$ around the conjectured optimum, where the first-order term is an explicit nonnegative piecewise-linear function $h$; a discretisation built on $h$ loses nothing to first order; the space is cut into five regions by the $L^1$ distance to the optimum, and each region is closed by an exact rational certificate --- zero gap near the optimum, a margin of at least $\MinSlab$ away from it. The certificates were generated and checked in one session by a program and a verifier written together; they are re-decided here by a second verifier, written in a second language from the mathematics and the file format alone, which shares no code with either. Both accept the five certificates; both refuse every planted forgery. Nothing here has been refereed or formalised, and we say exactly what that leaves open.
+\end{abstract}
+
+\section{Introduction}
+
+Colour $1,\dots,n$ red and blue. How few monochromatic progressions $\{a,a+d,a+2d\}$, $d\ge1$, can there be? A random colouring gives about $n^2/16$. At the Erd\H{o}s conference in Budapest in 1999 Graham proposed, as a \$100 problem, to determine $\beta$ in $V(n)=\beta n^2(1+o(1))$ \cite{PRS}. Parrilo, Robertson and Saracino \cite{PRS} disproved the folklore guess $\beta=1/16$ with a colouring in twelve blocks of relative lengths
+\[28,\ 6,\ 28,\ 37,\ 59,\ 116,\ 116,\ 59,\ 37,\ 28,\ 6,\ 28\qquad(\text{out of }548),\]
+alternating in colour, which gives $V(n)\le\frac{117}{2192}n^2(1+o(1))$; they proved $V(n)\ge\frac{1675}{32768}n^2(1+o(1))$ by a semidefinite relaxation and conjectured the upper bound to be the truth. Butler, Costello and Graham \cite{BCG} recover the twelve blocks by experiment, crediting \cite{PRS}, and give block colourings for longer progressions. Greenwood, Kariv and Williams \cite{GKW} prove the twelve-block colouring optimal among antisymmetric colourings with at most twelve blocks. On the problem's page \cite{EP} the question is open, as is the general $\delta_k$.
+
+\begin{theorem}\label{thm:main}
+$\displaystyle\delta_3=\lim_{n\to\infty}\frac{V(n)}{n^2}=\frac{117}{2192}=\DeltaDec\ldots$
+\end{theorem}
+
+\paragraph{Scope.} Erd\H{o}s problem \#1186 asks for bounds or an asymptotic formula for $\delta_k$ for every $k$. Theorem~\ref{thm:main} settles $k=3$, Graham's question and the conjecture of \cite{PRS}. It says nothing about $k\ge4$.
+
+\paragraph{How the proof is built, and how it is checked.} Sections~\ref{sec:red}--\ref{sec:disc} are mathematics a reader can check by hand in an hour: the reduction of \cite{PRS}, an exact expansion around the twelve blocks, and a discretisation lemma. Section~\ref{sec:certs} is five finite exact certificates. Section~\ref{sec:verif} is how they were checked: by the verifier written with them, and by a second verifier written afterwards under a clean-room rule. Section~\ref{sec:limits} lists what is not established.
+
+\section{The reduction}\label{sec:red}
+
+We re-derive the counting lemma of \cite{PRS}. Fix a colouring $\chi$ of $[n]$. A progression $\{a<c<b\}$, $a+b=2c$, that is not monochromatic has exactly two bichromatic pairs among $(a,c),(c,b),(a,b)$. Count incidences of (non-monochromatic progression, bichromatic pair):
+\begin{itemize}
+\item the \emph{outer} pair $(a,b)$ determines the progression and has $a\equiv b\pmod 2$; so outer incidences number $T=\#\{a<b:\ a\equiv b\ (2),\ \chi(a)\ne\chi(b)\}$;
+\item an ordered bichromatic pair $(u,v)$ is \emph{inner} to the progression $\{u,v,2v-u\}$ with $v$ the middle term, whenever $2v-u\in[n]$; every progression has exactly two inner ordered pairs, $(a,c)$ and $(b,c)$; so inner incidences number $N^+=\#\{(u,v):\ \chi(u)\ne\chi(v),\ 2v-u\in[n]\}$.
+\end{itemize}
+Hence the number of non-monochromatic progressions is $(T+N^+)/2$, and with $n^2/4+O(n)$ progressions in all,
+\[2V=\tfrac{n^2}{2}-N^+-T+O(n).\]
+Writing $r_o,b_o$ and $r_e,b_e$ for the colour counts in the odd and even classes, $T=r_ob_o+r_eb_e\le2\cdot(n/4)^2+O(n)=n^2/8+O(n)$.
+
+Let $\vphi:[0,1]\to\{\pm1\}$ be the step function of $\chi$, constant on each $((u-1)/n,u/n]$. With $u=na$, $v=nb$ the condition $1\le2v-u\le n$ reads $a/2<b\le(1+a)/2$ up to the cells that meet the boundary of
+\[R=\{(a,b)\in[0,1]^2:\ a/2\le b\le(1+a)/2\},\qquad |R|=\tfrac12,\]
+and there are $O(n)$ such cells, whatever the colouring. So, uniformly in $\chi$,
+\[N^+=n^2\iint_R\tfrac12\bigl(1-\vphi(a)\vphi(b)\bigr)\,da\,db+O(n)=\tfrac{n^2}{2}\Bigl(\tfrac12-Q(\vphi)\Bigr)+O(n),\qquad Q(\vphi)=\iint_R\vphi(a)\vphi(b).\]
+Combining,
+\begin{equation}\label{eq:red}
+\frac{V(n)}{n^2}\ \ge\ \frac1{16}+\frac{Q^*}{4}-O\!\left(\frac1n\right),\qquad Q^*=\inf\bigl\{Q(\vphi):\ \vphi:[0,1]\to[-1,1]\ \text{measurable}\bigr\}.
+\end{equation}
+Let $\vphi^*$ be the twelve-block function, $+1$ on the first block. Then $Q(\vphi^*)=\QstarVal$ (Lemma~\ref{lem:h} recomputes it), and $\frac1{16}-\frac5{548}=\frac{117}{2192}$. The twelve-block colouring is antisymmetric, so its parity classes are balanced, $T=n^2/8+O(n)$, and \eqref{eq:red} is an equality for it: that is the upper bound of \cite{PRS}, and \S\ref{sec:verif} counts it exactly for $n$ up to $\VnMaxN$. So Theorem~\ref{thm:main} follows from:
+
+\begin{theorem}\label{thm:A}
+$Q(\vphi)\ge-5/137$ for every measurable $\vphi:[0,1]\to[-1,1]$, with equality only for $\vphi=\pm\vphi^*$ almost everywhere.
+\end{theorem}
+
+\section{Expanding around the twelve blocks}\label{sec:expand}
+
+Let $K$ be the symmetrised kernel of $R$, so that $Q(\vphi)=\langle\vphi,K\vphi\rangle$, and put $g^*=K\vphi^*$,
+\[g^*(a)=\tfrac12\Bigl(\int_{a/2}^{(1+a)/2}\vphi^*+\int_{[2a-1,2a]\cap[0,1]}\vphi^*\Bigr),\qquad h=-\vphi^*g^*.\]
+Every $\vphi$ with values in $[-1,1]$ is $\vphi=\vphi^*(1-2\sigma)$ with $\sigma=(1-\vphi\vphi^*)/2\in[0,1]$, the part of $\vphi$ flipped against $\vphi^*$; $m:=\int\sigma=\frac12\norm{\vphi-\vphi^*}_1$. Expanding the quadratic form,
+\[Q(\vphi)=Q(\vphi^*)-4\langle\vphi^*\sigma,K\vphi^*\rangle+4Q(\vphi^*\sigma),\]
+which is the exact, global identity
+\begin{equation}\label{eq:E}
+E(\sigma):=\frac{Q(\vphi)-Q(\vphi^*)}{4}=\int_0^1h\,\sigma+Q(\vphi^*\sigma).
+\end{equation}
+
+\begin{lemma}\label{lem:h}
+$h$ is continuous and piecewise linear with nodes at the multiples of $1/1096$; $h\ge0$; $h$ vanishes exactly at the eleven breakpoints of $\vphi^*$, where its one-sided slopes are $1$ or $3/2$; and $\int_0^1h=5/137=-Q(\vphi^*)$.
+\end{lemma}
+\begin{proof}
+The kinks of $g^*$ occur only where $a/2$, $(1+a)/2$, $2a$ or $2a-1$ meets an edge of $\vphi^*$, or at $a=\frac12$. Every edge is a multiple of $1/548=2/1096$, so every kink is a multiple of $1/1096$, and $\vphi^*$ is constant on every interval $[k/1096,(k+1)/1096]$. The node values are exact rationals, computed; at every edge $g^*=0$, so $h$ is continuous there. The remaining claims are finite checks on the $1097$ node values.
+\end{proof}
+
+Since $\vphi\mapsto-\vphi$ sends $\sigma$ to $1-\sigma$ and does not change $Q$, it suffices to prove $E(\sigma)\ge0$ when $m\le\frac12$.
+
+\section{A discretisation without first-order loss}\label{sec:disc}
+
+Partition $[0,1]$ into cells $I_i$ whose endpoints include every edge of $\vphi^*$. On $I_i$ the sign of $\vphi^*$ is a constant $s_i$; write $w_i=\abs{I_i}$ and $y_i=w_i^{-1}\int_{I_i}\sigma\in[0,1]$, so that $m=\sum_iw_iy_i$.
+
+\begin{lemma}[bathtub]\label{lem:bath}
+Let $a_i=w_i\min_{I_i}h$ and $m_i(v)=\abs{\{a\in I_i:\ h(a)<v\}}$; since $h$ is piecewise linear, $m_i'(v)$ is the \emph{sum} of $1/\abs{\text{slope}}$ over every linear piece of $h$ on $I_i$ whose range contains $v$. Put $b_i=\frac{w_i^2}{2}\big/\sup_v m_i'(v)$, or $b_i=0$ if $h$ is constant on some piece of $I_i$. Then $\int_{I_i}h\sigma\ge a_iy_i+b_iy_i^2$ whenever $0\le\sigma\le1$.
+\end{lemma}
+\begin{proof}
+For a fixed average $y$, the integral is least when $\sigma$ fills the lowest levels of $h$, so it is at least $\beta(y)=\int_0^{w_iy}h^\uparrow$, $h^\uparrow$ the increasing rearrangement of $h$ on $I_i$. Then $\beta(0)=0$, $\beta'(0)=w_i\min h=a_i$, and $\beta''(y)=w_i^2/m_i'(h^\uparrow(w_iy))\ge2b_i$; Taylor's formula gives the claim.
+\end{proof}
+
+Pairs of cells are ordered: $(i,j)$ means $a\in I_i$, $b\in I_j$. A pair is \emph{full} if $I_i\times I_j\subset R$ and \emph{cut} if $\partial R$ crosses it, with $A^{\rm in}_{ij}$ and $A^{\rm out}_{ij}$ the areas inside and outside $R$.
+
+\begin{lemma}\label{lem:disc}
+$E(\sigma)\ge L(y)$, where
+\begin{align*}
+L(y)={}&\sum_i\bigl(a_iy_i+b_iy_i^2\bigr)+\sum_{\text{full}}s_is_jw_iw_jy_iy_j\\
+&+\sum_{\text{cut},\ s_is_j=1}\max\bigl(0,\ w_iw_jy_iy_j-A^{\rm out}_{ij}\bigr)
++\sum_{\text{cut},\ s_is_j=-1}\max\bigl(-A^{\rm in}_{ij},\ -w_iw_jy_iy_j\bigr).
+\end{align*}
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lem:bath} bounds $\int h\sigma$ cell by cell. In $Q(\vphi^*\sigma)=\sum_{(i,j)}s_is_j\iint_{R\cap(I_i\times I_j)}\sigma(a)\sigma(b)$ a full pair factorises exactly. On a cut pair $0\le\iint_{\rm in}\sigma\sigma\le\min(A^{\rm in},w_iw_jy_iy_j)$ because $0\le\sigma\le1$, and $\iint_{\rm in}\sigma\sigma=\iint_{I_i\times I_j}\sigma\sigma-\iint_{\rm out}\sigma\sigma\ge w_iw_jy_iy_j-A^{\rm out}$.
+\end{proof}
+
+$L(0)=0$, and the first-order part of $L$ at $y=0$ is exact up to the bathtub. That is the difference from discretising in $\vphi$ itself, as in \cite{PRS}: there every cut pair loses a first-order amount, and \S\ref{sec:ladder} measures what that costs.
+
+\section{Five certificates}\label{sec:certs}
+
+We cover $m\in[0,\frac12]$ by five regions, each with its own grid and an exact certificate (Table~\ref{tab:cover}). The grids are in units of $1/1096$: one of \GridAN{} cells (multiples of $24/1096$, steps of $4/1096$ within $8/1096$ of every edge, and mirror images), one of \GridBN{} cells (multiples of $8/1096$ and the edges).
+
+\paragraph{Slabs $\mathrm{lo}\le m\le\mathrm{hi}$.} An exact polynomial identity in $v=(1,y)$,
+\[L_\theta(y)-B=v^\top Sv+\sum_f\mu_ff(y),\qquad\mu\ge0,\ \theta\in[0,1],\ S+\varepsilon I\succeq0 .\]
+$L_\theta\le L$ replaces each maximum in Lemma~\ref{lem:disc} by the convex combination with weight $\theta$. Each form $f$ is a product of two factors among $y_i$, $1-y_i$, $m-\mathrm{lo}$, $\mathrm{hi}-m$, nonnegative on the region, or a triangle inequality $1+s_1z_iz_j+s_2z_jz_k+s_3z_iz_k$ with $s_1s_2s_3=1$, $z=1-2y$ and distinct $i,j,k$, nonnegative on the cube because it is multilinear and nonnegative at the vertices. Since $v^\top v\le1+n$, $L\ge B-\varepsilon(1+n)$ on the region. The products with $m-\mathrm{lo}$ and $\mathrm{hi}-m$ matter: they stop the relaxation from averaging the two optima $\pm\vphi^*$, and from averaging points of different regions.
+
+\paragraph{The region $m\le\Rin$.} An identity in which every term vanishes at $y=0$,
+\[L_0(y)=y^\top Py+\sum_{i,j}\lambda_{ij}\,y_i(1-y_j)+\sum_j\nu_j\,y_j(\Rin-m)+\kappa\,m(\Rin-m)+y^\top Ny+\sum_ic_iy_i,\]
+with $P\succ0$, every multiplier nonnegative and $N$ entrywise nonnegative (enough, since $y\ge0$; the $\kappa$ term uses $m\ge0$), where $L_0\le L$ takes the cut bounds $0$ and $-w_iw_jy_iy_j$. The forms $y_j(1-y_i)$ turn the linear budget $a_iy_i$ into exactly the bathtub's quadratic cost, and the positive-definite Hessian of $Q$ in the breakpoint shifts of $\vphi^*$ (smallest eigenvalue about $0.1266$, a float measurement of the claimant's, not used) supplies the margin.
+
+\begin{table}[h]\centering
+\begin{tabular}{lrrrl}\toprule
+region $m=\int\sigma$ & cells & certified bound on $E$ & forms & verdict here\\\midrule
+\CoverTable
+\bottomrule\end{tabular}
+\caption{The cover of $m\in[0,\frac12]$. Bounds are the exact certified values recomputed by the second verifier, printed truncated; the inner region's bound is $0$, attained only at $\sigma=0$.}\label{tab:cover}
+\end{table}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+The five regions cover $m\in[0,\frac12]$, so $E\ge0$ whenever $m\le\frac12$, and by symmetry everywhere. If $m\le\Rin$ and $y\neq0$, then $E\ge L_0(y)\ge y^\top Py>0$, because $P$ is proved positive definite (\S\ref{sec:verif}); if $y=0$ then $\sigma=0$ almost everywhere. Every slab has $E>0$. So $E=0$ only at $\sigma=0$, that is $\vphi=\vphi^*$; the case $m\ge\frac12$ gives $-\vphi^*$.
+\end{proof}
+
+\begin{corollary}
+$\vphi^*$ minimises $Q$ on the ball $\norm{\vphi-\vphi^*}_1\le\RinDouble$, fractional perturbations included, and every $\vphi$ with $\frac12\norm{\vphi\mp\vphi^*}_1\ge\Rin$ for both signs has $Q(\vphi)\ge-\frac5{137}+4\cdot\MinSlab$.
+\end{corollary}
+
+\section{Verification}\label{sec:verif}
+
+\paragraph{The claimant's pipeline.} The multipliers come from floating-point semidefinite programs, rounded to rationals; $S$ or $P$ is then recomputed exactly and its semidefiniteness proved exactly. A verifier written in the same session, separately from the generators, re-derives $\vphi^*$, $h$, the bathtub minorants and the cell areas and re-checks the five files (\ClaimantSeconds{} s on this machine, re-run from the pinned bytes). Both were written by one AI agent in one session, so a misreading common to both would not be caught --- the gap this section closes as far as a program can.
+
+\paragraph{The second verifier, under a clean-room rule.} It was written in JavaScript with BigInt rationals, in this repository, by an agent that was given only the mathematics (the statement and the proofs of the lemmas above, as the claimant wrote them) and a field-by-field description of the certificate files written from the files' serialisers. It did not read the generators, the claimant's verifier or its logs, and the claimant's code entered the repository only after it was finished. It derives $\vphi^*$, $g^*$, $h$, the bathtub constants and the residual matrices from the mathematics, and every cell area by two exact routes that must agree pair by pair (the trapezoid rule on the piecewise-linear section length, and polygon clipping with the shoelace formula). It refuses any form it cannot show nonnegative on its region and any multiplier of the wrong sign. It proves $S+\varepsilon I\succeq0$ and $P\succ0$ exactly: after an exact rescaling by powers of two, a floating-point Cholesky factor of $A-2^{-k}I$ is rounded to a dyadic matrix $L$, and the remainder $A-LL^\top$ is shown, exactly, to be diagonally dominant; a matrix it cannot so prove is refused. It accepts the five certificates in \VerifySeconds{} s and recomputes every bound in Table~\ref{tab:cover}, each equal to the bound the file claims. $Q(\vphi^*)=\QstarVal$ and $\int h=\HIntegral$ are recomputed independently, the first from block-pair areas alone.
+
+\paragraph{What the second reading found.} Nothing that changes a verdict, and four points the text above now states. (i) The bathtub constant needs the \emph{summed} $m_i'$ of Lemma~\ref{lem:bath}: read with the largest single $1/\abs{\text{slope}}$ instead, $b_i$ is too large and the inequality fails --- \BathtubViol{} exact violations in \BathtubTests{} tests --- on the cells where $h$ is not monotone. The certificates were built with the summed reading. (ii) $\varepsilon$ is load-bearing: no slab's $S$ is semidefinite by itself (exact negative witnesses), and the bound $B-\varepsilon(1+n)$ pays for it. (iii) The triangle forms need three distinct indices. (iv) The kink list of Lemma~\ref{lem:h} includes $a=\frac12$ and the edges themselves, all on the lattice.
+
+\paragraph{Forgeries and mutations.} The second verifier's battery runs \NChecks{} checks; \NReds{} of them are planted forgeries it must refuse, each by the rule it breaks: bounds raised by $10^{-3}$ and by $10^{-6}$ (the certificates are that tight), dropped triangle forms, every $\theta$ set to $1$ or to $0$, widened slabs, $\varepsilon$ set to $0$ or inflated together with $B$, a grid missing an edge of $\vphi^*$, a doubled inner radius, an overspent linear budget, dropped inner multipliers, missing regions, and single entries off by $2^{-100}$ --- a negative multiplier, a sign-violating or repeated-index triangle, $\theta$ outside $[0,1]$, an unknown form. Every one is refused at this build. The verifier itself was then mutated by one-line edits (a flipped $h$, a mirrored $R$, a dropped $\varepsilon$, an optimistic cut bound, a skipped sign check, a trusted floating-point Cholesky, an accepted zero pivot, \dots): \MutCaught.
+
+\paragraph{The two lemmas, tested.} Identity~\eqref{eq:E} and Lemma~\ref{lem:disc} are proved above; the second verifier also tests them exactly, in rationals, on step functions finer than the certificate grids: \IdentityCases{} cases of~\eqref{eq:E}, all equalities, and \LemmaCases{} cases of Lemma~\ref{lem:disc} from seven generators, adversarial ones included, all satisfied, with $E-L$ exactly $0$ on breakpoint flips and single cells. These are tests, not proofs.
+
+\paragraph{The upper bound, counted.} The exact number of monochromatic progressions of the twelve-block colouring of $[n]$, $n=548k$; for $n$ a multiple of $1096$ it is exactly $\frac{117}{2192}n^2-\frac n2$:
+\begin{center}\begin{tabular}{rrrr}\toprule $n$ & $V_{\rm 12\text{-}block}(n)$ & $V/n^2$ & $n\,(V/n^2-\frac{117}{2192})$\\\midrule
+\VnRows
+\bottomrule\end{tabular}\end{center}
+approaching $117/2192=\DeltaDec\ldots$ from below at rate $O(1/n)$, as the reduction predicts.
+
+\section{Why the obvious discretisation stops short}\label{sec:ladder}
+
+Before the expansion around $\vphi^*$, the same claimant certified lower bounds by discretising $\vphi$ itself on $L$ equal cells, with the cut-pair bound $\max(-A^{\rm in},x_ix_j/L^2-A^{\rm out})$ and a Shor relaxation with triangle cuts. Its own verifier accepted (these were not re-decided here):
+\begin{center}\begin{tabular}{rrr}\toprule $L$ & certified $\delta_3\ge$ & local-search minimum of the $L$-cell model (float)\\\midrule
+\LadderRows
+\bottomrule\end{tabular}\end{center}
+Every cut pair gives away a first-order amount in this model, so even its minimum --- the right column, measured by local search in floating point --- sits strictly below $117/2192$ at every $L$: the method cannot reach the answer, however fine the grid. In the coordinates $\sigma$ the first-order term is the exact $\int h\sigma$, bounded cell by cell without loss at $\sigma=0$, and the discretisation error is second order. That measurement is what led to the proof.
+
+\section{What is established, and what is not}\label{sec:limits}
+
+\begin{itemize}
+\item \textbf{Established, by machine:} five exact certificates, accepted by two verifiers written independently in two languages, each refusing the planted forgeries; the reduction, the expansion and the two lemmas proved in \S\S\ref{sec:red}--\ref{sec:disc}.
+\item \textbf{Read, not refereed:} the author read the proof line by line on 5 October 2026, after both verifiers had accepted the certificates; no referee has read it.\item \textbf{Not established:} nothing is formalised; both verifiers and the generators were written by AI agents, and the clean-room rule removes shared code, not a shared misreading of the mathematics the agents were both given --- \S\S\ref{sec:red}--\ref{sec:disc} are where a reader should look. Generation is not reproducible byte for byte (the solver is nondeterministic); the certificate files are the record, and their force does not depend on regeneration.
+\item \textbf{Not claimed:} anything about $\delta_k$ for $k\ge4$, or about the $\mathbb{F}_p$ analogue. The method does not carry over as it stands: for $k=4$ the counting functional has a quartic term that no reduction of the kind in \S\ref{sec:red} removes, and the best known colouring is arithmetic, not a block colouring ($1/72$, Lu and Peng \cite{LP}, against $0.01722$ for the best block colouring \cite{BCG}); both values were re-decided in exact arithmetic in a companion scout.
+\end{itemize}
+
+\cmrepro{The five certificates are \texttt{certs/delta3/*.json} (sha256 in \texttt{certs/delta3-ledger.json}); \texttt{node instruments/delta3/verify.js} re-decides them, \texttt{node instruments/delta3/battery.js} runs the forgeries, \texttt{node instruments/delta3/lemmas.js} the lemma tests and the upper-bound counts. The claimant's generators and verifier are kept, pinned by sha256, in \texttt{instruments/delta3/claimant/}. Repository commit \RepoCommit.}
+
+\begin{thebibliography}{9}
+\bibitem{PRS} P.~A.~Parrilo, A.~Robertson, D.~Saracino, On the asymptotic minimum number of monochromatic 3-term arithmetic progressions, \emph{J. Combin. Theory Ser. A} 115 (2008) 185--192; arXiv:math/0609532.
+\bibitem{BCG} S.~Butler, K.~P.~Costello, R.~Graham, Finding patterns avoiding many monochromatic constellations, \emph{Experiment. Math.} 19 (2010) 399--411.
+\bibitem{GKW} T.~Greenwood, J.~Kariv, N.~Williams, From discrete to continuous: monochromatic 3-term arithmetic progressions, arXiv:2301.00336.
+\bibitem{LP} L.~Lu, X.~Peng, Monochromatic 4-term arithmetic progressions in 2-colorings of $\mathbb{Z}_n$, arXiv:1107.2888.
+\bibitem{EP} T.~F.~Bloom, Erd\H{o}s problem \#1186, \url{https://www.erdosproblems.com/1186}, snapshot of 5 October 2026.
+\end{thebibliography}
+\end{document}

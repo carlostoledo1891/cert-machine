@@ -1,10 +1,10 @@
 {
   "note": "Ink coverage per figure: the share of pixels brighter than the page ground, measured from a screenshot of the figure's own box. A figure that gets THINNER than its record fails check-render. Only the author can say whether a sparse drawing is empty or exact, so this ratchets rather than setting a bar.",
-  "recorded": "2026-10-03",
+  "recorded": "2026-10-05",
   "figures": {
     "site/contraprova/index.html :: figbox": 4.37,
     "site/decidivel/index.html :: figbox dv-mapbox": 35.92,
-    "site/index.html :: figbox": 5.54,
+    "site/index.html :: figbox": 5.53,
     "site/index.html :: plate": 1.55,
     "site/instruments/blind-spot/index.html :: figure": 5.62,
     "site/instruments/curveset/index.html :: fig": 6.2,
@@ -37,7 +37,7 @@
     "site/instruments/plates/index.html :: section plate": 4.45,
     "site/instruments/plates/index.html :: section plate wide": 27.64,
     "site/instruments/shape-hunt/index.html :: fig": 4.9,
-    "site/machine/index.html :: figbox": 6.43,
+    "site/machine/index.html :: figbox": 6.42,
     "site/reports/aag.html :: figbox": 5.47,
     "site/reports/afg.html :: figbox": 3.66,
     "site/reports/agtable.html :: figbox": 4.32,
@@ -49,6 +49,7 @@
     "site/reports/claim-korenblum.html :: figbox": 16.5,
     "site/reports/claim-maxwell.html :: figbox": 13.51,
     "site/reports/claim-ranteng.html :: figbox": 14.81,
+    "site/reports/delta3.html :: figbox": 4.53,
     "site/reports/diagonal-ramsey.html :: figbox": 3.08,
     "site/reports/easota.html :: figbox": 17.9,
     "site/reports/ec-benchmark.html :: figbox": 4.41,
@@ -95,7 +96,9 @@
     "site/reports/verify-lemniscate.html :: figbox": 5.5,
     "site/reports/wardrop-repro.html :: figbox": 15.95,
     "site/reports/water-value.html :: figbox": 16.16,
-    "site/reports/zeta3-audit.html :: figbox": 14.75
+    "site/reports/zeta-hankel.html :: figbox": 7.05,
+    "site/reports/zeta3-audit.html :: figbox": 14.75,
+    "site/reports/zeta7-anand.html :: figbox": 6.28
   },
   "faintNote": "Marks that paint but sit under 1.35:1 against their own ground. A recessive grid is a legitimate drawing and only the author can price it, so this RATCHETS: the list may shrink, never grow. A mark with no paint at all, or one pointing at a paint server that is not on the page, is not here — that hard-fails, because it needs no threshold.",
   "faint": [
@@ -111,6 +114,7 @@
     "reports/aag.html: 1 × cm-cross <line> — 1.33:1 against its ground",
     "reports/afg.html: 3 × cm-cross <line> — 1.33:1 against its ground",
     "reports/agtable.html: 3 × cm-cross <line> — 1.33:1 against its ground",
+    "reports/delta3.html: 2 × cm-cross <line> — 1.33:1 against its ground",
     "reports/diagonal-ramsey.html: 1 × cm-cross <line> — 1.33:1 against its ground",
     "reports/envs.html: 1 × cm-cross <line> — 1.33:1 against its ground",
     "reports/erdos1038-sup.html: 1 × cm-cross <line> — 1.33:1 against its ground",
@@ -125,6 +129,8 @@
     "reports/price.html: 5 × cm-cross <line> — 1.33:1 against its ground",
     "reports/regatlas.html: 4 × cm-cross <line> — 1.33:1 against its ground",
     "reports/skyaudit.html: 1 × cm-cross <line> — 1.33:1 against its ground",
-    "reports/terra.html: 1 × cm-cross <line> — 1.33:1 against its ground"
+    "reports/terra.html: 1 × cm-cross <line> — 1.33:1 against its ground",
+    "reports/zeta-hankel.html: 1 × cm-cross <line> — 1.33:1 against its ground",
+    "reports/zeta7-anand.html: 1 × cm-cross <line> — 1.33:1 against its ground"
   ]
 }

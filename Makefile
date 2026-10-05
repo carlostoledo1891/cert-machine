@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
+.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv zetahankel-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -45,6 +45,10 @@ blind-spot-venv:
 erdos1-venv:
 	@/opt/homebrew/bin/python3.12 -m venv instruments/erdos1/.venv && instruments/erdos1/.venv/bin/pip install -q python-flint==0.9.0 && echo "instruments/erdos1/.venv ready"
 
+# instruments/zetahankel needs python-flint (exact Q[X] determinants, arb balls) and mpmath (test2's quadrature)
+zetahankel-venv:
+	@/opt/homebrew/bin/python3.12 -m venv instruments/zetahankel/.venv && instruments/zetahankel/.venv/bin/pip install -q python-flint==0.9.0 mpmath==1.4.1 && echo "instruments/zetahankel/.venv ready"
+
 # instruments/hseva/.venv (pinned in instruments/hseva/requirements.txt) runs two tools, neither on a certification
 # path: the hindcast extraction (h5py reads the HDF5 chunk index over HTTP ranges) and the scipy recorder (the
 # claimant whose printed numbers the ledger decides). The certificates themselves are Node, stdlib only.
@@ -83,6 +87,8 @@ test:
 	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "delta3 (the 12-block theorem)"; $(NODE) instruments/delta3/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "delta4 (the k = 4 scout)"; $(NODE) instruments/delta4/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "easota (the SOTA table)"; $(NODE) instruments/easota/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "ecbench (contour benchmark)"; $(NODE) instruments/ecbench/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "stereo (rig error budget)"; $(NODE) instruments/stereo/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -117,6 +123,8 @@ test:
 	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "zeta-hankel (the zeta(7) wall)"; $(PY) instruments/zetahankel/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "zeta7-anand (a zeta(7) proof)"; $(PY) instruments/zeta7audit/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "transit (one-sided enclosure)"; $(NODE) instruments/transit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
@@ -226,6 +234,8 @@ reports:
 	@$(NODE) tools/build-report-add55.js
 	@$(NODE) tools/build-report-impostors.js
 	@$(NODE) tools/build-report-zeta3.js
+	@$(NODE) tools/build-report-zeta-hankel.js
+	@$(NODE) tools/build-report-zeta7-anand.js
 	@$(NODE) tools/build-report-entropy.js
 	@$(NODE) tools/build-report-erdos852.js
 	@$(NODE) tools/build-report-rm-audit.js
@@ -276,6 +286,7 @@ reports:
 	@$(NODE) tools/build-report-claim.js
 	@$(NODE) tools/build-report-erdos852h.js
 	@$(NODE) tools/build-report-erdos1.js
+	@$(NODE) tools/build-report-delta3.js
 
 papers:
 	@$(NODE) tools/build-kissing-paper.js

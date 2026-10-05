@@ -1,0 +1,236 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\input{numbers.tex}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{remark}{Remark}
+\newcommand{\vphi}{\varphi}
+
+\title{The twelve-block colouring is optimal:\\ $\delta_3=117/2192$}
+\author{Carlos Toledo\thanks{Independent researcher, \href{https://carlostoledo.co}{carlostoledo.co}; contact: carlos@carlostoledo.co.
+Preprint v0.1. The method, the certificates and this text were produced by the author working with Claude (Anthropic).
+Every certificate is re-checked by an independently written verifier in exact rational arithmetic. The proof is
+computer-assisted and has not yet been refereed. [OWNER: affiliation and disclosure wording; decide on release.]}}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $V(n)$ be the least number of monochromatic three-term arithmetic progressions in a
+two-colouring of $\{1,\dots,n\}$, and $\delta_3=\liminf V(n)/n^2$. Graham offered \$100 for its
+value (Erd\H{o}s problem \#1186). Parrilo, Robertson and Saracino (2008) proved
+$1675/32768\le\delta_3\le117/2192$. Their upper bound comes from a colouring by twelve blocks,
+which has been conjectured to be optimal. We prove that it is:
+$\delta_3=117/2192$. The key statement is that the quadratic form $Q(\vphi)=\iint_{a/2\le b\le(1+a)/2}\vphi(a)\vphi(b)$
+satisfies $Q\ge-5/137$ on all measurable $\vphi:[0,1]\to[-1,1]$, and the twelve-block function and its
+negative are the only minimisers.
+
+The proof expands $Q$ around the conjectured optimum. In these coordinates the first-order
+term is an explicit nonnegative function $h$. A discretisation built on $h$ loses nothing at
+first order. The space of colourings is then cut into five regions, and each region is closed by
+an exact certificate. Near the optimum the certificate has zero gap. Away from it, the
+certificates leave a margin of at least $\MinSlab$. All five certificates are re-verified by an
+independent program in rational arithmetic.
+\end{abstract}
+
+\section{Introduction}
+Colour $1,\dots,n$ red and blue. How few monochromatic progressions $\{a,a+d,a+2d\}$ ($d\ge1$)
+can there be? A random colouring gives $n^2/16$. Parrilo, Robertson and Saracino \cite{PRS} found
+a better colouring. Butler, Costello and Graham \cite{BCG} later showed how to find it by experiment
+and found block colourings that beat random for longer progressions. The colouring of \cite{PRS}
+splits $[n]$ into twelve blocks of relative lengths
+\[28,\ 6,\ 28,\ 37,\ 59,\ 116,\ 116,\ 59,\ 37,\ 28,\ 6,\ 28\qquad(\text{out of }548),\]
+alternating in colour, and gives $V(n)\le\frac{117}{2192}n^2(1+o(1))$. The best published lower
+bound has been $1675/32768\approx0.0511$ \cite{PRS}. Greenwood, Kariv and Williams \cite{GKW} proved that the
+twelve-block colouring is optimal among antisymmetric colourings with at most twelve blocks.
+
+\begin{theorem}\label{thm:main}
+$\displaystyle\delta_3=\lim_{n\to\infty}\frac{V(n)}{n^2}=\frac{117}{2192}.$
+\end{theorem}
+
+\section{The reduction}
+We use the counting lemma of \cite{PRS}. Let $T$ be the number of bichromatic pairs $a<b$
+with $a\equiv b\pmod 2$, and $N^+$ the number of ordered bichromatic pairs $(u,v)$ with
+$2v-u\in[n]$. Then
+\[2V=\tfrac{n^2}{2}-|N^+|-|T|+O(n),\qquad |T|\le \tfrac{n^2}{8}+O(n).\]
+A non-monochromatic progression has exactly two bichromatic pairs. The outer pair is counted
+in $T$, and every inner pair is counted in $N^+$. For the bound on $T$, write
+$T=r_ob_o+r_eb_e$ by parity classes.
+
+For a colouring, let $\vphi:[0,1]\to\{\pm1\}$ be its step function. Then
+$|N^+|=n^2\iint_R\frac12(1-\vphi(a)\vphi(b))\,da\,db+O(n)$, where
+\[R=\{(a,b)\in[0,1]^2:\ a/2\le b\le (1+a)/2\},\qquad |R|=\tfrac12 .\]
+Put $Q(\vphi)=\iint_R\vphi(a)\vphi(b)$. Then
+\begin{equation}\label{eq:red}
+\frac{V(n)}{n^2}\ \ge\ \frac1{16}+\frac{Q^*}{4}-O\!\left(\frac1n\right),\qquad
+Q^*=\inf\{Q(\vphi):\ \vphi:[0,1]\to[-1,1]\ \text{measurable}\}.
+\end{equation}
+Let $\vphi^*$ be the twelve-block function, with $\vphi^*=+1$ on the first block. Then
+$Q(\vphi^*)=-5/137$, and $\frac1{16}-\frac5{548}=\frac{117}{2192}$. So
+Theorem~\ref{thm:main} follows from \cite{PRS} together with:
+
+\begin{theorem}\label{thm:A}
+$Q(\vphi)\ge-5/137$ for every measurable $\vphi:[0,1]\to[-1,1]$. Equality holds only for
+$\vphi=\pm\vphi^*$ almost everywhere.
+\end{theorem}
+
+\section{Expanding around the twelve blocks}
+Let $K$ be the symmetrised kernel of $R$, so that $Q(\vphi)=\langle\vphi,K\vphi\rangle$. Put
+$g^*=K\vphi^*$:
+\[g^*(a)=\tfrac12\Bigl(\int_{a/2}^{(1+a)/2}\vphi^*+\int_{[2a-1,2a]\cap[0,1]}\vphi^*\Bigr),\qquad h=-\vphi^*g^*.\]
+Any $\vphi$ with values in $[-1,1]$ can be written as $\vphi=\vphi^*(1-2\sigma)$ with
+$\sigma=(1-\vphi\vphi^*)/2\in[0,1]$. Here $\sigma$ is the part of $\vphi$ that is flipped against
+$\vphi^*$, and $\int\sigma=\frac12\|\vphi-\vphi^*\|_1$. Expanding the quadratic form gives the exact
+identity
+\begin{equation}\label{eq:E}
+E(\sigma):=\frac{Q(\vphi)-Q(\vphi^*)}{4}=\int_0^1h\,\sigma+Q(\vphi^*\sigma).
+\end{equation}
+
+\begin{lemma}\label{lem:h}
+The function $h$ is continuous and piecewise linear, with nodes at the multiples of $1/1096$.
+It satisfies $h\ge0$, and it vanishes exactly at the eleven breakpoints of $\vphi^*$, where its
+one-sided slopes are $1$ or $3/2$. Moreover $\int_0^1h=5/137$.
+\end{lemma}
+\begin{proof}
+The kinks of $g^*$ occur only where $a/2$, $(1+a)/2$, $2a$ or $2a-1$ meets an edge of $\vphi^*$,
+or at $a=\frac12$. Every edge is a multiple of $2/1096$, so every kink is a multiple of $1/1096$.
+The values at the nodes are computed exactly. At each edge $g^*=0$, so $h$ is continuous there.
+\end{proof}
+
+Since $\vphi\mapsto-\vphi$ sends $\sigma$ to $1-\sigma$ and does not change $Q$, it suffices to prove
+$E(\sigma)\ge0$ when $m:=\int\sigma\le\frac12$.
+
+\section{Discretisation without first-order loss}
+Partition $[0,1]$ into cells $I_i$ whose endpoints include every edge of $\vphi^*$. On $I_i$,
+$\vphi^*$ is a constant $s_i$; write $w_i=|I_i|$ and $y_i=\frac1{w_i}\int_{I_i}\sigma\in[0,1]$.
+
+\begin{lemma}[bathtub]\label{lem:bath}
+Let $a_i=w_i\min_{I_i}h$, and let $m_i(v)=|\{a\in I_i: h(a)<v\}|$. Put
+$b_i=\frac{w_i^2}{2}\big/\sup m_i'$, or $b_i=0$ if $h$ is constant on some piece of $I_i$. Then
+\[\int_{I_i}h\sigma\ \ge\ a_iy_i+b_iy_i^2\qquad\text{whenever }0\le\sigma\le1.\]
+\end{lemma}
+\begin{proof}
+For a fixed average $y$, the integral is smallest when $\sigma$ fills the lowest levels of $h$.
+So it is at least $\beta(y)=\int_0^{w_iy}h^{\uparrow}$, where $h^{\uparrow}$ is the increasing
+rearrangement of $h$ on $I_i$. We have $\beta(0)=0$ and $\beta'(0)=a_i$. Also
+$\beta''(y)=w_i^2/m_i'(h^\uparrow(w_iy))\ge 2b_i$, and the claim follows.
+\end{proof}
+
+\begin{lemma}\label{lem:disc}
+$E(\sigma)\ge L(y)$, where
+\begin{align*}
+L(y)={}&\sum_i\bigl(a_iy_i+b_iy_i^2\bigr)+\sum_{I_i\times I_j\subset R}s_is_jw_iw_jy_iy_j\\
+&+\sum_{\text{cut},\,s_is_j=1}\max\bigl(0,\ w_iw_jy_iy_j-A^{\rm out}_{ij}\bigr)
++\sum_{\text{cut},\,s_is_j=-1}\max\bigl(-A^{\rm in}_{ij},\ -w_iw_jy_iy_j\bigr).
+\end{align*}
+Here a cut pair is one where $\partial R$ crosses $I_i\times I_j$, and
+$A^{\rm in},A^{\rm out}$ are the areas inside and outside $R$.
+\end{lemma}
+\begin{proof}
+On a pair inside $R$, the integral of $\sigma(a)\sigma(b)$ factorises. On a cut pair,
+$0\le\iint_{\rm in}\sigma\sigma\le\min(A^{\rm in},w_iw_jy_iy_j)$, because $0\le\sigma\le1$.
+Also $\iint_{\rm in}\sigma\sigma=\iint_{\rm full}\sigma\sigma-\iint_{\rm out}\sigma\sigma\ge w_iw_jy_iy_j-A^{\rm out}$.
+\end{proof}
+
+$L(0)=0$, and the first-order part of $L$ at $y=0$ is exact up to the bathtub. This is the
+difference from the usual discretisation in $\vphi$ \cite{PRS}. There, every cut pair loses a
+first-order amount, which caps any certified bound strictly below $117/2192$.
+
+\section{Five certificates}
+Write $m=\sum_iw_iy_i=\int\sigma$. We cover $m\in[0,\frac12]$ by five regions. Each region has
+its own grid and an exact certificate (Table~\ref{tab}). The two grids are:
+\begin{itemize}
+\item 130 cells: multiples of $24/1096$, steps of $4/1096$ within $8/1096$ of every edge, and
+their mirror images;
+\item 146 cells: multiples of $8/1096$ together with the edges.
+\end{itemize}
+
+\paragraph{Slabs $\mathrm{lo}\le m\le \mathrm{hi}$.}
+We use an exact polynomial identity in $v=(1,y)$:
+\[L_\theta(y)-B=v^\top Sv+\sum_f\mu_ff(y),\qquad \mu\ge0,\ \theta\in[0,1],\ S+\varepsilon I\succeq0 .\]
+\begin{itemize}
+\item $L_\theta\le L$ replaces each maximum in Lemma~\ref{lem:disc} by a convex combination.
+\item Each form $f$ is one of two kinds. Either it is a product of two of the factors $y_i$,
+$1-y_i$, $m-\mathrm{lo}$, $\mathrm{hi}-m$, each nonnegative on the region; or it is a
+triangle inequality $1+s_1z_iz_j+s_2z_jz_k+s_3z_iz_k$ with $s_1s_2s_3=1$ and $z=1-2y$.
+\end{itemize}
+Hence $L\ge B-\varepsilon(1+n)$ on the region. The products with $m-\mathrm{lo}$ and $\mathrm{hi}-m$
+matter. They stop the relaxation from averaging the two optima $\pm\vphi^*$, and from averaging
+points of different regions.
+
+\paragraph{The region $m\le\Rin$.}
+Here every term vanishes at $y=0$:
+\begin{multline*}
+L_0(y)=y^\top Py+\sum_{i,j}\lambda_{ij}\,y_i(1-y_j)+\sum_j\nu_j\,y_j(\Rin-m)\\
++\kappa\,m(\Rin-m)+\sum_{i,j}N_{ij}\,y_iy_j+\sum_ic_iy_i ,
+\end{multline*}
+with $P\succ0$ and all multipliers nonnegative. $L_0\le L$ uses the cut-pair bounds $0$ and
+$-w_iw_jy_iy_j$. This certificate is sharp: the forms $y_j(1-y_i)$ convert the linear budget
+$a_iy_i$ into exactly the bathtub's quadratic cost, because
+$\sum_j jy_j-\sum_{i<j}y_iy_j=\sum_{i<j}y_j(1-y_i)$. The breakpoint Hessian of $Q$ at $\vphi^*$
+is positive definite, with smallest eigenvalue $0.1266$, and this supplies the margin.
+
+\begin{table}[h]\centering
+\begin{tabular}{cccccc}\toprule
+region $m=\int\sigma$ & cells & bound & nonzero multipliers & triangles\\\midrule
+\CoverTable
+\bottomrule\end{tabular}
+\caption{The cover of $m\in[0,\frac12]$. The bounds are the exact certified values, truncated.}\label{tab}
+\end{table}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+The five regions cover $m\in[0,\frac12]$, so $E\ge0$ everywhere. If $y\neq0$ and $m\le\Rin$, then
+$E\ge L_0(y)\ge y^\top Py>0$. If $y=0$, then $\sigma=0$ almost everywhere. Every slab has $E>0$.
+So $E=0$ only at $\sigma=0$, that is $\vphi=\vphi^*$. The case $m\ge\frac12$ follows by symmetry.
+\end{proof}
+
+\begin{corollary}
+$\vphi^*$ minimises $Q$ on the whole ball $\|\vphi-\vphi^*\|_1\le2\cdot\Rin$, fractional
+perturbations included. Moreover, every $\vphi$ with $\frac12\|\vphi-\vphi^*\|_1\ge\Rin$ and
+$\frac12\|\vphi+\vphi^*\|_1\ge\Rin$ has $Q(\vphi)\ge-\frac5{137}+4\cdot\MinSlab$.
+\end{corollary}
+
+\section{Verification}
+The multipliers come from floating-point semidefinite programs (CVXPY with Clarabel).
+They are rounded to rationals. The matrix $S$ or $P$ is then recomputed exactly and
+positive definiteness is proved exactly. A second program, written separately, re-checks
+everything. It:
+\begin{itemize}
+\item re-derives $\vphi^*$, $h$ and its linearity;
+\item recomputes every bathtub minorant, and every cell-pair area by polygon clipping;
+\item rebuilds every form from its name;
+\item checks the identity~\eqref{eq:E} and Lemma~\ref{lem:disc} in exact arithmetic on random step functions;
+\item proves definiteness by fraction-free elimination (Sylvester's criterion);
+\item checks that the regions cover $[0,\frac12]$.
+\end{itemize}
+Forged certificates are rejected, each on its own line: a bound raised by $10^{-3}$, the triangle
+multipliers dropped, the cut combinations altered, a grid missing a breakpoint, a widened slab, a
+doubled inner radius, an overspent linear budget, the inner RLT multipliers dropped, and a missing
+slab. One-line edits of the verifier itself are caught as well, by the genuine set or by planted
+forgeries. Nine of ten such edits are caught; the tenth is provably harmless.
+The certificate files, both programs and their SHA-256 hashes accompany this preprint.
+[OWNER: repository / DOI.]
+
+\section{Remarks}
+The proof does not use the parity structure: \eqref{eq:red} only needs $|T|\le n^2/8$.
+The argument is computer-assisted. Its weight rests on Lemmas~\ref{lem:h}--\ref{lem:disc},
+which are elementary, and on five finite certificates, which anyone can re-check in about
+forty seconds. We would welcome an independent re-verification.
+
+\begin{thebibliography}{9}
+\bibitem{PRS} P.~A.~Parrilo, A.~Robertson, D.~Saracino, On the asymptotic minimum number of
+monochromatic 3-term arithmetic progressions, \emph{J. Combin. Theory Ser. A} 115 (2008); arXiv:math/0609532.
+\bibitem{BCG} S.~Butler, K.~P.~Costello, R.~Graham, Finding patterns avoiding many monochromatic
+constellations, \emph{Experiment. Math.} 19 (2010) 399--411.
+\bibitem{GKW} T.~Greenwood, J.~Kariv, N.~Williams, From discrete to continuous: monochromatic
+3-term arithmetic progressions, arXiv:2301.00336.
+\bibitem{EP} T.~F.~Bloom, Erd\H{o}s problem \#1186, \url{https://www.erdosproblems.com/1186}.
+\end{thebibliography}
+\end{document}

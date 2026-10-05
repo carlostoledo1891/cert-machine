@@ -1,0 +1,78 @@
+{
+  "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1",
+  "repository_url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean",
+  "labels_url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/labels{/name}",
+  "comments_url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/comments",
+  "events_url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/events",
+  "html_url": "https://github.com/gmDevi/zeta-7-21-lean/issues/1",
+  "id": 5693016220,
+  "node_id": "I_kwDOUv5LNs8AAAABU1SInA",
+  "number": 1,
+  "title": "Anand's ζ(7) preprint: I_out in Table 5 / (122) doesn't follow from (59)",
+  "user": {
+    "login": "huntrontrakkr",
+    "id": 13161355,
+    "node_id": "MDQ6VXNlcjEzMTYxMzU1",
+    "avatar_url": "https://avatars.githubusercontent.com/u/13161355?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/huntrontrakkr",
+    "html_url": "https://github.com/huntrontrakkr",
+    "followers_url": "https://api.github.com/users/huntrontrakkr/followers",
+    "following_url": "https://api.github.com/users/huntrontrakkr/following{/other_user}",
+    "gists_url": "https://api.github.com/users/huntrontrakkr/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/huntrontrakkr/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/huntrontrakkr/subscriptions",
+    "organizations_url": "https://api.github.com/users/huntrontrakkr/orgs",
+    "repos_url": "https://api.github.com/users/huntrontrakkr/repos",
+    "events_url": "https://api.github.com/users/huntrontrakkr/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/huntrontrakkr/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "labels": [
+
+  ],
+  "state": "open",
+  "locked": false,
+  "assignees": [
+
+  ],
+  "milestone": null,
+  "comments": 0,
+  "created_at": "2026-10-03T19:55:13Z",
+  "updated_at": "2026-10-03T20:00:42Z",
+  "closed_at": null,
+  "assignee": null,
+  "author_association": "NONE",
+  "active_lock_reason": null,
+  "sub_issues_summary": {
+    "total": 0,
+    "completed": 0,
+    "percent_completed": 0
+  },
+  "issue_dependencies_summary": {
+    "blocked_by": 0,
+    "total_blocked_by": 0,
+    "blocking": 0,
+    "total_blocking": 0
+  },
+  "body": "Posting here because this repo tracks the claim and I couldn't find contact details for the author (none in the PDF or on ORCID). Please forward if you can reach him. This may also be what your README means by the two constants you couldn't confirm.\n\n**To Prince Anand, re \"Zeta 7 is Irrational\" (v1, [doi:10.5281/zenodo.22920911](https://doi.org/10.5281/zenodo.22920911)):**\n\nThank you for posting the preprint. I checked the arithmetic constant, and the outer integral I_out doesn't seem to follow from the paper's own formulas.\n\n1. **On y = p/K ∈ (1, 37/20].** §5.1 sets γ_p^out = 0 for p > K, and K! is a p-unit, so by (62) the outer integrand there is 37/20 − y ≥ 0. Table 5 uses −239/20 − 2y (about −14). Correcting this piece alone moves A₂₀₀ + U from −11.99 to +0.95.\n2. **On all of (1/3, 37/20].** Integrating (54), (58), (59), (62) gives I_out = 453803/288000 ≈ +1.576, not the −11002997/720000 ≈ −15.28 of (122). That value is exactly the integral of Table 5. The finite prime sum (1/K²) Σ_{K/3<p≤2h} (−L_p) log p gives 1.5730 at K = 4·10⁵. As a check on the method, the same steps applied to Fauzan's (4.14) reproduce his I_out = 127751/96000 exactly.\n3. **On A₀.** A₀ = 9928298118277006344769/7535670527041937280000 equals Fauzan's I_out + (5.18) + (5.16) exactly, i.e. his whole ζ(5) constant A* from (5.19). Here it is used as the bound for ∫₂₀^∞ R/x³, which your (85) bounds by about −0.057.\n\nWith I_out from (59), A₂₀₀ + U ≈ +4.86, or about +3.49 with A₀ also replaced. So (118) fails, and the decay in Theorem 1.2 does not follow as written. I haven't checked U = 44/25 or ∫₃²⁰ R/x³ = 0.1703. This concerns only the v1 argument, not whether ζ(7) is irrational. I may have misread a definition, and corrections are welcome.\n\n<details><summary>Reproduction (Python 3 stdlib, under 1 s)</summary>\n\n```python\n# Recompute I_out in Anand, \"Zeta 7 is Irrational\" (v1, Zenodo 10.5281/zenodo.22920911) from its\n# (54), (58), (59), (62). Calibration: the same steps on Fauzan's zeta(5) preprint, (4.10) and (4.14),\n# reproduce his printed I_out = 127751/96000. Python 3 stdlib only.\nfrom fractions import Fraction as F\nfrom math import floor, log\n\na, lam = F(3, 40), F(37, 40)  # alpha = N/K, lambda = h/K (same in both papers)\npos = lambda x: max(x, 0)\n\ndef scalar(y):  # lim -v_p(S_K)/K for p > K/3, from (62)\n    return -2 * lam * floor(1 / y) + sum(pos(2 * lam - j * y) for j in range(1, 8))\n\ndef G(y, paper):  # lim -gamma_out_p / K at y = p/K\n    c, s1, q, s2 = (9, 8, 16, 7) if paper == \"anand\" else (7, 6, 12, 5)\n    r = min(lam, pos(1 + 6 * a - 3 * y)) if paper == \"anand\" else pos(1 + 4 * a - 2 * y)\n    if y > 1:\n        return 0  # gamma_out = 0 for p > K\n    if y > F(1, 2):  # K < 2p\n        u = pos(1 + a - 2 * y); t = min(a, 1 - y) + u\n        return c * (1 - y) - s1 * t + min(r, y - a + u)\n    u = pos(1 + a - 3 * y); t = min(a, 1 - 2 * y) + u  # K >= 2p\n    return c * (1 - y) - q * a - s2 * t + min(r, y + u)\n\nTABLE5 = [(F(1, 3), F(37, 100), F(-75, 8), 8), (F(37, 100), F(37, 80), F(-99, 8), 16),\n          (F(37, 80), F(1, 2), F(-569, 40), 20), (F(1, 2), F(37, 60), F(-107, 10), 9),\n          (F(37, 60), F(37, 40), F(-251, 20), 12), (F(37, 40), F(77, 80), F(-72, 5), 14),\n          (F(77, 80), 1, F(1), -2), (1, F(37, 20), F(-239, 20), -2)]\n\ndef table5(y):\n    return next(b + c * y for l, r, b, c in TABLE5 if l <= y <= r)\n\ndef integrate(f, L=8400):  # every kink is a multiple of 1/8400, so the midpoint rule is exact\n    return sum(f(F(2 * k + 1, 2 * L)) for k in range(L // 3, 37 * L // 20)) / L\n\ndef prime_sum(n, paper):  # (1/K^2) sum_{K/3 < p <= 2h} (-L_p) log p, L_p = v_p(S_K) + gamma_out_p\n    K, N, h = 40 * n, 3 * n, 37 * n\n    c, s1, q, s2 = (9, 8, 16, 7) if paper == \"anand\" else (7, 6, 12, 5)\n    sieve = bytearray([1]) * (2 * h + 1)\n    for i in range(2, int((2 * h) ** 0.5) + 1):\n        if sieve[i]:\n            sieve[i * i::i] = bytearray(len(sieve[i * i::i]))\n    total = 0.0\n    for p in range(K // 3 + 1, 2 * h + 1):\n        if not sieve[p]:\n            continue\n        s2i = sum(max(0, h - (k * p + 1) // 2) for k in range(1, 2 * h // p + 1))  # sum_i floor(2i/p)\n        vS = 2 * h * (K // p) - 2 * s2i  # (62); p > N and p^2 > 2h here\n        if p > K:\n            g = 0\n        else:\n            v = K % p; u = max(0, N + v - p + 1); t = min(N, v) + u\n            r = min(h, max(0, K + 6 * N - 3 * p + 4)) if paper == \"anand\" else max(0, K + 4 * N - 2 * p + 2)\n            g = (-c * (K - p) + s1 * t - 1 - min(r, p - 1 - N + u) if K < 2 * p\n                 else -c * (K - p) + 3 + q * N + s2 * t - min(r, p + u))\n        total -= (vS + g) * log(p)\n    return total / K**2\n\nfor paper, printed in [(\"fauzan\", F(127751, 96000)), (\"anand\", F(-11002997, 720000))]:\n    I = integrate(lambda y: G(y, paper) + scalar(y))\n    print(f\"{paper}: I_out from its formulas = {I} = {float(I):.6f}; printed = {float(printed):.6f}; \"\n          f\"prime sum at K=4e5: {prime_sum(10000, paper):.4f}\")\nprint(f\"anand Table 5 integral = {integrate(table5)} (this is the printed (122))\")\n```\n\nOutput:\n\n```\nfauzan: I_out from its formulas = 127751/96000 = 1.330740; printed = 1.330740; prime sum at K=4e5: 1.3284\nanand: I_out from its formulas = 453803/288000 = 1.575705; printed = -15.281940; prime sum at K=4e5: 1.5730\nanand Table 5 integral = -11002997/720000 (this is the printed (122))\n```\n</details>\n",
+  "closed_by": null,
+  "reactions": {
+    "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/reactions",
+    "total_count": 0,
+    "+1": 0,
+    "-1": 0,
+    "laugh": 0,
+    "hooray": 0,
+    "confused": 0,
+    "heart": 0,
+    "rocket": 0,
+    "eyes": 0
+  },
+  "timeline_url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/timeline",
+  "performed_via_github_app": null,
+  "state_reason": null,
+  "pinned_comment": null
+}

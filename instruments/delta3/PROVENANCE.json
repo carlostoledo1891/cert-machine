@@ -1,0 +1,393 @@
+{
+ "what": "delta_3 = 117/2192 (Erdos #1186, k = 3): the five certificates, the claimant's verifier logs, its generators, verifier, red and mutation tests, the theorem note, the superseded L-cell ladder's logs and float ceilings, and the pinned sources, ported from frontier-apps/experiments/mono3ap (sessions 34-35) on 2026-10-05.",
+ "liftedFrom": "/Users/carlostoledo/Projects/frontier-apps/experiments/mono3ap",
+ "liftedOn": "2026-10-05",
+ "rule": "Copied byte-for-byte and pinned by sha256; frontier-apps has no git, so the hash is the only pin, and the source tree is read-only from this side. Proof force here comes from instruments/delta3/verify.js, a second verifier written under a CLEAN-ROOM rule from claimant/THEOREM-EXACT.md and CERT-FORMAT.md alone, BEFORE the claimant's code entered this tree: phase 1 (the certificates, the theorem note, the claimant's logs, the sources, the s34 records) preceded the verifier; phase 2 (the claimant's code) followed it. The claimant's verifier is kept as an exhibit and re-run here (certs/delta3/claimant-vcheck-rerun.log); the claimant's logs under certs/delta3/frontier/ enter nothing. No file is patched.",
+ "notPorted": {
+  "what": "the s34 ladder certificates (superseded; their exact bounds are in the lifted logs and are not re-decided here), the s34 generators and verifier, the SDP caches (inner-sol-*.pkl), mut/ scratch, queue*.sh/*.log, slabs1.log, dslab-best.npy, landscape-L548.npy, .venv, __pycache__, the bench PDF (the paper is rebuilt as paper/tex/delta3.tex; the bench page is rebuilt as tools/build-report-delta3.js and kept only as an exhibit).",
+  "pins": {
+   "experiments/mono3ap/cert-L32.json": "20d8c4c4689225de62a6c618162c2884a4a6324e7708d40828c4fa8f9d7064be",
+   "experiments/mono3ap/cert-L64.json": "96530880bbc1cf5d4f6a9b86477368f5754d6e5594239ec82613f5a532ab7e25",
+   "experiments/mono3ap/cert-L128.json": "5581783fe013e36e0d54d1c5a4c30e201eb588afe3872909deb7fe88e825979c",
+   "experiments/mono3ap/cert-L192.json": "04b0b55ebbb4a192d3547ffb9eacae2eadc33d262120f17f2be6092525541074",
+   "experiments/mono3ap/cert-L256.json": "bb5b8be885a09969a31809bbf38c6716dcb965ce616ea9e7e274b65e50272944",
+   "experiments/mono3ap/verify.py": "f2849a2453a41a9c7e9393925bcd0d755906737c75dea75480f420a59acd3e42",
+   "experiments/mono3ap/cert.py": "74917db417be230c92b7fb8ca78be520cf37d08bfbe3010657791044f16bdba8",
+   "experiments/mono3ap/cert_sym.py": "1a9961fad52f479b8049f5d0775ff8684675b247fc7f3a5fc7d1d3f059b64494",
+   "experiments/mono3ap/relax.py": "46482c367b99f286a7b5bdca8a4450dbed4316ce1e2cdab9cd8551110279b380",
+   "experiments/mono3ap/red.py": "e9de48d829b7bca77336ebe3f5fb38bfc0e87d2f5999eea5819d8f4e8f86b94a",
+   "experiments/mono3ap/exact/paper/delta3-paper.pdf": "cafd71609c31ebb51cde32b8b282014f3036df2c4301e9b8be6655eb9ce40166"
+  }
+ },
+ "sourcesNotRedistributed": "corpus/sources/delta3/.cache/ (git-ignored, tracked:false below): the PRS 2008 arXiv PDF and text and the BCG 2010 PDF and text, publisher copyright; pinned here by sha256, fetchable from arXiv math/0609532v2 and the journal.",
+ "files": [
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/inner-r20-g24_4_8.json",
+   "file": "certs/delta3/inner-r20-g24_4_8.json",
+   "sha256": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
+   "bytes": 732014,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/slab-1_5-3_10-g24_4_8.json",
+   "file": "certs/delta3/slab-1_5-3_10-g24_4_8.json",
+   "sha256": "f8c569e4a47bc6d958f2515485c355a016609a5f27178962a71ff749dce80c99",
+   "bytes": 497973,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/slab-3_10-4_10-g24_4_8.json",
+   "file": "certs/delta3/slab-3_10-4_10-g24_4_8.json",
+   "sha256": "d9b37a69505a3e642b479b2bd57b655d5fa33a716cf3ffdcd6b3869af524fbce",
+   "bytes": 403695,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/slab-2_5-9_20-g8_4_0.json",
+   "file": "certs/delta3/slab-2_5-9_20-g8_4_0.json",
+   "sha256": "bc23d33cb0db48a29e7bde319ef2e20dcd56d18b8ab498c06fec52624537d2c3",
+   "bytes": 80221,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/slab-9_20-1_2-g8_4_0.json",
+   "file": "certs/delta3/slab-9_20-1_2-g8_4_0.json",
+   "sha256": "b3f8615a9f1009624d87852859526056321eccc7b5fc5d57af502403ff5803d2",
+   "bytes": 100615,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/SHA256SUMS",
+   "file": "certs/delta3/frontier/SHA256SUMS",
+   "sha256": "97ff51ebd8ba972a51843376c5cd4cf7837ccbe47344a0bbd8f90a4ca240be66",
+   "bytes": 536,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/vcheck.log",
+   "file": "certs/delta3/frontier/vcheck.log",
+   "sha256": "b8c5242cd3943e1d7d531e3e4caac3f11b70319f037e8253890019ff8927f44d",
+   "bytes": 649,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/vred.log",
+   "file": "certs/delta3/frontier/vred.log",
+   "sha256": "d65730862a2a927d34d8e67690117aad0ef64bb29519736fb2b442bc15b45333",
+   "bytes": 1245,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/vmut.log",
+   "file": "certs/delta3/frontier/vmut.log",
+   "sha256": "7572b06f4ef9166914a94ce1c87439233f3da5389174ef7f06f27a44e177d3b6",
+   "bytes": 1502,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/THEOREM-EXACT.md",
+   "file": "instruments/delta3/claimant/THEOREM-EXACT.md",
+   "sha256": "7bda0fdb0129a485fb36453fcbe6dfd788d9d073a96ff9fc701a1cb1799a261d",
+   "bytes": 8542,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/erdosproblems-1186_2026-10-05.html",
+   "file": "corpus/sources/delta3/erdosproblems-1186_2026-10-05.html",
+   "sha256": "d7dd66a72ba9e64d10e6b21e28f5192c033cbc1b7c18c96acb1e9ca206d54b23",
+   "bytes": 32991,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/erdosproblems-1186-forum_2026-10-05.html",
+   "file": "corpus/sources/delta3/erdosproblems-1186-forum_2026-10-05.html",
+   "sha256": "83d7e5ef858370ef9323449b6d5d3b3ad60a0d0c76841b1f0113943b74ee9c7e",
+   "bytes": 34517,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/gkw2023-arXiv-2301.00336-abs.html",
+   "file": "corpus/sources/delta3/gkw2023-arXiv-2301.00336-abs.html",
+   "sha256": "1532fbda563d9edf7a4c01edd0ea6d7108c769a9d4dc204cc6ca5bc6781c209c",
+   "bytes": 40107,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/jsp-000991_2026-10-05.md",
+   "file": "corpus/sources/delta3/jsp-000991_2026-10-05.md",
+   "sha256": "4ddc3a25e4fcd620f594909899373723d6c73ceb1ab0d90dbce38159f6b51afe",
+   "bytes": 797,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/jsp-awards-pin.txt",
+   "file": "corpus/sources/delta3/jsp-awards-pin.txt",
+   "sha256": "704e1112b3451336c482d862cb56b5e3ad1604632ffc6e7962a33ebdebc26ac1",
+   "bytes": 41,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/teorth-erdosproblems-yaml-1186_2026-10-05.txt",
+   "file": "corpus/sources/delta3/teorth-erdosproblems-yaml-1186_2026-10-05.txt",
+   "sha256": "fd447e53a2ba175190027eef9fd64d1accaa8ffc500b81a3f309d771b81edf41",
+   "bytes": 499,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/teorth-erdosproblems-pin.txt",
+   "file": "corpus/sources/delta3/teorth-erdosproblems-pin.txt",
+   "sha256": "ad43c3480db356380fbe91833fecf48200eedf7ea1d0aa457b72f0c017666634",
+   "bytes": 41,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/prs2008-arXiv-math0609532v2.pdf",
+   "file": "corpus/sources/delta3/.cache/prs2008-arXiv-math0609532v2.pdf",
+   "sha256": "3fa8ca52bc9a9bd15dcdfb1036c98535c592eb52e0582a23ba2b574aa9507ff0",
+   "bytes": 126287,
+   "tracked": false
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/prs2008-arXiv-math0609532v2.txt",
+   "file": "corpus/sources/delta3/.cache/prs2008-arXiv-math0609532v2.txt",
+   "sha256": "5b67571ff68108acc1ffffb5664df56823404fea3e9ecdc56560f35120a32694",
+   "bytes": 25442,
+   "tracked": false
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/bcg2010-constellations.pdf",
+   "file": "corpus/sources/delta3/.cache/bcg2010-constellations.pdf",
+   "sha256": "bf1ef31b55575496a64952fa4624bcac7811ebda9bf651902133207d79b77b12",
+   "bytes": 929525,
+   "tracked": false
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/exact/sources/bcg2010-constellations.txt",
+   "file": "corpus/sources/delta3/.cache/bcg2010-constellations.txt",
+   "sha256": "7bf5a097aa0e03607fd442a28aa6318474b2a3a4f34c3b0f87d6f2f17306ef94",
+   "bytes": 52982,
+   "tracked": false
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/ceilings.json",
+   "file": "certs/delta3/frontier/s34/ceilings.json",
+   "sha256": "f28b31b2c4b273c343313dc72da6ec664eb5f0f20032151fb78870941cd6ec43",
+   "bytes": 372,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/verify-L32.log",
+   "file": "certs/delta3/frontier/s34/verify-L32.log",
+   "sha256": "9717ee2d0384cb80fdfe9db028fc0f83b75ebbd36af9b29acf2eed44c8256b02",
+   "bytes": 134,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/verify-L64.log",
+   "file": "certs/delta3/frontier/s34/verify-L64.log",
+   "sha256": "a13074e40cf96cbc8a62dabb47890d56c47265f8c96c812227af8bde3a49e4f0",
+   "bytes": 138,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/verify-L128.log",
+   "file": "certs/delta3/frontier/s34/verify-L128.log",
+   "sha256": "43caa2479cacce63ad5f84e270804496d7a5cb3daa669716e81c2cc17a8f1337",
+   "bytes": 137,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/verify-L192.log",
+   "file": "certs/delta3/frontier/s34/verify-L192.log",
+   "sha256": "9f908c9c56a62062d363c3f295ca13bd936b726b1ee4bf4eda14914996aa1347",
+   "bytes": 139,
+   "tracked": true
+  },
+  {
+   "phase": "1",
+   "source": "experiments/mono3ap/verify-L256.log",
+   "file": "certs/delta3/frontier/s34/verify-L256.log",
+   "sha256": "85b2ea4f6aaf604a19860776b40c40b8abad321b6eb1c54c99bf70c2d748639a",
+   "bytes": 137,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/phistar.py",
+   "file": "instruments/delta3/claimant/phistar.py",
+   "sha256": "2ba0a6f4082e656709f2a886ae397c2e65928211376a811cdfe25a93cbe9aa7a",
+   "bytes": 1726,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/grid.py",
+   "file": "instruments/delta3/claimant/grid.py",
+   "sha256": "561fccd226cab812f252f7dd93049dbb9869c30d271b5c68fd0122de2e8852d7",
+   "bytes": 3709,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/scert.py",
+   "file": "instruments/delta3/claimant/scert.py",
+   "sha256": "00eae07169377a2493ccb95a750e904dc9c6912fd8ce15fced874d70d14a3b5b",
+   "bytes": 12824,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/inner.py",
+   "file": "instruments/delta3/claimant/inner.py",
+   "sha256": "93d2b20ae09c6077cbc23cc9199f7de5f4223d0c18c75316ebf22cc89cdc8c98",
+   "bytes": 6434,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/srelax.py",
+   "file": "instruments/delta3/claimant/srelax.py",
+   "sha256": "1e4bd8db9a8d5c746b64bf9fdbdd79ee6feb42312512ba272099fd47d91c332b",
+   "bytes": 5935,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/local1.py",
+   "file": "instruments/delta3/claimant/local1.py",
+   "sha256": "c2974ea5260374a0b5d85917ab0a525195f8d544ac553de7543733bc3139c83b",
+   "bytes": 2367,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/vcheck.py",
+   "file": "instruments/delta3/claimant/vcheck.py",
+   "sha256": "6e543ee8edd52871cb9f1fc6c531c6705f8fd1abc9041efaaaf54e6354433e13",
+   "bytes": 15638,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/vred.py",
+   "file": "instruments/delta3/claimant/vred.py",
+   "sha256": "8e340879bf93f52eb38244210225586bcb6c5f2fb0f4eedd22c165e14b7e3199",
+   "bytes": 3172,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/vmut.py",
+   "file": "instruments/delta3/claimant/vmut.py",
+   "sha256": "ff383cd4ddb6807ccf9e17432bacd589a2760c1196b0227b1fab5c725e74caed",
+   "bytes": 3418,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/dmodel.py",
+   "file": "instruments/delta3/claimant/dmodel.py",
+   "sha256": "d4becf6b6b9425ae5dfc4306206ddda7ed7b78c3b6474a253754dc3d5805fb77",
+   "bytes": 2685,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/dslab.py",
+   "file": "instruments/delta3/claimant/dslab.py",
+   "sha256": "cbb0f521dc13f27a84ca6163e89bc6f1ffa7942d8e379e68e2b04ee607c4702f",
+   "bytes": 1298,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/landscape.py",
+   "file": "instruments/delta3/claimant/landscape.py",
+   "sha256": "0f39e4b67bc90fbd63074636a544f27c9b946090de13ab6a27267af6953f1174",
+   "bytes": 2902,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/hnodes.json",
+   "file": "instruments/delta3/claimant/hnodes.json",
+   "sha256": "44893297589511947d2d3965ea7d1ae305d6a94ec119f37b58699a3cd610b582",
+   "bytes": 11415,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/README.md",
+   "file": "instruments/delta3/claimant/README.md",
+   "sha256": "e1a8c9e14c8962778945bec6532ee37f58f963e76b294a9570c84a5c288891a6",
+   "bytes": 3269,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/build-page.js",
+   "file": "instruments/delta3/claimant/build-page.js",
+   "sha256": "89c0de72824f66bf7477a2a0571e8f80e252681f970037d839f80482d587aaa9",
+   "bytes": 13314,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/paper/delta3-paper.tex",
+   "file": "instruments/delta3/claimant/paper/delta3-paper.tex",
+   "sha256": "fa191ad5c04b81935e4d879f45b5d15acdc97d8292a807c52f5c238144634ff4",
+   "bytes": 13125,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/exact/paper/certnumbers.py",
+   "file": "instruments/delta3/claimant/paper/certnumbers.py",
+   "sha256": "cdf2cae8c052f26852bc6b6ee7317ae2d79d4ed3b0251e972b8807759463b702",
+   "bytes": 1978,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/model.py",
+   "file": "instruments/delta3/claimant/s34/model.py",
+   "sha256": "4356a78bbbb0125b8d0a3b725d4c9ebcf4532805290ba65900efe8dec72d5bad",
+   "bytes": 3996,
+   "tracked": true
+  },
+  {
+   "phase": "2",
+   "source": "experiments/mono3ap/THEOREM.md",
+   "file": "instruments/delta3/claimant/s34/THEOREM.md",
+   "sha256": "7c8838c9a39e010e4d932b0620e69c4101201a3644a268c45976f9508077c964",
+   "bytes": 5334,
+   "tracked": true
+  }
+ ]
+}

@@ -19,7 +19,10 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 
 const targets = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'targets.json'), 'utf8')).targets;
-const DEADISH = /\b(SUPERSEDED|DEAD|REFUTED)\b/;
+/* The row's STATUS is its leading word. A row that leads with BUILT is our live work, and when its text says
+   REFUTED it is reporting the audited claim's verdict, not ours (zeta7-anand-claim-audit, 2026-10-05: the page IS
+   the refutation, and reading the word anywhere in the verdict demanded that it acknowledge its own supersession). */
+const DEADISH = /^\s*(SUPERSEDED|DEAD|REFUTED)\b/;
 const ACK = /superseded|no longer|now a theorem|overtaken|withdrawn|历史/i;
 
 const REPORTS = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => f.endsWith('.html'));

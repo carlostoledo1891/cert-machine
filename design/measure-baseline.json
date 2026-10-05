@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-03",
+  "recorded": "2026-10-05",
   "browser": "Chrome/154.0.8037.93",
   "viewports": [
     1440,
@@ -33,7 +33,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d2d11561651820829ea375dda50a92fe133f67c9c745995cbcc96309948b85d7"
+      "sha": "27a82a05558a6d51f3042a553b8faaf61195837a93534bb6e83d94c17129bd64"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -138,7 +138,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "089f76b5e850e577f8882789191f70297707cac1dc1bf080b3c820c02a9b6b26"
+      "sha": "1d4e78a909128e166926791f18c748e7787bfd221f054944dff97f3c8ec0035e"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -642,7 +642,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "83aa663c61df1eaa1b3c16886dba03ddfc855112cef282794d09ab707feca5a4"
+      "sha": "abdd12d2acb0024d2b676f0d215a0fd6d66aedceaeaf7909afc1dc914726629f"
     },
     "site/oracle/index.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "550822ba08e05a389e154f675fe74cf987245caee1a57f0785391c5a8dec4cbf"
+      "sha": "6edf338e1f68bbcea2d778c1e914c356b2da5f9ee7cf41fa4c31167c444331a3"
     },
     "site/papers/index.html": {
       "390": {
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "31124bfd26ca141a32d95ae2a336307e622d479e97396f7039ee9065035847af"
+      "sha": "a4a739a17a183c87ac116d2e49678d9084f29c7b4f47e396075f8446e037c63d"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -705,7 +705,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "be4b504ab67b310df80b28262645263893ffd750d2b30f47326a1b3f046a2146"
+      "sha": "90b3ea84e572fe378ad20a5242c1affe36c7caa5445cea50dd5fdc3608e9f5f1"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1063,6 +1063,27 @@
         "clipped": 0
       },
       "sha": "6ff333c9fc03174370689d7815859554b352b6cc1c6c25e42d5ed6c478bbb4ea"
+    },
+    "site/reports/delta3.html": {
+      "390": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "768": {
+        "spines": 9,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "a5892a831dd210934639334fa166c8af61794ef09851fc3abf2a8bff04bf914a"
     },
     "site/reports/diagonal-ramsey.html": {
       "390": {
@@ -1545,7 +1566,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0cdcba9bde38acc8a8202a46d87c0d77c19dae421c6319337faa6c409d7e5e87"
+      "sha": "0343866ebcd485c96f008283bbf0902b11a3107a8d361395107728103a749939"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1587,7 +1608,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f405910b76ba23175dc8a67923da37b7f4486581d8e4c67eed7339d4f95a398b"
+      "sha": "c276ce8157bde1533c90bcd392b3ae30a509a229fe59ba48a0955af47ba8e3c5"
     },
     "site/reports/lambda4.html": {
       "390": {
@@ -2261,6 +2282,27 @@
       },
       "sha": "5871e716afb61e990b77744fb2453a481d32d3704ca1e138505cb8a0afb02327"
     },
+    "site/reports/zeta-hankel.html": {
+      "390": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 3
+      },
+      "768": {
+        "spines": 9,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "1440": {
+        "spines": 12,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "a2874f8eec0529ff1c1a96151896252f6d7fe3b8273cbaa545bed2d934d51b09"
+    },
     "site/reports/zeta3-audit.html": {
       "390": {
         "spines": 5,
@@ -2281,6 +2323,27 @@
         "clipped": 0
       },
       "sha": "13364aa4d7d6a3a79885ea73a8fb7e8bbd53bc56773e6906823a1634681badca"
+    },
+    "site/reports/zeta7-anand.html": {
+      "390": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 4
+      },
+      "768": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 2
+      },
+      "1440": {
+        "spines": 13,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "a538f24b9b9fd24455e0b3a3e15a12d48fe1c40abf7c8a643fe47d25550dfdee"
     }
   }
 }

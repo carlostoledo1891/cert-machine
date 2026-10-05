@@ -1,0 +1,139 @@
+{
+ "what": "Evidence for the audit of P. Anand's 'Zeta 7 is Irrational' (Zenodo 22920911 v1) and of issue #1 on gmDevi/zeta-7-21-lean. Fetched 2026-10-05 from public pages; nothing was posted, commented or sent.",
+ "rule": "Every source is pinned by sha256 here and re-hashed by instruments/zeta7audit/battery.py. The paper is CC-BY-4.0 and is committed; Fauzan's paper carries no licence and the Lean repository is a third-party tree, so both live in the git-ignored corpus/sources/zeta7-anand/.cache/ — the battery re-hashes them when present and says so when they are not.",
+ "sources": [
+  {
+   "file": "corpus/sources/zeta7-anand/zenodo-22920911-Zeta7-3.pdf",
+   "sha256": "18b44b7ee0783ad43557d240b9c28f3167eef0350df163b3dc1c12e70f88e753",
+   "md5": "6b7fae049a3f5970a45f51483098b521",
+   "url": "https://zenodo.org/api/records/22920911/files/Zeta7%20(3).pdf/content",
+   "fetchedOn": "2026-10-05",
+   "license": "CC-BY-4.0",
+   "committed": true,
+   "what": "P. Anand, 'Zeta 7 is Irrational', v1 (the record's only version), 42 pages; md5 equal to the md5 Zenodo publishes for the file"
+  },
+  {
+   "file": "corpus/sources/zeta7-anand/zenodo-22920911.json",
+   "sha256": "eceb09cc8111246a24e22d6f7c13a83151d6b97ab4bc64f702531e2741efc5c5",
+   "url": "https://zenodo.org/api/records/22920911",
+   "fetchedOn": "2026-10-05",
+   "license": "CC0 (Zenodo metadata)",
+   "committed": true,
+   "what": "the record metadata as fetched (revision 4; one version; the author note on the A200 constant)"
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/zenodo-22920911.json",
+   "sha256": "eceb09cc8111246a24e22d6f7c13a83151d6b97ab4bc64f702531e2741efc5c5",
+   "url": "https://zenodo.org/api/records/22920911",
+   "fetchedOn": "2026-10-05",
+   "license": "CC0 (Zenodo metadata)",
+   "committed": true,
+   "what": "the same record as pinned earlier by the zeta-hankel port (corpus/sources/PINS.json)"
+  },
+  {
+   "file": "corpus/sources/zeta7-anand/github-gmDevi-zeta-7-21-lean-issue-1.json",
+   "sha256": "a20f6b6ffea22c1ce890ec19e41f8b65eb6b59465e9aa01b686460326b287995",
+   "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1",
+   "fetchedOn": "2026-10-05",
+   "license": "GitHub API response; quoted for review",
+   "committed": true,
+   "what": "issue #1, opened 2026-10-03 by GitHub user huntrontrakkr (a third party, not this lab); refreshed 2026-10-05: open, 0 comments, byte-identical to the zeta-hankel pin"
+  },
+  {
+   "file": "corpus/sources/zeta7-anand/github-gmDevi-zeta-7-21-lean-issue-1-comments.json",
+   "sha256": "2ba33ca0557f1bb5b7ba88d67f9d0093c7185a36ec51fe2b7bd9372d3e001d6d",
+   "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1/comments?per_page=100",
+   "fetchedOn": "2026-10-05",
+   "license": "GitHub API response",
+   "committed": true,
+   "what": "the thread: no comments as of the fetch"
+  },
+  {
+   "file": "corpus/sources/zeta7-anand/github-gmDevi-zeta-7-21-lean-issues.json",
+   "sha256": "91df356cda734118f0f35800a8cc245383fa89f0042443f83a7944b46532191a",
+   "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues?state=all&per_page=100",
+   "fetchedOn": "2026-10-05",
+   "license": "GitHub API response",
+   "committed": true,
+   "what": "every issue on the repository (state=all): only #1"
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/github-gmDevi-zeta-7-21-lean-issue-1.json",
+   "sha256": "a20f6b6ffea22c1ce890ec19e41f8b65eb6b59465e9aa01b686460326b287995",
+   "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1",
+   "fetchedOn": "2026-10-05",
+   "license": "GitHub API response",
+   "committed": true,
+   "what": "the earlier pin of the same issue (corpus/sources/PINS.json)"
+  }
+ ],
+ "cache": [
+  {
+   "file": "corpus/sources/zeta7-anand/.cache/fauzan-zenodo-22826419-ZETA5_IS_IRRATIONAL.pdf",
+   "sha256": "a42c05ccc46b9a7c36428913453c4617202c59109713ba20f464ab9ec640d0da",
+   "md5": "30dafe4adbb13a79f202e94a046c8c8d",
+   "url": "https://zenodo.org/api/records/22826419/files/ZETA5_IS_IRRATIONAL.pdf/content",
+   "fetchedOn": "2026-10-05",
+   "license": "none stated on the record (all rights reserved by default): cached, git-ignored, never committed",
+   "committed": false,
+   "what": "A. Fauzan, 'zeta(5) is irrational' (Zenodo 22826419), the paper Anand adapts — read for the calibration (its (4.10), (4.14), (5.3), (5.8)-(5.20), Table 4)"
+  }
+ ],
+ "leanRepository": {
+  "url": "https://github.com/gmDevi/zeta-7-21-lean",
+  "clonedTo": "corpus/sources/zeta7-anand/.cache/zeta-7-21-lean",
+  "commit": "4e48690ab5f9d04cbf3cede2b657f8db91ef6878",
+  "commitDate": "2026-09-30T09:14:26+02:00",
+  "clonedOn": "2026-10-05",
+  "license": "Apache-2.0 (the repository LICENSE)",
+  "committed": false,
+  "note": "a third-party repository: cloned into the git-ignored cache, never committed; the commit SHA is the pin, with sha256 of the files the audit quotes",
+  "files": [
+   {
+    "file": "README.md",
+    "sha256": "35c4092626fc480664176b4420304066e52107f250ff912c8b8c8751edcf1397"
+   },
+   {
+    "file": "Challenge.lean",
+    "sha256": "58b9b15488ee4c3e8b308041a4c4aad268f12329ed7216d2bcc232f32d77d3d0"
+   },
+   {
+    "file": "Solution.lean",
+    "sha256": "369ab471f93eca86f7cfe1315d956d70d9ab3ea3fd1b0de72df3d789feaf1608"
+   },
+   {
+    "file": "comparator.json",
+    "sha256": "38afa2cac05d42c75cc8bbfaff04116a271a1d0439725a2d3613b61535c2b3ff"
+   },
+   {
+    "file": "formalization.yaml",
+    "sha256": "2cead27862d50c17ea1213e25b7ef2c4a76ab64c25edfb8f37826c2842c75a60"
+   },
+   {
+    "file": "lean-toolchain",
+    "sha256": "8dc8d6f560141069d9073e370611716ef77ada0da8ffa37e2149f44b2e63ac7a"
+   },
+   {
+    "file": "lakefile.toml",
+    "sha256": "46035ee5cf764b16b9d1042febd75db95b1a7759fe663a8d4ca5352232b99a23"
+   },
+   {
+    "file": "lake-manifest.json",
+    "sha256": "67fb06cf9596699c95f1153a9b0a134cf1de1dea7f257560d988085877d0bef1"
+   },
+   {
+    "file": "Zeta2Lean/Window/Main.lean",
+    "sha256": "83749359959f3f2ae120a595216c35fbae00ed426cf20870eeb0b872dbbd6a0c"
+   },
+   {
+    "file": "Zeta2Lean/Window/Assembly.lean",
+    "sha256": "02b097496da4be061c3fdac27b16b36f01f51452b7757c586b306f009d928333"
+   },
+   {
+    "file": "Zeta2Lean/Window/Statements.lean",
+    "sha256": "f9a9ffb5425d12bcc36a72c0d13b205f1012c09d7b621f44183e8c7bacf3b3dc"
+   }
+  ]
+ },
+ "code": "instruments/zeta7audit/ is cert-machine's own code (2026-10-05): pwaff.py, formulas.py, inner.py, decide.py, measure.py, battery.py. No line is taken from the claimant's paper or from the issue's reproduction script; measure.py calls instruments/zetahankel/hankel.py (this lab's engine, pinned in instruments/zetahankel/PROVENANCE.json)."
+}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>
+zeta(5) is irrational | Persiflage	</title>
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" media="all" href="https://galoisrepresentations.org/wp-content/themes/twentyten/style.css?ver=20260819" />
+<link rel="pingback" href="https://galoisrepresentations.org/xmlrpc.php">
+<meta name='robots' content='max-image-preview:large' />
+<link rel="alternate" type="application/rss+xml" title="Persiflage &raquo; Feed" href="https://galoisrepresentations.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Persiflage &raquo; Comments Feed" href="https://galoisrepresentations.org/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Persiflage &raquo; zeta(5) is irrational Comments Feed" href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://galoisrepresentations.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaloisrepresentations.org%2F2026%2F09%2F24%2Fzeta5-is-irrational%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://galoisrepresentations.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgaloisrepresentations.org%2F2026%2F09%2F24%2Fzeta5-is-irrational%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="jetpack-stats-inline-css">
+img#wpstats{display:none}
+/*# sourceURL=jetpack-stats-inline-css */
+</style>
+<link rel='stylesheet' id='twentyten-block-style-css' href='https://galoisrepresentations.org/wp-content/themes/twentyten/blocks.css?ver=20250220' media='all' />
+<link rel="https://api.w.org/" href="https://galoisrepresentations.org/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://galoisrepresentations.org/wp-json/wp/v2/posts/6093" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://galoisrepresentations.org/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1.2" />
+<link rel="canonical" href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/" />
+<link rel='shortlink' href='https://galoisrepresentations.org/?p=6093' />
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--blue: #0066cc;--wp--preset--color--medium-gray: #666;--wp--preset--color--light-gray: #f1f1f1;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-blue-color{color: var(--wp--preset--color--blue) !important;}.has-medium-gray-color{color: var(--wp--preset--color--medium-gray) !important;}.has-light-gray-color{color: var(--wp--preset--color--light-gray) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-blue-background-color{background-color: var(--wp--preset--color--blue) !important;}.has-medium-gray-background-color{background-color: var(--wp--preset--color--medium-gray) !important;}.has-light-gray-background-color{background-color: var(--wp--preset--color--light-gray) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-blue-border-color{border-color: var(--wp--preset--color--blue) !important;}.has-medium-gray-border-color{border-color: var(--wp--preset--color--medium-gray) !important;}.has-light-gray-border-color{border-color: var(--wp--preset--color--light-gray) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-6093 single-format-standard wp-theme-twentyten">
+<div id="wrapper" class="hfeed">
+		<a href="#content" class="screen-reader-text skip-link">Skip to content</a>
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+									<div id="site-title">
+						<span>
+							<a href="https://galoisrepresentations.org/" rel="home" >Persiflage</a>
+						</span>
+					</div>
+										<div id="site-description">Galois Representations and more!</div>
+					<img src="https://galoisrepresentations.org/wp-content/uploads/2025/03/cropped-IMG_0922-scaled-1.jpg" width="940" height="244" alt="Persiflage" srcset="https://galoisrepresentations.org/wp-content/uploads/2025/03/cropped-IMG_0922-scaled-1.jpg 940w, https://galoisrepresentations.org/wp-content/uploads/2025/03/cropped-IMG_0922-scaled-1-300x78.jpg 300w, https://galoisrepresentations.org/wp-content/uploads/2025/03/cropped-IMG_0922-scaled-1-768x199.jpg 768w" sizes="(max-width: 940px) 100vw, 940px" decoding="async" fetchpriority="high" />			</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+				<div class="menu-header"><ul id="menu-galois-theory" class="menu"><li id="menu-item-4378" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4378"><a href="https://galoisrepresentations.org/">Home</a></li>
+<li id="menu-item-4379" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4379"><a href="https://galoisrepresentations.org/about/">About</a></li>
+<li id="menu-item-4746" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4746"><a href="https://galoisrepresentations.org/category/students/">Work of my students</a></li>
+</ul></div>			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+			
+
+				<div id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="https://galoisrepresentations.org/2026/09/22/real-quadratic-fields-and-finite-quantum-dilogarithms-i/" rel="prev"><span class="meta-nav">&larr;</span> Real quadratic fields and finite quantum dilogarithms I</a></div>
+					<div class="nav-next"><a href="https://galoisrepresentations.org/2026/09/24/are-business-schools-intellectually-bankrupt-part-two/" rel="next">Are business schools intellectually bankrupt? (Part Two) <span class="meta-nav">&rarr;</span></a></div>
+				</div><!-- #nav-above -->
+
+				<div id="post-6093" class="post-6093 post type-post status-publish format-standard hentry category-mathematics tag-zeta5 tag-francis-brown tag-irrationality tag-marc-prevost tag-tanguy-rivoal tag-wadim-zudilin">
+					<h1 class="entry-title">zeta(5) is irrational</h1>
+
+					<div class="entry-meta">
+						<span class="meta-prep meta-prep-author">Posted on</span> <a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/" title="1:16 am" rel="bookmark"><span class="entry-date">September 24, 2026</span></a> <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="https://galoisrepresentations.org/author/fcale/" title="View all posts by Persiflage">Persiflage</a></span>					</div><!-- .entry-meta -->
+
+					<div class="entry-content">
+						<p>So one day after an <a href="https://galoisrepresentations.org/2026/09/22/real-quadratic-fields-and-finite-quantum-dilogarithms-i/">amazing result by humans</a>, the computers have struck back! This time, a proof that \(\zeta(5)\) is irrational. The paper I saw gives me the impression of being almost entirely AI generated (if so, it then comes with a very dishonest disclosure), but never mind, thanks for the compute!</p>
+<p>I spent some effort trying to see what was going on. Since the argument has now been verified in <a href="https://github.com/mo271/zeta5">Lean</a>, it seemed more useful to try to identify the key ideas and where they could be traced, and where they were new. </p>
+<p>One way I tried to understand this was to insist that ChatGPT try to find in the literature where similar ideas had been used before. I am sure that I did not do a great job with the literature, but I did my best in the several hours I had available. I sure hope Jacob Tsimerman&#8217;s suggestion that AI might reach superhuman exposition will come soon. The discussion below connects the arguments to the work of Prévost (not cited in the paper), but there may well be other sources that ChatGPT learnt these ideas from. Certainly Hankel determinants are also considered by Zudilin, and I suspect that he would do a better job unearthing the ideas behind this paper (some of which are no doubt in his own papers) than I have done. Later on I quote from ChatGPT directly on what it thinks.</p>
+<p>Put \(D_0(t)=1\) and \(D_m(t)=\prod_{j=1}^m(t+j^2)\) for \(m\geq1\). Fix an integer \(k\geq2\), and let \(H_n^{(k)} =\sum_{v=1}^n v^{-k}\) with \(H_0^{(k)}=0\), and define the Bernoulli numbers as usual by \(u/(e^u-1)=\sum_{m\geq0}B_mu^m/m!\), so \(B_1=-1/2\).</p>
+<p><b>Definition.</b> Let \(t\) and \(X\) be independent indeterminates. Define the \(\mathbf{Q}\)-vector space</p>
+<p>\[\begin{gathered} \mathcal R=\bigcup_{m\geq0}\left\{\frac{P(t)}{D_m(t)}:P(t)\in\mathbf{Q}[t]\right\}\subset\mathbf{Q}(t),\\ \mathbf{Q}[X]_{\leq1}=\{aX+b:a,b\in\mathbf{Q}\}. \end{gathered}\]</p>
+<p>Thus \(\mathcal R\) consists of the rational functions of \(t\) whose finite poles, if any, are simple and belong to \(\{-1^2,-2^2,\ldots\}\). There is no restriction on the polynomial part. For the fixed integer \(k\geq2\), define the \(\mathbf{Q}\)-linear map \(\mu_{k,X}:\mathcal R\longrightarrow\mathbf{Q}[X]_{\leq1}\) by</p>
+<p>\[\begin{aligned}\mu_{k,X}(t^e)&amp;=(-1)^eB_{2e+2}\frac{(2e+k)!}{(k-1)!(2e+2)!}&amp;&amp; (e\geq0),\\ \mu_{k,X}\left(\frac1{t+j^2}\right)&amp;=j^{k-1}(X-H_j^{(k)})-\frac1{k-1}+\frac1{2j}&amp;&amp; (j\geq1).\end{aligned}\]</p>
+<p>Write \(\mu_k:\mathbf{Q}[t]\to\mathbf{Q}\) for its restriction to polynomials, and abbreviate \(\mu_{k,X}((t+j^2)^{-1})\) to \(\phi_{k,j}(X)\). The fact that this is well-defined follows from the partial fraction expansion. If one writes \(R\in\mathcal R\) as \(R(t)=P(t)+\sum_{j=1}^m c_j/(t+j^2)\), with \(P(t)=\sum_e p_et^e\in\mathbf{Q}[t]\) and \(c_j\in\mathbf{Q}\), then</p>
+<p>\[\begin{aligned} \mu_{k,X}(R)={}&amp;\left(\sum_{j=1}^m c_jj^{k-1}\right)X+\sum_e p_e\mu_k(t^e)\\ &amp;+\sum_{j=1}^m c_j\left(-j^{k-1}H_j^{(k)}-\frac1{k-1}+\frac1{2j}\right). \end{aligned}\]</p>
+<p>For a real number \(\xi\), let \(\operatorname{ev}_\xi:\mathbf{Q}[X]\to\mathbf{R}\) be evaluation at \(X=\xi\), and define \(\mu_{k,\xi}=\operatorname{ev}_\xi\circ\mu_{k,X}\). Thus \(\mu_{k,\xi}(R)\) is a real number. For any field \(F\) containing \(\mathbf{Q}\), the same basis and formulas define an \(F\)-linear map on \(\mathcal R_F=\bigcup_m D_m(t)^{-1}F[t]\), with values in \(F[X]_{\leq1}\). We keep the notation \(\mu_{k,X}\) for this extension and \(\mu_k\) for its restriction to \(F[t]\). When \(F=\mathbf{R}\), we can specialize \(X=\xi\in\mathbf{R}\) as above. In particular, this specifies the map on rational functions with real coefficients.</p>
+<h3>The formulas of Euler and Hermite</h3>
+<p>Let \(f(y)=(e^{2\pi y}-1)^{-1}\) for \(y&gt;0\), and put</p>
+<p>\[\begin{aligned} w_k(y)&amp;=\frac{2(-1)^{k-1}y^k}{(k-1)!}f^{(k-1)}(y)\\ &amp;=\frac{2(2\pi)^{k-1}y^k}{(k-1)!}\sum_{l\geq1}l^{k-1}e^{-2\pi l y}. \end{aligned}\]</p>
+<p>The density \(w_k(y)\) is positive for \(y&gt;0\), tends to \(1/\pi\) as \(y\to0\), and satisfies \(w_k(y)=O_k(y^ke^{-2\pi y})\) at infinity. Euler&#8217;s and Hermite&#8217;s formulas give the following integral representation.</p>
+<p><b>Proposition.</b> For \(R\in\mathcal R_{\mathbf{R}}\),</p>
+<p>\[\mu_{k,\zeta(k)}(R)=\int_0^\infty R(y^2)w_k(y)\mathrm{d} y.\]</p>
+<p>For \(a&gt;0\), write \(\zeta(k,a)=\sum_{v\geq0}(v+a)^{-k}\). The corresponding transform identity is</p>
+<p>\[\int_0^\infty\frac{w_k(y)}{y^2+a^2}\mathrm{d} y=a^{k-1}\zeta(k,a)-\frac1{2a}-\frac1{k-1}.\]</p>
+<p>The transform identity is the integer-weight specialization of Prévost&#8217;s Stieltjes representation [3] (Theorem 1).</p>
+<h3>Hankel Determinants</h3>
+<p>Choose integers \(0\leq N&lt;K\), \(r\geq1\), and \(h\geq1\). Let \(\mathcal P_h=\mathbf{Q}[t]_{&lt;h}\) be the \(h\)-dimensional vector space of polynomials of degree less than \(h\). Multiplication by \(W(t)=D_N(t)^r/D_K(t)\) sends every polynomial to \(\mathcal R\). Therefore</p>
+<p>\[\beta_{k,X}:\mathcal P_h\times\mathcal P_h\longrightarrow\mathbf{Q}[X]_{\leq1},\qquad \beta_{k,X}(p,q)=\mu_{k,X}(Wpq)\]</p>
+<p>is a well-defined symmetric bilinear map. Its matrix in the basis \(1,t,\ldots,t^{h-1}\) and its determinant are</p>
+<p>\[\begin{gathered} G_k(X)=\left[\mu_{k,X}\left(\frac{D_N(t)^rt^{i+j}}{D_K(t)}\right)\right]_{0\leq i,j&lt;h},\\ \Delta_k(X)=\det G_k(X)\in\mathbf{Q}[X]. \end{gathered}\]</p>
+<p>Such a matrix is called Hankel because its entries depend on \(i+j\). (The notation suppresses \(K,N,r,h\).) Since the entries have degree at most one in \(X\), the determinant has degree at most \(h\).</p>
+<p><b>Lemma.</b> After scalar extension to \(\mathbf{R}\) and specialization \(X=\zeta(k)\), the bilinear map \(\beta_{k,\zeta(k)}\) is an inner product. For every nonzero real polynomial \(q\) of degree less than \(h\),</p>
+<p>\[\beta_{k,\zeta(k)}(q,q)=\int_0^\infty W(y^2)q(y^2)^2w_k(y)\mathrm{d} y&gt;0.\]</p>
+<p>Thus \(G_k(\zeta(k))\) is a positive-definite Gram matrix, meaning the matrix of pairwise inner products of a linearly independent list. In particular \(\Delta_k(\zeta(k))&gt;0\).</p>
+<p><p>Allowing for a general rational \(W\), Prévost’s arguments for \(\zeta(2)\) and \(\zeta(3)\) fit this same Hankel construction, using the one-pole choices \(W_{2,n}(t)=1/(t+(2n+1)^2)\) and \(W_{3,n}(t)=t/(t+(n+1)^2)\), respectively, with matrices of size \(n+1\) [3]. These determinants are affine polynomials in \(X\), and their roots are the corresponding rational approximations to \(\zeta(k)\): a change of polynomial basis expresses each determinant as a rational factor times a Padé approximation error. Prévost’s coefficient and error estimates allow these determinants to be rescaled into integer linear forms whose nonzero values at \(\zeta(2)\) or \(\zeta(3)\) tend to zero, proving irrationality. On the other hand, in this new argument, the single pole of \(W\) is replaced by the \(K-N\) poles of \(D_N(t)^r/D_K(t)\), producing a determinant of degree \(K-N\) in \(X\).</p>
+<p><b>Proposition (Degree of the determinant).</b> Take \(h=K-N\). Then \(\Delta_k\) has degree \(h\), with</p>
+<p>\[[X^h]\Delta_k(X)=(-1)^{h(h-1)/2}\prod_{j=N+1}^Kj^{k-1}D_N(-j^2)^{r-1}\ne0.\]</p>
+<p>For a nonzero polynomial \(\Delta\in\mathbf{Q}[X]\), a positive rational number \(c\) with \(c\Delta\in\mathbf{Z}[X]\) will be called a normalizing factor. For example, one can multiply by the least common multiple of the coefficient denominators. One can also divide out a common factor of the resulting integer coefficients; such division is important in this construction. The required estimate concerns the value of the normalized polynomial, including both effects.</p>
+<p><b>Lemma.</b> Let \(\xi\in\mathbf{R}\). Suppose \(P_n\in\mathbf{Z}[X]\), \(\deg P_n\leq Cn\), and \(0&lt;P_n(\xi)\leq\exp(-cn^2+o(n^2))\), where \(C,c&gt;0\) are fixed. Then \(\xi\) is irrational.</p>
+<h2>The strategy</h2>
+<p>The goal is to apply the integer-polynomial lemma with \(\xi=\zeta(k)\) and with \(P_n\) a positive rational multiple of the determinant \(\Delta_k(X)\) in the Hankel matrix. &#8220;All&#8221; that has been done is to adjust Prévost&#8217;s positive measure by \(D_N^r/D_K\) for suitable parameters \(N\) and \(K\). Increasing the numerator power actually makes the determinant larger, but it turns out that one obtains extra cancellations in the coefficient denominators that compensate. Establishing those cancellations uniformly is required for the proof, of course, but finding the right construction is the key step. Now it might seem as though this new factor has come out of nowhere, but even this is not actually new, and the rows of this matrix can be identified with well-poised hypergeometric integrals considered by Zudilin. Once the required arithmetic estimates are proven, one deduces the irrationality of \(\zeta(k)\) with \(k=2,3,4,5\), but not (at least directly) for larger \(k\).</p>
+<h3>Prévost&#8217;s moments and the introduction of the zeta value</h3>
+<p>We now attempt some mathematical archaeology. Prévost&#8217;s Theorem 1 in [3] gives the Hurwitz-zeta representation above. Write \(\mathrm{d}\nu_k(t)=w_k(\sqrt t)\,\mathrm{d}t/(2\sqrt t)\) for \(t&gt;0\). Its polynomial moments are</p>
+<p>\[m_j:=\int_0^\infty t^j\mathrm{d}\nu_k(t)=\mu_k(t^j)=(-1)^jB_{2j+2}\frac{(2j+k)!}{(k-1)!(2j+2)!}\in\mathbf{Q}.\]</p>
+<p> These are rational for every integer \(k\geq2\). Their Hankel determinants compute rational orthogonal polynomials. Put \(H_s=\det[m_{i+j}]_{0\leq i,j&lt;s}\), with \(H_0=1\). The determinant formula in Prévost&#8217;s equation (2.11), written for this moment sequence, is</p>
+<p>\[p_s(z)=\frac{1}{H_s} \det\begin{pmatrix} m_0&amp;m_1&amp;\cdots&amp;m_s\\ m_1&amp;m_2&amp;\cdots&amp;m_{s+1}\\ \vdots&amp;\vdots&amp;&amp;\vdots\\ m_{s-1}&amp;m_s&amp;\cdots&amp;m_{2s-1}\\ 1&amp;z&amp;\cdots&amp;z^s \end{pmatrix}.\]</p>
+<p>The polynomial is monic of degree \(s\) and satisfies \(\int t^j p_s(t)\mathrm{d}\nu_k(t)=0\) for \(j&lt;s\); these are its orthogonality conditions. Both \(H_s\) and the coefficients of \(p_s\) are rational. The zeta value enters through a subsequent evaluation of a transform, as follows.</p>
+<p>Define \(\mathcal F_k(z)=\int_0^\infty(z+t)^{-1}\mathrm{d}\nu_k(t)\) for \(z&gt;0\). At a positive integer \(a\), we get</p>
+<p>\[\mathcal F_k(a^2)=a^{k-1}\bigl(\zeta(k)-H_a^{(k)}\bigr)-\frac1{k-1}+\frac1{2a}=\phi_{k,a}(\zeta(k)).\]</p>
+<p>Consequently a rational approximation to \(\mathcal F_k(a^2)\) gives a rational approximation to \(\zeta(k)\). A Padé approximation matches finitely many coefficients of the asymptotic expansion \(\sum_{j\geq0}(-1)^jm_jz^{-j-1}\), as \(z\to+\infty\), by a rational function. The coefficients of that rational function are determined by the moment equations above. Prévost–Rivoal give effective approximation bounds when the Padé degree and \(a\) increase together [4].</p>
+<p>Replacing \(\mathrm{d}\nu_k(t)\) by \(\mathrm{d}\nu_k(t)/(t+a^2)\), polynomial division gives the affine moment</p>
+<p>\[s_{a,j}(X):=\mu_{k,X}\left(\frac{t^j}{t+a^2}\right) =\sum_{l=0}^{j-1}(-a^2)^l m_{j-1-l}+(-a^2)^j\phi_{k,a}(X),\]</p>
+<p>where the sum is empty at \(j=0\). At \(X=\zeta(k)\) this is exactly the \(j\)th moment of the corresponding measure.</p>
+<p>The measure in the new argument is the following explicit modification of the <i>same</i> \(\nu_k\):</p>
+<p>\[\mathrm{d}\sigma_{k,K,N,r}(t)=W(t)\mathrm{d}\nu_k(t),\qquad W(t)=\frac{D_N(t)^r}{D_K(t)} =\frac{\displaystyle\prod_{a=1}^N(t+a^2)^{r-1}} {\displaystyle\prod_{j=N+1}^K(t+j^2)}.\]</p>
+<p>Here \(0\leq N&lt;K\) and \(r\geq1\) are integers. All factors are positive on the integration interval \(t\geq0\). For fixed \(K,N,r\) the moments are \(\mu_{k,\zeta(k)}(Wt^j)\), and their Hankel determinant of size \(h=K-N\) is \(\Delta_k(\zeta(k))\). These are the moments used throughout the argument.</p>
+<p><b>ChatGPT tells me:</b> Uvarov studies the effect of precisely this type of rational multiplication on orthogonal polynomials [7]. Krattenthaler&#8217;s Theorem 1 and Proposition 13 express the modified Hankel determinant through the original \(p_s\) and their Cauchy transforms \(C_s(y)=\int p_s(t)/(y-t)\mathrm{d}\nu_k(t)\), for \(y&lt;0\) [8]. For the displayed modifier, each numerator node \(-a^2\) gives \(r-1\) rows \(p_s^{(d)}(-a^2)/d!\) for \(0\leq d&lt;r-1\), and each denominator node gives a Cauchy-transform row. Thus the measure considered here belongs to an established family of rational modifications. The starting measure and remainder approximation come from Prévost and Prévost–Rivoal [2], [3], [4]. The exact algebra for multiplying that measure by \(D_N^r/D_K\) is supplied by Uvarov&#8217;s rational modifications and Krattenthaler&#8217;s determinant identity [7], [8]. Zudilin then supplies the irrationality criterion for a positive moment determinant with sufficiently small coefficient denominators [5]. These results identify the starting approximation problem, the modified determinant, and the final integer-polynomial argument, respectively. The closest precedent for improving the coefficient normalization of the <i>matrix</i> is Brown&#8217;s Sections 7.4–7.5 [6]. There one first clears row denominators, then removes column common factors and uses congruences between rows or columns to reduce the total multiplier. Here the concrete mechanism uses congruences between square nodes, while also accounting for the polynomial parts in the partial-fraction expansions. Applying \(\mu_k\) to those polynomial parts can introduce Bernoulli denominators. The required quantitative input is that the assigned divisibility holds simultaneously for every mixed pairing, with these contributions included.</p>
+<p>To come back to the argument, one can (uniformly, for \(k=2,3,4,5\)) take \(K=12n\), \(N=n\), \(r=6\), and \(h=11n\), and write \(\Delta_{k,n}\) for the corresponding determinant. (This is different from what is done in the Lean verification, but whatever.) Set</p>
+<p>\[S_n=\frac{(K!)^{2h}4^{h-1}}{(N!)^{12h}\prod_{i=1}^{h-1}((2i)!)^2},\qquad F_{k,n}(X)=S_n\Delta_{k,n}(X).\]</p>
+<p>One then has to estimate this at the real place and then control the denominators. In particular:
+</p>
+<p><b>Theorem:</b> \(\zeta(k)\) is irrational for \(k \in \{2,3,4,5\}\). For all sufficiently large \(n\),</p>
+<p>\[\begin{aligned}P_{k,n} &#038; \in\mathbf{Z}[X], \\<br />
+\deg P_{k,n} &#038; =11n \\ P_{k,n}(\zeta(k))&#038; \le e^{-\gamma_k n^2} \\ (\gamma_2,\gamma_3,\gamma_4,\gamma_5)&#038; =(30,96,6,3/2).\end{aligned}\]</p>
+<h3>References</h3>
+<p>[1] F. Beukers, <i>A note on the irrationality of \(\zeta(2)\) and \(\zeta(3)\)</i>, Bull. London Math. Soc. <b>11</b> (1979), 268–272. <a href="https://doi.org/10.1112/blms/11.3.268">doi:10.1112/blms/11.3.268</a>.</p>
+<p>[2] M. Prévost, <i>A new proof of the irrationality of \(\zeta(2)\) and \(\zeta(3)\) using Padé approximants</i>, J. Comput. Appl. Math. <b>67</b> (1996), 219–235. <a href="https://doi.org/10.1016/0377-0427(95)00019-4">doi:10.1016/0377-0427(95)00019-4</a>.</p>
+<p>[3] M. Prévost, <i>Remainder Padé approximants for the Hurwitz zeta function</i>, Results Math. <b>74</b> (2019), article 51; <a href="https://arxiv.org/abs/1709.05389v1">arXiv:1709.05389v1</a>.</p>
+<p>[4] M. Prévost and T. Rivoal, <i>Diagonal convergence of the remainder Padé approximants for the Hurwitz zeta function</i>, J. Number Theory <b>222</b> (2021), 346–361. <a href="https://doi.org/10.1016/j.jnt.2020.10.019">doi:10.1016/j.jnt.2020.10.019</a>.</p>
+<p>[5] W. Zudilin, <i>A determinantal approach to irrationality</i>, Constr. Approx. <b>45</b> (2017), 301–310. <a href="https://arxiv.org/abs/1507.05697v2">arXiv:1507.05697v2</a>; <a href="https://doi.org/10.1007/s00365-016-9333-7">doi:10.1007/s00365-016-9333-7</a>.</p>
+<p>[6] F. Brown, <i>Mellin transforms, transfinite diameter and rational approximations of integrals</i>, 2026, <a href="https://arxiv.org/abs/2604.20741v1">arXiv:2604.20741v1</a>.</p>
+<p>[7] V. B. Uvarov, <i>The connection between systems of polynomials that are orthogonal with respect to different distribution functions</i>, U.S.S.R. Comput. Math. Math. Phys. <b>9</b>, no. 6 (1969), 25–36. <a href="https://doi.org/10.1016/0041-5553(69)90124-4">doi:10.1016/0041-5553(69)90124-4</a>.</p>
+<p>[8] C. Krattenthaler, <i>A determinant identity for moments of orthogonal polynomials that implies Uvarov&#8217;s formula for the orthogonal polynomials of rationally related densities</i>, 2021. <a href="https://arxiv.org/abs/2103.03969v1">arXiv:2103.03969v1</a>.</p>
+											</div><!-- .entry-content -->
+
+		
+						<div class="entry-utility">
+							This entry was posted in <a href="https://galoisrepresentations.org/category/mathematics/" rel="category tag">Mathematics</a> and tagged <a href="https://galoisrepresentations.org/tag/zeta5/" rel="tag">\zeta(5)</a>, <a href="https://galoisrepresentations.org/tag/francis-brown/" rel="tag">Francis Brown</a>, <a href="https://galoisrepresentations.org/tag/irrationality/" rel="tag">Irrationality</a>, <a href="https://galoisrepresentations.org/tag/marc-prevost/" rel="tag">Marc Prévost</a>, <a href="https://galoisrepresentations.org/tag/tanguy-rivoal/" rel="tag">Tanguy Rivoal</a>, <a href="https://galoisrepresentations.org/tag/wadim-zudilin/" rel="tag">Wadim Zudilin</a>. Bookmark the <a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/" title="Permalink to zeta(5) is irrational" rel="bookmark">permalink</a>.													</div><!-- .entry-utility -->
+					</div><!-- #post-6093 -->
+
+					<div id="nav-below" class="navigation">
+						<div class="nav-previous"><a href="https://galoisrepresentations.org/2026/09/22/real-quadratic-fields-and-finite-quantum-dilogarithms-i/" rel="prev"><span class="meta-nav">&larr;</span> Real quadratic fields and finite quantum dilogarithms I</a></div>
+						<div class="nav-next"><a href="https://galoisrepresentations.org/2026/09/24/are-business-schools-intellectually-bankrupt-part-two/" rel="next">Are business schools intellectually bankrupt? (Part Two) <span class="meta-nav">&rarr;</span></a></div>
+					</div><!-- #nav-below -->
+
+					
+			<div id="comments">
+
+
+			<h3 id="comments-title">
+			3 Responses to <em>zeta(5) is irrational</em>			</h3>
+
+	
+			<ol class="commentlist">
+						<li class="comment even thread-even depth-1" id="li-comment-28332">
+		<div id="comment-28332">
+			<div class="comment-author vcard">
+				<img alt='' src='https://secure.gravatar.com/avatar/14bc0a374339b76902fac9f6c405fa7e782dbe4378038dc675f495dde04bcbd9?s=40&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/14bc0a374339b76902fac9f6c405fa7e782dbe4378038dc675f495dde04bcbd9?s=80&#038;d=identicon&#038;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' decoding='async'/>				<cite class="fn">J. H. S.</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+
+				
+				
+			<div class="comment-meta commentmetadata"><a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/#comment-28332">
+				September 24, 2026 at 5:32 pm					</a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+				<div class="comment-body"><p>Professor Frank,</p>
+<p>Is this one the 100 long-standing problems in mathematics that OpenAI&#8217;s so-called &#8220;internal model&#8221; has purportedly solved?</p>
+<p>Best regards,</p>
+<p>José Hdz.</p>
+</div>
+
+				<div class="reply">
+				<a rel="nofollow" class="comment-reply-link" href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/?replytocom=28332#respond" data-commentid="28332" data-postid="6093" data-belowelement="comment-28332" data-respondelement="respond" data-replyto="Reply to J. H. S." aria-label="Reply to J. H. S.">Reply</a>				</div><!-- .reply -->
+			</div><!-- #comment-##  -->
+
+				</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-fcale bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-28334">
+		<div id="comment-28334">
+			<div class="comment-author vcard">
+				<img alt='' src='https://secure.gravatar.com/avatar/9292b0563a5632c94e51b628af313d07bc9a2b04b04352850cd6c4799f7e2b48?s=40&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/9292b0563a5632c94e51b628af313d07bc9a2b04b04352850cd6c4799f7e2b48?s=80&#038;d=identicon&#038;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' decoding='async'/>				<cite class="fn">Persiflage</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+
+				
+				
+			<div class="comment-meta commentmetadata"><a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/#comment-28334">
+				September 24, 2026 at 6:21 pm					</a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+				<div class="comment-body"><p>Dear José,  I am not privy to such exulted secrets, but I would not at all be surprised.</p>
+</div>
+
+				<div class="reply">
+				<a rel="nofollow" class="comment-reply-link" href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/?replytocom=28334#respond" data-commentid="28334" data-postid="6093" data-belowelement="comment-28334" data-respondelement="respond" data-replyto="Reply to Persiflage" aria-label="Reply to Persiflage">Reply</a>				</div><!-- .reply -->
+			</div><!-- #comment-##  -->
+
+				</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-28397">
+		<div id="comment-28397">
+			<div class="comment-author vcard">
+				<img alt='' src='https://secure.gravatar.com/avatar/f20cb0dc3c2d44213ccd2b24f72b5579e2ada9c98776c2b6e1e35e7c953ae330?s=40&#038;d=identicon&#038;r=g' srcset='https://secure.gravatar.com/avatar/f20cb0dc3c2d44213ccd2b24f72b5579e2ada9c98776c2b6e1e35e7c953ae330?s=80&#038;d=identicon&#038;r=g 2x' class='avatar avatar-40 photo' height='40' width='40' loading='lazy' decoding='async'/>				<cite class="fn">dtq1997</cite> <span class="says">says:</span>			</div><!-- .comment-author .vcard -->
+
+				
+				
+			<div class="comment-meta commentmetadata"><a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/#comment-28397">
+				September 30, 2026 at 6:28 pm					</a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+				<div class="comment-body"><p>Follow-up work:<br />
+<a href="https://github.com/siqiliu-tsinghua/Li2Rational" rel="nofollow ugc">https://github.com/siqiliu-tsinghua/Li2Rational</a><br />
+<a href="https://github.com/dtq1997/li2-half-irrationality" rel="nofollow ugc">https://github.com/dtq1997/li2-half-irrationality</a><br />
+<a href="https://github.com/dtq1997/zeta2-zeta3-linear-independence" rel="nofollow ugc">https://github.com/dtq1997/zeta2-zeta3-linear-independence</a></p>
+</div>
+
+				<div class="reply">
+				<a rel="nofollow" class="comment-reply-link" href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/?replytocom=28397#respond" data-commentid="28397" data-postid="6093" data-belowelement="comment-28397" data-respondelement="respond" data-replyto="Reply to dtq1997" aria-label="Reply to dtq1997">Reply</a>				</div><!-- .reply -->
+			</div><!-- #comment-##  -->
+
+				</li><!-- #comment-## -->
+			</ol>
+
+	
+	
+
+	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2026/09/24/zeta5-is-irrational/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://galoisrepresentations.org/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required="required" /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required="required" /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='6093' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="f009bdb813" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="147"/><script>
+document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );
+</script>
+</p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+	
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+
+<li id="search-2" class="widget-container widget_search"><form role="search" method="get" id="searchform" class="searchform" action="https://galoisrepresentations.org/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></li>
+		<li id="recent-posts-2" class="widget-container widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/10/05/journals/">Journals</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/27/ai-disclosures-done-right/">AI disclosures done right</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/26/roots-of-unity/">Roots of Unity</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/24/are-business-schools-intellectually-bankrupt-part-two/">Are business schools intellectually bankrupt? (Part Two)</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/" aria-current="page">zeta(5) is irrational</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/22/real-quadratic-fields-and-finite-quantum-dilogarithms-i/">Real quadratic fields and finite quantum dilogarithms I</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/20/an-even-psl_2f_23-galois-extension/">An even PSL_2(F_23) Galois extension</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/17/ways-to-improve-mathematics-an-introduction/">Ways to improve Mathematics (an introduction)</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/09/look-mom-i-pressed-a-button-go-edition/">Look, Mom, I pressed a button! (Go edition)</a>
+									</li>
+											<li>
+					<a href="https://galoisrepresentations.org/2026/09/05/look-mom-i-pressed-a-button/">Look, Mom, I pressed a button!</a>
+									</li>
+					</ul>
+
+		</li><li id="recent-comments-2" class="widget-container widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="https://galoisrepresentations.org/2026/10/05/journals/" class="url" rel="ugc">Journals | Persiflage</a></span> on <a href="https://galoisrepresentations.org/2026/09/17/ways-to-improve-mathematics-an-introduction/#comment-28451">Ways to improve Mathematics (an introduction)</a></li><li class="recentcomments"><span class="comment-author-link">Thomas</span> on <a href="https://galoisrepresentations.org/2026/09/27/ai-disclosures-done-right/#comment-28427">AI disclosures done right</a></li><li class="recentcomments"><span class="comment-author-link">Fusion</span> on <a href="https://galoisrepresentations.org/2026/09/22/real-quadratic-fields-and-finite-quantum-dilogarithms-i/#comment-28415">Real quadratic fields and finite quantum dilogarithms I</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://www.constantinkogler.com" class="url" rel="ugc external nofollow">Constantin Kogler</a></span> on <a href="https://galoisrepresentations.org/2026/09/27/ai-disclosures-done-right/#comment-28412">AI disclosures done right</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://www.constantinkogler.com" class="url" rel="ugc external nofollow">Constantin Kogler</a></span> on <a href="https://galoisrepresentations.org/2026/09/27/ai-disclosures-done-right/#comment-28411">AI disclosures done right</a></li></ul></li><li id="nav_menu-3" class="widget-container widget_nav_menu"><h3 class="widget-title">Blogroll</h3><div class="menu-blogroll-container"><ul id="menu-blogroll" class="menu"><li id="menu-item-5015" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5015"><a href="https://totallydisconnected.wordpress.com/">totallydisconnected</a></li>
+<li id="menu-item-5016" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5016"><a href="https://quomodocumque.wordpress.com/">Quomodocumque</a></li>
+<li id="menu-item-5017" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5017"><a href="https://xenaproject.wordpress.com/">Xena Project</a></li>
+<li id="menu-item-5018" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5018"><a href="https://mathematicswithoutapologies.wordpress.com/">Mathematics Without Apologies</a></li>
+<li id="menu-item-6011" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6011"><a href="https://www.daniellitt.com/blog/">Daniel Litt&#8217;s Blog</a></li>
+<li id="menu-item-6012" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6012"><a href="https://terrytao.wordpress.com/">What&#8217;s New</a></li>
+</ul></div></li><li id="categories-2" class="widget-container widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-1673"><a href="https://galoisrepresentations.org/category/ai/">AI</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://galoisrepresentations.org/category/art/">Art</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://galoisrepresentations.org/category/chess/">Chess</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://galoisrepresentations.org/category/coffee/">Coffee</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://galoisrepresentations.org/category/film-criticism/">Film Criticism</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://galoisrepresentations.org/category/food/">Food</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="https://galoisrepresentations.org/category/mathematics/">Mathematics</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="https://galoisrepresentations.org/category/music/">Music</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="https://galoisrepresentations.org/category/politics/">Politics</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="https://galoisrepresentations.org/category/rant/">Rant</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="https://galoisrepresentations.org/category/sport/">Sport</a>
+</li>
+	<li class="cat-item cat-item-1314"><a href="https://galoisrepresentations.org/category/students/">Students</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="https://galoisrepresentations.org/category/teaching/">Teaching</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="https://galoisrepresentations.org/category/travel/">Travel</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://galoisrepresentations.org/category/uncategorized/">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="https://galoisrepresentations.org/category/waffle/">Waffle</a>
+</li>
+	<li class="cat-item cat-item-1316"><a href="https://galoisrepresentations.org/category/students-2/">Work of my students</a>
+</li>
+			</ul>
+
+			</li><li id="tag_cloud-3" class="widget-container widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><ul class='wp-tag-cloud' role='list'>
+	<li><a href="https://galoisrepresentations.org/tag/ai/" class="tag-cloud-link tag-link-1558 tag-link-position-1" style="font-size: 9.0294117647059pt;" aria-label="AI (7 items)">AI</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/akshay-venkatesh/" class="tag-cloud-link tag-link-54 tag-link-position-2" style="font-size: 17.264705882353pt;" aria-label="Akshay Venkatesh (19 items)">Akshay Venkatesh</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/ana-caraiani/" class="tag-cloud-link tag-link-68 tag-link-position-3" style="font-size: 14.794117647059pt;" aria-label="Ana Caraiani (14 items)">Ana Caraiani</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/andrew-wiles/" class="tag-cloud-link tag-link-79 tag-link-position-4" style="font-size: 11.088235294118pt;" aria-label="Andrew Wiles (9 items)">Andrew Wiles</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/bach/" class="tag-cloud-link tag-link-108 tag-link-position-5" style="font-size: 11.088235294118pt;" aria-label="Bach (9 items)">Bach</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/bao-le-hung/" class="tag-cloud-link tag-link-113 tag-link-position-6" style="font-size: 10.058823529412pt;" aria-label="Bao Le Hung (8 items)">Bao Le Hung</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/barry-mazur/" class="tag-cloud-link tag-link-116 tag-link-position-7" style="font-size: 17.676470588235pt;" aria-label="Barry Mazur (20 items)">Barry Mazur</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/chatgpt/" class="tag-cloud-link tag-link-1542 tag-link-position-8" style="font-size: 10.058823529412pt;" aria-label="ChatGPT (8 items)">ChatGPT</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/class-field-theory/" class="tag-cloud-link tag-link-238 tag-link-position-9" style="font-size: 10.058823529412pt;" aria-label="Class Field Theory (8 items)">Class Field Theory</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/coffee/" class="tag-cloud-link tag-link-248 tag-link-position-10" style="font-size: 11.088235294118pt;" aria-label="Coffee (9 items)">Coffee</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/completed-cohomology/" class="tag-cloud-link tag-link-261 tag-link-position-11" style="font-size: 10.058823529412pt;" aria-label="completed cohomology (8 items)">completed cohomology</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/david-geraghty/" class="tag-cloud-link tag-link-309 tag-link-position-12" style="font-size: 17.264705882353pt;" aria-label="David Geraghty (19 items)">David Geraghty</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/david-helm/" class="tag-cloud-link tag-link-310 tag-link-position-13" style="font-size: 9.0294117647059pt;" aria-label="David Helm (7 items)">David Helm</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/dick-gross/" class="tag-cloud-link tag-link-339 tag-link-position-14" style="font-size: 12.735294117647pt;" aria-label="Dick Gross (11 items)">Dick Gross</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/galois-representations/" class="tag-cloud-link tag-link-458 tag-link-position-15" style="font-size: 20.558823529412pt;" aria-label="Galois Representations (28 items)">Galois Representations</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/gauss/" class="tag-cloud-link tag-link-462 tag-link-position-16" style="font-size: 8pt;" aria-label="Gauss (6 items)">Gauss</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/gaetan-chenevier/" class="tag-cloud-link tag-link-454 tag-link-position-17" style="font-size: 8pt;" aria-label="Gaëtan Chenevier (6 items)">Gaëtan Chenevier</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/george-boxer/" class="tag-cloud-link tag-link-469 tag-link-position-18" style="font-size: 19.529411764706pt;" aria-label="George Boxer (25 items)">George Boxer</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/gowers/" class="tag-cloud-link tag-link-486 tag-link-position-19" style="font-size: 9.0294117647059pt;" aria-label="Gowers (7 items)">Gowers</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/grothendieck/" class="tag-cloud-link tag-link-498 tag-link-position-20" style="font-size: 9.0294117647059pt;" aria-label="Grothendieck (7 items)">Grothendieck</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/hilbert-modular-forms/" class="tag-cloud-link tag-link-536 tag-link-position-21" style="font-size: 8pt;" aria-label="Hilbert modular forms (6 items)">Hilbert modular forms</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/inverse-galois-problem/" class="tag-cloud-link tag-link-578 tag-link-position-22" style="font-size: 11.088235294118pt;" aria-label="Inverse Galois Problem (9 items)">Inverse Galois Problem</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/jack-thorne/" class="tag-cloud-link tag-link-590 tag-link-position-23" style="font-size: 14.794117647059pt;" aria-label="Jack Thorne (14 items)">Jack Thorne</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/james-newton/" class="tag-cloud-link tag-link-597 tag-link-position-24" style="font-size: 12.735294117647pt;" aria-label="James Newton (11 items)">James Newton</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/joel-specter/" class="tag-cloud-link tag-link-613 tag-link-position-25" style="font-size: 12.735294117647pt;" aria-label="Joel Specter (11 items)">Joel Specter</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/john-voight/" class="tag-cloud-link tag-link-618 tag-link-position-26" style="font-size: 9.0294117647059pt;" aria-label="John Voight (7 items)">John Voight</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/jordan-ellenberg/" class="tag-cloud-link tag-link-621 tag-link-position-27" style="font-size: 11.911764705882pt;" aria-label="Jordan Ellenberg (10 items)">Jordan Ellenberg</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/ken-ribet/" class="tag-cloud-link tag-link-641 tag-link-position-28" style="font-size: 8pt;" aria-label="Ken Ribet (6 items)">Ken Ribet</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/kevin-buzzard/" class="tag-cloud-link tag-link-644 tag-link-position-29" style="font-size: 20.558823529412pt;" aria-label="Kevin Buzzard (28 items)">Kevin Buzzard</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/langlands/" class="tag-cloud-link tag-link-665 tag-link-position-30" style="font-size: 13.352941176471pt;" aria-label="Langlands (12 items)">Langlands</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/laurent-clozel/" class="tag-cloud-link tag-link-670 tag-link-position-31" style="font-size: 8pt;" aria-label="Laurent Clozel (6 items)">Laurent Clozel</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/mark-kisin/" class="tag-cloud-link tag-link-724 tag-link-position-32" style="font-size: 10.058823529412pt;" aria-label="Mark Kisin (8 items)">Mark Kisin</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/matthew-emerton/" class="tag-cloud-link tag-link-742 tag-link-position-33" style="font-size: 22pt;" aria-label="Matthew Emerton (33 items)">Matthew Emerton</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/michael-harris/" class="tag-cloud-link tag-link-758 tag-link-position-34" style="font-size: 14.176470588235pt;" aria-label="Michael Harris (13 items)">Michael Harris</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/patrick-allen/" class="tag-cloud-link tag-link-859 tag-link-position-35" style="font-size: 11.088235294118pt;" aria-label="Patrick Allen (9 items)">Patrick Allen</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/peter-scholze/" class="tag-cloud-link tag-link-872 tag-link-position-36" style="font-size: 20.558823529412pt;" aria-label="Peter Scholze (28 items)">Peter Scholze</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/richard-moy/" class="tag-cloud-link tag-link-954 tag-link-position-37" style="font-size: 9.0294117647059pt;" aria-label="Richard Moy (7 items)">Richard Moy</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/richard-taylor/" class="tag-cloud-link tag-link-955 tag-link-position-38" style="font-size: 12.735294117647pt;" aria-label="Richard Taylor (11 items)">Richard Taylor</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/rlt/" class="tag-cloud-link tag-link-959 tag-link-position-39" style="font-size: 15.205882352941pt;" aria-label="RLT (15 items)">RLT</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/robert-coleman/" class="tag-cloud-link tag-link-960 tag-link-position-40" style="font-size: 10.058823529412pt;" aria-label="Robert Coleman (8 items)">Robert Coleman</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/ruochuan-liu/" class="tag-cloud-link tag-link-977 tag-link-position-41" style="font-size: 9.0294117647059pt;" aria-label="Ruochuan Liu (7 items)">Ruochuan Liu</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/serre/" class="tag-cloud-link tag-link-1013 tag-link-position-42" style="font-size: 15.205882352941pt;" aria-label="Serre (15 items)">Serre</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/toby-gee/" class="tag-cloud-link tag-link-1141 tag-link-position-43" style="font-size: 22pt;" aria-label="Toby Gee (33 items)">Toby Gee</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/torsion/" class="tag-cloud-link tag-link-1150 tag-link-position-44" style="font-size: 12.735294117647pt;" aria-label="torsion (11 items)">torsion</a></li>
+	<li><a href="https://galoisrepresentations.org/tag/vincent-pilloni/" class="tag-cloud-link tag-link-1179 tag-link-position-45" style="font-size: 15.823529411765pt;" aria-label="Vincent Pilloni (16 items)">Vincent Pilloni</a></li>
+</ul>
+</div>
+</li><li id="archives-3" class="widget-container widget_archive"><h3 class="widget-title">Archives</h3>
+			<ul>
+					<li><a href='https://galoisrepresentations.org/2026/10/'>October 2026</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2026/09/'>September 2026</a>&nbsp;(9)</li>
+	<li><a href='https://galoisrepresentations.org/2026/08/'>August 2026</a>&nbsp;(6)</li>
+	<li><a href='https://galoisrepresentations.org/2026/07/'>July 2026</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2026/06/'>June 2026</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2026/05/'>May 2026</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2026/01/'>January 2026</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2025/06/'>June 2025</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2025/04/'>April 2025</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2025/03/'>March 2025</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2025/01/'>January 2025</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2024/12/'>December 2024</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2024/11/'>November 2024</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2024/10/'>October 2024</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2024/09/'>September 2024</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2024/08/'>August 2024</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2024/07/'>July 2024</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2024/06/'>June 2024</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2024/05/'>May 2024</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2024/02/'>February 2024</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2023/10/'>October 2023</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2023/09/'>September 2023</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2023/06/'>June 2023</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2023/05/'>May 2023</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2023/04/'>April 2023</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2023/03/'>March 2023</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2023/02/'>February 2023</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2022/11/'>November 2022</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2022/07/'>July 2022</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2022/06/'>June 2022</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2022/04/'>April 2022</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2022/03/'>March 2022</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2022/02/'>February 2022</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2022/01/'>January 2022</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2021/12/'>December 2021</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2021/11/'>November 2021</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2021/08/'>August 2021</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2021/06/'>June 2021</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2021/04/'>April 2021</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2021/03/'>March 2021</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2021/02/'>February 2021</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2020/11/'>November 2020</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2020/10/'>October 2020</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2020/06/'>June 2020</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2020/05/'>May 2020</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2020/04/'>April 2020</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2020/03/'>March 2020</a>&nbsp;(8)</li>
+	<li><a href='https://galoisrepresentations.org/2020/02/'>February 2020</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2020/01/'>January 2020</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2019/12/'>December 2019</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2019/11/'>November 2019</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2019/10/'>October 2019</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2019/09/'>September 2019</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2019/08/'>August 2019</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2019/07/'>July 2019</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2019/06/'>June 2019</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2019/05/'>May 2019</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2019/04/'>April 2019</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2019/03/'>March 2019</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2019/02/'>February 2019</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2019/01/'>January 2019</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2018/12/'>December 2018</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2018/11/'>November 2018</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2018/10/'>October 2018</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2018/09/'>September 2018</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2018/08/'>August 2018</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2018/07/'>July 2018</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2018/06/'>June 2018</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2018/05/'>May 2018</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2018/04/'>April 2018</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2018/03/'>March 2018</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2018/02/'>February 2018</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2018/01/'>January 2018</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2017/12/'>December 2017</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2017/11/'>November 2017</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2017/10/'>October 2017</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2017/09/'>September 2017</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2017/08/'>August 2017</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2017/07/'>July 2017</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2017/06/'>June 2017</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2017/05/'>May 2017</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2017/04/'>April 2017</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2017/03/'>March 2017</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2017/02/'>February 2017</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2017/01/'>January 2017</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2016/12/'>December 2016</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2016/11/'>November 2016</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2016/10/'>October 2016</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2016/08/'>August 2016</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2016/06/'>June 2016</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2016/05/'>May 2016</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2016/04/'>April 2016</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2016/03/'>March 2016</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2015/10/'>October 2015</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2015/09/'>September 2015</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2015/08/'>August 2015</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2015/07/'>July 2015</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2015/06/'>June 2015</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2015/05/'>May 2015</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2015/04/'>April 2015</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2015/03/'>March 2015</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2015/02/'>February 2015</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2015/01/'>January 2015</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2014/12/'>December 2014</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2014/11/'>November 2014</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2014/10/'>October 2014</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2014/09/'>September 2014</a>&nbsp;(6)</li>
+	<li><a href='https://galoisrepresentations.org/2014/08/'>August 2014</a>&nbsp;(7)</li>
+	<li><a href='https://galoisrepresentations.org/2014/07/'>July 2014</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2014/06/'>June 2014</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2014/05/'>May 2014</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2014/04/'>April 2014</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2014/03/'>March 2014</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2014/02/'>February 2014</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2014/01/'>January 2014</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2013/12/'>December 2013</a>&nbsp;(1)</li>
+	<li><a href='https://galoisrepresentations.org/2013/11/'>November 2013</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2013/10/'>October 2013</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2013/09/'>September 2013</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2013/08/'>August 2013</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2013/07/'>July 2013</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2013/06/'>June 2013</a>&nbsp;(7)</li>
+	<li><a href='https://galoisrepresentations.org/2013/05/'>May 2013</a>&nbsp;(9)</li>
+	<li><a href='https://galoisrepresentations.org/2013/04/'>April 2013</a>&nbsp;(5)</li>
+	<li><a href='https://galoisrepresentations.org/2013/03/'>March 2013</a>&nbsp;(3)</li>
+	<li><a href='https://galoisrepresentations.org/2013/02/'>February 2013</a>&nbsp;(2)</li>
+	<li><a href='https://galoisrepresentations.org/2013/01/'>January 2013</a>&nbsp;(6)</li>
+	<li><a href='https://galoisrepresentations.org/2012/12/'>December 2012</a>&nbsp;(6)</li>
+	<li><a href='https://galoisrepresentations.org/2012/11/'>November 2012</a>&nbsp;(4)</li>
+	<li><a href='https://galoisrepresentations.org/2012/10/'>October 2012</a>&nbsp;(11)</li>
+			</ul>
+
+			</li><li id="meta-8" class="widget-container widget_meta"><h3 class="widget-title">Meta</h3>
+		<ul>
+						<li><a href="https://galoisrepresentations.org/wp-login.php">Log in</a></li>
+			<li><a href="https://galoisrepresentations.org/feed/">Entries feed</a></li>
+			<li><a href="https://galoisrepresentations.org/comments/feed/">Comments feed</a></li>
+
+			<li><a href="https://wordpress.org/">WordPress.org</a></li>
+		</ul>
+
+		</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+
+			<div id="site-info">
+				<a href="https://galoisrepresentations.org/" rel="home">
+					Persiflage				</a>
+							</div><!-- #site-info -->
+
+			<div id="site-generator">
+								<a href="https://wordpress.org/" class="imprint" title="Semantic Personal Publishing Platform">
+					Proudly powered by WordPress.				</a>
+			</div><!-- #site-generator -->
+
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/twentyten/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script async data-wp-strategy="async" fetchpriority="low" id="comment-reply-js" src="https://galoisrepresentations.org/wp-includes/js/comment-reply.min.js?ver=7.1.2"></script>
+<script id="jetpack-stats-js-before">
+_stq = window._stq || [];
+_stq.push([ "view", {"v":"ext","blog":"257459616","post":"6093","tz":"0","srv":"galoisrepresentations.org","j":"1:16.2"} ]);
+_stq.push([ "clickTrackerInit", "257459616", "6093" ]);
+//# sourceURL=jetpack-stats-js-before
+</script>
+<script data-wp-strategy="defer" defer fetchpriority="low" id="jetpack-stats-js" src="https://stats.wp.com/e-202641.js"></script>
+<script defer id="akismet-frontend-js" src="https://galoisrepresentations.org/wp-content/plugins/akismet/_inc/akismet-frontend.js?ver=1787226161"></script>
+<script id="mathjax-js" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=default&#038;ver=1.3.13"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://galoisrepresentations.org/wp-includes/js/wp-emoji-release.min.js?ver=7.1.2"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://galoisrepresentations.org/wp-includes/js/wp-emoji-loader.min.js
+</script>
+</body>
+</html>
+
+
+<!-- Page cached by LiteSpeed Cache 7.9.1 on 2026-10-05 12:06:35 -->

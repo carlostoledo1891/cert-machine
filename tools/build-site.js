@@ -206,6 +206,22 @@ const erdos1 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1-ledge
 if (!(Number(erdos1.best.ratio6) < 0.22002) || !(Number(erdos1.smallest.ratio6) < 0.22002)) fail('the erdos1 headline is not below Bohman');
 if (!erdos1.counts.verifiedBelowBohman || erdos1.best.n < erdos1.smallest.n) fail('the erdos1 ledger is shapeless');
 
+/* the delta3 ledger: the card claims a verified theorem, so the ledger must say so */
+const d3 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'delta3-ledger.json'), 'utf8'));
+if (!d3.theorem || d3.theorem.verdict !== 'VERIFIED' || d3.theorem.delta3LowerBound !== '117/2192' || !d3.cover.complete) fail('the delta3 ledger does not verify the theorem the card claims');
+if (d3.certificates.some((c) => c.verdict !== 'VERIFIED')) fail('a delta3 certificate is not VERIFIED');
+
+/* the zeta7-anand audit: the card quotes the recomputed outer integral and the two margins */
+const z7 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'zeta7-anand-audit.json'), 'utf8'));
+if (z7.verdict !== 'REFUTED') fail('the zeta7-anand audit no longer refutes the proof route the card describes');
+const z7r2 = z7.margins.scenarios.find((s) => s.key === 'R2|printed|printed');
+if (!z7r2 || z7r2.negative118 !== false) fail('the zeta7-anand record lacks the decided R2 scenario the card quotes');
+
+/* the zeta-hankel ledger: the card quotes its four margins and its agreement count */
+const zh = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'zeta-hankel-ledger.json'), 'utf8'));
+if (zh.verdict !== 'AGREE') fail('the zeta-hankel ledger does not agree with the bench');
+const zhs = (v) => (v > 0 ? '+' : '−') + Math.abs(v).toFixed(2);
+
 /* ---- the report shelf, ordered by weight ---------------------------------
    The order IS the ranking — the landing shows the head of this list, the
    /reports/ index shows all of it. Annotations stay qualitative or gated:
@@ -228,6 +244,10 @@ const REPORTS = [
     title: 'The AI-discovered algorithms, certified',
     desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
     n: strassenN + ' algorithms re-decided each build' },
+  { g: 'erdos', f: 'delta3.html', k: 'erdős #1186, k = 3 · a theorem',
+    title: 'Graham’s $100 question: the twelve blocks are optimal',
+    desc: 'How few monochromatic progressions a, a+d, a+2d can a red–blue colouring of 1, …, n have? Since 2008 the answer was known to lie between 0.05112·n² and 0.05338·n², the upper end a colouring in twelve blocks conjectured optimal. It is: δ₃ = 117/2192. Two pages of mathematics and five exact certificates, made in a sandbox and re-decided here by a second verifier that shares no code with the first. Not refereed, not formalised; k ≥ 4 untouched.',
+    n: d3.certificates.length + ' certificates verified twice · smallest margin ' + Number(d3.certificates.filter((c) => c.kind === 'slab').reduce((m, c) => Math.min(m, Number(c.boundDecimal)), 1)).toExponential(2) + ' · ' + d3.cover.intervals.length + ' regions cover [0, ½]' },
   { g: 'erdos', f: 'erdos1.html', k: 'erdős #1 · the disproof made effective',
     title: 'The swarm proved the set exists. Here is the set.',
     desc: 'GPT-6 Astra disproved Erdős’s first problem in Lean — for every ε there are sum-distinct sets with N ≤ ε·2^n — but the proof is ineffective at one step and no set below Bohman’s 1998 record was known. That step made explicit (a Hermite basis, a chain perturbation, one computed buffer), the sets shipped with certificates, every one re-decided here in exact arithmetic; the base gadget shown not special, and the first explicit Siegel-lemma bounds above Bohman’s.',
@@ -487,6 +507,14 @@ const REPORTS = [
     title: 'The ζ(3) sheet, decided',
     desc: 'The Ramanujan Machine’s complete zeta(3) result sheet re-decided with certificates: proved tail bands, convergence inside the certificate, exact rational comparisons.',
     n: 'the spurious-solution lemma re-proved at build' },
+  { g: 'ai', f: 'zeta7-anand.html', k: 'audit · a ζ(7) proof',
+    title: 'A claimed proof that ζ(7) is irrational: the inequality it rests on fails',
+    desc: 'Anand’s preprint audited in exact arithmetic: its outer integral, recomputed from its own formulas, is positive, so A₂₀₀ + U, which must be negative, is positive under every reading and every decided repair. The third-party report that found it is right on every point checked. The proof fails; ζ(7)’s irrationality is untouched.',
+    n: 'I_out = +' + Number(z7.outer.formula.R2.value.dec).toFixed(4) + ' (printed −15.28) · A₂₀₀ + U = +' + Number(z7r2.A200plusU).toFixed(2) + ' where the proof needs < 0 (printed ' + Number(z7.margins.printedChain.A200plusU.dec).toFixed(2).replace('-', '−') + ')' },
+  { g: 'ai', f: 'zeta-hankel.html', k: 'measured · ζ(5) → ζ(7)?',
+    title: 'The method that proved ζ(5) irrational stops at ζ(5): measured',
+    desc: 'The Hankel-determinant method behind the September 2026 proof that ζ(5) is irrational, computed exactly past it: every polynomial content-stripped to the smallest one the proof can use, its true margin ball-certified. ζ(3) and ζ(5) clear zero; ζ(7) and Catalan’s G do not in any of ' + zh.classReading.counts.families + ' families, and the exact p-adic content shows why. The wall is a measurement, not a theorem; the race claims are labelled unverified.',
+    n: zh.headline.map((h) => h.constant + ' ' + zhs(h.margin)).join(' · ') + ' · ' + zh.counts.agree + '/' + zh.counts.rowsRerun + ' re-run rows agree' },
   /* group 'applied': the new fronts — certified applications with live
      external stakes (aerospace, energy) */
   { g: 'applied', f: 'skyaudit.html', k: 'aerospace · the app, cited',

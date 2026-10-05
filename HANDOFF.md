@@ -15,10 +15,63 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-05: THE δ₃ PORT — δ₃ = 117/2192 (Graham's $100 question, Erdős #1186 k = 3) re-decided here by a clean-room verifier, page + paper built, every send HELD; the ζ(7)/Catalan Hankel wall ported and re-run, 51/51 bit-identical; Anand's ζ(7) proof AUDITED, the route refuted (A₂₀₀ + U = +4.86, needs < 0); the operator read the δ₃ proof and authorised the Zenodo release v2026.10; the Prime Intellect application SENT by the operator; before that, phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-05 (evening), THE PORT OF FRONTIER SESSIONS 34–35 (frontier-apps/PORT-DELTA3.md) — δ₃ AND THE ζ(7) WALL.
+  δ₃ = 117/2192 — RE-DECIDED HERE, A THEOREM, NOT REFEREED. The claimant (frontier-apps s35) proves PRS 2008's
+    conjecture: Q(φ) ≥ −5/137, so the twelve-block colouring is optimal and δ₃ = 117/2192 (the case k = 3 of
+    #1186 ONLY; "solves #1186" overstates). Ported in two phases so the second verifier is clean-room:
+    phase 1 (certificates certs/delta3/*.json, the theorem note instruments/delta3/claimant/THEOREM-EXACT.md,
+    the claimant's logs certs/delta3/frontier/, sources corpus/sources/delta3/ — PRS/BCG PDFs git-ignored in
+    .cache, publisher copyright), then instruments/delta3/{model,psd,verify,battery,lemmas,mutate}.js written by
+    an agent that read ONLY the theorem note + instruments/delta3/CERT-FORMAT.md + the five JSONs, then phase 2
+    (the claimant's code as exhibits in instruments/delta3/claimant/, PROVENANCE.json, 46 pins). RESULT: five
+    VERIFIED, bounds = the files' claims exactly (min slab 2.747e−4), cover complete, THEOREM VERIFIED in ~1–4 s;
+    battery 76 green / 40 reds; mutation pass 23/24 caught, the survivor a rule enforced twice; lemma tests
+    1,400 identity + 4,200 discretisation cases exact; V(n) of the twelve blocks = 117n²/2192 − n/2 at n = 1096k
+    (to 35,072). The claimant's vcheck.py re-run here agrees (87 s). SECOND-READING FINDINGS (paper fixed): the
+    bathtub constant needs the SUMMED m′ (single-piece reading false, 1,358/2,432); ε is load-bearing; triangles
+    need distinct indices; the kink list omits a = ½ and the edges (harmless). Built: reports/delta3.html
+    (tools/build-report-delta3.js, gated on the ledger hashes + battery + mutations), paper/tex/delta3.tex →
+    paper/delta3.pdf (8 pp, tools/paper-numbers/delta3.js), the site card (erdős lane), three shelf records.
+    THE OPERATOR'S WORD, 2026-10-05: (1) the line-by-line reading — DONE by the operator (the paper and the page
+    say "read line by line by the author; not refereed"); (2) the Zenodo deposit — PROCEED: release v2026.10
+    (.zenodo.json declares it; the GitHub release mints the DOI; then tools/stamp-release.py); (3) the forum texts —
+    DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
+    optional thread comment; C, teorth/erdosproblems: NO status PR — #1186 stays open for k ≥ 4 — an issue only
+    after the claim is visible). Every paste is still the operator's. Lean: weeks. targets rows:
+    delta3-graham-1186-k3 (BUILT), delta4-centring-transfer (being scouted).
+  ζ(7)/CATALAN — THE HANKEL WALL, MEASURED (not a theorem). instruments/zetahankel/ (343 files pinned), the run
+    records certs/zeta-hankel/, certs/zeta-hankel-ledger.json (51/51 margins re-run bit-identical: ζ(3) −1.380,
+    ζ(5) −0.185, ζ(7) +1.016, G +0.428 at h ≈ 35; p-adic price 98.2% of naive), a stdlib cross-check sharing
+    no code, battery 6/6 reds, reports/zeta-hankel.html. Corrections to the claimant's notes on the page: k
+    threshold ≈ 5.31 (not ≈ 6); ζ(5) room 7.5–12× (not ~10×). The issue on Anand's ζ(7) Lean repo is by a THIRD
+    PARTY (huntrontrakkr; the operator's only GitHub is carlostoledo1891). targets rows: zeta7-hankel-wall-2026
+    (BUILT), zeta7-anand-claim-audit (BUILT, below).
+  ANAND'S ζ(7) PROOF — AUDITED, THE ROUTE REFUTED (arithmetic-slip), 2026-10-05. Zenodo 22920911 v1 (CC-BY-4.0,
+    pinned). I_out recomputed exactly from the paper's own (54), (58), (59), (62): +453803/288000 ≈ +1.576 under
+    the faithful reading (+445163/288000 under the literal one), not the printed −11002997/720000 (that is Table
+    5's integral; its last row is wrong) — so A₂₀₀ + U = +4.86 where (118) needs < 0; positive in all 24 decided
+    scenarios, no cutoff rescues it. The integrator is calibrated on Fauzan's printed 127751/96000 three ways;
+    finite-K sums converge to the R2 value. Theorem 1.1 REFUSED (not established, not shown false); the paper's own
+    family measured +0.80, +0.87, +0.88 at n = 1–3 (needs < −11.87). The third-party issue #1 is right on all four
+    points. The Lean repo proves a different statement (one of ζ(7..21) irrational; 1 sorry = the Challenge stub;
+    grep-level). instruments/zeta7audit/, certs/zeta7-anand-audit.json, certs/zeta7-anand/measure.json, battery
+    42 green / 9 reds, reports/zeta7-anand.html. HELD: a reply on the issue confirming it with the exact values —
+    a SEND, the operator's call.
+  δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
+    (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
+    (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄
+    record: Lu–Peng 2011's unrolled quadratic-residue colouring mod 11 gives 1/72, re-verified here exactly (1/66,
+    37/2662), 19.3% below. k = 4 has a quartic term no PRS-type reduction removes (the relaxation keeping it is
+    vacuous), so the δ₃ method stops at k = 3 — which is also why the δ₃ proof covers arithmetic colourings. 𝔽_p:
+    #mono/p² = (1 + 6μ² + Λ₄)/8 exactly. instruments/delta4/, certs/delta4-probe.json, notes/delta4-centring-
+    2026-10-05.md, battery 29/29 with 7 reds. The paper's limits section now says so (Lu–Peng cited). A comment on
+    #1186 citing 1/72 for k = 4 (the page lists no [n] bound) would be small and correct — a SEND, gated.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-05, THE TWENTY-NINTH SESSION CONTINUED — PHASE 4b WAVE 1, THE LOCKING-RULES REVIEW,

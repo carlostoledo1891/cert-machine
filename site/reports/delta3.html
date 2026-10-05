@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>δ₃ = 117/2192: the twelve blocks are optimal · cert-machine</title>
+<meta name="description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/delta3.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/delta3.html">
+<meta property="og:title" content="δ₃ = 117/2192: the twelve blocks are optimal · cert-machine">
+<meta property="og:description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="δ₃ = 117/2192: the twelve blocks are optimal · cert-machine">
+<meta name="twitter:description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"δ₃ = 117/2192: the twelve blocks are optimal · cert-machine","description":"Graham's $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.","url":"https://carlostoledo.co/reports/delta3.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · erdős #1186, the case k = 3 · a theorem, machine-verified twice</div>
+  <h1>Graham&#39;s $100 question: the twelve blocks are optimal</h1>
+  <p class="deck">Colour 1, …, n red and blue; how few monochromatic progressions a, a+d, a+2d can there be? A random colouring gives about n²/16. In 2008 Parrilo, Robertson and Saracino found a colouring in twelve blocks that does better, 117/2192·n², proved nothing can go below 1675/32768·n², and conjectured their colouring optimal — the value Graham had offered $100 for in 1999. The conjecture is true: δ₃ = 117/2192. The proof is two pages of mathematics and five exact certificates; the certificates were made and checked in a sandbox, and are re-decided here by a second program written from the mathematics alone, sharing no code with the first. Not refereed, not formalised — what that leaves open is stated below, in full.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> The least number of monochromatic three-term progressions in a two-colouring of {1, …, n} is <span class="m">(117/2192 + o(1))·n²</span> — the twelve-block colouring is optimal, and among all fractional colourings it and its negative are the only minimisers. This settles δ₃, the case k = 3 of Erdős problem #1186, and the 2008 conjecture; it says nothing about longer progressions.</li><li><b>The mechanism.</b> Expand the problem around the twelve-block colouring. The first-order term becomes an explicit function h ≥ 0 that vanishes exactly at the eleven block edges; a discretisation built on h loses nothing to first order, which is what every earlier relaxation could not avoid. The space is then cut into five regions by the distance from the optimum, and each is closed by an exact rational certificate: zero gap near the optimum, a margin of at least 2.7470548e-4 away from it.</li><li><b>Check it.</b> <span class="m">node instruments/delta3/verify.js</span> — 0.8 s, Node only, no dependencies. It derives the colouring, h, every cell area and every bathtub constant from the mathematics, rebuilds each certificate's residual matrix exactly, proves it semidefinite exactly, and checks the cover. The battery's 40 planted forgeries are all refused (76 checks green).</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="5">
+    <div class="stat"><div class="k">δ₃</div><div class="v">117/2192</div><div class="n">= 0.0533759… · was known to lie in [0.05112, 0.05338] since 2008</div></div>
+    <div class="stat"><div class="k">certificates</div><div class="v">5</div><div class="n">one inner (zero gap) and four slabs, each accepted by two verifiers that share no code</div></div>
+    <div class="stat"><div class="k">smallest margin</div><div class="v">2.75e-4</div><div class="n">on E = (Q − Q*)/4, slab [2/5, 9/20]; exact value in the ledger</div></div>
+    <div class="stat"><div class="k">forgeries refused</div><div class="v">40 / 40</div><div class="n">mutated certificates, each refused by the rule it breaks · 23 of 24 verifier mutations caught</div></div>
+    <div class="stat"><div class="k">status</div><div class="v sm">proved</div><div class="n">machine-verified twice · read line by line by the author · not refereed · not formalised</div></div>
+  </div>
+</div>
+
+<p class="scope">A computer-assisted proof. The mathematics (§2) is short and elementary; it has been checked by machine, by AI reading, and line by line by the author (5 October 2026), not by a referee; the certificates are finite exact computations, accepted by the claimant&#39;s verifier and by this repository&#39;s, which were written independently. Nothing here is a Lean proof. The claim was produced in the operator&#39;s own sandbox (frontier-apps); this repository is its judge, with the same rules it applies to anyone&#39;s claim.</p>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the question</div>
+    <h2>Twenty-seven years, a factor of 1.044</h2>
+  </div>
+<p>Let V(n) be the least number of monochromatic progressions {a, a+d, a+2d}, d ≥ 1, over all two-colourings of {1, …, n}. Graham proposed determining β in V(n) = βn²(1 + o(1)) as a $100 problem at the Erdős conference in Budapest in 1999. Parrilo, Robertson and Saracino (2008) disproved the folklore guess β = 1/16 with a colouring in twelve blocks of relative lengths</p><div class="eq">28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28 &nbsp; (out of 548), alternating in colour,</div><p>which gives 117/2192 ≈ 0.053376, and proved β ≥ 1675/32768 ≈ 0.051117 by a semidefinite relaxation. Butler, Costello and Graham (2010) recovered the twelve blocks by experiment, crediting the 2008 paper; Greenwood, Kariv and Williams (2023) proved them optimal among antisymmetric colourings with at most twelve blocks. On erdosproblems.com the question is problem #1186, for every k — open as of the snapshot pinned here (5 October 2026).</p><div class="note">
+  <span class="lab">scope</span>
+<p>This settles <strong>δ₃</strong>: Graham's question and the 2008 conjecture. “Solves #1186” would overstate it — the problem asks about δ<sub>k</sub> for every k, and nothing here touches k ≥ 4.</p>
+</div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§2 · the proof, in four steps</div>
+    <h2>Expand around the answer, and the first order stops leaking</h2>
+  </div>
+<p><strong>1 · Reduction.</strong> Counting each non-monochromatic progression by its two bichromatic pairs gives, uniformly over colourings, V(n)/n² ≥ 1/16 + Q*/4 − O(1/n), where Q* is the infimum over measurable φ : [0,1] → [−1,1] of</p><div class="eq">Q(φ) = ∬<sub>R</sub> φ(a)φ(b) da db, &nbsp;&nbsp; R = {(a, b) : a/2 ≤ b ≤ (1 + a)/2}.</div><p>The twelve-block function φ* has Q(φ*) = -5/137, and 1/16 − 5/548 = 117/2192; so everything rests on Q ≥ −5/137. <strong>2 · Expansion.</strong> Write φ = φ*(1 − 2σ) with σ ∈ [0, 1] the part flipped against φ*. Exactly, for every φ,</p><div class="eq">E(σ) = (Q(φ) − Q(φ*))/4 = ∫ h σ + Q(φ*σ), &nbsp;&nbsp; h = −φ* · Kφ* ≥ 0,</div><p>and h is piecewise linear on the 1/1096 grid, zero exactly at the eleven edges, with ∫h = 5/137. <strong>3 · Discretisation without first-order loss.</strong> On cells whose ends include every edge, the bathtub principle bounds ∫hσ cell by cell with no loss at σ = 0, and pairs of cells cut by the boundary of R are bounded from 0 ≤ σ ≤ 1 alone; the resulting quadratic L(y) in the cell averages satisfies E ≥ L. <strong>4 · Cover.</strong> By the symmetry φ → −φ it suffices to take m = ∫σ ≤ ½; five regions in m each carry an exact certificate that L is ≥ 0 (the region nearest the optimum) or strictly positive (the other four).</p><p>Step 3 is the whole idea. Discretising φ itself, as every relaxation since 2008 did, gives away a first-order amount at every cell pair the boundary of R crosses — and that loss caps the bound below the answer however fine the grid (§5). In σ the first-order term is ∫hσ, which the bathtub bounds exactly; what is lost is second order.</p><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 300" role="img" aria-label="A nonnegative zigzag over the unit interval, rising to about 0.10 inside the long middle blocks and touching zero exactly at the eleven block edges, symmetric about one half. Shaded bands mark the six blocks coloured +1.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="250.0" x2="878" y2="250.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="254.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="197.3" x2="878" y2="197.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="201.3" text-anchor="end" class="t-ax">0.025</text>
+    <line x1="62" y1="144.5" x2="878" y2="144.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="148.5" text-anchor="end" class="t-ax">0.05</text>
+    <line x1="62" y1="91.8" x2="878" y2="91.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="95.8" text-anchor="end" class="t-ax">0.075</text>
+    <line x1="62" y1="39.1" x2="878" y2="39.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="43.1" text-anchor="end" class="t-ax">0.1</text>
+    <line x1="62.0" y1="250" x2="62.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="270.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="266.0" y1="250" x2="266.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="266.0" y="270.0" text-anchor="middle" class="t-ax">0.25</text>
+    <line x1="470.0" y1="250" x2="470.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="270.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="674.0" y1="250" x2="674.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="674.0" y="270.0" text-anchor="middle" class="t-ax">0.75</text>
+    <line x1="878.0" y1="250" x2="878.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="270.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="62" y1="250" x2="878" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="292.0" text-anchor="middle" class="t-note">a ∈ [0, 1]; shaded: the blocks where φ* = +1</text>
+    <text x="13" y="134" class="t-note" transform="rotate(-90 13 134)" text-anchor="middle">h(a)</text>
+    <rect x="62.0" y="18" width="41.7" height="232" fill="var(--c-grid)"/>
+    <rect x="112.6" y="18" width="41.7" height="232" fill="var(--c-grid)"/>
+    <rect x="209.4" y="18" width="87.9" height="232" fill="var(--c-grid)"/>
+    <rect x="470.0" y="18" width="172.7" height="232" fill="var(--c-grid)"/>
+    <rect x="730.6" y="18" width="55.1" height="232" fill="var(--c-grid)"/>
+    <rect x="827.4" y="18" width="8.9" height="232" fill="var(--c-grid)"/>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M62.00 165.33 L62.74 167.25 L63.49 169.18 L64.23 171.10 L64.98 173.03 L65.72 174.95 L66.47 176.87 L67.21 178.80 L67.96 180.72 L68.70 182.65 L69.45 184.57 L70.19 186.50 L70.93 188.42 L71.68 190.35 L72.42 192.27 L73.17 194.19 L73.91 196.12 L74.66 198.04 L75.40 199.97 L76.15 201.89 L76.89 203.82 L77.64 205.74 L78.38 207.66 L79.12 209.59 L79.87 211.51 L80.61 213.44 L81.36 215.36 L82.10 217.29 L82.85 219.21 L83.59 217.29 L84.34 215.36 L85.08 213.44 L85.82 211.51 L86.57 209.59 L87.31 207.66 L88.06 209.59 L88.80 211.51 L89.55 213.44 L90.29 215.36 L91.04 217.29 L91.78 219.21 L92.53 221.13 L93.27 223.06 L94.01 224.98 L94.76 226.91 L95.50 228.83 L96.25 230.76 L96.99 232.68 L97.74 234.61 L98.48 236.53 L99.23 238.45 L99.97 240.38 L100.72 242.30 L101.46 244.23 L102.20 246.15 L102.95 248.08 L103.69 250.00 L104.44 248.08 L105.18 246.15 L105.93 244.23 L106.67 242.30 L107.42 240.38 L108.16 238.45 L108.91 240.38 L109.65 242.30 L110.39 244.23 L111.14 246.15 L111.88 248.08 L112.63 250.00 L113.37 248.08 L114.12 246.15 L114.86 244.23 L115.61 242.30 L116.35 240.38 L117.09 238.45 L117.84 236.53 L118.58 234.61 L119.33 232.68 L120.07 230.76 L120.82 228.83 L121.56 226.91 L122.31 224.98 L123.05 223.06 L123.80 221.13 L124.54 219.21 L125.28 217.29 L126.03 215.36 L126.77 213.44 L127.52 211.51 L128.26 209.59 L129.01 207.66 L129.75 205.74 L130.50 203.82 L131.24 201.89 L131.99 199.97 L132.73 198.04 L133.47 196.12 L134.22 194.19 L134.96 192.27 L135.71 190.35 L136.45 192.27 L137.20 194.19 L137.94 196.12 L138.69 198.04 L139.43 199.97 L140.18 201.89 L140.92 203.82 L141.66 205.74 L142.41 207.66 L143.15 209.59 L143.90 211.51 L144.64 213.44 L145.39 215.36 L146.13 218.25 L146.88 221.13 L147.62 224.02 L148.36 226.91 L149.11 229.79 L149.85 232.68 L150.60 235.57 L151.34 238.45 L152.09 241.34 L152.83 244.23 L153.58 247.11 L154.32 250.00 L155.07 247.11 L155.81 244.23 L156.55 241.34 L157.30 238.45 L158.04 235.57 L158.79 232.68 L159.53 229.79 L160.28 226.91 L161.02 224.02 L161.77 221.13 L162.51 218.25 L163.26 215.36 L164.00 213.44 L164.74 211.51 L165.49 209.59 L166.23 207.66 L166.98 205.74 L167.72 203.82 L168.47 201.89 L169.21 199.97 L169.96 198.04 L170.70 196.12 L171.45 194.19 L172.19 192.27 L172.93 190.35 L173.68 188.42 L174.42 186.50 L175.17 184.57 L175.91 182.65 L176.66 180.72 L177.40 178.80 L178.15 176.87 L178.89 174.95 L179.64 173.03 L180.38 174.95 L181.12 176.87 L181.87 178.80 L182.61 180.72 L183.36 182.65 L184.10 184.57 L184.85 186.50 L185.59 188.42 L186.34 190.35 L187.08 192.27 L187.82 194.19 L188.57 196.12 L189.31 198.04 L190.06 199.97 L190.80 201.89 L191.55 203.82 L192.29 205.74 L193.04 207.66 L193.78 209.59 L194.53 211.51 L195.27 213.44 L196.01 215.36 L196.76 217.29 L197.50 219.21 L198.25 221.13 L198.99 223.06 L199.74 224.98 L200.48 226.91 L201.23 228.83 L201.97 230.76 L202.72 232.68 L203.46 234.61 L204.20 236.53 L204.95 238.45 L205.69 240.38 L206.44 242.30 L207.18 244.23 L207.93 246.15 L208.67 248.08 L209.42 250.00 L210.16 248.08 L210.91 246.15 L211.65 244.23 L212.39 242.30 L213.14 240.38 L213.88 238.45 L214.63 236.53 L215.37 234.61 L216.12 232.68 L216.86 230.76 L217.61 228.83 L218.35 226.91 L219.09 224.98 L219.84 223.06 L220.58 221.13 L221.33 219.21 L222.07 217.29 L222.82 215.36 L223.56 213.44 L224.31 211.51 L225.05 209.59 L225.80 207.66 L226.54 205.74 L227.28 203.82 L228.03 201.89 L228.77 199.97 L229.52 198.04 L230.26 196.12 L231.01 194.19 L231.75 192.27 L232.50 190.35 L233.24 188.42 L233.99 186.50 L234.73 184.57 L235.47 182.65 L236.22 180.72 L236.96 178.80 L237.71 176.87 L238.45 174.95 L239.20 173.03 L239.94 171.10 L240.69 169.18 L241.43 167.25 L242.18 165.33 L242.92 163.40 L243.66 161.48 L244.41 159.56 L245.15 157.63 L245.90 155.71 L246.64 153.78 L247.39 152.82 L248.13 151.86 L248.88 150.90 L249.62 149.93 L250.36 148.97 L251.11 148.01 L251.85 147.05 L252.60 146.08 L253.34 145.12 L254.09 144.16 L254.83 143.20 L255.58 142.24 L256.32 141.27 L257.07 140.31 L257.81 139.35 L258.55 138.39 L259.30 137.43 L260.04 136.46 L260.79 135.50 L261.53 134.54 L262.28 133.58 L263.02 132.61 L263.77 131.65 L264.51 130.69 L265.26 129.73 L266.00 128.77 L266.74 131.65 L267.49 134.54 L268.23 137.43 L268.98 140.31 L269.72 143.20 L270.47 146.08 L271.21 148.97 L271.96 151.86 L272.70 154.74 L273.45 157.63 L274.19 160.52 L274.93 163.40 L275.68 166.29 L276.42 169.18 L277.17 172.06 L277.91 174.95 L278.66 177.84 L279.40 180.72 L280.15 183.61 L280.89 186.50 L281.64 189.38 L282.38 192.27 L283.12 195.16 L283.87 198.04 L284.61 200.93 L285.36 203.82 L286.10 206.70 L286.85 209.59 L287.59 212.48 L288.34 215.36 L289.08 218.25 L289.82 221.13 L290.57 224.02 L291.31 226.91 L292.06 229.79 L292.80 232.68 L293.55 235.57 L294.29 238.45 L295.04 241.34 L295.78 244.23 L296.53 247.11 L297.27 250.00 L298.01 247.11 L298.76 244.23 L299.50 241.34 L300.25 238.45 L300.99 235.57 L301.74 232.68 L302.48 229.79 L303.23 226.91 L303.97 224.02 L304.72 221.13 L305.46 218.25 L306.20 215.36 L306.95 212.48 L307.69 209.59 L308.44 206.70 L309.18 203.82 L309.93 200.93 L310.67 198.04 L311.42 195.16 L312.16 192.27 L312.91 189.38 L313.65 186.50 L314.39 183.61 L315.14 180.72 L315.88 177.84 L316.63 174.95 L317.37 172.06 L318.12 169.18 L318.86 166.29 L319.61 163.40 L320.35 160.52 L321.09 157.63 L321.84 154.74 L322.58 151.86 L323.33 148.97 L324.07 146.08 L324.82 143.20 L325.56 140.31 L326.31 137.43 L327.05 134.54 L327.80 131.65 L328.54 128.77 L329.28 125.88 L330.03 122.99 L330.77 120.11 L331.52 117.22 L332.26 114.33 L333.01 111.45 L333.75 108.56 L334.50 105.67 L335.24 102.79 L335.99 99.90 L336.73 97.01 L337.47 94.13 L338.22 91.24 L338.96 88.35 L339.71 85.47 L340.45 82.58 L341.20 79.69 L341.94 76.81 L342.69 73.92 L343.43 71.04 L344.18 68.15 L344.92 65.26 L345.66 62.38 L346.41 59.49 L347.15 56.60 L347.90 53.72 L348.64 50.83 L349.39 47.94 L350.13 45.06 L350.88 42.17 L351.62 39.28 L352.36 36.40 L353.11 37.36 L353.85 38.32 L354.60 39.28 L355.34 40.25 L356.09 41.21 L356.83 42.17 L357.58 44.09 L358.32 46.02 L359.07 47.94 L359.81 49.87 L360.55 51.79 L361.30 53.72 L362.04 55.64 L362.79 57.56 L363.53 59.49 L364.28 61.41 L365.02 63.34 L365.77 65.26 L366.51 67.19 L367.26 69.11 L368.00 71.04 L368.74 72.96 L369.49 74.88 L370.23 76.81 L370.98 78.73 L371.72 80.66 L372.47 82.58 L373.21 84.51 L373.96 86.43 L374.70 88.35 L375.45 90.28 L376.19 92.20 L376.93 94.13 L377.68 96.05 L378.42 97.98 L379.17 99.90 L379.91 101.82 L380.66 103.75 L381.40 105.67 L382.15 107.60 L382.89 109.52 L383.64 111.45 L384.38 113.37 L385.12 115.30 L385.87 117.22 L386.61 119.14 L387.36 121.07 L388.10 122.99 L388.85 124.92 L389.59 126.84 L390.34 128.77 L391.08 130.69 L391.82 132.61 L392.57 134.54 L393.31 136.46 L394.06 138.39 L394.80 140.31 L395.55 142.24 L396.29 144.16 L397.04 142.24 L397.78 140.31 L398.53 138.39 L399.27 136.46 L400.01 134.54 L400.76 132.61 L401.50 130.69 L402.25 128.77 L402.99 126.84 L403.74 124.92 L404.48 122.99 L405.23 121.07 L405.97 119.14 L406.72 117.22 L407.46 115.30 L408.20 114.33 L408.95 113.37 L409.69 112.41 L410.44 111.45 L411.18 110.48 L411.93 109.52 L412.67 108.56 L413.42 107.60 L414.16 106.64 L414.91 105.67 L415.65 104.71 L416.39 103.75 L417.14 102.79 L417.88 101.82 L418.63 100.86 L419.37 99.90 L420.12 98.94 L420.86 97.98 L421.61 97.01 L422.35 96.05 L423.09 95.09 L423.84 94.13 L424.58 97.01 L425.33 99.90 L426.07 102.79 L426.82 105.67 L427.56 108.56 L428.31 111.45 L429.05 114.33 L429.80 117.22 L430.54 120.11 L431.28 122.99 L432.03 125.88 L432.77 128.77 L433.52 131.65 L434.26 134.54 L435.01 137.43 L435.75 140.31 L436.50 143.20 L437.24 146.08 L437.99 148.97 L438.73 151.86 L439.47 154.74 L440.22 157.63 L440.96 160.52 L441.71 163.40 L442.45 166.29 L443.20 169.18 L443.94 172.06 L444.69 174.95 L445.43 173.99 L446.18 173.03 L446.92 172.06 L447.66 171.10 L448.41 170.14 L449.15 169.18 L449.90 172.06 L450.64 174.95 L451.39 177.84 L452.13 180.72 L452.88 183.61 L453.62 186.50 L454.36 189.38 L455.11 192.27 L455.85 195.16 L456.60 198.04 L457.34 200.93 L458.09 203.82 L458.83 206.70 L459.58 209.59 L460.32 212.48 L461.07 215.36 L461.81 218.25 L462.55 221.13 L463.30 224.02 L464.04 226.91 L464.79 229.79 L465.53 232.68 L466.28 235.57 L467.02 238.45 L467.77 241.34 L468.51 244.23 L469.26 247.11 L470.00 250.00 L470.74 247.11 L471.49 244.23 L472.23 241.34 L472.98 238.45 L473.72 235.57 L474.47 232.68 L475.21 229.79 L475.96 226.91 L476.70 224.02 L477.45 221.13 L478.19 218.25 L478.93 215.36 L479.68 212.48 L480.42 209.59 L481.17 206.70 L481.91 203.82 L482.66 200.93 L483.40 198.04 L484.15 195.16 L484.89 192.27 L485.64 189.38 L486.38 186.50 L487.12 183.61 L487.87 180.72 L488.61 177.84 L489.36 174.95 L490.10 172.06 L490.85 169.18 L491.59 170.14 L492.34 171.10 L493.08 172.06 L493.82 173.03 L494.57 173.99 L495.31 174.95 L496.06 172.06 L496.80 169.18 L497.55 166.29 L498.29 163.40 L499.04 160.52 L499.78 157.63 L500.53 154.74 L501.27 151.86 L502.01 148.97 L502.76 146.08 L503.50 143.20 L504.25 140.31 L504.99 137.43 L505.74 134.54 L506.48 131.65 L507.23 128.77 L507.97 125.88 L508.72 122.99 L509.46 120.11 L510.20 117.22 L510.95 114.33 L511.69 111.45 L512.44 108.56 L513.18 105.67 L513.93 102.79 L514.67 99.90 L515.42 97.01 L516.16 94.13 L516.91 95.09 L517.65 96.05 L518.39 97.01 L519.14 97.98 L519.88 98.94 L520.63 99.90 L521.37 100.86 L522.12 101.82 L522.86 102.79 L523.61 103.75 L524.35 104.71 L525.09 105.67 L525.84 106.64 L526.58 107.60 L527.33 108.56 L528.07 109.52 L528.82 110.48 L529.56 111.45 L530.31 112.41 L531.05 113.37 L531.80 114.33 L532.54 115.30 L533.28 117.22 L534.03 119.14 L534.77 121.07 L535.52 122.99 L536.26 124.92 L537.01 126.84 L537.75 128.77 L538.50 130.69 L539.24 132.61 L539.99 134.54 L540.73 136.46 L541.47 138.39 L542.22 140.31 L542.96 142.24 L543.71 144.16 L544.45 142.24 L545.20 140.31 L545.94 138.39 L546.69 136.46 L547.43 134.54 L548.18 132.61 L548.92 130.69 L549.66 128.77 L550.41 126.84 L551.15 124.92 L551.90 122.99 L552.64 121.07 L553.39 119.14 L554.13 117.22 L554.88 115.30 L555.62 113.37 L556.36 111.45 L557.11 109.52 L557.85 107.60 L558.60 105.67 L559.34 103.75 L560.09 101.82 L560.83 99.90 L561.58 97.98 L562.32 96.05 L563.07 94.13 L563.81 92.20 L564.55 90.28 L565.30 88.35 L566.04 86.43 L566.79 84.51 L567.53 82.58 L568.28 80.66 L569.02 78.73 L569.77 76.81 L570.51 74.88 L571.26 72.96 L572.00 71.04 L572.74 69.11 L573.49 67.19 L574.23 65.26 L574.98 63.34 L575.72 61.41 L576.47 59.49 L577.21 57.56 L577.96 55.64 L578.70 53.72 L579.45 51.79 L580.19 49.87 L580.93 47.94 L581.68 46.02 L582.42 44.09 L583.17 42.17 L583.91 41.21 L584.66 40.25 L585.40 39.28 L586.15 38.32 L586.89 37.36 L587.64 36.40 L588.38 39.28 L589.12 42.17 L589.87 45.06 L590.61 47.94 L591.36 50.83 L592.10 53.72 L592.85 56.60 L593.59 59.49 L594.34 62.38 L595.08 65.26 L595.82 68.15 L596.57 71.04 L597.31 73.92 L598.06 76.81 L598.80 79.69 L599.55 82.58 L600.29 85.47 L601.04 88.35 L601.78 91.24 L602.53 94.13 L603.27 97.01 L604.01 99.90 L604.76 102.79 L605.50 105.67 L606.25 108.56 L606.99 111.45 L607.74 114.33 L608.48 117.22 L609.23 120.11 L609.97 122.99 L610.72 125.88 L611.46 128.77 L612.20 131.65 L612.95 134.54 L613.69 137.43 L614.44 140.31 L615.18 143.20 L615.93 146.08 L616.67 148.97 L617.42 151.86 L618.16 154.74 L618.91 157.63 L619.65 160.52 L620.39 163.40 L621.14 166.29 L621.88 169.18 L622.63 172.06 L623.37 174.95 L624.12 177.84 L624.86 180.72 L625.61 183.61 L626.35 186.50 L627.09 189.38 L627.84 192.27 L628.58 195.16 L629.33 198.04 L630.07 200.93 L630.82 203.82 L631.56 206.70 L632.31 209.59 L633.05 212.48 L633.80 215.36 L634.54 218.25 L635.28 221.13 L636.03 224.02 L636.77 226.91 L637.52 229.79 L638.26 232.68 L639.01 235.57 L639.75 238.45 L640.50 241.34 L641.24 244.23 L641.99 247.11 L642.73 250.00 L643.47 247.11 L644.22 244.23 L644.96 241.34 L645.71 238.45 L646.45 235.57 L647.20 232.68 L647.94 229.79 L648.69 226.91 L649.43 224.02 L650.18 221.13 L650.92 218.25 L651.66 215.36 L652.41 212.48 L653.15 209.59 L653.90 206.70 L654.64 203.82 L655.39 200.93 L656.13 198.04 L656.88 195.16 L657.62 192.27 L658.36 189.38 L659.11 186.50 L659.85 183.61 L660.60 180.72 L661.34 177.84 L662.09 174.95 L662.83 172.06 L663.58 169.18 L664.32 166.29 L665.07 163.40 L665.81 160.52 L666.55 157.63 L667.30 154.74 L668.04 151.86 L668.79 148.97 L669.53 146.08 L670.28 143.20 L671.02 140.31 L671.77 137.43 L672.51 134.54 L673.26 131.65 L674.00 128.77 L674.74 129.73 L675.49 130.69 L676.23 131.65 L676.98 132.61 L677.72 133.58 L678.47 134.54 L679.21 135.50 L679.96 136.46 L680.70 137.43 L681.45 138.39 L682.19 139.35 L682.93 140.31 L683.68 141.27 L684.42 142.24 L685.17 143.20 L685.91 144.16 L686.66 145.12 L687.40 146.08 L688.15 147.05 L688.89 148.01 L689.64 148.97 L690.38 149.93 L691.12 150.90 L691.87 151.86 L692.61 152.82 L693.36 153.78 L694.10 155.71 L694.85 157.63 L695.59 159.56 L696.34 161.48 L697.08 163.40 L697.82 165.33 L698.57 167.25 L699.31 169.18 L700.06 171.10 L700.80 173.03 L701.55 174.95 L702.29 176.87 L703.04 178.80 L703.78 180.72 L704.53 182.65 L705.27 184.57 L706.01 186.50 L706.76 188.42 L707.50 190.35 L708.25 192.27 L708.99 194.19 L709.74 196.12 L710.48 198.04 L711.23 199.97 L711.97 201.89 L712.72 203.82 L713.46 205.74 L714.20 207.66 L714.95 209.59 L715.69 211.51 L716.44 213.44 L717.18 215.36 L717.93 217.29 L718.67 219.21 L719.42 221.13 L720.16 223.06 L720.91 224.98 L721.65 226.91 L722.39 228.83 L723.14 230.76 L723.88 232.68 L724.63 234.61 L725.37 236.53 L726.12 238.45 L726.86 240.38 L727.61 242.30 L728.35 244.23 L729.09 246.15 L729.84 248.08 L730.58 250.00 L731.33 248.08 L732.07 246.15 L732.82 244.23 L733.56 242.30 L734.31 240.38 L735.05 238.45 L735.80 236.53 L736.54 234.61 L737.28 232.68 L738.03 230.76 L738.77 228.83 L739.52 226.91 L740.26 224.98 L741.01 223.06 L741.75 221.13 L742.50 219.21 L743.24 217.29 L743.99 215.36 L744.73 213.44 L745.47 211.51 L746.22 209.59 L746.96 207.66 L747.71 205.74 L748.45 203.82 L749.20 201.89 L749.94 199.97 L750.69 198.04 L751.43 196.12 L752.18 194.19 L752.92 192.27 L753.66 190.35 L754.41 188.42 L755.15 186.50 L755.90 184.57 L756.64 182.65 L757.39 180.72 L758.13 178.80 L758.88 176.87 L759.62 174.95 L760.36 173.03 L761.11 174.95 L761.85 176.87 L762.60 178.80 L763.34 180.72 L764.09 182.65 L764.83 184.57 L765.58 186.50 L766.32 188.42 L767.07 190.35 L767.81 192.27 L768.55 194.19 L769.30 196.12 L770.04 198.04 L770.79 199.97 L771.53 201.89 L772.28 203.82 L773.02 205.74 L773.77 207.66 L774.51 209.59 L775.26 211.51 L776.00 213.44 L776.74 215.36 L777.49 218.25 L778.23 221.13 L778.98 224.02 L779.72 226.91 L780.47 229.79 L781.21 232.68 L781.96 235.57 L782.70 238.45 L783.45 241.34 L784.19 244.23 L784.93 247.11 L785.68 250.00 L786.42 247.11 L787.17 244.23 L787.91 241.34 L788.66 238.45 L789.40 235.57 L790.15 232.68 L790.89 229.79 L791.64 226.91 L792.38 224.02 L793.12 221.13 L793.87 218.25 L794.61 215.36 L795.36 213.44 L796.10 211.51 L796.85 209.59 L797.59 207.66 L798.34 205.74 L799.08 203.82 L799.82 201.89 L800.57 199.97 L801.31 198.04 L802.06 196.12 L802.80 194.19 L803.55 192.27 L804.29 190.35 L805.04 192.27 L805.78 194.19 L806.53 196.12 L807.27 198.04 L808.01 199.97 L808.76 201.89 L809.50 203.82 L810.25 205.74 L810.99 207.66 L811.74 209.59 L812.48 211.51 L813.23 213.44 L813.97 215.36 L814.72 217.29 L815.46 219.21 L816.20 221.13 L816.95 223.06 L817.69 224.98 L818.44 226.91 L819.18 228.83 L819.93 230.76 L820.67 232.68 L821.42 234.61 L822.16 236.53 L822.91 238.45 L823.65 240.38 L824.39 242.30 L825.14 244.23 L825.88 246.15 L826.63 248.08 L827.37 250.00 L828.12 248.08 L828.86 246.15 L829.61 244.23 L830.35 242.30 L831.09 240.38 L831.84 238.45 L832.58 240.38 L833.33 242.30 L834.07 244.23 L834.82 246.15 L835.56 248.08 L836.31 250.00 L837.05 248.08 L837.80 246.15 L838.54 244.23 L839.28 242.30 L840.03 240.38 L840.77 238.45 L841.52 236.53 L842.26 234.61 L843.01 232.68 L843.75 230.76 L844.50 228.83 L845.24 226.91 L845.99 224.98 L846.73 223.06 L847.47 221.13 L848.22 219.21 L848.96 217.29 L849.71 215.36 L850.45 213.44 L851.20 211.51 L851.94 209.59 L852.69 207.66 L853.43 209.59 L854.18 211.51 L854.92 213.44 L855.66 215.36 L856.41 217.29 L857.15 219.21 L857.90 217.29 L858.64 215.36 L859.39 213.44 L860.13 211.51 L860.88 209.59 L861.62 207.66 L862.36 205.74 L863.11 203.82 L863.85 201.89 L864.60 199.97 L865.34 198.04 L866.09 196.12 L866.83 194.19 L867.58 192.27 L868.32 190.35 L869.07 188.42 L869.81 186.50 L870.55 184.57 L871.30 182.65 L872.04 180.72 L872.79 178.80 L873.53 176.87 L874.28 174.95 L875.02 173.03 L875.77 171.10 L876.51 169.18 L877.26 167.25 L878.00 165.33" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="165.33" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+  </svg>
+  </div>
+  <figcaption>The first-order term h. Flipping the colouring on a set costs ∫h over it to first order; h vanishes exactly at the eleven edges, where moving an edge is free to first order and the certificates must see the second-order cost.</figcaption>
+</figure></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the certificates</div>
+    <h2>Five regions, five exact identities</h2>
+  </div>
+<div class="col"><p>Each slab lo ≤ m ≤ hi carries an identity L<sub>θ</sub>(y) − B = vᵀSv + Σ μ<sub>f</sub> f(y) in v = (1, y), with every multiplier μ ≥ 0, every form f nonnegative on the region (products of y<sub>i</sub>, 1 − y<sub>i</sub>, m − lo, hi − m, and triangle inequalities), and S + εI semidefinite; so L ≥ B − ε(1 + n) there. The inner region m ≤ 1/5 carries one in which every term vanishes at y = 0 — the certificate is exact at the optimum itself. The multipliers came from floating-point semidefinite programs; nothing here trusts them: the residual matrix is rebuilt from the mathematics in exact rationals and its semidefiniteness is proved exactly (exact: dyadic rescaling, float Cholesky of A - 2^-k I rounded to a dyadic factor L, exact remainder A - LL^T shown diagonally dominant (Gershgorin); fallback exact witness / Bareiss leading minors).</p></div><div class="wide"><div class="tw"><table><thead><tr><th>region m = ∫σ</th><th>kind</th><th>cells</th><th>forms</th><th>triangles</th><th>certified bound (exact in the ledger)</th><th>time here</th><th>verdict here</th></tr></thead><tbody><tr><td>[0, 1/5]</td><td>inner · zero gap</td><td class="n">130</td><td class="n">22,808</td><td class="n">—</td><td>E ≥ 0, equality only at σ = 0</td><td class="n">0.2 s</td><td><span class="tag held">verified</span></td></tr><tr><td>[1/5, 3/10]</td><td>slab</td><td class="n">130</td><td class="n">13,324</td><td class="n">—</td><td><strong>E ≥ 2.784897e-4</strong></td><td class="n">0.1 s</td><td><span class="tag held">verified</span></td></tr><tr><td>[3/10, 2/5]</td><td>slab</td><td class="n">130</td><td class="n">9,849</td><td class="n">2,204</td><td><strong>E ≥ 3.035513e-4</strong></td><td class="n">0.2 s</td><td><span class="tag held">verified</span></td></tr><tr><td>[2/5, 9/20]</td><td>slab</td><td class="n">146</td><td class="n">1,998</td><td class="n">—</td><td><strong>E ≥ 2.747055e-4</strong></td><td class="n">0.2 s</td><td><span class="tag held">verified</span></td></tr><tr><td>[9/20, 1/2]</td><td>slab</td><td class="n">146</td><td class="n">2,332</td><td class="n">470</td><td><strong>E ≥ 4.638341e-4</strong></td><td class="n">0.1 s</td><td><span class="tag held">verified</span></td></tr></tbody></table></div></div><div class="col"><p>Together the regions cover m ∈ [0, ½], so E ≥ 0 for every σ and Q ≥ −5/137 for every φ. A corollary worth stating: φ* minimises Q on the whole L¹-ball of radius 1/5 × 2 around it, fractional colourings included, and anything at least that far from both ±φ* has Q ≥ −5/137 + 4 × 2.75e-4.</p></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · why you can trust this</div>
+    <h2>Two verifiers, one clean-room rule, and forgeries that must fail</h2>
+  </div>
+<p><strong>The claimant's check.</strong> The generators and a verifier were written in the sandbox in one session, by one AI agent, separately from each other. That verifier, kept here as an exhibit and re-run from the pinned bytes, accepts the five files (87 s on this machine). It leaves the gap the claimant named itself: a misreading shared by generator and verifier would not be caught.</p><p><strong>The second verifier.</strong> <span class="m">instruments/delta3/verify.js</span> was written afterwards, in JavaScript, by an agent given the mathematics and a field-by-field description of the files — not the generators, not the claimant's verifier, not its logs; the claimant's code entered this repository only after it was finished. It derives everything with proof force itself, in BigInt rationals: the colouring, h and its zeros, every cell area by two exact routes that must agree pair by pair (the trapezoid rule on the section length, and polygon clipping), the bathtub constants, the cut bounds, the residual matrices. It refuses any form it cannot show nonnegative and any multiplier of the wrong sign, and proves semidefiniteness exactly or refuses. It accepts all five in 0.8 s, and its exact bounds equal the files' claims.</p><div class="note">
+  <span class="lab">what the second reading found</span>
+<ul class="plain"><li><b>the bathtub constant</b> The proof text writes b = (w²/2)/max m′ without saying that m′ sums over every piece of h at a level. Read as the largest single piece, b is too large and the inequality is false — 1,358 exact violations in 2,432 tests. The certificates were built with the summed reading and verify under it; the paper now says so.</li><li><b>ε is load-bearing</b> In every slab the residual S alone is not semidefinite (exact negative witnesses); S + εI is, and the bound B − ε(1 + n) accounts for it. Correct, and worth stating.</li><li><b>triangles need distinct indices</b> Nonnegativity of 1 + s₁z_iz_j + s₂z_jz_k + s₃z_iz_k on the cube rests on multilinearity, which a repeated index breaks. Every triangle in the files has distinct indices; the verifier refuses one that does not.</li><li><b>small omissions, harmless</b> The kink list omits a = ½ and the edges themselves (both on the lattice); N need only be entrywise nonnegative; the κ term relies on m ≥ 0. None changes a verdict.</li></ul>
+</div><p><strong>Forgeries.</strong> <span class="m">node instruments/delta3/battery.js</span> mutates genuine certificates and requires each mutation refused, by the rule it breaks: raised bounds (by 10⁻³ and by 10⁻⁶ — the certificates are that tight), dropped triangle forms, every θ set to 1 or to 0, widened slabs, ε set to 0 or inflated with B, a grid missing an edge of φ*, a doubled inner radius, an overspent linear budget, dropped inner multipliers, missing regions, and planted single entries off by 2⁻¹⁰⁰ — a negative multiplier, a sign-violating or repeated-index triangle, θ outside [0, 1], an unknown form. 40 of 40 refused at this build, 76 checks green. Then the verifier itself is mutated: 24 one-line edits (flip h, mirror R, drop ε, an optimistic cut bound, skip a sign check, trust the float Cholesky, accept a zero pivot …), 23 caught by the genuine set or a forgery; the one survivor removes a rule that is enforced twice.</p><p><strong>The two lemmas, tested.</strong> The expansion identity and the discretisation lemma are proved on paper; they are also tested exactly on step functions finer than the grids, adversarial ones included: 1,400 cases of the identity, all equal; 4,200 cases of the lemma, all satisfied, the gap exactly 0 on breakpoint flips and single cells — the bound is sharp there. Tests, not proofs.</p><p><strong>The upper bound, counted.</strong> The exact number of monochromatic progressions of the twelve-block colouring itself. For n a multiple of 1096 it is exactly 117n²/2192 − n/2:</p><div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>monochromatic progressions</th><th>V/n²</th><th>n·(V/n² − 117/2192)</th></tr></thead><tbody><tr><td class="n">548</td><td class="n">15,756</td><td class="n">0.0524668336</td><td class="n">-0.498175</td></tr><tr><td class="n">1,096</td><td class="n">63,568</td><td class="n">0.0529197080</td><td class="n">-0.500000</td></tr><tr><td class="n">2,192</td><td class="n">255,368</td><td class="n">0.0531478102</td><td class="n">-0.500000</td></tr><tr><td class="n">4,384</td><td class="n">1,023,664</td><td class="n">0.0532618613</td><td class="n">-0.500000</td></tr><tr><td class="n">8,768</td><td class="n">4,099,040</td><td class="n">0.0533188869</td><td class="n">-0.500000</td></tr><tr><td class="n">17,536</td><td class="n">16,404,928</td><td class="n">0.0533473996</td><td class="n">-0.500000</td></tr><tr><td class="n">35,072</td><td class="n">65,637,248</td><td class="n">0.0533616560</td><td class="n">-0.500000</td></tr></tbody></table></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · the measurement that led here</div>
+    <h2>Why the obvious discretisation cannot reach the answer</h2>
+  </div>
+<p>A day earlier the same sandbox certified lower bounds the classical way — φ discretised on L equal cells, a Shor relaxation with triangle cuts, exact rational multipliers. Its verifier accepted δ₃ ≥ 0.05324921 at L = 256 (these were not re-decided here; the logs are kept as the claimant's). But the model's own minimum, found by local search, also stays below the answer at every L: every cell pair the boundary crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof into the coordinates σ.</p><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 330" role="img" aria-label="Two rising curves against the number of cells from 32 to 256. The certified lower bound climbs from 0.0502 to 0.05325; the dashed model minimum climbs from 0.0520 to 0.05335. Both flatten below the horizontal line at 117/2192 = 0.05338: refining the grid cannot reach the answer.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="226.0" x2="878" y2="226.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="230.0" text-anchor="end" class="t-ax">0.050</text>
+    <line x1="62" y1="171.3" x2="878" y2="171.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="175.3" text-anchor="end" class="t-ax">0.051</text>
+    <line x1="62" y1="116.6" x2="878" y2="116.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="120.6" text-anchor="end" class="t-ax">0.052</text>
+    <line x1="62" y1="61.8" x2="878" y2="61.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="65.8" text-anchor="end" class="t-ax">0.053</text>
+    <line x1="158.7" y1="237" x2="158.7" y2="242" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="158.7" y="257.0" text-anchor="middle" class="t-ax">32</text>
+    <line x1="255.4" y1="237" x2="255.4" y2="242" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="255.4" y="257.0" text-anchor="middle" class="t-ax">64</text>
+    <line x1="448.8" y1="237" x2="448.8" y2="242" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="448.8" y="257.0" text-anchor="middle" class="t-ax">128</text>
+    <line x1="642.3" y1="237" x2="642.3" y2="242" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="642.3" y="257.0" text-anchor="middle" class="t-ax">192</text>
+    <line x1="835.7" y1="237" x2="835.7" y2="242" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="835.7" y="257.0" text-anchor="middle" class="t-ax">256</text>
+    <line x1="62" y1="237" x2="878" y2="237" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="279.0" text-anchor="middle" class="t-note">L, the number of equal cells</text>
+    <text x="13" y="127.5" class="t-note" transform="rotate(-90 13 127.5)" text-anchor="middle">δ₃ ≥ …</text>
+    <line x1="62" y1="41.2" x2="878" y2="41.2" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="35.2" text-anchor="end" class="t-note">117/2192 = 0.0533759…, the answer (proved, §2)</text>
+    <line x1="62" y1="164.9" x2="878" y2="164.9" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="1.5 2"/>
+    <text x="874.0" y="158.9" text-anchor="end" class="t-note">PRS 2008: 1675/32768</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="237" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M158.71 116.55 L255.42 60.12 L448.84 47.17 L642.27 43.67 L835.69 42.82" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="835.69" cy="42.82" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="158.71" cy="116.55" r="12" fill="transparent" data-cmx="158.71" data-cm="the cell model&#39;s own minimum, by local search (float, the claimant&#39;s) · 32" data-cmv="0.052" tabindex="0"/>
+    <circle cx="255.42" cy="60.12" r="12" fill="transparent" data-cmx="255.42" data-cm="the cell model&#39;s own minimum, by local search (float, the claimant&#39;s) · 64" data-cmv="0.053" tabindex="0"/>
+    <circle cx="448.84" cy="47.17" r="12" fill="transparent" data-cmx="448.84" data-cm="the cell model&#39;s own minimum, by local search (float, the claimant&#39;s) · 128" data-cmv="0.053" tabindex="0"/>
+    <circle cx="642.27" cy="43.67" r="12" fill="transparent" data-cmx="642.27" data-cm="the cell model&#39;s own minimum, by local search (float, the claimant&#39;s) · 192" data-cmv="0.053" tabindex="0"/>
+    <circle cx="835.69" cy="42.82" r="12" fill="transparent" data-cmx="835.69" data-cm="the cell model&#39;s own minimum, by local search (float, the claimant&#39;s) · 256" data-cmv="0.053" tabindex="0"/>
+    <path d="M158.71 214.77 L255.42 105.97 L448.84 63.91 L642.27 52.20 L835.69 48.16" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="835.69" cy="48.16" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="158.71" cy="214.77" r="12" fill="transparent" data-cmx="158.71" data-cm="certified lower bound in that model (exact; the claimant&#39;s verifier) · 32" data-cmv="0.05" tabindex="0"/>
+    <circle cx="255.42" cy="105.97" r="12" fill="transparent" data-cmx="255.42" data-cm="certified lower bound in that model (exact; the claimant&#39;s verifier) · 64" data-cmv="0.052" tabindex="0"/>
+    <circle cx="448.84" cy="63.91" r="12" fill="transparent" data-cmx="448.84" data-cm="certified lower bound in that model (exact; the claimant&#39;s verifier) · 128" data-cmv="0.053" tabindex="0"/>
+    <circle cx="642.27" cy="52.20" r="12" fill="transparent" data-cmx="642.27" data-cm="certified lower bound in that model (exact; the claimant&#39;s verifier) · 192" data-cmv="0.053" tabindex="0"/>
+    <circle cx="835.69" cy="48.16" r="12" fill="transparent" data-cmx="835.69" data-cm="certified lower bound in that model (exact; the claimant&#39;s verifier) · 256" data-cmv="0.053" tabindex="0"/>
+    <line x1="62" y1="300" x2="76" y2="300" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="304.0" text-anchor="start" class="t-note">the cell model&#39;s own minimum, by local search (float, the claimant&#39;s)</text>
+    <line x1="62" y1="319" x2="76" y2="319" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="323.0" text-anchor="start" class="t-note">certified lower bound in that model (exact; the claimant&#39;s verifier)</text>
+  </svg>
+  </div>
+  <figcaption>The superseded ladder. Solid: certified lower bounds in the L-cell model (exact; the claimant&#39;s verifier). Dashed: the model&#39;s minimum by local search (floating point, an upper bound on what the model can certify). Both flatten under 117/2192.</figcaption>
+</figure></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · what is not established</div>
+    <h2>What a referee would still ask for</h2>
+  </div>
+<ul class="plain"><li><b>a referee</b> The mathematics is two pages (the reduction, the expansion, the bathtub and discretisation lemmas). The author read it line by line on 5 October 2026, after both verifiers had accepted the certificates — the condition the erdosproblems forum sets before an AI-assisted solution is posted. No referee has read it.</li><li><b>Lean</b> Nothing is formalised. The finite part (five rational identities, semidefiniteness of 131- to 147-dimensional rational matrices) is plausible with a verified checker; the analytic part (the reduction, the bathtub rearrangement, the discretisation) is real measure-theory work — weeks, not days.</li><li><b>independence</b> Both verifiers and the generators were written by AI agents. The clean-room rule removes shared code, not a shared misreading of the mathematics both were given; §2 is where a reader should look.</li><li><b>reproducibility of generation</b> The multipliers came from a nondeterministic solver, so regeneration gives different files. The five files are the record, pinned by sha256; their force does not depend on regenerating them.</li></ul><div class="note">
+  <span class="lab">the records</span>
+<p><a href="/certs/delta3-ledger.json">The ledger</a> (each certificate's sha256, region, exact bound and verdict; the verifier files' hashes) · <a href="/certs/delta3-lemmas.json">the lemma tests and the counts</a> · <a href="/paper/delta3.pdf">the paper</a> (draft v0.2, numbers interpolated from these records). The certificates, both verifiers and the claimant's generators are in the repository under certs/delta3/ and instruments/delta3/; the sources (the 2008 and 2010 papers, the problem page, the forum) are pinned by sha256. Nothing has been sent anywhere.</p>
+</div>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-delta3.js from certs/delta3-ledger.json and certs/delta3-lemmas.json — the certificate hashes and the verifier hashes checked against the tree, the battery run with every planted forgery refused; the build fails if any of it does not hold.</p><p>git ce470dd · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+
+</body>
+</html>

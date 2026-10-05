@@ -1,0 +1,2803 @@
+{
+ "what": "The exact engine for the Fauzan/Calegari Hankel-determinant irrationality functional (hankel.py, hankel2.py), its quadrature checks (test2.py), the family scans and their drivers (scan.py, scan2.py, families_struct.py, family.py), the p-adic accounting (padic.py), the readers (traj.py, traj2.py, summary.py, show.py), the claimant notes, and every run record (runs/: 323 family files, 4,902 records, the K = 12n trajectories for k = 5 and 7, the v_p profiles) — ported from frontier-apps/experiments/zeta-hankel on 2026-10-05.",
+ "liftedFrom": "/Users/carlostoledo/Projects/frontier-apps/experiments/zeta-hankel",
+ "liftedOn": "2026-10-05",
+ "rule": "Copied byte-for-byte and pinned by sha256, verified after the copy; frontier-apps has no git, so the hash is the only pin, and the source tree is read-only from this side. No file is patched: the engine runs unmodified from instruments/zetahankel/ (its modules import each other by name, so scripts run with that directory on sys.path). NOTES.md is kept as claimant-notes.md — it is the bench's account, read here as a claim. Records copied; everything with proof force per instance was RE-RUN here by instruments/zetahankel/rerun.py into certs/zeta-hankel-ledger.json (the four headline families at every h, Calegari's K = 12n family to h = 99, the p-adic profiles), test2.py was re-run here (certs/zeta-hankel/test2-certmachine.log), and crosscheck.py recomputes six small instances by a route that shares no code. The ~300-family scan itself was not re-run; it enters the ledger as lifted records under a reading marked extrapolation.",
+ "notPorted": ".venv (a symlink to ../erdos1/.venv; the venv here is instruments/zetahankel/.venv, python-flint 0.9.0 + mpmath 1.4.1, the versions the bench ran); __pycache__; build-page.js and the bench page site/zeta-hankel/ (the page is tools/build-report-zeta-hankel.js in this design system, built from the ledger); the copies under site/zeta-hankel/data/ (byte-identical to NOTES.md, hankel.py, hankel2.py, test2.py lifted here).",
+ "files": [
+  {
+   "source": "experiments/zeta-hankel/hankel.py",
+   "file": "instruments/zetahankel/hankel.py",
+   "sourceSha256": "8ad5358d5db2c92fee6d58465966146ac5da1fa548242575cc8aefcce15b65bf",
+   "sha256": "8ad5358d5db2c92fee6d58465966146ac5da1fa548242575cc8aefcce15b65bf",
+   "bytes": 6368,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/hankel2.py",
+   "file": "instruments/zetahankel/hankel2.py",
+   "sourceSha256": "e30bcdf35d7c700b6b1e8459775d145f40a3144549ff6fc4d7b38a0dff429c2a",
+   "sha256": "e30bcdf35d7c700b6b1e8459775d145f40a3144549ff6fc4d7b38a0dff429c2a",
+   "bytes": 6843,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/test2.py",
+   "file": "instruments/zetahankel/test2.py",
+   "sourceSha256": "e2ef04f5c12c3199702ea33d5333f334a2fd114aafb0f5457ce6fdafbb7b3b8e",
+   "sha256": "e2ef04f5c12c3199702ea33d5333f334a2fd114aafb0f5457ce6fdafbb7b3b8e",
+   "bytes": 1929,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/scan.py",
+   "file": "instruments/zetahankel/scan.py",
+   "sourceSha256": "634e7818fa84fb2539a5496585e21d168d0182601de384d3a566b0926e6089a0",
+   "sha256": "634e7818fa84fb2539a5496585e21d168d0182601de384d3a566b0926e6089a0",
+   "bytes": 1134,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/scan2.py",
+   "file": "instruments/zetahankel/scan2.py",
+   "sourceSha256": "76fbace06c28fd57842f11b059f71930ee4bb0a2c69e0ed09185b9423effe0d2",
+   "sha256": "76fbace06c28fd57842f11b059f71930ee4bb0a2c69e0ed09185b9423effe0d2",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/families_struct.py",
+   "file": "instruments/zetahankel/families_struct.py",
+   "sourceSha256": "a83866009b2670e8bcbf9e5bc19714cbe703f65b38232f13907dfe10b902febe",
+   "sha256": "a83866009b2670e8bcbf9e5bc19714cbe703f65b38232f13907dfe10b902febe",
+   "bytes": 2651,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/padic.py",
+   "file": "instruments/zetahankel/padic.py",
+   "sourceSha256": "480ef0d31ce6e1a60de0213c9e2a6eb084794b38ee49cd4237b9d130c2a1ed66",
+   "sha256": "480ef0d31ce6e1a60de0213c9e2a6eb084794b38ee49cd4237b9d130c2a1ed66",
+   "bytes": 1122,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/traj.py",
+   "file": "instruments/zetahankel/traj.py",
+   "sourceSha256": "a9e20d2d85143f5266ca13a59fa29136f8375ffc9b1684fe4816316559e73375",
+   "sha256": "a9e20d2d85143f5266ca13a59fa29136f8375ffc9b1684fe4816316559e73375",
+   "bytes": 318,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/traj2.py",
+   "file": "instruments/zetahankel/traj2.py",
+   "sourceSha256": "3ff766d4474f53679bfb240aab95098267f3863aea8bae910549222ebc0c076f",
+   "sha256": "3ff766d4474f53679bfb240aab95098267f3863aea8bae910549222ebc0c076f",
+   "bytes": 555,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/summary.py",
+   "file": "instruments/zetahankel/summary.py",
+   "sourceSha256": "9cebb865c80432e24c0284d596de859f060496c808797b346fc317fc4a46d387",
+   "sha256": "9cebb865c80432e24c0284d596de859f060496c808797b346fc317fc4a46d387",
+   "bytes": 1236,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/family.py",
+   "file": "instruments/zetahankel/family.py",
+   "sourceSha256": "ba01afef6a8f43aad6d2e20e524429f444c296f3e9a4481f60b9104c52467f5f",
+   "sha256": "ba01afef6a8f43aad6d2e20e524429f444c296f3e9a4481f60b9104c52467f5f",
+   "bytes": 514,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/show.py",
+   "file": "instruments/zetahankel/show.py",
+   "sourceSha256": "607caa0ec02dc858f956f4295e6061d8944495ebff2301cfff4074fc3d4d7370",
+   "sha256": "607caa0ec02dc858f956f4295e6061d8944495ebff2301cfff4074fc3d4d7370",
+   "bytes": 282,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/NOTES.md",
+   "file": "instruments/zetahankel/claimant-notes.md",
+   "sourceSha256": "554de89818399abc1914f4cb2ad3602741b7a17d9ca56334c4c3b097e3bd64b0",
+   "sha256": "554de89818399abc1914f4cb2ad3602741b7a17d9ca56334c4c3b097e3bd64b0",
+   "bytes": 3982,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/k5_12_1_6.jsonl",
+   "file": "certs/zeta-hankel/runs/k5_12_1_6.jsonl",
+   "sourceSha256": "11abe066a60a47ed183ab6ace46a46e704cb397e2c2a966891c2dff4b30f41a2",
+   "sha256": "11abe066a60a47ed183ab6ace46a46e704cb397e2c2a966891c2dff4b30f41a2",
+   "bytes": 3764,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/k7_12_1_6.jsonl",
+   "file": "certs/zeta-hankel/runs/k7_12_1_6.jsonl",
+   "sourceSha256": "531273ce0ab13a706a3e061ac4abd6dc9733451be3408134e8b254db34f4b130",
+   "sha256": "531273ce0ab13a706a3e061ac4abd6dc9733451be3408134e8b254db34f4b130",
+   "bytes": 3748,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/padic-k5-k7.json",
+   "file": "certs/zeta-hankel/runs/padic-k5-k7.json",
+   "sourceSha256": "e5135a6c8b2e892292c6eff9f08b87747777ea8940d6ed8939c7a3e9949a09db",
+   "sha256": "e5135a6c8b2e892292c6eff9f08b87747777ea8940d6ed8939c7a3e9949a09db",
+   "bytes": 1044,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1.log",
+   "file": "certs/zeta-hankel/runs/scan1.log",
+   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan2.log",
+   "file": "certs/zeta-hankel/runs/scan2.log",
+   "sourceSha256": "d7c2c45dd5d392f1c604549b3626db7653070476eda91306eba8f3fa8bcb6645",
+   "sha256": "d7c2c45dd5d392f1c604549b3626db7653070476eda91306eba8f3fa8bcb6645",
+   "bytes": 306,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3.log",
+   "file": "certs/zeta-hankel/runs/scan3.log",
+   "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3.summary",
+   "file": "certs/zeta-hankel/runs/scan3.summary",
+   "sourceSha256": "24468d131b419db0ac0f93c5b8654d9ca93f74cdf0d3a6c35f01115d31cb86b6",
+   "sha256": "24468d131b419db0ac0f93c5b8654d9ca93f74cdf0d3a6c35f01115d31cb86b6",
+   "bytes": 21940,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k5_a12_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k5_a12_b1_r6.jsonl",
+   "sourceSha256": "9d38a7711537e3e729e46d1480604addfc28aa92aea0d06abe9b8570c3cddba0",
+   "sha256": "9d38a7711537e3e729e46d1480604addfc28aa92aea0d06abe9b8570c3cddba0",
+   "bytes": 2588,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a10_b2_r10.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a10_b2_r10.jsonl",
+   "sourceSha256": "c812aef2adbf3397e2e52d1f3597fbdf700461583a1b573cd8b6713131ffec74",
+   "sha256": "c812aef2adbf3397e2e52d1f3597fbdf700461583a1b573cd8b6713131ffec74",
+   "bytes": 3440,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a10_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a10_b2_r8.jsonl",
+   "sourceSha256": "e497023ec7dbed5bc8a61edd79f617138bb47887c779d996fcb09979dabc3f81",
+   "sha256": "e497023ec7dbed5bc8a61edd79f617138bb47887c779d996fcb09979dabc3f81",
+   "bytes": 3427,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a12_b1_r10.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a12_b1_r10.jsonl",
+   "sourceSha256": "0110548a51ecfef283e884db47e2a4ed7cc47bdb73a2d4d60c125b740797a1f9",
+   "sha256": "0110548a51ecfef283e884db47e2a4ed7cc47bdb73a2d4d60c125b740797a1f9",
+   "bytes": 2576,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a12_b1_r12.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a12_b1_r12.jsonl",
+   "sourceSha256": "94d2ddeb09c9d9cca35fce03224ab8b1e11d2378a7b160879f1cf32b3ceb23bf",
+   "sha256": "94d2ddeb09c9d9cca35fce03224ab8b1e11d2378a7b160879f1cf32b3ceb23bf",
+   "bytes": 2581,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a12_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a12_b1_r6.jsonl",
+   "sourceSha256": "d30b6a9b78d1b544e3fa5014dbbc1142b1602be6ef184772db6e27894141e494",
+   "sha256": "d30b6a9b78d1b544e3fa5014dbbc1142b1602be6ef184772db6e27894141e494",
+   "bytes": 2580,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a12_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a12_b1_r8.jsonl",
+   "sourceSha256": "2ec303f2a1aec453e618baa55577fa9439e5c6916f97ae270ed8c77850244443",
+   "sha256": "2ec303f2a1aec453e618baa55577fa9439e5c6916f97ae270ed8c77850244443",
+   "bytes": 2580,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a16_b1_r10.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a16_b1_r10.jsonl",
+   "sourceSha256": "add041e91782223bbb3e419ddf8d24c51bb728ca87900b99b6790c4153130b2a",
+   "sha256": "add041e91782223bbb3e419ddf8d24c51bb728ca87900b99b6790c4153130b2a",
+   "bytes": 1722,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a16_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a16_b1_r8.jsonl",
+   "sourceSha256": "3235d47073c1dee321a4dfe8f412a642e44b5d7cfb4bd25b6a3c0afcb4f6da4f",
+   "sha256": "3235d47073c1dee321a4dfe8f412a642e44b5d7cfb4bd25b6a3c0afcb4f6da4f",
+   "bytes": 1721,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a8_b1_r10.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a8_b1_r10.jsonl",
+   "sourceSha256": "9a19355aeded282d192abe6dbfd7a9e4bd1e09eb7f355cdfad7bfe85a36220f9",
+   "sha256": "9a19355aeded282d192abe6dbfd7a9e4bd1e09eb7f355cdfad7bfe85a36220f9",
+   "bytes": 4000,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan1/k7_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan1/k7_a8_b1_r8.jsonl",
+   "sourceSha256": "c3f23c9b16f291413a0ee90c26e407b1fd0dbb170700eafc72d5d83a2088a833",
+   "sha256": "c3f23c9b16f291413a0ee90c26e407b1fd0dbb170700eafc72d5d83a2088a833",
+   "bytes": 3980,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r1.jsonl",
+   "sourceSha256": "bcc5af97664ab74e253cf714d17ef3ce1bf2e9adfd569d0989fd183cf6957401",
+   "sha256": "bcc5af97664ab74e253cf714d17ef3ce1bf2e9adfd569d0989fd183cf6957401",
+   "bytes": 5367,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r2.jsonl",
+   "sourceSha256": "cd3870fb1ce0e21e9fdb0974b53920e9118d9cdeb708651d1fb61ba5949a33c2",
+   "sha256": "cd3870fb1ce0e21e9fdb0974b53920e9118d9cdeb708651d1fb61ba5949a33c2",
+   "bytes": 5373,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r4.jsonl",
+   "sourceSha256": "48322b430a3f5d98369b3c88b10e4efed4b53182feb729b09d8ced70489cc05c",
+   "sha256": "48322b430a3f5d98369b3c88b10e4efed4b53182feb729b09d8ced70489cc05c",
+   "bytes": 5332,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r6.jsonl",
+   "sourceSha256": "14872a3182ba18d87f30f121f266e7567ff51806a2c0b42813d7d88a3ffbb40e",
+   "sha256": "14872a3182ba18d87f30f121f266e7567ff51806a2c0b42813d7d88a3ffbb40e",
+   "bytes": 5331,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b1_r8.jsonl",
+   "sourceSha256": "7ffdb6eb105558b40a6abedf0d632935b911bc7534a98a12ea52d965c33357d5",
+   "sha256": "7ffdb6eb105558b40a6abedf0d632935b911bc7534a98a12ea52d965c33357d5",
+   "bytes": 5336,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r1.jsonl",
+   "sourceSha256": "9fbd67edd205abc717e683f0bb90dac529ee4a081df619cc01d19803cb29450e",
+   "sha256": "9fbd67edd205abc717e683f0bb90dac529ee4a081df619cc01d19803cb29450e",
+   "bytes": 10774,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r2.jsonl",
+   "sourceSha256": "c7e546d7bc0827f293bcb54c5b416b703ba9c5943bc44e437ca9486a269f982c",
+   "sha256": "c7e546d7bc0827f293bcb54c5b416b703ba9c5943bc44e437ca9486a269f982c",
+   "bytes": 10718,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r4.jsonl",
+   "sourceSha256": "c2e3899f3e7ddf658ab715ec2da5b658ad9f16e4ffdd0bb0d38eb430e6b718bc",
+   "sha256": "c2e3899f3e7ddf658ab715ec2da5b658ad9f16e4ffdd0bb0d38eb430e6b718bc",
+   "bytes": 10711,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r6.jsonl",
+   "sourceSha256": "92f17457785aa392f8c767eab5ff988d0324c5d45df87b176e63abee467094d7",
+   "sha256": "92f17457785aa392f8c767eab5ff988d0324c5d45df87b176e63abee467094d7",
+   "bytes": 10714,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a3_b2_r8.jsonl",
+   "sourceSha256": "a08c79bed69d9aed7ade2d29688b1b99aeecdf15b7f91b79c3fcad27da816720",
+   "sha256": "a08c79bed69d9aed7ade2d29688b1b99aeecdf15b7f91b79c3fcad27da816720",
+   "bytes": 10721,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r1.jsonl",
+   "sourceSha256": "510b9ff47abdf9f3071d2549b39383d06ecd854bc01f5eb948b8dbfb3580d112",
+   "sha256": "510b9ff47abdf9f3071d2549b39383d06ecd854bc01f5eb948b8dbfb3580d112",
+   "bytes": 3487,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r2.jsonl",
+   "sourceSha256": "6ad4318ed3aa9ae694b611aa91bf67f6f1c9bb8ad25cffa1fbcfa1f25d898824",
+   "sha256": "6ad4318ed3aa9ae694b611aa91bf67f6f1c9bb8ad25cffa1fbcfa1f25d898824",
+   "bytes": 3488,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r4.jsonl",
+   "sourceSha256": "36d68147cf7b8aadc7bf1e9dc1be75df098b72b32856ac4f9afa43c6df2ebf67",
+   "sha256": "36d68147cf7b8aadc7bf1e9dc1be75df098b72b32856ac4f9afa43c6df2ebf67",
+   "bytes": 3465,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r6.jsonl",
+   "sourceSha256": "1894d4533c4c1b6adc05ee8afbfd85761085cb2173e69b08260e9877f84fbf79",
+   "sha256": "1894d4533c4c1b6adc05ee8afbfd85761085cb2173e69b08260e9877f84fbf79",
+   "bytes": 3467,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a4_b1_r8.jsonl",
+   "sourceSha256": "b6d6d5147ef7f0009825ee0bd76233de25c62e5741f73b9b63af839949cf19ee",
+   "sha256": "b6d6d5147ef7f0009825ee0bd76233de25c62e5741f73b9b63af839949cf19ee",
+   "bytes": 3462,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r1.jsonl",
+   "sourceSha256": "5c52d1a1772862f1635a942cf571ce79e663872f4f2158629685bdeddd515bdf",
+   "sha256": "5c52d1a1772862f1635a942cf571ce79e663872f4f2158629685bdeddd515bdf",
+   "bytes": 3491,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r2.jsonl",
+   "sourceSha256": "30677ee06e20f75c7dbfa4c11a095a1fb5313b98613de4db9f7bd97f90920493",
+   "sha256": "30677ee06e20f75c7dbfa4c11a095a1fb5313b98613de4db9f7bd97f90920493",
+   "bytes": 3482,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r4.jsonl",
+   "sourceSha256": "35175612fafbc5dce417a21b74ec5c99cbcd188fa43db5574162b0e8dc54849b",
+   "sha256": "35175612fafbc5dce417a21b74ec5c99cbcd188fa43db5574162b0e8dc54849b",
+   "bytes": 3467,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r6.jsonl",
+   "sourceSha256": "70480e5ce331f5fc741f9e7ab20fdf2b267674598004dbf5d12d3ebed07e84e2",
+   "sha256": "70480e5ce331f5fc741f9e7ab20fdf2b267674598004dbf5d12d3ebed07e84e2",
+   "bytes": 3462,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a5_b2_r8.jsonl",
+   "sourceSha256": "2beb9cb20cb07dddf69c3f425bc8e4a4668871c1b57ef38a7945383562941cf5",
+   "sha256": "2beb9cb20cb07dddf69c3f425bc8e4a4668871c1b57ef38a7945383562941cf5",
+   "bytes": 3468,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r1.jsonl",
+   "sourceSha256": "72d04df56f03bebde372cfd004cc896e981c8c1a6367253df129ee6280717eee",
+   "sha256": "72d04df56f03bebde372cfd004cc896e981c8c1a6367253df129ee6280717eee",
+   "bytes": 2143,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r2.jsonl",
+   "sourceSha256": "fc5213648b83d1ea4788061cc2be299b880f67b59193b4beba313be3972a2565",
+   "sha256": "fc5213648b83d1ea4788061cc2be299b880f67b59193b4beba313be3972a2565",
+   "bytes": 2139,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r4.jsonl",
+   "sourceSha256": "bc3d56d1e1f7a0239dbcb88d0984ef733600655d405b767607e65e5e01a6e554",
+   "sha256": "bc3d56d1e1f7a0239dbcb88d0984ef733600655d405b767607e65e5e01a6e554",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r6.jsonl",
+   "sourceSha256": "544084bb9a16f8adf9b56197af6dab8ee0d2c4d2d1b15e5a742b0681144dc1ff",
+   "sha256": "544084bb9a16f8adf9b56197af6dab8ee0d2c4d2d1b15e5a742b0681144dc1ff",
+   "bytes": 2134,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a6_b1_r8.jsonl",
+   "sourceSha256": "eef05693e708e0f22a5e6958a887bb241b02b456670a5f91e6570d54bd0b8f12",
+   "sha256": "eef05693e708e0f22a5e6958a887bb241b02b456670a5f91e6570d54bd0b8f12",
+   "bytes": 2125,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r1.jsonl",
+   "sourceSha256": "a14c6f8b36576385232efb12310164a3c316c801b86928c89e36f83bae9a7076",
+   "sha256": "a14c6f8b36576385232efb12310164a3c316c801b86928c89e36f83bae9a7076",
+   "bytes": 1341,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r2.jsonl",
+   "sourceSha256": "a0030471f3d3dc7cbed30f28af404a35204ae0291385bdc3f8527c4a15a2a8f7",
+   "sha256": "a0030471f3d3dc7cbed30f28af404a35204ae0291385bdc3f8527c4a15a2a8f7",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r4.jsonl",
+   "sourceSha256": "9f823f1c39dac1c483db2c9141f06d7682a63f3a1d349009f85809cd38d58413",
+   "sha256": "9f823f1c39dac1c483db2c9141f06d7682a63f3a1d349009f85809cd38d58413",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r6.jsonl",
+   "sourceSha256": "955fe21657d4aeba955e98fdbb378c8ada6150913f1acfd408c604a2b05a6454",
+   "sha256": "955fe21657d4aeba955e98fdbb378c8ada6150913f1acfd408c604a2b05a6454",
+   "bytes": 1332,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r8.jsonl",
+   "sourceSha256": "0d114f17170541811d7faaccee1f7191493d7eb26f2779572c95d712657d1a3d",
+   "sha256": "0d114f17170541811d7faaccee1f7191493d7eb26f2779572c95d712657d1a3d",
+   "bytes": 1332,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r1.jsonl",
+   "sourceSha256": "a17cf0b1bcb7121930f5e52befc3a4aded56b0e409a8d4ba747977ffa72d0fc2",
+   "sha256": "a17cf0b1bcb7121930f5e52befc3a4aded56b0e409a8d4ba747977ffa72d0fc2",
+   "bytes": 5349,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r2.jsonl",
+   "sourceSha256": "9d697d1399c8735ea5edc637f903b44a20846469a18e2c37b0f4cfcb58e30f2d",
+   "sha256": "9d697d1399c8735ea5edc637f903b44a20846469a18e2c37b0f4cfcb58e30f2d",
+   "bytes": 5357,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r4.jsonl",
+   "sourceSha256": "0c3a1a00e04dbb4f00eadd088880216802ab090412654c41562d96ced07dc502",
+   "sha256": "0c3a1a00e04dbb4f00eadd088880216802ab090412654c41562d96ced07dc502",
+   "bytes": 5310,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r6.jsonl",
+   "sourceSha256": "46428b73490fff711a9e7288337929f38462183f61758a58fc1b8c5eb71131b3",
+   "sha256": "46428b73490fff711a9e7288337929f38462183f61758a58fc1b8c5eb71131b3",
+   "bytes": 5311,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b1_r8.jsonl",
+   "sourceSha256": "dfd61332b56b12b32d0cb556b21e61df08ee3449c9d40a8f54b90469b1500884",
+   "sha256": "dfd61332b56b12b32d0cb556b21e61df08ee3449c9d40a8f54b90469b1500884",
+   "bytes": 5319,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r1.jsonl",
+   "sourceSha256": "8af9eae8e5449f1f0f03b14d7520285f7f649aa94fa681df6862b461fadd3525",
+   "sha256": "8af9eae8e5449f1f0f03b14d7520285f7f649aa94fa681df6862b461fadd3525",
+   "bytes": 10737,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r2.jsonl",
+   "sourceSha256": "121f4d43b9f2f163d2fd4f5ccf890b0f26c5d8c1bc0602db07fa03b1465972cb",
+   "sha256": "121f4d43b9f2f163d2fd4f5ccf890b0f26c5d8c1bc0602db07fa03b1465972cb",
+   "bytes": 10661,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r4.jsonl",
+   "sourceSha256": "5d48747abbda5d7ea708b490e68cf7512ac4b542c1547a4de571cf9ef3c1ff1f",
+   "sha256": "5d48747abbda5d7ea708b490e68cf7512ac4b542c1547a4de571cf9ef3c1ff1f",
+   "bytes": 10650,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r6.jsonl",
+   "sourceSha256": "8867ac5470d93063c921d215fee25707865d2f4c44d72ba6dc69765af9b71c50",
+   "sha256": "8867ac5470d93063c921d215fee25707865d2f4c44d72ba6dc69765af9b71c50",
+   "bytes": 10661,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a3_b2_r8.jsonl",
+   "sourceSha256": "3330f3021d4218b0d10a85acd7a08c53dcb894bb810556ef94d0d5d44bf3aa90",
+   "sha256": "3330f3021d4218b0d10a85acd7a08c53dcb894bb810556ef94d0d5d44bf3aa90",
+   "bytes": 10674,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r1.jsonl",
+   "sourceSha256": "44fce9c24915406a7fc5a69b1bb1748d921cb4aa10947aa2d6cd3a0c8a306eb4",
+   "sha256": "44fce9c24915406a7fc5a69b1bb1748d921cb4aa10947aa2d6cd3a0c8a306eb4",
+   "bytes": 3474,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r2.jsonl",
+   "sourceSha256": "bb0d900ec677a82cd68b30a0bda0769862956a160fca2d1ab42b17993d486082",
+   "sha256": "bb0d900ec677a82cd68b30a0bda0769862956a160fca2d1ab42b17993d486082",
+   "bytes": 3483,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r4.jsonl",
+   "sourceSha256": "06294ab137973b1e8a24d00c99ee726ff044b9fcffae7fb3eb646a436a8a4592",
+   "sha256": "06294ab137973b1e8a24d00c99ee726ff044b9fcffae7fb3eb646a436a8a4592",
+   "bytes": 3442,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r6.jsonl",
+   "sourceSha256": "c5a50a729cffc36e85c706adff990b4041e8eaf1ad2659b2d36fb4a94d65d7f8",
+   "sha256": "c5a50a729cffc36e85c706adff990b4041e8eaf1ad2659b2d36fb4a94d65d7f8",
+   "bytes": 3443,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a4_b1_r8.jsonl",
+   "sourceSha256": "338d4ac947d336c05af60e39c15a7773ac18b72c0ea05305db0598457470997c",
+   "sha256": "338d4ac947d336c05af60e39c15a7773ac18b72c0ea05305db0598457470997c",
+   "bytes": 3448,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r1.jsonl",
+   "sourceSha256": "ca8acb8671d414fb45491405a42126df9913425af533719c3f907fb9f58866a4",
+   "sha256": "ca8acb8671d414fb45491405a42126df9913425af533719c3f907fb9f58866a4",
+   "bytes": 3482,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r2.jsonl",
+   "sourceSha256": "05b10cc52584203424d2041e62e06322360702822f412f0e1ee49f2c11577c66",
+   "sha256": "05b10cc52584203424d2041e62e06322360702822f412f0e1ee49f2c11577c66",
+   "bytes": 3469,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r4.jsonl",
+   "sourceSha256": "60af6fc36f7226aadb9547da699ef099f264ee1f6e027ec04132010146b70e59",
+   "sha256": "60af6fc36f7226aadb9547da699ef099f264ee1f6e027ec04132010146b70e59",
+   "bytes": 3454,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r6.jsonl",
+   "sourceSha256": "fc15243cd60cfbe177c259d3c3221ed56a8666d722bc7cd291a594c0ca764a6c",
+   "sha256": "fc15243cd60cfbe177c259d3c3221ed56a8666d722bc7cd291a594c0ca764a6c",
+   "bytes": 3456,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a5_b2_r8.jsonl",
+   "sourceSha256": "08bc47075e93ca20e0dab0d26250986ba3656ab41839d3b43a8acd07adb017c2",
+   "sha256": "08bc47075e93ca20e0dab0d26250986ba3656ab41839d3b43a8acd07adb017c2",
+   "bytes": 3452,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r1.jsonl",
+   "sourceSha256": "78e74b605fac0a3200831641c955185e19ab9900d00ed86cdb82c5f08c702c5f",
+   "sha256": "78e74b605fac0a3200831641c955185e19ab9900d00ed86cdb82c5f08c702c5f",
+   "bytes": 2139,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r2.jsonl",
+   "sourceSha256": "b2032dd5d69f3f803dd569e6db90fc4f0a748bbfbf8a8e5e67b6d925f7bc9f44",
+   "sha256": "b2032dd5d69f3f803dd569e6db90fc4f0a748bbfbf8a8e5e67b6d925f7bc9f44",
+   "bytes": 2130,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r4.jsonl",
+   "sourceSha256": "889233971705531d47c4ecb68c3f0de5f65681c53f408d2bdac81bc8a306887d",
+   "sha256": "889233971705531d47c4ecb68c3f0de5f65681c53f408d2bdac81bc8a306887d",
+   "bytes": 2120,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r6.jsonl",
+   "sourceSha256": "63e793e6598cbe37a54acf020a08b4e01edf54e1f7345bc9a873021b1d8255d8",
+   "sha256": "63e793e6598cbe37a54acf020a08b4e01edf54e1f7345bc9a873021b1d8255d8",
+   "bytes": 2116,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a6_b1_r8.jsonl",
+   "sourceSha256": "4f292e34f0161667a60fd869099c5c0d22529103402a37f4257bb0d06d223ec1",
+   "sha256": "4f292e34f0161667a60fd869099c5c0d22529103402a37f4257bb0d06d223ec1",
+   "bytes": 2120,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r1.jsonl",
+   "sourceSha256": "8758f98e86902c16a07e4100b31274b1e41e0bd78738c74ad3eb131af487333f",
+   "sha256": "8758f98e86902c16a07e4100b31274b1e41e0bd78738c74ad3eb131af487333f",
+   "bytes": 1339,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r2.jsonl",
+   "sourceSha256": "b20bbb25c021414e2de06d89d0aac371d724c5fe57170b153bf1a0a5bfbd9792",
+   "sha256": "b20bbb25c021414e2de06d89d0aac371d724c5fe57170b153bf1a0a5bfbd9792",
+   "bytes": 1338,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r4.jsonl",
+   "sourceSha256": "225c55289ead2f9a28b933e0f21598721a991c9db37fe11b5f6ca3f50de67917",
+   "sha256": "225c55289ead2f9a28b933e0f21598721a991c9db37fe11b5f6ca3f50de67917",
+   "bytes": 1338,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r6.jsonl",
+   "sourceSha256": "10f3b7a81c5d6777cc2aea47629169bd38a12c828be2815528da059111f3584e",
+   "sha256": "10f3b7a81c5d6777cc2aea47629169bd38a12c828be2815528da059111f3584e",
+   "bytes": 1327,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k3_int_a8_b1_r8.jsonl",
+   "sourceSha256": "6dd54b825f3c8f3846864ddfd5f505c53e2ec2796ca5aa1c0bde11c4e36641ec",
+   "sha256": "6dd54b825f3c8f3846864ddfd5f505c53e2ec2796ca5aa1c0bde11c4e36641ec",
+   "bytes": 1327,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r1.jsonl",
+   "sourceSha256": "7a7744e2ecd5063a697aa78bd684ad39c5fabe1b36b3f6a5872612e31badab94",
+   "sha256": "7a7744e2ecd5063a697aa78bd684ad39c5fabe1b36b3f6a5872612e31badab94",
+   "bytes": 5344,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r2.jsonl",
+   "sourceSha256": "f0efcf7a21b0ebaeec1c0a29a2960bfe4b050b1be052204a08eff1b90c82dac4",
+   "sha256": "f0efcf7a21b0ebaeec1c0a29a2960bfe4b050b1be052204a08eff1b90c82dac4",
+   "bytes": 5350,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r4.jsonl",
+   "sourceSha256": "4fcbd96d8d0c8e064c45677c05c0b1ec03bd264bdd4f0d3ce4c6e13573258e4f",
+   "sha256": "4fcbd96d8d0c8e064c45677c05c0b1ec03bd264bdd4f0d3ce4c6e13573258e4f",
+   "bytes": 5310,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r6.jsonl",
+   "sourceSha256": "ce2d1e97e54391d1f54e6567842a490bce9da4414138b902ea00096de6a5de86",
+   "sha256": "ce2d1e97e54391d1f54e6567842a490bce9da4414138b902ea00096de6a5de86",
+   "bytes": 5320,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b1_r8.jsonl",
+   "sourceSha256": "cd2654092acdab98a37d6d9e6c8cd72f001b0c48b868fe75cea353de7d951033",
+   "sha256": "cd2654092acdab98a37d6d9e6c8cd72f001b0c48b868fe75cea353de7d951033",
+   "bytes": 5327,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r1.jsonl",
+   "sourceSha256": "c6096980e59b924fabd921f498e8fee4c8fb2451bb4acb404e97f1834ab2e5ad",
+   "sha256": "c6096980e59b924fabd921f498e8fee4c8fb2451bb4acb404e97f1834ab2e5ad",
+   "bytes": 10735,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r2.jsonl",
+   "sourceSha256": "293eefb0d6cfa94f62c82e6f45247285236dbc9e5a5761d2862c536cb9d2906c",
+   "sha256": "293eefb0d6cfa94f62c82e6f45247285236dbc9e5a5761d2862c536cb9d2906c",
+   "bytes": 10673,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r4.jsonl",
+   "sourceSha256": "1b4f97d731cabe3ae6a3dbb084f0da26f829d02fff9f4860dc3cab578f1ffeee",
+   "sha256": "1b4f97d731cabe3ae6a3dbb084f0da26f829d02fff9f4860dc3cab578f1ffeee",
+   "bytes": 10673,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r6.jsonl",
+   "sourceSha256": "2465539d4932cfde9dab87932a69e6752bce76c8fb5819baaab762ef80f08c1e",
+   "sha256": "2465539d4932cfde9dab87932a69e6752bce76c8fb5819baaab762ef80f08c1e",
+   "bytes": 10656,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a3_b2_r8.jsonl",
+   "sourceSha256": "50a517a0bd7fef55234185dec1855f5785b62884df5048f1ff534000c54ef5fd",
+   "sha256": "50a517a0bd7fef55234185dec1855f5785b62884df5048f1ff534000c54ef5fd",
+   "bytes": 10658,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r1.jsonl",
+   "sourceSha256": "2e182b419e42792791e62008f366d3cca213db70041ebd5b9f7c27cb842def2c",
+   "sha256": "2e182b419e42792791e62008f366d3cca213db70041ebd5b9f7c27cb842def2c",
+   "bytes": 3473,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r2.jsonl",
+   "sourceSha256": "a124ffd8de68fa479e036b20b3c5139f514ed9a8b2bc4ca848efcefc3cc0652e",
+   "sha256": "a124ffd8de68fa479e036b20b3c5139f514ed9a8b2bc4ca848efcefc3cc0652e",
+   "bytes": 3471,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r4.jsonl",
+   "sourceSha256": "2c6bb4c8cfbb5ba446e3836a0f6378711f23de5ab513f9c76d96243fcad37970",
+   "sha256": "2c6bb4c8cfbb5ba446e3836a0f6378711f23de5ab513f9c76d96243fcad37970",
+   "bytes": 3445,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r6.jsonl",
+   "sourceSha256": "b58395b3fbbde183a4a75eb3e9a8e839babe7f6a20c800cb0f6a2fefd7aac27b",
+   "sha256": "b58395b3fbbde183a4a75eb3e9a8e839babe7f6a20c800cb0f6a2fefd7aac27b",
+   "bytes": 3447,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a4_b1_r8.jsonl",
+   "sourceSha256": "c779b207b1db3feb6fa9bfd79b8b7d470c43d0b351bce981f61d45cc0f4c44ee",
+   "sha256": "c779b207b1db3feb6fa9bfd79b8b7d470c43d0b351bce981f61d45cc0f4c44ee",
+   "bytes": 3443,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r1.jsonl",
+   "sourceSha256": "a3cdb7ead8c98fd3be7986bf3ef7321388b7f33c71976ee98cb60e1413401c89",
+   "sha256": "a3cdb7ead8c98fd3be7986bf3ef7321388b7f33c71976ee98cb60e1413401c89",
+   "bytes": 3480,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r2.jsonl",
+   "sourceSha256": "449b3a6f7599c59d136345ecef170908e113901d6f664dadb554a2d41c2372be",
+   "sha256": "449b3a6f7599c59d136345ecef170908e113901d6f664dadb554a2d41c2372be",
+   "bytes": 3474,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r4.jsonl",
+   "sourceSha256": "a78e35c5137d4d6266e230f485e6bc4bb8da8251ef2bcf340be5742a6f295f42",
+   "sha256": "a78e35c5137d4d6266e230f485e6bc4bb8da8251ef2bcf340be5742a6f295f42",
+   "bytes": 3454,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r6.jsonl",
+   "sourceSha256": "1fd2ad2eff6ba1d9ce9ab5daee3b75633cc5acd615e0fd46928957ed3090ccb9",
+   "sha256": "1fd2ad2eff6ba1d9ce9ab5daee3b75633cc5acd615e0fd46928957ed3090ccb9",
+   "bytes": 3456,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a5_b2_r8.jsonl",
+   "sourceSha256": "cebfa30d45bb6051883982ddd505de1bdb0968b836710a074bcf2b5ede331bb0",
+   "sha256": "cebfa30d45bb6051883982ddd505de1bdb0968b836710a074bcf2b5ede331bb0",
+   "bytes": 3457,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r1.jsonl",
+   "sourceSha256": "fa9dd8987de8ebc190c1ce645a5ebf23605b40abe6875b55ab5c928e5cc24f74",
+   "sha256": "fa9dd8987de8ebc190c1ce645a5ebf23605b40abe6875b55ab5c928e5cc24f74",
+   "bytes": 2133,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r2.jsonl",
+   "sourceSha256": "96161614541fa0b19481b7854a96fc2528d807f2b462cffd0c6569480a2df891",
+   "sha256": "96161614541fa0b19481b7854a96fc2528d807f2b462cffd0c6569480a2df891",
+   "bytes": 2137,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r4.jsonl",
+   "sourceSha256": "dd943b0468ca189364c1da561dfdf968d4c6a3fa5dc0efd76ba44ec047e5a90a",
+   "sha256": "dd943b0468ca189364c1da561dfdf968d4c6a3fa5dc0efd76ba44ec047e5a90a",
+   "bytes": 2127,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r6.jsonl",
+   "sourceSha256": "5e653f274bf965acbccf90071cea06f02e5def593ba07e25cfc270097c35f812",
+   "sha256": "5e653f274bf965acbccf90071cea06f02e5def593ba07e25cfc270097c35f812",
+   "bytes": 2120,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a6_b1_r8.jsonl",
+   "sourceSha256": "891e32c5bf19f700785662b3731c346e6c4ebd7ce2645063f91b214795036bdc",
+   "sha256": "891e32c5bf19f700785662b3731c346e6c4ebd7ce2645063f91b214795036bdc",
+   "bytes": 2114,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r1.jsonl",
+   "sourceSha256": "725b4535d56228c93b5158ec57e61ef8cdb27f43bba1e38284d4ed4072c70b29",
+   "sha256": "725b4535d56228c93b5158ec57e61ef8cdb27f43bba1e38284d4ed4072c70b29",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r2.jsonl",
+   "sourceSha256": "2c441349158bf9713271b2277c295a69f0b88ccc27ce9c872c794d00a546ef29",
+   "sha256": "2c441349158bf9713271b2277c295a69f0b88ccc27ce9c872c794d00a546ef29",
+   "bytes": 1333,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r4.jsonl",
+   "sourceSha256": "a05e2e209e0b9e86da374b2a2c46f59f1ef7bfdfe9675a86ec3b8e0ee1ea4d2b",
+   "sha256": "a05e2e209e0b9e86da374b2a2c46f59f1ef7bfdfe9675a86ec3b8e0ee1ea4d2b",
+   "bytes": 1335,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r6.jsonl",
+   "sourceSha256": "4b97886d82d6c7682cc098f0472416a495c8cda587ab16f731e9cc0175fe9ae5",
+   "sha256": "4b97886d82d6c7682cc098f0472416a495c8cda587ab16f731e9cc0175fe9ae5",
+   "bytes": 1330,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k5_int_a8_b1_r8.jsonl",
+   "sourceSha256": "4c577412f5c1153c611aa7656739ecadd42a45df8758c11d1098d21363eec1de",
+   "sha256": "4c577412f5c1153c611aa7656739ecadd42a45df8758c11d1098d21363eec1de",
+   "bytes": 1326,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r1.jsonl",
+   "sourceSha256": "0ad1c4636dc97b8cc4e6d5e4d7515d0429f9b302702aaffa56a138869a2579e1",
+   "sha256": "0ad1c4636dc97b8cc4e6d5e4d7515d0429f9b302702aaffa56a138869a2579e1",
+   "bytes": 5349,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r2.jsonl",
+   "sourceSha256": "191c285800a903e206fe1d9f453816b73cbbbe9b11a1ed3ff6dedf12360b10b5",
+   "sha256": "191c285800a903e206fe1d9f453816b73cbbbe9b11a1ed3ff6dedf12360b10b5",
+   "bytes": 5340,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r4.jsonl",
+   "sourceSha256": "6f5f261c48a7380661051e446ccfb321e272ec5965c92e297fe75af88477ded8",
+   "sha256": "6f5f261c48a7380661051e446ccfb321e272ec5965c92e297fe75af88477ded8",
+   "bytes": 5320,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r6.jsonl",
+   "sourceSha256": "d661e7845e801fc90298ae1c6dbc420e52695a477266573cfc8cf012e5c7f1e7",
+   "sha256": "d661e7845e801fc90298ae1c6dbc420e52695a477266573cfc8cf012e5c7f1e7",
+   "bytes": 5323,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b1_r8.jsonl",
+   "sourceSha256": "c5fda18396b22aae072ae0015837f0b60e7336812d112190bb20ebfbcca79e46",
+   "sha256": "c5fda18396b22aae072ae0015837f0b60e7336812d112190bb20ebfbcca79e46",
+   "bytes": 5315,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r1.jsonl",
+   "sourceSha256": "789674c1f90fca8089d084845d4ee11aeefdc064e0e32cb5c266a9dc7255cfe9",
+   "sha256": "789674c1f90fca8089d084845d4ee11aeefdc064e0e32cb5c266a9dc7255cfe9",
+   "bytes": 10755,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r2.jsonl",
+   "sourceSha256": "52d88f0f3ff0d6794a7829cbf98e5626a0402a42fbef12aa7628b7deb0d0bef0",
+   "sha256": "52d88f0f3ff0d6794a7829cbf98e5626a0402a42fbef12aa7628b7deb0d0bef0",
+   "bytes": 10720,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r4.jsonl",
+   "sourceSha256": "db95d17d3b88fec6fa70fc8eb6b4e90b7199c0f4f7e51475449832df25d3c019",
+   "sha256": "db95d17d3b88fec6fa70fc8eb6b4e90b7199c0f4f7e51475449832df25d3c019",
+   "bytes": 10662,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r6.jsonl",
+   "sourceSha256": "85921b6a045a3a9318a07ca5183ef7fb3e8aba0aeda1b892864ac9b76458975b",
+   "sha256": "85921b6a045a3a9318a07ca5183ef7fb3e8aba0aeda1b892864ac9b76458975b",
+   "bytes": 10663,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a3_b2_r8.jsonl",
+   "sourceSha256": "55dd771646cc81b7b77dcba1643481cb4606eb1f8150be2df0379334cf774abd",
+   "sha256": "55dd771646cc81b7b77dcba1643481cb4606eb1f8150be2df0379334cf774abd",
+   "bytes": 10649,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r1.jsonl",
+   "sourceSha256": "d44f80083b098c20412eaf4620d1e4566e7577ab8c8479ff5c3695422fc4a242",
+   "sha256": "d44f80083b098c20412eaf4620d1e4566e7577ab8c8479ff5c3695422fc4a242",
+   "bytes": 3473,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r2.jsonl",
+   "sourceSha256": "715fa28599777dbfbda946ab98262b693b712ccc29d108b8941352a64f85e325",
+   "sha256": "715fa28599777dbfbda946ab98262b693b712ccc29d108b8941352a64f85e325",
+   "bytes": 3468,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r4.jsonl",
+   "sourceSha256": "27e303407925496b1429299ab73f0664c48e07508e1173cfa3071854386c8b82",
+   "sha256": "27e303407925496b1429299ab73f0664c48e07508e1173cfa3071854386c8b82",
+   "bytes": 3456,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r6.jsonl",
+   "sourceSha256": "1ad85e25b7a4fe043802c3bee95d5ba04e6e6e66cd82bfd3453b0cb6a7daf529",
+   "sha256": "1ad85e25b7a4fe043802c3bee95d5ba04e6e6e66cd82bfd3453b0cb6a7daf529",
+   "bytes": 3449,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a4_b1_r8.jsonl",
+   "sourceSha256": "ed895d81c7c387223d9b8da131ccbb8298e11f3cba918cb777909a9aec3b4c5d",
+   "sha256": "ed895d81c7c387223d9b8da131ccbb8298e11f3cba918cb777909a9aec3b4c5d",
+   "bytes": 3451,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r1.jsonl",
+   "sourceSha256": "1eca7471adac911245ce814c4afc52d96929f9528106341b821e0275447c26a0",
+   "sha256": "1eca7471adac911245ce814c4afc52d96929f9528106341b821e0275447c26a0",
+   "bytes": 3484,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r2.jsonl",
+   "sourceSha256": "96e5e5c93ff6d850340f77831a7eed45e847f401e4a8e21acf3c4a2420c3b357",
+   "sha256": "96e5e5c93ff6d850340f77831a7eed45e847f401e4a8e21acf3c4a2420c3b357",
+   "bytes": 3472,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r4.jsonl",
+   "sourceSha256": "210dc7a22b4b3c59c42079c044b1eef574c40a151eae0125e6ac1c05dbb0974c",
+   "sha256": "210dc7a22b4b3c59c42079c044b1eef574c40a151eae0125e6ac1c05dbb0974c",
+   "bytes": 3453,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r6.jsonl",
+   "sourceSha256": "77dca631fb7952ec9d7543d64ea664f3d31eaa56d53a5f7cd7b7a243330deffb",
+   "sha256": "77dca631fb7952ec9d7543d64ea664f3d31eaa56d53a5f7cd7b7a243330deffb",
+   "bytes": 3454,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a5_b2_r8.jsonl",
+   "sourceSha256": "1a6f186dc9f7b3c966f7a14d80778657a600237efd2d1b5a5d919acea7c23533",
+   "sha256": "1a6f186dc9f7b3c966f7a14d80778657a600237efd2d1b5a5d919acea7c23533",
+   "bytes": 3450,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r1.jsonl",
+   "sourceSha256": "f55857a8e7ac0208b93169884bece1a4109cd28b1afd423de0260aa9eb5b42ec",
+   "sha256": "f55857a8e7ac0208b93169884bece1a4109cd28b1afd423de0260aa9eb5b42ec",
+   "bytes": 2132,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r2.jsonl",
+   "sourceSha256": "1faa685b83c90d0e058c291b4b06cb47ba089fa43ce3c8f3fb50fa534c10f2c2",
+   "sha256": "1faa685b83c90d0e058c291b4b06cb47ba089fa43ce3c8f3fb50fa534c10f2c2",
+   "bytes": 2136,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r4.jsonl",
+   "sourceSha256": "5c026bb25f4a058c6f8e10872f81075386690661fa4c41b059206c8f7fcee6d3",
+   "sha256": "5c026bb25f4a058c6f8e10872f81075386690661fa4c41b059206c8f7fcee6d3",
+   "bytes": 2130,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r6.jsonl",
+   "sourceSha256": "e5ad280a101efa26ef6ecfab9f7ef5e5ecf6c9356fd3d1b3e7d49612841427d3",
+   "sha256": "e5ad280a101efa26ef6ecfab9f7ef5e5ecf6c9356fd3d1b3e7d49612841427d3",
+   "bytes": 2127,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a6_b1_r8.jsonl",
+   "sourceSha256": "4f77d67153f6fef9bdc75d689ba888eb8b15c1078ce268017e3360069d37af27",
+   "sha256": "4f77d67153f6fef9bdc75d689ba888eb8b15c1078ce268017e3360069d37af27",
+   "bytes": 2113,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r1.jsonl",
+   "sourceSha256": "18346dbea20efe86a4bf2e0b1259cf7d0aaede6e3a820ac435d0348205a8f7e1",
+   "sha256": "18346dbea20efe86a4bf2e0b1259cf7d0aaede6e3a820ac435d0348205a8f7e1",
+   "bytes": 1335,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r2.jsonl",
+   "sourceSha256": "938a7b57b18282ad5585a62cf0109b60b46d1be90620aae88205f856e9f9e2ae",
+   "sha256": "938a7b57b18282ad5585a62cf0109b60b46d1be90620aae88205f856e9f9e2ae",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r4.jsonl",
+   "sourceSha256": "936909f8e678b36b49eaf0af8d61bbbcb76d1611181272d2614ce0c6e48ef642",
+   "sha256": "936909f8e678b36b49eaf0af8d61bbbcb76d1611181272d2614ce0c6e48ef642",
+   "bytes": 1330,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r6.jsonl",
+   "sourceSha256": "b29b6ad97d5a4f3770a1479d433cb162aafcaf3a89d14772f5ffda70d35fbf10",
+   "sha256": "b29b6ad97d5a4f3770a1479d433cb162aafcaf3a89d14772f5ffda70d35fbf10",
+   "bytes": 1330,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/E_k7_int_a8_b1_r8.jsonl",
+   "sourceSha256": "a969afd3a1b66d030550d91004c41ff980b7928b35e15fc5f26ea69364248bc4",
+   "sha256": "a969afd3a1b66d030550d91004c41ff980b7928b35e15fc5f26ea69364248bc4",
+   "bytes": 1330,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r1.jsonl",
+   "sourceSha256": "0a547b0b31407263e7b5d2f1c437a675931232443780894e1eea4241180ce033",
+   "sha256": "0a547b0b31407263e7b5d2f1c437a675931232443780894e1eea4241180ce033",
+   "bytes": 5378,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r2.jsonl",
+   "sourceSha256": "5f8e79a01a7d4d7dd041403f83c20ca1f24420d2e5ec16e11eacbb664983e127",
+   "sha256": "5f8e79a01a7d4d7dd041403f83c20ca1f24420d2e5ec16e11eacbb664983e127",
+   "bytes": 5374,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r4.jsonl",
+   "sourceSha256": "efeaf31e3955c214112136f17fa6c496c053e9c6141b1b3eb89611d03fec8b2a",
+   "sha256": "efeaf31e3955c214112136f17fa6c496c053e9c6141b1b3eb89611d03fec8b2a",
+   "bytes": 5328,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r6.jsonl",
+   "sourceSha256": "175a3718f636e9b06043fc216cb01572cdc889193fb5f87129aee264895377f6",
+   "sha256": "175a3718f636e9b06043fc216cb01572cdc889193fb5f87129aee264895377f6",
+   "bytes": 5345,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b1_r8.jsonl",
+   "sourceSha256": "6ca429bec60d0b63d964984e140519d832ee234b4d6eb9ace21ad071b1efd0d6",
+   "sha256": "6ca429bec60d0b63d964984e140519d832ee234b4d6eb9ace21ad071b1efd0d6",
+   "bytes": 5314,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r1.jsonl",
+   "sourceSha256": "c4ff64a00841557cb1691a7e69cbd8ee32c19a17993f548b01a35d3f779ee7fb",
+   "sha256": "c4ff64a00841557cb1691a7e69cbd8ee32c19a17993f548b01a35d3f779ee7fb",
+   "bytes": 10739,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r2.jsonl",
+   "sourceSha256": "23c88ff50239405aa2780bdb5b54eca56e52d9ea8b50ebdbf751e1c5af166106",
+   "sha256": "23c88ff50239405aa2780bdb5b54eca56e52d9ea8b50ebdbf751e1c5af166106",
+   "bytes": 10661,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r4.jsonl",
+   "sourceSha256": "e6387583300c3cbdafa54f9010081daa7e37e57655829752a0000eb648527265",
+   "sha256": "e6387583300c3cbdafa54f9010081daa7e37e57655829752a0000eb648527265",
+   "bytes": 10679,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r6.jsonl",
+   "sourceSha256": "37575a972dcf0ac78c14e1192b038a7ac0d369d4a641f45f7e938417c6e55bb7",
+   "sha256": "37575a972dcf0ac78c14e1192b038a7ac0d369d4a641f45f7e938417c6e55bb7",
+   "bytes": 10661,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a3_b2_r8.jsonl",
+   "sourceSha256": "e2954435249617360a3459e411130238cbab1f5dbee22d7dcfe3e7381e5a1c56",
+   "sha256": "e2954435249617360a3459e411130238cbab1f5dbee22d7dcfe3e7381e5a1c56",
+   "bytes": 10674,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r1.jsonl",
+   "sourceSha256": "417a790d4909a0fb32c02bb79a8bad141a935d0e3efbbb0f5b7fec77dcbaa1f1",
+   "sha256": "417a790d4909a0fb32c02bb79a8bad141a935d0e3efbbb0f5b7fec77dcbaa1f1",
+   "bytes": 3480,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r2.jsonl",
+   "sourceSha256": "100fe79dc3016b1c82a94f868306166611bf56cb8f9e9bffe95ce9adfc602a95",
+   "sha256": "100fe79dc3016b1c82a94f868306166611bf56cb8f9e9bffe95ce9adfc602a95",
+   "bytes": 3497,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r4.jsonl",
+   "sourceSha256": "0039fb3b66f1f1cf46b58f4fea87d9c9660c4b25a7c34e4652004072f7338e7c",
+   "sha256": "0039fb3b66f1f1cf46b58f4fea87d9c9660c4b25a7c34e4652004072f7338e7c",
+   "bytes": 3466,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r6.jsonl",
+   "sourceSha256": "d9faa6db79c9c8f5eeb33d13f2a058e5fa9bd8ab41b8d26cf1248e8505ad98a6",
+   "sha256": "d9faa6db79c9c8f5eeb33d13f2a058e5fa9bd8ab41b8d26cf1248e8505ad98a6",
+   "bytes": 3462,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r8.jsonl",
+   "sourceSha256": "f7d5405e1bb35892138331dd3285528ddc3fdf00c30a887ec5315fa1b334bf5a",
+   "sha256": "f7d5405e1bb35892138331dd3285528ddc3fdf00c30a887ec5315fa1b334bf5a",
+   "bytes": 3447,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r1.jsonl",
+   "sourceSha256": "b488d392c568c3aa26ea4dc21ce6f3a21c76cb9bd83c0fc1bfcee6a6149d78f6",
+   "sha256": "b488d392c568c3aa26ea4dc21ce6f3a21c76cb9bd83c0fc1bfcee6a6149d78f6",
+   "bytes": 3487,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r2.jsonl",
+   "sourceSha256": "e694e457831dce85fe6954dea60ac34012b39a848df7fe14fa6725ff12eafb7a",
+   "sha256": "e694e457831dce85fe6954dea60ac34012b39a848df7fe14fa6725ff12eafb7a",
+   "bytes": 3483,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r4.jsonl",
+   "sourceSha256": "8d8f7bc3709f2d4d469928ea643b996a3a1aa83fba83128d35252384db38dd6e",
+   "sha256": "8d8f7bc3709f2d4d469928ea643b996a3a1aa83fba83128d35252384db38dd6e",
+   "bytes": 3453,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r6.jsonl",
+   "sourceSha256": "8fa0d2ee1f8cccf58aaa5e5908adc267b8afc003948aa151ab61e7f2c9676351",
+   "sha256": "8fa0d2ee1f8cccf58aaa5e5908adc267b8afc003948aa151ab61e7f2c9676351",
+   "bytes": 3448,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a5_b2_r8.jsonl",
+   "sourceSha256": "6d7ed1c2feea9ca7bccf7ee3001cbc41bb7693b131029fff951525cb01b63d9e",
+   "sha256": "6d7ed1c2feea9ca7bccf7ee3001cbc41bb7693b131029fff951525cb01b63d9e",
+   "bytes": 3461,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r1.jsonl",
+   "sourceSha256": "124f310e02ec827995acb0b904dcded89d3de714c4e009fb8bccfe42bded379b",
+   "sha256": "124f310e02ec827995acb0b904dcded89d3de714c4e009fb8bccfe42bded379b",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r2.jsonl",
+   "sourceSha256": "2622b088c902f9f2a1294fcf945a81818d5d1c2d99e462f4d0b65ae3224ee8ec",
+   "sha256": "2622b088c902f9f2a1294fcf945a81818d5d1c2d99e462f4d0b65ae3224ee8ec",
+   "bytes": 2142,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r4.jsonl",
+   "sourceSha256": "4ac7c5af82719ac546f384b4f887e8e4aa5873f11f097f46536c81f840e19cb1",
+   "sha256": "4ac7c5af82719ac546f384b4f887e8e4aa5873f11f097f46536c81f840e19cb1",
+   "bytes": 2136,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r6.jsonl",
+   "sourceSha256": "57f6d3314aa2f576e91c90665d00da238f44e12e934b015bb7f01c98e570f7d4",
+   "sha256": "57f6d3314aa2f576e91c90665d00da238f44e12e934b015bb7f01c98e570f7d4",
+   "bytes": 2131,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a6_b1_r8.jsonl",
+   "sourceSha256": "ee0c9d54c8f3d588a952819a986686fe4e049c951210b0badc5485633e8262f8",
+   "sha256": "ee0c9d54c8f3d588a952819a986686fe4e049c951210b0badc5485633e8262f8",
+   "bytes": 2129,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r1.jsonl",
+   "sourceSha256": "99d9f8f437ed54d2235c5f41de98fee698569b668a307537a61e9060bbf6a49d",
+   "sha256": "99d9f8f437ed54d2235c5f41de98fee698569b668a307537a61e9060bbf6a49d",
+   "bytes": 1342,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r2.jsonl",
+   "sourceSha256": "1f7df6ac901fa5719b565c107c5610afbed42164fc75e759db2c5df29bb96e70",
+   "sha256": "1f7df6ac901fa5719b565c107c5610afbed42164fc75e759db2c5df29bb96e70",
+   "bytes": 1340,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r4.jsonl",
+   "sourceSha256": "a453db66ab7cbe69098b9dd0834a409cb5d56af13cd3ab282150b9257b9789a9",
+   "sha256": "a453db66ab7cbe69098b9dd0834a409cb5d56af13cd3ab282150b9257b9789a9",
+   "bytes": 1338,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r6.jsonl",
+   "sourceSha256": "96f3e5415439c2bc1bcd02ea6ba0d4b4b4613666d9e08b4043a7997ad2d5a2c9",
+   "sha256": "96f3e5415439c2bc1bcd02ea6ba0d4b4b4613666d9e08b4043a7997ad2d5a2c9",
+   "bytes": 1335,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k3_int_a8_b1_r8.jsonl",
+   "sourceSha256": "9812cbb0701553c410e97874c3091f641eb2bb7db9e2f455c3d5216861ed7989",
+   "sha256": "9812cbb0701553c410e97874c3091f641eb2bb7db9e2f455c3d5216861ed7989",
+   "bytes": 1332,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r1.jsonl",
+   "sourceSha256": "4d428db930c302aa1f278d55e3f1384b25fc1286321e215a1b01b7522cc03368",
+   "sha256": "4d428db930c302aa1f278d55e3f1384b25fc1286321e215a1b01b7522cc03368",
+   "bytes": 5366,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r2.jsonl",
+   "sourceSha256": "0e7faf86769501d0ebd87194e6a10fa15f441629706edf00cf5ddf1c38df414e",
+   "sha256": "0e7faf86769501d0ebd87194e6a10fa15f441629706edf00cf5ddf1c38df414e",
+   "bytes": 5373,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r4.jsonl",
+   "sourceSha256": "3b9d5c3213a1138b8848818572c8d4eda0ac656789368703103f7c27d5aafb9e",
+   "sha256": "3b9d5c3213a1138b8848818572c8d4eda0ac656789368703103f7c27d5aafb9e",
+   "bytes": 5359,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r6.jsonl",
+   "sourceSha256": "a80de333dfe2137005deac2a9454e34e2b78eb830b5ea122ffd6a0773b5d4f18",
+   "sha256": "a80de333dfe2137005deac2a9454e34e2b78eb830b5ea122ffd6a0773b5d4f18",
+   "bytes": 5342,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b1_r8.jsonl",
+   "sourceSha256": "3a4c91412ab1142305ed204d7feb01be28b7135400316d02445c7ea8863488f1",
+   "sha256": "3a4c91412ab1142305ed204d7feb01be28b7135400316d02445c7ea8863488f1",
+   "bytes": 5341,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r1.jsonl",
+   "sourceSha256": "8698a509ca64f87b6a673eb4a8e1c383f549376b797bfb96042939ae50ed0e98",
+   "sha256": "8698a509ca64f87b6a673eb4a8e1c383f549376b797bfb96042939ae50ed0e98",
+   "bytes": 10784,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r2.jsonl",
+   "sourceSha256": "0bac537b62a764e126f79f14529aa9b2da7207e8143dd428a67f5f0a6869957d",
+   "sha256": "0bac537b62a764e126f79f14529aa9b2da7207e8143dd428a67f5f0a6869957d",
+   "bytes": 10741,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r4.jsonl",
+   "sourceSha256": "28cdd576048b32ab87dfe121da439fecc34abfcea1095f4b8ea0ab2fad774faf",
+   "sha256": "28cdd576048b32ab87dfe121da439fecc34abfcea1095f4b8ea0ab2fad774faf",
+   "bytes": 10722,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r6.jsonl",
+   "sourceSha256": "3486bad05257c2314a528398f6e6b422d161893fc56cfd9cec7704a3880066e1",
+   "sha256": "3486bad05257c2314a528398f6e6b422d161893fc56cfd9cec7704a3880066e1",
+   "bytes": 10702,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a3_b2_r8.jsonl",
+   "sourceSha256": "d8f0684b37d8c98a4af72afe92b65c67d1fe5d16923bc13a6101d9a238f52702",
+   "sha256": "d8f0684b37d8c98a4af72afe92b65c67d1fe5d16923bc13a6101d9a238f52702",
+   "bytes": 10691,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r1.jsonl",
+   "sourceSha256": "3c9e4bf4e81da3ac7d5633aa2ce0025975e7e43ff36a8b6ea18e4eb8edadff7f",
+   "sha256": "3c9e4bf4e81da3ac7d5633aa2ce0025975e7e43ff36a8b6ea18e4eb8edadff7f",
+   "bytes": 3492,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r2.jsonl",
+   "sourceSha256": "a0f299348994644bec9ffa7652100ae8d56bbd15fada2a8c9e1d7e855559cc07",
+   "sha256": "a0f299348994644bec9ffa7652100ae8d56bbd15fada2a8c9e1d7e855559cc07",
+   "bytes": 3482,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r4.jsonl",
+   "sourceSha256": "5b0d551809ceafad4057baf97f283d4e579f43f1e92dd1d5bde498c4855312d2",
+   "sha256": "5b0d551809ceafad4057baf97f283d4e579f43f1e92dd1d5bde498c4855312d2",
+   "bytes": 3480,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r6.jsonl",
+   "sourceSha256": "e97779e69990ed0db1312b5ca21948a7b43a97d8ac865ef16a6c9a5e5538a821",
+   "sha256": "e97779e69990ed0db1312b5ca21948a7b43a97d8ac865ef16a6c9a5e5538a821",
+   "bytes": 3469,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a4_b1_r8.jsonl",
+   "sourceSha256": "062e02a18f22ededc31e52b750301450ce48513aa5393f15d8ded83151274737",
+   "sha256": "062e02a18f22ededc31e52b750301450ce48513aa5393f15d8ded83151274737",
+   "bytes": 3468,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r1.jsonl",
+   "sourceSha256": "379a265f3f464581fdbf143f6065f2f5168045de6a1a6197a2aa6384eb654ca6",
+   "sha256": "379a265f3f464581fdbf143f6065f2f5168045de6a1a6197a2aa6384eb654ca6",
+   "bytes": 3491,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r2.jsonl",
+   "sourceSha256": "8daead7678aa8128ea67c61f06002353e5e113e77e4b05f9b45ac4f1b80ebd86",
+   "sha256": "8daead7678aa8128ea67c61f06002353e5e113e77e4b05f9b45ac4f1b80ebd86",
+   "bytes": 3493,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r4.jsonl",
+   "sourceSha256": "abe18d1d2b8e4adb42e3889ff2067c7038ed21040769e8df510430183811879c",
+   "sha256": "abe18d1d2b8e4adb42e3889ff2067c7038ed21040769e8df510430183811879c",
+   "bytes": 3479,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r6.jsonl",
+   "sourceSha256": "7c038006300efd4c768760fc99e8755b27afc07d6fe85d8b6f60e3839ba8ec34",
+   "sha256": "7c038006300efd4c768760fc99e8755b27afc07d6fe85d8b6f60e3839ba8ec34",
+   "bytes": 3464,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a5_b2_r8.jsonl",
+   "sourceSha256": "1941a5fa52a1564b41aea3b72656694cf6a08e8017da29c283f267a36a94201c",
+   "sha256": "1941a5fa52a1564b41aea3b72656694cf6a08e8017da29c283f267a36a94201c",
+   "bytes": 3469,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r1.jsonl",
+   "sourceSha256": "7561db50cbf8d799bbd76dcd6825929e3b9566c81159e63358df2786569049ff",
+   "sha256": "7561db50cbf8d799bbd76dcd6825929e3b9566c81159e63358df2786569049ff",
+   "bytes": 2139,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r2.jsonl",
+   "sourceSha256": "5d62725724f3070794c2a65cb2270a655e35a2801753555045e384cd9e78a45e",
+   "sha256": "5d62725724f3070794c2a65cb2270a655e35a2801753555045e384cd9e78a45e",
+   "bytes": 2144,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r4.jsonl",
+   "sourceSha256": "e683cabfe72a9245867a050f22bf32c650897afb206a7060e6481c9894ecfa0d",
+   "sha256": "e683cabfe72a9245867a050f22bf32c650897afb206a7060e6481c9894ecfa0d",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r6.jsonl",
+   "sourceSha256": "86fd560efa84fb5a44df7fcf1dedbff5d8fe74be2bf0614fe1008f6d0a2cacbf",
+   "sha256": "86fd560efa84fb5a44df7fcf1dedbff5d8fe74be2bf0614fe1008f6d0a2cacbf",
+   "bytes": 2137,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a6_b1_r8.jsonl",
+   "sourceSha256": "f54db78cb72d77a46ed26cbfeb2ba17a1c9c98f9cc6fc6f2bb2519ac09470a0f",
+   "sha256": "f54db78cb72d77a46ed26cbfeb2ba17a1c9c98f9cc6fc6f2bb2519ac09470a0f",
+   "bytes": 2134,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r1.jsonl",
+   "sourceSha256": "e67e72059dc57ef702e17e775e2825cee4979a72c72d5147b4c38847f9711163",
+   "sha256": "e67e72059dc57ef702e17e775e2825cee4979a72c72d5147b4c38847f9711163",
+   "bytes": 1342,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r2.jsonl",
+   "sourceSha256": "914201ff5b3401f1592fb50a8df1730bcfcbfcb305a24af2e715853a03ee2f05",
+   "sha256": "914201ff5b3401f1592fb50a8df1730bcfcbfcb305a24af2e715853a03ee2f05",
+   "bytes": 1339,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r4.jsonl",
+   "sourceSha256": "488d1d6620a25ca2a74d3c25d14e317a0535c9620f5d6f5dc775771091656d5d",
+   "sha256": "488d1d6620a25ca2a74d3c25d14e317a0535c9620f5d6f5dc775771091656d5d",
+   "bytes": 1333,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r6.jsonl",
+   "sourceSha256": "08a665ef6d893baba67c05547bde5fcc42e647e7830ed7d820905619ce96744f",
+   "sha256": "08a665ef6d893baba67c05547bde5fcc42e647e7830ed7d820905619ce96744f",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_half_a8_b1_r8.jsonl",
+   "sourceSha256": "c8d767971530737e4acee93e950a3b20442cf7a163589c675b4bd9b8d9da009f",
+   "sha256": "c8d767971530737e4acee93e950a3b20442cf7a163589c675b4bd9b8d9da009f",
+   "bytes": 1334,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r1.jsonl",
+   "sourceSha256": "0a65659fe0ca66d943ac9cde0b1d7617201aaa1df3a22f8023652eb6bdafb895",
+   "sha256": "0a65659fe0ca66d943ac9cde0b1d7617201aaa1df3a22f8023652eb6bdafb895",
+   "bytes": 5357,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r2.jsonl",
+   "sourceSha256": "2f10fcd1f5612bd937f20404c1ce2a19b220741d72e93a120f18d9dcea6e25fc",
+   "sha256": "2f10fcd1f5612bd937f20404c1ce2a19b220741d72e93a120f18d9dcea6e25fc",
+   "bytes": 5353,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r4.jsonl",
+   "sourceSha256": "22fce7b8db7120bec721dac496d48d2962d85d1c6c300307df5ac8c1def25bcf",
+   "sha256": "22fce7b8db7120bec721dac496d48d2962d85d1c6c300307df5ac8c1def25bcf",
+   "bytes": 5323,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r6.jsonl",
+   "sourceSha256": "64b6f90ca0fe484d3035128aac155f17985feb759e8ed928c2127da11492151a",
+   "sha256": "64b6f90ca0fe484d3035128aac155f17985feb759e8ed928c2127da11492151a",
+   "bytes": 5312,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b1_r8.jsonl",
+   "sourceSha256": "d884bdecbbce46d66c273f2df6694efd4f8c5670069a9f6895b974040012728b",
+   "sha256": "d884bdecbbce46d66c273f2df6694efd4f8c5670069a9f6895b974040012728b",
+   "bytes": 5324,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r1.jsonl",
+   "sourceSha256": "183953029bb8d24e0a86b19bdae3eea65d9beedc9b0425c43fe4838c72b21bd7",
+   "sha256": "183953029bb8d24e0a86b19bdae3eea65d9beedc9b0425c43fe4838c72b21bd7",
+   "bytes": 10727,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r2.jsonl",
+   "sourceSha256": "4b33043f0e03a3b65dbf6e8360fb71c102e73d5bd427ddc8af90af198b73fe17",
+   "sha256": "4b33043f0e03a3b65dbf6e8360fb71c102e73d5bd427ddc8af90af198b73fe17",
+   "bytes": 10668,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r4.jsonl",
+   "sourceSha256": "58131d2b28de7ac225181675711d04cabe1230a6fa268191f818e482fd93d806",
+   "sha256": "58131d2b28de7ac225181675711d04cabe1230a6fa268191f818e482fd93d806",
+   "bytes": 10666,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r6.jsonl",
+   "sourceSha256": "32ecfab55abc9881efb492ad8e7e84f56348d5388190865a9ed6d539e9b6c70f",
+   "sha256": "32ecfab55abc9881efb492ad8e7e84f56348d5388190865a9ed6d539e9b6c70f",
+   "bytes": 10658,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a3_b2_r8.jsonl",
+   "sourceSha256": "e86e894bed459f9590a7e06b278149b4f17b874fef903dc6f3508ac106a32480",
+   "sha256": "e86e894bed459f9590a7e06b278149b4f17b874fef903dc6f3508ac106a32480",
+   "bytes": 10672,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r1.jsonl",
+   "sourceSha256": "173cf8e19dbb4d533491ec61b2cb7503f560910bf27da061c6ca0989f410a9eb",
+   "sha256": "173cf8e19dbb4d533491ec61b2cb7503f560910bf27da061c6ca0989f410a9eb",
+   "bytes": 3477,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r2.jsonl",
+   "sourceSha256": "30d94af94ba161cae8ba79f74f36a43a3ecc290756dee156acbcb220d212d74d",
+   "sha256": "30d94af94ba161cae8ba79f74f36a43a3ecc290756dee156acbcb220d212d74d",
+   "bytes": 3485,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r4.jsonl",
+   "sourceSha256": "08be84af3163467102db1a2acc184f8347667cdc0b203440b5a100c42d757908",
+   "sha256": "08be84af3163467102db1a2acc184f8347667cdc0b203440b5a100c42d757908",
+   "bytes": 3473,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r6.jsonl",
+   "sourceSha256": "708b1358619dabff249c8ccf677a52800618b722fd70b88103f69984adef117a",
+   "sha256": "708b1358619dabff249c8ccf677a52800618b722fd70b88103f69984adef117a",
+   "bytes": 3452,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a4_b1_r8.jsonl",
+   "sourceSha256": "8c9400b386607c0b4d7fb08e5baf45c92b11c63e80208dba52ca694159c40dce",
+   "sha256": "8c9400b386607c0b4d7fb08e5baf45c92b11c63e80208dba52ca694159c40dce",
+   "bytes": 3441,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r1.jsonl",
+   "sourceSha256": "015c455e6850037a9cf2f57fa92fd51612b00be534576cdf4943759cfca9e134",
+   "sha256": "015c455e6850037a9cf2f57fa92fd51612b00be534576cdf4943759cfca9e134",
+   "bytes": 3480,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r2.jsonl",
+   "sourceSha256": "134a6af5d5e3cd1cf03c4728734a71cc97ee5cab8f71d1b0b0eb90aea42610b4",
+   "sha256": "134a6af5d5e3cd1cf03c4728734a71cc97ee5cab8f71d1b0b0eb90aea42610b4",
+   "bytes": 3477,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r4.jsonl",
+   "sourceSha256": "8f345f47c6c59e223f24003f94c5e4fe131f7d03d4838112ddbea904b87bd517",
+   "sha256": "8f345f47c6c59e223f24003f94c5e4fe131f7d03d4838112ddbea904b87bd517",
+   "bytes": 3457,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r6.jsonl",
+   "sourceSha256": "ba2057ee5d6f75a9c965f3dd7b78896ba0bc1cba57f48f67480deb5c8d640e0d",
+   "sha256": "ba2057ee5d6f75a9c965f3dd7b78896ba0bc1cba57f48f67480deb5c8d640e0d",
+   "bytes": 3456,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a5_b2_r8.jsonl",
+   "sourceSha256": "df08c263a17f6450ca19839df8a202a197c72ee26c4f7e14096f0b95be48a030",
+   "sha256": "df08c263a17f6450ca19839df8a202a197c72ee26c4f7e14096f0b95be48a030",
+   "bytes": 3449,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r1.jsonl",
+   "sourceSha256": "3e9f84291f7d2e2fdd854678d67d86f3b1575082f28a1afa100a96642f2d8538",
+   "sha256": "3e9f84291f7d2e2fdd854678d67d86f3b1575082f28a1afa100a96642f2d8538",
+   "bytes": 2138,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r2.jsonl",
+   "sourceSha256": "f771f3b68219a78237d3857abbd3d1f9b43f15f2685bd2a9cc1eed4313857742",
+   "sha256": "f771f3b68219a78237d3857abbd3d1f9b43f15f2685bd2a9cc1eed4313857742",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r4.jsonl",
+   "sourceSha256": "74ed75649a98b051c2535f63bdef42106cb8dbf494c8a8df9c0ab9b1e68ab2c3",
+   "sha256": "74ed75649a98b051c2535f63bdef42106cb8dbf494c8a8df9c0ab9b1e68ab2c3",
+   "bytes": 2139,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r6.jsonl",
+   "sourceSha256": "37be206262a7714accd481c81ea35784d3a0c7997711596dc7b66ebc507edce3",
+   "sha256": "37be206262a7714accd481c81ea35784d3a0c7997711596dc7b66ebc507edce3",
+   "bytes": 2135,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a6_b1_r8.jsonl",
+   "sourceSha256": "46d71665b1c20f07be555b3fde9082ae3abd357f3566e9974cd0865cab71dd4a",
+   "sha256": "46d71665b1c20f07be555b3fde9082ae3abd357f3566e9974cd0865cab71dd4a",
+   "bytes": 2125,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r1.jsonl",
+   "sourceSha256": "f99a6705731b0ef2f80c6a0e8d3a42cf196e4403500ec2ae8dedf998f490bd6c",
+   "sha256": "f99a6705731b0ef2f80c6a0e8d3a42cf196e4403500ec2ae8dedf998f490bd6c",
+   "bytes": 1338,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r2.jsonl",
+   "sourceSha256": "1557af29a8310792a9f9af399496c0cbadb8a3625194eeba13a806bb5c2e39b7",
+   "sha256": "1557af29a8310792a9f9af399496c0cbadb8a3625194eeba13a806bb5c2e39b7",
+   "bytes": 1334,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r4.jsonl",
+   "sourceSha256": "4feac3dc8e61cb41b996ee4a04523b2459df28ceaeed914ec39df7a370fba9f1",
+   "sha256": "4feac3dc8e61cb41b996ee4a04523b2459df28ceaeed914ec39df7a370fba9f1",
+   "bytes": 1340,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r6.jsonl",
+   "sourceSha256": "d81897d485e38f3e45b38555001f398c5b3d34a77b55a3cc7914231ba8f850e3",
+   "sha256": "d81897d485e38f3e45b38555001f398c5b3d34a77b55a3cc7914231ba8f850e3",
+   "bytes": 1341,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r8.jsonl",
+   "sourceSha256": "d9a053aeb2398b7b8a0cacd9b0d5d2fa91169cfb5f0bdaba6ff52e83e447c450",
+   "sha256": "d9a053aeb2398b7b8a0cacd9b0d5d2fa91169cfb5f0bdaba6ff52e83e447c450",
+   "bytes": 1323,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r1.jsonl",
+   "sourceSha256": "c97e59699ca02d650c6b45f1bf5dd19c9dcf55b85d88ba799e09900ac6863836",
+   "sha256": "c97e59699ca02d650c6b45f1bf5dd19c9dcf55b85d88ba799e09900ac6863836",
+   "bytes": 2673,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r2.jsonl",
+   "sourceSha256": "bf3c1585f21a0e3a94e41eeeeca9b9984ed33c91153e444f27e9991834f55e97",
+   "sha256": "bf3c1585f21a0e3a94e41eeeeca9b9984ed33c91153e444f27e9991834f55e97",
+   "bytes": 2676,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r4.jsonl",
+   "sourceSha256": "d51d0393762e39f9a17a44c0724b9b5e033b8bca885bbe9e3e6a6b33b0579b3d",
+   "sha256": "d51d0393762e39f9a17a44c0724b9b5e033b8bca885bbe9e3e6a6b33b0579b3d",
+   "bytes": 2659,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r6.jsonl",
+   "sourceSha256": "c5060f5a3302b90a39fb3088e568e93d14d9fa352b8c3addd8a78409121a6a5e",
+   "sha256": "c5060f5a3302b90a39fb3088e568e93d14d9fa352b8c3addd8a78409121a6a5e",
+   "bytes": 2657,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b1_r8.jsonl",
+   "sourceSha256": "1484bb10b2fb4cab152e2f463680f00a8d549b1a45be61144382aa01a06fa930",
+   "sha256": "1484bb10b2fb4cab152e2f463680f00a8d549b1a45be61144382aa01a06fa930",
+   "bytes": 2661,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r1.jsonl",
+   "sourceSha256": "f85e4e63aef0210c8d496adf9f0086ab8c6c08980258203fbe08ac3025bacfa0",
+   "sha256": "f85e4e63aef0210c8d496adf9f0086ab8c6c08980258203fbe08ac3025bacfa0",
+   "bytes": 5383,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r2.jsonl",
+   "sourceSha256": "3e8568031c86f04ae119cfe7382a3bf9753af874726bdf320444d4353b581123",
+   "sha256": "3e8568031c86f04ae119cfe7382a3bf9753af874726bdf320444d4353b581123",
+   "bytes": 5368,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r4.jsonl",
+   "sourceSha256": "57760e01479cea1618e6a38422d71580db2f5ae899591338f0c3c92a0716b45b",
+   "sha256": "57760e01479cea1618e6a38422d71580db2f5ae899591338f0c3c92a0716b45b",
+   "bytes": 5337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r6.jsonl",
+   "sourceSha256": "c8de00e155133c5d08d63730b070992dbc4dd3aa0eb55fbc96303acbaea3813a",
+   "sha256": "c8de00e155133c5d08d63730b070992dbc4dd3aa0eb55fbc96303acbaea3813a",
+   "bytes": 5341,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a3_b2_r8.jsonl",
+   "sourceSha256": "899e71ddaef9d096ccb85099e916f7f67f29aa71a3324b712d15882ab8004965",
+   "sha256": "899e71ddaef9d096ccb85099e916f7f67f29aa71a3324b712d15882ab8004965",
+   "bytes": 5337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r1.jsonl",
+   "sourceSha256": "82b5aa884dc3913d5806e3df861608f3fa03d4fe26577689aa3fe3f6801202ed",
+   "sha256": "82b5aa884dc3913d5806e3df861608f3fa03d4fe26577689aa3fe3f6801202ed",
+   "bytes": 1601,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r2.jsonl",
+   "sourceSha256": "c3a446d82991ac3812847f0fb1dd187d8ff45536473e5cdc17ebc61d6554111e",
+   "sha256": "c3a446d82991ac3812847f0fb1dd187d8ff45536473e5cdc17ebc61d6554111e",
+   "bytes": 1606,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r4.jsonl",
+   "sourceSha256": "04df562cdb44298b5e56fa19a188a6daefc88d200c5ac50887ca0c1621306ebc",
+   "sha256": "04df562cdb44298b5e56fa19a188a6daefc88d200c5ac50887ca0c1621306ebc",
+   "bytes": 1599,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r6.jsonl",
+   "sourceSha256": "842c7a693a08d7edf822522996e5d0ce9266e025de0671155d3f7ea25052942d",
+   "sha256": "842c7a693a08d7edf822522996e5d0ce9266e025de0671155d3f7ea25052942d",
+   "bytes": 1598,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a4_b1_r8.jsonl",
+   "sourceSha256": "d098bf1b3d3a6a37ae6034fbce4a356581052d9b96be9f20657ee2da5d40474a",
+   "sha256": "d098bf1b3d3a6a37ae6034fbce4a356581052d9b96be9f20657ee2da5d40474a",
+   "bytes": 1591,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r1.jsonl",
+   "sourceSha256": "875539bdc5fab786e699fc4834778389263922a2b25c45e3e35c6ca4e4e97bb9",
+   "sha256": "875539bdc5fab786e699fc4834778389263922a2b25c45e3e35c6ca4e4e97bb9",
+   "bytes": 1608,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r2.jsonl",
+   "sourceSha256": "6675fc5bc5c0b92997b5850dec552c5debede7d924c89a682d56adb978485fcd",
+   "sha256": "6675fc5bc5c0b92997b5850dec552c5debede7d924c89a682d56adb978485fcd",
+   "bytes": 1604,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r4.jsonl",
+   "sourceSha256": "d21ef2764949851cfdc1d5a304915f325bccb9337910153981f01cfcaa3d7c7d",
+   "sha256": "d21ef2764949851cfdc1d5a304915f325bccb9337910153981f01cfcaa3d7c7d",
+   "bytes": 1599,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r6.jsonl",
+   "sourceSha256": "2e95c4d4b6f23b11d0310fe8c2ede1562a6f4f218d50b55c309ae1f951e505bb",
+   "sha256": "2e95c4d4b6f23b11d0310fe8c2ede1562a6f4f218d50b55c309ae1f951e505bb",
+   "bytes": 1602,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a5_b2_r8.jsonl",
+   "sourceSha256": "ffbc944fc3451bb587ba52dd1979f19347423a57b6bb1d7299d48111f4408d64",
+   "sha256": "ffbc944fc3451bb587ba52dd1979f19347423a57b6bb1d7299d48111f4408d64",
+   "bytes": 1596,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r1.jsonl",
+   "sourceSha256": "d3fb5ad601ccd43a9e012c653c8255af67924238b809e662bc0b881e826a5299",
+   "sha256": "d3fb5ad601ccd43a9e012c653c8255af67924238b809e662bc0b881e826a5299",
+   "bytes": 1071,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r2.jsonl",
+   "sourceSha256": "46c01dd81fc92421938ad99f96218135d86656c2a486a61e74ad28c73c8c60a2",
+   "sha256": "46c01dd81fc92421938ad99f96218135d86656c2a486a61e74ad28c73c8c60a2",
+   "bytes": 1074,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r4.jsonl",
+   "sourceSha256": "de859f146635f790a8ed2172f00d2a65b12fa18b8c97dec6a73e1ec11f5d54c5",
+   "sha256": "de859f146635f790a8ed2172f00d2a65b12fa18b8c97dec6a73e1ec11f5d54c5",
+   "bytes": 1067,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r6.jsonl",
+   "sourceSha256": "b46a6149840c55d437044182f4340ff57a4e253ce0015f16c1ccd8fde29b1d38",
+   "sha256": "b46a6149840c55d437044182f4340ff57a4e253ce0015f16c1ccd8fde29b1d38",
+   "bytes": 1062,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a6_b1_r8.jsonl",
+   "sourceSha256": "94ad16d9d802a261013db29472ba8198e40cbaea8ed8f49d3a1bc4c9c8ed04b1",
+   "sha256": "94ad16d9d802a261013db29472ba8198e40cbaea8ed8f49d3a1bc4c9c8ed04b1",
+   "bytes": 1069,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r1.jsonl",
+   "sourceSha256": "3b0ffd566c4e35007a0aca9ccd0617df3db5606a19e4d4afbe304000ecedeb99",
+   "sha256": "3b0ffd566c4e35007a0aca9ccd0617df3db5606a19e4d4afbe304000ecedeb99",
+   "bytes": 537,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r2.jsonl",
+   "sourceSha256": "ba2b4a3009e691b699942595974158599cb29eeac10427d3c60b9e9d2c1e809e",
+   "sha256": "ba2b4a3009e691b699942595974158599cb29eeac10427d3c60b9e9d2c1e809e",
+   "bytes": 535,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r4.jsonl",
+   "sourceSha256": "73b3bfdb81e3c46cca7c137cc3747634987cc43a77bdbc84772127e9d6f665f4",
+   "sha256": "73b3bfdb81e3c46cca7c137cc3747634987cc43a77bdbc84772127e9d6f665f4",
+   "bytes": 533,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r6.jsonl",
+   "sourceSha256": "6ee66077c2dce9b39492382bec40a4983d88ba5cc83b78e3d8d8ccdb86d89ab7",
+   "sha256": "6ee66077c2dce9b39492382bec40a4983d88ba5cc83b78e3d8d8ccdb86d89ab7",
+   "bytes": 534,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_grid_a8_b1_r8.jsonl",
+   "sourceSha256": "9a4d4d036cefae7a47987c2a4698a89e892d909c013fead91cb315ce4b340b69",
+   "sha256": "9a4d4d036cefae7a47987c2a4698a89e892d909c013fead91cb315ce4b340b69",
+   "bytes": 536,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r1.jsonl",
+   "sourceSha256": "9cacf83ac160daba1bdc8283e1c50d807755c287336999567e777961c0015528",
+   "sha256": "9cacf83ac160daba1bdc8283e1c50d807755c287336999567e777961c0015528",
+   "bytes": 5371,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r2.jsonl",
+   "sourceSha256": "4cde2cee876560b64d1608780fb46a31009edb843972c5775a2d566ad54ce8a9",
+   "sha256": "4cde2cee876560b64d1608780fb46a31009edb843972c5775a2d566ad54ce8a9",
+   "bytes": 5379,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r4.jsonl",
+   "sourceSha256": "28385a5816345236b0914ab11b29828d5b649fdbafd57f3e691a989272d2455a",
+   "sha256": "28385a5816345236b0914ab11b29828d5b649fdbafd57f3e691a989272d2455a",
+   "bytes": 5358,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r6.jsonl",
+   "sourceSha256": "8bda3c84292ef837ab4d32df22759df785305392814e66e1fdc6d6e4db2077fe",
+   "sha256": "8bda3c84292ef837ab4d32df22759df785305392814e66e1fdc6d6e4db2077fe",
+   "bytes": 5351,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b1_r8.jsonl",
+   "sourceSha256": "c67b5c280468d04aa32e8c6272830166f87d45cd7a9f4c9515dc5052e5c68659",
+   "sha256": "c67b5c280468d04aa32e8c6272830166f87d45cd7a9f4c9515dc5052e5c68659",
+   "bytes": 5344,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r1.jsonl",
+   "sourceSha256": "5e23845a60b1b8ea4d48a1116f5f1ee964dbe6a176ae25a0305a40a1e472d123",
+   "sha256": "5e23845a60b1b8ea4d48a1116f5f1ee964dbe6a176ae25a0305a40a1e472d123",
+   "bytes": 10778,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r2.jsonl",
+   "sourceSha256": "ab7fd10f8baa72ed869efd845170f2a6ceada407d2fa812b56d2a98d88f9962e",
+   "sha256": "ab7fd10f8baa72ed869efd845170f2a6ceada407d2fa812b56d2a98d88f9962e",
+   "bytes": 10741,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r4.jsonl",
+   "sourceSha256": "c58205d58aeeff739b0530610217451448a31829886688548041b497b0655389",
+   "sha256": "c58205d58aeeff739b0530610217451448a31829886688548041b497b0655389",
+   "bytes": 10719,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r6.jsonl",
+   "sourceSha256": "802609d4e928deeb96c612d48d3e38427b8a62c43dfac94de9ffc97db53a4608",
+   "sha256": "802609d4e928deeb96c612d48d3e38427b8a62c43dfac94de9ffc97db53a4608",
+   "bytes": 10711,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a3_b2_r8.jsonl",
+   "sourceSha256": "c7ac63e2bc796f7c880ac477cbab7acb017f5c91496126539b6763f371ef0e9e",
+   "sha256": "c7ac63e2bc796f7c880ac477cbab7acb017f5c91496126539b6763f371ef0e9e",
+   "bytes": 10708,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r1.jsonl",
+   "sourceSha256": "d494046a0bd0bce45de67afa66eadc4e9ae1b5f6a7c1ce0bd1a933fbf36255e3",
+   "sha256": "d494046a0bd0bce45de67afa66eadc4e9ae1b5f6a7c1ce0bd1a933fbf36255e3",
+   "bytes": 3492,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r2.jsonl",
+   "sourceSha256": "8dd0bd0584a97f9477568b21205e7ecd39ac457d2bf98c1533dfe24ccfb554a7",
+   "sha256": "8dd0bd0584a97f9477568b21205e7ecd39ac457d2bf98c1533dfe24ccfb554a7",
+   "bytes": 3486,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r4.jsonl",
+   "sourceSha256": "e430059707d6eeb46863bd755ab900ebe51914f7d67c1413d4c8b019697074f1",
+   "sha256": "e430059707d6eeb46863bd755ab900ebe51914f7d67c1413d4c8b019697074f1",
+   "bytes": 3476,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r6.jsonl",
+   "sourceSha256": "4a4b6b38995cb66729de411ec4350402b797021f056933b08a2a052a774cac93",
+   "sha256": "4a4b6b38995cb66729de411ec4350402b797021f056933b08a2a052a774cac93",
+   "bytes": 3475,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a4_b1_r8.jsonl",
+   "sourceSha256": "5f660d88acec5108b55a7adeaeda7f2de986318d0f185a6985f1e0e5bf7a0506",
+   "sha256": "5f660d88acec5108b55a7adeaeda7f2de986318d0f185a6985f1e0e5bf7a0506",
+   "bytes": 3479,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r1.jsonl",
+   "sourceSha256": "3d85d4bd702e0d11eb4c408969eab8340813cad64ae960e165b19659fab93783",
+   "sha256": "3d85d4bd702e0d11eb4c408969eab8340813cad64ae960e165b19659fab93783",
+   "bytes": 3497,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r2.jsonl",
+   "sourceSha256": "ac1fb5140fd03ce138249a6518560459aa2e771f303928273a4ecd0420b02ea9",
+   "sha256": "ac1fb5140fd03ce138249a6518560459aa2e771f303928273a4ecd0420b02ea9",
+   "bytes": 3489,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r4.jsonl",
+   "sourceSha256": "406898c57a6af0b3406778411cee0222201bc9bd3abb6c996f8741c7cae79c99",
+   "sha256": "406898c57a6af0b3406778411cee0222201bc9bd3abb6c996f8741c7cae79c99",
+   "bytes": 3481,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r6.jsonl",
+   "sourceSha256": "1a496c409c920384f6784068aed7ea646be4ae18208c9733e7e68076079e25fc",
+   "sha256": "1a496c409c920384f6784068aed7ea646be4ae18208c9733e7e68076079e25fc",
+   "bytes": 3476,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a5_b2_r8.jsonl",
+   "sourceSha256": "d8003016fee972ce970ae7cf1b42d48d9fa19da3dfe35e51f8e631feff557f5e",
+   "sha256": "d8003016fee972ce970ae7cf1b42d48d9fa19da3dfe35e51f8e631feff557f5e",
+   "bytes": 3469,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r1.jsonl",
+   "sourceSha256": "2a7ef964b300fd5918e5cceef9168ad2b391bd9901a96be4f84e0b5f52812401",
+   "sha256": "2a7ef964b300fd5918e5cceef9168ad2b391bd9901a96be4f84e0b5f52812401",
+   "bytes": 2144,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r2.jsonl",
+   "sourceSha256": "c8b2ac7ba28dad9ae103211e85f831fa125d91b32f2ac7a7940ea75f1f0f49f2",
+   "sha256": "c8b2ac7ba28dad9ae103211e85f831fa125d91b32f2ac7a7940ea75f1f0f49f2",
+   "bytes": 2139,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r4.jsonl",
+   "sourceSha256": "67a9b7112fc501477ad7c324a1eeb9b03fca64fa097c85c0e5fb7025cba003a4",
+   "sha256": "67a9b7112fc501477ad7c324a1eeb9b03fca64fa097c85c0e5fb7025cba003a4",
+   "bytes": 2135,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r6.jsonl",
+   "sourceSha256": "4ff3c1ea6f97755aacd24a2118b8c311fb629415412e10db5497119fc475d0ac",
+   "sha256": "4ff3c1ea6f97755aacd24a2118b8c311fb629415412e10db5497119fc475d0ac",
+   "bytes": 2140,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a6_b1_r8.jsonl",
+   "sourceSha256": "1bfbcd245ad30ccdbf071c3c4269f018f5b7f9ac0c9e734042e74c2450b3033e",
+   "sha256": "1bfbcd245ad30ccdbf071c3c4269f018f5b7f9ac0c9e734042e74c2450b3033e",
+   "bytes": 2135,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r1.jsonl",
+   "sourceSha256": "69e2b0641c035b1c22f5b8e0e4fd3ba0998007afc3314f8852505795dce7df7c",
+   "sha256": "69e2b0641c035b1c22f5b8e0e4fd3ba0998007afc3314f8852505795dce7df7c",
+   "bytes": 1338,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r2.jsonl",
+   "sourceSha256": "e25b00edeca9c98bd7001006bfb3c25952ff5fccdecedbe5a1c454063a22fa0c",
+   "sha256": "e25b00edeca9c98bd7001006bfb3c25952ff5fccdecedbe5a1c454063a22fa0c",
+   "bytes": 1343,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r4.jsonl",
+   "sourceSha256": "0a3f36e5e2527156e6abdf8c4e9c203be8d787a050f735a1a03cc2743bae3bc7",
+   "sha256": "0a3f36e5e2527156e6abdf8c4e9c203be8d787a050f735a1a03cc2743bae3bc7",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r6.jsonl",
+   "sourceSha256": "dcf4e8cc1df7dfdf04a64262cebdffa94d4000b1848fe070f4a00bfa9ca6633c",
+   "sha256": "dcf4e8cc1df7dfdf04a64262cebdffa94d4000b1848fe070f4a00bfa9ca6633c",
+   "bytes": 1341,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_half_a8_b1_r8.jsonl",
+   "sourceSha256": "d33132df883da90c452b4873edfff9432feb343b4fd2407b89e4deac8c50270f",
+   "sha256": "d33132df883da90c452b4873edfff9432feb343b4fd2407b89e4deac8c50270f",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r1.jsonl",
+   "sourceSha256": "98e6ad3c1566cf50e88407fb3dc72d33644eb4c21fd25a1102756cc4a21c940d",
+   "sha256": "98e6ad3c1566cf50e88407fb3dc72d33644eb4c21fd25a1102756cc4a21c940d",
+   "bytes": 5356,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r2.jsonl",
+   "sourceSha256": "7175e41cead108e9d04cefd38843239713c5618074f8f897ee3693247d2915b0",
+   "sha256": "7175e41cead108e9d04cefd38843239713c5618074f8f897ee3693247d2915b0",
+   "bytes": 5358,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r4.jsonl",
+   "sourceSha256": "894317bc39adca0788a6ecf5753f55d32ff95fcc96b517f2d58879fcdb1d7092",
+   "sha256": "894317bc39adca0788a6ecf5753f55d32ff95fcc96b517f2d58879fcdb1d7092",
+   "bytes": 5322,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r6.jsonl",
+   "sourceSha256": "c97a47c901b4b3f08143119d4197e00e1a88399c786a2f5dcd5aadfc73a19b6d",
+   "sha256": "c97a47c901b4b3f08143119d4197e00e1a88399c786a2f5dcd5aadfc73a19b6d",
+   "bytes": 5314,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b1_r8.jsonl",
+   "sourceSha256": "f289d7eb229c15b3cab606806222bb18dc585a23a118ff334e17fd08573549a8",
+   "sha256": "f289d7eb229c15b3cab606806222bb18dc585a23a118ff334e17fd08573549a8",
+   "bytes": 5308,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r1.jsonl",
+   "sourceSha256": "9f6a010f9cc1dbd0350f2bd8ca5f1d21a4c6850332959af91cffdf98b743064a",
+   "sha256": "9f6a010f9cc1dbd0350f2bd8ca5f1d21a4c6850332959af91cffdf98b743064a",
+   "bytes": 10735,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r2.jsonl",
+   "sourceSha256": "69ce763a8757fce3f1be618872d1e6834496bfba6c6f714cb8a6a19eae9d8deb",
+   "sha256": "69ce763a8757fce3f1be618872d1e6834496bfba6c6f714cb8a6a19eae9d8deb",
+   "bytes": 10723,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r4.jsonl",
+   "sourceSha256": "3ba641ee9674fc5ea24441e4d8c361a76832f7346094c59d3b9e6ba96ffec9d1",
+   "sha256": "3ba641ee9674fc5ea24441e4d8c361a76832f7346094c59d3b9e6ba96ffec9d1",
+   "bytes": 10668,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r6.jsonl",
+   "sourceSha256": "b4becd62ee880550b14384484265f33f471d3b22a4a6b743165c69079d5b83ec",
+   "sha256": "b4becd62ee880550b14384484265f33f471d3b22a4a6b743165c69079d5b83ec",
+   "bytes": 10662,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a3_b2_r8.jsonl",
+   "sourceSha256": "77a8abd8377234579442eb615a81939bd4f743e3d0299a9b4ac1032253fbc3d4",
+   "sha256": "77a8abd8377234579442eb615a81939bd4f743e3d0299a9b4ac1032253fbc3d4",
+   "bytes": 10671,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r1.jsonl",
+   "sourceSha256": "7ef59ddc419af4f06e13ba3139c4415122c7eeb2cd6c85705ba79b1f485d9113",
+   "sha256": "7ef59ddc419af4f06e13ba3139c4415122c7eeb2cd6c85705ba79b1f485d9113",
+   "bytes": 3469,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r2.jsonl",
+   "sourceSha256": "075e970bf781a75b99ac3e25608d4ecaa0f66519f01a492da03cf8f7b6c846e7",
+   "sha256": "075e970bf781a75b99ac3e25608d4ecaa0f66519f01a492da03cf8f7b6c846e7",
+   "bytes": 3475,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r4.jsonl",
+   "sourceSha256": "dfe9e763ff24cece913ab3fdb5ec00113908c4d18815da563b95ae503f7c1a24",
+   "sha256": "dfe9e763ff24cece913ab3fdb5ec00113908c4d18815da563b95ae503f7c1a24",
+   "bytes": 3456,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r6.jsonl",
+   "sourceSha256": "e9b2a7f4e5e0a1c2675cecc6cf46d4cdd1112b8347df4b9973234f7872fa374f",
+   "sha256": "e9b2a7f4e5e0a1c2675cecc6cf46d4cdd1112b8347df4b9973234f7872fa374f",
+   "bytes": 3448,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a4_b1_r8.jsonl",
+   "sourceSha256": "caaa99829b7e44ae1616b0b78f17e24e33fbfec9933301e6685bde6d5f2e0e95",
+   "sha256": "caaa99829b7e44ae1616b0b78f17e24e33fbfec9933301e6685bde6d5f2e0e95",
+   "bytes": 3451,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r1.jsonl",
+   "sourceSha256": "0e58dae07dbd3dbe976465a26d23fbc541b218f5dd18155a0c24db4054aceb97",
+   "sha256": "0e58dae07dbd3dbe976465a26d23fbc541b218f5dd18155a0c24db4054aceb97",
+   "bytes": 3473,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r2.jsonl",
+   "sourceSha256": "1b83ec3014b49169578483d5f72a995a23174b8084e8b2e9bb067a8383537bdf",
+   "sha256": "1b83ec3014b49169578483d5f72a995a23174b8084e8b2e9bb067a8383537bdf",
+   "bytes": 3484,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r4.jsonl",
+   "sourceSha256": "1b5a77041fc73be770a5771cae7b0c6d61f8966c4618c77b2e84caf49bbccd93",
+   "sha256": "1b5a77041fc73be770a5771cae7b0c6d61f8966c4618c77b2e84caf49bbccd93",
+   "bytes": 3454,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r6.jsonl",
+   "sourceSha256": "f40c6490e1bcba2cdaa646eb1d2ca58472da4d82e7b1ed0685d3c151d527f6f3",
+   "sha256": "f40c6490e1bcba2cdaa646eb1d2ca58472da4d82e7b1ed0685d3c151d527f6f3",
+   "bytes": 3455,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a5_b2_r8.jsonl",
+   "sourceSha256": "95075f971173e209584cf003efdc82f6b14be020c75565f45ad740d2837eb5d6",
+   "sha256": "95075f971173e209584cf003efdc82f6b14be020c75565f45ad740d2837eb5d6",
+   "bytes": 3459,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r1.jsonl",
+   "sourceSha256": "101aee44ecd630570e7778f7b01d483d745d5e6346832449bbc0ed27c6c6aed8",
+   "sha256": "101aee44ecd630570e7778f7b01d483d745d5e6346832449bbc0ed27c6c6aed8",
+   "bytes": 2134,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r2.jsonl",
+   "sourceSha256": "c186206fdca15b2d3b52563f5b3bdcc4ad03260244be9b9894a567fa47f93737",
+   "sha256": "c186206fdca15b2d3b52563f5b3bdcc4ad03260244be9b9894a567fa47f93737",
+   "bytes": 2136,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r4.jsonl",
+   "sourceSha256": "0f68213a3fd91d239c920019f5e836977821d0103c7dcbb35b5aa95d88c40cb5",
+   "sha256": "0f68213a3fd91d239c920019f5e836977821d0103c7dcbb35b5aa95d88c40cb5",
+   "bytes": 2132,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r6.jsonl",
+   "sourceSha256": "fc281ed9e3acbb004836752821f14c57fa989ee70f5c580fdb33938f79b88bc4",
+   "sha256": "fc281ed9e3acbb004836752821f14c57fa989ee70f5c580fdb33938f79b88bc4",
+   "bytes": 2127,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a6_b1_r8.jsonl",
+   "sourceSha256": "085c73d3df48a9a3683b6bf71abb1bfc5fb3454886633b0a7a8ed00bfddea731",
+   "sha256": "085c73d3df48a9a3683b6bf71abb1bfc5fb3454886633b0a7a8ed00bfddea731",
+   "bytes": 2119,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r1.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r1.jsonl",
+   "sourceSha256": "ff1f2d5fdb0c816d475554709e2bed032c88e2d0618b0493af32fbaa520331be",
+   "sha256": "ff1f2d5fdb0c816d475554709e2bed032c88e2d0618b0493af32fbaa520331be",
+   "bytes": 1337,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r2.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r2.jsonl",
+   "sourceSha256": "707eec33f350e01a80172b6fd98588db13af7e6462b4fcccae3b01cb89f5d70e",
+   "sha256": "707eec33f350e01a80172b6fd98588db13af7e6462b4fcccae3b01cb89f5d70e",
+   "bytes": 1336,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r4.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r4.jsonl",
+   "sourceSha256": "bec0bc144a8319787e943f604cd8535107809baf8461bbbb908eb859513d8b64",
+   "sha256": "bec0bc144a8319787e943f604cd8535107809baf8461bbbb908eb859513d8b64",
+   "bytes": 1333,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r6.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r6.jsonl",
+   "sourceSha256": "3e496f3c3220652450f57fcaf2f7675583ff4d335f7c29c753ae1b24aa56bb47",
+   "sha256": "3e496f3c3220652450f57fcaf2f7675583ff4d335f7c29c753ae1b24aa56bb47",
+   "bytes": 1334,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r8.jsonl",
+   "file": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r8.jsonl",
+   "sourceSha256": "45f05d91cf2168ee1008b45836b08c96cc3b92fbbc989bcea598dd1ae50c2ce2",
+   "sha256": "45f05d91cf2168ee1008b45836b08c96cc3b92fbbc989bcea598dd1ae50c2ce2",
+   "bytes": 1327,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/above_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/above_k5.jsonl",
+   "sourceSha256": "bdc514b24100b9fbbd60d01b3424c69bc8989d1071ebd2048ccf5159ac35bfd4",
+   "sha256": "bdc514b24100b9fbbd60d01b3424c69bc8989d1071ebd2048ccf5159ac35bfd4",
+   "bytes": 1843,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/above_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/above_k7.jsonl",
+   "sourceSha256": "592031f328e2f3d33cec00856f8333978427dd2422a3d22b8954ed52b43de15a",
+   "sha256": "592031f328e2f3d33cec00856f8333978427dd2422a3d22b8954ed52b43de15a",
+   "bytes": 1846,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/grid_intzeros_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/grid_intzeros_k5.jsonl",
+   "sourceSha256": "15f5bee2e62029063db59cf39f181e4924cabaaadb63fed5903f525d056c9b0d",
+   "sha256": "15f5bee2e62029063db59cf39f181e4924cabaaadb63fed5903f525d056c9b0d",
+   "bytes": 1442,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/grid_intzeros_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/grid_intzeros_k7.jsonl",
+   "sourceSha256": "7dc9b0135d513aa57b808796c723b684d5009542af2047f8ce3f1fc5f0321cc2",
+   "sha256": "7dc9b0135d513aa57b808796c723b684d5009542af2047f8ce3f1fc5f0321cc2",
+   "bytes": 1440,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/interleave_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/interleave_k5.jsonl",
+   "sourceSha256": "6c6bcea2ce5231af2560e5678c513a726289c19a61388d20ad8f39d224f55ac0",
+   "sha256": "6c6bcea2ce5231af2560e5678c513a726289c19a61388d20ad8f39d224f55ac0",
+   "bytes": 2356,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/interleave_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/interleave_k7.jsonl",
+   "sourceSha256": "40e93d3bbcef9e564e8a2b653dde84c989ff49352696d6b2eaf07552e838621b",
+   "sha256": "40e93d3bbcef9e564e8a2b653dde84c989ff49352696d6b2eaf07552e838621b",
+   "bytes": 2365,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/oddpoles_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/oddpoles_k5.jsonl",
+   "sourceSha256": "61263a61a87045d55da5a44525a869040c30b80d13f36940c3990de5a9fe7617",
+   "sha256": "61263a61a87045d55da5a44525a869040c30b80d13f36940c3990de5a9fe7617",
+   "bytes": 1880,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/oddpoles_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/oddpoles_k7.jsonl",
+   "sourceSha256": "594db99da51fdb3dda65a10b1d63b0c1fcafd6f2797b91ce0786f1b79ac26b1f",
+   "sha256": "594db99da51fdb3dda65a10b1d63b0c1fcafd6f2797b91ce0786f1b79ac26b1f",
+   "bytes": 1883,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/stair_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/stair_k5.jsonl",
+   "sourceSha256": "3be9638ca00bc9f06c192b85fe506cff83c1dbb950f888283d22795f19de987b",
+   "sha256": "3be9638ca00bc9f06c192b85fe506cff83c1dbb950f888283d22795f19de987b",
+   "bytes": 2304,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/stair_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/stair_k7.jsonl",
+   "sourceSha256": "f06a4205edf0484b391c466d29ce862eb39c2e2513b3c214c92b43f67bc5fcc3",
+   "sha256": "f06a4205edf0484b391c466d29ce862eb39c2e2513b3c214c92b43f67bc5fcc3",
+   "bytes": 2296,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/window_k5.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/window_k5.jsonl",
+   "sourceSha256": "c9479a1f998a580d9a45a157def2b1a5258c047620dae9063950b6cfc89d3bd9",
+   "sha256": "c9479a1f998a580d9a45a157def2b1a5258c047620dae9063950b6cfc89d3bd9",
+   "bytes": 1624,
+   "patched": false
+  },
+  {
+   "source": "experiments/zeta-hankel/runs/struct/window_k7.jsonl",
+   "file": "certs/zeta-hankel/runs/struct/window_k7.jsonl",
+   "sourceSha256": "d91f6ab4a6a3e0a3784b8e78afb7159c320e214bf1199d179c8ee4d30479e8d4",
+   "sha256": "d91f6ab4a6a3e0a3784b8e78afb7159c320e214bf1199d179c8ee4d30479e8d4",
+   "bytes": 1628,
+   "patched": false
+  }
+ ],
+ "sources": [
+  {
+   "file": "corpus/sources/zeta-hankel/zenodo-22826419.json",
+   "url": "https://zenodo.org/api/records/22826419",
+   "fetchedOn": "2026-10-05",
+   "what": "Fauzan, \"ζ(5) is irrational\", Zenodo record metadata (abstract: degree 37n, exp(−139n²/5), exponent 260)",
+   "sha256": "d2c0daa37dd5df07c51773bb813dfe64e23bfdedf42c76723df12739bd84f0d0",
+   "bytes": 5445
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/calegari-2026-09-24-zeta5-is-irrational.html",
+   "url": "https://galoisrepresentations.org/2026/09/24/zeta5-is-irrational/",
+   "fetchedOn": "2026-10-05",
+   "what": "Calegari, \"zeta(5) is irrational\" (Persiflage, 2026-09-24): the reconstruction, K = 12n, N = n, r = 6, h = 11n, γ_5 = 3/2",
+   "sha256": "48fa9c65c4c6eafaf7115213f9b13fa2818aafbad8229663c87ea45921a59646",
+   "bytes": 77682
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/zenodo-22920911.json",
+   "url": "https://zenodo.org/api/records/22920911",
+   "fetchedOn": "2026-10-05",
+   "what": "Anand, \"Zeta 7 is Irrational\", Zenodo record metadata (race context, unverified)",
+   "sha256": "eceb09cc8111246a24e22d6f7c13a83151d6b97ab4bc64f702531e2741efc5c5",
+   "bytes": 5291
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/github-gmDevi-zeta-7-21-lean-issue-1.json",
+   "url": "https://api.github.com/repos/gmDevi/zeta-7-21-lean/issues/1",
+   "fetchedOn": "2026-10-05",
+   "what": "the open issue on Anand's ζ(7) preprint (I_out sign; race context, unverified)",
+   "sha256": "a20f6b6ffea22c1ce890ec19e41f8b65eb6b59465e9aa01b686460326b287995",
+   "bytes": 8282
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/arxiv-2609.04176.html",
+   "url": "https://arxiv.org/abs/2609.04176",
+   "fetchedOn": "2026-10-05",
+   "what": "Sun, \"Catalan's constant is irrational\", arXiv abstract page (race context, unverified)",
+   "sha256": "e0527fb07c3bf0379f1630e482e463e9917bca0c63ab25a4de4a7b6551eebfdd",
+   "bytes": 37772
+  },
+  {
+   "file": "corpus/sources/zeta-hankel/arxiv-2609.22339.html",
+   "url": "https://arxiv.org/abs/2609.22339",
+   "fetchedOn": "2026-10-05",
+   "what": "Wachs, \"A note on a recent claimed proof of the irrationality of Catalan's constant\", arXiv abstract page (race context, unverified)",
+   "sha256": "a0dd1149161eea8da5645d6d3c976cc75e24aecceb61b526bd89f381d2cc6260",
+   "bytes": 47433
+  }
+ ]
+}

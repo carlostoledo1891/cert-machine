@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A ζ(7) proof, audited · cert-machine</title>
+<meta name="description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/zeta7-anand.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/zeta7-anand.html">
+<meta property="og:title" content="A ζ(7) proof, audited · cert-machine">
+<meta property="og:description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A ζ(7) proof, audited · cert-machine">
+<meta name="twitter:description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"A ζ(7) proof, audited · cert-machine","description":"Anand's \"Zeta 7 is Irrational\" (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)'s irrationality is untouched.","url":"https://carlostoledo.co/reports/zeta7-anand.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · report · ζ(7) · a claimed proof, audited · generated from the record</div>
+  <h1>A claimed proof that ζ(7) is irrational: the inequality it rests on fails</h1>
+  <p class="deck">A preprint posted on 23 September 2026 claims that ζ(7) is irrational, by adapting the Hankel-determinant argument that settled ζ(5) a week earlier. The proof rests on one number, A₂₀₀ + U, being negative; the paper prints −11.99. On 3 October a reader, GitHub user @huntrontrakkr, reported that one of its integrals does not follow from the paper&#39;s own formulas. We recomputed it in exact arithmetic, with code written here. The reader is right: the number is positive, under every reading of the paper and every correction in its favour that we could decide. That breaks this proof. It does not show that ζ(7) is rational — whether ζ(7) is irrational remains open.</p>
+</header>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> The paper needs <span class="m">A₂₀₀ + U &lt; 0</span> and prints <span class="m">−11.99</span>. Computed from its own formulas, the outer integral is <span class="m">+1.576</span>, not <span class="m">−15.28</span>, and <span class="m">A₂₀₀ + U</span> is <span class="m">+4.86</span>. With every correction in the author's favour that we could decide, it is still <span class="m">+2.26</span>, and no other cutoff M can bring it below zero. The proof route fails. Theorem 1.1 is not disproved: ζ(7) may well be irrational; this paper does not show it.</li><li><b>The mechanism.</b> The paper's Table 5, the piecewise-linear function it integrates, does not come from its own exponent formula (59). Past y = 1 the paper itself sets the local exponent to zero, which leaves 37/20 − y ≥ 0; Table 5 prints −239/20 − 2y there. The local p-adic bound (59) is not the problem: on the paper's own polynomials at K = 40, 80, 120 it holds at every prime we tested, and holds with equality at most of them. The error is in integrating it.</li><li><b>Check it.</b> <span class="m">python3 instruments/zeta7audit/battery.py</span> re-derives every decided number, re-runs two of the paper's polynomials exactly, and fires 9 planted forgeries (42 checks, under a minute). <span class="m">instruments/zetahankel/.venv/bin/python instruments/zeta7audit/decide.py</span> rewrites the record in seconds.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">A₂₀₀ + U, as printed</div><div class="v">−11.99</div><div class="n">must be negative for the proof to work</div></div>
+    <div class="stat"><div class="k">A₂₀₀ + U, recomputed</div><div class="v">+4.86</div><div class="n">the paper&#39;s own formulas, its own A0 and U</div></div>
+    <div class="stat"><div class="k">smallest after any decided repair</div><div class="v">+2.26</div><div class="n">every reading, A0 and U corrected in the author&#39;s favour</div></div>
+    <div class="stat"><div class="k">outer integral I_out</div><div class="v">+1.576</div><div class="n">printed: −15.28 (122)</div></div>
+    <div class="stat"><div class="k">the family itself, n = 3</div><div class="v">+0.88</div><div class="n">log P(ζ(7))/K², measured exactly · a measurement, not the limit</div></div>
+    <div class="stat"><div class="k">the reader&#39;s report</div><div class="v">4 / 4</div><div class="n">points confirmed · issue #1 by @huntrontrakkr, a third party</div></div>
+  </div>
+</div>
+
+<p class="scope">Local working document, machine-derived, not peer-reviewed. Decided: the arithmetic of the paper&#39;s proof route, from its formulas as printed, as exact rationals or arb balls — the outer integral, the inner integral (121), the constants A0 and U&#39;s ingredients, the margins (117)–(119). Measured, not decided: the paper&#39;s own family at three sizes. Not decided: whether ζ(7) is irrational (open); Theorem 1.2 as a statement about large n; the inner estimate Proposition 4.4; Lemma 6.1&#39;s supremum; the Lean repository&#39;s own theorem, which was read, not built. Nothing was posted, commented or sent.</p>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§1 · the claim and the report</div>
+    <h2>What the paper claims, and what the reader found</h2>
+  </div>
+<p><b>The paper.</b> P. Anand, <i>Zeta 7 is Irrational</i>, Zenodo <span class="m">10.5281/zenodo.22920911</span>, v1 (the record's only version), 2026-09-23, 42 pages, CC-BY-4.0. Theorem 1.1: ζ(7) is irrational. The route is Fauzan's for ζ(5): integer polynomials Q built from Hankel determinants of a moment functional that is positive at ζ(7), with <span class="m">lim sup K⁻² log Q(ζ(7)) ≤ A_M + U</span> (117). A_M collects the arithmetic (the primes that can be divided out), U the size of the determinant. The proof needs the sum negative; (118) states <span class="m">A₂₀₀ + U &lt; −11</span>, and Theorem 1.2's rate exp(−19000 n²) comes from it.</p><p><b>The report.</b> On 2026-10-03 GitHub user <span class="m">@huntrontrakkr</span> — a third party, not this lab — opened <a href="https://github.com/gmDevi/zeta-7-21-lean/issues/1">issue #1</a> on gmDevi/zeta-7-21-lean, a repository whose README cites the paper, because the paper gives no contact address. The report makes four points: the outer integrand on (1, 37/20] is 37/20 − y, not Table 5's −239/20 − 2y, which alone moves A₂₀₀ + U to +0.95; integrating the paper's (54), (58), (59), (62) gives I_out = 453803/288000, not −11002997/720000; the constant A0 is Fauzan's entire ζ(5) constant; and with all of it, A₂₀₀ + U ≈ +4.86. It says plainly that it concerns only the v1 argument, not whether ζ(7) is irrational. As fetched on 2026-10-05 the issue is open with 0 comments.</p><p><b>What we did.</b> We recomputed each of those points from the paper's printed formulas, with code written here that shares nothing with the paper or with the report's script, and checked it by reproducing a published value that is right: Fauzan's own outer integral, 127751/96000. We also computed the paper's own polynomials exactly at three sizes. The author's Zenodo note mentions a rounding issue in the decay constant, to be fixed in a v2; no v2 has been posted.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · the verdicts</div>
+    <h2>The reader is right on every point we checked</h2>
+  </div>
+<div class="col"><p>Each line is decided from the paper as printed, except the last two, which are its finite statements checked at three sizes. CERTIFIED means the statement holds exactly; REFUTED means it does not; REFUSED means the paper does not establish it, which is not the same as false; PARTIAL means checked only where stated. The kind of defect, where there is one, is an arithmetic slip.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>verdict</th><th>the number</th></tr></thead><tbody><tr><td>the reader&#39;s point 1: the last piece alone moves A₂₀₀ + U to +0.95</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">+0.9484</td></tr><tr><td>the reader&#39;s point 2: I_out = 453803/288000 from the formulas</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">453803/288000</td></tr><tr><td>the reader&#39;s point 3: A0 is Fauzan&#39;s whole ζ(5) constant; (85) bounds that tail by ≈ −0.057</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">−2069/36000</td></tr><tr><td>the reader&#39;s total: A₂₀₀ + U ≈ +4.86, or ≈ +3.49 with A0 replaced</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">+4.865 · +3.490</td></tr><tr><td>(122) I_out = −11002997/720000 follows from the paper&#39;s formulas</td><td><span class="tag open">REFUTED</span></td><td class="n">it is Table 5&#39;s integral</td></tr><tr><td>Table 5, last row: −239/20 − 2y on [1, 37/20]</td><td><span class="tag open">REFUTED</span></td><td class="n">it is 37/20 − y</td></tr><tr><td>(118) A₂₀₀ + U &lt; −11, the inequality the proof rests on</td><td><span class="tag open">REFUTED</span></td><td class="n">+4.865</td></tr><tr><td>(119) A₁₀₀₀₀₀ + U &lt; −12, used for the irrationality measure</td><td><span class="tag open">REFUTED</span></td><td class="n">+4.824</td></tr><tr><td>Theorem 1.2, the decay exp(−19000 n²): its proof</td><td><span class="tag open">REFUTED</span></td><td class="n">proof only; see §5</td></tr><tr><td>Theorem 1.1: ζ(7) is irrational</td><td><span class="tag dep">REFUSED</span></td><td class="n">not proved here; open</td></tr><tr><td>Corollary 1.3: |ζ(7) − a/b| &gt; b⁻²⁷⁰</td><td><span class="tag dep">REFUSED</span></td><td class="n">rests on (119)</td></tr><tr><td>(121) the inner integral, from (64)–(69)</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">exact, as printed</td></tr><tr><td>(96) U = 44/25 bounds λM0 − I(ρ) + C*</td><td><span class="tag cert">CERTIFIED</span></td><td class="n">holds; the printed I(ρ) is mis-summed</td></tr><tr><td>Proposition 4.6, the local bound (59), at K = 40, 80, 120</td><td><span class="tag held">PARTIAL</span></td><td class="n">holds at every prime tested</td></tr><tr><td>Proposition 6.3, the real bound, at K = 40, 80, 120</td><td><span class="tag held">PARTIAL</span></td><td class="n">holds</td></tr></tbody></table></div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · where it breaks</div>
+    <h2>Table 5 is not the integrand the paper defines</h2>
+  </div>
+<div class="col"><p>The outer primes, K/3 < p ≤ 2h, enter through an exponent L<sub>p</sub> = v<sub>p</sub>(S<sub>K</sub>) + γ<sub>p</sub><sup>out</sup> (60): the factorials of the normalisation (62) and the local bound (59). In the variable y = p/K, −L<sub>p</sub>/K tends to a piecewise-linear function T(y), and I_out is its integral over [1/3, 37/20]. The paper's Appendix A.2 gives T as Table 5 and its integral as (122).</p><p>Past y = 1 there is nothing to compute. The paper sets γ<sub>p</sub><sup>out</sup> = 0 for p > K (§5.1); K!, N! and 4 are units at such p; only the factorials (2i)! of S<sub>K</sub> carry p, and they carry it in the denominator. So L<sub>p</sub> = −(2h − p − 1) < 0 and T(y) = 37/20 − y, which is positive. Table 5 prints −239/20 − 2y, about −14. That one row is worth +12.94 in I_out. Across the rest of the range the table is wrong as well, by +3.92.</p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 900 380" role="img" aria-label="Two piecewise-linear outer integrands over y from 1/3 to 37/20. The one computed from the paper&#39;s own formulas stays between about −1.0 and +4.7 and integrates to +1.576. Table 5 as printed runs between about −16 and −1, drops to about −14 past y = 1, and integrates to −15.28.">
+    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+    <line x1="62" y1="287.0" x2="878" y2="287.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="291.0" text-anchor="end" class="t-ax">−16</text>
+    <line x1="62" y1="262.5" x2="878" y2="262.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="266.5" text-anchor="end" class="t-ax">−14</text>
+    <line x1="62" y1="238.1" x2="878" y2="238.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="242.1" text-anchor="end" class="t-ax">−12</text>
+    <line x1="62" y1="213.6" x2="878" y2="213.6" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="217.6" text-anchor="end" class="t-ax">−10</text>
+    <line x1="62" y1="189.2" x2="878" y2="189.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="193.2" text-anchor="end" class="t-ax">−8</text>
+    <line x1="62" y1="164.7" x2="878" y2="164.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="168.7" text-anchor="end" class="t-ax">−6</text>
+    <line x1="62" y1="140.3" x2="878" y2="140.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="144.3" text-anchor="end" class="t-ax">−4</text>
+    <line x1="62" y1="115.8" x2="878" y2="115.8" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="119.8" text-anchor="end" class="t-ax">−2</text>
+    <line x1="62" y1="91.4" x2="878" y2="91.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="95.4" text-anchor="end" class="t-ax">0</text>
+    <line x1="62" y1="66.9" x2="878" y2="66.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="70.9" text-anchor="end" class="t-ax">+2</text>
+    <line x1="62" y1="42.5" x2="878" y2="42.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="46.5" text-anchor="end" class="t-ax">+4</text>
+    <line x1="62" y1="18.0" x2="878" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="22.0" text-anchor="end" class="t-ax">+6</text>
+    <line x1="62.0" y1="287" x2="62.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="307.0" text-anchor="middle" class="t-ax">1/3</text>
+    <line x1="151.7" y1="287" x2="151.7" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="151.7" y="307.0" text-anchor="middle" class="t-ax">1/2</text>
+    <line x1="286.2" y1="287" x2="286.2" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="286.2" y="307.0" text-anchor="middle" class="t-ax">3/4</text>
+    <line x1="420.7" y1="287" x2="420.7" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="420.7" y="307.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="555.2" y1="287" x2="555.2" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="555.2" y="307.0" text-anchor="middle" class="t-ax">5/4</text>
+    <line x1="689.7" y1="287" x2="689.7" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="689.7" y="307.0" text-anchor="middle" class="t-ax">3/2</text>
+    <line x1="878.0" y1="287" x2="878.0" y2="292" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="307.0" text-anchor="middle" class="t-ax">37/20</text>
+    <line x1="62" y1="287" x2="878" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="329.0" text-anchor="middle" class="t-note">y = p/K, the outer range of primes</text>
+    <text x="13" y="152.5" class="t-note" transform="rotate(-90 13 152.5)" text-anchor="middle">T(y), the outer integrand</text>
+    <line x1="62" y1="91.4" x2="878" y2="91.4" stroke="var(--c-ctx)" stroke-width="1"/>
+    <text x="874.0" y="85.4" text-anchor="end" class="t-note">zero</text>
+    <line class="cm-cross" x1="0" y1="18" x2="0" y2="287" stroke="var(--c-axis)" stroke-width="1"/>
+    <path d="M62.00 33.79 L75.45 35.32 L75.45 35.32 L77.69 36.49 L77.69 36.49 L81.73 38.97 L81.73 38.97 L131.49 63.85 L131.49 63.85 L142.70 64.87 L142.70 64.87 L151.67 65.08 L151.67 42.45 L171.85 42.00 L171.85 42.00 L214.44 56.52 L214.44 56.52 L380.33 101.76 L380.33 101.76 L420.68 103.59 L420.68 80.97 L878.00 91.36" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="878.00" cy="91.36" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="62.00" cy="33.79" r="12" fill="transparent" data-cmx="62.00" data-cm="from the paper&#39;s formulas · y = 0.3333" data-cmv="T = +4.708" tabindex="0"/>
+    <circle cx="75.45" cy="35.32" r="12" fill="transparent" data-cmx="75.45" data-cm="from the paper&#39;s formulas · y = 0.3583" data-cmv="T = +4.583" tabindex="0"/>
+    <circle cx="75.45" cy="35.32" r="12" fill="transparent" data-cmx="75.45" data-cm="from the paper&#39;s formulas · y = 0.3583" data-cmv="T = +4.583" tabindex="0"/>
+    <circle cx="77.69" cy="36.49" r="12" fill="transparent" data-cmx="77.69" data-cm="from the paper&#39;s formulas · y = 0.3625" data-cmv="T = +4.487" tabindex="0"/>
+    <circle cx="77.69" cy="36.49" r="12" fill="transparent" data-cmx="77.69" data-cm="from the paper&#39;s formulas · y = 0.3625" data-cmv="T = +4.488" tabindex="0"/>
+    <circle cx="81.73" cy="38.97" r="12" fill="transparent" data-cmx="81.73" data-cm="from the paper&#39;s formulas · y = 0.3700" data-cmv="T = +4.285" tabindex="0"/>
+    <circle cx="81.73" cy="38.97" r="12" fill="transparent" data-cmx="81.73" data-cm="from the paper&#39;s formulas · y = 0.3700" data-cmv="T = +4.285" tabindex="0"/>
+    <circle cx="131.49" cy="63.85" r="12" fill="transparent" data-cmx="131.49" data-cm="from the paper&#39;s formulas · y = 0.4625" data-cmv="T = +2.250" tabindex="0"/>
+    <circle cx="131.49" cy="63.85" r="12" fill="transparent" data-cmx="131.49" data-cm="from the paper&#39;s formulas · y = 0.4625" data-cmv="T = +2.250" tabindex="0"/>
+    <circle cx="142.70" cy="64.87" r="12" fill="transparent" data-cmx="142.70" data-cm="from the paper&#39;s formulas · y = 0.4833" data-cmv="T = +2.167" tabindex="0"/>
+    <circle cx="142.70" cy="64.87" r="12" fill="transparent" data-cmx="142.70" data-cm="from the paper&#39;s formulas · y = 0.4833" data-cmv="T = +2.167" tabindex="0"/>
+    <circle cx="151.67" cy="65.08" r="12" fill="transparent" data-cmx="151.67" data-cm="from the paper&#39;s formulas · y = 0.5000" data-cmv="T = +2.150" tabindex="0"/>
+    <circle cx="151.67" cy="42.45" r="12" fill="transparent" data-cmx="151.67" data-cm="from the paper&#39;s formulas · y = 0.5000" data-cmv="T = +4.000" tabindex="0"/>
+    <circle cx="171.85" cy="42.00" r="12" fill="transparent" data-cmx="171.85" data-cm="from the paper&#39;s formulas · y = 0.5375" data-cmv="T = +4.037" tabindex="0"/>
+    <circle cx="171.85" cy="42.00" r="12" fill="transparent" data-cmx="171.85" data-cm="from the paper&#39;s formulas · y = 0.5375" data-cmv="T = +4.037" tabindex="0"/>
+    <circle cx="214.44" cy="56.52" r="12" fill="transparent" data-cmx="214.44" data-cm="from the paper&#39;s formulas · y = 0.6167" data-cmv="T = +2.850" tabindex="0"/>
+    <circle cx="214.44" cy="56.52" r="12" fill="transparent" data-cmx="214.44" data-cm="from the paper&#39;s formulas · y = 0.6167" data-cmv="T = +2.850" tabindex="0"/>
+    <circle cx="380.33" cy="101.76" r="12" fill="transparent" data-cmx="380.33" data-cm="from the paper&#39;s formulas · y = 0.9250" data-cmv="T = −0.850" tabindex="0"/>
+    <circle cx="380.33" cy="101.76" r="12" fill="transparent" data-cmx="380.33" data-cm="from the paper&#39;s formulas · y = 0.9250" data-cmv="T = −0.850" tabindex="0"/>
+    <circle cx="420.68" cy="103.59" r="12" fill="transparent" data-cmx="420.68" data-cm="from the paper&#39;s formulas · y = 1.0000" data-cmv="T = −1.000" tabindex="0"/>
+    <circle cx="420.68" cy="80.97" r="12" fill="transparent" data-cmx="420.68" data-cm="from the paper&#39;s formulas · y = 1.0000" data-cmv="T = +0.850" tabindex="0"/>
+    <circle cx="878.00" cy="91.36" r="12" fill="transparent" data-cmx="878.00" data-cm="from the paper&#39;s formulas · y = 1.8500" data-cmv="T = 0.000" tabindex="0"/>
+    <path d="M62.00 173.39 L81.73 169.80 L81.73 170.29 L131.49 152.19 L131.49 152.19 L142.70 147.10 L142.70 147.10 L151.67 143.02 L151.67 167.17 L214.44 154.33 L214.44 154.33 L380.33 109.09 L380.33 109.09 L400.51 102.67 L400.51 102.67 L420.68 103.59 L420.68 261.93 L878.00 282.72" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
+    <circle cx="878.00" cy="282.72" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
+    <circle cx="62.00" cy="173.39" r="12" fill="transparent" data-cmx="62.00" data-cm="Table 5 as printed · y = 0.3333" data-cmv="T = −6.708" tabindex="0"/>
+    <circle cx="81.73" cy="169.80" r="12" fill="transparent" data-cmx="81.73" data-cm="Table 5 as printed · y = 0.3700" data-cmv="T = −6.415" tabindex="0"/>
+    <circle cx="81.73" cy="170.29" r="12" fill="transparent" data-cmx="81.73" data-cm="Table 5 as printed · y = 0.3700" data-cmv="T = −6.455" tabindex="0"/>
+    <circle cx="131.49" cy="152.19" r="12" fill="transparent" data-cmx="131.49" data-cm="Table 5 as printed · y = 0.4625" data-cmv="T = −4.975" tabindex="0"/>
+    <circle cx="131.49" cy="152.19" r="12" fill="transparent" data-cmx="131.49" data-cm="Table 5 as printed · y = 0.4625" data-cmv="T = −4.975" tabindex="0"/>
+    <circle cx="142.70" cy="147.10" r="12" fill="transparent" data-cmx="142.70" data-cm="Table 5 as printed · y = 0.4833" data-cmv="T = −4.558" tabindex="0"/>
+    <circle cx="142.70" cy="147.10" r="12" fill="transparent" data-cmx="142.70" data-cm="Table 5 as printed · y = 0.4833" data-cmv="T = −4.558" tabindex="0"/>
+    <circle cx="151.67" cy="143.02" r="12" fill="transparent" data-cmx="151.67" data-cm="Table 5 as printed · y = 0.5000" data-cmv="T = −4.225" tabindex="0"/>
+    <circle cx="151.67" cy="167.17" r="12" fill="transparent" data-cmx="151.67" data-cm="Table 5 as printed · y = 0.5000" data-cmv="T = −6.200" tabindex="0"/>
+    <circle cx="214.44" cy="154.33" r="12" fill="transparent" data-cmx="214.44" data-cm="Table 5 as printed · y = 0.6167" data-cmv="T = −5.150" tabindex="0"/>
+    <circle cx="214.44" cy="154.33" r="12" fill="transparent" data-cmx="214.44" data-cm="Table 5 as printed · y = 0.6167" data-cmv="T = −5.150" tabindex="0"/>
+    <circle cx="380.33" cy="109.09" r="12" fill="transparent" data-cmx="380.33" data-cm="Table 5 as printed · y = 0.9250" data-cmv="T = −1.450" tabindex="0"/>
+    <circle cx="380.33" cy="109.09" r="12" fill="transparent" data-cmx="380.33" data-cm="Table 5 as printed · y = 0.9250" data-cmv="T = −1.450" tabindex="0"/>
+    <circle cx="400.51" cy="102.67" r="12" fill="transparent" data-cmx="400.51" data-cm="Table 5 as printed · y = 0.9625" data-cmv="T = −0.925" tabindex="0"/>
+    <circle cx="400.51" cy="102.67" r="12" fill="transparent" data-cmx="400.51" data-cm="Table 5 as printed · y = 0.9625" data-cmv="T = −0.925" tabindex="0"/>
+    <circle cx="420.68" cy="103.59" r="12" fill="transparent" data-cmx="420.68" data-cm="Table 5 as printed · y = 1.0000" data-cmv="T = −1.000" tabindex="0"/>
+    <circle cx="420.68" cy="261.93" r="12" fill="transparent" data-cmx="420.68" data-cm="Table 5 as printed · y = 1.0000" data-cmv="T = −13.950" tabindex="0"/>
+    <circle cx="878.00" cy="282.72" r="12" fill="transparent" data-cmx="878.00" data-cm="Table 5 as printed · y = 1.8500" data-cmv="T = −15.650" tabindex="0"/>
+    <line x1="62" y1="350" x2="76" y2="350" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="81.0" y="354.0" text-anchor="start" class="t-note">decided: from the paper&#39;s own formulas (54), (58), (59), (62) — integral +1.576</text>
+    <line x1="62" y1="369" x2="76" y2="369" stroke="var(--c-2)" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="81.0" y="373.0" text-anchor="start" class="t-note">claimed: Table 5 as printed — integral −15.28, the printed (122)</text>
+  </svg>
+  </div>
+  <figcaption>The outer integrand T(y): solid, decided from the paper&#39;s own formulas; dashed, the claim as printed in its Table 5. The steep vertical segments are jumps in the functions. The signed area under each line is I_out. Hover for values.</figcaption>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>Table 5 interval</th><th>Table 5 gives</th><th>formulas, reading R2</th><th>formulas, reading R1</th></tr></thead><tbody><tr><td class="n">[1/3, 37/100]</td><td class="n">−0.2406</td><td class="n">+0.1679</td><td class="n">+0.1569</td></tr><tr><td class="n">[37/100, 37/80]</td><td class="n">−0.5286</td><td class="n">+0.3022</td><td class="n">+0.2839</td></tr><tr><td class="n">[37/80, 29/60]</td><td class="n">−0.0993</td><td class="n">+0.0460</td><td class="n">+0.0454</td></tr><tr><td class="n">[29/60, 1/2]</td><td class="n">−0.0732</td><td class="n">+0.0360</td><td class="n">+0.0360</td></tr><tr><td class="n">[1/2, 37/60]</td><td class="n">−0.6621</td><td class="n">+0.4233</td><td class="n">+0.4233</td></tr><tr><td class="n">[37/60, 37/40]</td><td class="n">−1.0175</td><td class="n">+0.3083</td><td class="n">+0.3083</td></tr><tr><td class="n">[37/40, 77/80]</td><td class="n">−0.0445</td><td class="n">−0.0333</td><td class="n">−0.0333</td></tr><tr><td class="n">[77/80, 1]</td><td class="n">−0.0361</td><td class="n">−0.0361</td><td class="n">−0.0361</td></tr><tr><td class="n">[1, 37/20]</td><td class="n">−12.5800</td><td class="n">+0.3613</td><td class="n">+0.3613</td></tr><tr><td class="n"><b>[1/3, 37/20]</b></td><td class="n"><b>−15.2819</b></td><td class="n"><b>+1.5757</b></td><td class="n"><b>+1.5457</b></td></tr></tbody></table></div></div><div class="col"><div class="note">
+  <span class="lab">two readings, both decided</span>
+<p>The paper defines R0 twice, inconsistently: (71) makes it the limit of −γ/K, while §5.3 and the proof of Proposition 5.4 say −γ = K(R0 − d) + O(1), so that R0 − d is that limit. <b>R2</b> follows the proof: the integrand is the limit of the exponents the normalisation (61) actually uses, and its integral is <span class="m">453803/288000</span>, the reader's value. <b>R1</b> takes (71) and (73) literally and subtracts d(y) a second time, which lowers I_out by <span class="m">3/100</span> and favours the author. It gives <span class="m">445163/288000</span>. Neither is close to <span class="m">−11002997/720000</span>, which is exactly the integral of Table 5.</p>
+</div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§4 · what it does to the proof</div>
+    <h2>A₂₀₀ + U is positive, and no repair we could decide brings it back</h2>
+  </div>
+<div class="col"><p>A₂₀₀ = A0 + I_out + ∫₃²⁰ R/x³ + (cutoff terms) (88)–(89), and the proof needs A₂₀₀ + U < 0. We recomputed it in every combination: I_out as printed, with only Table 5's last row fixed, and from the formulas under each reading; A0 and U as printed, or corrected in the author's favour where this audit can decide the correction. Two such corrections exist. The paper's A0 (≈ +1.318) is larger than the paper's own tail bound (85) for the quantity it stands for, <span class="m">−2069/36000</span>. And the paper's U overstates its own bound, because (110) sums the comparison measure's energy with the wrong logarithm; correctly summed, λM0 − I(ρ) + C* = <span class="m">+0.5563</span>, not 1.7514.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>I_out</th><th>A0, U as printed</th><th>A0 → (85), U → 0.556</th><th>A0 → (85), U → measured</th><th>best any cutoff can do</th></tr></thead><tbody><tr><td>I_out as printed (122)</td><td class="n">−11.993</td><td class="n">−14.572</td><td class="n">−15.853</td><td class="n">−14.613</td></tr><tr><td>Table 5 with only its last row corrected</td><td class="n"><b>+0.948</b></td><td class="n">−1.630</td><td class="n">−2.912</td><td class="n">−1.672</td></tr><tr><td>from the formulas, reading R2</td><td class="n"><b>+4.865</b></td><td class="n"><b>+2.286</b></td><td class="n"><b>+1.005</b></td><td class="n">+2.245</td></tr><tr><td>from the formulas, reading R1</td><td class="n"><b>+4.835</b></td><td class="n"><b>+2.256</b></td><td class="n"><b>+0.975</b></td><td class="n">+2.215</td></tr></tbody></table></div></div><div class="col"><p>Read across a row. With I_out from the formulas, every entry is positive, and the smallest decided one is <span class="m">+2.256</span>. The third column goes further than the audit can decide: it replaces U with the measured value, at n = 3, of the quantity U bounds, <span class="m">−0.725</span>. Even then the entry stays positive. The last column is B0 + U, the floor that A_M + U approaches as the cutoff M grows. A_M > B0 for every M, because (89)'s cutoff terms form a quadratic with negative discriminant, so no choice of M rescues (118). (119), the input to the irrationality measure, fails the same way.</p><div class="note">
+  <span class="lab">the reader&#39;s point 1, read carefully</span>
+<p>Correcting only the last row moves A₂₀₀ + U from −11.99 to <span class="m">+0.9484</span>, exactly as reported. But that keeps the paper's A0 and U, which are both too large. With them corrected too, the last row alone would leave −1.63 < 0. So the last row does not break the proof by itself. What breaks it is the whole of Table 5, and the formulas decide every row of it.</p>
+</div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§5 · the bounds, or the route?</div>
+    <h2>The paper&#39;s own polynomials do not get small at n ≤ 3</h2>
+  </div>
+<div class="col"><p>A failed inequality could mean the bounds are loose while the polynomials are still small. To check, we computed the paper's own determinant exactly: K = 40n, N = 3n, D<sub>N</sub><sup>8</sup>/D<sub>K</sub>, h = 37n, with our Hankel engine (its functional at k = 7 is the paper's (5)–(6)). We then divided out every common factor. What is left, P<sub>K</sub>, is the smallest integer polynomial any normalisation can give. The paper's B.3 says its Q<sub>K,M</sub> is a positive-integer multiple of P<sub>K</sub>. Theorem 1.2 would need log P<sub>K</sub>(ζ(7))/K² below −11.87 for large n.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>K</th><th>h</th><th>log P(ζ(7))/K²</th><th>per h²</th><th>log F(ζ(7))/K²</th><th>(59) exact at</th><th>v_p above K</th></tr></thead><tbody><tr><td class="n">1</td><td class="n">40</td><td class="n">37</td><td class="n"><b>+0.7965</b></td><td class="n">+0.931</td><td class="n">−0.655</td><td class="n">4 / 6</td><td class="n">9 primes · all 0</td></tr><tr><td class="n">2</td><td class="n">80</td><td class="n">74</td><td class="n"><b>+0.8712</b></td><td class="n">+1.018</td><td class="n">−0.707</td><td class="n">10 / 13</td><td class="n">12 primes · all 0</td></tr><tr><td class="n">3</td><td class="n">120</td><td class="n">111</td><td class="n"><b>+0.8839</b></td><td class="n">+1.033</td><td class="n">−0.725</td><td class="n">13 / 18</td><td class="n">17 primes · all 0</td></tr></tbody></table></div></div><div class="col"><p>The margin is positive at every size and still rising: +0.796, +0.871, +0.884. Per h² it sits near +1.03, the same wall the <a href="/reports/zeta-hankel.html">Hankel-method measurement</a> found for ζ(7) across 323 families. The paper's family was measured here, not assumed to share that wall. The local bound (59) holds at every outer prime tested, and with equality at most. At every prime between K and 2h the exact valuation of Δ<sub>K</sub> is 0, where Table 5's last row would need about 15K.</p><div class="note">
+  <span class="lab">a measurement, labelled</span>
+<p>Three sizes do not decide a limit in n, and Theorem 1.2 is a limit statement. What the table shows is narrower: the paper's proof is refuted by its own arithmetic (§3–§4), and on these polynomials nothing suggests the theorem's rate. If the route can be saved, it will take a different family, not tighter bounds on this one.</p>
+</div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · what holds</div>
+    <h2>Most of the paper&#39;s machinery checks out</h2>
+  </div>
+<ul class="plain"><li><b>The inner integral.</b> (121), ∫₃²⁰ R(x)/x³ dx = <span class="m">+0.170349</span>, follows exactly from the definitions (64)–(69). R was proved affine on 131 cells (the paper lists 192, unmerged).</li><li><b>The bookkeeping.</b> A₂₀₀ and A₁₀₀₀₀₀ recompute exactly from the printed A0, I_out and (121). The arithmetic after I_out is consistent; the problem is the input.</li><li><b>The local estimate.</b> Proposition 4.6 holds on the exact Δ<sub>K</sub> at K = 40, 80, 120: 4 of 6, 10 of 13, 13 of 18 outer primes with equality. Lemma 2.3's leading coefficient is exact. Proposition 6.3, stated for every K, holds at all three.</li><li><b>Errors against the author.</b> The energy slip in (110) makes U larger, not smaller. A0 is larger than the paper's own bound for the tail it stands for. Both are in §4's repairs, and neither changes the outcome.</li><li><b>The calibration.</b> The same evaluator, applied to Fauzan's (4.10), (4.14) and (5.3), returns his printed <span class="m">127751/96000</span>. So do his printed (5.8)–(5.10) and his Table 4, whose last row is the 37/20 − y that Anand's Table 5 lacks. A0 equals Fauzan's A* (5.19) exactly, and equals his I_out + (5.18) + (5.16) exactly.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§7 · the Lean repository</div>
+    <h2>gmDevi/zeta-7-21-lean proves something else, and says so</h2>
+  </div>
+<p>The issue was filed on <a href="https://github.com/gmDevi/zeta-7-21-lean">gmDevi/zeta-7-21-lean</a> because its README cites the paper. The repository does not formalise the paper. Its theorem, at commit <span class="m">4e48690</span>, is</p><div class="eq">¬ ∀ k ∈ {7, 9, 11, 13, 15, 17, 19, 21}, ∃ q : ℚ, riemannZeta k = q</div><p>that is, at least one of ζ(7), ζ(9), …, ζ(21) is irrational, by Zudilin's very-well-poised forms. It does not say which one, and it does not imply that ζ(7) is irrational. Its README cites Anand's paper as background and says its own check could not confirm two constants in the final inequality; that matches what §3 finds.</p><ul class="plain"><li><b>Census, grep-level.</b> 38 .lean files, 15,635 lines: 1 sorry (<span class="m">Challenge.lean:32</span>, the intended statement stub for the Comparator check), 0 admit, 0 axiom declarations, 0 native_decide, 20 uses of decide +kernel. The main theorem has no hypotheses.</li><li><b>Not built here.</b> It needs a full Mathlib cache at Lean v4.35.0-rc2. The README reports <span class="m">#print axioms</span> = propext, Classical.choice, Quot.sound, and registration in the Palomar registry at commit a3b69fc. Neither claim was checked here.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§8 · why you can trust this</div>
+    <h2>How each number was decided</h2>
+  </div>
+<ul class="plain"><li><b>Exact integrals, no sampling.</b> Each integrand is written once, as code over an affine form on a cell. Every max, min and floor it takes is checked to keep the same branch across the whole cell. When a branch changes, the cell is cut at the exact rational point where it does. The integrand is therefore proved piecewise linear, and each integral is an exact rational. The battery re-checks every stored piece on its own cell.</li><li><b>Two routes that share nothing.</b> The finite exponents L<sub>p</sub>(K) are computed as integers straight from (54), (58), (59), (62). Summed over every integer p, they approach the limit at a clean 1/K rate (−8.8e-4, −8.8e-5, −8.8e-6 at K = 4,000, 40,000, 400,000). Weighted by log p over the 47,087 primes, they give the outer part of log m<sub>K,M</sub>/K² itself: <span class="m">[1.573030, 1.573030]</span> at K = 400,000, an arb ball.</li><li><b>Balls for the rest.</b> I(ρ), C*, the potential and every logarithm are evaluated in arb, with endpoints rounded outward. The polynomials P<sub>K</sub> are exact integer polynomials, and log P<sub>K</sub>(ζ(7)) is a ball of relative radius below 2⁻⁶⁰.</li><li><b>Independent of the claimant.</b> No line is taken from the paper or from the reader's script. The control that the method is right is Fauzan's value, which a wrong method would not reproduce.</li><li><b>The battery.</b> 42 checks and 9 planted forgeries at this build, every forgery refused: a flipped bit in the paper, a tampered I_out, (59)'s constant 9 moved by 10⁻⁶, Table 5's last row "corrected", Fauzan's constant moved by 10⁻⁶, two affine pieces merged, (118) relabelled CERTIFIED, the theorem itself called refuted, a forged fingerprint.</li><li><b>Not decided.</b> Whether ζ(7) is irrational. It is open; this audit refutes one proof route and says nothing else about it. Theorem 1.2 as a statement about large n: no finite computation decides it. Measured at n = 1, 2, 3 only. Proposition 4.4 (the inner range) and the limit (70): they need K ≥ 200M² and are not tested here; (121) is decided only as a consequence of (64)–(69). Lemma 6.1&#39;s potential bound (94) as a sup: measured on a grid, not certified; the paper&#39;s A.3 partition is not re-run. The Lean repository&#39;s own theorem (one of ζ(7), …, ζ(21) is irrational): read at the pinned commit, not built.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§9 · the records</div>
+    <h2>Sources, records, context</h2>
+  </div>
+<div class="note">
+  <span class="lab">the records</span>
+<p><a href="/certs/zeta7-anand-audit.json">The audit record</a> (every decided quantity as an exact rational or a ball, both readings, all 24 margin scenarios, the verdicts, the Lean census) · the measured family in <span class="m">certs/zeta7-anand/measure.json</span> · the code in <span class="m">instruments/zeta7audit/</span> · the sources pinned by sha256 in <span class="m">instruments/zeta7audit/PROVENANCE.json</span>: the paper (CC-BY-4.0, committed), the issue thread as fetched, and, git-ignored, Fauzan's paper and the Lean clone.</p>
+</div><p>Context: <a href="/reports/zeta-hankel.html">the Hankel method, measured past ζ(5)</a>, where the same family shape shows a positive margin at ζ(7) across 323 families. That is a measurement, not a theorem. This page decides one paper's proof, which is a narrower thing. The issue is <a href="https://github.com/gmDevi/zeta-7-21-lean/issues/1">issue #1</a> by <span class="m">@huntrontrakkr</span>; the credit for finding the error is theirs.</p>
+</section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-zeta7-anand.js from certs/zeta7-anand-audit.json — written by instruments/zeta7audit/decide.py in exact arithmetic — after instruments/zeta7audit/battery.py passed with every planted forgery refused; the build fails if any of it does not hold.</p><p>git ce470dd · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+
+</body>
+</html>

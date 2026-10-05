@@ -1,0 +1,12 @@
+DETECTED   phi* blocks altered (28,6 -> 29,5)            [genuine set rejected; AssertionError: ('h discontinuous', 58)]
+DETECTED   h sign flipped                                [genuine set rejected; AssertionError: ('h not linear', 0)]
+DETECTED   cut bound s s=-1 made optimistic (0)          [genuine set rejected; AssertionError: ('discretisation lemma fails', 0, 0.000227477822473227]
+DETECTED   cut pair s s=-1 bound dropped in the identity [genuine set rejected; cover of m = ∫sigma in [0, 1/2]: COMPLETE]
+DETECTED   bathtub curvature doubled                     [genuine set rejected; AssertionError: ('discretisation lemma fails', 0, 0.000354224385955565]
+DETECTED   bathtub slope from max h                      [genuine set rejected; AssertionError: ('discretisation lemma fails', 0, 0.000547153884064148]
+DETECTED   region R mirrored (b <= a/2)                  [genuine set rejected; AssertionError: 5/274]
+NOT SEEN   PD test accepts zero pivots                   [no difference; THEOREM VERIFIED: Q(phi) >= -5/137 for all phi; delta_3 >= 1/16 - 5/54]
+DETECTED   eps ignored in the claim                      [planted forgery accepted: ['forge-eps.json']; THEOREM VERIFIED: Q(phi) >= -5/137 for all phi; delta_3 >= 1/16 - 5/54]
+DETECTED   triangle sign rule relaxed                    [planted forgery accepted: ['forge-tri.json']; THEOREM VERIFIED: Q(phi) >= -5/137 for all phi; delta_3 >= 1/16 - 5/54]
+planted forgeries accepted by the GENUINE verifier: none
+MUTATIONS: 1 NOT DETECTED

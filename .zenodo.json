@@ -1,6 +1,6 @@
 {
   "title": "cert-machine: independent exact certification of machine-generated mathematics",
-  "description": "Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. A conjecture engine and verification lab: generate mathematical objects at scale, screen in float, certify the survivors exactly (interval enclosures and exact rational decisions — a refutation here is proved), and hunt closed forms for what survives. The repository carries machine-derived, certificate-backed results with their full records: the value of lambda(4) (Chowla's cosine problem, finite front; DOI 10.5281/zenodo.22225861), a certified hot-spots domain beyond every analytically proven class (the second Neumann eigenfunction of a convex trapezoid with no symmetry axis attains its extrema on the boundary only), certified mean-field-game equilibria with more density peaks than potential wells and the exact crossover 1/(8 pi^2), certified audits of AI-produced mathematics, and proof-grounded model evals. v2026.09.3 archives the Erdős #1 front: the GPT-6 Astra disproof of Erdős's first problem made effective — twelve certificates of explicit sum-distinct sets below Bohman's constant (1,701 elements at N/2^n = 0.217967 up to 79,092 at 0.145269), every one re-decided by an independent verifier in exact arithmetic, the base gadget shown not special (every tilt works), and explicit lower bounds for the constant in Siegel's lemma. Every page recomputes its numbers from the certificates at build; planted red controls must fire; a build that drifts refuses to ship. Machine-derived with Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed. Pinned third-party corpora under corpus/sources/ retain their own licenses.",
+  "description": "Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. A conjecture engine and verification lab: generate mathematical objects at scale, screen in float, certify the survivors exactly (interval enclosures and exact rational decisions — a refutation here is proved), and hunt closed forms for what survives. The repository carries machine-derived, certificate-backed results with their full records: the value of lambda(4) (Chowla's cosine problem, finite front; DOI 10.5281/zenodo.22225861), a certified hot-spots domain beyond every analytically proven class (the second Neumann eigenfunction of a convex trapezoid with no symmetry axis attains its extrema on the boundary only), certified mean-field-game equilibria with more density peaks than potential wells and the exact crossover 1/(8 pi^2), certified audits of AI-produced mathematics, and proof-grounded model evals. v2026.10 archives a proof that δ₃ = 117/2192 — Graham's $100 question, the case k = 3 of Erdős problem #1186: the twelve-block colouring of Parrilo, Robertson and Saracino (2008) is optimal, so the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². The proof expands the quadratic form around the twelve blocks, discretises without first-order loss, and closes five regions with exact rational certificates; the certificates (generated in the author's sandbox) are re-decided here by a second verifier written under a clean-room rule, sharing no code with the generators or the first verifier, with 40 planted forgeries refused and 23 of 24 verifier mutations caught. Read line by line by the author; not refereed; not formalised; nothing about k ≥ 4. Also archived: the Hankel-determinant irrationality method measured past ζ(5) (a measurement, not a theorem), and the Erdős #1 front of v2026.09.3 (explicit sum-distinct sets below Bohman's constant). Every page recomputes its numbers from the certificates at build; planted red controls must fire; a build that drifts refuses to ship. Machine-derived with Claude (Anthropic) driving certified-arithmetic instruments; not peer-reviewed. Pinned third-party corpora under corpus/sources/ retain their own licenses.",
   "creators": [
     {
       "name": "Toledo, Carlos"
@@ -23,7 +23,11 @@
     "Erdős problem 1",
     "sum-distinct sets",
     "Siegel's lemma",
-    "lattices"
+    "lattices",
+    "Erdős problem 1186",
+    "monochromatic arithmetic progressions",
+    "Ramsey theory",
+    "semidefinite certificates"
   ],
   "related_identifiers": [
     {
@@ -37,7 +41,7 @@
       "scheme": "url"
     },
     {
-      "identifier": "10.5281/zenodo.22382866",
+      "identifier": "10.5281/zenodo.22800699",
       "relation": "isNewVersionOf",
       "scheme": "doi"
     },
@@ -45,7 +49,12 @@
       "identifier": "https://www.erdosproblems.com/1",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "https://www.erdosproblems.com/1186",
+      "relation": "isSupplementTo",
+      "scheme": "url"
     }
   ],
-  "version": "v2026.09.3"
+  "version": "v2026.10"
 }

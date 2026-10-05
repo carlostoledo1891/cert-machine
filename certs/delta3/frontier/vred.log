@@ -1,0 +1,11 @@
+ok   slab bound raised by 1e-3                -> REJECTED   [red-1.json: slab [3/10, 2/5]  n=130  FAILED  E >= 1.303551e-03]
+ok   slab triangle multipliers dropped        -> REJECTED   [red-2.json: slab [3/10, 2/5]  n=130  FAILED  E >= 3.035513e-04]
+ok   slab cut-pair theta all 1                -> REJECTED   [red-3.json: slab [3/10, 2/5]  n=130  FAILED  E >= 3.035513e-04]
+ok   slab grid missing a breakpoint           -> REJECTED   [AssertionError: every edge of phi* must be a grid point]
+ok   slab region widened                      -> REJECTED   [red-5.json: slab [3/10, 1/2]  n=130  FAILED  E >= 3.035513e-04]
+ok   inner radius doubled                     -> REJECTED   [AssertionError: ('linear budget', 0)]
+ok   inner linear budget overspent            -> REJECTED   [AssertionError: ('linear budget', 0)]
+ok   inner RLT multipliers dropped            -> REJECTED   [red-8.json: inner [0, 1/5]  n=130  FAILED at 11]
+ok   cover with one slab removed              -> REJECTED   [cover of m = ∫sigma in [0, 1/2]: INCOMPLETE (reaches 3/10)]
+ok   the genuine certificate set              -> ACCEPTED   [THEOREM VERIFIED: Q(phi) >= -5/137 for all phi; delta_3 >= 1/16 - 5/548 = 117/2192 (= the 12-block value).]
+RED TESTS: ALL AS EXPECTED

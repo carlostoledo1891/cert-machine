@@ -1,0 +1,156 @@
+{
+  "what": "Exact TESTS of the centring identity, the symmetry, the discretisation lemma (E >= L with the verifier's own L), the bathtub constants, and an exact count of monochromatic 3-APs of the PRS colouring. Tests, not proofs.",
+  "decidedOn": "2026-10-05",
+  "node": "v24.14.1",
+  "identity": {
+    "cases": 1400,
+    "identityHolds": 1400,
+    "symmetryHolds": 1400
+  },
+  "discretisation": {
+    "cases": 4200,
+    "holds": 4200,
+    "ENonnegative": 4200,
+    "smallestGapEminusL": 0,
+    "smallestE": 0.0000014271252749594696,
+    "byGenerator": {
+      "random": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 3.737709053465278e-7,
+        "trivial": 4
+      },
+      "bathtub": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0,
+        "trivial": 7
+      },
+      "cells": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0,
+        "trivial": 7
+      },
+      "breakpoints": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0,
+        "trivial": 0
+      },
+      "cutpair": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0,
+        "trivial": 0
+      },
+      "colouring": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0.0000014568570515211253,
+        "trivial": 0
+      },
+      "constant": {
+        "cases": 600,
+        "holds": 600,
+        "minGap": 0.00012388487998827856,
+        "trivial": 40
+      }
+    }
+  },
+  "bathtub": {
+    "cases": 4416,
+    "holds": 4416,
+    "smallestSlack": 0,
+    "singlePieceReading": {
+      "cases": 2432,
+      "violations": 1358,
+      "example": {
+        "cell": [
+          24,
+          40
+        ],
+        "y": "1/64",
+        "F": "385/115316736",
+        "bSingle": "2/18769",
+        "bSummed": "2/56307"
+      }
+    }
+  },
+  "counts": [
+    {
+      "k": 1,
+      "n": 548,
+      "mono": 15756,
+      "ratio": "3939/75076",
+      "ratioDecimal": "0.0524668336",
+      "minus117over2192": "-9.0908e-4",
+      "timesN": "-0.498175"
+    },
+    {
+      "k": 2,
+      "n": 1096,
+      "mono": 63568,
+      "ratio": "29/548",
+      "ratioDecimal": "0.0529197080",
+      "minus117over2192": "-4.5620e-4",
+      "timesN": "-0.500000"
+    },
+    {
+      "k": 4,
+      "n": 2192,
+      "mono": 255368,
+      "ratio": "233/4384",
+      "ratioDecimal": "0.0531478102",
+      "minus117over2192": "-2.2810e-4",
+      "timesN": "-0.500000"
+    },
+    {
+      "k": 8,
+      "n": 4384,
+      "mono": 1023664,
+      "ratio": "467/8768",
+      "ratioDecimal": "0.0532618613",
+      "minus117over2192": "-1.1405e-4",
+      "timesN": "-0.500000"
+    },
+    {
+      "k": 16,
+      "n": 8768,
+      "mono": 4099040,
+      "ratio": "935/17536",
+      "ratioDecimal": "0.0533188869",
+      "minus117over2192": "-5.7026e-5",
+      "timesN": "-0.500000"
+    },
+    {
+      "k": 32,
+      "n": 17536,
+      "mono": 16404928,
+      "ratio": "1871/35072",
+      "ratioDecimal": "0.0533473996",
+      "minus117over2192": "-2.8513e-5",
+      "timesN": "-0.500000"
+    },
+    {
+      "k": 64,
+      "n": 35072,
+      "mono": 65637248,
+      "ratio": "3743/70144",
+      "ratioDecimal": "0.0533616560",
+      "minus117over2192": "-1.4256e-5",
+      "timesN": "-0.500000"
+    }
+  ],
+  "landscape": {
+    "N": 1096,
+    "starts": 400,
+    "best4N2Q": -175360,
+    "bestQ": -0.0364963503649635,
+    "targetQ": -0.0364963503649635,
+    "below": 0,
+    "atPhiStar": 108
+  },
+  "seconds": 16,
+  "allPass": true
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/carlostoledo/Projects/frontier-apps/experiments/zeta-hankel/scan.py", line 22, in <module>
+    fams = [tuple(map(int, s.split(":"))) for s in sys.argv[3:]]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '1 5'

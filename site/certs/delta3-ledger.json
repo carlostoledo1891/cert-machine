@@ -1,0 +1,245 @@
+{
+  "what": "Independent exact verification of the claimed lower bound delta_3 >= 117/2192 (Theorem A: Q(phi) >= -5/137 for every measurable phi:[0,1]->[-1,1]), from the five claimant certificates, with a verifier written clean-room from THEOREM-EXACT.md and CERT-FORMAT.md only.",
+  "decidedOn": "2026-10-05",
+  "verifier": {
+    "files": {
+      "instruments/delta3/model.js": "65b68c49c45f8a6cf5045de9e632e2f67e8f8285de2d1a77e8b242c5bb4d440a",
+      "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
+      "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
+      "instruments/delta3/lemmas.js": "bdbd0b706cb002ed27250dda08cd4a3a5f714f33ac6b1d9b8ec993b4fdc0e439",
+      "instruments/delta3/battery.js": "cc19edd9f8e36ad6e49217177ae41b810e01ba2e0ce83832b40c3d19861afcba",
+      "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
+    },
+    "node": "v24.14.1",
+    "method": {
+      "areas": "exact: 4u^2*area(R ∩ I_i×I_j) by the trapezoid rule on the piecewise-linear section length (kinks enumerated), cross-checked pair by pair against Sutherland-Hodgman clipping + shoelace in rationals",
+      "psd": "exact: dyadic rescaling, float Cholesky of A - 2^-k I rounded to a dyadic factor L, exact remainder A - LL^T shown diagonally dominant (Gershgorin); fallback exact witness / Bareiss leading minors"
+    }
+  },
+  "phiStar": {
+    "Q": "-5/137",
+    "hIntegral": "5/137",
+    "hZeros": [
+      "7/137",
+      "17/274",
+      "31/274",
+      "99/548",
+      "79/274",
+      "1/2",
+      "195/274",
+      "449/548",
+      "243/274",
+      "257/274",
+      "130/137"
+    ],
+    "hMinOffZeros": {
+      "value": "1/1096",
+      "note": "least nonzero node value of h (h is linear between nodes)"
+    },
+    "slopesAtZeros": [
+      {
+        "at": "7/137",
+        "left": "-1",
+        "right": "1"
+      },
+      {
+        "at": "17/274",
+        "left": "-1",
+        "right": "1"
+      },
+      {
+        "at": "31/274",
+        "left": "-3/2",
+        "right": "3/2"
+      },
+      {
+        "at": "99/548",
+        "left": "-1",
+        "right": "1"
+      },
+      {
+        "at": "79/274",
+        "left": "-3/2",
+        "right": "3/2"
+      },
+      {
+        "at": "1/2",
+        "left": "-3/2",
+        "right": "3/2"
+      },
+      {
+        "at": "195/274",
+        "left": "-3/2",
+        "right": "3/2"
+      },
+      {
+        "at": "449/548",
+        "left": "-1",
+        "right": "1"
+      },
+      {
+        "at": "243/274",
+        "left": "-3/2",
+        "right": "3/2"
+      },
+      {
+        "at": "257/274",
+        "left": "-1",
+        "right": "1"
+      },
+      {
+        "at": "130/137",
+        "left": "-1",
+        "right": "1"
+      }
+    ]
+  },
+  "certificates": [
+    {
+      "file": "certs/delta3/inner-r20-g24_4_8.json",
+      "sha256": "2edd22852d329458752a9e6d1495b3412fb3db2ec68fad591f9730fe99467c60",
+      "kind": "inner",
+      "region": {
+        "lo": "0",
+        "hi": "1/5"
+      },
+      "n": 130,
+      "counts": {
+        "fullPairs": 7718,
+        "cutPairs": 318,
+        "forms": 22808,
+        "triangles": 0
+      },
+      "verdict": "VERIFIED",
+      "why": null,
+      "bound": "0",
+      "boundDecimal": "0.0000000e+0",
+      "claimMatchesFile": null,
+      "seconds": 0.249,
+      "psdMethod": "dyadic Cholesky of A − 2^−4I (rows rescaled by powers of 2), remainder diagonally dominant"
+    },
+    {
+      "file": "certs/delta3/slab-1_5-3_10-g24_4_8.json",
+      "sha256": "f8c569e4a47bc6d958f2515485c355a016609a5f27178962a71ff749dce80c99",
+      "kind": "slab",
+      "region": {
+        "lo": "1/5",
+        "hi": "3/10"
+      },
+      "n": 130,
+      "counts": {
+        "fullPairs": 7718,
+        "cutPairs": 318,
+        "forms": 13324,
+        "triangles": 0
+      },
+      "verdict": "VERIFIED",
+      "why": null,
+      "bound": "6296384718336605890182449/22609041927129531731084058720",
+      "boundDecimal": "2.7848967e-4",
+      "claimMatchesFile": true,
+      "seconds": 0.121,
+      "psdMethod": "dyadic Cholesky of A − 2^−22I (rows rescaled by powers of 2), remainder diagonally dominant"
+    },
+    {
+      "file": "certs/delta3/slab-2_5-9_20-g8_4_0.json",
+      "sha256": "bc23d33cb0db48a29e7bde319ef2e20dcd56d18b8ab498c06fec52624537d2c3",
+      "kind": "slab",
+      "region": {
+        "lo": "2/5",
+        "hi": "9/20"
+      },
+      "n": 146,
+      "counts": {
+        "fullPairs": 10380,
+        "cutPairs": 294,
+        "forms": 1998,
+        "triangles": 0
+      },
+      "verdict": "VERIFIED",
+      "why": null,
+      "bound": "50963377393403307885655938/185520059131196374275938963885",
+      "boundDecimal": "2.7470548e-4",
+      "claimMatchesFile": true,
+      "seconds": 0.177,
+      "psdMethod": "dyadic Cholesky of A − 2^−22I (rows rescaled by powers of 2), remainder diagonally dominant"
+    },
+    {
+      "file": "certs/delta3/slab-3_10-4_10-g24_4_8.json",
+      "sha256": "d9b37a69505a3e642b479b2bd57b655d5fa33a716cf3ffdcd6b3869af524fbce",
+      "kind": "slab",
+      "region": {
+        "lo": "3/10",
+        "hi": "2/5"
+      },
+      "n": 130,
+      "counts": {
+        "fullPairs": 7718,
+        "cutPairs": 318,
+        "forms": 9849,
+        "triangles": 2204
+      },
+      "verdict": "VERIFIED",
+      "why": null,
+      "bound": "302061852991525508034881073/995093408858134763756936327093",
+      "boundDecimal": "3.0355125e-4",
+      "claimMatchesFile": true,
+      "seconds": 0.159,
+      "psdMethod": "dyadic Cholesky of A − 2^−21I (rows rescaled by powers of 2), remainder diagonally dominant"
+    },
+    {
+      "file": "certs/delta3/slab-9_20-1_2-g8_4_0.json",
+      "sha256": "b3f8615a9f1009624d87852859526056321eccc7b5fc5d57af502403ff5803d2",
+      "kind": "slab",
+      "region": {
+        "lo": "9/20",
+        "hi": "1/2"
+      },
+      "n": 146,
+      "counts": {
+        "fullPairs": 10380,
+        "cutPairs": 294,
+        "forms": 2332,
+        "triangles": 470
+      },
+      "verdict": "VERIFIED",
+      "why": null,
+      "bound": "336509882373552357045412601/725496284546822070496074644287",
+      "boundDecimal": "4.6383405e-4",
+      "claimMatchesFile": true,
+      "seconds": 0.124,
+      "psdMethod": "dyadic Cholesky of A − 2^−21I (rows rescaled by powers of 2), remainder diagonally dominant"
+    }
+  ],
+  "cover": {
+    "intervals": [
+      [
+        "0",
+        "1/5"
+      ],
+      [
+        "1/5",
+        "3/10"
+      ],
+      [
+        "3/10",
+        "2/5"
+      ],
+      [
+        "2/5",
+        "9/20"
+      ],
+      [
+        "9/20",
+        "1/2"
+      ]
+    ],
+    "complete": true
+  },
+  "theorem": {
+    "verdict": "VERIFIED",
+    "Qstar": "-5/137",
+    "delta3LowerBound": "117/2192"
+  },
+  "seconds": 0.846
+}

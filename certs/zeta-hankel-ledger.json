@@ -1,0 +1,2058 @@
+{
+ "what": "The Fauzan/Calegari Hankel-determinant irrationality method, measured: the exact content-normalised polynomial P of each family member and log P(ξ)/h², the margin (negative = the family proves ξ irrational). Ported from frontier-apps/experiments/zeta-hankel on 2026-10-05 (instruments/zetahankel/PROVENANCE.json); every per-instance number below was re-run on this machine from the lifted engine.",
+ "generatedBy": "instruments/zetahankel/rerun.py",
+ "generatedOn": "2026-10-05",
+ "env": {
+  "python": "3.12.13",
+  "flint": "0.9.0",
+  "machine": "arm64",
+  "system": "Darwin"
+ },
+ "rule": {
+  "margin": "log P(ξ) / h², P the primitive integer polynomial of Δ(X) = det(A + XB) (content stripped exactly)",
+  "ball": "[logP_lo, logP_hi]: arb evaluation of P(ξ) with rad < 2^-60 · value, log taken in arb, endpoints rounded outward to doubles; margin_lo/hi the same divided by h², outward",
+  "agree": "the lifted value lies in the ball widened by 1.86e-09 (the lifted engine stopped at rad < 2^-30 · value)",
+  "bitIdentical": "the engine's own float output here equals the lifted record's, bit for bit, and so does log_content"
+ },
+ "scope": "Per instance: exact (P and its content are exact integers/rationals) and ball-certified (log P(ξ)). The wall — \"the class stops between ζ(5) and ζ(7)\" — is a measurement across the lifted families, extrapolated; not a theorem. The race context is UNVERIFIED by cert-machine.",
+ "headline": [
+  {
+   "key": "zeta3",
+   "constant": "ζ(3)",
+   "k": 3,
+   "family": "Z_k3_int_a4_b1_r4",
+   "h": 39,
+   "margin": -1.379680944401696,
+   "margin_lo": -1.3796809444016966,
+   "margin_hi": -1.3796809444016955,
+   "liftedMargin": -1.379680944401696,
+   "agree": true,
+   "bitIdentical": true,
+   "sign": "negative"
+  },
+  {
+   "key": "zeta5",
+   "constant": "ζ(5)",
+   "k": 5,
+   "family": "Z_k5_int_a8_b1_r6",
+   "h": 35,
+   "margin": -0.18513270501974533,
+   "margin_lo": -0.18513270501974538,
+   "margin_hi": -0.18513270501974527,
+   "liftedMargin": -0.18513270501974533,
+   "agree": true,
+   "bitIdentical": true,
+   "sign": "negative"
+  },
+  {
+   "key": "zeta7",
+   "constant": "ζ(7)",
+   "k": 7,
+   "family": "Z_k7_int_a8_b1_r4",
+   "h": 35,
+   "margin": 1.0157239176780057,
+   "margin_lo": 1.0157239176780055,
+   "margin_hi": 1.0157239176780062,
+   "liftedMargin": 1.0157239176780057,
+   "agree": true,
+   "bitIdentical": true,
+   "sign": "positive"
+  },
+  {
+   "key": "catalan",
+   "constant": "G",
+   "k": 2,
+   "family": "E_k2_half_a8_b1_r1",
+   "h": 35,
+   "margin": 0.428375085443837,
+   "margin_lo": 0.4283750854438369,
+   "margin_hi": 0.4283750854438372,
+   "liftedMargin": 0.428375085443837,
+   "agree": true,
+   "bitIdentical": true,
+   "sign": "positive"
+  }
+ ],
+ "families": {
+  "zeta3": {
+   "constant": "ζ(3)",
+   "k": 3,
+   "spec": [
+    "Z",
+    3,
+    "int",
+    4,
+    1,
+    4
+   ],
+   "name": "Z_k3_int_a4_b1_r4",
+   "record": "certs/zeta-hankel/runs/scan3/Z_k3_int_a4_b1_r4.jsonl",
+   "record_sha256": "0039fb3b66f1f1cf46b58f4fea87d9c9660c4b25a7c34e4652004072f7338e7c",
+   "rows": [
+    {
+     "h": 3,
+     "deg": 3,
+     "logP": -12.529922611959266,
+     "logP_lo": -12.529922611959268,
+     "logP_hi": -12.529922611959265,
+     "margin": -1.3922136235510296,
+     "margin_lo": -1.39221362355103,
+     "margin_hi": -1.3922136235510292,
+     "log_content": -6.396929655216146,
+     "P_sha256": "0697357a28c307f494c89241f9b0a2e7e15c88f6969f0332e63cbc5f8f30cc0f",
+     "content_sha256": "4b6381164a67bc88073fabeb83654576d233d98fca5b64bce65aaa1abe1d070d",
+     "prec": 302,
+     "secs": 0.008,
+     "lifted": {
+      "logP": -12.529922611959266,
+      "log_content": -6.396929655216146,
+      "h": 3
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 1
+    },
+    {
+     "h": 6,
+     "deg": 6,
+     "logP": -55.22907444277261,
+     "logP_lo": -55.229074442772614,
+     "logP_hi": -55.2290744427726,
+     "margin": -1.5341409567436834,
+     "margin_lo": -1.534140956743684,
+     "margin_hi": -1.534140956743683,
+     "log_content": 3.513362274033206,
+     "P_sha256": "6d6a27cbf8387f51ef5e6118528b92366e0c37c1a18a85d97aeffab54d584772",
+     "content_sha256": "17181fe7834a53e6a3d07c1bea13f7b5a7ecd950f24250e5b176b8d78e938659",
+     "prec": 450,
+     "secs": 0.003,
+     "lifted": {
+      "logP": -55.22907444277261,
+      "log_content": 3.513362274033206,
+      "h": 6
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 2
+    },
+    {
+     "h": 9,
+     "deg": 9,
+     "logP": -112.20694566573398,
+     "logP_lo": -112.206945665734,
+     "logP_hi": -112.20694566573397,
+     "margin": -1.385270934144864,
+     "margin_lo": -1.3852709341448644,
+     "margin_hi": -1.3852709341448637,
+     "log_content": 37.52887246944392,
+     "P_sha256": "981a8f41eeb9408b3a44f22327baddd11f946aef636b153e1c3ca202ec4d8e9f",
+     "content_sha256": "781b0ba1cf27718b21238b3153eeee95ee679956330fb4a296dad4fe10572cee",
+     "prec": 721,
+     "secs": 0.002,
+     "lifted": {
+      "logP": -112.20694566573398,
+      "log_content": 37.52887246944392,
+      "h": 9
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 3
+    },
+    {
+     "h": 12,
+     "deg": 12,
+     "logP": -193.0241636888415,
+     "logP_lo": -193.02416368884153,
+     "logP_hi": -193.02416368884147,
+     "margin": -1.3404455811725104,
+     "margin_lo": -1.340445581172511,
+     "margin_hi": -1.34044558117251,
+     "log_content": 119.16184093976625,
+     "P_sha256": "b648dbecb9faf18295165d8ef7dc9d164b92b9858cc556c0b707deafb6180d90",
+     "content_sha256": "96ed0f8fae1e3ecfbf1c44e21f7714686f529df669107aefea654f6dc5f90820",
+     "prec": 2206,
+     "secs": 0.006,
+     "lifted": {
+      "logP": -193.0241636888415,
+      "log_content": 119.16184093976625,
+      "h": 12
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 4
+    },
+    {
+     "h": 15,
+     "deg": 15,
+     "logP": -311.41763144646944,
+     "logP_lo": -311.4176314464695,
+     "logP_hi": -311.4176314464694,
+     "margin": -1.3840783619843087,
+     "margin_lo": -1.3840783619843091,
+     "margin_hi": -1.3840783619843082,
+     "log_content": 272.1341417372246,
+     "P_sha256": "de523928229977839661c3e702e0822f9163831fd68ba3cfad297b7e5c6248f6",
+     "content_sha256": "2d3ecfd5c0ce2fe242f98ef203ee2a0d4e782d5556a965cd622b2af1cb944383",
+     "prec": 3148,
+     "secs": 0.006,
+     "lifted": {
+      "logP": -311.41763144646944,
+      "log_content": 272.1341417372246,
+      "h": 15
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 5
+    },
+    {
+     "h": 18,
+     "deg": 18,
+     "logP": -451.52125219998464,
+     "logP_lo": -451.5212521999847,
+     "logP_hi": -451.5212521999846,
+     "margin": -1.3935841117283476,
+     "margin_lo": -1.393584111728348,
+     "margin_hi": -1.3935841117283472,
+     "log_content": 488.37347421024265,
+     "P_sha256": "9e047a8e766ebf3f253043f1e8853d08e8500ad62a7f4f0652c8ec70ca3cd55a",
+     "content_sha256": "a5670660be35f28cdc68153b221b705b6b1adc9cf7697064f0efaba14dddd9d7",
+     "prec": 4320,
+     "secs": 0.01,
+     "lifted": {
+      "logP": -451.52125219998464,
+      "log_content": 488.37347421024265,
+      "h": 18
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 6
+    },
+    {
+     "h": 21,
+     "deg": 21,
+     "logP": -607.66578361156,
+     "logP_lo": -607.6657836115601,
+     "logP_hi": -607.6657836115598,
+     "margin": -1.3779269469649886,
+     "margin_lo": -1.377926946964989,
+     "margin_hi": -1.3779269469649882,
+     "log_content": 768.6075428155467,
+     "P_sha256": "4d64f532961fecc72fabd2562e4f20cdf622e4e5c3aa34fbb686ab1bf0b6fd63",
+     "content_sha256": "619a68d14a7bc59a7a7a3aeefb14e50e9d592c33df8dbbb6efb175dae1288ae2",
+     "prec": 5732,
+     "secs": 0.016,
+     "lifted": {
+      "logP": -607.66578361156,
+      "log_content": 768.6075428155467,
+      "h": 21
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 7
+    },
+    {
+     "h": 24,
+     "deg": 24,
+     "logP": -808.0428102567118,
+     "logP_lo": -808.042810256712,
+     "logP_hi": -808.0428102567117,
+     "margin": -1.4028521011401247,
+     "margin_lo": -1.4028521011401252,
+     "margin_hi": -1.4028521011401243,
+     "log_content": 1146.4548111219344,
+     "P_sha256": "24b06dfbf55bed52cf442ab7e0925afd49795dddb9ad0b38e7075a0ae3381925",
+     "content_sha256": "7d01d0e7b4148026bf147dc97c5399d7f640602f8c8ead6ec03d086b3db82f9c",
+     "prec": 7306,
+     "secs": 0.024,
+     "lifted": {
+      "logP": -808.0428102567118,
+      "log_content": 1146.4548111219344,
+      "h": 24
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 8
+    },
+    {
+     "h": 27,
+     "deg": 27,
+     "logP": -1013.6184589161833,
+     "logP_lo": -1013.6184589161834,
+     "logP_hi": -1013.6184589161832,
+     "margin": -1.3904231260852995,
+     "margin_lo": -1.3904231260852997,
+     "margin_hi": -1.390423126085299,
+     "log_content": 1587.5946695566545,
+     "P_sha256": "9615132cade41c0816163a2275be9bdbf83085555dcb677d20137d0c57aa5566",
+     "content_sha256": "650e08dc83f85d92d0e632a695ab8ddcb18f2e1ccb8535f84170ee73fd5d77ca",
+     "prec": 9156,
+     "secs": 0.039,
+     "lifted": {
+      "logP": -1013.6184589161833,
+      "log_content": 1587.5946695566545,
+      "h": 27
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 9
+    },
+    {
+     "h": 30,
+     "deg": 30,
+     "logP": -1247.012556093642,
+     "logP_lo": -1247.0125560936422,
+     "logP_hi": -1247.0125560936417,
+     "margin": -1.3855695067707132,
+     "margin_lo": -1.3855695067707137,
+     "margin_hi": -1.3855695067707128,
+     "log_content": 2118.8129528940917,
+     "P_sha256": "aceeb08ad26913e5ad25d987fed49346265a7e824b0aca68f26f4999bb9ad0ff",
+     "content_sha256": "b876518bbd277297c68d3f621caf0a80e69f7d12cd8597dce94b8a2cd8420f65",
+     "prec": 11212,
+     "secs": 0.072,
+     "lifted": {
+      "logP": -1247.012556093642,
+      "log_content": 2118.8129528940917,
+      "h": 30
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 10
+    },
+    {
+     "h": 33,
+     "deg": 33,
+     "logP": -1508.8762369071312,
+     "logP_lo": -1508.8762369071314,
+     "logP_hi": -1508.876236907131,
+     "margin": -1.385561282743004,
+     "margin_lo": -1.3855612827430044,
+     "margin_hi": -1.3855612827430035,
+     "log_content": 2744.493683562763,
+     "P_sha256": "b485c6a54fb525c518dc5e3f33a0cbc3941c01088e14f75e8b059ab8436e19f4",
+     "content_sha256": "ed1219603914acf8c482de454bf218a57ee8be4572588419b2e733e99ede21b2",
+     "prec": 13478,
+     "secs": 0.099,
+     "lifted": {
+      "logP": -1508.8762369071312,
+      "log_content": 2744.493683562763,
+      "h": 33
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 11
+    },
+    {
+     "h": 36,
+     "deg": 36,
+     "logP": -1812.48214370499,
+     "logP_lo": -1812.4821437049902,
+     "logP_hi": -1812.4821437049898,
+     "margin": -1.398520172611875,
+     "margin_lo": -1.3985201726118754,
+     "margin_hi": -1.3985201726118746,
+     "log_content": 3481.2910075104132,
+     "P_sha256": "eaf6478a1d267efc64056b2b3bb84dc054c71f6839c758ef0dd685b50d89065b",
+     "content_sha256": "2daa11013d344f36290e0f4532aa66f616ee7e3b6fd0dec683a463e3cf247c12",
+     "prec": 15910,
+     "secs": 0.151,
+     "lifted": {
+      "logP": -1812.48214370499,
+      "log_content": 3481.2910075104132,
+      "h": 36
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 12
+    },
+    {
+     "h": 39,
+     "deg": 39,
+     "logP": -2098.4947164349796,
+     "logP_lo": -2098.49471643498,
+     "logP_hi": -2098.494716434979,
+     "margin": -1.379680944401696,
+     "margin_lo": -1.3796809444016966,
+     "margin_hi": -1.3796809444016955,
+     "log_content": 4272.9600444590415,
+     "P_sha256": "f67d500245f13e0bb8d71c9b9ac1d9a239488a26d10cc036cf2f732f18be46e6",
+     "content_sha256": "5e7d4d13666e417d80f3880dc61c0674ba6a6a94ac1c86d8dc416da0495e6454",
+     "prec": 18684,
+     "secs": 0.21,
+     "lifted": {
+      "logP": -2098.4947164349796,
+      "log_content": 4272.9600444590415,
+      "h": 39
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 13
+    }
+   ],
+   "secs": 0.66
+  },
+  "zeta5": {
+   "constant": "ζ(5)",
+   "k": 5,
+   "spec": [
+    "Z",
+    5,
+    "int",
+    8,
+    1,
+    6
+   ],
+   "name": "Z_k5_int_a8_b1_r6",
+   "record": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r6.jsonl",
+   "record_sha256": "d81897d485e38f3e45b38555001f398c5b3d34a77b55a3cc7914231ba8f850e3",
+   "rows": [
+    {
+     "h": 7,
+     "deg": 7,
+     "logP": -16.301195949060475,
+     "logP_lo": -16.301195949060478,
+     "logP_hi": -16.30119594906047,
+     "margin": -0.33267746834817297,
+     "margin_lo": -0.3326774683481731,
+     "margin_hi": -0.3326774683481728,
+     "log_content": -49.85058416233227,
+     "P_sha256": "fa597172bb0a86eb6f7310636ed553b6c3127bcb1cafcb790664a509ed9ab947",
+     "content_sha256": "c73ae300fefccaa0b9076ad1c68bee599a6309b3f12701294795dfa4129c3f87",
+     "prec": 544,
+     "secs": 0.001,
+     "lifted": {
+      "logP": -16.301195949060475,
+      "log_content": -49.85058416233227,
+      "h": 7
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 1
+    },
+    {
+     "h": 14,
+     "deg": 14,
+     "logP": -55.04260477830346,
+     "logP_lo": -55.04260477830347,
+     "logP_hi": -55.042604778303456,
+     "margin": -0.280829616215834,
+     "margin_lo": -0.2808296162158341,
+     "margin_hi": -0.2808296162158339,
+     "log_content": -113.14971468960476,
+     "P_sha256": "45cd82cf49a0e0bf7654d7684c51dbde38b7c714d4c26258169582907596030e",
+     "content_sha256": "8f62d197b3dfbf2a6810f9787a707ead82b4b578b8edd759fdce35b43a1b6962",
+     "prec": 1456,
+     "secs": 0.005,
+     "lifted": {
+      "logP": -55.04260477830346,
+      "log_content": -113.14971468960476,
+      "h": 14
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 2
+    },
+    {
+     "h": 21,
+     "deg": 21,
+     "logP": -105.30801772504276,
+     "logP_lo": -105.30801772504277,
+     "logP_hi": -105.30801772504275,
+     "margin": -0.23879369098649153,
+     "margin_lo": -0.23879369098649159,
+     "margin_hi": -0.23879369098649145,
+     "log_content": -111.60283157924874,
+     "P_sha256": "36b987ddc9c53e8a9e09ffd36150070dc3abb3012bf8a963777ee8c22e5ab8af",
+     "content_sha256": "0b475d0ab2b50ab9ed86c2036b79ffef48996a66c97d833302fad84463664307",
+     "prec": 3008,
+     "secs": 0.04,
+     "lifted": {
+      "logP": -105.30801772504276,
+      "log_content": -111.60283157924874,
+      "h": 21
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 3
+    },
+    {
+     "h": 28,
+     "deg": 28,
+     "logP": -139.14749127238355,
+     "logP_lo": -139.14749127238358,
+     "logP_hi": -139.14749127238352,
+     "margin": -0.17748404499028514,
+     "margin_lo": -0.1774840449902852,
+     "margin_hi": -0.17748404499028508,
+     "log_content": -19.795340274714476,
+     "P_sha256": "a73cb33aa8546764f0ab5fb2d82a38adb7d994080deb30703d3a4cfe6adc51c8",
+     "content_sha256": "60d14bd980a946695612f1abca895b402175032e51eee011a7d4aa67d4f471e5",
+     "prec": 10478,
+     "secs": 0.051,
+     "lifted": {
+      "logP": -139.14749127238355,
+      "log_content": -19.795340274714476,
+      "h": 28
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 4
+    },
+    {
+     "h": 35,
+     "deg": 35,
+     "logP": -226.78756364918803,
+     "logP_lo": -226.78756364918806,
+     "logP_hi": -226.787563649188,
+     "margin": -0.18513270501974533,
+     "margin_lo": -0.18513270501974538,
+     "margin_hi": -0.18513270501974527,
+     "log_content": 270.8970436206273,
+     "P_sha256": "e2079dd9d54a51a35a5527cfea545f3f42bd0687bdc6bec5125ee924d741f82a",
+     "content_sha256": "d560736d7e8ae244cf8c0ade2a11d36d2255338032e1b4a673bf2e9f4a6e4ef8",
+     "prec": 16096,
+     "secs": 0.16,
+     "lifted": {
+      "logP": -226.78756364918803,
+      "log_content": 270.8970436206273,
+      "h": 35
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 5
+    }
+   ],
+   "secs": 0.26
+  },
+  "zeta7": {
+   "constant": "ζ(7)",
+   "k": 7,
+   "spec": [
+    "Z",
+    7,
+    "int",
+    8,
+    1,
+    4
+   ],
+   "name": "Z_k7_int_a8_b1_r4",
+   "record": "certs/zeta-hankel/runs/scan3/Z_k7_int_a8_b1_r4.jsonl",
+   "record_sha256": "bec0bc144a8319787e943f604cd8535107809baf8461bbbb908eb859513d8b64",
+   "rows": [
+    {
+     "h": 7,
+     "deg": 7,
+     "logP": 26.25489707274107,
+     "logP_lo": 26.254897072741066,
+     "logP_hi": 26.254897072741073,
+     "margin": 0.5358142259743075,
+     "margin_lo": 0.5358142259743074,
+     "margin_hi": 0.5358142259743077,
+     "log_content": -107.03806462314738,
+     "P_sha256": "e3a1d2fcd64708c652a23a732300752d1122d64ff0a695303acc09fa068f6edf",
+     "content_sha256": "62a0092078bdd4065c28a8c96f74e62f6824c6033c6ce8103152d31106118b73",
+     "prec": 597,
+     "secs": 0.001,
+     "lifted": {
+      "logP": 26.25489707274107,
+      "log_content": -107.03806462314738,
+      "h": 7
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 1
+    },
+    {
+     "h": 14,
+     "deg": 14,
+     "logP": 145.780143166859,
+     "logP_lo": 145.78014316685898,
+     "logP_hi": 145.78014316685903,
+     "margin": 0.7437762406472398,
+     "margin_lo": 0.7437762406472396,
+     "margin_hi": 0.7437762406472401,
+     "log_content": -451.588803445443,
+     "P_sha256": "20605d5d45cc8e9271a47c8126d816d6f4e84c6c107cbe0251857e838b69e337",
+     "content_sha256": "ec33d9859ce52c13abec05fdba0f273329f1119fa7ffbc10abb0f0fb939cc3f5",
+     "prec": 1690,
+     "secs": 0.006,
+     "lifted": {
+      "logP": 145.780143166859,
+      "log_content": -451.588803445443,
+      "h": 14
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 2
+    },
+    {
+     "h": 21,
+     "deg": 21,
+     "logP": 399.60894630209344,
+     "logP_lo": 399.6089463020934,
+     "logP_hi": 399.6089463020935,
+     "margin": 0.9061427353788967,
+     "margin_lo": 0.9061427353788964,
+     "margin_hi": 0.9061427353788969,
+     "log_content": -1035.9111748051798,
+     "P_sha256": "2cb85990ecc18625cf0d12dcc1fe071115cd615733f87c3d2aca44a0d74dde93",
+     "content_sha256": "5fdca3f073a3675dbaf43c5cc78e71720769c02515478f4b6f9e7ae731591f24",
+     "prec": 3587,
+     "secs": 0.018,
+     "lifted": {
+      "logP": 399.60894630209344,
+      "log_content": -1035.9111748051798,
+      "h": 21
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 3
+    },
+    {
+     "h": 28,
+     "deg": 28,
+     "logP": 797.2099810159265,
+     "logP_lo": 797.2099810159264,
+     "logP_hi": 797.2099810159266,
+     "margin": 1.0168494655815388,
+     "margin_lo": 1.0168494655815385,
+     "margin_hi": 1.0168494655815392,
+     "log_content": -1841.7313178228476,
+     "P_sha256": "62d29fc0de318fd5ab6e706e0ca3bcf7c7ec5d2f8e4a10c22591d5d764d9bc48",
+     "content_sha256": "11ad1d2a95092291ca5a0999753262ef621442d2906ff72e2f2ed47fbb81d667",
+     "prec": 6303,
+     "secs": 0.051,
+     "lifted": {
+      "logP": 797.2099810159265,
+      "log_content": -1841.7313178228476,
+      "h": 28
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 4
+    },
+    {
+     "h": 35,
+     "deg": 35,
+     "logP": 1244.2617991555571,
+     "logP_lo": 1244.261799155557,
+     "logP_hi": 1244.2617991555574,
+     "margin": 1.0157239176780057,
+     "margin_lo": 1.0157239176780055,
+     "margin_hi": 1.0157239176780062,
+     "log_content": -2753.7922362245354,
+     "P_sha256": "948ea99f1b468539e7914b2a8d5899e7cd3c3d856a54ce7067a4dbeb46be3c6e",
+     "content_sha256": "ad48f90133d7a31e311d917ae2e0cb6ed6bd0fe14d3d042839dd807c0e6a6c4b",
+     "prec": 9699,
+     "secs": 0.156,
+     "lifted": {
+      "logP": 1244.2617991555571,
+      "log_content": -2753.7922362245354,
+      "h": 35
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 5
+    }
+   ],
+   "secs": 0.24
+  },
+  "catalan": {
+   "constant": "G",
+   "k": 2,
+   "spec": [
+    "E",
+    2,
+    "half",
+    8,
+    1,
+    1
+   ],
+   "name": "E_k2_half_a8_b1_r1",
+   "record": "certs/zeta-hankel/runs/scan3/E_k2_half_a8_b1_r1.jsonl",
+   "record_sha256": "a14c6f8b36576385232efb12310164a3c316c801b86928c89e36f83bae9a7076",
+   "rows": [
+    {
+     "h": 7,
+     "deg": 7,
+     "logP": -3.5619477497099377,
+     "logP_lo": -3.561947749709938,
+     "logP_hi": -3.561947749709937,
+     "margin": -0.07269281121857016,
+     "margin_lo": -0.07269281121857019,
+     "margin_hi": -0.07269281121857013,
+     "log_content": -97.76566079588216,
+     "P_sha256": "fc4c86a7d41e343d615b92597c247f94c82afcb752c6bb22927137711f0f702b",
+     "content_sha256": "69a4fee3d2f1ccad97b5dd694199d78cfbc7be91fdebf92704c80fc1142431e6",
+     "prec": 430,
+     "secs": 0.003,
+     "lifted": {
+      "logP": -3.5619477497099377,
+      "log_content": -97.76566079588216,
+      "h": 7
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 1
+    },
+    {
+     "h": 14,
+     "deg": 14,
+     "logP": 45.41725221356666,
+     "logP_lo": 45.417252213566655,
+     "logP_hi": 45.41725221356667,
+     "margin": 0.23172067455901357,
+     "margin_lo": 0.23172067455901352,
+     "margin_hi": 0.23172067455901366,
+     "log_content": -493.01558994646786,
+     "P_sha256": "75c392c5ae4ca1fbb960a29b581f505145ebcc27602522192a750f82b39b9776",
+     "content_sha256": "f881f35a4052797c4c29faba8ecc4ae81bec474ddf07819b21c17238aa473e63",
+     "prec": 1048,
+     "secs": 0.007,
+     "lifted": {
+      "logP": 45.41725221356666,
+      "log_content": -493.01558994646786,
+      "h": 14
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 2
+    },
+    {
+     "h": 21,
+     "deg": 21,
+     "logP": 133.97991784858263,
+     "logP_lo": 133.9799178485826,
+     "logP_hi": 133.97991784858266,
+     "margin": 0.3038093375251307,
+     "margin_lo": 0.30380933752513056,
+     "margin_hi": 0.3038093375251308,
+     "log_content": -1178.1732784784167,
+     "P_sha256": "e1568565810e10e8db7ce9046bd6bdaae0d1b3c51a806864864ffc7233ccb9b4",
+     "content_sha256": "92847d9f9798bd7e05ddd5b96189c84884a50eeb83bb35f7ffa53a23d5cd2abc",
+     "prec": 2091,
+     "secs": 0.019,
+     "lifted": {
+      "logP": 133.97991784858263,
+      "log_content": -1178.1732784784167,
+      "h": 21
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 3
+    },
+    {
+     "h": 28,
+     "deg": 28,
+     "logP": 274.3911937609983,
+     "logP_lo": 274.39119376099825,
+     "logP_hi": 274.39119376099836,
+     "margin": 0.34998876755229374,
+     "margin_lo": 0.34998876755229363,
+     "margin_hi": 0.3499887675522939,
+     "log_content": -2166.7612054874908,
+     "P_sha256": "380f7b87936e42b56c01145491601d3f452ed361e9e28e4d37824ed5f5170aa2",
+     "content_sha256": "0a7af00691b3a5acd08362e97511f687c8fe40b688756f47adadaef96716b403",
+     "prec": 3575,
+     "secs": 0.056,
+     "lifted": {
+      "logP": 274.3911937609983,
+      "log_content": -2166.7612054874908,
+      "h": 28
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 4
+    },
+    {
+     "h": 35,
+     "deg": 35,
+     "logP": 524.7594796687004,
+     "logP_lo": 524.7594796687002,
+     "logP_hi": 524.7594796687005,
+     "margin": 0.428375085443837,
+     "margin_lo": 0.4283750854438369,
+     "margin_hi": 0.4283750854438372,
+     "log_content": -3517.489379626256,
+     "P_sha256": "be617849c05c242f7e15d43c2f6a9ad1894d2bd42586518009296edf0d2e5fc9",
+     "content_sha256": "1529f03a47a4c69bcd03a1da7f7e40c2d8966c307861caeb7c72d6662c08df8a",
+     "prec": 5587,
+     "secs": 0.171,
+     "lifted": {
+      "logP": 524.7594796687004,
+      "log_content": -3517.489379626256,
+      "h": 35
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 5
+    }
+   ],
+   "secs": 0.26
+  },
+  "zeta5r4": {
+   "constant": "ζ(5)",
+   "k": 5,
+   "spec": [
+    "Z",
+    5,
+    "int",
+    8,
+    1,
+    4
+   ],
+   "name": "Z_k5_int_a8_b1_r4",
+   "record": "certs/zeta-hankel/runs/scan3/Z_k5_int_a8_b1_r4.jsonl",
+   "record_sha256": "4feac3dc8e61cb41b996ee4a04523b2459df28ceaeed914ec39df7a370fba9f1",
+   "rows": [
+    {
+     "h": 7,
+     "deg": 7,
+     "logP": -18.628794748625296,
+     "logP_lo": -18.6287947486253,
+     "logP_hi": -18.628794748625292,
+     "margin": -0.38017948466582235,
+     "margin_lo": -0.3801794846658225,
+     "margin_hi": -0.38017948466582224,
+     "log_content": -76.8405334836151,
+     "P_sha256": "0eed2f5e027454fcd21bf7260009f86c0513115ec2c663640f57c966557563b5",
+     "content_sha256": "8a273d2cb7670eda4ce8c1e71320506468cc91b7f01841802352b3794eeacac5",
+     "prec": 523,
+     "secs": 0.001,
+     "lifted": {
+      "logP": -18.628794748625296,
+      "log_content": -76.8405334836151,
+      "h": 7
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 1
+    },
+    {
+     "h": 14,
+     "deg": 14,
+     "logP": -64.99829000254825,
+     "logP_lo": -64.99829000254826,
+     "logP_hi": -64.99829000254823,
+     "margin": -0.3316239285844298,
+     "margin_lo": -0.33162392858442996,
+     "margin_hi": -0.3316239285844297,
+     "log_content": -284.74238780353284,
+     "P_sha256": "d691b000fd241add7f246ed0b9e21594dd47bd5485166ac23353c57cce6de05a",
+     "content_sha256": "47594de10cb05bc66dae570ad837dbb6f4e676c14ff35be59e6a2a3976565f5e",
+     "prec": 1363,
+     "secs": 0.005,
+     "lifted": {
+      "logP": -64.99829000254825,
+      "log_content": -284.74238780353284,
+      "h": 14
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 2
+    },
+    {
+     "h": 21,
+     "deg": 21,
+     "logP": -107.70585539648783,
+     "logP_lo": -107.70585539648785,
+     "logP_hi": -107.70585539648782,
+     "margin": -0.24423096461788624,
+     "margin_lo": -0.2442309646178863,
+     "margin_hi": -0.24423096461788618,
+     "log_content": -608.7543797267933,
+     "P_sha256": "2370dca3695d7d818c34b69f3e4fb955db521e93ac17f68ae7edc561bdd67605",
+     "content_sha256": "ad7ef953cb9cc181360c14a8e37d81d5b8caac7ec7750bf727908bd2202603ad",
+     "prec": 2819,
+     "secs": 0.015,
+     "lifted": {
+      "logP": -107.70585539648783,
+      "log_content": -608.7543797267933,
+      "h": 21
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 3
+    },
+    {
+     "h": 28,
+     "deg": 28,
+     "logP": -162.79868466584165,
+     "logP_lo": -162.79868466584168,
+     "logP_hi": -162.79868466584162,
+     "margin": -0.20765138350234905,
+     "margin_lo": -0.2076513835023491,
+     "margin_hi": -0.207651383502349,
+     "log_content": -1002.7500023034398,
+     "P_sha256": "d9c7f3d630714d769e68ef4852c7850a4a159d219fcb55d0eb92ddb8615006fb",
+     "content_sha256": "dd8ca98b057a3a02811495eabb84b7b546da707b306cdc880ab4d04d7d829be9",
+     "prec": 9734,
+     "secs": 0.049,
+     "lifted": {
+      "logP": -162.79868466584165,
+      "log_content": -1002.7500023034398,
+      "h": 28
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 4
+    },
+    {
+     "h": 35,
+     "deg": 35,
+     "logP": -219.59621036327061,
+     "logP_lo": -219.59621036327064,
+     "logP_hi": -219.5962103632706,
+     "margin": -0.1792622125414454,
+     "margin_lo": -0.17926221254144545,
+     "margin_hi": -0.17926221254144534,
+     "log_content": -1455.314244354426,
+     "P_sha256": "9e086d9da70cff0d91fee24a7262979f511cb667afcb9dd158f28ca2268d9da8",
+     "content_sha256": "ca425a3bfc355b3d69b339588c618c305b4daa06fdd6cf99137e7247a9b3cb12",
+     "prec": 15044,
+     "secs": 0.129,
+     "lifted": {
+      "logP": -219.59621036327061,
+      "log_content": -1455.314244354426,
+      "h": 35
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "m": 5
+    }
+   ],
+   "secs": 0.2
+  }
+ },
+ "calegari": {
+  "calegari5": {
+   "constant": "ζ(5)",
+   "k": 5,
+   "family": "K = 12n, N = n, r = 6, h = 11n (hankel.run)",
+   "record": "certs/zeta-hankel/runs/k5_12_1_6.jsonl",
+   "record_sha256": "11abe066a60a47ed183ab6ace46a46e704cb397e2c2a966891c2dff4b30f41a2",
+   "rows": [
+    {
+     "h": 11,
+     "deg": 11,
+     "logP": -38.048726807331086,
+     "logP_lo": -38.04872680733109,
+     "logP_hi": -38.04872680733108,
+     "margin": -0.31445228766389327,
+     "margin_lo": -0.3144522876638934,
+     "margin_hi": -0.31445228766389316,
+     "log_content": -168.9140608580881,
+     "P_sha256": "c0c17674a7be8fccbe9b210830e3811600f2929a33c358b0595c799511572e0c",
+     "content_sha256": "8af693a7d7e2c149893caf2f14fc24e251230226922c013277bcac33d2f19a53",
+     "prec": 909,
+     "secs": 0.002,
+     "lifted": {
+      "logP": -38.048726807331086,
+      "log_content": -168.9140608580881,
+      "h": 11
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 1
+    },
+    {
+     "h": 22,
+     "deg": 22,
+     "logP": -132.95959838880862,
+     "logP_lo": -132.95959838880864,
+     "logP_hi": -132.9595983888086,
+     "margin": -0.2747099140264641,
+     "margin_lo": -0.2747099140264642,
+     "margin_hi": -0.27470991402646394,
+     "log_content": -554.9139114140507,
+     "P_sha256": "c9f0713d6ac5ac4f3675717726f9a2b06c1fff1f50681a7660b5e485aa629675",
+     "content_sha256": "be7e5fd03f21486c7f154615d1e8388c238294044205d50359f9afa44cb04b1b",
+     "prec": 2936,
+     "secs": 0.014,
+     "lifted": {
+      "logP": -132.95959838880862,
+      "log_content": -554.9139114140507,
+      "h": 22
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 2
+    },
+    {
+     "h": 33,
+     "deg": 33,
+     "logP": -214.02189260539126,
+     "logP_lo": -214.0218926053913,
+     "logP_hi": -214.02189260539123,
+     "margin": -0.19653066354948692,
+     "margin_lo": -0.19653066354948698,
+     "margin_hi": -0.19653066354948687,
+     "log_content": -1089.100632479295,
+     "P_sha256": "127c43dfdba2f900d9cca0354d71cfb027780803d188f7f65b4e3416ec0e7bef",
+     "content_sha256": "b8418248c76223fdb76d774daf083612397ac1f372ea151bc292b642594f4c29",
+     "prec": 12874,
+     "secs": 0.096,
+     "lifted": {
+      "logP": -214.02189260539126,
+      "log_content": -1089.100632479295,
+      "h": 33
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 3
+    },
+    {
+     "h": 44,
+     "deg": 44,
+     "logP": -375.1423058632771,
+     "logP_lo": -375.14230586327716,
+     "logP_hi": -375.14230586327704,
+     "margin": -0.19377185220210594,
+     "margin_lo": -0.193771852202106,
+     "margin_hi": -0.19377185220210588,
+     "log_content": -1593.656762945754,
+     "P_sha256": "def7f6259ac82f51218be7b99346d6cc6298f300f7ec0372e07377e909671a3e",
+     "content_sha256": "9046437627c2939e489a1192cc913eb88d847b69351ef0a9d29a278807168157",
+     "prec": 22552,
+     "secs": 0.348,
+     "lifted": {
+      "logP": -375.1423058632771,
+      "log_content": -1593.656762945754,
+      "h": 44
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 4
+    },
+    {
+     "h": 55,
+     "deg": 55,
+     "logP": -566.8708023377048,
+     "logP_lo": -566.870802337705,
+     "logP_hi": -566.8708023377047,
+     "margin": -0.18739530655791894,
+     "margin_lo": -0.18739530655791903,
+     "margin_hi": -0.1873953065579189,
+     "log_content": -2057.67439703515,
+     "P_sha256": "292091233c30a5979e130ca85459a8900710375f5615661b8306e5426a5b996f",
+     "content_sha256": "be75877ecd306b9da447022112ca8b923d5e94db8876c4596be2420b39f2ad59",
+     "prec": 35050,
+     "secs": 1.039,
+     "lifted": {
+      "logP": -566.8708023377048,
+      "log_content": -2057.67439703515,
+      "h": 55
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 5
+    },
+    {
+     "h": 66,
+     "deg": 66,
+     "logP": -745.2543326325788,
+     "logP_lo": -745.2543326325789,
+     "logP_hi": -745.2543326325787,
+     "margin": -0.17108685322143682,
+     "margin_lo": -0.17108685322143688,
+     "margin_hi": -0.17108685322143677,
+     "log_content": -2477.8693742563473,
+     "P_sha256": "7099e36d32d0edac7693ae7b431782ad293950c37de3e689f98d41da02c8475c",
+     "content_sha256": "a3e6848db3edef3a2f3db6e6341c5a8f0f758fcb1afa6e536f79570cadecdb22",
+     "prec": 50492,
+     "secs": 2.631,
+     "lifted": {
+      "logP": -745.2543326325788,
+      "log_content": -2477.8693742563473,
+      "h": 66
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 6
+    },
+    {
+     "h": 77,
+     "deg": 77,
+     "logP": -966.8163219994182,
+     "logP_lo": -966.8163219994183,
+     "logP_hi": -966.816321999418,
+     "margin": -0.16306566402418926,
+     "margin_lo": -0.16306566402418932,
+     "margin_hi": -0.16306566402418923,
+     "log_content": -2758.882539613369,
+     "P_sha256": "0a48e1c0ea161b789b6fb64e44bc577218cfa158ce589bcc0d2ffad3feee21f9",
+     "content_sha256": "a8bfd26829adc1cfa6b8a47efc6b66fe616384e712d569826ebac5a244abc244",
+     "prec": 68724,
+     "secs": 4.922,
+     "lifted": {
+      "logP": -966.8163219994182,
+      "log_content": -2758.882539613369,
+      "h": 77
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 7
+    },
+    {
+     "h": 88,
+     "deg": 88,
+     "logP": -1252.647941015717,
+     "logP_lo": -1252.6479410157172,
+     "logP_hi": -1252.6479410157167,
+     "margin": -0.16175722378818658,
+     "margin_lo": -0.16175722378818663,
+     "margin_hi": -0.16175722378818652,
+     "log_content": -2846.638925167179,
+     "P_sha256": "6279ea1140391537de3edb2deb6b908a9f0ce354cbadbc44cefca6e0daa85966",
+     "content_sha256": "9c29dc0874c72d308877e57fb2e049816c39ea6fdf009dd5d1fe02d407d62691",
+     "prec": 89676,
+     "secs": 11.474,
+     "lifted": {
+      "logP": -1252.647941015717,
+      "log_content": -2846.638925167179,
+      "h": 88
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 8
+    },
+    {
+     "h": 99,
+     "deg": 99,
+     "logP": -1491.2924989350051,
+     "logP_lo": -1491.2924989350054,
+     "logP_hi": -1491.292498935005,
+     "margin": -0.15215717773033416,
+     "margin_lo": -0.15215717773033421,
+     "margin_hi": -0.1521571777303341,
+     "log_content": -2823.9255808075086,
+     "P_sha256": "443075640533ffabb93d874d69536f0185a6848ee626c4a3405e279bebf102e2",
+     "content_sha256": "f3a4b6a1e8a91c8ad3f540c35a46004f4ce3d5108479d85fe28ad92a6a818d7c",
+     "prec": 113676,
+     "secs": 31.461,
+     "lifted": {
+      "logP": -1491.2924989350051,
+      "log_content": -2823.9255808075086,
+      "h": 99
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 9
+    }
+   ],
+   "liftedOnly": [
+    {
+     "n": 10,
+     "h": 110,
+     "logP": -1896.6323539694165,
+     "margin": -0.15674647553466253
+    }
+   ],
+   "secs": 52.77
+  },
+  "calegari7": {
+   "constant": "ζ(7)",
+   "k": 7,
+   "family": "K = 12n, N = n, r = 6, h = 11n (hankel.run)",
+   "record": "certs/zeta-hankel/runs/k7_12_1_6.jsonl",
+   "record_sha256": "531273ce0ab13a706a3e061ac4abd6dc9733451be3408134e8b254db34f4b130",
+   "rows": [
+    {
+     "h": 11,
+     "deg": 11,
+     "logP": 76.4572369113764,
+     "logP_lo": 76.45723691137638,
+     "logP_hi": 76.45723691137641,
+     "margin": 0.6318779910031107,
+     "margin_lo": 0.6318779910031105,
+     "margin_hi": 0.6318779910031109,
+     "log_content": -252.69455293244755,
+     "P_sha256": "44fabde88241a653050ba0d7d361c38d6486055896dfabe2f717a4a69747dd5f",
+     "content_sha256": "492666bcece47c3458541bf0cec41b4e446a40be77aa48c82763aa224d023199",
+     "prec": 1087,
+     "secs": 0.005,
+     "lifted": {
+      "logP": 76.4572369113764,
+      "log_content": -252.69455293244755,
+      "h": 11
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 1
+    },
+    {
+     "h": 22,
+     "deg": 22,
+     "logP": 393.1827792669958,
+     "logP_lo": 393.18277926699574,
+     "logP_hi": 393.18277926699585,
+     "margin": 0.8123611141880078,
+     "margin_lo": 0.8123611141880076,
+     "margin_hi": 0.812361114188008,
+     "log_content": -993.8513824704103,
+     "P_sha256": "ace3cfaf19497ffba3d56db72da08b0957a580fc579bc83addb1f6cf4343bad9",
+     "content_sha256": "232276b74d0f4a0c324b67f694e6c0c74f0bcfa9658ed98fee72f4f822242ed8",
+     "prec": 3724,
+     "secs": 0.045,
+     "lifted": {
+      "logP": 393.1827792669958,
+      "log_content": -993.8513824704103,
+      "h": 22
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 2
+    },
+    {
+     "h": 33,
+     "deg": 33,
+     "logP": 1007.4483772928643,
+     "logP_lo": 1007.4483772928642,
+     "logP_hi": 1007.4483772928644,
+     "margin": 0.9251132941164961,
+     "margin_lo": 0.9251132941164959,
+     "margin_hi": 0.9251132941164963,
+     "log_content": -2155.3689465417883,
+     "P_sha256": "157075d04280209112f15977b35da3b047138d6c182e5702bd978f18e35d5d74",
+     "content_sha256": "771d6ae8e13cf3fece932c98c7b663977d28c70bbaac21f2042445e9e25e5ed0",
+     "prec": 8245,
+     "secs": 0.412,
+     "lifted": {
+      "logP": 1007.4483772928643,
+      "log_content": -2155.3689465417883,
+      "h": 33
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 3
+    },
+    {
+     "h": 44,
+     "deg": 44,
+     "logP": 1822.904235939935,
+     "logP_lo": 1822.9042359399348,
+     "logP_hi": 1822.9042359399352,
+     "margin": 0.9415827664979003,
+     "margin_lo": 0.9415827664979001,
+     "margin_hi": 0.9415827664979005,
+     "log_content": -3561.0068363066353,
+     "P_sha256": "ee17ca2db0e4ff366f19d2b8eb73a8e9a6f00c5a38985c9864efae4ed851b66f",
+     "content_sha256": "e245917bcb1c914765562c32622875ce734f8b035cfc2411294de52584f2c9db",
+     "prec": 14509,
+     "secs": 1.481,
+     "lifted": {
+      "logP": 1822.904235939935,
+      "log_content": -3561.0068363066353,
+      "h": 44
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 4
+    },
+    {
+     "h": 55,
+     "deg": 55,
+     "logP": 2874.4268594332316,
+     "logP_lo": 2874.426859433231,
+     "logP_hi": 2874.426859433232,
+     "margin": 0.9502237551845394,
+     "margin_lo": 0.950223755184539,
+     "margin_hi": 0.9502237551845396,
+     "log_content": -5187.221381049325,
+     "P_sha256": "779bdf281397d4066b2b444f6bc31b13d082f4fa873c1c90b3c7a9652703ba99",
+     "content_sha256": "d2a4973cb96a627ad427471b1d1512468754ecb59e430d52ffb2a35617785bc5",
+     "prec": 22570,
+     "secs": 4.755,
+     "lifted": {
+      "logP": 2874.4268594332316,
+      "log_content": -5187.221381049325,
+      "h": 55
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 5
+    },
+    {
+     "h": 66,
+     "deg": 66,
+     "logP": 4221.945574342147,
+     "logP_lo": 4221.945574342146,
+     "logP_hi": 4221.945574342148,
+     "margin": 0.9692253384623845,
+     "margin_lo": 0.9692253384623841,
+     "margin_hi": 0.9692253384623848,
+     "log_content": -7047.839643847479,
+     "P_sha256": "dcfae47dc98bae01a59ae324cbcd82b8e9180b4c2d8656eb98b553249f90422e",
+     "content_sha256": "3a696813faa755c331006036b7be440ef1affafce16bcbda860e259a134c0e63",
+     "prec": 32509,
+     "secs": 9.685,
+     "lifted": {
+      "logP": 4221.945574342147,
+      "log_content": -7047.839643847479,
+      "h": 66
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 6
+    },
+    {
+     "h": 77,
+     "deg": 77,
+     "logP": 5910.469588183922,
+     "logP_lo": 5910.469588183921,
+     "logP_hi": 5910.4695881839225,
+     "margin": 0.9968746142998687,
+     "margin_lo": 0.9968746142998685,
+     "margin_hi": 0.996874614299869,
+     "log_content": -9149.780933771037,
+     "P_sha256": "66774d13c2c531bb952eb93cfe408622ea165fe5e73bf3f927ef97af4d1e84fc",
+     "content_sha256": "07968e9e8f16b010fd6488047b5fccece0bfbc5b8f3e3926e2768f1172e369f3",
+     "prec": 44398,
+     "secs": 18.668,
+     "lifted": {
+      "logP": 5910.469588183922,
+      "log_content": -9149.780933771037,
+      "h": 77
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 7
+    },
+    {
+     "h": 88,
+     "deg": 88,
+     "logP": 7551.076203909376,
+     "logP_lo": 7551.076203909375,
+     "logP_hi": 7551.076203909377,
+     "margin": 0.9750873197197025,
+     "margin_lo": 0.9750873197197023,
+     "margin_hi": 0.9750873197197027,
+     "log_content": -11071.667611234776,
+     "P_sha256": "169cfd420a359a9c6001a3643904c7ad7f258e5a0c74ca25cd42801c0b14462c",
+     "content_sha256": "9c7ee3e46020fad10312e61545c21d24c47181267608b8592e789cbeb96da7ee",
+     "prec": 57671,
+     "secs": 26.613,
+     "lifted": {
+      "logP": 7551.076203909376,
+      "log_content": -11071.667611234776,
+      "h": 88
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 8
+    },
+    {
+     "h": 99,
+     "deg": 99,
+     "logP": 9727.475555610787,
+     "logP_lo": 9727.475555610785,
+     "logP_hi": 9727.475555610788,
+     "margin": 0.9924982711571051,
+     "margin_lo": 0.9924982711571048,
+     "margin_hi": 0.9924982711571053,
+     "log_content": -13368.935429344276,
+     "P_sha256": "09935beb6738fe754d7d07d26690f662bb845a501a460e77b989b082183772bf",
+     "content_sha256": "af681743e1755daea0736e95288b2ad50f48e5cd07d7767428c7f84bd457cbc5",
+     "prec": 73171,
+     "secs": 40.47,
+     "lifted": {
+      "logP": 9727.475555610787,
+      "log_content": -13368.935429344276,
+      "h": 99
+     },
+     "bitIdentical": true,
+     "agree": true,
+     "n": 9
+    }
+   ],
+   "liftedOnly": [
+    {
+     "n": 10,
+     "h": 110,
+     "logP": 12210.98050133998,
+     "margin": 1.0091719422595025
+    }
+   ],
+   "secs": 103.95
+  }
+ },
+ "padic": {
+  "record": "certs/zeta-hankel/runs/padic-k5-k7.json",
+  "record_sha256": "e5135a6c8b2e892292c6eff9f08b87747777ea8940d6ed8939c7a3e9949a09db",
+  "family": "Z int a=12 b=1 r=6, m=5 (K=60, N=5, h=55)",
+  "here": {
+   "5": {
+    "res": {
+     "k": 5,
+     "h": 55,
+     "deg": 55,
+     "log_content": -2057.67439703515,
+     "logP_at_X": -566.8708023377048,
+     "log_delta_at_X": -2624.5451993728548
+    },
+    "prof": {
+     "2": 1414,
+     "3": 601,
+     "5": 142,
+     "7": 97,
+     "11": -5,
+     "13": -55,
+     "17": -117,
+     "19": -131,
+     "23": -173,
+     "29": -167,
+     "31": -170,
+     "37": -140,
+     "41": -104,
+     "43": -90,
+     "47": -62,
+     "53": -20,
+     "59": -2
+    }
+   },
+   "7": {
+    "res": {
+     "k": 7,
+     "h": 55,
+     "deg": 55,
+     "log_content": -5187.221381049325,
+     "logP_at_X": 2874.4268594332316,
+     "log_delta_at_X": -2312.7945216160933
+    },
+    "prof": {
+     "2": 1052,
+     "3": 366,
+     "5": -5,
+     "7": -18,
+     "11": -105,
+     "13": -154,
+     "17": -221,
+     "19": -237,
+     "23": -251,
+     "29": -201,
+     "31": -208,
+     "37": -178,
+     "41": -142,
+     "43": -124,
+     "47": -88,
+     "53": -34,
+     "59": -4
+    }
+   }
+  },
+  "profilesEqual": true,
+  "resEqual": true,
+  "secs": 5.77,
+  "derived": {
+   "K": 60,
+   "rows": [
+    {
+     "p": 11,
+     "v5": -5,
+     "v7": -105,
+     "extra": 100,
+     "naive": 98
+    },
+    {
+     "p": 13,
+     "v5": -55,
+     "v7": -154,
+     "extra": 99,
+     "naive": 94
+    },
+    {
+     "p": 17,
+     "v5": -117,
+     "v7": -221,
+     "extra": 104,
+     "naive": 86
+    },
+    {
+     "p": 19,
+     "v5": -131,
+     "v7": -237,
+     "extra": 106,
+     "naive": 82
+    },
+    {
+     "p": 23,
+     "v5": -173,
+     "v7": -251,
+     "extra": 78,
+     "naive": 74
+    },
+    {
+     "p": 29,
+     "v5": -167,
+     "v7": -201,
+     "extra": 34,
+     "naive": 62
+    },
+    {
+     "p": 31,
+     "v5": -170,
+     "v7": -208,
+     "extra": 38,
+     "naive": 58
+    },
+    {
+     "p": 37,
+     "v5": -140,
+     "v7": -178,
+     "extra": 38,
+     "naive": 46
+    },
+    {
+     "p": 41,
+     "v5": -104,
+     "v7": -142,
+     "extra": 38,
+     "naive": 38
+    },
+    {
+     "p": 43,
+     "v5": -90,
+     "v7": -124,
+     "extra": 34,
+     "naive": 34
+    },
+    {
+     "p": 47,
+     "v5": -62,
+     "v7": -88,
+     "extra": 26,
+     "naive": 26
+    },
+    {
+     "p": 53,
+     "v5": -20,
+     "v7": -34,
+     "extra": 14,
+     "naive": 14
+    },
+    {
+     "p": 59,
+     "v5": -2,
+     "v7": -4,
+     "extra": 2,
+     "naive": 2
+    }
+   ],
+   "extraLogWeighted": 2160.086776545296,
+   "naiveLogWeighted": 2200.111257286146,
+   "ratio": 0.9818079742066222,
+   "smallPrimes": [
+    2,
+    3,
+    5,
+    7
+   ],
+   "smallPrimesExtra": 969.4602074688797
+  },
+  "derivedFromLifted": {
+   "K": 60,
+   "rows": [
+    {
+     "p": 11,
+     "v5": -5,
+     "v7": -105,
+     "extra": 100,
+     "naive": 98
+    },
+    {
+     "p": 13,
+     "v5": -55,
+     "v7": -154,
+     "extra": 99,
+     "naive": 94
+    },
+    {
+     "p": 17,
+     "v5": -117,
+     "v7": -221,
+     "extra": 104,
+     "naive": 86
+    },
+    {
+     "p": 19,
+     "v5": -131,
+     "v7": -237,
+     "extra": 106,
+     "naive": 82
+    },
+    {
+     "p": 23,
+     "v5": -173,
+     "v7": -251,
+     "extra": 78,
+     "naive": 74
+    },
+    {
+     "p": 29,
+     "v5": -167,
+     "v7": -201,
+     "extra": 34,
+     "naive": 62
+    },
+    {
+     "p": 31,
+     "v5": -170,
+     "v7": -208,
+     "extra": 38,
+     "naive": 58
+    },
+    {
+     "p": 37,
+     "v5": -140,
+     "v7": -178,
+     "extra": 38,
+     "naive": 46
+    },
+    {
+     "p": 41,
+     "v5": -104,
+     "v7": -142,
+     "extra": 38,
+     "naive": 38
+    },
+    {
+     "p": 43,
+     "v5": -90,
+     "v7": -124,
+     "extra": 34,
+     "naive": 34
+    },
+    {
+     "p": 47,
+     "v5": -62,
+     "v7": -88,
+     "extra": 26,
+     "naive": 26
+    },
+    {
+     "p": 53,
+     "v5": -20,
+     "v7": -34,
+     "extra": 14,
+     "naive": 14
+    },
+    {
+     "p": 59,
+     "v5": -2,
+     "v7": -4,
+     "extra": 2,
+     "naive": 2
+    }
+   ],
+   "extraLogWeighted": 2160.086776545296,
+   "naiveLogWeighted": 2200.111257286146,
+   "ratio": 0.9818079742066222,
+   "smallPrimes": [
+    2,
+    3,
+    5,
+    7
+   ],
+   "smallPrimesExtra": 969.4602074688797
+  }
+ },
+ "test2": {
+  "log": "certs/zeta-hankel/test2-certmachine.log",
+  "log_sha256": "e995e9b92d164c26037cb46d1ddb5935a9bba04b4752a6e39b1699df71fc440e",
+  "checks": 64,
+  "maxRelErr": 8.39e-25,
+  "enginesAgree": true,
+  "exitZero": true,
+  "secs": 46.39,
+  "what": "every moment (e = 1, 3) and every node transform (integer a = 1, 3, 4; half-integer a = 1/2, 5/2, 7/2) of hankel2.py against mpmath quadrature at 30 digits, k = 2, 3, 5, 7, both weights; then hankel.py and hankel2.py on the Fauzan-type ζ(5) family K = 24, N = 2, r = 6 must give the identical P. Numerical, not interval: it checks the formulas the exact engine is built on."
+ },
+ "crosscheck": {
+  "what": "crosscheck.py: Python standard library only, written from the docstring definitions, no code shared with the engine; moments from its own Bernoulli recurrence, partial fractions by schoolbook division, Δ by Fraction determinants at h+1 points and Lagrange interpolation, ζ(3) by an exact rational enclosure from Apéry's series. ζ(5), ζ(7) and G: the exact polynomial only.",
+  "rows": [
+   {
+    "spec": [
+     "Z",
+     3,
+     "int",
+     4,
+     1,
+     4
+    ],
+    "m": 1,
+    "h": 3,
+    "P_sha256_engine": "0697357a28c307f494c89241f9b0a2e7e15c88f6969f0332e63cbc5f8f30cc0f",
+    "P_sha256_stdlib": "0697357a28c307f494c89241f9b0a2e7e15c88f6969f0332e63cbc5f8f30cc0f",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.004,
+    "zeta3Enclosure": {
+     "aperyTerms": 126,
+     "logP_lo_stdlib": -12.529922611959137,
+     "logP_hi_stdlib": -12.529922611959137,
+     "engineBallIntersectsRationalEnclosure": true,
+     "liftedLogP": -12.529922611959266,
+     "liftedWithinStdlib": true
+    },
+    "agree": true
+   },
+   {
+    "spec": [
+     "Z",
+     3,
+     "int",
+     4,
+     1,
+     4
+    ],
+    "m": 2,
+    "h": 6,
+    "P_sha256_engine": "6d6a27cbf8387f51ef5e6118528b92366e0c37c1a18a85d97aeffab54d584772",
+    "P_sha256_stdlib": "6d6a27cbf8387f51ef5e6118528b92366e0c37c1a18a85d97aeffab54d584772",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.018,
+    "zeta3Enclosure": {
+     "aperyTerms": 274,
+     "logP_lo_stdlib": -55.2290744427728,
+     "logP_hi_stdlib": -55.2290744427728,
+     "engineBallIntersectsRationalEnclosure": true,
+     "liftedLogP": -55.22907444277261,
+     "liftedWithinStdlib": true
+    },
+    "agree": true
+   },
+   {
+    "spec": [
+     "Z",
+     3,
+     "int",
+     4,
+     1,
+     4
+    ],
+    "m": 3,
+    "h": 9,
+    "P_sha256_engine": "981a8f41eeb9408b3a44f22327baddd11f946aef636b153e1c3ca202ec4d8e9f",
+    "P_sha256_stdlib": "981a8f41eeb9408b3a44f22327baddd11f946aef636b153e1c3ca202ec4d8e9f",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.089,
+    "zeta3Enclosure": {
+     "aperyTerms": 545,
+     "logP_lo_stdlib": -112.20694566573366,
+     "logP_hi_stdlib": -112.20694566573366,
+     "engineBallIntersectsRationalEnclosure": true,
+     "liftedLogP": -112.20694566573398,
+     "liftedWithinStdlib": true
+    },
+    "agree": true
+   },
+   {
+    "spec": [
+     "Z",
+     5,
+     "int",
+     8,
+     1,
+     4
+    ],
+    "m": 1,
+    "h": 7,
+    "P_sha256_engine": "0eed2f5e027454fcd21bf7260009f86c0513115ec2c663640f57c966557563b5",
+    "P_sha256_stdlib": "0eed2f5e027454fcd21bf7260009f86c0513115ec2c663640f57c966557563b5",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.012,
+    "agree": true
+   },
+   {
+    "spec": [
+     "Z",
+     7,
+     "int",
+     8,
+     1,
+     4
+    ],
+    "m": 1,
+    "h": 7,
+    "P_sha256_engine": "e3a1d2fcd64708c652a23a732300752d1122d64ff0a695303acc09fa068f6edf",
+    "P_sha256_stdlib": "e3a1d2fcd64708c652a23a732300752d1122d64ff0a695303acc09fa068f6edf",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.013,
+    "agree": true
+   },
+   {
+    "spec": [
+     "E",
+     2,
+     "half",
+     8,
+     1,
+     1
+    ],
+    "m": 1,
+    "h": 7,
+    "P_sha256_engine": "fc4c86a7d41e343d615b92597c247f94c82afcb752c6bb22927137711f0f702b",
+    "P_sha256_stdlib": "fc4c86a7d41e343d615b92597c247f94c82afcb752c6bb22927137711f0f702b",
+    "samePolynomial": true,
+    "sameContent": true,
+    "secsStdlib": 0.011,
+    "agree": true
+   }
+  ],
+  "secs": 0.16
+ },
+ "classReading": {
+  "status": "extrapolation",
+  "statement": "The class of Hankel families measured here stops between ζ(5) and ζ(7): the best margin found at h ≈ 35 is negative at k = 3 and k = 5 and positive at k = 7, and every structural variant is worse. This is a MEASUREMENT across a finite set of families at finite h, extrapolated in h and in k. It is NOT a theorem: no statement here excludes a family outside the ones scanned, and no limit in h is proved.",
+  "counts": {
+   "families": 323,
+   "scan3": 300,
+   "struct": 12,
+   "scan1": 11,
+   "records": 4902,
+   "errors": 0
+  },
+  "bestZ": {
+   "3": {
+    "family": "Z_k3_int_a6_b1_r4",
+    "h": 40,
+    "margin": -1.3837533198867897,
+    "families": 30
+   },
+   "5": {
+    "family": "Z_k5_int_a8_b1_r6",
+    "h": 35,
+    "margin": -0.18513270501974533,
+    "families": 60
+   },
+   "7": {
+    "family": "Z_k7_int_a8_b1_r4",
+    "h": 35,
+    "margin": 1.0157239176780057,
+    "families": 85
+   }
+  },
+  "bestE": {
+   "3": {
+    "family": "E_k3_int_a8_b1_r2",
+    "h": 35,
+    "margin": 0.1541321832104467,
+    "families": 30
+   },
+   "5": {
+    "family": "E_k5_int_a8_b1_r1",
+    "h": 35,
+    "margin": 1.4116908420983172,
+    "families": 30
+   },
+   "7": {
+    "family": "E_k7_int_a8_b1_r1",
+    "h": 35,
+    "margin": 2.5886257993085704,
+    "families": 30
+   }
+  },
+  "bestCatalan": {
+   "family": "E_k2_half_a8_b1_r1",
+   "h": 35,
+   "margin": 0.428375085443837,
+   "families": 30
+  },
+  "linearInK": {
+   "slopePerUnitK": 0.5998693093911989,
+   "intercept": -3.1837339160321707,
+   "zeroCrossingFit": 5.307379234425761,
+   "zeroCrossingInterp57": 5.308334403159372,
+   "note": "least squares through the three best Z margins (k = 3, 5, 7); and the linear interpolation between k = 5 and k = 7. The claimant notes round the threshold to \"k ≈ 6\"."
+  },
+  "struct": [
+   {
+    "family": "above_k5",
+    "k": 5,
+    "h": 56,
+    "margin": 0.22041362302663842
+   },
+   {
+    "family": "above_k7",
+    "k": 7,
+    "h": 56,
+    "margin": 1.4647773084135378
+   },
+   {
+    "family": "grid_intzeros_k5",
+    "k": 5,
+    "h": 60,
+    "margin": 1.1744141425816457
+   },
+   {
+    "family": "grid_intzeros_k7",
+    "k": 7,
+    "h": 60,
+    "margin": 2.1517769782185363
+   },
+   {
+    "family": "interleave_k5",
+    "k": 5,
+    "h": 60,
+    "margin": 2.972957015281721
+   },
+   {
+    "family": "interleave_k7",
+    "k": 7,
+    "h": 60,
+    "margin": 5.011367729207175
+   },
+   {
+    "family": "oddpoles_k5",
+    "k": 5,
+    "h": 60,
+    "margin": 1.4115715353405256
+   },
+   {
+    "family": "oddpoles_k7",
+    "k": 7,
+    "h": 60,
+    "margin": 3.556702482858265
+   },
+   {
+    "family": "stair_k5",
+    "k": 5,
+    "h": 60,
+    "margin": 0.32843997968859623
+   },
+   {
+    "family": "stair_k7",
+    "k": 7,
+    "h": 60,
+    "margin": 1.9416842358968365
+   },
+   {
+    "family": "window_k5",
+    "k": 5,
+    "h": 56,
+    "margin": 0.5117018777245672
+   },
+   {
+    "family": "window_k7",
+    "k": 7,
+    "h": 56,
+    "margin": 1.8235846933442121
+   }
+  ],
+  "structAllWorseThanBestZ5": true,
+  "structRange": [
+   0.22041362302663842,
+   5.011367729207175
+  ]
+ },
+ "published": {
+  "fauzan": {
+   "source": "corpus/sources/zeta-hankel/zenodo-22826419.json",
+   "sha256": "d2c0daa37dd5df07c51773bb813dfe64e23bfdedf42c76723df12739bd84f0d0",
+   "stated": "integer polynomials Q_n of degree 37n with 0 < Q_n(ζ(5)) < exp(−139n²/5); |ζ(5) − a/b| > b^−260",
+   "perN2": -27.8,
+   "degreePerN": 37,
+   "perH2": -0.020306793279766252
+  },
+  "calegari": {
+   "source": "corpus/sources/zeta-hankel/calegari-2026-09-24-zeta5-is-irrational.html",
+   "sha256": "48fa9c65c4c6eafaf7115213f9b13fa2818aafbad8229663c87ea45921a59646",
+   "stated": "K = 12n, N = n, r = 6, h = 11n; deg P_{k,n} = 11n, P_{k,n}(ζ(k)) ≤ e^{−γ_k n²}, γ_5 = 3/2",
+   "perN2": -1.5,
+   "degreePerN": 11,
+   "perH2": -0.012396694214876033
+  }
+ },
+ "raceContext": {
+  "status": "unverified",
+  "note": "Reported by others; nothing in this list was checked by cert-machine. The sources are pinned (corpus/sources/zeta-hankel, sha256 in PROVENANCE.json).",
+  "items": [
+   {
+    "claim": "ζ(7) is irrational (Anand, Zenodo 22920911, v1 2026-09-23)",
+    "status": "open issue: gmDevi/zeta-7-21-lean #1 (opened 2026-10-03 by a third party, GitHub user huntrontrakkr — not this lab) reports that the outer integral I_out does not follow from the paper's own formulas, moving the decay constant from −11.99 to +0.95",
+    "sources": [
+     "zenodo-22920911.json",
+     "github-gmDevi-zeta-7-21-lean-issue-1.json"
+    ]
+   },
+   {
+    "claim": "Catalan's constant is irrational (Sun, arXiv 2609.04176, 2026-09-03)",
+    "status": "Wachs, arXiv 2609.22339 (2026-09-16), reports exact computations locating a discrepancy at the prime 2",
+    "sources": [
+     "arxiv-2609.04176.html",
+     "arxiv-2609.22339.html"
+    ]
+   },
+   {
+    "claim": "ζ(5) is irrational (Fauzan, Zenodo 22826419, 2026-09-17; Calegari's reconstruction 2026-09-24)",
+    "status": "the method measured on this page; the proof itself is not re-checked here",
+    "sources": [
+     "zenodo-22826419.json",
+     "calegari-2026-09-24-zeta5-is-irrational.html"
+    ]
+   }
+  ]
+ },
+ "counts": {
+  "rowsRerun": 51,
+  "agree": 51,
+  "bitIdentical": 51,
+  "crosscheck": 6,
+  "crosscheckAgree": 6,
+  "maxHRerun": 99
+ },
+ "timings": {
+  "totalSecs": 164.5,
+  "families": {
+   "zeta3": 0.66,
+   "zeta5": 0.26,
+   "zeta7": 0.24,
+   "catalan": 0.26,
+   "zeta5r4": 0.2
+  },
+  "calegari": {
+   "calegari5": 52.77,
+   "calegari7": 103.95
+  },
+  "padic": 5.77,
+  "crosscheck": 0.16
+ },
+ "files": [
+  {
+   "file": "instruments/zetahankel/hankel.py",
+   "sha256": "8ad5358d5db2c92fee6d58465966146ac5da1fa548242575cc8aefcce15b65bf"
+  },
+  {
+   "file": "instruments/zetahankel/hankel2.py",
+   "sha256": "e30bcdf35d7c700b6b1e8459775d145f40a3144549ff6fc4d7b38a0dff429c2a"
+  },
+  {
+   "file": "instruments/zetahankel/scan2.py",
+   "sha256": "76fbace06c28fd57842f11b059f71930ee4bb0a2c69e0ed09185b9423effe0d2"
+  },
+  {
+   "file": "instruments/zetahankel/padic.py",
+   "sha256": "480ef0d31ce6e1a60de0213c9e2a6eb084794b38ee49cd4237b9d130c2a1ed66"
+  },
+  {
+   "file": "instruments/zetahankel/test2.py",
+   "sha256": "e2ef04f5c12c3199702ea33d5333f334a2fd114aafb0f5457ce6fdafbb7b3b8e"
+  },
+  {
+   "file": "instruments/zetahankel/crosscheck.py",
+   "sha256": "98604c0903f316e6165fb9ab545fd2b0f1a02c568d04bea1b5e368d05e5fc919"
+  },
+  {
+   "file": "instruments/zetahankel/rerun.py",
+   "sha256": "0eadcee43ffd22094d6ba740a5a840cc771436357213803e1f1b4fc211fec843"
+  },
+  {
+   "file": "certs/zeta-hankel/test2-certmachine.log",
+   "sha256": "e995e9b92d164c26037cb46d1ddb5935a9bba04b4752a6e39b1699df71fc440e"
+  }
+ ],
+ "verdict": "AGREE"
+}

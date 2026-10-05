@@ -754,6 +754,42 @@
    "finding": "Gu–Sellke (arXiv:2605.11656) 'an explicit order is not obtained, but it must be at least 6'; Zou et al. (arXiv:2605.18081 v3) prove failure only for sufficiently large m. Scout's mpmath probe (160 digits, not certified): f_34 in Zou's family (κ = 8·2^{−m/4}) violates GCM at order 34 ((−1)^m H^(m)(0) = −301.9 at m = 34, positive at 5, 30, 32).",
    "fit": "new mathematics with an exact certificate: interval quadrature + log-concavity + an explicit t > 0",
    "next": "2–4 days; nothing found occupying it Sep–Oct 2026"
+  },
+  {
+   "id": "delta3-graham-1186-k3",
+   "name": "δ₃ = 117/2192 — Graham's $100 question, the case k = 3 of Erdős #1186 (Parrilo–Robertson–Saracino's 2008 conjecture)",
+   "verdict": "BUILT 2026-10-05 — proved by the frontier-apps claimant (s35) and re-decided here by a clean-room JS verifier sharing no code: 5 certificates VERIFIED, cover of [0, ½] complete; /reports/delta3.html; paper/tex/delta3.tex draft v0.2",
+   "scouted": "2026-10-05",
+   "finding": "Literature to 2026-10-05: 1675/32768 ≤ δ₃ ≤ 117/2192 (PRS 2008); BCG 2010 re-derive the twelve blocks crediting PRS (not independently); GKW 2023 optimal among antisymmetric ≤ 12-block colourings; erdosproblems #1186 OPEN, 0 comments, one user flagged 'working on'. The proof: centre at φ* (h ≥ 0, zeros at the 11 edges), bathtub discretisation with no first-order loss, five SDP-derived exact certificates. Clean-room reading found: the bathtub constant needs the SUMMED m′ (single-piece reading false, 1,358/2,432); ε load-bearing; triangles need distinct indices.",
+   "fit": "cert-machine as the judge of its own sandbox's claim: independent exact verification is the exact gap the claimant named",
+   "next": "HELD for the operator: a human line-by-line reading of §§2–4 (forum rule 4), then a Zenodo deposit (priority timestamp) and a forum post; Lean is weeks (finite part plausible, analytic part real work). Not claimed: k ≥ 4, the F_p analogue."
+  },
+  {
+   "id": "delta4-centring-transfer",
+   "name": "δ₄ (and the F_p analogue δ̃₄): does centring at a conjectured optimum transfer to 4-term progressions?",
+   "verdict": "BLOCKED 2026-10-05 — the candidate is wrong: BCG's 36 blocks (F exactly their printed 0.0172203) are NOT the δ₄ record; Lu–Peng 2011 give c₄ ≤ 1/72 ≈ 0.0138889 by an arithmetic (quadratic-residue mod 11, unrolled) colouring that no block-density functional represents. And k = 4 has no PRS-type reduction: the quartic term defeats it (a relaxation keeping it evaluates to 0). BCG is a strict local minimiser among block colourings (exact: h₄ ≥ 0, zeros at the 35 edges; Hessian PD, λ_min ≈ 0.082) — 'optimal among block colourings' is open but is not δ₄. certs/delta4-probe.json, notes/delta4-centring-2026-10-05.md",
+   "scouted": "2026-10-05",
+   "finding": "CORRECTED 2026-10-05: the 2026-10-05 row said BCG's 36-block colouring gives the δ₄ upper bound — wrong; Lu–Peng (arXiv:1107.2888) have 1/72, re-verified here (residue classes 1/66 and two levels 37/2662 exactly; brute force at n = 16,000 → 1/72 to O(1/n)), 19.3% below BCG. For k = 3 there is no cubic or quartic term, which is exactly why PRS's reduction (and the δ₃ proof) cover every colouring, arithmetic ones included. 𝔽_p: #mono/p² = (1 + 6μ² + Λ₄)/8 exactly — the quartic is the whole problem. The #1186 page lists no [n] bound for k = 4: a comment citing 1/72 would be a small correct contribution (a SEND, gated).",
+   "fit": "the δ₃ machinery's natural next target; new mathematics with exact certificates",
+   "next": "A block-only theorem (BCG minimises among block colourings) needs a degree-4 moment relaxation (~3.1e7 moments at 163 cells) — weeks, uncertain, and not δ₄. Not pursued."
+  },
+  {
+   "id": "zeta7-hankel-wall-2026",
+   "name": "The Fauzan/Calegari Hankel-determinant method past ζ(5): ζ(7) and Catalan's G, measured",
+   "verdict": "BUILT 2026-10-05 — a measured wall, not a theorem: 51/51 margins re-run here bit-identical (ζ(3) −1.380, ζ(5) −0.185, ζ(7) +1.016, G +0.428 at h ≈ 35); /reports/zeta-hankel.html",
+   "scouted": "2026-10-04",
+   "finding": "Per-instance margins exact (content-stripped primitive P) and ball-certified; across 323 families none clears zero for ζ(7) or G; the p-adic price from k = 5 to 7 is 98.2% of the naive one (2160 vs 2200). Threshold k ≈ 5.31 by the three best margins (the claimant's notes said ≈ 6). ζ(5)'s true margin is 7.5–12× what the published normalisations prove.",
+   "fit": "a measurement beside the ζ(3) audit lane; the class-level wall is an extrapolation and is labelled so",
+   "next": "see zeta7-anand-claim-audit; a provable better ζ(5) irrationality exponent needs the arithmetic re-proved for the better family (weeks)"
+  },
+  {
+   "id": "zeta7-anand-claim-audit",
+   "name": "Audit of Anand's 'ζ(7) is irrational' (Zenodo 22920911) and its Lean repository",
+   "verdict": "BUILT 2026-10-05 — REFUTED AS A ROUTE (arithmetic-slip): I_out recomputed from the paper's own formulas is +453803/288000 ≈ +1.576 (printed −15.28, Table 5's last row wrong), so A₂₀₀ + U = +4.86 where (118) needs < 0; positive in every decided scenario, no cutoff rescues it. Theorem 1.1 REFUSED (not established, not shown false); ζ(7)'s irrationality open. /reports/zeta7-anand.html, certs/zeta7-anand-audit.json",
+   "scouted": "2026-10-05",
+   "finding": "Issue gmDevi/zeta-7-21-lean #1, opened 2026-10-03 by a third party (huntrontrakkr, not this lab), says the outer integral I_out does not follow from the paper's formulas and moves the decay constant from −11.99 to +0.95. Sources pinned in corpus/sources/zeta-hankel/; nothing checked here yet. · 2026-10-05 DECIDED: the third-party issue is right on all four points checked. The paper's own family measured exactly at n = 1–3: log P_K(ζ(7))/K² = +0.80, +0.87, +0.88 (needs < −11.87). Prop 4.6 (the local p-adic bound) holds; the error is in integrating it. The Lean repo proves a DIFFERENT theorem (one of ζ(7..21) irrational), 1 sorry (the Challenge stub), 0 axioms — grep-level, not built. A side slip in the paper's disfavour: (110) mis-sums I(ρ) (−3.1433 printed, −1.9482 correct); (96) still holds.",
+   "fit": "the register's lane exactly: a machine-adjacent published claim decided in exact arithmetic with no code shared",
+   "next": "HELD for the operator: a reply on gmDevi/zeta-7-21-lean #1 confirming the issue with the exact values (a SEND); an email to the author is the operator's call."
   }
  ]
 }
