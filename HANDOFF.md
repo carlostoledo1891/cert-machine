@@ -15,10 +15,68 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-05: phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave being audited and hunted by an agent; lattice-claims stage 2 training; before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-05, THE TWENTY-NINTH SESSION CONTINUED — PHASE 4b WAVE 1, THE LOCKING-RULES REVIEW,
+THE KISSING HUNT.
+  PHASE 4b — THE DECIDING, WAVE 1 — DONE 2026-10-05 (a worktree agent; merged as d9ef353 from 3066376
+    the tensor pools · 3e80be6 EinsteinArena · 31b7d6a the Station's Jacobian). 46 of the 100 decided, each
+    pool its own ledger (certs/mc100-<pool>.json) read by run-claims-ledger.js §18: 45 CERTIFIED, 1 REPAIRED
+    (tolerance-witness), 0 NEEDS DATA so far. Register 88 -> 132 rows (44 new; the EA 594 =
+    kiss-ea-594-winner and the EA min-distance set = ea-mindist-ours_2026 annotated, counted once); no old
+    row moved.
+    · alphatensor-q 12/12, alphatensor-f2 8/8 (every F2 scheme refuted over Q), alphaevolve-nb-matmul 15/15
+      CERTIFIED (tools/run-mc100-tensors.js; convert_alphaevolve.js learned Z / 0.5*Z / 0.5*C, the 4,4,4
+      written byte-identically; tensor.js + verify_strassen.py gained `scale`; <4,4,8> r96 is prose only,
+      rebuilt from its recipe).
+    · einstein-arena 10/29 (tools/run-mc100-einstein.js): 605 = 9,510 pairs < 60°, worst (601,604)
+      θ ≈ 40.2441°; 842 = 237 pairs, worst (510,547) θ ≈ 57.0933°; 841 = 840 valid + one repeated vector;
+      the penalty Σ max(0, 2 − |c_i − c_j|) reproduced to every printed digit. Min-overlap REPAIRED
+      (Σh − n/2 = 1.93e-13; the repaired bound still <= printed). 19 rows listed with what they need.
+    · station-v2 1/10: st-jacobian CERTIFIED — a non-injective Keller map of C^3 (det JF = −6, 16 terms,
+      degrees 4, 6, 7; three rational points onto (1, 7/3, 0)), smaller than Gao's G.
+    · Readings dated in the 100-claims pre-registration's Deviations (the F2 rule applied by dimensions;
+      prose-only <4,4,8>; EA score agreement = the platform's minImprovement, 1e-12 relative where 0; the
+      penalty-scored rungs' "feasible"; the easota REPAIRED grammar; twins).
+    BATTERIES instruments/mc100/battery.js (57, 14 reds) + battery.py (10, 4 reds) in make test and
+    build-control; `make reports` runs the three runs (~95 s); rerun-kit entries added.
+    CONTROL BUILD after the merge: 107/108, EXIT 0 — the one RED was the layout ruler on site/apps/skyaudit/
+    index.html @1440 (spines 5 -> 6), a page untouched since 09-15; `node tools/check-measure.js` re-run alone at
+    once: 7 checks, 0 failed. Flaky measurement, recorded as such; the next control build (after the kissing
+    branch merges) re-measures.
+    OWED: `make papers` REFUSES at tools/paper-numbers/register.js (the register no longer spans exactly
+    August–September; its LABEL table lacks the five mc100 records), and P2's \KRows moves 88 -> 132 — that
+    is the register paper's SECOND EDITION, the operator's call.
+    NEXT, wave 2: the finite exact checks (EA Hadamard 51, sorting 16, Shannon C7^5, no-three-in-line 75,
+    deletion code, snake 13, Sidon, ring loading, Spencer, difference bases; Station Kakeya ×3 + q89;
+    FunSearch ×6), then exact scoring (EA 2nd/3rd autocorrelation, uncertainty, Thomson, Tammes,
+    Heilbronn-triangles, circle packing, Kakeya needle; notebook B.2/3/4/6/9/12; the Station's five scorers,
+    sign-uncertainty fetched at its pin), the three registry asterisks, the AlphaEvolve repository rows, #513
+    (expected NEEDS DATA). EA prime-number-theorem is Monte-Carlo scored: expected REFUSED.
+  THE LOCKING RULES, REVIEWED AND DECIDED (operator: "review and maybe drop; decide"):
+    notes/locking-rules-review-2026-10-05.md (ee3feef). DROPPED: the kissing campaign's "lower bounds only, no
+    SDP upper-bound work, no record hunting"; the expired "no new instruments while S1–S2 unshipped"; the
+    lattice-claims README's "standing rule" (reworded at the next release). The 10-02 NOT-DOING list is now
+    information, not a ban. KEPT: sends gated per item, sin-mfg read-only, IP allowlist, the witness grammar,
+    pre-registration, never run claimant code, floats propose / exact decides.
+    sin-mfg IS NOT ON THIS MACHINE (neither ~/Projects nor ~/Documents): `make drift` cannot run until it is
+    restored.
+  OPTION 1 — THE KISSING HUNT (operator: "run option 1 alongside option 2"; RunPod approved, US$44.34 there,
+    "push hard"): stage A (b225f21) — instruments/kissing/holes/holes.py, the deepest empty cap of every known
+    11-dimensional configuration PROPOSED in floats: 604s 54.7356° (= arccos 1/√3, 51 supports) and 52.9133°;
+    593 53.7470°; 594 58.4534° — no 605th sphere fits any known 604 by insertion (>= 5.26° short). The
+    research scout (2026-10-04, report in the session) ranked the SEPTEMBER KISSING WAVE first: K(18) >= 8,358
+    (Kravatsky, github alexlegeartis/KissingNumbers, +704 on Cohn–Li, unchecked) and the K(25..31) race
+    (Kravatsky / Takhanov–Yun arXiv:2609.21591 / Qiushi arXiv:2609.35051). A SECOND WORKTREE AGENT is on it:
+    pins, Z[√3] in instruments/kissing, K(18) exactly, d25–31 (exact where integer; floats repaired or
+    UNWITNESSED), then the hunt (empty caps on every certified record; anything new built and certified
+    exactly, nothing sent). Its branch merges when it reports. Other scout picks held: Ramsey 2026 bounds,
+    the registry's open PRs (#207, #200 hours each), the heat-flow GCM explicit order (new math, f_34 at order
+    34 numerically), Tammes N=15, HRT.
 
 ────────────────────────────────────────────────────────────────────────────
 HANDOFF 2026-10-04, THE TWENTY-NINTH SESSION — THE PRIME INTELLECT APPLICATION.

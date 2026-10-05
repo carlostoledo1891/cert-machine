@@ -128,6 +128,13 @@ Any change after the first training call is recorded here with its date and its 
    (1,536 tokens, temperature 1.0, thinking off), and that run decides GO or not. The four stage-2/3 configs gain
    the same block, so every eval measures the policy that trains. Thresholds unchanged.
 
+5. **2026-10-05, stage 2: both runs stalled and were restarted.** Both stage-2 runs logged step 4 at about
+   02:41 UTC and then dispatched nothing ("0 inflight rollouts") for about 85 minutes. Prime's status page
+   showed every service operational, and no tokens were billed while they were stalled. Both were restarted
+   at about 04:08 UTC with `prime train restart`, from their latest on-cluster checkpoint; no cloud checkpoint
+   existed. Arms, configs and readings are unchanged. If the restart replays steps, the per-step series is
+   read by step index as logged, and the replay is reported beside it.
+
 ## The pilot (stage 1), 2026-10-04 — plumbing and base rates, NOT the result
 
 Runs e6zvxsdjgs5tbed7r2prswjo (A) and icx69k02mx5lokcxbj8t3b7e (B); sprints/Llama-3.2-1B-Instruct, free. The

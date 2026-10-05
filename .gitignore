@@ -56,3 +56,6 @@ corpus/ww3-grid/cache/
 # Petrobras Radar form answers with the operator's personal data, and dry-run screenshots
 outreach/petrobras-radar/*.filled.json
 outreach/petrobras-radar/run-*/
+
+# agent worktrees (Claude Code isolation); never part of the record
+.claude/worktrees/
