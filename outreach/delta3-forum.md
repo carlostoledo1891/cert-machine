@@ -17,26 +17,59 @@ THE CHANNEL. Problem #1186 asks for δ_k for every k, and this settles k = 3 onl
 
 ---
 
-## A. The proof claim (partial) — paste into /forum/thread/1186/submit-proof
+## A. The proof claim (partial), field by field — /forum/thread/1186/submit-proof (signed in as carlos_toledo)
 
-The case $k=3$: $\delta_3 = 117/2192$. Parrilo, Robertson and Saracino (2008) proved $1675/32768 \le \delta_3 \le 117/2192$ and conjectured that their twelve-block colouring (blocks $28,6,28,37,59,116,116,59,37,28,6,28$ out of $548$, alternating) is optimal. It is. By their counting lemma it suffices that $Q(\varphi) = \iint_{a/2\le b\le(1+a)/2}\varphi(a)\varphi(b) \ge -5/137$ for every measurable $\varphi:[0,1]\to[-1,1]$, and we prove this with equality only at $\pm\varphi^*$.
+The fields are read off the site's rendered proof claims (2026-10-05): "A {full|partial} proof claimed by {who} (using {AI})",
+then Summary, Notes, an external link to the proof, and an external link to a formalisation. The submit form itself sits
+behind the login, so check the field names there. Sizes follow the claims already on the site: a summary of 250–600
+characters, notes of about 450. An earlier version of A, a long comment-style text, was too large and is replaced.
 
-The proof expands $Q$ around the twelve blocks. Write $\varphi = \varphi^*(1-2\sigma)$ with $0\le\sigma\le1$. Then exactly
-$$\frac{Q(\varphi)-Q(\varphi^*)}{4} = \int_0^1 h\sigma + Q(\varphi^*\sigma), \qquad h = -\varphi^*\,K\varphi^*,$$
-where $h\ge0$ is piecewise linear on the $1/1096$ grid and vanishes exactly at the eleven block edges.
+**Proof type** (7 chars)
 
-A discretisation built on $h$ loses nothing to first order: the bathtub principle per cell, and only $0\le\sigma\le1$ on cells cut by the boundary of the region. This is what the earlier relaxations could not avoid.
+```
+Partial
+```
 
-The range $\int\sigma\le\frac12$ is cut into five regions, each closed by an exact rational certificate. The region nearest the optimum has zero gap; the other four have a margin of at least $2.7\times10^{-4}$.
+**Claimed by** (13 chars)
 
-The certificates are checked in exact arithmetic by two verifiers that share no code. The second was written from the mathematics and the file format alone. Planted forgeries and one-line mutations of the verifier are refused.
+```
+Carlos Toledo
+```
 
-Write-up (8 pages, the reduction re-derived in full): <a href="https://carlostoledo.co/paper/delta3.pdf">PDF</a>. Certificates, both verifiers and every number's provenance: <a href="https://carlostoledo.co/reports/delta3.html">the page</a>, archived at <a href="https://doi.org/10.5281/zenodo.23171167">doi:10.5281/zenodo.23171167</a>.
+**Using (AI)** (18 chars)
 
-Nothing here concerns $k\ge4$ or the $\mathbb{F}_p$ analogue.
+```
+Claude (Anthropic)
+```
 
-Disclosure per rule 1: this was produced with substantial AI assistance. The method, the code, the certificates and the text of this note were produced by me working with Claude (Anthropic). Every finite step is decided in exact rational arithmetic by an independent verifier; I have read and checked the mathematics myself, line by line, before posting. It is not peer reviewed and not formalised in Lean. Refutations are welcome, and I will publish any that land.
+**Summary** (560 chars)
 
+```
+The case $k=3$: $\delta_3=117/2192$, so the twelve-block colouring of Parrilo, Robertson and Saracino (2008) is optimal, as they conjectured. By their counting lemma it suffices that $\iint_{a/2\le b\le(1+a)/2}\varphi(a)\varphi(b)\ge-5/137$ for every measurable $\varphi:[0,1]\to[-1,1]$. Expanding around the twelve blocks, the first-order term is an explicit $h\ge0$ vanishing exactly at the block edges; a discretisation built on $h$ loses nothing to first order, and five regions are closed by exact rational certificates. The case $k\ge4$ is not addressed.
+```
+
+**Notes** (445 chars)
+
+```
+Produced with substantial AI assistance (Claude); I have read and checked the mathematics myself, line by line. The certificates are verified in exact rational arithmetic by two independent programs that share no code, and planted forgeries are rejected; they re-run in seconds. Not peer reviewed, not formalised in Lean. Certificates, verifiers and records: https://carlostoledo.co/reports/delta3.html (archived at doi:10.5281/zenodo.23171167).
+```
+
+**External link to proof** (40 chars)
+
+```
+https://carlostoledo.co/paper/delta3.pdf
+```
+
+**External link to formalisation** (13 chars)
+
+```
+(leave empty)
+```
+
+Rules: rule 1 (disclose AI) — the "using" field and the first sentence of Notes; rules 2 and 4(a) (a human understood and
+verified it) — Notes, true since the operator's reading on 2026-10-05; rule 3 (long proofs by link) — the PDF is the
+external link and the summary is a summary; rule 5 (no key difficulty waved away) — the summary names the two places the
+weight sits (the expansion and the certificates), and the PDF carries the lemmas with proofs and the certificates' records.
 ---
 
 ## B. Optional discussion comment — /forum/thread/1186
