@@ -336,6 +336,51 @@ function firstSeen(file, key) {
   }
 }
 
+/* 18 · THE HUNDRED PRE-REGISTERED MACHINE CLAIMS (corpus/machine-claims-100.json, named by rule 2026-10-02 before any
+   was decided; phase 4b of the rerun program). Each pool's run writes its own ledger, certs/mc100-<pool>.json; this
+   reads every one of them. A row reaches the register only if the manifest names it, in the same pool, decided from
+   bytes that hash to the manifest's pin, and no two ledgers decide it. A row whose object the register ALREADY holds
+   (the same object, decided earlier from another copy of its bytes) names that row in `sameClaimAs`: it is not
+   counted twice — the earlier row is annotated with its corpus id instead, and must carry the same verdict. The
+   hundred's own measurement (counts per pool, per verdict, per kind) is read from the ledgers, not from here. */
+const MC100_VERDICTS = ['CERTIFIED', 'REFUTED', 'REFUSED', 'PARTIAL', 'MIXED', 'REPAIRED', 'NEEDS DATA'];
+const mc100Same = [];
+{
+  const MC = J('corpus/machine-claims-100.json');
+  const byId = new Map(MC.rows.map((r) => [r.id, r]));
+  const files = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => /^mc100-[a-z0-9-]+\.json$/.test(f)).sort();
+  const seen = new Set();
+  for (const f of files) {
+    const L = J('certs/' + f);
+    const raw = fs.readFileSync(path.join(ROOT, 'certs', f), 'utf8');
+    const idKey = (id) => (raw.includes('"id":"' + id + '"') ? '"id":"' + id + '"' : '"id": "' + id + '"');   /* the pickaxe needs the bytes the record carries */
+    if (!Array.isArray(L.rows) || !L.rows.length) die('certs/' + f + ' holds no rows');
+    for (const r of L.rows) {
+      const m = byId.get(r.id);
+      if (!m) die('certs/' + f + ' decides a row the manifest does not name: ' + r.id);
+      if (seen.has(r.id)) die('the corpus row ' + r.id + ' is decided by two ledgers');
+      seen.add(r.id);
+      if (r.pool !== m.pool) die('the corpus row ' + r.id + ' is decided in pool ' + r.pool + ', the manifest says ' + m.pool);
+      if (r.sha256 !== m.sha256) die('the corpus row ' + r.id + ' was decided from bytes that do not hash to the manifest\'s pin');
+      if (!MC100_VERDICTS.includes(r.verdict)) die('the corpus row ' + r.id + ' has a verdict outside the vocabulary: ' + r.verdict);
+      if (!r.scope) die('the corpus row ' + r.id + ' has no scope');
+      if (r.sameClaimAs) { mc100Same.push({ r, f }); continue; }
+      rows.push({
+        id: 'mc100-' + r.id, claim: m.claim, claimant: m.claimant, source: m.source + ' (sha256 ' + m.sha256.slice(0, 12) + '…)',
+        origin: 'self-initiated', verdict: r.verdict, scope: r.scope, kind: r.kind,
+        preregistered: { corpus: 'corpus/machine-claims-100.json', id: r.id, pool: r.pool },
+        key: idKey(r.id), decidedFrom: 'certs/' + f, page: 'https://github.com/carlostoledo1891/cert-machine/blob/main/certs/' + f
+      });
+    }
+  }
+}
+for (const { r, f } of mc100Same) {
+  const twin = rows.find((x) => x.id === r.sameClaimAs);
+  if (!twin) die('the corpus row ' + r.id + ' names a register row that does not exist: ' + r.sameClaimAs);
+  if (twin.verdict !== r.verdict) die('the corpus row ' + r.id + ' (' + r.verdict + ') and the register row it duplicates, ' + twin.id + ' (' + twin.verdict + '), disagree');
+  twin.preregistered = { corpus: 'corpus/machine-claims-100.json', id: r.id, pool: r.pool, alsoDecidedFrom: 'certs/' + f };
+}
+
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';
@@ -380,6 +425,9 @@ const out = {
   byKind: rows.reduce((o, r) => { o[r.kind] = (o[r.kind] || 0) + 1; return o; }, {}),
   byMonth: rows.reduce((o, r) => { const m = r.recordedOn.slice(0, 7); o[m] = (o[m] || 0) + 1; return o; }, {}),
   submitted: 0,
+  /* the hundred pre-registered machine claims decided so far: rows of their own, plus those whose object the register already held */
+  preregistered: { corpus: 'corpus/machine-claims-100.json', of: 100, decided: rows.filter((r) => r.preregistered).length,
+    ownRows: rows.filter((r) => r.preregistered && r.id.startsWith('mc100-')).length, alreadyInRegister: mc100Same.map(({ r }) => r.id + ' = ' + r.sameClaimAs) },
   meta: { date: new Date().toISOString().slice(0, 10), git }
 };
 fs.writeFileSync(path.join(ROOT, 'certs', 'claims-ledger.json'), JSON.stringify(out, null, 1) + '\n');

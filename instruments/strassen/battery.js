@@ -72,6 +72,19 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   }
 }
 
+/* ---- a scale over Q (2026-10-04): a (1/2)Z scheme with its factors doubled is the identity s*T, s = 8 ---- */
+{
+  const s = T.strassen();
+  const dbl = { dims: s.dims, rank: 7, ring: 'Q', scale: 8, U: s.U.map(r => r.map(x => 2 * x)), V: s.V.map(r => r.map(x => 2 * x)), W: s.W.map(r => r.map(x => 2 * x)) };
+  const a = T.audit(dbl), b = T.auditBig(dbl);
+  ok(a.verdict === 'VERIFIED' && a.scale === 8 && b.verdict === 'VERIFIED' && b.layout === a.layout,
+    'SCALE: Strassen with every factor doubled verifies as 8*T over Q, fast path and BigInt agreeing');
+  ok(T.audit({ ...dbl, scale: 4 }).verdict === 'REFUTED' && T.audit({ ...dbl, scale: 1 }).verdict === 'REFUTED',
+    'RED: the same doubled factors read with scale 4 or scale 1 are REFUTED — the scale is decided, not assumed');
+  ok(T.audit({ ...s, scale: 1 }).verdict === 'VERIFIED' && T.audit({ ...s, ring: 'F2', scale: 2 }).verdict === 'REFUTED',
+    'scale 1 is the old audit exactly; a scale over F2 is refused');
+}
+
 /* ---- the Gaussian ring: AlphaEvolve's 48, decided ---- */
 {
   const s7 = T.strassen();

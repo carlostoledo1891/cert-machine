@@ -160,6 +160,46 @@
       "second": null,
       "needs": "python3 standard library and instruments/polymaps",
       "note": "Gao's Jacobian counterexamples and the weak Markus–Yamabe fields decided as polynomial identities in exact arithmetic."
+    },
+    {
+      "record": "certs/mc100-alphatensor-q.json",
+      "rederive": "node tools/run-mc100-tensors.js alphatensor-q",
+      "verifier": "python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources",
+      "second": null,
+      "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+      "note": "AlphaTensor's alphatensor_r.npz, the twelve smallest keys not already in the register, each a decomposition over standard arithmetic decided equation by equation (pool alphatensor-q of the hundred pre-registered machine claims)."
+    },
+    {
+      "record": "certs/mc100-alphatensor-f2.json",
+      "rederive": "node tools/run-mc100-tensors.js alphatensor-f2",
+      "verifier": "python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources",
+      "second": null,
+      "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+      "note": "AlphaTensor's alphatensor_f2.npz, eight keys, each decided over F2 and, beside it, over Q (pool alphatensor-f2 of the hundred)."
+    },
+    {
+      "record": "certs/mc100-alphaevolve-nb-matmul.json",
+      "rederive": "node tools/run-mc100-tensors.js alphaevolve-nb-matmul",
+      "verifier": "python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources",
+      "second": null,
+      "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+      "note": "The AlphaEvolve results notebook's fifteen undecided part-A decompositions over Z, 0.5*Z and 0.5*C, read exactly by the converter that learned the three rings; the <4,4,8> rebuilt from its printed recipe (pool alphaevolve-nb-matmul of the hundred)."
+    },
+    {
+      "record": "certs/mc100-einstein-arena.json",
+      "rederive": "node tools/run-mc100-einstein.js",
+      "verifier": null,
+      "second": null,
+      "needs": "node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate)",
+      "note": "The EinsteinArena pool of the hundred, wave 1: the platform's bests of 2026-10-02 for the four kissing rows and the six easota shapes, every number read as the literal the file carries; the 605 and 842 open rungs decided not solutions with their penalty reproduced; the other nineteen rows listed with what they need."
+    },
+    {
+      "record": "certs/mc100-station-v2.json",
+      "rederive": "python3 tools/run-mc100-station.py",
+      "verifier": null,
+      "second": null,
+      "needs": "python3 standard library and instruments/polymaps",
+      "note": "The Station pool of the hundred, wave 1: the Jacobian construction's printed map of Q^3 decided as a non-injective Keller map (det JF = -6 identically, three rational points with one image) by the code path the register's Gao rows used; the family checks for maps the file does not print are not decided; the other nine rows listed with what they need."
     }
   ]
 }

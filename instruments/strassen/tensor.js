@@ -47,15 +47,17 @@ function target(dims, layout, ab, bc, k) {
   return k === kk ? 1 : 0;
 }
 
-/* one full identity check for a fixed layout; exact by the bound argument */
-function checkLayout(dims, U, V, W, ring, layout) {
+/* one full identity check for a fixed layout; exact by the bound argument.
+   scale s >= 1 (default 1) decides sum u*v*w = s*T — the denominators of a
+   (1/2)Z claim cleared (factors doubled, s = 8), nothing rounded. */
+function checkLayout(dims, U, V, W, ring, layout, scale = 1) {
   const [n, m, p] = dims;
   const r = rankOf(U);
   let maxU = 0, maxV = 0, maxW = 0;
   for (const row of U) for (const x of row) maxU = Math.max(maxU, Math.abs(x));
   for (const row of V) for (const x of row) maxV = Math.max(maxV, Math.abs(x));
   for (const row of W) for (const x of row) maxW = Math.max(maxW, Math.abs(x));
-  if (r * maxU * maxV * maxW + 1 >= EXACT)
+  if (r * maxU * maxV * maxW + scale >= EXACT)
     return { ok: false, refused: true, why: 'coefficient bound ' + r * maxU * maxV * maxW + ' too large for exact double summation' };
   const uv = new Array(r);
   for (let ab = 0; ab < n * m; ab++) {
@@ -65,7 +67,7 @@ function checkLayout(dims, U, V, W, ring, layout) {
         let s = 0;
         const Wk = W[k];
         for (let t = 0; t < r; t++) s += uv[t] * Wk[t];
-        const want = target(dims, layout, ab, bc, k);
+        const want = scale * target(dims, layout, ab, bc, k);
         const okEq = ring === 'F2' ? (((s - want) % 2) === 0) : (s === want);
         if (!okEq) return { ok: false, why: 'equation (ab=' + ab + ', bc=' + bc + ', k=' + k + '): sum ' + s + ', target ' + want + (ring === 'F2' ? ' (mod 2)' : '') };
       }
@@ -80,6 +82,7 @@ function checkLayout(dims, U, V, W, ring, layout) {
 function audit(claim) {
   const { dims, U, V, W } = claim;
   const ring = claim.ring || 'Q';
+  const scale = claim.scale === undefined ? 1 : claim.scale;
   const [n, m, p] = dims;
   const r = rankOf(U);
   if (claim.rank !== undefined && claim.rank !== r)
@@ -88,10 +91,12 @@ function audit(claim) {
     return { verdict: 'REFUTED', why: 'factor shapes do not match dims <' + dims + '>' };
   if (![...U, ...V, ...W].every(row => row.length === r && row.every(Number.isInteger)))
     return { verdict: 'REFUTED', why: 'factors are not integer matrices of uniform rank' };
+  if (!Number.isInteger(scale) || scale < 1 || (ring === 'F2' && scale !== 1))
+    return { verdict: 'REFUTED', why: 'scale must be a positive integer (and 1 over F2)' };
   for (const layout of ['AC', 'CA']) {
-    const c = checkLayout(dims, U, V, W, ring, layout);
-    if (c.ok) return { verdict: 'VERIFIED', layout, rank: r, ring,
-      equations: n * m * m * p * n * p, naive: n * m * p };
+    const c = checkLayout(dims, U, V, W, ring, layout, scale);
+    if (c.ok) return Object.assign({ verdict: 'VERIFIED', layout, rank: r, ring,
+      equations: n * m * m * p * n * p, naive: n * m * p }, scale !== 1 ? { scale } : {});
     if (c.refused) return { verdict: 'REFUSED', why: c.why };
     if (layout === 'CA') return { verdict: 'REFUTED', why: 'identity fails under BOTH C-layouts; last failure: ' + c.why };
   }
@@ -102,6 +107,7 @@ function audit(claim) {
 function auditBig(claim) {
   const { dims, U, V, W } = claim;
   const ring = claim.ring || 'Q';
+  const scale = BigInt(claim.scale === undefined ? 1 : claim.scale);
   const [n, m, p] = dims;
   const r = rankOf(U);
   for (const layout of ['AC', 'CA']) {
@@ -109,7 +115,7 @@ function auditBig(claim) {
     for (let ab = 0; ab < n * m && ok; ab++) for (let bc = 0; bc < m * p && ok; bc++) for (let k = 0; k < n * p && ok; k++) {
       let s = 0n;
       for (let t = 0; t < r; t++) s += BigInt(U[ab][t]) * BigInt(V[bc][t]) * BigInt(W[k][t]);
-      const want = BigInt(target(dims, layout, ab, bc, k));
+      const want = scale * BigInt(target(dims, layout, ab, bc, k));
       if (ring === 'F2' ? ((s - want) % 2n !== 0n) : (s !== want)) ok = false;
     }
     if (ok) return { verdict: 'VERIFIED', layout };
