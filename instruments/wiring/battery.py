@@ -6,7 +6,9 @@ cert-machine's own file, not a port. Four things must hold at every build:
   1. the pins    every ported file still hashes to instruments/wiring/PROVENANCE.json
   2. the gate    the ten planted forgeries are all caught (python -m lattice_claims gate)
   3. the ceiling the `exact` reference policy certifies 45/45 on the baseline tasks —
-                 a ceiling that is not at the ceiling is a bug in the ceiling
+                 a ceiling that is not at the ceiling is a bug in the ceiling;
+                 and (0.2.0) the answer key pays the guesser over it, so the
+                 control arm still controls
   4. the record  re-grading the 135 stored replies with THIS grader moves 0 rows,
                  so the grader here is the grader that graded the pinned record
 
@@ -44,6 +46,17 @@ n = 15
 tasks = {r: [ts.sample(i * 3 + RUNGS.index(r), rung=r) for i in range(n)] for r in RUNGS}
 got = sum(sum(x['certified'] for x in run_policy('exact', tasks[r])) for r in RUNGS)
 check('the exact policy is the ceiling', got == 3 * n, f"{int(got)}/{3 * n}")
+
+# 3b. the two graders pay for opposite things (0.2.0) — measured on the same 45
+# tasks with no model: under the answer key the guesser (`careful`, which never
+# abstains) beats the honest `exact` policy; under the exact grader the order
+# reverses. If this ever stops holding, the control arm no longer controls.
+tot = {p: {f: sum(sum(x[f] for x in run_policy(p, tasks[r])) for r in RUNGS) for f in ('certified', 'key_match')}
+       for p in ('exact', 'careful')}
+check('the answer key pays guessing, the exact grader pays abstaining',
+      tot['careful']['key_match'] > tot['exact']['key_match'] and tot['exact']['certified'] > tot['careful']['certified'],
+      f"key: careful {int(tot['careful']['key_match'])} > exact {int(tot['exact']['key_match'])} · "
+      f"exact: exact {int(tot['exact']['certified'])} > careful {int(tot['careful']['certified'])}, of {3 * n}")
 
 # 4. the record — regrade.py runs at import against cwd-relative paths, so it is a subprocess
 r = subprocess.run([sys.executable, 'eval/regrade.py'], capture_output=True, text=True, cwd=HERE)

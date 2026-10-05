@@ -23,11 +23,11 @@
     },
     {
       "file": "lattice_claims/__main__.py",
-      "sha256": "4473f87e5d4312076591ce06c0070a07d55fa59ca54029a12ce528cdda1ccbb2",
+      "sha256": "ff315cbdd5915e0ed2b91c4fd45a53f3f1508944301b4948194489159e1f4a5a",
       "sourceSha256": "df0a52d71303ee7dc7b95a2a0e92891e789f3b9e8e108136efc30417c5f34a67",
       "bytes": 1968,
       "patched": true,
-      "patch": "a three-line `cli()` added so the console script declared in pyproject and the `python -m lattice_claims` form share one body."
+      "patch": "a three-line `cli()` added so the console script declared in pyproject and the `python -m lattice_claims` form share one body. 0.2.0 (2026-10-04): `baseline` prints the table under both graders."
     },
     {
       "file": "lattice_claims/forgeries.py",
@@ -45,17 +45,19 @@
     },
     {
       "file": "lattice_claims/policies.py",
-      "sha256": "ca49b450b90fc2b1c969bf4b408a13c62241acf14b395e4567fd032158f5eba6",
+      "sha256": "68da7b750b03e08568117e1aeaa718cba61276b11aff9b68349c3af869d778a8",
       "sourceSha256": "ca49b450b90fc2b1c969bf4b408a13c62241acf14b395e4567fd032158f5eba6",
       "bytes": 3658,
-      "patched": false
+      "patched": true,
+      "patch": "0.2.0 (2026-10-04): run_policy adds `key_match` (the answer key's verdict on the same submission) beside the exact grade, so one table shows what each grader pays for; the `careful` docstring says it is a guesser."
     },
     {
       "file": "lattice_claims/taskset.py",
-      "sha256": "0894f490c45e19daf5f49767bfce995a31db34e14145d7d11992be66e227ddc0",
+      "sha256": "7ca22baba05a63207067a565aff4f8bbb7d58c43cc28a51e9ced9f841f3bdc69",
       "sourceSha256": "0894f490c45e19daf5f49767bfce995a31db34e14145d7d11992be66e227ddc0",
       "bytes": 12476,
-      "patched": false
+      "patched": true,
+      "patch": "0.2.0 (2026-10-04): a Task keeps `key`, the complete instance's binary verdict (ins.verdict, already computed in _shape -- no extra random draw, so every (seed, index) still mints the same task; tests/test_graders.py pins the 0.1.0 output); `grade_key`, the answer-key control arm (abstentions never score); Taskset takes `mix`, rung weights as a deterministic cycle whose default (1, 1, 1) is the 0.1.0 cycle; DEFINITE / ABSTAIN / GRADERS / DEFAULT_DIMS / DEFAULT_MIX named once. `grade` is untouched."
     },
     {
       "file": "lattice_claims/wiring.py",
@@ -173,35 +175,35 @@
     },
     {
       "file": "README.md",
-      "sha256": "9b8dea457b9449efd86bbb95bbd35c11370ff9877ee9571e20ec6b29340e0f24",
+      "sha256": "494f2233fee81d105721f39adf61cbc14b9602e9fd937a1bbd0b6dca31e74178",
       "sourceSha256": "e0fddd39f645d514b5292fc82a75fcc5b31b3f1a9a30d8d0f31aee82cb2c8e41",
       "bytes": 16156,
       "patched": true,
-      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run."
+      "patch": "four sections rewritten on the port because the Hub renders this file as the environment's front page and all four were false here: there was NO install section at all; Layout said 18 tests (there are 27) and omitted api.py and adapters_v0.py; Reproduce invoked a builder that does not exist in this repository; and Page pointed at site/lattice-claims built by tools/build-lattice-env.js, when it is /instruments/lattice-claims built by playground/build.js. Two sections added: the verified binding and the live run. 0.2.0 (2026-10-04): the Two graders section, the rewards table's four new rows, the tests count (43 across five files), the rubric paragraph (eight numbers)."
     },
     {
       "file": "pyproject.toml",
-      "sha256": "ed3764d42dcd8ca1cbad628f14498d53b330fd1a718933cd6751fb1172fb167c",
+      "sha256": "ee24a145ae8ccdfc127d9b472556813bcf8e24745d77561f9ddf12260b27893e",
       "sourceSha256": "b194074f7b003a5ba2c009c655be3403aff81534b86e0db7eb8672d6cf84bcef",
       "bytes": 436,
       "patched": true,
-      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery."
+      "patch": "rewritten from a twelve-line stub to the publishable shape: readme, license, authors, the Hub tags, `dependencies = [\"verifiers>=0.2.0\"]`, urls, the console script, hatchling, and a requires-python floor of 3.11 — the floor of the WHEEL (verifiers needs it), not of the grader, which is stdlib and runs on 3.9 in this repository's battery. 0.2.0 (2026-10-04): version 0.2.0; the description cut to 74 characters (the Hub's listing truncates past ~80; 0.1.0's was 186); the tag `hallucination`."
     },
     {
       "file": "lattice_claims/api.py",
-      "sha256": "2f25643ff95a68901db7da6d9aca2e1a1ca99350e84d5a2d2b5480cdb4e9077f",
+      "sha256": "5f47cc6b749de8ea4368863a4707a698a5ece0c7644edb9d22640bc6a4038d56",
       "sourceSha256": null,
-      "bytes": 4764,
+      "bytes": 6206,
       "patched": false,
-      "note": "written here: the framework-free surface every consumer shares."
+      "note": "written here: the framework-free surface every consumer shares. 0.2.0 (2026-10-04): make_taskset (the one place a task's identity -- seed, index, dims, mix -- becomes a generator; the 0.1.0 defaults when dims/mix are absent, so stored rows keep their meaning); rows carry dims and mix; score_task adds key_match, abstained, confident_wrong."
     },
     {
       "file": "lattice_claims/adapters_v0.py",
-      "sha256": "4b631d35bca968ffe2a9a0347fc0f4798ffd315dec35360f4382ff44e5aceda3",
+      "sha256": "f028dbc1989613f8339d9307d7a6e38565d38c1e58836c1000ff88f381d3548d",
       "sourceSha256": null,
-      "bytes": 5954,
+      "bytes": 8423,
       "patched": false,
-      "note": "written here, against a live verifiers 0.3.1: load_environment."
+      "note": "written here, against a live verifiers 0.3.1: load_environment. 0.2.0 (2026-10-04): `grader` ('exact' | 'answer_key') chooses what trains, an unknown one raises; `dims` and `mix` ride in every row; the rubric reports reward, certified, key_match, abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1, then 0); scoring is memoised per (seed, index, dims, mix, reply) and returns a copy."
     },
     {
       "file": "tests/test_framework_free.py",
@@ -213,11 +215,11 @@
     },
     {
       "file": "tests/test_verifiers_binding.py",
-      "sha256": "8da67eb084f1409b0fa2a6302b1bbabcdde87843287c99805130938d902357e9",
+      "sha256": "c737a601b138f80648888a55926c0f033a696b8473ea76bdc581373382699a64",
       "sourceSha256": null,
-      "bytes": 4882,
+      "bytes": 7621,
       "patched": false,
-      "note": "written here: the binding, exercised live or SKIPPED."
+      "note": "written here: the binding, exercised live or SKIPPED. 0.2.0 (2026-10-04): three more -- an unknown grader refused, the switch changing what trains and nothing that is measured, dims/mix carried through with a red control (the same reply scored without dims is a different task)."
     },
     {
       "file": "eval/run_verifiers.py",
@@ -242,6 +244,14 @@
       "bytes": 98585,
       "patched": false,
       "note": "written here: a live run record."
+    },
+    {
+      "file": "tests/test_graders.py",
+      "sha256": "633f8815a4be7ecb8d91552115df4caf64bc255c3032a3c0a77cd533622a70a7",
+      "sourceSha256": null,
+      "bytes": 5712,
+      "patched": false,
+      "note": "written here (0.2.0, 2026-10-04): the two graders, and the 0.1.0 generator output pinned by sha256 so no stored (seed, index) can be re-pointed silently."
     }
   ],
   "publishingLayer": {
@@ -279,5 +289,33 @@
       "reviewCaught": "The README had no install section, said 18 tests where there are 27, invoked a builder that does not exist in this repository, and pointed the Page section at site/lattice-claims built by tools/build-lattice-env.js when it is /instruments/lattice-claims built by playground/build.js. All four corrected before the push, because that file becomes the environment's front page on the Hub.",
       "verifiedFromTheHub": "pip install from the hub index into a clean 3.12 venv, then loaded from /tmp with no source tree present: SingleTurnEnv, 6 train / 6 eval across all three rungs, no answer column, no task column, disjoint seeds — and the thesis reaches the framework layer, where a right verdict from a reference the task did not state scores reward 1.0 and well_formed 0.0."
     }
+  },
+  "v020": {
+    "what": "lattice-claims 0.2.0, built 2026-10-04 for a training comparison: the exact grader (default) against an answer key (grader='answer_key'), the binary verdict of the complete instance, under which an abstention never scores. Every reply is scored under both; dims and mix are parameters that ride in every row.",
+    "why": "The pre-registered comparison for the Prime Intellect application: does a binary answer key train guessing where the exact grader trains decided abstention? Prior art, cited on the README: Kalai et al. 2025 (arXiv 2509.04664, the incentive argument) and TruthRL 2025 (arXiv 2509.25760, binary vs ternary reward under GRPO on knowledge QA). What is added here: every abstention is decided, so abstaining on a complete task scores 0 too.",
+    "incentiveWithNoModel": {
+      "tasks": "300 (100 per rung, dims 8-16, seed 2026; python -m lattice_claims baseline --n 100)",
+      "exactGrader": {
+        "exact": 300,
+        "careful": 171,
+        "admissible": 93,
+        "refused": 78
+      },
+      "answerKey": {
+        "exact": 171,
+        "careful": 278,
+        "admissible": 165,
+        "refused": 135
+      }
+    },
+    "compatibility": "the generator's output is byte-identical to 0.1.0 at both the default and the training dimensions (two sha256 pins in tests/test_graders.py, taken before the change); eval/regrade.py re-grades the 135 stored replies with 0 rows moved; the 72 framework rollouts re-score with 0 disagreements.",
+    "acceptance": {
+      "pytest tests (verifiers 0.3.1, python 3.12)": "43 passed",
+      "pytest tests (system python, no verifiers)": "33 passed, the binding module skipped",
+      "python3 battery.py": "all green, incl. 'the answer key pays guessing, the exact grader pays abstaining' (key: careful 43 > exact 26; exact: exact 45 > careful 26, of 45)",
+      "verifiedOn": "2026-10-04"
+    },
+    "hubPush": "NOT PUSHED. carlos-toledo/lattice-claims is 0.1.0 on the Hub; pushing 0.2.0 is a SEND, on the operator's word.",
+    "cleanInstall": "pip wheel built the 0.2.0 wheel (sha256 5fc5c0a64a43302814768f4b222f65354c77f25fa18107155e1fb0e6f761166b, 16 entries, 39,527 bytes; hatchling stamps every entry 2020-02-02). Installed into a fresh python3.12 venv with verifiers 0.3.1 and loaded from a directory with no source tree: vf.load_environment('lattice-claims', grader='exact'|'answer_key', dims=[8, 12, 16]) returns a SingleTurnEnv, 6 train / 6 eval across all three rungs, prompts at most 1,841 characters; an unknown grader is refused with the message naming the two; the 43 tests pass against the INSTALLED package."
   }
 }

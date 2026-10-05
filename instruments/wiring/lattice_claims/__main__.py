@@ -1,5 +1,5 @@
 """    python -m lattice_claims gate                 the forgery battery
-    python -m lattice_claims baseline [--n N]     reference policies by rung, no API key
+    python -m lattice_claims baseline [--n N]     reference policies by rung, both graders, no API key
     python -m lattice_claims tasks N [--prompts]  sample tasks"""
 import sys
 
@@ -22,15 +22,17 @@ def main(argv):
         ts = Taskset(seed=2026, dims=dims)
         tasks = {r: [ts.sample(i * 3 + RUNGS.index(r), rung=r) for i in range(n)] for r in RUNGS}
         print(f"{n} tasks per rung, dims {dims}")
-        print(f"  {'policy':<12}" + "".join(f"{r:>16}" for r in RUNGS) + f"{'overall':>10}")
-        for name in POLICIES:
-            cells, tot = [], 0
-            for r in RUNGS:
-                g = run_policy(name, tasks[r])
-                c = sum(x["certified"] for x in g)
-                tot += c
-                cells.append(f"{int(c):>10}/{n:<5}")
-            print(f"  {name:<12}" + "".join(cells) + f"{int(tot):>6}/{3 * n}")
+        graded = {name: {r: run_policy(name, tasks[r]) for r in RUNGS} for name in POLICIES}
+        for field, title in (("certified", "the exact grader"), ("key_match", "the answer key")):
+            print(f"\n  {title} ({field})")
+            print(f"  {'policy':<12}" + "".join(f"{r:>16}" for r in RUNGS) + f"{'overall':>10}")
+            for name in POLICIES:
+                cells, tot = [], 0
+                for r in RUNGS:
+                    c = sum(x[field] for x in graded[name][r])
+                    tot += c
+                    cells.append(f"{int(c):>10}/{n:<5}")
+                print(f"  {name:<12}" + "".join(cells) + f"{int(tot):>6}/{3 * n}")
         return 0
     if cmd == "tasks":
         n = int(argv[1]) if len(argv) > 1 and argv[1].isdigit() else 3

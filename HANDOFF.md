@@ -15,10 +15,91 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install; the Hub push, the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-04, THE TWENTY-NINTH SESSION — THE PRIME INTELLECT APPLICATION.
+  ORIGIN (talk first, then "go"): the operator asked (1) for ideas for a Hub
+  environment built for likes, (2) which Prime Intellect role to apply for and what
+  to send, (3) whether to train on every environment, (4) whether to improve
+  lattice-claims first and build one more environment. Answers given in chat:
+  · THE HUB, MEASURED (the public API, no auth: api.primeintellect.ai/api/v1/
+    environmentshub/?limit=100&offset=N): 1,789 environments, 1,185 at 0 stars, 19
+    at >= 10, top 33 (hud-text-2048). OURS: break-the-grader, blind-spot and
+    lattice-claims all at 0 stars. Stars go to famous benchmark names, games,
+    known companies doing concrete jobs (zapier/AutomationBench 30) and
+    continuously updated procedural reasoning (sileod/reasoning-core-env 15); the
+    ~90 reward-hacking-sprint envs sit at ~0. WHITESPACE: no open-problem /
+    AlphaEvolve / EinsteinArena-style discovery env exists (searches for einstein,
+    alphaevolve, packing, kissing, erdős return nothing; one Ramsey env, 0 stars).
+    Ideas, ranked: beat-the-record (open bounds scored exactly; deciders shared
+    with phase 4b) with a level-ladder game mode; infinite-exact; sign-off
+    (Contraprova as an agent env); claim-court; allclose-is-a-lie. Nothing built.
+  · THE ROLE: Applied Research – Forward-Deployed (SF, hybrid-remote, visa
+    sponsorship, $150–300k); second, Applied Research – RL & Agents. The visible gap:
+    no training run anywhere in this repository, only API evals. The packet: ONE
+    controlled training run written up in PI's case-study form, verifiers-framework
+    issues re-checked against v1 and filed, a PI-tuned fork of outreach/metr/
+    resume.md, the Ashby form answers. The plan is in memory
+    (primeintellect-application-plan).
+  · TRAIN ONE ENVIRONMENT, TWICE: lattice-claims (stdlib, procedural, V1 runtime).
+    certified-mathbench is 46 fixed rungs (an eval ladder); blind-spot needs yosys/
+    iverilog in the sandbox; break-the-grader trains grader-attacking and is V0.
+    THE ARMS, revised after reading taskset.py: a binary ANSWER KEY against the
+    EXACT grader — guessing against decided abstention (well_formed alone is an
+    echo/format check GRPO learns trivially, so verdict-vs-reference was dropped).
+  BUILT THIS SESSION (on "go") — lattice-claims 0.2.0, instruments/wiring:
+  · taskset.py: Task.key = the complete instance's binary verdict (ins.verdict,
+    already computed in _shape — no extra random draw); grade_key, the control arm
+    (abstentions never score); Taskset(mix=...) rung weights as a deterministic
+    cycle, default (1,1,1) = the 0.1.0 cycle; `grade` untouched.
+  · api.py: make_taskset (the one place seed/index/dims/mix becomes a generator;
+    0.1.0 defaults when absent, so stored rows keep their meaning); rows carry dims
+    and mix; score_task adds key_match, abstained, confident_wrong.
+  · adapters_v0.py: load_environment(grader="exact"|"answer_key", dims, mix);
+    unknown grader raises; the rubric reports reward + certified, key_match,
+    abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1,
+    then 0), so two runs that differ only in `grader` are read on one scale;
+    scoring memoised per (seed, index, dims, mix, reply), returning a copy.
+  · THE INCENTIVE WITH NO MODEL (python -m lattice_claims baseline --n 100; 300
+    tasks, dims 8–16): exact grader — exact 300, careful 171, admissible 93,
+    refused 78; answer key — exact 171, careful 278, admissible 165, refused 135.
+    Under the key the honest policy beats always-ADMISSIBLE by 6 and loses to the
+    guesser by 107. A battery check now holds the reversal on the 45 baseline
+    tasks (key: careful 43 > exact 26; exact: exact 45 > careful 26).
+  · COMPATIBILITY: the generator's output is byte-identical to 0.1.0 (two sha256
+    pins in tests/test_graders.py, taken BEFORE the change, default and training
+    dims); regrade 135 rows, 0 moved; the 72 framework rollouts, 0 disagreements.
+  · Tests 43 across five files (33 without verifiers); battery all green; the
+    wheel (sha256 5fc5c0a6…) installed into a fresh python3.12 venv with verifiers
+    0.3.1 and loaded with no source tree: both graders, 6/6 across three rungs,
+    prompts <= 1,841 chars, 43 tests pass against the INSTALLED package.
+    PROVENANCE.json re-pinned with per-file 0.2.0 patch notes and a `v020` section;
+    README (the Hub front page) gains "Two graders"; pyproject 0.2.0, description
+    186 → 74 chars, tag `hallucination`; build-control.js's battery line updated.
+  · PRIOR ART, written into corpus/targets.json as OCCUPIED (rl-guessing-vs-
+    abstention): Kalai et al. 2509.04664 (the incentive argument) and TruthRL
+    2509.25760 (binary vs ternary reward under GRPO, ICML 2026). A positive result
+    is a REPLICATION and must be written as one; what is added is abstention
+    DECIDED, not labelled (abstaining on a complete task scores 0 too).
+  HELD — EACH ON THE OPERATOR'S WORD:
+  · THE HUB PUSH of 0.2.0 (a SEND): `pip install prime` in a venv first, then
+    `cd instruments/wiring && prime env push --visibility PUBLIC`, then verify FROM
+    THE REGISTRY in a fresh venv; record it under PROVENANCE `v020`.
+  · THE BASELINE MEASUREMENT (a spend + a model choice — the open model Lab will
+    train): 200 tasks per rung at dims 8–16, e.g. `vf-eval lattice-claims -a
+    '{"grader": "exact", "dims": [8, 12, 16], "num_tasks": 600}' -m <model> -n 600`
+    (num_tasks sizes the dataset; vf-eval draws from the EVAL split, seed + 1); the parse-failure
+    rate, accuracy per rung, abstention rate; GRPO needs groups with mixed rewards.
+  · THEN: the pre-registration note (arms, prediction, seeds, spend ceiling), the
+    two Lab runs (two seeds per arm if the budget allows), before/after transfer
+    evals on blind-spot and break-the-grader, the write-up, outreach/primeintellect/
+    (not started), the Ashby application. AFTER applying: write-the-grader (the
+    agent writes a grader; honest solutions accepted AND exactly-minted forgeries
+    refused; Prime Sandboxes) — the PI-focused env; beat-the-record is the likes play.
 
 ────────────────────────────────────────────────────────────────────────────
 HANDOFF 2026-10-02, END OF THE TWENTY-EIGHTH SESSION — STATE AND THE OPEN LIST.

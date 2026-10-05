@@ -24,9 +24,10 @@ but the rule is why `tests/test_framework_free.py` exists.
 """
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any, Dict, List, Optional
 
-from .api import ENV_ID, preflight, sample, score
+from .api import ENV_ID, GRADERS, preflight, sample, score
 
 TESTED_AGAINST = "0.3.1"
 
@@ -62,12 +63,25 @@ def _reply_text(completion) -> str:
 
 
 def _decide(completion, info) -> Dict[str, Any]:
-    """One line, so the framework layer owns no scoring of its own: `api.score`
-    rebuilds the task from (seed, index) and decides the reply exactly."""
-    return score(int(info["seed"]), int(info["index"]), _reply_text(completion))
+    """The framework layer owns no scoring of its own: `api.score`
+    rebuilds the task from (seed, index, dims, mix) and decides the reply exactly.
+    A row without dims or mix is a 0.1.0 row and means the 0.1.0 defaults."""
+    dims, mix = info.get("dims"), info.get("mix")
+    return dict(_decide_cached(int(info["seed"]), int(info["index"]),
+                               tuple(dims) if dims else None, tuple(mix) if mix else None,
+                               _reply_text(completion)))
 
 
-def _dataset_rows(num_tasks: int, seed: int, start: int) -> List[Dict[str, Any]]:
+@lru_cache(maxsize=4096)
+def _decide_cached(seed, index, dims, mix, text) -> Dict[str, Any]:
+    """The rubric asks for several numbers about the SAME reply, and each would
+    otherwise re-mint the task (~0.1 s at the default dimensions). `score` is a
+    pure function of these five arguments, so remembering it changes nothing but
+    the time. Callers get a copy, so nothing they do can reach the cache."""
+    return score(seed, index, text, dims, mix)
+
+
+def _dataset_rows(num_tasks: int, seed: int, start: int, dims=None, mix=None) -> List[Dict[str, Any]]:
     """`api.sample` rows in the column shape the framework wants.
 
     `answer` is the empty string because the framework asks for the column, not
@@ -76,7 +90,7 @@ def _dataset_rows(num_tasks: int, seed: int, start: int) -> List[Dict[str, Any]]
     nothing to leak. See defect 2 for the missing `task` column.
     """
     out = []
-    for row in sample(num_tasks, seed, start):
+    for row in sample(num_tasks, seed, start, dims, mix):
         info = dict(row)
         info["env_id"] = ENV_ID
         out.append({"question": info.pop("prompt"), "answer": "", "info": info})
@@ -90,6 +104,9 @@ def load_environment(
     eval_num_tasks: Optional[int] = None,
     eval_seed: Optional[int] = None,
     eval_start: Optional[int] = None,
+    grader: str = "exact",
+    dims: Optional[List[int]] = None,
+    mix: Optional[List[int]] = None,
     **kwargs,
 ):
     """A `SingleTurnEnv` over the procedural generator.
@@ -99,20 +116,47 @@ def load_environment(
     SEED rather than by index, because the index chooses the rung — it cycles
     declared / printed / underspecified — and splitting on index would hand the
     two halves different rung mixtures.
+
+    `grader` chooses what TRAINS (0.2.0): "exact" (the default) or "answer_key",
+    the binary key of the complete instance, under which an abstention never
+    scores. Every other number is computed under both, at weight 0, so two runs
+    that differ only in `grader` are read on the same columns. `dims` sets the
+    lattice dimensions (default 24, 40, 60, 90; (8, 12, 16) keeps a prompt near
+    1,500 characters) and `mix` weights the rungs as a deterministic cycle
+    (default 1, 1, 1). Both ride in every row, so scoring rebuilds the same task.
     """
     import verifiers as vf
     from datasets import Dataset
 
+    if grader not in GRADERS:
+        raise ValueError(f"grader must be one of {GRADERS}, not {grader!r}")
     preflight()          # the forgery gate, before anything a model could be scored against
 
     eval_num_tasks = num_tasks if eval_num_tasks is None else eval_num_tasks
     eval_seed = seed + 1 if eval_seed is None else eval_seed
     eval_start = start if eval_start is None else eval_start
+    trains_on = "certified" if grader == "exact" else "key_match"
 
     def reward(completion, info, **_) -> float:
-        """1 when the verdict matches what the exact grader decided. This is what
-        trains, and it is deliberately NOT the only thing measured."""
+        """What trains: `certified` under the exact grader, `key_match` under the
+        answer key. Deliberately NOT the only thing measured."""
+        return float(_decide(completion, info)[trains_on])
+
+    def certified(completion, info, **_) -> float:
+        """The exact grader's verdict on the reply, whichever grader trains."""
         return float(_decide(completion, info)["certified"])
+
+    def key_match(completion, info, **_) -> float:
+        """The answer key's verdict on the reply, whichever grader trains."""
+        return float(_decide(completion, info)["key_match"])
+
+    def abstained(completion, info, **_) -> float:
+        """1 when the reply said STRADDLES or NEEDS_DATA."""
+        return float(_decide(completion, info)["abstained"])
+
+    def confident_wrong(completion, info, **_) -> float:
+        """1 when the reply gave a definite verdict the exact grader refutes."""
+        return float(_decide(completion, info)["confident_wrong"])
 
     def well_formed(completion, info, **_) -> float:
         """1 only when the reply declared the reference it decided against AND
@@ -123,7 +167,7 @@ def load_environment(
         return float(_decide(completion, info)["well_formed"])
 
     def not_hacked(completion, info, **_) -> float:
-        """0 when the submission smuggled the answer in rather than deciding it."""
+        """0 when a float grader would have disagreed with the exact decision."""
         return float(_decide(completion, info)["not_hacked"])
 
     def refused_parse(completion, info, **_) -> float:
@@ -131,13 +175,12 @@ def load_environment(
         reply that could not be read is never confused with a wrong answer."""
         return 1.0 if _decide(completion, info)["verdict"] is None else 0.0
 
-    rubric = vf.Rubric(
-        funcs=[reward, well_formed, not_hacked, refused_parse],
-        weights=[1.0, 0.0, 0.0, 0.0],
-    )
+    funcs = [reward, certified, key_match, abstained, confident_wrong,
+             well_formed, not_hacked, refused_parse]
+    rubric = vf.Rubric(funcs=funcs, weights=[1.0] + [0.0] * (len(funcs) - 1))
     return vf.SingleTurnEnv(
-        dataset=Dataset.from_list(_dataset_rows(num_tasks, seed, start)),
-        eval_dataset=Dataset.from_list(_dataset_rows(eval_num_tasks, eval_seed, eval_start)),
+        dataset=Dataset.from_list(_dataset_rows(num_tasks, seed, start, dims, mix)),
+        eval_dataset=Dataset.from_list(_dataset_rows(eval_num_tasks, eval_seed, eval_start, dims, mix)),
         rubric=rubric,
         **kwargs,
     )

@@ -715,6 +715,16 @@
    "finding": "Named 2026-10-02 in corpus/machine-claims-100.json by tools/run-machine-claims.js (the rules per pool are in the tool; --write rebuilds, the check refuses a manifest the rules do not reproduce, re-hashes every pin, and refuses any verdict field). Ten pools: alphatensor-q 12, alphatensor-f2 8, alphaevolve-nb-matmul 15, alphaevolve-nb-b 6, einstein-arena 29, station-v2 10, funsearch 6, optconst 3, alphaevolve-repo 10, erdos-513 1. Deciders existing today cover about 45 rows (the tensor pools, kissing, the easota shapes, polymaps); the rest need instruments, mostly finite exact checks.",
    "fit": "the register paper's second edition: a defect rate by kind on a corpus chosen by rule",
    "next": "decide pool by pool, each run writing its own ledger and reaching the register through run-claims-ledger.js; a row with no published object stays as NEEDS DATA"
+  },
+  {
+   "id": "rl-guessing-vs-abstention",
+   "name": "Does training against a binary answer key teach guessing where an exact three-valued grader teaches decided abstention? (lattice-claims 0.2.0; the Prime Intellect application's training run)",
+   "verdict": "OCCUPIED",
+   "scouted": "2026-10-04",
+   "killedBy": "The general claim is published. Kalai, Nachum, Vempala and Zhang, 'Why Language Models Hallucinate' (OpenAI, arXiv 2509.04664, Sept 2025) argue binary grading pays guessing over 'I don't know'; TruthRL (arXiv 2509.25760, Meta/UVA/UW, ICML 2026) ran it under GRPO: a binary reward amplifies hallucination, a ternary reward (+1 correct, 0 abstain, -1 wrong) cuts it by 28.9% across Qwen and Llama backbones on knowledge QA. Abstention benchmarks are their own literature (AbstentionBench 2506.09038). So a positive result here is a REPLICATION, not a discovery, and must be written as one.",
+   "finding": "What is not in that literature, and what lattice-claims adds: abstention correctness DECIDED rather than labelled. NEEDS_DATA is right only when a quantity is genuinely absent and STRADDLES only when the rounded norm genuinely fails to settle the claim, so abstaining on a complete task scores 0 under the exact grader too (TruthRL's neutral 0 for abstaining pays it everywhere). The answer key is realistic: the complete instance's verdict, what a benchmark builder holds. And the incentive is measured with no model: on 300 tasks (dims 8-16) the honest exact policy scores 300 under the exact grader and 171 under the key, where the never-abstaining guesser scores 171 and 278 and always-ADMISSIBLE 93 and 165.",
+   "fit": "a controlled training result on Prime Intellect's own stack (verifiers, Lab/prime-rl) for the Forward-Deployed application: reward design shown, not described",
+   "next": "measure the model to be trained on 200 tasks per rung at dims 8-16 (vf-eval, both graders logged), pre-register the arms, the prediction and a spend ceiling, then the two runs (two seeds per arm if the budget allows) and before/after transfer evals on blind-spot and break-the-grader; write it up citing both papers as the premise. A third arm with TruthRL's -1 for a confident wrong answer is the natural extension."
   }
  ]
 }

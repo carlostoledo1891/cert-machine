@@ -14,7 +14,9 @@ model's row against those.
     careful    the log-domain float grader.  Right on every real record we
                have checked, and it has no way to say STRADDLES or NEEDS_DATA,
                so its printed and underspecified rows are the cost of a grader
-               that cannot abstain.
+               that cannot abstain.  It fills a missing factor with 21/20 and a
+               missing modulus with ADMISSIBLE -- a guesser, which is why it
+               beats `exact` under the answer key.
     admissible always ADMISSIBLE.  The base rate.
     refused    always REFUSED.
 """
@@ -87,6 +89,16 @@ POLICIES = {"exact": exact, "careful": careful, "admissible": admissible, "refus
 
 
 def run_policy(name, tasks):
-    from .taskset import grade
+    """Each policy graded by the exact grader, with the answer key's verdict on
+    the same submission alongside as `key_match` (0.2.0) -- so one table shows
+    what each grader pays for: under the key, `careful`, which never abstains,
+    outscores `exact`, which abstains exactly when it should."""
+    from .taskset import grade, grade_key
     pol = POLICIES[name]
-    return [grade(t, pol(t)) for t in tasks]
+    out = []
+    for t in tasks:
+        sub = pol(t)
+        g = grade(t, sub)
+        g["key_match"] = grade_key(t, sub)
+        out.append(g)
+    return out

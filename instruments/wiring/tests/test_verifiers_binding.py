@@ -102,3 +102,48 @@ def test_an_unreadable_reply_is_zero_and_flagged_apart():
     C = [{"role": "assistant", "content": "I think it is probably fine."}]
     assert fn["reward"](completion=C, info=row) == 0.0
     assert fn["refused_parse"](completion=C, info=row) == 1.0
+
+
+# --- 0.2.0: the grader switch, and dims/mix carried through the framework -----
+
+def test_an_unknown_grader_is_refused_before_anything_is_built():
+    with pytest.raises(ValueError):
+        load_environment(num_tasks=1, grader="judge")
+
+
+def test_the_grader_switch_changes_what_trains_and_nothing_that_is_measured():
+    """An honest NEEDS_DATA on an underspecified task: the exact grader pays it,
+    the answer key does not, and BOTH runs log the same `certified` and
+    `key_match` for it — which is what lets two runs be read on one scale."""
+    kw = dict(num_tasks=4, seed=2026, dims=[8, 12, 16], mix=[1, 0, 1])
+    exact, keyed = load_environment(grader="exact", **kw), load_environment(grader="answer_key", **kw)
+    row = next(dict(i) for i in exact.dataset["info"] if i["rung"] == "underspecified")
+    C = [{"role": "assistant",
+          "content": '{"verdict": "NEEDS_DATA", "missing": "%s"}' % row["missing"].split(".")[1]}]
+    fe, fk = reward_funcs(exact), reward_funcs(keyed)
+    assert fe["reward"](completion=C, info=row) == 1.0
+    assert fk["reward"](completion=C, info=row) == 0.0
+    for name, want in (("certified", 1.0), ("key_match", 0.0), ("abstained", 1.0), ("confident_wrong", 0.0)):
+        assert fe[name](completion=C, info=row) == want == fk[name](completion=C, info=row)
+
+
+def test_dims_and_mix_ride_in_every_row_so_scoring_rebuilds_the_same_task():
+    """Without dims in the row, the scorer would rebuild the DEFAULT-dimension
+    task and grade a reply against a lattice the model never saw."""
+    env = load_environment(num_tasks=4, seed=2026, dims=[8, 12, 16], mix=[1, 0, 1])
+    infos = [dict(i) for i in env.dataset["info"]]
+    assert {i["rung"] for i in infos} == {"declared", "underspecified"}
+    assert all(i["dims"] == [8, 12, 16] and i["mix"] == [1, 0, 1] for i in infos)
+    row = next(i for i in infos if i["rung"] == "declared")
+    t = api.make_taskset(row["seed"], row["dims"], row["mix"]).sample(row["index"])
+    assert t.prompt() == env.dataset[infos.index(row)]["question"]
+    ns = sum(int(c) ** 2 for c in t.data.claim["vector"])
+    reply = '{"verdict": "%s", "reference": {"norm_squared": %d, "factor": "21/20"}}' % (row["truth"], ns)
+    C = [{"role": "assistant", "content": reply}]
+    fn = reward_funcs(env)
+    assert fn["reward"](completion=C, info=row) == 1.0
+    # the verdict alone could match a wrongly rebuilt task by chance; the
+    # declared norm cannot, because it is the norm of THIS task's vector
+    assert fn["well_formed"](completion=C, info=row) == 1.0
+    stripped = {k: v for k, v in row.items() if k not in ("dims", "mix")}
+    assert fn["well_formed"](completion=C, info=stripped) == 0.0, "the control: without dims the task is a different one"
