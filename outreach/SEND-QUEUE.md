@@ -28,7 +28,8 @@ here on request.
     - easota page fix, then the Together AI issue;
     - the operator's email to Althöfer, then the C84b PR, after 7 days or a reply, and after #216.
   - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste).
-  - P2b HELD: TTT-Discover #19 (≥ 2026-10-09, after the easota fix); the incrediblecrab tracker (until the #1186 claim is public).
+  - POSTED after the easota fix went live (2026-10-06): togethercomputer/EinsteinArena-new-SOTA#14; the TTT-Discover #19 comment. The 2026-10-09 courtesy hold was overridden by the operator's "finish all".
+  - P2b HELD: the incrediblecrab tracker, until the #1186 claim is public.
 - **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
 
 ## LANE P — PRIME INTELLECT (2026-10-05)
