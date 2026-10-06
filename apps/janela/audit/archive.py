@@ -141,17 +141,14 @@ def km(lat1, lon1, lat2, lon2):
     return 12742.0 * math.asin(math.sqrt(a))
 
 
-def alt_file(m, d):
+def alt_extract(m, d):
+    """one mission-day of NOAA RADS NRT altimetry, the points within ALT_RADIUS_KM of each site (exact integers)."""
     import h5py
     import numpy as np
-    path = os.path.join(CACHE, 'alt', d.strftime('%Y%m'), f'{m}_{d.strftime("%Y%m%d")}.json')
-    if os.path.exists(path):
-        return 'cached'
     url = f'{ALT_BASE}/{m}/{m}_{d.strftime("%Y%m%d")}.nc'
     b = E.get(url)
     if b is None:
-        write_json(path, {'mission': m, 'date': d.isoformat(), 'url': url, 'absent': True})
-        return 'absent'
+        return {'mission': m, 'date': d.isoformat(), 'url': url, 'absent': True}
     f = h5py.File(io.BytesIO(b), 'r')
     t = f['time'][:]
     raw = {k: f[k][:] for k in ('lat', 'lon', 'swh', 'wind_speed_alt')}
@@ -178,13 +175,21 @@ def alt_file(m, d):
                          round(dist, 2)])
         if rows:
             pts[s['id']] = rows
-    write_json(path, {'mission': m, 'date': d.isoformat(), 'url': url, 'bytes': len(b),
-                      'sha256': hashlib.sha256(b).hexdigest(),
-                      'columns': ['t (s since 1985-01-01 UTC)', 'lat (1e-6 deg)', 'lon (1e-6 deg)',
-                                  'swh (mm)', 'wind_speed_alt (cm/s)', 'km from site'],
-                      'scale': {'swh': scale['swh'], 'wind_speed_alt': scale['wind_speed_alt']},
-                      'points': pts})
-    return f'{sum(len(v) for v in pts.values())} points'
+    return {'mission': m, 'date': d.isoformat(), 'url': url, 'bytes': len(b),
+            'sha256': hashlib.sha256(b).hexdigest(),
+            'columns': ['t (s since 1985-01-01 UTC)', 'lat (1e-6 deg)', 'lon (1e-6 deg)',
+                        'swh (mm)', 'wind_speed_alt (cm/s)', 'km from site'],
+            'scale': {'swh': scale['swh'], 'wind_speed_alt': scale['wind_speed_alt']},
+            'points': pts}
+
+
+def alt_file(m, d):
+    path = os.path.join(CACHE, 'alt', d.strftime('%Y%m'), f'{m}_{d.strftime("%Y%m%d")}.json')
+    if os.path.exists(path):
+        return 'cached'
+    rec = alt_extract(m, d)
+    write_json(path, rec)
+    return 'absent' if rec.get('absent') else f'{sum(len(v) for v in rec["points"].values())} points'
 
 
 # ── METAR (platform P-25, SBLB) ───────────────────────────────────────────

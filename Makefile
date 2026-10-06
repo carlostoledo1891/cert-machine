@@ -173,6 +173,9 @@ test:
 	@printf "%-30s " "render (what a page shows)"; $(NODE) tools/check-render.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "contraprova gate"; $(NODE) apps/contraprova/gate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "window instrument"; $(NODE) instruments/window/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela (offshore windows)"; $(NODE) apps/janela/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela alpha (DNV 4-1)"; python3 apps/janela/audit/alpha.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL

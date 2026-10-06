@@ -1,0 +1,30 @@
+{
+  "what": "DNV's alpha factors for weather-restricted marine operations: OPWF = alpha x OPLIM (the forecast must stay at or below OPWF over the reference period TR = TPOP + TC). Transcribed from DNV-OS-H101 (October 2011) Sec.4 B700, Tables 4-1 to 4-6, page 32-33, and checked against the text 2026-10-06. ONE definition: apps/janela/audit/alpha.py and the workability runner both read this file.",
+  "source": {
+    "title": "DNV-OS-H101 Marine Operations, General (Offshore Standard), October 2011",
+    "url": "https://rules.dnv.com/docs/pdf/DNVPM/codes/docs/2011-10/Os-H101.pdf",
+    "sha256": "4eca653e7cc4c5289902ad82a25b0b20c5b69909cac1ad5bd59856d28ca7fda8",
+    "bytes": 933167,
+    "fetched": "2026-10-06",
+    "licence": "DNV copyright; the PDF is pinned by hash, kept in the git-ignored cache, never redistributed; the table values are transcribed as facts with their location",
+    "successor": "DNVGL-ST-N001 (current edition 2023-12) carries the alpha-factor scheme; its tables were not compared here"
+  },
+  "rules": {
+    "B501": "Marine operations with a reference period (TR) less than 96 hours and a planned operation time (TPOP) less than 72 hours may normally be defined as weather restricted.",
+    "B402": "If TPOP uncertainties and required time for contingency situations is not assessed in detail the reference period should normally at least be taken as twice the planned operation period, i.e. TR >= 2 x TPOP.",
+    "B704": "The expected uncertainty in the weather forecast should be calculated based on statistical data for the actual site and the operation schedule, i.e. TPOP. Guidance note: The alpha-factor should be calibrated to ensure that the probability of exceeding the operational environmental limiting criteria (OPLIM) with more than 50% is less than 10-4.",
+    "B705": "In the North Sea and the Norwegian Sea the alpha-factor should normally be selected according to the relevant Table 4-1 through Table 4-5 [...] a guideline for other offshore areas.",
+    "interpolation": "linear between design-Hs columns (1, 2, 4, >= 6 m); rows are steps 'TPOP <= x h' with no interpolation stated; design Hs below 1 m: case by case (Note 3)"
+  },
+  "waveColumns": [1, 2, 4, 6],
+  "waveTables": {
+    "4-1": { "name": "base case: one forecast (Level C) or the mean of forecasts", "rows": { "12": [0.65, 0.76, 0.79, 0.80], "24": [0.63, 0.73, 0.76, 0.78], "36": [0.62, 0.71, 0.73, 0.76], "48": [0.60, 0.68, 0.71, 0.74], "72": [0.55, 0.63, 0.68, 0.72] } },
+    "4-2": { "name": "Level B: the highest forecast of at least two recognised sources", "rows": { "12": [0.68, 0.80, 0.83, 0.84], "24": [0.66, 0.77, 0.80, 0.82], "36": [0.65, 0.75, 0.77, 0.80], "48": [0.63, 0.71, 0.75, 0.78], "72": [0.58, 0.66, 0.71, 0.76] } },
+    "4-3": { "name": "Level A with a meteorologist at site", "rows": { "12": [0.72, 0.84, 0.87, 0.88], "24": [0.69, 0.80, 0.84, 0.86], "36": [0.68, 0.78, 0.80, 0.84], "48": [0.66, 0.75, 0.78, 0.81], "72": [0.61, 0.69, 0.75, 0.79] } },
+    "4-4": { "name": "forecast calibrated by monitoring (D300); TPOP > 24 h: Table 4-1 or 4-2", "rows": { "4": [0.90, 0.95, 1.0, 1.0], "12": [0.72, 0.84, 0.87, 0.88], "24": [0.66, 0.77, 0.80, 0.82] } },
+    "4-5": { "name": "monitoring and Level A with a meteorologist at site; TPOP > 24 h: Table 4-3", "rows": { "4": [0.90, 0.95, 1.0, 1.0], "12": [0.78, 0.91, 0.95, 0.96], "24": [0.72, 0.84, 0.87, 0.90] } }
+  },
+  "windTable": {
+    "4-6": { "name": "recommended maximum alpha for wind when no reliable data is available (B712)", "columns": ["Vd < 0.5 x V10-year", "Vd > 0.5 x V10-year"], "rows": { "24": [0.80, 0.85], "48": [0.75, 0.80], "72": [0.70, 0.75] } }
+  }
+}

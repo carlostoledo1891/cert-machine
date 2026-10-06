@@ -1,0 +1,123 @@
+{
+  "what": "The operations Janela decides in v1: each one a published limit from apps/janela/scenario/rules/npcp.json (cited by rule id), restated as the condition under which the operation may run. Where the act prints a colour band, the operation is 'not red' — the complement of the band that triggers impracticability, as printed. 'hsAt' says where the forecast node stands for: 'approach' (the bar or outer channel — decided at the nearest open-sea model node, with that caveat) or 'berth' (inside a bay — the open-sea Hs is NOT the berth's, so the wave limit is not decided until the nearshore transfer exists, and the verdict can be at best SEM DADOS). Vessel attributes (draft, LOA, speed) are the operator's to check and are listed, never decided.",
+  "version": "v1 (2026-10-06)",
+  "operations": [
+    {
+      "id": "sfs-barra",
+      "site": "babitonga",
+      "name": "Barra de São Francisco do Sul praticável",
+      "en": "São Francisco do Sul bar open to pilotage",
+      "rule": "babitonga-sfs-impraticabilidade-faixas",
+      "derivation": "not red: the act's red band is Hs >= 2.0 m or wind >= 22 kn or current >= 3.0 kn or visibility <= 1.0 NM",
+      "hsAt": "approach",
+      "limits": [
+        { "var": "hs", "op": "<", "value": "2.0", "unit": "m" },
+        { "var": "wind_sustained", "op": "<", "value": "22", "unit": "kn" },
+        { "var": "current", "op": "<", "value": "3.0", "unit": "kn" },
+        { "var": "visibility", "op": ">", "value": "1.0", "unit": "NM" }
+      ]
+    },
+    {
+      "id": "tgs-lngc",
+      "site": "babitonga",
+      "name": "Terminal Gás Sul — manobra de LNGC (parâmetros experimentais)",
+      "en": "Terminal Gás Sul — LNG carrier manoeuvre (experimental parameters)",
+      "rule": "babitonga-tgs-manobra-experimental",
+      "derivation": "the experimental parameters as printed (Anexo 5-C); the experimental period ended on 30/12/2024 (NPCP) or 31/12/2024 (Portaria 55/2024) and no final parameters were found on 2026-10-06",
+      "status": "expired-experimental",
+      "hsAt": "berth",
+      "limits": [
+        { "var": "wind_sustained", "op": "<=", "value": "16", "unit": "kn" },
+        { "var": "current", "op": "<=", "value": "1.2", "unit": "kn" },
+        { "var": "hs", "op": "<=", "value": "1.5", "unit": "m" },
+        { "var": "visibility", "op": ">=", "value": "2", "unit": "NM" },
+        { "var": "loa", "op": "<=", "value": "315", "unit": "m" }
+      ]
+    },
+    {
+      "id": "tebar-sts",
+      "site": "sao-sebastiao",
+      "name": "TEBAR — manobra para ship-to-ship no berço 1 (PP1)",
+      "en": "TEBAR — ship-to-ship manoeuvre at berth 1 (PP1)",
+      "rule": "tebar-sts-pp1-manobra",
+      "derivation": "as printed (item 5.7.3); the terminal must also keep its 'Protocolo Meteoceanográfico para Operação/Interrupção das Manobras de STS' (not published)",
+      "hsAt": "berth",
+      "limits": [
+        { "var": "current", "op": "<", "value": "2.0", "unit": "kn" },
+        { "var": "wind_sustained", "op": "<", "value": "20", "unit": "kn" }
+      ]
+    },
+    {
+      "id": "sao-sebastiao-complexo",
+      "site": "sao-sebastiao",
+      "name": "Complexo de São Sebastião fora do vermelho",
+      "en": "São Sebastião port complex out of red",
+      "rule": "sao-sebastiao-complexo-praticabilidade-faixas",
+      "derivation": "not red: the act's red band is Hs >= 3 m or wind > 30 kn or gusts > 35 kn or visibility < 0.5 NM",
+      "hsAt": "approach",
+      "limits": [
+        { "var": "hs", "op": "<", "value": "3", "unit": "m" },
+        { "var": "wind_sustained", "op": "<=", "value": "30", "unit": "kn" },
+        { "var": "wind_gust", "op": "<=", "value": "35", "unit": "kn" },
+        { "var": "visibility", "op": ">=", "value": "0.5", "unit": "NM" }
+      ]
+    },
+    {
+      "id": "tebig-leste",
+      "site": "ilha-grande",
+      "name": "TEBIG — trânsito pelo Canal Leste (Aframax, Suezmax, VLCC)",
+      "en": "TEBIG — East Channel transit (Aframax, Suezmax, VLCC)",
+      "rule": "tebig-canal-leste-aframax-suezmax-vlcc",
+      "derivation": "as printed (Portaria 200/2026); 'maré e corrente: sem restrições'; the daylight clause contradicts the night clause as printed and is not decided here",
+      "hsAt": "approach",
+      "limits": [
+        { "var": "hs", "op": "<=", "value": "2.0", "unit": "m" },
+        { "var": "wind_sustained", "op": "<=", "value": "20", "unit": "kn" },
+        { "var": "draft", "op": "<=", "value": "13.2", "unit": "m" },
+        { "var": "speed", "op": "<=", "value": "12", "unit": "kn" }
+      ]
+    },
+    {
+      "id": "ilha-grande-quadro1",
+      "site": "ilha-grande",
+      "name": "Baía da Ilha Grande fora do vermelho",
+      "en": "Ilha Grande Bay out of red",
+      "rule": "ilha-grande-quadro1-impraticabilidade",
+      "derivation": "not red: the act's red band (Quadro 1) is Hs >= 2.5 m or wind >= 30 kn or visibility <= 0.5 NM",
+      "hsAt": "approach",
+      "limits": [
+        { "var": "hs", "op": "<", "value": "2.5", "unit": "m" },
+        { "var": "wind_sustained", "op": "<", "value": "30", "unit": "kn" },
+        { "var": "visibility", "op": ">", "value": "0.5", "unit": "NM" }
+      ]
+    },
+    {
+      "id": "sepetiba-lngc-sts",
+      "site": "sepetiba",
+      "name": "Sepetiba — entrada de LNGC para STS com a FSRU",
+      "en": "Sepetiba — LNG carrier entry for ship-to-ship with the FSRU",
+      "rule": "sepetiba-ute-lngc-sts-manobra",
+      "derivation": "the entry limits as printed (wind 16 kn in, 12 kn out; ebb current <= 0.5 kn; visibility >= 2 NM); real-time sensors required (SISMO)",
+      "hsAt": "berth",
+      "limits": [
+        { "var": "wind_sustained", "op": "<=", "value": "16", "unit": "kn" },
+        { "var": "current", "op": "<=", "value": "0.5", "unit": "kn" },
+        { "var": "visibility", "op": ">=", "value": "2", "unit": "NM" }
+      ]
+    },
+    {
+      "id": "sepetiba-quadro1",
+      "site": "sepetiba",
+      "name": "Baía de Sepetiba fora do vermelho",
+      "en": "Sepetiba Bay out of red",
+      "rule": "sepetiba-quadro1-impraticabilidade",
+      "derivation": "not red: the act's red band (Quadro 1) is Hs >= 2.5 m or wind >= 30 kn or visibility <= 0.5 NM",
+      "hsAt": "approach",
+      "limits": [
+        { "var": "hs", "op": "<", "value": "2.5", "unit": "m" },
+        { "var": "wind_sustained", "op": "<", "value": "30", "unit": "kn" },
+        { "var": "visibility", "op": ">", "value": "0.5", "unit": "NM" }
+      ]
+    }
+  ]
+}

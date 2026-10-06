@@ -38,6 +38,10 @@ const PROPOSER = 'ECMWF ENS wave (open data, 50 members): order statistics 6 and
    definition is a new TARGET_ID, never a silent edit of an old one */
 const TARGET_ID = 'altimeter-hs-v1 (apps/janela/audit/commit.js)';
 const DOMAIN_NOTE = { target: TARGET, proposer: PROPOSER, claim: '4/5', alpha: '1/5' };
+/* the second proposer: Janela's own band (certs/janela-bands.json), committed only from a
+   bands record whose sha256 is named here — a rebuilt record is a new proposer version */
+const CAL = { domain: 'janela/hs-altimeter/calibrated-v1', bands: path.join(ROOT, 'certs', 'janela-bands.json'), sha: null,
+  note: 'forecast x the exact conformal ratio interval of its site and 12 h lead bin (miss-rate 1/10) — certs/janela-bands.json' };
 
 const frac = (s) => { const [n, d = '1'] = String(s).split('/'); return [n, d]; };
 
@@ -54,6 +58,11 @@ function main() {
      committed before it was */
   const madeAt = new Date().toISOString().slice(0, 19) + 'Z';
   let made = 0, past = 0, dup = 0;
+  const cal = CAL.sha && fs.existsSync(CAL.bands) ? JSON.parse(fs.readFileSync(CAL.bands, 'utf8')) : null;
+  if (cal) {
+    const h = require('crypto').createHash('sha256').update(fs.readFileSync(CAL.bands)).digest('hex');
+    if (h !== CAL.sha) throw new Error('REFUSED: certs/janela-bands.json is not the bands record this proposer version names (' + CAL.sha.slice(0, 16) + ')');
+  }
   for (const [sid, site] of Object.entries(feed.sites)) {
     if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
     for (const st of site.steps) {
@@ -62,6 +71,19 @@ function main() {
       const id = 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h';
       const ledger = path.join(LEDGER, st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl');
       if (!(madeAt < targetTime)) { past++; continue; }
+      if (CAL.sha && cal) {
+        const bin = Math.min(Math.floor(st.lead / cal.binHours), Math.floor(168 / cal.binHours) - 1) * cal.binHours;
+        const cell = cal.sites[sid] && cal.sites[sid].bins[bin] && cal.sites[sid].bins[bin].hs;
+        if (cell && cell.verdict === 'CERTIFIED-COVERAGE') {
+          const mul = (a, b) => { const [an, ad] = frac(a), [bn, bd] = frac(b); return [String(BigInt(an) * BigInt(bn)), String(BigInt(ad) * BigInt(bd))]; };
+          try {
+            L.commit(ledger, { id: id + ':cal', domain: CAL.domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+              forecast: { lo: mul(st.hs.det, cell.lo), hi: mul(st.hs.det, cell.hi), alpha: [1, 10], det: st.hs.det, lead: st.lead,
+                node: site.node, feed: want.slice(0, 8), bandsSha: CAL.sha.slice(0, 16), coverage: cell.coverage, n: cell.n } });
+            made++;
+          } catch (e) { if (!/duplicate commit id/.test(e.message)) throw e; }
+        }
+      }
       try {
         L.commit(ledger, { id, domain: 'janela/hs-altimeter/ens-c40of50', target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
           forecast: { lo: frac(st.hs.lo), hi: frac(st.hs.hi), alpha: [1, 5], det: st.hs.det, lead: st.lead,

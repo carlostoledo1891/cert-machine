@@ -109,6 +109,10 @@ function decide(rule, forecast, window) {
   }
   /* 3. everything forecast clears; is anything limited that is not forecast? */
   if (missing.length) {
+    if (!decided.length) {
+      return { ...base, verdict: 'SEM DADOS', en: 'NEEDS DATA',
+        why: 'nothing this rule limits has a measured forecast band here: ' + missing.map((l) => l.var + ' ' + l.op + ' ' + l.value + ' ' + l.unit).join(', ') };
+    }
     return { ...base, verdict: 'SEM DADOS', en: 'NEEDS DATA',
       why: 'clears on ' + base.decidedOn.join(' and ') + ' over the whole band; the rule also limits ' + missing.map((l) => l.var + ' ' + l.op + ' ' + l.value + ' ' + l.unit).join(', ') + ', which the feed does not forecast' };
   }

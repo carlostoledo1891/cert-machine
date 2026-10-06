@@ -1,0 +1,3175 @@
+{
+ "what": "Operating limits published by the Brazilian Navy's Capitanias dos Portos (NPCP norms and portarias) and one port authority resolution, for the Janela terminal sites — transcribed 2026-10-06 from rendered pages of the pinned acts, every quote checked against the source text. Official acts; the PDFs are pinned by sha256 and kept in the git-ignored cache (re-fetch from each url). ONE definition: the decider and the page read this file.",
+ "transcribed": "2026-10-06",
+ "conventions": "op semantics depend on kind: operating-limit / experimental-parameter = the PERMITTED region (operate only while true); impracticability / abandon-parameter = the condition that TRIGGERS the measure; condition-band = membership condition of the band named in 'note'. 'value' is the printed number with the decimal comma turned into a dot; quotes are verbatim, with table cells joined by ' | ', rows by ' || ', and '[...]' marking an elision or a page break. Units: nós = kn, MN/milhas náuticas = NM; 'Beaufort' (one rule) is printed Beaufort force and is NOT converted. var 'loa'/'draft' entries marked 'aplicabilidade' select which row applies (vessel class), they are not metocean limits. Page = printed page label plus 1-based pdf page index of the named file. 'file' paths are relative to the session scratchpad (…/scratchpad/). Every table quoted here was read from a rendered page image (png/), not only from pdftotext.",
+ "sources": {
+  "npcp-sc-mod21": {
+   "title": "Normas e Procedimentos da Capitania dos Portos de Santa Catarina (NPCP-SC/2022, 1ª Revisão, consolidada até a Mod. 21)",
+   "issuer": "Marinha do Brasil — Capitania dos Portos de Santa Catarina (CPSC)",
+   "act": "Portaria CPSC/Com5°DN/ComOpNav/MB nº 35, de 24 de junho de 2022 (aprova a 1ª Revisão; vigência 24/07/2022), modificada até a Mod. 21 (Portaria nº 62, de 29/07/25, vigência 31/07/25)",
+   "url": "https://www.marinha.mil.br/cpsc/sites/www.marinha.mil.br.cpsc/files/2025-08/NPCP-SC-2022-Rev-1-Mod-21.pdf",
+   "sha256": "40e478360f083b13805220223e693402c722d3c3d8642d67e3de8b4b0cd689dd",
+   "bytes": 3889622,
+   "fetched": "2026-10-06",
+   "note": "CURRENT consolidated text as linked from https://www.marinha.mil.br/cpsc/npcp on 2026-10-06 ('A NPCP-CPSC (Rev.1, Mod.21)'). Fetched by this transcription pass (the scout's npcp_sc.pdf is the older Mod. 19). Page-by-page text diff vs Mod. 19: only FRM (p. III), 4-22 (impracticability table) and Itajaí/Imbituba/praticagem pages changed; every Babitonga page used here other than 4-22 is textually identical in both.",
+   "cache": "corpus/janela/cache/sources/npcp-sc-mod21.pdf"
+  },
+  "npcp-sc-mod19": {
+   "title": "NPCP-SC/2022, 1ª Revisão, consolidada até a Mod. 19",
+   "issuer": "Marinha do Brasil — Capitania dos Portos de Santa Catarina (CPSC)",
+   "act": "Portaria CPSC/Com5°DN/ComOpNav/MB nº 35, de 24 de junho de 2022, modificada até a Mod. 19 (Portaria nº 59, de 12/06/24, vigência 17/06/24)",
+   "url": "https://www.marinha.mil.br/cpsc/sites/www.marinha.mil.br.cpsc/files/2025-02/NPCP-SC-2022-Rev-1-Mod-19.pdf",
+   "sha256": "3ede7533a43a6716f33c0c4cafce1c59a58f65d0d3c4b35f4eb8b5d4d5a0ff8f",
+   "bytes": 3925280,
+   "fetched": "2026-10-06",
+   "note": "The scout's file (still the link on the DelSFSul page). SUPERSEDED for the impracticability table by Mod. 20/21 (2025). URL confirmed by re-download (identical sha256).",
+   "cache": "corpus/janela/cache/sources/npcp-sc-mod19.pdf"
+  },
+  "sc-port62-2025": {
+   "title": "Portaria nº 62/CPSC — Mod. 21: Condições Ambientais de Impraticabilidade",
+   "issuer": "Marinha do Brasil — Capitania dos Portos de Santa Catarina (CPSC)",
+   "act": "Portaria CPSC/Com5°DN/ComOpNav/MB nº 62, 'na data da assinatura' (FRM: de 29/07/25); vigência 31 de julho de 2025",
+   "url": "https://www.marinha.mil.br/cpsc/sites/www.marinha.mil.br.cpsc/files/2025-08/Port-Norm-62-2025-CPSC-NPCP-SC_Mod-21-Condicoes-Ambientais-de-Impraticabilidade.pdf",
+   "sha256": "a59d01ba1c00c5fca87b4c1890688417572f24d29d8229f7f446e3bf5a7230d5",
+   "bytes": 82986,
+   "fetched": "2026-10-06",
+   "cache": "corpus/janela/cache/sources/sc-port62-2025.pdf"
+  },
+  "sc-port55-2024": {
+   "title": "Portaria nº 55/CPSC — Mod. 17: parâmetros operacionais para manobras experimentais no Terminal Gás Sul",
+   "issuer": "Marinha do Brasil — Capitania dos Portos de Santa Catarina (CPSC)",
+   "act": "Portaria CPSC/Com5°DN/ComOpNav/MB nº 55, 'na data da assinatura' (assinada 07/03/2024); entra em vigor na data",
+   "url": "https://www.marinha.mil.br/cpsc/sites/www.marinha.mil.br.cpsc/files/Port-Norm-55-2024-CPSC-NPCP-SC_Mod-17_SFSul.pdf",
+   "sha256": "07e6e38584e95b2e2ebbceb34cd2c3df907bcf16a548efa7f0c1f85e08eaa287",
+   "bytes": 110665,
+   "fetched": "2026-10-06",
+   "note": "Each page stamped 'Cópia para verificação de assinaturas. Não Possui valor legal.'",
+   "cache": "corpus/janela/cache/sources/sc-port55-2024.pdf"
+  },
+  "npcp-sp-2026": {
+   "title": "Normas e Procedimentos da Capitania dos Portos de São Paulo (NPCP/SP, 3ª revisão) — pacote SUPP",
+   "issuer": "Marinha do Brasil — Capitania dos Portos de São Paulo (CPSP) / Delegacia em São Sebastião",
+   "act": "Portaria CPSP/ComOpNav/MB nº 82, de 21 de janeiro de 2026 (vigência 21/01/2026; revoga a Portaria nº 78, de 15/01/2024)",
+   "url": "https://www.marinha.mil.br/cpsp/sites/www.marinha.mil.br.cpsp/files/2026-01/PORT-82-2026-CPSP-NPCP.zip",
+   "sha256": "377b4318c84483ac8836a411b707ca636d5c67c576c1c47352a29c67b868a12e",
+   "bytes": 4929222,
+   "fetched": "2026-10-06",
+   "note": "sha256/bytes are of the zip. The bundled 'E_PORTARIA DE APROVACAO NPCP 2025.PDF' is an unfilled template ('Nº , DE XX DE XXXXXX DE 2025'); the signed act is member SEQ 001 (Portaria nº 82/2026). URL confirmed by re-download (identical sha256).",
+   "members": {
+    "SEQ 001 - 22-01-2026 11:06:18 - PORTARIA - PORT NORMATIVA 082_2026.PDF": {
+     "sha256": "121968d83e647542613b158f77ff4725021c4a75c5dff39998cc5f748e289f82",
+     "bytes": 254508
+    },
+    "SEQ 029 - 27-01-2026 11:58:03 - OUTROS - J_CAPITULO 4.PDF": {
+     "sha256": "e85fedbb28c9873651615e126fb3b8d47673a3720e826a092835b31528579dcf",
+     "bytes": 249250
+    },
+    "SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF": {
+     "sha256": "9ee4c5c99ced762826b7cc4f35a1cb1fdc61244f8abf2cafc5c1165a4300e258",
+     "bytes": 224132
+    }
+   },
+   "cache": "corpus/janela/cache/sources/npcp-sp-2026.zip"
+  },
+  "npcp-rj-rev3-mod3": {
+   "title": "Normas e Procedimentos da Capitania dos Portos do Rio de Janeiro (NPCP-RJ, 3ª Revisão, Mod. 3)",
+   "issuer": "Marinha do Brasil — Capitania dos Portos do Rio de Janeiro (CPRJ) / DelItacuruçá / DelAReis",
+   "act": "Portaria CPRJ/COMOPNAV/MB nº 168, de 04 de dezembro de 2025 (3ª Revisão; vigência 04/12/2025), com Mod. 1 (Portaria nº 11/2026), Mod. 2 (Portaria nº 110/2026) e Mod. 3 (Portaria nº 200/2026, de 15 de julho de 2026)",
+   "url": "https://www.marinha.mil.br/cprj/sites/www.marinha.mil.br.cprj/files/NPCP-RJ%20-%203Rev1%20-%20Mod3.pdf",
+   "sha256": "0d1706a26ea9ebc7489952c9872eee6ff99cb5bc306c5cddf7fe9c20ee425ecb",
+   "bytes": 7558568,
+   "fetched": "2026-10-06",
+   "note": "FRM (pdf p. 7) lists Mods 1–3; the three amendment portarias on the CPRJ page are all incorporated. URL confirmed by re-download (identical sha256).",
+   "cache": "corpus/janela/cache/sources/npcp-rj-rev3-mod3.pdf"
+  },
+  "rj-port200-2026": {
+   "title": "Portaria nº 200/CPRJ — altera a NPCP-RJ (Canal Leste do TEBIG)",
+   "issuer": "Marinha do Brasil — Capitania dos Portos do Rio de Janeiro (CPRJ)",
+   "act": "Portaria nº 200//CPRJ/COMOPNAV/MB, de 15 de julho de 2026 (entra em vigor na data)",
+   "url": "https://www.marinha.mil.br/cprj/sites/www.marinha.mil.br.cprj/files/Port-200-2026-CPRJ%20-%20Altera%20a%20NPCP-RJ.pdf",
+   "sha256": "b3d32476e2e59ab24b17b06645f7b945337b21d4be26a17ab13c6cacff9672a9",
+   "bytes": 298382,
+   "fetched": "2026-10-06",
+   "cache": "corpus/janela/cache/sources/rj-port200-2026.pdf"
+  },
+  "itajai-res034-2008": {
+   "title": "Resolução nº 034/2008 — retifica a Resolução nº 007/2007 (condições temporárias para as manobras de acesso e calado máximo no Porto de Itajaí)",
+   "issuer": "Superintendência do Porto de Itajaí",
+   "act": "Resolução nº 034/2008, de 05 de novembro de 2008 (fecho: 'Itajaí, XX de novembro de 2008')",
+   "url": "https://www.portoitajai.com.br/download.php?id=5241",
+   "sha256": "3ad7f8d4dd59a07325fed8b4b1f2ee0e62ae0ab84f2b7d392be3c8f5e9695898",
+   "bytes": 23856,
+   "fetched": "2026-10-06",
+   "note": "URL confirmed by re-download (identical sha256; itj_958.pdf in the scout folder is byte-identical). Not a Navy (NPCP) act.",
+   "cache": "corpus/janela/cache/sources/itajai-res034-2008.pdf"
+  },
+  "npcp-rs-rev1": {
+   "title": "Normas e Procedimentos da Capitania dos Portos do Rio Grande do Sul (NPCP-RS, 1ª Revisão)",
+   "issuer": "Marinha do Brasil — Capitania dos Portos do Rio Grande do Sul (CPRS)",
+   "act": "Portaria nº 4/CPRS, de 27 de janeiro de 2025",
+   "url": "https://www.marinha.mil.br/cprs/sites/www.marinha.mil.br.cprs/files/2025-03/NPCP-2025_0.pdf",
+   "sha256": "29304eae05d105a5b4d151cb7fe8e00739483198e329bb66910cf08302f69d65",
+   "bytes": 1391353,
+   "fetched": "2026-10-06",
+   "note": "The scout's file. SUPERSEDED: Portaria nº 59/CPRS (Rev.1/MOD.1) 'Art. 2º Revoga-se a NPCP-RS (1ªREV).', in force 15/09/2025. URL confirmed by re-download (identical sha256).",
+   "cache": "corpus/janela/cache/sources/npcp-rs-rev1.pdf"
+  },
+  "npcp-rs-rev1-mod1": {
+   "title": "NPCP-RS, 1ª Revisão/MOD.1",
+   "issuer": "Marinha do Brasil — Capitania dos Portos do Rio Grande do Sul (CPRS)",
+   "act": "Portaria nº 59/CPRS ('na data da assinatura'; FRM: de 3 de setembro de 2025), vigência 15 de setembro de 2025",
+   "url": "https://www.marinha.mil.br/cprs/sites/www.marinha.mil.br.cprs/files/2025-09/NPCP-2025-REV1-MOD1.pdf",
+   "sha256": "022b53dbda2a8af81a58fe343c6f9ed4a52e9a9ed07966f4b74a02046bd21b7d",
+   "bytes": 1387090,
+   "fetched": "2026-10-06",
+   "note": "CURRENT text linked from https://www.marinha.mil.br/cprs/npcp on 2026-10-06. Fetched by this transcription pass. FRM: Mod.1 affects 'Índice; Cap. 4; Cap. 5; Anexo 4-E e Anexo 5-C', 'data da alteração' 10/09/2025.",
+   "cache": "corpus/janela/cache/sources/npcp-rs-rev1-mod1.pdf"
+  },
+  "rs-port49-2025": {
+   "title": "Portaria nº 49/CPRS — Reabastecimento de navios fundeados na Área DELTA",
+   "issuer": "Marinha do Brasil — Capitania dos Portos do Rio Grande do Sul (CPRS)",
+   "act": "Portaria nº 49/CPRS, 'na data da assinatura' (listada como 'Portaria N° 49/CPRS - 25/JULHO/2025' na página 'Portarias em vigor' da CPRS)",
+   "url": "https://www.marinha.mil.br/cprs/sites/www.marinha.mil.br.cprs/files/2025-08/portaria%2049%20cprs.pdf",
+   "sha256": "cd6f7d0768c63f9efa3b8f85bc12d46773740481b8a14ee4f20d43e4e4f29144",
+   "bytes": 234553,
+   "fetched": "2026-10-06",
+   "cache": "corpus/janela/cache/sources/rs-port49-2025.pdf"
+  }
+ },
+ "rules": [
+  {
+   "id": "babitonga-sfs-impraticabilidade-faixas",
+   "site": "babitonga",
+   "facility": "Zona de Praticagem de São Francisco do Sul (barra/canal de acesso)",
+   "operation": "praticabilidade da barra — declaração de impraticabilidade pelo Agente da Autoridade Marítima",
+   "where": "barra / canal de acesso",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "verde"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "1.5",
+     "unit": "m",
+     "note": "amarelo (inferior)"
+    },
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "2.0",
+     "unit": "m",
+     "note": "amarelo (superior)"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.0",
+     "unit": "m",
+     "note": "vermelho"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "18",
+     "unit": "kn",
+     "note": "verde; 'Intensidade do Vento Sustentado'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "18",
+     "unit": "kn",
+     "note": "amarelo (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "22",
+     "unit": "kn",
+     "note": "amarelo (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "22.0",
+     "unit": "kn",
+     "note": "vermelho"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "verde; 'Corrente Máxima'"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "1",
+     "unit": "kn",
+     "note": "amarelo (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "3.0",
+     "unit": "kn",
+     "note": "amarelo (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "3.0",
+     "unit": "kn",
+     "note": "vermelho"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "1.5",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "amarelo (inferior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "1.5",
+     "unit": "NM",
+     "note": "amarelo (superior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<=",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "vermelho"
+    }
+   ],
+   "logic": "VERDE se todas ('e'); AMARELO se qualquer ('e/ou') — CP/Delegado PODE declarar impraticabilidade total ou parcial; VERMELHO se qualquer ('ou') — impraticabilidade total da barra é declarada. Faixas contíguas, sem lacunas.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Hs ≤ 1,5 e V ≤ 18 e C ≤ 1 e Vis ≥ 1,5"
+    },
+    {
+     "band": "amarelo",
+     "when": "1,5 < Hs < 2,0 e/ou 18< V < 22 e/ou 1 < C < 3,0 e/ou 1,0 < Vis < 1,5"
+    },
+    {
+     "band": "vermelho",
+     "when": "Hs ≥ 2,0 ou V ≥ 22,0 ou C ≥ 3,0 ou Vis ≤ 1,0"
+    }
+   ],
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 4 – 22 de 37 –' (item 4.18 b); pdf p. 80 of sc_mod21.pdf; same table in Portaria nº 62/2025 p. 2 de 2",
+   "quote": "QUADRO DAS CONDIÇÕES AMBIENTAIS DE IMPRATICABILIDADE | Altura de Onda (Hs) // (m) | Intensidade do Vento Sustentado (V) // (nós) | Corrente Máxima (c) // (nós) | Visibilidade (Vis) (MN) || São Francisco do Sul | VERDE | Hs ≤ 1,5 e V ≤ 18 e C ≤ 1 e Vis ≥ 1,5 | AMARELO | 1,5 < Hs < 2,0 e/ou 18< V < 22 e/ou 1 < C < 3,0 e/ou 1,0 < Vis < 1,5 | VERMELHO | Hs ≥ 2,0 ou V ≥ 22,0 ou C ≥ 3,0 ou Vis ≤ 1,0 … Na ocorrência de parâmetros ambientais na faixa vermelha do Quadro de Parâmetros Ambientais de Impraticabilidade, o Capitão dos Portos ou Delegado declarará impraticabilidade total da barra. Os parâmetros descritos neste item deverão ser verificados anualmente, no mês de maio, sendo atualizados de acordo com a necessidade, caso exista.",
+   "status": "in force as of the act (Mod. 21, Portaria nº 62/2025, vigência 31/07/2025); text says it is to be reviewed every May",
+   "uncertain": "Row is labelled only 'São Francisco do Sul'; the Mod.19 row was 'São Francisco do Sul e Itapoá' — Mod.21 does not say whether Itapoá is still covered by this row. Mod.21 also deleted the old 'Observação' that pointed to Cap. 5 seção I and Anexo 5-B. Hs column has no wave-height location qualifier (Mod.19 said 'Canal de Acesso Externo')."
+  },
+  {
+   "id": "babitonga-sfs-itapoa-impraticabilidade-mod19",
+   "site": "babitonga",
+   "facility": "Áreas Portuárias de São Francisco do Sul e Itapoá",
+   "operation": "IMPRATICABILIDADE TOTAL da Barra ou do canal de acesso",
+   "where": "barra / canal de acesso externo",
+   "kind": "impracticability",
+   "limits": [
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.0",
+     "unit": "m",
+     "note": "'Altura Máxima das Ondas (Canal de Acesso Externo)'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "22",
+     "unit": "kn",
+     "note": "'Vento Máximo (sustentado)'"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "3.0",
+     "unit": "kn",
+     "note": "'Corrente Máxima'"
+    },
+    {
+     "var": "visibility",
+     "op": "<=",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "'Visibilidade Mínima'"
+    }
+   ],
+   "logic": "op = condição que DISPARA a impraticabilidade total: 'quando as condições ambientais observadas atingirem ou superarem os parâmetros fixados' — qualquer um basta.",
+   "source": "npcp-sc-mod19",
+   "page": "printed '– 4 – 22 de 37 –' (item 4.18 b 2); pdf p. 80 of npcp_sc.pdf",
+   "quote": "2) IMPRATICABILIDADE TOTAL da Barra ou do canal de acesso ocorrerá quando as condições ambientais observadas atingirem ou superarem os parâmetros fixados abaixo: QUADRO DAS CONDIÇÕES AMBIENTAIS DE IMPRATICABILIDADE | São Francisco do Sul e Itapoá | Altura Máxima das Ondas (Canal de Acesso Externo) | 2,0 metros | Vento Máximo (sustentado) | 22 nós | Corrente Máxima | 3,0 nós | Visibilidade Mínima | 1,0 MN",
+   "status": "superseded — item 4.18 b) replaced in full by Mod. 21 (Portaria nº 62/2025, 'Substituir todo o contido no item b) Condições Ambientais de Impraticabilidade'), vigência 31/07/2025; the red-band thresholds of the new table equal these values",
+   "uncertain": "For visibility, 'atingirem ou superarem' a 'Visibilidade Mínima' is read as visibility at or below 1,0 MN; the text does not spell out the direction for visibility."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-loa-ate-230",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA até 230 m, boca até 33,0 m; FAQ 1,90 m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "230",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | até 230 m | até 33,0 m | 22 nós | 3 nós | 2 m | • 1,90 m | ➢ 02 (dois) rebocadores com tração estática igual ou superior à 45 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-loa-230-245",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 230 m até 245 m, boca de 33,0 m até 40,90 m; FAQ 1,90 m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "230",
+     "unit": "m",
+     "note": "aplicabilidade ('de 230 m')"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "245",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 230 m até 245 m | de 33,0 m até 40,90 m | 22 nós | 3 nós | 2 m | • 1,90 m | ➢ 03 (três) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP. | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-loa-245-260",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 245 m até 260 m, boca até 40,90 m; FAQ 2,20m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "245",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "260",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 245 m até 260 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,20m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-loa-260-300",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 260 m até 300 m, boca até 40,90 m; FAQ 2,50m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "260",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 260 m até 300 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,50m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-loa-300-310",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 300 m até 310 m, boca até 40,90 m; FAQ 2,70m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "300",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "310",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 300 m até 310 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,70m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-berco201-ate-200",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA até 200m, boca até 36,0m; FAQ 1,90m",
+   "where": "berço 201",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "200",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL (BERÇO 201) | até 200m | até 36,0m | 22 nós | 3 nós | 2 m | • 1,90m | ➢ 02 (dois) rebocadores com tração estática igual ou superior à 45 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-berco201-200-215",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 200m até 215m, boca até 33,0m; FAQ 1,90m",
+   "where": "berço 201",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "200",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "215",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL (BERÇO 201) | de 200m até 215m | até 33,0m | 22 nós | 2 nós | 2 m | • 1,90m | ➢ 2 (dois) ou 3 (três) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 2 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Pilot cell prints '√ 2 (um) Prático' — numeral and word disagree."
+  },
+  {
+   "id": "babitonga-sfs-5b-diurno-berco201-215-225",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra diurna (entrada/saída/atracação), navios LOA de 215m até 225m, boca até 33,0m; FAQ 1,90m",
+   "where": "berço 201",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "215",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "225",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 10 –'; pdf p. 215 (identical in Mod.19 pdf p. 215)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS DIURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL (BERÇO 201) | de 215m até 225m | até 33,0m | 22 nós | 2 nós | 2 m | • 1,90m | ➢ 3 (três) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 2 (dois) Práticos √ Uso obrigatório do PPU",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-loa-ate-230",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA até 230 m, boca até 33,0 m; FAQ 1,90 m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "230",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | até 230 m | até 33,0 m | 22 nós | 3 nós | 2 m | • 1,90 m | ➢ 02 (dois) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 45 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Night use also subject to item 5.5 a) (rule babitonga-sfs-itapoa-5-5-condicionantes), whose wind cap is Beaufort Force 5, i.e. possibly below 22 kn."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-loa-230-245",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA de 230 m até 245 m, boca até 40,90 m; FAQ 1,90 m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "230",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "245",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 230 m até 245 m | até 40,90 m | 22 nós | 3 nós | 2 m | • 1,90 m | ➢ 03 (três) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP. | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Night boca cell is 'até 40,90 m' where the day row says 'de 33,0 m até 40,90 m'. Night use also subject to item 5.5 a)."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-loa-245-260",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA de 245 m até 260 m, boca até 40,90 m; FAQ 2,20m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "245",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "260",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 245 m até 260 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,20m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'. Night use also subject to item 5.5 a)."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-loa-260-300",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA de 260 m até 300 m, boca até 40,90 m; FAQ 2,50m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "260",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 260 m até 300 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,50m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'. Night use also subject to item 5.5 a)."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-loa-300-310",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA de 300 m até 310 m, boca até 40,90 m; FAQ 2,70m",
+   "where": "canal de acesso interno / bacia / berço (área 'PORTO DE SÃO FRANCISCO DO SUL')",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "300",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "310",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL | de 300 m até 310 m | até 40,90 m | 22 nós | 1 nós | 2 m | • 2,70m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Cell prints '1 nós'. Night use also subject to item 5.5 a)."
+  },
+  {
+   "id": "babitonga-sfs-5b-noturno-berco201-ate-200",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul",
+   "operation": "manobra noturna (entrada/saída/atracação), navios LOA até 200m, boca até 36,0m; FAQ 1,90m",
+   "where": "berço 201",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO' ('22 nós')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS' ('2 m')"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "200",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável (não são limites metoceânicos)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 12 –'; pdf p. 217 (identical in Mod.19 pdf p. 217)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — PORTO DE SÃO FRANCISCO DO SUL | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || PORTO DE SÃO FRANCISCO DO SUL (BERÇO 201) | até 200m | até 36,0m | 22 nós | 3 nós | 2 m | • 1,90m | ➢ 2 (dois) rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO column does not say sustained vs gust; ONDAS column does not say Hs vs Hmax. Night use also subject to item 5.5 a)."
+  },
+  {
+   "id": "babitonga-canal-externo-noturno-entrada-loa-ate-300",
+   "site": "babitonga",
+   "facility": "Canal externo (acesso ao Porto de São Francisco do Sul / Baía da Babitonga)",
+   "operation": "manobra noturna de entrada no canal externo, navios LOA até 300,0m, boca até 46,90 m; FAQ 2,50m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 13 –'; pdf p. 218 (identical in Mod.19 pdf p. 218)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — CANAL EXTERNO - ENTRADA | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || CANAL EXTERNO | até 300,0m | até 46,90 m | 22 nós | 3 nós | 2 m | • 2,50m | ➢ 02 (dois) à 03 (três) rebocadores, sendo pelo menos 01 (um) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático — * As manobras com emprego de 02 (dois) práticos constam dos estudos, limitantes e restrições descritos no anexo 5-A desta Norma.",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO not stated as sustained or gust; ONDAS not stated as Hs. Night use also subject to item 5.5 a) (Beaufort 5 / 2,0 m / >1 MN). FAQ 2,50 m here for boca até 46,90 m, but item 5.3 b) 1) II (p. 5-5) gives night-entry FAQ 2,5 m for boca 43,00 m and 2,7 m for boca 46,00 m — the two tables disagree."
+  },
+  {
+   "id": "babitonga-canal-externo-noturno-entrada-loa-ate-336-9",
+   "site": "babitonga",
+   "facility": "Canal externo (acesso ao Porto de São Francisco do Sul / Baía da Babitonga)",
+   "operation": "manobra noturna de entrada no canal externo, navios LOA até 336,9 m, boca até 43,0 m; FAQ 3,2m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "336.9",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 13 –'; pdf p. 218 (identical in Mod.19 pdf p. 218)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — CANAL EXTERNO - ENTRADA | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || CANAL EXTERNO | até 336,9 m | até 43,0 m | 22 nós | 3 nós | 2 m | • 3,2m | ➢ 03 (três) ou mais rebocadores, sendo pelo menos 02 (dois) com tração estática igual ou superior à 70 BP | √ 2 (dois) Práticos * — * As manobras com emprego de 02 (dois) práticos constam dos estudos, limitantes e restrições descritos no anexo 5-A desta Norma.",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO not stated as sustained or gust; ONDAS not stated as Hs. Night use also subject to item 5.5 a) (Beaufort 5 / 2,0 m / >1 MN). Boca 'até 43,0 m' for the longer class is narrower than the 46,90 m allowed for LOA ≤ 300 m; item 5.3 gives boca 48,9 m for LOA até 336,90 m. Printed as is."
+  },
+  {
+   "id": "babitonga-canal-externo-noturno-saida-boca-ate-40-9",
+   "site": "babitonga",
+   "facility": "Canal externo (acesso ao Porto de São Francisco do Sul / Baía da Babitonga)",
+   "operation": "manobra noturna de saída no canal externo, navios LOA até 300,0m, boca até 40,9 m; FAQ 2,50m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "coluna 'ONDAS'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 13 –'; pdf p. 218 (identical in Mod.19 pdf p. 218)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — CANAL EXTERNO - SAÍDA | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || CANAL EXTERNO | até 300,0m | até 40,9 m | 22 nós | 1,5 nós | 2 m | • 2,50m | ➢ 02 (dois) à 03 (três) rebocadores, sendo pelo menos 01 (um) com tração estática igual ou superior à 70 BP | √ 1 (um) Prático — * As manobras com emprego de 02 (dois) práticos constam dos estudos, limitantes e restrições descritos no anexo 5-A desta Norma.",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO not stated as sustained or gust; ONDAS not stated as Hs. Night use also subject to item 5.5 a) (Beaufort 5 / 2,0 m / >1 MN)."
+  },
+  {
+   "id": "babitonga-canal-externo-noturno-saida-boca-40-9-46",
+   "site": "babitonga",
+   "facility": "Canal externo (acesso ao Porto de São Francisco do Sul / Baía da Babitonga)",
+   "operation": "manobra noturna de saída no canal externo, navios LOA até 300,0m, boca de 40,9 m até 46,0 m; FAQ 2,50m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "22",
+     "unit": "kn",
+     "note": "coluna 'VENTO'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "coluna 'CORRENTE'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1",
+     "unit": "m",
+     "note": "coluna 'ONDAS'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos os limites forem respeitados; LOA/boca definem a linha aplicável",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – B – 13 –'; pdf p. 218 (identical in Mod.19 pdf p. 218)",
+   "quote": "Anexo 5-B — DELEGACIA DA CAPITANIA DOS PORTOS EM SÃO FRANCISCO DO SUL — QUADRO DOS PARÂMETROS OPERACIONAIS DOS PORTOS E TERMINAIS — MANOBRAS NOTURNAS — CANAL EXTERNO - SAÍDA | ÁREA DE NAVEGAÇÃO | LOA (m) | BOCA (m) | LIMITES OPERACIONAIS | VENTO | CORRENTE | ONDAS | FOLGA ABAIXO DA QUILHA | REBOCADORES | N° DE PRÁTICOS E EQUIPAMENTOS DE AUXILIO || CANAL EXTERNO | até 300,0m | de 40,9 m até 46,0 m | 22 nós | 3 nós | 1 m | • 2,50m | ➢ 02 (dois) à 03 (três) rebocadores, sendo pelo menos 01 (um) com tração estática igual ou superior à 70 BP | √ 2 (dois) Práticos * √ Uso obrigatório do PPU — * As manobras com emprego de 02 (dois) práticos constam dos estudos, limitantes e restrições descritos no anexo 5-A desta Norma.",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "operador não impresso: a célula traz só o valor sob 'LIMITES OPERACIONAIS'; '<=' é a leitura de valor máximo; VENTO not stated as sustained or gust; ONDAS not stated as Hs. Night use also subject to item 5.5 a) (Beaufort 5 / 2,0 m / >1 MN). Counter-intuitive pairing as printed: the wider-beam class allows MORE current (3 nós) than the narrower class (1,5 nós) but LESS wave (1 m vs 2 m)."
+  },
+  {
+   "id": "babitonga-sfs-itapoa-5-5-condicionantes",
+   "site": "babitonga",
+   "facility": "Complexo Portuário São Francisco do Sul – Itapoá",
+   "operation": "operações noturnas de aproximação, canais de acesso, atracação, desatracação ou fundeio (item 5.5 – Restrições de horário e de condicionantes ambientais)",
+   "where": "canais de acesso / bacia / berços",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2.0",
+     "unit": "m",
+     "note": "'a altura das ondas não deverá ser superior a 2,0 m'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "5",
+     "unit": "Beaufort",
+     "note": "'não deverá ser superior a Força 5 (cinco) na Escala Beaufort' — unidade Beaufort, não convertida"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "1",
+     "unit": "NM",
+     "note": "'deverá ser superior a uma milha náutica (MN)'; vale também com chuva/nevoeiro intermitentes"
+    }
+   ],
+   "logic": "operar somente se todos forem respeitados; somam-se aos limites do Anexo 5-B",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – 8 de 21 –' (heading 5.5, a) and '– 5 – 9 de 21 –' (items 3–5); pdf pp. 103–104 (identical in Mod.19)",
+   "quote": "5.5 – RESTRIÇÕES DE HORÁRIO E DE CONDICIONANTES AMBIENTAIS As operações noturnas de aproximação, nos canais de acessos, atracação, desatracação ou fundeio nas áreas portuárias ou de entidade interessada, da área de jurisdição desta Capitania e suas Delegacias subordinadas, somente poderão ocorrer quando o sistema de balizamento e sinalização estiver funcionando, [...] Considera-se operações noturnas, as atividades compreendidas do pôr do sol até o nascer do sol a) Complexo Portuário São Francisco do Sul – Itapoá: [...] 3) a altura das ondas não deverá ser superior a 2,0 m; 4) a intensidade de ventos de qualquer quadrante não deverá ser superior a Força 5 (cinco) na Escala Beaufort; e 5) a visibilidade deverá ser superior a uma milha náutica (MN), e deve ser aplicada também no caso de chuva ou nevoeiro intermitentes que possam vir a reduzir a visibilidade indicada.",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "(1) Unit is Beaufort force, not knots — not converted here; Force 5 is below the 22 nós of the Anexo 5-B night rows, so the two instruments conflict unless 5.5 is read as stricter. (2) On the rendered page the '5 (cinco)' is hidden under the 'Mod. 3' margin box; the text layer reads 'Força 5Mod. 3 (cinco)'. (3) Whether items a) 1)–5) apply only to night operations (the section's first paragraph) or to all operations is not explicit. (4) Item 1) cross-refers FAQ to 'alínea c do artigo 5.3', but the SFS FAQ is in 5.3 b) 1)."
+  },
+  {
+   "id": "babitonga-canal-externo-5-5-corrente-loa-270-300",
+   "site": "babitonga",
+   "facility": "Complexo Portuário São Francisco do Sul – Itapoá",
+   "operation": "passagem no canal externo, NM com LOA de 270,0 até 300,0 m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3.0",
+     "unit": "kn",
+     "note": "'maré de intensidade máxima de até 3,0 nós'; preferencialmente enchente ou estofo"
+    },
+    {
+     "var": "loa",
+     "op": ">=",
+     "value": "270.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "300.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "agendar a passagem com corrente de maré até 3,0 nós (preferência enchente/estofo)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – 9 de 21 –' (5.5 a) 2.2); pdf p. 104",
+   "quote": "2) as Manobras são condicionadas com o Período de Maré: 2.1) As manobras na bacia da Babitonga com destino ao Porto de São Francisco do Sul são restritas ao período de estofo ou de enchente, devendo ser evitados os períodos de vazante; [...] 2.2) NM com LOA de 270,0 até 300,0 metros deverão agendar a passagem no canal externo, preferencialmente nas enchentes ou estofos, com maré de intensidade máxima de até 3,0 nós; e",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "'maré de intensidade' read as tidal current speed (nós). Same night-only scope question as 5.5 a). Overlaps the LOA band of the 5.5 2.3 rule at 300,0 m."
+  },
+  {
+   "id": "babitonga-canal-externo-5-5-corrente-loa-300-336",
+   "site": "babitonga",
+   "facility": "Complexo Portuário São Francisco do Sul – Itapoá",
+   "operation": "passagem no canal externo, NM com LOA entre 300,0 e 336,0 m",
+   "where": "outer channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "kn",
+     "note": "'corrente máxima de até 1,5 nó', em condição de enchente; regra é o estofo"
+    },
+    {
+     "var": "loa",
+     "op": ">=",
+     "value": "300.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "336.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "agendar no estofo; alternativamente enchente com corrente ≤ 1,5 nó",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – 9 de 21 –' (5.5 a) 2.3); pdf p. 104",
+   "quote": "2.3) NM LOA entre 300,0 até 336,0 metros deverão agendar a passagem no canal externo no estofo da maré, o agendamento poderá ocorrer em condição de enchente e com corrente máxima de até 1,5 nó;",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)",
+   "uncertain": "Same night-only scope question as 5.5 a)."
+  },
+  {
+   "id": "babitonga-sfs-velocidade-5-4",
+   "site": "babitonga",
+   "facility": "Complexo Portuário São Francisco do Sul – Itapoá",
+   "operation": "velocidade máxima de trânsito de navios",
+   "where": "outer channel / inner channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "14",
+     "unit": "kn",
+     "note": "do início do canal até as proximidades do Pontal"
+    },
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "12",
+     "unit": "kn",
+     "note": "do canal até a Laje Grande de Baixo"
+    },
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "10",
+     "unit": "kn",
+     "note": "da Laje Grande de Baixo até a bacia de manobras do porto (navios mercantes)"
+    }
+   ],
+   "logic": "cada limite vale no seu trecho",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – 6 de 21 –' (5.4 a); pdf p. 101 (identical in Mod.19)",
+   "quote": "a) Complexo Portuário São Francisco do Sul – Itapoá: 1) do início do canal até as proximidades do Pontal a velocidade máxima fica limitada em até 14 (catorze) nós; [...] 3) do canal até a Laje Grande de Baixo a velocidade máxima fica limitada em até 12 (doze) nós; [...] 5) da Laje Grande de Baixo até bacia de manobras do porto, navios mercantes devem manter rumos práticos e evitando os efeitos do \"Squat\", não devendo exceder a 10 (dez) nós; e",
+   "status": "in force as of the act (NPCP-SC Rev.1 Mod.21, vigência 31/07/2025; this page unchanged since Mod.19)"
+  },
+  {
+   "id": "babitonga-tefran-monoboia",
+   "site": "babitonga",
+   "facility": "Terminal de São Francisco do Sul (TEFRAN) — monoboia Transpetro, φ 26º13’52”S / λ 048°25'03\"W",
+   "operation": "amarração de navios-tanque à monoboia",
+   "where": "monobuoy (offshore, área marítima de São Francisco do Sul)",
+   "kind": "protocol-required",
+   "limits": [],
+   "logic": "NO numeric wind/wave/current/visibility limit is printed for the monobuoy anywhere in NPCP-SC (Mod.19 or Mod.21); mooring is assisted by the terminal's Mooring Master. Only numeric items are the exclusion radius and the anchorage draft class.",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 4 – 16 de 37 –' pdf p. 74 (Mooring Master); '– 5 – 15 de 21 –' pdf p. 110 (500 metros); '– 1 – 15 de 24 –' pdf p. 30 (500 jardas); '–5–D–2–' pdf p. 245 (Fundeadouro nº 7)",
+   "quote": "As manobras de amarração de navios à monoboia do Terminal da Transpetro (TEFRAN), localizada na posição φ 26º13’52”S/ λ 048°25'03\"W, são realizadas com auxílio de um Capitão de Manobras (Mooring Masters), disponibilizado pelo próprio Terminal. || d) Navegação Próxima à Monoboia (Transpetro) São proibidos o fundeio, a pesca e a navegação (neste caso, excetuam-se aquelas destinadas ao apoio às equipes de operação da monoboia e do Navio fundeado), em um círculo de 500 (quinhentos) metros de raio em torno da monoboia de São Francisco do Sul/SC. || 3) Não é permitido pescar, navegar, fundear, nadar ou realizar qualquer atividade náutica na área do entorno da Monoboia (Petrobras), [...] no limite de até 500 jardas de raio; || g) Fundeadouro nº 7: [...] (Destina-se a navios com calado inferior a 16m que aguardam entrada na Baía Babitonga, amarração à monoboia, ou que estejam em lastro ou em reparos);",
+   "status": "in force as of the act (text identical in Mod.19 and Mod.21)",
+   "uncertain": "Scout confirmed: no metocean limit for TEFRAN. The exclusion radius is printed two ways: '500 (quinhentos) metros' (5.14 d, p. 5-15) and '500 jardas' (1.x, p. 1-15) — ~457 m vs 500 m. Anexo 5-B has no TEFRAN row."
+  },
+  {
+   "id": "babitonga-tgs-manobra-experimental",
+   "site": "babitonga",
+   "facility": "Terminal Gás Sul (TGS) — FSRU permanentemente atracada; LNGC em STS",
+   "operation": "manobras experimentais diurnas de entrada/saída de navios-tipo FSRU (LOA 297,57 m, boca 43,4 m) e LNGC (LOA 315 m, boca 50 m) no TGS",
+   "where": "canal de acesso ao Porto de São Francisco do Sul / berço TGS",
+   "kind": "experimental-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "16",
+     "unit": "kn",
+     "note": "'Vento máximo de 16 nós'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.2",
+     "unit": "kn",
+     "note": "'corrente de 1,2 nó'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "'altura das ondas de 1,5m'"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "2",
+     "unit": "NM",
+     "note": "'Visibilidade mínima de 2 MN'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "315",
+     "unit": "m",
+     "note": "navio-tipo LNGC (FSRU: 297,57 m)"
+    }
+   ],
+   "logic": "operar somente se todos forem respeitados; período diurno; horário próximo ao estofo de maré; 4 rebocadores 70 BP; 2 Práticos; FAQ 2,5 m (FSRU) / 3,2 m (LNGC)",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – C – 27 –' (Anexo 5-C, DelSFSul); pdf p. 243 (identical in Mod.19 pdf p. 243); same parameters in Portaria nº 55/2024 pp. 1–2 (item i/j)",
+   "quote": "MANOBRA EXPERIMENTAL [...] II – MANOBRAS EXPERIMENTAIS Alterar os parâmetros operacionais, excepcionalmente, para a realização de 02 (duas) manobras experimentais de entrada e 02 (duas) manobras experimentais de saída, de navios-tipo FSRU e 06 (seis) manobras experimentais de entrada e 06 (seis) manobras experimentais de saída, de navios-tipo LNGC, no Terminal Gás Sul, em período diurno. [...] a) Manobras diurnas dos navios-tipo (FSRU) com as seguintes dimensões: A) LOA 297,57 metros; e B) Boca de 43,4 metros. b) Manobras diurnas dos navios-tipo (LNGC) com as seguintes dimensões: A) LOA 315 metros; e B) Boca de 50 metros. c) Manobra em horário próximo ao estofo de maré; d) 4 rebocadores com 70 BP; [...] f) 2 Práticos; g) FAQ de 2,5m para a FSRU e de 3,2m para o LNGC; h) Vento máximo de 16 nós, corrente de 1,2 nó e altura das ondas de 1,5m; i) Visibilidade mínima de 2 MN; [...] III – AVALIAÇÃO DAS MANOBRAS EXPERIMENTAIS Após o período experimental, a Autoridade Portuária deverá apresentar, juntamente com o Parecer Técnico da Praticagem São Francisco, um relatório [...] para subsidiar o lançamento definitivo dos parâmetros operacionais ou a redução do navio-tipo a ser empregado na área de navegação. IV – PERÍODO EXPERIMENTAL As manobras experimentais devem ocorrer até 30 de dezembro de 2024.",
+   "status": "experimental (period ended 2024-12-30 per NPCP text; Portaria nº 55/2024 says 2024-12-31); still printed unchanged in the current Mod.21 consolidation (Aug 2025); no later Mod (20, 21) or other text makes them final",
+   "uncertain": "(1) 'máximo' grammatically qualifies only the wind; current 1,2 nó and wave 1,5 m read as maxima. Wind not stated as sustained/gust; wave not stated as Hs. (2) End date differs: NPCP Anexo 5-C-27 '30 de dezembro de 2024' vs Portaria nº 55/2024 'V - PERÍODO EXPERIMENTAL As manobras experimentais devem ocorrer até 31 de dezembro de 2024.' (3) The portaria's Art. 2 says '04 (quatro) manobras experimentais de entrada/saída ... FSRU' (= 2+2). (4) No final ('definitivo') parameters were found in the CPSC list of portarias (Mods 1–21) or in Mod.21; the TGS has no Anexo 5-B row. These are the only published TGS metocean numbers."
+  },
+  {
+   "id": "babitonga-tgs-ponto-de-escape",
+   "site": "babitonga",
+   "facility": "Terminal Gás Sul (TGS) — LNGC a contrabordo da FSRU em STS",
+   "operation": "desatracação emergencial do LNGC durante STS em situações climáticas extremas; LNGC fundeia no 'Ponto de Escape' Lat 26º10’03”S / Long 048º33’47”W",
+   "where": "berth (STS) → anchorage (Ponto de Escape)",
+   "kind": "abandon-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "38",
+     "unit": "kn",
+     "note": "'vento de 38 nós'"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "2.6",
+     "unit": "kn",
+     "note": "'corrente de 2,6 nós'"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "1.3",
+     "unit": "m",
+     "note": "'altura das ondas de 1,3m'"
+    }
+   ],
+   "logic": "op = condição que DISPARA a desatracação emergencial: 'Essa situação ocorrerá com as seguintes condições: vento de 38 nós, corrente de 2,6 nós e altura das ondas de 1,3m' — combinação (todas vs qualquer) não especificada",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – C – 27 –' item k); pdf p. 243; same text in Portaria nº 55/2024 item l)",
+   "quote": "k) Na ocorrência de situações climáticas extremas, durante a realização de Operação Ship-to-Ship (STS) no Terminal Gás Sul (TGS), com a necessidade de desatração emergencial do navio metaneiro (LNGC), fica estabelecido como “Ponto de Escape” a posição Lat 26º10’03”S / Long 048º33’47”W, no qual o LNGC fundeará. Essa situação ocorrerá com as seguintes condições: vento de 38 nós, corrente de 2,6 nós e altura das ondas de 1,3m.",
+   "status": "experimental (period ended 2024-12-30 per NPCP text; Portaria nº 55/2024 says 2024-12-31); still printed unchanged in the current Mod.21 consolidation (Aug 2025); no later Mod (20, 21) or other text makes them final",
+   "uncertain": "(1) No comparison operator is printed ('com as seguintes condições'); '>=' is the reading of a trigger. (2) Whether all three must coincide or any one suffices is not stated. (3) The escape wave height (1,3 m) is LOWER than the maneuvering wave limit (1,5 m) — internally inconsistent as printed."
+  },
+  {
+   "id": "babitonga-sfs-bercos-102-103-301-experimental",
+   "site": "babitonga",
+   "facility": "Porto de São Francisco do Sul — berços 102/103 e 301",
+   "operation": "5 manobras experimentais diurnas de atracação/desatracação, navios mercantes LOA máximo 302,0 m e boca até 43,4 m",
+   "where": "dársena / berços 102/103 e 301",
+   "kind": "experimental-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "10",
+     "unit": "kn",
+     "note": "'Intensidade de ventos de qualquer quadrante até 10 nós'"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "2.0",
+     "unit": "NM",
+     "note": "'reduzir a visibilidade para menos de 2,0 milhas náuticas'"
+    },
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "302.0",
+     "unit": "m",
+     "note": "aplicabilidade"
+    }
+   ],
+   "logic": "operar somente se todos; profundidade mínima 14,0 m; trânsito dársena–Laje da Torre/Barata próximo ao estofo; 5 rebocadores; 2 práticos",
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 5 – C – 19 –' and '– 5 – C – 20 –'; pdf pp. 235–236 (identical in Mod.19)",
+   "quote": "Alterar os parâmetros operacionais, excepcionalmente, para a realização de 5 (cinco) manobras experimentais de navios mercantes para atracação e desatracação nos berços 102/103 e 301 do Porto de São Francisco do Sul, no período diurno. [...] A) LOA máximo de 302,0 metros; e B) Boca até 43,4 metros. b) As manobras experimentais deverão ocorrer desde que a profundidade mínima esteja em 14,0 m; [...] h) Intensidade de ventos de qualquer quadrante até 10 nós; i) Ausência de chuva intermitente ou nevoeiro que possam reduzir a visibilidade para menos de 2,0 milhas náuticas; [...] IV – PERÍODO EXPERIMENTAL O período experimental será composto de até 5 (cinco) manobras experimentais do Porto de São Francisco do Sul.",
+   "status": "experimental (no end date: 'até 5 (cinco) manobras'); still printed in Mod.21",
+   "uncertain": "Not requested explicitly; included because it is the only other SFS-port experimental block. Item 5.3 b) 1) IV 3) (p. 5-5) now carries a standing rule for 'NM de LOA até 302,0 metros e de boca de 43,4m' (tide-window scheduling) without metocean numbers — possibly a partial adoption, not stated."
+  },
+  {
+   "id": "sao-sebastiao-complexo-praticabilidade-faixas",
+   "site": "sao-sebastiao",
+   "facility": "Complexo Portuário de São Sebastião (inclui TEBAR)",
+   "operation": "condição de praticabilidade do porto (fainas de praticagem nos complexos portuários, canais de acesso, bacias de evolução e fundeadouros)",
+   "where": "complexo portuário / canal de São Sebastião",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "1.5",
+     "unit": "m",
+     "note": "verde"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "amarelo"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "3",
+     "unit": "m",
+     "note": "vermelho"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "17",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "17",
+     "unit": "kn",
+     "note": "amarelo ('> 17 ou Rajadas > 35')"
+    },
+    {
+     "var": "wind_gust",
+     "op": ">",
+     "value": "35",
+     "unit": "kn",
+     "note": "amarelo ('Rajadas > 35')"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "30",
+     "unit": "kn",
+     "note": "vermelho ('> 30 ou Rajadas > 35')"
+    },
+    {
+     "var": "wind_gust",
+     "op": ">",
+     "value": "35",
+     "unit": "kn",
+     "note": "vermelho ('Rajadas > 35')"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "1",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "1",
+     "unit": "NM",
+     "note": "amarelo"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "vermelho"
+    }
+   ],
+   "logic": "Verde: praticagem direta (praticabilidade irrestrita); Amarelo: praticagem indireta (praticabilidade restrita); Vermelho: impraticabilidade total. The table prints no 'e'/'ou' between columns; per-band combination not stated (presumably worst band wins).",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "ALTURA DE ONDA < 1,5 | VENTO < 17 | VISIBILIDADE > 1 | Direta"
+    },
+    {
+     "band": "amarelo",
+     "when": "ALTURA DE ONDA ≥ 1,5 | VENTO > 17 ou Rajadas > 35 | VISIBILIDADE < 1 | Indireta"
+    },
+    {
+     "band": "vermelho",
+     "when": "ALTURA DE ONDA ≥3 | VENTO > 30 ou Rajadas > 35 | VISIBILIDADE < 0,5 | Impraticabilidade"
+    }
+   ],
+   "source": "npcp-sp-2026",
+   "page": "printed '- 4-23 -' (item 4.3.7 table; band definitions a)–c) on '- 4-22 -'); zip member 'SEQ 029 - 27-01-2026 11:58:03 - OUTROS - J_CAPITULO 4.PDF', pdf p. 23",
+   "quote": "A condição de praticabilidade do porto seguirá a seguinte tabela: a) VERDE – PRATICABILIDADE IRRESTRITA [...] b) AMARELA – PRATICABILIDADE RESTRITA [...] c) VERMELHA – IMPRATICABILIDADE TOTAL [...] ÁREA GEOGRÁFICA | CONDIÇÕES DE PRATICABILIDADE | ALTURA DE ONDA (m) | INTENSIDADE DO VENTO (nós) | VISIBILIDADE (MIN) | MÉTODO DE PRATICAGEM || COMPLEXO PORTUÁRIO DE SÃO SEBASTIÃO | Verde | < 1,5 | < 17 | > 1 | Direta | Amarelo | ≥ 1,5 | > 17 ou Rajadas > 35 | < 1 | Indireta | Vermelho | ≥3 | > 30 ou Rajadas > 35 | < 0,5 | Impraticabilidade",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)",
+   "uncertain": "(1) Visibility unit printed as '(MIN)' — read as MN (milhas náuticas); could be a typo for 'MN'. (2) Wave column says 'ALTURA DE ONDA', not Hs. (3) Boundary gaps: wind exactly 17 nós and visibility exactly 1 fall in no band. (4) 'Rajadas > 35' appears in both Amarelo and Vermelho — a gust >35 alone is ambiguous between the two. (5) Wind column does not say sustained; '> 17' read as sustained because gusts are named separately."
+  },
+  {
+   "id": "tebar-sts-pp1-manobra",
+   "site": "sao-sebastiao",
+   "facility": "Terminal Almirante Barroso (TEBAR) — Píer PP1 (berço nº 1), STS SUEZMAX/SUEZMAX e VLCC/SUEZMAX",
+   "operation": "manobra (atracação/desatracação) para operação ship-to-ship atracado ao berço nº 1",
+   "where": "berth",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "current",
+     "op": "<",
+     "value": "2.0",
+     "unit": "kn"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "20",
+     "unit": "kn",
+     "note": "'VENTOS < 20 nós'"
+    }
+   ],
+   "logic": "manobrar somente se ambos; as linhas PP1 – SUEZMAX/SUEZMAX e PP1 – VLCC/SUEZMAX imprimem valores idênticos",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-12 -' (item 5.7.3); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 12",
+   "quote": "5.7.3 Limites ambientais/operacionais estabelecidos para operação ship to ship (sts) atracado ao berço nº1 do tebar: BERÇO | LIMITES AMBIENTAIS PARA MANOBRAR | LIMITES AMBIENTAIS PARA MANTEREM-SE NOS BERÇOS || PP1 – SUEZMAX/SUEZMAX | CORRENTE < 2,0 nós VENTOS < 20 nós | CORRENTE < 2,1 nós VENTOS < 30 nós || PP1 – VLCC/SUEZMAX | CORRENTE < 2,0 nós VENTOS < 20 nós | CORRENTE < 2,1 nós VENTOS < 30 nós",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)",
+   "uncertain": "'VENTOS' not stated as sustained or gust. 5.9 a) says 2-pilot STS parameters at PP1 'estão regulamentadas por Portaria específica da DelSSebastião' — that portaria is not on the DelSSebastião 'Portarias' page (checked 2026-10-06) and was not found."
+  },
+  {
+   "id": "tebar-sts-pp1-permanencia",
+   "site": "sao-sebastiao",
+   "facility": "Terminal Almirante Barroso (TEBAR) — Píer PP1 (berço nº 1), STS SUEZMAX/SUEZMAX e VLCC/SUEZMAX",
+   "operation": "permanência no berço durante operação ship-to-ship",
+   "where": "berth",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "current",
+     "op": "<",
+     "value": "2.1",
+     "unit": "kn"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "30",
+     "unit": "kn",
+     "note": "'VENTOS < 30 nós'"
+    }
+   ],
+   "logic": "manter-se nos berços somente se ambos",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-12 -' (item 5.7.3); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 12",
+   "quote": "LIMITES AMBIENTAIS PARA MANTEREM-SE NOS BERÇOS || PP1 – SUEZMAX/SUEZMAX | CORRENTE < 2,1 nós VENTOS < 30 nós || PP1 – VLCC/SUEZMAX | CORRENTE < 2,1 nós VENTOS < 30 nós",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)",
+   "uncertain": "'VENTOS' not stated as sustained or gust."
+  },
+  {
+   "id": "tebar-sts-protocolo-meteoceanografico",
+   "site": "sao-sebastiao",
+   "facility": "Terminal Almirante Barroso (TEBAR) — STS",
+   "operation": "operação/interrupção das manobras de STS",
+   "where": "berth",
+   "kind": "protocol-required",
+   "limits": [],
+   "logic": "TEBAR must maintain its own metocean protocol (content not published in the NPCP) and permanently consult CHM/SMM metocean warnings; 2 pilots; 48 h notice to DelSSebastião",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-12 -' (item 5.7.3 a–d); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 12",
+   "quote": "a) manter o Protocolo Meteoceanográfico para Operação/Interrupção das Manobras de STS no TEBAR, não estando o TEBAR dispensado de manter consulta permanente aos Avisos Meteoceanográficos emitidos pelo Centro de Hidrografia da Marinha, através do Serviço Meteorológico Marinho brasileiro (SMM); b) observar as recomendações previstas no Capítulo 6, da NORMAM-204/DPC, bem como as elencadas no relatório RT1 e RT3 da USP, de novembro de 2015; c) empregar 2 (dois) Práticos para a operação de STS, tanto nas manobras de atracação, quanto nas manobras de desatracação;",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)",
+   "uncertain": "The Protocolo's thresholds are not published in the NPCP. On the same page, right after item d), two ferry-crossing sentences appear out of place ('Todas as embarcações empregadas na travessia deverão possuir ANEMÔMETRO...'; '...a travessia deverá ser interrompida sempre que a visibilidade cair a menos de 100 metros.') — they belong to 5.7.2 (ferry), not to TEBAR STS."
+  },
+  {
+   "id": "tebar-atracacao-correnteza",
+   "site": "sao-sebastiao",
+   "facility": "Terminal Marítimo Almirante Barroso (TEBAR)",
+   "operation": "atracação de navios no TEBAR (qualquer navio)",
+   "where": "berth",
+   "kind": "impracticability",
+   "limits": [
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "3",
+     "unit": "kn",
+     "note": "'correnteza for maior ou igual a 3 (três) nós'"
+    }
+   ],
+   "logic": "op = condição que PROÍBE a atracação; também proibida 'em situação de mau tempo' (não quantificado)",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-15 -' (item 5.15 a) IV); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 15",
+   "quote": "5.15 RESTRIÇÕES ESPECIAIS PARA O CANAL DE SÃO SEBASTIÃO a) É proibido [...] IV - a atracação de navios no Terminal Marítimo Almirante Barroso (TEBAR) quando a correnteza for maior ou igual a 3 (três) nós ou em situação de mau tempo.",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)",
+   "uncertain": "'mau tempo' has no numeric definition."
+  },
+  {
+   "id": "sao-sebastiao-canal-velocidade",
+   "site": "sao-sebastiao",
+   "facility": "Canal de São Sebastião",
+   "operation": "velocidade máxima de navios no canal",
+   "where": "channel",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "9",
+     "unit": "kn",
+     "note": "em relação à superfície da água"
+    }
+   ],
+   "logic": "limite único",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-3 -' (item 5.2.1); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 3",
+   "quote": "A velocidade máxima permitida para navios no canal do Porto de Santos e no Canal de São Sebastião é de 9 (nove) nós, em relação à superfície da água.",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)"
+  },
+  {
+   "id": "tebar-calado-maximo-bercos",
+   "site": "sao-sebastiao",
+   "facility": "Terminal Almirante Barroso (TEBAR) — berços PP1, PP2, PP3, PP4",
+   "operation": "calado máximo de operação por berço",
+   "where": "berth",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "23",
+     "unit": "m",
+     "note": "PP1 (Braço Sul, externo)"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "16.9",
+     "unit": "m",
+     "note": "PP2 (Braço Sul, interno)"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "19.0",
+     "unit": "m",
+     "note": "PP3 (Braço Norte, externo)"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "12.2",
+     "unit": "m",
+     "note": "PP4 (Braço Norte, interno)"
+    }
+   ],
+   "logic": "cada limite vale no seu berço",
+   "source": "npcp-sp-2026",
+   "page": "printed '- 5-3 -' (item 5.1 IV); zip member 'SEQ 030 - 27-01-2026 11:58:05 - OUTROS - K_CAPITULO 5.PDF', pdf p. 3",
+   "quote": "IV) Calado máximo de Operação no Terminal Almirante Barroso (TEBAR) O Terminal é constituído de dois píeres com quatro berços, o Braço Sul possui 508 metros de extensão, tendo um berço externo (PP1) com 23m de calado máximo e um berço interno (PP2) com 16,9m. O Braço Norte possui 395 m de extensão, tendo um berço externo (PP3) com 19,0 m de calado máximo e um berço interno (PP4) com 12,2 m de calado máximo.",
+   "status": "in force as of the act (Portaria CPSP nº 82/2026, vigência 21/01/2026)"
+  },
+  {
+   "id": "ilha-grande-quadro1-impraticabilidade",
+   "site": "ilha-grande",
+   "facility": "Baía da Ilha Grande (DelAReis) — inclui TEBIG",
+   "operation": "praticabilidade da barra — declaração de impraticabilidade",
+   "where": "barra / baía",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "verde"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "1.5",
+     "unit": "m",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "2.5",
+     "unit": "m",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.5",
+     "unit": "m",
+     "note": "vermelha"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "15",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "15",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "30",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "30",
+     "unit": "kn",
+     "note": "vermelha"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<=",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "vermelha"
+    }
+   ],
+   "logic": "VERDE se todas ('e') = praticabilidade total; AMARELA se qualquer ('e/ou') = CP/Delegado PODE declarar impraticabilidade total ou parcial; VERMELHA se qualquer ('ou') = impraticabilidade total da barra é declarada. Faixas contíguas. A linha da Baía de Guanabara (CPRJ) é idêntica (imprime 'V ≥ 30,0').",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Hs ≤ 1,5 e V ≤ 15 e Vis ≥ 1,0"
+    },
+    {
+     "band": "amarela",
+     "when": "1,5 < Hs < 2,5 e/ou 15 < V < 30 e/ou 0,5 < Vis < 1,0"
+    },
+    {
+     "band": "vermelha",
+     "when": "Hs ≥ 2,5 ou V ≥ 30 ou Vis ≤ 0,5"
+    }
+   ],
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 4-25 -' (Quadro 1) and '- 4-26 -' (faixa text, Quadro 2); pdf pp. 95–96",
+   "quote": "4.3.7. Impraticabilidade [...] conforme o quadro de condições ambientais abaixo (Quadro 1). [...] Área Geográfica | Faixa | Altura de Onda (Hs) (m) | Intensidade do Vento (V) (nós) | Visibilidade (Vis) (MN) || Baía da Ilha Grande (DelAReis) | Verde | Hs ≤ 1,5 e V ≤ 15 e Vis ≥ 1,0 | Amarela | 1,5 < Hs < 2,5 e/ou 15 < V < 30 e/ou 0,5 < Vis < 1,0 | Vermelha | Hs ≥ 2,5 ou V ≥ 30 ou Vis ≤ 0,5 — Quadro 1 – Parâmetros Ambientais de Impraticabilidade [...] Nas condições da faixa amarela, considerando a medição dos sensores específicos, a avaliação no local pela equipe de inspeção naval da CP/DL e a assessoria dos Práticos em escala do dia, o Capitão dos Portos ou o Delegado poderá declarar impraticabilidade total ou parcial [...] Na ocorrência de parâmetros ambientais na faixa vermelha do quadro de parâmetros ambientais de impraticabilidade, o Capitão dos Portos ou Delegado declarará impraticabilidade total da barra. || Baía da Ilha Grande (DelAReis) | Não há | Não há | Não há — Quadro 2 – Sensores de Parâmetros Ambientais",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "Quadro 2 lists NO reference sensor for any of the three parameters in the Baía da Ilha Grande ('Não há'), so the band cannot be read from a designated station there. Wind not stated as sustained/gust."
+  },
+  {
+   "id": "sepetiba-quadro1-impraticabilidade",
+   "site": "sepetiba",
+   "facility": "Baía de Sepetiba (DelItacuruçá) — inclui a UTE/FSRU",
+   "operation": "praticabilidade da barra — declaração de impraticabilidade",
+   "where": "barra / baía",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "verde"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "1.5",
+     "unit": "m",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "2.5",
+     "unit": "m",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.5",
+     "unit": "m",
+     "note": "vermelha"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "15",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "15",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "30",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "30",
+     "unit": "kn",
+     "note": "vermelha"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "1.0",
+     "unit": "NM",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<=",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "vermelha"
+    }
+   ],
+   "logic": "VERDE se todas ('e') = praticabilidade total; AMARELA se qualquer ('e/ou') = CP/Delegado PODE declarar impraticabilidade total ou parcial; VERMELHA se qualquer ('ou') = impraticabilidade total da barra é declarada. Faixas contíguas. A linha da Baía de Guanabara (CPRJ) é idêntica (imprime 'V ≥ 30,0').",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Hs ≤ 1,5 e V ≤ 15 e Vis ≥ 1,0"
+    },
+    {
+     "band": "amarela",
+     "when": "1,5 < Hs < 2,5 e/ou 15 < V < 30 e/ou 0,5 < Vis < 1,0"
+    },
+    {
+     "band": "vermelha",
+     "when": "Hs ≥ 2,5 ou V ≥ 30 ou Vis ≤ 0,5"
+    }
+   ],
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 4-25 -' (Quadro 1) and '- 4-26 -' (Quadro 2); pdf pp. 95–96",
+   "quote": "4.3.7. Impraticabilidade [...] conforme o quadro de condições ambientais abaixo (Quadro 1). [...] Área Geográfica | Faixa | Altura de Onda (Hs) (m) | Intensidade do Vento (V) (nós) | Visibilidade (Vis) (MN) || Baía de Sepetiba (DelItacuruçá) | Verde | Hs ≤ 1,5 e V ≤ 15 e Vis ≥ 1,0 | Amarela | 1,5 < Hs < 2,5 e/ou 15 < V < 30 e/ou 0,5 < Vis < 1,0 | Vermelha | Hs ≥ 2,5 ou V ≥ 30 ou Vis ≤ 0,5 — Quadro 1 – Parâmetros Ambientais de Impraticabilidade [...] Nas condições da faixa amarela, considerando a medição dos sensores específicos, a avaliação no local pela equipe de inspeção naval da CP/DL e a assessoria dos Práticos em escala do dia, o Capitão dos Portos ou o Delegado poderá declarar impraticabilidade total ou parcial [...] Na ocorrência de parâmetros ambientais na faixa vermelha do quadro de parâmetros ambientais de impraticabilidade, o Capitão dos Portos ou Delegado declarará impraticabilidade total da barra. || Baía de Sepetiba (DelItacuruçá) | Estação meteoceanográfica TIG Boia 01 | Estação meteoceanográfica TIG Boia 01 | Não há — Quadro 2 – Sensores de Parâmetros Ambientais",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "Reference sensor for Hs and wind is 'Estação meteoceanográfica TIG Boia 01'; for visibility 'Não há'. Wind not stated as sustained/gust."
+  },
+  {
+   "id": "tebig-canal-acesso-vento",
+   "site": "ilha-grande",
+   "facility": "Terminal Almirante Maximiano Eduardo Fonseca (TEBIG)",
+   "operation": "navegação no canal de acesso (fundeadouro → bacia de evoluções), entrada pela barra oeste da Ilha Grande",
+   "where": "outer channel (barra oeste)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "'ventos de até de 20 nós por ocasião da navegação no canal'"
+    }
+   ],
+   "logic": "manobrar somente com vento até 20 nós; 'sem restrições de maré e de corrente'; 'não há restrições de horário'",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-70 -' (5.1.2 b); pdf p. 189",
+   "quote": "Somente um navio de cada vez pode navegar nos canais balizados, não há restrições de horário para entrada e saída no terminal. Os navios que demandem ao TEBIG deverão fazê-lo pela barra oeste da Ilha Grande, e deve-se evitar que o navio toque as defensas com segmento avante ou a ré, a fim de não avariar as correntes que as sustentam. As manobras deverão ocorrer com ventos de até de 20 nós por ocasião da navegação no canal, sem restrições de maré e de corrente.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "The text never names the channel 'west'; it is the 'canal de acesso, varrido' (8,75 milhas, 350 m wide, SW→NE) reached via the barra oeste. No Hs limit is printed for it. Wind not stated as sustained/gust."
+  },
+  {
+   "id": "tebig-canal-leste-aframax-suezmax-vlcc",
+   "site": "ilha-grande",
+   "facility": "TEBIG — Canal Leste de acesso (14.816 m, largura 280 m)",
+   "operation": "trânsito pelo Canal Leste, navios-tipo Aframax, Suezmax e VLCC",
+   "where": "outer channel (Canal Leste)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "13.2",
+     "unit": "m",
+     "note": "'calado máximo: 13,2 m (≤ 13,2 m)'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "'vento: não superior a 20 nós (≤ 20 nós)'"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2.0",
+     "unit": "m",
+     "note": "'altura significativa de onda: até 2,0 m (≤ 2,0 m)'"
+    },
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "12",
+     "unit": "kn",
+     "note": "'velocidade limite de trânsito: 12 nós (≤ 12 nós)'"
+    }
+   ],
+   "logic": "transitar somente se todos; 'luminosidade: períodos diurno e noturno'; 'maré e corrente: sem restrições'",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-70 -'/'- 5-71 -' (5.1.2 b) I); pdf pp. 189–190; inserted by Portaria nº 200/2026 Art. 2º (rj-port200-2026, p. 1)",
+   "quote": "Estão autorizadas as manobras no trânsito pelo Canal Leste de Acesso ao TEBIG, para navios-tipo Aframax, Suezmax e VLCC, desde que sejam observadas as seguintes condicionantes: - calado máximo: 13,2 m (≤ 13,2 m); [...] - luminosidade: períodos diurno e noturno; - vento: não superior a 20 nós (≤ 20 nós); - altura significativa de onda: até 2,0 m (≤ 2,0 m); - velocidade limite de trânsito: 12 nós (≤ 12 nós); e - maré e corrente: sem restrições. As manobras de entrada e saída deverão ser realizadas apenas à luz do dia, podendo ser agendadas (POB) desde o nascer do sol, na meia hora, ou hora cheia posterior, até 2h antes do pôr do sol, na meia hora ou hora cheia anterior.",
+   "status": "in force as of the act (Mod. 3 — Portaria nº 200/2026, de 15 de julho de 2026, em vigor na data)",
+   "uncertain": "Direct contradiction as printed: the Port. 200/2026 block allows 'períodos diurno e noturno', but the very next paragraph (pre-existing text, different indentation) says 'As manobras de entrada e saída deverão ser realizadas apenas à luz do dia ... até 2h antes do pôr do sol'; the general TEBIG paragraph above says 'não há restrições de horário'. Which governs night transits of the Canal Leste is not resolvable from the text."
+  },
+  {
+   "id": "tebig-canal-leste-saida-noturna-suezmax",
+   "site": "ilha-grande",
+   "facility": "TEBIG — Canal Leste",
+   "operation": "saída noturna pelo Canal Leste, navios tipo Suezmax",
+   "where": "outer channel (Canal Leste)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "11.0",
+     "unit": "m",
+     "note": "'com calados até 11,0 metros'"
+    }
+   ],
+   "logic": "autorizado com calado até 11,0 m, 'sem restrição de velocidade ou maré'",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-70 -' (5.1.2 b) I); pdf p. 189",
+   "quote": "São autorizadas as manobras de saída pelo Canal Leste, em período noturno, para navios tipo Suezmax, com calados até 11,0 metros, sem restrição de velocidade ou maré. O navio-tipo VLCC (Very Large Crude Carrier), com LOA de 340 metros, boca de 61 metros, DWT 319.000 T e calado máximo de 12,5 metros, sem restrição de velocidade ou maré.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "The VLCC sentence has no verb — it is unclear whether VLCC (LOA 340 m, boca 61 m, calado máximo 12,5 m) is also authorised for night exit, or is just the navio-tipo. Not encoded as a limit. Overlaps/conflicts with the later 13,2 m Aframax/Suezmax/VLCC block and the daylight-only sentence."
+  },
+  {
+   "id": "sepetiba-ute-lngc-sts-manobra",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "manobras de entrada e saída do LNGC para operação ship-to-ship com a FSRU (navio-tipo LNGC LOA 298 m, boca 46 m, calado 12 m)",
+   "where": "canal da Ternium / bacia da UTE",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "16",
+     "unit": "kn",
+     "note": "entrada ('ventos de até 16 nós para a entrada')"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "12",
+     "unit": "kn",
+     "note": "saída ('até 12 nós para a saída')"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "2",
+     "unit": "NM",
+     "note": "'visibilidade não inferior a 2 milhas náuticas'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "0.5",
+     "unit": "kn",
+     "note": "vazante, 'na bifurcação de entrada do canal da Ternium'"
+    }
+   ],
+   "logic": "manobrar somente no período diurno e se todos forem respeitados; POB entrada a partir do nascer até 5 h antes do pôr do sol, saída até 3 h antes do pôr do sol; 2 Práticos + Mooring Master; 5 rebocadores azimutais (2 ≥ 70 TTE, 3 ≥ 60 TTE)",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-103 -'/'- 5-104 -' (5.1.3 d) V – 'Manobra com LNGC – Ship-to-Ship'); pdf pp. 222–223",
+   "quote": "- Para a realização de operações ship-to-ship, as manobras somente no período diurno, com ventos de até 16 nós para a entrada e até 12 nós para a saída, visibilidade não inferior a 2 milhas náuticas, e corrente de vazante, com velocidade ≤ 0,5 nó (na bifurcação de entrada do canal da Ternium); - Entrada: a partir do nascer até 5 horas antes do pôr do sol, na meia hora ou hora cheia anterior; e - Saída: a partir do nascer até 3 horas antes do pôr do sol, na meia hora ou hora cheia anterior.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "(1) The current clause reads 'corrente de vazante, com velocidade ≤ 0,5 nó' — it is unclear whether flood (enchente) current is excluded altogether or simply not limited. (2) On p. 5-103 the abort rule refers to the current limit 'preconizado acima', but the limit is printed below (p. 5-104). (3) This block sits, oddly, under 5.1.3 d) 'Porto Sudeste do Brasil', item V). Wind not stated as sustained/gust."
+  },
+  {
+   "id": "sepetiba-ute-sensores-tempo-real",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "monitoramento de corrente e vento em tempo real; abortar a entrada do LNGC se a corrente medida exceder o limite",
+   "where": "proximidades do complexo da UTE / canal da Ternium",
+   "kind": "protocol-required",
+   "limits": [],
+   "logic": "terminal must keep real-time current and wind sensors near the UTE, unobstructed, online (preferably SISMO/Hidromares), open to Port Authority, Navy and pilots; before the LNGC enters the Ternium channel the measured current must be within the STS limit, else the master (advised by the pilot) aborts",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-103 -' (Manobra com LNGC – Ship-to-Ship); pdf p. 222",
+   "quote": "Manobra com LNGC – Ship-to-Ship: - A administradora do Terminal deverá manter operacionais os equipamentos de monitoramento de corrente e vento em tempo real, nas proximidades do complexo da UTE. Os equipamentos deverão estar instalados de forma que os dados obtidos pelos sensores não sejam afetados por estruturas que interfiram nas suas medições. Os dados em tempo real deverão ser disponibilizados on-line, preferencialmente no aplicativo da empresa Hidromares (SISMO) e com livre acesso pela Autoridade Portuária, Autoridade Marítima e Praticagem. - Nas manobras de entrada, imediatamente antes de o navio demandar o canal de acesso ao terminal da Ternium, a velocidade de corrente deverá estar dentro do limite preconizado acima. Em caso da velocidade de corrente, obtida pelos sensores instalados, estiverem além dos limites permitidos, competirá ao Comandante, assessorado pelo Prático, abortar a manobra, sem ônus para a Praticagem, devendo o navio ser encaminhado para fora de barra ou uma área de fundeio dentro da Baia de Sepetiba, previamente autorizado pela Autoridade Portuária.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)"
+  },
+  {
+   "id": "sepetiba-ute-lngc-fsru-amarracao",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "permanência do LNGC atracado à FSRU (sistema de amarração LNGC+FSRU)",
+   "where": "berth (STS, contrabordo)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "25",
+     "unit": "kn",
+     "note": "'O valor máximo de vento para o sistema de amarração ... deverá ser de 25 nós'"
+    }
+   ],
+   "logic": "limite de segurança da amarração; acima dele aplica-se a regra de remoção (sepetiba-ute-lngc-remocao)",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-105 -'; pdf p. 224",
+   "quote": "- O valor máximo de vento para o sistema de amarração compreendido pelo LNGC e FSRU deverá ser de 25 nós.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "Wind not stated as sustained/gust. Arranjo típico: 13 linhas HMPE, MBL mínimo 124 t, ≥ 4 defensas pneumáticas SWL 590 t (p. 5-104)."
+  },
+  {
+   "id": "sepetiba-ute-lngc-remocao",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "remoção do LNGC da FSRU quando houver previsão de vento acima do limite de amarração (25 nós)",
+   "where": "berth → saída",
+   "kind": "abandon-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "25",
+     "unit": "kn",
+     "note": "gatilho: 'previsão de ventos acima do limite de segurança estabelecido para amarração' (= 25 nós, p. 5-105)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "12",
+     "unit": "kn",
+     "note": "vento para realizar a manobra de remoção ('ventos menores do que 12 nós')"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "teto em emergência ('sendo limite de até 20 nós em caso de emergência')"
+    }
+   ],
+   "logic": "trigger = forecast above the mooring limit; the removal maneuver is to be scheduled for wind < 12 kn, ≤ 20 kn in emergency",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-105 -'; pdf p. 224",
+   "quote": "- Com previsão de ventos acima do limite de segurança estabelecido para amarração do LNGC no FSRU, deverá ser prevista a remoção do LNGC do FSRU, e agendamento da manobra com antecedência necessária para realização com ventos menores do que 12 nós sendo limite de até 20 nós em caso de emergência.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "The trigger value is not repeated in this sentence; it is the 25 nós printed two items earlier. The trigger is on a FORECAST ('previsão'), not a measurement. Forecast horizon not stated here (the FSRU forecast duty is ≥ 72 h, twice daily)."
+  },
+  {
+   "id": "sepetiba-ute-fsru-powerships-fundeio",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "permanência da FSRU e das Powerships no fundeio/quadrante de boias",
+   "where": "anchorage (quadrante de boias da UTE)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "75",
+     "unit": "kn",
+     "note": "critério de vento para permanência da FSRU no fundeio"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "40",
+     "unit": "kn",
+     "note": "critério de vento para permanência das Powerships no fundeio"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "11.00",
+     "unit": "m",
+     "note": "calado máximo autorizado para a FSRU fundeada"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "5.00",
+     "unit": "m",
+     "note": "calado máximo das 4 Powerships"
+    }
+   ],
+   "logic": "each criterion applies to its unit; navios-tipo: FSRU LOA 272 m, boca 47,2 m, calado 11,46 m; LNGC LOA 298 m, boca 46 m, calado 12 m (p. 5-100)",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-102 -'; pdf p. 221",
+   "quote": "- O calado máximo autorizado para o FSRU fundeado é de 11,00 m e para as 4 (quatro) “Powerships” é de 5,00 m. O critério de vento para a permanência das “Powerships” no fundeio é de 40 nós. O critério de vento para a permanência da FSRU no fundeio é de 75 nós. - A administradora do Terminal deverá manter equipe especializada (remota ou a bordo) realizando a previsão diária (2x) para no mínimo 72 horas subsequentes das condições meteoceanográficas da região.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "The FSRU navio-tipo draft (11,46 m, p. 5-100) exceeds the authorised anchored draft (11,00 m) as printed. Wind not stated as sustained/gust; 'critério' has no explicit operator."
+  },
+  {
+   "id": "sepetiba-ute-fsru-remocao",
+   "site": "sepetiba",
+   "facility": "Usina Termelétrica Flutuante (UTE) em quadrante de boias, Baía de Sepetiba — FSRU KARMOL (22° 56' 48.9\" S 043° 48' 37.9\" W) + 4 Powerships (KPS 21, 61, 08, 02); LNGC em STS",
+   "operation": "presença do Mooring Master (previsão > 40 nós) e remoção da FSRU do fundeio (previsão > 75 nós)",
+   "where": "anchorage → saída",
+   "kind": "abandon-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "40",
+     "unit": "kn",
+     "note": "previsão → Mooring Master nas instalações da UTE e rebocadores de contingência para as Powerships"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "75",
+     "unit": "kn",
+     "note": "previsão → remoção da FSRU do fundeio"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "12",
+     "unit": "kn",
+     "note": "vento para a manobra de remoção da FSRU"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "teto em emergência"
+    }
+   ],
+   "logic": "triggers are FORECASTS; the FSRU removal maneuver is scheduled for wind < 12 kn, ≤ 20 kn in emergency",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-102 -'; pdf p. 221",
+   "quote": "- Com previsão de ventos acima de 40 nós, deverá ser prevista a presença do Mooring Master nas instalações da UTE para solicitação dos rebocadores de contingência para atender os 2 (dois) conjuntos dos “Powerships” e coordenação dos mesmos; - Com previsão de ventos acima de 75 nós, deverá ser prevista a remoção do FSRU do fundeio, e agendamento da manobra com antecedência necessária para realização com ventos menores do que 12 nós sendo limite de até 20 nós em caso de emergência.",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)"
+  },
+  {
+   "id": "sepetiba-bunkering-sts-area-externa",
+   "site": "sepetiba",
+   "facility": "Operações de bunkering na modalidade Ship-to-Ship — área de fundeio externa à Baía de Sepetiba (polígono de 5 pontos)",
+   "operation": "manobras com navios em operação de bunkering (navio-tipo LOA 150 m, boca 25 m, calado 10 m)",
+   "where": "anchorage (externa)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "18",
+     "unit": "kn",
+     "note": "diurno"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.8",
+     "unit": "m",
+     "note": "diurno ('ondas de até 1,8 metro')"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "15",
+     "unit": "kn",
+     "note": "noturno"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "noturno"
+    }
+   ],
+   "logic": "operar somente se os limites do período forem respeitados; aproximação e amarração sempre no período diurno",
+   "source": "npcp-rj-rev3-mod3",
+   "page": "printed '- 5-101 -' (5.1.3 d) VI); pdf p. 220",
+   "quote": "- As manobras com navios em operação de bunkering, no período diurno, devem ocorrer com ventos de até 18 nós e ondas de até 1,8 metro. Para operação no período noturno, devem ser observados ventos de até 15 nós e ondas de até 1,5 metro. - Ressalta-se que a manobra de aproximação e amarração deverá, sempre, ocorrer em período diurno,",
+   "status": "in force as of the act (NPCP-RJ 3ª Revisão, Portaria nº 168/2025, consolidada até a Mod. 3 de 15/07/2026)",
+   "uncertain": "Not in the requested list; included because it is the other STS operation with metocean limits in the Sepetiba section. 'ondas' not stated as Hs."
+  },
+  {
+   "id": "itajai-res034-2008-diurno",
+   "site": "itajai",
+   "facility": "Porto de Itajaí (Superintendência do Porto de Itajaí) — estudo Alkyon A-1720 (mod. 1720me 05)",
+   "operation": "manobras diurnas de acesso de navios com Comprimento 276,5 m < L < 278 m, Boca 38,8 m < B < 40 m, Calado C = 10,50 m; limites ambientais 'servirão para todos os navios'",
+   "where": "canal de acesso (ondas: canal de acesso externo; velocidade: canais de acesso)",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "8.9",
+     "unit": "m/s",
+     "note": "'A intensidade média do vento deve ser de 8,9 m/s (16 nós)'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "16",
+     "unit": "kn",
+     "note": "same limit as printed in knots"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.25",
+     "unit": "m/s",
+     "note": "enchente e vazante ('não deverá ser superior a 1,25m/s ( 2.3 nós)')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2.3",
+     "unit": "kn",
+     "note": "same limit as printed in knots"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "'altura máxima das ondas deve ser de 2m', canal de acesso externo"
+    },
+    {
+     "var": "speed",
+     "op": "<=",
+     "value": "5.0",
+     "unit": "kn",
+     "note": "'velocidade máxima de trânsito nos canais de acesso'"
+    },
+    {
+     "var": "loa",
+     "op": ">",
+     "value": "276.5",
+     "unit": "m",
+     "note": "aplicabilidade (classe de projeto)"
+    },
+    {
+     "var": "loa",
+     "op": "<",
+     "value": "278",
+     "unit": "m",
+     "note": "aplicabilidade"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "10.50",
+     "unit": "m",
+     "note": "'Calado C = 10,50 m'"
+    }
+   ],
+   "logic": "operar somente se todos; manobras de entrada entre 90 e 30 min antes da preamar, saída entre 60 min antes e 30 min depois da preamar; FAQ 1,50 m (navios > 250 m); CMR = 11 + H – 1,50",
+   "source": "itajai-res034-2008",
+   "page": "pdf pp. 1–3 (no printed page numbers); limits on pdf p. 2",
+   "quote": "RESOLUÇÃO Nº 034/2008 DE 05 DE NOVEMBRO DE 2008. RETIFICA A RESOLUÇÃO N° 007/2007, DE 11 DE ABRIL DE 2007, A QUAL ESTABELECE AS CONDIÇÕES TEMPORÁRIAS PARA AS MANOBRAS DE ACESSO DOS NAVIOS E SEU CALADO MÁXIMO DE OPERAÇÃO NO PORTO DE ITAJAÍ. [...] • Com as seguintes dimensões: Comprimento: 276,5 m < L < 278 m Boca: 38,8 m < B < 40 m Calado C = 10,50 m - Período Diurno – De caráter ambiental Os seguintes fatores podem atingir valores consideráveis, ocasionando eventual restrições às manobras. Assim, seus limites que servirão para todos os navios serão: – Ventos A intensidade média do vento deve ser de 8,9 m/s (16 nós) – Correntes A velocidade da corrente, tanto na enchente quanto na vazante não deverá ser superior a 1,25m/s ( 2.3 nós) 1.1.3 – Altura das ondas Com efeito, predominante no canal de acesso externo, a altura máxima das ondas deve ser de 2m. – De caráter náutico – Velocidade de trânsito A velocidade máxima de trânsito nos canais de acesso é de 5.0 nós",
+   "status": "unverified — the act calls itself 'condições temporárias' (it retifies Res. 007/2007); no revocation found, but the issuer (Superintendência do Porto de Itajaí) has since been replaced (a 2025 port norm is issued by 'Autoridade Portuária de Santos – Filial Itajaí'); the Navy's current Itajaí instrument is NPCP-SC Mod.21 (rule itajai-npcp-sc-mod21-impraticabilidade)",
+   "uncertain": "(1) Wind is printed as 'deve ser de 8,9 m/s' — literally 'must be', read as a mean-wind maximum. (2) Wave height not stated as Hs. (3) It is ambiguous whether the environmental limits apply to all ships ('servirão para todos os navios') or only to the 276,5–278 m design class that heads the section — the text says all ships. (4) Signature line is 'Itajaí, XX de novembro de 2008' (date placeholder unfilled) though the heading says 05 de novembro de 2008."
+  },
+  {
+   "id": "itajai-res034-2008-noturno",
+   "site": "itajai",
+   "facility": "Porto de Itajaí (Superintendência do Porto de Itajaí)",
+   "operation": "manobras no período noturno — comprimento total 230 m, calado máximo 10 m, FAQ 1,05 m; 'adota-se as mesmas condições ambientais de limite'",
+   "where": "canal de acesso",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "loa",
+     "op": "<=",
+     "value": "230",
+     "unit": "m",
+     "note": "'Comprimento total: 230 m.'"
+    },
+    {
+     "var": "draft",
+     "op": "<=",
+     "value": "10",
+     "unit": "m",
+     "note": "'Calado máximo: 10m'"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "8.9",
+     "unit": "m/s",
+     "note": "same as day ('mesmas condições ambientais')"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.25",
+     "unit": "m/s",
+     "note": "same as day"
+    },
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "same as day"
+    }
+   ],
+   "logic": "operar à noite somente com navio ≤ 230 m / calado ≤ 10 m e os mesmos limites ambientais do período diurno",
+   "source": "itajai-res034-2008",
+   "page": "pdf p. 4",
+   "quote": "2.0- Manobras no Período Noturno Para o período noturno, passam a vigorar as seguintes restrições: Comprimento total: 230 m. Calado máximo: 10m FAQ; 1,05m. Obs.: adota-se as mesmas condições ambientais de limite já expressa na Norma; – Navios com comprimento até 250m (Período diurno) A FAQ adotada passa a ser de 1.05m Os atuais parâmetros vigentes que não foram alterados por esta Resolução mantêm-se em vigor, sendo que o calado máximo será de 10,50 metros.",
+   "status": "unverified — the act calls itself 'condições temporárias' (it retifies Res. 007/2007); no revocation found, but the issuer (Superintendência do Porto de Itajaí) has since been replaced (a 2025 port norm is issued by 'Autoridade Portuária de Santos – Filial Itajaí'); the Navy's current Itajaí instrument is NPCP-SC Mod.21 (rule itajai-npcp-sc-mod21-impraticabilidade)",
+   "uncertain": "The night environmental limits are by reference ('mesmas condições ambientais de limite já expressa na Norma') — copied from the day section, not re-printed. 'Comprimento total: 230 m' has no operator; read as a maximum."
+  },
+  {
+   "id": "itajai-npcp-sc-mod21-impraticabilidade",
+   "site": "itajai",
+   "facility": "Itajaí e Navegantes (ZP de Itajaí)",
+   "operation": "praticabilidade da barra — declaração de impraticabilidade (instrumento atual da Marinha para Itajaí)",
+   "where": "barra / canal de acesso",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2.0",
+     "unit": "m",
+     "note": "verde"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "2.0",
+     "unit": "m",
+     "note": "vermelho"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "22.0",
+     "unit": "kn",
+     "note": "vermelho"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2.0",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "2.0",
+     "unit": "kn",
+     "note": "vermelho"
+    },
+    {
+     "var": "visibility",
+     "op": ">=",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "vermelho"
+    }
+   ],
+   "logic": "VERDE se todas; AMARELO = '*' (dependerá do tamanho ou tipo da embarcação ...); VERMELHO se qualquer",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Hs ≤ 2,0 e V ≤ 20 e C ≤ 2,0 e Vis ≥ 0,5"
+    },
+    {
+     "band": "amarelo",
+     "when": "* e/ou * e/ou * e/ou *"
+    },
+    {
+     "band": "vermelho",
+     "when": "Hs > 2,0 ou V > 22,0 ou C > 2,0 ou Vis < 0,5"
+    }
+   ],
+   "source": "npcp-sc-mod21",
+   "page": "printed '– 4 – 22 de 37 –'; pdf p. 80",
+   "quote": "Itajaí e Navegantes | VERDE | Hs ≤ 2,0 e V ≤ 20 e C ≤ 2,0 e Vis ≥ 0,5 | AMARELO | * e/ou * e/ou * e/ou * | VERMELHO | Hs > 2,0 ou V > 22,0 ou C > 2,0 ou Vis < 0,5 — Observação: *Dependerá do tamanho ou tipo da embarcação, embarcações específicas, de acordo com as condições ambientais, trechos da ZP, ou outros fatores julgados relevantes para a segurança da navegação.",
+   "status": "in force as of the act (Mod. 21, vigência 31/07/2025)",
+   "uncertain": "Added for context (not Res. 034/2008). Only wind has a gap for the yellow band (20 < V ≤ 22,0); for Hs, current and visibility green and red meet, leaving no room for yellow. The Mod.19 table it replaced said Itajaí '20 nós sustentado'. Differs from Res. 034/2008 (16 kn mean wind, 2,3 kn current)."
+  },
+  {
+   "id": "rio-grande-toda-area-faixas",
+   "site": "rio-grande",
+   "facility": "Porto Organizado do Rio Grande — TODA A ÁREA e Entrada e Saída dos MOLHES",
+   "operation": "praticabilidade (manobras, tráfego, embarque/desembarque de práticos)",
+   "where": "toda a área do porto organizado + barra (molhes)",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "25",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "25",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "35",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "35",
+     "unit": "kn",
+     "note": "vermelha"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "3",
+     "unit": "kn",
+     "note": "vazante — verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "3",
+     "unit": "kn",
+     "note": "vazante — amarela (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "5",
+     "unit": "kn",
+     "note": "vazante — amarela (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "5",
+     "unit": "kn",
+     "note": "vazante — vermelha"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "enchente — verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "2",
+     "unit": "kn",
+     "note": "enchente — amarela (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "4",
+     "unit": "kn",
+     "note": "enchente — amarela (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "4",
+     "unit": "kn",
+     "note": "enchente — vermelha"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "amarela (superior) — printed '0,5 > Vis > 0,25'"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.25",
+     "unit": "NM",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<=",
+     "value": "0.25",
+     "unit": "NM",
+     "note": "vermelha"
+    }
+   ],
+   "logic": "Verde = condições plenamente favoráveis; Amarela = CP/Delegado delibera sobre impraticabilidade total ou parcial; Vermelha = impraticabilidade total obrigatória. The table prints no 'e'/'ou' between rows; per-row bands, worst presumably governs.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "V ≤ 25 | C ≤ 3 (vazante) | C ≤ 2 (enchente) | Vis > 0,5"
+    },
+    {
+     "band": "amarela",
+     "when": "25 < V < 35 | 3 < C < 5 (vazante) | 2 < C < 4 (enchente) | 0,5 > Vis > 0,25"
+    },
+    {
+     "band": "vermelha",
+     "when": "V ≥ 35 | C ≥ 5 (vazante) | C ≥ 4 (enchente) | Vis ≤ 0,25"
+    }
+   ],
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 4 - E – 1 -' (Anexo 4-E); pdf p. 78 of rs_rev1mod1.pdf",
+   "quote": "ANEXO 4-E PARÂMETROS PARA IMPRATICABILIDADE DA ÁREA DO PORTO ORGANIZADO DE RIO GRANDE E PARA OS CANAIS DE ACESSO À LAGOA DOS PATOS [...] Na eventualidade de registros ambientais inseridos na faixa vermelha do Quadro de Parâmetros Ambientais de Impraticabilidade, a impraticabilidade total da barra deverá ser obrigatoriamente declarada pela Autoridade Marítima local. || TODA A ÁREA do Porto Organizado do Rio Grande e Entrada e Saída dos MOLHES | Intensidade do Vento (V) (nós) | V ≤ 25 | 25 < V < 35 | V ≥ 35 || Corrente vazante (C) (nós) | C ≤ 3 | 3 < C < 5 | C ≥ 5 || Corrente enchente (C) (nós) | C ≤ 2 | 2 < C < 4 | C ≥ 4 || Visibilidade (Vis) (MN) | Vis > 0,5 | 0,5 > Vis > 0,25 | Vis ≤ 0,25",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "Visibility exactly 0,5 MN falls in no band (green '> 0,5', yellow '< 0,5'). Wind not stated as sustained/gust."
+  },
+  {
+   "id": "rio-grande-molhes-diurno-faixas",
+   "site": "rio-grande",
+   "facility": "Porto do Rio Grande — barra (MOLHES), período DIURNO",
+   "operation": "entrada e saída dos molhes durante o dia",
+   "where": "bar",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "2",
+     "unit": "m",
+     "note": "verde — 'Vagas (Vag) (M)'"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "2",
+     "unit": "m",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "3.5",
+     "unit": "m",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "3.5",
+     "unit": "m",
+     "note": "vermelha"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "correnteza transversal na boca da barra — verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "2",
+     "unit": "kn",
+     "note": "transversal — amarela (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "4",
+     "unit": "kn",
+     "note": "transversal — amarela (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "4",
+     "unit": "kn",
+     "note": "transversal — vermelha"
+    }
+   ],
+   "logic": "Verde = condições plenamente favoráveis; Amarela = CP/Delegado delibera sobre impraticabilidade total ou parcial; Vermelha = impraticabilidade total obrigatória. The table prints no 'e'/'ou' between rows; per-row bands, worst presumably governs. The TODA A ÁREA row (wind, vazante/enchente, visibility) applies to the molhes as well.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Vag ≤ 2 | C ≤ 2"
+    },
+    {
+     "band": "amarela",
+     "when": "2 < Vag < 3,5 | 2 < C < 4"
+    },
+    {
+     "band": "vermelha",
+     "when": "Vag ≥ 3,5 | C ≥ 4"
+    }
+   ],
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 4 - E – 1 -' (Anexo 4-E); pdf p. 78 of rs_rev1mod1.pdf",
+   "quote": "MOLHES, durante o período DIURNO | Vagas (Vag) (M) | Vag ≤ 2 | 2 < Vag < 3,5 | Vag ≥ 3,5 || Correnteza transversal transversal na boca da barra (C) (nós) | C ≤ 2 | 2 < C < 4 | C ≥ 4",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "'Vagas' (waves) not stated as Hs; earlier text located them 'fora da barra'. Row label prints 'transversal transversal' (duplicated word)."
+  },
+  {
+   "id": "rio-grande-molhes-noturno-faixas",
+   "site": "rio-grande",
+   "facility": "Porto do Rio Grande — barra (MOLHES), período NOTURNO",
+   "operation": "entrada e saída dos molhes durante a noite",
+   "where": "bar",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "hs",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "m",
+     "note": "verde — 'Vagas (Vag) (M)'"
+    },
+    {
+     "var": "hs",
+     "op": ">",
+     "value": "1.5",
+     "unit": "m",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "hs",
+     "op": "<",
+     "value": "2.5",
+     "unit": "m",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.5",
+     "unit": "m",
+     "note": "vermelha"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "correnteza transversal — verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "2",
+     "unit": "kn",
+     "note": "transversal — amarela (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "4",
+     "unit": "kn",
+     "note": "transversal — amarela (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "4",
+     "unit": "kn",
+     "note": "transversal — vermelha"
+    }
+   ],
+   "logic": "Verde = condições plenamente favoráveis; Amarela = CP/Delegado delibera sobre impraticabilidade total ou parcial; Vermelha = impraticabilidade total obrigatória. The table prints no 'e'/'ou' between rows; per-row bands, worst presumably governs. The TODA A ÁREA row applies as well.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "Vag ≤ 1,5 | C ≤ 2"
+    },
+    {
+     "band": "amarela",
+     "when": "1,5< Vag <2,5 | 2 < C < 4"
+    },
+    {
+     "band": "vermelha",
+     "when": "Vag ≥ 2,5 | C ≥ 4"
+    }
+   ],
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 4 - E – 1 -' (Anexo 4-E); pdf p. 78 of rs_rev1mod1.pdf",
+   "quote": "MOLHES, durante o período NOTURNO | Vagas (Vag) (M) | Vag ≤ 1,5 | 1,5< Vag <2,5 | Vag ≥ 2,5 || Correnteza transversal transversal na boca da barra (C) (nós) | C ≤ 2 | 2 < C < 4 | C ≥ 4",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "'Vagas' not stated as Hs."
+  },
+  {
+   "id": "rio-grande-porto-novo-faixas",
+   "site": "rio-grande",
+   "facility": "Porto do Rio Grande — PORTO NOVO",
+   "operation": "manobras no Porto Novo",
+   "where": "basin / canal do Porto Novo",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "1.5",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "1.5",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "current",
+     "op": "<",
+     "value": "2.5",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "2.5",
+     "unit": "kn",
+     "note": "vermelha"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "15",
+     "unit": "kn",
+     "note": "verde — vento para entrada/saída de popa"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "15",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "25",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "25",
+     "unit": "kn",
+     "note": "vermelha"
+    }
+   ],
+   "logic": "Verde = condições plenamente favoráveis; Amarela = CP/Delegado delibera sobre impraticabilidade total ou parcial; Vermelha = impraticabilidade total obrigatória. The table prints no 'e'/'ou' between rows; per-row bands, worst presumably governs.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "C ≤ 1,5 | V ≤ 15"
+    },
+    {
+     "band": "amarela",
+     "when": "1,5< C < 2,5 | 15< V < 25"
+    },
+    {
+     "band": "vermelha",
+     "when": "C ≥ 2,5 | V ≥ 25"
+    }
+   ],
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 4 - E – 1 -' (Anexo 4-E); pdf p. 78 of rs_rev1mod1.pdf",
+   "quote": "PORTO NOVO | Corrente (C) (nós) | C ≤ 1,5 | 1,5< C < 2,5 | C ≥ 2,5 || Vento para entrada/saída de popa (V) (nós) | V ≤ 15 | 15< V < 25 | V ≥ 25",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "The wind row applies only to stern-first ('de popa') entry/exit."
+  },
+  {
+   "id": "rio-grande-lagoa-dos-patos-faixas",
+   "site": "rio-grande",
+   "facility": "Canais de acesso à Lagoa dos Patos (saída de Rio Grande)",
+   "operation": "navegação e manobras para os canais de acesso à Lagoa dos Patos",
+   "where": "channel",
+   "kind": "condition-band",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "25",
+     "unit": "kn",
+     "note": "verde"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "25",
+     "unit": "kn",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "35",
+     "unit": "kn",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "wind_sustained",
+     "op": ">=",
+     "value": "35",
+     "unit": "kn",
+     "note": "vermelha"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "verde"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.5",
+     "unit": "NM",
+     "note": "amarela (superior)"
+    },
+    {
+     "var": "visibility",
+     "op": ">",
+     "value": "0.25",
+     "unit": "NM",
+     "note": "amarela (inferior)"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.25",
+     "unit": "NM",
+     "note": "vermelha"
+    }
+   ],
+   "logic": "Verde = condições plenamente favoráveis; Amarela = CP/Delegado delibera sobre impraticabilidade total ou parcial; Vermelha = impraticabilidade total obrigatória. The table prints no 'e'/'ou' between rows; per-row bands, worst presumably governs.",
+   "bands": [
+    {
+     "band": "verde",
+     "when": "V ≤ 25 | Vis > 0,5"
+    },
+    {
+     "band": "amarela",
+     "when": "25 < V < 35 | 0,5 > Vis > 0,25"
+    },
+    {
+     "band": "vermelha",
+     "when": "V ≥ 35 | Vis < 0,25"
+    }
+   ],
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 4 - E – 1 -' / '-4-E–2-' (row split across the page break); pdf pp. 78–79",
+   "quote": "canais de acesso á [...] LAGOA DOS PATOS | Vento para entrada/saída de popa (V) (nós) | V ≤ 25 | 25 < V < 35 | V ≥ 35 || Visibilidade (Vis) (MN) | Vis > 0,5 | 0,5 > Vis > 0,25 | Vis < 0,25",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "The wind row is labelled 'Vento para entrada/saída de popa' (stern-first), apparently copied from the Porto Novo row; the superseded text said 'Saída de Rio Grande ... com ventos igual ou superior a 35 nós' with no stern qualifier. Visibility exactly 0,5 and exactly 0,25 MN fall in no band (red here is '< 0,25', not '≤')."
+  },
+  {
+   "id": "rio-grande-sts-vento",
+   "site": "rio-grande",
+   "facility": "Área de fundeio ECHO (transbordo de carga perigosa entre navios) / áreas homologadas pela CPRS",
+   "operation": "operações ship-to-ship (transbordo entre navios fundeados)",
+   "where": "anchorage",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "'Não deverão ocorrer operações ship-to-ship com intensidade de vento superior a 20 nós.'"
+    }
+   ],
+   "logic": "STS somente com vento até 20 nós",
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '- 5 - 13 -' (5.5.3 Observações); pdf p. 99 (same text in superseded Rev.1, pdf p. 69)",
+   "quote": "O fundeio na área ECHO para transbordo de carga perigosa entre Navios deve ser solicitado à Portos RS – Autoridade Portuária e obtido parecer da CPRS com antecedência mínima de 72 horas. Normalmente, este tipo de operação deve ser realizada no cais do Terminal Petroquímico e, eventualmente, no Terminal Petroleiro, adotando-se as normas de segurança adequadas. A realização de operações de transbordo entre Navios fundeados deve atender às exigências estabelecidas na NORMAM-204/DPC, capítulo 6 e em áreas previamente homologadas pela CPRS. Não deverão ocorrer operações ship-to-ship com intensidade de vento superior a 20 nós.",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)",
+   "uncertain": "Wind not stated as sustained/gust; whether it binds STS at berth (Terminal Petroquímico/Petroleiro) or only anchored STS is not explicit."
+  },
+  {
+   "id": "rio-grande-atracacao-contrabordo",
+   "site": "rio-grande",
+   "facility": "Porto Organizado do Rio Grande",
+   "operation": "manobras de atracação de navios a contrabordo",
+   "where": "berth",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<",
+     "value": "20",
+     "unit": "kn",
+     "note": "'abaixo de 20 nós'"
+    }
+   ],
+   "logic": "atracar a contrabordo somente com vento abaixo de 20 nós",
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '-5-C-1-' (Anexo 5-C a) 1) c); pdf p. 120 (same text in superseded Rev.1, pdf p. 130)",
+   "quote": "c) Manobras de atracação de navios a contrabordo só deverão ser realizadas se o vento estiver com intensidade abaixo de 20 nós;",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)"
+  },
+  {
+   "id": "rio-grande-transbordo-perigosos-bombeamento",
+   "site": "rio-grande",
+   "facility": "Porto Organizado do Rio Grande",
+   "operation": "faina de transbordo de produtos perigosos (bombeamento)",
+   "where": "berth / anchorage",
+   "kind": "abandon-parameter",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "25",
+     "unit": "kn",
+     "note": "interromper o bombeamento"
+    }
+   ],
+   "logic": "op = condição que DISPARA a interrupção do bombeamento",
+   "source": "npcp-rs-rev1-mod1",
+   "page": "printed '-5-C-1-' (Anexo 5-C a) 1) d); pdf p. 120",
+   "quote": "d) Navios em faina de transbordo de produtos perigosos deverão interromper o bombeamento com vento superior a 25 nós;",
+   "status": "in force as of the act (NPCP-RS 1ª Rev./MOD.1, Portaria nº 59/CPRS, vigência 15/09/2025)"
+  },
+  {
+   "id": "rio-grande-bunker-area-delta",
+   "site": "rio-grande",
+   "facility": "Área DELTA (fundeio), canal do Porto do Rio Grande",
+   "operation": "reabastecimento (BUNKER) de navios fundeados",
+   "where": "anchorage",
+   "kind": "operating-limit",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": "<=",
+     "value": "20",
+     "unit": "kn",
+     "note": "'no momento da operação'"
+    },
+    {
+     "var": "current",
+     "op": "<=",
+     "value": "2",
+     "unit": "kn",
+     "note": "'no local do fundeio'"
+    }
+   ],
+   "logic": "cumulativamente ('deverão obedecer, cumulativamente'); prático a bordo e rebocador a contrabordo",
+   "source": "rs-port49-2025",
+   "page": "pdf p. 1 (single page, no printed number)",
+   "quote": "Art. 2° As operações de reabastecimento na área DELTA deverão obedecer, cumulativamente, às seguintes condições operacionais mínimas de segurança: I – Presença obrigatória de prático a bordo durante toda a operação; II – Rebocador a contrabordo, pronto para eventual reposicionamento do navio; III – Velocidade do vento inferior ou igual a 20 nós no momento da operação; IV – Correnteza inferior ou igual a 2 nós no local do fundeio;",
+   "status": "in force as of the act (Portaria nº 49/CPRS, listed 'em vigor' on the CPRS page; 'entra em vigor na data de sua publicação')",
+   "uncertain": "Not in the requested list; included as the other ship-to-ship fuel transfer rule at Rio Grande."
+  },
+  {
+   "id": "rio-grande-barra-impraticabilidade-rev1",
+   "site": "rio-grande",
+   "facility": "Porto Organizado do Rio Grande — barra (MOLHES) e toda a área",
+   "operation": "declaração de IMPRATICABILIDADE (texto anterior à MOD.1)",
+   "where": "bar",
+   "kind": "impracticability",
+   "limits": [
+    {
+     "var": "wind_sustained",
+     "op": ">",
+     "value": "35",
+     "unit": "kn",
+     "note": "toda a área — 'Vento maior que 35 nós de qualquer quadrante'"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "5",
+     "unit": "kn",
+     "note": "toda a área — corrente vazante"
+    },
+    {
+     "var": "current",
+     "op": ">",
+     "value": "4",
+     "unit": "kn",
+     "note": "toda a área — corrente enchente"
+    },
+    {
+     "var": "visibility",
+     "op": "<",
+     "value": "0.25",
+     "unit": "NM",
+     "note": "toda a área — 'inferior a 500 jardas (0,25 milhas náuticas)'"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "3.5",
+     "unit": "m",
+     "note": "molhes, DIURNO — 'Vagas fora da barra maior ou igual a 3,5 metros'"
+    },
+    {
+     "var": "hs",
+     "op": ">=",
+     "value": "2.5",
+     "unit": "m",
+     "note": "molhes, NOTURNO — 'Vagas fora da barra maior ou igual a 2,5 metros'"
+    },
+    {
+     "var": "current",
+     "op": ">=",
+     "value": "4",
+     "unit": "kn",
+     "note": "molhes, diurno e noturno — correnteza transversal na boca da barra"
+    }
+   ],
+   "logic": "op = condição que DISPARA a impraticabilidade; qualquer parâmetro basta",
+   "source": "npcp-rs-rev1",
+   "page": "printed '-4-E-1' (Anexo 4-E); pdf p. 109 of npcp_rs.pdf",
+   "quote": "1) Parâmetros para a declaração de IMPRATICABILIDADE em TODA A ÁREA do Porto Organizado do Rio Grande e Entrada e Saída dos MOLHES: a) Vento maior que 35 nós de qualquer quadrante; b) Corrente vazante maior que 5 nós; c) Corrente enchente maior que 4 nós; e d) Visibilidade inferior a 500 jardas (0,25 milhas náuticas). 2) Parâmetros para a declaração de IMPRATICABILIDADE, para Entrada e Saída dos MOLHES, durante o período DIURNO: a) Vagas fora da barra maior ou igual a 3,5 metros; e b) Correnteza transversal na boca da barra maior ou igual a 4 nós. 3) Parâmetros para a declaração de IMPRATICABILIDADE, para Entrada e Saída dos MOLHES, durante o período NOTURNO: a) Vagas fora da barra maior ou igual a 2,5 metros; e b) Correnteza transversal na boca da barra maior ou igual a 4 nós.",
+   "status": "superseded — Portaria nº 59/CPRS (Rev.1/MOD.1) revoked NPCP-RS 1ª Rev. and replaced Anexo 4-E with the band table (rules rio-grande-*-faixas), vigência 15/09/2025. Boundaries moved: wind '> 35' → red 'V ≥ 35'; vazante '> 5' → 'C ≥ 5'; enchente '> 4' → 'C ≥ 4'; vis '< 0,25' → 'Vis ≤ 0,25'.",
+   "uncertain": "500 jardas is printed as equal to 0,25 milhas náuticas (500 yd ≈ 0,247 NM)."
+  }
+ ]
+}
