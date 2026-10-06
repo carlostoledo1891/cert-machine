@@ -6,10 +6,19 @@
    here against corpus/easota/meta.json), decides the platform's objective in
    exact rational arithmetic, and compares the exact value with the digits the
    repository prints. Grammar per row: WITNESSED (the bytes are an exact
-   witness of the printed value), REPAIRED (a witness only up to the platform's
-   tolerance; an exact witness built from the same bytes, deficit printed),
-   UNWITNESSED (bytes fail exactly, no repair). A failed witness refutes no
-   bound. Improvements over the previous best are decided as exact signs. */
+   witness of the printed value), REPAIRED (a witness only within a verifier's
+   tolerance — the platform's or the repository notebook's, named and dated in
+   the row's platformRule; an exact witness built from the same bytes, deficit
+   printed), UNWITNESSED (bytes fail exactly, no repair). A failed witness
+   refutes no bound. Improvements over the previous best are decided as exact
+   signs.
+
+   The platform's rules move (EinsteinArena dropped its circles slack on
+   2026-08-24), so a row never says "the platform's tolerance" without a date:
+   platformRule holds the rule when the construction was published and the
+   rule now, each read from bytes pinned in corpus/sources/easota-platform and
+   re-checked here. Interval endpoints are written outward: a lower end
+   rounded down, an upper end rounded up. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -31,7 +40,84 @@ for (const [rel, m] of Object.entries(meta.files)) {
 const readme = (p) => L.read(p + '/README.md');
 const printedInReadme = (p, s) => readme(p).includes(String(s));
 
+/* ---- the platform's rules, dated, from pinned bytes ----
+   corpus/sources/easota-platform holds vinid/einstein-arena's changelog and the
+   verifier sources at the commits that matter, and the live API's verifier
+   strings of 2026-10-06; every one is re-hashed against corpus/sources/PINS.json
+   and every rule a row states is found in those bytes, or nothing is written. */
+const SRC = path.join(ROOT, 'corpus', 'sources');
+const PINS = JSON.parse(fs.readFileSync(path.join(SRC, 'PINS.json'), 'utf8'));
+const pinned = (rel) => {
+  const key = 'easota-platform/' + rel, want = PINS[key];
+  if (!want) die('no pin for corpus/sources/' + key);
+  const b = fs.readFileSync(path.join(SRC, key));
+  if (crypto.createHash('sha256').update(b).digest('hex') !== want) die('corpus/sources/' + key + ' does not hash to its pin');
+  return b.toString('utf8');
+};
+const says = (name, txt, ...needles) => { for (const n of needles) if (!txt.includes(n)) die(name + ' no longer says: ' + n); };
+const saysNot = (name, txt, ...needles) => { for (const n of needles) if (txt.includes(n)) die(name + ' says: ' + n); };
+const tsVerifier = (src) => { const m = /verifier: `([\s\S]*?)`,\n/.exec(src); if (!m) die('a pinned .ts has no verifier'); return m[1].replace(/\\\\/g, '\\').replace(/\\`/g, '`'); };
+const PF = {
+  changelog: pinned('einstein-arena-changelog_9cd6fbfb.md'),
+  cirThen: pinned('circles-rectangle_9f3ffd44.ts'), cirNow: pinned('circles-rectangle_9cd6fbfb.ts'),
+  ovlFirst: pinned('erdos-min-overlap_7fe55b61.ts'), ovlNow: pinned('erdos-min-overlap_9cd6fbfb.ts'),
+  hexNow: pinned('hexagon-packing_9cd6fbfb.ts'),
+  apiCir: JSON.parse(pinned('api-problems-circles-rectangle_2026-10-06.json')),
+  apiOvl: JSON.parse(pinned('api-problems-erdos-min-overlap_2026-10-06.json')),
+  apiList: JSON.parse(pinned('api-problems_2026-10-06.json')),
+  note: pinned('einstein-arena-platform-pin.txt'),
+};
+pinned('api-problems-edges-vs-triangles_2026-10-06.json');
+says('the changelog', PF.changelog, '## 2026-08-24\n\n### Feasibility checks tightened\n\nRemoved the `1e-9` feasibility slack from `circle-packing`, `circles-rectangle`, and `heilbronn-triangles`.',
+  'Packings that only passed via slack or rounding are no longer on the leaderboard.');
+says('circles-rectangle.ts @ 9f3ffd44', PF.cirThen, 'if width + height > 2 + 1e-9:', 'if dist < c1[2] + c2[2] - 1e-9:');
+says('circles-rectangle.ts @ 9cd6fbfb', PF.cirNow, 'if width + height > Fraction(2):', 'if dist < c1[2] + c2[2]:');
+saysNot('circles-rectangle.ts @ 9cd6fbfb', PF.cirNow, '1e-9');
+if (PF.apiCir.verifier !== tsVerifier(PF.cirNow)) die('the live circles verifier of 2026-10-06 is not the pinned source at 9cd6fbfb');
+for (const [name, t] of [['erdos-min-overlap.ts @ 7fe55b61', PF.ovlFirst], ['erdos-min-overlap.ts @ 9cd6fbfb', PF.ovlNow]]) {
+  says(name, t, 'sequence_array = _normalize_sum_constraint(sequence_array)', 'sequence_array = sequence_array * (target_sum / current_sum)');
+  saysNot(name, t, 'isclose', 'atol');
+}
+if (PF.apiOvl.verifier !== tsVerifier(PF.ovlNow)) die('the live overlap verifier of 2026-10-06 is not the pinned source at 9cd6fbfb');
+says('hexagon-packing.ts @ 9cd6fbfb', PF.hexNow, 'if mx1 < mn2 - 1e-9 or mx2 < mn1 - 1e-9:', 'edge[0]*pv[1] - edge[1]*pv[0] < -1e-9:');
+if (!Array.isArray(PF.apiList) || PF.apiList.some((p) => p.slug === 'hexagon-packing')) die('the live problem list of 2026-10-06 does list hexagon-packing');
+says('the circles notebook', L.read('circles-rectangle/verifier.py'), 'if width + height > 2 + 1e-9:', '< c1[2] + c2[2] - 1e-9:');
+says('the overlap notebook', L.read('erdos-minimum-overlap/verifier.py'), 'np.isclose(actual_sum, target_sum, atol=1e-6)');
+says('the pin note', PF.note, '9f3ffd44 2026-04-01', '59e560a5 2026-08-31', '10955d03 "update STOA (#9)", Yongchan Kwon, 2026-04-02', 'ee1495c1 "Restructure (#2)", 2026-03-16');
+const ASOF = '2026-10-06', PUBLIC_FROM = '2026-03-26';
+const PSRC = 'corpus/sources/easota-platform/';
+const PLATFORM = {
+  circles: {
+    slack: 'overlap allowed to 1e-9 in distance, box to 1e-9 in w + h',
+    exact: 'no slack: w + h ≤ 2 checked in exact rationals over the parsed doubles, dist ≥ rᵢ + rⱼ with no margin; packings that passed only via slack or rounding were dropped from the leaderboard',
+    since: '2026-08-24',
+    sinceSource: PSRC + 'einstein-arena-changelog_9cd6fbfb.md (entry 2026-08-24, "Feasibility checks tightened"); the code is vinid/einstein-arena 59e560a5, PR #60, merged 2026-08-31; ' + PSRC + 'circles-rectangle_9cd6fbfb.ts, the live verifier of ' + ASOF + ' byte for byte',
+    thenSource: PSRC + 'circles-rectangle_9f3ffd44.ts (2026-04-01; the same rule in every version from ' + PUBLIC_FROM + ' to 98073fca, 2026-08-06)',
+    notebook: { rule: 'overlap allowed to 1e-9 in distance, box to 1e-9 in w + h', slack: '1e-9', source: 'corpus/easota/circles-rectangle/verifier.py (the repository\'s analysis.ipynb)' },
+  },
+  overlap: {
+    now: 'no tolerance on the sum: the values are rescaled to Σh = n/2 in float64 before scoring (_normalize_sum_constraint), then 0 ≤ h ≤ 1 is required — in every public version of the verifier',
+    source: PSRC + 'erdos-min-overlap_7fe55b61.ts (the first public version, ' + PUBLIC_FROM + ') and erdos-min-overlap_9cd6fbfb.ts, the live verifier of ' + ASOF + ' byte for byte',
+    notebook: { rule: 'Σh = n/2 within 1e-6 (np.isclose, atol=1e-6)', slack: '1e-6', source: 'corpus/easota/erdos-minimum-overlap/verifier.py (the repository\'s analysis.ipynb)' },
+  },
+  hexagons: {
+    rule: 'a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9',
+    source: PSRC + 'hexagon-packing_9cd6fbfb.ts (the rule unchanged in every version since ' + PUBLIC_FROM + ')',
+    served: 'the problem is not served by the live API on ' + ASOF + ': absent from /api/problems (' + PSRC + 'api-problems_2026-10-06.json), /api/problems/hexagon-packing 404',
+  },
+};
+/* published before the platform's public history began? (a construction from a paper, or Together's own overlap file) */
+const beforePlatform = (date) => date < PUBLIC_FROM;
+const noPlatformYet = (date, extra) => ({ rule: 'none: no public platform verifier yet (published ' + date + '; EinsteinArena\'s public history starts ' + PUBLIC_FROM + ')' + (extra || ''), slack: null, source: PSRC + 'einstein-arena-platform-pin.txt' });
+
 const dec = (r, d) => (r ? L.toFixed(r, d) : null);
+/* the upper end of an enclosure, rounded UP to d decimals (L.toFixed truncates, which is outward only for a lower end) */
+const decUp = (r, d) => {
+  const t = L.toFixed(r, d);
+  if (Q.cmp(L.parseDecimal(t), r) >= 0) return t;
+  const up = Q.add(L.parseDecimal(t), Q.R(1n, 10n ** BigInt(d)));
+  return L.toFixed(up, d);
+};
 const rows = [];
 const push = (row) => {
   rows.push(row);
@@ -51,7 +137,7 @@ const agree = (exact, printed, convention) => {
 /* ================= circles in a rectangle: maximise Σr ================= */
 console.log('circles-rectangle:');
 const CIR = {};
-for (const [file, who, printed, date] of [['alphaevolve_2025.json', 'AlphaEvolve V2 (Georgiev, Gómez-Serrano, Tao, Wagner — arXiv:2511.02864)', '2.3658321334', '2025-11'], ['ours_2026.json', 'Together AI agents, this repository', '2.3658323759', '2026-04']]) {
+for (const [file, who, printed, date, publishedOn] of [['alphaevolve_2025.json', 'AlphaEvolve V2 (Georgiev, Gómez-Serrano, Tao, Wagner — arXiv:2511.02864)', '2.3658321334', '2025-11', '2025-11'], ['ours_2026.json', 'Together AI agents, this repository', '2.3658323759', '2026-04', '2026-04-02']]) {
   if (!printedInReadme('circles-rectangle', printed)) die('printed value ' + printed + ' is not in the circles README');
   const r = D.circles(L.loaders.circles('circles-rectangle/' + file));
   const exact = r.witnessed ? r.sumR : (r.repair ? r.repair.sumR : null);
@@ -63,7 +149,19 @@ for (const [file, who, printed, date] of [['alphaevolve_2025.json', 'AlphaEvolve
     asPublished: { sumR: dec(r.sumR, 16), boxSlack: dec(r.boxSlack, 20), overlappingPairs: r.overlaps, worstPairSlackSquared: dec(r.worstPair.slack, 20), worstPair: [r.worstPair.i, r.worstPair.j] },
     repair: r.repair ? { lambda: dec(r.repair.lambda, 18), sumR: dec(r.repair.sumR, 16), deficit: dec(r.repair.deficit, 18), how: 'every radius scaled by λ, the largest rational with λ² ≤ d²/(rᵢ+rⱼ)² on every pair and the box inside w + h ≤ 2' } : null,
     printed, printedConvention: 'rounding', printedAgrees: agree(exact, printed, 'round'),
-    platformTolerance: 'overlap allowed to 1e-9 in distance, box to 1e-9 in w + h',
+    platformTolerance: (beforePlatform(publishedOn) ? 'no platform verifier when published (' + publishedOn + '); 1e-9 from ' + PUBLIC_FROM + ' to ' + PLATFORM.circles.since + ' (' + PLATFORM.circles.slack + '); '
+      : '1e-9 when published (' + publishedOn + '): ' + PLATFORM.circles.slack + '; ')
+      + 'none since ' + PLATFORM.circles.since + ' (the box in exact rationals, the pairs with no margin)' + (r.witnessed ? ' — an exact witness under every rule' : ' — the bytes as published pass the rule of their publication date and fail today\'s'),
+    platformRule: {
+      publishedOn,
+      atPublication: beforePlatform(publishedOn)
+        ? noPlatformYet(publishedOn, '; from ' + PUBLIC_FROM + ' to ' + PLATFORM.circles.since + ' the platform\'s rule was ' + PLATFORM.circles.slack)
+        : { rule: PLATFORM.circles.slack, slack: '1e-9', source: PLATFORM.circles.thenSource + ', live when togethercomputer/EinsteinArena-new-SOTA 10955d03 committed this file' },
+      now: { asOf: ASOF, rule: PLATFORM.circles.exact, slack: null, since: PLATFORM.circles.since, source: PLATFORM.circles.sinceSource,
+        thisFile: r.witnessed ? 'passes: an exact witness, so no slack was ever needed'
+          : 'fails: the box exceeds w + h = 2 by ' + dec(Q.neg(r.boxSlack), 20) + ' and ' + r.overlaps + ' pairs overlap, exactly; the live verifier returned −inf on ' + ASOF + ' (' + PSRC + 'einstein-arena-platform-pin.txt)' },
+      repositoryNotebook: PLATFORM.circles.notebook,
+    },
     ms: 0 });
 }
 const cirImprove = Q.sub(CIR['ours_2026.json'], CIR['alphaevolve_2025.json']);
@@ -101,11 +199,11 @@ const mdrImprove = Q.sub(MDR['alphaevolve_2025.json'], MDR['ours_2026.json']);  
 /* ================= Erdős minimum overlap ================= */
 console.log('erdos-minimum-overlap:');
 const OVL = {};
-for (const [file, how, who, printed, date] of [
-  ['haugland_2016.py', 'haugland', 'J. K. Haugland (arXiv:1609.08000)', '0.380927', '2016'],
-  ['alphaevolve_2025.py', 'ae-half', 'AlphaEvolve (arXiv:2506.13131)', '0.380924', '2025-06'],
-  ['ttt_discover_2026.py', 'full', 'TTT-Discover (Yuksekgonul et al. — arXiv:2601.16175)', '0.380876', '2026-01'],
-  ['together_ai_2026.py', 'full', 'Together AI agents, this repository', '0.380871', '2026-03']]) {
+for (const [file, how, who, printed, date, publishedOn] of [
+  ['haugland_2016.py', 'haugland', 'J. K. Haugland (arXiv:1609.08000)', '0.380927', '2016', '2016'],
+  ['alphaevolve_2025.py', 'ae-half', 'AlphaEvolve (arXiv:2506.13131)', '0.380924', '2025-06', '2025-06'],
+  ['ttt_discover_2026.py', 'full', 'TTT-Discover (Yuksekgonul et al. — arXiv:2601.16175)', '0.380876', '2026-01', '2026-01'],
+  ['together_ai_2026.py', 'full', 'Together AI agents, this repository', '0.380871', '2026-03', '2026-03-16']]) {
   if (!printedInReadme('erdos-minimum-overlap', printed)) die('printed value ' + printed + ' is not in the overlap README');
   const r = D.overlap(L.loaders.overlapPy('erdos-minimum-overlap/' + file, how));
   const exact = r.witnessed ? r.bound : (r.repair ? r.repair.bound : null);
@@ -116,7 +214,15 @@ for (const [file, how, who, printed, date] of [
     asPublished: { steps: r.n, inRange: r.inRange, sumMinusHalfN: dec(r.sumSlack, 20), bound: dec(r.bound, 16), lag: r.lag },
     repair: r.repair ? { how: r.repair.how, bound: dec(r.repair.bound, 16), delta: dec(r.repair.delta, 20) } : null,
     printed, printedConvention: 'ceiling', printedAgrees: exact ? agree(exact, printed, 'ceil') : false,
-    platformTolerance: 'Σh = n/2 within 1e-6' });
+    platformTolerance: 'none on the platform: it rescales h to Σh = n/2 before scoring, in every public version of its verifier (' + PUBLIC_FROM + ' to ' + ASOF + '); the 1e-6 on Σh = n/2 is the repository\'s analysis.ipynb',
+    platformRule: {
+      publishedOn,
+      atPublication: beforePlatform(publishedOn) ? noPlatformYet(publishedOn, file.startsWith('together') ? '; togethercomputer/EinsteinArena-new-SOTA ee1495c1 committed this file 2026-03-16' : '')
+        : { rule: PLATFORM.overlap.now, slack: null, source: PLATFORM.overlap.source },
+      now: { asOf: ASOF, rule: PLATFORM.overlap.now, slack: null, since: PUBLIC_FROM, source: PLATFORM.overlap.source,
+        thisFile: r.witnessed ? 'Σh = n/2 exactly: the rescale changes nothing' : 'Σh misses n/2 by ' + dec(Q.abs(r.sumSlack), 20) + ' exactly; the platform\'s rescale is itself a repair, but in float64 the sum already reads n/2, and the live verifier accepted the file on ' + ASOF + ' (' + PSRC + 'einstein-arena-platform-pin.txt)' },
+      repositoryNotebook: PLATFORM.overlap.notebook,
+    } });
 }
 const ovlImprove = Q.sub(OVL['ttt_discover_2026.py'], OVL['together_ai_2026.py']);
 
@@ -166,11 +272,13 @@ for (const [file, who, printed, gridScore, date] of [['alphaevolve_2025.py', 'Al
   const r = D.flat(c);
   if (!r.witnessed) die('flat: ' + file + ' refused: ' + r.reason);
   FLT[file] = r.Cplus;
+  if (Q.cmp(L.parseDecimal(dec(r.Cplus[0], 20)), r.Cplus[0]) > 0 || Q.cmp(L.parseDecimal(decUp(r.Cplus[1], 20)), r.Cplus[1]) < 0
+    || Q.cmp(L.parseDecimal(dec(r.maxSq[0], 16)), r.maxSq[0]) > 0 || Q.cmp(L.parseDecimal(decUp(r.maxSq[1], 16)), r.maxSq[1]) < 0) die('flat: ' + file + ': a written endpoint is not outward');
   const grid = L.parseDecimal(gridScore);
   push({ id: 'flat/' + file.replace('.py', ''), problem: 'flat-polynomials', claim: '70 coefficients ±1: C⁺ = max_{|z|=1} |g(z)| / √71 = ' + printed, claimant: who, date,
     file: 'corpus/easota/flat-polynomials/' + file, sha256: meta.files['flat-polynomials/' + file].sha256,
     verdict: 'WITNESSED', exact: dec(r.Cplus[0], 16), exactRational: null,
-    enclosure: { lo: dec(r.Cplus[0], 20), hi: dec(r.Cplus[1], 20), width: dec(Q.sub(r.Cplus[1], r.Cplus[0]), 20), maxSqLo: dec(r.maxSq[0], 16), maxSqHi: dec(r.maxSq[1], 16) },
+    enclosure: { lo: dec(r.Cplus[0], 20), hi: decUp(r.Cplus[1], 20), width: dec(Q.sub(r.Cplus[1], r.Cplus[0]), 20), maxSqLo: dec(r.maxSq[0], 16), maxSqHi: decUp(r.maxSq[1], 16), rounding: 'outward: lo and maxSqLo rounded down, hi and maxSqHi rounded up' },
     detail: { degree: r.degree, gridScore, gridShortfall: dec(Q.sub(r.Cplus[0], grid), 16), argCosTheta: r.arg, method: r.method, counts: r.counts, ms: r.ms,
       note: 'the platform\'s score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall' },
     printed, printedConvention: 'rounding', printedAgrees: agree(r.Cplus[0], printed, 'round') && agree(r.Cplus[1], printed, 'round') });
@@ -181,7 +289,7 @@ const fltImprove = Q.sub(FLT['alphaevolve_2025.py'][0], FLT['ours_2026.py'][1]);
 /* ================= hexagon packing: certified intervals with certified trigonometry ================= */
 console.log('hexagon-packing:');
 const HEX = {};
-for (const [file, who, printed, date] of [['alphaevolve_2025.json', 'AlphaEvolve V2 (arXiv:2511.02864)', '3.9419123', '2025-11'], ['ours_2026.json', 'Together AI agents, this repository', '3.9416523', '2026-04']]) {
+for (const [file, who, printed, date, publishedOn] of [['alphaevolve_2025.json', 'AlphaEvolve V2 (arXiv:2511.02864)', '3.9419123', '2025-11', '2025-11'], ['ours_2026.json', 'Together AI agents, this repository', '3.9416523', '2026-04', '2026-04-02']]) {
   if (!printedInReadme('hexagon-packing', printed)) die('printed value ' + printed + ' is not in the hexagon README');
   const j = L.readJson('hexagon-packing/' + file);
   const data = { hexagons: j.hexagons.map((h) => h.map(L.fromJsonNumber)), outer: { center: j.outer_center.map(L.fromJsonNumber), side: L.fromJsonNumber(j.outer_side_length), angleDeg: L.fromJsonNumber(j.outer_angle_deg) } };
@@ -194,7 +302,14 @@ for (const [file, who, printed, date] of [['alphaevolve_2025.json', 'AlphaEvolve
     detail: { pairs: r.pairTally, vertices: r.vertexTally, closestPair: r.closestPair, tightestVertex: r.tightestVertex, enclosureWidth: r.enclosureWidth, intersecting: r.intersecting, outside: r.outside, undecidedPairs: r.undecidedPairs, undecidedVertices: r.undecidedVertices, ms: r.ms,
       note: 'every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9' },
     printed, printedConvention: 'exact', printedAgrees: r.witnessed && Q.cmp(r.score, L.parseDecimal(printed)) === 0,
-    platformTolerance: 'a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9' });
+    platformTolerance: PLATFORM.hexagons.rule,
+    platformRule: {
+      publishedOn,
+      atPublication: beforePlatform(publishedOn) ? noPlatformYet(publishedOn, '; from ' + PUBLIC_FROM + ' the platform\'s rule is the one below')
+        : { rule: PLATFORM.hexagons.rule, slack: '1e-9', source: PLATFORM.hexagons.source },
+      now: { asOf: ASOF, rule: PLATFORM.hexagons.rule, slack: '1e-9', since: PUBLIC_FROM, source: PLATFORM.hexagons.source, served: false, note: PLATFORM.hexagons.served,
+        thisFile: r.witnessed ? 'passes with no margin needed: every pair certified separated, every vertex certified inside' : 'not certified here' },
+    } });
 }
 const hexImprove = Q.sub(HEX['alphaevolve_2025.json'], HEX['ours_2026.json']);   /* minimise the outer side */
 
@@ -212,17 +327,19 @@ const improvements = [
   { problem: 'erdos-minimum-overlap', direction: 'minimise', previous: 'TTT-Discover', delta: dec(ovlImprove, 16), sign: Q.sign(ovlImprove) },
   { problem: 'edges-vs-triangles', direction: 'maximise', previous: 'AlphaEvolve V2', delta: dec(evtImprove, 16), sign: Q.sign(evtImprove) },
   { problem: 'first-autocorrelation', direction: 'minimise', previous: 'TTT-Discover', delta: dec(acImprove, 16), sign: Q.sign(acImprove) },
-  { problem: 'flat-polynomials', direction: 'minimise', previous: 'AlphaEvolve V2', delta: dec(fltImprove, 16), sign: Q.sign(fltImprove), note: 'a lower bound on the difference: the two certified enclosures are disjoint' },
+  { problem: 'flat-polynomials', direction: 'minimise', previous: 'AlphaEvolve V2', delta: dec(fltImprove, 16), sign: Q.sign(fltImprove), lowerBound: true, note: 'a lower bound on the difference (rounded down): the two certified enclosures are disjoint' },
   { problem: 'hexagon-packing', direction: 'minimise', previous: 'AlphaEvolve V2', delta: dec(hexImprove, 16), sign: Q.sign(hexImprove), note: 'both outer sides are exact decimals; both packings certified as witnesses' },
 ];
 for (const im of improvements) console.log('  improvement ' + im.problem.padEnd(24) + (im.sign > 0 ? 'REAL  ' : im.sign < 0 ? 'REVERSED ' : 'TIE ') + im.delta);
 if (rows.some((r) => r.verdict === 'UNWITNESSED')) console.log('  note: an UNWITNESSED row is a finding about the bytes, never about the bound');
 
 const out = {
-  what: 'The EinsteinArena / Together AI "new state-of-the-art" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit ' + meta.commit.slice(0, 8) + '), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform\'s objective, every constraint\'s exact slack, whether the printed digits are the exact value\'s (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only up to the platform\'s tolerance.',
-  grammar: { WITNESSED: 'the bytes are an exact witness of the value stated', REPAIRED: 'a witness only up to the platform\'s tolerance; an exact witness built from the same bytes, its deficit printed', UNWITNESSED: 'the bytes fail exactly and no repair was built — a finding about the bytes, never a refutation of the bound' },
+  what: 'The EinsteinArena / Together AI "new state-of-the-art" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit ' + meta.commit.slice(0, 8) + '), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform\'s objective, every constraint\'s exact slack, whether the printed digits are the exact value\'s (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only within a verifier\'s tolerance. Where a verifier has a tolerance, the row\'s platformRule says which (the platform\'s or the repository notebook\'s) and dates it: the rule when the construction was published and the rule on ' + ASOF + ', each read from pinned bytes (corpus/sources/easota-platform).',
+  grammar: { WITNESSED: 'the bytes are an exact witness of the value stated', REPAIRED: 'a witness only within a verifier\'s tolerance (named and dated in platformRule); an exact witness built from the same bytes, its deficit printed', UNWITNESSED: 'the bytes fail exactly and no repair was built — a finding about the bytes, never a refutation of the bound' },
   scope: 'constructions only; no upper-bound theorem, no optimality claim, and no search for better constructions. The "improvement over the previous best" rows are exact signs between two published constructions.',
-  provenance: { repo: meta.repo, commit: meta.commit, fetched: meta.fetched, files: Object.fromEntries(Object.entries(meta.files).map(([k, v]) => [k, v.sha256])) },
+  provenance: { repo: meta.repo, commit: meta.commit, fetched: meta.fetched, files: Object.fromEntries(Object.entries(meta.files).map(([k, v]) => [k, v.sha256])),
+    platform: { repo: 'github.com/vinid/einstein-arena', head: '9cd6fbfb4b88ca303a61963665b1b6ad20ffdb1e', publicFrom: PUBLIC_FROM, fetched: ASOF,
+      files: Object.fromEntries(Object.entries(PINS).filter(([k]) => k.startsWith('easota-platform/')).map(([k, v]) => ['corpus/sources/' + k, v])) } },
   generated: new Date().toISOString(),
   git: (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })(),
   rows, improvements, undecided,

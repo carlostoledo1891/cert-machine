@@ -123,6 +123,16 @@ if (fs.existsSync(CERT)) {
   const cir = led.rows.find((x) => x.id === 'circles/ours_2026');
   ok(cir && cir.verdict === 'REPAIRED' && cir.repair && cir.printedAgrees === false && cir.asPublished.overlappingPairs > 0, 'ledger: the Together circles are REPAIRED and their printed tenth digit is not the exact witness\'s');
   ok(led.rows.filter((x) => x.printed).every((x) => x.id === 'circles/ours_2026' || x.printedAgrees === true), 'ledger: every other printed value is the exact value\'s rounding or ceiling');
+  /* a tolerance is never "the platform's" without a date (2026-10-06: the circles slack was dropped on 2026-08-24, and the overlap 1e-6 was never the platform's) */
+  ok(led.rows.filter((x) => x.platformTolerance).length === 8 && led.rows.filter((x) => x.platformTolerance).every((x) => x.platformRule && x.platformRule.publishedOn && x.platformRule.atPublication && x.platformRule.now && /^\d{4}-\d{2}-\d{2}$/.test(x.platformRule.now.asOf)), 'ledger: every row that names a verifier tolerance dates it — the rule when published and the rule now');
+  ok(cir.platformRule.atPublication.slack === '1e-9' && cir.platformRule.now.slack === null && cir.platformRule.publishedOn < cir.platformRule.now.since, 'ledger: the Together circles were published under the platform\'s 1e-9; the platform has had no slack since');
+  ok(led.rows.filter((x) => x.problem === 'erdos-minimum-overlap').every((x) => x.platformRule.now.slack === null && x.platformRule.repositoryNotebook.slack === '1e-6'), 'ledger: the overlap 1e-6 is the repository notebook\'s; the platform rescales the sum');
+  ok(flt.every((x) => L.parseDecimal(x.enclosure.lo) && Q.cmp(L.parseDecimal(x.enclosure.lo), L.parseDecimal(x.enclosure.hi)) < 0 && /^outward/.test(x.enclosure.rounding || '')), 'ledger: both flat-polynomial enclosures are written outward');
+  {
+    const PINS = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', 'PINS.json'), 'utf8'));
+    const pf = Object.entries((led.provenance.platform || {}).files || {});
+    ok(pf.length >= 10 && pf.every(([rel, sha]) => PINS[rel.replace(/^corpus\/sources\//, '')] === sha && crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex') === sha), 'every pinned platform source (changelog, verifiers, live API) hashes to its digest');
+  }
   /* the pins */
   const meta = JSON.parse(fs.readFileSync(path.join(L.CORPUS, 'meta.json'), 'utf8'));
   ok(Object.entries(meta.files).every(([rel, m]) => crypto.createHash('sha256').update(fs.readFileSync(path.join(L.CORPUS, rel))).digest('hex') === m.sha256), 'every pinned file hashes to its digest');

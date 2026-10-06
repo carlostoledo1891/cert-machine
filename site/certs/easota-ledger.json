@@ -1,8 +1,8 @@
 {
- "what": "The EinsteinArena / Together AI \"new state-of-the-art\" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit c388c6f7), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform's objective, every constraint's exact slack, whether the printed digits are the exact value's (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only up to the platform's tolerance.",
+ "what": "The EinsteinArena / Together AI \"new state-of-the-art\" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit c388c6f7), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform's objective, every constraint's exact slack, whether the printed digits are the exact value's (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only within a verifier's tolerance. Where a verifier has a tolerance, the row's platformRule says which (the platform's or the repository notebook's) and dates it: the rule when the construction was published and the rule on 2026-10-06, each read from pinned bytes (corpus/sources/easota-platform).",
  "grammar": {
   "WITNESSED": "the bytes are an exact witness of the value stated",
-  "REPAIRED": "a witness only up to the platform's tolerance; an exact witness built from the same bytes, its deficit printed",
+  "REPAIRED": "a witness only within a verifier's tolerance (named and dated in platformRule); an exact witness built from the same bytes, its deficit printed",
   "UNWITNESSED": "the bytes fail exactly and no repair was built — a finding about the bytes, never a refutation of the bound"
  },
  "scope": "constructions only; no upper-bound theorem, no optimality claim, and no search for better constructions. The \"improvement over the previous best\" rows are exact signs between two published constructions.",
@@ -47,10 +47,29 @@
    "hexagon-packing/ours_2026.json": "1d83e40b77862c0f46ec9891b3bbea16b4b303b644007207824acef9dbd6b693",
    "hexagon-packing/README.md": "f6f7474396e9b33f3550a33fb5a2e2ee308a3a8ea6d924ca3a3579b9bb29c891",
    "hexagon-packing/verifier.py": "9b6be2f470f859fa0ad14c5d3097565187a901b0c712cca82e40c2aabd7833d5"
+  },
+  "platform": {
+   "repo": "github.com/vinid/einstein-arena",
+   "head": "9cd6fbfb4b88ca303a61963665b1b6ad20ffdb1e",
+   "publicFrom": "2026-03-26",
+   "fetched": "2026-10-06",
+   "files": {
+    "corpus/sources/easota-platform/api-problems-circles-rectangle_2026-10-06.json": "41ee44be4dd25901a286d1142b424f19f670c57240ac2551f26d53e7e9cfb3af",
+    "corpus/sources/easota-platform/api-problems-edges-vs-triangles_2026-10-06.json": "f2e4f699d82af23c9a38218cb12f5b52171fd6e4945c5da97b7f66d6280f503e",
+    "corpus/sources/easota-platform/api-problems-erdos-min-overlap_2026-10-06.json": "c8c99382af9c592e9018648d0805d5926536dc9cf43e568b68b068e784ca3a90",
+    "corpus/sources/easota-platform/api-problems_2026-10-06.json": "cc2b707bd244f24543646f3299a07c063a46920b3caed5e281fa4db0ea9b81f7",
+    "corpus/sources/easota-platform/circles-rectangle_9cd6fbfb.ts": "c9c9103e684fabe05b5b9643d8973204a4d100d3d1cbd3f848db3d8368af7c5a",
+    "corpus/sources/easota-platform/circles-rectangle_9f3ffd44.ts": "b236fb97a2dde23b8f5a5964eac63635e78c657ae3315eb137d8315c1454eaa2",
+    "corpus/sources/easota-platform/einstein-arena-changelog_9cd6fbfb.md": "fd0d8a413fb1148535ce9ee04466bd0e8b9b95ec4163428e2033dd95fd4ec4b9",
+    "corpus/sources/easota-platform/einstein-arena-platform-pin.txt": "f138dda5927afc61cd3bcd5aa069b6042c2a8836be4adb9563361a21cd1624ab",
+    "corpus/sources/easota-platform/erdos-min-overlap_7fe55b61.ts": "ac5151ebd657f40987c0bc96f8bdd74b98ab6ab02fc0ba7b305b680fe0fed190",
+    "corpus/sources/easota-platform/erdos-min-overlap_9cd6fbfb.ts": "578515bb66b83341b6da1f5584cf2517de557efdb254ba59cd808d9091b2d317",
+    "corpus/sources/easota-platform/hexagon-packing_9cd6fbfb.ts": "71ee3e984f848f6c103babc4c311724449c27494ff333afa44be10712ce2168d"
+   }
   }
  },
- "generated": "2026-09-16T00:36:38.039Z",
- "git": "4ba347a",
+ "generated": "2026-10-06T03:12:49.753Z",
+ "git": "cb6d042",
  "rows": [
   {
    "id": "circles/alphaevolve_2025",
@@ -77,7 +96,28 @@
    "printed": "2.3658321334",
    "printedConvention": "rounding",
    "printedAgrees": true,
-   "platformTolerance": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+   "platformTolerance": "no platform verifier when published (2025-11); 1e-9 from 2026-03-26 to 2026-08-24 (overlap allowed to 1e-9 in distance, box to 1e-9 in w + h); none since 2026-08-24 (the box in exact rationals, the pairs with no margin) — an exact witness under every rule",
+   "platformRule": {
+    "publishedOn": "2025-11",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2025-11; EinsteinArena's public history starts 2026-03-26); from 2026-03-26 to 2026-08-24 the platform's rule was overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no slack: w + h ≤ 2 checked in exact rationals over the parsed doubles, dist ≥ rᵢ + rⱼ with no margin; packings that passed only via slack or rounding were dropped from the leaderboard",
+     "slack": null,
+     "since": "2026-08-24",
+     "source": "corpus/sources/easota-platform/einstein-arena-changelog_9cd6fbfb.md (entry 2026-08-24, \"Feasibility checks tightened\"); the code is vinid/einstein-arena 59e560a5, PR #60, merged 2026-08-31; corpus/sources/easota-platform/circles-rectangle_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "passes: an exact witness, so no slack was ever needed"
+    },
+    "repositoryNotebook": {
+     "rule": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+     "slack": "1e-9",
+     "source": "corpus/easota/circles-rectangle/verifier.py (the repository's analysis.ipynb)"
+    }
+   },
    "ms": 0
   },
   {
@@ -110,7 +150,28 @@
    "printed": "2.3658323759",
    "printedConvention": "rounding",
    "printedAgrees": false,
-   "platformTolerance": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+   "platformTolerance": "1e-9 when published (2026-04-02): overlap allowed to 1e-9 in distance, box to 1e-9 in w + h; none since 2026-08-24 (the box in exact rationals, the pairs with no margin) — the bytes as published pass the rule of their publication date and fail today's",
+   "platformRule": {
+    "publishedOn": "2026-04-02",
+    "atPublication": {
+     "rule": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+     "slack": "1e-9",
+     "source": "corpus/sources/easota-platform/circles-rectangle_9f3ffd44.ts (2026-04-01; the same rule in every version from 2026-03-26 to 98073fca, 2026-08-06), live when togethercomputer/EinsteinArena-new-SOTA 10955d03 committed this file"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no slack: w + h ≤ 2 checked in exact rationals over the parsed doubles, dist ≥ rᵢ + rⱼ with no margin; packings that passed only via slack or rounding were dropped from the leaderboard",
+     "slack": null,
+     "since": "2026-08-24",
+     "source": "corpus/sources/easota-platform/einstein-arena-changelog_9cd6fbfb.md (entry 2026-08-24, \"Feasibility checks tightened\"); the code is vinid/einstein-arena 59e560a5, PR #60, merged 2026-08-31; corpus/sources/easota-platform/circles-rectangle_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "fails: the box exceeds w + h = 2 by 0.00000000000004204000 and 44 pairs overlap, exactly; the live verifier returned −inf on 2026-10-06 (corpus/sources/easota-platform/einstein-arena-platform-pin.txt)"
+    },
+    "repositoryNotebook": {
+     "rule": "overlap allowed to 1e-9 in distance, box to 1e-9 in w + h",
+     "slack": "1e-9",
+     "source": "corpus/easota/circles-rectangle/verifier.py (the repository's analysis.ipynb)"
+    }
+   },
    "ms": 0
   },
   {
@@ -239,7 +300,28 @@
    "printed": "0.380927",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "platformTolerance": "Σh = n/2 within 1e-6"
+   "platformTolerance": "none on the platform: it rescales h to Σh = n/2 before scoring, in every public version of its verifier (2026-03-26 to 2026-10-06); the 1e-6 on Σh = n/2 is the repository's analysis.ipynb",
+   "platformRule": {
+    "publishedOn": "2016",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2016; EinsteinArena's public history starts 2026-03-26)",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no tolerance on the sum: the values are rescaled to Σh = n/2 in float64 before scoring (_normalize_sum_constraint), then 0 ≤ h ≤ 1 is required — in every public version of the verifier",
+     "slack": null,
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/erdos-min-overlap_7fe55b61.ts (the first public version, 2026-03-26) and erdos-min-overlap_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "Σh = n/2 exactly: the rescale changes nothing"
+    },
+    "repositoryNotebook": {
+     "rule": "Σh = n/2 within 1e-6 (np.isclose, atol=1e-6)",
+     "slack": "1e-6",
+     "source": "corpus/easota/erdos-minimum-overlap/verifier.py (the repository's analysis.ipynb)"
+    }
+   }
   },
   {
    "id": "overlap/alphaevolve_2025",
@@ -267,7 +349,28 @@
    "printed": "0.380924",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "platformTolerance": "Σh = n/2 within 1e-6"
+   "platformTolerance": "none on the platform: it rescales h to Σh = n/2 before scoring, in every public version of its verifier (2026-03-26 to 2026-10-06); the 1e-6 on Σh = n/2 is the repository's analysis.ipynb",
+   "platformRule": {
+    "publishedOn": "2025-06",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2025-06; EinsteinArena's public history starts 2026-03-26)",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no tolerance on the sum: the values are rescaled to Σh = n/2 in float64 before scoring (_normalize_sum_constraint), then 0 ≤ h ≤ 1 is required — in every public version of the verifier",
+     "slack": null,
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/erdos-min-overlap_7fe55b61.ts (the first public version, 2026-03-26) and erdos-min-overlap_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "Σh misses n/2 by 0.00000000000000240535 exactly; the platform's rescale is itself a repair, but in float64 the sum already reads n/2, and the live verifier accepted the file on 2026-10-06 (corpus/sources/easota-platform/einstein-arena-platform-pin.txt)"
+    },
+    "repositoryNotebook": {
+     "rule": "Σh = n/2 within 1e-6 (np.isclose, atol=1e-6)",
+     "slack": "1e-6",
+     "source": "corpus/easota/erdos-minimum-overlap/verifier.py (the repository's analysis.ipynb)"
+    }
+   }
   },
   {
    "id": "overlap/ttt_discover_2026",
@@ -295,7 +398,28 @@
    "printed": "0.380876",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "platformTolerance": "Σh = n/2 within 1e-6"
+   "platformTolerance": "none on the platform: it rescales h to Σh = n/2 before scoring, in every public version of its verifier (2026-03-26 to 2026-10-06); the 1e-6 on Σh = n/2 is the repository's analysis.ipynb",
+   "platformRule": {
+    "publishedOn": "2026-01",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2026-01; EinsteinArena's public history starts 2026-03-26)",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no tolerance on the sum: the values are rescaled to Σh = n/2 in float64 before scoring (_normalize_sum_constraint), then 0 ≤ h ≤ 1 is required — in every public version of the verifier",
+     "slack": null,
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/erdos-min-overlap_7fe55b61.ts (the first public version, 2026-03-26) and erdos-min-overlap_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "Σh misses n/2 by 0.00000000000001477489 exactly; the platform's rescale is itself a repair, but in float64 the sum already reads n/2, and the live verifier accepted the file on 2026-10-06 (corpus/sources/easota-platform/einstein-arena-platform-pin.txt)"
+    },
+    "repositoryNotebook": {
+     "rule": "Σh = n/2 within 1e-6 (np.isclose, atol=1e-6)",
+     "slack": "1e-6",
+     "source": "corpus/easota/erdos-minimum-overlap/verifier.py (the repository's analysis.ipynb)"
+    }
+   }
   },
   {
    "id": "overlap/together_ai_2026",
@@ -323,7 +447,28 @@
    "printed": "0.380871",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "platformTolerance": "Σh = n/2 within 1e-6"
+   "platformTolerance": "none on the platform: it rescales h to Σh = n/2 before scoring, in every public version of its verifier (2026-03-26 to 2026-10-06); the 1e-6 on Σh = n/2 is the repository's analysis.ipynb",
+   "platformRule": {
+    "publishedOn": "2026-03-16",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2026-03-16; EinsteinArena's public history starts 2026-03-26); togethercomputer/EinsteinArena-new-SOTA ee1495c1 committed this file 2026-03-16",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "no tolerance on the sum: the values are rescaled to Σh = n/2 in float64 before scoring (_normalize_sum_constraint), then 0 ≤ h ≤ 1 is required — in every public version of the verifier",
+     "slack": null,
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/erdos-min-overlap_7fe55b61.ts (the first public version, 2026-03-26) and erdos-min-overlap_9cd6fbfb.ts, the live verifier of 2026-10-06 byte for byte",
+     "thisFile": "Σh misses n/2 by 0.00000000000000099883 exactly; the platform's rescale is itself a repair, but in float64 the sum already reads n/2, and the live verifier accepted the file on 2026-10-06 (corpus/sources/easota-platform/einstein-arena-platform-pin.txt)"
+    },
+    "repositoryNotebook": {
+     "rule": "Σh = n/2 within 1e-6 (np.isclose, atol=1e-6)",
+     "slack": "1e-6",
+     "source": "corpus/easota/erdos-minimum-overlap/verifier.py (the repository's analysis.ipynb)"
+    }
+   }
   },
   {
    "id": "edges/alphaevolve_2025",
@@ -389,7 +534,7 @@
    "printed": "1.50529397",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 3
+   "ms": 7
   },
   {
    "id": "autocorr/alphaevolve_v2_2025",
@@ -413,7 +558,7 @@
    "printed": null,
    "printedConvention": "ceiling",
    "printedAgrees": null,
-   "ms": 4
+   "ms": 9
   },
   {
    "id": "autocorr/ttt_discover_2026",
@@ -437,7 +582,7 @@
    "printed": "1.50286290",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 920
+   "ms": 2892
   },
   {
    "id": "autocorr/ours_2026",
@@ -461,7 +606,7 @@
    "printed": "1.50286286",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 987
+   "ms": 1804
   },
   {
    "id": "flat/alphaevolve_2025",
@@ -479,7 +624,8 @@
     "hi": "1.34092528040076161766",
     "width": "0.00000000000000007464",
     "maxSqLo": "127.6637231408681287",
-    "maxSqHi": "127.6637231408681429"
+    "maxSqHi": "127.6637231408681430",
+    "rounding": "outward: lo and maxSqLo rounded down, hi and maxSqHi rounded up"
    },
    "detail": {
     "degree": 69,
@@ -502,7 +648,7 @@
      "nCandidates": 41,
      "isolation": "grid+sturm-total"
     },
-    "ms": 368,
+    "ms": 842,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.340925",
@@ -525,7 +671,8 @@
     "hi": "1.28093205287504175382",
     "width": "0.00000000000000007814",
     "maxSqLo": "116.4958716098694679",
-    "maxSqHi": "116.4958716098694821"
+    "maxSqHi": "116.4958716098694822",
+    "rounding": "outward: lo and maxSqLo rounded down, hi and maxSqHi rounded up"
    },
    "detail": {
     "degree": 69,
@@ -548,7 +695,7 @@
      "nCandidates": 44,
      "isolation": "grid+sturm-total"
     },
-    "ms": 403,
+    "ms": 949,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.280932",
@@ -588,13 +735,31 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 8,
+    "ms": 21,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9419123",
    "printedConvention": "exact",
    "printedAgrees": true,
-   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9"
+   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9",
+   "platformRule": {
+    "publishedOn": "2025-11",
+    "atPublication": {
+     "rule": "none: no public platform verifier yet (published 2025-11; EinsteinArena's public history starts 2026-03-26); from 2026-03-26 the platform's rule is the one below",
+     "slack": null,
+     "source": "corpus/sources/easota-platform/einstein-arena-platform-pin.txt"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9",
+     "slack": "1e-9",
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/hexagon-packing_9cd6fbfb.ts (the rule unchanged in every version since 2026-03-26)",
+     "served": false,
+     "note": "the problem is not served by the live API on 2026-10-06: absent from /api/problems (corpus/sources/easota-platform/api-problems_2026-10-06.json), /api/problems/hexagon-packing 404",
+     "thisFile": "passes with no margin needed: every pair certified separated, every vertex certified inside"
+    }
+   }
   },
   {
    "id": "hexagons/ours_2026",
@@ -629,13 +794,31 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 3,
+    "ms": 9,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9416523",
    "printedConvention": "exact",
    "printedAgrees": true,
-   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9"
+   "platformTolerance": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9",
+   "platformRule": {
+    "publishedOn": "2026-04-02",
+    "atPublication": {
+     "rule": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9",
+     "slack": "1e-9",
+     "source": "corpus/sources/easota-platform/hexagon-packing_9cd6fbfb.ts (the rule unchanged in every version since 2026-03-26)"
+    },
+    "now": {
+     "asOf": "2026-10-06",
+     "rule": "a pair counts as intersecting unless separated by more than 1e-9; a vertex counts as inside unless outside by more than 1e-9",
+     "slack": "1e-9",
+     "since": "2026-03-26",
+     "source": "corpus/sources/easota-platform/hexagon-packing_9cd6fbfb.ts (the rule unchanged in every version since 2026-03-26)",
+     "served": false,
+     "note": "the problem is not served by the live API on 2026-10-06: absent from /api/problems (corpus/sources/easota-platform/api-problems_2026-10-06.json), /api/problems/hexagon-packing 404",
+     "thisFile": "passes with no margin needed: every pair certified separated, every vertex certified inside"
+    }
+   }
   }
  ],
  "improvements": [
@@ -688,7 +871,8 @@
    "previous": "AlphaEvolve V2",
    "delta": "0.0599932275257197",
    "sign": 1,
-   "note": "a lower bound on the difference: the two certified enclosures are disjoint"
+   "lowerBound": true,
+   "note": "a lower bound on the difference (rounded down): the two certified enclosures are disjoint"
   },
   {
    "problem": "hexagon-packing",

@@ -1,0 +1,63 @@
+EinsteinArena, the platform — what its verifiers said, and when. Fetched 2026-10-06 (UTC, ~02:55Z).
+Read by tools/run-easota-ledger.js, which re-hashes every file below against corpus/sources/PINS.json
+and refuses unless each quoted rule is still in the pinned bytes.
+
+vinid/einstein-arena (no licence file; held here verbatim for verification only), HEAD 9cd6fbfb4b88ca303a61963665b1b6ad20ffdb1e
+(2026-10-05T20:52:45Z). The public history starts at 7fe55b61a0084a06b4ee9d57123d9265ccab0ea1 ("release", 2026-03-26,
+no parent); the repository was created 2026-03-09.
+
+einstein-arena-changelog_9cd6fbfb.md        web/public/changelog.md at HEAD
+  "## 2026-08-24 / ### Feasibility checks tightened": "Removed the `1e-9` feasibility slack from `circle-packing`,
+  `circles-rectangle`, and `heilbronn-triangles`. Constraints are now checked exactly as stated. `circles-rectangle`
+  now computes the bounding box with exact rational arithmetic ..." "Affected submissions have been re-evaluated.
+  Packings that only passed via slack or rounding are no longer on the leaderboard."
+  "## 2026-09-01 / ### Edges vs triangles envelope": the area is now the lower envelope of the Lipschitz hockey sticks;
+  the previous sequential integrator skipped segments narrower than 1e-9; duplicate rho keep the smallest t.
+
+web/src/lib/problems/circles-rectangle.ts, every version (commit, date, rule):
+  ac6eb046 2026-03-26  width + height > 2 + 1e-9 ; dist < c1[2] + c2[2] - 1e-9
+  9f3ffd44 2026-04-01  the same            <- live when Together committed circles-rectangle (10955d03, 2026-04-02)
+  6c09a8d1 2026-04-07, 19576794 2026-04-12, ca596e39 2026-06-22, 98073fca 2026-08-06  the same
+  59e560a5 2026-08-31  width + height > Fraction(2) over the parsed doubles ; dist < c1[2] + c2[2]   ("verifier fix (#60)",
+                       PR #60 by vinid, merged by vinid 2026-08-31T19:40:43Z; it also edits the changelog above)
+  9cd6fbfb (HEAD) byte-identical to 59e560a5's file.
+  circles-rectangle_9f3ffd44.ts   the rule at the Together file's publication
+  circles-rectangle_9cd6fbfb.ts   the rule now
+
+web/src/lib/problems/erdos-min-overlap.ts, every version: 7fe55b61 2026-03-26, 6c09a8d1 2026-04-07, ca596e39 2026-06-22
+  (= HEAD). Every one carries _normalize_sum_constraint (the values rescaled to sum n/2 in float64 before scoring,
+  then 0 <= h <= 1 required) and no tolerance on the sum; the diffs touch minImprovement and evaluationMode only.
+  erdos-min-overlap_7fe55b61.ts   the first public version
+  erdos-min-overlap_9cd6fbfb.ts   now
+  The 1e-6 on the sum (np.isclose(actual_sum, target_sum, atol=1e-6)) is the Together repository's analysis.ipynb
+  (corpus/easota/erdos-minimum-overlap/verifier.py), not the platform's.
+
+web/src/lib/problems/hexagon-packing.ts: ac6eb046 2026-03-26, 6c09a8d1 2026-04-07, ca596e39 2026-06-22 (= HEAD).
+  The separating-axis test admits separation only past 1e-9 and a vertex outside by up to 1e-9, in every version.
+  hexagon-packing_9cd6fbfb.ts     now
+  The live API does not serve the problem: /api/problems (api-problems_2026-10-06.json, 29 problems) does not list
+  hexagon-packing, and /api/problems/hexagon-packing returned 404 on 2026-10-06 (heilbronn-convex: 404 too).
+
+Live API, https://einsteinarena.com/api/problems/<slug>, 2026-10-06:
+  api-problems-circles-rectangle_2026-10-06.json      its `verifier` string equals the one in circles-rectangle_9cd6fbfb.ts
+  api-problems-erdos-min-overlap_2026-10-06.json      its `verifier` string equals the one in erdos-min-overlap_9cd6fbfb.ts
+  api-problems-edges-vs-triangles_2026-10-06.json     its `verifier` string equals web/src/lib/problems/edges-vs-triangles.ts at HEAD
+  api-problems_2026-10-06.json                        the problem list
+
+Observed once on 2026-10-06 (python 3, numpy 2.0.2), the live verifier strings exec'd on the files pinned in
+corpus/easota — an observation recorded here, not a computation the ledger runs:
+  circles-rectangle  alphaevolve_2025.json  2.3658321334167627
+  circles-rectangle  ours_2026.json         -inf   (the exact box check fails first: w + h - 2 = 4.2021941482062175e-14
+                                                    over the parsed doubles; the float pair test, with no slack, flags 44 pairs)
+  erdos-min-overlap  haugland_2016          0.380926853433087
+  erdos-min-overlap  alphaevolve_2025       0.38092303510845016
+  erdos-min-overlap  ttt_discover_2026      0.3808753232177187
+  erdos-min-overlap  together_ai_2026       0.3808703105862199
+    (on all four the float64 sum is already n/2, so the rescale is the identity on them)
+  edges-vs-triangles alphaevolve_2025       -0.7124938782214396
+  edges-vs-triangles ours_2026              -0.7122563326979319
+
+togethercomputer/EinsteinArena-new-SOTA (the claimant; files pinned in corpus/easota/meta.json at c388c6f7):
+  circles-rectangle/ and hexagon-packing/ first committed 10955d03 "update STOA (#9)", Yongchan Kwon, 2026-04-02T06:32:03Z
+  erdos-minimum-overlap/ first committed ee1495c1 "Restructure (#2)", 2026-03-16T08:30:43Z (bcedd985, 2026-03-18) —
+  ten days before the platform's public history begins
