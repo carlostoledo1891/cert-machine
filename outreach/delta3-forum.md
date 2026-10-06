@@ -1,6 +1,10 @@
 # δ₃ = 117/2192: the erdosproblems.com/1186 texts (paste by hand) and the teorth/erdosproblems note
 
-STATUS: A SENT by the operator 2026-10-05 ~19:25 -03 (awaiting moderation); B, C, D not sent. Every item here is a SEND on the operator's per-item word.
+STATUS (2026-10-06):
+- A is PUBLIC: https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395. Snapshot pinned at corpus/sources/delta3/erdosproblems-1186-proof-claims_2026-10-06.html.
+- B and D: optional, the operator pastes them.
+- C: DROPPED. teorth's CONTRIBUTING sends mathematics to the forum, and teorth closed about ten partial-result issues on 08-28 (outreach/GITHUB-OUTREACH.md).
+- The δ₃ note to the incrediblecrab/erdos-1186 tracker and the formal-conjectures #1186 request went out once A was public. Every item here is a SEND on the operator's per-item word.
 - **Already met:** the author's line-by-line reading (operator, 2026-10-05), and the Zenodo deposit: v2026.10, doi:10.5281/zenodo.23171167, verified public 2026-10-05 and filled in below.
 - **Before pasting:** check that the three links resolve (the site deploys from main).
 

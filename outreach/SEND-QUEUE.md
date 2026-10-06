@@ -29,7 +29,7 @@ here on request.
     - the operator's email to Althöfer, then the C84b PR, after 7 days or a reply, and after #216.
   - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste).
   - POSTED after the easota fix went live (2026-10-06): togethercomputer/EinsteinArena-new-SOTA#14; the TTT-Discover #19 comment. The 2026-10-09 courtesy hold was overridden by the operator's "finish all".
-  - P2b HELD: the incrediblecrab tracker, until the #1186 claim is public.
+  - Once the #1186 claim was public (2026-10-06): POSTED https://github.com/incrediblecrab/erdos-1186/issues/1 and https://github.com/google-deepmind/formal-conjectures/issues/6882. The teorth note (C) is dropped; the k = 4 forum comment (D) is the operator's to paste.
 - **P3, 2026-10-06 ("finish all"; drafts in outreach/github-p3a-2026-10-06.md and github-p3b-2026-10-06.md):**
   - POSTED:
     - snorin239/RamseyLean#1 (replaces R2);
@@ -61,7 +61,7 @@ here on request.
 
 - **D0. The Zenodo deposit v2026.10 — DONE 2026-10-05: doi:10.5281/zenodo.23171167**, minted by the GitHub release, verified public, stamped (corpus/zenodo.json, CITATION.cff).
   - Steps: the GitHub release mints the DOI; tools/stamp-release.py records it; then the DOI is filled into D1.
-- **D1. The partial proof claim on erdosproblems.com/1186 — SENT by the operator 2026-10-05 ~19:25 -03** (submit-proof form, field by field as in `outreach/delta3-forum.md` A); not visible at 19:28, so presumably in the moderation queue. tools/sweep-claims.js shouts when it shows; then snapshot the thread and the proof-claims page, and C and D may go.
+- **D1. The partial proof claim on erdosproblems.com/1186 — PUBLIC 2026-10-06 (claim #395, accepted by the moderators; snapshot pinned).** It was SENT by the operator 2026-10-05 ~19:25 -03 (submit-proof form, field by field as in `outreach/delta3-forum.md` A); not visible at 19:28, so presumably in the moderation queue. tools/sweep-claims.js shouts when it shows; then snapshot the thread and the proof-claims page, and C and D may go.
   - Draft: `outreach/delta3-forum.md` A (submit-proof form, marked partial; k = 3 only).
   - Rule 4(a) is met: the operator read the proof line by line on 2026-10-05.
   - B, an optional thread comment, rides along. C: no teorth status PR; an issue only after A is visible.
