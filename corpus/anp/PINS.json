@@ -1,0 +1,28 @@
+{
+ "what": "Public geospatial layers of the Brazilian petroleum agency (ANP), fetched from its GeoMaps GeoServer WFS (the service behind geomaps.anp.gov.br/geoanp) as GeoJSON, unchanged. Used by the Janela app map: the production fields, the production units (platforms) with their coordinates, the pre-salt polygon.",
+ "licence": "Brazilian federal open data (Decreto 8.777/2016, Política de Dados Abertos); attribution: ANP — Agência Nacional do Petróleo, Gás Natural e Biocombustíveis, GeoMaps ANP.",
+ "fetched": "2026-10-06",
+ "files": {
+  "unidades_de_producao.geojson": {
+   "title": "Plataformas (unidades de produção)",
+   "url": "https://geomaps.anp.gov.br/geoserver/geoanp/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geoanp:unidade_de_producao&outputFormat=application/json&srsName=EPSG:4326",
+   "sha256": "042e4de9864a0c4be7a2025968fbeae9c77934cb96a37b74ba3f076d8c53c54b",
+   "bytes": 104321,
+   "features": 181
+  },
+  "campos.geojson": {
+   "title": "Campos de produção",
+   "url": "https://geomaps.anp.gov.br/geoserver/sisroc/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=sisroc:campos_gishub_db&outputFormat=application/json&srsName=EPSG:4326",
+   "sha256": "20814bc91a8f05062eb8e7d95d5c93a6deda950feb5ff1bc00dee1dbd4c711ad",
+   "bytes": 1243880,
+   "features": 429
+  },
+  "presal.geojson": {
+   "title": "Polígono do pré-sal",
+   "url": "https://geomaps.anp.gov.br/geoserver/sisroc/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=sisroc:presal_shp_geoanp&outputFormat=application/json&srsName=EPSG:4326",
+   "sha256": "e9d8bee80166f9f446d8e736e82a0858d3b80f2d71a4382aac3a539f2c3d8b1b",
+   "bytes": 726,
+   "features": 1
+  }
+ }
+}
