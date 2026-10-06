@@ -66,6 +66,13 @@ ok('knots are exact: 1 kn = 1852/3600 m/s = 463/900, and 22 kn round-trips with 
   assert.strictEqual(Q.str(ms), '5093/450');
   assert.strictEqual(Q.str(Q.toKnots(ms)), '22');
 });
+ok('sqrt enclosure exact at any size: a 61-digit rational enclosed within 1e-6, lo^2 <= a <= hi^2', () => {
+  const a = [10n ** 61n + 12345n, 7n];
+  const [lo, hi] = Q.sqrtEnc(a);
+  assert.ok(Q.cmp(Q.mul(lo, lo), a) <= 0 && Q.cmp(Q.mul(hi, hi), a) >= 0);
+  assert.ok(Q.cmp(Q.sub(hi, lo), Q.parse('0.000001')) <= 0);
+  assert.deepStrictEqual(Q.sqrtEnc([49n, 4n]), [[7n, 2n], [7n, 2n]]);
+});
 ok('outward display rounding: 2.001 shown up is 2.01, down is 2.00; half-up default 2.00', () => {
   assert.strictEqual(Q.dec(Q.parse('2.001'), 2, 'up'), '2.01');
   assert.strictEqual(Q.dec(Q.parse('2.001'), 2, 'down'), '2.00');

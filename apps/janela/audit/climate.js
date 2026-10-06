@@ -30,6 +30,8 @@ const ROOT = path.join(__dirname, '..', '..', '..');
 const SITES = require('../scenario/sites.json').sites.filter((s) => s.ww3);
 const LIMITS = ['1.5', '2.0', '2.5', '3.0', '3.5', '4.0'];
 const PERIODS = [12, 24, 48, 72];
+const ALPHA_P = path.join(ROOT, 'certs', 'janela-alpha.json');
+const ALPHA = fs.existsSync(ALPHA_P) ? JSON.parse(fs.readFileSync(ALPHA_P, 'utf8')) : null;
 const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, p))).digest('hex');
 
 function row(r) {
@@ -43,6 +45,7 @@ function main() {
     rule: 'instruments/window/workability.js — window = samples k..k+TR/3 inclusive; workable iff all present and Hs <= limit (integer compare on the hindcast packing, Hs = raw/500 m)',
     modules: Object.fromEntries(['instruments/window/workability.js', 'instruments/window/q.js', 'apps/janela/audit/hindcast.js', 'apps/janela/audit/dnv.js', 'apps/janela/scenario/rules/dnv-alpha.json'].map((p) => [p, sha(p)])),
     limits: LIMITS, periods: PERIODS, sites: {},
+    alphaRecord: ALPHA ? { path: 'certs/janela-alpha.json', sha256: sha('certs/janela-alpha.json') } : null,
   };
   for (const s of SITES) {
     const series = H.load(s.ww3);
@@ -59,7 +62,26 @@ function main() {
         cells[lim + 'm/' + TR + 'h'] = { TPOP: tpop, alpha: Q.str(a), opwf: Q.str(opwf), opwfDec: Q.dec(opwf, 3), oplim: row(A), opwfCells: row(B) };
       }
     }
-    out.sites[s.id] = { node: s.ww3, name: s.name, en: s.en, lat: s.lat, lon: s.lon, cells };
+    /* what the site's own alpha would give back: for each Table 4-1 row where certs/janela-alpha.json
+       ESTIMATED a site alpha at design Hs 2 m, the same count at OPWF = alpha_site x 2.0 m, with
+       alpha_site the LOWER end of its 90% bootstrap interval rounded down to two decimals (the
+       conservative direction on both counts). The alpha is a statistical
+       estimate; the count over it is exact — the two are never blurred on the page. */
+    const siteAlpha = [];
+    if (ALPHA && ALPHA.sites[s.id]) {
+      for (const c of ALPHA.sites[s.id].cells) {
+        if (c.verdict !== 'ESTIMATED' || c.designHs !== 2) continue;
+        const TR = 2 * c.TPOP;
+        if (!PERIODS.includes(TR)) continue;
+        if (!c.ci90 || c.ci90[0] === null) continue;
+        const a = Q.parse(String(Math.floor(c.ci90[0] * 100)) + '/100');
+        const opwf = Q.mul(a, Q.parse('2.0'));
+        const R = W.workability(series, { limit: opwf, TR });
+        siteAlpha.push({ TPOP: c.TPOP, TR, alphaSite: Q.str(a), alphaSitePoint: c.alpha, alphaSiteCi90: c.ci90, rule: 'lower end of the 90% interval, rounded down to 0.01', alphaTable: cells['2.0m/' + TR + 'h'].alpha,
+          opwf: Q.str(opwf), opwfDec: Q.dec(opwf, 3), cells: row(R) });
+      }
+    }
+    out.sites[s.id] = { node: s.ww3, name: s.name, en: s.en, lat: s.lat, lon: s.lon, cells, siteAlpha };
     console.log(s.id + ': ' + Object.keys(cells).length + ' cells');
   }
   const dest = path.join(ROOT, 'certs', 'janela-workability.json');

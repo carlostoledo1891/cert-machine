@@ -53,9 +53,24 @@ function dec(a, places, dir) {
   return (neg && r !== 0n ? '-' : '') + (places ? s.slice(0, -places) + '.' + s.slice(-places) : s);
 }
 
+/* sqrt as an enclosure: [lo, hi] rationals with lo^2 <= a <= hi^2 and hi - lo <= 1e-6 (integer
+   square roots; exact when a is a perfect square of a 1e-6 grid point). For a speed from u^2 + v^2. */
+function isqrt(n) {                                /* floor(sqrt(n)), Newton from above: exact for any size */
+  if (n < 2n) return n;
+  let x = 1n << BigInt(Math.ceil(n.toString(2).length / 2));
+  for (;;) { const y = (x + n / x) >> 1n; if (y >= x) return x; x = y; }
+}
+function sqrtEnc(a) {
+  const [p, q] = a; const S = 10n ** 6n;
+  if (p < 0n) throw new Error('REFUSED: sqrt of a negative number');
+  const N = p * q * S * S, r = isqrt(N);
+  const lo = norm(r, q * S);
+  return [lo, r * r === N ? lo : norm(r + 1n, q * S)];
+}
+
 /* units: exact conversions only */
 const KN = norm(1852n, 3600n);                    /* 1 knot in m/s, exactly (international nautical mile) */
 const toKnots = (ms) => div(ms, KN);
 const toMs = (kn) => mul(kn, KN);
 
-module.exports = { parse, add, sub, mul, div, cmp, max, min, str, dec, norm, KN, toKnots, toMs };
+module.exports = { parse, add, sub, mul, div, cmp, max, min, str, dec, norm, sqrtEnc, KN, toKnots, toMs };

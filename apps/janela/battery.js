@@ -108,7 +108,7 @@ function weekFrom(bandsCell) {
   const bands = { binHours: 12, borrow: { babitonga: 'floripa' }, sites: { floripa: { bins: { 24: bandsCell } } } };
   return T.compute(feed, bands, OPS.filter((o) => o.site === 'babitonga'), SITES.filter((s) => s.id === 'babitonga'));
 }
-const CELL = { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '9/10', hi: '11/10', n: 100, coverage: '90/101' }, windSq: { verdict: 'CERTIFIED-COVERAGE', lo: '1/1', hi: '1/1', n: 100, coverage: '90/101' } };
+const CELL = { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '9/10', hi: '11/10', n: 100, coverage: '90/101' }, windDiff: { verdict: 'CERTIFIED-COVERAGE', lo: '0', hi: '0', n: 100, coverage: '90/101' } };
 ok('approach rule decided on the band: Hs 3 m x [0.9, 1.1] breaks "Hs < 2.0" at the favourable edge 2.7 -> VETADA', () => {
   const w = weekFrom(CELL);
   const op = w.operations.find((o) => o.id === 'sfs-barra');
@@ -121,6 +121,13 @@ red('RED: a berth rule never decides on the open-sea Hs (the same 3 m sea leaves
   assert.strictEqual(op.steps[0].verdict, 'SEM DADOS');
   assert.ok(!op.steps[0].decidedOn.includes('hs'));
 });
+ok('additive wind band: forecast (u, v) = (3, 4) with d in [-1, +2] m/s -> [4, 7] m/s exactly, floored at 0 when d would go below', () => {
+  const feed = { run: 'r', madeAt: 'x', sites: { babitonga: { kind: 'terminal', node: [-26.25, -48.5], steps: [{ t: '2026-10-07T00', lead: 24, wind: { u: '3', v: '4' } }] } } };
+  const mk = (lo, hi) => T.compute(feed, { binHours: 12, borrow: { babitonga: 'floripa' }, sites: { floripa: { bins: { 24: { windDiff: { verdict: 'CERTIFIED-COVERAGE', lo, hi, n: 50, coverage: '45/51' } } } } } }, [], SITES.filter((s) => s.id === 'babitonga'));
+  const w = mk('-1', '2').sites.babitonga.steps[0].wind;
+  assert.strictEqual(w.lo, Q.str(Q.mul([4n, 1n], Q.norm(900n, 463n)))); assert.strictEqual(w.hi, Q.str(Q.mul([7n, 1n], Q.norm(900n, 463n))));
+  assert.strictEqual(mk('-9', '1').sites.babitonga.steps[0].wind.lo, '0');
+});
 ok('wind 5 m/s exactly = 4500/463 kn, inside 16 kn: TGS stays SEM DADOS (current, visibility unforecast), not LIBERADA', () => {
   const w = weekFrom(CELL);
   const st = w.sites.babitonga.steps[0];
@@ -128,7 +135,7 @@ ok('wind 5 m/s exactly = 4500/463 kn, inside 16 kn: TGS stays SEM DADOS (current
   assert.deepStrictEqual(w.operations.find((o) => o.id === 'tgs-lngc').steps[0].notForecast.sort(), ['current', 'hs', 'visibility'].sort());
 });
 red('RED: a REFUSED band (too few pairs) leaves the variable unforecast — SEM DADOS, never a guess', () => {
-  const w = weekFrom({ hs: { verdict: 'REFUSED', n: 3 }, windSq: { verdict: 'REFUSED', n: 3 } });
+  const w = weekFrom({ hs: { verdict: 'REFUSED', n: 3 }, windDiff: { verdict: 'REFUSED', n: 3 } });
   const op = w.operations.find((o) => o.id === 'sfs-barra');
   assert.strictEqual(op.steps[0].verdict, 'SEM DADOS');
   assert.strictEqual(w.sites.babitonga.steps[0].hs, null);

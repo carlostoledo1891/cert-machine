@@ -40,7 +40,7 @@ const TARGET_ID = 'altimeter-hs-v1 (apps/janela/audit/commit.js)';
 const DOMAIN_NOTE = { target: TARGET, proposer: PROPOSER, claim: '4/5', alpha: '1/5' };
 /* the second proposer: Janela's own band (certs/janela-bands.json), committed only from a
    bands record whose sha256 is named here — a rebuilt record is a new proposer version */
-const CAL = { domain: 'janela/hs-altimeter/calibrated-v1', bands: path.join(ROOT, 'certs', 'janela-bands.json'), sha: null,
+const CAL = { domain: 'janela/hs-altimeter/calibrated-v1', bands: path.join(ROOT, 'certs', 'janela-bands.json'), sha: '1f14a51fac100bd1083468eb5cfda7bf13e5d9e864a0c200eb7cfcdd49316d8d',
   note: 'forecast x the exact conformal ratio interval of its site and 12 h lead bin (miss-rate 1/10) — certs/janela-bands.json' };
 
 const frac = (s) => { const [n, d = '1'] = String(s).split('/'); return [n, d]; };

@@ -7,12 +7,15 @@
 
    For each open-sea site and each 12 h lead bin, from the back-archive pairs:
      Hs     r = observed / forecast            (both exact rationals)
-     wind   q = observed^2 / (u^2 + v^2)       (exact: the speed itself is irrational, its square is not)
+     wind   d = observed - forecast speed (m/s), additive — a ratio blows up at low
+            forecast speeds; the forecast speed sqrt(u^2+v^2) is irrational, so each pair
+            enters TWICE, outward: d against the enclosure's upper end for the lower
+            quantile, against its lower end for the upper one (conservative by <= 1e-6)
    and the exact conformal interval of r (and of q) at miss-rate 1/10
    (instruments/forecast/conformal.js): IF the next ratio is exchangeable with
    the calibration ratios of its site and lead bin, THEN it falls inside with
    probability (u - l)/(n + 1) >= 9/10 exactly. The band a forecast f gets is
-   [f * r_lo, f * r_hi] — the PROPOSAL the decider decides over, and the claim
+   [f * r_lo, f * r_hi] (wind: [s_lo + d_lo, s_hi + d_hi]) — the PROPOSAL the decider decides over, and the claim
    the ledger grades going forward. Exchangeability across three years and all
    seasons is the stated hypothesis; the admission rule is what catches it
    failing. A terminal site borrows the band of the open-sea site named in
@@ -26,6 +29,7 @@ const path = require('path');
 const zlib = require('zlib');
 const crypto = require('crypto');
 const C = require('../../../instruments/forecast/conformal.js');
+const Q = require('../../../instruments/window/q.js');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const BIN_H = 12, MAX_H = 168;
@@ -46,10 +50,13 @@ function main() {
     const [sid, , , , obs, , , lead, fc, , , wObs, w2] = r;
     const bin = Math.min(Math.floor(lead / BIN_H), MAX_H / BIN_H - 1);
     const k = sid + '|' + bin;
-    acc[k] = acc[k] || { hs: [], wind: [] };
+    acc[k] = acc[k] || { hs: [], dLo: [], dHi: [] };
     const f = frac(fc), o = frac(obs);
     if (f[0] > 0n) acc[k].hs.push(div(o, f));
-    if (wObs && w2) { const ow = frac(wObs), q2 = frac(w2); if (q2[0] > 0n) acc[k].wind.push(div([ow[0] * ow[0], ow[1] * ow[1]], q2)); }
+    if (wObs && w2) {
+      const [slo, shi] = Q.sqrtEnc(Q.parse(w2)), ow = Q.parse(wObs);
+      acc[k].dLo.push(Q.sub(ow, shi)); acc[k].dHi.push(Q.sub(ow, slo));
+    }
   }
   const sites = {};
   for (const [k, v] of Object.entries(acc)) {
@@ -60,10 +67,16 @@ function main() {
       return { n: c.n, verdict: c.verdict, lo: str(c.lo), hi: str(c.hi), loDec: dec(c.lo, 3), hiDec: dec(c.hi, 3), l: c.l, u: c.u, coverage: c.coverageStr };
     };
     sites[sid] = sites[sid] || { bins: {} };
-    sites[sid].bins[bin * BIN_H] = { from: bin * BIN_H, to: (bin + 1) * BIN_H, hs: cell(v.hs), windSq: cell(v.wind) };
+    /* wind: the lower edge from the pairs taken against the enclosure's upper end, the upper edge
+       from the pairs against its lower end — the same order statistics, so the coverage count holds */
+    const a = cell(v.dLo), b = cell(v.dHi);
+    const wind = a.verdict === 'CERTIFIED-COVERAGE' && b.verdict === 'CERTIFIED-COVERAGE'
+      ? { n: a.n, verdict: a.verdict, lo: a.lo, hi: b.hi, loDec: a.loDec, hiDec: b.hiDec, l: a.l, u: b.u, coverage: a.coverage, unit: 'm/s, observed - forecast speed' }
+      : { n: v.dLo.length, verdict: 'REFUSED', why: a.why || b.why };
+    sites[sid].bins[bin * BIN_H] = { from: bin * BIN_H, to: (bin + 1) * BIN_H, hs: cell(v.hs), windDiff: wind };
   }
   const out = {
-    what: 'Janela\'s calibrated forecast band per open-sea site and 12 h lead bin: exact conformal intervals (miss-rate 1/10) of observed/forecast Hs and of observed^2/(u^2+v^2) for 10 m wind, from the back-archive pairs (ECMWF open data vs NOAA RADS NRT altimetry). The band for a forecast f is [f*lo, f*hi] (wind: speed^2 in [(u^2+v^2)*lo, (u^2+v^2)*hi]).',
+    what: 'Janela\'s calibrated forecast band per open-sea site and 12 h lead bin: exact conformal intervals (miss-rate 1/10) of observed/forecast Hs and of observed - forecast 10 m wind speed (m/s), from the back-archive pairs (ECMWF open data vs NOAA RADS NRT altimetry). The band for a forecast f is [f*lo, f*hi]; for a forecast wind (u, v), [s_lo + lo, s_hi + hi] with [s_lo, s_hi] the enclosure of sqrt(u^2+v^2), floored at 0.',
     theorem: 'IF the next ratio is exchangeable with the calibration ratios of its site and lead bin, THEN P(lo <= next <= hi) = (u - l)/(n + 1) exactly (>= with ties) — instruments/forecast/conformal.js',
     hypothesis: 'exchangeability within a site and a 12 h lead bin, over 2023-07..2026-10 and all seasons; graded going forward by the ledger (exact binomial admission)',
     borrow: BORROW,

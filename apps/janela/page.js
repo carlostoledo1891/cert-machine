@@ -319,7 +319,9 @@ function lib(Q, D) {
   function stripKey(isHs, hasBand) {
     var sw = function (inner) { return '<svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true">' + inner + '</svg>'; };
     var k = [];
-    k.push('<li>' + sw('<rect class="jn-band" x="1" y="2" width="26" height="8"/>') + '<span>faixa medida: o que se decide' + (hasBand ? '' : ' (recusada em todos os prazos desta rodada)') + '</span></li>');
+    k.push('<li>' + sw('<rect class="jn-band" x="1" y="2" width="26" height="8"/>') + '<span>faixa medida, o que se decide: '
+      + (isHs ? 'a previsão × a razão observado/previsto medida no prazo' : 'a previsão ± o erro medido em m/s no prazo')
+      + (hasBand ? '' : ' (recusada em todos os prazos desta rodada)') + '</span></li>');
     k.push('<li class="jn-fck">' + sw('<line class="jn-det" x1="1" y1="6" x2="27" y2="6"/>') + '<span>previsão determinística ECMWF</span></li>');
     if (isHs) k.push('<li class="jn-fck">' + sw('<rect class="jn-swr" x="1" y="2" width="26" height="8"/><line class="jn-hl" x1="4" y1="10" x2="10" y2="2"/><line class="jn-hl" x1="11" y1="10" x2="17" y2="2"/><line class="jn-hl" x1="18" y1="10" x2="24" y2="2"/>') + '<span>ensemble ECMWF, 40 centrais de 50</span></li>');
     else k.push('<li class="jn-fck">' + sw('<line class="jn-gust" x1="1" y1="6" x2="27" y2="6"/>') + '<span>rajada, determinística</span></li>');
@@ -371,22 +373,41 @@ function lib(Q, D) {
       + dc(c.ad) + ' × ' + dc(lim) + ' m → OPWF ' + dc(c.wf) + ' m, TPOP ' + c.T + ' h) sobram <b>' + pct(c.f[12][0], c.f[12][1]) + '</b>. A diferença, '
       + gapPP(c.o[12], c.f[12]) + ' pontos, é o que o α da tabela custa se a previsão fosse perfeita. O mês que mais perde: ' + MON[worst]
       + ' (' + pct(c.o[worst][0], c.o[worst][1]) + ' → ' + pct(c.f[worst][0], c.f[worst][1]) + '). Espera média até a próxima janela: '
-      + hrs(c.wo) + ' h → ' + hrs(c.wfw) + ' h.';
+      + hrs(c.wo) + ' h → ' + hrs(c.wfw) + ' h.'
+      + (c.s ? ' Se o vistoriador adotasse o α do local, ' + dc(c.s.a) + ' (o limite inferior do intervalo de 90% da estimativa ' + dc(Number(c.s.pt).toFixed(3))
+        + '), o OPWF seria ' + dc(c.s.wf) + ' m e sobrariam <b>' + pct(c.s.c[12][0], c.s.c[12][1]) + '</b>, com espera média de ' + hrs(c.s.w) + ' h. O α do local é uma estimativa; a contagem sobre ele é exata.' : '');
+  }
+  /* the same operation, three ways: what the sea allows, what Table 4-1 leaves, what the
+     site's alpha would leave. The third rests on an ESTIMATED alpha, so its card is dashed. */
+  function workThree(name, lim, tr, c, cells) {
+    if (!c.s) {
+      var avail = Object.keys(cells).filter(function (k) { return cells[k].s; });
+      return '<p class="jn-hint">' + (avail.length
+        ? 'O α do local entra com ' + avail.map(function (k) { return k.replace(/^([\d.]+)m\/(\d+)h$/, function (_, l, t) { return dc(l) + ' m e janela de ' + t + ' h'; }); }).join(', ') + ': escolha uma dessas combinações para ver o que ele deixaria.'
+        : 'Em ' + esc(name) + ' ainda não há pares satélite × previsão bastantes para estimar o α do local.') + '</p>';
+    }
+    return '<div class="jn-three">'
+      + '<div><div class="jn-k">o mar permite</div><div class="big">' + pct(c.o[12][0], c.o[12][1]) + '</div><p>Hs ≤ ' + dc(lim) + ' m (OPLIM) a janela inteira de ' + tr + ' h</p></div>'
+      + '<div><div class="jn-k">a Tabela 4-1 deixa</div><div class="big">' + pct(c.f[12][0], c.f[12][1]) + '</div><p>α ' + dc(c.ad) + ' → OPWF ' + dc(c.wf) + ' m</p></div>'
+      + '<div class="est"><div class="jn-k">o alfa do local deixaria</div><div class="big">' + pct(c.s.c[12][0], c.s.c[12][1]) + '</div><p>α ' + dc(c.s.a) + ' → OPWF ' + dc(c.s.wf) + ' m; α estimado, contagem exata</p></div>'
+      + '</div>';
   }
   function workChart(name, lim, tr, c) {
     var W = 960, H = 260, PL = 46, PR = 10, PT = 24, PB = 34;
-    var gw = (W - PL - PR) / 12, bw = Math.min(24, gw * 0.34);
+    var three = !!c.s, gw = (W - PL - PR) / 12, bw = Math.min(24, gw * (three ? 0.25 : 0.34));
     var y = function (p) { return PT + (H - PT - PB) * (1 - p / 100); };
     var f1 = function (v) { return v.toFixed(1); };
     var o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc('Janelas por mês em ' + name + ', limite ' + dc(lim) + ' m, janela de ' + tr
-      + ' h, 1993–2024: com o limite (OPLIM) e com o α da tabela (OPWF). No ano: ' + pct(c.o[12][0], c.o[12][1]) + ' e ' + pct(c.f[12][0], c.f[12][1]) + '.') + '">'];
+      + ' h, 1993–2024: com o limite (OPLIM), com o α da tabela (OPWF)' + (three ? ' e com o α estimado do local' : '') + '. No ano: ' + pct(c.o[12][0], c.o[12][1])
+      + (three ? ', ' + pct(c.f[12][0], c.f[12][1]) + ' e ' + pct(c.s.c[12][0], c.s.c[12][1]) : ' e ' + pct(c.f[12][0], c.f[12][1])) + '.') + '">'];
     [0, 25, 50, 75, 100].forEach(function (t) {
       o.push('<line class="jn-gl" x1="' + PL + '" y1="' + f1(y(t)) + '" x2="' + (W - PR) + '" y2="' + f1(y(t)) + '"/>');
       o.push('<text class="t-ax" x="' + (PL - 8) + '" y="' + f1(y(t) + 4) + '" text-anchor="end">' + t + '%</text>');
     });
     for (var m = 0; m < 12; m++) {
       var cx = PL + gw * m + gw / 2;
-      [[c.o[m], 'jn-w1', cx - bw - 1], [c.f[m], 'jn-w2', cx + 1]].forEach(function (b) {
+      (three ? [[c.o[m], 'jn-w1', cx - 1.5 * bw - 2], [c.f[m], 'jn-w2', cx - bw / 2], [c.s.c[m], 'jn-w3', cx + bw / 2 + 2]]
+        : [[c.o[m], 'jn-w1', cx - bw - 1], [c.f[m], 'jn-w2', cx + 1]]).forEach(function (b) {
         var p = b[0][1] ? 100 * b[0][0] / b[0][1] : 0, top = y(p);
         o.push('<rect class="' + b[1] + '" x="' + f1(b[2]) + '" y="' + f1(top) + '" width="' + f1(bw) + '" height="' + f1(Math.max(1, y(0) - top)) + '" rx="2"/>');
         o.push('<text class="jn-wv" x="' + f1(b[2] + bw / 2) + '" y="' + f1(top - 5) + '" text-anchor="middle">' + Math.floor((b[0][0] * 200 + b[0][1]) / (2 * b[0][1] || 1)) + '</text>');
@@ -399,21 +420,25 @@ function lib(Q, D) {
   function workKey(lim, c) {
     return '<ul class="jn-key"><li><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w1" x="1" y="1" width="26" height="10" rx="2"/></svg><span>o mar permite: Hs ≤ '
       + dc(lim) + ' m (OPLIM) a janela inteira</span></li><li><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w2" x="1" y="1" width="26" height="10" rx="2"/></svg><span>com o α da tabela: Hs ≤ '
-      + dc(c.wf) + ' m (OPWF)</span></li></ul>';
+      + dc(c.wf) + ' m (OPWF)</span></li>'
+      + (c.s ? '<li class="jn-fck"><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w3" x="1" y="1" width="26" height="10" rx="2"/></svg><span>se o α do local fosse adotado: Hs ≤ '
+        + dc(c.s.wf) + ' m (α estimado)</span></li>' : '') + '</ul>';
   }
   function workTable(c) {
     var rowsH = '';
     for (var m = 0; m <= 12; m++) {
       rowsH += '<tr><td class="k">' + (m === 12 ? 'ano' : MON[m]) + '</td><td class="n">' + pct(c.o[m][0], c.o[m][1]) + '</td><td class="n">' + grp(c.o[m][0]) + ' / ' + grp(c.o[m][1])
-        + '</td><td class="n">' + pct(c.f[m][0], c.f[m][1]) + '</td><td class="n">' + grp(c.f[m][0]) + ' / ' + grp(c.f[m][1]) + '</td><td class="n">' + gapPP(c.o[m], c.f[m]) + '</td></tr>';
+        + '</td><td class="n">' + pct(c.f[m][0], c.f[m][1]) + '</td><td class="n">' + grp(c.f[m][0]) + ' / ' + grp(c.f[m][1]) + '</td><td class="n">' + gapPP(c.o[m], c.f[m]) + '</td>'
+        + (c.s ? '<td class="n">' + pct(c.s.c[m][0], c.s.c[m][1]) + '</td><td class="n">' + grp(c.s.c[m][0]) + ' / ' + grp(c.s.c[m][1]) + '</td>' : '') + '</tr>';
     }
-    return '<div class="tw"><table><thead><tr><th>mês</th><th>OPLIM</th><th>inícios com janela / determinados</th><th>OPWF</th><th>inícios com janela / determinados</th><th>custo do α (pontos)</th></tr></thead><tbody>'
+    return '<div class="tw"><table><thead><tr><th>mês</th><th>OPLIM</th><th>inícios com janela / determinados</th><th>OPWF da tabela</th><th>inícios com janela / determinados</th><th>custo do alfa (pontos)</th>'
+      + (c.s ? '<th>OPWF do alfa local</th><th>inícios com janela / determinados</th>' : '') + '</tr></thead><tbody>'
       + rowsH + '</tbody></table></div>';
   }
 
   return { esc: esc, dc: dc, when: when, whenText: whenText, limText: limText, chip: chip, glyph: glyph, short: short, kicker: kicker,
     decideStep: decideStep, same: same, customOp: customOp, rowsFor: rowsFor, defaultSel: defaultSel, explain: explain, grid: grid,
-    guidesFor: guidesFor, strip: strip, panel: panel, pct: pct, workSentence: workSentence, workChart: workChart, workKey: workKey,
+    guidesFor: guidesFor, strip: strip, panel: panel, pct: pct, workSentence: workSentence, workThree: workThree, workChart: workChart, workKey: workKey,
     workTable: workTable, MEANS: MEANS, CLS: CLS, latlon: latlon };
 }
 
@@ -489,6 +514,7 @@ function client(libFn) {
     var c = DATA.work.sites[S.ms].cells[S.ml + 'm/' + S.mt + 'h'];
     var name = DATA.work.sites[S.ms].name;
     $('jn-ws').innerHTML = L.workSentence(name, S.ml, S.mt, c);
+    $('jn-w3').innerHTML = L.workThree(name, S.ml, S.mt, c, DATA.work.sites[S.ms].cells);
     $('jn-wfig').innerHTML = L.workChart(name, S.ml, S.mt, c);
     $('jn-wkey').innerHTML = L.workKey(S.ml, c);
     $('jn-wtab').innerHTML = L.workTable(c);
@@ -687,6 +713,19 @@ svg .jn-lim{stroke:var(--ink-2);stroke-width:1.2;stroke-dasharray:2 3}
 svg .jn-limt{fill:var(--ink-2);font-size:var(--text-small);paint-order:stroke;stroke:var(--sunk);stroke-width:4}
 svg .jn-w1{fill:var(--c-1)}
 svg .jn-w2{fill:var(--c-3)}
+svg .jn-w3{fill:var(--c-2);stroke:var(--ink);stroke-width:1;stroke-dasharray:1.5 2}
+.jn-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin:0 0 var(--s-5)}
+@media (max-width:700px){.jn-three{grid-template-columns:minmax(0,1fr)}}
+.jn-three > div{background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:var(--s-4) var(--s-5);display:flex;flex-direction:column;gap:var(--s-1)}
+.jn-three > div.est{border-style:dashed;border-color:var(--ink-4)}
+.jn-three .big{font-family:var(--f-display);font-size:var(--text-2);color:var(--ink);letter-spacing:var(--track-title);line-height:var(--leading-tight)}
+.jn-three p{margin:0;color:var(--ink-3);font-size:var(--text-small);line-height:var(--leading-snug)}
+.jn-three > div.est p{font-style:italic}
+.jn-hint{margin:0 0 var(--s-4);color:var(--ink-4);font-size:var(--text-small);max-width:var(--read)}
+.jn-at td{white-space:nowrap}
+.jn-a{display:block;color:var(--ink);font-weight:var(--weight-strong)}
+.jn-ai{display:block;color:var(--ink-3)}
+.jn-ar{display:block;color:var(--ink-4);font-size:var(--text-eyebrow)}
 svg .jn-wv{fill:var(--ink-3);font-size:var(--text-eyebrow)}
 
 /* the month controls */
@@ -745,8 +784,9 @@ function build(N, B, git, battery) {
   const defSite = sitesOut.find((s) => s.id === def);
   const defRows = L.rowsFor(defSite, opsOut, custom);
   const defSel = L.defaultSel(defSite, defRows);
-  const work = { def: { s: 'santos', l: '2.5', t: 48 }, sites: N.work.sites };
-  const wc = N.work.sites.santos.cells['2.5m/48h'];
+  /* the month opens on the operation the site alpha speaks to, when the record has it */
+  const work = { def: N.work.sites.santos.cells['2.0m/48h'] && N.work.sites.santos.cells['2.0m/48h'].s ? { s: 'santos', l: '2.0', t: 48 } : { s: 'santos', l: '2.5', t: 48 }, sites: N.work.sites };
+  const wc = N.work.sites.santos.cells[work.def.l + 'm/' + work.def.t + 'h'];
   const yFrom = N.work.from.slice(0, 4), yTo = N.work.to.slice(0, 4), years = Number(yTo) - Number(yFrom) + 1;
   const pinM = /^(\d+) monthly files/.exec(N.work.pinned || '');
   const pinPt = pinM ? ' (' + pinM[1] + ' arquivos mensais, cada um conferido por sha256 contra corpus/ww3-points/meta.json)' : '';
@@ -814,12 +854,13 @@ function build(N, B, git, battery) {
   const wsites = Object.keys(N.work.sites);
   const segBtn = (attr, val, label, on) => '<button type="button" class="jn-b" ' + attr + '="' + esc(val) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + esc(label) + '</button>';
   out.push('<section id="mes"><div class="col sec-head"><div class="lab">2 · o mês</div><h2>' + years + ' anos contados: quantas janelas o mar abre por mês, e quanto o α da tabela fecha.</h2></div>'
-    + '<div class="col">' + C.p('Para as ' + wsites.length + ' áreas de produção, cada início de operação de 3 em 3 h, de ' + yFrom + ' a ' + yTo + ', é contado: cabe ou não cabe uma janela de TR horas com Hs abaixo do limite (OPLIM). A segunda barra refaz a conta com o limite de previsão que a DNV manda usar, OPWF = α × OPLIM (Tabela 4-1, TPOP = TR/2). Frações exatas de inteiros, nada ajustado.') + '</div>'
+    + '<div class="col">' + C.p('Para as ' + wsites.length + ' áreas de produção, cada início de operação de 3 em 3 h, de ' + yFrom + ' a ' + yTo + ', é contado: cabe ou não cabe uma janela de TR horas com Hs abaixo do limite (OPLIM). A segunda barra refaz a conta com o limite de previsão que a DNV manda usar, OPWF = α × OPLIM (Tabela 4-1, TPOP = TR/2)' + (N.alpha ? '; onde há pares de satélite bastantes, a terceira usa o α estimado no próprio local (“O alfa do local”, abaixo)' : '') + '. Frações exatas de inteiros, nada ajustado.') + '</div>'
     + '<div class="wide"><div class="jn-ctl">'
     + '<div class="jn-seg"><div class="jn-k">área</div><div class="jn-bs">' + wsites.map((sid) => segBtn('data-ms', sid, L.short(N.work.sites[sid].name), sid === work.def.s)).join('') + '</div></div>'
     + '<div class="jn-seg"><div class="jn-k">limite de Hs (OPLIM)</div><div class="jn-bs">' + N.work.limits.map((l) => segBtn('data-ml', l, L.dc(l) + ' m', l === work.def.l)).join('') + '</div></div>'
     + '<div class="jn-seg"><div class="jn-k">janela (TR)</div><div class="jn-bs">' + N.work.periods.map((t) => segBtn('data-mt', String(t), t + ' h', t === work.def.t)).join('') + '</div></div>'
     + '</div>'
+    + '<div id="jn-w3">' + L.workThree(N.work.sites.santos.name, work.def.l, work.def.t, wc, N.work.sites.santos.cells) + '</div>'
     + '<p class="jn-ws" id="jn-ws">' + L.workSentence(N.work.sites.santos.name, work.def.l, work.def.t, wc) + '</p>'
     + '<figure class="jn-wf"><div class="figbox" id="jn-wfig">' + L.workChart(N.work.sites.santos.name, work.def.l, work.def.t, wc) + '</div>'
     + '<div id="jn-wkey">' + L.workKey(work.def.l, wc) + '</div>'
@@ -831,33 +872,61 @@ function build(N, B, git, battery) {
   let sec = 3;
   if (N.alpha) {
     const A = N.alpha;
-    const dnvCols = ['4-1', '4-2', '4-3'];
-    const fmt = (x, d) => (x === null || x === undefined ? '—' : L.dc(Number(x).toFixed(d)));
-    const READ = (s) => /ABOVE/.test(s) ? 'acima da tabela: a tabela do Mar do Norte é conservadora aqui'
-      : /BELOW/.test(s) ? 'abaixo da tabela: a tabela NÃO é conservadora aqui' : 'o intervalo de 90% contém o valor da tabela';
-    const sitesA = Object.keys(A.sites);
-    const NB = '\u00a0';
+    const NB = ' ';
+    const f2 = (x) => L.dc(Number(x).toFixed(2));
     const minPairs = A.method && A.method.minPairs;
-    const blocks = sitesA.map((sid, k) => {
+    /* the record's own reading, in three words; the sentence says what each means */
+    const READ = (c) => /ABOVE/.test(c.reading || '') ? 'acima' : /BELOW/.test(c.reading || '') ? 'abaixo' : 'contém';
+    const sitesA = Object.keys(A.sites);
+    const nameA = (sid) => L.short((N.sites.find((x) => x.id === sid) || { name: sid }).name);
+    const TP = [...new Set([].concat(...sitesA.map((sid) => A.sites[sid].cells.map((c) => c.TPOP))))].sort((a, b) => a - b);
+    const HS = [...new Set([].concat(...sitesA.map((sid) => A.sites[sid].cells.map((c) => c.designHs))))].sort((a, b) => a - b);
+    const cellOf = (s, h, t) => s.cells.find((c) => c.designHs === h && c.TPOP === t);
+    const cellRaw = (c) => (c && c.verdict === 'ESTIMATED'
+      ? '<span class="jn-a">' + f2(c.alpha) + '</span><span class="jn-ai">' + f2(c.ci90[0]) + '–' + f2(c.ci90[1]) + '</span><span class="jn-ar">tabela ' + f2(c.dnv['4-1']) + ' · ' + READ(c) + '</span>'
+      : '<span class="jn-ar">' + br.int(c ? c.n : 0) + ' pares</span>');
+    const hsLab = (h, i) => (i === HS.length - 1 ? '≥' + NB : '') + L.dc(String(h)) + NB + 'm';
+    /* the headline: every site at the one design Hs the archive fills, side by side */
+    const H2 = HS.includes(2) ? 2 : HS[0];
+    const cross = C.table({ cols: [{ h: 'local · Hs de projeto ' + L.dc(String(H2)) + ' m' }, ...TP.map((t) => ({ h: 'TPOP ' + t + ' h' }))],
+      rows: sitesA.map((sid) => [nameA(sid), ...TP.map((t) => ({ raw: cellRaw(cellOf(A.sites[sid], H2, t)) }))]) });
+    /* per site: the full matrix, rows that are refused at every TPOP folded into one line */
+    const blocks = sitesA.map((sid) => {
       const s = A.sites[sid];
-      const nm = (N.sites.find((x) => x.id === sid) || { name: sid }).name;
-      const rowsA = s.cells.map((c) => [L.dc(String(c.designHs)) + NB + 'm', c.TPOP + NB + 'h', br.int(c.n),
-        c.verdict === 'ESTIMATED' ? fmt(c.alpha, 3) : '—',
-        c.verdict === 'ESTIMATED' && c.ci90 ? '[' + fmt(c.ci90[0], 3) + ';' + NB + fmt(c.ci90[1], 3) + ']' : '—',
-        ...dnvCols.map((t) => fmt(c.dnv && c.dnv[t], 2)),
-        c.verdict === 'ESTIMATED' ? READ(c.reading || '') : 'recusado: ' + br.int(c.n) + ' pares' + (minPairs ? ', mínimo ' + minPairs : '')]);
-      const ex = (s.exceedance || []).map((e) => [L.dc(Q.dec(Q.parse(e.OPLIM), 1)) + NB + 'm', e.TPOP + NB + 'h', L.dc(Q.dec(Q.parse(e.alphaTable4_1), 4)), L.dc(Q.dec(Q.parse(e.OPWF), 2)) + ' m',
-        br.int(e.forecastsAtOrBelowOPWF), br.int(e.observedAboveOPLIM), br.int(e['observedAbove1.5xOPLIM'])]);
-      return '<details class="more"' + (k === 0 ? ' open' : '') + '><summary>' + esc(L.short(nm) + ' · ' + br.int(s.pairs) + ' pares em ' + br.int(s.days) + ' dias') + '</summary>'
-        + C.table({ cols: [{ h: 'Hs de projeto' }, { h: 'TPOP' }, { h: 'pares', cls: 'n' }, { h: 'alfa do local', cls: 'n' }, { h: 'intervalo 90%' }, { h: 'Tab. 4-1', cls: 'n' }, { h: 'Tab. 4-2', cls: 'n' }, { h: 'Tab. 4-3', cls: 'n' }, { h: 'leitura' }], rows: rowsA })
-        + (ex.length ? '<div class="col">' + C.p('Contagens exatas: quando a previsão ficou em ou abaixo do OPWF da Tabela 4-1, quantas vezes o satélite viu Hs acima do OPLIM.') + '</div>'
-          + C.table({ cols: [{ h: 'OPLIM' }, { h: 'TPOP' }, { h: 'alfa 4-1', cls: 'n' }, { h: 'OPWF', cls: 'n' }, { h: 'previsões ≤ OPWF', cls: 'n' }, { h: 'satélite > OPLIM', cls: 'n' }, { h: '> 1,5 × OPLIM', cls: 'n' }], rows: ex }) : '')
+      const live = HS.filter((h) => TP.some((t) => { const c = cellOf(s, h, t); return c && c.verdict === 'ESTIMATED'; }));
+      const dead = HS.filter((h) => !live.includes(h));
+      const deadMax = Math.max(0, ...dead.map((h) => Math.max(0, ...TP.map((t) => (cellOf(s, h, t) || { n: 0 }).n))));
+      const agg = {}, order = [];
+      for (const e of (s.exceedance || [])) {
+        if (!agg[e.OPLIM]) { agg[e.OPLIM] = { f: 0, a: 0, b: 0 }; order.push(e.OPLIM); }
+        agg[e.OPLIM].f += e.forecastsAtOrBelowOPWF; agg[e.OPLIM].a += e.observedAboveOPLIM; agg[e.OPLIM].b += e['observedAbove1.5xOPLIM'];
+      }
+      return '<details class="more"><summary>' + esc(nameA(sid) + ' · ' + br.int(s.pairs) + ' pares em ' + br.int(s.days) + ' dias') + '</summary>'
+        + (live.length ? '<div class="jn-at">' + C.table({ cols: [{ h: 'Hs de projeto' }, ...TP.map((t) => ({ h: 'TPOP ' + t + ' h' }))],
+          rows: live.map((h) => [hsLab(h, HS.indexOf(h)), ...TP.map((t) => ({ raw: cellRaw(cellOf(s, h, t)) }))]) }) + '</div>' : '')
+        + (dead.length ? '<div class="col">' + C.p('Hs de projeto ' + dead.map((h) => L.dc(String(h))).join(' e ') + ' m: pares insuficientes em todos os prazos (no máximo '
+          + br.int(deadMax) + (minPairs ? '; o mínimo é ' + minPairs : '') + ').') + '</div>' : '')
+        + (order.length ? '<div class="col">' + C.p('Contagens exatas, somadas nos ' + TP.length + ' prazos (cada par cai em um só): quando a previsão ficou em ou abaixo do OPWF da Tabela 4-1, quantas vezes o satélite viu Hs acima do OPLIM.') + '</div>'
+          + C.table({ cols: [{ h: 'OPLIM' }, { h: 'previsões ≤ OPWF', cls: 'n' }, { h: 'satélite > OPLIM', cls: 'n' }, { h: 'satélite > 1,5 × OPLIM', cls: 'n' }],
+            rows: order.map((k) => [L.dc(Q.dec(Q.parse(k), 1)) + NB + 'm', br.int(agg[k].f), br.int(agg[k].a), br.int(agg[k].b)]) }) : '')
         + '</details>';
     }).join('');
+    /* what the site alpha would leave, from the workability record: the same exact count at its OPWF */
+    const pctOf = (x) => L.pct(x[0], x[1]);
+    const wrows = [];
+    for (const [sid, ws] of Object.entries(N.work.sites)) for (const [k, c] of Object.entries(ws.cells)) {
+      if (!c.s) continue;
+      const m = /^([\d.]+)m\/(\d+)h$/.exec(k);
+      wrows.push([L.short(ws.name), L.dc(m[1]) + NB + 'm · ' + m[2] + NB + 'h', pctOf(c.o[12]), pctOf(c.f[12]) + ' (α ' + L.dc(c.ad) + ')', { raw: '<em>' + esc(pctOf(c.s.c[12]) + ' (α ' + L.dc(c.s.a) + ')') + '</em>' }]);
+    }
     out.push('<section id="alfa"><div class="col sec-head"><div class="lab">' + sec + ' · o alfa do local</div><h2>O α que os satélites medem aqui, ao lado do α da tabela do Mar do Norte.</h2></div>'
-      + '<div class="col">' + C.pRaw('O α da DNV encolhe o limite da previsão para cobrir o erro da previsão. A tabela foi calibrada no Mar do Norte; aqui o mesmo método é aplicado aos pares ECMWF × altímetro de cada local. <b>O método reproduz a Tabela 4-1 da DNV em ' + A.calibration.within + ' de ' + A.calibration.of + ' células</b> (±0,02) antes de olhar para o Brasil.')
-      + C.note({ lab: 'o que isto é, e o que não é', bodyRaw: C.p('O α do local é uma estimativa estatística (ponto flutuante, reamostragem por dia, intervalo de 90%), não um intervalo decidido; as contagens de excedência, ao lado, são exatas. A cauda de 1 em 10.000 por trás do α é extrapolação de modelo: três anos de satélite não a observam. É evidência para o vistoriador refazer, nunca uma aprovação.') })
-      + '</div><div class="wide">' + blocks + '</div></section>');
+      + '<div class="col">' + C.pRaw('O α da DNV encolhe o limite da previsão (OPWF = α × OPLIM) para cobrir o erro da previsão. A tabela foi calibrada no Mar do Norte; aqui o mesmo método é aplicado aos pares ECMWF × altímetro de cada local. <b>O método reproduz a Tabela 4-1 da DNV em ' + A.calibration.within + ' de ' + A.calibration.of + ' células</b> (±0,02) antes de olhar para o Brasil.')
+      + C.note({ lab: 'o que isto é, e o que não é', bodyRaw: C.p('O α do local é uma estimativa estatística (ponto flutuante, reamostragem por dia, intervalo de 90%), não um intervalo decidido; as contagens ao lado dele são exatas. A cauda de 1 em 10.000 por trás do α é extrapolação de modelo: três anos de satélite não a observam. É evidência para o vistoriador refazer, nunca uma aprovação.') })
+      + C.p('Em cada célula: o α do local, o intervalo de 90% e o α da Tabela 4-1. “acima”: o intervalo inteiro fica acima da tabela, e a tabela do Mar do Norte é conservadora aqui; “abaixo”: a tabela não é conservadora aqui; “contém”: não se distingue da tabela. Abaixo de ' + (minPairs || '—') + ' pares, a célula diz só quantos pares há.')
+      + '</div><div class="jn-at">' + cross + '</div>'
+      + (wrows.length ? '<div class="col">' + C.pRaw('<b>O que isso muda no mês.</b> A mesma contagem exata de “O mês”, refeita com o α do local no lugar do α da tabela: o limite inferior do intervalo de 90%, arredondado para baixo a 0,01, para não ganhar janela com a parte otimista da estimativa. É o que sobraria se o vistoriador adotasse o α do local.') + '</div>'
+        + C.table({ cols: [{ h: 'área' }, { h: 'OPLIM · TR' }, { h: 'o mar permite', cls: 'n' }, { h: 'a Tabela 4-1 deixa', cls: 'n' }, { h: 'o alfa do local deixaria', cls: 'n' }], rows: wrows }) : '')
+      + '<div class="wide">' + blocks + '</div></section>');
     sec++;
   }
 
@@ -905,6 +974,7 @@ function build(N, B, git, battery) {
   out.push('<section id="confiar"><div class="col sec-head"><div class="lab">' + sec + ' · por que confiar</div><h2>O veredito é aritmética exata sobre o limite como impresso; a faixa é uma reivindicação que o placar audita.</h2></div>'
     + '<div class="col">'
     + C.pRaw('<b>Aritmética exata.</b> Toda comparação é feita em racionais exatos, inteiros sem arredondamento: a previsão sai dos inteiros empacotados do GRIB (valor = (R + X·2<sup>E</sup>)/10<sup>D</sup>), o vento em nós por 1 nó = 463/900 m/s, os limites como impressos, com a vírgula virada ponto. Nenhum ponto flutuante decide. A borda é exata: uma borda de exatamente 2,0 contra “&lt; 2,0” é INDEFINIDA, nunca LIBERADA.')
+    + C.pRaw('<b>A faixa medida.</b> Hs: a previsão determinística × o intervalo exato da razão observado/previsto nos pares satélite × previsão do local e do prazo (blocos de ' + N.bands.binHours + ' h). Vento: a previsão ± o erro medido em m/s no prazo (observado − previsto), com piso em zero. Cada faixa reivindica cobertura de ' + claim + ', um teorema de contagem sob a hipótese de que o próximo erro se parece com os ' + br.int(N.bands.rows) + ' pares do arquivo no mesmo local e prazo; o placar audita essa hipótese em público.')
     + C.pRaw('<b>A mesma conta, na sua aba.</b> A grade acima é decidida de novo no seu navegador pelos mesmos módulos que geraram o registro: ' + N.mods.map((m) => C.m(m.rel) + ' <span class="jn-pin">sha256 ' + esc(m.sha) + '</span>').join(' · ') + '. <span id="jn-sha" class="jn-pin">Com scripts desligados, a grade mostra o registro publicado.</span>')
     + C.pRaw('<b>A bateria.</b> ' + esc(battery.checks + ' verificações e ' + battery.reds + ' controles vermelhos a cada build') + ' — limites inclusivos e estritos na borda exata, a testemunha de um VETADA, o limiar de um INDEFINIDA, e recusas para unidade trocada, número em ponto flutuante, variável desconhecida e janela vazia.')
     + '<h3>Os limites honestos</h3>' + C.plainList(boundaries)

@@ -15,35 +15,56 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-06 afternoon: JANELA STARTED — the Swell port re-scoped by the operator to offshore ENERGY (platforms, production areas, terminals, decommissioning) with Swell kept as the public face; Janela first; the forward ledger certs/janela-ledger/ committing daily from 2026-10-06; before that, 2026-10-06: HANDOFF, WAITING FOR THE OPERATOR — the δ₃ proof claim PUBLIC on erdosproblems.com/1186 (#395); the GitHub outreach P1–P3 out and watched; the k = 4 forum comment ready for the operator's paste; nothing else outward until the operator's next instruction; before that, 2026-10-05: THE δ₃ PORT — δ₃ = 117/2192 (Graham's $100 question, Erdős #1186 k = 3) re-decided here by a clean-room verifier, page + paper built, every send HELD; the ζ(7)/Catalan Hankel wall ported and re-run, 51/51 bit-identical; Anand's ζ(7) proof AUDITED, the route refuted (A₂₀₀ + U = +4.86, needs < 0); the operator read the δ₃ proof and authorised the Zenodo release v2026.10; the Prime Intellect application SENT by the operator; before that, phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-06 evening: JANELA v1 LIVE at /janela/ — the Swell port re-scoped by the operator to offshore ENERGY with Swell kept as the public face; the site alpha at every offshore basin 0.84–0.96 vs DNV Table 4-1's 0.63–0.76 (statistical, method calibrated on the table itself); the forward ledger committing daily with two proposers, first scores 2026-10-08; Swell next; before that, 2026-10-06: HANDOFF, WAITING FOR THE OPERATOR — the δ₃ proof claim PUBLIC on erdosproblems.com/1186 (#395); the GitHub outreach P1–P3 out and watched; the k = 4 forum comment ready for the operator's paste; nothing else outward until the operator's next instruction; before that, 2026-10-05: THE δ₃ PORT — δ₃ = 117/2192 (Graham's $100 question, Erdős #1186 k = 3) re-decided here by a clean-room verifier, page + paper built, every send HELD; the ζ(7)/Catalan Hankel wall ported and re-run, 51/51 bit-identical; Anand's ζ(7) proof AUDITED, the route refuted (A₂₀₀ + U = +4.86, needs < 0); the operator read the δ₃ proof and authorised the Zenodo release v2026.10; the Prime Intellect application SENT by the operator; before that, phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
-2026-10-06 (afternoon), JANELA — THE SWELL PORT, RE-SCOPED TO OFFSHORE ENERGY (in progress).
+2026-10-06 (afternoon/evening), JANELA v1 — THE SWELL PORT, RE-SCOPED TO OFFSHORE ENERGY, BUILT AND LIVE.
   THE OPERATOR'S RULINGS (2026-10-06): port SWELL (frontier-apps/PORT-SWELL.md) for the LabECO partnership,
     commercial ventures and calls; the commercial focus is ENERGY INFRASTRUCTURE (platforms, production areas,
     terminals), not sports or beaches; Swell (the beach app) stays as the PUBLIC face. Plan v2 approved:
     (1) the engine + Janela first, Swell second; (2) Swell keeps the Navy chart data; (3) name "Janela";
     (4) a daily GitHub Action; (5) pilot sites Santos, Campos, Florianópolis + the terminals with published limits.
-  SCOUTED FIRST (corpus/targets.json rows janela-offshore-windows, site-alpha-audit, swell-port): DNV-OS-H101
-    Sec.4 B704 read verbatim (site-specific alpha); NPCP limits for TEBIG, TEBAR, Sepetiba, Babitonga/TGS,
-    São Francisco do Sul; ECMWF's open-data archive (GCS from 2023-07-12) + NOAA RADS NRT altimetry (since
-    2020) make three years of forecast-vs-satellite pairs available today; SBLB (P-25) the only platform METAR.
-    The Swell source review found the breaking-calibration headline beaten by a no-forecast baseline and
-    14 of 21 ocean beaches unable to read "big" (both re-run here) — fixes owed before Swell goes public.
-  BUILT SO FAR: apps/janela/ (APP.md, scenario/sites.json — twelve sites, one definition; audit/ecmwf.py exact
-    GRIB reading: value = (R + X·2^E)/10^D, every field hashed as read; audit/archive.py the back-archive;
-    audit/feed.py the daily read, write-once per day; audit/commit.js the ledger commits; audit/hindcast.js
-    the pinned WW3 series, sha-checked); instruments/window/ (workability.js exact counts, decide.js the four
-    verdicts + flip threshold, q.js exact rationals and knots; battery 13 checks + 6 reds); the forward ledger
-    certs/janela-ledger/ (208 commits from the 2026-10-06 run, ECMWF ENS central 40 of 50, target = altimeter
-    Hs within 100 km); .github/workflows/janela-feed.yml (daily 09:40 UTC; the bot pushes to main — PULL
-    BEFORE PUSHING from here on).
-  RUNNING / NEXT: the back-archive fetch (corpus/janela/cache/, git-ignored, ~2 h); the NPCP rule pack and
-    the DNV alpha tables (being transcribed from the pinned texts); then the error model per lead, the site
-    alpha vs the DNV tables, the workability tables, scoring the ledger against satellites, the page.
+  LIVE: carlostoledo.co/janela/ (pt-BR; site/janela/ from apps/janela/build.js, gated on instruments/window and
+    apps/janela batteries; every published decision re-decided at build and in the reader's tab by the same
+    sha-pinned q.js + decide.js). Not linked from the landing page; nothing sent to anyone.
+  THE FINDING (certs/janela-alpha.json; method apps/janela/audit/alpha.py, standard library): DNV-OS-H101's alpha
+    re-derived by the method that made Table 4-1 (the 2005-07 JIP as reconstructed by Wilcken 2012 — 16 of 20
+    table cells reproduced within 0.02; the guidance note read literally reproduces 0, the red) on 45,987
+    ECMWF-open-data vs NOAA-altimeter pairs, 2023-07..2026-10, at eight sites: at design Hs 2 m the site alpha is
+    0.84–0.96 against the table's 0.63–0.76 at every offshore basin (90% day-bootstrap interval ABOVE the table in
+    every cell); Florianópolis' coastal node sits on the table. Exact consequence (certs/janela-workability.json,
+    32-year hindcast, counts): Santos 2.0 m / 48 h — the sea allows 24.2% of start times, Table 4-1 leaves 3.3%,
+    the site alpha (lower end of its interval) would leave 10.8%. A STATISTICAL estimate (not an enclosure), the
+    1e-4 tail is a model extrapolation, the altimeter's own error makes it lean conservative, lead is counted
+    from 00 UTC (the run is usable ~8 h later). Evidence for a warranty surveyor to re-run, never an approval.
+  BUILT: apps/janela/ (APP.md, RESEARCH.md, TODO.md; scenario/sites.json twelve sites as ONE definition;
+    scenario/rules/npcp.json 60 limits from eleven pinned Capitania acts, every quote checked; scenario/
+    operations.json eight operations, a berth rule never decided on the open-sea Hs; scenario/rules/dnv-alpha.json;
+    audit/ ecmwf.py exact GRIB reading, archive.py, feed.py, commit.js, observe.py, score.js, matchups.py,
+    passes.py, bands.js, alpha.py, climate.js, today.js, dnv.js, hindcast.js); instruments/window/ (workability.js,
+    decide.js, q.js; battery 14 checks / 6 reds); the packed back-archive corpus/janela/{ecmwf,alt,metar}/ (45 MB,
+    MANIFEST.json; the day files in the git-ignored cache) and corpus/janela/matchups.json.gz; certs/janela-
+    {workability,bands,alpha}.json; the forward ledger certs/janela-ledger/ — two proposers from the 2026-10-06
+    run: the ECMWF ensemble's central 40 of 50 (claims 4/5) and Janela's calibrated band (claims 9/10; bands
+    record pinned by sha256 in audit/commit.js — a rebuilt bands record is a NEW proposer version, never a
+    silent swap). Batteries wired: make test, build-control (window instrument, janela, janela alpha).
+  THE DAILY ACTION (.github/workflows/janela-feed.yml, 09:40 UTC): feed -> ledger commits -> observe (days ended
+    two days ago, NOAA NRT) -> score -> rebuild the page -> commit + push as "janela-feed". THE BOT PUSHES TO MAIN:
+    PULL BEFORE PUSHING. First scores land 2026-10-08. .github/workflows/janela-archive.yml re-fetches any
+    archive range in the cloud (8 parallel jobs, ~3 min) — the desk download is network- and battery-bound
+    (IPv6 to the GCS mirror black-holed here: JANELA_IPV4=1).
+  GATES: window 14/6 reds, janela 9/6 reds, janela alpha (16/20 + red) green; the new page recorded in the
+    style, render and layout baselines (design/*-baseline.json; the layout row added alone — skyaudit's 1440/768
+    spine count flaps 5<->6 and 4<->5 between runs on this network, unrelated and not accepted worse). THE FULL
+    CONTROL BUILD IS OWED ON A CHARGER (17 min; it ran once mid-session at 113/116 — the three were the new page's
+    unrecorded baselines, recorded since; index.html and batteries.json were left at their last committed state).
+  NEXT (the operator picks): Swell re-homed on this engine as the public face (apps/swell/TODO.md has the port
+    plan and the source review's findings); period uncertainty for swell-sensitive operations (B706); wind
+    alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind — anemometer height); the nearshore transfer for berth
+    limits; a send of any of this (the Radar, MAI/DAI with UFSC, a surveyor) is the operator's.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-06, HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS.

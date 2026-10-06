@@ -66,7 +66,7 @@ function load(over) {
   const T = TODAY.compute(feed, bands, OPS.operations, SITES);
   let cells = 0, okCells = 0;
   for (const s of Object.values(bands.sites)) for (const b of Object.values(s.bins)) {
-    for (const k of ['hs', 'windSq']) { cells++; if (b[k] && b[k].verdict === 'CERTIFIED-COVERAGE') okCells++; }
+    for (const k of ['hs', 'windDiff']) { cells++; if (b[k] && b[k].verdict === 'CERTIFIED-COVERAGE') okCells++; }
   }
   N.bands = { rows: bands.source && bands.source.rows, sha: bands.source && bands.source.sha256, miss: bands.miss, binHours: bands.binHours,
     borrow: bands.borrow, cells, okCells, synthetic: !!over.bands };
@@ -122,6 +122,20 @@ function load(over) {
         o: c.oplim.map((x) => [x[0], x[1]]), f: c.opwfCells.map((x) => [x[0], x[1]]),
         wo: WK.decimal(c.oplim[12][2], 1), wfw: WK.decimal(c.opwfCells[12][2], 1)
       };
+    }
+    /* the site alpha's workability (the lower end of its 90% interval, rounded down to
+       0.01, times OPLIM): the SAME exact count, at a different OPWF. The record names its
+       OPLIM only through opwf/alphaSite, so it is recovered exactly and must be a limit. */
+    for (const a of (s.siteAlpha || [])) {
+      const oplim = Q.div(Q.parse(a.opwf), Q.parse(a.alphaSite));
+      const lim = W.limits.find((l) => Q.cmp(Q.parse(l), oplim) === 0);
+      need(lim, 'siteAlpha at ' + sid + ' TR ' + a.TR + ' h is not over a tabulated limit');
+      const k = lim + 'm/' + a.TR + 'h', c = cellsOut[k];
+      need(c && c.T === a.TPOP, 'siteAlpha at ' + sid + ' ' + k + ' has no workability cell with TPOP ' + a.TPOP);
+      need(Q.cmp(Q.parse(a.alphaTable), Q.parse(c.a)) === 0, 'siteAlpha at ' + sid + ' ' + k + ' names a table alpha the cell does not use');
+      need(a.cells.length === 13, 'siteAlpha at ' + sid + ' ' + k + ' is not 12 months + the year');
+      c.s = { a: trim(WK.decimal(a.alphaSite, 2)), pt: a.alphaSitePoint, ci: a.alphaSiteCi90, wf: trim(a.opwfDec),
+        c: a.cells.map((x) => [x[0], x[1]]), w: WK.decimal(a.cells[12][2], 1) };
     }
     N.work.sites[sid] = { name: s.name, cells: cellsOut };
   }

@@ -4,5 +4,12 @@
   "proposer": "ECMWF ENS wave (open data, 50 members): order statistics 6 and 45 — the central 40 of 50",
   "claim": "4/5",
   "alpha": "1/5"
+ },
+ "calibrated-v1 (apps/janela/audit/commit.js)": {
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "Janela calibrated band v1: ECMWF deterministic Hs x the exact conformal ratio interval of its site and 12 h lead bin (certs/janela-bands.json, built 2026-10-06 from 45,987 forecast-vs-altimeter pairs 2023-07..2026-10, sha256 named in each row)",
+  "claim": "(u - l)/(n + 1) >= 9/10 per cell, as stated in each row",
+  "alpha": "1/10",
+  "domain": "janela/hs-altimeter/calibrated-v1"
  }
 }

@@ -8,9 +8,11 @@
                 site's sea node, [r_lo, r_hi] the exact conformal ratio interval of
                 the site's 12 h lead bin (certs/janela-bands.json; a terminal
                 borrows its open-sea neighbour's, named);
-     wind band  speed^2 in [(u^2+v^2) * q_lo, (u^2+v^2) * q_hi], carried as an
-                outward enclosure of the speed (integer square roots, 1e-6 m/s),
-                converted to knots exactly (1 kn = 463/900 m/s);
+     wind band  [s_lo + d_lo, s_hi + d_hi] m/s, floored at 0: [s_lo, s_hi] the
+                outward enclosure of the forecast speed sqrt(u^2+v^2) (integer square
+                roots, 1e-6 m/s), [d_lo, d_hi] the exact conformal interval of
+                observed - forecast speed of the lead bin (additive: a ratio blows up
+                at low forecast speeds); converted to knots exactly (1 kn = 463/900 m/s);
      ensemble   the ECMWF ensemble's central 40 of 50 (the ledger's first
                 proposer), shown beside, never decided on.
    A lead bin whose interval was REFUSED (too few pairs) leaves that variable
@@ -26,15 +28,7 @@
 const Q = require('../../../instruments/window/q.js');
 const D = require('../../../instruments/window/decide.js');
 
-/* sqrt enclosure of a non-negative rational at 1e-6: [lo, hi] */
-function isqrt(n) { if (n < 2n) return n; let x = BigInt(Math.floor(Math.sqrt(Number(n)))); while (x * x > n) x--; while ((x + 1n) * (x + 1n) <= n) x++; return x; }
-function sqrtEnc(a) {
-  const [p, q] = a; const S = 10n ** 6n;
-  const r = isqrt(p * q * S * S);
-  const lo = Q.norm(r, q * S);
-  const hi = r * r === p * q * S * S ? lo : Q.norm(r + 1n, q * S);
-  return [lo, hi];
-}
+const sqrtEnc = Q.sqrtEnc;
 const KN_PER_MS = Q.norm(900n, 463n);
 
 function bandFor(bands, sid, lead) {
@@ -72,9 +66,10 @@ function compute(feed, bands, operations, sites) {
         const [slo, shi] = sqrtEnc(w2);
         row.windDetKn = Q.dec(Q.mul(slo, KN_PER_MS), 1);
         if (st.wind.gust) row.gustKn = Q.dec(Q.mul(Q.parse(st.wind.gust), KN_PER_MS), 1);
-        const c = b.cell && b.cell.windSq;
+        const c = b.cell && b.cell.windDiff;
         if (c && c.verdict === 'CERTIFIED-COVERAGE') {
-          const lo = sqrtEnc(Q.mul(w2, Q.parse(c.lo)))[0], hi = sqrtEnc(Q.mul(w2, Q.parse(c.hi)))[1];
+          const ZERO = [0n, 1n];
+          const lo = Q.max(ZERO, Q.add(slo, Q.parse(c.lo))), hi = Q.max(ZERO, Q.add(shi, Q.parse(c.hi)));
           const loK = Q.mul(lo, KN_PER_MS), hiK = Q.mul(hi, KN_PER_MS);
           row.wind = { lo: Q.str(loK), hi: Q.str(hiK), loDec: Q.dec(loK, 1, 'down'), hiDec: Q.dec(hiK, 1, 'up'), n: c.n, coverage: c.coverage };
         } else row.wind = null;
