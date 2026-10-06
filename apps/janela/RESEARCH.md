@@ -58,3 +58,22 @@ not read says so.
 - Competition: DTN markets lowering alpha through forecast quality; StormGeo (owns Climatempo);
   OceanPact; Hidromares (SISMO); Miros. No vendor found publishing verified skill or selling
   site-specific alpha validation (absence of evidence, not proof).
+
+## The operations' own pains (read 2026-10-06, for the app view)
+- **Offloading criteria, as published.** Tannuri, Pesce, Simos et al., "Seasonal downtime analysis of DP
+  and non-DP offloading", OMAE2010-20147 (USP repository, PDF sha256 ffbc2212…f73a16, read): the wave
+  group Hs > 3.5 m and the wind group > 50 knots "are above the offloading limits defined by Petrobras
+  regulation"; minimum 50 m between shuttle tanker and FPSO; the tanker kept inside a green zone of
+  +45°/−60°; hawser tension above 100 tf is unsafe. Campos downtime for a DP Suezmax at the bow station
+  0–7% in summer, 8–16% in winter. A 2010 statement of a 2010 rule: the app cites it as such.
+- **"Alívios críticos".** Offloadings close to full storage are an "imminent risk of production loss";
+  scheduling is framed around avoiding "parada de produção por falta de espaço" (Garcia Jr., USP TCC,
+  Santos, 2020; 21 DP shuttle tankers, ~1,800 offloadings a year then). PPSA's 2022 offloading panel:
+  ~50 DP2 shuttle tankers hired for the pre-salt, fleet adequacy an open question; Transpetro ordered
+  9 DP2 Suezmax (eixos, 2025-03-18).
+- **Equatorial Margin.** Petrobras' CEO on Foz do Amazonas drilling: "com a correnteza atrapalhando";
+  the Morpho campaign stretched from 5 to 10 months (eixos, 2026-06-12). Current is the governing
+  variable there and is not in Janela's feed.
+- **Not found** (absence of evidence): public PSV waiting-on-weather figures, helideck motion tables
+  (NORMAM-223 behind Cloudflare), a named case of storage-full curtailment, any Brazilian practice
+  of a site-specific DNV alpha.

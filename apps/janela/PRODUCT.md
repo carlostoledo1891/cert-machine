@@ -37,8 +37,15 @@ operation to run this week. This file is the spec the app is built and reviewed 
 7. **"The Capitania rule limits current and visibility; nobody forecasts them."**
    → SEM DADOS says exactly which variable is missing, and the app says what would close it
    ("um correntômetro no terminal decide esta linha"): NEEDS DATA as an incentive to connect sensors.
-8. **"What does waiting cost?"**
+8. **"Alívio crítico": the tanks fill before the sea opens.** Offloadings close to full storage are
+   the production-loss risk Petrobras names. → On an FPSO card the USER types capacity, inventory and
+   production; the app sets "tanques cheios em X h" beside the next LIBERADA offloading window and
+   raises ALÍVIO CRÍTICO when the window opens too late (their numbers, never ours).
+9. **"What does waiting cost?"
    → The user's own day rate (never a number we invent) × the hours to the next LIBERADA window.
+10. **"Direction decides offloading; current decides the Equatorial Margin."** → Wave and wind direction
+   on every card (forecast ink); current named as SEM DADOS wherever a rule needs it, with what would
+   close it (a current forecast, a current meter).
 
 ## The screens
 
@@ -50,7 +57,7 @@ INDEFINIDA, dotted = SEM DADOS, always with the word on hover/tap — never colo
 **Top bar.** Janela · the three modes (Semana · Mês · Placar) · the run ("ECMWF 06/10 00 UTC") · Método ↗.
 
 **Panel (desktop right rail; phone bottom sheet in three heights).**
-- SEMANA: the answer line; the operation chips (Alívio · Carga · Lançamento · Içamento ·
+- SEMANA: the answer line; the operation chips (Alívio (critério Petrobras citado: Hs ≤ 3,5 m, vento ≤ 50 nós — OMAE2010) · Carga · Lançamento · Içamento ·
   Terminal (NPCP) · Seu limite), each with editable limits and window length, the defaults
   marked "exemplo — use o do seu procedimento"; the criterion switch (Banda medida · DNV tabela ·
   DNV local); the day strip + hour scrubber (ONE clock, shared with the map); the ranked list of
