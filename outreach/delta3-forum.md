@@ -2,7 +2,8 @@
 
 STATUS (2026-10-06):
 - A is PUBLIC: https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395. Snapshot pinned at corpus/sources/delta3/erdosproblems-1186-proof-claims_2026-10-06.html.
-- B and D: optional, the operator pastes them.
+- B: SUPERSEDED. It was a pointer for the thread while A sat in moderation; the thread now shows "Proof claims (1)" itself.
+- D: READY (revised 2026-10-06, see D), the operator pastes it.
 - C: DROPPED. teorth's CONTRIBUTING sends mathematics to the forum, and teorth closed about ten partial-result issues on 08-28 (outreach/GITHUB-OUTREACH.md).
 - The δ₃ note to the incrediblecrab/erdos-1186 tracker and the formal-conjectures #1186 request went out once A was public. Every item here is a SEND on the operator's per-item word.
 - **Already met:** the author's line-by-line reading (operator, 2026-10-05), and the Zenodo deposit: v2026.10, doi:10.5281/zenodo.23171167, verified public 2026-10-05 and filled in below.
@@ -108,6 +109,8 @@ The honest moves are:
 
 ## D. Optional, separate: a k = 4 comment on /forum/thread/1186 (from the δ₄ scout, notes/delta4-centring-2026-10-05.md)
 
-The problem page lists no bound for $\delta_4$ on $[n]$. Lu and Peng's colouring (arXiv:1107.2888) unrolls the quadratic residues mod $11$ and gives $\delta_4 \le 1/72 \approx 0.01389$. That is 19% below the best block colouring, Butler–Costello–Graham's 36 blocks at $0.01722$. Both values were re-checked in exact arithmetic. Unlike $k=3$, a quartic term enters the counting, and it blocks the kind of reduction that settles $\delta_3$. AI-assisted (Claude); checked by me.
+REVISED 2026-10-06, before any paste. The first draft opened "The problem page lists no bound for $\delta_4$ on $[n]$", but the page's general random bound $\delta_k \le 1/((k-1)2^k)$ gives $1/48$ at $k = 4$. It also said "both values were re-checked in exact arithmetic", which is true of BCG's rational but not of the limit $1/72$: what is exact here is the first two unrolling levels ($1/66$, $37/2662$) and an integer count at $n = 16{,}000$. The page cites the same Lu–Peng paper as [LuPe12] for the $\mathbb{F}_p$ bounds, so the comment names it that way.
 
-STATUS: DRAFT, NOT SENT. Small, and correct as far as it goes. Post it only if A has landed and the thread is still quiet on k = 4.
+For $k=4$ on $[n]$, the random bound above gives $\delta_4 \le 1/48 \approx 0.0208$. The same Lu–Peng paper [LuPe12] (<a href="https://arxiv.org/abs/1107.2888">arXiv:1107.2888</a>) also colours $[n]$: unrolling the quadratic residues mod $11$ gives $\delta_4 \le 1/72 \approx 0.01389$. That is 19% below the best known block colouring, the 36 blocks of Butler, Costello and Graham at $\approx 0.01722$. I re-derived the block value exactly, and checked Lu–Peng's colouring by exact counts: its first two unrolling levels give exactly $1/66$ and $37/2662$, and at $n = 16000$ the count agrees with $1/72$ up to $O(1/n)$. For $k=4$ a quartic term enters the count, and the reduction behind the $k=3$ proof claim does not remove it, so that method does not carry over as it stands. AI-assisted (Claude); read and checked by me.
+
+STATUS: READY, the operator pastes it (signed in as carlos_toledo). Checked live 2026-10-06: Comments (0), Proof claims (1, ours), nothing on k = 4 in the thread. Paste it as one comment at https://www.erdosproblems.com/forum/thread/1186 and leave B unsent.

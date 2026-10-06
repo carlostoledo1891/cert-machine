@@ -131,7 +131,7 @@ Estimate: a new relaxation plus heavy SDP engineering — weeks, uncertain. It p
 
 **The targets row's finding text is wrong.** It says "BCG 2010 give a 36-block colouring (the δ₄ upper bound)". It should say Lu–Peng 2011, c₄ ≤ 1/72.
 
-**The erdosproblems #1186 page** (snapshot 2026-10-05) lists no [n] bound for k = 4. A comment citing Lu–Peng's 1/72 would be a correct, small contribution. It is gated, like every send.
+**The erdosproblems #1186 page** (snapshot 2026-10-05) lists no [n] bound for k = 4 below the general random bound $1/((k-1)2^k) = 1/48$ (corrected 2026-10-06: the first wording, "no [n] bound", missed it). A comment citing Lu–Peng's 1/72 would be a correct, small contribution. It is gated, like every send.
 
 **A real δ₄ attack** would have to be arithmetic on both sides:
 - upper bounds from residue/unrolling searches;

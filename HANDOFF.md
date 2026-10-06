@@ -42,8 +42,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     say "read line by line by the author; not refereed"); (2) the Zenodo deposit — DONE: release v2026.10
     at 422b952 minted doi:10.5281/zenodo.23171167 within a minute, verified public (isNewVersionOf 22800699,
     erdosproblems.com/1186 linked), stamped into corpus/zenodo.json + CITATION.cff; the paper and page cite it; (3) the forum texts —
-    A (the partial proof claim) SENT by the operator 2026-10-05 ~19:25 -03, awaiting moderation (the sweep watches);
-    the rest DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
+    A (the partial proof claim) SENT by the operator 2026-10-05 ~19:25 -03, PUBLIC 2026-10-06 as proof claim #395
+    (https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395; snapshot pinned); the rest DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
     optional thread comment; C, teorth/erdosproblems: NO status PR — #1186 stays open for k ≥ 4 — an issue only
     after the claim is visible). Every paste is still the operator's. Lean: weeks. targets rows:
     delta3-graham-1186-k3 (BUILT), delta4-centring-transfer (being scouted).
@@ -74,8 +74,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     SENT by the operator (moderation). The Erdős #1 forum comment is PUBLIC — snapshot pinned 2026-10-05 — so
     Mathstodon (outreach/erdos1-mastodon.md) may go. tools/sweep-claims.js watches all of it. LEFT FOR THE
     OPERATOR (no transport here): R2 (email to Norin), R5 (the LabECO thread), METR M1 (recruiting), M3/M3a (the
-    Lever applications), Mathstodon, and — after the #1186 claim shows — D (the k = 4 comment); C (the teorth
-    note) is mine once the claim shows.
+    Lever applications), Mathstodon, and D (the k = 4 comment, READY since the claim showed, revised 2026-10-06); C (the teorth
+    note) DROPPED (CONTRIBUTING sends mathematics to the forum).
   THE GITHUB MAP AND THE RECORD CORRECTIONS (2026-10-05 night → 10-06). outreach/GITHUB-OUTREACH.md: 13 touchpoints
     done, 27 sends ranked, 29 venues rejected, presence fixes. PRESENCE APPLIED: the repo description is the ONE
     sentence verbatim, 20 topics, labels claim/rerun (the issue forms' labels did not exist), Wiki/Projects off, the
@@ -101,8 +101,10 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     notebook's. RECORD CLEAN-UP that rode along (8fbb064 and before): easota platform rules dated and pinned, outward
     rounding (easota, matmul paper, mc100), kissing d12 closed, Ramsey "upper bounds", hot-spots bibliography,
     λ(5) draft linked, #510 comment found PUBLIC since 08-26 (the sweep watched the wrong URL).
-    HELD WITH A DATE: the lambda4_cubic PR (≥ 10-08), awesome-breakthroughs (~1 week, HorizonMath#10's reply),
-    formal-conjectures #1186 (claim public, or 10-20 without δ₃). WAITING ON THE OPERATOR: the Althöfer email
+    HELD WITH A DATE: the lambda4_cubic PR (≥ 10-08), awesome-breakthroughs (~1 week, HorizonMath#10's reply).
+    POSTED once the #1186 claim was public (2026-10-06): incrediblecrab/erdos-1186#1 (edited the same day: 1/72 is
+    Lu–Peng's, corroborated by exact counts) and formal-conjectures#6882 (the same day as #6874, against our
+    one-a-day spacing). WAITING ON THE OPERATOR: the Althöfer email
     (then the C84b PR), the ec-benchmark issue (partners' field), the bio and pins. NOT SENT (reasons in the
     drafts): the λ(5) follow-up, einstein-arena#59, awesome-evals, the C42 review.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
@@ -113,7 +115,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     vacuous), so the δ₃ method stops at k = 3 — which is also why the δ₃ proof covers arithmetic colourings. 𝔽_p:
     #mono/p² = (1 + 6μ² + Λ₄)/8 exactly. instruments/delta4/, certs/delta4-probe.json, notes/delta4-centring-
     2026-10-05.md, battery 29/29 with 7 reds. The paper's limits section now says so (Lu–Peng cited). A comment on
-    #1186 citing 1/72 for k = 4 (the page lists no [n] bound) would be small and correct — a SEND, gated.
+    #1186 citing 1/72 for k = 4 (the page lists no [n] bound below the random 1/48) would be small and correct — READY
+    in outreach/delta3-forum.md D, the operator's paste.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-05, THE TWENTY-NINTH SESSION CONTINUED — PHASE 4b WAVE 1, THE LOCKING-RULES REVIEW,

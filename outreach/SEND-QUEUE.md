@@ -29,7 +29,7 @@ here on request.
     - the operator's email to Althöfer, then the C84b PR, after 7 days or a reply, and after #216.
   - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste).
   - POSTED after the easota fix went live (2026-10-06): togethercomputer/EinsteinArena-new-SOTA#14; the TTT-Discover #19 comment. The 2026-10-09 courtesy hold was overridden by the operator's "finish all".
-  - Once the #1186 claim was public (2026-10-06): POSTED https://github.com/incrediblecrab/erdos-1186/issues/1 and https://github.com/google-deepmind/formal-conjectures/issues/6882. The teorth note (C) is dropped; the k = 4 forum comment (D) is the operator's to paste.
+  - Once the #1186 claim was public (2026-10-06): POSTED https://github.com/incrediblecrab/erdos-1186/issues/1 and https://github.com/google-deepmind/formal-conjectures/issues/6882. The teorth note (C) is dropped; the k = 4 forum comment (D) is the operator's to paste. The tracker issue was edited in place the same day, before any reply: 1/72 is Lu–Peng's, corroborated here by exact counts (not "re-checked as the limit"), and the last bullet names which reduction fails.
 - **P3, 2026-10-06 ("finish all"; drafts in outreach/github-p3a-2026-10-06.md and github-p3b-2026-10-06.md):**
   - POSTED:
     - snorin239/RamseyLean#1 (replaces R2);
@@ -39,7 +39,6 @@ here on request.
   - POSTED once the fixed ζ page was live: https://github.com/mo271/Zeta5/issues/3#issuecomment-6009183430.
   - HELD WITH A DATE:
     - the teorth/erdosproblems lambda4_cubic PR: on or after 2026-10-08, for Tao's notification load;
-    - the formal-conjectures #1186 request: when the #1186 claim is public, or by 2026-10-20 without the δ₃ paragraph;
     - jackburrus/awesome-breakthroughs: about a week, for a reply on HorizonMath#10.
   - NOT SENT:
     - the λ(5) follow-up on #392: read paper/lambda5.pdf first; the forum comes first;
@@ -65,8 +64,9 @@ here on request.
   - Draft: `outreach/delta3-forum.md` A (submit-proof form, marked partial; k = 3 only).
   - Rule 4(a) is met: the operator read the proof line by line on 2026-10-05.
   - B, an optional thread comment, rides along. C: no teorth status PR; an issue only after A is visible.
-- **D2. A k = 4 comment citing Lu–Peng's 1/72 — DRAFTED, HELD.**
-  - Draft: `outreach/delta3-forum.md` D. Optional, after D1.
+- **D2. A k = 4 comment citing Lu–Peng's 1/72 — READY, the operator pastes it (D1 is public).**
+  - Text: `outreach/delta3-forum.md` D, revised 2026-10-06 before any paste: the page's random bound already gives 1/48 at k = 4, and only BCG's value and two unrolling levels are exact here, not the limit 1/72.
+  - B (the thread pointer) is superseded: the thread itself shows "Proof claims (1)".
 - **D3. A reply on gmDevi/zeta-7-21-lean #1 confirming the third-party report with exact values — POSTED 2026-10-05** on the operator's word: https://github.com/gmDevi/zeta-7-21-lean/issues/1#issuecomment-6004122031 (watched by tools/sweep-claims.js).
   - Draft: `outreach/zeta7-anand-issue-reply.md`.
   - Before sending, re-fetch the issue: a v2 on Zenodo changes the text.

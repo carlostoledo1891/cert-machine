@@ -228,7 +228,7 @@ function run(opts) {
       literature: {
         luPeng: 'L. Lu, X. Peng, Monochromatic 4-term arithmetic progressions in 2-colorings of Z_n, arXiv:1107.2888 (JCTA 2012): c₄ ≤ 1/72 ≈ 0.0138889 (their eq. (12)); 7/96 ≤ m₄(Z_p) ≤ 17/150 (Theorem 1, ordered (a,d) ∈ Z_p², d = 0 included); Conjecture 1: inf{m₄(Z_n): 4 ∤ n} = 1/12; Conjecture 2: lim m_k([n]) = lim m_k(Z_n) for k ≥ 4',
         butlerGrahamLu: 'S. Butler, R. Graham, L. Lu, Unrolling residues to avoid progressions, arXiv:1209.2687: restate 1/72 as the best known for k = 4, "far superior to the block coloring"; the rule: colour ℓ by its first nonzero base-11 digit (residue / non-residue)',
-        erdosproblems1186: 'the snapshot of 2026-10-05 lists δ₃ and the F_p bounds 7/192 ≤ δ̃₄ ≤ 17/300 but no [n] bound for k = 4 (neither BCG nor Lu–Peng)',
+        erdosproblems1186: 'the snapshot of 2026-10-05 lists δ₃, the general random bound δ_k ≤ 1/((k−1)2^k) (1/48 at k = 4) and the F_p bounds 7/192 ≤ δ̃₄ ≤ 17/300, but no [n] bound for k = 4 below the random one (neither BCG nor Lu–Peng)',
       },
       residueZ11: { F: S(F11), theorem6: '1/(2·11·3) = 1/66', equal: Q.cmp(F11, R(1, 66)) === 0 },
       twoLevelUnrolling: { F: S(F121), formula: '(1/121)(10/6 + 1/66) = 37/2662', equal: Q.cmp(F121, R(37, 2662)) === 0 },
