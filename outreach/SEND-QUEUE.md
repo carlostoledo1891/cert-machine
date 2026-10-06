@@ -36,7 +36,7 @@ here on request.
     - the station_data_v2#2 follow-up (configurations 2 and 3, the Keller map, and which row is theirs);
     - formal-conjectures#6874 (hot spots);
     - the Spacerat gist courtesy comment.
-  - NEXT once the fixed pages deploy: mo271/Zeta5#3 (the ζ page now names the Anand audit).
+  - POSTED once the fixed ζ page was live: https://github.com/mo271/Zeta5/issues/3#issuecomment-6009183430.
   - HELD WITH A DATE:
     - the teorth/erdosproblems lambda4_cubic PR: on or after 2026-10-08, for Tao's notification load;
     - the formal-conjectures #1186 request: when the #1186 claim is public, or by 2026-10-20 without the δ₃ paragraph;

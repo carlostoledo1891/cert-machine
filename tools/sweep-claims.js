@@ -203,7 +203,8 @@ for (const [repo, num, label] of [
   ['togethercomputer/EinsteinArena-new-SOTA', 14, 'Together circles row (#14)'],
   ['test-time-training/discover', 19, 'TTT-Discover #19 (overlap repair)'],
   ['snorin239/RamseyLean', 1, 'Norin RamseyLean #1 (Remark 17 G_AI)'],
-  ['google-deepmind/formal-conjectures', 6874, 'formal-conjectures #6874 (hot spots)']]) {
+  ['google-deepmind/formal-conjectures', 6874, 'formal-conjectures #6874 (hot spots)'],
+  ['mo271/Zeta5', 3, 'Zeta5 #3 (the ζ(7) wall, measured)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

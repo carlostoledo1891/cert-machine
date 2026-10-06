@@ -92,7 +92,19 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     POSTED (operator's "Proceed all needed" / "Go all"): the gist comment to Y. Lin (53-bit compare), the
     einstein-arena#64 correction (40,992), HorizonMath#10 (the Ramsey certificate), teorth/optimizationproblems PR #216
     (the 3b/3c/71 replay); then, once the fixed pages were live (2026-10-06), alexlegeartis/KissingNumbers#2, k-nic/Leech_lifting#1
-    and the #1038 correction on teorth/erdosproblems#179 — all seven P1 items out. NEXT: the map's P2 list, item by item.
+    and the #1038 correction on teorth/erdosproblems#179 — all seven P1 items out.
+    P2/P3 (operator: "Go all", "finish all", 2026-10-06), each after a freshness check and, where a page was cited,
+    after that page was corrected and live: teorth/erdosproblems#164 (Woett), optimizationproblems#184 (review),
+    Qiushi#1, Awesome-AI-Scientist PR #5, awesome-ai-proofs#2 (issue form), EinsteinArena-new-SOTA#14,
+    TTT-Discover#19, RamseyLean#1 (replaces R2), station_data_v2#2 follow-up, formal-conjectures#6874 (hot spots),
+    the Spacerat gist, mo271/Zeta5#3. Our R3 texts (#64, station#2) edited in place: the 1e-6 was the Together
+    notebook's. RECORD CLEAN-UP that rode along (8fbb064 and before): easota platform rules dated and pinned, outward
+    rounding (easota, matmul paper, mc100), kissing d12 closed, Ramsey "upper bounds", hot-spots bibliography,
+    λ(5) draft linked, #510 comment found PUBLIC since 08-26 (the sweep watched the wrong URL).
+    HELD WITH A DATE: the lambda4_cubic PR (≥ 10-08), awesome-breakthroughs (~1 week, HorizonMath#10's reply),
+    formal-conjectures #1186 (claim public, or 10-20 without δ₃). WAITING ON THE OPERATOR: the Althöfer email
+    (then the C84b PR), the ec-benchmark issue (partners' field), the bio and pins. NOT SENT (reasons in the
+    drafts): the λ(5) follow-up, einstein-arena#59, awesome-evals, the C42 review.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
     (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
     (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄
