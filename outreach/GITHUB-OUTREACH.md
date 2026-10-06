@@ -1,4 +1,9 @@
-# GITHUB OUTREACH MAP: research map, 2026-10-05. NOTHING WAS SENT FROM IT.
+# GITHUB OUTREACH MAP: research map, 2026-10-05.
+
+**Sent from it since:**
+- §0's presence fixes (2026-10-05).
+- All five P1 items and both corrections (2026-10-05/06): see outreach/github-p1-2026-10-05.md STATUS.
+- §2 rows 6 and on (P2, P3) are untouched.
 
 This is a read-only map. Every venue was checked on 2026-10-05 with `gh api` GETs, `gh search` and web fetches. No issue was opened, nothing was commented on, starred, followed or forked, and no setting was changed. Each send is the operator's, item by item, after a freshness check (CLAUDE.md; outreach/SEND-QUEUE.md). Our pages live at https://carlostoledo.co/reports/…, all 41 were checked at 200. Register ids refer to certs/claims-ledger.json (132 rows, 131 decided).
 

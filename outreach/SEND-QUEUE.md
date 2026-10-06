@@ -17,10 +17,11 @@ here on request.
   - G3: the gist comment to Yongxi Lin on the 53-bit comparison.
   - G6: the correction of our own 41,128 → 40,992 on einstein-arena#64.
   - G2: HorizonMath#10, the Ramsey certificate refuted.
-- **NEXT, once the fixed pages deploy:**
-  - G5: Kravatskiy (an issue OR the email, not both).
-  - G4: Takhanov–Yun.
-  - G7: the #1038 correction on teorth#179.
+- **POSTED 2026-10-06, once the fixed pages were live:**
+  - G5: alexlegeartis/KissingNumbers#2 (the issue, not the email).
+  - G4: k-nic/Leech_lifting#1.
+  - G7: the #1038 correction on teorth/erdosproblems#179.
+- **All seven P1 items are out.** Next is the map's P2 list, item by item.
 - **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
 
 ## LANE P — PRIME INTELLECT (2026-10-05)

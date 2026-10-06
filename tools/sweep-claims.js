@@ -179,7 +179,10 @@ for (const [repo, num, label] of [
   ['dualverse-ai/station_data_v2', 2, 'rerun R3 (Station)'],
   ['suvrit/count-ex-machina', 1, 'rerun R4 (Sra)'],
   ['ewang26/HorizonMath', 10, 'HorizonMath Ramsey certificate'],
-  ['teorth/optimizationproblems', 216, 'PR #216 (3b/3c/71 replay)']]) {
+  ['teorth/optimizationproblems', 216, 'PR #216 (3b/3c/71 replay)'],
+  ['alexlegeartis/KissingNumbers', 2, 'Kravatskiy (K(18) checked)'],
+  ['k-nic/Leech_lifting', 1, 'Takhanov–Yun (K(25), d31 points)'],
+  ['teorth/erdosproblems', 179, '#179 (our #1038 correction)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

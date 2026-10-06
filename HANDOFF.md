@@ -91,7 +91,8 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     `make papers` green again (the register paper had been red since the mc100 rows; now the live register).
     POSTED (operator's "Proceed all needed" / "Go all"): the gist comment to Y. Lin (53-bit compare), the
     einstein-arena#64 correction (40,992), HorizonMath#10 (the Ramsey certificate), teorth/optimizationproblems PR #216
-    (the 3b/3c/71 replay). NEXT once the fixed pages deploy: G5 Kravatskiy, G4 Takhanov–Yun, G7 the #179 correction.
+    (the 3b/3c/71 replay); then, once the fixed pages were live (2026-10-06), alexlegeartis/KissingNumbers#2, k-nic/Leech_lifting#1
+    and the #1038 correction on teorth/erdosproblems#179 — all seven P1 items out. NEXT: the map's P2 list, item by item.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
     (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
     (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄
