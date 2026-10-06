@@ -32,8 +32,10 @@ scheme is re-derived gate by gate ($\AddU+\AddV+\AddW$) together with its \AddBr
 flip-graph walk over $\F_2$ reproduces \BLMatch\ published polynomial-multiplication bounds, one of them
 tight, and beats none. And the EinsteinArena ``new state of the art'' table, \EARows\ constructions on
 \EAProblems\ problems, is read as the exact rationals its decimals denote: \EAWitnessed\ exact witnesses,
-\EARepaired\ repaired within the platform's tolerance, no failure, all \EAImprovements\ improvements positive,
-one printed digit that belongs to the tolerance, and a grid maximum replaced by a certified supremum. No bound
+\EARepaired\ witnesses only within a verifier's tolerance (the platform's $10^{-9}$ on circle packings, in force when
+the packing was published and removed since; the repository notebook's $10^{-6}$ on three sums) and repaired from
+their own bytes, no failure, all \EAImprovements\ improvements positive, one printed digit that belongs to a
+tolerance, and a grid maximum replaced by a certified supremum. No bound
 is improved. The contribution is the decision grammar --- verdict, witness, refusal as a result --- and a
 public record that re-runs in seconds.
 \end{abstract}
@@ -51,11 +53,13 @@ arithmetic, and AlphaEvolve \cite{No25} a rank-$48$ algorithm over the complex n
 improvement on the recursive Strassen rank $49$. Flip-graph search \cite{KM22} is now the standard
 non-learned competitor, and has been pointed at polynomial multiplication \cite{CK25}. The additive cost of
 Laderman-rank schemes became an active record in 2025--26, ending (for now) at $55$ additions \cite{KI26}.
-And a platform, EinsteinArena, published a table of constructions on classical extremal problems claimed to
-beat AlphaEvolve's, each checked by the platform's own floating-point verifier with tolerances \cite{EA26}.
+And Together AI's EinsteinArena ``new state of the art'' table claimed constructions on classical extremal
+problems that beat AlphaEvolve's, each checked in floating point, with tolerances, by the notebook in its
+repository \cite{EA26}; the EinsteinArena platform's own verifiers score in floating point too, under rules
+that have moved since \cite{EAP26}.
 
-Every one of these results was verified by its producer. The platform scores in floating point with stated
-tolerances; the DeepMind notebook verifies its own decomposition in a cell; the lower-bound certificate was
+Every one of these results was verified by its producer. The table's notebook checks in floating point with
+stated tolerances; the DeepMind notebook verifies its own decomposition in a cell; the lower-bound certificate was
 checked by the code that produced it. None of that is a defect, but it leaves a specific gap: no independent
 party had decided these objects in exact arithmetic, from the bytes as published, with a stated verdict
 grammar and a record anyone can re-run. This paper fills that gap for the objects named in the title and
@@ -153,7 +157,8 @@ match the Chen--Kauers full-product table.
 \begin{proposition}[the EinsteinArena table]\label{prop:ea}
 Of the \EARows\ constructions the repository publishes at commit \EACommit, every one read as the exact
 rationals its decimal literals denote, \EAWitnessed\ are exact witnesses of the value stated, \EARepaired\
-are witnesses only within the platform's tolerance and are repaired from their own bytes, and \EAUnwitnessed\
+are witnesses only within a verifier's tolerance (the platform's, as it stood when the construction was
+published, or the repository notebook's) and are repaired from their own bytes, and \EAUnwitnessed\
 fail. All \EAImprovements\ improvements over the previous best are positive exact differences, from
 \EASmallest\ to \EALargest. Of \EAPrinted\ printed values, \EAPrintedAgree\ are the exact value's rounding
 or ceiling; the one exception is the tolerance's digit.
@@ -360,8 +365,10 @@ target & lower (Wang 2026) & previous lower & upper & upper bound due to \\\midr
 
 The repository \EARepo\ claims a new state of the art over AlphaEvolve on a table of extremal problems:
 circle and hexagon packings, Heilbronn configurations, step functions for two open inequalities, a flat
-polynomial, a benchmark score \cite{EA26}. Every construction was checked by the platform's own
-floating-point verifier with tolerances. The ledger of \texttt{instruments/easota} reads each published
+polynomial, a benchmark score \cite{EA26}. Every construction was checked in floating point, with
+tolerances, by the notebook the repository ships; the platform's own verifiers, read here from their sources
+at \EAPlatformHead\ and dated by their history \cite{EAP26}, score in floating point under rules that have
+moved since the table was published. The ledger of \texttt{instruments/easota} reads each published
 file (\EAFiles\ files held byte for byte at commit \EACommit, fetched \EAFetched, re-hashed at every run) as
 the exact rationals its decimal literals denote --- $0.1$ is $\tfrac1{10}$, never the nearest double --- and
 decides the platform's objective with no tolerance at all. The grammar per row: WITNESSED (\EAGrammarW);
@@ -380,9 +387,12 @@ end of a certified enclosure of the supremum). A score is confirmed when it is t
 upper bound when it is the exact value's ceiling.}\label{tab:ea}
 \end{table}
 
-\paragraph{The repairs, and the digit that belongs to the tolerance.} The platform accepts a circle packing if
-no two circles overlap by more than $10^{-9}$ and the bounding box's width plus height exceeds $2$ by no
-more than $10^{-9}$. Read exactly, the Together $21$-circle packing overlaps in \CirPairs\ of its
+\paragraph{The repairs, and the digit that belongs to the tolerance.} When Together published its packing
+(\CirPublishedOn), the platform accepted a circle packing if no two circles overlapped by more than $10^{-9}$
+and the bounding box's width plus height exceeded $2$ by no more than $10^{-9}$ --- the rule the repository's
+notebook still applies. On \CirSlackDropped\ the platform removed that slack (its changelog, ``Feasibility
+checks tightened''; the code merged \CirSlackMerged): the box is now checked in exact rationals and the pairs
+with no margin, and its live verifier, read on \EARuleAsOf, rejects this file \cite{EAP26}. Read exactly, the Together $21$-circle packing overlaps in \CirPairs\ of its
 \CirAllPairs\ pairs, the worst (pair \CirWorstPair) by \CirWorst\ in squared distance, and its box exceeds the
 perimeter by \CirBox. AlphaEvolve's packing does neither (worst pair clear by \CirAEWorst, box by \CirAEBox)
 and is an exact witness of \CirAEPrinted. The repair is the smallest the bytes allow: every radius scaled by
@@ -391,10 +401,13 @@ inside the perimeter. The exact witness then sums to \CirSumRepaired, a deficit 
 published sum \CirSumPublished. The printed \CirPrinted\ rounds the published sum, not the witness, which
 rounds to \CirRepairRounded: ten digits were printed and the tenth is the tolerance's. The improvement over
 AlphaEvolve is unaffected, \CirImprovement\ between the two exact witnesses. The other three repairs are
-float noise made visible: the platform requires a step function's values to sum to $n/2$ within $10^{-6}$,
-three of the four minimum-overlap constructions miss it by \OvMissMin\ to \OvMissMax\ (Haugland's
-\OvHSteps-step function \cite{Ha16}, written as short decimals, sums exactly), and renormalised to
-$\sum h=n/2$ exactly the bounds move by at most \OvDeltaMax; every printed ceiling stands, \OvTPrinted\ and
+float noise made visible: the repository's notebook requires a step function's values to sum to $n/2$ within
+$10^{-6}$, while the platform's verifier has no tolerance on the sum --- in every public version (since
+\OvPlatformSince) it rescales the values to $\sum h=n/2$ in floating point before scoring \cite{EAP26}.
+Three of the four minimum-overlap constructions miss $n/2$ by \OvMissMin\ to \OvMissMax\ (Haugland's
+\OvHSteps-step function \cite{Ha16}, written as short decimals, sums exactly) --- inside the notebook's
+$10^{-6}$, and below what a float64 sum can see, so the platform's rescale leaves all three as published ---
+and renormalised to $\sum h=n/2$ exactly the bounds move by at most \OvDeltaMax; every printed ceiling stands, \OvTPrinted\ and
 \OvOPrinted\ being the ceilings of \OvTExact\ and \OvOExact.
 
 \paragraph{A supremum, not a sample.} The two inequalities are the rows where exactness is more than
@@ -479,8 +492,9 @@ the authors published, not the search that produced it, not their local optimali
 about the minimum additive cost over all rank-\AddRank\ schemes; \AddCounted\ is an upper bound on a
 quantity whose true minimum nobody knows. The $\F_2$ statements of Section~\ref{sec:bl} need not lift to $\Z$
 or to any other field, and no lifting was attempted. A REPAIRED row of Section~\ref{sec:ea} is not a
-refutation: the platform's tolerance is a design choice and the repaired witness attains the printed value to
-nine of ten digits; the flat-polynomial enclosures certify the suprema of two published polynomials, not the
+refutation: a verifier's tolerance is a design choice (the platform has since dropped its circles slack, and
+its overlap verifier rescales rather than tolerates), and the repaired circles witness attains the printed
+value to nine of ten digits; the flat-polynomial enclosures certify the suprema of two published polynomials, not the
 flatness constant; and the benchmark score is defined by the platform's verifier rather than by mathematics.
 The sources audited are published, not peer-reviewed; the repository of Section~\ref{sec:ea} carries no
 licence file and its bytes are held here for verification only. Nothing here has been sent to any producer.
@@ -525,6 +539,9 @@ re-run these gates and refuse on any deviation.}
 \bibitem{CK25} S.~Chen, M.~Kauers, Flip graphs for polynomial multiplication, arXiv:2502.06264 (2025).
 \bibitem{KI26} Karunaratne and Idamekorala, arXiv:2607.28676 (July 2026), with the certificate \path{add55-certificate.json} as pinned in \path{corpus/sources/}; cited as recorded in \path{reports/matmul-additions.html}.
 \bibitem{EA26} Together AI, \emph{EinsteinArena-new-SOTA}, \path{github.com/togethercomputer/EinsteinArena-new-SOTA}, commit \EACommit, fetched \EAFetched; the constructions and READMEs as pinned in \path{corpus/easota/}.
+\bibitem{EAP26} EinsteinArena, the platform's verifier sources and changelog, \EAPlatformRepo, commit
+\EAPlatformHead\ (public history from \EAPlatformFrom), and its live API, read on \EARuleAsOf; as pinned
+in \path{corpus/sources/easota-platform/}.
 \bibitem{TTT26} Yuksekgonul et al., TTT-Discover, arXiv:2601.16175 (2026), as recorded in the ledger.
 \bibitem{Ha16} J.~K.~Haugland, The minimum overlap problem revisited, arXiv:1609.08000 (2016).
 \bibitem{Wi77} S.~Winograd, Some bilinear forms whose multiplicative complexity depends on the field of constants, \emph{Math.\ Systems Theory} 10 (1977), 169--180.

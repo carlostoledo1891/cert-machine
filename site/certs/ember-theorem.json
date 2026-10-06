@@ -10,7 +10,7 @@
   ],
   "note": "vertices are EXACT RATIONALS; convex; side slopes 6 and 18/5; no symmetry axis; not a lip domain"
  },
- "generated": "2026-09-02T16:28:04.629Z",
+ "generated": "2026-10-06T03:38:46.117Z",
  "trustBase": [
   "instruments/interval rigor model (outward-rounded IEEE doubles; exact BigInt rationals)",
   "instruments/ivspecial (interval Γ Spouge + Bessel J_ν; battery: closed-form falsifiers + bigfloat/exact-rational cross-gates)",
@@ -19,7 +19,7 @@
   "classical facts: Neumann separation in a sector + H¹ regularity (excludes the singular Bessel family), Green identity, spectral theorem, Courant"
  ],
  "source": {
-  "bench": "/Users/carlostoledo/Documents/frontier-apps/experiments/ember/",
+  "bench": "/Users/carlostoledo/Projects/frontier-apps/experiments/ember/",
   "note": "frontier-apps has NO git and is NOT a lift source; the bench scripts are pinned byte-for-byte in instruments/hotspots/frontier-ref/ and every proof-bearing quantity is recomputed HERE on instruments/interval + instruments/ivspecial"
  },
  "verdict": "VERIFIED",
@@ -39,7 +39,7 @@
    "Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum); earlier partial acute-triangle results (Siudeja, arXiv:1308.3005)",
    "lip domains (Atar–Burdzy)",
    "certain non-convex polygons: L-tiled domains (Hatcher, arXiv:2405.19508)",
-   "symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao, arXiv:2604.19003, Apr 2026)",
+   "symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao–Zou, arXiv:2604.19003, Apr 2026)",
    "THE OTHER DIRECTION: in sufficiently high dimension the conjecture is FALSE for convex sets (de Dios Pont, arXiv:2412.06344, \"Convex sets can have interior hot spots\") — the planar convex case is exactly where the conjecture remains expected, and this domain sits there",
    "computational antecedent, cited not fenced: the Polymath7 project developed a validated-numerics route to acute triangles (numerics by Nigam) before the analytic triangle proof"
   ],
@@ -123,7 +123,7 @@
  "records": {
   "ember-spectrum.json": "9a6bd2aebb1119ce79ad2b10cf178a002d9a4d7739b1d7bf313615a588512afe",
   "ember-defect.json": "4947c112ff57d56a754bca9f1b8c5ce38864ec3e03c93ed93573a23170f1297a",
-  "ember-eigenpair.json": "3448fc920e03252443954ed1c49c54a263d36c7e6dafb40817fbdd96534d6260",
+  "ember-eigenpair.json": "847e07ffd8d37cfdaf2806cc57403aa20ac4b4152c5eac70ce90b6b797b0738f",
   "ember-pointwise.json": "0600b4d3aa11367d97ec28ff3a6e1327d1f01d4bf1b9181c97c2740b6092fcf8",
   "ember-collar.json": "d0b0d5d769079cc9da6474d17bdfee61f74ceed6323e2da18e677b8e3794c3a1",
   "ember-corner.json": "78d3c62219518c343c58ee65ef47410226a9a68515ab5b01a3a1c617349852ac",

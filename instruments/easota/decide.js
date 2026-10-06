@@ -98,7 +98,8 @@ function mindist(P) {
 }
 
 /* ---------------- Erdős minimum overlap: a step function h, upper bound 2·max corr(h, 1−h)/n ----------------
-   The platform requires 0 <= h <= 1 and Σh = n/2 within 1e-6. Here Σh = n/2
+   The claim needs 0 <= h <= 1 and Σh = n/2. The Together notebook checks the sum with np.isclose(atol=1e-6);
+   EinsteinArena's verifier rescales h to Σh = n/2 before scoring (no tolerance on the sum). Here Σh = n/2
    exactly, or the function is renormalised (a REPAIR) and the bound re-decided. */
 function overlap(h) {
   const n = h.length;
@@ -137,7 +138,7 @@ function overlap(h) {
    (the Newton identities for pairwise and triple products); the curve is
    sorted by ρ, deduplicated on ρ, closed with (0,0) and (1,1), and the area
    under the platform's slope-3 envelope is integrated segment by segment;
-   score = −(area + 10·max gap in ρ). The platform's 1e-9 branches are exact
+   score = −(area + 10·max gap in ρ). The verifier's 1e-9 branches (the notebook's, as published) are exact
    comparisons here; a segment narrower than 1e-9 contributes its exact area
    instead of nothing, which bounds the difference by 1e-9 per such segment. */
 function edges(W) {

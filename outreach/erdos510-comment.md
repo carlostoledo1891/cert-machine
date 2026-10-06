@@ -1,4 +1,6 @@
-# erdos510 comment — POSTED by the operator, 2026-08-26; awaiting moderation
+# erdos510 comment — POSTED by the operator, 2026-08-26; PUBLIC on /forum/thread/510 ("carlos_toledo — 21:32 on 26 Aug 2026"),
+# found 2026-10-06 (the sweep had been fetching /510, which shows only the count); snapshot pinned:
+# corpus/sources/erdos510_thread_comment-public_2026-10-06.html
 
 STATUS (2026-08-26, operator's word): the comment below was posted to the
 #510 page and sits in the site's moderation queue. Do not cite it as public

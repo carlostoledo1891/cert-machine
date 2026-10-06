@@ -32,6 +32,13 @@ if (d.chunks !== 17) die('expected 17 chunks, the audit found ' + d.chunks);
 if (!(d.interval[0] === 0.845 && d.interval[1] === 0.85)) die('the audited interval is not [0.845, 0.85]');
 
 const pins = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'emberband', 'PINS.json'), 'utf8'));
+/* the symmetric-quadrangle fence's author list, read from the pinned arXiv abstract page, never typed: the
+   record named five of its six authors (Zou missing) until 2026-10-06 */
+const SYMQ = 'ember/arxiv-2604.19003-abs_2026-10-06.html';
+{ const v = require(path.join(ROOT, 'instruments', 'pin.js')).verify(SYMQ); if (!v.ok) die('pinned source ' + SYMQ + ': ' + v.why); }
+const symqAuthors = [...fs.readFileSync(path.join(ROOT, 'corpus', 'sources', SYMQ), 'utf8')
+  .matchAll(/<meta name="citation_author" content="([^,"]+),/g)].map((m) => m[1]);
+if (symqAuthors.length !== 6 || symqAuthors[0] !== 'Deng' || symqAuthors[5] !== 'Zou') die('the pinned arXiv:2604.19003 page no longer lists the six authors Deng … Zou');
 const out = {
   what: 'THE EMBER BAND. For every c in [0.845, 0.85], the trapezoid A(0,0) B(1,0) C(c,9/10) D(1/4,9/10) '
     + 'is a convex quadrilateral with no axis of symmetry, outside every class for which the hot spots '
@@ -42,7 +49,7 @@ const out = {
     + 'right endpoint and which the audit checks for containment.',
   fences: 'Previously proven classes, unchanged: all triangles (Judge–Mondal, Annals 2020 + 2022 erratum), lip '
     + 'domains (Atar–Burdzy), certain non-convex L-tiled polygons (Hatcher arXiv:2405.19508), symmetric '
-    + 'quadrangle subcases (Deng–Gui–Jiang–Yang–Yao arXiv:2604.19003). In the other direction the conjecture is '
+    + 'quadrangle subcases (' + symqAuthors.join('–') + ' arXiv:2604.19003). In the other direction the conjecture is '
     + 'FALSE for convex sets in sufficiently high dimension (de Dios Pont, arXiv:2412.06344) — a counterexample, '
     + 'never a proven class. The planar convex quadrilateral conjecture itself remains OPEN; this is a family, '
     + 'not the census.',

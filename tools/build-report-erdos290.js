@@ -27,6 +27,7 @@ const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 const os = require('os');
+const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
@@ -39,6 +40,37 @@ const TAIL = require(path.join(ROOT, 'machine', 'erdos290', 'tail.js'));
 
 const sh = (c, cwd) => cp.execSync(c, { cwd: cwd || ROOT, stdio: ['ignore', 'pipe', 'pipe'] }).toString();
 const die = (m) => { console.error('ERDOS290 REPORT REFUSED: ' + m); process.exit(1); };
+
+/* ---- 0 · the sources the page's framing rests on, re-hashed --------------
+   corpus/sources/erdos290 (PINS.json): the abstract of arXiv:2609.00104, a note
+   pinning both van Doorn PDFs by sha256 with the lines the page leans on
+   (Theorem 1 of 2609.00104; the proof of Lemma 32 of 2411.03073), and the
+   #164 thread. The page says "no assumption about the tail; the Lemma 32
+   computation taken as given" — the build refuses unless the pinned bytes
+   still say both halves of that. */
+const SRCDIR = path.join(ROOT, 'corpus', 'sources');
+const PINS = JSON.parse(fs.readFileSync(path.join(SRCDIR, 'PINS.json'), 'utf8'));
+const pinnedSrc = (rel) => {
+  const want = PINS[rel]; if (!want) die('no pin for corpus/sources/' + rel);
+  const b = fs.readFileSync(path.join(SRCDIR, rel));
+  if (crypto.createHash('sha256').update(b).digest('hex') !== want) die('corpus/sources/' + rel + ' does not hash to its pin');
+  return b.toString('utf8');
+};
+const SRC_ABS = 'erdos290/arxiv-2609.00104-abs_2026-10-06.html';
+const ABS = pinnedSrc(SRC_ABS);
+if (!ABS.includes('The shortest harmonic sums with decreasing denominator') || !ABS.includes('Here we find its exact value.'))
+  die('the pinned abstract of arXiv:2609.00104 no longer says what the page cites it for');
+pinnedSrc('erdos290/arxiv-2411.03073-abs_2026-10-06.html');
+const PAPERS = pinnedSrc('erdos290/arxiv-papers-pin.txt');
+for (const needle of ['Theorem 1. We have liminf_{a→∞} (b(a) − a)/log a = 1/(1+c).', 'G_d is isomorphic to S_l^+ for all', 'even d ≤ 60, except for d = 8, 24, 48.'])
+  if (!PAPERS.includes(needle)) die('the papers pin no longer quotes: ' + needle);
+const THREAD = JSON.parse(pinnedSrc('erdos290/teorth-erdosproblems-164-comments_2026-10-06.json'));
+if (!THREAD.some((c) => c.user.login === 'Woett' && c.body.includes('proves that the liminf is actually equal to 1/(1+c)')))
+  die('the pinned #164 thread no longer holds Woett\'s comment on arXiv:2609.00104');
+if (!THREAD.some((c) => c.created_at.startsWith('2026-08-04') && c.body.replace(/\s+/g, ' ').includes('takes Lemma 32\'s Magma determination that G_d = S_l^+ for even d <= 60 outside {8, 24, 48} as given')))
+  die('the pinned #164 thread no longer holds our 2026-08-04 statement of the Lemma 32 dependency');
+/* the one input the bracket takes as given, in the words the page uses for it everywhere */
+const LEMMA32 = 'the Magma computation in the proof of van Doorn\'s Lemma 32 (arXiv:2411.03073: G_d ≅ S_l⁺ for every even d ≤ 60 except 8, 24, 48)';
 const gitrev = (() => { try { return sh('git rev-parse --short HEAD').trim(); } catch (e) { return 'unknown'; } })();
 
 /* ---- 1 · the theorem, re-proved in a scratch copy ------------------------- */
@@ -146,7 +178,7 @@ const bxWidth = Q.toDouble(sub(BX.hi, BX.lo));
    printed decimals — and 1/(1+x) is decreasing, so the endpoints swap.
 
    `agreed` counts the leading decimal digits the two endpoints SHARE. That is
-   the honest meaning of "digits known unconditionally": digits both ends of a
+   the honest meaning of "digits known with no tail assumption": digits both ends of a
    proved interval agree on cannot be moved by anything inside it. The count is
    computed, so the page cannot claim a digit the bracket does not hold. */
 const invOf = (b) => ({ lo: div(ONE, add(ONE, b.hi)), hi: div(ONE, add(ONE, b.lo)) });
@@ -167,7 +199,7 @@ const INV60 = invOf({ lo: R(BigInt(Math.round(B60.lo * 1e12)), 10n ** 12n),
                       hi: R(BigInt(Math.round(B60.hi * 1e12)), 10n ** 12n) });
 const inv60Agreed = agreedDigits(INV60.lo, INV60.hi, 12);
 const invPrefix = uncLo.toFixed(12).slice(0, 2 + invAgreed);
-if (invAgreed <= inv60Agreed) die('the extension did not add an unconditional digit to 1/(1+c) — '
+if (invAgreed <= inv60Agreed) die('the extension did not add a digit to 1/(1+c) (no tail assumption) — '
   + 'the page\'s headline is derived from this comparison and must not be written when it is false');
 if (bxWidth > B60.width + 1e-15) die('the extended bracket is wider than the recorded K=60 bracket — impossible');
 
@@ -240,7 +272,7 @@ O.push(C.header({
   title: 'A digit that was a guess is now a theorem',
   deck: 'Someone asked, in an open GitHub issue, what number to put in the OEIS for Erdős problem #290 — and '
     + 'guessed its third digit. That digit is now PROVED. The constant is ' + C.esc(invPrefix) + '…, with no '
-    + 'assumption of any kind, where every previous horizon could pin only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
+    + 'assumption about the tail — the one input taken as given is ' + LEMMA32 + ' — where every previous horizon could pin only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
     + '…. It took closing ' + (Lmax - citedL) + ' consecutive degrees of a computation nobody had run past '
     + 'd = ' + citedD + '.'
 }));
@@ -249,9 +281,9 @@ O.push(C.header({
    it used to carry its own literals ("a third", "l ≤ 90") and they had gone stale against
    the body of the page. A number that appears twice must be computed once. */
 O.push(C.tldr({
-  findingRaw: '<strong>1/(1+c) = ' + C.esc(invPrefix) + '…, unconditionally.</strong> Three digits of the '
-    + 'constant an OEIS entry would carry, proved — not estimated, not sampled, and not resting on any '
-    + 'assumption. The previous horizon held only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
+  findingRaw: '<strong>1/(1+c) = ' + C.esc(invPrefix) + '…, with no assumption about the tail.</strong> Three digits of the '
+    + 'constant an OEIS entry would carry, proved — not estimated, not sampled. The one input taken as given is '
+    + C.esc(LEMMA32) + '; this build re-certifies its irreducibility half, not its group half. The previous horizon held only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
     + '…, so the third digit is new here, and it is the digit the #290 issue guessed. Underneath it: the '
     + '4k(k+1) square-discriminant law proved as exact integer identities, the bracket for c tightened to width '
     + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter than the cited page — and every '
@@ -259,7 +291,7 @@ O.push(C.tldr({
     + (excClosed.length
       ? ', the ' + excClosed.length + ' exceptional degrees past the cited horizon (d = ' + andList(excClosed.map((e) => String(e.d))) + ') among them.'
       : '.')
-    + ' Since 2026-08-31 the liminf is a THEOREM, not an interval: van Doorn (arXiv:2609.00104) proved it equals '
+    + ' Since 2026-08-31 the liminf is a THEOREM, not an interval: van Doorn (<a href="https://arxiv.org/abs/2609.00104">arXiv:2609.00104</a>, Theorem 1) proved it equals '
     + '1/(1+c) exactly, so this bracket is now the certified numeric value of that constant rather than one end '
     + 'of a range — and the two-sided reading below (1/(2c) ≤ ' + twoCHi.toFixed(6) + ') is superseded, §3b.',
   mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object '
@@ -270,7 +302,7 @@ O.push(C.tldr({
 }));
 
 O.push(C.stats([
-  { k: '1/(1+c), unconditional', v: C.esc(invPrefix) + '…', role: 'held', n: 'the OEIS-shaped constant, proved with NO assumption — [' + uncLo.toFixed(12) + ', ' + uncHi.toFixed(12) + '], derived by exact rational division of the bracket. ' + invAgreed + ' digits agreed, against ' + inv60Agreed + ' at the cited horizon' },
+  { k: '1/(1+c), no tail assumption', v: C.esc(invPrefix) + '…', role: 'held', n: 'the liminf itself (arXiv:2609.00104, Theorem 1), proved with no assumption about the tail; ' + LEMMA32 + ' taken as given — [' + uncLo.toFixed(12) + ', ' + uncHi.toFixed(12) + '], derived by exact rational division of the bracket. ' + invAgreed + ' digits agreed, against ' + inv60Agreed + ' at the cited horizon' },
   { k: 'the 4k(k+1) law', v: 'RE-PROVED', role: 'held', n: 'exact integer identities; ' + falsifiers + ' planted falsifiers fired during this build' },
   { k: 'cited bracket (K=' + citedL + ')', v: '[' + B60.lo.toFixed(9) + ', ' + B60.hi.toFixed(9) + ']', sm: true, n: 'reproduced byte-identically from the lifted narrowing pipeline' },
   { k: 'this build\'s bracket', v: '[' + bxLo.toFixed(9) + ', ' + bxHi.toFixed(9) + ']', sm: true, role: 'held', n: 'width ' + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter; densities pinned through l = ' + Lpin },
@@ -410,9 +442,10 @@ O.push(C.section({
   lab: '§3b · superseded, and why it is kept', title: 'The liminf became exact — so this bracket is now its value',
   bodyRaw: '<div class="col">'
     + C.pRaw('<strong>Read this section as history.</strong> On 2026-08-31 van Doorn posted '
-      + '<a href="https://arxiv.org/abs/2609.00104">arXiv:2609.00104</a>, which proves that '
+      + '<a href="https://arxiv.org/abs/2609.00104">arXiv:2609.00104</a>, whose Theorem 1 proves that '
       + C.m('liminf (b(a)−a)/log a = 1/(1+c)') + ' EXACTLY — a human write-up of a proof discovered with ChatGPT '
-      + '5.6-Sol Pro. Theorem 8 is therefore no longer a two-sided interval, and the upper-endpoint sharpening '
+      + '5.6-Sol Pro (the abstract is pinned at ' + C.m('corpus/sources/' + SRC_ABS) + ', the PDF by sha256 beside it). '
+      + 'The 1/(2c) endpoint is superseded by that theorem: Theorem 8 is no longer a two-sided interval, and the upper-endpoint sharpening '
       + 'this section describes no longer improves anything. What survives is better: the certified bracket on c '
       + 'above is now the numeric value of a constant that is known exactly, and to our knowledge it remains the '
       + 'sharpest published enclosure of it — the new paper states only "approximately 0.546" and makes no effort '
@@ -454,8 +487,9 @@ O.push(C.section({
       + condAllow.toExponential(2) + ' — which caps this enclosure at ' + condCap + ' decimals no matter how large '
       + 'the cutoff, of which the record publishes ' + condDigits + '. The derived constant 1/(1+c*) = ' + inv18.lo + '… (exact rational division '
       + 'of the enclosure) is the OEIS-shaped output. The assumption subsumes irreducibility of f_d for those '
-      + 'degrees; it is certified only through the pinned horizon, and the unconditional statement remains the '
-      + 'bracket of §3 — the two are never conflated.')
+      + 'degrees; it is certified only through the pinned horizon. The statement with no assumption about the tail '
+      + 'remains the bracket of §3, which takes as given only ' + LEMMA32 + ', as everywhere on this page — the two '
+      + 'are never conflated.')
     + C.pRaw('The same telescoping run against THIS build\'s horizon instead of the cited kernel\'s — '
       + C.m('node tools/erdos290-cstar-precision.js') + ' — starts its assumption at d = ' + (2 * Lpin + 2)
       + ' rather than d = ' + 2 * condFirstL + ', and the enclosure lengthens accordingly; that tool carries its '
@@ -486,6 +520,6 @@ const foot = ''
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos290.html'),
   TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos290.html',
-    desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant behind BOTH endpoints of van Doorn\'s Theorem 8 — tightened past the cited page, every number recomputed at build.' }));
+    desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.' }));
 console.log('reports/erdos290.html written: theorem RE-PROVED (' + falsifiers + ' falsifiers), narrowing reproduced, bracket ['
   + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + fmtPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);

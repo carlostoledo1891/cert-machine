@@ -238,7 +238,7 @@ def('WidthGainPct', (100 * (1 - Q.toDouble(sub(BX.hi, BX.lo)) / Q.toDouble(sub(B
 def('WidthFactorSixty', (Q.toDouble(sub(B60.hi, B60.lo)) / Q.toDouble(sub(BX.hi, BX.lo))).toFixed(1));
 def('InvLo', dec(INV.lo, 12, 'floor')); def('InvHi', dec(INV.hi, 12, 'ceil'));
 const invAgreed = agreedDigits(INV.lo, INV.hi, 12), inv60Agreed = agreedDigits(INV60.lo, INV60.hi, 12), inv30Agreed = agreedDigits(INV30.lo, INV30.hi, 12);
-need(invAgreed === 3, 'the paper says three unconditional digits; the bracket gives ' + invAgreed);
+need(invAgreed === 3, 'the paper says three digits with no tail assumption; the bracket gives ' + invAgreed);
 need(inv60Agreed === 2, 'the paper says two digits at the cited horizon; the record gives ' + inv60Agreed);
 def('InvAgreed', String(invAgreed)); def('InvSixtyAgreed', String(inv60Agreed)); def('InvThirtyAgreed', String(inv30Agreed));
 def('InvPrefix', dec(INV.lo, 12, 'floor').slice(0, 2 + invAgreed));
@@ -305,7 +305,7 @@ need(dec(CS.lo, condDigits, 'floor') === NARROW.conditionalEnclosure34.lo && dec
   'the lifted kernel no longer reproduces the recorded ' + condDigits + '-digit conditional enclosure');
 def('CondDigits', String(condDigits)); def('CondLo', NARROW.conditionalEnclosure34.lo); def('CondHi', NARROW.conditionalEnclosure34.hi);
 def('CondInv', dec(div(ONE, add(ONE, CS.hi)), 18, 'floor'));
-need(cmp(BX.lo, CS.lo) <= 0 && cmp(CS.hi, BX.hi) <= 0, 'the conditional value left the unconditional bracket');
+need(cmp(BX.lo, CS.lo) <= 0 && cmp(CS.hi, BX.hi) <= 0, 'the conditional value left the bracket (no tail assumption)');
 /* the first assumed degree of that enclosure, read off its width (the report builder's detection) */
 const allowW = (l) => mul(R(1n, 2n ** BigInt(l) * fact(l)), W(l));
 const condFirstL = (() => { const wid = sub(CS.hi, CS.lo); let acc = ZERO;

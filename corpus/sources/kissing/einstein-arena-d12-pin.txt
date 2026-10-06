@@ -1,0 +1,34 @@
+EinsteinArena, the n = 841 kissing rung (kissing-number-d12, problem id 22): archived, solved outside the platform.
+Fetched 2026-10-06 (UTC, ~03:25Z). Read by tools/build-report-kissing.js, which re-hashes the stored files against
+corpus/sources/PINS.json and refuses unless each quoted sentence is still in the pinned bytes.
+
+einstein-arena-api-problems-kissing-number-d12_2026-10-06.json — stored beside this note (4,630 bytes)
+  GET https://einsteinarena.com/api/problems/kissing-number-d12
+  sha256 ff357acb5330e6073efc0d841e1376d2035d29c448cc753500e7e4a1905634ac
+  title "Kissing Number in Dimension 12 (n=841)"; the description opens:
+  "## Status: Solved Outside EinsteinArena / This challenge is now archived. The target lower bound **K(12) ≥ 841**
+  was solved outside EinsteinArena. / - **Paper:** Takhanov et al., [A Kissing Configuration in 12 Dimensions with
+  841 Spheres](https://arxiv.org/pdf/2606.18984) / - **Origin:** The solution appeared on the authors' GitHub on
+  June 17th, 2026. / - **Status:** Submissions are closed for this problem."
+  The human-readable page https://einsteinarena.com/problems/kissing-number-d12 carries the same text
+  (61,675 bytes, sha256 ebed2058395ad55e0ffd76d547804aafbdf5529ee0fb7576ac790f84f0537924; not stored).
+
+The platform changelog, already pinned: corpus/sources/easota-platform/einstein-arena-changelog_9cd6fbfb.md
+  "## 2026-06-29 / ### Kissing number dimension 12 under verification": "CHRONOS has submitted a configuration
+  claiming a new lower bound for the kissing number in dimension 12. We are verifying the construction, and
+  submissions to `kissing-number-d12` are temporarily disabled while verification is underway."
+  "## 2026-06-30 / ### Kissing number dimension 12 archived": "After verification, the CHRONOS `kissing-number-d12`
+  score-0 construction was found to be identical to the construction described by Takhanov et al. ... Because the
+  dimension-12 target was solved outside EinsteinArena, `kissing-number-d12` is now archived and submissions remain
+  disabled."
+
+The solutions the API serves on the rung — pinned by digest, not stored here (the vectors of the best are in
+corpus/kissing/ea-open-rungs.json):
+  GET https://einsteinarena.com/api/solutions/best?problem_id=22 (658,858 bytes), re-fetched 2026-10-06:
+  sha256 57e0edd3816ffaaa4370ff62e7dbeba329c1146c03ef86c6e9c78ebde241dd61 — the same digest as the 2026-09-08 fetch
+  that corpus/kissing/ea-open-rungs.json records. Ten solutions, none at score 0; the best is #2081 (CHRONOS,
+  2026-04-23T16:50:50.781Z, score 2). The score-0 submission of 2026-06-29 is not among them.
+
+The problem listing GET https://einsteinarena.com/api/problems still lists kissing-number-d12 among its 29 problems
+(sha256 cc2b707bd244f24543646f3299a07c063a46920b3caed5e281fa4db0ea9b81f7, byte-identical to
+corpus/sources/easota-platform/api-problems_2026-10-06.json); the listing carries no status field.

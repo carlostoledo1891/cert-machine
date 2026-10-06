@@ -48,6 +48,23 @@ const dec = (x, d) => Number(x).toFixed(d);
 const pct = (a, b, d) => (100 * a / b).toFixed(d) + '\\%';
 /* a small or large number in scientific form, as math: $8.7\times10^{-11}$ */
 const sci = (x, d) => { const m = /^(-?[\d.]+)e([+-]?\d+)$/.exec(Number(x).toExponential(d)); return '$' + m[1] + '\\times10^{' + Number(m[2]) + '}$'; };
+/* an upper bound ("up to", "at most") in the same form, rounded UP and checked against the exact value. The
+   ledgers write a slack truncated toward zero, so |written| <= |exact| < |written| + one unit in its last place:
+   the bound is taken from the latter, never from the written digits. Refuses rather than print an inward digit. */
+const sciUpFromTruncated = (s, d) => {
+  const m = /^-?(\d+)(?:\.(\d+))?$/.exec(String(s)); need(m, 'not a plain decimal: ' + s);
+  const f = m[2] || '', num = BigInt(m[1] + f) + 1n, den = 10n ** BigInt(f.length);   /* |written| + ulp */
+  need(num > 0n, 'an upper bound must be positive: ' + s);
+  let e = Math.floor(Math.log10(Number(s.replace(/^-/, ''))));
+  const ge = (k) => (k >= 0 ? num >= den * 10n ** BigInt(k) : num * 10n ** BigInt(-k) >= den);   /* num/den >= 10^k */
+  while (!ge(e)) e--; while (ge(e + 1)) e++;
+  const sc = e - d, N = sc >= 0 ? num : num * 10n ** BigInt(-sc), D = sc >= 0 ? den * 10n ** BigInt(sc) : den;
+  let q = N / D; if (q * D !== N) q += 1n;
+  if (q >= 10n ** BigInt(d + 1)) { q /= 10n; e += 1; }
+  const sh = e - d, shownGe = sh >= 0 ? q * 10n ** BigInt(sh) * den >= num : q * den >= num * 10n ** BigInt(-sh);
+  need(shownGe, 'an upper bound rounded inward: ' + s);
+  const qs = q.toString(); return '$' + qs[0] + (d ? '.' + qs.slice(1) : '') + '\\times10^{' + e + '}$';
+};
 const git = (() => { try { return cp.execSync('git rev-parse --short=12 HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 /* plain text into LaTeX: the characters the records use */
 const tex = (s) => String(s).replace(/\\/g, '\\textbackslash{}').replace(/([&%$#_{}])/g, '\\$1').replace(/~/g, '\\textasciitilde{}').replace(/\^/g, '\\textasciicircum{}')
@@ -285,7 +302,14 @@ def('RegWhat', tex(R.what)); def('RegScope', tex(R.scope.replace(/^What can be d
   const circ = rep.find((r) => r.id === 'circles/ours_2026'); need(circ && circ.repair && circ.repair.deficit, 'the circle-packing repair moved');
   def('EaCirclesDeficit', sci(circ.repair.deficit, 2)); def('EaCirclesOverlaps', int(circ.asPublished.overlappingPairs)); def('EaCirclesPrinted', circ.printed); def('EaCirclesExact', circ.exact.slice(0, 12));
   const ov = rep.filter((r) => r.problem === 'erdos-minimum-overlap'); need(ov.length === 3, 'the overlap repairs are not three');
-  def('EaOverlapRepairs', int(ov.length)); def('EaOverlapMiss', sci(Math.max(...ov.map((r) => Math.abs(Number(r.asPublished.sumMinusHalfN)))), 2)); def('EaOverlapDeltaMax', sci(Math.max(...ov.map((r) => Math.abs(Number(r.repair.delta)))), 2));
+  /* "miss n/2 by up to" and "move each bound by at most" are upper bounds: rounded up from the truncated record */
+  const maxAbs = (xs) => xs.map((x) => x.replace(/^-/, '')).sort((a, b) => Number(a) - Number(b)).pop();
+  def('EaOverlapRepairs', int(ov.length)); def('EaOverlapMiss', sciUpFromTruncated(maxAbs(ov.map((r) => r.asPublished.sumMinusHalfN)), 2)); def('EaOverlapDeltaMax', sciUpFromTruncated(maxAbs(ov.map((r) => r.repair.delta)), 2));
+  /* the circles tolerance, dated: the platform's 1e-9 when the packing was published, removed since (corpus/sources/easota-platform) */
+  const cr = circ.platformRule;
+  need(cr && cr.atPublication.slack === '1e-9' && cr.now.slack === null && cr.publishedOn < cr.now.since && /^fails/.test(cr.now.thisFile),
+    'the circles tolerance sentence (1e-9 when published, none since, the file failing today) would be false');
+  def('EaCirclesPublished', cr.publishedOn); def('EaCirclesSlackDropped', cr.now.since); def('EaRuleAsOf', cr.now.asOf);
   need(e.rows.filter((r) => r.printedAgrees === false).length === 1 && e.rows.find((r) => r.printedAgrees === false).id === 'circles/ours_2026', 'the one row whose printed digits are not the exact value\'s moved');
 }
 

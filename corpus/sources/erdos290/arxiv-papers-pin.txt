@@ -1,0 +1,28 @@
+Erdős #290 — the two van Doorn papers the page rests on, and the thread. Fetched 2026-10-06 (UTC).
+Read by tools/build-report-erdos290.js, which re-hashes the stored files against corpus/sources/PINS.json.
+Wouter van Doorn is @Woett on GitHub (teorth/erdosproblems#164).
+
+arXiv:2609.00104v1 — pinned, not stored (339,756 bytes, 9 pages)
+  sha256 4d85f58d48879ff8abe30a59846ddf35450f0297705096b72eceb204e5dfbfae  https://arxiv.org/pdf/2609.00104v1
+  "The shortest harmonic sums with decreasing denominator", Wouter van Doorn; v1 31 Aug 2026 17:48:44 UTC, the only version.
+  p.1: "0.54 < 1/(1+c) ≤ liminf (b(a) − a)/log a ≤ 1/(2c) < 0.61. This paper is dedicated to showing that the lower
+  bound is sharp."  "Theorem 1. We have liminf_{a→∞} (b(a) − a)/log a = 1/(1+c)."  "We further remark that 1/(1+c) is
+  approximately equal to 0.546, although we make no effort here to calculate it as precisely as possible."
+  arxiv-2609.00104-abs_2026-10-06.html — the abstract page, stored: "... Here we find its exact value."
+
+arXiv:2411.03073v2 — pinned, not stored (644,866 bytes, 57 pages)
+  sha256 86bcef5e99855af1c6ecab518c12da01a39f15168f2c28a0ced1e72d53c8b359  https://arxiv.org/pdf/2411.03073v2
+  "On the non-monotonicity of the denominator of generalized harmonic sums", W. van Doorn; v1 5 Nov 2024, v2 23 Jul 2025.
+  "Lemma 32. We have the inequalities 0.82 < c < 0.85, from which 1/(2c) < 0.61 and 1/(1+c) > 0.54 follow by computation."
+  "Proof of Lemma 32. Using the functions polisirreducible and GaloisGroup from the computer programs PARI/GP and Magma
+  respectively, we have found that f_d is irreducible for all even d ≤ 500, while G_d is isomorphic to S_l^+ for all
+  even d ≤ 60, except for d = 8, 24, 48."
+  arxiv-2411.03073-abs_2026-10-06.html — the abstract page, stored.
+  The lifted kernel (legacy/research/challenges/erdos290/kernel.js) re-certifies the irreducibility half for even
+  d ≤ 60 and takes the group half as given: that Magma computation is the one input the unconditional bracket does not
+  re-derive.
+
+teorth-erdosproblems-164-comments_2026-10-06.json — GET /repos/teorth/erdosproblems/issues/164/comments, 5 comments:
+  ours 2026-08-04, 2026-08-31 18:47, 2026-08-31 20:21 (each names the Lemma 32 dependency), Woett's 2026-09-08
+  ("... I put out a [preprint ](https://arxiv.org/pdf/2609.00104) that proves that the liminf is actually equal to
+  1/(1+c). So the earlier constant of 1/(2c) is no longer relevant."), ours 2026-10-06 02:53.

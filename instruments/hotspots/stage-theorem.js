@@ -163,7 +163,7 @@ function run() {
         'Judge–Mondal: all triangles (Annals of Mathematics, 2020; and the 2022 erratum); earlier partial acute-triangle results (Siudeja, arXiv:1308.3005)',
         'lip domains (Atar–Burdzy)',
         'certain non-convex polygons: L-tiled domains (Hatcher, arXiv:2405.19508)',
-        'symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao, arXiv:2604.19003, Apr 2026)',
+        'symmetric quadrangle subcases (Deng–Gui–Jiang–Yang–Yao–Zou, arXiv:2604.19003, Apr 2026)',
         'THE OTHER DIRECTION: in sufficiently high dimension the conjecture is FALSE for convex sets (de Dios Pont, arXiv:2412.06344, "Convex sets can have interior hot spots") — the planar convex case is exactly where the conjecture remains expected, and this domain sits there',
         'computational antecedent, cited not fenced: the Polymath7 project developed a validated-numerics route to acute triangles (numerics by Nigam) before the analytic triangle proof',
       ],

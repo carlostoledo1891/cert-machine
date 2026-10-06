@@ -138,7 +138,7 @@ function firstSeen(file, key) {
     rows.push({
       id: 'ea-' + r.id.replace(/\//g, '-'), claim: r.claim, claimant: r.claimant.replace(/,\s*this repository$/, ' (the EinsteinArena repository)'), source: r.file + ' (sha256 ' + r.sha256.slice(0, 12) + '…)',
       origin: 'self-initiated', verdict: r.verdict === 'WITNESSED' ? 'CERTIFIED' : 'REPAIRED',
-      scope: r.verdict === 'WITNESSED' ? 'the construction as published, in exact arithmetic' : 'as published, a witness only within the platform\'s tolerance; a repaired construction next to it is certified',
+      scope: r.verdict === 'WITNESSED' ? 'the construction as published, in exact arithmetic' : 'as published, a witness only within a verifier\'s tolerance (whose, and when — the platform\'s or the repository notebook\'s — in the easota ledger\'s platformRule); a repaired construction next to it is certified',
       kind: r.verdict === 'WITNESSED' ? 'none' : 'tolerance-witness', key: r.id, decidedFrom: 'certs/easota-ledger.json', page: '/reports/easota.html'
     });
   }

@@ -263,12 +263,23 @@ O.push(C.section({
   }));
 }
 
+/* the ζ(7) audit, if it exists, supersedes "checked neither" for Anand's claim (the record decides, not this text) */
+const Z7P = path.join(ROOT, 'certs', 'zeta7-anand-audit.json');
+const Z7J = fs.existsSync(Z7P) ? JSON.parse(fs.readFileSync(Z7P, 'utf8')) : null;
+const Z7r2 = Z7J && Z7J.margins.scenarios.find((x) => x.key === 'R2|printed|printed');
+const Z7 = !!(Z7J && Z7J.verdict === 'REFUTED' && Z7r2 && Z7r2.negative118 === false);
+
 /* §7 */
 O.push(C.section({
-  lab: '§7 · context', title: 'The race, as reported — not verified here',
-  bodyRaw: C.pRaw('Two proofs past ζ(5) are circulating. We have checked neither, and nothing below is a finding of this machine; '
-    + 'the sources are pinned in the corpus as fetched on 2026-10-05.')
-    + C.plainList(L.raceContext.items.map((it) => ({ b: it.claim + '.', text: it.status + '.' })))
+  lab: '§7 · context', title: Z7 ? 'The race: one claim audited here since, the rest as reported' : 'The race, as reported — not verified here',
+  bodyRaw: C.pRaw(Z7
+      ? 'Two proofs past ζ(5) were circulating when this page was first built, and neither had been checked here. One has since been '
+        + 'audited: <a href="/reports/zeta7-anand.html">Anand\'s ζ(7) proof</a> fails at the inequality it rests on (A₂₀₀ + U, which must be '
+        + 'negative, is +' + Number(Z7r2.A200plusU).toFixed(2) + ' from the paper\'s own formulas; the route is refuted, ζ(7)\'s irrationality untouched). '
+        + 'The rest below is as reported, not a finding of this machine; the sources are pinned in the corpus as fetched on 2026-10-05.'
+      : 'Two proofs past ζ(5) are circulating. We have checked neither, and nothing below is a finding of this machine; '
+        + 'the sources are pinned in the corpus as fetched on 2026-10-05.')
+    + C.plainList(L.raceContext.items.map((it) => ({ b: it.claim + '.', text: it.status + (Z7 && /Anand/.test(it.claim) ? '. Audited here since: the route is refuted (/reports/zeta7-anand.html)' : '') + '.' })))
     + C.pRaw('What this page adds is narrower and checkable: within the class of Hankel families measured, the margin at k = 7 is positive, '
       + 'and the reason is arithmetic. A proof of ζ(7) by this method has to leave the class, and a reader of one can ask where it does.')
     + C.note({ lab: 'the records', bodyRaw: C.pRaw('<a href="/certs/zeta-hankel-ledger.json">The ledger</a> (every re-run row with its ball, '

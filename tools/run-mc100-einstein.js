@@ -24,11 +24,17 @@
      · CERTIFIED (kind none) — every constraint of the problem holds EXACTLY, and the exact objective (or its
        rigorous enclosure) agrees with S within the platform's own resolution: its minImprovement for the problem
        when that is nonzero, else 1e-12 relative. The side on which S falls is recorded beside it.
-     · REPAIRED (kind tolerance-witness) — a constraint holds only within the tolerance the platform's verifier
-       allows (Σh = n/2 within 1e-6, an overlap of 1e-9); the as-published value is compared with S, and an exact
-       witness built from the same bytes (instruments/easota's repair) is certified next to it with its deficit.
+     · REPAIRED (kind tolerance-witness) — a constraint holds only up to a numerical tolerance or a normalisation,
+       not exactly; the as-published value is compared with S, and an exact witness built from the same bytes
+       (instruments/easota's repair) is certified next to it with its deficit. Whose tolerance, and when, is read
+       from bytes pinned in corpus/sources/easota-platform and re-checked below (PLATFORM): the platform's overlap
+       verifier has NO tolerance on Σh — it rescales h to Σh = n/2 in float64 before scoring, in every public
+       version; the 1e-6 (np.isclose, atol=1e-6) is the Together repository's notebook (corpus/easota), not the
+       platform's. Its circles verifier dropped its 1e-9 slack on 2026-08-24 (code merged 2026-08-31), before these
+       bests were fetched (2026-10-02).
      · a score that the exact value does not reproduce is REFUTED, kind not-from-the-published-data.
-   For the three penalty-scored open kissing rungs, "feasible" is read as the platform reads it — n nonzero vectors
+   For the penalty-scored kissing rungs (605 and 842 open; 841 closed by the platform 2026-06-30, "Solved Outside
+   EinsteinArena"), "feasible" is read as the platform reads it — n nonzero vectors
    in R^d, which its verifier scores — and the score is the overlap penalty Σ max(0, 2 − |c_i − c_j|), c_i = 2x_i/|x_i|
    (inferred, and checked: the enclosure reproduces all four printed scores to every printed digit). A score above
    0 is the platform's own statement that the object is NOT a kissing configuration; deciding that exactly — every
@@ -54,6 +60,28 @@ const POOL = 'einstein-arena';
 const M = J('corpus/machine-claims-100.json');
 const META = J('corpus/einstein-arena/meta.json');
 const PROBLEMS = J('corpus/einstein-arena/problems.json');
+
+/* ---- the platform's rules, read from pinned bytes: a row states no tolerance these bytes do not show ---- */
+const PINS = J('corpus/sources/PINS.json');
+const pinnedText = (key) => {
+  const b = fs.readFileSync(path.join(ROOT, 'corpus', 'sources', key));
+  if (!PINS[key] || crypto.createHash('sha256').update(b).digest('hex') !== PINS[key]) die('corpus/sources/' + key + ' does not hash to its pin');
+  return b.toString('utf8');
+};
+const PLATFORM = (() => {
+  const src = 'corpus/sources/easota-platform/';
+  const ovl = pinnedText('easota-platform/erdos-min-overlap_9cd6fbfb.ts'), cir = pinnedText('easota-platform/circles-rectangle_9cd6fbfb.ts');
+  const log = pinnedText('easota-platform/einstein-arena-changelog_9cd6fbfb.md');
+  const nb = fs.readFileSync(path.join(ROOT, 'corpus', 'easota', 'erdos-minimum-overlap', 'verifier.py'), 'utf8');
+  if (!ovl.includes('sequence_array = _normalize_sum_constraint(sequence_array)') || /isclose|atol/.test(ovl)) die('the pinned overlap verifier no longer rescales Σh without a tolerance');
+  if (!nb.includes('np.isclose(actual_sum, target_sum, atol=1e-6)')) die('the repository notebook no longer holds the 1e-6 on Σh');
+  if (!cir.includes('if width + height > Fraction(2):') || cir.includes('1e-9')) die('the pinned circles verifier is not the no-slack rule');
+  if (!log.includes('Removed the `1e-9` feasibility slack from `circle-packing`, `circles-rectangle`')) die('the pinned changelog no longer records the circles slack removed');
+  return {
+    overlap: 'the platform\'s verifier has no tolerance on the sum — in every public version (' + src + 'erdos-min-overlap_9cd6fbfb.ts) it rescales h to Σh = n/2 in float64 before scoring, the repair below in floating point — and the 1e-6 is the Together repository notebook\'s np.isclose (corpus/easota), not the platform\'s',
+    circles: 'the platform\'s verifier has had no slack since 2026-08-24 (' + src + 'einstein-arena-changelog_9cd6fbfb.md; circles-rectangle_9cd6fbfb.ts)'
+  };
+})();
 
 /* ---- the exact JSON reader: numbers kept as the literal text the file carries ---- */
 function parseJsonExact(text) {
@@ -178,11 +206,23 @@ function kissingRow(mr, B, prob) {
   }
   if (!ag.agrees) return { verdict: 'REFUTED', kind: 'not-from-the-published-data', scope: 'the platform\'s score ' + Slit + ' is not the exact penalty of the object, enclosed in [' + out.penaltyEnclosure.join(', ') + ']', decision: out };
   const commas = (x) => x.toLocaleString('en-US');
+  /* an interval endpoint shortened for prose must move OUTWARD: the lower end down, the upper end up
+     (cutting both ends to 22 characters rounded a positive upper end inward) */
+  const outward = (str, dir, keep) => {
+    const t = String(str).trim(); if (t.length <= keep || !/^-?\d+(\.\d+)?$/.test(t)) return t;
+    const neg = t[0] === '-', body = neg ? t.slice(1) : t, cut = body.slice(0, keep - (neg ? 1 : 0)), rest = body.slice(cut.length);
+    const dropped = /[1-9]/.test(rest), grow = dropped && ((dir === 'up') !== neg);
+    if (!grow || cut.endsWith('.')) return (neg ? '-' : '') + (cut.endsWith('.') ? cut.slice(0, -1) : cut);
+    const digits = cut.replace('.', ''), dot = cut.indexOf('.');
+    const inc = (BigInt(digits) + 1n).toString().padStart(digits.length, '0');
+    const out = dot < 0 ? inc : inc.slice(0, inc.length - (digits.length - dot)) + '.' + inc.slice(inc.length - (digits.length - dot));
+    return (neg ? '-' : '') + out;
+  };
   let scope;
   if (out.kissing) scope = 'a kissing configuration of ' + out.n + ' in R^' + d + ': every one of the ' + commas(out.pairs) + ' pairs at an angle of at least 60°, decided exactly in Q (' + commas(out.contacts) + ' exact contacts); the platform\'s score ' + Slit + ' is its exact penalty, 0';
   else if (full.coincident && out.withoutRepeats && out.withoutRepeats.verdict === 'CERTIFIED' && full.violations === full.coincident)
     scope = 'NOT a kissing configuration of ' + out.n + ': ' + full.coincident + ' pair' + (full.coincident === 1 ? '' : 's') + ' (' + full.coincidentPairs.map((p) => p.join(' & ')).join('; ') + ') point in the same direction (cos = 1 exactly) and every other pair is at 60° or more, exactly — ' + out.withoutRepeats.n + ' distinct directions form a kissing configuration (' + commas(out.withoutRepeats.contacts) + ' exact contacts); the platform\'s score ' + Slit + ' is exactly the penalty of the repeat (2 per repeated pair)';
-  else scope = 'NOT a kissing configuration of ' + out.n + ' (as the platform\'s score itself says): ' + commas(full.violations) + ' of ' + commas(out.pairs) + ' pairs are closer than 60°, decided exactly; the worst, vectors ' + full.worst.i + ' and ' + full.worst.j + ', has cos²θ = 1/4 + δ with δ = ' + (full.worst.cos2MinusQuarterExact.length > 80 ? 'an exact rational (in the ledger)' : full.worst.cos2MinusQuarterExact) + ', cos θ − 1/2 ∈ [' + full.worst.innerProductExcessEnclosure[0].slice(0, 22) + ', ' + full.worst.innerProductExcessEnclosure[1].slice(0, 22) + '] (θ ≈ ' + full.worst.angleDegApprox.toFixed(4) + '°, ' + full.worst.angleDeficitDegApprox.toFixed(4) + '° short of 60°); the platform\'s score ' + Slit + ' is the overlap penalty Σ max(0, 2 − |c_i − c_j|), enclosed here in [' + out.penaltyEnclosure[0].slice(0, 22) + ', ' + out.penaltyEnclosure[1].slice(0, 22) + ']';
+  else scope = 'NOT a kissing configuration of ' + out.n + ' (as the platform\'s score itself says): ' + commas(full.violations) + ' of ' + commas(out.pairs) + ' pairs are closer than 60°, decided exactly; the worst, vectors ' + full.worst.i + ' and ' + full.worst.j + ', has cos²θ = 1/4 + δ with δ = ' + (full.worst.cos2MinusQuarterExact.length > 80 ? 'an exact rational (in the ledger)' : full.worst.cos2MinusQuarterExact) + ', cos θ − 1/2 ∈ [' + outward(full.worst.innerProductExcessEnclosure[0], 'down', 22) + ', ' + outward(full.worst.innerProductExcessEnclosure[1], 'up', 22) + '] (θ ≈ ' + full.worst.angleDegApprox.toFixed(4) + '°, ' + full.worst.angleDeficitDegApprox.toFixed(4) + '° short of 60°); the platform\'s score ' + Slit + ' is the overlap penalty Σ max(0, 2 − |c_i − c_j|), enclosed here in [' + outward(out.penaltyEnclosure[0], 'down', 22) + ', ' + outward(out.penaltyEnclosure[1], 'up', 22) + ']';
   return { verdict: 'CERTIFIED', kind: 'none', scope, decision: out };
 }
 
@@ -205,7 +245,7 @@ function easotaRow(mr, B, prob) {
       if (r.witnessed) return { verdict: 'CERTIFIED', kind: 'none', scope: 'h of ' + r.n + ' steps in [0, 1] with Σh = n/2 exactly: C5 ≤ ' + decision.bound + '… exactly (the printed ' + Slit + ' agrees, ' + ag.printedSide + ')', decision };
       const holds = Q.cmp(r.repair.bound, R(Slit)) <= 0;
       decision.repair.printedBoundProvedByRepair = holds;
-      return { verdict: 'REPAIRED', kind: 'tolerance-witness', scope: 'as published, Σh − n/2 = ' + decision.sumMinusHalfN.replace(/0+$/, '') + ' (inside the platform\'s 1e-6, not 0): the printed ' + Slit + ' agrees with the as-published bound ' + decision.bound + '… (' + ag.printedSide + '); the exact witness built from the same bytes (' + r.repair.how + ') certifies C5 ≤ ' + decision.repair.bound + '…, ' + decision.repair.delta.replace(/0+$/, '') + ' from the as-published value' + (holds ? ' — at or below the printed ' + Slit + ', so the printed upper bound itself is proved by the repaired witness' : ' — above the printed ' + Slit + ', so the printed bound is not proved'), decision };
+      return { verdict: 'REPAIRED', kind: 'tolerance-witness', scope: 'as published, Σh − n/2 = ' + decision.sumMinusHalfN.replace(/0+$/, '') + ', not 0; ' + PLATFORM.overlap + '. The printed ' + Slit + ' agrees with the as-published bound ' + decision.bound + '… (' + ag.printedSide + '); the exact witness built from the same bytes (' + r.repair.how + ') certifies C5 ≤ ' + decision.repair.bound + '…, ' + decision.repair.delta.replace(/0+$/, '') + ' from the as-published value' + (holds ? ' — at or below the printed ' + Slit + ', so the printed upper bound itself is proved by the repaired witness' : ' — above the printed ' + Slit + ', so the printed bound is not proved'), decision };
     }
     case 'first-autocorrelation-inequality': {
       const f = B.data.values.map((x) => R(lit(x)));
@@ -254,7 +294,7 @@ function easotaRow(mr, B, prob) {
       if (!ag.agrees) return { verdict: 'REFUTED', kind: 'not-from-the-published-data', scope: 'the printed ' + Slit + ' is not Σr of the bytes, ' + decision.sumR, decision };
       if (r.witnessed) return { verdict: 'CERTIFIED', kind: 'none', scope: r.n + ' circles, no two overlapping and the bounding box at w + h ≤ 2, exactly: Σr = ' + decision.sumR + '… (the printed ' + Slit + ' agrees, ' + ag.printedSide + ')', decision };
       if (!r.repair) return { verdict: 'REFUTED', kind: 'tolerance-witness', scope: 'not a witness and no repair: ' + r.overlaps + ' overlapping pairs, box slack ' + decision.boxSlack, decision };
-      return { verdict: 'REPAIRED', kind: 'tolerance-witness', scope: 'as published, ' + (r.overlaps ? r.overlaps + ' pair' + (r.overlaps === 1 ? '' : 's') + ' overlap by less than the platform\'s 1e-9' : 'no pair overlaps') + (Q.sign(r.boxSlack) < 0 ? ' and the box exceeds w + h = 2 by ' + dec(Q.neg(r.boxSlack), 24).replace(/0+$/, '') : '') + '; the printed ' + Slit + ' is the as-published Σr (' + ag.printedSide + '); every radius scaled by λ = ' + decision.repair.lambda + ' gives an exact witness, Σr = ' + decision.repair.sumR + '…, ' + decision.repair.deficit.replace(/0+$/, '') + ' below', decision };
+      return { verdict: 'REPAIRED', kind: 'tolerance-witness', scope: 'as published, ' + (r.overlaps ? r.overlaps + ' pair' + (r.overlaps === 1 ? '' : 's') + ' overlap, exactly (' + PLATFORM.circles + ')' : 'no pair overlaps') + (Q.sign(r.boxSlack) < 0 ? ' and the box exceeds w + h = 2 by ' + dec(Q.neg(r.boxSlack), 24).replace(/0+$/, '') : '') + '; the printed ' + Slit + ' is the as-published Σr (' + ag.printedSide + '); every radius scaled by λ = ' + decision.repair.lambda + ' gives an exact witness, Σr = ' + decision.repair.sumR + '…, ' + decision.repair.deficit.replace(/0+$/, '') + ' below', decision };
     }
   }
   return null;
@@ -363,12 +403,12 @@ function main() {
   const byVerdict = {}, byKind = {};
   for (const x of rows) { byVerdict[x.verdict] = (byVerdict[x.verdict] || 0) + 1; byKind[x.kind] = (byKind[x.kind] || 0) + 1; }
   const ledger = {
-    what: 'The einstein-arena pool of the hundred pre-registered machine claims (corpus/machine-claims-100.json, registered 2026-10-02 before any was decided), WAVE 1: the ' + rows.length + ' rows a decider already existed for, decided by tools/run-mc100-einstein.js from the platform\'s bests of 2026-10-02 (corpus/einstein-arena), every number read as the decimal literal the file carries. The other ' + undecided.length + ' rows are listed in `undecided` with what they need; nothing is dropped. The claimant\'s code — and the platform\'s verifier — is never run; its definitions are read from the problem statements and the verifiers the platform publishes (corpus/easota).',
+    what: 'The einstein-arena pool of the hundred pre-registered machine claims (corpus/machine-claims-100.json, registered 2026-10-02 before any was decided), WAVE 1: the ' + rows.length + ' rows a decider already existed for, decided by tools/run-mc100-einstein.js from the platform\'s bests of 2026-10-02 (corpus/einstein-arena), every number read as the decimal literal the file carries. The other ' + undecided.length + ' rows are listed in `undecided` with what they need; nothing is dropped. The claimant\'s code — and the platform\'s verifier — is never run; the definitions are read from the problem statements and the published verifiers: the Together repository\'s notebook (corpus/easota) and the platform\'s own sources, pinned with their dates in corpus/sources/easota-platform.',
     pool: POOL, wave: 1, manifest: 'corpus/machine-claims-100.json', registered: M.registered,
     deciders: { kissing: 'instruments/kissing/kissing.js (certify; imported unchanged) + the full pass in this tool (every pair, the worst exactly, the penalty enclosed)', easota: 'instruments/easota/decide.js (overlap, autocorr, mindist, flat, edges, circles)' },
     rules: {
       certified: 'every constraint holds exactly and the exact objective (or its rigorous enclosure) agrees with the printed score within the platform\'s resolution: its minImprovement when nonzero, else 1e-12 relative; printedSide records where the printed double falls',
-      repaired: 'a constraint holds only within the platform\'s tolerance; the as-published value is compared with the printed score and an exact witness from the same bytes is certified next to it (kind tolerance-witness)',
+      repaired: 'a constraint holds only up to a numerical tolerance or a normalisation, not exactly (whose, and since when, is named in the row from corpus/sources/easota-platform: the platform\'s overlap verifier rescales Σh to n/2 with no tolerance; the 1e-6 is the Together repository notebook\'s); the as-published value is compared with the printed score and an exact witness from the same bytes is certified next to it (kind tolerance-witness)',
       refuted: 'a printed score the exact value does not reproduce (kind not-from-the-published-data)',
       openKissingRungs: 'for a penalty-scored kissing rung, feasible = n nonzero vectors in R^d (what the platform scores); the score is Σ max(0, 2 − |c_i − c_j|) over pairs, c_i = 2x_i/|x_i| — inferred, and reproduced to every printed digit for all four kissing rows; a score above 0 is the platform\'s own statement that the object is not a kissing configuration, and the decision of that, pair by pair, is the row\'s content'
     },

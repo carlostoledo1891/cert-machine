@@ -20,7 +20,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 | `certs/kissing-ledger.json` | node | 11 (10 CERTIFIED, 1 QUEUED) | `node tools/run-kissing-ledger.js` (2.9 s) | — | — | `91c6ad8884ba8578…` |
 | `ledger.json` | node; about four minutes | 1 (1 MIXED) | `make engine` (5 min) | — | — | `2a34c34f14867fbf…` |
 | `certs/strassen-certificate.json` | node for the export; python3 standard library for the verifier; corpus/sources for the pinned bytes | 10 (10 CERTIFIED) | `node tools/export-strassen-certificate.js` (< 1 s) | `python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources` (< 1 s) | — | `2ab21d5adc6a2948…` |
-| `certs/easota-ledger.json` | node | 20 (16 CERTIFIED, 4 REPAIRED) | `node tools/run-easota-ledger.js` (3 s) | — | — | `60b947daf148e6ec…` |
+| `certs/easota-ledger.json` | node | 20 (16 CERTIFIED, 4 REPAIRED) | `node tools/run-easota-ledger.js` (3 s) | — | — | `e577361347e77561…` |
 | `certs/ecbench-ledger.json` | node; about a minute | 1 (1 MIXED) | `node tools/run-ecbench-ledger.js` (5.8 s) | — | — | `cdecac8aae53d79c…` |
 | `certs/gsm8k-ledger.json` | python3 standard library and the instrument's own modules (instruments/gsm8k) | 1 (1 MIXED) | `python3 tools/run-gsm8k-ledger.py` (1.5 s) | — | — | `7fbcda606b601c9c…` |
 | `certs/horizon-ledger.json` | python3 standard library and the instrument's own modules (instruments/horizon) | 1 (1 MIXED) | `python3 tools/run-horizon-ledger.py` (1.9 min) | — | — | `fa5b0bac0539bf96…` |
@@ -38,7 +38,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 | `certs/mc100-alphatensor-q.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 12 (12 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-q` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources` (not yet timed) | — | `753485444a3e4498…` |
 | `certs/mc100-alphatensor-f2.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 8 (8 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-f2` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources` (not yet timed) | — | `0222c5552b7c24f3…` |
 | `certs/mc100-alphaevolve-nb-matmul.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 15 (15 CERTIFIED) | `node tools/run-mc100-tensors.js alphaevolve-nb-matmul` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources` (not yet timed) | — | `50183f3ffba87bd2…` |
-| `certs/mc100-einstein-arena.json` | node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate) | 8 (1 REPAIRED, 7 CERTIFIED) | `node tools/run-mc100-einstein.js` (not yet timed) | — | — | `b7c234b316dda5a7…` |
+| `certs/mc100-einstein-arena.json` | node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate) | 8 (1 REPAIRED, 7 CERTIFIED) | `node tools/run-mc100-einstein.js` (not yet timed) | — | — | `cc0b63ba9ed9ebdc…` |
 | `certs/mc100-station-v2.json` | python3 standard library and instruments/polymaps | 1 (1 CERTIFIED) | `python3 tools/run-mc100-station.py` (not yet timed) | — | — | `b526305ff85bbb35…` |
 
 Runtimes measured 2026-10-02 on Apple M2 (Darwin 27.0.0, v24.14.1, Python 3.9.6); the register's 88 rows compared before and after, none moved.
@@ -69,4 +69,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git 054078d
+git cb6d042

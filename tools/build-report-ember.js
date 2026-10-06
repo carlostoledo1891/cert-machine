@@ -60,6 +60,15 @@ if (BAND) {
   if (BAND.audited.chunks !== 17) die('the band record no longer carries 17 chunks');
   for (const w of ['Judge', 'de Dios Pont']) if (!BAND.fences.includes(w)) die('the band record lost the fence naming ' + w);
 }
+/* the symmetric-quadrangle fence: six authors on the pinned arXiv abstract page (Zou was missing from the page and
+   both records until 2026-10-06); every place that names them must carry the same list */
+const SYMQ = 'ember/arxiv-2604.19003-abs_2026-10-06.html';
+{ const v = require(path.join(ROOT, 'instruments', 'pin.js')).verify(SYMQ); if (!v.ok) die('pinned source ' + SYMQ + ': ' + v.why); }
+const SYMQ_AUTH = [...fs.readFileSync(path.join(ROOT, 'corpus', 'sources', SYMQ), 'utf8')
+  .matchAll(/<meta name="citation_author" content="([^,"]+),/g)].map((m) => m[1]).join('–');
+if (SYMQ_AUTH !== 'Deng–Gui–Jiang–Yang–Yao–Zou') die('the pinned arXiv:2604.19003 page lists ' + SYMQ_AUTH);
+if (BAND && !BAND.fences.includes(SYMQ_AUTH + ' arXiv:2604.19003')) die('the band record names arXiv:2604.19003\'s authors differently from the pinned page — run tools/run-ember-band.js');
+if (!R.theorem.honestFraming.fences.some((f) => f.includes(SYMQ_AUTH + ', arXiv:2604.19003'))) die('the theorem record names arXiv:2604.19003\'s authors differently from the pinned page — run tools/run-ember-chain.js theorem');
 
 /* ================================================================ the page */
 const O = [];
@@ -93,7 +102,7 @@ O.push(C.stats([
 O.push(C.scope('Machine-derived; published from this repository; not peer-reviewed; not independently rerun. '
   + 'The claim is fenced: Judge–Mondal proved all triangles (Annals 2020, after partial acute-triangle results, '
   + 'Siudeja arXiv:1308.3005), lip domains are Atar–Burdzy, certain non-convex L-tiled polygons are Hatcher '
-  + '(arXiv:2405.19508), and symmetric quadrangle subcases are Deng–Gui–Jiang–Yang–Yao (arXiv:2604.19003) — this '
+  + '(arXiv:2405.19508), and symmetric quadrangle subcases are ' + SYMQ_AUTH + ' (arXiv:2604.19003) — this '
   + 'domain sits outside each class. In the other direction, in sufficiently high dimension the conjecture is '
   + 'FALSE for convex sets (de Dios Pont, arXiv:2412.06344), so the planar convex case is exactly where it '
   + 'remains expected — and where this domain lives. A validated-numerics route to acute triangles was developed '

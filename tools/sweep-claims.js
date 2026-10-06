@@ -14,9 +14,11 @@
      2. erdosproblems #852 thread — the posted C* correction sits in the
         moderation queue; the standing instruction is to snapshot the
         thread as evidence bytes when it becomes public.
-     3. erdosproblems #510 page — the lambda-table comment was posted by
-        the operator 2026-08-26 and sits in moderation; same standing
-        instruction (shout + snapshot) when the table appears.
+     3. erdosproblems #510 thread — the lambda-table comment was posted by
+        the operator 2026-08-26; same standing instruction (shout + snapshot)
+        when it shows. It renders on /forum/thread/510, not on the problem
+        page, which this watch read (and so could never match) until
+        2026-10-06; the shout stops only when a snapshot pin exists.
      3b. erdosproblems #1 thread — the effective-disproof comment was posted
         by the operator 2026-09-16 and sits in moderation; same instruction,
         and Mathstodon is held until it is shown.
@@ -88,16 +90,26 @@ const finding = (m) => { findings++; console.log('!! ' + m); };
   }
 }
 
-/* 3 · the #510 moderation queue (comment posted 2026-08-26) */
+/* 3 · the #510 comment (posted 2026-08-26). Comments render on /forum/thread/510; the problem page shows only
+   "Comments (N)". This watch fetched https://www.erdosproblems.com/510 until 2026-10-06 and so could never match,
+   while the comment stood public on the thread, signed "carlos_toledo — 21:32 on 26 Aug 2026". */
 {
-  const html = fetchText('https://www.erdosproblems.com/510?cb=' + Math.floor(Math.random() * 1e9));
+  const html = fetchText('https://www.erdosproblems.com/forum/thread/510?cb=' + Math.floor(Math.random() * 1e9));
   if (!html) say('erdos510: fetch failed (transient)');
   else {
-    /* the table's n=13 bound is the signature: 12 ceiled decimals, stated
-       nowhere else on the internet unless our comment (or a copy) is live */
-    const visible = /2\.318232650153/.test(html);
-    if (visible) finding('erdos510: THE LAMBDA TABLE IS PUBLIC — snapshot the page as evidence bytes beside outreach/erdos510-comment.md NOW');
-    else say('erdos510: comment not visible yet, still in the moderation queue');
+    /* the signature is ours, both halves: the table's n=13 bound (12 ceiled decimals, stated nowhere else on the
+       internet unless our comment or a copy is live) and the post's byline as the thread renders it */
+    const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+    const table = /2\.318232650153/.test(html);
+    const byline = /carlos_toledo (?:—|&mdash;|&#8212;) 21:32 on 26 Aug 2026/.test(text);
+    const visible = table && byline;
+    /* measured, not remembered (the #852 rule): the shout stops only when a snapshot pin exists */
+    const pins = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', 'PINS.json'), 'utf8'));
+    const snapshotted = Object.keys(pins).some((k) => /^erdos510_thread_comment-public/.test(k));
+    if (visible && !snapshotted) finding('erdos510: OUR LAMBDA-TABLE COMMENT IS PUBLIC on /forum/thread/510 — snapshot the thread as evidence bytes into corpus/sources/erdos510_thread_comment-public_<date>.html and pin it NOW');
+    else if (visible) say('erdos510: comment PUBLIC, snapshot pinned — watch closed');
+    else if (table || byline) finding('erdos510: half our signature on the thread (table ' + table + ', byline ' + byline + ') — read it');
+    else say('erdos510: comment not visible on the thread (moderation queue, or removed) — read it');
     state.erdos510Visible = visible;
   }
 }
@@ -189,7 +201,9 @@ for (const [repo, num, label] of [
   ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
   ['subroy13/awesome-ai-proofs', 2, 'awesome-ai-proofs #2 (audit records)'],
   ['togethercomputer/EinsteinArena-new-SOTA', 14, 'Together circles row (#14)'],
-  ['test-time-training/discover', 19, 'TTT-Discover #19 (overlap repair)']]) {
+  ['test-time-training/discover', 19, 'TTT-Discover #19 (overlap repair)'],
+  ['snorin239/RamseyLean', 1, 'Norin RamseyLean #1 (Remark 17 G_AI)'],
+  ['google-deepmind/formal-conjectures', 6874, 'formal-conjectures #6874 (hot spots)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }
@@ -200,7 +214,8 @@ for (const [repo, num, label] of [
 }
 
 /* 3g · gist comments we posted (2026-10-05): a reply from the gist's author is a finding */
-for (const [gist, label] of [['5368357cd781d7e5c676c9d68ad24d22', 'gist CoolRmal (check_cert.py 53-bit compare)']]) {
+for (const [gist, label] of [['5368357cd781d7e5c676c9d68ad24d22', 'gist CoolRmal (check_cert.py 53-bit compare)'],
+  ['08b4a43f6b6ca57178efabc220170ce8', 'gist Spacerat (the CHV map, courtesy)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'gists/' + gist, '--jq', '.comments'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

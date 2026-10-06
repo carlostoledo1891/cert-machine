@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: {'[+]': [['$', '$']]},
+    processEscapes: true,
+    packages: ['base', 'ams']
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8"/>
+<meta charset="UTF-8" />
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-20551573-1', 'auto');  // Replace with your property ID.
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+<title>Erratum: Euclidean triangles have no hot spots | Annals of Mathematics</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="https://annals.math.princeton.edu/wp-content/themes/annals2011/style.css" />
+<link rel="stylesheet" type="text/css" media="print" href="https://annals.math.princeton.edu/wp-content/themes/annals2011/print.css" />
+<link rel="pingback" href="https://annals.math.princeton.edu/xmlrpc.php" />
+<meta name='robots' content='max-image-preview:large' />
+<link rel="alternate" type="application/rss+xml" title="Annals of Mathematics &raquo; Feed" href="https://annals.math.princeton.edu/feed" />
+<link rel="alternate" type="application/rss+xml" title="Annals of Mathematics &raquo; Comments Feed" href="https://annals.math.princeton.edu/comments/feed" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://annals.math.princeton.edu/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fannals.math.princeton.edu%2F2022%2F195-1%2Fp05" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://annals.math.princeton.edu/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fannals.math.princeton.edu%2F2022%2F195-1%2Fp05&#038;format=xml" />
+<style id='wp-img-auto-sizes-contain-inline-css' type='text/css'>
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id='wp-block-library-inline-css' type='text/css'>
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}.has-text-align-center{text-align:center}.has-text-align-left{text-align:left}.has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=wp-block-library-inline-css */
+</style>
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel="https://api.w.org/" href="https://annals.math.princeton.edu/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://annals.math.princeton.edu/wp-json/wp/v2/posts/18483" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://annals.math.princeton.edu/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.9.9" />
+<link rel="canonical" href="https://annals.math.princeton.edu/2022/195-1/p05" />
+<link rel='shortlink' href='https://annals.math.princeton.edu/?p=18483' />
+<script type="text/javascript">
+	window._se_plugin_version = '8.1.9';
+</script>
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-18483 single-format-standard wp-theme-annals2011">
+<div id="wrapper" class="hfeed">
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+			</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+			  				<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+								<div class="menu-header"><ul id="menu-main-menu" class="menu"><li id="menu-item-503" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-503"><a href="http://annals.math.princeton.edu/">Home</a></li>
+<li id="menu-item-502" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-502"><a href="https://annals.math.princeton.edu/about">About</a></li>
+<li id="menu-item-501" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-501"><a href="https://annals.math.princeton.edu/board">Editorial Board</a></li>
+<li id="menu-item-737" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-737"><a href="https://annals.math.princeton.edu/submission-guidelines">Submission Guidelines</a></li>
+<li id="menu-item-750" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-750"><a href="https://annals.math.princeton.edu/subscriptions">Subscriptions</a></li>
+<li id="menu-item-765" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-765"><a href="https://annals.math.princeton.edu/contact">Contact</a></li>
+</ul></div>			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+				<div id="post-18483" class="post-18483 post type-post status-publish format-standard hentry category-195-1">
+									<h1 class="entry-title">
+						Erratum: Euclidean triangles have no hot spots					</h1>
+<meta name="citation_journal_title" content="Annals of Mathematics"/>
+<meta name="citation_journal_abbrev" content="Ann. Math."/>
+<meta name="citation_publisher" content="Princeton University and the Institute for Advanced Study"/>
+<meta name="citation_author" content="Chris Judge"/>
+<meta name="citation_author_institution" content="Department of Mathematics, Indiana University, Bloomington, IN, USA"/><meta name="citation_author" content="Sugata Mondal"/>
+<meta name="citation_author_institution" content="School of Mathematics, Tata Institute of Fundamental Research, Mumbai, India"/><meta name="citation_title" content="Erratum: Euclidean triangles have no hot spots"/><meta name="citation_publication_date" content="2022"/><meta name="citation_volume" content="195"/><meta name="citation_issue" content="1"/><meta name="citation_firstpage" content="337"/><meta name="citation_lastpage" content="362"/><meta name="citation_doi" content="https://doi.org/10.4007/annals.2022.195.1.5"/><meta name="citation_issn" content="0003-486X"/>
+					<div class="entry-meta">
+						Pages 337-362 from Volume 195 (2022), Issue 1<span class="author-name">&nbsp;by&nbsp;Chris Judge, Sugata Mondal</span>					</div><!-- .entry-meta -->
+
+					<div class="entry-content">
+												<h3>Abstract</h3>
+							<p>Original article:  <a href="https://doi.org/10.4007/annals.2020.191.1.3">https://doi.org/10.4007/annals.2020.191.1.3</a></p>
+																	</div><!-- .entry-content -->
+					
+					<div class="metadata">
+										</div>
+					<div class="metadata">
+										</div>
+																<div class="metadata">
+						<div class="metadata-headers">DOI</div>
+						<a href="https://doi.org/10.4007/annals.2022.195.1.5">
+						https://doi.org/10.4007/annals.2022.195.1.5						</a>
+					</div>
+										<div class="metadata">
+					<div class="metadata-headers">MR</div> <a href="http://www.ams.org/mathscinet-getitem?mr=4358417" target="_blank">4358417</a>
+					</div>
+										<div class="metadata">
+					<div class="metadata-headers">zbMATH</div><a href="http://www.zentralblatt-math.org/zmath/en/search/?q=an:7483859" target="_blank">7483859</a>
+					</div>
+										<div class="metadata">
+					<div class="metadata-headers">Milestones</div>
+																		Received: 28 September 2020<br/>
+																								Revised: 18 May 2021<br/>
+																								Accepted: 22 July 2021<br/>
+																								Published online:  1 January 2022<br/>
+																</div>
+										<div id="entry-author-info">
+						<div id="author-description">
+							<h2>Authors </h2>
+														   <b>Chris Judge</b>
+							     							   <p/>
+							   Department of Mathematics, Indiana University, Bloomington, IN, USA							   							   <div id="author-link">
+							   </div><!-- #author-link	-->
+														   <b>Sugata Mondal</b>
+							     							   <p/>
+							   School of Mathematics, Tata Institute of Fundamental Research, Mumbai, India							   							   <div id="author-link">
+							   </div><!-- #author-link	-->
+							<p/>
+						</div><!-- #author-description -->
+					</div><!-- #entry-author-info -->
+										<div class="entry-utility">
+					</div><!-- .entry-utility -->
+				</div><!-- #post-## -->
+
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="https://annals.math.princeton.edu/2022/195-1/p03" rel="prev"><span class="meta-nav">&larr;</span> Previous article in this issue</a></div>
+					<div class="nav-next"><a href="https://annals.math.princeton.edu/2022/195-1/p04" rel="next">Next article in this issue <span class="meta-nav">&rarr;</span></a></div>
+				</div><!-- #nav-below -->
+
+
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+
+<li id="search-2" class="widget-container widget_search"><form role="search" method="get" id="searchform" class="searchform" action="https://annals.math.princeton.edu/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="Search" />
+				</div>
+			</form></li><div id="pdf-link"><a onclick="ga('send', 'event', 'PDFs', 'Download', 'Published','195105');" href="https://doi.org/10.4007/annals.2022.195.1.5"> <img src="https://annals.math.princeton.edu/wp-content/uploads/pdf.png" alt="Download Article PDF" width="30px"/>Full Article</a></div><li id="text-8" class="widget-container widget_text">			<div class="textwidget"><p><a href="https://projecteuclid.org/journals/annals-of-mathematics/issues" target="_blank" rel="noopener" data-mce-href="https://projecteuclid.org/journals/annals-of-mathematics/issues">Online Content on Project Euclid 2017&#8211;2026</a><br data-mce-bogus="1"></p>
+</div>
+		</li><li id="text-7" class="widget-container widget_text">			<div class="textwidget"><a href="http://www.jstor.org/journals/0003486x.html" target="_blank" rel="noopener">Online Content on JSTOR 1884--2020</a></div>
+		</li><li id="annals_categories-3" class="widget-container annals_widget_categories">		<div id="category-list-root">
+	<div class="cat-item-0 cat-item-2304"><a class="link-depth-0" href="https://annals.math.princeton.edu/toappear" title="Volume To appear in forthcoming issues">To appear in forthcoming issues</a>
+</div>
+	<div class="cat-item-0 cat-item-5121"><div class="category-list-title">2026</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-5122"><a class="link-depth-1" href="https://annals.math.princeton.edu/2026/203" title="Volume Vol. 203">Vol. 203</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-5123"><a class="link-depth-2" href="https://annals.math.princeton.edu/2026/203-1" title="Volume 203-1, Year 2026">1</a>
+</div>
+	<div class="cat-item-2 cat-item-5124"><a class="link-depth-2" href="https://annals.math.princeton.edu/2026/203-2" title="Volume 203-2, Year 2026">2</a>
+</div>
+	<div class="cat-item-2 cat-item-5125"><a class="link-depth-2" href="https://annals.math.princeton.edu/2026/203-3" title="Volume 203-3, Year 2026">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-5126"><a class="link-depth-1" href="https://annals.math.princeton.edu/2026/204" title="Volume Vol. 204">Vol. 204</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-5127"><a class="link-depth-2" href="https://annals.math.princeton.edu/2026/204-1" title="Volume 204-1, Year 2026">1</a>
+</div>
+	<div class="cat-item-2 cat-item-5128"><a class="link-depth-2" href="https://annals.math.princeton.edu/2026/204-2" title="Volume 204-2, Year 2026">2</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-4156"><div class="category-list-title">2025</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-4157"><a class="link-depth-1" href="https://annals.math.princeton.edu/2025/202" title="Volume Vol. 202">Vol. 202</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4161"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/202-1" title="Volume 202-1, Year 2025">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4160"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/202-2" title="Volume 202-2, Year 2025">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4159"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/202-3" title="Volume 202-3, Year 2025">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-4158"><a class="link-depth-1" href="https://annals.math.princeton.edu/2025/201" title="Volume Vol. 201">Vol. 201</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4164"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/201-1" title="Volume 201-1, Year 2025">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4163"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/201-2" title="Volume 201-2, Year 2025">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4162"><a class="link-depth-2" href="https://annals.math.princeton.edu/2025/201-3" title="Volume 201-3, Year 2025">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-4147"><div class="category-list-title">2024</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-4148"><a class="link-depth-1" href="https://annals.math.princeton.edu/2024/200" title="Volume Vol. 200">Vol. 200</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4152"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/200-1" title="Volume 200-1, Year 2024">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4151"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/200-2" title="Volume 200-2, Year 2024">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4150"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/200-3" title="Volume 200-3, Year 2024">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-4149"><a class="link-depth-1" href="https://annals.math.princeton.edu/2024/199" title="Volume Vol. 199">Vol. 199</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4155"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/199-1" title="Volume 199-1, Year 2024">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4154"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/199-2" title="Volume 199-2, Year 2024">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4153"><a class="link-depth-2" href="https://annals.math.princeton.edu/2024/199-3" title="Volume 199-3, Year 2024">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-3896"><div class="category-list-title">2023</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-4139"><a class="link-depth-1" href="https://annals.math.princeton.edu/2023/198" title="Volume Vol. 198">Vol. 198</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4143"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/198-1" title="Volume 198-1, Year 2023">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4142"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/198-2" title="Volume 198-2, Year 2023">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4141"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/198-3" title="Volume 198-3, Year 2023">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-4140"><a class="link-depth-1" href="https://annals.math.princeton.edu/2023/197" title="Volume Vol. 197">Vol. 197</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-4146"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/197-1" title="Volume 197-1, Year 2023">1</a>
+</div>
+	<div class="cat-item-2 cat-item-4145"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/197-2" title="Volume 197-2, Year 2023">2</a>
+</div>
+	<div class="cat-item-2 cat-item-4144"><a class="link-depth-2" href="https://annals.math.princeton.edu/2023/197-3" title="Volume 197-3, Year 2023">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-3895"><div class="category-list-title">2022</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-3897"><a class="link-depth-1" href="https://annals.math.princeton.edu/2022/196" title="Volume Vol. 196">Vol. 196</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3905"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/196-1" title="Volume 196-1, Year 2022">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3904"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/196-2" title="Volume 196-2, Year 2022">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3903"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/196-3" title="Volume 196-3, Year 2022">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-3899"><a class="link-depth-1" href="https://annals.math.princeton.edu/2022/195" title="Volume Vol. 195">Vol. 195</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3902"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/195-1" title="Volume 195-1, Year 2022">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3901"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/195-2" title="Volume 195-2, Year 2022">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3900"><a class="link-depth-2" href="https://annals.math.princeton.edu/2022/195-3" title="Volume 195-3, Year 2022">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-3774"><div class="category-list-title">2021</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-3779"><a class="link-depth-1" href="https://annals.math.princeton.edu/2021/194" title="Volume Vol. 194">Vol. 194</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3782"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/194-1" title="Volume 194-1, Year 2021">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3781"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/194-2" title="Volume 194-2, Year 2021">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3780"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/194-3" title="Volume 194-3, Year 2021">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-3775"><a class="link-depth-1" href="https://annals.math.princeton.edu/2021/193" title="Volume Vol. 193">Vol. 193</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3778"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/193-1" title="Volume 193-1, Year 2021">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3777"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/193-2" title="Volume 193-2, Year 2021">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3776"><a class="link-depth-2" href="https://annals.math.princeton.edu/2021/193-3" title="Volume 193-3, Year 2021">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-3299"><div class="category-list-title">2020</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-3304"><a class="link-depth-1" href="https://annals.math.princeton.edu/2020/192" title="Volume Vol. 192">Vol. 192</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3307"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/192-1" title="Volume 192-1, Year 2020">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3306"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/192-2" title="Volume 192-2, Year 2020">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3305"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/192-3" title="Volume 192-3, Year 2020">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-3300"><a class="link-depth-1" href="https://annals.math.princeton.edu/2020/191" title="Volume Vol. 191">Vol. 191</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-3303"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/191-1" title="Volume 191-1, Year 2020">1</a>
+</div>
+	<div class="cat-item-2 cat-item-3302"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/191-2" title="Volume 191-2, Year 2020">2</a>
+</div>
+	<div class="cat-item-2 cat-item-3301"><a class="link-depth-2" href="https://annals.math.princeton.edu/2020/191-3" title="Volume 191-3, Year 2020">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+	<div class="cat-item-0 cat-item-2570"><div class="category-list-title">2019</div>
+<div class='children-0'>
+	<div class="cat-item-1 cat-item-2571"><a class="link-depth-1" href="https://annals.math.princeton.edu/2019/190" title="Volume Vol. 190">Vol. 190</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-2574"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/190-1" title="Volume 190-1, Year 2019">1</a>
+</div>
+	<div class="cat-item-2 cat-item-2573"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/190-2" title="Volume 190-2, Year 2019">2</a>
+</div>
+	<div class="cat-item-2 cat-item-2572"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/190-3" title="Volume 190-3, Year 2019">3</a>
+</div>
+	</div>
+</div>
+	<div class="cat-item-1 cat-item-2575"><a class="link-depth-1" href="https://annals.math.princeton.edu/2019/189" title="Volume Vol. 189">Vol. 189</a>
+	<div class='children-1'>
+	<div class="cat-item-2 cat-item-2578"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/189-1" title="Volume 189-1, Year 2019">1</a>
+</div>
+	<div class="cat-item-2 cat-item-2577"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/189-2" title="Volume 189-2, Year 2019">2</a>
+</div>
+	<div class="cat-item-2 cat-item-2576"><a class="link-depth-2" href="https://annals.math.princeton.edu/2019/189-3" title="Volume 189-3, Year 2019">3</a>
+</div>
+	</div>
+</div>
+</div>
+</div>
+
+<div class="cat-item-0 ENDEND">
+
+<div class="category-list-title">2018 and older</div>
+	<select onchange="window.location.href=this.value;" style="width: 90%;">
+		<option value="" disabled selected>Select issue</option>
+		<option value="" disabled>Year 2018</option>		<option value="https://annals.math.princeton.edu/2018/188-1">&nbsp;&nbsp;&nbsp;188-1</option>		<option value="https://annals.math.princeton.edu/2018/188-2">&nbsp;&nbsp;&nbsp;188-2</option>		<option value="https://annals.math.princeton.edu/2018/188-3">&nbsp;&nbsp;&nbsp;188-3</option>		<option value="https://annals.math.princeton.edu/2018/187-1">&nbsp;&nbsp;&nbsp;187-1</option>		<option value="https://annals.math.princeton.edu/2018/187-2">&nbsp;&nbsp;&nbsp;187-2</option>		<option value="https://annals.math.princeton.edu/2018/187-3">&nbsp;&nbsp;&nbsp;187-3</option>		<option value="" disabled>Year 2017</option>		<option value="https://annals.math.princeton.edu/2017/186-1">&nbsp;&nbsp;&nbsp;186-1</option>		<option value="https://annals.math.princeton.edu/2017/186-2">&nbsp;&nbsp;&nbsp;186-2</option>		<option value="https://annals.math.princeton.edu/2017/186-3">&nbsp;&nbsp;&nbsp;186-3</option>		<option value="https://annals.math.princeton.edu/2017/185-1">&nbsp;&nbsp;&nbsp;185-1</option>		<option value="https://annals.math.princeton.edu/2017/185-2">&nbsp;&nbsp;&nbsp;185-2</option>		<option value="https://annals.math.princeton.edu/2017/185-3">&nbsp;&nbsp;&nbsp;185-3</option>		<option value="" disabled>Year 2016</option>		<option value="https://annals.math.princeton.edu/2016/184-1">&nbsp;&nbsp;&nbsp;184-1</option>		<option value="https://annals.math.princeton.edu/2016/184-2">&nbsp;&nbsp;&nbsp;184-2</option>		<option value="https://annals.math.princeton.edu/2016/184-3">&nbsp;&nbsp;&nbsp;184-3</option>		<option value="https://annals.math.princeton.edu/2016/183-1">&nbsp;&nbsp;&nbsp;183-1</option>		<option value="https://annals.math.princeton.edu/2016/183-2">&nbsp;&nbsp;&nbsp;183-2</option>		<option value="https://annals.math.princeton.edu/2016/183-3">&nbsp;&nbsp;&nbsp;183-3</option>		<option value="" disabled>Year 2015</option>		<option value="https://annals.math.princeton.edu/2015/182-1">&nbsp;&nbsp;&nbsp;182-1</option>		<option value="https://annals.math.princeton.edu/2015/182-2">&nbsp;&nbsp;&nbsp;182-2</option>		<option value="https://annals.math.princeton.edu/2015/182-3">&nbsp;&nbsp;&nbsp;182-3</option>		<option value="https://annals.math.princeton.edu/2015/181-1">&nbsp;&nbsp;&nbsp;181-1</option>		<option value="https://annals.math.princeton.edu/2015/181-2">&nbsp;&nbsp;&nbsp;181-2</option>		<option value="https://annals.math.princeton.edu/2015/181-3">&nbsp;&nbsp;&nbsp;181-3</option>		<option value="" disabled>Year 2014</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/180/180-1">&nbsp;&nbsp;&nbsp;180-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/180/180-2">&nbsp;&nbsp;&nbsp;180-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/180/180-3">&nbsp;&nbsp;&nbsp;180-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/179/179-1">&nbsp;&nbsp;&nbsp;179-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/179/179-2">&nbsp;&nbsp;&nbsp;179-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2014/179/179-3">&nbsp;&nbsp;&nbsp;179-3</option>		<option value="" disabled>Year 2013</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/178/178-1">&nbsp;&nbsp;&nbsp;178-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/178/178-2">&nbsp;&nbsp;&nbsp;178-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/178/178-3">&nbsp;&nbsp;&nbsp;178-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/177/177-1">&nbsp;&nbsp;&nbsp;177-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/177/177-2">&nbsp;&nbsp;&nbsp;177-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2013/177/177-3">&nbsp;&nbsp;&nbsp;177-3</option>		<option value="" disabled>Year 2012</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/176/176-1">&nbsp;&nbsp;&nbsp;176-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/176/176-2">&nbsp;&nbsp;&nbsp;176-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/176/176-3">&nbsp;&nbsp;&nbsp;176-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/175/175-1">&nbsp;&nbsp;&nbsp;175-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/175/175-2">&nbsp;&nbsp;&nbsp;175-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2012/175/175-3">&nbsp;&nbsp;&nbsp;175-3</option>		<option value="" disabled>Year 2011</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/174/174-1">&nbsp;&nbsp;&nbsp;174-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/174/174-2">&nbsp;&nbsp;&nbsp;174-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/174/174-3">&nbsp;&nbsp;&nbsp;174-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/173/173-1">&nbsp;&nbsp;&nbsp;173-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/173/173-2">&nbsp;&nbsp;&nbsp;173-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2011/173/173-3">&nbsp;&nbsp;&nbsp;173-3</option>		<option value="" disabled>Year 2010</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/172/172-1">&nbsp;&nbsp;&nbsp;172-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/172/172-2">&nbsp;&nbsp;&nbsp;172-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/172/172-3">&nbsp;&nbsp;&nbsp;172-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/171/171-1">&nbsp;&nbsp;&nbsp;171-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/171/171-2">&nbsp;&nbsp;&nbsp;171-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2010/171/171-3">&nbsp;&nbsp;&nbsp;171-3</option>		<option value="" disabled>Year 2009</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/170/170-1">&nbsp;&nbsp;&nbsp;170-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/170/170-2">&nbsp;&nbsp;&nbsp;170-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/170/170-3">&nbsp;&nbsp;&nbsp;170-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/169/169-1">&nbsp;&nbsp;&nbsp;169-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/169/169-2">&nbsp;&nbsp;&nbsp;169-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2009/169/169-3">&nbsp;&nbsp;&nbsp;169-3</option>		<option value="" disabled>Year 2008</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/168/168-1">&nbsp;&nbsp;&nbsp;168-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/168/168-2">&nbsp;&nbsp;&nbsp;168-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/168/168-3">&nbsp;&nbsp;&nbsp;168-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/167/167-1">&nbsp;&nbsp;&nbsp;167-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/167/167-2">&nbsp;&nbsp;&nbsp;167-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2008/167/167-3">&nbsp;&nbsp;&nbsp;167-3</option>		<option value="" disabled>Year 2007</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/166/166-1">&nbsp;&nbsp;&nbsp;166-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/166/166-2">&nbsp;&nbsp;&nbsp;166-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/166/166-3">&nbsp;&nbsp;&nbsp;166-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/165/165-1">&nbsp;&nbsp;&nbsp;165-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/165/165-2">&nbsp;&nbsp;&nbsp;165-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2007/165/165-3">&nbsp;&nbsp;&nbsp;165-3</option>		<option value="" disabled>Year 2006</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/164/164-1">&nbsp;&nbsp;&nbsp;164-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/164/164-2">&nbsp;&nbsp;&nbsp;164-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/164/164-3">&nbsp;&nbsp;&nbsp;164-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/163/163-1">&nbsp;&nbsp;&nbsp;163-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/163/163-2">&nbsp;&nbsp;&nbsp;163-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2006/163/163-3">&nbsp;&nbsp;&nbsp;163-3</option>		<option value="" disabled>Year 2005</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/162/162-1">&nbsp;&nbsp;&nbsp;162-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/162/162-2">&nbsp;&nbsp;&nbsp;162-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/162/162-3">&nbsp;&nbsp;&nbsp;162-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/161/161-1">&nbsp;&nbsp;&nbsp;161-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/161/161-2">&nbsp;&nbsp;&nbsp;161-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2005/161/161-3">&nbsp;&nbsp;&nbsp;161-3</option>		<option value="" disabled>Year 2004</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/160/160-1">&nbsp;&nbsp;&nbsp;160-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/160/160-2">&nbsp;&nbsp;&nbsp;160-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/160/160-3">&nbsp;&nbsp;&nbsp;160-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/159/159-1">&nbsp;&nbsp;&nbsp;159-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/159/159-2">&nbsp;&nbsp;&nbsp;159-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2004/159/159-3">&nbsp;&nbsp;&nbsp;159-3</option>		<option value="" disabled>Year 2003</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/158/158-1">&nbsp;&nbsp;&nbsp;158-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/158/158-2">&nbsp;&nbsp;&nbsp;158-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/158/158-3">&nbsp;&nbsp;&nbsp;158-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/157/157-1">&nbsp;&nbsp;&nbsp;157-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/157/157-2">&nbsp;&nbsp;&nbsp;157-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2003/157/157-3">&nbsp;&nbsp;&nbsp;157-3</option>		<option value="" disabled>Year 2002</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/156/156-1">&nbsp;&nbsp;&nbsp;156-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/156/156-2">&nbsp;&nbsp;&nbsp;156-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/156/156-3">&nbsp;&nbsp;&nbsp;156-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/155/155-1">&nbsp;&nbsp;&nbsp;155-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/155/155-2">&nbsp;&nbsp;&nbsp;155-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2002/155/155-3">&nbsp;&nbsp;&nbsp;155-3</option>		<option value="" disabled>Year 2001</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/154/154-1">&nbsp;&nbsp;&nbsp;154-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/154/154-2">&nbsp;&nbsp;&nbsp;154-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/154/154-3">&nbsp;&nbsp;&nbsp;154-3</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/153/153-1">&nbsp;&nbsp;&nbsp;153-1</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/153/153-2">&nbsp;&nbsp;&nbsp;153-2</option>		<option value="https://annals.math.princeton.edu/articles/category/2001/153/153-3">&nbsp;&nbsp;&nbsp;153-3</option>		<option value="" disabled>Year 2000</option>		<option value="https://annals.math.princeton.edu/2000/152-1">&nbsp;&nbsp;&nbsp;152-1</option>		<option value="https://annals.math.princeton.edu/2000/152-2">&nbsp;&nbsp;&nbsp;152-2</option>		<option value="https://annals.math.princeton.edu/2000/152-3">&nbsp;&nbsp;&nbsp;152-3</option>		<option value="https://annals.math.princeton.edu/2000/151-1">&nbsp;&nbsp;&nbsp;151-1</option>		<option value="https://annals.math.princeton.edu/2000/151-2">&nbsp;&nbsp;&nbsp;151-2</option>		<option value="https://annals.math.princeton.edu/2001/151-3">&nbsp;&nbsp;&nbsp;151-3</option>		<option value="" disabled>Year 1999</option>		<option value="https://annals.math.princeton.edu/1999/150-1">&nbsp;&nbsp;&nbsp;150-1</option>		<option value="https://annals.math.princeton.edu/1999/150-2">&nbsp;&nbsp;&nbsp;150-2</option>		<option value="https://annals.math.princeton.edu/1999/150-3">&nbsp;&nbsp;&nbsp;150-3</option>		<option value="https://annals.math.princeton.edu/1999/149-1">&nbsp;&nbsp;&nbsp;149-1</option>		<option value="https://annals.math.princeton.edu/1999/149-2">&nbsp;&nbsp;&nbsp;149-2</option>		<option value="https://annals.math.princeton.edu/1999/149-3">&nbsp;&nbsp;&nbsp;149-3</option>		<option value="" disabled>Year 1998</option>		<option value="https://annals.math.princeton.edu/1998/148-1">&nbsp;&nbsp;&nbsp;148-1</option>		<option value="https://annals.math.princeton.edu/1998/148-2">&nbsp;&nbsp;&nbsp;148-2</option>		<option value="https://annals.math.princeton.edu/1998/148-3">&nbsp;&nbsp;&nbsp;148-3</option>		<option value="https://annals.math.princeton.edu/1998/147-1">&nbsp;&nbsp;&nbsp;147-1</option>		<option value="https://annals.math.princeton.edu/1998/147-2">&nbsp;&nbsp;&nbsp;147-2</option>		<option value="https://annals.math.princeton.edu/1998/147-3">&nbsp;&nbsp;&nbsp;147-3</option>		<option value="" disabled>Year 1997</option>		<option value="https://annals.math.princeton.edu/1997/146-1">&nbsp;&nbsp;&nbsp;146-1</option>		<option value="https://annals.math.princeton.edu/1997/146-2">&nbsp;&nbsp;&nbsp;146-2</option>		<option value="https://annals.math.princeton.edu/1997/146-3">&nbsp;&nbsp;&nbsp;146-3</option>		<option value="https://annals.math.princeton.edu/1997/145-1">&nbsp;&nbsp;&nbsp;145-1</option>		<option value="https://annals.math.princeton.edu/1997/145-2">&nbsp;&nbsp;&nbsp;145-2</option>		<option value="https://annals.math.princeton.edu/1997/145-3">&nbsp;&nbsp;&nbsp;145-3</option>		<option value="" disabled>Year 1996</option>		<option value="https://annals.math.princeton.edu/1996/144-1">&nbsp;&nbsp;&nbsp;144-1</option>		<option value="https://annals.math.princeton.edu/1996/144-2">&nbsp;&nbsp;&nbsp;144-2</option>		<option value="https://annals.math.princeton.edu/1996/144-3">&nbsp;&nbsp;&nbsp;144-3</option>		<option value="https://annals.math.princeton.edu/1996/143-1">&nbsp;&nbsp;&nbsp;143-1</option>		<option value="https://annals.math.princeton.edu/1996/143-2">&nbsp;&nbsp;&nbsp;143-2</option>		<option value="https://annals.math.princeton.edu/1996/143-3">&nbsp;&nbsp;&nbsp;143-3</option>		<option value="" disabled>Year 1995</option>		<option value="https://annals.math.princeton.edu/1995/142-1">&nbsp;&nbsp;&nbsp;142-1</option>		<option value="https://annals.math.princeton.edu/1995/142-2">&nbsp;&nbsp;&nbsp;142-2</option>		<option value="https://annals.math.princeton.edu/1995/142-3">&nbsp;&nbsp;&nbsp;142-3</option>		<option value="https://annals.math.princeton.edu/1995/141-1">&nbsp;&nbsp;&nbsp;141-1</option>		<option value="https://annals.math.princeton.edu/1995/141-2">&nbsp;&nbsp;&nbsp;141-2</option>		<option value="https://annals.math.princeton.edu/1995/141-3">&nbsp;&nbsp;&nbsp;141-3</option>		<option value="" disabled>Year 1994</option>		<option value="https://annals.math.princeton.edu/1994/140-1">&nbsp;&nbsp;&nbsp;140-1</option>		<option value="https://annals.math.princeton.edu/1994/140-2">&nbsp;&nbsp;&nbsp;140-2</option>		<option value="https://annals.math.princeton.edu/1994/140-3">&nbsp;&nbsp;&nbsp;140-3</option>		<option value="https://annals.math.princeton.edu/1994/139-1">&nbsp;&nbsp;&nbsp;139-1</option>		<option value="https://annals.math.princeton.edu/1994/139-2">&nbsp;&nbsp;&nbsp;139-2</option>		<option value="https://annals.math.princeton.edu/1994/139-3">&nbsp;&nbsp;&nbsp;139-3</option>		<option value="" disabled>Year 1993</option>		<option value="https://annals.math.princeton.edu/1993/138-1">&nbsp;&nbsp;&nbsp;138-1</option>		<option value="https://annals.math.princeton.edu/1993/138-2">&nbsp;&nbsp;&nbsp;138-2</option>		<option value="https://annals.math.princeton.edu/1993/138-3">&nbsp;&nbsp;&nbsp;138-3</option>		<option value="https://annals.math.princeton.edu/1993/137-1">&nbsp;&nbsp;&nbsp;137-1</option>		<option value="https://annals.math.princeton.edu/1993/137-2">&nbsp;&nbsp;&nbsp;137-2</option>		<option value="https://annals.math.princeton.edu/1993/137-3">&nbsp;&nbsp;&nbsp;137-3</option>		<option value="" disabled>Year 1992</option>		<option value="https://annals.math.princeton.edu/1992/136-1">&nbsp;&nbsp;&nbsp;136-1</option>		<option value="https://annals.math.princeton.edu/1992/136-2">&nbsp;&nbsp;&nbsp;136-2</option>		<option value="https://annals.math.princeton.edu/1992/136-3">&nbsp;&nbsp;&nbsp;136-3</option>		<option value="https://annals.math.princeton.edu/1992/135-1">&nbsp;&nbsp;&nbsp;135-1</option>		<option value="https://annals.math.princeton.edu/1992/135-2">&nbsp;&nbsp;&nbsp;135-2</option>		<option value="https://annals.math.princeton.edu/1992/135-3">&nbsp;&nbsp;&nbsp;135-3</option>		<option value="" disabled>Year 1991</option>		<option value="https://annals.math.princeton.edu/1991/134-1">&nbsp;&nbsp;&nbsp;134-1</option>		<option value="https://annals.math.princeton.edu/1991/134-2">&nbsp;&nbsp;&nbsp;134-2</option>		<option value="https://annals.math.princeton.edu/1991/134-3">&nbsp;&nbsp;&nbsp;134-3</option>		<option value="https://annals.math.princeton.edu/1991/133-1">&nbsp;&nbsp;&nbsp;133-1</option>		<option value="https://annals.math.princeton.edu/1991/133-2">&nbsp;&nbsp;&nbsp;133-2</option>		<option value="https://annals.math.princeton.edu/1991/133-3">&nbsp;&nbsp;&nbsp;133-3</option>		<option value="" disabled>Year 1990</option>		<option value="https://annals.math.princeton.edu/1990/132-1">&nbsp;&nbsp;&nbsp;132-1</option>		<option value="https://annals.math.princeton.edu/1990/132-2">&nbsp;&nbsp;&nbsp;132-2</option>		<option value="https://annals.math.princeton.edu/1990/132-3">&nbsp;&nbsp;&nbsp;132-3</option>		<option value="https://annals.math.princeton.edu/1990/131-1">&nbsp;&nbsp;&nbsp;131-1</option>		<option value="https://annals.math.princeton.edu/1990/131-2">&nbsp;&nbsp;&nbsp;131-2</option>		<option value="https://annals.math.princeton.edu/1990/131-3">&nbsp;&nbsp;&nbsp;131-3</option>		<option value="" disabled>Year 1989</option>		<option value="https://annals.math.princeton.edu/1989/130-1">&nbsp;&nbsp;&nbsp;130-1</option>		<option value="https://annals.math.princeton.edu/1989/130-2">&nbsp;&nbsp;&nbsp;130-2</option>		<option value="https://annals.math.princeton.edu/1989/130-3">&nbsp;&nbsp;&nbsp;130-3</option>		<option value="https://annals.math.princeton.edu/1989/129-1">&nbsp;&nbsp;&nbsp;129-1</option>		<option value="https://annals.math.princeton.edu/1989/129-2">&nbsp;&nbsp;&nbsp;129-2</option>		<option value="https://annals.math.princeton.edu/1989/129-3">&nbsp;&nbsp;&nbsp;129-3</option>		<option value="" disabled>Year 1988</option>		<option value="https://annals.math.princeton.edu/1988/128-1">&nbsp;&nbsp;&nbsp;128-1</option>		<option value="https://annals.math.princeton.edu/1988/128-2">&nbsp;&nbsp;&nbsp;128-2</option>		<option value="https://annals.math.princeton.edu/1988/128-3">&nbsp;&nbsp;&nbsp;128-3</option>		<option value="https://annals.math.princeton.edu/1988/127-1">&nbsp;&nbsp;&nbsp;127-1</option>		<option value="https://annals.math.princeton.edu/1988/127-2">&nbsp;&nbsp;&nbsp;127-2</option>		<option value="https://annals.math.princeton.edu/1988/127-3">&nbsp;&nbsp;&nbsp;127-3</option>		<option value="" disabled>Year 1987</option>		<option value="https://annals.math.princeton.edu/1987/126-1">&nbsp;&nbsp;&nbsp;126-1</option>		<option value="https://annals.math.princeton.edu/1987/126-2">&nbsp;&nbsp;&nbsp;126-2</option>		<option value="https://annals.math.princeton.edu/1987/126-3">&nbsp;&nbsp;&nbsp;126-3</option>		<option value="https://annals.math.princeton.edu/1987/125-1">&nbsp;&nbsp;&nbsp;125-1</option>		<option value="https://annals.math.princeton.edu/1987/125-2">&nbsp;&nbsp;&nbsp;125-2</option>		<option value="https://annals.math.princeton.edu/1987/125-3">&nbsp;&nbsp;&nbsp;125-3</option>		<option value="" disabled>Year 1986</option>		<option value="https://annals.math.princeton.edu/1986/124-1">&nbsp;&nbsp;&nbsp;124-1</option>		<option value="https://annals.math.princeton.edu/1986/124-2">&nbsp;&nbsp;&nbsp;124-2</option>		<option value="https://annals.math.princeton.edu/1986/124-3">&nbsp;&nbsp;&nbsp;124-3</option>		<option value="https://annals.math.princeton.edu/1986/123-1">&nbsp;&nbsp;&nbsp;123-1</option>		<option value="https://annals.math.princeton.edu/1986/123-2">&nbsp;&nbsp;&nbsp;123-2</option>		<option value="https://annals.math.princeton.edu/1986/123-3">&nbsp;&nbsp;&nbsp;123-3</option>		<option value="" disabled>Year 1985</option>		<option value="https://annals.math.princeton.edu/1985/122-1">&nbsp;&nbsp;&nbsp;122-1</option>		<option value="https://annals.math.princeton.edu/1985/122-2">&nbsp;&nbsp;&nbsp;122-2</option>		<option value="https://annals.math.princeton.edu/1985/122-3">&nbsp;&nbsp;&nbsp;122-3</option>		<option value="https://annals.math.princeton.edu/1985/121-1">&nbsp;&nbsp;&nbsp;121-1</option>		<option value="https://annals.math.princeton.edu/1985/121-2">&nbsp;&nbsp;&nbsp;121-2</option>		<option value="https://annals.math.princeton.edu/1985/121-3">&nbsp;&nbsp;&nbsp;121-3</option>		<option value="" disabled>Year 1984</option>		<option value="https://annals.math.princeton.edu/1984/120-1">&nbsp;&nbsp;&nbsp;120-1</option>		<option value="https://annals.math.princeton.edu/1984/120-2">&nbsp;&nbsp;&nbsp;120-2</option>		<option value="https://annals.math.princeton.edu/1984/120-3">&nbsp;&nbsp;&nbsp;120-3</option>		<option value="https://annals.math.princeton.edu/1984/119-1">&nbsp;&nbsp;&nbsp;119-1</option>		<option value="https://annals.math.princeton.edu/1984/119-2">&nbsp;&nbsp;&nbsp;119-2</option>		<option value="https://annals.math.princeton.edu/1984/119-3">&nbsp;&nbsp;&nbsp;119-3</option>		<option value="" disabled>Year 1983</option>		<option value="https://annals.math.princeton.edu/1983/118-1">&nbsp;&nbsp;&nbsp;118-1</option>		<option value="https://annals.math.princeton.edu/1983/118-2">&nbsp;&nbsp;&nbsp;118-2</option>		<option value="https://annals.math.princeton.edu/1983/118-3">&nbsp;&nbsp;&nbsp;118-3</option>		<option value="https://annals.math.princeton.edu/1983/117-1">&nbsp;&nbsp;&nbsp;117-1</option>		<option value="https://annals.math.princeton.edu/1983/117-2">&nbsp;&nbsp;&nbsp;117-2</option>		<option value="https://annals.math.princeton.edu/1983/117-3">&nbsp;&nbsp;&nbsp;117-3</option>		<option value="" disabled>Year 1982</option>		<option value="https://annals.math.princeton.edu/1982/116-1">&nbsp;&nbsp;&nbsp;116-1</option>		<option value="https://annals.math.princeton.edu/1982/116-2">&nbsp;&nbsp;&nbsp;116-2</option>		<option value="https://annals.math.princeton.edu/1982/116-3">&nbsp;&nbsp;&nbsp;116-3</option>		<option value="https://annals.math.princeton.edu/1982/115-1">&nbsp;&nbsp;&nbsp;115-1</option>		<option value="https://annals.math.princeton.edu/1982/115-2">&nbsp;&nbsp;&nbsp;115-2</option>		<option value="https://annals.math.princeton.edu/1982/115-3">&nbsp;&nbsp;&nbsp;115-3</option>		<option value="" disabled>Year 1981</option>		<option value="https://annals.math.princeton.edu/1981/114-1">&nbsp;&nbsp;&nbsp;114-1</option>		<option value="https://annals.math.princeton.edu/1981/114-2">&nbsp;&nbsp;&nbsp;114-2</option>		<option value="https://annals.math.princeton.edu/1981/114-3">&nbsp;&nbsp;&nbsp;114-3</option>		<option value="https://annals.math.princeton.edu/1981/113-1">&nbsp;&nbsp;&nbsp;113-1</option>		<option value="https://annals.math.princeton.edu/1981/113-2">&nbsp;&nbsp;&nbsp;113-2</option>		<option value="https://annals.math.princeton.edu/1981/113-3">&nbsp;&nbsp;&nbsp;113-3</option>		<option value="" disabled>Year 1980</option>		<option value="https://annals.math.princeton.edu/1980/112-1">&nbsp;&nbsp;&nbsp;112-1</option>		<option value="https://annals.math.princeton.edu/1980/112-2">&nbsp;&nbsp;&nbsp;112-2</option>		<option value="https://annals.math.princeton.edu/1980/112-3">&nbsp;&nbsp;&nbsp;112-3</option>		<option value="https://annals.math.princeton.edu/1980/111-1">&nbsp;&nbsp;&nbsp;111-1</option>		<option value="https://annals.math.princeton.edu/1980/111-2">&nbsp;&nbsp;&nbsp;111-2</option>		<option value="https://annals.math.princeton.edu/1980/111-3">&nbsp;&nbsp;&nbsp;111-3</option>		<option value="" disabled>Year 1979</option>		<option value="https://annals.math.princeton.edu/1979/110-1">&nbsp;&nbsp;&nbsp;110-1</option>		<option value="https://annals.math.princeton.edu/1979/110-2">&nbsp;&nbsp;&nbsp;110-2</option>		<option value="https://annals.math.princeton.edu/1979/110-3">&nbsp;&nbsp;&nbsp;110-3</option>		<option value="https://annals.math.princeton.edu/1979/109-1">&nbsp;&nbsp;&nbsp;109-1</option>		<option value="https://annals.math.princeton.edu/1979/109-2">&nbsp;&nbsp;&nbsp;109-2</option>		<option value="https://annals.math.princeton.edu/1979/109-3">&nbsp;&nbsp;&nbsp;109-3</option>		<option value="" disabled>Year 1978</option>		<option value="https://annals.math.princeton.edu/1978/108-1">&nbsp;&nbsp;&nbsp;108-1</option>		<option value="https://annals.math.princeton.edu/1978/108-2">&nbsp;&nbsp;&nbsp;108-2</option>		<option value="https://annals.math.princeton.edu/1978/108-3">&nbsp;&nbsp;&nbsp;108-3</option>		<option value="https://annals.math.princeton.edu/1978/107-1">&nbsp;&nbsp;&nbsp;107-1</option>		<option value="https://annals.math.princeton.edu/1978/107-2">&nbsp;&nbsp;&nbsp;107-2</option>		<option value="https://annals.math.princeton.edu/1978/107-3">&nbsp;&nbsp;&nbsp;107-3</option>		<option value="" disabled>Year 1977</option>		<option value="https://annals.math.princeton.edu/1977/106-1">&nbsp;&nbsp;&nbsp;106-1</option>		<option value="https://annals.math.princeton.edu/1977/106-2">&nbsp;&nbsp;&nbsp;106-2</option>		<option value="https://annals.math.princeton.edu/1977/106-3">&nbsp;&nbsp;&nbsp;106-3</option>		<option value="https://annals.math.princeton.edu/1977/105-1">&nbsp;&nbsp;&nbsp;105-1</option>		<option value="https://annals.math.princeton.edu/1977/105-2">&nbsp;&nbsp;&nbsp;105-2</option>		<option value="https://annals.math.princeton.edu/1977/105-3">&nbsp;&nbsp;&nbsp;105-3</option>		<option value="" disabled>Year 1976</option>		<option value="https://annals.math.princeton.edu/1976/104-1">&nbsp;&nbsp;&nbsp;104-1</option>		<option value="https://annals.math.princeton.edu/1976/104-2">&nbsp;&nbsp;&nbsp;104-2</option>		<option value="https://annals.math.princeton.edu/1976/104-3">&nbsp;&nbsp;&nbsp;104-3</option>		<option value="https://annals.math.princeton.edu/1976/103-1">&nbsp;&nbsp;&nbsp;103-1</option>		<option value="https://annals.math.princeton.edu/1976/103-2">&nbsp;&nbsp;&nbsp;103-2</option>		<option value="https://annals.math.princeton.edu/1976/103-3">&nbsp;&nbsp;&nbsp;103-3</option>		<option value="" disabled>Year 1975</option>		<option value="https://annals.math.princeton.edu/1975/102-1">&nbsp;&nbsp;&nbsp;102-1</option>		<option value="https://annals.math.princeton.edu/1975/102-2">&nbsp;&nbsp;&nbsp;102-2</option>		<option value="https://annals.math.princeton.edu/1975/102-3">&nbsp;&nbsp;&nbsp;102-3</option>		<option value="https://annals.math.princeton.edu/1975/101-1">&nbsp;&nbsp;&nbsp;101-1</option>		<option value="https://annals.math.princeton.edu/1975/101-2">&nbsp;&nbsp;&nbsp;101-2</option>		<option value="https://annals.math.princeton.edu/1975/101-3">&nbsp;&nbsp;&nbsp;101-3</option>		<option value="" disabled>Year 1974</option>		<option value="https://annals.math.princeton.edu/1974/100-1">&nbsp;&nbsp;&nbsp;100-1</option>		<option value="https://annals.math.princeton.edu/1974/100-2">&nbsp;&nbsp;&nbsp;100-2</option>		<option value="https://annals.math.princeton.edu/1974/100-3">&nbsp;&nbsp;&nbsp;100-3</option>		<option value="https://annals.math.princeton.edu/1974/99-1">&nbsp;&nbsp;&nbsp;99-1</option>		<option value="https://annals.math.princeton.edu/1974/99-2">&nbsp;&nbsp;&nbsp;99-2</option>		<option value="https://annals.math.princeton.edu/1974/99-3">&nbsp;&nbsp;&nbsp;99-3</option>		<option value="" disabled>Year 1973</option>		<option value="https://annals.math.princeton.edu/1973/98-1">&nbsp;&nbsp;&nbsp;98-1</option>		<option value="https://annals.math.princeton.edu/1973/98-2">&nbsp;&nbsp;&nbsp;98-2</option>		<option value="https://annals.math.princeton.edu/1973/98-3">&nbsp;&nbsp;&nbsp;98-3</option>		<option value="https://annals.math.princeton.edu/1973/97-1">&nbsp;&nbsp;&nbsp;97-1</option>		<option value="https://annals.math.princeton.edu/1973/97-2">&nbsp;&nbsp;&nbsp;97-2</option>		<option value="https://annals.math.princeton.edu/1973/97-3">&nbsp;&nbsp;&nbsp;97-3</option>		<option value="" disabled>Year 1972</option>		<option value="https://annals.math.princeton.edu/1972/96-1/">&nbsp;&nbsp;&nbsp;96-1</option>		<option value="https://annals.math.princeton.edu/1972/96-2">&nbsp;&nbsp;&nbsp;96-2</option>		<option value="https://annals.math.princeton.edu/1972/96-3">&nbsp;&nbsp;&nbsp;96-3</option>		<option value="https://annals.math.princeton.edu/1972/95-1">&nbsp;&nbsp;&nbsp;95-1</option>		<option value="https://annals.math.princeton.edu/1972/95-2">&nbsp;&nbsp;&nbsp;95-2</option>		<option value="https://annals.math.princeton.edu/1972/95-3">&nbsp;&nbsp;&nbsp;95-3</option>		<option value="" disabled>Year 1971</option>		<option value="https://annals.math.princeton.edu/1971/94-1">&nbsp;&nbsp;&nbsp;94-1</option>		<option value="https://annals.math.princeton.edu/1971/94-2">&nbsp;&nbsp;&nbsp;94-2</option>		<option value="https://annals.math.princeton.edu/1971/94-3">&nbsp;&nbsp;&nbsp;94-3</option>		<option value="https://annals.math.princeton.edu/1971/93-1">&nbsp;&nbsp;&nbsp;93-1</option>		<option value="https://annals.math.princeton.edu/1971/93-2">&nbsp;&nbsp;&nbsp;93-2</option>		<option value="https://annals.math.princeton.edu/1971/93-3">&nbsp;&nbsp;&nbsp;93-3</option>		<option value="" disabled>Year 1970</option>		<option value="https://annals.math.princeton.edu/1970/92-1">&nbsp;&nbsp;&nbsp;92-1</option>		<option value="https://annals.math.princeton.edu/1970/92-2">&nbsp;&nbsp;&nbsp;92-2</option>		<option value="https://annals.math.princeton.edu/1970-92-3">&nbsp;&nbsp;&nbsp;92-3</option>		<option value="https://annals.math.princeton.edu/1970/91-1">&nbsp;&nbsp;&nbsp;91-1</option>		<option value="https://annals.math.princeton.edu/1970/91-2">&nbsp;&nbsp;&nbsp;91-2</option>		<option value="https://annals.math.princeton.edu/1970/91-3">&nbsp;&nbsp;&nbsp;91-3</option>		<option value="" disabled>Year 1969</option>		<option value="https://annals.math.princeton.edu/1970/90-1">&nbsp;&nbsp;&nbsp;90-1</option>		<option value="https://annals.math.princeton.edu/1969/90-2">&nbsp;&nbsp;&nbsp;90-2</option>		<option value="https://annals.math.princeton.edu/1969/90-3">&nbsp;&nbsp;&nbsp;90-3</option>		<option value="https://annals.math.princeton.edu/1969/89-1">&nbsp;&nbsp;&nbsp;89-1</option>		<option value="https://annals.math.princeton.edu/1969/89-2">&nbsp;&nbsp;&nbsp;89-2</option>		<option value="https://annals.math.princeton.edu/1969/89-3">&nbsp;&nbsp;&nbsp;89-3</option>		<option value="" disabled>Year 1968</option>		<option value="https://annals.math.princeton.edu/1968/88-1">&nbsp;&nbsp;&nbsp;88-1</option>		<option value="https://annals.math.princeton.edu/1968/88-2">&nbsp;&nbsp;&nbsp;88-2</option>		<option value="https://annals.math.princeton.edu/articles/category/1968/88/88-3">&nbsp;&nbsp;&nbsp;88-3</option>		<option value="https://annals.math.princeton.edu/1968/87-1">&nbsp;&nbsp;&nbsp;87-1</option>		<option value="https://annals.math.princeton.edu/1968/87-2">&nbsp;&nbsp;&nbsp;87-2</option>		<option value="https://annals.math.princeton.edu/1968/88-3">&nbsp;&nbsp;&nbsp;87-3</option>		<option value="" disabled>Year 1967</option>		<option value="https://annals.math.princeton.edu/1967/86-1">&nbsp;&nbsp;&nbsp;86-1</option>		<option value="https://annals.math.princeton.edu/1967/86-2">&nbsp;&nbsp;&nbsp;86-2</option>		<option value="https://annals.math.princeton.edu/1967/86-3">&nbsp;&nbsp;&nbsp;86-3</option>		<option value="https://annals.math.princeton.edu/1967/85-1">&nbsp;&nbsp;&nbsp;85-1</option>		<option value="https://annals.math.princeton.edu/1967/85-2">&nbsp;&nbsp;&nbsp;85-2</option>		<option value="https://annals.math.princeton.edu/1967/85-3">&nbsp;&nbsp;&nbsp;85-3</option>		<option value="" disabled>Year 1966</option>		<option value="https://annals.math.princeton.edu/1966/84-1">&nbsp;&nbsp;&nbsp;84-1</option>		<option value="https://annals.math.princeton.edu/1966/84-2">&nbsp;&nbsp;&nbsp;84-2</option>		<option value="https://annals.math.princeton.edu/1966/84-3">&nbsp;&nbsp;&nbsp;84-3</option>		<option value="https://annals.math.princeton.edu/1966/83-1">&nbsp;&nbsp;&nbsp;83-1</option>		<option value="https://annals.math.princeton.edu/1966/83-2">&nbsp;&nbsp;&nbsp;83-2</option>		<option value="https://annals.math.princeton.edu/1966/83-3">&nbsp;&nbsp;&nbsp;83-3</option>			</select>
+		</div>
+</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+<div id="footer-right">
+<a href="https://www.mathjax.org">
+    <img title="Powered by MathJax"
+    src="https://www.mathjax.org/badge/logo2.png"
+    border="0" alt="Powered by MathJax" />
+</a>
+                        <div id="site-generator">
+                                                                <a href="http://wordpress.org/"
+                                                title="Semantic Personal Publishing Platform" rel="generator">
+                                        Proudly powered by WordPress.                                </a>
+                        </div><!-- #site-generator -->
+<a id="pdf-information" href="/pdf_information">PDF Document Information
+</a>
+</div><!-- #footer-right -->
+			<div id="site-info">
+				<a href="https://annals.math.princeton.edu/" title="Annals of Mathematics" rel="home">
+					Annals of Mathematics				</a>
+				</div><!-- #site-info -->
+<div id="footer-address"><br/>Fine Hall – Washington Road<br/>
+Princeton University<br/>
+Princeton, NJ 08544, USA<br/>
+Phone: 1-609-258-6468, Fax: 1-609-258-1367<br />
+Copyright &copy; 2026 Annals of Mathematics
+</div>
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/annals2011/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" src="https://annals.math.princeton.edu/wp-includes/js/comment-reply.min.js?ver=6.9.9" id="comment-reply-js" async="async" data-wp-strategy="async" fetchpriority="low"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://annals.math.princeton.edu/wp-includes/js/wp-emoji-release.min.js?ver=6.9.9"}}
+</script>
+<script type="module">
+/* <![CDATA[ */
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://annals.math.princeton.edu/wp-includes/js/wp-emoji-loader.min.js
+/* ]]> */
+</script>
+</body>
+</html>

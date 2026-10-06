@@ -48,6 +48,13 @@ const num = (n) => n.toLocaleString('en-US');
 const SUP = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
 const sup = (s) => s.replace(/\^(\d+)/g, (_, d) => d.split('').map(c => SUP[c]).join('')).replace(/ - /g, ' − ');
 
+/* ---- the write-up: a draft exists, read from the shelf manifest, never remembered. Until 2026-10-06 the
+   page said "no prose write-up" while paper/lambda5.pdf (draft v0.1, c814c9a) was live at /paper/lambda5.pdf */
+const PAPER5 = (JSON.parse(fs.readFileSync(path.join(ROOT, 'paper', 'INDEX.json'), 'utf8')).papers || []).find((x) => x.name === 'lambda5');
+if (!PAPER5 || !fs.existsSync(path.join(ROOT, 'paper', 'lambda5.pdf'))) die('the λ(5) write-up is not on the paper shelf — the gaps paragraph would be false');
+if (!/^draft\b/.test(PAPER5.status || '') || PAPER5.venue) die('the λ(5) write-up is no longer an unrefereed draft (' + PAPER5.status + ') — rewrite the gaps paragraph');
+const paper5Status = PAPER5.status.split(' · ').slice(0, 2).join(', ');
+
 /* ---- the record ----------------------------------------------------------- */
 const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda56-campaign.json'), 'utf8'));
 const st = rec.stages || {};
@@ -470,7 +477,8 @@ B.push(C.section({
       + C.pRaw('<strong>Not yet, and these are the gaps:</strong> the audit above walks the THEOREM, the first '
       + 'level of the reduction and the obstruction — it does NOT walk the interior of the eight closure trees, '
       + 'the subfamily cones, the derived thresholds or the finite parts inside them. λ(4)\'s audit does walk '
-      + 'those for λ(4); no equivalent exists here yet. There is also no prose write-up, no peer review and no '
+      + 'those for λ(4); no equivalent exists here yet. A draft write-up exists — <a href="/paper/lambda5.pdf">the paper</a> ('
+      + C.esc(paper5Status) + ', every number interpolated from the records) — but it is not refereed: there is no peer review and no '
       + 'human read. Until those exist the honest status of the theorem-level sentence is exactly what the scope '
       + 'line at the top of this page says. The full machine record is ' + C.m('certs/lambda56-campaign.json')
       + '; the statement and strategy are Mercer\'s, and his paper is the first thing to read: arXiv:1709.06612.'),

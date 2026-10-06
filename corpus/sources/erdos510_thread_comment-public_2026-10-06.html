@@ -1,0 +1,1524 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<title>510 Discussion Thread | Erdős Problems</title>
+<meta property="og:title" content="510 Discussion Thread | Erdős Problems">
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/style.css?v=a13e2aa7">
+
+<script>
+document.addEventListener('click', (e) => {
+  // Toggle reply form
+  const toggle = e.target.closest('.reply-toggle');
+  if (toggle) {
+    const id = toggle.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (form) form.classList.toggle('hidden');
+  }
+  // Reply with quote
+  const quoteBtn = e.target.closest('.reply-quote');
+  if (quoteBtn) {
+    const id = quoteBtn.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (!form) return;
+    const ta = form.querySelector('textarea');
+    const raw = quoteBtn.getAttribute('data-raw') || '';
+    const quoted = raw.split('\n').map(l => '> ' + l).join('\n') + '\n\n';
+    ta.value = quoted;
+    form.classList.remove('hidden');
+    ta.focus();
+    const len = ta.value.length;
+    ta.setSelectionRange(len, len);
+  }
+});
+</script>
+
+<!-- This creates the reference in the bibliography box. -->
+
+<script>
+function addNewBox(key, problem_id, shouldScroll = false) {
+  const local_id = 'bib-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  fetch(`/bibs/${encodeURIComponent(key)}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+
+      if (shouldScroll) {
+        requestAnimationFrame(() => {
+          container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Failed to load bib:", err);
+      container.textContent = "Unable to load reference.";
+
+      if (shouldScroll) {
+        container.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+}
+</script>
+
+<script>
+const filledSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="fav-icon">
+  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+</svg>
+                `;
+const outlineSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="black" fill="white" class="fav-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.610l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.840-.610l1.285-5.386a.563.563 0 0 0-.182-.557L3.041 10.385a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+</svg>
+                `;
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".fav-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const problemId = btn.dataset.problemId;
+
+  try {
+    const res = await fetch(`/forum/toggle_favourite/${problemId}`, { method: "POST" });
+    const data = await res.json();
+
+    btn.dataset.favourited = data.favourited ? "true" : "false";
+    btn.innerHTML = data.favourited ? filledSVG : outlineSVG;
+  } catch (err) {
+    console.error("Toggle failed:", err);
+  }
+});
+</script>
+
+    
+<script>
+function addImageBox(X, problem_id, shouldScroll = true) {
+  const local_id = 'image-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const newBox = document.createElement("div");
+
+  const img = document.createElement("img");
+  img.src = `/static/${encodeURIComponent(X)}.png`;
+  img.className = "responsive-image";
+  img.alt = String(X);
+
+  newBox.appendChild(img);
+  container.appendChild(newBox);
+
+  if (shouldScroll) {
+    requestAnimationFrame(() => {
+      container.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+}
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('searchForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    const input = form.querySelector('.searchTerm');
+    if (!input) return;
+    const value = input.value.trim();
+    if (!value) return;
+    const path = '/search/' + encodeURIComponent(value);
+    const inDual = window.location.pathname.startsWith("/dual");
+    if (inDual) {
+      e.preventDefault(); 
+      const selected = document.querySelector('input[name="targetPanel"]:checked');
+      const panel = selected ? selected.value : "left";
+      const iframe = document.getElementById(`iframe-${panel}`);
+      if (iframe) {
+        const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+        iframe.src = url;
+        const box = document.querySelector(`#panel-${panel} input`);
+        if (box) box.value = path;
+      } else {
+        window.location.href = path;
+      }
+    } else {
+      form.action = path;
+      form.method = "GET";
+    }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.pathname.startsWith("/dual")) return;
+
+  var form = document.getElementById('idsearchForm');
+  if (!form) return;
+
+  form.onsubmit = function() {
+    var input = document.querySelector('.idsearchTerm').value.trim();
+    var searchUrl;
+
+    if (/^\d+$/.test(input)) {
+        searchUrl = '/' + encodeURIComponent(input);
+    } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/.test(input.toLowerCase())) {
+        let parts = input.split(/\s+/).filter(Boolean);
+        searchUrl = '/range/' + parts.map(encodeURIComponent).join('/');
+    } else {
+        alert("Enter either a single integer or a space-separated list of numbers/ranges...");
+        return false;
+    }
+    window.location.href = searchUrl;
+    return false;
+  };
+});
+</script>
+
+<script>
+  window.CURRENT_USERNAME = "";
+</script>
+
+
+<script>
+document.addEventListener("click", async (ev) => {
+  const btn = ev.target.closest(".reaction-btn");
+  if (!btn) return;
+  const you = window.CURRENT_USERNAME || "";
+  const bar = btn.closest(".reaction-bar");
+  const postId = bar?.dataset.postId;
+  const rtype = btn.dataset.type;
+  const reactUrl = bar?.dataset.reactUrl; 
+  if (!postId || !rtype || !reactUrl) return;
+
+  try {
+    const res = await fetch(reactUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({type: rtype})
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      alert(data.error || "Could not update reaction.");
+      return;
+    }
+    const summary = data.summary;
+    
+    bar.querySelectorAll(".reaction-btn").forEach(b => {
+      const t = b.dataset.type;
+      const countSpan = bar.querySelector(`.reaction-count[data-type="${t}"]`);
+      if (countSpan && summary[t]) {
+        countSpan.textContent = summary[t].count;
+    const desc = b.dataset.desc || "";
+    const usersTitle = summary[t].users_title || "No one yet.";
+    b.title = `${desc}\n\n${usersTitle}`;
+      }
+        const iReacted = you && (summary[t].users_title || "").includes(you);
+  b.classList.toggle("active", !!iReacted);
+  b.setAttribute("aria-pressed", iReacted ? "true" : "false");
+    });
+  } catch (e) {
+    console.error(e);
+    alert("Only registered users with 5+ posts can react.");
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.addEventListener("click", function (e) {
+    const link = e.target.closest(".problem-reaction-link");
+    if (!link) return;
+
+    e.preventDefault();
+
+    const row = link.closest(".problem-reaction-row");
+    if (!row) return;
+
+    const form = row.querySelector(".problem-reaction-form");
+    if (!form) return;
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.ok) {
+          console.error(data.error || "Problem reaction update failed");
+          return;
+        }
+
+        const summary = data.summary;
+
+        // Update users text for each reaction type
+        for (const [type, info] of Object.entries(summary)) {
+          const r = document.querySelector(
+            `.problem-reaction-row[data-reaction-type="${type}"]`
+          );
+          if (!r) continue;
+
+          const usersCell = r.querySelector(".problem-reaction-users");
+          if (usersCell) {
+            usersCell.textContent = info.users_title || "None yet";
+          }
+        }
+        link.classList.toggle("active");
+        if (link.classList.contains("active")) {
+          link.textContent = "(no)";
+        } else {
+          link.textContent = "(yes)";
+        }
+      })
+      .catch(err => {
+        console.error("Problem reaction AJAX error", err);
+      });
+  });
+});
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="topnav">
+
+  <div class="left">
+    <div class="logo">
+      <a class="dual-aware" href="/"><img src="/static/EPLogo.png" alt="Logo" height="50"></a>
+    </div>
+    <div class="links dual-aware desktop-nav">
+      <a href="/forum">Forum</a>
+      <a href="/dm">Inbox</a> 
+      <a href="/favourites">Favourites</a>
+      <a href="/tags">Tags</a> 
+      <div class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">More</a>
+        <div class="dropdown-content">
+          <a href="/faq">FAQ</a>
+          <a href="/prizes">Prizes</a>
+          <a href="/lists">Problem Lists</a>
+          <a href="/definitions">Definitions</a>
+          <a href="/links">Links</a>
+        </div>
+      </div> 
+    </div>
+    <div class="mobile-nav">
+    
+        <a class="forumlink" href="/forum">Forum</a>
+    <div class="dropdown">
+      <button class="dropbtn" id="mobileMenuButton">Menu</button>
+      <div class="dropdown-content">
+        <a href="/dm">Inbox</a> 
+        <a href="/favourites">Favourites</a>
+        <a href="/tags">Tags</a>  
+        <a href="/faq">FAQ</a>
+        <a href="/prizes">Prizes</a>
+        <a href="/lists">Problem Lists</a>
+        <a href="/definitions">Definitions</a>
+        <a href="/links">Links</a>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <div class = "middle">
+    <div class="button-container" style="max-width: 50%;">
+      <form id="idsearchForm">
+        <input required type="text" name="query" class="idsearchTerm" placeholder="# (or range #-#)" title="Enter either a single integer or a space-separated list of numbers/ranges, optionally ending with 'open' or 'solved'.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+    <div class="button-container" style="max-width: 50%;">
+      <form id="searchForm">
+        <input required type="text" name="query" class="searchTerm" placeholder="Search" title="Search all problems.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="right">
+    <a href="#" id="dualViewLink" class="split_all">Dual View</a>
+    <a href="/random_solved" class="split_solved dual-aware">Random Solved</a>
+    <a href="/random_open" class="split_open dual-aware">Random Open</a>
+  </div>
+
+</div>
+
+<div id="notifications-slot"></div>
+
+
+
+
+<div class="container">
+<div class="problem-box">
+
+        
+<div class="problem-text" id="open"> 
+ 
+    <div id="prize">
+    
+
+<span class="tooltip">
+OPEN
+<span class="tooltiptext">
+This is open, and cannot be resolved with a finite computation.
+</span>
+</span>
+
+
+
+    </div>
+    
+
+
+
+    <div id="content">
+If $A\subset \mathbb{Z}$ is a finite set of size $N$ then is there some absolute constant $c&#62;0$ and $\theta$ such that\[\sum_{n\in A}\cos(n\theta) &#60; -cN^{1/2}?\]
+    </div>
+
+    <div id="problem_id">
+<a href="/510">#510</a>: <a href="#bib-container510" onclick="event.preventDefault();addNewBox('Er61', '510', true);return false;">[Er61,p.248]</a>
+    </div>
+
+ 
+    <div id="tags">
+
+<a href="/tags/analysis">analysis</a>
+
+    </div>
+
+</div>  
+
+<div class="problem-additional-text"> 
+
+Chowla's cosine problem. Ruzsa <a href="#bib-container510" onclick="event.preventDefault();addNewBox('Ru04', '510', true);return false;">[Ru04]</a> (improving on an earlier result of Bourgain <a href="#bib-container510" onclick="event.preventDefault();addNewBox('Bo86', '510', true);return false;">[Bo86]</a>), proved an upper bound of\[-\exp(O(\sqrt{\log N})).\]Polynomial bounds were proved independently by Bedert <a href="#bib-container510" onclick="event.preventDefault();addNewBox('Be25c', '510', true);return false;">[Be25c]</a> and Jin, Milojević, Tomon, and Zhang <a href="#bib-container510" onclick="event.preventDefault();addNewBox('JMTZ25', '510', true);return false;">[JMTZ25]</a>. The best bound follows from the method of Bedert <a href="#bib-container510" onclick="event.preventDefault();addNewBox('Be25c', '510', true);return false;">[Be25c]</a>, which proved the existence of some $c&gt;0$ such that, for all $A$ of size $N$,\[\sum_{n\in A}\cos(n\theta) &lt; -cN^{1/7}.\]The example $A=B-B$, where $B$ is a Sidon set, shows that $N^{1/2}$ would be the best possible here.<br><br>This problem is Problem 81 on <a href="https://people.maths.ox.ac.uk/greenbj/papers/open-problems.pdf" rel="nofollow noopener noreferrer ugc" target="_blank">Green's open problems list</a>.<br><br>This is related to <a href="/256" rel="nofollow noopener noreferrer ugc" target="_blank">[256]</a>.
+
+
+    <div id="bib-container510"></div>
+ 
+   
+    <div class="citationbox">
+        <div id="content">
+<b>Additional thanks to</b>: Desmond Weisenberg
+
+        </div>
+    </div>
+
+    
+    <div class="image-container" id="image-container510"></div>
+</div>
+
+<div class="problem-info">
+
+
+
+<details class="problem-info-section">
+  <summary class="problem-info-row">
+    <span>Proof expositions (0)</span>
+  </summary>
+
+  <div class="problem-info-content problem-expositions">
+If you would like to contribute an exposition of a proof related to this problem, please message a moderator or leave your exposition as a comment.<p>
+
+
+    
+      <div class="problem-info-muted">
+        No proof expositions yet.
+      </div>
+    
+
+  </div>
+</details>
+
+<a class="problem-info-row problem-info-link" href="/forum/discuss/510">
+    <span>Comments (3)</span>
+  </a>
+
+  <a class="problem-info-row problem-info-link"
+     href="/forum/thread/510/proof-claims">
+    <span>Proof claims (0)</span>
+  </a>
+
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>More information and links</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      <div class="problem-info-small">
+
+This page was last edited 28 September 2025.
+ (<a href="/history/510">View history</a>) (<a href="/latex/510">View the LaTeX source</a>)<p>
+
+When referring to this problem, please use the original sources of Erd&#337;s. If you wish to acknowledge this website, the recommended citation format is:
+<p>
+T. F. Bloom, Erd&#337;s Problem #510, https://www.erdosproblems.com/510, accessed 2026-10-06
+</div>
+      <div class="problem-info-small">
+From the <a href="https://github.com/teorth/erdosproblems">external database</a>. (You can
+        <a href="https://github.com/teorth/erdosproblems">
+          help update
+        </a> this.)
+      </div>
+
+      
+
+        <div class="problem-info-data-row">
+          <span class="problem-info-label">Formalised statement?</span>
+          <span>
+            
+              <a href="https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/510.lean">
+                Yes
+              </a>
+            
+          </span>
+        </div>
+
+        
+
+        
+
+        
+
+      
+
+    </div>
+  </details>
+
+
+  
+  
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>Reactions</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="like">
+
+          <span class="problem-info-label">
+            Likes
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                
+                  <a href="/forum/user/carlos_toledo">carlos_toledo</a>
+                
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="collab">
+
+          <span class="problem-info-label">
+            Open to collaboration
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_on">
+
+          <span class="problem-info-label">
+            Currently working on
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="hard">
+
+          <span class="problem-info-label">
+            Looks difficult
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="easy">
+
+          <span class="problem-info-label">
+            Looks tractable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="formalisable">
+
+          <span class="problem-info-label">
+            Could be formalisable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_form">
+
+          <span class="problem-info-label">
+            Working on formalising
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+
+    </div>
+  </details>
+
+</div>
+               
+
+
+<div class="problem-additional-text"> 
+
+
+<div class="thread-sort">
+Order by
+  <a href="/forum/thread/510?order=oldest"
+     class="order ">oldest first</a> or
+  <a href="/forum/thread/510?order=newest"
+     class="order active">newest first</a>. (The most recent comments are highlighted in a red border.)
+</div>
+
+
+
+
+<ul class="post-list">
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8596"
+    class="post depth-0
+           recent recent-1
+           even">
+    <div class="post-body" id="post-8596">
+    
+
+
+
+      
+      <p>Some certified finite-$n$ data for this problem, in case it is useful to have exact values on record.<br><br>Write $\lambda(n) = -\sup_A \min_\theta \sum_{a\in A}\cos(a\theta)$, the supremum over sets of $n$ distinct positive integers (the notation of Mercer, *INTEGERS* 19 (2019), #A4, who proved $\lambda(2)=9/8$ and $\lambda(3)=\frac{17+7\sqrt 7}{27}\approx 1.315565$). This problem asks whether $\lambda(N) \gg N^{1/2}$.<br><br>I have computed certified upper bounds on $\lambda(n)$ for $n = 4,\dots,17$ by exhaustive sweeps over boxes $A \subset \{1,\dots,M\}$: every set in the box is decided exactly (integer-arithmetic kills at roots of unity, then exact-rational Chebyshev/Sturm certification of survivors; enclosure endpoints are exact dyadic rationals; a per-box conservation identity accounts for every set). Two caveats stated plainly: $\lambda(n)$ is an infimum over **all** $n$-sets, so each row is a certified **upper bound** witnessed by an explicit set, exact as an optimum only within its stated box; and the printed values are the certificate's exact dyadic enclosure endpoints **rounded up** at the 12th decimal (an upper bound may only ever be rounded up — the full exact endpoints are in the certificate).<br><br>| $n$ | $\lambda(n)\le$ | witness $A$ | box $M$ | sets decided |<br>|---|---|---|---|---|<br>| 4 | 1.519557881643 | 1,2,3,4 | 20 | 4,845 |<br>| 5 | 1.627460664467 | 1,2,4,5,6 | 60 | 5,461,512 |<br>| 6 | 1.591832329324 | 1,2,4,6,7,8 | 50 | 15,890,700 |<br>| 7 | 1.893455418993 | 1,2,3,5,6,7,8 | 30 | 2,035,800 |<br>| 8 | 1.956787693633 | 2,3,4,5,7,8,10,12 | 30 | 5,852,925 |<br>| 9 | 2.069282587092 | 2,3,4,5,7,9,10,12,14 | 30 | 14,307,150 |<br>| 10 | 2.057447274609 | 1,2,3,5,6,7,8,10,11,13 | 30 | 30,045,015 |<br>| 11 | 2.102381279243 | 1,2,3,4,5,6,8,9,10,11,14 | 30 | 54,627,300 |<br>| 12 | 2.213895922406 | 1,2,3,4,5,6,7,8,9,10,11,15 | 30 | 86,493,225 |<br>| 13 | 2.318232650153 | 1,2,3,4,5,6,7,9,10,11,12,13,16 | 30 | 119,759,850 |<br>| 14 | 2.320690691855 | 1,3,4,5,9,10,12,13,14,17,22,23,26,27 | 30 | 145,422,675 |<br>| 15 | 2.418912126896 | 1,2,3,4,6,7,8,9,10,11,12,14,18,20,21 | 30 | 155,117,520 |<br>| 16 | 2.454832753028 | 1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,21 | 30 | 145,422,675 |<br>| 17 | 2.564897120546 | 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,22 | 30 | 119,759,850 |<br><br>Remarks.<br><br>- For $n = 4, 5, 6$ the box optima coincide with the conjectured extremal sets listed in Mercer (2019); the sweeps add certified exhaustion over the stated boxes. I am not aware of a published table beyond $n = 6$.<br>- The bounds are not monotone in $n$ (the $n=6$ witness dips less than the $n=5$ one); nothing orders rows at different $n$, since these are upper bounds on an infimum.<br>- The ratios $\lambda(n)/\sqrt n$ along this table fall from $0.760$ at $n=4$ to $0.622$ at $n=17$ — upper bounds on $\lambda(n)/\sqrt n$, consistent with the $\sqrt N$ ceiling from the Sidon $B-B$ construction and with slower growth.<br>- A caution for reading structure off shallow boxes: at $M=25$ the best $n=14$ set found was the near-interval $\{1,2,3,4,5,6,8,9,10,12,13,14,15,18\}$ ($\lambda(14)\le 2.3664$); widening to $M=30$ produced the structurally different witness above and improved the bound to $2.3207$. The $n = 13, 15, 16, 17$ optima were confirmed unchanged at $M=30$.<br><br>The detached certificate (every row with its enclosure, witness, box and conservation identity) is 'certs/lambda-table.json' in https://github.com/carlostoledo1891/cert-machine, re-proved by the repository's test battery on every run; the same repository holds the instrument (exact rational arithmetic end to end — floating point is used only to prune, never to admit).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/carlos_toledo">carlos_toledo</a></strong>
+      
+      — <a href="/forum/thread/510#post-8596">21:32 on 26 Aug 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8596" data-react-url="/forum/post/8596/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8025"
+    class="post depth-0
+           recent recent-2
+           odd">
+    <div class="post-body" id="post-8025">
+    
+
+
+
+      
+      <p>Another minor modification of the argument can improve the exponent to $1/5$, a new arxiv version with the details should appear in a couple of days.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/bkbedert">bkbedert</a></strong>
+      
+      — <a href="/forum/thread/510#post-8025">00:34 on 24 Jul 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8025" data-react-url="/forum/post/8025/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: gdahia"
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-702"
+    class="post depth-0
+           recent recent-3
+           even">
+    <div class="post-body" id="post-702">
+    
+
+
+
+      
+      <p>A new version of my paper is now on the arXiv ( https://arxiv.org/abs/2509.05260v2 ), where the exponent $1/12$ is improved to $1/7$.</p>
+      
+      
+      <div class="fixed-post">
+(The site has been updated to address this comment.)
+      </div>
+
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/bkbedert">bkbedert</a></strong>
+      
+      — <a href="/forum/thread/510#post-702">08:39 on 24 Sep 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="702" data-react-url="/forum/post/702/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+  
+</ul>
+
+
+
+
+
+<p>
+                        <div style="text-align:center;">
+<strong>All comments are the responsibility of the user. Comments appearing on this page are not verified for correctness. Please keep posts mathematical and on topic.</strong>
+</div>
+<p>
+
+
+<div style="text-align:center; margin: 1em">
+
+
+  <p><a href="/forum/login?next=%2Fforum%2Fthread%2F510">Log in</a> to add a comment.</p>
+
+
+    </div>
+<p><div style="text-align: center; margin: 1em 0;">
+<a href="/forum/">Back to the forum</a>
+</div>
+                </div>
+            </div>
+            
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".reply-form");
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  if (btn?.dataset.submitting === "1") {
+    e.preventDefault(); // already submitted
+    return;
+  }
+  if (btn) {
+    btn.dataset.submitting = "1";
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+  }
+});
+</script>
+
+<script>
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest(".thread-sort .order");
+  if (!a) return;
+});
+</script>
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".comment-form");
+  if (!form) return;
+
+  const btn = form.querySelector('button[type="submit"]');
+  if (!btn) return;
+
+  // Already submitting? Block.
+  if (btn.dataset.submitting === "1") {
+    e.preventDefault();
+    return;
+  }
+
+  // First submit: lock UI
+  btn.dataset.submitting = "1";
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.dataset.originalText = original;
+  btn.textContent = "Posting…";
+});
+</script>
+           
+
+
+
+
+<script>
+window.MathJax = {
+  output: {
+    font: 'mathjax-tex'
+  },
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+};
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml-nofont.js"></script>
+
+
+<!-- Previewing forum posts -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[m]);
+  }
+
+  function normalizeHref(href) {
+    href = href.trim();
+    if (!/^https?:\/\//i.test(href) && !href.startsWith("/")) {
+      href = "https://" + href;
+    }
+
+    return href;
+  }
+
+  let mathJaxQueue = Promise.resolve();
+
+  function clearMathJax(element) {
+    if (window.MathJax && MathJax.typesetClear) {
+      MathJax.typesetClear([element]);
+    }
+  }
+
+  function typesetMath(element) {
+    if (!window.MathJax) return;
+
+    if (MathJax.typesetPromise) {
+      mathJaxQueue = mathJaxQueue
+        .then(() => {
+          if (MathJax.startup && MathJax.startup.promise) {
+            return MathJax.startup.promise;
+          }
+        })
+        .then(() => MathJax.typesetPromise([element]))
+        .catch(err => {
+          console.error("MathJax typeset failed:", err);
+        });
+
+      return;
+    }
+
+    if (MathJax.Hub) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+    }
+  }
+
+  function renderPreview(textarea, preview, label) {
+    let raw = textarea.value;
+    const anchors = [];
+    let idx = 0;
+
+    raw = raw.replace(
+      /<a\s+href=("(?:[^"]*)"|'(?:[^']*)')\s*>([\s\S]*?)<\/a>/gi,
+      (match, qHref, labelText) => {
+        const href = qHref.slice(1, -1);
+        const token = `__A_TAG_${idx++}__`;
+
+        anchors.push({
+          token,
+          href: normalizeHref(href),
+          label: labelText
+        });
+
+        return token;
+      }
+    );
+
+    let safe = escapeHtml(raw);
+
+    anchors.forEach(a => {
+      const html = `<a href="${escapeHtml(a.href)}">${escapeHtml(a.label)}</a>`;
+      safe = safe.replace(a.token, html);
+    });
+
+    safe = safe.replace(/\{PROBLEM=(.+?)\}/g, (_, p1) =>
+      `<a href="/${escapeHtml(p1)}">[${escapeHtml(p1)}]</a>`
+    );
+
+    safe = safe.replace(/\n/g, "<br>");
+    clearMathJax(preview);
+
+    if (!safe.trim()) {
+      preview.innerHTML = "";
+      preview.classList.add("hidden");
+      label.classList.add("hidden");
+      return;
+    }
+
+    preview.innerHTML = safe;
+    preview.classList.remove("hidden");
+    label.classList.remove("hidden");
+
+    typesetMath(preview);
+  }
+
+function initialisePreview(textarea) {
+  const form = textarea.closest("form");
+  const preview = form && form.querySelector(".post-preview");
+  const label = form && form.querySelector(".preview-label");
+
+  if (!preview || !label) {
+    return;
+  }
+
+  renderPreview(textarea, preview, label);
+}
+
+document.addEventListener("input", function (event) {
+  if (!event.target.matches("form textarea")) {
+    return;
+  }
+
+  initialisePreview(event.target);
+});
+
+document.querySelectorAll("form textarea").forEach(function (textarea) {
+  initialisePreview(textarea);
+});
+});
+</script>
+
+<!-- To handle the search bar -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function setFilterLink(linkId, newFilter) {
+        const link = document.getElementById(linkId);
+        if (!link) return;
+        const pathParts = window.location.pathname.split("/");
+        // Expect: /<section>/<entry> or /<section>/<entry>/<filter>
+        if (pathParts.length >= 3) {
+            const section = pathParts[1];
+            const entry = pathParts[2];
+            // Construct base: /tags/additive, /sources_bib/BL09, etc.
+            const baseUrl = "/" + section + "/" + entry;
+            link.href = baseUrl + "/" + newFilter;
+        }
+    }
+    setFilterLink("solvedLink", "solved");
+    setFilterLink("openLink", "open");
+    setFilterLink("yesLink", "yes");
+    setFilterLink("noLink", "no");
+});
+</script>
+
+<!-- Handle the dual view link -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const dualLink = document.getElementById("dualViewLink");
+  if (!dualLink) return;
+
+  const isInDualView = window.location.pathname.startsWith("/dual");
+  dualLink.textContent = isInDualView ? "Exit Dual View" : "Dual View";
+  dualLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isInDualView) {
+      try {
+        const leftIframe = document.getElementById("iframe-left");
+        const src = leftIframe?.src || "/";
+        let clean = src.replace(window.location.origin, "");
+        clean = clean.replace(/[?&]embed=1/, "");
+
+        window.location.href = clean;
+      } catch (err) {
+        window.location.href = "/";
+      }
+    } else {
+      const currentPath = window.location.pathname + window.location.search;
+      const rightPanelDefault = "/";
+      const hash = `#left:${encodeURIComponent(currentPath)}&right:${encodeURIComponent(rightPanelDefault)}`;
+      window.location.href = `/dual${hash}`;
+    }
+  });
+});
+</script>
+
+<!-- Redirect links and searches when in dual view mode -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.pathname.startsWith("/dual")) return;
+
+  function getTargetPanel() {
+    const selected = document.querySelector('input[name="targetPanel"]:checked');
+    return selected ? selected.value : "left";
+  }
+
+  function loadInPanel(panel, path) {
+    if (!path) return;
+    const iframe = document.getElementById(`iframe-${panel}`);
+    if (!iframe) return;
+    const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+    iframe.src = url;
+    const inputBox = document.querySelector(`#panel-${panel} input`);
+    if (inputBox) inputBox.value = path;
+    console.log(`Loaded "${url}" into panel "${panel}"`);
+  }
+  
+  document.querySelectorAll(".dual-aware a[href^='/'], a.dual-aware[href^='/']").forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const path = this.getAttribute("href");
+      loadInPanel(getTargetPanel(), path);
+    });
+  });
+
+  const idForm = document.getElementById("idsearchForm");
+  if (idForm) {
+    idForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = idForm.querySelector(".idsearchTerm").value.trim();
+      if (!input) return;
+
+      let path = null;
+
+      if (/^\d+$/.test(input)) {
+        path = "/go_to/" + encodeURIComponent(input);
+      } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/i.test(input)) {
+        const parts = input.split(/\s+/).filter(Boolean);
+        path = "/range/" + parts.map(encodeURIComponent).join("/");
+      } else {
+        alert("Invalid input format.");
+        return;
+      }
+
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = searchForm.querySelector(".searchTerm").value.trim();
+      if (!input) return;
+
+      const path = "/search/" + encodeURIComponent(input);
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+});
+</script>
+
+<!-- Different menu on mobile -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("mobileMenuButton");
+  const dropdown = document.getElementById("mobileDropdown");
+
+  if (button && dropdown) {
+    button.addEventListener("click", function () {
+      dropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove("show");
+      }
+    });
+  }
+});
+</script>
+
+<!-- For expanding threads -->
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#toggle-posts');
+  if (!link) return;
+  e.preventDefault(); 
+
+  const box = document.getElementById('more-posts');
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Show only the top five comments'
+    : `Show ${link.dataset.remaining} more comments`;
+});
+</script>
+
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.toggle-replies');
+  if (!link) return;
+  e.preventDefault();
+
+  const pid = link.dataset.postId;
+  const box = document.getElementById(`more-replies-${pid}`);
+  if (!box) return;
+
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Hide replies'
+    : `Show ${link.dataset.remaining} more replies`;
+});
+</script>
+
+
+<script>
+document.addEventListener("click", async function (event) {
+    const button = event.target.closest(".problem-status-option");
+    if (!button) return;
+
+    const widget = button.closest(".problem-status-widget");
+    if (!widget) return;
+
+    if (widget.dataset.canEdit !== "1") return;
+
+    const status = button.dataset.status;
+    const url = widget.dataset.setUrl;
+
+    widget.classList.add("is-saving");
+
+    const buttons = widget.querySelectorAll(".problem-status-option");
+    buttons.forEach(btn => btn.disabled = true);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "fetch"
+            },
+            body: JSON.stringify({ status: status })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.ok) {
+            throw new Error(data.error || "Could not update problem status.");
+        }
+
+        widget.dataset.currentStatus = data.status;
+
+        buttons.forEach(btn => {
+            const active = btn.dataset.status === data.status;
+            btn.classList.toggle("is-active", active);
+            btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+
+        const label = widget.querySelector(".js-problem-status-label");
+        const description = widget.querySelector(".js-problem-status-description");
+
+        if (label) label.textContent = data.label || button.dataset.label;
+        if (description) description.textContent = data.description || button.dataset.description;
+          widget.style.setProperty("--status-progress", button.dataset.progress);
+
+    } catch (err) {
+        alert(err.message || "Could not update problem status.");
+    } finally {
+        widget.classList.remove("is-saving");
+
+        if (widget.dataset.canEdit === "1") {
+            buttons.forEach(btn => btn.disabled = false);
+        }
+    }
+});
+</script>
+  
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a461a761dc5c23ac',t:'MTc5MTI1ODEyMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

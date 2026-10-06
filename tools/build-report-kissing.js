@@ -73,6 +73,27 @@ const mc841 = MC100.rows.find((x) => x.solution === r841.best.id && x.decision &
 if (!mc841 || mc841.decision.contacts !== r841.measured.contacts || mc841.decision.withoutRepeats.verdict !== 'CERTIFIED'
   || mc841.decision.withoutRepeats.n !== r841.measured.n - r841.measured.coincident) die('the n=841 distinct-direction count is not in certs/mc100-einstein-arena.json as this page reads it');
 const distinct841 = mc841.decision.withoutRepeats.contacts;
+/* ---- the n = 841 rung is CLOSED, read from pinned bytes. EinsteinArena archived kissing-number-d12 on 2026-06-30:
+   CHRONOS's score-0 submission of 2026-06-29 was the construction Takhanov et al. publish (arXiv:2606.18984), so the
+   target was solved outside the platform and submissions stay disabled. The page called n = 841 an open rung until
+   2026-10-06; the live problem description (fetched 2026-10-06) and the platform changelog are pinned and re-read here. */
+const PINV = require(path.join(ROOT, 'instruments', 'pin.js')).verify;
+const D12SRC = { api: 'kissing/einstein-arena-api-problems-kissing-number-d12_2026-10-06.json', note: 'kissing/einstein-arena-d12-pin.txt',
+  log: 'easota-platform/einstein-arena-changelog_9cd6fbfb.md' };
+for (const f of Object.values(D12SRC)) { const v = PINV(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why); }
+{
+  const rdS = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8');
+  const api = JSON.parse(rdS(D12SRC.api)), log = rdS(D12SRC.log), note = rdS(D12SRC.note);
+  if (api.id !== r841.problem_id || api.title !== r841.title) die('the pinned d12 problem is not the rung this page reads');
+  for (const t of ['## Status: Solved Outside EinsteinArena', 'This challenge is now archived.', 'Submissions are closed for this problem.',
+    'arxiv.org/pdf/2606.18984', 'The solution appeared on the authors\' GitHub on June 17th, 2026.'])
+    if (!api.description.includes(t)) die('the pinned d12 problem description no longer says: ' + t);
+  for (const t of ['## 2026-06-30\n\n### Kissing number dimension 12 archived', 'the CHRONOS `kissing-number-d12` score-0 construction was found to be identical to the construction described by Takhanov et al.',
+    '`kissing-number-d12` is now archived and submissions remain disabled', '## 2026-06-29\n\n### Kissing number dimension 12 under verification'])
+    if (!log.includes(t)) die('the pinned EinsteinArena changelog no longer says: ' + t);
+  /* the best the API serves on the closed lane is the score-2 entry this page reads; the note records the re-fetch */
+  if (!(r841.best.score > 0) || !note.includes(r841.response_sha256) || !/re-fetched 2026-10-06/.test(note)) die('the d12 pin note does not record the served best this page reads');
+}
 if (L.rows.some((r) => r.verdict === 'REFUTED')) die('a REFUTED row reached the page builder');
 for (const c of [s1, s2, s3]) if (c.uniformNorm !== true) die('a 604 configuration lost its shell-norm-4 uniformity');
 const distinct = new Set([s1.contacts, s2.contacts, s3.contacts]).size === 3;
@@ -330,12 +351,12 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§3 · the open rungs', title: 'What the platform is still trying, measured exactly',
+  lab: '§3 · the platform\'s rungs', title: 'What the platform is still trying, and the rung it closed',
   wide: true,
   bodyRaw: C.table({
     cols: [{ h: 'rung' }, { h: 'best submission at fetch' }, { h: 'platform score', cls: 'n' }, { h: 'violating pairs, exact', cls: 'n' }, { h: 'worst angle', cls: 'n' }, { h: 'exact contacts', cls: 'n' }, { h: 'reading' }],
     rows: OR.map((r) => [
-      r.title.replace('Kissing Number in ', ''),
+      r.title.replace('Kissing Number in ', '') + (r === r841 ? ' · closed 2026-06-30' : ''),
       '#' + r.best.id + ' · ' + r.best.agent + ' · ' + String(r.best.createdAt).slice(0, 10),
       String(r.best.score).slice(0, 10), fmt(r.measured.violations),
       r.measured.worstAngleDeg === null ? '—' : r.measured.worstAngleDeg.toFixed(2) + '°', fmt(r === r841 ? distinct841 : r.measured.contacts),
@@ -344,13 +365,22 @@ B.push(C.section({
         : (fmt(r.measured.violations) + ' pairs inside 60°; ' + (r.measured.worstAngleDeg < 50 ? 'far from a witness' : 'the closest of the three to a witness')),
     ])
   }) + '<div class="col">'
-  + C.pRaw('Three rungs on the platform are open — n = 605 in dimension 11, n = 841 and n = 842 in dimension 12 — and '
-    + 'each has a best submission the platform scores above zero. This instrument reads them too, as a distance and '
-    + 'not a verdict: every pair decided exactly, every violation counted, the worst named. None is a witness, and none '
-    + 'of this refutes anything — an attempt that fails is not a bound that fails. The n = 841 reading is worth a look: '
-    + 'the best submission is ' + (r841.measured.n - 1) + ' distinct directions with one vector repeated, an 840-point '
-    + 'configuration handed in as 841. The bytes are pinned by the digest of the API response at fetch time; a later '
-    + 'submission is a later fetch.') + '</div>'
+  + C.pRaw('Two rungs on the platform are open — n = 605 in dimension 11 and n = 842 in dimension 12 — and each has a '
+    + 'best submission the platform scores above zero. This instrument reads them too, as a distance and not a verdict: '
+    + 'every pair decided exactly, every violation counted, the worst named. Neither is a witness, and none of this '
+    + 'refutes anything — an attempt that fails is not a bound that fails.')
+  + C.pRaw('The third row is a closed rung. On 2026-06-29 CHRONOS submitted a score-0 configuration to the n = 841 rung; '
+    + 'on 2026-06-30 EinsteinArena found it identical to the construction of Takhanov et al. (arXiv:2606.18984, whose '
+    + 'solution appeared on the authors\' GitHub on 2026-06-17), archived the problem and kept submissions disabled. '
+    + 'Its page now opens &ldquo;Status: Solved Outside EinsteinArena&rdquo; and says &ldquo;Submissions are closed for '
+    + 'this problem&rdquo; (fetched 2026-10-06; both that text and the platform\'s changelog are pinned in '
+    + C.m('corpus/sources') + ' and re-read at every build). K(12) &ge; 841 is the literature\'s record, and its bytes '
+    + 'are queued here, not yet decided. The score-0 submission is not among the solutions the API serves for the '
+    + 'rung: the best it serves, the row above, is #' + r841.best.id + ' (' + r841.best.agent + ', '
+    + String(r841.best.createdAt).slice(0, 10) + ', score ' + r841.best.score + '), which is ' + (r841.measured.n - 1)
+    + ' distinct directions with one vector repeated — an 840-point configuration handed in as 841. The bytes are pinned '
+    + 'by the digest of the API response at fetch time (' + r841.fetched + ', the same digest at a re-fetch on 2026-10-06); '
+    + 'a later submission is a later fetch.') + '</div>'
 }));
 
 /* ---- §4 · the September 2026 wave, from L.wave (run-kissing-ledger.js re-checks certs/kissing-wave.json
@@ -503,10 +533,11 @@ B.push(C.note({
     + 'What is, to our knowledge, first here: a third-party exact certification of the 604 record from both '
     + 'platforms\' bytes, the exact reading of the EinsteinArena winner\'s bytes, the non-congruence of the three '
     + 'Station 604s stated as a certified corollary, and the congruence of the EinsteinArena 604 with the Station\'s '
-    + 'configuration 1 decided with an explicit, re-verified certificate. The open-rung readings decide nothing about '
+    + 'configuration 1 decided with an explicit, re-verified certificate. The rung readings decide nothing about '
     + 'any bound. The September wave rows decide witnesses, not priority: who reached a bound first is the claimants\' to say. '
     + 'Sources are published, not peer-reviewed; the Ganzhinov 592 row and the '
-    + 'dimension-12 record 841 (arXiv:2606.18984) are queued, not forgotten.')
+    + 'dimension-12 record 841 (arXiv:2606.18984, the construction EinsteinArena\'s archived n = 841 rung was found '
+    + 'to match on 2026-06-30) are queued, not forgotten.')
 }));
 
 const foot = '<p>Generated by tools/build-report-kissing.js @ git ' + git + '. Gates at this '

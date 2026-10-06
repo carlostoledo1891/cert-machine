@@ -30,6 +30,23 @@ here on request.
   - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste).
   - POSTED after the easota fix went live (2026-10-06): togethercomputer/EinsteinArena-new-SOTA#14; the TTT-Discover #19 comment. The 2026-10-09 courtesy hold was overridden by the operator's "finish all".
   - P2b HELD: the incrediblecrab tracker, until the #1186 claim is public.
+- **P3, 2026-10-06 ("finish all"; drafts in outreach/github-p3a-2026-10-06.md and github-p3b-2026-10-06.md):**
+  - POSTED:
+    - snorin239/RamseyLean#1 (replaces R2);
+    - the station_data_v2#2 follow-up (configurations 2 and 3, the Keller map, and which row is theirs);
+    - formal-conjectures#6874 (hot spots);
+    - the Spacerat gist courtesy comment.
+  - NEXT once the fixed pages deploy: mo271/Zeta5#3 (the ζ page now names the Anand audit).
+  - HELD WITH A DATE:
+    - the teorth/erdosproblems lambda4_cubic PR: on or after 2026-10-08, for Tao's notification load;
+    - the formal-conjectures #1186 request: when the #1186 claim is public, or by 2026-10-20 without the δ₃ paragraph;
+    - jackburrus/awesome-breakthroughs: about a week, for a reply on HorizonMath#10.
+  - NOT SENT:
+    - the λ(5) follow-up on #392: read paper/lambda5.pdf first; the forum comes first;
+    - einstein-arena#59: the d12 lane is archived;
+    - awesome-evals: its traction bar, and we have 0 stars;
+    - the C42 review: not decided here.
+  - HELD FOR THE OPERATOR: the ec-benchmark issue (the partners' field).
 - **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
 
 ## LANE P — PRIME INTELLECT (2026-10-05)
@@ -63,7 +80,8 @@ the milestone on the kit page ("five independent parties obtain the same verdict
 moves only from that file. Each is a SEND on the operator's per-item word:
   R1 rainrzk — POSTED 2026-10-05: https://github.com/rainrzk/erdos510-lambda4-audit/issues/1 (erdos852-cstar,
      mm-alphaevolve-48-4x4x4, optconst-84b; every cited command re-run green the same evening).
-  R2 S. Norin, for GNNW (email): gnnw-gai-3782, horizonmath-ramsey-asymptotic.
+  R2 S. Norin — SUPERSEDED 2026-10-06 by https://github.com/snorin239/RamseyLean/issues/1 (his own repository; the HorizonMath
+     half is public at HorizonMath#10, so the email's privacy buys nothing). Do not also send the email.
   R3 — POSTED 2026-10-05: https://github.com/vinid/einstein-arena/issues/64#issuecomment-6004578974 (the thread was
      closed; the comment notifies its participants) and https://github.com/dualverse-ai/station_data_v2/issues/2
      (kiss-ea-604, kiss-station-604-1, ea-overlap-together_ai_2026).
@@ -238,8 +256,8 @@ let them choose. Do not argue for the long one.
 
 - **#852 correction** — PUBLIC; `tools/sweep-claims.js` reports the snapshot
   pinned and the watch closed.
-- **#510 comment** (`outreach/erdos510-comment.md`) — submitted; still sitting
-  in the erdosproblems moderation queue, which the sweep re-checks every run.
+- **#510 comment** (`outreach/erdos510-comment.md`) — PUBLIC since 2026-08-26 on /forum/thread/510 (found 2026-10-06;
+  the sweep had watched the wrong URL); snapshot pinned.
 
 ---
 
