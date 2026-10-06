@@ -1,0 +1,54 @@
+# Janela's back-archive, fetched in the cloud on demand: ECMWF open-data runs for a date
+# range, read at every site exactly as apps/janela/audit/archive.py does on the desk, uploaded
+# as an artifact (nothing is committed here; `archive.py pack` on the desk writes the record).
+name: janela-archive
+on:
+  workflow_dispatch:
+    inputs:
+      from: { description: 'first day (YYYY-MM-DD)', required: true }
+      to: { description: 'last day (YYYY-MM-DD)', required: true }
+      chunks: { description: 'parallel jobs (1-8)', required: false, default: '6' }
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      ranges: ${{ steps.r.outputs.ranges }}
+    steps:
+      - id: r
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, datetime as dt
+          a = dt.date.fromisoformat('${{ inputs.from }}'); b = dt.date.fromisoformat('${{ inputs.to }}')
+          k = max(1, min(8, int('${{ inputs.chunks }}' or 6)))
+          n = (b - a).days + 1; size = -(-n // k); out = []
+          for i in range(k):
+              s = a + dt.timedelta(days=i * size); e = min(b, s + dt.timedelta(days=size - 1))
+              if s <= b: out.append({'from': s.isoformat(), 'to': e.isoformat()})
+          print('ranges=' + json.dumps(out))
+          PY
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        range: ${{ fromJSON(needs.plan.outputs.ranges) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r apps/janela/requirements.txt
+      - name: fetch (twice: the second pass picks up any day that errored)
+        run: |
+          cd apps/janela/audit
+          python archive.py ecmwf ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=16 || true
+          python archive.py ecmwf ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=8
+      - uses: actions/upload-artifact@v4
+        with:
+          name: janela-ecmwf-${{ matrix.range.from }}
+          path: corpus/janela/cache/ecmwf
+          retention-days: 7
