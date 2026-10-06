@@ -1,0 +1,46 @@
+# Janela's daily feed: read today's ECMWF 00 UTC forecast at every site, commit the
+# ensemble bands to the ledger BEFORE their target times, push. The push time is the
+# outside proof that every commit row predates the sea it forecasts.
+# Runs after ECMWF publishes the 00 UTC wave ensemble (~09:00 UTC).
+name: janela-feed
+on:
+  schedule:
+    - cron: '40 9 * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: janela-feed
+  cancel-in-progress: false
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: install the decoder
+        run: pip install -r apps/janela/requirements.txt
+      - name: the gate — the window instrument's battery
+        run: node instruments/window/battery.js
+      - name: read today's forecast at every site
+        run: cd apps/janela/audit && python feed.py
+      - name: commit the bands before the sea happens
+        run: node apps/janela/audit/commit.js
+      - name: push the record
+        run: |
+          git config user.name "janela-feed"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add corpus/janela/feed certs/janela-ledger
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "Janela feed $(date -u +%F): ECMWF 00 UTC at the Janela sites; ensemble bands committed to certs/janela-ledger before their target times"
+          for i in 1 2 3 4 5; do
+            git pull --rebase --quiet && git push --quiet && exit 0
+            sleep $((i * 15))
+          done
+          exit 1

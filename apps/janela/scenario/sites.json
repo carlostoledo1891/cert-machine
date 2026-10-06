@@ -1,0 +1,23 @@
+{
+  "what": "The places Janela forecasts, records and decides. ONE definition: the archive extractor, the daily feed, the workability tables, the alpha audit and the page all read this file and nothing else (a site defined twice WILL diverge). A site is a point; the forecast is read on the model's own grid around it (`box` = nodes either side of the nearest node, so a later choice of the best sea node needs no re-fetch). Field sites sit on nodes of the pinned WAVEWATCH III hindcast (corpus/ww3-points) so that climate and forecast speak about the same water. Terminal sites are the terminal's position; the forecast there is the nearest OPEN-SEA model node, which is the approach, never the berth — a berth value needs the nearshore transfer, and until it exists a berth rule is REFUSED, not guessed.",
+  "added": "2026-10-06",
+  "sites": [
+    { "id": "santos", "name": "Bacia de Santos — pré-sal", "en": "Santos Basin — pre-salt", "kind": "field", "lat": -25.5, "lon": -43.0, "ww3": "santos", "box": 1,
+      "note": "the pinned WW3 node 'santos' (−25.5, −43.0), inside the pre-salt production cluster" },
+    { "id": "campos", "name": "Bacia de Campos", "en": "Campos Basin", "kind": "field", "lat": -22.5, "lon": -40.0, "ww3": "campos", "box": 1,
+      "note": "the pinned WW3 node 'campos' (−22.5, −40.0)" },
+    { "id": "campos-p25", "name": "Plataforma P-25 (Albacora)", "en": "Platform P-25 (Albacora)", "kind": "platform", "lat": -22.109, "lon": -39.917, "metar": "SBLB", "box": 1,
+      "note": "the only offshore platform in Brazil that publishes METAR (SBLB, AUTO); its anemometer is at platform height, not 10 m" },
+    { "id": "espirito-santo", "name": "Bacia do Espírito Santo", "en": "Espírito Santo Basin", "kind": "field", "lat": -20.0, "lon": -38.5, "ww3": "espirito-santo", "box": 1 },
+    { "id": "pelotas", "name": "Bacia de Pelotas", "en": "Pelotas Basin", "kind": "field", "lat": -32.0, "lon": -49.0, "ww3": "pelotas", "box": 1 },
+    { "id": "potiguar", "name": "Margem Equatorial — Potiguar", "en": "Equatorial Margin — Potiguar", "kind": "field", "lat": -4.0, "lon": -36.5, "ww3": "potiguar", "box": 1 },
+    { "id": "foz-amazonas", "name": "Margem Equatorial — Foz do Amazonas", "en": "Equatorial Margin — Amazon Mouth", "kind": "field", "lat": 4.0, "lon": -49.0, "ww3": "foz-amazonas", "box": 1 },
+    { "id": "floripa", "name": "Florianópolis — borda aberta do Swell", "en": "Florianópolis — Swell's open edge", "kind": "coast", "lat": -27.60, "lon": -48.15, "box": 2,
+      "note": "the one point where Swell reads the open sea (east edge of its island box)" },
+    { "id": "babitonga", "name": "Babitonga — São Francisco do Sul (TEFRAN, Terminal Gás Sul)", "en": "Babitonga — São Francisco do Sul (TEFRAN, Terminal Gás Sul)", "kind": "terminal", "lat": -26.2311, "lon": -48.4175, "box": 2,
+      "note": "the TEFRAN monobuoy, 26°13′52″S 048°25′03″W (NPCP-SC)" },
+    { "id": "sao-sebastiao", "name": "São Sebastião (TEBAR)", "en": "São Sebastião (TEBAR)", "kind": "terminal", "lat": -23.80, "lon": -45.40, "box": 2 },
+    { "id": "ilha-grande", "name": "Baía da Ilha Grande (TEBIG)", "en": "Ilha Grande Bay (TEBIG)", "kind": "terminal", "lat": -23.05, "lon": -44.23, "box": 2 },
+    { "id": "sepetiba", "name": "Baía de Sepetiba (FSRU)", "en": "Sepetiba Bay (FSRU)", "kind": "terminal", "lat": -22.95, "lon": -43.85, "box": 2 }
+  ]
+}
