@@ -60,6 +60,13 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     style, render and layout baselines (design/*-baseline.json; the layout row added alone — skyaudit's 1440/768
     spine count flaps 5<->6 and 4<->5 between runs on this network, unrelated and not accepted worse). THE FULL
     CONTROL BUILD ran on the charger at b250e13: 116/116 green.
+  THE APP VIEW (2026-10-06 evening, 2349f65): carlostoledo.co/janela/ is now the APP — the fleet on one map (181
+    ANP production units + the twelve measured sites as verdict annunciators; fields and the pre-salt from ANP's
+    GeoMaps, pinned in corpus/anp), the answer first, three criteria side by side, ALÍVIO CRÍTICO on user inputs,
+    MÊS by season, PLACAR, Nota de decisão; the document page moved to /janela/metodo/. The DAY's data rides the
+    orphan branch janela-field (today.json + field.bin, force-pushed daily by the Action after build-today.js
+    re-decides all 67,396 published decisions from the written bytes); main never grows by a day of app data.
+    Verified live in Chrome at 1440 and 390: no errors, no overflow, the tab re-decides everything in ~0.4 s.
   NEXT (the operator picks): Swell re-homed on this engine as the public face (apps/swell/TODO.md has the port
     plan and the source review's findings); period uncertainty for swell-sensitive operations (B706); wind
     alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind — anemometer height); the nearshore transfer for berth
