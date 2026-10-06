@@ -70,7 +70,7 @@ function build() {
     registry: M.registry, corpus: { meta: 'corpus/optimization-constants/meta.json', sha256: sha(fs.readFileSync(path.join(CORPUS, 'meta.json'))) },
     code, rows, also, improvement,
     observed: {
-      what: 'The 147-point certificate\'s own checker, check_cert.py at the pinned gist revision (sha256 ' + M.l2026.notMirrored['check_cert.py'].slice(0, 12) + '…, not mirrored), run on 2026-09-29 with mpmath 1.3.0: it encloses the ratio at 100 digits (iv.dps = 100) but makes its final comparison, mpmath.mpf(verified) >= mpmath.mpf(claimed), in the default context of 53 bits, so any claim within a double of the true bound prints OK.',
+      what: 'The 147-point certificate\'s own checker, check_cert.py at the pinned gist revision (sha256 ' + M.l2026.notMirrored['check_cert.py'].slice(0, 12) + '…, not mirrored), run on 2026-09-29 with mpmath 1.3.0: it encloses the ratio at 100 digits (iv.dps = 100) but makes its final comparison, mpmath.mpf(lo_str) >= mpmath.mpf(claimed), in the default context of 53 bits, so any claim within a double of the true bound prints OK.',
       runs: [
         { claimed: '1.674733895041405870063135756722213999136383713818148696811828', printed: 'OK', truth: 'CERTIFIED here (the certificate\'s own bound)' },
         { claimed: '1.674733895041405870063135756722213999136383713818148696811900', printed: 'OK', truth: 'not certified here: above the certified lower end at the 58th decimal' },

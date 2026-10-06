@@ -177,13 +177,26 @@ for (const [repo, num, label] of [
   ['rainrzk/erdos510-lambda4-audit', 1, 'rerun R1 (rainrzk)'],
   ['vinid/einstein-arena', 64, 'rerun R3 (EinsteinArena #64)'],
   ['dualverse-ai/station_data_v2', 2, 'rerun R3 (Station)'],
-  ['suvrit/count-ex-machina', 1, 'rerun R4 (Sra)']]) {
+  ['suvrit/count-ex-machina', 1, 'rerun R4 (Sra)'],
+  ['ewang26/HorizonMath', 10, 'HorizonMath Ramsey certificate'],
+  ['teorth/optimizationproblems', 216, 'PR #216 (3b/3c/71 replay)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }
   const [nStr, st] = out.split('\t'); const n = Number(nStr), key = 'gh:' + repo + '#' + num;
   if (state[key] !== undefined && state[key] !== null && n > state[key]) finding(label + ': ' + (n - state[key]) + ' NEW comment(s) on https://github.com/' + repo + '/issues/' + num);
   else say(label + ': ' + n + ' comment(s), ' + st);
+  state[key] = n;
+}
+
+/* 3g · gist comments we posted (2026-10-05): a reply from the gist's author is a finding */
+for (const [gist, label] of [['5368357cd781d7e5c676c9d68ad24d22', 'gist CoolRmal (check_cert.py 53-bit compare)']]) {
+  let out = null;
+  try { out = execFileSync('gh', ['api', 'gists/' + gist, '--jq', '.comments'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
+  if (out === null) { say(label + ': gh api failed (transient)'); continue; }
+  const n = Number(out), key = 'gist:' + gist;
+  if (state[key] !== undefined && state[key] !== null && n > state[key]) finding(label + ': ' + (n - state[key]) + ' NEW comment(s) — https://gist.github.com/' + gist);
+  else say(label + ': ' + n + ' comment(s)');
   state[key] = n;
 }
 

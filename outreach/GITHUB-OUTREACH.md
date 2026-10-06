@@ -5,6 +5,12 @@ This is a read-only map. Every venue was checked on 2026-10-05 with `gh api` GET
 ## Read first: record corrections this pass found (fix before citing anything they touch)
 
 1. **Navier–Stokes is superseded upstream.** The upstream HEAD is now `f9e8bc5b` (2026-09-10, balexeev-oai), one commit after our pin `8937a8f4`. At HEAD, `NavierStokes/R3/ActualCandidate.lean` lines 114–119 supply `energy_bounded` via `CompactEnergy.uniform_finite_energy`, and a new `R3/Theorem.lean` proves `theorem_1_1`. So "the finite-energy clause is absent" holds only at the pin. Affected: /reports/navier-stokes.html and register row `navier-stokes-openai-2026`. This was read from the source only; the HEAD was not built.
+   **RESOLVED 2026-10-05:**
+   - f9e8bc5b was BUILT here: 486/486 modules, axioms only propext, Classical.choice and Quot.sound.
+   - Recorded in corpus/navier-stokes/upstream-f9e8bc5b.json.
+   - The register row moved PARTIAL → CERTIFIED, with the pin's PARTIAL kept as history.
+   - The page is re-dated, with a new §4b.
+   - Comparator was not re-run at f9e8bc5b.
 2. **The #1038 supremum is already settled.** /reports/erdos1038-sup.html says "Tao's conjecture itself … remains open". But erdosproblems.com/1038 records `sup = 2√2`, and formal-conjectures marks `erdos_1038.parts.ii` `research solved`, "proved in [Tao25]". Our 2026-09-01 comment on teorth/erdosproblems#179 presents the per-degree results as "certified progress on the supremum side".
 3. **A count slip in our 2026-09-08 comment on vinid/einstein-arena#64.** It says "840 distinct directions with 41,128 exact contacts". `certs/mc100-einstein-arena.json` (`withoutRepeats`) gives **40,992**. The figure 41,128 counts the repeated entry's 136 contacts twice.
 4. **The λ(4) page header is stale.** /reports/lambda4.html says "No independent re-verification has run yet". The same page describes rainrzk's no-shared-code re-certification of 2026-09-30.
@@ -26,7 +32,22 @@ This is a read-only map. Every venue was checked on 2026-10-05 with `gh api` GET
 
 ---
 
-## §0 Our presence: the fixes (facts as of 2026-10-05; none applied)
+## §0 Our presence: the fixes (facts as of 2026-10-05)
+
+**APPLIED 2026-10-05 on the operator's "Go":**
+- 0.1: the description, verbatim.
+- 0.2: the 20 topics.
+- 0.3: labels `claim` and `rerun`.
+- 0.4 and 0.5: the README badge now points at the concept DOI, and δ₃ is on the first screen.
+- 0.6: the claims and rerun pages rebuilt to 131 rows.
+- 0.8: Wiki and Projects off.
+- 0.13: the profile README, at https://github.com/carlostoledo1891/carlostoledo1891.
+- 0.14: mfg-lab +3 topics.
+
+**LEFT FOR THE OPERATOR:**
+- 0.11: the bio.
+- 0.12: the pins; GitHub has no API for pinning.
+- 0.9: CONTRIBUTING.md, optional.
 
 | # | Item | Now | Set to | Why |
 |---|---|---|---|---|

@@ -411,16 +411,20 @@ const REPORTS = [
       + 'queue is open and its submitted count is published even while it is zero, and the claimant\'s code is '
       + 'never in the trust path.',
     n: fmt(claimsLedger.decided) + ' claims decided · ' + claimsLedger.submitted + ' submitted so far' },
-  ...(() => {                                                       /* the monthly ledger (D6): the latest month's page */
-    const last = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort().pop();
-    if (!last) return [];
-    const m = last.slice(8, 15), mm = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][Number(m.slice(5)) - 1] + ' ' + m.slice(0, 4);
-    const rows = claimsLedger.rows.filter((r) => r.recordedOn && r.recordedOn.slice(0, 7) === m && r.verdict !== 'QUEUED');
-    return [{ g: 'ai', f: last, k: 'the monthly ledger',
-      title: 'Decided, ' + mm,
-      desc: 'Every published claim decided in ' + mm + ', read from the register: what held, what did not, and what went wrong, in one '
-        + 'closed vocabulary — a dated diff of the records, nothing typed.',
-      n: fmt(rows.length) + ' decided · ' + fmt(rows.filter((r) => r.kind !== 'none').length) + ' with something wrong' }];
+  ...(() => {                                                       /* the monthly ledger (D6): one page per month, newest first.
+     The shelf must carry every month's page — it listed only the latest, and the first new month (October 2026) left
+     September's page on disk with no shelf row, which the shelf gate refused. */
+    const months = fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort().reverse();
+    const NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return months.map((f, i) => {
+      const m = f.slice(8, 15), mm = NAMES[Number(m.slice(5)) - 1] + ' ' + m.slice(0, 4);
+      const rows = claimsLedger.rows.filter((r) => r.recordedOn && r.recordedOn.slice(0, 7) === m && r.verdict !== 'QUEUED');
+      return { g: 'ai', f, k: i === 0 ? 'the monthly ledger' : 'the monthly ledger · an earlier month',
+        title: 'Decided, ' + mm,
+        desc: 'Every published claim decided in ' + mm + ', read from the register: what held, what did not, and what went wrong, in one '
+          + 'closed vocabulary — a dated diff of the records, nothing typed.',
+        n: fmt(rows.length) + ' decided · ' + fmt(rows.filter((r) => r.kind !== 'none').length) + ' with something wrong' };
+    });
   })(),
   { g: 'ai', f: 'envs.html', k: 'environments · the grader, graded',
     title: 'We graded the graders',

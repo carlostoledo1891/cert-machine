@@ -3,8 +3,10 @@
    tools/ · cert-machine
 
    Target: teorth/erdosproblems#179 (on Erdős #1038). Over discrete
-   probability measures on [-1,1], Tao conjectures sup |{U_mu < 0}| =
-   2*sqrt(2), attained by the uniform measure on {-1,+1}. Rational-weight
+   probability measures on [-1,1], Tao conjectured (16 Dec 2025) and then
+   proved (forum, 21 Dec 2025; notes, Theorem 2.1) sup |{U_mu < 0}| =
+   2*sqrt(2), attained only by the uniform measure on {-1,+1}; this
+   campaign re-decides that known theorem degree by degree. Rational-weight
    measures with denominator N are exactly monic degree-N polynomials with
    roots in [-1,1] via |q| < 1. This campaign:
 
@@ -77,19 +79,25 @@ function writeRecord() {
   const record = {
     what: 'The Tao #179 sublevel campaign (Erdős #1038, supremum side). Rational-weight discrete measures '
       + 'on [-1,1] with denominator N are monic degree-N polynomials with roots in [-1,1]; this record holds '
-      + 'certified sublevel measures |{|q|<1}| (lower-bound witnesses for the conjectured sup 2*sqrt(2)), '
-      + 'certified grid champions, and per-degree branch-and-bound THEOREMS: odd degrees ' + oddDone.join(', ')
+      + 'certified sublevel measures |{|q|<1}| (lower-bound witnesses for sup = 2*sqrt(2), a theorem of Tao, '
+      + 'December 2025), certified grid champions, and per-degree branch-and-bound THEOREMS — independent '
+      + 're-decisions of that known theorem: odd degrees ' + oddDone.join(', ')
       + ' fall strictly below 2.82 < 2*sqrt(2); even degrees ' + evenDone.join(', ')
       + ' have supremum in [2*sqrt(2), 2.82845], the left end attained by (x^2-1)^{N/2}. A degree marked '
-      + 'failed was ATTEMPTED and is open, not silently dropped. Every measure is an exact outward enclosure '
+      + 'failed was ATTEMPTED and refused on its budget, not silently dropped. Every measure is an exact outward enclosure '
       + 'from BigInt Sturm root isolation; every branch-and-bound pruning uses the certified min-product box '
       + 'bound (calibrated: thin boxes reproduce measures to all printed digits).',
-    provenance: 'Conjecture and framing: T. Tao, teorth/erdosproblems#179 (Dec 2025), on erdosproblems.com #1038. '
-      + 'The infimum side was resolved by Darvas-Peng-Tao (2026); this campaign addresses the supremum side only.',
+    provenance: 'Framing: T. Tao, teorth/erdosproblems#179 (16 Dec 2025), on erdosproblems.com #1038. The SUPREMUM '
+      + 'is settled: Tao proved sup = 2*sqrt(2), the two-atom measure the only case of equality (forum thread 1038, '
+      + '21 Dec 2025; notes of 22 and 27 Dec 2025, Theorem 2.1; formal-conjectures erdos_1038.parts.ii "research '
+      + 'solved"), before this campaign ran. The INFIMUM is open on erdosproblems.com (parts.i "research open"); '
+      + 'Darvas-Peng-Tao (July 2026) is one of three AI-assisted proof claims for it. This campaign addresses the '
+      + 'supremum side only. Sources pinned in corpus/sources/erdos1038. (Corrected 2026-10-05: this field said '
+      + 'the infimum side was resolved by Darvas-Peng-Tao.)',
     witness: { config: '(x^2-1): uniform measure on {-1,+1}', measure: enc(wit), equals: '2*sqrt(2), certified' },
     sweeps: Object.fromEntries(Object.entries(sweeps).map(([k, v]) => [k, { configs: v.count, champion: v.best }])),
-    cubicChampion: { config: '(-1, 201/256, 1)', measure: cubicChampion, note: 'interior critical root — the degree-3 supremum is NOT at a lattice point and sits near 2.7542' },
-    quinticPeak: { config: '(-1 dbl, 905/1024, 1 dbl)', measure: quinticPeak, note: 'the family (x^2-1)^2(x-r) peaks at a topological transition of the sublevel set near r = 905/1024, then drops discontinuously' },
+    cubicChampion: { config: '(-1, 201/256, 1)', measure: cubicChampion, note: 'interior critical root — the best certified degree-3 value in the record is at r = 201/256, not at a lattice point, near 2.7542: a lower bound on the degree-3 supremum (that it is the maximum is not certified)' },
+    quinticPeak: { config: '(-1 dbl, 905/1024, 1 dbl)', measure: quinticPeak, note: 'the family (x^2-1)^2(x-r) peaks near r = 905/1024 while its sublevel set is one interval, then descends steeply but continuously as a gap opens and the set splits in two (corrected 2026-10-05: this note said it drops discontinuously; for fixed degree the measure is continuous in the roots)' },
     theorems,
     meta: { date: new Date().toISOString().slice(0, 10), git, ms: Date.now() - t0 }
   };

@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-05",
-  "browser": "Chrome/154.0.8037.93",
+  "recorded": "2026-10-06",
+  "browser": "Chrome/154.0.8037.98",
   "viewports": [
     1440,
     768,
@@ -138,7 +138,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1d4e78a909128e166926791f18c748e7787bfd221f054944dff97f3c8ec0035e"
+      "sha": "93e1ec5933358ba951b3fef3ff36e9fd93b33e3ec87cdd6f331cc72f3de18fdc"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -642,7 +642,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "abdd12d2acb0024d2b676f0d215a0fd6d66aedceaeaf7909afc1dc914726629f"
+      "sha": "51a4eaa72109751fe8d30373aa2db77a21783fe1194d1fc7aa181ad8d2264135"
     },
     "site/oracle/index.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6edf338e1f68bbcea2d778c1e914c356b2da5f9ee7cf41fa4c31167c444331a3"
+      "sha": "d05497ef57a71cb151fc5f0d402311f5d90ea31ba8036df82a54a24a090217aa"
     },
     "site/papers/index.html": {
       "390": {
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a4a739a17a183c87ac116d2e49678d9084f29c7b4f47e396075f8446e037c63d"
+      "sha": "9dc4bdebc3bfdd37b8e0e409ba31106a0ce32dad545096a12341c94c8eeec954"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -1020,7 +1020,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fa318257d0400a5b88d7b8efeb7a9baac87bb33342bde7610240c7a012ffd262"
+      "sha": "4f726b88e2d23f31d57b2dbb4db29a854c7cc871934e06ab6165b3bc4b143897"
     },
     "site/reports/counterexample-machine.html": {
       "390": {
@@ -1062,7 +1062,28 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6ff333c9fc03174370689d7815859554b352b6cc1c6c25e42d5ed6c478bbb4ea"
+      "sha": "348a7b8f50e7b78e2358e02a502dcd56dc7b0a1e2a47e91713d9743cc3c02e1a"
+    },
+    "site/reports/decided-2026-10.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "768": {
+        "spines": 6,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "6e87a6cbea5198a8dc903144bfcd302879dacc0edb063eeeec73f7c2ab83ffec"
     },
     "site/reports/delta3.html": {
       "390": {
@@ -1083,7 +1104,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a5892a831dd210934639334fa166c8af61794ef09851fc3abf2a8bff04bf914a"
+      "sha": "fdad7a0a6f4e6836863cb46dc0ba8fbf3b153d9408ab1e1844af80d87b0fff7a"
     },
     "site/reports/diagonal-ramsey.html": {
       "390": {
@@ -1104,7 +1125,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "035d5d049d0ea3855f3e4f5145727e49aa467ca433004ecf3021b39cf00aa989"
+      "sha": "724e38559403742d993b16db11bceb2d04a4d21fd23317d4d0b2ab2e4fb1e042"
     },
     "site/reports/easota.html": {
       "390": {
@@ -1272,7 +1293,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "29c15de8063a843194aa9996d55cbece8cf2e800c2cc8427c6e67be792ee7be3"
+      "sha": "6c8416873d232e879f669b07c8d91bf65654b1864010df20d8a651992a508eca"
     },
     "site/reports/erdos290.html": {
       "390": {
@@ -1524,7 +1545,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3b1a1716f622d779929ad1570c8e7924f1284505871b6815acb9a60367e25afa"
+      "sha": "13e771b7822f18e8a3856e248fbd2b83cb670fddd088528c577a86bce7dff94d"
     },
     "site/reports/impostors.html": {
       "390": {
@@ -1566,7 +1587,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0343866ebcd485c96f008283bbf0902b11a3107a8d361395107728103a749939"
+      "sha": "ac5c683811b47f9b8460c4e8130eece562e953724ff802c843827a97084dc47e"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1608,7 +1629,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c276ce8157bde1533c90bcd392b3ae30a509a229fe59ba48a0955af47ba8e3c5"
+      "sha": "3d182a98cbbd2b9a122024e31f75230745c8ca6a8ab9a4723d4822c9aa92a5b3"
     },
     "site/reports/lambda4.html": {
       "390": {
@@ -1629,7 +1650,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "feb2b6a048aade14ddc34ff4f638dea8f575a3c0f8890206ca3c2a7663f91735"
+      "sha": "5773558e24723a7b4d0c531a142df5ad85741c766aa8c9614e8d2a1b14fc204a"
     },
     "site/reports/lambda5.html": {
       "390": {
@@ -1906,24 +1927,24 @@
     },
     "site/reports/navier-stokes.html": {
       "390": {
-        "spines": 7,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 8
+        "clipped": 10
       },
       "768": {
-        "spines": 14,
+        "spines": 16,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4
+        "clipped": 5
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0
+        "clipped": 1
       },
-      "sha": "0e325d640dafc77ae05ba8b633a82975fc5969c3430f477cbfb2bbf9e4e98126"
+      "sha": "0522e1f8cccdba8fa9fa64287b50705d45c412586f2c08eee06676f8f39f16b1"
     },
     "site/reports/optimization-constants.html": {
       "390": {
@@ -1944,7 +1965,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dc66f42894e80521f1cdfcbf171ce3fb2fa178004bf878cef3abbfdc6aee025e"
+      "sha": "c846afd7eaa98f1c178df06c2f4d30fa359af5f288195598009e51fbd64f4c80"
     },
     "site/reports/polymaps.html": {
       "390": {
@@ -1965,7 +1986,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d99ada9273a5189ee44be21890364b49d333ecdb34d7bd57ebb00f079ea3791f"
+      "sha": "387355653218b4a84feb9247148f47551d189d1d355209482947ffc1c71d748a"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {
@@ -2070,7 +2091,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e91e164643c6a02098850fa141a201859928bc702b19ec49b207a7b53807d94e"
+      "sha": "67bf6f8704fd4c369f60f7788f64bfced37b9598290cd934bc8055d973d4e737"
     },
     "site/reports/return-levels.html": {
       "390": {
@@ -2238,7 +2259,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b56d4cf40067c93197771789c76eb936386b09bc078ad67454aa805bd5ca03b4"
+      "sha": "d8bcec3347b5077e6dee16618e12ecd1d76b865cb05f9b77097e604a34482998"
     },
     "site/reports/wardrop-repro.html": {
       "390": {

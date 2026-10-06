@@ -1,0 +1,88 @@
+{
+  "url": "https://api.github.com/repos/teorth/erdosproblems/issues/179",
+  "repository_url": "https://api.github.com/repos/teorth/erdosproblems",
+  "labels_url": "https://api.github.com/repos/teorth/erdosproblems/issues/179/labels{/name}",
+  "comments_url": "https://api.github.com/repos/teorth/erdosproblems/issues/179/comments",
+  "events_url": "https://api.github.com/repos/teorth/erdosproblems/issues/179/events",
+  "html_url": "https://github.com/teorth/erdosproblems/issues/179",
+  "id": 3736229681,
+  "node_id": "I_kwDOPna1bs7eslcx",
+  "number": 179,
+  "title": "\"Beat the AI\" on #1038",
+  "user": {
+    "login": "teorth",
+    "id": 199308,
+    "node_id": "MDQ6VXNlcjE5OTMwOA==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/199308?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/teorth",
+    "html_url": "https://github.com/teorth",
+    "followers_url": "https://api.github.com/users/teorth/followers",
+    "following_url": "https://api.github.com/users/teorth/following{/other_user}",
+    "gists_url": "https://api.github.com/users/teorth/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/teorth/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/teorth/subscriptions",
+    "organizations_url": "https://api.github.com/users/teorth/orgs",
+    "repos_url": "https://api.github.com/users/teorth/repos",
+    "events_url": "https://api.github.com/users/teorth/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/teorth/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "labels": [
+    {
+      "id": 9201448931,
+      "node_id": "LA_kwDOPna1bs8AAAACJHL34w",
+      "url": "https://api.github.com/repos/teorth/erdosproblems/labels/help%20wanted",
+      "name": "help wanted",
+      "color": "008672",
+      "default": true,
+      "description": "Extra attention is needed",
+      "archived_at": null,
+      "archived_by": null
+    }
+  ],
+  "state": "open",
+  "locked": false,
+  "assignees": [
+
+  ],
+  "milestone": null,
+  "comments": 2,
+  "created_at": "2025-12-16T20:31:14Z",
+  "updated_at": "2026-09-03T13:52:25Z",
+  "closed_at": null,
+  "assignee": null,
+  "author_association": "OWNER",
+  "active_lock_reason": null,
+  "sub_issues_summary": {
+    "total": 0,
+    "completed": 0,
+    "percent_completed": 0
+  },
+  "issue_dependencies_summary": {
+    "blocked_by": 0,
+    "total_blocked_by": 0,
+    "blocking": 0,
+    "total_blocking": 0
+  },
+  "body": "[Problem #1038](https://www.erdosproblems.com/1038) is ostensibly a problem about polynomials, but it can instead be phrased as a question about discrete probability measures $\\mu = \\sum_i p_i \\delta_{a_i}$ on the interval $[-1,1]$.  For any such measure, form the logarithmic potential\n\n$$ U_\\mu(x) = \\int \\log |x-y|\\ d\\mu(y) = \\sum_i p_i \\log |x_i - a_i|$$\nand consider the quantity\n$$ |\\{ x: U_\\mu(x) < 0 \\}|.$$\nWhat is the infimum and supremum of this quantity?\n\nThe supremum conjecturally is attained at $2 \\sqrt{2}$, taking the $(a_i,p_i)$ to be $(+1,0.5)$ and $(-1,0.5)$ (i.e., $\\mu$ is the uniform distribution on $\\{-1,+1\\}$).  This may be hard to prove completely.  But the infimum has more scope for room of improvement.  Currently the best upper and lower bounds on the infimum are\n$$1 \\leq \\inf |\\\\{ x: U_\\mu(x) < 0 \\\\}| \\leq 1.84 $$\nwhere the upper bound was found by the AI-powered tool AlphaEvolve.  Details to both bounds can be found in the in the comments to the problem.  Perhaps one can do better on either side?  ",
+  "closed_by": null,
+  "reactions": {
+    "url": "https://api.github.com/repos/teorth/erdosproblems/issues/179/reactions",
+    "total_count": 0,
+    "+1": 0,
+    "-1": 0,
+    "laugh": 0,
+    "hooray": 0,
+    "confused": 0,
+    "heart": 0,
+    "rocket": 0,
+    "eyes": 0
+  },
+  "timeline_url": "https://api.github.com/repos/teorth/erdosproblems/issues/179/timeline",
+  "performed_via_github_app": null,
+  "state_reason": null,
+  "pinned_comment": null
+}

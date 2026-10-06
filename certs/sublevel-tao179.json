@@ -1,6 +1,6 @@
 {
- "what": "The Tao #179 sublevel campaign (Erdős #1038, supremum side). Rational-weight discrete measures on [-1,1] with denominator N are monic degree-N polynomials with roots in [-1,1]; this record holds certified sublevel measures |{|q|<1}| (lower-bound witnesses for the conjectured sup 2*sqrt(2)), certified grid champions, and per-degree branch-and-bound THEOREMS: odd degrees 3, 5, 7 fall strictly below 2.82 < 2*sqrt(2); even degrees 4, 6, 8 have supremum in [2*sqrt(2), 2.82845], the left end attained by (x^2-1)^{N/2}. A degree marked failed was ATTEMPTED and is open, not silently dropped. Every measure is an exact outward enclosure from BigInt Sturm root isolation; every branch-and-bound pruning uses the certified min-product box bound (calibrated: thin boxes reproduce measures to all printed digits).",
- "provenance": "Conjecture and framing: T. Tao, teorth/erdosproblems#179 (Dec 2025), on erdosproblems.com #1038. The infimum side was resolved by Darvas-Peng-Tao (2026); this campaign addresses the supremum side only.",
+ "what": "The Tao #179 sublevel campaign (Erdős #1038, supremum side). Rational-weight discrete measures on [-1,1] with denominator N are monic degree-N polynomials with roots in [-1,1]; this record holds certified sublevel measures |{|q|<1}| (lower-bound witnesses for sup = 2*sqrt(2), a theorem of Tao, December 2025), certified grid champions, and per-degree branch-and-bound THEOREMS — independent re-decisions of that known theorem: odd degrees 3, 5, 7 fall strictly below 2.82 < 2*sqrt(2); even degrees 4, 6, 8 have supremum in [2*sqrt(2), 2.82845], the left end attained by (x^2-1)^{N/2}. A degree marked failed was ATTEMPTED and refused on its budget, not silently dropped. Every measure is an exact outward enclosure from BigInt Sturm root isolation; every branch-and-bound pruning uses the certified min-product box bound (calibrated: thin boxes reproduce measures to all printed digits).",
+ "provenance": "Framing: T. Tao, teorth/erdosproblems#179 (16 Dec 2025), on erdosproblems.com #1038. The SUPREMUM is settled: Tao proved sup = 2*sqrt(2), the two-atom measure the only case of equality (forum thread 1038, 21 Dec 2025; notes of 22 and 27 Dec 2025, Theorem 2.1; formal-conjectures erdos_1038.parts.ii \"research solved\"), before this campaign ran. The INFIMUM is open on erdosproblems.com (parts.i \"research open\"); Darvas-Peng-Tao (July 2026) is one of three AI-assisted proof claims for it. This campaign addresses the supremum side only. Sources pinned in corpus/sources/erdos1038. (Corrected 2026-10-05: this field said the infimum side was resolved by Darvas-Peng-Tao.)",
  "witness": {
   "config": "(x^2-1): uniform measure on {-1,+1}",
   "measure": {
@@ -54,7 +54,7 @@
    "loD": 2.754173477045697,
    "hiD": 2.754173477046689
   },
-  "note": "interior critical root — the degree-3 supremum is NOT at a lattice point and sits near 2.7542"
+  "note": "interior critical root — the best certified degree-3 value in the record is at r = 201/256, not at a lattice point, near 2.7542: a lower bound on the degree-3 supremum (that it is the maximum is not certified)"
  },
  "quinticPeak": {
   "config": "(-1 dbl, 905/1024, 1 dbl)",
@@ -64,7 +64,7 @@
    "loD": 2.8010906833165232,
    "hiD": 2.8010906833182023
   },
-  "note": "the family (x^2-1)^2(x-r) peaks at a topological transition of the sublevel set near r = 905/1024, then drops discontinuously"
+  "note": "the family (x^2-1)^2(x-r) peaks near r = 905/1024 while its sublevel set is one interval, then descends steeply but continuously as a gap opens and the set splits in two (corrected 2026-10-05: this note said it drops discontinuously; for fixed degree the measure is continuous in the roots)"
  },
  "theorems": {
   "deg3 < 2.82": {

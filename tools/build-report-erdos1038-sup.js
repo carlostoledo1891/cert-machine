@@ -11,11 +11,18 @@
    REQUIRED — a missing theorem refuses the build rather than shrinking the
    table.
 
-   FRAMING DISCIPLINE. Everything here is per-degree: theorems for rational-
-   weight measures of a fixed denominator. The page says, above the fold and
-   again at the end, that Tao's conjecture itself (all measures, the N -> inf
-   limit) remains open, and that the even-degree equality case is localized,
-   not characterized. Machine-derived; not peer-reviewed.
+   FRAMING DISCIPLINE. The supremum is a THEOREM, and not ours: Tao proved
+   sup = 2*sqrt(2) over all probability measures on [-1,1], with the two-atom
+   measure the only case of equality (forum thread of 21 Dec 2025; notes of
+   22 and 27 Dec 2025, Theorem 2.1) — six days after posing it in
+   teorth/erdosproblems#179. erdosproblems.com/1038 records sup = 2*sqrt(2)
+   and google-deepmind/formal-conjectures marks erdos_1038.parts.ii
+   "research solved". Until 2026-10-05 this page called it an open
+   conjecture; that was wrong (paper/tex/erdos1038-sup.tex had already
+   corrected it). Everything here is per-degree: independent re-decisions of
+   a known theorem, not progress. The sources are pinned in
+   corpus/sources/erdos1038 and re-hashed at every build. Machine-derived;
+   not peer-reviewed.
 
    usage: node tools/build-report-erdos1038-sup.js */
 'use strict';
@@ -30,8 +37,27 @@ const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const M = require(path.join(ROOT, 'instruments', 'sublevel', 'measure.js'));
 const Q = require(path.join(ROOT, 'instruments', 'interval', 'rational.js'));
+const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
 
 const die = (m) => { console.error('ERDOS1038-SUP REPORT REFUSED: ' + m); process.exit(1); };
+
+/* ---- the sources the framing rests on, re-hashed: the page states a theorem of the literature, so the bytes
+   that state it must still be the bytes read on 2026-10-05 (the problem page's sup = 2√2, formal-conjectures'
+   "research solved", the forum's 21 Dec 2025 posts, Tao's #179, and the pin note for his two PDFs) */
+const SRC = {
+  page: 'erdos1038/erdosproblems-1038_2026-10-05.html',
+  forum: 'erdos1038/erdosproblems-1038-forum_2026-10-05.html',
+  fc: 'erdos1038/formal-conjectures-1038_89294ea0.lean',
+  issue: 'erdos1038/teorth-erdosproblems-179_2026-10-05.json',
+  notes: 'erdos1038/tao-notes-pin.txt'
+};
+for (const f of Object.values(SRC)) { const v = PIN.verify(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why); }
+{
+  const rd = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8');
+  if (!/\\sup\s*=\s*2\\sqrt\{2\}/.test(rd(SRC.page))) die('the pinned problem page no longer records sup = 2√2');
+  if (!/@\[category research solved, AMS 28\]\s*\ntheorem erdos_1038\.parts\.ii/.test(rd(SRC.fc))) die('the pinned formal-conjectures file no longer marks parts.ii research solved');
+  if (!/This proves that the \$sup\$ is indeed \$2 \\sqrt 2\$/.test(rd(SRC.forum))) die('the pinned forum thread no longer holds the 21 Dec 2025 confirmation');
+}
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const S2 = 2 * Math.SQRT2;
 
@@ -40,9 +66,18 @@ const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'sublevel-tao179
 const TH = rec.theorems || {};
 const need = ['deg3', 'deg5', 'deg7', 'deg4', 'deg6'];
 for (const k of need) if (!Object.keys(TH).some(t => t.startsWith(k) && !TH[t].failed)) die('theorem ' + k + ' missing from the record');
+if (!rec.meta || !/^\d{4}-\d{2}-\d{2}$/.test(rec.meta.date || '')) die('the record carries no campaign date');
 const thmRows = Object.entries(TH).filter(([, v]) => !v.failed);
 const failedRows = Object.entries(TH).filter(([, v]) => v.failed);
 const totalBoxes = thmRows.reduce((s, [, v]) => s + v.explored, 0);
+/* the degree lists and their count are read off the record, never typed: the deck once said "the first seven
+   degrees" over a record that holds six (3–8, degree 9 refused) */
+const degs = thmRows.map(([, v]) => v.n).sort((a, b) => a - b);
+const oddD = degs.filter((n) => n % 2 === 1), evenD = degs.filter((n) => n % 2 === 0);
+const list = (a, conj) => (a.length < 2 ? String(a[0]) : a.slice(0, -1).join(', ') + ' ' + conj + ' ' + a[a.length - 1]);
+const WORD = { 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten' };
+const nWord = WORD[degs.length] || String(degs.length);
+const span = degs.length && degs[degs.length - 1] - degs[0] + 1 === degs.length ? degs[0] + ' to ' + degs[degs.length - 1] : list(degs, 'and');
 
 /* ---- live re-verifications ------------------------------------------------ */
 const wit = M.sublevelMeasure([{ n: 1n, m: 1 }, { n: -1n, m: 1 }], 1n);
@@ -82,22 +117,26 @@ const B = [];
 B.push(C.header({
   eyebrow: 'erdős #1038 · the supremum side · teorth/erdosproblems #179',
   title: 'How shallow can a lemniscate stay?',
-  deck: 'Tao reformulated Erdős #1038 over discrete probability measures and asked for the supremum of '
-    + '|{U_μ < 0}|, conjecturing 2√2 — “this may be hard to prove completely.” For rational weights the '
-    + 'question is about root-constrained polynomials, decidable degree by degree. This machine decided the '
-    + 'first seven degrees: the odd ones fall strictly below the conjecture, and the even ones pin its '
-    + 'witness to within 2.3×10⁻⁵ of optimal.'
+  deck: 'On 16 December 2025 Tao reformulated Erdős #1038 over discrete probability measures, asked for the '
+    + 'supremum of |{U_μ < 0}|, and conjectured 2√2 — “this may be hard to prove completely.” Within the week the '
+    + 'problem\'s forum had a proof, written up by Tao with its equality case. For rational weights the question is about root-constrained '
+    + 'polynomials, decidable degree by degree; this machine re-decided degrees ' + span + ' in exact arithmetic, '
+    + 'sharing no idea and no code with the proof: the odd ones stay below 2.82, and the even ones are placed in '
+    + '[2√2, 2.82845]. Re-decisions of a known theorem, not progress on it.'
 }));
-B.push(C.scope('Machine-derived, per-degree theorems for rational-weight measures — Tao\'s conjecture itself '
-  + '(all measures, all denominators) remains open, and the even-degree equality case is localized, not '
-  + 'characterized. Every number on this page is a certified outward enclosure recomputed at this build; '
-  + 'nothing is decided in floating point. Not peer-reviewed.'));
+B.push(C.scope('A known theorem, re-decided. That |{U_μ < 0}| ≤ 2√2 for every probability measure on [−1,1], '
+  + 'with the two-atom measure the only case of equality, is Theorem 2.1 of Tao\'s notes of December 2025; '
+  + 'erdosproblems.com/1038 records sup = 2√2 and google-deepmind/formal-conjectures marks erdos_1038.parts.ii '
+  + '“research solved”. The per-degree certificates below neither use nor replace it. Until 2026-10-05 this page '
+  + 'called the supremum an open conjecture; that was wrong. Every number on this page is a certified outward '
+  + 'enclosure recomputed at this build; nothing is decided in floating point. Not peer-reviewed.'));
 
 B.push(C.tldr({
-  findingRaw: 'For every monic polynomial of degree <b>3, 5, or 7</b> with all roots in [−1,1]: '
-    + C.m('|{|q|<1}| < 2.82 < 2√2') + ' — the whole degree falls strictly below the conjectured supremum. '
-    + 'For degrees <b>4 and 6</b>' + (thmRows.some(([k]) => k.startsWith('deg8')) ? ' and 8' : '') + ': the degree supremum lies in ' + C.m('[2√2, 2.82845]')
-    + ', the left end attained by (x²−1)^{N/2} — the conjectured extremizer, within 2.3×10⁻⁵ of optimal.',
+  findingRaw: 'For every monic polynomial of degree <b>' + list(oddD, 'or') + '</b> with all roots in [−1,1]: '
+    + C.m('|{|q|<1}| < 2.82 < 2√2') + ' — an explicit margin under the supremum. That each odd degree falls '
+    + 'strictly below 2√2 already follows from Tao\'s equality clause; the 2.82 is what the certificates add. '
+    + 'For degrees <b>' + list(evenD, 'and') + '</b>: the degree supremum lies in ' + C.m('[2√2, 2.82845]')
+    + ', the left end attained by (x²−1)^{N/2} — 2.3×10⁻⁵ weaker than the theorem, which gives exactly 2√2.',
   mechanismRaw: 'Rational weights with denominator N make ' + C.m('U_μ < 0') + ' exactly ' + C.m('|q(x)| < 1')
     + ' for a monic degree-N polynomial with roots in [−1,1]. Sublevel measures are certified by BigInt Sturm '
     + 'isolation of the boundary roots; a branch-and-bound over root boxes prunes with the pointwise bound '
@@ -110,7 +149,7 @@ B.push(C.tldr({
 
 B.push(C.stats([
   { k: 'per-degree theorems', v: String(thmRows.length), n: 'Degrees ' + thmRows.map(([, v]) => v.n).sort().join(', ') + ' — each a branch-and-bound certificate tree over all root configurations.' },
-  { k: 'the witness', v: '2√2', vRaw: '2√2', n: 'x²−1: certified [' + wit.loD.toFixed(10) + ', ' + wit.hiD.toFixed(10) + '] — the two-atom measure Tao conjectures extremal.' },
+  { k: 'the witness', v: '2√2', vRaw: '2√2', n: 'x²−1: certified [' + wit.loD.toFixed(10) + ', ' + wit.hiD.toFixed(10) + '] — the two-atom measure, the only maximizer by Tao\'s theorem.' },
   { k: 'box certificates', v: totalBoxes.toLocaleString('en-US'), n: 'Across all theorems; the cubic needed 127 boxes, the heaviest even degree carries the rest.' },
   { k: 'configurations swept', v: Object.values(rec.sweeps).reduce((s, v) => s + v.configs, 0).toLocaleString('en-US'), n: 'Certified grid champions behind the landscape story, before any theorem was attempted.' }
 ]));
@@ -118,17 +157,31 @@ B.push(C.stats([
 B.push(C.section({
   lab: '§1 · the problem', title: 'The other end of #1038',
   bodyRaw: [
-    C.pRaw('Erdős #1038 concerns how small the sublevel set of a polynomial with constrained roots can be. Its '
-      + '<em>infimum</em> side was resolved in 2026 by Darvas–Peng–Tao — this lab '
-      + '<a href="verify-lemniscate.html">independently verified the computational fragment</a> of that '
-      + 'manuscript. In <a href="https://github.com/teorth/erdosproblems/issues/179">erdosproblems#179</a>, Tao '
-      + 'poses the other end: over discrete probability measures μ = Σ pᵢ δ_{aᵢ} on [−1,1], with logarithmic '
-      + 'potential U_μ(x) = Σ pᵢ log|x − aᵢ|, how LARGE can |{x : U_μ(x) < 0}| be?'),
+    C.pRaw('Erdős #1038 asks how small, and how large, the sublevel set of a polynomial with constrained roots can '
+      + 'be. Its <em>infimum</em> side is still open on the problem page: three AI-assisted proof claims of 2026 '
+      + 'report the same constant, none examined by the site, and this lab '
+      + '<a href="verify-lemniscate.html">independently verified the computational fragment</a> of one of them '
+      + '(Darvas–Peng–Tao) and <a href="erdos1038-inf.html">brackets the infimum</a> unconditionally. In '
+      + '<a href="https://github.com/teorth/erdosproblems/issues/179">erdosproblems#179</a> (16 December 2025), Tao '
+      + 'posed the other end: over discrete probability measures μ = Σ pᵢ δ_{aᵢ} on [−1,1], with logarithmic '
+      + 'potential U_μ(x) = Σ pᵢ log|x − aᵢ|, how LARGE can |{x : U_μ(x) &lt; 0}| be?'),
     C.pRaw('His conjecture: the supremum is ' + C.m('2√2') + ', attained by the uniform measure on {−1, +1} — '
-      + 'and “this may be hard to prove completely.” The thread had no answers when this campaign began.'),
+      + 'and “this may be hard to prove completely.” It was proved within the week, in '
+      + '<a href="https://www.erdosproblems.com/forum/thread/1038">the problem\'s forum thread</a>: on 21 December '
+      + '2025 Tao posted a write-up completing the proof (AlphaEvolve proposed the weights for one regime), two '
+      + 'participants confirmed it the same day, and his notes '
+      + '(<a href="https://terrytao.wordpress.com/wp-content/uploads/2025/12/erdos-1038-2.pdf">27 December 2025</a>, '
+      + 'Theorem 2.1) state it with its equality case: ' + C.m('L(μ) ≥ 2√2') + ' forces ' + C.m('μ = ½δ₋₁ + ½δ₁')
+      + '. The <a href="https://www.erdosproblems.com/1038">problem page</a> records ' + C.m('sup = 2√2') + '; '
+      + '<a href="https://github.com/google-deepmind/formal-conjectures/blob/89294ea02bd7cd678d59984add52cb4baef3dbf4/FormalConjectures/ErdosProblems/1038.lean">formal-conjectures</a> '
+      + 'marks ' + C.m('erdos_1038.parts.ii') + ' “research solved”, proved in Tao\'s notes. This campaign '
+      + '(' + C.esc(rec.meta.date) + ') was framed on the GitHub issue, which had no '
+      + 'replies; the forum\'s resolution predates it.'),
     C.eq('p = k⁄N rational  ⟹  U_μ(x) &lt; 0  ⟺  |q(x)| &lt; 1,&nbsp;&nbsp; q(x) = Π (x − aᵢ)^{kᵢ} monic, roots in [−1,1]'),
-    C.pRaw('So the conjecture restricted to rational weights of denominator N is a statement about degree-N '
-      + 'polynomials — a finite-dimensional, certifiable object. That is the machine\'s opening.')
+    C.pRaw('So the theorem, restricted to rational weights of denominator N, is a statement about degree-N '
+      + 'polynomials — a finite-dimensional object that exact arithmetic can decide degree by degree, without the '
+      + 'potential theory. That is what this page re-decides: a second route to statements already known, not a '
+      + 'new one.')
   ].join('\n')
 }));
 
@@ -146,7 +199,7 @@ B.push(C.section({
     }),
     '<div class="col">' + C.pRaw('The last row is why even degrees are different: powers of the witness keep its '
       + 'measure, so (x²−1)^{N/2} attains 2√2 at every even degree, and no even degree can fall strictly below '
-      + 'the conjecture the way the odd ones do.') + '</div>'
+      + '2√2 the way the odd ones do.') + '</div>'
   ].join('\n')
 }));
 
@@ -161,21 +214,23 @@ B.push(C.section({
         xLabel: 'the free root r (remaining roots pinned at ±1; quintic pins them double)',
         alt: 'Two certified curves of sublevel measure against the free root r. The cubic family (x²−1)(x−r) '
           + 'rises to an interior maximum near r = 0.785 at about 2.754 and falls as r reaches 1. The quintic '
-          + 'family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then drops discontinuously — '
-          + 'a cliff where two components of the sublevel set merge. A dashed rule marks 2√2, above both curves.',
+          + 'family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then descends steeply — the '
+          + 'sublevel set splits into two intervals. A dashed rule marks 2√2, above both curves.',
         series: [
           { name: 'cubic (x²−1)(x−r)', pts: cubicPts },
           { name: 'quintic (x²−1)²(x−r)', pts: quinticPts }
         ],
-        rules: [{ v: S2, t: '2√2 — the conjectured supremum', dashed: true }]
+        rules: [{ v: S2, t: '2√2 — the supremum (Tao, December 2025)', dashed: true }]
       }),
       caption: 'Both curves are certified enclosures recomputed at this build (the plotted value is the upper '
-        + 'endpoint; widths are below picture resolution). The cubic supremum is at an INTERIOR critical root '
-        + '— certified ' + rec.cubicChampion.measure.hiD.toFixed(6) + ' at r = 201/256 — not at a lattice '
+        + 'endpoint; widths are below picture resolution). The cubic family\'s best certified value is at an '
+        + 'INTERIOR root — ' + rec.cubicChampion.measure.hiD.toFixed(6) + ' at r = 201/256 — not at a lattice '
         + 'point. The quintic family peaks at ' + rec.quinticPeak.measure.hiD.toFixed(6) + ' near r = 905/1024 '
-        + 'and then falls off a cliff: a topological transition where two components of {|q|<1} merge and the '
-        + 'measure drops by ~0.09 discontinuously. The odd-degree suprema climb toward 2√2 — approaching the '
-        + 'two-atom witness without reaching it.'
+        + 'and then descends steeply but continuously (for fixed degree the measure is continuous in the roots): '
+        + 'a local maximum of |q| inside the sublevel interval crosses 1, a gap opens and widens, and {|q|<1} '
+        + 'becomes two intervals. Until 2026-10-05 this caption called the descent a discontinuous drop where two '
+        + 'components merge; both were wrong. The odd-degree families climb toward 2√2 without reaching it, as '
+        + 'Tao\'s equality clause requires.'
     })
   ].join('\n')
 }));
@@ -186,62 +241,72 @@ B.push(C.section({
     .map(([k, v]) => [
       { raw: C.m('N = ' + v.n) },
       { raw: v.n % 2 === 1
-        ? C.esc('every degree-' + v.n + ' polynomial stays below 2.82 < 2√2 — the whole degree falls strictly under the conjecture')
-        : C.esc('the degree supremum lies in [2√2, 2.82845]; (x²−1)^' + (v.n / 2) + ' attains the left end') },
+        ? C.esc('every degree-' + v.n + ' polynomial stays below 2.82 < 2√2 — an explicit margin under the supremum')
+        : C.esc('the degree supremum lies in [2√2, 2.82845]; (x²−1)^' + (v.n / 2) + ' attains the left end (the theorem gives exactly 2√2)') },
       { raw: C.m(v.explored.toLocaleString('en-US')) },
       { raw: C.m(v.maxDepth + '') },
       { raw: C.m((v.ms / 1000).toFixed(v.ms > 10000 ? 0 : 1) + ' s') },
       { raw: v.n % 2 === 1 ? C.tag('strict', 'held') : C.tag('localized', 'cert') }
     ]);
   B.push(C.section({
-    lab: '§4 · the theorems', title: 'Seven degrees, decided', wide: true,
+    lab: '§4 · the certificates', title: nWord + ' degrees, re-decided', wide: true,
     bodyRaw: [
       C.table({ cols: [{ h: 'degree' }, { h: 'certified statement' }, { h: 'boxes', cls: 'v' }, { h: 'depth', cls: 'v' }, { h: 'time', cls: 'v' }, { h: '' }], rows }),
       '<div class="col">' + C.pRaw('Each row quantifies over EVERY root configuration in [−1,1]ᴺ — collisions and '
         + 'multiplicities included — through the ordered-and-mirrored branch-and-bound: a box is closed when the '
         + 'certified measure of {Π dist(x, Iᵢ) &lt; 1} falls below the threshold, and that bound equals the true '
         + 'measure on thin boxes (a battery check). In measure language: every discrete probability measure on '
-        + '[−1,1] whose weights have denominator 3, 5, or 7 satisfies |{U_μ &lt; 0}| &lt; 2.82; for denominators '
-        + '4 and 6' + (thmRows.some(([k]) => k.startsWith('deg8')) ? ' and 8' : '') + ', the two-atom witness is within 2.3×10⁻⁵ of the best possible.')
+        + '[−1,1] whose weights have denominator ' + list(oddD, 'or') + ' satisfies |{U_μ &lt; 0}| &lt; 2.82; for '
+        + 'denominators ' + list(evenD, 'and') + ', the certified upper end is within 2.3×10⁻⁵ of 2√2 — weaker than '
+        + 'Tao\'s theorem, which gives exactly 2√2 there, reached by an unrelated route.')
         + (failedRows.length ? C.note({
           lab: 'not decided', bodyRaw: C.pRaw(failedRows.map(([k, v]) => C.m(k) + ': ' + C.esc(String(v.failed))).join('<br>')
-            + ' — recorded as attempted and open, not silently dropped.')
+            + ' — recorded as attempted and refused, not silently dropped. Its answer is known from the theorem; '
+            + 'the refusal is the instrument\'s budget, not an open question.')
         }) : '') + '</div>'
     ].join('\n')
   }));
 }
 
 B.push(C.section({
-  lab: '§5 · what remains', title: 'The honest boundary',
+  lab: '§5 · what this is', title: 'The honest boundary',
   bodyRaw: [
     C.plainList([
-      { b: 'Tao\'s conjecture itself is open.', text: 'These are per-degree theorems; the conjecture quantifies '
-        + 'over all measures, which is the N → ∞ limit. The odd-degree suprema climbing toward 2√2 is certified '
-        + 'evidence FOR the conjecture, not a proof of it.' },
-      { b: 'The even-degree equality case is localized, not characterized.', text: 'The supremum sits within '
-        + '2.3×10⁻⁵ of 2√2 with the witness attaining it; proving the witness is the UNIQUE maximizer would '
-        + 'need equality-grade machinery, the way the λ(4) campaign walled off its extremizer.' },
+      { b: 'The theorem is Tao\'s, and it is settled.', raw: C.esc('sup |{U_μ < 0}| = 2√2 over all probability '
+        + 'measures on [−1,1], with the two-atom measure the only case of equality, is Theorem 2.1 of his notes of '
+        + 'December 2025, completed on the forum on 21 December 2025. These certificates neither use nor replace it: they are '
+        + 'independent re-decisions of a known theorem, not progress on it. Until 2026-10-05 this page said the '
+        + 'conjecture remained open; the write-up, ') + C.m('paper/tex/erdos1038-sup.tex') + C.esc(', had already '
+        + 'corrected that framing.') },
+      { b: 'What the certificates add.', text: 'An explicit margin at odd degrees (below 2.82, about ' + (S2 - 2.82).toFixed(4) + ' under '
+        + '2√2) that the theorem does not state; certified landscape data for the families that approach the '
+        + 'witness; and a refusal at the first degree the budget could not close. That each odd degree falls '
+        + 'strictly below 2√2 is already a consequence of the theorem\'s equality clause.' },
+      { b: 'The even-degree equality case is the theorem\'s, not ours.', text: 'The certificates place the '
+        + 'even-degree supremum in [2√2, 2.82845]; Tao\'s theorem gives exactly 2√2, with the witness the only '
+        + 'maximizer. A certificate of this kind cannot reach 2√2 itself, because the witness attains it.' },
       { b: 'Higher degrees are compute, not new ideas.', text: 'The branch-and-bound certificates grow with '
-        + 'dimension but nothing structural changes; the degree ladder can be pushed as far as budget allows.' },
+        + 'dimension but nothing structural changes — a statement about the instrument, not a certified one.' },
       { b: 'Machine-derived, not peer-reviewed.', text: 'Every claim re-derives in one command; the record is '
-        + 'certs/sublevel-tao179.json; refutations are invited.' }
+        + 'certs/sublevel-tao179.json; the sources this framing rests on are pinned in corpus/sources/erdos1038; '
+        + 'refutations are invited.' }
     ])
   ].join('\n')
 }));
 
 const foot = ''
-  + '<p>' + C.esc('Generated by tools/build-report-erdos1038-sup.js — witness, calibrations and both family curves re-certified at build; theorem table read from the campaign record.') + '</p>'
-  + '<p>' + C.esc('git ' + gitrev + ' · framing: T. Tao, teorth/erdosproblems#179 · the infimum side: Darvas–Peng–Tao, verified at reports/verify-lemniscate.html') + '</p>'
+  + '<p>' + C.esc('Generated by tools/build-report-erdos1038-sup.js — witness, calibrations and both family curves re-certified at build; theorem table read from the campaign record; the five framing sources re-hashed against corpus/sources/PINS.json.') + '</p>'
+  + '<p>' + C.esc('git ' + gitrev + ' · the theorem: T. Tao, forum thread 1038 (21 Dec 2025) and notes of 22 and 27 Dec 2025, Theorem 2.1 · framing: teorth/erdosproblems#179 · the infimum side: three claimed proofs, the Darvas–Peng–Tao computational fragment verified at reports/verify-lemniscate.html') + '</p>'
   + '';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos1038-sup.html'),
   TPL.render({
     title: 'The supremum side of Erdős #1038 · cert-machine',
     bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot,
-    desc: 'Per-degree certified theorems on Tao\'s supremum conjecture for Erdős #1038: odd degrees 3, 5, 7 fall '
-      + 'strictly below 2√2; even degrees 4 and 6 localize the supremum to [2√2, 2.82845] with the two-atom '
-      + 'witness attaining the left end. Exact-rational sublevel measures, branch-and-bound certificates, '
-      + 'machine-derived, not peer-reviewed.',
+    desc: 'Erdős #1038, supremum side: Tao\'s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact '
+      + 'arithmetic — odd degrees ' + list(oddD, 'and') + ' below 2.82; even degrees ' + list(evenD, 'and') + ' placed in '
+      + '[2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not '
+      + 'progress; machine-derived, not peer-reviewed.',
     path: '/reports/erdos1038-sup.html'
   }));
 console.log('reports/erdos1038-sup.html written: ' + thmRows.length + ' theorems, '

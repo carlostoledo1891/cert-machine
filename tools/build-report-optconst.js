@@ -56,7 +56,7 @@ B.push(C.header({
 }));
 B.push(C.scope('Decided: that the law each cited certificate writes down gives the ratio the registry prints — a lower bound on the constant, '
   + 'never its value. Not decided: the upper bounds, the constants themselves, and the registry\'s other asterisked rows. The asterisk is the '
-  + 'maintainers\' to keep or remove; this page is evidence, and nothing has been sent to them.'));
+  + 'maintainers\' to keep or remove; this page is evidence. The 147-point checker\'s 53-bit comparison was reported to its author on 2026-10-05 (a comment on gist CoolRmal/5368357c); the replay was proposed to the registry as teorth/optimizationproblems PR #216 the same day.'));
 B.push(C.tldr({
   findingRaw: '<b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as '
     + '1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; ' + TU.ratioUpper.slice(0, 12) + '…, and on an asymptotic argument in prose (§5). And C3b &ge; ' + R('3b').claim.split('>= ')[1] + ' and C3c &ge; ' + R('3c').claim.split('>= ')[1] + ' are CERTIFIED from the '
@@ -96,7 +96,7 @@ B.push(C.section({
   lab: '§2 · the checker', title: 'What a checker\'s last line proves',
   bodyRaw: [
     C.pRaw('The 147-point certificate ships a checker (check_cert.py, pinned here by sha256 and not copied). It computes the ratio in interval '
-      + 'arithmetic at 100 digits, which is right, and then decides the claim with ' + C.m('mpmath.mpf(verified) >= mpmath.mpf(claimed)') + ' in mpmath\'s default '
+      + 'arithmetic at 100 digits, which is right, and then decides the claim with ' + C.m('mpmath.mpf(lo_str) >= mpmath.mpf(claimed)') + ' in mpmath\'s default '
       + 'context — 53 bits, a double. Every decimal within a double of the true bound compares equal to it. Run on the pinned script with claims written here:'),
     C.table({
       cols: [{ h: 'claimed' }, { h: 'the checker printed' }, { h: 'decided here' }],

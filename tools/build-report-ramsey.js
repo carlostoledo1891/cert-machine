@@ -3,6 +3,12 @@
    Norin and Wei's paper, decided. Every number comes from certs/gnnw-certificate.json (tools/run-gnnw-ledger.py),
    re-derived here (--check) before a word is written, and from the battery's own count.
 
+   NOT THE RECORD. 3.7823 and 3.7721… decide the GNNW paper's own iteration. Two lower bounds appeared in September
+   2026 — Neisler–Shin–Sukhatankar's 3.769^(k+o(k)) (kernel-checked in Lean by its authors, wamlat/RamseyLean-bootstrap,
+   Zenodo concept 22263823, 2026-09-03) and Lu–Wang's 3.69507^k (arXiv 2609.14525, 2026-09-13) — and the page names
+   both, as "not checked here", from sources pinned in corpus/sources/ramsey and re-hashed at every build. Until
+   2026-10-05 it named neither.
+
    usage: node tools/build-report-ramsey.js */
 'use strict';
 const fs = require('fs');
@@ -15,6 +21,25 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('RAMSEY REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const py = (args) => cp.execFileSync('python3', args, { cwd: ROOT, encoding: 'utf8' });
+const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
+
+/* ---- the newer bounds, read from pinned bytes: each sentence the page says about them must still be in them */
+const NEWER = {
+  lw: 'ramsey/arxiv-2609.14525-abs_2026-10-05.html',
+  readme: 'ramsey/wamlat-readme-pin.txt',   /* a pin note quoting the README: the repository states no licence, so its bytes are not stored */
+  zenodo: 'ramsey/zenodo-22263823_2026-10-05.json',
+  paper: 'ramsey/wamlat-paper-pin.txt'
+};
+for (const f of Object.values(NEWER)) { const v = PIN.verify(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why); }
+{
+  const rd = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8');
+  const lw = rd(NEWER.lw), rm = rd(NEWER.readme), z = JSON.parse(rd(NEWER.zenodo)), pp = rd(NEWER.paper);
+  if (!/R\(k,k\)\\le3\.69507\^k\$ for all sufficiently large/.test(lw) || !/citation_date" content="2026\/09\/13"/.test(lw)
+    || !/citation_author" content="Lu, Zhipeng"[\s\S]*citation_author" content="Wang, Sichen"/.test(lw)) die('the pinned arXiv 2609.14525 abstract no longer says what this page cites');
+  if (!/kernel-checked Lean 4 formalization/.test(rm) || !/\\le 3\.769\^\{\\,k\+o\(k\)\}/.test(rm) || !/sha256 7ffbf9e0737c02ce/.test(rm)) die('the pinned RamseyLean-bootstrap README no longer says what this page cites');
+  if (z.conceptdoi !== '10.5281/zenodo.22263823' || z.metadata.publication_date !== '2026-09-03') die('the pinned Zenodo record is not the one this page cites');
+  if (!/Christian Neisler, Ryan Min June Shin, and Sohum Sukhatankar/.test(pp)) die('the pin note no longer names the 3.769 paper\'s authors');
+}
 
 try { py(['tools/run-gnnw-ledger.py', '--check']); } catch (e) { die('the certificate does not re-derive: ' + (e.stdout || e.message)); }
 let bat = ''; try { bat = py(['instruments/gnnw/battery.py']); } catch (e) { die('the battery did not pass: ' + (e.stdout || e.message)); }
@@ -51,10 +76,13 @@ B.push(C.header({
   deck: 'Gupta, Ndiaye, Norin and Wei prove R(k, k) ≤ 3.7992^(k+o(k)) and print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as '
     + '"preliminary, unverified": 3.78233. Decided here on the paper\'s own Theorem 14, by two independent programs: it holds. The paper adds that "further '
     + 'improvements by performing additional iterations are possible"; five more rounds, each proposed here by a float optimiser and each decided in the '
-    + 'region the round before it establishes, reach R(k, k) ≤ ' + cK.slice(0, 12) + '…^(k+o(k)).'
+    + 'region the round before it establishes, reach R(k, k) ≤ ' + cK.slice(0, 12) + '…^(k+o(k)). Both numbers decide the paper\'s own '
+    + 'iteration; neither is the best known bound — lower ones appeared in September 2026 and are not checked here (§5).'
 }));
 B.push(C.scope('The paper: arXiv 2407.19026v2 (29 August 2026), pinned by sha256 in corpus/gnnw. What is decided is the numerical hypothesis of its '
   + 'Theorem 14 for this F; the theorem itself, Lemma 15 and Theorem 1 are the authors\' (the paper reports its main results formalised in Lean). '
+  + 'Not the record: R(k, k) ≤ 3.769^(k+o(k)) (Neisler, Shin and Sukhatankar, kernel-checked in Lean by its authors, 3 September 2026) and '
+  + 'R(k, k) ≤ 3.69507^k (Lu and Wang, arXiv 2609.14525, 13 September 2026) are both lower than anything on this page; neither is checked here. '
   + 'Published, not peer-reviewed, not independently rerun. Nothing has been sent to the authors.'));
 B.push(C.tldr({
   findingRaw: '<b>CERTIFIED.</b> For F(λ) = (1+λ)ln(1+λ) − λ ln λ + G_AI(λ), with the paper\'s G_AI, a continuous M chosen here and Y taken from '
@@ -126,12 +154,20 @@ B.push(C.section({
       + 'optimiser only proposes; every round is decided like the first. Round 1 is the remark\'s, in the region of F₀.₀₃; round k is in the region of round k − 1.'),
     TABLE,
     C.pRaw('In floats, the rounds converge: degree 6 settles near 3.7732 and degree 9 near 3.77213, so further rounds of this kind buy almost nothing. The authors expect '
-      + 'that going below 3.75 would need new ideas; nothing here disagrees.')
+      + 'that going below 3.75 would need new ideas; nothing here disagrees. The two lower bounds of §5 both change the method rather than add rounds: one '
+      + 'collapses the iteration into a single self-consistent system over free-form rate functions, the other descends through retained sets.')
   ].join('\n')
 }));
 B.push(C.section({
   lab: '§5 · limits', title: 'What this does and does not say',
   bodyRaw: C.plainList([
+    { b: 'It is not the record.', raw: C.esc('3.7823 and ' + cK.slice(0, 7) + '… decide the paper\'s own iteration. Two lower bounds on R(k, k) appeared in September 2026: ')
+      + '<b>3.769</b>' + C.esc('^(k+o(k)), by C. Neisler, R. M. J. Shin and S. Sukhatankar — a self-consistent bootstrap of the same book algorithm, with the whole proof, '
+      + 'including the decimal bound R(k, k) ≤ 3.7690^k for all large k, kernel-checked in Lean 4 by its authors (')
+      + '<a href="https://github.com/wamlat/RamseyLean-bootstrap">wamlat/RamseyLean-bootstrap</a>, <a href="https://doi.org/10.5281/zenodo.22263823">doi:10.5281/zenodo.22263823</a>'
+      + C.esc(', 3 September 2026); and ') + '<b>3.69507</b>' + C.esc('^k for all sufficiently large k, by Z. Lu and S. Wang, “Retained-Set Descent for Diagonal Ramsey Numbers” (')
+      + '<a href="https://arxiv.org/abs/2609.14525">arXiv 2609.14525</a>' + C.esc(', 13 September 2026; the arXiv comment points to a Lean 4 formalization and Python certificate checks). '
+      + 'Neither is checked here; their public pages are pinned in corpus/sources/ramsey.') },
     { b: 'It rests on the paper.', text: 'Theorem 14, Lemma 15 and Theorem 1 are the authors\' and are used, not re-proved. What was missing, the numerical hypothesis for G_AI and a witness M, is supplied and decided here.' },
     { b: 'It is the paper\'s own next step.', text: 'The authors expect that going below 3.75 would need new ideas. The certificate HorizonMath credits with 3.6961 does not satisfy this theorem; it is decided on the HorizonMath page.' },
     { b: 'It is not yet reviewed.', text: 'Two programs agree, but they share an author and a reading of the paper; the authors\' own check is the next step. The first verifier is one file with no dependencies, so anyone can run it.' },
@@ -141,7 +177,7 @@ B.push(C.section({
 const foot = '<p>' + C.esc('Generated by tools/build-report-ramsey.js from certs/gnnw-certificate.json and certs/gnnw-chain-certificate.json (' + Z.generated + '), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls fired.') + '</p><p>' + C.esc('git ' + git) + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'diagonal-ramsey.html'), TPL.render({
   title: 'Diagonal Ramsey below 3.7992 · cert-machine', bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot,
-  desc: 'The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ ' + cK.slice(0, 10) + '…^(k+o(k)).',
+  desc: 'The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ ' + cK.slice(0, 10) + '…^(k+o(k)). The paper\'s own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.',
   path: '/reports/diagonal-ramsey.html'
 }));
 console.log('reports/diagonal-ramsey.html written: ' + D.verdict + ', c = ' + c.slice(0, 16) + '; chain c = ' + cK.slice(0, 16) + ' @ git ' + git);

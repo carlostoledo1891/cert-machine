@@ -17,7 +17,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 |---|---|---|---|---|---|---|
 | `certs/ai-claims-summary.json` | nothing to run | 6 (5 CERTIFIED, 1 PARTIAL) | — | — | — | `d5e561e3888537da…` |
 | `certs/erdos852-certificate.json` | node for the export; python3 standard library for the verifier; corpus/sources for the pinned paper | 1 (1 REFUTED) | `node tools/export-erdos852-certificate.js` (4.8 s) | `python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources` (< 1 s) | — | `4379194d0bd4e63b…` |
-| `certs/kissing-ledger.json` | node | 11 (10 CERTIFIED, 1 QUEUED) | `node tools/run-kissing-ledger.js` (2.9 s) | — | — | `3c8056697411b766…` |
+| `certs/kissing-ledger.json` | node | 11 (10 CERTIFIED, 1 QUEUED) | `node tools/run-kissing-ledger.js` (2.9 s) | — | — | `91c6ad8884ba8578…` |
 | `ledger.json` | node; about four minutes | 1 (1 MIXED) | `make engine` (5 min) | — | — | `2a34c34f14867fbf…` |
 | `certs/strassen-certificate.json` | node for the export; python3 standard library for the verifier; corpus/sources for the pinned bytes | 10 (10 CERTIFIED) | `node tools/export-strassen-certificate.js` (< 1 s) | `python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources` (< 1 s) | — | `2ab21d5adc6a2948…` |
 | `certs/easota-ledger.json` | node | 20 (16 CERTIFIED, 4 REPAIRED) | `node tools/run-easota-ledger.js` (3 s) | — | — | `60b947daf148e6ec…` |
@@ -26,15 +26,15 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 | `certs/horizon-ledger.json` | python3 standard library and the instrument's own modules (instruments/horizon) | 1 (1 MIXED) | `python3 tools/run-horizon-ledger.py` (1.9 min) | — | — | `fa5b0bac0539bf96…` |
 | `certs/hseva-ledger.json` | node; several minutes with workers in parallel | 1 (1 MIXED) | `node tools/run-hseva-ledger.js --check` (6.3 min) | — | — | `a6971779e880a359…` |
 | `certs/design-table-audit.json` | node | 1 (1 NEEDS DATA) | `node tools/run-design-table-audit.js --check` (< 1 s) | — | — | `e8278b62a87d2e0a…` |
-| `corpus/navier-stokes/audit.json` | a Lean 4 toolchain at the pinned commit, for the counts the record points at | 1 (1 PARTIAL) | — | — | — | `88beb85b6a5474f7…` |
-| `certs/sumdiff-ledger.json` | node; python3 standard library for the verifier | 3 (3 CERTIFIED) | `node tools/run-sumdiff-ledger.js --check` (1.1 s) | `python3 tools/verify_sumdiff.py` (< 1 s) | — | `5b4ce435f0d004fc…` |
+| `corpus/navier-stokes/audit.json` | a Lean 4 toolchain at the pinned commit, for the counts the record points at | 1 (1 CERTIFIED) | — | — | — | `5931f9ad48b4ed87…` |
+| `certs/sumdiff-ledger.json` | node; python3 standard library for the verifier | 3 (3 CERTIFIED) | `node tools/run-sumdiff-ledger.js --check` (1.1 s) | `python3 tools/verify_sumdiff.py` (< 1 s) | — | `bf8857db9f64b650…` |
 | `certs/fei-ledger.json` | python3 standard library and instruments/fei | 1 (1 CERTIFIED) | `python3 tools/run-fei-ledger.py --check` (1.4 s) | — | — | `38d06c5e779f366e…` |
 | `certs/sumproduct-ledger.json` | python3 standard library and instruments/sumproduct | 1 (1 REPAIRED) | `python3 tools/run-sumproduct-ledger.py --check` (36.7 s) | — | — | `61cc3c57f7a6567c…` |
 | `certs/turan-ledger.json` | python3 standard library and instruments/turan | 2 (2 PARTIAL) | `python3 tools/run-turan-ledger.py --check` (1.6 s) | — | — | `f0b9c2b48a5b3265…` |
 | `certs/countex-ledger.json` | python3 standard library and instruments/countex (fourteen deciders, each reading only the published certificate) | 14 (5 PARTIAL, 9 CERTIFIED) | `python3 tools/run-countex-ledger.py --check` (33.3 s) | — | — | `948f6c633e514274…` |
 | `certs/horizonmath-ledger.json` | python3 standard library and instruments/horizonmath | 3 (1 REFUTED, 1 CERTIFIED, 1 NEEDS DATA) | `python3 tools/run-horizonmath-ledger.py --check` (1.6 s) | — | — | `78adab0aa528381d…` |
 | `certs/gnnw-certificate.json` | python3 standard library for the ledger and the verifier; node for the second implementation (bigfloat, monotone bounds, no written derivative) | 1 (1 CERTIFIED) | `python3 tools/run-gnnw-ledger.py --check` (3.1 min) | `python3 tools/verify_gnnw_gai.py certs/gnnw-certificate.json` (7.7 s) | `node instruments/gnnw/second.js certs/gnnw-certificate.json` (2.1 min) | `b7127457078d064e…` |
-| `certs/polymaps-ledger.json` | python3 standard library and instruments/polymaps | 8 (7 CERTIFIED, 1 PARTIAL) | `python3 tools/run-polymaps-ledger.py --check` (83.5 s) | — | — | `63ce598a073c1718…` |
+| `certs/polymaps-ledger.json` | python3 standard library and instruments/polymaps | 8 (7 CERTIFIED, 1 PARTIAL) | `python3 tools/run-polymaps-ledger.py --check` (83.5 s) | — | — | `c3f99c9398ef410e…` |
 | `certs/mc100-alphatensor-q.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 12 (12 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-q` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources` (not yet timed) | — | `753485444a3e4498…` |
 | `certs/mc100-alphatensor-f2.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 8 (8 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-f2` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources` (not yet timed) | — | `0222c5552b7c24f3…` |
 | `certs/mc100-alphaevolve-nb-matmul.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 15 (15 CERTIFIED) | `node tools/run-mc100-tensors.js alphaevolve-nb-matmul` (not yet timed) | `python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources` (not yet timed) | — | `50183f3ffba87bd2…` |
@@ -69,4 +69,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git b5212c3
+git 054078d

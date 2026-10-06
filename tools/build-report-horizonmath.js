@@ -84,7 +84,7 @@ B_.push(C.header({
 }));
 B_.push(C.scope('The paper: arXiv 2603.15617v2 (10 September 2026, CC BY 4.0), Appendix A; the benchmark\'s code at github.com/ewang26/HorizonMath @ '
   + L.source.commit.slice(0, 8) + '; the theorem: Gupta, Ndiaye, Norin and Wei, arXiv 2407.19026v2. Each pinned by sha256 in corpus/horizonmath, the printed '
-  + 'constructions transcribed there. What is refuted is a certificate, not an inequality: whether R(k,k) ≤ 3.6961^(k+o(k)) is true is untouched. Nothing has been sent to the authors.'));
+  + 'constructions transcribed there. What is refuted is a certificate, not an inequality: whether R(k,k) ≤ 3.6961^(k+o(k)) is true is untouched. Reported to the authors on 2026-10-05 as HorizonMath issue #10 (github.com/ewang26/HorizonMath/issues/10).'));
 B_.push(C.tldr({
   findingRaw: '<b>The Ramsey certificate is REFUTED.</b> At λ = 1, where the constant c = e^F(1) = 3.6960839… is read, it takes (X, Y) = ('
     + f5(last.X[0]) + ', ' + f5(last.Y) + '), and Gupta–Ndiaye–Norin–Wei\'s Theorem 14 needs that pair in their region R. It is not: '

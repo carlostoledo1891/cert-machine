@@ -76,6 +76,22 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     OPERATOR (no transport here): R2 (email to Norin), R5 (the LabECO thread), METR M1 (recruiting), M3/M3a (the
     Lever applications), Mathstodon, and — after the #1186 claim shows — D (the k = 4 comment); C (the teorth
     note) is mine once the claim shows.
+  THE GITHUB MAP AND THE RECORD CORRECTIONS (2026-10-05 night → 10-06). outreach/GITHUB-OUTREACH.md: 13 touchpoints
+    done, 27 sends ranked, 29 venues rejected, presence fixes. PRESENCE APPLIED: the repo description is the ONE
+    sentence verbatim, 20 topics, labels claim/rerun (the issue forms' labels did not exist), Wiki/Projects off, the
+    README's DOI badge on the concept DOI and δ₃ on its first screen, a profile README (carlostoledo1891/carlostoledo1891),
+    mfg-lab topics; the bio and the pins are the operator's (no API for pins). RECORD CORRECTIONS (each verified, each
+    rebuilt): Navier–Stokes — upstream f9e8bc5b (2026-09-10) supplies the finite-energy clause; BUILT here (486 modules,
+    standard axioms), corpus/navier-stokes/upstream-f9e8bc5b.json, register row PARTIAL → CERTIFIED with the pin's PARTIAL
+    as history, the page re-dated (§4b) and the paper v0.2; #1038 sup is Tao's theorem (Dec 2025) — page fixed, and the
+    record had inf/sup the wrong way round; λ(4) header reads the outside reruns; diagonal-Ramsey cites 3.769 (Lean) and
+    Lu–Wang 3.69507, ours is not the record; kissing spells Kravatskiy, "no arXiv paper", Lindow's verifiers named,
+    40,992 not 41,128; polymaps gist pin = revision 2224dace; the optimization page quotes check_cert.py's real line;
+    the claims/rerun/monthly pages rebuilt (131 decided; October's page added — the site shelf now carries every month).
+    `make papers` green again (the register paper had been red since the mc100 rows; now the live register).
+    POSTED (operator's "Proceed all needed" / "Go all"): the gist comment to Y. Lin (53-bit compare), the
+    einstein-arena#64 correction (40,992), HorizonMath#10 (the Ramsey certificate), teorth/optimizationproblems PR #216
+    (the 3b/3c/71 replay). NEXT once the fixed pages deploy: G5 Kravatskiy, G4 Takhanov–Yun, G7 the #179 correction.
   δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
     (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
     (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄

@@ -27,13 +27,13 @@ UA = {'User-Agent': 'cert-machine-kissing-ledger'}
 
 SOURCES = {
     'kravatsky': {
-        'claimant': 'A. Kravatsky (github.com/alexlegeartis/KissingNumbers)',
+        'claimant': 'A. Kravatskiy (github.com/alexlegeartis/KissingNumbers)',
         'repo': 'alexlegeartis/KissingNumbers',
         'commit': '86b7de10c69b762ac9403c6db455eabaeba5b68e',
         'commit_date': '2026-09-27T20:41:27Z',
         'repo_created': '2026-08-21T21:23:45Z',
         'license': 'MIT (LICENSE at the pinned commit)',
-        'paper': 'none on arXiv; the write-up is maintained outside the repository (README, "The write-up")',
+        'paper': 'none on arXiv; the write-up, paper/kissing46.pdf (47 pp.), is in the repository (README, "The write-up"; its opening paragraph still says "outside this repository")',
         'files': [
             'LICENSE', 'README.md', 'RESULTS.md', 'common/data/golay_basis.txt',
             'verifications/improved/dim18-bent-hexagon/README.md',
@@ -92,7 +92,7 @@ SOURCES = {
         'commit': 'f3060ec861370a896dd7d1b45701139266b66085',
         'commit_date': '2026-09-29T05:16:42Z',
         'repo_created': '2026-09-25T16:13:22Z',
-        'license': 'code MIT; reports, notes and original data CC BY 4.0 (LICENSE, RIGHTS.md); the inherited Kravatsky data under its MIT notice (constructions/d25/THIRD_PARTY_LICENSE.txt)',
+        'license': 'code MIT; reports, notes and original data CC BY 4.0 (LICENSE, RIGHTS.md); the inherited Kravatskiy data under its MIT notice (constructions/d25/THIRD_PARTY_LICENSE.txt)',
         'paper': 'arXiv:2609.35051 (v1 2026-09-28)',
         'files': [
             'LICENSE', 'RIGHTS.md', 'README.md',

@@ -9,6 +9,12 @@ of the theorem: the theorem's authority is the Lean certificate, and an identity
 that failed here would be a REFUTED of the printed formula, never of the result.
 Every check is symbolic (sympy) or high-precision numeric (mpmath, 25 digits,
 residuals reported); none is interval-certified, and the record says so.
+
+Beside the probes, and counted apart from them: a re-check of the upstream record
+corpus/navier-stokes/upstream-f9e8bc5b.json (the commit after the audited pin) —
+the sha256 of every pinned copy, its decided field (is Theorem 1.1's energy clause
+formal?) re-decided from those copies, its line numbers, and its build claim
+against its axiom report, each with a planted variant that must be rejected.
 """
 import json, os, re, subprocess, sys, time, hashlib
 
@@ -78,6 +84,68 @@ def judge(script, out):
         return ('PASS' if ok else 'FAIL'), lines
     return 'FAIL', lines
 
+UPSTREAM = os.path.join(ROOT, 'corpus', 'navier-stokes', 'upstream-f9e8bc5b.json')
+STANDARD_AXIOMS = {'propext', 'Classical.choice', 'Quot.sound'}
+
+def energy_clause_formal(ps, ac, thm):
+    """The upstream record's decided field, re-decided from the corpus copies of the files it pins:
+    the candidate structure carries the energy field, Theorem 1.1's statement quantifies that structure,
+    a theorem is typed by that statement, and the candidate actually supplies the field from the energy lemma."""
+    block = re.search(r'structure CandidateProperties[\s\S]*?\n\n', ps)
+    field = bool(block) and 'energy_bounded : UniformFiniteEnergy (Ico 0 1) u' in block.group(0)
+    quantified = re.search(r'def breakdownStatement : Prop :=[\s\S]*?CandidateProperties ν u p f K ∧ ¬ Nonempty \(GlobalFiniteEnergySolution ν f\)', ps) is not None
+    proved = re.search(r'^theorem theorem_1_1 : ProblemStatement\.breakdownStatement', thm, re.M) is not None
+    supplied = re.search(r'^\s*energy_bounded := \?_', ac, re.M) is not None and 'exact CompactEnergy.uniform_finite_energy' in ac
+    return field and quantified and proved and supplied
+
+def axioms_consistent(rec):
+    """A record that says PASS must carry only the standard axioms and the kernel's typing of theorem_1_1."""
+    if rec['build']['verdict'] != 'PASS':
+        return rec['build']['verdict'] in ('NOT BUILT', 'FAIL')
+    ax = rec.get('axioms') or {}
+    return bool(ax) and all(set(v) <= STANDARD_AXIOMS for v in ax.values()) and rec.get('onlyStandardAxioms') is True \
+        and str(rec.get('kernelType', '')).startswith('NavierStokesR3.theorem_1_1 : ')
+
+def upstream_record():
+    """Re-check corpus/navier-stokes/upstream-f9e8bc5b.json: its pins, its decided field, its build claim — each with a red control."""
+    out = []
+    if not os.path.exists(UPSTREAM):
+        return 'FAIL', ['FAIL the upstream record is missing'], 0, 0
+    rec = json.load(open(UPSTREAM))
+    base = os.path.dirname(UPSTREAM)
+    text = {}
+    for f in rec['files']:
+        p = os.path.join(base, f['corpusCopy'])
+        ok = os.path.exists(p) and sha(p) == f['sha256']
+        out.append(('PASS' if ok else 'FAIL') + ' sha256 ' + f['path'] + ' @ ' + rec['head'][:8])
+        if ok:
+            text[f['path']] = open(p, encoding='utf8').read()
+    ps, ac, thm = (text.get('NavierStokes/R3/' + n, '') for n in ('ProblemStatement.lean', 'ActualCandidate.lean', 'Theorem.lean'))
+    got = energy_clause_formal(ps, ac, thm)
+    want = rec['decided']['energyClauseFormalAtHead']
+    out.append(('PASS' if got == want else 'FAIL') + ' energyClauseFormal re-decided from the pinned copies: ' + str(got) + ' (record: ' + str(want) + ')')
+    for k, tok in (('energySupplied', 'uniform_finite_energy'), ('energyFieldHole', 'energy_bounded := ?_'), ('theorem_1_1', 'theorem theorem_1_1'), ('energyField', 'energy_bounded : UniformFiniteEnergy'), ('breakdownStatement', 'def breakdownStatement')):
+        f, n = rec['locations'][k].rsplit(':', 1)
+        line = text.get(f, '').split('\n')[int(n) - 1] if f in text and int(n) <= len(text[f].split('\n')) else ''
+        out.append(('PASS' if tok in line else 'FAIL') + ' location ' + k + ' = ' + rec['locations'][k])
+    out.append(('PASS' if rec['decided']['redControl']['fired'] and rec['decided']['energyClauseFormalAtPin'] is False else 'FAIL') + ' the recorder\'s own red control (the decider on the pin) fired')
+    out.append(('PASS' if axioms_consistent(rec) else 'FAIL') + ' build ' + rec['build']['verdict'] + ', axioms consistent with the verdict')
+    # red controls: the same checks must reject a planted variant
+    planted = re.sub(r'\n\s*energy_bounded := \?_', '', ac)
+    planted = re.sub(r'\n  · exact CompactEnergy\.uniform_finite_energy[\s\S]*?hNS\n', '\n', planted)
+    out.append(('RED FIRED' if ac and not energy_clause_formal(ps, planted, thm) else 'RED DID NOT FIRE') + ': ActualCandidate with the energy bullet removed is NOT formal')
+    bad = json.loads(json.dumps(rec))
+    if bad.get('axioms'):
+        first = sorted(bad['axioms'])[0]
+        bad['axioms'][first] = bad['axioms'][first] + ['sorryAx']
+    else:
+        bad['build']['verdict'] = 'PASS'
+    out.append(('RED FIRED' if not axioms_consistent(bad) else 'RED DID NOT FIRE') + ': a planted sorryAx (or a PASS with no axioms) is rejected')
+    n_fail = len([l for l in out if l.startswith('FAIL')])
+    rok, nfired, ndead = reds_ok(out)
+    out.append('# %d FAIL' % n_fail)
+    return ('PASS' if n_fail == 0 and rok else 'FAIL'), out, nfired, ndead
+
 def main():
     checks, allok = [], True
     for script, what in SCRIPTS:
@@ -91,6 +159,9 @@ def main():
                        'redsFired': len([l for l in out.splitlines() if l.startswith('RED FIRED') or l.startswith('PASS RED CONTROL')]),
                        'redsDead': len([l for l in out.splitlines() if l.startswith('RED DID NOT FIRE') or l.startswith('FAIL RED CONTROL')]), 'output': lines})
         print(f'{verdict}  {script}  ({dt:.0f}s)')
+    uv, ulines, ufired, udead = upstream_record()
+    allok = allok and uv == 'PASS'
+    print(f'{uv}  upstream-f9e8bc5b.json  (record re-check, {ufired} reds)')
     rec = {
         'what': 'Computable checks of the printed formulas in OpenAI, "Finite time blowup for Navier–Stokes" (2026-09-08), re-run by this battery; a probe of the writeup, not a certification of the theorem (the Lean certificate is the claim).',
         'paper_sha256': '0e779481c4da40bd28d1e642e1d8ca57447d129610df28dfa5a11e9af8ae228f',
@@ -100,6 +171,9 @@ def main():
         'ran': time.strftime('%Y-%m-%d %H:%M:%S %z'),
         'verdict': 'PASS' if allok else 'FAIL',
         'checks': checks,
+        'upstreamRecord': {'record': 'corpus/navier-stokes/upstream-f9e8bc5b.json',
+                           'what': 'not a probe of the writeup: a re-check of the upstream record — the sha256 of every pinned copy, its decided field re-decided from those copies, its line numbers, and its build claim against its axioms — each with a planted variant that must be rejected',
+                           'verdict': uv, 'redsFired': ufired, 'redsDead': udead, 'output': ulines},
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     # stable record: rewrite only when the content (timestamp and timings aside) changed, so 'ran' means when this content was first produced

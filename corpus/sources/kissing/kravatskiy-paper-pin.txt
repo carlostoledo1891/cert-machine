@@ -1,0 +1,23 @@
+alexlegeartis/KissingNumbers (MIT) — the write-up, at commit 86b7de10c69b762ac9403c6db455eabaeba5b68e
+(2026-09-27T20:41:27Z, HEAD on 2026-10-05; the same commit corpus/kissing/wave.meta.json pins).
+
+paper/kissing46.pdf  blob 824ffaad9fe30b669c4e1135388c4820cd60132e  — pinned, not stored (677,742 bytes)
+  sha256 1e825789c13777bd60db74d78128fd7374866f11369870934ba6441b1a22005a  47 pages
+  "New lower bounds for kissing numbers in dimensions 18 through 96", Alexey Kravatskiy
+paper/kissing46.tex  blob cbfeee4fa81863b32bf58281d7ff5bca204b6ebd  — stored beside this note
+  \author{Alexey Kravatskiy} \address{MIRIAI (Moscow Independent Research Institute ...)}
+  §5 (dimension 25, superseded note of 2026-09-07): "In joint work in progress with H. Cohn and B. Lindow ..."
+  dimensions 26 and 27: "Both are joint work in progress with H. Cohn and B. Lindow"
+  dimensions 28 to 31: "These are joint work in progress with H. Cohn and B. Lindow"
+  (the phrase is not in the README or KNOWLEDGE.md at this commit)
+README.md  blob ee54a07fe9839506e82bc07bb43effc8152a4d90 — says both "maintained outside this repository"
+  (line 47) and "It is in this repository, at paper/" (§ The write-up); the second is what the tree shows.
+No arXiv identifier appears for the write-up.
+
+btlindow/KissingNumbers (MIT) at commit 320780989e6fc9a527b1d952118084bbf2fdac80 (2026-09-23, HEAD on 2026-10-05):
+REPRODUCE.md  blob 98ed7aa362968d660d679ddcecfb616d9dd88a7e — stored beside this note.
+  §8: tools/kravatskiy/verify25_independent.py, verify2627_independent.py, verify2627_layers_independent.py,
+  verify2831_independent.py — "exact verifiers, written here and sharing no code with his". Recorded runs:
+  K(25) >= 197569, K(26) >= 199632, K(27) >= 201010 (his commit 52fa09d); two layers K(26) >= 199806,
+  K(27) >= 201509 (c349d56); K(28) >= 204896, K(29) >= 209968, K(30) >= 221012, K(31) >= 238662 (bfc2854).
+  No verifier for dimension 18.

@@ -27,6 +27,12 @@ if (!cg['station-604-1'] || cg['station-604-1'].verdict !== 'CONGRUENT' || cg['s
 if (cg['station-604-2'].verdict !== 'NOT CONGRUENT' || cg['station-604-3'].verdict !== 'NOT CONGRUENT') die('the non-congruence statement would be false');
 const OR = L.openRungs || []; if (OR.length !== 3) die('open rungs missing');
 const r841 = OR.find((r) => r.slug === 'kissing-number-d12'); if (!r841 || r841.measured.coincident !== 1 || r841.measured.violations !== 1) die('the n=841 sentence would be false');
+/* the 840 distinct directions' contacts come from the mc100 record's withoutRepeats; the ledger's count runs over all
+   841 vectors and so counts the repeated entry's contacts twice (this sentence printed that figure until 2026-10-05) */
+const MC100 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mc100-einstein-arena.json'), 'utf8'));
+const mc841 = MC100.rows.find((x) => x.solution === r841.best.id && x.decision && x.decision.withoutRepeats);
+if (!mc841 || mc841.decision.contacts !== r841.measured.contacts || mc841.decision.withoutRepeats.verdict !== 'CERTIFIED'
+  || mc841.decision.withoutRepeats.n !== r841.measured.n - r841.measured.coincident) die('the n=841 distinct-direction count is not in certs/mc100-einstein-arena.json as this paper reads it');
 const r605 = OR.find((r) => r.slug === 'kissing-number-d11-605'), r842 = OR.find((r) => r.slug === 'kissing-number-d12-842');
 
 const tex = `\\documentclass[11pt]{article}
@@ -221,7 +227,7 @@ ${r605.measured.worstAngleDeg.toFixed(2)}$^\\circ$; the best $842$ has
 ${n(r842.measured.violations)}, the worst at
 ${r842.measured.worstAngleDeg.toFixed(2)}$^\\circ$; the best $841$ fails by exactly
 one pair, and that pair is a vector repeated: ${n(r841.measured.n - 1)} distinct
-directions with ${n(r841.measured.contacts)} exact contacts, an $840$-point
+directions with ${n(mc841.decision.withoutRepeats.contacts)} exact contacts (${n(r841.measured.contacts)} if the repeat is counted), an $840$-point
 configuration submitted as $841$. None of this refutes anything: an attempt that
 fails is not a bound that fails.
 

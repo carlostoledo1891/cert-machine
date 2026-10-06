@@ -47,7 +47,7 @@ const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · report · the verifier re-runs during every build',
   title: 'Erdős #1038: thirty decimals, and the last one is a rounding',
-  deck: 'The July 2026 Darvas–Peng–Tao manuscript solving Erdős–Herzog–Piranian (1958) defines its extremal '
+  deck: 'The July 2026 Darvas–Peng–Tao manuscript claiming to solve Erdős–Herzog–Piranian (1958) defines its extremal '
     + 'constant D from the unique zero of a 3-dimensional nonlinear system. This page re-verifies the '
     + 'computational fragment in independent arithmetic — existence AND local uniqueness of the zero by the '
     + 'interval Krawczyk operator, a refinement to width < 10⁻⁴⁰, and a digit-for-digit audit of every decimal '

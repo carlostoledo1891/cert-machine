@@ -31,7 +31,7 @@ import claims, engine, leech, qfield as QF   # noqa: E402
 
 OUT = os.path.join(ROOT, 'certs', 'kissing-wave.json')
 CLAIMANTS = {
-    'kravatsky': 'A. Kravatsky — github.com/alexlegeartis/KissingNumbers (no arXiv; joint work with H. Cohn and B. Lindow in dimensions 25–31 per its README)',
+    'kravatsky': 'A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)',
     'takhanov-yun': 'R. Takhanov and S. Yun — arXiv:2609.21591, github.com/k-nic/Leech_lifting',
     'qiushi': 'Qiushi Engine (Oxelra-AI) — arXiv:2609.35051',
 }

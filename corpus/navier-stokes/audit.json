@@ -91,13 +91,15 @@
       "paper": "Theorem 1.1's second display; Lemma 10.4; the announcement's 'its energy remains finite through the entire dynamics'",
       "lean": "NavierStokesR3.CompactEnergy.uniform_finite_energy (R3/CompactEnergy.lean:343) proves it for any smooth compactly supported force and is used by nothing; the structure carrying energy_bounded (R3/ProblemStatement.lean:108) has no producer; breakdownStatement, the file's own 'full assertion of Theorem 1.1', is never proved. The candidate that IS produced, R3CompactCandidate.selected_compact_candidate (R3ActualCandidate.lean:18), satisfies a Properties structure (R3CompactCandidate.lean:24) with ten fields — smooth velocity and pressure on the pre-singular domain, smooth force on the future domain, compact spatial supports for all three, zero initial velocity, compact future time support for the force, divergence-free, the equation on (0,1), and SpeedUnboundedAtOne — and NO energy field.",
       "status": "NOT among the formal conclusions — every other clause of Theorem 1.1 is. Clay (C) does not need it (energy on each [0,T], T < 1, follows from compact support), so the Millennium result stands; the announcement's physical headline rests on the paper's Lemma 10.4, verified by hand here.",
-      "contrast": "The Euler theorem in the same repository DOES carry it: Euler.exists_compact_smooth_euler_singularity (Euler/Solution.lean:43) asserts, for a nonzero compactly supported smooth datum, a solution on [0,T*) with 0 < T* ≤ 1, a uniform energy bound ∃ E, ∀ t ∈ [0,T*), ∫‖v‖² < E, maximality as an IFF (a solution on [0,T] exists iff T < T*), the C¹ norm bounded on every shorter interval, limsup of the C¹ norm = ⊤ at T*, the Beale–Kato–Majda integral = ⊤, and no global smooth finite-energy solution. Same team, same week, same repository — so the omission on the Navier–Stokes side reads as an oversight, not an obstacle."
+      "contrast": "The Euler theorem in the same repository DOES carry it: Euler.exists_compact_smooth_euler_singularity (Euler/Solution.lean:43) asserts, for a nonzero compactly supported smooth datum, a solution on [0,T*) with 0 < T* ≤ 1, a uniform energy bound ∃ E, ∀ t ∈ [0,T*), ∫‖v‖² < E, maximality as an IFF (a solution on [0,T] exists iff T < T*), the C¹ norm bounded on every shorter interval, limsup of the C¹ norm = ⊤ at T*, the Beale–Kato–Majda integral = ⊤, and no global smooth finite-energy solution. Same team, same week, same repository — so the omission on the Navier–Stokes side reads as an oversight, not an obstacle.",
+      "atHead": "FORMAL at f9e8bc5b (2026-09-10), the one upstream commit after the pin: R3/ActualCandidate.lean fills the energy_bounded field with CompactEnergy.uniform_finite_energy — the lemma this row calls used by nothing — and R3/Theorem.lean proves theorem_1_1 : ProblemStatement.breakdownStatement, the statement this row calls never proved. Lines and digests in upstream-f9e8bc5b.json."
     },
     {
       "item": "the force's support in time",
       "paper": "f ∈ C_c^∞(R³×(0,∞)): zero near t = 0 and for t ≥ 2",
       "lean": "smooth for t ≥ 0, spatial support in a compact K', zero for t ≥ T; no field states f = 0 near t = 0 (CompactPositiveTimeSupport has no producer)",
-      "status": "weaker in Lean; the comparator's ForceConditionDecay does not require it"
+      "status": "weaker in Lean; the comparator's ForceConditionDecay does not require it",
+      "atHead": "FORMAL at f9e8bc5b: the same candidate's force is PositiveTimeForce.force of the compact force, whose CompactPositiveTimeSupport (compact support inside t > 0) is now produced and fills force_support; Clay's (C) is derived from that force."
     },
     {
       "item": "the growth",
@@ -473,6 +475,78 @@
       "the frozen-frame WKB model as an exact ODE system (the sign of m·Mv, the exponential growth, a₂ ≈ a, β₂x_tar² ≈ 1, p₂·Mp₂ < 0)",
       "every scale inequality of §5.5 and (6.1)–(6.2) in exact logarithmic arithmetic",
       "the symbolic identities of §3, including the trace check fixing the −2 in (3.14)"
+    ]
+  },
+  "upstream": {
+    "what": "The audit read 8937a8f4, the commit the 2026-09-08 announcement shipped. Upstream moved once, to f9e8bc5b (authored 2026-09-10, the day after this audit), and this record said nothing about it until an outreach research pass found it on 2026-10-05. This is the reading of that commit at the level the audit worked; the computed facts — the diff, the line numbers, the sha256 pins, the build on this machine and the kernel's axiom report — are upstream-f9e8bc5b.json, never retyped here.",
+    "commit": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+    "readOn": "2026-10-05",
+    "summary": "f9e8bc5b proves the paper's Theorem 1.1 as stated, energy bound included: NavierStokesR3.theorem_1_1 : ProblemStatement.breakdownStatement, the statement that sat unproved at the pin. The candidate gains the two clauses the audit found missing or weaker — the uniform energy bound, from the lemma the audit called unused, and the force's support inside t > 0 — and Clay's (C) and (D) are re-derived from theorem_1_1 rather than from the ten-field candidate. The statements Comparator judges are untouched.",
+    "theorem11Fidelity": [
+      {
+        "paper": "for every ν > 0",
+        "lean": "∀ ν : ℝ, 0 < ν → …",
+        "direction": "same"
+      },
+      {
+        "paper": "a force f ∈ C_c^∞(R³ × (0, ∞); R³)",
+        "lean": "force_smooth : ContDiff ℝ ∞ f (on all of ℝ × R³); force_support : CompactPositiveTimeSupport f := HasCompactSupport f ∧ tsupport f ⊆ Ioi 0 ×ˢ univ",
+        "direction": "same; the zero extension of a C_c^∞ field on the open half-space is exactly a globally smooth field whose closed support is compact and lies in t > 0"
+      },
+      {
+        "paper": "a compact set K ⊂ R³",
+        "lean": "support_compact : IsCompact K",
+        "direction": "same"
+      },
+      {
+        "paper": "smooth u, p on R³ × [0, 1)",
+        "lean": "ContDiffOn ℝ ∞ u preSingularDomain, preSingularDomain = Ico 0 1 ×ˢ univ; likewise p",
+        "direction": "same, as Clay's (6) in the statement table: C^∞ within the slab closed at t = 0"
+      },
+      {
+        "paper": "∂ₜu + (u·∇)u − νΔu + ∇p = f",
+        "lean": "navier_stokes : ∀ t ∈ Ioo 0 1, ∀ x, navierStokesResidual ν u p t x = f (t, x) — fderiv in t, Σᵢ∂ᵢ∂ᵢ, ν on the Laplacian only",
+        "direction": "equivalent; asked on 0 < t < 1, where the slab is a neighbourhood of (t, x) so every fderiv is a genuine derivative and no junk value enters; at t = 0 it follows by continuity of the smooth fields"
+      },
+      {
+        "paper": "∇ · u = 0",
+        "lean": "divergence_free : ∀ t ∈ Ico 0 1, ∀ x, spatialDivergence u t x = 0",
+        "direction": "same"
+      },
+      {
+        "paper": "u(·, 0) = 0",
+        "lean": "zero_initial_velocity : ∀ x, u (0, x) = 0",
+        "direction": "same"
+      },
+      {
+        "paper": "supp u(·, t) ∪ supp p(·, t) ⊂ K for 0 ≤ t < 1",
+        "lean": "velocity_support, pressure_support : ∀ t ∈ Ico 0 1, tsupport (fun x => u (t, x)) ⊆ K",
+        "direction": "same; tsupport is the closed support"
+      },
+      {
+        "paper": "sup_{0≤t<1} ‖u(t)‖_{L²} < ∞",
+        "lean": "energy_bounded : UniformFiniteEnergy (Ico 0 1) u := ∃ E ≥ 0, ∀ t ∈ [0, 1), Integrable ‖u(t,·)‖² ∧ ½∫‖u(t,·)‖² ≤ E",
+        "direction": "same; square integrability is stated, so the Bochner integral's junk value 0 cannot satisfy the bound vacuously"
+      },
+      {
+        "paper": "lim sup_{t↑1} ‖u(t)‖_{L^∞} = ∞",
+        "lean": "speed_unbounded : SpeedUnboundedAtOne u := ∀ M > 0, ∀ δ > 0, ∃ t ∈ (0, 1), 1 − δ < t, ∃ x, M < ‖u(t, x)‖",
+        "direction": "equivalent for continuous slices, whose L^∞ norm is the supremum; no rate, as at the pin"
+      },
+      {
+        "paper": "consequently no smooth (u, P) on R³ × [0, ∞) with the same force and datum and sup_{t≥0} ½∫|u|² < ∞",
+        "lean": "¬ Nonempty (GlobalFiniteEnergySolution ν f): smooth on Ici 0 ×ˢ univ, zero datum, divergence-free for t ≥ 0, the equation for t > 0 with the same ν and f, UniformFiniteEnergy (Ici 0)",
+        "direction": "same; the competitor class asks nothing the paper does not — no pressure growth, support or decay — so the negation is not weakened"
+      }
+    ],
+    "fidelityRule": "Theorem 1.1 is an existence statement with a negation attached, so the direction rule of the statement table applies twice: in the existence part a clause WEAKER than the paper's (a junk value, a missing integrability) would make the theorem cheap, and in the negation a competitor class STRONGER than the paper's would. Neither occurs.",
+    "fidelityVerdict": "breakdownStatement is the paper's Theorem 1.1 with nothing dropped from the conclusions and nothing added to the competitor class. Unlike (C) and (D), whose statement a third party wrote months before the proof, this statement is OpenAI's own (R3/ProblemStatement.lean, byte-identical at the pin, where it stood unproved under its own docstring, 'the full assertion of Theorem 1.1'); its authority is this reading, not Comparator.",
+    "oversightConfirmed": "The reading held: f9e8bc5b fills exactly that field with exactly that lemma, in one proof bullet, the day after the audit.",
+    "whatRemains": [
+      "Comparator judges (C) and (D), not Theorem 1.1, and formalization.yaml still declares the same four main results: the energy clause is formal in a theorem the repository proves and its proof of (C) passes through, not in a statement a third party wrote.",
+      "Comparator was not re-run at f9e8bc5b: on this machine's current OS the toolchain's compiled lake, lean4export and comparator abort at start. Its acceptance of both configurations on 2026-09-09 is a fact about 8937a8f4; at f9e8bc5b the challenge files and the solution-side definitions are byte-identical to the pin, the new proofs were kernel-checked by lean as they compiled, and their axioms were asked of the kernel, but nanoda did not replay them.",
+      "The announced commit is 8937a8f4: for the two days between the announcement and f9e8bc5b the energy clause was a paper claim, and the register keeps that as the row's history.",
+      "Unchanged by the commit and still standing: the growth is the pointwise form with no rate, h is not a number anywhere, and every §5 weak point of the writeup is about the paper."
     ]
   }
 }

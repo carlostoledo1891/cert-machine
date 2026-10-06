@@ -214,16 +214,36 @@ function firstSeen(file, key) {
   });
 }
 
-/* 12 · OpenAI's Navier–Stokes claim: the Lean certificate, and the clause it does not carry */
+/* 12 · OpenAI's Navier–Stokes claim: the Lean certificate; the clause the announced commit did not carry, and
+   the upstream commit that carries it. The 2026-09-09 verdict was about 8937a8f4, the commit the announcement
+   shipped; upstream moved to f9e8bc5b on 2026-09-10 and this row did not know until 2026-10-05. The verdict now
+   follows the upstream record: CERTIFIED only when f9e8bc5b was BUILT here with standard axioms AND its decider
+   (red-controlled on the pin) calls the energy clause formal AND the audit holds a reading of Theorem 1.1's
+   statement; otherwise it stays PARTIAL and names the upstream change. The pin's verdict is kept as history. */
 {
-  const b = J('corpus/navier-stokes/build.json'), a = J('corpus/navier-stokes/audit.json');
+  const b = J('corpus/navier-stokes/build.json'), a = J('corpus/navier-stokes/audit.json'), u = J('corpus/navier-stokes/upstream-f9e8bc5b.json');
   if (b.exitCode !== 0 || !b.onlyStandardAxioms) die('the Navier–Stokes build record no longer holds');
   if (!a.findings || !a.findings.energyAsymmetry) die('the Navier–Stokes audit record names no energy finding');
+  if (u.pin !== b.commit) die('the Navier–Stokes upstream record is not relative to the audited pin');
+  if (!u.decided.redControl.fired || u.decided.energyClauseFormalAtPin !== false) die('the upstream record\'s decider did not call the pin NOT formal — its HEAD answer means nothing');
+  if (!a.upstream || a.upstream.commit !== u.head || !(a.upstream.theorem11Fidelity || []).length) die('the audit holds no reading of Theorem 1.1\'s statement at the upstream commit');
+  if (!a.upstream.theorem11Fidelity.every((r) => /^(same|equivalent)/.test(r.direction))) die('a Theorem 1.1 fidelity row is not same/equivalent');
+  const pin8 = b.commit.slice(0, 8), head8 = u.head.slice(0, 8), headDate = u.commits[u.commits.length - 1].authored.slice(0, 10);
+  const pinScope = 'the Lean certificate holds for Clay\'s (C) and (D) — ' + b.jobsBuilt.toLocaleString('en-US') + ' modules built here, only the standard axioms, Comparator on both — and the finite-energy clause the paper\'s Theorem 1.1 states is not in the formal statement';
+  const built = u.build.verdict === 'PASS' && u.onlyStandardAxioms === true && !!u.kernelType;
+  const formal = u.decided.energyClauseFormalAtHead === true;
+  const atPin = { at: pin8, verdict: 'PARTIAL', kind: 'clause-missing-from-formal-statement', scope: pinScope, decidedFrom: 'corpus/navier-stokes/audit.json', recordedOn: firstSeen('corpus/navier-stokes/audit.json', 'fidelityVerdict') };
+  const certified = built && formal;
   rows.push({
     id: 'navier-stokes-openai-2026', claim: 'finite-time blowup for the 3D Navier–Stokes equations with finite energy (Clay alternatives C and D)',
-    claimant: 'OpenAI (2026-09-08)', source: 'github.com/openai/NavierStokesAndEuler @ ' + b.commit.slice(0, 8) + ' and the paper, pinned by sha256', origin: 'self-initiated', verdict: 'PARTIAL',
-    scope: 'the Lean certificate holds for Clay\'s (C) and (D) — ' + b.jobsBuilt.toLocaleString('en-US') + ' modules built here, only the standard axioms, Comparator on both — and the finite-energy clause the paper\'s Theorem 1.1 states is not in the formal statement',
-    kind: 'clause-missing-from-formal-statement', key: 'fidelityVerdict', decidedFrom: 'corpus/navier-stokes/audit.json', page: '/reports/navier-stokes.html'
+    claimant: 'OpenAI (2026-09-08; the Lean amended ' + headDate + ')', source: 'github.com/openai/NavierStokesAndEuler @ ' + head8 + ' (announced at ' + pin8 + ') and the paper, pinned by sha256', origin: 'self-initiated',
+    verdict: certified ? 'CERTIFIED' : 'PARTIAL',
+    scope: certified
+      ? 'at ' + head8 + ' (' + headDate + ') the Lean proves the paper\'s Theorem 1.1 as stated, finite energy included (theorem_1_1, its statement read here clause by clause), and derives Clay\'s (C) and (D) from it — ' + u.build.built + ' changed or dependent modules rebuilt here over the pin\'s build, only the standard axioms for all ' + Object.keys(u.axioms).length + ' declarations asked; at the announced commit ' + pin8 + ' the finite-energy clause was not formal (PARTIAL, kept as history). Comparator judged (C) and (D) at ' + pin8 + ' and was not re-run at ' + head8 + '; Theorem 1.1\'s statement is OpenAI\'s own, not Comparator-judged'
+      : pinScope + '; at ' + head8 + ' (' + headDate + ') upstream proves Theorem 1.1 with the clause (' + u.locations.energySupplied + ', ' + u.locations.theorem_1_1 + '), ' + (u.build.verdict === 'NOT BUILT' ? 'read from source, not built here' : 'but its build here is ' + u.build.verdict),
+    kind: certified ? 'none' : 'clause-missing-from-formal-statement',
+    key: certified ? '"theorem11Fidelity"' : 'fidelityVerdict', decidedFrom: 'corpus/navier-stokes/audit.json', alsoDecidedFrom: 'corpus/navier-stokes/upstream-f9e8bc5b.json',
+    history: certified ? [atPin] : undefined, page: '/reports/navier-stokes.html'
   });
 }
 

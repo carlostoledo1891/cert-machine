@@ -22,6 +22,8 @@
      certs/horizon-ledger.json, certs/hseva-ledger.json, certs/sumdiff-ledger.json,
      certs/fei-ledger.json, certs/turan-ledger.json, certs/gnnw-certificate.json,
      corpus/navier-stokes/build.json, ledger.json (the engine loop; the ramanujan-audit family)
+     corpus/navier-stokes/upstream-f9e8bc5b.json   the Navier–Stokes row re-decided at the upstream commit
+     corpus/machine-claims-100.json      the hundred pre-registered claims (October's rows)
      certs/matmul-eval-ledger.jsonl      the grader's refusal rate on submitted proposals
      certs/sublevel-tao179.json, certs/lambda56-campaign.json, certs/mfg2p-regime-map.json,
      certs/mfg-regime-map.json           the refusal kinds the refusals page keeps apart
@@ -106,14 +108,33 @@ def('AggItems', int(Object.values(itemsByKind).reduce((a, b) => a + b, 0) - deci
 rows('AggRows', aggregates.map((r) => [tex(r.claim), vw(r.verdict), Object.entries(r.kinds).map(([k, n]) => int(n) + ' ' + kname(k)).join(', ')]));
 /* months and the dated diff */
 const months = Object.keys(R.byMonth).sort();
-need(months.length === 2 && months[0] === '2026-08' && months[1] === '2026-09', 'the register no longer spans exactly August and September 2026: the month paragraphs need rewriting');
-const MON = { '2026-08': 'August 2026', '2026-09': 'September 2026' };
+need(JSON.stringify(months) === JSON.stringify(['2026-08', '2026-09', '2026-10']), 'the register no longer spans exactly August to October 2026: the month paragraphs need rewriting');
+const MON = { '2026-08': 'August 2026', '2026-09': 'September 2026', '2026-10': 'October 2026' };
 const monthRows = months.map((m) => { const rr = R.rows.filter((r) => r.recordedOn.slice(0, 7) === m); const c = (v) => rr.filter((r) => r.verdict === v).length; return [MON[m], int(rr.length), int(c('CERTIFIED')), int(c('PARTIAL')), int(c('REFUTED')), int(c('MIXED')), int(c('REPAIRED')), int(c('NEEDS DATA')), int(c('QUEUED')), int(rr.filter((r) => r.verdict !== 'QUEUED' && r.kind !== 'none').length)]; });
 rows('MonthRows', monthRows);
 def('MonthAugRows', int(R.byMonth['2026-08'])); def('MonthSepRows', int(R.byMonth['2026-09']));
 def('MonthSepDecided', int(R.rows.filter((r) => r.recordedOn.slice(0, 7) === '2026-09' && r.verdict !== 'QUEUED').length));
+def('MonthOctRows', int(R.byMonth['2026-10']));
 const dates = [...new Set(R.rows.map((r) => r.recordedOn))].sort();
 def('RegFirstDate', dates[0]); def('RegLastDate', dates[dates.length - 1]); def('RegDays', int(dates.length));
+/* October is of another making: the paragraph says every October row but one is a decided row of the hundred
+   pre-registered machine claims, and the one is the Navier–Stokes row re-decided on its claimant's later commit */
+const MC = J('corpus/machine-claims-100.json');
+need(MC.count === 100 && MC.rows.length === 100 && /^\d{4}-\d{2}-\d{2}$/.test(MC.registered) && /named before any is decided/.test(MC.what), 'the pre-registration is not one hundred claims named before any was decided');
+const isMc = (r) => /^certs\/mc100-/.test(r.decidedFrom);
+const octRows = R.rows.filter((r) => r.recordedOn.slice(0, 7) === '2026-10');
+const mcRows = R.rows.filter(isMc), octOther = octRows.filter((r) => !isMc(r));
+need(mcRows.every((r) => r.recordedOn.slice(0, 7) === '2026-10' && r.recordedOn > MC.registered), 'a pre-registered row is dated outside October or before its registration');
+need(octOther.length === 1 && octOther[0].id === 'navier-stokes-openai-2026' && (octOther[0].history || []).length === 1, 'October holds a row that is neither pre-registered nor the re-decided Navier–Stokes row: the October sentence needs rewriting');
+need(mcRows.every((r) => MC.rows.some((m) => r.id === 'mc100-' + m.id)), 'a register row from the pre-registered pools names no pre-registered claim');
+const mcSources = [...new Set(mcRows.map((r) => r.decidedFrom))];
+def('McRegistered', MC.registered); def('McCount', int(MC.count)); def('McRows', int(mcRows.length));
+def('McSources', int(mcSources.length)); def('McPools', int(Object.keys(MC.caps).length));
+const dayRows = (d) => R.rows.filter((r) => r.recordedOn === d);
+const biggestOf = (ds) => ds.map((d) => [d, dayRows(d).length]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+const bigAll = biggestOf(dates), bigAugSep = biggestOf(dates.filter((d) => d < '2026-10'));
+need(dayRows(bigAll[0]).every(isMc), 'the largest day of the register is no longer a day of the pre-registered set');
+def('RegBiggestDayAugSep', bigAugSep[0]); def('RegBiggestDayAugSepRows', int(bigAugSep[1]));
 const LABEL = {
   'certs/ai-claims-summary.json': ['six AI-assisted manuscripts, lane audit', 'manuscripts produced with frontier-model help', 'ai-claims-audit'],
   'certs/erdos852-certificate.json': ['Erd\\H{o}s \\#852, the constant $C^*$', 'a problem-thread post, frontier-model help', 'erdos852'],
@@ -134,7 +155,13 @@ const LABEL = {
   'certs/countex-ledger.json': ['an AI counterexample library', 'Sra; GPT, Codex and Claude models', 'counterexample-machine'],
   'certs/horizonmath-ledger.json': ['HorizonMath credited discoveries', 'GPT-5.4 and GPT-5.6 models', 'horizonmath'],
   'certs/gnnw-certificate.json': ['GNNW\'s unverified iteration', 'ChatGPT 5.6 Sol, printed by Gupta et al.', 'diagonal-ramsey'],
-  'certs/polymaps-ledger.json': ['polynomial maps, two 2026 papers', 'Gao with Claude; Casta\\~neda et al.', 'polymaps']
+  'certs/polymaps-ledger.json': ['polynomial maps, two 2026 papers', 'Gao with Claude; Casta\\~neda et al.', 'polymaps'],
+  /* the hundred pre-registered machine claims (corpus/machine-claims-100.json), one record per pool decided so far */
+  'certs/mc100-alphaevolve-nb-matmul.json': ['AlphaEvolve notebook, pre-registered', 'AlphaEvolve', 'mc100'],
+  'certs/mc100-alphatensor-f2.json': ['AlphaTensor over $\\mathbb{F}_2$, pre-registered', 'AlphaTensor', 'mc100'],
+  'certs/mc100-alphatensor-q.json': ['AlphaTensor, standard arithmetic, pre-registered', 'AlphaTensor', 'mc100'],
+  'certs/mc100-einstein-arena.json': ['EinsteinArena bests, pre-registered', 'EinsteinArena agents', 'mc100'],
+  'certs/mc100-station-v2.json': ['the Station, pre-registered', 'the Station\'s agents', 'mc100']
 };
 for (const s of sources) need(LABEL[s], 'a source this tool does not label: ' + s);
 const srcRows = sources.map((s) => { const rr = R.rows.filter((r) => r.decidedFrom === s); const c = (v) => rr.filter((r) => r.verdict === v).length; const first = rr.map((r) => r.recordedOn).sort()[0]; return { s, first, row: [LABEL[s][0], LABEL[s][1], int(rr.length), int(c('CERTIFIED')), int(c('PARTIAL')), int(c('REFUTED')), int(c('MIXED')), int(c('REPAIRED')), int(c('NEEDS DATA')), int(c('QUEUED')), first] }; })
@@ -314,6 +341,17 @@ def('RegWhat', tex(R.what)); def('RegScope', tex(R.scope.replace(/^What can be d
   def('OcRegistryCommit', sd.registry.commit.slice(0, 8)); def('OcStarNote', tex(sd.registry.starNote.replace(/^README: /, '')));
   const z = J('certs/gnnw-certificate.json'); need(z.decided.verdict === 'CERTIFIED', 'GNNW is not certified'); def('GnC', z.decided.c[0].slice(0, 13)); def('GnPrintedIs', tex(z.decided.printedIs));
   const nb = J('corpus/navier-stokes/build.json'); need(nb.exitCode === 0 && nb.onlyStandardAxioms, 'the Navier–Stokes build record no longer holds'); def('NsJobs', int(nb.jobsBuilt)); def('NsCommit', nb.commit.slice(0, 8));
+  /* the clause kind's one row, re-decided: PARTIAL at the announced commit (kept as history), CERTIFIED once the
+     upstream commit proved the clause and was built here; the paragraph says the kind now has no row */
+  const ns = R.rows.find((r) => r.id === 'navier-stokes-openai-2026'), up = J('corpus/navier-stokes/upstream-f9e8bc5b.json');
+  need(ns && ns.verdict === 'CERTIFIED' && ns.kind === 'none' && ns.alsoDecidedFrom === 'corpus/navier-stokes/upstream-f9e8bc5b.json', 'the Navier–Stokes row is not CERTIFIED from the upstream record: the defects paragraph needs rewriting');
+  const nh = (ns.history || [])[0];
+  need(ns.history.length === 1 && nh.verdict === 'PARTIAL' && nh.kind === 'clause-missing-from-formal-statement' && nh.at === nb.commit.slice(0, 8), 'the Navier–Stokes row does not keep its PARTIAL at the announced commit as history');
+  need(!R.byKind['clause-missing-from-formal-statement'] && R.kindsDefined['clause-missing-from-formal-statement'], 'the clause kind has a row again, or left the vocabulary: the defects paragraph needs rewriting');
+  need(up.pin === nb.commit && up.decided.energyClauseFormalAtPin === false && up.decided.energyClauseFormalAtHead === true && up.decided.redControl.fired === true, 'the upstream record does not decide the clause not formal at the pin and formal upstream');
+  need(up.build.verdict === 'PASS' && up.onlyStandardAxioms === true && up.comparator.ranAtHead === false, 'the upstream build is not PASS on the standard axioms, or Comparator is now recorded as re-run');
+  def('NsHeadCommit', up.head.slice(0, 8)); def('NsHeadDate', up.commits[up.commits.length - 1].authored.slice(0, 10));
+  def('NsRecorded', ns.recordedOn); def('NsPriorRecorded', nh.recordedOn);
 }
 
 /* ======================================================================= refusals, by kind, each with its denominator */

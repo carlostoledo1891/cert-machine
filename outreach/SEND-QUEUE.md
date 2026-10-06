@@ -11,6 +11,18 @@ here on request.
 
 ---
 
+## LANE G — THE GITHUB MAP'S P1 ITEMS (2026-10-05; outreach/github-p1-2026-10-05.md; map outreach/GITHUB-OUTREACH.md)
+
+- **POSTED on the operator's "Proceed all needed":**
+  - G3: the gist comment to Yongxi Lin on the 53-bit comparison.
+  - G6: the correction of our own 41,128 → 40,992 on einstein-arena#64.
+  - G2: HorizonMath#10, the Ramsey certificate refuted.
+- **NEXT, once the fixed pages deploy:**
+  - G5: Kravatskiy (an issue OR the email, not both).
+  - G4: Takhanov–Yun.
+  - G7: the #1038 correction on teorth#179.
+- **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
+
 ## LANE P — PRIME INTELLECT (2026-10-05)
 
 - **P1. The application** — SENT by the operator (2026-10-05).

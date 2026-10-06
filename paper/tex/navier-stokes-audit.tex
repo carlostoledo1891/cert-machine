@@ -11,7 +11,7 @@
 the formal statement read against Clay's wording and Mathlib's definitions,\\
 the Lean proof built and its axioms asked of the kernel, and what remains open}
 \author{\cmauthor}
-\date{October 2026 --- draft v0.1 for review; every number interpolated from the record; machine-derived, not peer-reviewed; author list to be agreed}
+\date{October 2026 --- draft v0.2 for review (v0.1 read the announced commit only; v0.2 adds the upstream commit of \UpCommitDate, read here \UpReadOn); every number interpolated from the record; machine-derived, not peer-reviewed; author list to be agreed}
 
 \begin{document}
 \maketitle
@@ -29,11 +29,20 @@ second kernel; the paper mapped onto the certificate clause by clause; the write
 by \Readers{} independent readings and set against every classical obstruction; every
 printed identity a computer can decide re-run with red controls. What
 holds: the statement is Clay's with nothing added or dropped, the build passes on the three
-standard axioms, both kernels accept, and no error or counterexample was found. Not decided:
-the paper's finite-energy clause has no formal counterpart; the smallness parameter is
-bounded numerically nowhere; \EulerChecksUnrun{} checks of the companion Euler paper are
-listed and unrun. The register row reads \textsc{\LedgerVerdict}. Nothing is claimed about
-the mathematics beyond what the kernel and the readings establish, nor about priority.
+standard axioms, both kernels accept, and no error or counterexample was found. What the
+audit found at the announced commit, \lean{\LeanCommit}: the paper's finite-energy clause had
+no formal counterpart, the lemma that gives it proved and used by nothing. The one upstream
+commit since, \lean{\UpCommit} of \UpCommitDate, the day after the audit, fills that clause
+from that lemma and proves the paper's Theorem~1.1 as stated; this note did not say so until
+\UpReadOn. It was rebuilt here over the pinned build and the kernel reports the same three
+axioms for all \UpAxiomDecls{} declarations asked. Comparator was not re-run at that commit,
+and the statement of Theorem~1.1 it proves is OpenAI's own, not a third party's: its fidelity
+rests on this note's clause-by-clause reading. Not decided: the smallness parameter is bounded numerically nowhere;
+\EulerChecksUnrun{} checks of the companion Euler paper are listed and unrun. The register row
+reads \textsc{\LedgerVerdict}, recorded \LedgerRecorded, with the
+\textsc{\LedgerPriorVerdict} of \LedgerPriorRecorded{} at \lean{\LedgerPriorAt}
+kept as its history. Nothing is claimed about the mathematics beyond what the kernel and the
+readings establish, nor about priority.
 \end{abstract}
 
 \section{Introduction}
@@ -58,9 +67,15 @@ is a gap in the writeup unless the Lean shows the same, and a printed identity t
 would refute the formula, not the theorem \cite{Records}. The contribution is not a theorem
 but the grammar of the audit and its public record; every number below is interpolated from
 a record by a tool that refuses when a record no longer supports a sentence.
-Sections~\ref{sec:claim}--\ref{sec:dates} give the claim and the corpus, the audit, what the
-record decides, what is not claimed, and the dates as the parties state them, weighed by
-nobody here.
+
+The audit read \lean{\LeanCommit}, the commit the announcement shipped, on the day after it
+appeared. Upstream moved once afterwards, to \lean{\UpCommit} on \UpCommitDate, and the
+record said nothing about that commit until \UpReadOn. The audit's findings are kept as
+findings about the commit they read, dated; the later commit is read at the same level in a
+section of its own, and the register's verdict follows it with the earlier verdict kept as
+history. Sections~\ref{sec:claim}--\ref{sec:dates} give the claim and the corpus, the audit,
+the upstream commit, what the record decides, what is not claimed, and the dates as the
+parties state them, weighed by nobody here.
 
 \section{What was claimed, and what was pinned}\label{sec:claim}
 
@@ -86,10 +101,10 @@ Mart\'{\i}nez-Zoroa \cite{CMZ}.
 
 \paragraph{The corpus.} Everything read was pinned on \CorpusFetched{} with its digest:
 \CorpusFiles{} files: the two papers, the Clay statement, the Lean bridge files, the Formal
-Conjectures statement, the announcement and the concurrent papers and statements \cite{OAINS,OAIE,OAIann,OAIrepo,FC,AB}. The
-repository \cite{OAIrepo} has one commit, \lean{\LeanCommit}, at \LeanCommitDate{}
-\LeanCommitTime; it pins Lean \LeanToolchain{} \cite{LeanMathlib} and Mathlib at \lean{\MathlibRev}
-\cite{LeanMathlib}; it holds \LeanFiles{} files and \LeanLines{} lines, of which \NSLines{} lines
+Conjectures statement, the announcement and the concurrent papers and statements \cite{OAINS,OAIE,OAIann,OAIrepo,FC,AB}. When
+pinned, the repository \cite{OAIrepo} had one commit, \lean{\LeanCommit}, at \LeanCommitDate{}
+\LeanCommitTime{} (a second followed on \UpCommitDate; Section~\ref{sec:upstream}); it pins Lean \LeanToolchain{} \cite{LeanMathlib} and Mathlib at \lean{\MathlibRev}
+\cite{LeanMathlib}; at that commit it holds \LeanFiles{} files and \LeanLines{} lines, of which \NSLines{} lines
 in \NSFiles{} files are the Navier--Stokes library, \EulerLines{} in \EulerFiles{} the Euler
 library and \ChalLines{} in \ChalFiles{} the challenge statements. Its
 \lean{formalization.yaml} declares the review \emph{\FormalReview} and the automation
@@ -188,9 +203,10 @@ statement, and nothing about the paper.
 
 \subsection{The paper against the certificate}\label{sec:map}
 
-Each clause of the stated theorem was located in the formal library or named as absent
-(Table~\ref{tab:map}; \PaperVsLeanRows{} rows in the record, \PaperClausesNotFormal{} of them
-not formal) \cite{Records}.
+Each clause of the stated theorem was located in the formal library at the pinned commit or
+named as absent (Table~\ref{tab:map}; \PaperVsLeanRows{} rows in the record,
+\PaperClausesNotFormal{} of them not formal at \lean{\LeanCommit} and
+\PaperClausesNotFormalAtHead{} at \lean{\UpCommit}, Section~\ref{sec:upstream}) \cite{Records}.
 
 \begin{table}[t]\centering\footnotesize
 \begin{tabular}{L{2.5cm}L{4.0cm}L{5.6cm}L{2.4cm}}\toprule
@@ -198,25 +214,29 @@ item & the paper & the Lean & status\\\midrule
 the two theorems & Theorem~1.1 (C), Corollary~10.6 (D) & \lean{navier\_stokes\_breakdown\_R3}, \lean{\_periodic}, through \lean{ComparatorBridge} adapters; solution-side definitions byte-identical to the challenge & proved, subject to the build record \\
 uniqueness, Lemma~10.5 & $v$ smooth, $\Lp\infty_t\Lp2_x$, zero datum, same force $\Rightarrow v=u$; no growth condition on the pressure & \lean{classical\_uniqueness\_on\_Icc} (\lean{R3/WholeSpaceUniqueness.lean:30}): competitor smooth, divergence-free, uniformly finite energy, pressure only smooth; pressure recovered (\lean{R3/PressureRecovery.lean:419}), flux bounded uniformly in the radius (\lean{R3/PressureFlux.lean:576}) & covers every competitor Clay admits \\
 the viscosity rescaling & (10.22): space rescaled, singular time $1$ & time rescaled, $f_\nu(x,t)=\nu^2f(\nu t,x)$ (\lean{ComparatorR3Theorem.lean:19}), singular time $1/\nu$ & equivalent; the statement names no time \\
-the uniform energy bound & Theorem~1.1's $\sup_{t<1}\norm{u(t)}_{\Lp2}<\infty$; Lemma~10.4; the announcement's ``its energy remains finite through the entire dynamics'' & \lean{uniform\_finite\_energy} (\lean{R3/CompactEnergy.lean:343}) proves it for any smooth compactly supported force and is used by nothing; the structure carrying \lean{energy\_bounded} has no producer; the candidate's \lean{Properties} structure has ten fields and no energy field & \textsc{not formal}; every other clause of Theorem~1.1 is \\
-the force's support in time & $f\in C_c^\infty(\R^3\times(0,\infty))$: zero near $t=0$ & smooth for $t\ge0$, compact spatial support, zero for $t\ge T$; no field states $f=0$ near $t=0$ & weaker in Lean; the challenge's force condition does not require it \\
+the uniform energy bound & Theorem~1.1's $\sup_{t<1}\norm{u(t)}_{\Lp2}<\infty$; Lemma~10.4; the announcement's ``its energy remains finite through the entire dynamics'' & \lean{uniform\_finite\_energy} (\lean{R3/CompactEnergy.lean:343}) proves it for any smooth compactly supported force and is used by nothing; the structure carrying \lean{energy\_bounded} has no producer; the candidate's \lean{Properties} structure has ten fields and no energy field & \textsc{not formal} at \lean{\LeanCommit}; every other clause of Theorem~1.1 is; formal at \lean{\UpCommit} \\
+the force's support in time & $f\in C_c^\infty(\R^3\times(0,\infty))$: zero near $t=0$ & smooth for $t\ge0$, compact spatial support, zero for $t\ge T$; no field states $f=0$ near $t=0$ & weaker in Lean at \lean{\LeanCommit}; the challenge's force condition does not require it; formal at \lean{\UpCommit} \\
 the growth & (10.20)--(10.21): $u_\theta=\tau^{-A}(e_0+O(\tau^{2h}))$ along a named off-axis path & \lean{SpeedUnboundedAtOne}: $\forall M\,\delta\ \exists t\,x$, $1-\delta<t<1$, $M<\norm{u(t,x)}$; on the torus also $\norm{u(t,0)}\to\infty$ on the axis & pointwise $\limsup\norm u_\infty=\infty$; no rate \\
 the numbering & Propositions 5.5, 7.5, 9.6, 9.9, Theorem~3.1 & docstrings cite a manuscript numbering absent from the published paper & the map is by content \\
 \bottomrule\end{tabular}
-\caption{The paper mapped onto the certificate, from the record \cite{Records}.}\label{tab:map}
+\caption{The paper mapped onto the certificate at the announced commit \lean{\LeanCommit},
+from the record \cite{Records}; the two rows not formal there are formal at the upstream
+commit \lean{\UpCommit} (Section~\ref{sec:upstream}).}\label{tab:map}
 \end{table}
 
 One difference bears on the announcement, which says the fluid's ``energy remains finite
 through the entire dynamics, from rest to the formation of the singularity'' \cite{OAIann}.
-Theorem~1.1 states it and Lemma~10.4 proves it in a few lines, re-derived in the reading;
-the repository contains the general lemma, nothing invokes it, and
-\lean{breakdownStatement}, the file's own ``full assertion of Theorem~1.1'', is never
-proved. Clay's (C) does not need the clause, since a global smooth competitor is excluded by
-uniqueness on every $[0,T]$, $T<1$, where the candidate's energy is finite by compact support
-alone; so the formal result stands as Clay's and the physically striking clause rests on the
-paper. The Euler theorem in the same repository carries its energy bound
-(Section~\ref{sec:euler}); the record reads the asymmetry as an oversight rather than an
-obstacle, and this note repeats that reading as a reading.
+Theorem~1.1 states it and Lemma~10.4 proves it in a few lines, re-derived in the reading.
+At the announced commit the repository contained the general lemma
+(\lean{\UpLocLemma}), nothing invoked it, and \lean{breakdownStatement}, the file's own
+``full assertion of Theorem~1.1'', was never proved. Clay's (C) does not need the clause,
+since a global smooth competitor is excluded by uniqueness on every $[0,T]$, $T<1$, where the
+candidate's energy is finite by compact support alone; so at that commit the formal result
+stood as Clay's and the physically striking clause rested on the paper. The Euler theorem in
+the same repository carries its energy bound (Section~\ref{sec:euler}); the record read the
+asymmetry as an oversight rather than an obstacle, as a reading. The reading held: the
+upstream commit of the next day fills exactly that field with exactly that lemma and proves
+\lean{breakdownStatement} (Section~\ref{sec:upstream}).
 
 \subsection{The writeup, read}\label{sec:read}
 
@@ -381,46 +401,144 @@ system, every scale inequality of \S5.5 and (6.1)--(6.2) in exact logarithmic ar
 and the symbolic identities of \S3 including the trace check that fixes the $-2$ in (3.14).
 The Euler result is audited separately and not folded into the Navier--Stokes verdict.
 
+\section{The upstream commit of \UpCommitDate}\label{sec:upstream}
+
+{\sloppy\paragraph{What it changes.} The repository's own metadata dates \lean{\UpCommit} to
+\UpCommitDate{} \UpCommitTime, the day after the audit, authored by \UpAuthor{} with the
+message ``\UpMessage''. This note learned of it on \UpReadOn{} and read it then at the level
+the audit worked; the computed facts are a record of their own \cite{Records}. Between the two
+commits \UpDiffFiles{} files changed, \UpDiffAdded{} added and \UpDiffModified{} modified,
+\UpInsertions{} lines in and \UpDeletions{} out, nothing under \lean{Euler/}; the challenge
+files, the solution-side definitions, \lean{R3/ProblemStatement.lean},
+\lean{R3/CompactEnergy.lean} and the toolchain pins are byte-identical to \lean{\LeanCommit}.
+The commit closes both rows of Table~\ref{tab:map} that were not formal. The candidate's
+\lean{energy\_bounded} field, left as a goal at \lean{\UpLocEnergyHole}, is discharged at
+\lean{\UpLocEnergy} by \lean{CompactEnergy.uniform\_finite\_energy} (\lean{\UpLocLemma},
+unchanged), the lemma Section~\ref{sec:map} found used by nothing; the force is now one whose
+closed support is compact and lies in $t>0$, which fills \lean{force\_support} at
+\lean{\UpLocForce}; and \lean{theorem\_1\_1 : ProblemStatement.breakdownStatement} is proved at
+\lean{\UpLocTheorem}. Clay's (C) is now derived from it at \lean{\UpLocClayC} through
+\lean{comparator\_of\_breakdown} (\lean{\UpLocBridge}), and (D) from the periodic corollary at
+\lean{\UpLocClayD}. In code lines at \lean{\UpCommit} there is still no \lean{sorry}, no axiom
+declaration, no \lean{native\_decide} and no \lean{unsafe} across \UpFilesAtHead{} files, and
+\lean{formalization.yaml} still declares the same four main results.\par}
+
+\paragraph{Built here.} {\sloppy On \UpBuildDate{}, on the machine of the \BuildDate{} build
+and over its compiled modules, every file the diff touched and everything importing one,
+\UpBuilt{} modules, was recompiled in \UpBuildMinutes{} minutes, exit \UpBuildExit, no
+errors; the other \UpReused{} modules are those built for \lean{\LeanCommit}. Lake was not
+used, and why is a fact about the machine, not the proof: on its current operating system the
+toolchain's compiled \lean{lake}, \lean{lean4export} and \lean{comparator} abort at start,
+while \lean{lean} runs clean, so a driver runs the pinned \lean{lean} with the compile line
+Lake records. A scratch file then asked the kernel, as for the pin, for the axioms of the four
+declared main results and of \lean{theorem\_1\_1}, \lean{theorem\_1\_1\_with\_dissipation} and
+\lean{periodic\_corollary}: exactly \AxiomList{} for all \UpAxiomDecls, and the kernel types
+\lean{theorem\_1\_1} as \lean{breakdownStatement}. The record decides one field, whether the
+energy clause is a formal conclusion, at both commits by one rule, and refuses unless the rule
+calls \lean{\LeanCommit} not formal, as the audit read it; it does, and it calls
+\lean{\UpCommit} formal. The \UpPinnedFiles{} files the reading rests on are pinned by digest
+with corpus copies, and the probe battery re-decides the field from those copies with
+\UpBatteryReds{} red controls of its own.\par}
+
+\paragraph{Is it the paper's theorem?} Comparator does not judge this statement; it judges
+(C) and (D), which are unchanged. So \lean{breakdownStatement} was read the way
+Section~\ref{sec:statement} reads those, clause by clause (Table~\ref{tab:thm11};
+\UpFidRows{} rows, \UpFidSame{} \emph{same} and \UpFidEquivalent{} \emph{equivalent}).
+Theorem~1.1 is an existence statement with a negation attached, so the direction rule applies
+twice: in the existence part a clause weaker than the paper's (a junk value, a missing
+integrability) would make the theorem cheap, and in the negation a competitor class stronger
+than the paper's would. Neither occurs. Unlike (C) and (D), whose statement a third party
+wrote months before the proof, this statement is OpenAI's own: it is in
+\lean{R3/ProblemStatement.lean}, byte-identical at the pin, where it stood unproved under its
+own docstring. Its authority is this reading, not Comparator's.
+
+\begin{table}[t]\centering\footnotesize
+\begin{tabular}{L{3.4cm}L{8.3cm}L{2.8cm}}\toprule
+Theorem~1.1 & \lean{breakdownStatement} at \lean{\UpCommit} (\lean{R3/ProblemStatement.lean}) & direction\\\midrule
+for every $\nu>0$ & \lean{$\forall$ $\nu$ : $\mathbb{R}$, 0 < $\nu$ $\to$ \ldots} & same \\
+a force $f\in C_c^\infty(\R^3\times(0,\infty);\R^3)$ & \lean{force\_smooth : ContDiff $\mathbb{R}$ $\infty$ f} on all of $\R\times\R^3$; \lean{force\_support : CompactPositiveTimeSupport f}: compact support, \lean{tsupport f $\subseteq$ Ioi 0 $\times^{s}$ univ} & same: the zero extension of a $C_c^\infty$ field on the open half-space \\
+a compact $K\subset\R^3$ & \lean{support\_compact : IsCompact K} & same \\
+$u,p$ smooth on $\R^3\times[0,1)$ & \lean{ContDiffOn $\mathbb{R}$ $\infty$ u preSingularDomain}, \lean{preSingularDomain = Ico 0 1 $\times^{s}$ univ}; likewise $p$ & same, as Clay's (6) \\
+$\partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p=f$ & \lean{navier\_stokes}: for $0<t<1$ and every $x$ the residual equals $f(t,x)$; \lean{fderiv} in $t$, $\sum_i\partial_i\partial_i$, $\nu$ on the Laplacian only & equivalent: on the open slab every derivative is genuine; $t=0$ follows by continuity \\
+$\nabla\cdot u=0$ & \lean{divergence\_free}, for $0\le t<1$ & same \\
+$u(\cdot,0)=0$ & \lean{zero\_initial\_velocity} & same \\
+$\operatorname{supp}u(\cdot,t)\cup\operatorname{supp}p(\cdot,t)\subset K$, $0\le t<1$ & \lean{velocity\_support}, \lean{pressure\_support}: the closed support (\lean{tsupport}) in $K$ & same \\
+$\sup_{0\le t<1}\norm{u(t)}_{\Lp2}<\infty$ & \lean{energy\_bounded : UniformFiniteEnergy (Ico 0 1) u}: $\exists E\ge0$, $\forall t\in[0,1)$, $\norm{u(t,\cdot)}^2$ integrable and $\tfrac12\int\norm{u(t,\cdot)}^2\le E$ & same: integrability is stated, so the integral's junk value $0$ cannot meet the bound vacuously \\
+$\limsup_{t\uparrow1}\norm{u(t)}_{\Lp\infty}=\infty$ & \lean{speed\_unbounded : SpeedUnboundedAtOne u}: $\forall M>0$, $\forall\delta>0$, $\exists t\in(0,1)$, $1-\delta<t$, $\exists x$, $M<\norm{u(t,x)}$ & equivalent for continuous slices; no rate \\
+no smooth global $(u,P)$ with the same force and datum and $\sup_{t\ge0}\tfrac12\int|u|^2<\infty$ & \lean{$\neg$ Nonempty (GlobalFiniteEnergySolution $\nu$ f)}: smooth for $t\ge0$, zero datum, divergence-free, the equation for $t>0$ with the same $\nu$ and $f$, \lean{UniformFiniteEnergy (Ici 0)} & same: no pressure growth, support or decay is asked, so the negation is not weakened \\
+\bottomrule\end{tabular}
+\caption{The paper's Theorem~1.1 against \lean{breakdownStatement}, the statement
+\lean{theorem\_1\_1} proves at \lean{\UpCommit}, one row per clause (\UpFidRows{} rows;
+\UpFidSame{} read \emph{same}, \UpFidEquivalent{} \emph{equivalent}). Transcribed from the
+record \cite{Records}.}\label{tab:thm11}
+\end{table}
+
+{\sloppy\paragraph{What it does not change.} Comparator judges (C) and (D), not Theorem~1.1, and
+\lean{formalization.yaml} still declares the same four main results: the energy clause is
+formal in a theorem the repository proves and through which its proof of (C) passes, not in a
+statement a third party wrote. Comparator was not re-run at \lean{\UpCommit}, its binaries
+being among those that abort on this machine; its acceptance of both configurations on
+\BuildDate{} is a fact about \lean{\LeanCommit}. At \lean{\UpCommit} the challenge files and
+the solution-side definitions are byte-identical to the pin, so the judged statements are the
+same, and the new proofs were checked by Lean's kernel as they compiled and their axioms
+asked; nanoda did not replay them. For the two days between the announcement and
+\lean{\UpCommit} the energy clause was a paper claim, and the register keeps that as the row's
+history. Unchanged by the commit and still standing: the growth is the pointwise form with no
+rate, $h$ is a number in neither artifact, and every asserted step of Section~\ref{sec:read}
+is about the paper.\par}
+
 \section{What the record decides}\label{sec:decides}
 
 The register row \lean{\LedgerId}, recorded \LedgerRecorded, reads \textsc{\LedgerVerdict}:
-the Lean certificate holds for Clay's (C) and (D), and the finite-energy clause the paper's
-Theorem~1.1 states is not in the formal statement \cite{Records}. Exactly:
+at \lean{\UpCommit} the Lean proves the paper's Theorem~1.1 as stated, finite energy
+included, and derives Clay's (C) and (D) from it. It keeps as history the
+\textsc{\LedgerPriorVerdict} recorded \LedgerPriorRecorded{} at \lean{\LedgerPriorAt}, the
+announced commit: the Lean certificate held for Clay's (C) and (D), and the finite-energy
+clause the paper's Theorem~1.1 states was not in the formal statement \cite{Records}. Exactly:
 
 \begin{enumerate}
 \item \emph{Held.} The formal statements are Clay's (C) and (D) with nothing added to the
 competitor class and nothing dropped from the data, written by a third party before the
 proof existed; the competitor classes are inhabited (Section~\ref{sec:statement}).
-\item \emph{Held.} All \BuildJobs{} modules build on this machine with the pinned toolchain;
-the kernel reports exactly \AxiomList{} for each of the \AxiomDecls{} main declarations;
-Comparator accepts both configurations through Lean's kernel and nanoda
+\item \emph{Held, at \lean{\LeanCommit}.} All \BuildJobs{} modules build on this machine with
+the pinned toolchain; the kernel reports exactly \AxiomList{} for each of the \AxiomDecls{}
+main declarations; Comparator accepts both configurations through Lean's kernel and nanoda
 (Section~\ref{sec:build}).
-\item \emph{Held.} Every clause of Theorem~1.1 except the uniform energy bound and the
-vanishing of the force near $t=0$ has a formal counterpart, and the formal uniqueness covers
-every competitor Clay admits (Section~\ref{sec:map}).
+\item \emph{Held, at \lean{\LeanCommit}.} Every clause of Theorem~1.1 except the uniform
+energy bound and the vanishing of the force near $t=0$ has a formal counterpart, and the
+formal uniqueness covers every competitor Clay admits (Section~\ref{sec:map}). The two
+exceptions were paper claims at that commit, the first resting on the paper's Lemma~10.4,
+re-derived by hand.
+\item \emph{Held, at \lean{\UpCommit}.} Both exceptions are conclusions of
+\lean{theorem\_1\_1}, whose statement reads as the paper's Theorem~1.1 clause by clause,
+\UpFidSame{} \emph{same} and \UpFidEquivalent{} \emph{equivalent}; the \UpBuilt{} changed and
+dependent modules build here over the pinned build, and the kernel reports exactly
+\AxiomList{} for all \UpAxiomDecls{} declarations asked (Section~\ref{sec:upstream}).
 \item \emph{Held, as readings.} No error, circularity or counterexample was found in
 \Readers{} independent readings; \TracedFull{} of the \WeakPointsAfterZero{} asserted steps
-are discharged in Lean at full strength, \TracedStronger{} more strongly than the paper
+are discharged in Lean at \lean{\LeanCommit} at full strength, \TracedStronger{} more strongly than the paper
 states; no classical obstruction refutes the construction; all \ProbeScripts{} probe scripts
 pass with all \ProbeReds{} red controls firing; the Euler transfer step reads complete
 (Sections~\ref{sec:read}--\ref{sec:euler}).
-\item \emph{Not decided.} The paper's $\sup_{t<1}\norm{u(t)}_{\Lp2}<\infty$ and the force's
-vanishing near $t=0$ are paper claims with no formal counterpart; the first rests on the
-paper's Lemma~10.4, re-derived by hand.
+\item \emph{Not decided.} At \lean{\UpCommit} Comparator was not re-run and nanoda did not
+replay the new proofs; the statement of Theorem~1.1 that \lean{theorem\_1\_1} proves is
+OpenAI's own, so its fidelity is this note's reading, not a third party's statement
+(Section~\ref{sec:upstream}).
 \item \emph{Not decided.} The smallness parameter $h$ is bounded numerically in neither
 artifact; the proof is asymptotic in a parameter no one has quantified, and nothing here
 makes it effective.
-\item \emph{Not decided.} The instantiation of Proposition~B.2's machinery for the actual
-profile was not traced to a line; Lemma~4.9's collar inequality has no formal counterpart;
-the paper names no sentence for the swirl obstruction it evades; the \EulerChecksUnrun{}
-Euler checks are listed and unrun; Comparator's process isolation did not run.
+\item \emph{Not decided.} In the trace at \lean{\LeanCommit}, not repeated at
+\lean{\UpCommit}, the instantiation of Proposition~B.2's machinery for the actual profile was
+not traced to a line and Lemma~4.9's collar inequality has no formal counterpart; the paper
+names no sentence for the swirl obstruction it evades; the \EulerChecksUnrun{} Euler checks
+are listed and unrun; Comparator's process isolation did not run.
 \item \emph{Not decided.} The mathematics of the writeup beyond what the kernel and the
 readings establish. An audit is not a referee report, and the readings were not peer review.
 \end{enumerate}
 
 \section{What is not claimed}\label{sec:not}
 
-Nothing is claimed about the correctness of the mathematics beyond items 1--4 above: the
+Nothing is claimed about the correctness of the mathematics beyond items 1--5 above: the
 kernel establishes that the proof terms check against the third party's statement, the
 readings that nobody here found an error, and the verdict on the theorem is the build's and
 the kernels', not the reading's. No numerical computation here certifies anything: the
@@ -446,13 +564,18 @@ weighs them \cite{Records}.
 \texttt{tools/pin-navierstokes-lean.js}, \texttt{build.json} by
 \texttt{tools/record-navierstokes-build.js}, and \texttt{probes.json} by
 \texttt{python3 instruments/navierstokes/battery.py}, which re-runs the \ProbeScripts{}
-probe scripts with their \ProbeReds{} red controls. The macros of this document are
+probe scripts with their \ProbeReds{} red controls. For the upstream commit,
+\texttt{python3 tools/build-navierstokes-head.py} rebuilds \texttt{\UpCommit} over the pinned
+build and \texttt{node tools/record-navierstokes-upstream.js} writes
+\texttt{upstream-\UpCommit.json} from a clone at that commit and the build's log, decides the
+energy field at both commits and asks the kernel; its reading is the \texttt{upstream} key of
+\texttt{audit.json}. The macros of this document are
 written by \texttt{node tools/paper-numbers/navier-stokes-audit.js} from those records at
 repository commit \texttt{\RepoCommit}; the timing fields of \texttt{probes.json}, which
 change on every run, are never read. Rebuilding the Lean repository needs the clone and
-toolchain the two tools name and about \BuildMinutes{} minutes on an eight-core machine;
-nothing here depends on re-running it, and every number above is read from the record of
-the run of \BuildDate.}
+toolchain the tools name and about \BuildMinutes{} minutes on an eight-core machine, the
+upstream commit \UpBuildMinutes{} more; nothing here depends on re-running either, and every
+number above is read from the records of the runs of \BuildDate{} and \UpBuildDate.}
 
 \begin{thebibliography}{99}\footnotesize
 \bibitem{Fef00} C.~L. Fefferman, Existence and smoothness of the Navier--Stokes equation,
@@ -465,7 +588,8 @@ Clay Mathematics Institute, 2000, with errata,
 \bibitem{OAIann} OpenAI, On the Navier--Stokes Millennium Prize Problem, 8 September 2026,
 \url{https://openai.com/index/navier-stokes-solution/}, pinned \CorpusFetched{} via the Internet Archive.
 \bibitem{OAIrepo} OpenAI, NavierStokesAndEuler: Lean 4 formalizations,
-\url{https://github.com/openai/NavierStokesAndEuler}, commit \texttt{\LeanCommit}, \LeanCommitDate.
+\url{https://github.com/openai/NavierStokesAndEuler}, commit \texttt{\LeanCommit}, \LeanCommitDate{} (the
+announced commit), and commit \texttt{\UpCommit}, \UpCommitDate.
 \bibitem{FC} Google DeepMind, Formal Conjectures,
 \texttt{FormalConjectures/Millenium/NavierStokes.lean},
 \url{https://github.com/google-deepmind/formal-conjectures}, revision
@@ -506,9 +630,11 @@ ID rnn016.
 \bibitem{Records} cert-machine, the records of the audit in \texttt{corpus/navier-stokes/}
 (\texttt{MANIFEST.json}, \texttt{lean-repo.json}, \texttt{build.json},
 \texttt{nonvacuity.json}, \texttt{fidelity-clay-vs-lean.md}, \texttt{dissection.md},
-\texttt{audit.json}, \texttt{euler.md}, \texttt{probes.json}), all of 2026-09-09; the
-register row \texttt{\LedgerId} in \texttt{certs/claims-ledger.json}; and the page built
-from them, \url{https://carlostoledo.co/reports/navier-stokes.html}.
+\texttt{audit.json}, \texttt{euler.md}, \texttt{probes.json}), of 2026-09-09; the reading of
+the upstream commit, \texttt{upstream-\UpCommit.json} (\UpBuildDate) with the \UpPinnedFiles{}
+files it pins in \texttt{lean/\UpCommit/} and the \texttt{upstream} key of \texttt{audit.json}
+(\UpReadOn); the register row \texttt{\LedgerId} in \texttt{certs/claims-ledger.json}; and
+the page built from them, \url{https://carlostoledo.co/reports/navier-stokes.html}.
 \end{thebibliography}
 
 \end{document}

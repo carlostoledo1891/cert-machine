@@ -12,8 +12,13 @@
    against the target. The build REFUSES on any deviation.
 
    FRAMING DISCIPLINE. This page announces a MACHINE-DERIVED PROOF, published
-   for scrutiny: not peer-reviewed, not independently re-verified, and it
-   says so above the fold. The claim rests on the engine's three lemmas and
+   for scrutiny: not peer-reviewed, and above the fold it says how far
+   outside re-verification has gone — READ from corpus/external-reruns.json
+   (the rows whose `what` names reports/lambda4.html), never typed, so the
+   header and §6 cannot disagree again (until 2026-10-05 the header said "no
+   independent re-verification has run yet" while §6 described rainrzk's
+   no-shared-code audit of 2026-09-30). The audit's own words are pinned in
+   corpus/sources/lambda4. The claim rests on the engine's three lemmas and
    its exact inner-product calculus, all restated here so a referee can check
    the mathematics without reading code. REFUTED-style certainty language is
    reserved for what the instruments decided; the theorem-level sentence
@@ -35,9 +40,31 @@ const F = require(path.join(ROOT, 'instruments', 'lambda4', 'forms.js'));
 const LAM = require(path.join(ROOT, 'instruments', 'trigmin', 'lambda.js'));
 const Q = require(path.join(ROOT, 'instruments', 'interval', 'rational.js'));
 
+const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
+
 const die = (m) => { console.error('LAMBDA4 REPORT REFUSED: ' + m); process.exit(1); };
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const q = D.q;
+
+/* ---- outside re-verification: the registry row, and the auditor's own words re-hashed ----------------------- */
+const EXT = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'))
+  .filter((r) => /reports\/lambda4\.html/.test(r.what || ''));
+const AUDIT_SRC = 'lambda4/teorth-erdosproblems-392-comments_2026-10-05.json';
+let auditWords = null;
+if (EXT.length) {
+  const v = PIN.verify(AUDIT_SRC);
+  if (!v.ok) die('pinned source ' + AUDIT_SRC + ': ' + v.why);
+  const th = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', AUDIT_SRC), 'utf8'));
+  const c = th.find((x) => x.user && x.user.login === 'rainrzk');
+  if (!c) die('the pinned #392 thread holds no comment by the auditor the registry names');
+  auditWords = {
+    ai: /independent, AI-assisted audit/.test(c.body),
+    lemmas: /I only checked Lemmas A–F by hand/.test(c.body),
+    url: c.html_url, date: c.created_at.slice(0, 10)
+  };
+  if (!auditWords.ai || !auditWords.lemmas) die('the pinned audit comment no longer says what this page quotes');
+  if (!EXT.some((r) => r.date === auditWords.date && r.kind === 'own-code')) die('the registry row and the pinned audit comment disagree on date or kind');
+}
 
 /* ---- the record ----------------------------------------------------------- */
 const rec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lambda4-campaign.json'), 'utf8'));
@@ -100,8 +127,15 @@ B.push(C.header({
     + 'the strategy and finished it: every one of the nine remaining families is closed, and λ(4) = −L(1,2,3,4).'
 }));
 
-B.push(C.scope('A machine-derived proof, published for scrutiny: not peer-reviewed, and no independent '
-  + 're-verification has run yet. Every derivation below is re-executed at this page\'s own build from exact '
+B.push(C.scope('A machine-derived proof, published for scrutiny: not peer-reviewed. '
+  + (EXT.length
+    ? (EXT.length === 1 ? 'One independent re-verification has run' : EXT.length + ' independent re-verifications have run')
+      + ': an outside audit with no shared code (' + EXT.map((r) => r.who.replace(/ \(GitHub\)$/, '') + ', ' + r.date).join('; ')
+      + ', AI-assisted by its own account) redid the computational steps with its own code, re-certified every finite '
+      + 'case and checked Lemmas A–F by hand — ' + EXT.map((r) => r.outcome).join('; ') + '; see §6. No formal proof '
+      + 'exists. '
+    : 'No independent re-verification has run yet. ')
+  + 'Every derivation below is re-executed at this page\'s own build from exact '
   + 'rational arithmetic, and the build refuses to ship if any step deviates. The mathematics the proof rests on '
   + '— three elementary lemmas and one bookkeeping calculus — is restated on this page so it can be checked '
   + 'without reading code.'));
@@ -269,14 +303,17 @@ B.push(C.section({
         + 'The prose write-up is ' + C.m('paper/lambda4-proof.md') + ' (draft v0.9, every constant interpolated from '
         + 'the record).');
     })() : ''),
-    C.pRaw('<strong>Not yet:</strong> peer review, and a human read of the write-up. Until those happen the honest '
+    C.pRaw('<strong>Not yet:</strong> peer review, and a formal proof — ' + (auditWords
+      ? 'the outside audit checked Lemmas A–F by hand, its stated caveat, and a Lean formalization is where that caveat would close. '
+      : 'and a human read of the write-up. ')
+      + 'Until those happen the honest '
       + 'status of the theorem-level sentence is exactly what the scope line at the top of this page says. The full '
       + 'machine record is ' + C.m('certs/lambda4-campaign.json') + '; the statement and strategy are Mercer\'s, and '
       + 'the paper is the first thing to read: arXiv:1709.06612.'),
     C.pRaw('<strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and '
       + 'the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> '
       + '(all versions: doi:10.5281/zenodo.22225860); the release tag is ' + C.m('lambda4-v1.0.1') + '. '
-      + '<strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="https://github.com/teorth/erdosproblems/issues/392">teorth/erdosproblems #392</a>), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about &minus;1.774). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.')
+      + '<strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, AI-assisted by its own account, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="' + (auditWords ? auditWords.url : 'https://github.com/teorth/erdosproblems/issues/392') + '">teorth/erdosproblems #392</a>; the thread is pinned in ' + C.m('corpus/sources/lambda4') + '), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about &minus;1.774). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.')
   ].join('\n')
 }));
 

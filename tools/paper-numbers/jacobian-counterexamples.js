@@ -262,7 +262,7 @@ need(chk('chv-phi', 'det J Phi').ok === true && /-2/.test(chk('chv-phi', 'det J 
 const chainN = A.degs.reduce((s, d) => s + Math.max(d, 2), 0) - A.n;
 need(chainN === 14, 'the chain dimension from the announced map\'s degrees is ' + chainN + ', not 14');
 def('ChainN', String(chainN)); def('ChainSum', String(A.degs.reduce((s, d) => s + Math.max(d, 2), 0)));
-def('PhiProvenance', tex(META.sources.chv.provenance.replace(/ \(rev [0-9a-f]+\)/, '')));
+def('PhiProvenance', tex(META.sources.chv.provenance.replace(/ \((?:rev|revision) [^)]*\)/, ''))); /* the gist pin (revision, blob) stays in the corpus, not the prose */
 rows('FieldRows', [
   ['$X$ on $\\mathbb{R}^{14}$', '14', String(mdeg('X14')), String(mterms('X14')), '$(JX+I)^{' + X14.nilpotencyIndex + '}=0$', String(W.zeros.X14.length) + ' zeros', X14.verdict],
   ['$\\Phi$ on $\\mathbb{C}^{11}$', '11', String(mdeg('Phi')), String(mterms('Phi')), '$\\det J\\Phi=-2$', String(W.zeros.Phi_points.length) + ' points, one image', PHI.verdict],

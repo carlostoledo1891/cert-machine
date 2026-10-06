@@ -746,15 +746,26 @@
   {
    "id": "navier-stokes-openai-2026",
    "claim": "finite-time blowup for the 3D Navier–Stokes equations with finite energy (Clay alternatives C and D)",
-   "claimant": "OpenAI (2026-09-08)",
-   "source": "github.com/openai/NavierStokesAndEuler @ 8937a8f4 and the paper, pinned by sha256",
+   "claimant": "OpenAI (2026-09-08; the Lean amended 2026-09-10)",
+   "source": "github.com/openai/NavierStokesAndEuler @ f9e8bc5b (announced at 8937a8f4) and the paper, pinned by sha256",
    "origin": "self-initiated",
-   "verdict": "PARTIAL",
-   "scope": "the Lean certificate holds for Clay's (C) and (D) — 2,486 modules built here, only the standard axioms, Comparator on both — and the finite-energy clause the paper's Theorem 1.1 states is not in the formal statement",
-   "kind": "clause-missing-from-formal-statement",
+   "verdict": "CERTIFIED",
+   "scope": "at f9e8bc5b (2026-09-10) the Lean proves the paper's Theorem 1.1 as stated, finite energy included (theorem_1_1, its statement read here clause by clause), and derives Clay's (C) and (D) from it — 486 changed or dependent modules rebuilt here over the pin's build, only the standard axioms for all 7 declarations asked; at the announced commit 8937a8f4 the finite-energy clause was not formal (PARTIAL, kept as history). Comparator judged (C) and (D) at 8937a8f4 and was not re-run at f9e8bc5b; Theorem 1.1's statement is OpenAI's own, not Comparator-judged",
+   "kind": "none",
    "decidedFrom": "corpus/navier-stokes/audit.json",
+   "alsoDecidedFrom": "corpus/navier-stokes/upstream-f9e8bc5b.json",
+   "history": [
+    {
+     "at": "8937a8f4",
+     "verdict": "PARTIAL",
+     "kind": "clause-missing-from-formal-statement",
+     "scope": "the Lean certificate holds for Clay's (C) and (D) — 2,486 modules built here, only the standard axioms, Comparator on both — and the finite-energy clause the paper's Theorem 1.1 states is not in the formal statement",
+     "decidedFrom": "corpus/navier-stokes/audit.json",
+     "recordedOn": "2026-09-09"
+    }
+   ],
    "page": "/reports/navier-stokes.html",
-   "recordedOn": "2026-09-09"
+   "recordedOn": "2026-10-06"
   },
   {
    "id": "optconst-3b",
@@ -1982,8 +1993,8 @@
  "decided": 131,
  "pending": 1,
  "byVerdict": {
-  "CERTIFIED": 106,
-  "PARTIAL": 10,
+  "CERTIFIED": 107,
+  "PARTIAL": 9,
   "REFUTED": 2,
   "QUEUED": 1,
   "MIXED": 5,
@@ -2010,7 +2021,7 @@
   "checker-wider-than-definition": "the checker that accepted the claim admits what the definition it encodes excludes"
  },
  "byKind": {
-  "none": 107,
+  "none": 108,
   "narrower-scope": 8,
   "float-printed-as-exact": 1,
   "sign-slip": 1,
@@ -2020,14 +2031,13 @@
   "not-the-optimum": 1,
   "wrong-quantity": 1,
   "data-not-public": 2,
-  "clause-missing-from-formal-statement": 1,
   "depends-on-reading": 1,
   "checker-wider-than-definition": 1
  },
  "byMonth": {
   "2026-08": 18,
-  "2026-09": 70,
-  "2026-10": 44
+  "2026-09": 69,
+  "2026-10": 45
  },
  "submitted": 0,
  "preregistered": {
@@ -2041,7 +2051,7 @@
   ]
  },
  "meta": {
-  "date": "2026-10-05",
-  "git": "b5212c3"
+  "date": "2026-10-06",
+  "git": "054078d"
  }
 }

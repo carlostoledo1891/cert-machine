@@ -1,0 +1,339 @@
+{
+  "what": "The one upstream commit after the audited pin of github.com/openai/NavierStokesAndEuler, read and built here: what it changes, whether the finite-energy clause of the paper's Theorem 1.1 is now a formal conclusion (decided at both commits; the pin is the red control), and the corpus copies of every file the finding rests on, pinned by sha256. Written by tools/record-navierstokes-upstream.js; the report and the register read it and retype nothing.",
+  "pin": "8937a8f4cbc7abaab5e9e97d1cc7f5d2319d9538",
+  "head": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "upstreamMainAtCheck": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+  "remoteChecked": true,
+  "checkedOn": "2026-10-06",
+  "commits": [
+    {
+      "sha": "f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+      "authored": "2026-09-10T07:51:24-04:00",
+      "committed": "2026-09-10T09:40:53-04:00",
+      "author": "Boris Alexeev",
+      "msg": "."
+    }
+  ],
+  "diff": {
+    "files": 188,
+    "added": 173,
+    "modified": 15,
+    "deleted": 0,
+    "insertions": 25143,
+    "deletions": 81,
+    "modifiedFiles": [
+      "NavierStokes.lean",
+      "NavierStokes/ActivationCone.lean",
+      "NavierStokes/ActivationContinuation.lean",
+      "NavierStokes/ActiveAnnulusWeight.lean",
+      "NavierStokes/ComparatorR3Theorem.lean",
+      "NavierStokes/ComparatorTheorem.lean",
+      "NavierStokes/LeadingStressWeights.lean",
+      "NavierStokes/NaturalAxisCoefficients.lean",
+      "NavierStokes/NaturalCore.lean",
+      "NavierStokes/NaturalEntrance.lean",
+      "NavierStokes/NaturalProfile.lean",
+      "NavierStokes/NominalProfile.lean",
+      "NavierStokes/ReferenceBounds.lean",
+      "README.md",
+      "formalization.yaml"
+    ],
+    "addedUnder": {
+      "NavierStokes": 128,
+      "NavierStokes/R3": 45
+    },
+    "eulerTouched": false
+  },
+  "unchangedSincePin": {
+    "ComparatorChallenges/NavierStokes.lean": true,
+    "ComparatorChallenges/NavierStokes.json": true,
+    "ComparatorChallenges/Euler.lean": true,
+    "NavierStokes/ComparatorDefinitions.lean": true,
+    "NavierStokes/ComparatorSolution.lean": true,
+    "NavierStokes/ProblemStatement.lean": true,
+    "NavierStokes/R3/ProblemStatement.lean": true,
+    "NavierStokes/R3/CompactEnergy.lean": true,
+    "lean-toolchain": true,
+    "lake-manifest.json": true,
+    "lakefile.toml": true
+  },
+  "files": [
+    {
+      "path": "NavierStokes/R3/Theorem.lean",
+      "sha256": "e896ba297671c33d516d41fa47e7e186438b71ec14ab0738d3d3fc9e4df341cb",
+      "bytes": 3850,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-Theorem.lean",
+      "sincePin": "added"
+    },
+    {
+      "path": "NavierStokes/R3/ActualCandidate.lean",
+      "sha256": "93d728679c20650ca6ae256b8f96618aaaf004904b589d8f69da759e740046fa",
+      "bytes": 7494,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-ActualCandidate.lean",
+      "sincePin": "added"
+    },
+    {
+      "path": "NavierStokes/R3/ProblemStatement.lean",
+      "sha256": "8b0a28b3b93fb8dfcf967d0082a5a2829a5e5f079de6662c846417057b0856d7",
+      "bytes": 10258,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-ProblemStatement.lean",
+      "sincePin": "unchanged"
+    },
+    {
+      "path": "NavierStokes/R3/CompactEnergy.lean",
+      "sha256": "5f6b0e17cd55b82672d52d04de70a973d74ee483316a5fe993aee7ccdb9ac71e",
+      "bytes": 19508,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-CompactEnergy.lean",
+      "sincePin": "unchanged"
+    },
+    {
+      "path": "NavierStokes/R3/PositiveTimeForce.lean",
+      "sha256": "5a127cdeba096bf91e65191c05f67ac2ac450454f4912365b19635e0a5e2788b",
+      "bytes": 3008,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-PositiveTimeForce.lean",
+      "sincePin": "added"
+    },
+    {
+      "path": "NavierStokes/R3/ComparatorBridge.lean",
+      "sha256": "67ce14dd70f976851962b9129cd195913e34b2bc353f78913b7c5b77e44b9dbd",
+      "bytes": 3739,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-R3-ComparatorBridge.lean",
+      "sincePin": "added"
+    },
+    {
+      "path": "NavierStokes/ComparatorR3Theorem.lean",
+      "sha256": "d05cd1c55e78709dabe1996546eb6ddaaa46e602d2ef1b05c6e2085320781207",
+      "bytes": 2098,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-ComparatorR3Theorem.lean",
+      "sincePin": "modified"
+    },
+    {
+      "path": "NavierStokes/ComparatorTheorem.lean",
+      "sha256": "629c992327e531611c20165eb14db24edcabcf8f646a1d2689be9ac6fe2a9c68",
+      "bytes": 2711,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-ComparatorTheorem.lean",
+      "sincePin": "modified"
+    },
+    {
+      "path": "NavierStokes/PeriodicPaperTheorem.lean",
+      "sha256": "ca8ff98ef146dbbc136b0837888565385ad035f6e47b606d0bb075156c1ff7b2",
+      "bytes": 8048,
+      "corpusCopy": "lean/f9e8bc5b/NavierStokes-PeriodicPaperTheorem.lean",
+      "sincePin": "added"
+    },
+    {
+      "path": "formalization.yaml",
+      "sha256": "d9866d5c1fdc16832f098e5f2affa96baf0b156a5f34b9be015d793e1abe2fdd",
+      "bytes": 4555,
+      "corpusCopy": "lean/f9e8bc5b/formalization.yaml",
+      "sincePin": "modified"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "corpusCopy": "lean/f9e8bc5b/LICENSE",
+      "sincePin": "unchanged"
+    }
+  ],
+  "decided": {
+    "field": "energyClauseFormal",
+    "question": "Is sup_{0≤t<1} ‖u(t)‖_{L²} < ∞ — the clause of Theorem 1.1 the 2026-09-09 audit found NOT among the formal conclusions — a conclusion of a theorem the repository proves?",
+    "rule": "formal iff (1) CandidateProperties (R3/ProblemStatement.lean) carries energy_bounded : UniformFiniteEnergy (Ico 0 1) u, (2) breakdownStatement quantifies that structure with the no-global-solution clause, (3) some theorem is typed ProblemStatement.breakdownStatement, and (4) uniform_finite_energy is used outside its own file; at HEAD the kernel must also type theorem_1_1 as breakdownStatement and report its axioms",
+    "atPin": {
+      "fieldInStructure": true,
+      "breakdownUsesProperties": true,
+      "producersOfBreakdownStatement": [],
+      "usesOfUniformFiniteEnergy": [],
+      "producersOfPositiveTimeForceSupport": [],
+      "formal": false
+    },
+    "atHead": {
+      "fieldInStructure": true,
+      "breakdownUsesProperties": true,
+      "producersOfBreakdownStatement": [
+        "NavierStokes/R3/Theorem.lean:46:theorem theorem_1_1 : ProblemStatement.breakdownStatement := by",
+        "NavierStokes/R3/Theorem.lean:62:theorem breakdownStatement : ProblemStatement.breakdownStatement := theorem_1_1"
+      ],
+      "usesOfUniformFiniteEnergy": [
+        "NavierStokes/R3/ActualCandidate.lean:119:  · exact CompactEnergy.uniform_finite_energy SpatialLocalization.isCompact_supportCylinder"
+      ],
+      "producersOfPositiveTimeForceSupport": [
+        "NavierStokes/R3/ActualCandidate.lean:88:  have hsupport := PositiveTimeForce.force_compactPositiveTimeSupport",
+        "NavierStokes/R3/ParabolicScaling.lean:81:    {l : ℝ} (hl : 1 < l) : ProblemStatement.CompactPositiveTimeSupport (force l f) := by",
+        "NavierStokes/R3/PositiveTimeForce.lean:72:theorem force_compactPositiveTimeSupport {f : VelocityField} {K : Set Space}",
+        "NavierStokes/R3/PositiveTimeForce.lean:74:    CompactPositiveTimeSupport (force f) := by"
+      ],
+      "formal": true
+    },
+    "energyClauseFormalAtPin": false,
+    "energyClauseFormalAtHead": true,
+    "redControl": {
+      "what": "the same decider run on the pinned commit, which the audit read as NOT formal",
+      "expect": false,
+      "got": false,
+      "fired": true
+    }
+  },
+  "locations": {
+    "energyFieldHole": "NavierStokes/R3/ActualCandidate.lean:114",
+    "energySupplied": "NavierStokes/R3/ActualCandidate.lean:119",
+    "forceSupportSupplied": "NavierStokes/R3/ActualCandidate.lean:110",
+    "forceSupportFrom": "NavierStokes/R3/ActualCandidate.lean:88",
+    "ofLocalizedFields": "NavierStokes/R3/ActualCandidate.lean:78",
+    "theorem_1_1": "NavierStokes/R3/Theorem.lean:46",
+    "theorem_1_1_with_dissipation": "NavierStokes/R3/Theorem.lean:66",
+    "candidateProperties": "NavierStokes/R3/ProblemStatement.lean:92",
+    "energyField": "NavierStokes/R3/ProblemStatement.lean:108",
+    "forceSupportField": "NavierStokes/R3/ProblemStatement.lean:102",
+    "globalFiniteEnergySolution": "NavierStokes/R3/ProblemStatement.lean:125",
+    "breakdownStatement": "NavierStokes/R3/ProblemStatement.lean:150",
+    "uniformFiniteEnergy": "NavierStokes/R3/CompactEnergy.lean:343",
+    "comparatorOfBreakdown": "NavierStokes/R3/ComparatorBridge.lean:77",
+    "clayCFromTheorem11": "NavierStokes/ComparatorR3Theorem.lean:43",
+    "clayDFromPeriodicCorollary": "NavierStokes/ComparatorTheorem.lean:52",
+    "periodicCorollary": "NavierStokes/PeriodicPaperTheorem.lean:155"
+  },
+  "energyBullet": "· exact CompactEnergy.uniform_finite_energy SpatialLocalization.isCompact_supportCylinder hc.velocity_smooth hc.pressure_smooth (fun t _ => localized_velocity_tsupport A B t) hF hsupport.1 hc.zero_initial_velocity (fun t ht => hc.divergence_free t ⟨ht.1.le, ht.2⟩) hNS",
+  "hygieneAtHead": {
+    "sorry": 0,
+    "axiom": 0,
+    "native_decide": 0,
+    "unsafe": 0,
+    "opaque": 0,
+    "partial_def": 0,
+    "implemented_by": 0,
+    "macro_elab_syntax": 0,
+    "maxHeartbeats": 0,
+    "maxRecDepth": 0
+  },
+  "filesAtHead": 2659,
+  "byLibraryAtHead": {
+    "ComparatorChallenges": {
+      "files": 2,
+      "lines": 474
+    },
+    "Euler": {
+      "files": 1840,
+      "lines": 213419
+    },
+    "NavierStokes": {
+      "files": 817,
+      "lines": 430098
+    }
+  },
+  "formalizationYamlAtHead": {
+    "mainResults": [
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "Euler.euler_breakdown_R3",
+      "Euler.exists_compact_smooth_euler_singularity"
+    ],
+    "mainResultsUnchanged": true,
+    "theorem_1_1Declared": false
+  },
+  "machine": {
+    "model": "Mac14,2",
+    "cpus": 8,
+    "memoryGB": 16,
+    "os": "darwin 27.0.0",
+    "arch": "arm64"
+  },
+  "build": {
+    "method": "incremental over the pin's build: a copy-on-write clone of the built 8937a8f4 workspace checked out at f9e8bc5b; every .lean the diff touched and everything importing one, transitively, recompiled by the pinned `lean` driven directly (tools/build-navierstokes-head.py, the same compile line Lake records in the pin's .trace files, minus --setup and the C output); every other module keeps its olean from the 2026-09-09 build on this machine. `lake` is not used because the v4.34.0-rc2 Lake binary aborts at start on this OS (pthread TSD cleanup, \"pointer being freed was not allocated\", exit 133 even for --version); the same toolchain's compiled lean4export and comparator abort the same way, while `lean` runs clean.",
+    "driver": "tools/build-navierstokes-head.py",
+    "driverSha256": "b877acb99cf6231dcee443d111db80b970092be8009c2ac0828a250e7fb2238d",
+    "toolchain": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+    "threads": "4 threads × 4 jobs",
+    "started": "Mon Oct  5 20:47:51 -03 2026",
+    "finished": "Mon Oct  5 21:12:26 -03 2026",
+    "rebuildSet": 486,
+    "changedLean": 186,
+    "closure": 325,
+    "modulesAtHead": 2659,
+    "built": 486,
+    "failed": [],
+    "modulesWithMessages": 1,
+    "modulesWithErrors": [],
+    "buildSeconds": 1474.855,
+    "closureSeconds": 1345,
+    "slowest": [
+      {
+        "module": "NavierStokes.PeriodicViscosityUniqueness",
+        "seconds": 102.9
+      },
+      {
+        "module": "NavierStokes.R3.ComparatorBridge",
+        "seconds": 100.8
+      },
+      {
+        "module": "NavierStokes.PeriodicViscosity",
+        "seconds": 94.9
+      },
+      {
+        "module": "NavierStokes.LocalScheduleWitness",
+        "seconds": 88
+      },
+      {
+        "module": "NavierStokes.ComparatorR3Theorem",
+        "seconds": 86.5
+      },
+      {
+        "module": "NavierStokes.PeriodicPaperTheorem",
+        "seconds": 86.5
+      }
+    ],
+    "exitCode": 0,
+    "reused": 2173,
+    "verdict": "PASS"
+  },
+  "axioms": {
+    "NavierStokes.Comparator.navier_stokes_breakdown_R3": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NavierStokes.Comparator.navier_stokes_breakdown_periodic": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Euler.euler_breakdown_R3": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Euler.exists_compact_smooth_euler_singularity": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NavierStokesR3.theorem_1_1": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NavierStokesR3.theorem_1_1_with_dissipation": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "NavierStokes.PeriodicPaper.periodic_corollary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "onlyStandardAxioms": true,
+  "standardAxioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "kernelType": "NavierStokesR3.theorem_1_1 : NavierStokesR3.ProblemStatement.breakdownStatement",
+  "comparator": {
+    "ranAtHead": false,
+    "why": "the toolchain's compiled comparator, lean4export and lake binaries all abort at start on this OS (exit 133); Comparator's 2026-09-09 acceptance of both configurations is a fact about 8937a8f4. At f9e8bc5b the challenge files and the solution-side definitions are byte-identical to the pin (unchangedSincePin), so the judged statements are the same; the new proofs were kernel-checked by `lean` as they compiled and their axioms asked above, but not replayed through nanoda."
+  },
+  "recorded": "2026-10-06T00:19:42.882Z"
+}

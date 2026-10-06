@@ -311,13 +311,13 @@ def qiushi_25():
     facts.check(all(p is not None for p in pos) and len(set(pos)) == 1016, 'its owners are 1016 distinct Leech minimal vectors')
     # cross-check against Kravatsky's own bytes, decoded independently
     kd = kravatsky_25_data()
-    facts.check(np.array_equal(U, kd['U']), "its owners equal Kravatsky's heads_U.npy")
+    facts.check(np.array_equal(U, kd['U']), "its owners equal Kravatskiy's heads_U.npy")
     same_lean = all(np.array_equal(np.array(h['lean']), kd['leans'][h['index']]) for h in heads if h['kind'] == 'class')
     same_rat = all([Fraction(c) for c in h['coordinates']] == kd['rat'][h['index']] for h in heads if h['kind'] != 'class')
-    facts.check(sum(h['kind'] == 'class' for h in heads) == 972 and same_lean, "its 972 integer leans equal the leans decoded here from Kravatsky's float heads")
-    facts.check(same_rat, "its 44 rational heads equal Kravatsky's pickle, fraction for fraction")
+    facts.check(sum(h['kind'] == 'class' for h in heads) == 972 and same_lean, "its 972 integer leans equal the leans decoded here from Kravatskiy's float heads")
+    facts.check(same_rat, "its 44 rational heads equal Kravatskiy's pickle, fraction for fraction")
     V = np.array(B['extra_equator_lean'], dtype=np.int64)
-    facts.check(np.array_equal(V, kd['extra']), "its extra-equator lean equals the one decoded from Kravatsky's extra_P.npy")
+    facts.check(np.array_equal(V, kd['extra']), "its extra-equator lean equals the one decoded from Kravatskiy's extra_P.npy")
     k = np.array(R['points']['upper']['integer_vector'], dtype=np.int64)
     l = np.array(R['points']['lower']['integer_vector'], dtype=np.int64)
     facts.check(int((k * k).sum()) == R['points']['upper']['squared_norm'] == 1007176 and int((l * l).sum()) == R['points']['lower']['squared_norm'] == 10209,
@@ -510,7 +510,7 @@ def qiushi_27():
     r = _layered(27, P + 'heads27_Y.npy', P + 'heads27_side.npy', P + 'heads27_layer2_u.npy', P + 'heads27_layer2_line.npy', 'qiushi', 201567, 'qiushi-27')
     r['facts'].check(Bytes.raw('qiushi', P + 'heads27_Y.npy') == Bytes.raw('kravatsky', KRAV + 'dim26-27-iota-triangles/data/heads27_Y.npy')
                      and Bytes.raw('qiushi', P + 'heads27_side.npy') == Bytes.raw('kravatsky', KRAV + 'dim26-27-iota-triangles/data/heads27_side.npy'),
-                     "the first layer is Kravatsky's (Lindow's) byte for byte")
+                     "the first layer is Kravatskiy's (Lindow's) byte for byte")
     return r
 
 

@@ -65,6 +65,14 @@ const OR = L.openRungs || [];
 if (OR.length !== 3 || OR.some((r) => !(r.measured.violations > 0))) die('the open rungs are not three measured non-witnesses');
 const r841 = OR.find((r) => r.slug === 'kissing-number-d12');
 if (!r841 || r841.measured.violations !== 1 || r841.measured.coincident !== 1) die('the n=841 sentence (one repeated vector) would be false');
+/* the n=841 contact count: over the 840 DISTINCT directions it is the mc100 record's withoutRepeats figure. The
+   ledger's count runs over all 841 vectors, so the repeated entry's contacts are counted twice; the page showed that
+   figure beside "840 distinct directions" until 2026-10-05 (and the 2026-09-08 einstein-arena#64 comment quoted it) */
+const MC100 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'mc100-einstein-arena.json'), 'utf8'));
+const mc841 = MC100.rows.find((x) => x.solution === r841.best.id && x.decision && x.decision.withoutRepeats);
+if (!mc841 || mc841.decision.contacts !== r841.measured.contacts || mc841.decision.withoutRepeats.verdict !== 'CERTIFIED'
+  || mc841.decision.withoutRepeats.n !== r841.measured.n - r841.measured.coincident) die('the n=841 distinct-direction count is not in certs/mc100-einstein-arena.json as this page reads it');
+const distinct841 = mc841.decision.withoutRepeats.contacts;
 if (L.rows.some((r) => r.verdict === 'REFUTED')) die('a REFUTED row reached the page builder');
 for (const c of [s1, s2, s3]) if (c.uniformNorm !== true) die('a 604 configuration lost its shell-norm-4 uniformity');
 const distinct = new Set([s1.contacts, s2.contacts, s3.contacts]).size === 3;
@@ -330,8 +338,9 @@ B.push(C.section({
       r.title.replace('Kissing Number in ', ''),
       '#' + r.best.id + ' · ' + r.best.agent + ' · ' + String(r.best.createdAt).slice(0, 10),
       String(r.best.score).slice(0, 10), fmt(r.measured.violations),
-      r.measured.worstAngleDeg === null ? '—' : r.measured.worstAngleDeg.toFixed(2) + '°', fmt(r.measured.contacts),
+      r.measured.worstAngleDeg === null ? '—' : r.measured.worstAngleDeg.toFixed(2) + '°', fmt(r === r841 ? distinct841 : r.measured.contacts),
       r.measured.coincident ? (r.measured.n - r.measured.coincident) + ' distinct directions and ' + r.measured.coincident + ' repeated — an ' + (r.measured.n - r.measured.coincident) + '-point configuration, not an ' + r.measured.n
+        + (r === r841 ? '; the contacts are those of the ' + (r.measured.n - r.measured.coincident) + ' distinct directions (' + fmt(r.measured.contacts) + ' with the repeat, whose contacts count twice)' : '')
         : (fmt(r.measured.violations) + ' pairs inside 60°; ' + (r.measured.worstAngleDeg < 50 ? 'far from a witness' : 'the closest of the three to a witness')),
     ])
   }) + '<div class="col">'
@@ -364,12 +373,41 @@ const live18 = WV.live && WV.live['kravatsky-18'];
 const r18 = WR.find((r) => r.id === 'kravatsky-18');
 if (!live18 || !r18 || live18.contacts !== r18.contacts || live18.pairs !== r18.pairs) die('the dimension-18 two-language agreement is missing');
 if (wDecided.some((r) => !r.jsCheck || !r.jsCheck.agree)) die('a decided wave row has no agreeing JavaScript sample check');
-const WHO = { kravatsky: 'Kravatsky', 'takhanov-yun': 'Takhanov–Yun', qiushi: 'Qiushi Engine', ours: 'this lab' };
+/* display names. The keys are record identifiers (kravatsky-18 …) and stay as they are; the value is how the
+   claimant signs: "Alexey Kravatskiy" on his write-up (the page spelled it Kravatsky until 2026-10-05) */
+const WHO = { kravatsky: 'Kravatskiy', 'takhanov-yun': 'Takhanov–Yun', qiushi: 'Qiushi Engine', ours: 'this lab' };
 const deg = (c) => (Math.acos(c) * 180 / Math.PI);
 const dimsDecided = [...new Set(wDecided.map((r) => r.dim))].sort((a, b) => a - b);
 const best = dimsDecided.map((d) => wDecided.filter((r) => r.dim === d).sort((a, b) => b.claimed - a.claimed)[0]);
 const krav = (d) => WR.find((r) => r.claimant === 'kravatsky' && r.dim === d);
 const span = (ds) => { const out = []; let a = ds[0], b = ds[0]; for (const d of ds.slice(1).concat([null])) { if (d === b + 1) { b = d; continue; } out.push(a === b ? String(a) : a + '–' + b); a = b = d; } return out.join(', '); };
+/* ---- who else has checked the Kravatskiy rows: read from pinned bytes (corpus/sources/kissing), never typed.
+   His write-up (paper/kissing46.tex at the commit wave.meta.json pins) names the collaborators; B. Lindow's
+   REPRODUCE.md records which totals his no-shared-code verifiers pass. Both are re-hashed here. */
+const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
+const KSRC = { tex: 'kissing/kravatskiy-kissing46_86b7de10.tex', pinNote: 'kissing/kravatskiy-paper-pin.txt', lindow: 'kissing/lindow-REPRODUCE_32078098.md' };
+for (const f of Object.values(KSRC)) { const v = PIN.verify(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why); }
+const kRead = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8');
+{
+  const tex = kRead(KSRC.tex), note = kRead(KSRC.pinNote);
+  if (!/\\author\{Alexey Kravatskiy\}/.test(tex)) die('the pinned write-up is no longer signed Alexey Kravatskiy');
+  if ((tex.match(/joint work in progress with H\.~Cohn\s+and B\.~Lindow/g) || []).length < 3) die('the pinned write-up no longer calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow');
+  if (!/paper\/kissing46\.pdf\s+blob 824ffaad9fe30b669c4e1135388c4820cd60132e/.test(note) || !/47 pages/.test(note)) die('the pin note for paper/kissing46.pdf moved');
+}
+const LINDOW = {};
+{
+  const t = kRead(KSRC.lindow);
+  for (const m of t.matchAll(/ALL CHECKS PASS\s+K\((\d+)\) >= (\d+)/g)) LINDOW[+m[1]] = Math.max(LINDOW[+m[1]] || 0, +m[2]);
+  for (const m of t.matchAll(/verify2831_independent\.py \S+\s+(\d+) (\d+)/g)) LINDOW[+m[1]] = Math.max(LINDOW[+m[1]] || 0, +m[2]);
+}
+if (LINDOW[18]) die('B. Lindow\'s README now records a dimension-18 check — the "no outside check but ours" sentence would be false');
+const kravDec = wDecided.filter((r) => r.claimant === 'kravatsky');
+const kJoint = kravDec.filter((r) => r.dim >= 25 && r.dim <= 31);
+if (kJoint.some((r) => !LINDOW[r.dim])) die('a Kravatskiy row in 25–31 has no Lindow verifier run — rewrite the collaborators sentence');
+const lindowAt = kJoint.filter((r) => LINDOW[r.dim] === r.claimed).map((r) => r.dim);
+const lindowBelow = kJoint.filter((r) => LINDOW[r.dim] < r.claimed);
+if (kJoint.some((r) => LINDOW[r.dim] > r.claimed)) die('a Lindow run exceeds the decided Kravatskiy total — look at it');
+const k18 = kravDec.find((r) => r.dim === 18);
 const repaired = wDecided.filter((r) => r.verdict === 'REPAIRED');
 const hunt = WV.hunt && WV.hunt.rows ? WV.hunt.rows : null;
 const huntIds = hunt ? Object.keys(hunt) : [];
@@ -385,13 +423,16 @@ B.push(C.section({
   wide: true,
   bodyRaw: '<div class="col">'
   + C.pRaw('In September 2026 three groups published new kissing lower bounds in dimensions ' + span(dimsDecided) + ': '
-    + 'A. Kravatsky\'s repository (no paper; dimensions 25–31 described there as joint work with H. Cohn and B. Lindow), '
+    + 'Alexey Kravatskiy\'s repository (no arXiv paper; its write-up, ' + C.m('paper/kissing46.pdf') + ', 47 pages, is in the '
+    + 'repository and calls dimensions 25–31 &ldquo;joint work in progress with H. Cohn and B. Lindow&rdquo;), '
     + 'R. Takhanov and S. Yun (arXiv:2609.21591), and the Qiushi Engine (arXiv:2609.35051), whose dimension-25 and -27 '
-    + 'records are one point more than Kravatsky\'s, built on his configurations. Each configuration below was rebuilt '
+    + 'records are one point more than Kravatskiy\'s, built on his configurations. Each configuration below was rebuilt '
     + 'from bytes pinned by commit and sha256 and the claimant\'s own construction table, and <strong>every pair was '
     + 'decided exactly</strong>: ' + fmt(wPairs) + ' pairs over ' + wDecided.length + ' configurations, '
     + fmt(wContacts) + ' of them touching at exactly 60&deg;, none closer. The arithmetic is integer: coordinates are '
-    + 'integer combinations of 1, &radic;2, &radic;3, &radic;6; inner products come from float BLAS only under a '
+    + 'integer combinations of 1, &radic;2, &radic;3, &radic;6'
+    + (/combination of 1, sqrt2, sqrt6$/.test(r18.scale || '') ? ' (dimension 18 needs only 1, &radic;2, &radic;6, so its inner products lie in Z[&radic;3]; the coordinates do not)' : '')
+    + '; inner products come from float BLAS only under a '
     + 'checked bound that makes every partial sum an exact integer (2<sup>24</sup> or 2<sup>53</sup>), and every sign is '
     + 'decided in the tower Q(&radic;2)(&radic;3). Dimension 18 was decided twice, in Python and again live in '
     + 'JavaScript by a separate implementation, ' + fmt(live18.pairs) + ' pairs each, the same ' + fmt(live18.contacts)
@@ -414,6 +455,15 @@ B.push(C.section({
     + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + C.m(r.delta.toExponential(1)))).join(', ') + ': '
     + 'a decode, not a correction. '
     + 'A slip in a witness would not have refuted any bound, and none occurred.')
+  + C.pRaw('<strong>Who else has checked these.</strong> B. Lindow, a collaborator on dimensions 25–31, publishes exact '
+    + 'verifiers for them that share no code with Kravatskiy\'s (<a href="https://github.com/btlindow/KissingNumbers">btlindow/KissingNumbers</a>, '
+    + C.m('tools/kravatskiy/') + '). Their recorded runs reach '
+    + (lindowAt.length ? 'dimensions ' + span(lindowAt) + ' at the totals decided here' : '')
+    + (lindowBelow.length ? (lindowAt.length ? ', and ' : '') + lindowBelow.map((r) => 'K(' + r.dim + ') at ' + fmt(LINDOW[r.dim])).join(' and ')
+      + ', below the ' + lindowBelow.map((r) => fmt(r.claimed)).join(' and ') + ' decided here (run against earlier commits of his repository)' : '')
+    + '. Those are the collaborators\' own checks, not third-party ones'
+    + (k18 ? '; K(18) has, to our knowledge, no outside check but this page\'s.' : '.')
+    + ' Both sources are pinned in ' + C.m('corpus/sources/kissing') + '.')
   + C.pRaw('Calibrations ran in the same engine at the same build: the whole Leech shell, K(24) = 196,560, every one of its '
     + fmt(W24.pairs) + ' pairs, with the textbook ' + fmt(W24.contacts) + ' contacts; E8\'s 240; and the icosahedron\'s 12 in '
     + 'Z[&radic;5], where no pair touches and the nearest sit at cos² = 1/5 exactly.')
@@ -422,14 +472,14 @@ B.push(C.section({
     + 'cuboctahedron or of the D₄ roots carries which side or class, and about which coordinate axis the dimension-27 axis is turned. '
     + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on the one chosen. The Leech shell itself '
     + 'is built here, from the Golay code spanned by the claimants\' own published owner vectors.')
-  + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: Kravatsky\'s dimensions '
+  + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: ' + WHO.kravatsky + '\'s dimensions '
     + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim)) + ' and the Qiushi Engine\'s '
     + span(wNeeds.filter((r) => r.claimant === 'qiushi').map((r) => r.dim)) + ' publish counts — from lattices, class-size '
     + 'tables, moment identities — and no vector list. Each row names what would decide it.') : '')
   + (wQueued.length ? C.pRaw('<strong>QUEUED</strong>, ' + wQueued.length + ' rows: ' + wQueued.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ')
     + '. ' + (wQueued.some((r) => r.claimant === 'takhanov-yun') ? 'Takhanov and Yun publish dimensions 26–31 as float64 arrays whose lifted block is turned by a generic rotation; '
       + 'an exact witness needs that rotation as an exactly orthogonal matrix (their paper bounds the polar factor instead). '
-      + 'Their dimension 25 needs no rotation and is decided above. ' : '') + 'Kravatsky\'s 38 and 39 ship rebuildable data and wait their turn.'
+      + 'Their dimension 25 needs no rotation and is decided above. ' : '') + WHO.kravatsky + '\'s 38 and 39 ship rebuildable data and wait their turn.'
     + (ty31 && ty31.addedPoints ? ' One fact about those bytes is already measured: the four points added in dimension 31 are stored as '
       + '(±' + ty31.addedPoints.horizontalCoefficient.toFixed(6) + ' u<sub>j</sub>, ' + ty31.addedPoints.verticalCoefficient.toFixed(6) + ' v<sub>j</sub>) '
       + '(to ' + ty31.addedPoints.residual.toExponential(0) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
