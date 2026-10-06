@@ -182,7 +182,12 @@ for (const [repo, num, label] of [
   ['teorth/optimizationproblems', 216, 'PR #216 (3b/3c/71 replay)'],
   ['alexlegeartis/KissingNumbers', 2, 'Kravatskiy (K(18) checked)'],
   ['k-nic/Leech_lifting', 1, 'Takhanov–Yun (K(25), d31 points)'],
-  ['teorth/erdosproblems', 179, '#179 (our #1038 correction)']]) {
+  ['teorth/erdosproblems', 179, '#179 (our #1038 correction)'],
+  ['teorth/erdosproblems', 164, '#164 (Woett, the #290 bracket)'],
+  ['teorth/optimizationproblems', 184, 'PR #184 (our C42 review)'],
+  ['Oxelra-AI/Qiushi-Engine-Kissing-Number-Research', 1, 'Qiushi (K(25), K(27); d43/d45 ask)'],
+  ['Omni-Scientist/Awesome-AI-Scientist', 5, 'Awesome-AI-Scientist PR #5'],
+  ['subroy13/awesome-ai-proofs', 2, 'awesome-ai-proofs #2 (audit records)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

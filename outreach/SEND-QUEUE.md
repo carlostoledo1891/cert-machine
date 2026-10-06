@@ -22,6 +22,13 @@ here on request.
   - G4: k-nic/Leech_lifting#1.
   - G7: the #1038 correction on teorth/erdosproblems#179.
 - **All seven P1 items are out.** Next is the map's P2 list, item by item.
+- **P2, 2026-10-06 ("Go all"; drafts in outreach/github-p2a-2026-10-06.md and outreach/github-p2b-2026-10-06.md):**
+  - POSTED: #164 to Woett (the 1/(1+c) bracket); the PR #184 review.
+  - WAITING:
+    - easota page fix, then the Together AI issue;
+    - the operator's email to Althöfer, then the C84b PR, after 7 days or a reply, and after #216.
+  - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste).
+  - P2b HELD: TTT-Discover #19 (≥ 2026-10-09, after the easota fix); the incrediblecrab tracker (until the #1186 claim is public).
 - **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
 
 ## LANE P — PRIME INTELLECT (2026-10-05)
