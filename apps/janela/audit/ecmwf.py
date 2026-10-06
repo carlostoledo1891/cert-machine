@@ -23,6 +23,8 @@ MIT licensed. Part of cert-machine.
 """
 import hashlib
 import json
+import os
+import socket
 import time
 import urllib.error
 import urllib.request
@@ -38,6 +40,12 @@ MIRRORS = {
 SWITCH = date(2024, 2, 29)   # first day of the ifs/0p25 layout (probed 2026-10-06)
 GCS_FIRST = date(2023, 7, 12)
 UA = {'User-Agent': 'cert-machine janela (github.com/carlostoledo1891/cert-machine)'}
+
+if os.environ.get('JANELA_IPV4'):
+    # some networks route IPv6 to the mirrors into a black hole (connections hang in SYN_SENT
+    # while curl falls back to IPv4); JANELA_IPV4=1 resolves names to IPv4 only
+    _getaddrinfo = socket.getaddrinfo
+    socket.getaddrinfo = lambda host, port, family=0, *a, **k: _getaddrinfo(host, port, socket.AF_INET, *a, **k)
 
 
 def grid_of(d):
@@ -59,7 +67,7 @@ def get(url, rng=None, tries=7):
     last = None
     for k in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=180) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
                 b = r.read()
             if rng and len(b) != rng[1]:
                 raise IOError(f'short read {len(b)} of {rng[1]}')

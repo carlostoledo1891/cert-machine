@@ -38,11 +38,13 @@ jobs:
         run: cd apps/janela/audit && python observe.py
       - name: score the ledger against those observations
         run: node apps/janela/audit/score.js
+      - name: rebuild the page from today's records (battery-gated)
+        run: node apps/janela/build.js
       - name: push the record
         run: |
           git config user.name "janela-feed"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add corpus/janela/feed corpus/janela/observed certs/janela-ledger
+          git add corpus/janela/feed corpus/janela/observed certs/janela-ledger site/janela
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
           git commit -m "Janela feed $(date -u +%F): ECMWF 00 UTC at the Janela sites; bands committed to certs/janela-ledger before their target times; satellite passes observed and the ledger scored"
           for i in 1 2 3 4 5; do

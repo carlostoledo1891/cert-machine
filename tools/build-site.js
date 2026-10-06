@@ -1825,7 +1825,8 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    (apps/<name>/build.js, invoked by `make site`) emits it, with its own
    batteries and drift gates. site/contraprova/ and site/decidivel/ are the same
    arrangement at top-level paths (apps/contraprova/build.js,
-   apps/decidivel/build.js; the URLs chosen by the operator, 2026-09-29/30).
+   apps/decidivel/build.js; the URLs chosen by the operator, 2026-09-29/30), and so is
+   site/janela/ (apps/janela/build.js, 2026-10-06).
    The site sync neither generates nor prunes under them — two builders
    writing one tree is how files get eaten. */
 /* site/instruments/ is the same arrangement for the opposite reason. It is
@@ -1838,7 +1839,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/'];
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/janela/'];
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
@@ -1876,7 +1877,7 @@ let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {
   const rel = String(e).split(path.sep).join('/');
   const abs = path.join(SITE, String(e));
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/')) continue;
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('janela/')) continue;
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

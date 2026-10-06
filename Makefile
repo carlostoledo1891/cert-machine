@@ -31,6 +31,7 @@ site: playground control
 	@$(NODE) apps/skyaudit/build.js
 	@$(NODE) apps/contraprova/build.js
 	@$(NODE) apps/decidivel/build.js
+	@$(NODE) apps/janela/build.js
 
 playground:
 	@$(NODE) playground/build.js
