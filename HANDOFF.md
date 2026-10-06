@@ -15,10 +15,55 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-05: THE δ₃ PORT — δ₃ = 117/2192 (Graham's $100 question, Erdős #1186 k = 3) re-decided here by a clean-room verifier, page + paper built, every send HELD; the ζ(7)/Catalan Hankel wall ported and re-run, 51/51 bit-identical; Anand's ζ(7) proof AUDITED, the route refuted (A₂₀₀ + U = +4.86, needs < 0); the operator read the δ₃ proof and authorised the Zenodo release v2026.10; the Prime Intellect application SENT by the operator; before that, phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
+## TASKS BACKLOG — the standing menu (updated 2026-10-06: HANDOFF, WAITING FOR THE OPERATOR — the δ₃ proof claim PUBLIC on erdosproblems.com/1186 (#395); the GitHub outreach P1–P3 out and watched; the k = 4 forum comment ready for the operator's paste; nothing else outward until the operator's next instruction; before that, 2026-10-05: THE δ₃ PORT — δ₃ = 117/2192 (Graham's $100 question, Erdős #1186 k = 3) re-decided here by a clean-room verifier, page + paper built, every send HELD; the ζ(7)/Catalan Hankel wall ported and re-run, 51/51 bit-identical; Anand's ζ(7) proof AUDITED, the route refuted (A₂₀₀ + U = +4.86, needs < 0); the operator read the δ₃ proof and authorised the Zenodo release v2026.10; the Prime Intellect application SENT by the operator; before that, phase 4b WAVE 1 DONE — 46 of the 100 decided, 45 CERTIFIED + 1 REPAIRED, register 88 -> 132; the locking rules reviewed (no-hunting dropped); the September kissing wave DECIDED — 11 configurations, 215.0e9 pairs, 0 violations, K(18) >= 8,358 certified, no insertion found; lattice-claims stage 2 DONE on Qwen3.5-9B — no separation, both arms stopped abstaining (the exact grader needs a −1 for confident wrong answers; a ternary arm is next); before that, 2026-10-04, the twenty-ninth session: lattice-claims 0.2.0 BUILT for the Prime Intellect application's training run — an answer-key arm beside the exact grader, verified from a clean install and PUSHED to the Hub (v0.2.0); the baseline spend and the run HELD for the operator's word; before that, 2026-10-02, the twenty-eighth session: THE RERUN PROGRAM's phase 1 DONE — the rerun kit at /reports/rerun.html + RERUN.md, 23 commands executed and timed, the register unchanged, the first outside rerun recorded; phase 2 built and held, phase 3 built and held (the certified-mathbench hub environment verified from a clean install; MathBench v1 pre-registered), phase 4a done (the census + the 100 machine claims pre-registered and pinned), 4b the deciding not started; before that, 2026-09-30 afternoon, the twenty-fifth session's end: two Petrobras Radar solutions built and live, Contraprova and Decidível, not yet submitted — see FIRST below; before that, 2026-09-29 night, the twenty-fourth session's end: the attack program's wave 1 largely DONE — the GNNW iteration verified and continued to R(k,k) <= (3.77213…)^(k+o(k)) by two programs (NOT "3.7721^": under an o(k) exponent the base may be rounded up, never down — the paper agent's correction of 2026-10-01; the valid rounded form is 3.7722), HorizonMath's Ramsey certificate refuted, Gao's Keller maps and the Markus–Yamabe fields decided, five registry asterisks decided, Sra's counterexample library decided, MathBench v0 run; US$22.30 of the US$100 spent; nothing sent)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-06, HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS.
+  THE NEXT SESSION, FIRST: run `node tools/sweep-claims.js` (~1 min; state in corpus/claims-seen.json) and report
+    what moved, a reply or a new comment on any watched thread; then WAIT for the operator. No new send, no new
+    lane, no paid run without the operator's word. Fixing our own records and pushing them stays fine.
+  STATE AT HANDOFF (main pushed; site synced; make control 113/113 at the last full round; the δ₄ battery 29/29
+    and the stale-claims gate green after the last edits):
+    · δ₃ = 117/2192 — PUBLIC as proof claim #395 on erdosproblems.com/1186 (submitted 10-05, accepted 10-06;
+      https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395; snapshots pinned in
+      corpus/sources/delta3/). Zenodo doi:10.5281/zenodo.23171167; reports/delta3.html links the listing. At
+      handoff: Comments (0) on the thread, no reply on the claim.
+    · GitHub outreach: P1, P2 and P3 are all out. Every post is listed in outreach/SEND-QUEUE.md (lanes G, P2, P3,
+      D, R), every thread is in tools/sweep-claims.js 3f/3g, and the last sweep printed "no findings".
+    · Edited in place, each with a dated note, before any reply: our R3 texts on einstein-arena#64 and
+      station_data_v2#2 (the 1e-6 tolerance is the Together notebook's, not EinsteinArena's); and
+      incrediblecrab/erdos-1186#1 (1/72 is Lu–Peng's theorem, corroborated here by exact counts but not decided
+      here; the last bullet names which reduction fails).
+    · A slip on the record: formal-conjectures #6874 (hot spots) and #6882 (Erdős 1186) went out the same day,
+      against our own one-issue-a-day spacing for that repository. Both stand as written.
+  WAITING ON THE OPERATOR (texts ready, paste or send by hand):
+    · D, the k = 4 comment on /forum/thread/1186: outreach/delta3-forum.md D, revised 10-06 (the page's random
+      bound already gives 1/48; only BCG's value and two unrolling levels are exact here). B is superseded.
+    · Mathstodon for Erdős #1: SEND-QUEUE 0c (495 characters). Optional.
+    · The email to Ingo Althöfer: outreach/github-p2a-2026-10-06.md item 7a. Then the C84b PR, after his reply or
+      about 7 days, and after teorth/optimizationproblems PR #216 settles.
+    · The GitHub bio and the pinned repositories (no API for pins).
+    · The ec-benchmark issue: the partners' field; lane U first.
+    · Older held lanes, unchanged: R5 (the LabECO thread), METR M1/M3/M3a, U1. R2 is superseded by RamseyLean#1.
+  HELD WITH A DATE (confirm with the operator on the day):
+    · teorth/erdosproblems PR, item 20 of outreach/github-p3a-2026-10-06.md (lambda4_cubic: three real roots,
+      λ(4) the largest), on or after 2026-10-08, given Tao's notification load.
+    · jackburrus/awesome-breakthroughs PR, item 24 of outreach/github-p3b-2026-10-06.md, about 2026-10-13, or
+      sooner if ewang26/HorizonMath#10 gets a reply.
+  NOT SENDING (the reasons are in the drafts): the teorth #1186 note (C); the λ(5) follow-up on #392;
+    einstein-arena#59; awesome-evals; the C42 review (not decided here); the OEIS packs (OEIS bans AI-generated
+    submissions).
+  OPEN WORK, NOTHING CHOSEN (the operator picks):
+    · Phase 4b wave 2: 54 of the 100 pre-registered claims still undecided (corpus/machine-claims-100.json).
+    · The C42 ≤ 0.688970 decider (1–3 h), which would unblock the review on turan-c42-certificate#2.
+    · lattice-claims, the ternary arm (−1 for a confident wrong answer).
+    · The three Elsevier papers (paper/tex; authors to be agreed).
+    · The next-fronts menu (memory, 2026-10-01): LabECO evolutions, LRCAP (~10-26), calls (CNPq RHAE IA closes
+      2026-10-09, Finep ~10-14 to verify, MAI/DAI 12-11).
+    · Lean for δ₃: weeks of work. δ₄ is BLOCKED (the quartic term).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-05 (evening), THE PORT OF FRONTIER SESSIONS 34–35 (frontier-apps/PORT-DELTA3.md) — δ₃ AND THE ζ(7) WALL.
