@@ -1,5 +1,5 @@
 {
- "what": "Land polygons for the maps on /instruments: Natural Earth 1:50m land, fetched from the Natural Earth vector repository pinned by commit. The atlas draws a copy with coordinates rounded to 0.01\u00b0 (tools derive it at build; this file is the source).",
+ "what": "Land polygons for the maps on /instruments: Natural Earth 1:50m land, fetched from the Natural Earth vector repository pinned by commit. The atlas draws a copy with coordinates rounded to 0.01\u00b0 (tools derive it at build; this file is the source). Added 2026-10-06: Natural Earth 1:10m land and minor islands, for the Janela app's Brazilian margin (apps/janela derives a clipped copy at build).",
  "license": "Public domain (Natural Earth: \"All versions of Natural Earth raster + vector map data found on this website are in the public domain\").",
  "files": {
   "ne_50m_land.geojson": {
@@ -7,6 +7,18 @@
    "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
    "sha256": "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b",
    "bytes": 1636166
+  },
+  "ne_10m_land.geojson": {
+   "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_land.geojson",
+   "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+   "sha256": "1ac90796408bc6ad6911d69448485d3c4dbf2190370080368a09976e1c9f7416",
+   "bytes": 10157965
+  },
+  "ne_10m_minor_islands.geojson": {
+   "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/ca96624a56bd078437bca8184e78163e5039ad19/geojson/ne_10m_minor_islands.geojson",
+   "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+   "sha256": "8c933ca7a4760256bdc46408355706e39764b0fa01c160c28888b90b4faec29f",
+   "bytes": 1320514
   }
  }
 }
