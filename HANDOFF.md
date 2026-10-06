@@ -59,8 +59,7 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
   GATES: window 14/6 reds, janela 9/6 reds, janela alpha (16/20 + red) green; the new page recorded in the
     style, render and layout baselines (design/*-baseline.json; the layout row added alone — skyaudit's 1440/768
     spine count flaps 5<->6 and 4<->5 between runs on this network, unrelated and not accepted worse). THE FULL
-    CONTROL BUILD IS OWED ON A CHARGER (17 min; it ran once mid-session at 113/116 — the three were the new page's
-    unrecorded baselines, recorded since; index.html and batteries.json were left at their last committed state).
+    CONTROL BUILD ran on the charger at b250e13: 116/116 green.
   NEXT (the operator picks): Swell re-homed on this engine as the public face (apps/swell/TODO.md has the port
     plan and the source review's findings); period uncertainty for swell-sensitive operations (B706); wind
     alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind — anemometer height); the nearshore transfer for berth
