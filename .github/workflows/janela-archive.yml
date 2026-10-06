@@ -42,7 +42,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r apps/janela/requirements.txt
-      - name: fetch (twice: the second pass picks up any day that errored)
+      - name: 'fetch, twice — the second pass picks up any day that errored'
         run: |
           cd apps/janela/audit
           python archive.py ecmwf ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=16 || true
