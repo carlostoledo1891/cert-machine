@@ -1,0 +1,19 @@
+{
+ "maplibre-gl": {
+  "version": "5.24.0",
+  "files": [
+   "maplibre-gl.js",
+   "maplibre-gl.css"
+  ],
+  "src": "unpkg.com/maplibre-gl@5.24.0/dist/",
+  "license": "BSD-3-Clause"
+ },
+ "sha256": {
+  "maplibre-gl.js": "45a9b07a9189ce56054c620a947ccf41e291e58c95e9b61533b740aaa65ee5cb",
+  "maplibre-gl.css": "ab1e70d59ec40465bae7e7030da2f3ccf28133fd502e62bd598eefbadfd7a732"
+ },
+ "declaredPatch": {
+  "maplibre-gl.css": "c4edd1a1288dcb54c51eba815786fcd3dab4a6a5d1014e051a86eee25fba57f7"
+ },
+ "from": "apps/skyaudit/vendor (checked at build: the upstream pin, or the upstream pin plus the patch the file declares)"
+}

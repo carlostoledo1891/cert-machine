@@ -141,4 +141,94 @@ red('RED: a REFUSED band (too few pairs) leaves the variable unforecast — SEM 
   assert.strictEqual(w.sites.babitonga.steps[0].hs, null);
 });
 
+/* ---- the app's window: one operation, a window of TR hours, three criteria (audit/criteria.js) ---- */
+const CR = require('./audit/criteria.js');
+const MODEL = require('./app/model.js');
+const wk = (rows) => rows.map((r, k) => Object.assign({ t: '2026-10-07T' + String(k * 6).padStart(2, '0'), lead: k * 6 }, r));
+const OPX = { id: 'x', limits: [{ var: 'hs', op: '<=', value: '2.0', unit: 'm' }, { var: 'wind_sustained', op: '<=', value: '30', unit: 'kn' }] };
+const CTX = { dnv: DNV, wind46: require('./scenario/rules/dnv-alpha.json').windTable['4-6'], site: null, why: 'sem α' };
+const flat = (h, w) => ({ hb: h, wb: w, hd: [h[1], h[1]], wd: [w[1], w[1]] });
+ok('window span: TR 12 h from lead 0 is the 3 steps 0, 6, 12; TR 10 h rounds UP to the 6 h grid (the same 3); the last start that fits', () => {
+  const st = wk([{}, {}, {}, {}, {}]);
+  assert.deepStrictEqual(CR.span(st, 0, 12), [0, 1, 2]);
+  assert.deepStrictEqual(CR.span(st, 0, 10), [0, 1, 2]);
+  assert.deepStrictEqual(CR.span(st, 2, 12), [2, 3, 4]);
+  assert.deepStrictEqual(CR.span(st, 4, 0), [4]);
+});
+red('RED: a window that runs past the last forecast step is NOT decided (null), never LIBERADA', () => {
+  const st = wk([flat(['1', '1'], ['5', '5']), flat(['1', '1'], ['5', '5']), flat(['1', '1'], ['5', '5'])]);
+  assert.strictEqual(CR.decideWindow(OPX, st, 1, 12, 'band', CTX), null);
+  assert.strictEqual(CR.week(OPX, st, 12, 'band', CTX).codes, 'L--');
+});
+ok('band over the window: clear at the start but straddling Hs <= 2.0 at the third step -> INDEFINIDA, the threshold at that step', () => {
+  const st = wk([flat(['1.2', '1.6'], ['10', '14']), flat(['1.3', '1.8'], ['10', '14']), flat(['1.7', '2.3'], ['10', '14']), flat(['1', '1.2'], ['10', '14'])]);
+  const r = CR.decideWindow(OPX, st, 0, 12, 'band', CTX);
+  assert.strictEqual(r.verdict, 'INDEFINIDA');
+  assert.strictEqual(r.flip[0].t, st[2].t); assert.strictEqual(r.flip[0].gap, '3/10');
+  assert.strictEqual(CR.decideWindow(OPX, st, 0, 6, 'band', CTX).verdict, 'LIBERADA');     /* the shorter window ends before it */
+  assert.strictEqual(CR.week(OPX, st, 6, 'band', CTX).codes, 'LII-');   /* start 2 is the straddling step itself */
+});
+ok('band over the window: a favourable edge above the limit at any step blocks the whole window -> VETADA, witness that step', () => {
+  const st = wk([flat(['1', '1.2'], ['10', '12']), flat(['2.1', '2.6'], ['10', '12']), flat(['1', '1.2'], ['10', '12'])]);
+  const r = CR.decideWindow(OPX, st, 0, 12, 'band', CTX);
+  assert.strictEqual(r.verdict, 'VETADA'); assert.strictEqual(r.witness.t, st[1].t); assert.strictEqual(r.witness.var, 'hs');
+});
+ok('DNV Table 4-1 over the window: OPLIM 2.0 m, TR 48 h -> TPOP 24 h, alpha 73/100, OPWF 1.46 m; a deterministic 1.45 m clears, 1.47 m at one step blocks', () => {
+  const op = { id: 'y', limits: [{ var: 'hs', op: '<=', value: '2.0', unit: 'm' }] };
+  const st = wk(Array.from({ length: 9 }, () => ({ hd: ['1.45', '1.45'] })));
+  const r = CR.decideWindow(op, st, 0, 48, 'table', CTX);
+  assert.strictEqual(r.verdict, 'LIBERADA'); assert.strictEqual(r.alpha.hs, '73/100'); assert.strictEqual(r.opwf[0].value, '73/50');
+  st[5].hd = ['1.47', '1.47'];
+  const v = CR.decideWindow(op, st, 0, 48, 'table', CTX);
+  assert.strictEqual(v.verdict, 'VETADA'); assert.strictEqual(v.witness.t, st[5].t);
+  assert.strictEqual(CR.decideWindow(op, st, 0, 48, 'band', CTX).verdict, 'SEM DADOS');   /* no measured band: the band criterion says so */
+});
+ok('DNV wind: Table 4-6, the smaller column (the 10-year wind is not assessed): TPOP <= 24 h -> 0.8, a 30 kn limit decides at 24 kn', () => {
+  const st = wk([{ hd: ['1', '1'], wd: ['23.99', '24'] }, { hd: ['1', '1'], wd: ['24', '24'] }, { hd: ['1', '1'], wd: ['24', '24.01'] }]);
+  const r = CR.decideWindow(OPX, st, 0, 6, 'table', CTX);
+  assert.strictEqual(r.alpha.wind, '4/5'); assert.strictEqual(r.verdict, 'LIBERADA');
+  const s = CR.decideWindow(OPX, st, 1, 6, 'table', CTX);
+  assert.strictEqual(s.verdict, 'INDEFINIDA');                                              /* the 0.01 kn interval straddles 24 */
+});
+ok('site alpha read in the standard\'s own shape: the interpolation equals dnv.js on Table 4-1 at 60 (design Hs, TPOP) pairs', () => {
+  const J = require('./scenario/rules/dnv-alpha.json');
+  for (const h of ['1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '8']) for (const T of [6, 12, 24, 36, 48, 72]) {
+    assert.strictEqual(Q.str(CR.interp(J.waveTables['4-1'].rows, J.waveColumns, h, T)), Q.str(DNV.alpha('4-1', h, T)), h + ' m, ' + T + ' h');
+  }
+});
+red('RED: the site alpha is never extrapolated: design Hs 3.5 m between an estimated 2 m and an unestimated 4 m column -> n/a, not the 2 m value', () => {
+  const site = { columns: [1, 2, 4, 6], rows: { 12: ['0.80', '0.87', null, null] } };
+  const op = { id: 'z', limits: [{ var: 'hs', op: '<=', value: '3.5', unit: 'm' }] };
+  const st = wk([{ hd: ['1', '1'] }, { hd: ['1', '1'] }, { hd: ['1', '1'] }, { hd: ['1', '1'] }, { hd: ['1', '1'] }]);
+  const r = CR.decideWindow(op, st, 0, 24, 'site', Object.assign({}, CTX, { site }));
+  assert.strictEqual(r.verdict, 'n/a');
+  const op15 = { id: 'w', limits: [{ var: 'hs', op: '<=', value: '1.5', unit: 'm' }] };
+  assert.strictEqual(CR.decideWindow(op15, st, 0, 24, 'site', Object.assign({}, CTX, { site })).alpha.hs, '167/200');   /* (0.80 + 0.87) / 2 */
+});
+ok('the site alpha table takes the LOWER end of the 90% interval rounded DOWN to 0.01 (Santos, 2 m, TPOP 12 h: [0.876, 0.9122] -> 0.87)', () => {
+  const T = MODEL.siteAlphaTables(require('../../certs/janela-alpha.json'));
+  assert.strictEqual(T.santos.rows[12][T.santos.columns.indexOf(2)], '0.87');
+  assert.strictEqual(T.santos.rows[12][T.santos.columns.indexOf(4)], null);                 /* REFUSED in the record: null here */
+});
+red('RED: a Capitania rule is a condition at the hour — the DNV criteria do not apply to it (n/a, never a verdict)', () => {
+  const op = Object.assign({}, OPS.find((o) => o.id === 'tebig-leste'), { npcp: true });
+  const st = wk([{ hd: ['1', '1'], hb: ['0.9', '1.1'], wd: ['5', '5'], wb: ['4', '6'] }]);
+  assert.strictEqual(CR.decideWindow(op, st, 0, 0, 'table', CTX).verdict, 'n/a');
+  assert.strictEqual(CR.decideWindow(op, st, 0, 0, 'band', CTX).verdict, 'LIBERADA');
+});
+red('RED: outward rounding is sound — an exact upper edge 2.0004 under "<= 2.0" stays INDEFINIDA rounded (2.001), and 1.9996 under a strict "< 2.0" rounds to 2.000 and becomes INDEFINIDA, never the reverse', () => {
+  const up = (x) => Q.dec(Q.parse(x), 3, 'up');
+  assert.strictEqual(up('2.0004'), '2.001'); assert.strictEqual(up('1.9996'), '2.000');
+  const strict = { id: 's', limits: [{ var: 'hs', op: '<', value: '2.0', unit: 'm' }] };
+  const st = wk([{ hb: ['1.5', up('1.9996')] }]);
+  assert.strictEqual(CR.decideWindow(strict, st, 0, 0, 'band', CTX).verdict, 'INDEFINIDA');
+  assert.strictEqual(CR.decideWindow(strict, wk([{ hb: ['1.5', '1.9996'] }]), 0, 0, 'band', CTX).verdict, 'LIBERADA');
+});
+ok('the presets: Alívio is the cited criterion, decided inclusive (Hs <= 3.5 m, wind <= 50 kn, 24 h); the others say they are examples', () => {
+  const a = MODEL.PRESETS.find((p) => p.id === 'alivio');
+  assert.deepStrictEqual(a.limits.map((l) => l.var + l.op + l.value), ['hs<=3.5', 'wind_sustained<=50']);
+  assert.strictEqual(a.TR, 24); assert.strictEqual(a.kind, 'cited'); assert.ok(/OMAE2010-20147/.test(a.source));
+  assert.ok(MODEL.PRESETS.filter((p) => p.id !== 'alivio').every((p) => p.kind === 'example'));
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

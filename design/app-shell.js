@@ -16,6 +16,13 @@
    renderApp({ title, description, panelHtml, dockHtml, brand, appName,
                homeHref, navLinks, configJson, scripts, styles }) -> document.
 
+   Second consumer (apps/janela, 2026-10-06), minimally: lang (default 'en'),
+   configGlobal (the config's window name, default SKYAUDIT), cssRaw (the
+   app's own rules, appended to the ONE <style> block), topHtml (controls in
+   the top bar, after the meta pill), extraHtml (layers after the panel),
+   noDock / noLeft (omit those regions). With none of them passed the output
+   is byte-identical to before: SkyAudit's built pages were rebuilt and diffed.
+
    App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE, in
    ONE palette on bare :root, matching design/tokens.js's one-theme decision;
    WebGL clients read the computed values at runtime — no literal colour
@@ -355,12 +362,12 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
 }
 
 function renderApp(o) {
-  const cfg = o.configJson ? '<script>window.SKYAUDIT = ' + o.configJson + ';</script>' : '';
+  const cfg = o.configJson ? '<script>window.' + (o.configGlobal || 'SKYAUDIT') + ' = ' + o.configJson + ';</script>' : '';
   return `<!doctype html>
-<html lang="en"><head>
+<html lang="${o.lang || 'en'}"><head>
 ${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
-<style>${T.rootCss()}${appCss()}</style>
+<style>${T.rootCss()}${appCss()}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
 <script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
 (function(){var t=new URLSearchParams(location.search).get('theme');
 if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>
@@ -370,14 +377,12 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
   <a class="brand" href="${o.homeHref || '/'}">${o.brand || 'CERT-MACHINE'}</a>
   <span class="sep"></span>
   <span class="appname">${o.appName || ''}</span>
-  ${o.meta ? `<span class="meta">${o.meta}</span>` : ''}
+  ${o.meta ? `<span class="meta">${o.meta}</span>` : ''}${o.topHtml || ''}
   <span class="spacer"></span>
   ${(o.navLinks || []).map((l) => `<a class="navx" href="${l.href}">${l.label}</a>`).join('\n  ')}
 </header>
-<aside class="as-left" id="leftpanel">${o.leftHtml || ''}</aside>
-<aside class="as-panel" id="panel">${o.panelHtml || ''}</aside>
-<footer class="as-dock" id="dock">${o.dockHtml || ''}</footer>
-${cfg}
+${o.noLeft ? '' : `<aside class="as-left" id="leftpanel">${o.leftHtml || ''}</aside>\n`}<aside class="as-panel" id="panel">${o.panelHtml || ''}</aside>
+${o.noDock ? '' : `<footer class="as-dock" id="dock">${o.dockHtml || ''}</footer>\n`}${o.extraHtml ? o.extraHtml + '\n' : ''}${cfg}
 ${(o.scripts || []).map((s) => `<script src="${s}"></script>`).join('\n')}
 </body></html>`;
 }

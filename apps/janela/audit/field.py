@@ -138,6 +138,7 @@ def main():
                     val[name] = f'{q.numerator}/{q.denominator}' if q.denominator != 1 else str(q.numerator)
             steps.append({'lead': step, **val})
         units[u['id']] = {'node': node, 'steps': steps}
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)   # before the first write, not after
     pout = os.path.join(os.path.dirname(out), 'platforms-latest.json')
     with open(pout, 'w') as fh:
         json.dump({'run': d.strftime('%Y-%m-%dT00'), 'source': 'ECMWF open data (CC BY 4.0), the 00 UTC run, nearest sea node at 0.25 deg; values are the decoded GRIB doubles as exact fractions',

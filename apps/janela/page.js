@@ -1,4 +1,5 @@
-/* page.js — /janela/: the product face (pt-BR). Every number is read by
+/* page.js — /janela/metodo/: the method page, the app's "por que confiar" layer
+   (pt-BR; the app itself is /janela/, apps/janela/app/). Every number is read by
    numbers.js from the record that holds it. The week, its explanations and the
    charts are drawn by ONE function set, lib(), which the build runs in Node and
    the reader's tab runs from the page — serialised with toString(), so the grid
@@ -810,7 +811,7 @@ function build(N, B, git, battery) {
     + '<h1>A janela operacional, decidida.</h1>'
     + '<p class="deck">Para áreas de produção, plataformas e terminais de petróleo e GNL: a previsão do mar com o seu erro medido contra satélites, decidida contra o limite publicado — o da Capitania, o da DNV ou o seu. Cada horário sai com um de quatro vereditos e o motivo.</p>'
     + '<div class="jn-quad">' + quad.map((v) => '<div>' + L.chip(v, true) + '<p>' + esc(QUAD[v]) + '</p></div>').join('') + '</div>'
-    + '<div class="jn-cta"><a class="go" href="#semana">A semana ↓</a><a href="#mes">O mês ↓</a>' + (N.alpha ? '<a href="#alfa">O α do local ↓</a>' : '') + '<a href="#placar">O placar ↓</a><a href="#confiar">Por que confiar ↓</a></div>'
+    + '<div class="jn-cta"><a class="go" href="/janela/">Abrir o app ↗</a><a href="#semana">A semana ↓</a><a href="#mes">O mês ↓</a>' + (N.alpha ? '<a href="#alfa">O α do local ↓</a>' : '') + '<a href="#placar">O placar ↓</a><a href="#confiar">Por que confiar ↓</a></div>'
     + '</header>');
   out.push(C.stats([
     { k: 'locais', v: String(N.counted.sites), n: n('field') + ' áreas de produção, ' + n('platform') + ' plataforma, ' + n('terminal') + ' terminais e ' + n('coast') + ' ponto de costa; o nó do modelo de cada um, nomeado' },
@@ -975,6 +976,7 @@ function build(N, B, git, battery) {
     + '<div class="col">'
     + C.pRaw('<b>Aritmética exata.</b> Toda comparação é feita em racionais exatos, inteiros sem arredondamento: a previsão sai dos inteiros empacotados do GRIB (valor = (R + X·2<sup>E</sup>)/10<sup>D</sup>), o vento em nós por 1 nó = 463/900 m/s, os limites como impressos, com a vírgula virada ponto. Nenhum ponto flutuante decide. A borda é exata: uma borda de exatamente 2,0 contra “&lt; 2,0” é INDEFINIDA, nunca LIBERADA.')
     + C.pRaw('<b>A faixa medida.</b> Hs: a previsão determinística × o intervalo exato da razão observado/previsto nos pares satélite × previsão do local e do prazo (blocos de ' + N.bands.binHours + ' h). Vento: a previsão ± o erro medido em m/s no prazo (observado − previsto), com piso em zero. Cada faixa reivindica cobertura de ' + claim + ', um teorema de contagem sob a hipótese de que o próximo erro se parece com os ' + br.int(N.bands.rows) + ' pares do arquivo no mesmo local e prazo; o placar audita essa hipótese em público.')
+    + C.pRaw('<b>No app, a faixa arredondada para fora.</b> O app (<a href="/janela/">/janela/</a>) publica as faixas de cada local e de cada unidade de produção em decimais curtos, arredondados PARA FORA: Hs a 0,001 m e vento a 0,01 nó, a borda inferior para baixo e a superior para cima; a previsão determinística vai como o intervalo de 1 mm que a contém. Sobre uma faixa mais larga, um LIBERADA ou um VETADA continua valendo sobre a exata; só INDEFINIDA pode crescer. O build confere isso contra as decisões exatas desta página a cada dia e recusa se falhar. As unidades emprestam a faixa e o α do local medido mais perto, a até 350 km; mais longe, dizem SEM DADOS.')
     + C.pRaw('<b>A mesma conta, na sua aba.</b> A grade acima é decidida de novo no seu navegador pelos mesmos módulos que geraram o registro: ' + N.mods.map((m) => C.m(m.rel) + ' <span class="jn-pin">sha256 ' + esc(m.sha) + '</span>').join(' · ') + '. <span id="jn-sha" class="jn-pin">Com scripts desligados, a grade mostra o registro publicado.</span>')
     + C.pRaw('<b>A bateria.</b> ' + esc(battery.checks + ' verificações e ' + battery.reds + ' controles vermelhos a cada build') + ' — limites inclusivos e estritos na borda exata, a testemunha de um VETADA, o limiar de um INDEFINIDA, e recusas para unidade trocada, número em ponto flutuante, variável desconhecida e janela vazia.')
     + '<h3>Os limites honestos</h3>' + C.plainList(boundaries)
@@ -988,7 +990,7 @@ function build(N, B, git, battery) {
     + '<div class="col">' + C.p(N.dnv.source.title + '. Interpolação linear entre colunas; a janela TR vale o dobro do TPOP quando a contingência não é avaliada em detalhe (B402).') + '</div>'
     + '</details></div>'
     + '<div class="col">' + C.pRaw('<b>Refazer.</b> O código é aberto: <a href="' + REPO + '/tree/main/apps/janela">apps/janela</a> e <a href="' + REPO + '/tree/main/instruments/window">instruments/window</a>.')
-    + C.code('node instruments/window/battery.js\nnode apps/janela/build.js') + '</div>'
+    + C.code('node instruments/window/battery.js\nnode apps/janela/battery.js\nnode apps/janela/build.js\nnode apps/janela/build-today.js') + '</div>'
     + '</section>');
 
   const data = { def, sel: defSel, custom, ctx, sites: sitesOut, ops: opsOut, groupOf, work };
@@ -999,9 +1001,9 @@ function build(N, B, git, battery) {
   const foot = '<p>' + esc('Gerado por apps/janela/build.js a partir de ' + N.feed.file + ', certs/janela-bands.json, certs/janela-workability.json, '
     + (N.alpha ? 'certs/janela-alpha.json, ' : '') + 'certs/janela-ledger/, apps/janela/scenario/ e das suas regras; bateria do instrumento ' + battery.checks + ' verificações, ' + battery.reds + ' controles vermelhos.') + '</p><p>' + esc('git ' + git) + '</p>';
   const html = TPL.render({
-    title: 'Janela — a janela operacional, decidida', lang: 'pt-BR',
+    title: 'Janela — o método: a janela operacional, decidida', lang: 'pt-BR',
     desc: 'Janela decide janelas operacionais offshore no Brasil: a previsão ECMWF com o erro medido contra satélites, decidida contra o limite publicado (Capitania, DNV ou o seu): LIBERADA, VETADA, INDEFINIDA ou SEM DADOS, com o motivo.',
-    path: '/janela/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script
+    path: '/janela/metodo/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script
   });
   return { html, checked, def, data };
 }

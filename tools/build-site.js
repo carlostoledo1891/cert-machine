@@ -1839,7 +1839,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/janela/'];
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/janela/', '/janela/metodo/'];
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));

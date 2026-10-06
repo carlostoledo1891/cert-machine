@@ -119,7 +119,8 @@ function load(over) {
       need(c.oplim.length === 13 && c.opwfCells.length === 13, 'workability cell ' + sid + ' ' + k + ' is not 12 months + the year');
       cellsOut[k] = {
         T: c.TPOP, a: c.alpha, ad: trim(WK.decimal(c.alpha, 4)), wf: trim(c.opwfDec),
-        o: c.oplim.map((x) => [x[0], x[1]]), f: c.opwfCells.map((x) => [x[0], x[1]]),
+        /* [workable, determined, mean wait in hours to one decimal] per month and the year */
+        o: c.oplim.map((x) => [x[0], x[1], WK.decimal(x[2], 1)]), f: c.opwfCells.map((x) => [x[0], x[1], WK.decimal(x[2], 1)]),
         wo: WK.decimal(c.oplim[12][2], 1), wfw: WK.decimal(c.opwfCells[12][2], 1)
       };
     }
@@ -135,7 +136,7 @@ function load(over) {
       need(Q.cmp(Q.parse(a.alphaTable), Q.parse(c.a)) === 0, 'siteAlpha at ' + sid + ' ' + k + ' names a table alpha the cell does not use');
       need(a.cells.length === 13, 'siteAlpha at ' + sid + ' ' + k + ' is not 12 months + the year');
       c.s = { a: trim(WK.decimal(a.alphaSite, 2)), pt: a.alphaSitePoint, ci: a.alphaSiteCi90, wf: trim(a.opwfDec),
-        c: a.cells.map((x) => [x[0], x[1]]), w: WK.decimal(a.cells[12][2], 1) };
+        c: a.cells.map((x) => [x[0], x[1], WK.decimal(x[2], 1)]), w: WK.decimal(a.cells[12][2], 1) };
     }
     N.work.sites[sid] = { name: s.name, cells: cellsOut };
   }
