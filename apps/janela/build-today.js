@@ -78,7 +78,8 @@ if (fs.existsSync(FIELD)) {
 }
 
 /* the data */
-const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook };
+const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook,
+  decisions: N.ledger.decisions };
 const D = require('./app/data.js');
 let made;
 try { made = D.make({ feed, noaa, noaaUnits, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }

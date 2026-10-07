@@ -67,5 +67,12 @@
   "measured": "the ratio band is wider than ECMWF's at every site and lead (mean width over the bins 0, 24, 72, 120 and 156 h: 0.558 against 0.457): GFS-Wave's deterministic Hs tracks the altimeter less tightly than ECMWF's, and reads low at the equatorial margin (Potiguar at 24 h: 0.94-1.28)",
   "decides": "with calibrated-v1 under providers-v1: the union; measured on the 2026-10-07 day before it decided, the union moves 2,038 of 67,744 published letters, every one to INDEFINIDA (1,562 from LIBERADA, 453 from VETADA, 23 from SEM DADOS) — none flips",
   "domain": "janela/hs-altimeter/calibrated-noaa-v1"
+ },
+ "decision-level-v1 (apps/janela/audit/decisions.js)": {
+  "decided": "2026-10-07, before any decision was graded (the first observed day is 2026-10-06, observed 2026-10-09; the first kept day is 2026-10-07)",
+  "kept": "the published decisions at the open-sea sites a satellite can see (field, platform, coast), every preset and criterion, from the app's day, written once to certs/janela-decisions/YYYYMMDD.json right after the day is built (janela-field is overwritten daily)",
+  "graded": "the Hs limit of each preset only (the variable the altimeter measures); a window step is observed when a pass's mid-time is within 3 h of it (the pass nearest, score.js's rule); the sea between steps is never decided, so never graded; a window is graded only if it starts at least an hour after the decisions were kept",
+  "outcomes": "LIBERADA: held (every observed step within the limit) or broke (some observed step outside); VETADA: confirmed (some observed step outside) or open (every step observed, all within); unseen otherwise; a day not yet observed waits",
+  "stated": "descriptive counts, never an admission: a day's windows overlap and share passes; a LIBERADA's wind limit is not graded here"
  }
 }

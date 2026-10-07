@@ -199,6 +199,9 @@ function load(over) {
         tail: last ? last.tail : null, bar: last ? last.bar : null, bySite: p.breakdown.bySite, byLead: p.breakdown.byLead };
     })
   };
+  /* the published decisions, graded against the satellites (audit/decisions.js, decision-level-v1): counts only */
+  const DLV = require('./audit/decisions.js').load();
+  N.ledger.decisions = { rule: DLV.rule, days: DLV.days, graded: DLV.graded, byCrit: DLV.byCrit, broke: DLV.broke.slice(0, 12), brokeAll: DLV.broke.length };
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);
   N.ledger.scored = N.ledger.proposers.reduce((a, p) => a + p.scored, 0);
   N.ledger.first = N.ledger.proposers.map((p) => p.first).sort()[0] || null;

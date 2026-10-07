@@ -870,7 +870,23 @@ function drawPlacar() {
       + p.scored + ' avaliadas · ' + p.covered + ' cobertas · reivindicação ' + esc(p.claim) + ' · ' + p.sites + ' locais de mar aberto · desde ' + d(p.first) + '</p>'
       + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>' + breakdownHtml(p)
       + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham (três dias depois, quando o arquivo do NOAA está completo). O registro é só de acréscimo.</p>' : '') + '</div>';
+  }).join('') + decisionsHtml(T.ledger.decisions);
+}
+
+/* the published DECISIONS graded against the satellite (decision-level-v1): Hs only, descriptive counts */
+function decisionsHtml(D) {
+  if (!D) return '';
+  var CN = { band: 'faixa medida', table: 'DNV Tab. 4-1', site: 'α do local' };
+  var rows = ['band', 'table', 'site'].map(function (c) {
+    var b = D.byCrit[c];
+    return '<tr><td>' + CN[c] + '</td><td>' + b.L.held + '</td><td>' + b.L.broke + '</td><td>' + b.V.confirmed + '</td><td>' + b.V.open + '</td><td>' + (b.L.unseen + b.V.unseen) + '</td></tr>';
   }).join('');
+  var first = D.days && D.days.length ? D.days[0].slice(8, 10) + '/' + D.days[0].slice(5, 7) + '/' + D.days[0].slice(0, 4) : null;
+  return '<div class="jn-box"><div class="jn-k">As decisões, conferidas por satélite</div>'
+    + (D.graded ? '<div class="tw"><table class="jn-tbl"><thead><tr><th>critério</th><th>LIBERADA manteve</th><th>LIBERADA rompeu</th><th>VETADA confirmada</th><th>VETADA abriu</th><th>sem passagem</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+      + (D.brokeAll ? '<p class="jn-fine">LIBERADA que o mar rompeu: ' + D.broke.map(function (x) { return esc(x.site + ' · ' + x.preset + ' · ' + CN[x.crit] + ' · início ' + x.start.slice(8, 10) + '/' + x.start.slice(5, 7) + ' ' + x.start.slice(11, 13) + 'h · Hs ' + x.hs.map(function (h) { return dc(h[1]); }).join(', ') + ' m'); }).join('; ') + (D.brokeAll > D.broke.length ? '; …' : '') + '.</p>' : '')
+      : '<p class="jn-p">Nenhuma janela conferida ainda' + (first ? ': as decisões são guardadas desde ' + first + ', e cada dia é conferido três dias depois de fechar, quando o arquivo do NOAA está completo.' : '.') + '</p>')
+    + '<p class="jn-fine">Só a Hs, a variável que o altímetro mede como a decisão a entende, nos passos da janela com passagem a até 3 h. Contagens descritivas: as janelas de um dia se sobrepõem e dividem passagens. Regra fixada em 07/10/2026, antes da primeira conferência.</p></div>';
 }
 
 /* the scored rows per site and per lead: descriptive (a day's rows share their overflights) — the admission reads trials */

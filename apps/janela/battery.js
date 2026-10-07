@@ -343,6 +343,36 @@ red('a NOAA band inside ECMWF\'s leaves the decision band exactly ECMWF\'s; a RE
   assert.deepStrictEqual([refused.lo, refused.hi, refused.from], ['153/100', '187/100', undefined]);
 });
 
+/* ---- decision-level-v1 (audit/decisions.js): a published decision graded against the satellite ---- */
+const DL = require('./audit/decisions.js');
+const dlRec = (codeAt4, archivedAt) => {
+  const t = Array.from({ length: 29 }, (_, k) => new Date(Date.UTC(2026, 9, 7) + k * 6 * 3600e3).toISOString().slice(0, 13));
+  const one = Array(29).fill('-'); one[4] = codeAt4;
+  return { run: '2026-10-07T00', archivedAt: archivedAt || '2026-10-07T10:00:00Z', t, lead: t.map((_, k) => 6 * k),
+    presets: [{ id: 'lancamento', TR: 12, limits: [{ var: 'hs', op: '<=', value: '2.0', unit: 'm' }] }],
+    sites: { santos: { dec: { lancamento: one.join('') + '-'.repeat(58) } } } };
+};
+/* observed days 10-07 and 10-08, with a pass at santos at 2026-10-08T05:00 (the window from 08-00 covers steps 00, 06, 12) */
+const dlObs = (hs) => ({ '2026-10-07': { passes: {} }, '2026-10-08': { passes: hs === null ? {} : { santos: [{ tMid: '2026-10-08T05:00:00Z', hs }] } }, '2026-10-09': { passes: {} } });
+ok('decisions: a LIBERADA window (lançamento, Hs <= 2.0, 12 h from 08/10 00h) whose observed pass reads 1.8 m HELD; the record names the rule', () => {
+  const g = DL.grade([dlRec('L')], dlObs('9/5'));
+  assert.deepStrictEqual([g.graded, g.byCrit.band.L.held, g.byCrit.band.L.broke], [1, 1, 0]);
+  assert.ok(/decision-level-v1/.test(g.rule));
+});
+red('decisions: the same LIBERADA with the pass at 2.5 m BROKE, and is listed with the reading', () => {
+  const g = DL.grade([dlRec('L')], dlObs('5/2'));
+  assert.deepStrictEqual([g.byCrit.band.L.broke, g.broke[0].hs[0][1]], [1, '2.50']);
+});
+red('decisions: no pass within 3 h of any step is UNSEEN, never held; a day not yet observed WAITS; a window that opened before the decisions were kept (+1 h) is never graded', () => {
+  assert.strictEqual(DL.grade([dlRec('L')], dlObs(null)).byCrit.band.L.unseen, 1);
+  assert.strictEqual(DL.grade([dlRec('L')], { '2026-10-07': { passes: {} } }).byCrit.band.pending, 1);
+  assert.strictEqual(DL.grade([dlRec('L', '2026-10-07T23:30:00Z')], dlObs('9/5')).graded, 0);
+});
+ok('decisions: a VETADA whose observed step breaks the limit is CONFIRMED; one whose observed step is within, with steps unseen, is UNSEEN (nothing said)', () => {
+  assert.strictEqual(DL.grade([dlRec('V')], dlObs('5/2')).byCrit.band.V.confirmed, 1);
+  assert.strictEqual(DL.grade([dlRec('V')], dlObs('9/5')).byCrit.band.V.unseen, 1);
+});
+
 /* ---- the second provider (audit/commit.js --noaa over audit/noaa.py's day): the ECMWF target, its own proposer ---- */
 const CM = require('./audit/commit.js');
 const noaaFeed = (over) => ({ run: '2026-10-07T00',

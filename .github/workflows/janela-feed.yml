@@ -112,7 +112,9 @@ jobs:
         run: cd apps/janela/audit && python observe.py
       - name: score the ledger against those observations
         continue-on-error: true
-        run: node apps/janela/audit/score.js
+        run: |
+          node apps/janela/audit/score.js
+          node apps/janela/audit/decisions.js score
       - name: push the observations and the scores
         run: |
           bash apps/janela/audit/push.sh "Janela observed $(date -u +%F): satellite passes at the Janela sites (with their points) and the ledger scored" corpus/janela/observed certs/janela-ledger
@@ -135,13 +137,20 @@ jobs:
       - name: "the app's day, gated: both batteries, the run matched, every published decision re-decided from the written bytes"
         if: steps.day.outputs.done != 'true'
         run: node apps/janela/build-today.js --out "$RUNNER_TEMP/janela-field"
+      - name: keep the day's decisions at the observable sites on main (written once; graded once the days are observed)
+        if: steps.day.outputs.done != 'true'
+        continue-on-error: true
+        run: |
+          node apps/janela/audit/decisions.js archive "$RUNNER_TEMP/janela-field/today.json"
+          bash apps/janela/audit/push.sh "Janela decisions $(date -u +%F): the published decisions at the open-sea sites, kept for decision-level grading" certs/janela-decisions
       - name: publish the app's day as the single commit of the orphan branch janela-field
         if: steps.day.outputs.done != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUN: ${{ steps.day.outputs.run }}
         run: |
-          main=$(git rev-parse HEAD)
+          # the main commit the day was BUILT on (today.json names it), not a later push of this run
+          main=$(node -p "require(process.env.RUNNER_TEMP + '/janela-field/today.json').git")
           cd "$RUNNER_TEMP/janela-field"
           printf '%s\n' "# janela-field — the Janela app's day, overwritten daily" "" \
             "today.json: every place's forecast steps, its bands rounded outward and every published decision, with the sha256 of the deciding modules and of every input record." \
