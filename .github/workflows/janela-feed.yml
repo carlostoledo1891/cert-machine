@@ -119,7 +119,7 @@ jobs:
             "today.json: every place's forecast steps, its bands rounded outward and every published decision, with the sha256 of the deciding modules and of every input record." \
             "field.bin: the ECMWF forecast field over the Brazilian margin (JNF1; apps/janela/audit/field.py). ECMWF open data, CC BY 4.0." \
             "" "Built by apps/janela/build-today.js on main ${main}; one commit, force-pushed, so main never grows by a day of app data." \
-            "Re-run: git checkout ${main} && python apps/janela/audit/field.py ${RUN} && node apps/janela/build-today.js --feed ${RUN//-/}" > README.md
+            "Re-run: git checkout ${main} && python apps/janela/audit/field.py ${RUN} && python apps/janela/audit/noaa.py --units ${RUN} && node apps/janela/build-today.js --feed ${RUN//-/}" > README.md
           # Vercel reads the deployed commit's own vercel.json: this branch is data, never a deployment
           printf '%s\n' '{ "git": { "deploymentEnabled": false } }' > vercel.json
           git init -q -b janela-field

@@ -1486,7 +1486,7 @@ function certDownload(p) {
     rodada_ecmwf: T.run + ':00Z', lida: T.madeAt, codigo: T.git || null, digest_do_dia: T.digest, modulos: T.modules, registros: T.inputs,
     conferencia: { navegador: window.__janela.check || null, segundo_verificador: T.second || null },
     refazer: ['git clone https://github.com/carlostoledo1891/cert-machine', 'git checkout ' + (T.git ? T.git.replace(/\+dirty$/, '') : '<commit>'),
-      'python apps/janela/audit/field.py ' + T.run.slice(0, 10), 'node apps/janela/build-today.js --feed ' + T.run.slice(0, 10).replace(/-/g, '') + '   (digest ' + T.digest + ')',
+      'python apps/janela/audit/field.py ' + T.run.slice(0, 10), 'python apps/janela/audit/noaa.py --units ' + T.run.slice(0, 10), 'node apps/janela/build-today.js --feed ' + T.run.slice(0, 10).replace(/-/g, '') + '   (digest ' + T.digest + ')',
       'python3 instruments/window/verify/verify_day.py site/janela/data/today.json'],
     aviso: 'Não é aprovação de operação: é evidência que um vistoriador refaz. O α do local é uma estimativa; as decisões são exatas sobre a faixa publicada.'
   };
@@ -1523,7 +1523,7 @@ function nota() {
     + '<h2>Módulos que decidiram (sha256)</h2><table><tbody>' + mods + '</tbody></table>'
     + '<h2>Registros usados (sha256)</h2><table><tbody>' + recs + '</tbody></table>'
     + '<p>Conferência nesta aba: ' + esc(ck ? (ck.ok ? ck.n + ' decisões publicadas refeitas, iguais; módulos ' + ck.mods : 'DIFERENÇAS: ' + (ck.n - ck.same) + ' de ' + ck.n) : 'em andamento') + '. Digest publicado ' + esc(T.digest) + '.</p>'
-    + '<h2>Refazer</h2><p class="mono">git clone https://github.com/carlostoledo1891/cert-machine · git checkout ' + esc(T.git ? T.git.replace(/\+dirty$/, '') : '(commit não registrado neste dia)') + ' · python apps/janela/audit/field.py ' + esc(T.run.slice(0, 10)) + ' · node apps/janela/build-today.js --feed ' + esc(T.run.slice(0, 10).replace(/-/g, '')) + '</p>'
+    + '<h2>Refazer</h2><p class="mono">git clone https://github.com/carlostoledo1891/cert-machine · git checkout ' + esc(T.git ? T.git.replace(/\+dirty$/, '') : '(commit não registrado neste dia)') + ' · python apps/janela/audit/field.py ' + esc(T.run.slice(0, 10)) + ' · python apps/janela/audit/noaa.py --units ' + esc(T.run.slice(0, 10)) + ' · node apps/janela/build-today.js --feed ' + esc(T.run.slice(0, 10).replace(/-/g, '')) + '</p>'
     + '<p>O build-today refaz as baterias, lê a mesma rodada do ECMWF (o arquivo aberto é imutável) e imprime o digest de todas as decisões do dia: tem de ser ' + esc(T.digest) + '.' + (T.git && /\+dirty$/.test(T.git) ? ' Atenção: estes dados foram feitos de uma árvore com alterações não registradas.' : '') + '</p>'
     + '<p>Não é aprovação de operação: garantia marítima e sociedades classificadoras são donas dessa palavra. É evidência que um vistoriador refaz. O α do local é uma estimativa; as decisões são exatas sobre a faixa publicada. Impresso ' + esc(new Date().toISOString().slice(0, 16).replace('T', ' ')) + ' UTC.</p>';
   $('jn-nota').setAttribute('aria-hidden', 'false');

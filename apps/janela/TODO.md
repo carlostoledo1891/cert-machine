@@ -76,10 +76,14 @@
       providers-v1 dated (a raw ensemble is shown, never decided; two calibrated bands -> their union); the card draws
       NOAA's band as an outline beside ECMWF's hatch; the Action runs it after the ECMWF push, allowed to fail.
       `python apps/janela/audit/noaa.py --verify corpus/janela/feed-noaa/YYYYMMDD.json.gz` re-reads a day from NOAA.
-- [ ] NOAA at the 181 units (the card's band is read at the 13 sites only; field.py's route, janela-field data).
-- [ ] Swell partitions on the card (period/direction criteria for offloading and lifts): the feed carries them from 10-07.
-- [ ] The calibrated WW3 band: the GFS-Wave back-archive (AWS from 2021-04), matchups, conformal, its own pinned proposer;
-      then providers-v1's union decides.
+- [x] NOAA at the 181 units (noaa.py --units, after field.py in the Action; janela-field data, never main).
+- [x] The sea by parts on the card (NOAA's wind sea and three swells at the chosen hour; forecast ink, never decided).
+- [ ] Period/direction CRITERIA from the swell partitions (offloading heading, lifts): needs a cited limit per operation.
+- [x] The calibrated WW3 band (2026-10-07): GFS-Wave back-archive 2023-07-12..2026-10-05 in the cloud, 53,538 pairs,
+      certs/janela-bands-noaa.json, proposer calibrated-noaa-v1 pinned; providers-v1's union decides (2,038 of 67,744
+      letters move to INDEFINIDA on the 10-07 day, none flips). NOAA's ratio band is ~20% wider than ECMWF's.
+- [ ] A ranking rule for the providers (dated before any ranking is read), when both calibrated bands have looks.
 - [ ] NOAA's 06/12/18 UTC runs (a second cron) and hourly steps in the app.
+- [ ] Watch GitHub's schedule (2026-10-07: neither slot fired; five slots + tools/janela-watchdog.sh since).
 - [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
 
