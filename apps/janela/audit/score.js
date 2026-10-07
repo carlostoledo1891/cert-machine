@@ -10,7 +10,8 @@
    (instruments/forecast/ledger.js: exact Winkler score, covered or not, never
    rescored). A commit with no such pass stays unscored for good: pass times do
    not depend on the forecast. Prints the record and the admission state of
-   each proposer (exact binomial tail, instruments/forecast/admission.js).
+   each proposer — trials, looks and bars as placar.js defines them, the one
+   definition the method page and the app read too.
 
    MIT licensed. Part of cert-machine.                                    */
 'use strict';
@@ -18,13 +19,12 @@
 const fs = require('fs');
 const path = require('path');
 const L = require('../../../instruments/forecast/ledger.js');
-const A = require('../../../instruments/forecast/admission.js');
+const P = require('./placar.js');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const LEDGER = path.join(ROOT, 'certs', 'janela-ledger');
 const OBS = path.join(ROOT, 'corpus', 'janela', 'observed');
 const WINDOW_MS = 3 * 3600e3;
-const CLAIMS = { 'janela/hs-altimeter/ens-c40of50': [4, 5], 'janela/hs-altimeter/calibrated-v1': [9, 10] };
 
 function observedDay(day) {
   const p = path.join(OBS, day.replace(/-/g, '') + '.json');
@@ -58,23 +58,15 @@ function main() {
       scored++;
     }
   }
-  /* the record and admission, per proposer */
-  const per = {};
-  for (const f of files) {
-    const rows = L.rows(path.join(LEDGER, f));
-    const dom = Object.fromEntries(rows.filter((r) => r.type === 'commit').map((r) => [r.id, r.domain]));
-    for (const r of rows) {
-      const d = r.type === 'commit' ? r.domain : dom[r.id];
-      per[d] = per[d] || { commits: 0, scored: 0, covered: 0 };
-      if (r.type === 'commit') per[d].commits++;
-      else { per[d].scored++; if (r.covered) per[d].covered++; }
-    }
-  }
+  /* the record and admission, per proposer (placar.js: one trial per target day, looks at 30·2^j) */
+  const all = [].concat(...files.map((f) => L.rows(path.join(LEDGER, f))));
   console.log('janela score: ' + scored + ' newly scored, ' + waiting + ' waiting for observations, ' + nopass + ' with no pass within 3 h');
-  for (const [d, r] of Object.entries(per)) {
-    const claim = CLAIMS[d];
-    const adm = claim ? A.admit({ claim, scored: r.scored, covered: r.covered }) : null;
-    console.log('  ' + d + ': ' + r.commits + ' commits, ' + r.scored + ' scored, ' + r.covered + ' covered' + (adm ? ' — ' + adm.status + (adm.tailStr ? ' (tail ' + adm.tailStr + ')' : '') : ''));
+  for (const p of Object.values(P.record(all))) {
+    const a = p.admission;
+    const last = a.looks[a.looks.length - 1];
+    console.log('  ' + p.domain + ': ' + p.commits + ' commits, ' + p.scored + ' scored, ' + p.covered + ' covered (rows); '
+      + a.trials + ' trial days, ' + a.trialsCovered + ' covered — ' + a.status
+      + (a.pending ? ' (pending: first look at ' + P.FIRST_LOOK + ' trial days)' : ' (look at ' + last.m + ': tail ' + last.tail + ' vs bar ' + last.bar + ')'));
   }
 }
 

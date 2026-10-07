@@ -1,8 +1,10 @@
 /* build-today.js — the day's data for the Janela app, gated.
 
-   usage: node apps/janela/build-today.js [--out DIR] [--platforms FILE] [--field FILE]
+   usage: node apps/janela/build-today.js [--out DIR] [--platforms FILE] [--field FILE] [--feed YYYYMMDD]
+     --feed re-runs a past day: check out the main commit its today.json names, run
+     `python apps/janela/audit/field.py YYYY-MM-DD`, then this with --feed YYYYMMDD
      defaults: corpus/janela/field/{platforms-latest.json,latest.bin} -> site/janela/data/ (git-ignored:
-     the local fallback the app reads when the published copy is out of reach)
+     a LOCAL copy for a page opened from disk or a desk preview; production reads janela-field only)
 
    Refuses unless instruments/window/battery.js and apps/janela/battery.js are green, the units' forecast
    and the map field are the feed's own run, and every published decision re-decides identically from the
@@ -35,7 +37,16 @@ const battery = require('./gates.js').batteries(die);
 
 /* gate 2 — the inputs are one run */
 let N;
-try { N = require('./numbers.js').load(); } catch (e) { die(e.message); }
+const FEED_DAY = arg('--feed', null);
+if (FEED_DAY !== null && !/^\d{8}$/.test(FEED_DAY)) die('--feed takes YYYYMMDD');
+try { N = require('./numbers.js').load(FEED_DAY ? { feed: FEED_DAY } : {}); } catch (e) { die(e.message); }
+/* the main commit the day is built from, so a Nota de decisão names the code that decided it */
+let git = null;
+try {
+  const cp = require('child_process');
+  git = cp.execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim();
+  if (cp.execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: ROOT, encoding: 'utf8' }).trim()) git += '+dirty';
+} catch (e) { git = null; }
 const gz = fs.readFileSync(path.join(ROOT, N.feed.file));
 const raw = zlib.gunzipSync(gz);
 const feed = Object.assign(JSON.parse(raw.toString('utf8')), { file: N.feed.file, sha: sha(raw) });
@@ -51,10 +62,10 @@ if (fs.existsSync(FIELD)) {
 }
 
 /* the data */
-const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files };
+const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook };
 const D = require('./app/data.js');
 let made;
-try { made = D.make({ feed, platforms, fieldSha: field ? sha(field) : null, ledger, battery }); } catch (e) { die(e.message); }
+try { made = D.make({ feed, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
 const json = JSON.stringify(made.today);
 
 /* gate 3 — the tab's check, run here on the written bytes */

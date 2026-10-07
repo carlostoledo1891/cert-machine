@@ -231,4 +231,63 @@ ok('the presets: Alívio is the cited criterion, decided inclusive (Hs <= 3.5 m,
   assert.ok(MODEL.PRESETS.filter((p) => p.id !== 'alivio').every((p) => p.kind === 'example'));
 });
 
+/* ---- the PLACAR's admission (audit/placar.js): one trial per target day, looks at 30·2^j, sticky ---- */
+const PL = require('./audit/placar.js');
+const synth = (days, perDay, coveredOf, alpha) => {
+  const rows = [];
+  for (let d = 0; d < days; d++) {
+    const day = new Date(Date.UTC(2026, 9, 6) + d * 864e5).toISOString().slice(0, 10);
+    for (let k = 0; k < perDay; k++) {
+      const id = 'janela:s' + k + ':' + day + 'T00:+' + (6 * k) + 'h';
+      rows.push({ type: 'commit', id, domain: 'p', targetTime: day + 'T12:00:00Z', forecast: { alpha: alpha || [1, 5] } });
+      rows.push({ type: 'score', id, covered: coveredOf(d, k) });
+    }
+  }
+  return rows;
+};
+ok('placar: 30 target days of three rows each are 30 trials; all covered -> ADMITTED at the first look, tail 1 > 1/40', () => {
+  const r = PL.record(synth(30, 3, () => true)).p;
+  assert.strictEqual(r.scored, 90); assert.strictEqual(r.admission.trials, 30);
+  assert.strictEqual(r.admission.status, 'ADMITTED'); assert.strictEqual(r.admission.pending, false);
+  assert.deepStrictEqual([r.admission.looks[0].m, r.admission.looks[0].tail, r.admission.looks[0].bar], [30, '1', '1/40']);
+  assert.strictEqual(r.admission.next, 60);
+});
+red('placar: one bad overflight does not prune — two rows of one day both missed (the row count would: tail 1/25 <= 1/20) is one trial, pending', () => {
+  const rows = synth(1, 2, () => false);
+  const A = require('../../instruments/forecast/admission.js');
+  assert.strictEqual(A.admit({ claim: [4, 5], scored: 2, covered: 0 }).status, 'DEADMITTED');
+  const r = PL.record(rows).p.admission;
+  assert.strictEqual(r.trials, 1); assert.strictEqual(r.pending, true); assert.strictEqual(r.status, 'ADMITTED');
+});
+red('placar: the lot never reads the outcome — every covered flag flipped, the same row decides every day', () => {
+  const a = PL.trials(synth(40, 5, (d, k) => (d + k) % 3 === 0)).p.map((t) => t.id);
+  const b = PL.trials(synth(40, 5, (d, k) => (d + k) % 3 !== 0)).p.map((t) => t.id);
+  assert.deepStrictEqual(a, b);
+  assert.ok(new Set(PL.trials(synth(40, 5, () => true)).p.map((t) => t.id.split(':')[1])).size > 1, 'the lot visits more than one row');
+});
+red('placar: pruning is sticky — 30 days missed prune at the first look; 1,000 covered days after do not bring the version back', () => {
+  const r = PL.record(synth(30, 1, () => false)).p.admission;
+  assert.strictEqual(r.status, 'DEADMITTED'); assert.strictEqual(r.prunedAt.m, 30);
+  const r2 = PL.record(synth(1030, 1, (d) => d >= 30)).p.admission;
+  assert.strictEqual(r2.status, 'DEADMITTED'); assert.strictEqual(r2.prunedAt.m, 30); assert.strictEqual(r2.next, null);
+});
+ok('placar: the bars of every look ever sum to less than 1/20 (exact)', () => {
+  const L = PL.looks(30 * 2 ** 20);
+  assert.strictEqual(L.length, 21);
+  let num = 0n, den = 1n;
+  for (const l of L) { const [a, b] = l.bar.map(BigInt); num = num * b + a * den; den *= b; }
+  assert.ok(num * 20n < den, 'sum of bars ' + num + '/' + den + ' must be < 1/20');
+});
+red('placar: a proposer whose rows carry two claims is refused, never averaged', () => {
+  const rows = synth(2, 1, () => true);
+  rows[2].forecast.alpha = [1, 10];
+  assert.throws(() => PL.record(rows), /two different claims/);
+});
+ok('placar: the real ledger reads through placar.js, and every proposer stays pending until its 30th trial day', () => {
+  const LD = path.join(ROOT, 'certs', 'janela-ledger');
+  const LEDGER = require('../../instruments/forecast/ledger.js');
+  const rows = [].concat(...fs.readdirSync(LD).filter((f) => /^\d{6}\.jsonl$/.test(f)).map((f) => LEDGER.rows(path.join(LD, f))));
+  for (const p of Object.values(PL.record(rows))) assert.strictEqual(p.admission.pending, p.admission.trials < 30, p.domain);
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

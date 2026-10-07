@@ -22,7 +22,7 @@ const Q = require('../../instruments/window/q.js');
 const WK = require('../../instruments/window/workability.js');
 const TODAY = require('./audit/today.js');
 const LEDGER = require('../../instruments/forecast/ledger.js');
-const ADMIT = require('../../instruments/forecast/admission.js');
+const PLACAR = require('./audit/placar.js');
 
 /* "0.7900" -> "0.79", "1.844" stays: trailing zeros past the second decimal say nothing */
 const trim = (d) => String(d).replace(/^(-?\d+\.\d\d\d*?)0+$/, '$1');
@@ -53,11 +53,14 @@ function load(over) {
   const FEED = path.join(ROOT, 'corpus', 'janela', 'feed');
   const files = fs.readdirSync(FEED).filter((f) => /^\d{8}\.json\.gz$/.test(f)).sort();
   need(files.length, 'no feed in corpus/janela/feed');
-  const gz = fs.readFileSync(path.join(FEED, files[files.length - 1]));
+  /* over.feed = 'YYYYMMDD' re-runs a past day (build-today.js --feed); default the newest */
+  const pick = over.feed ? over.feed + '.json.gz' : files[files.length - 1];
+  need(files.includes(pick), 'no feed ' + pick + ' in corpus/janela/feed');
+  const gz = fs.readFileSync(path.join(FEED, pick));
   const raw = zlib.gunzipSync(gz);
   const feed = JSON.parse(raw.toString('utf8'));
   need(feed.run && feed.madeAt && feed.sites, 'the feed lost run/madeAt/sites');
-  N.feed = { file: 'corpus/janela/feed/' + files[files.length - 1], sha: sha(raw), gzSha: sha(gz), run: feed.run, madeAt: feed.madeAt,
+  N.feed = { file: 'corpus/janela/feed/' + pick, sha: sha(raw), gzSha: sha(gz), run: feed.run, madeAt: feed.madeAt,
     ensemble: feed.ensemble, groups: (feed.groups || []).length, licence: feed.licence };
 
   /* ---- the band record, and the week decided over it (audit/today.js) ---- */
@@ -152,33 +155,28 @@ function load(over) {
   const lfiles = fs.existsSync(LD) ? fs.readdirSync(LD).filter((f) => /^\d{6}\.jsonl$/.test(f)).sort() : [];
   const rows = [].concat(...lfiles.map((f) => LEDGER.rows(path.join(LD, f))));
   const defs = fs.existsSync(path.join(LD, 'DEFINITIONS.json')) ? JSON.parse(fs.readFileSync(path.join(LD, 'DEFINITIONS.json'), 'utf8')) : {};
-  const byId = {};
+  /* the descriptive window of each proposer (first/last commit, targets, sites) */
   const dom = {};
   for (const r of rows) {
     if (r.type !== 'commit') continue;
-    byId[r.id] = r;
-    const d = dom[r.domain] = dom[r.domain] || { domain: r.domain, commits: 0, scored: 0, covered: 0, first: null, last: null, tFirst: null, tLast: null, alpha: null, sites: new Set() };
-    d.commits++;
+    const d = dom[r.domain] = dom[r.domain] || { first: null, last: null, tFirst: null, tLast: null, sites: new Set() };
     d.sites.add(r.id.split(':')[1]);
     if (!d.first || r.madeAt < d.first) d.first = r.madeAt;
     if (!d.last || r.madeAt > d.last) d.last = r.madeAt;
     if (!d.tFirst || r.targetTime < d.tFirst) d.tFirst = r.targetTime;
     if (!d.tLast || r.targetTime > d.tLast) d.tLast = r.targetTime;
-    if (r.forecast && r.forecast.alpha) d.alpha = r.forecast.alpha.map(Number);
   }
-  for (const r of rows) {
-    if (r.type !== 'score') continue;
-    const c = byId[r.id]; need(c, 'a score row with no commit: ' + r.id);
-    dom[c.domain].scored++; if (r.covered) dom[c.domain].covered++;
-  }
+  /* counts, claim and admission: placar.js, the one definition score.js prints too */
+  let rec;
+  try { rec = PLACAR.record(rows); } catch (e) { need(false, 'the ledger: ' + e.message); }
   N.ledger = {
-    files: lfiles.map((f) => 'certs/janela-ledger/' + f), defs,
-    proposers: Object.values(dom).sort((a, b) => b.commits - a.commits).map((d) => {
-      need(d.alpha, 'ledger domain ' + d.domain + ' carries no alpha');
-      const claim = [d.alpha[1] - d.alpha[0], d.alpha[1]];
-      const adm = ADMIT.admit({ claim, scored: d.scored, covered: d.covered });
-      return { domain: d.domain, commits: d.commits, scored: d.scored, covered: d.covered, first: d.first, last: d.last,
-        tFirst: d.tFirst, tLast: d.tLast, sites: d.sites.size, claim: claim.join('/'), status: adm.status, tail: adm.tailStr, bar: adm.bar.join('/') };
+    files: lfiles.map((f) => 'certs/janela-ledger/' + f), defs, rule: PLACAR.RULE, firstLook: PLACAR.FIRST_LOOK,
+    proposers: Object.values(rec).sort((a, b) => b.commits - a.commits).map((p) => {
+      const d = dom[p.domain], a = p.admission, last = a.looks[a.looks.length - 1] || null;
+      return { domain: p.domain, commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
+        tFirst: d.tFirst, tLast: d.tLast, sites: d.sites.size, claim: p.claim, status: a.status, pending: a.pending,
+        trials: a.trials, trialsCovered: a.trialsCovered, next: a.next, looks: a.looks, prunedAt: a.prunedAt,
+        tail: last ? last.tail : null, bar: last ? last.bar : null };
     })
   };
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);

@@ -109,13 +109,22 @@ function sig(op) { return op.id + '|' + op.TR + '|' + op.limits.map(function (l)
 function ctxOf(p) { return { dnv: DNV, wind46: CFG.wind46, site: p.alphaFrom ? CFG.alphaT[p.alphaFrom] : null, why: p.siteWhy }; }
 var CIX = { band: 0, table: 1, site: 2 };
 var memo = {};
+/* PUBOK: the day's published codes are served only when it was made by this page's model AND modules;
+   otherwise every code is decided here, so the map, the list and the card can never disagree */
+var PUBOK = true;
+/* where an operation applies (model.js PRESETS[].appliesTo, the one definition): offloading needs storage */
+function applies(op, p) {
+  var a = op && op.appliesTo; if (!a || !p) return true;
+  return p.kind === 'uep' ? a.types.indexOf(p.type) >= 0 : a.kinds.indexOf(p.kind) >= 0;
+}
 /* the 29 letters for a place, the operation in force and a criterion: published, or decided here */
 function codes(id, crit, cur) {
   cur = cur || current();
   if (!cur || !STEPS[id]) return null;
   crit = crit || S.crit;
   var op = cur.op;
-  if (cur.pub && T.dec[id]) {
+  if (!applies(op, PL[id])) return repeat('n', AX.length);
+  if (PUBOK && cur.pub && T.dec[id]) {
     var s = T.dec[id][op.id];
     if (s) return op.npcp ? (crit === 'band' ? s : repeat('n', AX.length)) : s.substr(CIX[crit] * AX.length, AX.length);
     if (op.npcp) return repeat('n', AX.length);
@@ -196,9 +205,11 @@ function answer() {
 function edgeWord(w) { var up = /^</.test(w.limit); return (up ? 'de pelo menos ' : 'de no máximo ') + q2(w.edge, 2) + ' ' + (w.var === 'hs' ? 'm' : 'nós'); }
 function fleetAnswer(el, cur) {
   var cnt = { L: 0, I: 0, V: 0, S: 0, n: 0 }, tot = 0;
-  VIS.forEach(function (p) { var c = codes(p.id); if (!c) return; var v = c[S.i]; if (v === '-') return; tot++; cnt[v === 'R' ? 'S' : v] = (cnt[v === 'R' ? 'S' : v] || 0) + 1; });
+  var out = 0;
+  VIS.forEach(function (p) { if (!applies(cur.op, p)) { out++; return; } var c = codes(p.id); if (!c) return; var v = c[S.i]; if (v === '-' || v === 'n') return; tot++; cnt[v === 'R' ? 'S' : v] = (cnt[v === 'R' ? 'S' : v] || 0) + 1; });
   el.innerHTML = '<p class="jn-ans"><b>' + esc(cur.name) + ', começando ' + esc(wtxt(AX[S.i])) + ':</b> <span class="jn-t">' + cnt.L + '</span> <span class="jn-dim">de ' + tot + ' locais</span> ' + chip('L') + '</p>'
-    + '<p class="jn-sub"><span>' + cnt.I + ' INDEFINIDA · ' + cnt.V + ' VETADA · ' + cnt.S + ' SEM DADOS · toque num local para a próxima janela dele</span></p>';
+    + '<p class="jn-sub"><span>' + cnt.I + ' INDEFINIDA · ' + cnt.V + ' VETADA · ' + cnt.S + ' SEM DADOS · toque num local para a próxima janela dele</span></p>'
+    + (out ? '<p class="jn-fine">' + esc(cur.op.appliesTo.why) + ': ' + out + ' unidades fora desta conta.</p>' : '');
 }
 function missingShort(p, r, op) {
   if (!r) return '';
@@ -314,7 +325,7 @@ function drawOps() {
       + '<label>janela (h)<input class="jn-in" id="jn-tr" inputmode="numeric" value="' + op.TR + '"></label>'
       + (cur.pub || op.own ? '' : '<button type="button" class="jn-btn" id="jn-reset">restaurar</button>') + '</div>';
     var P = preset(S.op);
-    if (op.own) h += '<p class="jn-src">O seu procedimento, decidido nesta aba pelos mesmos módulos. Nada sai do seu navegador; o endereço guarda os números para você compartilhar.</p>';
+    if (op.own) h += '<p class="jn-src">' + (S.own ? '' : '<span class="jn-tag">exemplo</span>os valores de partida (Hs 2,5 m, vento 25 nós, 12 h) não são regra de ninguém: digite os do seu procedimento. ') + 'O seu procedimento, decidido nesta aba pelos mesmos módulos. Nada sai do seu navegador; o endereço guarda os números para você compartilhar.</p>';
     else if (P && P.kind === 'cited') h += '<details class="jn-src cited"><summary><span class="jn-tag">citado</span>critério de alívio citado em 2010 (OMAE2010-20147) — confirme com o procedimento vigente</summary>'
       + esc(P.source) + '. <a href="' + esc(P.sourceUrl) + '">fonte</a>'
       + '<br><b>Conferido por quem opera, não decidido aqui:</b><ul>' + P.notDecided.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></details>';
@@ -364,7 +375,7 @@ function drawCrit() {
     b.setAttribute('aria-checked', k === S.crit ? 'true' : 'false');
     if (!T || !cur0 || !small) return;
     if (p0) { var cc = codes(p0.id, k, cur0); var v = cc ? cc[S.i] : '-'; small.innerHTML = g(v) + esc(v === 'n' ? 'NÃO SE APLICA' : WORD[v]); small.className = 'v ' + v; }
-    else { var nL = 0, nT = 0; VIS.forEach(function (p) { var cc2 = codes(p.id, k, cur0); if (!cc2 || cc2[S.i] === '-' || cc2[S.i] === 'n') return; nT++; if (cc2[S.i] === 'L') nL++; }); small.innerHTML = g('L') + nL + ' de ' + nT; small.className = 'v'; }
+    else { var nL = 0, nT = 0, nN = 0; VIS.forEach(function (p) { if (!applies(cur0.op, p)) return; var cc2 = codes(p.id, k, cur0); if (!cc2 || cc2[S.i] === '-') return; if (cc2[S.i] === 'n') { nN++; return; } nT++; if (cc2[S.i] === 'L') nL++; }); small.innerHTML = nT ? g('L') + nL + ' de ' + nT : 'não se aplica'; small.className = 'v'; b.title = nN ? nN + ' locais onde este critério não se aplica a este limite' : ''; }
   });
   var cur = current(), x = '';
   if (!cur) { $('jn-critx').textContent = ''; return; }
@@ -378,6 +389,11 @@ function drawCrit() {
     if (al) x += ' — aqui α ' + q2(al.hs, 4) + (al.wind ? ', vento α ' + q2(al.wind, 2) + ' (Tabela 4-6)' : '') + ', TPOP ' + al.TPOP + ' h.';
     else if (r && r.verdict === 'n/a') x += '. Aqui não se aplica: ' + r.why + '.';
     else x += '.';
+    /* the site alpha's reach, said once for the fleet: three years of satellite pairs hold Hs up to 2 m, rarely above */
+    if (S.crit === 'site' && !p) {
+      var hsL = cur.op.limits.filter(function (l) { return l.var === 'hs'; })[0];
+      if (hsL && Number(hsL.value) > 2) x += ' O α do local foi estimado para Hs de projeto até 2 m (até 4 m só em Pelotas): três anos de pares previsão × satélite têm menos de 30 casos de mar alto por célula, e não se extrapola. Ele decide as operações de Hs ≤ 2 m — Lançamento, Içamento, o seu limite.';
+    }
   }
   $('jn-critx').textContent = x;
 }
@@ -392,10 +408,33 @@ function rank(p) {
   if (c.indexOf('S', iNow) >= 0) return [3000, 0];
   return [4000, 0];
 }
+/* the margin of a place's next LIBERADA window: the smallest distance, over the window's steps, between the
+   unfavourable edge the criterion decides on and the limit it decides against (Hs in m, wind in knots) */
+function margin(p) {
+  var c = codes(p.id), cur = current(); if (!c || !cur) return null;
+  var n = nextL(c, iNow); if (!n) return null;
+  var r = full(p.id, n.k); if (!r || r.verdict !== 'LIBERADA') return null;
+  var band = S.crit === 'band', lims = band ? cur.op.limits : (r.opwf || []);
+  var span = C.span(STEPS[p.id], n.k, cur.op.TR) || [n.k], best = null;
+  lims.forEach(function (l) {
+    if ((l.var !== 'hs' && l.var !== 'wind_sustained') || (l.op !== '<=' && l.op !== '<')) return;
+    var key = band ? (l.var === 'hs' ? 'hb' : 'wb') : (l.var === 'hs' ? 'hd' : 'wd'), top = null;
+    span.forEach(function (k) { var b = STEPS[p.id][k][key]; if (!b) return; var x = Q.parse(b[1]); if (top === null || Q.cmp(x, top) > 0) top = x; });
+    if (top === null) return;
+    /* exact gap, shown rounded DOWN: the margin is never overstated */
+    var lim = Q.parse(l.value), gapQ = Q.sub(lim, top), rel = Number(Q.dec(Q.div(gapQ, lim), 4, 'down'));
+    if (!best || rel < best.rel) best = { var: l.var, gap: Q.dec(gapQ, l.var === 'hs' ? 2 : 1, 'down'), rel: rel };
+  });
+  return best;
+}
 function nxText(p) {
   var c = codes(p.id); if (!c) return '';
   var cur = current(), n = nextL(c, iNow);
-  if (n) return '<b>' + esc(wtxt(AX[n.k])) + '</b> · ' + (LEAD[n.j] - LEAD[n.k] + C.trOf(cur.op.TR)) + ' h';
+  if (n) {
+    var open = !/[VISR]/.test(c.slice(n.j + 1)), m = margin(p);
+    return '<b>' + esc(wtxt(AX[n.k])) + '</b> · ' + (open ? 'até o fim' : (LEAD[n.j] - LEAD[n.k] + C.trOf(cur.op.TR)) + ' h')
+      + (m ? '<small>folga ' + dc(m.gap) + ' ' + (m.var === 'hs' ? 'm' : 'nós') + '</small>' : '');
+  }
   var ki = c.indexOf('I', iNow); if (ki >= 0) return 'INDEFINIDA ' + esc(wtxt(AX[ki]));
   if (c.indexOf('V', iNow) >= 0) return 'VETADA';
   if (c.indexOf('S', iNow) >= 0) return 'SEM DADOS';
@@ -404,18 +443,23 @@ function nxText(p) {
 function drawList() {
   if (!T) return;
   var q = fold(S.q), cur = current();
+  var hidden = 0;
   var rows = VIS.filter(function (p) {
+    if (!applies(cur.op, p)) { hidden++; return false; }
     if (S.kind === 'uep' && p.kind !== 'uep') return false;
     if (S.kind === 'own' && p.kind === 'uep') return false;
     if (!q) return true;
     return fold(p.name + ' ' + (p.full || '') + ' ' + (p.serves || '') + ' ' + (p.type || '') + ' ' + (p.operator || '')).indexOf(q) >= 0;
   });
   var rk = {}; rows.forEach(function (p) { rk[p.id] = rank(p); });
-  rows.sort(function (a, b) { var x = rk[a.id], y = rk[b.id]; return x[0] - y[0] || x[1] - y[1] || short(a).localeCompare(short(b)); });
+  var mg = {}; rows.forEach(function (p) { mg[p.id] = margin(p); });
+  var mgv = function (id) { return mg[id] ? mg[id].rel : 9; };
+  rows.sort(function (a, b) { var x = rk[a.id], y = rk[b.id]; return x[0] - y[0] || x[1] - y[1] || mgv(a.id) - mgv(b.id) || short(a).localeCompare(short(b)); });
   var cnt = { L: 0, I: 0, V: 0, S: 0 };
   rows.forEach(function (p) { var c = codes(p.id); var v = c ? c[S.i] : '-'; if (cnt[v === 'R' ? 'S' : v] !== undefined) cnt[v === 'R' ? 'S' : v]++; });
-  $('jn-listk').innerHTML = (q ? 'busca: ' + rows.length + ' de ' + VIS.length : (S.kind === 'uep' ? 'as unidades' : S.kind === 'own' ? 'bacias e terminais' : 'todos os locais')) + ', <b>pela próxima janela</b>';
-  $('jn-fleet').innerHTML = 'em ' + esc(wtxt(AX[S.i])) + ': <span>' + g('L') + cnt.L + '</span><span>' + g('I') + cnt.I + '</span><span>' + g('V') + cnt.V + '</span><span>' + g('S') + cnt.S + '</span>';
+  $('jn-listk').innerHTML = (q ? 'busca: ' + rows.length + ' de ' + VIS.length : (S.kind === 'uep' ? 'as unidades' : S.kind === 'own' ? 'bacias e terminais' : 'todos os locais')) + ', <b>pela próxima janela</b>, menor folga primeiro';
+  $('jn-fleet').innerHTML = 'em ' + esc(wtxt(AX[S.i])) + ': <span>' + g('L') + cnt.L + '</span><span>' + g('I') + cnt.I + '</span><span>' + g('V') + cnt.V + '</span><span>' + g('S') + cnt.S + '</span>'
+    + (hidden ? '<span title="' + esc(cur.op.appliesTo.why) + '">+ ' + hidden + ' sem armazenagem, fora</span>' : '');
   var shown = rows.slice(0, S.listN);
   $('jn-rows').innerHTML = shown.map(function (p) {
     var c = codes(p.id) || repeat('-', AX.length), ms = '';
@@ -436,11 +480,23 @@ $('jn-kind').addEventListener('click', function (e) {
 });
 
 /* ================================================================ the site card */
+/* why the site alpha is silent here, in a tile's words: never "no alpha" where one was estimated for other limits */
+function alphaUpTo(p) {
+  var t = p.alphaFrom && CFG.alphaT[p.alphaFrom]; if (!t) return null;
+  var top = null; Object.keys(t.rows).forEach(function (r) { t.rows[r].forEach(function (v, i) { if (v !== null && (top === null || t.columns[i] > top)) top = t.columns[i]; }); });
+  return top;
+}
+function siteShort(p, r) {
+  if (/pares insuficientes/.test(r.why)) { var up = alphaUpTo(p); return up ? 'α do local só até Hs ' + dc(String(up)) + ' m' : 'α do local não estimado aqui'; }
+  if (/terminal/.test(r.why)) return 'não se aplica num terminal';
+  if (/medição|estimado/.test(r.why)) return 'sem α do local nesta região';
+  return 'não se aplica';
+}
 function nodeLine(p) {
   var s = T.places[p.id];
   var ll = function (a) { return dec(Math.abs(a[0]), 2) + '°' + (a[0] < 0 ? 'S' : 'N') + ' ' + dec(Math.abs(a[1]), 2) + '°' + (a[1] < 0 ? 'W' : 'E'); };
   var at = 'Previsão ECMWF lida no nó ' + ll(s.node) + ' do modelo';
-  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km).' : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.');
+  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km)' + (alphaUpTo(p) ? '; o α, estimado para Hs de projeto até ' + dc(String(alphaUpTo(p))) + ' m (acima disso, três anos de satélite têm menos de 30 pares por célula).' : '.') : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.');
   if (p.kind === 'terminal') return at + ': o mar aberto da APROXIMAÇÃO, não o berço. A faixa medida vem de ' + short(PL[s.bandFrom] || { name: s.bandFrom || '—', kind: 'field' }) + ': um altímetro não enxerga dentro de uma baía.';
   return at + '; a faixa medida e o α são deste local (pares satélite × previsão de 2023 a 2026).';
 }
@@ -490,7 +546,7 @@ function drawCard() {
   var tile = function (k) {
     var r = res[k], c = vcode(r), e;
     if (r === null) e = 'além da previsão';
-    else if (r.verdict === 'n/a') e = k === 'site' && /estimado|medição|terminal/.test(r.why) ? 'sem α do local aqui' : 'não se aplica';
+    else if (r.verdict === 'n/a') e = k === 'site' ? siteShort(p, r) : 'não se aplica';
     else if (k === 'band') e = op.limits.filter(function (l) { return l.var === 'hs' || l.var === 'wind_sustained'; }).map(function (l) { return VAR[l.var] + ' ' + OPW[l.op] + ' ' + dc(l.value); }).join(' · ') || 'limites da regra';
     else e = 'α ' + q2(r.alpha.hs, 3) + ' → ' + r.opwf.filter(function (l) { return l.var === 'hs'; }).map(function (l) { return 'Hs ≤ ' + q2(l.value, 2); }).join('');
     return '<div class="' + (k === S.crit ? 'on ' : '') + (k === 'site' ? 'est' : '') + '"><span class="h">' + esc(CSHORT[k]) + '</span><span class="w">' + chip(c) + '</span><span class="e">' + esc(e) + '</span></div>';
@@ -500,7 +556,7 @@ function drawCard() {
     for (var i = 0; i < c.length; i++) cells += '<i class="' + (i === S.i ? 'cur' : '') + '" data-k="' + i + '" title="' + esc(wtxt(AX[i], true) + ' · ' + WORD[c[i]]) + '">' + g(c[i]) + '</i>';
     return '<span class="l' + (k === S.crit ? ' on' : '') + '">' + esc(CSHORT[k]) + '</span><span class="ms" data-crit="' + k + '">' + cells + '</span>';
   }).join('');
-  var isTank = p.kind === 'uep' && /FPSO|FSO|NAVIO/.test(p.type || '');
+  var isTank = p.kind === 'uep' && applies(preset('alivio'), p);
   var h = '<div class="jn-ch"><div class="jn-grow"><div class="jn-k">' + esc(eyebrow) + '</div><h2>' + esc(p.kind === 'uep' ? p.name : p.name) + '</h2>'
     + (p.kind === 'uep' && p.full && p.full !== p.name ? '<div class="jn-fine">' + esc(p.full) + (p.oilBpd ? ' · capacidade de processamento ' + grp(p.oilBpd) + ' bpd (ANP)' : '') + '</div>' : '')
     + '<p class="jn-node">' + esc(nodeLine(p)) + '</p></div><button type="button" class="jn-x" id="jn-close" aria-label="Fechar o local (Esc)">×</button></div>'
@@ -510,8 +566,8 @@ function drawCard() {
     + '<div><div class="jn-k">a semana, pelos três critérios</div><div class="jn-mx" id="jn-mx">' + mx + '</div></div>'
     + chartHs(p, cur) + chartWind(p, cur) + dirs(p)
     + '<div class="jn-note">' + currentNote(p) + '</div>'
-    + (isTank && S.op === 'alivio' ? tank(p, cs.band) : '')
-    + waitCost(p, cs[S.crit])
+    + (isTank && S.op === 'alivio' ? tank(p) : '')
+    + waitCost(p)
     + '<button type="button" class="jn-btn" id="jn-nota-b">Nota de decisão ↓ imprimir</button>';
   box.innerHTML = h;
   $('jn-close').onclick = function () { select(null); };
@@ -627,16 +683,29 @@ function dirs(p) {
 }
 
 /* ---- ALÍVIO CRÍTICO: the user's tanks against the next LIBERADA offloading window ---- */
-function tank(p, cband) {
+/* the codes a planning line counts on: the chosen criterion, or the measured band where the chosen one does not apply */
+function planCodes(p) {
+  var c = codes(p.id, S.crit);
+  if (c && /[LVIS]/.test(c)) return { c: c, crit: S.crit, fell: false };
+  return { c: codes(p.id, 'band') || '', crit: 'band', fell: S.crit !== 'band' };
+}
+function tank(p) {
   var v = {}; try { v = JSON.parse(store.get('tank.' + p.id) || '{}'); } catch (e) { v = {}; }
   var f = function (k, lab, ph) { return '<label>' + lab + '<input class="jn-in" data-tank="' + k + '" inputmode="numeric" value="' + esc(v[k] || '') + '" placeholder="' + ph + '"></label>'; };
   var h = '<div><div class="jn-k">alívio crítico · <b>os seus números</b></div><div class="jn-tank">' + f('cap', 'armazenagem (bbl)', '1.600.000') + f('inv', 'estoque agora (bbl)', '1.200.000') + f('bpd', 'produção (bpd)', '100.000') + '</div>'
     + '<div class="jn-tank">' + f('price', 'preço (US$/bbl, opcional)', '—') + '</div>';
-  var num = function (x) { var n = Number(String(x || '').replace(/\./g, '').replace(',', '.')); return isFinite(n) && n > 0 ? n : null; };
-  var cap = num(v.cap), inv = num(v.inv), bpd = num(v.bpd), price = num(v.price);
-  var c = codes(p.id, S.crit) || cband || '';
-  var n = nextL(c, iNow);
-  if (cap && inv !== null && bpd && cap > inv) {
+  var num0 = function (x) { var s = String(x || '').trim(); if (!s) return null; var n = Number(s.replace(/\./g, '').replace(',', '.')); return isFinite(n) && n >= 0 ? n : null; };
+  var num = function (x) { var n = num0(x); return n ? n : null; };
+  var cap = num(v.cap), inv0 = num0(v.inv), bpd = num(v.bpd), price = num(v.price);
+  var pc = planCodes(p), c = pc.c, n = nextL(c, iNow);
+  var crit = CSHORT[pc.crit] + (pc.fell ? ', porque o critério escolhido não se aplica aqui' : '');
+  /* the inventory was typed at v.at: production has run since (offloads, if any, are the user's to re-type) */
+  var since = v.at ? Math.max(0, (Date.now() - v.at) / 3600e3) : 0;
+  var inv = inv0 === null ? null : inv0 + (bpd ? bpd * since / 24 : 0);
+  var ago = v.at && since >= 1 ? ' Estoque digitado há ' + Math.round(since) + ' h; contado com a produção desde então (sem alívio no meio), ~' + grp(inv) + ' bbl.' : '';
+  if (cap && inv !== null && bpd && inv >= cap) {
+    h += '<div class="jn-crit-a" role="alert"><span class="t">ALÍVIO CRÍTICO</span><p>Pelos seus números os tanques já estão cheios. ' + (n ? 'A próxima janela LIBERADA (' + esc(crit) + ') abre ' + esc(wtxt(AX[n.k])) + '.' : 'Nenhuma janela LIBERADA (' + esc(crit) + ') nos 7 dias desta previsão.') + esc(ago) + '</p></div>';
+  } else if (cap && inv !== null && bpd) {
     var hours = (cap - inv) / bpd * 24, fullAt = Date.now() + hours * 3600e3;
     var fullT = new Date(fullAt).toISOString().slice(0, 13);
     var opens = n ? Date.parse(AX[n.k] + ':00:00Z') : null;
@@ -644,16 +713,18 @@ function tank(p, cband) {
     if (opens === null || opens > fullAt) {
       var gap = opens === null ? null : (opens - fullAt) / 3600e3;
       var lost = gap === null ? null : gap / 24 * bpd;
-      h += '<div class="jn-crit-a" role="alert"><span class="t">ALÍVIO CRÍTICO</span><p>' + esc(fullTxt) + ', e ' + (n ? 'a próxima janela LIBERADA (' + CSHORT[S.crit] + ') só abre ' + wtxt(AX[n.k]) + ': ' + Math.round(gap) + ' h depois.' : 'nenhuma janela LIBERADA nos 7 dias desta previsão.')
-        + (lost ? ' Produção adiada, pela sua conta: ~' + grp(lost) + ' bbl' + (price ? ' ≈ US$ ' + grp(lost * price) : '') + '.' : '') + '</p></div>';
-    } else h += '<p class="jn-crit-ok">' + esc(fullTxt) + '; a próxima janela LIBERADA abre ' + esc(wtxt(AX[n.k])) + ', ' + Math.round((fullAt - opens) / 3600e3) + ' h antes.</p>';
+      h += '<div class="jn-crit-a" role="alert"><span class="t">ALÍVIO CRÍTICO</span><p>' + esc(fullTxt) + ', e ' + (n ? 'a próxima janela LIBERADA (' + esc(crit) + ') só abre ' + esc(wtxt(AX[n.k])) + ': ' + Math.round(gap) + ' h depois.' : 'nenhuma janela LIBERADA (' + esc(crit) + ') nos 7 dias desta previsão.')
+        + (lost ? ' Produção adiada, pela sua conta: ~' + grp(lost) + ' bbl' + (price ? ' ≈ US$ ' + grp(lost * price) : '') + '.' : '') + esc(ago) + '</p></div>';
+    } else h += '<p class="jn-crit-ok">' + esc(fullTxt) + '; a próxima janela LIBERADA (' + esc(crit) + ') abre ' + esc(wtxt(AX[n.k])) + ', ' + Math.round((fullAt - opens) / 3600e3) + ' h antes.' + esc(ago) + '</p>';
   } else h += '<p class="jn-fine">Digite armazenagem, estoque e produção: a Janela põe "tanques cheios em X h" ao lado da próxima janela de alívio. Os números ficam só neste navegador.</p>';
   return h + '</div>';
 }
-function waitCost(p, c) {
+function waitCost(p) {
   var rate = Number(String(store.get('diaria') || '').replace(/\./g, '').replace(',', '.')) || null;
   var h = '<div><div class="jn-k">o custo da espera · <b>a sua diária</b></div><div class="jn-edit"><label>diária (R$/dia)<input class="jn-in wide" id="jn-rate" inputmode="numeric" value="' + (rate ? grp(rate) : '') + '" placeholder="ex. 250.000"></label></div>';
+  var pc = planCodes(p), c = pc.c;
   var n = c ? nextL(c, iNow) : null;
+  if (pc.fell) h += '<p class="jn-fine">Pela banda medida: o critério escolhido não se aplica aqui.</p>';
   if (rate) {
     if (n) { var hrs = Math.max(0, (Date.parse(AX[n.k] + ':00:00Z') - Date.now()) / 3600e3); h += '<p class="jn-p">Esperar até ' + esc(wtxt(AX[n.k])) + ' (' + Math.round(hrs) + ' h) custa <b>' + brl(hrs / 24 * rate) + '</b> à sua diária.</p>'; }
     else { var last = Math.max(0, (Date.parse(AX[AX.length - 1] + ':00:00Z') - Date.now()) / 3600e3); h += '<p class="jn-p">Nenhuma janela LIBERADA nesta previsão: a espera passa de ' + Math.round(last) + ' h, mais de <b>' + brl(last / 24 * rate) + '</b> à sua diária.</p>'; }
@@ -663,7 +734,7 @@ function waitCost(p, c) {
 function wireInputs() {
   [].forEach.call(document.querySelectorAll('[data-tank]'), function (inp) {
     inp.addEventListener('change', function () {
-      var v = {}; [].forEach.call(document.querySelectorAll('[data-tank]'), function (x) { v[x.getAttribute('data-tank')] = x.value.trim(); });
+      var v = { at: Date.now() }; [].forEach.call(document.querySelectorAll('[data-tank]'), function (x) { v[x.getAttribute('data-tank')] = x.value.trim(); });
       store.set('tank.' + S.site, JSON.stringify(v)); drawCard();
     });
   });
@@ -673,10 +744,31 @@ function wireInputs() {
 /* ================================================================ the month */
 function drawMonth() {
   var W = CFG.work, cur = current();
-  var siteK = S.ms || (function () { var p = PL[S.site]; var b = p ? (p.kind === 'uep' ? p.bandFrom : p.id) : null; return W.sites[b] ? b : 'santos'; })();
-  var lim = S.ml || (function () { var l = cur && cur.op.limits.filter(function (x) { return x.var === 'hs'; })[0]; var v = l ? Number(l.value).toFixed(1) : '2.0'; return W.limits.indexOf(v) >= 0 ? v : '2.0'; })();
-  var tr = S.mt || (function () { var t = cur ? C.trOf(cur.op.TR) : 48; return W.periods.indexOf(t) >= 0 ? t : 48; })();
+  /* the month's defaults come from the place and the operation, and say so whenever the grid cannot hold them exactly */
+  var notes = [], fresh = !S.ms || !S.ml || !S.mt;
+  var siteK = S.ms || (function () {
+    var p = PL[S.site]; if (!p) return 'santos';
+    var b = p.kind === 'uep' ? p.bandFrom : p.id;
+    if (b === 'campos-p25') b = 'campos';                       /* P-25 sits in the Campos basin, whose hindcast node is Campos' */
+    if (W.sites[b]) return b;
+    notes.push(short(p) + ' não tem nó de hindcast na sua região: o mês mostra a área escolhida abaixo (Santos de início), não a da unidade.');
+    return 'santos';
+  })();
+  var lim = S.ml || (function () {
+    var l = cur && cur.op.limits.filter(function (x) { return x.var === 'hs'; })[0]; if (!l) return '2.0';
+    var v = Number(l.value), grid = W.limits.map(Number).sort(function (a, b) { return a - b; });
+    var below = grid.filter(function (x) { return x <= v + 1e-9; }), g = below.length ? below[below.length - 1] : grid[0];
+    if (Math.abs(g - v) > 1e-9) notes.push('O seu limite, Hs ' + dc(l.value) + ' m, não está na grade contada (' + grid.map(function (x) { return dc(x.toFixed(1)); }).join(', ') + ' m): o mês mostra ' + dc(g.toFixed(1)) + ' m, ' + (g < v ? 'o degrau abaixo — conta menos janelas do que o seu limite daria.' : 'o menor degrau, ACIMA do seu limite — conta mais janelas do que ele daria.'));
+    return g.toFixed(1);
+  })();
+  var tr = S.mt || (function () {
+    var t = cur ? C.trOf(cur.op.TR) : 48, grid = W.periods.slice().sort(function (a, b) { return a - b; });
+    var up = grid.filter(function (x) { return x >= t; }), g = up.length ? up[0] : grid[grid.length - 1];
+    if (g !== t) notes.push('A sua janela de ' + t + ' h não está na grade (' + grid.join(', ') + ' h): o mês mostra ' + g + ' h, ' + (g > t ? 'a mais longa seguinte — conta menos janelas.' : 'a mais longa contada — conta mais janelas do que a sua.'));
+    return g;
+  })();
   S.ms = siteK; S.ml = lim; S.mt = tr;
+  if (fresh) S.mnotes = notes;
   [['jn-m-site', 'data-ms', siteK], ['jn-m-lim', 'data-ml', lim], ['jn-m-tr', 'data-mt', String(tr)]].forEach(function (a) {
     [].forEach.call($(a[0]).querySelectorAll('[' + a[1] + ']'), function (b) { b.setAttribute('aria-checked', b.getAttribute(a[1]) === a[2] ? 'true' : 'false'); });
   });
@@ -688,7 +780,8 @@ function drawMonth() {
   var wo = sum(c.o, WIN), so = sum(c.o, SUM), wf = sum(c.f, WIN), sf = sum(c.f, SUM);
   var ws = c.s ? sum(c.s.c, WIN) : null, ss = c.s ? sum(c.s.c, SUM) : null;
   var ratio = so[0] / so[1] > 0 && wo[0] / wo[1] > 0 ? (1 - wo[0] / wo[1]) / Math.max(1e-9, 1 - so[0] / so[1]) : null;
-  $('jn-m-season').innerHTML = '<div class="jn-k">o mês · a estação · <b>' + esc(name.replace(/ — .*$/, '')) + ' · Hs ≤ ' + dc(lim) + ' m por ' + tr + ' h</b></div><div class="jn-season">'
+  var mnote = S.mnotes && S.mnotes.length ? '<p class="jn-fine jn-mnote">' + S.mnotes.map(esc).join(' ') + '</p>' : '';
+  $('jn-m-season').innerHTML = mnote + '<div class="jn-k">o mês · a estação · <b>' + esc(name.replace(/ — .*$/, '')) + ' · Hs ≤ ' + dc(lim) + ' m por ' + tr + ' h</b></div><div class="jn-season">'
     + '<div><div class="jn-k">inverno · jun–ago</div><div class="big">' + pct(wo[0], wo[1]) + '</div><div class="s">dos inícios têm janela (o mar permite). A Tabela 4-1 deixa ' + pct(wf[0], wf[1]) + (ws ? '; o α do local deixaria <i>' + pct(ws[0], ws[1]) + '</i>' : '') + '.</div></div>'
     + '<div><div class="jn-k">verão · dez–fev</div><div class="big">' + pct(so[0], so[1]) + '</div><div class="s">dos inícios têm janela. A Tabela 4-1 deixa ' + pct(sf[0], sf[1]) + (ss ? '; o α do local deixaria <i>' + pct(ss[0], ss[1]) + '</i>' : '') + '.</div></div></div>'
     + '<p class="jn-fine">Contagens exatas (' + grp(wo[0]) + ' de ' + grp(wo[1]) + ' inícios no inverno, ' + grp(so[0]) + ' de ' + grp(so[1]) + ' no verão)' + (ratio && ratio > 1.15 ? '; o tempo parado no inverno é ' + dc(ratio.toFixed(1)) + '× o do verão' : '') + '. ' + (c.s ? 'O α do local é uma estimativa (intervalo de 90%); a contagem sobre ele é exata.' : 'O α do local só tem contagem onde foi estimado (Hs 2,0 m nas bacias medidas).') + '</p>';
@@ -723,7 +816,7 @@ function drawMonth() {
   var r2 = $('jn-rate-m'); if (r2) r2.addEventListener('change', function () { store.set('diaria', this.value.trim()); drawMonth(); });
 }
 [['jn-m-site', 'data-ms', 'ms'], ['jn-m-lim', 'data-ml', 'ml'], ['jn-m-tr', 'data-mt', 'mt']].forEach(function (a) {
-  $(a[0]).addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[' + a[1] + ']'); if (!b) return; S[a[2]] = a[2] === 'mt' ? +b.getAttribute(a[1]) : b.getAttribute(a[1]); drawMonth(); hash(); });
+  $(a[0]).addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[' + a[1] + ']'); if (!b) return; S[a[2]] = a[2] === 'mt' ? +b.getAttribute(a[1]) : b.getAttribute(a[1]); S.mnotes = null; drawMonth(); hash(); });
 });
 
 /* ================================================================ the scoreboard */
@@ -732,12 +825,19 @@ function drawPlacar() {
   if (!T || !T.ledger) { el.innerHTML = '<div class="jn-box"><p class="jn-p">O placar chega com os dados do dia, que não carregaram.</p></div>'; return; }
   var NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1' };
   var d = function (iso) { return iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '—'; };
+  /* the admission as placar.js decided it in the day's build: trials are target days, the tail is read at 30·2^j days;
+     a status word, never a verdict glyph (ADMITIDO is not LIBERADA) */
+  var first = T.ledger.firstLook || 30;
   el.innerHTML = T.ledger.proposers.map(function (p) {
-    var adm = p.status === 'ADMITTED';
+    var cut = p.status === 'DEADMITTED', st, line;
+    if (p.pending === undefined) p.pending = !cut;      /* a day built before admission-v1 carried no looks: nothing tested */
+    if (cut && p.prunedAt) { st = '<span class="jn-w jn-st cut">PODADO</span>'; line = 'podado no ' + p.prunedAt.m + 'º dia-ensaio (' + d(p.prunedAt.through) + '): ' + p.prunedAt.covered + ' cobertos, cauda exata ' + esc(p.prunedAt.tail) + ' ≤ ' + esc(p.prunedAt.bar) + '. Esta versão não volta; só uma recalibrada, com registro novo.'; }
+    else if (p.pending) { st = '<span class="jn-w jn-st pend">EM AVALIAÇÃO</span>'; line = (p.trials || 0) + ' de ' + first + ' dias-ensaio: nada testado ainda. A primeira leitura da cauda é no ' + first + 'º dia; até lá a faixa decide e o placar só conta.'; }
+    else { var lk = p.looks[p.looks.length - 1] || {}; st = '<span class="jn-w jn-st ok">ADMITIDO</span>'; line = p.trialsCovered + ' de ' + p.trials + ' dias-ensaio cobertos; na leitura de ' + lk.m + ' dias, cauda exata ' + esc(lk.tail) + ' > ' + esc(lk.bar) + '; próxima leitura em ' + p.next + ' dias.'; }
     return '<div class="jn-box jn-prop"><div class="jn-k">' + esc(NAMES[p.domain] || p.domain) + '</div><div class="big">' + grp(p.commits) + '</div><p class="jn-p">faixas comprometidas antes da hora-alvo · '
       + p.scored + ' avaliadas · ' + p.covered + ' cobertas · reivindicação ' + esc(p.claim) + ' · ' + p.sites + ' locais de mar aberto · desde ' + d(p.first) + '</p>'
-      + '<div class="jn-adm">' + chip(adm ? 'L' : 'V').replace(adm ? 'LIBERADA' : 'VETADA', adm ? 'ADMITIDO' : 'PODADO') + '<span class="jn-fine">cauda binomial exata ' + esc(p.tail) + (adm ? ' > ' : ' ≤ ') + esc(p.bar) + '</span></div>'
-      + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham. O registro é só de acréscimo.</p>' : '') + '</div>';
+      + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>'
+      + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham (três dias depois, quando o arquivo do NOAA está completo). O registro é só de acréscimo.</p>' : '') + '</div>';
   }).join('');
 }
 
@@ -966,7 +1066,8 @@ function drawMarks() {
   /* the selected place's label is placed first, so nothing hides it */
   var selP = S.site && PL[S.site] && STEPS[S.site] ? PL[S.site] : null;
   if (selP) { var sq = map.project([selP.lon, selP.lat]); PLACED.push([sq.x - 14, sq.y - 14, sq.x + 14 + short(selP).length * 8, sq.y + 14]); }
-  var pts = VIS.map(function (p) { var q = map.project([p.lon, p.lat]); var cd = codes(p.id); return { p: p, x: q.x, y: q.y, v: cd ? cd[S.i] : '-' }; })
+  var opNow = current();
+  var pts = VIS.filter(function (p) { return !opNow || applies(opNow.op, p); }).map(function (p) { var q = map.project([p.lon, p.lat]); var cd = codes(p.id); return { p: p, x: q.x, y: q.y, v: cd ? cd[S.i] : '-' }; })
     .filter(function (o) { return o.x > -20 && o.x < w + 20 && o.y > -20 && o.y < h + 20; });
   var R = z < 4.5 ? 46 : z < 5.5 ? 34 : z < 6.5 ? 22 : 0;
   var groups = [];
@@ -1188,6 +1289,10 @@ function start(today) {
   iNow = 0; while (iNow < AX.length - 1 && Date.parse(AX[iNow] + ':00:00Z') < now) iNow++;
   var stale = Date.parse(AX[AX.length - 1] + ':00:00Z') < now;
   if (stale) iNow = 0;
+  /* the day's codes are served only when this page's model and modules made them */
+  PUBOK = T.model === CFG.model && Object.keys(MODS.pins).every(function (k) { return !T.modules || T.modules[MODS.pins[k].rel] === MODS.pins[k].sha; });
+  /* the next run is read ~34 h after this one's 00 UTC (09:40 UTC the next day, a retry at 11:40): past 36 h, today's did not come */
+  var ageH = (now - Date.parse(T.run + ':00:00Z')) / 3600e3;
   buildClock();
   var kv = readHash();
   S.i = iNow; if (kv.t) { var k = AX.indexOf(kv.t); if (k >= 0) S.i = k; }
@@ -1196,10 +1301,32 @@ function start(today) {
   $('jn-run').innerHTML = 'ECMWF <b>' + esc(run) + '</b> · lida ' + esc(made);
   var lb = $('jn-load'); if (lb) lb.textContent = '';
   if (stale) status('previsão antiga: a rodada ' + run + ' já passou; a de hoje ainda não chegou');
+  var late = $('jn-late');
+  if (late && ageH > 36) {
+    late.hidden = false;
+    late.innerHTML = '<b>Previsão de ' + esc(run) + ', de ' + Math.floor(ageH / 24) + ' dia' + (ageH >= 48 ? 's' : '') + ' atrás.</b> A rodada de hoje não chegou (a coleta diária falhou ou atrasou). As janelas abaixo são decididas sobre a previsão mais velha, com a faixa medida para o prazo dela: confira antes de decidir.';
+    $('jn-run').classList.add('late');
+  }
+  tieField();
   setMode(S.mode);
   render();
   if (phone.matches) setSheet('peek'); else pad();
   setTimeout(recheck, 600);
+}
+/* the map field is the day's own run, or it is not drawn: the run in its header and its sha256 against today.json */
+function tieField() {
+  if (!T || !FIELD.F || FIELD.tied !== undefined) return;
+  var want = T.run.slice(0, 10).replace(/-/g, '') + T.run.slice(11, 13);
+  var runOk = String(FIELD.F.run).slice(0, 8) === want.slice(0, 8);
+  var pin = T.inputs && T.inputs['field.bin'];
+  FIELD.tied = runOk;
+  if (!runOk) { FIELD.F = null; FIELD.dirty = true; status('o campo do mapa é de outra rodada (' + FIELD.run0 + '); não desenhado — as decisões não dependem dele'); return; }
+  if (pin && window.crypto && crypto.subtle && FIELD.buf) {
+    crypto.subtle.digest('SHA-256', FIELD.buf).then(function (d) {
+      var hex = Array.prototype.map.call(new Uint8Array(d), function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
+      if (hex !== pin) { FIELD.F = null; FIELD.dirty = true; status('o campo do mapa não é o que os dados de hoje pinam (sha256); não desenhado'); }
+    }, function () { /* no digest here: the run check stands */ });
+  }
 }
 function fail(e) {
   $('jn-answer').innerHTML = '<p class="jn-ans">Os dados de hoje não chegaram.</p><p class="jn-sub">' + esc(e && e.message || '') + ' · o Mês funciona sem eles; o método e o último registro estão em <a href="/janela/metodo/">/janela/metodo/</a></p>';
@@ -1230,7 +1357,7 @@ function sha256hex(str) {
 }
 function recheck() {
   var out = $('jn-check');
-  if (T.model !== CFG.model) { out.textContent = 'Os dados de hoje foram feitos com outra versão do modelo do app (' + T.model.slice(0, 8) + ' ≠ ' + CFG.model.slice(0, 8) + '): a conferência espera os dois se encontrarem.'; return; }
+  if (!PUBOK) { out.textContent = 'Os dados de hoje foram feitos por outra versão do app (modelo ' + T.model.slice(0, 8) + (T.model === CFG.model ? ', módulos diferentes' : ' ≠ ' + CFG.model.slice(0, 8)) + '): o mapa, a lista e o card decidem aqui, com os módulos desta página, sobre a previsão publicada — não leem as decisões publicadas. A conferência volta quando os dois se encontrarem.'; return; }
   out.textContent = 'Refazendo no seu navegador as decisões publicadas…';
   var presets = T.presets.map(function (o) { return Object.assign({}, preset(o.id), o); });
   var idx = 0, lines = [], n = 0, same = 0, t0 = performance.now(), places = CFG.places;
@@ -1281,7 +1408,8 @@ function nota() {
     + '<h2>Módulos que decidiram (sha256)</h2><table><tbody>' + mods + '</tbody></table>'
     + '<h2>Registros usados (sha256)</h2><table><tbody>' + recs + '</tbody></table>'
     + '<p>Conferência nesta aba: ' + esc(ck ? (ck.ok ? ck.n + ' decisões publicadas refeitas, iguais; módulos ' + ck.mods : 'DIFERENÇAS: ' + (ck.n - ck.same) + ' de ' + ck.n) : 'em andamento') + '. Digest publicado ' + esc(T.digest) + '.</p>'
-    + '<h2>Refazer</h2><p class="mono">git clone https://github.com/carlostoledo1891/cert-machine · node instruments/window/battery.js · node apps/janela/battery.js · python apps/janela/audit/field.py ' + esc(T.run.slice(0, 10)) + ' · node apps/janela/build-today.js · node apps/janela/build.js</p>'
+    + '<h2>Refazer</h2><p class="mono">git clone https://github.com/carlostoledo1891/cert-machine · git checkout ' + esc(T.git ? T.git.replace(/\+dirty$/, '') : '(commit não registrado neste dia)') + ' · python apps/janela/audit/field.py ' + esc(T.run.slice(0, 10)) + ' · node apps/janela/build-today.js --feed ' + esc(T.run.slice(0, 10).replace(/-/g, '')) + '</p>'
+    + '<p>O build-today refaz as baterias, lê a mesma rodada do ECMWF (o arquivo aberto é imutável) e imprime o digest de todas as decisões do dia: tem de ser ' + esc(T.digest) + '.' + (T.git && /\+dirty$/.test(T.git) ? ' Atenção: estes dados foram feitos de uma árvore com alterações não registradas.' : '') + '</p>'
     + '<p>Não é aprovação de operação: garantia marítima e sociedades classificadoras são donas dessa palavra. É evidência que um vistoriador refaz. O α do local é uma estimativa; as decisões são exatas sobre a faixa publicada. Impresso ' + esc(new Date().toISOString().slice(0, 16).replace('T', ' ')) + ' UTC.</p>';
   $('jn-nota').setAttribute('aria-hidden', 'false');
   window.print();
@@ -1293,7 +1421,7 @@ readHash();
 initMap();
 loadToday().then(start, fail);
 loadField().then(function (buf) {
-  try { FIELD.F = parseField(buf); requestAnimationFrame(frame); }
+  try { FIELD.F = parseField(buf); FIELD.buf = buf; FIELD.run0 = String(FIELD.F.run); tieField(); requestAnimationFrame(frame); }
   catch (e) { status('o campo de ondas e vento não abriu; as decisões não dependem dele'); }
 }, function () { status('sem o campo de ondas e vento desta rodada; as decisões não dependem dele'); setTimeout(function () { status(''); }, 6000); });
 })();

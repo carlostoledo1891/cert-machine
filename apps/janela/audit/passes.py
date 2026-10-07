@@ -35,7 +35,7 @@ def passes(day_files, site_id, radius_km=RADIUS_KM):
             t, lat, lon, swh, wind, dist = row
             if swh is None or dist > radius_km:
                 continue
-            pts.append((float(t), f['mission'], swh, wind, dist, lat, lon, f.get('sha256')))
+            pts.append((float(t), f['mission'], swh, wind, dist, lat, lon, f.get('sha256'), row))
     pts.sort(key=lambda p: (p[1], p[0]))
     out, cur = [], []
 
@@ -53,6 +53,8 @@ def passes(day_files, site_id, radius_km=RADIUS_KM):
                 'distMeanKm': round(sum(p[4] for p in cur) / n, 1),
                 'durS': round(t1 - t0, 1),
                 'files': sorted({p[7] for p in cur if p[7]}),
+                # the pass's own points, as read (t, lat, lon, swh mm, wind cm/s, km): the value re-checks from these
+                'points': [p[8] for p in cur],
             })
 
     for p in pts:

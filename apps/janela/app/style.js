@@ -50,6 +50,9 @@ body{font-size:var(--text-small)}
 .jn-fc{font-style:italic;color:var(--ink-3)}
 
 /* ---- the answer line: first, plain Portuguese ---- */
+.jn-late{margin:0 0 var(--s-2);padding:var(--s-2) var(--s-3);border:1px dashed var(--v-refd);border-radius:var(--radius-s);background:var(--v-refd-soft);color:var(--ink);font-size:var(--text-small);line-height:var(--leading-body)}
+.jn-late b{font-weight:var(--weight-strong)}
+#jn-run.late{color:var(--v-refd)}
 .jn-answer{padding:var(--s-3) var(--s-4) var(--s-3);background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m)}
 .jn-ans{margin:0;font-size:var(--text-3);line-height:var(--leading-snug);font-weight:var(--weight-title);color:var(--ink);letter-spacing:var(--track-title)}
 .jn-ans .jn-dim{color:var(--ink-3);font-weight:var(--weight-body)}
@@ -153,6 +156,7 @@ select.jn-in{width:100%}
 .jn-row .nm small{font-weight:var(--weight-body);color:var(--ink-4);margin-left:var(--s-1)}
 .jn-row .nx{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);text-align:right;white-space:nowrap}
 .jn-row .nx b{color:var(--ink);font-weight:var(--weight-strong)}
+.jn-row .nx small{display:block;color:var(--ink-4)}
 .jn-row .ms{grid-column:2 / 4;display:grid;grid-template-columns:repeat(29,minmax(0,1fr));gap:1px;height:8px}
 .jn-row .ms > i{background:var(--sunk)}
 .jn-row .ms > i.L{background:var(--v-cert)}
@@ -243,6 +247,9 @@ svg .wv{fill:var(--ink-3);font-family:var(--f-mono);font-size:var(--text-eyebrow
 /* ---- the scoreboard ---- */
 .jn-prop .big{font-family:var(--f-mono);font-size:var(--text-2);font-weight:var(--weight-strong);color:var(--ink);line-height:var(--leading-tight)}
 .jn-adm{display:inline-flex;align-items:center;gap:var(--s-2);margin-top:var(--s-2)}
+.jn-w.jn-st{color:var(--ink-2);border-color:var(--rule-strong);background:transparent}
+.jn-w.jn-st.pend{border-style:dashed;color:var(--ink-3)}
+.jn-w.jn-st.cut{color:var(--ink);border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 
 /* ---- the map's own furniture ---- */
 .jn-clock{position:fixed;z-index:12;left:var(--jn-edge);top:calc(var(--jn-top) + var(--jn-edge));display:flex;align-items:center;gap:var(--s-2);

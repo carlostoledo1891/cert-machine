@@ -13,6 +13,7 @@ const crypto = require('crypto');
 const ROOT = path.join(__dirname, '..', '..', '..');
 const SITE = path.join(ROOT, 'site', 'janela');
 const MODEL = require('./model.js');
+const PLACAR = require('../audit/placar.js');
 const { renderApp } = require(path.join(ROOT, 'design', 'app-shell.js'));
 const esc = require(path.join(ROOT, 'design', 'components.js')).esc;
 
@@ -109,6 +110,7 @@ function panel(M, N) {
 <div class="jn-scroll" id="jn-scroll">
 <section class="jn-pane" id="pane-semana" data-mode="semana" aria-label="A semana">
   <div class="jn-answer" id="jn-answer">
+    <p class="jn-late" id="jn-late" role="note" hidden></p>
     <div id="jn-ansl" aria-live="polite"><p class="jn-ans">A janela operacional de cada unidade offshore do Brasil, decidida contra o limite publicado.</p>
     <p class="jn-sub"><noscript>Este app decide no seu navegador e precisa de JavaScript. O método e as decisões publicadas estão em <a href="/janela/metodo/">/janela/metodo/</a>.</noscript><span id="jn-load">carregando a previsão de hoje…</span></p></div>
     <div class="jn-seg jn-crit" id="jn-crit" role="radiogroup" aria-label="Critério">${seg('data-crit', CRIT)}</div>
@@ -151,7 +153,7 @@ function panel(M, N) {
     <p class="jn-p">Cada faixa é comprometida antes de o mar acontecer e avaliada depois contra o que um altímetro de satélite mediu. Uma previsão errada fica no registro para sempre.</p></div>
   <div id="jn-props" class="jn-pane"></div>
   <div class="jn-box"><div class="jn-k">a regra de admissão</div>
-    <p class="jn-p">Depois de m faixas avaliadas e k cobertas, calcula-se em racionais exatos P[X ≤ k] com X ~ Binomial(m, reivindicação). Se cair a 1/20 ou menos, o proponente é podado até ser recalibrado. A admissão se perde por registro, nunca por opinião.</p></div>
+    <p class="jn-p">${esc(PLACAR.RULE_PT)} A admissão se perde por registro, nunca por opinião.</p></div>
 </section>
 <div class="jn-box jn-trust" id="jn-trust">
   <div class="jn-k">por que confiar</div>

@@ -11,5 +11,22 @@
   "claim": "(u - l)/(n + 1) >= 9/10 per cell, as stated in each row",
   "alpha": "1/10",
   "domain": "janela/hs-altimeter/calibrated-v1"
+ },
+ "admission-v1 (apps/janela/audit/placar.js)": {
+  "decided": "2026-10-06, before any score row existed (the first scores land 2026-10-09)",
+  "trial": "one per (proposer, UTC day of the target); the day's outcome is the covered flag of one scored row drawn by lot: rows sorted by id, index = sha256(domain + '|' + day) mod n",
+  "looks": "the exact binomial tail P[X <= k], X ~ Binomial(m, claim), read only at m = 30·2^j trial days, against the bar 1/20 · 2^-(j+1); the bars sum to 1/20",
+  "sticky": "the first look at or under its bar prunes the proposer version for good; admission returns only as a new version with its own record",
+  "stated": "trial days are treated as independent (weather persists across days): a convention, not a theorem",
+  "replaces": "the row-level count (every scored row a trial, the tail read every day against 1/20) — replaced before it read any score, because one overflight scores many rows at once"
+ },
+ "observation-v1 (apps/janela/audit/observe.py)": {
+  "decided": "2026-10-06, before any day was observed",
+  "when": "a target day is observed three days after it ends (the NOAA file's D+2 version or later: NOAA rewrites every file daily at ~11:12 UTC and the D+1 version is incomplete), days strictly in order, a 404 held for retry until the day is six days old",
+  "kept": "each pass's own points (t, lat, lon, swh mm, wind cm/s, km): the value re-checks from them; the mission files' sha256 pin the bytes as read, which NOAA's daily rewrite makes unreproducible"
+ },
+ "commit-margin-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-06, from the 2026-10-07 run on",
+  "rule": "a row is committed only when its target is at least one hour after madeAt; the Action pushes right after committing, so the push time proves every row predates its target"
  }
 }

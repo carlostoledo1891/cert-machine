@@ -60,7 +60,7 @@ function pubStep(row, src) {
   return st;
 }
 
-function make({ feed, platforms, fieldSha, ledger, battery }) {
+function make({ feed, platforms, fieldSha, ledger, battery, git }) {
   const M = MODEL.load();
   const SITES = require('../scenario/sites.json').sites;
   const UNITS = require('../scenario/platforms.json').units;
@@ -135,7 +135,7 @@ function make({ feed, platforms, fieldSha, ledger, battery }) {
   }
 
   const today = {
-    v: 1, model: MODEL.fingerprint(M), run: feed.run, madeAt: feed.madeAt, t: tAxis, lead: steps[SITES[0].id].steps.map((s) => s.lead),
+    v: 1, model: MODEL.fingerprint(M), git: git || null, run: feed.run, madeAt: feed.madeAt, t: tAxis, lead: steps[SITES[0].id].steps.map((s) => s.lead),
     feed: { file: feed.file, sha: feed.sha },
     inputs: Object.assign({}, M.records, { [feed.file]: feed.sha, 'corpus/janela/field/platforms-latest.json': platforms.sha }, fieldSha ? { 'field.bin': fieldSha } : {}),
     modules: Object.fromEntries(Object.values(MODEL.modules().pins).map((p) => [p.rel, p.sha])),

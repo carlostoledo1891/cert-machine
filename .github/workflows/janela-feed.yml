@@ -1,6 +1,10 @@
 # Janela's daily feed: read today's ECMWF 00 UTC forecast at every site, commit the
-# ensemble bands to the ledger BEFORE their target times, push. The push time is the
-# outside proof that every commit row predates the sea it forecasts.
+# ensemble bands to the ledger BEFORE their target times, and PUSH AT ONCE — the push
+# time is the outside proof that every commit row predates the sea it forecasts, so
+# nothing that can fail (NOAA, the map field) runs before it.
+# Then the scoring (observe days ended three days ago, score; a NOAA failure is a
+# warning, never a lost day), pushed on its own. Every push goes through
+# apps/janela/audit/push.sh: guard.js refuses any staged change that is not an append.
 # Then the app's DAY: the forecast field over the margin and every production unit's
 # forecast (field.py), the day's bands and published decisions (build-today.js, gated by
 # both batteries and by re-deciding every decision from the written bytes), published as
@@ -8,11 +12,16 @@
 # the feed and the ledger only, never by a day of app data. The app shell (/janela/) and
 # the method page (/janela/metodo/) are static on main and are rebuilt when code or
 # records change (node apps/janela/build.js), not daily.
-# Runs after ECMWF publishes the 00 UTC wave ensemble (~09:00 UTC).
+# Runs after ECMWF publishes the 00 UTC wave ensemble (the 168 h ensemble lands at
+# ~08:50–08:55 UTC, measured on three days), and again two hours later: every step is
+# safe to repeat (a feed is written once, commit ids are unique, a day is observed once,
+# nothing is rescored, and a day already on janela-field is not rebuilt), so the second
+# run only does what the first could not.
 name: janela-feed
 on:
   schedule:
     - cron: '40 9 * * *'
+    - cron: '40 11 * * *'
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,7 +31,10 @@ concurrency:
 jobs:
   feed:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
+    env:
+      # GitHub's runners have no IPv6 route; coastwatch.noaa.gov publishes an AAAA record
+      JANELA_IPV4: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -41,38 +53,53 @@ jobs:
         run: cd apps/janela/audit && python feed.py
       - name: commit the bands before the sea happens
         run: node apps/janela/audit/commit.js
-      - name: observe what the satellites saw (days ended two days ago)
+      - name: push the forecasts now (the push time proves every row predates its target)
+        run: |
+          bash apps/janela/audit/push.sh "Janela feed $(date -u +%F): ECMWF 00 UTC at the Janela sites; bands committed to certs/janela-ledger at least an hour before their target times" corpus/janela/feed certs/janela-ledger
+      - name: observe what the satellites saw (days ended three days ago)
+        continue-on-error: true
+        timeout-minutes: 25
         run: cd apps/janela/audit && python observe.py
       - name: score the ledger against those observations
+        continue-on-error: true
         run: node apps/janela/audit/score.js
-      - name: push the record (the feed and the ledger; nothing of the app's day)
+      - name: push the observations and the scores
         run: |
-          git config user.name "janela-feed"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add corpus/janela/feed corpus/janela/observed certs/janela-ledger
-          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
-          git commit -m "Janela feed $(date -u +%F): ECMWF 00 UTC at the Janela sites; bands committed to certs/janela-ledger before their target times; satellite passes observed and the ledger scored"
-          for i in 1 2 3 4 5; do
-            git pull --rebase --quiet && git push --quiet && exit 0
-            sleep $((i * 15))
-          done
-          exit 1
+          bash apps/janela/audit/push.sh "Janela observed $(date -u +%F): satellite passes at the Janela sites (with their points) and the ledger scored" corpus/janela/observed certs/janela-ledger
+      - name: is the app's day for this run already published?
+        id: day
+        run: |
+          run=$(ls corpus/janela/feed | grep -E '^[0-9]{8}\.json\.gz$' | sort | tail -1 | cut -c1-8)
+          echo "run=${run:0:4}-${run:4:2}-${run:6:2}" >> "$GITHUB_OUTPUT"
+          if git fetch -q --depth=1 origin janela-field && git log -1 --format=%s FETCH_HEAD | grep -q "^Janela day ${run:0:4}-${run:4:2}-${run:6:2}:"; then
+            echo "done=true" >> "$GITHUB_OUTPUT"; echo "janela-field already carries the ${run} run"
+          else
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: "the map field and every production unit's forecast (field.py: forecast ink, never decided on)"
-        run: cd apps/janela/audit && python field.py
+        if: steps.day.outputs.done != 'true'
+        run: cd apps/janela/audit && python field.py "${{ steps.day.outputs.run }}"
       - name: "the app's day, gated: both batteries, the run matched, every published decision re-decided from the written bytes"
+        if: steps.day.outputs.done != 'true'
         run: node apps/janela/build-today.js --out "$RUNNER_TEMP/janela-field"
       - name: publish the app's day as the single commit of the orphan branch janela-field
+        if: steps.day.outputs.done != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN: ${{ steps.day.outputs.run }}
         run: |
+          main=$(git rev-parse HEAD)
           cd "$RUNNER_TEMP/janela-field"
           printf '%s\n' "# janela-field — the Janela app's day, overwritten daily" "" \
             "today.json: every place's forecast steps, its bands rounded outward and every published decision, with the sha256 of the deciding modules and of every input record." \
             "field.bin: the ECMWF forecast field over the Brazilian margin (JNF1; apps/janela/audit/field.py). ECMWF open data, CC BY 4.0." \
-            "" "Built by apps/janela/build-today.js on main $(cd "$GITHUB_WORKSPACE" && git rev-parse --short HEAD); one commit, force-pushed, so main never grows by a day of app data." > README.md
+            "" "Built by apps/janela/build-today.js on main ${main}; one commit, force-pushed, so main never grows by a day of app data." \
+            "Re-run: git checkout ${main} && python apps/janela/audit/field.py ${RUN} && node apps/janela/build-today.js --feed ${RUN//-/}" > README.md
+          # Vercel reads the deployed commit's own vercel.json: this branch is data, never a deployment
+          printf '%s\n' '{ "git": { "deploymentEnabled": false } }' > vercel.json
           git init -q -b janela-field
           git config user.name "janela-feed"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add today.json field.bin README.md
-          git commit -q -m "Janela day $(date -u +%F): the app's data (today.json, field.bin), gated by build-today.js"
+          git add today.json field.bin README.md vercel.json
+          git commit -q -m "Janela day ${RUN}: the app's data (today.json, field.bin), gated by build-today.js on main ${main:0:12}"
           git push --force --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" janela-field

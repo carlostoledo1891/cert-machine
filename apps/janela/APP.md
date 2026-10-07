@@ -22,7 +22,7 @@ each one.
 
 ## Honest boundaries (on the page)
 - The forecast is ECMWF's, read at the nearest open-sea model node. At a terminal that is the APPROACH, not the berth: a berth limit is REFUSED until the nearshore transfer exists.
-- The band is a proposer's claim (today: the ECMWF ensemble's central 40 of 50 members), graded in public against satellites in `certs/janela-ledger/`; a proposer that misses its claim is pruned by the exact binomial rule.
+- The band is a proposer's claim (two today: the ECMWF ensemble's central 40 of 50 members, claim 4/5; Janela's calibrated band v1, claim 9/10), graded in public against satellites in `certs/janela-ledger/`; a proposer that misses its claim is pruned by the exact binomial rule over one trial per target day, read at 30, 60, 120… days (`audit/placar.js`).
 - What is decided is the band at the forecast's own steps — not the sea between steps, not a probability.
 - The 1-in-10,000 tail behind DNV's alpha is a model extrapolation; three years of satellite matchups cannot observe it.
 - Not an approval. Marine warranty and class societies own the word "certified"; Janela gives evidence a surveyor can re-run.
@@ -34,4 +34,7 @@ ECMWF open data (CC BY 4.0) · NOAA RADS near-real-time altimetry (public domain
 - `scenario/sites.json` — the sites (one definition).
 - `audit/ecmwf.py` · `audit/archive.py` · `audit/feed.py` · `audit/commit.js` — reading, back-archive, daily feed, ledger commits.
 - `instruments/window/` — workability (exact counts) and the decider; battery with reds.
-- `certs/janela-ledger/` — the forward ledger (append-only; daily, `.github/workflows/janela-feed.yml`).
+- `certs/janela-ledger/` — the forward ledger (append-only; daily, `.github/workflows/janela-feed.yml`); its rules dated in `DEFINITIONS.json`.
+- `audit/observe.py` · `audit/score.js` · `audit/placar.js` — the satellites three days late, the scores, the admission (one definition).
+- `audit/push.sh` · `audit/guard.js` — every push from the Action, refused unless the ledger, the feed and the observations only grew.
+- `audit/field.py` · `build-today.js` · `app/` — the map field and the 181 units' forecast, the day's gated data (orphan branch `janela-field`), the app at /janela/.

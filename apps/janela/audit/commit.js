@@ -19,6 +19,15 @@
    A target no satellite passes over is simply never scored — pass times do not
    depend on the forecast, so the scored set is not chosen by the outcome.
 
+   MARGIN: a row is committed only when its target is at least an hour after
+   madeAt. The outside proof of "before" is the git push that follows (the
+   Action pushes right after this script); an hour keeps every row provably
+   ahead of its sea even when the push is retried.
+
+   A STALE PIN stops only its own proposer: when certs/janela-bands.json is not
+   the record calibrated-v1 names, the ensemble rows are still committed and the
+   calibrated ones are skipped with a warning the Action's summary shows.
+
    MIT licensed. Part of cert-machine.                                    */
 'use strict';
 
@@ -43,6 +52,7 @@ const DOMAIN_NOTE = { target: TARGET, proposer: PROPOSER, claim: '4/5', alpha: '
 const CAL = { domain: 'janela/hs-altimeter/calibrated-v1', bands: path.join(ROOT, 'certs', 'janela-bands.json'), sha: '1f14a51fac100bd1083468eb5cfda7bf13e5d9e864a0c200eb7cfcdd49316d8d',
   note: 'forecast x the exact conformal ratio interval of its site and 12 h lead bin (miss-rate 1/10) — certs/janela-bands.json' };
 
+const MARGIN_MS = 3600e3;     /* a target at least an hour after madeAt */
 const frac = (s) => { const [n, d = '1'] = String(s).split('/'); return [n, d]; };
 
 function main() {
@@ -58,10 +68,15 @@ function main() {
      committed before it was */
   const madeAt = new Date().toISOString().slice(0, 19) + 'Z';
   let made = 0, past = 0, dup = 0;
-  const cal = CAL.sha && fs.existsSync(CAL.bands) ? JSON.parse(fs.readFileSync(CAL.bands, 'utf8')) : null;
+  let cal = CAL.sha && fs.existsSync(CAL.bands) ? JSON.parse(fs.readFileSync(CAL.bands, 'utf8')) : null;
   if (cal) {
     const h = require('crypto').createHash('sha256').update(fs.readFileSync(CAL.bands)).digest('hex');
-    if (h !== CAL.sha) throw new Error('REFUSED: certs/janela-bands.json is not the bands record this proposer version names (' + CAL.sha.slice(0, 16) + ')');
+    if (h !== CAL.sha) {
+      /* a rebuilt bands record is a NEW proposer version: name its sha in a new CAL, never swap it into v1 */
+      console.log('::warning title=janela calibrated-v1 skipped::certs/janela-bands.json is not the bands record ' + CAL.domain + ' names ('
+        + CAL.sha.slice(0, 16) + ', found ' + h.slice(0, 16) + '): its rows are NOT committed today; the ensemble rows are.');
+      cal = null;
+    }
   }
   for (const [sid, site] of Object.entries(feed.sites)) {
     if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
@@ -70,7 +85,7 @@ function main() {
       const targetTime = st.t + ':00:00Z';
       const id = 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h';
       const ledger = path.join(LEDGER, st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl');
-      if (!(madeAt < targetTime)) { past++; continue; }
+      if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) { past++; continue; }
       if (CAL.sha && cal) {
         const bin = Math.min(Math.floor(st.lead / cal.binHours), Math.floor(168 / cal.binHours) - 1) * cal.binHours;
         const cell = cal.sites[sid] && cal.sites[sid].bins[bin] && cal.sites[sid].bins[bin].hs;
@@ -97,7 +112,7 @@ function main() {
   }
   const readme = path.join(LEDGER, 'DEFINITIONS.json');
   if (!fs.existsSync(readme)) fs.writeFileSync(readme, JSON.stringify({ [TARGET_ID]: DOMAIN_NOTE }, null, 1) + '\n');
-  console.log('janela ledger: ' + made + ' committed, ' + past + ' skipped (target already past), ' + dup + ' already committed — feed ' + want);
+  console.log('janela ledger: ' + made + ' committed, ' + past + ' skipped (target past or under an hour away), ' + dup + ' already committed — feed ' + want);
 }
 
 main();

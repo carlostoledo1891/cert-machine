@@ -18,6 +18,7 @@ const ROOT = path.join(__dirname, '..', '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const { br } = require('./numbers.js');
+const PLACAR = require('./audit/placar.js');
 
 const esc = C.esc;
 const REPO = 'https://github.com/carlostoledo1891/cert-machine';
@@ -796,6 +797,12 @@ function build(N, B, git, battery) {
   const P = N.ledger.proposers;
   const NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'Faixa medida da Janela, v1' };
   const STATUS = { ADMITTED: 'ADMITIDO', DEADMITTED: 'PODADO' };
+  /* the admission in one line, from placar.js's verdict (trials = target days, looks at 30·2^j) */
+  const admLine = (p) => p.pending
+    ? p.trials + ' de ' + N.ledger.firstLook + ' dias-ensaio: nada testado ainda; a primeira leitura é no ' + N.ledger.firstLook + 'º dia'
+    : p.status === 'DEADMITTED'
+      ? 'podado no ' + p.prunedAt.m + 'º dia-ensaio (' + br.date(p.prunedAt.through) + '): ' + p.prunedAt.covered + ' cobertos, cauda exata ' + p.prunedAt.tail + ' ≤ ' + p.prunedAt.bar
+      : p.trialsCovered + ' de ' + p.trials + ' dias-ensaio cobertos; na leitura de ' + p.looks[p.looks.length - 1].m + ' dias, cauda exata ' + p.tail + ' > ' + p.bar + '; próxima leitura em ' + p.next;
   const n = (k) => N.counted.byKind[k] || 0;
 
   /* ---- 0 · hero ---- */
@@ -820,6 +827,8 @@ function build(N, B, git, battery) {
     { k: 'placar', v: br.int(N.ledger.commits), n: 'previsões comprometidas antes da hora-alvo desde ' + (N.ledger.first ? br.date(N.ledger.first) : '—') + '; ' + N.ledger.scored + ' avaliadas ainda' }
   ]));
   out.push('<div class="col">' + C.scope('Decide-se a faixa prevista nos passos da própria previsão, no nó do modelo: não o mar entre passos, não o berço, não uma probabilidade. Não é aprovação de operação; é evidência que um vistoriador refaz.') + '</div>');
+  /* this page is a portrait of one run; the app is the live view (the daily Action rebuilds the app's day, not this page) */
+  out.push('<div class="col">' + C.pRaw('<b>Retrato da rodada ECMWF de ' + esc(run) + '.</b> Os números desta página — a semana, as decisões, o placar — são os desse dia, para documentar o método. As janelas de hoje e o placar de hoje estão no app: <a href="/janela/">/janela/</a>.') + '</div>');
 
   /* ---- 1 · the week ---- */
   const picker = '<div class="jn-pick" role="group" aria-label="Local">' + N.groups.map((g) => {
@@ -938,13 +947,13 @@ function build(N, B, git, battery) {
       + '<div class="big">' + br.int(p.commits) + ' comprometidas</div>'
       + '<p>' + esc(p.scored + ' avaliadas, ' + p.covered + ' cobertas ainda. Reivindicação: a faixa contém a medida do satélite em ' + p.claim + ' dos casos. Alvos de '
         + br.date(p.tFirst) + ' ' + br.hm(p.tFirst) + ' a ' + br.date(p.tLast) + ' ' + br.hm(p.tLast) + ' UTC, em ' + p.sites + ' locais de mar aberto; primeira em ' + br.date(p.first) + '.') + '</p>'
-      + '<p>' + C.tag(STATUS[p.status] || p.status, p.status === 'ADMITTED' ? 'held' : 'dep') + ' '
-      + esc('cauda binomial exata ' + p.tail + (p.status === 'ADMITTED' ? ' > ' : ' ≤ ') + p.bar) + '</p></div>').join('') + '</div></div>'
+      + '<p>' + C.tag(p.pending ? 'EM AVALIAÇÃO' : STATUS[p.status] || p.status, p.status === 'ADMITTED' ? 'held' : 'dep') + ' '
+      + esc(admLine(p)) + '</p></div>').join('') + '</div></div>'
     + '<div class="col mt5">' + C.pRaw('<b>O que será avaliado.</b> ' + (v1
       ? 'A Hs que um altímetro de satélite medir: a média exata dos valores de 1 Hz do NOAA RADS a até 100 km do local, na passagem mais próxima da hora-alvo e a até 3 h dela, com pelo menos 5 pontos. Um alvo sem passagem nunca é avaliado; as passagens não dependem da previsão, então o conjunto avaliado não é escolhido pelo resultado.'
       : esc(Object.values(defs).map((d) => d.target).join(' '))))
-      + C.pRaw('<b>A regra de admissão.</b> Depois de m faixas avaliadas e k cobertas, calcula-se em racionais exatos P[X ≤ k] com X ~ Binomial(m, reivindicação). Se cair a 1/20 ou menos, o proponente é podado até ser recalibrado. Cobrir mais do que diz não poda; o escore de Winkler, também exato, cobra a faixa larga demais. A admissão se perde por registro, nunca por opinião.')
-      + C.pRaw('<b>Hoje.</b> ' + esc(N.ledger.scored === 0 ? 'Nenhuma avaliada ainda: o placar começou em ' + (N.ledger.first ? br.date(N.ledger.first) : '—') + ' e a avaliação começa quando os satélites passam e os dias fecham. O registro é só de acréscimo: uma previsão errada fica para sempre.' : N.ledger.scored + ' avaliadas até agora.'))
+      + C.pRaw('<b>A regra de admissão.</b> ' + esc(PLACAR.RULE_PT) + ' A admissão se perde por registro, nunca por opinião.')
+      + C.pRaw('<b>Em ' + esc(br.date(N.feed.madeAt)) + ', a data deste retrato.</b> ' + esc(N.ledger.scored === 0 ? 'Nenhuma avaliada ainda: o placar começou em ' + (N.ledger.first ? br.date(N.ledger.first) : '—') + ' e a avaliação começa quando os satélites passam e os dias fecham. O registro é só de acréscimo: uma previsão errada fica para sempre.' : N.ledger.scored + ' faixas avaliadas até essa data.') + ' O placar de hoje está no app: <a href="/janela/#modo=placar">/janela/ → PLACAR</a>.')
       + '</div></section>');
   sec++;
 

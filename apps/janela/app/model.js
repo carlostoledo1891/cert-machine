@@ -21,7 +21,10 @@ const PRESETS = [
     limits: [{ var: 'hs', op: '<=', value: '3.5', unit: 'm' }, { var: 'wind_sustained', op: '<=', value: '50', unit: 'kn' }],
     source: 'critério de alívio citado em 2010 (Tannuri, Pesce, Simos et al., OMAE2010-20147: Hs acima de 3,5 m e vento acima de 50 nós estão "acima dos limites de alívio definidos pela regulação da Petrobras") — confirme com o procedimento vigente',
     sourceUrl: 'https://repositorio.usp.br/item/002250013',
-    notDecided: ['tração no cabo (hawser) abaixo de 100 tf', 'separação de pelo menos 50 m entre o aliviador e a unidade', 'o aliviador dentro do setor verde, +45°/−60° do aproamento da unidade'] },
+    notDecided: ['tração no cabo (hawser) abaixo de 100 tf', 'separação de pelo menos 50 m entre o aliviador e a unidade', 'o aliviador dentro do setor verde, +45°/−60° do aproamento da unidade'],
+    /* offloading needs storage: the units ANP types as FPSO, FSO or NAVIO TANQUE, and the measured open-sea areas;
+       never a fixed platform, a semi-submersible, a drillship, a buoy or a terminal (whose Capitania rules decide there) */
+    appliesTo: { types: ['FPSO', 'FSO', 'NAVIO TANQUE'], kinds: ['field', 'platform'], why: 'o alívio é de unidade com armazenagem (FPSO, FSO, navio-tanque)' } },
   { id: 'carga', name: 'Carga (PSV)', long: 'Transferência de carga com PSV', TR: 12, kind: 'example',
     limits: [{ var: 'hs', op: '<=', value: '2.5', unit: 'm' }, { var: 'wind_sustained', op: '<=', value: '30', unit: 'kn' }] },
   { id: 'lancamento', name: 'Lançamento de linhas', long: 'Lançamento de linhas e risers', TR: 48, kind: 'example',
@@ -65,7 +68,8 @@ function load() {
       alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null) });
   }
   for (const u of UNITS) {
-    places.push({ id: u.id, name: u.sig || u.name, full: u.name, kind: 'uep', type: u.type, depth: u.waterDepthM, serves: u.serves,
+    /* ANP's layer spells one unit's type "SEMI SUBVERSÍVEL": shown as the word it means; corpus/anp keeps the layer as published */
+    places.push({ id: u.id, name: u.sig || u.name, full: u.name, kind: 'uep', type: u.type === 'SEMI SUBVERSÍVEL' ? 'SEMI SUBMERSÍVEL' : u.type, depth: u.waterDepthM, serves: u.serves,
       operator: u.operator, oilBpd: u.oilBpd, gasKm3d: u.gasKm3d, lat: u.lat, lon: u.lon, own: false, bandFrom: u.bandFrom,
       near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null });
   }
