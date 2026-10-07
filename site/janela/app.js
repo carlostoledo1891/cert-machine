@@ -19,7 +19,8 @@
 
    WHAT IS STORED. The URL carries the view (#site, op, t, crit, modo and any
    edited limits). A day rate, tank inventories and an oil price the user types
-   stay in this browser's localStorage, never anywhere else.            MIT */
+   stay in this browser's localStorage, never anywhere else; so does whether the
+   intro (what this is, and the doors of uses.js) is folded.            MIT */
 (function () {
 'use strict';
 var CFG = window.JANELA, GEO = window.JANELA_GEO;
@@ -171,49 +172,75 @@ function chip(c) { return '<span class="jn-w ' + (c === '-' ? 'x' : c) + '">' + 
 /* ================================================================ the answer line */
 function nextL(c, from) { var k = c.indexOf('L', from); if (k < 0) return null; var j = k; while (j + 1 < c.length && c[j + 1] === 'L') j++; return { k: k, j: j }; }
 function windowEnd(j, TR) { return addH(AX[j], C.trOf(TR)); }
+/* a place's next window from NOW, in words: the answer line and the card's head say the same sentence */
+function unitLine(p, cur) {
+  var c = codes(p.id), op = cur.op, TR = C.trOf(op.TR), n = nextL(c, iNow), h, sub = [];
+  if (n) {
+    var end = windowEnd(n.j, op.TR), dur = LEAD[n.j] - LEAD[n.k] + TR, open = c[n.j + 1] === '-' || n.j === c.length - 1;
+    var sn = nextL(c, S.i), m = sn && sn.k === n.k ? margin(p) : null;
+    h = '<span class="jn-dim">próxima janela</span> ' + chip('L') + ' <span class="jn-t">' + esc(wtxt(AX[n.k])) + ' → ' + esc(wtxt(end)) + '</span> <span class="jn-dim">(' + dur + ' h' + (open ? ', até o fim da previsão' : '') + ')</span>';
+    sub.push(n.j > n.k ? 'começar entre ' + wtxt(AX[n.k]) + ' e ' + wtxt(AX[n.j]) : 'começar ' + wtxt(AX[n.k]));
+    sub.push(TR ? 'operação de ' + TR + ' h' : 'condição na hora');
+    if (m) sub.push('folga ' + dc(m.gap) + ' ' + (m.var === 'hs' ? 'm' : 'nós'));
+  } else {
+    var ki = c.indexOf('I', iNow), kv = c.indexOf('V', iNow), ks = c.indexOf('S', iNow);
+    if (ki >= 0) {
+      var r = full(p.id, ki), f = r && r.flip && r.flip[0];
+      h = '<span class="jn-dim">nenhuma janela LIBERADA nesta previsão. A mais perto:</span> ' + chip('I') + ' <span class="jn-t">' + esc(wtxt(AX[ki])) + '</span>'
+        + (f ? ' <span class="jn-dim">— ' + esc(VAR[f.var]) + ' precisa ' + (/^</.test(f.limit) ? 'baixar ' : 'subir ') + esc(dc(f.gapDec)) + ' ' + esc(UNIT[f.unit] || f.unit) + ' na borda desfavorável</span>' : '');
+    } else if (kv >= 0) {
+      var rv = full(p.id, kv), w = rv && rv.witness;
+      h = chip('V') + ' <span class="jn-dim">em todos os inícios desta previsão' + (w ? ' — a primeira testemunha: ' + esc(VAR[w.var]) + ' ' + esc(edgeWord(w)) + ' ' + esc(wtxt(w.t)) : '') + '</span>';
+    } else if (ks >= 0) {
+      var rs = full(p.id, ks);
+      h = chip('S') + ' <span class="jn-dim">— ' + esc(missingShort(p, rs, cur.op)) + '</span>';
+    } else if (c.indexOf('n') >= 0) {
+      var rn = full(p.id, c.indexOf('n'));
+      h = '<span class="jn-dim">' + esc(CNAME[S.crit]) + ' não se aplica: ' + esc(rn ? rn.why : '') + '</span>';
+    } else h = '<span class="jn-dim">nenhuma janela inteira cabe no que resta da previsão.</span>';
+  }
+  sub.push(CNAME[S.crit]);
+  return { h: h, sub: sub };
+}
 function answer() {
   var el = $('jn-ansl'), cur = current();
   if (!T) return;
   if (!cur) { el.innerHTML = '<p class="jn-ans">Escolha um terminal para ver as regras da Capitania dele.</p>'; return; }
   var p = PL[S.site];
   if (!p || !STEPS[p.id]) { fleetAnswer(el, cur); return; }
-  var c = codes(p.id), op = cur.op, TR = C.trOf(op.TR), name = cur.op.own ? 'Seu limite' : (op.npcp ? 'A regra da Capitania' : (preset(S.op) || {}).name || cur.name);
-  var head = '<b>' + esc(name) + ' ' + esc(inName(p)) + ':</b> ';
-  var n = nextL(c, iNow), h, sub = [];
-  if (n) {
-    var end = windowEnd(n.j, op.TR), dur = LEAD[n.j] - LEAD[n.k] + TR, open = c[n.j + 1] === '-' || n.j === c.length - 1;
-    h = head + '<span class="jn-dim">próxima janela</span> ' + chip('L') + ' <span class="jn-t">' + esc(wtxt(AX[n.k])) + ' → ' + esc(wtxt(end)) + '</span> <span class="jn-dim">(' + dur + ' h' + (open ? ', até o fim da previsão' : '') + ')</span>';
-    sub.push(n.j > n.k ? 'começar entre ' + wtxt(AX[n.k]) + ' e ' + wtxt(AX[n.j]) : 'começar ' + wtxt(AX[n.k]));
-    sub.push(TR ? 'operação de ' + TR + ' h' : 'condição na hora');
-  } else {
-    var ki = c.indexOf('I', iNow), kv = c.indexOf('V', iNow), ks = c.indexOf('S', iNow);
-    if (ki >= 0) {
-      var r = full(p.id, ki), f = r && r.flip && r.flip[0];
-      h = head + '<span class="jn-dim">nenhuma janela LIBERADA nesta previsão. A mais perto:</span> ' + chip('I') + ' <span class="jn-t">' + esc(wtxt(AX[ki])) + '</span>'
-        + (f ? ' <span class="jn-dim">— ' + esc(VAR[f.var]) + ' precisa ' + (/^</.test(f.limit) ? 'baixar ' : 'subir ') + esc(dc(f.gapDec)) + ' ' + esc(UNIT[f.unit] || f.unit) + ' na borda desfavorável</span>' : '');
-    } else if (kv >= 0) {
-      var rv = full(p.id, kv), w = rv && rv.witness;
-      h = head + chip('V') + ' <span class="jn-dim">em todos os inícios desta previsão' + (w ? ' — a primeira testemunha: ' + esc(VAR[w.var]) + ' ' + esc(edgeWord(w)) + ' ' + esc(wtxt(w.t)) : '') + '</span>';
-    } else if (ks >= 0) {
-      var rs = full(p.id, ks);
-      h = head + chip('S') + ' <span class="jn-dim">— ' + esc(missingShort(p, rs, cur.op)) + '</span>';
-    } else if (c.indexOf('n') >= 0) {
-      var rn = full(p.id, c.indexOf('n'));
-      h = head + '<span class="jn-dim">' + esc(CNAME[S.crit]) + ' não se aplica: ' + esc(rn ? rn.why : '') + '</span>';
-    } else h = head + '<span class="jn-dim">nenhuma janela inteira cabe no que resta da previsão.</span>';
-  }
-  sub.push(CNAME[S.crit]);
-  el.innerHTML = '<p class="jn-ans">' + h + '</p><p class="jn-sub"><span>' + sub.join(' · ') + '</span><a href="#" class="jn-notal" id="jn-nota-a">nota de decisão</a></p>';
+  var op = cur.op, name = op.own ? 'Seu limite' : (op.npcp ? 'A regra da Capitania' : (preset(S.op) || {}).name || cur.name);
+  var u = unitLine(p, cur);
+  el.innerHTML = '<p class="jn-ans"><b>' + esc(name) + ' ' + esc(inName(p)) + ':</b> ' + u.h + '</p><p class="jn-sub"><span>' + u.sub.join(' · ') + '</span><a href="#" class="jn-notal" id="jn-nota-a">nota de decisão</a></p>';
   var a = $('jn-nota-a'); if (a) a.onclick = function (e) { e.preventDefault(); nota(); };
 }
 function edgeWord(w) { var up = /^</.test(w.limit); return (up ? 'de pelo menos ' : 'de no máximo ') + q2(w.edge, 2) + ' ' + (w.var === 'hs' ? 'm' : 'nós'); }
 function fleetAnswer(el, cur) {
-  var cnt = { L: 0, I: 0, V: 0, S: 0, n: 0 }, tot = 0;
-  var out = 0;
-  VIS.forEach(function (p) { if (!applies(cur.op, p)) { out++; return; } var c = codes(p.id); if (!c) return; var v = c[S.i]; if (v === '-' || v === 'n') return; tot++; cnt[v === 'R' ? 'S' : v] = (cnt[v === 'R' ? 'S' : v] || 0) + 1; });
-  el.innerHTML = '<p class="jn-ans"><b>' + esc(cur.name) + ', começando ' + esc(wtxt(AX[S.i])) + ':</b> <span class="jn-t">' + cnt.L + '</span> <span class="jn-dim">de ' + tot + ' locais</span> ' + chip('L') + '</p>'
-    + '<p class="jn-sub"><span>' + cnt.I + ' INDEFINIDA · ' + cnt.V + ' VETADA · ' + cnt.S + ' SEM DADOS · toque num local para a próxima janela dele</span></p>'
-    + (out ? '<p class="jn-fine">' + esc(cur.op.appliesTo.why) + ': ' + out + ' unidades fora desta conta.</p>' : '');
+  var cnt = { L: 0, I: 0, V: 0, S: 0 }, tot = 0, out = 0, yes = [], no = [];
+  /* the same set the list shows (its "Todos / Unidades / Bacias e terminais" filter), so the two counts always agree */
+  VIS.forEach(function (p) {
+    if (!applies(cur.op, p)) { out++; return; }
+    if ((S.kind === 'uep' && p.kind !== 'uep') || (S.kind === 'own' && p.kind === 'uep')) return;
+    var c = codes(p.id); if (!c) return;
+    var v = c[S.i]; if (v === '-' || v === 'n') return;
+    if (v === 'R') v = 'S';
+    tot++; cnt[v]++; (v === 'L' ? yes : no).push(p);
+  });
+  var TR = C.trOf(cur.op.TR);
+  var noun = S.kind === 'own' ? ' bacias e terminais' : S.kind === 'uep' ? (S.op === 'alivio' ? ' unidades com armazenagem' : ' unidades') : ' locais';
+  var h = '<p class="jn-ans"><span class="jn-big">' + cnt.L + '</span> <span class="jn-dim">de ' + tot + noun + '</span> ' + chip('L') + '</p>'
+    + '<p class="jn-sub"><span>' + esc(cur.name) + ' começando <b>' + esc(wtxt(AX[S.i])) + '</b>' + (TR ? ', janela de ' + TR + ' h' : '') + ' · ' + esc(CSHORT[S.crit]) + '</span></p>'
+    + '<p class="jn-mix">' + ['L', 'I', 'V', 'S'].map(function (k) { return '<span class="' + (cnt[k] ? '' : 'z') + '">' + g(k) + '<b>' + cnt[k] + '</b> ' + WORD[k] + '</span>'; }).join('') + '</p>';
+  /* the minority, by name: on a calm day the few that cannot go, on a rough day the few that can */
+  var few = !tot ? null : no.length && no.length <= yes.length ? { t: 'Fora da janela', l: no } : yes.length && yes.length < no.length ? { t: 'Na janela', l: yes } : null;
+  if (few) {
+    few.l.sort(function (a, b) { return (a.kind === 'uep') - (b.kind === 'uep') || short(a).localeCompare(short(b)); });
+    h += '<p class="jn-few"><span>' + few.t + ' (' + few.l.length + '):</span> ' + few.l.slice(0, 5).map(function (p) {
+      var c = codes(p.id); return '<button type="button" class="jn-linkb" data-site="' + esc(p.id) + '">' + g(c[S.i] === 'R' ? 'S' : c[S.i]) + esc(short(p)) + '</button>'; }).join(' ')
+      + (few.l.length > 5 ? ' <span class="jn-dim">e mais ' + (few.l.length - 5) + ' na lista</span>' : '') + '</p>';
+  } else if (tot && cnt.L === tot) h += '<p class="jn-few"><span>Todos na janela nesta hora.</span></p>';
+  h += '<p class="jn-fine">' + (out ? esc(cur.op.appliesTo.why) + ': ' + out + ' unidades fora desta conta. ' : '') + 'Toque num local, no mapa ou na lista, para a próxima janela dele.</p>';
+  el.innerHTML = h;
+  [].forEach.call(el.querySelectorAll('[data-site]'), function (b) { b.onclick = function () { stop(); select(b.getAttribute('data-site')); }; });
 }
 function missingShort(p, r, op) {
   if (!r) return '';
@@ -324,7 +351,12 @@ function drawOps() {
       + '<br><a href="' + esc(op.source.url) + '">o ato</a> · sha256 ' + esc(String(op.source.sha256 || '').slice(0, 12)) + '…</details>';
   } else {
     var hs = lim('hs'), w = lim('wind_sustained');
-    h += '<div class="jn-edit"><label>Hs ≤ (m)<input class="jn-in" id="jn-hs" inputmode="decimal" value="' + (hs ? dc(hs.value) : '') + '" placeholder="—"></label>'
+    /* the limits in force, said as a line first: what is being decided is always visible; editing them is one click down */
+    var open = op.own || !!S.adj;
+    h += '<p class="jn-lims"><b>' + esc(op.limits.map(function (l) { return (l.var === 'hs' ? 'Hs' : VAR[l.var]) + ' ' + OPW[l.op] + ' ' + dc(l.value) + ' ' + (UNIT[l.unit] || l.unit); }).concat([C.trOf(op.TR) ? 'janela de ' + C.trOf(op.TR) + ' h' : 'condição na hora']).join(' · ')) + '</b>'
+      + (op.own ? '' : '<button type="button" class="jn-linkb" id="jn-adj" aria-expanded="' + open + '">' + (open ? 'fechar' : 'ajustar') + '</button>')
+      + (cur.op.edited && !open ? '<button type="button" class="jn-linkb" id="jn-reset">restaurar</button>' : '') + '</p>';
+    if (open) h += '<div class="jn-edit"><label>Hs ≤ (m)<input class="jn-in" id="jn-hs" inputmode="decimal" value="' + (hs ? dc(hs.value) : '') + '" placeholder="—"></label>'
       + '<label>vento ≤ (nós)<input class="jn-in" id="jn-vento" inputmode="decimal" value="' + (w ? dc(w.value) : '') + '" placeholder="—"></label>'
       + '<label>janela (h)<input class="jn-in" id="jn-tr" inputmode="numeric" value="' + op.TR + '"></label>'
       + (cur.pub || op.own ? '' : '<button type="button" class="jn-btn" id="jn-reset">restaurar</button>') + '</div>';
@@ -341,6 +373,7 @@ function drawOps() {
   var apply = function () {
     var tr = $('jn-tr') ? Math.max(0, Math.min(120, parseInt($('jn-tr').value, 10) || 0)) : op.TR;
     if (op.npcp) { S.edit = tr === 0 ? null : { TR: tr }; return change(); }
+    if (!$('jn-hs')) return;
     var hv = num($('jn-hs').value), wv = num($('jn-vento').value);
     if (hv === null || wv === null || (hv === '' && wv === '')) return;
     var L = [];
@@ -355,18 +388,60 @@ function drawOps() {
   };
   ['jn-hs', 'jn-vento', 'jn-tr'].forEach(function (id) { var x = $(id); if (x) x.addEventListener('change', apply); });
   if ($('jn-npcp')) $('jn-npcp').onchange = function () { S.npcp = this.value; change(); };
-  if ($('jn-reset')) $('jn-reset').onclick = function () { S.edit = null; change(); };
+  if ($('jn-reset')) $('jn-reset').onclick = function () { S.edit = null; S.adj = false; change(); };
+  if ($('jn-adj')) $('jn-adj').onclick = function () { S.adj = !S.adj; drawOps(); };
 }
 $('jn-ops').addEventListener('click', function (e) {
   var b = e.target.closest && e.target.closest('[data-op]'); if (!b) return;
   var id = b.getAttribute('data-op');
-  S.edit = null;
+  S.edit = null; S.adj = false;
   if (id === 'npcp') {
     if (!PL[S.site] || PL[S.site].kind !== 'terminal') { var tt = terminals().filter(function (p) { return npcpOf(p.id).length; }); select(tt[0] ? tt[0].id : null, true); }
     S.npcp = (npcpOf(S.site)[0] || {}).id;
     if (S.crit !== 'band') S.crit = 'band';
   }
   S.op = id; change();
+});
+/* ================================================================ the doors: what the visitor came to decide */
+/* the intro is open on a first visit and folds to its one line once a door is used or it is folded; the choice
+   stays in this browser (a per-viewer convenience: a blocked store just shows it open) */
+function intro(open, keep) {
+  var b = $('jn-introt'), box = $('jn-intro');
+  if (!b) return;
+  b.setAttribute('aria-expanded', open ? 'true' : 'false'); box.classList.toggle('shut', !open);
+  if (keep) store.set('intro', open ? 'open' : 'shut');
+  if (phone.matches && S.sheet === 'peek') { measurePeek(); pad(); }
+}
+$('jn-introt').addEventListener('click', function () { intro(this.getAttribute('aria-expanded') !== 'true', true); });
+$('jn-uses').addEventListener('click', function (e) {
+  var b = e.target.closest && e.target.closest('[data-use]'); if (!b) return;
+  var u = b.getAttribute('data-use');
+  if (u === 'metodo') { location.href = '/janela/metodo/'; return; }
+  intro(false, true);
+  if (u === 'placar') { setMode('placar'); return; }
+  if (u === 'campanha') {
+    /* a campaign: ten line-laying operations (Hs <= 2.0 m for 48 h, the Lançamento example) from the 1st of next month at
+       the place in view (Santos by default) — the case where the sea, Table 4-1 and the site alpha all have a count */
+    S.op = 'lancamento'; S.edit = null; S.adj = false; S.ms = null; S.ml = null; S.mt = null; S.mn = 10; S.mm = null; setMode('mes'); render(); return;
+  }
+  if (u === 'vistoria') {
+    /* the surveyor's door: the first unit in a LIBERADA window, its card open at the certificate */
+    S.op = S.op === 'npcp' || S.op === 'own' ? 'alivio' : S.op; S.edit = null; setMode('semana');
+    var cur = current(), pick = null;
+    VIS.forEach(function (p) { if (pick || p.kind !== 'uep' || !applies(cur.op, p)) return; var c = codes(p.id); if (c && c[S.i] === 'L') pick = p; });
+    if (!pick) pick = VIS.filter(function (p) { return p.kind === 'uep'; })[0];
+    if (pick) {
+      select(pick.id); if (phone.matches) setSheet('full');
+      var cb = document.querySelector('.jn-cert'), sc = $('jn-scroll');
+      if (cb) sc.scrollTop += cb.getBoundingClientRect().top - sc.getBoundingClientRect().top - 8;
+    }
+    return;
+  }
+  /* an operation door: the week, the units that can do it, ranked */
+  S.op = u; S.edit = null; S.adj = false; S.kind = 'uep';
+  [].forEach.call($('jn-kind').querySelectorAll('[data-kind]'), function (x) { x.setAttribute('aria-checked', x.getAttribute('data-kind') === 'uep' ? 'true' : 'false'); });
+  if (S.site) select(null, true);
+  setMode('semana'); change();
 });
 $('jn-crit').addEventListener('click', function (e) {
   var b = e.target.closest && e.target.closest('[data-crit]'); if (!b) return;
@@ -407,20 +482,21 @@ function drawCrit() {
 }
 
 /* ================================================================ the list */
+/* the list's groups, read at the chosen start hour (ONE clock): in the window now (tightest margin first), opening
+   later (soonest first), no window in what is left of the forecast, and where the operation does not apply */
 function rank(p) {
-  var c = codes(p.id); if (!c) return [9e9, 0];
-  var n = nextL(c, iNow);
-  if (n) return [n.k, -(n.j - n.k)];
-  var ki = c.indexOf('I', iNow); if (ki >= 0) return [1000 + ki, 0];
-  if (c.indexOf('V', iNow) >= 0) return [2000, 0];
-  if (c.indexOf('S', iNow) >= 0) return [3000, 0];
-  return [4000, 0];
+  var c = codes(p.id); if (!c) return [3, 0];
+  if (c[S.i] === 'L') return [0, 0];
+  var n = nextL(c, S.i);
+  if (n) return [1, n.k];
+  return /[VISR]/.test(c.slice(S.i)) ? [2, 0] : [3, 0];
 }
+var GROUP = ['Na janela agora, menor folga primeiro', 'Abre mais tarde, a mais cedo primeiro', 'Sem janela no resto da previsão', 'Não se aplica ou além da previsão'];
 /* the margin of a place's next LIBERADA window: the smallest distance, over the window's steps, between the
    unfavourable edge the criterion decides on and the limit it decides against (Hs in m, wind in knots) */
 function margin(p) {
   var c = codes(p.id), cur = current(); if (!c || !cur) return null;
-  var n = nextL(c, iNow); if (!n) return null;
+  var n = nextL(c, S.i); if (!n) return null;
   var r = full(p.id, n.k); if (!r || r.verdict !== 'LIBERADA') return null;
   var band = S.crit === 'band', lims = band ? cur.op.limits : (r.opwf || []);
   var span = C.span(STEPS[p.id], n.k, cur.op.TR) || [n.k], best = null;
@@ -437,15 +513,15 @@ function margin(p) {
 }
 function nxText(p) {
   var c = codes(p.id); if (!c) return '';
-  var cur = current(), n = nextL(c, iNow);
+  var cur = current(), n = nextL(c, S.i);
   if (n) {
     var open = !/[VISR]/.test(c.slice(n.j + 1)), m = margin(p);
-    return '<b>' + esc(wtxt(AX[n.k])) + '</b> · ' + (open ? 'até o fim' : (LEAD[n.j] - LEAD[n.k] + C.trOf(cur.op.TR)) + ' h')
+    return (n.k === S.i ? 'agora' : '<b>' + esc(wtxt(AX[n.k])) + '</b>') + ' · ' + (open ? 'até o fim' : (LEAD[n.j] - LEAD[n.k] + C.trOf(cur.op.TR)) + ' h')
       + (m ? '<small>folga ' + dc(m.gap) + ' ' + (m.var === 'hs' ? 'm' : 'nós') + '</small>' : '');
   }
-  var ki = c.indexOf('I', iNow); if (ki >= 0) return 'INDEFINIDA ' + esc(wtxt(AX[ki]));
-  if (c.indexOf('V', iNow) >= 0) return 'VETADA';
-  if (c.indexOf('S', iNow) >= 0) return 'SEM DADOS';
+  var ki = c.indexOf('I', S.i); if (ki >= 0) return 'INDEFINIDA ' + esc(wtxt(AX[ki]));
+  if (c.indexOf('V', S.i) >= 0) return 'VETADA';
+  if (c.indexOf('S', S.i) >= 0 || c.indexOf('R', S.i) >= 0) return 'SEM DADOS';
   return 'não se aplica';
 }
 function drawList() {
@@ -463,16 +539,15 @@ function drawList() {
   var mg = {}; rows.forEach(function (p) { mg[p.id] = margin(p); });
   var mgv = function (id) { return mg[id] ? mg[id].rel : 9; };
   rows.sort(function (a, b) { var x = rk[a.id], y = rk[b.id]; return x[0] - y[0] || x[1] - y[1] || mgv(a.id) - mgv(b.id) || short(a).localeCompare(short(b)); });
-  var cnt = { L: 0, I: 0, V: 0, S: 0 };
-  rows.forEach(function (p) { var c = codes(p.id); var v = c ? c[S.i] : '-'; if (cnt[v === 'R' ? 'S' : v] !== undefined) cnt[v === 'R' ? 'S' : v]++; });
-  $('jn-listk').innerHTML = (q ? 'busca: ' + rows.length + ' de ' + VIS.length : (S.kind === 'uep' ? 'as unidades' : S.kind === 'own' ? 'bacias e terminais' : 'todos os locais')) + ', <b>pela próxima janela</b>, menor folga primeiro';
-  $('jn-fleet').innerHTML = 'em ' + esc(wtxt(AX[S.i])) + ': <span>' + g('L') + cnt.L + '</span><span>' + g('I') + cnt.I + '</span><span>' + g('V') + cnt.V + '</span><span>' + g('S') + cnt.S + '</span>'
-    + (hidden ? '<span title="' + esc(cur.op.appliesTo.why) + '">+ ' + hidden + ' sem armazenagem, fora</span>' : '');
-  var shown = rows.slice(0, S.listN);
+  var n = [0, 0, 0, 0]; rows.forEach(function (p) { n[rk[p.id][0]]++; });
+  $('jn-listk').innerHTML = (q ? 'busca: ' + rows.length + ' de ' + VIS.length : (S.kind === 'uep' ? 'As unidades' : S.kind === 'own' ? 'Bacias e terminais' : 'Todos os locais')) + ' começando <b>' + esc(wtxt(AX[S.i])) + '</b>'
+    + (hidden ? ' <span class="jn-dim" title="' + esc(cur.op.appliesTo.why) + '">· ' + hidden + ' sem armazenagem, fora</span>' : '');
+  var shown = rows.slice(0, S.listN), last = -1;
   $('jn-rows').innerHTML = shown.map(function (p) {
-    var c = codes(p.id) || repeat('-', AX.length), ms = '';
+    var c = codes(p.id) || repeat('-', AX.length), ms = '', gk = rk[p.id][0], head = '';
+    if (gk !== last) { last = gk; head = '<div class="jn-grp">' + esc(GROUP[gk]) + ' <b>' + n[gk] + '</b></div>'; }
     for (var k = 0; k < c.length; k++) ms += '<i class="' + c[k] + (k === S.i ? ' cur' : '') + '"></i>';
-    return '<button type="button" class="jn-row" data-site="' + esc(p.id) + '" aria-label="' + esc(short(p) + ', ' + WORD[c[S.i]] + ', próxima janela ' + nxText(p).replace(/<[^>]+>/g, '')) + '">'
+    return head + '<button type="button" class="jn-row" data-site="' + esc(p.id) + '" aria-label="' + esc(short(p) + ', ' + WORD[c[S.i]] + ', próxima janela ' + nxText(p).replace(/<[^>]+>/g, '')) + '">'
       + g(c[S.i]) + '<span class="nm">' + esc(short(p)) + '<small>' + esc(subOf(p)) + '</small></span><span class="nx">' + nxText(p) + '</span><span class="ms" aria-hidden="true">' + ms + '</span></button>';
   }).join('') + (rows.length > S.listN ? '<button type="button" class="jn-btn jn-more" id="jn-more">mostrar mais ' + Math.min(60, rows.length - S.listN) + ' (de ' + rows.length + ')</button>' : '')
     + (!rows.length ? '<p class="jn-fine">Nada encontrado. Tente o nome da unidade (P-75), do campo (Búzios) ou do terminal.</p>' : '');
@@ -484,7 +559,7 @@ $('jn-kind').addEventListener('click', function (e) {
   var b = e.target.closest && e.target.closest('[data-kind]'); if (!b) return;
   S.kind = b.getAttribute('data-kind'); S.listN = 30;
   [].forEach.call(this.querySelectorAll('[data-kind]'), function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
-  drawList();
+  answer(); drawList();
 });
 
 /* ================================================================ the site card */
@@ -500,10 +575,10 @@ function siteShort(p, r) {
   if (/medição|estimado/.test(r.why)) return 'sem α do local nesta região';
   return 'não se aplica';
 }
-function nodeLine(p) {
+function prunedLine(p) {
   var src = p.kind === 'uep' ? p.bandFrom : p.id;
   var pr = (T.pruned || []).filter(function (x) { return x.sites.indexOf(src) >= 0; })[0];
-  return (pr ? 'A faixa medida daqui foi PODADA pelo placar' + (pr.at ? ' em ' + dmy(pr.at) : '') + ': errou a própria reivindicação de cobertura, e até uma versão recalibrada ela não decide aqui (a banda fica SEM DADOS; a Tabela 4-1 decide). ' : '') + nodeLine0(p);
+  return pr ? 'A faixa medida daqui foi PODADA pelo placar' + (pr.at ? ' em ' + dmy(pr.at) : '') + ': errou a própria reivindicação de cobertura, e até uma versão recalibrada ela não decide aqui (a banda fica SEM DADOS; a Tabela 4-1 decide).' : '';
 }
 function nodeLine0(p) {
   var s = T.places[p.id];
@@ -572,20 +647,28 @@ function drawCard() {
     return '<span class="l' + (k === S.crit ? ' on' : '') + '">' + esc(CSHORT[k]) + '</span><span class="ms" data-crit="' + k + '">' + cells + '</span>';
   }).join('');
   var isTank = p.kind === 'uep' && applies(preset('alivio'), p);
-  var h = '<div class="jn-ch"><div class="jn-grow"><div class="jn-k">' + esc(eyebrow) + '</div><h2>' + esc(p.kind === 'uep' ? p.name : p.name) + '</h2>'
+  /* THE CARD'S ORDER IS THE HIERARCHY (2026-10-07, outreach pass): who it is → when it can go → why, by the three
+     criteria → the week → the sea charts → the user's own planning numbers → what is shown but never decided
+     (folded) → the certificate → where the forecast was read */
+  var u = unitLine(p, cur), pl = prunedLine(p);
+  var h = '<div class="jn-ch"><div class="jn-grow"><div class="jn-k">' + esc(eyebrow) + '</div><h2>' + esc(p.name) + '</h2>'
     + (p.kind === 'uep' && p.full && p.full !== p.name ? '<div class="jn-fine">' + esc(p.full) + (p.oilBpd ? ' · capacidade de processamento ' + grp(p.oilBpd) + ' bpd (ANP)' : '') + '</div>' : '')
-    + '<p class="jn-node">' + esc(nodeLine(p)) + '</p></div><button type="button" class="jn-x" id="jn-close" aria-label="Fechar o local (Esc)">×</button></div>'
+    + '</div><button type="button" class="jn-x" id="jn-close" aria-label="Fechar o local (Esc)">×</button></div>'
+    + '<div class="jn-unit"><p class="jn-ans">' + u.h + '</p><p class="jn-sub"><span>' + esc(u.sub.join(' · ')) + '</span></p></div>'
+    + (pl ? '<div class="jn-note">' + esc(pl) + '</div>' : '')
     + '<div><div class="jn-k">' + esc(cur.name) + ' · começando <b>' + esc(wtxt(AX[S.i], true)) + '</b>' + (TR ? ' → ' + esc(wtxt(end)) : ', condição na hora') + '</div>'
     + '<div class="jn-three">' + crits.map(tile).join('') + '</div></div>'
     + '<p class="jn-why">' + esc(explain(p, res[S.crit], op, S.crit)) + '</p>'
     + '<div><div class="jn-k">a semana, pelos três critérios</div><div class="jn-mx" id="jn-mx">' + mx + '</div></div>'
-    + chartHs(p, cur) + chartWind(p, cur) + dirs(p) + seaParts(p)
-    + '<div class="jn-note">' + currentNote(p) + '</div>'
+    + chartHs(p, cur) + chartWind(p, cur) + dirs(p)
     + (isTank && S.op === 'alivio' ? tank(p) : '')
     + waitCost(p)
-    + certBlock(p);
+    + '<details class="jn-src jn-fold"' + (S.fold ? ' open' : '') + ' id="jn-fold"><summary>o mar por partes e a corrente · mostrados, não decididos</summary>' + seaParts(p) + '<div class="jn-note">' + currentNote(p) + '</div></details>'
+    + certBlock(p)
+    + '<div class="jn-from"><div class="jn-k">de onde vem esta previsão</div><p class="jn-node">' + esc(nodeLine0(p)) + '</p></div>';
   box.innerHTML = h;
   $('jn-close').onclick = function () { select(null); };
+  $('jn-fold').addEventListener('toggle', function () { S.fold = this.open; });
   $('jn-nota-b').onclick = nota;
   $('jn-cert-b').onclick = function () { certDownload(p); };
   $('jn-mx').addEventListener('click', function (e) {
@@ -1031,7 +1114,7 @@ function readHash() {
     var tr = Math.max(0, Math.min(120, parseInt(kv.tr, 10) || 0));
     if (S.op === 'own') S.own = { limits: L.length ? L : null, TR: tr };
     else if (S.op === 'npcp') S.edit = { TR: tr };
-    else if (L.length) S.edit = { limits: L, TR: tr };
+    else if (L.length) { S.edit = { limits: L, TR: tr }; S.adj = true; }
     if (S.own && !S.own.limits) S.own = null;
   }
   return kv;
@@ -1431,7 +1514,9 @@ function start(today) {
   if (kv.rodada && kv.rodada !== T.run) status('este link foi feito sobre a rodada ' + kv.rodada.slice(8, 10) + '/' + kv.rodada.slice(5, 7) + ' ' + kv.rodada.slice(11, 13) + ' UTC; você vê a de agora, ' + T.run.slice(8, 10) + '/' + T.run.slice(5, 7) + ' ' + T.run.slice(11, 13) + ' UTC');
   FIELD.target = S.i; FIELD.tf = S.i;
   var run = T.run.slice(8, 10) + '/' + T.run.slice(5, 7) + ' ' + T.run.slice(11, 13) + ' UTC', made = T.madeAt.slice(8, 10) + '/' + T.madeAt.slice(5, 7) + ' ' + T.madeAt.slice(11, 16) + ' UTC';
-  $('jn-run').innerHTML = 'ECMWF <b>' + esc(run) + '</b> · lida ' + esc(made);
+  var mb = new Date(Date.parse(T.madeAt) - 3 * 3600e3).toISOString();
+  $('jn-run').innerHTML = 'previsão <b>' + esc(run) + '</b> · lida ' + esc(mb.slice(8, 10) + '/' + mb.slice(5, 7) + ' ' + mb.slice(11, 16)) + ' BRT';
+  $('jn-run').title = 'ECMWF e NOAA, rodada de ' + run + '; lida ' + made + ' e decidida no mesmo build';
   var lb = $('jn-load'); if (lb) lb.textContent = '';
   if (stale) status('previsão antiga: a rodada ' + run + ' já passou; a de hoje ainda não chegou');
   var late = $('jn-late');
@@ -1441,6 +1526,10 @@ function start(today) {
     $('jn-run').classList.add('late');
   }
   tieField();
+  /* the intro: open on a first visit, folded when the visitor folded it (or used a door) or arrived on a shared PLACE.
+     Not on op/modo alone: the address bar carries them from the first render, so a copied link would fold it for
+     the colleague it was sent to — the reader who most needs it */
+  intro(!(store.get('intro') === 'shut' || (kv.site && PL[kv.site])), false);
   setMode(S.mode);
   render();
   if (phone.matches) setSheet('peek'); else pad();

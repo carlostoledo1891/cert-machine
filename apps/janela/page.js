@@ -819,7 +819,7 @@ function build(N, B, git, battery) {
     + '<h1>A janela operacional, decidida.</h1>'
     + '<p class="deck">Para áreas de produção, plataformas e terminais de petróleo e GNL: a previsão do mar com o seu erro medido contra satélites, decidida contra o limite publicado — o da Capitania, o da DNV ou o seu. Cada horário sai com um de quatro vereditos e o motivo.</p>'
     + '<div class="jn-quad">' + quad.map((v) => '<div>' + L.chip(v, true) + '<p>' + esc(QUAD[v]) + '</p></div>').join('') + '</div>'
-    + '<div class="jn-cta"><a class="go" href="/janela/">Abrir o app ↗</a><a href="#semana">A semana ↓</a><a href="#mes">O mês ↓</a>' + (N.alpha ? '<a href="#alfa">O α do local ↓</a>' : '') + '<a href="#placar">O placar ↓</a><a href="#confiar">Por que confiar ↓</a></div>'
+    + '<div class="jn-cta"><a class="go" href="/janela/">Abrir o app ↗</a><a href="/janela/janela-apresentacao.pdf">Apresentação (PDF)</a><a href="#para-quem">Para quem ↓</a><a href="#semana">A semana ↓</a><a href="#mes">O mês ↓</a>' + (N.alpha ? '<a href="#alfa">O α do local ↓</a>' : '') + '<a href="#placar">O placar ↓</a><a href="#confiar">Por que confiar ↓</a></div>'
     + '</header>');
   out.push(C.stats([
     { k: 'locais', v: String(N.counted.sites), n: n('field') + ' áreas de produção, ' + n('platform') + ' plataforma, ' + n('terminal') + ' terminais e ' + n('coast') + ' ponto de costa; o nó do modelo de cada um, nomeado' },
@@ -830,6 +830,11 @@ function build(N, B, git, battery) {
   out.push('<div class="col">' + C.scope('Decide-se a faixa prevista nos passos da própria previsão, no nó do modelo: não o mar entre passos, não o berço, não uma probabilidade. Não é aprovação de operação; é evidência que um vistoriador refaz.') + '</div>');
   /* this page is a portrait of one run; the app is the live view (the daily Action rebuilds the app's day, not this page) */
   out.push('<div class="col">' + C.pRaw('<b>Retrato da rodada ECMWF de ' + esc(run) + '.</b> Os números desta página — a semana, as decisões, o placar — são os desse dia, para documentar o método. As janelas de hoje e o placar de hoje estão no app: <a href="/janela/">/janela/</a>.') + '</div>');
+
+  /* ---- para quem: the use cases (PRODUCT.md, "who opens it"), each a door into the app's state ---- */
+  out.push('<section id="para-quem"><div class="col sec-head"><div class="lab">para quem</div><h2>Seis decisões, e a porta de cada uma no app.</h2></div>'
+    + '<div class="col">' + C.p('Cada cartão abre o app já na pergunta: a operação, o modo e o critério certos. Os limites de exemplo dizem que são exemplo; troque pelos do seu procedimento, e eles ficam só no seu navegador.') + '</div>'
+    + C.cards(require('./uses.js').cases().map((u) => ({ k: u.who, title: u.q, desc: u.gets, n: u.n, href: u.href }))) + '</section>');
 
   /* ---- 1 · the week ---- */
   const picker = '<div class="jn-pick" role="group" aria-label="Local">' + N.groups.map((g) => {
@@ -1022,7 +1027,7 @@ function build(N, B, git, battery) {
   const html = TPL.render({
     title: 'Janela — o método: a janela operacional, decidida', lang: 'pt-BR',
     desc: 'Janela decide janelas operacionais offshore no Brasil: a previsão ECMWF com o erro medido contra satélites, decidida contra o limite publicado (Capitania, DNV ou o seu): LIBERADA, VETADA, INDEFINIDA ou SEM DADOS, com o motivo.',
-    path: '/janela/metodo/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script
+    path: '/janela/metodo/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script, og: { image: '/janela/og.png', alt: 'Janela: o mapa da margem brasileira com as unidades offshore e a janela de cada operação, decidida' }
   });
   return { html, checked, def, data };
 }

@@ -460,4 +460,35 @@ ok('noaa: the proposer and the providers rule are dated in DEFINITIONS.json, wit
   assert.ok(PL.NAMES_PT[CM.NOAA.domain], 'the PLACAR names it');
 });
 
+/* THE USE CASES (apps/janela/uses.js): the app's doors, the method page's cards and the deck's table read one list;
+   every door must be one the client acts on, and every deep link must open a state the app can hold */
+const USES = require('./uses.js');
+const usesCheck = (list) => {
+  const DOORS = ['alivio', 'carga', 'campanha', 'vistoria', 'placar', 'metodo'];
+  const client = fs.readFileSync(path.join(__dirname, 'app', 'client.js'), 'utf8');
+  const placeIds = new Set(MODEL.load().places.map((p) => p.id)), presetIds = MODEL.PRESETS.map((p) => p.id).concat(['npcp', 'own']);
+  for (const u of list) {
+    if (u.door) { assert.ok(DOORS.includes(u.door), 'door ' + u.door + ' is not one the app knows'); assert.ok(u.door === 'alivio' || u.door === 'carga' || client.includes("u === '" + u.door + "'"), 'client.js does not act on the door ' + u.door); }
+    if (!u.who) continue;
+    const kv = Object.fromEntries(u.href.replace(/^\/janela\/#/, '').split('&').map((x) => x.split('=')));
+    assert.ok(/^\/janela\/#/.test(u.href), u.who + ': a deep link into the app');
+    if (kv.op) assert.ok(presetIds.includes(kv.op), u.who + ': op ' + kv.op + ' is no preset');
+    if (kv.site) assert.ok(placeIds.has(kv.site), u.who + ': site ' + kv.site + ' is no place');
+    if (kv.modo) assert.ok(['semana', 'mes', 'placar'].includes(kv.modo), u.who + ': modo ' + kv.modo);
+  }
+};
+ok('use cases: every door is one client.js acts on, every card opens a state the app holds (one list for app, page and deck)', () => {
+  usesCheck(USES.USES);
+  assert.strictEqual(USES.cases().length, 6); assert.ok(USES.doors().length >= 5);
+});
+red('use cases: a card linking to a preset that does not exist is refused', () => {
+  assert.throws(() => usesCheck([{ who: 'x', href: '/janela/#op=mergulho&modo=semana' }]), /no preset/);
+});
+ok('the deck: every figure it states is read from a record (facts() throws on a record that lost its shape)', () => {
+  const F = require('./deck.js').facts(require('./numbers.js').load());
+  assert.ok(F.units === 181 || F.units > 100, 'the units');
+  assert.ok(F.alpha.lo < F.alpha.hi && F.alpha.above <= F.alpha.n && F.alpha.cal.within >= 16);
+  assert.ok(F.camp.length === 3 && F.camp.every((r) => /^\d/.test(r.q50)), 'the campaign ran in every row');
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

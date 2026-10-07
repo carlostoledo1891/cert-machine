@@ -1147,6 +1147,33 @@ B.push(C.section({
   ].join('')
 }));
 
+/* ---- Janela: the window instrument, pointed at Brazil's offshore fleet (pt-BR app, 2026-10-07 outreach pass);
+   every number from the records the app and its deck read (apps/janela/numbers.js, deck.js facts) ---- */
+{
+  const JN = require(path.join(ROOT, 'apps', 'janela', 'numbers.js')).load();
+  const JF = require(path.join(ROOT, 'apps', 'janela', 'deck.js')).facts(JN);
+  const pc = (a, b, k) => (100 * a / b).toFixed(k) + '%';
+  B.push(C.section({
+    lab: 'the same instrument, pointed at the sea', title: 'Janela — the offshore operating window, decided',
+    bodyRaw: [
+      C.p('For each of Brazil’s ' + JF.units + ' offshore production units: will the sea let an offloading, a supply-vessel '
+        + 'transfer, a line lay or a heavy lift run in the next seven days? Janela decides every window against the operation’s '
+        + 'published limit — a Capitania rule, DNV’s alpha factor, the operator’s own procedure — over a forecast whose error '
+        + 'was measured against satellites, site by site and lead by lead. Each start hour comes out LIBERADA, VETADA, INDEFINIDA '
+        + 'or SEM DADOS (cleared, blocked, undecided, needs data), with the reason and the threshold that would flip it; the '
+        + 'reader’s browser re-decides the day, and a second verifier that shares no code with the first must agree before it is published.'),
+      C.p('Measured on ' + fmt(JF.H.pairs) + ' satellite comparisons the bands never saw: where the deciding band cleared a '
+        + '2 m Hs limit, the sea broke it ' + pc(JF.H.broke, JF.H.liberada, 2) + ' of the time (' + fmt(JF.H.broke) + ' of ' + fmt(JF.H.liberada)
+        + '); with one provider alone, ' + pc(JF.H.eBroke, JF.H.eLiberada, 2) + '. DNV’s North Sea alpha table, re-derived by the '
+        + 'method that made it (' + JF.alpha.cal.within + ' of ' + JF.alpha.cal.of + ' cells within 0.02), gives ' + JF.alpha.tLo.toFixed(2) + '–'
+        + JF.alpha.tHi.toFixed(2) + ' where the satellites measure ' + JF.alpha.lo.toFixed(2) + '–' + JF.alpha.hi.toFixed(2)
+        + ' at the offshore basins — a statistical estimate, offered as evidence a warranty surveyor can re-run, never as an approval.'),
+      C.pRaw('<a href="janela/">Open Janela →</a> (Portuguese) — the fleet on one map, the answer first. '
+        + '<a href="janela/metodo/">The method</a> · <a href="janela/janela-apresentacao.pdf">the deck (PDF)</a>.')
+    ].join('')
+  }));
+}
+
 B.push(C.section({
   lab: 'for people building evals', title: 'A grader that cannot be fooled',
   bodyRaw: [

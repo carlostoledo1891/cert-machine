@@ -61,3 +61,25 @@ if (fs.existsSync(path.join(ROOT, 'corpus', 'janela', 'field', 'platforms-latest
   try { process.stdout.write(cp.execFileSync('node', [path.join(APP, 'build-today.js')], { encoding: 'utf8' })); }
   catch (e) { die('the day\'s data did not build:\n' + (e.stdout || '') + (e.stderr || '')); }
 } else console.log('janela today: corpus/janela/field/ is empty here — the app reads the published day from the janela-field branch');
+
+/* the deck (site/janela/janela-apresentacao.pdf): its words from the same N, its pictures the app just built; re-printed
+   only when the words change (the text-only form's sha256 is the pin — the screenshots move with the animated sea) */
+const DECK = require('./deck.js');
+const DECKPDF = path.join(SITE, 'janela-apresentacao.pdf'), DECKPIN = path.join(APP, 'deck.sha256');
+let words;
+try { words = DECK.build(N, null); } catch (e) { die(e.message); }
+const want = require('crypto').createHash('sha256').update(words).digest('hex');
+const OGPNG = path.join(SITE, 'og.png');
+if (fs.existsSync(DECKPDF) && fs.existsSync(OGPNG) && fs.existsSync(DECKPIN) && fs.readFileSync(DECKPIN, 'utf8').trim() === want && !process.argv.includes('--deck')) {
+  console.log('site/janela/janela-apresentacao.pdf unchanged (' + want.slice(0, 12) + ')');
+} else if (!fs.existsSync(path.join(SITE, 'data', 'today.json'))) {
+  console.log('site/janela/janela-apresentacao.pdf NOT re-printed: its pictures need the day\'s local data (corpus/janela/field/)');
+} else {
+  (async () => {
+    const shots = await DECK.shots().catch((e) => die('the deck\'s screenshots failed: ' + e.message));
+    await DECK.print(DECK.build(N, shots), DECKPDF).catch((e) => die('the deck did not print: ' + e.message));
+    fs.writeFileSync(OGPNG, await DECK.og(N, shots).catch((e) => die('the link-preview card did not render: ' + e.message)));
+    fs.writeFileSync(DECKPIN, want + '\n');
+    console.log('site/janela/janela-apresentacao.pdf printed (12 slides, ' + Math.round(fs.statSync(DECKPDF).size / 1024) + ' KB; words ' + want.slice(0, 12) + ') · site/janela/og.png (the link preview)');
+  })();
+}

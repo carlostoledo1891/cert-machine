@@ -85,6 +85,45 @@ details.jn-src summary:after{content:' +';color:var(--ink-4)}
 details.jn-src[open] summary:after{content:' −'}
 details.jn-src[open] summary{margin-bottom:var(--s-1)}
 
+/* ---- the intro: what this is, and the doors (the use cases) — open on a first visit, one line after ---- */
+.jn-introt{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);width:100%;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left;
+  color:var(--ink);font-family:var(--f-sans);font-size:var(--jn-fs-l);font-weight:var(--weight-title);line-height:var(--leading-snug)}
+.jn-introt i{flex:none;font-style:normal;color:var(--ink-4);font-family:var(--f-mono);font-size:var(--jn-fs-m)}
+.jn-introt i:before{content:'−'}
+.jn-intro.shut .jn-introt{font-size:var(--jn-fs);font-weight:var(--weight-medium);color:var(--ink-2)}
+.jn-intro.shut .jn-introt i:before{content:'casos de uso +';font-size:var(--jn-fs-xs)}
+.jn-intro.shut #jn-introb{display:none}
+#jn-introb .jn-p{margin:var(--s-2) 0 var(--s-3)}
+#jn-introb .jn-p b{color:var(--ink);font-weight:var(--weight-medium)}
+.jn-seg.jn-uses button{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;text-align:left;color:var(--ink);font-weight:var(--weight-medium)}
+.jn-seg.jn-uses button small{font-family:var(--f-sans);font-weight:var(--weight-body);color:var(--ink-4);line-height:var(--leading-snug)}
+.jn-seg.jn-uses button:hover{background:var(--surface2)}
+.jn-introt:focus-visible,.jn-linkb:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.jn-k2{margin-top:var(--s-3)}
+.jn-linkb{background:none;border:0;padding:0;margin:0 0 0 var(--s-2);cursor:pointer;font:inherit;color:var(--ink-3);text-decoration:underline;text-underline-offset:2px;display:inline-flex;align-items:center;gap:var(--s-1)}
+.jn-linkb:hover{color:var(--ink)}
+.jn-lims{margin:var(--s-2) 0 0;font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-3);line-height:var(--leading-snug)}
+.jn-lims b{color:var(--ink);font-weight:var(--weight-strong)}
+.jn-big{font-family:var(--f-mono);font-size:var(--jn-fs-xl);font-weight:var(--weight-strong);color:var(--ink)}
+.jn-sub b{color:var(--ink);font-weight:var(--weight-strong)}
+.jn-mix{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);margin:var(--s-2) 0 0;font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-3)}
+.jn-mix span{display:inline-flex;align-items:center;gap:var(--s-1)}
+.jn-mix span.z{color:var(--ink-5)}
+.jn-mix b{color:var(--ink);font-weight:var(--weight-strong)}
+.jn-mix span.z b{color:var(--ink-4)}
+.jn-few{margin:var(--s-2) 0 0;font-size:var(--jn-fs-s);color:var(--ink-2);line-height:var(--leading-body)}
+.jn-few > span:first-child{color:var(--ink);font-weight:var(--weight-medium)}
+.jn-few .jn-linkb{margin:0 var(--s-2) 0 0;color:var(--ink-2)}
+.jn-critd{margin:var(--s-2) 0 0}
+.jn-grp{padding:var(--s-1) var(--jn-sec);border-top:1px solid var(--rule);background:var(--sunk);font-size:var(--jn-fs-xs);color:var(--ink-3)}
+.jn-grp b{color:var(--ink);font-weight:var(--weight-strong);font-family:var(--f-mono)}
+.jn-dim{color:var(--ink-4);font-weight:var(--weight-body)}
+.jn-unit{padding:var(--s-2);background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s)}
+.jn-unit .jn-ans{font-size:var(--jn-fs-m)}
+.jn-fold summary{font-size:var(--jn-fs-s)}
+.jn-fold[open]{display:flex;flex-direction:column;gap:var(--s-2)}
+.jn-from{border-top:1px solid var(--rule);padding-top:var(--s-2)}
+
 /* ---- verdict words and glyphs: SHAPE + word, the hue only beside them ---- */
 .jn-w{display:inline-flex;align-items:center;gap:var(--s-1);font-family:var(--f-mono);font-size:var(--jn-fs-xs);font-weight:var(--weight-strong);letter-spacing:var(--track-slight);
   padding:0 var(--s-1);border-radius:var(--radius-s);border:1px solid;white-space:nowrap;line-height:var(--leading-body);vertical-align:0.1em}
@@ -326,6 +365,14 @@ svg .wv{fill:var(--ink-3);font-family:var(--f-mono);font-size:var(--text-eyebrow
   .jn-clock{font-size:var(--jn-fs-xs)}
   .as-map .maplibregl-ctrl-bottom-right{display:none}
   .jn-seg button{font-size:var(--jn-fs-xs)}
+  .jn-answer{order:1}
+  .jn-time{order:2}
+  #jn-opbox{order:3}
+  #jn-card{order:4}
+  #jn-listbox{order:5}
+  .jn-intro{padding-top:var(--s-1)}
+  #panel[data-sheet="peek"] #jn-introb .jn-p{display:none}
+  #panel[data-sheet="peek"] .jn-intro:not(.shut) ~ .jn-answer .jn-mix,#panel[data-sheet="peek"] .jn-intro:not(.shut) ~ .jn-answer .jn-few{display:none}
 }
 @media (min-width:721px){ .jn-keybtn{display:none} }
 @media (prefers-reduced-motion:reduce){ .as-panel,.jn-cur,.jn-span{transition:none} }

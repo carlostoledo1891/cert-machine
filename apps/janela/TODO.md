@@ -96,3 +96,22 @@
 - [ ] Watch GitHub's schedule (2026-10-07: neither slot fired; five slots + tools/janela-watchdog.sh since).
 - [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
 
+
+## v1.3 — ready for outreach (2026-10-07, operator: "finish all missing items to prepare Janela to start outreach phase;
+## usable, easy to spot information; information hierarchy; the use cases, the user needs"; PRODUCT.md "The outreach pass")
+- [x] The use cases as ONE list (uses.js): the app's intro doors, the method page's "para quem" cards (deep links), the
+      deck's table; battery checks every door and link (+1 red).
+- [x] The intro (first visit open, folds to one line); the operation before the answer on a desk, after it on a phone;
+      the limits in force as one line with "ajustar".
+- [x] The fleet answer counts the list's own set and names the minority; the list grouped at the chosen hour.
+- [x] The card reordered by hierarchy: the next window and its margin first, the node line last, what is shown but not
+      decided folded.
+- [x] MÊS renamed CAMPANHA and reordered (the campaign before the months); the Campanha door opens 10 × 48 h at Hs ≤ 2 m.
+- [x] PLACAR opens with what is already measured (held-out coverage 96,5%, broken LIBERADA 0,33% vs 1,10%).
+- [x] The run chip in Brasília time; the link-preview card (og.png) for both pages; the deck (12 slides, the app's own
+      screenshots, every figure from a record) at /janela/janela-apresentacao.pdf.
+- [x] Janela on the landing page (tools/build-site.js) — and the site build unblocked: the certificate shelf now
+      describes the nine janela-* records (the build had refused since they were added on 2026-10-06).
+- [ ] The sends (Petrobras logistics/marine operations, a marine warranty surveyor, LabECO's brief, Radar Ciclo 4) —
+      the operator's, each approved per item.
+- [ ] English version of the app's surface (outreach beyond Brazil) — not started; pt-BR is the market.

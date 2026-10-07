@@ -1,0 +1,606 @@
+{
+ "what": "Which band should decide when Janela has two forecast providers: each option judged on 15 held-out months of satellite passes it never saw (apps/janela/audit/providers.py; a floating-point evaluation \u2014 the deciding bands are exact).",
+ "region": "sergipe",
+ "pairs": {
+  "ecmwf": 3096,
+  "noaa": 3819,
+  "joined": 3096,
+  "calibration": 1493,
+  "test": 1603,
+  "split": "2025-07-01",
+  "innerSplit": "2024-10-01"
+ },
+ "weightSelection": {
+  "on": "inner split of the calibration years only (before 2024-10-01 -> 2024-10-01..2025-07-01)",
+  "miss": "1/10",
+  "grid": [
+   {
+    "wEcmwf": 0.0,
+    "coverage": 0.8873,
+    "meanWidthM": 0.7679
+   },
+   {
+    "wEcmwf": 0.25,
+    "coverage": 0.8792,
+    "meanWidthM": 0.6816
+   },
+   {
+    "wEcmwf": 0.4,
+    "coverage": 0.8804,
+    "meanWidthM": 0.6464
+   },
+   {
+    "wEcmwf": 0.5,
+    "coverage": 0.8792,
+    "meanWidthM": 0.6262
+   },
+   {
+    "wEcmwf": 0.6,
+    "coverage": 0.8664,
+    "meanWidthM": 0.6106
+   },
+   {
+    "wEcmwf": 0.67,
+    "coverage": 0.8688,
+    "meanWidthM": 0.6078
+   },
+   {
+    "wEcmwf": 0.75,
+    "coverage": 0.8676,
+    "meanWidthM": 0.6113
+   },
+   {
+    "wEcmwf": 0.85,
+    "coverage": 0.8699,
+    "meanWidthM": 0.6183
+   },
+   {
+    "wEcmwf": 1.0,
+    "coverage": 0.8699,
+    "meanWidthM": 0.6376
+   }
+  ],
+  "chosen": 0.5,
+  "why": "validation width is flat at 0.5-0.6; the plain mean has no tuned parameter"
+ },
+ "options": {
+  "E": "ECMWF's deterministic Hs x its conformal ratio band (calibrated-v1)",
+  "N": "NOAA GFS-Wave's (calibrated-noaa-v1)",
+  "M50": "the two providers' mean x its own conformal ratio band",
+  "U(E,N)": "the union of E and N (providers-v1)"
+ },
+ "results": [
+  {
+   "n": 1603,
+   "coverage": 0.8715,
+   "meanWidthM": 0.6513,
+   "limits": {
+    "1.5": {
+     "liberada": 280,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 1,
+     "vetada": 459,
+     "wrongVetada": 2
+    },
+    "2.0": {
+     "liberada": 950,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 99,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1297,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1595,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "E",
+   "miss": "1/10"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.8665,
+   "meanWidthM": 0.636,
+   "limits": {
+    "1.5": {
+     "liberada": 295,
+     "brokeLiberada": 9,
+     "brokeBy10pc": 5,
+     "vetada": 359,
+     "wrongVetada": 1
+    },
+    "2.0": {
+     "liberada": 999,
+     "brokeLiberada": 6,
+     "brokeBy10pc": 0,
+     "vetada": 50,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1389,
+     "brokeLiberada": 8,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1597,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "N",
+   "miss": "1/10"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.8802,
+   "meanWidthM": 0.5965,
+   "limits": {
+    "1.5": {
+     "liberada": 301,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 1,
+     "vetada": 438,
+     "wrongVetada": 1
+    },
+    "2.0": {
+     "liberada": 1018,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 0,
+     "vetada": 93,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1377,
+     "brokeLiberada": 8,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1600,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "M50",
+   "miss": "1/10"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9476,
+   "meanWidthM": 0.7913,
+   "limits": {
+    "1.5": {
+     "liberada": 208,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 328,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 881,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 41,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1273,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1592,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/10"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.947,
+   "meanWidthM": 0.8361,
+   "limits": {
+    "1.5": {
+     "liberada": 201,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 366,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 810,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 61,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1235,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1581,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "E",
+   "miss": "1/20"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9501,
+   "meanWidthM": 0.9466,
+   "limits": {
+    "1.5": {
+     "liberada": 145,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 272,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 761,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 24,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1211,
+     "brokeLiberada": 7,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1568,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "N",
+   "miss": "1/20"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9538,
+   "meanWidthM": 0.7899,
+   "limits": {
+    "1.5": {
+     "liberada": 203,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 347,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 886,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 50,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1287,
+     "brokeLiberada": 6,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1593,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "M50",
+   "miss": "1/20"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.98,
+   "meanWidthM": 1.057,
+   "limits": {
+    "1.5": {
+     "liberada": 106,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 241,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 659,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 19,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1135,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1555,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/20"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9501,
+   "meanWidthM": 0.9053,
+   "limits": {
+    "1.5": {
+     "liberada": 162,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 360,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 730,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 59,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1194,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 1,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1573,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "E",
+   "miss": "1/40"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9669,
+   "meanWidthM": 1.1124,
+   "limits": {
+    "1.5": {
+     "liberada": 111,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 225,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 627,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 15,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1085,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1532,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "N",
+   "miss": "1/40"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9732,
+   "meanWidthM": 0.9251,
+   "limits": {
+    "1.5": {
+     "liberada": 155,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 306,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 753,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 35,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1220,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1576,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "M50",
+   "miss": "1/40"
+  },
+  {
+   "n": 1603,
+   "coverage": 0.9857,
+   "meanWidthM": 1.1967,
+   "limits": {
+    "1.5": {
+     "liberada": 77,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 208,
+     "wrongVetada": 0
+    },
+    "2.0": {
+     "liberada": 550,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 14,
+     "wrongVetada": 0
+    },
+    "2.5": {
+     "liberada": 1025,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    },
+    "3.5": {
+     "liberada": 1521,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 0,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/40"
+  }
+ ],
+ "conditional": {
+  "miss": "1/10",
+  "by": "the providers' mean forecast Hs (regime) and the target's season; above = the sea over the upper edge",
+  "options": {
+   "E": {
+    "regime": {
+     "1-2 m": {
+      "n": 1035,
+      "coverage": 0.8841,
+      "above": 0.028
+     },
+     "2-3 m": {
+      "n": 7,
+      "coverage": 1.0,
+      "above": 0.0
+     },
+     "<1 m": {
+      "n": 561,
+      "coverage": 0.8467,
+      "above": 0.0499
+     }
+    },
+    "season": {
+     "DJF": {
+      "n": 329,
+      "coverage": 0.8389,
+      "above": 0.0426
+     },
+     "JJA": {
+      "n": 539,
+      "coverage": 0.833,
+      "above": 0.0315
+     },
+     "MAM": {
+      "n": 315,
+      "coverage": 0.8921,
+      "above": 0.0635
+     },
+     "SON": {
+      "n": 420,
+      "coverage": 0.931,
+      "above": 0.0143
+     }
+    }
+   },
+   "U(E,N)": {
+    "regime": {
+     "1-2 m": {
+      "n": 1035,
+      "coverage": 0.9604,
+      "above": 0.0126
+     },
+     "2-3 m": {
+      "n": 7,
+      "coverage": 1.0,
+      "above": 0.0
+     },
+     "<1 m": {
+      "n": 561,
+      "coverage": 0.9234,
+      "above": 0.0267
+     }
+    },
+    "season": {
+     "DJF": {
+      "n": 329,
+      "coverage": 0.9271,
+      "above": 0.0122
+     },
+     "JJA": {
+      "n": 539,
+      "coverage": 0.9481,
+      "above": 0.0167
+     },
+     "MAM": {
+      "n": 315,
+      "coverage": 0.927,
+      "above": 0.0349
+     },
+     "SON": {
+      "n": 420,
+      "coverage": 0.9786,
+      "above": 0.0095
+     }
+    }
+   }
+  }
+ }
+}

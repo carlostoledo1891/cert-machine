@@ -123,6 +123,23 @@ const CERTS = [
   ['attnflow-theorems.json', 'The attention-wing theorems: a rational-kernel token flow chosen so equilibrium and stability are DECIDABLE in exact ℚ — the consensus spectrum proved β- and p-free by exact dual-number expansion, the two-cluster cross-weights identically zero with the honest p = 1 boundary, the reduced flow’s double zero decided by exact division (every pitchfork claim refuted), and the phantom-bifurcation taxonomy with its live artifact.', NOVERIFIER('terra.html')],
   ['facelaw-theorem.json', 'The face-dimension law k = |shared| − cons + z, decided against the exact ℚ null space on two seeded 4,000-network ensembles; every instance where the natural shortcut fails (precisely the z > 0 cases) is ENUMERATED here so any reader can re-run any one.', NOVERIFIER('terra.html')],
 ];
+/* Janela's records (apps/janela, 2026-10-06/07): the window instrument pointed at Brazil's offshore fleet. Each is read
+   by apps/janela/numbers.js and gated by the Janela build; the method page (/janela/metodo/) states what each holds. */
+{
+  const JN = 'the Janela build (apps/janela/build.js) reads it through apps/janela/numbers.js and refuses a record that lost its shape; the method page is /janela/metodo/.';
+  const band = (who, prop, extra) => 'Janela\'s calibrated forecast band for ' + who + ' (ledger proposer ' + prop + ', pinned by this file\'s sha256 in apps/janela/audit/commit.js — a rebuilt record is a NEW proposer version, never a silent swap): per site and lead bin, split-conformal bounds on observed ÷ forecast significant wave height and on the wind difference, claiming 9/10 coverage, from forecast × satellite-altimeter matchups; each cell CERTIFIED-COVERAGE as an exact counting statement or refused for too few pairs.' + (extra ? ' ' + extra : '') + ' ' + JN;
+  CERTS.push(
+    ['janela-workability.json', 'Janela\'s month: at six basin nodes of the Ifremer WAVEWATCH III hindcast (1993–2024, 3-hourly), for every Hs limit and window length, the exact count of start times that hold a whole window under the limit (OPLIM), under DNV-OS-H101 Table 4-1\'s forecast limit (OPWF = α × OPLIM) and under the site alpha\'s, per month and the year, with the mean wait to the next window; integers from instruments/window/workability.js, nothing fitted. ' + JN, null],
+    ['janela-bands.json', band('the ECMWF open-data forecast at the eight open-sea sites of 2026-10-06', 'calibrated-v1'), null],
+    ['janela-bands-noaa.json', band('NOAA WAVEWATCH III (GFS-Wave) at the same sites', 'calibrated-noaa-v1', 'Two calibrated bands decide on their union (providers-v1).'), null],
+    ['janela-bands-sergipe.json', band('ECMWF at the Sergipe-Alagoas region', 'calibrated-sergipe-v1', 'The node is 5 km off the coast and the passes see the sea 40–100 km out, so the band carries the shelf gradient and leans high for the platforms — stated on every card.'), null],
+    ['janela-bands-noaa-sergipe.json', band('NOAA WAVEWATCH III at the Sergipe-Alagoas region', 'calibrated-noaa-sergipe-v1'), null],
+    ['janela-alpha.json', 'DNV-OS-H101\'s alpha factor re-derived by the method that made Table 4-1 (the JIP as reconstructed by Wilcken 2012, gated on reproducing at least 16 of the table\'s 20 cells within 0.02 before any Brazilian pair is read) on the ECMWF × altimeter pairs: per site, design Hs and TPOP, the site alpha, its 90% day-bootstrap interval, the table\'s alpha and the reading (above, below, contains), with exact exceedance counts. A STATISTICAL estimate, not an enclosure; the 1-in-10,000 tail is a model extrapolation. ' + JN, null],
+    ['janela-alpha-sergipe.json', 'The same site-alpha estimate for the Sergipe-Alagoas region, where it sits at or under Table 4-1 (the opposite of the offshore basins). ' + JN, null],
+    ['janela-providers-eval.json', 'Which band decides, measured before it decided (providers-eval-v1): ECMWF\'s band, NOAA\'s, their mean and their union, each calibrated on the pairs before the split date and judged on the pairs after, which none of them saw — coverage, width, and at each Hs limit how many windows each would clear and how many of those the sea broke; reliability by wave regime and season. Written by apps/janela/audit/providers.py; a battery re-measures it. ' + JN, null],
+    ['janela-providers-eval-sergipe.json', 'The same held-out measurement for the Sergipe-Alagoas region, where each single-provider band under-covered out of sample and the union held. ' + JN, null]
+  );
+}
 /* the terra enclosure + peak-count records, one pair per instance */
 for (const t of ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8']) {
   const T = t.toUpperCase();

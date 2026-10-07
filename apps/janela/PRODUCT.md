@@ -74,3 +74,36 @@ INDEFINIDA, dotted = SEM DADOS, always with the word on hover/tap — never colo
 - No invented operator limit: presets are labelled examples; the user's own limits stay in the tab.
 - No "certificado", no "aprovado"; the alpha is an estimate; berth wave limits are not decided.
 - Phone first: one thumb, the answer line visible without scrolling, the map never hidden.
+
+## The outreach pass (2026-10-07): use cases as doors, and the order of what is seen
+
+Operator: "prepare Janela to start outreach — usable, easy to spot information; information hierarchy, what is
+important to spot first; the use cases, the user needs." What a stranger opening a link needs, in order: what this
+is → the answer for the operation they care about → where and when → why to trust it → the paper. The build holds:
+
+- **The use cases are ONE list** (`apps/janela/uses.js`): who decides, the question, what they leave with, the door.
+  The app's intro shows the doors (Alívio · Carga de PSV · Campanha · Conferir · Placar · Método), the method page's
+  "para quem" shows the six cases as cards with deep links (`/janela/#op=…&modo=…`), the deck's slide 4 is the same
+  table. The battery refuses a door the client does not act on and a link to a state the app cannot hold.
+- **The intro** is open on a first visit (one sentence of what it is + the doors) and folds to one line once a door
+  is used, it is folded, or the visitor arrived on a shared place (site in the hash — not op/modo alone, which the
+  address bar carries from the first render). The choice is a per-viewer convenience in localStorage.
+- **The panel's order on a desk**: intro → the operation (chips, then the limits in force as ONE line — "Hs ≤ 3,5 m ·
+  vento ≤ 50 nós · janela de 24 h" — with "ajustar" one click down) → the answer → the clock → the card → the list.
+  **On a phone** the answer and the clock come first (the peek), the operation under them; the intro drops its
+  paragraph in the peek so the answer line stays visible without scrolling.
+- **The fleet answer** is the count over the SAME set the list shows (its Todos/Unidades/Bacias filter), the verdict
+  mix with words, and **the minority by name**: on a calm day the few that cannot go ("Fora da janela (1): Pelotas"),
+  on a rough day the few that can ("Na janela (12): …") — clickable.
+- **The list** is grouped at the chosen start hour (ONE clock): na janela agora (tightest margin first) · abre mais
+  tarde (soonest first) · sem janela no resto da previsão · não se aplica.
+- **The card's order is the hierarchy**: who it is → when it can go (the next window from now, with the margin) →
+  why, by the three criteria → the week → the sea charts → the user's own planning numbers (tanks, day rate) → what
+  is shown but never decided (the sea by parts, the current — folded) → the certificate → where the forecast was read.
+- **CAMPANHA** (the month view renamed for its use): purpose → area/limit/window → the campaign (N operations from a
+  month) → the months → the season → the table → the cost. The Campanha door opens the case where the sea, Table 4-1
+  and the site alpha all have a count (10 × 48 h at Hs ≤ 2,0 m, the Lançamento example, from next month).
+- **PLACAR** opens with what is already measured (the held-out coverage and the broken-LIBERADA rate, from
+  certs/janela-providers-eval.json) before the forward record, which fills from 2026-10-09.
+- **The link preview** (site/janela/og.png, both pages' og:image) and **the deck** (site/janela/janela-apresentacao.pdf,
+  apps/janela/deck.js, 12 slides) are built from the same N and the app's own screenshots.

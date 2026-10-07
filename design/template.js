@@ -415,10 +415,14 @@ function ldJson(pagePath, title, d, canon) {
    the JSON-LD by served path, the favicon, the fonts, the analytics tag.
    /instruments carried a head of its own until today, with no canonical, no
    favicon, no card image and no analytics; the app shell a third. */
-function headHtml({ title, desc, path: pagePath }) {
+function headHtml({ title, desc, path: pagePath, og }) {
   const CO = require('./components.js');
   const d = desc || DEFAULT_DESC;
   const canon = pagePath ? SITE_ORIGIN + pagePath : null;
+  /* a page's own card image (og: { image: '/served/path.png', alt }) — the link preview a recipient sees first;
+     absent, the site's card, byte-identical to before (2026-10-07, Janela's outreach links) */
+  const ogImg = og && og.image ? SITE_ORIGIN + og.image : SITE_ORIGIN + '/og.png';
+  const ogAlt = og && og.alt ? og.alt : 'cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page';
   return `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${CO.esc(title)}</title>
@@ -431,14 +435,14 @@ ${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" conte
 <meta property="og:description" content="${CO.escAttr(d)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
-<meta property="og:image" content="${SITE_ORIGIN}/og.png">
+<meta property="og:image" content="${ogImg}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta property="og:image:alt" content="${CO.escAttr(ogAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${CO.escAttr(title)}">
 <meta name="twitter:description" content="${CO.escAttr(d)}">
-<meta name="twitter:image" content="${SITE_ORIGIN}/og.png">
+<meta name="twitter:image" content="${ogImg}">
 ${pagePath ? ldJson(pagePath, title, d, canon) : ''}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -458,7 +462,7 @@ ${pagePath ? ldJson(pagePath, title, d, canon) : ''}
    <body>NAV · body · ONE FOOTER · scripts</body></html>. A builder passes only
    what is its own; a whole <footer> passed as footRaw is unwrapped, so the
    older builders keep working while they migrate. */
-function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', sheet = 'report', bodyClass = '', lang = 'en' }) {
+function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', sheet = 'report', bodyClass = '', lang = 'en', og }) {
   const root = rootOf(pagePath);
   const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root });
   /* footRaw === null: a VIEWPORT page, not a document — it carries its own
@@ -477,7 +481,7 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
   return `<!doctype html>
 <html lang="${lang}">
 <head>
-${headHtml({ title, desc, path: pagePath })}
+${headHtml({ title, desc, path: pagePath, og })}
 <style>
 ${style}
 </style>

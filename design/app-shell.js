@@ -365,7 +365,7 @@ function renderApp(o) {
   const cfg = o.configJson ? '<script>window.' + (o.configGlobal || 'SKYAUDIT') + ' = ' + o.configJson + ';</script>' : '';
   return `<!doctype html>
 <html lang="${o.lang || 'en'}"><head>
-${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path })}
+${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path, og: o.og })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
 <script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
