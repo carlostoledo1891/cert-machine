@@ -40,6 +40,8 @@ function req(name) {
   return m.exports;
 }
 var Q = req('q.js'), DNV = req('dnv.js'), C = req('criteria.js');
+/* the campaign planner's engine (instruments/window/campaign.js): planning, not deciding — kept out of the pinned deciding modules */
+if (CFG.plan && CFG.plan.src) MODS.src['campaign.js'] = CFG.plan.src;
 
 /* ================================================================ words */
 var DOW = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
@@ -811,6 +813,7 @@ function drawMonth() {
   });
   var s = W.sites[siteK], c = s.cells[lim + 'm/' + tr + 'h'], name = s.name;
   if (!c) { $('jn-m-season').innerHTML = '<p class="jn-p">Sem contagem para esta combinação.</p>'; return; }
+  drawCampaign(siteK, lim, tr, c);
   var pct = function (w, n) { return n ? dc((Math.floor((w * 2000 + n) / (2 * n)) / 10).toFixed(1)) + '%' : '—'; };
   var sum = function (arr, ms) { var a = 0, b = 0; ms.forEach(function (m) { a += arr[m][0]; b += arr[m][1]; }); return [a, b]; };
   var WIN = [5, 6, 7], SUM = [11, 0, 1];
@@ -852,9 +855,55 @@ function drawMonth() {
     + (rate ? ' À sua diária: <b>' + brl(dWait / 24 * rate) + '</b> a mais de espera por operação.' : '') + (c.s ? ' Com o α do local (estimado), a espera seria ' + dc(c.s.w) + ' h.' : '') + '</p>';
   var r2 = $('jn-rate-m'); if (r2) r2.addEventListener('change', function () { store.set('diaria', this.value.trim()); drawMonth(); });
 }
-[['jn-m-site', 'data-ms', 'ms'], ['jn-m-lim', 'data-ml', 'ml'], ['jn-m-tr', 'data-mt', 'mt']].forEach(function (a) {
-  $(a[0]).addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[' + a[1] + ']'); if (!b) return; S[a[2]] = a[2] === 'mt' ? +b.getAttribute(a[1]) : b.getAttribute(a[1]); S.mnotes = null; drawMonth(); hash(); });
+[['jn-m-site', 'data-ms', 'ms'], ['jn-m-lim', 'data-ml', 'ml'], ['jn-m-tr', 'data-mt', 'mt'], ['jn-m-n', 'data-mn', 'mn'], ['jn-m-start', 'data-mm', 'mm']].forEach(function (a) {
+  $(a[0]).addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[' + a[1] + ']'); if (!b) return; S[a[2]] = a[2] === 'mt' || a[2] === 'mn' ? +b.getAttribute(a[1]) : b.getAttribute(a[1]); S.mnotes = null; drawMonth(); hash(); });
 });
+
+/* ---- THE CAMPAIGN: N operations back to back from the 1st of a month, run in every year of the hindcast, in this tab ---- */
+var HIND = {};
+function hindSeries(node) {
+  if (HIND[node]) return HIND[node];
+  var h = CFG.plan.hindcast[node];
+  HIND[node] = fetch(h.file).then(function (r) { if (!r.ok) throw new Error('hindcast ' + r.status); return r.arrayBuffer(); }).then(function (buf) {
+    var check = window.crypto && crypto.subtle ? crypto.subtle.digest('SHA-256', buf).then(function (d) {
+      var hex = [].map.call(new Uint8Array(d), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+      if (hex !== h.sha256) throw new Error('o hindcast de ' + node + ' não confere com o seu sha256');
+    }) : Promise.resolve();
+    return check.then(function () {
+      var v = new DataView(buf), x = new Array(h.n), times = new Array(h.n), t0 = Date.parse(h.from + ':00:00Z');
+      for (var k = 0; k < h.n; k++) { x[k] = v.getInt16(2 * k, true); times[k] = new Date(t0 + k * h.stepH * 3600e3).toISOString().slice(0, 13); }
+      return { x: x, times: times, stepH: h.stepH, scale: h.scale, fill: h.fill };
+    });
+  });
+  return HIND[node];
+}
+function drawCampaign(siteK, lim, tr, cell) {
+  var el = $('jn-m-camp'); if (!el || !CFG.plan || !CFG.plan.hindcast[siteK]) { if (el) el.innerHTML = ''; return; }
+  var N = S.mn || 10, mm = S.mm || String(((new Date()).getUTCMonth() + 1) % 12 + 1).padStart(2, '0');
+  S.mn = N; S.mm = mm;
+  [['jn-m-n', 'data-mn', String(N)], ['jn-m-start', 'data-mm', mm]].forEach(function (a) {
+    [].forEach.call($(a[0]).querySelectorAll('[' + a[1] + ']'), function (b) { b.setAttribute('aria-checked', b.getAttribute(a[1]) === a[2] ? 'true' : 'false'); });
+  });
+  el.innerHTML = '<p class="jn-fine">Contando ' + (CFG.plan.hindcast[siteK].to.slice(0, 4) - CFG.plan.hindcast[siteK].from.slice(0, 4) + 1) + ' campanhas, uma por ano…</p>';
+  var key = [siteK, lim, tr, N, mm].join('|');
+  hindSeries(siteK).then(function (ser) {
+    if ([S.ms, S.ml, S.mt, S.mn, S.mm].join('|') !== key) return;          /* the user moved on */
+    var CP = req('campaign.js');
+    var opwf = cell && cell.a ? Q.str(Q.mul(Q.parse(cell.a), Q.parse(lim))) : null;
+    var sea = CP.campaign(ser, { limit: lim, TR: tr, N: N, start: mm + '-01' });
+    var tab = opwf ? CP.campaign(ser, { limit: opwf, TR: tr, N: N, start: mm + '-01' }) : null;
+    var sopwf = cell && cell.s && cell.s.a ? Q.str(Q.mul(Q.parse(cell.s.a), Q.parse(lim))) : null;
+    var loc = sopwf ? CP.campaign(ser, { limit: sopwf, TR: tr, N: N, start: mm + '-01' }) : null;
+    var d = function (h) { return h === null ? '—' : dc((Math.round(h / 2.4) / 10).toFixed(1)); };
+    var row = function (lab, r) { return '<tr><td>' + lab + '</td><td>' + d(r.q50) + '</td><td>' + d(r.q90) + '</td><td>' + d(r.worst) + (r.worstYear ? ' <small>(' + r.worstYear + ')</small>' : '') + '</td></tr>'; };
+    var mon = MON[+mm - 1];
+    el.innerHTML = '<p class="jn-p">Começando em 1º de ' + mon + ', <b>' + N + ' operaç' + (N === 1 ? 'ão' : 'ões') + ' de ' + tr + ' h com Hs ≤ ' + dc(lim) + ' m</b>: em metade dos ' + sea.finished + ' anos, prontas em <b>' + d(sea.q50) + ' dias</b>; em 9 de cada 10, em ' + d(sea.q90) + '; no pior ano (' + sea.worstYear + '), ' + d(sea.worst) + '.</p>'
+      + '<div class="tw"><table class="jn-tbl"><thead><tr><th>dias até terminar</th><th>metade dos anos</th><th>9 de 10</th><th>o pior</th></tr></thead><tbody>'
+      + row('o mar (limite ' + dc(lim) + ' m)', sea) + (tab ? row('Tabela 4-1 (OPWF ' + dc(Q.dec(Q.parse(opwf), 2)) + ' m)', tab) : '')
+      + (loc ? row('<i>α do local (OPWF ' + dc(Q.dec(Q.parse(sopwf), 2)) + ' m)</i>', loc) : '') + '</tbody></table></div>'
+      + '<p class="jn-fine">Cada ano do hindcast roda a campanha: a primeira janela depois de 1º de ' + mon + ', a operação ocupa a janela, a seguinte procura a partir do fim dela (sem trânsito nem espera de mobilização). Os quantis são estatísticas de ordem exatas dos anos que terminam' + (sea.censored ? '; ' + sea.censored + ' ano' + (sea.censored > 1 ? 's' : '') + ' não termina' + (sea.censored > 1 ? 'm' : '') + ' antes do fim do registro e fica' + (sea.censored > 1 ? 'm' : '') + ' de fora, contado' + (sea.censored > 1 ? 's' : '') : '') + '. Um hindcast é o mar passado de um modelo (' + esc(CFG.plan.source) + '); a conta é exata sobre ele, e só isso.</p>';
+  }).catch(function (e) { if (el) el.innerHTML = '<p class="jn-p">A campanha não pôde ser contada: ' + esc(e.message) + '.</p>'; });
+}
 
 /* ================================================================ the scoreboard */
 function drawPlacar() {

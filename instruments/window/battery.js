@@ -147,4 +147,48 @@ red('RED: a window with no forecast step is RECUSADA, not LIBERADA', () => {
   assert.strictEqual(D.decide(rule, fc([['1.0', '1.9', '10', '21']]), ['2027-01-01T00', '2027-01-02T00']).verdict, 'RECUSADA');
 });
 
+/* ---- campaign.js: N operations back to back from a start date, every year of the series ---- */
+const CP = require('./campaign.js');
+/* two "years" of a daily-start toy series: 3-hourly, starting each 1 March 00 UTC */
+const yearSeries = (vals) => {
+  const x = [], times = [];
+  for (const [y, xs] of vals) xs.forEach((v, k) => { x.push(v); times.push(new Date(Date.UTC(y, 2, 1) + k * 3 * 3600e3).toISOString().slice(0, 13)); });
+  return { x, times, stepH: 3, scale: 500, fill: -32767 };
+};
+ok('campaign by hand: two 6 h operations under 2.0 m on [1,3,1,1,1,1,1] m from 1 March -> the first window at 06h, the second at 12h, done at 18h (18 h)', () => {
+  const s = yearSeries([[2021, [500, 1500, 500, 500, 500, 500, 500]]]);
+  const r = CP.campaign(s, { limit: '2.0', TR: 6, N: 2, start: '03-01' });
+  assert.deepStrictEqual(r.years[0], { year: 2021, start: '2021-03-01T00', end: '2021-03-01T18', hours: 18, waitH: 6, ops: 2, censored: false });
+});
+ok('campaign: one operation is the first workable start plus TR — and workability.js agrees which start that is, slice by slice', () => {
+  const xs = [1500, 1500, 500, 1500, 500, 500, 500, 500, 1500, 500];
+  const s = yearSeries([[2021, xs]]);
+  const r = CP.campaign(s, { limit: '2.0', TR: 6, N: 1, start: '03-01' });
+  assert.strictEqual(r.years[0].waitH, 12);                    /* the first window [k=4..6] starts 12 h in */
+  assert.strictEqual(r.years[0].hours, 18);
+  /* workability.js on each 3-sample slice: the first workable one is the campaign's start, and none before it */
+  const slice = (k) => ({ x: s.x.slice(k, k + 3), times: s.times.slice(k, k + 3), stepH: 3, scale: 500, fill: -32767 });
+  const firstK = r.years[0].waitH / 3;
+  assert.strictEqual(W.workability(slice(firstK), { limit: '2.0', TR: 6 }).all.workable, 1);
+  for (let j = 0; j < firstK; j++) assert.strictEqual(W.workability(slice(j), { limit: '2.0', TR: 6 }).all.workable, 0, 'slice ' + j);
+});
+ok('campaign quantiles are order statistics: 4 years finishing in 6, 9, 12, 30 h -> median the 2nd (9 h), q90 the 4th (30 h), worst 30 h', () => {
+  const ok6 = [500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500];
+  const ok9 = [1500, 500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500];
+  const ok12 = [1500, 1500, 500, 500, 500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500];
+  const ok30 = [1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 500, 500, 500, 1500, 1500, 1500];
+  const r = CP.campaign(yearSeries([[2021, ok6], [2022, ok9], [2023, ok12], [2024, ok30]]), { limit: '2.0', TR: 6, N: 1, start: '03-01' });
+  assert.deepStrictEqual([r.finished, r.q50, r.q90, r.worst, r.worstYear, r.best], [4, 9, 30, 30, 2024, 6]);
+});
+red('RED: a campaign the series cannot finish is CENSORED, never given the end of the record as its finish', () => {
+  const r = CP.campaign(yearSeries([[2021, [1500, 1500, 500, 500, 500, 1500]]]), { limit: '2.0', TR: 6, N: 2, start: '03-01' });
+  assert.deepStrictEqual([r.years[0].censored, r.years[0].ops, r.finished, r.q50], [true, 1, 0, null]);
+});
+red('RED: 29 February, a float limit and a TR off the 3 h grid are REFUSED', () => {
+  const s = yearSeries([[2021, [500, 500, 500]]]);
+  throwsRefused(() => CP.campaign(s, { limit: '2.0', TR: 6, N: 1, start: '02-29' }));
+  throwsRefused(() => CP.campaign(s, { limit: 2.5, TR: 6, N: 1, start: '03-01' }));
+  throwsRefused(() => CP.campaign(s, { limit: '2.0', TR: 5, N: 1, start: '03-01' }));
+});
+
 console.log('ALL PASS: ' + n + ' checks, ' + reds + ' reds fired');

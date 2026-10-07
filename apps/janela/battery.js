@@ -373,6 +373,18 @@ ok('decisions: a VETADA whose observed step breaks the limit is CONFIRMED; one w
   assert.strictEqual(DL.grade([dlRec('V')], dlObs('9/5')).byCrit.band.V.unseen, 1);
 });
 
+/* ---- the campaign planner's hindcast, as the tab receives it: the same integers as the pinned record ---- */
+ok('planner: every shipped hindcast series (site/janela/hindcast/*.i16) is the pinned record\'s integers, sample for sample', () => {
+  const H = require('./audit/hindcast.js');
+  const dir = path.join(ROOT, 'site', 'janela', 'hindcast');
+  if (!fs.existsSync(dir)) return;                         /* the shell not built yet: build.js writes them */
+  for (const f of fs.readdirSync(dir).filter((x) => /\.i16$/.test(x))) {
+    const s = H.load(f.replace(/\.i16$/, '')), buf = fs.readFileSync(path.join(dir, f));
+    assert.strictEqual(buf.length, 2 * s.x.length, f);
+    for (let k = 0; k < s.x.length; k++) if (buf.readInt16LE(2 * k) !== s.x[k]) assert.fail(f + ' differs at sample ' + k);
+  }
+});
+
 /* ---- the second provider (audit/commit.js --noaa over audit/noaa.py's day): the ECMWF target, its own proposer ---- */
 const CM = require('./audit/commit.js');
 const noaaFeed = (over) => ({ run: '2026-10-07T00',

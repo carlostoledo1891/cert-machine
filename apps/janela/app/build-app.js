@@ -144,6 +144,11 @@ function panel(M, N) {
     <div class="jn-k">janela (TR)</div><div class="jn-seg four" id="jn-m-tr" role="radiogroup" aria-label="Janela">${seg('data-mt', W.periods.map((t) => [String(t), t + ' h', '']))}</div>
     <p class="jn-fine">Cada início de operação de 3 em 3 h em ${Number(W.to.slice(0, 4)) - Number(W.from.slice(0, 4)) + 1} anos de hindcast (${esc(W.from.slice(0, 4))}–${esc(W.to.slice(0, 4))}): cabe ou não cabe uma janela de TR horas com Hs abaixo do limite. Frações exatas de inteiros, nada ajustado.</p>
   </div>
+  <div class="jn-box" id="jn-m-camp-b">
+    <div class="jn-k">a campanha · quantas operações</div><div class="jn-seg four" id="jn-m-n" role="radiogroup" aria-label="Operações">${seg('data-mn', [1, 5, 10, 20].map((k) => [String(k), String(k), '']))}</div>
+    <div class="jn-k">começando em 1º de</div><div class="jn-seg six" id="jn-m-start" role="radiogroup" aria-label="Mês de início">${seg('data-mm', ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'].map((m, k) => [String(k + 1).padStart(2, '0'), m, '']))}</div>
+    <div id="jn-m-camp"></div>
+  </div>
   <div class="jn-box" id="jn-m-chart"></div>
   <div class="jn-box" id="jn-m-table"></div>
   <div class="jn-box" id="jn-m-cost"></div>
@@ -199,6 +204,21 @@ function emit(N, git) {
     + "window.JANELA_EARLY={today:get(0)};})();\n");
   fs.writeFileSync(path.join(SITE, 'early.js'), EARLY);
 
+  /* THE CAMPAIGN PLANNER's inputs: each hindcast node's 32-year series as little-endian int16 (Hs x 500, the
+     hindcast's own packing; hindcast.js verifies every monthly file against its pin first), fetched by the tab
+     only when the planner opens and checked against the sha256 below before it counts anything */
+  const H = require('../audit/hindcast.js');
+  const HD = path.join(SITE, 'hindcast');
+  fs.mkdirSync(HD, { recursive: true });
+  const hind = {};
+  for (const node of Object.keys(N.work.sites)) {
+    const s = H.load(node);
+    const buf = Buffer.alloc(s.x.length * 2);
+    s.x.forEach((v, k) => buf.writeInt16LE(v, 2 * k));
+    fs.writeFileSync(path.join(HD, node + '.i16'), buf);
+    hind[node] = { file: 'hindcast/' + node + '.i16', sha256: sha(buf), n: s.x.length, from: s.from, to: s.to, stepH: s.stepH, scale: s.scale, fill: s.fill };
+  }
+  const CAMP = fs.readFileSync(path.join(ROOT, 'instruments', 'window', 'campaign.js'));
   const W = N.work;
   const cfg = {
     v: 1, git, model: MODEL.fingerprint(M),
@@ -208,6 +228,7 @@ function emit(N, git) {
     work: { from: W.from, to: W.to, samples: W.samples, source: W.source, limits: W.limits, periods: W.periods,
       sites: Object.fromEntries(Object.entries(W.sites).map(([k, s]) => [k, { name: s.name, cells: s.cells }])) },
     records: M.records, modules: mods, proposerNames: PLACAR.NAMES_PT,
+    plan: { src: CAMP.toString('utf8'), sha256: sha(CAMP), hindcast: hind, source: W.source },
     shas: { 'app.js': sha(APPJS), 'geo.js': sha(geoJs), 'early.js': sha(EARLY) }
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');
