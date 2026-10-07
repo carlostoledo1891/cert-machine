@@ -618,10 +618,12 @@ function poly(st, key, y, mid) {
   st.forEach(function (s, i) { if (s[key]) { if (!cur) { cur = []; runs.push(cur); } cur.push(i); } else cur = null; });
   return runs.map(function (r) {
     if (mid) return r.length > 1 ? '<polyline class="det" points="' + r.map(function (i) { var b = st[i][key]; return xOf(i).toFixed(1) + ',' + y((+b[0] + +b[1]) / 2).toFixed(1); }).join(' ') + '"/>' : '';
-    if (r.length === 1) { var b0 = st[r[0]][key]; return '<rect class="band" x="' + (xOf(r[0]) - 2).toFixed(1) + '" y="' + y(+b0[1]).toFixed(1) + '" width="4" height="' + Math.max(1, y(+b0[0]) - y(+b0[1])).toFixed(1) + '"/>'; }
+    /* the decided band is filled; ECMWF's ensemble hatched; NOAA's ensemble an outline (providers-v1: forecast ink, never decided on) */
+    var cls = key === 'ens' ? 'ens' : key === 'ensN' ? 'swr' : 'band';
+    if (r.length === 1) { var b0 = st[r[0]][key]; return '<rect class="' + cls + '" x="' + (xOf(r[0]) - 2).toFixed(1) + '" y="' + y(+b0[1]).toFixed(1) + '" width="4" height="' + Math.max(1, y(+b0[0]) - y(+b0[1])).toFixed(1) + '"/>'; }
     var up = r.map(function (i) { return xOf(i).toFixed(1) + ',' + y(+st[i][key][1]).toFixed(1); });
     var dn = r.slice().reverse().map(function (i) { return xOf(i).toFixed(1) + ',' + y(+st[i][key][0]).toFixed(1); });
-    return '<polygon class="' + (key === 'ens' ? 'ens' : 'band') + '"' + (key === 'ens' ? ' fill="url(#jn-hatch)"' : '') + ' points="' + up.concat(dn).join(' ') + '"/>';
+    return '<polygon class="' + cls + '"' + (key === 'ens' ? ' fill="url(#jn-hatch)"' : '') + ' points="' + up.concat(dn).join(' ') + '"/>';
   }).join('');
 }
 function guides(op, p, v, y, cur) {
@@ -649,18 +651,19 @@ function winRect(p, op, H) {
 }
 function chartHs(p, cur) {
   var st = STEPS[p.id], op = cur.op, H = 150, vals = [1];
-  st.forEach(function (s) { if (s.hb) vals.push(+s.hb[1]); if (s.hd) vals.push(+s.hd[1]); if (s.ens) vals.push(+s.ens[1]); });
+  st.forEach(function (s) { if (s.hb) vals.push(+s.hb[1]); if (s.hd) vals.push(+s.hd[1]); if (s.ens) vals.push(+s.ens[1]); if (s.ensN) vals.push(+s.ensN[1]); });
   var gtmp = guides(op, p, 'hs', function () { return 0; }, cur); vals = vals.concat(gtmp.vals);
   var mx = Math.max.apply(null, vals), tick = mx <= 3 ? 0.5 : mx <= 6 ? 1 : 2, top = Math.max(2 * tick, Math.ceil(mx * 1.06 / tick) * tick);
   var B = chartBase(H, top, tick, 'Hs (m)');
   var gd = guides(op, p, 'hs', B.y, cur);
-  var hasEns = st.some(function (s) { return s.ens; }), hasBand = st.some(function (s) { return s.hb; });
-  var svg = '<svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="' + esc('Hs em ' + short(p) + ', sete dias: a faixa medida (decidida) contra a previsão determinística' + (hasEns ? ' e o ensemble' : '') + ' do ECMWF, com o limite e os OPWF.') + '">'
+  var hasEns = st.some(function (s) { return s.ens; }), hasEnsN = st.some(function (s) { return s.ensN; }), hasBand = st.some(function (s) { return s.hb; });
+  var svg = '<svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="' + esc('Hs em ' + short(p) + ', sete dias: a faixa medida (decidida) contra a previsão determinística' + (hasEns ? ' e o ensemble' : '') + ' do ECMWF' + (hasEnsN ? ' e o ensemble da NOAA' : '') + ', com o limite e os OPWF.') + '">'
     + '<defs><pattern id="jn-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="hl" x1="0" y1="0" x2="0" y2="5"/></pattern></defs>'
-    + winRect(p, op, H) + B.o.join('') + poly(st, 'ens', B.y) + poly(st, 'hb', B.y) + poly(st, 'hd', B.y, true) + gd.o.join('') + '</svg>';
+    + winRect(p, op, H) + B.o.join('') + poly(st, 'ens', B.y) + poly(st, 'ensN', B.y) + poly(st, 'hb', B.y) + poly(st, 'hd', B.y, true) + gd.o.join('') + '</svg>';
   return '<figure class="jn-fig">' + svg + '<ul class="jn-key"><li><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="band" x="1" y="1.5" width="20" height="7"/></svg>faixa medida' + (hasBand ? '' : ' (sem faixa aqui)') + '</li>'
     + '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><line class="det" x1="1" y1="5" x2="21" y2="5"/></svg>previsão determinística</li>'
-    + (hasEns ? '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="swr" x="1" y="1.5" width="20" height="7"/><line class="hl" x1="4" y1="8.5" x2="9" y2="1.5"/><line class="hl" x1="10" y1="8.5" x2="15" y2="1.5"/><line class="hl" x1="16" y1="8.5" x2="21" y2="1.5"/></svg>ensemble, 40 de 50</li>' : '')
+    + (hasEns ? '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="swr" x="1" y="1.5" width="20" height="7"/><line class="hl" x1="4" y1="8.5" x2="9" y2="1.5"/><line class="hl" x1="10" y1="8.5" x2="15" y2="1.5"/><line class="hl" x1="16" y1="8.5" x2="21" y2="1.5"/></svg>ensemble ECMWF, 40 de 50</li>' : '')
+    + (hasEnsN ? '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="swr" x="1" y="1.5" width="20" height="7"/></svg>ensemble NOAA, 25 de 31</li>' : '')
     + '<li><svg viewBox="0 0 22 10" aria-hidden="true"><line class="lim" x1="1" y1="5" x2="21" y2="5"/></svg>limite · OPWF</li></ul></figure>';
 }
 function chartWind(p, cur) {
@@ -1450,6 +1453,8 @@ function certDownload(p) {
     testemunha: r && r.witness || null, limiar: r && r.flip || null, sem_previsao: r && r.notForecast || [],
     regra_de_decisao: 'LIBERADA: todo limite vale na borda desfavorável da faixa em todos os passos; VETADA: algum limite falha já na borda favorável; INDEFINIDA: a faixa atravessa o limite; SEM DADOS: a regra limita algo sem previsão aqui',
     faixa: ps ? { proponente: ps.name, reivindicacao: ps.claim, placar: ps.st } : null,
+    segundo_provedor: T.noaa ? { fonte: 'NOAA WAVEWATCH III (GEFS-Wave, ' + T.noaa.band + ')', reivindicacao: T.noaa.claim, rodada: T.noaa.run + ':00Z', registro: T.noaa.file, sha256: T.noaa.sha,
+      papel: 'mostrado ao lado, nunca decidido (providers-v1, certs/janela-ledger/DEFINITIONS.json); avaliado no placar contra os mesmos satélites' } : null,
     rodada_ecmwf: T.run + ':00Z', lida: T.madeAt, codigo: T.git || null, digest_do_dia: T.digest, modulos: T.modules, registros: T.inputs,
     conferencia: { navegador: window.__janela.check || null, segundo_verificador: T.second || null },
     refazer: ['git clone https://github.com/carlostoledo1891/cert-machine', 'git checkout ' + (T.git ? T.git.replace(/\+dirty$/, '') : '<commit>'),
@@ -1484,7 +1489,8 @@ function nota() {
     + (r && r.alpha ? '<p>α ' + esc(q2(r.alpha.hs, 4)) + (r.alpha.wind ? ' (vento α ' + esc(q2(r.alpha.wind, 2)) + ', Tabela 4-6)' : '') + ', TPOP ' + r.alpha.TPOP + ' h; OPWF ' + esc(r.opwf.map(function (l) { return VAR[l.var] + ' ' + OPW[l.op] + ' ' + q2(l.value, 3) + ' ' + UNIT[l.unit]; }).join(', ')) + '</p>' : '')
     + '<h2>Limites e fonte</h2><p>' + esc(op.limits.map(limText).join(' · ')) + '</p><p>' + esc(src) + '</p>'
     + (P && P.notDecided && S.op === 'alivio' ? '<p>Conferido por quem opera, não decidido aqui: ' + esc(P.notDecided.join('; ')) + '.</p>' : '')
-    + '<h2>Previsão</h2><p>ECMWF open data, rodada ' + esc(T.run) + ' UTC, lida ' + esc(T.madeAt) + '; nó ' + esc(T.places[p.id].node.join(', ')) + (p.bandFrom ? '; faixa medida e α de ' + esc(PL[p.bandFrom].name) : '') + '. Faixas arredondadas para fora (Hs 0,001 m; vento 0,01 nó).</p>'
+    + '<h2>Previsão</h2><p>ECMWF open data, rodada ' + esc(T.run) + ' UTC, lida ' + esc(T.madeAt) + '; nó ' + esc(T.places[p.id].node.join(', ')) + (p.bandFrom ? '; faixa medida e α de ' + esc(PL[p.bandFrom].name) : '') + '. Faixas arredondadas para fora (Hs 0,001 m; vento 0,01 nó).'
+      + (T.noaa ? ' Ensemble da NOAA (WAVEWATCH III, 25 centrais de 31), mesma rodada: mostrado ao lado, nunca decidido.' : '') + '</p>'
     + '<table><thead><tr><th>início (BRT)</th><th>UTC</th><th>prazo h</th><th>Hs det. (m)</th><th>Hs faixa (m)</th><th>vento det. (nós)</th><th>vento faixa (nós)</th><th>Tp (s)</th><th>de</th></tr></thead><tbody>' + rows + '</tbody></table>'
     + '<h2>Módulos que decidiram (sha256)</h2><table><tbody>' + mods + '</tbody></table>'
     + '<h2>Registros usados (sha256)</h2><table><tbody>' + recs + '</tbody></table>'

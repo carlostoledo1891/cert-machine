@@ -963,6 +963,9 @@ function build(N, B, git, battery) {
   /* ---- why trust it ---- */
   const srcRows = [
     ['Previsão ECMWF aberta, 00 UTC: IFS 0,25°, ondas e ensemble de ondas (50 membros)', 'CC BY 4.0', 'a previsão do dia', { raw: C.m(N.feed.file) + ' <span class="jn-pin">sha256 ' + esc(N.feed.sha.slice(0, 16)) + '… do JSON; ' + N.feed.groups + ' arquivos GRIB, cada um com o seu sha256</span>' }],
+    ['Previsão NOAA WAVEWATCH III, 00 UTC: GEFS-Wave (31 membros) e GFS-Wave, 0,25°, desde 07/10/2026', 'domínio público', 'o segundo provedor: mostrado ao lado e avaliado no placar, nunca decidido',
+      { raw: N.noaa ? C.m(N.noaa.file) + ' <span class="jn-pin">sha256 ' + esc(N.noaa.sha.slice(0, 16)) + '… do JSON; ' + N.noaa.groups + ' grupos GRIB, cada um com o seu sha256</span>'
+        : C.m('corpus/janela/feed-noaa') + ' <span class="jn-pin">um arquivo por dia, cada passo com o seu sha256; refeito por noaa.py --verify</span>' }],
     ['NOAA RADS, altimetria em tempo quase real', 'domínio público', 'o erro medido (pares satélite × previsão) e o placar', { raw: C.m('corpus/janela/matchups.json.gz') + ' <span class="jn-pin">sha256 ' + esc(String(N.bands.sha).slice(0, 16)) + '…, ' + br.int(N.bands.rows) + ' pares</span>' }],
     ['Ifremer WAVEWATCH III GLOBMULTI, hindcast ' + yFrom + '–' + yTo, 'CC BY-SA 4.0', 'as janelas de “O mês”', { raw: C.m('corpus/ww3-points') + ' <span class="jn-pin">' + esc(pinM ? pinM[1] + ' arquivos mensais, sha256 em corpus/ww3-points/meta.json' : N.work.pinned) + '</span>' }],
     ['Capitanias dos Portos: NPCPs e portarias', 'ato oficial', 'os limites publicados', { raw: '<span class="jn-pin">' + esc(N.acts.length + ' atos, cada PDF com o seu sha256 (abaixo)') + '</span>' }],
@@ -970,7 +973,7 @@ function build(N, B, git, battery) {
   ];
   const boundaries = [
     { b: 'O nó, não o berço.', text: 'A previsão é a do ECMWF, lida no nó de mar aberto mais próximo. Num terminal, é a aproximação: um limite de onda no berço fica SEM DADOS até existir a transferência para dentro da baía.' },
-    { b: 'A faixa é uma reivindicação.', text: 'Hoje, o ensemble do ECMWF (40 centrais de 50) e a faixa medida da Janela; ambas avaliadas em público contra satélites, e o proponente que erra a própria reivindicação é podado pela regra binomial exata.' },
+    { b: 'A faixa é uma reivindicação.', text: 'Hoje, o ensemble do ECMWF (40 centrais de 50), o da NOAA (WAVEWATCH III, 25 centrais de 31) e a faixa medida da Janela; todas avaliadas em público contra os mesmos satélites, e o proponente que erra a própria reivindicação é podado pela regra binomial exata. Um ensemble bruto é mostrado e avaliado, nunca decidido.' },
     { b: 'Os passos da previsão.', text: 'Decide-se a faixa nos passos da própria previsão: não o mar entre passos, não uma probabilidade.' },
     { b: 'A cauda do α.', text: 'A cauda de 1 em 10.000 por trás do α da DNV é extrapolação de modelo; três anos de pares com satélite não a observam.' },
     { b: 'Não é aprovação.', text: 'Garantia marítima e sociedades classificadoras são donas dessa palavra. A Janela entrega evidência que um vistoriador refaz.' }

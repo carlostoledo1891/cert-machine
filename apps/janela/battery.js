@@ -319,4 +319,42 @@ red('the prune reaches the product: a DEADMITTED calibrated proposer lends no ba
   assert.ok(B.sites.sergipe, 'the record itself is untouched');
 });
 
+/* ---- the second provider (audit/commit.js --noaa over audit/noaa.py's day): the ECMWF target, its own proposer ---- */
+const CM = require('./audit/commit.js');
+const noaaFeed = (over) => ({ run: '2026-10-07T00',
+  ensemble: Object.assign({ source: 'GEFS-Wave', members: Array.from({ length: 31 }, (_, k) => (k ? 'p' + String(k).padStart(2, '0') : 'c00')), band: CM.NOAA.band, claim: '3/4' }, over || {}),
+  sites: {
+    santos: { kind: 'field', node: [-25.5, -43], steps: [
+      { t: '2026-10-07T06', lead: 6, hs: { det: '3/2', lo: '7/5', p50: '3/2', hi: '8/5' } },
+      { t: '2026-10-07T12', lead: 12, hs: { det: '3/2', lo: '7/5', p50: '3/2', hi: '8/5' } },
+      { t: '2026-10-07T18', lead: 18, hs: { det: '3/2', m: Array(30).fill('3/2').concat([null]) } }] },
+    'sao-sebastiao': { kind: 'terminal', node: [-24, -45.25], steps: [{ t: '2026-10-07T12', lead: 12, hs: { det: '1', lo: '9/10', p50: '1', hi: '11/10' } }] }
+  } });
+ok('noaa: one row per open-sea site and step with a band at least an hour ahead — its own proposer, claim 3/4, the ECMWF target, an id the ECMWF row cannot take', () => {
+  const r = CM.noaaRows(noaaFeed(), 'f'.repeat(64), '20261007.json.gz', '2026-10-07T05:30:00Z');
+  assert.strictEqual(r.past, 1, 'the +6 h target is 30 min ahead: skipped');
+  assert.strictEqual(r.rows.length, 1, 'the +18 h step has a member missing: no band, no row; the terminal is never scored');
+  const c = r.rows[0].c;
+  assert.strictEqual(c.domain, 'janela/hs-altimeter/noaa-gefs-c25of31');
+  assert.strictEqual(c.id, 'janela:santos:2026-10-07T00:+12h:noaa-gefs-c25of31');
+  assert.strictEqual(c.target, 'santos · ' + CM.TARGET_ID);
+  assert.deepStrictEqual([c.forecast.lo, c.forecast.hi, c.forecast.alpha], [['7', '5'], ['8', '5'], [1, 4]]);
+  assert.strictEqual(r.rows[0].ledger, '202610.jsonl');
+});
+red('noaa: a feed whose band is not the definition\'s (order statistics 3 and 29) is refused whole, never committed under the name', () => {
+  assert.throws(() => CM.noaaRows(noaaFeed({ band: 'order statistics 3 and 29 of 31 sorted members' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);
+});
+red('noaa: a feed with a member file short (30 members) or another claim is refused whole', () => {
+  assert.throws(() => CM.noaaRows(noaaFeed({ members: Array(30).fill('m') }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);
+  assert.throws(() => CM.noaaRows(noaaFeed({ claim: '4/5' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);
+});
+ok('noaa: the proposer and the providers rule are dated in DEFINITIONS.json, with the claim the rows carry', () => {
+  const defs = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'janela-ledger', 'DEFINITIONS.json'), 'utf8'));
+  const d = defs['noaa-gefs-c25of31 (apps/janela/audit/commit.js)'];
+  assert.ok(d && d.domain === CM.NOAA.domain && d.claim === '3/4' && d.alpha === CM.NOAA.alpha.join('/'));
+  assert.strictEqual(d.target, defs['altimeter-hs-v1 (apps/janela/audit/commit.js)'].target, 'the same target as ECMWF\'s');
+  assert.ok(defs['providers-v1 (apps/janela/app)'], 'how two providers combine is dated before any NOAA band is shown');
+  assert.ok(PL.NAMES_PT[CM.NOAA.domain], 'the PLACAR names it');
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

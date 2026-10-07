@@ -60,7 +60,18 @@ function pubStep(row, src) {
   return st;
 }
 
-function make({ feed, platforms, fieldSha, ledger, battery, git }) {
+/* the second provider's raw band at a site's step (providers-v1: shown beside, never decided on): NOAA's values are
+   centimetres exactly, so two decimals are the band itself, not a rounding of it */
+function noaaBand(noaa, sid, t) {
+  const s = noaa && noaa.sites[sid];
+  const st = s && s.node && s.steps.find((x) => x.t === t);
+  if (!st || !st.hs || st.hs.lo === undefined) return null;
+  const lo = Q.parse(st.hs.lo), hi = Q.parse(st.hs.hi);
+  if (Q.cmp(Q.parse(Q.dec(lo, 2)), lo) !== 0 || Q.cmp(Q.parse(Q.dec(hi, 2)), hi) !== 0) throw new Error('NOAA band at ' + sid + ' ' + t + ' is not in centimetres');
+  return [Q.dec(lo, 2), Q.dec(hi, 2)];
+}
+
+function make({ feed, noaa, platforms, fieldSha, ledger, battery, git }) {
   const M = MODEL.load();
   const SITES = require('../scenario/sites.json').sites;
   const UNITS = require('../scenario/platforms.json').units;
@@ -69,6 +80,7 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
   const BS = require('../audit/bandset.js');
   const { bands, pruned } = BS.withoutPruned(BS.bands(), ledger && ledger.proposers);
   if (platforms.run !== feed.run) throw new Error('the units\' forecast (' + platforms.run + ') is not the feed\'s run (' + feed.run + ')');
+  if (noaa && noaa.run !== feed.run) throw new Error('NOAA\'s day (' + noaa.run + ') is not the feed\'s run (' + feed.run + ')');
 
   /* the measured sites, through today.js */
   const T = TODAY.compute(feed, bands, OPS, SITES);
@@ -78,7 +90,10 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
     if (!t || !t.node) continue;
     steps[s.id] = { node: t.node, bandFrom: t.bandFrom || null, steps: t.steps.map((row, k) => {
       const src = f.steps[k];
-      return pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v });
+      const st = pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v });
+      const nb = noaaBand(noaa, s.id, row.t);
+      if (nb) st.ensN = nb;
+      return st;
     }) };
   }
   /* the units, through the same today.js: their forecast as a feed, their band borrowed by name */
@@ -139,7 +154,10 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
   const today = {
     v: 1, model: MODEL.fingerprint(M), git: git || null, run: feed.run, madeAt: feed.madeAt, t: tAxis, lead: steps[SITES[0].id].steps.map((s) => s.lead),
     feed: { file: feed.file, sha: feed.sha },
-    inputs: Object.assign({}, M.records, { [feed.file]: feed.sha, 'corpus/janela/field/platforms-latest.json': platforms.sha }, fieldSha ? { 'field.bin': fieldSha } : {}),
+    inputs: Object.assign({}, M.records, { [feed.file]: feed.sha, 'corpus/janela/field/platforms-latest.json': platforms.sha }, fieldSha ? { 'field.bin': fieldSha } : {},
+      noaa ? { [noaa.file]: noaa.sha } : {}),
+    /* the second provider (providers-v1): its raw band rides the sites' steps as ensN, shown beside, never decided on */
+    noaa: noaa ? { file: noaa.file, sha: noaa.sha, run: noaa.run, madeAt: noaa.madeAt, claim: noaa.ensemble.claim, band: noaa.ensemble.band } : null,
     modules: Object.fromEntries(Object.values(MODEL.modules().pins).map((p) => [p.rel, p.sha])),
     battery, presets: M.presets.map((o) => ({ id: o.id, TR: o.TR, limits: o.limits })),
     rounding: { hs: '0.001 m', wind: '0.01 kn', direction: 'outward: lower edge down, upper edge up' },

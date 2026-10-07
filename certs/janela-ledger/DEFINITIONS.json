@@ -37,5 +37,24 @@
   "alpha": "1/10",
   "domain": "janela/hs-altimeter/calibrated-sergipe-v1",
   "caveat": "the satellites see the sea 40-100 km out while the node is 5 km off the coast: the band leans high for the platforms (apps/janela/scenario/regions.json)"
+ },
+ "noaa-gefs-c25of31 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "NOAA GEFS-Wave (WAVEWATCH III, the 00 UTC run, 31 members: the control c00 and p01..p30, global 0.25°; AWS noaa-gefs-pds, public domain): order statistics 4 and 28 of the 31 sorted members at the site's model node — the central 25 of 31",
+  "claim": "3/4",
+  "alpha": "1/4",
+  "why the claim": "if the truth and the 31 members are exchangeable (the ensemble's own premise), the closed band between the k-th and the (m+1-k)-th of m sorted members covers with probability at least (m+1-2k)/(m+1): k = 4, m = 31 gives 24/32 = 3/4 exactly. The ECMWF proposer's 4/5 is its member fraction (40 of 50), above its own exchangeable value 39/51; it stays as committed. Each proposer is tested against its own claim; neither claim is a theorem about the sea.",
+  "node": "the box node nearest the site that GEFS-Wave's control calls sea at +0 h (feed.py sea_index, the rule the ECMWF feed uses), on GEFS-Wave's own 0.25° grid; it may differ from the ECMWF node, and the target is the site's, so both providers meet the same satellite passes",
+  "steps": "0, 6, ..., 168 h of the 00 UTC run — the ECMWF feed's steps, so both providers are graded on the same target times",
+  "exact": "every value is a GRIB2 packed integer, value = (R + X·2^E)/10^D (Hs: R = 0, E = 0, D = 2 — centimetres), X recovered from eccodes' decode and refused when no integer reproduces the value; checked 2026-10-07 against an independent decode of one field's JPEG 2000 code stream (OpenJPEG) and its bitmap: 565,283 of 565,283 sea points equal",
+  "feed": "corpus/janela/feed-noaa/YYYYMMDD.json.gz (apps/janela/audit/noaa.py), written once, every member kept; each row names its sha256 prefix. The deterministic GFS-Wave Hs at the same node rides each row as det; it is not the band",
+  "domain": "janela/hs-altimeter/noaa-gefs-c25of31"
+ },
+ "providers-v1 (apps/janela/app)": {
+  "decided": "2026-10-07, before any NOAA band is shown in the app",
+  "raw": "a provider's raw ensemble band (ECMWF's central 40 of 50, NOAA's central 25 of 31) is shown beside the forecast and graded on the PLACAR; it is never decided on. The app decides only with calibrated bands (a provider's forecast times the exact conformal interval of its own satellite matchups).",
+  "two": "where a place carries calibrated bands from two providers, the app decides on their union [min lo, max hi]: it covers whenever either covers, so its coverage is at least the larger of the two claims — never the narrower or the better-looking band. The union holds until a ranking rule is dated here, before any ranking is read.",
+  "pruned": "a calibrated band the PLACAR prunes leaves the union (bandset.withoutPruned), and the place decides on what remains"
  }
 }

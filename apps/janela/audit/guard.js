@@ -10,6 +10,7 @@
                                          the new one (rows appended, none touched)
      certs/janela-ledger/DEFINITIONS.json  every old key kept with the same value
      corpus/janela/feed/*                added only (a day's feed is written once)
+     corpus/janela/feed-noaa/*           added only (NOAA's day, written once the same way)
      corpus/janela/observed/*            added only (a day is observed once)
 
    Anything deleted or renamed under these paths is refused.
@@ -22,16 +23,16 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const git = (args, enc) => cp.execFileSync('git', args, { cwd: ROOT, encoding: enc === null ? null : 'utf8', maxBuffer: 1 << 30 });
-const LEDGER = 'certs/janela-ledger/', FEED = 'corpus/janela/feed/', OBS = 'corpus/janela/observed/';
+const LEDGER = 'certs/janela-ledger/', FEED = 'corpus/janela/feed/', NOAA = 'corpus/janela/feed-noaa/', OBS = 'corpus/janela/observed/';
 
 function check() {
   const bad = [];
-  const lines = git(['diff', '--cached', '--name-status', '--no-renames', '--', LEDGER, FEED, OBS]).split('\n').filter(Boolean);
+  const lines = git(['diff', '--cached', '--name-status', '--no-renames', '--', LEDGER, FEED, NOAA, OBS]).split('\n').filter(Boolean);
   for (const l of lines) {
     const [st, file] = l.split('\t');
     if (st === 'A') continue;
     if (st !== 'M') { bad.push(st + ' ' + file + ': only additions are allowed here'); continue; }
-    if (file.startsWith(FEED) || file.startsWith(OBS)) { bad.push(file + ': written once, never modified'); continue; }
+    if (file.startsWith(FEED) || file.startsWith(NOAA) || file.startsWith(OBS)) { bad.push(file + ': written once, never modified'); continue; }
     const old = git(['show', 'HEAD:' + file], null), now = git(['show', ':' + file], null);
     if (file === LEDGER + 'DEFINITIONS.json') {
       const a = JSON.parse(old.toString('utf8')), b = JSON.parse(now.toString('utf8'));

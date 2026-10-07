@@ -12,7 +12,8 @@ The archive: Google Cloud from 2023-07-12, AWS from 2023-01-18. The layout
 changed on 2024-02-29: before it, `0p4-beta` (0.4°); from it, `ifs/0p25`.
 
 What is kept, and why it is exact: every field is GRIB2 simple packing
-(CCSDS-compressed integers), so a value IS (R + X * 2^E) / 10^D with R the
+(CCSDS-compressed integers; NOAA's WAVEWATCH III, read by noaa.py through this
+same decoder, packs them as JPEG 2000), so a value IS (R + X * 2^E) / 10^D with R the
 float32 reference value, E and D the binary and decimal scale factors and
 X a non-negative integer. We store R, E, D per field and X per node, so a
 number on any page can be traced to an integer in a field whose bytes
@@ -30,8 +31,6 @@ import urllib.error
 import urllib.request
 from datetime import date
 from fractions import Fraction
-
-import eccodes
 
 MIRRORS = {
     'gcs': 'https://storage.googleapis.com/ecmwf-open-data',
@@ -60,16 +59,16 @@ def stem(d, run, stream, step):
 
 
 def get(url, rng=None, tries=7):
-    """GET with retries; rng = (offset, length). None on 404."""
+    """GET with retries; rng = (offset, length), or (offset, None) for offset to the end. None on 404."""
     headers = dict(UA)
     if rng:
-        headers['Range'] = f'bytes={rng[0]}-{rng[0] + rng[1] - 1}'
+        headers['Range'] = f'bytes={rng[0]}-' if rng[1] is None else f'bytes={rng[0]}-{rng[0] + rng[1] - 1}'
     last = None
     for k in range(tries):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
                 b = r.read()
-            if rng and len(b) != rng[1]:
+            if rng and rng[1] is not None and len(b) != rng[1]:
                 raise IOError(f'short read {len(b)} of {rng[1]}')
             if b[:5] == b'<?xml':
                 raise IOError('error body: ' + b[:200].decode(errors='replace'))
@@ -127,11 +126,28 @@ def node_ll(meta, j, i):
     return round(lat, 6), round(lon, 6)
 
 
+PACKINGS = ('grid_ccsds', 'grid_simple', 'grid_jpeg')   # integer packings: value = (R + X * 2**E) / 10**D
+
+
+def packed(v, R, E, D):
+    """The packed integer X behind a decoded double v: value = (R + X * 2**E) / 10**D exactly.
+
+    R is a Fraction (the float32 reference value, exact), E and D integers. Refuses a v that
+    no integer reproduces — a forged or re-scaled value is not a GRIB integer."""
+    two, ten = Fraction(2) ** E, Fraction(10) ** D
+    X = round((Fraction(v) * ten - R) / two)
+    exact = (R + X * two) / ten
+    if X < 0 or abs(float(exact) - v) > 1e-9 * max(1.0, abs(v)):
+        raise ValueError(f'packing reconstruction failed: {v} vs {float(exact)}')
+    return int(X)
+
+
 def decode(msg, sites):
     """Decode one GRIB2 message; return (meta, {site_id: [X or None per box node]}).
 
     X is the packed integer: value = (R + X * 2**E) / 10**D exactly. A node the
     model calls land (bitmap) is None."""
+    import eccodes   # here, not at the top: noaa.py --check and its battery run on the standard library
     h = eccodes.codes_new_from_message(msg)
     try:
         g = lambda k: eccodes.codes_get(h, k)  # noqa: E731
@@ -144,8 +160,10 @@ def decode(msg, sites):
             'R': g('referenceValue'), 'E': g('binaryScaleFactor'), 'D': g('decimalScaleFactor'),
             'bits': g('bitsPerValue'),
         }
-        if meta['grid'] != 'regular_ll' or meta['packing'] not in ('grid_ccsds', 'grid_simple'):
+        if meta['grid'] != 'regular_ll' or meta['packing'] not in PACKINGS:
             raise ValueError(f"unexpected grid/packing {meta['grid']}/{meta['packing']}")
+        if g('jScansPositively') != 0 or g('iScansNegatively') != 0:
+            raise ValueError('unexpected scanning: node_ij reads north to south, west to east')
         try:
             meta['number'] = g('number')
         except eccodes.KeyValueNotFoundError:
@@ -153,7 +171,6 @@ def decode(msg, sites):
         vals = eccodes.codes_get_values(h)
         miss = g('missingValue')
         R, E, D = Fraction(meta['R']), meta['E'], meta['D']
-        two, ten = Fraction(2) ** E, Fraction(10) ** D
         out = {}
         for s in sites:
             j0, i0 = node_ij(meta, s['lat'], s['lon'])
@@ -165,11 +182,10 @@ def decode(msg, sites):
                     if v == miss:
                         xs.append(None)
                         continue
-                    X = round((Fraction(v) * ten - R) / two)
-                    exact = (R + X * two) / ten
-                    if abs(float(exact) - v) > 1e-9 * max(1.0, abs(v)):
-                        raise ValueError(f'packing reconstruction failed at {s["id"]}: {v} vs {float(exact)}')
-                    xs.append(int(X))
+                    try:
+                        xs.append(packed(v, R, E, D))
+                    except ValueError as e:
+                        raise ValueError(f'{e} at {s["id"]}') from None
             out[s['id']] = xs
         return meta, out
     finally:

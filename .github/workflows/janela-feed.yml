@@ -2,6 +2,10 @@
 # ensemble bands to the ledger BEFORE their target times, and PUSH AT ONCE — the push
 # time is the outside proof that every commit row predates the sea it forecasts, so
 # nothing that can fail (NOAA, the map field) runs before it.
+# Then the SECOND PROVIDER: NOAA's WAVEWATCH III (GEFS-Wave's 31 members and GFS-Wave,
+# apps/janela/audit/noaa.py), its bands committed under their own proposer and pushed on
+# their own — after the ECMWF push and allowed to fail, so NOAA can never hold up or break
+# the ECMWF day.
 # Then the scoring (observe days ended three days ago, score; a NOAA failure is a
 # warning, never a lost day), pushed on its own. Every push goes through
 # apps/janela/audit/push.sh: guard.js refuses any staged change that is not an append.
@@ -31,7 +35,7 @@ concurrency:
 jobs:
   feed:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 90
     env:
       # GitHub's runners have no IPv6 route; coastwatch.noaa.gov publishes an AAAA record
       JANELA_IPV4: '1'
@@ -56,6 +60,17 @@ jobs:
       - name: push the forecasts now (the push time proves every row predates its target)
         run: |
           bash apps/janela/audit/push.sh "Janela feed $(date -u +%F): ECMWF 00 UTC at the Janela sites; bands committed to certs/janela-ledger at least an hour before their target times" corpus/janela/feed certs/janela-ledger
+      - name: "the second provider: NOAA's WAVEWATCH III at every site (noaa.py; may fail without touching the ECMWF day)"
+        id: noaa
+        continue-on-error: true
+        timeout-minutes: 20
+        run: cd apps/janela/audit && python noaa.py
+      - name: commit NOAA's bands before the sea happens, and push them
+        if: steps.noaa.outcome == 'success'
+        continue-on-error: true
+        run: |
+          node apps/janela/audit/commit.js --noaa
+          bash apps/janela/audit/push.sh "Janela feed-noaa $(date -u +%F): NOAA WAVEWATCH III 00 UTC at the Janela sites; GEFS-Wave bands committed to certs/janela-ledger at least an hour before their target times" corpus/janela/feed-noaa certs/janela-ledger
       - name: observe what the satellites saw (days ended three days ago)
         continue-on-error: true
         timeout-minutes: 25

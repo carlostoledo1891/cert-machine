@@ -69,7 +69,17 @@
 - [x] The day's data fetched before the map library (early.js); links carry the run and say when it is old.
 - [ ] Decision-level scoring: every published LIBERADA at a measured site against the satellite (from 2026-10-09).
 - [ ] The campaign planner (decommissioning): N operations from a date, exact counts over 32 years.
-- [ ] NEXT SESSION: NOAA WAVEWATCH III (GFS-Wave deterministic + GEFS-Wave 31 members, public AWS, verified 10-07) as
-      the second forecast proposer — the plan and the open decisions are in HANDOFF.md's top entry.
+- [x] NOAA WAVEWATCH III as the second forecast proposer (2026-10-07): audit/noaa.py reads GEFS-Wave (31 members, HTSGW)
+      and GFS-Wave (Hs, PERPW, DIRPW, the forcing wind, wind sea, three swells) by .idx byte range, exact packed integers
+      (cross-checked once against an independent JPEG 2000 decode), every run/step/parameter checked; commit.js --noaa
+      commits janela/hs-altimeter/noaa-gefs-c25of31 (order statistics 4 and 28 of 31, claim 3/4) on the ECMWF target;
+      providers-v1 dated (a raw ensemble is shown, never decided; two calibrated bands -> their union); the card draws
+      NOAA's band as an outline beside ECMWF's hatch; the Action runs it after the ECMWF push, allowed to fail.
+      `python apps/janela/audit/noaa.py --verify corpus/janela/feed-noaa/YYYYMMDD.json.gz` re-reads a day from NOAA.
+- [ ] NOAA at the 181 units (the card's band is read at the 13 sites only; field.py's route, janela-field data).
+- [ ] Swell partitions on the card (period/direction criteria for offloading and lifts): the feed carries them from 10-07.
+- [ ] The calibrated WW3 band: the GFS-Wave back-archive (AWS from 2021-04), matchups, conformal, its own pinned proposer;
+      then providers-v1's union decides.
+- [ ] NOAA's 06/12/18 UTC runs (a second cron) and hourly steps in the app.
 - [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
 

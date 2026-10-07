@@ -50,6 +50,13 @@ try {
 const gz = fs.readFileSync(path.join(ROOT, N.feed.file));
 const raw = zlib.gunzipSync(gz);
 const feed = Object.assign(JSON.parse(raw.toString('utf8')), { file: N.feed.file, sha: sha(raw) });
+/* the second provider's day (NOAA, the same run), shown beside and never decided on: null when it was not read */
+let noaa = null;
+if (N.noaa) {
+  const nraw = zlib.gunzipSync(fs.readFileSync(path.join(ROOT, N.noaa.file)));
+  if (sha(nraw) !== N.noaa.sha) die(N.noaa.file + ' changed between two reads');
+  noaa = Object.assign(JSON.parse(nraw.toString('utf8')), { file: N.noaa.file, sha: N.noaa.sha });
+}
 if (!fs.existsSync(PLAT)) die(PLAT + ' is missing: run apps/janela/audit/field.py first');
 const pbytes = fs.readFileSync(PLAT);
 const platforms = Object.assign(JSON.parse(pbytes.toString('utf8')), { sha: sha(pbytes) });
@@ -65,7 +72,7 @@ if (fs.existsSync(FIELD)) {
 const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook };
 const D = require('./app/data.js');
 let made;
-try { made = D.make({ feed, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
+try { made = D.make({ feed, noaa, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
 const json = JSON.stringify(made.today);
 
 /* gate 3 — the tab's check, run here on the written bytes */

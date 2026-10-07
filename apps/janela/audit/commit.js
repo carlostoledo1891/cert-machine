@@ -1,7 +1,8 @@
 /* commit.js — today's ensemble bands go into the ledger BEFORE the sea happens.
    apps/janela/audit · cert-machine
 
-     node apps/janela/audit/commit.js [YYYYMMDD]     (default: the newest feed)
+     node apps/janela/audit/commit.js [YYYYMMDD]          (default: the newest feed)
+     node apps/janela/audit/commit.js --noaa [YYYYMMDD]   NOAA's band, from corpus/janela/feed-noaa (noaa.py)
 
    For every open-sea site (kind field, platform or coast — a satellite cannot
    see inside a bay) and every forecast step whose time is still in the future,
@@ -29,6 +30,13 @@
    rows are still committed and its own are skipped with a warning the Action's
    summary shows.
 
+   THE SECOND PROVIDER (--noaa, from 2026-10-07): NOAA's GEFS-Wave, order
+   statistics 4 and 28 of its 31 members (the central 25; the exchangeable claim
+   24/32 = 3/4), committed under its own proposer name with the SAME target, the
+   same margin and the same ledger files, so the PLACAR grades both providers on
+   the same satellite passes. Its own step in the Action, after the ECMWF push:
+   NOAA can never hold up or break the ECMWF day.
+
    MIT licensed. Part of cert-machine.                                    */
 'use strict';
 
@@ -44,6 +52,8 @@ const SCORED_KINDS = new Set(['field', 'platform', 'coast']);
 const TARGET = 'Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, '
   + 'over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)';
 const PROPOSER = 'ECMWF ENS wave (open data, 50 members): order statistics 6 and 45 — the central 40 of 50';
+/* NOAA's ensemble (noaa.py): its band and claim are the feed's own, checked here against the definition */
+const NOAA = { domain: 'janela/hs-altimeter/noaa-gefs-c25of31', alpha: [1, 4], members: 31, band: 'order statistics 4 and 28 of 31 sorted members (the central 25)' };
 /* the definitions above are versioned here and named in every row; a change of
    definition is a new TARGET_ID, never a silent edit of an old one */
 const TARGET_ID = 'altimeter-hs-v1 (apps/janela/audit/commit.js)';
@@ -62,18 +72,59 @@ const calSuffix = (domain) => (domain === 'janela/hs-altimeter/calibrated-v1' ? 
 const MARGIN_MS = 3600e3;     /* a target at least an hour after madeAt */
 const frac = (s) => { const [n, d = '1'] = String(s).split('/'); return [n, d]; };
 
+/* the newest (or the named) feed of a directory, gunzipped and hashed as read */
+function readFeed(dir, day) {
+  const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => /^\d{8}\.json\.gz$/.test(f)).sort() : [];
+  const want = day ? day + '.json.gz' : files[files.length - 1];
+  if (!files.includes(want)) throw new Error('REFUSED: no feed ' + want + ' in ' + path.relative(ROOT, dir));
+  const raw = zlib.gunzipSync(fs.readFileSync(path.join(dir, want)));
+  return { want, feed: JSON.parse(raw.toString('utf8')), feedSha: require('crypto').createHash('sha256').update(raw).digest('hex') };
+}
+
+/* NOAA's rows, pure (the battery feeds it synthetic feeds): one per open-sea site and step that carries a band
+   and whose target is at least the margin ahead; a feed whose band is not the definition's is refused whole */
+function noaaRows(feed, feedSha, want, madeAt) {
+  const e = feed.ensemble || {};
+  if (e.source !== 'GEFS-Wave' || (e.members || []).length !== NOAA.members || e.band !== NOAA.band || e.claim !== '3/4') {
+    throw new Error('REFUSED: ' + want + ' does not carry the band ' + NOAA.domain + ' is defined by (' + NOAA.band + ', claim 3/4)');
+  }
+  const rows = [];
+  let past = 0;
+  for (const [sid, site] of Object.entries(feed.sites)) {
+    if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
+    for (const st of site.steps) {
+      if (!st.hs || st.hs.lo === undefined) continue;
+      const targetTime = st.t + ':00:00Z';
+      if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) { past++; continue; }
+      rows.push({ ledger: st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', c: {
+        id: 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h:' + NOAA.domain.split('/').pop(), domain: NOAA.domain,
+        target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+        forecast: { lo: frac(st.hs.lo), hi: frac(st.hs.hi), alpha: NOAA.alpha, det: st.hs.det === undefined ? null : st.hs.det, lead: st.lead,
+          node: site.node, feed: 'noaa/' + want.slice(0, 8), feedSha: feedSha.slice(0, 16) } } });
+    }
+  }
+  return { rows, past };
+}
+
+function commitNoaa(day, madeAt) {
+  const { want, feed, feedSha } = readFeed(path.join(ROOT, 'corpus', 'janela', 'feed-noaa'), day);
+  const { rows, past } = noaaRows(feed, feedSha, want, madeAt);
+  let made = 0, dup = 0;
+  for (const r of rows) {
+    try { L.commit(path.join(LEDGER, r.ledger), r.c); made++; } catch (err) { if (/duplicate commit id/.test(err.message)) { dup++; continue; } throw err; }
+  }
+  console.log('janela ledger (NOAA): ' + made + ' committed, ' + past + ' skipped (target past or under an hour away), ' + dup + ' already committed — feed-noaa ' + want);
+}
+
 function main() {
-  const files = fs.readdirSync(FEED).filter((f) => /^\d{8}\.json\.gz$/.test(f)).sort();
-  const want = process.argv[2] ? process.argv[2] + '.json.gz' : files[files.length - 1];
-  if (!files.includes(want)) throw new Error('REFUSED: no feed ' + want);
-  const raw = zlib.gunzipSync(fs.readFileSync(path.join(FEED, want)));
-  const feed = JSON.parse(raw.toString('utf8'));
-  const feedSha = require('crypto').createHash('sha256').update(raw).digest('hex');
-  fs.mkdirSync(LEDGER, { recursive: true });
+  const args = process.argv.slice(2);
   /* madeAt is the moment of THIS commit (the git push that follows is its outside proof),
      never the earlier moment the feed was read — a target between the two would look
      committed before it was */
   const madeAt = new Date().toISOString().slice(0, 19) + 'Z';
+  fs.mkdirSync(LEDGER, { recursive: true });
+  if (args[0] === '--noaa') return commitNoaa(args[1], madeAt);
+  const { want, feed, feedSha } = readFeed(FEED, args[0]);
   let made = 0, past = 0, dup = 0;
   const cals = [];
   for (const r of require('./bandset.js').records()) {
@@ -120,4 +171,6 @@ function main() {
   console.log('janela ledger: ' + made + ' committed, ' + past + ' skipped (target past or under an hour away), ' + dup + ' already committed — feed ' + want);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = { NOAA, TARGET_ID, MARGIN_MS, noaaRows };

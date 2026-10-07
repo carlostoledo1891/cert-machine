@@ -63,6 +63,17 @@ function load(over) {
   N.feed = { file: 'corpus/janela/feed/' + pick, sha: sha(raw), gzSha: sha(gz), run: feed.run, madeAt: feed.madeAt,
     ensemble: feed.ensemble, groups: (feed.groups || []).length, licence: feed.licence };
 
+  /* ---- the second provider: NOAA's day for the SAME run (audit/noaa.py), or null when it was not read ---- */
+  const NF = path.join(ROOT, 'corpus', 'janela', 'feed-noaa', pick);
+  N.noaa = null;
+  if (fs.existsSync(NF)) {
+    const nraw = zlib.gunzipSync(fs.readFileSync(NF));
+    const nf = JSON.parse(nraw.toString('utf8'));
+    need(nf.run === feed.run, 'corpus/janela/feed-noaa/' + pick + ' is the run ' + nf.run + ', not the feed\'s ' + feed.run);
+    N.noaa = { file: 'corpus/janela/feed-noaa/' + pick, sha: sha(nraw), run: nf.run, madeAt: nf.madeAt, ensemble: nf.ensemble,
+      groups: (nf.groups || []).length, licence: nf.licence };
+  }
+
   /* ---- the band record, and the week decided over it (audit/today.js) ---- */
   const bands = over.bands || require('./audit/bandset.js').bands();
   need(bands.sites && bands.binHours && bands.borrow, 'certs/janela-bands.json lost its shape');

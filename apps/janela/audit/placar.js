@@ -64,7 +64,8 @@ const RULE_PT = 'Um ensaio por dia-alvo: as faixas de um proponente avaliadas pa
 const NAMES_PT = {
   'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50',
   'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1',
-  'janela/hs-altimeter/calibrated-sergipe-v1': 'A faixa medida da Janela, Sergipe-Alagoas, v1'
+  'janela/hs-altimeter/calibrated-sergipe-v1': 'A faixa medida da Janela, Sergipe-Alagoas, v1',
+  'janela/hs-altimeter/noaa-gefs-c25of31': 'Ensemble NOAA (WAVEWATCH III), os 25 centrais de 31'
 };
 
 /* the looks reached after m trials: m = 30·2^j, bar = 1/20 · 2^-(j+1) */
