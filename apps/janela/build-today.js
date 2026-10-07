@@ -30,6 +30,7 @@ const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const OUT = path.resolve(arg('--out', path.join(ROOT, 'site', 'janela', 'data')));
 const PLAT = path.resolve(arg('--platforms', path.join(ROOT, 'corpus', 'janela', 'field', 'platforms-latest.json')));
 const FIELD = path.resolve(arg('--field', path.join(ROOT, 'corpus', 'janela', 'field', 'latest.bin')));
+const NOAA_UNITS = path.resolve(arg('--noaa-units', path.join(ROOT, 'corpus', 'janela', 'field', 'platforms-noaa-latest.json')));
 const LOCAL = OUT === path.join(ROOT, 'site', 'janela', 'data');
 
 /* gate 1 — the batteries, run */
@@ -57,6 +58,14 @@ if (N.noaa) {
   if (sha(nraw) !== N.noaa.sha) die(N.noaa.file + ' changed between two reads');
   noaa = Object.assign(JSON.parse(nraw.toString('utf8')), { file: N.noaa.file, sha: N.noaa.sha });
 }
+/* NOAA at the units (noaa.py --units): used only when it is the same run; another run is left out, said so in the day */
+let noaaUnits = null;
+if (noaa && fs.existsSync(NOAA_UNITS)) {
+  const ub = fs.readFileSync(NOAA_UNITS);
+  const u = JSON.parse(ub.toString('utf8'));
+  if (u.run === feed.run) noaaUnits = Object.assign(u, { sha: sha(ub) });
+  else console.log('janela today: ' + path.relative(ROOT, NOAA_UNITS) + ' is the run ' + u.run + ', not ' + feed.run + ' — the units decide on ECMWF\'s band alone');
+}
 if (!fs.existsSync(PLAT)) die(PLAT + ' is missing: run apps/janela/audit/field.py first');
 const pbytes = fs.readFileSync(PLAT);
 const platforms = Object.assign(JSON.parse(pbytes.toString('utf8')), { sha: sha(pbytes) });
@@ -72,7 +81,7 @@ if (fs.existsSync(FIELD)) {
 const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook };
 const D = require('./app/data.js');
 let made;
-try { made = D.make({ feed, noaa, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
+try { made = D.make({ feed, noaa, noaaUnits, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
 const json = JSON.stringify(made.today);
 
 /* gate 3 — the tab's check, run here on the written bytes */

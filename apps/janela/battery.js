@@ -295,7 +295,7 @@ const BS = require('./audit/bandset.js');
 ok('regions: every measured region carries exactly its own sites, and the merge keeps the 2026-10-06 record whole', () => {
   const main = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'janela-bands.json'), 'utf8'));
   const B = BS.bands();
-  for (const r of BS.records().filter((x) => x.name !== 'main')) {
+  for (const r of BS.records().filter((x) => x.name !== 'main' && x.provider === 'ecmwf')) {
     const rec = JSON.parse(fs.readFileSync(path.join(ROOT, r.bands), 'utf8'));
     assert.deepStrictEqual(Object.keys(rec.sites).sort(), r.sites.slice().sort(), r.name);
     for (const sid of r.sites) assert.ok(SITES.some((s) => s.id === sid), sid + ' is not in sites.json');
@@ -319,6 +319,30 @@ red('the prune reaches the product: a DEADMITTED calibrated proposer lends no ba
   assert.ok(B.sites.sergipe, 'the record itself is untouched');
 });
 
+/* ---- providers-v1 in the product (audit/today.js): two calibrated bands decide on their union ---- */
+const unionWeek = (detE, detN, cellN, noNoaa) => {
+  /* TEBIG's eastern approach (Ilha Grande): Hs <= 2.0 m and wind <= 20 kn, nothing unforecast */
+  const site = (det) => ({ 'ilha-grande': { kind: 'terminal', node: [-23.0, -44.25], steps: [{ t: '2026-10-07T00', lead: 24, hs: { det }, wind: { u: '3', v: '4' } }] } });
+  const B = (cell) => ({ binHours: 12, borrow: { 'ilha-grande': 'santos' }, sites: { santos: { bins: { 24: cell } } } });
+  return T.compute({ run: 'r', madeAt: 'x', sites: site(detE) }, B(CELL), OPS.filter((o) => o.id === 'tebig-leste'), SITES.filter((s) => s.id === 'ilha-grande'),
+    noNoaa ? undefined : { feed: { sites: site(detN) }, bands: B(cellN || CELL) });
+};
+ok('the union: ECMWF 1.7 m x [0.9, 1.1] and NOAA 1.9 m x [0.9, 1.1] decide on [1.53, 2.09], and the band names both providers', () => {
+  const st = unionWeek('17/10', '19/10').sites['ilha-grande'].steps[0];
+  assert.deepStrictEqual([st.hs.lo, st.hs.hi], ['153/100', '209/100']);
+  assert.deepStrictEqual(st.hs.from, ['ecmwf', 'noaa']);
+});
+red('the union never flips a verdict, only widens: LIBERADA under ECMWF alone ("Hs <= 2.0" at 1.87) becomes INDEFINIDA when NOAA\'s edge reaches 2.09 — never VETADA', () => {
+  const v = (w) => w.operations.find((o) => o.id === 'tebig-leste').steps[0].verdict;
+  assert.deepStrictEqual([v(unionWeek('17/10', null, null, true)), v(unionWeek('17/10', '19/10'))], ['LIBERADA', 'INDEFINIDA']);
+});
+red('a NOAA band inside ECMWF\'s leaves the decision band exactly ECMWF\'s; a REFUSED NOAA cell leaves ECMWF\'s alone (no "from")', () => {
+  const inside = unionWeek('17/10', '17/10', { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '19/20', hi: '21/20', n: 100, coverage: '90/101' }, windDiff: CELL.windDiff }).sites['ilha-grande'].steps[0].hs;
+  assert.deepStrictEqual([inside.lo, inside.hi], ['153/100', '187/100']);
+  const refused = unionWeek('17/10', '3', { hs: { verdict: 'REFUSED', n: 3 }, windDiff: { verdict: 'REFUSED', n: 3 } }).sites['ilha-grande'].steps[0].hs;
+  assert.deepStrictEqual([refused.lo, refused.hi, refused.from], ['153/100', '187/100', undefined]);
+});
+
 /* ---- the second provider (audit/commit.js --noaa over audit/noaa.py's day): the ECMWF target, its own proposer ---- */
 const CM = require('./audit/commit.js');
 const noaaFeed = (over) => ({ run: '2026-10-07T00',
@@ -340,6 +364,14 @@ ok('noaa: one row per open-sea site and step with a band at least an hour ahead 
   assert.strictEqual(c.target, 'santos · ' + CM.TARGET_ID);
   assert.deepStrictEqual([c.forecast.lo, c.forecast.hi, c.forecast.alpha], [['7', '5'], ['8', '5'], [1, 4]]);
   assert.strictEqual(r.rows[0].ledger, '202610.jsonl');
+});
+ok('noaa calibrated: GFS-Wave\'s deterministic Hs x NOAA\'s own ratio interval, committed even where the ensemble lost a member; claim 9/10', () => {
+  const cal = { domain: 'janela/hs-altimeter/calibrated-noaa-v1', sha: 'a'.repeat(64),
+    rec: { binHours: 12, sites: { santos: { bins: { 12: { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '9/10', hi: '11/10', n: 100, coverage: '90/101' } } } } } } };
+  const r = CM.noaaRows(noaaFeed(), 'f'.repeat(64), '20261007.json.gz', '2026-10-07T05:30:00Z', [cal]);
+  const c = r.rows.map((x) => x.c).filter((x) => x.domain === cal.domain);
+  assert.deepStrictEqual(c.map((x) => x.id), ['janela:santos:2026-10-07T00:+12h:calibrated-noaa-v1', 'janela:santos:2026-10-07T00:+18h:calibrated-noaa-v1']);
+  assert.deepStrictEqual([c[0].forecast.lo, c[0].forecast.hi, c[0].forecast.alpha], [['27', '20'], ['33', '20'], [1, 10]]);
 });
 red('noaa: a feed whose band is not the definition\'s (order statistics 3 and 29) is refused whole, never committed under the name', () => {
   assert.throws(() => CM.noaaRows(noaaFeed({ band: 'order statistics 3 and 29 of 31 sorted members' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);

@@ -382,7 +382,11 @@ function drawCrit() {
   var cur = current(), x = '';
   if (!cur) { $('jn-critx').textContent = ''; return; }
   var p = PL[S.site] && STEPS[S.site] ? PL[S.site] : null;
-  if (S.crit === 'band') x = 'A previsão × o erro medido contra satélite neste local e prazo, na borda desfavorável, em cada passo da janela (cobertura reivindicada 9/10, auditada no placar).';
+  if (S.crit === 'band') {
+    var hp = p && STEPS[p.id][S.i] && STEPS[p.id][S.i].hp;
+    x = 'A previsão × o erro medido contra satélite neste local e prazo, na borda desfavorável, em cada passo da janela (cobertura reivindicada 9/10, auditada no placar).'
+      + (hp === 'en' ? ' Aqui, a união das faixas medidas do ECMWF e da NOAA: cobre sempre que uma delas cobre.' : hp === 'n' ? ' Aqui, só a faixa medida da NOAA (a do ECMWF não decide neste prazo).' : '');
+  }
   else {
     var r = p ? full(p.id, S.i) : null;
     var al = r && r.alpha ? r.alpha : null;
@@ -573,7 +577,7 @@ function drawCard() {
     + '<div class="jn-three">' + crits.map(tile).join('') + '</div></div>'
     + '<p class="jn-why">' + esc(explain(p, res[S.crit], op, S.crit)) + '</p>'
     + '<div><div class="jn-k">a semana, pelos três critérios</div><div class="jn-mx" id="jn-mx">' + mx + '</div></div>'
-    + chartHs(p, cur) + chartWind(p, cur) + dirs(p)
+    + chartHs(p, cur) + chartWind(p, cur) + dirs(p) + seaParts(p)
     + '<div class="jn-note">' + currentNote(p) + '</div>'
     + (isTank && S.op === 'alivio' ? tank(p) : '')
     + waitCost(p)
@@ -660,7 +664,8 @@ function chartHs(p, cur) {
   var svg = '<svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="' + esc('Hs em ' + short(p) + ', sete dias: a faixa medida (decidida) contra a previsão determinística' + (hasEns ? ' e o ensemble' : '') + ' do ECMWF' + (hasEnsN ? ' e o ensemble da NOAA' : '') + ', com o limite e os OPWF.') + '">'
     + '<defs><pattern id="jn-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="hl" x1="0" y1="0" x2="0" y2="5"/></pattern></defs>'
     + winRect(p, op, H) + B.o.join('') + poly(st, 'ens', B.y) + poly(st, 'ensN', B.y) + poly(st, 'hb', B.y) + poly(st, 'hd', B.y, true) + gd.o.join('') + '</svg>';
-  return '<figure class="jn-fig">' + svg + '<ul class="jn-key"><li><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="band" x="1" y="1.5" width="20" height="7"/></svg>faixa medida' + (hasBand ? '' : ' (sem faixa aqui)') + '</li>'
+  var hasUnion = st.some(function (s) { return s.hp === 'en'; });
+  return '<figure class="jn-fig">' + svg + '<ul class="jn-key"><li><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="band" x="1" y="1.5" width="20" height="7"/></svg>faixa medida' + (hasBand ? (hasUnion ? ', ECMWF ∪ NOAA' : '') : ' (sem faixa aqui)') + '</li>'
     + '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><line class="det" x1="1" y1="5" x2="21" y2="5"/></svg>previsão determinística</li>'
     + (hasEns ? '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="swr" x="1" y="1.5" width="20" height="7"/><line class="hl" x1="4" y1="8.5" x2="9" y2="1.5"/><line class="hl" x1="10" y1="8.5" x2="15" y2="1.5"/><line class="hl" x1="16" y1="8.5" x2="21" y2="1.5"/></svg>ensemble ECMWF, 40 de 50</li>' : '')
     + (hasEnsN ? '<li class="fc"><svg viewBox="0 0 22 10" aria-hidden="true"><rect class="swr" x="1" y="1.5" width="20" height="7"/></svg>ensemble NOAA, 25 de 31</li>' : '')
@@ -693,6 +698,20 @@ function dirs(p) {
     + '<span class="l">Tp (s)</span><svg viewBox="0 0 ' + CW + ' 18" role="img" aria-label="Período de pico previsto">' + tp + '</svg>'
     + '<span class="l">vento</span><svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="Para onde o vento sopra, previsão por passo">' + row('wdir', 'arrw') + '</svg></div>'
     + '<p class="jn-fine jn-fc">Setas: para onde a onda e o vento vão, previsão ECMWF por passo (não decidida).</p>';
+}
+
+/* ---- the sea by parts at the chosen hour: NOAA's wind sea and swells (forecast ink, never decided on) ---- */
+var PONTOS = ['N', 'NNE', 'NE', 'ENE', 'L', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'];
+function seaParts(p) {
+  var s = STEPS[p.id] && STEPS[p.id][S.i];
+  if (!s || !s.wp) return '';
+  var name = { v: 'mar de vento', 1: 'ondulação 1', 2: 'ondulação 2', 3: 'ondulação 3' };
+  var rows = s.wp.map(function (x) {
+    return '<tr><td>' + esc(name[x[0]] || x[0]) + '</td><td>' + dc(x[1].toFixed(2)) + '</td><td>' + (x[2] === null ? '—' : dc(x[2].toFixed(1))) + '</td><td>'
+      + (x[3] === null ? '—' : x[3] + '° ' + PONTOS[Math.round(x[3] / 22.5) % 16]) + '</td></tr>';
+  }).join('');
+  return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div><div class="tw"><table class="jn-tbl"><thead><tr><th>parte</th><th>Hs (m)</th><th>período (s)</th><th>vem de</th></tr></thead><tbody>'
+    + rows + '</tbody></table></div><p class="jn-fine jn-fc">NOAA WAVEWATCH III (GFS-Wave), previsão por partes: mostrada, não decidida.</p></div>';
 }
 
 /* ---- ALÍVIO CRÍTICO: the user's tanks against the next LIBERADA offloading window ---- */
@@ -1416,15 +1435,22 @@ function recheck() {
    What makes a verdict here different from a forecast elsewhere, on the card in four lines: the arithmetic re-done
    in this tab, the second verifier that shares no code with the first, the band's own record on the scoreboard,
    and the file with every number a surveyor needs to re-check this one decision by hand. */
-function proposerState(p) {
-  var d = p.proposer, L = T.ledger && T.ledger.proposers, x = null;
+function domainState(d) {
+  var L = T.ledger && T.ledger.proposers, x = null;
   for (var k = 0; L && k < L.length; k++) if (L[k].domain === d) x = L[k];
-  if (!d) return null;
   /* a proposer pinned but not yet on the ledger: its first rows come with the next daily run */
   if (!x) return { name: (CFG.proposerNames && CFG.proposerNames[d]) || d, claim: '9/10', st: 'entra no placar com a próxima rodada (nenhuma faixa registrada ainda)', cut: false };
   var claim = x.claim || '9/10', first = (T.ledger && T.ledger.firstLook) || 30;
   var st = x.status === 'DEADMITTED' ? 'PODADA' : x.pending !== false ? 'em avaliação, ' + (x.trials || 0) + ' de ' + first + ' dias' : 'admitida, ' + x.trialsCovered + ' de ' + x.trials + ' dias cobertos';
   return { name: x.name || d, claim: claim, st: st, cut: x.status === 'DEADMITTED' };
+}
+/* the band's proposer at a place, and — where the chosen step decides on the union (providers-v1) — the second provider's */
+function proposerState(p) {
+  if (!p.proposer) return null;
+  var r = domainState(p.proposer), s = STEPS[p.id] && STEPS[p.id][S.i];
+  var d2 = T.noaa && T.noaa.decides && T.noaa.decides.proposers && T.noaa.decides.proposers[0];
+  if (d2 && s && s.hp === 'en') r.second = domainState(d2);
+  return r;
 }
 function certBlock(p) {
   var ck = window.__janela.check, sec = T.second, ps = proposerState(p);
@@ -1433,6 +1459,7 @@ function certBlock(p) {
     + line(ck ? ck.ok : null, ck ? (ck.ok ? 'Refeita no seu navegador: as ' + grp(ck.n) + ' decisões do dia, iguais ao registro.' : 'Refeita no seu navegador: ' + grp(ck.n - ck.same) + ' decisões DIFEREM do registro.') : 'Refazendo no seu navegador…')
     + line(sec ? sec.equal === sec.decisions : null, sec ? 'Segundo verificador, escrito sem ler o primeiro (Python, nenhum código em comum): ' + grp(sec.equal) + ' de ' + grp(sec.decisions) + ' iguais.' : 'Segundo verificador: não rodou para estes dados.')
     + line(ps ? !ps.cut : null, ps ? 'A faixa é uma reivindicação (' + esc(ps.name) + ', cobre ' + esc(ps.claim) + '), conferida em público contra satélite: ' + esc(ps.st) + '.' : 'Sem faixa medida aqui: só a Tabela 4-1 decide.')
+    + (ps && ps.second ? line(!ps.second.cut, 'Com a segunda faixa (' + esc(ps.second.name) + ', cobre ' + esc(ps.second.claim) + '), ' + esc(ps.second.st) + ': decide-se a união das duas, que cobre sempre que uma cobre.') : '')
     + line(true, 'Contas exatas, em racionais: nenhum arredondamento decide; a faixa publicada é arredondada para fora.')
     + '</ul><div class="jn-certb"><button type="button" class="jn-btn" id="jn-nota-b">Nota de decisão ↓</button><button type="button" class="jn-btn" id="jn-cert-b">Certificado .json ↓</button></div></div>';
 }
@@ -1452,7 +1479,8 @@ function certDownload(p) {
     por_que: r && r.verdict !== 'n/a' ? explain(p, r, op, S.crit) : r ? r.why : null,
     testemunha: r && r.witness || null, limiar: r && r.flip || null, sem_previsao: r && r.notForecast || [],
     regra_de_decisao: 'LIBERADA: todo limite vale na borda desfavorável da faixa em todos os passos; VETADA: algum limite falha já na borda favorável; INDEFINIDA: a faixa atravessa o limite; SEM DADOS: a regra limita algo sem previsão aqui',
-    faixa: ps ? { proponente: ps.name, reivindicacao: ps.claim, placar: ps.st } : null,
+    faixa: ps ? { proponente: ps.name, reivindicacao: ps.claim, placar: ps.st,
+      segunda: ps.second ? { proponente: ps.second.name, reivindicacao: ps.second.claim, placar: ps.second.st, regra: 'decide-se a união das duas faixas (providers-v1)' } : null } : null,
     segundo_provedor: T.noaa ? { fonte: 'NOAA WAVEWATCH III (GEFS-Wave, ' + T.noaa.band + ')', reivindicacao: T.noaa.claim, rodada: T.noaa.run + ':00Z', registro: T.noaa.file, sha256: T.noaa.sha,
       papel: 'mostrado ao lado, nunca decidido (providers-v1, certs/janela-ledger/DEFINITIONS.json); avaliado no placar contra os mesmos satélites' } : null,
     rodada_ecmwf: T.run + ':00Z', lida: T.madeAt, codigo: T.git || null, digest_do_dia: T.digest, modulos: T.modules, registros: T.inputs,

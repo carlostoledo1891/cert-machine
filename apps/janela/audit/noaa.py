@@ -5,6 +5,8 @@ apps/janela/audit · cert-machine
     python noaa.py [YYYY-MM-DD] [OUT]     default: today's 00 UTC run -> corpus/janela/feed-noaa/YYYYMMDD.json.gz
     python noaa.py --check                the battery (standard library only; no network)
     python noaa.py --verify FILE          re-read a written day from NOAA and compare every value and pin
+    python noaa.py --units [YYYY-MM-DD] [OUT]   GFS-Wave Hs and 10 m wind at every production unit
+                                          -> corpus/janela/field/platforms-noaa-latest.json (beside field.py's)
 
 Janela's SECOND forecast provider, beside ECMWF (feed.py): the PLACAR becomes a
 scoreboard of providers, both graded on the same satellites. Read from NOAA's
@@ -168,8 +170,10 @@ def read_member(d, member, step):
     return meta, xs, [r['offset'], r['length']], hashlib.sha256(msg).digest()
 
 
-def read_gfs(d, step):
-    """the deterministic fields at one step: {key: (meta, xs)}, and the step's group record"""
+def read_gfs(d, step, places=None):
+    """the deterministic fields at one step, decoded at `places` (default: the sites): {key: (meta, xs)}, and the
+    step's group record"""
+    places = SITES if places is None else places
     url = gfs_url(d, step)
     b = E.get(url + '.idx')
     if b is None:
@@ -186,7 +190,7 @@ def read_gfs(d, step):
     out = {}
     for r, msg in zip(rows, msgs):
         key, sn = DET[(r['name'], r['level'])]
-        meta, xs = E.decode(msg, SITES)
+        meta, xs = E.decode(msg, places)
         check_meta(meta, d, step, sn)
         out[key] = (meta, xs)
     group = {'source': 'GFS-Wave', 'step': step, 'fields': [f"{r['name']}:{r['level']}" for r in rows], 'url': url,
@@ -195,6 +199,26 @@ def read_gfs(d, step):
 
 
 GRID = ('Ni', 'Nj', 'lat0', 'lon0', 'dlat', 'dlon')
+
+
+def det_row(val):
+    """the deterministic fields of one place and step as written: NCEP's primary-wave period and direction, the 10 m
+    wind (u, v and the speed enclosure), the wind sea and the three swells — one shape for the sites and the units"""
+    row = {}
+    for key in ('perpw', 'dirpw'):
+        if val[key] is not None:
+            row[key] = fr(val[key])
+    if val['u'] is not None and val['v'] is not None:
+        lo, hi = sqrt_enclosure(val['u'] ** 2 + val['v'] ** 2)
+        row['wind'] = {'u': fr(val['u']), 'v': fr(val['v']), 'speedLo': fr(lo), 'speedHi': fr(hi)}
+
+    def part(h, p, r):
+        if val[h] is None:
+            return None
+        return {'hs': fr(val[h]), 'per': None if val[p] is None else fr(val[p]), 'dir': None if val[r] is None else fr(val[r])}
+    row['sea'] = part('seaHs', 'seaPer', 'seaDir')
+    row['swell'] = [part(f'swellHs{j}', f'swellPer{j}', f'swellDir{j}') for j in (1, 2, 3)]
+    return row
 
 
 def build(d):
@@ -249,16 +273,7 @@ def build(d):
                 hs.update(lo=fr(b[0]), p50=fr(b[1]), hi=fr(b[2]))
             hs['m'] = [None if x is None else fr(x) for x in members]
             row['hs'] = hs
-            for key in ('perpw', 'dirpw'):
-                if val[key] is not None:
-                    row[key] = fr(val[key])
-            if val['u'] is not None and val['v'] is not None:
-                lo, hi = sqrt_enclosure(val['u'] ** 2 + val['v'] ** 2)
-                row['wind'] = {'u': fr(val['u']), 'v': fr(val['v']), 'speedLo': fr(lo), 'speedHi': fr(hi)}
-            part = lambda h, p, r: {'hs': fr(val[h]), 'per': None if val[p] is None else fr(val[p]),   # noqa: E731
-                                    'dir': None if val[r] is None else fr(val[r])} if val[h] is not None else None
-            row['sea'] = part('seaHs', 'seaPer', 'seaDir')
-            row['swell'] = [part(f'swellHs{j}', f'swellPer{j}', f'swellDir{j}') for j in (1, 2, 3)]
+            row.update(det_row(val))
             sites[sid]['steps'].append(row)
     out = {
         'what': 'NOAA WAVEWATCH III, the 00 UTC run, at the Janela sites (apps/janela/scenario/sites.json), read by apps/janela/audit/noaa.py: '
@@ -367,6 +382,46 @@ def check():
     return not bad
 
 
+def units(d, out):
+    """the deterministic GFS-Wave at every offshore production unit (scenario/platforms.json): Hs, the 10 m wind,
+    NCEP's primary-wave period and direction, the wind sea and the three swells, at the unit's nearest node the
+    model calls sea within 3 nodes (feed.sea_index over a box of 3 at +0 h — field.py's rule for ECMWF), every
+    value exact. The calibrated NOAA band at a unit is its Hs times the ratio interval its measured site lends;
+    the swells are forecast ink on the card. Rides the app's day (janela-field), never main."""
+    plat = json.load(open(os.path.join(HERE, '..', 'scenario', 'platforms.json')))['units']
+    U3 = [{'id': u['id'], 'lat': u['lat'], 'lon': u['lon'], 'box': 3} for u in plat]
+    det0, _ = read_gfs(d, STEPS[0], U3)
+    m0, x0 = det0['hs']
+    node = {}
+    for u in U3:
+        k = sea_index(x0[u['id']])
+        if k is not None:
+            node[u['id']] = E.box_nodes(m0, u)[k]
+    UN = [{'id': uid, 'lat': ll[0], 'lon': ll[1], 'box': 0} for uid, ll in node.items()]    # each unit at its node alone
+    with ThreadPoolExecutor(max_workers=12) as ex:
+        res = dict(zip(STEPS, ex.map(lambda step: read_gfs(d, step, UN), STEPS)))
+    out_units = {}
+    for u in UN:
+        steps = []
+        for step in STEPS:
+            det = res[step][0]
+            val = {key: E.value(meta, xs[u['id']][0]) for key, (meta, xs) in det.items()}
+            row = {'lead': step}
+            for key in ('hs', 'u', 'v'):
+                if val[key] is not None:
+                    row[key] = fr(val[key])
+            row.update({k: v for k, v in det_row(val).items() if k != 'wind'})
+            steps.append(row)
+        out_units[u['id']] = {'node': list(node[u['id']]), 'steps': steps}
+    rec = {'run': d.strftime('%Y-%m-%dT00'), 'source': 'NOAA GFS-Wave (WAVEWATCH III), the 00 UTC run, public domain; nearest sea node within 3 nodes '
+           'at 0.25 deg; values exact (GRIB packed integers); perpw/dirpw are NCEP\'s primary-wave period and direction; sea = wind sea, '
+           'swell = the three swell partitions', 'groups': [res[st][1] for st in STEPS], 'units': out_units}
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    with open(out, 'w') as fh:
+        json.dump(rec, fh, separators=(',', ':'))
+    print('noaa units:', len(out_units), 'units ->', os.path.relpath(out, ROOT), os.path.getsize(out), 'bytes')
+
+
 def verify(path):
     """re-read a written day from NOAA's buckets and compare it with the record, every value and every pin
     (all but madeAt): the re-run line of the second provider, for as long as AWS serves the run"""
@@ -382,4 +437,8 @@ if __name__ == '__main__':
         sys.exit(0 if check() else 1)
     if len(sys.argv) > 2 and sys.argv[1] == '--verify':
         sys.exit(0 if verify(sys.argv[2]) else 1)
+    if len(sys.argv) > 1 and sys.argv[1] == '--units':
+        ud = date.fromisoformat(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2] else datetime.now(timezone.utc).date()
+        units(ud, sys.argv[3] if len(sys.argv) > 3 else os.path.join(ROOT, 'corpus', 'janela', 'field', 'platforms-noaa-latest.json'))
+        sys.exit(0)
     main()

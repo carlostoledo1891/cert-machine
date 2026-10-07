@@ -46,6 +46,8 @@ function pubStep(row, src) {
   const st = { t: row.t, lead: row.lead };
   if (src.hs) st.hd = out3(src.hs, src.hs);
   if (row.hs) st.hb = out3(row.hs.lo, row.hs.hi);
+  /* who made the decided band (providers-v1): absent = ECMWF's alone; 'en' = the union of ECMWF's and NOAA's; 'n' = NOAA's alone */
+  if (row.hs && row.hs.from) st.hp = row.hs.from.map((x) => x[0]).join('');
   if (src.u !== undefined && src.v !== undefined) {
     const u = Q.parse(src.u), v = Q.parse(src.v);
     const [lo, hi] = Q.sqrtEnc(Q.add(Q.mul(u, u), Q.mul(v, v)));
@@ -57,6 +59,15 @@ function pubStep(row, src) {
   if (row.tp) st.tp = row.tp;
   if (row.mwd !== undefined) st.mwd = row.mwd;
   if (row.ens) st.ens = row.ens;
+  /* NOAA's sea by parts (forecast ink, never decided on): the wind sea 'v' and the swells 1-3, each [part, Hs m,
+     period s, direction FROM in degrees], rounded for reading */
+  if (src.parts) {
+    const P = src.parts, wp = [];
+    const one = (k, x) => { if (x && x.hs !== undefined) wp.push([k, Number(Q.dec(Q.parse(x.hs), 2)), x.per ? Number(Q.dec(Q.parse(x.per), 1)) : null, x.dir ? Math.round(Number(Q.dec(Q.parse(x.dir), 1))) % 360 : null]); };
+    one('v', P.sea);
+    (P.swell || []).forEach((x, j) => one(String(j + 1), x));
+    if (wp.length) st.wp = wp;
+  }
   return st;
 }
 
@@ -71,26 +82,32 @@ function noaaBand(noaa, sid, t) {
   return [Q.dec(lo, 2), Q.dec(hi, 2)];
 }
 
-function make({ feed, noaa, platforms, fieldSha, ledger, battery, git }) {
+function make({ feed, noaa, noaaUnits, platforms, fieldSha, ledger, battery, git }) {
   const M = MODEL.load();
   const SITES = require('../scenario/sites.json').sites;
   const UNITS = require('../scenario/platforms.json').units;
   const OPS = require('../scenario/operations.json').operations;
   /* the 2026-10-06 record + every measured region, less any proposer the placar has pruned */
   const BS = require('../audit/bandset.js');
-  const { bands, pruned } = BS.withoutPruned(BS.bands(), ledger && ledger.proposers);
+  const DB = BS.forDecision(ledger && ledger.proposers, !!noaa);
+  const bands = DB.bands, pruned = DB.pruned;
   if (platforms.run !== feed.run) throw new Error('the units\' forecast (' + platforms.run + ') is not the feed\'s run (' + feed.run + ')');
   if (noaa && noaa.run !== feed.run) throw new Error('NOAA\'s day (' + noaa.run + ') is not the feed\'s run (' + feed.run + ')');
+  if (noaaUnits && noaaUnits.run !== feed.run) throw new Error('NOAA\'s units (' + noaaUnits.run + ') are not the feed\'s run (' + feed.run + ')');
+  /* the second provider's calibrated band (providers-v1): its record less any proposer the placar pruned, over its
+     own day — where it exists the step decides on the union; without NOAA's day, on ECMWF's band alone */
+  const sec = DB.noaa ? { bands: DB.noaa } : null;
 
   /* the measured sites, through today.js */
-  const T = TODAY.compute(feed, bands, OPS, SITES);
+  const T = TODAY.compute(feed, bands, OPS, SITES, sec ? { feed: noaa, bands: sec.bands } : undefined);
   const steps = {};
   for (const s of SITES) {
     const t = T.sites[s.id], f = feed.sites[s.id];
     if (!t || !t.node) continue;
+    const ns = noaa && noaa.sites[s.id] && noaa.sites[s.id].node ? noaa.sites[s.id].steps : [];
     steps[s.id] = { node: t.node, bandFrom: t.bandFrom || null, steps: t.steps.map((row, k) => {
       const src = f.steps[k];
-      const st = pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v });
+      const st = pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v, parts: ns.find((x) => x.t === row.t) });
       const nb = noaaBand(noaa, s.id, row.t);
       if (nb) st.ensN = nb;
       return st;
@@ -112,13 +129,30 @@ function make({ feed, noaa, platforms, fieldSha, ledger, battery, git }) {
       return st;
     }) };
   }
-  const UT = TODAY.compute(ufeed, Object.assign({}, bands, { borrow }), [], UNITS.map((u) => ({ id: u.id, name: u.name, kind: 'uep', lat: u.lat, lon: u.lon })));
+  /* NOAA at the units (noaa.py --units): its deterministic forecast at each unit's own NOAA node, the band borrowed by the same table */
+  let ufeed2 = null;
+  if (sec && noaaUnits) {
+    ufeed2 = { run: feed.run, sites: {} };
+    for (const u of UNITS) {
+      const p = noaaUnits.units[u.id];
+      if (!p) continue;
+      ufeed2.sites[u.id] = { node: p.node, steps: p.steps.map((x) => {
+        const st = { t: addH(feed.run, x.lead), lead: x.lead };
+        if (x.hs !== undefined) st.hs = { det: x.hs };
+        if (x.u !== undefined && x.v !== undefined) st.wind = { u: x.u, v: x.v };
+        return st;
+      }) };
+    }
+  }
+  const UT = TODAY.compute(ufeed, Object.assign({}, bands, { borrow }), [], UNITS.map((u) => ({ id: u.id, name: u.name, kind: 'uep', lat: u.lat, lon: u.lon })),
+    ufeed2 ? { feed: ufeed2, bands: Object.assign({}, sec.bands, { borrow }) } : undefined);
   for (const u of UNITS) {
     const t = UT.sites[u.id], f = ufeed.sites[u.id];
     if (!t || !t.node) continue;
+    const nu = noaaUnits && noaaUnits.units[u.id] ? noaaUnits.units[u.id].steps : [];
     steps[u.id] = { node: t.node, bandFrom: t.bandFrom || null, steps: t.steps.map((row, k) => {
       const src = f.steps[k];
-      return pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v });
+      return pubStep(row, { hs: src.hs && src.hs.det, u: src.wind && src.wind.u, v: src.wind && src.wind.v, parts: nu.find((x) => x.lead === row.lead) });
     }) };
   }
   const tAxis = steps[SITES[0].id].steps.map((s) => s.t);
@@ -155,9 +189,11 @@ function make({ feed, noaa, platforms, fieldSha, ledger, battery, git }) {
     v: 1, model: MODEL.fingerprint(M), git: git || null, run: feed.run, madeAt: feed.madeAt, t: tAxis, lead: steps[SITES[0].id].steps.map((s) => s.lead),
     feed: { file: feed.file, sha: feed.sha },
     inputs: Object.assign({}, M.records, { [feed.file]: feed.sha, 'corpus/janela/field/platforms-latest.json': platforms.sha }, fieldSha ? { 'field.bin': fieldSha } : {},
-      noaa ? { [noaa.file]: noaa.sha } : {}),
+      noaa ? { [noaa.file]: noaa.sha } : {}, noaaUnits ? { 'corpus/janela/field/platforms-noaa-latest.json': noaaUnits.sha } : {}),
     /* the second provider (providers-v1): its raw band rides the sites' steps as ensN, shown beside, never decided on */
-    noaa: noaa ? { file: noaa.file, sha: noaa.sha, run: noaa.run, madeAt: noaa.madeAt, claim: noaa.ensemble.claim, band: noaa.ensemble.band } : null,
+    noaa: noaa ? { file: noaa.file, sha: noaa.sha, run: noaa.run, madeAt: noaa.madeAt, claim: noaa.ensemble.claim, band: noaa.ensemble.band,
+      /* where NOAA's CALIBRATED band joins the decision (providers-v1): at the sites with its day, at the units with its units' read */
+      decides: { sites: !!sec, units: !!ufeed2, proposers: sec ? sec.bands.records.map((r) => r.proposer) : [] } } : null,
     modules: Object.fromEntries(Object.values(MODEL.modules().pins).map((p) => [p.rel, p.sha])),
     battery, presets: M.presets.map((o) => ({ id: o.id, TR: o.TR, limits: o.limits })),
     rounding: { hs: '0.001 m', wind: '0.01 kn', direction: 'outward: lower edge down, upper edge up' },

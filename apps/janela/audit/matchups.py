@@ -3,6 +3,9 @@
 apps/janela/audit · cert-machine
 
     python matchups.py        reads corpus/janela/cache/{ecmwf,alt}/, writes corpus/janela/matchups.json.gz
+    JANELA_PROVIDER=noaa python matchups.py
+                              the second provider: corpus/janela/cache/{noaa,alt}/ -> corpus/janela/matchups-noaa.json.gz
+                              (NOAA GFS-Wave runs, archive.py noaa), the same passes, sites and rule
 
 A matchup is a satellite pass near a site (passes.py: the ONE definition of
 an observation) and an ECMWF 00 UTC run issued before it: the run's
@@ -46,11 +49,21 @@ else:
     _regional = {sid for r in json.load(open(os.path.join(HERE, '..', 'scenario', 'regions.json')))['regions'].values() for sid in r['sites']}
     SITES = [s for s in SITES if s['id'] not in _regional]
 MAX_LEAD_H = 168
+# JANELA_PROVIDER=noaa: the forecasts are NOAA's GFS-Wave runs (archive.py noaa: same steps, same field record,
+# ECMWF's parameter names), paired with the same passes at the same sites by the same rule
+PROVIDER = os.environ.get('JANELA_PROVIDER', 'ecmwf')
+if PROVIDER not in ('ecmwf', 'noaa'):
+    raise SystemExit(f'REFUSED: JANELA_PROVIDER={PROVIDER!r} (ecmwf or noaa)')
+if PROVIDER == 'noaa':
+    if REGION:
+        raise SystemExit('REFUSED: NOAA is calibrated at the eight open-sea sites of 2026-10-06 only (no region yet)')
+    DEST = os.path.join(ROOT, 'corpus', 'janela', 'matchups-noaa.json.gz')
+SOURCE = {'ecmwf': 'ECMWF open-data 00 UTC runs', 'noaa': 'NOAA GFS-Wave (WAVEWATCH III) 00 UTC runs'}[PROVIDER]
 
 
 def load_ecmwf():
     runs = {}
-    root = os.path.join(CACHE, 'ecmwf')
+    root = os.path.join(CACHE, PROVIDER)
     for ym in sorted(os.listdir(root)):
         for f in sorted(os.listdir(os.path.join(root, ym))):
             if f.endswith('.json'):
@@ -160,7 +173,8 @@ def main():
         run = next(r for r in runs.values() if grid in r['nodes'])
         node_ll.setdefault(grid, {})[sid] = None if k is None else run['nodes'][grid][sid][k]
     out = {
-        'what': 'Forecast-vs-satellite pairs at the Janela open-sea sites: ECMWF open-data 00 UTC runs (swh at the site sea node, linear in time between bracketing steps) against NOAA RADS NRT altimeter passes (passes.py). Built by apps/janela/audit/matchups.py from the back-archive.',
+        'what': 'Forecast-vs-satellite pairs at the Janela open-sea sites: ' + SOURCE + ' (swh at the site sea node, linear in time between bracketing steps) against NOAA RADS NRT altimeter passes (passes.py). Built by apps/janela/audit/matchups.py from the back-archive.',
+        **({'provider': PROVIDER} if PROVIDER != 'ecmwf' else {}),
         'columns': ['site', 'mission', 'pass mid-time (UTC)', 'points', 'observed Hs (m, exact mean)', 'mean distance (km)',
                     'run date (00 UTC)', 'lead (h)', 'forecast Hs (m, exact)', 'grid', 'bracket width (h)', 'altimeter wind (m/s, exact mean)',
                     'forecast u^2+v^2 at 10 m (m2/s2, exact; u and v linear in time)', 'wind bracket width (h)'],

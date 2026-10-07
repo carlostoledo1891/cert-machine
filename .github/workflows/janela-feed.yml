@@ -100,7 +100,10 @@ jobs:
           fi
       - name: "the map field and every production unit's forecast (field.py: forecast ink, never decided on)"
         if: steps.day.outputs.done != 'true'
-        run: cd apps/janela/audit && python field.py "${{ steps.day.outputs.run }}"
+        run: |
+          cd apps/janela/audit && python field.py "${{ steps.day.outputs.run }}"
+          # NOAA at the units, for its calibrated band there (providers-v1); a failure leaves the units on ECMWF's band alone
+          python noaa.py --units "${{ steps.day.outputs.run }}" || echo "::warning title=janela noaa units::not read — the units decide on ECMWF's band alone today"
       - name: "the app's day, gated: both batteries, the run matched, every published decision re-decided from the written bytes"
         if: steps.day.outputs.done != 'true'
         run: node apps/janela/build-today.js --out "$RUNNER_TEMP/janela-field"

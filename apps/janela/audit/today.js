@@ -15,6 +15,13 @@
                 at low forecast speeds); converted to knots exactly (1 kn = 463/900 m/s);
      ensemble   the ECMWF ensemble's central 40 of 50 (the ledger's first
                 proposer), shown beside, never decided on.
+     second     (providers-v1, certs/janela-ledger/DEFINITIONS.json) where a second
+                provider's calibrated band exists at the step — NOAA's deterministic
+                Hs (and wind) at its own node times the interval of ITS OWN satellite
+                pairs (certs/janela-bands-noaa.json) — the step decides on the UNION
+                [min lo, max hi]: it covers whenever either covers, so its coverage is
+                at least the larger claim. row.hs.from names the providers that
+                made the band (absent: ECMWF's alone).
    A lead bin whose interval was REFUSED (too few pairs) leaves that variable
    unforecast at that step: the decider then says SEM DADOS, never guesses.
    Each operation of operations.json is decided step by step (the condition at
@@ -39,7 +46,42 @@ function bandFor(bands, sid, lead) {
   return { from: own, cell: s.bins[bin] || null };
 }
 
-function compute(feed, bands, operations, sites) {
+/* one provider's calibrated band at a step: Hs [f * r_lo, f * r_hi], wind [s_lo + d_lo, s_hi + d_hi] in knots
+   floored at 0 — exact, or null where the provider has no forecast or its cell was REFUSED */
+function calibrated(st, cell) {
+  const out = { hs: null, wind: null };
+  if (st.hs && st.hs.det !== undefined) {
+    const c = cell && cell.hs;
+    if (c && c.verdict === 'CERTIFIED-COVERAGE') {
+      const det = Q.parse(st.hs.det);
+      out.hs = { lo: Q.mul(det, Q.parse(c.lo)), hi: Q.mul(det, Q.parse(c.hi)), n: c.n, coverage: c.coverage };
+    }
+  }
+  if (st.wind) {
+    const c = cell && cell.windDiff;
+    if (c && c.verdict === 'CERTIFIED-COVERAGE') {
+      const u = Q.parse(st.wind.u), v = Q.parse(st.wind.v);
+      const [slo, shi] = sqrtEnc(Q.add(Q.mul(u, u), Q.mul(v, v)));
+      const ZERO = [0n, 1n];
+      const lo = Q.max(ZERO, Q.add(slo, Q.parse(c.lo))), hi = Q.max(ZERO, Q.add(shi, Q.parse(c.hi)));
+      out.wind = { lo: Q.mul(lo, KN_PER_MS), hi: Q.mul(hi, KN_PER_MS), n: c.n, coverage: c.coverage };
+    }
+  }
+  return out;
+}
+
+/* the published form of a band, and the union of two (providers-v1); one band alone is itself */
+const pub = (b, places) => ({ lo: Q.str(b.lo), hi: Q.str(b.hi), loDec: Q.dec(b.lo, places, 'down'), hiDec: Q.dec(b.hi, places, 'up'), n: b.n, coverage: b.coverage });
+function joined(a, b, places) {
+  if (!a && !b) return null;
+  if (!b) return pub(a, places);
+  if (!a) return Object.assign(pub(b, places), { from: ['noaa'] });
+  return Object.assign(pub({ lo: Q.min(a.lo, b.lo), hi: Q.max(a.hi, b.hi), n: a.n, coverage: a.coverage }, places), { from: ['ecmwf', 'noaa'] });
+}
+
+/* compute(feed, bands, operations, sites[, second]) — second = { feed, bands }: the other provider's day (its
+   deterministic forecast at its own node, same run) and its bands record; absent, every step is ECMWF's alone */
+function compute(feed, bands, operations, sites, second) {
   const out = { run: feed.run, madeAt: feed.madeAt, sites: {}, operations: [] };
   for (const site of sites) {
     const f = feed.sites[site.id];
@@ -50,29 +92,22 @@ function compute(feed, bands, operations, sites) {
       const b = bandFor(bands, site.id, st.lead);
       if (b.from && b.from !== site.id) borrowed = b.from;
       const row = { t: st.t, lead: st.lead };
+      const own = calibrated(st, b.cell);
+      /* the second provider at the same hour, through ITS bands record (a terminal or unit borrows by the same table) */
+      const s2 = second && second.feed.sites[site.id];
+      const st2 = s2 && s2.node && s2.steps.find((x) => x.t === st.t);
+      const other = st2 ? calibrated(st2, bandFor(second.bands, site.id, st.lead).cell) : { hs: null, wind: null };
       if (st.hs) {
-        const det = Q.parse(st.hs.det);
-        row.hsDet = Q.dec(det, 2);
+        row.hsDet = Q.dec(Q.parse(st.hs.det), 2);
         if (st.hs.lo) row.ens = [Q.dec(Q.parse(st.hs.lo), 2), Q.dec(Q.parse(st.hs.hi), 2)];
-        const c = b.cell && b.cell.hs;
-        if (c && c.verdict === 'CERTIFIED-COVERAGE') {
-          const lo = Q.mul(det, Q.parse(c.lo)), hi = Q.mul(det, Q.parse(c.hi));
-          row.hs = { lo: Q.str(lo), hi: Q.str(hi), loDec: Q.dec(lo, 2, 'down'), hiDec: Q.dec(hi, 2, 'up'), n: c.n, coverage: c.coverage };
-        } else row.hs = null;
+        row.hs = joined(own.hs, other.hs, 2);
       }
       if (st.wind) {
         const u = Q.parse(st.wind.u), v = Q.parse(st.wind.v);
-        const w2 = Q.add(Q.mul(u, u), Q.mul(v, v));
-        const [slo, shi] = sqrtEnc(w2);
+        const [slo] = sqrtEnc(Q.add(Q.mul(u, u), Q.mul(v, v)));
         row.windDetKn = Q.dec(Q.mul(slo, KN_PER_MS), 1);
         if (st.wind.gust) row.gustKn = Q.dec(Q.mul(Q.parse(st.wind.gust), KN_PER_MS), 1);
-        const c = b.cell && b.cell.windDiff;
-        if (c && c.verdict === 'CERTIFIED-COVERAGE') {
-          const ZERO = [0n, 1n];
-          const lo = Q.max(ZERO, Q.add(slo, Q.parse(c.lo))), hi = Q.max(ZERO, Q.add(shi, Q.parse(c.hi)));
-          const loK = Q.mul(lo, KN_PER_MS), hiK = Q.mul(hi, KN_PER_MS);
-          row.wind = { lo: Q.str(loK), hi: Q.str(hiK), loDec: Q.dec(loK, 1, 'down'), hiDec: Q.dec(hiK, 1, 'up'), n: c.n, coverage: c.coverage };
-        } else row.wind = null;
+        row.wind = joined(own.wind, other.wind, 1);
       }
       if (st.tp) row.tp = Q.dec(Q.parse(st.tp), 1);
       if (st.mwd) row.mwd = Q.dec(Q.parse(st.mwd), 0);

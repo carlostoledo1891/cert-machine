@@ -1,0 +1,3077 @@
+{
+ "what": "Janela's calibrated forecast band per open-sea site and 12 h lead bin: exact conformal intervals (miss-rate 1/10) of observed/forecast Hs and of observed - forecast 10 m wind speed (m/s), from the back-archive pairs (NOAA GFS-Wave (WAVEWATCH III) vs NOAA RADS NRT altimetry). The band for a forecast f is [f*lo, f*hi]; for a forecast wind (u, v), [s_lo + lo, s_hi + hi] with [s_lo, s_hi] the enclosure of sqrt(u^2+v^2), floored at 0.",
+ "theorem": "IF the next ratio is exchangeable with the calibration ratios of its site and lead bin, THEN P(lo <= next <= hi) = (u - l)/(n + 1) exactly (>= with ties) — instruments/forecast/conformal.js",
+ "hypothesis": "exchangeability within a site and a 12 h lead bin, over 2023-07..2026-10 and all seasons; graded going forward by the ledger (exact binomial admission)",
+ "provider": "noaa",
+ "borrow": {
+  "babitonga": "floripa",
+  "sao-sebastiao": "santos",
+  "ilha-grande": "santos",
+  "sepetiba": "santos"
+ },
+ "source": {
+  "matchups": "corpus/janela/matchups-noaa.json.gz",
+  "sha256": "abbdde5c248fdcd5cad3aa211d1ebe2dfd84e7d621073bcc74792f3aacd2e178",
+  "rows": 53538
+ },
+ "miss": "1/10",
+ "binHours": 12,
+ "sites": {
+  "santos": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 497,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1152280/1278219",
+      "hi": "8771250/6795737",
+      "loDec": "0.901",
+      "hiDec": "1.290",
+      "l": 24,
+      "u": 474,
+      "coverage": "450/498"
+     },
+     "windDiff": {
+      "n": 497,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-948539587512290367253/522547200000000000000",
+      "hi": "1580343259134118093/539136000000000000",
+      "loDec": "-1.815",
+      "hiDec": "2.931",
+      "l": 24,
+      "u": 474,
+      "coverage": "450/498",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "443088/497357",
+      "hi": "1119424000/863903373",
+      "loDec": "0.890",
+      "hiDec": "1.295",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406"
+     },
+     "windDiff": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-655534301665096448448959/316800000000000000000000",
+      "hi": "127651215345178250287/42301440000000000000",
+      "loDec": "-2.069",
+      "hiDec": "3.017",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 496,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "503037/565232",
+      "hi": "148935375/114935149",
+      "loDec": "0.889",
+      "hiDec": "1.295",
+      "l": 24,
+      "u": 473,
+      "coverage": "449/497"
+     },
+     "windDiff": {
+      "n": 496,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-124069447809098285251379/57600000000000000000000",
+      "hi": "979544724296295438706457/311040000000000000000000",
+      "loDec": "-2.153",
+      "hiDec": "3.149",
+      "l": 24,
+      "u": 473,
+      "coverage": "449/497",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "203135/236401",
+      "hi": "540256/407379",
+      "loDec": "0.859",
+      "hiDec": "1.326",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406"
+     },
+     "windDiff": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-183898319981988497/73872000000000000",
+      "hi": "513958346097224641/172800000000000000",
+      "loDec": "-2.489",
+      "hiDec": "2.974",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 496,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "116378000/136734587",
+      "hi": "25144875/19026884",
+      "loDec": "0.851",
+      "hiDec": "1.321",
+      "l": 24,
+      "u": 473,
+      "coverage": "449/497"
+     },
+     "windDiff": {
+      "n": 496,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-673257659294627533745609/250560000000000000000000",
+      "hi": "4688406515917351/1296000000000000",
+      "loDec": "-2.687",
+      "hiDec": "3.617",
+      "l": 24,
+      "u": 473,
+      "coverage": "449/497",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "15770160/19233293",
+      "hi": "929400/676991",
+      "loDec": "0.819",
+      "hiDec": "1.372",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406"
+     },
+     "windDiff": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-8004819752326999949268241/2332800000000000000000000",
+      "hi": "18591834273757611815838103/4957200000000000000000000",
+      "loDec": "-3.431",
+      "hiDec": "3.750",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 495,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "148154400/183695291",
+      "hi": "241760/179649",
+      "loDec": "0.806",
+      "hiDec": "1.345",
+      "l": 24,
+      "u": 472,
+      "coverage": "448/496"
+     },
+     "windDiff": {
+      "n": 495,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-944852856964679346943963/291600000000000000000000",
+      "hi": "785832857758623159621257/242611200000000000000000",
+      "loDec": "-3.240",
+      "hiDec": "3.239",
+      "l": 24,
+      "u": 472,
+      "coverage": "448/496",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "16073856/21110665",
+      "hi": "148726800/106348229",
+      "loDec": "0.761",
+      "hiDec": "1.398",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406"
+     },
+     "windDiff": {
+      "n": 405,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2476788137585371481159/648000000000000000000",
+      "hi": "529257743975150603/139725000000000000",
+      "loDec": "-3.822",
+      "hiDec": "3.787",
+      "l": 19,
+      "u": 387,
+      "coverage": "368/406",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 495,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "10526080/13957589",
+      "hi": "1455840/1045781",
+      "loDec": "0.754",
+      "hiDec": "1.392",
+      "l": 24,
+      "u": 472,
+      "coverage": "448/496"
+     },
+     "windDiff": {
+      "n": 495,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-61854489348927352057/16422912000000000000",
+      "hi": "4669080726833852191/998400000000000000",
+      "loDec": "-3.766",
+      "hiDec": "4.676",
+      "l": 24,
+      "u": 472,
+      "coverage": "448/496",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 404,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "6683904/9199583",
+      "hi": "5345280/3754807",
+      "loDec": "0.726",
+      "hiDec": "1.423",
+      "l": 19,
+      "u": 386,
+      "coverage": "367/405"
+     },
+     "windDiff": {
+      "n": 404,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-206937843810003102322125329/48522240000000000000000000",
+      "hi": "312171438768321025361/59719680000000000000",
+      "loDec": "-4.264",
+      "hiDec": "5.227",
+      "l": 19,
+      "u": 386,
+      "coverage": "367/405",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 494,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1723428/2240051",
+      "hi": "261264/182195",
+      "loDec": "0.769",
+      "hiDec": "1.433",
+      "l": 24,
+      "u": 471,
+      "coverage": "447/495"
+     },
+     "windDiff": {
+      "n": 494,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-906849914349973556847370391/205286400000000000000000000",
+      "hi": "53738613496089158100329/12600000000000000000000",
+      "loDec": "-4.417",
+      "hiDec": "4.264",
+      "l": 24,
+      "u": 471,
+      "coverage": "447/495",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 403,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "440592/629021",
+      "hi": "4367520/2923699",
+      "loDec": "0.700",
+      "hiDec": "1.493",
+      "l": 19,
+      "u": 385,
+      "coverage": "366/404"
+     },
+     "windDiff": {
+      "n": 403,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-3902506155241675529/921600000000000000",
+      "hi": "328849324025658247/62208000000000000",
+      "loDec": "-4.234",
+      "hiDec": "5.286",
+      "l": 19,
+      "u": 385,
+      "coverage": "366/404",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 494,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "7038000/9417769",
+      "hi": "20410560/13463179",
+      "loDec": "0.747",
+      "hiDec": "1.516",
+      "l": 24,
+      "u": 471,
+      "coverage": "447/495"
+     },
+     "windDiff": {
+      "n": 494,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-853463754101420249087/194088960000000000000",
+      "hi": "1692607998816430190499809/431308800000000000000000",
+      "loDec": "-4.397",
+      "hiDec": "3.924",
+      "l": 24,
+      "u": 471,
+      "coverage": "447/495",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 403,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "5826240/8882639",
+      "hi": "167040/106519",
+      "loDec": "0.655",
+      "hiDec": "1.568",
+      "l": 19,
+      "u": 385,
+      "coverage": "366/404"
+     },
+     "windDiff": {
+      "n": 403,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-5777994023037312453758923/1267200000000000000000000",
+      "hi": "330242118838672018777/56401920000000000000",
+      "loDec": "-4.559",
+      "hiDec": "5.855",
+      "l": 19,
+      "u": 385,
+      "coverage": "366/404",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "campos": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1699002000/1881933001",
+      "hi": "1876122/1443361",
+      "loDec": "0.902",
+      "hiDec": "1.299",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567"
+     },
+     "windDiff": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-104371533550708157531/41057280000000000000",
+      "hi": "5757871347439907/2592000000000000",
+      "loDec": "-2.542",
+      "hiDec": "2.221",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 471,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "20822000/22959187",
+      "hi": "2109/1670",
+      "loDec": "0.906",
+      "hiDec": "1.262",
+      "l": 23,
+      "u": 449,
+      "coverage": "426/472"
+     },
+     "windDiff": {
+      "n": 471,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-6433133192907419/2700000000000000",
+      "hi": "189625581855801196610899/81648000000000000000000",
+      "loDec": "-2.382",
+      "hiDec": "2.322",
+      "l": 23,
+      "u": 449,
+      "coverage": "426/472",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2523420/2800979",
+      "hi": "603168/464525",
+      "loDec": "0.900",
+      "hiDec": "1.298",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567"
+     },
+     "windDiff": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-139703086092443498093/53913600000000000000",
+      "hi": "1827986028968701980652987/725760000000000000000000",
+      "loDec": "-2.591",
+      "hiDec": "2.518",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 470,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "350520000/397855303",
+      "hi": "1809855000/1397509229",
+      "loDec": "0.881",
+      "hiDec": "1.295",
+      "l": 23,
+      "u": 448,
+      "coverage": "425/471"
+     },
+     "windDiff": {
+      "n": 470,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-10044190500683799014131/3382560000000000000000",
+      "hi": "222296103596713941967/71191406250000000000",
+      "loDec": "-2.969",
+      "hiDec": "3.122",
+      "l": 23,
+      "u": 448,
+      "coverage": "425/471",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "10882080/12527453",
+      "hi": "3696660/2875243",
+      "loDec": "0.868",
+      "hiDec": "1.285",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567"
+     },
+     "windDiff": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-17907712758601310737365509/5443200000000000000000000",
+      "hi": "2426012206967842196315543/907200000000000000000000",
+      "loDec": "-3.289",
+      "hiDec": "2.674",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 470,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "75312/90271",
+      "hi": "733440/554693",
+      "loDec": "0.834",
+      "hiDec": "1.322",
+      "l": 23,
+      "u": 448,
+      "coverage": "425/471"
+     },
+     "windDiff": {
+      "n": 470,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-147201536435856401/42240000000000000",
+      "hi": "235998105418138811/79315200000000000",
+      "loDec": "-3.484",
+      "hiDec": "2.975",
+      "l": 23,
+      "u": 448,
+      "coverage": "425/471",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "164032/200899",
+      "hi": "186828/138941",
+      "loDec": "0.816",
+      "hiDec": "1.344",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567"
+     },
+     "windDiff": {
+      "n": 566,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-5919391871577712981/1492992000000000000",
+      "hi": "1232712173196743/442368000000000",
+      "loDec": "-3.964",
+      "hiDec": "2.786",
+      "l": 27,
+      "u": 540,
+      "coverage": "513/567",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "432396/536845",
+      "hi": "57030480/43792763",
+      "loDec": "0.805",
+      "hiDec": "1.302",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470"
+     },
+     "windDiff": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-97049035193952629/23040000000000000",
+      "hi": "120753316784325949/39813120000000000",
+      "loDec": "-4.212",
+      "hiDec": "3.033",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 564,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "802840/1013163",
+      "hi": "19654560/14395997",
+      "loDec": "0.792",
+      "hiDec": "1.365",
+      "l": 27,
+      "u": 538,
+      "coverage": "511/565"
+     },
+     "windDiff": {
+      "n": 564,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2896322995215153469331/656916480000000000000",
+      "hi": "11410464661062875369/2856960000000000000",
+      "loDec": "-4.408",
+      "hiDec": "3.993",
+      "l": 27,
+      "u": 538,
+      "coverage": "511/565",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2008944000/2569758977",
+      "hi": "2427552/1807003",
+      "loDec": "0.781",
+      "hiDec": "1.343",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470"
+     },
+     "windDiff": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-137846318432605778656033/31054233600000000000000",
+      "hi": "28812108319679050393/5971968000000000000",
+      "loDec": "-4.438",
+      "hiDec": "4.824",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1545440/2022199",
+      "hi": "586035/424873",
+      "loDec": "0.764",
+      "hiDec": "1.379",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564"
+     },
+     "windDiff": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-261592590781825427/59719680000000000",
+      "hi": "47374355042014471/12600000000000000",
+      "loDec": "-4.380",
+      "hiDec": "3.759",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "8216640000/11026562029",
+      "hi": "1290112/948957",
+      "loDec": "0.745",
+      "hiDec": "1.359",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470"
+     },
+     "windDiff": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-8627460862558405661/1797120000000000000",
+      "hi": "475311878168538935598173/84240000000000000000000",
+      "loDec": "-4.800",
+      "hiDec": "5.642",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "877080/1130789",
+      "hi": "106728000/74411747",
+      "loDec": "0.775",
+      "hiDec": "1.434",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564"
+     },
+     "windDiff": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-3912138209542486967747063/883200000000000000000000",
+      "hi": "4777760791227917/1296000000000000",
+      "loDec": "-4.429",
+      "hiDec": "3.686",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "5256720/7265753",
+      "hi": "406060/292161",
+      "loDec": "0.723",
+      "hiDec": "1.389",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470"
+     },
+     "windDiff": {
+      "n": 469,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-15660308601805296827/3110400000000000000",
+      "hi": "312168968560283939/55296000000000000",
+      "loDec": "-5.034",
+      "hiDec": "5.645",
+      "l": 23,
+      "u": 447,
+      "coverage": "424/470",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "campos-p25": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "23290560/26362943",
+      "hi": "956784/747593",
+      "loDec": "0.883",
+      "hiDec": "1.279",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547"
+     },
+     "windDiff": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-88994874853560346181/35942400000000000000",
+      "hi": "1368867987741172723387/600000000000000000000",
+      "loDec": "-2.476",
+      "hiDec": "2.281",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 518,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3908400000/4648865069",
+      "hi": "4661616/3601039",
+      "loDec": "0.840",
+      "hiDec": "1.294",
+      "l": 25,
+      "u": 494,
+      "coverage": "469/519"
+     },
+     "windDiff": {
+      "n": 518,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1427589436213056228763369/518400000000000000000000",
+      "hi": "492747337710079/182250000000000",
+      "loDec": "-2.753",
+      "hiDec": "2.703",
+      "l": 25,
+      "u": 494,
+      "coverage": "469/519",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "5822640/6579143",
+      "hi": "812970/625667",
+      "loDec": "0.885",
+      "hiDec": "1.299",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547"
+     },
+     "windDiff": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2999559054380875499/1166400000000000000",
+      "hi": "4978034385782786227/1670400000000000000",
+      "loDec": "-2.571",
+      "hiDec": "2.980",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 517,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "84849120/102870337",
+      "hi": "1159902/879695",
+      "loDec": "0.824",
+      "hiDec": "1.318",
+      "l": 25,
+      "u": 493,
+      "coverage": "468/518"
+     },
+     "windDiff": {
+      "n": 517,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-292089438207921679/82944000000000000",
+      "hi": "2869233323933505287/995328000000000000",
+      "loDec": "-3.521",
+      "hiDec": "2.882",
+      "l": 25,
+      "u": 493,
+      "coverage": "468/518",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "7376832/8597899",
+      "hi": "3428010/2657357",
+      "loDec": "0.857",
+      "hiDec": "1.290",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547"
+     },
+     "windDiff": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-111992126692060504051/33825600000000000000",
+      "hi": "2291852028266356541/829440000000000000",
+      "loDec": "-3.310",
+      "hiDec": "2.763",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 517,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "50269680/62603141",
+      "hi": "20928240000/15845158469",
+      "loDec": "0.802",
+      "hiDec": "1.320",
+      "l": 25,
+      "u": 493,
+      "coverage": "468/518"
+     },
+     "windDiff": {
+      "n": 517,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-329468050296938481593/90201600000000000000",
+      "hi": "15395202853085180231/4852224000000000000",
+      "loDec": "-3.652",
+      "hiDec": "3.172",
+      "l": 25,
+      "u": 493,
+      "coverage": "468/518",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1683450/2062577",
+      "hi": "1227040000/925284951",
+      "loDec": "0.816",
+      "hiDec": "1.326",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547"
+     },
+     "windDiff": {
+      "n": 546,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-273780455271392093556752659/70917120000000000000000000",
+      "hi": "197684484926727195620839/57600000000000000000000",
+      "loDec": "-3.860",
+      "hiDec": "3.432",
+      "l": 26,
+      "u": 521,
+      "coverage": "495/547",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "266652/351913",
+      "hi": "9814680000/7528176799",
+      "loDec": "0.757",
+      "hiDec": "1.303",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517"
+     },
+     "windDiff": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-13429595987076980742559057/2903040000000000000000000",
+      "hi": "9906614373984430285296637/3006720000000000000000000",
+      "loDec": "-4.626",
+      "hiDec": "3.294",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 544,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "259528320/330760759",
+      "hi": "19511280/14249143",
+      "loDec": "0.784",
+      "hiDec": "1.369",
+      "l": 26,
+      "u": 519,
+      "coverage": "493/545"
+     },
+     "windDiff": {
+      "n": 544,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-53843595001373491/11520000000000000",
+      "hi": "248607301087492944466147/58320000000000000000000",
+      "loDec": "-4.673",
+      "hiDec": "4.262",
+      "l": 26,
+      "u": 519,
+      "coverage": "493/545",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "270912/361397",
+      "hi": "102427500/77239559",
+      "loDec": "0.749",
+      "hiDec": "1.326",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517"
+     },
+     "windDiff": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-4553380420495236019/995328000000000000",
+      "hi": "96925770899219301169/19906560000000000000",
+      "loDec": "-4.574",
+      "hiDec": "4.869",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 543,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "644055000/854555999",
+      "hi": "477480000/338498611",
+      "loDec": "0.753",
+      "hiDec": "1.410",
+      "l": 26,
+      "u": 518,
+      "coverage": "492/544"
+     },
+     "windDiff": {
+      "n": 543,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-88938884625514252957105913/19408896000000000000000000",
+      "hi": "15377814483991526833/3801600000000000000",
+      "loDec": "-4.582",
+      "hiDec": "4.045",
+      "l": 26,
+      "u": 518,
+      "coverage": "492/544",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1475440000/2068262573",
+      "hi": "2632716/1922609",
+      "loDec": "0.713",
+      "hiDec": "1.369",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517"
+     },
+     "windDiff": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-375451604781316449793/74649600000000000000",
+      "hi": "121759651839643901/23961600000000000",
+      "loDec": "-5.029",
+      "hiDec": "5.081",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 543,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "48593520000/63836864663",
+      "hi": "3059280/2128571",
+      "loDec": "0.761",
+      "hiDec": "1.437",
+      "l": 26,
+      "u": 518,
+      "coverage": "492/544"
+     },
+     "windDiff": {
+      "n": 543,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-36149265356026616731282103/7763558400000000000000000",
+      "hi": "100488625205391/25600000000000",
+      "loDec": "-4.656",
+      "hiDec": "3.925",
+      "l": 26,
+      "u": 518,
+      "coverage": "492/544",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "7368192/10323299",
+      "hi": "276785000/198872261",
+      "loDec": "0.713",
+      "hiDec": "1.391",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517"
+     },
+     "windDiff": {
+      "n": 516,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-38509179660623787323510543/7464960000000000000000000",
+      "hi": "4080236276200471027/729907200000000000",
+      "loDec": "-5.158",
+      "hiDec": "5.590",
+      "l": 25,
+      "u": 492,
+      "coverage": "467/517",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "espirito-santo": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 526,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "923859/1013950",
+      "hi": "146661/119171",
+      "loDec": "0.911",
+      "hiDec": "1.230",
+      "l": 25,
+      "u": 502,
+      "coverage": "477/527"
+     },
+     "windDiff": {
+      "n": 526,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2575541084653597/1382400000000000",
+      "hi": "1195089444916223460944189/583200000000000000000000",
+      "loDec": "-1.863",
+      "hiDec": "2.049",
+      "l": 25,
+      "u": 502,
+      "coverage": "477/527",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 515,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3500100000/3932915483",
+      "hi": "1695735/1365832",
+      "loDec": "0.889",
+      "hiDec": "1.241",
+      "l": 25,
+      "u": 491,
+      "coverage": "466/516"
+     },
+     "windDiff": {
+      "n": 515,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2880471659669367171324011/1451520000000000000000000",
+      "hi": "9842696723144802347/4852224000000000000",
+      "loDec": "-1.984",
+      "hiDec": "2.028",
+      "l": 25,
+      "u": 491,
+      "coverage": "466/516",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 526,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "39974000/44276547",
+      "hi": "25336260000/20132870611",
+      "loDec": "0.902",
+      "hiDec": "1.258",
+      "l": 25,
+      "u": 502,
+      "coverage": "477/527"
+     },
+     "windDiff": {
+      "n": 526,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-3508015905689213/1691280000000000",
+      "hi": "13464580545474546763687/6075000000000000000000",
+      "loDec": "-2.074",
+      "hiDec": "2.216",
+      "l": 25,
+      "u": 502,
+      "coverage": "477/527",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "9754560000/10931988419",
+      "hi": "12385305/9882341",
+      "loDec": "0.892",
+      "hiDec": "1.253",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-80678412168234879779/37324800000000000000",
+      "hi": "82540784021159956097/37324800000000000000",
+      "loDec": "-2.161",
+      "hiDec": "2.211",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3754620/4217213",
+      "hi": "266240000/206820943",
+      "loDec": "0.890",
+      "hiDec": "1.287",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525"
+     },
+     "windDiff": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-4548739584721939/2160000000000000",
+      "hi": "46906617713767471688567/17280000000000000000000",
+      "loDec": "-2.105",
+      "hiDec": "2.714",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1451472/1659749",
+      "hi": "565875/441463",
+      "loDec": "0.874",
+      "hiDec": "1.281",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-36707648776798981/15360000000000000",
+      "hi": "910590940651727233/316800000000000000",
+      "loDec": "-2.389",
+      "hiDec": "2.874",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3905/4446",
+      "hi": "7226685/5578363",
+      "loDec": "0.878",
+      "hiDec": "1.295",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525"
+     },
+     "windDiff": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-101197382004528085074341/37324800000000000000000",
+      "hi": "101072335725101154317/37324800000000000000",
+      "loDec": "-2.711",
+      "hiDec": "2.707",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "23325300000/27196767871",
+      "hi": "16447320/12645857",
+      "loDec": "0.857",
+      "hiDec": "1.300",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-7806512238248199935972347/2612736000000000000000000",
+      "hi": "2733819704556245828099/970444800000000000000",
+      "loDec": "-2.987",
+      "hiDec": "2.817",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3794445/4402538",
+      "hi": "112425408/83121395",
+      "loDec": "0.861",
+      "hiDec": "1.352",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525"
+     },
+     "windDiff": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-44421039197780242224119/14580000000000000000000",
+      "hi": "1131833563952604296747/345600000000000000000",
+      "loDec": "-3.046",
+      "hiDec": "3.274",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "130360320/163397273",
+      "hi": "9233568/6925867",
+      "loDec": "0.797",
+      "hiDec": "1.333",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-11870147222138251/3200000000000000",
+      "hi": "3535627109240589494270461/995328000000000000000000",
+      "loDec": "-3.709",
+      "hiDec": "3.552",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1185768/1427779",
+      "hi": "10122912/7407077",
+      "loDec": "0.830",
+      "hiDec": "1.366",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525"
+     },
+     "windDiff": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-49624278335823443243/15033600000000000000",
+      "hi": "46730955006537541463/12026880000000000000",
+      "loDec": "-3.300",
+      "hiDec": "3.885",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "231840/298973",
+      "hi": "1233680/890287",
+      "loDec": "0.775",
+      "hiDec": "1.385",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-8667501462121342301/2388787200000000000",
+      "hi": "24174736738663972981/5971968000000000000",
+      "loDec": "-3.628",
+      "hiDec": "4.048",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "10500000/12700921",
+      "hi": "11189160/7915811",
+      "loDec": "0.826",
+      "hiDec": "1.413",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525"
+     },
+     "windDiff": {
+      "n": 524,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-5029276874612247251509/1458000000000000000000",
+      "hi": "8136062088237179807/2052864000000000000",
+      "loDec": "-3.449",
+      "hiDec": "3.963",
+      "l": 25,
+      "u": 500,
+      "coverage": "475/525",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1396448/1947085",
+      "hi": "46650600000/33367704307",
+      "loDec": "0.717",
+      "hiDec": "1.398",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515"
+     },
+     "windDiff": {
+      "n": 514,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-109673824011099286973846663/24883200000000000000000000",
+      "hi": "228144464095123868167/49766400000000000000",
+      "loDec": "-4.407",
+      "hiDec": "4.584",
+      "l": 25,
+      "u": 490,
+      "coverage": "465/515",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "pelotas": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2207682/2464565",
+      "hi": "536265000/410535523",
+      "loDec": "0.895",
+      "hiDec": "1.306",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-85504217395128087959291/41472000000000000000000",
+      "hi": "24792070906849602313/9331200000000000000",
+      "loDec": "-2.061",
+      "hiDec": "2.656",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1761102/1998845",
+      "hi": "281988/215525",
+      "loDec": "0.881",
+      "hiDec": "1.308",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564"
+     },
+     "windDiff": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2709204606648527743/1283040000000000000",
+      "hi": "576808040910276857/186624000000000000",
+      "loDec": "-2.111",
+      "hiDec": "3.090",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "568629/646288",
+      "hi": "2866320000/2175047323",
+      "loDec": "0.879",
+      "hiDec": "1.317",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-163380324211240547/68400000000000000",
+      "hi": "335551990372064432177/102643200000000000000",
+      "loDec": "-2.388",
+      "hiDec": "3.269",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "56952/67411",
+      "hi": "127818000/95574749",
+      "loDec": "0.844",
+      "hiDec": "1.337",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564"
+     },
+     "windDiff": {
+      "n": 563,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-395606898061428049/153600000000000000",
+      "hi": "2080984961455877/583200000000000",
+      "loDec": "-2.575",
+      "hiDec": "3.568",
+      "l": 27,
+      "u": 537,
+      "coverage": "510/564",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1276584/1528331",
+      "hi": "45091080000/32801533711",
+      "loDec": "0.835",
+      "hiDec": "1.374",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2808199325802721/970312500000000",
+      "hi": "57566237012363042083/15206400000000000000",
+      "loDec": "-2.894",
+      "hiDec": "3.785",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1642720/2035779",
+      "hi": "189900/141617",
+      "loDec": "0.806",
+      "hiDec": "1.340",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-10101907061769085489/3110400000000000000",
+      "hi": "15859194946821539311/4147200000000000000",
+      "loDec": "-3.247",
+      "hiDec": "3.824",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "10774240/13697353",
+      "hi": "7717520/5418099",
+      "loDec": "0.786",
+      "hiDec": "1.424",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1107902153842770842249/342144000000000000000",
+      "hi": "6384605603435575874593/1492992000000000000000",
+      "loDec": "-3.238",
+      "hiDec": "4.276",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "13371840/17589451",
+      "hi": "2341340000/1664665123",
+      "loDec": "0.760",
+      "hiDec": "1.406",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-942287876269556560713703/259200000000000000000000",
+      "hi": "21275297133449034985145551/4665600000000000000000000",
+      "loDec": "-3.635",
+      "hiDec": "4.560",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "984258/1288915",
+      "hi": "6571392/4591223",
+      "loDec": "0.763",
+      "hiDec": "1.431",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561"
+     },
+     "windDiff": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1172293440689499611/321408000000000000",
+      "hi": "6291183742979605058731877/1057050000000000000000000",
+      "loDec": "-3.647",
+      "hiDec": "5.951",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "4174200000/5890362737",
+      "hi": "49235760/33055957",
+      "loDec": "0.708",
+      "hiDec": "1.489",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-27208318166931377436764993/6739200000000000000000000",
+      "hi": "7174935589569443/1166400000000000",
+      "loDec": "-4.037",
+      "hiDec": "6.151",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2538648000/3497845459",
+      "hi": "2285824/1477715",
+      "loDec": "0.725",
+      "hiDec": "1.546",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561"
+     },
+     "windDiff": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-32252692902742350531893/7680000000000000000000",
+      "hi": "5027066951479482705413/864000000000000000000",
+      "loDec": "-4.199",
+      "hiDec": "5.818",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "184660/268283",
+      "hi": "1816668/1197923",
+      "loDec": "0.688",
+      "hiDec": "1.516",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562"
+     },
+     "windDiff": {
+      "n": 561,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-14341394205231559211/3110400000000000000",
+      "hi": "23708701417368919043/3693600000000000000",
+      "loDec": "-4.610",
+      "hiDec": "6.418",
+      "l": 27,
+      "u": 535,
+      "coverage": "508/562",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 559,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "4518576/6543995",
+      "hi": "139352/84303",
+      "loDec": "0.690",
+      "hiDec": "1.652",
+      "l": 27,
+      "u": 533,
+      "coverage": "506/560"
+     },
+     "windDiff": {
+      "n": 559,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-572957965627754653/117760000000000000",
+      "hi": "16427773316845392907/2332800000000000000",
+      "loDec": "-4.865",
+      "hiDec": "7.042",
+      "l": 27,
+      "u": 533,
+      "coverage": "506/560",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1410768/2193103",
+      "hi": "413436960/232754497",
+      "loDec": "0.643",
+      "hiDec": "1.776",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561"
+     },
+     "windDiff": {
+      "n": 560,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-65686181348045365739/11943936000000000000",
+      "hi": "14312227991781318251/2189721600000000000",
+      "loDec": "-5.499",
+      "hiDec": "6.536",
+      "l": 27,
+      "u": 534,
+      "coverage": "507/561",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "potiguar": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "210505/218239",
+      "hi": "260172000/199827761",
+      "loDec": "0.964",
+      "hiDec": "1.301",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446"
+     },
+     "windDiff": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-5774818817840018779/2534400000000000000",
+      "hi": "2530485265928971/2278125000000000",
+      "loDec": "-2.278",
+      "hiDec": "1.110",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 413,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1957056/2022431",
+      "hi": "2467224/1924205",
+      "loDec": "0.967",
+      "hiDec": "1.282",
+      "l": 20,
+      "u": 394,
+      "coverage": "374/414"
+     },
+     "windDiff": {
+      "n": 413,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-58709209714250831639/26127360000000000000",
+      "hi": "7599303983944319252235197/8087040000000000000000000",
+      "loDec": "-2.247",
+      "hiDec": "0.939",
+      "l": 20,
+      "u": 394,
+      "coverage": "374/414",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1580472/1678865",
+      "hi": "53803125/42043523",
+      "loDec": "0.941",
+      "hiDec": "1.279",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446"
+     },
+     "windDiff": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1616942585000269/640000000000000",
+      "hi": "480230180726570882930033/373248000000000000000000",
+      "loDec": "-2.526",
+      "hiDec": "1.286",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 412,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2036736/2151199",
+      "hi": "2872962000/2201508283",
+      "loDec": "0.946",
+      "hiDec": "1.304",
+      "l": 20,
+      "u": 393,
+      "coverage": "373/413"
+     },
+     "windDiff": {
+      "n": 412,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-119591836479584888701/47460937500000000000",
+      "hi": "43358607528601057547/36080640000000000000",
+      "loDec": "-2.519",
+      "hiDec": "1.201",
+      "l": 20,
+      "u": 393,
+      "coverage": "373/413",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "300594375/317586274",
+      "hi": "5205/3892",
+      "loDec": "0.946",
+      "hiDec": "1.337",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446"
+     },
+     "windDiff": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-4442145786480870581/1670400000000000000",
+      "hi": "196888308025457140741524563/121305600000000000000000000",
+      "loDec": "-2.659",
+      "hiDec": "1.623",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 412,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "809840/856159",
+      "hi": "33074460/24644849",
+      "loDec": "0.945",
+      "hiDec": "1.342",
+      "l": 20,
+      "u": 393,
+      "coverage": "373/413"
+     },
+     "windDiff": {
+      "n": 412,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-59602408683572012449/21772800000000000000",
+      "hi": "6195771356560409/4228200000000000",
+      "loDec": "-2.737",
+      "hiDec": "1.465",
+      "l": 20,
+      "u": 393,
+      "coverage": "373/413",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "773244/840473",
+      "hi": "83772000/62007097",
+      "loDec": "0.920",
+      "hiDec": "1.351",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446"
+     },
+     "windDiff": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-13464211143242423/5184000000000000",
+      "hi": "297746879318729903903/174182400000000000000",
+      "loDec": "-2.597",
+      "hiDec": "1.709",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "393768/415543",
+      "hi": "67011/48320",
+      "loDec": "0.947",
+      "hiDec": "1.386",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412"
+     },
+     "windDiff": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-702297301966351925857/261273600000000000000",
+      "hi": "1271872319390984467/892800000000000000",
+      "loDec": "-2.687",
+      "hiDec": "1.424",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "13636080/14537173",
+      "hi": "520344000/371750149",
+      "loDec": "0.938",
+      "hiDec": "1.399",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446"
+     },
+     "windDiff": {
+      "n": 445,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-876091910327574652215593/269568000000000000000000",
+      "hi": "3912181642193550022657/2954880000000000000000",
+      "loDec": "-3.249",
+      "hiDec": "1.323",
+      "l": 21,
+      "u": 425,
+      "coverage": "404/446",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "6675040000/7321655571",
+      "hi": "3228528/2351195",
+      "loDec": "0.911",
+      "hiDec": "1.373",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412"
+     },
+     "windDiff": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-5233525725973206496657/1518750000000000000000",
+      "hi": "11403465789306197/14745600000000000",
+      "loDec": "-3.445",
+      "hiDec": "0.773",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 444,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "200448/218035",
+      "hi": "696330000/495372071",
+      "loDec": "0.919",
+      "hiDec": "1.405",
+      "l": 21,
+      "u": 424,
+      "coverage": "403/445"
+     },
+     "windDiff": {
+      "n": 444,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-39405236229312661967771363/12130560000000000000000000",
+      "hi": "44698596216912916207/32140800000000000000",
+      "loDec": "-3.248",
+      "hiDec": "1.390",
+      "l": 21,
+      "u": 424,
+      "coverage": "403/445",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "719784000/803156963",
+      "hi": "81514080/58981273",
+      "loDec": "0.896",
+      "hiDec": "1.382",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412"
+     },
+     "windDiff": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1167906137489834077/326592000000000000",
+      "hi": "106919697655974771784459/107827200000000000000000",
+      "loDec": "-3.576",
+      "hiDec": "0.991",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 442,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "491544/540967",
+      "hi": "125697600/89101711",
+      "loDec": "0.908",
+      "hiDec": "1.410",
+      "l": 21,
+      "u": 422,
+      "coverage": "401/443"
+     },
+     "windDiff": {
+      "n": 442,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-524449452942993761/165888000000000000",
+      "hi": "360759268060468451/233280000000000000",
+      "loDec": "-3.161",
+      "hiDec": "1.546",
+      "l": 21,
+      "u": 422,
+      "coverage": "401/443",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "14821920/16805381",
+      "hi": "3968956800/2858912539",
+      "loDec": "0.881",
+      "hiDec": "1.388",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412"
+     },
+     "windDiff": {
+      "n": 411,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-15779047733147412773087/4320000000000000000000",
+      "hi": "120936773887521772069/135302400000000000000",
+      "loDec": "-3.652",
+      "hiDec": "0.893",
+      "l": 20,
+      "u": 392,
+      "coverage": "372/412",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "foz-amazonas": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 462,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "9627840/10352353",
+      "hi": "157308480/118018603",
+      "loDec": "0.930",
+      "hiDec": "1.332",
+      "l": 22,
+      "u": 441,
+      "coverage": "419/463"
+     },
+     "windDiff": {
+      "n": 462,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-6081438839565526758361/3037500000000000000000",
+      "hi": "2117974808936142991/1866240000000000000",
+      "loDec": "-2.002",
+      "hiDec": "1.134",
+      "l": 22,
+      "u": 441,
+      "coverage": "419/463",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "828280000/879119007",
+      "hi": "2164230/1617487",
+      "loDec": "0.942",
+      "hiDec": "1.338",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-208344336084559910568887/74880000000000000000000",
+      "hi": "103604890207931096125171/96215040000000000000000",
+      "loDec": "-2.782",
+      "hiDec": "1.076",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "305340/334339",
+      "hi": "1890900/1438429",
+      "loDec": "0.913",
+      "hiDec": "1.314",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462"
+     },
+     "windDiff": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-104976117911243291870641/38880000000000000000000",
+      "hi": "272377593796058977/209018880000000000",
+      "loDec": "-2.700",
+      "hiDec": "1.303",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "267373440/286054379",
+      "hi": "28864000/21579927",
+      "loDec": "0.934",
+      "hiDec": "1.337",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-30285444232198622495432963/9331200000000000000000000",
+      "hi": "14162749591513/11250000000000",
+      "loDec": "-3.245",
+      "hiDec": "1.258",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "255723750/285501517",
+      "hi": "68377500/52383161",
+      "loDec": "0.895",
+      "hiDec": "1.305",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462"
+     },
+     "windDiff": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-91876386528110519/29160000000000000",
+      "hi": "81665697565529393/55738368000000000",
+      "loDec": "-3.150",
+      "hiDec": "1.465",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "2257200/2526103",
+      "hi": "446439375/335746544",
+      "loDec": "0.893",
+      "hiDec": "1.329",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-28154817519752309291/7464960000000000000",
+      "hi": "713281296819897641/580608000000000000",
+      "loDec": "-3.771",
+      "hiDec": "1.228",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1016320/1181753",
+      "hi": "4509936/3440473",
+      "loDec": "0.860",
+      "hiDec": "1.310",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462"
+     },
+     "windDiff": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-760499604305380297/233280000000000000",
+      "hi": "16925697179450038457/12690432000000000000",
+      "loDec": "-3.260",
+      "hiDec": "1.333",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "817182/913979",
+      "hi": "13126/9775",
+      "loDec": "0.894",
+      "hiDec": "1.342",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-194900525238341447/51321600000000000",
+      "hi": "10702653081880932482957/6400000000000000000000",
+      "loDec": "-3.797",
+      "hiDec": "1.672",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "243216000/289220563",
+      "hi": "54921240000/41247283753",
+      "loDec": "0.840",
+      "hiDec": "1.331",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462"
+     },
+     "windDiff": {
+      "n": 461,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-530739791872335780155323/145800000000000000000000",
+      "hi": "40628548620553907831/24883200000000000000",
+      "loDec": "-3.640",
+      "hiDec": "1.632",
+      "l": 22,
+      "u": 440,
+      "coverage": "418/462",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "285336/322661",
+      "hi": "2916900/2159069",
+      "loDec": "0.884",
+      "hiDec": "1.350",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-376318992712045193/104400000000000000",
+      "hi": "1567386045804169/1080000000000000",
+      "loDec": "-3.604",
+      "hiDec": "1.451",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 460,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1714950/2124751",
+      "hi": "30124440/22157303",
+      "loDec": "0.807",
+      "hiDec": "1.359",
+      "l": 22,
+      "u": 439,
+      "coverage": "417/461"
+     },
+     "windDiff": {
+      "n": 460,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-134607042688244979551/38817792000000000000",
+      "hi": "4657690198564644643513693/2764800000000000000000000",
+      "loDec": "-3.467",
+      "hiDec": "1.684",
+      "l": 22,
+      "u": 439,
+      "coverage": "417/461",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "67040640/77292551",
+      "hi": "86296/63405",
+      "loDec": "0.867",
+      "hiDec": "1.361",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400"
+     },
+     "windDiff": {
+      "n": 399,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-748256809648116712243/194088960000000000000",
+      "hi": "602351274037321709/348364800000000000",
+      "loDec": "-3.855",
+      "hiDec": "1.729",
+      "l": 19,
+      "u": 381,
+      "coverage": "362/400",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 460,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "29533680000/36759542701",
+      "hi": "4764/3521",
+      "loDec": "0.803",
+      "hiDec": "1.353",
+      "l": 22,
+      "u": 439,
+      "coverage": "417/461"
+     },
+     "windDiff": {
+      "n": 460,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-46844290055018983/12960000000000000",
+      "hi": "2727501508497479141/1552711680000000000",
+      "loDec": "-3.614",
+      "hiDec": "1.756",
+      "l": 22,
+      "u": 439,
+      "coverage": "417/461",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 398,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "7448960/8938741",
+      "hi": "16431750/12114809",
+      "loDec": "0.833",
+      "hiDec": "1.356",
+      "l": 19,
+      "u": 380,
+      "coverage": "361/399"
+     },
+     "windDiff": {
+      "n": 398,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-134417305582105819221292619/37324800000000000000000000",
+      "hi": "4184801534392689/2785280000000000",
+      "loDec": "-3.601",
+      "hiDec": "1.502",
+      "l": 19,
+      "u": 380,
+      "coverage": "361/399",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  },
+  "floripa": {
+   "bins": {
+    "0": {
+     "from": 0,
+     "to": 12,
+     "hs": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1562625/1631203",
+      "hi": "6247152000/3914309827",
+      "loDec": "0.957",
+      "hiDec": "1.595",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428"
+     },
+     "windDiff": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-8640365683399097/4608000000000000",
+      "hi": "6134365468043045446189/1458000000000000000000",
+      "loDec": "-1.875",
+      "hiDec": "4.207",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "12": {
+     "from": 12,
+     "to": 132,
+     "hs": {
+      "n": 352,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "134892/142555",
+      "hi": "560980/352119",
+      "loDec": "0.946",
+      "hiDec": "1.593",
+      "l": 17,
+      "u": 336,
+      "coverage": "319/353"
+     },
+     "windDiff": {
+      "n": 352,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-31698201506364023485547/20736000000000000000000",
+      "hi": "465342263714700773/110592000000000000",
+      "loDec": "-1.528",
+      "hiDec": "4.207",
+      "l": 17,
+      "u": 336,
+      "coverage": "319/353",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "24": {
+     "from": 24,
+     "to": 252,
+     "hs": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "385762500/405846931",
+      "hi": "196160/124899",
+      "loDec": "0.950",
+      "hiDec": "1.570",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428"
+     },
+     "windDiff": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-37578260927679738101/14515200000000000000",
+      "hi": "61692586428815363/12441600000000000",
+      "loDec": "-2.588",
+      "hiDec": "4.958",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "36": {
+     "from": 36,
+     "to": 372,
+     "hs": {
+      "n": 352,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "544260000/607702687",
+      "hi": "6402000/3899581",
+      "loDec": "0.895",
+      "hiDec": "1.641",
+      "l": 17,
+      "u": 336,
+      "coverage": "319/353"
+     },
+     "windDiff": {
+      "n": 352,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-23925407804670613223/14929920000000000000",
+      "hi": "85730853560078513927/18662400000000000000",
+      "loDec": "-1.602",
+      "hiDec": "4.593",
+      "l": 17,
+      "u": 336,
+      "coverage": "319/353",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "48": {
+     "from": 48,
+     "to": 492,
+     "hs": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "3887640000/4215491161",
+      "hi": "1652760/1030897",
+      "loDec": "0.922",
+      "hiDec": "1.603",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428"
+     },
+     "windDiff": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-29686302472924643414623/11200000000000000000000",
+      "hi": "404238469746099271/82944000000000000",
+      "loDec": "-2.650",
+      "hiDec": "4.873",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "60": {
+     "from": 60,
+     "to": 612,
+     "hs": {
+      "n": 350,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1770840/2009041",
+      "hi": "254360/154439",
+      "loDec": "0.881",
+      "hiDec": "1.646",
+      "l": 17,
+      "u": 334,
+      "coverage": "317/351"
+     },
+     "windDiff": {
+      "n": 350,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-1280256896609061251/583200000000000000",
+      "hi": "741785189879866820421229/158400000000000000000000",
+      "loDec": "-2.195",
+      "hiDec": "4.682",
+      "l": 17,
+      "u": 334,
+      "coverage": "317/351",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "72": {
+     "from": 72,
+     "to": 732,
+     "hs": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "14619600/16412437",
+      "hi": "95070/58513",
+      "loDec": "0.890",
+      "hiDec": "1.624",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428"
+     },
+     "windDiff": {
+      "n": 427,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-302816595977905197701/115200000000000000000",
+      "hi": "3577890134055460453/746496000000000000",
+      "loDec": "-2.628",
+      "hiDec": "4.792",
+      "l": 20,
+      "u": 408,
+      "coverage": "388/428",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "84": {
+     "from": 84,
+     "to": 852,
+     "hs": {
+      "n": 350,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1815300000/2124674981",
+      "hi": "2614080/1515383",
+      "loDec": "0.854",
+      "hiDec": "1.725",
+      "l": 17,
+      "u": 334,
+      "coverage": "317/351"
+     },
+     "windDiff": {
+      "n": 350,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-548319280482225767/209587500000000000",
+      "hi": "3666563919846804220891/768000000000000000000",
+      "loDec": "-2.616",
+      "hiDec": "4.774",
+      "l": 17,
+      "u": 334,
+      "coverage": "317/351",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "96": {
+     "from": 96,
+     "to": 972,
+     "hs": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "388764000/444381833",
+      "hi": "7665600/4564469",
+      "loDec": "0.874",
+      "hiDec": "1.679",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427"
+     },
+     "windDiff": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-101956089854222815249/33177600000000000000",
+      "hi": "123248097505844767847943/22528000000000000000000",
+      "loDec": "-3.073",
+      "hiDec": "5.470",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "108": {
+     "from": 108,
+     "to": 1092,
+     "hs": {
+      "n": 349,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "20030112/24486395",
+      "hi": "9888840/5734999",
+      "loDec": "0.818",
+      "hiDec": "1.724",
+      "l": 17,
+      "u": 333,
+      "coverage": "316/350"
+     },
+     "windDiff": {
+      "n": 349,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2063229070224966152339/1015234560000000000000",
+      "hi": "523533146754703621019/86593536000000000000",
+      "loDec": "-2.032",
+      "hiDec": "6.045",
+      "l": 17,
+      "u": 333,
+      "coverage": "316/350",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "120": {
+     "from": 120,
+     "to": 1212,
+     "hs": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "744064000/880875279",
+      "hi": "826448/478703",
+      "loDec": "0.844",
+      "hiDec": "1.726",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427"
+     },
+     "windDiff": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-241904383879095169/86400000000000000",
+      "hi": "904906776716992573069/151875000000000000000",
+      "loDec": "-2.799",
+      "hiDec": "5.958",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "132": {
+     "from": 132,
+     "to": 1332,
+     "hs": {
+      "n": 349,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "1349640000/1652139139",
+      "hi": "2762560/1602733",
+      "loDec": "0.816",
+      "hiDec": "1.723",
+      "l": 17,
+      "u": 333,
+      "coverage": "316/350"
+     },
+     "windDiff": {
+      "n": 349,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-3538851037135894253/1327104000000000000",
+      "hi": "837315283231479799/149299200000000000",
+      "loDec": "-2.666",
+      "hiDec": "5.608",
+      "l": 17,
+      "u": 333,
+      "coverage": "316/350",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "144": {
+     "from": 144,
+     "to": 1452,
+     "hs": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "114564375/142112257",
+      "hi": "1661424000/954113413",
+      "loDec": "0.806",
+      "hiDec": "1.741",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427"
+     },
+     "windDiff": {
+      "n": 426,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-37869731561950423/9331200000000000",
+      "hi": "64953132645811164638941/11404800000000000000000",
+      "loDec": "-4.058",
+      "hiDec": "5.695",
+      "l": 20,
+      "u": 407,
+      "coverage": "387/427",
+      "unit": "m/s, observed - forecast speed"
+     }
+    },
+    "156": {
+     "from": 156,
+     "to": 1572,
+     "hs": {
+      "n": 348,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "489456/634607",
+      "hi": "6017280/3242813",
+      "loDec": "0.771",
+      "hiDec": "1.855",
+      "l": 16,
+      "u": 333,
+      "coverage": "317/349"
+     },
+     "windDiff": {
+      "n": 348,
+      "verdict": "CERTIFIED-COVERAGE",
+      "lo": "-2532483824843848928706463363/821145600000000000000000000",
+      "hi": "4242096633468487687/663552000000000000",
+      "loDec": "-3.084",
+      "hiDec": "6.393",
+      "l": 16,
+      "u": 333,
+      "coverage": "317/349",
+      "unit": "m/s, observed - forecast speed"
+     }
+    }
+   }
+  }
+ }
+}

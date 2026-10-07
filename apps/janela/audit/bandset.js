@@ -12,6 +12,12 @@
    audit/platforms.js (which sites are measured) and audit/commit.js (one calibrated
    proposer per bands record). A rule read in five places lives here once.
 
+   THE SECOND PROVIDER (2026-10-07, providers-v1 in certs/janela-ledger/DEFINITIONS.json):
+   a bands record calibrated on NOAA's forecasts (certs/janela-bands-noaa.json, proposer
+   calibrated-noaa-v1) is a record of ANOTHER PROVIDER, never merged into ECMWF's —
+   bands(provider) merges one provider's records; the product decides on the union of
+   the providers' bands where a place has both (audit/today.js).
+
    MIT licensed. Part of cert-machine.                                    */
 'use strict';
 
@@ -21,15 +27,20 @@ const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const MAIN = { bands: 'certs/janela-bands.json', alpha: 'certs/janela-alpha.json', proposer: 'janela/hs-altimeter/calibrated-v1' };
+/* the providers beside ECMWF: a bands record per provider, calibrated on that provider's forecasts at the eight
+   open-sea sites of 2026-10-06 (no alpha: the site alpha stays ECMWF's measurement) */
+const PROVIDERS = [{ name: 'noaa', provider: 'noaa', bands: 'certs/janela-bands-noaa.json', proposer: 'janela/hs-altimeter/calibrated-noaa-v1' }];
 
 const read = (rel) => fs.readFileSync(path.join(ROOT, rel));
 const sha = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 const regions = () => Object.entries(require('../scenario/regions.json').regions).map(([name, r]) => Object.assign({ name }, r));
 
-/* every bands record in force: the main one, then each region whose record exists */
+/* every bands record in force: the main one, then each region whose record exists (ECMWF's), then each other
+   provider's whose record exists */
 function records() {
-  const out = [{ name: 'main', bands: MAIN.bands, alpha: MAIN.alpha, proposer: MAIN.proposer }];
-  for (const r of regions()) if (fs.existsSync(path.join(ROOT, r.bands))) out.push(r);
+  const out = [{ name: 'main', provider: 'ecmwf', bands: MAIN.bands, alpha: MAIN.alpha, proposer: MAIN.proposer }];
+  for (const r of regions()) if (fs.existsSync(path.join(ROOT, r.bands))) out.push(Object.assign({ provider: 'ecmwf' }, r));
+  for (const p of PROVIDERS) if (fs.existsSync(path.join(ROOT, p.bands))) out.push(Object.assign({}, p));
   return out;
 }
 
@@ -45,15 +56,20 @@ function merge(list, kind) {
   return Object.fromEntries(Object.entries(sites).map(([k, v]) => [k, v.value]));
 }
 
-/* the bands, merged: the main record's fields, every record's sites, and which record carries which site */
-function bands() {
+/* the bands of ONE provider, merged: the main record's fields (its borrow table for the terminals), every record's
+   sites, and which record carries which site. bands() is ECMWF's; bands('noaa') is null until its record exists. */
+function bands(provider) {
+  provider = provider || 'ecmwf';
   const main = JSON.parse(read(MAIN.bands).toString('utf8'));
-  const list = records().map((r) => {
+  const mine = records().filter((r) => r.provider === provider);
+  if (!mine.length) return null;
+  const list = mine.map((r) => {
     const buf = read(r.bands), rec = r.name === 'main' ? main : JSON.parse(buf.toString('utf8'));
     if (rec.binHours !== main.binHours || rec.miss !== main.miss) throw new Error('REFUSED: ' + r.bands + ' is not cut like ' + MAIN.bands + ' (bins ' + rec.binHours + ', miss ' + rec.miss + ')');
+    if ((rec.provider || 'ecmwf') !== provider) throw new Error('REFUSED: ' + r.bands + ' was calibrated on ' + (rec.provider || 'ecmwf') + ', not ' + provider);
     return { name: r.name, file: r.bands, rec, sha: sha(buf), proposer: r.proposer };
   });
-  return Object.assign({}, main, { sites: merge(list, 'bands'),
+  return Object.assign({}, main, { provider, sites: merge(list, 'bands'),
     records: list.map((x) => ({ name: x.name, file: x.file, sha: x.sha, proposer: x.proposer, sites: Object.keys(x.rec.sites) })) });
 }
 
@@ -61,7 +77,7 @@ function bands() {
 function alpha() {
   const main = JSON.parse(read(MAIN.alpha).toString('utf8'));
   const list = [{ name: 'main', file: MAIN.alpha, rec: main }];
-  for (const r of records()) if (r.name !== 'main' && fs.existsSync(path.join(ROOT, r.alpha))) list.push({ name: r.name, file: r.alpha, rec: JSON.parse(read(r.alpha).toString('utf8')) });
+  for (const r of records()) if (r.name !== 'main' && r.alpha && fs.existsSync(path.join(ROOT, r.alpha))) list.push({ name: r.name, file: r.alpha, rec: JSON.parse(read(r.alpha).toString('utf8')) });
   return Object.assign({}, main, { sites: merge(list, 'alpha'), records: list.map((x) => ({ name: x.name, file: x.file })) });
 }
 
@@ -80,14 +96,25 @@ function withoutPruned(B, proposers) {
   return { bands: Object.assign({}, B, { sites }), pruned };
 }
 
+/* THE BANDS THE PRODUCT DECIDES WITH — one definition, read by app/data.js (the app's day) and numbers.js (the
+   method page), so the two never decide a step differently: ECMWF's records less any pruned proposer, and, when
+   the second provider's day is at hand and its record exists, NOAA's less its pruned (providers-v1: today.js
+   decides on the union). proposers: [{ domain, status, prunedAt }] from the placar. */
+function forDecision(proposers, withNoaa) {
+  const e = withoutPruned(bands(), proposers);
+  const nb = withNoaa ? bands('noaa') : null;
+  const n = nb ? withoutPruned(nb, proposers) : null;
+  return { bands: e.bands, noaa: n ? n.bands : null, pruned: e.pruned.concat(n ? n.pruned : []) };
+}
+
 /* the region a site belongs to (its caveat travels with every band it lends), or null */
 function regionOf(sid) { return regions().find((r) => r.sites.includes(sid)) || null; }
 
 /* the record files in force, for the input shas a day's data names */
 function files() {
   const out = [];
-  for (const r of records()) { out.push(r.bands); if (fs.existsSync(path.join(ROOT, r.alpha))) out.push(r.alpha); }
+  for (const r of records()) { out.push(r.bands); if (r.alpha && fs.existsSync(path.join(ROOT, r.alpha))) out.push(r.alpha); }
   return out;
 }
 
-module.exports = { MAIN, regions, records, merge, bands, alpha, withoutPruned, regionOf, files };
+module.exports = { MAIN, PROVIDERS, regions, records, merge, bands, alpha, withoutPruned, forDecision, regionOf, files };

@@ -74,10 +74,21 @@ function load(over) {
       groups: (nf.groups || []).length, licence: nf.licence };
   }
 
-  /* ---- the band record, and the week decided over it (audit/today.js) ---- */
-  const bands = over.bands || require('./audit/bandset.js').bands();
+  /* ---- the ledger's rows, read first: a pruned proposer stops deciding on this page as in the app ---- */
+  const LD = path.join(ROOT, 'certs', 'janela-ledger');
+  const lfiles = fs.existsSync(LD) ? fs.readdirSync(LD).filter((f) => /^\d{6}\.jsonl$/.test(f)).sort() : [];
+  const rows = [].concat(...lfiles.map((f) => LEDGER.rows(path.join(LD, f))));
+  let rec;
+  try { rec = PLACAR.record(rows); } catch (e) { need(false, 'the ledger: ' + e.message); }
+
+  /* ---- the band record, and the week decided over it (audit/today.js): the bands the app decides with
+     (bandset.forDecision — the union with NOAA's where its day is at hand, providers-v1) ---- */
+  const DB = over.bands ? { bands: over.bands, noaa: null } : require('./audit/bandset.js').forDecision(
+    Object.values(rec).map((p) => ({ domain: p.domain, status: p.admission.status, prunedAt: p.admission.prunedAt })), !!N.noaa);
+  const bands = DB.bands;
   need(bands.sites && bands.binHours && bands.borrow, 'certs/janela-bands.json lost its shape');
-  const T = TODAY.compute(feed, bands, OPS.operations, SITES);
+  const noaaDay = DB.noaa ? JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(ROOT, N.noaa.file))).toString('utf8')) : null;
+  const T = TODAY.compute(feed, bands, OPS.operations, SITES, noaaDay ? { feed: noaaDay, bands: DB.noaa } : undefined);
   let cells = 0, okCells = 0;
   for (const s of Object.values(bands.sites)) for (const b of Object.values(s.bins)) {
     for (const k of ['hs', 'windDiff']) { cells++; if (b[k] && b[k].verdict === 'CERTIFIED-COVERAGE') okCells++; }
@@ -162,9 +173,6 @@ function load(over) {
   if (N.alpha) need(N.alpha.calibration && N.alpha.sites, 'certs/janela-alpha.json lost calibration/sites');
 
   /* ---- the forward ledger: commits, scores, admission, per proposer ---- */
-  const LD = path.join(ROOT, 'certs', 'janela-ledger');
-  const lfiles = fs.existsSync(LD) ? fs.readdirSync(LD).filter((f) => /^\d{6}\.jsonl$/.test(f)).sort() : [];
-  const rows = [].concat(...lfiles.map((f) => LEDGER.rows(path.join(LD, f))));
   const defs = fs.existsSync(path.join(LD, 'DEFINITIONS.json')) ? JSON.parse(fs.readFileSync(path.join(LD, 'DEFINITIONS.json'), 'utf8')) : {};
   /* the descriptive window of each proposer (first/last commit, targets, sites) */
   const dom = {};
@@ -177,9 +185,7 @@ function load(over) {
     if (!d.tFirst || r.targetTime < d.tFirst) d.tFirst = r.targetTime;
     if (!d.tLast || r.targetTime > d.tLast) d.tLast = r.targetTime;
   }
-  /* counts, claim and admission: placar.js, the one definition score.js prints too */
-  let rec;
-  try { rec = PLACAR.record(rows); } catch (e) { need(false, 'the ledger: ' + e.message); }
+  /* counts, claim and admission: placar.js (rec, read above), the one definition score.js prints too */
   /* which proposers decide (a calibrated band in force, bandset.js); the rest are raw ensembles: shown and graded,
      never decided on (providers-v1) */
   const deciding = new Set(require('./audit/bandset.js').records().map((r) => r.proposer));

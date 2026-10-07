@@ -64,13 +64,37 @@ const DOMAIN_NOTE = { target: TARGET, proposer: PROPOSER, claim: '4/5', alpha: '
 const CAL_PINS = {
   'janela/hs-altimeter/calibrated-v1': '1f14a51fac100bd1083468eb5cfda7bf13e5d9e864a0c200eb7cfcdd49316d8d',
   /* Sergipe-Alagoas, measured 2026-10-07 (certs/janela-bands-sergipe.json; regions.json states its footprint caveat) */
-  'janela/hs-altimeter/calibrated-sergipe-v1': '175a5ce26d4a4945b05e3bb54e5f8a4da5256cc6df2e31c0b023ce18bcf22cb0'
+  'janela/hs-altimeter/calibrated-sergipe-v1': '175a5ce26d4a4945b05e3bb54e5f8a4da5256cc6df2e31c0b023ce18bcf22cb0',
+  /* NOAA, calibrated on its own pairs 2026-10-07 (certs/janela-bands-noaa.json); committed by --noaa from GFS-Wave's own Hs */
+  'janela/hs-altimeter/calibrated-noaa-v1': 'beaf366df295ba48aacb5e52f7c47f57de3676153f7efc8820beb67407b995af'
 };
 /* v1's rows keep the id suffix they were born with */
 const calSuffix = (domain) => (domain === 'janela/hs-altimeter/calibrated-v1' ? ':cal' : ':' + domain.split('/').pop());
 
 const MARGIN_MS = 3600e3;     /* a target at least an hour after madeAt */
 const frac = (s) => { const [n, d = '1'] = String(s).split('/'); return [n, d]; };
+
+/* the calibrated proposers of one provider whose bands record is in force AND pinned here (bandset.js records) */
+function pinnedCals(provider) {
+  const cals = [];
+  for (const r of require('./bandset.js').records().filter((x) => x.provider === provider)) {
+    const buf = fs.readFileSync(path.join(ROOT, r.bands)), h = require('crypto').createHash('sha256').update(buf).digest('hex');
+    const pin = CAL_PINS[r.proposer];
+    /* a rebuilt bands record is a NEW proposer version: pin its sha under a new name, never swap it into an old one */
+    if (!pin) { console.log('::warning title=janela ' + r.proposer + ' not pinned::' + r.bands + ' (' + h.slice(0, 16) + ') is in force but no proposer version pins it in commit.js: nothing committed from it'); continue; }
+    if (h !== pin) { console.log('::warning title=janela ' + r.proposer + ' skipped::' + r.bands + ' is not the bands record ' + r.proposer + ' pins (' + pin.slice(0, 16) + ', found ' + h.slice(0, 16) + '): its rows are NOT committed today; the other proposers\' are.'); continue; }
+    cals.push({ domain: r.proposer, sha: pin, rec: JSON.parse(buf.toString('utf8')) });
+  }
+  return cals;
+}
+
+/* the calibrated band of one pinned proposer at a step: [det * r_lo, det * r_hi] of the site's lead bin, or null */
+const mulFr = (a, b) => { const [an, ad] = frac(a), [bn, bd] = frac(b); return [String(BigInt(an) * BigInt(bn)), String(BigInt(ad) * BigInt(bd))]; };
+function calCell(cal, sid, lead) {
+  const bin = Math.min(Math.floor(lead / cal.rec.binHours), Math.floor(168 / cal.rec.binHours) - 1) * cal.rec.binHours;
+  const cell = cal.rec.sites[sid] && cal.rec.sites[sid].bins[bin] && cal.rec.sites[sid].bins[bin].hs;
+  return cell && cell.verdict === 'CERTIFIED-COVERAGE' ? cell : null;
+}
 
 /* the newest (or the named) feed of a directory, gunzipped and hashed as read */
 function readFeed(dir, day) {
@@ -83,7 +107,7 @@ function readFeed(dir, day) {
 
 /* NOAA's rows, pure (the battery feeds it synthetic feeds): one per open-sea site and step that carries a band
    and whose target is at least the margin ahead; a feed whose band is not the definition's is refused whole */
-function noaaRows(feed, feedSha, want, madeAt) {
+function noaaRows(feed, feedSha, want, madeAt, cals) {
   const e = feed.ensemble || {};
   if (e.source !== 'GEFS-Wave' || (e.members || []).length !== NOAA.members || e.band !== NOAA.band || e.claim !== '3/4') {
     throw new Error('REFUSED: ' + want + ' does not carry the band ' + NOAA.domain + ' is defined by (' + NOAA.band + ', claim 3/4)');
@@ -93,11 +117,21 @@ function noaaRows(feed, feedSha, want, madeAt) {
   for (const [sid, site] of Object.entries(feed.sites)) {
     if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
     for (const st of site.steps) {
-      if (!st.hs || st.hs.lo === undefined) continue;
+      if (!st.hs) continue;
       const targetTime = st.t + ':00:00Z';
       if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) { past++; continue; }
-      rows.push({ ledger: st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', c: {
-        id: 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h:' + NOAA.domain.split('/').pop(), domain: NOAA.domain,
+      const ledger = st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', base = 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h:';
+      /* NOAA's calibrated band (calibrated-noaa-v1): GFS-Wave's deterministic Hs x the ratio interval of NOAA's own pairs */
+      for (const cal of (st.hs.det !== undefined ? cals || [] : [])) {
+        const cell = calCell(cal, sid, st.lead);
+        if (!cell) continue;
+        rows.push({ ledger, c: { id: base + cal.domain.split('/').pop(), domain: cal.domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+          forecast: { lo: mulFr(st.hs.det, cell.lo), hi: mulFr(st.hs.det, cell.hi), alpha: [1, 10], det: st.hs.det, lead: st.lead,
+            node: site.node, feed: 'noaa/' + want.slice(0, 8), bandsSha: cal.sha.slice(0, 16), coverage: cell.coverage, n: cell.n } } });
+      }
+      if (st.hs.lo === undefined) continue;
+      rows.push({ ledger, c: {
+        id: base + NOAA.domain.split('/').pop(), domain: NOAA.domain,
         target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
         forecast: { lo: frac(st.hs.lo), hi: frac(st.hs.hi), alpha: NOAA.alpha, det: st.hs.det === undefined ? null : st.hs.det, lead: st.lead,
           node: site.node, feed: 'noaa/' + want.slice(0, 8), feedSha: feedSha.slice(0, 16) } } });
@@ -108,7 +142,7 @@ function noaaRows(feed, feedSha, want, madeAt) {
 
 function commitNoaa(day, madeAt) {
   const { want, feed, feedSha } = readFeed(path.join(ROOT, 'corpus', 'janela', 'feed-noaa'), day);
-  const { rows, past } = noaaRows(feed, feedSha, want, madeAt);
+  const { rows, past } = noaaRows(feed, feedSha, want, madeAt, pinnedCals('noaa'));
   let made = 0, dup = 0;
   for (const r of rows) {
     try { L.commit(path.join(LEDGER, r.ledger), r.c); made++; } catch (err) { if (/duplicate commit id/.test(err.message)) { dup++; continue; } throw err; }
@@ -126,15 +160,7 @@ function main() {
   if (args[0] === '--noaa') return commitNoaa(args[1], madeAt);
   const { want, feed, feedSha } = readFeed(FEED, args[0]);
   let made = 0, past = 0, dup = 0;
-  const cals = [];
-  for (const r of require('./bandset.js').records()) {
-    const buf = fs.readFileSync(path.join(ROOT, r.bands)), h = require('crypto').createHash('sha256').update(buf).digest('hex');
-    const pin = CAL_PINS[r.proposer];
-    /* a rebuilt bands record is a NEW proposer version: pin its sha under a new name, never swap it into an old one */
-    if (!pin) { console.log('::warning title=janela ' + r.proposer + ' not pinned::' + r.bands + ' (' + h.slice(0, 16) + ') is in force but no proposer version pins it in commit.js: nothing committed from it'); continue; }
-    if (h !== pin) { console.log('::warning title=janela ' + r.proposer + ' skipped::' + r.bands + ' is not the bands record ' + r.proposer + ' pins (' + pin.slice(0, 16) + ', found ' + h.slice(0, 16) + '): its rows are NOT committed today; the other proposers\' are.'); continue; }
-    cals.push({ domain: r.proposer, sha: pin, rec: JSON.parse(buf.toString('utf8')) });
-  }
+  const cals = pinnedCals('ecmwf');
   for (const [sid, site] of Object.entries(feed.sites)) {
     if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
     for (const st of site.steps) {
@@ -144,13 +170,11 @@ function main() {
       const ledger = path.join(LEDGER, st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl');
       if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) { past++; continue; }
       for (const cal of cals) {
-        const bin = Math.min(Math.floor(st.lead / cal.rec.binHours), Math.floor(168 / cal.rec.binHours) - 1) * cal.rec.binHours;
-        const cell = cal.rec.sites[sid] && cal.rec.sites[sid].bins[bin] && cal.rec.sites[sid].bins[bin].hs;
-        if (!cell || cell.verdict !== 'CERTIFIED-COVERAGE') continue;
-        const mul = (a, b) => { const [an, ad] = frac(a), [bn, bd] = frac(b); return [String(BigInt(an) * BigInt(bn)), String(BigInt(ad) * BigInt(bd))]; };
+        const cell = calCell(cal, sid, st.lead);
+        if (!cell) continue;
         try {
           L.commit(ledger, { id: id + calSuffix(cal.domain), domain: cal.domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
-            forecast: { lo: mul(st.hs.det, cell.lo), hi: mul(st.hs.det, cell.hi), alpha: [1, 10], det: st.hs.det, lead: st.lead,
+            forecast: { lo: mulFr(st.hs.det, cell.lo), hi: mulFr(st.hs.det, cell.hi), alpha: [1, 10], det: st.hs.det, lead: st.lead,
               node: site.node, feed: want.slice(0, 8), bandsSha: cal.sha.slice(0, 16), coverage: cell.coverage, n: cell.n } });
           made++;
         } catch (e) { if (!/duplicate commit id/.test(e.message)) throw e; }
