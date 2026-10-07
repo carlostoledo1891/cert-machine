@@ -5,7 +5,9 @@ apps/janela/audit · cert-machine
     python archive.py ecmwf [FROM [TO]] [--workers N]   ECMWF open-data forecasts at every site
     python archive.py alt   [FROM [TO]] [--workers N]   NOAA altimeter passes near every site
     python archive.py metar [FROM [TO]]                 hourly METAR of the P-25 platform (SBLB)
+    python archive.py noaa  [FROM [TO]] [--workers N]   NOAA GFS-Wave (WAVEWATCH III) forecasts at every site
     python archive.py pack                              day files -> monthly .json.gz + manifest
+    python archive.py pack-noaa                         NOAA's day files -> corpus/janela/noaa/ + its own manifest
 
 Why a back-archive: a forecast's error can only be measured against what
 happened, and the ledger (instruments/forecast) only grows forward. ECMWF
@@ -23,6 +25,9 @@ Sources and licences:
   NOAA/NESDIS RADS-built along-track altimetry (coastwatch.noaa.gov) — US
     government work, public domain; RADS editing as applied by NOAA.
   METAR via the Iowa Environmental Mesonet archive — public.
+  NOAA GFS-Wave on AWS (noaa-gfs-bdp-pds) — US government work, public domain.
+    Read from 2023-07-12, the ECMWF archive's first day, so both providers are
+    calibrated against the same three years of passes.
 
 MIT licensed. Part of cert-machine.
 """
@@ -139,6 +144,54 @@ def ecmwf_day(d):
                                'sha256': E.sha256(msg), 'R': meta['R'], 'E': meta['E'], 'D': meta['D'],
                                'bits': meta['bits'], 'X': xs})
     write_json(path, {'date': d.isoformat(), 'run': RUN, 'grid': E.grid_of(d), 'mirror': base,
+                      'nodes': nodes, 'fields': fields, 'missing': missing,
+                      'read': datetime.now(timezone.utc).isoformat(timespec='seconds')})
+    return f'{len(fields)} fields' + (f', missing {len(missing)}' if missing else '')
+
+
+# ── NOAA GFS-Wave: the second provider's back-archive (the calibrated NOAA band) ──
+# The same steps as ECMWF's (WAVE_STEPS for Hs, OPER_STEPS for the 10 m wind), the same field record, the
+# ECMWF parameter names (swh, 10u, 10v) so matchups.py reads either archive with one code path; the grid
+# is named 'gfswave-0p25' so a node is never looked up in the other provider's grid. noaa.py is the ONE
+# reader of NOAA's inventories and messages (the run, step and parameter checks are its).
+NOAA_FIRST = date(2023, 7, 12)
+NOAA_GRID = 'gfswave-0p25'
+NOAA_FIELDS = {'swh': ('HTSGW', 'surface', 'wave', 'swh'), '10u': ('UGRD', 'surface', 'oper', 'u'), '10v': ('VGRD', 'surface', 'oper', 'v')}
+
+
+def noaa_day(d):
+    import noaa as N
+    path = os.path.join(CACHE, 'noaa', d.strftime('%Y%m'), d.strftime('%Y%m%d') + '.json')
+    if os.path.exists(path):
+        return 'cached'
+    fields, nodes, missing = [], {}, []
+    for step in sorted(set(WAVE_STEPS) | set(OPER_STEPS)):
+        url = N.gfs_url(d, step)
+        b = E.get(url + '.idx')
+        if b is None:
+            missing.append(f'gfswave@{step}')
+            continue
+        inv = N.inventory(b.decode(), d, step)
+        params = (['swh'] if step in WAVE_STEPS else []) + (['10u', '10v'] if step in OPER_STEPS else [])
+        for param in params:
+            name, level, stream, short = NOAA_FIELDS[param]
+            r = N.find(inv, name, level)
+            if r['length'] is None:
+                raise ValueError(f'{d} step {step}: {name} is the last message (no length)')
+            blob = E.get(url, (r['offset'], r['length']))
+            if blob is None:
+                missing.append(f'gfswave@{step}:{name}:404')
+                continue
+            msg = N.split(blob, r['offset'], [r])[0]
+            meta, xs = E.decode(msg, SITES)
+            N.check_meta(meta, d, step, short)
+            if NOAA_GRID not in nodes:
+                nodes[NOAA_GRID] = {s['id']: E.box_nodes(meta, s) for s in SITES}
+            fields.append({'stream': stream, 'step': step, 'param': param, 'ncep': f'{name}:{level}',
+                           'url': url, 'offset': r['offset'], 'length': r['length'],
+                           'sha256': E.sha256(msg), 'R': meta['R'], 'E': meta['E'], 'D': meta['D'],
+                           'bits': meta['bits'], 'X': xs})
+    write_json(path, {'date': d.isoformat(), 'run': RUN, 'grid': NOAA_GRID, 'source': 'NOAA GFS-Wave (noaa-gfs-bdp-pds)',
                       'nodes': nodes, 'fields': fields, 'missing': missing,
                       'read': datetime.now(timezone.utc).isoformat(timespec='seconds')})
     return f'{len(fields)} fields' + (f', missing {len(missing)}' if missing else '')
@@ -263,6 +316,24 @@ def pack():
     print(len(manifest), 'packed files')
 
 
+def pack_noaa():
+    """NOAA's day files -> corpus/janela/noaa/YYYYMM.json.gz and corpus/janela/noaa/MANIFEST.json: its own
+    chain, so packing it never rewrites a byte of the ECMWF/altimeter records or their manifest."""
+    manifest, root, out = {}, os.path.join(CACHE, 'noaa'), os.path.join(OUT, 'noaa')
+    for ym in sorted(os.listdir(root)):
+        files = sorted(f for f in os.listdir(os.path.join(root, ym)) if f.endswith('.json'))
+        month = [json.load(open(os.path.join(root, ym, f))) for f in files]
+        blob = json.dumps({'kind': 'noaa', 'month': ym, 'files': month}, separators=(',', ':')).encode()
+        gz = gzip.compress(blob, mtime=0)
+        os.makedirs(out, exist_ok=True)
+        with open(os.path.join(out, ym + '.json.gz'), 'wb') as f:
+            f.write(gz)
+        manifest[f'{ym}.json.gz'] = {'sha256': hashlib.sha256(gz).hexdigest(), 'bytes': len(gz),
+                                     'jsonSha256': hashlib.sha256(blob).hexdigest(), 'days': len(month)}
+    write_json(os.path.join(out, 'MANIFEST.json'), {'what': 'NOAA GFS-Wave back-archive at the Janela sites (archive.py noaa, pack-noaa).', 'files': manifest})
+    print(len(manifest), 'packed NOAA months')
+
+
 def run_pool(tasks, fn, workers, label):
     t0, done, n = time.time(), 0, len(tasks)
     with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -290,7 +361,12 @@ if __name__ == '__main__':
     elif cmd == 'metar':
         a, b, _ = parse_args(rest, E.GCS_FIRST)
         metar(a, b)
+    elif cmd == 'noaa':
+        a, b, w = parse_args(rest, NOAA_FIRST)
+        run_pool([(d,) for d in days(a, b)], noaa_day, w, 'noaa')
     elif cmd == 'pack':
         pack()
+    elif cmd == 'pack-noaa':
+        pack_noaa()
     else:
         raise SystemExit(__doc__)
