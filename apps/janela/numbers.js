@@ -180,11 +180,14 @@ function load(over) {
   /* counts, claim and admission: placar.js, the one definition score.js prints too */
   let rec;
   try { rec = PLACAR.record(rows); } catch (e) { need(false, 'the ledger: ' + e.message); }
+  /* which proposers decide (a calibrated band in force, bandset.js); the rest are raw ensembles: shown and graded,
+     never decided on (providers-v1) */
+  const deciding = new Set(require('./audit/bandset.js').records().map((r) => r.proposer));
   N.ledger = {
     files: lfiles.map((f) => 'certs/janela-ledger/' + f), defs, rule: PLACAR.RULE, firstLook: PLACAR.FIRST_LOOK,
     proposers: Object.values(rec).sort((a, b) => b.commits - a.commits).map((p) => {
       const d = dom[p.domain], a = p.admission, last = a.looks[a.looks.length - 1] || null;
-      return { domain: p.domain, name: PLACAR.NAMES_PT[p.domain] || p.domain, commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
+      return { domain: p.domain, name: PLACAR.NAMES_PT[p.domain] || p.domain, decides: deciding.has(p.domain), commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
         tFirst: d.tFirst, tLast: d.tLast, sites: d.sites.size, claim: p.claim, status: a.status, pending: a.pending,
         trials: a.trials, trialsCovered: a.trialsCovered, next: a.next, looks: a.looks, prunedAt: a.prunedAt,
         tail: last ? last.tail : null, bar: last ? last.bar : null, bySite: p.breakdown.bySite, byLead: p.breakdown.byLead };
