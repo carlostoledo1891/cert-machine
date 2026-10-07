@@ -1,0 +1,438 @@
+{
+ "what": "Whether ECMWF's data-driven AIFS Single wave forecast earns a place beside IFS and NOAA GFS-Wave: every band calibrated before 2026-08-01 and judged on the satellite passes after (apps/janela/audit/providers_aifs.py; rule dated in DEFINITIONS.json as providers-eval-aifs-v1; a floating-point evaluation).",
+ "pairs": {
+  "ecmwf": 45987,
+  "noaa": 53538,
+  "aifs": 6659,
+  "joinedHistory": 45987,
+  "joinedThree": 6659,
+  "calibrationLong": 42879,
+  "calibrationShort": 3551,
+  "test": 3108,
+  "testCommon": 3108,
+  "split": "2026-08-01",
+  "aifsFirst": "2026-05-13"
+ },
+ "options": {
+  "E": "IFS Hs x its band, calibrated on its own history from 2023-07-12",
+  "N": "NOAA GFS-Wave Hs x its band, likewise",
+  "A": "AIFS Single Hs x its band, calibrated on its own pairs from 2026-05-13",
+  "E-short": "IFS on A's short window (the model separated from the calibration length)",
+  "M(E,A)": "the plain mean of IFS and AIFS on A's window",
+  "U(E,N)": "today's deciding rule (providers-v1)",
+  "U(E,N,A)": "the three-band union",
+  "U(E,A)": "IFS and AIFS"
+ },
+ "miss": "1/10",
+ "results": [
+  {
+   "n": 3108,
+   "coverage": 0.9064,
+   "meanWidthM": 1.0088,
+   "limits": {
+    "1.5": {
+     "liberada": 324,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 1685,
+     "wrongVetada": 12
+    },
+    "2.0": {
+     "liberada": 853,
+     "brokeLiberada": 6,
+     "brokeBy10pc": 2,
+     "vetada": 734,
+     "wrongVetada": 24
+    },
+    "2.5": {
+     "liberada": 1594,
+     "brokeLiberada": 15,
+     "brokeBy10pc": 5,
+     "vetada": 336,
+     "wrongVetada": 10
+    },
+    "3.5": {
+     "liberada": 2501,
+     "brokeLiberada": 8,
+     "brokeBy10pc": 3,
+     "vetada": 32,
+     "wrongVetada": 2
+    }
+   },
+   "option": "E"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.8517,
+   "meanWidthM": 1.1161,
+   "limits": {
+    "1.5": {
+     "liberada": 208,
+     "brokeLiberada": 6,
+     "brokeBy10pc": 2,
+     "vetada": 1799,
+     "wrongVetada": 29
+    },
+    "2.0": {
+     "liberada": 743,
+     "brokeLiberada": 7,
+     "brokeBy10pc": 5,
+     "vetada": 785,
+     "wrongVetada": 72
+    },
+    "2.5": {
+     "liberada": 1388,
+     "brokeLiberada": 6,
+     "brokeBy10pc": 2,
+     "vetada": 248,
+     "wrongVetada": 20
+    },
+    "3.5": {
+     "liberada": 2448,
+     "brokeLiberada": 9,
+     "brokeBy10pc": 3,
+     "vetada": 19,
+     "wrongVetada": 2
+    }
+   },
+   "option": "N"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9466,
+   "meanWidthM": 1.3342,
+   "limits": {
+    "1.5": {
+     "liberada": 251,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 1159,
+     "wrongVetada": 3
+    },
+    "2.0": {
+     "liberada": 753,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 1,
+     "vetada": 485,
+     "wrongVetada": 13
+    },
+    "2.5": {
+     "liberada": 1496,
+     "brokeLiberada": 13,
+     "brokeBy10pc": 2,
+     "vetada": 212,
+     "wrongVetada": 4
+    },
+    "3.5": {
+     "liberada": 2410,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 0,
+     "vetada": 17,
+     "wrongVetada": 0
+    }
+   },
+   "option": "A"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9511,
+   "meanWidthM": 1.4232,
+   "limits": {
+    "1.5": {
+     "liberada": 269,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 1170,
+     "wrongVetada": 7
+    },
+    "2.0": {
+     "liberada": 721,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 2,
+     "vetada": 493,
+     "wrongVetada": 14
+    },
+    "2.5": {
+     "liberada": 1413,
+     "brokeLiberada": 9,
+     "brokeBy10pc": 3,
+     "vetada": 224,
+     "wrongVetada": 5
+    },
+    "3.5": {
+     "liberada": 2301,
+     "brokeLiberada": 4,
+     "brokeBy10pc": 3,
+     "vetada": 28,
+     "wrongVetada": 2
+    }
+   },
+   "option": "E-short"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9463,
+   "meanWidthM": 1.2851,
+   "limits": {
+    "1.5": {
+     "liberada": 297,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 1224,
+     "wrongVetada": 5
+    },
+    "2.0": {
+     "liberada": 767,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 520,
+     "wrongVetada": 14
+    },
+    "2.5": {
+     "liberada": 1510,
+     "brokeLiberada": 11,
+     "brokeBy10pc": 2,
+     "vetada": 230,
+     "wrongVetada": 5
+    },
+    "3.5": {
+     "liberada": 2397,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 24,
+     "wrongVetada": 2
+    }
+   },
+   "option": "M(E,A)"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9636,
+   "meanWidthM": 1.3345,
+   "limits": {
+    "1.5": {
+     "liberada": 197,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 1541,
+     "wrongVetada": 8
+    },
+    "2.0": {
+     "liberada": 677,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 574,
+     "wrongVetada": 5
+    },
+    "2.5": {
+     "liberada": 1309,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 1,
+     "vetada": 203,
+     "wrongVetada": 2
+    },
+    "3.5": {
+     "liberada": 2308,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 12,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9849,
+   "meanWidthM": 1.6012,
+   "limits": {
+    "1.5": {
+     "liberada": 168,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 1057,
+     "wrongVetada": 1
+    },
+    "2.0": {
+     "liberada": 607,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 394,
+     "wrongVetada": 2
+    },
+    "2.5": {
+     "liberada": 1220,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 157,
+     "wrongVetada": 2
+    },
+    "3.5": {
+     "liberada": 2225,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 11,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N,A)"
+  },
+  {
+   "n": 3108,
+   "coverage": 0.9678,
+   "meanWidthM": 1.4397,
+   "limits": {
+    "1.5": {
+     "liberada": 232,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 1101,
+     "wrongVetada": 2
+    },
+    "2.0": {
+     "liberada": 694,
+     "brokeLiberada": 1,
+     "brokeBy10pc": 0,
+     "vetada": 445,
+     "wrongVetada": 7
+    },
+    "2.5": {
+     "liberada": 1395,
+     "brokeLiberada": 10,
+     "brokeBy10pc": 1,
+     "vetada": 200,
+     "wrongVetada": 4
+    },
+    "3.5": {
+     "liberada": 2333,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 17,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,A)"
+  }
+ ],
+ "skillOnTest": {
+  "E": {
+   "day 0": {
+    "n": 444,
+    "bias": 0.019,
+    "rms": 0.264
+   },
+   "day 1": {
+    "n": 444,
+    "bias": 0.031,
+    "rms": 0.291
+   },
+   "day 2": {
+    "n": 444,
+    "bias": 0.037,
+    "rms": 0.287
+   },
+   "day 3": {
+    "n": 444,
+    "bias": 0.057,
+    "rms": 0.314
+   },
+   "day 4": {
+    "n": 444,
+    "bias": 0.068,
+    "rms": 0.376
+   },
+   "day 5": {
+    "n": 444,
+    "bias": 0.08,
+    "rms": 0.411
+   },
+   "day 6": {
+    "n": 444,
+    "bias": 0.069,
+    "rms": 0.571
+   }
+  },
+  "N": {
+   "day 0": {
+    "n": 444,
+    "bias": -0.159,
+    "rms": 0.321
+   },
+   "day 1": {
+    "n": 444,
+    "bias": -0.137,
+    "rms": 0.337
+   },
+   "day 2": {
+    "n": 444,
+    "bias": -0.098,
+    "rms": 0.361
+   },
+   "day 3": {
+    "n": 444,
+    "bias": -0.063,
+    "rms": 0.419
+   },
+   "day 4": {
+    "n": 444,
+    "bias": -0.041,
+    "rms": 0.484
+   },
+   "day 5": {
+    "n": 444,
+    "bias": -0.042,
+    "rms": 0.604
+   },
+   "day 6": {
+    "n": 444,
+    "bias": -0.104,
+    "rms": 0.662
+   }
+  },
+  "A": {
+   "day 0": {
+    "n": 444,
+    "bias": 0.029,
+    "rms": 0.269
+   },
+   "day 1": {
+    "n": 444,
+    "bias": 0.065,
+    "rms": 0.295
+   },
+   "day 2": {
+    "n": 444,
+    "bias": 0.091,
+    "rms": 0.311
+   },
+   "day 3": {
+    "n": 444,
+    "bias": 0.104,
+    "rms": 0.344
+   },
+   "day 4": {
+    "n": 444,
+    "bias": 0.111,
+    "rms": 0.406
+   },
+   "day 5": {
+    "n": 444,
+    "bias": 0.103,
+    "rms": 0.441
+   },
+   "day 6": {
+    "n": 444,
+    "bias": 0.132,
+    "rms": 0.512
+   }
+  }
+ },
+ "decision": {
+  "rule": "providers-eval-aifs-v1 (DEFINITIONS.json)",
+  "enterCondition": false,
+  "replaceConditionMetBy": [
+   "U(E,A)"
+  ],
+  "verdict": "A meets the necessary condition to replace NOAA in the union (U(E,A) 694 LIBERADA, 1 broken against U(E,N) 677, 1 broken); the adoption is decided in DEFINITIONS.json"
+ }
+}

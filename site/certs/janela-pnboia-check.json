@@ -1,0 +1,1782 @@
+{
+ "what": "The Brazilian Navy's PNBOIA moored buoys (GOOS-Brasil public archive, 2012-2019) against the Ifremer WAVEWATCH III hindcast CAMPANHA counts on, at each buoy's nearest 0.5\u00b0 node: pairs, bias, RMS and the exact window counts on both series (apps/janela/audit/pnboia.py).",
+ "qc": {
+  "rule": "pnboia-qc-v1",
+  "hsMin": 0.1,
+  "hsMax": 12.0,
+  "posDeg": 0.1,
+  "spikeM": 2.0,
+  "spikeH": 3.0
+ },
+ "compare": "pnboia-compare-v1: the buoy sample stored within 45 min of a 3-hourly hindcast time and nearest it (the median of the nearest when tied; the archive's float32 time has a 90 min quantum); a start determined when all TR/3+1 samples of both series exist; holds when all are <= the limit",
+ "sources": {
+  "buoys": "PNBOIA / GOOS-Brasil (Marinha do Brasil, CHM), www.goosbrasil.org",
+  "hindcast": "Ifremer GLOBMULTI_ERA5_GLOBCUR_01, CC BY-SA 4.0, doi:10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b"
+ },
+ "buoys": [
+  {
+   "buoy": "Santos",
+   "position": [
+    -25.273,
+    -44.928
+   ],
+   "node": [
+    -25.5,
+    -45.0
+   ],
+   "nodeKm": 26.3,
+   "from": "2014-11-15",
+   "to": "2017-04-04",
+   "qc": {
+    "samples": 23426,
+    "range": 8333,
+    "position": 27,
+    "spike": 98,
+    "kept": 14968
+   },
+   "pairs": 4072,
+   "buoyMeanHs": 1.884,
+   "biasHindcastMinusBuoy": 0.016,
+   "rms": 0.615,
+   "scatterIndex": 0.326,
+   "pointwise": {
+    "1.5m": {
+     "both": 760,
+     "buoyOnly": 610,
+     "hindcastOnly": 375,
+     "neither": 2327
+    },
+    "2.0m": {
+     "both": 2110,
+     "buoyOnly": 518,
+     "hindcastOnly": 483,
+     "neither": 961
+    },
+    "2.5m": {
+     "both": 3137,
+     "buoyOnly": 270,
+     "hindcastOnly": 358,
+     "neither": 307
+    },
+    "3.0m": {
+     "both": 3673,
+     "buoyOnly": 106,
+     "hindcastOnly": 203,
+     "neither": 90
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 3,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 3,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 10,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 10,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Santos2",
+   "position": [
+    -25.438,
+    -45.042
+   ],
+   "node": [
+    -25.5,
+    -45.0
+   ],
+   "nodeKm": 8.1,
+   "from": "2017-06-09",
+   "to": "2017-08-13",
+   "qc": {
+    "samples": 5000,
+    "range": 256,
+    "position": 0,
+    "spike": 15,
+    "kept": 4729
+   },
+   "pairs": 203,
+   "buoyMeanHs": 2.193,
+   "biasHindcastMinusBuoy": -0.197,
+   "rms": 1.116,
+   "scatterIndex": 0.501,
+   "pointwise": {
+    "1.5m": {
+     "both": 30,
+     "buoyOnly": 32,
+     "hindcastOnly": 21,
+     "neither": 120
+    },
+    "2.0m": {
+     "both": 92,
+     "buoyOnly": 29,
+     "hindcastOnly": 37,
+     "neither": 45
+    },
+    "2.5m": {
+     "both": 138,
+     "buoyOnly": 13,
+     "hindcastOnly": 26,
+     "neither": 26
+    },
+    "3.0m": {
+     "both": 157,
+     "buoyOnly": 9,
+     "hindcastOnly": 25,
+     "neither": 12
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Santos3",
+   "position": [
+    -25.442,
+    -45.037
+   ],
+   "node": [
+    -25.5,
+    -45.0
+   ],
+   "nodeKm": 7.4,
+   "from": "2017-11-08",
+   "to": "2018-07-11",
+   "qc": {
+    "samples": 5000,
+    "range": 2385,
+    "position": 13,
+    "spike": 13,
+    "kept": 2589
+   },
+   "pairs": 867,
+   "buoyMeanHs": 1.8,
+   "biasHindcastMinusBuoy": -0.046,
+   "rms": 0.656,
+   "scatterIndex": 0.364,
+   "pointwise": {
+    "1.5m": {
+     "both": 246,
+     "buoyOnly": 110,
+     "hindcastOnly": 98,
+     "neither": 413
+    },
+    "2.0m": {
+     "both": 505,
+     "buoyOnly": 85,
+     "hindcastOnly": 110,
+     "neither": 167
+    },
+    "2.5m": {
+     "both": 716,
+     "buoyOnly": 57,
+     "hindcastOnly": 60,
+     "neither": 34
+    },
+    "3.0m": {
+     "both": 787,
+     "buoyOnly": 31,
+     "hindcastOnly": 38,
+     "neither": 11
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Santa Catarina",
+   "position": [
+    -28.519,
+    -47.39
+   ],
+   "node": [
+    -28.5,
+    -47.5
+   ],
+   "nodeKm": 11.0,
+   "from": "2014-11-03",
+   "to": "2016-10-07",
+   "qc": {
+    "samples": 26346,
+    "range": 19854,
+    "position": 5,
+    "spike": 30,
+    "kept": 6457
+   },
+   "pairs": 1954,
+   "buoyMeanHs": 2.031,
+   "biasHindcastMinusBuoy": 0.004,
+   "rms": 0.882,
+   "scatterIndex": 0.434,
+   "pointwise": {
+    "1.5m": {
+     "both": 257,
+     "buoyOnly": 253,
+     "hindcastOnly": 163,
+     "neither": 1281
+    },
+    "2.0m": {
+     "both": 842,
+     "buoyOnly": 328,
+     "hindcastOnly": 220,
+     "neither": 564
+    },
+    "2.5m": {
+     "both": 1388,
+     "buoyOnly": 178,
+     "hindcastOnly": 179,
+     "neither": 209
+    },
+    "3.0m": {
+     "both": 1697,
+     "buoyOnly": 77,
+     "hindcastOnly": 113,
+     "neither": 67
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Santa Catarina2",
+   "position": [
+    -25.442,
+    -45.038
+   ],
+   "node": [
+    -25.5,
+    -45.0
+   ],
+   "nodeKm": 7.5,
+   "from": "2018-08-01",
+   "to": "2018-09-02",
+   "qc": {
+    "samples": 56233,
+    "range": 19880,
+    "position": 10272,
+    "spike": 31,
+    "kept": 26050
+   },
+   "pairs": 142,
+   "buoyMeanHs": 2.105,
+   "biasHindcastMinusBuoy": -0.095,
+   "rms": 0.803,
+   "scatterIndex": 0.379,
+   "pointwise": {
+    "1.5m": {
+     "both": 9,
+     "buoyOnly": 15,
+     "hindcastOnly": 19,
+     "neither": 99
+    },
+    "2.0m": {
+     "both": 65,
+     "buoyOnly": 21,
+     "hindcastOnly": 25,
+     "neither": 31
+    },
+    "2.5m": {
+     "both": 107,
+     "buoyOnly": 9,
+     "hindcastOnly": 12,
+     "neither": 14
+    },
+    "3.0m": {
+     "both": 114,
+     "buoyOnly": 11,
+     "hindcastOnly": 13,
+     "neither": 4
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Rio Grande",
+   "position": [
+    -31.581,
+    -49.874
+   ],
+   "node": [
+    -31.5,
+    -50.0
+   ],
+   "nodeKm": 15.0,
+   "from": "2012-08-06",
+   "to": "2017-01-09",
+   "qc": {
+    "samples": 40459,
+    "range": 13511,
+    "position": 882,
+    "spike": 201,
+    "kept": 25865
+   },
+   "pairs": 7006,
+   "buoyMeanHs": 2.151,
+   "biasHindcastMinusBuoy": -0.029,
+   "rms": 0.738,
+   "scatterIndex": 0.343,
+   "pointwise": {
+    "1.5m": {
+     "both": 782,
+     "buoyOnly": 850,
+     "hindcastOnly": 582,
+     "neither": 4792
+    },
+    "2.0m": {
+     "both": 2328,
+     "buoyOnly": 1092,
+     "hindcastOnly": 991,
+     "neither": 2595
+    },
+    "2.5m": {
+     "both": 4212,
+     "buoyOnly": 803,
+     "hindcastOnly": 947,
+     "neither": 1044
+    },
+    "3.0m": {
+     "both": 5656,
+     "buoyOnly": 384,
+     "hindcastOnly": 650,
+     "neither": 316
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 17,
+     "buoyOnly": 13,
+     "hindcastOnly": 20,
+     "neither": 231
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 2,
+     "hindcastOnly": 0,
+     "neither": 36
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "2.0m/24h": {
+     "both": 54,
+     "buoyOnly": 35,
+     "hindcastOnly": 19,
+     "neither": 173
+    },
+    "2.0m/48h": {
+     "both": 4,
+     "buoyOnly": 0,
+     "hindcastOnly": 3,
+     "neither": 31
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "2.5m/24h": {
+     "both": 109,
+     "buoyOnly": 33,
+     "hindcastOnly": 39,
+     "neither": 100
+    },
+    "2.5m/48h": {
+     "both": 4,
+     "buoyOnly": 0,
+     "hindcastOnly": 8,
+     "neither": 26
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "3.0m/24h": {
+     "both": 161,
+     "buoyOnly": 22,
+     "hindcastOnly": 49,
+     "neither": 49
+    },
+    "3.0m/48h": {
+     "both": 4,
+     "buoyOnly": 0,
+     "hindcastOnly": 9,
+     "neither": 25
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 7
+    }
+   }
+  },
+  {
+   "buoy": "Rio Grande2",
+   "position": [
+    -31.564,
+    -49.837
+   ],
+   "node": [
+    -31.5,
+    -50.0
+   ],
+   "nodeKm": 17.0,
+   "from": "2017-01-09",
+   "to": "2017-06-07",
+   "qc": {
+    "samples": 5000,
+    "range": 1405,
+    "position": 872,
+    "spike": 17,
+    "kept": 2706
+   },
+   "pairs": 809,
+   "buoyMeanHs": 2.145,
+   "biasHindcastMinusBuoy": -0.037,
+   "rms": 0.594,
+   "scatterIndex": 0.277,
+   "pointwise": {
+    "1.5m": {
+     "both": 122,
+     "buoyOnly": 72,
+     "hindcastOnly": 50,
+     "neither": 565
+    },
+    "2.0m": {
+     "both": 309,
+     "buoyOnly": 96,
+     "hindcastOnly": 100,
+     "neither": 304
+    },
+    "2.5m": {
+     "both": 541,
+     "buoyOnly": 49,
+     "hindcastOnly": 93,
+     "neither": 126
+    },
+    "3.0m": {
+     "both": 663,
+     "buoyOnly": 36,
+     "hindcastOnly": 58,
+     "neither": 52
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Cabo Frio",
+   "position": [
+    -22.979,
+    -42.096
+   ],
+   "node": [
+    -23.0,
+    -42.0
+   ],
+   "nodeKm": 10.1,
+   "from": "2009-10-13",
+   "to": "2013-09-04",
+   "qc": {
+    "samples": 8447,
+    "range": 6102,
+    "position": 0,
+    "spike": 17,
+    "kept": 2328
+   },
+   "pairs": 1003,
+   "buoyMeanHs": 1.568,
+   "biasHindcastMinusBuoy": 0.094,
+   "rms": 1.258,
+   "scatterIndex": 0.8,
+   "pointwise": {
+    "1.5m": {
+     "both": 279,
+     "buoyOnly": 299,
+     "hindcastOnly": 111,
+     "neither": 314
+    },
+    "2.0m": {
+     "both": 622,
+     "buoyOnly": 130,
+     "hindcastOnly": 162,
+     "neither": 89
+    },
+    "2.5m": {
+     "both": 880,
+     "buoyOnly": 21,
+     "hindcastOnly": 88,
+     "neither": 14
+    },
+    "3.0m": {
+     "both": 960,
+     "buoyOnly": 4,
+     "hindcastOnly": 39,
+     "neither": 0
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 4
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 4
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 2,
+     "buoyOnly": 0,
+     "hindcastOnly": 2,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 4,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Cabo Frio2",
+   "position": [
+    -23.63,
+    -42.203
+   ],
+   "node": [
+    -23.5,
+    -42.0
+   ],
+   "nodeKm": 25.2,
+   "from": "2016-07-19",
+   "to": "2017-10-01",
+   "qc": {
+    "samples": 9203,
+    "range": 2718,
+    "position": 0,
+    "spike": 15,
+    "kept": 6470
+   },
+   "pairs": 1921,
+   "buoyMeanHs": 1.95,
+   "biasHindcastMinusBuoy": -0.002,
+   "rms": 0.57,
+   "scatterIndex": 0.293,
+   "pointwise": {
+    "1.5m": {
+     "both": 210,
+     "buoyOnly": 262,
+     "hindcastOnly": 183,
+     "neither": 1266
+    },
+    "2.0m": {
+     "both": 909,
+     "buoyOnly": 268,
+     "hindcastOnly": 257,
+     "neither": 487
+    },
+    "2.5m": {
+     "both": 1461,
+     "buoyOnly": 134,
+     "hindcastOnly": 175,
+     "neither": 151
+    },
+    "3.0m": {
+     "both": 1735,
+     "buoyOnly": 61,
+     "hindcastOnly": 83,
+     "neither": 42
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Cabo Frio3",
+   "position": [
+    -23.628,
+    -42.205
+   ],
+   "node": [
+    -23.5,
+    -42.0
+   ],
+   "nodeKm": 25.3,
+   "from": "2017-12-09",
+   "to": "2018-01-21",
+   "qc": {
+    "samples": 5000,
+    "range": 507,
+    "position": 24,
+    "spike": 8,
+    "kept": 4461
+   },
+   "pairs": 203,
+   "buoyMeanHs": 1.566,
+   "biasHindcastMinusBuoy": -0.063,
+   "rms": 0.377,
+   "scatterIndex": 0.237,
+   "pointwise": {
+    "1.5m": {
+     "both": 73,
+     "buoyOnly": 26,
+     "hindcastOnly": 42,
+     "neither": 62
+    },
+    "2.0m": {
+     "both": 161,
+     "buoyOnly": 15,
+     "hindcastOnly": 18,
+     "neither": 9
+    },
+    "2.5m": {
+     "both": 202,
+     "buoyOnly": 0,
+     "hindcastOnly": 1,
+     "neither": 0
+    },
+    "3.0m": {
+     "both": 203,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Vit\u00f3ria",
+   "position": [
+    -19.935,
+    -39.704
+   ],
+   "node": [
+    -20.0,
+    -39.5
+   ],
+   "nodeKm": 22.5,
+   "from": "2015-11-13",
+   "to": "2017-07-22",
+   "qc": {
+    "samples": 12068,
+    "range": 3868,
+    "position": 43,
+    "spike": 40,
+    "kept": 8117
+   },
+   "pairs": 2356,
+   "buoyMeanHs": 1.508,
+   "biasHindcastMinusBuoy": 0.192,
+   "rms": 0.451,
+   "scatterIndex": 0.271,
+   "pointwise": {
+    "1.5m": {
+     "both": 762,
+     "buoyOnly": 580,
+     "hindcastOnly": 121,
+     "neither": 893
+    },
+    "2.0m": {
+     "both": 1730,
+     "buoyOnly": 309,
+     "hindcastOnly": 122,
+     "neither": 195
+    },
+    "2.5m": {
+     "both": 2157,
+     "buoyOnly": 121,
+     "hindcastOnly": 52,
+     "neither": 26
+    },
+    "3.0m": {
+     "both": 2322,
+     "buoyOnly": 18,
+     "hindcastOnly": 13,
+     "neither": 3
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Porto Seguro",
+   "position": [
+    -15.999,
+    -37.939
+   ],
+   "node": [
+    -16.0,
+    -38.0
+   ],
+   "nodeKm": 6.5,
+   "from": "2012-07-16",
+   "to": "2017-01-26",
+   "qc": {
+    "samples": 10775,
+    "range": 8431,
+    "position": 16,
+    "spike": 53,
+    "kept": 2275
+   },
+   "pairs": 902,
+   "buoyMeanHs": 2.221,
+   "biasHindcastMinusBuoy": -0.648,
+   "rms": 2.178,
+   "scatterIndex": 0.936,
+   "pointwise": {
+    "1.5m": {
+     "both": 305,
+     "buoyOnly": 105,
+     "hindcastOnly": 170,
+     "neither": 322
+    },
+    "2.0m": {
+     "both": 644,
+     "buoyOnly": 46,
+     "hindcastOnly": 136,
+     "neither": 76
+    },
+    "2.5m": {
+     "both": 748,
+     "buoyOnly": 18,
+     "hindcastOnly": 122,
+     "neither": 14
+    },
+    "3.0m": {
+     "both": 795,
+     "buoyOnly": 3,
+     "hindcastOnly": 103,
+     "neither": 1
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Recife",
+   "position": [
+    -8.154,
+    -34.563
+   ],
+   "node": [
+    -8.0,
+    -34.5
+   ],
+   "nodeKm": 18.5,
+   "from": "2015-01-25",
+   "to": "2016-04-05",
+   "qc": {
+    "samples": 8659,
+    "range": 2544,
+    "position": 31,
+    "spike": 43,
+    "kept": 6041
+   },
+   "pairs": 2139,
+   "buoyMeanHs": 1.578,
+   "biasHindcastMinusBuoy": 0.214,
+   "rms": 0.486,
+   "scatterIndex": 0.276,
+   "pointwise": {
+    "1.5m": {
+     "both": 272,
+     "buoyOnly": 832,
+     "hindcastOnly": 41,
+     "neither": 994
+    },
+    "2.0m": {
+     "both": 1658,
+     "buoyOnly": 226,
+     "hindcastOnly": 49,
+     "neither": 206
+    },
+    "2.5m": {
+     "both": 2021,
+     "buoyOnly": 61,
+     "hindcastOnly": 26,
+     "neither": 31
+    },
+    "3.0m": {
+     "both": 2102,
+     "buoyOnly": 9,
+     "hindcastOnly": 18,
+     "neither": 10
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 5,
+     "hindcastOnly": 0,
+     "neither": 7
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 5,
+     "buoyOnly": 0,
+     "hindcastOnly": 4,
+     "neither": 3
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 9,
+     "buoyOnly": 3,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 12,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  },
+  {
+   "buoy": "Fortaleza",
+   "position": [
+    -3.213,
+    -38.433
+   ],
+   "node": [
+    -3.0,
+    -38.5
+   ],
+   "nodeKm": 24.8,
+   "from": "2016-11-17",
+   "to": "2017-12-02",
+   "qc": {
+    "samples": 7087,
+    "range": 1976,
+    "position": 2,
+    "spike": 20,
+    "kept": 5089
+   },
+   "pairs": 1638,
+   "buoyMeanHs": 1.677,
+   "biasHindcastMinusBuoy": -0.041,
+   "rms": 0.342,
+   "scatterIndex": 0.203,
+   "pointwise": {
+    "1.5m": {
+     "both": 364,
+     "buoyOnly": 209,
+     "hindcastOnly": 173,
+     "neither": 892
+    },
+    "2.0m": {
+     "both": 1296,
+     "buoyOnly": 71,
+     "hindcastOnly": 170,
+     "neither": 101
+    },
+    "2.5m": {
+     "both": 1588,
+     "buoyOnly": 3,
+     "hindcastOnly": 45,
+     "neither": 2
+    },
+    "3.0m": {
+     "both": 1630,
+     "buoyOnly": 0,
+     "hindcastOnly": 8,
+     "neither": 0
+    }
+   },
+   "windows": {
+    "1.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "1.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "2.5m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/24h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/48h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    },
+    "3.0m/72h": {
+     "both": 0,
+     "buoyOnly": 0,
+     "hindcastOnly": 0,
+     "neither": 0
+    }
+   }
+  }
+ ]
+}

@@ -183,6 +183,9 @@ test:
 	@printf "%-30s " "janela currents observed"; python3 apps/janela/audit/currents_observe.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela providers (held-out)"; python3 apps/janela/audit/providers.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela providers (Sergipe)"; python3 apps/janela/audit/providers.py --check --region sergipe >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela providers (AIFS)"; python3 apps/janela/audit/providers_aifs.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela post-processing"; python3 apps/janela/audit/postproc.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela pnboia (buoys)"; python3 apps/janela/audit/pnboia.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
