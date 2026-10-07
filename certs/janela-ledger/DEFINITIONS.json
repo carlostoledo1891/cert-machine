@@ -149,5 +149,12 @@
   "sites": "the eight open-sea sites of 2026-10-06",
   "hypothesis": "exchangeability within a site and lead bin over late autumn to early spring only — the first thing the ledger grades",
   "decides": "not yet: graded beside the deciding union (providers-eval-aifs-v1 result); kept out of bandset.js, so it cannot decide by accident"
+ },
+ "postproc-eval-v1 (apps/janela/audit/postproc.py)": {
+  "decided": "2026-10-07, before any corrected band was judged (the operator: \"proceed all what can do now free\")",
+  "question": "can a correction LEARNED FROM THE SATELLITES (no buoy) narrow the deciding band at the same reliability — the site-specific post-processing of Filoche et al. (JGR ML&C 2026, learned from buoys), transposed to the data-sparse Brazilian margin",
+  "measurement": "providers.py's joined IFS+NOAA pairs (eight main sites) and its split: fitted on the passes before 2025-07-01, judged on the 15 months after. Two corrections, per site and 12 h lead bin, least squares on the calibration pairs: S-lin  obs ~ a + b*fe + c*fn;  S-log  log obs ~ a + b*log fe + c*log fn (back-transformed, no bias term added). Each gets providers.py's conformal ratio band on obs/prediction (the same rule, miss 1/10). Compared with E and U(E,N) on the same held-out pairs: coverage (overall and by season), width, LIBERADA and broken at Hs <= 1.5, 2.0, 2.5 m",
+  "decision rule (fixed now)": "a correction enters the ledger as a graded proposer only if, at miss 1/10, its broken-LIBERADA share at Hs <= 2.0 m is at or under U(E,N)'s, it clears at least 5% more LIBERADA, and it covers at least 0.90 overall and in every season; it decides only after its own forward record reaches its first admission look. Otherwise it is recorded as measured and not used.",
+  "caveat": "a floating-point evaluation; a fitted correction is a model, the conformal band around it is the claim"
  }
 }
