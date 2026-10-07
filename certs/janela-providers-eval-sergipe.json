@@ -514,5 +514,93 @@
    "option": "U(E,N)",
    "miss": "1/40"
   }
- ]
+ ],
+ "conditional": {
+  "miss": "1/10",
+  "by": "the providers' mean forecast Hs (regime) and the target's season; above = the sea over the upper edge",
+  "options": {
+   "E": {
+    "regime": {
+     "1-2 m": {
+      "n": 1035,
+      "coverage": 0.8841,
+      "above": 0.028
+     },
+     "2-3 m": {
+      "n": 7,
+      "coverage": 1.0,
+      "above": 0.0
+     },
+     "<1 m": {
+      "n": 561,
+      "coverage": 0.8467,
+      "above": 0.0499
+     }
+    },
+    "season": {
+     "DJF": {
+      "n": 329,
+      "coverage": 0.8389,
+      "above": 0.0426
+     },
+     "JJA": {
+      "n": 539,
+      "coverage": 0.833,
+      "above": 0.0315
+     },
+     "MAM": {
+      "n": 315,
+      "coverage": 0.8921,
+      "above": 0.0635
+     },
+     "SON": {
+      "n": 420,
+      "coverage": 0.931,
+      "above": 0.0143
+     }
+    }
+   },
+   "U(E,N)": {
+    "regime": {
+     "1-2 m": {
+      "n": 1035,
+      "coverage": 0.9604,
+      "above": 0.0126
+     },
+     "2-3 m": {
+      "n": 7,
+      "coverage": 1.0,
+      "above": 0.0
+     },
+     "<1 m": {
+      "n": 561,
+      "coverage": 0.9234,
+      "above": 0.0267
+     }
+    },
+    "season": {
+     "DJF": {
+      "n": 329,
+      "coverage": 0.9271,
+      "above": 0.0122
+     },
+     "JJA": {
+      "n": 539,
+      "coverage": 0.9481,
+      "above": 0.0167
+     },
+     "MAM": {
+      "n": 315,
+      "coverage": 0.927,
+      "above": 0.0349
+     },
+     "SON": {
+      "n": 420,
+      "coverage": 0.9786,
+      "above": 0.0095
+     }
+    }
+   }
+  }
+ }
 }

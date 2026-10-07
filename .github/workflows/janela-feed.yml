@@ -110,6 +110,13 @@ jobs:
         continue-on-error: true
         timeout-minutes: 25
         run: cd apps/janela/audit && python observe.py
+      - name: "what the satellites say the surface current was (GlobCurrent, days ended three days ago; the current forecasts' truth)"
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
+          COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
+        run: cd apps/janela/audit && python currents_observe.py
       - name: score the ledger against those observations
         continue-on-error: true
         run: |
@@ -117,7 +124,7 @@ jobs:
           node apps/janela/audit/decisions.js score
       - name: push the observations and the scores
         run: |
-          bash apps/janela/audit/push.sh "Janela observed $(date -u +%F): satellite passes at the Janela sites (with their points) and the ledger scored" corpus/janela/observed certs/janela-ledger
+          bash apps/janela/audit/push.sh "Janela observed $(date -u +%F): satellite passes at the Janela sites (with their points), GlobCurrent's currents, and the ledger scored" corpus/janela/observed corpus/janela/currents-observed certs/janela-ledger
       - name: is the app's day for this run already published?
         id: day
         run: |

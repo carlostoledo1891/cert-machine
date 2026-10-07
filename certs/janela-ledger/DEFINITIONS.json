@@ -108,5 +108,14 @@
   "alpha": "1/10",
   "measured": "certs/janela-providers-eval-sergipe.json, 1,603 held-out pairs (from 2025-07-01, never seen): ECMWF's regional band alone covered 0.872, NOAA's 0.867 — UNDER their 9/10 claim out of sample — and the union 0.948; at Hs <= 1.5 m (decommissioning lifts) the union's LIBERADA broke 0 of 208 times, ECMWF's alone 3 of 280",
   "domain": "janela/hs-altimeter/union-sergipe-v1"
+ },
+ "current-truth-v1 (apps/janela/audit/currents_observe.py)": {
+  "decided": "2026-10-07, before any current forecast was graded",
+  "why": "the drifting buoys were scouted first: 3 drifters in the whole Brazilian margin in 30 days of the GTS record (OSMC), none within 150 km of any site — no record in months. GlobCurrent is observation-based (satellite altimetry geostrophy + Ekman, calibrated on drifters) and independent of the forecast model (GLO12)",
+  "truth": "Copernicus GlobCurrent NRT (MULTIOBS_GLO_PHY_MYNRT_015_003, doi:10.48670/mds-00327, dataset cmems_obs-mob_glo_phy-cur_nrt_0.25deg_PT1H-i): the total current uo, vo (geostrophic + Ekman) at the surface level, at the site's nearest 1/4° sea node, at 00/06/12/18 UTC; its tidal part kept apart",
+  "forecast": "the model's ocean circulation alone (currents.py uo, vo: no tide, no Stokes drift) at the same step — like with like",
+  "when": "a day is observed once it is at least three days old and all four steps are on the dataset's axis; days in order, each written once",
+  "version": "each day names the dataset version read; 202411 retires 2026-11-24 — a successor is a new truth version, dated before it is used",
+  "stated": "GlobCurrent is itself an estimate (its own error fields exist): agreement with it is evidence, not proof; the band built from these pairs claims coverage of GlobCurrent, said so wherever it is shown"
  }
 }

@@ -155,6 +155,29 @@ def measure():
         G['U(E,N)'] = lambda x, G=G: (lambda a, b: None if not a or not b else (min(a[0], b[0]), max(a[1], b[1])))(G['E'](x), G['N'](x))
         for k, g in G.items():
             results.append(dict(judge(test, g), option=k, miss=f'{miss[0]}/{miss[1]}'))
+    # CONDITIONAL reliability at 1/10: does the band hold where decisions are made (the wave regime) and in every season?
+    # 'above' is the dangerous side for a LIBERADA: the sea above the band's upper edge
+    def regime(x):
+        f = (x['fe'] + x['fn']) / 2
+        return '<1 m' if f < 1 else '1-2 m' if f < 2 else '2-3 m' if f < 3 else '>=3 m'
+
+    def season(x):
+        return {12: 'DJF', 1: 'DJF', 2: 'DJF', 3: 'MAM', 4: 'MAM', 5: 'MAM', 6: 'JJA', 7: 'JJA', 8: 'JJA'}.get(int(x['t'][5:7]), 'SON')
+    G10 = {k: getter(build(cal, fc, (1, 10)), fc) for k, fc in FCS.items()}
+    G10['U(E,N)'] = lambda x: (lambda a, b: None if not a or not b else (min(a[0], b[0]), max(a[1], b[1])))(G10['E'](x), G10['N'](x))
+    conditional = {}
+    for k in ('E', 'U(E,N)'):
+        for name, keyf in (('regime', regime), ('season', season)):
+            acc = defaultdict(lambda: [0, 0, 0])
+            for x in test:
+                b = G10[k](x)
+                if not b:
+                    continue
+                a = acc[keyf(x)]
+                a[0] += 1
+                a[1] += b[0] <= x['obs'] <= b[1]
+                a[2] += x['obs'] > b[1]
+            conditional.setdefault(k, {})[name] = {g: {'n': n, 'coverage': round(c / n, 4), 'above': round(ab / n, 4)} for g, (n, c, ab) in sorted(acc.items())}
     return {
         'what': 'Which band should decide when Janela has two forecast providers: each option judged on 15 held-out months of satellite passes it never saw (apps/janela/audit/providers.py; a floating-point evaluation — the deciding bands are exact).',
         **({'region': REGION} if REGION else {}),
@@ -165,6 +188,7 @@ def measure():
         'options': {'E': "ECMWF's deterministic Hs x its conformal ratio band (calibrated-v1)", 'N': "NOAA GFS-Wave's (calibrated-noaa-v1)",
                     'M50': "the two providers' mean x its own conformal ratio band", 'U(E,N)': 'the union of E and N (providers-v1)'},
         'results': results,
+        'conditional': {'miss': '1/10', 'by': 'the providers\' mean forecast Hs (regime) and the target\'s season; above = the sea over the upper edge', 'options': conditional},
     }
 
 

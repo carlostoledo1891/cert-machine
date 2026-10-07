@@ -11,8 +11,10 @@ drills at the Equatorial Margin under the North Brazil Current; Janela forecast 
 current. Source: the Copernicus Marine global analysis and forecast at 1/12 degree (Mercator Ocean,
 GLOBAL_ANALYSISFORECAST_PHY_001_024, doi:10.48670/moi-00016), dataset
 cmems_mod_glo_phy_anfc_merged-uv_PT1H-i: the hourly merged SURFACE current — the ocean model (GLO12)
-plus the waves' Stokes drift (MFWAM) plus the tide (FES2014) — kept as the total (utotal, vtotal) and
-its tidal part (utide, vtide), m/s, the direction the water goes TO. Read with the Copernicus Marine
+plus the waves' Stokes drift (MFWAM) plus the tide (FES2014) — kept as the total (utotal, vtotal), its
+tidal part (utide, vtide), the ocean circulation alone (uo, vo) and the Stokes drift (vsdx, vsdy), m/s,
+the direction the water goes TO (all four from 2026-10-08; the 10-07 record kept the first two). The
+circulation is what currents_observe.py grades against the satellite-based GlobCurrent. Read with the Copernicus Marine
 toolbox and the account's login (a local credentials file; in the Action the repository secrets
 COPERNICUSMARINE_SERVICE_USERNAME / _PASSWORD).
 
@@ -48,7 +50,8 @@ DATASET = 'cmems_mod_glo_phy_anfc_merged-uv_PT1H-i'
 PRODUCT = 'GLOBAL_ANALYSISFORECAST_PHY_001_024'
 DOI = 'https://doi.org/10.48670/moi-00016'
 CREDIT = 'Generated using E.U. Copernicus Marine Service Information; ' + DOI
-VARS = ('utotal', 'vtotal', 'utide', 'vtide')
+VARS = ('utotal', 'vtotal', 'utide', 'vtide', 'uo', 'vo', 'vsdx', 'vsdy')
+KEYS = ('u', 'v', 'ut', 'vt', 'uo', 'vo', 'us', 'vs')   # total, tide, ocean circulation (Eulerian), Stokes drift
 STEPS = list(range(0, 169, 6))                 # the ECMWF feed's steps (feed.STEPS)
 BOX = 3                                        # nodes either side when looking for the nearest sea node
 BBOX = (-56.0, -27.0, -36.0, 7.0)              # lon0, lon1, lat0, lat1: the Brazilian margin (field.py's)
@@ -141,7 +144,7 @@ def read(d):
         steps = []
         for k, t in enumerate(want):
             row = {'t': t.strftime('%Y-%m-%dT%H'), 'lead': STEPS[k]}
-            for v, key in zip(VARS, ('u', 'v', 'ut', 'vt')):
+            for v, key in zip(VARS, KEYS):
                 x = vals[v][k, n]
                 if np.isfinite(x):
                     row[key] = fr(x)
@@ -160,7 +163,7 @@ def main():
     made = datetime.now(timezone.utc).isoformat(timespec='seconds')
     sites = {k: v for k, v in places.items() if v['kind'] == 'site'}
     units = {k: v for k, v in places.items() if v['kind'] == 'unit'}
-    base = {'what': 'The surface current (total = ocean model + Stokes drift + tide, and its tidal part) at the Janela places, read by '
+    base = {'what': 'The surface current (total = ocean circulation + Stokes drift + tide, and each part) at the Janela places, read by '
                     'apps/janela/audit/currents.py; exact fractions of the stored float32 values, m/s, the direction the water goes TO. '
                     'Shown on the app, never decided on.',
             'licence': CREDIT + ' — free for any purpose, redistribution and derived products allowed with this credit; no warranty '
