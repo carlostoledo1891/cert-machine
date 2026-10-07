@@ -1,6 +1,7 @@
-# Janela's back-archive, fetched in the cloud on demand: ECMWF open-data runs for a date
-# range, read at every site exactly as apps/janela/audit/archive.py does on the desk, uploaded
-# as an artifact (nothing is committed here; `archive.py pack` on the desk writes the record).
+# Janela's back-archive, fetched in the cloud on demand: ECMWF open-data runs (what=ecmwf) or
+# NOAA altimeter mission-days (what=alt) for a date range, read at every site — or only the
+# sites named in `sites` (a new region) — exactly as apps/janela/audit/archive.py does on the
+# desk, uploaded as an artifact (nothing is committed here; the desk packs the record).
 name: janela-archive
 on:
   workflow_dispatch:
@@ -8,6 +9,8 @@ on:
       from: { description: 'first day (YYYY-MM-DD)', required: true }
       to: { description: 'last day (YYYY-MM-DD)', required: true }
       chunks: { description: 'parallel jobs (1-8)', required: false, default: '6' }
+      what: { description: 'ecmwf or alt', required: false, default: 'ecmwf' }
+      sites: { description: 'site ids, comma-separated (empty = every site)', required: false, default: '' }
 permissions:
   contents: read
 jobs:
@@ -43,12 +46,17 @@ jobs:
           python-version: '3.12'
       - run: pip install -r apps/janela/requirements.txt
       - name: 'fetch, twice — the second pass picks up any day that errored'
+        env:
+          JANELA_SITES: ${{ inputs.sites }}
+          JANELA_IPV4: '1'
+          WHAT: ${{ inputs.what }}
         run: |
+          case "$WHAT" in ecmwf) w1=16; w2=8;; alt) w1=6; w2=3;; *) echo "what must be ecmwf or alt"; exit 1;; esac
           cd apps/janela/audit
-          python archive.py ecmwf ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=16 || true
-          python archive.py ecmwf ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=8
+          python archive.py "$WHAT" ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=$w1 || true
+          python archive.py "$WHAT" ${{ matrix.range.from }} ${{ matrix.range.to }} --workers=$w2
       - uses: actions/upload-artifact@v4
         with:
-          name: janela-ecmwf-${{ matrix.range.from }}
-          path: corpus/janela/cache/ecmwf
+          name: janela-${{ inputs.what }}-${{ matrix.range.from }}
+          path: corpus/janela/cache/${{ inputs.what }}
           retention-days: 7

@@ -44,6 +44,12 @@ import ecmwf as E
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 SITES = json.load(open(os.path.join(HERE, '..', 'scenario', 'sites.json')))['sites']
+# JANELA_SITES=a,b reads only those sites (a new region's back-archive, fetched without touching the others' records)
+if os.environ.get('JANELA_SITES'):
+    _want = set(os.environ['JANELA_SITES'].split(','))
+    SITES = [s for s in SITES if s['id'] in _want]
+    if not SITES:
+        raise SystemExit('REFUSED: JANELA_SITES names no site in sites.json')
 CACHE = os.path.join(ROOT, 'corpus', 'janela', 'cache')
 OUT = os.path.join(ROOT, 'corpus', 'janela')
 
