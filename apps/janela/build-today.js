@@ -94,7 +94,7 @@ if (fs.existsSync(FIELD)) {
 
 /* the data */
 const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, scored: N.ledger.scored, first: N.ledger.first, files: N.ledger.files, rule: N.ledger.rule, firstLook: N.ledger.firstLook,
-  decisions: N.ledger.decisions };
+  decisions: N.ledger.decisions, h2h: N.ledger.h2h };
 const D = require('./app/data.js');
 let made;
 try { made = D.make({ feed, noaa, noaaUnits, currents, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }

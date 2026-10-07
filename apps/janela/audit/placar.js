@@ -144,6 +144,44 @@ function breakdown(rows) {
   return out;
 }
 
+/* HEAD TO HEAD (the independent referee, 2026-10-07): two proposers judged on the SAME targets — the same site, the
+   same run and lead, hence the same target time and the same satellite pass. Descriptive, never an admission: counts
+   of who covered, the mean width, and — only when both claim the same coverage, so the Winkler score is one scale —
+   the mean Winkler score (lower is better). Exact rationals summed, the means printed rounded. */
+const PAIRS = [
+  ['janela/hs-altimeter/ens-c40of50', 'janela/hs-altimeter/noaa-gefs-c25of31', 'os ensembles brutos: ECMWF × NOAA'],
+  ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/calibrated-noaa-v1', 'as faixas medidas: ECMWF × NOAA'],
+  ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/union-v1', 'a faixa do ECMWF × a união que decide']
+];
+function headToHead(rows) {
+  const commit = {}, score = {};
+  for (const r of rows) { if (r.type === 'commit') commit[r.id] = r; else if (r.type === 'score') score[r.id] = r; }
+  /* the shared key: site, run, lead (the id without its proposer suffix) */
+  const keyOf = (c) => { const p = c.id.split(':'); return p[1] + '|' + p.slice(2, 4).join(':'); };
+  const by = {};
+  for (const [id, s] of Object.entries(score)) {
+    const c = commit[id]; if (!c) continue;
+    (by[c.domain] = by[c.domain] || {})[keyOf(c)] = { c, s };
+  }
+  const R = (x) => { const [n, d = '1'] = String(x).split('/'); return [BigInt(n), BigInt(d)]; };
+  const add = (a, b) => [a[0] * b[1] + b[0] * a[1], a[1] * b[1]];
+  const mean = (sum, n) => (n ? Number(sum[0] * 10000n / (sum[1] * BigInt(n))) / 10000 : null);
+  return PAIRS.map(([a, b, name]) => {
+    const A = by[a] || {}, B = by[b] || {};
+    const keys = Object.keys(A).filter((k) => B[k]);
+    let both = 0, onlyA = 0, onlyB = 0, neither = 0, wA = [0n, 1n], wB = [0n, 1n], sA = [0n, 1n], sB = [0n, 1n];
+    for (const k of keys) {
+      const ca = A[k].s.covered, cb = B[k].s.covered;
+      if (ca && cb) both++; else if (ca) onlyA++; else if (cb) onlyB++; else neither++;
+      wA = add(wA, R(A[k].s.width)); wB = add(wB, R(B[k].s.width)); sA = add(sA, R(A[k].s.winkler)); sB = add(sB, R(B[k].s.winkler));
+    }
+    const alpha = (d) => { const x = Object.values(d)[0]; return x ? x.c.forecast.alpha.join('/') : null; };
+    const same = alpha(A) && alpha(A) === alpha(B);
+    return { a, b, name, n: keys.length, both, onlyA, onlyB, neither, widthA: mean(wA, keys.length), widthB: mean(wB, keys.length),
+      winklerA: same ? mean(sA, keys.length) : null, winklerB: same ? mean(sB, keys.length) : null, sameClaim: !!same };
+  });
+}
+
 /* the whole record per proposer: descriptive counts + the admission over trials.
    The claim is the one every commit of the proposer carries (coverage = 1 − alpha);
    a proposer whose rows disagree on it is refused, never averaged. */
@@ -173,4 +211,4 @@ function record(rows) {
   return per;
 }
 
-module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, LEADS, looks, lot, trials, admission, breakdown, record };
+module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, LEADS, PAIRS, looks, lot, trials, admission, breakdown, record, headToHead };

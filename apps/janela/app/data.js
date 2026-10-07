@@ -66,6 +66,11 @@ function pubStep(row, src) {
     const u = f(src.cur.u), v = f(src.cur.v);
     const ut = src.cur.ut !== undefined && src.cur.vt !== undefined ? Math.hypot(f(src.cur.ut), f(src.cur.vt)) * KN : null;
     st.cu = [Math.round(Math.hypot(u, v) * KN * 10) / 10, Math.round((Math.atan2(u, v) * 180 / Math.PI + 360) % 360) % 360, ut === null ? null : Math.round(ut * 10) / 10];
+    /* at hull depth (~15.8 m), where the record has it: [speed kn, direction TO] */
+    if (src.cur.uh !== undefined && src.cur.vh !== undefined) {
+      const uh = f(src.cur.uh), vh = f(src.cur.vh);
+      st.cu.push(Math.round(Math.hypot(uh, vh) * KN * 10) / 10, Math.round((Math.atan2(uh, vh) * 180 / Math.PI + 360) % 360) % 360);
+    }
   }
   /* NOAA's sea by parts (forecast ink, never decided on): the wind sea 'v' and the swells 1-3, each [part, Hs m,
      period s, direction FROM in degrees], rounded for reading */

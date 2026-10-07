@@ -290,6 +290,21 @@ ok('placar: the real ledger reads through placar.js, and every proposer stays pe
   for (const p of Object.values(PL.record(rows))) assert.strictEqual(p.admission.pending, p.admission.trials < 30, p.domain);
 });
 
+ok('head to head: two proposers judged only on the targets both committed — who covered, the widths, Winkler only at one claim', () => {
+  const C = (id, domain, alpha) => ({ type: 'commit', id, domain, targetTime: '2026-10-08T12:00:00Z', forecast: { alpha } });
+  const Sc = (id, covered, width, winkler) => ({ type: 'score', id, covered, width, winkler });
+  const rows = [
+    C('janela:santos:2026-10-07T00:+36h:cal', 'janela/hs-altimeter/calibrated-v1', [1, 10]), Sc('janela:santos:2026-10-07T00:+36h:cal', true, '1/2', '1/2'),
+    C('janela:santos:2026-10-07T00:+36h:calibrated-noaa-v1', 'janela/hs-altimeter/calibrated-noaa-v1', [1, 10]), Sc('janela:santos:2026-10-07T00:+36h:calibrated-noaa-v1', false, '3/5', '13/5'),
+    C('janela:campos:2026-10-07T00:+36h:cal', 'janela/hs-altimeter/calibrated-v1', [1, 10]), Sc('janela:campos:2026-10-07T00:+36h:cal', true, '1', '1')
+  ];
+  const h = PL.headToHead(rows).find((x) => x.b === 'janela/hs-altimeter/calibrated-noaa-v1');
+  assert.deepStrictEqual([h.n, h.onlyA, h.onlyB, h.both, h.widthA, h.widthB, h.winklerA, h.winklerB], [1, 1, 0, 0, 0.5, 0.6, 0.5, 2.6]);
+  const r = PL.headToHead(rows.concat([C('janela:santos:2026-10-07T00:+36h', 'janela/hs-altimeter/ens-c40of50', [1, 5]), Sc('janela:santos:2026-10-07T00:+36h', true, '1/2', '1/2'),
+    C('janela:santos:2026-10-07T00:+36h:noaa-gefs-c25of31', 'janela/hs-altimeter/noaa-gefs-c25of31', [1, 4]), Sc('janela:santos:2026-10-07T00:+36h:noaa-gefs-c25of31', true, '1/2', '1/2')]));
+  assert.strictEqual(r[0].sameClaim, false); assert.strictEqual(r[0].winklerA, null);
+});
+
 /* ---- the regions (scenario/regions.json + audit/bandset.js): added beside the records of 2026-10-06, never folded in ---- */
 const BS = require('./audit/bandset.js');
 ok('regions: every measured region carries exactly its own sites, and the merge keeps the 2026-10-06 record whole', () => {

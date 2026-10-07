@@ -213,6 +213,7 @@ function load(over) {
     N.heldOut = { from: R.pairs.split, pairs: R.pairs.test, coverage: U.coverage,
       broke: U.limits['2.0'].brokeLiberada, liberada: U.limits['2.0'].liberada, eBroke: E.limits['2.0'].brokeLiberada, eLiberada: E.limits['2.0'].liberada };
   }
+  N.ledger.h2h = PLACAR.headToHead(rows);
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);
   N.ledger.scored = N.ledger.proposers.reduce((a, p) => a + p.scored, 0);
   N.ledger.first = N.ledger.proposers.map((p) => p.first).sort()[0] || null;

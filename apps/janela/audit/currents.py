@@ -50,6 +50,8 @@ DATASET = 'cmems_mod_glo_phy_anfc_merged-uv_PT1H-i'
 PRODUCT = 'GLOBAL_ANALYSISFORECAST_PHY_001_024'
 DOI = 'https://doi.org/10.48670/moi-00016'
 CREDIT = 'Generated using E.U. Copernicus Marine Service Information; ' + DOI
+DEEP = 'cmems_mod_glo_phy-cur_anfc_0.083deg_PT6H-i'   # the 6-hourly 3-D currents: the level near hull depth
+DEPTH_M = 15.0
 VARS = ('utotal', 'vtotal', 'utide', 'vtide', 'uo', 'vo', 'vsdx', 'vsdy')
 KEYS = ('u', 'v', 'ut', 'vt', 'uo', 'vo', 'us', 'vs')   # total, tide, ocean circulation (Eulerian), Stokes drift
 STEPS = list(range(0, 169, 6))                 # the ECMWF feed's steps (feed.STEPS)
@@ -100,6 +102,7 @@ def read(d):
     """the run's steps at every site and unit: {place: {node, steps: [{t, lead, u, v, ut, vt}]}}, and the source"""
     import copernicusmarine as CM
     import numpy as np
+    import xarray as xr
     sites = json.load(open(os.path.join(HERE, '..', 'scenario', 'sites.json')))['sites']
     units = json.load(open(os.path.join(HERE, '..', 'scenario', 'platforms.json')))['units']
     places = [(s['id'], s['lat'], s['lon'], 'site') for s in sites] + [(u['id'], u['lat'], u['lon'], 'unit') for u in units]
@@ -135,9 +138,25 @@ def read(d):
     ids = list(node)
     jj = np.array([node[p][0] for p in ids])
     ii = np.array([node[p][1] for p in ids])
-    import xarray as xr
     J, I = xr.DataArray(jj, dims='p'), xr.DataArray(ii, dims='p')
     vals = {v: ds[v].isel(time=ti, depth=0, latitude=J, longitude=I).values for v in VARS}   # (time, place)
+    # THE CURRENT AT HULL DEPTH (from 2026-10-07): the 6-hourly 3-D field (cmems_mod_glo_phy-cur_anfc_0.083deg_PT6H-i,
+    # instantaneous, the run's own 6-hourly times) at the model level nearest 15 m — about mid-draft of a loaded FPSO
+    # or shuttle tanker, the water the offloading heading answers to; a node shallower than the level has none
+    deep = CM.open_dataset(dataset_id=DEEP, variables=['uo', 'vo'], minimum_longitude=lon0, maximum_longitude=lon1,
+                           minimum_latitude=lat0, maximum_latitude=lat1, minimum_depth=DEPTH_M - 3, maximum_depth=DEPTH_M + 3,
+                           start_datetime=want[0].strftime('%Y-%m-%dT%H:%M:%S'), end_datetime=want[-1].strftime('%Y-%m-%dT%H:%M:%S'),
+                           service='arco-time-series')
+    daxis = [datetime.fromtimestamp(int(t) / 1e9, tz=timezone.utc) for t in deep['time'].values.astype('datetime64[ns]').astype('int64')]
+    check_axis(daxis, want)
+    dti = [daxis.index(t) for t in want]
+    levels = [float(x) for x in deep['depth'].values]
+    lev = min(range(len(levels)), key=lambda k: abs(levels[k] - DEPTH_M))
+    dlats = [float(x) for x in deep['latitude'].values]
+    dlons = [float(x) for x in deep['longitude'].values]
+    DJ = xr.DataArray(np.array([nearest(dlats, lats[node[p][0]]) for p in ids]), dims='p')
+    DI = xr.DataArray(np.array([nearest(dlons, lons[node[p][1]]) for p in ids]), dims='p')
+    dvals = {v: deep[v].isel(time=dti, depth=lev, latitude=DJ, longitude=DI).values for v in ('uo', 'vo')}
     out = {}
     for n, pid in enumerate(ids):
         j, i, kind = node[pid]
@@ -148,9 +167,14 @@ def read(d):
                 x = vals[v][k, n]
                 if np.isfinite(x):
                     row[key] = fr(x)
+            for v, key in (('uo', 'uh'), ('vo', 'vh')):
+                x = dvals[v][k, n]
+                if np.isfinite(x):
+                    row[key] = fr(x)
             steps.append(row)
         out[pid] = {'kind': kind, 'node': [round(lats[j], 6), round(lons[i], 6)], 'steps': steps}
     src = {'product': PRODUCT, 'dataset': DATASET, 'doi': DOI, 'variables': list(VARS),
+           'hull': {'dataset': DEEP, 'depthM': levels[lev], 'keys': 'uh, vh: the ocean current at that level (no tide, no Stokes drift)'},
            'title': ds.attrs.get('title'), 'source': ds.attrs.get('source'), 'grid': '1/12 degree', 'depth': float(ds['depth'].values[0])}
     return out, src
 

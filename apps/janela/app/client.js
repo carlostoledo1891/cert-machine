@@ -710,7 +710,9 @@ function seaParts(p) {
   var s = STEPS[p.id] && STEPS[p.id][S.i];
   if (!s || (!s.wp && !s.cu)) return '';
   var cur = s.cu ? '<p class="jn-p">Corrente na superfície: <b>' + dc(s.cu[0].toFixed(1)) + ' nó</b> para ' + PONTOS[Math.round(s.cu[1] / 22.5) % 16] + ' (' + s.cu[1] + '°)'
-    + (s.cu[2] !== null ? ', dos quais maré ' + dc(s.cu[2].toFixed(1)) + ' nó' : '') + '.</p><p class="jn-fine jn-fc">Copernicus Marine, modelo global 1/12° com maré e deriva de onda: mostrada, não decidida.</p>' : '';
+    + (s.cu[2] !== null ? ', dos quais maré ' + dc(s.cu[2].toFixed(1)) + ' nó' : '') + '.'
+    + (s.cu.length > 4 ? ' A 15,8 m, no meio do calado de um FPSO ou aliviador carregado: ' + dc(s.cu[3].toFixed(1)) + ' nó para ' + PONTOS[Math.round(s.cu[4] / 22.5) % 16] + ' (' + s.cu[4] + '°).' : '')
+    + '</p><p class="jn-fine jn-fc">Copernicus Marine, modelo global 1/12° (na superfície, com maré e deriva de onda): mostrada, não decidida.</p>' : '';
   if (!s.wp) return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div>' + cur + '</div>';
   var name = { v: 'mar de vento', 1: 'ondulação 1', 2: 'ondulação 2', 3: 'ondulação 3' };
   var rows = s.wp.map(function (x) {
@@ -924,7 +926,21 @@ function drawPlacar() {
       + p.scored + ' avaliadas · ' + p.covered + ' cobertas · reivindicação ' + esc(p.claim) + ' · ' + p.sites + ' locais de mar aberto · desde ' + d(p.first) + '</p>'
       + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>' + breakdownHtml(p)
       + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham (três dias depois, quando o arquivo do NOAA está completo). O registro é só de acréscimo.</p>' : '') + '</div>';
-  }).join('') + decisionsHtml(T.ledger.decisions);
+  }).join('') + h2hHtml(T.ledger.h2h) + decisionsHtml(T.ledger.decisions);
+}
+
+/* the providers HEAD TO HEAD on the same targets (placar.js headToHead): descriptive */
+function h2hHtml(H) {
+  if (!H) return '';
+  var any = H.some(function (h) { return h.n; });
+  var num = function (x) { return x === null ? '—' : dc(x.toFixed(2)); };
+  var rows = H.map(function (h) {
+    return '<tr><td>' + esc(h.name) + '</td><td>' + grp(h.n) + '</td><td>' + h.onlyA + ' · ' + h.onlyB + '</td><td>' + num(h.widthA) + ' · ' + num(h.widthB) + '</td><td>' + (h.sameClaim ? num(h.winklerA) + ' · ' + num(h.winklerB) : 'reivindicações diferentes') + '</td></tr>';
+  }).join('');
+  return '<div class="jn-box"><div class="jn-k">Frente a frente · os mesmos alvos, os mesmos satélites</div>'
+    + (any ? '<div class="tw"><table class="jn-tbl"><thead><tr><th>par</th><th>alvos</th><th>só um cobriu</th><th>largura média (m)</th><th>escore de Winkler</th></tr></thead><tbody>' + rows + '</tbody></table></div>'
+      : '<p class="jn-p">Nenhum alvo avaliado ainda: o frente a frente começa com as primeiras passagens avaliadas, três dias depois de o dia fechar.</p>')
+    + '<p class="jn-fine">Cada par é julgado só onde os dois apostaram no mesmo alvo (mesmo local, rodada e prazo, logo a mesma passagem). "Só um cobriu": quantas vezes só o primeiro · só o segundo acertou. O escore de Winkler (largura mais a multa por errar; menor é melhor) só se compara entre faixas da mesma reivindicação. Contagens descritivas, não admissão.</p></div>';
 }
 
 /* the published DECISIONS graded against the satellite (decision-level-v1): Hs only, descriptive counts */
