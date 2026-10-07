@@ -17,15 +17,22 @@
 # the method page (/janela/metodo/) are static on main and are rebuilt when code or
 # records change (node apps/janela/build.js), not daily.
 # Runs after ECMWF publishes the 00 UTC wave ensemble (the 168 h ensemble lands at
-# ~08:50–08:55 UTC, measured on three days), and again two hours later: every step is
+# ~08:50–08:55 UTC, measured on three days), and again in four later slots: every step is
 # safe to repeat (a feed is written once, commit ids are unique, a day is observed once,
-# nothing is rescored, and a day already on janela-field is not rebuilt), so the second
-# run only does what the first could not.
+# nothing is rescored, and a day already on janela-field is not rebuilt), so a later run
+# only does what an earlier one could not, and a run with nothing to do pushes nothing.
+# FIVE SLOTS, NOT TWO (2026-10-07): on the first scheduled day neither 09:40 nor 11:40 UTC
+# fired (GitHub may delay or drop scheduled runs under load); the day was dispatched by
+# hand at 12:17 and the 06 and 12 UTC targets were lost. tools/janela-watchdog.sh asks
+# again from the desk (launchd, the gh login already there) if no run started by 10:05.
 name: janela-feed
 on:
   schedule:
     - cron: '40 9 * * *'
+    - cron: '17 10 * * *'
     - cron: '40 11 * * *'
+    - cron: '23 14 * * *'
+    - cron: '47 18 * * *'
   workflow_dispatch: {}
 permissions:
   contents: write
