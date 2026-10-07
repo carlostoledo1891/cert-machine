@@ -34,8 +34,12 @@
       the high-Hs cells, the pooling stated) — today the alpha decides only operations with Hs <= 2 m.
 - [x] Sergipe-Alagoas step 1: the site `sergipe` tracked from 2026-10-07 (feed + ensemble ledger); bands borrowed
       only from measured sites (platforms.js); the cards say "acompanhado, ainda sem medição".
-- [ ] Sergipe-Alagoas measured: back-archive (ECMWF + NOAA) -> matchups -> bands v2 (calibrated-v2) -> site alpha;
-      then the decommissioning view (lifts at Hs <= 1.5 m, the campaign planner).
+- [x] Sergipe-Alagoas measured as its own REGION (scenario/regions.json, audit/region.py, audit/bandset.js): the
+      cloud back-archive for the site alone, its pack, 3,096 pairs, bands (proposer calibrated-sergipe-v1, pinned)
+      and site alpha; the 2026-10-06 records untouched; all 181 units carry a measured band. The band leans high
+      (shelf gradient: the satellites see 40–100 km out) and the alpha sits at or under Table 4-1 — stated.
+- [ ] Sergipe's nearshore truth: a wave buoy at the platforms, or the nearshore transfer; then the
+      decommissioning view (lifts at Hs <= 1.5 m, the campaign planner); a WW3 3-hourly node for MÊS.
 - [ ] A pruned proposer stops deciding in the app (today the PLACAR shows the prune; build-today does not yet
       withhold the band criterion). The first look is at 30 trial days, about 2026-11-08.
 - [ ] The PLACAR per site and lead (descriptive); decision-level scoring (published LIBERADA vs the satellite);

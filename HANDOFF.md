@@ -78,10 +78,32 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     platforms.json byte-identical), and the cards say "acompanhado desde 07/10/2026, ainda sem medição" (the
     site) and "o local Sergipe-Alagoas, a 10 km, é acompanhado…" (its units). Tested on a synthetic feed carrying
     the site: 67,744 decisions re-decided equal, the method page and the app built, the gates green; the synthetic
-    feed deleted. NEXT: the back-archive for the site (janela-archive.yml in the cloud: ECMWF; NOAA needs the
-    workflow to learn `alt`), pack, matchups, bands v2 = calibrated-v2 (a new proposer, its sha in commit.js),
-    the site alpha; no hindcast node there (MÊS needs a new ~18 GB 3-hourly WW3 read).
-  OPEN (in apps/janela/TODO.md v1.1): site alpha at Hs 3–4 m; Sergipe-Alagoas measured (step 1 done, above); a pruned proposer withheld from deciding;
+    feed deleted.
+  SERGIPE-ALAGOAS, STEP 2 — MEASURED THE SAME NIGHT, AS ITS OWN REGION (28901e7; the records of 2026-10-06 untouched):
+    · janela-archive.yml learned `what=alt` (NOAA) and `sites=` (archive.py JANELA_SITES); run for the site alone,
+      2023-07-12..2026-10-05: ECMWF 1,181 runs (run 37550621132), NOAA 9,456 mission-days (37550624256), 0 errors,
+      ~5 min each. The desk packed it with JANELA_REGION=sergipe (apps/janela/audit/region.py reads
+      apps/janela/scenario/regions.json — ONE definition of a region's sites, paths and proposer):
+      corpus/janela/regions/sergipe/{ecmwf,alt,MANIFEST.json,matchups.json.gz} (7.6 MB), the cache git-ignored.
+    · 547 passes (>= 5 points within 100 km; median mean distance 70 km), 3,096 pairs.
+      certs/janela-bands-sergipe.json: Hs at 24 h 1.13–1.62 × the forecast (Santos: 0.86–1.20). THE CAVEAT,
+      stated in regions.json, on every card and in the method page: the node is 5 km off the coast and the
+      passes see the sea 40–100 km out, so the band carries the shelf gradient — it leans HIGH for the platforms,
+      conservative by construction; a wave buoy at the platforms would close it.
+      certs/janela-alpha-sergipe.json: 0.62–0.72 at design Hs 1–2 m, AT OR UNDER Table 4-1 (bias −0.28 to
+      −0.49 m) — like Florianópolis' coastal node, the opposite of the offshore basins' 0.84–0.96.
+    · A new proposer janela/hs-altimeter/calibrated-sergipe-v1, pinned in commit.js (175a5ce2…), defined in
+      certs/janela-ledger/DEFINITIONS.json; commit.js commits one calibrated proposer per pinned bands record.
+      apps/janela/audit/bandset.js is the ONE loader of bands and alphas (the 2026-10-06 records + every region,
+      a site in two records refused — battery red); data.js, numbers.js, model.js, platforms.js and commit.js
+      read it. matchups.py without a region excludes regional sites, so the 2026-10-06 records still re-derive.
+      platforms.json re-derived: ALL 181 units carry a measured band (27 from Sergipe).
+    · Gates: janela 21 + 15 reds, window 14/6; style, render, grammar green; the layout ruler recorded the method
+      page's two new scroll tables (one more site's alpha table: clipped 13→14 @768, 25→27 @390, --accept-worse —
+      the same scroll-table pattern as the eight sites before it).
+    · corpus/janela/LICENSE-DATA.md written (it was missing for the whole Janela corpus).
+    · No MÊS for Sergipe: no WW3 3-hourly node (the 0.5° grid keeps daily maxima only; ~18 GB to read).
+  OPEN (in apps/janela/TODO.md v1.1): site alpha at Hs 3–4 m; Sergipe's nearshore truth (a buoy, or a transfer); a pruned proposer withheld from deciding;
     PLACAR per site and lead; decision-level scoring; scoring borrowed bands at the units; a battery for guard.js.
 
 ────────────────────────────────────────────────────────────────────────────
