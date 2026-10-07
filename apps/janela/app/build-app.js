@@ -14,6 +14,7 @@ const ROOT = path.join(__dirname, '..', '..', '..');
 const SITE = path.join(ROOT, 'site', 'janela');
 const MODEL = require('./model.js');
 const PLACAR = require('../audit/placar.js');
+const { br } = require('../numbers.js');
 const { renderApp } = require(path.join(ROOT, 'design', 'app-shell.js'));
 const esc = require(path.join(ROOT, 'design', 'components.js')).esc;
 
@@ -163,6 +164,7 @@ function panel(M, N) {
 <div class="jn-box jn-trust" id="jn-trust">
   <div class="jn-k">por que confiar</div>
   <p class="jn-p">O veredito é aritmética exata sobre o limite como impresso; a faixa é uma reivindicação que o placar audita em público. A faixa publicada é arredondada <b>para fora</b> (Hs a 0,001 m, vento a 0,01 nó): um LIBERADA ou VETADA sobre ela vale sobre a exata; só INDEFINIDA pode crescer. Não é aprovação de operação: é evidência que um vistoriador refaz. <a href="/janela/metodo/">O método ↗</a></p>
+  ${N.heldOut ? `<p class="jn-p">Em ${br.int(N.heldOut.pairs)} comparações com satélite que nenhuma faixa viu (desde ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))}): quando a faixa que decide pôs Hs abaixo de 2 m, o mar passou do limite em <b>${(100 * N.heldOut.broke / N.heldOut.liberada).toFixed(2).replace('.', ',')}%</b> das vezes (${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)}); só com a faixa do ECMWF, em ${(100 * N.heldOut.eBroke / N.heldOut.eLiberada).toFixed(2).replace('.', ',')}%.</p>` : ''}
   <p class="jn-check" id="jn-check">—</p>
   <p class="jn-fine">Previsão ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III (domínio público) · corrente: Generated using E.U. Copernicus Marine Service Information, <a href="https://doi.org/10.48670/moi-00016">doi:10.48670/moi-00016</a> · altimetria NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · unidades, campos e pré-sal: ANP — GeoMaps · costa: Natural Earth · código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
 </div>

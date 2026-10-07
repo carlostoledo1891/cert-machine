@@ -202,6 +202,17 @@ function load(over) {
   /* the published decisions, graded against the satellites (audit/decisions.js, decision-level-v1): counts only */
   const DLV = require('./audit/decisions.js').load();
   N.ledger.decisions = { rule: DLV.rule, days: DLV.days, graded: DLV.graded, byCrit: DLV.byCrit, broke: DLV.broke.slice(0, 12), brokeAll: DLV.broke.length };
+
+  /* the deciding band's held-out record (apps/janela/audit/providers.py, providers-eval-v1): the trust line's numbers */
+  const PE = path.join(ROOT, 'certs', 'janela-providers-eval.json');
+  if (fs.existsSync(PE)) {
+    const R = JSON.parse(fs.readFileSync(PE, 'utf8'));
+    const pick = (o, m) => R.results.find((x) => x.option === o && x.miss === m);
+    const U = pick('U(E,N)', '1/10'), E = pick('E', '1/10');
+    need(U && E, 'certs/janela-providers-eval.json lost the union or ECMWF at 1/10');
+    N.heldOut = { from: R.pairs.split, pairs: R.pairs.test, coverage: U.coverage,
+      broke: U.limits['2.0'].brokeLiberada, liberada: U.limits['2.0'].liberada, eBroke: E.limits['2.0'].brokeLiberada, eLiberada: E.limits['2.0'].liberada };
+  }
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);
   N.ledger.scored = N.ledger.proposers.reduce((a, p) => a + p.scored, 0);
   N.ledger.first = N.ledger.proposers.map((p) => p.first).sort()[0] || null;
