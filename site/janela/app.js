@@ -1464,8 +1464,7 @@ function domainState(d) {
 function proposerState(p) {
   if (!p.proposer) return null;
   var r = domainState(p.proposer), s = STEPS[p.id] && STEPS[p.id][S.i];
-  var d2 = T.noaa && T.noaa.decides && T.noaa.decides.proposers && T.noaa.decides.proposers[0];
-  if (d2 && s && s.hp === 'en') { r.second = domainState(d2); r.union = domainState('janela/hs-altimeter/union-v1'); }
+  if (p.proposer2 && s && s.hp === 'en') { r.second = domainState(p.proposer2); if (p.union) r.union = domainState(p.union); }
   return r;
 }
 function certBlock(p) {
