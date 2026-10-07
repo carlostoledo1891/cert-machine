@@ -1,0 +1,517 @@
+{
+ "what": "Which band should decide when Janela has two forecast providers: each option judged on 15 held-out months of satellite passes it never saw (apps/janela/audit/providers.py; a floating-point evaluation \u2014 the deciding bands are exact).",
+ "pairs": {
+  "ecmwf": 45987,
+  "noaa": 53538,
+  "joined": 45987,
+  "calibration": 24728,
+  "test": 21259,
+  "split": "2025-07-01",
+  "innerSplit": "2024-10-01"
+ },
+ "weightSelection": {
+  "on": "inner split of the calibration years only (before 2024-10-01 -> 2024-10-01..2025-07-01)",
+  "miss": "1/10",
+  "grid": [
+   {
+    "wEcmwf": 0.0,
+    "coverage": 0.9261,
+    "meanWidthM": 1.0102
+   },
+   {
+    "wEcmwf": 0.25,
+    "coverage": 0.9248,
+    "meanWidthM": 0.9249
+   },
+   {
+    "wEcmwf": 0.4,
+    "coverage": 0.9229,
+    "meanWidthM": 0.9014
+   },
+   {
+    "wEcmwf": 0.5,
+    "coverage": 0.921,
+    "meanWidthM": 0.8913
+   },
+   {
+    "wEcmwf": 0.6,
+    "coverage": 0.9181,
+    "meanWidthM": 0.8898
+   },
+   {
+    "wEcmwf": 0.67,
+    "coverage": 0.9163,
+    "meanWidthM": 0.8921
+   },
+   {
+    "wEcmwf": 0.75,
+    "coverage": 0.9142,
+    "meanWidthM": 0.8993
+   },
+   {
+    "wEcmwf": 0.85,
+    "coverage": 0.9145,
+    "meanWidthM": 0.9137
+   },
+   {
+    "wEcmwf": 1.0,
+    "coverage": 0.9151,
+    "meanWidthM": 0.9414
+   }
+  ],
+  "chosen": 0.5,
+  "why": "validation width is flat at 0.5-0.6; the plain mean has no tuned parameter"
+ },
+ "options": {
+  "E": "ECMWF's deterministic Hs x its conformal ratio band (calibrated-v1)",
+  "N": "NOAA GFS-Wave's (calibrated-noaa-v1)",
+  "M50": "the two providers' mean x its own conformal ratio band",
+  "U(E,N)": "the union of E and N (providers-v1)"
+ },
+ "results": [
+  {
+   "n": 21259,
+   "coverage": 0.9105,
+   "meanWidthM": 0.9326,
+   "limits": {
+    "1.5": {
+     "liberada": 2066,
+     "brokeLiberada": 56,
+     "brokeBy10pc": 15,
+     "vetada": 8853,
+     "wrongVetada": 81
+    },
+    "2.0": {
+     "liberada": 7900,
+     "brokeLiberada": 87,
+     "brokeBy10pc": 24,
+     "vetada": 3118,
+     "wrongVetada": 81
+    },
+    "2.5": {
+     "liberada": 13126,
+     "brokeLiberada": 81,
+     "brokeBy10pc": 26,
+     "vetada": 1072,
+     "wrongVetada": 38
+    },
+    "3.5": {
+     "liberada": 18926,
+     "brokeLiberada": 37,
+     "brokeBy10pc": 8,
+     "vetada": 147,
+     "wrongVetada": 5
+    }
+   },
+   "option": "E",
+   "miss": "1/10"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9048,
+   "meanWidthM": 1.0079,
+   "limits": {
+    "1.5": {
+     "liberada": 1659,
+     "brokeLiberada": 57,
+     "brokeBy10pc": 6,
+     "vetada": 8850,
+     "wrongVetada": 89
+    },
+    "2.0": {
+     "liberada": 7106,
+     "brokeLiberada": 90,
+     "brokeBy10pc": 41,
+     "vetada": 2802,
+     "wrongVetada": 134
+    },
+    "2.5": {
+     "liberada": 12504,
+     "brokeLiberada": 98,
+     "brokeBy10pc": 29,
+     "vetada": 844,
+     "wrongVetada": 49
+    },
+    "3.5": {
+     "liberada": 18773,
+     "brokeLiberada": 47,
+     "brokeBy10pc": 17,
+     "vetada": 113,
+     "wrongVetada": 5
+    }
+   },
+   "option": "N",
+   "miss": "1/10"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9071,
+   "meanWidthM": 0.8808,
+   "limits": {
+    "1.5": {
+     "liberada": 2041,
+     "brokeLiberada": 48,
+     "brokeBy10pc": 5,
+     "vetada": 9388,
+     "wrongVetada": 84
+    },
+    "2.0": {
+     "liberada": 7955,
+     "brokeLiberada": 77,
+     "brokeBy10pc": 21,
+     "vetada": 3197,
+     "wrongVetada": 109
+    },
+    "2.5": {
+     "liberada": 13331,
+     "brokeLiberada": 83,
+     "brokeBy10pc": 23,
+     "vetada": 991,
+     "wrongVetada": 32
+    },
+    "3.5": {
+     "liberada": 19161,
+     "brokeLiberada": 38,
+     "brokeBy10pc": 9,
+     "vetada": 145,
+     "wrongVetada": 3
+    }
+   },
+   "option": "M50",
+   "miss": "1/10"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9651,
+   "meanWidthM": 1.1722,
+   "limits": {
+    "1.5": {
+     "liberada": 1273,
+     "brokeLiberada": 12,
+     "brokeBy10pc": 0,
+     "vetada": 7621,
+     "wrongVetada": 31
+    },
+    "2.0": {
+     "liberada": 6368,
+     "brokeLiberada": 21,
+     "brokeBy10pc": 4,
+     "vetada": 2221,
+     "wrongVetada": 27
+    },
+    "2.5": {
+     "liberada": 11703,
+     "brokeLiberada": 26,
+     "brokeBy10pc": 9,
+     "vetada": 671,
+     "wrongVetada": 14
+    },
+    "3.5": {
+     "liberada": 18221,
+     "brokeLiberada": 14,
+     "brokeBy10pc": 2,
+     "vetada": 89,
+     "wrongVetada": 1
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/10"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9615,
+   "meanWidthM": 1.2123,
+   "limits": {
+    "1.5": {
+     "liberada": 1334,
+     "brokeLiberada": 23,
+     "brokeBy10pc": 7,
+     "vetada": 7130,
+     "wrongVetada": 38
+    },
+    "2.0": {
+     "liberada": 6370,
+     "brokeLiberada": 46,
+     "brokeBy10pc": 7,
+     "vetada": 2343,
+     "wrongVetada": 33
+    },
+    "2.5": {
+     "liberada": 11610,
+     "brokeLiberada": 40,
+     "brokeBy10pc": 13,
+     "vetada": 748,
+     "wrongVetada": 15
+    },
+    "3.5": {
+     "liberada": 17995,
+     "brokeLiberada": 11,
+     "brokeBy10pc": 2,
+     "vetada": 117,
+     "wrongVetada": 3
+    }
+   },
+   "option": "E",
+   "miss": "1/20"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9531,
+   "meanWidthM": 1.2759,
+   "limits": {
+    "1.5": {
+     "liberada": 1076,
+     "brokeLiberada": 31,
+     "brokeBy10pc": 2,
+     "vetada": 7137,
+     "wrongVetada": 50
+    },
+    "2.0": {
+     "liberada": 5678,
+     "brokeLiberada": 47,
+     "brokeBy10pc": 14,
+     "vetada": 2032,
+     "wrongVetada": 79
+    },
+    "2.5": {
+     "liberada": 10976,
+     "brokeLiberada": 53,
+     "brokeBy10pc": 19,
+     "vetada": 599,
+     "wrongVetada": 26
+    },
+    "3.5": {
+     "liberada": 17832,
+     "brokeLiberada": 22,
+     "brokeBy10pc": 8,
+     "vetada": 77,
+     "wrongVetada": 2
+    }
+   },
+   "option": "N",
+   "miss": "1/20"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9596,
+   "meanWidthM": 1.1287,
+   "limits": {
+    "1.5": {
+     "liberada": 1387,
+     "brokeLiberada": 19,
+     "brokeBy10pc": 0,
+     "vetada": 7718,
+     "wrongVetada": 43
+    },
+    "2.0": {
+     "liberada": 6554,
+     "brokeLiberada": 38,
+     "brokeBy10pc": 6,
+     "vetada": 2390,
+     "wrongVetada": 42
+    },
+    "2.5": {
+     "liberada": 11861,
+     "brokeLiberada": 42,
+     "brokeBy10pc": 13,
+     "vetada": 727,
+     "wrongVetada": 14
+    },
+    "3.5": {
+     "liberada": 18402,
+     "brokeLiberada": 12,
+     "brokeBy10pc": 2,
+     "vetada": 102,
+     "wrongVetada": 2
+    }
+   },
+   "option": "M50",
+   "miss": "1/20"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9878,
+   "meanWidthM": 1.4592,
+   "limits": {
+    "1.5": {
+     "liberada": 769,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 0,
+     "vetada": 5898,
+     "wrongVetada": 13
+    },
+    "2.0": {
+     "liberada": 4937,
+     "brokeLiberada": 13,
+     "brokeBy10pc": 1,
+     "vetada": 1619,
+     "wrongVetada": 14
+    },
+    "2.5": {
+     "liberada": 10166,
+     "brokeLiberada": 10,
+     "brokeBy10pc": 3,
+     "vetada": 464,
+     "wrongVetada": 5
+    },
+    "3.5": {
+     "liberada": 17085,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 63,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/20"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9863,
+   "meanWidthM": 1.6252,
+   "limits": {
+    "1.5": {
+     "liberada": 637,
+     "brokeLiberada": 8,
+     "brokeBy10pc": 1,
+     "vetada": 5194,
+     "wrongVetada": 18
+    },
+    "2.0": {
+     "liberada": 4292,
+     "brokeLiberada": 20,
+     "brokeBy10pc": 3,
+     "vetada": 1557,
+     "wrongVetada": 20
+    },
+    "2.5": {
+     "liberada": 9241,
+     "brokeLiberada": 16,
+     "brokeBy10pc": 8,
+     "vetada": 463,
+     "wrongVetada": 8
+    },
+    "3.5": {
+     "liberada": 16212,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 83,
+     "wrongVetada": 2
+    }
+   },
+   "option": "E",
+   "miss": "1/40"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9815,
+   "meanWidthM": 1.7179,
+   "limits": {
+    "1.5": {
+     "liberada": 544,
+     "brokeLiberada": 8,
+     "brokeBy10pc": 0,
+     "vetada": 5137,
+     "wrongVetada": 25
+    },
+    "2.0": {
+     "liberada": 3713,
+     "brokeLiberada": 15,
+     "brokeBy10pc": 4,
+     "vetada": 1281,
+     "wrongVetada": 30
+    },
+    "2.5": {
+     "liberada": 8563,
+     "brokeLiberada": 30,
+     "brokeBy10pc": 15,
+     "vetada": 374,
+     "wrongVetada": 10
+    },
+    "3.5": {
+     "liberada": 15859,
+     "brokeLiberada": 10,
+     "brokeBy10pc": 5,
+     "vetada": 47,
+     "wrongVetada": 0
+    }
+   },
+   "option": "N",
+   "miss": "1/40"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9844,
+   "meanWidthM": 1.5134,
+   "limits": {
+    "1.5": {
+     "liberada": 711,
+     "brokeLiberada": 7,
+     "brokeBy10pc": 0,
+     "vetada": 5758,
+     "wrongVetada": 19
+    },
+    "2.0": {
+     "liberada": 4541,
+     "brokeLiberada": 17,
+     "brokeBy10pc": 2,
+     "vetada": 1573,
+     "wrongVetada": 22
+    },
+    "2.5": {
+     "liberada": 9645,
+     "brokeLiberada": 14,
+     "brokeBy10pc": 3,
+     "vetada": 463,
+     "wrongVetada": 7
+    },
+    "3.5": {
+     "liberada": 16720,
+     "brokeLiberada": 2,
+     "brokeBy10pc": 0,
+     "vetada": 72,
+     "wrongVetada": 0
+    }
+   },
+   "option": "M50",
+   "miss": "1/40"
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9958,
+   "meanWidthM": 1.9414,
+   "limits": {
+    "1.5": {
+     "liberada": 321,
+     "brokeLiberada": 3,
+     "brokeBy10pc": 0,
+     "vetada": 3999,
+     "wrongVetada": 8
+    },
+    "2.0": {
+     "liberada": 3004,
+     "brokeLiberada": 4,
+     "brokeBy10pc": 0,
+     "vetada": 997,
+     "wrongVetada": 8
+    },
+    "2.5": {
+     "liberada": 7594,
+     "brokeLiberada": 5,
+     "brokeBy10pc": 2,
+     "vetada": 286,
+     "wrongVetada": 3
+    },
+    "3.5": {
+     "liberada": 14845,
+     "brokeLiberada": 0,
+     "brokeBy10pc": 0,
+     "vetada": 42,
+     "wrongVetada": 0
+    }
+   },
+   "option": "U(E,N)",
+   "miss": "1/40"
+  }
+ ]
+}

@@ -1465,7 +1465,7 @@ function proposerState(p) {
   if (!p.proposer) return null;
   var r = domainState(p.proposer), s = STEPS[p.id] && STEPS[p.id][S.i];
   var d2 = T.noaa && T.noaa.decides && T.noaa.decides.proposers && T.noaa.decides.proposers[0];
-  if (d2 && s && s.hp === 'en') r.second = domainState(d2);
+  if (d2 && s && s.hp === 'en') { r.second = domainState(d2); r.union = domainState('janela/hs-altimeter/union-v1'); }
   return r;
 }
 function certBlock(p) {
@@ -1476,6 +1476,7 @@ function certBlock(p) {
     + line(sec ? sec.equal === sec.decisions : null, sec ? 'Segundo verificador, escrito sem ler o primeiro (Python, nenhum código em comum): ' + grp(sec.equal) + ' de ' + grp(sec.decisions) + ' iguais.' : 'Segundo verificador: não rodou para estes dados.')
     + line(ps ? !ps.cut : null, ps ? 'A faixa é uma reivindicação (' + esc(ps.name) + ', cobre ' + esc(ps.claim) + '), conferida em público contra satélite: ' + esc(ps.st) + '.' : 'Sem faixa medida aqui: só a Tabela 4-1 decide.')
     + (ps && ps.second ? line(!ps.second.cut, 'Com a segunda faixa (' + esc(ps.second.name) + ', cobre ' + esc(ps.second.claim) + '), ' + esc(ps.second.st) + ': decide-se a união das duas, que cobre sempre que uma cobre.') : '')
+    + (ps && ps.union ? line(!ps.union.cut, 'A união, a faixa que decide, também é conferida como ela mesma (cobre ≥ 9/10; medida 0,965 em 15 meses que não viu, e as LIBERADA dela romperam menos da metade das vezes): ' + esc(ps.union.st) + '.') : '')
     + line(true, 'Contas exatas, em racionais: nenhum arredondamento decide; a faixa publicada é arredondada para fora.')
     + '</ul><div class="jn-certb"><button type="button" class="jn-btn" id="jn-nota-b">Nota de decisão ↓</button><button type="button" class="jn-btn" id="jn-cert-b">Certificado .json ↓</button></div></div>';
 }
@@ -1496,7 +1497,8 @@ function certDownload(p) {
     testemunha: r && r.witness || null, limiar: r && r.flip || null, sem_previsao: r && r.notForecast || [],
     regra_de_decisao: 'LIBERADA: todo limite vale na borda desfavorável da faixa em todos os passos; VETADA: algum limite falha já na borda favorável; INDEFINIDA: a faixa atravessa o limite; SEM DADOS: a regra limita algo sem previsão aqui',
     faixa: ps ? { proponente: ps.name, reivindicacao: ps.claim, placar: ps.st,
-      segunda: ps.second ? { proponente: ps.second.name, reivindicacao: ps.second.claim, placar: ps.second.st, regra: 'decide-se a união das duas faixas (providers-v1)' } : null } : null,
+      segunda: ps.second ? { proponente: ps.second.name, reivindicacao: ps.second.claim, placar: ps.second.st, regra: 'decide-se a união das duas faixas (providers-v1)' } : null,
+      uniao: ps.union ? { proponente: ps.union.name, reivindicacao: ps.union.claim, placar: ps.union.st, medida: 'certs/janela-providers-eval.json (providers-eval-v1)' } : null } : null,
     segundo_provedor: T.noaa ? { fonte: 'NOAA WAVEWATCH III (GEFS-Wave, ' + T.noaa.band + ')', reivindicacao: T.noaa.claim, rodada: T.noaa.run + ':00Z', registro: T.noaa.file, sha256: T.noaa.sha,
       papel: 'mostrado ao lado, nunca decidido (providers-v1, certs/janela-ledger/DEFINITIONS.json); avaliado no placar contra os mesmos satélites' } : null,
     rodada_ecmwf: T.run + ':00Z', lida: T.madeAt, codigo: T.git || null, digest_do_dia: T.digest, modulos: T.modules, registros: T.inputs,

@@ -403,6 +403,18 @@ ok('noaa calibrated: GFS-Wave\'s deterministic Hs x NOAA\'s own ratio interval, 
   assert.deepStrictEqual(c.map((x) => x.id), ['janela:santos:2026-10-07T00:+12h:calibrated-noaa-v1', 'janela:santos:2026-10-07T00:+18h:calibrated-noaa-v1']);
   assert.deepStrictEqual([c[0].forecast.lo, c[0].forecast.hi, c[0].forecast.alpha], [['27', '20'], ['33', '20'], [1, 10]]);
 });
+ok('union-v1: the band that decides is committed as itself — [min, max] of ECMWF 3/2 x [9/10, 11/10] and NOAA 8/5 x [9/10, 11/10], claim 9/10, both forecasts named', () => {
+  const cal = (domain) => ({ domain, sha: 'b'.repeat(64), rec: { binHours: 12, sites: { santos: { bins: { 12: { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '9/10', hi: '11/10', n: 100, coverage: '90/101' } } } } } } });
+  const fE = { run: '2026-10-07T00', sites: { santos: { kind: 'field', node: [-25.5, -43], steps: [{ t: '2026-10-07T12', lead: 12, hs: { det: '3/2' } }] } } };
+  const fN = { run: '2026-10-07T00', sites: { santos: { kind: 'field', node: [-25.5, -43], steps: [{ t: '2026-10-07T12', lead: 12, hs: { det: '8/5' } }] } } };
+  const r = CM.unionRows(fE, '20261007.json.gz', fN, '20261007.json.gz', '2026-10-07T05:30:00Z', [cal('janela/hs-altimeter/calibrated-v1')], [cal('janela/hs-altimeter/calibrated-noaa-v1')]);
+  assert.strictEqual(r.length, 1);
+  const c = r[0].c;
+  assert.deepStrictEqual([c.id, c.domain, c.forecast.alpha], ['janela:santos:2026-10-07T00:+12h:union-v1', CM.UNION, [1, 10]]);
+  assert.deepStrictEqual([c.forecast.lo, c.forecast.hi], [['27', '20'], ['88', '50']]);
+  assert.deepStrictEqual(c.forecast.det, { ecmwf: '3/2', noaa: '8/5' });
+  assert.throws(() => CM.unionRows(fE, 'x', Object.assign({}, fN, { run: '2026-10-06T00' }), 'y', '2026-10-07T05:30:00Z', [], []), /one run of both providers/);
+});
 red('noaa: a feed whose band is not the definition\'s (order statistics 3 and 29) is refused whole, never committed under the name', () => {
   assert.throws(() => CM.noaaRows(noaaFeed({ band: 'order statistics 3 and 29 of 31 sorted members' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);
 });

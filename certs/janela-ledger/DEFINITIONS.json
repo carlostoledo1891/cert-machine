@@ -74,5 +74,21 @@
   "graded": "the Hs limit of each preset only (the variable the altimeter measures); a window step is observed when a pass's mid-time is within 3 h of it (the pass nearest, score.js's rule); the sea between steps is never decided, so never graded; a window is graded only if it starts at least an hour after the decisions were kept",
   "outcomes": "LIBERADA: held (every observed step within the limit) or broke (some observed step outside); VETADA: confirmed (some observed step outside) or open (every step observed, all within); unseen otherwise; a day not yet observed waits",
   "stated": "descriptive counts, never an admission: a day's windows overlap and share passes; a LIBERADA's wind limit is not graded here"
+ },
+ "providers-eval-v1 (apps/janela/audit/providers.py)": {
+  "decided": "2026-10-07 — the operator: 'you decide the best and reliable; ask what Petrobras needs'",
+  "criterion": "what Petrobras needs, in order: a LIBERADA must hold (a window the sea breaks costs a shuttle tanker, a lift vessel or a PSV); then as many decisive windows as possible (waiting costs day rates and tank capacity); then a claim a marine warranty surveyor can re-check",
+  "measured": "certs/janela-providers-eval.json: both providers' 45,987 joined pairs, bands calibrated on the passes before 2025-07-01 and judged on the 21,259 after (15 months never seen); options ECMWF alone, NOAA alone, their mean (weight fixed on an inner split of the calibration years), and the union, each at miss 1/10, 1/20, 1/40",
+  "result": "the union at 1/10 (coverage 0.965, mean width 1.172 m) against ECMWF alone at 1/20 (0.962, 1.212 m) — the same reliability bracket: at Hs <= 2.0 m the same LIBERADA count (6,368 vs 6,370) with fewer than half of them broken (21 vs 46); at 2.5 m more LIBERADA (11,703 vs 11,610) and fewer broken (26 vs 40); at 1.5 m 4.6% fewer LIBERADA, half broken (12 vs 23), none by more than 10% (vs 7). The providers' mean at 1/20 gives 3% more LIBERADA at 2.0 m with 1.8x the broken rate (38/6,554). Against ECMWF alone at 1/10, the union cuts broken LIBERADA at 2.0 m from 1.10% to 0.33% for 19% fewer LIBERADA",
+  "decision": "providers-v1 stands: the union of the two calibrated bands decides — the most reliable LIBERADA of the options at any decisiveness measured; and the union is graded as itself (union-v1), so the band that decides is the band on the scoreboard",
+  "stated": "point-level (one step); a window needs every step, so window rates are higher in the same order; a statistical evaluation in floating point, not a certificate"
+ },
+ "union-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "the band that decides (providers-v1): the union [min lo, max hi] of calibrated-v1's band (ECMWF's deterministic Hs x its interval) and calibrated-noaa-v1's (GFS-Wave's x its own), wherever both exist at a site and step; both deterministic values, nodes and bands records named in each row",
+  "claim": "9/10 — provable: the union covers whenever either component covers; measured 0.965 on 15 held-out months (providers-eval-v1)",
+  "alpha": "1/10",
+  "domain": "janela/hs-altimeter/union-v1"
  }
 }

@@ -188,7 +188,7 @@ function load(over) {
   /* counts, claim and admission: placar.js (rec, read above), the one definition score.js prints too */
   /* which proposers decide (a calibrated band in force, bandset.js); the rest are raw ensembles: shown and graded,
      never decided on (providers-v1) */
-  const deciding = new Set(require('./audit/bandset.js').records().map((r) => r.proposer));
+  const deciding = new Set(require('./audit/bandset.js').records().map((r) => r.proposer).concat([require('./audit/commit.js').UNION]));
   N.ledger = {
     files: lfiles.map((f) => 'certs/janela-ledger/' + f), defs, rule: PLACAR.RULE, firstLook: PLACAR.FIRST_LOOK,
     proposers: Object.values(rec).sort((a, b) => b.commits - a.commits).map((p) => {

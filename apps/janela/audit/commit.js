@@ -140,9 +140,48 @@ function noaaRows(feed, feedSha, want, madeAt, cals) {
   return { rows, past };
 }
 
+/* THE BAND THAT DECIDES, graded as itself (union-v1, from 2026-10-07): where both providers' calibrated bands exist at a
+   site and step — ECMWF's deterministic Hs x calibrated-v1's interval, NOAA's x calibrated-noaa-v1's — their union
+   [min lo, max hi], the band the app decides on (providers-v1). Claim 9/10: the union covers whenever either covers,
+   so the provable claim is the components' (measured on 15 held-out months: 0.965, certs/janela-providers-eval.json).
+   Pure; the battery feeds it synthetic feeds. */
+const UNION = 'janela/hs-altimeter/union-v1';
+function unionRows(feedE, wantE, feedN, wantN, madeAt, calsE, calsN) {
+  const rows = [];
+  if (feedE.run !== feedN.run) throw new Error('REFUSED: the union needs one run of both providers (' + feedE.run + ' vs ' + feedN.run + ')');
+  for (const [sid, site] of Object.entries(feedN.sites)) {
+    const siteE = feedE.sites[sid];
+    if (!SCORED_KINDS.has(site.kind) || !site.node || !siteE || !siteE.node) continue;
+    for (const st of site.steps) {
+      const stE = siteE.steps.find((x) => x.t === st.t);
+      if (!stE || !stE.hs || !st.hs || stE.hs.det === undefined || st.hs.det === undefined) continue;
+      const targetTime = st.t + ':00:00Z';
+      if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) continue;
+      const ce = calsE.map((c) => [c, calCell(c, sid, st.lead)]).find((x) => x[1]), cn = calsN.map((c) => [c, calCell(c, sid, st.lead)]).find((x) => x[1]);
+      if (!ce || !cn) continue;
+      const a = [mulFr(stE.hs.det, ce[1].lo), mulFr(stE.hs.det, ce[1].hi)], b = [mulFr(st.hs.det, cn[1].lo), mulFr(st.hs.det, cn[1].hi)];
+      const le = (x, y) => BigInt(x[0]) * BigInt(y[1]) <= BigInt(y[0]) * BigInt(x[1]);
+      rows.push({ ledger: st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', c: {
+        id: 'janela:' + sid + ':' + feedN.run + ':+' + st.lead + 'h:union-v1', domain: UNION, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+        forecast: { lo: le(a[0], b[0]) ? a[0] : b[0], hi: le(a[1], b[1]) ? b[1] : a[1], alpha: [1, 10], lead: st.lead,
+          det: { ecmwf: stE.hs.det, noaa: st.hs.det }, node: { ecmwf: siteE.node, noaa: site.node }, feed: { ecmwf: wantE.slice(0, 8), noaa: 'noaa/' + wantN.slice(0, 8) },
+          bandsSha: { [ce[0].domain]: ce[0].sha.slice(0, 16), [cn[0].domain]: cn[0].sha.slice(0, 16) } } } });
+    }
+  }
+  return rows;
+}
+
 function commitNoaa(day, madeAt) {
   const { want, feed, feedSha } = readFeed(path.join(ROOT, 'corpus', 'janela', 'feed-noaa'), day);
   const { rows, past } = noaaRows(feed, feedSha, want, madeAt, pinnedCals('noaa'));
+  /* the union needs ECMWF's feed of the same run (pushed by the step before); without it, no union rows today */
+  try {
+    const E = readFeed(FEED, want.slice(0, 8));
+    rows.push(...unionRows(E.feed, E.want, feed, want, madeAt, pinnedCals('ecmwf'), pinnedCals('noaa')));
+  } catch (err) {
+    if (!/no feed/.test(err.message)) throw err;
+    console.log('::warning title=janela union-v1 skipped::no ECMWF feed for ' + want.slice(0, 8) + ': no union rows today');
+  }
   let made = 0, dup = 0;
   for (const r of rows) {
     try { L.commit(path.join(LEDGER, r.ledger), r.c); made++; } catch (err) { if (/duplicate commit id/.test(err.message)) { dup++; continue; } throw err; }
@@ -197,4 +236,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { NOAA, TARGET_ID, MARGIN_MS, noaaRows };
+module.exports = { NOAA, UNION, TARGET_ID, MARGIN_MS, noaaRows, unionRows };
