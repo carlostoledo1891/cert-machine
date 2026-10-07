@@ -27,7 +27,9 @@ kept exactly). A stored time is within 45 min of the sample's own, and two sampl
 THE COMPARISON (pnboia-compare-v1): the hindcast is 3-hourly; its pair is the buoy sample stored within 45 min of a
 hindcast time (half the quantum) and nearest it — the median of the nearest ones when several share the time. A start time is DETERMINED for a window of TR hours when all TR/3 + 1 samples of BOTH series
 are present; the window holds when every one is <= the limit (workability.js's definition, both ends included).
-Counts are integers: both hold, buoy only, hindcast only, neither. Bias and RMS are descriptive.
+Counts are integers: both hold, buoy only, hindcast only, neither. Bias and RMS are descriptive. The buoys report
+every few hours (Argos), so few starts are determined; a POINTWISE table (each pair at or under each limit, on both
+series) was added after that was seen, and is labelled so.
 
 Data: PNBOIA / GOOS-Brasil (Marinha do Brasil, Centro de Hidrografia da Marinha), freely available at
 www.goosbrasil.org; Ifremer WAVEWATCH III GLOBMULTI_ERA5_GLOBCUR_01, CC BY-SA 4.0.
@@ -306,6 +308,16 @@ def check():
         rms = math.sqrt(sum((h - b) ** 2 for b, h in pairs) / n)
         mb = sum(b for b, _ in pairs) / n
         times = sorted(set(buoy) & set(hind))
+        # POINTWISE (added 2026-10-07 after the window counts came back nearly all undetermined — the buoys report every
+        # few hours through Argos, so a run of TR/3+1 consecutive 3-hourly pairs is rare): descriptive, per limit, over
+        # every pair — both at or under it, the buoy only, the hindcast only, neither
+        PW = {}
+        for lim in LIMITS:
+            L = float(lim)
+            c = {'both': 0, 'buoyOnly': 0, 'hindcastOnly': 0, 'neither': 0}
+            for b_, h_ in pairs:
+                c['both' if b_ <= L and h_ <= L else 'buoyOnly' if b_ <= L else 'hindcastOnly' if h_ <= L else 'neither'] += 1
+            PW[lim + 'm'] = c
         W = {}
         for lim in LIMITS:
             for tr in WINDOWS:
@@ -316,7 +328,7 @@ def check():
         res.append({'buoy': p['buoy'], 'position': [round(p['lat'], 3), round(p['lon'], 3)], 'node': p['node'], 'nodeKm': round(km, 1),
                     'from': times[0].strftime('%Y-%m-%d'), 'to': times[-1].strftime('%Y-%m-%d'), 'qc': cnt, 'pairs': n,
                     'buoyMeanHs': round(mb, 3), 'biasHindcastMinusBuoy': round(bias, 3), 'rms': round(rms, 3),
-                    'scatterIndex': round(math.sqrt(max(0, rms ** 2 - bias ** 2)) / mb, 3), 'windows': W})
+                    'scatterIndex': round(math.sqrt(max(0, rms ** 2 - bias ** 2)) / mb, 3), 'pointwise': PW, 'windows': W})
         print(p['buoy'], n, 'pairs, bias', round(bias, 3), 'rms', round(rms, 3), flush=True)
     out = {'what': 'The Brazilian Navy\'s PNBOIA moored buoys (GOOS-Brasil public archive, 2012-2019) against the Ifremer WAVEWATCH III hindcast '
                    'CAMPANHA counts on, at each buoy\'s nearest 0.5° node: pairs, bias, RMS and the exact window counts on both series '

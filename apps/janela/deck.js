@@ -80,6 +80,31 @@ function facts(N) {
   F.camp = [['o mar (Hs ≤ 2,0 m)', sea], ['α do local (OPWF ' + br.dec(c.s.wf) + ' m)', loc], ['Tabela 4-1 (OPWF ' + br.dec(c.wf) + ' m)', tab]]
     .map(([k, r]) => ({ k, q50: days(r.q50), q90: days(r.q90), worst: days(r.worst), wy: r.worstYear, fin: r.finished, cen: r.censored }));
 
+  /* the third provider, measured (certs/janela-providers-eval-aifs.json, providers-eval-aifs-v1) */
+  const AE = path.join(ROOT, 'certs', 'janela-providers-eval-aifs.json');
+  if (fs.existsSync(AE)) {
+    const R = JSON.parse(fs.readFileSync(AE, 'utf8')), r = Object.fromEntries(R.results.map((x) => [x.option, x.limits['2.0']]));
+    need(r['U(E,N)'] && r['U(E,A)'], 'the AIFS evaluation lost its unions');
+    F.aifs = { test: R.pairs.test, en: r['U(E,N)'], ea: r['U(E,A)'], from: R.pairs.split };
+  }
+  /* the hindcast against the Navy's buoys (certs/janela-pnboia-check.json): the time at or under 1.5 and 2.0 m, pooled */
+  const PB = path.join(ROOT, 'certs', 'janela-pnboia-check.json');
+  if (fs.existsSync(PB)) {
+    const R = JSON.parse(fs.readFileSync(PB, 'utf8')), t = {};
+    let dep = 0;
+    for (const b of R.buoys) {
+      if (!b.pointwise) continue;
+      dep++;
+      for (const k of ['1.5m', '2.0m']) {
+        const c = b.pointwise[k], x = t[k] = t[k] || { n: 0, buoy: 0, hind: 0 };
+        x.n += c.both + c.buoyOnly + c.hindcastOnly + c.neither; x.buoy += c.both + c.buoyOnly; x.hind += c.both + c.hindcastOnly;
+      }
+    }
+    need(dep >= 5, 'too few buoy deployments compared');
+    F.pnb = { deployments: dep, pairs: t['2.0m'].n, b20: pct(t['2.0m'].buoy, t['2.0m'].n), h20: pct(t['2.0m'].hind, t['2.0m'].n),
+      b15: pct(t['1.5m'].buoy, t['1.5m'].n, 0), h15: pct(t['1.5m'].hind, t['1.5m'].n, 0),
+      from: R.buoys.filter((b) => b.from).map((b) => b.from).sort()[0].slice(0, 4), to: R.buoys.filter((b) => b.to).map((b) => b.to).sort().slice(-1)[0].slice(0, 4) };
+  }
   /* the day the app re-decides (the local copy build-today.js just wrote and gated), when it is on this disk */
   const TD = path.join(ROOT, 'site', 'janela', 'data', 'today.json');
   F.day = fs.existsSync(TD) ? (() => { const t = JSON.parse(fs.readFileSync(TD, 'utf8')); return { decisions: t.decisions, second: t.second, run: t.run, proposers: t.ledger ? t.ledger.proposers.length : null }; })() : null;
@@ -169,7 +194,8 @@ function build(N, shots) {
     + '<div class="card"><div class="k">o arquivo</div><div class="big">' + br.int(F.ecmwfPairs) + '</div><p>pares previsão ECMWF × altímetro de satélite em ' + F.mainSites + ' locais, 2023–2026; mais ' + br.int(F.noaaPairs) + ' da NOAA WAVEWATCH III. Uma faixa calibrada por local e prazo, reivindicando 9/10.</p></div>'
     + '<div class="card"><div class="k">fora da amostra</div><div class="big">' + cov + '</div><p>de cobertura em ' + br.int(H.pairs) + ' comparações posteriores a ' + since + ', que nenhuma faixa viu na calibração.</p></div>'
     + '<div class="card core"><div class="k">a decisão que vale</div><div class="big">' + broke + '</div><p>das LIBERADA com Hs ≤ 2 m rompidas pelo mar (' + br.int(H.broke) + ' de ' + br.int(H.liberada) + '); só com o ECMWF, ' + eBroke + ' (' + br.int(H.eBroke) + ' de ' + br.int(H.eLiberada) + ').</p></div>'
-    + '</div><p style="margin-top:22px;font-size:16px">Dois provedores, ECMWF e NOAA: decide a <b>união</b> das duas faixas calibradas, que cobre sempre que uma cobre — escolhida por medição, antes de decidir. Os ensembles brutos são mostrados e avaliados, nunca decidem.</p>' + ft(6) + '</section>');
+    + '</div><p style="margin-top:22px;font-size:16px">Dois provedores, ECMWF e NOAA: decide a <b>união</b> das duas faixas calibradas, que cobre sempre que uma cobre — escolhida por medição, antes de decidir. Os ensembles brutos são mostrados e avaliados, nunca decidem.</p>'
+    + (F.aifs ? '<p style="margin-top:10px;font-size:14px">Um terceiro, o modelo de IA do ECMWF (AIFS, em dados abertos desde maio de 2026), foi medido pela mesma regra, escrita antes: em ' + br.int(F.aifs.test) + ' comparações posteriores a ' + F.aifs.from.slice(8, 10) + '/' + F.aifs.from.slice(5, 7) + ', a união IFS ∪ AIFS liberou ' + F.aifs.ea.liberada + ' com ' + F.aifs.ea.brokeLiberada + ' rompida; IFS ∪ NOAA, ' + F.aifs.en.liberada + ' com ' + F.aifs.en.brokeLiberada + '. Sem diferença medida no que importa primeiro — ele é avaliado todo dia e ainda não decide.</p>' : '') + ft(6) + '</section>');
 
   /* 7 · the site alpha */
   const A = F.alpha;
@@ -184,7 +210,7 @@ function build(N, shots) {
     + '<table><thead><tr><th>critério</th><th class="n">metade dos anos</th><th class="n">9 de cada 10</th><th class="n">o pior ano</th></tr></thead><tbody>'
     + F.camp.map((r) => '<tr><td>' + esc(r.k) + '</td><td class="n"><b>' + r.q50 + ' dias</b></td><td class="n">' + r.q90 + '</td><td class="n">' + r.worst + (r.wy ? ' (' + r.wy + ')' : '') + '</td></tr>').join('')
     + '</tbody></table><p style="margin-top:24px">Cada um dos ' + (F.camp[0].fin + F.camp[0].cen) + ' anos do hindcast roda a campanha: a primeira janela depois de 1º de novembro, a operação ocupa a janela, a seguinte procura a partir do fim dela. Os quantis são estatísticas de ordem exatas dos anos que terminam' + (F.camp.some((r) => r.cen) ? ' (' + F.camp.filter((r) => r.cen).map((r) => r.cen + ' ano na linha “' + r.k.split(' (')[0] + '”').join(' e ') + ' não termina antes do fim do registro: contado, fica de fora)' : '') + '. <b>A distância entre a tabela e o α do local, em dias de embarcação, é o argumento que o vistoriador avalia.</b></p>'
-    + '<p style="margin-top:12px;font-size:14px">Sem trânsito nem espera de mobilização; um hindcast (Ifremer WAVEWATCH III) é o mar passado de um modelo, e a conta é exata sobre ele, só isso. No app, qualquer área, limite, janela, número de operações e mês.</p>' + ft(8) + '</section>');
+    + '<p style="margin-top:12px;font-size:14px">Sem trânsito nem espera de mobilização; um hindcast (Ifremer WAVEWATCH III) é o mar passado de um modelo, e a conta é exata sobre ele' + (F.pnb ? ' — e o hindcast foi conferido contra ' + F.pnb.deployments + ' implantações das boias da Marinha (PNBOIA, ' + F.pnb.from + '–' + F.pnb.to + ', ' + br.int(F.pnb.pairs) + ' pares): tempo com Hs ≤ 2,0 m, boias ' + F.pnb.b20 + ', hindcast ' + F.pnb.h20 + '; abaixo de 1,5 m o hindcast é conservador (' + F.pnb.h15 + ' contra ' + F.pnb.b15 + ')' : '') + '. No app, qualquer área, limite, janela, número de operações e mês.</p>' + ft(8) + '</section>');
 
   /* 9 · why trust it */
   const sec = F.day && F.day.second;

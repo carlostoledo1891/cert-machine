@@ -115,3 +115,23 @@
 - [ ] The sends (Petrobras logistics/marine operations, a marine warranty surveyor, LabECO's brief, Radar Ciclo 4) —
       the operator's, each approved per item.
 - [ ] English version of the app's surface (outreach beyond Brazil) — not started; pt-BR is the market.
+
+## v1.4 — the free frontier items (2026-10-07 night, operator: "proceed all what can do now free"; targets.json
+## janela-buoy-truth-and-frontier)
+- [x] ECMWF AIFS (data-driven) as the third provider: back-archive from 2026-05-13 (janela-archive what=aifs, packed in
+      corpus/janela/aifs), 6,659 pairs, certs/janela-bands-aifs.json; providers-eval-aifs-v1 (dated before judging): the
+      union of IFS and NOAA stands — AIFS committed daily and graded (aifs-ens-c40of50, calibrated-aifs-v1), never deciding
+      (aifs.py, commit.js --aifs, the Action's step, two head-to-heads on the PLACAR). Re-asked at its first admission look.
+- [x] A correction learned from the satellites (postproc-eval-v1): narrower than ECMWF's band and fewer broken LIBERADA
+      than it, not as reliable as the union, JJA under 0.90 — recorded, not used.
+- [x] ECMWF's Hs by period band (h1012 … h2530) read from 2026-10-08's feed and at the units: the long-period swell
+      (≥10/12/14 s) on the card, forecast ink, never decided.
+- [x] The PNBOIA buoys (GOOS-Brasil OPeNDAP, 2012-2019) against the hindcast CAMPANHA counts on (pnboia.py,
+      certs/janela-pnboia-check.json): pairs, bias, RMS and the exact window counts on both series.
+- [x] The satellite swell truth sized: the SAR/SWIM L4 swell field near the sites holds a primary-swell estimate in 0-10%
+      of the 3-hourly steps (August 2026) — enough to grade period error in aggregate at the south-east basins, not daily,
+      and none at the equatorial margin or Florianópolis.
+- [ ] The altimeter truth v2: Copernicus L3 adds CFOSAT, HY-2B and HY-2C to the eight RADS missions (more passes, nearer
+      the units) — a new truth version, dated before use, and the bands re-calibrated against it.
+- [ ] Period criteria: a cited limit per operation, then the long-swell Hs decides; SAR graded in aggregate.
+- [ ] The live buoys (REMO Observacional, UFSC's TriAXYS, FPSO wave radars) — partner asks, the operator's.
