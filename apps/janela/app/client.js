@@ -498,10 +498,10 @@ function nodeLine(p) {
   var s = T.places[p.id];
   var ll = function (a) { return dec(Math.abs(a[0]), 2) + '°' + (a[0] < 0 ? 'S' : 'N') + ' ' + dec(Math.abs(a[1]), 2) + '°' + (a[1] < 0 ? 'W' : 'E'); };
   var at = 'Previsão ECMWF lida no nó ' + ll(s.node) + ' do modelo';
-  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km)' + (alphaUpTo(p) ? '; o α, estimado para Hs de projeto até ' + dc(String(alphaUpTo(p))) + ' m (acima disso, três anos de satélite têm menos de 30 pares por célula).' : '.') : (p.tracked && PL[p.tracked.site] ? 'Sem faixa medida ainda: o local ' + short(PL[p.tracked.site]) + ', a ' + p.tracked.km + ' km, é acompanhado desde ' + dmy(p.tracked.added) + ' e ganha faixa quando os três anos de previsão × satélite dele forem lidos. Até lá a Tabela 4-1 decide.' : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.'));
+  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.caveat ? 'Atenção: ' + p.caveat + ' ' : '') + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km)' + (alphaUpTo(p) ? '; o α, estimado para Hs de projeto até ' + dc(String(alphaUpTo(p))) + ' m (acima disso, três anos de satélite têm menos de 30 pares por célula).' : '.') : (p.tracked && PL[p.tracked.site] ? 'Sem faixa medida ainda: o local ' + short(PL[p.tracked.site]) + ', a ' + p.tracked.km + ' km, é acompanhado desde ' + dmy(p.tracked.added) + ' e ganha faixa quando os três anos de previsão × satélite dele forem lidos. Até lá a Tabela 4-1 decide.' : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.'));
   if (p.kind === 'terminal') return at + ': o mar aberto da APROXIMAÇÃO, não o berço. A faixa medida vem de ' + short(PL[s.bandFrom] || { name: s.bandFrom || '—', kind: 'field' }) + ': um altímetro não enxerga dentro de uma baía.';
   if (!(STEPS[p.id] || []).some(function (x) { return x.hb; })) return at + '. Local acompanhado desde ' + dmy(p.added) + ': a previsão daqui entra no placar todos os dias, mas a faixa medida e o α do local só chegam quando os três anos de previsão × satélite deste mar forem lidos. Até lá a banda medida fica SEM DADOS e a Tabela 4-1 da DNV decide.';
-  return at + '; a faixa medida e o α são deste local (pares satélite × previsão de 2023 a 2026).';
+  return at + '; a faixa medida e o α são deste local (pares satélite × previsão de 2023 a 2026).' + (p.caveat ? ' Atenção: ' + p.caveat : '');
 }
 function dmy(iso) { return iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '—'; }
 function explain(p, r, op, crit) {
@@ -827,7 +827,7 @@ function drawMonth() {
 function drawPlacar() {
   var el = $('jn-props');
   if (!T || !T.ledger) { el.innerHTML = '<div class="jn-box"><p class="jn-p">O placar chega com os dados do dia, que não carregaram.</p></div>'; return; }
-  var NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1' };
+  var NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1' };   /* for a day built before proposers carried their name */
   var d = function (iso) { return iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '—'; };
   /* the admission as placar.js decided it in the day's build: trials are target days, the tail is read at 30·2^j days;
      a status word, never a verdict glyph (ADMITIDO is not LIBERADA) */
@@ -838,7 +838,7 @@ function drawPlacar() {
     if (cut && p.prunedAt) { st = '<span class="jn-w jn-st cut">PODADO</span>'; line = 'podado no ' + p.prunedAt.m + 'º dia-ensaio (' + d(p.prunedAt.through) + '): ' + p.prunedAt.covered + ' cobertos, cauda exata ' + esc(p.prunedAt.tail) + ' ≤ ' + esc(p.prunedAt.bar) + '. Esta versão não volta; só uma recalibrada, com registro novo.'; }
     else if (p.pending) { st = '<span class="jn-w jn-st pend">EM AVALIAÇÃO</span>'; line = (p.trials || 0) + ' de ' + first + ' dias-ensaio: nada testado ainda. A primeira leitura da cauda é no ' + first + 'º dia; até lá a faixa decide e o placar só conta.'; }
     else { var lk = p.looks[p.looks.length - 1] || {}; st = '<span class="jn-w jn-st ok">ADMITIDO</span>'; line = p.trialsCovered + ' de ' + p.trials + ' dias-ensaio cobertos; na leitura de ' + lk.m + ' dias, cauda exata ' + esc(lk.tail) + ' > ' + esc(lk.bar) + '; próxima leitura em ' + p.next + ' dias.'; }
-    return '<div class="jn-box jn-prop"><div class="jn-k">' + esc(NAMES[p.domain] || p.domain) + '</div><div class="big">' + grp(p.commits) + '</div><p class="jn-p">faixas comprometidas antes da hora-alvo · '
+    return '<div class="jn-box jn-prop"><div class="jn-k">' + esc(p.name || NAMES[p.domain] || p.domain) + '</div><div class="big">' + grp(p.commits) + '</div><p class="jn-p">faixas comprometidas antes da hora-alvo · '
       + p.scored + ' avaliadas · ' + p.covered + ' cobertas · reivindicação ' + esc(p.claim) + ' · ' + p.sites + ' locais de mar aberto · desde ' + d(p.first) + '</p>'
       + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>'
       + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham (três dias depois, quando o arquivo do NOAA está completo). O registro é só de acréscimo.</p>' : '') + '</div>';

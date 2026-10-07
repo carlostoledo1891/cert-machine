@@ -60,6 +60,13 @@ const RULE_PT = 'Um ensaio por dia-alvo: as faixas de um proponente avaliadas pa
   + 'registro novo, volta. Dias são tratados como independentes: uma convenção declarada, não um teorema. Cobrir mais do que diz não poda; '
   + 'o escore de Winkler, exato, cobra a faixa larga demais. Regra fixada em 06/10/2026, antes da primeira avaliação.';
 
+/* the proposers in the reader's words — the app's PLACAR and the method page print these */
+const NAMES_PT = {
+  'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50',
+  'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1',
+  'janela/hs-altimeter/calibrated-sergipe-v1': 'A faixa medida da Janela, Sergipe-Alagoas, v1'
+};
+
 /* the looks reached after m trials: m = 30·2^j, bar = 1/20 · 2^-(j+1) */
 function looks(m) {
   const out = [];
@@ -140,4 +147,4 @@ function record(rows) {
   return per;
 }
 
-module.exports = { RULE, RULE_PT, FIRST_LOOK, BAR, looks, lot, trials, admission, record };
+module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, looks, lot, trials, admission, record };

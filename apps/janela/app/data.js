@@ -65,7 +65,7 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
   const SITES = require('../scenario/sites.json').sites;
   const UNITS = require('../scenario/platforms.json').units;
   const OPS = require('../scenario/operations.json').operations;
-  const bands = require('../../../certs/janela-bands.json');
+  const bands = require('../audit/bandset.js').bands();      /* the 2026-10-06 record + every measured region */
   if (platforms.run !== feed.run) throw new Error('the units\' forecast (' + platforms.run + ') is not the feed\'s run (' + feed.run + ')');
 
   /* the measured sites, through today.js */

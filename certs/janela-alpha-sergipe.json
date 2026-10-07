@@ -1,0 +1,895 @@
+{
+ "what": "Site-specific DNV alpha factors (waves) from ECMWF open-data forecasts vs NOAA altimeter passes, by the method that made DNV Table 4-1 (the 2005-07 JIP as reconstructed by Wilcken 2012), with day-bootstrap 90% intervals, beside DNV-OS-H101 Tables 4-1..4-3; and exact counts of how often the satellite saw Hs above OPLIM when the forecast was at or below the table's alpha*OPLIM. alpha is a STATISTICAL estimate (float64), not a certified enclosure; the counts are exact.",
+ "method": {
+  "recipe": "J (DNV JIP via Wilcken 2012 §4.1)",
+  "P": 0.0001,
+  "leadBins": {
+   "12": [
+    9,
+    18
+   ],
+   "24": [
+    18,
+    30
+   ],
+   "36": [
+    30,
+    42
+   ],
+   "48": [
+    42,
+    60
+   ],
+   "72": [
+    60,
+    84
+   ]
+  },
+  "minPairs": 30,
+  "bootstrap": {
+   "resamples": 400,
+   "unit": "UTC day of the pass",
+   "seed": 20261006,
+   "interval": "5th-95th percentile"
+  },
+  "caveats": [
+   "the altimeter measurement error and the 100 km collocation inflate the error SD: the site alpha leans low (conservative)",
+   "lead is counted from the 00 UTC base time; the open-data run is available about 8 h later, so operational leads are ~8 h longer",
+   "the Gaussian error model is extrapolated to about its 1-in-1,000 tail; 1e-4 cannot be observed in three years",
+   "Tables 4-4/4-5 (monitoring) and the wind table 4-6 are not re-derived here"
+  ]
+ },
+ "calibration": {
+  "cells": [
+   {
+    "designHs": 1,
+    "TPOP": 12,
+    "reconstructed": 0.6509,
+    "table4_1": 0.65,
+    "dev": 0.0009,
+    "within0.02": true
+   },
+   {
+    "designHs": 1,
+    "TPOP": 24,
+    "reconstructed": 0.6306,
+    "table4_1": 0.63,
+    "dev": 0.0006,
+    "within0.02": true
+   },
+   {
+    "designHs": 1,
+    "TPOP": 36,
+    "reconstructed": 0.6204,
+    "table4_1": 0.62,
+    "dev": 0.0004,
+    "within0.02": true
+   },
+   {
+    "designHs": 1,
+    "TPOP": 48,
+    "reconstructed": 0.5999,
+    "table4_1": 0.6,
+    "dev": -0.0001,
+    "within0.02": true
+   },
+   {
+    "designHs": 1,
+    "TPOP": 72,
+    "reconstructed": 0.5586,
+    "table4_1": 0.55,
+    "dev": 0.0086,
+    "within0.02": true
+   },
+   {
+    "designHs": 2,
+    "TPOP": 12,
+    "reconstructed": 0.7617,
+    "table4_1": 0.76,
+    "dev": 0.0017,
+    "within0.02": true
+   },
+   {
+    "designHs": 2,
+    "TPOP": 24,
+    "reconstructed": 0.7388,
+    "table4_1": 0.73,
+    "dev": 0.0088,
+    "within0.02": true
+   },
+   {
+    "designHs": 2,
+    "TPOP": 36,
+    "reconstructed": 0.7048,
+    "table4_1": 0.71,
+    "dev": -0.0052,
+    "within0.02": true
+   },
+   {
+    "designHs": 2,
+    "TPOP": 48,
+    "reconstructed": 0.6784,
+    "table4_1": 0.68,
+    "dev": -0.0016,
+    "within0.02": true
+   },
+   {
+    "designHs": 2,
+    "TPOP": 72,
+    "reconstructed": 0.6097,
+    "table4_1": 0.63,
+    "dev": -0.0203,
+    "within0.02": false
+   },
+   {
+    "designHs": 4,
+    "TPOP": 12,
+    "reconstructed": 0.7895,
+    "table4_1": 0.79,
+    "dev": -0.0005,
+    "within0.02": true
+   },
+   {
+    "designHs": 4,
+    "TPOP": 24,
+    "reconstructed": 0.7489,
+    "table4_1": 0.76,
+    "dev": -0.0111,
+    "within0.02": true
+   },
+   {
+    "designHs": 4,
+    "TPOP": 36,
+    "reconstructed": 0.715,
+    "table4_1": 0.73,
+    "dev": -0.015,
+    "within0.02": true
+   },
+   {
+    "designHs": 4,
+    "TPOP": 48,
+    "reconstructed": 0.6823,
+    "table4_1": 0.71,
+    "dev": -0.0277,
+    "within0.02": false
+   },
+   {
+    "designHs": 4,
+    "TPOP": 72,
+    "reconstructed": 0.6248,
+    "table4_1": 0.68,
+    "dev": -0.0552,
+    "within0.02": false
+   },
+   {
+    "designHs": 6,
+    "TPOP": 12,
+    "reconstructed": 0.8053,
+    "table4_1": 0.8,
+    "dev": 0.0053,
+    "within0.02": true
+   },
+   {
+    "designHs": 6,
+    "TPOP": 24,
+    "reconstructed": 0.7756,
+    "table4_1": 0.78,
+    "dev": -0.0044,
+    "within0.02": true
+   },
+   {
+    "designHs": 6,
+    "TPOP": 36,
+    "reconstructed": 0.7485,
+    "table4_1": 0.76,
+    "dev": -0.0115,
+    "within0.02": true
+   },
+   {
+    "designHs": 6,
+    "TPOP": 48,
+    "reconstructed": 0.7207,
+    "table4_1": 0.74,
+    "dev": -0.0193,
+    "within0.02": true
+   },
+   {
+    "designHs": 6,
+    "TPOP": 72,
+    "reconstructed": 0.6631,
+    "table4_1": 0.72,
+    "dev": -0.0569,
+    "within0.02": false
+   }
+  ],
+  "within": 16,
+  "of": 20,
+  "gate": "at least 16 of 20 cells within +-0.02 of DNV Table 4-1",
+  "pass": true,
+  "redLiteralReading": {
+   "within": 0,
+   "refused": true
+  }
+ },
+ "source": {
+  "matchups": "corpus/janela/regions/sergipe/matchups.json.gz",
+  "rows": 3096
+ },
+ "sites": {
+  "sergipe": {
+   "pairs": 3096,
+   "days": 366,
+   "cells": [
+    {
+     "designHs": 1,
+     "TPOP": 12,
+     "n": 66,
+     "dnv": {
+      "4-1": 0.65,
+      "4-2": 0.68,
+      "4-3": 0.72
+     },
+     "bias": -0.2831,
+     "sd": 0.0988,
+     "alpha": 0.6387,
+     "ci90": [
+      0.6102,
+      0.6679
+     ],
+     "boot": 400,
+     "reading": "the 90% interval contains the table value",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 1,
+     "TPOP": 24,
+     "n": 113,
+     "dnv": {
+      "4-1": 0.63,
+      "4-2": 0.66,
+      "4-3": 0.69
+     },
+     "bias": -0.287,
+     "sd": 0.1122,
+     "alpha": 0.617,
+     "ci90": [
+      0.5914,
+      0.6435
+     ],
+     "boot": 400,
+     "reading": "the 90% interval contains the table value",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 1,
+     "TPOP": 36,
+     "n": 109,
+     "dnv": {
+      "4-1": 0.62,
+      "4-2": 0.65,
+      "4-3": 0.68
+     },
+     "bias": -0.278,
+     "sd": 0.1,
+     "alpha": 0.6379,
+     "ci90": [
+      0.618,
+      0.6602
+     ],
+     "boot": 400,
+     "reading": "the 90% interval contains the table value",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 1,
+     "TPOP": 48,
+     "n": 163,
+     "dnv": {
+      "4-1": 0.6,
+      "4-2": 0.63,
+      "4-3": 0.66
+     },
+     "bias": -0.2796,
+     "sd": 0.1084,
+     "alpha": 0.6253,
+     "ci90": [
+      0.6039,
+      0.6479
+     ],
+     "boot": 400,
+     "reading": "site alpha ABOVE the table (the North Sea table is conservative here)",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 1,
+     "TPOP": 72,
+     "n": 221,
+     "dnv": {
+      "4-1": 0.55,
+      "4-2": 0.58,
+      "4-3": 0.61
+     },
+     "bias": -0.265,
+     "sd": 0.1137,
+     "alpha": 0.6298,
+     "ci90": [
+      0.6136,
+      0.6483
+     ],
+     "boot": 400,
+     "reading": "site alpha ABOVE the table (the North Sea table is conservative here)",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 2,
+     "TPOP": 12,
+     "n": 70,
+     "dnv": {
+      "4-1": 0.76,
+      "4-2": 0.8,
+      "4-3": 0.84
+     },
+     "bias": -0.4942,
+     "sd": 0.1698,
+     "alpha": 0.6878,
+     "ci90": [
+      0.6656,
+      0.7154
+     ],
+     "boot": 400,
+     "reading": "site alpha BELOW the table (the North Sea table is NOT conservative here)",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 2,
+     "TPOP": 24,
+     "n": 95,
+     "dnv": {
+      "4-1": 0.73,
+      "4-2": 0.77,
+      "4-3": 0.8
+     },
+     "bias": -0.4636,
+     "sd": 0.1411,
+     "alpha": 0.7172,
+     "ci90": [
+      0.7024,
+      0.7325
+     ],
+     "boot": 400,
+     "reading": "the 90% interval contains the table value",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 2,
+     "TPOP": 36,
+     "n": 107,
+     "dnv": {
+      "4-1": 0.71,
+      "4-2": 0.75,
+      "4-3": 0.78
+     },
+     "bias": -0.4853,
+     "sd": 0.1658,
+     "alpha": 0.691,
+     "ci90": [
+      0.6741,
+      0.7116
+     ],
+     "boot": 400,
+     "reading": "the 90% interval contains the table value",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 2,
+     "TPOP": 48,
+     "n": 149,
+     "dnv": {
+      "4-1": 0.68,
+      "4-2": 0.71,
+      "4-3": 0.75
+     },
+     "bias": -0.4667,
+     "sd": 0.1597,
+     "alpha": 0.7024,
+     "ci90": [
+      0.6896,
+      0.7167
+     ],
+     "boot": 400,
+     "reading": "site alpha ABOVE the table (the North Sea table is conservative here)",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 2,
+     "TPOP": 72,
+     "n": 202,
+     "dnv": {
+      "4-1": 0.63,
+      "4-2": 0.66,
+      "4-3": 0.69
+     },
+     "bias": -0.4784,
+     "sd": 0.177,
+     "alpha": 0.6849,
+     "ci90": [
+      0.6719,
+      0.7015
+     ],
+     "boot": 400,
+     "reading": "site alpha ABOVE the table (the North Sea table is conservative here)",
+     "verdict": "ESTIMATED"
+    },
+    {
+     "designHs": 4,
+     "TPOP": 12,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.79,
+      "4-2": 0.83,
+      "4-3": 0.87
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 4 m at lead 9-18 h; at least 30 needed"
+    },
+    {
+     "designHs": 4,
+     "TPOP": 24,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.76,
+      "4-2": 0.8,
+      "4-3": 0.84
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 4 m at lead 18-30 h; at least 30 needed"
+    },
+    {
+     "designHs": 4,
+     "TPOP": 36,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.73,
+      "4-2": 0.77,
+      "4-3": 0.8
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 4 m at lead 30-42 h; at least 30 needed"
+    },
+    {
+     "designHs": 4,
+     "TPOP": 48,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.71,
+      "4-2": 0.75,
+      "4-3": 0.78
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 4 m at lead 42-60 h; at least 30 needed"
+    },
+    {
+     "designHs": 4,
+     "TPOP": 72,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.68,
+      "4-2": 0.71,
+      "4-3": 0.75
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 4 m at lead 60-84 h; at least 30 needed"
+    },
+    {
+     "designHs": 6,
+     "TPOP": 12,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.8,
+      "4-2": 0.84,
+      "4-3": 0.88
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 6 m at lead 9-18 h; at least 30 needed"
+    },
+    {
+     "designHs": 6,
+     "TPOP": 24,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.78,
+      "4-2": 0.82,
+      "4-3": 0.86
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 6 m at lead 18-30 h; at least 30 needed"
+    },
+    {
+     "designHs": 6,
+     "TPOP": 36,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.76,
+      "4-2": 0.8,
+      "4-3": 0.84
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 6 m at lead 30-42 h; at least 30 needed"
+    },
+    {
+     "designHs": 6,
+     "TPOP": 48,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.74,
+      "4-2": 0.78,
+      "4-3": 0.81
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 6 m at lead 42-60 h; at least 30 needed"
+    },
+    {
+     "designHs": 6,
+     "TPOP": 72,
+     "n": 0,
+     "dnv": {
+      "4-1": 0.72,
+      "4-2": 0.76,
+      "4-3": 0.79
+     },
+     "verdict": "REFUSED",
+     "why": "0 pairs in the observed-Hs group 6 m at lead 60-84 h; at least 30 needed"
+    }
+   ],
+   "groups": {
+    "1m@12h": {
+     "n": 66,
+     "bias": -0.2831,
+     "sd": 0.0988
+    },
+    "1m@24h": {
+     "n": 113,
+     "bias": -0.287,
+     "sd": 0.1122
+    },
+    "1m@36h": {
+     "n": 109,
+     "bias": -0.278,
+     "sd": 0.1
+    },
+    "1m@48h": {
+     "n": 163,
+     "bias": -0.2796,
+     "sd": 0.1084
+    },
+    "1m@72h": {
+     "n": 221,
+     "bias": -0.265,
+     "sd": 0.1137
+    },
+    "2m@12h": {
+     "n": 70,
+     "bias": -0.4942,
+     "sd": 0.1698
+    },
+    "2m@24h": {
+     "n": 95,
+     "bias": -0.4636,
+     "sd": 0.1411
+    },
+    "2m@36h": {
+     "n": 107,
+     "bias": -0.4853,
+     "sd": 0.1658
+    },
+    "2m@48h": {
+     "n": 149,
+     "bias": -0.4667,
+     "sd": 0.1597
+    },
+    "2m@72h": {
+     "n": 202,
+     "bias": -0.4784,
+     "sd": 0.177
+    },
+    "3m@12h": {
+     "n": 9,
+     "bias": -0.7548,
+     "sd": 0.0935
+    },
+    "3m@24h": {
+     "n": 6,
+     "bias": -0.8501,
+     "sd": 0.1653
+    },
+    "3m@36h": {
+     "n": 13,
+     "bias": -0.7872,
+     "sd": 0.1355
+    },
+    "3m@48h": {
+     "n": 11,
+     "bias": -0.867,
+     "sd": 0.2153
+    },
+    "3m@72h": {
+     "n": 19,
+     "bias": -0.8457,
+     "sd": 0.1832
+    }
+   },
+   "exceedance": [
+    {
+     "OPLIM": "3/2",
+     "TPOP": 12,
+     "alphaTable4_1": "141/200",
+     "OPWF": "423/400",
+     "forecastsAtOrBelowOPWF": 54,
+     "observedAboveOPLIM": 2,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3/2",
+     "TPOP": 24,
+     "alphaTable4_1": "17/25",
+     "OPWF": "51/50",
+     "forecastsAtOrBelowOPWF": 74,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3/2",
+     "TPOP": 36,
+     "alphaTable4_1": "133/200",
+     "OPWF": "399/400",
+     "forecastsAtOrBelowOPWF": 62,
+     "observedAboveOPLIM": 2,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3/2",
+     "TPOP": 48,
+     "alphaTable4_1": "16/25",
+     "OPWF": "24/25",
+     "forecastsAtOrBelowOPWF": 71,
+     "observedAboveOPLIM": 1,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3/2",
+     "TPOP": 72,
+     "alphaTable4_1": "59/100",
+     "OPWF": "177/200",
+     "forecastsAtOrBelowOPWF": 52,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "2",
+     "TPOP": 12,
+     "alphaTable4_1": "19/25",
+     "OPWF": "38/25",
+     "forecastsAtOrBelowOPWF": 118,
+     "observedAboveOPLIM": 11,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "2",
+     "TPOP": 24,
+     "alphaTable4_1": "73/100",
+     "OPWF": "73/50",
+     "forecastsAtOrBelowOPWF": 179,
+     "observedAboveOPLIM": 2,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "2",
+     "TPOP": 36,
+     "alphaTable4_1": "71/100",
+     "OPWF": "71/50",
+     "forecastsAtOrBelowOPWF": 177,
+     "observedAboveOPLIM": 5,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "2",
+     "TPOP": 48,
+     "alphaTable4_1": "17/25",
+     "OPWF": "34/25",
+     "forecastsAtOrBelowOPWF": 253,
+     "observedAboveOPLIM": 4,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "2",
+     "TPOP": 72,
+     "alphaTable4_1": "63/100",
+     "OPWF": "63/50",
+     "forecastsAtOrBelowOPWF": 299,
+     "observedAboveOPLIM": 2,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "5/2",
+     "TPOP": 12,
+     "alphaTable4_1": "307/400",
+     "OPWF": "307/160",
+     "forecastsAtOrBelowOPWF": 140,
+     "observedAboveOPLIM": 5,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "5/2",
+     "TPOP": 24,
+     "alphaTable4_1": "59/80",
+     "OPWF": "59/32",
+     "forecastsAtOrBelowOPWF": 209,
+     "observedAboveOPLIM": 5,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "5/2",
+     "TPOP": 36,
+     "alphaTable4_1": "143/200",
+     "OPWF": "143/80",
+     "forecastsAtOrBelowOPWF": 208,
+     "observedAboveOPLIM": 1,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "5/2",
+     "TPOP": 48,
+     "alphaTable4_1": "11/16",
+     "OPWF": "55/32",
+     "forecastsAtOrBelowOPWF": 303,
+     "observedAboveOPLIM": 5,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "5/2",
+     "TPOP": 72,
+     "alphaTable4_1": "257/400",
+     "OPWF": "257/160",
+     "forecastsAtOrBelowOPWF": 393,
+     "observedAboveOPLIM": 1,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3",
+     "TPOP": 12,
+     "alphaTable4_1": "31/40",
+     "OPWF": "93/40",
+     "forecastsAtOrBelowOPWF": 145,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3",
+     "TPOP": 24,
+     "alphaTable4_1": "149/200",
+     "OPWF": "447/200",
+     "forecastsAtOrBelowOPWF": 214,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3",
+     "TPOP": 36,
+     "alphaTable4_1": "18/25",
+     "OPWF": "54/25",
+     "forecastsAtOrBelowOPWF": 229,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3",
+     "TPOP": 48,
+     "alphaTable4_1": "139/200",
+     "OPWF": "417/200",
+     "forecastsAtOrBelowOPWF": 320,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "3",
+     "TPOP": 72,
+     "alphaTable4_1": "131/200",
+     "OPWF": "393/200",
+     "forecastsAtOrBelowOPWF": 435,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "7/2",
+     "TPOP": 12,
+     "alphaTable4_1": "313/400",
+     "OPWF": "2191/800",
+     "forecastsAtOrBelowOPWF": 145,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "7/2",
+     "TPOP": 24,
+     "alphaTable4_1": "301/400",
+     "OPWF": "2107/800",
+     "forecastsAtOrBelowOPWF": 214,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "7/2",
+     "TPOP": 36,
+     "alphaTable4_1": "29/40",
+     "OPWF": "203/80",
+     "forecastsAtOrBelowOPWF": 229,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "7/2",
+     "TPOP": 48,
+     "alphaTable4_1": "281/400",
+     "OPWF": "1967/800",
+     "forecastsAtOrBelowOPWF": 323,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "7/2",
+     "TPOP": 72,
+     "alphaTable4_1": "267/400",
+     "OPWF": "1869/800",
+     "forecastsAtOrBelowOPWF": 442,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "4",
+     "TPOP": 12,
+     "alphaTable4_1": "79/100",
+     "OPWF": "79/25",
+     "forecastsAtOrBelowOPWF": 145,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "4",
+     "TPOP": 24,
+     "alphaTable4_1": "19/25",
+     "OPWF": "76/25",
+     "forecastsAtOrBelowOPWF": 214,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "4",
+     "TPOP": 36,
+     "alphaTable4_1": "73/100",
+     "OPWF": "73/25",
+     "forecastsAtOrBelowOPWF": 229,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "4",
+     "TPOP": 48,
+     "alphaTable4_1": "71/100",
+     "OPWF": "71/25",
+     "forecastsAtOrBelowOPWF": 323,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    },
+    {
+     "OPLIM": "4",
+     "TPOP": 72,
+     "alphaTable4_1": "17/25",
+     "OPWF": "68/25",
+     "forecastsAtOrBelowOPWF": 442,
+     "observedAboveOPLIM": 0,
+     "observedAbove1.5xOPLIM": 0
+    }
+   ]
+  }
+ }
+}

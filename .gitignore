@@ -81,3 +81,6 @@ site/janela/data/
 
 # janela: an observed day being written (observe.py renames it into place when complete)
 corpus/janela/observed/*.part
+
+# janela: a region's back-archive day files (archive.py with JANELA_REGION; the pack beside them is committed)
+corpus/janela/regions/*/cache/

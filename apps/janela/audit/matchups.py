@@ -34,6 +34,17 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 CACHE = os.path.join(ROOT, 'corpus', 'janela', 'cache')
 SITES = [s for s in json.load(open(os.path.join(HERE, '..', 'scenario', 'sites.json')))['sites'] if s['kind'] != 'terminal']
+DEST = os.path.join(ROOT, 'corpus', 'janela', 'matchups.json.gz')
+# JANELA_REGION=<name>: the region's cache, sites and matchups file (regions.json)
+import region as _region
+REGION = _region.current()
+if REGION:
+    CACHE, DEST = REGION['cache'], REGION['matchups']
+    SITES = [s for s in SITES if s['id'] in set(REGION['sites'])]
+else:
+    # the eight sites of 2026-10-06: a site added later is measured in its own region, never folded in here
+    _regional = {sid for r in json.load(open(os.path.join(HERE, '..', 'scenario', 'regions.json')))['regions'].values() for sid in r['sites']}
+    SITES = [s for s in SITES if s['id'] not in _regional]
 MAX_LEAD_H = 168
 
 
@@ -158,7 +169,8 @@ def main():
         'rows': rows,
     }
     blob = json.dumps(out, separators=(',', ':')).encode()
-    dest = os.path.join(ROOT, 'corpus', 'janela', 'matchups.json.gz')
+    dest = DEST
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
     with open(dest, 'wb') as fh:
         fh.write(gzip.compress(blob, mtime=0))
     print('wrote', len(rows), 'pairs,', os.path.getsize(dest), 'bytes gzipped')

@@ -64,7 +64,7 @@ function load(over) {
     ensemble: feed.ensemble, groups: (feed.groups || []).length, licence: feed.licence };
 
   /* ---- the band record, and the week decided over it (audit/today.js) ---- */
-  const bands = over.bands || J('certs/janela-bands.json');
+  const bands = over.bands || require('./audit/bandset.js').bands();
   need(bands.sites && bands.binHours && bands.borrow, 'certs/janela-bands.json lost its shape');
   const T = TODAY.compute(feed, bands, OPS.operations, SITES);
   let cells = 0, okCells = 0;
@@ -147,7 +147,7 @@ function load(over) {
 
   /* ---- the site alpha: exists only after the back-archive is complete ---- */
   const AP = path.join(ROOT, 'certs', 'janela-alpha.json');
-  N.alpha = over.alpha !== undefined ? over.alpha : (fs.existsSync(AP) ? JSON.parse(fs.readFileSync(AP, 'utf8')) : null);
+  N.alpha = over.alpha !== undefined ? over.alpha : (fs.existsSync(AP) ? require('./audit/bandset.js').alpha() : null);
   if (N.alpha) need(N.alpha.calibration && N.alpha.sites, 'certs/janela-alpha.json lost calibration/sites');
 
   /* ---- the forward ledger: commits, scores, admission, per proposer ---- */
@@ -173,7 +173,7 @@ function load(over) {
     files: lfiles.map((f) => 'certs/janela-ledger/' + f), defs, rule: PLACAR.RULE, firstLook: PLACAR.FIRST_LOOK,
     proposers: Object.values(rec).sort((a, b) => b.commits - a.commits).map((p) => {
       const d = dom[p.domain], a = p.admission, last = a.looks[a.looks.length - 1] || null;
-      return { domain: p.domain, commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
+      return { domain: p.domain, name: PLACAR.NAMES_PT[p.domain] || p.domain, commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
         tFirst: d.tFirst, tLast: d.tLast, sites: d.sites.size, claim: p.claim, status: a.status, pending: a.pending,
         trials: a.trials, trialsCovered: a.trialsCovered, next: a.next, looks: a.looks, prunedAt: a.prunedAt,
         tail: last ? last.tail : null, bar: last ? last.bar : null };

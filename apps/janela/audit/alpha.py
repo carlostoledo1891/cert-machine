@@ -159,8 +159,15 @@ def calibration():
             'redLiteralReading': {'within': literal, 'refused': literal < 16}}
 
 
+# JANELA_REGION=<name>: the region's matchups in, its alpha record out (regions.json)
+import region as _region
+REGION = _region.current()
+MATCHUPS_REL = REGION['matchupsRel'] if REGION else 'corpus/janela/matchups.json.gz'
+DEST_REL = REGION['alphaRel'] if REGION else 'certs/janela-alpha.json'
+
+
 def load_pairs():
-    d = json.loads(gzip.decompress(open(os.path.join(ROOT, 'corpus', 'janela', 'matchups.json.gz'), 'rb').read()))
+    d = json.loads(gzip.decompress(open(os.path.join(ROOT, MATCHUPS_REL), 'rb').read()))
     out = defaultdict(list)
     for r in d['rows']:
         sid, mission, t, npts, obs, dist, rd, lead, fc = r[:9]
@@ -287,10 +294,10 @@ def main():
                                'the Gaussian error model is extrapolated to about its 1-in-1,000 tail; 1e-4 cannot be observed in three years',
                                'Tables 4-4/4-5 (monitoring) and the wind table 4-6 are not re-derived here']},
         'calibration': cal,
-        'source': {'matchups': 'corpus/janela/matchups.json.gz', 'rows': len(meta['rows'])},
+        'source': {'matchups': MATCHUPS_REL, 'rows': len(meta['rows'])},
         'sites': sites,
     }
-    dest = os.path.join(ROOT, 'certs', 'janela-alpha.json')
+    dest = os.path.join(ROOT, DEST_REL)
     with open(dest, 'w') as fh:
         json.dump(out, fh, indent=1, ensure_ascii=False)
         fh.write('\n')

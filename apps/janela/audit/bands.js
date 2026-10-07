@@ -4,6 +4,7 @@
    apps/janela/audit · cert-machine
 
      node apps/janela/audit/bands.js       reads corpus/janela/matchups.json.gz, writes certs/janela-bands.json
+     node apps/janela/audit/bands.js --region sergipe    the region's matchups -> its bands (scenario/regions.json)
 
    For each open-sea site and each 12 h lead bin, from the back-archive pairs:
      Hs     r = observed / forecast            (both exact rationals)
@@ -43,7 +44,11 @@ const str = (a) => { let [n, d] = a; if (d < 0n) { n = -n; d = -d; } const g = (
 const dec = (a, p) => (Number(a[0] * 10n ** BigInt(p) / a[1]) / 10 ** p).toFixed(p);
 
 function main() {
-  const gz = fs.readFileSync(path.join(ROOT, 'corpus', 'janela', 'matchups.json.gz'));
+  const ri = process.argv.indexOf('--region');
+  const region = ri > 0 ? require('../scenario/regions.json').regions[process.argv[ri + 1]] : null;
+  if (ri > 0 && !region) throw new Error('REFUSED: no region ' + process.argv[ri + 1] + ' in apps/janela/scenario/regions.json');
+  const IN = region ? region.matchups : 'corpus/janela/matchups.json.gz', OUTF = region ? region.bands : 'certs/janela-bands.json';
+  const gz = fs.readFileSync(path.join(ROOT, IN));
   const M = JSON.parse(zlib.gunzipSync(gz).toString('utf8'));
   const acc = {};
   for (const r of M.rows) {
@@ -79,11 +84,12 @@ function main() {
     what: 'Janela\'s calibrated forecast band per open-sea site and 12 h lead bin: exact conformal intervals (miss-rate 1/10) of observed/forecast Hs and of observed - forecast 10 m wind speed (m/s), from the back-archive pairs (ECMWF open data vs NOAA RADS NRT altimetry). The band for a forecast f is [f*lo, f*hi]; for a forecast wind (u, v), [s_lo + lo, s_hi + hi] with [s_lo, s_hi] the enclosure of sqrt(u^2+v^2), floored at 0.',
     theorem: 'IF the next ratio is exchangeable with the calibration ratios of its site and lead bin, THEN P(lo <= next <= hi) = (u - l)/(n + 1) exactly (>= with ties) — instruments/forecast/conformal.js',
     hypothesis: 'exchangeability within a site and a 12 h lead bin, over 2023-07..2026-10 and all seasons; graded going forward by the ledger (exact binomial admission)',
-    borrow: BORROW,
-    source: { matchups: 'corpus/janela/matchups.json.gz', sha256: crypto.createHash('sha256').update(gz).digest('hex'), rows: M.rows.length },
+    ...(region ? { region: process.argv[ri + 1], caveat: region.caveat || null } : {}),
+    borrow: region ? {} : BORROW,
+    source: { matchups: IN, sha256: crypto.createHash('sha256').update(gz).digest('hex'), rows: M.rows.length },
     miss: MISS.join('/'), binHours: BIN_H, sites,
   };
-  fs.writeFileSync(path.join(ROOT, 'certs', 'janela-bands.json'), JSON.stringify(out, null, 1) + '\n');
+  fs.writeFileSync(path.join(ROOT, OUTF), JSON.stringify(out, null, 1) + '\n');
   for (const [sid, s] of Object.entries(sites)) {
     const b = s.bins[24] || s.bins[12];
     console.log(sid.padEnd(16), Object.keys(s.bins).length + ' bins', b ? 'Hs@24h n=' + b.hs.n + ' [' + (b.hs.loDec || '-') + ', ' + (b.hs.hiDec || '-') + ']' : '');

@@ -28,5 +28,14 @@
  "commit-margin-v1 (apps/janela/audit/commit.js)": {
   "decided": "2026-10-06, from the 2026-10-07 run on",
   "rule": "a row is committed only when its target is at least one hour after madeAt; the Action pushes right after committing, so the push time proves every row predates its target"
+ },
+ "calibrated-sergipe-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "Janela calibrated band for the Sergipe-Alagoas region: ECMWF deterministic Hs at the site's model node x the exact conformal ratio interval of its 12 h lead bin (certs/janela-bands-sergipe.json, built 2026-10-07 from 3,096 forecast-vs-altimeter pairs 2023-07..2026-10, sha256 named in each row)",
+  "claim": "(u - l)/(n + 1) >= 9/10 per cell, as stated in each row",
+  "alpha": "1/10",
+  "domain": "janela/hs-altimeter/calibrated-sergipe-v1",
+  "caveat": "the satellites see the sea 40-100 km out while the node is 5 km off the coast: the band leans high for the platforms (apps/janela/scenario/regions.json)"
  }
 }

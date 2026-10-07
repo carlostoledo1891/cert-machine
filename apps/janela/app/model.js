@@ -57,15 +57,18 @@ function load() {
   const OPS = J('apps/janela/scenario/operations.json').operations;
   const NPCP = J('apps/janela/scenario/rules/npcp.json');
   const DNVJ = J('apps/janela/scenario/rules/dnv-alpha.json');
-  const A = J('certs/janela-alpha.json');
+  const A = require('../audit/bandset.js').alpha();       /* the 2026-10-06 record + every measured region */
   const alphaT = siteAlphaTables(A);
 
+  /* a region's caveat (regions.json caveatPt) travels with every band its site lends */
+  const BS = require('../audit/bandset.js');
+  const caveatOf = (sid) => { const r = sid && BS.regionOf(sid); return r && r.caveatPt ? r.caveatPt : null; };
   /* the places: the measured sites (their own band), then every production unit (a borrowed band, or none) */
   const places = [];
   for (const s of SITES) {
     /* P-25's measured site and ANP's unit P-25 are one platform: the unit is drawn, the site lends it the band */
     places.push({ id: s.id, name: s.name, kind: s.kind, lat: s.lat, lon: s.lon, own: true, bandFrom: null, hidden: s.kind === 'platform' || undefined,
-      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null), added: s.added || null });
+      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null), added: s.added || null, caveat: caveatOf(s.id) });
   }
   /* a unit with no measured band may still sit by a site that is TRACKED (forecast and ledgered daily) but not yet
      measured: the nearest such open-sea site within the borrowing distance, named so the card can say so */
@@ -76,7 +79,7 @@ function load() {
     /* ANP's layer spells one unit's type "SEMI SUBVERSÍVEL": shown as the word it means; corpus/anp keeps the layer as published */
     places.push({ id: u.id, name: u.sig || u.name, full: u.name, kind: 'uep', type: u.type === 'SEMI SUBVERSÍVEL' ? 'SEMI SUBMERSÍVEL' : u.type, depth: u.waterDepthM, serves: u.serves,
       operator: u.operator, oilBpd: u.oilBpd, gasKm3d: u.gasKm3d, lat: u.lat, lon: u.lon, own: false, bandFrom: u.bandFrom,
-      near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null,
+      near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null, caveat: caveatOf(u.bandFrom),
       tracked: u.bandFrom ? null : tracked.map((s) => ({ site: s.id, km: Math.round(km([u.lat, u.lon], [s.lat, s.lon])), added: s.added || null }))
         .filter((t) => t.km <= BORROW_KM).sort((a, b) => a.km - b.km)[0] || null });
   }
@@ -92,8 +95,8 @@ function load() {
   const siteWhy = (p) => p.kind === 'terminal' ? 'num terminal o α do local não se aplica: a baía não tem α medido, e o nó do modelo é a aproximação'
     : p.alphaFrom ? null : p.kind === 'uep' && !p.bandFrom ? 'região ainda sem medição: nenhum local medido a menos de 350 km' : 'sem α do local estimado aqui';
   for (const p of places) p.siteWhy = siteWhy(p);
-  const records = ['certs/janela-bands.json', 'certs/janela-alpha.json', 'certs/janela-workability.json', 'apps/janela/scenario/sites.json',
-    'apps/janela/scenario/platforms.json', 'apps/janela/scenario/operations.json', 'apps/janela/scenario/rules/npcp.json', 'apps/janela/scenario/rules/dnv-alpha.json'];
+  const records = require('../audit/bandset.js').files().concat(['certs/janela-workability.json', 'apps/janela/scenario/sites.json', 'apps/janela/scenario/regions.json',
+    'apps/janela/scenario/platforms.json', 'apps/janela/scenario/operations.json', 'apps/janela/scenario/rules/npcp.json', 'apps/janela/scenario/rules/dnv-alpha.json']);
   return { places, npcp, presets: PRESETS, crits: CRITS, alphaT, siteWhy, wind46: DNVJ.windTable['4-6'], t41: DNVJ.waveTables['4-1'], columns: DNVJ.waveColumns,
     dnvSource: DNVJ.source, records: Object.fromEntries(records.map((r) => [r, sha(r)])) };
 }

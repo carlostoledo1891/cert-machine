@@ -52,6 +52,12 @@ if os.environ.get('JANELA_SITES'):
         raise SystemExit('REFUSED: JANELA_SITES names no site in sites.json')
 CACHE = os.path.join(ROOT, 'corpus', 'janela', 'cache')
 OUT = os.path.join(ROOT, 'corpus', 'janela')
+# JANELA_REGION=<name>: the region's own cache, pack and sites (regions.json), nothing else touched
+import region as _region
+REGION = _region.current()
+if REGION:
+    CACHE, OUT = REGION['cache'], REGION['pack']
+    SITES = [s for s in SITES if s['id'] in set(REGION['sites'])]
 
 # what is read from each forecast run (00 UTC): Hs every 6 h to 96 h, then every
 # 12 h to 168 h; peak period and mean direction once a day; 10 m wind every 12 h

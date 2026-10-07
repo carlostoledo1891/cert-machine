@@ -290,4 +290,23 @@ ok('placar: the real ledger reads through placar.js, and every proposer stays pe
   for (const p of Object.values(PL.record(rows))) assert.strictEqual(p.admission.pending, p.admission.trials < 30, p.domain);
 });
 
+/* ---- the regions (scenario/regions.json + audit/bandset.js): added beside the records of 2026-10-06, never folded in ---- */
+const BS = require('./audit/bandset.js');
+ok('regions: every measured region carries exactly its own sites, and the merge keeps the 2026-10-06 record whole', () => {
+  const main = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'janela-bands.json'), 'utf8'));
+  const B = BS.bands();
+  for (const r of BS.records().filter((x) => x.name !== 'main')) {
+    const rec = JSON.parse(fs.readFileSync(path.join(ROOT, r.bands), 'utf8'));
+    assert.deepStrictEqual(Object.keys(rec.sites).sort(), r.sites.slice().sort(), r.name);
+    for (const sid of r.sites) assert.ok(SITES.some((s) => s.id === sid), sid + ' is not in sites.json');
+  }
+  for (const sid of Object.keys(main.sites)) assert.deepStrictEqual(B.sites[sid], main.sites[sid], sid);
+  assert.strictEqual(B.records[0].file, 'certs/janela-bands.json');
+});
+red('regions: a site carried by two bands records is refused, never resolved by order', () => {
+  const a = { file: 'a.json', rec: { sites: { x: 1 } } }, b = { file: 'b.json', rec: { sites: { x: 2 } } };
+  assert.throws(() => BS.merge([a, b], 'bands'), /carried by two bands records/);
+  assert.deepStrictEqual(BS.merge([a, { file: 'c.json', rec: { sites: { y: 3 } } }], 'bands'), { x: 1, y: 3 });
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

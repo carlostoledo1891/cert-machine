@@ -1,0 +1,18 @@
+{
+ "what": "Janela's measured REGIONS beyond the eight open-sea sites of 2026-10-06. ONE definition: each region names its sites (in sites.json) and every path of its own chain — the back-archive cache (git-ignored) and pack, the matchups, the calibrated bands, the site alpha — and the ledger proposer its bands record defines. A region is measured and lends bands the day its records are committed; the records of 2026-10-06 (corpus/janela/{ecmwf,alt,matchups.json.gz}, certs/janela-{bands,alpha}.json, proposer calibrated-v1) are never rewritten to add one.",
+ "regions": {
+  "sergipe": {
+   "sites": ["sergipe"],
+   "added": "2026-10-07",
+   "archive": { "from": "2023-07-12", "to": "2026-10-05", "fetched": "janela-archive workflow, sites=sergipe (runs 37550621132 ecmwf, 37550624256 alt)" },
+   "cache": "corpus/janela/regions/sergipe/cache",
+   "pack": "corpus/janela/regions/sergipe",
+   "matchups": "corpus/janela/regions/sergipe/matchups.json.gz",
+   "bands": "certs/janela-bands-sergipe.json",
+   "alpha": "certs/janela-alpha-sergipe.json",
+   "proposer": "janela/hs-altimeter/calibrated-sergipe-v1",
+   "caveatPt": "a faixa de Sergipe é medida contra o mar que o satélite vê a 40–100 km da costa, mais fundo e mais agitado que a água rasa das plataformas: puxa para CIMA — conservadora por construção. Um ondógrafo nas plataformas fecharia essa diferença.",
+   "caveat": "The platforms stand in 13-38 m of water 5-20 km off the coast, where an altimeter footprint is land-contaminated: the passes that count (547 in three years, >= 5 points within 100 km) see the sea 40-100 km out (median mean distance 70 km), deeper and rougher than at the platforms, while the forecast is read at the model's sea node 5 km off the coast. The measured ratio band therefore carries the shelf's gradient as well as the model's error (Hs at 24 h: 1.13-1.62 x the forecast, against 0.86-1.20 at Santos): it leans HIGH for the platforms — conservative by construction, and stated wherever it decides."
+  }
+ }
+}

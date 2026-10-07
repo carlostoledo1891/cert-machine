@@ -795,7 +795,7 @@ function build(N, B, git, battery) {
   const run = br.date(N.feed.run) + ' ' + N.feed.run.slice(11, 13) + ' UTC';
   const made = br.date(N.feed.madeAt) + ' ' + br.hm(N.feed.madeAt) + ' UTC';
   const P = N.ledger.proposers;
-  const NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'Faixa medida da Janela, v1' };
+  const NAMES = PLACAR.NAMES_PT;
   const STATUS = { ADMITTED: 'ADMITIDO', DEADMITTED: 'PODADO' };
   /* the admission in one line, from placar.js's verdict (trials = target days, looks at 30·2^j) */
   const admLine = (p) => p.pending
@@ -911,7 +911,9 @@ function build(N, B, git, battery) {
         if (!agg[e.OPLIM]) { agg[e.OPLIM] = { f: 0, a: 0, b: 0 }; order.push(e.OPLIM); }
         agg[e.OPLIM].f += e.forecastsAtOrBelowOPWF; agg[e.OPLIM].a += e.observedAboveOPLIM; agg[e.OPLIM].b += e['observedAbove1.5xOPLIM'];
       }
+      const rg = require('./audit/bandset.js').regionOf(sid);
       return '<details class="more"><summary>' + esc(nameA(sid) + ' · ' + br.int(s.pairs) + ' pares em ' + br.int(s.days) + ' dias') + '</summary>'
+        + (rg && rg.caveatPt ? C.p('Atenção: ' + rg.caveatPt) : '')
         + (live.length ? '<div class="jn-at">' + C.table({ cols: [{ h: 'Hs de projeto' }, ...TP.map((t) => ({ h: 'TPOP ' + t + ' h' }))],
           rows: live.map((h) => [hsLab(h, HS.indexOf(h)), ...TP.map((t) => ({ raw: cellRaw(cellOf(s, h, t)) }))]) }) + '</div>' : '')
         + (dead.length ? '<div class="col">' + C.p('Hs de projeto ' + dead.map((h) => L.dc(String(h))).join(' e ') + ' m: pares insuficientes em todos os prazos (no máximo '

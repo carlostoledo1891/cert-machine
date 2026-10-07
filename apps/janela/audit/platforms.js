@@ -37,7 +37,7 @@ function main() {
   if (sha !== pins.files['unidades_de_producao.geojson'].sha256) throw new Error('REFUSED: the ANP production-unit layer does not hash to its pin');
   /* MEASURED = an open-sea site the bands record carries: a site added to sites.json is forecast and
      ledgered from its first day, but lends no band until the back-archive has measured it */
-  const bandsRec = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'janela-bands.json'), 'utf8'));
+  const bandsRec = require('./bandset.js').bands();
   const measured = require('../scenario/sites.json').sites.filter((s) => ['field', 'platform', 'coast'].includes(s.kind) && bandsRec.sites[s.id]);
   const rows = [];
   const seen = new Map();
