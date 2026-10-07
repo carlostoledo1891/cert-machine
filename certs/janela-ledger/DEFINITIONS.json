@@ -117,5 +117,13 @@
   "when": "a day is observed once it is at least three days old and all four steps are on the dataset's axis; days in order, each written once",
   "version": "each day names the dataset version read; 202411 retires 2026-11-24 — a successor is a new truth version, dated before it is used",
   "stated": "GlobCurrent is itself an estimate (its own error fields exist): agreement with it is evidence, not proof; the band built from these pairs claims coverage of GlobCurrent, said so wherever it is shown"
+ },
+ "providers-eval-aifs-v1 (apps/janela/audit/providers_aifs.py)": {
+  "decided": "2026-10-07, before the AIFS pairs were judged (the operator: 'proceed all what can do now free')",
+  "criterion": "providers-eval-v1's, unchanged: a LIBERADA must hold, then decisiveness, then a claim a surveyor can re-check",
+  "question": "does ECMWF's data-driven AIFS Single wave forecast (open data from the 2026-05-13 run) earn a place beside ECMWF IFS and NOAA GFS-Wave — as a band that decides, a member of the union, or a forecast shown and graded only",
+  "measurement": "the three providers' forecast-vs-altimeter pairs joined on the same pass, site and run (corpus/janela/matchups*.json.gz, the eight main sites); SPLIT 2026-08-01: every band calibrated on the passes before it — E and N on their own history from 2023-07-12, A on its own from 2026-05-13, and E also on A's short window (E-short) so the model is separated from the calibration length — then judged on the passes from 2026-08-01, which none saw; providers.py's conformal ratio band (site x 12 h lead bin, symmetric order statistics), miss 1/10 only (A's short window cannot hold 1/20 cells); options E, N, A, E-short, U(E,N) (today's rule), U(E,N,A), U(E,A), M(E,A) (the plain mean, no tuned weight); compared on the pairs where every option has a band; plus the deterministic forecasts' bias and RMS by lead on the same pairs",
+  "decision rule (fixed now)": "A enters the deciding union only if U(E,N,A) keeps the broken-LIBERADA share at Hs <= 2.0 m at or under U(E,N)'s AND loses no more than 5% of its LIBERADA; A replaces a provider only if a two-band union with A beats U(E,N) on both; otherwise A is committed and graded as a proposer (shown, scored, never deciding) and the question is re-asked when A's forward record reaches its first admission look",
+  "caveats": "2.2 held-out months in austral late winter/spring and 2.6 calibration months in late autumn/winter: a seasonal mismatch for A and E-short, none for E and N; a floating-point evaluation (the deciding bands are exact)"
  }
 }

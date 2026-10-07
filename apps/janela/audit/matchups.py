@@ -3,6 +3,8 @@
 apps/janela/audit · cert-machine
 
     python matchups.py        reads corpus/janela/cache/{ecmwf,alt}/, writes corpus/janela/matchups.json.gz
+    JANELA_PROVIDER=aifs python matchups.py
+                              ECMWF's data-driven AIFS Single (archive.py aifs, from 2026-05-13) -> corpus/janela/matchups-aifs.json.gz
     JANELA_PROVIDER=noaa python matchups.py
                               the second provider: corpus/janela/cache/{noaa,alt}/ -> corpus/janela/matchups-noaa.json.gz
                               (NOAA GFS-Wave runs, archive.py noaa), the same passes, sites and rule
@@ -52,13 +54,19 @@ MAX_LEAD_H = 168
 # JANELA_PROVIDER=noaa: the forecasts are NOAA's GFS-Wave runs (archive.py noaa: same steps, same field record,
 # ECMWF's parameter names), paired with the same passes at the same sites by the same rule
 PROVIDER = os.environ.get('JANELA_PROVIDER', 'ecmwf')
-if PROVIDER not in ('ecmwf', 'noaa'):
-    raise SystemExit(f'REFUSED: JANELA_PROVIDER={PROVIDER!r} (ecmwf or noaa)')
+if PROVIDER not in ('ecmwf', 'noaa', 'aifs'):
+    raise SystemExit(f'REFUSED: JANELA_PROVIDER={PROVIDER!r} (ecmwf, noaa or aifs)')
+if PROVIDER == 'aifs':
+    # ECMWF's data-driven AIFS Single (archive.py aifs, from 2026-05-13): the eight main sites only, so far
+    if REGION:
+        raise SystemExit('REFUSED: no region carries an AIFS chain yet')
+    DEST = os.path.join(ROOT, 'corpus', 'janela', 'matchups-aifs.json.gz')
 if PROVIDER == 'noaa':
     if REGION and not REGION.get('noaa'):
         raise SystemExit(f"REFUSED: region {REGION['name']} names no NOAA chain in regions.json")
     DEST = os.path.join(ROOT, REGION['noaa']['matchups']) if REGION else os.path.join(ROOT, 'corpus', 'janela', 'matchups-noaa.json.gz')
-SOURCE = {'ecmwf': 'ECMWF open-data 00 UTC runs', 'noaa': 'NOAA GFS-Wave (WAVEWATCH III) 00 UTC runs'}[PROVIDER]
+SOURCE = {'ecmwf': 'ECMWF open-data 00 UTC runs', 'noaa': 'NOAA GFS-Wave (WAVEWATCH III) 00 UTC runs',
+          'aifs': 'ECMWF AIFS Single (data-driven) open-data 00 UTC runs'}[PROVIDER]
 
 
 def load_ecmwf():
