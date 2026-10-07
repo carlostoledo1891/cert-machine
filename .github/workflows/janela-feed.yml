@@ -21,20 +21,21 @@
 # safe to repeat (a feed is written once, commit ids are unique, a day is observed once,
 # nothing is rescored, and a day already on janela-field is not rebuilt), so a later run
 # only does what an earlier one could not, and a run with nothing to do pushes nothing.
-# FIVE SLOTS, AND THE SCHEDULER IS ONLY A LATE FALLBACK (2026-10-07): on the first scheduled
-# day no slot fired by 14:40 UTC; the operator's other repositories' weekly crons run 8–9
-# HOURS late on this account (GitHub may delay or drop scheduled runs under load). The day
-# was dispatched by hand at 12:17 and the 06 and 12 UTC targets were lost. The punctual
-# trigger is tools/janela-watchdog.sh (launchd on the desk, the gh login already there):
-# hourly from 09:05 UTC until the day's "Janela feed" commit is on main.
+# EVERY HOUR, BEHIND A GATE (2026-10-07). On the first scheduled day no slot fired by 14:40
+# UTC; the operator's other repositories' weekly crons run 8–9 HOURS late on this account
+# (GitHub may delay or drop scheduled runs under load). The day was dispatched by hand at
+# 12:17 and the 06 and 12 UTC targets were lost. So the schedule asks every hour, and a
+# light `gate` job (no checkout, ~10 s) decides whether there is anything to do: nothing
+# until today's ECMWF 00 UTC wave ensemble is complete (its 168 h index answers 200), and
+# then only while today's ECMWF feed, NOAA's feed (until 20 UTC) or the app's day is not
+# yet published. However late GitHub fires the hourly slots, one lands after ~09 UTC.
+# A hand dispatch always runs. The punctual trigger on the operator's desk is
+# tools/janela-watchdog.sh (launchd, the gh login already there): hourly from 09:05 UTC
+# until the day's "Janela feed" commit is on main.
 name: janela-feed
 on:
   schedule:
-    - cron: '40 9 * * *'
-    - cron: '17 10 * * *'
-    - cron: '40 11 * * *'
-    - cron: '23 14 * * *'
-    - cron: '47 18 * * *'
+    - cron: '23 * * * *'
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -42,7 +43,32 @@ concurrency:
   group: janela-feed
   cancel-in-progress: false
 jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      todo: ${{ steps.g.outputs.todo }}
+    steps:
+      - name: is there anything to do today?
+        id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          today=$(date -u +%F); ymd=$(date -u +%Y%m%d)
+          if [ "$EVENT" = "workflow_dispatch" ]; then echo "todo=true" >> "$GITHUB_OUTPUT"; echo "dispatched by hand: run"; exit 0; fi
+          code=$(curl -s -4 -o /dev/null -w '%{http_code}' "https://storage.googleapis.com/ecmwf-open-data/${ymd}/00z/ifs/0p25/waef/${ymd}000000-168h-waef-ef.index" || true)
+          if [ "$code" != "200" ]; then echo "todo=false" >> "$GITHUB_OUTPUT"; echo "ECMWF ${ymd} 00 UTC not complete yet (${code}): nothing to do"; exit 0; fi
+          msgs=$(gh api "repos/${GITHUB_REPOSITORY}/commits?sha=main&since=${today}T00:00:00Z&per_page=100" --jq '.[].commit.message | split("\n")[0]')
+          day=$(gh api "repos/${GITHUB_REPOSITORY}/commits/janela-field" --jq '.commit.message | split("\n")[0]' || true)
+          todo=false
+          grep -q "^Janela feed ${today}:" <<< "$msgs" || { todo=true; echo "the ECMWF feed of ${today} is not on main"; }
+          case "$day" in "Janela day ${today}:"*) ;; *) todo=true; echo "janela-field does not carry ${today}";; esac
+          if [ "$(date -u +%H)" -lt 20 ]; then grep -q "^Janela feed-noaa ${today}:" <<< "$msgs" || { todo=true; echo "NOAA's feed of ${today} is not on main"; }; fi
+          echo "todo=$todo" >> "$GITHUB_OUTPUT"; echo "todo=$todo"
   feed:
+    needs: gate
+    if: needs.gate.outputs.todo == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:

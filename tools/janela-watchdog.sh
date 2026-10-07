@@ -56,6 +56,10 @@ EOF
     done=$(gh api "repos/$REPO/commits?sha=main&since=${today}T00:00:00Z&per_page=100" \
              --jq "[.[] | select(.commit.message | startswith(\"Janela feed ${today}:\"))] | length")
     [ "$done" -gt 0 ] && exit 0
+    # nothing before today's ECMWF 00 UTC wave ensemble is complete (the workflow's gate asks the same)
+    ymd=$(date -u +%Y%m%d)
+    code=$(curl -s -4 -o /dev/null -w '%{http_code}' "https://storage.googleapis.com/ecmwf-open-data/${ymd}/00z/ifs/0p25/waef/${ymd}000000-168h-waef-ef.index" || true)
+    [ "$code" = "200" ] || exit 0
     # never a second run while one is queued or running
     busy=$(gh run list -R "$REPO" --workflow=janela-feed.yml --limit 10 --json status \
              --jq '[.[] | select(.status != "completed")] | length')
