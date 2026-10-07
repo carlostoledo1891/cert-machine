@@ -414,6 +414,8 @@ ok('union-v1: the band that decides is committed as itself — [min, max] of ECM
   assert.deepStrictEqual([c.forecast.lo, c.forecast.hi], [['27', '20'], ['88', '50']]);
   assert.deepStrictEqual(c.forecast.det, { ecmwf: '3/2', noaa: '8/5' });
   assert.throws(() => CM.unionRows(fE, 'x', Object.assign({}, fN, { run: '2026-10-06T00' }), 'y', '2026-10-07T05:30:00Z', [], []), /one run of both providers/);
+  /* a main band is never joined with a regional one: ECMWF's main record with NOAA's Sergipe record makes no row */
+  assert.strictEqual(CM.unionRows(fE, 'x', fN, 'y', '2026-10-07T05:30:00Z', [cal('janela/hs-altimeter/calibrated-v1')], [cal('janela/hs-altimeter/calibrated-noaa-sergipe-v1')]).length, 0);
 });
 red('noaa: a feed whose band is not the definition\'s (order statistics 3 and 29) is refused whole, never committed under the name', () => {
   assert.throws(() => CM.noaaRows(noaaFeed({ band: 'order statistics 3 and 29 of 31 sorted members' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z'), /does not carry the band/);

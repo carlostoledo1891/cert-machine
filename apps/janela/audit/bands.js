@@ -51,9 +51,9 @@ function main() {
   const pi = process.argv.indexOf('--provider');
   const provider = pi > 0 ? process.argv[pi + 1] : 'ecmwf';
   if (provider !== 'ecmwf' && provider !== 'noaa') throw new Error('REFUSED: --provider ' + provider + ' (ecmwf or noaa)');
-  if (provider === 'noaa' && region) throw new Error('REFUSED: NOAA is calibrated at the eight open-sea sites of 2026-10-06 only (no region yet)');
-  const IN = provider === 'noaa' ? 'corpus/janela/matchups-noaa.json.gz' : region ? region.matchups : 'corpus/janela/matchups.json.gz';
-  const OUTF = provider === 'noaa' ? 'certs/janela-bands-noaa.json' : region ? region.bands : 'certs/janela-bands.json';
+  if (provider === 'noaa' && region && !region.noaa) throw new Error('REFUSED: region ' + process.argv[ri + 1] + ' names no NOAA chain in regions.json');
+  const IN = provider === 'noaa' ? (region ? region.noaa.matchups : 'corpus/janela/matchups-noaa.json.gz') : region ? region.matchups : 'corpus/janela/matchups.json.gz';
+  const OUTF = provider === 'noaa' ? (region ? region.noaa.bands : 'certs/janela-bands-noaa.json') : region ? region.bands : 'certs/janela-bands.json';
   const SRC = provider === 'noaa' ? 'NOAA GFS-Wave (WAVEWATCH III)' : 'ECMWF open data';
   const gz = fs.readFileSync(path.join(ROOT, IN));
   const M = JSON.parse(zlib.gunzipSync(gz).toString('utf8'));

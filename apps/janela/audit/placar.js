@@ -67,7 +67,9 @@ const NAMES_PT = {
   'janela/hs-altimeter/calibrated-sergipe-v1': 'A faixa medida da Janela, Sergipe-Alagoas, v1',
   'janela/hs-altimeter/noaa-gefs-c25of31': 'Ensemble NOAA (WAVEWATCH III), os 25 centrais de 31',
   'janela/hs-altimeter/calibrated-noaa-v1': 'A faixa medida da NOAA (WAVEWATCH III), v1',
-  'janela/hs-altimeter/union-v1': 'A faixa que decide: ECMWF ∪ NOAA, v1'
+  'janela/hs-altimeter/union-v1': 'A faixa que decide: ECMWF ∪ NOAA, v1',
+  'janela/hs-altimeter/calibrated-noaa-sergipe-v1': 'A faixa medida da NOAA, Sergipe-Alagoas, v1',
+  'janela/hs-altimeter/union-sergipe-v1': 'A faixa que decide em Sergipe-Alagoas: ECMWF ∪ NOAA, v1'
 };
 
 /* the looks reached after m trials: m = 30·2^j, bar = 1/20 · 2^-(j+1) */

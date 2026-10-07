@@ -65,6 +65,12 @@ function load() {
   /* which ledger proposer a site's band IS (one per bands record): the card names it and its admission */
   const proposerOf = {};
   for (const r of BS.bands().records) for (const sid of r.sites) proposerOf[sid] = r.proposer;
+  /* the second provider's proposer at a site, and the union the two make there (commit.js UNIONS: a main record is
+     never joined with a regional one) — the card names the band that decided */
+  const noaaOf = {}, NB = BS.bands('noaa');
+  if (NB) for (const r of NB.records) for (const sid of r.sites) noaaOf[sid] = r.proposer;
+  const UNIONS = require('../audit/commit.js').UNIONS;
+  const pair = (sid) => (sid && proposerOf[sid] && noaaOf[sid] ? { proposer2: noaaOf[sid], union: UNIONS[proposerOf[sid] + '|' + noaaOf[sid]] || null } : {});
   const caveatOf = (sid) => { const r = sid && BS.regionOf(sid); return r && r.caveatPt ? r.caveatPt : null; };
   /* the places: the measured sites (their own band), then every production unit (a borrowed band, or none) */
   const places = [];
@@ -74,7 +80,10 @@ function load() {
        drawn) and the coast point (Florianópolis' open edge, the band Babitonga borrows) — the app is the oil and gas
        margin's, not the beach's (operator, 2026-10-07) */
     places.push({ id: s.id, name: s.name, kind: s.kind, lat: s.lat, lon: s.lon, own: true, bandFrom: null, hidden: s.kind === 'platform' || s.kind === 'coast' || undefined,
-      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null), added: s.added || null, caveat: caveatOf(s.id), proposer: proposerOf[s.id] || null });
+      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null), added: s.added || null, caveat: caveatOf(s.id),
+      /* a terminal decides on the band its open-sea neighbour lends: that band's proposer is the one the card names */
+      proposer: proposerOf[s.id] || (s.kind === 'terminal' ? proposerOf[BS.bands().borrow[s.id]] || null : null),
+      ...pair(s.kind === 'terminal' ? BS.bands().borrow[s.id] : s.id) });
   }
   /* a unit with no measured band may still sit by a site that is TRACKED (forecast and ledgered daily) but not yet
      measured: the nearest such open-sea site within the borrowing distance, named so the card can say so */
@@ -86,6 +95,7 @@ function load() {
     places.push({ id: u.id, name: u.sig || u.name, full: u.name, kind: 'uep', type: u.type === 'SEMI SUBVERSÍVEL' ? 'SEMI SUBMERSÍVEL' : u.type, depth: u.waterDepthM, serves: u.serves,
       operator: u.operator, oilBpd: u.oilBpd, gasKm3d: u.gasKm3d, lat: u.lat, lon: u.lon, own: false, bandFrom: u.bandFrom,
       near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null, caveat: caveatOf(u.bandFrom), proposer: u.bandFrom ? proposerOf[u.bandFrom] || null : null,
+      ...pair(u.bandFrom),
       tracked: u.bandFrom ? null : tracked.map((s) => ({ site: s.id, km: Math.round(km([u.lat, u.lon], [s.lat, s.lon])), added: s.added || null }))
         .filter((t) => t.km <= BORROW_KM).sort((a, b) => a.km - b.km)[0] || null });
   }

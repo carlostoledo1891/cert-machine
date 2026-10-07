@@ -90,5 +90,23 @@
   "claim": "9/10 — provable: the union covers whenever either component covers; measured 0.965 on 15 held-out months (providers-eval-v1)",
   "alpha": "1/10",
   "domain": "janela/hs-altimeter/union-v1"
+ },
+ "calibrated-noaa-sergipe-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "NOAA's calibrated band for the Sergipe-Alagoas region: GFS-Wave's deterministic Hs at the site's NOAA node x the exact conformal ratio interval of its 12 h lead bin, from the region's own NOAA pairs (certs/janela-bands-noaa-sergipe.json, built 2026-10-07 from 3,819 pairs 2023-07-12..2026-10-05, the same passes and rule as calibrated-sergipe-v1; sha256 named in each row)",
+  "claim": "(u - l)/(n + 1) >= 9/10 per cell, as stated in each row",
+  "alpha": "1/10",
+  "caveat": "the region's footprint caveat holds as for calibrated-sergipe-v1: the passes see the sea 40-100 km out, so the band leans high for the platforms (Hs at 24 h: 1.20-1.77 x GFS-Wave's forecast)",
+  "domain": "janela/hs-altimeter/calibrated-noaa-sergipe-v1"
+ },
+ "union-sergipe-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "proposer": "the band that decides at Sergipe-Alagoas (providers-v1): the union [min lo, max hi] of calibrated-sergipe-v1's band and calibrated-noaa-sergipe-v1's, wherever both exist at the site and step; a main record is never joined with a regional one",
+  "claim": "9/10 — provable: the union covers whenever either component covers",
+  "alpha": "1/10",
+  "measured": "certs/janela-providers-eval-sergipe.json, 1,603 held-out pairs (from 2025-07-01, never seen): ECMWF's regional band alone covered 0.872, NOAA's 0.867 — UNDER their 9/10 claim out of sample — and the union 0.948; at Hs <= 1.5 m (decommissioning lifts) the union's LIBERADA broke 0 of 208 times, ECMWF's alone 3 of 280",
+  "domain": "janela/hs-altimeter/union-sergipe-v1"
  }
 }

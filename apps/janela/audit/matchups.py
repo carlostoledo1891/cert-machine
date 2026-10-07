@@ -55,9 +55,9 @@ PROVIDER = os.environ.get('JANELA_PROVIDER', 'ecmwf')
 if PROVIDER not in ('ecmwf', 'noaa'):
     raise SystemExit(f'REFUSED: JANELA_PROVIDER={PROVIDER!r} (ecmwf or noaa)')
 if PROVIDER == 'noaa':
-    if REGION:
-        raise SystemExit('REFUSED: NOAA is calibrated at the eight open-sea sites of 2026-10-06 only (no region yet)')
-    DEST = os.path.join(ROOT, 'corpus', 'janela', 'matchups-noaa.json.gz')
+    if REGION and not REGION.get('noaa'):
+        raise SystemExit(f"REFUSED: region {REGION['name']} names no NOAA chain in regions.json")
+    DEST = os.path.join(ROOT, REGION['noaa']['matchups']) if REGION else os.path.join(ROOT, 'corpus', 'janela', 'matchups-noaa.json.gz')
 SOURCE = {'ecmwf': 'ECMWF open-data 00 UTC runs', 'noaa': 'NOAA GFS-Wave (WAVEWATCH III) 00 UTC runs'}[PROVIDER]
 
 

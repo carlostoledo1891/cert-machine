@@ -41,6 +41,8 @@ function records() {
   const out = [{ name: 'main', provider: 'ecmwf', bands: MAIN.bands, alpha: MAIN.alpha, proposer: MAIN.proposer }];
   for (const r of regions()) if (fs.existsSync(path.join(ROOT, r.bands))) out.push(Object.assign({ provider: 'ecmwf' }, r));
   for (const p of PROVIDERS) if (fs.existsSync(path.join(ROOT, p.bands))) out.push(Object.assign({}, p));
+  /* a region's NOAA chain (regions.json r.noaa): NOAA calibrated on the region's own pairs */
+  for (const r of regions()) if (r.noaa && fs.existsSync(path.join(ROOT, r.noaa.bands))) out.push({ name: r.name + '-noaa', provider: 'noaa', bands: r.noaa.bands, proposer: r.noaa.proposer });
   return out;
 }
 

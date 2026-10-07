@@ -66,7 +66,9 @@ const CAL_PINS = {
   /* Sergipe-Alagoas, measured 2026-10-07 (certs/janela-bands-sergipe.json; regions.json states its footprint caveat) */
   'janela/hs-altimeter/calibrated-sergipe-v1': '175a5ce26d4a4945b05e3bb54e5f8a4da5256cc6df2e31c0b023ce18bcf22cb0',
   /* NOAA, calibrated on its own pairs 2026-10-07 (certs/janela-bands-noaa.json); committed by --noaa from GFS-Wave's own Hs */
-  'janela/hs-altimeter/calibrated-noaa-v1': 'beaf366df295ba48aacb5e52f7c47f57de3676153f7efc8820beb67407b995af'
+  'janela/hs-altimeter/calibrated-noaa-v1': 'beaf366df295ba48aacb5e52f7c47f57de3676153f7efc8820beb67407b995af',
+  /* NOAA at Sergipe-Alagoas, calibrated on the region's own pairs 2026-10-07 (certs/janela-bands-noaa-sergipe.json) */
+  'janela/hs-altimeter/calibrated-noaa-sergipe-v1': '991211a94b70aa44e142c91475d4fe7197a0f65ca013164aace8f2c0c8f439c1'
 };
 /* v1's rows keep the id suffix they were born with */
 const calSuffix = (domain) => (domain === 'janela/hs-altimeter/calibrated-v1' ? ':cal' : ':' + domain.split('/').pop());
@@ -146,6 +148,11 @@ function noaaRows(feed, feedSha, want, madeAt, cals) {
    so the provable claim is the components' (measured on 15 held-out months: 0.965, certs/janela-providers-eval.json).
    Pure; the battery feeds it synthetic feeds. */
 const UNION = 'janela/hs-altimeter/union-v1';
+/* each union names its two components; a band of one record is never joined with another record's (main never with a region) */
+const UNIONS = {
+  'janela/hs-altimeter/calibrated-v1|janela/hs-altimeter/calibrated-noaa-v1': UNION,
+  'janela/hs-altimeter/calibrated-sergipe-v1|janela/hs-altimeter/calibrated-noaa-sergipe-v1': 'janela/hs-altimeter/union-sergipe-v1'
+};
 function unionRows(feedE, wantE, feedN, wantN, madeAt, calsE, calsN) {
   const rows = [];
   if (feedE.run !== feedN.run) throw new Error('REFUSED: the union needs one run of both providers (' + feedE.run + ' vs ' + feedN.run + ')');
@@ -159,10 +166,12 @@ function unionRows(feedE, wantE, feedN, wantN, madeAt, calsE, calsN) {
       if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) continue;
       const ce = calsE.map((c) => [c, calCell(c, sid, st.lead)]).find((x) => x[1]), cn = calsN.map((c) => [c, calCell(c, sid, st.lead)]).find((x) => x[1]);
       if (!ce || !cn) continue;
+      const domain = UNIONS[ce[0].domain + '|' + cn[0].domain];
+      if (!domain) continue;
       const a = [mulFr(stE.hs.det, ce[1].lo), mulFr(stE.hs.det, ce[1].hi)], b = [mulFr(st.hs.det, cn[1].lo), mulFr(st.hs.det, cn[1].hi)];
       const le = (x, y) => BigInt(x[0]) * BigInt(y[1]) <= BigInt(y[0]) * BigInt(x[1]);
       rows.push({ ledger: st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', c: {
-        id: 'janela:' + sid + ':' + feedN.run + ':+' + st.lead + 'h:union-v1', domain: UNION, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+        id: 'janela:' + sid + ':' + feedN.run + ':+' + st.lead + 'h:' + domain.split('/').pop(), domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
         forecast: { lo: le(a[0], b[0]) ? a[0] : b[0], hi: le(a[1], b[1]) ? b[1] : a[1], alpha: [1, 10], lead: st.lead,
           det: { ecmwf: stE.hs.det, noaa: st.hs.det }, node: { ecmwf: siteE.node, noaa: site.node }, feed: { ecmwf: wantE.slice(0, 8), noaa: 'noaa/' + wantN.slice(0, 8) },
           bandsSha: { [ce[0].domain]: ce[0].sha.slice(0, 16), [cn[0].domain]: cn[0].sha.slice(0, 16) } } } });
@@ -236,4 +245,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { NOAA, UNION, TARGET_ID, MARGIN_MS, noaaRows, unionRows };
+module.exports = { NOAA, UNION, UNIONS, TARGET_ID, MARGIN_MS, noaaRows, unionRows };

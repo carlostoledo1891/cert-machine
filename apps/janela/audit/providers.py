@@ -4,6 +4,9 @@ apps/janela/audit · cert-machine
 
     python providers.py            re-measure and write certs/janela-providers-eval.json
     python providers.py --check    re-measure and compare with the committed record (standard library only)
+    python providers.py --region sergipe [--check]     (or JANELA_REGION=sergipe)
+                                   the same for a measured region, from its own two chains (regions.json)
+                                   -> certs/janela-providers-eval-<region>.json
 
 THE QUESTION (2026-10-07, the operator: "you decide the best and reliable — ask what Petrobras
 needs"). Petrobras acts on a LIBERADA: a window the sea then breaks costs a shuttle tanker, a lift
@@ -40,7 +43,16 @@ from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
-DEST = os.path.join(ROOT, 'certs', 'janela-providers-eval.json')
+REGION = sys.argv[sys.argv.index('--region') + 1] if '--region' in sys.argv else os.environ.get('JANELA_REGION')
+if REGION:
+    _r = json.load(open(os.path.join(HERE, '..', 'scenario', 'regions.json')))['regions'].get(REGION)
+    if not _r or not _r.get('noaa'):
+        raise SystemExit(f'REFUSED: region {REGION!r} has no two chains in regions.json')
+    PATHS = (_r['matchups'], _r['noaa']['matchups'])
+    DEST = os.path.join(ROOT, 'certs', f'janela-providers-eval-{REGION}.json')
+else:
+    PATHS = ('corpus/janela/matchups.json.gz', 'corpus/janela/matchups-noaa.json.gz')
+    DEST = os.path.join(ROOT, 'certs', 'janela-providers-eval.json')
 SPLIT, INNER = '2025-07-01', '2024-10-01'
 LIMITS = [1.5, 2.0, 2.5, 3.5]
 MISSES = [(1, 10), (1, 20), (1, 40)]
@@ -49,7 +61,7 @@ BIN_H, MAX_H = 12, 168
 
 def load():
     rd = lambda p: json.loads(gzip.open(os.path.join(ROOT, p)).read())   # noqa: E731
-    E, N = rd('corpus/janela/matchups.json.gz'), rd('corpus/janela/matchups-noaa.json.gz')
+    E, N = rd(PATHS[0]), rd(PATHS[1])
     key = lambda r: (r[0], r[1], r[2], r[6])                             # noqa: E731
     ne = {key(r): r for r in N['rows']}
     f = lambda s: float(Fraction(s))                                     # noqa: E731
@@ -145,6 +157,7 @@ def measure():
             results.append(dict(judge(test, g), option=k, miss=f'{miss[0]}/{miss[1]}'))
     return {
         'what': 'Which band should decide when Janela has two forecast providers: each option judged on 15 held-out months of satellite passes it never saw (apps/janela/audit/providers.py; a floating-point evaluation — the deciding bands are exact).',
+        **({'region': REGION} if REGION else {}),
         'pairs': {'ecmwf': ne, 'noaa': nn, 'joined': len(J), 'calibration': len(cal), 'test': len(test),
                   'split': SPLIT, 'innerSplit': INNER},
         'weightSelection': {'on': 'inner split of the calibration years only (before ' + INNER + ' -> ' + INNER + '..' + SPLIT + ')', 'miss': '1/10',
@@ -157,13 +170,13 @@ def measure():
 
 def main():
     rec = measure()
-    if len(sys.argv) > 1 and sys.argv[1] == '--check':
+    if '--check' in sys.argv:
         old = json.load(open(DEST))
         same = json.dumps(old, sort_keys=True) == json.dumps(rec, sort_keys=True)
         r = {(x['option'], x['miss']): x for x in rec['results']}
         u, e = r[('U(E,N)', '1/10')], r[('E', '1/10')]
         ok = same and u['coverage'] > e['coverage'] and u['limits']['2.0']['brokeLiberada'] * e['limits']['2.0']['liberada'] < e['limits']['2.0']['brokeLiberada'] * u['limits']['2.0']['liberada']
-        print(f"janela providers: re-measured {'equal to' if same else 'DIFFERENT from'} certs/janela-providers-eval.json; "
+        print(f"janela providers: re-measured {'equal to' if same else 'DIFFERENT from'} {os.path.relpath(DEST, ROOT)}; "
               f"union coverage {u['coverage']} vs ECMWF {e['coverage']}; LIBERADA broken at Hs<=2.0: union "
               f"{u['limits']['2.0']['brokeLiberada']}/{u['limits']['2.0']['liberada']}, ECMWF {e['limits']['2.0']['brokeLiberada']}/{e['limits']['2.0']['liberada']}"
               f" — {'PASS' if ok else 'FAIL'}")
