@@ -5,7 +5,7 @@ apps/janela/audit · cert-machine
     python feed.py [YYYY-MM-DD]      (default: today's 00 UTC run, UTC date)
 
 Reads the ECMWF open-data 00 UTC run (CC BY 4.0): the deterministic wave
-model (swh, mwd, pp1d) and 10 m wind (10u, 10v, 10fg) every 6 h to +168 h,
+model (swh, mwd, pp1d, and Hs by period band h1012 ... h2530) and 10 m wind (10u, 10v, 10fg) every 6 h to +168 h,
 and the 50-member wave ensemble (swh) at the same steps. Writes
 corpus/janela/feed/YYYYMMDD.json.gz — every value as an exact rational traced
 to a GRIB packed integer, every field's bytes hashed as read. The page's
@@ -40,6 +40,9 @@ SITES = json.load(open(os.path.join(HERE, '..', 'scenario', 'sites.json')))['sit
 STEPS = list(range(0, 169, 6))
 BASE = E.MIRRORS['gcs']
 LO_RANK, HI_RANK = 6, 45          # 1-based order statistics of 50 members: the central 40
+# the significant wave height of the waves in each period band, 10-12 s ... 25-30 s (open data since 2026; from
+# 2026-10-08's feed): the long-period swell an FPSO's roll and a crane's load answer to — forecast ink, never decided
+PB = ['h1012', 'h1214', 'h1417', 'h1721', 'h2125', 'h2530']
 
 
 def fr(fr_):
@@ -105,7 +108,7 @@ def main():
     fields, sites = [], {s['id']: {'name': s['name'], 'en': s['en'], 'kind': s['kind'], 'steps': []} for s in SITES}
     node_of = {}
     def fetch(step):
-        w, gw = read(d, 'wave', step, ['swh', 'mwd', 'pp1d'])
+        w, gw = read(d, 'wave', step, ['swh', 'mwd', 'pp1d'] + PB)
         o, go = read(d, 'oper', step, ['10u', '10v', '10fg'])
         e, ge = read(d, 'waef', step, ['swh'])
         return w + o, e, [gw, go, ge]
@@ -129,8 +132,9 @@ def main():
                 continue
             val = {}
             for _, meta, xs in det:
-                v = E.value(meta, xs[sid][k])
-                val[meta['param']] = v
+                if xs[sid][k] is None:      # a field the model masks at this node (a period band with no record) is simply absent
+                    continue
+                val[meta['param']] = E.value(meta, xs[sid][k])
             members = sorted(E.value(meta, xs[sid][k]) for _, meta, xs in ens if xs[sid][k] is not None)
             row = {'t': t, 'lead': step}
             if val.get('swh') is not None:
@@ -141,6 +145,8 @@ def main():
                 row['mwd'] = fr(val['mwd'])
             if val.get('pp1d') is not None:
                 row['tp'] = fr(val['pp1d'])
+            if all(val.get(k) is not None for k in PB):
+                row['pb'] = [fr(val[k]) for k in PB]
             if val.get('10u') is not None and val.get('10v') is not None:
                 lo, hi = sqrt_enclosure(val['10u'] ** 2 + val['10v'] ** 2)
                 row['wind'] = {'u': fr(val['10u']), 'v': fr(val['10v']), 'speedLo': fr(lo), 'speedHi': fr(hi),

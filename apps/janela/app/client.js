@@ -781,29 +781,34 @@ function dirs(p) {
     return o;
   };
   var tp = st.map(function (s, i) { return s.tp && i % 4 === 1 ? '<text class="ax" x="' + xOf(i).toFixed(1) + '" y="14" text-anchor="middle">' + dc(s.tp) + '</text>' : ''; }).join('');
+  /* the long-period swell (ECMWF's Hs of the waves of 12 s and longer): what an FPSO's roll and a crane's load answer to */
+  var hasLs = st.some(function (s) { return s.ls; });
+  var ls = hasLs ? st.map(function (s, i) { return s.ls && i % 4 === 1 ? '<text class="ax" x="' + xOf(i).toFixed(1) + '" y="14" text-anchor="middle">' + dc(s.ls[1]) + '</text>' : ''; }).join('') : '';
   return '<div class="jn-dir"><span class="l">ondas</span><svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="Para onde as ondas vão, previsão por passo">' + row('mwd', 'arr') + '</svg>'
     + '<span class="l">Tp (s)</span><svg viewBox="0 0 ' + CW + ' 18" role="img" aria-label="Período de pico previsto">' + tp + '</svg>'
+    + (hasLs ? '<span class="l">≥12 s (m)</span><svg viewBox="0 0 ' + CW + ' 18" role="img" aria-label="Altura significativa das ondas de 12 segundos ou mais, previsão">' + ls + '</svg>' : '')
     + '<span class="l">vento</span><svg viewBox="0 0 ' + CW + ' ' + H + '" role="img" aria-label="Para onde o vento sopra, previsão por passo">' + row('wdir', 'arrw') + '</svg></div>'
-    + '<p class="jn-fine jn-fc">Setas: para onde a onda e o vento vão, previsão ECMWF por passo (não decidida).</p>';
+    + '<p class="jn-fine jn-fc">Setas: para onde a onda e o vento vão, previsão ECMWF por passo (não decidida).' + (hasLs ? ' ≥12 s: a altura significativa só das ondas de 12 s ou mais (ondulação longa, a que move o casco e a carga), da mesma previsão.' : '') + '</p>';
 }
 
 /* ---- the sea by parts at the chosen hour: NOAA's wind sea and swells (forecast ink, never decided on) ---- */
 var PONTOS = ['N', 'NNE', 'NE', 'ENE', 'L', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'];
 function seaParts(p) {
   var s = STEPS[p.id] && STEPS[p.id][S.i];
-  if (!s || (!s.wp && !s.cu)) return '';
+  if (!s || (!s.wp && !s.cu && !s.ls)) return '';
+  var lsl = s.ls ? '<p class="jn-p">Ondulação longa (ECMWF, por faixa de período): Hs das ondas de 10 s ou mais <b>' + dc(s.ls[0]) + ' m</b>, de 12 s ou mais <b>' + dc(s.ls[1]) + ' m</b>, de 14 s ou mais <b>' + dc(s.ls[2]) + ' m</b>.</p>' : '';
   var cur = s.cu ? '<p class="jn-p">Corrente na superfície: <b>' + dc(s.cu[0].toFixed(1)) + ' nó</b> para ' + PONTOS[Math.round(s.cu[1] / 22.5) % 16] + ' (' + s.cu[1] + '°)'
     + (s.cu[2] !== null ? ', dos quais maré ' + dc(s.cu[2].toFixed(1)) + ' nó' : '') + '.'
     + (s.cu.length > 4 ? ' A 15,8 m, no meio do calado de um FPSO ou aliviador carregado: ' + dc(s.cu[3].toFixed(1)) + ' nó para ' + PONTOS[Math.round(s.cu[4] / 22.5) % 16] + ' (' + s.cu[4] + '°).' : '')
     + '</p><p class="jn-fine jn-fc">Copernicus Marine, modelo global 1/12° (na superfície, com maré e deriva de onda): mostrada, não decidida.</p>' : '';
-  if (!s.wp) return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div>' + cur + '</div>';
+  if (!s.wp) return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div>' + lsl + cur + '</div>';
   var name = { v: 'mar de vento', 1: 'ondulação 1', 2: 'ondulação 2', 3: 'ondulação 3' };
   var rows = s.wp.map(function (x) {
     return '<tr><td>' + esc(name[x[0]] || x[0]) + '</td><td>' + dc(x[1].toFixed(2)) + '</td><td>' + (x[2] === null ? '—' : dc(x[2].toFixed(1))) + '</td><td>'
       + (x[3] === null ? '—' : x[3] + '° ' + PONTOS[Math.round(x[3] / 22.5) % 16]) + '</td></tr>';
   }).join('');
   return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div><div class="tw"><table class="jn-tbl"><thead><tr><th>parte</th><th>Hs (m)</th><th>período (s)</th><th>vem de</th></tr></thead><tbody>'
-    + rows + '</tbody></table></div><p class="jn-fine jn-fc">NOAA WAVEWATCH III (GFS-Wave), previsão por partes: mostrada, não decidida.</p>' + cur + '</div>';
+    + rows + '</tbody></table></div><p class="jn-fine jn-fc">NOAA WAVEWATCH III (GFS-Wave), previsão por partes: mostrada, não decidida.</p>' + lsl + cur + '</div>';
 }
 
 /* ---- ALÍVIO CRÍTICO: the user's tanks against the next LIBERADA offloading window ---- */

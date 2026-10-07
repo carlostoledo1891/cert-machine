@@ -1,0 +1,190 @@
+{
+ "what": "A correction learned from the satellites (no buoy), judged on 15 held-out months: per site and lead bin, IFS and NOAA combined by least squares on the calibration passes, then the same conformal band (apps/janela/audit/postproc.py; rule postproc-eval-v1; a floating-point evaluation).",
+ "pairs": {
+  "joined": 45987,
+  "calibration": 24728,
+  "test": 21259,
+  "testCommon": 21259,
+  "split": "2025-07-01"
+ },
+ "cellsFitted": {
+  "lin": 112,
+  "log": 112
+ },
+ "miss": "1/10",
+ "results": [
+  {
+   "n": 21259,
+   "coverage": 0.9105,
+   "meanWidthM": 0.9326,
+   "limits": {
+    "1.5": {
+     "liberada": 2066,
+     "brokeLiberada": 56,
+     "brokeBy10pc": 15,
+     "vetada": 8853,
+     "wrongVetada": 81
+    },
+    "2.0": {
+     "liberada": 7900,
+     "brokeLiberada": 87,
+     "brokeBy10pc": 24,
+     "vetada": 3118,
+     "wrongVetada": 81
+    },
+    "2.5": {
+     "liberada": 13126,
+     "brokeLiberada": 81,
+     "brokeBy10pc": 26,
+     "vetada": 1072,
+     "wrongVetada": 38
+    },
+    "3.5": {
+     "liberada": 18926,
+     "brokeLiberada": 37,
+     "brokeBy10pc": 8,
+     "vetada": 147,
+     "wrongVetada": 5
+    }
+   },
+   "option": "E",
+   "bySeason": {
+    "DJF": 0.9081,
+    "JJA": 0.8937,
+    "MAM": 0.9154,
+    "SON": 0.9285
+   }
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9651,
+   "meanWidthM": 1.1722,
+   "limits": {
+    "1.5": {
+     "liberada": 1273,
+     "brokeLiberada": 12,
+     "brokeBy10pc": 0,
+     "vetada": 7621,
+     "wrongVetada": 31
+    },
+    "2.0": {
+     "liberada": 6368,
+     "brokeLiberada": 21,
+     "brokeBy10pc": 4,
+     "vetada": 2221,
+     "wrongVetada": 27
+    },
+    "2.5": {
+     "liberada": 11703,
+     "brokeLiberada": 26,
+     "brokeBy10pc": 9,
+     "vetada": 671,
+     "wrongVetada": 14
+    },
+    "3.5": {
+     "liberada": 18221,
+     "brokeLiberada": 14,
+     "brokeBy10pc": 2,
+     "vetada": 89,
+     "wrongVetada": 1
+    }
+   },
+   "option": "U(E,N)",
+   "bySeason": {
+    "DJF": 0.9742,
+    "JJA": 0.954,
+    "MAM": 0.9646,
+    "SON": 0.9725
+   }
+  },
+  {
+   "n": 21259,
+   "coverage": 0.8994,
+   "meanWidthM": 0.8666,
+   "limits": {
+    "1.5": {
+     "liberada": 2124,
+     "brokeLiberada": 61,
+     "brokeBy10pc": 12,
+     "vetada": 9341,
+     "wrongVetada": 86
+    },
+    "2.0": {
+     "liberada": 8010,
+     "brokeLiberada": 79,
+     "brokeBy10pc": 19,
+     "vetada": 3265,
+     "wrongVetada": 99
+    },
+    "2.5": {
+     "liberada": 13378,
+     "brokeLiberada": 87,
+     "brokeBy10pc": 24,
+     "vetada": 1034,
+     "wrongVetada": 36
+    },
+    "3.5": {
+     "liberada": 19242,
+     "brokeLiberada": 42,
+     "brokeBy10pc": 11,
+     "vetada": 154,
+     "wrongVetada": 4
+    }
+   },
+   "option": "S-lin",
+   "bySeason": {
+    "DJF": 0.9083,
+    "JJA": 0.8768,
+    "MAM": 0.9114,
+    "SON": 0.9116
+   }
+  },
+  {
+   "n": 21259,
+   "coverage": 0.9004,
+   "meanWidthM": 0.8629,
+   "limits": {
+    "1.5": {
+     "liberada": 2125,
+     "brokeLiberada": 64,
+     "brokeBy10pc": 12,
+     "vetada": 9409,
+     "wrongVetada": 86
+    },
+    "2.0": {
+     "liberada": 7983,
+     "brokeLiberada": 76,
+     "brokeBy10pc": 18,
+     "vetada": 3272,
+     "wrongVetada": 98
+    },
+    "2.5": {
+     "liberada": 13397,
+     "brokeLiberada": 87,
+     "brokeBy10pc": 23,
+     "vetada": 1018,
+     "wrongVetada": 36
+    },
+    "3.5": {
+     "liberada": 19275,
+     "brokeLiberada": 44,
+     "brokeBy10pc": 11,
+     "vetada": 150,
+     "wrongVetada": 4
+    }
+   },
+   "option": "S-log",
+   "bySeason": {
+    "DJF": 0.9083,
+    "JJA": 0.8819,
+    "MAM": 0.909,
+    "SON": 0.9107
+   }
+  }
+ ],
+ "decision": {
+  "rule": "postproc-eval-v1 (DEFINITIONS.json)",
+  "passing": [],
+  "verdict": "no correction meets the rule: recorded as measured, not used"
+ }
+}

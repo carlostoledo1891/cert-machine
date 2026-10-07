@@ -58,6 +58,7 @@ function pubStep(row, src) {
   if (row.gustKn !== undefined && Number(row.gustKn) > 0) st.g = row.gustKn;
   if (row.tp) st.tp = row.tp;
   if (row.mwd !== undefined) st.mwd = row.mwd;
+  if (row.ls) st.ls = row.ls;
   if (row.ens) st.ens = row.ens;
   /* the surface current (Copernicus Marine; forecast ink, never decided on): [total speed kn, direction TO in degrees,
      tidal part kn], rounded for reading */
@@ -141,6 +142,7 @@ function make({ feed, noaa, noaaUnits, currents, platforms, fieldSha, ledger, ba
       if (x.u !== undefined && x.v !== undefined) st.wind = Object.assign({ u: x.u, v: x.v }, x.gust !== undefined ? { gust: x.gust } : {});
       if (x.tp !== undefined) st.tp = x.tp;
       if (x.mwd !== undefined) st.mwd = x.mwd;
+      if (x.pb !== undefined) st.pb = x.pb;
       return st;
     }) };
   }

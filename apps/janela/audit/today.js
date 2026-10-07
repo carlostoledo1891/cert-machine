@@ -111,6 +111,13 @@ function compute(feed, bands, operations, sites, second) {
       }
       if (st.tp) row.tp = Q.dec(Q.parse(st.tp), 1);
       if (st.mwd) row.mwd = Q.dec(Q.parse(st.mwd), 0);
+      /* the long-period swell from ECMWF's Hs by period band (forecast ink, never decided): the Hs of the waves of
+         10 s and longer, 12 s and longer, 14 s and longer — the root of the bands' summed squares, rounded down */
+      if (st.pb && st.pb.length === 6) {
+        const sq = st.pb.map((x) => { const q = Q.parse(x); return Q.mul(q, q); });
+        const from = (k) => Q.dec(sqrtEnc(sq.slice(k).reduce((a, b) => Q.add(a, b), Q.parse('0')))[0], 2);
+        row.ls = [from(0), from(1), from(2)];
+      }
       steps.push(row);
     }
     out.sites[site.id] = { name: site.name, en: site.en, kind: site.kind, lat: site.lat, lon: site.lon, node: f.node, bandFrom: borrowed, steps };

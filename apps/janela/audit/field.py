@@ -48,6 +48,8 @@ LON0, LON1 = -56.0, -27.0        # west edge, east edge
 STEP_DEG = 0.5
 STEPS = list(range(0, 169, 6))
 BASE = E.MIRRORS['gcs']
+# Hs by period band (10-12 s ... 25-30 s) at the units: the long-period swell, forecast ink (feed.py's PB)
+PB = ['h1012', 'h1214', 'h1417', 'h1721', 'h2125', 'h2530']
 
 
 def fields(d, stream, step, params):
@@ -89,7 +91,7 @@ def main():
     out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'corpus', 'janela', 'field', 'latest.bin')
 
     def one(step):
-        w = fields(d, 'wave', step, ['swh', 'mwd', 'pp1d'])
+        w = fields(d, 'wave', step, ['swh', 'mwd', 'pp1d'] + PB)
         o = fields(d, 'oper', step, ['10u', '10v', '10fg'])
         return step, w, o
     with ThreadPoolExecutor(max_workers=8) as ex:
@@ -136,6 +138,17 @@ def main():
                 if x != src[4]:
                     q = Fraction(x)
                     val[name] = f'{q.numerator}/{q.denominator}' if q.denominator != 1 else str(q.numerator)
+            pb = []
+            for k in PB:
+                src = w.get(k)
+                x = None if src is None else float(src[0][jj, ii])
+                if x is None or x == src[4]:
+                    pb = None
+                    break
+                q = Fraction(x)
+                pb.append(f'{q.numerator}/{q.denominator}' if q.denominator != 1 else str(q.numerator))
+            if pb:
+                val['pb'] = pb
             steps.append({'lead': step, **val})
         units[u['id']] = {'node': node, 'steps': steps}
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)   # before the first write, not after
