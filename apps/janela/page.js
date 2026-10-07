@@ -595,7 +595,8 @@ function client(libFn) {
 function css() {
   return `
 /* ---- Janela (apps/janela/page.js) ---- */
-.jn-hero h1{font-size:var(--text-display);letter-spacing:var(--track-display)}
+/* a tool's documentation, not a manifesto: the hero at the report's section size (operator 2026-10-07: "big texts") */
+.jn-hero h1{font-size:var(--text-1);letter-spacing:var(--track-title)}
 .jn-hero .deck{max-width:var(--read)}
 .jn-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
 .jn-quad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);

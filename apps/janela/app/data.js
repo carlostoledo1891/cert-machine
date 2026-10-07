@@ -65,7 +65,9 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
   const SITES = require('../scenario/sites.json').sites;
   const UNITS = require('../scenario/platforms.json').units;
   const OPS = require('../scenario/operations.json').operations;
-  const bands = require('../audit/bandset.js').bands();      /* the 2026-10-06 record + every measured region */
+  /* the 2026-10-06 record + every measured region, less any proposer the placar has pruned */
+  const BS = require('../audit/bandset.js');
+  const { bands, pruned } = BS.withoutPruned(BS.bands(), ledger && ledger.proposers);
   if (platforms.run !== feed.run) throw new Error('the units\' forecast (' + platforms.run + ') is not the feed\'s run (' + feed.run + ')');
 
   /* the measured sites, through today.js */
@@ -144,7 +146,7 @@ function make({ feed, platforms, fieldSha, ledger, battery, git }) {
     /* the steps without their time (it is the shared axis above) */
     places: Object.fromEntries(Object.entries(steps).map(([id, s]) => [id, { node: s.node, bandFrom: s.bandFrom,
       steps: s.steps.map(({ t, lead, ...rest }) => rest) }])),
-    dec, decisions: n, digest, ledger
+    dec, decisions: n, digest, ledger, pruned
   };
   return { today, checks: { decisions: n, digest, sound, grew, places: Object.keys(steps).length } };
 }

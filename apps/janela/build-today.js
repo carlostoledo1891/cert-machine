@@ -73,14 +73,36 @@ const re = D.redecide(json);
 if (re.n !== made.checks.decisions || re.same !== re.n) die('re-decided from the published bytes: ' + re.same + ' of ' + re.n + ' codes equal');
 if (re.digest !== made.checks.digest) die('re-decided from the published bytes, the digest differs: ' + re.digest + ' vs ' + made.checks.digest);
 
+/* gate 4 — THE SECOND VERIFIER: instruments/window/verify/verify_day.py, written clean-room from its SPEC.md
+   (Python standard library; it never read decide.js, q.js or criteria.js), re-decides every published letter from
+   the written bytes and checks every input pin. Two programs that share no code must agree on all of them; the
+   result rides in the day (today.second), so the app can say so. */
+let final = json;
+{
+  const os = require('os'), cp = require('child_process');
+  const VER = path.join(ROOT, 'instruments', 'window', 'verify', 'verify_day.py');
+  const tmp = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'janela-')), 'today.json');
+  fs.writeFileSync(tmp, json);
+  const t0 = Date.now();
+  let rep;
+  try { rep = JSON.parse(cp.execFileSync('python3', [VER, tmp, '--root', ROOT, '--json'], { encoding: 'utf8', maxBuffer: 1 << 28 })); }
+  catch (e) { die('the second verifier refused the day:\n' + String(e.stdout || '').slice(0, 2000) + String(e.stderr || '').slice(0, 2000)); }
+  if (!rep.ok || rep.equal !== rep.decisions || rep.decisions !== made.checks.decisions) die('the second verifier disagrees: ' + rep.equal + ' of ' + rep.decisions + ' equal (published ' + made.checks.decisions + ')');
+  const second = { verifier: 'instruments/window/verify/verify_day.py', sha256: sha(fs.readFileSync(VER)), spec: 'instruments/window/verify/SPEC.md',
+    specSha256: sha(fs.readFileSync(path.join(ROOT, 'instruments', 'window', 'verify', 'SPEC.md'))), decisions: rep.decisions, equal: rep.equal, ms: Date.now() - t0 };
+  final = JSON.stringify(Object.assign({}, made.today, { second }));
+  /* the decisions the first gate re-decided are the same bytes: only the result was added */
+  if (D.redecide(final).digest !== made.checks.digest) die('adding the second verifier\'s result moved the decisions');
+}
+
 fs.mkdirSync(OUT, { recursive: true });
-fs.writeFileSync(path.join(OUT, 'today.json'), json);
+fs.writeFileSync(path.join(OUT, 'today.json'), final);
 if (field) fs.writeFileSync(path.join(OUT, 'field.bin'), field);
 if (LOCAL) {
-  fs.writeFileSync(path.join(OUT, 'today.js'), 'window.JANELA_TODAY=' + json.replace(/</g, '\\u003c') + ';\n');
+  fs.writeFileSync(path.join(OUT, 'today.js'), 'window.JANELA_TODAY=' + final.replace(/</g, '\\u003c') + ';\n');
   if (field) fs.writeFileSync(path.join(OUT, 'field.js'), 'window.JANELA_FIELD="' + field.toString('base64') + '";\n');
 }
 const c = made.checks;
 console.log('janela today: rodada ' + feed.run + ' · ' + c.places + ' locais · ' + c.decisions + ' decisões publicadas, re-decididas dos bytes escritos, iguais (digest '
   + c.digest.slice(0, 12) + ') · arredondamento para fora: ' + c.sound + ' decisões exatas das regras dos terminais iguais, ' + c.grew + ' viraram INDEFINIDA · '
-  + Math.round(json.length / 1024) + ' KB -> ' + path.relative(ROOT, OUT));
+  + Math.round(final.length / 1024) + ' KB · segundo verificador ' + JSON.parse(final).second.equal + '/' + JSON.parse(final).second.decisions + ' -> ' + path.relative(ROOT, OUT));

@@ -176,7 +176,7 @@ function load(over) {
       return { domain: p.domain, name: PLACAR.NAMES_PT[p.domain] || p.domain, commits: p.commits, scored: p.scored, covered: p.covered, first: d.first, last: d.last,
         tFirst: d.tFirst, tLast: d.tLast, sites: d.sites.size, claim: p.claim, status: a.status, pending: a.pending,
         trials: a.trials, trialsCovered: a.trialsCovered, next: a.next, looks: a.looks, prunedAt: a.prunedAt,
-        tail: last ? last.tail : null, bar: last ? last.bar : null };
+        tail: last ? last.tail : null, bar: last ? last.bar : null, bySite: p.breakdown.bySite, byLead: p.breakdown.byLead };
     })
   };
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);

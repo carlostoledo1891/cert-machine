@@ -171,6 +171,7 @@ const NSPROBES = (() => {
 })();
 
 const PY = [
+  ['janela second verifier (clean-room)', ['instruments/window/verify/battery.py'], 'every published Janela decision re-decided by a SECOND program, in the Python standard library, written from instruments/window/verify/SPEC.md by an agent that never read the first decider (decide.js, q.js, criteria.js): hand-computed letters on synthetic days, the real day equal letter for letter, the input pins checked · red controls (a flipped published letter, a record whose bytes leave their pin, a place missing, the total off by one)'],
   ['janela alpha (DNV Table 4-1 reproduced)', ['apps/janela/audit/alpha.py', '--check'], 'the method that made DNV-OS-H101 Table 4-1 (the 2005-07 JIP as reconstructed by Wilcken 2012) re-implemented in the Python standard library: fed the JIP\'s own error statistics it reproduces 16 of 20 cells within 0.02 · 1 red control (the guidance note read literally must fail the same gate)'],
   ['skyaudit stdlib verifier', ['apps/skyaudit/audit/verify_skyaudit.py'], 'the pinned ADS-B day re-audited in the Python standard library, no code from the app in the trust path'],
   ['tensorlb (lower-bound audit)', ['instruments/tensorlb/battery.py'], 'tensor-rank lower bounds re-decided exactly; the red control must fire'],

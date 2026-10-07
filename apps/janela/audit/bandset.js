@@ -65,6 +65,21 @@ function alpha() {
   return Object.assign({}, main, { sites: merge(list, 'alpha'), records: list.map((x) => ({ name: x.name, file: x.file })) });
 }
 
+/* THE PRUNE, IN THE PRODUCT: a calibrated proposer the placar has pruned (placar.js admission, status
+   DEADMITTED) stops deciding — its sites lend no band, so the band criterion there says SEM DADOS until a
+   recalibrated version is pinned. proposers: the ledger's per-proposer verdicts ({domain, status, prunedAt}). */
+function withoutPruned(B, proposers) {
+  const cut = new Set((proposers || []).filter((p) => p.status === 'DEADMITTED').map((p) => p.domain));
+  const pruned = B.records.filter((r) => cut.has(r.proposer)).map((r) => {
+    const p = proposers.find((x) => x.domain === r.proposer);
+    return { proposer: r.proposer, sites: r.sites, at: p.prunedAt ? p.prunedAt.through : null };
+  });
+  if (!pruned.length) return { bands: B, pruned: [] };
+  const sites = Object.assign({}, B.sites);
+  for (const r of pruned) for (const sid of r.sites) delete sites[sid];
+  return { bands: Object.assign({}, B, { sites }), pruned };
+}
+
 /* the region a site belongs to (its caveat travels with every band it lends), or null */
 function regionOf(sid) { return regions().find((r) => r.sites.includes(sid)) || null; }
 
@@ -75,4 +90,4 @@ function files() {
   return out;
 }
 
-module.exports = { MAIN, regions, records, merge, bands, alpha, regionOf, files };
+module.exports = { MAIN, regions, records, merge, bands, alpha, withoutPruned, regionOf, files };

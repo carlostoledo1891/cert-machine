@@ -119,6 +119,26 @@ function admission(claim, list) {
   };
 }
 
+/* the DESCRIPTIVE breakdown of the scored rows, per site and per lead range — never an admission: the rows of a day
+   share their overflights, so these are counts to read, not trials to test */
+const LEADS = [[0, 24, '0–24 h'], [24, 72, '1–3 dias'], [72, 169, '3–7 dias']];
+function breakdown(rows) {
+  const commit = {};
+  for (const r of rows) if (r.type === 'commit') commit[r.id] = r;
+  const out = {};
+  for (const r of rows) {
+    if (r.type !== 'score') continue;
+    const c = commit[r.id]; if (!c) continue;
+    const d = out[c.domain] = out[c.domain] || { bySite: {}, byLead: {} };
+    const sid = c.id.split(':')[1], lead = c.forecast && c.forecast.lead;
+    const L = LEADS.find(([a, b]) => lead >= a && lead < b);
+    const s = d.bySite[sid] = d.bySite[sid] || [0, 0];
+    s[0]++; if (r.covered) s[1]++;
+    if (L) { const l = d.byLead[L[2]] = d.byLead[L[2]] || [0, 0]; l[0]++; if (r.covered) l[1]++; }
+  }
+  return out;
+}
+
 /* the whole record per proposer: descriptive counts + the admission over trials.
    The claim is the one every commit of the proposer carries (coverage = 1 − alpha);
    a proposer whose rows disagree on it is refused, never averaged. */
@@ -138,8 +158,9 @@ function record(rows) {
       per[d].alpha = a;
     } else { per[d].scored++; if (r.covered) per[d].covered++; }
   }
-  const T = trials(rows);
+  const T = trials(rows), BD = breakdown(rows);
   for (const p of Object.values(per)) {
+    p.breakdown = BD[p.domain] || { bySite: {}, byLead: {} };
     const claim = [p.alpha[1] - p.alpha[0], p.alpha[1]];
     p.claim = claim.join('/');
     p.admission = admission(claim, T[p.domain] || []);
@@ -147,4 +168,4 @@ function record(rows) {
   return per;
 }
 
-module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, looks, lot, trials, admission, record };
+module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, LEADS, looks, lot, trials, admission, breakdown, record };

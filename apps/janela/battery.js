@@ -309,4 +309,14 @@ red('regions: a site carried by two bands records is refused, never resolved by 
   assert.deepStrictEqual(BS.merge([a, { file: 'c.json', rec: { sites: { y: 3 } } }], 'bands'), { x: 1, y: 3 });
 });
 
+red('the prune reaches the product: a DEADMITTED calibrated proposer lends no band, and the day says which', () => {
+  const B = BS.bands();
+  const keep = BS.withoutPruned(B, [{ domain: 'janela/hs-altimeter/calibrated-v1', status: 'ADMITTED' }]);
+  assert.strictEqual(keep.pruned.length, 0); assert.strictEqual(Object.keys(keep.bands.sites).length, Object.keys(B.sites).length);
+  const cut = BS.withoutPruned(B, [{ domain: 'janela/hs-altimeter/calibrated-sergipe-v1', status: 'DEADMITTED', prunedAt: { through: '2026-11-08' } }]);
+  assert.deepStrictEqual(cut.pruned.map((x) => x.proposer), ['janela/hs-altimeter/calibrated-sergipe-v1']);
+  assert.ok(!cut.bands.sites.sergipe && cut.bands.sites.santos, 'sergipe withheld, santos kept');
+  assert.ok(B.sites.sergipe, 'the record itself is untouched');
+});
+
 console.log('janela battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');

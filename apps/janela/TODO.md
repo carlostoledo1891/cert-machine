@@ -54,3 +54,19 @@
   client bathymetry — until then berth wave limits stay SEM DADOS.
 - Current and visibility: no feed forecasts them; the rules that limit them stay SEM DADOS.
 - Swell re-homed on this engine as the public face (targets row `swell-port`).
+
+## v1.2 — reliability you can check, a tool's scale (2026-10-07, operator: "use our math, instruments and
+## certification power … simple, clean and super reliable for Brazil's market"; "the UI is too big — look to Figma, Webflow")
+- [x] The second verifier: instruments/window/verify/ (SPEC.md + verify_day.py, Python stdlib, written clean-room
+      from the spec by an agent that never read decide.js, q.js or criteria.js); build-today.js refuses a day it
+      disagrees with, and the day carries its result (today.second) — the card says "2×".
+- [x] The certificate on every card: the tab's re-check, the second verifier, the band's own scoreboard state,
+      exact arithmetic; "Certificado .json" downloads one decision with every number a surveyor needs by hand.
+- [x] A pruned calibrated proposer stops deciding (bandset.withoutPruned; today.pruned; the card says so).
+- [x] PLACAR per site and lead (descriptive; the admission still reads trial days).
+- [x] A tool's scale: 12 px body, 11 px labels, 24 px controls, a 332 px rail of sections (style.js :root names
+      the scale once); the method page's hero at section size; the beach point hidden from the app.
+- [x] The day's data fetched before the map library (early.js); links carry the run and say when it is old.
+- [ ] Decision-level scoring: every published LIBERADA at a measured site against the satellite (from 2026-10-09).
+- [ ] The campaign planner (decommissioning): N operations from a date, exact counts over 32 years.
+

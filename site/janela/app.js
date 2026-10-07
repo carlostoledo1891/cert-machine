@@ -495,6 +495,11 @@ function siteShort(p, r) {
   return 'não se aplica';
 }
 function nodeLine(p) {
+  var src = p.kind === 'uep' ? p.bandFrom : p.id;
+  var pr = (T.pruned || []).filter(function (x) { return x.sites.indexOf(src) >= 0; })[0];
+  return (pr ? 'A faixa medida daqui foi PODADA pelo placar' + (pr.at ? ' em ' + dmy(pr.at) : '') + ': errou a própria reivindicação de cobertura, e até uma versão recalibrada ela não decide aqui (a banda fica SEM DADOS; a Tabela 4-1 decide). ' : '') + nodeLine0(p);
+}
+function nodeLine0(p) {
   var s = T.places[p.id];
   var ll = function (a) { return dec(Math.abs(a[0]), 2) + '°' + (a[0] < 0 ? 'S' : 'N') + ' ' + dec(Math.abs(a[1]), 2) + '°' + (a[1] < 0 ? 'W' : 'E'); };
   var at = 'Previsão ECMWF lida no nó ' + ll(s.node) + ' do modelo';
@@ -572,10 +577,11 @@ function drawCard() {
     + '<div class="jn-note">' + currentNote(p) + '</div>'
     + (isTank && S.op === 'alivio' ? tank(p) : '')
     + waitCost(p)
-    + '<button type="button" class="jn-btn" id="jn-nota-b">Nota de decisão ↓ imprimir</button>';
+    + certBlock(p);
   box.innerHTML = h;
   $('jn-close').onclick = function () { select(null); };
   $('jn-nota-b').onclick = nota;
+  $('jn-cert-b').onclick = function () { certDownload(p); };
   $('jn-mx').addEventListener('click', function (e) {
     var cell = e.target.closest && e.target.closest('[data-k]'), row = e.target.closest && e.target.closest('[data-crit]');
     if (row && row.getAttribute('data-crit') !== S.crit) S.crit = row.getAttribute('data-crit');
@@ -827,7 +833,7 @@ function drawMonth() {
 function drawPlacar() {
   var el = $('jn-props');
   if (!T || !T.ledger) { el.innerHTML = '<div class="jn-box"><p class="jn-p">O placar chega com os dados do dia, que não carregaram.</p></div>'; return; }
-  var NAMES = { 'janela/hs-altimeter/ens-c40of50': 'Ensemble ECMWF, os 40 centrais de 50', 'janela/hs-altimeter/calibrated-v1': 'A faixa medida da Janela, v1' };   /* for a day built before proposers carried their name */
+  var NAMES = CFG.proposerNames || {};   /* for a day built before proposers carried their name */
   var d = function (iso) { return iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '—'; };
   /* the admission as placar.js decided it in the day's build: trials are target days, the tail is read at 30·2^j days;
      a status word, never a verdict glyph (ADMITIDO is not LIBERADA) */
@@ -840,9 +846,20 @@ function drawPlacar() {
     else { var lk = p.looks[p.looks.length - 1] || {}; st = '<span class="jn-w jn-st ok">ADMITIDO</span>'; line = p.trialsCovered + ' de ' + p.trials + ' dias-ensaio cobertos; na leitura de ' + lk.m + ' dias, cauda exata ' + esc(lk.tail) + ' > ' + esc(lk.bar) + '; próxima leitura em ' + p.next + ' dias.'; }
     return '<div class="jn-box jn-prop"><div class="jn-k">' + esc(p.name || NAMES[p.domain] || p.domain) + '</div><div class="big">' + grp(p.commits) + '</div><p class="jn-p">faixas comprometidas antes da hora-alvo · '
       + p.scored + ' avaliadas · ' + p.covered + ' cobertas · reivindicação ' + esc(p.claim) + ' · ' + p.sites + ' locais de mar aberto · desde ' + d(p.first) + '</p>'
-      + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>'
+      + '<div class="jn-adm">' + st + '</div><p class="jn-fine">' + line + '</p>' + breakdownHtml(p)
       + (p.scored === 0 ? '<p class="jn-fine">Nenhuma avaliada ainda: a avaliação começa quando os satélites passam e os dias fecham (três dias depois, quando o arquivo do NOAA está completo). O registro é só de acréscimo.</p>' : '') + '</div>';
   }).join('');
+}
+
+/* the scored rows per site and per lead: descriptive (a day's rows share their overflights) — the admission reads trials */
+function breakdownHtml(p) {
+  if (!p.scored || !p.bySite) return '';
+  var cell = function (x) { return x[1] + '/' + x[0]; };
+  var sites = Object.keys(p.bySite).sort().map(function (sid) { return '<tr><td>' + esc(PL[sid] ? short(PL[sid]) : sid) + '</td><td>' + cell(p.bySite[sid]) + '</td></tr>'; }).join('');
+  var leads = Object.keys(p.byLead || {}).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + cell(p.byLead[k]) + '</td></tr>'; }).join('');
+  return '<table class="jn-tbl jn-bd"><thead><tr><th>local</th><th>cobertas/avaliadas</th></tr></thead><tbody>' + sites + '</tbody>'
+    + (leads ? '<thead><tr><th>prazo</th><th></th></tr></thead><tbody>' + leads + '</tbody>' : '') + '</table>'
+    + '<p class="jn-fine">Contagem descritiva: as faixas de um mesmo dia dividem as mesmas passagens de satélite; a admissão lê os dias-ensaio.</p>';
 }
 
 /* ================================================================ modes, selection, render */
@@ -882,7 +899,7 @@ var quiet = false;
 function hash() {
   if (!T) return;
   quiet = true;
-  var kv = ['site=' + (S.site || ''), 'op=' + S.op, 't=' + AX[S.i], 'crit=' + S.crit, 'modo=' + S.mode];
+  var kv = ['site=' + (S.site || ''), 'op=' + S.op, 't=' + AX[S.i], 'crit=' + S.crit, 'modo=' + S.mode, 'rodada=' + T.run];
   if (S.op === 'npcp' && S.npcp) kv.push('npcp=' + S.npcp);
   var cur = current();
   if (cur && (S.edit || S.op === 'own')) {
@@ -1277,7 +1294,9 @@ function script(src, name) {
 }
 function order(list) { return local ? list.slice().reverse() : list; }
 function loadToday() {
-  return fetchFirst(order(CFG.data.today), 'json').catch(function () { return script(CFG.data.todayJs, 'JANELA_TODAY'); });
+  var early = window.JANELA_EARLY && window.JANELA_EARLY.today;
+  var rest = function () { return fetchFirst(order(CFG.data.today), 'json').catch(function () { return script(CFG.data.todayJs, 'JANELA_TODAY'); }); };
+  return early ? early.catch(rest) : rest();
 }
 function loadField() {
   return fetchFirst(order(CFG.data.field), 'bin').catch(function () {
@@ -1300,6 +1319,8 @@ function start(today) {
   buildClock();
   var kv = readHash();
   S.i = iNow; if (kv.t) { var k = AX.indexOf(kv.t); if (k >= 0) S.i = k; }
+  /* a shared link names the run it was decided on: a newer run is said, never silently swapped in */
+  if (kv.rodada && kv.rodada !== T.run) status('este link foi feito sobre a rodada ' + kv.rodada.slice(8, 10) + '/' + kv.rodada.slice(5, 7) + ' ' + kv.rodada.slice(11, 13) + ' UTC; você vê a de agora, ' + T.run.slice(8, 10) + '/' + T.run.slice(5, 7) + ' ' + T.run.slice(11, 13) + ' UTC');
   FIELD.target = S.i; FIELD.tf = S.i;
   var run = T.run.slice(8, 10) + '/' + T.run.slice(5, 7) + ' ' + T.run.slice(11, 13) + ' UTC', made = T.madeAt.slice(8, 10) + '/' + T.madeAt.slice(5, 7) + ' ' + T.madeAt.slice(11, 16) + ' UTC';
   $('jn-run').innerHTML = 'ECMWF <b>' + esc(run) + '</b> · lida ' + esc(made);
@@ -1383,7 +1404,63 @@ function recheck() {
       : 'ATENÇÃO: refeitas aqui, ' + grp(n - same) + ' de ' + grp(n) + ' decisões diferem do registro' + (digest !== T.digest ? ' (o digest também)' : '') + '.')
       + ' ' + (modOk === modN ? 'Os ' + modN + ' módulos que decidem nesta página têm o sha256 pinado e são os que fizeram os dados de hoje.' : 'Módulos com sha256 diferente: ' + modBad.join(', ') + '.');
     window.__janela.check = { n: n, same: same, digest: digest, ok: okAll, mods: modOk + '/' + modN, ms: ms };
+    if (S.site) drawCard();                                /* the card's certificate shows the result */
+    var rc = $('jn-run'); if (rc && okAll && !rc.querySelector('.jn-ok')) rc.insertAdjacentHTML('beforeend', ' · <span class="jn-ok">conferido' + (T.second && T.second.equal === T.second.decisions ? ' 2×' : '') + '</span>');
   })();
+}
+
+/* ================================================================ THE CERTIFICATE
+   What makes a verdict here different from a forecast elsewhere, on the card in four lines: the arithmetic re-done
+   in this tab, the second verifier that shares no code with the first, the band's own record on the scoreboard,
+   and the file with every number a surveyor needs to re-check this one decision by hand. */
+function proposerState(p) {
+  var d = p.proposer, L = T.ledger && T.ledger.proposers, x = null;
+  for (var k = 0; L && k < L.length; k++) if (L[k].domain === d) x = L[k];
+  if (!d) return null;
+  /* a proposer pinned but not yet on the ledger: its first rows come with the next daily run */
+  if (!x) return { name: (CFG.proposerNames && CFG.proposerNames[d]) || d, claim: '9/10', st: 'entra no placar com a próxima rodada (nenhuma faixa registrada ainda)', cut: false };
+  var claim = x.claim || '9/10', first = (T.ledger && T.ledger.firstLook) || 30;
+  var st = x.status === 'DEADMITTED' ? 'PODADA' : x.pending !== false ? 'em avaliação, ' + (x.trials || 0) + ' de ' + first + ' dias' : 'admitida, ' + x.trialsCovered + ' de ' + x.trials + ' dias cobertos';
+  return { name: x.name || d, claim: claim, st: st, cut: x.status === 'DEADMITTED' };
+}
+function certBlock(p) {
+  var ck = window.__janela.check, sec = T.second, ps = proposerState(p);
+  var line = function (ok, txt) { return '<li class="' + (ok === true ? 'ok' : ok === false ? 'no' : 'na') + '"><i aria-hidden="true"></i><span>' + txt + '</span></li>'; };
+  return '<div class="jn-cert"><div class="jn-k">certificado desta decisão</div><ul class="jn-certl">'
+    + line(ck ? ck.ok : null, ck ? (ck.ok ? 'Refeita no seu navegador: as ' + grp(ck.n) + ' decisões do dia, iguais ao registro.' : 'Refeita no seu navegador: ' + grp(ck.n - ck.same) + ' decisões DIFEREM do registro.') : 'Refazendo no seu navegador…')
+    + line(sec ? sec.equal === sec.decisions : null, sec ? 'Segundo verificador, escrito sem ler o primeiro (Python, nenhum código em comum): ' + grp(sec.equal) + ' de ' + grp(sec.decisions) + ' iguais.' : 'Segundo verificador: não rodou para estes dados.')
+    + line(ps ? !ps.cut : null, ps ? 'A faixa é uma reivindicação (' + esc(ps.name) + ', cobre ' + esc(ps.claim) + '), conferida em público contra satélite: ' + esc(ps.st) + '.' : 'Sem faixa medida aqui: só a Tabela 4-1 decide.')
+    + line(true, 'Contas exatas, em racionais: nenhum arredondamento decide; a faixa publicada é arredondada para fora.')
+    + '</ul><div class="jn-certb"><button type="button" class="jn-btn" id="jn-nota-b">Nota de decisão ↓</button><button type="button" class="jn-btn" id="jn-cert-b">Certificado .json ↓</button></div></div>';
+}
+function certDownload(p) {
+  var cur = current(), op = cur.op, st = STEPS[p.id], r = full(p.id, S.i), sp = C.span(st, S.i, op.TR) || [S.i];
+  var dnv = S.crit !== 'band';
+  var steps = sp.map(function (k) { var s = st[k]; return { t: AX[k] + ':00Z', lead: LEAD[k], hs: dnv ? s.hd || null : s.hb || null, vento_kn: dnv ? s.wd || null : s.wb || null }; });
+  var P = preset(S.op), ps = proposerState(p);
+  var cert = {
+    certificado: 'Janela — uma decisão, com tudo o que é preciso para refazê-la à mão',
+    local: { id: p.id, nome: p.full || p.name, tipo: p.type || p.kind, no_do_modelo: T.places[p.id] && T.places[p.id].node },
+    operacao: { id: op.id, nome: cur.name, janela_h: C.trOf(op.TR), limites: op.limits, fonte: op.npcp ? { ato: op.source.act, pagina: op.page, sha256: op.source.sha256 } : op.own ? 'digitado por quem opera' : P && P.kind === 'cited' ? P.source : 'exemplo, não regra publicada' },
+    criterio: { band: 'faixa medida (previsão × erro medido contra satélite)', table: 'DNV-OS-H101 Tabela 4-1 (OPWF = α × OPLIM)', site: 'α do local (estimado; limite inferior do intervalo de 90%)' }[S.crit],
+    inicio: AX[S.i] + ':00Z', passos: steps,
+    limites_decididos: dnv && r && r.opwf ? r.opwf : op.limits, alfa: r && r.alpha ? r.alpha : null,
+    veredito: r === null ? 'ALÉM DA PREVISÃO' : r.verdict === 'n/a' ? 'NÃO SE APLICA' : r.verdict,
+    por_que: r && r.verdict !== 'n/a' ? explain(p, r, op, S.crit) : r ? r.why : null,
+    testemunha: r && r.witness || null, limiar: r && r.flip || null, sem_previsao: r && r.notForecast || [],
+    regra_de_decisao: 'LIBERADA: todo limite vale na borda desfavorável da faixa em todos os passos; VETADA: algum limite falha já na borda favorável; INDEFINIDA: a faixa atravessa o limite; SEM DADOS: a regra limita algo sem previsão aqui',
+    faixa: ps ? { proponente: ps.name, reivindicacao: ps.claim, placar: ps.st } : null,
+    rodada_ecmwf: T.run + ':00Z', lida: T.madeAt, codigo: T.git || null, digest_do_dia: T.digest, modulos: T.modules, registros: T.inputs,
+    conferencia: { navegador: window.__janela.check || null, segundo_verificador: T.second || null },
+    refazer: ['git clone https://github.com/carlostoledo1891/cert-machine', 'git checkout ' + (T.git ? T.git.replace(/\+dirty$/, '') : '<commit>'),
+      'python apps/janela/audit/field.py ' + T.run.slice(0, 10), 'node apps/janela/build-today.js --feed ' + T.run.slice(0, 10).replace(/-/g, '') + '   (digest ' + T.digest + ')',
+      'python3 instruments/window/verify/verify_day.py site/janela/data/today.json'],
+    aviso: 'Não é aprovação de operação: é evidência que um vistoriador refaz. O α do local é uma estimativa; as decisões são exatas sobre a faixa publicada.'
+  };
+  var blob = new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'janela-' + p.id + '-' + op.id + '-' + S.crit + '-' + AX[S.i].replace(/[-T:]/g, '') + '.json';
+  document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
 }
 
 /* ================================================================ NOTA DE DECISÃO */

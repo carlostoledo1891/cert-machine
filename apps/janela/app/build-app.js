@@ -188,6 +188,16 @@ function emit(N, git) {
   fs.writeFileSync(path.join(SITE, 'geo.js'), geoJs);
   const APPJS = fs.readFileSync(path.join(__dirname, 'client.js'));
   fs.writeFileSync(path.join(SITE, 'app.js'), APPJS);
+  /* the day's data starts loading BEFORE the map library (276 KB) is fetched and parsed: the answer line waits for
+     the data, never for the map. The same source order as app.js's loader (the published branch first, a local
+     copy first on a desk); app.js falls back to its own loader if this fails. */
+  const EARLY = Buffer.from("(function(){var c=window.JANELA&&window.JANELA.data;if(!c||!window.fetch)return;"
+    + "var local=/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)||location.protocol==='file:';"
+    + "var u=local?c.today.slice().reverse():c.today;"
+    + "var get=function(i){return fetch(u[i],{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})"
+    + ".catch(function(e){if(i+1<u.length)return get(i+1);throw e;});};"
+    + "window.JANELA_EARLY={today:get(0)};})();\n");
+  fs.writeFileSync(path.join(SITE, 'early.js'), EARLY);
 
   const W = N.work;
   const cfg = {
@@ -197,8 +207,8 @@ function emit(N, git) {
     t41: M.t41, columns: M.columns, dnvSource: { title: M.dnvSource.title, sha256: M.dnvSource.sha256 },
     work: { from: W.from, to: W.to, samples: W.samples, source: W.source, limits: W.limits, periods: W.periods,
       sites: Object.fromEntries(Object.entries(W.sites).map(([k, s]) => [k, { name: s.name, cells: s.cells }])) },
-    records: M.records, modules: mods,
-    shas: { 'app.js': sha(APPJS), 'geo.js': sha(geoJs) }
+    records: M.records, modules: mods, proposerNames: PLACAR.NAMES_PT,
+    shas: { 'app.js': sha(APPJS), 'geo.js': sha(geoJs), 'early.js': sha(EARLY) }
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');
   const html = renderApp({
@@ -215,7 +225,7 @@ function emit(N, git) {
     panelHtml: panel(M, N),
     extraHtml: extra(),
     configGlobal: 'JANELA', configJson: json,
-    scripts: ['vendor/maplibre-gl.js', 'geo.js', 'app.js']
+    scripts: ['early.js', 'vendor/maplibre-gl.js', 'geo.js', 'app.js']
   });
   fs.writeFileSync(path.join(SITE, 'index.html'), html);
   return { html, bytes: html.length, geo: geoJs.length, fields: G.fields.features.length, places: M.places.length };
