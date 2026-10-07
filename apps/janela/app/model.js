@@ -65,13 +65,20 @@ function load() {
   for (const s of SITES) {
     /* P-25's measured site and ANP's unit P-25 are one platform: the unit is drawn, the site lends it the band */
     places.push({ id: s.id, name: s.name, kind: s.kind, lat: s.lat, lon: s.lon, own: true, bandFrom: null, hidden: s.kind === 'platform' || undefined,
-      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null) });
+      alphaFrom: s.kind === 'terminal' ? null : (alphaT[s.id] ? s.id : null), added: s.added || null });
   }
+  /* a unit with no measured band may still sit by a site that is TRACKED (forecast and ledgered daily) but not yet
+     measured: the nearest such open-sea site within the borrowing distance, named so the card can say so */
+  const km = (a, b) => { const r = Math.PI / 180, x = Math.sin((b[0] - a[0]) * r / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin((b[1] - a[1]) * r / 2) ** 2; return 12742 * Math.asin(Math.sqrt(x)); };
+  const BORROW_KM = J('apps/janela/scenario/platforms.json').borrowKm;
+  const tracked = SITES.filter((s) => ['field', 'platform', 'coast'].includes(s.kind) && !alphaT[s.id]);
   for (const u of UNITS) {
     /* ANP's layer spells one unit's type "SEMI SUBVERSÍVEL": shown as the word it means; corpus/anp keeps the layer as published */
     places.push({ id: u.id, name: u.sig || u.name, full: u.name, kind: 'uep', type: u.type === 'SEMI SUBVERSÍVEL' ? 'SEMI SUBMERSÍVEL' : u.type, depth: u.waterDepthM, serves: u.serves,
       operator: u.operator, oilBpd: u.oilBpd, gasKm3d: u.gasKm3d, lat: u.lat, lon: u.lon, own: false, bandFrom: u.bandFrom,
-      near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null });
+      near: u.nearestMeasured, alphaFrom: u.bandFrom && alphaT[u.bandFrom] ? u.bandFrom : null,
+      tracked: u.bandFrom ? null : tracked.map((s) => ({ site: s.id, km: Math.round(km([u.lat, u.lon], [s.lat, s.lon])), added: s.added || null }))
+        .filter((t) => t.km <= BORROW_KM).sort((a, b) => a.km - b.km)[0] || null });
   }
   /* the terminal rules, with the act that prints them */
   const npcp = OPS.map((o) => {

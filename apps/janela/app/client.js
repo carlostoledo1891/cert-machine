@@ -51,6 +51,8 @@ var VAR = { hs: 'Hs', wind_sustained: 'vento', wind_gust: 'rajada', current: 'co
 var UNIT = { m: 'm', kn: 'nós', NM: 'MN', s: 's' };
 var OPW = { '<': '<', '<=': '≤', '>': '>', '>=': '≥' };
 var KIND = { field: 'área de produção · nó medido', coast: 'costa · nó medido', terminal: 'terminal · regra da Capitania', platform: 'plataforma', uep: 'unidade de produção' };
+/* a site added to sites.json is forecast and ledgered from day one, but "medido" only once the bands record carries it */
+function kindOf(p) { return (p.kind === 'field' || p.kind === 'coast') && T && STEPS[p.id] && !STEPS[p.id].some(function (x) { return x.hb; }) ? (p.kind === 'field' ? 'área de produção' : 'costa') + ' · acompanhada, ainda sem medição' : KIND[p.kind] || p.kind; }
 var dc = function (s) { return String(s).replace('.', ','); };
 var grp = function (n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
 var p2 = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -156,7 +158,7 @@ function fieldsOf(p) {
 }
 function subOf(p) {
   if (p.kind === 'uep') { var f = fieldsOf(p); return (p.type || '') + (f.length ? ' · ' + f.slice(0, 2).join(', ') + (f.length > 2 ? ' +' + (f.length - 2) : '') : ''); }
-  return KIND[p.kind] || p.kind;
+  return kindOf(p);
 }
 function inName(p) { return p.kind === 'uep' ? 'em ' + short(p) : p.kind === 'field' ? 'na Bacia de ' + short(p).replace(/^Margem Equatorial — /, '') : 'em ' + short(p); }
 
@@ -496,10 +498,12 @@ function nodeLine(p) {
   var s = T.places[p.id];
   var ll = function (a) { return dec(Math.abs(a[0]), 2) + '°' + (a[0] < 0 ? 'S' : 'N') + ' ' + dec(Math.abs(a[1]), 2) + '°' + (a[1] < 0 ? 'W' : 'E'); };
   var at = 'Previsão ECMWF lida no nó ' + ll(s.node) + ' do modelo';
-  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km)' + (alphaUpTo(p) ? '; o α, estimado para Hs de projeto até ' + dc(String(alphaUpTo(p))) + ' m (acima disso, três anos de satélite têm menos de 30 pares por célula).' : '.') : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.');
+  if (p.kind === 'uep') return at + ' (0,25°). ' + (p.bandFrom ? 'A faixa medida e o α do local vêm de ' + short(PL[p.bandFrom]) + ', o local medido mais perto (' + p.near.km + ' km)' + (alphaUpTo(p) ? '; o α, estimado para Hs de projeto até ' + dc(String(alphaUpTo(p))) + ' m (acima disso, três anos de satélite têm menos de 30 pares por célula).' : '.') : (p.tracked && PL[p.tracked.site] ? 'Sem faixa medida ainda: o local ' + short(PL[p.tracked.site]) + ', a ' + p.tracked.km + ' km, é acompanhado desde ' + dmy(p.tracked.added) + ' e ganha faixa quando os três anos de previsão × satélite dele forem lidos. Até lá a Tabela 4-1 decide.' : 'Sem faixa medida: nenhum local medido a menos de 350 km (o mais perto, ' + short(PL[p.near.site]) + ', a ' + p.near.km + ' km). O critério da Tabela 4-1 ainda decide.'));
   if (p.kind === 'terminal') return at + ': o mar aberto da APROXIMAÇÃO, não o berço. A faixa medida vem de ' + short(PL[s.bandFrom] || { name: s.bandFrom || '—', kind: 'field' }) + ': um altímetro não enxerga dentro de uma baía.';
+  if (!(STEPS[p.id] || []).some(function (x) { return x.hb; })) return at + '. Local acompanhado desde ' + dmy(p.added) + ': a previsão daqui entra no placar todos os dias, mas a faixa medida e o α do local só chegam quando os três anos de previsão × satélite deste mar forem lidos. Até lá a banda medida fica SEM DADOS e a Tabela 4-1 da DNV decide.';
   return at + '; a faixa medida e o α são deste local (pares satélite × previsão de 2023 a 2026).';
 }
+function dmy(iso) { return iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) + '/' + iso.slice(0, 4) : '—'; }
 function explain(p, r, op, crit) {
   var st = STEPS[p.id];
   if (r === null) return 'A janela passa do último passo da previsão: não há com o que decidir.';
@@ -541,7 +545,7 @@ function drawCard() {
   var cur = current(), op = cur.op, st = STEPS[p.id], TR = C.trOf(op.TR);
   var crits = CFG.crits, res = {}, cs = {};
   crits.forEach(function (k) { res[k] = full(p.id, S.i, k, cur); cs[k] = codes(p.id, k, cur); });
-  var eyebrow = p.kind === 'uep' ? [p.type, fieldsOf(p).slice(0, 3).join(', '), p.depth ? 'lâmina ' + grp(p.depth) + ' m' : '', p.operator].filter(Boolean).join(' · ') : KIND[p.kind];
+  var eyebrow = p.kind === 'uep' ? [p.type, fieldsOf(p).slice(0, 3).join(', '), p.depth ? 'lâmina ' + grp(p.depth) + ' m' : '', p.operator].filter(Boolean).join(' · ') : kindOf(p);
   var end = addH(AX[S.i], TR);
   var tile = function (k) {
     var r = res[k], c = vcode(r), e;

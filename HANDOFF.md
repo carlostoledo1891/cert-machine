@@ -69,8 +69,19 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
     cloud run of field.py, build-today.js, both pushes and the orphan push. Check: two commits from janela-feed
     on main (feed; observed — the observed one may be empty until 10-09), janela-field's head "Janela day
     2026-10-07: … on main <sha>" with vercel.json, and the app without the "outra versão do app" note.
-  OPEN (in apps/janela/TODO.md v1.1): site alpha at Hs 3–4 m; Sergipe-Alagoas measured (the 27 SEM DADOS units are
-    the shallow-water decommissioning programme, US$2.5 bn to 2035); a pruned proposer withheld from deciding;
+  SERGIPE-ALAGOAS, STEP 1 (the value line; corpus/targets.json janela-sergipe-decom): the 27 SEM DADOS units are 24
+    fixed platforms of Guaricema, Dourado, Camorim, Caioba and Piranema off Aracaju, Salgo, the Paru buoy and Manati —
+    the shallow-water decommissioning programme (production stopped 2020; Ibama authorised; 26 platforms, US$2.5 bn
+    to 2035). A site `sergipe` (−11.05, −36.95, the model's sea node −11.0, −37.0, 5 km off the coast; decoded on
+    the 10-06 run) is in sites.json from 2026-10-07: the feed reads it and the ensemble ledger commits it daily;
+    it lends NO band until measured — platforms.js now borrows only from sites the bands record carries (re-run:
+    platforms.json byte-identical), and the cards say "acompanhado desde 07/10/2026, ainda sem medição" (the
+    site) and "o local Sergipe-Alagoas, a 10 km, é acompanhado…" (its units). Tested on a synthetic feed carrying
+    the site: 67,744 decisions re-decided equal, the method page and the app built, the gates green; the synthetic
+    feed deleted. NEXT: the back-archive for the site (janela-archive.yml in the cloud: ECMWF; NOAA needs the
+    workflow to learn `alt`), pack, matchups, bands v2 = calibrated-v2 (a new proposer, its sha in commit.js),
+    the site alpha; no hindcast node there (MÊS needs a new ~18 GB 3-hourly WW3 read).
+  OPEN (in apps/janela/TODO.md v1.1): site alpha at Hs 3–4 m; Sergipe-Alagoas measured (step 1 done, above); a pruned proposer withheld from deciding;
     PLACAR per site and lead; decision-level scoring; scoring borrowed bands at the units; a battery for guard.js.
 
 ────────────────────────────────────────────────────────────────────────────

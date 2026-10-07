@@ -32,7 +32,10 @@
       the main commit and the re-run of THAT day (build-today.js --feed); the method page is a dated portrait.
 - [ ] The site alpha at Hs 3–4 m (Alívio, Carga): more pairs (the AWS archive from 2023-01, pooled basins for
       the high-Hs cells, the pooling stated) — today the alpha decides only operations with Hs <= 2 m.
-- [ ] Sergipe-Alagoas measured: the 27 SEM DADOS units are the shallow-water decommissioning programme.
+- [x] Sergipe-Alagoas step 1: the site `sergipe` tracked from 2026-10-07 (feed + ensemble ledger); bands borrowed
+      only from measured sites (platforms.js); the cards say "acompanhado, ainda sem medição".
+- [ ] Sergipe-Alagoas measured: back-archive (ECMWF + NOAA) -> matchups -> bands v2 (calibrated-v2) -> site alpha;
+      then the decommissioning view (lifts at Hs <= 1.5 m, the campaign planner).
 - [ ] A pruned proposer stops deciding in the app (today the PLACAR shows the prune; build-today does not yet
       withhold the band criterion). The first look is at 30 trial days, about 2026-11-08.
 - [ ] The PLACAR per site and lead (descriptive); decision-level scoring (published LIBERADA vs the satellite);
