@@ -51,10 +51,25 @@ def grid_of(d):
     return '0p25' if d >= SWITCH else '0p4'
 
 
-def stem(d, run, stream, step):
+# ECMWF's data-driven model (AIFS) publishes waves in open data from the 2026-05-13 00 UTC run (probed 2026-10-07 on
+# both mirrors): aifs-single (deterministic, stream wave/oper, type fc) and aifs-ens (50 perturbed members in one
+# file, stream waef/enfo, type pf). The IFS layout above is untouched: model='ifs' is the default everywhere.
+AIFS_FIRST = date(2026, 5, 13)
+MODELS = ('ifs', 'aifs-single', 'aifs-ens')
+
+
+def stem(d, run, stream, step, model='ifs'):
     ds = d.strftime('%Y%m%d')
-    res = 'ifs/0p25' if d >= SWITCH else '0p4-beta'
-    kind = 'ef' if stream in ('waef', 'enfo') else 'fc'
+    if model == 'ifs':
+        res = 'ifs/0p25' if d >= SWITCH else '0p4-beta'
+        kind = 'ef' if stream in ('waef', 'enfo') else 'fc'
+    elif model in ('aifs-single', 'aifs-ens'):
+        if d < AIFS_FIRST:
+            raise ValueError(f'{model} publishes waves from {AIFS_FIRST}, not {d}')
+        res = model + '/0p25'
+        kind = 'pf' if model == 'aifs-ens' else 'fc'
+    else:
+        raise ValueError(f'unknown model {model!r}')
     return f'{ds}/{run:02d}z/{res}/{stream}/{ds}{run:02d}0000-{step}h-{stream}-{kind}'
 
 
@@ -83,8 +98,8 @@ def get(url, rng=None, tries=7):
     raise IOError(f'failed after {tries} tries: {url} ({last})')
 
 
-def index(base, d, run, stream, step):
-    b = get(f'{base}/{stem(d, run, stream, step)}.index')
+def index(base, d, run, stream, step, model='ifs'):
+    b = get(f'{base}/{stem(d, run, stream, step, model)}.index')
     if b is None:
         return None
     return [json.loads(line) for line in b.decode().splitlines() if line.strip()]

@@ -8,6 +8,8 @@ apps/janela/audit · cert-machine
     python archive.py noaa  [FROM [TO]] [--workers N]   NOAA GFS-Wave (WAVEWATCH III) forecasts at every site
     python archive.py pack                              day files -> monthly .json.gz + manifest
     python archive.py pack-noaa                         NOAA's day files -> corpus/janela/noaa/ + its own manifest
+    python archive.py aifs  [FROM [TO]] [--workers N]   ECMWF AIFS Single (data-driven) wave runs, from 2026-05-13
+    python archive.py pack-aifs                         AIFS's day files -> corpus/janela/aifs/ + its own manifest
 
 Why a back-archive: a forecast's error can only be measured against what
 happened, and the ledger (instruments/forecast) only grows forward. ECMWF
@@ -144,6 +146,55 @@ def ecmwf_day(d):
                                'sha256': E.sha256(msg), 'R': meta['R'], 'E': meta['E'], 'D': meta['D'],
                                'bits': meta['bits'], 'X': xs})
     write_json(path, {'date': d.isoformat(), 'run': RUN, 'grid': E.grid_of(d), 'mirror': base,
+                      'nodes': nodes, 'fields': fields, 'missing': missing,
+                      'read': datetime.now(timezone.utc).isoformat(timespec='seconds')})
+    return f'{len(fields)} fields' + (f', missing {len(missing)}' if missing else '')
+
+
+# ── ECMWF AIFS (data-driven) waves: a third provider's back-archive, from its first open-data run ──
+# The same steps (WAVE_STEPS for Hs, OPER_STEPS for the 10 m wind), the same field record and parameter names as
+# ecmwf_day, so matchups.py reads it with one code path; the grid is named 'aifs-0p25' so a node is never looked up
+# in the IFS grid (AIFS's land mask is its own). The deterministic run (aifs-single) only: the band is calibrated on
+# it, as ECMWF's is on IFS HRES; the 50-member AIFS ensemble is a forward proposer (aifs.py), never back-filled.
+AIFS_GRID = 'aifs-0p25'
+
+
+def aifs_day(d):
+    path = os.path.join(CACHE, 'aifs', d.strftime('%Y%m'), d.strftime('%Y%m%d') + '.json')
+    if os.path.exists(path):
+        return 'cached'
+    base = E.MIRRORS['gcs']
+    fields, nodes, missing = [], {}, []
+    plan = [('wave', s, ['swh']) for s in WAVE_STEPS] + [('oper', s, ['10u', '10v']) for s in OPER_STEPS]
+    for stream, step, params in plan:
+        idx = E.index(base, d, RUN, stream, step, 'aifs-single')
+        if idx is None:
+            missing.append(f'{stream}@{step}')
+            continue
+        rows = E.pick(idx, params)
+        if len(rows) != len(params):
+            missing.append(f'{stream}@{step}:{"+".join(params)}')
+            continue
+        url = f'{base}/{E.stem(d, RUN, stream, step, "aifs-single")}.grib2'
+        for off, n, rs in E.runs_of(rows):
+            blob = E.get(url, (off, n))
+            if blob is None:
+                missing.append(f'{stream}@{step}:404')
+                continue
+            for r in rs:
+                msg = blob[r['_offset'] - off: r['_offset'] - off + r['_length']]
+                meta, xs = E.decode(msg, SITES)
+                if meta['param'] != r['param'] or int(str(meta['step']).split('-')[-1]) != step:
+                    raise ValueError(f'index/message mismatch at {d} {stream} {step} {r["param"]}')
+                if str(meta['date']) != d.strftime('%Y%m%d') or int(meta['time']) != RUN * 100:
+                    raise ValueError(f'run mismatch at {d} {stream} {step}: {meta["date"]} {meta["time"]}')
+                if AIFS_GRID not in nodes:
+                    nodes[AIFS_GRID] = {s['id']: E.box_nodes(meta, s) for s in SITES}
+                fields.append({'stream': stream, 'step': step, 'param': meta['param'],
+                               'url': url, 'offset': r['_offset'], 'length': r['_length'],
+                               'sha256': E.sha256(msg), 'R': meta['R'], 'E': meta['E'], 'D': meta['D'],
+                               'bits': meta['bits'], 'X': xs})
+    write_json(path, {'date': d.isoformat(), 'run': RUN, 'grid': AIFS_GRID, 'model': 'aifs-single', 'mirror': base,
                       'nodes': nodes, 'fields': fields, 'missing': missing,
                       'read': datetime.now(timezone.utc).isoformat(timespec='seconds')})
     return f'{len(fields)} fields' + (f', missing {len(missing)}' if missing else '')
@@ -316,22 +367,22 @@ def pack():
     print(len(manifest), 'packed files')
 
 
-def pack_noaa():
-    """NOAA's day files -> corpus/janela/noaa/YYYYMM.json.gz and corpus/janela/noaa/MANIFEST.json: its own
+def pack_noaa(kind='noaa', what='NOAA GFS-Wave back-archive at the Janela sites (archive.py noaa, pack-noaa).'):
+    """NOAA's (or AIFS's) day files -> corpus/janela/<kind>/YYYYMM.json.gz and its own MANIFEST.json: its own
     chain, so packing it never rewrites a byte of the ECMWF/altimeter records or their manifest."""
-    manifest, root, out = {}, os.path.join(CACHE, 'noaa'), os.path.join(OUT, 'noaa')
+    manifest, root, out = {}, os.path.join(CACHE, kind), os.path.join(OUT, kind)
     for ym in sorted(os.listdir(root)):
         files = sorted(f for f in os.listdir(os.path.join(root, ym)) if f.endswith('.json'))
         month = [json.load(open(os.path.join(root, ym, f))) for f in files]
-        blob = json.dumps({'kind': 'noaa', 'month': ym, 'files': month}, separators=(',', ':')).encode()
+        blob = json.dumps({'kind': kind, 'month': ym, 'files': month}, separators=(',', ':')).encode()
         gz = gzip.compress(blob, mtime=0)
         os.makedirs(out, exist_ok=True)
         with open(os.path.join(out, ym + '.json.gz'), 'wb') as f:
             f.write(gz)
         manifest[f'{ym}.json.gz'] = {'sha256': hashlib.sha256(gz).hexdigest(), 'bytes': len(gz),
                                      'jsonSha256': hashlib.sha256(blob).hexdigest(), 'days': len(month)}
-    write_json(os.path.join(out, 'MANIFEST.json'), {'what': 'NOAA GFS-Wave back-archive at the Janela sites (archive.py noaa, pack-noaa).', 'files': manifest})
-    print(len(manifest), 'packed NOAA months')
+    write_json(os.path.join(out, 'MANIFEST.json'), {'what': what, 'files': manifest})
+    print(len(manifest), 'packed', kind, 'months')
 
 
 def run_pool(tasks, fn, workers, label):
@@ -364,6 +415,11 @@ if __name__ == '__main__':
     elif cmd == 'noaa':
         a, b, w = parse_args(rest, NOAA_FIRST)
         run_pool([(d,) for d in days(a, b)], noaa_day, w, 'noaa')
+    elif cmd == 'aifs':
+        a, b, w = parse_args(rest, E.AIFS_FIRST)
+        run_pool([(d,) for d in days(max(a, E.AIFS_FIRST), b)], aifs_day, w, 'aifs')
+    elif cmd == 'pack-aifs':
+        pack_noaa('aifs', 'ECMWF AIFS Single (data-driven) wave back-archive at the Janela sites (archive.py aifs, pack-aifs).')
     elif cmd == 'pack':
         pack()
     elif cmd == 'pack-noaa':
