@@ -69,4 +69,7 @@
 - [x] The day's data fetched before the map library (early.js); links carry the run and say when it is old.
 - [ ] Decision-level scoring: every published LIBERADA at a measured site against the satellite (from 2026-10-09).
 - [ ] The campaign planner (decommissioning): N operations from a date, exact counts over 32 years.
+- [ ] NEXT SESSION: NOAA WAVEWATCH III (GFS-Wave deterministic + GEFS-Wave 31 members, public AWS, verified 10-07) as
+      the second forecast proposer — the plan and the open decisions are in HANDOFF.md's top entry.
+- [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
 
