@@ -6,6 +6,7 @@
      node apps/janela/audit/bands.js       reads corpus/janela/matchups.json.gz, writes certs/janela-bands.json
      node apps/janela/audit/bands.js --region sergipe    the region's matchups -> its bands (scenario/regions.json)
      node apps/janela/audit/bands.js --provider noaa     NOAA's matchups (matchups-noaa.json.gz) -> certs/janela-bands-noaa.json
+     node apps/janela/audit/bands.js --provider aifs     ECMWF AIFS's (matchups-aifs.json.gz, from 2026-05-13) -> certs/janela-bands-aifs.json
 
    For each open-sea site and each 12 h lead bin, from the back-archive pairs:
      Hs     r = observed / forecast            (both exact rationals)
@@ -50,11 +51,12 @@ function main() {
   if (ri > 0 && !region) throw new Error('REFUSED: no region ' + process.argv[ri + 1] + ' in apps/janela/scenario/regions.json');
   const pi = process.argv.indexOf('--provider');
   const provider = pi > 0 ? process.argv[pi + 1] : 'ecmwf';
-  if (provider !== 'ecmwf' && provider !== 'noaa') throw new Error('REFUSED: --provider ' + provider + ' (ecmwf or noaa)');
+  if (!['ecmwf', 'noaa', 'aifs'].includes(provider)) throw new Error('REFUSED: --provider ' + provider + ' (ecmwf, noaa or aifs)');
+  if (provider === 'aifs' && region) throw new Error('REFUSED: no region carries an AIFS chain yet');
   if (provider === 'noaa' && region && !region.noaa) throw new Error('REFUSED: region ' + process.argv[ri + 1] + ' names no NOAA chain in regions.json');
-  const IN = provider === 'noaa' ? (region ? region.noaa.matchups : 'corpus/janela/matchups-noaa.json.gz') : region ? region.matchups : 'corpus/janela/matchups.json.gz';
-  const OUTF = provider === 'noaa' ? (region ? region.noaa.bands : 'certs/janela-bands-noaa.json') : region ? region.bands : 'certs/janela-bands.json';
-  const SRC = provider === 'noaa' ? 'NOAA GFS-Wave (WAVEWATCH III)' : 'ECMWF open data';
+  const IN = provider === 'aifs' ? 'corpus/janela/matchups-aifs.json.gz' : provider === 'noaa' ? (region ? region.noaa.matchups : 'corpus/janela/matchups-noaa.json.gz') : region ? region.matchups : 'corpus/janela/matchups.json.gz';
+  const OUTF = provider === 'aifs' ? 'certs/janela-bands-aifs.json' : provider === 'noaa' ? (region ? region.noaa.bands : 'certs/janela-bands-noaa.json') : region ? region.bands : 'certs/janela-bands.json';
+  const SRC = provider === 'aifs' ? 'ECMWF AIFS Single (data-driven) open data, from 2026-05-13' : provider === 'noaa' ? 'NOAA GFS-Wave (WAVEWATCH III)' : 'ECMWF open data';
   const gz = fs.readFileSync(path.join(ROOT, IN));
   const M = JSON.parse(zlib.gunzipSync(gz).toString('utf8'));
   if ((M.provider || 'ecmwf') !== provider) throw new Error('REFUSED: ' + IN + ' holds ' + (M.provider || 'ecmwf') + ' pairs, not ' + provider + '\'s');
@@ -91,7 +93,8 @@ function main() {
   const out = {
     what: 'Janela\'s calibrated forecast band per open-sea site and 12 h lead bin: exact conformal intervals (miss-rate 1/10) of observed/forecast Hs and of observed - forecast 10 m wind speed (m/s), from the back-archive pairs (' + SRC + ' vs NOAA RADS NRT altimetry). The band for a forecast f is [f*lo, f*hi]; for a forecast wind (u, v), [s_lo + lo, s_hi + hi] with [s_lo, s_hi] the enclosure of sqrt(u^2+v^2), floored at 0.',
     theorem: 'IF the next ratio is exchangeable with the calibration ratios of its site and lead bin, THEN P(lo <= next <= hi) = (u - l)/(n + 1) exactly (>= with ties) — instruments/forecast/conformal.js',
-    hypothesis: 'exchangeability within a site and a 12 h lead bin, over 2023-07..2026-10 and all seasons; graded going forward by the ledger (exact binomial admission)',
+    hypothesis: provider === 'aifs' ? 'exchangeability within a site and a 12 h lead bin, over 2026-05-13..2026-10-05 (late autumn to early spring only: a seasonal hypothesis the ledger grades first); graded going forward by the ledger (exact binomial admission)'
+      : 'exchangeability within a site and a 12 h lead bin, over 2023-07..2026-10 and all seasons; graded going forward by the ledger (exact binomial admission)',
     ...(region ? { region: process.argv[ri + 1], caveat: region.caveat || null } : {}),
     ...(provider !== 'ecmwf' ? { provider } : {}),
     borrow: region ? {} : BORROW,

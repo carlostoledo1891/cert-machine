@@ -106,6 +106,17 @@ jobs:
         run: |
           node apps/janela/audit/commit.js --noaa
           bash apps/janela/audit/push.sh "Janela feed-noaa $(date -u +%F): NOAA WAVEWATCH III 00 UTC at the Janela sites; GEFS-Wave bands committed to certs/janela-ledger at least an hour before their target times" corpus/janela/feed-noaa certs/janela-ledger
+      - name: "the third provider, graded and never deciding: ECMWF's data-driven AIFS at every site (aifs.py; may fail without touching the day)"
+        id: aifs
+        continue-on-error: true
+        timeout-minutes: 25
+        run: cd apps/janela/audit && python aifs.py
+      - name: commit AIFS's bands before the sea happens, and push them
+        if: steps.aifs.outcome == 'success'
+        continue-on-error: true
+        run: |
+          node apps/janela/audit/commit.js --aifs
+          bash apps/janela/audit/push.sh "Janela feed-aifs $(date -u +%F): ECMWF AIFS (data-driven) 00 UTC at the Janela sites; its ensemble and calibrated bands committed to certs/janela-ledger at least an hour before their target times (graded, never deciding)" corpus/janela/feed-aifs certs/janela-ledger
       - name: observe what the satellites saw (days ended three days ago)
         continue-on-error: true
         timeout-minutes: 25

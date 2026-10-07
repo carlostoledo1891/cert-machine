@@ -11,6 +11,7 @@
      certs/janela-ledger/DEFINITIONS.json  every old key kept with the same value
      corpus/janela/feed/*                added only (a day's feed is written once)
      corpus/janela/feed-noaa/*           added only (NOAA's day, written once the same way)
+     corpus/janela/feed-aifs/*           added only (ECMWF AIFS's day, written once the same way)
      corpus/janela/observed/*            added only (a day is observed once)
      certs/janela-decisions/*            added only (a day's published decisions are kept once)
      corpus/janela/currents/*            added only (a day's surface currents are kept once)
@@ -26,16 +27,16 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const git = (args, enc) => cp.execFileSync('git', args, { cwd: ROOT, encoding: enc === null ? null : 'utf8', maxBuffer: 1 << 30 });
-const LEDGER = 'certs/janela-ledger/', FEED = 'corpus/janela/feed/', NOAA = 'corpus/janela/feed-noaa/', OBS = 'corpus/janela/observed/', DEC = 'certs/janela-decisions/', CUR = 'corpus/janela/currents/', CUO = 'corpus/janela/currents-observed/';
+const LEDGER = 'certs/janela-ledger/', FEED = 'corpus/janela/feed/', NOAA = 'corpus/janela/feed-noaa/', AIFS = 'corpus/janela/feed-aifs/', OBS = 'corpus/janela/observed/', DEC = 'certs/janela-decisions/', CUR = 'corpus/janela/currents/', CUO = 'corpus/janela/currents-observed/';
 
 function check() {
   const bad = [];
-  const lines = git(['diff', '--cached', '--name-status', '--no-renames', '--', LEDGER, FEED, NOAA, OBS, DEC, CUR, CUO]).split('\n').filter(Boolean);
+  const lines = git(['diff', '--cached', '--name-status', '--no-renames', '--', LEDGER, FEED, NOAA, AIFS, OBS, DEC, CUR, CUO]).split('\n').filter(Boolean);
   for (const l of lines) {
     const [st, file] = l.split('\t');
     if (st === 'A') continue;
     if (st !== 'M') { bad.push(st + ' ' + file + ': only additions are allowed here'); continue; }
-    if (file.startsWith(FEED) || file.startsWith(NOAA) || file.startsWith(OBS) || file.startsWith(DEC) || file.startsWith(CUR) || file.startsWith(CUO)) { bad.push(file + ': written once, never modified'); continue; }
+    if (file.startsWith(FEED) || file.startsWith(NOAA) || file.startsWith(AIFS) || file.startsWith(OBS) || file.startsWith(DEC) || file.startsWith(CUR) || file.startsWith(CUO)) { bad.push(file + ': written once, never modified'); continue; }
     const old = git(['show', 'HEAD:' + file], null), now = git(['show', ':' + file], null);
     if (file === LEDGER + 'DEFINITIONS.json') {
       const a = JSON.parse(old.toString('utf8')), b = JSON.parse(now.toString('utf8'));

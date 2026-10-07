@@ -69,7 +69,9 @@ const NAMES_PT = {
   'janela/hs-altimeter/calibrated-noaa-v1': 'A faixa medida da NOAA (WAVEWATCH III), v1',
   'janela/hs-altimeter/union-v1': 'A faixa que decide: ECMWF ∪ NOAA, v1',
   'janela/hs-altimeter/calibrated-noaa-sergipe-v1': 'A faixa medida da NOAA, Sergipe-Alagoas, v1',
-  'janela/hs-altimeter/union-sergipe-v1': 'A faixa que decide em Sergipe-Alagoas: ECMWF ∪ NOAA, v1'
+  'janela/hs-altimeter/union-sergipe-v1': 'A faixa que decide em Sergipe-Alagoas: ECMWF ∪ NOAA, v1',
+  'janela/hs-altimeter/aifs-ens-c40of50': 'Ensemble ECMWF AIFS (dados), os 40 centrais de 50',
+  'janela/hs-altimeter/calibrated-aifs-v1': 'A faixa medida do ECMWF AIFS, v1'
 };
 
 /* the looks reached after m trials: m = 30·2^j, bar = 1/20 · 2^-(j+1) */
@@ -151,7 +153,10 @@ function breakdown(rows) {
 const PAIRS = [
   ['janela/hs-altimeter/ens-c40of50', 'janela/hs-altimeter/noaa-gefs-c25of31', 'os ensembles brutos: ECMWF × NOAA'],
   ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/calibrated-noaa-v1', 'as faixas medidas: ECMWF × NOAA'],
-  ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/union-v1', 'a faixa do ECMWF × a união que decide']
+  ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/union-v1', 'a faixa do ECMWF × a união que decide'],
+  /* ECMWF's two models on the same targets: the physics (IFS) and the data-driven (AIFS), from 2026-10-07 */
+  ['janela/hs-altimeter/ens-c40of50', 'janela/hs-altimeter/aifs-ens-c40of50', 'os ensembles do ECMWF: físico × dados (AIFS)'],
+  ['janela/hs-altimeter/calibrated-v1', 'janela/hs-altimeter/calibrated-aifs-v1', 'as faixas medidas: ECMWF físico × AIFS']
 ];
 function headToHead(rows) {
   const commit = {}, score = {};

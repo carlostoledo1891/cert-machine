@@ -3,6 +3,7 @@
 
      node apps/janela/audit/commit.js [YYYYMMDD]          (default: the newest feed)
      node apps/janela/audit/commit.js --noaa [YYYYMMDD]   NOAA's band, from corpus/janela/feed-noaa (noaa.py)
+     node apps/janela/audit/commit.js --aifs [YYYYMMDD]   ECMWF AIFS's bands, from corpus/janela/feed-aifs (aifs.py) — graded, never deciding
 
    For every open-sea site (kind field, platform or coast — a satellite cannot
    see inside a bay) and every forecast step whose time is still in the future,
@@ -70,6 +71,12 @@ const CAL_PINS = {
   /* NOAA at Sergipe-Alagoas, calibrated on the region's own pairs 2026-10-07 (certs/janela-bands-noaa-sergipe.json) */
   'janela/hs-altimeter/calibrated-noaa-sergipe-v1': '991211a94b70aa44e142c91475d4fe7197a0f65ca013164aace8f2c0c8f439c1'
 };
+/* THE THIRD PROVIDER (--aifs, from 2026-10-07): ECMWF's data-driven AIFS (aifs.py), graded and never deciding
+   (providers-eval-aifs-v1): its ensemble's central 40 of 50 (claim 4/5) and Janela's band calibrated on AIFS's own
+   pairs, pinned HERE and kept out of bandset.js — a band bandset.js does not carry cannot decide. */
+const AIFS = { domain: 'janela/hs-altimeter/aifs-ens-c40of50', alpha: [1, 5], members: 50, band: 'order statistics 6 and 45 of 50 sorted members (the central 40)' };
+const AIFS_CAL = { domain: 'janela/hs-altimeter/calibrated-aifs-v1', bands: 'certs/janela-bands-aifs.json',
+  sha: '148a1209c9412ffa2cc19aef47efca1c4a8c436cb1a8eb79e558fa85e7a67986' };
 /* v1's rows keep the id suffix they were born with */
 const calSuffix = (domain) => (domain === 'janela/hs-altimeter/calibrated-v1' ? ':cal' : ':' + domain.split('/').pop());
 
@@ -180,6 +187,56 @@ function unionRows(feedE, wantE, feedN, wantN, madeAt, calsE, calsN) {
   return rows;
 }
 
+/* AIFS's rows, pure (the battery feeds it synthetic feeds): the calibrated band (AIFS Single's Hs x the pinned interval)
+   and the ensemble's central 40; a feed whose ensemble is not the definition's is refused whole */
+function aifsRows(feed, feedSha, want, madeAt, cal) {
+  const e = feed.ensemble || {};
+  if (feed.model !== 'aifs' || e.source !== 'AIFS ENS' || e.members !== AIFS.members || e.band !== AIFS.band || e.claim !== '4/5') {
+    throw new Error('REFUSED: ' + want + ' does not carry the band ' + AIFS.domain + ' is defined by (' + AIFS.band + ', claim 4/5)');
+  }
+  const rows = [];
+  let past = 0;
+  for (const [sid, site] of Object.entries(feed.sites)) {
+    if (!SCORED_KINDS.has(site.kind) || !site.node) continue;
+    for (const st of site.steps) {
+      if (!st.hs) continue;
+      const targetTime = st.t + ':00:00Z';
+      if (!(Date.parse(targetTime) - Date.parse(madeAt) >= MARGIN_MS)) { past++; continue; }
+      const ledger = st.t.slice(0, 4) + st.t.slice(5, 7) + '.jsonl', base = 'janela:' + sid + ':' + feed.run + ':+' + st.lead + 'h:';
+      const cell = cal && st.hs.det !== undefined ? calCell(cal, sid, st.lead) : null;
+      if (cell) {
+        rows.push({ ledger, c: { id: base + cal.domain.split('/').pop(), domain: cal.domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+          forecast: { lo: mulFr(st.hs.det, cell.lo), hi: mulFr(st.hs.det, cell.hi), alpha: [1, 10], det: st.hs.det, lead: st.lead,
+            node: site.node, feed: 'aifs/' + want.slice(0, 8), bandsSha: cal.sha.slice(0, 16), coverage: cell.coverage, n: cell.n } } });
+      }
+      if (st.hs.lo === undefined) continue;
+      rows.push({ ledger, c: { id: base + AIFS.domain.split('/').pop(), domain: AIFS.domain, target: sid + ' · ' + TARGET_ID, targetTime, madeAt,
+        forecast: { lo: frac(st.hs.lo), hi: frac(st.hs.hi), alpha: AIFS.alpha, det: st.hs.det === undefined ? null : st.hs.det, lead: st.lead,
+          node: site.node, feed: 'aifs/' + want.slice(0, 8), feedSha: feedSha.slice(0, 16) } } });
+    }
+  }
+  return { rows, past };
+}
+
+/* the AIFS band record, committed only when it is the one AIFS_CAL pins (a rebuilt record is a new version) */
+function aifsCal() {
+  const f = path.join(ROOT, AIFS_CAL.bands);
+  if (!fs.existsSync(f)) return null;
+  const buf = fs.readFileSync(f), h = require('crypto').createHash('sha256').update(buf).digest('hex');
+  if (h !== AIFS_CAL.sha) { console.log('::warning title=janela ' + AIFS_CAL.domain + ' skipped::' + AIFS_CAL.bands + ' is not the record it pins (' + AIFS_CAL.sha.slice(0, 16) + ', found ' + h.slice(0, 16) + ')'); return null; }
+  return { domain: AIFS_CAL.domain, sha: h, rec: JSON.parse(buf.toString('utf8')) };
+}
+
+function commitAifs(day, madeAt) {
+  const { want, feed, feedSha } = readFeed(path.join(ROOT, 'corpus', 'janela', 'feed-aifs'), day);
+  const { rows, past } = aifsRows(feed, feedSha, want, madeAt, aifsCal());
+  let made = 0, dup = 0;
+  for (const r of rows) {
+    try { L.commit(path.join(LEDGER, r.ledger), r.c); made++; } catch (err) { if (/duplicate commit id/.test(err.message)) { dup++; continue; } throw err; }
+  }
+  console.log('janela ledger (AIFS): ' + made + ' committed, ' + past + ' skipped (target past or under an hour away), ' + dup + ' already committed — feed-aifs ' + want);
+}
+
 function commitNoaa(day, madeAt) {
   const { want, feed, feedSha } = readFeed(path.join(ROOT, 'corpus', 'janela', 'feed-noaa'), day);
   const { rows, past } = noaaRows(feed, feedSha, want, madeAt, pinnedCals('noaa'));
@@ -206,6 +263,7 @@ function main() {
   const madeAt = new Date().toISOString().slice(0, 19) + 'Z';
   fs.mkdirSync(LEDGER, { recursive: true });
   if (args[0] === '--noaa') return commitNoaa(args[1], madeAt);
+  if (args[0] === '--aifs') return commitAifs(args[1], madeAt);
   const { want, feed, feedSha } = readFeed(FEED, args[0]);
   let made = 0, past = 0, dup = 0;
   const cals = pinnedCals('ecmwf');
@@ -245,4 +303,4 @@ function main() {
 
 if (require.main === module) main();
 
-module.exports = { NOAA, UNION, UNIONS, TARGET_ID, MARGIN_MS, noaaRows, unionRows };
+module.exports = { NOAA, AIFS, AIFS_CAL, UNION, UNIONS, TARGET_ID, MARGIN_MS, noaaRows, unionRows, aifsRows };

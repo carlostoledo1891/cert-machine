@@ -460,6 +460,32 @@ ok('noaa: the proposer and the providers rule are dated in DEFINITIONS.json, wit
   assert.ok(PL.NAMES_PT[CM.NOAA.domain], 'the PLACAR names it');
 });
 
+/* THE THIRD PROVIDER (ECMWF AIFS, aifs.py + commit.js --aifs): graded, never deciding */
+const aifsFeed = (over, eover) => Object.assign({ run: '2026-10-07T00', model: 'aifs',
+  ensemble: Object.assign({ source: 'AIFS ENS', members: 50, band: CM.AIFS.band, claim: '4/5' }, eover || {}),
+  sites: {
+    santos: { kind: 'field', node: [-25.5, -43], steps: [
+      { t: '2026-10-07T06', lead: 6, hs: { det: '3/2', lo: '7/5', p50: '3/2', hi: '8/5' } },
+      { t: '2026-10-07T12', lead: 12, hs: { det: '3/2', lo: '7/5', p50: '3/2', hi: '8/5' } }] },
+    'sao-sebastiao': { kind: 'terminal', node: [-24, -45.25], steps: [{ t: '2026-10-07T12', lead: 12, hs: { det: '1', lo: '9/10', p50: '1', hi: '11/10' } }] }
+  } }, over || {});
+ok('aifs: the ensemble row (claim 4/5) and the calibrated row from the PINNED record, on the ECMWF target; never in bandset.js (it cannot decide)', () => {
+  const cal = { domain: CM.AIFS_CAL.domain, sha: CM.AIFS_CAL.sha, rec: { binHours: 12, sites: { santos: { bins: { 12: { hs: { verdict: 'CERTIFIED-COVERAGE', lo: '4/5', hi: '6/5', n: 60, coverage: '55/61' } } } } } } };
+  const r = CM.aifsRows(aifsFeed(), 'f'.repeat(64), '20261007.json.gz', '2026-10-07T05:30:00Z', cal);
+  assert.strictEqual(r.past, 1);
+  assert.deepStrictEqual(r.rows.map((x) => x.c.domain).sort(), [CM.AIFS.domain, CM.AIFS_CAL.domain].sort());
+  const c = r.rows.find((x) => x.c.domain === CM.AIFS_CAL.domain).c;
+  assert.deepStrictEqual([c.forecast.lo, c.forecast.hi, c.forecast.alpha], [['12', '10'], ['18', '10'], [1, 10]]);
+  assert.strictEqual(c.target, 'santos · ' + CM.TARGET_ID);
+  assert.ok(!BS.records().some((x) => x.proposer === CM.AIFS_CAL.domain), 'the AIFS band is not a record bandset.js decides with');
+  const sha = require('crypto').createHash('sha256').update(fs.readFileSync(path.join(__dirname, '..', '..', CM.AIFS_CAL.bands))).digest('hex');
+  assert.strictEqual(sha, CM.AIFS_CAL.sha, 'certs/janela-bands-aifs.json is the record calibrated-aifs-v1 pins');
+});
+red('aifs: a feed that is not AIFS\'s, or whose ensemble is not the definition\'s, is refused whole', () => {
+  assert.throws(() => CM.aifsRows(aifsFeed({ model: 'ifs' }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z', null), /does not carry the band/);
+  assert.throws(() => CM.aifsRows(aifsFeed(null, { members: 49 }), 'f'.repeat(64), 'x', '2026-10-07T05:30:00Z', null), /does not carry the band/);
+});
+
 /* THE USE CASES (apps/janela/uses.js): the app's doors, the method page's cards and the deck's table read one list;
    every door must be one the client acts on, and every deep link must open a state the app can hold */
 const USES = require('./uses.js');

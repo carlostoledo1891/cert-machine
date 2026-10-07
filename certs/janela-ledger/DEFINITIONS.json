@@ -125,5 +125,29 @@
   "measurement": "the three providers' forecast-vs-altimeter pairs joined on the same pass, site and run (corpus/janela/matchups*.json.gz, the eight main sites); SPLIT 2026-08-01: every band calibrated on the passes before it — E and N on their own history from 2023-07-12, A on its own from 2026-05-13, and E also on A's short window (E-short) so the model is separated from the calibration length — then judged on the passes from 2026-08-01, which none saw; providers.py's conformal ratio band (site x 12 h lead bin, symmetric order statistics), miss 1/10 only (A's short window cannot hold 1/20 cells); options E, N, A, E-short, U(E,N) (today's rule), U(E,N,A), U(E,A), M(E,A) (the plain mean, no tuned weight); compared on the pairs where every option has a band; plus the deterministic forecasts' bias and RMS by lead on the same pairs",
   "decision rule (fixed now)": "A enters the deciding union only if U(E,N,A) keeps the broken-LIBERADA share at Hs <= 2.0 m at or under U(E,N)'s AND loses no more than 5% of its LIBERADA; A replaces a provider only if a two-band union with A beats U(E,N) on both; otherwise A is committed and graded as a proposer (shown, scored, never deciding) and the question is re-asked when A's forward record reaches its first admission look",
   "caveats": "2.2 held-out months in austral late winter/spring and 2.6 calibration months in late autumn/winter: a seasonal mismatch for A and E-short, none for E and N; a floating-point evaluation (the deciding bands are exact)"
+ },
+ "providers-eval-aifs-v1 result (apps/janela/audit/providers_aifs.py)": {
+  "measured": "certs/janela-providers-eval-aifs.json, 2026-10-07: 3108 held-out pairs (2026-08-01..10-05), every option judged on the same ones. At Hs <= 2.0 m: U(E,N) 677 LIBERADA, 1 broken; U(E,N,A) 607 LIBERADA, 0 broken (coverage 0.9849); U(E,A) 694 LIBERADA, 1 broken; A alone 753 LIBERADA, 3 broken (coverage 0.9466); E alone 853 LIBERADA, 6 broken (0.9064); N alone 743 LIBERADA, 7 broken (0.8517 — under its claim on these months). The deterministic AIFS reads HIGH by 0.03-0.13 m, growing with lead, with an RMS at or just above IFS's to day 5 and below it at day 6; GFS-Wave reads low (-0.04 to -0.16 m).",
+  "the rule applied": "the three-band union does NOT meet the entry condition (10% fewer LIBERADA for one broken window fewer); U(E,A) meets the NECESSARY condition for replacing NOAA (17 more LIBERADA, one broken each)",
+  "decision": "providers-v1 STANDS (the union of IFS and NOAA decides). AIFS is committed and graded as two proposers (aifs-ens-c40of50, calibrated-aifs-v1), shown and never deciding. Why not replace NOAA now, by what Petrobras needs: (1) the margin is one broken window on each side in 2.2 months — no measured difference in the thing that matters first; (2) the union exists for robustness to one provider failing, and two models of one centre share its analysis, so U(E,A) is not two independent providers; (3) the AIFS band is calibrated on 4.7 months of one season. Re-asked, with this same rule, when the AIFS proposers reach their first admission look (30 trial days) and again after a summer of forward record."
+ },
+ "aifs-ens-c40of50 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "target": "Hs (m) measured by satellite altimeter: exact mean of NOAA RADS NRT 1 Hz values within 100 km of the site, over the pass whose mid-time is nearest the target time and within 3 h (>= 5 points)",
+  "domain": "janela/hs-altimeter/aifs-ens-c40of50",
+  "proposer": "ECMWF AIFS ENS wave (open data, 50 perturbed members, 00 UTC run, from corpus/janela/feed-aifs/ by aifs.py): order statistics 6 and 45 of 50 at the site's AIFS sea node — the central 40, ECMWF's ensemble rule",
+  "claim": "4/5",
+  "alpha": "1/5",
+  "decides": "never: a raw ensemble is shown and graded (providers-v1)"
+ },
+ "calibrated-aifs-v1 (apps/janela/audit/commit.js)": {
+  "decided": "2026-10-07, before its first commit",
+  "domain": "janela/hs-altimeter/calibrated-aifs-v1",
+  "proposer": "Janela calibrated band for AIFS: AIFS Single's deterministic Hs (00 UTC) at its sea node x the exact conformal ratio interval of its site and 12 h lead bin, from AIFS's OWN forecast-vs-altimeter pairs (certs/janela-bands-aifs.json, 6,659 pairs 2026-05-13..2026-10-05, the same passes, sites, window and rule as calibrated-v1; sha256 148a1209c9412ffa2cc19aef47efca1c4a8c436cb1a8eb79e558fa85e7a67986, pinned in commit.js AIFS_CAL and named in each row)",
+  "claim": "(u - l)/(n + 1) >= 9/10 per cell, as stated in each row",
+  "alpha": "1/10",
+  "sites": "the eight open-sea sites of 2026-10-06",
+  "hypothesis": "exchangeability within a site and lead bin over late autumn to early spring only — the first thing the ledger grades",
+  "decides": "not yet: graded beside the deciding union (providers-eval-aifs-v1 result); kept out of bandset.js, so it cannot decide by accident"
  }
 }
