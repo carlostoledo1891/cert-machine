@@ -30,10 +30,16 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
   THE SCHEDULE: janela-feed's cron fired NEITHER 09:40 NOR 11:40 UTC on its first scheduled day (no GitHub incident;
     the operator's other repositories' schedules ran). Dispatched by hand at 12:17 (run 37619929309, all green in
     2m13s: ECMWF 468 rows, NOAA 234 rows in 49 s on the runner, the day with NOAA's band published); the 06 and 12 UTC
-    targets of both providers were lost. Now five slots (09:40, 10:17, 11:40, 14:23, 18:47; every step safe to repeat)
-    and tools/janela-watchdog.sh, a launchd agent INSTALLED on the desk (minute 7 of every hour; the gh login already
-    there; dispatches once if no run started today by 10:05 UTC; `bash tools/janela-watchdog.sh uninstall` removes
-    it). NEXT SESSION: `gh run list --workflow=janela-feed.yml` — did any `schedule` event fire on 10-08?
+    targets of both providers were lost. The 14:23 slot did not fire by 14:40 either. WHY, measured: the operator's
+    other repositories' weekly crons run 8–9 HOURS LATE on this account (aether-os '0 10 * * 1' ran 18:57 UTC on
+    10-05; mfg-monorepo '17 6 * * 1' ran 14:41) — GitHub's scheduler is a late fallback here, not a clock. Now: five
+    slots (09:40, 10:17, 11:40, 14:23, 18:47; every step safe to repeat) and THE PUNCTUAL TRIGGER tools/janela-
+    watchdog.sh, a launchd agent INSTALLED on the desk (minute 7 of every hour from 09:05 UTC, the gh login already
+    there; dispatches when main has no "Janela feed <today>:" commit and no run is queued/running, so a failed run is
+    retried the next hour; launchd runs a missed check on wake; `bash tools/janela-watchdog.sh uninstall` removes it;
+    log ~/Library/Logs/janela-watchdog.log). A desk that stays asleep past ~11 UTC still loses the 12 UTC targets: a
+    cloud trigger (a Claude routine, or a server's cron) would close that — OPEN, the operator's call.
+    NEXT SESSION: `gh run list --workflow=janela-feed.yml` — which event made the 10-08 day (schedule, watchdog)?
   BUILT (fe53b4c, 88e7852, c0ef1e3, this commit):
     · archive.py noaa + janela-archive what=noaa: GFS-Wave's 00 UTC Hs (ECMWF's archive steps) and 10 m wind at every
       site, through noaa.py's checks; run 37620901215: 1,182 days 2023-07-12..2026-10-05, 47 fields a day, nothing

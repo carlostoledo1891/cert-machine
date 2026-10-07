@@ -21,10 +21,12 @@
 # safe to repeat (a feed is written once, commit ids are unique, a day is observed once,
 # nothing is rescored, and a day already on janela-field is not rebuilt), so a later run
 # only does what an earlier one could not, and a run with nothing to do pushes nothing.
-# FIVE SLOTS, NOT TWO (2026-10-07): on the first scheduled day neither 09:40 nor 11:40 UTC
-# fired (GitHub may delay or drop scheduled runs under load); the day was dispatched by
-# hand at 12:17 and the 06 and 12 UTC targets were lost. tools/janela-watchdog.sh asks
-# again from the desk (launchd, the gh login already there) if no run started by 10:05.
+# FIVE SLOTS, AND THE SCHEDULER IS ONLY A LATE FALLBACK (2026-10-07): on the first scheduled
+# day no slot fired by 14:40 UTC; the operator's other repositories' weekly crons run 8–9
+# HOURS late on this account (GitHub may delay or drop scheduled runs under load). The day
+# was dispatched by hand at 12:17 and the 06 and 12 UTC targets were lost. The punctual
+# trigger is tools/janela-watchdog.sh (launchd on the desk, the gh login already there):
+# hourly from 09:05 UTC until the day's "Janela feed" commit is on main.
 name: janela-feed
 on:
   schedule:
