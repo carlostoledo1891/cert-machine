@@ -25,6 +25,8 @@ LABEL=co.carlostoledo.janela-watchdog
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG="$HOME/Library/Logs/janela-watchdog.log"
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+# a desk that just woke may not have its network yet: three tries, 20 s apart, before an hour is given up
+retry() { local k; for k in 1 2 3; do "$@" && return 0; [ "$k" -lt 3 ] && sleep 20; done; return 1; }
 
 case "${1:-check}" in
   install)
@@ -53,18 +55,18 @@ EOF
     [ "$(date -u +%H%M)" -lt 905 ] && exit 0
     today=$(date -u +%F)
     # the day is done when the feed's commit is on main
-    done=$(gh api "repos/$REPO/commits?sha=main&since=${today}T00:00:00Z&per_page=100" \
+    done=$(retry gh api "repos/$REPO/commits?sha=main&since=${today}T00:00:00Z&per_page=100" \
              --jq "[.[] | select(.commit.message | startswith(\"Janela feed ${today}:\"))] | length")
     [ "$done" -gt 0 ] && exit 0
     # nothing before today's ECMWF 00 UTC wave ensemble is complete (the workflow's gate asks the same)
     ymd=$(date -u +%Y%m%d)
-    code=$(curl -s -4 -o /dev/null -w '%{http_code}' "https://storage.googleapis.com/ecmwf-open-data/${ymd}/00z/ifs/0p25/waef/${ymd}000000-168h-waef-ef.index" || true)
+    code=$(curl -s -4 --retry 3 --retry-delay 20 --retry-all-errors -o /dev/null -w '%{http_code}' "https://storage.googleapis.com/ecmwf-open-data/${ymd}/00z/ifs/0p25/waef/${ymd}000000-168h-waef-ef.index" || true)
     [ "$code" = "200" ] || exit 0
     # never a second run while one is queued or running
-    busy=$(gh run list -R "$REPO" --workflow=janela-feed.yml --limit 10 --json status \
+    busy=$(retry gh run list -R "$REPO" --workflow=janela-feed.yml --limit 10 --json status \
              --jq '[.[] | select(.status != "completed")] | length')
     [ "$busy" -gt 0 ] && exit 0
-    gh workflow run janela-feed.yml -R "$REPO" --ref main
+    retry gh workflow run janela-feed.yml -R "$REPO" --ref main
     echo "$(date -u +%FT%TZ) janela watchdog: no Janela feed on main for ${today} — dispatched janela-feed"
     ;;
   *) echo "usage: $0 [check|install|uninstall]" >&2; exit 2 ;;
