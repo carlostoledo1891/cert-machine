@@ -82,7 +82,16 @@
 - [x] The calibrated WW3 band (2026-10-07): GFS-Wave back-archive 2023-07-12..2026-10-05 in the cloud, 53,538 pairs,
       certs/janela-bands-noaa.json, proposer calibrated-noaa-v1 pinned; providers-v1's union decides (2,038 of 67,744
       letters move to INDEFINIDA on the 10-07 day, none flips). NOAA's ratio band is ~20% wider than ECMWF's.
-- [ ] A ranking rule for the providers (dated before any ranking is read), when both calibrated bands have looks.
+- [x] Which band decides, measured (providers-eval-v1): the union stands; graded as itself (union-v1, union-sergipe-v1);
+      conditional reliability by wave regime and season in the record; the held-out number on the trust box.
+- [x] The surface current (Copernicus Marine) and the current at hull depth (15.8 m) on every card — shown, not decided.
+- [x] The current's truth: GlobCurrent observed daily (current-truth-v1); drifters scouted and rejected (too sparse).
+- [ ] The calibrated current band (conformal, per site and lead bin) once ~19 pairs per cell exist (~10-18), then a
+      current proposer on the ledger; a current limit decides only with a cited source.
+- [x] The campaign planner (MÊS): N operations from the 1st of a month, 32 hindcast years, exact order statistics, at
+      the sea's limit, Table 4-1's OPWF and the site alpha's.
+- [ ] Planner: mobilisation/transit time between operations, any start day, the operator's own day rate in vessel-days.
+- [x] The providers head to head on the same targets (PLACAR "Frente a frente"), from the first scores.
 - [ ] NOAA's 06/12/18 UTC runs (a second cron) and hourly steps in the app.
 - [ ] Watch GitHub's schedule (2026-10-07: neither slot fired; five slots + tools/janela-watchdog.sh since).
 - [ ] The last-mile pilot with LabECO (brief written, private; Babitonga first): engine + certified band + field test.
