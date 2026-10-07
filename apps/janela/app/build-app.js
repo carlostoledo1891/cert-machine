@@ -159,7 +159,7 @@ function panel(M, N) {
   <div class="jn-k">por que confiar</div>
   <p class="jn-p">O veredito é aritmética exata sobre o limite como impresso; a faixa é uma reivindicação que o placar audita em público. A faixa publicada é arredondada <b>para fora</b> (Hs a 0,001 m, vento a 0,01 nó): um LIBERADA ou VETADA sobre ela vale sobre a exata; só INDEFINIDA pode crescer. Não é aprovação de operação: é evidência que um vistoriador refaz. <a href="/janela/metodo/">O método ↗</a></p>
   <p class="jn-check" id="jn-check">—</p>
-  <p class="jn-fine">Previsão ECMWF open data (CC BY 4.0) · altimetria NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · unidades, campos e pré-sal: ANP — GeoMaps · costa: Natural Earth · código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
+  <p class="jn-fine">Previsão ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III (domínio público) · corrente: Generated using E.U. Copernicus Marine Service Information, <a href="https://doi.org/10.48670/moi-00016">doi:10.48670/moi-00016</a> · altimetria NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · unidades, campos e pré-sal: ANP — GeoMaps · costa: Natural Earth · código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
 </div>
 </div>`;
 }

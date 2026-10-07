@@ -595,8 +595,10 @@ function drawCard() {
   wireInputs();
 }
 function currentNote(p) {
-  var eq = p.lat > -10;
-  return '<b>Corrente e direção.</b> A corrente não está na previsão: toda regra que a limita fica SEM DADOS. Uma previsão de corrente (p.ex. Copernicus Marine) ou um correntômetro fecharia esta linha.'
+  var eq = p.lat > -10, has = STEPS[p.id] && STEPS[p.id].some(function (s) { return s.cu; });
+  return '<b>Corrente e direção.</b> ' + (has
+    ? 'A corrente de superfície do Copernicus Marine (modelo global 1/12°, com maré e deriva de onda) é mostrada, ainda não decidida: falta medi-la contra correntes observadas. Num canal ou numa baía o modelo não vê a corrente de maré do canal, e as regras de corrente dos terminais seguem SEM DADOS.'
+    : 'A corrente não está na previsão deste dia: toda regra que a limita fica SEM DADOS.')
     + (eq ? ' Na Margem Equatorial a corrente é a variável que governa a operação, e ainda não é decidida aqui.' : '')
     + (S.op === 'alivio' ? ' No alívio, a direção decide o setor verde do aliviador: as setas acima são a previsão, conferida por quem opera.' : '');
 }
@@ -704,14 +706,17 @@ function dirs(p) {
 var PONTOS = ['N', 'NNE', 'NE', 'ENE', 'L', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'];
 function seaParts(p) {
   var s = STEPS[p.id] && STEPS[p.id][S.i];
-  if (!s || !s.wp) return '';
+  if (!s || (!s.wp && !s.cu)) return '';
+  var cur = s.cu ? '<p class="jn-p">Corrente na superfície: <b>' + dc(s.cu[0].toFixed(1)) + ' nó</b> para ' + PONTOS[Math.round(s.cu[1] / 22.5) % 16] + ' (' + s.cu[1] + '°)'
+    + (s.cu[2] !== null ? ', dos quais maré ' + dc(s.cu[2].toFixed(1)) + ' nó' : '') + '.</p><p class="jn-fine jn-fc">Copernicus Marine, modelo global 1/12° com maré e deriva de onda: mostrada, não decidida.</p>' : '';
+  if (!s.wp) return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div>' + cur + '</div>';
   var name = { v: 'mar de vento', 1: 'ondulação 1', 2: 'ondulação 2', 3: 'ondulação 3' };
   var rows = s.wp.map(function (x) {
     return '<tr><td>' + esc(name[x[0]] || x[0]) + '</td><td>' + dc(x[1].toFixed(2)) + '</td><td>' + (x[2] === null ? '—' : dc(x[2].toFixed(1))) + '</td><td>'
       + (x[3] === null ? '—' : x[3] + '° ' + PONTOS[Math.round(x[3] / 22.5) % 16]) + '</td></tr>';
   }).join('');
   return '<div><div class="jn-k">o mar por partes · ' + esc(wtxt(AX[S.i], true)) + '</div><div class="tw"><table class="jn-tbl"><thead><tr><th>parte</th><th>Hs (m)</th><th>período (s)</th><th>vem de</th></tr></thead><tbody>'
-    + rows + '</tbody></table></div><p class="jn-fine jn-fc">NOAA WAVEWATCH III (GFS-Wave), previsão por partes: mostrada, não decidida.</p></div>';
+    + rows + '</tbody></table></div><p class="jn-fine jn-fc">NOAA WAVEWATCH III (GFS-Wave), previsão por partes: mostrada, não decidida.</p>' + cur + '</div>';
 }
 
 /* ---- ALÍVIO CRÍTICO: the user's tanks against the next LIBERADA offloading window ---- */
@@ -1077,7 +1082,7 @@ function initMap() {
   try {
     map = new maplibregl.Map({ container: 'map', style: mapStyle(), bounds: BOUNDS, maxBounds: [[-98, -54], [-2, 18]], minZoom: 2, maxZoom: 10.5,
       dragRotate: false, pitchWithRotate: false, touchPitch: false, maxPitch: 0, renderWorldCopies: false, fadeDuration: 0,
-      attributionControl: { compact: true, customAttribution: 'ECMWF open data (CC BY 4.0) · ANP — GeoMaps · Natural Earth' } });
+      attributionControl: { compact: true, customAttribution: 'ECMWF open data (CC BY 4.0) · NOAA · E.U. Copernicus Marine Service Information · ANP — GeoMaps · Natural Earth' } });
   } catch (e) { status('o mapa não abriu (' + e.message + '); o painel funciona sem ele'); return; }
   map.touchZoomRotate.disableRotation(); map.keyboard.disableRotation();
   MAP.map = map;

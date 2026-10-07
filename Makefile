@@ -179,6 +179,7 @@ test:
 	@printf "%-30s " "janela alpha (DNV 4-1)"; python3 apps/janela/audit/alpha.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela second verifier"; python3 instruments/window/verify/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela noaa (WAVEWATCH III)"; python3 apps/janela/audit/noaa.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "janela currents (Copernicus)"; python3 apps/janela/audit/currents.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela providers (held-out)"; python3 apps/janela/audit/providers.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "janela providers (Sergipe)"; python3 apps/janela/audit/providers.py --check --region sergipe >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

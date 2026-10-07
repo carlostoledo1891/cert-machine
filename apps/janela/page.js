@@ -966,6 +966,8 @@ function build(N, B, git, battery) {
     ['NOAA WAVEWATCH III, 00 UTC: GEFS-Wave (31 membros) e GFS-Wave, desde 07/10/2026', 'domínio público', 'a faixa da NOAA (em união) e o ensemble (mostrado)',
       { raw: N.noaa ? C.m(N.noaa.file) + ' <span class="jn-pin">sha256 ' + esc(N.noaa.sha.slice(0, 16)) + '… do JSON; ' + N.noaa.groups + ' grupos GRIB, cada um com o seu sha256</span>'
         : C.m('corpus/janela/feed-noaa') + ' <span class="jn-pin">um arquivo por dia, cada passo com o seu sha256; refeito por noaa.py --verify</span>' }],
+    ['Copernicus Marine, corrente de superfície 1/12°, desde 07/10/2026', 'livre, com crédito', 'a corrente mostrada (não decidida)',
+      { raw: '<span class="jn-pin">Generated using E.U. Copernicus Marine Service Information, doi:10.48670/moi-00016</span>' }],
     ['NOAA GFS-Wave, 00 UTC, 07/2023 a 10/2026 (histórico)', 'domínio público', 'a faixa medida da NOAA: mesmos satélites e regra',
       { raw: C.m('corpus/janela/noaa') + ' <span class="jn-pin">40 arquivos mensais, sha256 em corpus/janela/noaa/MANIFEST.json; pares em corpus/janela/matchups-noaa.json.gz</span>' }],
     ['NOAA RADS, altimetria em tempo quase real', 'domínio público', 'o erro medido (pares satélite × previsão) e o placar', { raw: C.m('corpus/janela/matchups.json.gz') + ' <span class="jn-pin">sha256 ' + esc(String(N.bands.sha).slice(0, 16)) + '…, ' + br.int(N.bands.rows) + ' pares</span>' }],

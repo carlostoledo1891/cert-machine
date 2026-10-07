@@ -2,7 +2,7 @@
 # (2026-10-07): the toolbox validates the login, then reads ONE value — the total surface
 # current (tide and Stokes drift included) at the Santos site, the first forecast hour of
 # today — from the global analysis-and-forecast product Janela's currents will come from.
-# Nothing is committed. The secrets are read by the toolbox from the environment; GitHub
+# Then Janela's reader end to end (apps/janela/audit/currents.py). Nothing is committed. The secrets are read by the toolbox from the environment; GitHub
 # masks them in the log.
 name: copernicus-check
 on:
@@ -12,15 +12,16 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
       COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -q copernicusmarine
+      - run: pip install -q -r apps/janela/requirements.txt
       - name: the login is valid
         run: copernicusmarine login --check-credentials-valid
       - name: one value read (Santos, today 00 UTC, surface)
@@ -39,3 +40,7 @@ jobs:
           for v in ('utotal', 'vtotal', 'utide', 'vtide'):
               print(v, float(ds[v].values.ravel()[0]), ds[v].attrs.get('units'))
           PY
+      - name: "Janela's reader end to end (currents.py for today's run; nothing committed)"
+        run: |
+          cd apps/janela/audit && time python currents.py
+          python -c "import gzip,json,glob; f=sorted(glob.glob('../../../corpus/janela/currents/*.json.gz'))[-1]; d=json.loads(gzip.open(f).read()); s=d['places']['santos']['steps'][0]; print(f, d['sha256'][:16], 'santos +0 h', s)"

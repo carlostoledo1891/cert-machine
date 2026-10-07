@@ -58,6 +58,21 @@ if (N.noaa) {
   if (sha(nraw) !== N.noaa.sha) die(N.noaa.file + ' changed between two reads');
   noaa = Object.assign(JSON.parse(nraw.toString('utf8')), { file: N.noaa.file, sha: N.noaa.sha });
 }
+/* the surface current (currents.py, Copernicus Marine): the sites' kept record and the units' file of the same run;
+   shown, never decided — another run, or none, leaves the card without it, said so */
+let currents = null;
+{
+  const day = feed.run.slice(0, 10).replace(/-/g, '');
+  const kf = path.join(ROOT, 'corpus', 'janela', 'currents', day + '.json.gz'), uf = path.join(ROOT, 'corpus', 'janela', 'field', 'currents-units-latest.json');
+  if (fs.existsSync(kf) && fs.existsSync(uf)) {
+    const kraw = zlib.gunzipSync(fs.readFileSync(kf)), ub = fs.readFileSync(uf);
+    const K = JSON.parse(kraw.toString('utf8')), U = JSON.parse(ub.toString('utf8'));
+    if (K.run === feed.run && U.run === feed.run) {
+      currents = { run: K.run, madeAt: K.madeAt, credit: K.licence.split(' — ')[0], places: Object.assign({}, K.places, U.places),
+        pins: { ['corpus/janela/currents/' + day + '.json.gz']: sha(kraw), 'corpus/janela/field/currents-units-latest.json': sha(ub) } };
+    } else console.log('janela today: the currents are the run ' + K.run + ' / ' + U.run + ', not ' + feed.run + ' — the card shows none');
+  }
+}
 /* NOAA at the units (noaa.py --units): used only when it is the same run; another run is left out, said so in the day */
 let noaaUnits = null;
 if (noaa && fs.existsSync(NOAA_UNITS)) {
@@ -82,7 +97,7 @@ const ledger = { proposers: N.ledger.proposers, commits: N.ledger.commits, score
   decisions: N.ledger.decisions };
 const D = require('./app/data.js');
 let made;
-try { made = D.make({ feed, noaa, noaaUnits, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
+try { made = D.make({ feed, noaa, noaaUnits, currents, platforms, fieldSha: field ? sha(field) : null, ledger, battery, git }); } catch (e) { die(e.message); }
 const json = JSON.stringify(made.today);
 
 /* gate 3 — the tab's check, run here on the written bytes */

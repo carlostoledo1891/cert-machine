@@ -134,6 +134,16 @@ jobs:
           cd apps/janela/audit && python field.py "${{ steps.day.outputs.run }}"
           # NOAA at the units, for its calibrated band there (providers-v1); a failure leaves the units on ECMWF's band alone
           python noaa.py --units "${{ steps.day.outputs.run }}" || echo "::warning title=janela noaa units::not read — the units decide on ECMWF's band alone today"
+      - name: "the surface current at every place (currents.py, Copernicus Marine: shown, never decided), the sites' kept"
+        if: steps.day.outputs.done != 'true'
+        continue-on-error: true
+        timeout-minutes: 25
+        env:
+          COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
+          COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
+        run: |
+          (cd apps/janela/audit && python currents.py "${{ steps.day.outputs.run }}")
+          bash apps/janela/audit/push.sh "Janela currents $(date -u +%F): the Copernicus Marine surface current at the Janela sites, kept (shown, never decided)" corpus/janela/currents
       - name: "the app's day, gated: both batteries, the run matched, every published decision re-decided from the written bytes"
         if: steps.day.outputs.done != 'true'
         run: node apps/janela/build-today.js --out "$RUNNER_TEMP/janela-field"
