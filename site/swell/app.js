@@ -56,7 +56,7 @@ var STR = {
     stale: 'Previsão da rodada de {run} — a de hoje ainda não foi publicada.', night: 'noite',
     act_surf: 'Surfe', act_kite: 'Kite', act_sup: 'SUP', act_swim: 'Banho', act_fish: 'Pesca', act_boat: 'Barco',
     actLong_surf: 'surfe', actLong_kite: 'kite, windsurfe e wing', actLong_sup: 'SUP, caiaque e canoa', actLong_swim: 'banho de mar', actLong_fish: 'pesca de praia e costão', actLong_boat: 'sair de barco',
-    seaLine: 'Mar aberto <b>{hs}</b> de {dir}, {tp} s · vento <b>{kn} nós</b> de {wdir}',
+    seaLine: 'Mar aberto <b>{hs}</b> de {dir}, {tp} s · vento <b>{kn} nós</b> <span class="nw">de {wdir} {arr}</span>',
     seaNone: 'Mar aberto: sem previsão neste horário',
     st_good: 'bom', st_fair: 'dá pra ir', st_poor: 'fraco', st_V: 'perigo, decidido', st_I: 'atenção: a faixa cruza o limite', st_W: 'aviso de previsão', st_off: 'fora do modelo',
     sh_good: 'bom', sh_fair: 'dá pra ir', sh_poor: 'fraco', sh_V: 'perigo', sh_I: 'atenção', sh_W: 'aviso', sh_off: 'fora do modelo',
@@ -119,7 +119,7 @@ var STR = {
     stale: 'Forecast from the {run} run — today\'s is not published yet.', night: 'night',
     act_surf: 'Surf', act_kite: 'Kite', act_sup: 'SUP', act_swim: 'Swim', act_fish: 'Fish', act_boat: 'Boat',
     actLong_surf: 'surfing', actLong_kite: 'kite, windsurf and wing', actLong_sup: 'SUP, kayak and canoe', actLong_swim: 'swimming', actLong_fish: 'shore and rock fishing', actLong_boat: 'going out by boat',
-    seaLine: 'Open sea <b>{hs}</b> from the {dir}, {tp} s · wind <b>{kn} kn</b> from the {wdir}',
+    seaLine: 'Open sea <b>{hs}</b> from the {dir}, {tp} s · wind <b>{kn} kn</b> <span class="nw">from the {wdir} {arr}</span>',
     seaNone: 'Open sea: no forecast at this hour',
     st_good: 'good', st_fair: 'doable', st_poor: 'poor', st_V: 'danger, decided', st_I: 'caution: the band straddles the limit', st_W: 'forecast warning', st_off: 'outside the model',
     sh_good: 'good', sh_fair: 'doable', sh_poor: 'poor', sh_V: 'danger', sh_I: 'caution', sh_W: 'warning', sh_off: 'outside the model',
@@ -334,7 +334,7 @@ function bestWindow(day, a) {
 function renderTop() {
   var i = A.hour, s = A.day.sea[i], w = S.windAt(A.day, i, -48.47, -27.6);
   $('#sw-when').textContent = whenLong(i) + (A.fc.daylight[i] ? '' : ' · ' + t('night'));
-  $('#sw-sea').innerHTML = s && s.size != null ? t('seaLine', { hs: metres(s.size), dir: dirWord(s.mwd), tp: num(s.tp, 0), kn: num(w.U * KN, 0), wdir: dirWord(w.dir) }) + ' ' + arrow(w.dir, 12) +
+  $('#sw-sea').innerHTML = s && s.size != null ? t('seaLine', { hs: metres(s.size), dir: dirWord(s.mwd), tp: num(s.tp, 0), kn: num(w.U * KN, 0), wdir: dirWord(w.dir), arr: arrow(w.dir, 12) }) +
     (s.lo != null ? '<span class="sub">' + t('seaSub', { lo: num(s.lo, 1), hi: num(s.hi, 1) }) + '</span>' : '') : t('seaNone');
   $('#sw-cap').textContent = t('capActs');
   /* the six activities: how many beaches each is good at, now — a legend, and a highlight when tapped */

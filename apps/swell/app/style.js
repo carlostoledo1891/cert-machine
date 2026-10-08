@@ -106,6 +106,7 @@ body.z-far .sw-poi,body.pois-off .sw-poi,body:not(.z-near) .sw-poi-police,body:n
 #sw-when{font:600 10.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:2px 0 var(--s-2)}
 #sw-sea{font:500 15.5px/1.4 var(--f-sans);letter-spacing:-.01em;color:var(--ink-2);margin:0 0 var(--s-3)}
 #sw-sea b{color:var(--ink);font-weight:620}
+#sw-sea .nw{white-space:nowrap}
 #sw-sea .sub{display:block;color:var(--ink-4);font:12px/1.4 var(--f-sans);margin-top:3px}
 .sw-cap{font:600 9.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin:0 0 6px}
 .sw-acts{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s-1);margin:0 0 6px}
@@ -128,7 +129,7 @@ body.z-far .sw-poi,body.pois-off .sw-poi,body:not(.z-near) .sw-poi-police,body:n
 #sw-focus[hidden]{display:none}
 .sw-go{all:unset;cursor:pointer;font:600 11.5px/1 var(--f-sans);color:var(--ink);padding:var(--s-1) var(--s-2);border-radius:6px;box-shadow:inset 0 0 0 1px var(--ink-3);margin-left:2px;white-space:nowrap}
 .sw-go:hover{background:var(--surface2)}
-.sw-go.x{color:var(--ink-4);box-shadow:none;float:right}
+.sw-go.x{color:var(--ink-4);box-shadow:none}
 #sw-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:var(--s-2) 0 var(--s-1)}
 #sw-days button{all:unset;cursor:pointer;text-align:center;padding:7px 2px 6px;border-radius:9px;color:var(--ink-3);font:500 11.5px/1 var(--f-sans);white-space:nowrap;overflow:hidden}
 #sw-days button:hover{color:var(--ink)}
@@ -136,7 +137,7 @@ body.z-far .sw-poi,body.pois-off .sw-poi,body:not(.z-near) .sw-poi-police,body:n
 #sw-days button em i{width:4px;height:4px;border-radius:1px;background:var(--rule-strong)}
 #sw-days button em i.fair{background:var(--ink-4)}
 #sw-days button em i.good{background:var(--ink-2)}
-#sw-days button em i.foc{outline:1px solid var(--ink-3);outline-offset:1px}
+#sw-days button em i.foc{height:6px;margin-top:-1px}
 #sw-days button.on{color:var(--ink);background:var(--surface2)}
 #sw-days button.on em i.good{background:var(--ink)}
 .sw-hourrow{display:grid;grid-template-columns:1fr 46px auto;gap:10px;align-items:center;height:42px}
@@ -295,6 +296,10 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
   #sw-sea{font-size:14.5px;margin-bottom:10px}
   .sw-act{padding:6px 1px}
   .sw-act .nm{display:none}
+  #sw-days{gap:1px}
+  #sw-days button{font-size:10.5px;padding:7px 0 6px}
+  #sw-days button em{gap:1px}
+  #sw-days button em i{width:3px;height:3px}
   .sw-scroll{padding:2px 14px 20px}
   .sw-tabs{padding:0 6px}
   .sw-sheet{left:8px;right:8px;width:auto;top:auto;bottom:8px;max-height:82dvh}
