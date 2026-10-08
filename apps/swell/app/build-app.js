@@ -133,6 +133,7 @@ function panel() {
 function extra() {
   return `<div id="sw-intro" aria-hidden="true"><div class="mark"><div class="word">SWELL</div><div class="line"><svg viewBox="0 0 420 28" preserveAspectRatio="none"><path d="M0 14 C 35 2, 70 2, 105 14 S 175 26, 210 14 S 280 2, 315 14 S 385 26, 420 14"/></svg></div><p class="sub" id="sw-intro-sub"></p></div></div>
 <canvas id="sw-windfx"></canvas>
+<div class="sw-layq" id="sw-layq" role="group"></div>
 <canvas id="sw-flowfx"></canvas>
 <div id="sw-toast" role="status"></div>
 <div id="sw-tip" role="tooltip" hidden></div>
@@ -211,7 +212,7 @@ function emit(git, opts) {
     meta: '<span id="sw-run">—</span>',
     topHtml: '<div class="sw-topctl"><button class="sw-btn" id="sw-how"></button><button class="sw-btn" id="sw-boardb"></button><button class="sw-btn" id="sw-sos"></button><div class="sw-lang" role="group" aria-label="idioma / language"><button data-lang="pt">PT</button><button data-lang="en">EN</button></div></div>',
     navLinks: [{ href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell', label: 'código' }],
-    mapAria: 'Mapa da ilha de Santa Catarina: as praias marcadas com a condição da atividade escolhida no horário escolhido; as ondas desenhadas como cristas, o vento como traços',
+    mapAria: 'Mapa da ilha de Santa Catarina: as praias marcadas com a condição da atividade escolhida no horário escolhido; as ondas desenhadas como cristas, o vento como setas sobre a água',
     styles: ['vendor/maplibre-gl.css'],
     cssRaw: require('./style.js')(),
     noDock: true, noLeft: true,

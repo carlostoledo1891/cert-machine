@@ -13,7 +13,7 @@
 
 module.exports = function css() {
   return `
-:root{--sw-rail:420px;--sw-peek:272px;--sw-top:56px;--sw-gap:14px;--sw-e:cubic-bezier(.2,.8,.2,1);--sw-e2:cubic-bezier(.16,1,.3,1);
+:root{--sw-rail:420px;--sw-peek:286px;--sw-ph:4px;--sw-top:56px;--sw-gap:14px;--sw-e:cubic-bezier(.2,.8,.2,1);--sw-e2:cubic-bezier(.16,1,.3,1);
   --sw-panel:color-mix(in srgb,var(--paper) 93%,transparent)}
 @media (max-width:720px){:root{--sw-top:48px}}
 button{font:inherit;color:inherit}
@@ -72,9 +72,19 @@ button{font:inherit;color:inherit}
 
 /* ---- the map and what is drawn over it ---- */
 canvas#sw-windfx,canvas#sw-flowfx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1}
-.maplibregl-ctrl-bottom-left{left:var(--sw-gap);bottom:10px}
-.maplibregl-ctrl-attrib{background:color-mix(in srgb,var(--paper) 70%,transparent)!important;color:var(--ink-4);font:10px var(--f-sans);border-radius:6px}
-.maplibregl-ctrl-attrib a{color:var(--ink-4)}
+.maplibregl-ctrl-bottom-left{left:var(--sw-gap);bottom:10px;right:calc(var(--sw-rail) + var(--sw-gap) * 3)}
+.maplibregl-ctrl-attrib-inner{white-space:normal}
+/* the quick switches: waves and wind, on the map itself (the Mapa tab keeps the full list with its legends) */
+.sw-layq{position:fixed;z-index:5;top:calc(var(--sw-top) + var(--s-3));left:var(--sw-gap);display:flex;gap:var(--s-1);padding:var(--s-1);
+  background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--rule);border-radius:var(--radius-m);box-shadow:var(--shadow)}
+.sw-layq button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:var(--s-2);height:28px;padding:0 var(--s-3) 0 var(--s-2);border-radius:var(--radius-s);
+  font:550 12px/1 var(--f-sans);color:var(--ink-4);transition:background var(--dur-fast),color var(--dur-fast)}
+.sw-layq button:hover{color:var(--ink-2)}
+.sw-layq button[aria-pressed="true"]{background:var(--surface2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule-strong)}
+.sw-layq button[aria-pressed="false"] svg{opacity:.55}
+.sw-layq button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.maplibregl-ctrl-attrib{background:color-mix(in srgb,var(--paper) 90%,transparent)!important;color:var(--ink-3);font:10px/1.45 var(--f-sans);border-radius:var(--radius-s);max-width:min(560px,100%)}
+.maplibregl-ctrl-attrib a{color:var(--ink-3)}
 .maplibregl-marker{z-index:2}
 .sw-bl{display:flex;align-items:center;gap:6px;cursor:pointer;font:600 11.5px/1 var(--f-sans);color:var(--ink);
   text-shadow:0 1px 3px var(--paper),0 0 10px var(--paper);white-space:nowrap;transition:opacity var(--dur-med)}
@@ -141,13 +151,15 @@ body.z-far .sw-poi,body.pois-off .sw-poi,body:not(.z-near) .sw-poi-police,body:n
 #sw-days button.on{color:var(--ink);background:var(--surface2)}
 #sw-days button.on em i.good{background:var(--ink)}
 .sw-hourrow{display:grid;grid-template-columns:1fr 46px auto;gap:10px;align-items:center;height:42px}
-.sw-scrub{position:relative;height:36px}
-#sw-daystrip{position:absolute;left:0;right:0;top:0;width:100%;height:20px}
-#sw-hour{position:absolute;left:0;right:0;bottom:2px;width:100%;margin:0;-webkit-appearance:none;appearance:none;height:14px;background:transparent;cursor:ew-resize}
-#sw-hour::-webkit-slider-runnable-track{height:2px;background:var(--rule-strong);border-radius:1px}
-#sw-hour::-moz-range-track{height:2px;background:var(--rule-strong);border-radius:1px}
-#sw-hour::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--ink);margin-top:-6px;box-shadow:0 0 0 3px var(--paper)}
-#sw-hour::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px var(--paper)}
+/* the hour: ONE control — the day's sea drawn as the track, the thumb a playhead over it */
+.sw-scrub{position:relative;height:32px;border-radius:var(--radius-s);background:var(--surface2);box-shadow:inset 0 0 0 1px var(--rule)}
+#sw-daystrip{position:absolute;inset:0;width:100%;height:100%;border-radius:var(--radius-s)}
+#sw-hour{position:absolute;inset:0;width:100%;height:100%;margin:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:ew-resize}
+#sw-hour::-webkit-slider-runnable-track{height:100%;background:transparent}
+#sw-hour::-moz-range-track{height:100%;background:transparent}
+#sw-hour::-webkit-slider-thumb{-webkit-appearance:none;width:var(--sw-ph);height:100%;border-radius:2px;background:var(--ink);box-shadow:0 0 0 2px var(--paper)}
+#sw-hour::-moz-range-thumb{width:var(--sw-ph);height:100%;border:0;border-radius:2px;background:var(--ink);box-shadow:0 0 0 2px var(--paper)}
+#sw-hour:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:var(--radius-s)}
 #sw-hour-v{font:600 12.5px var(--f-mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
 .sw-tabs{display:flex;gap:2px;padding:0 10px;border-bottom:1px solid var(--rule);flex:none;position:relative}
 .sw-tab{all:unset;cursor:pointer;position:relative;padding:11px 10px var(--s-3);font:500 12.5px/1 var(--f-sans);color:var(--ink-4);display:inline-flex;align-items:center;gap:7px}
@@ -294,8 +306,12 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
   .sw-phead{padding:6px 14px 2px}
   #sw-when{margin:var(--s-1) 0 6px}
   #sw-sea{font-size:14.5px;margin-bottom:10px}
-  .sw-act{padding:6px 1px}
-  .sw-act .nm{display:none}
+  .sw-act{padding:6px 1px;gap:var(--s-1)}
+  .sw-act .nm{font-size:10px}
+  .sw-layq{top:calc(48px + var(--s-3));left:var(--s-3);flex-direction:column}
+  .sw-layq button{width:34px;height:34px;padding:0;justify-content:center}
+  .sw-layq button span{display:none}
+  .maplibregl-ctrl-bottom-left{right:auto}
   #sw-days{gap:1px}
   #sw-days button{font-size:10.5px;padding:7px 0 6px}
   #sw-days button em{gap:1px}

@@ -166,6 +166,10 @@ async function withChrome(fn, opts) {
   } finally {
     if (sock) sock.destroy();
     chrome.kill();
+    /* the throwaway profile goes with its browser: left behind, 427 of them had filled 27 GB of the temp dir by
+       2026-10-08 and the disk with it */
+    await new Promise((res) => { if (chrome.exitCode !== null || chrome.signalCode) return res(); chrome.once('exit', res); setTimeout(res, 5000); });
+    try { fs.rmSync(profile, { recursive: true, force: true }); } catch (e) { /* the OS empties its temp dir in time */ }
     if (held) releaseLock(); else releaseLock();
   }
 }

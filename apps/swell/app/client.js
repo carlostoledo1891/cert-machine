@@ -80,7 +80,7 @@ var STR = {
     yourBeaches: 'Suas praias', save: 'Salvar', saved: 'Salva', share: 'Compartilhar', copied: 'Copiado: cole no WhatsApp.',
     cbmsc: 'Na temporada (novembro a março) o CBMSC mantém cerca de 70 postos de guarda-vidas na ilha. Os postos abertos e a bandeira do dia estão no app oficial CBMSC Cidadão.',
     whyGet: 'Recebe {p}% da ondulação de {dir}', whyAnd: 'e {p}% da de {dir}', whyGrow: 'Recebe toda a ondulação de {dir}, que ainda cresce no raso', whyAndGrow: 'e toda a de {dir}',
-    whySheltered: 'Abrigada desta ondulação: chega só {p}%.', whyChop: 'Na baía, conta o vento: {h} de marola com {kmh} km/h (previsão do vento).',
+    whySheltered: 'Abrigada desta ondulação: chega só {p}%.', whyChop: 'Na baía, conta o vento: {h} de marola com {kn} nós (previsão do vento).',
     lagoonWhy: 'Água plana da lagoa: o que conta é o vento. Nada aqui é decidido — a marola vem só da previsão do vento.',
     tab_beaches: 'Praias', tab_week: 'Semana', tab_map: 'Mapa', conditions: 'Condições', actsH: 'As atividades', actsHint: 'toque numa atividade para ver a regra e o que está decidido',
     bandLine: 'faixa medida <b>{lo}–{hi}</b>', bandWhat: 'o mar aberto com o erro medido por satélite, levado até a praia pelo modelo da ilha', bandNone: 'sem faixa medida neste horário: nada é decidido aqui',
@@ -99,7 +99,7 @@ var STR = {
     lg_waves: 'ondas: na beira da praia (ou o mar aberto)', lg_band: 'faixa medida', lg_wind: 'vento em nós (previsão); a linha fina são as rajadas', lg_tide: 'maré (Copernicus)',
     gridH: 'Quando cada atividade está boa', gridIsland: 'na melhor praia de cada horário; noite em branco · toque num horário para ir até ele', gridBeach: 'em {beach}; noite em branco · toque num horário para ir até ele',
     layers: 'Camadas', L_waves: 'Ondas', L_wind: 'Vento', L_currents: 'Correntes', L_pois: 'Serviços',
-    legend_waves: 'cada linha é uma crista; mais clara e mais grossa, mais alta a onda (m)', legend_wind: 'traços que correm com o vento; mais longos e claros, mais forte (km/h)', legend_currents: 'corrente ao longo da praia; mais longa, mais rápida (m/s); um anel = risco de retorno',
+    legend_waves: 'cada linha é uma crista; mais clara e mais grossa, mais alta a onda (m)', legend_wind: 'setas sobre a água, para onde o vento sopra; mais longas e claras, mais forte (nós)', legend_currents: 'corrente ao longo da praia; mais longa, mais rápida (m/s); um anel = risco de retorno',
     mapNoteFast: 'As cristas se movem {x}× mais rápido que o real neste zoom, para o movimento ser visível; aproximando, voltam ao período de verdade.', mapNoteReal: 'Neste zoom as cristas se movem no período real.',
     sosTitle: 'Em caso de emergência', sosNote: 'Ligações gratuitas, de qualquer telefone.',
     n193: 'Bombeiros e guarda-vidas', n190: 'Polícia Militar', n192: 'SAMU (ambulância)', n185: 'Marinha — salvamento no mar', n199: 'Defesa Civil',
@@ -143,7 +143,7 @@ var STR = {
     yourBeaches: 'Your beaches', save: 'Save', saved: 'Saved', share: 'Share', copied: 'Copied: paste it in WhatsApp.',
     cbmsc: 'In season (November to March) the fire brigade (CBMSC) keeps about 70 lifeguard posts on the island. The open posts and the day\'s flag are in the official CBMSC Cidadão app.',
     whyGet: 'Gets {p}% of the {dir} swell', whyAnd: 'and {p}% of the {dir}', whyGrow: 'Gets all of the {dir} swell, which still grows in the shallows', whyAndGrow: 'and all of the {dir}',
-    whySheltered: 'Sheltered from this swell: only {p}% gets in.', whyChop: 'In the bay the wind counts: {h} of chop with {kmh} km/h (a wind forecast).',
+    whySheltered: 'Sheltered from this swell: only {p}% gets in.', whyChop: 'In the bay the wind counts: {h} of chop with {kn} knots (a wind forecast).',
     lagoonWhy: 'Flat lagoon water: the wind is what counts. Nothing here is decided — the chop comes from the wind forecast alone.',
     tab_beaches: 'Beaches', tab_week: 'Week', tab_map: 'Map', conditions: 'Conditions', actsH: 'The activities', actsHint: 'tap an activity to see its rule and what is decided',
     bandLine: 'measured band <b>{lo}–{hi}</b>', bandWhat: 'the open sea with its satellite-measured error, carried to the beach by the island model', bandNone: 'no measured band at this hour: nothing is decided here',
@@ -162,7 +162,7 @@ var STR = {
     lg_waves: 'waves: at the shore (or the open sea)', lg_band: 'measured band', lg_wind: 'wind in knots (forecast); the thin line is the gusts', lg_tide: 'tide (Copernicus)',
     gridH: 'When each activity is good', gridIsland: 'at the best beach for each hour; night left blank · tap an hour to go there', gridBeach: 'at {beach}; night left blank · tap an hour to go there',
     layers: 'Layers', L_waves: 'Waves', L_wind: 'Wind', L_currents: 'Currents', L_pois: 'Services',
-    legend_waves: 'each line is a crest; lighter and heavier, the higher the wave (m)', legend_wind: 'streaks running with the wind; longer and lighter, the stronger (km/h)', legend_currents: 'longshore current; longer, faster (m/s); a ring = rip risk',
+    legend_waves: 'each line is a crest; lighter and heavier, the higher the wave (m)', legend_wind: 'arrows on the water, pointing where the wind blows; longer and lighter, the stronger (knots)', legend_currents: 'longshore current; longer, faster (m/s); a ring = rip risk',
     mapNoteFast: 'At this zoom the crests move {x}× faster than real time so the motion can be seen; zoom in and they return to the true period.', mapNoteReal: 'At this zoom the crests move at the real period.',
     sosTitle: 'In an emergency', sosNote: 'Free calls from any phone.',
     n193: 'Fire brigade and lifeguards', n190: 'Military Police', n192: 'SAMU (ambulance)', n185: 'Navy — rescue at sea', n199: 'Civil Defence',
@@ -203,9 +203,9 @@ var ICON = {
   navy: '<circle cx="12" cy="5" r="2"/><path d="M12 7v13M7 11h10M5 15a7 7 0 0 0 14 0"/>',
   ramp: '<path d="M3 19h18M4 19l14-9"/><path d="M14 8h5v4"/>',
   marina: '<path d="M4 17c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0"/><path d="M12 3v10M12 4l5 6h-5"/>',
-  surf: '<path d="M5 19c4-1 9-6 14-14-6 2-11 7-14 14z"/><path d="M8 16l3 3"/>',
-  kite: '<path d="M4 9c4-5 12-5 16 0l-4 1c-2-2-6-2-8 0z"/><path d="M12 10l2 10"/>',
-  sup: '<path d="M4 16c5 2 11 2 16 0"/><path d="M12 4v10M9 6l3-2 3 2"/>',
+  surf: '<path d="M5.6 18.4C3.6 16.4 6.4 10.8 10.2 7S18.7 3.6 20 4c.4 1.3-.3 6-4.1 9.8S7.6 20.4 5.6 18.4z"/><path d="M7.6 16.4L17.6 6.4" stroke-width="1.1"/>',
+  kite: '<path d="M3 10.2C5.4 5.4 18.6 5.4 21 10.2l-2.7 1C16 8.2 8 8.2 5.7 11.2z"/><path d="M5.9 11.4L11.2 20M18.1 11.4L12.8 20" stroke-width="1.2"/>',
+  sup: '<circle cx="10.5" cy="4.4" r="1.7"/><path d="M10.5 7v6.4l-2.2 4.4M10.5 13.4l2.2 4.4M10.5 9.4l4 1.2"/><path d="M16.6 3.2l-2.6 15.6" stroke-width="1.4"/><path d="M3 19.6c5.6 1.2 12.4 1.2 18 0"/>',
   swim: '<circle cx="15" cy="6" r="2"/><path d="M4 18c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0"/><path d="M6 14l5-4 3 3"/>',
   fish: '<path d="M3 12c4-5 10-5 14 0-4 5-10 5-14 0z"/><path d="M17 12l4-3v6z"/>',
   boat: '<path d="M3 15h18l-3 4H6z"/><path d="M12 3v12M12 4l6 8h-6"/>',
@@ -217,6 +217,8 @@ var ICON = {
   share: '<path d="M8 12l8-5M8 12l8 5"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/>',
   pin: '<path d="M12 21s-6-5.6-6-10.5a6 6 0 0 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/>',
   dl: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  lwaves: '<path d="M3.5 7.5c4.5 2.6 12.5 2.6 17 0M3.5 12.5c4.5 2.6 12.5 2.6 17 0M3.5 17.5c4.5 2.6 12.5 2.6 17 0"/>',
+  lwind: '<path d="M3 8.5h10.5a2.6 2.6 0 1 0-2.6-2.6M3 12.5h15a3 3 0 1 1-3 3M3 16.5h7"/>',
 };
 function svgIcon(name, size) { size = size || 16; return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICON[name] || '') + '</svg>'; }
 /* an arrow pointing where the wind blows / the waves travel (FROM + 180) */
@@ -225,6 +227,7 @@ function arrow(fromDeg, size) { return '<i class="sw-arr" style="--r:' + Math.ro
 /* ================================================================ state */
 var A = { B: CFG.beaches, day: null, all: null, fc: null, beaches: [], pois: CFG.pois.pois, focus: null, sel: null, open: null, dayRef: null, hour: null,
   layers: { waves: true, wind: true, currents: true, pois: true }, ready: false, map: null, check: null };
+var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 var UI = { phone: matchMedia('(max-width: 899px)'), sheet: 'peek', timer: 0, toast: 0, tab: 'beaches' };
 var FAV = new Set((function () { try { return JSON.parse(localStorage.getItem('swell.favs') || '[]'); } catch (e) { return []; } })());
 function toggleFav(name) { FAV.has(name) ? FAV.delete(name) : FAV.add(name); try { localStorage.setItem('swell.favs', JSON.stringify(Array.from(FAV))); } catch (e) {} }
@@ -278,6 +281,8 @@ function dayName(day) {
   if (new Date(Date.parse(tod + 'T12:00:00Z') + 864e5).toISOString().slice(0, 10) === day.date) return t('tomorrow');
   return t('wd')[d.getDay()] + ' ' + d.getDate();
 }
+/* a day's name where room is short: today stays itself, the rest are their weekday (never "Hoj" or "Ama") */
+function dayShort(day) { var nm = dayName(day); return nm === t('today') ? nm : t('wd')[new Date(day.date + 'T12:00:00').getDay()]; }
 function whenLong(i) {
   var d = dayOf(i), dt = new Date(d.date + 'T12:00:00'), nm = dayName(d);
   var head = (nm === t('today') || nm === t('tomorrow')) ? cap(nm) : t('WD')[dt.getDay()];
@@ -303,12 +308,12 @@ function bandOfWaves(c) { return c.waves && c.waves.lo != null ? [c.waves.lo, c.
 function windWords(U, wc) { if (U < 3 || !wc) return t('calm'); return t('wc_' + wc) + ' ' + t(U < 6 ? 's_light' : U < 10 ? 's_mod' : 's_strong'); }
 /* the number that matters for an activity — for the tooltip and the card's row; the page's headline numbers never change */
 function actMetric(a, c) {
-  var kn = num(c.wind.U * KN, 0), kmh = num(c.wind.U * 3.6, 0), hb = c.hb == null ? '—' : metres(c.hb), dom = c.cur && c.cur.dom;
+  var kn = num(c.wind.U * KN, 0), hb = c.hb == null ? '—' : metres(c.hb), dom = c.cur && c.cur.dom;
   if (a === 'surf') return hb + (dom ? ' · ' + num(dom.p, 0) + ' s ' + dirShort(dom.d) : '') + ' · ' + windWords(c.wind.U, c.wc);
   if (a === 'kite') return kn + ' ' + t('knots') + ' · ' + t('gusts') + ' ' + num(c.wind.gust * KN, 0) + ' · ' + (c.wc ? t('wc_' + c.wc) : t('calm'));
-  if (a === 'sup') return t('waves') + ' ' + hb + ' · ' + t('wind') + ' ' + kmh + ' km/h';
+  if (a === 'sup') return t('waves') + ' ' + hb + ' · ' + t('wind') + ' ' + kn + ' ' + t('knots');
   if (a === 'swim') return t('waves') + ' ' + hb + (c.cur && c.cur.V > 0.15 ? ' · ' + t('current') + ' ' + num(c.cur.V, 1) + ' m/s' : '');
-  if (a === 'fish') return t('sea') + ' ' + hb + ' · ' + t('wind') + ' ' + kmh + ' km/h';
+  if (a === 'fish') return t('sea') + ' ' + hb + ' · ' + t('wind') + ' ' + kn + ' ' + t('knots');
   return t('swellOff').toLowerCase() + ' ' + (c.off == null ? '—' : metres(c.off)) + ' · ' + t('wind') + ' ' + kn + ' ' + t('knots');
 }
 function iconHTML(b, i, a, size, extra) {
@@ -343,8 +348,8 @@ function renderTop() {
     var good = 0, fair = 0, dang = 0;
     A.beaches.forEach(function (b) { var st = stOf(b, i, a); if (!st) return; if (st.cls === 'good') good++; else if (st.cls === 'fair') fair++; else if (st.cls === 'V') dang++; });
     var cls = good ? 'good' : fair ? 'fair' : 'poor';
-    return '<button class="sw-act ' + cls + (A.focus === a ? ' on' : '') + '" data-act="' + a + '" aria-pressed="' + (A.focus === a) + '" title="' + esc(t('actLong_' + a)) + '">' +
-      '<span class="ic">' + svgIcon(a, 15) + '</span><span class="nm">' + t('act_' + a) + '</span><span class="ct">' + (good ? good : fair ? '·' + fair : '–') + '</span>' + (dang ? '<span class="dg" title="' + esc(t('st_V')) + '">▲' + dang + '</span>' : '') + '</button>';
+    return '<button class="sw-act ' + cls + (A.focus === a ? ' on' : '') + '" data-act="' + a + '" aria-pressed="' + (A.focus === a) + '" title="' + esc(t('actLong_' + a) + ' · ' + (good ? t('st_good') + ': ' + good : fair ? t('st_fair') + ': ' + fair : '—')) + '">' +
+      '<span class="ic">' + svgIcon(a, 15) + '</span><span class="nm">' + t('act_' + a) + '</span><span class="ct">' + (good || fair || '–') + '</span>' + (dang ? '<span class="dg" title="' + esc(t('st_V')) + '">▲' + dang + '</span>' : '') + '</button>';
   }).join('');
   box.querySelectorAll('.sw-act').forEach(function (el) { el.onclick = function () { setFocus(A.focus === el.dataset.act ? null : el.dataset.act); }; });
   renderFocusLine();
@@ -402,22 +407,25 @@ function renderHourRow() {
 /* the open sea through the chosen day behind the slider: its height and measured band, night shaded — the same for
    every activity */
 function drawDayStrip() {
-  var cv = $('#sw-daystrip'), dpr = devicePixelRatio, W = cv.clientWidth || 300, H = cv.clientHeight || 20;
+  var cv = $('#sw-daystrip'), dpr = devicePixelRatio, W = cv.clientWidth || 300, H = cv.clientHeight || 32;
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
   var g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
-  var idx = A.dayRef.idx, n = idx.length, cw = W / n, X = function (k) { return (k + 0.5) * cw; };
-  var hmax = Math.max.apply(null, [2].concat(A.day.sea.map(function (s) { return s.hi || s.size || 0; }))) * 1.05, Y = function (v) { return H - 1 - (H - 3) * v / hmax; };
-  idx.forEach(function (i, k) { if (!A.fc.daylight[i]) { g.fillStyle = rgba(COL.ink5, 0.22); g.fillRect(k * cw, 0, cw, H); } });
+  /* the steps sit where the range input puts its thumb (centres from half a thumb in, evenly), so the playhead and the
+     drawing never disagree */
+  var idx = A.dayRef.idx, n = idx.length, tw = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sw-ph')) || 4;
+  var step = n > 1 ? (W - tw) / (n - 1) : W, X = function (k) { return tw / 2 + k * step; };
+  var hmax = Math.max.apply(null, [2].concat(A.day.sea.map(function (s) { return s.hi || s.size || 0; }))) * 1.08, Y = function (v) { return H - 3 - (H - 9) * v / hmax; };
+  idx.forEach(function (i, k) { if (!A.fc.daylight[i]) { g.fillStyle = rgba(COL.paper, 0.75); g.fillRect(Math.max(0, X(k) - step / 2), 0, step, H); } });
   var sea = idx.map(function (i) { return A.day.sea[i]; });
   if (sea.every(function (s) { return s.lo != null; })) {
     g.beginPath(); sea.forEach(function (s, k) { if (k) g.lineTo(X(k), Y(s.hi)); else g.moveTo(X(k), Y(s.hi)); });
     for (var k = n - 1; k >= 0; k--) g.lineTo(X(k), Y(sea[k].lo));
-    g.closePath(); g.fillStyle = rgba(COL.ink3, 0.18); g.fill();
+    g.closePath(); g.fillStyle = rgba(COL.ink3, 0.16); g.fill();
   }
   g.beginPath(); sea.forEach(function (s, k) { if (k) g.lineTo(X(k), Y(s.size || 0)); else g.moveTo(X(k), Y(s.size || 0)); }); g.strokeStyle = COL.ink3; g.lineWidth = 1.2; g.stroke();
-  var j = idx.indexOf(A.hour); if (j >= 0) { g.fillStyle = COL.ink; g.beginPath(); g.arc(X(j), Y(sea[j].size || 0), 2.6, 0, 7); g.fill(); }
+  g.fillStyle = COL.ink5; idx.forEach(function (i, k) { g.fillRect(Math.round(X(k)) - 0.5, H - 3, 1, 3); });
+  var j = idx.indexOf(A.hour); if (j >= 0) { g.fillStyle = COL.ink; g.beginPath(); g.arc(X(j), Y(sea[j].size || 0), 3, 0, 7); g.fill(); }
 }
-
 /* ================================================================ the list: every beach, by region, the same sea */
 function renderList() {
   $('#sw-card').hidden = true; $('#sw-legend').hidden = false; var box = $('#sw-rank'); box.hidden = false;
@@ -556,7 +564,7 @@ function renderCard() {
         why += '.';
       }
     }
-    if (w.chop > 10 && b.kind === 'bay') why += ' ' + t('whyChop', { h: metres(w.chop / 100), kmh: num(c.wind.U * 3.6, 0) });
+    if (w.chop > 10 && b.kind === 'bay') why += ' ' + t('whyChop', { h: metres(w.chop / 100), kn: num(c.wind.U * KN, 0) });
   }
   var tot2 = c.sea && c.sea.parts.length ? Math.sqrt(c.sea.parts.reduce(function (s, Q) { return s + Q.h * Q.h; }, 0)) || 1 : 1;
   var parts = c.sea && c.sea.parts.length ? c.sea.parts.map(function (P) { return metres(P.h * c.sea.size / tot2) + ' · ' + num(P.p, 0) + ' s · ' + dirShort(P.d) + ' ' + arrow(P.d, 10); }).join('<br>') : '—';
@@ -591,7 +599,7 @@ function renderCard() {
     '<h2 class="sw-sec">' + t('actsH') + '</h2><div class="sw-acts-card">' + actsBlock(b, i) + '</div><p class="sw-note">' + t('actsHint') + '</p>' +
     '<h2 class="sw-sec">' + t('conditions') + '</h2><dl>' +
       '<dt>' + t('swellOff') + '</dt><dd>' + (c.off == null ? '—' : metres(c.off) + (c.sea && c.sea.lo != null ? ' <span class="fc">(' + num(c.sea.lo, 1) + '–' + num(c.sea.hi, 1) + ')</span>' : '')) + '<br>' + parts + '</dd>' +
-      '<dt>' + t('windH') + '</dt><dd>' + num(c.wind.U * 3.6, 0) + ' km/h (' + num(c.wind.U * KN, 0) + ' ' + t('knots') + ') ' + t('from') + ' ' + dirShort(c.wind.dir) + ' · ' + t('gusts') + ' ' + num(c.wind.gust * 3.6, 0) + ' km/h <span class="fc">ECMWF</span></dd>' +
+      '<dt>' + t('windH') + '</dt><dd>' + num(c.wind.U * KN, 0) + ' ' + t('knots') + ' (' + num(c.wind.U * 3.6, 0) + ' km/h) ' + t('from') + ' ' + dirShort(c.wind.dir) + ' · ' + t('gusts') + ' ' + num(c.wind.gust * KN, 0) + ' ' + t('knots') + ' <span class="fc">ECMWF</span></dd>' +
       '<dt>' + t('currentH') + '</dt><dd>' + cur + '</dd>' + foamRow(b) +
       '<dt>' + t('tide') + '</dt><dd>' + (tide ? (tide.level >= 0 ? '+' : '−') + metres(Math.abs(tide.level), 2) + ' · ' + tide.trend + ' <span class="fc">Copernicus</span>' : '—') + '</dd>' +
       '<dt>' + t('water') + ' · ' + t('air') + '</dt><dd>' + (sst != null ? num(sst, 1) + ' °C' : '—') + ' · ' + (c.wind.t2 != null ? num(c.wind.t2, 0) + ' °C' : '—') + (rain != null && rain >= 0.2 ? ' · ' + t('rain') + ' ' + num(rain, 1) + ' mm' : '') + '</dd>' +
@@ -665,7 +673,7 @@ function drawWeek(cv, b) {
   for (var i = 0; i < N; i++) {
     if (!A.fc.daylight[i]) { g.fillStyle = rgba(COL.paper, 0.6); g.fillRect(X(i) - cw0 / 2, top - 2, cw0 + 0.5, bot - top + 2); }
     var dd = dayOf(i);
-    if (dd && dd.idx[0] === i) { g.fillStyle = rgba(COL.ink, 0.12); g.fillRect(Math.round(X(i) - cw0 / 2), 0, 1, bot); g.fillStyle = dd === A.dayRef ? COL.ink : COL.ink3; g.font = '10px ' + ff; var nm0 = dayName(dd); g.fillText(cw0 * dd.idx.length < 52 ? nm0.slice(0, 3) : nm0, X(i) + 1, 10); }
+    if (dd && dd.idx[0] === i) { g.fillStyle = rgba(COL.ink, 0.12); g.fillRect(Math.round(X(i) - cw0 / 2), 0, 1, bot); g.fillStyle = dd === A.dayRef ? COL.ink : COL.ink3; g.font = '10px ' + ff; var nm0 = dayName(dd); g.fillText(cw0 * dd.idx.length < 52 ? dayShort(dd) : nm0, X(i) + 1, 10); }
   }
   g.beginPath(); var started = false;
   bands.forEach(function (bd, k) { if (!bd) return; var y = Y(bd[1] / 100); if (started) g.lineTo(X(k), y); else { g.moveTo(X(k), y); started = true; } });
@@ -735,11 +743,14 @@ function chooseDay(d) {
   var near = day.slice().sort(function (x, y) { return Math.abs(localHour(x) - 9) - Math.abs(localHour(y) - 9); })[0];
   setHour(same != null ? same : near != null ? near : d.idx[0]);
 }
+/* the map dims at night (a veil over the map's own layers, the waves among them); the pins and the wind stay above it */
+function nightVeil() { if (A.map && A.map.getLayer('night') && A.fc) A.map.setPaintProperty('night', 'background-opacity', A.fc.daylight[A.hour] ? 0 : 0.45); }
 function setHour(i) {
   A.hour = i; A.dayRef = dayOf(i) || A.dayRef; setHash();
   renderTop(); renderDays(); renderHourRow();
   if (A.sel) renderCard(); else renderList();
-  paintLabels(); drawCurrents(); drawTimeline();
+  paintLabels(); drawCurrents(); drawTimeline(); WD.dirty = true;
+  nightVeil();
   clearTimeout(UI.timer); UI.timer = setTimeout(function () { setWaveHour(i); }, 120);
 }
 /* the default: the step now if it is daylight, otherwise the next daylight step */
@@ -792,23 +803,39 @@ function legendSVG(kind) {
   for (var k = 0; k < steps; k++) {
     var x0 = 2 + k * (W - 4) / steps, x1 = x0 + (W - 4) / steps - 10, u = k / (steps - 1), col = 'var(--ink)';
     if (kind === 'waves') { var w = 0.6 + 1.6 * u; for (var j = 0; j < 3; j++) g.push('<line x1="' + x0 + '" y1="' + (5 + j * 6) + '" x2="' + x1 + '" y2="' + (5 + j * 6) + '" stroke="' + col + '" stroke-width="' + w + '" opacity="' + (0.35 + 0.65 * u) + '"/>'); }
-    else if (kind === 'wind') { var L = 8 + 22 * u; for (var j2 = 0; j2 < 3; j2++) g.push('<line x1="' + (x0 + j2 * 7) + '" y1="' + (6 + j2 * 5) + '" x2="' + (x0 + j2 * 7 + L) + '" y2="' + (6 + j2 * 5) + '" stroke="' + col + '" stroke-width="' + (1 + 1.2 * u) + '" stroke-linecap="round" opacity="' + (0.35 + 0.65 * u) + '"/>'); }
+    else if (kind === 'wind') { var L = 8 + 26 * u, xe2 = x0 + L, hk = 3 + u; g.push('<path d="M' + x0 + ' 11H' + xe2 + 'M' + (xe2 - hk) + ' ' + (11 - hk * 0.75) + 'L' + xe2 + ' 11L' + (xe2 - hk) + ' ' + (11 + hk * 0.75) + '" fill="none" stroke="var(--ink-3)" stroke-width="' + (1 + 0.4 * u) + '" stroke-linecap="round" stroke-linejoin="round" opacity="' + (0.45 + 0.55 * u) + '"/>'); }
     else { var L2 = 10 + 28 * u, y = 11, xe = x0 + L2; g.push('<line x1="' + x0 + '" y1="' + y + '" x2="' + xe + '" y2="' + y + '" stroke="' + col + '" stroke-width="2.2" stroke-linecap="round" opacity="' + (0.35 + 0.65 * u) + '"/><path d="M' + (xe + 4) + ' ' + y + ' L' + (xe - 4) + ' ' + (y - 4) + ' L' + (xe - 4) + ' ' + (y + 4) + ' Z" fill="' + col + '" opacity="' + (0.35 + 0.65 * u) + '"/>'); }
   }
   return '<svg viewBox="0 0 ' + W + ' 22" preserveAspectRatio="none" aria-hidden="true">' + g.join('') + '</svg>';
 }
 function renderLayers() {
-  var rows = [['waves', 'L_waves', 'legend_waves', ['0', '0,5', '1', '2', '3+']], ['wind', 'L_wind', 'legend_wind', ['0', '15', '30', '45+']], ['currents', 'L_currents', 'legend_currents', ['0', '0,3', '0,6+']], ['pois', 'L_pois', null, null]];
+  var rows = [['waves', 'L_waves', 'legend_waves', ['0', '0,5', '1', '2', '3+']], ['wind', 'L_wind', 'legend_wind', ['0', '10', '20', '30+']], ['currents', 'L_currents', 'legend_currents', ['0', '0,3', '0,6+']], ['pois', 'L_pois', null, null]];
   $('#sw-layers-body').innerHTML = rows.map(function (x) {
     var k = x[0];
     return '<label class="sw-lay"><input type="checkbox" data-layer="' + k + '"' + (A.layers[k] ? ' checked' : '') + '><span class="nm">' + t(x[1]) + '</span>' +
       (x[2] ? '<span class="lg">' + legendSVG(k) + '<em>' + x[3].map(function (s) { return '<s>' + (LANG.cur === 'en' ? s.replace(',', '.') : s) + '</s>'; }).join('') + '</em><small>' + t(x[2]) + '</small></span>'
         : '<span class="lg poi-row">' + ['lifeguard', 'police', 'fire', 'health', 'navy', 'ramp'].map(function (c) { return '<span class="sw-poi sw-poi-' + c + '" title="' + esc(t('poi_' + c)) + '">' + svgIcon(c, 12) + '</span>'; }).join('') + '</span>') + '</label>';
   }).join('') + legendHTML(true);
-  $('#sw-layers-body').querySelectorAll('input').forEach(function (inp) { inp.onchange = function () {
-    A.layers[inp.dataset.layer] = inp.checked; document.body.classList.toggle('pois-off', !A.layers.pois); drawCurrents(); if (A.map) A.map.triggerRepaint();
-  }; });
+  $('#sw-layers-body').querySelectorAll('input').forEach(function (inp) { inp.onchange = function () { setLayer(inp.dataset.layer, inp.checked); }; });
   mapNote();
+}
+/* the map's layers: ONE state (A.layers), switched from the quick switches on the map or from the Mapa tab's list with
+   its legends, and kept for this viewer */
+function setLayer(k, on) {
+  A.layers[k] = on;
+  try { localStorage.setItem('swell.layers', JSON.stringify(A.layers)); } catch (e) {}
+  document.body.classList.toggle('pois-off', !A.layers.pois);
+  document.querySelectorAll('[data-lay="' + k + '"]').forEach(function (b) { b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  document.querySelectorAll('input[data-layer="' + k + '"]').forEach(function (i) { i.checked = on; });
+  WD.clear = true; drawCurrents(); if (A.map) A.map.triggerRepaint();
+}
+function renderLayq() {
+  var q = $('#sw-layq'); if (!q) return;
+  q.setAttribute('aria-label', t('layers'));
+  q.innerHTML = [['waves', 'lwaves', 'L_waves', 'O'], ['wind', 'lwind', 'L_wind', 'V']].map(function (x) {
+    return '<button type="button" data-lay="' + x[0] + '" aria-pressed="' + (A.layers[x[0]] ? 'true' : 'false') + '" title="' + esc(t(x[2]) + ' (' + x[3] + ')') + '">' + svgIcon(x[1], 15) + '<span>' + t(x[2]) + '</span></button>';
+  }).join('');
+  q.querySelectorAll('[data-lay]').forEach(function (b) { b.onclick = function () { setLayer(b.dataset.lay, !A.layers[b.dataset.lay]); }; });
 }
 function mapNote() { var el = $('#sw-map-note'); if (!el) return; var s = WV.speed || 1; el.textContent = s > 1.5 ? t('mapNoteFast', { x: Math.round(s) }) : t('mapNoteReal'); }
 function renderLegend() {
@@ -825,7 +852,7 @@ function applyStrings() {
   $('#sw-legend').innerHTML = legendHTML(false);
   document.querySelectorAll('[data-close]').forEach(function (el) { el.textContent = t('close'); });
   document.querySelectorAll('.sw-lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === LANG.cur); });
-  renderHow(); renderSOS(); renderLayers(); renderLegend(); renderTabLabels(); if (A.day) renderBoard();
+  renderHow(); renderSOS(); renderLayers(); renderLayq(); renderLegend(); renderTabLabels(); if (A.day) renderBoard();
 }
 function toastMsg(msg, ms) { var el = $('#sw-toast'); el.textContent = msg; el.style.display = 'block'; clearTimeout(UI.toast); if (ms !== 0) UI.toast = setTimeout(function () { el.style.display = 'none'; }, ms || 4000); }
 var slug = function (s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-'); };
@@ -894,7 +921,7 @@ function drawTimeline() {
   for (var i = 0; i < N; i++) {
     if (!A.fc.daylight[i]) { g.fillStyle = rgba(COL.paper, 0.65); g.fillRect(X(i) - cw / 2, top - 4, cw + 0.5, bot - top + 4); }
     var d = dayOf(i);
-    if (d && d.idx[0] === i) { if (i) { g.fillStyle = rgba(COL.ink, 0.10); g.fillRect(Math.round(X(i) - cw / 2), 0, 1, bot); } g.font = '600 10.5px ' + ff; g.fillStyle = d === A.dayRef ? COL.ink : COL.ink4; var nm = cap(dayName(d)); g.fillText(cw * d.idx.length < 64 ? nm.slice(0, 3) : nm, X(i) - cw / 2 + 4, 10); }
+    if (d && d.idx[0] === i) { if (i) { g.fillStyle = rgba(COL.ink, 0.10); g.fillRect(Math.round(X(i) - cw / 2), 0, 1, bot); } g.font = '600 10.5px ' + ff; g.fillStyle = d === A.dayRef ? COL.ink : COL.ink4; var nm = cap(dayName(d)); g.fillText(cw * d.idx.length < 64 ? cap(dayShort(d)) : nm, X(i) - cw / 2 + 4, 10); }
   }
   var hmax = Math.max.apply(null, [1].concat(Sr.waves, Sr.band.map(function (b) { return b ? b[1] : 0; }))) * 1.12, umax = Math.max.apply(null, [15].concat(Sr.gust)) * 1.05;
   var Yh = function (v) { return plotB - (plotB - top) * v / hmax; }, Yu = function (v) { return plotB - (plotB - top) * v / umax; };
@@ -970,23 +997,25 @@ var FS = ['#version 300 es', 'precision highp float;', 'in vec2 v_uv;', 'uniform
   '  float vis = smoothstep(0.03, 0.15, hs) * (0.2 + 0.8 * smoothstep(0.15, 2.4, hs));',
   '  vec3 lc = mix(u_ink * 0.6, u_ink, smoothstep(0.2, 2.0, hs));',
   '  float nearBreak = 1.0 - smoothstep(0.8, 1.0, hlin / lim);',
+  '  float shelf = 0.42 + 0.58 * (1.0 - smoothstep(12.0, 40.0, dep));',
   '  for (int p = 0; p < 3; p++) {',
   '    float ph = p == 0 ? ph0 : p == 1 ? ph1 : ph2, fw = p == 0 ? fw0 : p == 1 ? fw1 : fw2, hp = p == 0 ? h0 : p == 1 ? h1 : h2;',
   '    float raw = p == 0 ? w0.x : p == 1 ? w1.x : w2.x, off = u_p[p].y;',
   '    if (u_p[p].w < 0.5 || hp < 0.02) continue;',
   '    float sh = hp * hp / e2; float share = p == 0 ? smoothstep(0.28, 0.38, sh) : smoothstep(0.62, 0.72, sh);',
-  '    float k = log2(max(1.0, 15.0 * u_dpr * fw)), s0 = exp2(floor(k)), tk = smoothstep(0.0, 1.0, fract(k));',
+  '    float k = log2(max(1.0, 22.0 * u_dpr * fw)), s0 = exp2(floor(k)), tk = smoothstep(0.0, 1.0, fract(k));',
   '    float fq0 = max(fw / s0, 1e-6), fq1 = max(fw / (2.0 * s0), 1e-6);',
   '    float d0 = abs(fract(ph / s0 + 0.5) - 0.5) / fq0, d1 = abs(fract(ph / (2.0 * s0) + 0.5) - 0.5) / fq1;',
   '    float hw = 0.5 * wpx * u_dpr;',
   '    float line = mix(1.0 - smoothstep(hw - 0.6, hw + 0.6, d0), 1.0 - smoothstep(hw - 0.6, hw + 0.6, d1), tk);',
   '    float grp = cos(6.2831853 * (raw - 0.5 * off) / 6.0); float env = 0.5 + 0.5 * smoothstep(-0.7, 0.9, grp);',
-  '    float a = line * share * vis * env * u_lines * smoothstep(0.5, 2.5, dep) * nearBreak;',
+  '    float a = line * share * vis * env * u_lines * smoothstep(0.5, 2.5, dep) * nearBreak * shelf;',
   '    acc = vec4(lc * a, a) + acc * (1.0 - a);',
   '  }',
   '  float br = 0.85 * u_breakOn * smoothstep(0.75, 1.0, hlin / lim) * smoothstep(0.12, 0.6, hs) * (1.0 - smoothstep(6.0, 9.0, dep));',
   '  acc = vec4(u_ink * br, br) + acc * (1.0 - br);',
-  '  o = acc * clamp(sea * 1.25 - 0.1, 0.0, 1.0) * u_alpha;',
+  '  float edge = smoothstep(0.0, 0.04, min(min(v_uv.x, 1.0 - v_uv.x), min(v_uv.y, 1.0 - v_uv.y)));',
+  '  o = acc * clamp(sea * 1.25 - 0.1, 0.0, 1.0) * edge * u_alpha;',
   '}'].join('\n');
 function inkVec() { var h = (COL.ink || '#ffffff').replace('#', ''); return [0, 2, 4].map(function (k) { return parseInt(h.slice(k, k + 2), 16) / 255; }); }
 function wavesLayer() {
@@ -1022,11 +1051,11 @@ function wavesLayer() {
         .forEach(function (x, k) { gl.activeTexture(gl.TEXTURE0 + k); gl.bindTexture(gl.TEXTURE_2D, x[1]); gl.uniform1i(gl.getUniformLocation(WV.prog, x[0]), k); });
       gl.uniform2f(gl.getUniformLocation(WV.prog, 'u_size'), WV.size[0], WV.size[1]);
       var pv = [], speed = waveSpeedup();
-      WV.clock += Math.min(0.1, (performance.now() - WV.last) / 1000) * speed; WV.last = performance.now();
+      if (!REDUCED) WV.clock += Math.min(0.1, (performance.now() - WV.last) / 1000) * speed; WV.last = performance.now();
       for (var k = 0; k < 3; k++) { var P = WV.parts[k], s = WV.slots[k]; if (!P || !s) { pv.push(0, 0, 1, 0); continue; } pv.push(P.H, (WV.clock / P.Tp) % 12, s.scale, 1); }
       gl.uniform4fv(gl.getUniformLocation(WV.prog, 'u_p'), new Float32Array(pv));
       var z = A.map.getZoom();
-      gl.uniform1f(gl.getUniformLocation(WV.prog, 'u_lines'), smooth(9.0, 9.8, z));
+      gl.uniform1f(gl.getUniformLocation(WV.prog, 'u_lines'), UI.phone.matches ? smooth(8.6, 9.2, z) : smooth(9.0, 9.8, z));
       gl.uniform1f(gl.getUniformLocation(WV.prog, 'u_breakOn'), smooth(9.5, 11.0, z));
       gl.uniform1f(gl.getUniformLocation(WV.prog, 'u_alpha'), 1.0);
       gl.uniform1f(gl.getUniformLocation(WV.prog, 'u_dpr'), devicePixelRatio);
@@ -1060,6 +1089,11 @@ function loadTex(file) {
     var gl = WV.gl, t2 = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t2);
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false); gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, bmp);
+    if (file === CFG.island.texture.depth && !WD.sea) {        /* the wind's sea mask: the same pinned bytes, read once */
+      try { var c2 = document.createElement('canvas'); c2.width = bmp.width; c2.height = bmp.height; var x2 = c2.getContext('2d', { willReadFrequently: true }); x2.drawImage(bmp, 0, 0);
+        var px = x2.getImageData(0, 0, bmp.width, bmp.height).data, bl = new Uint8Array(bmp.width * bmp.height); for (var q = 0; q < bl.length; q++) bl[q] = px[q * 4 + 2];
+        WD.sea = { w: bmp.width, h: bmp.height, b: bl }; WD.dirty = true; } catch (e) { console.error('sea mask:', e); }
+    }
     [[gl.TEXTURE_MIN_FILTER, gl.NEAREST], [gl.TEXTURE_MAG_FILTER, gl.NEAREST], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(function (x) { gl.texParameteri(gl.TEXTURE_2D, x[0], x[1]); });
     if (bmp.close) bmp.close();
     return t2;
@@ -1096,45 +1130,64 @@ function setWaveHour(i) {
 function animateWaves() {
   var last = 0;
   var tick = function (now) {
-    if (!document.hidden && A.map && A.layers.waves && A.map.getZoom() > 9.0 && now - last > 33) { last = now; A.map.triggerRepaint(); }
+    if (!document.hidden && !REDUCED && A.map && A.layers.waves && A.map.getZoom() > 8.6 && now - last > 33) { last = now; A.map.triggerRepaint(); }
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
 }
 
 /* ================================================================ wind, currents, places */
-var WD = { parts: [], cv: null, g: null, last: 0 };
+/* THE WIND is forecast ink and sits under the waves: small grey arrows on a loose grid over the sea, each pointing where
+   ECMWF's 10 m wind blows, longer and brighter as it strengthens, drifting downwind a little and fading as they go (the
+   way Janela draws its crests). Arrows, not streaks: a streak cannot say which way it blows, and a north wind drawn as
+   streaks on a north-up map is rain. Each arrow keeps its own pace between the mean and the gust the forecast gives where
+   it is (most near the mean), so a gusty wind drifts unevenly. Over the land nothing is drawn: the wind that matters
+   here is the one on the water. */
+var WD = { marks: [], cv: null, g: null, last: 0, clear: false, dirty: true, sea: null, t: 0 };
 function windSetup() {
   WD.cv = $('#sw-windfx'); WD.g = WD.cv.getContext('2d');
   var tick = function (now) { var dt = Math.min(0.1, (now - (WD.last || now)) / 1000); WD.last = now; if (!document.hidden) windFrame(dt); requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
 }
+/* the sea, from the island's own depth texture (its blue channel is the sea fraction the waves are drawn on) */
+function seaAt(lon, lat) {
+  var M = WD.sea, I = CFG.island; if (!M) return true;
+  var x = Math.floor((lon - I.lon[0]) / (I.lon[1] - I.lon[0]) * M.w), y = Math.floor((1 - (lat - I.lat[0]) / (I.lat[1] - I.lat[0])) * M.h);
+  if (x < 0 || y < 0 || x >= M.w || y >= M.h) return false;
+  return M.b[y * M.w + x] > 127;
+}
+function windMarks() {
+  var map = A.map, w = innerWidth, h = innerHeight, sp = UI.phone.matches ? 50 : 58, I = CFG.island, list = [];
+  for (var y = sp / 2; y < h; y += sp) for (var x = sp / 2; x < w; x += sp) {
+    var hs = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453, j = hs - Math.floor(hs);
+    var px = x + (j - 0.5) * sp * 0.55, py = y + ((j * 7) % 1 - 0.5) * sp * 0.55, ll = map.unproject([px, py]);
+    if (ll.lng < I.lon[0] || ll.lng > I.lon[1] || ll.lat < I.lat[0] || ll.lat > I.lat[1] || !seaAt(ll.lng, ll.lat)) continue;
+    list.push({ x: px, y: py, lon: ll.lng, lat: ll.lat, seed: j, q: ((j * 13) % 1) * ((j * 29) % 1) });
+  }
+  WD.marks = list; WD.sp = sp;
+}
 function windFrame(dt) {
   var cv = WD.cv, g = WD.g, dpr = devicePixelRatio, map = A.map;
-  if (cv.width !== Math.round(innerWidth * dpr) || cv.height !== Math.round(innerHeight * dpr)) { cv.width = Math.round(innerWidth * dpr); cv.height = Math.round(innerHeight * dpr); }
-  g.setTransform(1, 0, 0, 1, 0, 0);
-  if (!A.layers.wind || !A.ready || A.hour == null || !map) { g.clearRect(0, 0, cv.width, cv.height); return; }
-  g.globalCompositeOperation = 'destination-in'; g.fillStyle = 'rgba(0,0,0,0.86)'; g.fillRect(0, 0, cv.width, cv.height);
-  g.globalCompositeOperation = 'source-over';
-  var w = innerWidth, h = innerHeight, n = Math.round(clamp(w * h / 1700, 320, 1100));
-  while (WD.parts.length < n) WD.parts.push({ x: Math.random() * w, y: Math.random() * h, age: Math.random() * 80 });
-  WD.parts.length = n;
-  var mpp = 40075016 * Math.cos(map.getCenter().lat * Math.PI / 180) / (512 * Math.pow(2, map.getZoom()));
-  var vis = clamp(9000 / mpp, 1.5, 55), lead = 0.9, I = CFG.island;
-  var c0 = map.unproject([0, 0]), cxu = map.unproject([w, 0]), cyu = map.unproject([0, h]);
-  var toLL = function (x, y) { return { lng: c0.lng + (cxu.lng - c0.lng) * x / w + (cyu.lng - c0.lng) * y / h, lat: c0.lat + (cxu.lat - c0.lat) * x / w + (cyu.lat - c0.lat) * y / h }; };
-  g.lineCap = 'round';
-  WD.parts.forEach(function (p) {
-    var ll = toLL(p.x, p.y);
-    if (ll.lng < I.lon[0] || ll.lng > I.lon[1] || ll.lat < I.lat[0] || ll.lat > I.lat[1] || p.age > 90) { p.x = Math.random() * w; p.y = Math.random() * h; p.age = 0; return; }
-    var wv = S.windAt(A.day, A.hour, ll.lng, ll.lat); if (!wv) return;
-    var sp = Math.max(1e-6, Math.hypot(wv.u, wv.v)), boost = Math.max(1, 14 / Math.max(1e-6, sp * vis));
-    var nx = p.x + wv.u * vis * boost * dt, ny = p.y - wv.v * vis * boost * dt;
-    var a = Math.min(1, p.age / 8) * Math.min(1, (90 - p.age) / 15);
-    g.strokeStyle = COL.ink; g.globalAlpha = (0.18 + 0.6 * smooth(2, 10, wv.U)) * a * lead;
-    g.lineWidth = (1.1 + 1.0 * smooth(3, 12, wv.U)) * dpr;
-    g.beginPath(); g.moveTo(p.x * dpr, p.y * dpr); g.lineTo(nx * dpr, ny * dpr); g.stroke();
-    p.x = nx; p.y = ny; p.age++;
+  if (cv.width !== Math.round(innerWidth * dpr) || cv.height !== Math.round(innerHeight * dpr)) { cv.width = Math.round(innerWidth * dpr); cv.height = Math.round(innerHeight * dpr); WD.dirty = true; }
+  g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, innerWidth, innerHeight);
+  if (!A.layers.wind || !A.ready || A.hour == null || !map || WD.clear) { WD.clear = false; WD.dirty = true; return; }
+  if (WD.dirty) { windMarks(); WD.dirty = false; }
+  if (!REDUCED) WD.t += dt;
+  var sp = WD.sp, half = sp / 2, night = A.fc.daylight[A.hour] ? 1 : 0.6;
+  g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = COL.ink3;
+  WD.marks.forEach(function (m) {
+    var wv = S.windAt(A.day, A.hour, m.lon, m.lat); if (!wv || !(wv.U > 0.5)) return;
+    var n = Math.hypot(wv.u, wv.v) || 1, dx = wv.u / n, dy = -wv.v / n;
+    var pace = 2.2 * wv.U * (1 + m.q * (Math.max(wv.gust, wv.U) / Math.max(wv.U, 0.1) - 1));
+    var ph = REDUCED ? 0 : ((WD.t * pace + m.seed * sp) % sp + sp) % sp - half;
+    var fade = REDUCED ? 1 : Math.sin(Math.PI * (ph + half) / sp);
+    var L = 7 + 1.7 * wv.U, x = m.x + dx * ph, y = m.y + dy * ph;
+    var tx = x + dx * L / 2, ty = y + dy * L / 2, hk = 2.6 + 0.12 * wv.U;
+    g.globalAlpha = (0.16 + 0.4 * smooth(2, 12, wv.U)) * fade * night;
+    g.lineWidth = 1 + 0.4 * smooth(6, 14, wv.U);
+    g.beginPath(); g.moveTo(x - dx * L / 2, y - dy * L / 2); g.lineTo(tx, ty);
+    g.moveTo(tx - dx * hk - dy * hk * 0.75, ty - dy * hk + dx * hk * 0.75); g.lineTo(tx, ty); g.lineTo(tx - dx * hk + dy * hk * 0.75, ty - dy * hk - dx * hk * 0.75);
+    g.stroke();
   });
   g.globalAlpha = 1;
 }
@@ -1234,6 +1287,7 @@ function mapStyle() {
       { id: 'roads-major', type: 'line', source: src, 'source-layer': 'roads', minzoom: 9, filter: ['in', 'kind', 'major_road', 'highway'], paint: { 'line-color': v('--rule'), 'line-width': ['interpolate', ['exponential', 1.6], ['zoom'], 9, 0.5, 18, 9] } },
       { id: 'buildings', type: 'fill', source: src, 'source-layer': 'buildings', minzoom: 15, paint: { 'fill-color': v('--surface2'), 'fill-opacity': 0.7 } },
       { id: 'coast', type: 'line', source: src, 'source-layer': 'earth', filter: ['==', '$type', 'Polygon'], paint: { 'line-color': v('--ink-4'), 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.5, 15, 1.0] } },
+      { id: 'night', type: 'background', paint: { 'background-color': v('--paper'), 'background-opacity': 0, 'background-opacity-transition': { duration: 500, delay: 0 } } },
     ] };
 }
 
@@ -1253,12 +1307,11 @@ function recheck() {
 }
 
 /* ================================================================ boot */
-
-/* ================================================================ boot */
 function boot() {
   colors();
   try { var f0 = localStorage.getItem('swell.focus'); if (f0 && S.RULES[f0]) A.focus = f0; } catch (e) {}
   var hf = (location.hash.match(/foco=(\w+)/) || [])[1]; if (hf && S.RULES[hf]) A.focus = hf;
+  try { var L0 = JSON.parse(localStorage.getItem('swell.layers') || 'null'); if (L0) Object.keys(A.layers).forEach(function (k) { if (typeof L0[k] === 'boolean') A.layers[k] = L0[k]; }); } catch (e) {}
   $('#sw-sea').textContent = t('loading');
   applyStrings(); setupTips();
   var I = CFG.island;
@@ -1270,9 +1323,9 @@ function boot() {
   A.map.touchZoomRotate.disableRotation(); A.map.keyboard.disableRotation();
   A.map.on('load', function () {
     try { A.map.addLayer(wavesLayer(), 'earth'); } catch (e) { console.error('waves layer:', e); toastMsg(String(e.message || e)); }
-    if (A.hour != null) setWaveHour(A.hour);
+    if (A.hour != null) { setWaveHour(A.hour); nightVeil(); }
   });
-  A.map.on('move', drawCurrents);
+  A.map.on('move', function () { drawCurrents(); WD.clear = true; });
   A.map.on('moveend', function () { drawCurrents(); declutterLabels(); mapNote(); });
   A.map.on('click', function () { if (PL.popup) PL.popup.remove(); });
   document.querySelectorAll('.sw-lang button').forEach(function (b) { b.onclick = function () { setLang(b.dataset.lang); applyStrings(); if (A.ready) setHour(A.hour); }; });
@@ -1288,6 +1341,7 @@ function boot() {
     if (e.key === 'ArrowRight' && A.hour < A.fc.N - 1) setHour(A.hour + 1);
     if (e.key === 'ArrowLeft' && A.hour > 0) setHour(A.hour - 1);
     if (e.key === '1') setTab('beaches'); if (e.key === '2') setTab('week'); if (e.key === '3') setTab('map');
+    if (e.key === 'o' || e.key === 'O') setLayer('waves', !A.layers.waves); if (e.key === 'v' || e.key === 'V') setLayer('wind', !A.layers.wind);
   });
   setupSheet(); setMapPadding(); setupTimeline(); moveTabLine();
   A.map.once('load', function () { if (!/praia=/.test(location.hash)) fitIsland(); });

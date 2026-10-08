@@ -17,6 +17,19 @@
       wind streaks, currents, places), pt-BR + EN, "Como sabemos" generated from the records, the Placar.
 - [x] Batteries wired: `make test`, `tools/build-control.js` (swell; swell feed). Layout, style, grammar, render baselines.
 
+## Done (2026-10-08, the one-clock pass and the map pass)
+- [x] One clock, one sea: the activities are legends (icons in one grammar, tooltips, a tap opens the beach); nothing
+      re-ranks or re-times when one is picked.
+- [x] The map pass (operator: "the wind seems like rain on the screen and makes the waves less visible"): the island
+      model's crest lines stay the hero (fainter over deep water, the model box fading at its edge, visible from the
+      phone's whole-island zoom); the wind redrawn as drifting grey arrows over the water only, from the island's own
+      depth texture (a north wind drawn as streaks on a north-up map read as rain, and a streak cannot say which way it
+      blows); quick switches for waves and wind on the map (O / V), kept per viewer; a night veil over the map's layers;
+      the hour scrubber made one control (the day's sea as its track, a playhead); surf, kite and SUP icons redrawn (they
+      read as a feather, an umbrella and an arrow); knots the one wind unit in the app's own words; reduced motion holds
+      the sea and the wind still.
+- [x] The satellite foam trait per beach (190 Sentinel-2 passes) on the card.
+
 ## Next, in order (what a beach-goer — and a partner — needs)
 1. **Watch the first cloud days** (10-08 onwards): the gate, the feed, the day on swell-field, the app reading it.
 2. **The Placar fills** (from 10-09): Janela's ledger at floripa. Then Swell's OWN proposer: the 3-hourly band at the
@@ -28,8 +41,8 @@
    runs (Lima et al., Ocean Modelling 2024); low-cost stereo-video breaking heights (LabECO, Coastal Eng. 2024); the
    UFSC TriAXYS buoy off the island when it reports (SiMCosta CNM 01/2025). Each with its owners' agreement; partners
    stay unnamed in the repo until they agree.
-5. **A satellite foam climatology per beach** (Sentinel-2, frontier's 190 passes): "how this beach usually breaks" as a
-   measured trait — the honest form of the dropped calibration headline.
+5. **The rules' own words in knots**: `model/surf.js` still writes SUP's limits in m/s and km/h. It is a pinned module (the
+   tab re-derives the published day with it), so it changes on a day a new Swell day is built, never between.
 6. **The box**: extend the island model south so Guarda do Embaú and Pinheira sit away from the edge (needs the
    landmask and depth rebuilt: frontier's chartbathy.py + landmask.js chain, ~1 session).
 7. A method page (`/swell/metodo/`), a link-preview card (og.png), the PWA (manifest + service worker) from frontier.

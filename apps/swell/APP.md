@@ -25,7 +25,7 @@ foundations.
    turn), the conditions, the week with an activity × hour grid, safety, the certificate.
 5. **The week tab** — the sea and the wind through the week, and the grid "when each activity is good" (for the island:
    the best beach at each hour; for an open beach: its own).
-6. **The map** — the island model's crests, wind streaks, currents, and each beach's activity icons in the same grammar.
+6. **The map** — the island model's crests (the hero: each line a computed crest, fainter over deep water), the wind as drifting arrows over the water only (forecast ink, under the crests), currents, the night veil, and each beach's activity icons in the same grammar. Waves and wind switch on the map itself (O, V), kept per viewer.
 
 ## What changed from frontier's Swell, and why
 | frontier (tester build) | here |
