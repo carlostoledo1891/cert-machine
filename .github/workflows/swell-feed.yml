@@ -1,0 +1,97 @@
+# Swell's daily day: the sea of Florianópolis, beach by beach.
+# 1. Swell's feed (apps/swell/audit/feed.py): today's ECMWF 00 UTC (IFS HRES waves and wind) and NOAA GFS-Wave at the
+#    island box's open edge every 3 h to +144 h then 6-hourly to +168 h, ECMWF's wind over the island, Copernicus
+#    Marine's sea level and water temperature — read exactly with Janela's own modules, written ONCE to
+#    corpus/swell/feed/ on main (guarded: apps/janela/audit/guard.js refuses a rewrite).
+# 2. The day (apps/swell/build-day.js): the open sea's MEASURED band by Janela's definition (today.js over the
+#    calibrated bands, ECMWF ∪ NOAA, less any proposer the ledger pruned), the island model at every beach, the
+#    decided wave limits, a digest re-derived from the written bytes — published as the single force-pushed commit
+#    of the orphan branch swell-field, so main grows by the feed only. The app shell (/swell/) is static on main.
+# Behind the same hourly gate as janela-feed (GitHub's schedule runs hours late on this account): nothing until
+# ECMWF's 00 UTC 168 h WAVE file is published, then only while today's Swell day is not on swell-field. Every step
+# is safe to repeat: a feed on main is not re-read, a day already published is not rebuilt.
+name: swell-feed
+on:
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: swell-feed
+  cancel-in-progress: false
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      todo: ${{ steps.g.outputs.todo }}
+    steps:
+      - name: is there anything to do today?
+        id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          today=$(date -u +%F); ymd=$(date -u +%Y%m%d)
+          if [ "$EVENT" = "workflow_dispatch" ]; then echo "todo=true" >> "$GITHUB_OUTPUT"; echo "dispatched by hand: run"; exit 0; fi
+          code=$(curl -s -4 -o /dev/null -w '%{http_code}' "https://storage.googleapis.com/ecmwf-open-data/${ymd}/00z/ifs/0p25/wave/${ymd}000000-168h-wave-fc.index" || true)
+          if [ "$code" != "200" ]; then echo "todo=false" >> "$GITHUB_OUTPUT"; echo "ECMWF ${ymd} 00 UTC waves not complete yet (${code})"; exit 0; fi
+          day=$(gh api "repos/${GITHUB_REPOSITORY}/commits/swell-field" --jq '.commit.message | split("\n")[0]' 2>/dev/null || true)
+          case "$day" in "Swell day ${ymd}00:"*) echo "todo=false" >> "$GITHUB_OUTPUT"; echo "swell-field already carries ${today}";; *) echo "todo=true" >> "$GITHUB_OUTPUT"; echo "swell-field does not carry ${today}";; esac
+  day:
+    needs: gate
+    if: needs.gate.outputs.todo == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      JANELA_IPV4: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: install the decoder
+        run: pip install -r apps/janela/requirements.txt
+      - name: the gates — the window instrument's battery, Swell's, the feed reader's
+        run: |
+          node instruments/window/battery.js
+          node apps/swell/battery.js
+          python apps/swell/audit/test_feed.py
+      - name: "read today's sea at the island's open edge, the wind over the island, the tide (once: a feed on main is kept)"
+        id: feed
+        env:
+          COPERNICUSMARINE_SERVICE_USERNAME: ${{ secrets.COPERNICUSMARINE_SERVICE_USERNAME }}
+          COPERNICUSMARINE_SERVICE_PASSWORD: ${{ secrets.COPERNICUSMARINE_SERVICE_PASSWORD }}
+        run: |
+          ymd=$(date -u +%Y%m%d)
+          if [ ! -f "corpus/swell/feed/${ymd}.json.gz" ]; then
+            python apps/swell/audit/feed.py "$ymd" || echo "::warning title=swell feed::today's run is not complete or not readable: the newest feed on main makes the day"
+          fi
+          f=$(ls corpus/swell/feed/*.json.gz | sort | tail -1); echo "feed=$(basename "$f" .json.gz)" >> "$GITHUB_OUTPUT"
+          bash apps/janela/audit/push.sh "Swell feed $(date -u +%F): ECMWF and NOAA 00 UTC at Florianópolis' open edge every 3 h, ECMWF's wind over the island, Copernicus' sea level and water temperature" corpus/swell/feed
+        shell: bash
+      - name: "the day, gated: the measured band by Janela's definition, every beach, a digest re-derived from the written bytes"
+        run: node apps/swell/build-day.js --feed "${{ steps.feed.outputs.feed }}" --out "$RUNNER_TEMP/swell-field"
+      - name: publish the day as the single commit of the orphan branch swell-field
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          main=$(node -p "require(process.env.RUNNER_TEMP + '/swell-field/today.json').git")
+          run=$(node -p "require(process.env.RUNNER_TEMP + '/swell-field/today.json').run")
+          cd "$RUNNER_TEMP/swell-field"
+          printf '%s\n' "# swell-field — the Swell app's day, overwritten daily" "" \
+            "today.json: the open sea at Florianópolis' edge every 3 h (its measured band, NOAA's partitions), ECMWF's wind over the island, Copernicus' sea level and water temperature, and the digest of every beach's breaking height and decided letter, with the sha256 of the modules and every input record." \
+            "ECMWF open data CC BY 4.0; NOAA public domain; Generated using E.U. Copernicus Marine Service Information (doi:10.48670/moi-00016)." \
+            "" "Built by apps/swell/build-day.js on main ${main}; one commit, force-pushed, so main never grows by a day of app data." \
+            "Re-run: git checkout ${main} && node apps/swell/build-day.js --feed ${run:0:8}" > README.md
+          printf '%s\n' '{ "git": { "deploymentEnabled": false } }' > vercel.json
+          git init -q -b swell-field
+          git config user.name "swell-feed"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add today.json README.md vercel.json
+          git commit -q -m "Swell day ${run}: the app's data (today.json), gated by build-day.js on main ${main:0:12}"
+          git push --force --quiet "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" swell-field

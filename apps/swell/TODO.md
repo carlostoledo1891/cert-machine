@@ -1,40 +1,44 @@
-# Swell — the port plan (written 2026-10-06; nothing ported yet)
+# Swell — the living plan
 
-Swell is the public face of the Janela engine: the Florianópolis sea-conditions app from
-frontier-apps (`~/Projects/frontier-apps/PORT-SWELL.md`, `site/swell/`, `experiments/swell/`),
-re-homed here on the same forecast feed, the same ledger and the same decider. The operator's
-rulings (2026-10-06): Janela first, Swell second; Swell KEEPS the Navy (DHN) chart data.
+## Done (2026-10-08, the port)
+- [x] The island model lifted and pinned (`data/PINS.json`, 69 files; DHN licence beside it). `sim/probes.py` reproduces
+      frontier's island-beaches.json probe for probe, K for all 64 cases, seaward and fetch at all 33 beaches with probes,
+      and adds the 8.5 and 11 m targets (every ocean beach now reaches 8.8 m or deeper).
+- [x] The forecast: `audit/feed.py` — ECMWF IFS HRES (waves + wind) and NOAA GFS-Wave at the floripa site (Janela's node)
+      every 3 h to 144 h then 6-hourly to 168 h, ECMWF's wind on the 16 nodes over the island, Copernicus' sea level,
+      tide and water temperature; equal to Janela's own feeds at every shared lead (battery). Open-Meteo left the app.
+- [x] Breaking from the break point (`model/surf.js`): crossing marched in from the deepest probe, or frontier's peak
+      where larger; non-decreasing in the sea (battery sweeps 132 beach × sea cases), so the band maps exactly.
+- [x] One rules module for the six activities; danger DECIDED over the band by `instruments/window/decide.js`; "seguro"
+      never claimed; forecast warnings dashed.
+- [x] Refusal: Guarda do Embaú (0.6 km from the south edge); the lagoon never decided.
+- [x] The day built daily in the cloud (`.github/workflows/swell-feed.yml` → branch `swell-field`), re-derived in the tab.
+- [x] The app in the design system (app shell, MapLibre 5.24 + the pinned Florianópolis tiles, the crest-line layer,
+      wind streaks, currents, places), pt-BR + EN, "Como sabemos" generated from the records, the Placar.
+- [x] Batteries wired: `make test`, `tools/build-control.js` (swell; swell feed). Layout, style, grammar, render baselines.
 
-## What the source review found (re-run here; targets row `swell-port`)
-1. The breaking-calibration headline (held-out ρ 0.56 → 0.89) is beaten by a no-forecast
-   baseline (each beach's training-mean foam: ρ 0.927); the real skill is within-beach over
-   time, ρ 0.61 vs 0.48 offshore; the shipped factors were refit on all years, test included.
-2. 14 of 21 ocean beaches can never read "big" (Hb > 2.6 m): Hb = max over probes of
-   min(K·H, 0.55 h) with every probe in ≤ 4.5 m of water.
-3. Side edges crossing the shelf: K wrong by ±35% within ~5 km (Guarda do Embaú reads the
-   boundary value). Shadow K is numerical diffusion (0.25 / 0.18 / 0.125 at dx 60 / 30 / 15 m).
-4. Wind correction trained at ~day 0, applied out to 7 days; method chosen on the test years.
-5. The card's ± ignores the island model's own error; rules and constants duplicated
-   (windClass ×3, the 0.6/0.33 cutoffs ×12, γ 0.55 vs 0.78); periods clamped to 6–15 s silently.
-6. Good and kept: island.py reproduces Snell + Green's law within 0.1% on a planar beach,
-   deterministic, 1–2 s per solve; every shipped number reproduces from cached inputs.
+## Next, in order (what a beach-goer — and a partner — needs)
+1. **Watch the first cloud days** (10-08 onwards): the gate, the feed, the day on swell-field, the app reading it.
+2. **The Placar fills** (from 10-09): Janela's ledger at floripa. Then Swell's OWN proposer: the 3-hourly band at the
+   edge (steps between Janela's 6-hourly ones) committed to its own ledger (`certs/swell-ledger/`, never Janela's — its
+   scorer would grade it as Janela's), graded by the same altimeter passes.
+3. **The wind refit on ECMWF**: SBFL METAR (Iowa Mesonet) against ECMWF open-data 10 m wind archived since 2023 at the
+   island nodes, per lead and sector; used only if it wins on held-out years. Until then the wind stays forecast ink.
+4. **Shore truth** — the model's own error at the beach. In order of cost: the published Campeche bathymetry and SWASH
+   runs (Lima et al., Ocean Modelling 2024); low-cost stereo-video breaking heights (LabECO, Coastal Eng. 2024); the
+   UFSC TriAXYS buoy off the island when it reports (SiMCosta CNM 01/2025). Each with its owners' agreement; partners
+   stay unnamed in the repo until they agree.
+5. **A satellite foam climatology per beach** (Sentinel-2, frontier's 190 passes): "how this beach usually breaks" as a
+   measured trait — the honest form of the dropped calibration headline.
+6. **The box**: extend the island model south so Guarda do Embaú and Pinheira sit away from the edge (needs the
+   landmask and depth rebuilt: frontier's chartbathy.py + landmask.js chain, ~1 session).
+7. A method page (`/swell/metodo/`), a link-preview card (og.png), the PWA (manifest + service worker) from frontier.
+8. Commercial use needs licensed bathymetry (DHN data purchase or a survey) — the pipeline re-runs on it.
 
-## The port, in order
-- [ ] `apps/swell/sim/`: island.py with its battery — planar Snell/Green (calibration), K = 1
-      in open deep water, the edge zone REFUSED (red: a beach inside it), the shadow's grid
-      dependence measured and printed as a limit; the case library extended to 4–20 s.
-- [ ] The forecast: the Janela feed at the `floripa` site (ECMWF open data), plus swell
-      PARTITIONS (height, period, direction) from NOAA GFS-Wave (public domain) — the island
-      model blends cases per partition; Open-Meteo (non-commercial) leaves the app.
-- [ ] Breaking from the break point (march the transect seaward to K·H = γ h), not the probe cap.
-- [ ] One rules module for the six activities; every cutoff once; decided by
-      `instruments/window/decide.js` over the band, danger decided, "seguro" never claimed.
-- [ ] Skill restated against the simple baselines; the wind correction refit per lead.
-- [ ] The public scorecard from `certs/janela-ledger/` (site `floripa`): yesterday's forecast
-      vs what the satellites measured.
-- [ ] The app in the design system (MapLibre + pinned tiles, the SkyAudit pattern), pt-BR
-      first, the bridge to /janela/. DHN-derived data under its own licence file
-      (non-commercial, not for navigation), beside MIT code.
-- [ ] Ground truth at the shore, each with its owners' agreement: the published Campeche
-      bathymetry and SWASH runs (Lima et al., Ocean Modelling 2024), low-cost stereo-video
-      breaking heights, the UFSC wave buoy off the island when it reports (SiMCosta CNM 01/2025).
+## Known, stated, not yet fixed
+- The ECMWF open-data gust is `10fg3` at 93–144 h; Janela's feed.py asks only for `10fg`, so Janela's gust is null at
+  96–144 h (Swell reads either). A Janela fix, reported 2026-10-08.
+- Copernicus' 1/12° grid has no Santa Catarina island in its land mask: values exist over the island; the node used is
+  open sea, 8 km off the east coast.
+- NCEP's partition periods (WVPER/SWPER) are named "mean period" by the GRIB tables; whether WAVEWATCH III fills them with
+  each partition's peak or mean was not confirmed. Swell uses them as published.

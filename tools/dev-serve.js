@@ -9,7 +9,7 @@
 'use strict';
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..'), port = Number(process.argv[2] || 8765), DEV = process.env.DEV_SITE || '';
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.i16': 'application/octet-stream', '.pdf': 'application/pdf' };
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.woff2': 'font/woff2', '.i16': 'application/octet-stream', '.pdf': 'application/pdf', '.pmtiles': 'application/octet-stream' };
 http.createServer((req, res) => {
   const u = decodeURIComponent(req.url.split('?')[0]);
   if (u.includes('..')) { res.writeHead(400); res.end(); return; }
@@ -17,7 +17,17 @@ http.createServer((req, res) => {
   try { if (fs.statSync(f).isDirectory()) f = path.join(f, 'index.html'); } catch (e) { /* a 404 below */ }
   fs.readFile(f, (err, b) => {
     if (err) { res.writeHead(404); res.end('404'); return; }
-    res.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream', 'Content-Length': b.length });
+    const type = TYPES[path.extname(f)] || 'application/octet-stream';
+    /* byte ranges: a .pmtiles basemap is read by Range requests (Swell's island tiles); a server without them
+       returns the whole 9 MB file to every tile request, or the protocol refuses it */
+    const m = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+    if (m && (m[1] || m[2])) {
+      const a = m[1] ? Number(m[1]) : Math.max(0, b.length - Number(m[2])), z = m[1] && m[2] ? Math.min(Number(m[2]), b.length - 1) : b.length - 1;
+      if (a > z || a >= b.length) { res.writeHead(416, { 'Content-Range': 'bytes */' + b.length }); res.end(); return; }
+      res.writeHead(206, { 'Content-Type': type, 'Content-Length': z - a + 1, 'Content-Range': 'bytes ' + a + '-' + z + '/' + b.length, 'Accept-Ranges': 'bytes' });
+      res.end(b.subarray(a, z + 1)); return;
+    }
+    res.writeHead(200, { 'Content-Type': type, 'Content-Length': b.length, 'Accept-Ranges': 'bytes' });
     res.end(b);
   });
 }).listen(port, '127.0.0.1', () => console.log('dev-serve: site/ on http://127.0.0.1:' + port + '/' + (DEV ? ' (the atlas from ' + DEV + ')' : '')));

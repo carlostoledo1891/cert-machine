@@ -270,4 +270,4 @@ function emit(N, git) {
   return { html, bytes: html.length, geo: geoJs.length, fields: G.fields.features.length, places: M.places.length };
 }
 
-module.exports = { emit, geo };
+module.exports = { emit, geo, vendor };
