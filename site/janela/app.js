@@ -273,7 +273,7 @@ function drawClock() {
   if (!T) return;
   var t = AX[S.i], w = when(t), cur = current();
   $('jn-when').textContent = w.dow + ' ' + w.dm + ' · ' + w.h;
-  $('jn-lead').textContent = 'previsão +' + LEAD[S.i] + ' h'; $('jn-when').title = utc(t);
+  $('jn-lead').textContent = '+' + LEAD[S.i] + ' h'; $('jn-lead').title = 'previsão ' + LEAD[S.i] + ' h depois da rodada'; $('jn-when').title = utc(t);
   $('jn-clockt').textContent = w.dow + ' ' + w.dm + ' ' + w.h;
   $('jn-clockl').textContent = 'previsão +' + LEAD[S.i] + ' h';
   var strip = $('jn-strip'), p = PL[S.site], c = p && STEPS[p.id] ? codes(p.id) : null, html = '';
@@ -524,21 +524,32 @@ function nxText(p) {
   if (c.indexOf('S', S.i) >= 0 || c.indexOf('R', S.i) >= 0) return 'SEM DADOS';
   return 'não se aplica';
 }
-function drawList() {
-  if (!T) return;
-  var q = fold(S.q), cur = current();
-  var hidden = 0;
+/* THE SET the list, the board and the fleet answer show: the operation's places, the kind filter, the search —
+   one definition, so the three never count differently */
+function rowsFor(cur) {
+  var q = fold(S.q), hidden = 0;
   var rows = VIS.filter(function (p) {
     if (!applies(cur.op, p)) { hidden++; return false; }
     if (S.kind === 'uep' && p.kind !== 'uep') return false;
     if (S.kind === 'own' && p.kind === 'uep') return false;
     if (!q) return true;
-    return fold(p.name + ' ' + (p.full || '') + ' ' + (p.serves || '') + ' ' + (p.type || '') + ' ' + (p.operator || '')).indexOf(q) >= 0;
+    return fold(p.name + ' ' + (p.full || '') + ' ' + (p.serves || '') + ' ' + (p.type || '') + ' ' + (p.operator || '') + ' ' + (BASIN[p.id] || '')).indexOf(q) >= 0;
   });
-  var rk = {}; rows.forEach(function (p) { rk[p.id] = rank(p); });
-  var mg = {}; rows.forEach(function (p) { mg[p.id] = margin(p); });
-  var mgv = function (id) { return mg[id] ? mg[id].rel : 9; };
-  rows.sort(function (a, b) { var x = rk[a.id], y = rk[b.id]; return x[0] - y[0] || x[1] - y[1] || mgv(a.id) - mgv(b.id) || short(a).localeCompare(short(b)); });
+  return { rows: rows, hidden: hidden };
+}
+/* THE ORDER the list and the board's "pela próxima janela" share (one definition, so the two never disagree): in the
+   window now, smallest margin first; then the windows that open later, earliest first; then no window */
+function nextOrder(rows) {
+  var rk = {}, mg = {};
+  rows.forEach(function (p) { rk[p.id] = rank(p); var m = margin(p); mg[p.id] = m ? m.rel : 9; });
+  return { rk: rk, cmp: function (a, b) { var x = rk[a.id], y = rk[b.id]; return x[0] - y[0] || x[1] - y[1] || mg[a.id] - mg[b.id] || short(a).localeCompare(short(b)); } };
+}
+function drawList() {
+  if (!T) return;
+  var q = fold(S.q), cur = current();
+  var R0 = rowsFor(cur), hidden = R0.hidden, rows = R0.rows;
+  var NO = nextOrder(rows), rk = NO.rk;
+  rows.sort(NO.cmp);
   var n = [0, 0, 0, 0]; rows.forEach(function (p) { n[rk[p.id][0]]++; });
   $('jn-listk').innerHTML = (q ? 'busca: ' + rows.length + ' de ' + VIS.length : (S.kind === 'uep' ? 'As unidades' : S.kind === 'own' ? 'Bacias e terminais' : 'Todos os locais')) + ' começando <b>' + esc(wtxt(AX[S.i])) + '</b>'
     + (hidden ? ' <span class="jn-dim" title="' + esc(cur.op.appliesTo.why) + '">· ' + hidden + ' sem armazenagem, fora</span>' : '');
@@ -561,6 +572,119 @@ $('jn-kind').addEventListener('click', function (e) {
   [].forEach.call(this.querySelectorAll('[data-kind]'), function (x) { x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
   answer(); drawList();
 });
+
+/* ================================================================ THE BOARD: o quadro da frota
+   The professional view a planner keeps open on a desk (2026-10-08 review): every place of the list's set, grouped
+   by basin north to south (or ranked by the next window, as the list is), against the 29 starts of the week — the
+   go/no-go matrix weather-window planners read, in the verdict glyphs' own grammar (filled · crossed · hatched ·
+   dotted, never colour alone). ONE clock: the chosen start is the lit column; a cell sets the clock and the place.
+   It decides nothing new: every cell is codes(), the same letters the map, the list and the card show. */
+var BASIN = {};
+var BASIN_ORDER = ['Foz do Amazonas', 'Ceará', 'Potiguar', 'Sergipe', 'Alagoas', 'Camamu', 'Cumuruxatiba', 'Espírito Santo', 'Campos', 'Santos', 'Pelotas', 'Costa e terminais'];
+(function basins() {
+  /* a unit's basin is the ANP basin of the fields it serves (geo.js, ANP — GeoMaps); a site's is its own */
+  var byField = {}, SITEB = { santos: 'Santos', campos: 'Campos', 'campos-p25': 'Campos', 'espirito-santo': 'Espírito Santo', pelotas: 'Pelotas', potiguar: 'Potiguar', 'foz-amazonas': 'Foz do Amazonas', sergipe: 'Sergipe' };
+  ((GEO && GEO.fields && GEO.fields.features) || []).forEach(function (f) { byField[String(f.properties.n || '').toUpperCase().trim()] = f.properties.b; });
+  CFG.places.forEach(function (p) {
+    var b = null;
+    if (p.kind === 'uep') {
+      var re = /([A-ZÀ-Ú][A-ZÀ-Ú0-9 '\-]+?)\s*\(/g, m, up = String(p.serves || '').toUpperCase();
+      while (!b && (m = re.exec(up))) b = byField[m[1].trim()] || null;
+      if (!b) b = SITEB[p.bandFrom] || SITEB[(p.near || {}).site] || null;
+    } else b = SITEB[p.id] || 'Costa e terminais';
+    BASIN[p.id] = b || 'Costa e terminais';
+  });
+})();
+var BD = { open: store.get('board') !== '0', sort: store.get('bsort') === 'janela' ? 'janela' : 'bacia', hov: null, lastSel: null };
+function boardOn() { return !!T && !phone.matches && window.innerWidth >= 1000 && S.mode === 'semana'; }
+function boardState() {
+  var on = boardOn(), el = $('jn-board');
+  el.hidden = !on;
+  el.classList.toggle('open', BD.open);
+  document.documentElement.classList.toggle('jn-bd-open', on && BD.open);
+  document.documentElement.classList.toggle('jn-bd-bar', on && !BD.open);
+  $('jn-bt').setAttribute('aria-expanded', BD.open ? 'true' : 'false');
+  return on;
+}
+function drawBoard() {
+  if (!boardState()) return;
+  var cur = current(); if (!cur) { $('jn-bgrid').innerHTML = ''; return; }
+  var R0 = rowsFor(cur), rows = R0.rows, cnt = { L: 0, I: 0, V: 0, S: 0 }, tot = 0;
+  rows.forEach(function (p) { var c = codes(p.id); if (!c) return; var v = c[S.i] === 'R' ? 'S' : c[S.i]; if (cnt[v] === undefined) return; cnt[v]++; tot++; });
+  $('jn-bsum').innerHTML = '<b>' + esc(cur.name) + '</b> · ' + esc(CSHORT[S.crit]) + ' · <b>' + esc(wtxt(AX[S.i])) + '</b> · '
+    + '<span class="mix">' + ['L', 'I', 'V', 'S'].map(function (k) { return '<span class="' + (cnt[k] ? '' : 'z') + '">' + g(k) + cnt[k] + '</span>'; }).join('') + '</span>'
+    + ' <span class="jn-dim">de ' + tot + '</span>';
+  [].forEach.call($('jn-bsort').querySelectorAll('[data-bsort]'), function (b) { b.setAttribute('aria-checked', b.getAttribute('data-bsort') === BD.sort ? 'true' : 'false'); });
+  if (!BD.open) return;
+  /* the head: the days over their starts, the hours under them (Brasília), now and the chosen start marked */
+  var head = '<div class="jn-bhd" role="row"><span class="nm">' + (S.kind === 'uep' ? 'unidade' : 'local') + '</span><span class="cells">'
+    + DAYS.map(function (d) { return '<span class="day' + (d.k <= S.i && S.i < d.k + d.n ? ' on' : '') + '" style="--n:' + d.n + '">' + (d.n >= 2 ? esc(d.lab) : '') + '</span>'; }).join('')
+    + '</span><span class="nx">próxima janela</span></div>'
+    + '<div class="jn-bhh" aria-hidden="true"><span class="nm">início · Brasília</span><span class="cells">' + AX.map(function (t, k) { return '<i class="' + (k === S.i ? 'cur' : '') + (k === iNow ? ' now' : '') + (k % 2 ? ' o' : '') + '" data-k="' + k + '">' + esc(when(t).h.replace('h', '')) + '</i>'; }).join('') + '</span><span class="nx"></span></div>';
+  var byRank = nextOrder(rows).cmp;
+  var groups = [];
+  if (BD.sort === 'bacia') {
+    BASIN_ORDER.forEach(function (b) { var l = rows.filter(function (p) { return BASIN[p.id] === b; }).sort(function (a, c) { return (a.kind === 'uep') - (c.kind === 'uep') || byRank(a, c); }); if (l.length) groups.push({ t: b, l: l }); });
+    var rest = rows.filter(function (p) { return BASIN_ORDER.indexOf(BASIN[p.id]) < 0; });
+    if (rest.length) groups.push({ t: 'Outras', l: rest.sort(byRank) });
+  } else groups.push({ t: null, l: rows.slice().sort(byRank) });
+  var body = groups.map(function (gr) {
+    var gl = { L: 0, n: 0 }; gr.l.forEach(function (p) { var c = codes(p.id); if (c && c[S.i] !== '-' && c[S.i] !== 'n') { gl.n++; if (c[S.i] === 'L') gl.L++; } });
+    return (gr.t ? '<div class="jn-bgh" role="row"><span class="nm">' + esc(gr.t) + '</span><span class="ct">' + gl.L + ' de ' + gl.n + ' ' + g('L') + '</span></div>' : '')
+      + gr.l.map(function (p) {
+        var c = codes(p.id) || repeat('-', AX.length), cells = '';
+        for (var k = 0; k < c.length; k++) cells += '<i class="' + c[k] + (k === S.i ? ' cur' : '') + (k < iNow ? ' past' : '') + '" data-k="' + k + '" title="' + esc(short(p) + ' · ' + wtxt(AX[k], true) + ' · ' + (WORD[c[k]] || '')) + '"></i>';
+        return '<div class="jn-brow' + (p.id === S.site ? ' sel' : '') + (p.kind !== 'uep' ? ' own' : '') + '" role="row" data-site="' + esc(p.id) + '">'
+          + '<button type="button" class="nm" data-site="' + esc(p.id) + '">' + esc(short(p)) + '<small>' + esc(p.kind === 'uep' ? (p.type || 'unidade') : KIND[p.kind] ? p.kind === 'terminal' ? 'terminal' : 'medido' : '') + '</small></button>'
+          + '<span class="cells">' + cells + '</span><span class="nx">' + nxText(p) + '</span></div>';
+      }).join('');
+  }).join('');
+  var grid = $('jn-bgrid'), top = grid.scrollTop;
+  grid.innerHTML = head + '<div class="jn-bbody">' + (body || '<p class="jn-fine">Nenhum local neste filtro.</p>') + '</div>';
+  grid.scrollTop = top;
+  /* the chosen place in view, once per selection */
+  if (S.site && BD.lastSel !== S.site) {
+    BD.lastSel = S.site;
+    var r = grid.querySelector('.jn-brow.sel');
+    if (r) { var gr2 = grid.getBoundingClientRect(), rr = r.getBoundingClientRect(); if (rr.top < gr2.top + 44 || rr.bottom > gr2.bottom) grid.scrollTop += rr.top - gr2.top - 60; }
+  }
+  if (!S.site) BD.lastSel = null;
+}
+/* the board as a spreadsheet: one row per place, one column per start (Brasília and UTC in the header), the verdict
+   word in each cell — what a planner pastes into the week's plan; the operation, criterion, run and digest on top */
+function boardCsv() {
+  var cur = current(); if (!cur) return;
+  var rows = rowsFor(cur).rows.slice().sort(function (a, b) { return BASIN_ORDER.indexOf(BASIN[a.id]) - BASIN_ORDER.indexOf(BASIN[b.id]) || short(a).localeCompare(short(b)); });
+  var q = function (x) { x = String(x == null ? '' : x); return /[;"\n]/.test(x) ? '"' + x.replace(/"/g, '""') + '"' : x; };
+  var lines = [];
+  lines.push(['# Janela — quadro da frota', cur.name, cur.op.limits.map(limText).join(' e ') + (C.trOf(cur.op.TR) ? ', janela de ' + C.trOf(cur.op.TR) + ' h' : ''), CNAME[S.crit], 'rodada ' + T.run, 'digest ' + String(T.digest || '').slice(0, 16)].map(q).join(';'));
+  lines.push(['local', 'tipo', 'bacia', 'próxima janela LIBERADA (início, BRT)'].concat(AX.map(function (t) { var w = when(t); return w.dm + ' ' + w.h + ' BRT (' + utc(t) + ')'; })).map(q).join(';'));
+  rows.forEach(function (p) {
+    var c = codes(p.id) || repeat('-', AX.length), n = nextL(c, iNow);
+    lines.push([short(p), p.kind === 'uep' ? (p.type || 'unidade') : (KIND[p.kind] || p.kind), BASIN[p.id], n ? wtxt(AX[n.k], true) : '—'].concat(c.split('').map(function (k) { return WORD[k] || k; })).map(q).join(';'));
+  });
+  var blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'janela-quadro-' + (S.op) + '-' + T.run.slice(0, 10) + '.csv'; a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+}
+(function boardInput() {
+  var grid = $('jn-bgrid');
+  grid.addEventListener('click', function (e) {
+    var cell = e.target.closest && e.target.closest('.cells i[data-k]'), row = e.target.closest && e.target.closest('[data-site]');
+    var hk = e.target.closest && e.target.closest('.jn-bhh i[data-k]');
+    if (hk) { stop(); setI(+hk.getAttribute('data-k')); return; }
+    if (!row) return;
+    stop();
+    var id = row.getAttribute('data-site');
+    if (cell) { S.i = Math.max(0, Math.min(AX.length - 1, +cell.getAttribute('data-k'))); FIELD.target = S.i; }
+    if (id !== S.site) select(id); else { render(); hash(); }
+  });
+  grid.addEventListener('mouseover', function (e) { var r = e.target.closest && e.target.closest('.jn-brow'); var id = r ? r.getAttribute('data-site') : null; if (id !== BD.hov) { BD.hov = id; drawMarks(); } });
+  grid.addEventListener('mouseleave', function () { if (BD.hov) { BD.hov = null; drawMarks(); } });
+  $('jn-bt').onclick = function () { BD.open = !BD.open; store.set('board', BD.open ? '1' : '0'); drawBoard(); pad(); };
+  $('jn-bcsv').onclick = boardCsv;
+  $('jn-bsort').addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-bsort]'); if (!b) return; BD.sort = b.getAttribute('data-bsort'); store.set('bsort', BD.sort); drawBoard(); });
+})();
 
 /* ================================================================ the site card */
 /* why the site alpha is silent here, in a tile's words: never "no alpha" where one was estimated for other limits */
@@ -1065,6 +1189,7 @@ function setMode(m) {
   ['semana', 'mes', 'placar'].forEach(function (k) { $('pane-' + k).hidden = k !== m; });
   if (m === 'mes') drawMonth();
   if (m === 'placar') drawPlacar();
+  drawBoard(); pad();
   if (phone.matches && S.sheet === 'peek' && m !== 'semana') setSheet('half');
   $('jn-scroll').scrollTop = 0;
   hash();
@@ -1079,12 +1204,19 @@ function select(id, quiet) {
   change();
   if (id && phone.matches) { if (S.sheet === 'peek') setSheet('half'); }
   if (id) { var c = $('jn-card'); if (c && !c.hidden) $('jn-scroll').scrollTop = Math.max(0, c.offsetTop - 8); }
-  if (id && MAP.map && PL[id]) { var pt = MAP.map.project([PL[id].lon, PL[id].lat]), cv = MAP.map.getCanvas(); var vis = viewRect(); if (pt.x < vis.l || pt.x > vis.r || pt.y < vis.t || pt.y > vis.b) MAP.map.easeTo({ center: [PL[id].lon, PL[id].lat], duration: 500 }); if (MAP.map.getZoom() < 6.2) MAP.map.easeTo({ center: [PL[id].lon, PL[id].lat], zoom: 6.6, duration: 700 }); }
+  reveal(id);
+}
+/* the chosen place is brought into the clear part of the map (not under the rail, the board or the sheet) */
+function reveal(id) {
+  if (!id || !MAP.map || !PL[id]) return;
+  var pt = MAP.map.project([PL[id].lon, PL[id].lat]), vis = viewRect(), m = 40;
+  if (MAP.map.getZoom() < 6.2) MAP.map.easeTo({ center: [PL[id].lon, PL[id].lat], zoom: 6.6, duration: 700 });
+  else if (pt.x < vis.l + m || pt.x > vis.r - m || pt.y < vis.t + m || pt.y > vis.b - m) MAP.map.easeTo({ center: [PL[id].lon, PL[id].lat], duration: 500 });
 }
 function change() { memo = memo || {}; S.ml = null; S.mt = null; render(); hash(); }
 function render() {
   if (!T) return;
-  answer(); drawClock(); drawOps(); drawCrit(); drawCard(); drawList();
+  answer(); drawClock(); drawOps(); drawCrit(); drawCard(); drawList(); drawBoard();
   if (S.mode === 'mes') drawMonth();
   drawMarks();
   if (phone.matches && S.sheet === 'peek' && S.mode === 'semana') { var before = getComputedStyle(document.documentElement).getPropertyValue('--jn-peek'); measurePeek(); if (getComputedStyle(document.documentElement).getPropertyValue('--jn-peek') !== before) pad(); }
@@ -1134,6 +1266,7 @@ document.addEventListener('keydown', function (e) {
     if (!T || S.mode !== 'semana') return;
     e.preventDefault(); stop(); setI(S.i + (e.key === 'ArrowLeft' ? -1 : 1));
   } else if (e.key === '1' || e.key === '2' || e.key === '3') setMode(['semana', 'mes', 'placar'][+e.key - 1]);
+  else if ((e.key === 'q' || e.key === 'Q') && boardOn()) { BD.open = !BD.open; store.set('board', BD.open ? '1' : '0'); drawBoard(); pad(); }
   else if (e.key === 'Escape') {
     if (S.legend) { toggleLegend(false); return; }
     if (S.site) { select(null); return; }
@@ -1207,15 +1340,17 @@ var MONO = tok('--f-mono');
 function viewRect() {
   var w = window.innerWidth, h = window.innerHeight, top = phone.matches ? 48 : 56;
   if (phone.matches) return { l: 0, r: w, t: top, b: h - sheetPx(S.sheet === 'full' ? 'half' : S.sheet) };
-  var rail = $('panel').getBoundingClientRect();
-  return { l: 0, r: rail.left, t: top, b: h };
+  var rail = $('panel').getBoundingClientRect(), bd = $('jn-board');
+  var b = bd && !bd.hidden ? bd.getBoundingClientRect().top - 8 : h;
+  return { l: 0, r: rail.left, t: top, b: b };
 }
 var BOUNDS = [[-53, -33.5], [-33, 4.5]], BOUNDS_PHONE = [[-51, -33], [-32.5, 4.5]];
 function pad() {
   if (!MAP.map) return;
+  boardState();                                    /* the board's height is part of the view, before any fit */
   var w = window.innerWidth, h = window.innerHeight, v = viewRect();
   var P = { top: v.t + (phone.matches ? 34 : 44), bottom: h - v.b + 8, left: phone.matches ? 8 : 12, right: w - v.r + (phone.matches ? 8 : 12) };
-  if (T && !MAP.fitted && MAP.ready) { MAP.fitted = true; MAP.map.fitBounds(phone.matches ? BOUNDS_PHONE : BOUNDS, { padding: phone.matches ? Object.assign({}, P, { right: P.right + 34, left: P.left + 10 }) : P, duration: 0 }); return; }
+  if (T && !MAP.fitted && MAP.ready) { MAP.fitted = true; MAP.map.fitBounds(phone.matches ? BOUNDS_PHONE : BOUNDS, { padding: phone.matches ? Object.assign({}, P, { right: P.right + 34, left: P.left + 10 }) : P, duration: 0 }); reveal(S.site); return; }
   MAP.map.easeTo({ padding: P, duration: 300 });
 }
 function mapStyle() {
@@ -1279,10 +1414,13 @@ function drawMarks() {
   if (!MAP.map || !T) return;
   var c = fit(MK.cv), map = MAP.map, z = map.getZoom(), w = window.innerWidth, h = window.innerHeight;
   c.clearRect(0, 0, w, h);
-  MK.drawn = []; PLACED = []; var LBL = [];
+  MK.drawn = []; PLACED = []; var LBL = [], BLBL = [], PILLS = [];
+  /* the overlays drawn over the map are taken: no name or label hides under the clock chip */
+  var ck = $('jn-clock'), cr = ck && ck.getBoundingClientRect(); if (cr && cr.width) { PLACED.push([cr.left - 4, cr.top - 4, cr.right + 4, cr.bottom + 4]); }
   /* the selected place's label is placed first, so nothing hides it */
   var selP = S.site && PL[S.site] && STEPS[S.site] ? PL[S.site] : null;
-  if (selP) { var sq = map.project([selP.lon, selP.lat]); PLACED.push([sq.x - 14, sq.y - 14, sq.x + 14 + short(selP).length * 8, sq.y + 14]); }
+  var selBox = null;
+  if (selP) { var sq = map.project([selP.lon, selP.lat]); selBox = [sq.x - 14, sq.y - 14, sq.x + 14 + short(selP).length * 8, sq.y + 14]; PLACED.push(selBox); }
   var opNow = current();
   var pts = VIS.filter(function (p) { return !opNow || applies(opNow.op, p); }).map(function (p) { var q = map.project([p.lon, p.lat]); var cd = codes(p.id); return { p: p, x: q.x, y: q.y, v: cd ? cd[S.i] : '-' }; })
     .filter(function (o) { return o.x > -20 && o.x < w + 20 && o.y > -20 && o.y < h + 20; });
@@ -1311,6 +1449,14 @@ function drawMarks() {
     c.save(); c.font = '600 11px ' + MONO;
     var tw = c.measureText(txt).width, bw = tw + 26, bh = 22, x0 = Math.min(Math.max(cx - bw / 2, 4), w - bw - 4), y0 = cy - bh / 2;
     cx = x0 + bw / 2;                                  /* a pill at the edge slides inside the screen, never off it */
+    /* nor on the chosen place's name and ring, placed first: it steps down below them */
+    if (selBox) { var sb = selBox; if (x0 < sb[2] && x0 + bw > sb[0] && y0 < sb[3] && y0 + bh > sb[1]) { y0 = sb[3] + 6; cy = y0 + bh / 2; } }
+    /* nor under the top bar or the clock chip: like the screen's edge, they push it down */
+    var yTop = parseFloat(tok('--jn-top')) + 4, y00 = y0; if (y0 < yTop) y0 = yTop;
+    if (cr && cr.width && x0 < cr.right + 4 && x0 + bw > cr.left - 4 && y0 < cr.bottom + 4 && y0 + bh > cr.top - 4) y0 = cr.bottom + 6;
+    /* a pill pushed off its place stacks under the pills already there, never on them */
+    if (y0 !== y00) { for (var pk = 0; pk < PILLS.length; pk++) { var pb = PILLS[pk]; if (x0 < pb[2] && x0 + bw > pb[0] && y0 < pb[3] + 4 && y0 + bh > pb[1]) { y0 = pb[3] + 4; pk = -1; } } }
+    cy = y0 + bh / 2;
     c.beginPath(); if (c.roundRect) c.roundRect(x0, y0, bw, bh, 6); else c.rect(x0, y0, bw, bh);
     c.fillStyle = COL['--surface']; c.fill(); c.lineWidth = 1; c.strokeStyle = COL['--rule-strong']; c.stroke();
     c.restore();
@@ -1321,9 +1467,28 @@ function drawMarks() {
     [['L', COL['--v-cert']], ['I', COL['--ink-2']], ['V', COL['--v-refu']], ['S', COL['--v-refd']], ['x', COL['--ink-5']]].forEach(function (s) {
       var ww = cnt[s[0]] / tot * bwid; if (!ww) return; c.fillStyle = s[1]; c.fillRect(bx + acc, by, Math.max(1, ww - 1), 2); acc += ww; });
     c.restore();
-    PLACED.push([x0, y0, x0 + bw, y0 + bh]);
+    PLACED.push([x0, y0, x0 + bw, y0 + bh]); PILLS.push([x0, y0, x0 + bw, y0 + bh]);
+    /* the pill's basin, named above it once every pill is down (a reviewer reads "Campos 33/33", not a bare fraction) */
+    var bc = {}, bb = null; gg.m.forEach(function (o) { var b = BASIN[o.p.id]; bc[b] = (bc[b] || 0) + 1; if (!bb || bc[b] > bc[bb]) bb = b; });
+    if (bb && bb !== 'Costa e terminais') BLBL.push({ t: bb.toUpperCase(), cx: cx, y0: y0 });
     MK.drawn.push({ kind: 'cluster', members: gg.m.map(function (o) { return o.p; }), cnt: cnt, x: cx, y: cy, r: bw / 2 });
   });
+  BLBL.forEach(function (l) {
+    c.save(); c.font = '600 9.5px ' + tok('--f-sans'); c.textBaseline = 'bottom';
+    var lw = c.measureText(l.t).width, lx = Math.min(Math.max(l.cx - lw / 2, 4), w - lw - 4), lb = [lx - 2, l.y0 - 14, lx + lw + 2, l.y0 - 2];
+    if (!PLACED.some(function (q) { return lb[0] < q[2] && lb[2] > q[0] && lb[1] < q[3] && lb[3] > q[1]; })) {
+      c.lineWidth = 3; c.strokeStyle = COL['--paper']; c.strokeText(l.t, lx, l.y0 - 3); c.fillStyle = COL['--ink-3']; c.fillText(l.t, lx, l.y0 - 3); PLACED.push(lb);
+    }
+    c.restore();
+  });
+  /* the board's hovered row, found on the map wherever it is (inside a pill or not): a ring and its name */
+  if (BD.hov && PL[BD.hov] && BD.hov !== S.site) {
+    var hp = PL[BD.hov], hq = map.project([hp.lon, hp.lat]);
+    if (hq.x > -20 && hq.x < w + 20 && hq.y > -20 && hq.y < h + 20) {
+      c.save(); c.beginPath(); c.arc(hq.x, hq.y, 11, 0, Math.PI * 2); c.lineWidth = 1.5; c.strokeStyle = COL['--ink']; c.stroke(); c.restore();
+      label(c, hq.x + 16, hq.y, short(hp), true);
+    }
+  }
   /* the names last, each only where it collides with no glyph, pill or name already down */
   LBL.sort(function (a, b) { return (b[3] === 'own') - (a[3] === 'own'); }).forEach(function (l) { label(c, l[0], l[1], l[2], l[3]); });
 }
@@ -1332,9 +1497,15 @@ function hit(pt, tol) {
   MK.drawn.forEach(function (d) { var dd = Math.hypot(d.x - pt.x, d.y - pt.y) - (d.kind === 'cluster' ? d.r * 0.6 : d.r); if (dd < tol && dd < bd) { bd = dd; best = d; } });
   return best;
 }
+function boardLight(ids) {
+  var grid = $('jn-bgrid'); if (!grid || $('jn-board').hidden) return;
+  [].forEach.call(grid.querySelectorAll('.jn-brow.hov'), function (r) { r.classList.remove('hov'); });
+  (ids || []).forEach(function (id) { var r = grid.querySelector('.jn-brow[data-site="' + id + '"]'); if (r) r.classList.add('hov'); });
+}
 function hover(pt) {
   var h = hit(pt, 12), map = MAP.map;
   map.getCanvas().style.cursor = h ? 'pointer' : '';
+  boardLight(h ? (h.kind === 'place' ? [h.p.id] : h.members.map(function (p) { return p.id; })) : null);
   if (h && h.kind === 'place') {
     var p = h.p, c = codes(p.id), n = c ? nextL(c, iNow) : null;
     tip('<b>' + esc(short(p)) + '</b> ' + esc(subOf(p)) + '<br>' + chip(h.v) + ' ' + esc(current().name) + ', ' + esc(CSHORT[S.crit]) + ', ' + esc(wtxt(AX[S.i])) + '<br>' + (n ? 'próxima janela LIBERADA ' + esc(wtxt(AX[n.k])) : 'nenhuma janela LIBERADA nesta previsão'), pt);
@@ -1467,7 +1638,7 @@ function frame(now) {
   });
   wc.globalAlpha = 1;
 }
-function resize() { FIELD.dirty = true; FIELD.clear = true; if (MAP.map) MAP.map.resize(); pad(); drawMarks(); }
+function resize() { FIELD.dirty = true; FIELD.clear = true; if (MAP.map) MAP.map.resize(); drawBoard(); pad(); drawMarks(); }
 window.addEventListener('resize', resize);
 
 /* ================================================================ loading */
@@ -1520,7 +1691,7 @@ function start(today) {
   FIELD.target = S.i; FIELD.tf = S.i;
   var run = T.run.slice(8, 10) + '/' + T.run.slice(5, 7) + ' ' + T.run.slice(11, 13) + ' UTC', made = T.madeAt.slice(8, 10) + '/' + T.madeAt.slice(5, 7) + ' ' + T.madeAt.slice(11, 16) + ' UTC';
   var mb = new Date(Date.parse(T.madeAt) - 3 * 3600e3).toISOString();
-  $('jn-run').innerHTML = 'previsão <b>' + esc(run) + '</b> · lida ' + esc(mb.slice(8, 10) + '/' + mb.slice(5, 7) + ' ' + mb.slice(11, 16)) + ' BRT';
+  $('jn-run').innerHTML = 'previsão <b>' + esc(run) + '</b><span class="jn-read"> · lida ' + esc(mb.slice(8, 10) + '/' + mb.slice(5, 7) + ' ' + mb.slice(11, 16)) + ' BRT</span>';
   $('jn-run').title = 'ECMWF e NOAA, rodada de ' + run + '; lida ' + made + ' e decidida no mesmo build';
   var lb = $('jn-load'); if (lb) lb.textContent = '';
   if (stale) status('previsão antiga: a rodada ' + run + ' já passou; a de hoje ainda não chegou');
@@ -1607,7 +1778,8 @@ function recheck() {
       + ' ' + (modOk === modN ? 'Os ' + modN + ' módulos que decidem nesta página têm o sha256 pinado e são os que fizeram os dados de hoje.' : 'Módulos com sha256 diferente: ' + modBad.join(', ') + '.');
     window.__janela.check = { n: n, same: same, digest: digest, ok: okAll, mods: modOk + '/' + modN, ms: ms };
     if (S.site) drawCard();                                /* the card's certificate shows the result */
-    var rc = $('jn-run'); if (rc && okAll && !rc.querySelector('.jn-ok')) rc.insertAdjacentHTML('beforeend', ' · <span class="jn-ok">conferido' + (T.second && T.second.equal === T.second.decisions ? ' 2×' : '') + '</span>');
+    var two = T.second && T.second.equal === T.second.decisions;
+    var rc = $('jn-run'); if (rc && okAll && !rc.querySelector('.jn-ok')) rc.insertAdjacentHTML('beforeend', ' · <span class="jn-ok" title="' + esc('cada decisão publicada foi refeita neste navegador' + (two ? ' e por um segundo programa, escrito à parte (' + T.second.equal + ' de ' + T.second.decisions + ' iguais)' : '')) + '">✓ conferido' + (two ? ' 2×' : '') + '</span>');
   })();
 }
 

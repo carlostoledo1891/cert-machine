@@ -116,7 +116,12 @@ function panel(M, N) {
   <div class="jn-box jn-intro" id="jn-intro">
     <button type="button" class="jn-introt" id="jn-introt" aria-expanded="true" aria-controls="jn-introb"><span>A janela de cada operação offshore, decidida.</span><i aria-hidden="true"></i></button>
     <div id="jn-introb">
-      <p class="jn-p">Para as ${nUnits} unidades de produção offshore do Brasil e os terminais com regra da Capitania: o mar dos próximos sete dias contra o limite da sua operação, sobre uma previsão cujo erro foi medido por satélite. Cada horário sai <b>LIBERADA</b>, <b>VETADA</b>, <b>INDEFINIDA</b> ou <b>SEM DADOS</b>, com o motivo e o limiar que o viraria.</p>
+      <p class="jn-p">O mar dos próximos sete dias contra o limite da sua operação, nas ${nUnits} unidades de produção offshore do Brasil e nos terminais com regra da Capitania — sobre uma previsão cujo erro foi medido por satélite. Cada horário sai <b>LIBERADA</b>, <b>VETADA</b>, <b>INDEFINIDA</b> ou <b>SEM DADOS</b>, com o motivo e o limiar que o viraria.</p>
+      ${N.heldOut ? `<div class="jn-proof" role="list">
+        <div role="listitem"><b>${nUnits}</b><span>unidades offshore, mais ${M.places.length - nUnits} locais medidos e terminais</span></div>
+        <div role="listitem"><b>${(100 * N.heldOut.coverage).toFixed(1).replace('.', ',')}%</b><span>de cobertura da faixa em ${br.int(N.heldOut.pairs)} medições de satélite que ela não viu</span></div>
+        <div role="listitem"><b>${(100 * N.heldOut.broke / N.heldOut.liberada).toFixed(2).replace('.', ',')}%</b><span>das LIBERADA com Hs ≤ 2 m que o mar rompeu; só o ECMWF: ${(100 * N.heldOut.eBroke / N.heldOut.eLiberada).toFixed(2).replace('.', ',')}%</span></div>
+      </div>` : ''}
       <div class="jn-k">o que você precisa decidir?</div>
       <div class="jn-seg jn-uses" id="jn-uses">${USES.map(([v, a, b]) => `<button type="button" data-use="${v}">${esc(a)}<small>${esc(b)}</small></button>`).join('')}</div>
     </div>
@@ -196,6 +201,17 @@ function extra() {
   <div class="row"><span><i class="jn-g L"></i>LIBERADA</span><span><i class="jn-g V"></i>VETADA</span><span><i class="jn-g I"></i>INDEFINIDA</span><span><i class="jn-g S"></i>SEM DADOS</span></div>
   <div class="row fc"><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="cr" d="M5 10 Q11 4 17 10"/></svg>ondas: cristas, mais claras = maior Hs</span><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="st" d="M2 8 L20 4"/></svg>vento a 10 m</span><span>previsão ECMWF, não decidida</span></div>
 </div>
+<section class="jn-board open" id="jn-board" aria-label="Quadro da frota: cada local contra os 29 inícios da semana" hidden>
+  <header class="jn-bbar">
+    <button type="button" class="jn-bt" id="jn-bt" aria-expanded="true" aria-controls="jn-bgrid" title="Quadro da frota (tecla Q)"><i aria-hidden="true"></i>Quadro da frota</button>
+    <span class="jn-bsum" id="jn-bsum"></span>
+    <span class="jn-grow"></span>
+    <span class="jn-bkey" aria-hidden="true"><span><i class="jn-g L"></i>LIBERADA</span><span><i class="jn-g V"></i>VETADA</span><span><i class="jn-g I"></i>INDEFINIDA</span><span><i class="jn-g S"></i>SEM DADOS</span></span>
+    <button type="button" class="jn-bcsv" id="jn-bcsv" title="Baixar o quadro como planilha (CSV): cada local, cada início, o veredito">CSV ↓</button>
+    <div class="jn-bsort" id="jn-bsort" role="radiogroup" aria-label="Ordem do quadro"><button type="button" role="radio" data-bsort="bacia" aria-checked="true">por bacia</button><button type="button" role="radio" data-bsort="janela" aria-checked="false">pela próxima janela</button></div>
+  </header>
+  <div class="jn-bgrid" id="jn-bgrid" role="table" aria-label="Quadro da frota"></div>
+</section>
 <div class="jn-tip" id="jn-tip" role="status"></div>
 <div class="jn-status" id="jn-status" role="status"></div>
 <article class="jn-nota" id="jn-nota" aria-hidden="true"></article>`;

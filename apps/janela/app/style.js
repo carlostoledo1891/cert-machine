@@ -31,6 +31,89 @@ body{font-size:var(--jn-fs);line-height:var(--leading-snug)}
 .jn-layer{position:fixed;inset:0;pointer-events:none;z-index:5;width:100%;height:100%}
 .jn-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* ---- THE BOARD (o quadro da frota): docked under the map on a desk, the planner's go/no-go matrix ---- */
+:root{--jn-bd-h:clamp(250px,38vh,420px);--jn-bd-bar:34px;--jn-bd-nm:180px;--jn-bd-nx:150px;--jn-bd-hd:22px}
+.jn-board{position:fixed;z-index:14;left:var(--jn-edge);right:calc(var(--jn-rail) + var(--jn-edge) * 2);bottom:var(--jn-edge);height:var(--jn-bd-bar);
+  display:flex;flex-direction:column;background:var(--surface);outline:1px solid var(--rule);outline-offset:-1px;border-radius:var(--radius-m);box-shadow:var(--shadow);overflow:hidden}
+.jn-board.open{height:var(--jn-bd-h)}
+.jn-board[hidden]{display:none}
+.jn-bbar{flex:none;display:flex;align-items:center;gap:var(--s-3);height:var(--jn-bd-bar);padding:0 var(--s-3) 0 0;border-bottom:1px solid var(--rule);min-width:0}
+.jn-board:not(.open) .jn-bbar{border-bottom:0}
+.jn-bt{display:inline-flex;align-items:center;gap:var(--s-2);border:0;background:transparent;color:var(--ink);font-family:var(--f-sans);font-size:var(--jn-fs-m);font-weight:var(--weight-strong);
+  padding:var(--s-1) var(--s-2) var(--s-1) var(--s-3);border-radius:var(--radius-s);cursor:pointer;white-space:nowrap}
+.jn-bt:hover{background:var(--surface2)}
+.jn-bt i{width:8px;height:8px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg) translate(-1px,-1px)}
+.jn-board:not(.open) .jn-bt i{transform:rotate(-135deg) translate(-1px,-1px)}
+.jn-bsum{font-size:var(--jn-fs-s);color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.jn-bsum b{color:var(--ink);font-weight:var(--weight-medium)}
+.jn-bsum .mix{display:inline-flex;gap:var(--s-2);font-family:var(--f-mono);color:var(--ink-2)}
+.jn-bsum .mix span{display:inline-flex;align-items:center;gap:var(--s-1)}
+.jn-bsum .mix .z{color:var(--ink-5)}
+.jn-bkey{display:flex;gap:var(--s-3);font-size:var(--jn-fs-xs);color:var(--ink-4);white-space:nowrap}
+.jn-bkey span{display:inline-flex;align-items:center;gap:var(--s-1)}
+.jn-bsort{display:flex;gap:var(--jn-g);background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:var(--jn-g);flex:none}
+.jn-bsort button{border:0;background:transparent;color:var(--ink-3);font-family:var(--f-sans);font-size:var(--jn-fs-xs);padding:0 var(--s-2);border-radius:var(--radius-s);cursor:pointer;height:20px;white-space:nowrap}
+.jn-bsort button[aria-checked="true"]{background:var(--surface2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule-strong)}
+.jn-bgrid{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.jn-board:not(.open) .jn-bgrid{display:none}
+.jn-bhd,.jn-bhh,.jn-brow,.jn-bgh{display:grid;grid-template-columns:var(--jn-bd-nm) minmax(0,1fr) var(--jn-bd-nx);align-items:center}
+.jn-bhd,.jn-bhh{position:sticky;z-index:2;background:var(--surface)}
+.jn-bhd{top:0;height:var(--jn-bd-hd);font-size:var(--jn-fs-xs);color:var(--ink-4)}
+.jn-bhh{top:var(--jn-bd-hd);height:16px;border-bottom:1px solid var(--rule);font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-5)}
+.jn-bhd .nm,.jn-bhh .nm{padding:0 var(--s-3)}
+.jn-bhd .nx{padding:0 var(--s-3);text-align:right}
+.jn-bhd .cells,.jn-bhh .cells,.jn-brow .cells{display:grid;grid-template-columns:repeat(29,minmax(0,1fr));gap:var(--jn-g);height:100%;align-items:center}
+.jn-bhd .day{grid-column:span var(--n);border-left:1px solid var(--rule-strong);padding:0 var(--s-1);white-space:nowrap;overflow:hidden;color:var(--ink-3);font-weight:var(--weight-medium);height:100%;display:flex;align-items:center}
+.jn-bhd .day.on{color:var(--ink)}
+.jn-bhh i{font-style:normal;cursor:pointer;height:100%;display:flex;align-items:center;justify-content:center;border-radius:2px}
+.jn-bhh i:hover{color:var(--ink-2);background:var(--surface2)}
+.jn-bhh i.cur{color:var(--paper);background:var(--ink)}
+.jn-bhh i.now{box-shadow:inset 0 -2px 0 var(--ink-3)}
+@media (max-width:1279px){.jn-bhh i.o:not(.cur):not(:hover){color:transparent}}   /* a narrow board names every other start; each still answers to the pointer */
+.jn-bgh{height:26px;padding-top:var(--s-1);border-top:1px solid var(--rule-soft)}
+.jn-bgh:first-child{border-top:0}
+.jn-bgh .nm{padding:0 var(--s-3);font-size:var(--jn-fs-xs);font-weight:var(--weight-strong);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.jn-bgh .ct{grid-column:3;padding:0 var(--s-3);text-align:right;font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-4);display:inline-flex;justify-content:flex-end;align-items:center;gap:var(--s-1)}
+.jn-bgh .ct .jn-g{--jn-glyph:8px}
+.jn-brow{height:22px;cursor:pointer}
+.jn-brow:hover{background:var(--surface2)}
+.jn-brow.sel{background:var(--surface2);box-shadow:inset 2px 0 0 var(--ink)}
+.jn-brow.hov{background:var(--surface2);box-shadow:inset 2px 0 0 var(--ink-3)}
+.jn-bcsv{border:1px solid var(--rule);background:var(--sunk);color:var(--ink-3);font-family:var(--f-mono);font-size:var(--jn-fs-xs);padding:0 var(--s-2);height:22px;border-radius:var(--radius-s);cursor:pointer;flex:none}
+.jn-bcsv:hover{color:var(--ink);border-color:var(--rule-strong)}
+.jn-brow .nm{display:flex;align-items:baseline;gap:var(--s-2);min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font-family:var(--f-sans);font-size:var(--jn-fs);font-weight:var(--weight-medium);
+  text-align:left;padding:0 var(--s-3);cursor:pointer;white-space:nowrap;overflow:hidden}
+.jn-brow .nm small{font-size:var(--jn-fs-xs);font-weight:var(--weight-body);color:var(--ink-4);overflow:hidden;text-overflow:ellipsis}
+.jn-brow.own .nm{color:var(--ink-2)}
+.jn-brow .cells{padding:var(--s-1) 0}
+.jn-brow .cells i{height:14px;border-radius:2px;background:var(--sunk)}
+.jn-brow .cells i.L{background:var(--v-cert)}
+.jn-brow .cells i.V{background:linear-gradient(45deg,transparent 44%,var(--v-refu) 44% 56%,transparent 56%) center/9px 9px no-repeat,linear-gradient(-45deg,transparent 44%,var(--v-refu) 44% 56%,transparent 56%) center/9px 9px no-repeat,var(--v-refu-soft);box-shadow:inset 0 0 0 1px var(--v-refu)}
+.jn-brow .cells i.I{background:repeating-linear-gradient(135deg,var(--ink-3) 0 1px,var(--sunk) 1px 4px);box-shadow:inset 0 0 0 1px var(--ink-4)}
+.jn-brow .cells i.S,.jn-brow .cells i.R{background:radial-gradient(circle,var(--v-refd) 0.9px,transparent 1.1px) 0 0/4px 4px,var(--sunk)}
+.jn-brow .cells i.n{background:transparent;box-shadow:inset 0 0 0 1px var(--rule-soft)}
+.jn-brow .cells i.past{opacity:.35}
+.jn-brow .cells i.cur{outline:1.5px solid var(--ink);outline-offset:1px}
+.jn-brow .cells i:hover{outline:1px solid var(--ink-2);outline-offset:1px}
+.jn-brow .nx{padding:0 var(--s-3);text-align:right;font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jn-brow .nx b{color:var(--ink);font-weight:var(--weight-strong)}
+.jn-brow .nx small{display:none}
+html.jn-bd-open .jn-legend{display:none}
+html.jn-bd-bar .jn-legend{bottom:calc(var(--jn-bd-bar) + var(--jn-edge) * 2)}
+html.jn-bd-open .as-map .maplibregl-ctrl-bottom-right{bottom:calc(var(--jn-bd-h) + var(--jn-edge))}
+html.jn-bd-bar .as-map .maplibregl-ctrl-bottom-right{bottom:calc(var(--jn-bd-bar) + var(--jn-edge))}
+html.jn-bd-open .as-map .maplibregl-ctrl-bottom-left{bottom:calc(var(--jn-bd-h) + var(--jn-edge))}
+@media (max-width:1599px){.jn-bkey{display:none}}
+/* a narrow desk (a tablet on its side, a split screen): the bar keeps the run, the check and the modes; the brand and the read time step out */
+@media (min-width:721px) and (max-width:1099px){.as-top .brand,.as-top .sep,#jn-run .jn-read{display:none}}
+
+/* the intro's proof: three numbers a reviewer can check, each from a record (numbers.js) */
+.jn-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--jn-g);margin:var(--s-3) 0;border:1px solid var(--rule);border-radius:var(--radius-s);background:var(--sunk);overflow:hidden}
+.jn-proof > div{display:flex;flex-direction:column;gap:var(--s-1);padding:var(--s-2)}
+.jn-proof > div + div{box-shadow:-1px 0 0 var(--rule)}
+.jn-proof b{font-family:var(--f-mono);font-size:var(--jn-fs-xl);font-weight:var(--weight-strong);color:var(--ink);letter-spacing:var(--track-title);line-height:var(--leading-tight)}
+.jn-proof span{font-size:var(--jn-fs-xs);color:var(--ink-3);line-height:var(--leading-snug)}
+
 /* ---- the top bar: the three modes, the run ---- */
 .as-top .brand{flex:none}
 .jn-modes{display:flex;gap:var(--jn-g);background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-s);padding:var(--jn-g);margin-left:var(--s-1)}

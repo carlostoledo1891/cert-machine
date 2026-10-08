@@ -107,3 +107,27 @@ is → the answer for the operation they care about → where and when → why t
   certs/janela-providers-eval.json) before the forward record, which fills from 2026-10-09.
 - **The link preview** (site/janela/og.png, both pages' og:image) and **the deck** (site/janela/janela-apresentacao.pdf,
   apps/janela/deck.js, 12 slides) are built from the same N and the app's own screenshots.
+
+## The review pass (2026-10-08): the planner's board, and the evaluator's first screen
+
+Operator: "Make the app target the real people that will evaluate and use … professional and beautiful." Two readers,
+two first screens:
+
+- **The planner (marine coordination, offshore logistics) needs the whole fleet against the whole week at once** —
+  the weather-window chart every offshore forecast desk prints. **O quadro da frota** is docked under the map on a desk
+  (≥ 1000 px, SEMANA): one row per place in the SAME set the list and the fleet answer count (`rowsFor`, one
+  definition), 29 cells per row (the starts, Brasília time), the verdict glyphs at cell size, the chosen start and
+  "now" marked, the past dimmed, the next window in words at the end of the row. Ordered **por bacia** (Foz do
+  Amazonas → Pelotas, read from the ANP field names each unit serves; a basin header with its LIBERADA count) or
+  **pela próxima janela** — the list's own order (`nextOrder`, one definition: in the window now with the smallest
+  margin first, then the soonest to open). A cell click moves the ONE clock and selects the place; an hour click
+  moves the clock; a row hover rings the place on the map and a map hover lights the row. **CSV ↓** writes the board as
+  a spreadsheet (semicolon, UTF-8 BOM, every start in BRT and UTC, the operation, the limits, the criterion, the run and
+  the digest in the first line). Folds to a 34 px bar (Q); the choice and the order are per-viewer conveniences.
+- **The evaluator needs the proof before the product**: the intro opens with three numbers read from the held-out
+  record (the units, the band's coverage on satellite it never saw, the broken-LIBERADA rate against ECMWF alone), and
+  the top bar says **✓ conferido 2×** once the tab and the second verifier both re-decided the day.
+- **The map names the basins** above their pills (a reviewer reads "CAMPOS 64/64", not a bare fraction); no label or
+  pill hides under the top bar or the clock chip; a pill pushed off its place stacks, never overlaps.
+- A narrow desk (721–1099 px) drops the brand and the read time from the bar, so the modes and Método stay visible; a
+  board narrower than ~900 px names every other start.

@@ -170,6 +170,7 @@ function build(N, shots) {
   S_.push('<section class="s"><div class="ey">2 · o produto</div><h2 style="font-size:36px;margin-bottom:22px">A frota no mapa, a resposta primeiro.</h2><div class="split">'
     + '<div>' + img('fleet', '', 690) + '</div><div class="pts">'
     + '<div class="pt"><b>A resposta antes do gráfico</b><p>Quantas unidades podem começar a operação na hora escolhida, e quais não podem, pelo nome.</p></div>'
+    + '<div class="pt"><b>O quadro da frota</b><p>Cada unidade contra os 29 inícios da semana, por bacia ou pela menor folga, ligado ao mapa; sai como planilha (CSV).</p></div>'
     + '<div class="pt"><b>Quatro vereditos, sempre com a palavra</b><p>Forma e palavra, nunca só a cor: LIBERADA, VETADA com a testemunha, INDEFINIDA com o limiar, SEM DADOS com o que falta.</p></div>'
     + '<div class="pt"><b>Três critérios lado a lado</b><p>A faixa medida, a Tabela 4-1 da DNV e o α do local, para a mesma janela.</p></div>'
     + '<div class="pt"><b>Refeito no seu navegador</b><p>' + (F.day ? 'As ' + br.int(F.day.decisions) + ' decisões publicadas do dia' : 'Todas as decisões publicadas do dia') + ', re-decididas na aba pelos mesmos módulos pinados, em segundos, e comparadas com o registro.</p></div>'
