@@ -86,3 +86,8 @@ corpus/janela/observed/*.part
 corpus/janela/regions/*/cache/
 # janela: a GlobCurrent day being written (currents_observe.py renames it into place when complete)
 corpus/janela/currents-observed/*.part
+
+# swell: the island textures and tiles are served from the repo by commit SHA; site copies are local only
+site/swell/island/
+site/swell/tiles/
+site/swell/data/

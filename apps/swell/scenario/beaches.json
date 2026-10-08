@@ -1,0 +1,248 @@
+{
+ "what": "Swell's beaches and spots, named the way people say them: ONE definition. sim/probes.py places each on the island model (the OpenStreetMap natural=beach centre named in `osm`, Overpass snapshot 2026-10-05, or the hand-placed `point` [lon, lat] where OSM has no usable centre); model/surf.js reads the result from data/beaches.json and nothing else.",
+ "kinds": {
+  "ocean": "open Atlantic beach",
+  "bay": "inside the north or south bay, or a sheltered cove",
+  "lagoon": "Lagoa da Conceição: wind and flat water",
+  "island": "reached by boat"
+ },
+ "source": "frontier-apps experiments/swell/island/beaches.py (2026-10-06), lifted unchanged; notes kept below",
+ "notes": {
+  "Moçambique": "OSM's relation centre lies 1.4 km out at sea: hand-placed",
+  "Saquinho": "'Praia do Saquinho' is a lagoon beach in the north; this is 'Praia Saquinho' in the south"
+ },
+ "beaches": [
+  {
+   "name": "Ponta das Canas",
+   "osm": "Praia de Ponta das Canas",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Lagoinha do Norte",
+   "osm": "Praia da Lagoinha",
+   "kind": "ocean",
+   "region": "norte"
+  },
+  {
+   "name": "Brava",
+   "osm": "Praia Brava",
+   "kind": "ocean",
+   "region": "norte"
+  },
+  {
+   "name": "Ingleses",
+   "osm": "Praia dos Ingleses",
+   "kind": "ocean",
+   "region": "norte"
+  },
+  {
+   "name": "Santinho",
+   "osm": "Praia do Santinho",
+   "kind": "ocean",
+   "region": "norte"
+  },
+  {
+   "name": "Canasvieiras",
+   "osm": "Praia de Canasvieiras",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Cachoeira do Bom Jesus",
+   "osm": "Praia da Cachoeira do Bom Jesus",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Jurerê",
+   "osm": "Jurerê",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Daniela",
+   "osm": "Praia da Daniela",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Praia do Forte",
+   "osm": "Praia do Forte",
+   "kind": "bay",
+   "region": "norte"
+  },
+  {
+   "name": "Santo Antônio de Lisboa",
+   "osm": null,
+   "kind": "bay",
+   "region": "baía norte",
+   "point": [
+    -48.5205,
+    -27.5085
+   ]
+  },
+  {
+   "name": "Sambaqui",
+   "osm": "Praia do Sambaqui",
+   "kind": "bay",
+   "region": "baía norte"
+  },
+  {
+   "name": "Moçambique",
+   "osm": null,
+   "kind": "ocean",
+   "region": "leste",
+   "point": [
+    -48.42,
+    -27.53
+   ]
+  },
+  {
+   "name": "Barra da Lagoa",
+   "osm": "Praia da Barra da Lagoa",
+   "kind": "ocean",
+   "region": "leste"
+  },
+  {
+   "name": "Galheta",
+   "osm": "Praia da Galheta",
+   "kind": "ocean",
+   "region": "leste"
+  },
+  {
+   "name": "Mole",
+   "osm": null,
+   "kind": "ocean",
+   "region": "leste",
+   "point": [
+    -48.4335,
+    -27.6015
+   ]
+  },
+  {
+   "name": "Joaquina",
+   "osm": "Praia da Joaquina",
+   "kind": "ocean",
+   "region": "leste"
+  },
+  {
+   "name": "Lagoa da Conceição",
+   "osm": null,
+   "kind": "lagoon",
+   "region": "leste",
+   "point": [
+    -48.464,
+    -27.602
+   ]
+  },
+  {
+   "name": "Campeche",
+   "osm": "Praia do Campeche",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Ilha do Campeche",
+   "osm": null,
+   "kind": "island",
+   "region": "sul",
+   "point": [
+    -48.4655,
+    -27.6975
+   ]
+  },
+  {
+   "name": "Morro das Pedras",
+   "osm": "Praia do Morro das Pedras",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Armação",
+   "osm": "Praia da Armação",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Matadeiro",
+   "osm": "Praia do Matadeiro",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Lagoinha do Leste",
+   "osm": "Praia da Lagoinha do Leste",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Pântano do Sul",
+   "osm": "Praia do Pântano do Sul",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Açores",
+   "osm": null,
+   "kind": "ocean",
+   "region": "sul",
+   "point": [
+    -48.5185,
+    -27.7905
+   ]
+  },
+  {
+   "name": "Solidão",
+   "osm": null,
+   "kind": "ocean",
+   "region": "sul",
+   "point": [
+    -48.53,
+    -27.7975
+   ]
+  },
+  {
+   "name": "Saquinho",
+   "osm": "Praia Saquinho",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Naufragados",
+   "osm": "Praia dos Naufragados",
+   "kind": "ocean",
+   "region": "sul"
+  },
+  {
+   "name": "Caieira da Barra do Sul",
+   "osm": "Praia da Caieira da Barra do Sul",
+   "kind": "bay",
+   "region": "baía sul"
+  },
+  {
+   "name": "Ribeirão da Ilha",
+   "osm": "Praia da Freguesia do Ribeirão da Ilha",
+   "kind": "bay",
+   "region": "baía sul"
+  },
+  {
+   "name": "Tapera",
+   "osm": "Praia da Tapera",
+   "kind": "bay",
+   "region": "baía sul"
+  },
+  {
+   "name": "Pinheira",
+   "osm": "Praia da Pinheira",
+   "kind": "ocean",
+   "region": "continente"
+  },
+  {
+   "name": "Guarda do Embaú",
+   "osm": "Praia da Guarda do Embaú",
+   "kind": "ocean",
+   "region": "continente"
+  }
+ ]
+}
