@@ -196,6 +196,7 @@ function emit(git, opts) {
     title: 'Swell — o mar de Florianópolis, praia por praia',
     description: 'Para 34 praias de Florianópolis: onde e quando está bom para surfar, velejar, remar, nadar, pescar e sair de barco nos próximos 7 dias — com o perigo decidido sobre o erro medido da previsão, e o resto dito como previsão.',
     path: '/swell/', lang: 'pt-BR', appName: 'Swell', brand: 'CERT-MACHINE', homeHref: '/',
+    og: fs.existsSync(path.join(SITE, 'og.png')) ? { image: '/swell/og.png', alt: 'Swell: a ilha de Santa Catarina com as cristas das ondas desenhadas pelo modelo da ilha, e a melhor praia do dia para cada atividade' } : undefined,
     meta: '<span id="sw-run">—</span>',
     topHtml: '<div class="sw-topctl"><button class="sw-btn" id="sw-how"></button><button class="sw-btn" id="sw-boardb"></button><button class="sw-btn" id="sw-sos"></button><div class="sw-lang" role="group" aria-label="idioma / language"><button data-lang="pt">PT</button><button data-lang="en">EN</button></div></div>',
     navLinks: [{ href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell', label: 'código' }],

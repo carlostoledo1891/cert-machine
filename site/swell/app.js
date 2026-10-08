@@ -99,7 +99,7 @@ var STR = {
     flatSea: 'sem as partições do mar (NOAA) neste passo: o mar entra como uma ondulação só (ECMWF)',
     decidedH: 'O que é decidido', forecastH: 'O que é previsão',
     decV: '<b>{word}</b>: mesmo a borda baixa da faixa ({lo}) passa de {lim} — decidido.',
-    decI: '<b>atenção</b>: a faixa ({lo}–{hi}) cruza o limite de {lim}; vira {word} se a borda baixa subir {gap}.',
+    decI: '<b>atenção</b>: a faixa ({lo}–{hi}) cruza o limite de {lim}: vira {word} se a borda baixa subir {up}; fica abaixo do limite se a borda alta descer {gap}.',
     decL: 'abaixo do limite de {lim} em toda a faixa ({lo}–{hi}) — decidido. Não quer dizer seguro.',
     decS: 'sem faixa medida: o limite de {lim} não é decidido.',
     refusedEdge: 'Fora do modelo: a borda do modelo da ilha passa a {km} desta praia, e ali a onda que entra pela borda não dobrou no fundo. Swell não calcula a altura aqui.',
@@ -168,7 +168,7 @@ var STR = {
     flatSea: 'no sea partitions (NOAA) at this step: the sea enters as one swell (ECMWF)',
     decidedH: 'What is decided', forecastH: 'What is forecast',
     decV: '<b>{word}</b>: even the band\'s low edge ({lo}) is over {lim} — decided.',
-    decI: '<b>caution</b>: the band ({lo}–{hi}) straddles the {lim} limit; it turns {word} if the low edge rises {gap}.',
+    decI: '<b>caution</b>: the band ({lo}–{hi}) straddles the {lim} limit: it turns {word} if the low edge rises {up}; it falls under the limit if the high edge drops {gap}.',
     decL: 'under the {lim} limit over the whole band ({lo}–{hi}) — decided. It does not mean safe.',
     decS: 'no measured band: the {lim} limit is not decided.',
     refusedEdge: 'Outside the model: the island model\'s edge passes {km} from this beach, and there the wave entering through the edge has not bent over the seafloor. Swell does not compute the height here.',
@@ -499,7 +499,12 @@ function decLines(j, c) {
     var bd = d.var === 'hs' ? (c.sea && c.sea.lo != null ? [Math.round(c.sea.lo * 100), Math.round(c.sea.hi * 100)] : null) : (c.waves && c.waves.lo != null ? [c.waves.lo, c.waves.hi] : null);
     var lo = bd ? metres(bd[0] / 100, 2) : '—', hi = bd ? metres(bd[1] / 100, 2) : '—', txt;
     if (d.letter === 'V') txt = t('decV', { word: word, lo: lo, lim: lim });
-    else if (d.letter === 'I') { var f = d.flip && d.flip[0]; txt = t('decI', { word: word, lo: lo, hi: hi, lim: lim, gap: f ? metres(Number(f.gapDec), 2) : '—' }); }
+    else if (d.letter === 'I') {
+      /* decide.js's flip is how far the UNFAVOURABLE edge (here the high one) must move to clear; the other way, the
+         low edge must pass the limit (a <= limit: one centimetre over it), counted in whole centimetres, exactly */
+      var f = d.flip && d.flip[0], up = bd ? Math.round(Number(d.limit) * 100) - bd[0] + 1 : null;
+      txt = t('decI', { word: word, lo: lo, hi: hi, lim: lim, gap: f ? metres(Number(f.gapDec), 2) : '—', up: up != null ? metres(up / 100, 2) : '—' });
+    }
     else if (d.letter === 'L') txt = t('decL', { lim: lim, lo: lo, hi: hi });
     else txt = t('decS', { lim: lim });
     return '<span class="sw-dec ' + d.letter + '">' + esc(d.letter === 'V' ? word : t('dec_' + d.letter)) + '</span><span>' + txt + '</span>';
