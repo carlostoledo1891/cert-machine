@@ -233,7 +233,10 @@ var REGIONS = ['norte', 'leste', 'sul', 'continente', 'baía norte', 'baía sul'
 /* ================================================================ the day */
 function loadDay() {
   var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === 'file:';
-  var urls = local ? CFG.data.today.slice().reverse() : CFG.data.today;
+  /* raw.githubusercontent keeps a copy at its edge for five minutes, keyed by the full URL: an hourly stamp in the query
+     makes a new day visible within the hour it is published, without defeating the cache for every reader */
+  var stamp = new Date().toISOString().slice(0, 13).replace(/[^0-9]/g, '');
+  var urls = (local ? CFG.data.today.slice().reverse() : CFG.data.today).map(function (u) { return /^https:/.test(u) ? u + '?h=' + stamp : u; });
   var get = function (i) {
     return fetch(urls[i], { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error(urls[i] + ' ' + r.status); return r.json(); })
       .catch(function (e) { if (i + 1 < urls.length) return get(i + 1); throw e; });

@@ -176,7 +176,8 @@ function emit(git, opts) {
   fs.writeFileSync(path.join(SITE, 'app.js'), APPJS);
   const EARLY = Buffer.from("(function(){var c=window.SWELL&&window.SWELL.data;if(!c||!window.fetch)return;"
     + "var local=/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(location.hostname)||location.protocol==='file:';"
-    + "var u=local?c.today.slice().reverse():c.today;"
+    + "var h=new Date().toISOString().slice(0,13).replace(/[^0-9]/g,'');"
+    + "var u=(local?c.today.slice().reverse():c.today).map(function(x){return /^https:/.test(x)?x+'?h='+h:x;});"
     + "var get=function(i){return fetch(u[i],{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})"
     + ".catch(function(e){if(i+1<u.length)return get(i+1);throw e;});};"
     + "window.SWELL_EARLY={today:get(0)};})();\n");
