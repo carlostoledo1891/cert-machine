@@ -50,13 +50,13 @@ function words(calib) {
       '</td><td>' + R[a].text[lang] + '</td></tr>').join('') + '</tbody></table>';
   const pt = `
 <h3>O que é</h3>
-<p>Para 34 praias de Florianópolis e seis jeitos de usar o mar, onde e quando está bom nos próximos 7 dias — e, separado, o que está <b>decidido</b> e o que é só <b>previsão</b>. Swell parte do mar aberto na borda leste da ilha: a previsão do ECMWF e da NOAA, lida uma vez por dia (rodada das 00 UTC, de 3 em 3 horas), com o <b>erro medido por satélite</b>. Um modelo das ondas da ilha inteira, sobre o fundo do mar da carta náutica 1902 da Marinha, leva cada ondulação até cada praia: dobra nas pontas, cresce no raso, perde força atrás das pontas e quebra.</p>
+<p>Para 34 praias de Florianópolis, o mar de cada uma no horário que você escolhe — a onda na beira e o vento — e, em seis ícones, o que esse mar quer dizer para surfar, velejar, remar, nadar, pescar e sair de barco; separado, o que está <b>decidido</b> e o que é só <b>previsão</b>. Escolher uma atividade só destaca as praias boas para ela: o horário, as ondas e o vento continuam os mesmos. Swell parte do mar aberto na borda leste da ilha: a previsão do ECMWF e da NOAA, lida uma vez por dia (rodada das 00 UTC, de 3 em 3 horas), com o <b>erro medido por satélite</b>. Um modelo das ondas da ilha inteira, sobre o fundo do mar da carta náutica 1902 da Marinha, leva cada ondulação até cada praia: dobra nas pontas, cresce no raso, perde força atrás das pontas e quebra.</p>
 <h3>O que é decidido</h3>
 <p>Só os limites de ondas, e sempre sobre a <b>faixa medida</b>. A faixa do mar aberto vem do erro que os satélites mediram nesta borda (${b24.ecmwf.n} passagens a 24 h de antecedência, 2023–2026, a faixa promete ${b24.ecmwf.coverage.replace('/', ' de ')}); a usada é a união da faixa do ECMWF com a da NOAA, que nos ${Math.round(15)} meses de teste que nunca viu cobriu ${pct(H.coverage)}% de ${H.n.toLocaleString('pt-BR')} medições de satélite. O modelo da ilha leva as duas bordas da faixa até cada praia (a altura de quebra cresce com o mar, então a faixa da praia é exata sobre o modelo). Se mesmo a borda baixa passa do limite: <b>PERIGO</b>, decidido. Se a faixa cruza o limite: <b>ATENÇÃO</b>, com quanto falta para virar. Se a faixa toda fica abaixo: abaixo do limite — o que <b>não quer dizer seguro</b>.</p>
 <p>A conta é refeita no seu navegador com os mesmos arquivos que fizeram o dia publicado, e o resultado é comparado com ele (um sha256 sobre cada altura e cada decisão). O certificado de cada praia e horário pode ser baixado e refeito por qualquer um.</p>
 ${rules('pt')}
 <h3>O que é previsão</h3>
-<p>O <b>vento</b> (ECMWF a 10 m, na grade sobre a ilha: o erro dele nas praias ainda não foi medido), a nota que ordena as praias, as correntes ao longo da praia (pela altura e o ângulo das ondas), o risco de corrente de retorno (regra prática), a marola das baías (do vento), a maré e a temperatura da água (Copernicus). Avisos de previsão aparecem com borda tracejada; o que é decidido, com borda cheia e em maiúsculas.</p>
+<p>O <b>vento</b> (ECMWF a 10 m, na grade sobre a ilha: o erro dele nas praias ainda não foi medido), a nota que dá a cada atividade o seu ícone (bom, dá pra ir, fraco), as correntes ao longo da praia (pela altura e o ângulo das ondas), o risco de corrente de retorno (regra prática), a marola das baías (do vento), a maré e a temperatura da água (Copernicus). Avisos de previsão aparecem com borda tracejada; o que é decidido, com borda cheia e em maiúsculas.</p>
 <p><b>Medido, nem previsão nem decisão</b>: quanto cada praia costuma quebrar, visto do espaço — em 190 passagens sem nuvens do Sentinel-2 (2022–2026), a parte da zona de arrebentação que estava branca de espuma. Diz como a praia é (larga e rasa espuma mais com o mesmo mar), não como o dia vai ser.</p>
 <h3>O modelo das praias</h3>
 <p>64 casos (16 direções × 4 períodos, 6 a 15 s) sobre uma grade de 30 m da ilha inteira: refração, empinamento e abrigo, linear. Em cada praia a altura é lida em sondas de 1 a 9–13 m de fundo; a onda quebra onde chega a ${S.C.GAMMA.toLocaleString('pt-BR')} vez a profundidade, marchando do fundo para a beira (e o maior valor de uma sonda da zona de arrebentação, quando um trecho da praia concentra a ondulação). No Swell original as sondas paravam em 4,5–6,5 m e 14 das 21 praias de mar aberto nunca passavam de 2,5 m, qualquer que fosse o mar; agora o limite é de 4,9 a 7,2 m.</p>
@@ -66,13 +66,13 @@ ${rules('pt')}
 <p>Mar e vento: ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III / GFS-Wave (domínio público). Erro medido: satélites altímetros (NOAA RADS), as faixas calibradas do Janela no ponto da borda da ilha. Maré e temperatura da água: Generated using E.U. Copernicus Marine Service Information (doi:10.48670/moi-00016). Espuma vista do espaço: contém dados modificados do Copernicus Sentinel 2022–2026. Fundo do mar: carta náutica 1902 da Marinha do Brasil (DHN/CHM; uso não comercial, não serve para navegação) e GMRT (CC BY 4.0). Mapa e locais: © OpenStreetMap, Protomaps. Modelo da ilha: o Swell original (frontier-apps), com os mesmos 64 casos. Código (MIT): <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell">apps/swell</a>.</p>`;
   const en = `
 <h3>What it is</h3>
-<p>For 34 beaches of Florianópolis and six ways of using the sea: where and when it is good over the next 7 days — and, kept apart, what is <b>decided</b> and what is only <b>forecast</b>. Swell starts from the open sea at the island's eastern edge: ECMWF's and NOAA's forecast, read once a day (the 00 UTC run, every 3 hours), with its <b>error measured by satellites</b>. A wave model of the whole island, over the seafloor of the Brazilian Navy's chart 1902, carries each swell to each beach: it bends round the headlands, grows in the shallows, fades behind them and breaks.</p>
+<p>For 34 beaches of Florianópolis, the sea at each one at the hour you choose — the waves at the shore and the wind — and, in six icons, what that sea means for surfing, sailing, paddling, swimming, fishing and boating; kept apart, what is <b>decided</b> and what is only <b>forecast</b>. Picking an activity only highlights the beaches good for it: the hour, the waves and the wind stay the same. Swell starts from the open sea at the island's eastern edge: ECMWF's and NOAA's forecast, read once a day (the 00 UTC run, every 3 hours), with its <b>error measured by satellites</b>. A wave model of the whole island, over the seafloor of the Brazilian Navy's chart 1902, carries each swell to each beach: it bends round the headlands, grows in the shallows, fades behind them and breaks.</p>
 <h3>What is decided</h3>
 <p>Only the wave limits, and always over the <b>measured band</b>. The open sea's band comes from the error the satellites measured at this edge (${b24.ecmwf.n} passes at 24 h lead, 2023–2026, the band claims ${b24.ecmwf.coverage.replace('/', ' of ')}); the one used is the union of ECMWF's band and NOAA's, which over the 15 test months it never saw covered ${(100 * H.coverage).toFixed(1)}% of ${H.n.toLocaleString('en')} satellite measurements. The island model carries both edges of the band to each beach (the breaking height grows with the sea, so the beach's band is exact over the model). If even the low edge is over the limit: <b>DANGER</b>, decided. If the band straddles it: <b>CAUTION</b>, with how far it is from turning. If the whole band is under it: under the limit — which <b>does not mean safe</b>.</p>
 <p>The arithmetic is redone in your browser with the same files that made the published day, and compared with it (a sha256 over every height and every decision). Each beach and hour's certificate can be downloaded and redone by anyone.</p>
 ${rules('en')}
 <h3>What is forecast</h3>
-<p>The <b>wind</b> (ECMWF at 10 m, on the grid over the island: its error at the beaches has not been measured yet), the score that ranks the beaches, the longshore currents (from the waves' height and angle), the rip-current risk (a rule of thumb), the bays' chop (from the wind), the tide and the water temperature (Copernicus). Forecast warnings carry a dashed border; what is decided, a solid one and capitals.</p>
+<p>The <b>wind</b> (ECMWF at 10 m, on the grid over the island: its error at the beaches has not been measured yet), the score that gives each activity its icon (good, doable, poor), the longshore currents (from the waves' height and angle), the rip-current risk (a rule of thumb), the bays' chop (from the wind), the tide and the water temperature (Copernicus). Forecast warnings carry a dashed border; what is decided, a solid one and capitals.</p>
 <p><b>Measured, neither forecast nor decision</b>: how much each beach usually breaks, seen from space — in 190 cloud-free Sentinel-2 passes (2022–2026), the share of its surf zone that was white with foam. It says what the beach is like (wide and shallow foams more for the same sea), not what the day will be.</p>
 <h3>The beach model</h3>
 <p>64 cases (16 directions × 4 periods, 6 to 15 s) on a 30 m grid of the whole island: refraction, shoaling and shelter, linear. At each beach the height is read at probes from 1 to 9–13 m deep; the wave breaks where it reaches ${S.C.GAMMA} times the depth, marching in from deep water (and the largest value at a surf-zone probe, where one stretch of the beach focuses the swell). In the original Swell the probes stopped at 4.5–6.5 m and 14 of the 21 open-sea beaches could never read more than 2.5 m whatever the sea did; the limit is now 4.9 to 7.2 m.</p>
@@ -95,7 +95,11 @@ function panel() {
   return `
 <div class="sw-grab" aria-hidden="true"></div>
 <div class="sw-phead">
-  <p id="sw-answer">O mar de Florianópolis, praia por praia: onde e quando está bom para surfar, velejar, remar, nadar, pescar e sair de barco nos próximos 7 dias — com o que está decidido sobre o erro medido da previsão.</p>
+  <div id="sw-when"></div>
+  <p id="sw-sea">O mar de Florianópolis, praia por praia: a onda e o vento em cada praia, e o que isso quer dizer para surfar, velejar, remar, nadar, pescar e sair de barco — com o perigo decidido sobre o erro medido da previsão.</p>
+  <div class="sw-cap" id="sw-cap"></div>
+  <div class="sw-acts" id="sw-acts" role="group" aria-label="atividades"></div>
+  <p id="sw-focus" hidden></p>
   <nav id="sw-days" aria-label="dia"></nav>
   <div class="sw-hourrow"><div class="sw-scrub"><canvas id="sw-daystrip"></canvas><input id="sw-hour" type="range" min="0" max="7" step="1" aria-label="horário"></div><span id="sw-hour-v"></span><button class="sw-btn" id="sw-now">agora</button></div>
 </div>
@@ -107,15 +111,17 @@ function panel() {
 </nav>
 <div class="sw-scroll">
   <section class="sw-pane on" data-pane="beaches">
-    <div class="sw-filter" role="radiogroup" aria-label="atividade"></div>
-    <section id="sw-favs" hidden></section>
-    <section id="sw-rank"><h2 class="sw-sec" id="sw-rank-h">As praias</h2><ol></ol></section>
+    <div id="sw-legend"></div>
+    <section id="sw-rank"></section>
     <section id="sw-card" hidden></section>
   </section>
   <section class="sw-pane" data-pane="week">
     <div id="sw-tl-line"></div>
     <canvas id="sw-tl-chart"></canvas>
     <div class="sw-tlb"><button class="sw-btn" id="sw-tl-prev">−3 h</button><button class="sw-btn" id="sw-tl-now">agora</button><button class="sw-btn" id="sw-tl-next">+3 h</button><span class="sp"></span><span class="sw-note" id="sw-tl-scope"></span></div>
+    <h2 class="sw-sec" id="sw-grid-h"></h2>
+    <canvas id="sw-tl-grid"></canvas>
+    <p class="sw-note" id="sw-grid-n"></p>
     <div class="sw-legend" id="sw-tl-legend"></div>
   </section>
   <section class="sw-pane" data-pane="map">
@@ -129,6 +135,7 @@ function extra() {
 <canvas id="sw-windfx"></canvas>
 <canvas id="sw-flowfx"></canvas>
 <div id="sw-toast" role="status"></div>
+<div id="sw-tip" role="tooltip" hidden></div>
 <section id="sw-sheet-how" class="sw-sheet" hidden><button class="sw-btn x" data-close></button><h2 id="sw-how-title"></h2><div id="sw-how-body"></div></section>
 <section id="sw-sheet-board" class="sw-sheet" hidden><button class="sw-btn x" data-close></button><h2 id="sw-board-title"></h2><div id="sw-board-body"></div></section>
 <section id="sw-sheet-sos" class="sw-sheet" hidden><button class="sw-btn x" data-close></button><h2 id="sw-sos-title"></h2><div id="sw-sos-body"></div></section>`;

@@ -9,17 +9,23 @@ offshore energy; Swell public, a beach app). It was built in frontier-apps (sess
 swell-floripa.vercel.app as a tester build) and ported here on 2026-10-08: same island model, same interface, new
 foundations.
 
-## What a visitor gets
-1. **The answer** — one sentence for the chosen activity: the best beach, the window, the height, the swell, the wind.
-2. **The list** — the beaches best first, each with its height and its measured band, the forecast word
-   (bom / dá pra surfar / fraco), and — set apart — what is DECIDED (▲ PERIGO, ATENÇÃO) and the forecast warnings.
-3. **A beach** — the number that matters, the band, why (how much of each swell reaches it), what is decided and
-   how far it is from turning, the conditions, safety (the nearest lifeguard, the emergency numbers), the week, and a
-   certificate that can be downloaded and re-run.
-4. **The map** — the island model's crest lines (refraction, shelter, white water where the waves break), the wind as
-   moving streaks, the longshore currents as arrows, the lifeguard posts and services.
-5. **Como sabemos / Placar** — the method in plain words, every rule printed from the one table, the sources, the
-   limits; the scoreboard of the open sea Swell starts from.
+## What a visitor gets (the one-clock redesign, 2026-10-08, operator: "the activities must be only icons that communicate the conditions to that activity, like legends … do not change the wind and waves")
+1. **One clock, one sea.** The reader picks a day and an hour (default: now, or the next daylight step); the map's
+   crests and wind, every beach's waves and wind, the card and the week are all that step. Nothing else moves the clock.
+2. **The top** — the time, the open sea (height, direction, period, its measured band) and the wind, then six activity
+   chips: how many beaches each activity is good at, now (▲ n where a danger is decided). Tapping one only HIGHLIGHTS:
+   the beaches not good for it dim, a line names where it is good and its best window of the day, with a button to go
+   there — the reader moves the clock, or not.
+3. **The list** — every beach by region (Norte, Leste, Sul, Continente, Baías), always in the same order: the waves at
+   the shore with their measured band, the wind there, the day's wave curve, and SIX ICONS — one per activity, the
+   shape its condition (filled bom · ringed dá pra ir · dim fraco · red ▲ perigo decided · violet ring atenção, the band
+   straddles a decided limit · dashed aviso de previsão). Hover or focus an icon: why. Tap it: the beach, at that activity.
+4. **A beach** — the waves and the wind (two numbers that never change with the activity), the band, why, then the six
+   activities as rows (word + the number that matters; open one for its rule and what is decided, both ways it can
+   turn), the conditions, the week with an activity × hour grid, safety, the certificate.
+5. **The week tab** — the sea and the wind through the week, and the grid "when each activity is good" (for the island:
+   the best beach at each hour; for an open beach: its own).
+6. **The map** — the island model's crests, wind streaks, currents, and each beach's activity icons in the same grammar.
 
 ## What changed from frontier's Swell, and why
 | frontier (tester build) | here |
