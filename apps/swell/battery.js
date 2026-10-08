@@ -57,6 +57,14 @@ ok('the port\'s fix, measured: every ocean beach has a probe at 8.8 m or deeper 
   for (const b of oc) assert.ok(b.probes[b.probes.length - 1].h >= 8.8, b.name + ' deepest ' + b.probes[b.probes.length - 1].h);
 });
 
+ok('foam: the satellites\' trait is pinned, names only known beaches, and its ocean ranks are 1..N by median', () => {
+  const F = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'foam.json'), 'utf8'));
+  for (const nm of Object.keys(F.beaches)) assert.ok(byName(nm), nm);
+  const oc = Object.entries(F.beaches).filter(([, v]) => v.rankOcean).sort((a, b) => a[1].rankOcean - b[1].rankOcean);
+  assert.strictEqual(oc.length, F.oceanBeaches);
+  oc.forEach(([, v], k) => { assert.strictEqual(v.rankOcean, k + 1); if (k) assert.ok(v.median <= oc[k - 1][1].median); });
+});
+
 /* ---- the breaking height: continuous, non-decreasing in the sea's size, at every beach, for several seas ---- */
 const SEAS = [[{ h: 1, p: 10, d: 135 }], [{ h: 1, p: 13, d: 180 }, { h: 0.6, p: 7, d: 90 }], [{ h: 0.5, p: 4, d: 45 }, { h: 1, p: 15, d: 157.5 }], [{ h: 1, p: 6, d: 22.5 }]];
 function sweep(b, parts, fn) {

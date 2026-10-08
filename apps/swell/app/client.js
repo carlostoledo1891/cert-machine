@@ -117,6 +117,7 @@ var STR = {
     kind_ocean: 'mar aberto', kind_bay: 'baía', kind_lagoon: 'lagoa', kind_island: 'ilha',
     runChip: 'rodada {d} 00 UTC', introSub: 'Lendo o mar aberto (ECMWF e NOAA), a faixa medida por satélite e calculando as 34 praias…',
     texBad: 'Uma textura do modelo da ilha não bateu com o sha256 fixado: as ondas do mapa não são desenhadas.',
+    fromSpace: 'Do espaço', foamRow: 'espuma em {p}% da zona de arrebentação (mediana de {n} passagens sem nuvens do Sentinel-2, {from}–{to}){rank}', foamRank: ' · a {k}ª de {of} praias de mar aberto que mais quebra', measured: 'medido',
   },
   en: {
     tagline: 'The sea of Florianópolis, beach by beach', how: 'How we know', board: 'Scoreboard', sos: 'Emergency', close: 'Close',
@@ -186,6 +187,7 @@ var STR = {
     kind_ocean: 'open sea', kind_bay: 'bay', kind_lagoon: 'lagoon', kind_island: 'island',
     runChip: 'run {d} 00 UTC', introSub: 'Reading the open sea (ECMWF and NOAA), the satellite-measured band, and computing the 34 beaches…',
     texBad: 'An island-model texture did not match its pinned sha256: the map\'s waves are not drawn.',
+    fromSpace: 'From space', foamRow: 'foam over {p}% of the surf zone (median of {n} cloud-free Sentinel-2 passes, {from}–{to}){rank}', foamRank: ' · {k} of {of} open-sea beaches by how much it breaks', measured: 'measured',
   },
 };
 var LANG = { cur: 'pt' };
@@ -571,7 +573,7 @@ function renderCard() {
       '<dt>' + t('breakH') + '</dt><dd>' + (c.hb == null ? '—' : metres(c.hb)) + (c.cur && c.cur.dom ? ' · ' + num(c.cur.dom.p, 0) + ' s · ' + dirShort(c.cur.dom.d) : '') + '</dd>' +
       '<dt>' + t('swellOff') + '</dt><dd>' + (c.off == null ? '—' : metres(c.off) + (c.sea && c.sea.lo != null ? ' <span class="fc">(' + num(c.sea.lo, 1) + '–' + num(c.sea.hi, 1) + ')</span>' : '')) + '<br>' + parts + '</dd>' +
       '<dt>' + t('windH') + '</dt><dd>' + windWords(c.wind.U, c.wc) + ' · ' + num(c.wind.U * 3.6, 0) + ' km/h (' + num(c.wind.U * KN, 0) + ' ' + t('knots') + ') ' + t('from') + ' ' + dirShort(c.wind.dir) + ' · ' + t('gusts') + ' ' + num(c.wind.gust * 3.6, 0) + ' km/h <span class="fc">ECMWF</span></dd>' +
-      '<dt>' + t('currentH') + '</dt><dd>' + cur + '</dd>' +
+      '<dt>' + t('currentH') + '</dt><dd>' + cur + '</dd>' + foamRow(b) +
       '<dt>' + t('tide') + '</dt><dd>' + (tide ? (tide.level >= 0 ? '+' : '−') + metres(Math.abs(tide.level), 2) + ' · ' + tide.trend + ' <span class="fc">Copernicus</span>' : '—') + '</dd>' +
       '<dt>' + t('water') + ' · ' + t('air') + '</dt><dd>' + (sst != null ? num(sst, 1) + ' °C' : '—') + ' · ' + (c.wind.t2 != null ? num(c.wind.t2, 0) + ' °C' : '—') + (rain != null && rain >= 0.2 ? ' · ' + t('rain').toLowerCase() + ' ' + num(rain, 1) + ' mm' : '') + '</dd>' +
     '</dl>' +
@@ -590,6 +592,12 @@ function renderCard() {
   el.querySelector('[data-sos]').onclick = openSOS;
   el.querySelectorAll('.acts-here .ah').forEach(function (x) { x.onclick = function () { setAct(x.dataset.act); }; });
   requestAnimationFrame(function () { drawWeek(el.querySelector('canvas.week'), b); });
+}
+/* the beach's measured trait (apps/swell/sim/foam.py): how much it usually breaks, as the satellites saw it */
+function foamRow(b) {
+  var F = CFG.foam, f = F && F.beaches[b.name]; if (!f) return '';
+  var rank = f.rankOcean ? t('foamRank', { k: f.rankOcean, of: F.oceanBeaches }) : '';
+  return '<dt>' + t('fromSpace') + '</dt><dd>' + t('foamRow', { p: Math.round(100 * f.median), n: f.n, from: F.from.slice(0, 4), to: F.to.slice(0, 4), rank: rank }) + ' <span class="fc">' + t('measured') + ' · Copernicus Sentinel-2</span></dd>';
 }
 function certBlock(b, i) {
   var D = A.day, ck = A.check, st = D.steps[i];

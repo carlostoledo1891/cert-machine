@@ -5,7 +5,8 @@
   "island/*.png, beaches.json (depths, K, probes)": "derived from DHN nautical chart 1902 (Marinha do Brasil, 1:100 000) + its soundings, GMRT outside the chart: NON-COMMERCIAL, NOT FOR NAVIGATION — LICENSE-DHN.md",
   "tiles/floripa.pmtiles": "© OpenStreetMap contributors (ODbL), tiles by Protomaps — extract of build.protomaps.com 2026-10-05, bbox -48.75,-27.95,-48.25,-27.25, z<=15 (go-pmtiles v1.31.2)",
   "pois.json": "© OpenStreetMap contributors (ODbL), Overpass snapshot 2026-10-05; may be incomplete",
-  "code (everything else in apps/swell)": "MIT"
+  "code (everything else in apps/swell)": "MIT",
+  "foam.json": "Contains modified Copernicus Sentinel data 2022-2026 (free and open) — sim/foam.py over frontier's 232 Sentinel-2 pass records (manifest sha256 inside the file)"
  },
  "sources": {
   "island model cases": "frontier-apps experiments/swell/island/cases/K-<dir>-<T>.npz (64 files, 945 MB, not lifted) and depth.npz — their sha256 are in beaches.json sources.sha256; rebuilt by frontier island.py in ~13 min (sim/island.py here is the same solver, with its battery)",
@@ -16,15 +17,9 @@
    "sha256": "456a7fb26851ae4446386d402ffe1438fab7cea86e735316bb1e2e5d1cf8dc54",
    "bytes": 145137
   },
-  "pois.json": {
-   "sha256": "8b4f3bdc9cd0692dd173c03d5096b12f9fc106d7683d2620e6df5b9236e00029",
-   "bytes": 22235,
-   "frontier": "site/swell/data/pois.json"
-  },
-  "tiles/floripa.pmtiles": {
-   "sha256": "9a3018af839f515ce9bbd274d0716c2de0ea8b9a48cb5a67a1531bd8c702c6db",
-   "bytes": 9594122,
-   "frontier": "site/swell/tiles/floripa.pmtiles"
+  "foam.json": {
+   "sha256": "1feb014c240b96b3379082f1dd21120079be761b7eea53e98f0870c2786a8b0e",
+   "bytes": 4237
   },
   "island/depth.png": {
    "sha256": "89a8dee093816ce03bfbf5ad07cdee10d70712e61400972bcc7a2210e774c831",
@@ -354,6 +349,16 @@
    "sha256": "9b543bfcc6d43c36129484f0cb72ce2f19b36f42338e48cb8d4b8409154df4e3",
    "bytes": 696719,
    "frontier": "site/swell/data/island/w-337.5-15.png"
+  },
+  "pois.json": {
+   "sha256": "8b4f3bdc9cd0692dd173c03d5096b12f9fc106d7683d2620e6df5b9236e00029",
+   "bytes": 22235,
+   "frontier": "site/swell/data/pois.json"
+  },
+  "tiles/floripa.pmtiles": {
+   "sha256": "9a3018af839f515ce9bbd274d0716c2de0ea8b9a48cb5a67a1531bd8c702c6db",
+   "bytes": 9594122,
+   "frontier": "site/swell/tiles/floripa.pmtiles"
   }
  }
 }

@@ -1,0 +1,236 @@
+{
+ "what": "How much of each beach's surf zone was white foam in clear Sentinel-2 passes: a MEASURED trait of the beach (its shape and exposure together), not a forecast and never decided. sim/foam.py, frontier's scene rules.",
+ "licence": "Contains modified Copernicus Sentinel data 2022-2026 (free and open; ESA/Copernicus), read from the Element84 earth-search COGs on AWS Open Data.",
+ "rule": "passes from 2022-01-01; deep-water NIR <= 0.035; per beach clear >= 0.7 and deep reference <= 0.04",
+ "scenes": 190,
+ "from": "2022-01-01",
+ "to": "2026-09-25",
+ "oceanBeaches": 17,
+ "source": {
+  "dir": "frontier-apps experiments/swell/learn/s2 (2026-10-06)",
+  "files": 232,
+  "manifestSha256": "9d9fab2fd8f0884b907afc06e9d5ad025619825fc5d93fde9008ab0d6f725ba5"
+ },
+ "beaches": {
+  "Armação": {
+   "n": 173,
+   "median": 0.096,
+   "mean": 0.133,
+   "q25": 0.045,
+   "q75": 0.181,
+   "rankOcean": 15
+  },
+  "Barra da Lagoa": {
+   "n": 171,
+   "median": 0.136,
+   "mean": 0.152,
+   "q25": 0.07,
+   "q75": 0.204,
+   "rankOcean": 14
+  },
+  "Brava": {
+   "n": 165,
+   "median": 0.266,
+   "mean": 0.263,
+   "q25": 0.152,
+   "q75": 0.36,
+   "rankOcean": 9
+  },
+  "Cachoeira do Bom Jesus": {
+   "n": 151,
+   "median": 0.0,
+   "mean": 0.017,
+   "q25": 0.0,
+   "q75": 0.001
+  },
+  "Caieira da Barra do Sul": {
+   "n": 76,
+   "median": 0.004,
+   "mean": 0.011,
+   "q25": 0.003,
+   "q75": 0.005
+  },
+  "Campeche": {
+   "n": 173,
+   "median": 0.389,
+   "mean": 0.413,
+   "q25": 0.257,
+   "q75": 0.559,
+   "rankOcean": 7
+  },
+  "Canasvieiras": {
+   "n": 70,
+   "median": 0.001,
+   "mean": 0.005,
+   "q25": 0.0,
+   "q75": 0.005
+  },
+  "Daniela": {
+   "n": 68,
+   "median": 0.062,
+   "mean": 0.115,
+   "q25": 0.053,
+   "q75": 0.167
+  },
+  "Galheta": {
+   "n": 167,
+   "median": 0.538,
+   "mean": 0.535,
+   "q25": 0.401,
+   "q75": 0.653,
+   "rankOcean": 5
+  },
+  "Ilha do Campeche": {
+   "n": 179,
+   "median": 0.158,
+   "mean": 0.174,
+   "q25": 0.145,
+   "q75": 0.189
+  },
+  "Ingleses": {
+   "n": 171,
+   "median": 0.015,
+   "mean": 0.038,
+   "q25": 0.001,
+   "q75": 0.045,
+   "rankOcean": 17
+  },
+  "Joaquina": {
+   "n": 173,
+   "median": 0.747,
+   "mean": 0.713,
+   "q25": 0.589,
+   "q75": 0.859,
+   "rankOcean": 1
+  },
+  "Jurerê": {
+   "n": 69,
+   "median": 0.0,
+   "mean": 0.013,
+   "q25": 0.0,
+   "q75": 0.001
+  },
+  "Lagoinha do Leste": {
+   "n": 181,
+   "median": 0.239,
+   "mean": 0.254,
+   "q25": 0.177,
+   "q75": 0.322,
+   "rankOcean": 10
+  },
+  "Matadeiro": {
+   "n": 175,
+   "median": 0.054,
+   "mean": 0.065,
+   "q25": 0.025,
+   "q75": 0.085,
+   "rankOcean": 16
+  },
+  "Mole": {
+   "n": 155,
+   "median": 0.572,
+   "mean": 0.588,
+   "q25": 0.455,
+   "q75": 0.718,
+   "rankOcean": 2
+  },
+  "Morro das Pedras": {
+   "n": 171,
+   "median": 0.203,
+   "mean": 0.232,
+   "q25": 0.102,
+   "q75": 0.323,
+   "rankOcean": 12
+  },
+  "Moçambique": {
+   "n": 148,
+   "median": 0.557,
+   "mean": 0.566,
+   "q25": 0.453,
+   "q75": 0.67,
+   "rankOcean": 4
+  },
+  "Naufragados": {
+   "n": 110,
+   "median": 0.177,
+   "mean": 0.2,
+   "q25": 0.125,
+   "q75": 0.271,
+   "rankOcean": 13
+  },
+  "Ponta das Canas": {
+   "n": 149,
+   "median": 0.022,
+   "mean": 0.032,
+   "q25": 0.019,
+   "q75": 0.025
+  },
+  "Praia do Forte": {
+   "n": 69,
+   "median": 0.017,
+   "mean": 0.022,
+   "q25": 0.008,
+   "q75": 0.026
+  },
+  "Pântano do Sul": {
+   "n": 170,
+   "median": 0.395,
+   "mean": 0.44,
+   "q25": 0.201,
+   "q75": 0.67,
+   "rankOcean": 6
+  },
+  "Ribeirão da Ilha": {
+   "n": 73,
+   "median": 0.015,
+   "mean": 0.02,
+   "q25": 0.012,
+   "q75": 0.017
+  },
+  "Sambaqui": {
+   "n": 69,
+   "median": 0.065,
+   "mean": 0.073,
+   "q25": 0.059,
+   "q75": 0.072
+  },
+  "Santinho": {
+   "n": 156,
+   "median": 0.563,
+   "mean": 0.532,
+   "q25": 0.369,
+   "q75": 0.666,
+   "rankOcean": 3
+  },
+  "Santo Antônio de Lisboa": {
+   "n": 71,
+   "median": 0.036,
+   "mean": 0.046,
+   "q25": 0.03,
+   "q75": 0.043
+  },
+  "Saquinho": {
+   "n": 171,
+   "median": 0.216,
+   "mean": 0.232,
+   "q25": 0.151,
+   "q75": 0.28,
+   "rankOcean": 11
+  },
+  "Solidão": {
+   "n": 164,
+   "median": 0.353,
+   "mean": 0.377,
+   "q25": 0.217,
+   "q75": 0.497,
+   "rankOcean": 8
+  },
+  "Tapera": {
+   "n": 71,
+   "median": 0.046,
+   "mean": 0.047,
+   "q25": 0.043,
+   "q75": 0.051
+  }
+ }
+}
