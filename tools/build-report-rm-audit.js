@@ -103,15 +103,15 @@ if (rows.length !== 52) die('expected 52 corpus rows, found ' + rows.length);
 const printed = rows.filter(r => r.id !== CORRECTED_ID);
 const corrected = rows.find(r => r.id === CORRECTED_ID);
 if (printed.length !== 51) die('expected 51 printed rows, found ' + printed.length);
-const hits = printed.filter(r => r.verdict === 'HIT');
-const rejects = printed.filter(r => r.verdict === 'REJECT');
+const hits = printed.filter(r => r.verdict === 'CERTIFIED');
+const rejects = printed.filter(r => r.verdict === 'REFUTED');
 if (hits.length !== 50 || rejects.length !== 1) die('printed verdicts moved: ' + hits.length + ' HIT, ' + rejects.length + ' REJECT');
 const refuted = rejects[0];
 if (refuted.id !== 'rm-zo-z5z3b-printed' || !/sign slip/.test(refuted.text)) die('the refutation is not the recorded one');
-if (!corrected || corrected.verdict !== 'HIT') die('the corrected row did not certify');
+if (!corrected || corrected.verdict !== 'CERTIFIED') die('the corrected row did not certify');
 if (refuted.enclosure[0] !== corrected.enclosure[0] || refuted.enclosure[1] !== corrected.enclosure[1]) die('printed and corrected rows no longer share one enclosure');
 const flagship = printed.filter(r => /NEW AND UNPROVEN/.test(r.status));
-const flagshipHits = flagship.filter(r => r.verdict === 'HIT');
+const flagshipHits = flagship.filter(r => r.verdict === 'CERTIFIED');
 if (flagship.length !== 39 || flagshipHits.length !== 38) die('expected 39 printed "new and unproven" rows with 38 surviving, found ' + flagship.length + '/' + flagshipHits.length);
 for (const [src] of SHEETS) if (!rows.some(r => r.source === src)) die('no rows from ' + src);
 const maxWidth = Math.max(...hits.map(r => r.width));
@@ -167,9 +167,9 @@ B.push(C.stats([
    in words, never left to colour. */
 {
   const cells = printed.map(r => ({
-    token: r.verdict === 'HIT' ? 'var(--c-2)' : 'var(--c-1)',
+    token: r.verdict === 'CERTIFIED' ? 'var(--c-2)' : 'var(--c-1)',
     k: r.id,
-    v: (r.verdict === 'HIT' ? 'SURVIVES' : 'REFUTED') + ' · width ' + r.width.toExponential(2)
+    v: (r.verdict === 'CERTIFIED' ? 'SURVIVES' : 'REFUTED') + ' · width ' + r.width.toExponential(2)
        + (/NEW AND UNPROVEN/.test(r.status) ? ' · new and unproven' : '')
   }));
   const fig = CH.strip({
@@ -252,7 +252,7 @@ B.push(C.section({
       r.status,
       { raw: '<span class="m">' + C.esc(r.cf) + '</span>' },
       { raw: '<span class="m">' + C.esc(r.form) + '</span>' },
-      { raw: r.verdict !== 'HIT' ? '<strong>REFUTED</strong>' : (r.id === CORRECTED_ID ? 'SURVIVES (correction)' : 'SURVIVES') },
+      { raw: r.verdict !== 'CERTIFIED' ? '<strong>REFUTED</strong>' : (r.id === CORRECTED_ID ? 'SURVIVES (correction)' : 'SURVIVES') },
       fmtW(r.width)
     ])
   })

@@ -33,7 +33,7 @@ for (let i = 0; ; i++) {
   const o = FAM.enumerate(i); if (!o) break;
   if (o.source !== 'rm_zeta3.pdf') continue;
   const c = FAM.certify(o);
-  if (c.verdict !== 'HIT') die(o.id + ' did not certify: ' + (c.why || c.verdict));
+  if (c.verdict !== 'CERTIFIED') die(o.id + ' did not certify: ' + (c.why || c.verdict));
   pin = c.extra.sourcePin;
   rows.push({ id: o.id, status: o.status, original: o.original,
     form: c.extra.form, width: c.extra.width, depth: c.extra.depth,

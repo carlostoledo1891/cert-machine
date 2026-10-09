@@ -36,8 +36,8 @@ for (let i = 0; ; i++) {
 const c0enc = certs['erdos852-c0-enclosure'], c0aud = certs['erdos852-c0-digits'];
 const csenc = certs['erdos852-cstar-enclosure'], csaud = certs['erdos852-cstar-digits'];
 if (!c0enc || !c0aud || !csenc || !csaud) die('expected 4 family objects');
-if (c0enc.cert.verdict !== 'HIT' || c0aud.cert.verdict !== 'HIT') die('c0 verdicts moved');
-if (csenc.cert.verdict !== 'HIT' || csaud.cert.verdict !== 'REJECT') die('C* verdicts moved');
+if (c0enc.cert.verdict !== 'CERTIFIED' || c0aud.cert.verdict !== 'CERTIFIED') die('c0 verdicts moved');
+if (csenc.cert.verdict !== 'CERTIFIED' || csaud.cert.verdict !== 'REFUTED') die('C* verdicts moved');
 if (c0aud.cert.extra.decision.verdict !== 'VERIFIED_ROUNDED') die('c0 audit is no longer VERIFIED_ROUNDED');
 if (csaud.cert.extra.decision.verdict !== 'REFUTED') die('C* audit is no longer REFUTED');
 const c0digits = c0enc.cert.extra.certifiedDigits;
@@ -72,8 +72,8 @@ for (let i = 0; ; i++) {
   if (o.id === 'rm-zo-z5z3b-printed') rmPrinted = RM.certify(o);
   if (o.id === 'rm-zo-z5z3b-corrected') rmCorrected = RM.certify(o);
 }
-if (!rmPrinted || rmPrinted.verdict !== 'REJECT' || !/sign slip/.test(rmPrinted.text)) die('the RM row-3 refutation moved');
-if (!rmCorrected || rmCorrected.verdict !== 'HIT') die('the RM row-3 correction moved');
+if (!rmPrinted || rmPrinted.verdict !== 'REFUTED' || !/sign slip/.test(rmPrinted.text)) die('the RM row-3 refutation moved');
+if (!rmCorrected || rmCorrected.verdict !== 'CERTIFIED') die('the RM row-3 correction moved');
 const rmLHS = 2 / (2 * MINUS._frac.fToDouble(MINUS.zetaBracket(5, 2000).lo)
   - 2 * MINUS._frac.fToDouble(MINUS.zeta3Bracket(6000).lo) - 1);
 if (!(rmLHS < -1.4 && rmLHS > -1.6)) die('the RM printed LHS stopped being ~-1.5');

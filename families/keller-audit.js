@@ -22,6 +22,7 @@
    that fails any exact check is REFUTED, which for THIS family would be the
    discovery. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const K = require('#instruments/keller/keller.js');
 const Q = require('#instruments/interval/rational.js');
@@ -202,13 +203,13 @@ module.exports = {
   },
   key: (o) => o.source.split(',')[0] + '|' + o.n,
   certify(o) {
-    if (!o.claim) return { verdict: 'REFUSED', why: o.source };
+    if (!o.claim) return { verdict: V.REFUSED, why: o.source };
     /* R3: a transcription certifies against a byte sequence. If the pinned
        source has drifted, there is nothing the transcription points at. */
     let sourcePin = null;
     if (o.pin) {
       const pv = PIN.verify(o.pin);
-      if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.pin + ': ' + pv.why };
+      if (!pv.ok) return { verdict: V.REFUSED, why: 'source pin failed for ' + o.pin + ': ' + pv.why };
       sourcePin = { file: pv.file, sha256: pv.sha256 };
     }
     const a = K.audit(o.claim);
@@ -216,7 +217,7 @@ module.exports = {
       const d = Q.toDouble(a.det);
       const generated = !!o.meta && !o.published;
       return {
-        verdict: 'HIT',
+        verdict: V.CERTIFIED,
         enclosure: [d, d],                    /* the certified constant, exact */
         text: o.hessian
           ? 'the HESSIAN conjecture is FALSE in ' + o.n + ' variables: an explicit degree-14 integer polynomial whose '
@@ -249,11 +250,11 @@ module.exports = {
       };
     }
     if (a.verdict === 'REFUTED') {
-      return { verdict: 'REJECT', enclosure: [0, 0],
+      return { verdict: V.REFUTED, enclosure: [0, 0],
         text: 'the published claim FAILS its exact audit in dimension ' + o.n + ': ' + a.why
           + ' — for this family, a refutation would be the discovery',
         extra: { n: o.n, source: o.source, why: a.why, checks: a.checks } };
     }
-    return { verdict: 'REFUSED', why: a.why };
+    return { verdict: V.REFUSED, why: a.why };
   }
 };

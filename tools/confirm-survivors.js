@@ -15,7 +15,7 @@ const F = require(path.join(ROOT, 'families/oeis-closedform.js'));
 
 const hits = [];
 for (let i = 0; ; i++) { const e = F.enumerate(i); if (!e) break; if (!F.interesting(e)) continue;
-  const c = F.certify(e); if (c.verdict === 'HIT') hits.push(c.extra); }
+  const c = F.certify(e); if (c.verdict === 'CERTIFIED') hits.push(c.extra); }
 console.log('survivors to confirm: ' + hits.length);
 
 const out = [];

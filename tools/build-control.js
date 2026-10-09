@@ -252,6 +252,15 @@ function bat(name, argv, py) {
 const bats = BATTERIES.map(([n, c, note]) => ({ n, note, ok: bat(n, c, false) }))
   .concat(PY.map(([n, c, note]) => ({ n, note, ok: bat(n, c, true) })));
 const green = bats.filter(b => b.ok === true).length, ran = bats.filter(b => b.ok !== null).length;
+/* A RED BATTERY REFUSES THE PAGE (2026-10-09). Until this date the page was written with the
+   red row shown — a page that says "every battery it reports green was executed during this
+   build" is still true then, but a control page is also the record of a green build, and it
+   is not one. The escape hatch prints loudly and is for a known-flaky gate under repair only. */
+if (runBatteries && green !== ran) {
+  const red = bats.filter(b => b.ok === false).map(b => b.n);
+  if (process.env.CONTROL_ALLOW_RED) console.error('CONTROL BUILD: ' + red.length + ' red batteries (' + red.join('; ') + ') — writing anyway because CONTROL_ALLOW_RED is set');
+  else die('control build refused: ' + red.length + ' of ' + ran + ' batteries red — ' + red.join('; ') + ' (fix them, or CONTROL_ALLOW_RED=1 to write the page with the red rows shown)');
+}
 
 let drift = 'not run';
 { const o = sh('node tools/lift.js --check'); if (o) { const l = o.split('\n').find(x => x.startsWith('drift:')); if (l) drift = l.replace(/^drift:\s*/, ''); } }
@@ -276,9 +285,11 @@ B.push(C.header({
    does not close. */
 const refutedAll = (T.closedFormRefuted || 0) + (T.closedFormRefutedExact || 0);
 const decompose = commas(T.closedFormTested || 0) + ' tested = ' + commas(T.closedFormRefuted || 0)
-  + ' refuted in double + ' + commas(T.closedFormRefutedExact || 0) + ' refuted exactly in BigInt + '
+  + ' refuted by disjointness (every candidate an exact rational or an enclosure; see the erratum of 2026-10-09 below) + '
+  + commas(T.closedFormRefutedExact || 0) + ' refuted exactly in BigInt at the full digit length + '
   + commas(T.closedFormOnRecord || 0) + ' with the form already on the OEIS record + '
-  + commas(T.closedFormOpen || 0) + ' open + ' + commas(T.closedFormCandidates || 0) + ' surviving.';
+  + commas(T.closedFormOpen || 0) + ' open + ' + commas(T.closedFormCandidates || 0) + ' surviving'
+  + (T.closedFormRefusedForms ? '; ' + commas(T.closedFormRefusedForms) + ' rational-power forms refused, not tested' : '') + '.';
 
 B.push(C.stats([
   { k: 'objects generated', v: commas(T.generated || 0), n: 'Across ' + ledger.families.length + ' families, one engine.' },
@@ -329,8 +340,9 @@ B.push(C.section({
       { b: 'Every run carries forgeries that must fail.',
         raw: 'Deliberate near-misses are planted before anything real is graded — including one wrong by a '
           + 'billionth, invisible to any tolerance — and if one passes, the run aborts. ' + green + ' of ' + ran
-          + ' batteries were executed during this build, not remembered. Every genuine bug this project has '
-          + 'found was caught that way; none by reading code.' },
+          + ' batteries were executed during this build, not remembered. Every genuine bug this project found '
+          + 'before 2026-10-09 was caught that way; on 2026-10-09 an adversarial read of the certifier code found '
+          + 'six more (§7, the erratum), and <a href="/reports/methods-note.html">the methods note</a> counts both kinds.' },
       { b: 'Independence is independence from the CLAIMANT.',
         raw: 'When this machine decides someone else\'s claim it does not run their code, and their code is '
           + 'never in the trust path — ' + commas(claimsL.decided) + ' published claims decided that way so far. '
@@ -471,11 +483,13 @@ if (ledger.families.length) {
     { raw: C.m(commas(f.counts.generated)) },
     { raw: C.m(commas(f.counts.screened)) },
     { raw: C.m(f.counts.certified + ' → ' + f.counts.hits) },
+    { raw: C.m(commas(f.counts.refuted === undefined ? f.counts.rejects : f.counts.refuted)) },
+    { raw: C.m(commas(f.counts.refused) + (f.counts.unknown ? ' (' + f.counts.unknown + ' unknown word)' : '')) },
     { raw: f.truncated ? C.tag('cap reached', 'open') : C.tag('exhausted', 'dep') }
   ]);
   B.push(C.section({
     lab: '§4 · the families', title: 'What the engine is enumerating', wide: true,
-    bodyRaw: C.table({ cols: [{ h: 'family' }, { h: 'what a hit asserts' }, { h: 'generated', cls: 'v' }, { h: 'screened', cls: 'v' }, { h: 'certified → hit', cls: 'v' }, { h: 'stop' }], rows })
+    bodyRaw: C.table({ cols: [{ h: 'family' }, { h: 'what a certified object satisfies' }, { h: 'generated', cls: 'v' }, { h: 'screened', cls: 'v' }, { h: 'decided → certified', cls: 'v' }, { h: 'refuted', cls: 'v' }, { h: 'refused', cls: 'v' }, { h: 'stop' }], rows })
       + '<div class="col">' + C.pRaw('The screen is float and may only ever <em>prune</em>; nothing is admitted '
         + 'without an exact certificate. A family plugs in by supplying six functions — enumerate, value, '
         + 'interesting, certify, key, statement — and inherits the loop, the scale and the dedup.') + '</div>'
@@ -521,6 +535,53 @@ if (ledger.conjectures.length) {
         + ' Forms the 17-digit double screen could not separate were re-decided at the full published digit '
         + 'length in BigInt; forms OEIS already states are the record check working, not discoveries; the '
         + 'subtraction closes to zero and the engine refuses to write a ledger where it does not.') + '</div>'
+  }));
+}
+
+/* ---- §7 · the erratum of 2026-10-09 ----------------------------------------
+   The numbers this page carried before the repair, pinned to the bytes that carried
+   them (certs/erratum-2026-10-09.json), beside the numbers it carries now. A
+   correction is a row, and the counting rule applies to this page as to any claimant. */
+{
+  const ERR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erratum-2026-10-09.json'), 'utf8'));
+  const b = ERR.before, bt = b.totals || {};
+  const now = (f) => ledger.families.find(x => x.name === f.name) || { counts: {} };
+  const totRows = [
+    [{ raw: C.esc('closed forms refuted') },
+      { raw: C.m(commas(bt.closedFormRefuted || 0) + ' "refuted in double" + ' + commas(bt.closedFormRefutedExact || 0) + ' exactly') },
+      { raw: C.m(commas(T.closedFormRefuted || 0) + ' by disjointness + ' + commas(T.closedFormRefutedExact || 0) + ' exactly'
+        + (T.closedFormRefusedForms ? '; ' + commas(T.closedFormRefusedForms) + ' rational-power forms refused' : '')) }],
+    [{ raw: C.esc('closed forms tested') }, { raw: C.m(commas(bt.closedFormTested || 0)) }, { raw: C.m(commas(T.closedFormTested || 0)) }],
+    [{ raw: C.esc('surviving candidates') }, { raw: C.m(commas(bt.closedFormCandidates || 0)) }, { raw: C.m(commas(T.closedFormCandidates || 0)) }],
+    [{ raw: C.esc('the Newman statement') }, { raw: C.esc(b.newmanStatement || '') },
+      { raw: C.esc((ledger.families.find(x => x.name === 'newman-minmod') || {}).statement || '') }]
+  ];
+  const famRows = (b.families || []).map(f => {
+    const n = now(f).counts || {};
+    return [
+      { raw: C.m(f.name) },
+      { raw: C.m(commas(f.counts.hits) + ' hit · ' + commas(f.counts.rejects) + ' rejected · ' + commas(f.counts.refused) + ' refused') },
+      { raw: C.m(commas(n.hits || 0) + ' certified · ' + commas(n.refuted || 0) + ' refuted · ' + commas(n.refused || 0) + ' refused'
+        + (n.unknown ? ' · ' + n.unknown + ' unknown word' : '')) }
+    ];
+  });
+  B.push(C.section({
+    lab: '§7 · erratum', title: 'What this page said before 2026-10-09, and what it says now', wide: true,
+    bodyRaw: C.pRaw('Until 2026-10-09 the closed-form hunt compared FLOAT candidates — Math.sqrt(p/q), a midpoint times a rational, Math.pow, '
+        + 'Math.exp — against the certified enclosure and counted a miss as a refutation: exact for p/q (round-to-nearest is monotone), not '
+        + 'for the rest. The engine also counted REJECT — "did not clear the bar", straddling enclosures included — as a decision, and the '
+        + 'Newman family compared a candidate\'s lower end with the champion\'s lower end. ' + C.esc(ERR.mechanism && ERR.mechanism.history || '')
+        + ' Every candidate is now an exact rational or an enclosure and a form is refuted only on disjointness; one verdict module '
+        + '(instruments/verdict.js) splits REJECT into REFUTED and REFUSED and refuses an unknown word; the Newman bar is the champion '
+        + 'enclosure. The numbers before are pinned to commit ' + C.m(String(b.commit || '').slice(0, 12)) + ' and to the page bytes '
+        + C.m(String(b.index_html_sha256 || '').slice(0, 16) + '…') + ' (' + C.m('certs/erratum-2026-10-09.json') + '); the numbers now are this build\'s.')
+      + C.table({ cols: [{ h: 'count' }, { h: 'before' }, { h: 'now' }], rows: totRows })
+      + C.table({ cols: [{ h: 'family' }, { h: 'before: hit · rejected · refused' }, { h: 'now: certified · refuted · refused' }], rows: famRows })
+      + (ERR.rederived && Array.isArray(ERR.rederived.records)
+        ? C.pRaw('The kernel changed, so every record that pins the certifier modules\' digests was re-derived by the new bytes and compared with the record it replaced:')
+          + C.table({ cols: [{ h: 'record' }, { h: 'fields that moved' }, { h: 'decisions' }], rows: ERR.rederived.records.map(r => [
+            { raw: C.m(r.record) }, { raw: C.m((r.moved || []).join(', ')) }, { raw: C.esc(r.decisions) }]) })
+        : '')
   }));
 }
 

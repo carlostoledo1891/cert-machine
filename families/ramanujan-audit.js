@@ -30,6 +30,7 @@
    every normalization against its claimed value, so a transcription error
    cannot sit quietly. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const { enclose, decide } = require('#instruments/cf/cf.js');
 const MINUS = require('#instruments/cf/minus.js');
@@ -233,9 +234,9 @@ const SHEET2 = [
    (The printed convergent display also shows a_1 = 275 where the row's own
    a_n polynomial gives 75, and reuses n^8 numerators on rows whose b_n is
    -n^10/-n^14 — the polynomial column is the object; the display is not.)
-   Both directions are recorded: the row AS PRINTED (expected REJECT — a
+   Both directions are recorded: the row AS PRINTED (expected REFUTED — a
    certified refutation of a printed Ramanujan Machine row) and the CORRECTED
-   identity (expected HIT).
+   identity (expected CERTIFIED).
 
    Constants: zeta(3) from its defining series (zeta3Bracket, K = 6000);
    zeta(5), zeta(7) from the SAME convexity-tail argument generalized
@@ -254,7 +255,7 @@ const SHEET3 = [
   S3('rm-zo-z5z3a', 'NEW AND UNPROVEN', { p: 2, terms: [[2, 5], [6, 3]], c0: -9, text: '2/(2 zeta(5) + 6 zeta(3) - 9)' },
     7, [7, 23, 28, 22, 5, 2], 5, 6),
   S3('rm-zo-z5z3b-printed', 'NEW AND UNPROVEN — AS PRINTED', { p: 2, terms: [[2, 5], [-2, 3]], c0: -1, text: '2/(2 zeta(5) - 2 zeta(3) - 1)  [as printed]' },
-    3, [3, 15, 28, 22, 5, 2], 5, 6, 'REJECT'),
+    3, [3, 15, 28, 22, 5, 2], 5, 6, 'REFUTED'),
   S3('rm-zo-z5z3b-corrected', 'NEW AND UNPROVEN — SIGN-CORRECTED', { p: 2, terms: [[2, 5], [-2, 3]], c0: 1, text: '2/(2 zeta(5) - 2 zeta(3) + 1)  [corrected: printed -1 is a sign slip]' },
     3, [3, 15, 28, 22, 5, 2], 5, 6),
   S3('rm-zo-z5z3c', 'NEW AND UNPROVEN', { p: 64, terms: [[64, 5], [176, 3]], c0: -273, text: '64/(64 zeta(5) + 176 zeta(3) - 273)' },
@@ -288,7 +289,7 @@ function certifySheet3(o, sourcePin) {
   const spec = { b0: o.b0, aPoly, bPoly: o.b };
   const cert = { N0: o.band.N0, L: P.pOfInts(L), U: P.pOfInts(o.b) };
   const e = MINUS.encloseMinus(spec, cert, o.band.depth);
-  if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+  if (!e.ok) return { verdict: V.REFUSED, why: o.id + ': ' + e.why };
 
   /* the claimed value, bracketed in exact rationals: p / (sum c*zeta(s) + c0) */
   let Dlo = [BigInt(o.form.c0), 1n], Dhi = [BigInt(o.form.c0), 1n];
@@ -301,7 +302,7 @@ function certifySheet3(o, sourcePin) {
     else { Dlo = FR.fAdd(Dlo, [C[0] * z.hi[0], z.hi[1]]); Dhi = FR.fAdd(Dhi, [C[0] * z.lo[0], z.lo[1]]); }
   }
   const sgn = (x) => (x[0] < 0n ? -1 : x[0] > 0n ? 1 : 0);
-  if (sgn(Dlo) * sgn(Dhi) <= 0) return { verdict: 'REFUSED', why: o.id + ': denominator bracket straddles 0 — no finite form value certifiable' };
+  if (sgn(Dlo) * sgn(Dhi) <= 0) return { verdict: V.REFUSED, why: o.id + ': denominator bracket straddles 0 — no finite form value certifiable' };
   const p = BigInt(o.form.p);
   /* p/D over a sign-definite D: endpoints are p/Dhi and p/Dlo, ordered by sign */
   const inv = (x) => [x[0] < 0n ? -x[1] : x[1], x[0] < 0n ? -x[0] : x[0]];   /* 1/x with positive denominator */
@@ -322,7 +323,7 @@ function certifySheet3(o, sourcePin) {
     method: 'minus-CF backward interval evaluation from a PROVED sharp tail band; claimed value bracketed in exact rationals from certified zeta brackets; final comparison exact'
   };
   if (disjoint) {
-    return { verdict: 'REJECT', enclosure: [e.enclosure[0], e.enclosure[1]],
+    return { verdict: V.REFUTED, enclosure: [e.enclosure[0], e.enclosure[1]],
       text: 'CERTIFIED REFUTATION of a printed Ramanujan Machine row: ' + o.id + ' — the printed form ' + o.form.text
         + ' lies provably OUTSIDE the rigorous minus-CF enclosure [' + e.enclosure[0] + ', ' + e.enclosure[1] + ']. '
         + (o.id === 'rm-zo-z5z3b-printed'
@@ -330,10 +331,10 @@ function certifySheet3(o, sourcePin) {
           : 'The Machine\'s printed identity is false.'),
       extra };
   }
-  if (o.expect === 'REJECT') {
-    return { verdict: 'REFUSED', why: o.id + ': expected a refutation but the form bracket intersects the enclosure — transcription or expectation is wrong; investigate before recording anything' };
+  if (o.expect === 'REFUTED') {
+    return { verdict: V.REFUSED, why: o.id + ': expected a refutation but the form bracket intersects the enclosure — transcription or expectation is wrong; investigate before recording anything' };
   }
-  return { verdict: 'HIT', enclosure: [e.enclosure[0], e.enclosure[1]],
+  return { verdict: V.CERTIFIED, enclosure: [e.enclosure[0], e.enclosure[1]],
     text: o.id + (flagship ? ' — a row the Machine marks NEW AND UNPROVEN — ' : ': ') + o.form.text
       + ' lies inside a rigorous minus-CF enclosure of width ' + e.width.toExponential(2)
       + ' (form bracket width ' + formWidth.toExponential(2) + ') — the conjecture SURVIVES an UNCONDITIONAL audit: '
@@ -381,17 +382,17 @@ function certifySheet2(o, sourcePin) {
   let enc, width, method, checks = null, decidedForm = o.form, decidedAgainst = 'x';
   if (o.kind === 'pos') {
     const e = enclose({ b0: o.b0, a: (n) => evalIntPoly(o.a, n), b: (n) => evalIntPoly(o.b, n) }, N);
-    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    if (!e.ok) return { verdict: V.REFUSED, why: o.id + ': ' + e.why };
     enc = e.enclosure; width = e.width;
     method = 'positive-CF backward interval evaluation (tail in (0, a/b] proved)';
   } else if (o.kind === 'headshift') {
     const a1 = evalIntPoly(o.a, 1);
-    if (a1 >= 0) return { verdict: 'REFUSED', why: o.id + ': headshift row but a(1) >= 0' };
+    if (a1 >= 0) return { verdict: V.REFUSED, why: o.id + ': headshift row but a(1) >= 0' };
     const as = shiftInt(o.a), bs = shiftInt(o.b);
     const spec = { b0: bs[0], aPoly: as, bPoly: bs };
     const cert = { N0: o.band.N0, L: P.pOfInts(o.band.L), U: P.pOfInts(bs) };
     const e = MINUS.encloseMinus(spec, cert, o.band.depth);
-    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    if (!e.ok) return { verdict: V.REFUSED, why: o.id + ': ' + e.why };
     enc = e.enclosure; width = e.width; checks = e.checks;
     decidedForm = FORMS.headShiftMobius(o.form, o.b0, -a1);
     decidedAgainst = 'y (x = ' + o.b0 + ' + ' + (-a1) + '/y — a(1) < 0 moved aside by exact algebra; deciding y decides x)';
@@ -400,13 +401,13 @@ function certifySheet2(o, sourcePin) {
     const spec = { b0: o.b0, aPoly: o.a, bPoly: o.b };
     const cert = { N0: o.band.N0, L: P.pOfInts(o.band.L), U: P.pOfInts(o.b) };
     const e = MINUS.encloseMinus(spec, cert, o.band.depth);
-    if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+    if (!e.ok) return { verdict: V.REFUSED, why: o.id + ': ' + e.why };
     enc = e.enclosure; width = e.width; checks = e.checks;
     method = 'minus-CF backward interval evaluation from a PROVED tail band (U(n) = b(n): terminal containment and (I+) are identities)';
   }
 
   const d = FORMS.decideForm(enc, decidedForm, K);
-  if (d.verdict === 'REFUSED') return { verdict: 'REFUSED', why: o.id + ': ' + d.why };
+  if (d.verdict === 'REFUSED') return { verdict: V.REFUSED, why: o.id + ': ' + d.why };
   const extra = {
     id: o.id, source: o.source, sourcePin, status: o.status,
     form: formText, K: o.K, Kwidth: KB.width, cf: enc, width,
@@ -417,12 +418,12 @@ function certifySheet2(o, sourcePin) {
       o.K === 'pi2' ? 'pi^2 from the Machin enclosure, squared' : 'ln 2 from the atanh series'
   };
   if (d.disjoint) {
-    return { verdict: 'REJECT', enclosure: [enc[0], enc[1]],
+    return { verdict: V.REFUTED, enclosure: [enc[0], enc[1]],
       text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + formText
         + ' lies provably OUTSIDE the rigorous CF enclosure. The Machine\'s conjecture is FALSE.',
       extra };
   }
-  return { verdict: 'HIT', enclosure: [enc[0], enc[1]],
+  return { verdict: V.CERTIFIED, enclosure: [enc[0], enc[1]],
     text: o.id + (flagship ? ' — a row the Machine marks NEW AND UNPROVEN — ' : ': ') + formText
       + ' lies inside a rigorous enclosure of width ' + width.toExponential(2)
       + ' — the conjecture SURVIVES an UNCONDITIONAL audit (' + method + '; constant bracket width '
@@ -460,22 +461,22 @@ module.exports = {
     /* the transcription certifies against the pinned bytes of the sheet it
        was read from; a drifted source refuses everything downstream */
     const pv = PIN.verify(o.source);
-    if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.source + ': ' + pv.why };
+    if (!pv.ok) return { verdict: V.REFUSED, why: 'source pin failed for ' + o.source + ': ' + pv.why };
     const sourcePin = { file: pv.file, sha256: pv.sha256 };
     if (o.sheet === 3) return certifySheet3(o, sourcePin);
     if (o.sheet === 2) return certifySheet2(o, sourcePin);
     if (o.minusCF) {
       const d = MINUS.decideMinus(o.spec, Q.R(o.r[0], o.r[1]), bandCert(o.band));
-      if (d.verdict === 'REFUSED') return { verdict: 'REFUSED', why: o.id + ': ' + d.why };
+      if (d.verdict === 'REFUSED') return { verdict: V.REFUSED, why: o.id + ': ' + d.why };
       const flagship = /NEW AND UNPROVEN/.test(o.status || '');
       if (d.verdict === 'REFUTED') {
-        return { verdict: 'REJECT', enclosure: [d.cf[0], d.cf[1]],
+        return { verdict: V.REFUTED, enclosure: [d.cf[0], d.cf[1]],
           text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + o.formText
             + ' lies provably OUTSIDE the rigorous minus-CF enclosure. The Machine\'s conjecture is FALSE. Original: ' + o.original,
           extra: { id: o.id, source: o.source, sourcePin, transcription: o.original, cf: d.cf, zeta3: d.zeta3 } };
       }
       return {
-        verdict: 'HIT',
+        verdict: V.CERTIFIED,
         enclosure: [d.cf[0], d.cf[1]],
         text: o.id + (flagship ? ' — a row the Machine marks NEW AND UNPROVEN — ' : ': ')
           + o.formText + ' lies inside a rigorous minus-CF enclosure of width ' + d.cfWidth.toExponential(2)
@@ -496,17 +497,17 @@ module.exports = {
       /* a positive CF whose claimed form speaks zeta(3): the positive-tail
          evaluator encloses, the exact zeta(3) bracket decides */
       const e = enclose(o.cf, o.depth || N);
-      if (!e.ok) return { verdict: 'REFUSED', why: o.id + ': ' + e.why };
+      if (!e.ok) return { verdict: V.REFUSED, why: o.id + ': ' + e.why };
       const f = MINUS.decideZeta3Form(e.enclosure, Q.R(o.zetaForm.r[0], o.zetaForm.r[1]));
-      if (f.verdict) return { verdict: 'REFUSED', why: o.id + ': ' + f.why };
+      if (f.verdict) return { verdict: V.REFUSED, why: o.id + ': ' + f.why };
       if (f.disjoint) {
-        return { verdict: 'REJECT', enclosure: [e.enclosure[0], e.enclosure[1]],
+        return { verdict: V.REFUTED, enclosure: [e.enclosure[0], e.enclosure[1]],
           text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + o.zetaForm.text
             + ' lies provably OUTSIDE the rigorous CF enclosure. The Machine\'s conjecture is FALSE. Original: ' + o.original,
           extra: { id: o.id, source: o.source, sourcePin, transcription: o.original, cf: e.enclosure, zeta3: f.zeta3 } };
       }
       return {
-        verdict: 'HIT',
+        verdict: V.CERTIFIED,
         enclosure: [e.enclosure[0], e.enclosure[1]],
         text: o.id + ': ' + o.zetaForm.text + ' lies inside a rigorous enclosure of width ' + e.width.toExponential(2)
           + ' — the conjecture SURVIVES an unconditional audit (positive-CF tail seeded by proof; zeta(3) bracketed '
@@ -520,14 +521,14 @@ module.exports = {
     }
     const d = decide(o.cf, o.form, N);
     if (d.verdict === 'REFUTED') {
-      return { verdict: 'REJECT', enclosure: [d.cf[0], d.cf[1]],
+      return { verdict: V.REFUTED, enclosure: [d.cf[0], d.cf[1]],
         text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' — the claimed form ' + o.form.text
           + ' lies provably OUTSIDE the rigorous CF enclosure. The Machine\'s conjecture is FALSE. Original: ' + o.original,
         extra: { id: o.id, source: o.source, sourcePin, transcription: o.original, cf: d.cf, form: d.form } };
     }
-    if (d.verdict !== 'SURVIVES') return { verdict: 'REFUSED', why: d.why };
+    if (d.verdict !== 'SURVIVES') return { verdict: V.REFUSED, why: d.why };
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [d.cf[0], d.cf[1]],
       text: o.id + ': ' + o.form.text + ' lies inside a rigorous enclosure of width ' + d.width.toExponential(2)
         + ' — the conjecture SURVIVES an unconditional interval audit (tail seeded by proof, not assumption); '

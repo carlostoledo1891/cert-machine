@@ -36,7 +36,7 @@ function machineFlow(ledger, { gates }) {
   const T = ledger.totals || {};
   const F = ledger.families;
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
-  const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
+  const screened = sum('screened'), hits = sum('hits'), rejects = sum('refuted'), refused = sum('refused');
 
   /* ---- geometry -------------------------------------------------------- */
   const W = 800;                                   /* design width */
@@ -116,12 +116,12 @@ function machineFlow(ledger, { gates }) {
     { x: sx, y: certY, w: sw, h: bandH, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
       t: 'certify — the only authority',
       d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
-      t: 'HIT — a certificate exists',
-      d: 'A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
-      t: 'REJECT — proved uninteresting',
-      d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the object, not a failed search. ' + commas(rejects) + ' this build.' },
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'CERTIFIED', v: commas(hits),
+      t: 'CERTIFIED — a certificate exists',
+      d: 'A CERTIFIED object ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REFUTED · PROVED', v: commas(rejects),
+      t: 'REFUTED — the statement proved false for the object',
+      d: 'The certifier examined the candidate and proved the family\'s statement false for it: the enclosure lies wholly on the wrong side of the bar, or an exact fact (a record, a rank) decides it. A REFUTED here is a theorem about the object, not a failed search; an enclosure that straddles the bar is REFUSED and never counted here. ' + commas(rejects) + ' this build.' },
     { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' of ' + commas(T.certified || 0) + ' decisions this build. THIS COUNTER IS THE LOOP\'S OWN: the lab\'s other refusals — NEEDS DATA where a claimant published no bytes, campaigns recorded unfinished, the undecided cells of the sweeps, the grader\'s refusal rate on submitted claims — are counted by kind at /reports/refusals.html, never merged with this one.' },
@@ -154,7 +154,7 @@ function machineFlow(ledger, { gates }) {
     ...iMid.map((cx) => ({ d: 'M' + cx + ' ' + iB + ' L' + cx + ' ' + (certY - 2) })),
     /* CERTIFY fans straight down to the three outcomes */
     ...oMid.map((cx) => ({ d: 'M' + cx + ' ' + certB + ' L' + cx + ' ' + (oY - 2) })),
-    /* only a HIT reaches the ledger; REJECT and REFUSED are terminal */
+    /* only a CERTIFIED object reaches the ledger; REFUTED and REFUSED are terminal */
     { d: 'M' + oMid[0] + ' ' + oB + ' L' + oMid[0] + ' ' + (ledgerMid - 8)
         + ' Q' + oMid[0] + ' ' + ledgerMid + ' ' + (oMid[0] + 8) + ' ' + ledgerMid
         + ' L' + (lx - 2) + ' ' + ledgerMid,
@@ -195,7 +195,7 @@ function machineFlowCompact(ledger, { gates }) {
   const T = ledger.totals || {};
   const F = ledger.families;
   const sum = (k) => F.reduce((t, f) => t + f.counts[k], 0);
-  const screened = sum('screened'), hits = sum('hits'), rejects = sum('rejects'), refused = sum('refused');
+  const screened = sum('screened'), hits = sum('hits'), rejects = sum('refuted'), refused = sum('refused');
 
   const W = 800, sx = 8, sw = W - 16, scx = sx + sw / 2, bandH = 50, gap = 30;
   const enumY = 10, enumB = enumY + bandH;
@@ -220,14 +220,15 @@ function machineFlowCompact(ledger, { gates }) {
       t: 'certify — the only authority',
       d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment '
         + 'for uniqueness. The engine never decides mathematics. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'HIT · CERTIFIED', v: commas(hits),
-      t: 'HIT — a certificate exists',
-      d: 'A HIT ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness '
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'CERTIFIED', v: commas(hits),
+      t: 'CERTIFIED — a certificate exists',
+      d: 'A CERTIFIED object ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness '
         + 'box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REJECT · PROVED', v: commas(rejects),
-      t: 'REJECT — proved uninteresting',
-      d: 'The certifier examined the candidate and proved it below the bar. A REJECT here is a theorem about the '
-        + 'object, not a failed search. ' + commas(rejects) + ' this build.' },
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REFUTED · PROVED', v: commas(rejects),
+      t: 'REFUTED — the statement proved false for the object',
+      d: 'The certifier examined the candidate and proved the family\'s statement false for it: the enclosure lies '
+        + 'wholly on the wrong side of the bar, or an exact fact decides it. A REFUTED here is a theorem about the '
+        + 'object, not a failed search; a straddling enclosure is REFUSED, never counted here. ' + commas(rejects) + ' this build.' },
     { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide. Absence of proof is never evidence of absence, and a refusal is '
@@ -247,7 +248,7 @@ function machineFlowCompact(ledger, { gates }) {
     { d: 'M' + scx + ' ' + screenB + ' L' + scx + ' ' + (certY - 2),
       lab: 'dedup by key', lx: scx + 10, ly: screenB + 20, anchor: 'start' },
     ...oMid.map((cx) => ({ d: 'M' + cx + ' ' + certB + ' L' + cx + ' ' + (oY - 2) })),
-    /* only a HIT reaches the ledger; REJECT and REFUSED are terminal */
+    /* only a CERTIFIED object reaches the ledger; REFUTED and REFUSED are terminal */
     { d: 'M' + oMid[0] + ' ' + oB + ' L' + oMid[0] + ' ' + (ledgerY - 2),
       lab: 'only certificates', lx: oMid[0] + 10, ly: oB + 26, anchor: 'start' }
   ];
@@ -262,7 +263,7 @@ function machineFlowCompact(ledger, { gates }) {
         + 'every count is read off ledger.json at build time.'
     },
     nodes, edges,
-    caption: 'The loop, in five stops. The screen may only prune; the instruments alone decide; REJECT and '
+    caption: 'The loop, in five stops. The screen may only prune; the instruments alone decide; REFUTED and '
       + 'REFUSED are terminal by design. The full drawing — every family, every instrument, the closed-form '
       + 'hunt — is on the control page.'
   });

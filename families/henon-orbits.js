@@ -35,6 +35,7 @@
    period of its true minimal cycle, so a period-2 orbit is not counted again as
    a period-4 one. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const path = require('path');
 const IV = require('#instruments/interval/interval.js');
@@ -177,7 +178,7 @@ module.exports = {
   certify(o) {
     const { a, b, p, v } = o;
     const A = inverse(jac(v, a, b));
-    if (!A) return { verdict: 'REFUSED', why: 'singular Jacobian at the candidate — preconditioner unavailable' };
+    if (!A) return { verdict: V.REFUSED, why: 'singular Jacobian at the candidate — preconditioner unavailable' };
 
     const F = (X) => {
       const out = new Array(p);
@@ -203,17 +204,17 @@ module.exports = {
 
     let k;
     try { k = krawczyk(F, DF, v, A, { maxRounds: 30 }); }
-    catch (e) { return { verdict: 'REFUSED', why: 'krawczyk threw: ' + e.message }; }
+    catch (e) { return { verdict: V.REFUSED, why: 'krawczyk threw: ' + e.message }; }
 
     if (!k || !k.ok) {
-      return { verdict: 'REJECT', enclosure: [0, 0],
-        text: 'no contraction at a=' + a + ', p=' + p + ' — candidate not certified (absence of proof, not proof of absence)' };
+      /* no contraction proves nothing either way: REFUSED, not refuted (until 2026-10-09 this was REJECT) */
+      return { verdict: V.REFUSED, why: 'no contraction at a=' + a + ', p=' + p + ' — candidate not certified (absence of proof, not proof of absence)' };
     }
 
     const lo = Math.min.apply(null, k.box.map(x => x[0]));
     const hi = Math.max.apply(null, k.box.map(x => x[1]));
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [lo, hi],
       text: 'the Hénon map with a=' + a + ', b=' + b + ' has a period-' + p
         + ' orbit in an explicit box of radius ' + k.maxRad.toExponential(3)

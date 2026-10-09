@@ -63,10 +63,22 @@ function radiiPolynomial(Y0in, Z1in, Z2in, opts) {
   if (!(Z1 < 1)) {
     return Object.assign({ ok: false, why: 'Z1 >= 1 — the approximate inverse is not one; no contraction at any radius' }, base);
   }
-  if (!(Z2 > 0)) {
-    /* linear problem: p is affine, negative for r > Y0/(1−Z1) */
+  /* Y0 and Z2 are bounds on a norm and a Lipschitz constant: nonnegative finite numbers
+     or nothing. Before 2026-10-09 the test below was `!(Z2 > 0)`, which sent a NEGATIVE
+     Z2 — and a NaN — into the linear branch and certified it. */
+  if (!(Number.isFinite(Y0) && Y0 >= 0 && Number.isFinite(Z2) && Z2 >= 0)) {
+    return Object.assign({ ok: false, why: 'Y0 and Z2 must be finite and nonnegative (got Y0=' + Y0 + ', Z2=' + Z2 + ') — not bounds; refused' }, base);
+  }
+  if (Z2 === 0) {
+    /* linear problem: p(r) = −(1−Z1) r + Y0 is affine, negative for r > Y0/(1−Z1).
+       The other branch verifies p(r) < 0 as an interval inequality before it says ok;
+       until 2026-10-09 this branch did not, and returned ok on the float formula alone. */
     const r = I.nextUp(Y0 / (1 - Z1) * 1.5 + Number.MIN_VALUE);
-    return Object.assign({ ok: r > 0, r, rMin: Y0 / (1 - Z1), rMax: Infinity, linear: true }, base);
+    const pLin = add(mul(sub(ZERO, sub(ONE, iv(Z1))), iv(r)), iv(Y0));
+    if (!(pLin[1] < 0)) {
+      return Object.assign({ ok: false, why: 'linear branch: p(r) is not proved negative at r=' + r + ' (enclosure [' + pLin[0] + ', ' + pLin[1] + '])', r, linear: true }, base);
+    }
+    return Object.assign({ ok: true, r, rMin: Y0 / (1 - Z1), rMax: Infinity, linear: true, pAtR: pLin }, base);
   }
   const disc = (1 - Z1) * (1 - Z1) - 2 * Z2 * Y0;
   if (!(disc > 0)) {

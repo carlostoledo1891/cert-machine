@@ -134,12 +134,12 @@ def('RepoCommit', git);
   for (let i = 0; ; i++) { const o = FAM.enumerate(i); if (!o) break; const c = FAM.certify(o); need(c.verdict !== 'REFUSED', o.id + ' REFUSED: ' + c.why); live.push({ id: o.id, verdict: c.verdict, extra: c.extra, text: c.text }); }
   const msLive = Date.now() - t0;
   const by = Object.fromEntries(live.map((r) => [r.id, r]));
-  const hits = live.filter((r) => r.verdict === 'HIT'), rejects = live.filter((r) => r.verdict === 'REJECT');
+  const hits = live.filter((r) => r.verdict === 'CERTIFIED'), rejects = live.filter((r) => r.verdict === 'REFUTED');
   need(live.length === 11 && hits.length === 10 && rejects.length === 1, 'the corpus is not 11 rows = 10 verified + 1 reject');
   need(rejects[0].id === 'naive-2x2x2' && /not below the naive/.test(rejects[0].text), 'the one REJECT is not the naive rank-8 correct-not-fast row');
   /* the detached certificate must carry exactly the ten verified rows, with the same ranks and rings */
   need(S.entries.length === 10, 'the detached certificate does not hold 10 entries');
-  for (const e of S.entries) { const l = by[e.id]; need(l && l.verdict === 'HIT' && l.extra.rank === e.rank && l.extra.ring === e.ring && l.extra.layout === e.layout, 'certificate entry ' + e.id + ' disagrees with the live verdict'); }
+  for (const e of S.entries) { const l = by[e.id]; need(l && l.verdict === 'CERTIFIED' && l.extra.rank === e.rank && l.extra.ring === e.ring && l.extra.layout === e.layout, 'certificate entry ' + e.id + ' disagrees with the live verdict'); }
   for (const [f, pin] of Object.entries(S.sourcePins)) need(PINS[f] === (pin.sha256 || pin), 'the certificate pin for ' + f + ' is not the PINS.json pin');
   const totalEq = hits.reduce((s, r) => s + r.extra.equations, 0);
   def('CorpusRows', String(live.length)); def('CorpusVerified', String(hits.length)); def('CorpusRejects', String(rejects.length));
@@ -147,7 +147,7 @@ def('RepoCommit', git);
   { const g = /^(\S+) @ git ([0-9a-f]+)$/.exec(S.generatedBy); need(g, 'generatedBy is not "<tool> @ git <sha>"'); def('CertGeneratedBy', '\\path{' + g[1] + '} at git \\texttt{' + g[2] + '}'); }
 
   const ae = by['alphaevolve-48-4x4x4'];
-  need(ae.verdict === 'HIT' && ae.extra.rank === 48 && ae.extra.ring === 'Zi' && ae.extra.scale === 8 && ae.extra.equations === 4096 && ae.extra.layout === 'CA', 'the AlphaEvolve row moved');
+  need(ae.verdict === 'CERTIFIED' && ae.extra.rank === 48 && ae.extra.ring === 'Zi' && ae.extra.scale === 8 && ae.extra.equations === 4096 && ae.extra.layout === 'CA', 'the AlphaEvolve row moved');
   need(ae.extra.sourcePin && ae.extra.sourcePin.sha256 === PINS['alphaevolve_mathematical_results.ipynb'], 'the AlphaEvolve pin moved');
   const aeCommit = /@ commit ([0-9a-f]{7,})/.exec(ae.extra.source); need(aeCommit, 'the AlphaEvolve source string carries no commit');
   def('AERank', String(ae.extra.rank)); def('AEScale', String(ae.extra.scale)); def('AEEquations', int(ae.extra.equations)); def('AELayout', ae.extra.layout);
@@ -160,9 +160,9 @@ def('RepoCommit', git);
   def('AEAlphabet', String(alphabet.size)); def('AENonzero', int(nz)); def('AEEntries', int(total));
 
   const at = by['alphatensor-f2-4x4x4'];
-  need(at.verdict === 'HIT' && at.extra.rank === 47 && at.extra.ring === 'F2' && at.extra.equations === 4096 && /REFUTED over Q/.test(at.extra.overQ || ''), 'the AlphaTensor rank-47 row moved');
+  need(at.verdict === 'CERTIFIED' && at.extra.rank === 47 && at.extra.ring === 'F2' && at.extra.equations === 4096 && /REFUTED over Q/.test(at.extra.overQ || ''), 'the AlphaTensor rank-47 row moved');
   const at5 = by['alphatensor-f2-5x5x5'];
-  need(at5.verdict === 'HIT' && at5.extra.rank === 96 && /REFUTED over Q/.test(at5.extra.overQ || ''), 'the AlphaTensor rank-96 row moved');
+  need(at5.verdict === 'CERTIFIED' && at5.extra.rank === 96 && /REFUTED over Q/.test(at5.extra.overQ || ''), 'the AlphaTensor rank-96 row moved');
   def('ATRank', String(at.extra.rank)); def('ATEquations', int(at.extra.equations)); def('ATLayout', at.extra.layout);
   def('ATFiveRank', String(at5.extra.rank)); def('ATFiveEquations', int(at5.extra.equations)); def('ATFiveNaive', String(at5.extra.naive));
   def('ATPinF', sha16(PINS['alphatensor_f2.npz'])); def('ATPinR', sha16(PINS['alphatensor_r.npz']));
@@ -200,9 +200,9 @@ def('RepoCommit', git);
   const RING = { Q: '$\\Q$', F2: '$\\mathbb{F}_2$', Zi: '$\\Z[i]$' };
   rows('RegistryRows', live.map((r) => {
     const x = r.extra, d = x.dims ? '$' + x.dims.join('\\times') + '$' : '$2\\times2\\times2$';
-    const ring = RING[x.ring] || (r.verdict === 'REJECT' ? '$\\Q$' : '---');
+    const ring = RING[x.ring] || (r.verdict === 'REFUTED' ? '$\\Q$' : '---');
     const eq = x.equations !== undefined ? int(x.equations) : int(64);
-    const verdict = r.verdict === 'HIT' ? ('VERIFIED' + (x.overQ && /REFUTED/.test(x.overQ) ? '; refuted over $\\Q$' : '')) : 'REJECT (correct, not fast)';
+    const verdict = r.verdict === 'CERTIFIED' ? ('VERIFIED' + (x.overQ && /REFUTED/.test(x.overQ) ? '; refuted over $\\Q$' : '')) : 'REJECT (correct, not fast)';
     return ['\\texttt{' + tex(r.id) + '}', d, String(x.rank), String(x.naive !== undefined ? x.naive : 8), ring, eq, x.layout || 'AC', verdict, src(r)];
   }));
   /* the dumbbell figure's data, and the stdlib verifier as a gate */

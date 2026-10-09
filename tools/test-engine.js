@@ -19,7 +19,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     const A = NEW.enumerate(i); const v = NEW.value(A);
     if (NEW.interesting(A, v)) continue;
     checked++;
-    if (NEW.certify(A).verdict === 'HIT') leaked++;
+    if (NEW.certify(A).verdict === 'CERTIFIED') leaked++;
   }
   ok(checked > 0 && leaked === 0, 'newman screen: ' + checked + ' pruned candidates, ' + leaked + ' would have certified HIT (must be 0)');
 }
@@ -47,6 +47,44 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   ok(!!half, 'RED control: 1/2 inside a wide enclosure SURVIVES as a candidate (the test can fail to refute)');
   const tight = relations([0.5100000000001, 0.5100000000002], { maxDen: 8 });
   ok(tight.candidates.length === 0 && tight.refuted > 0, 'RED: against a tight enclosure at 0.51, all ' + tight.refuted + ' forms are refuted exactly');
+  /* DISJOINTNESS, not a float miss (2026-10-09): a candidate that is an enclosure and touches the
+     certified enclosure by one ulp must SURVIVE; and sqrt(2)'s own bracket survives sqrt(2)'s enclosure
+     at full double resolution, where a float comparison was one rounding from refuting it. */
+  const { CONSTANTS } = require(path.join(ROOT, 'machine/engine.js'));
+  const I = require(path.join(ROOT, 'instruments/interval/interval.js'));
+  const s2 = CONSTANTS.sqrt2;
+  const exactish = relations([I.nextDown(s2[0]), s2[0]], { maxDen: 8 });
+  ok(exactish.candidates.some(c => /sqrt/.test(c.label)), 'RED control: an enclosure touching sqrt(2)\'s bracket at ONE double keeps sqrt(2) as a candidate (disjointness, not a float miss)');
+  const halfPi = relations([Math.PI / 2 - 1e-17, Math.PI / 2 + 1e-17], { maxDen: 4 });
+  ok(halfPi.candidates.some(c => c.label === '(1/2)·pi'), '(1/2)·pi survives an enclosure of pi/2 that is one double wide — the constant is an enclosure, not a midpoint');
+  ok(typeof exactish.refusedForms === 'number' && exactish.refusedForms > 0, 'rational powers c^(p/q), q > 1, are counted as REFUSED forms, not evaluated by Math.pow (' + exactish.refusedForms + ')');
+}
+/* THE GRAMMAR (2026-10-09): one predicate, three words, and the engine refuses a fourth */
+{
+  const V = require(path.join(ROOT, 'instruments/verdict.js'));
+  ok(V.decide([0.5, 0.9], 1, 'lt').verdict === 'CERTIFIED', 'decide: an enclosure wholly below the bar is CERTIFIED under lt');
+  ok(V.decide([1.0, 1.2], 1, 'lt').verdict === 'REFUTED', 'decide: an enclosure at or above the bar is REFUTED under lt');
+  ok(V.decide([0.9, 1.1], 1, 'lt').verdict === 'REFUSED', 'RED: a STRADDLING enclosure is REFUSED, never refuted (the old REJECT folded it in)');
+  ok(V.decide([2.0, 2.1], [1.5, 1.9], 'gt').verdict === 'CERTIFIED' && V.decide([1.7, 2.1], [1.5, 1.9], 'gt').verdict === 'REFUSED'
+    && V.decide([1.0, 1.5], [1.5, 1.9], 'gt').verdict === 'REFUTED',
+    'decide against an interval bar: above its upper end certifies, inside refuses, at or below its lower end refutes');
+  let threw = false; try { V.decide([NaN, 1], 1, 'lt'); } catch (e) { threw = /refused/.test(e.message); }
+  ok(threw, 'RED: a NaN enclosure is refused by throw, not decided');
+  const OLD = 'H' + 'IT';
+  const fake = { name: 'fake', statement: 's', enumerate: (i) => (i < 3 ? i : null), value: () => 0, interesting: () => true, key: (o) => String(o),
+    certify: (o) => (o === 0 ? { verdict: 'CERTIFIED', enclosure: [0, 0], extra: {} } : o === 1 ? { verdict: OLD, enclosure: [0, 0] } : { verdict: undefined }) };
+  const rf = run(fake, { limit: 10, maxCertify: 10 });
+  ok(rf.counts.hits === 1 && rf.counts.refuted === 0 && rf.counts.refused === 2 && rf.counts.unknown === 2,
+    'RED: the old word ' + OLD + ' and an undefined verdict are REFUSED and counted as unknown (' + JSON.stringify(rf.counts) + ')');
+  /* the Newman bar is the champion ENCLOSURE: a candidate between its ends is undecided */
+  const E = require(path.join(ROOT, 'instruments/trigmin/envelope.js'));
+  const bar = E.barSqInterval(7);
+  ok(Array.isArray(bar) && bar[0] <= bar[1] && bar[0] > 0, 'the Newman envelope below 7 terms is an interval [' + bar + ']');
+  ok(V.decide([bar[0], bar[1]], bar, 'gt').verdict === 'REFUSED',
+    'RED: a candidate whose enclosure equals the champion\'s is REFUSED, not certified (the old lower-end comparison certified at one ulp above)');
+  ok(V.decide([I_nextUp(bar[1]), I_nextUp(I_nextUp(bar[1]))], bar, 'gt').verdict === 'CERTIFIED',
+    'a candidate wholly above the champion\'s UPPER end certifies');
+  function I_nextUp(x) { return require(path.join(ROOT, 'instruments/interval/interval.js')).nextUp(x); }
 }
 /* the engine loop itself */
 {
@@ -103,14 +141,21 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
      certified as a discovery because the name regex missed the asterisk. It
      must never be a HIT again, and no HIT may carry a form already on record. */
   const a19762 = OE.certify(CORPUS_BY_ID('A019762'));
-  ok(a19762 && a19762.verdict === 'REJECT',
-    'A019762 ("2*e" in the name) is REJECT — a screen escape, not a discovery');
+  ok(a19762 && a19762.verdict === 'REFUTED',
+    'A019762 ("2*e" in the name) is REFUTED — the record states the form; a screen escape, not a discovery');
+  /* A271880 agrees with 1/5 to SIXTY-THREE digits. Every spelling of that rational — 2/1 up to a
+     power of ten, and sqrt2^(2/1) which is 2 in disguise — must reach the exact pass at the full
+     digit length and be refuted there; as an ENCLOSURE sqrt2^(2/1) survived the 17-digit box and
+     was announced as a discovery on the first run of the 2026-10-09 rewrite. */
+  const a271880 = OE.certify(CORPUS_BY_ID('A271880'));
+  ok(a271880 && a271880.verdict === 'REFUTED' && a271880.extra.exactRefuted.some(l => l === 'sqrt2^(2/1)') && a271880.extra.survivorsAfterExact === 0,
+    'A271880 (1/5 to 63 digits) is REFUTED: sqrt2^(2/1) is routed to the exact pass as the rational 2 and refuted at the full length (' + a271880.extra.exactRefuted.length + ' exact refutations, ' + a271880.extra.survivorsAfterExact + ' surviving)');
   let badHits = 0, hitCount = 0;
   for (let i = 0; ; i++) {
     const e = OE.enumerate(i); if (!e) break;
     if (!OE.interesting(e)) continue;
     const c = OE.certify(e);
-    if (c.verdict !== 'HIT') continue;
+    if (c.verdict !== 'CERTIFIED') continue;
     hitCount++;
     if (c.extra.nameStatesForm || c.extra.formOnRecord !== false) badHits++;
   }
@@ -136,7 +181,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     if (!HEN.interesting(o, HEN.value(o))) continue;
     if (o.a !== a || o.p !== 1) continue;
     const c = HEN.certify(o);
-    if (c.verdict === 'HIT') certs.push(c.extra);
+    if (c.verdict === 'CERTIFIED') certs.push(c.extra);
   }
   ok(certs.length >= 2, 'both Henon fixed points at a=1.4 certify (' + certs.length + ' found)');
   let contained = 0;
@@ -161,7 +206,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   for (let sd = 0; sd < 8; sd++) {
     const o = { a: -0.5, b, p: 1, s: sd, v: [-1.5 + 0.4 * sd] };
     tried++;
-    if (HEN.certify(o).verdict === 'HIT') falseCert++;
+    if (HEN.certify(o).verdict === 'CERTIFIED') falseCert++;
   }
   ok(falseCert === 0, 'RED: at a=-0.5 the fixed-point equation has negative discriminant and NOTHING certifies (' + falseCert + '/' + tried + ' false certificates)');
 
@@ -170,14 +215,14 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   let realCert = 0;
   for (let sd = 0; sd < 8; sd++) {
     const o = { a: 1.4, b, p: 1, s: sd, v: [-1.5 + 0.4 * sd] };
-    if (HEN.certify(o).verdict === 'HIT') realCert++;
+    if (HEN.certify(o).verdict === 'CERTIFIED') realCert++;
   }
   ok(realCert > 0, 'RED control: the same start vectors at a=1.4 DO certify (' + realCert + '/8) — the refusal is mathematical, not procedural');
 
   /* RED: uniqueness is strict-interior, not containment. A zero-radius box
      cannot satisfy strict interior containment. */
   const degenerate = HEN.certify({ a, b, p: 1, s: 0, v: [good.orbit[0]] });
-  ok(degenerate.verdict === 'HIT' && degenerate.extra.maxRad > 0,
+  ok(degenerate.verdict === 'CERTIFIED' && degenerate.extra.maxRad > 0,
     'a certified box has POSITIVE radius — strict interior containment, not a point claim');
 }
 
@@ -192,7 +237,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
   const a = 1.4, b = 0.3;
 
   const c1 = CEN.certify({ a, b, p: 1 });
-  ok(c1.verdict === 'HIT' && c1.enclosure[0] === 2 && c1.enclosure[1] === 2,
+  ok(c1.verdict === 'CERTIFIED' && c1.enclosure[0] === 2 && c1.enclosure[1] === 2,
     'census family: EXACTLY 2 fixed points at a=1.4, enclosure [2,2]');
 
   const starved = CEN.certify({ a, b, p: 8, _opts: { maxBoxes: 50 } });
@@ -209,7 +254,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     if (o.a !== a || o.p !== 7) continue;
     if (!HEN.interesting(o, HEN.value(o))) continue;
     const c = HEN.certify(o);
-    if (c.verdict !== 'HIT') continue;
+    if (c.verdict !== 'CERTIFIED') continue;
     found.add(HEN.key(o));
     const matched = c7.ok && c7.records.some(r => c.extra.orbit.every((x, n) => Math.abs(x - r.z[n]) < 1e-8));
     ok(matched, 'orbit-family period-7 hit is a census record (' + HEN.key(o).slice(0, 24) + '…)');

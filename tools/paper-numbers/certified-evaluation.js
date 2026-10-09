@@ -232,11 +232,11 @@ def('RepoCommit', git);
     const c = RM.certify(o);
     if (/-corrected$/.test(o.id)) { if (o.id === 'rm-zo-z5z3b-corrected') correctedRow = c; continue; }
     printed++;
-    if (c.verdict === 'HIT') survive++; else { refuted++; if (o.id === 'rm-zo-z5z3b-printed') printedRow = c; }
+    if (c.verdict === 'CERTIFIED') survive++; else { refuted++; if (o.id === 'rm-zo-z5z3b-printed') printedRow = c; }
   }
   need(printed === 51, 'expected 51 printed Ramanujan Machine rows, found ' + printed);
-  need(refuted === 1 && printedRow && printedRow.verdict === 'REJECT' && /sign slip/.test(printedRow.text), 'the RM printed-row refutation moved');
-  need(correctedRow && correctedRow.verdict === 'HIT', 'the RM correction no longer certifies');
+  need(refuted === 1 && printedRow && printedRow.verdict === 'REFUTED' && /sign slip/.test(printedRow.text), 'the RM printed-row refutation moved');
+  need(correctedRow && correctedRow.verdict === 'CERTIFIED', 'the RM correction no longer certifies');
   def('RmPrinted', String(printed)); def('RmSurvive', String(survive)); def('RmRefuted', String(refuted));
   def('RmSheets', '7');
 }

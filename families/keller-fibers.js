@@ -18,6 +18,7 @@
    the generated d=3 sweep it finds a THIRD preimage beyond the two the
    secant construction wrote down — the hunter exceeding its own input. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const Q = require('#instruments/interval/rational.js');
 const SW = require('#instruments/keller/sweep.js');
@@ -73,11 +74,14 @@ module.exports = {
   key: (o) => 'fiber|' + o.tag,
   certify(o) {
     const f = certifiedFiber(o.F, o.w);
-    if (f.preimages === 0) return { verdict: 'REFUSED', why: 'the hunt certified no preimage at all — the target may have none real, or the starts missed; absence of proof' };
-    if (f.preimages === 1) return { verdict: 'REJECT', enclosure: [1, 1],
-      text: o.tag + ': one certified preimage — consistent with injectivity over this target, nothing more proved' };
+    if (f.preimages === 0) return { verdict: V.REFUSED, why: 'the hunt certified no preimage at all — the target may have none real, or the starts missed; absence of proof', extra: { tag: o.tag, preimages: 0 } };
+    /* one certified preimage is consistent with injectivity and proves nothing more: REFUSED, with the
+       count kept, not a refutation of non-injectivity (until 2026-10-09 this was REJECT) */
+    if (f.preimages === 1) return { verdict: V.REFUSED, enclosure: [1, 1],
+      why: o.tag + ': one certified preimage — consistent with injectivity over this target, nothing more proved',
+      extra: { tag: o.tag, preimages: 1 } };
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [f.preimages, f.preimages],
       text: o.tag + ': AT LEAST ' + f.preimages + ' preimages of one rational point, each in a certified '
         + 'Krawczyk box, boxes pairwise disjoint — non-injectivity re-proved BLIND, no witnesses consumed'

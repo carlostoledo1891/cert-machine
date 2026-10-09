@@ -1,5 +1,11 @@
 {
- "generatedAt": null,
+ "generatedAt": "2026-10-09T18:19:48.461Z",
+ "toolchain": {
+  "node": "v24.14.1",
+  "v8": "13.6.233.17-node.44",
+  "platform": "darwin",
+  "arch": "arm64"
+ },
  "families": [
   {
    "name": "chowla-cosine",
@@ -10,10 +16,11 @@
     "duplicates": 0,
     "certified": 1579,
     "hits": 1508,
-    "rejects": 71,
-    "refused": 0
+    "refuted": 0,
+    "refused": 71,
+    "unknown": 0
    },
-   "ms": 235046,
+   "ms": 172663,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -27,10 +34,11 @@
     "duplicates": 0,
     "certified": 4,
     "hits": 3,
-    "rejects": 1,
-    "refused": 0
+    "refuted": 1,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 6297,
+   "ms": 4764,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -44,10 +52,11 @@
     "duplicates": 0,
     "certified": 328,
     "hits": 328,
-    "rejects": 0,
-    "refused": 0
+    "refuted": 0,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 37677,
+   "ms": 24449,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -61,10 +70,11 @@
     "duplicates": 795,
     "certified": 228,
     "hits": 228,
-    "rejects": 0,
-    "refused": 0
+    "refuted": 0,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 707,
+   "ms": 508,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -78,10 +88,11 @@
     "duplicates": 0,
     "certified": 124,
     "hits": 124,
-    "rejects": 0,
-    "refused": 0
+    "refuted": 0,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 18635,
+   "ms": 13558,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -95,10 +106,11 @@
     "duplicates": 0,
     "certified": 11,
     "hits": 11,
-    "rejects": 0,
-    "refused": 0
+    "refuted": 0,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 84,
+   "ms": 59,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -112,27 +124,29 @@
     "duplicates": 0,
     "certified": 9,
     "hits": 7,
-    "rejects": 1,
-    "refused": 1
+    "refuted": 0,
+    "refused": 2,
+    "unknown": 0
    },
-   "ms": 11164,
+   "ms": 10286,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
   },
   {
    "name": "newman-minmod",
-   "statement": "an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms",
+   "statement": "an n-term Newman polynomial whose certified min|f|² on |z|=1 lies wholly above the recorded envelope of the best sets with fewer terms (instruments/trigmin/envelope.js: literature anchors and adopted box maxima, re-certified at load)",
    "counts": {
     "generated": 400000,
     "screened": 7,
     "duplicates": 3,
     "certified": 4,
     "hits": 4,
-    "rejects": 0,
-    "refused": 0
+    "refuted": 0,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 79381,
+   "ms": 59197,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -142,17 +156,18 @@
    "statement": "a published OEIS constant whose record — name AND fetched formula/comment fields — states no closed form, while its digits are consistent with a small closed form and every other form in the vocabulary is refuted",
    "counts": {
     "generated": 14677,
-    "screened": 14593,
+    "screened": 14601,
     "duplicates": 0,
-    "certified": 14593,
+    "certified": 14601,
     "hits": 0,
-    "rejects": 14593,
-    "refused": 0
+    "refuted": 14601,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 6004,
+   "ms": 11744,
    "truncated": false,
-   "corpusRefutations": 54606108,
-   "corpusTested": 54607006,
+   "corpusRefutations": 54636044,
+   "corpusTested": 54636942,
    "corpusRefutedExact": 21,
    "corpusFormOnRecord": 877,
    "corpusOpen": 0
@@ -166,10 +181,11 @@
     "duplicates": 0,
     "certified": 52,
     "hits": 51,
-    "rejects": 1,
-    "refused": 0
+    "refuted": 1,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 5797,
+   "ms": 5520,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -183,10 +199,11 @@
     "duplicates": 0,
     "certified": 11,
     "hits": 10,
-    "rejects": 1,
-    "refused": 0
+    "refuted": 1,
+    "refused": 0,
+    "unknown": 0
    },
-   "ms": 39,
+   "ms": 32,
    "truncated": false,
    "corpusRefutations": 0,
    "corpusTested": 0
@@ -219,8 +236,8 @@
     ]
    },
    "closedForm": {
-    "tested": 715,
-    "refuted": 715,
+    "tested": 372,
+    "refuted": 372,
     "candidates": 0
    }
   },
@@ -251,8 +268,8 @@
     ]
    },
    "closedForm": {
-    "tested": 716,
-    "refuted": 716,
+    "tested": 373,
+    "refuted": 373,
     "candidates": 0
    }
   },
@@ -284,8 +301,8 @@
     ]
    },
    "closedForm": {
-    "tested": 716,
-    "refuted": 716,
+    "tested": 373,
+    "refuted": 373,
     "candidates": 0
    }
   },
@@ -316,8 +333,8 @@
     ]
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 375,
+    "refuted": 375,
     "candidates": 0
    }
   },
@@ -350,8 +367,8 @@
     ]
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 375,
+    "refuted": 375,
     "candidates": 0
    }
   },
@@ -382,8 +399,8 @@
     ]
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 375,
+    "refuted": 375,
     "candidates": 0
    }
   },
@@ -413,8 +430,8 @@
     ]
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 375,
+    "refuted": 375,
     "candidates": 0
    }
   },
@@ -446,8 +463,8 @@
     ]
    },
    "closedForm": {
-    "tested": 718,
-    "refuted": 718,
+    "tested": 375,
+    "refuted": 375,
     "candidates": 0
    }
   },
@@ -481,8 +498,8 @@
     ]
    },
    "closedForm": {
-    "tested": 717,
-    "refuted": 717,
+    "tested": 374,
+    "refuted": 374,
     "candidates": 0
    }
   },
@@ -515,8 +532,8 @@
     ]
    },
    "closedForm": {
-    "tested": 717,
-    "refuted": 717,
+    "tested": 374,
+    "refuted": 374,
     "candidates": 0
    }
   },
@@ -550,8 +567,8 @@
     ]
    },
    "closedForm": {
-    "tested": 717,
-    "refuted": 717,
+    "tested": 374,
+    "refuted": 374,
     "candidates": 0
    }
   },
@@ -582,8 +599,8 @@
     ]
    },
    "closedForm": {
-    "tested": 717,
-    "refuted": 717,
+    "tested": 374,
+    "refuted": 374,
     "candidates": 0
    }
   },
@@ -621,8 +638,8 @@
     }
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -665,8 +682,8 @@
     }
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -705,8 +722,8 @@
     }
    },
    "closedForm": {
-    "tested": 703,
-    "refuted": 703,
+    "tested": 360,
+    "refuted": 360,
     "candidates": 0
    }
   },
@@ -11033,7 +11050,7 @@
   {
    "family": "newman-minmod",
    "key": "[0,1,2,3,4,7,8,10,12]",
-   "text": "min|f| >= 1.3623731781333241 for the 9-term set [0,2,4,5,8,9,10,11,12], exceeding 1.3111013028723257",
+   "text": "min|f| >= 1.3623731781333241 for the 9-term set [0,2,4,5,8,9,10,11,12], exceeding the recorded envelope (|f|² above 1.7189866263935103)",
    "enclosure": [
     1.3623731781333241,
     1.3623731781333246
@@ -11057,18 +11074,21 @@
      1.8560606764970946,
      1.8560606764970948
     ],
-    "barSq": 1.7189866263935099
+    "barSq": [
+     1.7189866263935099,
+     1.7189866263935103
+    ]
    },
    "closedForm": {
-    "tested": 720,
-    "refuted": 720,
+    "tested": 377,
+    "refuted": 377,
     "candidates": 0
    }
   },
   {
    "family": "newman-minmod",
    "key": "[0,1,2,4,5,9,11,17]",
-   "text": "min|f| >= 1.2549331390311127 for the 8-term set [0,6,8,12,13,15,16,17], exceeding 1.1018829384861857",
+   "text": "min|f| >= 1.2549331390311127 for the 8-term set [0,6,8,12,13,15,16,17], exceeding the recorded envelope (|f|² above 1.2141460101269517)",
    "enclosure": [
     1.2549331390311127,
     1.2549331390311134
@@ -11091,18 +11111,21 @@
      1.5748571834384826,
      1.5748571834384832
     ],
-    "barSq": 1.2141460101269514
+    "barSq": [
+     1.2141460101269514,
+     1.2141460101269517
+    ]
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
   {
    "family": "newman-minmod",
    "key": "[0,1,2,6,11,14]",
-   "text": "min|f| >= 1.0130074540165868 for the 6-term set [0,3,8,12,13,14], exceeding 1",
+   "text": "min|f| >= 1.0130074540165868 for the 6-term set [0,3,8,12,13,14], exceeding the recorded envelope (|f|² above 1)",
    "enclosure": [
     1.0130074540165868,
     1.0130074540165874
@@ -11123,18 +11146,21 @@
      1.0261841018931677,
      1.0261841018931679
     ],
-    "barSq": 1
+    "barSq": [
+     1,
+     1
+    ]
    },
    "closedForm": {
-    "tested": 694,
-    "refuted": 694,
+    "tested": 351,
+    "refuted": 351,
     "candidates": 0
    }
   },
   {
    "family": "newman-minmod",
    "key": "[0,1,4,5,10,12]",
-   "text": "min|f| >= 1.0092308306986966 for the 6-term set [0,2,7,8,11,12], exceeding 1",
+   "text": "min|f| >= 1.0092308306986966 for the 6-term set [0,2,7,8,11,12], exceeding the recorded envelope (|f|² above 1)",
    "enclosure": [
     1.0092308306986966,
     1.009230830698697
@@ -11155,11 +11181,14 @@
      1.0185468696327815,
      1.0185468696327817
     ],
-    "barSq": 1
+    "barSq": [
+     1,
+     1
+    ]
    },
    "closedForm": {
-    "tested": 689,
-    "refuted": 689,
+    "tested": 346,
+    "refuted": 346,
     "candidates": 0
    }
   },
@@ -11207,8 +11236,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -11256,8 +11285,8 @@
     "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -11305,8 +11334,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 720,
-    "refuted": 720,
+    "tested": 377,
+    "refuted": 377,
     "candidates": 0
    }
   },
@@ -11354,8 +11383,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 715,
-    "refuted": 715,
+    "tested": 372,
+    "refuted": 372,
     "candidates": 0
    }
   },
@@ -11403,8 +11432,8 @@
     "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -11462,8 +11491,8 @@
     "method": "minus-CF backward interval evaluation from a PROVED sharp tail band; claimed value bracketed in exact rationals from certified zeta brackets; final comparison exact"
    },
    "closedForm": {
-    "tested": 704,
-    "refuted": 704,
+    "tested": 361,
+    "refuted": 361,
     "candidates": 0
    }
   },
@@ -11511,8 +11540,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -11560,8 +11589,8 @@
     "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 720,
-    "refuted": 720,
+    "tested": 377,
+    "refuted": 377,
     "candidates": 0
    }
   },
@@ -11609,8 +11638,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 705,
-    "refuted": 705,
+    "tested": 362,
+    "refuted": 362,
     "candidates": 0
    }
   },
@@ -11658,8 +11687,8 @@
     "constant": "Catalan G from its defining series; convexity tail PROVED (96k^2+288k+184 >= 0)"
    },
    "closedForm": {
-    "tested": 720,
-    "refuted": 720,
+    "tested": 377,
+    "refuted": 377,
     "candidates": 0
    }
   },
@@ -11707,8 +11736,8 @@
     "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 719,
-    "refuted": 719,
+    "tested": 376,
+    "refuted": 376,
     "candidates": 0
    }
   },
@@ -11756,8 +11785,8 @@
     "constant": "pi^2 from the Machin enclosure, squared"
    },
    "closedForm": {
-    "tested": 720,
-    "refuted": 720,
+    "tested": 377,
+    "refuted": 377,
     "candidates": 0
    }
   },
@@ -12101,13 +12130,15 @@
  "relations": [],
  "totals": {
   "generated": 819152,
-  "certified": 16943,
+  "certified": 16951,
   "conjectures": 95,
-  "closedFormTested": 54629173,
-  "closedFormRefuted": 54628275,
+  "closedFormTested": 54648476,
+  "closedFormRefuted": 54647578,
   "closedFormRefutedExact": 21,
   "closedFormOnRecord": 877,
   "closedFormOpen": 0,
-  "closedFormCandidates": 0
+  "closedFormCandidates": 0,
+  "closedFormRefusedForms": 7595,
+  "refutationRule": "disjointness of an exact or enclosed candidate from the certified enclosure"
  }
 }

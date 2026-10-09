@@ -169,18 +169,18 @@ const FR = run('node', ['-e', FIBSCRIPT], 'the fiber family', /FIBERS (\[.*\])/)
 const FIB = JSON.parse(FR.m[1]);
 need(FIB.length === 9, 'the fiber family enumerates nine cells');
 const fa = FIB.find((f) => f.tag === 'alpoge'), fo = FIB.find((f) => f.tag === 'alpoge-own-target');
-need(fa && fa.verdict === 'HIT' && fa.preimages === 3, 'the announced fiber is re-found with three preimages');
-need(fo && fo.selection && fo.verdict === 'HIT' && fo.preimages === 3, 'the self-chosen target certifies three preimages');
-const fh = FIB.filter((f) => f.verdict === 'HIT'), frj = FIB.filter((f) => f.verdict === 'REJECT'), frf = FIB.filter((f) => f.verdict === 'REFUSED');
+need(fa && fa.verdict === 'CERTIFIED' && fa.preimages === 3, 'the announced fiber is re-found with three preimages');
+need(fo && fo.selection && fo.verdict === 'CERTIFIED' && fo.preimages === 3, 'the self-chosen target certifies three preimages');
+const fh = FIB.filter((f) => f.verdict === 'CERTIFIED'), frj = FIB.filter((f) => f.verdict === 'REFUSED' && f.preimages === 1), frf = FIB.filter((f) => f.verdict === 'REFUSED' && f.preimages !== 1);
 need(fh.length + frj.length + frf.length === FIB.length, 'every fiber cell has one of the three verdicts');
-const fex = FIB.filter((f) => f.verdict === 'HIT' && !f.selection && f.preimages > f.expectAtLeast);
+const fex = FIB.filter((f) => f.verdict === 'CERTIFIED' && !f.selection && f.preimages > f.expectAtLeast);
 def('FibCells', String(FIB.length)); def('FibHits', String(fh.length)); def('FibRejects', String(frj.length)); def('FibRefused', String(frf.length)); def('FibExceeded', String(fex.length));
 def('FibStarts', String(fa.starts)); def('OwnTarget', vec(fo.w));
 def('FibFailedCells', [...frj, ...frf].map((f) => '\\texttt{' + tex(f.tag) + '}').join(' and '));
 def('FibExceededCells', fex.map((f) => '\\texttt{' + tex(f.tag) + '}').join(', '));
 const FIBNAME = { alpoge: 'the announced map', 'alpoge-own-target': 'the announced map', 'sweep-d3': 'generated, curve degree 3', 'sweep-d4': 'generated, curve degree 4', 'sweep-d5': 'generated, curve degree 5', 'gallagher-d2': 'Gallagher seed $d=2$', 'gallagher-d3': 'Gallagher seed $d=3$', 'gallagher-d4': 'Gallagher seed $d=4$', 'gallagher-distinct': 'Gallagher distinct member' };
 rows('FiberRows', FIB.map((f) => ['\\texttt{' + tex(f.tag) + '}', FIBNAME[f.tag] || tex(f.tag), vec(f.w), f.selection ? 'chosen here' : 'own collision image', String(f.expectAtLeast),
-  f.verdict === 'HIT' ? String(f.preimages) : f.verdict === 'REJECT' ? '1' : '0', f.verdict === 'HIT' ? '$\\ge$ ' + f.preimages + ' preimages, certified' : f.verdict === 'REJECT' ? 'one box: nothing proved' : 'no certified box']));
+  f.verdict === 'CERTIFIED' ? String(f.preimages) : (f.verdict === 'REFUSED' && f.preimages === 1) ? '1' : '0', f.verdict === 'CERTIFIED' ? '$\\ge$ ' + f.preimages + ' preimages, certified' : (f.verdict === 'REFUSED' && f.preimages === 1) ? 'one box: nothing proved' : 'no certified box']));
 
 /* ====================================================== the certificate table */
 const SRC = (e) => e.id === 'keller-0' ? 'Alp\\"oge 19 July 2026, via \\cite{MengYang2026}' : e.id === 'keller-1' ? 'the same map, identity-padded' : e.lane === 'generated' ? 'this repository' : e.hessian ? 'Meng--Yang \\cite{MengYang2026}' : 'Gallagher \\cite{Gallagher2026}';

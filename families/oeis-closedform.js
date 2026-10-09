@@ -21,25 +21,43 @@
    ON THE PUBLISHED DIGITS BEING CORRECT. A refutation here is "proved, given
    OEIS's digits", which is weaker and more honest than "proved".
 
-   Enclosure soundness: capped at 17 significant digits and padded outward 4
-   ulps. The first version used 25 digits — a mathematical width of 1e-24 in
-   doubles whose spacing near 1.4 is 2.2e-16 — so the interval collapsed to a
-   single double and REFUTED sqrt(2) as a closed form for the decimal expansion
-   of sqrt(2). Calibration caught it; tools/test-engine.js now keeps it caught. */
+   EVERY CANDIDATE IS AN ENCLOSURE (2026-10-09). Until this date each form was a
+   DOUBLE — Math.sqrt(p/q), Math.cbrt, (a + b·Math.sqrt(d))/c, (p/q)·K with K a
+   float constant, Math.pow(K, p/q), Math.log, Math.exp — and a form whose float
+   mantissa fell outside the constant's enclosure was counted as refuted. That is
+   exact for p/q (round-to-nearest is monotone) and NOT for the rest; the control
+   page counted 54.6 million of them as "refuted in double". Now every form is an
+   exact rational or a verified enclosure (instruments/interval/algebraic.js for
+   roots and the decimal-given γ, transcendental.js for π, e, ln 2, ln 10, log,
+   exp and rational powers), the constant's mantissa box is the exact rational
+   interval [D, D+1)/10^(k−1) converted OUTWARD to doubles, and a form is refuted
+   only when the two enclosures are DISJOINT. The vocabulary is unchanged, so the
+   counts are comparable; the erratum record certs/erratum-2026-10-09.json pins
+   the numbers before.
+
+   Enclosure history: the first version used 25 digits — a mathematical width of
+   1e-24 in doubles whose spacing near 1.4 is 2.2e-16 — so the interval collapsed
+   to a single double and REFUTED sqrt(2) as a closed form for the decimal
+   expansion of sqrt(2). Calibration caught it; tools/test-engine.js keeps it
+   caught; the exact-then-outward construction below makes it impossible. */
 'use strict';
 
 const path = require('path');
 const fs = require('fs');
 const IV = require('#instruments/interval/interval.js');
+const T = require('#instruments/interval/transcendental.js');
+const Q = require('#instruments/interval/rational.js');
+const ALG = require('#instruments/interval/algebraic.js');
+const V = require('#instruments/verdict.js');
 
 const CORPUS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'corpus', 'oeis-constants.json'), 'utf8')).entries;
 
 /* The bulk corpus carries only id + name + digits; OEIS states closed forms in
    FORMULA and COMMENT fields the bulk file does not have. tools/confirm-survivors.js
-   fetches the FULL record for every survivor and writes the result here. A HIT
-   is only a HIT if the full record was checked and states no form — before this
-   file fed back in, the family certified "Decimal expansion of 2*e" as a
-   discovery because the name-only regex missed the asterisk. The engine now
+   fetches the FULL record for every survivor and writes the result here. A
+   discovery is only CERTIFIED if the full record was checked and states no form —
+   before this file fed back in, the family certified "Decimal expansion of 2*e"
+   as a discovery because the name-only regex missed the asterisk. The engine now
    decides what a hand-run script once concluded. */
 const CONFIRMED = (() => {
   const m = new Map();
@@ -52,13 +70,9 @@ const CONFIRMED = (() => {
 })();
 
 const DIGITS = 17;
-function padOut(lo, hi) {
-  let a = lo, b = hi;
-  for (let i = 0; i < 4; i++) { a = IV.nextDown(a); b = IV.nextUp(b); }
-  return [a, b];
-}
 
-/* digits -> mantissa enclosure in [1,10) */
+/* digits -> mantissa enclosure in [1,10): the exact rational interval the first
+   `use` digits allow, [D, D+1)/10^(use−1), converted outward to doubles */
 function mantissaOf(e) {
   const d = e.digits;
   if (!d.length || d.some(x => x < 0 || x > 9)) return null;
@@ -67,23 +81,23 @@ function mantissaOf(e) {
   const use = Math.min(d.length - i, DIGITS);
   let s = '';
   for (let k = 0; k < use; k++) s += d[i + k];
-  const lo = Number(s) * Math.pow(10, 1 - use);
-  if (!isFinite(lo) || lo < 1 || lo >= 10) return null;
-  return padOut(lo, lo + Math.pow(10, 1 - use));
-}
-
-function mant(v) {
-  if (!isFinite(v) || v <= 0) return NaN;
-  return v / Math.pow(10, Math.floor(Math.log10(v)));
+  const D = BigInt(s), scale = 10n ** BigInt(use - 1);
+  try { return ALG.qToIv(Q.R(D, scale), Q.R(D + 1n, scale)); } catch (err) { return null; }
 }
 
 /* ---- the closed-form vocabulary --------------------------------------------
    Wider than the first pass, because a refutation is only as interesting as the
-   space it rules out. Every form is generated, never listed. */
+   space it rules out. Every form is generated, never listed, and every form is an
+   exact rational (`q`) or a double enclosure (`iv`). */
+const SQRT = {};
+for (const d of [2, 3, 5, 6, 7, 10, 13]) SQRT[d] = ALG.sqrtRational(d, 1).iv;
 const K = {
-  pi: Math.PI, e: Math.E, ln2: Math.LN2, ln10: Math.LN10,
-  sqrt2: Math.SQRT2, sqrt3: Math.sqrt(3), sqrt5: Math.sqrt(5),
-  phi: (1 + Math.sqrt(5)) / 2, euler: 0.5772156649015329
+  pi: T.PI, e: T.exp(IV.ONE), ln2: T.LN2, ln10: T.log(IV.iv(10)),
+  sqrt2: SQRT[2], sqrt3: SQRT[3], sqrt5: SQRT[5],
+  phi: IV.div(IV.add(IV.ONE, SQRT[5]), IV.iv(2)),
+  /* Euler's γ from its published digits (OEIS A001620, forty decimals) — the box the
+     digits allow, outward to doubles; conditional on OEIS, like everything here */
+  euler: ALG.fromDecimalDigits('0.5772156649015328606065120900824024310421')
 };
 const KN = Object.keys(K);
 
@@ -97,53 +111,98 @@ const KN = Object.keys(K);
    different FORMS with one value, and survivors are labels, not counts.) */
 function gcd2(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a; }
 
-function forms(emit) {
+function forms(emitQ, emitIv) {
+  const r = (p, q) => IV.div(IV.iv(p), IV.iv(q));
   /* rationals p/q */
   for (let q = 1; q <= 32; q++) for (let p = 1; p <= 32; p++) {
     if (gcd2(p, q) !== 1) continue;
-    emit(p + '/' + q, p / q);
+    emitQ(p + '/' + q, Q.R(p, q));
   }
-  /* square and cube roots of small rationals — degree-2 and -3 algebraics */
+  /* square and cube roots of small rationals — degree-2 and -3 algebraics. A radical
+     can be a rational in disguise (sqrt(4/1) is 2): the bracket builder says so, and
+     such a form is routed to the exact test like any rational. */
   for (let q = 1; q <= 16; q++) for (let p = 1; p <= 32; p++) {
     if (gcd2(p, q) !== 1) continue;
-    emit('sqrt(' + p + '/' + q + ')', Math.sqrt(p / q));
-    emit('cbrt(' + p + '/' + q + ')', Math.cbrt(p / q));
+    const s = ALG.sqrtRational(p, q), c = ALG.cbrtRational(p, q);
+    if (s.exact) emitQ('sqrt(' + p + '/' + q + ')', s.exact); else emitIv('sqrt(' + p + '/' + q + ')', s.iv);
+    if (c.exact) emitQ('cbrt(' + p + '/' + q + ')', c.exact); else emitIv('cbrt(' + p + '/' + q + ')', c.iv);
   }
   /* (a + b*sqrt(d))/c — the quadratic irrationals, gcd(a,b,c) = 1 */
   for (const d of [2, 3, 5, 6, 7, 10, 13]) for (let a = 0; a <= 6; a++)
     for (let b = 1; b <= 6; b++) for (let c = 1; c <= 6; c++) {
       if (gcd2(gcd2(a, b), c) !== 1) continue;
-      emit('(' + a + '+' + b + 'sqrt' + d + ')/' + c, (a + b * Math.sqrt(d)) / c);
+      emitIv('(' + a + '+' + b + 'sqrt' + d + ')/' + c, IV.div(IV.add(IV.iv(a), IV.mul(IV.iv(b), SQRT[d])), IV.iv(c)));
     }
-  /* rational multiples and rational powers of each named constant */
+  /* rational multiples and rational powers of each named constant; a rational power
+     K^(p/q) is exp((p/q)·log K), every factor an enclosure. A RATIONAL IN DISGUISE must
+     go to the exact pass: sqrt2^(2/1) is 2, and as an ENCLOSURE it survived the 17-digit
+     box of A271880 (1/5 to sixty-three digits) and was announced as a discovery on the
+     first run of this rewrite (2026-10-09) — the same disguise the old continued-fraction
+     detector existed for. Among the vocabulary's constants only sqrt(D)^(p/1) with p even
+     is rational (D ∈ {2,3,5} is not a square; (2q) | p with gcd(p,q) = 1 forces q = 1),
+     and it is emitted as the exact rational D^(p/2). */
+  const ROOT_OF = { sqrt2: 2n, sqrt3: 3n, sqrt5: 5n };
   for (const n of KN) for (let q = 1; q <= 8; q++) for (let p = 1; p <= 8; p++) {
     if (gcd2(p, q) !== 1) continue;
-    emit('(' + p + '/' + q + ')' + n, (p / q) * K[n]);
-    emit(n + '^(' + p + '/' + q + ')', Math.pow(K[n], p / q));
+    emitIv('(' + p + '/' + q + ')' + n, IV.mul(r(p, q), K[n]));
+    if (q === 1 && ROOT_OF[n] !== undefined && p % 2 === 0) emitQ(n + '^(' + p + '/1)', Q.R(ROOT_OF[n] ** BigInt(p / 2), 1n));
+    else emitIv(n + '^(' + p + '/' + q + ')', q === 1 ? IV.pow(K[n], p) : T.exp(IV.mul(T.log(K[n]), r(p, q))));
   }
   /* products of two named constants (unordered — a*b IS b*a) and quotients (ordered) */
   for (let i = 0; i < KN.length; i++) for (let j = 0; j < KN.length; j++) {
     if (i === j) continue;
-    if (i < j) emit(KN[i] + '*' + KN[j], K[KN[i]] * K[KN[j]]);
-    emit(KN[i] + '/' + KN[j], K[KN[i]] / K[KN[j]]);
+    if (i < j) emitIv(KN[i] + '*' + KN[j], IV.mul(K[KN[i]], K[KN[j]]));
+    emitIv(KN[i] + '/' + KN[j], IV.div(K[KN[i]], K[KN[j]]));
   }
   /* log and exp of small rationals */
   for (let q = 1; q <= 8; q++) for (let p = 1; p <= 16; p++) {
     if (p === q || gcd2(p, q) !== 1) continue;
-    emit('log(' + p + '/' + q + ')', Math.log(p / q));
-    emit('exp(' + p + '/' + q + ')', Math.exp(p / q));
+    emitIv('log(' + p + '/' + q + ')', T.log(r(p, q)));
+    emitIv('exp(' + p + '/' + q + ')', T.exp(r(p, q)));
   }
 }
 
-/* count the vocabulary once, so the page can report what a refutation ruled out */
-let VOCAB = 0; forms(() => { VOCAB++; });
+/* ---- mantissas, computed ONCE for the whole vocabulary ----------------------
+   A rational's mantissa is exact (BigInt). An enclosure's mantissa is the enclosure
+   scaled by the power of ten that puts its lower end in [1,10) — the power is proposed
+   in float and the scaling is done in interval arithmetic with an exact power of ten;
+   if the scaled enclosure reaches 10 it straddles a power of ten and is kept as TWO
+   pieces, both of which must miss the constant for the form to be refuted. A form
+   whose value is not positive has no mantissa and is not tested. */
+function mantissaRational(p, q) {
+  let P = BigInt(p), Qd = BigInt(q);
+  if (P <= 0n || Qd <= 0n) return null;
+  while (P < Qd) P *= 10n;                  /* scale up into [1,10) */
+  while (P >= 10n * Qd) Qd *= 10n;
+  return Q.R(P, Qd);
+}
+function scaleBy10(c, k) {
+  return k >= 0 ? IV.mul(c, IV.iv(Math.pow(10, k))) : IV.div(c, IV.iv(Math.pow(10, -k)));
+}
+function mantissaPieces(c) {
+  if (!(c[0] > 0) || !Number.isFinite(c[1])) return null;
+  let k = -Math.floor(Math.log10(c[0]));
+  let s = scaleBy10(c, k);
+  for (let t = 0; t < 4 && s[0] < 1; t++) { k++; s = scaleBy10(c, k); }
+  for (let t = 0; t < 4 && s[0] >= 10; t++) { k--; s = scaleBy10(c, k); }
+  if (!(s[0] >= 1 && s[0] < 10)) return null;
+  if (s[1] < 10) return [s];
+  return [[s[0], 10], [1, IV.div(IV.iv(s[1]), IV.iv(10))[1]]];
+}
+
+const FORMS = [];
+forms(
+  (label, q) => { const m = mantissaRational(q.n, q.d); FORMS.push({ label, q, mq: m, display: Q.toDouble(q), skip: !m }); },
+  (label, iv) => { const pieces = mantissaPieces(iv); FORMS.push({ label, iv, pieces, display: (iv[0] + iv[1]) / 2, skip: !pieces }); }
+);
+const VOCAB = FORMS.length;
 
 /* ---- EXACT refutation, at the full published precision ---------------------
    The double-precision test caps at 17 digits, and that is not always enough.
    A271880 — the probability a random real is "evil" — agrees with 1/5 to
    SIXTY-THREE digits before diverging (OEIS records the difference separately in
    A271881, about 2.17e-64). At 17 digits the enclosure genuinely contains 1/5
-   and the engine is right not to refute; the honest verdict there is UNDECIDED,
+   and the engine is right not to refute; the honest verdict there is REFUSED,
    not MATCH.
 
    For rational forms the decision can be made exactly at the full published
@@ -154,61 +213,16 @@ let VOCAB = 0; forms(() => { VOCAB++; });
        the form is possible  <=>  D*Q <= P*10^(k-1) < (D+1)*Q
 
    and everything in that line is an integer comparison. */
-function mantissaRational(p, q) {
-  let P = BigInt(p), Q = BigInt(q);
-  if (P <= 0n || Q <= 0n) return null;
-  while (P * 1n < Q) P *= 10n;                 /* scale up into [1,10) */
-  while (P >= 10n * Q) Q *= 10n;
-  return [P, Q];
-}
-function exactlyPossible(digits, p, q) {
-  const mr = mantissaRational(p, q);
-  if (!mr) return null;
-  const [P, Q] = mr;
+function exactlyPossible(digits, mq) {
+  const P = mq.n, Qd = mq.d;
   let i = 0; while (i < digits.length && digits[i] === 0) i++;
   const ds = digits.slice(i).join('');
   if (!ds.length) return null;
   const D = BigInt(ds), k = BigInt(ds.length);
-  const lhs = D * Q;
+  const lhs = D * Qd;
   const mid = P * (10n ** (k - 1n));
-  const rhs = (D + 1n) * Q;
+  const rhs = (D + 1n) * Qd;
   return lhs <= mid && mid < rhs;
-}
-
-/* A radical can be a rational in disguise: sqrt(4/1) and cbrt(8/1) are both 2,
-   and the first exact pass let them through because it only matched "p/q". A
-   form is routed to the exact test whenever its value is rational — which for
-   sqrt(p/q) means p and q are both perfect squares after reduction, and for
-   cbrt both perfect cubes. */
-function gcdI(a, b) { while (b) { const t = a % b; a = b; b = t; } return a; }
-function nthRootExact(n, r) {
-  if (n <= 0) return null;
-  const x = Math.round(Math.pow(n, 1 / r));
-  for (const c of [x - 1, x, x + 1]) { if (c > 0 && Math.pow(c, r) === n) return c; }
-  return null;
-}
-/* Whether a form is rational is a question about its VALUE, not its spelling.
-   Matching label shapes was whack-a-mole: sqrt(4/1) got caught, then
-   sqrt2^(2/1) walked through, and the next disguise would have too. This asks
-   the value directly — a continued-fraction expansion finds any rational with a
-   small denominator — so every spelling of 2 is routed to the exact test at
-   once. */
-function asRational(label, value) {
-  const m = /^(\d+)\/(\d+)$/.exec(label);
-  if (m) return [Number(m[1]), Number(m[2])];
-  if (!isFinite(value) || value <= 0) return null;
-  let x = value, h0 = 0, h1 = 1, k0 = 1, k1 = 0;
-  for (let i = 0; i < 12; i++) {
-    const a = Math.floor(x);
-    const h = a * h1 + h0, k = a * k1 + k0;
-    h0 = h1; h1 = h; k0 = k1; k1 = k;
-    if (k > 4096) break;
-    if (Math.abs(value - h / k) <= 1e-13 * value) return [h, k];   /* rational in disguise */
-    const frac = x - a;
-    if (frac < 1e-13) break;
-    x = 1 / frac;
-  }
-  return null;                                        /* genuinely irrational */
 }
 
 const NOT_A_CONSTANT = /all \d's sequence|constant sequence|characteristic function|period \d|simplest sequence|repeat/i;
@@ -223,23 +237,24 @@ module.exports = {
   key: (e) => e.id,
   certify(e) {
     const encl = mantissaOf(e);
-    if (!encl) return { verdict: 'REFUSED', why: 'no usable digit stream' };
+    if (!encl) return { verdict: V.REFUSED, why: 'no usable digit stream' };
     const [lo, hi] = encl;
     let tested = 0, refuted = 0;
     const survivors = [];
-    forms((label, v) => {
-      const m = mant(v);
-      if (!isFinite(m)) return;
+    for (const f of FORMS) {
+      if (f.skip) continue;
       tested++;
-      if (m >= lo && m <= hi) survivors.push({ label, value: v, mantissa: m });
-      else refuted++;
-    });
+      const disjoint = f.mq
+        ? ALG.rationalDisjoint(f.mq, lo, hi)
+        : f.pieces.every(pc => pc[1] < lo || pc[0] > hi);
+      if (disjoint) refuted++; else survivors.push(f);
+    }
 
     /* Does the entry's own name already give the form? Conservative in the one
        direction that matters: it must not call something unnamed when the name
        names it. The first version missed "2*e" (an asterisk), "2 + phi",
        "square of the Euler-Mascheroni constant" and "tangent of 75 degrees" —
-       all four certified as HITs the confirmation fetch then disproved. The
+       all four certified as discoveries the confirmation fetch then disproved. The
        regex is widened for those shapes AND no longer trusted alone: see the
        CONFIRMED check below. */
     const named = /=|sqrt|log|exp|Pi\b|pi\b|phi\b|golden|zeta|Gamma|gamma|\^|\/|root|sum|product|integral|Li_|e\^|constant of|number$|\d\s*\*|\*\s*\d|square of|cube of|tangent|sine|cosine|\btan\b|\bsin\b|\bcos\b|degrees/i
@@ -251,32 +266,40 @@ module.exports = {
     const exactRefuted = [];
     const stillPossible = [];
     for (const s of survivors) {
-      const rq = asRational(s.label, s.value); /* rational, however it is spelled */
-      if (!rq) { stillPossible.push(s); continue; }
-      const poss = exactlyPossible(e.digits, rq[0], rq[1]);
+      if (!s.mq) { stillPossible.push(s); continue; }
+      const poss = exactlyPossible(e.digits, s.mq);
       if (poss === false) exactRefuted.push(s.label); else stillPossible.push(s);
     }
 
-    /* Three ways to not be a discovery: the name states the form, the full
-       OEIS record states it (fetched and cached by tools/confirm-survivors.js),
-       or nothing survived. A survivor whose full record has NOT been fetched is
-       an OPEN CANDIDATE, not a hit — absence of a check is not absence of a form. */
+    /* The statement has three clauses — the record states no form; the digits are
+       consistent with a small form; every other form is refuted — and the verdict is
+       about the statement. The record stating the form (in the name, or in the fetched
+       formula/comment fields) REFUTES it, exactly, as a fact about the record; no
+       surviving form REFUTES it, every form having been refuted by disjointness or by
+       the exact pass; a survivor whose full record has NOT been fetched leaves it
+       REFUSED — an open candidate, because absence of a check is not absence of a form. */
     const onRecord = CONFIRMED.get(e.id) === true;
     const recordChecked = CONFIRMED.has(e.id);
     const hit = !named && !onRecord && recordChecked && stillPossible.length > 0;
+    const verdict = hit ? V.CERTIFIED
+      : stillPossible.length === 0 ? V.REFUTED
+      : (named || onRecord) ? V.REFUTED
+      : V.REFUSED;
+    const first = stillPossible.length ? stillPossible[0].label : null;
     return {
-      verdict: hit ? 'HIT' : 'REJECT',
+      verdict,
       enclosure: encl,
+      why: verdict === V.REFUSED ? e.id + ': digits match ' + first + ' but the full record has not been fetched — open candidate, not a discovery' : undefined,
       text: hit
         ? e.id + ' — "' + e.name.slice(0, 64) + '" states no closed form anywhere in its record, yet its digits match '
           + stillPossible.slice(0, 3).map(s => s.label).join(' / ') + ' up to a power of ten; '
-          + refuted + ' other forms refuted in double, ' + exactRefuted.length + ' more refuted EXACTLY'
+          + refuted + ' other forms refuted by disjointness, ' + exactRefuted.length + ' more refuted EXACTLY at the full digit length'
         : stillPossible.length > 0 && (named || onRecord)
-          ? e.id + ': digits match ' + stillPossible[0].label + ' — and the OEIS record already states the form ('
+          ? e.id + ': digits match ' + first + ' — and the OEIS record already states the form ('
             + (named ? 'in the name' : 'in a formula/comment field') + '); a screen escape, not a discovery'
         : stillPossible.length > 0
-          ? e.id + ': digits match ' + stillPossible[0].label + ' but the full record has not been fetched — open candidate, not a hit'
-          : e.id + ': ' + refuted + ' of ' + tested + ' forms refuted, ' + survivors.length + ' surviving',
+          ? e.id + ': digits match ' + first + ' but the full record has not been fetched — open candidate, not a discovery'
+          : e.id + ': ' + refuted + ' of ' + tested + ' forms refuted by disjointness, ' + exactRefuted.length + ' exactly, ' + stillPossible.length + ' surviving',
       extra: {
         id: e.id, name: e.name, nameStatesForm: named,
         formOnRecord: recordChecked ? onRecord : null,
@@ -284,11 +307,11 @@ module.exports = {
         tested, refuted,
         exactRefuted, exactDigits: e.digits.length,
         /* the count that closes the page's subtraction (review R1): every
-           form the double-precision test could NOT refute, after the exact
+           form the disjointness test could NOT refute, after the exact
            BigInt pass, ends up here — decided by the record check or left
            an open candidate, but never folded into `refuted` */
         survivorsAfterExact: stillPossible.length,
-        survivors: stillPossible.slice(0, 6).map(s => ({ label: s.label, value: s.value })),
+        survivors: stillPossible.slice(0, 6).map(s => ({ label: s.label, value: s.display })),
         assumption: 'mantissa comparison, conditional on the OEIS published digits; a survivor still needs its offset confirmed before the decimal point is placed'
       }
     };

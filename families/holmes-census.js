@@ -19,6 +19,7 @@
    find and enclose. The map is odd, so nonsymmetric orbits come in ± pairs —
    a structural check the battery exercises for free. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const IV = require('#instruments/interval/interval.js');
 const { iv, add, sub, mul, sqr, ONE } = IV;
@@ -102,13 +103,13 @@ module.exports = {
   certify(o) {
     const spec = holmesSpec(o.d, o.b);
     const c = censusSpec(spec, o.p, o._opts);
-    if (!c.ok) return { verdict: 'REFUSED', why: c.why };
+    if (!c.ok) return { verdict: V.REFUSED, why: c.why };
 
     const rc = recheckSpec(spec, o.p, c);
-    if (!rc.ok) return { verdict: 'REFUSED', why: 'internal recheck found a periodic point outside every certified box — instrument fault, no certificate emitted' };
+    if (!rc.ok) return { verdict: V.REFUSED, why: 'internal recheck found a periodic point outside every certified box — instrument fault, no certificate emitted' };
 
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [c.points, c.points],
       text: 'the Holmes cubic map with d=' + o.d + ', b=' + o.b + ' has EXACTLY ' + c.points
         + ' point' + (c.points === 1 ? '' : 's') + ' of period ' + o.p

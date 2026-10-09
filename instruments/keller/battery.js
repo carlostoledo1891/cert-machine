@@ -51,7 +51,7 @@ let claim3 = null;
     const v = FAM.value(o);
     ok(FAM.interesting(o, v), 'n=' + o.n + ': float screen passes (sampled |det+2| = ' + v.toExponential(1) + ')');
     const c = FAM.certify(o);
-    ok(c.verdict === 'HIT' && c.enclosure[0] === -2 && c.enclosure[1] === -2,
+    ok(c.verdict === 'CERTIFIED' && c.enclosure[0] === -2 && c.enclosure[1] === -2,
       'n=' + o.n + (o.padded ? ' (the padded representative)' : '') + ': VERIFIED — det J = -2 identically, 3 exact collisions; the Jacobian conjecture is false in dimension ' + o.n);
     if (o.padded) ok(/STABILIZATION/.test(c.text) && !!c.extra.padded,
       'the padded row SAYS it is padding — stabilization stated in the certificate text, not hidden');
@@ -191,7 +191,7 @@ let claim3 = null;
     if (!e.pin) { if (e.transcription) unpinnedTranscribed++; continue; }
     pinned++;
     const c = FAM.certify(e);
-    if (!(c.verdict === 'HIT' && c.extra.sourcePin && c.extra.sourcePin.sha256 === PIN.PINS[e.pin]
+    if (!(c.verdict === 'CERTIFIED' && c.extra.sourcePin && c.extra.sourcePin.sha256 === PIN.PINS[e.pin]
       && typeof c.extra.transcription === 'string' && c.extra.transcription.length > 0)) badPin++;
   }
   ok(pinned === 8 && badPin === 0,

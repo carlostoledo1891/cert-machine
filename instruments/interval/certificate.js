@@ -33,7 +33,28 @@ function req(v, what) {
   if (v === undefined || v === null) throw new Error('Certificate: ' + what + ' is required');
   if (typeof v === 'string' && v.trim() === '') throw new Error('Certificate: ' + what + ' must not be empty');
   if (Array.isArray(v) && v.length === 0) throw new Error('Certificate: ' + what + ' must not be empty');
+  /* a list of empty strings passed the two tests above (2026-10-09 code read): `['']`
+     was accepted as a falsifier. Every element must itself be a non-empty string. */
+  if (Array.isArray(v) && v.some(x => typeof x !== 'string' || x.trim() === ''))
+    throw new Error('Certificate: every entry of ' + what + ' must be a non-empty string');
   return v;
+}
+
+/* evidence is the numbers a PROVED verdict rests on. `{k: undefined}` passed the
+   "carries evidence" test and then serialised as `{}` — the object the constructor
+   refuses — because JSON drops undefined values (2026-10-09 code read). A value must
+   be a finite number, an interval of two finite numbers, a BigInt, a non-empty string,
+   or a boolean; anything else, including NaN, refuses. */
+function checkEvidence(ev) {
+  const okScalar = (x) => (typeof x === 'number' && Number.isFinite(x)) || typeof x === 'bigint'
+    || typeof x === 'boolean' || (typeof x === 'string' && x.trim() !== '');
+  for (const k of Object.keys(ev)) {
+    const x = ev[k];
+    const ok = okScalar(x)
+      || (Array.isArray(x) && x.length > 0 && x.every(okScalar))
+      || (x !== null && typeof x === 'object' && !Array.isArray(x) && Object.keys(x).length > 0 && Object.values(x).every(okScalar));
+    if (!ok) throw new Error('Certificate: evidence.' + k + ' is not a finite number, interval, string or boolean (got ' + String(x) + ') — a PROVED verdict cannot rest on it');
+  }
 }
 
 class Certificate {
@@ -63,6 +84,7 @@ class Certificate {
 
     if (this.verdict === PROVED && Object.keys(this.evidence).length === 0)
       throw new Error('Certificate: a PROVED verdict must carry evidence');
+    if (this.verdict === PROVED) checkEvidence(this.evidence);
     if (this.verdict === REFUSED && !this.why)
       throw new Error('Certificate: a REFUSED verdict must say why');
   }

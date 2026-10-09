@@ -117,7 +117,7 @@ const LIVE = [];
     if (!o) break;
     if (!o.claim) die('families/keller-audit.js refused to build entry ' + i + ': ' + o.source);
     const c = FAM.certify(o);
-    if (c.verdict !== 'HIT') die('entry ' + i + ' (' + o.source + ') is no longer a HIT: ' + (c.why || c.verdict));
+    if (c.verdict !== 'CERTIFIED') die('entry ' + i + ' (' + o.source + ') is no longer a HIT: ' + (c.why || c.verdict));
     const id = 'keller-' + i;
     const ce = CERT.entries[seen];
     if (!ce || ce.id !== id) die('the certificate\'s entry order no longer matches the family at ' + id);
@@ -200,18 +200,20 @@ const FIBERS = [];
   }
 }
 if (!FIBERS.length) die('the fiber family enumerated nothing');
-const fibHits = FIBERS.filter(f => f.c.verdict === 'HIT');
-const fibReject = FIBERS.filter(f => f.c.verdict === 'REJECT');
-const fibRefused = FIBERS.filter(f => f.c.verdict === 'REFUSED');
+const fibHits = FIBERS.filter(f => f.c.verdict === 'CERTIFIED');
+/* one certified preimage is REFUSED with the count kept (it was REJECT until 2026-10-09); zero is REFUSED without */
+const fibOne = (f) => f.c.verdict === 'REFUSED' && f.c.extra && f.c.extra.preimages === 1;
+const fibReject = FIBERS.filter(fibOne);
+const fibRefused = FIBERS.filter(f => f.c.verdict === 'REFUSED' && !fibOne(f));
 const fibAlpoge = FIBERS.find(f => f.o.tag === 'alpoge');
 const fibOwn = FIBERS.find(f => f.o.selection);
-if (!fibAlpoge || fibAlpoge.c.verdict !== 'HIT' || fibAlpoge.c.extra.preimages !== blindN)
+if (!fibAlpoge || fibAlpoge.c.verdict !== 'CERTIFIED' || fibAlpoge.c.extra.preimages !== blindN)
   die('the blind rediscovery of Alpöge\'s fiber moved between the battery and this build');
-if (!fibOwn || fibOwn.c.verdict !== 'HIT') die('the self-chosen-target cell stopped certifying');
+if (!fibOwn || fibOwn.c.verdict !== 'CERTIFIED') die('the self-chosen-target cell stopped certifying');
 /* cells whose blind count beat the number of witnesses their own construction
    wrote down — the self-chosen-target cell is excluded, since no construction
    supplied it a witness to beat */
-const fibExceeded = FIBERS.filter(f => f.c.verdict === 'HIT' && !f.o.selection && f.c.extra.preimages > f.o.expectAtLeast);
+const fibExceeded = FIBERS.filter(f => f.c.verdict === 'CERTIFIED' && !f.o.selection && f.c.extra.preimages > f.o.expectAtLeast);
 
 /* ========================================================================== */
 /*                                 the page                                   */
@@ -477,15 +479,15 @@ O.push(C.scope('Published, not peer-reviewed, not independently rerun. What is d
 
 /* ---------------------------------------------------------------- §5 ------ */
 {
-  const vtag = (f) => f.c.verdict === 'HIT' ? C.tag('≥ ' + f.c.extra.preimages + ' preimages, certified', 'cert')
-    : f.c.verdict === 'REJECT' ? C.tag('1 preimage — nothing proved', 'open')
+  const vtag = (f) => f.c.verdict === 'CERTIFIED' ? C.tag('≥ ' + f.c.extra.preimages + ' preimages, certified', 'cert')
+    : fibOne(f) ? C.tag('1 preimage — nothing proved', 'open')
     : C.tag('no certified preimage', 'dep');
   const rows = FIBERS.map(f => [
     { raw: C.m(f.o.tag) },
     { raw: C.m('(' + f.o.w.map(x => fq(Q.toString(x))).join(', ') + ')') },
     { raw: C.esc(f.o.selection ? 'chosen here by a fixed enumeration — not a published image' : 'the map\'s own collision image') },
     { raw: C.m(String(f.o.expectAtLeast)) },
-    { raw: C.m(f.c.verdict === 'HIT' ? String(f.c.extra.preimages) : f.c.verdict === 'REJECT' ? '1' : '0') },
+    { raw: C.m(f.c.verdict === 'CERTIFIED' ? String(f.c.extra.preimages) : fibOne(f) ? '1' : '0') },
     { raw: vtag(f) }
   ]);
   O.push(C.section({

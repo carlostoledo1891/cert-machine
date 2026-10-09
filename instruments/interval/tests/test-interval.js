@@ -291,7 +291,30 @@ let reds = 0;
   if (caught) { reds++; console.log('       RED ok  X6 a rational with a >1024-bit denominator reports ' + got.toExponential(3)
     + ', not the 0 the old isFinite guard accepted (a certified width of zero is a claim of infinite precision)'); }
 }
-check('X every falsifier turned its own target red', reds === 6, reds + '/6');
+{
+  /* X7 — the 32-bit exponent trap (2026-10-09 code read): `e & 1` and `e >>= 1` made
+     pow([1,2], 2^31) return [1,1]. The library must REFUSE such an exponent, never answer. */
+  let caught = false;
+  try { I.pow(I.iv(1, 2), 2147483648); } catch (e) { caught = /beyond 2\^31/.test(e.message); }
+  let caught2 = false;
+  try { I.pow(I.iv(2), 2 ** 53); } catch (e) { caught2 = /beyond 2\^31/.test(e.message); }
+  if (caught && caught2) { reds++; console.log('       RED ok  X7 pow refuses exponents at and beyond 2^31 instead of answering [1,1]'); }
+}
+{
+  /* X8 — the domain: NaN operands, inverted operands and indeterminate products are REFUSED
+     by throw. Until 2026-10-09 mul([0,∞],[0,1]) returned [NaN,NaN], div by [NaN,NaN] was not
+     refused, and a consumer testing `!(x[1] > c)` would have certified on it. */
+  const refuses = (f) => { try { f(); return false; } catch (e) { return /refused/.test(e.message); } };
+  const caught = refuses(() => I.mul([0, Infinity], [0, 1]))
+    && refuses(() => I.add([Infinity, Infinity], [-Infinity, -Infinity]))
+    && refuses(() => I.div([1, 2], [NaN, NaN]))
+    && refuses(() => I.sqr([NaN, NaN]))
+    && refuses(() => I.mul([0.5, 0], [1, 2]))
+    && refuses(() => I.add([1, 2], [3]));
+  const stillSound = I.mul([1, Infinity], [2, 3])[1] === Infinity && I.add([-Infinity, 0], [0, 1])[0] === -Infinity;
+  if (caught && stillSound) { reds++; console.log('       RED ok  X8 NaN, inverted and 0·∞ operands are refused; infinite endpoints stay sound bounds'); }
+}
+check('X every falsifier turned its own target red', reds === 8, reds + '/8');
 
 console.log('\n' + (fail ? fail + ' FAILED, ' + pass + ' passed'
   : 'ALL PASS (' + pass + ' checks) — every export is exercised; arithmetic against exact BigInt\n' +

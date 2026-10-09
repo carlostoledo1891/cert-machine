@@ -323,8 +323,8 @@ def('RegWhat', tex(R.what)); def('RegScope', tex(R.scope.replace(/^What can be d
 {
   const l = J('ledger.json'); const f = (l.families || []).find((x) => x.name === 'ramanujan-audit'); need(f, 'no ramanujan-audit family');
   const c = f.counts; const corrections = 1;             /* the one row of ours in that corpus (tools/build-report-rm-audit.js) */
-  need(c.hits + c.rejects === c.certified && c.rejects === 1, 'the Ramanujan family counts moved');
-  def('RmCertified', int(c.certified)); def('RmPrinted', int(c.certified - corrections)); def('RmSurvive', int(c.hits - corrections)); def('RmRefuted', int(c.rejects)); def('RmCorrections', int(corrections));
+  need(c.hits + c.refuted === c.certified && c.refuted === 1, 'the Ramanujan family counts moved');
+  def('RmCertified', int(c.certified)); def('RmPrinted', int(c.certified - corrections)); def('RmSurvive', int(c.hits - corrections)); def('RmRefuted', int(c.refuted)); def('RmCorrections', int(corrections));
   const reg = R.rows.find((r) => r.id === 'rm-registry'); need(reg, 'no rm-registry row');
   def('RmRegisterSays', tex(reg.claim + '; ' + reg.scope));
   /* the register's own row counts the correction among the printed rows: the paper reports it as an erratum, and the sentence refuses when it is fixed */
@@ -442,11 +442,14 @@ def('RegWhat', tex(R.what)); def('RegScope', tex(R.scope.replace(/^What can be d
   const by = {}; for (const b of bugs) { const k = b.replace(/ →.*$/, ''); by[k] = (by[k] || 0) + 1; }
   def('BugsN', int(bugs.length)); def('BugsMechanisms', int(Object.keys(by).length));
   rows('BugRows', Object.entries(by).sort((a, b) => b[1] - a[1]).map(([k, n]) => [tex(k), int(n)]));
-  need(!/caught: 'reading the code'/.test(src), 'the catalogue now credits reading the code');
+  /* 2026-10-09: the catalogue credits a code read for the first time; the paper counts the two kinds apart */
+  const byCodeRead = bugs.filter((b) => /^code read/.test(b)).length;
+  def('BugsByCodeRead', int(byCodeRead)); def('BugsByRunning', int(bugs.length - byCodeRead));
   const cheats = [...src.matchAll(/^\s+([a-z]): \{ cheat: '/gm)].length;
   need(cheats >= 10, 'the red-control table shrank');
   def('CheatsN', int(cheats));
-  const gates = [...src.matchAll(/^\s+\['([^']+)', \['/gm)].length; def('GatesN', int(gates));
+  /* counts [FUNNEL_GATE, …] too: the old pattern matched quoted names only and said 6 for 7 gates (DEBT, 2026-10-09) */
+  const gates = [...src.matchAll(/^\s+\[(?:'[^']+'|[A-Z_]+), \['/gm)].length; def('GatesN', int(gates));
 }
 /* the position's date */
 {

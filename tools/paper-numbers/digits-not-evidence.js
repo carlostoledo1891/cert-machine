@@ -76,9 +76,12 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
 
   /* the family source: the screen's digit cap and its outward padding */
   const src = fs.readFileSync(path.join(ROOT, 'families', 'oeis-closedform.js'), 'utf8');
-  const mDig = /const DIGITS = (\d+);/.exec(src), mPad = /for \(let i = 0; i < (\d+); i\+\+\) \{ a = IV\.nextDown/.exec(src);
-  need(mDig && mPad, 'the screen\'s digit cap or ulp padding is no longer where the paper reads it');
-  def('ScreenDigits', mDig[1]); def('ScreenUlps', mPad[1]);
+  const mDig = /const DIGITS = (\d+);/.exec(src);
+  /* since 2026-10-09 the mantissa box is the EXACT rational interval the digits allow, converted outward to
+     doubles (algebraic.qToIv), not a float product padded by four ulps; the paper reads the construction here */
+  const mBox = /ALG\.qToIv\(Q\.R\(D, scale\), Q\.R\(D \+ 1n, scale\)\)/.test(src);
+  need(mDig && mBox, 'the screen\'s digit cap or its exact-then-outward mantissa box is no longer where the paper reads it');
+  def('ScreenDigits', mDig[1]);
   def('VocabSize', int(OE.vocabulary));
 
   /* the agreement depth, EXACT and in the relative sense — the definition of
@@ -146,7 +149,7 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
     need(c.verdict !== 'REFUSED', e.id + ' refused');
     if (tested === null) tested = x.tested; else need(tested === x.tested, 'the form count differs between constants');
     refutedDouble += x.refuted;
-    if (c.verdict === 'HIT') hits++;
+    if (c.verdict === 'CERTIFIED') hits++;
     /* a form that survives double AND exact is decided by the record (the name or the
        fetched formula field states it) or is honestly open — the engine's own rule,
        tools/run-engine.js, counted per surviving form as the ledger counts it */
@@ -166,7 +169,7 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
   }
   const impersonations = catalog.reduce((t, e) => t + e.values.reduce((s, v) => s + v.spellings.length, 0), 0);
   need(impersonations === 21 && catalog.length === 5, 'expected 21 exact refutations over 5 constants, found ' + impersonations + ' over ' + catalog.length);
-  need(catalog.every((e) => e.verdict === 'REJECT' && e.after === 0), 'an impostor constant kept a surviving form or became a HIT');
+  need(catalog.every((e) => e.verdict === 'REFUTED' && e.after === 0), 'an impostor constant kept a surviving form or became a HIT');
   need(hits === 0, 'the OEIS audit now reports ' + hits + ' hits; the paper says zero');
   need(open === 0, 'open candidates exist (' + open + '); the paper says none');
   catalog.sort((a, b) => b.values[0].agree - a.values[0].agree || a.id.localeCompare(b.id));
@@ -330,11 +333,11 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
   const corrected = all.find((r) => r.o.id === CORRECTED);
   const refuted = all.find((r) => r.o.id === PRINTED);
   need(printed.length === 51, 'expected 51 printed rows');
-  const hits = printed.filter((r) => r.verdict === 'HIT'), rejects = printed.filter((r) => r.verdict === 'REJECT');
+  const hits = printed.filter((r) => r.verdict === 'CERTIFIED'), rejects = printed.filter((r) => r.verdict === 'REFUTED');
   need(hits.length === 50 && rejects.length === 1 && rejects[0] === refuted, 'the printed verdicts moved');
-  need(corrected.verdict === 'HIT' && /sign slip/.test(refuted.c.text) && /a_1 = 275/.test(refuted.c.text), 'the refutation is not the recorded one');
+  need(corrected.verdict === 'CERTIFIED' && /sign slip/.test(refuted.c.text) && /a_1 = 275/.test(refuted.c.text), 'the refutation is not the recorded one');
   need(refuted.c.enclosure[0] === corrected.c.enclosure[0] && refuted.c.enclosure[1] === corrected.c.enclosure[1], 'printed and corrected rows no longer share one enclosure');
-  const flagship = printed.filter((r) => r.flagship), flagshipHits = flagship.filter((r) => r.verdict === 'HIT');
+  const flagship = printed.filter((r) => r.flagship), flagshipHits = flagship.filter((r) => r.verdict === 'CERTIFIED');
   need(flagship.length === 39 && flagshipHits.length === 38, 'the new-and-unproven counts moved');
   for (const [src] of SHEETS) need(all.some((r) => r.o.source === src), 'no rows from ' + src);
   const widest = hits.reduce((m, r) => (r.width > m.width ? r : m), hits[0]);
@@ -398,7 +401,7 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
 
   /* the zeta(3) sheet */
   const z3rows = all.filter((r) => r.o.source === 'rm_zeta3.pdf');
-  need(z3rows.length === 5 && z3rows.every((r) => r.verdict === 'HIT'), 'the zeta(3) sheet is no longer five surviving rows');
+  need(z3rows.length === 5 && z3rows.every((r) => r.verdict === 'CERTIFIED'), 'the zeta(3) sheet is no longer five surviving rows');
   rows('ZetaThreeRows', z3rows.map((r) => ['\\texttt{' + r.o.id + '}', statusTex(r.o), fm(r.form),
     '$[' + dec(r.c.enclosure[0], 15) + ',\\ ' + dec(r.c.enclosure[1], 15) + ']$', sci(r.width, 2), String(r.x.depth)]));
   const posZ3 = z3rows.filter((r) => !r.o.minusCF);
@@ -483,7 +486,7 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
   const bySheet = (srcs) => all.filter((r) => srcs.includes(r.o.source)).sort((p, q) => order.indexOf(p.o.source) - order.indexOf(q.o.source));
   /* a_0 = a(0) for every row of the five tables (checked above); the 2018 rows' a_0 is stated in prose */
   const regRow = (r) => ['\\texttt{' + r.o.id + '}', statusTex(r.o), twoLine(r.aTex), '$' + r.bTex + '$', fm(r.form),
-    r.verdict === 'REJECT' ? '\\textbf{refuted}' : (r.o.id === CORRECTED ? 'survives (ours)' : 'survives'), sci(r.width, 1)];
+    r.verdict === 'REFUTED' ? '\\textbf{refuted}' : (r.o.id === CORRECTED ? 'survives (ours)' : 'survives'), sci(r.width, 1)];
   const twoK = all.filter((r) => /^results_/.test(r.o.source));
   def('RmTwoKLeading', twoK.map((r) => '\\texttt{' + r.o.id + '} ($a_0=' + r.a0 + '$)').join(', '));
   const groupRows = (srcs) => {
@@ -497,7 +500,7 @@ def('DoubleDigits', dec(53 * Math.log10(2), 2));
   };
   rows('RegistryRowsA', groupRows(['results_e_4614_070418.pdf', 'results_pi_0101_060418.pdf', 'rm_zeta3.pdf', 'rm_other.pdf', 'rm_zeta_orders.pdf']));
   rows('RegistryRowsB', groupRows(['rm_catalan.pdf', 'rm_zeta2.pdf']));
-  FIG.widths = printed.map((r) => ({ id: r.o.id, sheet: SHEETS.find((s) => s[0] === r.o.source)[2], width: r.width, verdict: r.verdict === 'HIT' ? 'survives' : 'refuted', flagship: r.flagship }));
+  FIG.widths = printed.map((r) => ({ id: r.o.id, sheet: SHEETS.find((s) => s[0] === r.o.source)[2], width: r.width, verdict: r.verdict === 'CERTIFIED' ? 'survives' : 'refuted', flagship: r.flagship }));
   FIG.sheetLabels = { e: 'e (2018)', pi: 'pi (2018)', zeta3: 'zeta(3) (2020)', catalan: 'Catalan G (2020)', zeta2: 'pi^2 (2021)', ln2: 'ln 2 (2020)', orders: 'mixed zeta orders (2022)' };
 
   /* the instrument's gate, live */

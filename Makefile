@@ -82,130 +82,132 @@ materialize:
 	@git ls-files -o --ignored --exclude-standard -z | grep -z -v node_modules | xargs -0 -n 40 cat > /dev/null 2>/dev/null; echo "materialized: every tracked AND ignored file read through (the skyaudit day corpora are ignored, 2 GB, and a battery reads them)"
 
 test:
-	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "funnel machine"; $(NODE) machine/funnel/selftest/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "detach"; $(NODE) machine/detach/selftest.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@rm -f .test-failed
+	@printf "%-30s " "engine + families"; $(NODE) tools/test-engine.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "funnel machine"; $(NODE) machine/funnel/selftest/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "detach"; $(NODE) machine/detach/selftest.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@for t in test-eqcert test-interval test-transcendental test-transcendental-enclosure test-quadrature; do \
-	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || echo FAIL; done
-	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "delta3 (the 12-block theorem)"; $(NODE) instruments/delta3/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "delta4 (the k = 4 scout)"; $(NODE) instruments/delta4/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "easota (the SOTA table)"; $(NODE) instruments/easota/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "ecbench (contour benchmark)"; $(NODE) instruments/ecbench/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "stereo (rig error budget)"; $(NODE) instruments/stereo/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "breaking (Black Sea waves)"; $(NODE) instruments/breaking/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "hseva (certified return levels)"; $(NODE) instruments/hseva/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "printed fits (one decision)"; $(NODE) playground/return-level-check/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "sumdiff (registry asterisks)"; $(NODE) instruments/sumdiff/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "covering (the shared module)"; $(NODE) instruments/covering/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "ember band (P3a audit)"; $(NODE) instruments/emberband/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "fueleu penalty"; $(NODE) instruments/fueleu/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "oracle claim library"; python3 oracle/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "wiring (graph as submission)"; cd instruments/wiring && python3 -m pytest tests/test_wiring.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lattice-claims forgeries"; cd instruments/wiring && python3 -m pytest tests/test_forgeries.py -q >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "kissing wave (Q(sqrt2,sqrt3))"; $(PY) instruments/kissing/wave/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mc100 (the Python runs)"; $(PY) instruments/mc100/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "zeta-hankel (the zeta(7) wall)"; $(PY) instruments/zetahankel/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "zeta7-anand (a zeta(7) proof)"; $(PY) instruments/zeta7audit/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "transit (one-sided enclosure)"; $(NODE) instruments/transit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "wiring concord (JS vs Python)"; $(NODE) instruments/wiring/concord.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lambda4 campaign"; $(NODE) instruments/lambda4/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lambda56 campaign"; $(NODE) instruments/lambda56/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "envs (grader QA + gyms)"; $(NODE) instruments/envs/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "sublevel (tao 179)"; $(NODE) instruments/sublevel/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "lambda sweep"; $(NODE) instruments/trigmin/lambda-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mercer mu5 ladder"; $(NODE) instruments/trigmin/mercer6-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "henon census"; $(NODE) instruments/census/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "keller audit"; $(NODE) instruments/keller/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "cf audit"; $(NODE) instruments/cf/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "entropy covering"; $(NODE) instruments/entropy/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "strassen audit"; $(NODE) instruments/strassen/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "bilinear certifier"; $(NODE) instruments/bilinear/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "slp additive circuits"; $(NODE) instruments/slp/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "ivspecial (Γ + Bessel)"; $(NODE) instruments/ivspecial/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "hotspots (ember chain)"; $(NODE) instruments/hotspots/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "afg (first-order MFG, current)"; $(NODE) instruments/afg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "monoflow (not a gradient)"; $(NODE) instruments/monoflow/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "aag (the empty region)"; $(NODE) instruments/aag/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "maxval (the maximal value fn)"; $(NODE) instruments/maxval/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "frontier (the measurement)"; $(NODE) instruments/frontier/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "price (the clearing band)"; $(NODE) instruments/price/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "agtable (their tables)"; $(NODE) instruments/agtable/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "regatlas (the regularization)"; $(NODE) instruments/regatlas/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "hbar (the effective band)"; $(NODE) instruments/hbar/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "design system + charts"; $(NODE) design/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "stale claims (record→page)"; $(NODE) tools/check-stale-claims.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "measure (layout ruler)"; $(NODE) tools/check-measure.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "style (the stylesheet gate)"; $(NODE) tools/check-style.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "cert-unit reds (6 declared)"; $(NODE) instruments/cert-unit/reds.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "cert-unit editor = engine"; $(NODE) instruments/cert-unit/editor.test.mjs >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "cert-unit replay (TERRA 39)"; $(NODE) instruments/cert-unit/replay.mjs 2>/dev/null | grep -q "39 cells identically, 0 disagreed" && echo PASS || echo FAIL
-	@printf "%-30s " "render (what a page shows)"; $(NODE) tools/check-render.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "contraprova gate"; $(NODE) apps/contraprova/gate/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "window instrument"; $(NODE) instruments/window/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela (offshore windows)"; $(NODE) apps/janela/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela alpha (DNV 4-1)"; python3 apps/janela/audit/alpha.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela second verifier"; python3 instruments/window/verify/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela noaa (WAVEWATCH III)"; python3 apps/janela/audit/noaa.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela currents (Copernicus)"; python3 apps/janela/audit/currents.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela currents observed"; python3 apps/janela/audit/currents_observe.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela providers (held-out)"; python3 apps/janela/audit/providers.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela providers (Sergipe)"; python3 apps/janela/audit/providers.py --check --region sergipe >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela providers (AIFS)"; python3 apps/janela/audit/providers_aifs.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela post-processing"; python3 apps/janela/audit/postproc.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "janela pnboia (buoys)"; python3 apps/janela/audit/pnboia.py --check >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "swell (beach by beach)"; $(NODE) apps/swell/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "swell feed (open edge)"; python3 apps/swell/audit/test_feed.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "abatimento kernel"; $(NODE) apps/abatimento/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	  printf "%-30s " "interval/$$t"; $(NODE) instruments/interval/tests/$$t.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }; done
+	@printf "%-30s " "trigmin certifier"; $(NODE) instruments/trigmin/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "forecast instrument"; $(NODE) instruments/forecast/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "kissing ledger"; $(NODE) instruments/kissing/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "delta3 (the 12-block theorem)"; $(NODE) instruments/delta3/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "delta4 (the k = 4 scout)"; $(NODE) instruments/delta4/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "easota (the SOTA table)"; $(NODE) instruments/easota/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ecbench (contour benchmark)"; $(NODE) instruments/ecbench/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "stereo (rig error budget)"; $(NODE) instruments/stereo/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "breaking (Black Sea waves)"; $(NODE) instruments/breaking/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "hseva (certified return levels)"; $(NODE) instruments/hseva/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "printed fits (one decision)"; $(NODE) playground/return-level-check/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "sumdiff (registry asterisks)"; $(NODE) instruments/sumdiff/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "covering (the shared module)"; $(NODE) instruments/covering/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ember band (P3a audit)"; $(NODE) instruments/emberband/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "fueleu penalty"; $(NODE) instruments/fueleu/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "oracle claim library"; python3 oracle/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "wiring (graph as submission)"; cd instruments/wiring && python3 -m pytest tests/test_wiring.py -q >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lattice-claims forgeries"; cd instruments/wiring && python3 -m pytest tests/test_forgeries.py -q >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lattice-claims (pins+gate+regrade)"; $(PY) instruments/wiring/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "blind-spot (chip mutants)"; $(PY) environments/blind_spot/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "blind-spot inspect (one scorer)"; $(PY) environments/blind_spot/inspect/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "gsm8k (the answer key)"; $(PY) instruments/gsm8k/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "kissing wave (Q(sqrt2,sqrt3))"; $(PY) instruments/kissing/wave/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mc100 (the Python runs)"; $(PY) instruments/mc100/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "horizon (certified fits)"; $(PY) instruments/horizon/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "zeta-hankel (the zeta(7) wall)"; $(PY) instruments/zetahankel/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "zeta7-anand (a zeta(7) proof)"; $(PY) instruments/zeta7audit/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "occultation (convex bracket)"; $(NODE) instruments/occultation/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "transit (one-sided enclosure)"; $(NODE) instruments/transit/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "wiring concord (JS vs Python)"; $(NODE) instruments/wiring/concord.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "newman box sweep"; $(NODE) instruments/trigmin/sweep-battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lambda4 campaign"; $(NODE) instruments/lambda4/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lambda56 campaign"; $(NODE) instruments/lambda56/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "envs (grader QA + gyms)"; $(NODE) instruments/envs/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "sublevel (tao 179)"; $(NODE) instruments/sublevel/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "lambda sweep"; $(NODE) instruments/trigmin/lambda-battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mercer mu5 ladder"; $(NODE) instruments/trigmin/mercer6-battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "henon census"; $(NODE) instruments/census/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "keller audit"; $(NODE) instruments/keller/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "cf audit"; $(NODE) instruments/cf/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "entropy covering"; $(NODE) instruments/entropy/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "strassen audit"; $(NODE) instruments/strassen/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "bilinear certifier"; $(NODE) instruments/bilinear/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "slp additive circuits"; $(NODE) instruments/slp/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "bigfloat layer"; $(NODE) instruments/bigfloat/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ivspecial (Γ + Bessel)"; $(NODE) instruments/ivspecial/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "hotspots (ember chain)"; $(NODE) instruments/hotspots/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "erdos852 constants"; $(NODE) instruments/erdos852/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "evtol energy"; $(NODE) instruments/evtol/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "afg (first-order MFG, current)"; $(NODE) instruments/afg/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "monoflow (not a gradient)"; $(NODE) instruments/monoflow/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "aag (the empty region)"; $(NODE) instruments/aag/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "maxval (the maximal value fn)"; $(NODE) instruments/maxval/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "frontier (the measurement)"; $(NODE) instruments/frontier/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "price (the clearing band)"; $(NODE) instruments/price/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "agtable (their tables)"; $(NODE) instruments/agtable/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "regatlas (the regularization)"; $(NODE) instruments/regatlas/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "hbar (the effective band)"; $(NODE) instruments/hbar/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mfg lab (box certifier)"; $(NODE) labs/mfg/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mfg-cap census (EXACTLY-n)"; $(NODE) labs/mfg/census-battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mfg2p lab (two populations)"; $(NODE) labs/mfg2p/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "design system + charts"; $(NODE) design/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "stale claims (record→page)"; $(NODE) tools/check-stale-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "wiring"; $(NODE) tools/check-wiring.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "measure (layout ruler)"; $(NODE) tools/check-measure.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "style (the stylesheet gate)"; $(NODE) tools/check-style.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "cert-unit reds (6 declared)"; $(NODE) instruments/cert-unit/reds.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "cert-unit editor = engine"; $(NODE) instruments/cert-unit/editor.test.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "cert-unit replay (TERRA 39)"; $(NODE) instruments/cert-unit/replay.mjs 2>/dev/null | grep -q "39 cells identically, 0 disagreed" && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "render (what a page shows)"; $(NODE) tools/check-render.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "skyaudit app"; $(NODE) apps/skyaudit/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "contraprova gate"; $(NODE) apps/contraprova/gate/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "window instrument"; $(NODE) instruments/window/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela (offshore windows)"; $(NODE) apps/janela/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela alpha (DNV 4-1)"; python3 apps/janela/audit/alpha.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela second verifier"; python3 instruments/window/verify/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela noaa (WAVEWATCH III)"; python3 apps/janela/audit/noaa.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela currents (Copernicus)"; python3 apps/janela/audit/currents.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela currents observed"; python3 apps/janela/audit/currents_observe.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela providers (held-out)"; python3 apps/janela/audit/providers.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela providers (Sergipe)"; python3 apps/janela/audit/providers.py --check --region sergipe >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela providers (AIFS)"; python3 apps/janela/audit/providers_aifs.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela post-processing"; python3 apps/janela/audit/postproc.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "janela pnboia (buoys)"; python3 apps/janela/audit/pnboia.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "swell (beach by beach)"; $(NODE) apps/swell/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "swell feed (open edge)"; python3 apps/swell/audit/test_feed.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "abatimento kernel"; $(NODE) apps/abatimento/engine/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@for f in sos_verify lyapunov_cert reverify_ai_lyapunov; do \
-	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || echo FAIL; done
-	@printf "%-30s " "keller stdlib verifier"; $(PY) tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "strassen stdlib verifier"; $(PY) tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "erdos852 stdlib verifier"; $(PY) tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "tensorlb (lower-bound audit)"; $(PY) instruments/tensorlb/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "mfgcap (terra re-cert)"; $(PY) instruments/mfgcap/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "critcount (peak counts)"; $(NODE) instruments/critcount/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "facelaw (face dimension)"; $(PY) instruments/facelaw/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "attnflow (attention exact-Q)"; $(PY) instruments/attnflow/battery.py >/dev/null 2>&1 && echo PASS || echo FAIL
-	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || echo FAIL
+	  printf "%-30s " "sos/$$f"; $(PY) instruments/sos/$$f.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }; done
+	@printf "%-30s " "keller stdlib verifier"; $(PY) tools/verify_keller.py certs/keller-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "strassen stdlib verifier"; $(PY) tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "erdos852 stdlib verifier"; $(PY) tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "tensorlb (lower-bound audit)"; $(PY) instruments/tensorlb/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "mfgcap (terra re-cert)"; $(PY) instruments/mfgcap/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "critcount (peak counts)"; $(NODE) instruments/critcount/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "facelaw (face dimension)"; $(PY) instruments/facelaw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "attnflow (attention exact-Q)"; $(PY) instruments/attnflow/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "llm harness (dry)"; $(PY) tools/llm-harness.py --dry-run --n 20 --ledger /dev/null >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@test ! -e .test-failed || { rm -f .test-failed; echo "make test: at least one battery FAILED (see above); exit 1"; exit 1; }
 
 drift:
 	@$(NODE) tools/lift.js --check

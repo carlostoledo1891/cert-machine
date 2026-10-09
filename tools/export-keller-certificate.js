@@ -42,7 +42,7 @@ for (let i = 0; ; i++) {
   if (!o) break;
   if (!o.claim) continue;
   const c = FAM.certify(o);
-  if (c.verdict !== 'HIT') continue;                /* only certificates detach */
+  if (c.verdict !== 'CERTIFIED') continue;                /* only certificates detach */
   entries.push({
     id: 'keller-' + i, n: o.n, source: o.source,
     hessian: !!o.hessian || undefined,

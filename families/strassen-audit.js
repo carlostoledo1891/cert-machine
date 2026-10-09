@@ -21,6 +21,7 @@
    The naive rank-nmp algorithm certifies as correct and is REJECTED:
    correct is not fast, and a hit here asserts r < nmp. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const fs = require('fs');
 const path = require('path');
@@ -139,19 +140,19 @@ module.exports = {
     let sourcePin = null;
     if (o.pin) {
       const pv = PIN.verify(o.pin);
-      if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + o.pin + ': ' + pv.why };
+      if (!pv.ok) return { verdict: V.REFUSED, why: 'source pin failed for ' + o.pin + ': ' + pv.why };
       sourcePin = { file: pv.file, sha256: pv.sha256 };
     }
     const a = o.claim.ring === 'Zi' ? T.auditZi(o.claim) : T.audit(o.claim);
     if (a.verdict === 'REFUTED') {
-      return { verdict: 'REJECT', enclosure: [0, 0],
+      return { verdict: V.REFUTED, enclosure: [0, 0],
         text: 'DISCOVERY-CLASS REFUTATION: ' + o.id + ' does NOT multiply matrices — ' + a.why,
         extra: { id: o.id, source: o.source, why: a.why, ...(sourcePin ? { sourcePin } : {}) } };
     }
-    if (a.verdict === 'REFUSED') return { verdict: 'REFUSED', why: a.why };
+    if (a.verdict === 'REFUSED') return { verdict: V.REFUSED, why: a.why };
     const [n, m, p] = o.claim.dims;
     if (a.rank >= a.naive) {
-      return { verdict: 'REJECT', enclosure: [a.rank, a.rank],
+      return { verdict: V.REFUTED, enclosure: [a.rank, a.rank],
         text: o.id + ': the identity HOLDS (rank ' + a.rank + ', layout ' + a.layout + ') but rank is not below the naive '
           + a.naive + ' — certified correct, certified NOT fast',
         extra: { id: o.id, rank: a.rank, naive: a.naive, layout: a.layout } };
@@ -165,7 +166,7 @@ module.exports = {
       overQ = q.verdict === 'VERIFIED' ? 'also VERIFIED over Q' : 'REFUTED over Q — the algorithm genuinely requires characteristic 2';
     }
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [a.rank, a.rank],
       text: o.id + ': ' + n + 'x' + m + ' times ' + m + 'x' + p + ' in ' + a.rank + ' multiplications VERIFIED over '
         + (o.claim.ring === 'Zi' ? 'Z[i] (doubled half-Gaussian factors; identity = ' + a.scale + '*T, denominators cleared)' : (o.claim.ring || 'Q'))

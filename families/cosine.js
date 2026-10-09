@@ -6,10 +6,15 @@
    which makes this the opposite search direction from newman-minmod and a real
    test that the engine is not hard-wired to one shape.
 
-   Certified by the same instrument: min of an integer cosine polynomial. */
+   Certified by the same instrument: min of an integer cosine polynomial. The
+   verdict is verdict.decide(cEnclosure, 1, 'lt'): CERTIFIED iff the enclosure's
+   upper end is below 1, REFUTED iff its lower end is at or above 1, REFUSED when
+   it straddles. Until 2026-10-09 the straddle was called REJECT with the
+   refutations. */
 'use strict';
 const N = require('#instruments/trigmin/newman.js');
 const CM = require('#instruments/trigmin/certify-min.js');
+const V = require('#instruments/verdict.js');
 
 const MINN = 6, MAXN = 20, MAXGAP = 10;
 const BAR = 1.0;   /* c strictly below 1 is the interesting side */
@@ -43,11 +48,18 @@ module.exports = {
     const r = CM.certify(A, { tol: 1e-12 });
     const cLo = r.cNormalized ? r.cNormalized[0] : null;
     const cHi = r.cNormalized ? r.cNormalized[1] : null;
-    if (cHi === null) return { verdict: 'REFUSED', why: 'no normalised merit returned' };
+    if (cHi === null || cLo === null) return { verdict: V.REFUSED, why: 'no normalised merit returned' };
+    const d = V.decide([cLo, cHi], BAR, 'lt');
+    const set = '[' + A.join(',') + ']';
     return {
-      verdict: cHi < BAR ? 'HIT' : 'REJECT',
+      verdict: d.verdict,
+      why: d.why,
       enclosure: [cLo, cHi],
-      text: 'certified Chowla merit c <= ' + cHi + ' for the ' + A.length + '-element set [' + A.join(',') + ']',
+      text: d.verdict === V.CERTIFIED
+        ? 'certified Chowla merit c <= ' + cHi + ' for the ' + A.length + '-element set ' + set
+        : d.verdict === V.REFUTED
+          ? 'certified Chowla merit c >= ' + cLo + ' for the ' + A.length + '-element set ' + set + ' — not below 1'
+          : 'Chowla merit c in [' + cLo + ', ' + cHi + '] for the ' + A.length + '-element set ' + set + ' straddles 1 — undecided',
       extra: { n: A.length, A, degree: r.degree, cEnclosure: [cLo, cHi] }
     };
   }

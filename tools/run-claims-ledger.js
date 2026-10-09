@@ -108,8 +108,8 @@ function firstSeen(file, key) {
   rows.push({
     id: 'rm-registry', claim: 'the published Ramanujan Machine result sheets, ' + c.certified + ' printed rows',
     claimant: 'the Ramanujan Machine project', source: 'published result sheets',
-    origin: 'self-initiated', verdict: c.rejects ? 'MIXED' : 'CERTIFIED',
-    scope: c.hits + ' rows survive their certified enclosure, ' + c.rejects + ' refuted exactly',
+    origin: 'self-initiated', verdict: c.refuted ? 'MIXED' : 'CERTIFIED',
+    scope: c.hits + ' rows survive their certified enclosure, ' + c.refuted + ' refuted exactly',
     decidedFrom: 'ledger.json (family ramanujan-audit)', page: '/reports/rm-audit.html'
   });
 }
@@ -404,7 +404,7 @@ for (const { r, f } of mc100Same) {
 /* the defect kind and the day the record first held each row (rows 1–4 predate the register: their kinds are read here) */
 for (const r of rows) {
   if (!r.kind) r.kind = r.verdict === 'REFUTED' ? (r.id === 'erdos852-cstar' ? 'float-printed-as-exact' : null) : r.verdict === 'PARTIAL' ? 'narrower-scope' : r.verdict === 'NEEDS DATA' ? 'data-not-public' : 'none';
-  if (r.id === 'rm-registry') { const c = J('ledger.json').families.find((x) => x.name === 'ramanujan-audit').counts; r.kinds = kindCount(Array(c.hits).fill('none').concat(Array(c.rejects).fill('sign-slip'))); }
+  if (r.id === 'rm-registry') { const c = J('ledger.json').families.find((x) => x.name === 'ramanujan-audit').counts; r.kinds = kindCount(Array(c.hits).fill('none').concat(Array(c.refuted).fill('sign-slip'))); }
   if (r.kinds) { const d = Object.entries(r.kinds).filter(([k]) => k !== 'none').sort((a, b) => b[1] - a[1]); r.kind = d.length ? d[0][0] : 'none'; }
   if (!r.kind || !KINDS[r.kind]) die('row ' + r.id + ' has no kind from the closed vocabulary');
   const key = r.key || (r.id.startsWith('ai-') ? r.id.slice(3) : r.id.startsWith('kiss-') ? r.id.slice(5) : r.id === 'erdos852-cstar' ? 'cstar' : r.id === 'rm-registry' ? 'ramanujan-audit' : r.id);

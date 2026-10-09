@@ -21,7 +21,7 @@ for (let i = 0; ; i++) {
   const o = FAM.enumerate(i);
   if (!o) break;
   const c = FAM.certify(o);
-  if (c.verdict !== 'HIT') continue;
+  if (c.verdict !== 'CERTIFIED') continue;
   entries.push({
     id: o.id, source: o.source,
     dims: o.claim.dims, rank: c.extra.rank, naive: c.extra.naive,

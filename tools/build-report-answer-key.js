@@ -127,8 +127,8 @@ for (let i = 0; ; i++) {
   if (o.id === 'rm-zo-z5z3b-printed') rmPrinted = RM.certify(o);
   if (o.id === 'rm-zo-z5z3b-corrected') rmCorrected = RM.certify(o);
 }
-if (!rmPrinted || rmPrinted.verdict !== 'REJECT' || !/sign slip/.test(rmPrinted.text)) die('the RM printed-row refutation moved');
-if (!rmCorrected || rmCorrected.verdict !== 'HIT') die('the RM correction no longer certifies');
+if (!rmPrinted || rmPrinted.verdict !== 'REFUTED' || !/sign slip/.test(rmPrinted.text)) die('the RM printed-row refutation moved');
+if (!rmCorrected || rmCorrected.verdict !== 'CERTIFIED') die('the RM correction no longer certifies');
 
 /* ---- specimen IV: the keyless design, measured --------------------------- */
 const evalRows = fs.readFileSync(path.join(ROOT, 'certs', 'matmul-eval-ledger.jsonl'), 'utf8')

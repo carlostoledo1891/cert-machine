@@ -120,15 +120,15 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     const o = FAM.enumerate(i); if (!o) break;
     verdicts[o.id] = FAM.certify(o);
   }
-  ok(verdicts['erdos852-c0-enclosure'].verdict === 'HIT'
+  ok(verdicts['erdos852-c0-enclosure'].verdict === 'CERTIFIED'
     && /1\.32322827686394946902896939329746346135865351/.test(verdicts['erdos852-c0-enclosure'].text),
     'family: c0 enclosure is a HIT carrying 40+ certified digits');
-  ok(verdicts['erdos852-c0-digits'].verdict === 'HIT' && /ROUNDING/.test(verdicts['erdos852-c0-digits'].text),
+  ok(verdicts['erdos852-c0-digits'].verdict === 'CERTIFIED' && /ROUNDING/.test(verdicts['erdos852-c0-digits'].text),
     'family: the published c0 digits survive their audit, as a rounding, and the certificate says so');
-  ok(verdicts['erdos852-cstar-enclosure'].verdict === 'HIT'
+  ok(verdicts['erdos852-cstar-enclosure'].verdict === 'CERTIFIED'
     && /0\.075240386178309/.test(verdicts['erdos852-cstar-enclosure'].text),
     'family: C* enclosure is a HIT with the corrected digits');
-  ok(verdicts['erdos852-cstar-digits'].verdict === 'REJECT' && /REFUTATION/.test(verdicts['erdos852-cstar-digits'].text),
+  ok(verdicts['erdos852-cstar-digits'].verdict === 'REFUTED' && /REFUTATION/.test(verdicts['erdos852-cstar-digits'].text),
     'family: the published C* digits are REJECTED — a discovery-class refutation of a live thread constant');
 }
 

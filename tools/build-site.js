@@ -38,7 +38,7 @@ const T = ledger.totals;
   if (parts !== T.closedFormTested) fail('closed-form decomposition does not close: ' + parts + ' != ' + T.closedFormTested);
 }
 const rm = ledger.families.find((f) => f.name === 'ramanujan-audit');
-if (!rm || rm.counts.certified !== 52 || rm.counts.hits !== 51 || rm.counts.rejects !== 1) {
+if (!rm || rm.counts.certified !== 52 || rm.counts.hits !== 51 || rm.counts.refuted !== 1) {
   fail('ramanujan-audit counts moved (' + JSON.stringify(rm && rm.counts) + ') — update the landing story deliberately, not silently');
 }
 /* the 52-row corpus = the 51 PRINTED sheet rows + our certified correction of
@@ -47,7 +47,7 @@ if (!rm || rm.counts.certified !== 52 || rm.counts.hits !== 51 || rm.counts.reje
    the audit by our own row. */
 const rmPrinted = rm.counts.certified - 1, rmSurvive = rm.counts.hits - 1;
 const e852 = ledger.families.find((f) => f.name === 'erdos852-constants');
-if (!e852 || e852.counts.rejects !== 1) fail('erdos852 counts moved');
+if (!e852 || e852.counts.refuted !== 1) fail('erdos852 counts moved');
 
 /* the AI-audit flagships and the eval, gated like everything else */
 if (!ledger.conjectures.some((c) => c.family === 'strassen-audit' && c.key === 'mm|alphaevolve-48-4x4x4'))
@@ -442,8 +442,8 @@ const REPORTS = [
       + 'Deliberately no total — the kinds are not commensurable, and one big number would be a smaller fact.',
     n: 'no total on purpose · every row names its denominator' },
   { g: 'ai', f: 'methods-note.html', k: 'methods note',
-    title: 'None by reading code',
-    desc: 'Every real bug this machine has found — ten, cataloged — was caught by a red control, a calibration, an impossible number, or a byte pin. How to build verifiers that catch their own defects, stated as engineering.',
+    title: 'How the bugs were found',
+    desc: 'Every real bug this machine has found, cataloged: ten caught by a red control, a calibration, an impossible number, or a byte pin, and six found on 2026-10-09 by an adversarial read of the code, counted apart. How to build verifiers that catch their own defects, stated as engineering.',
     n: 'every regression re-held by a battery at build' },
   { g: 'ai', f: 'rm-audit.html', k: 'audit · standing registry',
     title: 'The Ramanujan Machine, audited',
@@ -1066,7 +1066,7 @@ B.push(C.section({
         + 'published as though it were.' },
       { b: 'Every battery carries forgeries that must fail.', text: 'Fake inputs are planted in each run, including one '
         + 'wrong by a billionth — invisible to any floating-point check. If a forgery ever passes, the run aborts before '
-        + 'it grades anything real. Every genuine bug this project has found was caught that way; none by reading code.' }
+        + 'it grades anything real. Every genuine bug this project found before 2026-10-09 was caught that way; on 2026-10-09 an adversarial read of the code found six more, counted apart in the methods note.' }
     ])
   ].join('\n')
 }));
@@ -1582,7 +1582,7 @@ const oracleBody = [
         + 'removes, with a published specimen refuted at its twelfth digit. '
         + '<a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit '
         + 'cross-checks provably cannot catch it. '
-        + '<a href="/reports/methods-note.html">None by reading code</a> — the red-control discipline as '
+        + '<a href="/reports/methods-note.html">How the bugs were found</a> — the red-control discipline as '
         + 'engineering.'),
       C.pRaw('<a href="/reports/forecast-gym.html">The Forecast Gym</a> — the probabilistic sibling of this '
         + 'channel: where a claim cannot be decided, only scored, forecasts are sha-committed before their '
@@ -1660,7 +1660,7 @@ const aboutBody = [
         + 'against a case with a known answer before it decides anything new.' },
       { b: 'The errors, dated, in public.', text: 'Refuted claims are published with their generating mechanism '
         + 'named, and the machine’s own defects are recorded the same way. Every real bug this project has found '
-        + 'was caught by a control, a calibration, or an impossible number — none by reading code.' }
+        + 'was caught by a control, a calibration, an impossible number — or, since 2026-10-09, by an adversarial read of the code, counted apart; the erratum of that date is on the machine page.' }
     ])
       + C.note({
         lab: 'what that does and does not buy',

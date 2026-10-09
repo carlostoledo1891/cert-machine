@@ -39,20 +39,20 @@ if (rows.length !== 11) die('expected 11 corpus rows, found ' + rows.length);
 const byId = Object.fromEntries(rows.map(r => [r.id, r]));
 
 const ae = byId['alphaevolve-48-4x4x4'];
-if (!ae || ae.verdict !== 'HIT') die('AlphaEvolve rank-48 did not certify');
+if (!ae || ae.verdict !== 'CERTIFIED') die('AlphaEvolve rank-48 did not certify');
 if (ae.extra.rank !== 48 || ae.extra.ring !== 'Zi' || ae.extra.scale !== 8 || ae.extra.equations !== 4096)
   die('AlphaEvolve certificate moved: ' + JSON.stringify(ae.extra));
 if (!ae.extra.sourcePin || !/^2cce2543/.test(ae.extra.sourcePin.sha256)) die('AlphaEvolve source pin moved');
 
 const at47 = byId['alphatensor-f2-4x4x4'];
-if (!at47 || at47.verdict !== 'HIT' || at47.extra.rank !== 47) die('AlphaTensor rank-47 F2 did not certify');
+if (!at47 || at47.verdict !== 'CERTIFIED' || at47.extra.rank !== 47) die('AlphaTensor rank-47 F2 did not certify');
 if (!/REFUTED over Q/.test(at47.extra.overQ || '')) die('the over-Q refutation of rank-47 moved — the characteristic-2 story is gone');
 
 const s2 = byId['strassen-squared-4x4x4'];
-if (!s2 || s2.verdict !== 'HIT' || s2.extra.rank !== 49) die('the Strassen-squared rank-49 baseline moved');
-if (byId['strassen-1969'].verdict !== 'HIT' || byId['strassen-1969'].extra.rank !== 7) die('the Strassen 1969 calibration moved');
-if (byId['naive-2x2x2'].verdict !== 'REJECT') die('the naive rank-8 honest REJECT moved');
-const hits = rows.filter(r => r.verdict === 'HIT');
+if (!s2 || s2.verdict !== 'CERTIFIED' || s2.extra.rank !== 49) die('the Strassen-squared rank-49 baseline moved');
+if (byId['strassen-1969'].verdict !== 'CERTIFIED' || byId['strassen-1969'].extra.rank !== 7) die('the Strassen 1969 calibration moved');
+if (byId['naive-2x2x2'].verdict !== 'REFUTED') die('the naive rank-8 honest REJECT moved');
+const hits = rows.filter(r => r.verdict === 'CERTIFIED');
 if (hits.length !== 10) die('expected 10 verified algorithms, found ' + hits.length);
 const totalEq = hits.reduce((s, r) => s + (r.extra.equations || 0), 0);
 
@@ -98,7 +98,7 @@ B.push(C.stats([
    A dumbbell is the honest form: same measure, two states, one hue in two
    shades — and the length of the connector IS the result. */
 {
-  const hits = rows.filter(r => r.verdict === 'HIT' && r.extra.naive && r.extra.rank)
+  const hits = rows.filter(r => r.verdict === 'CERTIFIED' && r.extra.naive && r.extra.rank)
     .map(r => ({ k: r.extra.dims, a: r.extra.naive, b: r.extra.rank, id: r.id, ring: r.extra.ring }))
     .sort((x, y) => y.a - x.a);
   const maxN = Math.max.apply(null, hits.map(h => h.a));
@@ -183,9 +183,9 @@ B.push(C.section({
       { raw: '<span class="m">' + C.esc(r.id) + '</span>' },
       { raw: r.extra.dims ? '<span class="m">' + r.extra.dims.join('×') + '</span>' : '—' },
       String(r.extra.rank !== undefined ? r.extra.rank : '—'),
-      r.extra.ring || (r.verdict === 'REJECT' ? 'Q' : '—'),
+      r.extra.ring || (r.verdict === 'REFUTED' ? 'Q' : '—'),
       String(r.extra.equations !== undefined ? r.extra.equations : '—'),
-      { raw: r.verdict === 'HIT'
+      { raw: r.verdict === 'CERTIFIED'
         ? 'VERIFIED' + (r.extra.overQ && /REFUTED/.test(r.extra.overQ) ? ' <strong>· REFUTED over Q</strong>' : '')
         : C.tag('REJECT — correct, not fast', 'open') }
     ])

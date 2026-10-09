@@ -142,7 +142,7 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   ok(!straddle.ok && /contains 0/.test(straddle.why),
     'RED: a head tail interval CONTAINING 0 is REFUSED — sign-definiteness is checked, not assumed');
   const negHead = FAM.certify(FAM.enumerate(11));  /* rm-cat-02: y < 0 at the head */
-  ok(negHead.verdict === 'HIT' && /SURVIVES/.test(negHead.text),
+  ok(negHead.verdict === 'CERTIFIED' && /SURVIVES/.test(negHead.text),
     'a genuinely NEGATIVE-head row (rm-cat-02: 2/(2G-1) = 1 - 4/y, y < 0) evaluates — increasing maps need a fixed sign, not positivity');
 }
 
@@ -191,14 +191,14 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   ok(!spur.ok && /invariance from below/.test(spur.why),
     'RED: the spurious-branch band L = n^4 - n^3 fails (I−) and is REFUSED — the double root cannot be enclosed from the wrong side');
 
-  /* RED: the expectation guard fires — a row expecting REJECT whose form is
+  /* RED: the expectation guard fires — a row expecting REFUTED whose form is
      TRUE refuses loudly instead of recording either verdict */
   let s3rows = [];
   for (let i = 0; ; i++) { const o = FAM.enumerate(i); if (!o) break; if (o.sheet === 3) s3rows.push(o); }
   const corrected = s3rows.find(o => o.id === 'rm-zo-z5z3b-corrected');
-  const guard = FAM.certify({ ...corrected, expect: 'REJECT' });
+  const guard = FAM.certify({ ...corrected, expect: 'REFUTED' });
   ok(guard.verdict === 'REFUSED' && /expected a refutation/.test(guard.why),
-    'RED: a row expecting REJECT whose form intersects the enclosure is REFUSED by name, never recorded');
+    'RED: a row expecting REFUTED whose form intersects the enclosure is REFUSED by name, never recorded');
 
   /* every sheet-3 transcription float-checks against its claimed value
      (literature zeta doubles; worst sensitivity ~464x on rm-zo-z5z3c) */
@@ -216,9 +216,9 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   /* the printed row 3 and its correction share ONE CF; the audit decides both */
   const printed = FAM.certify(s3rows.find(o => o.id === 'rm-zo-z5z3b-printed'));
   const corr = FAM.certify(corrected);
-  ok(printed.verdict === 'REJECT' && /sign slip/.test(printed.text) && /a_1 = 275/.test(printed.text),
+  ok(printed.verdict === 'REFUTED' && /sign slip/.test(printed.text) && /a_1 = 275/.test(printed.text),
     'the sheet\'s row 3 AS PRINTED is REJECTED with the mechanism named: a sign slip in the constant (and the display\'s a_1 = 275 vs the polynomial\'s 75)');
-  ok(corr.verdict === 'HIT' && printed.enclosure[0] === corr.enclosure[0] && printed.enclosure[1] === corr.enclosure[1],
+  ok(corr.verdict === 'CERTIFIED' && printed.enclosure[0] === corr.enclosure[0] && printed.enclosure[1] === corr.enclosure[1],
     'the SIGN-CORRECTED identity 2/(2 zeta(5) - 2 zeta(3) + 1) SURVIVES on the SAME enclosure — one CF, two claims, both decided');
 }
 
@@ -232,7 +232,7 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
     const o = FAM.enumerate(i); if (!o) break;
     const c = FAM.certify(o);
     byId[o.id] = c;
-    if (c.verdict === 'HIT') { hits++; if (/NEW AND UNPROVEN/.test(c.text)) flagship++; }
+    if (c.verdict === 'CERTIFIED') { hits++; if (/NEW AND UNPROVEN/.test(c.text)) flagship++; }
     else if (c.verdict === 'REFUSED') refused++;
     else rejects++;
     if (o.sheet === 2) {           /* transcription guard: float CF vs float form */
@@ -244,13 +244,13 @@ const brouncker = { b0: 0, a: n => (n === 1 ? 1 : (n - 1) * (n - 1)), b: n => 2 
   }
   ok(hits === 51 && refused === 0,
     'all seven sheets COMPLETE — e, pi, zeta(3), Catalan, pi^2, ln 2, mixed-zeta-orders — ' + hits + ' conjectures SURVIVE their audits');
-  ok(rejects === 1 && byId['rm-zo-z5z3b-printed'] && byId['rm-zo-z5z3b-printed'].verdict === 'REJECT',
+  ok(rejects === 1 && byId['rm-zo-z5z3b-printed'] && byId['rm-zo-z5z3b-printed'].verdict === 'REFUTED',
     'EXACTLY ONE refutation in the whole corpus: the mixed-zeta sheet\'s row 3 as printed — the first certified refutation of a printed Ramanujan Machine row');
   ok(flagship === 39, 'all 34 + 5 rows the Machine marks NEW AND UNPROVEN are decided and say so (' + flagship + ')');
   ok(s2checked === 36 && s2bad === 0, 'all 36 sheet-2 transcriptions agree with their claimed Möbius values in float (transcription guard)');
-  ok(byId['rm-z2-proven1'].verdict === 'HIT' && byId['rm-z2-proven2'].verdict === 'HIT',
+  ok(byId['rm-z2-proven1'].verdict === 'CERTIFIED' && byId['rm-z2-proven2'].verdict === 'CERTIFIED',
     'CALIBRATION: both PROVEN pi^2 rows (Kadyrov-Orynbassar) SURVIVE — refuting proved mathematics would mean a broken evaluator');
-  ok(byId['rm-z2-known'].verdict === 'HIT' && byId['rm-cat-known'].verdict === 'HIT',
+  ok(byId['rm-z2-known'].verdict === 'CERTIFIED' && byId['rm-cat-known'].verdict === 'CERTIFIED',
     'CALIBRATION: both KNOWN rows survive, incl. the two-constant form 6/(8G - pi*acosh 2)');
 
   /* RED: a forged Möbius form against a real enclosure is REFUTED exactly */

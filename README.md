@@ -250,8 +250,9 @@ This is the single most important habit in the project, and the cheapest. A
 certifier that has never been shown a false claim is not known to reject false
 claims; it is only known to accept true ones. Red controls are the difference
 between "the tests pass" and "the instrument discriminates." Every battery in
-the build carries them, and every real bug this project has found was found by
-one — none by reading code.
+the build carries them, and every real bug this project found before 2026-10-09 was found
+by one. On 2026-10-09 an adversarial read of the certifier code found six more, counted apart
+in the methods note; the erratum of that date is on the machine page.
 
 ## The frozen envelope
 

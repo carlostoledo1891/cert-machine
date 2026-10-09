@@ -21,6 +21,50 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-09 (~evening UTC), THE METHOD PAPER PLAN — operator: "build the most incredible and bullet proof cert-machine paper …
+a full plan to evolve cert-machine's capabilities, tie everything and update the paper; act as a pair of reviewers, one adversarial".
+  THE PLAN: notes/method-paper-plan-2026-10-09.md (§8 = the claim-more ToDo list, 41 items, ~45 sessions). PHASE 0 BUILT the same day,
+    UNCOMMITTED (the operator said "start"): instruments/verdict.js (the three words, decide(), compose()) and every family routed through it;
+    the engine's contract is CERTIFIED/REFUTED/REFUSED, an unknown word is REFUSED and counted; the closed-form hunt refutes only on
+    DISJOINTNESS of an exact or enclosed candidate (instruments/interval/algebraic.js: verified root brackets, decimal-given γ); the Newman
+    bar is the champion ENCLOSURE; pow refuses ≥ 2^31; the kernel refuses NaN/inverted/0·∞ operands by throw (test-eqcert S4 was found
+    VACUOUS by it and fixed); radii refuses Z2 < 0 and proves the linear branch; the Certificate class rejects empty/undefined fields;
+    `make test` exits 1 on any FAIL; build-control.js REFUSES on a red battery; .node-version/.python-version; ledger.json carries the
+    toolchain; certs/erratum-2026-10-09.json pins the before-numbers (commit be82e126, index.html sha 8e3bf235…) and build-control §7 shows
+    before/after; the methods note is retitled "How the bugs were found" (10 by running, 6 by the 2026-10-09 code read, counted apart) and
+    every "none by reading code" sentence on the site, README and papers is retired; DEBT.md has the PAID block.
+    ENGINE RE-RUN (make engine, 5 min, exit 0): 54,648,476 tested = 54,647,578 refuted by disjointness + 21 exactly + 877 on record + 0 open
+    + 0 surviving; 7,595 rational-power forms refused; chowla's 71 "rejects" were ALL straddles (now REFUSED); engine battery 44/44.
+    THE REWRITE'S FIRST RUN announced A271880 (1/5 to 63 digits) as a discovery — sqrt2^(2/1) is 2 in disguise and, typed as an enclosure,
+    skipped the exact pass; fixed (the twelve rational root powers emitted as exact rationals), red control added, re-run clean.
+  NOT DONE — THE CONTROL BUILD IS RED, BY DESIGN: interval.js changed, so every record that pins the certifier modules' sha256 must be
+    RE-DERIVED by the new bytes: certs/design-table-audit.json DONE (only `generated` and `code` moved; rows identical); certs/hseva-ledger.json
+    DONE (17 min with the atlas competing; every decision identical, only `generated`/`seconds` moved); certs/hseva-atlas.json RUNNING
+    detached (`nohup bash /tmp/cm-atlas-guard.sh`: caffeinate -i -s + a battery guard that SIGSTOPs below 15% discharging; log /tmp/cm-atlas.log;
+    ~2 h on 7 workers; the before-file is /tmp/cm-hseva-atlas-before.json — diff cells, expect only code/generated/seconds to move); THEN
+    `node tools/build-control.js` (15 min; it now refuses on red; the render gate read decidivel's map 35.92% -> 31.08% on UNCHANGED bytes —
+    the flaky-low case DEBT documents; re-run it alone), `node tools/check-stale-claims.js`, `make site` before any push.
+    ALSO DONE: the three PDFs rebuilt (cert-machine-method v0.1.1 with §8 as closed/open, Prop. 2 with its domain and the V8 trust base,
+    "same-author second implementations"; register with BugsByCodeRead/GatesN = 7; digits-not-evidence with the exact-then-outward box);
+    paper/INDEX.json status bumped; the digits-not-evidence paper generator reads the new construction.
+  THE OPERATOR DECIDES: commit (nothing is committed; 55+ files changed), the public erratum on the live page (a push), and the plan's §7 items.
+  TWO HEADLINE FINDINGS, VERIFIED AGAINST THE SOURCE (an adversarial code read + probes): (F1) the closed-form hunt counts a FLOAT
+    comparison as a refutation (engine.js relations(); oeis-closedform.js) — exact for p/q, not for sqrt/constant-multiple/pow/exp forms;
+    index.html says "54,628,275 refuted in double", README/CLAUDE.md/HANDOFF say "a REFUTED here is proved" without the qualifier;
+    (F2) the engine's REJECT mixes proved-below with the straddle and any unknown verdict string (engine.js:58-60); Newman HIT compares
+    lower end with lower end (newman.js:41; no row flips, gaps 0.02–0.36). Also: pow wrong at exponents ≥ 2^31 (no caller); no NaN
+    semantics; the pad helper has SIX live callers incl. labs/mfg (the §4.1 certifier), not "four outside scope"; register `mechanism`
+    null on 131/132; λ(4) rerun record has hash null. Measured: transcendental.js vs Arb (python-flint in instruments/erdos1/.venv),
+    31,700 operands, 0 containment failures; sin/cos widths reach 1.67 at |x|~1e15 (sound, useless; a domain to state).
+  THE PLAN'S SHAPE: Phase 0 headline truth + a published ERRATUM TABLE (pinned to the old bytes' sha) → one verdict module with
+    decide(enclosure, bar, direction) → the thesis re-cut to two falsifiable objects (ONE certificate format + a stdlib checker for the
+    EXACT classes, counted by row; the pre-registered 100-claim benchmark beside the claimants' own checkers, both denominators) with
+    the grammar as the frame; Arb differential battery, verdict-flip mutation testing, CI second platform, co-author BLIND replication
+    packet; every independence sentence a count; Lean and the interval checker are v1.1. Venue: JSC level with JCAM; SoftwareX
+    companion; P1 → Ocean Engineering. Partner names stay out of the repo.
+  FOR THE OPERATOR (plan §7): venue with the group; sign the pre-registration amendment date; the D2 packet + R5 ask (a send); the
+    public erratum; whether Phase 0 runs during the CPSI week (it touches no app; apps/abatimento FROZEN until 2026-10-19 17:00).
+────────────────────────────────────────────────────────────────────────────
 2026-10-09 (~15:30 UTC), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR (operator: "handoff").
   STATE: main 1a03d3e + this commit, pushed. LIVE and fetched after the deploy: /paper/cert-machine-method.pdf (16 pp),
     /paper/p1-return-levels.pdf (v0.2, 36 pp), /papers/ (the method group first), /abatimento/ (first time public);

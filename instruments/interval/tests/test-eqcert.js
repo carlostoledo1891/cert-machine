@@ -144,7 +144,9 @@ check('S4 the same code runs over intervals and encloses the float answer', (() 
   const f = [0.5, -0.25, 0.125], g = [1, 0.5, -0.5];
   const flt = S.conv(f, g, 4, S.EVEN, S.EVEN);
   const IA = { ZERO: I.ZERO, ONE: I.ONE, add: I.add, sub: I.sub, mul: I.mul, abs: I.abs };
-  const ivl = S.conv(f.map(I.iv), g.map(I.iv), 4, S.EVEN, S.EVEN, IA);
+  /* `f.map(I.iv)` was the Array.map arity trap — iv(x, index) built [0.5, 0] boxes and this
+     check passed VACUOUSLY until interval.js refused malformed operands (2026-10-09). */
+  const ivl = S.conv(f.map(x => I.iv(x)), g.map(x => I.iv(x)), 4, S.EVEN, S.EVEN, IA);
   for (let k = 0; k <= 4; k++) if (!I.contains(ivl[k], flt[k])) return false;
   return true;
 })());
@@ -181,6 +183,15 @@ check('R2 when the computed root is NOT verifiably negative, the driver walks up
   return pRoot[1] >= 0 && r.r > r.rMin && r.pAtR < 0;
 })(), 'the trap an earlier version of this code fell into');
 check('R3 Z1 >= 1 is refused outright', (() => !R.radiiPolynomial(1e-15, 1.0, 2.0).ok)());
+/* RED (2026-10-09): a negative Z2 is not a Lipschitz bound and a NaN is not a number; both went
+   into the linear branch and came back ok. And the linear branch itself must prove p(r) < 0. */
+check('R3b a NEGATIVE Z2 is refused, not certified as linear', (() => !R.radiiPolynomial(1e-3, 0.5, -1).ok)());
+check('R3c a NaN Z2 is refused', (() => !R.radiiPolynomial(1e-3, 0.5, NaN).ok)());
+check('R3d a negative Y0 is refused', (() => !R.radiiPolynomial(-1e-3, 0.5, 1).ok)());
+check('R3e the linear branch (Z2 = 0) certifies WITH an interval proof of p(r) < 0', (() => {
+  const r = R.radiiPolynomial(1e-3, 0.5, 0);
+  return r.ok === true && r.linear === true && Array.isArray(r.pAtR) && r.pAtR[1] < 0;
+})());
 check('R4 too large a defect is refused (discriminant <= 0)', (() => !R.radiiPolynomial(1.0, 0.5, 2.0).ok)());
 /* R8 — THE RED CONTROL FOR THE CONTRACTION-FACTOR GUARD, added 2026-07-30.
    Before the guard existed this exact triple returned ok:true. It is the reason

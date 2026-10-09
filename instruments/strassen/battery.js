@@ -67,7 +67,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     ok(overQ.verdict === 'REFUTED',
       'the same factors over Q are REFUTED — the speedup genuinely requires characteristic 2, decided not quoted');
     const c = FAM.certify(f2);
-    ok(c.verdict === 'HIT' && /characteristic 2/.test(c.text) && c.extra.sourcePin,
+    ok(c.verdict === 'CERTIFIED' && /characteristic 2/.test(c.text) && c.extra.sourcePin,
       'the certificate says both facts and carries the source pin (' + (c.extra.sourcePin ? c.extra.sourcePin.sha256.slice(0, 8) + '…' : '-') + ')');
   }
 }
@@ -109,7 +109,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     const forgedIm = { ...ae.claim, W: ae.claim.W.map((row, i) => (i === 3 ? row.map((x, t) => (t === 2 ? [x[0], x[1] + 1] : x)) : row)) };
     ok(T.auditZi(forgedIm).verdict === 'REFUTED', 'RED: an imaginary component off by 1 is REFUTED — the im = 0 constraint is live');
     const c = FAM.certify(ae);
-    ok(c.verdict === 'HIT' && c.extra.scale === 8 && c.extra.sourcePin,
+    ok(c.verdict === 'CERTIFIED' && c.extra.scale === 8 && c.extra.sourcePin,
       'the certificate states the doubled-scale identity and carries the notebook pin (' + (c.extra.sourcePin ? c.extra.sourcePin.sha256.slice(0, 8) + '…' : '-') + ')');
   }
 }
@@ -122,10 +122,10 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     const v = FAM.value(o);
     ok(FAM.interesting(o, v), o.id + ': the float screen passes (sample residual ' + v + ')');
     const c = FAM.certify(o);
-    if (c.verdict === 'HIT') hits++;
-    else if (c.verdict === 'REJECT') rejects++;
+    if (c.verdict === 'CERTIFIED') hits++;
+    else if (c.verdict === 'REFUTED') rejects++;
     else refused++;
-    if (o.id === 'alphatensor-q-3x3x3' && c.verdict === 'HIT' && c.extra.rank === 23) laderman = true;
+    if (o.id === 'alphatensor-q-3x3x3' && c.verdict === 'CERTIFIED' && c.extra.rank === 23) laderman = true;
   }
   ok(hits === 10 && rejects === 1 && refused === 0,
     'corpus decided: 10 fast algorithms HIT (AlphaEvolve 48 now among them), the naive rank-8 honestly REJECTED (' + hits + '/' + rejects + '/' + refused + ')');

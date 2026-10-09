@@ -110,7 +110,7 @@ for (let i = 0; ; i++) {
 
 /* the catalog must be the one the ledger's 21 stand for */
 const totalImpersonations = catalog.reduce((t, e) => t + e.values.reduce((s, v) => s + v.spellings.length, 0), 0);
-if (totalImpersonations !== 21 || catalog.some(e => e.verdict !== 'REJECT')) {
+if (totalImpersonations !== 21 || catalog.some(e => e.verdict !== 'REFUTED')) {
   console.error('IMPOSTOR REPORT REFUSED: expected 21 exact refutations, all REJECT; found '
     + totalImpersonations + ' across ' + catalog.length + ' entries');
   process.exit(1);

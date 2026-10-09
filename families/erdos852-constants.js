@@ -28,6 +28,7 @@
    p > ~208000 and 87% of the factors silently vanish. The battery
    reproduces that broken computation digit for digit. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const B = require('#instruments/bigfloat/bigfloat.js');
 const E = require('#instruments/erdos852/constants.js');
@@ -95,7 +96,7 @@ module.exports = {
     const pins = {};
     for (const f of [THREAD, PAGE]) {
       const pv = PIN.verify(f);
-      if (!pv.ok) return { verdict: 'REFUSED', why: 'source pin failed for ' + f + ': ' + pv.why };
+      if (!pv.ok) return { verdict: V.REFUSED, why: 'source pin failed for ' + f + ': ' + pv.why };
       pins[f] = pv.sha256;
     }
     const sourcePin = { files: [THREAD, PAGE], sha256: pins };
@@ -118,7 +119,7 @@ module.exports = {
       };
       if (o.kind === 'c0') {
         return {
-          verdict: 'HIT',
+          verdict: V.CERTIFIED,
           enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
           text: 'THEOREM: c0 = ' + digits + '... — the unique positive root of I0(c) = 1, enclosed to width '
             + B.widthNumber(r.enclosure).toExponential(2) + ' (' + r.iters + ' certified bisections at ' + r.P
@@ -128,13 +129,13 @@ module.exports = {
       }
       const d = E.decideClaimedDigits(r.enclosure, o.claim);
       if (d.verdict === 'REFUTED') {
-        return { verdict: 'REJECT', enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
+        return { verdict: V.REFUTED, enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
           text: 'DISCOVERY-CLASS REFUTATION: the published c0 = ' + o.claim + '... lies provably outside the certified enclosure.',
           extra: { ...base, claim: o.claim, decision: d } };
       }
-      if (d.verdict === 'UNDECIDED') return { verdict: 'REFUSED', why: 'enclosure too wide to decide the published digits' };
+      if (d.verdict === 'UNDECIDED') return { verdict: V.REFUSED, why: 'enclosure too wide to decide the published digits' };
       return {
-        verdict: 'HIT',
+        verdict: V.CERTIFIED,
         enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
         text: 'AUDIT: the published c0 = ' + o.claim + '... ' + (d.verdict === 'VERIFIED'
           ? 'is VERIFIED — its digits are the leading digits of the certified enclosure.'
@@ -161,7 +162,7 @@ module.exports = {
     };
     if (o.kind === 'cstar') {
       return {
-        verdict: 'HIT',
+        verdict: V.CERTIFIED,
         enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
         text: 'THEOREM: C* = ' + digits + '... — enclosed to width ' + B.widthNumber(r.enclosure).toExponential(2)
           + ' (' + r.primes + ' odd primes to ' + r.limit + ', tail proved). The first certified enclosure of this constant.',
@@ -171,7 +172,7 @@ module.exports = {
     const d = E.decideClaimedDigits(r.enclosure, o.claim);
     if (d.verdict === 'REFUTED') {
       return {
-        verdict: 'REJECT',
+        verdict: V.REFUTED,
         enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
         text: 'DISCOVERY-CLASS REFUTATION: the published C* = ' + o.claim + '... is provably WRONG from the 12th significant digit '
           + '(under truncation AND rounding readings): the certified value is C* = ' + digits + '... . MECHANISM, reproduced in the battery: '
@@ -182,8 +183,8 @@ module.exports = {
           naiveFloatReproduction: 'naive double product over the same primes = 0.07524038617774187 = the published value to all its digits' }
       };
     }
-    if (d.verdict === 'UNDECIDED') return { verdict: 'REFUSED', why: 'enclosure too wide to decide the published digits' };
-    return { verdict: 'HIT', enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
+    if (d.verdict === 'UNDECIDED') return { verdict: V.REFUSED, why: 'enclosure too wide to decide the published digits' };
+    return { verdict: V.CERTIFIED, enclosure: [B.toNumberDown(r.enclosure.lo), B.toNumberUp(r.enclosure.hi)],
       text: 'AUDIT: the published C* = ' + o.claim + '... is ' + d.verdict + ' against the certified enclosure.',
       extra: { ...base, claim: o.claim, decision: d } };
   }

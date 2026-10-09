@@ -39,14 +39,28 @@ const ADOPTED = [
   { n: 17, A: [0,1,2,3,8,11,13,14,16,17,18,20,22,23,26,27,30],from: 'mu-table', src: 'box30 maximum' }
 ];
 
+/* Per term count the champion's certified |f|² ENCLOSURE [lo, hi], not its lower end alone.
+   Until 2026-10-09 only modSq[0] was kept and a candidate was called a HIT when ITS lower end
+   exceeded the champion's LOWER end — which does not prove the candidate exceeds the champion.
+   The bar is now an interval and the comparison is candidate.lo > bar.hi (verdict.decide 'gt'). */
 const VALUE = new Map();
 for (const a of ANCHORS.concat(ADOPTED)) {
   const c = N.certifyNewman(a.A, { bar: 0 });
   const prev = VALUE.get(a.n);
-  if (prev === undefined || c.modSq[0] > prev) VALUE.set(a.n, c.modSq[0]);
+  if (prev === undefined || c.modSq[0] > prev[0]) VALUE.set(a.n, [c.modSq[0], c.modSq[1]]);
 }
 
-function barSq(n) { let b = 0; for (const [k, v] of VALUE) if (k < n && v > b) b = v; return b; }
+/* the recorded envelope below n terms, as an interval: [max of the champions' lower ends,
+   max of their upper ends]. A candidate is proved above every recorded champion iff its
+   lower end exceeds the second number; proved not above some champion iff its upper end
+   does not exceed the first. */
+function barSqInterval(n) {
+  let lo = 0, hi = 0;
+  for (const [k, v] of VALUE) if (k < n) { if (v[0] > lo) lo = v[0]; if (v[1] > hi) hi = v[1]; }
+  return [lo, hi];
+}
+/* the lower end alone — kept for the float SCREEN, which may only prune, never admit */
+function barSq(n) { return barSqInterval(n)[0]; }
 
 /* names any term count where a board holds more than the envelope knows */
 function audit(entries) {
@@ -59,4 +73,4 @@ function audit(entries) {
   return out;
 }
 
-module.exports = { ANCHORS, ADOPTED, VALUE, barSq, audit };
+module.exports = { ANCHORS, ADOPTED, VALUE, barSq, barSqInterval, audit };

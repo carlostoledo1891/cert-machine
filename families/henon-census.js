@@ -20,6 +20,7 @@
    prediction the census then makes exact. It screens nothing out: every
    (a, b, p) cell is worth deciding. */
 'use strict';
+const V = require('#instruments/verdict.js');
 
 const { census, recheckCensus, newtonF, residualF } = require('#instruments/census/henon-census.js');
 
@@ -77,15 +78,15 @@ module.exports = {
   certify(o) {
     const { a, b, p } = o;
     const c = census(a, b, p, o._opts);
-    if (!c.ok) return { verdict: 'REFUSED', why: c.why };
+    if (!c.ok) return { verdict: V.REFUSED, why: c.why };
 
     /* the certificate does not ship unless the independent float recheck
        agrees: every Newton-reachable periodic point must be a recorded one */
     const rc = recheckCensus(a, b, p, c);
-    if (!rc.ok) return { verdict: 'REFUSED', why: 'internal recheck found a periodic point outside every certified box — instrument fault, no certificate emitted' };
+    if (!rc.ok) return { verdict: V.REFUSED, why: 'internal recheck found a periodic point outside every certified box — instrument fault, no certificate emitted' };
 
     return {
-      verdict: 'HIT',
+      verdict: V.CERTIFIED,
       enclosure: [c.points, c.points],           /* an exact integer, certified */
       text: 'the Hénon map with a=' + a + ', b=' + b + ' has EXACTLY ' + c.points
         + ' point' + (c.points === 1 ? '' : 's') + ' of period ' + p

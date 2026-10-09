@@ -2,7 +2,8 @@
 /* build-report-methods.js — generate reports/methods-note.html: the methods
    note. The bug catalog: every real bug this project has found, and the
    instrument that found it — a control, a calibration, an impossible
-   number, a byte pin. None by reading code.
+   number, a byte pin — and, since 2026-10-09, an adversarial READ of the code,
+   counted apart (the first six; the page was "None by reading code" until then).
 
    THE GATE. Every catalog entry that names a living regression control is
    backed by RUNNING that battery during this build; the build refuses if
@@ -193,26 +194,74 @@ const BUGS = [
     caught: 'control',
     broke: 'A certification bar taken from the wrong endpoint of an enclosure silently kills true champions — the source lab paid for this lesson in a lost run. Here it is not prose: the lambda battery constructs the wrong-endpoint bar, REFUSES it by name, and demonstrates the disaster it would cause, every run.',
     gate: 'lambda battery: the wrong-endpoint red control'
+  },
+  /* ---- 2026-10-09: the first defects found by READING the code -------------
+     An adversarial read made for the method paper found six. None had moved a
+     published verdict; each was a place where a sentence said more than the code
+     did. They are counted apart, under their own mechanism, and the page's old
+     title — "None by reading code" — is retired with them: the null result held
+     for ten bugs and then did not. certs/erratum-2026-10-09.json pins the
+     numbers before; the control page's §7 shows before and after. */
+  {
+    name: 'Closed forms "refuted" by a float comparison', where: 'engine relations(), oeis-closedform',
+    caught: 'code read',
+    broke: 'The closed-form hunt compared a DOUBLE candidate — Math.sqrt(p/q), a midpoint times a rational, Math.pow, Math.exp — against the certified enclosure and counted a miss as a refutation. Exact for p/q (round-to-nearest is monotone), not for the rest; the control page counted 54,628,275 as "refuted in double" under the sentence "a refutation here is proved". The √2 incident above was this mechanism, repaired then at the enclosure and not at the comparison. Fix: every candidate is an exact rational or a verified enclosure and a form is refuted only on DISJOINTNESS; rational powers c^(p/q) the hunt cannot enclose are refused, not tested.',
+    gate: 'engine battery: an enclosure touching √2\'s bracket by one double keeps √2; (1/2)·π survives a one-double enclosure of π/2'
+  },
+  {
+    name: 'REJECT meant two things, and an unknown word was one of them', where: 'engine loop, cosine, newman, strassen, oeis',
+    caught: 'code read',
+    broke: 'The engine sent any verdict string that was not HIT or REFUSED — a typo, undefined — to the rejects, and two families said REJECT whenever an enclosure failed to clear the bar, which includes the STRADDLE where nothing is proved. The ledger quoted rejects as decisions. Fix: one verdict module with the three words and ONE predicate, decide(enclosure, bar, relation); an unknown word is REFUSED and counted as unknown; a straddle is REFUSED.',
+    gate: 'engine battery: a straddling enclosure is REFUSED; the old word and undefined are counted as unknown'
+  },
+  {
+    name: 'The Newman bar was the champion\'s LOWER end', where: 'newman family, trigmin envelope',
+    caught: 'code read',
+    broke: 'A candidate was a HIT when its lower end exceeded the champion\'s lower end, which does not prove it exceeds the champion; the statement said "every value achievable with fewer terms" over a finite envelope that includes box maxima. The four hits on record have gaps of 0.02–0.36 against widths ~5e-16 and did not move; the predicate and the sentence did. Fix: the bar is the champion ENCLOSURE and the test is candidate.lo > bar.hi.',
+    gate: 'engine battery: a candidate equal to the champion\'s enclosure is REFUSED'
+  },
+  {
+    name: 'pow at exponents ≥ 2^31 returned [1,1]', where: 'interval.js',
+    caught: 'code read',
+    broke: '`e & 1` and `e >>= 1` are 32-bit operations, so pow([1,2], 2^31) answered [1,1] — silently, like the negative-exponent trap the file header already records. No caller passed such an exponent. Fix: refused at |n| ≥ 2^31.',
+    gate: 'interval battery X7'
+  },
+  {
+    name: 'No NaN or infinity semantics in the kernel', where: 'interval.js, and a vacuous check in test-eqcert',
+    caught: 'code read',
+    broke: 'mul([0,∞],[0,1]) returned [NaN,NaN]; division by [NaN,NaN] was not refused (NaN fails the straddle test); a consumer written `if (!(x[1] > c)) proved` would have certified on it; the batteries skipped non-finite results. Enforcing the domain then found that test-eqcert\'s S4 had been passing VACUOUSLY on [0.5, 0] boxes built by the Array.map arity trap. Fix: every primitive refuses a malformed operand or an indeterminate result by throw.',
+    gate: 'interval battery X8; test-eqcert S4 now exercises real boxes'
+  },
+  {
+    name: 'The radii linear branch, and a negative Z2', where: 'radii.js; the Certificate class',
+    caught: 'code read',
+    broke: 'The Z2 = 0 branch returned ok on the float formula without the interval proof of p(r) < 0 that the other branch makes, and `!(Z2 > 0)` sent a NEGATIVE or NaN Z2 into it. The Certificate class accepted [\'\'] as a falsifier and {k: undefined} as evidence, then serialised a PROVED certificate with evidence {} — the object its constructor refuses. Fix: finite nonnegative bounds required; the linear branch proves p(r) < 0; empty and undefined fields refused.',
+    gate: 'test-eqcert R3b–R3e; the six Certificate users\' batteries'
   }
 ];
 const foundBy = {};
 for (const b of BUGS) foundBy[b.caught] = (foundBy[b.caught] || 0) + 1;
+const byCodeRead = foundBy['code read'] || 0;
+const byRunning = BUGS.length - byCodeRead;
 
 const O = [];
 O.push(C.header({
   eyebrow: 'cert-machine · methods note',
-  title: 'None by reading code',
-  deck: 'Every real bug this project has found — ' + BUGS.length + ' of them, cataloged below — was caught by a '
-    + 'red control, a calibration, an impossible number, or a byte pin. Not one was found by reading the code. '
+  title: 'How the bugs were found',
+  deck: 'Every real bug this project has found — ' + BUGS.length + ' of them, cataloged below. ' + byRunning + ' were caught by '
+    + 'running the machine: a red control, a calibration, an impossible number, a byte pin, an outside read. ' + byCodeRead
+    + ' were found on 2026-10-09 by an adversarial READ of the certifier code, made for the method paper — the first of that kind, '
+    + 'counted apart; this page was titled "None by reading code" until then, and the null result held for ' + byRunning + ' bugs and then did not. '
     + 'This note is the discipline stated as engineering, with the receipts: every regression named here is held '
     + 'by a battery that executed during this build, and the build refuses if any goes red. §5 is the same '
     + 'discipline under attack: ' + funnelReds.length + ' ways to cheat the machine, and the gate that caught each.'
 }));
 
 O.push(C.tldr({
-  findingRaw: 'Ten real bugs, zero found by reading code: every one was caught by a red control, a calibration, '
-    + 'an impossible number, or a byte pin. Verifier engineering — not code review — is what actually catches '
-    + 'defects, in this machine and in any evaluation pipeline built on computed ground truth.',
+  findingRaw: BUGS.length + ' real bugs: ' + byRunning + ' caught by a red control, a calibration, an impossible number, or a byte pin, '
+    + 'and ' + byCodeRead + ' by an adversarial read of the code on 2026-10-09 (none of those had moved a published verdict; each was a sentence '
+    + 'that said more than the code did). Verifier engineering catches defects while the machine runs; a hostile reader catches '
+    + 'the ones that live between the code and its description. A paper needs both, and this note now counts both.',
   mechanismRaw: 'A check that has never gone red is decorative, so every battery carries deliberate forgeries '
     + 'that must fire; every instrument reproduces a known answer before deciding anything new; and every gate '
     + 'cited on this page executed during the build that produced it.',
@@ -223,7 +272,7 @@ O.push(C.tldr({
 
 O.push(C.stats([
   { k: 'bugs cataloged', v: String(BUGS.length), n: 'real defects with named catches and living gates' },
-  { k: 'found by reading code', v: '0', role: 'held', n: 'the null result the whole method predicts' },
+  { k: 'found by reading code', v: String(byCodeRead), role: 'warn', n: '0 until 2026-10-09; an adversarial read made for the method paper found these — counted apart, pinned in certs/erratum-2026-10-09.json' },
   { k: 'impossible numbers', v: String(foundBy['impossible number'] || 0), n: 'bounds provably above ceilings, values refuting themselves' },
   { k: 'calibrations', v: String(foundBy['calibration'] || 0), n: 'known answers the instrument had to reproduce first' },
   { k: 'gates run for this page', v: gateRows.length + ' green', role: 'held', n: 'executed during this build; a red refuses the page' },
@@ -452,6 +501,6 @@ const foot = '<p>' + C.esc('Generated by tools/build-report-methods.js @ git ' +
   + '<p>' + C.esc('cert-machine · Carlos Toledo') + '</p>';
 
 fs.writeFileSync(path.join(ROOT, 'reports', 'methods-note.html'),
-  TPL.render({ title: 'None by reading code · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/methods-note.html',
+  TPL.render({ title: 'How the bugs were found · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/methods-note.html',
     desc: 'How verifiers catch their own defects: ten real bugs, every one caught by a red control, a calibration, an impossible number or a byte pin — as engineering.' }));
 console.log('reports/methods-note.html written: ' + BUGS.length + ' bugs, ' + gateRows.length + ' gates green @ git ' + gitrev);

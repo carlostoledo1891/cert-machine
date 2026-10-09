@@ -1,0 +1,247 @@
+{
+ "what": "The erratum of 2026-10-09: the control page counted closed forms refuted by a FLOAT comparison (Math.sqrt, Math.pow, Math.exp, a midpoint times a rational) as refutations, and the engine ledger counted REJECT — which included enclosures that STRADDLE the bar — as decisions. This record pins the numbers as they were published, so the correction can be verified against the bytes it corrects. The after-numbers are read from the rebuilt ledger by tools/build-control.js.",
+ "date": "2026-10-09",
+ "before": {
+  "commit": "be82e126bc6b0bebc38fa4cdde398e1ff5aaa531",
+  "index_html_sha256": "8e3bf2355b28d971ed98d31ccb3790a4271d12d1f4976e203ef7c4d90505e18b",
+  "ledger_json_sha256": "2a34c34f14867fbfc02b51f18972e25c8d0cd41014660b91b801df616b1b32ae",
+  "totals": {
+   "generated": 819152,
+   "certified": 16943,
+   "conjectures": 95,
+   "closedFormTested": 54629173,
+   "closedFormRefuted": 54628275,
+   "closedFormRefutedExact": 21,
+   "closedFormOnRecord": 877,
+   "closedFormOpen": 0,
+   "closedFormCandidates": 0
+  },
+  "families": [
+   {
+    "name": "chowla-cosine",
+    "counts": {
+     "generated": 400000,
+     "screened": 1579,
+     "duplicates": 0,
+     "certified": 1579,
+     "hits": 1508,
+     "rejects": 71,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "erdos852-constants",
+    "counts": {
+     "generated": 4,
+     "screened": 4,
+     "duplicates": 0,
+     "certified": 4,
+     "hits": 3,
+     "rejects": 1,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "henon-census",
+    "counts": {
+     "generated": 328,
+     "screened": 328,
+     "duplicates": 0,
+     "certified": 328,
+     "hits": 328,
+     "rejects": 0,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "henon-orbits",
+    "counts": {
+     "generated": 3936,
+     "screened": 1023,
+     "duplicates": 795,
+     "certified": 228,
+     "hits": 228,
+     "rejects": 0,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "holmes-census",
+    "counts": {
+     "generated": 124,
+     "screened": 124,
+     "duplicates": 0,
+     "certified": 124,
+     "hits": 124,
+     "rejects": 0,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "keller-audit",
+    "counts": {
+     "generated": 11,
+     "screened": 11,
+     "duplicates": 0,
+     "certified": 11,
+     "hits": 11,
+     "rejects": 0,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "keller-fibers",
+    "counts": {
+     "generated": 9,
+     "screened": 9,
+     "duplicates": 0,
+     "certified": 9,
+     "hits": 7,
+     "rejects": 1,
+     "refused": 1
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "newman-minmod",
+    "counts": {
+     "generated": 400000,
+     "screened": 7,
+     "duplicates": 3,
+     "certified": 4,
+     "hits": 4,
+     "rejects": 0,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "oeis-closedform",
+    "counts": {
+     "generated": 14677,
+     "screened": 14593,
+     "duplicates": 0,
+     "certified": 14593,
+     "hits": 0,
+     "rejects": 14593,
+     "refused": 0
+    },
+    "corpusRefutations": 54606108,
+    "corpusRefutedExact": 21
+   },
+   {
+    "name": "ramanujan-audit",
+    "counts": {
+     "generated": 52,
+     "screened": 52,
+     "duplicates": 0,
+     "certified": 52,
+     "hits": 51,
+     "rejects": 1,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   },
+   {
+    "name": "strassen-audit",
+    "counts": {
+     "generated": 11,
+     "screened": 11,
+     "duplicates": 0,
+     "certified": 11,
+     "hits": 10,
+     "rejects": 1,
+     "refused": 0
+    },
+    "corpusRefutations": 0,
+    "corpusRefutedExact": 0
+   }
+  ],
+  "closedFormByFamilyDouble": {
+   "chowla-cosine": 8605,
+   "erdos852-constants": 2141,
+   "henon-census": 0,
+   "henon-orbits": 0,
+   "holmes-census": 0,
+   "keller-audit": 0,
+   "keller-fibers": 0,
+   "newman-minmod": 2822,
+   "oeis-closedform": 0,
+   "ramanujan-audit": 8599,
+   "strassen-audit": 0
+  },
+  "newmanStatement": "an n-term Newman polynomial whose certified min|f| on |z|=1 exceeds every value achievable with fewer terms",
+  "sentences": {
+   "README.md:221": "A refutation here is proved.",
+   "CLAUDE.md:13": "A REFUTED here is proved.",
+   "HANDOFF.md:9": "a REFUTED here is proved.",
+   "index.html (stat)": "A refutation here is proved, not unlikely."
+  }
+ },
+ "mechanism": {
+  "float_refutations": "machine/engine.js relations(): test(label, val) with val a double — exact for p/q (monotone rounding), not for sqrt(p/q), (p/q)·c with c a midpoint, c^(p/q) by Math.pow; families/oeis-closedform.js forms(): the same for sqrt, cbrt, (a+b√d)/c, constant multiples and powers, products and quotients of constants, log and exp of rationals. Only rational survivors were re-decided exactly.",
+  "reject_straddle": "machine/engine.js:58-60 sent any verdict word other than HIT or REFUSED to rejects; families/cosine.js:48 and families/newman.js:41 said REJECT whenever the enclosure failed to clear the bar, straddles included; families/oeis-closedform.js said REJECT for not-a-discovery; families/strassen-audit.js said REJECT for certified-correct-not-fast.",
+  "newman_bar": "families/newman.js:41 compared candidate.modSq[0] with the champion lower end (envelope.barSq); a proof of exceeding needs candidate.lo > champion.hi.",
+  "history": "tools/test-engine.js:60-64 records that the float mechanism once refuted sqrt(2) as a closed form for the decimal expansion of sqrt(2); it was repaired then at the enclosure (17 digits, 4 ulps outward), not at the comparison. This erratum repairs the comparison."
+ },
+ "repair": "candidates are exact rationals or enclosures (instruments/interval/algebraic.js, transcendental.js); a form is refuted only on DISJOINTNESS; rational powers c^(p/q) with q > 1 in the engine hunt are refused rather than evaluated; one verdict module instruments/verdict.js with decide(enclosure, bar, relation) splits REJECT into REFUTED and REFUSED; unknown words are REFUSED and counted; the Newman bar is the champion enclosure and the comparison is candidate.lo > bar.hi.",
+ "rederived": {
+  "what": "The kernel (instruments/interval/interval.js) changed, so every record that pins the certifier modules' sha256 was re-derived by the new bytes the same day; the decisions were compared field by field with the records they replaced.",
+  "records": [
+   {
+    "record": "certs/design-table-audit.json",
+    "command": "node tools/run-design-table-audit.js",
+    "moved": [
+     "generated",
+     "code"
+    ],
+    "decisions": "identical (rows and summary)",
+    "sha256_after": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd"
+   },
+   {
+    "record": "certs/hseva-ledger.json",
+    "command": "node tools/run-hseva-ledger.js",
+    "minutes": 18,
+    "moved": [
+     "generated",
+     "seconds"
+    ],
+    "decisions": "identical (buoys, ww3, printed, scipy, findings, quick; timing fields aside)",
+    "sha256_after": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c"
+   },
+   {
+    "record": "certs/hseva-atlas.json",
+    "command": "node tools/run-hseva-atlas.js (7 workers, caffeinate, battery guard)",
+    "minutes": 181,
+    "moved": [
+     "generated",
+     "code",
+     "seconds"
+    ],
+    "decisions": "identical: 2,589 of 2,589 cells and the stat section",
+    "sha256_after": "3d7dae5436f81370a6afe440caaac953c1c11c217ebe6fdd9063c8305947730b"
+   }
+  ],
+  "toolchain": {
+   "node": "v24.14.1",
+   "v8": "13.6.233.17-node.44",
+   "platform": "darwin",
+   "arch": "arm64"
+  }
+ }
+}
