@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-08",
+  "recorded": "2026-10-09",
   "browser": "Chrome/154.0.8037.98",
   "viewports": [
     1440,
@@ -14,6 +14,27 @@
     "clipped"
   ],
   "pages": {
+    "site/abatimento/index.html": {
+      "390": {
+        "spines": 20,
+        "pageOverflow": 237,
+        "escapes": 0,
+        "clipped": 12
+      },
+      "768": {
+        "spines": 24,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 4
+      },
+      "1440": {
+        "spines": 39,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 4
+      },
+      "sha": "43316ddd4d094463d5b1fcfdd9b01a882c1ff98a8a49d4a0d068ed5c428c9e32"
+    },
     "site/about/index.html": {
       "390": {
         "spines": 3,
@@ -631,10 +652,10 @@
         "clipped": 0
       },
       "768": {
-        "spines": 14,
+        "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1
+        "clipped": 0
       },
       "1440": {
         "spines": 14,
@@ -642,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fe42ffe0c5ae16a43889f1bc7ccd08db09ff8d3b2cc906b53fce34945ab41509"
+      "sha": "885aed0084d1994f7b8cd4e81921c4924be10e2d0591e3589cf8b0925dba7ba4"
     },
     "site/janela/metodo/index.html": {
       "390": {
@@ -663,7 +684,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "5f16065b1777d8ebe55a21979e792a99d5677f48de725f7aabd99a8c9b1b1879"
+      "sha": "cbe4476b3fd8f3aebc18a0d5aa965ec1bb6c6a5795a7c1ad8c99defba7f091b3"
     },
     "site/machine/index.html": {
       "390": {
@@ -2416,7 +2437,7 @@
         "clipped": 0
       },
       "768": {
-        "spines": 9,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -2427,7 +2448,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "52a997cb9e3fa814ae379be8a7940a02cbf40b7feafa6a8eb9ef24f2bbf818dd"
+      "sha": "dec8a59fd13c5a243efbda108fd3210d703eabbd16725d57eafc6e4b1ac2bc24"
     }
   }
 }

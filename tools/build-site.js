@@ -1866,7 +1866,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/janela/', '/janela/metodo/'];
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/abatimento/', '/janela/', '/janela/metodo/'];
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
@@ -1904,7 +1904,7 @@ let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {
   const rel = String(e).split(path.sep).join('/');
   const abs = path.join(SITE, String(e));
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('janela/')) continue;
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/')) continue;
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

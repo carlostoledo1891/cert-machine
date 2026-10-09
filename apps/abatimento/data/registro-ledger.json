@@ -1,0 +1,1799 @@
+{
+ "what": "The Registro de Abatimento demonstrator: every scenario version of apps/abatimento/data/cenarios.json decided by apps/abatimento/engine/abatimento.js over its declared envelope; the aggregations with their double-counting audit; the version diffs; the float midpoint a point pipeline would print. Physical factors from pinned public tables; activity data ILLUSTRATIVE and marked so — not Petrobras data.",
+ "modules": {
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "apps/abatimento/engine/abatimento.js": "07fa0b94b541c750f9a9307ee5d6ebdd029f09af964e7420241413d8ad8329ae",
+  "apps/abatimento/registro.js": "98d53da13d95b69b956dd31ea71a3540b364234afe09780c34f4198347f14a1d"
+ },
+ "cenariosSha256": "4642cf22c4214136cc7fda025629785e75901e3f97e6976ab393a29e1226f984",
+ "battery": {
+  "checks": 60,
+  "fail": 0,
+  "fired": 9,
+  "reds": 9,
+  "refVersions": 8,
+  "interior": 2400
+ },
+ "receipts": [
+  {
+   "id": "tbg-ecomp",
+   "versao": 1,
+   "expect": {
+    "verdict": "RECUSADO",
+    "afirmacao": "COMPATÍVEL",
+    "dominante": "gas_tj"
+   },
+   "receipt": {
+    "id": "tbg-ecomp",
+    "versao": 1,
+    "titulo": "Eletrificação de equipamentos internos e redução de vents nas ECOMPs da TBG",
+    "categoria": "energia",
+    "fonte": "tbg-ecomps",
+    "enclosure": [
+     "2080404/25",
+     "4086564/25"
+    ],
+    "enclosureDec": [
+     "83216",
+     "163463"
+    ],
+    "largura": "401232/5",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "gas_tj": "lo",
+       "ef_co2": "lo",
+       "ef_ch4": "lo",
+       "ef_n2o": "lo",
+       "gwp_ch4": "lo",
+       "gwp_n2o": "lo",
+       "vent_ch4": "lo",
+       "mwh": "hi",
+       "fe_sin": "hi"
+      },
+      "ponto": {
+       "gas_tj": "1600",
+       "ef_co2": "54300",
+       "ef_ch4": "3/10",
+       "ef_n2o": "3/100",
+       "gwp_ch4": "28",
+       "gwp_n2o": "265",
+       "vent_ch4": "300",
+       "mwh": "260000",
+       "fe_sin": "93/2000"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima de gás evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "86880"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "336/25"
+       },
+       {
+        "nome": "N2O da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "318/25"
+       },
+       {
+        "nome": "metano de vents evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "8400"
+       },
+       {
+        "nome": "eletricidade comprada (emissão adicionada)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "12090"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "gas_tj": "hi",
+       "ef_co2": "hi",
+       "ef_ch4": "hi",
+       "ef_n2o": "hi",
+       "gwp_ch4": "hi",
+       "gwp_n2o": "hi",
+       "vent_ch4": "hi",
+       "mwh": "lo",
+       "fe_sin": "lo"
+      },
+      "ponto": {
+       "gas_tj": "2400",
+       "ef_co2": "58300",
+       "ef_ch4": "3",
+       "ef_n2o": "3/10",
+       "gwp_ch4": "30",
+       "gwp_n2o": "273",
+       "vent_ch4": "900",
+       "mwh": "180000",
+       "fe_sin": "43/2000"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima de gás evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "139920"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "216"
+       },
+       {
+        "nome": "N2O da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "4914/25"
+       },
+       {
+        "nome": "metano de vents evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "27000"
+       },
+       {
+        "nome": "eletricidade comprada (emissão adicionada)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "3870"
+       }
+      ]
+     }
+    },
+    "cantos": 512,
+    "premissas": 9,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "RECUSADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "RECUSADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": null,
+     "limiares": [
+      "100000"
+     ]
+    },
+    "verdict": "RECUSADO",
+    "afirmacao": {
+     "classeAfirmada": "Moderado",
+     "valor": "142000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "1": {
+      "lo": "2382654/25",
+      "hi": "4183314/25",
+      "loDec": "95306",
+      "hiDec": "167333"
+     },
+     "2": {
+      "lo": "-12090",
+      "hi": "-3870",
+      "loDec": "-12090",
+      "hiDec": "-3870"
+     }
+    },
+    "implantacao": {
+     "2028 (acordada)": {
+      "fracao": [
+       "3/10",
+       "1/2"
+      ],
+      "lo": "3120606/125",
+      "hi": "2043282/25",
+      "loDec": "24965",
+      "hiDec": "81731"
+     },
+     "2030 (acordada)": {
+      "fracao": [
+       "3/5",
+       "4/5"
+      ],
+      "lo": "6241212/125",
+      "hi": "16346256/125",
+      "loDec": "49930",
+      "hiDec": "130770"
+     },
+     "2033 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "2080404/25",
+      "hi": "4086564/25",
+      "loDec": "83216",
+      "hiDec": "163463"
+     }
+    },
+    "sensibilidade": {
+     "largura": "401232/5",
+     "linhas": [
+      {
+       "premissa": "gas_tj",
+       "larguraSem": "351311/10",
+       "parcela": "451153/802464",
+       "parcelaPct": "56.2"
+      },
+      {
+       "premissa": "vent_ch4",
+       "larguraSem": "314232/5",
+       "parcela": "3625/16718",
+       "parcelaPct": "21.7"
+      },
+      {
+       "premissa": "ef_co2",
+       "larguraSem": "361232/5",
+       "parcela": "2500/25077",
+       "parcelaPct": "10.0"
+      },
+      {
+       "premissa": "fe_sin",
+       "larguraSem": "373732/5",
+       "parcela": "6875/100308",
+       "parcelaPct": "6.9"
+      },
+      {
+       "premissa": "mwh",
+       "larguraSem": "387632/5",
+       "parcela": "850/25077",
+       "parcelaPct": "3.4"
+      },
+      {
+       "premissa": "gwp_ch4",
+       "larguraSem": "1975968/25",
+       "parcela": "629/41795",
+       "parcelaPct": "1.5"
+      },
+      {
+       "premissa": "ef_ch4",
+       "larguraSem": "2002218/25",
+       "parcela": "657/334360",
+       "parcelaPct": "0.2"
+      },
+      {
+       "premissa": "ef_n2o",
+       "larguraSem": "20025177/250",
+       "parcela": "12141/6687200",
+       "parcelaPct": "0.2"
+      },
+      {
+       "premissa": "gwp_n2o",
+       "larguraSem": "10030416/125",
+       "parcela": "8/208975",
+       "parcelaPct": "0.0"
+      }
+     ],
+     "preco": {
+      "premissa": "gas_tj",
+      "fracao": "954187/4194304",
+      "fracaoPct": "22.7",
+      "meioIntervalo": "23854675/262144",
+      "meioIntervaloDec": "90.998363",
+      "emTorno": "2000",
+      "emTornoDec": "2000.000000",
+      "decide": true,
+      "texto": "medir gas_tj com erro de até ±90.9984 em torno de 2000.0000 (23% da faixa declarada) decide a classe"
+     }
+    },
+    "formula": "+ 0.001000 × gas_tj × ef_co2  [escopo 1]\n+ 0.001000 × gas_tj × ef_ch4 × gwp_ch4  [escopo 1]\n+ 0.001000 × gas_tj × ef_n2o × gwp_n2o  [escopo 1]\n+ vent_ch4 × gwp_ch4  [escopo 1]\n− mwh × fe_sin  [escopo 2]"
+   }
+  },
+  {
+   "id": "tbg-ecomp",
+   "versao": 2,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Moderado",
+    "afirmacao": "COMPATÍVEL"
+   },
+   "receipt": {
+    "id": "tbg-ecomp",
+    "versao": 2,
+    "titulo": "Eletrificação de equipamentos internos e redução de vents nas ECOMPs da TBG",
+    "categoria": "energia",
+    "fonte": "tbg-ecomps",
+    "enclosure": [
+     "1049427/10",
+     "15761537/100"
+    ],
+    "enclosureDec": [
+     "104943",
+     "157615"
+    ],
+    "largura": "5267267/100",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "gas_tj": "lo",
+       "ef_co2": "lo",
+       "ef_ch4": "lo",
+       "ef_n2o": "lo",
+       "gwp_ch4": "lo",
+       "gwp_n2o": "lo",
+       "vent_ch4": "lo",
+       "mwh": "hi",
+       "fe_sin": "hi"
+      },
+      "ponto": {
+       "gas_tj": "2000",
+       "ef_co2": "54300",
+       "ef_ch4": "3/10",
+       "ef_n2o": "3/100",
+       "gwp_ch4": "28",
+       "gwp_n2o": "265",
+       "vent_ch4": "300",
+       "mwh": "260000",
+       "fe_sin": "93/2000"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima de gás evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "108600"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "84/5"
+       },
+       {
+        "nome": "N2O da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "159/10"
+       },
+       {
+        "nome": "metano de vents evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "8400"
+       },
+       {
+        "nome": "eletricidade comprada (emissão adicionada)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "12090"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "gas_tj": "hi",
+       "ef_co2": "hi",
+       "ef_ch4": "hi",
+       "ef_n2o": "hi",
+       "gwp_ch4": "hi",
+       "gwp_n2o": "hi",
+       "vent_ch4": "hi",
+       "mwh": "lo",
+       "fe_sin": "lo"
+      },
+      "ponto": {
+       "gas_tj": "2300",
+       "ef_co2": "58300",
+       "ef_ch4": "3",
+       "ef_n2o": "3/10",
+       "gwp_ch4": "30",
+       "gwp_n2o": "273",
+       "vent_ch4": "900",
+       "mwh": "180000",
+       "fe_sin": "43/2000"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima de gás evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "134090"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "207"
+       },
+       {
+        "nome": "N2O da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "18837/100"
+       },
+       {
+        "nome": "metano de vents evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "27000"
+       },
+       {
+        "nome": "eletricidade comprada (emissão adicionada)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "3870"
+       }
+      ]
+     }
+    },
+    "cantos": 512,
+    "premissas": 9,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Moderado",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": {
+     "classeAfirmada": "Moderado",
+     "valor": "142000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "1": {
+      "lo": "1170327/10",
+      "hi": "16148537/100",
+      "loDec": "117033",
+      "hiDec": "161485"
+     },
+     "2": {
+      "lo": "-12090",
+      "hi": "-3870",
+      "loDec": "-12090",
+      "hiDec": "-3870"
+     }
+    },
+    "implantacao": {
+     "2028 (acordada)": {
+      "fracao": [
+       "3/10",
+       "1/2"
+      ],
+      "lo": "3148281/100",
+      "hi": "15761537/200",
+      "loDec": "31483",
+      "hiDec": "78808"
+     },
+     "2030 (acordada)": {
+      "fracao": [
+       "3/5",
+       "4/5"
+      ],
+      "lo": "3148281/50",
+      "hi": "15761537/125",
+      "loDec": "62966",
+      "hiDec": "126092"
+     },
+     "2033 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "1049427/10",
+      "hi": "15761537/100",
+      "loDec": "104943",
+      "hiDec": "157615"
+     }
+    },
+    "sensibilidade": {
+     "largura": "5267267/100",
+     "linhas": [
+      {
+       "premissa": "vent_ch4",
+       "larguraSem": "3527267/100",
+       "parcela": "1740000/5267267",
+       "parcelaPct": "33.0"
+      },
+      {
+       "premissa": "gas_tj",
+       "larguraSem": "14301773/400",
+       "parcela": "6767295/21069068",
+       "parcelaPct": "32.1"
+      },
+      {
+       "premissa": "ef_co2",
+       "larguraSem": "4407267/100",
+       "parcela": "860000/5267267",
+       "parcelaPct": "16.3"
+      },
+      {
+       "premissa": "fe_sin",
+       "larguraSem": "4717267/100",
+       "parcela": "550000/5267267",
+       "parcelaPct": "10.4"
+      },
+      {
+       "premissa": "mwh",
+       "larguraSem": "4995267/100",
+       "parcela": "272000/5267267",
+       "parcelaPct": "5.2"
+      },
+      {
+       "premissa": "gwp_ch4",
+       "larguraSem": "5146517/100",
+       "parcela": "120750/5267267",
+       "parcelaPct": "2.3"
+      },
+      {
+       "premissa": "ef_ch4",
+       "larguraSem": "1312598/25",
+       "parcela": "16875/5267267",
+       "parcelaPct": "0.3"
+      },
+      {
+       "premissa": "ef_n2o",
+       "larguraSem": "105032707/2000",
+       "parcela": "312633/105345340",
+       "parcelaPct": "0.3"
+      },
+      {
+       "premissa": "gwp_n2o",
+       "larguraSem": "5266967/100",
+       "parcela": "300/5267267",
+       "parcelaPct": "0.0"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ 0.001000 × gas_tj × ef_co2  [escopo 1]\n+ 0.001000 × gas_tj × ef_ch4 × gwp_ch4  [escopo 1]\n+ 0.001000 × gas_tj × ef_n2o × gwp_n2o  [escopo 1]\n+ vent_ch4 × gwp_ch4  [escopo 1]\n− mwh × fe_sin  [escopo 2]"
+   }
+  },
+  {
+   "id": "gnl-boiloff",
+   "versao": 1,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Incremental",
+    "afirmacao": "COMPATÍVEL"
+   },
+   "receipt": {
+    "id": "gnl-boiloff",
+    "versao": 1,
+    "titulo": "Reliquefação do boil-off nos navios de regaseificação de GNL",
+    "categoria": "perdas",
+    "fonte": "navios-regas",
+    "enclosure": [
+     "1029252/25",
+     "84424"
+    ],
+    "enclosureDec": [
+     "41170",
+     "84424"
+    ],
+    "largura": "1081348/25",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "bog_tj": "lo",
+       "ef_co2": "lo",
+       "ef_ch4": "lo",
+       "gwp_ch4": "lo",
+       "relq_mwh": "hi",
+       "ef_ger": "hi"
+      },
+      "ponto": {
+       "bog_tj": "1200",
+       "ef_co2": "54300",
+       "ef_ch4": "3/10",
+       "gwp_ch4": "28",
+       "relq_mwh": "40000",
+       "ef_ger": "3/5"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima do boil-off evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "65160"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "252/25"
+       },
+       {
+        "nome": "geração a bordo para a reliquefação (emissão adicionada)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "24000"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "bog_tj": "hi",
+       "ef_co2": "hi",
+       "ef_ch4": "hi",
+       "gwp_ch4": "hi",
+       "relq_mwh": "lo",
+       "ef_ger": "lo"
+      },
+      "ponto": {
+       "bog_tj": "1600",
+       "ef_co2": "58300",
+       "ef_ch4": "3",
+       "gwp_ch4": "30",
+       "relq_mwh": "20000",
+       "ef_ger": "9/20"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima do boil-off evitada",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "93280"
+       },
+       {
+        "nome": "CH4 da queima evitada (em CO2e)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "144"
+       },
+       {
+        "nome": "geração a bordo para a reliquefação (emissão adicionada)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "9000"
+       }
+      ]
+     }
+    },
+    "cantos": 64,
+    "premissas": 6,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Incremental",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": {
+     "classeAfirmada": "Incremental",
+     "valor": "77000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "1": {
+      "lo": "1029252/25",
+      "hi": "84424",
+      "loDec": "41170",
+      "hiDec": "84424"
+     }
+    },
+    "implantacao": {
+     "2027 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "1029252/25",
+      "hi": "84424",
+      "loDec": "41170",
+      "hiDec": "84424"
+     }
+    },
+    "sensibilidade": {
+     "largura": "1081348/25",
+     "linhas": [
+      {
+       "premissa": "bog_tj",
+       "larguraSem": "517856/25",
+       "parcela": "140873/270337",
+       "parcelaPct": "52.1"
+      },
+      {
+       "premissa": "relq_mwh",
+       "larguraSem": "818848/25",
+       "parcela": "65625/270337",
+       "parcelaPct": "24.3"
+      },
+      {
+       "premissa": "ef_co2",
+       "larguraSem": "941348/25",
+       "parcela": "35000/270337",
+       "parcelaPct": "12.9"
+      },
+      {
+       "premissa": "ef_ger",
+       "larguraSem": "968848/25",
+       "parcela": "28125/270337",
+       "parcelaPct": "10.4"
+      },
+      {
+       "premissa": "ef_ch4",
+       "larguraSem": "1078594/25",
+       "parcela": "1377/540674",
+       "parcelaPct": "0.3"
+      },
+      {
+       "premissa": "gwp_ch4",
+       "larguraSem": "1081219/25",
+       "parcela": "129/1081348",
+       "parcelaPct": "0.0"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ 0.001000 × bog_tj × ef_co2  [escopo 1]\n+ 0.001000 × bog_tj × ef_ch4 × gwp_ch4  [escopo 1]\n− relq_mwh × ef_ger  [escopo 1]"
+   }
+  },
+  {
+   "id": "solar-refinaria",
+   "versao": 1,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Incremental",
+    "afirmacao": "COMPATÍVEL"
+   },
+   "receipt": {
+    "id": "solar-refinaria",
+    "versao": 1,
+    "titulo": "Usina solar fotovoltaica em refinaria (eletricidade própria substituindo compra do SIN)",
+    "categoria": "energia",
+    "fonte": "eletricidade-brasil",
+    "enclosure": [
+     "1290",
+     "4185"
+    ],
+    "enclosureDec": [
+     "1290",
+     "4185"
+    ],
+    "largura": "2895",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "mwh_pv": "lo",
+       "fe_sin": "lo"
+      },
+      "ponto": {
+       "mwh_pv": "60000",
+       "fe_sin": "43/2000"
+      },
+      "termos": [
+       {
+        "nome": "eletricidade do SIN substituída",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "1290"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "mwh_pv": "hi",
+       "fe_sin": "hi"
+      },
+      "ponto": {
+       "mwh_pv": "90000",
+       "fe_sin": "93/2000"
+      },
+      "termos": [
+       {
+        "nome": "eletricidade do SIN substituída",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "4185"
+       }
+      ]
+     }
+    },
+    "cantos": 4,
+    "premissas": 2,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Incremental",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": {
+     "classeAfirmada": "Incremental",
+     "valor": "3000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "2": {
+      "lo": "1290",
+      "hi": "4185",
+      "loDec": "1290",
+      "hiDec": "4185"
+     }
+    },
+    "implantacao": {
+     "2028 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "1290",
+      "hi": "4185",
+      "loDec": "1290",
+      "hiDec": "4185"
+     }
+    },
+    "sensibilidade": {
+     "largura": "2895",
+     "linhas": [
+      {
+       "premissa": "fe_sin",
+       "larguraSem": "1020",
+       "parcela": "125/193",
+       "parcelaPct": "64.8"
+      },
+      {
+       "premissa": "mwh_pv",
+       "larguraSem": "1875",
+       "parcela": "68/193",
+       "parcelaPct": "35.2"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ mwh_pv × fe_sin  [escopo 2]"
+   }
+  },
+  {
+   "id": "irec-2025",
+   "versao": 1,
+   "expect": {
+    "verdict": "RECUSADO",
+    "afirmacao": "COMPATÍVEL",
+    "dominante": "fe_sin"
+   },
+   "receipt": {
+    "id": "irec-2025",
+    "versao": 1,
+    "titulo": "Neutralização do escopo 2 no Brasil por certificados I-REC (2025)",
+    "categoria": "energia",
+    "fonte": "eletricidade-brasil",
+    "enclosure": [
+     "84710",
+     "183210"
+    ],
+    "enclosureDec": [
+     "84710",
+     "183210"
+    ],
+    "largura": "98500",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "mwh_irec": "lo",
+       "fe_sin": "lo"
+      },
+      "ponto": {
+       "mwh_irec": "3940000",
+       "fe_sin": "43/2000"
+      },
+      "termos": [
+       {
+        "nome": "escopo 2 neutralizado (contábil, base de mercado)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "84710"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "mwh_irec": "lo",
+       "fe_sin": "hi"
+      },
+      "ponto": {
+       "mwh_irec": "3940000",
+       "fe_sin": "93/2000"
+      },
+      "termos": [
+       {
+        "nome": "escopo 2 neutralizado (contábil, base de mercado)",
+        "escopo": "2",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "183210"
+       }
+      ]
+     }
+    },
+    "cantos": 4,
+    "premissas": 2,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "RECUSADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "RECUSADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": null,
+     "limiares": [
+      "100000"
+     ]
+    },
+    "verdict": "RECUSADO",
+    "afirmacao": {
+     "classeAfirmada": "Moderado",
+     "valor": "183000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "2": {
+      "lo": "84710",
+      "hi": "183210",
+      "loDec": "84710",
+      "hiDec": "183210"
+     }
+    },
+    "implantacao": {},
+    "sensibilidade": {
+     "largura": "98500",
+     "linhas": [
+      {
+       "premissa": "fe_sin",
+       "larguraSem": "0",
+       "parcela": "1",
+       "parcelaPct": "100.0"
+      },
+      {
+       "premissa": "mwh_irec",
+       "larguraSem": "98500",
+       "parcela": "0",
+       "parcelaPct": "0.0"
+      }
+     ],
+     "preco": {
+      "premissa": "fe_sin",
+      "fracao": "5784307/8388608",
+      "fracaoPct": "69.0",
+      "meioIntervalo": "5784307/671088640",
+      "meioIntervaloDec": "0.008619",
+      "emTorno": "17/500",
+      "emTornoDec": "0.034000",
+      "decide": true,
+      "texto": "medir fe_sin com erro de até ±0.0086 em torno de 0.0340 (69% da faixa declarada) decide a classe"
+     }
+    },
+    "formula": "+ mwh_irec × fe_sin  [escopo 2]"
+   }
+  },
+  {
+   "id": "ccus-amina-fpso",
+   "versao": 1,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Moderado",
+    "classeAfirmadaRefutada": true
+   },
+   "receipt": {
+    "id": "ccus-amina-fpso",
+    "versao": 1,
+    "titulo": "CCUS de gases exaustos no FPSO X — absorção química com amina",
+    "categoria": "ccus",
+    "fonte": "fpso-x-turbinas",
+    "enclosure": [
+     "382500",
+     "910800"
+    ],
+    "enclosureDec": [
+     "382500",
+     "910800"
+    ],
+    "largura": "528300",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "co2_turb": "lo",
+       "eficiencia": "lo",
+       "penalidade": "hi"
+      },
+      "ponto": {
+       "co2_turb": "600000",
+       "eficiencia": "17/20",
+       "penalidade": "1/4"
+      },
+      "termos": [
+       {
+        "nome": "CO2 capturado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "510000"
+       },
+       {
+        "nome": "penalidade energética da captura (emissão adicionada)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "127500"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "co2_turb": "hi",
+       "eficiencia": "hi",
+       "penalidade": "lo"
+      },
+      "ponto": {
+       "co2_turb": "1100000",
+       "eficiencia": "23/25",
+       "penalidade": "1/10"
+      },
+      "termos": [
+       {
+        "nome": "CO2 capturado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "1012000"
+       },
+       {
+        "nome": "penalidade energética da captura (emissão adicionada)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "101200"
+       }
+      ]
+     }
+    },
+    "cantos": 8,
+    "premissas": 3,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Moderado",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": null,
+    "porEscopo": {
+     "1": {
+      "lo": "382500",
+      "hi": "910800",
+      "loDec": "382500",
+      "hiDec": "910800"
+     }
+    },
+    "implantacao": {
+     "2030 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "382500",
+      "hi": "910800",
+      "loDec": "382500",
+      "hiDec": "910800"
+     }
+    },
+    "sensibilidade": {
+     "largura": "528300",
+     "linhas": [
+      {
+       "premissa": "co2_turb",
+       "larguraSem": "161925",
+       "parcela": "4885/7044",
+       "parcelaPct": "69.3"
+      },
+      {
+       "premissa": "penalidade",
+       "larguraSem": "414150",
+       "parcela": "761/3522",
+       "parcelaPct": "21.6"
+      },
+      {
+       "premissa": "eficiencia",
+       "larguraSem": "477900",
+       "parcela": "56/587",
+       "parcelaPct": "9.5"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ co2_turb × eficiencia  [escopo 1]\n− co2_turb × eficiencia × penalidade  [escopo 1]"
+   }
+  },
+  {
+   "id": "oxicombustao-fpso",
+   "versao": 1,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Moderado"
+   },
+   "receipt": {
+    "id": "oxicombustao-fpso",
+    "versao": 1,
+    "titulo": "Oxicombustão offshore no FPSO X (turbinas com oxigênio puro, captura integrada)",
+    "categoria": "ccus",
+    "fonte": "fpso-x-turbinas",
+    "enclosure": [
+     "378000",
+     "916300"
+    ],
+    "enclosureDec": [
+     "378000",
+     "916300"
+    ],
+    "largura": "538300",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "co2_turb": "lo",
+       "eficiencia": "lo",
+       "penalidade": "hi"
+      },
+      "ponto": {
+       "co2_turb": "600000",
+       "eficiencia": "9/10",
+       "penalidade": "3/10"
+      },
+      "termos": [
+       {
+        "nome": "CO2 capturado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "540000"
+       },
+       {
+        "nome": "penalidade energética (ASU + compressão)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "162000"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "co2_turb": "hi",
+       "eficiencia": "hi",
+       "penalidade": "lo"
+      },
+      "ponto": {
+       "co2_turb": "1100000",
+       "eficiencia": "49/50",
+       "penalidade": "3/20"
+      },
+      "termos": [
+       {
+        "nome": "CO2 capturado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "1078000"
+       },
+       {
+        "nome": "penalidade energética (ASU + compressão)",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": -1,
+        "valor": "161700"
+       }
+      ]
+     }
+    },
+    "cantos": 8,
+    "premissas": 3,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Moderado",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": null,
+    "porEscopo": {
+     "1": {
+      "lo": "378000",
+      "hi": "916300",
+      "loDec": "378000",
+      "hiDec": "916300"
+     }
+    },
+    "implantacao": {
+     "2032 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "378000",
+      "hi": "916300",
+      "loDec": "378000",
+      "hiDec": "916300"
+     }
+    },
+    "sensibilidade": {
+     "largura": "538300",
+     "linhas": [
+      {
+       "premissa": "co2_turb",
+       "larguraSem": "172550",
+       "parcela": "1045/1538",
+       "parcelaPct": "67.9"
+      },
+      {
+       "premissa": "penalidade",
+       "larguraSem": "416950",
+       "parcela": "2427/10766",
+       "parcelaPct": "22.5"
+      },
+      {
+       "premissa": "eficiencia",
+       "larguraSem": "484100",
+       "parcela": "542/5383",
+       "parcelaPct": "10.1"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ co2_turb × eficiencia  [escopo 1]\n− co2_turb × eficiencia × penalidade  [escopo 1]"
+   }
+  },
+  {
+   "id": "fgru-fpso",
+   "versao": 1,
+   "expect": {
+    "verdict": "PROVADO",
+    "classe": "Incremental",
+    "afirmacao": "COMPATÍVEL"
+   },
+   "receipt": {
+    "id": "fgru-fpso",
+    "versao": 1,
+    "titulo": "Unidade de recuperação de gás de flare (FGRU) no FPSO X",
+    "categoria": "perdas",
+    "fonte": "fpso-x-flare",
+    "enclosure": [
+     "17690",
+     "46810"
+    ],
+    "enclosureDec": [
+     "17690",
+     "46810"
+    ],
+    "largura": "29120",
+    "testemunhas": {
+     "lo": {
+      "canto": {
+       "flare_tj": "lo",
+       "ef_co2": "lo",
+       "ch4_nao_queimado": "lo",
+       "gwp_ch4": "lo"
+      },
+      "ponto": {
+       "flare_tj": "300",
+       "ef_co2": "54300",
+       "ch4_nao_queimado": "50",
+       "gwp_ch4": "28"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima na tocha evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "16290"
+       },
+       {
+        "nome": "metano não queimado evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "1400"
+       }
+      ]
+     },
+     "hi": {
+      "canto": {
+       "flare_tj": "hi",
+       "ef_co2": "hi",
+       "ch4_nao_queimado": "hi",
+       "gwp_ch4": "hi"
+      },
+      "ponto": {
+       "flare_tj": "700",
+       "ef_co2": "58300",
+       "ch4_nao_queimado": "200",
+       "gwp_ch4": "30"
+      },
+      "termos": [
+       {
+        "nome": "CO2 da queima na tocha evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "40810"
+       },
+       {
+        "nome": "metano não queimado evitado",
+        "escopo": "1",
+        "tipo": "operacional",
+        "sinal": 1,
+        "valor": "6000"
+       }
+      ]
+     }
+    },
+    "cantos": 16,
+    "premissas": 4,
+    "classe": {
+     "porClasse": [
+      {
+       "classe": "Incremental",
+       "de": "0",
+       "ate": "100000",
+       "verdict": "PROVADO"
+      },
+      {
+       "classe": "Moderado",
+       "de": "100000",
+       "ate": "1000000",
+       "verdict": "REFUTADO"
+      },
+      {
+       "classe": "Alto",
+       "de": "1000000",
+       "ate": null,
+       "verdict": "REFUTADO"
+      }
+     ],
+     "decidida": "Incremental",
+     "limiares": []
+    },
+    "verdict": "PROVADO",
+    "afirmacao": {
+     "classeAfirmada": "Incremental",
+     "valor": "30000",
+     "verdict": "COMPATÍVEL",
+     "lado": null
+    },
+    "porEscopo": {
+     "1": {
+      "lo": "17690",
+      "hi": "46810",
+      "loDec": "17690",
+      "hiDec": "46810"
+     }
+    },
+    "implantacao": {
+     "2027 (técnica)": {
+      "fracao": [
+       "1",
+       "1"
+      ],
+      "lo": "17690",
+      "hi": "46810",
+      "loDec": "17690",
+      "hiDec": "46810"
+     }
+    },
+    "sensibilidade": {
+     "largura": "29120",
+     "linhas": [
+      {
+       "premissa": "flare_tj",
+       "larguraSem": "6600",
+       "parcela": "563/728",
+       "parcelaPct": "77.3"
+      },
+      {
+       "premissa": "ch4_nao_queimado",
+       "larguraSem": "24770",
+       "parcela": "435/2912",
+       "parcelaPct": "14.9"
+      },
+      {
+       "premissa": "ef_co2",
+       "larguraSem": "27120",
+       "parcela": "25/364",
+       "parcelaPct": "6.9"
+      },
+      {
+       "premissa": "gwp_ch4",
+       "larguraSem": "28870",
+       "parcela": "25/2912",
+       "parcelaPct": "0.9"
+      }
+     ],
+     "preco": null
+    },
+    "formula": "+ 0.001000 × flare_tj × ef_co2  [escopo 1]\n+ ch4_nao_queimado × gwp_ch4  [escopo 1]"
+   }
+  }
+ ],
+ "aggregations": [
+  {
+   "id": "fpso-x-ambos",
+   "titulo": "FPSO X: amina + oxicombustão somados (o que uma planilha faria)",
+   "cenarios": [
+    "ccus-amina-fpso",
+    "oxicombustao-fpso"
+   ],
+   "expect": "RECUSADO",
+   "result": {
+    "lo": "760500",
+    "hi": "1827100",
+    "loDec": "760500",
+    "hiDec": "1827100",
+    "verdict": "RECUSADO",
+    "duplaContagem": [
+     {
+      "tipo": "dupla contagem",
+      "ids": [
+       "ccus-amina-fpso",
+       "oxicombustao-fpso"
+      ],
+      "texto": "ccus-amina-fpso e oxicombustao-fpso atuam sobre a mesma fonte e são declarados mutuamente exclusivos: a soma conta o mesmo abatimento duas vezes"
+     }
+    ],
+    "porFonte": [
+     {
+      "fonte": "fpso-x-turbinas",
+      "ids": [
+       "ccus-amina-fpso",
+       "oxicombustao-fpso"
+      ],
+      "lo": "760500",
+      "hi": "1827100",
+      "verdict": "RECUSADO",
+      "texto": "a soma pode chegar a 1827100, acima da emissão máxima da fonte (1200000): há pontos do envelope que abatem mais do que a fonte emite"
+     }
+    ]
+   }
+  },
+  {
+   "id": "fpso-x-correto",
+   "titulo": "FPSO X: amina + FGRU (fontes distintas)",
+   "cenarios": [
+    "ccus-amina-fpso",
+    "fgru-fpso"
+   ],
+   "expect": "PROVADO",
+   "result": {
+    "lo": "400190",
+    "hi": "957610",
+    "loDec": "400190",
+    "hiDec": "957610",
+    "verdict": "PROVADO",
+    "duplaContagem": [],
+    "porFonte": [
+     {
+      "fonte": "fpso-x-turbinas",
+      "ids": [
+       "ccus-amina-fpso"
+      ],
+      "lo": "382500",
+      "hi": "910800",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 910800) cabe na emissão da fonte (≥ 600000) em todo o envelope"
+     },
+     {
+      "fonte": "fpso-x-flare",
+      "ids": [
+       "fgru-fpso"
+      ],
+      "lo": "17690",
+      "hi": "46810",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 46810) cabe na emissão da fonte (≥ 40000) em todo o envelope"
+     }
+    ]
+   }
+  },
+  {
+   "id": "escopo2-duplo",
+   "titulo": "Escopo 2 Brasil: usina solar + I-REC somados",
+   "cenarios": [
+    "solar-refinaria",
+    "irec-2025"
+   ],
+   "expect": "RECUSADO",
+   "result": {
+    "lo": "86000",
+    "hi": "187395",
+    "loDec": "86000",
+    "hiDec": "187395",
+    "verdict": "RECUSADO",
+    "duplaContagem": [
+     {
+      "tipo": "dupla contagem",
+      "ids": [
+       "irec-2025",
+       "solar-refinaria"
+      ],
+      "texto": "solar-refinaria e irec-2025 atuam sobre a mesma fonte e são declarados mutuamente exclusivos: a soma conta o mesmo abatimento duas vezes"
+     }
+    ],
+    "porFonte": [
+     {
+      "fonte": "eletricidade-brasil",
+      "ids": [
+       "solar-refinaria",
+       "irec-2025"
+      ],
+      "lo": "86000",
+      "hi": "187395",
+      "verdict": "RECUSADO",
+      "texto": "a soma pode chegar a 187395, acima da emissão máxima da fonte (183210): há pontos do envelope que abatem mais do que a fonte emite"
+     }
+    ]
+   }
+  },
+  {
+   "id": "portfolio",
+   "titulo": "Portfólio: TBG v2 + boil-off + FGRU + amina (uma escolha por fonte)",
+   "cenarios": [
+    "tbg-ecomp@2",
+    "gnl-boiloff",
+    "fgru-fpso",
+    "ccus-amina-fpso"
+   ],
+   "expect": "PROVADO",
+   "result": {
+    "lo": "27315139/50",
+    "hi": "119964937/100",
+    "loDec": "546303",
+    "hiDec": "1199649",
+    "verdict": "PROVADO",
+    "duplaContagem": [],
+    "porFonte": [
+     {
+      "fonte": "tbg-ecomps",
+      "ids": [
+       "tbg-ecomp"
+      ],
+      "lo": "1049427/10",
+      "hi": "15761537/100",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 157615) cabe na emissão da fonte (≥ 250000) em todo o envelope"
+     },
+     {
+      "fonte": "navios-regas",
+      "ids": [
+       "gnl-boiloff"
+      ],
+      "lo": "1029252/25",
+      "hi": "84424",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 84424) cabe na emissão da fonte (≥ 80000) em todo o envelope"
+     },
+     {
+      "fonte": "fpso-x-flare",
+      "ids": [
+       "fgru-fpso"
+      ],
+      "lo": "17690",
+      "hi": "46810",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 46810) cabe na emissão da fonte (≥ 40000) em todo o envelope"
+     },
+     {
+      "fonte": "fpso-x-turbinas",
+      "ids": [
+       "ccus-amina-fpso"
+      ],
+      "lo": "382500",
+      "hi": "910800",
+      "verdict": "PROVADO",
+      "texto": "a soma (≤ 910800) cabe na emissão da fonte (≥ 600000) em todo o envelope"
+     }
+    ]
+   }
+  }
+ ],
+ "diffs": [
+  {
+   "de": 1,
+   "para": 2,
+   "premissas": [
+    {
+     "premissa": "gas_tj",
+     "mudanca": "estreitada",
+     "antes": [
+      "1600",
+      "2400"
+     ],
+     "depois": [
+      "2000",
+      "2300"
+     ]
+    }
+   ],
+   "termosMudaram": false,
+   "envelope": {
+    "antes": [
+     "2080404/25",
+     "4086564/25"
+    ],
+    "depois": [
+     "1049427/10",
+     "15761537/100"
+    ],
+    "larguraAntes": "401232/5",
+    "larguraDepois": "5267267/100"
+   },
+   "classe": {
+    "antes": null,
+    "depois": "Moderado",
+    "mudou": true
+   }
+  }
+ ],
+ "pointPipeline": {
+  "tbg-ecomp@1": 122704.47,
+  "tbg-ecomp@2": 131163.30525,
+  "gnl-boiloff@1": 63136.99000000002,
+  "solar-refinaria@1": 2550,
+  "irec-2025@1": 133960,
+  "ccus-amina-fpso@1": 620606.25,
+  "oxicombustao-fpso@1": 619225,
+  "fgru-fpso@1": 31775
+ }
+}

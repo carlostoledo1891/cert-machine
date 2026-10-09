@@ -31,6 +31,7 @@ site: playground control
 	@$(NODE) apps/skyaudit/build.js
 	@$(NODE) apps/contraprova/build.js
 	@$(NODE) apps/decidivel/build.js
+	@$(NODE) apps/abatimento/build.js
 	@$(NODE) apps/janela/build.js
 	@$(NODE) apps/swell/build.js
 
@@ -190,6 +191,7 @@ test:
 	@printf "%-30s " "swell (beach by beach)"; $(NODE) apps/swell/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "swell feed (open edge)"; python3 apps/swell/audit/test_feed.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "decidivel engine"; $(NODE) apps/decidivel/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
+	@printf "%-30s " "abatimento kernel"; $(NODE) apps/abatimento/engine/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "glide band"; $(NODE) apps/glide-band/battery.js >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "skyaudit stdlib verifier"; $(PY) apps/skyaudit/audit/verify_skyaudit.py >/dev/null 2>&1 && echo PASS || echo FAIL
 	@printf "%-30s " "erdos290 lean fork"; $(NODE) tools/erdos290-lean-battery.js >/dev/null 2>&1 && echo PASS || echo FAIL

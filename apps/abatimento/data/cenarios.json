@@ -1,0 +1,187 @@
+{
+  "what": "The Registro de Abatimento demonstrator: six scenario versions on four emission sources, each premise a declared range with its source. The physical factors are pinned public tables (IPCC 2006, GHG Protocol GWPs, MCTI/SIN, Petrobras's own 2025 Caderno); the activity data (gas displaced, MWh, captured CO2) are ILLUSTRATIVE ranges typical of the asset class and say so — the operator's values enter in a pilot. Units: tCO2e/ano unless stated.",
+  "unidade": "tCO2e/ano",
+  "classes": {
+    "Incremental": ["0", "100000"],
+    "Moderado": ["100000", "1000000"],
+    "Alto": ["1000000", null]
+  },
+  "classesFonte": "Petrobras, Caderno de Mudanças Climáticas e Transição Energética 2025, Nota 1 das tabelas de Ações de descarbonização (E&P e Refino): Potencial de Abatimento (tCO2e/ano): Incremental 0–100 mil; Moderado 100–1000 mil; Alto > 1000 mil (p. 76, 86). A tabela de Gás e Energia usa 0–50 / 50–500 / > 500 mil (p. 87).",
+  "fontes": {
+    "caderno2025": { "titulo": "Petrobras — Caderno de Mudanças Climáticas e Transição Energética 2025 (publicado 2026; PDF criado 2026-05-13)", "url": "https://api.mziq.com/mzfilemanager/v2/d/25fdf098-34f5-4608-b7fa-17d60b2de47d/81e0b1ad-f62e-dcfe-bdfc-eca67a63c5c3?origin=2", "sha256": "faab42c2d0f3761cb33ee30c704129e5c09af7d073ef1c434631f0d833b6d0b1", "lido": "2026-10-08", "trechos": "p. 9 e 45 compromissos (−30% absolutas até 2030 vs 2015; zero queima de rotina 2030; 15 kgCO2e/boe E&P; 30 kgCO2e/CWT Refino; 0,20 tCH4/mil tHC; < 55 MMtCO2/ano); p. 51–52 Curva MAC Integrada (> 1000 oportunidades; categorias eficiência, perdas, energia, processos, CCUS) e Fundo de Descarbonização (US$ 1,0 bi 2026–30; 35 oportunidades, US$ 540 mi, 1,5 MtCO2e/ano); p. 76 e 86 Nota 1 (classes de potencial); p. 86 TBG: eletrificação de ECOMPs ≈ 142 mil tCO2e/ano até 2033 e reliquefação do boil-off ≈ 77 mil tCO2e/ano a partir de 2027; p. 116 emissões 2025: 50 MtCO2e (−36% vs 2015), I-REC 183 mil tCO2 ↔ 3,94 milhões MWh; p. 117 óleo e gás 47 MtCO2e; p. 118 E&P 14,7 kgCO2e/boe, pré-sal ~10 kgCO2e/boe; queima de rotina 8% do flaring do E&P em 2025." },
+    "ipcc2006": { "titulo": "IPCC 2006 Guidelines for National GHG Inventories, Vol. 2 (Energy), Ch. 2 Stationary Combustion, Table 2.2 — default emission factors with 95% confidence limits", "url": "https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/2_Volume2/V2_2_Ch2_Stationary_Combustion.pdf", "sha256": "a25d9f96d7672df391b328de79d4cfd812c07fe79d5cf4a30d23d82d8f02985b", "arquivo": "corpus/sources/ipcc-2006-v2-ch2-stationary-combustion.pdf", "trechos": "Natural Gas: CO2 56 100 kg/TJ (54 300–58 300); CH4 1 kg/TJ (0,3–3); N2O 0,1 kg/TJ (0,03–0,3)." },
+    "ghgp-gwp": { "titulo": "GHG Protocol — Global Warming Potential Values (August 2024): AR4, AR5, AR6 100-year GWPs", "url": "https://ghgprotocol.org/sites/default/files/2024-08/Global-Warming-Potential-Values%20%28August%202024%29.pdf", "sha256": "5f0bbd46600e0b27ea4eda97932d683aaef9b6e70a88830e8b219c885aeea387", "arquivo": "corpus/sources/ghgp-gwp-values-2024-08.pdf", "trechos": "CH4 non-fossil 25 / 28 / 27,0; CH4 fossil — / 30 / 29,8; N2O 298 / 265 / 273 (AR4 / AR5 / AR6). O GHG Protocol manda o GWP fóssil para fugitivas de óleo e gás e o não fóssil para combustão." },
+    "mcti-sin": { "titulo": "MCTI/SIRENE — fatores médios mensais de emissão de CO2 do SIN, 2025 (tCO2/MWh): jan 0,0237; fev 0,0248; mar 0,0215; abr 0,0289; metodologia revista em 2025 (biomassa, solar e eólica na base)", "url": "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/dados-e-ferramentas/fatores-de-emissao", "nota": "FONTE SECUNDÁRIA nesta versão: os valores foram lidos em nota de imprensa e na nota técnica do MCTI citada pela imprensa (Cenário Energia, 2025-06-13); a página oficial do SIRENE exige verificação humana e não foi lida por máquina. O arquivo oficial entra pinado no piloto." },
+    "irec2025": { "titulo": "Petrobras, Caderno 2025, p. 116: 183 mil tCO2 neutralizados em 2025 por I-REC, equivalentes a 3,94 milhões de MWh — fator implícito 183 000 / 3 940 000 = 0,0464 tCO2/MWh", "url": "mesmo PDF de caderno2025" }
+  },
+  "fontes_emissoras": {
+    "tbg-ecomps": { "nome": "Estações de compressão da TBG (turbinas a gás e vents)", "emissao": { "lo": "250000", "hi": "450000" }, "nota": "faixa ILUSTRATIVA da emissão anual das ECOMPs; a TBG reporta no OGMP 2.0 nível 4 (Caderno p. 86)" },
+    "navios-regas": { "nome": "Navios de regaseificação de GNL — unidade de combustão do boil-off", "emissao": { "lo": "80000", "hi": "160000" }, "nota": "faixa ILUSTRATIVA" },
+    "eletricidade-brasil": { "nome": "Eletricidade adquirida de terceiros no Brasil (escopo 2, base de localização)", "emissao": { "lo": "84710", "hi": "183210" }, "nota": "3,94 milhões MWh (Caderno p. 116) × fe_sin [0,0215; 0,0465]; a Petrobras reporta 183 mil tCO2 neutralizados por I-REC" },
+    "fpso-x-turbinas": { "nome": "FPSO X — gases exaustos das turbinas a gás (geração a bordo)", "emissao": { "lo": "600000", "hi": "1200000" }, "nota": "faixa ILUSTRATIVA: ~10 kgCO2e/boe no pré-sal (Caderno p. 118) × 150–230 mil boe/d × 365 d, geração ≈ 65% das emissões de produção (CENPES, Argus 2026)" },
+    "fpso-x-flare": { "nome": "FPSO X — tocha (queima de rotina e não rotina)", "emissao": { "lo": "40000", "hi": "120000" }, "nota": "faixa ILUSTRATIVA; a queima de rotina foi 8% do flaring do E&P em 2025 (Caderno p. 118)" }
+  },
+  "premissasComuns": {
+    "ef_co2": { "lo": "54300", "hi": "58300", "un": "kgCO2/TJ", "desc": "fator de emissão de CO2 da combustão de gás natural (limites de 95%)", "fonte": "ipcc2006" },
+    "ef_ch4": { "lo": "0.3", "hi": "3", "un": "kgCH4/TJ", "desc": "fator de emissão de CH4 da combustão estacionária de gás natural", "fonte": "ipcc2006" },
+    "ef_n2o": { "lo": "0.03", "hi": "0.3", "un": "kgN2O/TJ", "desc": "fator de emissão de N2O da combustão estacionária de gás natural", "fonte": "ipcc2006" },
+    "gwp_ch4": { "lo": "28", "hi": "30", "un": "tCO2e/tCH4", "desc": "GWP-100 do metano: AR5 não fóssil 28 a AR5 fóssil 30 (AR6: 27,0 / 29,8) — a escolha do conjunto é uma premissa, não um fato", "fonte": "ghgp-gwp" },
+    "gwp_n2o": { "lo": "265", "hi": "273", "un": "tCO2e/tN2O", "desc": "GWP-100 do óxido nitroso: AR5 265 a AR6 273", "fonte": "ghgp-gwp" },
+    "fe_sin": { "lo": "0.0215", "hi": "0.0465", "un": "tCO2/MWh", "desc": "fator de emissão da eletricidade do SIN: do menor mensal de 2025 publicado pelo MCTI (mar, 0,0215) ao fator implícito no reporte I-REC da Petrobras (0,0464, arredondado para cima)", "fonte": "mcti-sin" }
+  },
+  "cenarios": [
+    {
+      "id": "tbg-ecomp", "versao": 1, "data": "2026-10-08", "titulo": "Eletrificação de equipamentos internos e redução de vents nas ECOMPs da TBG", "categoria": "energia", "status": "em implantação (conclusão prevista até 2033)",
+      "fonte_emissora": "tbg-ecomps", "exclusivo_com": [], "fonte_afirmacao": "caderno2025",
+      "afirmacao": { "valor": "142000", "classe": "Moderado", "texto": "“Estima-se um abatimento das emissões de GEE de aproximadamente 142 mil tCO₂e/ano” (Caderno 2025, p. 86)" },
+      "premissas": {
+        "gas_tj": { "lo": "1600", "hi": "2400", "un": "TJ/ano", "desc": "gás combustível das turbinas deslocado pela eletrificação — ILUSTRATIVO; v1 estimado por potência instalada e fator de carga", "fonte": "declarada" },
+        "ef_co2": { "lo": "54300", "hi": "58300", "un": "kgCO2/TJ", "fonte": "ipcc2006" },
+        "ef_ch4": { "lo": "0.3", "hi": "3", "un": "kgCH4/TJ", "fonte": "ipcc2006" },
+        "ef_n2o": { "lo": "0.03", "hi": "0.3", "un": "kgN2O/TJ", "fonte": "ipcc2006" },
+        "gwp_ch4": { "lo": "28", "hi": "30", "un": "tCO2e/tCH4", "fonte": "ghgp-gwp" },
+        "gwp_n2o": { "lo": "265", "hi": "273", "un": "tCO2e/tN2O", "fonte": "ghgp-gwp" },
+        "vent_ch4": { "lo": "300", "hi": "900", "un": "tCH4/ano", "desc": "metano enviado a vents que a modernização evita — ILUSTRATIVO", "fonte": "declarada" },
+        "mwh": { "lo": "180000", "hi": "260000", "un": "MWh/ano", "desc": "eletricidade do SIN que passa a acionar os compressores — ILUSTRATIVO", "fonte": "declarada" },
+        "fe_sin": { "lo": "0.0215", "hi": "0.0465", "un": "tCO2/MWh", "fonte": "mcti-sin" }
+      },
+      "termos": [
+        { "nome": "CO2 da queima de gás evitada", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_co2"] },
+        { "nome": "CH4 da queima evitada (em CO2e)", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_ch4", "gwp_ch4"] },
+        { "nome": "N2O da queima evitada (em CO2e)", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_n2o", "gwp_n2o"] },
+        { "nome": "metano de vents evitado", "escopo": "1", "sinal": 1, "vars": ["vent_ch4", "gwp_ch4"] },
+        { "nome": "eletricidade comprada (emissão adicionada)", "escopo": "2", "sinal": -1, "vars": ["mwh", "fe_sin"] }
+      ],
+      "implantacao": { "2028 (acordada)": { "lo": "0.30", "hi": "0.50" }, "2030 (acordada)": { "lo": "0.60", "hi": "0.80" }, "2033 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "RECUSADO", "afirmacao": "COMPATÍVEL", "dominante": "gas_tj" }
+    },
+    {
+      "id": "tbg-ecomp", "versao": 2, "data": "2026-10-08", "titulo": "Eletrificação de equipamentos internos e redução de vents nas ECOMPs da TBG", "categoria": "energia", "status": "em implantação (conclusão prevista até 2033)",
+      "fonte_emissora": "tbg-ecomps", "exclusivo_com": [], "fonte_afirmacao": "caderno2025",
+      "mudanca": "v2: o gás deslocado foi MEDIDO (medição fiscal das turbinas, 12 meses) e a faixa estreitou de [1600; 2400] para [2000; 2300] TJ/ano; nada mais mudou.",
+      "afirmacao": { "valor": "142000", "classe": "Moderado", "texto": "“Estima-se um abatimento das emissões de GEE de aproximadamente 142 mil tCO₂e/ano” (Caderno 2025, p. 86)" },
+      "premissas": {
+        "gas_tj": { "lo": "2000", "hi": "2300", "un": "TJ/ano", "desc": "gás combustível deslocado — MEDIDO (ilustrativo: medição fiscal de 12 meses)", "fonte": "declarada" },
+        "ef_co2": { "lo": "54300", "hi": "58300", "un": "kgCO2/TJ", "fonte": "ipcc2006" },
+        "ef_ch4": { "lo": "0.3", "hi": "3", "un": "kgCH4/TJ", "fonte": "ipcc2006" },
+        "ef_n2o": { "lo": "0.03", "hi": "0.3", "un": "kgN2O/TJ", "fonte": "ipcc2006" },
+        "gwp_ch4": { "lo": "28", "hi": "30", "un": "tCO2e/tCH4", "fonte": "ghgp-gwp" },
+        "gwp_n2o": { "lo": "265", "hi": "273", "un": "tCO2e/tN2O", "fonte": "ghgp-gwp" },
+        "vent_ch4": { "lo": "300", "hi": "900", "un": "tCH4/ano", "fonte": "declarada" },
+        "mwh": { "lo": "180000", "hi": "260000", "un": "MWh/ano", "fonte": "declarada" },
+        "fe_sin": { "lo": "0.0215", "hi": "0.0465", "un": "tCO2/MWh", "fonte": "mcti-sin" }
+      },
+      "termos": [
+        { "nome": "CO2 da queima de gás evitada", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_co2"] },
+        { "nome": "CH4 da queima evitada (em CO2e)", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_ch4", "gwp_ch4"] },
+        { "nome": "N2O da queima evitada (em CO2e)", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["gas_tj", "ef_n2o", "gwp_n2o"] },
+        { "nome": "metano de vents evitado", "escopo": "1", "sinal": 1, "vars": ["vent_ch4", "gwp_ch4"] },
+        { "nome": "eletricidade comprada (emissão adicionada)", "escopo": "2", "sinal": -1, "vars": ["mwh", "fe_sin"] }
+      ],
+      "implantacao": { "2028 (acordada)": { "lo": "0.30", "hi": "0.50" }, "2030 (acordada)": { "lo": "0.60", "hi": "0.80" }, "2033 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Moderado", "afirmacao": "COMPATÍVEL" }
+    },
+    {
+      "id": "gnl-boiloff", "versao": 1, "data": "2026-10-08", "titulo": "Reliquefação do boil-off nos navios de regaseificação de GNL", "categoria": "perdas", "status": "início previsto em 2027",
+      "fonte_emissora": "navios-regas", "exclusivo_com": [], "fonte_afirmacao": "caderno2025",
+      "afirmacao": { "valor": "77000", "classe": "Incremental", "texto": "“estima-se um abatimento das emissões de GEE de aproximadamente 77 mil tCO₂e/ano” (Caderno 2025, p. 86)" },
+      "premissas": {
+        "bog_tj": { "lo": "1200", "hi": "1600", "un": "TJ/ano", "desc": "boil-off hoje queimado na unidade de combustão (GCU) — ILUSTRATIVO", "fonte": "declarada" },
+        "ef_co2": { "lo": "54300", "hi": "58300", "un": "kgCO2/TJ", "fonte": "ipcc2006" },
+        "ef_ch4": { "lo": "0.3", "hi": "3", "un": "kgCH4/TJ", "fonte": "ipcc2006" },
+        "gwp_ch4": { "lo": "28", "hi": "30", "un": "tCO2e/tCH4", "fonte": "ghgp-gwp" },
+        "relq_mwh": { "lo": "20000", "hi": "40000", "un": "MWh/ano", "desc": "energia elétrica da planta de reliquefação, gerada a bordo — ILUSTRATIVO", "fonte": "declarada" },
+        "ef_ger": { "lo": "0.45", "hi": "0.60", "un": "tCO2/MWh", "desc": "intensidade da geração a gás a bordo — ILUSTRATIVO", "fonte": "declarada" }
+      },
+      "termos": [
+        { "nome": "CO2 da queima do boil-off evitada", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["bog_tj", "ef_co2"] },
+        { "nome": "CH4 da queima evitada (em CO2e)", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["bog_tj", "ef_ch4", "gwp_ch4"] },
+        { "nome": "geração a bordo para a reliquefação (emissão adicionada)", "escopo": "1", "sinal": -1, "vars": ["relq_mwh", "ef_ger"] }
+      ],
+      "implantacao": { "2027 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Incremental", "afirmacao": "COMPATÍVEL" }
+    },
+    {
+      "id": "solar-refinaria", "versao": 1, "data": "2026-10-08", "titulo": "Usina solar fotovoltaica em refinaria (eletricidade própria substituindo compra do SIN)", "categoria": "energia", "status": "exemplo do Fundo de Descarbonização (Caderno p. 52)",
+      "fonte_emissora": "eletricidade-brasil", "exclusivo_com": ["irec-2025"], "fonte_afirmacao": "declarada",
+      "afirmacao": { "valor": "3000", "classe": "Incremental", "texto": "estimativa ilustrativa de projeto: ≈ 3 mil tCO2e/ano" },
+      "premissas": {
+        "mwh_pv": { "lo": "60000", "hi": "90000", "un": "MWh/ano", "desc": "geração anual da usina (≈ 40 MWp; 1 500–2 250 h equivalentes) — ILUSTRATIVO", "fonte": "declarada" },
+        "fe_sin": { "lo": "0.0215", "hi": "0.0465", "un": "tCO2/MWh", "fonte": "mcti-sin" }
+      },
+      "termos": [
+        { "nome": "eletricidade do SIN substituída", "escopo": "2", "sinal": 1, "vars": ["mwh_pv", "fe_sin"] }
+      ],
+      "implantacao": { "2028 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Incremental", "afirmacao": "COMPATÍVEL" }
+    },
+    {
+      "id": "irec-2025", "versao": 1, "data": "2026-10-08", "titulo": "Neutralização do escopo 2 no Brasil por certificados I-REC (2025)", "categoria": "energia", "status": "realizado em 2025 (Caderno p. 116)",
+      "fonte_emissora": "eletricidade-brasil", "exclusivo_com": ["solar-refinaria"], "fonte_afirmacao": "caderno2025",
+      "afirmacao": { "valor": "183000", "classe": "Moderado", "texto": "“neutralizamos 183 mil tCO2, o equivalente a 3,94 milhões MWh de energia elétrica renovável adquirida, mediante a compra de certificados I-REC” (Caderno 2025, p. 116)" },
+      "premissas": {
+        "mwh_irec": { "lo": "3940000", "hi": "3940000", "un": "MWh/ano", "desc": "eletricidade coberta por I-REC em 2025 (valor reportado, ponto)", "fonte": "irec2025" },
+        "fe_sin": { "lo": "0.0215", "hi": "0.0465", "un": "tCO2/MWh", "fonte": "mcti-sin" }
+      },
+      "termos": [
+        { "nome": "escopo 2 neutralizado (contábil, base de mercado)", "escopo": "2", "sinal": 1, "vars": ["mwh_irec", "fe_sin"] }
+      ],
+      "espera": { "verdict": "RECUSADO", "afirmacao": "COMPATÍVEL", "dominante": "fe_sin" }
+    },
+    {
+      "id": "ccus-amina-fpso", "versao": 1, "data": "2026-10-08", "titulo": "CCUS de gases exaustos no FPSO X — absorção química com amina", "categoria": "ccus", "status": "em desenvolvimento (Caderno p. 76: potencial de impacto Alto, na frota)",
+      "fonte_emissora": "fpso-x-turbinas", "exclusivo_com": ["oxicombustao-fpso"], "fonte_afirmacao": "caderno2025",
+      "afirmacao": { "valor": null, "classe": "Alto", "texto": "o Caderno classifica a ação (na frota) como potencial de impacto Alto; aqui a pergunta é por UNIDADE: o FPSO X" },
+      "premissas": {
+        "co2_turb": { "lo": "600000", "hi": "1100000", "un": "tCO2/ano", "desc": "CO2 nos gases exaustos das turbinas do FPSO X — ILUSTRATIVO (ver fonte emissora)", "fonte": "declarada" },
+        "eficiencia": { "lo": "0.85", "hi": "0.92", "un": "fração", "desc": "eficiência de captura da absorção com amina (o Caderno cita > 90% em terra; offshore com restrições de área e peso)", "fonte": "declarada" },
+        "penalidade": { "lo": "0.10", "hi": "0.25", "un": "fração do capturado", "desc": "emissão adicional pela energia da captura e compressão, como fração do CO2 capturado — ILUSTRATIVO", "fonte": "declarada" }
+      },
+      "termos": [
+        { "nome": "CO2 capturado", "escopo": "1", "sinal": 1, "vars": ["co2_turb", "eficiencia"] },
+        { "nome": "penalidade energética da captura (emissão adicionada)", "escopo": "1", "sinal": -1, "vars": ["co2_turb", "eficiencia", "penalidade"] }
+      ],
+      "implantacao": { "2030 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Moderado", "classeAfirmadaRefutada": true }
+    },
+    {
+      "id": "oxicombustao-fpso", "versao": 1, "data": "2026-10-08", "titulo": "Oxicombustão offshore no FPSO X (turbinas com oxigênio puro, captura integrada)", "categoria": "ccus", "status": "em desenvolvimento (Caderno p. 76: em avaliação)",
+      "fonte_emissora": "fpso-x-turbinas", "exclusivo_com": ["ccus-amina-fpso"], "fonte_afirmacao": "caderno2025",
+      "afirmacao": { "valor": null, "classe": null, "texto": "sem número publicado; potencial de impacto “em avaliação” (Caderno p. 76)" },
+      "premissas": {
+        "co2_turb": { "lo": "600000", "hi": "1100000", "un": "tCO2/ano", "desc": "o mesmo CO2 exausto do FPSO X — a mesma fonte do cenário com amina", "fonte": "declarada" },
+        "eficiencia": { "lo": "0.90", "hi": "0.98", "un": "fração", "desc": "eficiência de captura da oxicombustão — ILUSTRATIVO", "fonte": "declarada" },
+        "penalidade": { "lo": "0.15", "hi": "0.30", "un": "fração do capturado", "desc": "energia da separação de ar (ASU) e compressão, como fração do capturado — ILUSTRATIVO", "fonte": "declarada" }
+      },
+      "termos": [
+        { "nome": "CO2 capturado", "escopo": "1", "sinal": 1, "vars": ["co2_turb", "eficiencia"] },
+        { "nome": "penalidade energética (ASU + compressão)", "escopo": "1", "sinal": -1, "vars": ["co2_turb", "eficiencia", "penalidade"] }
+      ],
+      "implantacao": { "2032 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Moderado" }
+    },
+    {
+      "id": "fgru-fpso", "versao": 1, "data": "2026-10-08", "titulo": "Unidade de recuperação de gás de flare (FGRU) no FPSO X", "categoria": "perdas", "status": "em implementação (14 UEPs sem queima de rotina em 2025, Caderno p. 118)",
+      "fonte_emissora": "fpso-x-flare", "exclusivo_com": [], "fonte_afirmacao": "declarada",
+      "afirmacao": { "valor": "30000", "classe": "Incremental", "texto": "estimativa ilustrativa de projeto: ≈ 30 mil tCO2e/ano" },
+      "premissas": {
+        "flare_tj": { "lo": "300", "hi": "700", "un": "TJ/ano", "desc": "gás de queima de rotina recuperado para o processo — ILUSTRATIVO", "fonte": "declarada" },
+        "ef_co2": { "lo": "54300", "hi": "58300", "un": "kgCO2/TJ", "fonte": "ipcc2006" },
+        "ch4_nao_queimado": { "lo": "50", "hi": "200", "un": "tCH4/ano", "desc": "metano que escapava sem queimar na tocha (eficiência de combustão < 100%) — ILUSTRATIVO", "fonte": "declarada" },
+        "gwp_ch4": { "lo": "28", "hi": "30", "un": "tCO2e/tCH4", "fonte": "ghgp-gwp" }
+      },
+      "termos": [
+        { "nome": "CO2 da queima na tocha evitado", "escopo": "1", "sinal": 1, "fator": "0.001", "vars": ["flare_tj", "ef_co2"] },
+        { "nome": "metano não queimado evitado", "escopo": "1", "sinal": 1, "vars": ["ch4_nao_queimado", "gwp_ch4"] }
+      ],
+      "implantacao": { "2027 (técnica)": { "lo": "1", "hi": "1" } },
+      "espera": { "verdict": "PROVADO", "classe": "Incremental", "afirmacao": "COMPATÍVEL" }
+    }
+  ],
+  "agregacoes": [
+    { "id": "fpso-x-ambos", "titulo": "FPSO X: amina + oxicombustão somados (o que uma planilha faria)", "cenarios": ["ccus-amina-fpso", "oxicombustao-fpso"], "espera": "RECUSADO" },
+    { "id": "fpso-x-correto", "titulo": "FPSO X: amina + FGRU (fontes distintas)", "cenarios": ["ccus-amina-fpso", "fgru-fpso"], "espera": "PROVADO" },
+    { "id": "escopo2-duplo", "titulo": "Escopo 2 Brasil: usina solar + I-REC somados", "cenarios": ["solar-refinaria", "irec-2025"], "espera": "RECUSADO" },
+    { "id": "portfolio", "titulo": "Portfólio: TBG v2 + boil-off + FGRU + amina (uma escolha por fonte)", "cenarios": ["tbg-ecomp@2", "gnl-boiloff", "fgru-fpso", "ccus-amina-fpso"], "espera": "PROVADO" }
+  ]
+}
