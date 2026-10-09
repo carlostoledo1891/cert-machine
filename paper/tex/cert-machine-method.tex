@@ -1,0 +1,343 @@
+\documentclass[11pt]{article}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{certmachine}
+\usepackage{graphicx}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usetikzlibrary{arrows.meta,positioning}
+%% every number is read from the records; the macro files are the ones the companion papers use, so the
+%% same record cannot say one thing here and another there (each carries \RepoCommit: one build, one commit)
+\input{register-numbers.tex}
+\let\RepoCommit\relax
+\input{p1-numbers.tex}
+\input{p2-numbers.tex}
+\let\RepoCommit\relax
+\input{ec-benchmark-numbers.tex}
+\let\RepoCommit\relax
+\input{delta3-numbers.tex}
+\let\RepoCommit\relax
+\input{cert-machine-method-numbers.tex}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newcommand{\vC}{\textsc{certified}}
+\newcommand{\vR}{\textsc{refuted}}
+\newcommand{\vF}{\textsc{refused}}
+\newcommand{\IX}{\mathbb{I}}
+
+\title{The cert-machine method: three-valued decisions with witnesses in exact and interval arithmetic, and the verification discipline that keeps them sound}
+\author{\cmauthor}
+\date{October 2026 --- draft v0.1 for review (2026-10-09); every number interpolated from the record; machine-derived, not peer-reviewed; author list to be agreed}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+cert-machine is a system for deciding the numbers and claims that machines now propose --- constants, counterexamples, packings, fitted distributions, operating points, environmental contours, formal certificates. Its one description is \emph{Independent exact certification of machine-generated mathematics --- exact arithmetic, no code shared with the claimant, refusal as a verdict.} This paper sets out the mathematics and the verification behind it. A claim is read as a predicate over a declared box of inputs and receives one of three verdicts: \vC\ when finitely many exact or outward-rounded computations show the predicate at every point of the box, \vR\ when they show its negation, with the falsifying object, and \vF\ otherwise --- where the declared evidence itself is split, with one proved witness on each side and the value of a declared quantity at which the verdict would change. The verdicts are proved sound under the inclusion property of interval extensions; the arithmetic that secures that property on IEEE-754 doubles and on exact rationals is described; and so are the certifiers that reduce analytic questions to finitely many such decisions: the Krawczyk operator for the existence and uniqueness of a zero, a second-order test for a maximum over a box, a monotonicity proof for a supremum at a family's limit, monotone and multilinear reductions of universal statements over boxes, floating-point filters with exact integer fallbacks for geometric signs, exact rational sums of squares, and certified minima of cosine polynomials. The discipline that keeps the system sound is enforced by code that refuses: screens may only prune, red controls must fire, bytes are pinned, decisions are re-derived by second implementations that share no code, and published records re-run in a reader's browser. The evidence is a register of \RegRows{} published machine-generated claims (\VCertified{} certified, \VRefuted{} refuted, \VPartial{} partial, \VMixed{} mixed, \VRepaired{} repaired, \VNeedsData{} needing data, \VQueued{} queued), an engineering decision procedure and a certified extreme-value atlas of \AFits{} fits; one of the laboratory's own theorems has been re-certified by an outside group with no shared code. The contribution claimed is the system --- the grammar, the certifiers that serve it, the discipline that guards it and the public record --- and not interval arithmetic, which is standard.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+Machines now propose mathematics and engineering numbers at a rate no referee can read. Conjectures about fundamental constants are generated from numerical coincidences and supported by a probability argument \cite{Raayoni21}; constructions in combinatorics and analysis are found by program search \cite{RomeraParedes24,Novikov25}; long proofs arrive with machine formalisations \cite{OpenAINS}; and in engineering, surrogate models, optimisers and language models propose operating points and design values \cite{P2}. Each arrives with its producer's checker. A checker written by the producer shares the producer's blind spots, and the published record shows the cost: a floating-point product printed as an exact constant, witnesses that hold only within a verifier's tolerance, a checker that accepts what its own definition excludes, and a clause present in a paper's theorem and absent from the formal statement that was proved \cite{Register}.
+
+cert-machine decides such claims independently. It reads the claim from its published statement and bytes, never runs the claimant's program in the trust path, decides it in exact rational arithmetic or in outward-rounded interval arithmetic, and publishes one of three verdicts with the object that justifies it. Where it cannot decide, it says so, and the refusal is recorded like any other result. This paper is the method paper of the system. Section~\ref{sec:grammar} defines the verdicts and proves them sound; Section~\ref{sec:arith} describes the arithmetic that secures the hypothesis of that proof; Section~\ref{sec:certifiers} the certifiers that reduce the questions machines actually ask --- is this the maximum, does this hold for every input in the envelope, is this point inside this polygon, is this polynomial nonnegative --- to finitely many such decisions; Section~\ref{sec:discipline} the verification discipline, enforced by code that refuses; Section~\ref{sec:record} the record that is the system's evidence; and Sections~\ref{sec:related}--\ref{sec:limits} its relation to existing practice and its limits.
+
+The design choice that runs through all of it is that the system is sound and deliberately incomplete. A procedure that must always answer cannot be both, for the questions machines propose include undecidable ones \cite{Bastounis26}; a procedure that may refuse can. The cost of soundness is paid in refusals, and the system's answer to that cost is to make every refusal informative: it names its reason, and, where the declared evidence is split, the witnesses and the threshold that would decide it.
+
+The contribution claimed is the system: (i) a three-valued decision grammar with witnesses, refusal as a result and flip thresholds, with its soundness stated and proved (Section~\ref{sec:grammar}); (ii) a set of certifiers, each standard in its field, assembled so that the claims that arrive --- from mathematics, from engineering and from metocean statistics --- are decided by one grammar (Sections~\ref{sec:arith}--\ref{sec:certifiers}); (iii) a verification discipline whose rules are lines that make a build refuse rather than sentences that advise (Section~\ref{sec:discipline}); and (iv) a public record that any reader can re-run, in which every number of every companion paper is a macro written from a certificate (Section~\ref{sec:record}). Interval arithmetic, the Krawczyk operator and exact geometric predicates are decades old \cite{Moore09,Krawczyk69,Rump10,Shewchuk97}; nothing here claims them.
+
+\section{The decision grammar}\label{sec:grammar}
+
+\subsection{Claims over boxes}
+A \emph{box} is a product $X = [\underline x_1, \overline x_1] \times \cdots \times [\underline x_n, \overline x_n]$ of closed intervals with rational endpoints; a double is a rational, so a box of doubles is a box. A \emph{declared envelope} $B$ is a box each of whose sides carries the source of its bounds --- a survey, a data sheet, a chart. A number someone printed is the box its digits allow: a printed $0.0634$ is $[0.06335, 0.06345]$, and a fit printed to four decimals is a box in parameter space.
+
+\begin{definition}[interval extension]\label{def:ext}
+Let $g : D \subseteq \R^n \to \R$. A map $G$ from boxes in $D$ to intervals is an \emph{interval extension} of $g$ if $g(X) \subseteq G(X)$ for every box $X \subseteq D$ (the inclusion property).
+\end{definition}
+
+The inclusion property is the one hypothesis of every verdict below, and Section~\ref{sec:arith} is about securing it. The extensions used are natural extensions --- the formula evaluated in interval arithmetic --- and the classical theorem that a composition of operations with the inclusion property has it \cite{Moore09,Neumaier90} carries it from the primitives to the model.
+
+\begin{definition}[claim]\label{def:claim}
+A \emph{claim} is a pair $(B, \varphi)$ of a box and a predicate $\varphi(x) \equiv \bigwedge_j\, g_j(x) \le c_j$ whose functions have interval extensions $G_j$ (an equality, or an exact predicate such as the orientation of three points, is the special case decided in exact arithmetic). It is read in one of two ways:
+\begin{description}
+\item[universal] the claim asserts $\varphi(x)$ for every $x \in B$ --- the reading of a mathematical statement (``for all $n \le N$'', ``on $[0,1]$'', ``for every member of this family'');
+\item[epistemic] the claim asserts $\varphi(x^\dagger)$ for an unknown true input $x^\dagger \in B$ --- the reading of an engineering number, where $B$ is the declared uncertainty about the input.
+\end{description}
+\end{definition}
+
+The two readings differ in what a single proved counterexample does. Under the universal reading it refutes the claim; under the epistemic reading it shows only that the declared evidence does not settle the question.
+
+\subsection{Three verdicts}
+
+\begin{definition}[verdicts]\label{def:verdicts}
+Let $\mathcal X$ be a finite cover of $B$ by boxes. The claim is
+\begin{description}
+\item[\vC] if $\sup G_j(X) \le c_j$ for every $j$ and every $X \in \mathcal X$;
+\item[\vR] under the universal reading, if some box $X^\ast \subseteq B$ (typically a thin box, a point) has $\inf G_j(X^\ast) > c_j$ for some $j$; under the epistemic reading, if every $X \in \mathcal X$ has $\inf G_j(X) > c_j$ for some $j$, or the claim contradicts a bound that holds on all of $B$;
+\item[\vF] otherwise. Under the epistemic reading a refusal is \emph{split} when two points $x^-, x^+ \in B$ have been proved to satisfy and to violate $\varphi$ respectively, and \emph{unresolved} when the enclosures did not separate within the budget.
+\end{description}
+\end{definition}
+
+\begin{proposition}[soundness]\label{prop:sound}
+If every $G_j$ is an interval extension of $g_j$, then \vC\ implies $\varphi(x)$ for every $x \in B$; \vR\ implies, under the universal reading, $\neg\varphi(x)$ for some $x \in B$ and, under the epistemic reading, $\neg\varphi(x)$ for every $x \in B$; and a split \vF\ implies that neither $\forall x \in B\ \varphi(x)$ nor $\forall x \in B\ \neg\varphi(x)$ holds, so that $\varphi(x^\dagger)$ is not determined by the declared envelope.
+\end{proposition}
+
+\begin{proof}
+Let $x \in B$ and choose $X \in \mathcal X$ containing it. By the inclusion property $g_j(x) \in g_j(X) \subseteq G_j(X)$, hence $g_j(x) \le \sup G_j(X) \le c_j$ for every $j$, which is $\varphi(x)$. The refutations are the same argument with the inequality reversed, on $X^\ast$ or on every member of the cover. For a split refusal, $x^-$ and $x^+$ are points of $B$ at which $\varphi$ is proved true and false respectively; either could be $x^\dagger$.
+\end{proof}
+
+An unresolved refusal claims nothing, and the grammar keeps it that way: a refusal is terminal, never retried at lower rigour, never converted into a probability and never dropped from the record \cite{Register}. The only path from \vF\ to \vC\ is a new exact argument --- a finer cover, a better extension, a different certifier. The three words are not probabilities and there is no fourth.
+
+\subsection{Witnesses}
+Every verdict carries the object that justifies it, and the object is what is published. A certification carries its \emph{certificate}: the inputs pinned by digest, the cover, the enclosures, and a statement of what would make it fail. The certificate constructor of the interval toolkit refuses to build a certificate whose falsifier is not stated and a \vC\ that carries no evidence, on the principle that a certificate that cannot go red is decoration. A refutation carries the falsifying object, printed --- a counterexample, an observation outside a region, a violated equation, a digit that is not the rounding of an enclosure. A split refusal carries its two witnesses. A certificate re-runs without the engine: its facts are exact or outward-rounded, and any arithmetic that rounds outward can check them.
+
+\subsection{Thresholds}
+A split refusal is the most useful outcome the grammar has, because the question it leaves open has a size.
+
+\begin{definition}[flip thresholds]\label{def:flip}
+Let the envelope depend on a declared scalar $p$ --- an operating choice, or one end of an interval that a measurement could narrow --- through boxes $B(p)$, and let the verdict be monotone in $p$: if it is \vC\ at $p$ it is \vC\ at every $p' \le p$, and if it is \vR\ at $p$ it is \vR\ at every $p' \ge p$. The \emph{flip thresholds} are $p_{\mathrm C} = \sup\{p : \text{\vC\ over } B(p)\}$ and $p_{\mathrm R} = \inf\{p : \text{\vR\ over } B(p)\}$.
+\end{definition}
+
+\begin{proposition}\label{prop:flip}
+Under monotonicity, if the procedure has certified the claim over $B(\underline p)$ and refuted it over $B(\overline p)$, then the claim is \vC\ for every $p \le \underline p$ and \vR\ for every $p \ge \overline p$, and $\underline p \le p_{\mathrm C} \le p_{\mathrm R} \le \overline p$.
+\end{proposition}
+
+The proof is the definition. The procedure computes $\underline p$ and $\overline p$ by bisection over rational $p$, each endpoint decided like any other claim, or in closed form where $p$ enters additively, the result rounded outward to the precision reported; the engineering demonstrator does both, the pump discharge in closed form because the wellhead pressure is the discharge plus a model term, and two inspection thresholds by bisection \cite{P2}. The threshold turns a refusal into a measurement or an operating change with a known effect on the verdict: at this discharge the rule is proved, at that roughness it is refuted.
+
+\subsection{Compositions}
+A receipt with several checks is \vR\ if any check is refuted, otherwise \vF\ if any is refused, otherwise \vC; by Proposition~\ref{prop:sound} this is sound for their conjunction. The public register composes the three verdicts into words that each say what they are made of (Table~\ref{tab:grammar}); none is a fourth verdict. Two consequences are enforced rather than recommended \cite{Register}. A scope sentence is load-bearing, because a \vC\ without the scope beside it can say more than the record, as when the computational fragment of a claim is certified and its analytic core is not touched. And the kinds of refusal are never summed: the instrument declining, the claimant having published nothing, a budget exhausted, a cell whose box did not close and an audit stating its reach are different behaviours with different denominators.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{@{}llp{0.5\linewidth}@{}}\toprule
+word & composed of & the witness the row carries \\\midrule
+\vC & --- & a certificate with its falsifier; re-runs without the engine \\
+\vR & --- & the falsifying object, printed \\
+\vF & --- & the reason; for a split refusal, two witnesses and the thresholds \\
+\textsc{partial} & certified $+$ refused & which fragment certified and which core was not reached \\
+\textsc{needs data} & refused, cause with the claimant & the bytes that would decide the row, named \\
+\textsc{mixed} & certified $+$ refuted, one record & the counts of both, and the items refuted \\
+\textsc{repaired} & refuted $+$ certified & the object as printed refuted; the object beside it certified \\
+\textsc{queued} & not a verdict & nothing; the row is not counted as decided \\
+\bottomrule\end{tabular}
+\caption{The verdicts and their compositions in the public register \cite{Register}. Engineering surfaces write \textsc{proved} for \vC; a ranking of families says \textsc{decided}; the words for a printed number --- \textsc{reproduced}, \textsc{consistent}, \textsc{off the maximum}, \textsc{outside its support} --- refine the three for a comparison of two boxes \cite{P1}.}\label{tab:grammar}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=4mm and 6mm, every node/.style={font=\footnotesize}, box/.style={draw, rounded corners=2pt, align=center, inner sep=4pt, text width=28mm, minimum height=10mm}, verdict/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, text width=26mm, font=\footnotesize\scshape, fill=black!5}, arr/.style={-{Stealth[length=2mm]}, thick}]
+\node[box] (prop) {a proposer:\\search, model, LLM,\\a printed table};
+\node[box, right=of prop] (claim) {the claim read as\\a box $B$ and a\\predicate $\varphi$};
+\node[box, right=of claim] (cert) {certifier: exact or\\outward-rounded\\decisions on a cover};
+\draw[arr] (prop) -- (claim); \draw[arr] (claim) -- (cert);
+\node[verdict, below=of cert, xshift=-36mm] (c) {certified\\certificate,\\falsifier};
+\node[verdict, below=of cert] (f) {refused\\reason; or two\\witnesses, threshold};
+\node[verdict, below=of cert, xshift=36mm] (r) {refuted\\the falsifying\\object};
+\draw[arr] (cert) -- (c); \draw[arr] (cert) -- (f); \draw[arr] (cert) -- (r);
+\node[box, below=of f, text width=96mm] (rec) {the record: inputs and code pinned by SHA-256, verdict, witness, scope --- re-derived by a second implementation where one exists, re-run in a reader's browser, refused by the build if it drifts};
+\draw[arr] (c) -- (rec); \draw[arr] (f) -- (rec); \draw[arr] (r) -- (rec);
+\node[box, left=of prop, text width=20mm, xshift=4mm, dashed] (screen) {float screen:\\may prune,\\never admit};
+\draw[arr, dashed] (screen) -- (prop);
+\end{tikzpicture}
+\caption{The system. A proposer is never opened and never trusted; its output is read as a claim over a box and decided by a certifier; the verdict, its witness and the pinned inputs form a record that re-runs without the engine.}\label{fig:system}
+\end{figure}
+
+\section{The arithmetic}\label{sec:arith}
+
+Proposition~\ref{prop:sound} has one hypothesis, the inclusion property, and the arithmetic exists to secure it. Two kinds are used, and the choice is made per quantity: exact rationals where a tie must be decided or the object is rational, outward-rounded intervals where the quantity is transcendental or the data are long.
+
+\paragraph{Exact rationals.} Numbers are reduced fractions of arbitrary-precision integers. Doubles convert to them losslessly; linear systems are solved by exact elimination, which reports a singular matrix rather than a small pivot; conversion back to a double is for display only. Rational arithmetic decides every sign it is asked, and it is used for the corners of multilinear forms (Section~\ref{sec:multilinear}), the expected counts of a benchmark, polynomial identities, and the ends of enclosures whose comparison must be exact. Decimal literals --- the digits a claimant printed --- are read as the rationals they denote and kept as strings beside their double images, so that a vertex printed to three decimals and an observation printed to four can be found to coincide \cite{P1}.
+
+\paragraph{Outward rounding on doubles.} IEEE-754 arithmetic in round-to-nearest returns, for each of $+, -, \times, \div$, the double nearest the exact result, which therefore lies within half a unit in the last place of the computed one \cite{IEEE754,Goldberg91}. JavaScript cannot set the rounding mode, so directed rounding is emulated: each computed endpoint is moved one unit in the last place outward by stepping its bit pattern.
+
+\begin{proposition}\label{prop:ulp}
+Let $\circ \in \{+,-,\times,\div\}$, let $A$, $B$ be intervals of doubles with $0 \notin B$ when $\circ = \div$, and let $\ell$ and $h$ be the round-to-nearest values of the smallest and largest of the endpoint combinations $a \circ b$. If no overflow occurs, then $A \circ B \subseteq [\mathrm{down}(\ell), \mathrm{up}(h)]$, where $\mathrm{down}$ and $\mathrm{up}$ step one double toward $\mp\infty$.
+\end{proposition}
+
+\begin{proof}
+For these operations the extremes of $a \circ b$ over a product of intervals are attained at endpoint combinations (monotonicity in each argument on each sign region, with $0 \notin B$ for division). The exact extreme lies within half the spacing of the doubles on its side of its round-to-nearest value, and the adjacent double on that side is a whole spacing away (subnormal spacing included), so it lies on the correct side of $\mathrm{down}(\ell)$ and $\mathrm{up}(h)$.
+\end{proof}
+
+Division by an interval that contains zero is refused, not extended; a square is clamped at zero; a non-integer power is refused. The widening costs about one bit per operation and nothing at the accuracy the claims need. Where more precision is required --- a constant to be certified to twelve digits, a Catalan or Li$_2$ value --- a separate arbitrary-precision arithmetic carries a binary mantissa of arbitrary length with true directed rounding (floor and ceiling of the shifted integer), and converts its results to doubles outward with an exact check.
+
+\paragraph{Elementary and special functions.} The certifiers of this paper trust no library function, because the platform's \texttt{Math.exp} and \texttt{Math.log} carry no accuracy guarantee in ECMAScript (one older helper that pads the platform's cosine instead is used by four instruments outside this paper's scope, and is listed among the limits in Section~\ref{sec:limits}). Each function is a truncated series evaluated in interval arithmetic plus an explicit bound on the omitted tail: $\exp$ after reduction $x = k\ln 2 + r$, $|r| < 1$, by twenty-four Taylor terms and the tail $|r|^{25}/25!\,(1 - |r|/26)^{-1}$; $\log$ after $x = m\,2^e$ by the series of $\operatorname{atanh}$ in $v = (m-1)/(m+1) \in [0, 1/3)$, whose one-sided tail is valid because $v \ge 0$; $\sin$ and $\cos$ after reduction by an interval enclosure of $\pi/2$, with the box's enclosure forced to $\pm1$ wherever it may contain an extremum; $\ln 2$ and $\pi$ in exact rationals by $\operatorname{atanh}(1/3)$ and Machin's formula, converted outward. Monotone functions on wide boxes are evaluated at the endpoints. The special functions follow the same pattern: $\Gamma$ by Spouge's formula with its error bound taken ten times over; $\ln\Gamma$, $\psi$ and $\psi'$ by Binet's expansion after shifting the argument above twenty, the first omitted term as the bound; the regularized incomplete gamma function by its series with a geometric tail; Bessel functions by their power series with a certified ratio bound; $\operatorname{erfc}$ by Laplace's continued fraction, whose consecutive convergents bracket the value \cite{Abramowitz64}; and inverses ($\Phi^{-1}$, $P^{-1}$) by bisection that moves an end only on a certified sign. The tails are computed in round-to-nearest and are many orders below the one-ulp widening that absorbs them; that margin, not the tail's own rounding, is what makes them safe, and it is stated where it is used.
+
+\paragraph{Long sums.} A running interval sum rounds outward at each of $n$ additions, so its width grows linearly in $n$; at the $\RBuoyN$ hourly values of one buoy it is a thousand times what the terms carry. Each endpoint stream is instead summed by the compensated Sum2 algorithm and the error bound of \cite{Ogita05} is added outward with a factor of two to spare, which is what makes a likelihood over a hundred thousand data an enclosure narrow enough to rank families by \cite{P1}.
+
+\paragraph{Derivatives.} Gradients and Hessians that a certifier needs come from second-order forward differentiation over the same interval arithmetic (a value, a gradient and a Hessian carried through every operation), or from univariate Taylor jets, so that the derivative a proof uses is an extension of the function the proof is about. The remaining families carry hand-written scores and Hessians, evaluated in the same interval arithmetic.
+
+\section{The certifiers}\label{sec:certifiers}
+
+Each certifier below turns a question that is analytic in form into finitely many decisions of the kind Proposition~\ref{prop:sound} covers. None is new; the assembly is, together with the rule that each refuses rather than guesses.
+
+\subsection{A zero, exactly one}
+\begin{theorem}[Krawczyk {\cite{Krawczyk69,Neumaier90,Rump10}}]\label{thm:krawczyk}
+Let $f : D \subseteq \R^n \to \R^n$ be continuously differentiable, $X \subseteq D$ a box, $\hat x \in X$, $Y$ a nonsingular matrix and $F'(X)$ an interval extension of the Jacobian over $X$. If
+\[ K(X) = \hat x - Y f(\hat x) + \bigl(I - Y F'(X)\bigr)(X - \hat x) \subseteq \operatorname{int} X, \]
+then $f$ has exactly one zero in $X$.
+\end{theorem}
+The certifier takes $\hat x$ from a floating-point search, $Y$ as an approximate inverse of the Jacobian at $\hat x$, evaluates $K(X)$ with every datum enclosed by its neighbouring doubles, and inflates $X$ for a bounded number of rounds; if the inclusion never holds the zero is \vF\ with the reason ``no contraction''. A sibling certifier for fixed points in weighted sequence spaces uses the radii-polynomial form of the same argument and requires the contraction factor to be proved below one before it states uniqueness.
+
+\subsection{A maximum in a box}
+\begin{proposition}\label{prop:max}
+Let $\ell$ be twice continuously differentiable on a convex box $X$, let $\nabla\ell$ have exactly one zero $\theta^\ast$ in $X$, and let the Hessian of $\ell$ be negative definite at every point of $X$. Then $\theta^\ast$ is the unique maximiser of $\ell$ on $X$.
+\end{proposition}
+\begin{proof}
+A function whose Hessian is negative definite on a convex set is strictly concave there, and a critical point of a strictly concave function is its unique maximiser on the set.
+\end{proof}
+Negative definiteness over the box is proved one of two ways: by Sylvester's criterion on the interval Hessian, its leading principal minors enclosed and proved of alternating sign over all of $X$ (for up to three parameters, with the two enclosures of each symmetric entry intersected); or, where the box's minors are too wide, at the candidate point together with a proof that every Hessian over $X$ is nonsingular --- $|I - A H(X)|\,u < u$ componentwise for a positive vector $u$ and an approximate inverse $A$ --- so that, $X$ being connected and the eigenvalues continuous, no Hessian over $X$ can change its inertia. This is how a maximum-likelihood fit becomes a certificate \cite{P1}. The statement is local: that no better maximum exists elsewhere in the family remains the search's claim, and every fit is stated with that scope.
+
+\subsection{A supremum at a limit}
+Some families have no interior maximum on some data: the likelihood rises toward a limit member, and an optimiser prints the last iterate as the fit.
+\begin{proposition}\label{prop:limit}
+Let $\ell(\mu, \sigma, Q)$ be continuous on $B \times [0, q_1]$ and differentiable in $Q$ on $B \times (0, q_1]$, and let $\partial\ell/\partial Q < 0$ there. Then for every $(\mu, \sigma) \in B$ and every $Q \in (0, q_1]$, $\ell(\mu, \sigma, Q) < \ell(\mu, \sigma, 0)$.
+\end{proposition}
+The proof is the mean value theorem. With $Q = 1/\sqrt\alpha$ the generalized gamma reaches the lognormal at $Q = 0$ \cite{Prentice74}, and in these coordinates $Q = 0$ is an ordinary point; a proof that the $Q$-score is negative over a neighbourhood of the lognormal fit refuses the family at its edge \emph{with the proof} that every member there is less likely than its limit. A threshold on $\alpha$ in place of this proof hands a different family the verdict at \ANaiveDiff{} of \ABlocks{} cell-blocks of the extreme-value atlas \cite{P1}, which is the cost of a threshold measured.
+
+\subsection{A statement for every input in a box}\label{sec:multilinear}
+Three reductions decide a universal statement over a box.
+
+\emph{Bisection with a proposer.} The box is split until each piece's enclosure decides, a floating-point heuristic choosing the coordinate to split and never a verdict; a depth budget bounds the work, and an exhausted budget is an unresolved refusal. To publish a split refusal, the corners are evaluated as thin boxes and one proved witness is kept on each side.
+
+\emph{Monotone implicit functions.} Where a model quantity is the root of an equation monotone in its parameters, the root's range over the box is bracketed by the roots at two corners, and each end counts only when the equation's sign just beyond it is proved. Colebrook's friction law is handled this way: with $x = 1/\sqrt f$ the root of $h(x) = x + (2/\ln 10)\ln(a + bx)$, increasing in $x$, $a$ and $b$, every root over the box lies in $[x^\ast(a_+, b_+), x^\ast(a_-, b_-)]$, and a floating-point Newton iteration only locates the ends \cite{P2}.
+
+\emph{Multilinear forms.}
+\begin{lemma}\label{lem:multilinear}
+Let $f$ be multilinear on a box $X \subset \R^n$ (affine in each variable when the others are fixed). Then $f(X) = [\min_v f(v), \max_v f(v)]$, the minimum and maximum taken over the $2^n$ vertices of $X$.
+\end{lemma}
+\begin{proof}
+Fix all variables but one; $f$ is affine in it, so its extremes over that side are at the side's ends. Induct over the variables to reach a vertex for each extreme. $f$ is continuous and $X$ connected, so every value between is attained.
+\end{proof}
+An emissions-abatement estimate, a sum of products of premises each declared as an interval, is such a form. The kernel checks multilinearity syntactically --- every term a monomial in distinct variables, or the corner rule refuses to apply --- and evaluates the $2^n$ corners in exact rationals; the enclosure is then the exact range, not an outer bound, and the two corners at its ends are the witnesses of a split refusal.
+
+\subsection{A sign, exactly}
+Geometric predicates --- which side of an edge a point lies on --- are signs of small determinants. Each is evaluated first in double precision and trusted only when its magnitude clears a forward-error bound proved for the inputs \cite{Higham02,Fortune96}: with coordinates bounded by $M$ and $u = 2^{-53}$, the computed $2\times2$ orientation determinant is within $48uM^2$ of the exact one. Below the bound, the sign is recomputed exactly in integers, each decimal literal scaled to a fixed sixty-four places; a literal that would need more is refused rather than rounded. A point on an edge is reported \textsc{on}, an answer a floating-point test does not have. This is the static filter of exact geometric computation \cite{Shewchuk97,Yap97}, written against the literals a file contains rather than against their doubles. Over a contour benchmark it decided \EPredicatesSci{} predicates, \EExactPredicates{} of them in integers \cite{P1}.
+
+\subsection{A polynomial, nonnegative}
+A claim $p \ge \gamma$ is certified by an identity $p - \gamma = \sum_i c_i q_i^2$ with rational polynomials $q_i$ and rational weights $c_i \ge 0$, checked by exact coefficient comparison; a negative weight or a nonzero residual refuses, and the residual is printed. Finding the decomposition is a semidefinite program \cite{Parrilo03,PeyrlParrilo08} that stays outside the trust path: the solver proposes, the identity decides. A separate refuter evaluates $p$ at an exact witness point and refutes the claim if $p(w) < \gamma$.
+
+\subsection{A minimum of a cosine polynomial}
+The minimum over $x$ of $\sum_{a \in A} \cos(ax)$ is the minimum over $y \in [-1, 1]$ of $P_A(y) = \sum_a T_a(y)$, a polynomial with integer Chebyshev coefficients. The certifier isolates the critical points with a Sturm chain of the square-free part of $P_A'$ on a slightly enlarged interval, refines each by interval Newton in rationals with outward balls around exact Horner values, encloses $P_A$ on each critical interval with the bound $a^2(a^2-1)/3$ of V.~Markov on the second derivative, adds the endpoints $\pm1$ exactly, and returns the hull of the smallest enclosures. A stronger certificate identifies the minimum as an algebraic number --- a resultant, a Sturm count of one inside the enclosure, irreducibility modulo a prime --- and is \vC\ only when all of these hold.
+
+\subsection{Proposers}
+Every certifier above takes its candidate from a floating-point search --- Nelder--Mead and Levenberg--Marquardt for a likelihood, Newton for a root, sampling for a minimum, a semidefinite solver for a decomposition, a language model for a construction --- and none of these is ever in the trust path. A proposer may be wrong, slow or adversarial; it can cost a refusal, never a false verdict. The same rule governs forecasts in the system's applications: a forecaster enters as a proposer of boxes, is graded against what is later observed, and stops being admitted when it misses its declared coverage.
+
+\section{The verification discipline}\label{sec:discipline}
+
+Proposition~\ref{prop:sound} makes the verdicts as sound as the code that computes the extensions. The discipline is how the system guards that code. Its rules are stated as engineering because each is a line of code that refuses --- a battery that exits non-zero, a page builder that will not write its page, a numbers generator that will not write a paper's macros --- and this section says where each refusal sits.
+
+\paragraph{Screens prune, never admit.} Floating point decides only what is worth certifying. Every family of the generation loop declares a cheap screen that may only discard candidates and a certifier that is the only authority; the loop can skip on a screen and can record a hit only from the certifier. A screen is itself a claim that it drops nothing it should keep, so the campaign runner plants known answers that must pass every stage and certify before a run may start, refuses a run whose filters lose one, and requires a deliberately simple baseline beside every campaign so that a clever proposer is measured against something \cite{MethodsNote}.
+
+\paragraph{Red controls must fire.} A check that has never gone red is decoration. A red control is a deliberately wrong variant of a test that must be rejected, and a battery whose red controls do not all fire fails, whatever its other checks say. Examples: a determinant whose double-precision value is $+3.6\times10^{-15}$ and whose exact sign is negative, which the filter must send to exact arithmetic; a ``gate'' that evaluates the floating-point model at the centre of the box, which is what a point pipeline does and which the corners must catch; a missing inner certificate, which must refuse a theorem; a bar on the wrong side of an endpoint, which must be refused by name. The test target runs \MtBatteries{} batteries, \MtBatteriesNode{} in JavaScript and \MtBatteriesPy{} in Python, and a wiring check refuses a tree in which that target and the control build's list differ. In the six-lane audit of machine-written manuscripts, \AiMutations{} mutation controls stand beside \AiChecks{} named checks, and the campaign runner ships \CheatsN{} ways to cheat its own reward signal, each caught by a named control \cite{Register}. The methods note records \BugsN{} defects the project shipped and then found: none was found by reading code; each was caught by an impossible number, a calibration, a control, a byte pin or an outside read \cite{MethodsNote}.
+
+\paragraph{Pin the bytes.} Every claim is decided against a held byte sequence named by path and SHA-256 and re-hashed at decision time: the claimant's file, the dataset, the printed table transcribed digit for digit, and the certifying modules themselves, whose digests a ledger records and whose workers refuse other bytes. A page that reports a record refuses to build when a pinned input has changed, when the record was written by a different version of its verifier, or when its battery does not pass; an application build that regenerates a record and finds it different from the committed one refuses and leaves the committed record in place. Files lifted from the laboratory this system grew out of come through a manifest of their source paths and digests.
+
+\paragraph{Independence from the claimant.} The claimant's program is never in the trust path: the decision is re-derived from the published statement and the published bytes, and where a claimant's script was read to settle which identity a manuscript meant, the record says so and the script was not executed. An unqualified ``no shared code'' would not survive a check, because two of the system's own instruments reuse its own code across a producer--checker line; the precise form adopted is that the system \emph{shares no code with the claimant}, and every certificate re-runs with no engine present \cite{Positioning}.
+
+\paragraph{Second implementations.} Where a verdict is the product, a second program written from the specification, in another language and arithmetic and sharing no code, re-derives it (Table~\ref{tab:second}). Not every certifier has one; Section~\ref{sec:limits} names those that do not.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{@{}L{0.2\linewidth}L{0.36\linewidth}L{0.36\linewidth}@{}}\toprule
+decision & the two implementations & recorded agreement \\\midrule
+engineering gate & JavaScript intervals; Python \texttt{decimal} at fifty digits & inside the gate's enclosures at \GRefPoints{} inputs, tightest margin \GRefMargin{} bar \\
+abatement kernel & JavaScript exact rationals; Python \texttt{fractions} & \MtAbatVersions{} scenario versions character for character, \MtAbatInterior{} interior points \\
+wave-window decisions & JavaScript exact rationals; a clean-room Python verifier from the written specification & every published decision of a day re-decided, the build refusing on one disagreement \\
+$\delta_3$ certificates & the claimant's Python verifier; a clean-room JavaScript verifier & \MtDeltaCerts{} of \MtDeltaCerts{} certificates verified by both \cite{Delta3} \\
+a Hankel-determinant wall & a lifted arbitrary-precision engine; a standard-library cross-check & \MtZetaRows{} rows re-run bit-identical, \MtZetaCross{} of \MtZetaCross{} cross-checks agreeing \\
+\bottomrule\end{tabular}
+\caption{Decisions re-derived by a second implementation that shares no code with the first. Each agreement is read from the record that holds it.}\label{tab:second}
+\end{table}
+
+\paragraph{Records re-run.} A record is not believed because it was written; it is re-derived. Published records re-run in the reader's browser by the bytes that wrote them and are compared with the record --- by digest for a day of wave-window decisions and a cell of the extreme-value atlas, field by field for an engineering receipt and an abatement registry. A rerun kit lists \MtKitCommands{} commands that re-derive the register's records or verify them with the standard library alone; its one recorded execution, on \MtRunDate{}, ran \MtRunCommands{} of them in about \MtRunMinutes{} minutes on a laptop and compared \MtRunRows{} register rows before and after: \MtRunMoved{} moved, \MtRunFailed{} failed. And the system's own results are offered to outside parties to re-certify without its code; \MtOutsideReruns{} such rerun is recorded so far, the $\lambda(4)$ audit of Section~\ref{sec:record}.
+
+\paragraph{Honest counting.} Every row is derived from a record; a claim with no record gets no row. An aggregate audit counts once and names its most frequent defect. A correction the system adds beside a refuted claim is never counted among the audited corpus's rows; a queued row is not a decided row; refusal kinds are never merged into one total; and every number in this paper and its companions is a macro written by a generator that refuses when a record no longer supports the sentence that quotes it \cite{Register}.
+
+\section{The record}\label{sec:record}
+
+The system's evidence is what it has decided, and every number below is a macro written from the certificate that decided it.
+
+\paragraph{Machine-generated mathematics.} The public register holds \RegRows{} published claims from \RegSources{} sources, decided between \RegFirstDate{} and \RegLastDate{}: \VCertified{} certified, \VRefuted{} refuted, \VPartial{} partial, \VMixed{} mixed, \VRepaired{} repaired, \VNeedsData{} needing data the claimant has not published, and \VQueued{} queued and not counted \cite{Register}. Most claims hold: \RegHolds{} of the \RegDecided{} decided rows name nothing wrong. The defects that appear are of the verifier's kind rather than the mathematician's. A constant posted to a problem thread as a bare decimal is a floating-point product, and parts from the certified enclosure at its \CstarPlace{}th decimal place, by a witness that needs one integer inequality over the exact partial product of the primes up to \CstarLimit{}; witnesses hold only within a verifier's tolerance in \KTolerance{} rows; one checker accepts what its own definition excludes. One row keeps as its history a clause present in a paper's theorem and absent from its formal statement: OpenAI's Navier--Stokes certificate read \textsc{partial} at the announced commit \NsCommit{}, built here over \NsJobs{} modules with only the standard axioms, and \vC\ at the next upstream commit \NsHeadCommit{}, which proved the clause \cite{NSAudit}.
+
+\paragraph{The laboratory's own theorems.} The method runs both ways. The value $\delta_3 = 117/2192$ \cite{Delta3} rests on certificates that two programs sharing no code re-decide, under a battery of \NChecks{} checks with \NReds{} red controls. The value of $\lambda(4)$ \cite{Lambda4} decides \LfClosed{} finite sets across \LfFamilies{} families; on \LfOutsideDate{} an outside audit with no shared code \cite{Lambda4Audit} re-derived the argument from the write-up, re-certified every finite case in interval arithmetic and swept the gcd-reduced sets up to \LfOutsideMax{} as a proof-independent control; its \LfFindings{} documentation findings were folded in and no step broke. That audit is recorded as a row like any other.
+
+\paragraph{Engineering numbers.} A recommendation to raise water injection by 4.2\% on a deep-water flowline, plausible to a reader, is \vF\ \cite{P2}: inputs in the declared envelope give wellhead pressures of \GCornerAbove{} and \GCornerBelow{} bar against a limit of \GRulePwh{} bar, each proved at a corner, and the rule is \textsc{proved} at a pump discharge of \GFlipGreen{} bar or less. Of \GFaults{} injected faults of the kinds an industrial verifier must catch, \GFaultsRefuted{} are refuted and \GFaultsRefused{} refused, each with its reason. A Monte Carlo study of the same recommendation finds exceedances in \MPOver{} of \MDraws{} uniform draws with a worst draw of \MMax{} bar against the proved worst corner of \GCornerAbove{} bar --- the sampling found the risk, and the decision states its extent without a prior over the envelope. A second implementation in fifty-digit decimal arithmetic, sharing no code, lies inside the gate's enclosures at \GRefPoints{} inputs.
+
+\paragraph{Metocean statistics.} Over the open-sea cells of a public global hindcast, \ACertified{} of \AFits{} maximum-likelihood fits are certified maxima, and \AGGLimit{} generalized-gamma fits are refused with the proof of Proposition~\ref{prop:limit}; a scientific library's default call is the maximum it reports on none of \SFits{} fits. Of the \EComparisons{} numbers a contour benchmark printed, \EExact{} are the exact count, two are traced to files rewritten after the count, and \ENotSimple{} of its \EContours{} polygons cross themselves \cite{P1}.
+
+\begin{table}[t]\centering\small
+\begin{tabular}{@{}L{0.2\linewidth}L{0.36\linewidth}L{0.36\linewidth}@{}}\toprule
+domain & what is decided & the check that shares no code \\\midrule
+mathematics & \RegRows{} published claims: constants, constructions, bounds, formal statements & the claimant's checker is never run; one theorem of the laboratory re-certified by an outside group \\
+engineering & an operating recommendation over a declared envelope; \GFaults{} injected faults & a fifty-digit decimal implementation, inside the enclosures at \GRefPoints{} inputs \\
+metocean & \AFits{} likelihood fits; \EComparisons{} printed contour counts & a library's two answers decided as claims; the counts re-derivable in any exact arithmetic \\
+\bottomrule\end{tabular}
+\caption{The record by domain. Every entry is a row of a public ledger that the build re-derives; the companion papers report each in full \cite{Register,P2,P1}.}\label{tab:record}
+\end{table}
+
+\section{Relation to existing practice}\label{sec:related}
+
+\paragraph{Validated numerics and computer-assisted proof.} Interval arithmetic \cite{Moore09}, interval methods for nonlinear systems \cite{Neumaier90}, verification methods in floating point \cite{Rump10,Rump99}, ball arithmetic \cite{Johansson17} and the computer-assisted proofs they made possible \cite{Tucker02,Hales17} are the certifiers' ancestry, and the system uses them as such. What it adds is not a technique but a setting: the computations are aimed at other parties' claims, the outcome is one of three published words with a witness, and a failure to decide is a result.
+
+\paragraph{Formal proof.} A proof assistant checks a proof against a stated theorem \cite{Lean4,Mathlib20}; what it cannot check is whether the statement is the one intended, and a translation that compiles may not be faithful \cite{Bastounis26}. The system complements formal proof in two ways: it decides the finite and numerical claims that formal libraries do not yet reach, and it audits formal claims at the level where they can fail --- the statement read hypothesis by hypothesis, the build reproduced, the axioms asked of the kernel, the proof replayed by an independent kernel \cite{NSAudit}.
+
+\paragraph{Exact geometric computation.} Floating-point filters with exact fallbacks are standard in computational geometry \cite{Fortune96,Shewchuk97,Yap97}; the contribution here is only to apply them where a benchmark's number is decided, and to keep \textsc{on} as an answer.
+
+\paragraph{Verification, validation and uncertainty quantification.} Verification and validation qualify a model; uncertainty quantification gives a dispersion \cite{OberkampfRoy10}. Neither decides whether a given number holds for every input the engineer has declared, which is the question the epistemic reading of Definition~\ref{def:claim} answers; the two are complementary, and the demonstrator sets them side by side \cite{P2}.
+
+\paragraph{Machine discovery.} Systems that propose mathematics --- conjectures from numerical coincidences \cite{Raayoni21}, constructions from program search \cite{RomeraParedes24,Novikov25} --- each come with an evaluator written by the producer. The system sits downstream of all of them as an independent decider, and the register is the measure of what that independence finds.
+
+\section{What is not claimed, and the limits}\label{sec:limits}
+
+\paragraph{Not claimed.} Interval arithmetic, the Krawczyk operator, floating-point filters, sums of squares and Sturm sequences are not claimed; they are cited. The validity of a declared model is not claimed: a \textsc{proved} engineering number holds for the declared model over the declared envelope, not for the sea or the reservoir. Nothing is certified in the regulatory sense; the word is used in the mathematical sense of Definition~\ref{def:verdicts} only. Nothing is a probability.
+
+\paragraph{Locality and incompleteness.} A certified maximum is the maximum in its box; a global statement over a family would need a branch-and-bound over the family's whole parameter space, which the system does not yet run. The system refuses what it cannot decide, and the refusal rate is a property of each campaign, published with it.
+
+\paragraph{Soundness rests on code.} Proposition~\ref{prop:sound} is a theorem about interval extensions; whether a program computes one is a fact about the program. The defences --- second implementations, red controls, pinned bytes, outside re-runs (Section~\ref{sec:discipline}) --- reduce that risk and do not remove it, and they are not uniform: some certifiers have a second implementation that shares no code, and some, among them the point-in-polygon decider, the cosine-minimum certifier and the likelihood certifier, are re-run in the browser by the same bytes, which checks the record and not the code.
+
+\paragraph{What a read of the code for this paper found.} The refusals that hold are per battery, per page, per record and per paper's numbers; the aggregate test target and the control page report rather than gate --- the target finishes successfully whatever its batteries print, and the control page shows a red battery as red and is still written. The verdict words are declared per instrument rather than in one shared module; the closed vocabulary is enforced where verdicts are published, by the register's builder, which stops on any other word. The certificate constructor requires a falsifier to be stated, not executed. One helper encloses the cosine by padding the platform's value rather than by a series, and is used by four instruments outside this paper's scope; one quadrature routine that is rigorous on dyadic cells of $[0,1]$ is called on another interval by one instrument; one branch of the radii-polynomial certifier returns success without the interval check its other branch makes; one battery labels some positive assertions as red controls; and in the engineering demonstrator a \textsc{proved} consistency check means that the claim meets an outer enclosure, and the discharge thresholds are rounded outward to a tenth of a bar in floating point rather than in directed rounding. None of these touches a verdict reported in the companion papers as far as the read went; each is recorded in the repository's debt register with the instrument it affects, and the system's own rule applies to them --- a check that has not been made is not a check.
+
+\section{Conclusions}\label{sec:conclusions}
+
+cert-machine decides the numbers and claims that machines propose with three verdicts, each carrying the object that justifies it, sound under one hypothesis that the arithmetic is built to secure. Its certifiers reduce the questions that arrive --- a zero, a maximum, a statement for every input, a sign, a nonnegative polynomial, a minimum --- to finitely many exact or outward-rounded decisions; its discipline keeps them honest by code that refuses; and its record, \RegRows{} published claims, an engineering procedure and an extreme-value atlas, is public and re-runs. What it offers those who produce such claims is not a second opinion but a different object beside their number: a verdict with its witness, in which a refusal says what would decide it.
+
+\cmrepro{The macros are written by \texttt{tools/paper-numbers/cert-machine-method.js} and by the generators of the companion papers (\texttt{tools/build-paper-numbers.js}, \texttt{tools/paper-numbers/register.js}, \texttt{ec-benchmark.js}, \texttt{delta3.js}) from the ledgers they name; a record that no longer supports a sentence makes the build refuse. Repository: \url{https://github.com/carlostoledo1891/cert-machine}, commit \MtCommit{}.}
+
+\begin{thebibliography}{99}\small
+\bibitem{Abramowitz64} M.~Abramowitz, I.~A.~Stegun, \emph{Handbook of Mathematical Functions}, National Bureau of Standards, Applied Mathematics Series 55, 1964.
+\bibitem{Bastounis26} A.~Bastounis, F.~Circelli, A.~C.~Hansen, Navier--Stokes lost in translation: why Lean verification of AI autoformalisation does not guarantee correct natural language proofs, arXiv:2610.08144, 2026.
+\bibitem{Delta3} C.~Toledo, The twelve-block colouring is optimal: $\delta_3 = 117/2192$ --- a computer-assisted proof, its certificates re-decided by two programs that share no code, draft, 2026; archived at doi:\ArchiveDoi.
+\bibitem{Fortune96} S.~Fortune, C.~J.~Van Wyk, Static analysis yields efficient exact integer arithmetic for computational geometry, \emph{ACM Trans. Graphics} 15 (1996) 223--248.
+\bibitem{Goldberg91} D.~Goldberg, What every computer scientist should know about floating-point arithmetic, \emph{ACM Computing Surveys} 23 (1991) 5--48.
+\bibitem{Hales17} T.~Hales et al., A formal proof of the Kepler conjecture, \emph{Forum Math. Pi} 5 (2017) e2.
+\bibitem{Higham02} N.~J.~Higham, \emph{Accuracy and Stability of Numerical Algorithms}, 2nd ed., SIAM, 2002.
+\bibitem{IEEE754} IEEE, \emph{IEEE Standard for Floating-Point Arithmetic}, IEEE Std 754-2019.
+\bibitem{Johansson17} F.~Johansson, Arb: efficient arbitrary-precision midpoint-radius interval arithmetic, \emph{IEEE Trans. Computers} 66 (2017) 1281--1292.
+\bibitem{Krawczyk69} R.~Krawczyk, Newton-Algorithmen zur Bestimmung von Nullstellen mit Fehlerschranken, \emph{Computing} 4 (1969) 187--201.
+\bibitem{Lambda4} C.~Toledo, The value of $\lambda(4)$: a machine-derived proof completing Mercer's Section-5 program, \url{https://carlostoledo.co/reports/lambda4.html}, doi:10.5281/zenodo.22225861 (2026).
+\bibitem{Lambda4Audit} rainrzk, erdos510-lambda4-audit, \url{\LfOutsideUrl}, posted on \url{https://github.com/teorth/erdosproblems/issues/\LfIssue} (\LfOutsideDate).
+\bibitem{Lean4} L.~de Moura, S.~Ullrich, The Lean 4 theorem prover and programming language, in: \emph{CADE-28}, LNCS 12699, Springer, 2021, 625--635.
+\bibitem{Mathlib20} The mathlib Community, The Lean mathematical library, in: \emph{CPP 2020}, ACM, 2020, 367--381.
+\bibitem{MethodsNote} None by reading code: the methods note, \url{https://carlostoledo.co/reports/methods-note.html}.
+\bibitem{Moore09} R.~E.~Moore, R.~B.~Kearfott, M.~J.~Cloud, \emph{Introduction to Interval Analysis}, SIAM, 2009.
+\bibitem{Neumaier90} A.~Neumaier, \emph{Interval Methods for Systems of Equations}, Cambridge University Press, 1990.
+\bibitem{Novikov25} A.~Novikov et al., AlphaEvolve: a coding agent for scientific and algorithmic discovery, arXiv:2506.13131, 2025.
+\bibitem{NSAudit} C.~Toledo, An audit of the 2026 Navier--Stokes finite-time blowup claim: the formal statement read against Clay's wording and Mathlib's definitions, the Lean proof built and its axioms asked of the kernel, draft, 2026; report at \url{https://carlostoledo.co/reports/navier-stokes.html}.
+\bibitem{OberkampfRoy10} W.~L.~Oberkampf, C.~J.~Roy, \emph{Verification and Validation in Scientific Computing}, Cambridge University Press, 2010.
+\bibitem{Ogita05} T.~Ogita, S.~M.~Rump, S.~Oishi, Accurate sum and dot product, \emph{SIAM J. Sci. Comput.} 26 (2005) 1955--1988.
+\bibitem{OpenAINS} OpenAI, NavierStokesAndEuler, \url{https://github.com/openai/NavierStokesAndEuler}, commits \NsCommit{} and \NsHeadCommit{}, 2026.
+\bibitem{P1} C.~Toledo, Certified extreme-value analysis of significant wave height: maximum-likelihood fits and return levels over a public global hindcast, and environmental contours decided exactly, draft v0.2, 2026; \url{https://carlostoledo.co/paper/p1-return-levels.pdf}.
+\bibitem{P2} C.~Toledo, A decision procedure for machine-proposed engineering numbers: three-valued verdicts over a declared uncertainty envelope, with witnesses and the threshold that decides, draft, 2026; \url{https://carlostoledo.co/paper/p2-decision-procedure.pdf}.
+\bibitem{Parrilo03} P.~A.~Parrilo, Semidefinite programming relaxations for semialgebraic problems, \emph{Math. Programming} 96 (2003) 293--320.
+\bibitem{PeyrlParrilo08} H.~Peyrl, P.~A.~Parrilo, Computing sum of squares decompositions with rational coefficients, \emph{Theoret. Comput. Sci.} 409 (2008) 269--281.
+\bibitem{Positioning} Positioning: the decisions, \texttt{notes/positioning-decisions-2026-09-03.md}, \url{https://github.com/carlostoledo1891/cert-machine}.
+\bibitem{Prentice74} R.~L.~Prentice, A log gamma model and its maximum likelihood estimation, \emph{Biometrika} 61 (1974) 539--544.
+\bibitem{Raayoni21} G.~Raayoni et al., Generating conjectures on fundamental constants with the Ramanujan Machine, \emph{Nature} 590 (2021) 67--73.
+\bibitem{Register} C.~Toledo, Independent exact certification of machine-generated mathematics: the first register, draft, 2026; \url{https://carlostoledo.co/paper/register.pdf}.
+\bibitem{RomeraParedes24} B.~Romera-Paredes et al., Mathematical discoveries from program search with large language models, \emph{Nature} 625 (2024) 468--475.
+\bibitem{Rump99} S.~M.~Rump, INTLAB --- INTerval LABoratory, in: T.~Csendes (ed.), \emph{Developments in Reliable Computing}, Kluwer, 1999, 77--104.
+\bibitem{Rump10} S.~M.~Rump, Verification methods: rigorous results using floating-point arithmetic, \emph{Acta Numerica} 19 (2010) 287--449.
+\bibitem{Shewchuk97} J.~R.~Shewchuk, Adaptive precision floating-point arithmetic and fast robust geometric predicates, \emph{Discrete Comput. Geom.} 18 (1997) 305--363.
+\bibitem{Tucker02} W.~Tucker, A rigorous ODE solver and Smale's 14th problem, \emph{Found. Comput. Math.} 2 (2002) 53--117.
+\bibitem{Yap97} C.~K.~Yap, Towards exact geometric computation, \emph{Comput. Geom.} 7 (1997) 3--23.
+\end{thebibliography}
+
+\end{document}

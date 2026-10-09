@@ -93,6 +93,31 @@ contrast-against-ground), and `interferometer`'s clipped u−v inset is the
 
 ## OPEN
 
+### WHAT A READ OF THE CERTIFIERS' CODE FOUND, FOR THE METHOD PAPER (found 2026-10-09)
+
+The method paper (`paper/tex/cert-machine-method.tex`, §8) states these as limits. Each
+item is a place where a comment, a name or a count says more than the code does. None
+was found to move a verdict reported in a companion paper, but that was not proved.
+
+| what | where | what closing it costs |
+|---|---|---|
+| **no shared verdict module.** CERTIFIED/REFUTED/REFUSED, PROVED/REFUSED/NOT_CHECKED, PROVADO/REFUTADO/RECUSADO, DECIDED/REFUSED and CERTIFIED/REFUSED/REFUTED/STANDS are declared separately, instrument by instrument; flip thresholds are written three times (`apps/contraprova/gate/flowline.js:247-263`, `apps/decidivel/engine/rockphys.js:425-431`, `apps/abatimento/abatimento.js:179-189`). The closed list is enforced only at publication (`tools/run-claims-ledger.js:366`). CLAUDE.md: a rule defined twice WILL diverge | everywhere | one verdict module that every instrument imports, plus a grep gate; a day |
+| **the falsifier is a string, checked for presence only.** `instruments/interval/certificate.js:56` refuses a missing falsifier, but `['']` passes, and `{k: undefined}` passes the evidence check. Only six instruments (monoflow, maxval, aag, price, regatlas, afg) build through the class | `certificate.js:32-37, 64-65` | reject empty strings and undefined values; better, make the falsifier an executable red control. An hour, then the six instruments' batteries |
+| **`encloseCos`/`encloseSin` pad the platform's `Math.cos`/`Math.sin`**, which ECMAScript does not guarantee to be faithful (the comment says so) | `instruments/interval/interval.js:102-111`; used by critcount, transit, glide-band and labs/mfg | route them through `transcendental.js` (series with tails), then re-run the four instruments' records |
+| **`taylor2.integrate` is rigorous only on dyadic cells of [0,1]**: on a general [a,b] the float midpoint leaves an O(ulp) gap per cell (`quadrature.js:16-21` avoids exactly this) | `instruments/interval/taylor2.js:67-84`; called on [−r, r] by `instruments/agtable/exact.js:88` | enclose the cell midpoints and widths as intervals; re-run agtable |
+| **the radii-polynomial linear branch (Z2 = 0) returns ok without the interval check of p(r) < 0** that the other branch makes | `instruments/interval/radii.js:66-69` | add the check; minutes |
+| **the hseva battery counts positive assertions as red controls** (`red()` at `battery.js:59, 196, 243, 323` asserts that something holds, not that a forgery is refused), so "R/R red controls fired" overstates the falsifiers. P1 no longer prints the count | `instruments/hseva/battery.js` | move those four to `ok()`; HsevaReds falls by four |
+| **Contraprova: a PROVADO consistency check (checks 2, 6, 7) means the claim meets an outer enclosure**, weaker than the header's gloss; the interval Reynolds number loses a factor D₋/D₊, so "with Q ≥ q_min the gate decides" (`:202`) holds in the demonstrator, not in general; the P_d thresholds are float with outward 0.1-bar rounding, not directed rounding | `apps/contraprova/gate/flowline.js:51-57, 202, 247-251` | say "consistent" for those checks; compute Re with D cancelled; directed rounding for the thresholds |
+| **ecbench's error bound drops O(u²) terms and assumes `Number(literal)` is correctly rounded** (ECMA-262 guarantees it to 20 significant digits); the margin absorbs both, and the 1e-9 prefilter pad is not scaled for coordinates above 128 | `instruments/ecbench/geometry.js:47-57, 107-119` | state the bound with the u² term; scale the pad, or refuse |M| > 128 |
+| **trigmin's re-check shares `cheb.js` with the path it checks**, and `newman.js:27` cites a 47-check battery against 34 `ok` sites | `instruments/trigmin/newman.js:260-298` | an independent Chebyshev expansion for the re-check; count the battery from its output |
+| **the transcendental tails are computed in round-to-nearest** with one `nextUp` (25! is not exact in double); sound only because the tails (~1e-25) lie far below the one-ulp widening of `add` | `instruments/interval/transcendental.js:131-133, 168-171, 208-211` | compute the tails outward too; an hour |
+| **`special.js` uses hard-coded doubles `LGAMMA_MIN` and `XSTAR` as enclosure ends** | `instruments/hseva/special.js:39-40, 166` | derive them as enclosures or justify each with a bound |
+| **sos and trigmin have no independent second implementation; ecbench and hseva are re-run in the browser by the same bytes**, which checks the record, not the code | — | a clean-room second implementation of each, as abatimento and contraprova have |
+| **`make test` never fails and the control build does not refuse on a red battery.** Every test line is `… && echo PASS \|\| echo FAIL`, so make exits 0; `tools/build-control.js` tags a red row and writes the page (`:254, :561`). The refusals that hold are per battery, per report page, per app record and per paper-numbers generator | `Makefile:84-208`; `tools/build-control.js:240-254` | make the target and the control build exit non-zero on any FAIL; check first that the cloud workflows and the watchdog do not rely on the zero exit |
+| **`\GatesN` = 6 in the register paper, but the methods note runs 7 gates**: `tools/paper-numbers/register.js:449` counts with `^\s+\['`, which misses `[FUNNEL_GATE, …]` | `tools/paper-numbers/register.js:449`; `paper/tex/register.tex:116` | count the gates from the builder's own list |
+| **`make drift` skips the local-side check when the source is gone**, and on this desk the source lab is not at the recorded path (137 "source gone"); the local side re-hashes 137/137 by hand | `tools/lift.js:73-89` (`:77`) | check `local_sha256` whatever the source's state |
+| **RERUN.md and /reports/rerun.html were built at `cb6d042`**, ~100 commits behind HEAD; 8 commands still "not yet timed" | `tools/build-report-rerun.js` | a timed run of the full kit, then rebuild |
+
 ### THE RENDER GATE COLLAPSES A PAGE'S FIGURES INTO ONE ROW (found 2026-09-15)
 
 `tools/check-render.js` keys a figure by its first class name, so all four `.figbox`
