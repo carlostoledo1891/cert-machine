@@ -1,0 +1,147 @@
+{
+ "challenge": "EuclideanFiveColor",
+ "ran": true,
+ "exit": 0,
+ "seconds": 617,
+ "cacheSeconds": 187,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  8924,
+  8993
+ ],
+ "maxRssKB": 7544608,
+ "env": [
+  "kernel: 6.17.0-1022-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "lean4export rev: 076e8e57707e813375e8f9da8bf989799ace9680",
+  "stack: unlimited; RUST_MIN_STACK=1073741824"
+ ],
+ "logTail": [
+  "✔ [8976/8993] Built OAI.Geometry.PlaneColoring.CyclicCore (9.4s)",
+  "✔ [8977/8993] Built OAI.Geometry.PlaneColoring.PlanarCovers (11s)",
+  "✔ [8978/8993] Built OAI.MeasureTheory.CompactFactors.AlgebraModels (21s)",
+  "✔ [8979/8993] Built OAI.Geometry.PlaneColoring.GraphRealization (6.0s)",
+  "✔ [8980/8993] Built OAI.Geometry.PlaneColoring.ContinuumLimits (7.4s)",
+  "✔ [8981/8993] Built OAI.Geometry.PlaneColoring.DiskExtension (9.6s)",
+  "✔ [8982/8993] Built OAI.Analysis.PlaneSpectrum.Representations (19s)",
+  "✔ [8983/8993] Built OAI.Geometry.PlaneColoring.GraphCuts (7.5s)",
+  "✔ [8984/8993] Built OAI.Geometry.PlaneColoring.HoleApproximation (9.2s)",
+  "✔ [8985/8993] Built OAI.Geometry.PlaneColoring.GraphPatches (9.7s)",
+  "✔ [8986/8993] Built OAI.Analysis.PlaneSpectrum.Energy (15s)",
+  "✔ [8987/8993] Built OAI.Geometry.PlaneColoring.FullApproximation (11s)",
+  "✔ [8988/8993] Built OAI.Analysis.PlaneSpectrum.SpectralMeasure (37s)",
+  "✔ [8989/8993] Built OAI.Geometry.PlaneColoring.Mesh (11s)",
+  "✔ [8990/8993] Built OAI.Analysis.PlaneSpectrum.RadialEnergy (27s)",
+  "✔ [8991/8993] Built OAI.Analysis.PlaneSpectrum.Ergodicity (12s)",
+  "✔ [8992/8993] Built OAI.Geometry.PlaneColoring.BorelTransfer (8.1s)",
+  "✔ [8993/8993] Built OAI.Geometry.PlaneColoring.Five (4.6s)",
+  "Build completed successfully (8993 jobs).",
+  "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.EuclideanFiveColor.no_proper_five_coloring, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.EuclideanFiveColor.ProperColoring] from OAI.Geometry.PlaneColoring.Five",
+  "Running nanoda kernel on solution",
+  "nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [
+  "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+  "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes",
+  "warning: PrimeNumberTheoremAnd: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+  "warning: belyi: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/belyi' has local changes",
+  "warning: formal-schemes: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/formal-schemes' has local changes",
+  "warning: elliptic-curves: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/elliptic-curves' has local changes",
+  "warning: tempered-fundamental-groups: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+  "warning: oka: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/oka' has local changes",
+  "warning: orbicurve-cores: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/orbicurve-cores' has local changes",
+  "warning: pi1: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/pi1' has local changes",
+  "warning: heights: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/heights' has local changes",
+  "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+  "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+  "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+  "warning: gromov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/gromov' has local changes",
+  "warning: SphereEversion: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/SphereEversion' has local changes",
+  "warning: schoenflies-lean: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/schoenflies-lean' has local changes",
+  "warning: ClassFieldTheory: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/ClassFieldTheory' has local changes",
+  "warning: AINTLIB: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AINTLIB' has local changes",
+  "warning: AbsorptionCutoff: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AbsorptionCutoff' has local changes",
+  "warning: StrongPNT: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/StrongPNT' has local changes",
+  "warning: carleson: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/carleson' has local changes",
+  "warning: rellich-kondrachov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/rellich-kondrachov' has local changes",
+  "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+  "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes"
+ ],
+ "strict": {
+  "what": "the same config with definition_names emptied: every definition compared body and all",
+  "exit": 0,
+  "okay": true,
+  "mismatches": [],
+  "errTail": [
+   "warning: heights: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/heights' has local changes",
+   "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+   "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+   "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+   "warning: gromov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/gromov' has local changes",
+   "warning: SphereEversion: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/SphereEversion' has local changes",
+   "warning: schoenflies-lean: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/schoenflies-lean' has local changes",
+   "warning: ClassFieldTheory: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/ClassFieldTheory' has local changes",
+   "warning: AINTLIB: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AINTLIB' has local changes",
+   "warning: AbsorptionCutoff: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AbsorptionCutoff' has local changes",
+   "warning: StrongPNT: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/StrongPNT' has local changes",
+   "warning: carleson: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/carleson' has local changes",
+   "warning: rellich-kondrachov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/rellich-kondrachov' has local changes",
+   "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+   "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes"
+  ],
+  "logTail": [
+   "Build completed successfully (8924 jobs).",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.EuclideanFiveColor.no_proper_five_coloring, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.EuclideanFiveColor",
+   "Building OAI.Geometry.PlaneColoring.Five",
+   "Build completed successfully (8993 jobs).",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.EuclideanFiveColor.no_proper_five_coloring, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Geometry.PlaneColoring.Five",
+   "Running nanoda kernel on solution",
+   "nanoda kernel accepts the solution",
+   "Running Lean default kernel on solution.",
+   "Lean default kernel accepts the solution",
+   "Your solution is okay!"
+  ]
+ },
+ "transfer": {
+  "exit": 0,
+  "exampleLines": [
+   62
+  ],
+  "errors": [],
+  "errorsAtExamples": [],
+  "errorsInCopy": [],
+  "guard": "OK",
+  "guardLine": "AUDIT-GUARD OK: 2 constants walked from the copies, 1 matched by Comparator, no original hole reached",
+  "redControl": "none"
+ },
+ "forge": {
+  "exit": 1,
+  "exampleLines": [
+   60
+  ],
+  "errors": [
+   {
+    "line": 60,
+    "text": "AuditTransferForge.lean:60:85: error: Type mismatch"
+   }
+  ],
+  "errorsAtExamples": [
+   {
+    "line": 60,
+    "text": "AuditTransferForge.lean:60:85: error: Type mismatch"
+   }
+  ],
+  "errorsInCopy": [],
+  "guard": "OK",
+  "guardLine": "AUDIT-GUARD OK: 2 constants walked from the copies, 1 matched by Comparator, no original hole reached",
+  "redControl": "the body of OAI.EuclideanFiveColor.ProperColoring replaced by sorry"
+ }
+}

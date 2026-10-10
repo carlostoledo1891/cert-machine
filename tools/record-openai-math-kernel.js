@@ -46,8 +46,23 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
     const ch = a.replace(/^kernel-/, '');
     const fact = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : { challenge: ch, ran: false, missing: 'no result.json in the artifact' };
     fs.writeFileSync(path.join(dir, ch + '.json'), JSON.stringify(fact, null, 1) + '\n');
-    n++;
   }
+  /* a job that ENDED without uploading a result (the runner terminated it mid-step, so even the always() upload
+     never ran) has no artifact to download; it is recorded from the job list, with the step it died in, rather
+     than left out — a run that kills a job is a fact about the challenge on this machine */
+  const jobs = JSON.parse(cp.execSync(`gh api --paginate repos/${REPO}/actions/runs/${run}/jobs?per_page=100 --jq '[.jobs[] | {id, name, status, conclusion, steps: [.steps[] | {name, conclusion}]}]'`, { encoding: 'utf8' }).replace(/\]\s*\[/g, ','));
+  for (const j of jobs) {
+    const mt = /^check \((.+)\)$/.exec(j.name);
+    if (!mt || j.status !== 'completed' || j.conclusion === 'success' || fs.existsSync(path.join(dir, mt[1] + '.json'))) continue;
+    /* the step it died in: the first that did not succeed (a runner that lost contact leaves it with no conclusion) */
+    const step = (j.steps.find((s) => s.conclusion !== 'success' && s.conclusion !== 'skipped') || {}).name || 'an unnamed step';
+    const said = JSON.parse(cp.execSync(`gh api repos/${REPO}/check-runs/${j.id}/annotations --jq '[.[].message]'`, { encoding: 'utf8' }))
+      .filter((m) => !/Node\.js 20 is deprecated/.test(m)).join(' | ');
+    fs.writeFileSync(path.join(dir, mt[1] + '.json'), JSON.stringify({ challenge: mt[1], ran: false, jobConclusion: j.conclusion,
+      missing: j.conclusion === 'cancelled' ? 'the job was cancelled in the step "' + step + '" (its time limit, or a cancel) without uploading a result'
+        : 'the job ended (' + j.conclusion + ') in the step "' + step + '" without uploading a result: the runner terminated it' + (said ? ' (GitHub: ' + said + ')' : '') }, null, 1) + '\n');
+  }
+  n = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== '_run.json').length;
   fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, null, 1) + '\n');
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log('run ' + run + ': ' + n + ' challenge results');

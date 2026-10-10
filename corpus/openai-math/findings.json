@@ -1,0 +1,251 @@
+{
+ "what": "The gaps the openai/math audit found, as the contribution it makes: each one a place where what is checked is less than what is claimed, where a check the release presents does not do what a reader would assume, or where the means to check a claim are not published. A gap is not an error: most of the claims behind these gaps may well be true. Each entry names the ledger rows it rests on (tools/build-report-openai-math.js refuses the page if one of them no longer carries the word the entry needs), quotes numbers only through {{placeholders}} the builder fills from the ledgers, and pins its evidence by repository, path and line (re-checked against the clone at every build where the clone is on disk). Every claim about the release's own checking programs was verified by reading the files at the pin, never by running them.",
+ "release": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+ "found": "2026-10-10",
+ "upstream": {
+  "head": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "checkedAt": "2026-10-10T13:25Z",
+  "note": "when upstream was last checked (2026-10-10 13:25 UTC) its HEAD was still fd4aeeb2, so none of them had been addressed."
+ },
+ "severity": {
+  "1": "headline not checked — the headline claim is carried by no machine-checked statement",
+  "2": "check weaker than shown — a check the release presents does not check what a reader would assume",
+  "3": "cannot be re-checked as shipped — the means to check a claim are not published, or a shipped checker does not check what its paper claims",
+  "4": "documentation — the text describing a check is wrong or stale"
+ },
+ "findings": [
+  {
+   "id": "hilbert16-uniform-bound",
+   "severity": 1,
+   "category": "statement",
+   "headline": "Hilbert's sixteenth problem (the uniform bound)",
+   "title": "Hilbert's sixteenth problem: the uniform bound is in no Lean statement",
+   "detail": "The family headline leads with the resolution of the uniform boundedness assertion of Hilbert's sixteenth problem: the number of limit cycles of every real planar polynomial vector field is bounded by a constant depending only on its degree. Of the release's {{challenges}} statements, only QuinticLienard defines periodic orbits or limit cycles at all, and only for Liénard systems x′ = y − F(x), y′ = −x with deg F ≤ 5 (at most two limit cycles, attained). The linked paper itself calls its problem 'a restricted instance' of Hilbert's sixteenth. The uniform-bound manuscript (September 24) is not linked by the scope note, whose title nevertheless reads 'Hilbert's sixteenth problem: uniform bounds for limit cycles'.",
+   "evidence": [
+    {"repo": "openai/math", "path": "CONTENTS.md", "lines": "3443"},
+    {"repo": "openai/math", "path": "lean/docs/143.md", "lines": "1-5"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/QuinticLienard.lean", "lines": "40"},
+    {"repo": "openai/math", "path": "preprints/two-limit-cycles-for-quintic-lienard-systems-September-24-2026/build/sections/introduction.tex", "lines": "28"}
+   ],
+   "refs": [{"lane": "S", "family": "143", "words": ["NARROWER — UNLINKED", "NARROWER — UNDECLARED"]}, {"lane": "K", "challenge": "QuinticLienard", "words": ["CERTIFIED"]}],
+   "ask": "State the uniform bound as a Comparator challenge, or say beside the headline that it is not formalized."
+  },
+  {
+   "id": "kaplansky-torsion",
+   "severity": 1,
+   "category": "statement",
+   "headline": "Kaplansky's direct finiteness for a torsion-free group",
+   "title": "Kaplansky: the headline's group is torsion-free; the Lean group is required to have torsion",
+   "detail": "The family headline is a finitely presented torsion-free group whose group algebra is not directly finite (the October 4 manuscript, over F2). The finitely presented Lean statement REQUIRES the group to contain an element of odd prime order, and lets the field be any finite field of characteristic 2. The linked characteristic-2 paper says so itself: 'The construction uses odd-order torsion and does not assert that K = F2.' The torsion-free manuscript is not linked by the scope note, whose heading is the torsion-free title above a body that describes torsion; the note declares only the nonsofic clause to be outside.",
+   "evidence": [
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean", "lines": "8-10"},
+    {"repo": "openai/math", "path": "lean/docs/197.md", "lines": "1-13"},
+    {"repo": "openai/math", "path": "preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/build/sections/01-introduction.tex", "lines": "18"},
+    {"repo": "openai/math", "path": "preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/build/sections/introduction.tex", "lines": "14"}
+   ],
+   "refs": [{"lane": "S", "family": "197", "words": ["NARROWER — UNLINKED", "NARROWER — UNDECLARED"]}, {"lane": "K", "challenge": "KaplanskyFinitelyPresented", "words": ["CERTIFIED"]}],
+   "ask": "Formalize the torsion-free example, or retitle the scope note and the headline to what is formalized."
+  },
+  {
+   "id": "penrose-not-stated",
+   "severity": 1,
+   "category": "statement",
+   "headline": "the spacetime Penrose inequality",
+   "title": "Penrose inequalities: no Penrose inequality is stated",
+   "detail": "The family headline claims the sharp enclosing-area spacetime Penrose inequality in every spatial dimension n ≥ 3, with rigidity, charged and higher-dimensional extensions. The family's one challenge, CKSBondiPenrose ({{lines.CKSBondiPenrose}} lines), states an area-controlled end replacement and Schwarzschild equality examples; the word 'Penrose' does not occur in it. The scope note links one of the family's {{manuscripts.260}} manuscripts, and says itself that a conditional inequality kept in the implementation 'is not selected as a substitute for the paper's main inequality'.",
+   "evidence": [
+    {"repo": "openai/math", "path": "CONTENTS.md", "lines": "6475"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/CKSBondiPenrose.lean", "lines": "3312"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/CKSBondiPenrose.lean", "lines": "3591"},
+    {"repo": "openai/math", "path": "lean/docs/260.md", "lines": "5-13"}
+   ],
+   "refs": [{"lane": "S", "family": "260", "words": ["DIFFERENT"]}],
+   "ask": "State the inequality, or present the family as 'supporting results formalized'."
+  },
+  {
+   "id": "roe-reduced-not-maximal",
+   "severity": 1,
+   "category": "statement",
+   "headline": "maximal coarse assembly",
+   "title": "Coarse assembly: the headline is about the maximal map; the Lean is about the reduced one",
+   "detail": "The headline constructs a space whose MAXIMAL coarse assembly map is not rationally injective (the October 5 manuscript, built on three-dimensional tori). The Lean statement is about the 'ordinary reduced coarse assembly map' (its own docstring), on the September 23 construction from triangular-lattice discs. The October 5 paper says its result 'strengthens the reduced coarse-assembly result' and that the stronger conclusion requires a proof in the universal norm. The scope note links only the September 23 paper, under the maximal title.",
+   "evidence": [
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/CoarseAssembly.lean", "lines": "10"},
+    {"repo": "openai/math", "path": "lean/docs/307.md", "lines": "1-9"},
+    {"repo": "openai/math", "path": "preprints/Failure-of-rational-injectivity-for-maximal-coarse-assembly-October-5-2026/build/sections/01-introduction.tex", "lines": "46-53"}
+   ],
+   "refs": [{"lane": "S", "family": "307", "words": ["NARROWER — UNLINKED", "NARROWER — UNDECLARED"]}],
+   "ask": "State the maximal result, or retitle the scope note and the headline."
+  },
+  {
+   "id": "projected-lax-other-cone",
+   "severity": 1,
+   "category": "statement",
+   "headline": "the Projected Lax conjecture",
+   "title": "Projected Lax: the formalized cone has an exact lift, by the family's own third manuscript",
+   "detail": "The headline disproves the Projected Lax conjecture: some hyperbolicity cones admit no finite semidefinite lift, with any number of auxiliary variables (the October 5 manuscript). No challenge states that. HyperbolicCones states that one explicit cone in 23 variables has no semidefinite representation in its original coordinates — and the family's third manuscript gives that very cone an exact semidefinite lift, a pencil of size 100 with 307 auxiliary variables. The formalized cone therefore cannot witness the headline; the cone that does is in no Lean statement.",
+   "evidence": [
+    {"repo": "openai/math", "path": "CONTENTS.md", "lines": "2336"},
+    {"repo": "openai/math", "path": "CONTENTS.md", "lines": "2354"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/HyperbolicCones.lean", "lines": "68-74"},
+    {"repo": "openai/math", "path": "lean/docs/095.md", "lines": "5"}
+   ],
+   "refs": [{"lane": "S", "family": "095", "words": ["NARROWER — UNLINKED", "NARROWER — UNDECLARED"]}, {"lane": "K", "challenge": "HyperbolicCones", "words": ["CERTIFIED"]}],
+   "ask": "Formalize the cone that has no lift, or say beside the headline which cone the Lean is about."
+  },
+  {
+   "id": "statement-gaps-census",
+   "severity": 1,
+   "category": "statement",
+   "title": "Across the release: {{S.gap}} of {{families}} formalized families state less than, or other than, what they claim",
+   "detail": "{{S.DIFFERENT}} families state a different theorem from their headline, and {{S.UNDECLARED}} state less than a manuscript their own scope note links, with nothing saying so. Another {{S.UNLINKED}} headlines lead with results from manuscripts the formalization never linked, so a reader of the headline is not told that no challenge carries them. Every one is listed in §2 with the clause that is missing; each was read twice and is quoted to the line in the statement ledger.",
+   "evidence": [
+    {"repo": "cert-machine", "path": "certs/openai-math-statements.json"}
+   ],
+   "refs": [],
+   "ask": "One line per family, beside the headline, saying what is and is not formalized."
+  },
+  {
+   "id": "definition-holes",
+   "severity": 2,
+   "category": "holes",
+   "title": "{{holes.displayed}} displayed definitions Comparator never compares — one of them carries 'the plane is not 5-colorable'",
+   "detail": "Comparator compares a declared definition hole by its type only, never its body, and its README says such solutions 'must always be checked with an additional (potentially human) verifier'. {{holes.challenges}} configs declare holes; {{holes.displayed}} of their {{holes.declared}} holes are displayed with full bodies that a reader takes as the definitions. EuclideanFiveColor's one hole, ProperColoring, carries the whole conclusion; Naimark's seven holes are every predicate of its statement; KServer's nine include MainStatement itself. As configured, the check would accept a solution that redefines any of them with the same type. This audit supplied the verifier the README asks for — a strict run that compares every body constant for constant, and a transfer check in Lean — and settled {{holes.proved}} of the {{holes.challenges}} (§3). For {{holes.openNames}}, whose displayed definition and solution definition differ as kernel terms, neither check settles whether the theorem proves the statement the file displays: that stays open.",
+   "evidence": [
+    {"repo": "cert-machine", "path": "corpus/openai-math/comparator/Comparator_Compare.lean", "lines": "63"},
+    {"repo": "cert-machine", "path": "corpus/openai-math/comparator/README.md", "lines": "108-110"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/EuclideanFiveColor.json"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/Naimark.json"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/KServer.json"}
+   ],
+   "refs": [{"lane": "K", "challenge": "EuclideanFiveColor", "words": ["CERTIFIED"]}, {"lane": "K", "challenge": "Naimark", "words": ["CERTIFIED"]}, {"lane": "K", "challenge": "KServer", "words": ["CERTIFIED"]}],
+   "ask": "Take fully written definitions out of definition_names, so Comparator compares them, or ship the extra verifier Comparator asks for."
+  },
+  {
+   "id": "credited-outside-the-check",
+   "severity": 2,
+   "category": "scope-note",
+   "title": "Scope notes credit the formalization with theorems no challenge states",
+   "detail": "Three scope notes say the formalization proves a result whose Lean theorem sits in OpenAI's library but in no challenge, so no reviewed statement fixes what it says and Comparator never compares it: family 132's fixed exponent α > 2 (fixed_power_separation; the config checks only quantitative_separation); family 291's unital Toms–Winter equivalence (unital_main; the config checks only the uniform property Γ theorem); family 210's a = 1 case, vanishing-on-products consequence and reverse equivariant embedding (the config checks only the surjectivity theorem).",
+   "evidence": [
+    {"repo": "openai/math", "path": "lean/docs/132.md", "lines": "9"},
+    {"repo": "openai/math", "path": "lean/OAI/Combinatorics/Sensitivity/Separation.lean", "lines": "36"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/SensitivitySeparation.json", "lines": "4-6"},
+    {"repo": "openai/math", "path": "lean/docs/291.md", "lines": "11"},
+    {"repo": "openai/math", "path": "lean/OAI/Analysis/JiangSu/Main.lean", "lines": "107"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/UniformGamma.json", "lines": "4-6"},
+    {"repo": "openai/math", "path": "lean/docs/210.md", "lines": "9"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/FoulkesHowe.json", "lines": "4-6"}
+   ],
+   "refs": [{"lane": "S", "family": "132", "words": ["NARROWER — UNDECLARED"]}, {"lane": "S", "family": "291", "words": ["DIFFERENT"]}, {"lane": "S", "family": "210", "words": ["NARROWER — DECLARED"]}],
+   "ask": "Add these theorems to the Comparator configs, or stop crediting them to the formalization."
+  },
+  {
+   "id": "second-kernel-off",
+   "severity": 2,
+   "category": "kernel",
+   "title": "The independent kernel was switched on for {{nanoda.true}} of {{challenges}} challenges — and cannot finish the largest as shipped",
+   "detail": "Comparator can replay every proof through nanoda, a Lean kernel written independently in Rust; the release switched it on for {{nanoda.true}} configs ({{nanoda.false}} false, {{nanoda.absent}} absent). Here it was on for all, and every proof it finished, it accepted. But nanoda's checking threads have a hard-coded 16 MiB stack: {{K.overflow}} exports overflowed it — every one of them already accepted by Lean's kernel in the same run — and with the stack raised to 1 GiB, {{K.overflowCertified}} have since been accepted while the deepest are terminated on a 16 GB runner. As configured, the second kernel cannot check the release's largest proofs on standard hardware.",
+   "evidence": [
+    {"repo": "nanoda_lib", "rev": "3a2407216ee84a75f9e1aead6803d0578be06ae7", "path": "src/lib.rs"},
+    {"repo": "cert-machine", "path": ".github/workflows/openai-math-kernel.yml", "lines": "86-90"},
+    {"repo": "cert-machine", "path": "certs/openai-math-kernel.json"}
+   ],
+   "refs": [],
+   "ask": "Switch nanoda on for every challenge; upstream, make nanoda's thread stack configurable."
+  },
+  {
+   "id": "hidden-witnesses",
+   "severity": 3,
+   "category": "witness",
+   "title": "{{F.needs}} headline witnesses are asserted but not published",
+   "detail": "The counterexamples to Hadwiger's conjecture, the Colin de Verdière chromatic conjecture, Sidorenko's conjecture, Ryser's conjecture (two papers) and Kaplansky's conjectures (four papers), and the cylinder-cover, radial-sweep, bin-packing and discrete-Fourier constructions, are random or 'sufficiently large' constructions with no explicit instance; the finite non-5-colorable unit-distance graph is derived by compactness and never displayed; the N(6) = 3 search cites code and data that are absent. Where the Lean is kernel-checked (Hadwiger, Sidorenko, Ryser) the existence is formally proved; the gap is that nobody can look at the object.",
+   "evidence": [
+    {"repo": "cert-machine", "path": "certs/openai-math-finite.json"}
+   ],
+   "refs": [
+    {"lane": "F", "id": "F-294", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-295", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-297b", "words": ["NEEDS DATA"]},
+    {"lane": "F", "id": "F-300", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-301", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-302", "words": ["NEEDS DATA"]},
+    {"lane": "F", "id": "F-345", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-346", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-347", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-349", "words": ["NEEDS DATA"]},
+    {"lane": "F", "id": "F-197", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-198", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-232", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-248", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-532", "words": ["NEEDS DATA"]},
+    {"lane": "K", "challenge": "HadwigerCounterexample", "words": ["CERTIFIED"]}, {"lane": "K", "challenge": "SidorenkoCounterexample", "words": ["CERTIFIED"]}, {"lane": "K", "challenge": "RyserCovering", "words": ["CERTIFIED"]}, {"lane": "K", "challenge": "BalancedRyser", "words": ["CERTIFIED"]}
+   ],
+   "ask": "Publish an explicit instance wherever one can be made, or say in the paper that none is given."
+  },
+  {
+   "id": "missing-artifacts",
+   "severity": 3,
+   "category": "artifact",
+   "title": "Papers cite checkers and data the release does not ship",
+   "detail": "N(6) = 3 (mutually unbiased bases in dimension six) cites a verification/code directory of seven programs and an extraction.json — absent, so the computer search behind its headline cannot be re-run. The Thorp-sweep paper cites support/network_bounds.py — absent. The SK-cutoff appendix names numerics-interval.py and numerics-cross-errors.py — absent (the paper calls them non-essential). The cubic three-torus paper says 'the reproducible exact calculations are included with the source' — only the TeX is. The perceptron paper's checker is printed in its appendix, but the reproducibility record it cites is absent. The universal-tensor-squares release records only the exit statuses of the authors' program for 13 ≤ n ≤ 64, with no witness (this audit supplied all 61). The matrix-multiplication 2.258 record library exists only as program state. A valuation relation pins a producer program and an .npz input by hash, neither shipped (its verification does not need them). Each of these was decided here from the text where the text allowed.",
+   "evidence": [
+    {"repo": "openai/math", "path": "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/build/sections/execution.tex", "lines": "16-20"},
+    {"repo": "openai/math", "path": "preprints/Routing-densities-and-representation-contraction-for-Thorp-sweeps-September-26-2026/build/sections/04-certificate.tex", "lines": "294"},
+    {"repo": "openai/math", "path": "preprints/Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/build/appendices/scalar-certificate.tex", "lines": "291-294"},
+    {"repo": "openai/math", "path": "preprints/The-Isoperimetric-Conjecture-for-the-Cubic-Flat-Three-Torus-September-24-2026/build/paper.tex", "lines": "157"},
+    {"repo": "openai/math", "path": "preprints/Microscopic-jamming-in-the-negative-spherical-perceptron-September-24-2026/build/main.tex", "lines": "9466-9476"},
+    {"repo": "openai/math", "path": "preprints/Universal-Tensor-Squares-for-Symmetric-Groups-September-24-2026/verification/code/smallcode_verify.py", "lines": "88-96"},
+    {"repo": "cert-machine", "path": "instruments/openaimath/finite/f213_complex_omega.py", "lines": "85-86"},
+    {"repo": "openai/math", "path": "preprints/Ambiently-homeomorphic-isolated-hypersurfaces-of-multiplicities-two-and-three-September-24-2026/verification/support/explicit-relation.json", "lines": "2-3"}
+   ],
+   "refs": [{"lane": "F", "id": "F-532", "words": ["NEEDS DATA"]}, {"lane": "F", "id": "F-467", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-426", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-678", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-409", "words": ["REFUSED"]}, {"lane": "F", "id": "F-360", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-213", "words": ["REFUSED"]}, {"lane": "F", "id": "F-125", "words": ["CERTIFIED"]}],
+   "ask": "Ship what the papers cite."
+  },
+  {
+   "id": "checkers-that-do-not-check",
+   "severity": 3,
+   "category": "checker",
+   "title": "Shipped checkers that stop short of what their paper claims — each step re-decided here",
+   "detail": "Triangular-lattice universal optimality: the shipped checkers 'do not execute the separate floor-rounded matrix construction' the paper relies on (run here, exactly: every table passes). Cycle–clique Ramsey: the 3,099 published deduction traces are 'not offered as proof objects', and no shipped program re-justifies their steps (done here). Campana–Peternell in dimension six: no shipped code forms the 8280 × 6820 matrix or computes its rank 6814 (computed here). Entanglement in dimension ten: no shipped check tests positivity of the state, PPT of the map or trace preservation of the channel (decided here). Einstein zero-plane rigidity: the checker never checks that its triangles tile the domains (checked here). Hadamard matrices of order six: verify.py computes nothing for the cubic-pair obstruction (decided here). Four-state Potts: verify.py hash-binds the two full sign traversals and records 'full_sign_runs_repeated': False. The perceptron: the checker computes none of the analytic constants of the three lemmas, which exist only in prose (checked here). Haldane gap: fixed-width integer arithmetic, with overflow excluded by an a-priori bound and intermediate steps unchecked. One-phase Bernoulli: one shipped check lists the interior expansion as not_verified, and the 'independent' engine that does expand it was written from a specification that already contained the target totals. Mahler: the SymPy check verifies three identities, not the stable rewritings the interval certificate evaluates. Isotropic constants: the checker hand-copies the paper's tables and leaves the non-scalar sections unchecked. Defocusing NLS: the zero counts 2, 1, 0, 0 are derived by hand from a checked sign table (counted here by Routh–Hurwitz). In every case decided here, the mathematics held.",
+   "evidence": [
+    {"repo": "openai/math", "path": "preprints/Universal-optimality-of-the-triangular-lattice-September-23-2026/verification/README.md", "lines": "45"},
+    {"repo": "openai/math", "path": "preprints/Cycle-clique-Ramsey-numbers-September-25-2026/build/sections/10-implementation.tex", "lines": "106-110"},
+    {"repo": "openai/math", "path": "preprints/The-Campana-Peternell-conjecture-in-dimension-six-September-25-2026/verification/verify.py", "lines": "128-139"},
+    {"repo": "openai/math", "path": "preprints/Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026/README.md", "lines": "38"},
+    {"repo": "cert-machine", "path": "instruments/openaimath/finite/f665_einstein_zero_plane.py", "lines": "60"},
+    {"repo": "cert-machine", "path": "instruments/openaimath/finite/f533_hadamard_six.py"},
+    {"repo": "openai/math", "path": "preprints/The-Reconstruction-Threshold-for-the-Ferromagnetic-Four-State-Potts-Model-October-5-2026/verification/checks/verify.py", "lines": "114"},
+    {"repo": "openai/math", "path": "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/source1/run_thermal.py", "lines": "44-48"},
+    {"repo": "openai/math", "path": "preprints/The-critical-dimension-for-one-phase-Bernoulli-minimizers-September-24-2026/verification/checks/original/checks/algebra-independent.py", "lines": "205"},
+    {"repo": "openai/math", "path": "preprints/The-critical-dimension-for-one-phase-Bernoulli-minimizers-September-24-2026/build/appendices/tables.tex", "lines": "931-932"},
+    {"repo": "openai/math", "path": "preprints/The-Mahler-Conjecture-for-General-Convex-Bodies-September-22-2026/verification/programs/scalar_identities.py", "lines": "12-16"},
+    {"repo": "openai/math", "path": "preprints/A-sharp-entropy-bound-and-the-simplex-inequality-for-isotropic-constants-October-5-2026/verification/verify_scalar.py", "lines": "54-66"},
+    {"repo": "openai/math", "path": "preprints/Stable-Self-Similar-Blowup-for-a-Supercritical-Defocusing-Schrodinger-Equation-on-the-Torus-September-24-2026/verification/certificates/exact_verifier.py", "lines": "145-175"}
+   ],
+   "refs": [{"lane": "F", "id": "F-178", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-338", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-135", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-549", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-665", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-533", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-433", "words": ["REFUSED"]}, {"lane": "F", "id": "F-409", "words": ["REFUSED"]}, {"lane": "F", "id": "F-539", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-699", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-171", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-199", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-704", "words": ["CERTIFIED"]}],
+   "ask": "Make each checker check the claim, not reproduce the authors' run."
+  },
+  {
+   "id": "unreproducible-constants",
+   "severity": 3,
+   "category": "text-data",
+   "title": "Printed numbers the text alone does not determine",
+   "detail": "Hadamard matrices of order six: the printed residual of the mixed-moment certificate depends on hand-picked coordinate priority lists that exist only in the authors' program (the paper says the choice 'affects the form of the answer'); re-derived from the text with another priority, the bound still holds, but the printed numbers cannot be reproduced. Triangular-lattice atomic certificate: the pivot claim 0.12 < |pivot| < 1.74 holds only when the twenty unknowns are interleaved (c1, d1, c3, d3, …), an order the paper gives only as 'ordered as c_n, d_n on L' — in block order (all c, then all d) one pivot is 0.103.",
+   "evidence": [
+    {"repo": "openai/math", "path": "preprints/Exact-Fourier-certificates-for-complex-Hadamard-matrices-of-order-six-September-24-2026/build/sections/05-verification.tex", "lines": "31-34"},
+    {"repo": "cert-machine", "path": "instruments/openaimath/finite/f177_triangular_atomic.py", "lines": "26-28"}
+   ],
+   "refs": [{"lane": "F", "id": "F-533", "words": ["CERTIFIED"]}, {"lane": "F", "id": "F-177", "words": ["CERTIFIED"]}],
+   "ask": "Print the orderings and priorities the numbers depend on."
+  },
+  {
+   "id": "stale-and-wrong-scope-notes",
+   "severity": 4,
+   "category": "scope-note",
+   "title": "Scope notes that are stale or contradict their own challenges",
+   "detail": "Two scope notes link superseded September editions of manuscripts revised on October 6 (342, Taming implies compatibility; 376, Incompressible box transport); CONTENTS.md lists only the new editions. Family 087's note says the nonsymmetric Mahler conjecture is not included, while its challenge GeneralMahler states it and the same note describes it. Family 129's note puts one-way liveness outside the scope, while OneWayLiveness states it. Family 187's note describes 'four conditional winning templates', while SnakyConditional states an unconditional 35-move win from the empty board. Two support statements import OpenAI's own library, so their definitions come from the claimant.",
+   "evidence": [
+    {"repo": "openai/math", "path": "lean/docs/342.md", "lines": "5"},
+    {"repo": "openai/math", "path": "lean/docs/376.md", "lines": "8"},
+    {"repo": "openai/math", "path": "lean/docs/087.md", "lines": "13"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/GeneralMahler.lean", "lines": "24-31"},
+    {"repo": "openai/math", "path": "lean/docs/129.md", "lines": "12"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/OneWayLiveness.lean", "lines": "95-100"},
+    {"repo": "openai/math", "path": "lean/docs/187.md", "lines": "11"},
+    {"repo": "openai/math", "path": "lean/ComparatorChallenges/SnakyConditional.lean", "lines": "44-53"}
+   ],
+   "refs": [],
+   "ask": "Regenerate the scope notes from the current manuscripts and configs."
+  }
+ ]
+}
