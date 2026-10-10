@@ -159,7 +159,7 @@
    "severity": 3,
    "category": "witness",
    "title": "{{F.needs}} headline witnesses are asserted but not published",
-   "detail": "The counterexamples to Hadwiger's conjecture, the Colin de Verdière chromatic conjecture, Sidorenko's conjecture, Ryser's conjecture (two papers) and Kaplansky's conjectures (four papers), and the cylinder-cover, radial-sweep, bin-packing and discrete-Fourier constructions, are random or 'sufficiently large' constructions with no explicit instance; the finite non-5-colorable unit-distance graph is derived by compactness and never displayed; the N(6) = 3 search cites code and data that are absent. Where the Lean is kernel-checked (Hadwiger, Sidorenko, Ryser) the existence is formally proved; the gap is that nobody can look at the object.",
+   "detail": "The counterexamples to Hadwiger's conjecture, the Colin de Verdière chromatic conjecture, Sidorenko's conjecture (its host graph), Ryser's conjecture (two papers) and Kaplansky's conjectures (three papers), and the two cylinder-cover and the bin-packing constructions, are random or 'sufficiently large' constructions given only by a prescription, with no explicit instance; the odd-characteristic Kaplansky example is specified but far too large to check, and the discrete-Fourier word is never printed; the finite non-5-colorable unit-distance graph is obtained by compactness and never displayed; the N(6) = 3 search cites code and data that are absent. Where the Lean is kernel-checked (Hadwiger, Sidorenko, Ryser) the existence is formally proved; the gap is that nobody can look at the object.",
    "evidence": [
     {"repo": "cert-machine", "path": "certs/openai-math-finite.json"}
    ],

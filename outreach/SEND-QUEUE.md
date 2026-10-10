@@ -48,6 +48,15 @@ here on request.
   - HELD FOR THE OPERATOR: the ec-benchmark issue (the partners' field).
 - **POSTED on "Go all":** G1, teorth/optimizationproblems PR #216 (the 3b/3c/71 replay).
 
+## LANE O — THE OPENAI/MATH AUDIT (2026-10-10; outreach/openai-math-2026-10-10.md)
+
+- The page is live at /reports/openai-math.html, leading with the 14 gaps found at fd4aeeb2 (corpus/openai-math/findings.json).
+- O1 (X), O2 (Mathstodon), O3 (LinkedIn): the public post linking the page — READY, asked for by the operator
+  ("Make the public posting linking"); paste by hand (no social access from here).
+- O4: the email to OpenAI — READY; the operator sends it and picks the recipient (issues and discussions are disabled
+  on openai/math, and the release names no contact).
+- Not drafted, each its own send: an issue on ammkrn/nanoda_lib (the hard-coded 16 MiB thread stack, 13 exports).
+
 ## LANE P — PRIME INTELLECT (2026-10-05)
 
 - **P1. The application** — SENT by the operator (2026-10-05).
