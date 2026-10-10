@@ -1179,5 +1179,34 @@
    "CycleCliqueRamsey",
    "UniversalTensorSquares"
   ]
+ },
+ "runpod": {
+  "pod": "pmiof24sv1morg",
+  "created": "2026-10-10T20:53:26Z",
+  "machine": "RunPod Secure Cloud, EU-NL-1, cpu3m Memory-Optimized, 32 vCPU, 256 GB, 300 GB disk, $1.76/h (the operator approved it)",
+  "nanodaBuild": "issue44-stack1g",
+  "slots": 4,
+  "script": "tools/runpod-openai-math.sh @ 90aab0c8",
+  "why": "amendment 14: every row still REFUSED after amendment 13 (GitHub runners terminated with the patch and 1 GiB, or hit the 350-minute limit)",
+  "challenges": [
+   "MUBSix",
+   "ErdosReciprocal",
+   "PlanarPacking",
+   "Catalan",
+   "CycleCliqueRamsey",
+   "UniversalTensorSquares",
+   "CoarseAssembly",
+   "ContinuumCoulombHardness",
+   "NuclearUltrapower",
+   "DirectedFeedback",
+   "IndependentSets",
+   "MinUncut",
+   "OptimalMaxCut",
+   "SquareDifference",
+   "UniqueGamesTheorem",
+   "VertexCover",
+   "BinPackingGap",
+   "PerfectCompleteness"
+  ]
  }
 }

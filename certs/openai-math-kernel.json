@@ -14,11 +14,11 @@
  "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
  "notRunYet": [],
  "counts": {
-  "decided": 415,
+  "decided": 416,
   "of": 416,
   "cancelledBeforeComparator": 0,
   "words": {
-   "CERTIFIED": 397,
+   "CERTIFIED": 398,
    "REFUSED": 18
   },
   "strict": {
@@ -122,7 +122,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1795,
@@ -159,7 +159,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 423,
@@ -270,7 +270,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1970,
@@ -344,7 +344,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 11046,
@@ -547,7 +547,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 362,
@@ -713,7 +713,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 848,
@@ -750,7 +750,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 649,
@@ -787,7 +787,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 2280,
@@ -861,7 +861,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 2706,
@@ -1009,7 +1009,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -1018,12 +1018,32 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074613260,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:36:55Z",
+     "nanodaBuild": "issue44",
+     "exit": 1,
+     "seconds": 1426,
+     "cacheSeconds": 209,
+     "maxRssKB": 7502260,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": null,
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "nanodaBuild": "issue44",
    "strict": null,
    "transfer": null
   },
@@ -1076,7 +1096,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 205,
@@ -1113,7 +1133,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1378,
@@ -1261,7 +1281,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 323,
@@ -1747,7 +1767,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -1761,6 +1781,19 @@
      "run": 38060237164,
      "workflowSha": "a22b4172c2c86645ef96a87a290dbcb638405d71",
      "at": "2026-10-10T17:34:25Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -1827,7 +1860,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1349,
@@ -1956,7 +1989,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 387,
@@ -2030,7 +2063,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1746,
@@ -2141,7 +2174,20 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38074613260,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:36:55Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -2208,7 +2254,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 369,
@@ -2319,7 +2365,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 430,
@@ -2504,7 +2550,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3430,
@@ -2578,7 +2624,20 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38074613260,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:36:55Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -2663,7 +2722,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 490,
@@ -2700,7 +2759,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 548,
@@ -2922,7 +2981,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1031,
@@ -3014,7 +3073,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 449,
@@ -3162,7 +3221,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 651,
@@ -3267,7 +3326,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -3289,10 +3348,23 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.)",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
    "nanodaBuild": null,
    "strict": null,
@@ -3347,7 +3419,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1273,
@@ -3615,7 +3687,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 464,
@@ -3652,7 +3724,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 564,
@@ -3689,7 +3761,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 436,
@@ -3726,7 +3798,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 338,
@@ -3873,7 +3945,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1714,
@@ -4014,12 +4086,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4331,7 +4416,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 7897,
@@ -4442,7 +4527,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3069,
@@ -4516,7 +4601,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 745,
@@ -4590,7 +4675,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 4582,
@@ -5223,7 +5308,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 4175,
@@ -5260,7 +5345,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1384,
@@ -5371,7 +5456,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 462,
@@ -5408,7 +5493,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 386,
@@ -5482,7 +5567,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 997,
@@ -5630,7 +5715,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 652,
@@ -5667,7 +5752,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 367,
@@ -5704,7 +5789,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 252,
@@ -5926,7 +6011,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 572,
@@ -6000,7 +6085,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 194,
@@ -6037,7 +6122,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 464,
@@ -6148,7 +6233,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 536,
@@ -6333,7 +6418,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 375,
@@ -6538,7 +6623,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1640,
@@ -6649,7 +6734,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 4877,
@@ -6797,7 +6882,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 203,
@@ -7019,7 +7104,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1356,
@@ -7179,12 +7264,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7200,7 +7298,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 423,
@@ -7348,7 +7446,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3543,
@@ -7385,7 +7483,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1454,
@@ -7422,7 +7520,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 322,
@@ -7681,7 +7779,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 4456,
@@ -7718,7 +7816,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 562,
@@ -7906,7 +8004,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 855,
@@ -8054,7 +8152,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1867,
@@ -8091,7 +8189,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -8838,7 +8936,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 319,
@@ -9265,7 +9363,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3834,
@@ -9302,7 +9400,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 843,
@@ -9413,7 +9511,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 415,
@@ -9450,7 +9548,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1314,
@@ -9487,7 +9585,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 498,
@@ -9598,7 +9696,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 181,
@@ -9684,12 +9782,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9740,7 +9851,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 397,
@@ -9891,7 +10002,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 362,
@@ -9928,7 +10039,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 554,
@@ -10002,7 +10113,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 295,
@@ -10039,7 +10150,20 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38074613260,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:36:55Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -10374,12 +10498,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10543,7 +10680,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 146,
@@ -10617,7 +10754,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 479,
@@ -10654,7 +10791,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3218,
@@ -10691,7 +10828,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 6029,
@@ -10765,7 +10902,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -10774,12 +10911,32 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074613260,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:36:55Z",
+     "nanodaBuild": "issue44",
+     "exit": 1,
+     "seconds": 2666,
+     "cacheSeconds": 189,
+     "maxRssKB": 10986736,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
-   "stage": "not run",
-   "nanodaBuild": null,
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "nanodaBuild": "issue44",
    "strict": null,
    "transfer": null
   },
@@ -10980,7 +11137,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 929,
@@ -11311,7 +11468,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 7353,
@@ -11348,7 +11505,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 681,
@@ -11459,7 +11616,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 994,
@@ -11533,7 +11690,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 550,
@@ -11921,7 +12078,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 576,
@@ -12032,7 +12189,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 280,
@@ -12143,7 +12300,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 3323,
@@ -12313,7 +12470,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 357,
@@ -12535,7 +12692,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 622,
@@ -12794,7 +12951,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1341,
@@ -13053,7 +13210,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 979,
@@ -13238,7 +13395,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 670,
@@ -13423,7 +13580,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 809,
@@ -13571,7 +13728,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 2518,
@@ -13608,7 +13765,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1308,
@@ -13719,7 +13876,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 419,
@@ -13756,7 +13913,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 292,
@@ -13793,7 +13950,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 587,
@@ -13977,7 +14134,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 543,
@@ -14063,12 +14220,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -14380,7 +14550,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 341,
@@ -14454,7 +14624,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 570,
@@ -14528,7 +14698,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 280,
@@ -14676,7 +14846,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 370,
@@ -14972,7 +15142,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 897,
@@ -15046,7 +15216,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 503,
@@ -15083,7 +15253,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 632,
@@ -15120,7 +15290,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1227,
@@ -15453,7 +15623,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 2139,
@@ -15638,7 +15808,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 255,
@@ -15755,6 +15925,43 @@
      "seconds": 12229,
      "cacheSeconds": 185,
      "maxRssKB": 9052304,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "nanodaBuild": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TriangularGaussian",
+   "families": [
+    "090"
+   ],
+   "statementLines": 276,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38051470892,
+     "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
+     "at": "2026-10-10T18:11:58Z",
+     "nanodaBuild": null,
+     "exit": 0,
+     "seconds": 11982,
+     "cacheSeconds": 198,
+     "maxRssKB": 9164388,
      "kernels": [
       "Lean default kernel accepts the solution",
       "nanoda kernel accepts the solution"
@@ -15934,7 +16141,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 236,
@@ -16045,7 +16252,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 495,
@@ -16082,7 +16289,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 980,
@@ -16205,12 +16412,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -16263,7 +16483,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -16277,6 +16497,19 @@
      "run": 38060237164,
      "workflowSha": "a22b4172c2c86645ef96a87a290dbcb638405d71",
      "at": "2026-10-10T17:34:25Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
      "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
@@ -16306,7 +16539,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 405,
@@ -16380,7 +16613,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 702,
@@ -16466,12 +16699,25 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38074618613,
+     "workflowSha": "11da65ab260a9e448c46adef5e231c2e678e3dd0",
+     "at": "2026-10-10T19:31:36Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "nanodaBuild": "issue44",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -16524,7 +16770,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 1677,
@@ -16598,7 +16844,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 459,
@@ -16635,7 +16881,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 340,
@@ -16672,7 +16918,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 719,
@@ -16709,7 +16955,7 @@
     {
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
-     "at": "2026-10-10T16:52:15Z",
+     "at": "2026-10-10T18:11:58Z",
      "nanodaBuild": null,
      "exit": 0,
      "seconds": 374,
