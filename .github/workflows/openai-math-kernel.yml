@@ -1,0 +1,195 @@
+# The openai/math audit, lane K — every Comparator challenge of github.com/openai/math
+# re-run on Linux with nanoda switched on, the independent Rust kernel the release enabled
+# for 2 of its 416 challenges (corpus/openai-math/release.json, counted.enableNanoda).
+#
+# Comparator (the Lean FRO's judge) builds the challenge and the solution inside landrun,
+# exports both with lean4export, checks that every listed theorem states exactly the
+# challenge's statement and uses only the permitted axioms, and replays the solution
+# through Lean's kernel AND every external kernel. The ONE change we make to OpenAI's
+# config is enable_nanoda: true (declared in corpus/openai-math/preregistration.json);
+# everything else is their bytes, sha256-checked against the census before it runs. For
+# the 10 configs that declare definition holes, a SECOND run with the holes emptied
+# decides whether the solution's definitions are the bodies the challenge displays
+# (Comparator checks a hole's type only).
+#
+# Why here and not on the desk: Lake and the compiled comparator aborted at startup on
+# darwin 27 (the Navier–Stokes audit, 2026-10-05) and landrun is Landlock, Linux-only.
+# Public-repository runners are free; a job is one challenge, fail-fast is off, and a job
+# that cannot finish (build failure, the 6 h limit, memory) is REFUSED, never REFUTED.
+#
+# Nothing here pushes. Each job uploads kernel-<challenge> (result.json + the log tail);
+# tools/record-openai-math-kernel.js downloads a run's artifacts and writes the ledger
+# certs/openai-math-kernel.json. Dispatch by hand:
+#   gh workflow run openai-math-kernel.yml -f challenges="BorsukNine PiExponent"
+name: openai-math-kernel
+on:
+  workflow_dispatch:
+    inputs:
+      challenges:
+        description: 'space-separated Comparator challenge names (lean/ComparatorChallenges/<name>.json)'
+        required: true
+      max_parallel:
+        description: 'concurrent jobs'
+        required: false
+        default: '20'
+permissions:
+  contents: read
+env:
+  MATH_REPO: https://github.com/openai/math.git
+  MATH_PIN: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
+  LEAN_TOOLCHAIN: leanprover/lean4:v4.34.1
+  COMPARATOR_PIN: d03acab154d269c06e60e4de7e4cc85deebff94b   # tag v4.34.0, toolchain raised to v4.34.1 (the release's)
+  LEAN4EXPORT_PIN: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest
+  LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4      # Zouuup/landrun main, 2026-07-23
+  NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7       # ammkrn/nanoda_lib master, 2026-09-22 (v0.4.19)
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        env:
+          LIST: ${{ inputs.challenges }}
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os, re
+          names = [n for n in os.environ['LIST'].split() if n]
+          assert names and all(re.fullmatch(r'[A-Za-z0-9_]+', n) for n in names), 'bad challenge list'
+          print('matrix=' + json.dumps(sorted(set(names))))
+          EOF
+
+  tools:
+    runs-on: ubuntu-24.04
+    steps:
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/kernel-tools
+          key: kernel-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: build comparator, lean4export, landrun, nanoda at their pins
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          mkdir -p ~/kernel-tools/bin ~/src && cd ~/src
+          git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
+          echo "$LEAN_TOOLCHAIN" > lean-toolchain
+          sed -i 's/"rev": "[0-9a-f]\{40\}"/"rev": "'"$LEAN4EXPORT_PIN"'"/' lake-manifest.json
+          lake build lean4export comparator
+          cp .lake/build/bin/comparator ~/kernel-tools/bin/
+          cp .lake/packages/lean4export/.lake/build/bin/lean4export ~/kernel-tools/bin/
+          (cd .lake/packages/lean4export && git rev-parse HEAD) > ~/kernel-tools/lean4export.rev
+          cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
+          go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
+          cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          cargo build --release -q
+          cp target/release/nanoda_bin ~/kernel-tools/bin/
+          ls -la ~/kernel-tools/bin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kernel-tools
+          path: ~/kernel-tools
+          retention-days: 3
+
+  check:
+    needs: [plan, tools]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.max_parallel) }}
+      matrix:
+        challenge: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      CH: ${{ matrix.challenge }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            corpus/openai-math/release.json
+            tools/openai-math-kernel-result.py
+          sparse-checkout-cone-mode: false
+          path: audit
+      - uses: actions/download-artifact@v4
+        with:
+          name: kernel-tools
+          path: ~/kernel-tools
+      - name: free disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h / | tail -1
+      - name: toolchain
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          chmod +x ~/kernel-tools/bin/*
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          echo "$HOME/kernel-tools/bin" >> "$GITHUB_PATH"
+      - name: the release at its pin, the challenge checked against the census
+        run: |
+          set -euo pipefail
+          git clone -q --filter=blob:none --no-checkout "$MATH_REPO" math
+          cd math && git sparse-checkout set lean && git checkout -q "$MATH_PIN"
+          test "$(git rev-parse HEAD)" = "$MATH_PIN"
+          cd lean && test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
+          python3 - <<'EOF'
+          import hashlib, json, os, sys
+          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit/corpus/openai-math/release.json')))
+          ch = next((c for c in rel['challenges'] if c['name'] == os.environ['CH']), None)
+          if ch is None: sys.exit('not a census challenge: ' + os.environ['CH'])
+          sha = lambda p: hashlib.sha256(open(p, 'rb').read()).hexdigest()
+          assert sha('ComparatorChallenges/%s.json' % ch['name']) == ch['configSha256'], 'config bytes differ from the census'
+          assert sha('ComparatorChallenges/%s.lean' % ch['name']) == ch['statementSha256'], 'statement bytes differ from the census'
+          cfg = json.load(open('ComparatorChallenges/%s.json' % ch['name']))
+          cfg['enable_nanoda'] = True   # declared change 1
+          json.dump(cfg, open('audit-config.json', 'w'), indent=1)
+          if cfg.get('definition_names'):
+              # declared change 2: Comparator compares a definition hole's TYPE only, never its body
+              # (Comparator/Compare.lean, definitionHoleMatches). A second run with the holes emptied
+              # compares every such definition as an ordinary constant, body included: it decides
+              # whether the solution proves its theorem about the definitions the challenge displays.
+              json.dump(dict(cfg, definition_names=[]), open('audit-config-strict.json', 'w'), indent=1)
+          print('census bytes match; nanoda on; definition holes: %d' % len(cfg.get('definition_names') or []))
+          EOF
+      - name: dependencies and the Mathlib cache
+        working-directory: math/lean
+        run: |
+          set -euo pipefail
+          start=$(date +%s)
+          lake exe cache get 2>&1 | tail -5
+          echo "CACHE_SECONDS=$(( $(date +%s) - start ))" >> "$GITHUB_ENV"
+          df -h / | tail -1
+      - name: comparator, Lean's kernel and nanoda
+        working-directory: math/lean
+        run: |
+          set +e
+          mkdir -p ~/out
+          {
+            echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null)"
+            lean --version; comparator --version 2>/dev/null || true
+            echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
+          } > ~/out/env.txt 2>&1
+          start=$(date +%s)
+          /usr/bin/time -v lake env comparator audit-config.json > ~/out/comparator.log 2> ~/out/comparator.err
+          echo $? > ~/out/exit.txt
+          echo $(( $(date +%s) - start )) > ~/out/seconds.txt
+          tail -40 ~/out/comparator.log; tail -40 ~/out/comparator.err
+          if [ -f audit-config-strict.json ]; then
+            start=$(date +%s)
+            lake env comparator audit-config-strict.json > ~/out/strict.log 2> ~/out/strict.err
+            echo $? > ~/out/strict-exit.txt
+            echo $(( $(date +%s) - start )) > ~/out/strict-seconds.txt
+            tail -20 ~/out/strict.log; tail -20 ~/out/strict.err
+          fi
+          exit 0
+      - name: result
+        if: always()
+        run: python3 audit/tools/openai-math-kernel-result.py ~/out "$CH" > ~/out/result.json && cat ~/out/result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kernel-${{ matrix.challenge }}
+          path: ~/out
+          retention-days: 30

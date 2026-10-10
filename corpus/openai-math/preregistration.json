@@ -1,0 +1,77 @@
+{
+ "what": "The openai/math audit, pre-registered before any row is decided: the release pinned, the four lanes, what each verdict word means in each lane, the two declared changes to OpenAI's configs, the order, and the counting rule. Membership of lanes K and S is mechanical (every challenge in the census); lane F's membership is fixed by a census of all 719 abstracts and appended here, in its own commit, BEFORE any F row is decided. No verdict lives in this file: each lane writes its own ledger and the page derives its counts from those ledgers.",
+ "registered": "2026-10-10",
+ "operatorGo": "2026-10-10, \"Start with the openAI audit.\" (the go on targets row openai-math-722-audit, scouted 2026-10-07)",
+ "release": {
+  "repository": "https://github.com/openai/math",
+  "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "note": "the release moved once after the scouting pin adc7f124 (2026-10-08, 'Update manuscripts and Lean formalizations': 3 manuscripts withdrawn, 14 revised, 11 challenges added). The audit holds at fd4aeeb2; a later commit is a new pin, re-censused, never silently followed.",
+  "census": "corpus/openai-math/release.json (tools/pin-openai-math.js; refuses unless the clone is at the pin and clean)"
+ },
+ "denominators": {
+  "rule": "Manuscripts, families and challenges are three different denominators and are never mixed in one sentence. Every count on the page names its denominator. A lane's count is stated only over the rows that lane decided, beside the rows it could not.",
+  "manuscripts": 719,
+  "families": 372,
+  "challenges": 416,
+  "withdrawnByOpenAI": 3
+ },
+ "lanes": {
+  "K": {
+   "name": "the kernel lane",
+   "membership": "all 416 Comparator challenges in the census",
+   "decider": "Comparator (leanprover/comparator d03acab1 = tag v4.34.0, built with the release's toolchain v4.34.1), lean4export 076e8e57, landrun 811cfff5, nanoda_lib 3a240721 — on GitHub's Linux runners (.github/workflows/openai-math-kernel.yml), one job per challenge, the config and statement bytes sha256-checked against the census before the run",
+   "declaredChanges": [
+    "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
+    "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays"
+   ],
+   "words": {
+    "CERTIFIED": "Comparator exits 0 and prints 'Your solution is okay!', with 'nanoda kernel accepts the solution' and 'Lean default kernel accepts the solution' both printed: every listed theorem states exactly the challenge's statement, uses no axiom beyond propext, Quot.sound, Classical.choice, and is accepted by two kernels written independently. It says nothing about whether the Lean statement is the paper's claim — that is lane S.",
+    "REFUTED": "Comparator itself rejects — a statement mismatch, an axiom outside the permitted three, or a kernel rejects — reproduced by a second run before it is stated anywhere",
+    "REFUSED": "no decision: a build failure, the runner's 6 h limit, memory, a tool crash, or a census-bytes mismatch; the stage and the reason are recorded, and a REFUSED row is never counted as a failure of the release"
+   },
+   "strictWords": {
+    "SAME BODIES": "the second run passes: every declared hole is, constant for constant, the definition the challenge displays",
+    "BODIES DIFFER": "the second run names the constants that differ; each is then read (lane S) for whether the solution's definition is equivalent to the displayed one",
+    "GENUINE HOLE": "the challenge leaves the definition sorried (a witness the solution must supply), so there is no displayed body to compare"
+   },
+   "order": "first the families OpenAI chose to release reasoning summaries for (007, 017, 087, 102, 159, 197, 221, 271, 287, 362), the 40 challenges in counterexample families, the 10 definition-hole configs and the 11 challenges added at fd4aeeb2; then the rest, smallest statement first",
+   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so."
+  },
+  "S": {
+   "name": "the statement lane",
+   "membership": "all 416 challenge statements",
+   "decider": "a reading — each challenge statement read against (a) its family's headline in CONTENTS.md, (b) the abstract of each paper its scope note names, (c) OpenAI's own scope note (lean/docs/NNN.md). A reading is not a certificate and the page never calls it one.",
+   "words": {
+    "MATCHES": "the Lean statement states the family's headline claim (up to the formalization's unavoidable encoding choices, each named)",
+    "NARROWER — DECLARED": "the statement proves less than the headline and OpenAI's scope note says what is left out",
+    "NARROWER — UNDECLARED": "the statement proves less than the headline and neither the scope note nor the challenge file says so",
+    "DIFFERENT": "the statement neither implies nor is implied by the headline claim",
+    "SUPPORT": "OpenAI declares the challenge a supporting result, not a main theorem (lean/ComparatorChallenges/README.md)"
+   },
+   "flags": {
+    "DEFINITION HOLE": "definition_names non-empty (10 configs): Comparator's README itself requires an additional verifier for these; lane K's strict run decides the bodies",
+    "AXIOM IN STATEMENT": "the challenge declares an axiom (HarmonicGrowth's mainStatement); lane K decides whether the solution's theorem uses it",
+    "STALE LINK": "the scope note links an earlier edition of a manuscript that OpenAI has since revised (families 342 and 376 at the pin)",
+    "LARGE STATEMENT": "over 1,000 lines (8 challenges): a large statement is a large place for a definition to carry the conclusion; read in full, not sampled"
+   },
+   "discipline": "every NARROWER — UNDECLARED and DIFFERENT row quotes both texts verbatim with file and line, and is read a second time, independently, before it is stated on the page. The first reading of QuasiRiemannHypothesis (scouting, 2026-10-07: the challenge states riemannZeta s ≠ 0 for Re s > 7/8 while the family claims every Dirichlet L-function) is re-read under this rule like any other row."
+  },
+  "F": {
+   "name": "the finite-core lane",
+   "membership": "every manuscript whose headline claim, or a stated component of it, is witnessed by a finite explicit object whose defining property is checkable by a finite exact computation — fixed by a census of all 719 abstracts (three readers, disjoint slices) and appended to this file in its own commit before any F row is decided",
+   "decider": "a clean-room exact re-decision written here, sharing no code with the release (exact rationals, integers, finite-field arithmetic, interval enclosures as the object requires), with red controls that perturb the witness and must flip the verdict",
+   "words": {
+    "CERTIFIED": "the object, read from the release's own bytes (sha256-pinned), has the claimed property, decided by our code",
+    "REFUTED": "the object, as published, does not have the claimed property — the failing check stated as a finite fact anyone can re-run",
+    "REFUSED": "the check could not be completed here (cost, an ambiguity in the object's definition); the reason recorded",
+    "NEEDS DATA": "the paper asserts a finite object it does not publish in checkable form; the row stays and says so"
+   }
+  },
+  "U": {
+   "name": "undecided here",
+   "membership": "every manuscript with neither a challenge (via its family's scope note) nor an F row",
+   "word": "UNDECIDED HERE — counted, never called unverified, wrong or doubtful: an unformalized deep proof is outside what an exact certifier can decide, and the page says exactly that"
+  }
+ },
+ "sends": "none. Issues and discussions are disabled on openai/math; anything outward (a page pointer, a message) is the operator's, per item."
+}
