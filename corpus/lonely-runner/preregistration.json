@@ -1,0 +1,47 @@
+{
+ "what": "Pre-registration of an independent, clean-room re-verification of the Lonely Runner Conjecture for fifteen runners, LRC(14) (J. Allikvere, arXiv:2609.02604 v2; certificates at Zenodo 10.5281/zenodo.22667683), pinned in corpus/lonely-runner/lrc14-allikvere/MANIFEST.json. Committed before any line of the decider is written. The author's own 'Limits' section says the checks 'do not constitute a formal proof verification or a fully independent implementation' — this is that implementation.",
+ "registered": "2026-10-10",
+ "operatorGo": "\"Ok, let's do it. No rush, let's do it right.\" (2026-10-10, after the workflow and budget of the lonely-runner track A were specified; Phase 0 then measured the compute at 2,137 CPU-hours as the paper reports, above the first $50 estimate — the full run waits for the operator's go at the gate below)",
+ "claim": {
+  "theorem": "LRC(14): for every v in (Z \\ {0})^14 there is a real t with ||t v_i|| >= 1/15 for all i.",
+  "structure": "a finite-checking bound (Theorem thm:flag and Lemma lem:divisor, the lattice flag bound and the forced divisor; Corollary cor:mass) reduces LRC(14) to the prime-divisibility statement p | v_1...v_14 for every primitive counterexample, for a set of primes whose logarithms sum past 14 log(A_14/28) - log 360360 = 401.9845...; Proposition prop:closure establishes that divisibility for 71 primes 89 <= p <= 569 by computation; their logarithms sum past 408.8233",
+  "conditionalOn": "LRC(m) for every m <= 13, from Rosenfeld (m <= 7), Trakulthongchai (8, 9; the paper's Appendix app:source notes a defect in that program and takes LRC(9) from the code of Sungkawichai-Trakulthongchai instead), Sungkawichai-Trakulthongchai (10-12) and Allikvere (13; Zenodo 10.5281/zenodo.22066772, about 31,872 vCPU-hours). None of these is re-checked here; a CERTIFIED below is conditional on them, and the page will say so."
+ },
+ "lanes": {
+  "G": {
+   "name": "the gates",
+   "membership": "the 71 primes of Table tab:gates (gates_table_v2.tex), each decided in full",
+   "decider": "instruments/lonelyrunner/ — a program written HERE from the paper's text (Sections 2 and 4, Appendices app:examples and app:audit) and the definitions of Sungkawichai-Trakulthongchai it recalls, in C for speed with a reference implementation in Python for the small cases. The author's C++, Python and orchestration code is not opened until every gate's result is recorded; afterwards it may be read for the comparison section only, and anything learned from it is reported as such.",
+   "method": "for each prime p and k = 14: (1) the time and speed classes of Z_p^x / {+-1} and the covering relation 15 d_p(a v) < p; (2) every 14-multiset of classes covering every time class, up to units, by our own search (a depth-first branch on the uncovered time class with fewest covering classes, normalised by units so the cover contains class 1, orbit representatives by lexicographic minimum), split into rows with 14 distinct classes and rows with smaller support, each branch with its own completeness argument written down before the code; (3) successive binary lifts to levels 2, 4, 8, 16, 32, each lift tested exactly (witness on the grid (lp)^-1 Z, and the gcd condition); (4) for every orbit surviving level 32, the level-3 and level-5 witness-free lifts by exhaustive search, combined by the Chinese remainder theorem and tested exactly at level 15 with the gcd condition; (5) the few-exception shift lemma (Lemma lem:neargcd) for d = 3 and d = 5 applied to what the gcd condition leaves; (6) the gate is CLOSED when every residue class is proper or handled by (5). Every count the computation passes through is recorded.",
+   "words": {
+    "CLOSED": "our decider shows p | v_1...v_14 for every primitive counterexample with distinct coordinates (Lemma lem:gate, (i) or (ii)); 'J(14,p) empty' is recorded separately when no class needed the shift lemma",
+    "OPEN AT p": "our decider leaves a residue class that is neither proper nor handled by the shift lemma. Before anything is stated, the class is re-derived by the Python reference implementation; a reproduced OPEN AT p at a gate the paper calls closed is a discrepancy reported with the class itself, not a refutation of the theorem (the prime would simply not count)",
+    "REFUSED": "the gate was not decided in full (cost, crash, time); never counted either way"
+   },
+   "afterDecision": "the recorded counts are compared with the author's gates.json (copied, never read by the decider): the number of irredundant unit orbits, the level-32 surviving orbits, the witness-free level-15 lifts and the classes left to the shift lemma. Where a quantity is canonical (a property of the mathematical set, not of how it was enumerated) a disagreement is a finding and is investigated; where it depends on the enumeration it is reported as such."
+  },
+  "M": {
+   "name": "the mass and the threshold",
+   "method": "(1) sum of log p over the primes our decider CLOSED, by rigorous interval arithmetic (rationals and certified log bounds), against the threshold; (2) the threshold 14 log(A_14/28) - log 360360 recomputed from the definitions of Section 3 in exact rationals plus certified logarithms, by code written here; (3) the proofs of Section 3 (the flag bound) and of the framework lemmas are READ and summarised — a reading, not a certificate",
+   "words": {
+    "CERTIFIED": "the closed primes' mass exceeds the threshold we recomputed",
+    "SHORT": "it does not; the shortfall is stated in log units"
+   }
+  }
+ },
+ "redControls": [
+  "the decider against brute force for k = 2..6 and small primes: J(k,p) computed by enumerating every vector of Z_{p,1}^k and lifting by definition, compared with the pipeline's answer — any disagreement stops the run",
+  "a mutated covering threshold (15 replaced by 14, i.e. the k = 13 problem posed at k = 14) must change the recorded counts at the first gate",
+  "the shift lemma switched off at p = 233 must leave that gate OPEN (the paper reports 13,456 orbits unresolved; our count is recorded, compared afterwards, and is itself the control)",
+  "a forged surviving class (a vector with a witness inserted into a level-32 survivor file) must be removed by the level-15 stage",
+  "the orbit of a = (1,...,14) must survive the binary lifts at every gate with tau(p) >= 13 and close at level 15 by the gcd condition alone — a property the paper states and our decider must re-derive, not assume"
+ ],
+ "phases": [
+  {"phase": 0, "what": "pin the claim and its sources; read Sections 2 and 4; this pre-registration", "cost": "$0", "state": "done 2026-10-10"},
+  {"phase": 1, "what": "the decider (C, plus the Python reference) and its red controls; completeness arguments for the search written beside the code", "cost": "$0 (desk)"},
+  {"phase": 2, "what": "the cheap gates on the desk (p = 89, 199, 239, 307 and others below 10 CPU-hours in the paper's cost table) to measure our speed against the paper's; extrapolate the full run by the measured growth", "cost": "$0 (desk)"},
+  {"phase": 3, "what": "GATE: the operator approves the full run at the measured price; then all 71 gates on RunPod CPU pods (cpu3c, $0.03 per vCPU-hour; the paper reports 2,137 CPU-hours, so about $65 at equal speed, $130-200 at two to three times slower). Budget cap $250 unless the operator raises it.", "cost": "estimated $65-200, cap $250"},
+  {"phase": 4, "what": "the ledger certs/lonely-runner-lrc14.json, the page /reports/lonely-runner.html, and the comparison with the author's records", "cost": "$0"}
+ ],
+ "sends": "none without the operator's explicit approval per item; the author may be told the result once it is recorded and the operator agrees"
+}
