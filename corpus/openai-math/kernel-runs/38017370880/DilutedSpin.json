@@ -1,0 +1,59 @@
+{
+ "challenge": "DilutedSpin",
+ "ran": false,
+ "exit": null,
+ "seconds": null,
+ "cacheSeconds": 172,
+ "okay": false,
+ "kernels": [],
+ "buildJobs": [
+  8924
+ ],
+ "maxRssKB": null,
+ "env": [
+  "kernel: 6.17.0-1022-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "lean4export rev: 076e8e57707e813375e8f9da8bf989799ace9680"
+ ],
+ "logTail": [
+  "Building ComparatorChallenges.DilutedSpin",
+  "⚠ [8924/8924] Built ComparatorChallenges.DilutedSpin (5.5s)",
+  "warning: ComparatorChallenges/DilutedSpin.lean:148:8: declaration uses `sorry`",
+  "Build completed successfully (8924 jobs).",
+  "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.DilutedSpinGlass.mezard_parisi, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.DilutedSpin",
+  "Building OAI.Probability.DilutedSpin.Main",
+  "✔ [8924/9328] Built OAI.Probability.DilutedSpin.CountableFullSupport (9.9s)",
+  "✔ [8925/9328] Built OAI.Probability.DilutedSpin.ParameterProduct (10s)",
+  "✔ [8926/9328] Built OAI.Probability.DilutedSpin.CompoundPoisson (10s)",
+  "✔ [8927/9328] Built OAI.Probability.DilutedSpin.Polarization (12s)",
+  "✔ [8928/9328] Built OAI.Probability.DilutedSpin.Model (9.3s)"
+ ],
+ "errTail": [
+  "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+  "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+  "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+  "warning: belyi: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/belyi' has local changes",
+  "warning: formal-schemes: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/formal-schemes' has local changes",
+  "warning: elliptic-curves: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/elliptic-curves' has local changes",
+  "warning: tempered-fundamental-groups: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+  "warning: oka: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/oka' has local changes",
+  "warning: orbicurve-cores: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/orbicurve-cores' has local changes",
+  "warning: pi1: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/pi1' has local changes",
+  "warning: heights: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/heights' has local changes",
+  "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+  "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+  "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+  "warning: belyi: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/belyi' has local changes",
+  "warning: formal-schemes: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/formal-schemes' has local changes",
+  "warning: elliptic-curves: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/elliptic-curves' has local changes",
+  "warning: tempered-fundamental-groups: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+  "warning: oka: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/oka' has local changes",
+  "warning: orbicurve-cores: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/orbicurve-cores' has local changes",
+  "warning: pi1: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/pi1' has local changes",
+  "warning: heights: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/heights' has local changes",
+  "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+  "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+  "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes"
+ ]
+}

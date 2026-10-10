@@ -56,7 +56,7 @@ jobs:
           import json, os, re
           names = [n for n in os.environ['LIST'].split() if n]
           assert names and all(re.fullmatch(r'[A-Za-z0-9_]+', n) for n in names), 'bad challenge list'
-          print('matrix=' + json.dumps(sorted(set(names))))
+          print('matrix=' + json.dumps(list(dict.fromkeys(names))))   # the dispatch order is the pre-registered order
           EOF
 
   tools:
@@ -158,6 +158,21 @@ jobs:
         run: |
           set -euo pipefail
           start=$(date +%s)
+          # the release's README order: `lake update` first. Its post_update hook applies OpenAI's compatibility
+          # patches (lean/patches/*-lean4341.patch) to twelve dependencies (PrimeNumberTheoremAnd, carleson,
+          # rellich-kondrachov, ...); without it those modules fail to build (pilot run 38015544207,
+          # QuasiRiemannHypothesis). Every dependency is pinned by commit in the lakefile, and the resolved
+          # revisions are then checked against the census, so the update cannot move a pin silently.
+          lake update 2>&1 | grep -v '^warning: .* has local changes' | tail -15
+          python3 - <<'EOF'
+          import json, os, sys
+          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit/corpus/openai-math/release.json')))
+          want = {d['name']: d['rev'] for d in rel['dependencies']}
+          got = {p['name']: p['rev'] for p in json.load(open('lake-manifest.json'))['packages']}
+          moved = sorted(k for k in want if got.get(k) != want[k])
+          if moved: sys.exit('lake update moved a pinned dependency: ' + ', '.join(moved))
+          print('all %d dependency revisions equal the census' % len(want))
+          EOF
           lake exe cache get 2>&1 | tail -5
           echo "CACHE_SECONDS=$(( $(date +%s) - start ))" >> "$GITHUB_ENV"
           df -h / | tail -1

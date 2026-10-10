@@ -112,8 +112,21 @@ const challenges = chNames.map((name) => {
   const axioms = [...code.matchAll(/^\s*axiom\s+(\S+)/gm)].map((m) => m[1]);
   const sorries = (code.match(/\bsorry\b/g) || []).length;
   const defs = (code.match(/^\s*(noncomputable\s+)?(def|abbrev|structure|class|inductive|instance)\b/gm) || []).length;
+  /* each declared definition hole: does the challenge DISPLAY a body for it, or leave it sorried? (Comparator compares
+     a hole's type only, so a displayed body is a body the check does not compare) */
+  const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const holeBodies = (cfg.definition_names || []).map((full) => {
+    const parts = full.split('.');
+    for (const c of [parts[parts.length - 1], parts.slice(-2).join('.')]) {
+      const re = new RegExp('^\\s*(?:noncomputable\\s+)?(?:def|abbrev|structure|inductive|class)\\s+' + escRe(c)
+        + '\\b[\\s\\S]*?(?=^\\s*(?:noncomputable\\s+)?(?:def|abbrev|theorem|lemma|structure|inductive|class|instance|end|namespace)\\b|^\\s*/--|^\\s*@\\[|(?![\\s\\S]))', 'm');
+      const m = re.exec(src);
+      if (m) return { name: full, displayed: !/\bsorry\b/.test(m[0]) };
+    }
+    return { name: full, displayed: null };
+  });
   return {
-    name, config: jp, statement: lp, configSha256: sha(path.join(CLONE, jp)), statementSha256: sha(path.join(CLONE, lp)), statementLines: lines, statementBytes: Buffer.byteLength(src),
+    name, config: jp, statement: lp, holeBodies, configSha256: sha(path.join(CLONE, jp)), statementSha256: sha(path.join(CLONE, lp)), statementLines: lines, statementBytes: Buffer.byteLength(src),
     challengeModule: cfg.challenge_module, solutionModule: cfg.solution_module, theoremNames: cfg.theorem_names, definitionNames: cfg.definition_names || [],
     permittedAxioms: cfg.permitted_axioms, enableNanoda: cfg.enable_nanoda === undefined ? 'absent' : cfg.enable_nanoda, solutionImports: cfg.solution_imports || null,
     imports, axiomDeclarations: axioms, sorryCount: sorries, declarationsInStatement: defs,
@@ -189,6 +202,7 @@ const release = {
     permittedAxioms: tally(challenges.map((c) => c.permittedAxioms.slice().sort().join(','))),
     challengesImportingAllMathlib: challenges.filter((c) => c.imports.includes('Mathlib')).length,
     theorems: challenges.reduce((a, c) => a + c.theoremNames.length, 0), definitionNamesDeclared: challenges.filter((c) => c.definitionNames.length).length,
+    definitionHoles: { declared: challenges.reduce((a, c) => a + c.holeBodies.length, 0), displayedWithBody: challenges.reduce((a, c) => a + c.holeBodies.filter((h) => h.displayed === true).length, 0), sorried: challenges.reduce((a, c) => a + c.holeBodies.filter((h) => h.displayed === false).length, 0), notFound: challenges.reduce((a, c) => a + c.holeBodies.filter((h) => h.displayed === null).length, 0) },
     statementsWithAxiomDeclaration: challenges.filter((c) => c.axiomDeclarations.length).map((c) => ({ name: c.name, axioms: c.axiomDeclarations })),
     statementLines: { median: lineCounts[Math.floor(lineCounts.length / 2)], max: lineCounts[lineCounts.length - 1], hist: sizeHist(lineCounts, [50, 100, 200, 1000]) },
     largestStatements: challenges.slice().sort((a, b) => b.statementLines - a.statementLines).slice(0, 8).map((c) => ({ name: c.name, lines: c.statementLines })),
