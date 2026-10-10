@@ -38,8 +38,9 @@ RUNNING (operator: "read HANDOFF.md. Start with the openAI audit."; then "caffei
     two scope notes link superseded editions.
   LANE K (Comparator + nanoda, .github/workflows/openai-math-kernel.yml, one job per challenge on GitHub's runners, max_parallel 16 so
     janela-feed keeps a slot; ledger tools/record-openai-math-kernel.js -> certs/openai-math-kernel.json): pilot 38015544207 (6), batch A 38017370880 (cancelled after 42 jobs to fix the environment), B1 38019899278 (191; recorded with
-    --partial at ~09:00 UTC, 16 jobs still running), B2 (201: the remaining 190 + B1's refusals) dispatched by a desk script
-    (the session scratchpad's dispatch-b2.sh; the list is dispatch-order.json's b2) when B1 completes. RECORDED: 202 of 416 decided — 193 CERTIFIED by Lean's kernel AND nanoda, 9 REFUSED
+    --partial at ~09:00 UTC, 16 jobs still running), B2 = run 38040214623 (201: the remaining 190 + B1's refusals; the list is
+    dispatch-order.json's b2) dispatched by hand at 09:06 UTC with max_parallel 10, because B1's last 8 jobs (ErdosReciprocal since 03:16 UTC,
+    Laughlin, LaughlinFock, MUBSix, ...) may run for hours and B1 + B2 must stay under the account's 20 slots so janela-feed keeps one. RECORDED: 202 of 416 decided — 193 CERTIFIED by Lean's kernel AND nanoda, 9 REFUSED
     (nanoda stack overflow: UniqueGamesTheorem, OptimalMaxCut, VertexCover, MinUncut, DirectedFeedback, KaplanskyDirectFiniteness,
     KaplanskyFinitelyPresented, GroupRingDeterminant, SquareDifference — the workflow now raises the stack, amendment 6, B2 re-runs them),
     0 REFUTED; Catalan and CycleCliqueRamsey died with 'runner shutdown' (memory) and are in B2. HarmonicGrowth CERTIFIED (its declared
@@ -68,8 +69,8 @@ RUNNING (operator: "read HANDOFF.md. Start with the openAI audit."; then "caffei
     site/ restored — NOT LIVE until the operator says "push live" (then `make site`, never build-site.js alone).
   THE NEXT SESSION, FIRST: `git pull --rebase`; `gh run list --workflow=openai-math-kernel.yml --limit 5`; record every completed run
     (`node tools/record-openai-math-kernel.js <run-id>`, then `node tools/record-openai-math-statements.js` for the strict-run conditionals and
-    `node tools/build-report-openai-math.js`); B2 is dispatched automatically by a desk script when B1 completes — if the desk slept first,
-    dispatch it from corpus/openai-math/kernel-runs/dispatch-order.json (remainingAfterFirstBatch[191..]). Re-run any REFUSED-by-runner jobs
+    `node tools/build-report-openai-math.js`); record B1 again in full once it completes (38019899278, without --partial) and B2 (38040214623);
+    jobs that hit the 350-minute limit or die with 'runner shutdown' are REFUSED by resource — list them for the operator (a larger runner is paid). Re-run any REFUSED-by-runner jobs
     (Catalan and CycleCliqueRamsey died with "runner shutdown" — memory; a larger runner is paid, the operator's word). Then the lane-F
     re-runs listed in the F line, and `python3 tools/run-openai-math-finite.py --check` once all rows are in.
   THE OPERATOR DECIDES: "push live" for /reports/openai-math.html; any pointer to OpenAI (issues are disabled; a send is the operator's);
