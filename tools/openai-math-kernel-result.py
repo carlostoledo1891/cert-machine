@@ -56,14 +56,4 @@ if s_exit is not None:
         'errTail': [l for l in (s_err or '').splitlines() if l.strip()][-15:],
         'logTail': [l for l in (s_log or '').splitlines() if l.strip()][-10:],
     }
-t_exit = read('transfer-exit.txt')
-if t_exit is not None:
-    t_log, t_err = read('transfer.log') or '', read('transfer.err') or ''
-    t_all = t_log + '\n' + t_err
-    fact['transfer'] = {
-        'what': 'a copy of the challenge under namespace AuditCopy, elaborated beside the solution; example : type_of% @AuditCopy.T := @OAI.T for each theorem',
-        'exit': int(t_exit) if t_exit.strip().lstrip('-').isdigit() else None,
-        'errors': [l for l in t_all.splitlines() if ': error' in l or l.startswith('error')][:20],
-        'logTail': [l for l in t_log.splitlines() if l.strip()][-12:],
-    }
 print(json.dumps(fact, indent=1))

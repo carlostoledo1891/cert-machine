@@ -110,7 +110,6 @@ jobs:
           sparse-checkout: |
             corpus/openai-math/release.json
             tools/openai-math-kernel-result.py
-            tools/openai-math-transfer.py
           sparse-checkout-cone-mode: false
           path: audit
       - uses: actions/download-artifact@v4
@@ -203,16 +202,6 @@ jobs:
             echo $? > ~/out/strict-exit.txt
             echo $(( $(date +%s) - start )) > ~/out/strict-seconds.txt
             tail -20 ~/out/strict.log; tail -20 ~/out/strict.err
-            # amendment 7: does each solution theorem prove the statement the challenge file DISPLAYS? The solution
-            # module is built by now; a copy of the challenge under namespace AuditCopy is checked against it by Lean.
-            if python3 "$GITHUB_WORKSPACE/audit/tools/openai-math-transfer.py" "ComparatorChallenges/$CH.lean" "ComparatorChallenges/$CH.json" > AuditTransfer.lean 2> ~/out/transfer.err; then
-              cp AuditTransfer.lean ~/out/AuditTransfer.lean
-              timeout 3600 lake env lean AuditTransfer.lean > ~/out/transfer.log 2>> ~/out/transfer.err
-              echo $? > ~/out/transfer-exit.txt
-            else
-              echo 97 > ~/out/transfer-exit.txt
-            fi
-            tail -20 ~/out/transfer.log; tail -10 ~/out/transfer.err
           fi
           exit 0
       - name: result

@@ -102,6 +102,29 @@ B.push(C.stats([
   { k: 'undecided here', v: n(U.length), n: 'Of ' + n(R.manuscripts.length) + ' manuscripts: not linked by any scope note and no finite core. Not doubtful — outside what an exact certifier can decide.' }
 ]));
 
+/* §0 — what the audit found, in plain words. Every number is read from a ledger; the families named are looked up
+   by number, and the page refuses if one of them no longer carries the word its sentence depends on. */
+const famRow = (k) => S.rows.find((r) => r.family === k) || die('family ' + k + ' is not in lane S');
+const needWord = (k, words) => { const r = famRow(k); if (!words.includes(r.word)) die('family ' + k + ' is now ' + r.word + '; the findings list says otherwise'); return r; };
+const f143 = needWord('143', ['NARROWER — UNLINKED', 'NARROWER — UNDECLARED']), f197 = needWord('197', ['NARROWER — UNLINKED', 'NARROWER — UNDECLARED']);
+const f307 = needWord('307', ['NARROWER — UNLINKED', 'NARROWER — UNDECLARED']), f260 = needWord('260', ['DIFFERENT']);
+const kStrict = K.rows.filter((r) => r.strict);
+const holesDisplayed = R.counted.definitionHoles;
+const wholeTitles = fWhole.map((r) => plain(r.title));
+B.push(C.section({
+  lab: '§0 · what the audit found', title: 'The findings, before the tables',
+  bodyRaw: C.plainList([
+    { b: 'The proofs that were run hold.', text: (kDecided ? n(kCert) + ' of the ' + n(kDecided) + ' challenges run so far are accepted by Lean\'s kernel and by nanoda, a kernel written independently in Rust; ' + (cnt(kw, 'REFUTED') ? n(cnt(kw, 'REFUTED')) + ' rejected' : 'none was rejected') + '. ' : '') + 'OpenAI had enabled the second kernel for ' + cnt(R.counted.enableNanoda, 'true') + ' of its ' + n(R.counted.challenges) + ' challenges.' },
+    { b: 'A check that reads only types.', text: 'Comparator compares a declared "definition hole" by its type, never its body. Ten challenges declare holes; ' + holesDisplayed.displayedWithBody + ' of their ' + holesDisplayed.declared + ' holes are displayed with a full body a reader will take as the definition. '
+      + (kStrict.length ? 'Run with the holes emptied, ' + kStrict.filter((r) => r.strict.word === 'SAME BODIES').length + ' of ' + kStrict.length + ' match body for body and ' + kStrict.filter((r) => r.strict.word === 'BODIES DIFFER').length + ' do not, though their source reads the same. ' : '')
+      + 'Whether those three theorems prove the displayed statements is a question Comparator leaves open; a check in Lean that settles it is owed.' },
+    { b: 'Headlines that say more than the Lean.', text: cnt(sw, 'NARROWER — UNDECLARED') + ' families state less than a manuscript their scope note links claims, with nothing saying so, and ' + cnt(sw, 'DIFFERENT') + ' state a different theorem from their headline — ' + plain(f260.title) + ', for one, states no Penrose inequality at all. '
+      + 'Another ' + cnt(sw, 'NARROWER — UNLINKED') + ' headlines lead with results from manuscripts the formalization never linked: ' + plain(f143.title) + ' (the uniform bound is in no challenge; only a quintic Liénard count is); ' + plain(f197.title) + ' (the Lean group is required to have odd-prime torsion); ' + plain(f307.title) + ' (the Lean speaks of the reduced Roe algebra).' },
+    { b: 'Finite claims, decided here.', text: fCert.length + ' finite cores certified by code written here, ' + fWhole.length + ' of them the whole headline (' + wholeTitles.join('; ') + '); none refuted. ' + fNeeds.length + ' headline witnesses are asserted and not published in checkable form, among them the counterexamples to Hadwiger\'s, Sidorenko\'s, Ryser\'s and Kaplansky\'s conjectures.' },
+    { b: 'What the release does not ship.', text: 'Several papers cite checkers or data that are not in the release; one publishes exit statuses where its witnesses should be; one prints constants that depend on choices its text never gives. Each is recorded with its decider in instruments/openaimath/finite/.' }
+  ])
+}));
+
 /* §1 — the kernel lane */
 const kRows = K.rows.slice().sort((a, b) => (a.word === b.word ? a.challenge.localeCompare(b.challenge) : a.word === 'CERTIFIED' ? 1 : -1));
 B.push(C.section({

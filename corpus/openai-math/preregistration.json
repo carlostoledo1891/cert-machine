@@ -35,12 +35,7 @@
     "GENUINE HOLE": "the challenge leaves the definition sorried (a witness the solution must supply), so there is no displayed body to compare"
    },
    "order": "first the families OpenAI chose to release reasoning summaries for (007, 017, 087, 102, 159, 197, 221, 271, 287, 362), the 40 challenges in counterexample families, the 10 definition-hole configs and the 11 challenges added at fd4aeeb2; then the rest, smallest statement first",
-   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
-   "transferWords": {
-    "TRANSFERS": "Lean accepts every solution theorem as a proof of the statement the challenge file displays: a verbatim copy of the challenge under namespace AuditCopy is elaborated beside the solution, and `example : type_of% @AuditCopy.T := @OAI.T` type-checks for each theorem T (definitional agreement, re-checked by Lean's kernel). The copy is elaborated in the solution's environment, and the record says so.",
-    "NOT DEFINITIONAL": "Lean does not accept it by definitional unfolding; whether the statements are nevertheless equivalent is a reading, and the errors are recorded",
-    "NOT DECIDED": "the check did not finish (its 60-minute limit) or could not be built"
-   }
+   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so."
   },
   "S": {
    "name": "the statement lane",
@@ -141,6 +136,12 @@
    "before": "any transfer check was run",
    "what": "lane K adds a TRANSFER check for the 10 definition-hole configs (tools/openai-math-transfer.py, run in the same job after Comparator): it decides whether each solution theorem proves the statement the challenge file DISPLAYS, which Comparator's hole rule leaves open and the strict run cannot settle when the kernel terms differ by elaboration (3 of 10: OccupiedOverlap, DefocusingNLS, SpinAngle).",
    "why": "the strict run found the named definitions' source text identical while their kernel terms differ; a definitional-agreement check in Lean decides the question the reader actually has, where comparing terms cannot."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any transfer result was recorded",
+   "what": "amendment 7's TRANSFER check is WITHDRAWN as designed and its run (38045858023) cancelled; no transfer result enters the ledger. tools/openai-math-transfer.py is removed.",
+   "why": "its first result showed the design cannot decide the question: the copy re-declares the challenge's structures and inductives under AuditCopy, and nominal types are never definitionally equal to the solution's, so every challenge that declares a structure would read NOT DEFINITIONAL whatever its holes say (SpinAngle: AuditCopy.SpinAngle.TypeLabel vs OAI.SpinAngle.TypeLabel). A sound version copies only the hole definitions and the theorem statements, resolving every other name to the solution's constants (which Comparator has already matched); that is owed, not built."
   }
  ]
 }
