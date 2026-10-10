@@ -118,6 +118,12 @@
    "before": "lane K's full run (after the 6-challenge pilot and 42 jobs of a first batch)",
    "what": "lane K's run environment follows the release's README in full: `lake update` before `lake exe cache get`, so OpenAI's post_update hook applies its compatibility patches to twelve dependencies; the resolved dependency revisions are then checked against the census and the job refuses if any moved. The matrix keeps the dispatch order (it had been sorted alphabetically). No word, rule or declared change to OpenAI's configs is altered.",
    "why": "the pilot's QuasiRiemannHypothesis job failed to build rellich-kondrachov modules because the patches had not been applied — a REFUSED caused by our environment, not the release. Every REFUSED row from the omission is re-run, and the ledger decides each challenge on its latest run."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "the lane-F ledger was published (made after the deciders reported; it can only lower lane F's CERTIFIED count)",
+   "what": "a lane-F row is CERTIFIED only when the WHOLE finite certificate its paper states is decided; a row decided in part, with the rest left undone for cost, is REFUSED, the decided parts kept as checks and the undone part and its cost named (tools/run-openai-math-finite.py, PARTIAL). A dependency on another paper's certificate, or on a cited outside theorem, is named in the row and does not by itself refuse it.",
+   "why": "four deciders (F-180, F-433, F-435, F-369) decided their certificates in part and reported CERTIFIED for the part; a word that means 'all of it' in one row and 'some of it' in another is the drift the house grammar exists to prevent."
   }
  ]
 }
