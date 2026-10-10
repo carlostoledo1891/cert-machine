@@ -382,6 +382,11 @@ const REPORTS = [
       + 'cannot contain, and the certificate uses one where the constant is read.',
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'horizonmath-ledger.json'), 'utf8')), c = (v) => L.rows.filter((r) => r.verdict === v).length;
       return L.rows.length + ' credited results decided · ' + c('CERTIFIED') + ' certified, ' + c('REFUTED') + ' refuted, ' + c('NEEDS DATA') + ' needs data'; })() },
+  { g: 'ai', f: 'openai-math.html', k: 'audit · OpenAI\'s math release',
+    title: 'OpenAI\'s 719 manuscripts, checked three ways',
+    desc: 'OpenAI\'s machine-generated manuscripts and their 416 Comparator challenges, pre-registered before any row was decided: every proof replayed through a second, independent kernel; every Lean statement read against the claim it is supposed to carry; every finite witness re-decided in exact arithmetic by code written here.',
+    n: (() => { const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-statements.json'), 'utf8')), F = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-finite.json'), 'utf8'));
+      return (S.counts.words.MATCHES || 0) + ' of ' + S.rows.length + ' families state their headline · ' + (F.counts.CERTIFIED || 0) + ' finite cores certified'; })() },
   { g: 'ai', f: 'counterexample-machine.html', k: 'audit · AI-found counterexamples',
     title: 'The counterexample machine, decided',
     desc: 'Suvrit Sra\'s open library of counterexamples, most found by language models, decided case by case by programs that read the published '

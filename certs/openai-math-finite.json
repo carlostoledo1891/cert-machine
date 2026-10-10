@@ -11,8 +11,8 @@
   }
  },
  "counts": {
-  "CERTIFIED": 15,
-  "NOT YET DECIDED": 36,
+  "CERTIFIED": 16,
+  "NOT YET DECIDED": 35,
   "NEEDS DATA": 15
  },
  "rows": [
@@ -3383,9 +3383,200 @@
     "SnakyConditional",
     "SnakyTwentyOne"
    ],
-   "word": "NOT YET DECIDED",
-   "why": "no decider written yet",
-   "decider": null
+   "word": "CERTIFIED",
+   "why": "the whole headline (Theorem thm:main, 21 Maker moves on Z^2) and Corollary cor:finite-board, twice: (I) the certificate evaluates to A_727 = {}, h_727 = 21 under the paper's combination rule — sound only with Lemma lem:combination, proved in prose; (II) a rule-free search shows the certificate-guided policy wins within 21 claims against every Breaker line, given three stated monotonicity/locality reductions",
+   "decider": "instruments/openaimath/finite/f336_snaky.py",
+   "decides": "the whole headline (Theorem thm:main, 21 Maker moves on Z^2) and Corollary cor:finite-board, twice: (I) the certificate evaluates to A_727 = {}, h_727 = 21 under the paper's combination rule — sound only with Lemma lem:combination, proved in prose; (II) a rule-free search shows the certificate-guided policy wins within 21 claims against every Breaker line, given three stated monotonicity/locality reductions",
+   "value": {
+    "A_727": [],
+    "T_727": 251,
+    "h_727": 21,
+    "nodes": 1620,
+    "reply_classes": 37042,
+    "search_worst_case_claims": 21,
+    "search_states": 2166,
+    "search_replies_examined": 44456
+   },
+   "checks": [
+    {
+     "check": "the paper states the theorem, the combination rule and the bases as read here",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the policy searched in II is the paper's (strategy.tex:14-29) and the corollary's boards are as read (strategy.tex:64-67)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the appendix prints the literal file (\\lstinputlisting of ../verification/certificate.txt)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "SHA-256 of the decided bytes equals the one printed (verification.tex:75)",
+     "pass": true,
+     "detail": "3fa12d36a6d4dbb1"
+    },
+    {
+     "check": "the file has 38,367 bytes (census) ",
+     "pass": true,
+     "detail": "38367"
+    },
+    {
+     "check": "the target S read from eq:target",
+     "pass": true,
+     "detail": "[(0, 0), (1, 0), (2, 0), (3, 0), (3, 1), (4, 1)]"
+    },
+    {
+     "check": "the bit rule reproduces the printed table eq:symmetries, and the 8 maps are the 8 signed permutations",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "grammar: every line parses, nonempty child lists, every reference backward and s in 0..7",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "exactly 722 lines, numbered 6..727 in order (prop:certificate)",
+     "pass": true,
+     "detail": "722"
+    },
+    {
+     "check": "4,089 references, inline ones included (verification.tex:16,22)",
+     "pass": true,
+     "detail": "4089"
+    },
+    {
+     "check": "898 inline combinations (verification.tex:23)",
+     "pass": true,
+     "detail": "898"
+    },
+    {
+     "check": "1,620 combination nodes (verification.tex:24)",
+     "pass": true,
+     "detail": "1620"
+    },
+    {
+     "check": "every card and node has A in T and p in T; every child envelope inside its parent",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "heights of all 728 cards at most 21",
+     "pass": true,
+     "detail": "21"
+    },
+    {
+     "check": "37,042 local reply classes over all nodes (verification.tex:44)",
+     "pass": true,
+     "detail": "37042"
+    },
+    {
+     "check": "every local reply class leaves a child whose envelope avoids it and whose requirement is owned",
+     "pass": true,
+     "detail": "0 bad"
+    },
+    {
+     "check": "card 6 = eq:first-card (A_6 = {(0,y):0<=y<=4}, T_6 = A_6 + (1,3),(1,4),(1,5), h_6 = 2)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "card 7 = the printed A_7, T_7, h_7 = 3",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "final card: p = (8,8), A = {}, |T| = 251, h = 21 (eq:final-card)",
+     "pass": true,
+     "detail": "(8, 8) [] 251 21"
+    },
+    {
+     "check": "the printed final values are those of eq:final-card",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "T_727 inside {0..16}^2",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the claimed bound 21 is the final height",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Table tab:top: all six rows (A_j, |T_j|, h_j, placements, remaining cells) recomputed",
+     "pass": true,
+     "detail": "648:okokokokok 708:okokokokok 712:okokokokok 713:okokokokok 725:okokokokok 726:okokokokok"
+    },
+    {
+     "check": "each of the 32 placed child requirements of card 727 is exactly {(8,8)}",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the intersection of the 32 child envelopes is exactly {(8,8)}",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the nonlocal example: 708:100 avoids (7,8), pivot (8,7); its child 684:011 avoids (8,6), pivot (11,8)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "II. rule-free search: the certificate policy wins on Z^2 against every Breaker line within 21 actual claims",
+     "pass": true,
+     "detail": "worst case 21 claims, 2166 states"
+    },
+    {
+     "check": "cross-check I/II: in every state the search reaches, the actual Maker cells contain the certificate's A and Breaker owns no envelope cell",
+     "pass": true,
+     "detail": "599 of 2166 states hold Maker cells beyond A"
+    },
+    {
+     "check": "II. the policy's root envelope is T_727 (so every pivot and completing cell lies on the 251-cell board)",
+     "pass": true,
+     "detail": ""
+    }
+   ],
+   "sources": {
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/verification/certificate.txt": "3fa12d36a6d4dbb185e3f2808c8dfde13d85ee309afbca030d6ad17ae9fe3d04",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/introduction.tex": "56e35be69cac7fd8905f9bef385f770f20c90394676bfb7c960fad28525d6403",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/templates.tex": "d78a592bc2628a898b8b43bf237dfbdf4a1565c9bc11fd945db73e04a3b618f7",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/certificate-proof.tex": "4f38b93893ae50cbdbec687a243c9eafda6e7b6cabd46d5c023f8ae3381be5b4",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/strategy.tex": "6499d0bc16bddacf0f778a232aaf1bd8d9a54533375b9d95f384ff511b4864bc",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/verification.tex": "7edcabcedf3e6551a54169ce390e8ba3c32a82264a9848dd03ba47396268f433",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/certificate-appendix.tex": "cbc040a864882a0335a378d231541efed77a17eb83e48fc53aefbcb2ab943185",
+    "preprints/Snaky-in-21-Maker-moves-September-25-2026/build/paper.tex": "864956989aba1c861c0a99dcd6355a584b4321bc1b57a0ffefe04644a18bcf22"
+   },
+   "forges": [
+    {
+     "forge": "card 727 pivot moved (8,8) -> (8,7) -> fails: 37,042 local reply classes over all nodes (verification.tex:; final card: p = (8,8), A = {}, |T| = 251, h = 21 (eq:final-c; II. rule-free search: the certificate policy wins on Z^2 aga || search: line fails: Breaker reply (8, 8) leaves no child; claim (8, 7) reply (8, 8)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "card 727 last child 726:6FF dropped -> fails: 4,089 references, inline ones included (verification.tex:16,; 37,042 local reply classes over all nodes (verification.tex:; final card: p = (8,8), A = {}, |T| = 251, h = 21 (eq:final-c; Table tab:top: all six rows (A_j, |T_j|, h_j, placements, re; the intersection of the 32 child envelopes is exactly {(8,8); II. rule-free search: the certificate policy wins on Z^2 aga || search: line fails: Breaker reply (9, 9) leaves no child; claim (8, 8) reply (9, 9)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "card 708: child 684:011 transposed (684:111) -> fails: final card: p = (8,8), A = {}, |T| = 251, h = 21 (eq:final-c; Table tab:top: all six rows (A_j, |T_j|, h_j, placements, re; each of the 32 placed child requirements of card 727 is exac; the intersection of the 32 child envelopes is exactly {(8,8); the nonlocal example: 708:100 avoids (7,8), pivot (8,7); its; II. rule-free search: the certificate policy wins on Z^2 aga || search: line fails: Breaker reply (8, 9) leaves no child; claim (8, 8) reply (8, 9)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "card 311: inline pivot (4,1) -> (4,2) -> fails: 37,042 local reply classes over all nodes (verification.tex:; final card: p = (8,8), A = {}, |T| = 251, h = 21 (eq:final-c; Table tab:top: all six rows (A_j, |T_j|, h_j, placements, re; each of the 32 placed child requirements of card 727 is exac; II. rule-free search: the certificate policy wins on Z^2 aga || search: line fails: Breaker reply (5, 7) leaves no child; claim (8, 8) reply (7, 8) go card 708 placed s=1 t=(0, 0) claim (8, 7) reply (8, 6) go card 684 placed s=0 t=(1, 1) claim (11, 8) reply a cell outside the envelope go inline node claim (8, 9) reply (9, 8) go inline node claim (8, 10) reply (9, 10) go card 485 placed s=3 t=(4, 8) claim (5, 8) reply a cell outside the envelope go card 313 placed s=3 t=(0, 5) claim (9, 7) reply (9, 6) go card 312 placed s=5 t=(4, 0) claim (7, 7) reply (7, 6) go card 311 placed s=4 t=(0, 2) claim (6, 7) reply (6, 8) go inline node claim (5, 6) reply (5, 7)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "the bound claimed as 20 instead of 21 -> fails: the claimed bound 20 is the final height; II. rule-free search: the certificate policy wins on Z^2 aga || search: worst case 21 claims, 2166 states",
+     "verdict": "REFUTED"
+    }
+   ],
+   "seconds": 0.2
   },
   {
    "id": "F-338",
