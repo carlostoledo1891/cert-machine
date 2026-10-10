@@ -11,10 +11,9 @@
   }
  },
  "counts": {
-  "CERTIFIED": 38,
+  "CERTIFIED": 42,
   "REFUSED": 9,
-  "NEEDS DATA": 15,
-  "NOT YET DECIDED": 4
+  "NEEDS DATA": 15
  },
  "rows": [
   {
@@ -6740,9 +6739,379 @@
     "CourtadeKumar",
     "SoftChannel204"
    ],
-   "word": "NOT YET DECIDED",
-   "why": "no decider written yet",
-   "decider": null
+   "word": "CERTIFIED",
+   "why": "a finite component: the scalar certificates of the proof — the induction parameters, the 17 profiles' five Bernstein sign checks, the three-coordinate base table, the 21-box pair interval certificate, and every finite comparison and Bernstein/table entry of the central, intermediate and large-bias bands; NOT the theorem, whose induction, continuation and norm-inequality arguments are analytic",
+   "decider": "instruments/openaimath/finite/f234_hellinger_bias.py",
+   "decides": "a finite component: the scalar certificates of the proof — the induction parameters, the 17 profiles' five Bernstein sign checks, the three-coordinate base table, the 21-box pair interval certificate, and every finite comparison and Bernstein/table entry of the central, intermediate and large-bias bands; NOT the theorem, whose induction, continuation and norm-inequality arguments are analytic",
+   "value": {
+    "pair": {
+     "1/0": {
+      "certified": true,
+      "boxes": 5881,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "1/1": {
+      "certified": true,
+      "boxes": 9809,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "1/2": {
+      "certified": true,
+      "boxes": 9881,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "1/3": {
+      "certified": true,
+      "boxes": 8513,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "1/4": {
+      "certified": true,
+      "boxes": 10577,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "1/5": {
+      "certified": true,
+      "boxes": 14625,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "1/6": {
+      "certified": true,
+      "boxes": 20745,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/0": {
+      "certified": true,
+      "boxes": 32361,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/1": {
+      "certified": true,
+      "boxes": 27769,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/2": {
+      "certified": true,
+      "boxes": 29913,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/3": {
+      "certified": true,
+      "boxes": 45153,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "2/4": {
+      "certified": true,
+      "boxes": 38601,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/5": {
+      "certified": true,
+      "boxes": 38481,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "2/6": {
+      "certified": true,
+      "boxes": 102297,
+      "deepest": 7,
+      "printed_depth": 8
+     },
+     "3/0": {
+      "certified": true,
+      "boxes": 197129,
+      "deepest": 13,
+      "printed_depth": 14
+     },
+     "3/1": {
+      "certified": true,
+      "boxes": 34801,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "3/2": {
+      "certified": true,
+      "boxes": 22577,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "3/3": {
+      "certified": true,
+      "boxes": 22233,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "3/4": {
+      "certified": true,
+      "boxes": 26969,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "3/5": {
+      "certified": true,
+      "boxes": 36169,
+      "deepest": 6,
+      "printed_depth": 7
+     },
+     "3/6": {
+      "certified": true,
+      "boxes": 64009,
+      "deepest": 6,
+      "printed_depth": 7
+     }
+    },
+    "runtime_s": 528.0
+   },
+   "checks": [
+    {
+     "check": "the theorem as stated: H(m) - E H(T_rho f) <= 1 - H(rho) (main.tex Theorem thm:main)",
+     "pass": true,
+     "detail": "main.tex:54-61"
+    },
+    {
+     "check": "Table ind:tab:parameters parsed: 7 rows, consecutive s-intervals covering [0, .84]",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "r_0^2 <= delta <= r_1^2: 4r_0^2(1-r_0^2) <= s_lo^2, 4r_1^2(1-r_1^2) >= s_hi^2, r_1^2 < 1/2 on every row",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "U < 0 < V and L + U >= .488 on every row (min L + U = .488)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "root-derivative sign (ind:eq:root-derivative): a > 0 and a^2 - (s_hi/2L)^2 mu/Lambda >= 12133/44180000 on every row",
+     "pass": true,
+     "detail": "minimum 12133/44180000 (= the printed bound: True)"
+    },
+    {
+     "check": "b(m) = twice the top-(1-|m|)/2 integral of the law of Z (induction.tex:94-117), on a 1/64 grid of [-1,1]",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the knots (sc:knots) trace b(m) exactly (piecewise affine between them); b(m) <= 1 - |m|",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the 17 profiles printed in scalar.tex equal the 17 lines of data/profile_tables.txt",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the depth/base table printed in scalar.tex equals the second block of data/profile_tables.txt",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "every profile interval lies in one parameter group (no straddling)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "17 profiles x 5 sign checks (P, E_B, J_s1, V_s0, V_s1) certified by exact Bernstein coefficients within the printed depths; B(0) = 1, B(+-1) = 0",
+     "pass": true,
+     "detail": "depths used (P,E,J,V0,V1) 5:10034 17:10023 39:10011 70:10012 108:00011 160:00001 220:00000 300:00000 400:00000 490:00000 570:02000 630:03000 700:14000 750:15010 800:15010 827:16011 840:16011; all 85 equal the printed depths"
+    },
+    {
+     "check": "base column of Table sc:tab:profile-depths: 17 rows x 128 subintervals x 3 sets x 2 signs, interval lower bound - B(eta m_D) > 0 and floor(10^4 .) >= the printed entry",
+     "pass": true,
+     "detail": "recomputed/printed 5:7/7 17:7/7 39:8/8 70:10/10 108:7/7 160:14/14 220:78/78 300:69/69 400:146/146 490:224/224 570:233/233 630:255/255 700:236/236 750:222/222 800:191/191 827:177/177 840:176/176"
+    },
+    {
+     "check": "majority: E H(T_rho f)/s = (s sqrt(3+s^2) + 3 sqrt(8-5s^2+s^4))/8 (both H^2 identities), (8-5u+u^2) - (2 + 3(1-u)/4)^2 = 7(1-u)^2/16, 2s^2 + 3(2 + 3(1-s^2)/4) = 33/4 - s^2/4 >= 8",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "s = 0 limits of E G/s for {7}, {7,6}, {7,6,5}: (sqrt3/4, 3/4), (sqrt2/2, 1), ((1+2sqrt2)/4, (3+sqrt2)/4)",
+     "pass": true,
+     "detail": "[[{3: Fraction(1, 4)}, {1: Fraction(3, 4)}], [{2: Fraction(1, 2)}, {1: Fraction(1, 1)}], [{2: Fraction(1, 2), 1: Fraction(1, 4)}, {1: Fraction(3, 4), 2: Fraction(1, 4)}]]"
+    },
+    {
+     "check": "pair certificate (sc:interval): all 21 initial boxes certified within the depths of Table sc:tab:interval-depths",
+     "pass": true,
+     "detail": "798493 boxes visited; deepest level per case/group 1/0:7 1/1:7 1/2:7 1/3:6 1/4:7 1/5:7 1/6:7 2/0:7 2/1:7 2/2:7 2/3:6 2/4:7 2/5:7 2/6:7 3/0:13 3/1:6 3/2:6 3/3:6 3/4:6 3/5:6 3/6:6"
+    },
+    {
+     "check": "the box test as evaluated here (augmented evaluation first) agrees with the paper's order (plain value first) on 54 sampled level-5/6 boxes",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "continuation: s >= .84 gives 0 < r = 1 - s^2 <= .2944 = 184/625",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "central domain: (.999)^2 < 1 - R_0^4/4; .999 - 1 + .84 = .839; (.91595)^2 < .839; s - b = m^2/(1+h) <= R_0^4/(4*1.999) < .001",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "calibration (cen:constants): alpha_0 series (6 terms) > 1.08834; 1/(b_0 a_0^2) - 1 < .006257 < .0063; P_0 < .018641 < .019; P_0/((1-b_0^2)a_0^2) < .053154 < .0532; R_0^3/(4*1.999)(1 + 1/(.839*.84)) < .007720 < .008",
+     "pass": true,
+     "detail": "1.0883484 0.0062569 0.0186410 0.0531535 0.0077190"
+    },
+    {
+     "check": "central-band Bernstein row minima floor(1000 min_j beta_ij): P_1 order (5,12) and P_2 order (6,7) equal the printed rows, all > 0",
+     "pass": true,
+     "detail": "P_1 [134, 353, 365, 278, 214, 46], P_2 [179, 364, 559, 765, 983, 1214, 1457]"
+    },
+    {
+     "check": "Lemma cen:k-bounds: E_1/2 = (1-t)^2 t(2t^2-2t-1), E_3/4 = (1-t)^2 (2t+1)(3t^2-3t+1)/2, the three derivative numerators, (5t+1)(5t-2)^2/25 = 5t^3-3t^2+.16, t^2(5t-3)+(1-t) = 5t^3-3t^2-t+1; -3t^3+6t^2+4t+2 > 0 on [0,1] (Bernstein)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "(cen:T-ratio) (1 - R_0)(2/R_0 - R_0) > 4.5",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "alpha < 1.1 (1 + c + .75c^2 at c = 1 - .915 = .085); (1-c)(1+c+3c^2/4) = 1 - c^2/4 - 3c^3/4; 1.21*.001/.84 < .004; .20*4.5 - .88 - .004 = .016",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "(cen:resources) 1 - .0063 - .008 = .9857 > .985; (cen:mean-bound) (R_0(.543)/2 + .431/2)/.9924 < .298 < .31 with .543^2 > R_0, .431^2 > .0063/.034, .9924^2 < .985",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "sqrt 3 < 1.73206; 4.32 > c_0 = 2 sqrt3 + .62 and 4.32^2 > 1 + 4.32 c_0; (cen:absorption-constant) = 444890776/228150625 < 39/20 < 2",
+     "pass": true,
+     "detail": "444890776/228150625"
+    },
+    {
+     "check": "intermediate small range: (184/625)^2 < 87/1000; (1-m^2) - (1 - 51m^2/100)^2 = m^2(1/50 - 2601m^2/10000), positive at m = 1/5; L(3/50) = 220141/265000 > 4/5 > 10032241/12775350; L(1/5) = 3953/6000 > 16/25 > 4504/7245",
+     "pass": true,
+     "detail": "10032241/12775350 4504/7245"
+    },
+    {
+     "check": "Q_* identities (1 - Q_* = v(2-s)/(s(1+s)), 6/(1+s) - 2/s, 3v - rQ_*/2 = r/s, Q_*' numerator) at 7 rational s; Q_*(21/25) = 425/483 > .879",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Q_0(1/5)^2 = (5087/2400)^2/6 and Q_0(2/3)^2 = (4761/2500)^2/5 at a_0 = 87/1000; 25435^2 < 6*10392^2; 4761^2 < 5*2130^2; 2(m^2-m+1) >= 3/2",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "R_0: (1+m)^2 > 3(1-m) at m = 2/3; (87/1000)(37/50)(27/8) < 1/4; 1 - (37/50)^2 > 4/9; 3 > (5/3)^2; (87/50)^5 < 36; 3(913/1000)(5/3)/(2*6) = 4565/12000 > 1/3; R_0(2/3, 87/1000)^2 = (4761/2500)^2/5 (terms 9/(5 sqrt5), 3/sqrt5)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "margins: (1+s)/2 >= 23/25; .92(.879 - .866) - .01 = 49/25000 > 0; .92(.879 - .852) - .02 = 121/25000 > 0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "angles: pi < 22/7 (Machin enclosure); sin(21/100) >= .21 - .21^3/6 > 1/5; sin(21/25) >= .84 - .84^3/6 > 37/50; sqrt2 - 1 < 21/50; (11/7 + 21/100)/4 < 9/20; (11/7 + 21/25)/4 < 603/1000; tan(9/20) < 1/2, tan(603/1000) < 7/10",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "T bounds: 1/24 < (21/100)^2, 4/5 < (9/10)^2, 37^2/1131 < (111/100)^2; small-rectangle q >= (27/50)/(5/4) = 54/125 > (13/20)^2; 1/sqrt(2(1+37/50)) = 5/sqrt87, 25/87 > (53/100)^2, 53/100 > (18/25)^2",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "root coefficients: 1/(2(1+13/20)^2) = 200/1089 < 19/100, 1 + 2/(1+13/20)^2 = 1889/1089 < 7/4, 1/(2(1+18/25)^2) = 625/3698 < 17/100, 1 + 2/(1+18/25)^2 = 3099/1849 < 42/25",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "4 sqrt q - q^2 - 3 = -(sqrt q - 1)^2 (q + 2 sqrt q + 3) (i.e. -(q-1)^2 (1 + 2/(1+sqrt q)^2)); the root identity (mid:root-identity); (1 - 33y/10)^2(1+y) - (1-3y)^2 = y(2/5 - 471y/100 + 1089y^2/100), 2/5 - (471/100)(441/10000) > 0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "positive series: (1-y)^(-1/4), C(4j,2j)/16^j (1-y)^(-j-1/4) through y^2, averages u^2 -> 1/3, u^4 -> 1/5, t/sin t = 1 + Y/6 + 3Y^2/40 + ..., giving P_0 = 1 + G^2/2 + Y(173/360 + 11G^2/24 + 7G^4/32)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Table mid:certificate-table: the six minima floor(C min B_ij) recomputed equal the printed 90, 27, 293, 120, 53, 26 (degrees within the printed orders); every nonzero term of S has i+j even >= 2",
+     "pass": true,
+     "detail": "U1-1:90 U2-1:293 U11:27 U21:120 L1/100:53 L1/50:26"
+    },
+    {
+     "check": "c_1..c_10 = 1/2, 1/8, 1/16, 5/128, 7/256, 21/1024, 33/2048, 429/32768, 715/65536, 2431/262144 (recurrence and C(2k,k)/((2k-1)4^k)); remaining mass 46189/262144",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "log brackets: S_15(51/25) + (51/25)^16/(16!(1 - (51/25)/17)) < 7691/1000 < 100/13 < 7698/1000 < S_15(2041/1000); .361^2 > .13; (3/2)/(1 + (184/625)/2) = 625/478 > 1.3; 1 - 2s - s^2 < 0 at s = .84",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Table lb:arithmetic-table: ell, R, Bbar, Sbar, Tbar recomputed equal the printed integers on all four intervals; C <= the rounded total = the printed fraction < .982, .969, .954, .940 < 1",
+     "pass": true,
+     "detail": "746521967/60049597/2525240 748896408/56019174/1084482 750555827/51401364/283275 751524751/46967364/36923"
+    }
+   ],
+   "sources": {
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/induction.tex": "1a8ce2bbd7dd38bec9c688cbc9b626abcd21218065ff0caf06dc91842ee3d9cf",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/scalar.tex": "8b7936e2e2aead6a7f10a1d9fe283d2b9345be59ab93278c5e875c80cdff73e5",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/verification/data/profile_tables.txt": "0316dfd9df24557cbc73f3485ab9175d4224ebadc42b703a53541db8a743607e",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/central.tex": "4299dce6a51124a18754cbd964adfeeded192d145ff78d5518dce6067a63f860",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/intermediate.tex": "6449ecf10b7bd68bd4a7b8ea3eb0d640ddd176d9d37379695272ea28b02d4664",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/large-bias.tex": "12e31ef806052b4c6cddcb519e6bcb56d14439a9b2d90aca72077a87485a7d83",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/main.tex": "b286e05e0e9321c4a0cb925734a078b127e9d8694e8fccc5d4f6a484bfb0347b",
+    "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/continuation.tex": "e66a6045882baf985dd9ea7569ffed62b9ee3b716c90a7f6f8f3b4c15bde5521"
+   },
+   "forges": [
+    {
+     "forge": "profile 5: c_17 = -28650 -> 471350 (a sign check fails within its depth)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "base column: row 220 printed 79 instead of 78",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "central band: P_1 row minimum 46 printed as 47",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "large bias: Bbar of [.84,.88] printed one larger",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "intermediate table: U_{1,+} minimum printed 28 instead of 27",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "pair certificate alone, Case 1 of parameter row 3 with mu doubled (1.024 -> 2.048), printed depth 7",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "pair certificate alone, Case 1 of parameter row 0 with its printed depth 8 replaced by 3",
+     "verdict": "REFUTED"
+    }
+   ],
+   "seconds": 528.0
   },
   {
    "id": "F-248",
@@ -10096,10 +10465,10 @@
     "Saxl",
     "UniversalTensorSquares"
    ],
-   "word": "REFUSED",
-   "why": "decided in part (pre-registration amendment 5): the decider says so: a finite component: Proposition prop:finite-check for every eligible n <= 45 (42 of the 61 degrees), with witnesses supplied and certified here (the release records none: NEEDS DATA for its own certificate); n = 46..64 NOT decided in this run (cost; the release has exit statuses only there); the large-degree theory (n > 64) is not decided",
+   "word": "CERTIFIED",
+   "why": "a finite component: Proposition prop:finite-check for every eligible n <= 64 (61 of the 61 degrees), with witnesses supplied and certified here (the release records none: NEEDS DATA for its own certificate); the large-degree theory (n > 64) is not decided",
    "decider": "instruments/openaimath/finite/f360_tensor_squares.py",
-   "decides": "a finite component: Proposition prop:finite-check for every eligible n <= 45 (42 of the 61 degrees), with witnesses supplied and certified here (the release records none: NEEDS DATA for its own certificate); n = 46..64 NOT decided in this run (cost; the release has exit statuses only there); the large-degree theory (n > 64) is not decided",
+   "decides": "a finite component: Proposition prop:finite-check for every eligible n <= 64 (61 of the 61 degrees), with witnesses supplied and certified here (the release records none: NEEDS DATA for its own certificate); the large-degree theory (n > 64) is not decided",
    "value": {
     "witnesses": {
      "1": [
@@ -10476,6 +10845,266 @@
       3,
       2,
       1
+     ],
+     "46": [
+      11,
+      9,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1,
+      1
+     ],
+     "47": [
+      10,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      1
+     ],
+     "48": [
+      12,
+      9,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "49": [
+      11,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "50": [
+      12,
+      9,
+      7,
+      5,
+      4,
+      3,
+      3,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "51": [
+      11,
+      9,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      1,
+      1
+     ],
+     "52": [
+      12,
+      9,
+      8,
+      5,
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "53": [
+      11,
+      10,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1
+     ],
+     "54": [
+      12,
+      9,
+      8,
+      6,
+      4,
+      4,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "55": [
+      10,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+     ],
+     "56": [
+      12,
+      9,
+      8,
+      7,
+      4,
+      4,
+      4,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "57": [
+      13,
+      10,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1,
+      1,
+      1
+     ],
+     "58": [
+      12,
+      10,
+      8,
+      7,
+      4,
+      4,
+      4,
+      3,
+      2,
+      2,
+      1,
+      1
+     ],
+     "59": [
+      12,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "60": [
+      12,
+      9,
+      8,
+      7,
+      6,
+      6,
+      4,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "61": [
+      13,
+      10,
+      9,
+      6,
+      5,
+      4,
+      3,
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "62": [
+      12,
+      10,
+      8,
+      7,
+      6,
+      6,
+      4,
+      3,
+      2,
+      2,
+      1,
+      1
+     ],
+     "63": [
+      12,
+      11,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1
+     ],
+     "64": [
+      12,
+      11,
+      8,
+      7,
+      6,
+      6,
+      4,
+      3,
+      2,
+      2,
+      2,
+      1
      ]
     },
     "timing": {
@@ -10492,60 +11121,59 @@
      "14": 0.0,
      "15": 0.0,
      "16": 0.0,
-     "17": 0.01,
+     "17": 0.0,
      "18": 0.01,
      "19": 0.01,
      "20": 0.01,
      "21": 0.01,
      "22": 0.02,
-     "23": 0.03,
-     "24": 0.04,
+     "23": 0.02,
+     "24": 0.03,
      "25": 0.03,
-     "26": 0.07,
-     "27": 0.09,
-     "28": 0.05,
-     "29": 0.13,
-     "30": 0.24,
-     "31": 0.24,
-     "32": 0.18,
-     "33": 0.31,
-     "34": 0.63,
-     "35": 0.79,
-     "36": 0.31,
-     "37": 1.07,
-     "38": 1.85,
-     "39": 1.31,
-     "40": 1.09,
-     "41": 2.9,
-     "42": 4.29,
-     "43": 4.82,
-     "44": 3.19,
-     "45": 1.8
+     "26": 0.06,
+     "27": 0.07,
+     "28": 0.04,
+     "29": 0.11,
+     "30": 0.2,
+     "31": 0.2,
+     "32": 0.15,
+     "33": 0.26,
+     "34": 0.52,
+     "35": 0.65,
+     "36": 0.26,
+     "37": 0.88,
+     "38": 1.55,
+     "39": 1.09,
+     "40": 0.91,
+     "41": 2.41,
+     "42": 3.6,
+     "43": 4.55,
+     "44": 3.04,
+     "45": 1.72,
+     "46": 9.43,
+     "47": 11.7,
+     "48": 6.55,
+     "49": 5.62,
+     "50": 21.85,
+     "51": 27.94,
+     "52": 20.67,
+     "53": 18.25,
+     "54": 44.45,
+     "55": 11.67,
+     "56": 54.12,
+     "57": 39.36,
+     "58": 124.2,
+     "59": 36.79,
+     "60": 145.06,
+     "61": 116.55,
+     "62": 243.21,
+     "63": 116.81,
+     "64": 311.25
     },
-    "exact_seconds": 3.2,
-    "strip_map_entries": 16134371,
+    "exact_seconds": 2.6,
+    "strip_map_entries": 556733759,
     "published_witnesses": "NEEDS DATA: none recorded (exit statuses only)",
-    "undecided_degrees": [
-     46,
-     47,
-     48,
-     49,
-     50,
-     51,
-     52,
-     53,
-     54,
-     55,
-     56,
-     57,
-     58,
-     59,
-     60,
-     61,
-     62,
-     63,
-     64
-    ]
+    "undecided_degrees": []
    },
    "checks": [
     {
@@ -10604,9 +11232,9 @@
      "detail": "[]"
     },
     {
-     "check": "(1) a certified self-conjugate witness for every eligible n <= 45 (42 degrees)",
+     "check": "(1) a certified self-conjugate witness for every eligible n <= 64 (61 degrees)",
      "pass": true,
-     "detail": "witnesses: {\"1\": [1], \"3\": [2, 1], \"5\": [3, 1, 1], \"6\": [3, 2, 1], \"7\": [4, 1, 1, 1], \"8\": [4, 2, 1, 1], \"10\": [4, 3, 2, 1], \"11\": [4, 3, 3, 1], \"12\": [5, 3, 2, 1, 1], \"13\": [5, 3, 3, 1, 1], \"14\": [6, 3, 2, 1, 1, 1], \"15\": [5, 4, 3, 2, 1], \"16\": [6, 4, 2, 2, 1, 1], \"17\": [6, 4, 3, 2, 1, 1], \"18\": [6, 5, 2, 2, 2, 1], \"19\": [7, 4, 3, 2, 1, 1, 1], \"20\": [7, 5, 2, 2, 2, 1, 1], \"21\": [6, 5, 4, 3, 2, 1], \"22\": [6, 5, 4, 4, 2, 1], \"23\": [7, 6, 3, 2, 2, 2, 1], \"24\": [7, 5, 4, 4, 2, 1, 1], \"25\": [8, 5, 4, 3, 2, 1, 1, 1], \"26\": [8, 5, 4, 4, 2, 1, 1, 1], \"27\": [7, 6, 5, 3, 3, 2, 1], \"28\": [7, 6, 5, 4, 3, 2, 1], \"29\": [8, 7, 4, 3, 2, 2, 2, 1], \"30\": [8, 7, 4, 4, 2, 2, 2, 1], \"31\": [9, 6, 5, 3, 3, 2, 1, 1, 1], \"32\": [9, 6, 5, 4, 3, 2, 1, 1, 1], \"33\": [10, 7, 4, 3, 2, 2, 2, 1, 1, 1], \"34\": [8, 7, 6, 4, 3, 3, 2, 1], \"35\": [9, 8, 5, 3, 3, 2, 2, 2, 1], \"36\": [8, 7, 6, 5, 4, 3, 2, 1], \"37\": [10, 7, 6, 3, 3, 3, 2, 1, 1, 1], \"38\": [9, 7, 6, 5, 4, 3, 2, 1, 1], \"39\": [11, 8, 5, 3, 3, 2, 2, 2, 1, 1, 1], \"40\": [10, 7, 6, 5, 4, 3, 2, 1, 1, 1], \"41\": [10, 7, 6, 5, 5, 3, 2, 1, 1, 1], \"42\": [10, 8, 6, 5, 4, 3, 2, 2, 1, 1], \"43\": [9, 8, 7, 5, 5, 3, 3, 2, 1], \"44\": [10, 9, 6, 5, 4, 3, 2, 2, 2, 1], \"45\": [9, 8, 7, 6, 5, 4, 3, 2, 1]}"
+     "detail": "witnesses: {\"1\": [1], \"3\": [2, 1], \"5\": [3, 1, 1], \"6\": [3, 2, 1], \"7\": [4, 1, 1, 1], \"8\": [4, 2, 1, 1], \"10\": [4, 3, 2, 1], \"11\": [4, 3, 3, 1], \"12\": [5, 3, 2, 1, 1], \"13\": [5, 3, 3, 1, 1], \"14\": [6, 3, 2, 1, 1, 1], \"15\": [5, 4, 3, 2, 1], \"16\": [6, 4, 2, 2, 1, 1], \"17\": [6, 4, 3, 2, 1, 1], \"18\": [6, 5, 2, 2, 2, 1], \"19\": [7, 4, 3, 2, 1, 1, 1], \"20\": [7, 5, 2, 2, 2, 1, 1], \"21\": [6, 5, 4, 3, 2, 1], \"22\": [6, 5, 4, 4, 2, 1], \"23\": [7, 6, 3, 2, 2, 2, 1], \"24\": [7, 5, 4, 4, 2, 1, 1], \"25\": [8, 5, 4, 3, 2, 1, 1, 1], \"26\": [8, 5, 4, 4, 2, 1, 1, 1], \"27\": [7, 6, 5, 3, 3, 2, 1], \"28\": [7, 6, 5, 4, 3, 2, 1], \"29\": [8, 7, 4, 3, 2, 2, 2, 1], \"30\": [8, 7, 4, 4, 2, 2, 2, 1], \"31\": [9, 6, 5, 3, 3, 2, 1, 1, 1], \"32\": [9, 6, 5, 4, 3, 2, 1, 1, 1], \"33\": [10, 7, 4, 3, 2, 2, 2, 1, 1, 1], \"34\": [8, 7, 6, 4, 3, 3, 2, 1], \"35\": [9, 8, 5, 3, 3, 2, 2, 2, 1], \"36\": [8, 7, 6, 5, 4, 3, 2, 1], \"37\": [10, 7, 6, 3, 3, 3, 2, 1, 1, 1], \"38\": [9, 7, 6, 5, 4, 3, 2, 1, 1], \"39\": [11, 8, 5, 3, 3, 2, 2, 2, 1, 1, 1], \"40\": [10, 7, 6, 5, 4, 3, 2, 1, 1, 1], \"41\": [10, 7, 6, 5, 5, 3, 2, 1, 1, 1], \"42\": [10, 8, 6, 5, 4, 3, 2, 2, 1, 1], \"43\": [9, 8, 7, 5, 5, 3, 3, 2, 1], \"44\": [10, 9, 6, 5, 4, 3, 2, 2, 2, 1], \"45\": [9, 8, 7, 6, 5, 4, 3, 2, 1], \"46\": [11, 9, 6, 5, 4, 3, 2, 2, 2, 1, 1], \"47\": [10, 8, 7, 6, 5, 4, 3, 2, 1, 1], \"48\": [12, 9, 6, 5, 4, 3, 2, 2, 2, 1, 1, 1], \"49\": [11, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1], \"50\": [12, 9, 7, 5, 4, 3, 3, 2, 2, 1, 1, 1], \"51\": [11, 9, 7, 6, 5, 4, 3, 2, 2, 1, 1], \"52\": [12, 9, 8, 5, 4, 3, 3, 3, 2, 1, 1, 1], \"53\": [11, 10, 7, 6, 5, 4, 3, 2, 2, 2, 1], \"54\": [12, 9, 8, 6, 4, 4, 3, 3, 2, 1, 1, 1], \"55\": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1], \"56\": [12, 9, 8, 7, 4, 4, 4, 3, 2, 1, 1, 1], \"57\": [13, 10, 7, 6, 5, 4, 3, 2, 2, 2, 1, 1, 1], \"58\": [12, 10, 8, 7, 4, 4, 4, 3, 2, 2, 1, 1], \"59\": [12, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1, 1], \"60\": [12, 9, 8, 7, 6, 6, 4, 3, 2, 1, 1, 1], \"61\": [13, 10, 9, 6, 5, 4, 3, 3, 3, 2, 1, 1, 1], \"62\": [12, 10, 8, 7, 6, 6, 4, 3, 2, 2, 1, 1], \"63\": [12, 11, 8, 7, 6, 5, 4, 3, 2, 2, 2, 1], \"64\": [12, 11, 8, 7, 6, 6, 4, 3, 2, 2, 2, 1]}"
     }
    ],
    "sources": {
@@ -10635,7 +11263,7 @@
      "verdict": "REFUTED"
     }
    ],
-   "seconds": 35.5
+   "seconds": 1555.7
   },
   {
    "id": "F-369",
@@ -13005,9 +13633,373 @@
    "tier": "A",
    "dir": "The-periodic-spin-one-Haldane-gap-September-24-2026",
    "leanChallenges": [],
-   "word": "NOT YET DECIDED",
-   "why": "no decider written yet",
-   "decider": null
+   "word": "REFUSED",
+   "why": "a finite component: the finite inputs of the two initializations — the trial MPS contractions at N = 72, 120 (exact U_N, V_N), the thermal recurrences (all nine t_{n,g} at b = 21/2 and W_{n,g} at b = 49/4 for n <= 11 recomputed exactly, all 27 rational enclosures), and every scalar comparison of prop:seed60, prop:seed2304 and the bootstrap parameters. NOT the gap theorem: the transfer operator, sector decomposition, purity bootstrap, filter/capped-mass lemmas, Fox-Glynn and Horner error arguments and the variational principle are analytic and outside this check. REFUSED part: W_{n,g} recomputation at b = 49/4 for n=12 g=1, n=12 g=P (their enclosures above are arithmetic from the PRINTED W only)",
+   "decider": "instruments/openaimath/finite/f539_haldane_periodic.py",
+   "decides": "a finite component: the finite inputs of the two initializations — the trial MPS contractions at N = 72, 120 (exact U_N, V_N), the thermal recurrences (all nine t_{n,g} at b = 21/2 and W_{n,g} at b = 49/4 for n <= 11 recomputed exactly, all 27 rational enclosures), and every scalar comparison of prop:seed60, prop:seed2304 and the bootstrap parameters. NOT the gap theorem: the transfer operator, sector decomposition, purity bootstrap, filter/capped-mass lemmas, Fox-Glynn and Horner error arguments and the variational principle are analytic and outside this check. REFUSED part: W_{n,g} recomputation at b = 49/4 for n=12 g=1, n=12 g=P (their enclosures above are arithmetic from the PRINTED W only)",
+   "value": {
+    "U72/V72": "-1.401482112600802",
+    "U120/V120": "-1.401482105173254",
+    "trial_seconds": 42.5,
+    "thermal_seconds": 677.9,
+    "thermal_cpu_seconds": {
+     "120 n=6 1": 0.1,
+     "120 n=6 P": 0.1,
+     "120 n=6 C": 0.2,
+     "120 n=8 1": 2.2,
+     "120 n=8 P": 2.3,
+     "120 n=8 C": 4.4,
+     "120 n=10 1": 97.1,
+     "120 n=10 P": 98.2,
+     "120 n=10 C": 182.4,
+     "72 n=4 1": 0.0,
+     "72 n=4 P": 0.0,
+     "72 n=5 1": 0.0,
+     "72 n=5 P": 0.0,
+     "72 n=6 1": 0.1,
+     "72 n=6 P": 0.1,
+     "72 n=7 1": 0.4,
+     "72 n=7 P": 0.4,
+     "72 n=8 1": 2.3,
+     "72 n=8 P": 2.3,
+     "72 n=9 1": 13.3,
+     "72 n=9 P": 13.4,
+     "72 n=10 1": 93.0,
+     "72 n=10 P": 94.0,
+     "72 n=11 1": 701.4,
+     "72 n=11 P": 707.5
+    },
+    "enclosures_b49_4": {
+     "n=4 1": "[124.88537982, 124.88537982]",
+     "n=4 P": "[0.06575703, 0.06575703]",
+     "n=5 1": "[0.00292518, 0.00292518]",
+     "n=5 P": "[2.96074299, 2.96074299]",
+     "n=6 1": "[12.87061404, 12.87061405]",
+     "n=6 P": "[0.28659964, 0.28659964]",
+     "n=7 1": "[0.05406952, 0.05406952]",
+     "n=7 P": "[1.92041479, 1.92041479]",
+     "n=8 1": "[4.63928341, 4.63928347]",
+     "n=8 P": "[0.51014072, 0.51014074]",
+     "n=9 1": "[0.19545503, 0.19545509]",
+     "n=9 P": "[1.51484690, 1.51484707]",
+     "n=10 1": "[2.65482244, 2.65482371]",
+     "n=10 P": "[0.67541938, 0.67542002]",
+     "n=11 1": "[0.37762804, 0.37763064]",
+     "n=11 P": "[1.31454175, 1.31454661]",
+     "n=12 1": "[1.90053154, 1.90056357]",
+     "n=12 P": "[0.78739505, 0.78741566]"
+    },
+    "enclosures_b21_2": {
+     "n=6 1": "[8.94530284, 8.94530284]",
+     "n=6 P": "[0.34673411, 0.34673411]",
+     "n=6 C": "[0.93998742, 0.93998742]",
+     "n=8 1": "[3.74128142, 3.74128142]",
+     "n=8 P": "[0.56716683, 0.56716683]",
+     "n=8 C": "[0.98410787, 0.98410787]",
+     "n=10 1": "[2.32754704, 2.32754704]",
+     "n=10 P": "[0.72109034, 0.72109034]",
+     "n=10 C": "[1.00261268, 1.00261268]"
+    },
+    "gap_L>=60": "0.000479191703118",
+    "gap_L>=2304": "0.003821087083614",
+    "seed2304_p0_q0": [
+     "0.047915771",
+     "0.181520168"
+    ],
+    "seed60_S_T_lower": [
+     "0.875600",
+     "0.876056"
+    ],
+    "refused": [
+     {
+      "part": "W_{n,g} recomputation at b = 49/4 for n=12 g=1, n=12 g=P (their enclosures above are arithmetic from the PRINTED W only)",
+      "reason": "cost: the clean-room Python recurrence on 3^n states",
+      "measured": {
+       "n=12": {
+        "case": "72 n=12 twist 1",
+        "largest_job_rows_x_lanes": 37779968,
+        "seconds_for_2_steps": 3.68,
+        "steps": 192,
+        "estimated_cpu_seconds_per_twist": 5703,
+        "estimated_cpu_hours_both_twists": 3.17,
+        "memory_per_job_MB": 576
+       }
+      }
+     }
+    ],
+    "runtime_s": 720.9
+   },
+   "checks": [
+    {
+     "check": "the theorem as stated: unique ground state for even L >= 60, gamma_L > (4/105) log(80/79) (L >= 60), > log(20)/784 (L >= 2304)",
+     "pass": true,
+     "detail": "introduction.tex:37-53; a = 700741/500000 (model.tex:86)"
+    },
+    {
+     "check": "the printed tables were read: 9 + 3 x 3 thermal centres, 18 W totals, 9 t totals, 8 D_alpha, 15 P_ab, 2 c_N, 11 block dims, 6 update rows",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "lem:energy input: the bond h has minimal polynomial dividing (h-1)(h+1)(h+2), so spec h = {-2,-1,1} and h <= I",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "lem:energy table: -h = sum G_a (x) G_a in Cartesian coordinates, T = -h12 - h23 has no diagonal, and every weighted absolute row sum is <= 3q (so h12 + h23 >= -3I)",
+     "pass": true,
+     "detail": "pattern (q, row sum): [(2, 4), (2, 6), (3, 9), (4, 12)] as printed (aaa 4/12, aab 3/9, aba 2/6, abc 2/4)"
+    },
+    {
+     "check": "the symmetries behind the representative reduction, exactly for n = 4..8 and theta = 0, pi, 2pi/3: the phased shift commutes with H_n(g); reversal and negation map H_n(g) to its complex conjugate (so exact exponential columns have equal norms on orbits)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the 26 x 26 matrices A_s built from Tables tab:trial-diagonal / tab:trial-pairs and eq:trial-entry equal matrix-data.json entry for entry",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "eq:trial-blocks: the d-e blocks have dimensions 1,8,32,80,136,162,136,80,32,8,1 (sum 676) and no A_s entry leaves its block",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "N = 72: U_72, V_72 recomputed equal certificate72.json (one_bond_energy_numerator, norm) and its positive margin",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "N = 120: U_120, V_120 recomputed equal certificate120.json (U, V, margin, and all eleven per-block U and V)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "eq:trial-integer-results N = 72: V_N > 0 and -c_N V_N <= 10^12 U_N < (-c_N + 1) V_N with c_N = 1401482112601",
+     "pass": true,
+     "detail": "floor(1e12 U/V) = -1401482112601"
+    },
+    {
+     "check": "lem:trial-inputs N = 72: 500000 U_N + 700741 V_N < 0, i.e. E_0(72) <= N U_N/V_N < -72 a",
+     "pass": true,
+     "detail": "U/V + a = -0.000000112600"
+    },
+    {
+     "check": "eq:trial-integer-results N = 120: V_N > 0 and -c_N V_N <= 10^12 U_N < (-c_N + 1) V_N with c_N = 1401482105174",
+     "pass": true,
+     "detail": "floor(1e12 U/V) = -1401482105174"
+    },
+    {
+     "check": "lem:trial-inputs N = 120: 500000 U_N + 700741 V_N < 0, i.e. E_0(120) <= N U_N/V_N < -120 a",
+     "pass": true,
+     "detail": "U/V + a = -0.000000105173"
+    },
+    {
+     "check": "lem:trial-contraction re-derived for N = 4,5,6 by explicit amplitudes and the explicit Hamiltonian: ||psi||^2 = V_N, <psi,H psi> = N U_N (N = 4 also equals exact-checks.json)",
+     "pass": true,
+     "detail": "N=4: norm ok energy ok; N=5: norm ok energy ok; N=6: norm ok energy ok"
+    },
+    {
+     "check": "thermal72: c_j = floor(Q p_j) vanishes exactly for j > 191; thermal120: q_j vanishes exactly for j > 172",
+     "pass": true,
+     "detail": "last nonzero: 191, 172"
+    },
+    {
+     "check": "thermal72 error constants: tail 2^-280 e^98 < 2^-84 < 1/Q (e < 4), d_n <= 730 and d_n > sqrt(3^n), Q + 281(d_n+1) < 2Q, row sums <= 76, 76*2Q = 5476377146882523136 < 2^63 - 1, 76*2Q/32 + Q = 207165582859042816, 0 <= x_n < 15, tail ratio 15/86",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "thermal120 error constants: e^84/2^257 < 27^28/2^257 < 2^-117 (e < 3, 3^84 < 2^140), 257(2 sqrt(3^n)+1) <= 125159, 32(Q+125159) = 2305843009217699040 < 2^63, 3^6 243 (125159/2^56 + 2^-116) < 4e-7, x_n < 12, 2e-6 + (8+4e-7)4e-7 < 1e-5",
+     "pass": true,
+     "detail": "3^6 243(...) = 0.000000307691"
+    },
+    {
+     "check": "thermal120 totals t_{n,g} recomputed by the integer recurrence equal all nine printed integers (thermal120.tex:186-194)",
+     "pass": true,
+     "detail": "all nine equal"
+    },
+    {
+     "check": "source2 summary.json totals equal the printed t_{n,g} (data file vs paper)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "eq:thermal120-rational-enclosure: c - 2e-6 < L_n t/Q^2 < U_n t/Q^2 < c + 2e-6 for all nine (exact), hence |Z_n(21/2,g) - c| < 1e-5",
+     "pass": true,
+     "detail": "min margin 0.000001571"
+    },
+    {
+     "check": "thermal72 totals W_{n,g} recomputed by the integer recurrence equal the printed integers for n = 4..11, g = 1, P (thermal72.tex:186-194)",
+     "pass": true,
+     "detail": "16 of 18 recomputed and equal"
+    },
+    {
+     "check": "thermal72: every recomputed weight-block contribution equals the released sectors.jsonl entry",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the packed floors are exact: EVERY lane of EVERY stage was checked at run time to lie in [-2^56, 2^56) (b = 49/4; row sums <= 76) or [-2^57, 2^57) (b = 21/2; row sums < 64), so every lane of DX or BX lies in (-2^63, 2^63) at the next floor",
+     "pass": true,
+     "detail": "max row sums [19, 20, 21, 22, 23, 36, 37, 38, 39, 40, 41, 42, 45]; out-of-window rows 0"
+    },
+    {
+     "check": "eq:thermal72-enclosure: L_{n,g} > (C-30)/1e6 and U_{n,g} < (C+30)/1e6 with margins > 13/1e6, all eighteen (exact)",
+     "pass": true,
+     "detail": "min margin 0.000013420"
+    },
+    {
+     "check": "seed60: m_I, m_O, m_N exceed the sector centres + 1e-5 by exactly 19/(12e6), 7/(12e6), 3/(4e6) (initialization.tex:134-140)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed60 filters: F_I(U) - B_I > 0.0301, F_N(V) - B_N > 0.3463, and both filters increase beyond (c1 > 0, c0 + c1 x^2 > 0)",
+     "pass": true,
+     "detail": "margins 0.030165, 0.346312"
+    },
+    {
+     "check": "seed60: U^10 < m_I < 2U^10 and V^10 < m_N < 2V^10",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed60 eq:seed60-scalars: m^5 < D^2 (margin > 0.001068), p^5 < E^2 (> 0.000433), q >= 1, (q-1)^5 < R_q^2 (> 0.0000472), (D+11E)/12 <= tau, (D+3E)/4 <= tau0",
+     "pass": true,
+     "detail": "margins 0.0010684, 0.0004334, 0.00004727"
+    },
+    {
+     "check": "seed60: D (0.88)^3 < 1, 2 (0.88) > D and D > tau0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed60 R(t) table: R(0.88) = 0.1359, R(0.99) = 0.0721, R(0.998) = 0.068404 exactly",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed60: 1 - 0.99^4 - R(0.88)^2 = 0.02093518 and 1 - 0.998^4 - R(0.99)^2 = 0.002777621984 exactly",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed60: S(60,105/4) >= (1 + R(0.998)/0.998^2)^-2 > 0.8756 > 7/8 and T(120,105/4) >= (1+R_q)^-2 > 0.8760 > 7/8",
+     "pass": true,
+     "detail": "S >= 0.875600, T >= 0.876056"
+    },
+    {
+     "check": "seed2304: the filter bounds are exactly B_J = 318604.54848175 and B_N = 48169.880699 (initialization.tex:291)",
+     "pass": true,
+     "detail": "B_J = 318604.54848175, B_N = 48169.880699"
+    },
+    {
+     "check": "seed2304: F_J(v_J) - B_J > 180, F_J(-v_J) - B_J > 496888, F_N(+-v_N) - B_N > 654",
+     "pass": true,
+     "detail": "margins 180.038, 496888.975, 654.285"
+    },
+    {
+     "check": "seed2304: Q(1+y) = 559+2902y+5165y^2+3815y^3+1000y^4 and Q(-1-y) = 895+3978y+6275y^2+4185y^3+1000y^4 (all coefficients > 0)",
+     "pass": true,
+     "detail": "[559, 2902, 5165, 3815, 1000], [895, 3978, 6275, 4185, 1000]"
+    },
+    {
+     "check": "seed2304: 12 - 394 v_N^2 + 1000 v_N^4 > 0 and 1000 v_N^2 - 197 > 0 (F_N increases beyond v_N)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed2304: m_J = J_12 centre + 30e-6 = 1.0657205 and m_N = N_12 centre + 30e-6 = 0.2783155 (exactly)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "seed2304: m_J > ell^12 and C(m_J, ell^12, 6) + B(72) < 1 with margin > 0.0693",
+     "pass": true,
+     "detail": "margin 0.069344"
+    },
+    {
+     "check": "seed2304: p_0 < 0.047916 and q_0 < 0.181521 (exact rational p_0, q_0)",
+     "pass": true,
+     "detail": "p0 = 0.0479157, q0 = 0.1815201"
+    },
+    {
+     "check": "seed2304: the six rounded coupled updates reproduce the printed (p_j, q_j) table exactly, all in [0,1)",
+     "pass": true,
+     "detail": "1:(151249/2500000,433453/2500000) 2:(343303/5000000,1632381/10000000) 3:(44601/625000,361773/2500000) 4:(632939/10000000,1055161/10000000) 5:(375793/10000000,445941/10000000) 6:(84513/10000000,27493/5000000)"
+    },
+    {
+     "check": "seed2304: 1 - S(2304,784) <= 84513/10^7 < 1/100 and 1 - T(4608,784) <= 27493/(5 10^6) < 1/100 (and 36 * 64 = 2304, 49/4 * 64 = 784)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "cor:boundary-inputs: 1 - S(72, 49/2) <= 151249/2500000 is the first update row",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "eq:bootstrap-factorization f(1-(1-u)^3) = G(u)u^2 (polynomial identity, checked at 8 points)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "bootstrap row 1: G(1/8) = 913952/117649 < 79/10, 3/(C(1-3u0)) = 48/79 < 1, 0 < 1/8 < 1/6, r = 79/80 < 1",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "bootstrap row 2: G(1/100) <= 9/(2(1-3u)^2) = 45000/9409 < 5, 3/(C(1-3u0)) = 60/97 < 1, r = 5/100 = 1/20",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the two gap constants enclosed (log by atanh series, proved tail): (4/105) log(80/79) and log(20)/784 are positive",
+     "pass": true,
+     "detail": "(4/105) log(80/79) in [0.000479191703118, 0.000479191703118]; log(20)/784 in [0.003821087083614, 0.003821087083614]"
+    }
+   ],
+   "sources": {
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/introduction.tex": "c120d799db4e691a66ad1990e92331fdd16581e55aad2107c5b662fd28cab8dc",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/model.tex": "234933822c1af019a721b5d0df8b7afec47ad4a8ba7ea39287d4e7119756a8b8",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/bootstrap.tex": "e740ac5a29ea2041d788b648ef1b705138a1ff09c86b689514781511315421b4",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/initialization.tex": "f38e13e1ee99e2201ce01535b2e968ab519dc41f0ae67a29a4fc3fbebed34d95",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/assembly.tex": "d7c1415b78c2d2b6d1cf00f38fa578e1e1c1075b50f3342186380855afbd0eb3",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/thermal72.tex": "58098e7f04a139db12716dc7a97c852d7777abc451326686e37ee714a253523e",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/thermal120.tex": "fe8fc5f980138e1e91164b0653afa07bb957a5885a26f5b5b925058ce07fcd5b",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/trials.tex": "0b10ec33da7816be727062f00e7bf03fb00c59b0beb78622ce03a1014c6ccfcc",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/trials/matrix-data.json": "51c4b94117621aa44556368caa0d2cc7f7261c85e10e068d5590f33919fc71b1",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/trials/certificate72.json": "a24c13abd7278143f5e0dc8ac0b83b19503e8a5fa9a78b76d6bd0fbc3a8cfd12",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/trials/certificate120.json": "5456ef9cc81055f8a5e8c51c181f19af4f5d2dcfead8d137c2993f7934abf9b1",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/trials/exact-checks.json": "1f0bf73a53067a838a76b00d775722a11464987f1e2f188f54c1b5945a088e61",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/source1/thermal-run/sectors.jsonl": "2f6e5e9112ebcf3723f493cdf232a0150e6e9500e6926ac34772761804c1c4c6",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification/computations/evidence/source2/runs/summary.json": "2f32748182c664d371be58a561dd90752feaea97135ed4e783de0bd17f97c6ab"
+   },
+   "forges": [
+    {
+     "forge": "printed W_{8,P} + 1 -> fails: thermal72 totals W_{n,g} recomputed by the integer recurrence equal the printed integers f",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "b=49/4 centre C_{12,P} 787405 -> 787436 (moved by 31e-6) -> fails: eq:thermal72-enclosure: L_{n,g} > (C-30)/1e6 and U_{n,g} < (C+30)/1e6 with margins > 13/1e; seed2304: the filter bounds are exactly B_J = 318604.54848175 and B_N = 48169.880699 (init; seed2304: F_J(v_J) - B_J > 180, F_J(-v_J) - B_J > 496888, F_N(+-v_N) - B_N > 654; seed2304: m_J = J_12 centre + 30e-6 = 1.0657205 and m_N = N_12 centre + 30e-6 = 0.2783155 ; seed2304: the six rounded coupled updates reproduce the printed (p_j, q_j) table exactly, ; seed2304: 1 - S(2304,784) <= 84513/10^7 < 1/100 and 1 - T(4608,784) <= 27493/(5 10^6) < 1/; cor:boundary-inputs: 1 - S(72, 49/2) <= 151249/2500000 is the first update row",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "printed t_{10,C} - 10^9 -> fails: thermal120 totals t_{n,g} recomputed by the integer recurrence equal all nine printed inte; source2 summary.json totals equal the printed t_{n,g} (data file vs paper)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "trial table D_1 = -289 -> -290 -> fails: the 26 x 26 matrices A_s built from Tables tab:trial-diagonal / tab:trial-pairs and eq:tri; N = 72: U_72, V_72 recomputed equal certificate72.json (one_bond_energy_numerator, norm) a; N = 120: U_120, V_120 recomputed equal certificate120.json (U, V, margin, and all eleven p; eq:trial-integer-results N = 72: V_N > 0 and -c_N V_N <= 10^12 U_N < (-c_N + 1) V_N with c; lem:trial-inputs N = 72: 500000 U_N + 700741 V_N < 0, i.e. E_0(72) <= N U_N/V_N < -72 a; eq:trial-integer-results N = 120: V_N > 0 and -c_N V_N <= 10^12 U_N < (-c_N + 1) V_N with ; lem:trial-inputs N = 120: 500000 U_N + 700741 V_N < 0, i.e. E_0(120) <= N U_N/V_N < -120 a; lem:trial-contraction re-derived for N = 4,5,6 by explicit amplitudes and the explicit Ham",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "update row p_3 lowered by 1e-7 -> fails: seed2304: the six rounded coupled updates reproduce the printed (p_j, q_j) table exactly, ",
+     "verdict": "REFUTED"
+    }
+   ],
+   "seconds": 720.9
   },
   {
    "id": "F-540",
@@ -13017,9 +14009,221 @@
    "tier": "A",
    "dir": "A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026",
    "leanChallenges": [],
-   "word": "NOT YET DECIDED",
-   "why": "no decider written yet",
-   "decider": null
+   "word": "CERTIFIED",
+   "why": "a finite component: the fifteen thermal integers k_{n,g} recomputed by the printed recurrence and every enclosure built on them (Y_6 < .027, c_0 P_*(lambda_0)^2 < .003745), the four trial-vector certificates (m = 34, 78, 142, 240) recomputed exactly, and every printed scalar comparison of the initialization, periodic extraction and conclusion. NOT the gap theorem: the boundary transfer identity, the averaging identity, the boundary recurrence lemmas, the purity lemma and the variational principle are analytic; the periodic inputs are the companion's (F-539), used here as printed",
+   "decider": "instruments/openaimath/finite/f540_haldane_boundary.py",
+   "decides": "a finite component: the fifteen thermal integers k_{n,g} recomputed by the printed recurrence and every enclosure built on them (Y_6 < .027, c_0 P_*(lambda_0)^2 < .003745), the four trial-vector certificates (m = 34, 78, 142, 240) recomputed exactly, and every printed scalar comparison of the initialization, periodic extraction and conclusion. NOT the gap theorem: the boundary transfer identity, the averaging identity, the boundary recurrence lemmas, the purity lemma and the variational principle are analytic; the periodic inputs are the companion's (F-539), used here as printed",
+   "value": {
+    "thermal_seconds": 18.0,
+    "Y6_interval": [
+     "0.026631944058",
+     "0.026631960663"
+    ],
+    "polynomial_upper": "0.003744031842",
+    "H/(500000V) m=34": "0.4031974157",
+    "H/(500000V) m=78": "0.4041175606",
+    "H/(500000V) m=142": "0.4041110066",
+    "H/(500000V) m=240": "0.4041006997",
+    "trial_seconds": 3.5,
+    "gap_L>=960": "0.005873941563760",
+    "runtime_s": 21.6
+   },
+   "checks": [
+    {
+     "check": "the theorem as stated: E_1(L,3/5) - E_0(L,3/5) > log(10)/392 for every integer L >= 960 (main.tex:77-83)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the printed tables were read: 15 k_{n,g}, 5 centres, 8 endpoint rows, 15 couplings, 4 certificate rows, 4 in:table rows",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "A is a contraction (finite part): a bond has spectrum in {-2,-1,1}; S_1.S_2 + S_2.S_3 has spectrum in {-3,..,2} and attains -3",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "exact floor by 80 in 128-bit lanes: MAGIC = ceil(2^68/80) with 0 <= 80 MAGIC - 2^68 < 80 and 2^61 * 80 <= 2^68 (so floor(y M / 2^68) = floor(y/80) for 0 <= y < 2^61), (2^61) MAGIC < 2^128, quotient < 2^60, bias 80 * 2^53 > 256 * 2^51",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the packed floors are exact: every |D| row sum <= 256 and EVERY lane of EVERY stage lies in [-2^51, 2^51) (checked at run time), so |D x| < 256 * 2^51 < 80 * 2^53 = bias at the next stage",
+     "pass": true,
+     "detail": "max row sum 120, final max |x| 199365047214242, out-of-window rows 0"
+    },
+    {
+     "check": "appth:integer-table: all fifteen k_{n,g} recomputed by the integer recurrence equal the printed integers (thermal.tex:199-206)",
+     "pass": true,
+     "detail": "all fifteen equal"
+    },
+    {
+     "check": "thermal_certificate_results.json: its fifteen quotients equal the recomputed ones, its 193 coefficients equal t_i, and its recorded max |x| (over all stages) is below 2^51 and at least our final-stage max",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "appth:tail and appth:frobenius-error: R = 49^193/193!/(1-49/194) < 3.152e-33, 193(27 + (3/2)729)/2^50 = 432513/2^51, 54R + 432513/2^51 < 2e-10 (sqrt(3^n) <= 27, sqrt2 < 3/2)",
+     "pass": true,
+     "detail": "54R + ... = 0.000000000192074"
+    },
+    {
+     "check": "C_n and the printed upper bounds n - 1 + 6/5 + C_n = 5.4, 7.4, 10.4, 12.4, 15.4 (all <= 16)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "appth:interval-data: L - eps > 0 in every entry; the exponents b_0(C_n - a n) lie in [-.0544635, 9.691073] (exp enclosed by T_80 + 2y^81/81!)",
+     "pass": true,
+     "detail": "exponents 4.8636910, -0.0544635, 7.2773820, 2.3592275, 9.6910730"
+    },
+    {
+     "check": "appth:Y6-interval: .0266319440 < Z_{6,1} < .0266319607 < .027",
+     "pass": true,
+     "detail": "Z_{6,1} in [0.026631944058, 0.026631960663]"
+    },
+    {
+     "check": "appth:moment-centers: each I(n) = (Z_{n,1} + Z_{n,-1} + 4 Z_{n,0})/6 lies within 1e-7 of its printed centre (n = 2..6)",
+     "pass": true,
+     "detail": "I(2) in [0.0270307424, 0.0270307435]; I(3) in [0.0120356158, 0.0120356158]; I(4) in [0.0119351085, 0.0119351112]; I(5) in [0.0093155999, 0.0093156001]; I(6) in [0.0089327109, 0.0089327196]"
+    },
+    {
+     "check": "appth:polynomial: P_*(x)^2 has coefficients 1, -.28, -.3404, .0504, .0324 (sum of absolute values 1.7032); at the centres it equals .003744031780; .003744031780 + .00000017032 = .0037442021 < .003745",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "appth:bounds (second claim) re-derived from the rational enclosures directly: I(6) - .28I(5) - .3404I(4) + .0504I(3) + .0324I(2) < .003745",
+     "pass": true,
+     "detail": "upper bound 0.003744031842"
+    },
+    {
+     "check": "the tables (apptr:entry-table, apptr:endpoint-table, apptr:coupling-table) give A_s, b, c and the restricted T_*, G_*, O_* equal to trial-exact-matrices.json; the bulk triple equals the periodic paper's (F-539 tables)",
+     "pass": true,
+     "detail": "A_s ok, b ok, c ok, labels ok, pairs ok, T_* ok, G_* ok, O_* ok, L_0 ok, u ok; equals F-539 triple: True"
+    },
+    {
+     "check": "apptr:restricted-dimension: the paired labels ((i,d),(j,d)) number 1+16+64+64+16+1 = 162",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "apptr:certificate-table: V_m, H_m^* recomputed by the row recurrence satisfy every printed p_m, q_m, k_m window, 202100 V_m - H_m^* > 0, and equal trial-exact-results.json in full (m = 34, 78, 142, 240)",
+     "pass": true,
+     "detail": "m=34: p=202 q=715867 k=4031974 ok; m=78: p=440 q=747265 k=4041175 ok; m=142: p=787 q=121288 k=4041110 ok; m=240: p=1317 q=165352 k=4041006 ok"
+    },
+    {
+     "check": "apptr:bound: H_m^*/(500000 V_m) < 202100/500000 = alpha = 2021/5000 for all four lengths",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Lemma apptr:contractions and the recurrence re-derived for m = 2..7 by explicit amplitudes and the explicit opposite-field Hamiltonian (m = 2..6 also equal trial-direct-physical-crosscheck.json)",
+     "pass": true,
+     "detail": "m=2 ok m=3 ok m=4 ok m=5 ok m=6 ok m=7 ok"
+    },
+    {
+     "check": "per:native (cited): l = .999, U = 1.00139, V = .872, m_J = 1.0657205, m_N = .2783155 and 1 - S(72,b_1) <= 151249/2500000 = .0604996 are the companion's seed2304 values (re-derived by F-539's scalar code from its printed b = 49/4 table)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "per:initial-ratios: m_J - l^12 < l^12, V < l, m_J - l^12 < (.874 l)^12, V < .874 l (so rho_0 < .874)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "cube roots: (m_J - l^12)^(1/3) < .426635 and (m_N - V^12)^(1/3) < .439736 (by cubing); V^12 < m_N < 2V^12",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "per:scalar-checks: D(32) < .0442, D(120) < 2.5e-7, .9856^9 < .968^4, U^64(1.0442)^2/.9856 - 1 < .2092 < .9525^32, s > .9002, t > .9372, f(1-.9002^2 .9372) < .0502, f(1-.9372^2(1-.0502)) < .0198 (< .052), .0604996 < 2(.032)(.968)",
+     "pass": true,
+     "detail": "D32 < 0.044150, D120 < 0.0000002462, tail32 0.209134, s 0.900263, t 0.937311, outputs 0.050152, 0.019736"
+    },
+    {
+     "check": "periodic induction: G(.052) < 5.583 < 6, 6(.052)^2 <= .052, d(.052) < .971^120 (rho_2 < .971)",
+     "pass": true,
+     "detail": "G(.052) = 5.582189"
+    },
+    {
+     "check": "in:seedbounds: P_* = x(x-1/2)(x+9/25) > 0 on [l, U], 4P_* - xP_*' = x(x^2-.28x-.54) > 0 there; .003745 e^{b_0 alpha}/P_*(U)^2 < 1.133226 and e^{.132} > 1.141108 (b_0 alpha = 4.95145; exp enclosed rigorously)",
+     "pass": true,
+     "detail": "left coefficient 1.1332253, e^.132 >= 1.1411083"
+    },
+    {
+     "check": "Y_6(b_0) < .027 is the thermal interval above, and eps(34) < .0928 < 1 (c_0 > 0)",
+     "pass": true,
+     "detail": "eps(34) < 0.092723"
+    },
+    {
+     "check": "in:puritynumbers: (1+R(78))^-2 > .6180, (1+R(142)^2)^-2 > .7533, (1+R(240)^4)^-2 > .7923 (and R(m) > 0 from its lower enclosure, so t = (1+R)^-2 is in (0,1])",
+     "pass": true,
+     "detail": "0.618101, 0.753475, 0.792482"
+    },
+    {
+     "check": "in:78 / in:142: F(.953^44, .093, (1+R(78))^-2) < .132129 < .133 and F(.971^64, .133, (1+R(142)^2)^-2) < .137301 < .14; 1 - A(240,2) bound < .207518 < .21; rho_1 < .9525 <= .953, .0928 <= .093",
+     "pass": true,
+     "detail": "outputs 0.1321282, 0.1373000, 0.2075175"
+    },
+    {
+     "check": "in:table: q bounds d(u_3)^(49/120) < .142, d(u_4)^(1/2) < .0282, d(u_5)^(1/2) < .0028 (exponents 98/240, 1/2, 1/2); E-outputs < .117754, .015328, .000170 and eta-outputs < .147078, .025188, .000432, each below the next printed row",
+     "pass": true,
+     "detail": "E: 0.1177534, 0.0153272, 0.0001694; eta: 0.1470770, 0.0251872, 0.0004310"
+    },
+    {
+     "check": "in:quadratic: u_5 < .000015 < .01, E_5, eta_5 <= .01, sqrt(6x^2/(2-18x^2)) <= 2x, F(2x,x,1-x)/x^2 and f(2x+16x^2)/x^2 identities (at 8 points) with endpoint values 42430000/6792093 < 10 and 3645000/1495729 < 10, x_j = 10^(-1-2^(j-5))",
+     "pass": true,
+     "detail": "u_5 = 0.000014965302"
+    },
+    {
+     "check": "conclusion: 2x + 26x^2 <= 4x, 4/[10(1-.04)] < 1, b_5 = 392, M_5 = 1920 <= 2L+1 for L >= 960; log(10)/392 enclosed (atanh series)",
+     "pass": true,
+     "detail": "log(10)/392 in [0.005873941563760, 0.005873941563760]"
+    }
+   ],
+   "sources": {
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/sections/thermal.tex": "35fec44e6c5c0ffdb154ebae857790d1568d0fd648d216e635903d3230b7816d",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/sections/trials.tex": "3a4879391107c9588ee68de8851ecbdf9a8f00d3885169661daa306508fc0172",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/sections/initialization.tex": "92f540c255afae1118e637d36f91cc61a10ad96da7cf8e6244e332dcdbec3f29",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/main.tex": "c2f4a7cdf6d155fbe9083d9118defef16f5b7917d900267f431b76279844ac4f",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/verification/thermal_certificate_results.json": "468f5908f7515547b2a3dad108e01827c8e76571a80ad8a3167c73f6774d1c96",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/verification/trial-exact-matrices.json": "93b1dc3995b82279e359cc8a8aa594f0c2bfa82b01a5a7a781f914ee4a635c1e",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/initialization.tex": "f38e13e1ee99e2201ce01535b2e968ab519dc41f0ae67a29a4fc3fbebed34d95",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/thermal72.tex": "58098e7f04a139db12716dc7a97c852d7777abc451326686e37ee714a253523e",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/thermal120.tex": "fe8fc5f980138e1e91164b0653afa07bb957a5885a26f5b5b925058ce07fcd5b",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/trials.tex": "0b10ec33da7816be727062f00e7bf03fb00c59b0beb78622ce03a1014c6ccfcc",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/verification/trial-exact-results.json": "50c7b0e8653c556bf11aff39eebd5941a1ae4551ec11a8b2e8d5d4ce2d429670",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/verification/trial-direct-physical-crosscheck.json": "54581c0ba9755037b31c153207bf006a3573cc647ca2afc0ac8c9050be4375ae",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/sections/periodic.tex": "712efaab7e75c1faf264cb0ba593cd7ee7604e5b657dc973a8235763a384a2f8",
+    "preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/build/sections/conclusion.tex": "1d63e76f7827c31c489345c6deb3a2040ef2acf2c64aafebd512c6c48e93daa4",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/introduction.tex": "c120d799db4e691a66ad1990e92331fdd16581e55aad2107c5b662fd28cab8dc",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/model.tex": "234933822c1af019a721b5d0df8b7afec47ad4a8ba7ea39287d4e7119756a8b8",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/bootstrap.tex": "e740ac5a29ea2041d788b648ef1b705138a1ff09c86b689514781511315421b4",
+    "preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/build/assembly.tex": "d7c1415b78c2d2b6d1cf00f38fa578e1e1c1075b50f3342186380855afbd0eb3"
+   },
+   "forges": [
+    {
+     "forge": "printed k_{6,1} 16467340956 -> 16467340957 -> fails: appth:integer-table: all fifteen k_{n,g} recomputed by the integer recurrence equal the pr",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "endpoint beta_7 12475 -> 12476 -> fails: the tables (apptr:entry-table, apptr:endpoint-table, apptr:coupling-table) give A_s, b, c ; apptr:certificate-table: V_m, H_m^* recomputed by the row recurrence satisfy every printed; apptr:bound: H_m^*/(500000 V_m) < 202100/500000 = alpha = 2021/5000 for all four lengths; Lemma apptr:contractions and the recurrence re-derived for m = 2..7 by explicit amplitudes",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "centre of I(6) .00893272 -> .00893292 -> fails: appth:moment-centers: each I(n) = (Z_{n,1} + Z_{n,-1} + 4 Z_{n,0})/6 lies within 1e-7 of i; appth:polynomial: P_*(x)^2 has coefficients 1, -.28, -.3404, .0504, .0324 (sum of absolute",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "in:table E_4 = .016 -> .015 -> fails: in:table: q bounds d(u_3)^(49/120) < .142, d(u_4)^(1/2) < .0282, d(u_5)^(1/2) < .0028 (exp",
+     "verdict": "REFUTED"
+    }
+   ],
+   "seconds": 21.6
   },
   {
    "id": "F-541",
@@ -15759,9 +16963,420 @@
    "leanChallenges": [
     "CubicTorus"
    ],
-   "word": "NOT YET DECIDED",
-   "why": "no decider written yet",
-   "decider": null
+   "word": "CERTIFIED",
+   "why": "a finite component: Proposition num:scalar-positive (B > 0 on [.64,1.02] u [1.62,2.25], B + S > 0 on [1.02,1.62]), decided independently, and the paper's knot and gap tables; NOT the geometric reduction to these inequalities",
+   "decider": "instruments/openaimath/finite/f678_cubic_torus.py",
+   "decides": "a finite component: Proposition num:scalar-positive (B > 0 on [.64,1.02] u [1.62,2.25], B + S > 0 on [1.02,1.62]), decided independently, and the paper's knot and gap tables; NOT the geometric reduction to these inequalities",
+   "value": {
+    "pieces": [
+     35,
+     323,
+     33
+    ],
+    "smallest_lower_bound": [
+     1.288250714803733e-05,
+     2.9449793985515313e-06,
+     3.8633188646813266e-05
+    ],
+    "B_1.46": "[-0.00273169482904084, -0.00273169482904084]",
+    "S_1.46": "83349/25000000",
+    "Bt_minus_b_range": [
+     1.1043481696459334,
+     1.9446495348754724
+    ],
+    "S_minus_s_range": [
+     1.0033038553401452,
+     1.6502616462317872
+    ],
+    "gap_min": "9/100000",
+    "knots": {
+     "0.64": {
+      "b_h": 1744,
+      "1e5_Bt": "1745.3103",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "0.74": {
+      "b_h": 1200,
+      "1e5_Bt": "1201.4295",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "0.84": {
+      "b_h": 735,
+      "1e5_Bt": "736.5987",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "0.92": {
+      "b_h": 432,
+      "1e5_Bt": "433.5387",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "0.98": {
+      "b_h": 247,
+      "1e5_Bt": "248.7761",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "1.02": {
+      "b_h": 144,
+      "1e5_Bt": "145.7873",
+      "s_h": 76,
+      "1e5_S": "77.0033"
+     },
+     "1.06": {
+      "b_h": 57,
+      "1e5_Bt": "58.4861",
+      "s_h": 98,
+      "1e5_S": "99.0700"
+     },
+     "1.1": {
+      "b_h": -15,
+      "1e5_Bt": "-13.8117",
+      "s_h": 123,
+      "1e5_S": "124.2385"
+     },
+     "1.14": {
+      "b_h": -74,
+      "1e5_Bt": "-72.0554",
+      "s_h": 151,
+      "1e5_S": "152.3551"
+     },
+     "1.18": {
+      "b_h": -119,
+      "1e5_Bt": "-117.4813",
+      "s_h": 182,
+      "1e5_S": "183.1991"
+     },
+     "1.22": {
+      "b_h": -153,
+      "1e5_Bt": "-151.6548",
+      "s_h": 215,
+      "1e5_S": "216.4994"
+     },
+     "1.26": {
+      "b_h": -178,
+      "1e5_Bt": "-176.5427",
+      "s_h": 247,
+      "1e5_S": "248.2415"
+     },
+     "1.3": {
+      "b_h": -196,
+      "1e5_Bt": "-194.6355",
+      "s_h": 271,
+      "1e5_S": "272.6420"
+     },
+     "1.34": {
+      "b_h": -211,
+      "1e5_Bt": "-209.1511",
+      "s_h": 297,
+      "1e5_S": "298.5913"
+     },
+     "1.38": {
+      "b_h": -226,
+      "1e5_Bt": "-224.3640",
+      "s_h": 325,
+      "1e5_S": "326.1369"
+     },
+     "1.42": {
+      "b_h": -247,
+      "1e5_Bt": "-245.8957",
+      "s_h": 332,
+      "1e5_S": "333.3960"
+     },
+     "1.46": {
+      "b_h": -275,
+      "1e5_Bt": "-273.1695",
+      "s_h": 332,
+      "1e5_S": "333.3960"
+     },
+     "1.5": {
+      "b_h": -260,
+      "1e5_Bt": "-258.7586",
+      "s_h": 318,
+      "1e5_S": "319.2828"
+     },
+     "1.54": {
+      "b_h": -193,
+      "1e5_Bt": "-191.3222",
+      "s_h": 293,
+      "1e5_S": "294.3773"
+     },
+     "1.58": {
+      "b_h": -76,
+      "1e5_Bt": "-74.6539",
+      "s_h": 271,
+      "1e5_S": "272.2961"
+     },
+     "1.62": {
+      "b_h": 86,
+      "1e5_Bt": "87.8095",
+      "s_h": 251,
+      "1e5_S": "252.6503"
+     },
+     "1.7": {
+      "b_h": 536,
+      "1e5_Bt": "537.9097",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "1.9": {
+      "b_h": 2275,
+      "1e5_Bt": "2276.3388",
+      "s_h": null,
+      "1e5_S": null
+     },
+     "2.25": {
+      "b_h": 6853,
+      "1e5_Bt": "6854.7643",
+      "s_h": null,
+      "1e5_S": null
+     }
+    }
+   },
+   "checks": [
+    {
+     "check": "the proposition as stated (numerics.tex:10-16)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the definitions read (nest:weight, nest:baseline, nest:gain-parameters, nest:gain-coefficient, nest:gain-definition)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "Table num:knot-table read: 24 knots from .64 to 2.25 with 16 s-entries; Table num:gap-table: 23 intervals",
+     "pass": true,
+     "detail": "24 knots, 23 gaps"
+    },
+    {
+     "check": "pi enclosure (Machin, alternating brackets, here): the printed pi_- < pi < pi_+ holds",
+     "pass": true,
+     "detail": "pi in [3.14159265358979, 3.14159265358979]"
+    },
+    {
+     "check": "the paper's rational comparisons for pi (A_31(1/5), A_9(1/239), e_N) hold exactly (:370-373)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "g(D) = 7/25 = ell and int_0^D W = 1 - ell = .72 (sqrt(1 - 48/49) = 1/7 exactly)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "W = -g' = X(.96 - .98X^2)/(1-X^2)^(3/2) (numerator identity, a cubic checked at 7 points)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "A. B > 0 on [0.64, 1.02], decided here by monotone bounds on an adaptive partition",
+     "pass": true,
+     "detail": "35 pieces, smallest certified lower bound 1.288e-05"
+    },
+    {
+     "check": "A. B + S > 0 on [1.02, 1.62], decided here by monotone bounds on an adaptive partition",
+     "pass": true,
+     "detail": "323 pieces, smallest certified lower bound 2.945e-06"
+    },
+    {
+     "check": "A. B > 0 on [1.62, 2.25], decided here by monotone bounds on an adaptive partition",
+     "pass": true,
+     "detail": "33 pieces, smallest certified lower bound 3.863e-05"
+    },
+    {
+     "check": "B. no knot is a branch tie (t = b_0 or h b_0 = D): every branch decided by disjoint enclosures (:428-429)",
+     "pass": true,
+     "detail": "1.46:hb0>=D, 1.5:t<b0, 1.54:t<b0, 1.58:t<b0, 1.62:t<b0, 1.7:t<b0, 1.9:t<b0, 2.25:t<b0"
+    },
+    {
+     "check": "B. 10^5 Bt(h) > b_h at all 24 knots (Table num:knot-table)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. stated slack 1.10 < 10^5 Bt(h) - b_h < 1.95 at all 24 knots (num:table-slack)",
+     "pass": true,
+     "detail": "range of 10^5 Bt - b_h: [1.1043, 1.9446]"
+    },
+    {
+     "check": "B. 10^5 S(h) > s_h at all 16 interior knots",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. stated slack 1.00 < 10^5 S(h) - s_h < 1.66 at all 16 knots (num:table-slack)",
+     "pass": true,
+     "detail": "range of 10^5 S - s_h: [1.0033, 1.6503]"
+    },
+    {
+     "check": "B. -273.170 < 10^5 Bt(1.46) < -273.169 (:473), and Bt(1.46) = B(1.46) (h b_0 > D: no Taylor term)",
+     "pass": true,
+     "detail": "10^5 Bt in [-273.169483, -273.169483]"
+    },
+    {
+     "check": "B. 10^5 S(1.46) = 333.396 exactly, by the cap term (P >= d_m and the uncapped minimum exceeds C_0 d_m^3) (:474-477)",
+     "pass": true,
+     "detail": "10^5 C_0 d_m^3 = 83349/250"
+    },
+    {
+     "check": "B. at every knot the rigorous B (and B + S inside) is positive",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. Lemma num:taylor-error holds at the 24 knots: B >= Bt - .008 (D/h - b_0)_+^4 (B enclosed independently)",
+     "pass": true,
+     "detail": "smallest slack 4.091e-10; grids refined at 1.42: step 1/8000"
+    },
+    {
+     "check": "B. 49 D_+^2 > 48, so D < D_+ (:498)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. 2/(1.02)^2 + .4 < 2.4 (:490)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. Table num:gap-table: the 23 intervals are the consecutive knots, and every printed integer <= 10^6 M_{a,b} from (num:gap-formula)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "B. the smallest margin is exactly 9/100000, on [1.42,1.46] and [1.46,1.50]; at 1.46 the corrected bound is .00057 and the loss .00048 (:547-550)",
+     "pass": true,
+     "detail": "min 9/100000 on [1.42,1.46], [1.46,1.5]"
+    },
+    {
+     "check": "C. num:s-second: .64 < t < .8 on [1.02,1.62] and t(1.62) < .65 (t decreasing)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:s-second: 1792/9350 = 2(.64)^2/((22/7)(2-.64)), 160/471 = 2(.8)^2/(3.14(2-.8)), .19 < 1792/9350 < 160/471 < .34",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:s-second: 1053/1570 = 2(1.62)(.65)/3.14 < .671 and b_0 - 1 + 1053/1570 < .36 (b_0 < 15/22)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:s-second: h_c = .96/b_0 > 1.4; w' > .19 - .36/(2.04) > 0; w'' <= .36/(4(1.02)^2) < .8; -.96/1.4^2 + .19 - .36/2.8 > -.50; 1.92/1.4^3 + .36/(4(1.4)^2) < .8",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:s-second: C_0 <= .36, C_0' = .402h^2 <= 1.08, C_0'' = .804h <= 2.16 for h <= 1.62",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:s-second: the product-rule bound equals .26866728 < .4, and 2.16 d_m^3 < .4",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:taylor-error: .68 < b_0 < .69, and 15 sqrt(22/7)(11/14)^2(.69)/(1+(3.14/4)(.68)^2)^(7/2) < 4 (squared: rational)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:taylor-error: 6 sigma b_0^2 >= 1 (|rho''''| decreasing beyond b_0) and .72 * 4 (L/2)^4/24 = .0075 L^4 <= .008 L^4",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:arithmetic: j_D^2 = (1 - 2/sqrt7)/2 (m(D)^2 = 3/7 exactly) and (1 - 2/sqrt7)/2 < 1/8 < .36^2 (64 > 63)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. num:layer-cake: rho'(b_0) = 2/(pi+1) (enclosures overlap) and rho(b_0) = b_0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:s-formula: 16/27 - 1 + 21/44 = 83/1188 > 0, and 9/16 - pi/4 < 0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:coefficient-bound: c d_m = .567; .567(32/37)^2 - 3.14(5/37) = -73/342250; .567(13/15)^2 - (22/7)(2/15) = 3587/525000",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:coefficient-bound: M(32/37) = 40448/151959 > .2659, q_m(32/37) = 2041/2923 > .697, p_2(13/15) = 2723587/2500000 < 1.09",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:coefficient-bound: (.91*2.7*.2659)^2 - .574^2 1.09^3 = 14121304169/10^14; .574(.617)^3 = .134824054862; .96 - 1.62*.06363 = .8569194; .574(.856)^3 = .360025437184; 1 - 1/3.14 - .06363 > .617",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:derivative-bound: (.49-n)(1-b^2) - .01 = .0000096, .000395, .000476, .000192; D_1(a)^2 = .20772864, .16467759, .10285104 < .46^2, .41^2, .33^2; n - .91 d = .001, .0214, .0269, .0597",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "C. nest:shape-gain: 16/27 - .21 = 1033/2700 > .38 > 1/3 > a_0; c d_m^2 = .11907 < .14; 35/24 - 25(.21)^2/16 = 26677/19200 >= 1.35; .525^2 bound -3/20 + w/5 + w^2/25 < 0",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "consistency: the layer-cake formula (num:layer-cake-formula) equals the direct integration here at all 24 knots (overlap)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "consistency: the paper's moments (num:moments-j) equal the moments derived here at x, y for all knots (overlap)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "consistency: numerics.tex Q = (2/sqrt pi)(1+4h^2/pi)^(1/4) equals nesting.tex Q = (2/pi) sqrt(pi + 2h^2 t) at all knots (overlap)",
+     "pass": true,
+     "detail": ""
+    },
+    {
+     "check": "the paper says its exact calculations are included with the source (paper.tex:157); the release has no code or data file for them",
+     "pass": true,
+     "detail": "recorded as an observation; the tables are the checkable certificate"
+    }
+   ],
+   "sources": {
+    "preprints/The-Isoperimetric-Conjecture-for-the-Cubic-Flat-Three-Torus-September-24-2026/build/sections/numerics.tex": "2560ee9a179d718d4c6b5d3899c403ec88eb83e8ebe9704995de11c119df7594",
+    "preprints/The-Isoperimetric-Conjecture-for-the-Cubic-Flat-Three-Torus-September-24-2026/build/sections/nesting.tex": "56162a6f0af399a56599bef12f5007b24975cbb74ce620140f27383ff449afd4",
+    "preprints/The-Isoperimetric-Conjecture-for-the-Cubic-Flat-Three-Torus-September-24-2026/build/paper.tex": "ab75095f542adf4073a41a26a3c3ae97be7b55fa19674ec4fb4c288f7145a813"
+   },
+   "forges": [
+    {
+     "forge": "b_h at 1.46 raised from -275 to -272 (above 10^5 Bt = -273.17)",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "gap entry [1.42,1.46] raised from 90 to 91",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "s_h at 1.02 raised from 76 to 78",
+     "verdict": "REFUTED"
+    },
+    {
+     "forge": "the exterior range claimed up to 1.10 instead of 1.02 (B alone, without the gain S)",
+     "verdict": "REFUTED"
+    }
+   ],
+   "seconds": 7.1
   },
   {
    "id": "F-688",

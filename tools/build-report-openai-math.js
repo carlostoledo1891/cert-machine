@@ -81,6 +81,7 @@ B.push(C.tldr({
     + 'cites manuscripts the formalization never linked; <b>' + cnt(sw, 'NARROWER — UNDECLARED') + ' state less than a linked manuscript claims with nothing saying so</b>; '
     + cnt(sw, 'DIFFERENT') + ' state a different theorem from the headline; ' + cnt(sw, 'SUPPORT-ONLY') + ' carry only a declared supporting result. '
     + '<b>Finite lane: ' + fCert.length + ' finite cores CERTIFIED</b> by programs written here (' + fWhole.length + ' of them the whole headline), none refuted; '
+    + fBad.filter((r) => r.word === 'REFUSED').length + ' REFUSED (most decided in part, the rest too costly here, each cost named); '
     + fNeeds.length + ' headline witnesses are asserted but not published in checkable form — among them the Hadwiger, Sidorenko, Ryser and Kaplansky counterexamples.',
   mechanismRaw: 'Three lanes on one pinned commit. K: Comparator, the Lean FRO\'s judge, re-run on Linux with nanoda — a kernel written in Rust, independently of '
     + 'Lean\'s — switched on, and a second run that compares the bodies of declared "definition holes", which Comparator checks by type alone. S: every '
@@ -163,7 +164,7 @@ B.push(C.section({
       + 'object is the entire claim, otherwise the analytic argument around the component is not decided here.'),
     C.table({ cols: [{ h: 'verdict' }, { h: 'row' }, { h: 'manuscript' }, { h: 'what is decided' }],
       rows: fRowsShown.map((r) => [{ raw: C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'NEEDS DATA' ? 'open' : 'dep') }, { raw: C.m(r.id) },
-        { raw: C.esc(short(plain(r.title), 80)) }, { raw: C.esc(short(r.word === 'NEEDS DATA' ? r.why : (r.decides || ''), 220)) }]) }),
+        { raw: C.esc(short(plain(r.title), 80)) }, { raw: C.esc(short(r.word === 'CERTIFIED' ? (r.decides || '') : (r.why || ''), 240)) }]) }),
     fOpen.length ? C.pRaw(fOpen.length + ' further rows are not yet decided: ' + fOpen.map((r) => C.m(r.id)).join(' ') + '.') : ''
   ].join('\n')
 }));
