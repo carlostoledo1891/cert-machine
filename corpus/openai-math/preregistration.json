@@ -23,7 +23,8 @@
    "declaredChanges": [
     "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
     "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
-    "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11"
+    "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11",
+    "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so"
    ],
    "words": {
     "CERTIFIED": "Comparator exits 0 and prints 'Your solution is okay!', with 'nanoda kernel accepts the solution' and 'Lean default kernel accepts the solution' both printed: every listed theorem states exactly the challenge's statement, uses no axiom beyond propext, Quot.sound, Classical.choice, and is accepted by two kernels written independently. It says nothing about whether the Lean statement is the paper's claim — that is lane S.",
@@ -172,6 +173,12 @@
    "before": "the re-runs of OccupiedOverlap, Brenier and the others not yet transferred",
    "what": "(1) the guard counts every constant named from copied text (an anonymous instance of a copy is auto-named …_auditDisplayed) as a copy; (2) the red control forges a hole that a theorem statement names directly and no other copied text uses, and falls back to negating each statement when there is no such hole — the forge file must elaborate exactly as the transfer file does except at the forged point",
    "why": "OccupiedOverlap's guard flagged instFintypeTabloid_auditDisplayed, an auto-named copy; Brenier transferred but its first forge broke ten copied proofs that unfolded the forged hole, so its red control said nothing."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any re-run of the challenges nanoda refused (16 MiB stack overflow, runner terminated at 1 GiB, time limit)",
+   "what": "the refused challenges are re-run with nanoda at its pin plus the ammkrn/nanoda_lib#44 patch on the STOCK 16 MiB stack (nanoda_build issue44), so the result says what the patch alone does; any that still fail are re-run with the patch and the 1 GiB stack (issue44-stack1g). A CERTIFIED under a patched build is recorded with its build, never silently pooled with the unpatched ones. The patch follows the reference kernel's algorithm, not its code: nanoda stays a kernel written separately from Lean's, but a third party's change to it is now part of the trust base for those rows.",
+   "why": "nanoda_lib#44 (opened 2026-10-06 by Joachim Breitner, with the patch) traces two departures of nanoda's def_eq from the reference kernel: two-valued proof irrelevance, which unfolds proofs of different propositions (often well-founded recursions) until memory runs out, and projections compared by their whole structures, which overflows the stack on the lean-kernel-arena test perf/proj-lazy-struct. Our 13 overflows at 16 MiB and the 1 GiB runs the runner terminated (memory) are the two symptoms it describes; raising the stack (amendment 11) treated a symptom."
   }
  ]
 }

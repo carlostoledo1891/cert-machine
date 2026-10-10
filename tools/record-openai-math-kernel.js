@@ -118,7 +118,10 @@ for (const d of runDirs) {
     const r = rows.get(ch.name) || { challenge: ch.name, families: ch.families, statementLines: ch.statementLines, nanodaInRelease: ch.enableNanoda, definitionHoles: ch.definitionNames.length, runs: [] };
     /* a job that never reached Comparator because WE cancelled its run is not a decision of any kind */
     const dec = !f.ran && meta.conclusion === 'cancelled' ? { word: 'NOT RUN', stage: 'cancelled', why: 'its run was cancelled before Comparator ran' } : decide(f);
-    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null });
+    /* which nanoda: the job prints its build (amendment 13); runs before that line existed leave it null */
+    const nb = ((f.env || []).find((l) => /^nanoda build: /.test(l)) || '').replace(/^nanoda build: /, '') || null;
+    if (dec.word === 'CERTIFIED' && nb && /issue44/.test(nb)) dec.why = 'Comparator exit 0; Lean\'s kernel and nanoda with the ammkrn/nanoda_lib#44 patch (' + nb + ', amendment 13) both accept';
+    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, nanodaBuild: nb, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null });
     rows.set(ch.name, r);
   }
 }
@@ -130,7 +133,7 @@ for (const r of rows.values()) {
     const agree = r.runs.filter((x) => x.decided.word === 'REFUTED?').length;
     r.word = agree >= 2 ? 'REFUTED' : 'REFUTED — TO REPRODUCE';
   }
-  r.why = last.decided.why; r.stage = last.decided.stage || null;
+  r.why = last.decided.why; r.stage = last.decided.stage || null; r.nanodaBuild = last.nanodaBuild || null;
   /* the latest run whose strict run reached a decision decides it (a cancelled job's absent strict run says nothing) */
   const st = r.runs.filter((x) => x.strict && x.strict.word !== 'NOT RUN'); r.strict = st.length ? st[st.length - 1].strict : last.strict;
   /* the latest run that ran the transfer check decides it */

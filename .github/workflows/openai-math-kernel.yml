@@ -32,6 +32,10 @@ on:
         description: 'concurrent jobs'
         required: false
         default: '20'
+      nanoda_build:
+        description: 'nanoda as built: stack1g (amendment 11) | issue44 (amendment 13: the ammkrn/nanoda_lib#44 patch, the stock 16 MiB stack) | issue44-stack1g (both)'
+        required: false
+        default: 'stack1g'
 permissions:
   contents: read
 env:
@@ -42,6 +46,9 @@ env:
   LEAN4EXPORT_PIN: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest
   LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4      # Zouuup/landrun main, 2026-07-23
   NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7       # ammkrn/nanoda_lib master, 2026-09-22 (v0.4.19)
+  NANODA_BUILD: ${{ inputs.nanoda_build }}
+  # amendment 13: the patch posted in ammkrn/nanoda_lib#44 (2026-10-06), copied byte for byte from the issue
+  ISSUE44_SHA256: 3939d228619a28d7437bad82c1d41fe1fd4597a7ea55b849840c0f7caa7d0ee5
 jobs:
   plan:
     runs-on: ubuntu-24.04
@@ -62,11 +69,19 @@ jobs:
   tools:
     runs-on: ubuntu-24.04
     steps:
+      - name: the variant asked for is one of the three
+        run: |
+          case "$NANODA_BUILD" in stack1g|issue44|issue44-stack1g) ;; *) echo "unknown nanoda_build: $NANODA_BUILD"; exit 1;; esac
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: corpus/openai-math/nanoda/issue44.patch
+          sparse-checkout-cone-mode: false
+          path: audit
       - id: cache
         uses: actions/cache@v4
         with:
           path: ~/kernel-tools
-          key: kernel-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g
+          key: kernel-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-${{ inputs.nanoda_build }}-${{ env.ISSUE44_SHA256 }}
       - if: steps.cache.outputs.cache-hit != 'true'
         name: build comparator, lean4export, landrun, nanoda at their pins
         run: |
@@ -84,11 +99,24 @@ jobs:
           cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
           go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
           cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
-          # amendment 11: the ONE change to nanoda — its worker threads' stack, a hard-coded 16 MiB (src/lib.rs), raised
-          # to 1 GiB; deep exports overflowed it (14 jobs). No other byte of the kernel changes; the diff is printed.
-          sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+          # amendment 11 (stack1g): ONE change to nanoda — its worker threads' stack, a hard-coded 16 MiB (src/lib.rs),
+          # raised to 1 GiB. Amendment 13 (issue44): the patch of ammkrn/nanoda_lib#44, src/tc.rs only — proof
+          # irrelevance three-valued and lazy_delta_proj_reduction, both as Lean's reference kernel does them — on the
+          # stock stack; issue44-stack1g applies both. Nothing else changes; the diff is printed and kept.
+          case "$NANODA_BUILD" in
+            stack1g|issue44-stack1g)
+              sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+              test "$(git diff --numstat src/lib.rs | awk '{print $1+$2}')" = "2" ;;
+          esac
+          case "$NANODA_BUILD" in
+            issue44|issue44-stack1g)
+              P="$GITHUB_WORKSPACE/audit/corpus/openai-math/nanoda/issue44.patch"
+              test "$(sha256sum "$P" | cut -d' ' -f1)" = "$ISSUE44_SHA256"
+              git apply "$P" ;;
+          esac
           git diff --stat; git diff | tee ~/kernel-tools/nanoda.patch
-          test "$(git diff --numstat | awk '{print $1+$2}')" = "2"
+          test -z "$(git diff --name-only | grep -v -x -e src/lib.rs -e src/tc.rs)"
+          echo "$NANODA_BUILD" > ~/kernel-tools/nanoda.build
           cargo build --release -q
           cp target/release/nanoda_bin ~/kernel-tools/bin/
           ls -la ~/kernel-tools/bin
@@ -191,6 +219,7 @@ jobs:
             echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null)"
             lean --version; comparator --version 2>/dev/null || true
             echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
+            echo "nanoda build: $(cat ~/kernel-tools/nanoda.build 2>/dev/null || echo stack1g)"
           } > ~/out/env.txt 2>&1
           # nanoda recurses deeply on some exports (9 jobs of run 38019899278 aborted with "stack overflow"): give the
           # main thread an unlimited stack and Rust's spawned threads 1 GiB

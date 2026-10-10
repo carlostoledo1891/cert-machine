@@ -8,20 +8,18 @@
  "declaredChanges": [
   "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
   "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
-  "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11"
+  "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11",
+  "for the re-runs of amendment 13 only: nanoda built with the patch posted in ammkrn/nanoda_lib#44 (2026-10-06; src/tc.rs only; copied byte for byte to corpus/openai-math/nanoda/issue44.patch, sha256 pinned in the workflow) — proof irrelevance three-valued and projections compared by lazy_delta_proj_reduction, both as Lean's reference kernel does them; every run records which nanoda build it used, and a row CERTIFIED by a patched nanoda says so"
  ],
  "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
- "notRunYet": [
-  "Catalan",
-  "CycleCliqueRamsey"
- ],
+ "notRunYet": [],
  "counts": {
-  "decided": 324,
+  "decided": 327,
   "of": 416,
-  "cancelledBeforeComparator": 2,
+  "cancelledBeforeComparator": 0,
   "words": {
    "CERTIFIED": 310,
-   "REFUSED": 14
+   "REFUSED": 17
   },
   "strict": {
    "SAME BODIES": 7,
@@ -51,6 +49,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 44,
      "cacheSeconds": 166,
@@ -70,6 +69,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -86,6 +86,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1264,
      "cacheSeconds": 163,
@@ -105,6 +106,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -121,6 +123,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 423,
      "cacheSeconds": 211,
@@ -140,6 +143,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -156,6 +160,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1355,
      "cacheSeconds": 171,
@@ -175,6 +180,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -191,6 +197,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 250,
      "cacheSeconds": 199,
@@ -210,6 +217,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -226,6 +234,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1970,
      "cacheSeconds": 186,
@@ -245,6 +254,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -261,6 +271,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 427,
      "cacheSeconds": 166,
@@ -280,6 +291,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -296,6 +308,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 189,
@@ -312,7 +325,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2870,
      "cacheSeconds": 193,
@@ -332,6 +346,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -348,6 +363,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 387,
      "cacheSeconds": 164,
@@ -367,6 +383,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -383,6 +400,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 174,
      "cacheSeconds": 208,
@@ -402,6 +420,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -418,6 +437,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1580,
      "cacheSeconds": 167,
@@ -437,6 +457,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -453,6 +474,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 187,
@@ -469,7 +491,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3489,
      "cacheSeconds": 209,
@@ -489,6 +512,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -505,6 +529,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1089,
      "cacheSeconds": 174,
@@ -524,6 +549,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -540,6 +566,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 295,
      "cacheSeconds": 171,
@@ -559,6 +586,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -575,6 +603,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 894,
      "cacheSeconds": 216,
@@ -594,6 +623,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -610,6 +640,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2706,
      "cacheSeconds": 204,
@@ -629,6 +660,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -645,6 +677,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 234,
      "cacheSeconds": 196,
@@ -664,6 +697,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -680,6 +714,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 478,
      "cacheSeconds": 191,
@@ -699,6 +734,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -715,6 +751,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 630,
      "cacheSeconds": 174,
@@ -734,6 +771,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -750,6 +788,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 309,
      "cacheSeconds": 164,
@@ -769,6 +808,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -785,6 +825,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 205,
      "cacheSeconds": 187,
@@ -804,6 +845,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -820,6 +862,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 321,
      "cacheSeconds": 166,
@@ -839,6 +882,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -855,6 +899,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 976,
      "cacheSeconds": 195,
@@ -874,6 +919,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -890,6 +936,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 491,
      "cacheSeconds": 193,
@@ -909,6 +956,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -925,6 +973,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 349,
      "cacheSeconds": 176,
@@ -944,6 +993,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -960,6 +1010,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 527,
      "cacheSeconds": 172,
@@ -982,6 +1033,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 190,
@@ -999,6 +1051,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 548,
      "cacheSeconds": 190,
@@ -1024,6 +1077,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 387,
      "cacheSeconds": 180,
@@ -1050,6 +1104,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -1077,6 +1132,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 565,
      "cacheSeconds": 177,
@@ -1096,6 +1152,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1112,6 +1169,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 461,
      "cacheSeconds": 169,
@@ -1131,6 +1189,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1147,6 +1206,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 101,
      "cacheSeconds": 178,
@@ -1166,6 +1226,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1182,6 +1243,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 298,
      "cacheSeconds": 162,
@@ -1201,6 +1263,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1217,6 +1280,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 494,
      "cacheSeconds": 167,
@@ -1236,6 +1300,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1252,6 +1317,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 802,
      "cacheSeconds": 185,
@@ -1271,6 +1337,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1287,6 +1354,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 158,
      "cacheSeconds": 196,
@@ -1306,6 +1374,55 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "Catalan",
+   "families": [
+    "005"
+   ],
+   "statementLines": 14,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38017370880,
+     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
+     "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 163,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1322,6 +1439,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 710,
      "cacheSeconds": 201,
@@ -1341,6 +1459,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1357,6 +1476,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 204,
@@ -1373,7 +1493,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3029,
      "cacheSeconds": 217,
@@ -1393,6 +1514,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1409,6 +1531,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 109,
      "cacheSeconds": 183,
@@ -1428,6 +1551,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1444,6 +1568,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 227,
      "cacheSeconds": 170,
@@ -1463,6 +1588,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1479,6 +1605,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 884,
      "cacheSeconds": 197,
@@ -1498,6 +1625,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1514,6 +1642,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 251,
      "cacheSeconds": 176,
@@ -1533,6 +1662,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1549,6 +1679,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 489,
      "cacheSeconds": 199,
@@ -1568,6 +1699,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1584,6 +1716,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 369,
      "cacheSeconds": 184,
@@ -1603,6 +1736,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1619,6 +1753,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 91,
      "cacheSeconds": 166,
@@ -1638,6 +1773,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1654,6 +1790,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 232,
      "cacheSeconds": 193,
@@ -1673,6 +1810,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1689,6 +1827,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 430,
      "cacheSeconds": 196,
@@ -1708,6 +1847,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1724,6 +1864,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 460,
      "cacheSeconds": 163,
@@ -1743,6 +1884,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1759,6 +1901,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 443,
      "cacheSeconds": 190,
@@ -1778,6 +1921,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1794,6 +1938,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2161,
      "cacheSeconds": 197,
@@ -1813,6 +1958,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1829,6 +1975,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 711,
      "cacheSeconds": 183,
@@ -1848,6 +1995,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1864,6 +2012,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 466,
      "cacheSeconds": 158,
@@ -1883,6 +2032,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1899,6 +2049,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 172,
@@ -1915,7 +2066,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1085,
      "cacheSeconds": 184,
@@ -1935,6 +2087,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1951,6 +2104,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 536,
      "cacheSeconds": 183,
@@ -1970,6 +2124,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -1986,6 +2141,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 282,
      "cacheSeconds": 160,
@@ -2005,6 +2161,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2021,6 +2178,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2559,
      "cacheSeconds": 187,
@@ -2040,6 +2198,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2056,6 +2215,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1697,
      "cacheSeconds": 217,
@@ -2075,6 +2235,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2091,6 +2252,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 308,
      "cacheSeconds": 218,
@@ -2110,6 +2272,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2126,6 +2289,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1031,
      "cacheSeconds": 202,
@@ -2145,6 +2309,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2161,6 +2326,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 161,
@@ -2177,7 +2343,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1233,
      "cacheSeconds": 173,
@@ -2197,6 +2364,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2213,6 +2381,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 449,
      "cacheSeconds": 185,
@@ -2232,6 +2401,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2248,6 +2418,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2390,
      "cacheSeconds": 188,
@@ -2267,6 +2438,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2283,6 +2455,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1272,
      "cacheSeconds": 201,
@@ -2302,6 +2475,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2318,6 +2492,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 255,
      "cacheSeconds": 172,
@@ -2337,6 +2512,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2353,6 +2529,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2420,
      "cacheSeconds": 188,
@@ -2372,6 +2549,55 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CycleCliqueRamsey",
+   "families": [
+    "189"
+   ],
+   "statementLines": 32,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38017370880,
+     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
+     "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 177,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2388,6 +2614,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 321,
      "cacheSeconds": 194,
@@ -2407,6 +2634,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2423,6 +2651,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 317,
      "cacheSeconds": 186,
@@ -2442,6 +2671,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2458,6 +2688,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 165,
@@ -2474,7 +2705,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 4173,
      "cacheSeconds": 215,
@@ -2500,6 +2732,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 196,
@@ -2517,6 +2750,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 219,
@@ -2534,6 +2768,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 5290,
      "cacheSeconds": 202,
@@ -2562,6 +2797,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "BODIES DIFFER",
     "constants": [
@@ -2591,6 +2827,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 165,
@@ -2607,7 +2844,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1961,
      "cacheSeconds": 187,
@@ -2627,6 +2865,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2643,6 +2882,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 564,
      "cacheSeconds": 200,
@@ -2662,6 +2902,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2678,6 +2919,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 436,
      "cacheSeconds": 216,
@@ -2697,6 +2939,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2713,6 +2956,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 172,
@@ -2729,7 +2973,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1416,
      "cacheSeconds": 187,
@@ -2749,6 +2994,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2765,6 +3011,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 187,
@@ -2781,7 +3028,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2229,
      "cacheSeconds": 200,
@@ -2801,6 +3049,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2817,6 +3066,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1714,
      "cacheSeconds": 182,
@@ -2836,6 +3086,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2852,6 +3103,7 @@
      "run": 38017370880,
      "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
      "at": "2026-10-10T03:12:38Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 177,
@@ -2868,7 +3120,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 395,
      "cacheSeconds": 200,
@@ -2888,6 +3141,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2903,7 +3157,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 2103,
      "cacheSeconds": 201,
@@ -2923,6 +3178,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -2935,6 +3191,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2951,6 +3208,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1448,
      "cacheSeconds": 193,
@@ -2970,6 +3228,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -2986,6 +3245,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 534,
      "cacheSeconds": 225,
@@ -3005,6 +3265,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3020,7 +3281,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 6585,
      "cacheSeconds": 210,
@@ -3040,6 +3302,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3055,7 +3318,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 171,
      "cacheSeconds": 211,
@@ -3075,6 +3339,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3090,7 +3355,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 480,
      "cacheSeconds": 209,
@@ -3110,6 +3376,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3125,7 +3392,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 103,
      "cacheSeconds": 191,
@@ -3145,6 +3413,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3160,7 +3429,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 193,
      "cacheSeconds": 211,
@@ -3180,6 +3450,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3195,7 +3466,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 237,
      "cacheSeconds": 207,
@@ -3215,6 +3487,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3231,6 +3504,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1812,
      "cacheSeconds": 171,
@@ -3250,6 +3524,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3265,7 +3540,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 203,
      "cacheSeconds": 183,
@@ -3285,6 +3561,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3300,7 +3577,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 446,
      "cacheSeconds": 193,
@@ -3320,6 +3598,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3336,6 +3615,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 745,
      "cacheSeconds": 201,
@@ -3355,6 +3635,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3370,7 +3651,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3717,
      "cacheSeconds": 207,
@@ -3390,6 +3672,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3406,6 +3689,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 805,
      "cacheSeconds": 188,
@@ -3425,6 +3709,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3440,7 +3725,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2016,
      "cacheSeconds": 181,
@@ -3463,6 +3749,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2801,
      "cacheSeconds": 202,
@@ -3488,6 +3775,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -3514,6 +3802,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 360,
      "cacheSeconds": 207,
@@ -3533,6 +3822,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3549,6 +3839,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 841,
      "cacheSeconds": 183,
@@ -3568,6 +3859,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3583,7 +3875,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 199,
@@ -3601,6 +3894,7 @@
    "word": "REFUSED",
    "why": "the job stopped before Comparator ran (see the run log)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3616,7 +3910,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 479,
      "cacheSeconds": 178,
@@ -3639,6 +3934,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 617,
      "cacheSeconds": 187,
@@ -3665,6 +3961,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -3691,7 +3988,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 387,
      "cacheSeconds": 215,
@@ -3711,6 +4009,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3726,7 +4025,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 409,
      "cacheSeconds": 186,
@@ -3746,6 +4046,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3761,7 +4062,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 152,
      "cacheSeconds": 187,
@@ -3781,6 +4083,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3796,7 +4099,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 354,
      "cacheSeconds": 208,
@@ -3816,6 +4120,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3831,7 +4136,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 298,
      "cacheSeconds": 186,
@@ -3851,6 +4157,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3866,7 +4173,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 296,
      "cacheSeconds": 178,
@@ -3886,6 +4194,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3901,7 +4210,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 310,
      "cacheSeconds": 187,
@@ -3921,6 +4231,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3936,7 +4247,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 412,
      "cacheSeconds": 190,
@@ -3956,6 +4268,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -3971,7 +4284,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2851,
      "cacheSeconds": 186,
@@ -3991,6 +4305,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4006,7 +4321,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 4985,
      "cacheSeconds": 192,
@@ -4026,6 +4342,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4042,6 +4359,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 462,
      "cacheSeconds": 205,
@@ -4061,6 +4379,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4076,7 +4395,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 18,
      "cacheSeconds": 185,
@@ -4096,6 +4416,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4112,6 +4433,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 997,
      "cacheSeconds": 221,
@@ -4131,6 +4453,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4146,7 +4469,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 740,
      "cacheSeconds": 209,
@@ -4166,6 +4490,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4181,7 +4506,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1988,
      "cacheSeconds": 191,
@@ -4201,6 +4527,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4216,7 +4543,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 154,
      "cacheSeconds": 201,
@@ -4236,6 +4564,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4251,7 +4580,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 81,
      "cacheSeconds": 212,
@@ -4271,6 +4601,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4286,7 +4617,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 301,
      "cacheSeconds": 199,
@@ -4306,6 +4638,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4321,7 +4654,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 902,
      "cacheSeconds": 187,
@@ -4341,6 +4675,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4356,7 +4691,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 87,
      "cacheSeconds": 203,
@@ -4376,6 +4712,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4392,6 +4729,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1579,
      "cacheSeconds": 189,
@@ -4411,6 +4749,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4427,6 +4766,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 572,
      "cacheSeconds": 214,
@@ -4446,6 +4786,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4462,6 +4803,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 513,
      "cacheSeconds": 216,
@@ -4481,6 +4823,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4496,7 +4839,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 458,
      "cacheSeconds": 214,
@@ -4516,6 +4860,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4531,7 +4876,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 634,
      "cacheSeconds": 207,
@@ -4551,6 +4897,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4566,7 +4913,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 238,
      "cacheSeconds": 176,
@@ -4586,6 +4934,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4601,7 +4950,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 6164,
      "cacheSeconds": 185,
@@ -4621,6 +4971,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4636,7 +4987,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 88,
      "cacheSeconds": 201,
@@ -4656,6 +5008,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4671,7 +5024,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 89,
      "cacheSeconds": 185,
@@ -4691,6 +5045,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4706,7 +5061,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 856,
      "cacheSeconds": 217,
@@ -4726,6 +5082,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 970,
      "cacheSeconds": 210,
@@ -4745,6 +5102,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4760,7 +5118,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 80,
      "cacheSeconds": 216,
@@ -4780,6 +5139,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4796,6 +5156,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 734,
      "cacheSeconds": 165,
@@ -4815,6 +5176,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4830,7 +5192,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 528,
      "cacheSeconds": 184,
@@ -4850,6 +5213,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4865,7 +5229,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1773,
      "cacheSeconds": 209,
@@ -4885,6 +5250,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4901,6 +5267,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1242,
      "cacheSeconds": 166,
@@ -4920,6 +5287,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4935,7 +5303,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 701,
      "cacheSeconds": 184,
@@ -4955,6 +5324,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -4970,7 +5340,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1385,
      "cacheSeconds": 187,
@@ -4990,6 +5361,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5005,7 +5377,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 803,
      "cacheSeconds": 195,
@@ -5025,6 +5398,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5041,6 +5415,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 203,
      "cacheSeconds": 199,
@@ -5060,6 +5435,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5075,7 +5451,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 280,
      "cacheSeconds": 195,
@@ -5095,6 +5472,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5110,7 +5488,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2728,
      "cacheSeconds": 215,
@@ -5130,6 +5509,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5145,7 +5525,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 68,
      "cacheSeconds": 184,
@@ -5165,6 +5546,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5180,7 +5562,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 675,
      "cacheSeconds": 187,
@@ -5200,6 +5583,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5216,6 +5600,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 451,
      "cacheSeconds": 204,
@@ -5235,6 +5620,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5250,7 +5636,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 630,
      "cacheSeconds": 203,
@@ -5270,6 +5657,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5286,6 +5674,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 295,
      "cacheSeconds": 181,
@@ -5305,6 +5694,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5321,6 +5711,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1029,
      "cacheSeconds": 192,
@@ -5340,6 +5731,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -5352,6 +5744,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5367,7 +5760,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 166,
      "cacheSeconds": 186,
@@ -5387,6 +5781,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5402,7 +5797,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 183,
      "cacheSeconds": 196,
@@ -5422,6 +5818,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5437,7 +5834,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1530,
      "cacheSeconds": 235,
@@ -5457,6 +5855,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5473,6 +5872,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 322,
      "cacheSeconds": 179,
@@ -5492,6 +5892,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5508,6 +5909,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 451,
      "cacheSeconds": 217,
@@ -5527,6 +5929,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5542,7 +5945,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 611,
      "cacheSeconds": 189,
@@ -5562,6 +5966,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5577,7 +5982,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2852,
      "cacheSeconds": 225,
@@ -5597,6 +6003,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5612,7 +6019,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3296,
      "cacheSeconds": 214,
@@ -5632,6 +6040,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5647,7 +6056,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2715,
      "cacheSeconds": 191,
@@ -5667,6 +6077,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5682,7 +6093,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1318,
      "cacheSeconds": 187,
@@ -5702,6 +6114,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5718,6 +6131,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 562,
      "cacheSeconds": 210,
@@ -5737,6 +6151,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5752,7 +6167,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 903,
      "cacheSeconds": 206,
@@ -5772,6 +6188,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 890,
      "cacheSeconds": 194,
@@ -5791,6 +6208,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5806,7 +6224,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 897,
      "cacheSeconds": 202,
@@ -5826,6 +6245,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 896,
      "cacheSeconds": 182,
@@ -5845,6 +6265,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5860,7 +6281,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 751,
      "cacheSeconds": 186,
@@ -5880,6 +6302,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5895,7 +6318,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 464,
      "cacheSeconds": 168,
@@ -5915,6 +6339,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5931,6 +6356,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1097,
      "cacheSeconds": 179,
@@ -5950,6 +6376,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -5966,6 +6393,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1632,
      "cacheSeconds": 187,
@@ -5985,6 +6413,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6001,6 +6430,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -6013,6 +6443,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6029,6 +6460,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 4115,
      "cacheSeconds": 186,
@@ -6048,6 +6480,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6063,7 +6496,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 356,
      "cacheSeconds": 218,
@@ -6086,6 +6520,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 190,
@@ -6103,6 +6538,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 298,
      "cacheSeconds": 194,
@@ -6125,6 +6561,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 459,
      "cacheSeconds": 185,
@@ -6150,6 +6587,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -6175,7 +6613,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 6128,
      "cacheSeconds": 185,
@@ -6195,6 +6634,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -6207,6 +6647,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6222,7 +6663,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 6487,
      "cacheSeconds": 187,
@@ -6242,6 +6684,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -6254,6 +6697,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6270,6 +6714,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 5436,
      "cacheSeconds": 187,
@@ -6289,6 +6734,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6305,6 +6751,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 6149,
      "cacheSeconds": 196,
@@ -6324,6 +6771,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -6336,6 +6784,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6352,6 +6801,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 547,
      "cacheSeconds": 217,
@@ -6371,6 +6821,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6386,7 +6837,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 619,
      "cacheSeconds": 201,
@@ -6406,6 +6858,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6422,6 +6875,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2106,
      "cacheSeconds": 200,
@@ -6441,6 +6895,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6456,7 +6911,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 385,
      "cacheSeconds": 181,
@@ -6476,6 +6932,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6491,7 +6948,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1837,
      "cacheSeconds": 186,
@@ -6511,6 +6969,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6526,7 +6985,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 261,
      "cacheSeconds": 174,
@@ -6546,6 +7006,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6561,7 +7022,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 524,
      "cacheSeconds": 184,
@@ -6581,6 +7043,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6597,6 +7060,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1360,
      "cacheSeconds": 208,
@@ -6616,6 +7080,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6631,7 +7096,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 476,
      "cacheSeconds": 174,
@@ -6654,6 +7120,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 213,
@@ -6671,6 +7138,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 517,
      "cacheSeconds": 184,
@@ -6696,6 +7164,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -6721,7 +7190,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 464,
      "cacheSeconds": 179,
@@ -6741,6 +7211,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6757,6 +7228,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 310,
      "cacheSeconds": 219,
@@ -6776,6 +7248,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6791,7 +7264,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 190,
      "cacheSeconds": 174,
@@ -6811,6 +7285,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6826,7 +7301,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 395,
      "cacheSeconds": 210,
@@ -6846,6 +7322,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6861,7 +7338,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 138,
      "cacheSeconds": 195,
@@ -6881,6 +7359,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6897,6 +7376,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 332,
      "cacheSeconds": 190,
@@ -6916,6 +7396,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6932,6 +7413,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1207,
      "cacheSeconds": 214,
@@ -6951,6 +7433,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -6966,7 +7449,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 402,
      "cacheSeconds": 221,
@@ -6986,6 +7470,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7002,6 +7487,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3834,
      "cacheSeconds": 209,
@@ -7021,6 +7507,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7037,6 +7524,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 843,
      "cacheSeconds": 215,
@@ -7056,6 +7544,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7072,6 +7561,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 222,
      "cacheSeconds": 201,
@@ -7091,6 +7581,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7107,6 +7598,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 277,
      "cacheSeconds": 226,
@@ -7126,6 +7618,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7141,7 +7634,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 66,
      "cacheSeconds": 175,
@@ -7161,6 +7655,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7176,7 +7671,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1135,
      "cacheSeconds": 197,
@@ -7196,6 +7692,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7211,7 +7708,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1297,
      "cacheSeconds": 216,
@@ -7231,6 +7729,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -7243,6 +7742,42 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MUBSix",
+   "families": [
+    "266"
+   ],
+   "statementLines": 67,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 206,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job stopped before Comparator ran (see the run log)"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "the job stopped before Comparator ran (see the run log)",
+   "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7259,6 +7794,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3335,
      "cacheSeconds": 175,
@@ -7281,6 +7817,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 193,
@@ -7298,6 +7835,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 184,
@@ -7315,6 +7853,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2611,
      "cacheSeconds": 188,
@@ -7341,6 +7880,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -7367,7 +7907,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 664,
      "cacheSeconds": 214,
@@ -7387,6 +7928,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7403,6 +7945,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 295,
      "cacheSeconds": 185,
@@ -7422,6 +7965,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7437,7 +7981,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 494,
      "cacheSeconds": 220,
@@ -7463,6 +8008,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 424,
      "cacheSeconds": 177,
@@ -7491,6 +8037,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 601,
      "cacheSeconds": 183,
@@ -7519,6 +8066,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 397,
      "cacheSeconds": 177,
@@ -7548,6 +8096,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "BODIES DIFFER",
     "constants": [
@@ -7577,7 +8126,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 605,
      "cacheSeconds": 193,
@@ -7597,6 +8147,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7612,7 +8163,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 238,
      "cacheSeconds": 203,
@@ -7632,6 +8184,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7648,6 +8201,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 100,
      "cacheSeconds": 208,
@@ -7667,6 +8221,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7682,7 +8237,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1387,
      "cacheSeconds": 175,
@@ -7702,6 +8258,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -7714,6 +8271,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7729,7 +8287,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1724,
      "cacheSeconds": 210,
@@ -7749,6 +8308,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7764,7 +8324,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2531,
      "cacheSeconds": 186,
@@ -7784,6 +8345,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7799,7 +8361,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3528,
      "cacheSeconds": 180,
@@ -7819,6 +8382,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7834,7 +8398,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 10338,
      "cacheSeconds": 185,
@@ -7854,6 +8419,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7870,6 +8436,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 348,
      "cacheSeconds": 196,
@@ -7889,6 +8456,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7905,6 +8473,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1242,
      "cacheSeconds": 219,
@@ -7924,6 +8493,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7939,7 +8509,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 711,
      "cacheSeconds": 185,
@@ -7959,6 +8530,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -7974,7 +8546,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 378,
      "cacheSeconds": 187,
@@ -7994,6 +8567,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8009,7 +8583,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 816,
      "cacheSeconds": 184,
@@ -8029,6 +8604,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8044,7 +8620,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 553,
      "cacheSeconds": 214,
@@ -8064,6 +8641,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8080,6 +8658,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2728,
      "cacheSeconds": 199,
@@ -8099,6 +8678,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8114,7 +8694,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 567,
      "cacheSeconds": 207,
@@ -8134,6 +8715,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8149,7 +8731,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 92,
      "cacheSeconds": 189,
@@ -8169,6 +8752,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8184,7 +8768,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1821,
      "cacheSeconds": 198,
@@ -8204,6 +8789,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8220,6 +8806,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 505,
      "cacheSeconds": 208,
@@ -8239,6 +8826,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8254,7 +8842,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 394,
      "cacheSeconds": 214,
@@ -8274,6 +8863,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8289,7 +8879,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 211,
@@ -8307,6 +8898,7 @@
    "word": "REFUSED",
    "why": "the job stopped before Comparator ran (see the run log)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8322,7 +8914,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 454,
      "cacheSeconds": 182,
@@ -8342,6 +8935,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8357,7 +8951,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 75,
      "cacheSeconds": 201,
@@ -8377,6 +8972,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8392,7 +8988,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 827,
      "cacheSeconds": 196,
@@ -8412,6 +9009,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8427,7 +9025,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 703,
      "cacheSeconds": 196,
@@ -8447,6 +9046,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8462,7 +9062,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 142,
      "cacheSeconds": 181,
@@ -8482,6 +9083,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8497,7 +9099,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 269,
      "cacheSeconds": 200,
@@ -8517,6 +9120,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8533,6 +9137,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 245,
      "cacheSeconds": 217,
@@ -8552,6 +9157,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8567,7 +9173,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 591,
      "cacheSeconds": 196,
@@ -8587,6 +9194,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8602,7 +9210,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 254,
      "cacheSeconds": 202,
@@ -8622,6 +9231,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8638,6 +9248,7 @@
      "run": 38015544207,
      "workflowSha": "1fd06a69da6562e05c5943e7c57a2dfa80d9bec8",
      "at": "2026-10-10T03:11:02Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1031,
      "cacheSeconds": 190,
@@ -8654,7 +9265,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 7386,
      "cacheSeconds": 205,
@@ -8674,6 +9286,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8689,7 +9302,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1061,
      "cacheSeconds": 203,
@@ -8709,6 +9323,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8724,7 +9339,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 840,
      "cacheSeconds": 212,
@@ -8744,6 +9360,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8759,7 +9376,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 593,
      "cacheSeconds": 175,
@@ -8779,6 +9397,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8794,7 +9413,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1862,
      "cacheSeconds": 185,
@@ -8814,6 +9434,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8830,6 +9451,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 576,
      "cacheSeconds": 192,
@@ -8849,6 +9471,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8865,6 +9488,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 628,
      "cacheSeconds": 211,
@@ -8884,6 +9508,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8899,7 +9524,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 135,
      "cacheSeconds": 196,
@@ -8919,6 +9545,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8934,7 +9561,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 231,
      "cacheSeconds": 209,
@@ -8954,6 +9582,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -8969,7 +9598,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 246,
      "cacheSeconds": 185,
@@ -8989,6 +9619,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9005,6 +9636,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 3323,
      "cacheSeconds": 198,
@@ -9024,6 +9656,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9039,7 +9672,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2082,
      "cacheSeconds": 212,
@@ -9059,6 +9693,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9074,7 +9709,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 637,
      "cacheSeconds": 212,
@@ -9097,6 +9733,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": null,
      "seconds": null,
      "cacheSeconds": 205,
@@ -9114,6 +9751,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 820,
      "cacheSeconds": 207,
@@ -9140,6 +9778,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
@@ -9166,7 +9805,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 213,
      "cacheSeconds": 212,
@@ -9186,6 +9826,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9201,7 +9842,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 183,
      "cacheSeconds": 175,
@@ -9221,6 +9863,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9236,7 +9879,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1982,
      "cacheSeconds": 212,
@@ -9256,6 +9900,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9272,6 +9917,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 177,
      "cacheSeconds": 176,
@@ -9291,6 +9937,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9306,7 +9953,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 308,
      "cacheSeconds": 186,
@@ -9326,6 +9974,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9342,6 +9991,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 622,
      "cacheSeconds": 211,
@@ -9361,6 +10011,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9376,7 +10027,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 67,
      "cacheSeconds": 176,
@@ -9396,6 +10048,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9411,7 +10064,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 456,
      "cacheSeconds": 199,
@@ -9431,6 +10085,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9447,6 +10102,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 526,
      "cacheSeconds": 213,
@@ -9466,6 +10122,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9481,7 +10138,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 114,
      "cacheSeconds": 174,
@@ -9501,6 +10159,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9516,7 +10175,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 490,
      "cacheSeconds": 189,
@@ -9536,6 +10196,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9551,7 +10212,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 83,
      "cacheSeconds": 195,
@@ -9571,6 +10233,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9586,7 +10249,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1363,
      "cacheSeconds": 221,
@@ -9606,6 +10270,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9621,7 +10286,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 170,
      "cacheSeconds": 173,
@@ -9641,6 +10307,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9656,7 +10323,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 443,
      "cacheSeconds": 220,
@@ -9676,6 +10344,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9691,7 +10360,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 848,
      "cacheSeconds": 184,
@@ -9711,6 +10381,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9726,7 +10397,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1029,
      "cacheSeconds": 176,
@@ -9746,6 +10418,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9761,7 +10434,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 530,
      "cacheSeconds": 184,
@@ -9781,6 +10455,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9796,7 +10471,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2078,
      "cacheSeconds": 193,
@@ -9816,6 +10492,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9831,7 +10508,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 958,
      "cacheSeconds": 174,
@@ -9851,6 +10529,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9866,7 +10545,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 304,
      "cacheSeconds": 178,
@@ -9886,6 +10566,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9901,7 +10582,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 751,
      "cacheSeconds": 203,
@@ -9921,6 +10603,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9937,6 +10620,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 670,
      "cacheSeconds": 185,
@@ -9956,6 +10640,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -9972,6 +10657,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1307,
      "cacheSeconds": 219,
@@ -9991,6 +10677,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10007,6 +10694,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 510,
      "cacheSeconds": 212,
@@ -10026,6 +10714,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10042,6 +10731,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2130,
      "cacheSeconds": 187,
@@ -10061,6 +10751,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10076,7 +10767,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 8967,
      "cacheSeconds": 204,
@@ -10096,6 +10788,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10112,6 +10805,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 718,
      "cacheSeconds": 200,
@@ -10131,6 +10825,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10146,7 +10841,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 358,
      "cacheSeconds": 196,
@@ -10166,6 +10862,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10182,6 +10879,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 737,
      "cacheSeconds": 183,
@@ -10201,6 +10899,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10216,7 +10915,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2195,
      "cacheSeconds": 196,
@@ -10236,6 +10936,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10251,7 +10952,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 2176,
      "cacheSeconds": 212,
@@ -10271,6 +10973,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10287,6 +10990,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 419,
      "cacheSeconds": 190,
@@ -10306,6 +11010,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10321,7 +11026,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 319,
      "cacheSeconds": 185,
@@ -10347,6 +11053,7 @@
      "run": 38047056483,
      "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
      "at": "2026-10-10T11:26:54Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 311,
      "cacheSeconds": 201,
@@ -10376,6 +11083,7 @@
      "run": 38048459332,
      "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
      "at": "2026-10-10T11:53:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 352,
      "cacheSeconds": 186,
@@ -10405,6 +11113,7 @@
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
      "at": "2026-10-10T13:30:25Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 323,
      "cacheSeconds": 211,
@@ -10434,6 +11143,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": {
     "word": "BODIES DIFFER",
     "constants": [
@@ -10464,6 +11174,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 543,
      "cacheSeconds": 186,
@@ -10483,6 +11194,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10498,7 +11210,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 790,
      "cacheSeconds": 186,
@@ -10518,6 +11231,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -10530,6 +11244,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10545,7 +11260,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 230,
      "cacheSeconds": 185,
@@ -10565,6 +11281,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10580,7 +11297,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 258,
      "cacheSeconds": 202,
@@ -10600,6 +11318,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10616,6 +11335,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1892,
      "cacheSeconds": 211,
@@ -10635,6 +11355,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10650,7 +11371,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1364,
      "cacheSeconds": 181,
@@ -10670,6 +11392,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10686,6 +11409,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1358,
      "cacheSeconds": 202,
@@ -10705,6 +11429,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10720,7 +11445,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 473,
      "cacheSeconds": 188,
@@ -10740,6 +11466,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10755,7 +11482,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 599,
      "cacheSeconds": 203,
@@ -10775,6 +11503,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10790,7 +11519,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 12453,
      "cacheSeconds": 204,
@@ -10810,6 +11540,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10825,7 +11556,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 613,
      "cacheSeconds": 210,
@@ -10845,6 +11577,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10860,7 +11593,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 539,
      "cacheSeconds": 211,
@@ -10880,6 +11614,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10895,7 +11630,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 363,
      "cacheSeconds": 220,
@@ -10915,6 +11651,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10930,7 +11667,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 463,
      "cacheSeconds": 203,
@@ -10950,6 +11688,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -10965,7 +11704,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 4751,
      "cacheSeconds": 218,
@@ -10985,6 +11725,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11000,7 +11741,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1457,
      "cacheSeconds": 210,
@@ -11020,6 +11762,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11035,7 +11778,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 662,
      "cacheSeconds": 202,
@@ -11055,6 +11799,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11070,7 +11815,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 590,
      "cacheSeconds": 219,
@@ -11090,6 +11836,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11105,7 +11852,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 829,
      "cacheSeconds": 196,
@@ -11125,6 +11873,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11140,7 +11889,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 64,
      "cacheSeconds": 196,
@@ -11160,6 +11910,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11175,7 +11926,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 63,
      "cacheSeconds": 202,
@@ -11195,6 +11947,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11210,7 +11963,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 5143,
      "cacheSeconds": 183,
@@ -11230,6 +11984,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11246,6 +12001,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 169,
      "cacheSeconds": 196,
@@ -11265,6 +12021,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11280,7 +12037,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 150,
      "cacheSeconds": 187,
@@ -11300,6 +12058,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11316,6 +12075,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 499,
      "cacheSeconds": 188,
@@ -11335,6 +12095,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11351,6 +12112,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 242,
      "cacheSeconds": 209,
@@ -11370,6 +12132,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11386,6 +12149,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 237,
      "cacheSeconds": 199,
@@ -11405,6 +12169,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11421,6 +12186,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 368,
      "cacheSeconds": 174,
@@ -11440,6 +12206,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11455,7 +12222,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 141,
      "cacheSeconds": 192,
@@ -11475,6 +12243,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11490,7 +12259,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 301,
      "cacheSeconds": 196,
@@ -11510,6 +12280,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11525,7 +12296,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 509,
      "cacheSeconds": 178,
@@ -11545,6 +12317,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11561,6 +12334,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1932,
      "cacheSeconds": 205,
@@ -11580,6 +12354,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11595,7 +12370,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 155,
      "cacheSeconds": 190,
@@ -11615,6 +12391,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11631,6 +12408,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 478,
      "cacheSeconds": 197,
@@ -11650,6 +12428,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11665,7 +12444,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 232,
      "cacheSeconds": 185,
@@ -11685,6 +12465,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11700,7 +12481,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 739,
      "cacheSeconds": 216,
@@ -11720,6 +12502,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11735,7 +12518,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 206,
      "cacheSeconds": 212,
@@ -11755,6 +12539,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11770,7 +12555,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 12229,
      "cacheSeconds": 185,
@@ -11790,6 +12576,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11805,7 +12592,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 774,
      "cacheSeconds": 209,
@@ -11825,6 +12613,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11840,7 +12629,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 62,
      "cacheSeconds": 193,
@@ -11860,6 +12650,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11875,7 +12666,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 127,
      "cacheSeconds": 221,
@@ -11895,6 +12687,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11910,7 +12703,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 184,
      "cacheSeconds": 193,
@@ -11930,6 +12724,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11946,6 +12741,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 236,
      "cacheSeconds": 228,
@@ -11965,6 +12761,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -11980,7 +12777,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 8376,
      "cacheSeconds": 184,
@@ -12000,6 +12798,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12015,7 +12814,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 325,
      "cacheSeconds": 196,
@@ -12035,6 +12835,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12050,7 +12851,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 470,
      "cacheSeconds": 206,
@@ -12070,6 +12872,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12085,7 +12888,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1670,
      "cacheSeconds": 186,
@@ -12105,6 +12909,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -12117,6 +12922,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12132,7 +12938,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 411,
      "cacheSeconds": 184,
@@ -12152,6 +12959,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12168,6 +12976,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -12180,6 +12989,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12196,6 +13006,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 405,
      "cacheSeconds": 220,
@@ -12215,6 +13026,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12231,6 +13043,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1702,
      "cacheSeconds": 225,
@@ -12250,6 +13063,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12265,7 +13079,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 1,
      "seconds": 1058,
      "cacheSeconds": 219,
@@ -12285,6 +13100,7 @@
      "run": 38048720541,
      "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
      "at": "2026-10-10T13:31:09Z",
+     "nanodaBuild": null,
      "decided": {
       "word": "REFUSED",
       "stage": "not run",
@@ -12297,6 +13113,7 @@
    "word": "REFUSED",
    "why": "the job ended (failure) in the step \"comparator, Lean's kernel and nanoda\" without uploading a result: the runner terminated it (GitHub: Process completed with exit code 143.)",
    "stage": "not run",
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12312,7 +13129,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1366,
      "cacheSeconds": 220,
@@ -12332,6 +13150,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12348,6 +13167,7 @@
      "run": 38040214623,
      "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
      "at": "2026-10-10T09:06:43Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 885,
      "cacheSeconds": 212,
@@ -12367,6 +13187,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12383,6 +13204,7 @@
      "run": 38051470892,
      "workflowSha": "ee027e39e5b91ba93d24cb895e9302e858a73637",
      "at": "2026-10-10T12:18:42Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 374,
      "cacheSeconds": 195,
@@ -12402,6 +13224,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   },
@@ -12417,7 +13240,8 @@
     {
      "run": 38019899278,
      "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
-     "at": "2026-10-10T08:37:27Z",
+     "at": "2026-10-10T14:00:12Z",
+     "nanodaBuild": null,
      "exit": 0,
      "seconds": 1703,
      "cacheSeconds": 178,
@@ -12437,6 +13261,7 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "nanodaBuild": null,
    "strict": null,
    "transfer": null
   }
