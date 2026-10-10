@@ -108,6 +108,23 @@ function decideStrict(f, ch) {
 
 const byName = new Map(release.challenges.map((c) => [c.name, c]));
 const rows = new Map();
+/* the nanoda build of a run whose jobs did not print it: the amendment-13 dispatches name theirs in
+   corpus/openai-math/kernel-runs/dispatch-order.json; before them, the workflow at the run's commit either raised the
+   stack (amendment 11, 'stack1g') or ran nanoda as published ('stock') */
+const DISPATCH = (() => { try { return JSON.parse(fs.readFileSync(path.join(RUNS, 'dispatch-order.json'), 'utf8')); } catch (e) { return {}; } })();
+const buildCache = new Map();
+function buildOfRun(meta) {
+  const key = String(meta.run);
+  if (buildCache.has(key)) return buildCache.get(key);
+  let b = null;
+  for (const v of Object.values(DISPATCH)) if (v && typeof v === 'object' && !Array.isArray(v) && String(v.run || ('runpod-' + (v.pod || ''))) === key && v.nanodaBuild) b = v.nanodaBuild;
+  if (!b && meta.nanodaBuild) b = meta.nanodaBuild;
+  if (!b && /^[0-9a-f]{40}$/.test(meta.workflowSha || '')) {
+    try { b = /1_073_741_824/.test(cp.execSync('git show ' + meta.workflowSha + ':.github/workflows/openai-math-kernel.yml', { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })) ? 'stack1g' : 'stock'; } catch (e) { b = null; }
+  }
+  buildCache.set(key, b);
+  return b;
+}
 /* GitHub runs (numeric ids) and RunPod runs (runpod-<pod>, amendment 14, tools/import-runpod-openai-math.js), in the
    order they were created — the latest run of a challenge decides its row */
 const created = (d) => { try { return JSON.parse(fs.readFileSync(path.join(RUNS, d, '_run.json'), 'utf8')).createdAt || ''; } catch (e) { return ''; } };
@@ -122,8 +139,10 @@ for (const d of runDirs) {
     const r = rows.get(ch.name) || { challenge: ch.name, families: ch.families, statementLines: ch.statementLines, nanodaInRelease: ch.enableNanoda, definitionHoles: ch.definitionNames.length, runs: [] };
     /* a job that never reached Comparator because WE cancelled its run is not a decision of any kind */
     const dec = !f.ran && meta.conclusion === 'cancelled' ? { word: 'NOT RUN', stage: 'cancelled', why: 'its run was cancelled before Comparator ran' } : decide(f);
-    /* which nanoda: the job prints its build (amendment 13); runs before that line existed leave it null */
-    const nb = ((f.env || []).find((l) => /^nanoda build: /.test(l)) || '').replace(/^nanoda build: /, '') || null;
+    /* which nanoda: the job prints its build (amendment 13); a job that left no facts, or ran before that line
+       existed, takes it from the dispatch record (amendment-13 runs) or from the workflow at the run's commit */
+    const printed = ((f.env || []).find((l) => /^nanoda build: /.test(l)) || '').replace(/^nanoda build: /, '') || null;
+    const nb = printed || buildOfRun(meta);
     if (dec.word === 'CERTIFIED' && nb && /issue44/.test(nb)) dec.why = 'Comparator exit 0; Lean\'s kernel and nanoda with the ammkrn/nanoda_lib#44 patch (' + nb + ', amendment 13) both accept';
     r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, nanodaBuild: nb, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null });
     rows.set(ch.name, r);
