@@ -864,6 +864,42 @@
    "finding": "Found on the Conexões para Inovação portal (rendered in headless Chrome; the portal is JS-only) and confirmed on Petronect's CPSI/ETEC list (recebimento 16.09.2026 17:00 → 19.10.2026 17:00, internacional). The requirement list reads like the house doctrine: 'aceita intervalos (ranges) em vez de valores únicos', 'premissas explicitamente documentadas', 'resultados reproduzíveis e auditáveis', 'controle de versão de cenários e hipóteses', 'mecanismos para evitar dupla contagem', 'potencial técnico máximo vs corporativamente acordado', 'ramp-up temporal'. Petrobras's own Caderno 2025 (PDF created 2026-05-13, sha256 faab42c2…) gives the MACC Integrada (> 1000 opportunities, classes Incremental/Moderado/Alto), the Fundo de Descarbonização (US$ 1.0 bn 2026–30; 35 opportunities, 1.5 MtCO2e/yr) and two point claims (TBG ECOMPs ≈ 142 mil, boil-off ≈ 77 mil tCO2e/ano) that the demonstrator registers and decides. Prior CPSI cycles (2021–22) paid up to R$ 1.6 M per proposal for 12 months with a follow-on supply contract (secondary sources).",
    "fit": "Group 5 (ranges, premises, sensitivity, TRL) and group 8 (governance, versions, reproducibility, review) are the house's instruments verbatim; group 3 (LCA) is the gap — the kernel decides over declared LCA ranges, it does not compute LCA. Compelled buyer: CENPES wrote the spec; the Fundo allocates by 'quantidade total de GEE abatida'.",
    "next": "Operator: Petronect CRC + 'Tenho Interesse', read the anexos, fill the commercial section, name (or not) an LCA partner, submit by 2026-10-19 17:00. If it advances: E1–E6 of the plan (apps/abatimento/TODO.md)."
+  },
+  {
+   "id": "sidorenko-explicit-host",
+   "name": "An explicit, exactly certified counterexample to Sidorenko's conjecture: a finite host G (or a small rational kernel W) with t(H,G) < p(G)^66 for OpenAI's H (the incidence graph of 22 triples on 13 points, 35 vertices, 66 edges)",
+   "verdict": "OPEN — recommended 2026-10-10 as the compute ('brute force') target; not built",
+   "scouted": "2026-10-10",
+   "finding": "OpenAI's disproof (openai/math family 161, preprints/A-counterexample-to-Sidorenko*) specifies H explicitly but proves the host only exists: its kernel lives on symmetric D-by-D matrices over F_q with D >= D_0 and q a sufficiently large prime (kernel.tex), with a gap of order eps^13, then a sampled host. Lean (SidorenkoCounterexample) is kernel-checked here but existential; DeepMind formal-conjectures PR #6898 marks the finite form refuted and leaves the graphon form's step reduction unformalized. Our audit records the host as NEEDS DATA (F-300, gap G10). A third party (github.com/rohanarun/sidorenko-template-refinements) reports exact certificates for refinements of the construction and a second 35-vertex finite certificate, not claimed as a new counterexample.",
+   "fit": "Exactly the house shape: a finite object, exact rational arithmetic, a one-line inequality anyone can re-check; it would be the first counterexample a reader can hold, and it closes our own published gap.",
+   "cost": "t(H,W) for a kernel on n x m points is a tensor-network contraction over 13 point variables and 22 triple factors — GPU-friendly at n ~ 8-24; the search (gradient and annealing restarts seeded from small rank-layer kernels, D in {2,4,6}, q in {3,5,7,11}) is embarrassingly parallel on RunPod; float screen, exact certify. Pilot ~$50-200 with a pre-registered kill criterion.",
+   "next": "Scout first: read rohanarun's repository and the formal-conjectures PR; compute the contraction order of H's triple system; pre-register the search space and the kill criterion before any run."
+  },
+  {
+   "id": "lonely-runner-16",
+   "name": "The lonely runner conjecture for 16 runners (and an independent re-verification of the 14- and 15-runner claim)",
+   "verdict": "OPEN — second choice for a compute target, 2026-10-10",
+   "scouted": "2026-10-10",
+   "finding": "The frontier moves by computer-assisted finite checks: 8 runners (Rosenfeld, arXiv 2509.14111, Math. Comp. 2026), 9 and 10 (Trakulthongchai, arXiv 2511.22427, EJC 33 P2.46), 11-13 (Sungkawichai and Trakulthongchai, arXiv 2604.23906, code on GitHub), 14 and 15 claimed (arXiv 2609.02604, September 2026, not yet verified by anyone else).",
+   "fit": "An independent exact re-verification of the newest claim is the house's audit product; 16 runners is a scaling problem (sieves, modular symmetry) where compute is the lever.",
+   "cost": "Re-verification: cluster-hours to days depending on the sieve; 16 runners: unknown until the 15-runner code's scaling is measured.",
+   "next": "Read 2609.02604 and its code; measure how the verification cost grew from 13 to 15."
+  },
+  {
+   "id": "hadamard-668",
+   "name": "A Hadamard matrix of order 668 (the smallest order with none known)",
+   "verdict": "DEAD — reported found August 2026 (Alpöge, Voinov, Reynolds-Haertle, with Claude), with every order below 2000; the next open order is reportedly 2004",
+   "scouted": "2026-10-10",
+   "finding": "Secondary coverage (johndcook.com 2026-08-13; QbitAI; Pedaily) reports the matrix and a check H H^T = 668 I; no technical report found; Epoch's FrontierMath page was still marked unsolved in a cached copy.",
+   "note": "If a matrix is published, an independent exact check is a one-line job for this machine; the search target itself is gone."
+  },
+  {
+   "id": "hadwiger-nelson-explicit-6",
+   "name": "An explicit finite unit-distance graph that is not 5-colorable (the plane's chromatic number is at least 6, with a witness)",
+   "verdict": "OPEN — highest fame, lowest feasibility; not recommended as a first compute target",
+   "scouted": "2026-10-10",
+   "finding": "OpenAI's EuclideanFiveColor (family 158) is kernel-checked here with its displayed definition verified by our transfer check, so the plane is formally not 5-colorable; the finite graph exists by compactness but is never displayed (F-297b, gap G10). The 5-chromatic graphs needed SAT on hundreds of vertices (de Grey 1581; Heule ~510); Polymath16 found no 6-chromatic candidate.",
+   "fit": "Would close our own gap with the most famous object in the release; the size of the smallest witness is unknown and could be astronomically large."
   }
  ]
 }
