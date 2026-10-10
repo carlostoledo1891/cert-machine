@@ -1,0 +1,291 @@
+{
+ "reader": "second-flags",
+ "batch": 4,
+ "families": [
+  {
+   "family": "020",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "PowerFreeValues",
+     "flag": "JUNK? (not triggered): Mathlib's tprod of a non-multipliable family is a junk value; the statement asserts Multipliable and 0 < densityConstant explicitly",
+     "decision": "cleared",
+     "why": "The junk branch of tprod (Mathlib's tprod_eq_one_of_not_multipliable: the value is 1 for a non-multipliable family, which would make '0 < densityConstant' trivially true) is shut by the statement itself: DensityStatement's first conjunct asserts Multipliable (localFactor f k), so densityConstant is the true limit of the finite partial products; its second conjunct 0 < densityConstant then excludes the product-converges-to-0 case. Every factor is genuinely positive under the hypothesis LocallyAdmissible (rho f (p^k) < p^k). Both are conclusions, so a non-convergent product could only make the theorem false, never vacuous; lane K: CERTIFIED.",
+     "evidence": [
+      "ComparatorChallenges/PowerFreeValues.lean:28-29: noncomputable def densityConstant (f : Polynomial ℤ) (k : ℕ) : ℝ := ⏎ ∏' p : Nat.Primes, localFactor f k p",
+      "ComparatorChallenges/PowerFreeValues.lean:31-33: def DensityStatement (f : Polynomial ℤ) (k : ℕ) : Prop := ⏎ Multipliable (localFactor f k) ∧ ⏎ 0 < densityConstant f k ∧",
+      "ComparatorChallenges/PowerFreeValues.lean:22-23: def LocallyAdmissible (f : Polynomial ℤ) (k : ℕ) : Prop := ⏎ ∀ p : ℕ, p.Prime → rho f (p ^ k) < p ^ k",
+      "ComparatorChallenges/PowerFreeValues.lean:25-26: noncomputable def localFactor (f : Polynomial ℤ) (k : ℕ) (p : Nat.Primes) : ℝ := ⏎ 1 - (rho f (p.val ^ k) : ℝ) / (p.val : ℝ) ^ k"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "105",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "PerfectCompleteness",
+     "flag": "JUNK? cleared: Instance.nonempty forbids an empty edge list, so value never divides by zero",
+     "decision": "cleared",
+     "why": "value = maxSatisfied / edges.length, and Instance.nonempty (edges ≠ []) makes the length ≥ 1. So value is the true fraction in [0,1], never 0/0 = 0. That junk would have satisfied soundness for free; completeness (value = 1) would already have excluded it on satisfiable inputs. maxSatisfied is a Finset.sup over the finite labelling type, a true maximum. Nonempty edges also force leftVertices, rightVertices ≥ 1, and alphabet ≥ 2.",
+     "evidence": [
+      "ComparatorChallenges/PerfectCompleteness.lean:112-116: structure Instance (q : Nat) where ⏎ leftVertices : Nat ⏎ rightVertices : Nat ⏎ edges : List (Edge leftVertices rightVertices q) ⏎ nonempty : edges ≠ []",
+      "ComparatorChallenges/PerfectCompleteness.lean:134-138: def maxSatisfied {q : Nat} (G : Instance q) : Nat := ⏎ Finset.univ.sup (fun s : Labeling G => countSatisfied s.1 s.2 G.edges) ⏎  ⏎ noncomputable def value {q : Nat} (G : Instance q) : ℝ := ⏎ (G.maxSatisfied : ℝ) / G.edges.length",
+      "ComparatorChallenges/PerfectCompleteness.lean:165-173: structure BinaryGapReduction (δ : ℚ) where ⏎ alphabet : Nat ⏎ alphabet_ge_two : 2 ≤ alphabet ⏎ construct : List Bool → Instance alphabet ⏎ computation : TM2ComputableInPolyTime (id : List Bool → List Bool) ⏎ Encoding.gameBits construct ⏎ finiteAlphabet : MachineFiniteAlphabet.FiniteAlphabet computation.tm ⏎ completeness : ∀ input, BinaryLanguage.language input → (construct input).value = 1 ⏎ soundness : ∀ input, ¬BinaryLanguage.language input → (construct input).value ≤ (δ : ℝ)"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "117",
+   "firstWord": "NARROWER — DECLARED",
+   "word": "NARROWER — DECLARED",
+   "flags": [
+    {
+     "challenge": "UniformSparsestCut",
+     "flag": "JUNK? cleared: glValue > 0 is asserted for every j, so the ratio never divides by zero; log log n <= 0 for small n only weakens finitely many terms of an eventually-statement",
+     "decision": "cleared",
+     "why": "glValue is an sInf of values Σ cap·d ≥ 0, a set that is bounded below and nonempty for n ≥ 2 (e.g. a normalised cut metric). Its only junk value is 0, which the conjunct ∀ j, 0 < glValue (C j) excludes. So the ratio's denominator is the true positive relaxation optimum. OPT is a min over the finitely many nonempty proper B (n ≥ 2), whose cutRatio denominators |B|(n−|B|) > 0 are genuine. On the left side, (log log n)³ is 0 only if log n ∈ {0, ±1}, never for an integer n ≥ 2; it is negative only for n = 2, which makes that instance trivially true. Tendsto n atTop atTop puts n j ≥ 16 (log log > 0) for all large j, and the claim is ∀ᶠ j, so those cases are excluded from what is asserted. Normalised cut metrics are feasible, so glValue ≤ OPT and the gap is a genuine integrality gap. Lane K: CERTIFIED.",
+     "evidence": [
+      "ComparatorChallenges/UniformSparsestCut.lean:20-25: noncomputable def cutRatio {n : ℕ} (C : Capacity n) (B : Finset (Fin n)) : ℝ := ⏎ (∑ i ∈ B, ∑ j ∈ Bᶜ, C.cap i j) / ⏎ ((B.card : ℝ) * ((n : ℝ) - (B.card : ℝ))) ⏎  ⏎ noncomputable def OPT {n : ℕ} (C : Capacity n) : ℝ := ⏎ sInf {r | ∃ B : Finset (Fin n), B.Nonempty ∧ B ≠ Finset.univ ∧ r = cutRatio C B}",
+      "ComparatorChallenges/UniformSparsestCut.lean:27-36: def NegativeType {n : ℕ} (d : Fin n → Fin n → ℝ) : Prop := ⏎ (∃ x : Fin n → EuclideanSpace ℝ (Fin n), ∀ i j, d i j = ‖x i - x j‖ ^ 2) ∧ ⏎ ∀ i j k, d i k ≤ d i j + d j k ⏎  ⏎ def Feasible {n : ℕ} (d : Fin n → Fin n → ℝ) : Prop := ⏎ NegativeType d ∧ pairSum d = 1 ⏎  ⏎ noncomputable def glValue {n : ℕ} (C : Capacity n) : ℝ := ⏎ sInf {r | ∃ d : Fin n → Fin n → ℝ, Feasible d ∧ ⏎ r = pairSum (fun i j => C.cap i j * d i j)}",
+      "ComparatorChallenges/UniformSparsestCut.lean:40-48: theorem mainGap : ⏎ ∃ c : ℝ, 0 < c ∧ ⏎ ∃ n : ℕ → ℕ, ∃ C : (j : ℕ) → Capacity (n j), ⏎ (∀ j, 2 ≤ n j) ∧ ⏎ Tendsto n atTop atTop ∧ ⏎ (∀ j, 0 < glValue (C j)) ∧ ⏎ ∀ᶠ j in atTop, ⏎ c * Real.sqrt (Real.log (n j : ℝ)) / (Real.log (Real.log (n j : ℝ))) ^ 3 ≤ ⏎ OPT (C j) / glValue (C j) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "131",
+   "firstWord": "NARROWER — DECLARED",
+   "word": "NARROWER — DECLARED",
+   "flags": [
+    {
+     "challenge": "SwitchChain",
+     "flag": "JUNK? checked, none for n ≥ 4: the kernel divides by 12·C(n,4) > 0; mixingTime uses Nat.find under an existence proof that the statement itself supplies.",
+     "decision": "cleared",
+     "why": "For n ≥ 4, 12·C(n,4) ≥ 12 > 0, so switchKernel has no division junk, and it is a genuine lazy kernel. There are 6·C(n,4) proposals (3 perfect matchings per 4-set, ordered distinct pairs), and each proposal p sends G to exactly one state (a valid switch preserves degrees; an invalid one stays at G), so each row sums to 1/2 + 6C(n,4)/(12C(n,4)) = 1. uniformAverage and tvDistanceFrom divide by stateCount ≥ 1 (Graphical = Nonempty). mixingTime is Nat.find under a proof of ∃ t, MixedAt that switch_chain_main itself asserts (∃ h, mixingTime n d h ≤ 2n^8). Nat.find is the least such t whichever proof is passed, so it is the true mixing time at distance 1/4. The '∀ h, mixingTime … = 0' clause is likewise proof-independent.",
+     "evidence": [
+      "ComparatorChallenges/SwitchChain.lean:34-36: abbrev SwitchProposal (n : Nat) := ⏎ Σ S : FourSet n, ⏎ {p : PerfectMatching S × PerfectMatching S // p.1 ≠ p.2}",
+      "ComparatorChallenges/SwitchChain.lean:87-94: def switchKernel (n : Nat) (d : Fin n → Nat) ⏎ (G H : GraphState n d) : ℝ := by ⏎ classical ⏎ exact ⏎ (if G = H then (1 : ℝ) / 2 else 0) + ⏎ (((allProposals n).filter ⏎ (fun p => proposalResult G.val p = H.val)).card : ℝ) / ⏎ (12 * (Nat.choose n 4 : ℝ))",
+      "ComparatorChallenges/SwitchChain.lean:108-111: def uniformAverage (n : Nat) (d : Fin n → Nat) ⏎ (f : GraphState n d → ℝ) : ℝ := ⏎ Finset.sum (allGraphStates n d) (fun G => f G) / ⏎ (stateCount n d : ℝ)",
+      "ComparatorChallenges/SwitchChain.lean:145-148: def mixingTime (n : Nat) (d : Fin n → Nat) ⏎ (h : ∃ t : Nat, MixedAt n d t) : Nat := by ⏎ classical ⏎ exact Nat.find h",
+      "ComparatorChallenges/SwitchChain.lean:156: ∀ (n : Nat) (d : Fin n → Nat), 4 ≤ n → (∀ v, d v ≤ n - 1) → Graphical n d → ((∃ h : (∃ t : Nat, MixedAt n d t), mixingTime n d h ≤ 2 * n ^ 8) ∧ (stateCount n d = 1 → (MixedAt n d 0 ∧ ∀ h : (∃ t : Nat, MixedAt n d t), mixingTime n d h = 0)) ∧ (1 < stateCount n d → hasSpectralGapAtLeast n d ((1 : ℝ) / (24 * (n : ℝ) ^ 2 * (Nat.choose n 4 : ℝ))))) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "159",
+   "firstWord": "NARROWER — DECLARED",
+   "word": "NARROWER — DECLARED",
+   "flags": [
+    {
+     "challenge": "ErdosReciprocal",
+     "flag": "JUNK? (checked, benign): reciprocalTerm uses (0 : ℝ)⁻¹ = 0 at n = 0 (lines 16-18); a single term cannot affect summability.",
+     "decision": "cleared",
+     "why": "When 0 ∈ A, reciprocalTerm A 0 = (0:ℝ)⁻¹ = 0. Changing one term of a real family never changes Summable. All terms are nonnegative, so ¬Summable is exactly divergence of Σ_{n∈A, n≥1} 1/n, which is the prose hypothesis. Allowing 0 ∈ A also does not weaken the conclusion. For A ⊆ ℕ_{>0} (the prose's sets) the statement is literally the prose. When 0 ∈ A, ∀ k, HasAP A k still yields k-term progressions inside A∖{0}: drop the first term of a (k+1)-term progression with d > 0. The quantifier ∀ k makes the k = 0 vacuity irrelevant. (Lane K: not yet decided; the job stopped before Comparator. That has no bearing here.)",
+     "evidence": [
+      "ComparatorChallenges/ErdosReciprocal.lean:7-8: def HasAP (A : Set ℕ) (k : ℕ) : Prop := ⏎ ∃ a d : ℕ, 0 < d ∧ ∀ i < k, a + i * d ∈ A",
+      "ComparatorChallenges/ErdosReciprocal.lean:16-18: noncomputable def reciprocalTerm (A : Set ℕ) (n : ℕ) : ℝ := by ⏎ classical ⏎ exact if n ∈ A then (n : ℝ)⁻¹ else 0",
+      "ComparatorChallenges/ErdosReciprocal.lean:24-25: def ReciprocalProgressionTheorem : Prop := ⏎ ∀ A : Set ℕ, ¬ Summable (reciprocalTerm A) → ∀ k : ℕ, HasAP A k"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "169",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "ElementaryPositivity",
+     "flag": "QUANTIFIER?: θ is existential inside the witness, so 'explicitly described permutations' is stated as 'some partition labelling of the nondescent permutations' — the explicit labelling of the paper is not pinned by the statement (the positivity claim is unaffected).",
+     "decision": "cleared",
+     "why": "The labelling θ is existential, but this does not drop any truth condition of the headline. The statement fixes the counted objects explicitly: permutations whose consecutive descents are G-edges (Nondescent). It fixes their q-weights (graphInversions) and requires that the fibres of θ partition them into the e_λ coefficients for every number r of variables, which pins the symmetric-function identity. So the ℕ[q] e-positivity (sentence 1) is fully stated, and so is the content of sentence 2: each coefficient is a q-count of a set of explicitly defined permutations with an explicit statistic, and the sets partition the nondescent permutations. That is stronger than bare positivity, since it fixes Σ_λ c_λ(q). What is left open is the paper's particular rule for θ, which is a property of the proof, not a mathematical claim. θ ranges over a finite set, and the identity is decidable (it suffices at r = n), so a θ exists iff a computable one does (the first in any enumeration). 'Explicitly described' therefore adds no truth condition the Lean misses. The witness is a def, so the solution supplies an actual θ; lane K: CERTIFIED, strict run SAME BODIES.",
+     "evidence": [
+      "ComparatorChallenges/ElementaryPositivity.lean:22-23: def Nondescent (σ : Equiv.Perm (Fin n)) : Prop := ⏎ ∀ i j : Fin n, i.val + 1 = j.val → σ j < σ i → G.Edge (σ i) (σ j)",
+      "ComparatorChallenges/ElementaryPositivity.lean:29-31: def graphInversions (σ : Equiv.Perm (Fin n)) : ℕ := ⏎ (Finset.univ.filter fun ij : Fin n × Fin n => ⏎ ij.1 < ij.2 ∧ σ ij.2 < σ ij.1 ∧ G.Edge (σ ij.1) (σ ij.2)).card",
+      "ComparatorChallenges/ElementaryPositivity.lean:48-53: structure PermutationWitness where ⏎ theta : {σ : Equiv.Perm (Fin n) // G.Nondescent σ} → Nat.Partition n ⏎ expansion : ∀ r : ℕ, G.chromatic r = ⏎ ∑ σ : {σ : Equiv.Perm (Fin n) // G.Nondescent σ}, ⏎ MvPolynomial.C (Polynomial.X ^ G.graphInversions σ.val) * ⏎ MvPolynomial.esymmPart (Fin r) (Polynomial ℕ) (theta σ)",
+      "ComparatorChallenges/ElementaryPositivity.lean:58-60: def elementaryPositivityWitness (n : ℕ) ⏎ (G : ElementaryPositivity.NaturalUnitIntervalGraph n) : ⏎ G.PermutationWitness := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "221",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "DilutedSpin",
+     "flag": "JUNK? (low): trialLog and functional are Bochner integrals over the nested weak-topology hierarchy. An integrand that is not AE-strongly measurable integrates to 0 and could pull phi r below the true infimum. That would make the Lean equality FALSE, not weaker. I argued measurability by continuity of eta -> logMean on the Polish hierarchy spaces (induction on r) but did not verify it line by line. Lean: ComparatorChallenges/DilutedSpin.lean:111-113, 119-120.",
+     "decision": "cleared",
+     "why": "No Bochner junk can occur, and the first reader's open measurability point closes. (1) Every integrand in the functional is bounded, independently of the trial law ζ. q(x,·) is a probability vector (e^{±x}/(2cosh x)), so edge θ x and the sum inside message are convex combinations of e^{θ(s)}. That gives |log edge θ x| ≤ ‖θ‖ and |message| ≤ ‖θ‖. siteLog is the log of an average over ε, so |siteLog θ h x| ≤ |h| + Σ_j ‖θ_j.1‖. logMean preserves a bound C at every level (a log-power-mean with m 0 > 0 by Exponents), so heavy-tailed ζ cannot make anything non-integrable. The outer integrals are dominated by |h| + Σ_j‖θ_j‖ and ‖θ‖, which are integrable by interaction_integrable and field_integrable against a Poisson number of terms (finite mean). (2) Measurability: siteLog and log∘edge are continuous in the messages. Each Hierarchy r is Polish (ℝ, then P(Polish) with the weak topology; the σ-algebra is Borel either way). For bounded continuous F, η ↦ ∫F d(⊗_i η_i) is weakly continuous on finite products of separable metric spaces, so by induction η ↦ logMean r g m η is continuous, hence Borel. (3) pressure is genuine: |logPartition| ≤ N log 2 + Σ_j‖θ_j.1‖ + Σ_i|h_i|, continuous, integrable. So phi r is the infimum of a genuine, finite functional. Because the left side is genuine, any residual junk on the right could only make the equality false. Lane K: CERTIFIED.",
+     "evidence": [
+      "ComparatorChallenges/DilutedSpin.lean:33-35: interaction_integrable : Integrable (fun z : InteractionSample p => ‖z.1‖) ⏎ M.disorder.toMeasure ⏎ field_integrable : Integrable (fun h : ℝ => |h|) M.field.toMeasure",
+      "ComparatorChallenges/DilutedSpin.lean:58-72: noncomputable def logPartition {p N k : ℕ} (theta : Fin k → InteractionSample p) ⏎ (h : Fin N → ℝ) (indices : Fin k → Fin p → Fin N) : ℝ := ⏎ Real.log (∑ σ : Fin N → Spin, Real.exp (logWeight theta h indices σ)) ⏎  ⏎ /-- F_N, using an explicit uniform average over the independent index labels. ⏎ The value at N=0 is irrelevant to the limit; valid system sizes are N>=1. -/ ⏎ noncomputable def pressure {p : ℕ} (M : Model p) (N : ℕ) : ℝ := ⏎ (∫ k : ℕ, ⏎ ∫ theta : Fin k → InteractionSample p, ⏎ ∫ h : Fin N → ℝ, ⏎ ((∑ indices : Fin k → Fin p → Fin N, logPartition theta h indices) / ⏎ (Fintype.card (Fin k → Fin p → Fin N) : ℝ)) ⏎ ∂Measure.pi (fun _ : Fin N => M.field.toMeasure) ⏎ ∂Measure.pi (fun _ : Fin k => M.disorder.toMeasure) ⏎ ∂poissonMeasure (M.alpha * N)) / N",
+      "ComparatorChallenges/DilutedSpin.lean:74-78: noncomputable def q (x : ℝ) (s : Spin) : ℝ := ⏎ Real.exp (x * spin s) / (2 * Real.cosh x) ⏎  ⏎ noncomputable def edge {p : ℕ} (theta : Interaction p) (x : Fin p → ℝ) : ℝ := ⏎ ∑ s : Fin p → Spin, Real.exp (theta s) * ∏ l, q (x l) (s l)",
+      "ComparatorChallenges/DilutedSpin.lean:84-92: noncomputable def message {p : ℕ} (theta : Interaction p) ⏎ (x : Fin (p - 1) → ℝ) (ε : Spin) : ℝ := ⏎ Real.log (∑ s : Fin (p - 1) → Spin, ⏎ Real.exp (theta (appendSpin s ε)) * ∏ l, q (x l) (s l)) ⏎  ⏎ noncomputable def siteLog {p k : ℕ} (theta : Fin k → InteractionSample p) ⏎ (h : ℝ) (x : (Fin k × Fin (p - 1)) → ℝ) : ℝ := ⏎ Real.log ((∑ ε : Spin, Real.exp ⏎ (h * spin ε + ∑ j, message (theta j).1 (fun l => x (j, l)) ε)) / 2)",
+      "ComparatorChallenges/DilutedSpin.lean:96-102: local instance instMeasurableSpaceCarrier_challenge (X : TopCat) : MeasurableSpace X := borel X ⏎ local instance instBorelSpaceCarrier_challenge (X : TopCat) : BorelSpace X := ⟨rfl⟩ ⏎  ⏎ /-- Nested probability laws: H_0=R and H_{j+1}=P(H_j), with weak topologies. -/ ⏎ noncomputable def Hierarchy : ℕ → TopCat ⏎ | 0 => TopCat.of ℝ ⏎ | r + 1 => TopCat.of (ProbabilityMeasure (Hierarchy r))",
+      "ComparatorChallenges/DilutedSpin.lean:107-113: noncomputable def logMean {ι : Type} [Fintype ι] : ⏎ (r : ℕ) → ((ι → ℝ) → ℝ) → (Fin r → ℝ) → (ι → Hierarchy r) → ℝ ⏎ | 0, g, _, x => g x ⏎ | r + 1, g, m, eta => ⏎ Real.log (∫ x : ι → Hierarchy r, ⏎ Real.exp (m 0 * logMean r g (fun i => m i.succ) x) ⏎ ∂Measure.pi (fun i => (eta i).toMeasure)) / m 0",
+      "ComparatorChallenges/DilutedSpin.lean:117-124: noncomputable def trialLog {ι : Type} [Fintype ι] (r : ℕ) ⏎ (ζ : Hierarchy (r + 1)) (m : Fin r → ℝ) (g : (ι → ℝ) → ℝ) : ℝ := ⏎ ∫ eta : ι → Hierarchy r, logMean r g m eta ⏎ ∂Measure.pi (fun _ : ι => ζ.toMeasure) ⏎  ⏎ /-- Admissible exponents 0<m_1<...<m_r<1; vacuous at r=0. -/ ⏎ def Exponents {r : ℕ} (m : Fin r → ℝ) : Prop := ⏎ StrictMono m ∧ ∀ i, 0 < m i ∧ m i < 1",
+      "ComparatorChallenges/DilutedSpin.lean:139-141: noncomputable def phi {p : ℕ} (M : Model p) (r : ℕ) : ℝ := ⏎ sInf {v : ℝ | ∃ (ζ : Hierarchy (r + 1)) (m : Fin r → ℝ), ⏎ Exponents m ∧ v = functional M r ζ m}",
+      "ComparatorChallenges/DilutedSpin.lean:148-149: theorem mezard_parisi {p : ℕ} (M : Model p) (hM : Admissible M) : ⏎ Tendsto (pressure M) atTop (𝓝 (variationalValue M)) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "238",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "CoordinateSweeps",
+     "flag": "VACUITY? (low): all_grid_moment is conditional on ScaleLarge, SparseScalar.ScaleReady, MainSizeReady for every allowed grid and SparsePerturb; read as jointly satisfiable for large r (finitely many grids with b ≤ 12800 for SparsePerturb; size conditions hold for large sizes); conditional_main is unconditional",
+     "decision": "cleared",
+     "why": "The hypotheses of all_grid_moment are jointly satisfiable, so it is not vacuous. ScaleLarge r needs r·log 2 ≥ (2/e0)² = 4·10⁸, which holds for large r. ScaleReady r needs r·log 2 ≥ 8(3 log 2 + 2(K0+1+log 4))/θ ≈ 2.6·10⁹, plus SizeReady s for every s ≥ 2^r. Each SizeReady clause (log s ≤ s^{θ/4}, 2 ≤ s^{θ/4}, B0+1 ≤ s^{θ/2}, the count, absorb, η, prefactor (needs log s ≳ 4·10¹⁹) and logtwo clauses) holds for all s past a finite threshold and stays true, so r ≳ 10²⁰ suffices. MainSizeReady q (G.size) holds for every allowed G because G.size ≥ 2^r (b ≥ 1, bits ≥ r) and each of its four clauses holds for all large s. SparsePerturb r zStar: slack(G.size) > 0 since G.size > 1; at z = 0 every eventDistance is 0, since choiceWeight 0 > 0 makes each denominator positive; eventDistance is continuous in z near 0. There are finitely many grids (b ≤ 12800, r ≤ bits ≤ 2r) and finitely many nonempty E ⊆ G.Choices, so some δ > 0 works uniformly, and zStar = min(δ, baseZeta r) > 0 qualifies. conditional_main has no hypotheses, so it is unaffected.",
+     "evidence": [
+      "ComparatorChallenges/CoordinateSweeps.lean:242-243: def ScaleLarge (r : ℕ) : Prop := ⏎ 1 ≤ r ∧ (2/e0)^2 ≤ (r : ℝ)*Real.log 2 ∧ 4/e0 ≤ (r : ℝ)*Real.log 2",
+      "ComparatorChallenges/CoordinateSweeps.lean:245-246: def baseWidth (r : ℕ) : ℝ := ((2^(2*r)).factorial : ℕ) ⏎ def baseZeta (r : ℕ) : ℝ := 1/(4*(baseWidth r)^2)",
+      "ComparatorChallenges/CoordinateSweeps.lean:250-254: structure MainSizeReady (q : ℕ) (s : ℝ) : Prop where ⏎ one : 1 ≤ Real.log s ⏎ sparse : (100004:ℝ)*s^(1-a/4) ≤ s^(1-(1:ℝ)/1600) ⏎ hook : (((2*q+1:ℕ):ℝ)*4+82*c0)*2*s^((4:ℝ)/5+2*a)*Real.log (s+1) ≤ s^((9:ℝ)/10) ⏎ removed : s^((9:ℝ)/10)+s^(1-a/2)*Real.log s ≤ s^(1-a/4)/(20*Real.sqrt (Real.log s))",
+      "ComparatorChallenges/CoordinateSweeps.lean:272-287: structure SizeReady (s : ℝ) : Prop where ⏎ two : 2 ≤ s ⏎ logpow : Real.log s ≤ s^(theta/4) ⏎ powtwo : 2 ≤ s^(theta/4) ⏎ powB : (B0+1:ℝ) ≤ s^(theta/2) ⏎ count : 4/s^(1/(4*(B0:ℝ))) ≤ theta/(64*B0) ⏎ absorb : Real.log (1+2*(B0:ℝ))+Real.log 2 ≤ xi*Real.log s ⏎ eta : s^(-xi) ≤ 1/8 ⏎ prefactor : uniformRate ≤ xi*Real.log s/16 ⏎ logtwo : Real.log 2 ≤ xi*Real.log s/8 ⏎  ⏎ structure ScaleReady (r : ℕ) : Prop where ⏎ two : 2 ≤ r ⏎ logone : 1 ≤ (r:ℝ)*Real.log 2 ⏎ absorb : 3*Real.log 2+2*(K0+1+Real.log 4) ≤ theta*((r:ℝ)*Real.log 2)/8 ⏎ size : ∀ s : ℝ, (2:ℝ)^r ≤ s → SizeReady s",
+      "ComparatorChallenges/CoordinateSweeps.lean:289-290: def slack (s : ℝ) : ℝ := ⏎ if 1 < s then s ^ (-((2 : ℕ) : ℝ) * rho * s) * (s ^ rho - 1) else 1",
+      "ComparatorChallenges/CoordinateSweeps.lean:294-297: def SparsePerturb (r : ℕ) (zStar : ℝ) : Prop := ⏎ 0 < zStar ∧ zStar ≤ baseZeta r ∧ ∀ G : Grid, G.b ≤ SparseScalar.B0 → G.Allowed r → ⏎ ∀ z ∈ Set.Icc 0 zStar, ∀ E : Finset G.Choices, E.Nonempty → ⏎ G.eventDistance E z < SparseScalar.slack G.size",
+      "ComparatorChallenges/CoordinateSweeps.lean:300-303: theorem all_grid_moment {r : ℕ} (hr : ScaleLarge r) (hrS : SparseScalar.ScaleReady r) ⏎ (hS : ∀ G : Grid, G.Allowed r → ScalarInduction.MainSizeReady SparseScalar.q G.size) ⏎ {zStar : ℝ} (hζ : SparsePerturb r zStar) {z : ℝ} (hz : z∈Set.Icc 0 zStar) : ⏎ ∀ G : Grid, G.Allowed r → MomentBound G SparseScalar.q z := by",
+      "ComparatorChallenges/CoordinateSweeps.lean:307: theorem conditional_main : ConditionalMain := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "280",
+   "firstWord": "NARROWER — DECLARED",
+   "word": "NARROWER — DECLARED",
+   "flags": [
+    {
+     "challenge": "VertexAlgebraNet",
+     "flag": "JUNK? (not triggered): smoothSmearedField is 0 unless PolynomialEnergyBounds and rapid Fourier decay hold — that would trivialize the net, but the theorem's first conjunct asserts PolynomialEnergyBounds and smooth periodic f has rapidly decaying coefficients",
+     "decision": "cleared",
+     "why": "Both fallbacks to 0 are dead under the theorem's own first conjunct. smoothSmearedField is the real operator iff PolynomialEnergyBounds ∧ RapidCoefficients(f̂): conjunct 1 of `main` asserts A.PolynomialEnergyBounds, and the Fourier coefficients (fourierCoeffOn on [0,2π]) of a ContDiff ℝ ∞ 2π-periodic function decay faster than every power (integrate by parts k times), so RapidCoefficients holds for every SmoothCircleFunction. The inner fallback in smearedMap (else 0 unless ∀ v, Summable) is also dead: for v ∈ V, ‖f̂(m)·a_{m+d−1}v‖ ≤ ‖f̂(m)‖·C(1+|m+d−1|)^p·‖(1+L0)^k v‖ (the energy bound) is summable against rapid decay, and Completion V is complete, so the family is norm-summable. So if the theorem holds, every smeared field is the genuine tsum Σ f̂(m) a_{m+d−1}; if conjunct 1 failed, the theorem would be false. The net is never trivialized by this junk.",
+     "evidence": [
+      "ComparatorChallenges/VertexAlgebraNet.lean:700-702: exact if h : ∀ v, Summable (fun m => family m v) then ⏎ SummableLinearFamily.tsumMap family h ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:707-711: exact if h : A.PolynomialEnergyBounds ∧ OAI.StronglyRationalVOA.RapidCoefficients (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) then ⏎ (OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.operator ⏎ (OAI.MinimalVertex.smearedMap A a d (And.left h a) (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) ⏎ (And.right h))) ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:155-157: noncomputable def PolynomialEnergyBound (a : V) : Prop := ⏎ ∃ C : ℝ, 0 < C ∧ ∃ p k : ℕ, ∀ (n : ℤ) (b : V), ⏎ ‖OAI.StronglyRationalVOA.mode A.fields a n b‖ ≤ C * (1 + |(n : ℝ)|) ^ p * ‖(A.energyShift ^ k) b‖",
+      "ComparatorChallenges/VertexAlgebraNet.lean:201-202: noncomputable def RapidCoefficients (f : ℤ → ℂ) : Prop := ⏎ ∀ p : ℕ, Summable (fun n : ℤ => ‖f n‖*(1+|(n : ℝ)|)^p)",
+      "ComparatorChallenges/VertexAlgebraNet.lean:223-226: structure SmoothCircleFunction where ⏎ toFun : ℝ → ℂ ⏎ periodic : Function.Periodic toFun (2*Real.pi) ⏎ smooth : ContDiff ℝ ∞ toFun",
+      "ComparatorChallenges/VertexAlgebraNet.lean:824: A.PolynomialEnergyBounds ∧ OAI.MinimalVertex.CKLWStrongLocal U hSR.2.2 ∧"
+     ]
+    },
+    {
+     "challenge": "VertexAlgebraNet",
+     "flag": "JUNK? (not triggered, load-bearing): localGraphData keeps only smeared fields whose `.closure` is closed; Mathlib's LinearPMap.closure returns a non-closable operator unchanged, so non-closable fields would silently drop out, shrinking A(I) and easing locality. For a unitary VOA the invariant form gives densely defined adjoints, so the fields are closable",
+     "decision": "cleared",
+     "why": "The mechanism is real (Mathlib's LinearPMap.closure is the operator itself when not closable, so `∃ h : (closedSmoothField …).IsClosed` would drop a non-closable field and shrink A(I), easing the locality conjunct), but no field is non-closable under the hypotheses and conjunct 1. Each smeared field T has dense domain (HilbertCore.space V = image of V, dense in Completion V). The UnitaryStructure field `invariant` gives, for a ∈ grade d, ⟨a_n b, c⟩ = ⟨b, (−1)^d Σ_{j≤d} (1/j!) (L_1^j θa)_{2d−j−n−2} c⟩, a finite combination of modes. With energy bounds for every vector (conjunct 1) and rapid decay, S c := Σ_m conj(f̂(m))·(that combination at n = m+d−1) c converges for every c ∈ V and ⟨T b, c⟩ = ⟨b, S c⟩. So V ⊆ dom T*, T* is densely defined, and T is closable. Its .closure is then the genuine closed closure, and every homogeneous field with tsupport f ⊆ I enters localGraphData.",
+     "evidence": [
+      "ComparatorChallenges/VertexAlgebraNet.lean:713-715: noncomputable def closedSmoothField (U : A.UnitaryStructure) (hc : A.toVertexAlgebra.C2Cofinite) ⏎ (a : V) (d : ℕ) (f : OAI.StronglyRationalVOA.SmoothCircleFunction) : Completion V →ₗ.[ℂ] Completion V := ⏎ (OAI.MinimalVertex.smoothSmearedField U hc a d f).closure",
+      "ComparatorChallenges/VertexAlgebraNet.lean:719-721: {x | ∃ (a : V) (d : ℕ), a ∈ A.grade d ∧ ∃ (f : OAI.StronglyRationalVOA.SmoothCircleFunction), ⏎ tsupport (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.onCircle f) ⊆ O ∧ ∃ (h : (OAI.MinimalVertex.closedSmoothField U hc a d f).IsClosed), ⏎ ∃ i j : Bool, x = (OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.entry (OAI.MinimalVertex.closedSmoothField U hc a d f) h i j)}",
+      "ComparatorChallenges/VertexAlgebraNet.lean:169-174: invariant : ∀ d : ℕ, ∀ a ∈ A.grade d, ∀ n : ℤ, ∀ b c : V, ⏎ inner ℂ (OAI.StronglyRationalVOA.mode A.fields a n b) c = ⏎ inner ℂ b (((-1 : ℂ) ^ d) • ⏎ ∑ j ∈ Finset.range (d + 1), ((j.factorial : ℂ)⁻¹) • ⏎ OAI.StronglyRationalVOA.mode A.fields ((A.virasoroMode 1 ^ j) (pct a)) ⏎ (2 * (d : ℤ) - j - n - 2) c)",
+      "ComparatorChallenges/VertexAlgebraNet.lean:183-185: noncomputable def _root_.OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.space (V : Type*) [NormedAddCommGroup V] [InnerProductSpace ℂ V] : ⏎ Submodule ℂ (Completion V) := ⏎ LinearMap.range (Completion.toComplₗᵢ : V →ₗᵢ[ℂ] Completion V).toLinearMap",
+      "ComparatorChallenges/VertexAlgebraNet.lean:731-734: noncomputable def CKLWStrongLocal (U : A.UnitaryStructure) (hc : A.toVertexAlgebra.C2Cofinite) : Prop := ⏎ (∀ a : V, A.PolynomialEnergyBound a) ∧ ⏎ ∀ I : OAI.StronglyRationalVOA.ProperCircleArc, OAI.MinimalVertex.intervalAlgebra U hc I ≤ ⏎ (OAI.MinimalVertex.intervalAlgebra U hc (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.complement I)).commutant"
+     ]
+    },
+    {
+     "challenge": "VertexAlgebraNet",
+     "flag": "JUNK? (not triggered): resolvent, flow and projectiveStandardAction are defined by h.choose with fallbacks 0, 0, 1; the defining existentials hold for self-adjoint generators and the Möbius action, and a fallback for projectiveStandardAction would force a one-dimensional Hilbert space (vacuum_unique), i.e. falsity rather than weakness",
+     "decision": "cleared",
+     "why": "None of the three existentials fails, so no fallback is reached. (1) resolvent: hamiltonian_selfAdjoint is Mathlib's IsSelfAdjoint for a LinearPMap (T† = T), which forces a dense domain (Mathlib's IsSelfAdjoint.dense_domain) and closedness. So T is a genuine self-adjoint operator, and for |Im z| ≥ 1 the bounded R = (T−z)⁻¹ satisfies (R y, y + z R y) ∈ graph T, uniquely since T−z is injective. (2) flow: boundedGenerator(r) = (r²/2)((T−ir)⁻¹ + (T+ir)⁻¹) = r²T/(T²+r²), and exp(it·B_n) → e^{itT} strongly by spectral dominated convergence, so the limit L exists, is unique, and equals e^{itT}. (3) projectiveStandardAction: every M ∈ SL(2,ℝ) acts on the circle by the doubled-angle Möbius map, an orientation-preserving smooth diffeomorphism with a smooth 2π-equivariant lift F satisfying Implements M F. Rel M x y fixes y mod 2π, so the class of F in Group (lifts modulo the kernel of the circle action) depends only on M, and −1 acts trivially. The lifts proof shows products implement products, so the homomorphism exists and is unique. The first reader's backstop also checks out: fallback 0 for flow contradicts rotation_flow (isometries on H ≠ 0, vacuum_norm = 1), and fallback 1 for projectiveStandardAction makes extends_mobius force mobius F to be scalar, hence trivial (PSL(2,ℝ) is perfect), hence by vacuum_unique dim H = 1. Both would be falsity, never weakness.",
+     "evidence": [
+      "ComparatorChallenges/VertexAlgebraNet.lean:744-748: noncomputable def resolvent (T : H →ₗ.[ℂ] H) (_hs : IsSelfAdjoint T) (z : ℂ) (_hz : 1 ≤ |z.im|) : ⏎ H →L[ℂ] H := by ⏎ classical ⏎ exact if h : ∃ R : H →L[ℂ] H, ∀ y, (R y, y + z • R y) ∈ T.graph then h.choose ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:750-754: noncomputable def boundedGenerator (T : H →ₗ.[ℂ] H) (hs : IsSelfAdjoint T) ⏎ (r : ℝ) (hr : 1 ≤ r) : H →L[ℂ] H := ⏎ ((r : ℂ)^2/2) • ⏎ (OAI.MinimalVertex.resolvent T hs ((r : ℂ)*Complex.I) (by simpa [abs_of_nonneg (by linarith : 0 ≤ r)] using hr) + ⏎ OAI.MinimalVertex.resolvent T hs (-((r : ℂ)*Complex.I)) (by simpa [abs_of_nonneg (by linarith : 0 ≤ r)] using hr))",
+      "ComparatorChallenges/VertexAlgebraNet.lean:767-773: noncomputable def flow {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] ⏎ (T : H →ₗ.[ℂ] H) (hs : IsSelfAdjoint T) (t : ℝ) : H →L[ℂ] H := by ⏎ classical ⏎ exact if h : ∃ L : H →L[ℂ] H, ∀ x, ⏎ Tendsto (fun n => OAI.MinimalVertex.approximatingFlow T hs n t x) atTop (𝓝 (L x)) then ⏎ h.choose ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:775-781: noncomputable def projectiveStandardAction : PSL(2,ℝ) →* (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group) := by ⏎ classical ⏎ exact if h : ∃ L : PSL(2,ℝ) →* (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group), ⏎ ∀ M : SL(2,ℝ), ∃ F : OAI.StronglyRationalVOA.SmoothCircleLift, ∃ hF : (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements M F), ⏎ L (QuotientGroup.mk M) = ⏎ QuotientGroup.mk (⟨F, M, hF⟩ : (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts)) then h.choose ⏎ else 1",
+      "ComparatorChallenges/VertexAlgebraNet.lean:543-545: noncomputable def _root_.OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Rel (M : SL(2,ℝ)) (x y : ℝ) : Prop := ⏎ (M 0 0*Real.cos (x/2)+M 0 1*Real.sin (x/2))*Real.sin (y/2)= ⏎ (M 1 0*Real.cos (x/2)+M 1 1*Real.sin (x/2))*Real.cos (y/2)",
+      "ComparatorChallenges/VertexAlgebraNet.lean:592: carrier := {F | ∃ M : SL(2,ℝ), (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements M F)}",
+      "ComparatorChallenges/VertexAlgebraNet.lean:607: noncomputable abbrev _root_.OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group := OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts ⧸ ((OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleLift.circleAction).comp OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts.subtype).ker",
+      "ComparatorChallenges/VertexAlgebraNet.lean:794: extends_mobius : ∀ F, diffeomorphism ((OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.inclusion) (OAI.MinimalVertex.projectiveStandardAction F))=QuotientGroup.mk (mobius F)",
+      "ComparatorChallenges/VertexAlgebraNet.lean:800-802: vacuum_norm : ‖vacuum‖=1 ⏎ vacuum_invariant : ∀ F, mobius F vacuum=vacuum ⏎ vacuum_unique : ∀ x : H, (∀ F, mobius F x=x) → ∃ c : ℂ, x=c • vacuum",
+      "ComparatorChallenges/VertexAlgebraNet.lean:805: hamiltonian_selfAdjoint : IsSelfAdjoint hamiltonian",
+      "ComparatorChallenges/VertexAlgebraNet.lean:807-809: rotation_flow : ∀ t : ℝ, ⏎ (mobius (QuotientGroup.mk (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.rotationMatrix t))).toLinearIsometry.toContinuousLinearMap= ⏎ OAI.MinimalVertex.flow hamiltonian hamiltonian_selfAdjoint t"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "294",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "KaplanskyStableFiniteness",
+     "flag": "VACUITY? cleared: Nontrivial M (and B) is required, which excludes the zero algebra, where 1 = 0 would make 'properly infinite' trivially true",
+     "decision": "cleared",
+     "why": "Each existential excludes the zero algebra, where 1 = 0 would make ProperlyInfinite, StablyFinite and IsEmpty TracialState trivial. TraceFreeStablyFinite requires Nontrivial A. ReducedQuasitraceLoss and SimpleStableTensorCounterexample require Nontrivial B / Nontrivial M and an injective unital ρ : B →⋆ₐ (H →L[ℂ] H). Injectivity from a nontrivial algebra forces H ≠ 0, so ℓ²(F2, H) ≠ 0 and tensorAlgebra ρ, a StarSubalgebra containing the identity operator, is nontrivial. ProperlyInfinite (tensorAlgebra ρ) therefore asserts two genuine isometries with orthogonal ranges. '¬∃ normalized 2-quasitrace' is not vacuous either, since B itself is required to carry one. Algebra F2 contains the identity of ℓ²(F2) ≠ 0, so its CStarSimple and StablyFinite conjuncts are about a nontrivial algebra.",
+     "evidence": [
+      "ComparatorChallenges/KaplanskyStableFiniteness.lean:122-123: def ProperlyInfinite (A : Type*) [CStarAlgebra A] : Prop := ⏎ ∃ s t : A, star s*s = 1 ∧ star t*t = 1 ∧ star s*t = 0",
+      "ComparatorChallenges/KaplanskyStableFiniteness.lean:158-160: def StablyFinite (A : Type*) [CStarAlgebra A] : Prop := ⏎ ∀ n : ℕ, 0 < n → ∀ v : CStarMatrix (Fin n) (Fin n) A, ⏎ star v * v = 1 → v * star v = 1",
+      "ComparatorChallenges/KaplanskyStableFiniteness.lean:167-171: def TraceFreeStablyFinite : Prop := ⏎ ∃ (A : Type) (inst : CStarAlgebra A), ⏎ letI := inst ⏎ Nontrivial A ∧ TopologicalSpace.SeparableSpace A ∧ StablyFinite A ∧ ⏎ IsEmpty (TracialState A)",
+      "ComparatorChallenges/KaplanskyStableFiniteness.lean:200-212: def ReducedQuasitraceLoss : Prop := ⏎ ∃ (B : Type) (instB : CStarAlgebra B), ⏎ letI := instB ⏎ Nontrivial B ∧ TopologicalSpace.SeparableSpace B ∧ ⏎ (∃ τ : OneQuasitrace B, τ.Normalized ∧ τ.IsTwo) ∧ ⏎ ∃ (H : Type) (instH : NormedAddCommGroup H) (innerH : InnerProductSpace ℂ H), ⏎ letI := instH ⏎ letI := innerH ⏎ ∃ (completeH : CompleteSpace H), ⏎ letI := completeH ⏎ ∃ ρ : B →⋆ₐ[ℂ] (H →L[ℂ] H), Function.Injective ρ ∧ ⏎ ProperlyInfinite (tensorAlgebra (G:=F2) ρ) ∧ ⏎ ¬ ∃ τ : OneQuasitrace (tensorAlgebra (G:=F2) ρ), τ.Normalized ∧ τ.IsTwo",
+      "ComparatorChallenges/KaplanskyStableFiniteness.lean:222-233: def SimpleStableTensorCounterexample : Prop := ⏎ CStarSimple (Algebra F2) ∧ StablyFinite (Algebra F2) ∧ ⏎ ∃ (M : Type) (instM : CStarAlgebra M), ⏎ letI := instM ⏎ Nontrivial M ∧ CStarSimple M ∧ StablyFinite M ∧ ⏎ ∃ (H : Type) (instH : NormedAddCommGroup H) (innerH : InnerProductSpace ℂ H), ⏎ letI := instH ⏎ letI := innerH ⏎ ∃ (completeH : CompleteSpace H), ⏎ letI := completeH ⏎ ∃ ρ : M →⋆ₐ[ℂ] (H →L[ℂ] H), Function.Injective ρ ∧ ⏎ ProperlyInfinite (tensorAlgebra (G:=F2) ρ)"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "331",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "ForestSpace",
+     "flag": "JUNK? (not triggered): moduli are nested real sInf/sSup; in an infinite-dimensional space with an equivalent norm the inner sets are nonempty and lie in [−1,t] (AUC) or [0,t] (averaged), so no junk value can occur",
+     "decision": "cleared",
+     "why": "The direction that matters is ¬IsAUC: a junk 0 in aucModulus would make it trivially true. It cannot occur. Conjunct 1 asserts FullDual Vertex is infinite-dimensional, so every closed finite-codimensional F is infinite-dimensional, hence nonzero. N is a norm (α‖x‖ ≤ N x with α > 0), so F contains N-unit vectors and aucValues/averageValues are nonempty. For N x = N y = 1 and t > 0: N(x+ty)−1 ∈ [−1, t] (it is in fact ≥ |t−1|−1), and (N(x+ty)+N(x−ty))/2 − 1 ∈ [0, t] by the triangle inequality. So each inner sInf is a true infimum. The outer range is nonempty (F = the whole space is in Cofinite) and bounded above by t, so the sSup is true. The outermost set is nonempty (unit vectors exist) and bounded below (−1 or 0), so the sInf is true. ¬IsAUC therefore asserts a genuinely nonpositive modulus at some t > 0, and the averaged lower bound √(1+t²/12)−1 > 0 is compared with the true modulus.",
+     "evidence": [
+      "ComparatorChallenges/ForestSpace.lean:19-20: def Cofinite : Type := ⏎ {F : Submodule ℝ E // IsClosed (F : Set E) ∧ FiniteDimensional ℝ (E ⧸ F)}",
+      "ComparatorChallenges/ForestSpace.lean:23-24: def aucValues (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : Set ℝ := ⏎ {a | ∃ y : E, y ∈ F.val ∧ N y = 1 ∧ a = N (x + t • y) - 1}",
+      "ComparatorChallenges/ForestSpace.lean:26-35: noncomputable def aucInner (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : ℝ := ⏎ sInf (aucValues E N t x F) ⏎  ⏎ noncomputable def aucCenter (N : E → ℝ) (t : ℝ) (x : E) : ℝ := ⏎ sSup (Set.range (aucInner E N t x)) ⏎  ⏎ /-- The one-sided asymptotic uniform convexity modulus, with the order ⏎ of infimum, supremum and infimum. -/ ⏎ noncomputable def aucModulus (N : E → ℝ) (t : ℝ) : ℝ := ⏎ sInf {a | ∃ x : E, N x = 1 ∧ a = aucCenter E N t x}",
+      "ComparatorChallenges/ForestSpace.lean:38-50: def averageValues (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : Set ℝ := ⏎ {a | ∃ y : E, y ∈ F.val ∧ N y = 1 ∧ ⏎ a = (N (x+t•y) + N (x-t•y))/((2 : ℕ) : ℝ) - 1} ⏎  ⏎ noncomputable def averageInner (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : ℝ := ⏎ sInf (averageValues E N t x F) ⏎  ⏎ noncomputable def averageCenter (N : E → ℝ) (t : ℝ) (x : E) : ℝ := ⏎ sSup (Set.range (averageInner E N t x)) ⏎  ⏎ /-- The averaged asymptotic midpoint modulus. -/ ⏎ noncomputable def averageModulus (N : E → ℝ) (t : ℝ) : ℝ := ⏎ sInf {a | ∃ x : E, N x = 1 ∧ a = averageCenter E N t x}",
+      "ComparatorChallenges/ForestSpace.lean:61-62: lower : ∀ x : E, α*‖x‖ ≤ N x ⏎ upper : ∀ x : E, N x ≤ β*‖x‖",
+      "ComparatorChallenges/ForestSpace.lean:69-70: def IsAUC {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] (N : E → ℝ) : Prop := ⏎ ∀ t : ℝ, 0 < t → 0 < aucModulus E N t",
+      "ComparatorChallenges/ForestSpace.lean:454: (¬FiniteDimensional ℝ (FullDual Vertex)) ∧",
+      "ComparatorChallenges/ForestSpace.lean:457-459: (∀ (α β : ℝ) (R : EquivalentNorm (FullDual Vertex) α β), ¬IsAUC R.N) ∧ ⏎ (∀ t : ℝ, 0 < t → ⏎ Real.sqrt (1+t^2/12)-1 ≤ averageModulus (FullDual Vertex) norm t) ∧"
+     ]
+    },
+    {
+     "challenge": "MidpointLenses",
+     "flag": "JUNK? (not triggered): Real.sqrt of a negative is 0, but ‖x‖ ≤ (‖x+y‖+‖x−y‖)/2 ≤ R",
+     "decision": "cleared",
+     "why": "Real.sqrt of a negative would be 0 and would turn the conclusion into the stronger ‖tail H y‖ ≤ 0, i.e. falsity, never weakness. It never happens: 2x = (x+y)+(x−y) gives ‖x‖ ≤ (‖x+y‖+‖x−y‖)/2 ≤ R and R ≥ 0, so R² − ‖x‖² ≥ 0 in both conjuncts. In the BInfinite conjunct the subtype norm is the ambient norm, so the same argument applies.",
+     "evidence": [
+      "ComparatorChallenges/MidpointLenses.lean:328-336: theorem midpoint_lens_main : ⏎ (∀ (H : Finset ForestVertex) (_ : Ancestral ForestAncestor H) ⏎ (x y : X) (_ : x = head H x) (R : ℝ) (_ : 0 ≤ R) ⏎ (_ : ‖x + y‖ ≤ R) (_ : ‖x - y‖ ≤ R), ⏎ ‖tail H y‖ ≤ 2 * Real.sqrt (R ^ 2 - ‖x‖ ^ 2)) ∧ ⏎ (∀ (H : Finset InfiniteVertex) (_ : Ancestral List.IsPrefix H) ⏎ (x y : BInfinite) (_ : x.val = head H x.val) (R : ℝ) (_ : 0 ≤ R) ⏎ (_ : ‖x + y‖ ≤ R) (_ : ‖x - y‖ ≤ R), ⏎ ‖tail H y.val‖ ≤ 2 * Real.sqrt (R ^ 2 - ‖x‖ ^ 2)) :="
+     ]
+    }
+   ]
+  },
+  {
+   "family": "362",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "VlasovMaxwell",
+     "flag": "JUNK? checked, none: derivWithin/fderiv would be 0 at non-differentiable points, but every solution is ContDiffOn ℝ 1 on the closed half-space, so the derivatives in the equations are genuine; ρ and j are Bochner integrals of compactly supported continuous integrands.",
+     "decision": "cleared",
+     "why": "The derivatives in Equations are genuine. Classical requires ContDiffOn ℝ 1 for f, E and B on the closed half-space {t ≥ 0}, which is convex with nonempty interior, hence UniqueDiffOn. So derivWithin … (Ici 0) t is the true (one-sided at t = 0) time derivative. The spatial and velocity fderiv of the slices y ↦ s.f(t,y,v), v' ↦ s.f(t,x,v'), y ↦ s.E(t,y) are true derivatives even at t = 0: those slices map into the half-space, and the within-derivative there is unique. ρ and j are Bochner integrals of v ↦ s.f(t,x,v) (times |velocity v| < 1). That slice is continuous (from ContDiffOn) and compactly supported (CompactOnFiniteHorizons), so it is integrable, and the same holds for f₀ in Admissible (ContDiff with HasCompactSupport). So existence cannot be satisfied by junk-zero derivatives or integrals. On the uniqueness side, junk could only enlarge the class of 'classical' s′, which makes uniqueness stronger, not weaker. Lane K: CERTIFIED.",
+     "evidence": [
+      "ComparatorChallenges/VlasovMaxwell.lean:24-25: def spatialPartial (g : Vec → ℝ) (x : Vec) (i : Fin 3) : ℝ := ⏎ fderiv ℝ g x (basis i)",
+      "ComparatorChallenges/VlasovMaxwell.lean:34-36: def rho (g : Phase → ℝ) (x : Vec) : ℝ := ∫ v : Vec, g (x, v) ⏎ def current (g : Phase → ℝ) (x : Vec) : Vec := ⏎ ∫ v : Vec, g (x, v) • velocity v",
+      "ComparatorChallenges/VlasovMaxwell.lean:69-74: def Equations (s : Solution) : Prop := ∀ t, 0 ≤ t → ⏎ (∀ x v, ⏎ derivWithin (fun t' => s.f (t', x, v)) (Ici 0) t + ⏎ (∑ i : Fin 3, velocity v i * spatialPartial (fun y => s.f (t, y, v)) x i) + ⏎ (∑ i : Fin 3, (s.E (t, x) + cross (velocity v) (s.B (t, x))) i * ⏎ spatialPartial (fun v' => s.f (t, x, v')) v i) = 0) ∧",
+      "ComparatorChallenges/VlasovMaxwell.lean:82-84: def CompactOnFiniteHorizons (s : Solution) : Prop := ⏎ ∀ T : ℝ, 0 ≤ T → ∃ K : Set Phase, IsCompact K ∧ ⏎ ∀ t ∈ Icc 0 T, tsupport (fun z => s.f (t, z)) ⊆ K",
+      "ComparatorChallenges/VlasovMaxwell.lean:86-88: def Classical (d : Datum) (s : Solution) : Prop := ⏎ ContDiffOn ℝ 1 s.f particleHalfSpace ∧ ⏎ ContDiffOn ℝ 1 s.E fieldHalfSpace ∧ ContDiffOn ℝ 1 s.B fieldHalfSpace ∧",
+      "ComparatorChallenges/VlasovMaxwell.lean:103-105: theorem global_classical_solution (d : Datum) (hd : Admissible d) : ⏎ ∃ s : Solution, Classical d s ∧ SmoothOnFiniteHorizons s ∧ ⏎ ∀ s' : Solution, Classical d s' → SameNonnegativeTime s s' := by"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,391 @@
+{
+  "reader": "second-flags",
+  "batch": 2,
+  "families": [
+    {
+      "family": "007",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "OrdinaryElliott",
+          "flag": "JUNK? checked, none: sInf is over the image of the nonempty compact interval [−N, N] of a nonnegative function (each summand 1 − Re(...) ≥ 0 because |f(p)| ≤ 1), so it is a genuine infimum; Real.sqrt is of a nonnegative quantity.",
+          "decision": "cleared",
+          "why": "Each summand (1 − Re(f p · conj(χ(p) p^{it})))/p is ≥ 0, because ‖f p‖ ≤ 1 (OneBounded), |χ(p)| ≤ 1 and |p^{it}| = 1. distanceSq is therefore ≥ 0 and Real.sqrt is genuine. The sInf is taken over the image of the nonempty compact interval [−N, N] (it contains 0) under a function that is continuous in t and bounded below by 0. It is the genuine infimum, and in fact a minimum. When χ(p) = 0 the summand is 1/p, which is the standard convention. A junk sInf would have sat in the hypothesis UniformlyNonpretentious, but none occurs.",
+          "evidence": [
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:11: def OneBounded (f : ℕ → ℂ) : Prop := ∀ n, ‖f n‖ ≤ 1",
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:19: (1 - (f p * star (χ (p : ZMod q) *",
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:20: Complex.exp ((t * Real.log (p : ℝ) : ℝ) * Complex.I))).re) / (p : ℝ)",
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:23: (t X : ℝ) : ℝ := Real.sqrt (distanceSq f χ t X)",
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:27: Tendsto (fun N : ℕ => sInf ((fun t : ℝ => distance f χ t (N : ℝ)) ''",
+            "lean/ComparatorChallenges/OrdinaryElliott.lean:28: Set.Icc (-(N : ℝ)) (N : ℝ))) atTop atTop"
+          ]
+        },
+        {
+          "challenge": "OrdinaryTwoPointCorrelations",
+          "flag": "JUNK? checked, none: division by (N : ℂ) is junk only at N = 0, irrelevant to the limit; Real.rpow (Real.log X) c with X ≥ 3 has a positive base.",
+          "decision": "cleared",
+          "why": "Division by (N : ℂ) is junk only at N = 0, which is one term of a sequence whose limit is taken at atTop. In Real.rpow (Real.log X) c with X ≥ 3, the base is log X ≥ log 3 > 1 > 0, so (log X)^c is a genuine positive power and the bound C·X/(log X)^c is genuine. f, g and liouville are evaluated only at a·n + b ≥ 1 or n + h ≥ 1 (a ≥ 1, n ≥ 1), so their junk value at 0 is never used. characterTwist's log is evaluated only at primes inside squaredDistance.",
+          "evidence": [
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:14: ∑ n ∈ Finset.Icc 1 N, f (n + h₁) * g (n + h₂)",
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:17: ∑ n ∈ Finset.Icc 1 N, f (a₁ * n + b₁) * g (a₂ * n + b₂)",
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:46: ∃ C : ℝ, 0 < C ∧ ∀ X : ℝ, 3 ≤ X →",
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:47: ‖affineSum liouville liouville a₁ a₂ b₁ b₂ ⌊X⌋₊‖ ≤",
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:48: C * X / Real.rpow (Real.log X) c := by",
+            "lean/ComparatorChallenges/OrdinaryTwoPointCorrelations.lean:56: Tendsto (fun N : ℕ => correlationSum f₁ f₂ h₁ h₂ N / (N : ℂ)) atTop (nhds 0) := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "087",
+      "firstWord": "NARROWER — DECLARED",
+      "word": "NARROWER — DECLARED",
+      "flags": [
+        {
+          "challenge": "GeneralMahler",
+          "flag": "JUNK? cleared: volumeProduct is an sInf of reals over a nonempty set bounded below by 0, and the polar at an interior point is bounded so its volume is finite",
+          "decision": "cleared",
+          "why": "volumeProduct is Real.sInf over the image of interior K, which is nonempty by hinterior, of values ≥ 0. It is therefore a genuine infimum. Both toReal's are faithful. K is compact, so vol K < ∞. For z ∈ interior K there is r > 0 with closedBall z r ⊆ K, and ⟪y, x − z⟫ ≤ 1 for all x ∈ K forces ‖y‖ ≤ 1/r. So polarAt K z ⊆ closedBall 0 (1/r), which has finite volume. A junk 0 would make the lower bound false rather than easier. The minimisation over interior centres is the standard nonsymmetric volume product (the Santaló point).",
+          "evidence": [
+            "lean/ComparatorChallenges/GeneralMahler.lean:16: {y | ∀ x ∈ K, ⟪y, x - z⟫ ≤ 1}",
+            "lean/ComparatorChallenges/GeneralMahler.lean:20: sInf ((fun z => (volume K).toReal * (volume (polarAt K z)).toReal) ''",
+            "lean/ComparatorChallenges/GeneralMahler.lean:21: interior K)",
+            "lean/ComparatorChallenges/GeneralMahler.lean:26: (hcompact : IsCompact K) (hconvex : Convex ℝ K)",
+            "lean/ComparatorChallenges/GeneralMahler.lean:27: (hinterior : (interior K).Nonempty) :",
+            "lean/ComparatorChallenges/GeneralMahler.lean:28: ((n : ℝ) + 1) ^ (n + 1) / (Nat.factorial n : ℝ) ^ 2 ≤ volumeProduct K ∧"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "111",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "MatroidProphet",
+          "flag": "JUNK? (checked, benign): integrability of the reward is part of the conclusion and integrability of the optimum is a hypothesis, so ∫ of a non-integrable function = 0 cannot make the inequality cheap.",
+          "decision": "cleared",
+          "why": "The only junk path is the Bochner ∫ of a non-integrable function, which is 0. A junk ∫ optimum = 0 is the dangerous case, because it would make the inequality trivial. That case is excluded because Integrable (optimum M (V ω)) is a hypothesis (line 83), matching the prose's 'finite expected optimum'. ∫ reward is genuine because its integrability is itself the first conclusion conjunct (line 85). The inequality therefore compares two genuine expectations. optimum's sup' ranges over all I with value 0 off the independent sets. The empty set is independent with value 0, so for the a.e. nonnegative V it is the true maximum-weight independent set.",
+          "evidence": [
+            "lean/ComparatorChallenges/MatroidProphet.lean:58: exact Finset.univ.sup' Finset.univ_nonempty",
+            "lean/ComparatorChallenges/MatroidProphet.lean:59: (fun I : Finset (Fin n) => if M.Indep (I : Set (Fin n)) then ∑ e ∈ I, v e else 0)",
+            "lean/ComparatorChallenges/MatroidProphet.lean:83: Integrable (fun ω => optimum M (V ω)) μ →",
+            "lean/ComparatorChallenges/MatroidProphet.lean:85: Integrable (fun ω => reward A (R ω) (S ω) (V ω) (π ω)) μ ∧",
+            "lean/ComparatorChallenges/MatroidProphet.lean:86: ((2 : ℝ) ^ 310)⁻¹ * (∫ ω, optimum M (V ω) ∂μ) ≤",
+            "lean/ComparatorChallenges/MatroidProphet.lean:87: ∫ ω, reward A (R ω) (S ω) (V ω) (π ω) ∂μ"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "125",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "MetricKMedian",
+          "flag": "JUNK? cleared: optimum's else-branch (0) is unreachable because k>=1 and |facilities|>=k make feasibleSets nonempty",
+          "decision": "cleared",
+          "why": "k_pos (1 ≤ k) and k_le (k ≤ facilities.card) make facilities nonempty. Any singleton {f} ⊆ facilities is then nonempty with card 1 ≤ k, so it lies in feasibleSets. feasibleSets is therefore nonempty and optimum is the genuine minimum cost. nearest's else-branch is unreachable for the sets Correct quantifies over, because Correct requires S.Nonempty. If optimum had taken the junk value 0, Correct would demand cost ≤ 0, which is harder, not weaker.",
+          "evidence": [
+            "lean/ComparatorChallenges/MetricKMedian.lean:22: k_pos : 1 ≤ k",
+            "lean/ComparatorChallenges/MetricKMedian.lean:23: k_le : k ≤ facilities.card",
+            "lean/ComparatorChallenges/MetricKMedian.lean:39: if h : S.Nonempty then",
+            "lean/ComparatorChallenges/MetricKMedian.lean:47: I.facilities.powerset.filter (fun S => S.Nonempty ∧ S.card ≤ I.k)",
+            "lean/ComparatorChallenges/MetricKMedian.lean:50: if h : (feasibleSets I).Nonempty then",
+            "lean/ComparatorChallenges/MetricKMedian.lean:51: ((feasibleSets I).image (cost I)).min' (h.image _)",
+            "lean/ComparatorChallenges/MetricKMedian.lean:52: else 0",
+            "lean/ComparatorChallenges/MetricKMedian.lean:55: ∃ S : Finset (Fin I.n), S ⊆ I.facilities ∧ S.Nonempty ∧ S.card ≤ I.k ∧",
+            "lean/ComparatorChallenges/MetricKMedian.lean:57: cost I S ≤ (1 + 2 / Real.exp 1 + epsilon) * optimum I"
+          ]
+        },
+        {
+          "challenge": "KMedianThreshold",
+          "flag": "VACUITY? (low, standard): the theorem is conditional on the file's bespoke PNeNP; if that bespoke separation were provably false the statement would be vacuous — the definitions read as the standard ones",
+          "decision": "cleared",
+          "why": "The bespoke classes read as the standard ones. FinitePolyTime is Mathlib's TM2ComputableInPolyTime (a polynomial step bound in input length) plus finiteness of every stack alphabet. Mathlib's FinTM2 already forces finite K, Λ and σ but only a finite input alphabet, so the added condition is what makes it a genuine finite multistack machine. P is the languages decided in polynomial time on the raw word. NP is a polynomial-length witness checked by a poly-time verifier on the self-delimiting encodePair. With these definitions P = NP is exactly the open problem and nothing makes it provable, so the hypothesis is not refutable. The conditional form matches the prose ('Assuming P ≠ NP', docs/125.md:16).",
+          "evidence": [
+            "lean/ComparatorChallenges/KMedianThreshold.lean:65: ∃ p : Turing.TM2ComputableInPolyTime ea eb f,",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:66: ∀ k : p.tm.K, Finite (p.tm.Γ k)",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:76: def P : Set Language := {L | ∃ decideL : Word → Bool,",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:77: FinitePolyTime id encodeBit decideL ∧ ∀ x, decideL x = true ↔ x ∈ L}",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:79: def NP : Set Language := {L | ∃ (verify : Word × Word → Bool) (p : Polynomial ℕ),",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:80: FinitePolyTime encodePair encodeBit verify ∧",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:81: ∀ x, x ∈ L ↔ ∃ w : Word, w.length ≤ p.eval x.length ∧ verify (x, w) = true}",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:84: def PNeNP : Prop := P ≠ NP",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:102: theorem threshold (h : Complexity.PNeNP) :",
+            "lean/docs/125.md:16: Assuming $P\\ne NP$, it also proves that the infimum of all polynomial-time approximation factors in this model is exactly $1+2/e$."
+          ]
+        },
+        {
+          "challenge": "KMedianThreshold",
+          "flag": "JUNK? cleared: approximationFactors is nonempty (by MetricKMedian) and bounded below by 1 (instances with positive optimum), so sInf is meaningful",
+          "decision": "cleared",
+          "why": "approximationFactors ⊆ [1, ∞). Take the instance n = 2, d(0,1) = 1, clients {0}, facilities {1}, k = 1. Its optimum is 1, and its only allowed output S = {1} costs 1, so FactorCorrect α forces α ≥ 1; a negative α is impossible too. The set is nonempty: deterministic poly-time constant-factor algorithms exist mathematically, and MetricKMedian.main_finite_work supplies 1 + 2/e + ε. Nonempty and bounded below, so sInf is the genuine infimum; the set is upward-closed because optimum ≥ 0. If the set were empty, sInf = 0 ≠ 1 + 2/e, so a junk value could only falsify the statement.",
+          "evidence": [
+            "lean/ComparatorChallenges/KMedianThreshold.lean:91: cost I S ≤ α * optimum I",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:94: def approximationFactors : Set ℝ := {α | ∃ algorithm : Instance → List Bool,",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:95: Complexity.FinitePolyTime encodeInstance id algorithm ∧",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:96: ∀ I, FactorCorrect α I (algorithm I)}",
+            "lean/ComparatorChallenges/KMedianThreshold.lean:103: sInf approximationFactors=1+2/Real.exp 1 := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "151",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "C1EntropyCounterexample",
+          "flag": "JUNK? (checked, benign): totalRealHomologySpectralRadius is an sSup (lines 55-63); on this compact manifold homology is finite-dimensional so the set is bounded; a junk 0 would make 'log 2 ≤ log …' false, not easier. The clause is redundant given the eigenvector.",
+          "decision": "cleared",
+          "why": "The set is {|a+ib| : a+ib an eigenvalue of f_* on H_n(M;ℝ) for some n}, because f_*(u+iv) = (a+ib)(u+iv) with u+iv ≠ 0. M = S¹ × (S²)^{q+1} is a compact (2q+3)-manifold, so each H_n is finite-dimensional and H_n = 0 for n > 2q+3. The set is therefore finite. It is nonempty because the theorem's own conjunct supplies v ≠ 0 with f_* v = 2v, giving r = 2 (a = 2, b = 0, u = v, v = 0). sSup is thus the true spectral radius of total homology, and it is ≥ 2. The junk value would anyway give log 0 = 0 < log 2, which makes the statement false, not easier.",
+          "evidence": [
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:57: sSup {r : ℝ |",
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:60: (u ≠ 0 ∨ v ≠ 0) ∧",
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:61: realHomologyMap n f hf u = a • u - b • v ∧",
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:62: realHomologyMap n f hf v = b • u + a • v ∧",
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:63: r = Real.sqrt (a ^ 2 + b ^ 2)}",
+            "lean/ComparatorChallenges/C1EntropyCounterexample.lean:66: ∃ q : ℕ, 0 < q ∧ ∃ f : CounterexampleManifold q → CounterexampleManifold q, ∃ hf : IsC1SelfMap q f, Dynamics.coverEntropy f (Set.univ : Set (CounterexampleManifold q)) = (0 : EReal) ∧ (∃ v : RealSingularHomology 2 (CounterexampleManifold q), v ≠ 0 ∧ realHomologyMap 2 f hf.1 v = (2 : ℝ) • v) ∧ 0 < Real.log (2 : ℝ) ∧ Real.log (2 : ℝ) ≤ Real.log (totalRealHomologySpectralRadius f hf.1) ∧ ¬ Function.Bijective f ∧ 5 ≤ 2 * q + 3 := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "167",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "PinnedDistances",
+          "flag": "JUNK? (not triggered): F is a real sSup; the set of fractions lies in [0,1] and is nonempty for n ≥ 2 (F := 0 for n < 2), so it is the true supremum",
+          "decision": "cleared",
+          "why": "F n s (n ≥ 2) is Real.sSup of {pairFraction P s | P.card = n}. richPairs P s is a filter of the off-diagonal of P ×ˢ P, which has n(n−1) elements, and the denominator is n(n−1) > 0, so every pairFraction lies in [0,1]; the plane contains n-point sets for every n, so the set is nonempty. Nonempty and bounded above, so sSup is the true supremum. The junk value (sSup = 0 for an empty or unbounded set) is the weakening direction here, because it would make 'F → 0' trivially true. It cannot be reached. The n < 2 branch is a finite prefix and does not affect a limit at atTop.",
+          "evidence": [
+            "lean/ComparatorChallenges/PinnedDistances.lean:18: def richPairs (P : Finset Plane) (s : ℝ) : Finset (Plane × Plane) :=",
+            "lean/ComparatorChallenges/PinnedDistances.lean:19: (P ×ˢ P).filter (fun xy => xy.1 ≠ xy.2 ∧",
+            "lean/ComparatorChallenges/PinnedDistances.lean:20: (P.card : ℝ) ^ s ≤ (k P xy.1 xy.2 : ℝ))",
+            "lean/ComparatorChallenges/PinnedDistances.lean:22: def pairFraction (P : Finset Plane) (s : ℝ) : ℝ :=",
+            "lean/ComparatorChallenges/PinnedDistances.lean:23: (richPairs P s).card / ((P.card : ℝ) * ((P.card : ℝ) - 1))",
+            "lean/ComparatorChallenges/PinnedDistances.lean:26: if 2 ≤ n then sSup {a : ℝ | ∃ P : Finset Plane, P.card = n ∧ a = pairFraction P s}"
+          ]
+        },
+        {
+          "challenge": "PlanarUnitDistances",
+          "flag": "JUNK? (not triggered): u(n) is sSup on ℕ, which Mathlib sets to 0 for an unbounded set; here unitPairCount X ≤ |X.sym2| = n(n+1)/2, so the set is bounded and u(n) is the true maximum",
+          "decision": "cleared",
+          "why": "u n is Nat.sSup, which is 0 for a set not bounded above. That would make 'u n ≤ C n^β' trivially true, so this junk value is the weakening direction. It cannot be reached: unitPairCount X is the card of a filter of X.sym2, so it is ≤ X.sym2.card = n(n+1)/2 (Finset.card_sym2). Every n-point planar set exists, so the set is nonempty and bounded, and u n is the attained maximum. Diagonal elements s(x,x) of sym2 have dist 0 ≠ 1, so they do not inflate the count.",
+          "evidence": [
+            "lean/ComparatorChallenges/PlanarUnitDistances.lean:10: Sym2.lift ⟨fun x y => dist x y = 1, fun x y => by dsimp; rw [dist_comm]⟩",
+            "lean/ComparatorChallenges/PlanarUnitDistances.lean:14: exact (X.sym2.filter IsUnitPair).card",
+            "lean/ComparatorChallenges/PlanarUnitDistances.lean:17: sSup {m : ℕ | ∃ X : Finset Plane, X.card = n ∧ unitPairCount X = m}",
+            "lean/ComparatorChallenges/PlanarUnitDistances.lean:19: theorem main : ∃ C β : ℝ, 0 < C ∧ 1 ≤ β ∧ β < (4 : ℝ) / 3 ∧",
+            "lean/ComparatorChallenges/PlanarUnitDistances.lean:20: ∀ n : ℕ, (u n : ℝ) ≤ C * (n : ℝ) ^ β := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "213",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "CriticalZ3",
+          "flag": "JUNK? (checked, benign): bondCritical/siteCritical are sInf over ℝ (lines 50-54); sInf ∅ = 0 would make the claim trivial at p = 0, but the set is nonempty (p = 1 percolates surely), so the sInf is the genuine p_c.",
+          "decision": "cleared",
+          "why": "Mathlib defines bernoulliMeasure x y p = p•δx + (1−p)•δy, so each bond or site is open with probability p. Both sets {p ∈ [0,1] | 0 < θ(p)} are bounded below by 0. They are nonempty because at p = 1 the law is the Dirac mass at the all-open configuration, whose cluster at 0 is all of ℤ³ (and for sites, ω 0 = true). bondCritical and siteCritical are therefore the genuine infima, i.e. p_c by monotonicity. The junk sInf ∅ = 0 would have moved the claim to p = 0, where it is trivially true, but that value cannot be reached.",
+          "evidence": [
+            "lean/ComparatorChallenges/CriticalZ3.lean:45: Measure.infinitePi (fun _ : Bond => bernoulliMeasure true false (parameter p))",
+            "lean/ComparatorChallenges/CriticalZ3.lean:48: Measure.infinitePi (fun _ : Vertex => bernoulliMeasure true false (parameter p))",
+            "lean/ComparatorChallenges/CriticalZ3.lean:50: noncomputable def bondCritical : ℝ :=",
+            "lean/ComparatorChallenges/CriticalZ3.lean:51: sInf {p : ℝ | p ∈ Set.Icc (0 : ℝ) 1 ∧ 0 < bondLaw p (bondInfiniteAt 0)}",
+            "lean/ComparatorChallenges/CriticalZ3.lean:53: noncomputable def siteCritical : ℝ :=",
+            "lean/ComparatorChallenges/CriticalZ3.lean:54: sInf {p : ℝ | p ∈ Set.Icc (0 : ℝ) 1 ∧ 0 < siteLaw p (siteInfiniteAt 0)}",
+            "lean/ComparatorChallenges/CriticalZ3.lean:57: (∀ᵐ ω ∂bondLaw bondCritical, ∀ x : Vertex, (bondCluster ω x).Finite) ∧",
+            "lean/ComparatorChallenges/CriticalZ3.lean:58: (∀ᵐ ω ∂siteLaw siteCritical, ∀ x : Vertex, (siteCluster ω x).Finite) := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "234",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "InvariantIsing",
+          "flag": "JUNK? (not triggered): limits are (variationalFunctional …).toReal and EReal.toReal sends ±∞ to 0; since every theorem asserts convergence of genuine bounded pressures (or of the genuine ground-state energy, which pins M) to that value, a junk value would make the statement false, not weaker",
+          "decision": "cleared",
+          "why": "The flagged mechanism is EReal.toReal, which sends ⊤ and ⊥ to 0. Under the theorems' hypotheses the EReal is finite, so toReal is faithful. (i) It is > ⊥. entropyFunctional p ≥ 0 for every p, because the depth-0 FieldStep with cut 0 = 0, cut 1 = 1 and height 0 gives fieldValue = log cosh 0 − 0 = 0 and fieldPairing = 0. spectralFunctional is a real number. For p valued in [0,1], deficit p r ∈ [0, 1−r], and on that range measureR of a compactly supported law with upper edge e is bounded: it is G⁻¹(x) − 1/x below G(e+), which tends to the mean as x → 0+, and e − 1/x above. So the spectral term is uniformly bounded below. (ii) It is < ⊤. At p ≡ 0 the Parisi-type recursion has every a = cut ∈ [0,1], so it is dominated by the a = 1 recursion (Jensen at a = 0, the power-mean inequality for 0 < a ≤ 1). The a = 1 recursion telescopes to log E cosh(√V g) = V/2, which the −height_last/2 = −V/2 term cancels. So entropyFunctional 0 ≤ 0, and variationalFunctional ≤ spectralFunctional R 0. Independently, every conclusion equates a model-determined quantity to the value: pressure integrals, a.e. pressures, Y tied to the physical pressure by ConditionalFieldOrbitLaw, and the ground-state energies or norms that pin the existential M, e, eplus and eminus. A junk 0 would therefore make a statement false, not weaker. Aside (not this flag): magneticFieldFunctional is a limUnder (lines 193-195), which is junk if the approximating sequence diverges. It also appears only as the limit of a genuine sequence, so it can only falsify.",
+          "evidence": [
+            "lean/ComparatorChallenges/InvariantIsing.lean:72: 1 - r - ∫ s, max (p s - r) 0 ∂pathMeasure",
+            "lean/ComparatorChallenges/InvariantIsing.lean:107: ⨆ h : FieldStep, ((fieldValue h 0 + fieldPairing p h / 2 : ℝ) : EReal)",
+            "lean/ComparatorChallenges/InvariantIsing.lean:110: (1 / 2 : ℝ) * ∫ r, R (deficit p r) ∂pathMeasure",
+            "lean/ComparatorChallenges/InvariantIsing.lean:113: ⨅ p : OverlapPath, entropyFunctional p + (spectralFunctional R p : EReal)",
+            "lean/ComparatorChallenges/InvariantIsing.lean:121: if 0 < x then measureInverse μ e x - 1 / x else ∫ y, y ∂μ",
+            "lean/ComparatorChallenges/InvariantIsing.lean:194: limUnder atTop (fun n => simpleFieldValue (field : Measure ℝ) (fieldSimpleApproximation n)",
+            "lean/ComparatorChallenges/InvariantIsing.lean:295: atTop (𝓝 (variationalFunctional (measureR (ν : Measure ℝ) b)).toReal) ∧",
+            "lean/ComparatorChallenges/InvariantIsing.lean:296: ∀ᵐ ω ∂P, Tendsto (fun N => rotatedPressure (eig N) (matrixRotation (U N ω)⁻¹) (fun _ => 0))",
+            "lean/ComparatorChallenges/InvariantIsing.lean:297: atTop (𝓝 (variationalFunctional (measureR (ν : Measure ℝ) b)).toReal) := by",
+            "lean/ComparatorChallenges/InvariantIsing.lean:354: Tendsto (thermalVariationalValue ν b) atTop (𝓝 M) := by"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "244",
+      "firstWord": "NARROWER — DECLARED",
+      "word": "NARROWER — DECLARED",
+      "flags": [
+        {
+          "challenge": "PartitionPrinciple",
+          "flag": "VACUITY? (low): the hypotheses need a countable transitive model of ZFC with an internal inaccessible inside ZFSet.{u}. That is satisfiable when the ambient universe has enough strength (e.g. two inaccessibles); it is not vacuous in general.",
+          "decision": "cleared",
+          "why": "The hypotheses require a countable transitive M ⊆ ZFSet.{u} satisfying pairing, union, power set, separation, collection, infinity and choice, together with K ∈ M that is inaccessible in M. I re-read the de Bruijn encodings of the hypothesis axioms: choice (196-198) through choiceFunctionFormula (85-88) and orderedPairFormula (67-70, Kuratowski pairs matching ZFSet.pair), infinity (192-194) and powerSet (169-172). All read as the standard axioms, so no hypothesis is accidentally contradictory. GroundStandardInaccessible (142-144) reads as 'uncountable regular strong-limit cardinal of M', with groundPower κ = P(κ) ∩ M = P^M(κ). Such an M exists in Lean's intended semantics (ZFC + ω inaccessibles). With inaccessibles κ₀ < κ₁, a countable elementary submodel of V_{κ₁} collapses to a ctm of ZFC + 'κ₀ is inaccessible'. That ctm is hereditarily countable, so it lies in the interpretation of ZFSet.{u}. By soundness Lean cannot refute the hypotheses, so the theorem is not vacuously provable. The extra internal inaccessible is a narrowing, and docs/244.md:11 declares it. It is not a vacuity.",
+          "evidence": [
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:86: .conj (.allMem f (exMem a.succ (exMem 0 (orderedPairFormula 2 1 0))))",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:87: (.allMem a (exMem 0 (.conj (pairMembershipFormula 1 0 f.succ.succ)",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:88: (.allMem 1 (imp (pairMembershipFormula 2 0 f.succ.succ.succ) (.equal 0 1))))))",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:143: GroundCardinal M K ∧ ¬ M.groundEmbeddable K ZFSet.omega ∧",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:144: GroundCofinalRegular M K ∧ GroundCardinalStrongLimit M K",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:197: .all (imp (BoundedFormula.allMem 0 (BoundedFormula.nonemptyFormula 0)).toFormula",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:198: (ex (BoundedFormula.choiceFunctionFormula 1 0).toFormula))",
+            "lean/ComparatorChallenges/PartitionPrinciple.lean:269: {K : ZFSet.{u}} (hK : K ∈ M.sets) (standard : GroundStandardInaccessible M K) :",
+            "lean/docs/244.md:11: The linked model-construction result also constructs a transitive model of the Partition Principle without Choice from an externally countable transitive ground model satisfying the stated axioms, including Choice, and containing an internal strongly inaccessible cardinal. The paper's stronger transitive-model preservation assertions are outside that selected construction."
+          ]
+        }
+      ]
+    },
+    {
+      "family": "292",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "NuclearUltrapower",
+          "flag": "VACUITY? (checked, not vacuous): the clause '∀ B, IsNuclear B → …' would be vacuous if no B satisfied IsNuclear; ℂ (and O₂) satisfy min = max, so the hypothesis is inhabited.",
+          "decision": "cleared",
+          "why": "IsNuclear.{0,0} B says min = max on B ⊗ C for every NonUnitalCStarAlgebra C in Type 0. Take B = ℂ, which is a UnitalCStar. Each x is 1 ⊗ c. Every spatial pair gives ‖ρ(1) ⊗ σ(c)‖ ≤ ‖c‖ (norm_mapL_le; ⋆-homs are contractive), with equality for ρ the identity of ℂ on ℂ and σ faithful (a Type-0 GNS space). Every commuting pair gives ‖ρ(1)σ(c)‖ ≤ ‖c‖, with equality for ρ(λ) = λ·1 and the same σ. So min = max = ‖c‖, and the hypothesis is inhabited (O₂ also qualifies). Because the Lean predicate only tests C in Type 0, it is at least as permissive as genuine nuclearity. Every nuclear B in Type 0 satisfies it, so the ∀ B clause is not narrower than the prose. The O₂ conjunct (lines 197-199) does not use IsNuclear at all.",
+          "evidence": [
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:158: def IsNuclear (B : Type u) [NonUnitalCStarAlgebra B] : Prop :=",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:159: ∀ (C : Type v) [NonUnitalCStarAlgebra C] (x : B ⊗[ℂ] C),",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:160: minTensorNorm.{u, v, max u v} x = maxTensorNorm.{u, v, max u v} x",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:194: (∀ (B : UnitalCStar.{u}), IsNuclear.{u, u} B →",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:195: ∀ (ω : Ultrafilter ℕ), IsFree ω →",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:196: ¬ ∃ φ : A →⋆ₐ[ℂ] NormUltrapower B ω, Function.Injective φ) ∧",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:197: ∃ (O : UnitalCStar.{u}) (s : Fin 2 → O), IsCuntzTwoAlgebra O s ∧"
+          ]
+        },
+        {
+          "challenge": "NuclearUltrapower",
+          "flag": "JUNK? (checked, benign): minTensorNorm/maxTensorNorm are sSup over ℝ (lines 145-154); the sets are nonempty (zero representation) and bounded by Σ‖bᵢ‖‖cᵢ‖, so the sSups are genuine.",
+          "decision": "cleared",
+          "why": "Both sets are nonempty, because the zero representations (0 is a non-unital ⋆-hom) give r = 0. Both are bounded above. For x = Σ bᵢ ⊗ cᵢ, ‖spatialEval H K ρ σ x‖ ≤ Σ ‖mapL (ρ bᵢ) (σ cᵢ)‖ ≤ Σ ‖ρ bᵢ‖‖σ cᵢ‖ ≤ Σ ‖bᵢ‖‖cᵢ‖, using Mathlib's TensorProduct.norm_mapL_le and the contractivity of ⋆-homomorphisms between C⋆-algebras. Likewise ‖Σ ρ(bᵢ)σ(cᵢ)‖ ≤ Σ ‖bᵢ‖‖cᵢ‖ for commuting pairs. Both sSup are therefore genuine. Because representations range over all Type-0 Hilbert spaces, including faithful and universal ones, the two suprema are the spatial and maximal C⋆-norms.",
+          "evidence": [
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:127: TensorProduct.lift (LinearMap.mk₂ ℂ (fun b c => TensorProduct.mapL (ρ b) (σ c))",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:146: sSup {r | ∃ (H K : ComplexHilbert.{w})",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:147: (ρ : B →⋆ₙₐ[ℂ] (H →L[ℂ] H)) (σ : C →⋆ₙₐ[ℂ] (K →L[ℂ] K)),",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:148: r = ‖spatialEval H K ρ σ x‖}",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:152: sSup {r | ∃ (H : ComplexHilbert.{w})",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:153: (ρ : B →⋆ₙₐ[ℂ] (H →L[ℂ] H)) (σ : C →⋆ₙₐ[ℂ] (H →L[ℂ] H)),",
+            "lean/ComparatorChallenges/NuclearUltrapower.lean:154: (∀ b c, Commute (ρ b) (σ c)) ∧ r = ‖commutingEval H ρ σ x‖}"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "312",
+      "firstWord": "NARROWER — DECLARED",
+      "word": "NARROWER — DECLARED",
+      "flags": [
+        {
+          "challenge": "GrothendieckElementaryExpansion",
+          "flag": "VACUITY? (checked, not found): IsCoherator, Model, IsCellular are all inhabited by the standard objects (Θ₀ tower, initial model); no hypothesis appears contradictory.",
+          "decision": "cleared",
+          "why": "All hypotheses can be met at once. (1) A coherator exists. stage 0 can be Θ₀ (Hom S T := ULift (S.realize ⟶ T.realize), base = up). It is initial, because map_base forces every Morphism out of it, and it preserves globular sums, because Shape.attach is realized as the presheaf pushout. Free extensions along admissible pairs and sequential colimits exist among globular theories (an essentially algebraic, locally presentable category). Adjoining all admissible pairs at every stage gives the contractibility conjunct of IsCoherator. (2) Models exist: the constant-PUnit presheaf satisfies the pullback condition, and freeShape / disk are models by construction (lines 343-348). (3) For the remaining hypotheses take X = disk C n, a = 𝟙, Y = disk C (n+1), i = J C n, b = 𝟙. IsPushout 𝟙 J J 𝟙 holds trivially, and disk C n is cellular: the free model on the n-globe is built from the empty initial model by attaching its 2 cells per dimension below n and one n-cell. This instance has content, since it asserts that J is a weak equivalence. Restricting admissible pairs to height ≤ n+1 (line 271) only removes filler obligations. That enlarges the class of coherators and makes the theorem stronger, not vacuous.",
+          "evidence": [
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:271: height : arity.height ≤ n + 1",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:292: initial : ∀ D : GlobularTheory.{v}, Nonempty (Unique (Morphism (stage 0) D))",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:304: def IsCoherator (C : GlobularTheory.{v}) : Prop :=",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:305: Nonempty C.CellularPresentation ∧",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:306: ∀ p : C.AdmissiblePair, ∃ z, Fills (Morphism.id C) p z",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:344: presheaf := yoneda.obj ⟨S⟩",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:350: noncomputable def J (C : GlobularTheory.{v}) (n : ℕ) : disk C n ⟶ disk C (n + 1) :=",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:352: yoneda.map (C.toTheoryData.arity.map (Shape.source n))",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:380: def IsCellular {C : GlobularTheory.{v}} (X : C.Model) : Prop := Nonempty X.CellularPresentation",
+            "lean/ComparatorChallenges/GrothendieckElementaryExpansion.lean:470: (square : IsPushout a (GlobularTheory.Model.J C n) i b) :"
+          ]
+        }
+      ]
+    },
+    {
+      "family": "358",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "ConjugatePoints",
+          "flag": "JUNK? cleared (direction checked): fderiv of a non-differentiable function and Matrix.inv of a singular matrix are 0 in Lean; such junk would push curvature toward 0, i.e. make NonpositiveSectionalCurvature EASIER to satisfy, so it cannot make the negated conjunct trivially true",
+          "decision": "cleared",
+          "why": "No junk value is triggered where NonpositiveSectionalCurvature is evaluated, whatever its direction would be. Those points are x ∈ c.target with c ∈ atlas, and c.target is open. mfderiv I3 I3 c.symm x is genuine because c.symm is smooth on c.target. metricMatrix g c y is the coordinate matrix of g in chart c: the preferred-chart identifications in TangentSpace and mfderiv cancel. It is smooth in y on c.target and positive definite, so ⁻¹ is the true inverse. christoffel and curvatureCoefficient take fderiv of functions smooth on the open c.target at points of c.target, so every coordPartial is a genuine partial derivative. I also checked the formulas. christoffel g c x i j k = Γ^i_{jk}, and curvatureCoefficient l k i j = R^l_{kij} for R(X,Y)Z = ∇X∇YZ − ∇Y∇XZ − ∇[X,Y]Z. The predicate sums g(R(u,v)v, u) ≤ 0, which is the correct sign for sectional curvature ≤ 0 (positive on round spheres). So NonpositiveSectionalCurvature is exactly nonpositive sectional curvature, and ¬∃ g is not weakened. The first reader's direction argument is not needed. A partial junk value could in principle have either sign, but none occurs.",
+          "evidence": [
+            "lean/ComparatorChallenges/ConjugatePoints.lean:29: def metricMatrix (g : SmoothMetric M) (c : OpenPartialHomeomorph M E3) (x : E3) :",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:31: fun i j => g.inner (c.symm x)",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:32: (mfderiv I3 I3 c.symm x (basisVector i))",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:36: fderiv ℝ f x (basisVector i)",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:40: (1 / 2 : ℝ) * ∑ l : Fin 3, (metricMatrix g c x)⁻¹ i l *",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:51: coordPartial (fun y => christoffel g c y l j k) x i -",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:53: ∑ a : Fin 3, (christoffel g c x l i a * christoffel g c x a j k -",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:62: ∀ (c : OpenPartialHomeomorph M E3), c ∈ atlas E3 M →",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:63: ∀ x ∈ c.target, ∀ u v : E3,",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:65: metricMatrix g c x i j * curvatureTerm g c x u v v i * u j) ≤ 0"
+          ]
+        },
+        {
+          "challenge": "ConjugatePoints",
+          "flag": "VACUITY? cleared: IsGeodesicOn and IsJacobiFieldOn are satisfiable (e.g. J = γ'), so NoConjugatePoints is not vacuously true for every metric",
+          "decision": "cleared",
+          "why": "IsGeodesicOn and IsJacobiFieldOn are the genuine equations. For s ∈ U (open) with γ s ∈ c.source (open), c ∘ γ and the coordinate field are smooth near s (γ is continuous, and fieldCoordinates is ContDiffOn on the open U ∩ γ⁻¹ c.source). The deriv terms and the deriv of alongDerivative at s are therefore genuine. The equations read (c∘γ)'' + Γ((c∘γ)', (c∘γ)') = 0 and D_sD_sJ + R(J, γ')γ' = 0, which is the Jacobi equation for this sign of R. NoConjugatePoints is therefore exactly 'no nontrivial Jacobi field along a geodesic vanishes at two parameters', on every open interval and including constant geodesics (docs/358.md:9). Its premises are satisfiable, e.g. J = γ' or J = (s − a)·γ'. It is not vacuously true for every metric: it fails for any metric containing a region isometric to more than a hemisphere of a round 3-sphere, and every closed 3-manifold carries one because M # S³ ≅ M. So ∃ g, NoConjugatePoints g is a genuine claim.",
+          "evidence": [
+            "lean/ComparatorChallenges/ConjugatePoints.lean:69: deriv w s + connectionTerm g c (x s) (deriv x s) (w s)",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:75: alongDerivative g c (c ∘ γ) (deriv (c ∘ γ)) s = 0",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:84: ContDiffOn ℝ ∞ (fieldCoordinates γ J c) (U ∩ γ ⁻¹' c.source) ∧",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:86: alongDerivative g c (c ∘ γ)",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:87: (alongDerivative g c (c ∘ γ) (fieldCoordinates γ J c)) s +",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:88: curvatureTerm g c (c (γ s)) (fieldCoordinates γ J c s)",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:89: (deriv (c ∘ γ) s) (deriv (c ∘ γ) s) = 0",
+            "lean/ComparatorChallenges/ConjugatePoints.lean:95: ∀ a ∈ U, ∀ b ∈ U, a ≠ b → J a = 0 → J b = 0 → ∀ s ∈ U, J s = 0",
+            "lean/docs/358.md:9: The formalized result separates absence of conjugate points from nonpositive sectional curvature. It constructs a closed connected orientable smooth three-manifold with a smooth Riemannian metric having no conjugate points, while the same manifold admits no smooth metric of everywhere nonpositive sectional curvature. The no-conjugate-points assertion ranges over all geodesics and tangent-bundle Jacobi fields, including constant geodesics and unbounded time intervals. The separate no-focal-points and CAT(0) consequences are not included."
+          ]
+        }
+      ]
+    },
+    {
+      "family": "370",
+      "firstWord": "MATCHES",
+      "word": "MATCHES",
+      "flags": [
+        {
+          "challenge": "HenonEmden",
+          "flag": "JUNK? checked, none: the Laplacian at x ≠ 0 is the genuine second derivative because u is C² on the open set {0}ᶜ.",
+          "decision": "cleared",
+          "why": "Mathlib's Laplacian on E → F is Σᵢ iteratedFDeriv ℝ 2 u x (bᵢ, bᵢ), using the global iteratedFDeriv. For x ≠ 0, ContDiffOn ℝ 2 u {0}ᶜ on the open set {0}ᶜ gives ContDiffAt ℝ 2 u x, so the global iteratedFDeriv equals the classical second derivative at x. The same holds for v. The rpow terms are also genuine: ‖x‖ > 0 for x ≠ 0, and v x, u x > 0. This flag matters because the theorem is a nonexistence claim. A junk Laplacian (0) would turn equation_u into '0 = positive', which no u satisfies, and ¬∃ would be trivially true. That weakening path is closed.",
+          "evidence": [
+            "lean/ComparatorChallenges/HenonEmden.lean:12: regular_u : ContDiffOn ℝ 2 u ({0}ᶜ : Set (Space n))",
+            "lean/ComparatorChallenges/HenonEmden.lean:13: regular_v : ContDiffOn ℝ 2 v ({0}ᶜ : Set (Space n))",
+            "lean/ComparatorChallenges/HenonEmden.lean:14: positive_u : ∀ x, 0 < u x",
+            "lean/ComparatorChallenges/HenonEmden.lean:15: positive_v : ∀ x, 0 < v x",
+            "lean/ComparatorChallenges/HenonEmden.lean:16: equation_u : ∀ x, x ≠ 0 →",
+            "lean/ComparatorChallenges/HenonEmden.lean:17: -(Laplacian.laplacian u) x = Real.rpow ‖x‖ A * Real.rpow (v x) p",
+            "lean/ComparatorChallenges/HenonEmden.lean:26: ¬ ∃ u v : Space n → ℝ, IsSolution n p q A B u v := by"
+          ]
+        }
+      ]
+    }
+  ]
+}

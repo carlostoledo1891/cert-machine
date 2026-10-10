@@ -1,0 +1,409 @@
+{
+ "reader": "second-flags",
+ "batch": 1,
+ "families": [
+  {
+   "family": "005",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "Catalan",
+     "flag": "JUNK? (not triggered): Mathlib's tsum is 0 on a non-summable family; here |(-1)^j/(2j+1)^2| ≤ 1/(2j+1)^2 is summable, so the tsum is the true value (and Irrational 0 would be false anyway)",
+     "decision": "cleared",
+     "why": "The summand is (-1)^j / ((2j+1 : ℕ) : ℝ)^2, so its absolute value is 1/(2j+1)^2 ≤ 1/(j+1)^2: the family is absolutely summable and Mathlib's tsum is the genuine sum (Catalan's constant G). The junk-0 branch of tsum is never taken; had it been, Irrational 0 is false, so it could only have falsified the statement. Lane K has not run Catalan (notRunYet); this decision does not depend on it.",
+     "evidence": [
+      "lean/ComparatorChallenges/Catalan.lean:8:     Irrational (∑' j : ℕ, (-1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "025",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "ShortEgyptianFractions",
+     "flag": "JUNK? cleared: minLength is sInf of a subset of ℕ (sInf ∅ = 0), but conjunct 1 proves nonemptiness for every 1<=a<b, so the junk branch is never taken; log(log b) <= 0 for small b is handled by the existential b0.",
+     "decision": "cleared",
+     "why": "minLength a b is the sInf of a set that conjunct 1 of the same theorem (line 18) proves nonempty for every 1 ≤ a < b. maxMinLength b takes its sup only over a ∈ Ico 1 b, so every term is the true minimum length. log(log b) ≤ 0 happens only for finitely many small b, which the existential b₀ absorbs; the claim is asymptotic. Lane K: CERTIFIED.",
+     "evidence": [
+      "lean/ComparatorChallenges/ShortEgyptianFractions.lean:12:   sInf {k : ℕ | ∃ ns : List ℕ, IsExpansion a b ns ∧ ns.length = k}",
+      "lean/ComparatorChallenges/ShortEgyptianFractions.lean:15:   (Finset.Ico 1 b).sup (fun a => minLength a b)",
+      "lean/ComparatorChallenges/ShortEgyptianFractions.lean:18:     (∀ a b : ℕ, 1 ≤ a → a < b → ∃ ns : List ℕ, IsExpansion a b ns) ∧"
+     ]
+    },
+    {
+     "challenge": "EgyptianFractions",
+     "flag": "JUNK? cleared: F k = ncard would be 0 for an infinite set, but one_expansions_finite_and_bounded proves finiteness; v k = sInf of a set proved nonempty in missing_denominator_semantics; Filter.liminf/limsup on ℝ are meaningful only for bounded sequences, and prescribed_denominator_corollary's own first and third conjuncts bound log log v(k)/k eventually, so the liminf claims are not junk.",
+     "decision": "cleared",
+     "why": "F k = ncard, which is 0 on infinite sets, but one_expansions_finite_and_bounded (65) proves Set.Finite (OneExpansions k) for every k. v k = sInf, which is 0 on ∅, but missing_denominator_semantics (101) proves the set nonempty. On ℝ, liminf and limsup are junk only for a sequence that is not eventually bounded. The first conjunct of prescribed_denominator_corollary (109-110) gives exp(exp(k/600)) ≤ v k ≤ 1 + k^(2^(k−1)) eventually, so 1/600 ≤ prescribedSlope k ≤ ((k−1)·log 2 + log log k + o(1))/k. The sequence is therefore eventually bounded, and the liminf/limsup at 111-114 are the true ones. Separately, an unbounded sequence would give the junk 0 and falsify log 2/257 ≤ liminf, so the junk could not weaken anyway. Lane K has not run EgyptianFractions.",
+     "evidence": [
+      "lean/ComparatorChallenges/EgyptianFractions.lean:33:   (OneExpansions k).ncard",
+      "lean/ComparatorChallenges/EgyptianFractions.lean:65:     (∀ k : ℕ, Set.Finite (OneExpansions k) ∧",
+      "lean/ComparatorChallenges/EgyptianFractions.lean:101:   (∃ m : ℕ, m ∈ missingDenominators k) ∧",
+      "lean/ComparatorChallenges/EgyptianFractions.lean:109:     Real.exp (Real.exp ((k : ℝ) / 600)) ≤ (v k : ℝ) ∧",
+      "lean/ComparatorChallenges/EgyptianFractions.lean:110:     v k ≤ 1 + k ^ (2 ^ (k - 1))) ∧",
+      "lean/ComparatorChallenges/EgyptianFractions.lean:111:   (Real.log 2 / 257 ≤ Filter.liminf prescribedSlope Filter.atTop ∧"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "110",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "KServer",
+     "flag": "JUNK? cleared: optimalCost is sInf of a nonempty finite set of nonnegative reals",
+     "decision": "cleared",
+     "why": "optimalCost is the sInf of the range of serviceCost over the finite type Fin requests.length → Fin k. That type is nonempty because k ≥ 2 (the empty request list has the one empty labelling, cost 0). The range is a finite nonempty set of nonnegative reals, so sInf is its minimum, the true offline optimum. A junk 0 would only have made the bound harder. Lane K: CERTIFIED, with the strict run reading SAME BODIES.",
+     "evidence": [
+      "lean/ComparatorChallenges/KServer.lean:49:   sInf (Set.range (serviceCost s requests))",
+      "lean/ComparatorChallenges/KServer.lean:52:   ∃ C : ℝ, 0 < C ∧ ∀ (k : ℕ), 2 ≤ k →"
+     ]
+    },
+    {
+     "challenge": "UniformKServer",
+     "flag": "JUNK? cleared: selectedLabel takes output mod k, but the claim separately requires output < k at every reachable outcome",
+     "decision": "cleared",
+     "why": "machineExpectedCost recurses from the boot state at t = 0 through z' = requestStep … (t+1) z r bits, with budget requestBudget c e L (t+1). That is exactly the Reachable.next step with L = (instanceCode d s).length, so every state whose output selectedLabel reads is reachable. Conjunct 2 of UniformAlgorithmClaim (190-193) requires outputValue z' < k at every such state, so outputValue % k = outputValue on every path the expectation sums over, and the mod never repairs an invalid output. Lane K has not run UniformKServer.",
+     "evidence": [
+      "lean/ComparatorChallenges/UniformKServer.lean:165:   ⟨outputValue s % k, Nat.mod_lt _ hk⟩",
+      "lean/ComparatorChallenges/UniformKServer.lean:174:         let z' := requestStep M c e L (t+1) z r bits",
+      "lean/ComparatorChallenges/UniformKServer.lean:175:         let j := selectedLabel hk z'",
+      "lean/ComparatorChallenges/UniformKServer.lean:190:       (∀ (t : ℕ) (z : MachineState M), Reachable M c e d s t z →",
+      "lean/ComparatorChallenges/UniformKServer.lean:193:           z'.yielded = true ∧ outputValue z' < k) ∧"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "121",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "EditApproximation",
+     "flag": "DEFINITION CARRIES? (low, mitigated): the kernel work is charged from the exact-rational twin program (computedFamilyKernelWork, line 14788, sums rankedMemoKernelWork over physicalFamilyProgram) while the answer is produced by evaluating the rounded bit program (computedQueryMemoResultRawBand, line 17604, rankedBitMemoEvaluate). That the two visit the same fresh keys — i.e. that the charged work is the work of the computation that yields the answer — is not visible in the statement; it is stated by solution-tree lemmas (OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:37 computedQueryMemoResult_decode, :55 computedQueryMemoResult_localWork), read but not run",
+     "decision": "cleared",
+     "why": "The mechanism is as the first reader describes. The statement charges kernel work by walking the rational twin's memo traversal (rankedMemoKernelWork over physicalFamilyProgram, 14791-14793). Each fresh key costs the bit program's own per-key local work (cost = integerQueryLocalWorkRawBand = rankedBitLocalWork of the normalized bit program, 17616, passed in at 18174), while the answer comes from rankedBitMemoEvaluate (17607). The risk is that the two traversals visit different keys, so the charged work would not be the work of the computation that yields the answer. That risk does not materialize. In the solution tree, computedQueryMemoResult_decode proves that the executed bit memo result decodes to the rational result (ComputedQueryExecution.lean:37-39). decode keeps freshKeys, dictionaryVisits and requests unchanged (BitMemoRun.lean:17), so the bit program visits exactly the twin's fresh keys and dictionary entries. computedQueryMemoResult_localWork proves the bit program's own localWork equals computedFamilyKernelWork with that cost (55-57). RawBandPipelineBridges.lean:86 identifies the RawBand definitions in the statement with these. The hypotheses (2^1000 ≤ inputSmallLog N, the Nat.size mass bound, symbol and position bits, the occurrence table) are those of the large branch (physicalLargeInput, 15057-15061), the only branch where the twin is charged; the small branch charges chargedSuffixDP directly. So the statement's work is, as a theorem, the answer-producing program's own work. Caveats: I read the lemmas but did not run them. grep finds no sorry or axiom under OAI/Combinatorics/EditApproximation, and all three files lie in the import closure of RawBandMain.lean, so lane K's run of EditApproximation (not yet run) will kernel-check them.",
+     "evidence": [
+      "lean/ComparatorChallenges/EditApproximation.lean:14791:   OAI.EditApproximation.rankedMemoKernelWork (OAI.EditApproximation.SourceRanked.rank OAI.EditApproximation.ChargedPhysicalRequest.rank)",
+      "lean/ComparatorChallenges/EditApproximation.lean:14793:       (OAI.EditApproximation.physicalFamilyProgram source target N (OAI.EditApproximation.integerParameters N).P (OAI.EditApproximation.inputSmallLog N)",
+      "lean/ComparatorChallenges/EditApproximation.lean:17607:   OAI.EditApproximation.rankedBitMemoEvaluate (OAI.EditApproximation.SourceRanked.rank OAI.EditApproximation.ChargedPhysicalRequest.rank)",
+      "lean/ComparatorChallenges/EditApproximation.lean:17616:   OAI.EditApproximation.rankedBitLocalWork (OAI.EditApproximation.SourceRanked.rank OAI.EditApproximation.ChargedPhysicalRequest.rank)",
+      "lean/ComparatorChallenges/EditApproximation.lean:18174:     (OAI.EditApproximation.integerQueryLocalWorkRawBand source target N) (OAI.EditApproximation.integerPreevaluationWork source target N epsilon)",
+      "lean/OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:37: theorem computedQueryMemoResult_decode :",
+      "lean/OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:39:       computedFamilyResult source target N input := by",
+      "lean/OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:55: theorem computedQueryMemoResult_localWork :",
+      "lean/OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:56:     (computedQueryMemoResult source target N occurrence symbolBits positionBits input).localWork =",
+      "lean/OAI/Combinatorics/EditApproximation/Refinement/ComputedQueryExecution.lean:57:       computedFamilyKernelWork source target N input",
+      "lean/OAI/Combinatorics/EditApproximation/Binary/BitMemoRun.lean:17:   ⟨result.value.value, result.memory.mapValues BinaryFraction.value,",
+      "lean/OAI/Combinatorics/EditApproximation/Specification/RawBandPipelineBridges.lean:86: @[simp] theorem OAI.EditApproximation.computedQueryMemoResultRawBand_eq : @OAI.EditApproximation.computedQueryMemoResultRawBand = @OAI.EditApproximation.computedQueryMemoResult := by"
+     ]
+    },
+    {
+     "challenge": "EditApproximation",
+     "flag": "JUNK? cleared: the expected work is a Bochner integral, but the outcome space is countable with all sets measurable and the work integrable (geometric failure counts with p >= 1/2 enter linearly), so it is the true expectation, not a junk 0; no Real.log, positive denominators, guarded ℕ subtractions",
+     "decision": "cleared",
+     "why": "This junk would point in the weakening direction: if the work were not integrable, the Bochner integral would be 0 and the work bound trivially true. The work is integrable. The outcome space is Unit ⊕ (coarse draws × (ι → ℕ) × accepted values). Here ι is Fintype, the coarse draws are finite (CoarseThresholdDraws is built from Fin B → Fin B), and the accepted values lie in Fin(range i). So the space is countable with measurable singletons, and the work is measurable. The only unbounded coordinates are the rejection failure counts. They are geometric with success parameter range/2^(clog₂ range) > 1/2 (rejectionSuccessParameter is N/R, with R < 2N proved at 14926-14941). They enter only through rejectionSelectedBits, linearly as (failures + 1)·bits; every other term is a function of the seed table and the accepted values, because physicalFamilyRuntimeAccepted keeps only execution.1 and execution.2.2. So the expected work is finite and the integral is the true expectation. Outside physicalLargeInput the law is a Dirac mass.",
+     "evidence": [
+      "lean/ComparatorChallenges/EditApproximation.lean:1288:   | D + 1 => (Fin B → Fin B) × (Fin B → CoarseThresholdDraws B D)",
+      "lean/ComparatorChallenges/EditApproximation.lean:14943:     geometricMeasure (OAI.EditApproximation.rejectionSuccessParameter (range i) (2 ^ OAI.EditApproximation.rejectionBitCount (range i))",
+      "lean/ComparatorChallenges/EditApproximation.lean:14962:   ∑ i, (((execution.1 i : ℝ) + 1) * OAI.EditApproximation.rejectionBitCount (range i)) *",
+      "lean/ComparatorChallenges/EditApproximation.lean:15046:   (execution.1, execution.2.2)",
+      "lean/ComparatorChallenges/EditApproximation.lean:15185:   if OAI.EditApproximation.physicalLargeInput N epsilon then (OAI.EditApproximation.computedExecutionLaw source target N).map Sum.inr",
+      "lean/ComparatorChallenges/EditApproximation.lean:19159:         (∫ outcome, OAI.EditApproximation.integerBinaryWorkRawBand source target N epsilon outcome"
+     ]
+    },
+    {
+     "challenge": "EditApproximation",
+     "flag": "QUANTIFIER? cleared: ε is fixed first, the work bound is ∀ C ∀ η ∃ threshold ∀ N >= threshold ∀ inputs (worst-case expected), matching N^{1+o(1)} at fixed accuracy",
+     "decision": "cleared",
+     "why": "ε is a theorem parameter, fixed first. The work conjunct reads ∀ C ∀ η > 0, ∀ᶠ N, ∀ inputs with |s|+|t| ≤ N and symbols ≤ (N+2)^C: E[work] ≤ (N+2)^(1+η). That is worst-case expected time N^(1+o(1)) at fixed accuracy for polynomially bounded symbols: the threshold may depend on (ε, C, η) but not on the input. The correctness conjunct holds for every N ≥ |s|+|t|, which includes N = |s|+|t|.",
+     "evidence": [
+      "lean/ComparatorChallenges/EditApproximation.lean:19146: theorem almostLinearEditDistanceRawBand (epsilon : OAI.EditApproximation.BinaryFraction)",
+      "lean/ComparatorChallenges/EditApproximation.lean:19156:     (∀ (C : ℕ) (eta : ℝ), 0 < eta → ∀ᶠ N : ℕ in atTop,",
+      "lean/ComparatorChallenges/EditApproximation.lean:19157:       ∀ source target : List ℤ, source.length + target.length ≤ N →",
+      "lean/ComparatorChallenges/EditApproximation.lean:19158:         (∀ z ∈ source ++ target, z.natAbs ≤ (N + 2) ^ C) →",
+      "lean/ComparatorChallenges/EditApproximation.lean:19161:             (N + 2 : ℝ) ^ (1 + eta)) ∧"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "140",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "NoiselessRegression",
+     "flag": "JUNK? (checked, benign): the threshold is written ((2 : ℕ) / (3 : ℕ) : ℝ≥0∞) (lines 105, 106, 115). Lean's binop% elaborator propagates the expected type ℝ≥0∞ to the leaves (the Nat.cast_div idiom), so this is ↑2/↑3 = 2/3 in ℝ≥0∞, not ℕ-division 0. Even if it were 0, the statement would become false (a T = 0 learner meets it), not weaker.",
+     "decision": "cleared",
+     "why": "The type ascription elaborates the binop% tree against the expected type ℝ≥0∞, which seeds the tree's max type, so the coercion goes in at the leaves: ↑(2:ℕ) / ↑(3:ℕ) = 2/3 in ℝ≥0∞, not ↑((2:ℕ)/(3:ℕ)) = ↑0. This is the same rule that makes (n / m : ℝ) real division. The solution tree corroborates it: Main.lean:38 passes hs (carrying this threshold) directly as the argument hs : (2/3 : ℝ≥0∞) ≤ … of streaming_success_bound_real (Precision.lean:26). That typechecks only if the two thresholds are definitionally equal: ↑(2:ℕ) unfolds to the OfNat 2 literal of ℝ≥0∞, and ↑0 could not. Had it been 0, the success hypothesis would be vacuous and the conclusion c·d·log(1/ε) ≤ T would be demanded even of a T = 0 learner, which is false, not cheaper. Caveats: nothing was executed (no #check against the pinned Mathlib), and lane K has not run NoiselessRegression.",
+     "evidence": [
+      "lean/ComparatorChallenges/NoiselessRegression.lean:105:     (((2 : ℕ) / (3 : ℕ) : ℝ≥0∞) ≤ L.uniformSuccess ρ ε ∨",
+      "lean/ComparatorChallenges/NoiselessRegression.lean:115:     ((2 : ℕ) / (3 : ℕ) : ℝ≥0∞) ≤ L.uniformSuccess ρ ε →",
+      "lean/OAI/Probability/GaussianRegression/Main.lean:38:     (L.streaming_success_bound_real ρ hL (by omega) hε ha hq hqa hs)",
+      "lean/OAI/Probability/GaussianRegression/Precision.lean:26:     (hs : (2/3 : ℝ≥0∞) ≤ L.uniformSuccess ρ ε) :"
+     ]
+    },
+    {
+     "challenge": "MemoryPrecision",
+     "flag": "JUNK? (checked, benign): InverseGram uses the real inverse of √det, so it is 0 rather than ∞ on degenerate frames (line 161); the same conjunct asserts a.e. linear independence (lines 516-518), so the junk set is null.",
+     "decision": "cleared",
+     "why": "InverseGram is 0 exactly where the Gram determinant of (v.2 i − v.1) vanishes (the statement has 1 ≤ m, so the power does not mask it). In a real inner product space that is exactly where those vectors are linearly dependent. AmbientGramStatement asserts linear independence μ⊗μ^(p−1)-a.e. as the conjunct immediately before the integral bound (516-518). So the junk set is null, and the lintegral at 519 equals the integral of the genuine det^(−m/2): the bound is about the true quantity.",
+     "evidence": [
+      "lean/ComparatorChallenges/MemoryPrecision.lean:161:   ENNReal.ofReal ((Real.sqrt (Matrix.gram ℝ (fun i => v.2 i - v.1)).det)⁻¹ ^ m)",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:516:     (∀ᵐ v : Space d × (Fin (p-1) → Space d)",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:518:       LinearIndependent ℝ (fun i => v.2 i - v.1)) ∧",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:519:     (∫⁻ v : Space d × (Fin (p-1) → Space d), InverseGram m v"
+     ]
+    },
+    {
+     "challenge": "MemoryPrecision",
+     "flag": "JUNK? (checked, benign): PointwiseDensity returns 0 when the δ → 0 limit fails to exist (lines 274-278); PointwiseDensityProperties then asserts it is a density of the projection law (lines 664-665), so the default cannot carry the claim.",
+     "decision": "cleared",
+     "why": "The default 0 is taken only where the δ = 1/i limit fails. PointwiseDensityProperties asserts that ofReal ∘ PointwiseDensity is a density of ProjectionLaw μ m against the reference (664-665), and that any other measurable density equals it reference-a.e. (669), so PointwiseDensity is the true density a.e. The only conjunct a junk 0 could make cheaper is the L^p bound (670). That integral sees PointwiseDensity only up to reference-null sets, so it is the L^p norm of the true density. FullRankDensityFormula is a pointwise-in-A equality of measures, which a wrong value could only falsify.",
+     "evidence": [
+      "lean/ComparatorChallenges/MemoryPrecision.lean:277:   exact if h : ∃ l : ℝ, Tendsto (fun i : ℕ => GaussianRegularization μ m (1/(i:ℝ)) x)",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:278:       atTop (𝓝 l) then Classical.choose h else 0",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:664:   reference.withDensity (fun x => ENNReal.ofReal (PointwiseDensity μ m x)) =",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:669:       ProjectionLaw μ m → PointwiseDensity μ m =ᵐ[reference] F) ∧",
+      "lean/ComparatorChallenges/MemoryPrecision.lean:670:   (∫⁻ x, ENNReal.ofReal (PointwiseDensity μ m x)^p ∂reference) ≤"
+     ]
+    },
+    {
+     "challenge": "GaussianInformation",
+     "flag": "JUNK? (checked, benign): B ν = ∫ log((J ν s).toReal) (line 156) would be a junk 0 if log J were not integrable, which would make the coercivity inequality trivial; under BoundedDensity on the sphere J is bounded above (exponent 2·(d/16) < d−1) and below (‖u−s‖ ≤ 2), so log J is bounded and integrable.",
+     "decision": "cleared",
+     "why": "The mechanism is real in principle: if log J were not ν-integrable, then B ν = 0 and (1/2)KL − Cd ≤ KL − B would hold trivially. It cannot occur under BoundedDensity. Since ν ≤ H·σ and σ = sphereProbability is the radial pushforward of the uniform ball law (the uniform law on the unit sphere, with {0} null), ν-a.e. u and s lie on the sphere. There ‖u−s‖ ≤ 2 gives J ν s ≥ 2^(−k) with k = 2·(d/16). In the other direction, J ν s ≤ H·∫‖u−s‖^(−k) dσ(u) < ∞, because k ≤ d/8 < d−1 = dim S^(d−1). So log J is ν-a.e. bounded, hence integrable, and B is the true ∫ log J. In addition, KL(ν‖σ) ≤ log H < ∞, so its toReal does not truncate ∞. The other inputs of Phi are also bounded-density laws: σ itself, finite mixtures, and the posteriors of a law whose first marginal is σ. Lane K has not run GaussianInformation.",
+     "evidence": [
+      "lean/ComparatorChallenges/GaussianInformation.lean:154:   ∫⁻ u,((ENNReal.ofReal ‖u-s‖)⁻¹)^(2*(d/16)) ∂ν",
+      "lean/ComparatorChallenges/GaussianInformation.lean:156:   ∫ s, Real.log ((J ν s).toReal) ∂ν",
+      "lean/ComparatorChallenges/GaussianInformation.lean:161:   ∃ H : ℝ, 0 < H ∧ ν ≤ ENNReal.ofReal H • sphereProbability d",
+      "lean/ComparatorChallenges/GaussianInformation.lean:186:     (∀ ν : Measure (Ambient d), IsProbabilityMeasure ν → BoundedDensity ν →"
+     ]
+    },
+    {
+     "challenge": "GaussianReplacement",
+     "flag": "JUNK? (checked, benign): shannonEntropy (lines 93-94) is 0 for a non-atomic law (log 0 = 0); every use has W Countable or Fintype with MeasurableSingletonClass, so the laws are atomic.",
+     "decision": "cleared",
+     "why": "Every message type that feeds shannonEntropy is Countable (CriticalComparisonMain, actualRow*) or Finite/Fintype (OneLevel, TwoLabel, HybridBlock), always with MeasurableSingletonClass. On such a type every finite measure is purely atomic, π = Σ π{w} δ_w, so the lintegral is Σ_w π{w}·(−log π{w}), the true Shannon entropy. Points with π{w} = 0 carry no mass, so the log 0 = 0 junk there is integrated against nothing. The laws are probability measures (maps and marginals of a probability P), so π{w} ≤ 1 and ofReal never clips. Wherever .toReal is taken the entropy is finite: by hEntropy : ≠ ∞ (actualRow*), by Finite U (OneLevel), or by the ≤ ofReal d² / ≤ ofReal B hypotheses.",
+     "evidence": [
+      "lean/ComparatorChallenges/GaussianReplacement.lean:94:   ∫⁻ w, ENNReal.ofReal (-Real.log (π {w}).toReal) ∂π",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:239:     ∀ (W : Type) [MeasurableSpace W] [Countable W] [MeasurableSingletonClass W],",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:248:     ∀ (U : Type) [MeasurableSpace U] [Finite U] [MeasurableSingletonClass U],",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:437:     [Countable W] [MeasurableSingletonClass W]",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:443:     (hEntropy : shannonEntropy (P.map swapLast).snd ≠ ∞)"
+     ]
+    },
+    {
+     "challenge": "GaussianReplacement",
+     "flag": "JUNK? (checked, benign): exactDensity defaults to 0 when the cube-average limit fails (lines 37-41); the statements assert the limit exists a.e. (actual_limit) before using it.",
+     "decision": "cleared",
+     "why": "There are three uses, and none reaches the default 0 on positive mass. (1) MixedMomentMain (59-61, 66) asserts that, off a ρ-null set of s and for a.e. G, the cube average converges along 𝓝[>]0 to exactDensity. cubeAverage is finite (ρ is finite). If the 1/j toReal limit failed, exactDensity would be 0, and the asserted convergence to 0 would itself supply that limit, a contradiction. The positivity conjunct (66) excludes the default as well. (2) The actual_limit field of ActualRow(Source)Conclusion (156-158) pins exactDensity to the a.e. limit before exact_bound and extended_log_bound read it. This matters: a junk 0 on positive mass would make logNegative = ∞, hence extendedLogExpectation = ⊥ and extended_log_bound trivial. (3) In fiberTwoPointLeft (380) exactDensity is a density inside an equality of measures. By Lebesgue differentiation the cube-average limit exists at Lebesgue-a.e. label point, and for a.e. G (k < d−1) the label of a uniform s has an absolutely continuous law, so the default is taken only on a null set (and a wrong density could only falsify the equality).",
+     "evidence": [
+      "lean/ComparatorChallenges/GaussianReplacement.lean:41:   exact if h : ∃ L : ℝ, Tendsto f atTop (𝓝 L) then ENNReal.ofReal h.choose else 0",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:61:             (𝓝[>] 0) (𝓝 (exactDensity ρ G (label G (s : Vector d))))) ∧",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:66:           0 < exactDensity ρ G (label G (s : Vector d)) ∧",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:156:   actual_limit : ∀ᵐ p ∂actualExperiment (r:=r) P,",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:158:       (𝓝 (selectedExact ρ (actualObservation p)))",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:380:     (fun z => exactDensity (uniformSphere d) z.1 (label z.1 (z.2:Vector d)))) ⊗ₘ"
+     ]
+    },
+    {
+     "challenge": "GaussianReplacement",
+     "flag": "JUNK? (checked, benign): averagedFreshInformation uses .toReal of conditional mutual information (line 316); with finite message sets that information is ≤ log|V| < ∞, so toReal is not truncating ∞ to 0.",
+     "decision": "cleared",
+     "why": "averagedFreshInformation is used only in HybridBlockMain, where U and V are Fintype with MeasurableSingletonClass. freshInformation P k is the conditional mutual information I(S; U | G, labels), a KL against the product of the conditional kernels. For a finite message alphabet it is ≤ H(U | G, labels) ≤ log|U| < ∞, so .toReal does not truncate ∞ to 0. The divisor hybridCount d = … + 1 is ≥ 1.",
+     "evidence": [
+      "lean/ComparatorChallenges/GaussianReplacement.lean:305:   exposedInformation (P.prod (gaussianRows k d))",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:316:   (∑ k ∈ Finset.Icc (hybridFirst d) (hybridLast d), (freshInformation P k).toReal) /",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:322:     ∀ (U V : Type) [Fintype U] [Fintype V]",
+      "lean/ComparatorChallenges/GaussianReplacement.lean:324:       [MeasurableSingletonClass U] [MeasurableSingletonClass V],"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "160",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "QuantitativeVanDerWaerden",
+     "flag": "JUNK? (not triggered): W is sInf on ℕ, which is 0 for an empty set; the strict lower bound by a positive real is false at 0, so the statement itself forces the Ramsey set to be nonempty — junk cannot weaken it",
+     "decision": "cleared",
+     "why": "By van der Waerden's theorem, for every r ≥ 1 and every k there is N > 0 such that every colouring c : ℕ → Fin r has a monochromatic k-term AP with d > 0 and last term < N, which is exactly IsRamsey (Fin r) k N. So the set under sInf is nonempty for every r ≥ 2 the statement quantifies over, and W r k is the true least Ramsey size; the sInf ∅ = 0 branch is never taken. Independently, had it been taken, the claim k^(…) < 0 would be false (a positive base, or 0^0 = 1 at k = 0), so it could only falsify. Lane K: CERTIFIED (run 38019899278).",
+     "evidence": [
+      "lean/ComparatorChallenges/QuantitativeVanDerWaerden.lean:20: noncomputable def W (r k : ℕ) : ℕ :=",
+      "lean/ComparatorChallenges/QuantitativeVanDerWaerden.lean:21:   sInf {N : ℕ | 0 < N ∧ IsRamsey (Fin r) k N}",
+      "lean/ComparatorChallenges/QuantitativeVanDerWaerden.lean:28:       (k : ℝ) ^ ((1 / 100000 : ℝ) * k * (Nat.log 2 r : ℝ)) < (W r k : ℝ) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "177",
+   "firstWord": "NARROWER — DECLARED",
+   "word": "NARROWER — DECLARED",
+   "flags": [
+    {
+     "challenge": "CoboundaryExpanders",
+     "flag": "JUNK? cleared: weight divides by |X(d)|, nonzero because Pure requires top faces to exist",
+     "decision": "cleared",
+     "why": "This one matters because a zero denominator would zero every weight, hence both distance and norm, and ε·0 ≤ 0 would hold trivially. It never happens. The denominator is choose(d+1, i+1)·|X(d)|. The statement asserts (X m).Pure d for every m (84), and Pure's first conjunct makes facesOf d nonempty (39). The degrees read are i < d and i+1 ≤ d, so choose(d+1, i+1) and choose(d+1, i+2) are positive. distance is the sInf over the image of a finite set that contains the zero cochain (0 is constant in degree 0 and the coboundary of 0 above), so it is a genuine minimum. Lane K has not run CoboundaryExpanders.",
+     "evidence": [
+      "lean/ComparatorChallenges/CoboundaryExpanders.lean:39:   (X.facesOf s).Nonempty ∧",
+      "lean/ComparatorChallenges/CoboundaryExpanders.lean:53:     ((Nat.choose (s + 1) (i + 1) : ℝ) * (X.facesOf s).card)",
+      "lean/ComparatorChallenges/CoboundaryExpanders.lean:84:         (∀ m, (X m).Pure d ∧ (X m).Connected) ∧",
+      "lean/ComparatorChallenges/CoboundaryExpanders.lean:88:           ε * (X m).distance d i f ((X m).coboundaries i) ≤"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "228",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "ContinuumTransition",
+     "flag": "JUNK? (not triggered): the partition function is a Bochner integral (0 if not integrable) fed to Real.log (log 0 = 0); Admissible requires Measurable (radialPotential φ) and stability, so the Boltzmann factor is measurable, bounded by e^{βBN} on a bounded cube, integrable and positive",
+     "decision": "cleared",
+     "why": "φ is existential, so what matters is that every φ satisfying Admissible gets the genuine partition function, and it does. The integral runs over cube(L)^N, a set of finite measure. boltzmann is measurable: radialPotential φ is measurable (Admissible's first conjunct), it is composed with the continuous x ↦ x i − x j, and the terms take values in ℝ ∪ {⊤}, never ⊥. It is ≥ 0, and it is ≤ exp(βBN) because the stability conjunct gives energy ≥ −BN wherever energy is finite (and boltzmann = 0 where energy = ⊤). So it is integrable and the Bochner integral is the true one. For N ≥ 1 and L > 0, configurations with distinct particles have full measure in the box. There the energy is finite and the integrand is > 0, so the partition function is > 0 and Real.log reads the true logarithm. N = 0 gives the defined value 1, and L ≤ 0 lies outside the atTop limit. Lane K: CERTIFIED.",
+     "evidence": [
+      "lean/ComparatorChallenges/ContinuumTransition.lean:20:   Measurable (radialPotential φ) ∧",
+      "lean/ComparatorChallenges/ContinuumTransition.lean:27:   (∃ B : ℝ, ∀ (N : ℕ) (x : Fin N → Space),",
+      "lean/ComparatorChallenges/ContinuumTransition.lean:28:     ((-B * (N : ℝ) : ℝ) : EReal) ≤ energy φ x)",
+      "lean/ComparatorChallenges/ContinuumTransition.lean:35:   if energy φ x = ⊤ then 0 else Real.exp (-β * (energy φ x).toReal)",
+      "lean/ComparatorChallenges/ContinuumTransition.lean:40:       ∫ x in {x : Fin N → Space | ∀ i, x i ∈ cube L}, boltzmann φ β x",
+      "lean/ComparatorChallenges/ContinuumTransition.lean:44:     Tendsto (fun L : ℝ => L⁻¹ ^ 3 * Real.log (partition φ β L ⌊ρ * L ^ 3⌋₊))"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "243",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "ChoicelessPolynomialTime",
+     "flag": "VACUITY? checked, none: the non-definability conjunct would be trivial if no program could ever accept; this one can (e.g. one that sets halt and accept at once defines the trivial query).",
+     "decision": "cleared",
+     "why": "The model is not degenerate, and it defines more than the constant queries the first reader exhibited. Take a one-step program with body parallel(update halt := ordinal 1, update accept := not(equal(comprehend x ∈ atoms | input Ed x x . x, ordinal 0))). From the initial store, halt reads ∅ ≠ {∅}, so the step fires. The two updates hit different locations, so State.Consistent holds. run 1 halts and accepts iff some a has Ed a a, a non-constant, isomorphism-invariant query. It runs in time 1, and its space is linear in |A|: the occurring set is the hereditary closure of the atoms, allAtoms, ∅, {∅} and one subset of the atoms. So EvaluationDefinable is a non-trivial class, and ¬ EvaluationDefinable(query) is a real separation, not a vacuous one. Lane K has not run ChoicelessPolynomialTime.",
+     "evidence": [
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:344:   | .input r a b, v => Operational.boolean (Operational.inputRelation rel r (eval rel s a v) (eval rel s b v))",
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:349:   | .comprehend n bound guard body, v =>",
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:370:   | .parallel a b, v => updates rel s a v ∪ updates rel s b v",
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:397:     if State.Consistent u then some (s.applyUpdates u) else none",
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:468:  ∃ h st, h ≤ time.eval (Fintype.card A) ∧ P.run rel h = some st ∧ P.flag st .halt ∧ P.flag st .accept ∧",
+      "lean/ComparatorChallenges/ChoicelessPolynomialTime.lean:553:     ¬ FullCPT.EvaluationDefinable (fun {_} [_] I => I.query) := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "288",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "KadisonSimilarity",
+     "flag": "JUNK? (not triggered): offDiagonalSeminorm is a real sSup over projections in the commutant, bounded by ‖T‖ and containing 0",
+     "decision": "cleared",
+     "why": "The range is nonempty because e = 0 is a self-adjoint idempotent in the commutant. It is bounded above by ‖T‖: for a self-adjoint idempotent e, both e and 1 − e are orthogonal projections of norm ≤ 1, so ‖(1−e)Te‖ ≤ ‖T‖. Real.sSup of a nonempty set that is bounded above is the true supremum. Even the junk value 0 would only shrink the right side of UniversalHyperreflexivity to 0 (forcing T ∈ M), which makes the statement harder, not easier. Lane K has not run KadisonSimilarity; this decision does not depend on it.",
+     "evidence": [
+      "lean/ComparatorChallenges/KadisonSimilarity.lean:85:   {e : H →L[ℂ] H // e ∈ M.commutant ∧ star e = e ∧ e * e = e}",
+      "lean/ComparatorChallenges/KadisonSimilarity.lean:88:   sSup (Set.range fun e : CommutantProjection M =>",
+      "lean/ComparatorChallenges/KadisonSimilarity.lean:89:     ‖(1 - (e : H →L[ℂ] H)) * T * (e : H →L[ℂ] H)‖)",
+      "lean/ComparatorChallenges/KadisonSimilarity.lean:94:     Metric.infDist T (M : Set (K →L[ℂ] K)) ≤ 2 * C * offDiagonalSeminorm M T"
+     ]
+    },
+    {
+     "challenge": "UniformCommutator",
+     "flag": "JUNK? (not triggered): commutatorSeminorm is a real sSup of a set bounded by 2‖Y‖ and containing 0",
+     "decision": "cleared",
+     "why": "The set contains 0 (take a = 0 ∈ P) and is bounded above by 2‖Y‖, since ‖Ya − aY‖ ≤ 2‖Y‖‖a‖ ≤ 2‖Y‖, so sSup is the true supremum. A junk 0 would only make the right-hand side 0, which is harder. Lane K: CERTIFIED.",
+     "evidence": [
+      "lean/ComparatorChallenges/UniformCommutator.lean:13:   sSup {r : ℝ | ∃ a : K →L[ℂ] K, a ∈ P ∧ ‖a‖ ≤ 1 ∧ r = ‖Y * a - a * Y‖}",
+      "lean/ComparatorChallenges/UniformCommutator.lean:33:         C * commutatorSeminorm P Y * ‖matrixOperator h X‖ := by"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "298",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "FiniteEntropySeparation",
+     "flag": "JUNK? cleared: every potentially singular quantity is EReal/ENNReal-valued (log 0 = ⊥, empty ⨅ = ⊤, lintegral never junk-0 by non-integrability), and the statement's own ⊥ < χ and χ* - 1/2 < ⊤ exclude the infinite values",
+     "decision": "cleared",
+     "why": "χ: ENNReal.log of the microstate volume is ⊥ only when the volume is genuinely 0 (the set lies in an operator-norm ball, so the volume is finite), which is Voiculescu's log 0 = −∞ convention. ⨅, ⨆ and limsup are taken in the complete lattice EReal. freeFisher: the empty ⨅ is ⊤, which is Φ* = ∞ when no conjugate system exists. χ*: the integrand is split into the ENNReal positive and negative parts (b − f) and (f − b), with truncated subtraction. These are exactly the positive and negative parts of n/(1+s) − Φ*(X+√s S), including f = ∞, where (b−f) = 0 and (f−b) = ∞. lintegral has no non-integrability junk, and toEReal sends ∞ to ⊤, not 0. The statement's own bounds exclude infinite values. ⊥ < χ ≤ χ* − 1/2 forces χ* > ⊥, hence ∫(f−b) < ∞, because otherwise χ* = ⊥ (in EReal, x − ⊤ = ⊥ and ⊤ − ⊤ = ⊥). χ* − 1/2 < ⊤ then forces ∫(b−f) < ∞. With both finite, χ* is the real number (n/2)log(2πe) + ½∫(n/(1+s) − Φ*) ds. Lane K has not run FiniteEntropySeparation.",
+     "evidence": [
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:62:   ⨅ (ξ : Fin n → H) (_ : ConjugateSystem τ X ξ), ENNReal.ofReal (∑ i, ‖ξ i‖ ^ 2)",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:72:     (1 / 2 : EReal) * (∫⁻ s in Set.Ioi (0 : ℝ), b s - f s).toEReal -",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:73:     (1 / 2 : EReal) * (∫⁻ s in Set.Ioi (0 : ℝ), f s - b s).toEReal",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:116:       (⊥ : EReal) < chi τ X ∧",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:117:       chi τ X ≤ chiStar τ X S - (1 / 2 : EReal) ∧",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:118:       chiStar τ X S - (1 / 2 : EReal) < (⊤ : EReal) := by"
+     ]
+    },
+    {
+     "challenge": "FiniteEntropySeparation",
+     "flag": "JUNK? (low): ∫⁻ of a non-measurable integrand is a lower integral; s ↦ Φ*(X + sqrt(s) S) is monotone in s, so it is measurable",
+     "decision": "cleared",
+     "why": "The first reader's argument holds. f(s) = Φ*(X + √s S) is antitone in s, for three reasons. First, Φ* here depends only on the joint *-distribution: the conjugate-system identities and polynomialL2 are fixed by the moments under a faithful tracial vector. Second, for t > s, X + √t S has the distribution of (X + √s S) + √(t−s) S′, with S′ a free semicircular family free from (X, S): FreeStandardNoise makes the S i semicircular and free from each other and from X. Third, Voiculescu's inequality Φ*(Y + Z) ≤ Φ*(Y) for Y, Z free gives f(t) ≤ f(s). For s ≤ 0, √s = 0 and f(s) = Φ*(X) ≥ f(t). An antitone map ℝ → ℝ≥0∞ is measurable, and b is continuous, so b − f and f − b are measurable and both lintegrals are true integrals, not lower integrals. This rests on the standard free-probability inequality, not on anything run.",
+     "evidence": [
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:70:   let f : ℝ → ℝ≥0∞ := fun s => freeFisher τ (heatTuple X S s)",
+      "lean/ComparatorChallenges/FiniteEntropySeparation.lean:72:     (1 / 2 : EReal) * (∫⁻ s in Set.Ioi (0 : ℝ), b s - f s).toEReal -"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "334",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "IsometricImmersion",
+     "flag": "JUNK? checked, none: mfderiv would be 0 at non-differentiable points, but F is required to be smooth.",
+     "decision": "cleared",
+     "why": "This flag points in the weakening direction, because the theorem is a negation. A junk-0 mfderiv would break the isometry equation (v ⬝ᵥ g v > 0 for v ≠ 0, since g is PosDef) and make the negated conjunction false for free. But the same conjunction requires ContMDiff … ∞ F (line 51). Smoothness of order ∞ ≥ 1 gives MDifferentiable at every p, so mfderiv is the true derivative wherever the equation is read. Lane K: CERTIFIED.",
+     "evidence": [
+      "lean/ComparatorChallenges/IsometricImmersion.lean:51:           ¬ (ContMDiff 𝓘(ℝ, Coord) 𝓘(ℝ, Ambient) ∞ F ∧",
+      "lean/ComparatorChallenges/IsometricImmersion.lean:53:               (inner ℝ : Ambient → Ambient → ℝ) (mfderiv 𝓘(ℝ, Coord) 𝓘(ℝ, Ambient) F p v)"
+     ]
+    }
+   ]
+  },
+  {
+   "family": "369",
+   "firstWord": "MATCHES",
+   "word": "MATCHES",
+   "flags": [
+    {
+     "challenge": "HotSpots",
+     "flag": "JUNK? (checked, benign): firstPositiveNeumannValue is an sInf over ℝ (line 36); the Rayleigh set is nonempty and bounded below by 0, so it is the genuine μ₂. sInf/sSup of u on frontier Ω (line 47) are over a nonempty compact image.",
+     "decision": "cleared",
+     "why": "The flag matters because firstPositiveNeumannValue enters the hypothesis hu (InFirstNeumannEigenspace): a junk value could have made the hypothesis unsatisfiable and the theorem vacuous. It is not junk. rayleighValues Ω is nonempty: v(x) = x₀ − (the mean of x₀ over Ω), with constant weak gradient e₀, satisfies HasH1Gradient on the bounded open Ω, has mean 0 and has ∫v² > 0. It is bounded below by 0 (a nonnegative integral over a positive one). So Real.sInf is the genuine infimum μ₂, and all integrands are L² or L¹ on a bounded domain, so no Bochner junk. frontier Ω is nonempty and compact (Ω is bounded, open, nonempty and not the whole plane), and u is continuous on closure Ω (ContDiffOn ∞, line 39). So u '' frontier Ω is nonempty and compact, and sInf/sSup are its min and max. Lane K: CERTIFIED.",
+     "evidence": [
+      "lean/ComparatorChallenges/HotSpots.lean:33:     0 < (∫ x in Ω, (v x) ^ 2) ∧",
+      "lean/ComparatorChallenges/HotSpots.lean:34:     r = (∫ x in Ω, ‖g x‖ ^ 2) / (∫ x in Ω, (v x) ^ 2)}",
+      "lean/ComparatorChallenges/HotSpots.lean:36: def firstPositiveNeumannValue (Ω : Set Plane) : ℝ := sInf (rayleighValues Ω)",
+      "lean/ComparatorChallenges/HotSpots.lean:43:         firstPositiveNeumannValue Ω * (∫ x in Ω, u x * v x)",
+      "lean/ComparatorChallenges/HotSpots.lean:47:     ∀ x ∈ Ω, sInf (u '' frontier Ω) < u x ∧ u x < sSup (u '' frontier Ω)"
+     ]
+    }
+   ]
+  }
+ ]
+}

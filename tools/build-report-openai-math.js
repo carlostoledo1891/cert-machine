@@ -182,7 +182,9 @@ B.push(C.section({
     C.pRaw('OpenAI writes one headline per family; a family can hold several manuscripts and several challenges, and its scope note names the manuscripts the '
       + 'formalization covers. Each family\'s challenges were read against that headline, clause by clause. The words, least to most severe: ' + S_WORDS.slice(0, 5).map((w) => C.esc(w)).join(' · ') + ', and SUPPORT-ONLY when every challenge is a declared supporting result'
       + '. Where two readers disagreed, the less severe word is recorded (' + S.counts.disagreements + ' disagreements, ' + (S.counts.disagreements - S.counts.disagreementsOnTheReading.length)
-      + ' of them only because the first readers did not yet have the UNLINKED word).'),
+      + ' of them only because the first readers did not yet have the UNLINKED word).'
+      + (S.counts.flagReadings ? ' Every vacuity, junk-value, quantifier and definition flag a first reader marked with a question in the other families was read again: '
+        + Object.entries(S.counts.flagDecisions || {}).map(([d, c]) => c + ' ' + d.replace(/-/g, ' ')).join(', ') + '.' : '')),
     C.table({ cols: [{ h: 'word' }, { h: 'families' }], rows: S_WORDS.filter((w) => cnt(sw, w))
       .map((w) => [{ raw: wordTag(w) }, { raw: C.m(String(cnt(sw, w))) }]) }),
     C.pRaw('The ' + sNotable.length + ' families below are the DIFFERENT and NARROWER — UNDECLARED words; each line names what the headline claims and no challenge states. '

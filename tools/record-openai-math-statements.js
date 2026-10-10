@@ -38,6 +38,12 @@ for (const f of files('second')) for (const r of JSON.parse(fs.readFileSync(path
   if (second.has(r.family)) die('family ' + r.family + ' read twice in the second pass');
   second.set(r.family, Object.assign({ file: 'second/' + f }, r));
 }
+/* the pre-registered second reading of every '?' flag in the families the word-readers did not re-read */
+const flagReads = new Map();
+for (const f of files('flags')) for (const r of JSON.parse(fs.readFileSync(path.join(RD, 'flags', f), 'utf8')).families) {
+  if (flagReads.has(r.family)) die('family ' + r.family + ' has two flag readings');
+  flagReads.set(r.family, Object.assign({ file: 'flags/' + f }, r));
+}
 const withChallenges = release.families.filter((f) => f.challenges.length);
 for (const f of withChallenges) if (!first.has(f.n)) die('family ' + f.n + ' has no first reading');
 
@@ -57,6 +63,12 @@ const rows = withChallenges.map((F) => {
     if (!WORDS.has(w2)) die('family ' + F.n + ': second word ' + JSON.stringify(b.word) + ' is not a pre-registered word');
     if (w2 !== w1) { disagreement = { first: w1, second: w2, kind: w1 === 'NARROWER — UNDECLARED' && w2 === 'NARROWER — UNLINKED' ? 'the word only: the first readers had no UNLINKED (amendment 3)' : 'the reading' }; word = RANK[w2] <= RANK[w1] ? w2 : w1; }
   }
+  const fr = flagReads.get(F.n);
+  if (fr) {
+    const w3 = norm(fr.word);
+    if (!WORDS.has(w3)) die('family ' + F.n + ': flag-reading word ' + JSON.stringify(fr.word) + ' is not a pre-registered word');
+    if (w3 !== word) { disagreement = { first: word, second: w3, kind: 'a flag reading' }; word = RANK[w3] <= RANK[word] ? w3 : word; }
+  }
   const holes = F.challenges.filter((c) => (byName.get(c) || {}).definitionNames && byName.get(c).definitionNames.length);
   const conditional = holes.length ? holes.map((c) => ({ challenge: c, strict: strictOf.get(c) ? strictOf.get(c).word : 'NOT YET RUN' })) : null;
   const flags = [];
@@ -66,7 +78,7 @@ const rows = withChallenges.map((F) => {
     word, firstWord: w1, secondWord: b ? norm(b.word) : null, disagreement,
     clauses: (b && b.clauses) || a.clauses || [], gap: a.gap || null, scopeNoteOnGap: a.scopeNoteOnGap || null,
     note: b ? b.note : null, firstSuspicious: a.suspicious || null, confidence: a.confidence || null,
-    conditionalOnLaneK: conditional, flags, readings: [a.file].concat(b ? [b.file] : []),
+    conditionalOnLaneK: conditional, flags, flagReadings: fr ? fr.flags : null, readings: [a.file].concat(b ? [b.file] : []).concat(fr ? [fr.file] : []),
   };
 });
 const tally = (xs) => xs.reduce((o, x) => ((o[x] = (o[x] || 0) + 1), o), {});
@@ -77,7 +89,9 @@ const ledger = {
   counts: {
     families: rows.length, decided: decided.length, awaiting: rows.length - decided.length,
     words: tally(decided.map((r) => r.word)), firstPassWords: tally(rows.map((r) => r.firstWord)),
-    secondReadings: rows.filter((r) => r.secondWord).length, disagreements: rows.filter((r) => r.disagreement).length,
+    secondReadings: rows.filter((r) => r.secondWord).length, flagReadings: rows.filter((r) => r.flagReadings).length,
+    flagDecisions: rows.flatMap((r) => (r.flagReadings || []).map((x) => x.decision)).reduce((o, d) => ((o[d] = (o[d] || 0) + 1), o), {}),
+    disagreements: rows.filter((r) => r.disagreement).length,
     disagreementsOnTheReading: rows.filter((r) => r.disagreement && r.disagreement.kind === 'the reading').map((r) => r.family),
     conditionalOnLaneK: rows.filter((r) => r.conditionalOnLaneK).length,
   },
