@@ -1,0 +1,687 @@
+{
+ "reader": "second",
+ "batch": 5,
+ "families": [
+  {
+   "family": "039",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves Nagata's strict inequality $`\\sum_i m_i\\lt d\\sqrt r`$ for every nonzero effective plane curve of degree d through r ≥ 10 very general complex points, with arbitrary multiplicities mi.",
+     "status": "stated",
+     "coveredBy": [
+      "Nagata"
+     ],
+     "reading": "nagata_conjecture: for every count ≥ 10, one ℕ-indexed family of proper Zariski-closed sets of ordered distinct configurations in (P²_ℂ)^count with a common non-member, chosen before every curve and multiplicity vector; for configurations outside it, every effective cycle of homogeneous prime principal ideals (reducible, non-reduced included) and every m with m_i ≤ mult satisfies Σ m_i < deg·√count. nagata_conjecture_coordinates gives the homogeneous-polynomial form. Encoding: very general = outside a countable union of proper closed sets; degree = totalDegree of an equation chosen by Classical.choose (unique up to scalar).",
+     "evidence": [
+      "lean/ComparatorChallenges/Nagata.lean:352: theorem nagata_conjecture :",
+      "lean/ComparatorChallenges/Nagata.lean:359: ∀ curve : Workers.W10.EffectivePlaneCurve, ∀ multiplicities : Fin count → ℕ,",
+      "lean/ComparatorChallenges/Nagata.lean:361: (∑ index, (multiplicities index : ℝ)) <",
+      "lean/ComparatorChallenges/Nagata.lean:362: (Workers.W10.curveDegree curve : ℝ) * Real.sqrt (count : ℝ) := by"
+     ]
+    },
+    {
+     "clause": "It also proves maximal multipoint Seshadri constants $`(L^n/r)^{1/n}`$ for every smooth polarized projective variety of dimension n ≥ 2 and all sufficiently large r: at very general points over ℂ",
+     "part": "n = 2 (surfaces) over ℂ",
+     "status": "stated",
+     "coveredBy": [
+      "MaximalSeshadriConstants"
+     ],
+     "reading": "maximalSeshadriConstants: for every smooth integral surface closed-immersed in complex projective space and every ample L, ∃ r₀ > 0 ∀ r ≥ r₀ a countable family of proper closed subsets of distinct r-tuples with a common non-member, outside which the multipoint Seshadri constant equals √(L²/r) (and the boundary class on the blowup is nef). Encoding: L² and L·C as Euler-characteristic combinations (finrank of Ext groups); multiplicity as ideal order in the local ring.",
+     "evidence": [
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:42: smooth : SmoothOfRelativeDimension 2 structureMap",
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:401: seshadriConstant S L r p = Real.sqrt ((selfIntersection S L : ℝ) / r)",
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:408: theorem maximalSeshadriConstants (S : Surface) (L : LineBundle S.scheme)"
+     ]
+    },
+    {
+     "clause": "It also proves maximal multipoint Seshadri constants $`(L^n/r)^{1/n}`$ for every smooth polarized projective variety of dimension n ≥ 2 and all sufficiently large r: at very general points over ℂ",
+     "part": "n ≥ 3 over ℂ",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Maximal-Multipoint-Seshadri-Constants-in-Higher-Dimensions-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:38: structure Surface where",
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:42: smooth : SmoothOfRelativeDimension 2 structureMap",
+      "CONTENTS.md:1126: [Maximal Multipoint Seshadri Constants in Higher Dimensions](preprints/Maximal-Multipoint-Seshadri-Constants-in-Higher-Dimensions-October-5-2026/main.pdf)",
+      "CONTENTS.md:1128: Let <i>L</i> be an ample line bundle on a smooth integral complex projective variety <i>X</i> of dimension <i>n</i> ≥ 3.",
+      "lean/docs/039.md:5: - [Nagata's conjecture for plane curves](../../preprints/Nagatas-Conjecture-for-Plane-Curves-September-23-2026/main.pdf)",
+      "lean/docs/039.md:6: - [Maximal Seshadri constants on arbitrary polarized surfaces](../../preprints/Maximal-Seshadri-Constants-on-Arbitrary-Polarized-Surfaces-September-23-2026/main.pdf)",
+      "lean/docs/039.md:14: The formalized result establishes this for every smooth integral complex projective surface $S$ and ample line bundle $L$."
+     ]
+    },
+    {
+     "clause": "and at the geometric generic tuple over any algebraically closed field of positive characteristic.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Maximal-multipoint-Seshadri-constants-in-positive-characteristic-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:40: structureMap : scheme ⟶ Spec (CommRingCat.of ℂ)",
+      "lean/ComparatorChallenges/MaximalSeshadriConstants.lean:19: Proj (MvPolynomial.homogeneousSubmodule (Fin (N + 1)) ℂ)",
+      "CONTENTS.md:1135: [Maximal multipoint Seshadri constants in positive characteristic](preprints/Maximal-multipoint-Seshadri-constants-in-positive-characteristic-October-5-2026/seshadri-positive-characteristic.pdf)",
+      "CONTENTS.md:1137: the ordinary multipoint Seshadri constant at the geometric generic tuple of <i>r</i> points equals the volume bound $`(L^n/r)^{1/n}`$. The same conclusion holds in dimension two.",
+      "lean/docs/039.md:5: - [Nagata's conjecture for plane curves](../../preprints/Nagatas-Conjecture-for-Plane-Curves-September-23-2026/main.pdf)",
+      "lean/docs/039.md:6: - [Maximal Seshadri constants on arbitrary polarized surfaces](../../preprints/Maximal-Seshadri-Constants-on-Arbitrary-Polarized-Surfaces-September-23-2026/main.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Nagatas-Conjecture-for-Plane-Curves-September-23-2026",
+    "Maximal-Seshadri-Constants-on-Arbitrary-Polarized-Surfaces-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Nagata and the complex-surface Seshadri result are stated. Dimension n ≥ 3 over ℂ and every positive-characteristic case (n ≥ 2, geometric generic tuple) are not stated; they come from the two October-5 manuscripts, which docs/039.md does not link (it links only the two September-23 papers), so the gap is UNLINKED rather than UNDECLARED. The first reader recorded UNDECLARED before amendment 3 introduced UNLINKED; on the same facts the word is now NARROWER — UNLINKED."
+  },
+  {
+   "family": "084",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "For every fixed $`q\\in(0,1)`$, constructs compact subsets of $`[0,1]`$ with measure arbitrarily close to one containing no translated and nontrivially dilated copy of $`\\{q^n:n\\ge1\\}`$, with dilations of either sign.",
+     "part": "q = 1/2",
+     "status": "stated",
+     "coveredBy": [
+      "DyadicAvoidance"
+     ],
+     "reading": "∀ η ∈ (0,1) ∃ compact E ⊆ [0,1], vol E > 1 − η, ∀ x ∀ s ≠ 0 ∃ n ≥ 1, x + s·2⁻ⁿ ∉ E (both signs of s).",
+     "evidence": [
+      "lean/ComparatorChallenges/DyadicAvoidance.lean:10: (2 : ℝ)⁻¹ ^ n",
+      "lean/ComparatorChallenges/DyadicAvoidance.lean:15: MeasureTheory.volume E > ENNReal.ofReal (1 - η) ∧",
+      "lean/ComparatorChallenges/DyadicAvoidance.lean:16: ∀ x s : ℝ, s ≠ 0 → ∃ n : ℕ, 1 ≤ n ∧"
+     ]
+    },
+    {
+     "clause": "For every fixed $`q\\in(0,1)`$, constructs compact subsets of $`[0,1]`$ with measure arbitrarily close to one containing no translated and nontrivially dilated copy of $`\\{q^n:n\\ge1\\}`$, with dilations of either sign.",
+     "part": "every q ∈ (0,1) other than 1/2",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-geometric-case-of-the-Erdos-similarity-conjecture-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/DyadicAvoidance.lean:9: def dyadicPoint (n : ℕ) : ℝ :=",
+      "lean/ComparatorChallenges/DyadicAvoidance.lean:10: (2 : ℝ)⁻¹ ^ n",
+      "CONTENTS.md:2079: For every fixed $`q\\in(0,1)`$ and every $`\\eta\\in(0,1)`$, we construct a compact set $`E_{q,\\eta}\\subseteq[0,1]`$ of measure greater than $`1-\\eta`$ containing no nontrivial affine copy of $`\\{q^n:n\\ge1\\}`$",
+      "lean/docs/084.md:5: - [The dyadic case of the Erdős similarity conjecture](../../preprints/The-dyadic-case-of-the-Erdos-similarity-conjecture-September-25-2026/paper.pdf)",
+      "lean/docs/084.md:9: The formalization proves the dyadic case of the Erdős similarity conjecture."
+     ]
+    },
+    {
+     "clause": "This resolves the geometric-progression case of the Erdős similarity conjecture for every ratio.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-geometric-case-of-the-Erdos-similarity-conjecture-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2079: We prove the geometric-progression case of the Erdős similarity conjecture.",
+      "lean/docs/084.md:5: - [The dyadic case of the Erdős similarity conjecture](../../preprints/The-dyadic-case-of-the-Erdos-similarity-conjecture-September-25-2026/paper.pdf)",
+      "lean/docs/084.md:9: The formalization proves the dyadic case of the Erdős similarity conjecture."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-dyadic-case-of-the-Erdos-similarity-conjecture-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only q = 1/2 is stated (exactly, both signs of the dilation). Every other ratio comes from the October-5 'geometric case' manuscript, which docs/084.md does not link (it links only the September-25 dyadic paper); the note's 'dyadic case' sentence describes the formalized part and does not name the omission, and its title alone declares nothing. First reader: UNDECLARED, recorded before UNLINKED existed; same facts."
+  },
+  {
+   "family": "107",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves $`\\omega\\le9/4`$ over ℂ, giving $`O_\\varepsilon(n^{9/4+\\varepsilon})`$ arithmetic operations for square matrix multiplication.",
+     "status": "stated",
+     "coveredBy": [
+      "MatrixMultiplication"
+     ],
+     "reading": "complex_omega_le_nine_quarters: ω(ℂ) ≤ 9/4, ω the sInf of exponents τ admitting, for every ε > 0, correct division-free programs of cost ≤ C·n^{τ+ε}; the O_ε(n^{9/4+ε}) form follows from the definition. Not junk: the admissible set contains 3 and every program costs ≥ n² (each output entry needs its own gate), so the sInf is a true infimum.",
+     "evidence": [
+      "lean/ComparatorChallenges/MatrixMultiplication.lean:95: def omega (F : Type*) [Field F] : ℝ := sInf {τ : ℝ | AdmissibleExponent F τ}",
+      "lean/ComparatorChallenges/MatrixMultiplication.lean:118: theorem complex_omega_le_nine_quarters :",
+      "lean/ComparatorChallenges/MatrixMultiplication.lean:119: Arithmetic.omega ℂ ≤ (9 : ℝ) / 4 := by"
+     ]
+    },
+    {
+     "clause": "In characteristic zero, some inner dimension na with a > 0.465 permits $`n^{2+o(1)}`$ rectangular multiplication.",
+     "part": "fields of characteristic zero other than ℂ (ℂ itself is stated by complex_alpha_gt_93_div_200)",
+     "status": "undeclared",
+     "coveredBy": [
+      "MatrixMultiplication"
+     ],
+     "manuscript": "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
+     "classicalTheorem": "Schönhage (1981): the matrix-multiplication exponents of a field depend only on its characteristic — not formalized; only through it does the ℂ statement give every characteristic-zero field.",
+     "evidence": [
+      "lean/ComparatorChallenges/MatrixMultiplication.lean:110: sSup {k : ℝ | k ∈ Set.Icc 0 1 ∧ rectangularOmega ℂ k = 2}",
+      "lean/ComparatorChallenges/MatrixMultiplication.lean:123: (93 : ℝ) / 200 < Arithmetic.complexAlpha := by",
+      "CONTENTS.md:2663: Over every field of characteristic zero, we prove that the square matrix-multiplication exponent satisfies <i>ω</i> &lt; 2.258, the dual exponent satisfies <i>α</i> &gt; 0.465",
+      "lean/docs/107.md:5: - [Complex Matrix Multiplication Below 2.258 and Rectangular Bounds](../../preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026.pdf)",
+      "lean/docs/107.md:10: The formalized results bound the complex matrix-multiplication exponent by $\\omega(\\mathbb C)\\le9/4$, the dual exponent by $\\alpha>0.465$"
+     ]
+    },
+    {
+     "clause": "Further square bounds give ω < 2.258 outside finitely many positive characteristics",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/MatrixFields.lean:110: Arithmetic.omega F < (2371054886006746 : ℝ) / 10 ^ 15 ∧",
+      "CONTENTS.md:2663: The strict square and <i>k</i> = 0.709 rectangular bounds also hold over every field except possibly in one finite set of positive characteristics, in the arithmetic-operation model.",
+      "lean/docs/107.md:5: - [Complex Matrix Multiplication Below 2.258 and Rectangular Bounds](../../preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026.pdf)",
+      "lean/docs/107.md:10: The square bound implies the paper's weaker $2.258$ headline bound.",
+      "lean/docs/107.md:12: The formalized result gives the unconditional bound $\\omega(F)<2.371054886006746$ for every field $F$, including finite fields and fields of positive characteristic."
+     ]
+    },
+    {
+     "clause": "and ω < 2.371054886006746 over every fixed field.",
+     "status": "stated",
+     "coveredBy": [
+      "MatrixFields"
+     ],
+     "reading": "omega_lt_source_constant: ω(F) < 2371054886006746/10^15 for every field F (any universe), same program model.",
+     "evidence": [
+      "lean/ComparatorChallenges/MatrixFields.lean:109: theorem omega_lt_source_constant (F : Type u) [Field F] :",
+      "lean/ComparatorChallenges/MatrixFields.lean:110: Arithmetic.omega F < (2371054886006746 : ℝ) / 10 ^ 15 ∧"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
+    "Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "ω(ℂ) ≤ 9/4, α(ℂ) > 0.465 and the every-field 2.371 bound are stated. Not stated: ω < 2.258 for fields of positive characteristic outside a finite set (and for characteristic-zero fields other than ℂ), and α > 0.465 beyond ℂ; both come from the linked 'Below 2.258' manuscript, and docs/107.md describes only the formalized ℂ and 2.371 bounds without naming either omission. Agrees with the first reader, who read 'In characteristic zero' → ℂ as declared by the note's 'complex'; I read it as undeclared too (the note's 'complex' qualifies ω, and the transfer needs Schönhage's theorem), which does not change the family word."
+  },
+  {
+   "family": "149",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves the permanence conjecture for every finite weakly reversible mass-action system with fixed positive rate constants.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/MassAction.lean:46: theorem global_bounded_persistent_solution :",
+      "lean/ComparatorChallenges/MassAction.lean:49: ∀ x0 : Fin d → ℝ, PositiveState x0 →",
+      "lean/ComparatorChallenges/MassAction.lean:50: ∃ ε : ℝ, 0 < ε ∧ ε < 1 ∧",
+      "CONTENTS.md:3566: We prove the permanence conjecture for finite weakly reversible mass-action systems with fixed positive reaction rates.",
+      "CONTENTS.md:3564: [Uniform Permanence in Weakly Reversible Mass-Action Systems](preprints/Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026/permanence.pdf)",
+      "lean/docs/149.md:5: - [Boundedness and persistence of weakly reversible mass-action systems](../../preprints/Boundedness-and-persistence-of-weakly-reversible-mass-action-systems-September-25-2026/paper.pdf)",
+      "lean/docs/149.md:9: The bound may depend on the network, rates, and initial state."
+     ]
+    },
+    {
+     "clause": "Every positive stoichiometric compatibility class, even an unbounded one, has a common compact convex forward-invariant absorbing set.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:3566: Every positive stoichiometric compatibility class admits one compact convex forward-invariant set that every positive trajectory in that class enters in finite time, even when the class is unbounded.",
+      "CONTENTS.md:3564: [Uniform Permanence in Weakly Reversible Mass-Action Systems](preprints/Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026/permanence.pdf)",
+      "lean/docs/149.md:5: - [Boundedness and persistence of weakly reversible mass-action systems](../../preprints/Boundedness-and-persistence-of-weakly-reversible-mass-action-systems-September-25-2026/paper.pdf)",
+      "lean/docs/149.md:9: The bound may depend on the network, rates, and initial state."
+     ]
+    },
+    {
+     "clause": "All positive trajectories in that class therefore eventually share positive lower and finite upper concentration bounds.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/MassAction.lean:49: ∀ x0 : Fin d → ℝ, PositiveState x0 →",
+      "lean/ComparatorChallenges/MassAction.lean:53: ∀ t : ℝ, 0 ≤ t → ∀ i : Fin d, ε ≤ x t i ∧ x t i ≤ ε⁻¹ := by",
+      "CONTENTS.md:3566: Thus, after its entry time, every concentration satisfies the same positive lower and finite upper bounds throughout that class.",
+      "CONTENTS.md:3564: [Uniform Permanence in Weakly Reversible Mass-Action Systems](preprints/Uniform-Permanence-in-Weakly-Reversible-Mass-Action-Systems-October-5-2026/permanence.pdf)",
+      "lean/docs/149.md:5: - [Boundedness and persistence of weakly reversible mass-action systems](../../preprints/Boundedness-and-persistence-of-weakly-reversible-mass-action-systems-September-25-2026/paper.pdf)",
+      "lean/docs/149.md:9: The bound may depend on the network, rates, and initial state."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Boundedness-and-persistence-of-weakly-reversible-mass-action-systems-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "MassAction states boundedness and persistence with ∀ x0 ∃ ε (bounds depending on the initial state) — what the headline's classwise permanence implies, not the other way round, so NARROWER, not DIFFERENT. Every headline clause (one absorbing set per compatibility class, shared bounds) comes from the October-5 'Uniform Permanence' manuscript, which docs/149.md does not link (it links only the September-25 boundedness/persistence paper; the title 'Classwise permanence' alone declares nothing). First reader: UNDECLARED, before UNLINKED existed; same facts."
+  },
+  {
+   "family": "183",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Improves the planar halving-line bound to $`O(n^{4/3-\\varepsilon})`$ for sets with no three collinear and an absolute ε > 0.",
+     "status": "stated",
+     "coveredBy": [
+      "HalvingLines"
+     ],
+     "reading": "first conjunct of power_bounds: ∃ ε > 0, C, n₀ ∀ even n ≥ n₀ ∀ injective P with no three collinear, #halving pairs ≤ C·n^{4/3−ε} (n₀ is absorbed by O since the count is ≤ n²).",
+     "evidence": [
+      "lean/ComparatorChallenges/HalvingLines.lean:46: (∃ ε : ℝ, 0 < ε ∧ ∃ C : ℝ, ∃ n₀ : ℕ,",
+      "lean/ComparatorChallenges/HalvingLines.lean:48: GeneralPosition P → (halvingCount P : ℝ) ≤ C * (n : ℝ) ^ ((4 : ℝ) / 3 - ε)) ∧"
+     ]
+    },
+    {
+     "clause": "More generally, an n-point set with no three collinear has $`O(n(k+1)^{1/3-\\varepsilon_0})`$ strictly separable k-subsets for $`1\\le k\\le n/2`$, with an absolute $`\\varepsilon_0\\gt 0`$.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "A-power-saving-for-planar-halving-lines-September-25-2026",
+     "classicalTheorem": "Matoušek's shallow-cutting lemma with the Agarwal–Aronov–Chan–Sharir reduction (Lemma 3.2), plus the manuscript's perturbation from Generic to no-three-collinear — not formalized; the stated k-uniform C·n^{4/3−ε} switch-count bound is weaker than O(n(k+1)^{1/3−ε₀}) for every k = o(n).",
+     "evidence": [
+      "lean/ComparatorChallenges/HalvingLines.lean:50: ∀ n : ℕ, 1 ≤ n → ∀ P : Fin n → Point, Generic P →",
+      "lean/ComparatorChallenges/HalvingLines.lean:51: ∀ k : ℕ, k ≤ n → (switchCount P k : ℝ) ≤ C * (n : ℝ) ^ ((4 : ℝ) / 3 - ε)) :=",
+      "preprints/A-power-saving-for-planar-halving-lines-September-25-2026/build/sections/introduction.tex:96: \\begin{corollary}[Planar $k$-sets and straight-line levels]",
+      "preprints/A-power-saving-for-planar-halving-lines-September-25-2026/build/sections/introduction.tex:103: C_0 n(k+1)^{1/3-\\varepsilon_0}.",
+      "preprints/A-power-saving-for-planar-halving-lines-September-25-2026/build/sections/recurrence.tex:121: Apply Matou\\v{s}ek's shallow-cutting lemma in the form stated by",
+      "lean/docs/183.md:5: - [A power saving for planar halving lines](../../preprints/A-power-saving-for-planar-halving-lines-September-25-2026/main.pdf)",
+      "lean/docs/183.md:9: It also proves a bound of the same form for all level-switch counts under the additional generic-position assumptions in the statement."
+     ]
+    },
+    {
+     "clause": "The constants and positive exponents are nonquantitative.",
+     "status": "stated",
+     "coveredBy": [
+      "HalvingLines"
+     ],
+     "reading": "ε and C are existential in both conjuncts.",
+     "evidence": [
+      "lean/ComparatorChallenges/HalvingLines.lean:49: (∃ ε : ℝ, 0 < ε ∧ ∃ C : ℝ,"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-power-saving-for-planar-halving-lines-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The halving-line power saving is stated. The k-set bound O(n(k+1)^{1/3−ε₀}) is the linked manuscript's Corollary cor:k-sensitive; the Lean states only a k-uniform level-switch bound under extra genericity, from which the k-set bound follows only through the shallow-cutting reduction; docs/183.md describes the switch-count bound and never names the k-set bound as left out. Agrees with the first reader (who noted the k-set sentence is absent from the abstract — it is in the manuscript body)."
+  },
+  {
+   "family": "207",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the ℓ1-Bass conjecture for every discrete group: Hattori–Stallings traces of idempotent matrices over $`\\ell^1(G)`$ are supported on finitely many finite-order conjugacy classes.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-l1-Bass-Conjecture-for-Discrete-Groups-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/BassTrace.lean:471: (x : ModuleK0.{u,v} (MonoidAlgebra ℂ G)) :",
+      "lean/ComparatorChallenges/BassTrace.lean:472: (∀ g : G, ¬IsOfFinOrder g → HattoriStallings x (ConjClasses.mk g) = 0) ∧",
+      "CONTENTS.md:4732: The Hattori–Stallings trace of every idempotent matrix over the complex <i>ℓ</i><sup>1</sup> group algebra is supported on finitely many conjugacy classes of finite-order elements.",
+      "lean/docs/207.md:1: # The ℓ¹-Bass conjecture for all discrete groups",
+      "lean/docs/207.md:5: - [The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture](../../preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026.pdf)",
+      "lean/docs/207.md:9: The formalization proves the complex Bass trace conjecture for every group"
+     ]
+    },
+    {
+     "clause": "The algebraic companion proves the integral Bass trace conjecture",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026",
+     "classicalTheorem": "Linnell's restriction (Linnell 1983, Lemma 4.1; Berrick–Hesselholt 2015, Theorem A) for the nonidentity finite-order classes, plus base change K₀(ℤG) → K₀(ℂG) — neither formalized; K₀(ℤG) occurs in no challenge.",
+     "evidence": [
+      "lean/ComparatorChallenges/BassTrace.lean:467: def HattoriStallings : ModuleK0.{u,v} (MonoidAlgebra ℂ G) →+ (ConjClasses G →₀ ℂ) :=",
+      "preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/09-completion.tex:51: The integral",
+      "preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/09-completion.tex:52: Bass trace conjecture asks for support only at the identity class.",
+      "preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/09-completion.tex:55: For every discrete group $G$, the Hattori--Stallings trace of every",
+      "preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/09-completion.tex:56: class in $K_0(\\Z G)$ is supported on $[1]_G$.",
+      "preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/build/sections/09-completion.tex:68: For finite-order elements we use Linnell's restriction",
+      "lean/docs/207.md:5: - [The Bass trace conjecture and the characteristic-zero Kaplansky idempotent conjecture](../../preprints/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026/The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026.pdf)",
+      "lean/docs/207.md:9: the Hattori–Stallings trace of each virtual class of finitely generated projective right $\\mathbb C[G]$-modules vanishes on conjugacy classes of infinite-order elements.",
+      "lean/docs/207.md:11: it identifies the trace on $K_0(\\mathbb C[G])$ with the integral augmentation rank"
+     ]
+    },
+    {
+     "clause": "and Kaplansky's idempotent conjecture for torsion-free groups over every commutative unital characteristic-zero domain.",
+     "status": "stated",
+     "coveredBy": [
+      "BassTorsionFree"
+     ],
+     "reading": "torsion_free_corollary, second conjunct: for TorsionFree G and every CommRing R with IsDomain and CharZero, e² = e in R[G] ⇒ e = 0 ∨ e = 1.",
+     "evidence": [
+      "lean/ComparatorChallenges/BassTorsionFree.lean:299: theorem torsion_free_corollary (G : Type*) [Group G] (hG : TorsionFree G) :",
+      "lean/ComparatorChallenges/BassTorsionFree.lean:305: (∀ (R : Type*) [CommRing R] [IsDomain R] [CharZero R]",
+      "lean/ComparatorChallenges/BassTorsionFree.lean:306: (e : MonoidAlgebra R G), e ^ 2 = e → e = 0 ∨ e = 1) := by"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-Bass-trace-conjecture-for-complex-group-rings-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Stated: the complex group-ring Bass trace conjecture (not in the headline), trace = augmentation rank for torsion-free G, and characteristic-zero Kaplansky. The ℓ¹(G) theorem — the family's title — is from the unlinked October-5 paper (UNLINKED); the integral Bass trace conjecture is the linked companion's Corollary cor:integral (every discrete group, K₀(ℤG)), which needs Linnell's restriction and which docs/207.md never names as left out (UNDECLARED). Reading 'for torsion-free groups' as also qualifying the integral conjecture would make that clause an elementary base change from BassTrace, but no challenge states it and the manuscript's own term is the every-group statement. Agrees with the first reader."
+  },
+  {
+   "family": "227",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "For zero-field Gaussian SK heat-bath dynamics with rate-one updates per spin, proves worst-start cutoff on the $`\\log n`$ scale for fixed $`0\\le\\beta\\lt 1`$",
+     "status": "declared",
+     "coveredBy": [
+      "SKRatio"
+     ],
+     "manuscript": "Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/SKRatio.lean:60: (hβ0 : 0 ≤ β) (hβhalf : β < 1 / 2)",
+      "lean/ComparatorChallenges/SKRatio.lean:65: (mixingTime g ε : ℝ) / (mixingTime g (1 - ε) : ℝ)})",
+      "lean/docs/227.md:14: The formalized supporting result proves ratio cutoff for discrete single-site heat-bath dynamics in the zero-field Gaussian Sherrington–Kirkpatrick model for $0\\le\\beta<1/2$.",
+      "lean/docs/227.md:16: The paper's full range $\\beta<1$, explicit cutoff location, and continuous-time conclusion are outside this selected statement."
+     ]
+    },
+    {
+     "clause": "mixing time $`n^{2/3+o(1)}`$ at β = 1",
+     "part": "lower half: t_mix ≥ n^{2/3−ε} (and n^{5/3−ε} attempts)",
+     "status": "stated",
+     "coveredBy": [
+      "CriticalSKMixing",
+      "CriticalSK"
+     ],
+     "reading": "critical_mixing_bounds: for every ε > 0, with disorder probability → 1, n^{2/3−ε} ≤ continuous worst-start t_mix(1/4) ≤ e^{εn}, and n^{5/3−ε} ≤ discrete t_mix ≤ e^{εn}.",
+     "evidence": [
+      "lean/ComparatorChallenges/CriticalSKMixing.lean:69: (n : ℝ) ^ ((2 : ℝ) / 3 - ε) ≤ continuousMixingTime W ∧"
+     ]
+    },
+    {
+     "clause": "mixing time $`n^{2/3+o(1)}`$ at β = 1",
+     "part": "upper half: t_mix ≤ n^{2/3+ε}",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Critical-mixing-in-the-Sherrington-Kirkpatrick-model-September-25-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/CriticalSKMixing.lean:70: continuousMixingTime W ≤ Real.exp (ε * n)}).toReal) atTop (𝓝 1) ∧",
+      "CONTENTS.md:5482: The mixing time is $`n^{2/3+o(1)}`$ when every site has rate one, or $`n^{5/3+o(1)}`$ attempted uniform-site updates, in probability over the disorder.",
+      "lean/docs/227.md:18: the continuous-time mixing time lies between $n^{2/3-\\varepsilon}$ and $e^{\\varepsilon n}$",
+      "lean/docs/227.md:5: - [A spectral gap throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/A-spectral-gap-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/main.pdf)",
+      "lean/docs/227.md:6: - [Cutoff throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:7: - [Critical slowing down in the Sherrington–Kirkpatrick model](../../preprints/Critical-slowing-down-in-the-Sherrington-Kirkpatrick-model-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:8: - [Stretched-exponential barriers for typical SK initial states](../../preprints/Stretched-exponential-barriers-for-typical-SK-initial-states-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "and stretched-exponential mixing from a Gibbs-sampled fixed starting configuration for β > 1, in probability over disorder.",
+     "part": "lower half: the barrier at time exp(n^{1/10000})",
+     "status": "stated",
+     "coveredBy": [
+      "SKBarriers"
+     ],
+     "reading": "SK.main: for every β > 1, the disorder-expected Gibbs mass of starts still at TV > 1/4 at time exp(n^{1/10000}) → 1, continuous and discrete; a [0,1]-valued mass with expectation → 1 tends to 1 in probability.",
+     "evidence": [
+      "lean/ComparatorChallenges/SKBarriers.lean:63: def timeScale (n : ℕ) : ℝ := Real.exp ((n : ℝ) ^ kappa)",
+      "lean/ComparatorChallenges/SKBarriers.lean:84: theorem main (β : ℝ) (hβ : 1 < β) :",
+      "lean/ComparatorChallenges/SKBarriers.lean:85: Tendsto (continuousBadMass β) atTop (𝓝 1) ∧"
+     ]
+    },
+    {
+     "clause": "and stretched-exponential mixing from a Gibbs-sampled fixed starting configuration for β > 1, in probability over disorder.",
+     "part": "upper half: mixing by time exp(n^{1−1/40000000}) from a Gibbs-sampled start",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-typical-start-upper-bound-for-low-temperature-SK-Glauber-dynamics-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:5473: If one Gibbs-sampled configuration is held fixed as the initial state, its total-variation distance from equilibrium is at most 1/4 by time $`\\exp(n^{1-1/40000000})`$",
+      "lean/docs/227.md:22: The formalization proves a stretched-exponential mixing obstruction for the zero-field Sherrington–Kirkpatrick model at every fixed inverse temperature $\\beta>1$.",
+      "lean/docs/227.md:5: - [A spectral gap throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/A-spectral-gap-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/main.pdf)",
+      "lean/docs/227.md:6: - [Cutoff throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:7: - [Critical slowing down in the Sherrington–Kirkpatrick model](../../preprints/Critical-slowing-down-in-the-Sherrington-Kirkpatrick-model-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:8: - [Stretched-exponential barriers for typical SK initial states](../../preprints/Stretched-exponential-barriers-for-typical-SK-initial-states-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "At criticality, rescaled stationary and quench autocorrelation processes have universal random limits for Gaussian and Rademacher disorder",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Functional-universality-of-critical-SK-autocorrelations-October-5-2026; Universality-of-critical-quench-autocorrelations-in-the-Sherrington-Kirkpatrick-model-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:5419: We prove joint functional convergence of the stationary and quench autocorrelations of zero-field Sherrington–Kirkpatrick heat-bath dynamics at inverse temperature <i>β</i> = 1, with the same random limit for Gaussian and Rademacher couplings.",
+      "CONTENTS.md:5428: We prove that the stationary spin autocorrelation of the zero-field Sherrington–Kirkpatrick model at inverse temperature <i>β</i> = 1 has a common functional scaling limit for Gaussian and Rademacher couplings.",
+      "lean/docs/227.md:5: - [A spectral gap throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/A-spectral-gap-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/main.pdf)",
+      "lean/docs/227.md:6: - [Cutoff throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:7: - [Critical slowing down in the Sherrington–Kirkpatrick model](../../preprints/Critical-slowing-down-in-the-Sherrington-Kirkpatrick-model-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:8: - [Stretched-exponential barriers for typical SK initial states](../../preprints/Stretched-exponential-barriers-for-typical-SK-initial-states-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "the quench limit relaxes to the stationary limit.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Universality-of-critical-quench-autocorrelations-in-the-Sherrington-Kirkpatrick-model-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:5419: The quench limit is selected by these initial states and relaxes to the stationary limiting autocorrelation as the waiting time tends to infinity.",
+      "lean/docs/227.md:5: - [A spectral gap throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/A-spectral-gap-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/main.pdf)",
+      "lean/docs/227.md:6: - [Cutoff throughout the high-temperature Sherrington–Kirkpatrick phase](../../preprints/Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:7: - [Critical slowing down in the Sherrington–Kirkpatrick model](../../preprints/Critical-slowing-down-in-the-Sherrington-Kirkpatrick-model-September-24-2026/paper.pdf)",
+      "lean/docs/227.md:8: - [Stretched-exponential barriers for typical SK initial states](../../preprints/Stretched-exponential-barriers-for-typical-SK-initial-states-September-24-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-spectral-gap-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026",
+    "Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026",
+    "Critical-slowing-down-in-the-Sherrington-Kirkpatrick-model-September-24-2026",
+    "Stretched-exponential-barriers-for-typical-SK-initial-states-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The cutoff clause is covered only for discrete ratio cutoff at β < 1/2, and docs/227.md:16 names the rest (full range, location, continuous time): DECLARED. Every other gap comes from a manuscript the note does not link — the β = 1 upper bound n^{2/3+o(1)} ('Critical mixing', Sept 25; the stated upper bound is only e^{εn}), the β > 1 typical-start upper bound ('A typical-start upper bound'), and both autocorrelation results (the two October-5 papers, which give the family its title): UNLINKED. No gap sits in a linked manuscript without a declaration, so the word is NARROWER — UNLINKED; the first reader's UNDECLARED predates that word. No grep hit for autocorrelation, quench or Rademacher in any of the five challenges."
+  },
+  {
+   "family": "260",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the sharp enclosing-area spacetime Penrose inequality for smooth one-ended asymptotically flat initial data in every spatial dimension n ≥ 3, under dominant energy, weak future trapping, positive enclosing area, and the stated decay assumptions.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-spacetime-Penrose-inequality-and-enclosing-area-September-27-2026",
+     "evidence": [
+      "CONTENTS.md:6475: We prove the sharp spacetime Penrose inequality for smooth one-ended initial-data exteriors in every spatial dimension <i>n</i> ≥ 3, under the dominant energy condition, weak future trapping, the stated differentiated decay and positive enclosing area.",
+      "lean/ComparatorChallenges/CKSBondiPenrose.lean:3312: theorem area_controlled_end_replacement",
+      "lean/ComparatorChallenges/CKSBondiPenrose.lean:3591: theorem schwarzschild_equality_examples (m : ℝ) (hm : 0 < m) :",
+      "lean/docs/260.md:13: The implementation retains a conditional inequality for the connected marginal-boundary case, assuming the asymptotically flat exterior Penrose inequality. This supporting result is not selected as a substitute for the paper's main inequality.",
+      "lean/docs/260.md:5: - [Area-controlled end replacement and the Bondi–Penrose inequality in the CKS class](../../preprints/Area-controlled-end-replacement-and-the-Bondi-Penrose-inequality-in-the-CKS-class-September-27-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "It bounds invariant ADM mass below using minimum enclosing area, with equality rigidity under additional horizon hypotheses.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-spacetime-Penrose-inequality-and-enclosing-area-September-27-2026; Equality-and-rigidity-in-the-spacetime-Penrose-inequality-September-27-2026",
+     "evidence": [
+      "CONTENTS.md:6493: Equality in the spacetime Penrose inequality identifies the original initial data as a spacelike slice of a Schwarzschild–Tangherlini exterior, smoothly attached to its horizon, under the stated outermostness and decay hypotheses.",
+      "lean/ComparatorChallenges/CKSBondiPenrose.lean:3575: OAI.CKSMain.bondiMass d = m ∧",
+      "lean/docs/260.md:5: - [Area-controlled end replacement and the Bondi–Penrose inequality in the CKS class](../../preprints/Area-controlled-end-replacement-and-the-Bondi-Penrose-inequality-in-the-CKS-class-September-27-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "Charged upper-area bounds treat dyonic three-dimensional data",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-spacetime-Penrose-inequality-with-charge-and-original-data-rigidity-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6399: we prove the sharp charged spacetime Penrose upper-area inequality for one-ended three-dimensional initial data with source-free electric and magnetic fields.",
+      "lean/docs/260.md:5: - [Area-controlled end replacement and the Bondi–Penrose inequality in the CKS class](../../preprints/Area-controlled-end-replacement-and-the-Bondi-Penrose-inequality-in-the-CKS-class-September-27-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "the higher-dimensional purely electric extension uses the matched neutral theorem.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-Charged-Reduction-of-the-Spacetime-Penrose-Inequality-in-Spatial-Dimensions-at-Least-Four-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6408: Using the companion neutral spacetime Penrose theorem exactly at its stated strong-decay, future-trapped, positive-area, and future-timelike scope, we prove the sharp purely electric upper-area inequality in every spatial dimension <i>n</i> ≥ 4",
+      "lean/docs/260.md:5: - [Area-controlled end replacement and the Bondi–Penrose inequality in the CKS class](../../preprints/Area-controlled-end-replacement-and-the-Bondi-Penrose-inequality-in-the-CKS-class-September-27-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Area-controlled-end-replacement-and-the-Bondi-Penrose-inequality-in-the-CKS-class-September-27-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated: the only challenge states the CKS end replacement (hyperboloidal end → asymptotically flat ends with ADM mass → Bondi mass, area loss → 0) and Schwarzschild Bondi-equality examples, which neither imply nor are implied by the asymptotically flat Penrose inequality, its rigidity, or the charged bounds — DIFFERENT. Every headline clause comes from a manuscript docs/260.md does not link (it links only the CKS paper of 13; 260.md:13 mentions the AF Penrose inequality only as the hypothesis of an unselected conditional result, which I do not read as declaring it). Flag: LARGE STATEMENT (3,596 lines); the closure of the two theorem statements (MainHypotheses, SchwarzschildExample, CKSData) carries no Penrose inequality. Agrees with the first reader."
+  },
+  {
+   "family": "274",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Resolves Moore's parity conjecture in the measured-output model: constant-depth quantum circuits with arbitrary one-qubit gates, unbounded-arity Toffoli gates and polynomially many total qubits cannot compute parity with any fixed positive worst-case advantage.",
+     "status": "stated",
+     "coveredBy": [
+      "QACParity",
+      "RegularParity"
+     ],
+     "reading": "ParityStatement: ∀ depth d, ∀ c ≥ 1, ∀ 0 < ε ≤ 1/2, ∃ n₀ ∀ n ≥ n₀ ∀ N with n ≤ N ≤ n^c, every ≤ d-layer circuit of disjoint one-qubit unitaries and Toffolis and every output qubit fails success ≥ 1/2 + ε on some input. RegularParity is the 2/3 specialization.",
+     "evidence": [
+      "lean/ComparatorChallenges/QACParity.lean:62: def ParityStatement : Prop :=",
+      "lean/ComparatorChallenges/QACParity.lean:63: ∀ (d : ℕ) (c ε : ℝ), 1 ≤ c → 0 < ε → ε ≤ 1 / 2 →",
+      "lean/ComparatorChallenges/QACParity.lean:64: ∃ n₀ : ℕ, ∀ n ≥ n₀, ∀ N : ℕ, n ≤ N → (N : ℝ) ≤ (n : ℝ) ^ c →",
+      "lean/ComparatorChallenges/QACParity.lean:71: theorem QAC.parity_lower_bound : QAC.ParityStatement := by"
+     ]
+    },
+    {
+     "clause": "Ancillas start in zero, one output qubit is measured, and all other registers may be discarded.",
+     "status": "stated",
+     "coveredBy": [
+      "QACParity",
+      "RegularParity"
+     ],
+     "reading": "inputWord pads with zeros; successProbability sums Born weights over every final basis word whose output bit equals the parity.",
+     "evidence": [
+      "lean/ComparatorChallenges/QACParity.lean:53: fun i => if h : i.val < n then x ⟨i.val, h⟩ else 0",
+      "lean/ComparatorChallenges/QACParity.lean:59: ∑ y : Word N, if y out = parity x then Complex.normSq (W y (inputWord x)) else 0"
+     ]
+    },
+    {
+     "clause": "Xu–Li's reductions give the same bounded-error obstruction for strict majority.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026; Regular-trajectories-pruning-and-quantum-parity-September-24-2026",
+     "classicalTheorem": "Xu–Li's fanout reductions (XuLi2026Fanout, Theorem 16 / Theorem 1 and Corollaries 2–3) — not formalized; no challenge mentions majority or symmetric functions.",
+     "evidence": [
+      "preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/build/sections/consequences.tex:274: \\begin{corollary}[Majority and symmetric functions]",
+      "preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/build/sections/consequences.tex:284: In particular, this excludes strict majority",
+      "preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/build/sections/consequences.tex:290: Xu and Li's Theorem~16 and Corollaries~2--3",
+      "preprints/Regular-trajectories-pruning-and-quantum-parity-September-24-2026/build/sections/07-parity.tex:158: exclude strict majority and broader symmetric families in our circuit",
+      "lean/docs/274.md:5: - [Product-projection localization and the $\\mathrm{QAC}^0$ parity lower bound](../../preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/paper.pdf)",
+      "lean/docs/274.md:6: - [Regular trajectories, pruning and quantum parity](../../preprints/Regular-trajectories-pruning-and-quantum-parity-September-24-2026/paper.pdf)",
+      "lean/docs/274.md:12: regular-trajectory propagation and pruning are not separate formalized statements here."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026",
+    "Regular-trajectories-pruning-and-quantum-parity-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The parity lower bound in the measured-output model is stated exactly (any fixed advantage, polynomial total qubits, zero ancillas, garbage summed). The strict-majority consequence is a corollary in both linked manuscripts through Xu–Li's reductions, not stated, and docs/274.md names a different omission (regular-trajectory propagation and pruning) but never majority: UNDECLARED. Agrees with the first reader; the gap is a one-line corollary by citation, so it is the narrowest UNDECLARED kind."
+  },
+  {
+   "family": "303",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Resolves the ordinary-to-strong pure-infiniteness question of Kirchberg and Rørdam for complex C∗-algebras.",
+     "status": "stated",
+     "coveredBy": [
+      "IndividualStrongInfiniteness"
+     ],
+     "reading": "individual_to_strong_main: if every positive h is properly infinite (h⊕h Cuntz-below h in the stabilization), A has the unrestricted diagonalization property and is strongly purely infinite (x², y², xy form). Named encoding: ordinary pure infiniteness is encoded by its Kirchberg–Rørdam characterization 'every positive element is properly infinite' (KR 2000, Theorem 4.16), the form the manuscript itself uses; a reader who refuses that encoding would mark this clause undeclared, which leaves the family word unchanged.",
+     "evidence": [
+      "lean/ComparatorChallenges/IndividualStrongInfiniteness.lean:316: def PropertyP (A : Type*) [NonUnitalCStarAlgebra A] : Prop :=",
+      "lean/ComparatorChallenges/IndividualStrongInfiniteness.lean:319: theorem individual_to_strong_main (hP : PropertyP A) :",
+      "lean/ComparatorChallenges/IndividualStrongInfiniteness.lean:325: MainGap.StronglyPurelyInfinite A := by",
+      "preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/build/introduction.tex:46: Condition \\(\\propP\\) is equivalent to pure infiniteness in the",
+      "preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/build/introduction.tex:48: \\cite[Theorem~4.16]{KR2000}"
+     ]
+    },
+    {
+     "clause": "For exact algebras, proper infiniteness of one fixed finite amplification of every positive element also suffices.",
+     "status": "stated",
+     "coveredBy": [
+      "ExactInfiniteness"
+     ],
+     "reading": "Exact A ∧ ∃ n ≥ 1 with diag(a,…,a) (n copies) properly infinite for every nonzero positive a ⇒ every positive a properly infinite and A strongly purely infinite. Encoding: exactness defined from scratch via a hand-built minimal tensor product (C, D in A's universe).",
+     "evidence": [
+      "lean/ComparatorChallenges/ExactInfiniteness.lean:155: ∃ n : ℕ, 1 ≤ n ∧ ∀ a : A, 0 ≤ a → a ≠ 0 → ProperlyInfinite (diagonalCopies n a)",
+      "lean/ComparatorChallenges/ExactInfiniteness.lean:170: theorem exact_weaklyPurelyInfinite_stronglyPurelyInfinite",
+      "lean/ComparatorChallenges/ExactInfiniteness.lean:172: (hExact : Exact A) (hWeak : WeaklyPurelyInfinite A) : StronglyPurelyInfinite A := by"
+     ]
+    },
+    {
+     "clause": "Consequently, every separable nuclear algebra with this property absorbs $`\\mathcal O_\\infty`$, without unitality or simplicity assumptions.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026",
+     "classicalTheorem": "Kirchberg–Rørdam (2002) / Kirchberg (2006, Prop. 4.4 and Remark 4.6): a separable nuclear strongly purely infinite algebra absorbs O∞; also nuclear ⇒ exact — not formalized; no challenge mentions O∞, tensor absorption, separability or nuclearity.",
+     "evidence": [
+      "preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/build/introduction.tex:129: \\begin{corollary}\\label{cor:absorption}",
+      "preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/build/introduction.tex:134: A\\cong A\\otimes_{\\min}\\Oinf.",
+      "preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/build/introduction.tex:125: \\cite[Proposition~4.4 and Remark~4.6]{Kirchberg2006}",
+      "lean/docs/303.md:1: # Weak pure infiniteness and Cuntz-algebra absorption",
+      "lean/docs/303.md:5: - [Weak pure infiniteness and $\\mathcal O_\\infty$ absorption](../../preprints/Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026/paper.pdf)",
+      "lean/docs/303.md:11: For exact algebras, proper infiniteness of one fixed finite amplification of every positive element already implies individual proper infiniteness and strong pure infiniteness."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Weak-pure-infiniteness-and-O-infinity-absorption-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Both pure-infiniteness implications are stated. The O∞-absorption consequence (half the family title) is the linked manuscript's Corollary cor:absorption, reached only through Kirchberg–Rørdam/Kirchberg absorption; docs/303.md describes the two implications and never says absorption is left out (the title alone declares nothing): UNDECLARED. Agrees with the first reader."
+  },
+  {
+   "family": "356",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves Gigli's conjecture: in every integer dimension n ≥ 2, Alexandrov curvature at least κ is characterized by the full-support $`\\mathop{\\mathrm{RCD}}\\nolimits ((n-1)\\kappa,n)`$ condition with reference measure $`\\mathcal H^n`$ and distributional sectional curvature at least κ in the original global test classes.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/WeakHessian.lean:220: theorem every_geodesic [CompleteSpace X] [TopologicalSpace.SeparableSpace X]",
+      "lean/ComparatorChallenges/WeakHessian.lean:226: (σ : Curve X) (hσ : IsGeodesic σ) : CurveSecondDerivativeBound F G σ := by",
+      "CONTENTS.md:8649: we prove that a complete separable metric space is an <i>n</i>-dimensional Alexandrov space of curvature at least <i>κ</i> if and only if, with reference measure $`\\mathcal H^n`$, it is a full-support $`\\mathrm{RCD}((n-1)\\kappa,n)`$ space whose distributional sectional curvature is at least <i>κ</i> in Gigli's original global test classes.",
+      "lean/docs/356.md:1: # Gigli’s characterization of Alexandrov curvature",
+      "lean/docs/356.md:5: - [Weak Hessian bounds along every geodesic in RCD spaces](../../preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/weak-hessian-geodesics.pdf)",
+      "lean/docs/356.md:9: The formalization transfers a weak Hessian upper bound to every prescribed minimizing geodesic in an $\\mathrm{RCD}(K,N)$ space with finite $N>1$."
+     ]
+    },
+    {
+     "clause": "The RCD condition is unreduced.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Giglis-distributional-curvature-characterization-of-Alexandrov-spaces-September-24-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/WeakHessian.lean:200: def RCD (m : Measure X) (K N : ℝ) : Prop :=",
+      "CONTENTS.md:8640: The RCD condition is unreduced.",
+      "lean/docs/356.md:5: - [Weak Hessian bounds along every geodesic in RCD spaces](../../preprints/Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026/weak-hessian-geodesics.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Weak-Hessian-bounds-along-every-geodesic-in-RCD-spaces-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The only challenge states the weak-Hessian lemma of the companion paper (a weak Hessian bound transfers to every geodesic in an RCD(K,N) space, 1 < N < ∞); it neither implies nor is implied by Gigli's characterization, and no Alexandrov space, H^n or distributional sectional curvature appears — DIFFERENT. Both headline clauses come from the Gigli-characterization manuscript, which docs/356.md does not link (it links only the weak-Hessian paper), so the release's scope note never claimed the headline; 'unreduced' qualifies the characterization's RCD condition (WeakHessian's own RCD is the unreduced τ-coefficient one, but no characterization uses it). Agrees with the first reader."
+  }
+ ]
+}

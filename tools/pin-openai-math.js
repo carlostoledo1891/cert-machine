@@ -117,7 +117,7 @@ const challenges = chNames.map((name) => {
     challengeModule: cfg.challenge_module, solutionModule: cfg.solution_module, theoremNames: cfg.theorem_names, definitionNames: cfg.definition_names || [],
     permittedAxioms: cfg.permitted_axioms, enableNanoda: cfg.enable_nanoda === undefined ? 'absent' : cfg.enable_nanoda, solutionImports: cfg.solution_imports || null,
     imports, axiomDeclarations: axioms, sorryCount: sorries, declarationsInStatement: defs,
-    support: declaredSupport.has(name) || /Support$/.test(name),
+    support: declaredSupport.has(name), supportByName: /Support$/.test(name) && !declaredSupport.has(name),
   };
 });
 

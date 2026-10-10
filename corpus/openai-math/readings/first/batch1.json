@@ -1,0 +1,2021 @@
+{
+ "batch": 1,
+ "families": [
+  {
+   "family": "005",
+   "headline": "Proves that Catalan's constant $`G=\\sum_{j\\ge0}(-1)^j/(2j+1)^2`$ is irrational.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves that Catalan's constant $`G=\\sum_{j\\ge0}(-1)^j/(2j+1)^2`$ is irrational.",
+     "coveredBy": [
+      "Catalan"
+     ],
+     "note": "Stated directly: Irrational of the real tsum over j : ℕ of (-1)^j/(2j+1)^2."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "Catalan",
+     "asserts": "The real number ∑' j : ℕ, (-1)^j / (2j+1)^2 is irrational.",
+     "theorems": [
+      "OAI.InternalCatalan.catalan_irrational"
+     ],
+     "covers": "the whole headline",
+     "encoding": [
+      "Mathlib tsum over ℕ (unconditional sum); the series is absolutely convergent, so the tsum is Catalan's constant",
+      "Mathlib Irrational"
+     ],
+     "flags": [
+      "JUNK? (not triggered): Mathlib's tsum is 0 on a non-summable family; here |(-1)^j/(2j+1)^2| ≤ 1/(2j+1)^2 is summable, so the tsum is the true value (and Irrational 0 would be false anyway)"
+     ],
+     "evidence": [
+      "ComparatorChallenges/Catalan.lean:7-8: theorem catalan_irrational : ⏎ Irrational (∑' j : ℕ, (-1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "012",
+   "headline": "Resolves the Erdős–Pomerance joint Dickman conjecture: the logarithmic sizes of the largest prime factors of n and $`n+1`$ are asymptotically independent in ordinary natural density. In particular, the integers satisfying $`P^+(n)\\lt P^+(n+1)`$ have density 1/2.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Resolves the Erdős–Pomerance joint Dickman conjecture: the logarithmic sizes of the largest prime factors of n and $`n+1`$ are asymptotically independent in ordinary natural density.",
+     "coveredBy": [
+      "JointDickman"
+     ],
+     "note": "joint_law: for every 0<a,b<1 the natural density of {n : P⁺(n) ≤ n^a and P⁺(n+1) ≤ n^b} tends to ρ(1/a)ρ(1/b) — the joint distribution function on (0,1)², i.e. independence with Dickman marginals. Both thresholds are powers of n (not n+1), an asymptotically immaterial choice."
+    },
+    {
+     "clause": "In particular, the integers satisfying $`P^+(n)\\lt P^+(n+1)`$ have density 1/2.",
+     "coveredBy": [
+      "JointDickman"
+     ],
+     "note": "increasing_order states it directly; decreasing_order adds the reverse ordering."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "JointDickman",
+     "asserts": "(1) For all real 0<a<1, 0<b<1: #{2 ≤ n ≤ ⌊X⌋ : maxPrimeFac(n) ≤ n^a ∧ maxPrimeFac(n+1) ≤ n^b}/X → ρ(1/a)·ρ(1/b) as X → ∞. (2) #{2 ≤ n ≤ ⌊X⌋ : P⁺(n) < P⁺(n+1)}/X → 1/2. (3) Same for P⁺(n+1) < P⁺(n).",
+     "theorems": [
+      "OAI.JointDickmanPaper.joint_law",
+      "OAI.JointDickmanPaper.increasing_order",
+      "OAI.JointDickmanPaper.decreasing_order"
+     ],
+     "covers": "both clauses",
+     "encoding": [
+      "Dickman ρ defined in the statement by Picard iteration: rho = delay (-1), delay σ u = stepApprox σ ⌈u⌉₊ u, stepApprox (n+1) u = 1 + σ∫_1^{max 1 u} f(t-1)/max 1 t dt. Read: stepApprox n is exact on (-∞,n], so this is ρ(u)=1 for u ≤ 1 and ρ(u)=1-∫_1^u ρ(t-1)/t dt (value 1 for u<0, never used since 1/a>1)",
+      "Nat.maxPrimeFac from the pinned Mathlib d13f23b, whose source is not available locally (the local Mathlib checkout, dated 2026-08-21, lacks it); a formal-conjectures copy defines it as `if n = 1 then 1 else n.primeFactorsList.getLastI`, matching the solution's comment that P⁺(1) = 1; counts start at n = 2, where it is the largest prime factor under any sane definition",
+      "natural density normalized by the real endpoint X with counts over 2 ≤ n ≤ ⌊X⌋"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/JointDickman.lean:9-15: noncomputable def kernel (f : ℝ → ℝ) (t : ℝ) : ℝ := f (t - 1) / max 1 t ⏎  ⏎ noncomputable def stepApprox (σ : ℝ) : ℕ → ℝ → ℝ ⏎ | 0 => fun _ => 1 ⏎ | n + 1 => fun u => 1 + σ * ∫ t in (1 : ℝ)..max 1 u, kernel (stepApprox σ n) t ⏎  ⏎ noncomputable def delay (σ u : ℝ) : ℝ := stepApprox σ ⌈u⌉₊ u",
+      "ComparatorChallenges/JointDickman.lean:22: noncomputable def rho : ℝ → ℝ := DelayConstruction.delay (-1)",
+      "ComparatorChallenges/JointDickman.lean:44-48: theorem joint_law (a b : ℝ) (ha : 0 < a) (ha1 : a < 1) (hb : 0 < b) (hb1 : b < 1) : ⏎ Tendsto (realDensity (fun n => ⏎ (n.maxPrimeFac : ℝ) ≤ (n : ℝ) ^ a ∧ ((n + 1).maxPrimeFac : ℝ) ≤ (n : ℝ) ^ b)) ⏎ atTop (𝓝 (Erdos970.NumberTheoryLean.Dickman.rho (1 / a) * ⏎ Erdos970.NumberTheoryLean.Dickman.rho (1 / b))) := by",
+      "ComparatorChallenges/JointDickman.lean:52-54: theorem increasing_order : ⏎ Tendsto (realDensity (fun n => n.maxPrimeFac < (n + 1).maxPrimeFac)) ⏎ atTop (𝓝 (1 / 2)) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "020",
+   "headline": "Proves the squarefree-values conjecture for irreducible integer quartics with no fixed prime-square divisor: squarefree values on positive integers have the predicted positive Euler-product density. More generally, establishes the $`(d-2)`$-power-free density for irreducible integer polynomials of degrees four through eight under the necessary local condition; together with Browning's higher-degree theorem, this covers every d ≥ 4.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves the squarefree-values conjecture for irreducible integer quartics with no fixed prime-square divisor: squarefree values on positive integers have the predicted positive Euler-product density.",
+     "coveredBy": [
+      "PowerFreeValues"
+     ],
+     "note": "Case natDegree = 4 of allDegrees (k = d-2 = 2)."
+    },
+    {
+     "clause": "More generally, establishes the $`(d-2)`$-power-free density for irreducible integer polynomials of degrees four through eight under the necessary local condition; together with Browning's higher-degree theorem, this covers every d ≥ 4.",
+     "coveredBy": [
+      "PowerFreeValues"
+     ],
+     "note": "allDegrees states every d ≥ 4 directly (it does not stop at 8 or appeal to Browning), so it states at least the clause."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "PowerFreeValues",
+     "asserts": "For every f ∈ ℤ[X] irreducible over ℚ with natDegree d ≥ 4 such that for every prime p fewer than p^k residues mod p^k are roots of f mod p^k (k = d-2): the local factors 1 - ρ(p^k)/p^k are multipliable, their product c_f is positive, and #{1 ≤ n ≤ X : f(n) is k-free} = c_f X + o(X).",
+     "theorems": [
+      "OAI.QuarticPowerFree.allDegrees"
+     ],
+     "covers": "both clauses",
+     "encoding": [
+      "k-free as ∀ prime p, ¬ p^k ∣ f(n); f(n)=0 is never k-free (matches 'zero is excluded'); negative values allowed",
+      "local condition as ρ(p^k) < p^k for all primes (the 'no fixed prime k-th power divisor' condition)",
+      "density constant as Mathlib tprod over Nat.Primes, o(X) as Asymptotics.IsLittleO atTop"
+     ],
+     "flags": [
+      "JUNK? (not triggered): Mathlib's tprod of a non-multipliable family is a junk value; the statement asserts Multipliable and 0 < densityConstant explicitly"
+     ],
+     "evidence": [
+      "ComparatorChallenges/PowerFreeValues.lean:12-13: def PowerFree (k : ℕ) (a : ℤ) : Prop := ⏎ ∀ p : ℕ, p.Prime → ¬ (p : ℤ) ^ k ∣ a",
+      "ComparatorChallenges/PowerFreeValues.lean:22-23: def LocallyAdmissible (f : Polynomial ℤ) (k : ℕ) : Prop := ⏎ ∀ p : ℕ, p.Prime → rho f (p ^ k) < p ^ k",
+      "ComparatorChallenges/PowerFreeValues.lean:31-35: def DensityStatement (f : Polynomial ℤ) (k : ℕ) : Prop := ⏎ Multipliable (localFactor f k) ∧ ⏎ 0 < densityConstant f k ∧ ⏎ (fun X : ℝ => (count f k X : ℝ) - densityConstant f k * X) =o[atTop] ⏎ (fun X : ℝ => X)",
+      "ComparatorChallenges/PowerFreeValues.lean:37-41: theorem allDegrees (f : Polynomial ℤ) ⏎ (hirr : Irreducible (f.map (Int.castRingHom ℚ))) ⏎ (hdeglo : 4 ≤ f.natDegree) ⏎ (hlocal : LocallyAdmissible f (f.natDegree - 2)) : ⏎ DensityStatement f (f.natDegree - 2) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "090",
+   "headline": "Proves that the triangular lattice minimizes the lower limit of energy per particle for every nonnegative completely monotone potential of squared distance among locally finite planar configurations of centered-disk density one. It also minimizes unit-background renormalized Riesz energies for $`0\\lt s\\lt 2`$ and Coulomb energy, resolving Sandier–Serfaty and the two-dimensional Brauchart–Hardin–Saff conjecture on the linear term of optimal spherical logarithmic energy.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Proves that the triangular lattice minimizes the lower limit of energy per particle for every nonnegative completely monotone potential of squared distance among locally finite planar configurations of centered-disk density one.",
+     "coveredBy": [
+      "TriangularEnergy",
+      "AtomicGaussian",
+      "TriangularGaussian"
+     ],
+     "note": "TriangularEnergy states it (energies in ℝ≥0∞, infinite energies included, equality attained by the lattice); the two Gaussian-minorant challenges state the supporting sharp Fourier minorants."
+    },
+    {
+     "clause": "It also minimizes unit-background renormalized Riesz energies for $`0\\lt s\\lt 2`$ and Coulomb energy,",
+     "coveredBy": [],
+     "note": "No challenge mentions renormalized, Riesz, Coulomb or jellium energies; a grep of all challenge files for Riesz/Coulomb/Sandier/jellium/renormalized finds only unrelated families."
+    },
+    {
+     "clause": "resolving Sandier–Serfaty and the two-dimensional Brauchart–Hardin–Saff conjecture on the linear term of optimal spherical logarithmic energy.",
+     "coveredBy": [],
+     "note": "Not stated (depends on the Coulomb clause plus Bétermin–Sandier's asymptotic formula per the Coulomb manuscript's abstract)."
+    }
+   ],
+   "gap": "Triangular minimality for unit-background renormalized Riesz energies (0<s<2) and for the planar Coulomb renormalized energy, hence the Sandier–Serfaty and two-dimensional Brauchart–Hardin–Saff conclusions. These come from two of the family's four manuscripts ('Universal optimality of the triangular lattice' and 'Triangular minimality for planar Coulomb renormalized energy'), neither of which the scope note links. PlanarPacking (Cohn–Elkies sharpness) is an extra result the headline does not mention.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "AtomicGaussian",
+     "asserts": "For every α>0 there is a radial real Schwartz function f on ℝ² with f ≤ exp(-πα|x|²) everywhere, real nonnegative Fourier transform, f = the Gaussian at every nonzero point of the covolume-one triangular lattice A, f̂ = 0 at every nonzero point of the dual lattice, and, when α ≥ 1, f is given by the explicit atomic interpolation construction (IsUnit (1∓R), the two linear systems, correction vectors with ℓ¹ norm < 10⁻⁵ and tail coefficient sum < 3·10⁻⁹).",
+     "theorems": [
+      "OAI.AtomicTriangular.sharp_gaussian_minorants_atomic"
+     ],
+     "covers": "supporting result for clause 1 (sharp Gaussian minorants, the Cohn–Kumar route); not itself the energy statement",
+     "encoding": [
+      "A = (√b)⁻¹·{(j + k/2, k b)}, b = √3/2 (covolume 1)",
+      "dual lattice as {w : ⟨a,w⟩ ∈ ℤ for all a ∈ A}",
+      "Mathlib Fourier transform 𝓕 on EuclideanSpace ℝ (Fin 2)"
+     ],
+     "flags": [
+      "JUNK? (not triggered): Uplus/Uminus use Mathlib's matrix inverse, which is junk (0) on a singular matrix; HasAtomicConstruction asserts IsUnit (1 - R) and IsUnit (1 + R) and the defining linear equations"
+     ],
+     "evidence": [
+      "ComparatorChallenges/AtomicGaussian.lean:184-188: def Uplus : Matrix (Fin 20) (Fin 8) ℝ := ⏎ (1-R)⁻¹*(Yf+R0*(gamma 1+gamma 0)) ⏎  ⏎ def Uminus : Matrix (Fin 20) (Fin 8) ℝ := ⏎ (1+R)⁻¹*(Yf+R0*(gamma 1-gamma 0))",
+      "ComparatorChallenges/AtomicGaussian.lean:215-217: IsUnit (1 - R) ∧ IsUnit (1 + R) ∧ ⏎ (1 - R) * Uplus = Yf + R0 * (gamma 1 + gamma 0) ∧ ⏎ (1 + R) * Uminus = Yf + R0 * (gamma 1 - gamma 0) ∧",
+      "ComparatorChallenges/AtomicGaussian.lean:239-245: theorem sharp_gaussian_minorants_atomic (α : ℝ) (hα : 0 < α) : ⏎ ∃ f : SchwartzMap Plane ℝ, ⏎ Radial f ∧ (∀ x, f x ≤ gaussian α x) ∧ ⏎ (∀ w, (realFourier f w).im = 0 ∧ 0 ≤ (realFourier f w).re) ∧ ⏎ (∀ a ∈ A, a ≠ 0 → f a = gaussian α a) ∧ ⏎ (∀ w ∈ dualA, w ≠ 0 → realFourier f w = 0) ∧ ⏎ (1 ≤ α → Construction.HasAtomicConstruction α f) := by"
+     ]
+    },
+    {
+     "name": "TriangularEnergy",
+     "asserts": "For every g : ℝ → ℝ that is C^∞, nonnegative and completely monotone on (0,∞), and every locally finite C ⊆ ℝ² with #(C ∩ B̄_R)/(πR²) → 1: Σ_{a∈A, a≠0} g(|a|²) ≤ liminf_{R→∞} (1/#(C∩B̄_R)) Σ_{x≠y ∈ C∩B̄_R} g(|x-y|²) in [0,∞], and equality holds for C = A.",
+     "theorems": [
+      "OAI.AtomicTriangular.universal_energy_minimum"
+     ],
+     "covers": "clause 1 in full",
+     "encoding": [
+      "energies valued in ℝ≥0∞ (divergent sums allowed)",
+      "lower energy per particle as liminf over real radii of ordered-pair averages over closed disks centred at 0",
+      "complete monotonicity via (-1)^r iteratedDeriv r g t ≥ 0 for t>0"
+     ],
+     "flags": [
+      "JUNK? (not triggered): diskEnergy multiplies by (count)⁻¹ in ℝ≥0∞, which is ∞ times an empty sum (= 0) when the disk is empty; density one forces the counts to ∞, so the liminf is unaffected"
+     ],
+     "evidence": [
+      "ComparatorChallenges/TriangularEnergy.lean:21-23: def DensityOne (C : Set Plane) : Prop := ⏎ Tendsto (fun R : ℝ => (diskCount C R : ℝ) / (Real.pi * R ^ 2)) ⏎ atTop (𝓝 1)",
+      "ComparatorChallenges/TriangularEnergy.lean:25-28: def AdmissiblePotential (g : ℝ → ℝ) : Prop := ⏎ ContDiffOn ℝ (⊤ : ℕ∞) g (Set.Ioi 0) ∧ ⏎ (∀ t : ℝ, 0 < t → 0 ≤ g t) ∧ ⏎ ∀ (r : ℕ) (t : ℝ), 0 < t → 0 ≤ (-1 : ℝ) ^ r * iteratedDeriv r g t",
+      "ComparatorChallenges/TriangularEnergy.lean:30-36: def diskEnergy (g : ℝ → ℝ) (C : Set Plane) (R : ℝ) : ℝ≥0∞ := ⏎ (diskCount C R : ℝ≥0∞)⁻¹ * ⏎ ∑ x ∈ diskPoints C R, ∑ y ∈ (diskPoints C R).erase x, ⏎ ENNReal.ofReal (g (‖x - y‖ ^ 2)) ⏎  ⏎ def energy (g : ℝ → ℝ) (C : Set Plane) : ℝ≥0∞ := ⏎ Filter.liminf (diskEnergy g C) atTop",
+      "ComparatorChallenges/TriangularEnergy.lean:66-68: theorem universal_energy_minimum (g : ℝ → ℝ) (C : Set Plane) ⏎ (hg : AdmissiblePotential g) (hC : LocallyFinite C) (hd : DensityOne C) : ⏎ latticeEnergy g ≤ energy g C ∧ latticeEnergy g = energy g A := by",
+      "CONTENTS.md:2211: **090. Triangular-lattice optimality, long-range Riesz and Coulomb energies, and spherical logarithmic energy.** Proves that the triangular lattice minimizes the lower limit of energy per particle for every nonnegative completely monotone potential of squared distance among locally finite planar configurations of centered-disk density one. It also minimizes unit-background renormalized Riesz energies for $`0\\lt s\\lt 2`$ and Coulomb energy, resolving Sandier–Serfaty and the two-dimensional Brauchart–Hardin–Saff conjecture on the linear term of optimal spherical logarithmic energy. ([Lean](lean/docs/090.md))",
+      "lean/docs/090.md:5-6: - [An atomic certificate for triangular-lattice universal optimality](../../preprints/An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026/paper.pdf) ⏎ - [A sharp Fourier certificate for planar circle packing](../../preprints/A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026/paper.pdf)",
+      "lean/docs/090.md:10: The formalization proves that the density-one triangular lattice minimizes lower energy per particle among all locally finite planar configurations of centered-disk density one, for every nonnegative completely monotone function of squared distance. Infinite energies are allowed in the comparison.",
+      "lean/docs/090.md:14: The planar Cohn–Elkies sharpness conjecture asks whether the two-point Fourier method attains the optimal circle-packing density. The formalization constructs a radial Schwartz function $f$ on $\\mathbb R^2$ with $\\widehat f(0)=1$, $f(0)=2/\\sqrt3$, $\\widehat f$ real and nonnegative everywhere, and $f(x)\\le0$ whenever $\\|x\\|\\ge1$. These are the sharp Fourier certificate conditions yielding density $\\pi/(2\\sqrt3)$. The separate uniqueness statement for periodic equality cases is outside this selected theorem."
+     ]
+    },
+    {
+     "name": "TriangularGaussian",
+     "asserts": "Same minorant statement as AtomicGaussian (every α>0: radial Schwartz f ≤ Gaussian, f̂ ≥ 0 real, interpolation on A∖{0}, f̂ = 0 on dual∖{0}), with the α ≥ 1 construction restated through correctedFinite with δ-corrections (ℓ¹ < 10⁻⁵, tail < 3·10⁻⁹).",
+     "theorems": [
+      "OAI.AtomicTriangular.sharp_gaussian_minorants_with_construction"
+     ],
+     "covers": "supporting result for clause 1",
+     "encoding": [
+      "same lattice/dual/Fourier encodings as AtomicGaussian"
+     ],
+     "flags": [
+      "JUNK? (not triggered): matrix inverses guarded by IsUnit (1 - R), IsUnit (1 + R) inside AtomicConstruction"
+     ],
+     "evidence": [
+      "ComparatorChallenges/TriangularGaussian.lean:236-239: def AtomicConstruction (α : ℝ) (f : Plane → ℝ) : Prop := ⏎ IsUnit (1 - R) ∧ IsUnit (1 + R) ∧ ⏎ (1 - R) * Uplus = Yf + R0 * (gamma 1 + gamma 0) ∧ ⏎ (1 + R) * Uminus = Yf + R0 * (gamma 1 - gamma 0) ∧",
+      "ComparatorChallenges/TriangularGaussian.lean:263-269: theorem sharp_gaussian_minorants_with_construction (α : ℝ) (hα : 0 < α) : ⏎ ∃ f : SchwartzMap Plane ℝ, ⏎ Radial f ∧ (∀ x, f x ≤ gaussian α x) ∧ ⏎ (∀ w, (realFourier f w).im = 0 ∧ 0 ≤ (realFourier f w).re) ∧ ⏎ (∀ a ∈ A, a ≠ 0 → f a = gaussian α a) ∧ ⏎ (∀ w ∈ dualA, w ≠ 0 → realFourier f w = 0) ∧ ⏎ (1 ≤ α → AtomicConstruction α f) := by"
+     ]
+    },
+    {
+     "name": "PlanarPacking",
+     "asserts": "There is a radial real Schwartz function f on ℝ² with f̂(0) = 1, f(0) = 2/√3, f̂ real and ≥ 0 everywhere, and f(x) ≤ 0 for |x| ≥ 1 (the sharp Cohn–Elkies certificate for density π/(2√3)).",
+     "theorems": [
+      "OAI.sharp_fourier_certificate"
+     ],
+     "covers": "none of the headline (the packing manuscript's theorem; the headline does not mention packing)",
+     "encoding": [
+      "Fourier transform as a Bochner integral with kernel exp(-2πi⟨x,ξ⟩); f Schwartz, hence integrable"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/PlanarPacking.lean:28-31: def SharpCertificate (f : SchwartzMap Plane ℝ) : Prop := ⏎ Radial f ∧ fourier f 0 = 1 ∧ f 0 = 2 / Real.sqrt 3 ∧ ⏎ (∀ ξ, (fourier f ξ).im = 0 ∧ 0 ≤ (fourier f ξ).re) ∧ ⏎ (∀ x, 1 ≤ ‖x‖ → f x ≤ 0)",
+      "ComparatorChallenges/PlanarPacking.lean:36-37: theorem sharp_fourier_certificate : ⏎ ∃ f : SchwartzMap SharpPlanar.Plane ℝ, SharpPlanar.SharpCertificate f := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The scope note links only 2 of the family's 4 manuscripts and never names the Riesz/Coulomb/Sandier–Serfaty/Brauchart–Hardin–Saff omission; its only stated exclusion is the periodic-uniqueness statement. A second reader should decide whether linking only those two papers counts as a declaration."
+  },
+  {
+   "family": "106",
+   "headline": "It is NP-hard to color a three-colorable graph using any fixed number c ≥ 3 of colors. More strongly, for every fixed $`0\\lt \\delta\\lt 1/3`$, a deterministic polynomial-time reduction from 3SAT produces simple unweighted graphs that are three-colorable in the satisfiable case and have no independent set of size $`\\delta n`$ otherwise, where n is the number of vertices.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "It is NP-hard to color a three-colorable graph using any fixed number c ≥ 3 of colors.",
+     "coveredBy": [
+      "IndependentSets"
+     ],
+     "note": "Implied, not stated: take δ = 1/(c+1) < 1/3; in the unsatisfiable case α(G) < n/(c+1) forces χ(G) > c, so a polynomial-time c-colourer for 3-colourable graphs would decide 3SAT through the reduction. 'NP-hard' itself (Cook–Levin for 3SAT) is outside Lean."
+    },
+    {
+     "clause": "More strongly, for every fixed $`0\\lt \\delta\\lt 1/3`$, a deterministic polynomial-time reduction from 3SAT produces simple unweighted graphs that are three-colorable in the satisfiable case and have no independent set of size $`\\delta n`$ otherwise, where n is the number of vertices.",
+     "coveredBy": [
+      "IndependentSets"
+     ],
+     "note": "Stated directly (∀ δ ∈ (0,1/3), Nonempty (RealGraphReduction δ))."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "IndependentSets",
+     "asserts": "For every real 0<δ<1/3 there is a map from bit strings to finite nonempty simple graphs, computed by a Mathlib TM2 machine in polynomial time with all stack alphabets finite and the full adjacency-matrix output length polynomially bounded, such that the encoding of every satisfiable ≤3-CNF formula maps to a 3-colourable graph and of every unsatisfiable one to a graph with independence number < δ·(number of vertices).",
+     "theorems": [
+      "OAI.LargeIndependentSets.mainTheoremReal"
+     ],
+     "covers": "both clauses (clause 1 by the one-step corollary)",
+     "encoding": [
+      "NP-hardness encoded as existence of a polynomial-time Karp reduction from 3SAT",
+      "Turing.TM2ComputableInPolyTime with input encoding id and output encoding graphBits (binary vertex count + row-major adjacency matrix); finiteAlphabets field closes the infinite-stack-alphabet loophole of FinTM2",
+      "formulas: lists of clauses of length ≤ 3 over ℕ-named variables, self-delimiting binary encoding",
+      "graphs: Bool adjacency, symmetric, loopless, ≥ 1 vertex"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/IndependentSets.lean:65-75: structure RealGraphReduction (δ : ℝ) where ⏎ reduce : List Bool → Graph ⏎ computation : Turing.TM2ComputableInPolyTime (id : List Bool → List Bool) graphBits reduce ⏎ finiteAlphabets : ∀ k : computation.tm.K, Finite (computation.tm.Γ k) ⏎ outputBound : Polynomial ℕ ⏎ outputSize : ∀ b, (graphBits (reduce b)).length ≤ outputBound.eval b.length ⏎ completeness : ∀ φ : Formula, φ.Satisfiable → (reduce (formulaBits φ)).ThreeColorable ⏎ soundness : ∀ φ : Formula, ¬φ.Satisfiable → ⏎ ((reduce (formulaBits φ)).independenceNumber : ℝ) < ⏎ δ * (reduce (formulaBits φ)).vertices ⏎ ",
+      "ComparatorChallenges/IndependentSets.lean:77-78: theorem mainTheoremReal : ⏎ ∀ δ : ℝ, 0 < δ → δ < 1 / 3 → Nonempty (RealGraphReduction δ) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "116",
+   "headline": "For each characteristic, constructs in deterministic polynomial bit time a polynomial-dimensional matrix tuple detecting every nonzero division-free noncommutative formula of bounded size over any field of that characteristic. Rational formulas over ℚ also admit polynomial-size hitting lists whenever they have a defined rational-matrix evaluation.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "For each characteristic, constructs in deterministic polynomial bit time a polynomial-dimensional matrix tuple detecting every nonzero division-free noncommutative formula of bounded size over any field of that characteristic.",
+     "coveredBy": [
+      "FormulaHitting"
+     ],
+     "note": "Covered only for characteristic 0 (FormulaHitting assumes [CharZero F]); positive characteristic is not stated anywhere (UNDECLARED). The deterministic polynomial bit-time construction is not asserted (DECLARED in the scope note); the dimension 2ns² is visible in the explicit definition `dimension`."
+    },
+    {
+     "clause": "Rational formulas over ℚ also admit polynomial-size hitting lists whenever they have a defined rational-matrix evaluation.",
+     "coveredBy": [
+      "RationalHitting"
+     ],
+     "note": "Stated directly, with a single TM0 machine, polynomial time, polynomial dimension and polynomial binary output length."
+    }
+   ],
+   "gap": "Every positive characteristic: no challenge states a hitting tuple over 𝔽_p or over fields of characteristic p (the October-4 manuscript 'Uniform Matrix Hitting Points in Every Positive Characteristic', which the scope note does not link). Also not asserted, but declared: the polynomial bit-time construction of the characteristic-zero tuple.",
+   "scopeNoteOnGap": "silent on positive characteristic; the only declared omission is: The selected theorem states this universal hitting property. The paper's deterministic polynomial bit-construction bound and matrix-dimension bound $O(ns^2)$ are not separately asserted in it.",
+   "challenges": [
+    {
+     "name": "FormulaHitting",
+     "asserts": "For n,s ≥ 1, every field F of characteristic zero and every division-free noncommutative formula f over F in n variables of size ≤ s that computes a nonzero noncommutative polynomial (some word coefficient ≠ 0), evaluating f at the explicit rational strictly-lower-triangular matrices `generator n s` (dimension 2ns², or 1 when n = s = 1), with scalars embedded as scalar matrices, gives a nonzero matrix.",
+     "theorems": [
+      "OAI.NCHitting.universal_hitting"
+     ],
+     "covers": "clause 1 for characteristic 0 only, without the bit-time bound",
+     "encoding": [
+      "explicit entries (-1)^(r-q-1)/(r·(i+1)^(r-q)) for q<r",
+      "size counts leaves and gates",
+      "polynomial identity = word-coefficient series via convolution",
+      "universe-polymorphic field F"
+     ],
+     "flags": [
+      "NARROWER (undeclared): [CharZero F] — positive characteristic excluded"
+     ],
+     "evidence": [
+      "ComparatorChallenges/FormulaHitting.lean:46-53: def dimension (n s : ℕ) : ℕ := if n = 1 ∧ s = 1 then 1 else 2 * n * s ^ 2 ⏎  ⏎ def matrixEntry (i r q : ℕ) : ℚ := ⏎ if q < r then (-1 : ℚ) ^ (r - q - 1) / ((r : ℚ) * (i : ℚ) ^ (r - q)) ⏎ else 0 ⏎  ⏎ def generator (n s : ℕ) : Fin n → Matrix (Fin (dimension n s)) (Fin (dimension n s)) ℚ := ⏎ fun i r q => if n = 1 ∧ s = 1 then 1 else matrixEntry (i.val + 1) r.val q.val",
+      "ComparatorChallenges/FormulaHitting.lean:57-61: theorem universal_hitting (n s : ℕ) (hn : 1 ≤ n) (hs : 1 ≤ s) ⏎ (F : Type u_2) [Field F] [CharZero F] (f : Formula F n) ⏎ (hsize : f.size ≤ s) (hf : ∃ w, f.coeff w ≠ 0) : ⏎ f.eval (Matrix.scalar (Fin (dimension n s))) ⏎ (fun i r q => (generator n s i r q : F)) ≠ 0 := by",
+      "CONTENTS.md:2847: **116. Uniform black-box noncommutative identity testing across characteristics.** For each characteristic, constructs in deterministic polynomial bit time a polynomial-dimensional matrix tuple detecting every nonzero division-free noncommutative formula of bounded size over any field of that characteristic. Rational formulas over ℚ also admit polynomial-size hitting lists whenever they have a defined rational-matrix evaluation. ([Lean](lean/docs/116.md))",
+      "lean/docs/116.md:10: The formalization gives one explicit tuple of rational matrices that simultaneously detects every nonzero division-free noncommutative formula with at most $s$ gates in $n$ variables, for $n,s\\ge1$. Evaluation at that tuple is a nonzero matrix over every characteristic-zero field.",
+      "lean/docs/116.md:12: The selected theorem states this universal hitting property. The paper's deterministic polynomial bit-construction bound and matrix-dimension bound $O(ns^2)$ are not separately asserted in it."
+     ]
+    },
+    {
+     "name": "RationalHitting",
+     "asserts": "There are one TM0 machine over a 4-letter alphabet and constants C,k>0 such that for all n,s ≥ 1, on unary input (n,s) it halts within C(n+s+1)^k steps leaving the binary encoding of a list of rational matrix tuples of one common dimension ≤ C(n+s+1)^k, with encoding length ≤ C(n+s+1)^k, such that every rational formula (rational constants, +, ×, inverse) of size ≤ s that has a defined evaluation at some matrix tuple and is nonzero at some matrix tuple evaluates to an invertible matrix at some listed tuple.",
+     "theorems": [
+      "OAI.RationalHitting.main"
+     ],
+     "covers": "clause 2",
+     "encoding": [
+      "inverse evaluated relationally (a genuine two-sided inverse must exist; no totalized inverse)",
+      "'admissible' and 'nonzero' quantify over matrix tuples of every positive dimension",
+      "rational constants of any height count as size 1"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/RationalHitting.lean:26-32: inductive Eval {n : ℕ} {R : Type u} [Ring R] ⏎ (c : ℚ →+* R) (X : Fin n → R) : Formula n → R → Prop where ⏎ | var (i) : Eval c X (.var i) (X i) ⏎ | const (a) : Eval c X (.const a) (c a) ⏎ | add {f g a b} : Eval c X f a → Eval c X g b → Eval c X (.add f g) (a + b) ⏎ | mul {f g a b} : Eval c X f a → Eval c X g b → Eval c X (.mul f g) (a * b) ⏎ | inv {f a b} : Eval c X f a → a * b = 1 → b * a = 1 → Eval c X (.inv f) b",
+      "ComparatorChallenges/RationalHitting.lean:42-46: def Admissible {n : ℕ} (f : Formula n) : Prop := ⏎ ∃ d, 0 < d ∧ ∃ (X : Tuple n d), ∃ v, Evaluates f X v ⏎  ⏎ def Nonzero {n : ℕ} (f : Formula n) : Prop := ⏎ ∃ d, 0 < d ∧ ∃ (X : Tuple n d), ∃ v, Evaluates f X v ∧ v ≠ 0",
+      "ComparatorChallenges/RationalHitting.lean:95-97: def Hits {n : ℕ} (s : ℕ) (H : Output n) : Prop := ⏎ ∀ f : Formula n, f.size ≤ s → Admissible f → Nonzero f → ⏎ ∃ X ∈ H.tuples, ∃ v, Evaluates f X v ∧ IsUnit v",
+      "ComparatorChallenges/RationalHitting.lean:101-106: def MainStatement : Prop := ⏎ ∃ (m : ℕ) (G : Machine m) (C k : ℕ), 0 < C ∧ 0 < k ∧ ⏎ ∀ n s : ℕ, 1 ≤ n → 1 ≤ s → ∃ H : Output n, ⏎ H.dimension ≤ C * (n + s + 1) ^ k ∧ ⏎ (encodeOutput H).length ≤ C * (n + s + 1) ^ k ∧ ⏎ OutputsWithin G s (C * (n + s + 1) ^ k) H ∧ Hits s H"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note links only the two characteristic-zero/ℚ manuscripts and never mentions positive characteristic."
+  },
+  {
+   "family": "124",
+   "headline": "Resolves the three-processor unit-job scheduling problem of Garey and Johnson: a deterministic polynomial-time algorithm minimizes makespan for nonpreemptive unit-length jobs with arbitrary precedence constraints on three identical parallel machines. For an explicitly given precedence graph, it decides deadline feasibility exactly and constructs a feasible schedule.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Resolves the three-processor unit-job scheduling problem of Garey and Johnson: a deterministic polynomial-time algorithm minimizes makespan for nonpreemptive unit-length jobs with arbitrary precedence constraints on three identical parallel machines.",
+     "coveredBy": [
+      "ThreeMachine"
+     ],
+     "note": "Deadline-free input: the machine outputs a feasible schedule whose makespan is minimal."
+    },
+    {
+     "clause": "For an explicitly given precedence graph, it decides deadline feasibility exactly and constructs a feasible schedule.",
+     "coveredBy": [
+      "ThreeMachine"
+     ],
+     "note": "Deadline input T: outputs 'none' iff no feasible schedule, else a feasible schedule."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "ThreeMachine",
+     "asserts": "There is one fixed multi-tape Turing machine and C>0 such that for every n ≥ 1, every acyclic precedence edge list on n unit jobs and every optional deadline 1 ≤ T ≤ n, on the binary input encoding it halts within C·(len+2)^150020 steps with a correct output: with no deadline, a feasible schedule (slots ≥ 1, ≤ 3 jobs per slot, edges strictly increasing) of minimum makespan; with deadline T, 'none' exactly when no feasible schedule with slots ≤ T exists, otherwise a feasible one.",
+     "theorems": [
+      "OAI.ThreeMachine.main_theorem"
+     ],
+     "covers": "both clauses",
+     "encoding": [
+      "explicit k+1-tape, q+1-state, g+3-symbol machine with a written step function; time polynomial of degree 150020 in input length",
+      "inputs restricted to n ≥ 1, acyclic graphs and deadlines T ≤ n (any acyclic instance is feasible with T = n, so larger deadlines are trivial); the scope note says 'valid specified deadline'"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/ThreeMachine.lean:16-19: def Feasible {n : ℕ} (G : Instance n) (T : ℕ) (τ : Fin n → ℕ) : Prop := ⏎ (∀ v, 1 ≤ τ v ∧ τ v ≤ T) ∧ ⏎ (∀ t, ((Finset.univ : Finset (Fin n)).filter (fun v => τ v = t)).card ≤ 3) ∧ ⏎ ∀ u v, G.edge u v → τ u < τ v",
+      "ComparatorChallenges/ThreeMachine.lean:42-50: def CorrectOutput {n : ℕ} (G : Instance n) (deadline : Option ℕ) ⏎ (out : List Bool) : Prop := ⏎ match deadline with ⏎ | none => ∃ T τ, Feasible G T τ ∧ ⏎ (∀ T' τ', Feasible G T' τ' → T ≤ T') ∧ ⏎ out = encodeAnswer (some (slots τ)) ⏎ | some T => ⏎ (out = encodeAnswer none ∧ ¬∃ τ, Feasible G T τ) ∨ ⏎ ∃ τ, Feasible G T τ ∧ out = encodeAnswer (some (slots τ))",
+      "ComparatorChallenges/ThreeMachine.lean:86-93: def ReleaseTheorem : Prop := ⏎ ∃ (k q g : ℕ) (M : Machine k q g) (C : ℕ), 0 < C ∧ ⏎ ∀ n (G : Instance n), 1 ≤ n → G.acyclic → ⏎ ∀ deadline : Option ℕ, ⏎ (∀ T ∈ deadline, 1 ≤ T ∧ T ≤ n) → ⏎ ∃ out, CorrectOutput G deadline out ∧ ⏎ M.Produces (encodeInput G deadline) out ⏎ (C * ((encodeInput G deadline).length + 2) ^ 150020)"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "134",
+   "headline": "Every regular language over a finite alphabet has a generalized regular expression with at most three nested Kleene stars, allowing union, concatenation and complement over the same alphabet. This establishes an absolute bound independent of automaton size, resolving the uniform-boundedness version of the generalized star-height problem.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Every regular language over a finite alphabet has a generalized regular expression with at most three nested Kleene stars, allowing union, concatenation and complement over the same alphabet.",
+     "coveredBy": [
+      "GeneralizedStarHeight"
+     ],
+     "note": "Stated directly."
+    },
+    {
+     "clause": "This establishes an absolute bound independent of automaton size, resolving the uniform-boundedness version of the generalized star-height problem.",
+     "coveredBy": [
+      "GeneralizedStarHeight"
+     ],
+     "note": "The bound 3 is a constant in the statement."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "GeneralizedStarHeight",
+     "asserts": "For every finite alphabet and every regular language L (Mathlib Language.IsRegular) there is an expression built from 0, 1, letters, union, concatenation, complement and star whose language is L and whose star height (stars nested; union/concat/complement add nothing) is ≤ 3.",
+     "theorems": [
+      "OAI.GeneralizedStarHeight.main"
+     ],
+     "covers": "both clauses",
+     "encoding": [
+      "complement is Mathlib's set complement in Language α = Set (List α), i.e. in the same free monoid",
+      "intersection not primitive (expressible by complement and union)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/GeneralizedStarHeight.lean:22-35: def language {Alphabet : Type u} : Expression Alphabet → Language Alphabet ⏎ | .zero => 0 ⏎ | .one => 1 ⏎ | .letter a => {[a]} ⏎ | .union P Q => P.language + Q.language ⏎ | .concat P Q => P.language * Q.language ⏎ | .compl P => P.languageᶜ ⏎ | .star P => P.language∗ ⏎  ⏎ def height {Alphabet : Type u} : Expression Alphabet → ℕ ⏎ | .zero | .one | .letter _ => 0 ⏎ | .union P Q | .concat P Q => max P.height Q.height ⏎ | .compl P => P.height ⏎ | .star P => 1 + P.height",
+      "ComparatorChallenges/GeneralizedStarHeight.lean:42-43: theorem main {Alphabet : Type u} [Finite Alphabet] (L : Language Alphabet) (hL : L.IsRegular) : ⏎ HasHeightAtMost L 3 := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "150",
+   "headline": "Proves that the billiard flow in every nondegenerate Euclidean triangle with at least one angle irrational relative to π is weakly mixing for normalized area times uniform direction. This strengthens ergodicity on the entire irrational-angle class, with no genericity or Diophantine restrictions.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Proves that the billiard flow in every nondegenerate Euclidean triangle with at least one angle irrational relative to π is weakly mixing for normalized area times uniform direction.",
+     "coveredBy": [],
+     "note": "Not stated: the challenge's dynamical conclusion is ergodicity (invariant sets mod 0 have measure 0 or 1); weak mixing (ergodicity of the product flow) appears nowhere."
+    },
+    {
+     "clause": "This strengthens ergodicity on the entire irrational-angle class, with no genericity or Diophantine restrictions.",
+     "coveredBy": [
+      "IrrationalTriangleBilliard"
+     ],
+     "note": "Ergodicity for every triangle with an irrational angle, no genericity hypothesis — stated."
+    }
+   ],
+   "gap": "Weak mixing (from the October-5 manuscript, which the scope note does not link); only ergodicity is stated.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "IrrationalTriangleBilliard",
+     "asserts": "For every triangle with affinely independent vertices in ℂ and some interior angle θ with θ/π irrational: the phase measure (normalized area of the open table × uniform angle) has mass 1; a.e. phase point has a bi-infinite collision chain (collisions only in open sides, specular reflection, collision times unbounded both ways); such chains are unique; the chain-defined flow Φ_t preserves the measure for every t; Φ_{s+t} = Φ_s∘Φ_t a.e.; and every measurable A with μ(Φ_t⁻¹A ∆ A) = 0 for all t has μ(A) ∈ {0,1}.",
+     "theorems": [
+      "OAI.TriangularBilliards.irrational_triangle_billiard"
+     ],
+     "covers": "the ergodicity half of clause 2; not clause 1 (weak mixing)",
+     "encoding": [
+      "phase space ℂ × Circle with Borel σ-algebra on Circle",
+      "flow = identity on states without a regular chain; the theorem must show these are null",
+      "angle via InnerProductGeometry.angle of edge vectors"
+     ],
+     "flags": [
+      "NARROWER (undeclared): the last conjunct is ergodicity, not weak mixing"
+     ],
+     "evidence": [
+      "ComparatorChallenges/IrrationalTriangleBilliard.lean:108-117: def MainConclusion (Q : Triangle) : Prop := ⏎ phaseMeasure Q univ = 1 ∧ ⏎ (∀ᵐ z ∂phaseMeasure Q, Nonempty (FlightChain Q z)) ∧ ⏎ (∀ (z : Phase) (c d : FlightChain Q z), c = d) ∧ ⏎ (∀ t : ℝ, MeasurePreserving (billiardFlow Q t) (phaseMeasure Q) (phaseMeasure Q)) ∧ ⏎ (∀ s t : ℝ, billiardFlow Q (s + t) =ᵐ[phaseMeasure Q] ⏎ (billiardFlow Q s ∘ billiardFlow Q t)) ∧ ⏎ (∀ A : Set Phase, MeasurableSet A → ⏎ (∀ t : ℝ, phaseMeasure Q (((billiardFlow Q t) ⁻¹' A) ∆ A) = 0) → ⏎ phaseMeasure Q A = 0 ∨ phaseMeasure Q A = 1)",
+      "ComparatorChallenges/IrrationalTriangleBilliard.lean:119-120: theorem irrational_triangle_billiard (Q : Triangle) (hQ : Q.HasIrrationalAngle) : ⏎ MainConclusion Q := by",
+      "CONTENTS.md:3582: **150. Weak mixing of triangular billiards with an irrational angle.** Proves that the billiard flow in every nondegenerate Euclidean triangle with at least one angle irrational relative to <i>π</i> is weakly mixing for normalized area times uniform direction. This strengthens ergodicity on the entire irrational-angle class, with no genericity or Diophantine restrictions. ([Lean](lean/docs/150.md))",
+      "lean/docs/150.md:5: - [Ergodicity of triangular billiards with an irrational angle](../../preprints/Ergodicity-of-triangular-billiards-with-an-irrational-angle-September-25-2026/Ergodicity-of-triangular-billiards-with-an-irrational-angle-September-25-2026.pdf)",
+      "lean/docs/150.md:9: The formalization proves that the unit-speed billiard flow in every nondegenerate Euclidean triangle with at least one angle irrational relative to $\\pi$ is ergodic for normalized area times uniform angular measure. It constructs the flow outside the null set of exceptional trajectories, proves uniqueness of the flight chain there, and establishes measure preservation and the flow law almost everywhere. No genericity or Diophantine condition on the irrational angle is assumed."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note describes the narrower ergodicity statement accurately but never says weak mixing is left out."
+  },
+  {
+   "family": "160",
+   "headline": "Resolves Erdős's superexponential-growth question for van der Waerden numbers. If $`W_r(k)`$ is the least interval length forcing a monochromatic k-term progression in every r-coloring, then $`W_r(k)\\gt k^{ck\\lfloor\\log_2 r\\rfloor}`$ for an absolute c > 0, all r ≥ 2 and sufficiently large k, uniformly in r. In particular, $`W_r(k)^{1/k}\\to\\infty`$ for each fixed r.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Resolves Erdős's superexponential-growth question for van der Waerden numbers.",
+     "coveredBy": [
+      "QuantitativeVanDerWaerden"
+     ],
+     "note": "Via the bound below."
+    },
+    {
+     "clause": "If $`W_r(k)`$ is the least interval length forcing a monochromatic k-term progression in every r-coloring, then $`W_r(k)\\gt k^{ck\\lfloor\\log_2 r\\rfloor}`$ for an absolute c > 0, all r ≥ 2 and sufficiently large k, uniformly in r.",
+     "coveredBy": [
+      "QuantitativeVanDerWaerden"
+     ],
+     "note": "Stated with explicit c = 1/100000 and quantifiers ∃K ∀k≥K ∀r≥2 (uniform in r)."
+    },
+    {
+     "clause": "In particular, $`W_r(k)^{1/k}\\to\\infty`$ for each fixed r.",
+     "coveredBy": [
+      "QuantitativeVanDerWaerden"
+     ],
+     "note": "Implied, not stated: W^{1/k} > k^{c⌊log₂ r⌋} → ∞ since ⌊log₂ r⌋ ≥ 1."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "QuantitativeVanDerWaerden",
+     "asserts": "There is K such that for all k ≥ K and all r ≥ 2: k^{(1/100000)·k·⌊log₂ r⌋} < W(r,k), where W(r,k) is the least N > 0 such that every colouring of {0,…,N-1} with Fin r colours has a monochromatic k-term AP with positive common difference.",
+     "theorems": [
+      "OAI.QuantitativeVanDerWaerden.uniform_lower_bound"
+     ],
+     "covers": "clauses 1–3",
+     "encoding": [
+      "W as sInf over ℕ of Ramsey lengths with Fin r colourings",
+      "explicit c = 1/100000",
+      "Nat.log 2 r = ⌊log₂ r⌋"
+     ],
+     "flags": [
+      "JUNK? (not triggered): W is sInf on ℕ, which is 0 for an empty set; the strict lower bound by a positive real is false at 0, so the statement itself forces the Ramsey set to be nonempty — junk cannot weaken it"
+     ],
+     "evidence": [
+      "ComparatorChallenges/QuantitativeVanDerWaerden.lean:12-21: def HasMonoAP {α : Type u} (c : ℕ → α) (k N : ℕ) : Prop := ⏎ ∃ a d, 0 < d ∧ a + (k - 1) * d < N ∧ MonoAP c k a d ⏎  ⏎ def IsRamsey (α : Type u) (k N : ℕ) : Prop := ⏎ ∀ c : ℕ → α, HasMonoAP c k N ⏎  ⏎ /-- The least positive Ramsey interval size. Statements about its Ramsey ⏎ property require a finiteness proof; no such proof is built into this definition. -/ ⏎ noncomputable def W (r k : ℕ) : ℕ := ⏎ sInf {N : ℕ | 0 < N ∧ IsRamsey (Fin r) k N}",
+      "ComparatorChallenges/QuantitativeVanDerWaerden.lean:26-28: theorem uniform_lower_bound : ⏎ ∃ K : ℕ, ∀ k ≥ K, ∀ r ≥ 2, ⏎ (k : ℝ) ^ ((1 / 100000 : ℝ) * k * (Nat.log 2 r : ℝ)) < (W r k : ℝ) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "167",
+   "headline": "Proves the weak pinned Erdős distance conjecture: for every fixed ε > 0, all but $`o(n)`$ points of any n-point planar set determine at least $`n^{1-\\varepsilon}`$ distinct nonzero distances. A complementary theorem bounds the number of unit-distance pairs by $`O(n^{4/3-\\delta})`$ for an absolute δ > 0.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves the weak pinned Erdős distance conjecture: for every fixed ε > 0, all but $`o(n)`$ points of any n-point planar set determine at least $`n^{1-\\varepsilon}`$ distinct nonzero distances.",
+     "coveredBy": [
+      "PinnedDistances"
+     ],
+     "note": "Implied by one counting step, not stated verbatim: a pin with < n^{1-ε} distances has ≥ n-1-n^{1-ε/2} partners y whose distance class has ≥ n^{ε/2} points, so (bad pins)/n ≤ F(n,ε/2)/(1-o(1)) → 0, uniformly over n-point sets."
+    },
+    {
+     "clause": "A complementary theorem bounds the number of unit-distance pairs by $`O(n^{4/3-\\delta})`$ for an absolute δ > 0.",
+     "coveredBy": [
+      "PlanarUnitDistances"
+     ],
+     "note": "Stated: ∃ C>0, β ∈ [1,4/3), ∀n, u(n) ≤ C n^β."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "PinnedDistances",
+     "asserts": "For every s>0, F(n,s) → 0, where F(n,s) is the supremum over n-point planar sets P of the fraction of ordered pairs (x,y), x≠y, such that at least |P|^s points of P∖{x} are at distance |y-x| from x.",
+     "theorems": [
+      "OAI.WeakPinned.main"
+     ],
+     "covers": "clause 1 (via the counting step)",
+     "encoding": [
+      "rich-pair formulation (the scope note states the pin corollary as a consequence)",
+      "fiber count includes y itself"
+     ],
+     "flags": [
+      "JUNK? (not triggered): F is a real sSup; the set of fractions lies in [0,1] and is nonempty for n ≥ 2 (F := 0 for n < 2), so it is the true supremum"
+     ],
+     "evidence": [
+      "ComparatorChallenges/PinnedDistances.lean:12-27: def distanceFiber (P : Finset Plane) (x y : Plane) : Finset Plane := ⏎ (P.erase x).filter (fun z => dist z x = dist y x) ⏎  ⏎ def k (P : Finset Plane) (x y : Plane) : ℕ := ⏎ (distanceFiber P x y).card ⏎  ⏎ def richPairs (P : Finset Plane) (s : ℝ) : Finset (Plane × Plane) := ⏎ (P ×ˢ P).filter (fun xy => xy.1 ≠ xy.2 ∧ ⏎ (P.card : ℝ) ^ s ≤ (k P xy.1 xy.2 : ℝ)) ⏎  ⏎ def pairFraction (P : Finset Plane) (s : ℝ) : ℝ := ⏎ (richPairs P s).card / ((P.card : ℝ) * ((P.card : ℝ) - 1)) ⏎  ⏎ def F (n : ℕ) (s : ℝ) : ℝ := ⏎ if 2 ≤ n then sSup {a : ℝ | ∃ P : Finset Plane, P.card = n ∧ a = pairFraction P s} ⏎ else 0",
+      "ComparatorChallenges/PinnedDistances.lean:29: theorem main (s : ℝ) (hs : 0<s) : Tendsto (fun n : ℕ => F n s) atTop (𝓝 0) := by"
+     ]
+    },
+    {
+     "name": "PlanarUnitDistances",
+     "asserts": "There are C>0 and 1 ≤ β < 4/3 with u(n) ≤ C n^β for all n, where u(n) is the maximum number of unordered unit-distance pairs among n points in the Euclidean plane.",
+     "theorems": [
+      "OAI.PlanarUnitDistances.main"
+     ],
+     "covers": "clause 2",
+     "encoding": [
+      "unordered pairs via Finset.sym2 (diagonal pairs have distance 0, never counted)"
+     ],
+     "flags": [
+      "JUNK? (not triggered): u(n) is sSup on ℕ, which Mathlib sets to 0 for an unbounded set; here unitPairCount X ≤ |X.sym2| = n(n+1)/2, so the set is bounded and u(n) is the true maximum"
+     ],
+     "evidence": [
+      "ComparatorChallenges/PlanarUnitDistances.lean:12-17: noncomputable def unitPairCount (X : Finset Plane) : ℕ := by ⏎ classical ⏎ exact (X.sym2.filter IsUnitPair).card ⏎  ⏎ noncomputable def u (n : ℕ) : ℕ := ⏎ sSup {m : ℕ | ∃ X : Finset Plane, X.card = n ∧ unitPairCount X = m}",
+      "ComparatorChallenges/PlanarUnitDistances.lean:19-20: theorem main : ∃ C β : ℝ, 0 < C ∧ 1 ≤ β ∧ β < (4 : ℝ) / 3 ∧ ⏎ ∀ n : ℕ, (u n : ℝ) ≤ C * (n : ℝ) ^ β := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "Cosmetic: the scope note contradicts itself — lean/docs/167.md:10: The formalized result shows that large repeated distance fibers are rare in arbitrary finite planar point sets. For each fixed $s>0$, the largest possible fraction of ordered distinct pairs $(x,y)$ whose distance from the pin $x$ occurs at least $n^s$ times tends to zero as the set size $n$ grows. Consequently, for every $\\varepsilon>0$, the fraction of pins determining fewer than $n^{1-\\varepsilon}$ distances tends uniformly to zero. The separate unit-distance power-saving theorem is not included. versus lean/docs/167.md:12: The planar unit-distance problem asks how many pairs at distance one can occur among $n$ points. The formalization proves that there are absolute constants $C>0$ and $1\\le\\beta<4/3$ such that every finite planar point set of size $n$ determines at most $Cn^\\beta$ unordered unit-distance pairs. The same constants work for every $n$, giving a fixed power improvement over the classical exponent $4/3$. and the comparator table row lean/docs/167.md:19: | Power saving for planar unit distances | [PlanarUnitDistances.lean](../ComparatorChallenges/PlanarUnitDistances.lean) | (two per-paper notes concatenated). Not a gap."
+  },
+  {
+   "family": "172",
+   "headline": "Classifies finite point configurations that occur monochromatically, at their original scale, in every finite coloring of sufficiently high-dimensional Euclidean space. The characterization is an algebraic condition over the coordinate field. It also disproves the Leader–Russell–Walters conjecture that every such configuration is a subset of a finite transitive set.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Classifies finite point configurations that occur monochromatically, at their original scale, in every finite coloring of sufficiently high-dimensional Euclidean space.",
+     "coveredBy": [
+      "EuclideanRamsey",
+      "EuclideanRamseySpherical"
+     ],
+     "note": "EuclideanRamsey gives Ramsey ⇔ FieldCriterion for injective configurations of ≥ 2 points with full affine span in ℝ^d (d ≥ 1). Because Ramsey depends only on pairwise distances, every finite configuration has a congruent full-span copy, so the restriction is an encoding choice; the scope note says singleton and affine-span reductions are formalized (not in this challenge)."
+    },
+    {
+     "clause": "The characterization is an algebraic condition over the coordinate field.",
+     "coveredBy": [
+      "EuclideanRamsey"
+     ],
+     "note": "FieldCriterion: a matrix over K ⊗_ℚ K, K = ℚ(coordinates), annihilating every augmented point and multiplying to the identity on the spatial block."
+    },
+    {
+     "clause": "It also disproves the Leader–Russell–Walters conjecture that every such configuration is a subset of a finite transitive set.",
+     "coveredBy": [
+      "EuclideanRamseyCircle"
+     ],
+     "note": "Only half is stated: EuclideanRamseyCircle makes every nonempty set of ≤ 5 concyclic points (so every cyclic quadrilateral, including the kites K_a) Ramsey. No challenge states that some Ramsey configuration is NOT a subset of a finite transitive set; the paper takes that half from Leader–Russell–Walters (Corollary cons:kites cites [lrw-kites, Cor. 2])."
+    }
+   ],
+   "gap": "The existence of a Ramsey configuration that is not subtransitive — the actual counterexample to the LRW conjecture. Its non-subtransitivity half is a cited prior theorem in the paper, not proved there and not in Lean.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "EuclideanRamsey",
+     "asserts": "For s ≥ 2, d ≥ 1 and an injective a : Fin s → ℝ^d whose affine span is ℝ^d: a is Ramsey (∀ r ≥ 2 ∃ D ≥ 1, every r-colouring of ℝ^D has a monochromatic copy with the same pairwise distances) iff FieldCriterion a holds.",
+     "theorems": [
+      "OAI.EuclideanRamsey.classification"
+     ],
+     "covers": "clauses 1–2",
+     "encoding": [
+      "congruence = equality of all pairwise distances (original scale)",
+      "coordinate field as IntermediateField.adjoin ℚ of the coordinates inside ℝ",
+      "restricted to injective, ≥ 2 points, full affine span (reductions declared in the scope note)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamsey.lean:14-17: def Ramsey {s d : ℕ} (a : Fin s → Space d) : Prop := ⏎ ∀ r : ℕ, 2 ≤ r → ∃ D : ℕ, 1 ≤ D ∧ ⏎ ∀ c : Space D → Fin r, ∃ b : Fin s → Space D, ⏎ Congruent a b ∧ ∃ k : Fin r, ∀ i, c (b i) = k",
+      "ComparatorChallenges/EuclideanRamsey.lean:35-40: def FieldCriterion {s d : ℕ} (a : Fin s → Space d) : Prop := ⏎ ∃ P : Matrix (Option (Fin d)) (Option (Fin d)) (TensorRing a), ⏎ (∀ i : Fin s, ∑ α, ∑ β, ⏎ ((augmented a i α) ⊗ₜ[ℚ] (1 : Coeff a)) * P α β * ⏎ ((1 : Coeff a) ⊗ₜ[ℚ] (augmented a i β)) = 0) ∧ ⏎ (∀ α β : Fin d, multiply a (P (some α) (some β)) = if α = β then 1 else 0)",
+      "ComparatorChallenges/EuclideanRamsey.lean:42-45: theorem classification {s d : ℕ} (a : Fin s → Space d) ⏎ (hs : 2 ≤ s) (hd : 1 ≤ d) (ha : Function.Injective a) ⏎ (hspan : affineSpan ℝ (Set.range a) = ⊤) : ⏎ Ramsey a ↔ FieldCriterion a := by"
+     ]
+    },
+    {
+     "name": "GrahamSpherical",
+     "asserts": "A specific 12-point subset of the unit circle (three rotated copies of the square ±e₁, ±e₂, rotation parameter from a Liouville-type series) has, for every n ≥ 1, a 50-colouring of ℝ^n with no monochromatic isometric copy, and is not Euclidean Ramsey.",
+     "theorems": [
+      "OAI.GrahamSpherical.full_main"
+     ],
+     "covers": "none of the headline (a spherical non-Ramsey example)",
+     "encoding": [
+      "isometric embeddings X → ℝ^n instead of distance-matched tuples (same notion)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/GrahamSpherical.lean:46-50: def FullAuthoredResult : Prop := ⏎ witness.ncard = 12 ∧ ⏎ witness ⊆ Metric.sphere (0 : Point 2) 1 ∧ ⏎ (∀ n : ℕ, 0 < n → ∃ color : Point n → Fin 50, AvoidsCopy witness color) ∧ ⏎ ¬ EuclideanRamsey witness"
+     ]
+    },
+    {
+     "name": "EuclideanRamseyCircle",
+     "asserts": "Every nonempty set of at most five distinct concyclic points in ℝ² is Ramsey.",
+     "theorems": [
+      "OAI.EuclideanRamsey.CircleConsequence.at_most_five_circle_points_ramsey"
+     ],
+     "covers": "the Ramsey half of clause 3",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamseyCircle.lean:21-23: theorem at_most_five_circle_points_ramsey {s : ℕ} (a : Fin s → Space 2) ⏎ (hs : 0 < s) (hs5 : s ≤ 5) (ha : Function.Injective a) ⏎ (hsphere : ∃ c : Space 2, ∃ r : ℝ, ∀ i, dist (a i) c = r) : Ramsey a := by",
+      "CONTENTS.md:4024: **172. Classification of finite Euclidean Ramsey configurations.** Classifies finite point configurations that occur monochromatically, at their original scale, in every finite coloring of sufficiently high-dimensional Euclidean space. The characterization is an algebraic condition over the coordinate field. It also disproves the Leader–Russell–Walters conjecture that every such configuration is a subset of a finite transitive set. ([Lean](lean/docs/172.md))",
+      "lean/docs/172.md:9: A finite configuration is Euclidean Ramsey if every finite coloring of some sufficiently high-dimensional Euclidean space contains a monochromatic congruent copy at the original scale. The formalization gives the tensor-field classification for full-affine-span configurations, covers singleton and affine-span reductions, and proves that every Ramsey configuration is cospherical. It also proves that every nonempty subset of a finite transitive configuration and every nonempty set of at most five points on a circle is Ramsey. A further sufficient condition uses linear independence of the quadratic evaluation rows of a spherical configuration.",
+      "preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/build/sections/07-consequences.tex:130: is Ramsey and is not subtransitive.",
+      "preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/build/sections/07-consequences.tex:135-136: Leader, Russell and Walters proved that $K_a$ does not embed in any ⏎ finite transitive Euclidean set \\cite[Corollary~2]{lrw-kites}."
+     ]
+    },
+    {
+     "name": "EuclideanRamseyNine",
+     "asserts": "For algebraically independent t₁…t₉, the nine rational-parametrization points on the unit circle are distinct, on the circle, and not Ramsey.",
+     "theorems": [
+      "OAI.EuclideanRamsey.NineStatement.nine_circle_configuration"
+     ],
+     "covers": "none of the headline (non-Ramsey example)",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamseyNine.lean:26-30: theorem nine_circle_configuration (t : Fin 9 → ℝ) ⏎ (ht : AlgebraicIndependent ℚ t) : ⏎ Function.Injective (literalCircleConfig t) ∧ ⏎ (∀ i, dist (literalCircleConfig t i) 0 = 1) ∧ ⏎ ¬ Ramsey (literalCircleConfig t) := by"
+     ]
+    },
+    {
+     "name": "EuclideanRamseyQuadratic",
+     "asserts": "An injective, full-span, spherical configuration whose rows of quadratic monomial evaluations are linearly independent over the coordinate field is Ramsey.",
+     "theorems": [
+      "OAI.EuclideanRamsey.spherical_quadraticIndependent_ramsey_all"
+     ],
+     "covers": "supporting sufficient condition",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamseyQuadratic.lean:31-37: theorem spherical_quadraticIndependent_ramsey_all {s d : ℕ} ⏎ (a : Fin s → Space d) (ha : Function.Injective a) ⏎ (hspan : affineSpan ℝ (Set.range a) = ⊤) ⏎ (hsphere : ∃ c : Space d, ∃ r : ℝ, ∀ i, dist (a i) c = r) ⏎ (hrows : LinearIndependent (Coeff a) ⏎ (fun i : Fin s => fun q : Option (Fin d) × Option (Fin d) => ⏎ augmented a i q.1 * augmented a i q.2)) : Ramsey a := by"
+     ]
+    },
+    {
+     "name": "EuclideanRamseySpherical",
+     "asserts": "Every injective Ramsey configuration is cospherical.",
+     "theorems": [
+      "OAI.EuclideanRamsey.ramsey_cospherical"
+     ],
+     "covers": "supporting part of the classification",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamseySpherical.lean:19-21: theorem ramsey_cospherical {s d : ℕ} (a : Fin s → Space d) ⏎ (ha : Function.Injective a) (hR : Ramsey a) : ⏎ EuclideanGeometry.Cospherical (Set.range a) := by"
+     ]
+    },
+    {
+     "name": "EuclideanRamseyTransitive",
+     "asserts": "Every nonempty subset of a finite configuration whose distance-preserving permutations act transitively is Ramsey.",
+     "theorems": [
+      "OAI.EuclideanRamsey.TransitiveConsequence.subset_of_finite_transitive_ramsey"
+     ],
+     "covers": "the sufficiency direction of LRW (subtransitive ⇒ Ramsey), not the disproof",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/EuclideanRamseyTransitive.lean:19-24: theorem subset_of_finite_transitive_ramsey {s t D : ℕ} ⏎ (a : Fin s → Space D) (y : Fin t → Space D) ⏎ (hs : 0 < s) (ha : Function.Injective a) (_hy : Function.Injective y) ⏎ (htrans : ∀ i j : Fin t, ∃ σ : Equiv.Perm (Fin t), ⏎ (∀ k l : Fin t, dist (y (σ k)) (y (σ l)) = dist (y k) (y l)) ∧ σ i = j) ⏎ (hsub : Set.range a ⊆ Set.range y) : Ramsey a := by"
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "Judgment call for a second reader: the unstated half is a published theorem the paper cites rather than proves; under a rule that tolerates named external inputs this family would read MATCHES."
+  },
+  {
+   "family": "175",
+   "headline": "Proves that integral and fractional expectation thresholds differ by at most a universal factor, and resolves Talagrand's discrete-convexity conjecture. An application proves the Ascoli–He–Park–Talagrand graph-decomposition conjecture: every graph's edges split into a universally bounded number of fixed pieces, each with containment threshold at most a universal constant times the original graph's integral expectation threshold. The pieces' embeddings need not agree on shared vertices.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Proves that integral and fractional expectation thresholds differ by at most a universal factor,",
+     "coveredBy": [
+      "TalagrandExpectationThreshold"
+     ],
+     "note": "q_f(F) ≤ 25·512⁴·q(F) for every nonempty proper increasing family on a finite nonempty ground set (q ≤ q_f is trivial)."
+    },
+    {
+     "clause": "and resolves Talagrand's discrete-convexity conjecture.",
+     "coveredBy": [
+      "TalagrandDiscreteConvexity"
+     ],
+     "note": "With k = 2^75, every 0<p<1, every family (no monotonicity)."
+    },
+    {
+     "clause": "An application proves the Ascoli–He–Park–Talagrand graph-decomposition conjecture: every graph's edges split into a universally bounded number of fixed pieces, each with containment threshold at most a universal constant times the original graph's integral expectation threshold.",
+     "coveredBy": [],
+     "note": "Not stated: no challenge of this family mentions graphs, containment thresholds or edge decompositions."
+    },
+    {
+     "clause": "The pieces' embeddings need not agree on shared vertices.",
+     "coveredBy": [],
+     "note": "Part of the unstated graph-decomposition clause."
+    }
+   ],
+   "gap": "The Ascoli–He–Park–Talagrand graph-decomposition theorem (October-5 manuscript, not linked by the scope note).",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "TalagrandExpectationThreshold",
+     "asserts": "For a finite nonempty ground set and a nonempty, proper (≠ all subsets), increasing family F: sup{p ∈ [0,1] : F has a fractional cover of p-cost ≤ 1/2} ≤ 25·512⁴ · sup{p ∈ [0,1] : F has a cover of p-cost ≤ 1/2}.",
+     "theorems": [
+      "OAI.TalagrandThreshold.talagrand_expectation_threshold_equivalence"
+     ],
+     "covers": "clause 1",
+     "encoding": [
+      "thresholds as real sSup of feasible p",
+      "covers: every H ∈ F contains some S ∈ G; cost Σ p^{|S|}",
+      "fractional weights in [0,1] on every subset including ∅"
+     ],
+     "flags": [
+      "JUNK? (not triggered): q and q_f are real sSups of subsets of [0,1]; both contain p = 0 for a nonempty proper increasing F (∅ ∉ F; singletons cost 0^1 = 0), so the sups are genuine"
+     ],
+     "evidence": [
+      "ComparatorChallenges/TalagrandExpectationThreshold.lean:40-48: def integralFeasible (F : Family α) : Set ℝ := ⏎ {p | 0 ≤ p ∧ p ≤ 1 ∧ Small p F} ⏎  ⏎ def fractionalFeasible (F : Family α) : Set ℝ := ⏎ {p | 0 ≤ p ∧ p ≤ 1 ∧ FractionalSmall p F} ⏎  ⏎ def q (F : Family α) : ℝ := sSup (integralFeasible F) ⏎  ⏎ def qf (F : Family α) : ℝ := sSup (fractionalFeasible F)",
+      "ComparatorChallenges/TalagrandExpectationThreshold.lean:52-55: theorem talagrand_expectation_threshold_equivalence [Nonempty α] ⏎ (F : Family α) (_hF : F.Nonempty) (hproper : F ≠ Finset.univ) ⏎ (hIncreasing : Increasing F) : ⏎ qf F ≤ ((25 : ℝ) * (512 : ℝ) ^ 4) * q F := by",
+      "CONTENTS.md:4081: **175. Talagrand’s expectation thresholds, discrete convexity, and graph decompositions.** Proves that integral and fractional expectation thresholds differ by at most a universal factor, and resolves Talagrand's discrete-convexity conjecture. An application proves the Ascoli–He–Park–Talagrand graph-decomposition conjecture: every graph's edges split into a universally bounded number of fixed pieces, each with containment threshold at most a universal constant times the original graph's integral expectation threshold. The pieces' embeddings need not agree on shared vertices. ([Lean](lean/docs/175.md))",
+      "lean/docs/175.md:5-6: - [Integral and fractional expectation thresholds are equivalent](../../preprints/Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026/paper.pdf) ⏎ - [Talagrand's discrete-convexity conjecture](../../preprints/Talagrands-discrete-convexity-conjecture-September-23-2026/paper.pdf)",
+      "lean/docs/175.md:10: Talagrand's expectation-threshold conjecture asks whether the fractional and integral expectation thresholds are comparable by an absolute constant. The formalized result proves $q_f(\\mathcal F)\\le25\\cdot512^4 q(\\mathcal F)$ for every nonempty proper increasing family on a finite nonempty ground set. Both thresholds use cover budget $1/2$, and fractional covers may assign weights to every subset, including the empty set.",
+      "lean/docs/175.md:12: The formalized result proves Talagrand's discrete-convexity assertion with $k=2^{75}$. If a family of subsets of a finite nonempty ground set has Bernoulli-$p$ measure at least $1-1/k$, then the sets not contained in a union of $k$ members form a $p$-small family: they have a containment cover of total $p$-cost at most $1/2$. This holds for every $0<p<1$, with repeated members allowed in the union and no monotonicity assumption."
+     ]
+    },
+    {
+     "name": "TalagrandDiscreteConvexity",
+     "asserts": "For every N ≥ 1, 0<p<1 and every family D of subsets of Fin N with Bernoulli-p measure ≥ 1 - 2^{-75}, the family of sets contained in no union of 2^75 members of D (repetitions allowed) has a containment cover of p-cost ≤ 1/2.",
+     "theorems": [
+      "OAI.TalagrandDiscreteConvexity.talagrand_discrete_convexity"
+     ],
+     "covers": "clause 2",
+     "encoding": [
+      "explicit k = 2^75"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/TalagrandDiscreteConvexity.lean:41-44: def exceptional (k : ℕ) (D : Family α) : Family α := by ⏎ classical ⏎ exact Finset.univ.filter (fun S => ⏎ ∀ f : Fin k → Finset α, (∀ j, f j ∈ D) → ¬ S ⊆ unionTuple f)",
+      "ComparatorChallenges/TalagrandDiscreteConvexity.lean:47-50: theorem talagrand_discrete_convexity (N : ℕ) (_hN : 1 ≤ N) ⏎ (p : ℝ) (hp0 : 0 < p) (hp1 : p < 1) (D : Family (Fin N)) ⏎ (hD : 1 - 1 / (2 : ℝ) ^ 75 ≤ familyMeasure p D) : ⏎ Small p (exceptional ((2 : ℕ) ^ 75) D) := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note links only the two September-23 manuscripts and never mentions graph decompositions."
+  },
+  {
+   "family": "179",
+   "headline": "Proves that real circulant Hadamard matrices exist exactly in orders 1 and 4, resolving the circulant Hadamard conjecture. Together with classical Barker-sequence results, this shows that binary sequences whose nontrivial aperiodic autocorrelations have magnitude at most 1 exist at lengths n > 1 exactly when $`n\\in\\{2,3,4,5,7,11,13\\}`$.",
+   "word": "NARROWER — DECLARED",
+   "clauses": [
+    {
+     "clause": "Proves that real circulant Hadamard matrices exist exactly in orders 1 and 4, resolving the circulant Hadamard conjecture.",
+     "coveredBy": [
+      "CirculantHadamard"
+     ],
+     "note": "Stated as an iff for every n > 0."
+    },
+    {
+     "clause": "Together with classical Barker-sequence results, this shows that binary sequences whose nontrivial aperiodic autocorrelations have magnitude at most 1 exist at lengths n > 1 exactly when $`n\\in\\{2,3,4,5,7,11,13\\}`$.",
+     "coveredBy": [
+      "EvenBarker"
+     ],
+     "note": "Only the even-length direction is stated (an even-length Barker sequence has length 2 or 4). The odd-length classification (classical, Turyn–Storer) is declared outside; existence at the seven listed lengths (classical explicit sequences) is not stated and not mentioned."
+    }
+   ],
+   "gap": "Odd Barker lengths and existence at 2,3,4,5,7,11,13.",
+   "scopeNoteOnGap": "The paper's classification of odd Barker lengths is outside this selected additional statement.",
+   "challenges": [
+    {
+     "name": "CirculantHadamard",
+     "asserts": "For n > 0: there is a real n×n circulant matrix with ±1 entries and HHᵀ = nI iff n = 1 or n = 4.",
+     "theorems": [
+      "OAI.CirculantHadamard.exists_iff_order_one_or_four"
+     ],
+     "covers": "clause 1",
+     "encoding": [
+      "circulant via H i j = h (j - i) with Fin n subtraction (mod n)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/CirculantHadamard.lean:14-25: def IsCirculant {n : ℕ} (H : RealMatrix n) : Prop := ⏎ ∃ h : Fin n → ℝ, ∀ i j, H i j = h (j - i) ⏎  ⏎ def IsSignHadamard {n : ℕ} (H : RealMatrix n) : Prop := ⏎ (∀ i j, IsSign (H i j)) ∧ ⏎ H * H.transpose = (n : ℝ) • (1 : RealMatrix n) ⏎  ⏎ def ExistsRealCirculantHadamard (n : ℕ) : Prop := ⏎ ∃ H : RealMatrix n, IsCirculant H ∧ IsSignHadamard H ⏎  ⏎ theorem exists_iff_order_one_or_four (n : ℕ) (hn : 0 < n) : ⏎ ExistsRealCirculantHadamard n ↔ n = 1 ∨ n = 4 := by"
+     ]
+    },
+    {
+     "name": "EvenBarker",
+     "asserts": "If h : Fin n → ℤ is a ±1 sequence with every aperiodic autocorrelation at shifts 0<k<n of absolute value ≤ 1, n>0 and n even, then n = 2 or n = 4.",
+     "theorems": [
+      "OAI.CirculantHadamard.Barker.even_length_eq_two_or_four"
+     ],
+     "covers": "the even half of clause 2",
+     "encoding": [],
+     "flags": [
+      "NARROWER (declared): even lengths only, one direction"
+     ],
+     "evidence": [
+      "ComparatorChallenges/EvenBarker.lean:15-19: def aperiodic {n : ℕ} (h : Fin n → ℤ) (k : ℕ) : ℤ := ⏎ ∑ j : Fin (n - k), h ⟨j.val, by omega⟩ * h ⟨j.val + k, by omega⟩ ⏎  ⏎ def IsBarker {n : ℕ} (h : Fin n → ℤ) : Prop := ⏎ (∀ j, IsSign (h j)) ∧ ∀ k : ℕ, 0 < k → k < n → |aperiodic h k| ≤ 1",
+      "ComparatorChallenges/EvenBarker.lean:21-22: theorem even_length_eq_two_or_four {n : ℕ} (h : Fin n → ℤ) ⏎ (hnpos : 0 < n) (hn : Even n) (hb : IsBarker h) : n = 2 ∨ n = 4 := by",
+      "lean/docs/179.md:11: It also proves the even-length part of the Barker-sequence consequence. A positive even-length sign sequence whose nonzero aperiodic autocorrelations have absolute value at most one must have length $2$ or $4$. The paper's classification of odd Barker lengths is outside this selected additional statement."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "182",
+   "headline": "For every fixed intersective integer polynomial h of degree k ≥ 2 with positive leading coefficient, proves that a subset of $`\\{1,\\ldots,N\\}`$ avoiding nonzero values $`h(1),h(2),\\ldots`$ as differences has size $`O_h(N^{1-c_k})`$, with $`c_k\\gt 0`$ depending only on degree. Here intersective means having a root modulo every modulus. For prime arguments, a power saving also holds when h has a unit root modulo every modulus, with exponent allowed to depend on h.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "For every fixed intersective integer polynomial h of degree k ≥ 2 with positive leading coefficient, proves that a subset of $`\\{1,\\ldots,N\\}`$ avoiding nonzero values $`h(1),h(2),\\ldots`$ as differences has size $`O_h(N^{1-c_k})`$, with $`c_k\\gt 0`$ depending only on degree.",
+     "coveredBy": [
+      "SquareDifference"
+     ],
+     "note": "Only h(x) = x² (one polynomial of degree 2) is stated."
+    },
+    {
+     "clause": "Here intersective means having a root modulo every modulus.",
+     "coveredBy": [],
+     "note": "Definitional; no intersectivity notion appears in Lean."
+    },
+    {
+     "clause": "For prime arguments, a power saving also holds when h has a unit root modulo every modulus, with exponent allowed to depend on h.",
+     "coveredBy": [],
+     "note": "Not stated."
+    }
+   ],
+   "gap": "Every intersective h of every degree k ≥ 2 (with c_k depending only on k) and the prime-argument version; only the square case (Green–Sawhney's fixed-power question) is formalized.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "SquareDifference",
+     "asserts": "There are c>0 and C such that for every N ≥ 1, every A ⊆ {1,…,N} with no a - b = m² (a,b ∈ A, m ≥ 1) has |A| ≤ C·N^{1-c}.",
+     "theorems": [
+      "OAI.SquareDifference.power_saving"
+     ],
+     "covers": "clause 1 for h(x) = x² only",
+     "encoding": [
+      "A as a Finset ℤ inside Icc 1 N"
+     ],
+     "flags": [
+      "NARROWER (undeclared): the single polynomial x²"
+     ],
+     "evidence": [
+      "ComparatorChallenges/SquareDifference.lean:7-8: def IsSquareDifferenceFree (A : Finset ℤ) : Prop := ⏎ ∀ a ∈ A, ∀ b ∈ A, ∀ m : ℕ, 1 ≤ m → a - b ≠ (m : ℤ) ^ 2",
+      "ComparatorChallenges/SquareDifference.lean:10-13: theorem power_saving : ⏎ ∃ c C : ℝ, 0 < c ∧ ∀ N : ℕ, 1 ≤ N → ∀ A : Finset ℤ, ⏎ A ⊆ Finset.Icc 1 (N : ℤ) → SquareDifference.IsSquareDifferenceFree A → ⏎ (A.card : ℝ) ≤ C * (N : ℝ) ^ (1 - c) := by",
+      "CONTENTS.md:4211: **182. Power savings for intersective polynomial differences and prime arguments.** For every fixed intersective integer polynomial <i>h</i> of degree <i>k</i> ≥ 2 with positive leading coefficient, proves that a subset of $`\\{1,\\ldots,N\\}`$ avoiding nonzero values $`h(1),h(2),\\ldots`$ as differences has size $`O_h(N^{1-c_k})`$, with $`c_k\\gt 0`$ depending only on degree. Here intersective means having a root modulo every modulus. For prime arguments, a power saving also holds when <i>h</i> has a unit root modulo every modulus, with exponent allowed to depend on <i>h</i>. ([Lean](lean/docs/182.md))",
+      "lean/docs/182.md:5: - [A power saving for square-difference-free sets](../../preprints/A-power-saving-for-square-difference-free-sets-September-24-2026/paper.pdf)",
+      "lean/docs/182.md:9: The formalization proves a fixed power saving for sets with no nonzero square difference. There are absolute constants $c>0$ and $C$ such that every $A\\subseteq\\{1,\\ldots,N\\}$ satisfying $a-b\\ne m^2$ for all $a,b\\in A$ and integers $m\\ge1$ has $|A|\\le C N^{1-c}$. The bound is uniform for every integer $N\\ge1$."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note links only the square-difference manuscript (2 of the family's 3 manuscripts unlinked)."
+  },
+  {
+   "family": "228",
+   "headline": "Constructs stable distance-dependent pair interactions for three-dimensional classical particles with a first-order phase transition: the canonical free energy has a derivative jump at one inverse temperature throughout an open density interval. One potential has a divergent repulsive core; another is bounded and continuous with an integrable power-law tail, realizing the type of transition sought in Simon's continuum problem.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Constructs stable distance-dependent pair interactions for three-dimensional classical particles with a first-order phase transition: the canonical free energy has a derivative jump at one inverse temperature throughout an open density interval.",
+     "coveredBy": [
+      "ContinuumTransition",
+      "RadialDensityInterval"
+     ],
+     "note": "Both state a common βc with left/right β-derivatives of the free energy satisfying d₊ < d₋ for every density in an open interval."
+    },
+    {
+     "clause": "One potential has a divergent repulsive core;",
+     "coveredBy": [
+      "ContinuumTransition"
+     ],
+     "note": "φ → +∞ as r → 0⁺, plus an attractive interval, stability and φ = o(r⁻³)."
+    },
+    {
+     "clause": "another is bounded and continuous with an integrable power-law tail,",
+     "coveredBy": [
+      "RadialTransition",
+      "RadialDensityInterval"
+     ],
+     "note": "|φ(r)| ≤ C r^{-3-1/32} for r ≥ 1; RadialTransition at the single density 5p/3, RadialDensityInterval on an interval around it."
+    },
+    {
+     "clause": "realizing the type of transition sought in Simon's continuum problem.",
+     "coveredBy": [],
+     "note": "Interpretive gloss; nothing to formalize."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "ContinuumTransition",
+     "asserts": "There exist φ, f, an open nonempty interval I ⊆ (0,∞) and βc ∈ (1/2,3/2) such that φ is admissible (measurable, locally bounded on (0,∞), → +∞ at 0⁺, ≤ -a on some [r₁,r₂], r²|φ| integrable at ∞, stable: energy ≥ -BN), φ = o(r⁻³), for all β,ρ > 0 the limit L⁻³ log Z(β, L, ⌊ρL³⌋) = -β f(β,ρ) holds (canonical partition function on the cube of side L, divided by N!), and for every ρ ∈ I the one-sided β-derivatives of f(·,ρ) at βc exist with d₊ < d₋.",
+     "theorems": [
+      "OAI.ContinuumTemperature.main_theorem"
+     ],
+     "covers": "clauses 1–2",
+     "encoding": [
+      "coincident points get energy +∞ (EReal) and Boltzmann weight 0",
+      "free energy f defined only through its limit (unique for β,ρ>0)"
+     ],
+     "flags": [
+      "JUNK? (not triggered): the partition function is a Bochner integral (0 if not integrable) fed to Real.log (log 0 = 0); Admissible requires Measurable (radialPotential φ) and stability, so the Boltzmann factor is measurable, bounded by e^{βBN} on a bounded cube, integrable and positive"
+     ],
+     "evidence": [
+      "ComparatorChallenges/ContinuumTransition.lean:19-28: def Admissible (φ : ℝ → ℝ) : Prop := ⏎ Measurable (radialPotential φ) ∧ ⏎ (∀ a b : ℝ, 0 < a → a ≤ b → ⏎ BddAbove (φ '' Icc a b) ∧ BddBelow (φ '' Icc a b)) ∧ ⏎ Tendsto φ (𝓝[>] (0 : ℝ)) atTop ∧ ⏎ (∃ r₁ r₂ a : ℝ, 0 < r₁ ∧ r₁ < r₂ ∧ 0 < a ∧ ⏎ ∀ r ∈ Icc r₁ r₂, φ r ≤ -a) ∧ ⏎ (∃ R : ℝ, 0 < R ∧ IntegrableOn (fun r : ℝ => r ^ 2 * |φ r|) (Ioi R)) ∧ ⏎ (∃ B : ℝ, ∀ (N : ℕ) (x : Fin N → Space), ⏎ ((-B * (N : ℝ) : ℝ) : EReal) ≤ energy φ x)",
+      "ComparatorChallenges/ContinuumTransition.lean:33-45: noncomputable def boltzmann (φ : ℝ → ℝ) (β : ℝ) {N : ℕ} ⏎ (x : Fin N → Space) : ℝ := ⏎ if energy φ x = ⊤ then 0 else Real.exp (-β * (energy φ x).toReal) ⏎  ⏎ noncomputable def partition (φ : ℝ → ℝ) (β L : ℝ) (N : ℕ) : ℝ := ⏎ if N = 0 then 1 else ⏎ (1 / (N.factorial : ℝ)) * ⏎ ∫ x in {x : Fin N → Space | ∀ i, x i ∈ cube L}, boltzmann φ β x ⏎  ⏎ def HasCanonicalFreeEnergy (φ : ℝ → ℝ) (f : ℝ → ℝ → ℝ) : Prop := ⏎ ∀ β ρ : ℝ, 0 < β → 0 < ρ → ⏎ Tendsto (fun L : ℝ => L⁻¹ ^ 3 * Real.log (partition φ β L ⌊ρ * L ^ 3⌋₊)) ⏎ atTop (𝓝 (-β * f β ρ))",
+      "ComparatorChallenges/ContinuumTransition.lean:47-57: def MainStatement : Prop := ⏎ ∃ (φ : ℝ → ℝ) (f : ℝ → ℝ → ℝ) (I : Set ℝ) (βc : ℝ), ⏎ Admissible φ ∧ ⏎ Asymptotics.IsLittleO atTop φ (fun r : ℝ => r ^ (-3 : ℤ)) ∧ ⏎ HasCanonicalFreeEnergy φ f ∧ ⏎ IsOpen I ∧ OrdConnected I ∧ I.Nonempty ∧ I ⊆ Ioi 0 ∧ ⏎ βc ∈ Ioo (1 / 2 : ℝ) (3 / 2 : ℝ) ∧ ⏎ ∀ ρ ∈ I, ∃ dminus dplus : ℝ, ⏎ HasDerivWithinAt (fun β => f β ρ) dminus (Iic βc) βc ∧ ⏎ HasDerivWithinAt (fun β => f β ρ) dplus (Ici βc) βc ∧ ⏎ dplus < dminus"
+     ]
+    },
+    {
+     "name": "RadialTransition",
+     "asserts": "There exist p>0 equal to the limit of the unit-separated packing number of [0,L]³ over L³, a bounded continuous stable φ with |φ(r)| ≤ C r^{-3-1/32} for r ≥ 1, a free energy f at density 5p/3 (limit of -(log Z)/(βL³) for every β>0) and βc ∈ [7/8, 9/8] where f has left and right derivatives with d₊ < d₋ and is not differentiable.",
+     "theorems": [
+      "OAI.RadialTransition.main"
+     ],
+     "covers": "clause 3 at one density",
+     "encoding": [
+      "packingNumber as ℕ-sSup of a bounded set (volume bound), so not junk"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/RadialTransition.lean:28-34: def packingNumber (L : ℝ) : ℕ := ⏎ sSup {n : ℕ | ∃ X : Finset Position, X.card = n ∧ ⏎ (∀ x ∈ X, x ∈ cube L) ∧ ⏎ (∀ x ∈ X, ∀ y ∈ X, x ≠ y → 1 ≤ dist x y)} ⏎  ⏎ def IsPackingDensity (p : ℝ) : Prop := ⏎ Tendsto (fun L : ℝ => (packingNumber L : ℝ) / L ^ 3) atTop (nhds p)",
+      "ComparatorChallenges/RadialTransition.lean:57-63: theorem main : ⏎ ∃ (p : ℝ) (φ : Potential) (B C : ℝ) (f : ℝ → ℝ) (βc : ℝ), ⏎ 0 < p ∧ IsPackingDensity p ∧ ⏎ IsBoundedPotential φ ∧ Continuous φ ∧ ⏎ 0 < B ∧ 0 < C ∧ StableWith φ B ∧ AlgebraicDecayWith φ C ∧ ⏎ IsCanonicalFreeEnergy φ (5*p/3) f ∧ ⏎ βc ∈ Icc (7/8:ℝ) (9/8) ∧ StrictTemperatureCorner f βc := by"
+     ]
+    },
+    {
+     "name": "RadialDensityInterval",
+     "asserts": "Same potential class as RadialTransition, with η>0 and one βc ∈ [7/8,9/8] such that for every ρ in (5p/3 - η, 5p/3 + η) ⊆ (0,∞) the canonical free energy exists for all β>0 and has a strict downward corner at βc.",
+     "theorems": [
+      "OAI.RadialTransition.densityInterval"
+     ],
+     "covers": "clauses 1 and 3",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/RadialDensityInterval.lean:57-66: theorem densityInterval : ⏎ ∃ (p : ℝ) (φ : Potential) (B C η βc : ℝ) (f : ℝ → ℝ → ℝ), ⏎ 0 < p ∧ IsPackingDensity p ∧ ⏎ IsBoundedPotential φ ∧ Continuous φ ∧ ⏎ 0 < B ∧ 0 < C ∧ StableWith φ B ∧ AlgebraicDecayWith φ C ∧ ⏎ 0 < η ∧ Ioo (5*p/3 - η) (5*p/3 + η) ⊆ Ioi 0 ∧ ⏎ βc ∈ Icc (7/8:ℝ) (9/8) ∧ ⏎ ∀ ρ ∈ Ioo (5*p/3 - η) (5*p/3 + η), ⏎ IsCanonicalFreeEnergy φ ρ (fun β => f β ρ) ∧ ⏎ StrictTemperatureCorner (fun β => f β ρ) βc := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "231",
+   "headline": "On every infinite connected locally finite simple unweighted graph, the free uniform spanning forest is a factor of independent vertex labels, by one isomorphism-equivariant rule using no root. Translation-invariant strongly Rayleigh binary processes on every countable group, including invariant determinantal processes with Hermitian positive-contraction kernels, are also factors of IID.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "On every infinite connected locally finite simple unweighted graph, the free uniform spanning forest is a factor of independent vertex labels, by one isomorphism-equivariant rule using no root.",
+     "coveredBy": [
+      "FreeUniformSpanningForest"
+     ],
+     "note": "∃ one Borel, relabeling-equivariant rule working for every connected locally finite graph on ℕ."
+    },
+    {
+     "clause": "Translation-invariant strongly Rayleigh binary processes on every countable group, including invariant determinantal processes with Hermitian positive-contraction kernels, are also factors of IID.",
+     "coveredBy": [
+      "StronglyRayleighDPP"
+     ],
+     "note": "strongly_rayleigh_group_factor, invariant_positive_contraction_dpp_factor, translation_invariant_kernel_dpp_factor."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "FreeUniformSpanningForest",
+     "asserts": "There is one rule Φ(graph code, labels, edge) ↦ Bool, jointly Borel and invariant under every relabeling σ of ℕ, such that for every connected locally finite simple graph G on vertex set ℕ and every probability space carrying iid Uniform[0,1] vertex labels, the edge process Φ(G, U, ·) has the free-uniform-spanning-forest law: for every increasing connected exhaustion by finite subgraphs and all finite edge sets A, B, the uniform-spanning-tree probability of {A ⊆ T, B ∩ T = ∅} converges to the process probability of the same cylinder.",
+     "theorems": [
+      "OAI.Problem336.fusf_is_factor_iid"
+     ],
+     "covers": "clause 1",
+     "encoding": [
+      "graphs coded on vertex set ℕ (every countably infinite graph up to isomorphism)",
+      "FUSF law as the limit of UST cylinder probabilities along every connected exhaustion",
+      "iid labels via finite-dimensional product formula"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/FreeUniformSpanningForest.lean:57-65: def RuleBorel (Phi : FactorRule) : Prop := ⏎ Measurable ⏎ (fun q : GraphCode × ((ℕ → ℝ) × EdgeCode) => ⏎ Phi q.1 q.2.1 q.2.2) ⏎  ⏎ def RuleEquivariant (Phi : FactorRule) : Prop := ⏎ ∀ (σ : Equiv ℕ ℕ) (G : GraphCode) (U : ℕ → ℝ) (e : EdgeCode), ⏎ Phi (relabelGraph σ G) (relabelLabels σ U) (mapEdge σ e) = ⏎ Phi G U e",
+      "ComparatorChallenges/FreeUniformSpanningForest.lean:120-142: def HasFUSFLaw {Ω : Type} [MeasurableSpace Ω] ⏎ (G : GraphCode) (P : Measure Ω) ⏎ (X : Ω → EdgeConfiguration) : Prop := ⏎ (∀ e, Measurable (fun ω => X ω e)) ∧ ⏎ ∀ (H : ℕ → FiniteSubgraphCode), IsConnectedExhaustion G H → ⏎ ∀ (A B : Finset EdgeCode), ⏎ Filter.Tendsto ⏎ (fun n => ustCylinder (H n) A B) ⏎ Filter.atTop ⏎ (nhds (P {ω | ⏎ (∀ e ∈ A, X ω e = true) ∧ ⏎ (∀ e ∈ B, X ω e = false)})) ⏎  ⏎ def WorksOnGraph (Phi : FactorRule) (G : GraphCode) : Prop := ⏎ GraphConnected G → GraphLocallyFinite G → ⏎ ∀ (Ω : Type) [MeasurableSpace Ω] (P : Measure Ω) ⏎ (U : ℕ → Ω → ℝ), ⏎ IsVertexIID P U → ⏎ HasFUSFLaw G P ⏎ (fun ω e => Phi G (fun v => U v ω) e) ⏎  ⏎ theorem fusf_is_factor_iid : ⏎ ∃ Phi : FactorRule, RuleBorel Phi ∧ RuleEquivariant Phi ∧ ∀ G : GraphCode, WorksOnGraph Phi G := by"
+     ]
+    },
+    {
+     "name": "StronglyRayleighDPP",
+     "asserts": "Six theorems: (i) finite strongly Rayleigh laws have tilt-response bounds; (ii) on every countable group, every left-translation-invariant strongly Rayleigh law on Γ → Bool is the law of an equivariant measurable factor of iid Uniform[0,1] labels; (iii) finite Hermitian positive-contraction kernels have determinantal laws, all strongly Rayleigh; (iv) on countable index sets such kernels have a unique determinantal law; (v) invariant determinantal laws with such kernels are iid factors; (vi) translation-invariant such kernels on countable groups give an invariant determinantal law that is an iid factor.",
+     "theorems": [
+      "OAI.Problem336AdditiveD139.finite_strongly_rayleigh_response",
+      "OAI.Problem336AdditiveD139.strongly_rayleigh_group_factor",
+      "OAI.Problem336AdditiveD139.finite_positive_contraction_dpp_is_strongly_rayleigh",
+      "OAI.Problem336AdditiveD139.countable_positive_contraction_dpp_exists_unique",
+      "OAI.Problem336AdditiveD139.invariant_positive_contraction_dpp_factor",
+      "OAI.Problem336AdditiveD139.translation_invariant_kernel_dpp_factor"
+     ],
+     "covers": "clause 2",
+     "encoding": [
+      "strongly Rayleigh on countable sets via real stability of every finite marginal generating polynomial",
+      "an arbitrary [MeasurableSpace Γ] instance is a parameter but unused (all measurability is on product spaces)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/StronglyRayleighDPP.lean:29-35: def HasEquivariantIIDFactor {Γ : Type u_5} [Group Γ] [MeasurableSpace Γ] ⏎ (μ : ProbabilityMeasure (Γ → Bool)) : Prop := ⏎ ∃ Phi : (Γ → UnitLabel) → (Γ → Bool), ⏎ Measurable Phi ∧ ⏎ (∀ (g : Γ) (u : Γ → UnitLabel), ⏎ Phi (leftTranslate g u) = leftTranslate g (Phi u)) ∧ ⏎ Measure.map Phi (iidUnitLabels Γ) = (μ : Measure (Γ → Bool))",
+      "ComparatorChallenges/StronglyRayleighDPP.lean:147-150: theorem strongly_rayleigh_group_factor : ⏎ ∀ (Γ : Type u_2) [Group Γ] [Countable Γ] [MeasurableSpace Γ], ⏎ ∀ μ : ProbabilityMeasure (Γ → Bool), ⏎ StronglyRayleighCountable μ → InvariantBinaryLaw μ → HasEquivariantIIDFactor μ := by",
+      "ComparatorChallenges/StronglyRayleighDPP.lean:174-178: theorem translation_invariant_kernel_dpp_factor : ⏎ ∀ (Γ : Type u_6) [Group Γ] [Countable Γ] [MeasurableSpace Γ] (K : Γ → Γ → ℂ), ⏎ PositiveContractionKernel K → TranslationInvariantKernel K → ⏎ ∃ μ : ProbabilityMeasure (Γ → Bool), ⏎ IsDeterminantalLaw μ K ∧ InvariantBinaryLaw μ ∧ HasEquivariantIIDFactor μ := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "234",
+   "headline": "Gives an exact variational formula for the limiting pressure of orthogonally invariant Ising spin glasses at every fixed temperature, both almost surely and in expectation. The coupling matrix is a Haar-random rotation of a deterministic spectrum converging to a compactly supported law, with extreme eigenvalues converging to its support edges. The zero-field ground-state energy follows as temperature tends to zero.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Gives an exact variational formula for the limiting pressure of orthogonally invariant Ising spin glasses at every fixed temperature, both almost surely and in expectation.",
+     "coveredBy": [
+      "InvariantIsing"
+     ],
+     "note": "positive_temperature_pressure_unconditional (every β>0) and limiting_pressure_of_extreme_limits_unconditional, each asserting convergence in expectation and almost surely to (variationalFunctional …).toReal."
+    },
+    {
+     "clause": "The coupling matrix is a Haar-random rotation of a deterministic spectrum converging to a compactly supported law, with extreme eigenvalues converging to its support edges.",
+     "coveredBy": [
+      "InvariantIsing"
+     ],
+     "note": "Hypotheses: U_N Haar (right-invariant law on O(N)), empirical spectral law → ν weakly, supp ν compact ⊆ [a,b] with a,b ∈ supp ν, min/max eigenvalues → a,b (or no outliers)."
+    },
+    {
+     "clause": "The zero-field ground-state energy follows as temperature tends to zero.",
+     "coveredBy": [
+      "InvariantIsing"
+     ],
+     "note": "ground_state_limit_unconditional: the ground-state energy converges (mean and a.s.) to M and thermalVariationalValue ν b β → M as β → ∞."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "InvariantIsing",
+     "asserts": "Eleven theorems. Headline ones: for Haar U_N and deterministic eigenvalues with the stated spectral convergence, the pressure N⁻¹ log 2^{-N} Σ_σ exp(½ Σ_i λ_i (U σ)_i²) (optionally with β and external fields) converges in expectation and a.s. to an explicit variational functional of the limiting law (an inf over overlap paths of a sup over finite field steps plus an R-transform term); the ground-state energy converges to the β → ∞ limit of that functional divided by β. Others: Wasserstein external fields, random spectra with conditional Haar law (in measure, L¹, a.s.), Gaussian-pattern (Hopfield-type) specializations.",
+     "theorems": [
+      "OAI.InvariantIsing.limiting_pressure_of_extreme_limits_unconditional",
+      "OAI.InvariantIsing.limiting_wasserstein_field_pressure_of_extreme_limits_unconditional",
+      "OAI.InvariantIsing.positive_temperature_pressure_unconditional",
+      "OAI.InvariantIsing.ground_state_limit_unconditional",
+      "OAI.InvariantIsing.random_pressure_tendsto_in_measure_unconditional",
+      "OAI.InvariantIsing.random_pressure_limit_unconditional",
+      "OAI.InvariantIsing.random_pressure_tendsto_ae_unconditional",
+      "OAI.InvariantIsing.random_field_pressure_tendsto_ae_unconditional",
+      "OAI.InvariantIsing.gaussianPattern_pressure_limit_unconditional",
+      "OAI.InvariantIsing.gaussianPattern_ground_limit_unconditional",
+      "OAI.InvariantIsing.gaussianPattern_norm_limits_unconditional"
+     ],
+     "covers": "all three clauses",
+     "encoding": [
+      "pressure normalized with the uniform spin measure (2^{-N} Σ), consistent with log cosh in fieldValue",
+      "Haar law as IsMulRightInvariant of the pushforward on Matrix.orthogonalGroup",
+      "temperature absorbed into the eigenvalues (β·λ_i)"
+     ],
+     "flags": [
+      "STATEMENT-FILE METAPROGRAM: eight `run_cmd Lean.modifyEnv … auxLemmasExt.setState env {}` lines reset Lean's auxiliary-lemma cache inside the statement; they add no declarations, but environment-modifying code in a statement file deserves lane K's attention",
+      "JUNK? (not triggered): limits are (variationalFunctional …).toReal and EReal.toReal sends ±∞ to 0; since every theorem asserts convergence of genuine bounded pressures (or of the genuine ground-state energy, which pins M) to that value, a junk value would make the statement false, not weaker",
+      "DEFINITION carries the formula: measureR (R-transform) uses h.choose with fallback e (so R(x) = e - 1/x beyond the edge) and R(x) := mean for x ≤ 0; entropyFunctional is a ⨆ over finite FieldSteps. Reading confirms the Parisi/R-transform structure but cannot confirm these equal the manuscript's formula; a mismatch would make the theorems false rather than vacuous"
+     ],
+     "evidence": [
+      "ComparatorChallenges/InvariantIsing.lean:39: run_cmd Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.setState env {}",
+      "ComparatorChallenges/InvariantIsing.lean:106-113: def entropyFunctional (p : OverlapPath) : EReal := ⏎ ⨆ h : FieldStep, ((fieldValue h 0 + fieldPairing p h / 2 : ℝ) : EReal) ⏎  ⏎ def spectralFunctional (R : ℝ → ℝ) (p : OverlapPath) : ℝ := ⏎ (1 / 2 : ℝ) * ∫ r, R (deficit p r) ∂pathMeasure ⏎  ⏎ def variationalFunctional (R : ℝ → ℝ) : EReal := ⏎ ⨅ p : OverlapPath, entropyFunctional p + (spectralFunctional R p : EReal)",
+      "ComparatorChallenges/InvariantIsing.lean:115-121: def measureResolvent (μ : Measure ℝ) (b : ℝ) : ℝ := ∫ y, 1 / (b - y) ∂μ ⏎  ⏎ def measureInverse (μ : Measure ℝ) (e x : ℝ) : ℝ := ⏎ if h : ∃ b, e < b ∧ measureResolvent μ b = x then h.choose else e ⏎  ⏎ def measureR (μ : Measure ℝ) (e x : ℝ) : ℝ := ⏎ if 0 < x then measureInverse μ e x - 1 / x else ∫ y, y ∂μ",
+      "ComparatorChallenges/InvariantIsing.lean:322-336: theorem positive_temperature_pressure_unconditional : ⏎ ∀ {Ω : Type*} [MeasurableSpace Ω] (P : Measure Ω) [IsProbabilityMeasure P] ⏎ (U : (N : ℕ) → Ω → Orthogonal N) (_hU : ∀ N, Measurable (U N)) ⏎ (_hHaar : ∀ N, (P.map (U N)).IsMulRightInvariant) ⏎ (eig : (N : ℕ) → Fin N → ℝ) (ν : ProbabilityMeasure ℝ) (a b : ℝ) ⏎ (_hbound : (ν : Measure ℝ).support ⊆ Icc a b) ⏎ (_ha : a∈(ν : Measure ℝ).support) (_hb : b∈(ν : Measure ℝ).support) ⏎ (_hno : ∀ ε : ℝ, 0 < ε → ∀ᶠ N in atTop, ∀ i, a-ε ≤ eig N i ∧ eig N i ≤ b+ε) ⏎ (β : ℝ) (_hβ : 0 < β) ⏎ (_hweak : Tendsto (fun k => empiricalSpectralLaw (Nat.succ_pos k) (eig (k+1))) ⏎ atTop (𝓝 ν)), ⏎ Tendsto (fun N => ∫ ω, rotatedPressure (fun i => β*eig N i) (matrixRotation (U N ω)⁻¹) (fun _ => 0) ∂P) ⏎ atTop (𝓝 (variationalFunctional (measureR (scaledSpectralLaw ν β : Measure ℝ) (β*b))).toReal) ∧ ⏎ ∀ᵐ ω ∂P, Tendsto (fun N => rotatedPressure (fun i => β*eig N i) (matrixRotation (U N ω)⁻¹) (fun _ => 0)) ⏎ atTop (𝓝 (variationalFunctional (measureR (scaledSpectralLaw ν β : Measure ℝ) (β*b))).toReal) := by",
+      "ComparatorChallenges/InvariantIsing.lean:349-354: ∃ M : ℝ, ⏎ Tendsto (fun N => ∫ ω, groundStateEnergy (eig N) (matrixRotation (U N ω)⁻¹) ∂P) ⏎ atTop (𝓝 M) ∧ ⏎ (∀ᵐ ω ∂P, Tendsto (fun N => groundStateEnergy (eig N) (matrixRotation (U N ω)⁻¹)) ⏎ atTop (𝓝 M)) ∧ ⏎ Tendsto (thermalVariationalValue ν b) atTop (𝓝 M) := by"
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "496-line statement whose conclusion is a bespoke variational functional; the reading checked structure, hypotheses and junk paths, not term-by-term equality with the manuscript's formula. Also: run_cmd environment edits in the statement file."
+  },
+  {
+   "family": "246",
+   "headline": "Every word-hyperbolic group with boundary homeomorphic to S2 admits a proper cocompact isometric action on hyperbolic three-space with finite kernel, proving Cannon's conjecture. Every torsion-free such group is therefore the fundamental group of a closed hyperbolic three-manifold.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Every word-hyperbolic group with boundary homeomorphic to S2 admits a proper cocompact isometric action on hyperbolic three-space with finite kernel, proving Cannon's conjecture.",
+     "coveredBy": [
+      "CannonGeometricAction"
+     ],
+     "note": "Stated directly."
+    },
+    {
+     "clause": "Every torsion-free such group is therefore the fundamental group of a closed hyperbolic three-manifold.",
+     "coveredBy": [
+      "CannonGeometricAction"
+     ],
+     "note": "Implied by a standard step, not stated: in a torsion-free group the finite kernel and finite stabilizers are trivial, so the action is free and properly discontinuous and H³/G is a closed hyperbolic 3-manifold with π₁ = G."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "CannonGeometricAction",
+     "asserts": "For every group G (discrete topology) with a finite symmetric generating set whose Cayley graph has uniformly thin geodesic triangles and whose boundary (based geodesic vertex rays modulo bounded synchronous distance, quotient of the pointwise topology) is homeomorphic to S², there is a homomorphism G → Isom(H³) (upper half-space, explicit arcosh metric, orientation-reversing allowed) that is proper and cocompact with finite kernel.",
+     "theorems": [
+      "OAI.CannonRelease.cannon"
+     ],
+     "covers": "clause 1 (clause 2 by the standard step)",
+     "encoding": [
+      "hyperbolicity via δ-thin geodesic triangles in Mathlib SimpleGraph.mulCayley",
+      "isometries = distance-preserving self-homeomorphisms of the upper half-space",
+      "proper: finitely many g with gK ∩ K ≠ ∅ for every compact K"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/CannonGeometricAction.lean:19-24: def CayleyData.ThinTriangles {G : Type u} [Group G] (D : CayleyData G) : Prop := ⏎ ∃ δ : ℕ, ∀ x y z : G, ⏎ ∀ p : D.graph.Walk x y, ∀ q : D.graph.Walk y z, ∀ r : D.graph.Walk z x, ⏎ p.length = D.graph.dist x y → q.length = D.graph.dist y z → ⏎ r.length = D.graph.dist z x → ⏎ ∀ a ∈ p.support, ∃ b ∈ q.support ++ r.support, D.graph.dist a b ≤ δ",
+      "ComparatorChallenges/CannonGeometricAction.lean:27-28: def BasedRay {G : Type u} [Group G] (D : CayleyData G) := ⏎ {r : ℕ → G // r 0 = 1 ∧ ∀ i j, D.graph.dist (r i) (r j) = Nat.dist i j}",
+      "ComparatorChallenges/CannonGeometricAction.lean:89-93: theorem cannon (G : Type u) [Group G] [TopologicalSpace G] [DiscreteTopology G] ⏎ (D : CayleyData G) (hthin : D.ThinTriangles) ⏎ (hsphere : Nonempty (Boundary D ≃ₜ SphereTwo)) : ⏎ ∃ ρ : G →* H3Isom, ProperAction ρ ∧ CocompactAction ρ ∧ ⏎ (ρ.ker : Set G).Finite := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "254",
+   "headline": "The Salvetti complex of every finite-rank Artin group is aspherical, proving the Artin $`K(\\pi,1)`$ conjecture. Arbitrary intersections of its parabolic subgroups are parabolic, proving the Parabolic Intersection Conjecture. An explicit Artin group admits no proper cocompact isometric action on any nonempty proper CAT$`(0)`$ space.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "The Salvetti complex of every finite-rank Artin group is aspherical, proving the Artin $`K(\\pi,1)`$ conjecture.",
+     "coveredBy": [
+      "HarmonicArtin"
+     ],
+     "note": "Stated as contractibility of the universal cover, encoded combinatorially; the scope note calls this the equivalent statement."
+    },
+    {
+     "clause": "Arbitrary intersections of its parabolic subgroups are parabolic, proving the Parabolic Intersection Conjecture.",
+     "coveredBy": [
+      "ArtinParabolicIntersections"
+     ],
+     "note": "unconditional_arbitrary_intersections: sInf of any set of parabolics is parabolic (and equals an intersection of ≤ rank members)."
+    },
+    {
+     "clause": "An explicit Artin group admits no proper cocompact isometric action on any nonempty proper CAT$`(0)`$ space.",
+     "coveredBy": [
+      "ArtinCAT0"
+     ],
+     "note": "Explicit 116-generator matrix with labels 1 (diagonal), 2, 3, ∞; no geometric action on any nonempty proper CAT(0) space."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "HarmonicArtin",
+     "asserts": "For every Coxeter matrix on a finite set S, the geometric realization of the nerve of the face preorder on pairs (g, T) — g in the Artin group, T ⊆ S spherical — is contractible, where (a,T') is a face of (b,T) when T' ⊆ T and a = b·ŵ for a reduced word w in T that is minimal in its coset wW_{T'}.",
+     "theorems": [
+      "OAI.HarmonicArtin.salvetti_cover_contractible"
+     ],
+     "covers": "clause 1",
+     "encoding": [
+      "universal cover of the Salvetti complex as the order-complex realization of its face poset (identification with the CW complex and 'contractible universal cover ⇔ aspherical' are outside Lean; declared by the scope note)",
+      "Mathlib CoxeterMatrix with ∞ encoded as 0, giving trivial relators"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/HarmonicArtin.lean:40-47: def LiftedFace (M : CoxeterMatrix S) (a b : LiftedCell M) : Prop := ⏎ a.2.1 ⊆ b.2.1 ∧ ∃ w : List S, ⏎ (∀ s ∈ w, s ∈ b.2.1) ∧ ⏎ M.toCoxeterSystem.length (wordCoxeter M w) = w.length ∧ ⏎ (∀ v : coxeterParabolic M a.2.1, ⏎ M.toCoxeterSystem.length (wordCoxeter M w) ≤ ⏎ M.toCoxeterSystem.length (wordCoxeter M w * v)) ∧ ⏎ a.1 = b.1 * wordArtin M w",
+      "ComparatorChallenges/HarmonicArtin.lean:54-55: noncomputable def SalvettiCover (M : CoxeterMatrix S) : TopCat := ⏎ SSet.toTop.obj (CategoryTheory.nerve (LiftedCell M))",
+      "ComparatorChallenges/HarmonicArtin.lean:59-60: theorem salvetti_cover_contractible [Finite S] (M : CoxeterMatrix S) : ⏎ ContractibleSpace (SalvettiCover M) := by",
+      "lean/docs/254.md:11: The Artin $K(\\pi,1)$ conjecture asserts that the standard Salvetti complex of every finite-rank Artin group is aspherical. The formalized result proves the equivalent statement that its universal cover is contractible."
+     ]
+    },
+    {
+     "name": "ArtinCAT0",
+     "asserts": "The explicit symmetric matrix on 116 letters has diagonal 1 and off-diagonal entries in {2,3,∞}, and its Artin group has no action on any nonempty proper metric space X that is CAT(0), isometric, proper and cocompact.",
+     "theorems": [
+      "OAI.ArtinCAT0.main"
+     ],
+     "covers": "clause 3",
+     "encoding": [
+      "CAT(0) via geodesic segments and the comparison inequality for points on two sides from a common vertex (equivalent to the full CAT(0) inequality since all segments and vertices are quantified)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/ArtinCAT0.lean:49-61: def CAT0 (X : Type uX) [MetricSpace X] : Prop := ⏎ (∀ x y : X, ∃ γ : ℝ → X, Segment x y γ) ∧ ⏎ ∀ (x y z : X) (γ η : ℝ → X), Segment x y γ → Segment x z η → ⏎ ∀ t ∈ Set.Icc (0 : ℝ) 1, ∀ u ∈ Set.Icc (0 : ℝ) 1, ⏎ dist (γ t) (η u) ^ 2 ≤ ⏎ (t ^ 2 - t * u) * dist x y ^ 2 + ⏎ (u ^ 2 - t * u) * dist x z ^ 2 + t * u * dist y z ^ 2 ⏎  ⏎ def GeometricAction (G : Type uG) (X : Type uX) [Group G] [MetricSpace X] [MulAction G X] : Prop := ⏎ CAT0 X ∧ ⏎ (∀ g : G, Isometry (fun x : X => g • x)) ∧ ⏎ (∀ K : Set X, IsCompact K → {g : G | ((fun x : X => g • x) '' K ∩ K).Nonempty}.Finite) ∧ ⏎ ∃ K : Set X, IsCompact K ∧ ∀ x : X, ∃ g : G, ∃ k ∈ K, g • k = x",
+      "ComparatorChallenges/ArtinCAT0.lean:65-72: theorem main : ⏎ (∀ s t : Letters, explicitMatrix s t = explicitMatrix t s) ∧ ⏎ (∀ s : Letters, explicitMatrix s s = 1) ∧ ⏎ (∀ s t : Letters, s ≠ t → ⏎ explicitMatrix s t = 2 ∨ explicitMatrix s t = 3 ∨ explicitMatrix s t = ⊤) ∧ ⏎ (∀ (X : Type u) [MetricSpace X] [ProperSpace X] [Nonempty X] ⏎ [MulAction (ArtinGroup explicitMatrix) X], ⏎ ¬ GeometricAction (ArtinGroup explicitMatrix) X) := by"
+     ]
+    },
+    {
+     "name": "ArtinParabolicIntersections",
+     "asserts": "For a finite-rank Coxeter matrix: intersections of two parabolics (conjugates of standard parabolic subgroups) are parabolic; the infimum of any set of parabolics is parabolic and equals that of ≤ |S| members; every subset lies in a unique smallest parabolic; for irreducible matrices with an ∞ label, the Artin group is acylindrically hyperbolic and proper parabolics are weakly malnormal.",
+     "theorems": [
+      "OAI.HarmonicArtin.ParabolicIntersections.unconditional_parabolic_intersections",
+      "OAI.HarmonicArtin.ParabolicIntersections.unconditional_arbitrary_intersections",
+      "OAI.HarmonicArtin.ParabolicIntersections.unconditional_parabolic_closure",
+      "OAI.HarmonicArtin.ParabolicIntersections.unconditional_nonclique_dynamics"
+     ],
+     "covers": "clause 2 (plus structural consequences outside the headline)",
+     "encoding": [
+      "parabolic = conjugate of a standard parabolic subgroup, no spherical-type restriction",
+      "S : Type with Fintype and LinearOrder (any finite type admits one)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/ArtinParabolicIntersections.lean:42-43: def IsParabolic (P : Subgroup (Artin M)) : Prop := ⏎ ∃ (X : Set S) (g : Artin M), P = conjugate g (artinParabolic M X)",
+      "ComparatorChallenges/ArtinParabolicIntersections.lean:106-110: theorem unconditional_arbitrary_intersections ⏎ (F : Set (Subgroup (Artin M))) (hF : ∀ P ∈ F, IsParabolic M P) : ⏎ (∃ F₀ : Finset (Subgroup (Artin M)), ⏎ (↑F₀ : Set (Subgroup (Artin M))) ⊆ F ∧ F₀.card ≤ Nat.card S ∧ ⏎ sInf F = sInf (↑F₀ : Set (Subgroup (Artin M)))) ∧ IsParabolic M (sInf F) := by"
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "HarmonicArtin's conclusion rests on a combinatorial encoding of the Salvetti universal cover (nerve of the lifted face preorder); a second reader familiar with Salvetti complexes should confirm the face relation (minimal coset representatives, positive lifts) matches the CW structure."
+  },
+  {
+   "family": "261",
+   "headline": "Resolves the predicted spectral contrast for the lattice Anderson model with independent uniform site potentials. In dimension two, every positive disorder strength gives almost surely pure-point spectrum. In every fixed dimension d ≥ 3, sufficiently weak positive disorder gives purely absolutely continuous spectrum on a fixed open interval with nonzero spectral weight.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Resolves the predicted spectral contrast for the lattice Anderson model with independent uniform site potentials.",
+     "coveredBy": [],
+     "note": "Summary of the two clauses below; neither spectral type is stated."
+    },
+    {
+     "clause": "In dimension two, every positive disorder strength gives almost surely pure-point spectrum.",
+     "coveredBy": [],
+     "note": "Not stated: PlanarAndersonSpectrum identifies only the almost-sure spectrum as the set [-4-h, 4+h], not its type. Declared in the scope note."
+    },
+    {
+     "clause": "In every fixed dimension d ≥ 3, sufficiently weak positive disorder gives purely absolutely continuous spectrum on a fixed open interval with nonzero spectral weight.",
+     "coveredBy": [],
+     "note": "Not stated and not mentioned in the scope note (the d ≥ 3 manuscript is not linked)."
+    }
+   ],
+   "gap": "Both spectral-type claims: pure-point spectrum in d = 2 (declared) and absolutely continuous spectrum in d ≥ 3 (undeclared). The only formal content is the almost-sure spectrum as a set in d = 2.",
+   "scopeNoteOnGap": "This selected statement identifies the spectral set. It does not assert the pure-point spectral type claimed in the accompanying paper. [quote covers d = 2 only; the scope note is silent on d ≥ 3]",
+   "challenges": [
+    {
+     "name": "PlanarAndersonSpectrum",
+     "asserts": "For every h>0, almost surely for iid Uniform[-h,h] site potentials v on ℤ², there is a bounded operator H on ℓ²(ℤ²) with (Hu)(x) = Σ_{nearest neighbours} u + v(x)u(x), H is self-adjoint, and spectrum(H) = [-4-h, 4+h] ⊂ ℂ.",
+     "theorems": [
+      "OAI.PlanarAnderson.anderson_spectrum_ae"
+     ],
+     "covers": "none of the headline's spectral-type claims (the scope note calls it 'a supporting spectral statement')",
+     "encoding": [
+      "disorder law as Measure.infinitePi of the normalized Lebesgue measure on [-h,h]",
+      "Hilbert space lp (fun _ : ℤ×ℤ => ℂ) 2"
+     ],
+     "flags": [
+      "NARROWER: spectral set only — no pure-point statement (declared) and nothing for d ≥ 3 (undeclared)"
+     ],
+     "evidence": [
+      "ComparatorChallenges/PlanarAndersonSpectrum.lean:15-28: def disorderLaw (h : ℝ) : Measure Configuration := ⏎ Measure.infinitePi (fun _ : Site => ProbabilityTheory.cond volume (Set.Icc (-h) h)) ⏎  ⏎ def IsAndersonOperator (v : Configuration) (H : Hilbert →L[ℂ] Hilbert) : Prop := ⏎ ∀ (u : Hilbert) (x : Site), ⏎ (H u) x = u (x.1 + 1, x.2) + u (x.1 - 1, x.2) + ⏎ u (x.1, x.2 + 1) + u (x.1, x.2 - 1) + (v x : ℂ) * u x ⏎  ⏎ def spectralInterval (h : ℝ) : Set ℂ := ⏎ {z | z.im = 0 ∧ -4 - h ≤ z.re ∧ z.re ≤ 4 + h} ⏎  ⏎ theorem anderson_spectrum_ae {h : ℝ} (hh : 0 < h) : ⏎ ∀ᵐ v ∂disorderLaw h, ∃ H : Hilbert →L[ℂ] Hilbert, ⏎ IsAndersonOperator v H ∧ IsSelfAdjoint H ∧ spectrum ℂ H = spectralInterval h := by",
+      "CONTENTS.md:6518: **261. Localization and delocalization in the Anderson model.** Resolves the predicted spectral contrast for the lattice Anderson model with independent uniform site potentials. In dimension two, every positive disorder strength gives almost surely pure-point spectrum. In every fixed dimension <i>d</i> ≥ 3, sufficiently weak positive disorder gives purely absolutely continuous spectrum on a fixed open interval with nonzero spectral weight. ([Lean](lean/docs/261.md))",
+      "lean/docs/261.md:5: - [Pure-Point Spectrum for the Two-Dimensional Anderson Model at Every Positive Disorder](../../preprints/Pure-Point-Spectrum-for-the-Two-Dimensional-Anderson-Model-at-Every-Positive-Disorder-September-23-2026/paper.pdf)",
+      "lean/docs/261.md:9: The linked formalization proves a supporting spectral statement for the nearest-neighbor Anderson operator on $\\mathbb Z^2$. For every disorder strength $h>0$ with independent site potentials uniform on $[-h,h]$, it constructs the bounded self-adjoint operator almost surely and identifies its spectrum as the real interval $[-4-h,4+h]$.",
+      "lean/docs/261.md:11: This selected statement identifies the spectral set. It does not assert the pure-point spectral type claimed in the accompanying paper."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The scope note calls the statement supporting, but lean/ComparatorChallenges/README.md does not list it among supporting-result comparisons, so under the registered rule it is not SUPPORT. A looser reader could class this family SUPPORT-ONLY; the d ≥ 3 omission is undeclared either way."
+  },
+  {
+   "family": "266",
+   "headline": "Proves $`N(6)=3`$, resolving Zauner's dimension-six mutually unbiased bases conjecture: three such bases exist in ℂ6, but four cannot. The exclusion is a complete certified computation under the stated binary64 arithmetic and compiler conditions. An independent companion proves the Matolcsi–Ruzsa–Weiner Fourier-vanishing conjecture for order-six complex Hadamard matrices outside Tao's cubic equivalence class.",
+   "word": "NARROWER — DECLARED",
+   "clauses": [
+    {
+     "clause": "Proves $`N(6)=3`$, resolving Zauner's dimension-six mutually unbiased bases conjecture: three such bases exist in ℂ6, but four cannot.",
+     "coveredBy": [
+      "MUBSix"
+     ],
+     "note": "Only N(6) ≤ 5 is stated. Exclusion of four (and three's attainability) is not stated; the scope note declares that the bound of three and the exclusion of four are not established. Existence of three MUBs (classical) is not mentioned."
+    },
+    {
+     "clause": "The exclusion is a complete certified computation under the stated binary64 arithmetic and compiler conditions.",
+     "coveredBy": [],
+     "note": "A claim about the manuscript's floating-point verification pipeline; not formalized (declared: 'its computer-assisted exclusion of four arbitrary bases')."
+    },
+    {
+     "clause": "An independent companion proves the Matolcsi–Ruzsa–Weiner Fourier-vanishing conjecture for order-six complex Hadamard matrices outside Tao's cubic equivalence class.",
+     "coveredBy": [
+      "MUBSix"
+     ],
+     "note": "First conjunct of fourier_and_family_bound."
+    }
+   ],
+   "gap": "N(6) ≤ 3 (no four MUBs in ℂ⁶) and the attainability of three; Lean proves only ≤ 5.",
+   "scopeNoteOnGap": "The selected statement does not establish the paper's upper bound of three or its computer-assisted exclusion of four arbitrary bases.",
+   "challenges": [
+    {
+     "name": "MUBSix",
+     "asserts": "(1) Every 6×6 complex Hadamard matrix (unimodular entries, H*H = 6I) not equivalent (row/column permutations and unimodular phases) to Tao's cubic matrix has vanishing character sum (1/6)Σ_k Π_i H_{ik}^{α_{π(i)}} for every permutation π of α = (1,1,1,-1,-1,-1). (2) Every family of pairwise mutually unbiased orthonormal bases of ℂ⁶ has at most 5 members.",
+     "theorems": [
+      "OAI.MUB6.fourier_and_family_bound"
+     ],
+     "covers": "clause 3 and a weaker (≤ 5) form of clause 1",
+     "encoding": [
+      "MUB via |⟨b_ri, b_sj⟩|² = 1/6 for r ≠ s",
+      "Tao matrix via exponents of ω = e^{2πi/3}"
+     ],
+     "flags": [
+      "NARROWER (declared): family bound 5, not 3"
+     ],
+     "evidence": [
+      "ComparatorChallenges/MUBSix.lean:50-54: def IsMUBFamily {n : ℕ} (B : Fin n → Basis) : Prop := ⏎ ∀ r s, r ≠ s → ∀ i j, ⏎ Complex.normSq (inner ℂ (B r i) (B s j)) = (1 : ℝ) / 6 ⏎  ⏎ def Attainable (n : ℕ) : Prop := ∃ B : Fin n → Basis, IsMUBFamily B",
+      "ComparatorChallenges/MUBSix.lean:56-59: theorem fourier_and_family_bound : ⏎ (∀ H : CMatrix, IsHadamard H → ¬Equivalent H tao → ⏎ ∀ π : Equiv.Perm Coord, g H (permuteCharge π alpha) = 0) ∧ ⏎ (∀ n : ℕ, Attainable n → n ≤ 5) := by",
+      "lean/docs/266.md:10: The paper claims that at most three mutually unbiased orthonormal bases exist in $\\mathbb C^6$. The linked formalization proves a weaker family bound: every family in its mutually unbiased bases model has at most five members. It also proves a Fourier character-sum vanishing statement for order-six complex Hadamard matrices not equivalent to the Tao matrix, uniformly over coordinate permutations.",
+      "lean/docs/266.md:12: The selected statement does not establish the paper's upper bound of three or its computer-assisted exclusion of four arbitrary bases."
+     ]
+    },
+    {
+     "name": "HadamardCubeFiber",
+     "asserts": "If H and its entrywise square are 6×6 complex Hadamard matrices, i ≠ j, and the cubes of the six row ratios H_ik·conj(H_jk) take only two distinct values a ≠ b, then the row-ratio terms summed over the fiber where the cube equals a vanish.",
+     "theorems": [
+      "OAI.HadamardSix.rowRatio_cubeFiber_sum_zero"
+     ],
+     "covers": "supporting lemma (scope note: 'a supporting Fourier cancellation statement')",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/HadamardCubeFiber.lean:28-32: lemma rowRatio_cubeFiber_sum_zero {H : Matrix6} (hH : IsComplexHadamard H) ⏎ (hs : IsComplexHadamard (entrywiseSquare H)) {i j : Index} (hij : i ≠ j) ⏎ (a b : ℂ) (hne : a ≠ b) ⏎ (hab : ∀ k, rowRatio H i j k ^ 3 = a ∨ rowRatio H i j k ^ 3 = b) : ⏎ ∑ k ∈ cubeFiber (rowRatio H i j) a, H i k * star (H j k) = 0 := by",
+      "lean/docs/266.md:16: This is a supporting Fourier cancellation statement. The paper's full character-sum vanishing theorem and its mutually unbiased bases bound are outside this selected statement."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "Existence of three MUBs in ℂ⁶ (classical) is neither stated nor mentioned by the scope note; counted as covered by the declared gap's framing."
+  },
+  {
+   "family": "274",
+   "headline": "Resolves Moore's parity conjecture in the measured-output model: constant-depth quantum circuits with arbitrary one-qubit gates, unbounded-arity Toffoli gates and polynomially many total qubits cannot compute parity with any fixed positive worst-case advantage. Ancillas start in zero, one output qubit is measured, and all other registers may be discarded. Xu–Li's reductions give the same bounded-error obstruction for strict majority.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Resolves Moore's parity conjecture in the measured-output model: constant-depth quantum circuits with arbitrary one-qubit gates, unbounded-arity Toffoli gates and polynomially many total qubits cannot compute parity with any fixed positive worst-case advantage.",
+     "coveredBy": [
+      "QACParity",
+      "RegularParity"
+     ],
+     "note": "QACParity states it for every depth d, every polynomial exponent c and every 0<ε≤1/2; RegularParity is the 2/3 specialization."
+    },
+    {
+     "clause": "Ancillas start in zero, one output qubit is measured, and all other registers may be discarded.",
+     "coveredBy": [
+      "QACParity",
+      "RegularParity"
+     ],
+     "note": "inputWord pads with zeros; successProbability sums over all final basis states with the right output bit (no cleanliness)."
+    },
+    {
+     "clause": "Xu–Li's reductions give the same bounded-error obstruction for strict majority.",
+     "coveredBy": [],
+     "note": "Not stated: no challenge mentions majority or symmetric functions; the manuscript derives it as Corollary cor:symmetric-functions from Xu–Li's Theorem 16 and Corollaries 2–3."
+    }
+   ],
+   "gap": "The strict-majority lower bound (via Xu–Li's reductions); only parity is stated.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "QACParity",
+     "asserts": "For every depth d, every c ≥ 1 and 0<ε≤1/2 there is n₀ such that for all n ≥ n₀, all N with n ≤ N ≤ n^c, every circuit of ≤ d layers (each layer a list of support-disjoint one-qubit unitaries and Toffoli gates with arbitrary control sets) and every output qubit, some input x ∈ {0,1}^n (ancillas zero) has measured-output parity success probability < 1/2 + ε.",
+     "theorems": [
+      "OAI.QAC.parity_lower_bound"
+     ],
+     "covers": "clauses 1–2",
+     "encoding": [
+      "polynomial size as N ≤ n^c (any C·n^k is eventually ≤ n^{k+1})",
+      "gates as explicit 2^N×2^N matrices; Toffoli flips target iff all controls are 1"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/QACParity.lean:40-42: structure PhysicalLayer (N : ℕ) where ⏎ gates : List (Gate N) ⏎ disjoint : gates.Pairwise (fun A B => Disjoint A.support B.support)",
+      "ComparatorChallenges/QACParity.lean:58-67: def successProbability {n N : ℕ} (W : Operator N) (out : Fin N) (x : Word n) : ℝ := ⏎ ∑ y : Word N, if y out = parity x then Complex.normSq (W y (inputWord x)) else 0 ⏎  ⏎ /-- The literal measured-output, polynomial-total-qubit parity lower bound. -/ ⏎ def ParityStatement : Prop := ⏎ ∀ (d : ℕ) (c ε : ℝ), 1 ≤ c → 0 < ε → ε ≤ 1 / 2 → ⏎ ∃ n₀ : ℕ, ∀ n ≥ n₀, ∀ N : ℕ, n ≤ N → (N : ℝ) ≤ (n : ℝ) ^ c → ⏎ ∀ layers : List (PhysicalLayer N), layers.length ≤ d → ⏎ ∀ out : Fin N, ¬ (∀ x : Word n, ⏎ 1 / 2 + ε ≤ successProbability (physicalCircuitMatrix layers) out x)",
+      "CONTENTS.md:6897: **274. Parity is not in QAC<sup>0</sup>.** Resolves Moore's parity conjecture in the measured-output model: constant-depth quantum circuits with arbitrary one-qubit gates, unbounded-arity Toffoli gates and polynomially many total qubits cannot compute parity with any fixed positive worst-case advantage. Ancillas start in zero, one output qubit is measured, and all other registers may be discarded. Xu–Li's reductions give the same bounded-error obstruction for strict majority. ([Lean](lean/docs/274.md))",
+      "lean/docs/274.md:10: The formalization rules out bounded-error parity computation by constant-depth quantum circuits with polynomially many zero-initialized ancillary qubits. For every fixed depth, polynomial bound on the total number of qubits, and $0<\\varepsilon\\le1/2$, every sufficiently large input length has an input on which the measured-output parity success probability is less than $1/2+\\varepsilon$. A companion specialization gives success strictly below $2/3$. The formalization also includes the product-projection localization estimate supporting this bound.",
+      "preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/build/sections/consequences.tex:255: The reductions of Xu and Li turn the parity lower bound into a",
+      "preprints/Product-projection-localization-and-the-QAC0-parity-lower-bound-September-24-2026/build/sections/consequences.tex:284: In particular, this excludes strict majority"
+     ]
+    },
+    {
+     "name": "RegularParity",
+     "asserts": "For d, k, C > 0 there is n₀ such that for n ≥ n₀ and n ≤ N ≤ C(n+1)^k every depth-≤d circuit and output qubit fail (success < 2/3) on some input.",
+     "theorems": [
+      "OAI.QAC.parity_lower_bound_polynomial_size"
+     ],
+     "covers": "a 2/3 specialization of clause 1",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/RegularParity.lean:63-68: theorem parity_lower_bound_polynomial_size (d k C : ℕ) ⏎ (_hd : 0 < d) (_hk : 0 < k) (_hC : 0 < C) : ⏎ ∃ n₀ : ℕ, ∀ n ≥ n₀, ∀ N : ℕ, n ≤ N → N ≤ C * (n + 1) ^ k → ⏎ ∀ layers : List (PhysicalLayer N), layers.length ≤ d → ⏎ ∀ out : Fin N, ∃ x : Word n, ⏎ successProbability (physicalCircuitMatrix layers) out x < (2 : ℝ) / 3 := by"
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "The scope note (lines 1-21) never mentions majority. Mild: the headline itself attributes the majority bound to Xu–Li's reductions; under a rule that tolerates named external inputs this would read MATCHES."
+  },
+  {
+   "family": "280",
+   "headline": "Proves the strongly rational case of the strong-locality conjecture: every simple unitary strongly rational complex vertex operator algebra generates a completely rational conformal net. Its simple modules are unitarizable, and its representation category agrees with the net’s finite-index sectors as a braided unitary tensor category.",
+   "word": "NARROWER — DECLARED",
+   "clauses": [
+    {
+     "clause": "Proves the strongly rational case of the strong-locality conjecture:",
+     "coveredBy": [
+      "VertexAlgebraNet"
+     ],
+     "note": "CKLWStrongLocal: polynomial energy bounds for every vector and A(I) ⊆ A(I')′ for every proper arc I."
+    },
+    {
+     "clause": "every simple unitary strongly rational complex vertex operator algebra generates a completely rational conformal net.",
+     "coveredBy": [
+      "VertexAlgebraNet"
+     ],
+     "note": "The net generated by the smeared fields is an irreducible, diffeomorphism-covariant, positive-energy conformal net; complete rationality of the net is not stated (declared)."
+    },
+    {
+     "clause": "Its simple modules are unitarizable,",
+     "coveredBy": [],
+     "note": "Declared outside."
+    },
+    {
+     "clause": "and its representation category agrees with the net’s finite-index sectors as a braided unitary tensor category.",
+     "coveredBy": [],
+     "note": "Declared outside."
+    }
+   ],
+   "gap": "Complete rationality of the net, unitarizability of simple modules, and the braided unitary tensor equivalence.",
+   "scopeNoteOnGap": "The selected statement does not include complete rationality of the net, unitarizability of all simple modules, the braided tensor equivalence, or the classification of local extensions described in the paper.",
+   "challenges": [
+    {
+     "name": "VertexAlgebraNet",
+     "asserts": "For a CFT-type vertex operator algebra V carried by a complex pre-Hilbert space, with a unitary structure U (antilinear PCT involution and invariant inner product), simple and strongly rational (self-contragredient, rational on admissible modules, C₂-cofinite): every vector satisfies polynomial energy bounds; the von Neumann algebras A(I) generated by graph projections of closed smeared fields Y(a,f), supp f ⊆ I, satisfy A(I) ⊆ A(I′)′; and I ↦ A(I) carries an irreducible conformal net structure (separable Hilbert space, isotony, locality, continuous Möbius representation, continuous projective Diff⁺(S¹) representation extending it with covariance and locality of the action, unique cyclic invariant vacuum, positive-energy rotation generator).",
+     "theorems": [
+      "OAI.MinimalVertex.main"
+     ],
+     "covers": "clauses 1 and (minus complete rationality) 2",
+     "encoding": [
+      "VOA axioms from scratch on Mathlib VertexOperator (Jacobi identity via finsum, finite by lower truncation of Hahn series)",
+      "Diff⁺(S¹) as smooth 2π-periodic lifts modulo the kernel of the circle action, C^∞ topology via jets",
+      "rotations implemented as e^{itH} through a Yosida-type resolvent approximation"
+     ],
+     "flags": [
+      "JUNK? (not triggered): smoothSmearedField is 0 unless PolynomialEnergyBounds and rapid Fourier decay hold — that would trivialize the net, but the theorem's first conjunct asserts PolynomialEnergyBounds and smooth periodic f has rapidly decaying coefficients",
+      "JUNK? (not triggered, load-bearing): localGraphData keeps only smeared fields whose `.closure` is closed; Mathlib's LinearPMap.closure returns a non-closable operator unchanged, so non-closable fields would silently drop out, shrinking A(I) and easing locality. For a unitary VOA the invariant form gives densely defined adjoints, so the fields are closable",
+      "JUNK? (not triggered): resolvent, flow and projectiveStandardAction are defined by h.choose with fallbacks 0, 0, 1; the defining existentials hold for self-adjoint generators and the Möbius action, and a fallback for projectiveStandardAction would force a one-dimensional Hilbert space (vacuum_unique), i.e. falsity rather than weakness"
+     ],
+     "evidence": [
+      "ComparatorChallenges/VertexAlgebraNet.lean:704-711: noncomputable def smoothSmearedField (_U : A.UnitaryStructure) (_hc : A.toVertexAlgebra.C2Cofinite) ⏎ (a : V) (d : ℕ) (f : OAI.StronglyRationalVOA.SmoothCircleFunction) : Completion V →ₗ.[ℂ] Completion V := by ⏎ classical ⏎ exact if h : A.PolynomialEnergyBounds ∧ OAI.StronglyRationalVOA.RapidCoefficients (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) then ⏎ (OAI.MinimalVertex.Code.StronglyRationalVOA.HilbertCore.operator ⏎ (OAI.MinimalVertex.smearedMap A a d (And.left h a) (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.coefficient f) ⏎ (And.right h))) ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:717-721: noncomputable def localGraphData (U : A.UnitaryStructure) (hc : A.toVertexAlgebra.C2Cofinite) ⏎ (O : Set (AddCircle (2*Real.pi))) : Set (Completion V →L[ℂ] Completion V) := ⏎ {x | ∃ (a : V) (d : ℕ), a ∈ A.grade d ∧ ∃ (f : OAI.StronglyRationalVOA.SmoothCircleFunction), ⏎ tsupport (OAI.MinimalVertex.Code.StronglyRationalVOA.SmoothCircleFunction.onCircle f) ⊆ O ∧ ∃ (h : (OAI.MinimalVertex.closedSmoothField U hc a d f).IsClosed), ⏎ ∃ i j : Bool, x = (OAI.MinimalVertex.Code.StronglyRationalVOA.ClosedGraphData.entry (OAI.MinimalVertex.closedSmoothField U hc a d f) h i j)}",
+      "ComparatorChallenges/VertexAlgebraNet.lean:731-734: noncomputable def CKLWStrongLocal (U : A.UnitaryStructure) (hc : A.toVertexAlgebra.C2Cofinite) : Prop := ⏎ (∀ a : V, A.PolynomialEnergyBound a) ∧ ⏎ ∀ I : OAI.StronglyRationalVOA.ProperCircleArc, OAI.MinimalVertex.intervalAlgebra U hc I ≤ ⏎ (OAI.MinimalVertex.intervalAlgebra U hc (OAI.MinimalVertex.Code.StronglyRationalVOA.ProperCircleArc.complement I)).commutant",
+      "ComparatorChallenges/VertexAlgebraNet.lean:744-748: noncomputable def resolvent (T : H →ₗ.[ℂ] H) (_hs : IsSelfAdjoint T) (z : ℂ) (_hz : 1 ≤ |z.im|) : ⏎ H →L[ℂ] H := by ⏎ classical ⏎ exact if h : ∃ R : H →L[ℂ] H, ∀ y, (R y, y + z • R y) ∈ T.graph then h.choose ⏎ else 0",
+      "ComparatorChallenges/VertexAlgebraNet.lean:767-781: noncomputable def flow {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H] ⏎ (T : H →ₗ.[ℂ] H) (hs : IsSelfAdjoint T) (t : ℝ) : H →L[ℂ] H := by ⏎ classical ⏎ exact if h : ∃ L : H →L[ℂ] H, ∀ x, ⏎ Tendsto (fun n => OAI.MinimalVertex.approximatingFlow T hs n t x) atTop (𝓝 (L x)) then ⏎ h.choose ⏎ else 0 ⏎  ⏎ noncomputable def projectiveStandardAction : PSL(2,ℝ) →* (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group) := by ⏎ classical ⏎ exact if h : ∃ L : PSL(2,ℝ) →* (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Group), ⏎ ∀ M : SL(2,ℝ), ∃ F : OAI.StronglyRationalVOA.SmoothCircleLift, ∃ hF : (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.Implements M F), ⏎ L (QuotientGroup.mk M) = ⏎ QuotientGroup.mk (⟨F, M, hF⟩ : (OAI.MinimalVertex.Code.StronglyRationalVOA.CircleMobiusGeometry.lifts)) then h.choose ⏎ else 1",
+      "ComparatorChallenges/VertexAlgebraNet.lean:822-825: theorem main (_hSimple : A.toVertexAlgebra.IsSimple) ⏎ (hSR : A.IsStronglyRational.{u,v}) : ⏎ A.PolynomialEnergyBounds ∧ OAI.MinimalVertex.CKLWStrongLocal U hSR.2.2 ∧ ⏎ Nonempty (OAI.MinimalVertex.IrreducibleConformalNetStructure (OAI.MinimalVertex.intervalAlgebra U hSR.2.2)) := by",
+      "lean/docs/280.md:11: The selected statement does not include complete rationality of the net, unitarizability of all simple modules, the braided tensor equivalence, or the classification of local extensions described in the paper."
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "831-line statement read through its closure; the conformal-net structure and CKLW locality look faithful, but several defs carry junk fallbacks whose non-use rests on true analytic facts (closability of smeared fields in particular)."
+  },
+  {
+   "family": "288",
+   "headline": "Proves Kadison's similarity conjecture: every bounded complex-linear unital algebra homomorphism from a unital complex C∗-algebra to operators on a Hilbert space becomes a $`*`$-homomorphism after conjugation by a bounded invertible operator.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves Kadison's similarity conjecture: every bounded complex-linear unital algebra homomorphism from a unital complex C∗-algebra to operators on a Hilbert space becomes a $`*`$-homomorphism after conjugation by a bounded invertible operator.",
+     "coveredBy": [
+      "KadisonSimilarity"
+     ],
+     "note": "similarityTheorem, universe-polymorphic in the algebra and the Hilbert space."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "KadisonSimilarity",
+     "asserts": "(1) One constant C ≥ 0 bounds every amplified commutator ‖[Y⊗1_n, X]‖ ≤ C·‖ad Y|_P‖·‖X‖ for all von Neumann algebras P, operators Y and matrices X over P. (2) Every von Neumann algebra has distance to M bounded by 2·universalConstant times the off-diagonal seminorm (hyperreflexivity). (3) For every unital C*-algebra A and Hilbert space K, every continuous unital ℂ-algebra homomorphism π : A → B(K) has an invertible S with S π(a*) S⁻¹ = (S π(a) S⁻¹)* for all a.",
+     "theorems": [
+      "OAI.KadisonSimilarity.universalCommutatorTheorem",
+      "OAI.KadisonSimilarity.universalHyperreflexivity",
+      "OAI.KadisonSimilarity.similarityTheorem"
+     ],
+     "covers": "the headline (3); (1)–(2) are extra",
+     "encoding": [
+      "unital C*-algebra = Mathlib CStarAlgebra",
+      "bounded = Continuous"
+     ],
+     "flags": [
+      "STATEMENT-FILE METAPROGRAM: two `run_cmd Lean.modifyEnv … auxLemmasExt.setState env {}` lines (aux-lemma cache reset; no declarations added)",
+      "JUNK? (not triggered): offDiagonalSeminorm is a real sSup over projections in the commutant, bounded by ‖T‖ and containing 0"
+     ],
+     "evidence": [
+      "ComparatorChallenges/KadisonSimilarity.lean:19-22: def SimilarToStar (π : BoundedUnitalHom A H) : Prop := ⏎ ∃ S : (H →L[ℂ] H)ˣ, ∀ a : A, ⏎ (S : H →L[ℂ] H) * π.1 (star a) * (↑S⁻¹ : H →L[ℂ] H) = ⏎ star ((S : H →L[ℂ] H) * π.1 a * (↑S⁻¹ : H →L[ℂ] H))",
+      "ComparatorChallenges/KadisonSimilarity.lean:40: run_cmd Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.setState env {}",
+      "ComparatorChallenges/KadisonSimilarity.lean:79-82: def SimilarityTheorem : Prop := ⏎ ∀ (A : Type u) [CStarAlgebra A] (K : Type v) [NormedAddCommGroup K] ⏎ [InnerProductSpace ℂ K] [CompleteSpace K] (π : BoundedUnitalHom A K), ⏎ SimilarToStar A K π",
+      "ComparatorChallenges/KadisonSimilarity.lean:87-89: def offDiagonalSeminorm (M : VonNeumannAlgebra H) (T : H →L[ℂ] H) : ℝ := ⏎ sSup (Set.range fun e : CommutantProjection M => ⏎ ‖(1 - (e : H →L[ℂ] H)) * T * (e : H →L[ℂ] H)‖)",
+      "ComparatorChallenges/KadisonSimilarity.lean:115: theorem similarityTheorem : SimilarityTheorem.{u,v} := by"
+     ]
+    },
+    {
+     "name": "UniformCommutator",
+     "asserts": "There is C ≥ 0 such that for every Hilbert space K, von Neumann algebra P, Y ∈ B(K), h ≥ 1 and h×h matrix X over P: ‖[diag(Y), X]‖ ≤ C·sup{‖[Y,a]‖ : a ∈ P, ‖a‖ ≤ 1}·‖X‖.",
+     "theorems": [
+      "OAI.Kadison.uniform_commutator"
+     ],
+     "covers": "supporting estimate",
+     "encoding": [],
+     "flags": [
+      "JUNK? (not triggered): commutatorSeminorm is a real sSup of a set bounded by 2‖Y‖ and containing 0"
+     ],
+     "evidence": [
+      "ComparatorChallenges/UniformCommutator.lean:12-13: def commutatorSeminorm (P : VonNeumannAlgebra K) (Y : K →L[ℂ] K) : ℝ := ⏎ sSup {r : ℝ | ∃ a : K →L[ℂ] K, a ∈ P ∧ ‖a‖ ≤ 1 ∧ r = ‖Y * a - a * Y‖}",
+      "ComparatorChallenges/UniformCommutator.lean:26-33: theorem uniform_commutator : ⏎ ∃ C : ℝ, 0 ≤ C ∧ ∀ (K : Type u) [NormedAddCommGroup K] [InnerProductSpace ℂ K] ⏎ [CompleteSpace K] (P : VonNeumannAlgebra K) (Y : K →L[ℂ] K) ⏎ (h : ℕ), 1 ≤ h → ∀ (X : Matrix (Fin h) (Fin h) (K →L[ℂ] K)), ⏎ (∀ i j, X i j ∈ P) → ⏎ ‖diagonalAmplification h Y * matrixOperator h X - ⏎ matrixOperator h X * diagonalAmplification h Y‖ ≤ ⏎ C * commutatorSeminorm P Y * ‖matrixOperator h X‖ := by"
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "295",
+   "headline": "Proves that every bounded Hochschild cocycle of degree at least two on a complex von Neumann algebra, with coefficients in the algebra itself, has a bounded primitive. Equivalently, all higher bounded Hochschild cohomology groups vanish, resolving the Kadison–Ringrose conjecture.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves that every bounded Hochschild cocycle of degree at least two on a complex von Neumann algebra, with coefficients in the algebra itself, has a bounded primitive.",
+     "coveredBy": [
+      "KadisonRingrose"
+     ],
+     "note": "Stated directly for degree n+2, n ≥ 0."
+    },
+    {
+     "clause": "Equivalently, all higher bounded Hochschild cohomology groups vanish, resolving the Kadison–Ringrose conjecture.",
+     "coveredBy": [
+      "KadisonRingrose"
+     ],
+     "note": "The vanishing in degrees ≥ 2 is stated; the conjecture's degree-one case (derivations inner, Kadison–Sakai) is classical and declared outside the selected statement."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "KadisonRingrose",
+     "asserts": "For every von Neumann algebra M (Mathlib CStarAlgebra + WStarAlgebra with its star order) and n ≥ 0, every bounded (n+2)-linear map f : M^{n+2} → M with Hochschild coboundary δf = 0 equals δg for some bounded (n+1)-linear g.",
+     "theorems": [
+      "OAI.BoundedHochschild.KadisonRingrose.main_result"
+     ],
+     "covers": "both clauses (degrees ≥ 2)",
+     "encoding": [
+      "cochains = ContinuousMultilinearMap",
+      "Hochschild differential written out explicitly (a₀f(…) + Σ(-1)^{j+1} f(…a_j a_{j+1}…) + (-1)^{n+1} f(…)a_n)",
+      "von Neumann algebra as an abstract W*-algebra (predual)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/KadisonRingrose.lean:15-24: def mergeInputs {M : Type*} [Mul M] {n : ℕ} ⏎ (v : Fin (n + 1) → M) (j : Fin n) : Fin n → M := ⏎ fun i => if i < j then v i.castSucc ⏎ else if i = j then v i.castSucc * v i.succ else v i.succ ⏎  ⏎ noncomputable def differentialValue {M : Type*} [NormedRing M] [NormedAlgebra ℂ M] ⏎ {n : ℕ} (f : Cochain M n) (v : Fin (n + 1) → M) : M := ⏎ v 0 * f (fun i => v i.succ) + ⏎ ∑ j : Fin n, ((-1 : ℂ) ^ (j.val + 1)) • f (mergeInputs v j) + ⏎ ((-1 : ℂ) ^ (n + 1)) • (f (fun i => v i.castSucc) * v (Fin.last n))",
+      "ComparatorChallenges/KadisonRingrose.lean:30-35: theorem main_result ⏎ {M : Type u} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M] ⏎ (n : ℕ) (f : Cochain M (n + 2)) ⏎ (hf : ∀ x : Fin (n + 3) → M, differentialValue f x = 0) : ⏎ ∃ g : Cochain M (n + 1), ∀ x : Fin (n + 2) → M, ⏎ differentialValue g x = f x := by",
+      "lean/docs/295.md:9: The formalization proves vanishing of bounded Hochschild cohomology in every degree at least two for a complex von Neumann algebra with coefficients in itself. Every bounded multilinear cocycle of such a degree is the Hochschild differential of a bounded multilinear cochain one degree lower. No separability or type restriction is imposed. The degree-one inner-derivation theorem is outside this selected statement."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "301",
+   "headline": "Classifies separable nuclear complex C∗-algebras after tensoring with the Razak–Jacelon algebra and the compact operators, using their full topological cones of extended lower-semicontinuous tracial weights. This answers Robert’s trace-cone question, including algebras with arbitrary ideal structure and both finite and infinite subquotients.",
+   "word": "SUPPORT-ONLY",
+   "clauses": [
+    {
+     "clause": "Classifies separable nuclear complex C∗-algebras after tensoring with the Razak–Jacelon algebra and the compact operators, using their full topological cones of extended lower-semicontinuous tracial weights.",
+     "coveredBy": [],
+     "note": "Not stated; only the ideal-transport supporting part is."
+    },
+    {
+     "clause": "This answers Robert’s trace-cone question, including algebras with arbitrary ideal structure and both finite and infinite subquotients.",
+     "coveredBy": [],
+     "note": "Not stated."
+    }
+   ],
+   "gap": "The classification itself (spatial classification, stabilization models, norm uniqueness, intertwining).",
+   "scopeNoteOnGap": "Spatial classification, existence of the stabilization models, norm uniqueness, and final intertwining are outside this supporting comparison.",
+   "challenges": [
+    {
+     "name": "TraceIdealTransportSupport",
+     "asserts": "For non-unital C*-algebras: every closed two-sided ideal I has the extended trace that is 0 on I⁺ and ∞ elsewhere; finite-square sets of lower-semicontinuous extended traces form ideals whose closures are closed ideals; closed ideals correspond to additive idempotent traces with ideal inclusion recovered by addition; and a trace-cone equivalence (additive, zero- and scale-preserving, preserving canonical convergence both ways) induces an order isomorphism of closed ideals sending each trace's finite ideal and zero ideal to those of its image.",
+     "theorems": [
+      "OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_finIdeal",
+      "OAI.TraceConeClassification.TraceConeEquiv.idealOrderIso_zeroIdeal",
+      "OAI.TraceConeClassification.closed_ideal_weight_exists",
+      "… (17 theorem names in the config, mostly lemmas used inside the statement's definitions)"
+     ],
+     "covers": "none of the headline; declared supporting",
+     "encoding": [
+      "topology on traces via an explicit 'canonical convergence' (limsup on ε-cuts, liminf)"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/README.md:23-24: - `TraceIdealTransportSupport.json`: transport of finite and zero ideals, with ⏎ the construction-provider statements required by the original comparison.",
+      "ComparatorChallenges/TraceIdealTransportSupport.lean:225-231: theorem idealOrderIso_finIdeal (τ : ExtendedTrace A) : ⏎ F.idealOrderIso τ.finIdeal = (F.toEquiv τ).finIdeal := by ⏎ sorry ⏎  ⏎ theorem idealOrderIso_zeroIdeal (τ : ExtendedTrace A) : ⏎ F.idealOrderIso τ.zeroIdeal = (F.toEquiv τ).zeroIdeal := by ⏎ sorry",
+      "lean/docs/301.md:11: For each closed ideal $I$, it also constructs the trace that is zero on positive elements of $I$ and infinite elsewhere. These traces are exactly the additive idempotents, meaning $\\tau+\\tau=\\tau$, and their addition recovers ideal inclusion. Spatial classification, existence of the stabilization models, norm uniqueness, and final intertwining are outside this supporting comparison."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "331",
+   "headline": "Constructs a real reflexive Banach space with an asymptotically midpoint uniformly convex norm but no equivalent asymptotically uniformly convex norm, extending Baudier's separation to reflexive spaces. In the same space, depth-k countably branching diamonds require distortion at least $`\\sqrt{1+k/12}`$, so midpoint uniform convexity does not force uniformly bounded diamond distortion even under reflexivity.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Constructs a real reflexive Banach space with an asymptotically midpoint uniformly convex norm but no equivalent asymptotically uniformly convex norm, extending Baudier's separation to reflexive spaces.",
+     "coveredBy": [
+      "ForestSpace"
+     ],
+     "note": "Infinite-dimensional, separable, reflexive full dual of the segment-norm completion; averaged midpoint modulus ≥ √(1+t²/12) − 1 for all t>0 (implies AMUC); no equivalent norm is AUC."
+    },
+    {
+     "clause": "In the same space, depth-k countably branching diamonds require distortion at least $`\\sqrt{1+k/12}`$,",
+     "coveredBy": [
+      "ForestSpace"
+     ],
+     "note": "Last conjunct: every embedding with distortion ≤ C (any positive scale) has C ≥ √(1+k/12)."
+    },
+    {
+     "clause": "so midpoint uniform convexity does not force uniformly bounded diamond distortion even under reflexivity.",
+     "coveredBy": [
+      "ForestSpace"
+     ],
+     "note": "Immediate from the two previous clauses."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "ForestSpace",
+     "asserts": "For X = continuous dual of the completion of finitely supported functions on a forest (one copy of ℕ^{≤h} per h ≥ 1) under the disjoint-segment norm: X is infinite-dimensional, separable and reflexive (canonical embedding onto the bidual); no equivalent norm (seminorm with α‖x‖ ≤ N ≤ β‖x‖, 0<α≤β) has positive one-sided AUC modulus at every t>0; the averaged midpoint modulus of the given norm is ≥ √(1+t²/12) − 1 for every t>0; and every map of the depth-k countably branching diamond into X with s·d ≤ ‖f u − f v‖ ≤ C·s·d has C ≥ √(1+k/12).",
+     "theorems": [
+      "OAI.ForestSpace.main_theorem"
+     ],
+     "covers": "all clauses",
+     "encoding": [
+      "AMUC shown through the averaged modulus (N(x+ty)+N(x−ty))/2 − 1, which is ≤ the max-based AMUC modulus, so it implies AMUC",
+      "moduli with the order inf_x sup_F inf_y over closed finite-codimensional F and unit y ∈ F",
+      "diamonds as iterated replacement of every edge by countably many 2-paths, Mathlib graph distance"
+     ],
+     "flags": [
+      "JUNK? (not triggered): moduli are nested real sInf/sSup; in an infinite-dimensional space with an equivalent norm the inner sets are nonempty and lie in [−1,t] (AUC) or [0,t] (averaged), so no junk value can occur"
+     ],
+     "evidence": [
+      "ComparatorChallenges/ForestSpace.lean:22-50: /-- The inner one-sided excess values and their infimum. -/ ⏎ def aucValues (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : Set ℝ := ⏎ {a | ∃ y : E, y ∈ F.val ∧ N y = 1 ∧ a = N (x + t • y) - 1} ⏎  ⏎ noncomputable def aucInner (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : ℝ := ⏎ sInf (aucValues E N t x F) ⏎  ⏎ noncomputable def aucCenter (N : E → ℝ) (t : ℝ) (x : E) : ℝ := ⏎ sSup (Set.range (aucInner E N t x)) ⏎  ⏎ /-- The one-sided asymptotic uniform convexity modulus, with the order ⏎ of infimum, supremum and infimum. -/ ⏎ noncomputable def aucModulus (N : E → ℝ) (t : ℝ) : ℝ := ⏎ sInf {a | ∃ x : E, N x = 1 ∧ a = aucCenter E N t x} ⏎  ⏎ /-- The inner averaged signed excess; it is not replaced by a maximum. -/ ⏎ def averageValues (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : Set ℝ := ⏎ {a | ∃ y : E, y ∈ F.val ∧ N y = 1 ∧ ⏎ a = (N (x+t•y) + N (x-t•y))/((2 : ℕ) : ℝ) - 1} ⏎  ⏎ noncomputable def averageInner (N : E → ℝ) (t : ℝ) (x : E) (F : Cofinite E) : ℝ := ⏎ sInf (averageValues E N t x F) ⏎  ⏎ noncomputable def averageCenter (N : E → ℝ) (t : ℝ) (x : E) : ℝ := ⏎ sSup (Set.range (averageInner E N t x)) ⏎  ⏎ /-- The averaged asymptotic midpoint modulus. -/ ⏎ noncomputable def averageModulus (N : E → ℝ) (t : ℝ) : ℝ := ⏎ sInf {a | ∃ x : E, N x = 1 ∧ a = averageCenter E N t x}",
+      "ComparatorChallenges/ForestSpace.lean:69-70: def IsAUC {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E] (N : E → ℝ) : Prop := ⏎ ∀ t : ℝ, 0 < t → 0 < aucModulus E N t",
+      "ComparatorChallenges/ForestSpace.lean:453-461: theorem main_theorem : ⏎ (¬FiniteDimensional ℝ (FullDual Vertex)) ∧ ⏎ TopologicalSpace.SeparableSpace (FullDual Vertex) ∧ ⏎ Reflexive (FullDual Vertex) ∧ ⏎ (∀ (α β : ℝ) (R : EquivalentNorm (FullDual Vertex) α β), ¬IsAUC R.N) ∧ ⏎ (∀ t : ℝ, 0 < t → ⏎ Real.sqrt (1+t^2/12)-1 ≤ averageModulus (FullDual Vertex) norm t) ∧ ⏎ (∀ (k : ℕ) (f : (Diamond.diamond k).V → FullDual Vertex) (C : ℝ), ⏎ Diamond.EmbeddingBound k f C → Real.sqrt (1+(k:ℝ)/12) ≤ C) := by"
+     ]
+    },
+    {
+     "name": "MidpointLenses",
+     "asserts": "In the full dual of the finite-height forest space and in the closed coordinate span of the infinite-tree dual: if x is supported on a finite ancestral set H, R ≥ 0 and ‖x+y‖, ‖x−y‖ ≤ R, then ‖tail_H y‖ ≤ 2√(R² − ‖x‖²).",
+     "theorems": [
+      "OAI.SegmentLenses.midpoint_lens_main"
+     ],
+     "covers": "companion result (not in the headline)",
+     "encoding": [
+      "segment seminorm as ⨆ over disjoint segment families (boundedness proved in the file)"
+     ],
+     "flags": [
+      "JUNK? (not triggered): Real.sqrt of a negative is 0, but ‖x‖ ≤ (‖x+y‖+‖x−y‖)/2 ≤ R"
+     ],
+     "evidence": [
+      "ComparatorChallenges/MidpointLenses.lean:328-336: theorem midpoint_lens_main : ⏎ (∀ (H : Finset ForestVertex) (_ : Ancestral ForestAncestor H) ⏎ (x y : X) (_ : x = head H x) (R : ℝ) (_ : 0 ≤ R) ⏎ (_ : ‖x + y‖ ≤ R) (_ : ‖x - y‖ ≤ R), ⏎ ‖tail H y‖ ≤ 2 * Real.sqrt (R ^ 2 - ‖x‖ ^ 2)) ∧ ⏎ (∀ (H : Finset InfiniteVertex) (_ : Ancestral List.IsPrefix H) ⏎ (x y : BInfinite) (_ : x.val = head H x.val) (R : ℝ) (_ : 0 ≤ R) ⏎ (_ : ‖x + y‖ ≤ R) (_ : ‖x - y‖ ≤ R), ⏎ ‖tail H y.val‖ ≤ 2 * Real.sqrt (R ^ 2 - ‖x‖ ^ 2)) :="
+     ]
+    },
+    {
+     "name": "DiamondDistortion",
+     "asserts": "In the full dual of the finite-height forest space and in the coordinate predual of the infinite-tree dual, every depth-k diamond embedding with distortion D at any positive scale satisfies 1 + k/4 ≤ D².",
+     "theorems": [
+      "OAI.DiamondDistortion.headline_all_pairs"
+     ],
+     "covers": "companion result (stronger constant than the headline's k/12, in the companion space)",
+     "encoding": [
+      "diamond distances normalized by 2^k"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/DiamondDistortion.lean:302-308: theorem headline_all_pairs : ⏎ (∀ (k : ℕ) (f : Diamond.Vertex k → ForestDual) (D s : ℝ), ⏎ 0 < s → (∀ u v,s*Diamond.distance k u v ≤ ‖f u-f v‖ ∧ ⏎ ‖f u-f v‖ ≤ D*s*Diamond.distance k u v) → 1+(k:ℝ)/4 ≤ D^2) ∧ ⏎ (∀ (k : ℕ) (f : Diamond.Vertex k → InfinitePredual) (D s : ℝ), ⏎ 0 < s → (∀ u v,s*Diamond.distance k u v ≤ ‖f u-f v‖ ∧ ⏎ ‖f u-f v‖ ≤ D*s*Diamond.distance k u v) → 1+(k:ℝ)/4 ≤ D^2) := by"
+     ]
+    },
+    {
+     "name": "DaugavetModuli",
+     "asserts": "For a closed infinite-dimensional subspace E of L¹(μ) (μ probability) whose unit ball is precompact in measure and which has the Daugavet property: at every unit x and t>0 the averaged modulus is max(t/2, t−1) and the one-sided modulus is max(0, t−2), the same after the infimum over x, and no equivalent norm is AUC; such an E exists in L¹ of the countable product of unit intervals.",
+     "theorems": [
+      "OAI.ExactModuli.exact_main",
+      "OAI.ExactModuli.kadets_werner_existence",
+      "OAI.ExactModuli.exact_example"
+     ],
+     "covers": "companion result",
+     "encoding": [
+      "averaged modulus takes directions with N(y) ≥ 1 (not = 1), stated deliberately",
+      "Daugavet property for rank-one operators"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/DaugavetModuli.lean:20-26: /-- Averaged increment for directions of norm at least one. -/ ⏎ def averagedIncrement (N : Seminorm ℝ X) (x : X) (t : ℝ) (y : X) : ℝ := ⏎ (N (x + t • y) + N (x - t • y)) / 2 - 1 ⏎  ⏎ def H (N : Seminorm ℝ X) (x : X) (t : ℝ) : ℝ := ⏎ sSup {r | ∃ F : Submodule ℝ X, Cofinite F ∧ ⏎ r = sInf {a | ∃ y ∈ F, 1 ≤ N y ∧ a = averagedIncrement N x t y}}",
+      "ComparatorChallenges/DaugavetModuli.lean:72-82: theorem exact_main {Ω : Type u_1} [MeasurableSpace Ω] (μ : Measure Ω) ⏎ [IsProbabilityMeasure μ] (E : Submodule ℝ (Lp ℝ 1 μ)) ⏎ (_hclosed : IsClosed (E : Set (Lp ℝ 1 μ))) (hdim : ¬ FiniteDimensional ℝ E) ⏎ (hprecompact : MeasurePrecompactBall μ E) (hdaugavet : Daugavet E) : ⏎ (∀ (x : E), ‖x‖ = 1 → ∀ t : ℝ, 0 < t → ⏎ H (normSeminorm ℝ E) x t = max (t / 2) (t - 1) ∧ ⏎ D (normSeminorm ℝ E) x t = max 0 (t - 2)) ∧ ⏎ (∀ t : ℝ, 0 < t → ⏎ averagedModulus (normSeminorm ℝ E) t = max (t / 2) (t - 1) ∧ ⏎ oneSidedModulus (normSeminorm ℝ E) t = max 0 (t - 2)) ∧ ⏎ (∀ N : Seminorm ℝ E, EquivalentNorm N → ¬ AUC N) := by"
+     ]
+    },
+    {
+     "name": "BoundedTreePotentials",
+     "asserts": "For each root option and quadratic constraint kind, the completion of the tree-potential test norm is complete, separable, infinite-dimensional, has averaged midpoint modulus ≥ √(1+t²/4) − 1 for 0<t<1, and no isomorphic Banach space is AUC.",
+     "theorems": [
+      "OAI.BoundedTreePotentials.TreeCalculus.main_counterexample"
+     ],
+     "covers": "companion result",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/BoundedTreePotentials.lean:325-334: def averagedModulusReal (t : ℝ) : ℝ := ⏎ ⨅ x : {x : E // ‖x‖=1},⨆ F : ClosedFiniteCodim E, ⏎ ⨅ y : {y : E // y ∈ F.space ∧ 1≤‖y‖}, ⏎ (‖x.val+t • y.val‖+‖x.val-t • y.val‖)/((2 : ℕ) : ℝ)-1 ⏎  ⏎ def oneSidedModulusReal (t : ℝ) : ℝ := ⏎ ⨅ x : {x : E // ‖x‖=1},⨆ F : ClosedFiniteCodim E, ⏎ ⨅ y : {y : E // y ∈ F.space ∧ ‖y‖=1},‖x.val+t • y.val‖-1 ⏎  ⏎ def IsAUCReal : Prop := ∀ t : ℝ, 0 < t → 0 < oneSidedModulusReal E t",
+      "ComparatorChallenges/BoundedTreePotentials.lean:339-347: theorem TreeCalculus.main_counterexample (r : Bool) (k : QuadraticKind) : ⏎ (CompleteSpace (TestCompletion (treeTestFamily r k)) ∧ ⏎ TopologicalSpace.SeparableSpace (TestCompletion (treeTestFamily r k)) ∧ ⏎ ¬Module.Finite ℝ (TestCompletion (treeTestFamily r k))) ∧ ⏎ (∀ t : ℝ, 0 < t → t < 1 → ⏎ Real.sqrt (1 + t ^ 2 / 4) - 1 ≤ ⏎ averagedModulusReal (TestCompletion (treeTestFamily r k)) t) ∧ ⏎ (∀ (Y : Type u) [NormedAddCommGroup Y] [NormedSpace ℝ Y], ⏎ (TestCompletion (treeTestFamily r k) ≃L[ℝ] Y) → ¬IsAUCReal Y) := by"
+     ]
+    },
+    {
+     "name": "IndependentProducts",
+     "asserts": "For a positive, nonconstant, mean-one multiplier law with finite second moment, the closed L¹ span of path products is infinite-dimensional with no equivalent AUC norm; explicit positive lower bounds on the averaged midpoint modulus for exponential and squared-Gaussian multipliers.",
+     "theorems": [
+      "OAI.IndependentProducts.main_general",
+      "OAI.IndependentProducts.main_exponential",
+      "OAI.IndependentProducts.main_gaussian_24",
+      "OAI.IndependentProducts.main_gaussian_12"
+     ],
+     "covers": "companion result",
+     "encoding": [],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/IndependentProducts.lean:89-100: theorem main_general (μ : Measure ℝ) (hμ : MultiplierHypotheses μ) : ⏎ ¬ FiniteDimensional ℝ (productSpan μ) ∧ ⏎ ∀ N : Seminorm ℝ (productSpan μ), ⏎ IsEquivalentNorm (productSpan μ) N → ¬ IsAUC (productSpan μ) N := by ⏎ sorry ⏎  ⏎ theorem main_exponential (t : ℝ) (ht : 0 < t) : ⏎ (7 * t / 30) * excessConstant (10 / t) ≤ ⏎ averagedMidpointModulus (productSpan exponentialLaw) ⏎ (normSeminorm ℝ (productSpan exponentialLaw)) t ∧ ⏎ 0 < (7 * t / 30) * excessConstant (10 / t) := by ⏎ sorry"
+     ]
+    },
+    {
+     "name": "RecursivePotentials",
+     "asserts": "MainClaim: the instance classes Heads, TreeVector.Construction, ZeroTreeVector.Construction, AggregationVector.Construction and LpConstruction hold, and then eleven statements: averaged modulus ≥ t³/128 for the root-sum and joined spaces (0<t<1), a cubic midpoint estimate in the zero-root space, no equivalent AUC norm in all three, completions/reflexivity facts, positivity of the root-sum modulus for all t>0, separated families in the joined space, and the variable-exponent model's norm, duality, projections, renorming obstruction and sixth/cubic/weak-tail stability estimates.",
+     "theorems": [
+      "OAI.ComparatorModel.RecursivePotentials.main"
+     ],
+     "covers": "companion result",
+     "encoding": [
+      "the five existentially quantified instance classes are all `class … : Prop` (proof-irrelevant), so ∃ h : P, Q is a conjunction; the norms themselves are fixed definitions (normSum etc.), not definition holes"
+     ],
+     "flags": [],
+     "evidence": [
+      "ComparatorChallenges/RecursivePotentials.lean:313-315: class Heads : Prop where ⏎ initial : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) (v : ι →₀ ℝ), ⏎ T.Initial (T.head v)",
+      "ComparatorChallenges/RecursivePotentials.lean:349-355: class Construction : Prop where ⏎ core : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι), ⏎ NormedSpace.Core ℝ (TreeVector T) ⏎ coordinate_bound : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (v : ι →₀ ℝ) (s : ι), |v s| ≤ T.normSum v ⏎ projection_bound : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (H : Finset ι), T.Initial H → ∀ v, T.normSum (T.projectHead H v) ≤ T.normSum v",
+      "ComparatorChallenges/RecursivePotentials.lean:464-468: class Construction : Prop where ⏎ core : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι), ⏎ NormedSpace.Core ℝ (ZeroTreeVector T) ⏎ half : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (v : ZeroTreeVector T), ‖v‖ = ‖toTree T v‖ / 2",
+      "ComparatorChallenges/RecursivePotentials.lean:628-632: class Construction : Prop where ⏎ core : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) (e : ChildExponent), ⏎ NormedSpace.Core ℝ (AggregationVector T e) ⏎ coordinate_bound : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (e : ChildExponent) (v : ι →₀ ℝ) (s : ι), |v s| ≤ VariableTree.normSum T e v",
+      "ComparatorChallenges/RecursivePotentials.lean:708-716: class AggregationVector.LpConstruction : Prop where ⏎ bounds : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (e : ChildExponent), 1 < e.val → ⏎ (∀ c, c ≠ T.root → T.depth c = T.depth (T.parent c) + 1) → ⏎ ∀ h : ℕ, (∀ s, T.depth s ≤ h) → ∀ v : AggregationVector T e, ⏎ ‖v‖ ≤ (2*(h+1:ℝ)^(1-1/e.val))*‖toLpLinear T e v‖ ∧ ⏎ ‖toLpLinear T e v‖ ≤ (h+1:ℝ)^(1/e.val)*‖v‖ ⏎ dense : ∀ {ι : Type uIndex} [DecidableEq ι] (T : FiniteRootedTree ι) ⏎ (e : ChildExponent), DenseRange (toLpLinear T e)",
+      "ComparatorChallenges/RecursivePotentials.lean:937-953: def MainClaim : Prop := ⏎ ∃ h0 : FiniteRootedTree.Heads.{0}, letI := h0; ⏎ ∃ h1 : TreeVector.Construction.{0}, letI := h1; ⏎ ∃ h2 : ZeroTreeVector.Construction.{0}, letI := h2; ⏎ ∃ h3 : AggregationVector.Construction.{0}, letI := h3; ⏎ ∃ h4 : AggregationVector.LpConstruction.{0}, letI := h4; ⏎ rec_mainStatement ∧ ⏎ rec_completionStatement ∧ ⏎ stop_all_radiiStatement ∧ ⏎ XJoined_separated_familiesStatement ∧ ⏎ Variable.spaceStatement ∧ ⏎ Variable.lp_model_exactStatement ∧ ⏎ Variable.one_sided_modulus_zeroStatement ∧ ⏎ Variable.no_equivalent_AUCStatement ∧ ⏎ Variable.sixth_stabilityStatement ∧ ⏎ Variable.cubic_stabilityStatement ∧ ⏎ Variable.weak_tailStatement"
+     ]
+    }
+   ],
+   "confidence": "medium",
+   "suspicious": "The headline rests on ForestSpace alone (read in full); the other six challenges are companion results from six further manuscripts and were read for vacuity/junk only. RecursivePotentials' existential over Prop-valued instance classes was checked and is not a definition hole."
+  },
+  {
+   "family": "342",
+   "headline": "Proves Donaldson's tamed-to-compatible conjecture: every smooth almost complex structure on a closed four-manifold that is tamed by a symplectic form admits a compatible symplectic form. The almost complex structure stays fixed; the form's cohomology class may change.",
+   "word": "MATCHES",
+   "clauses": [
+    {
+     "clause": "Proves Donaldson's tamed-to-compatible conjecture: every smooth almost complex structure on a closed four-manifold that is tamed by a symplectic form admits a compatible symplectic form.",
+     "coveredBy": [
+      "TamingCompatibility"
+     ],
+     "note": "Stated, with an added [ConnectedSpace X]; the disconnected case follows componentwise and the scope note says 'every closed connected smooth four-manifold'."
+    },
+    {
+     "clause": "The almost complex structure stays fixed; the form's cohomology class may change.",
+     "coveredBy": [
+      "TamingCompatibility"
+     ],
+     "note": "Same J in hypothesis and conclusion; no cohomology constraint on η."
+    }
+   ],
+   "gap": null,
+   "scopeNoteOnGap": null,
+   "challenges": [
+    {
+     "name": "TamingCompatibility",
+     "asserts": "For a compact, connected, Hausdorff, second-countable smooth manifold X modeled on ℝ⁴ and a smooth almost complex structure J: if some symplectic 2-form tames J, then some symplectic 2-form is compatible with J (tames J and is J-invariant).",
+     "theorems": [
+      "OAI.TamingCompatibility.taming_implies_compatibility"
+     ],
+     "covers": "both clauses",
+     "encoding": [
+      "2-forms as pointwise alternating maps; smoothness and closedness tested on pullbacks along every smooth map from an open subset of ℝ⁴ (Mathlib extDerivWithin)",
+      "J smooth as a bundle map TX → TX",
+      "manifold without boundary (model 𝓘(ℝ, ℝ⁴))"
+     ],
+     "flags": [
+      "STALE LINK: the scope note links the September-23 edition while the census manuscript is the October-6 edition; the main theorem is unchanged (the October-6 abstract only adds a compatible-cone characterization, not in the headline)",
+      "SCOPE: [ConnectedSpace X] is a hypothesis not in the headline; harmless (componentwise) and stated in the scope note"
+     ],
+     "evidence": [
+      "ComparatorChallenges/TamingCompatibility.lean:43-56: def IsNondegenerate (α : TwoForm X) : Prop := ⏎ ∀ x v, (∀ w, eval α x v w = 0) → v = 0 ⏎  ⏎ def IsSymplectic (α : TwoForm X) : Prop := ⏎ IsSmooth α ∧ IsClosed α ∧ IsNondegenerate α ⏎  ⏎ def Tames (α : TwoForm X) (J : AlmostComplexStructure X) : Prop := ⏎ ∀ x v, v ≠ 0 → 0 < eval α x v (J.endomorphism x v) ⏎  ⏎ def IsInvariant (α : TwoForm X) (J : AlmostComplexStructure X) : Prop := ⏎ ∀ x u v, eval α x (J.endomorphism x u) (J.endomorphism x v) = eval α x u v ⏎  ⏎ def Compatible (α : TwoForm X) (J : AlmostComplexStructure X) : Prop := ⏎ Tames α J ∧ IsInvariant α J",
+      "ComparatorChallenges/TamingCompatibility.lean:58-62: theorem taming_implies_compatibility ⏎ [T2Space X] [SecondCountableTopology X] [CompactSpace X] [ConnectedSpace X] ⏎ (J : AlmostComplexStructure X) ⏎ (h : ∃ α : TwoForm X, IsSymplectic α ∧ Tames α J) : ⏎ ∃ η : TwoForm X, IsSymplectic η ∧ Compatible η J := by",
+      "lean/docs/342.md:5: - [Taming implies compatibility on four-manifolds](../../preprints/Taming-implies-compatibility-on-four-manifolds-September-23-2026/paper.pdf)",
+      "lean/docs/342.md:9: Donaldson's tamed-to-compatible conjecture asks whether an almost-complex structure tamed by a symplectic form also admits a compatible symplectic form. The formalized result establishes this for every closed connected smooth four-manifold, keeping the almost-complex structure fixed. No integrability assumption or prescribed cohomology class for the compatible form is required."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "family": "348",
+   "headline": "Classifies closed connected Einstein four-manifolds with positive Einstein constant and nonnegative sectional curvature: up to scaling, their universal Riemannian covers are the round S4, Fubini–Study $`\\mathbb{CP}^2`$, or a product of equal round two-spheres. A closed simply connected nonnegatively curved four-manifold is diffeomorphic to one of these whenever the scale-invariant L2 norm of its trace-free Ricci curvature lies below a universal positive constant.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Classifies closed connected Einstein four-manifolds with positive Einstein constant and nonnegative sectional curvature: up to scaling, their universal Riemannian covers are the round S4, Fubini–Study $`\\mathbb{CP}^2`$, or a product of equal round two-spheres.",
+     "coveredBy": [
+      "EinsteinFour"
+     ],
+     "note": "Only strictly positive sectional curvature is stated (M itself is, up to scaling, S⁴, CP² or RP⁴); the nonnegative case with a zero-curvature plane — the S²×S² alternative — is not stated."
+    },
+    {
+     "clause": "A closed simply connected nonnegatively curved four-manifold is diffeomorphic to one of these whenever the scale-invariant L2 norm of its trace-free Ricci curvature lies below a universal positive constant.",
+     "coveredBy": [],
+     "note": "Not stated."
+    }
+   ],
+   "gap": "The nonnegative-curvature classification (zero-plane rigidity: universal cover S²×S² with equal radii) and the L² trace-free-Ricci gap theorem — the two October manuscripts, neither linked by the scope note.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "EinsteinFour",
+     "asserts": "For every connected closed smooth 4-manifold with a smooth Riemannian metric g that is Einstein (Ric = λg in charts) with strictly positive sectional curvature: for some a>0 the √a-scaled Riemannian distance is carried by a bijection onto the round S⁴ distance, the Fubini–Study CP² distance, or the round RP⁴ distance; in the oriented case only S⁴ or CP².",
+     "theorems": [
+      "OAI.PositiveEinsteinFour.orientedClassification",
+      "OAI.PositiveEinsteinFour.classificationOn",
+      "OAI.PositiveEinsteinFour.classification"
+     ],
+     "covers": "the strictly-positive-curvature special case of clause 1 (with a stronger conclusion: M itself, not its cover); not clause 2",
+     "encoding": [
+      "curvature from explicit chart formulas (Christoffel symbols from fderiv of the chart metric; ⟨R(u,v)v,u⟩ > 0 for independent u,v), evaluated at each chart centre",
+      "isometry as a distance-preserving bijection after scaling"
+     ],
+     "flags": [
+      "NARROWER (undeclared): HasPositiveSectionalCurvature (strict) instead of nonnegative; no L² gap",
+      "STATEMENT-FILE METAPROGRAM: two `run_cmd Lean.modifyEnv … auxLemmasExt.modifyState` lines (aux-lemma cache reset)"
+     ],
+     "evidence": [
+      "ComparatorChallenges/EinsteinFour.lean:81-83: def HasPositiveSectionalCurvature (g : SmoothMetric M) : Prop := ⏎ ∀ (c : M) (u v : FourSpace), LinearIndependent ℝ ![u, v] → ⏎ 0 < sectionalNumerator g c (chartAt FourSpace c c) u v",
+      "ComparatorChallenges/EinsteinFour.lean:98: run_cmd Lean.modifyEnv fun env => Lean.Meta.auxLemmasExt.modifyState env fun _ => {}",
+      "ComparatorChallenges/EinsteinFour.lean:208-215: theorem classification (M : Type*) [TopologicalSpace M] [ChartedSpace FourSpace M] ⏎ [IsManifold I4 ∞ M] [T2Space M] [SecondCountableTopology M] ⏎ [CompactSpace M] [ConnectedSpace M] (g : SmoothMetric M) ⏎ (hEinstein : IsEinstein g) (hpositive : HasPositiveSectionalCurvature g) : ⏎ ∃ a : ℝ, 0 < a ∧ ⏎ (ScaledIsometricTo g a roundDistance ∨ ⏎ ScaledIsometricTo g a fubiniStudyDistance ∨ ⏎ ScaledIsometricTo g a realProjectiveDistance) := by",
+      "CONTENTS.md:8449: **348. Nonnegative-curvature Einstein classification and an <i>L</i><sup>2</sup> topological gap.** Classifies closed connected Einstein four-manifolds with positive Einstein constant and nonnegative sectional curvature: up to scaling, their universal Riemannian covers are the round <i>S</i><sup>4</sup>, Fubini–Study $`\\mathbb{CP}^2`$, or a product of equal round two-spheres. A closed simply connected nonnegatively curved four-manifold is diffeomorphic to one of these whenever the scale-invariant <i>L</i><sup>2</sup> norm of its trace-free Ricci curvature lies below a universal positive constant. ([Lean](lean/docs/348.md))",
+      "lean/docs/348.md:5: - [Positively curved Einstein four-manifolds](../../preprints/Positively-curved-Einstein-four-manifolds-September-23-2026/paper.pdf)",
+      "lean/docs/348.md:9: The formalization classifies connected smooth closed Einstein four-manifolds with strictly positive sectional curvature. Up to positive scaling and isometry, every such manifold is the round four-sphere, the complex projective plane with its Fubini–Study metric, or round real projective four-space. No orientability hypothesis is required. In the oriented case, only the sphere and complex projective plane occur."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note links only the September-23 positive-curvature manuscript."
+  },
+  {
+   "family": "365",
+   "headline": "Zero-frequency measurements on any nonempty open boundary patch determine a smooth metric and smooth unitary connection on a trivial Hermitian rank-two bundle over a compact connected manifold of dimension at least three, up to diffeomorphism and gauge fixed on that patch. Inputs and observations use the same patch. In contrast, distinct uniformly positive bounded measurable scalar conductivities on a three-dimensional ball can have identical full-boundary data.",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Zero-frequency measurements on any nonempty open boundary patch determine a smooth metric and smooth unitary connection on a trivial Hermitian rank-two bundle over a compact connected manifold of dimension at least three, up to diffeomorphism and gauge fixed on that patch.",
+     "coveredBy": [],
+     "note": "Not stated: the family's only challenge is the scalar nonuniqueness counterexample."
+    },
+    {
+     "clause": "Inputs and observations use the same patch.",
+     "coveredBy": [],
+     "note": "Part of the unstated uniqueness clause."
+    },
+    {
+     "clause": "In contrast, distinct uniformly positive bounded measurable scalar conductivities on a three-dimensional ball can have identical full-boundary data.",
+     "coveredBy": [
+      "Conductivity"
+     ],
+     "note": "Stated on B(0,3) ⊂ ℝ³."
+    }
+   ],
+   "gap": "The headline's main theorem — joint recovery of a smooth metric and unitary connection from one boundary patch (and the metric-only same-patch Calderón uniqueness) — is not formalized; only the bounded-measurable scalar nonuniqueness example is.",
+   "scopeNoteOnGap": "silent",
+   "challenges": [
+    {
+     "name": "Conductivity",
+     "asserts": "There exist measurable γ₀, γ₁ on B(0,3) ⊂ ℝ³, a.e. between constants 0<c<C, a.e. equal to 1 near the boundary, differing on a set of positive measure, and one weak Dirichlet-to-Neumann operator Λ from H¹/H¹₀ to its dual that is the DN operator of both (unique γ-harmonic extension of every trace, Λ f (trace v) = ∫ γ ∇u·∇v).",
+     "theorems": [
+      "OAI.ScalarConductivity.main_nonuniqueness"
+     ],
+     "covers": "clause 3 only",
+     "encoding": [
+      "H¹ as the closure in L²(B;ℝ⁴) of smooth jets (f, ∇f); H¹₀ as the closure of compactly supported jets; trace space H¹/H¹₀"
+     ],
+     "flags": [
+      "NARROWER (undeclared): only the counterexample clause"
+     ],
+     "evidence": [
+      "ComparatorChallenges/Conductivity.lean:29-36: def H1Space : Submodule ℝ JetSpace := ⏎ (Submodule.span ℝ smoothJets).topologicalClosure ⏎ abbrev H1 := H1Space ⏎  ⏎ def zeroTraceAmbient : Submodule ℝ JetSpace := ⏎ (Submodule.span ℝ compactSmoothJets).topologicalClosure ⏎  ⏎ def H10 : Submodule ℝ H1 := zeroTraceAmbient.comap H1Space.subtype",
+      "ComparatorChallenges/Conductivity.lean:57-61: def IsDirichletToNeumann (γ : R3 → ℝ) (Λ : DNOperator) : Prop := ⏎ ∀ f : TraceSpace, ∃ u : H1, ⏎ trace u = f ∧ Harmonic γ u ∧ ⏎ (∀ u' : H1, trace u' = f → Harmonic γ u' → u' = u) ∧ ⏎ ∀ v : H1, Λ f (trace v) = energy γ u v",
+      "ComparatorChallenges/Conductivity.lean:66-75: def MainStatement : Prop := ⏎ ∃ (γ₀ γ₁ : R3 → ℝ) (c C : ℝ) (Λ : DNOperator), ⏎ 0 < c ∧ c < C ∧ ⏎ Measurable γ₀ ∧ Measurable γ₁ ∧ ⏎ MemLp γ₀ ∞ ballMeasure ∧ MemLp γ₁ ∞ ballMeasure ∧ ⏎ (∀ᵐ x ∂ballMeasure, c ≤ γ₀ x ∧ γ₀ x ≤ C) ∧ ⏎ (∀ᵐ x ∂ballMeasure, c ≤ γ₁ x ∧ γ₁ x ≤ C) ∧ ⏎ EqualOneNearBoundary γ₀ ∧ EqualOneNearBoundary γ₁ ∧ ⏎ 0 < ballMeasure {x | γ₀ x ≠ γ₁ x} ∧ ⏎ IsDirichletToNeumann γ₀ Λ ∧ IsDirichletToNeumann γ₁ Λ",
+      "CONTENTS.md:8838: **365. Joint metric and connection recovery from one boundary patch.** Zero-frequency measurements on any nonempty open boundary patch determine a smooth metric and smooth unitary connection on a trivial Hermitian rank-two bundle over a compact connected manifold of dimension at least three, up to diffeomorphism and gauge fixed on that patch. Inputs and observations use the same patch. In contrast, distinct uniformly positive bounded measurable scalar conductivities on a three-dimensional ball can have identical full-boundary data. ([Lean](lean/docs/365.md))",
+      "lean/docs/365.md:5: - [Nonuniqueness for Bounded Measurable Scalar Conductivities in Three Dimensions](../../preprints/Nonuniqueness-for-Bounded-Measurable-Scalar-Conductivities-in-Three-Dimensions-September-23-2026/paper.pdf)",
+      "lean/docs/365.md:9: The Calderón inverse problem asks whether boundary measurements determine an interior conductivity. The formalized result gives nonuniqueness for bounded measurable scalar conductivities on the ball $B(0,3)\\subset\\mathbb R^3$: two uniformly positive conductivities differ on a set of positive volume, equal $1$ near the boundary, and have the same full weak Dirichlet-to-Neumann operator. Weak solutions exist uniquely for every boundary trace."
+     ]
+    }
+   ],
+   "confidence": "high",
+   "suspicious": "The note links only the September-23 nonuniqueness manuscript; the headline's lead claim is from the October-5 manuscript."
+  }
+ ]
+}

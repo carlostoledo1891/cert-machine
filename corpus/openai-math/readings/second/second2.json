@@ -1,0 +1,524 @@
+{
+ "reader": "second",
+ "batch": 2,
+ "evidenceRoot": "/Users/carlostoledo/Projects/openai-math (clone at the pin; paths below are relative to it)",
+ "families": [
+  {
+   "family": "015",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves Haar equidistribution without escape of mass for complete volume-weighted torus packets from totally real fields: arbitrary lattices and prescribed local types in fixed prime degree at least five",
+     "status": "stated",
+     "coveredBy": [
+      "DukePrimeDegree"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:201: (d : ℕ) (hprime : Nat.Prime (d+1)) (hfive : 5 ≤ d+1)",
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:207: (hD : Tendsto (fun i => PrimeDegreePackets.multiplierDiscriminant (M i)) atTop atTop) :",
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:208: ∃ ν : Measure (X (d+1)), IsHaarProbability ν ∧",
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:210: IsTightMeasureSet (Set.range (fun i => packetMeasure (M i) (σ i))) := by",
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:165: {O | ∃ M' : FullLattice (d + 1) K, LocallyHomothetic M M' ∧"
+     ],
+     "note": "Encoding: X = SL_n(Z)\\SL_n(R) via rightRel; Haar = right-invariant probability; packet = every lattice locally homothetic to M at every prime, with all sign translates, orbit-volume weighted; 'no escape of mass' = IsTightMeasureSet; fields vary along the sequence (K : ℕ → Type u); the headline's gloss 'the relevant order ... discriminant tends to infinity' is hD (|disc K|·[O_K : multiplier order]²). Junk defaults (orbitalHaar = 0 without a fundamental domain) cannot satisfy the conclusion, which asserts every packet measure is a probability measure."
+    },
+    {
+     "clause": "arbitrary-order Picard packets in primitive quartic fields",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Equidistribution-of-Primitive-Quartic-Torus-Packets-for-Arbitrary-Orders-October-5-2026",
+     "evidence": [
+      "lean/docs/015.md:5: - [Equidistribution of Prime-Degree Torus Packets with Arbitrary Local Type](../../preprints/Equidistribution-of-Prime-Degree-Torus-Packets-with-Arbitrary-Local-Type-September-24-2026/paper.pdf)",
+      "lean/ComparatorChallenges/DukePrimeDegree.lean:201: (hprime : Nat.Prime (d+1)) (hfive : 5 ≤ d+1)",
+      "CONTENTS.md:429: Let <i>K</i> range over totally real quartic fields with no proper intermediate field, and let $`\\mathcal O`$ be any order in <i>K</i>."
+     ],
+     "note": "Degree 4 is excluded by hprime/hfive; the quartic manuscript is not among the papers docs/015.md links."
+    },
+    {
+     "clause": "maximal-order ideal-class packets in primitive sextic fields",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Equidistribution-of-Primitive-Sextic-Torus-Packets-October-5-2026",
+     "evidence": [
+      "lean/docs/015.md:5: - [Equidistribution of Prime-Degree Torus Packets with Arbitrary Local Type]",
+      "CONTENTS.md:438: We prove that the complete ideal-class packets of maximal orders in totally real sextic fields with no proper intermediate fields become equidistributed, with no escape of mass"
+     ],
+     "note": "Degree 6 is not prime, so excluded by hprime; the sextic manuscript is not linked."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Equidistribution-of-Prime-Degree-Torus-Packets-with-Arbitrary-Local-Type-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The prime-degree clause is stated in full; the quartic and sextic clauses come from the two October-5 manuscripts that docs/015.md does not link, so the gap is UNLINKED. The first reader found the same gap and called it UNDECLARED only because amendment 3's UNLINKED word did not exist yet."
+  },
+  {
+   "family": "072",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves Brennan's conjecture: for every conformal bijection ϕ from a simply connected plane domain onto the disk, $`|\\phi'|^s`$ is area-integrable for $`4/3\\lt s\\lt 4`$.",
+     "status": "stated",
+     "coveredBy": [
+      "Brennan"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/Brennan.lean:38: (∀ W : Set ℂ, IsOpen W → IsConnected W → SimplyConnectedSpace W →",
+      "lean/ComparatorChallenges/Brennan.lean:40: DifferentiableOn ℂ φ W → Set.BijOn φ W disk →",
+      "lean/ComparatorChallenges/Brennan.lean:41: ∀ s : ℝ, 4 / 3 < s → s < 4 →",
+      "lean/ComparatorChallenges/Brennan.lean:42: IntegrableOn (fun z => ‖deriv φ z‖ ^ s) W volume) ∧"
+     ],
+     "note": "The extra hypothesis SphericalBoundaryNontrivial W is redundant: a holomorphic bijection onto the disk forces W ≠ ℂ (Liouville), and a simply connected W ≠ ℂ has more than one boundary point on the sphere. BrennanSharp adds endpoint sharpness via the Koebe map."
+    },
+    {
+     "clause": "The sharp universal integral-means identity is $`B_{\\mathcal S}(t)=|t|-1`$ for t ≤ −2.",
+     "status": "undeclared",
+     "coveredBy": [
+      "Brennan"
+     ],
+     "manuscript": "Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/Brennan.lean:36: integralMean f (-2) r ≤ C * (1 - r) ^ (-1 - ε)) ∧",
+      "lean/ComparatorChallenges/Brennan.lean:37: spectrum (-2) = 1 ∧",
+      "lean/docs/072.md:5: - [Brennan's conjecture and sharp inverse-square integral means](../../preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/paper.pdf)",
+      "lean/docs/072.md:12: It also gives the uniform inverse-square radial-mean bound with exponent $-1-\\varepsilon$ for every $\\varepsilon>0$ and the spectrum value $B_{\\mathcal S}(-2)=1$.",
+      "preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/build/sections/06-integrability.tex:47: \\begin{corollary}[The full negative linear tail]\\label{cor:negative-linear-tail}",
+      "preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/build/sections/06-integrability.tex:56: B_{\\SSS}(t)=|t|-1\\qquad(t\\leq-2).",
+      "preprints/Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026/build/sections/06-integrability.tex:61: Put $a=|t|-2\\geq0$.  The distortion lower bound"
+     ],
+     "note": "Only t = −2 is stated. The identity for t < −2 follows from the stated t = −2 bound only through the Koebe distortion theorem (|f'(z)| ≥ (1−|z|)/(1+|z|)³, not formalized here or in Mathlib) plus the Koebe-map lower bound — exactly the manuscript's corollary proof. The linked manuscript claims the full range; docs/072.md:12 describes the t = −2 part and never names the omission."
+    },
+    {
+     "clause": "A strict bound $`B_b(-1)\\lt 1/4`$ for bounded univalent functions disproves Kraetzer's prediction at that parameter.",
+     "status": "stated",
+     "coveredBy": [
+      "StrictMeans"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/StrictMeans.lean:39: boundedSpectrum (-1) < (1 / 4 : EReal) ∧",
+      "lean/ComparatorChallenges/StrictMeans.lean:40: (¬ ∀ p : ℝ, boundedSpectrum p = kraetzerPrediction p) := by",
+      "lean/ComparatorChallenges/StrictMeans.lean:31: if |p| ≤ 2 then ((p ^ (2 : ℕ) / 4 : ℝ) : EReal)"
+     ],
+     "note": "kraetzerPrediction (−1) = 1/4, so boundedSpectrum (−1) < 1/4 is the failure at that parameter; B_b is taken over normalized bounded univalent maps (normalization does not change the growth exponent)."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Brennans-conjecture-and-sharp-inverse-square-integral-means-September-24-2026",
+    "A-strict-inverse-first-power-bound-for-univalent-functions-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Brennan and the Kraetzer clause are stated; the negative linear tail B_S(t) = |t|−1 is stated only at t = −2. The full range is a corollary in a manuscript the note links, and the note describes only t = −2 without naming the omission. Agrees with the first reader."
+  },
+  {
+   "family": "095",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Disproves the Projected Lax conjecture: some hyperbolicity cones are not spectrahedral shadows.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Hyperbolicity-Cones-Without-Semidefinite-Lifts-October-5-2026",
+     "evidence": [
+      "lean/docs/095.md:5: - [A nonspectrahedral hyperbolicity cone](../../preprints/A-Nonspectrahedral-Hyperbolicity-Cone-September-24-2026/nonspectrahedral-hyperbolicity-cone.pdf)",
+      "lean/ComparatorChallenges/HyperbolicCones.lean:73: ∀ (N : ℕ) (_hN : 0 < N) (L : Ambient →ₗ[ℝ] Sym N),",
+      "lean/ComparatorChallenges/HyperbolicCones.lean:74: cone ≠ {x | (L x : Mat N ℝ).PosSemidef} := by",
+      "CONTENTS.md:2336: We prove that not every hyperbolicity cone is a spectrahedral shadow: some closed hyperbolicity cones admit no finite affine semidefinite lift",
+      "CONTENTS.md:2354: Thus, although this cone has no semidefinite representation in its original coordinates, it admits one when auxiliary variables are allowed."
+     ],
+     "note": "The challenge excludes only pencils in the original 23 coordinates; no lift or projection appears. The family's other October-5 manuscript says this very cone HAS an exact semidefinite lift, so the formalized example cannot witness this clause at all. The note's title (docs/095.md:1) names the October-5 result, but a title does not declare an omission and the note does not link that paper."
+    },
+    {
+     "clause": "The examples admit no exact finite affine semidefinite lift, regardless of the number of auxiliary variables or the real coefficients used.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Hyperbolicity-Cones-Without-Semidefinite-Lifts-October-5-2026",
+     "evidence": [
+      "lean/docs/095.md:5: - [A nonspectrahedral hyperbolicity cone]",
+      "CONTENTS.md:2336: even with arbitrary real coefficients and any finite number of auxiliary variables."
+     ],
+     "note": "Same manuscript and same gap as the previous clause."
+    },
+    {
+     "clause": "This also disproves the generalized Lax conjecture that every hyperbolicity cone is spectrahedral.",
+     "status": "stated",
+     "coveredBy": [
+      "HyperbolicCones"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/HyperbolicCones.lean:71: MvPolynomial.eval (coordinates basePoint) polynomial = 1 ∧",
+      "lean/ComparatorChallenges/HyperbolicCones.lean:72: (∀ (x : Ambient) (z : ℂ), (linePolynomial x).aeval z = 0 → z.im = 0) ∧",
+      "lean/ComparatorChallenges/HyperbolicCones.lean:74: cone ≠ {x | (L x : Mat N ℝ).PosSemidef} := by"
+     ],
+     "note": "An explicit degree-20 form in 23 variables, hyperbolic in direction e with p(e) = 1, whose closed hyperbolicity cone is not {x | L x ⪰ 0} for any linear L into N×N symmetric matrices, N > 0. For a cone a linear pencil loses nothing. Degree 20 against the September abstract's 16 is an honest choice of representative: the manuscript's reduced polynomial has the same cone (build/sections/reduced-polynomial.tex). linePolynomial is never the zero polynomial (leading coefficient p(e) = 1), so the cone is not junk."
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-Nonspectrahedral-Hyperbolicity-Cone-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The generalized Lax clause is stated. The lead claim (the Projected Lax conjecture is false; no lift with auxiliary variables) comes from the October-5 manuscript, which the note does not link, and the formalized cone has a lift by the family's third manuscript. The first reader found the same gap and called it UNDECLARED before amendment 3."
+  },
+  {
+   "family": "122",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "At every fixed deletion probability in $`(0,1)`$, reconstructing an arbitrary length-n binary string requires $`n^{\\Omega(\\log\\log n)}`$ independent traces, ruling out polynomial-sample reconstruction.",
+     "status": "stated",
+     "coveredBy": [
+      "TraceReconstruction"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TraceReconstruction.lean:68: (hscale : Tendsto (fun k => (q k) ^ 3 * Real.log (n k)) atTop atTop) :",
+      "lean/ComparatorChallenges/TraceReconstruction.lean:70: ENNReal.ofReal ((n k : ℝ) ^ (c * Real.log ((q k) ^ 3 * Real.log (n k)))) ≤",
+      "lean/ComparatorChallenges/TraceReconstruction.lean:83: (fun n : ℕ => sampleComplexity n q s / ENNReal.ofReal ((n : ℝ) ^ C))",
+      "lean/ComparatorChallenges/TraceReconstruction.lean:84: atTop (𝓝 ⊤) := by"
+     ],
+     "note": "With q_k = q fixed and n_k = k, the quantitative theorem gives sampleComplexity ≥ n^{c(log log n + 3 log q)} = n^{Ω(log log n)} by elementary asymptotics; superpolynomial_sample_complexity rules out polynomial samples. The estimator is an arbitrary randomized map on the complete traces, and success is worst-case over inputs at every success level s ∈ (0,1]. sInf ∅ = ⊤ only strengthens a lower bound, and for s < 1 the set of sufficient budgets is nonempty."
+    },
+    {
+     "clause": "A uniform decoder achieves quasipolynomial sample and running-time bounds for known fixed rational retention probabilities.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-quasipolynomial-time-trace-reconstruction-October-5-2026",
+     "evidence": [
+      "lean/docs/122.md:5: - [Quantitative lower bounds for trace reconstruction](../../preprints/quantitative-lower-bounds-for-trace-reconstruction-September-24-2026/paper.pdf)",
+      "lean/docs/122.md:9: The formalization proves superpolynomial sample lower bounds for exact worst-case reconstruction of binary words from independent deletion traces",
+      "CONTENTS.md:2988: We give a uniform algorithm that reconstructs every binary string from independent deletion traces when its length and rational retention probability are known. For each fixed retention probability, both the number of traces and the bit complexity are quasipolynomial in the string length."
+     ],
+     "note": "The challenge contains only lower bounds: no upper bound on sampleComplexity, no decoder, no running time. The sample-bound half also appears in the unlinked A-latest-anchor-induction-with-spectrally-compact-masks-for-worst-case-trace-reconstruction-October-5-2026."
+    },
+    {
+     "clause": "When the deletion probability is at most $`n^{-\\varepsilon}`$ for fixed ε > 0, both bounds become polynomial in the input and parameter encoding.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-quasipolynomial-time-trace-reconstruction-October-5-2026",
+     "evidence": [
+      "lean/docs/122.md:5: - [Quantitative lower bounds for trace reconstruction]",
+      "CONTENTS.md:2988: If the deletion probability is at most $`n^{-\\varepsilon}`$ for fixed <i>ε</i> &gt; 0, the sample and running-time bounds are polynomial."
+     ],
+     "note": "An upper-bound clause from the same unlinked manuscript."
+    }
+   ],
+   "scopeNoteLinks": [
+    "quantitative-lower-bounds-for-trace-reconstruction-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The lower-bound sentence is stated. Both upper-bound sentences come from the two October-5 manuscripts, which docs/122.md does not link. The first reader asked whether listing only the lower-bound paper counts as declaring the decoder out; under amendment 3 it is UNLINKED (not DECLARED, since the note never names the omission)."
+  },
+  {
+   "family": "175",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that integral and fractional expectation thresholds differ by at most a universal factor",
+     "status": "stated",
+     "coveredBy": [
+      "TalagrandExpectationThreshold"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TalagrandExpectationThreshold.lean:52: theorem talagrand_expectation_threshold_equivalence [Nonempty α]",
+      "lean/ComparatorChallenges/TalagrandExpectationThreshold.lean:55: qf F ≤ ((25 : ℝ) * (512 : ℝ) ^ 4) * q F := by"
+     ],
+     "note": "q_f ≤ 25·512⁴·q for every nonempty proper increasing family on a finite nonempty ground set. The reverse q ≤ q_f is immediate from the definitions (an integral cover is a fractional cover of the same cost), not a theorem. Both sups are genuine: p = 0 is feasible, since ∅ ∉ F."
+    },
+    {
+     "clause": "and resolves Talagrand's discrete-convexity conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "TalagrandDiscreteConvexity"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TalagrandDiscreteConvexity.lean:49: (hD : 1 - 1 / (2 : ℝ) ^ 75 ≤ familyMeasure p D) :",
+      "lean/ComparatorChallenges/TalagrandDiscreteConvexity.lean:50: Small p (exceptional ((2 : ℕ) ^ 75) D) := by"
+     ],
+     "note": "With k = 2^75, every 0 < p < 1, every family (no monotonicity), repeats allowed in the union."
+    },
+    {
+     "clause": "An application proves the Ascoli–He–Park–Talagrand graph-decomposition conjecture: every graph's edges split into a universally bounded number of fixed pieces, each with containment threshold at most a universal constant times the original graph's integral expectation threshold.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Graph-Decompositions-at-the-Integral-Expectation-Threshold-October-5-2026",
+     "evidence": [
+      "lean/docs/175.md:5: - [Integral and fractional expectation thresholds are equivalent](../../preprints/Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026/paper.pdf)",
+      "lean/docs/175.md:6: - [Talagrand's discrete-convexity conjecture](../../preprints/Talagrands-discrete-convexity-conjecture-September-23-2026/paper.pdf)",
+      "CONTENTS.md:4090: We prove the graph-decomposition conjecture of Ascoli, He, Park, and Talagrand."
+     ],
+     "note": "No challenge mentions graphs, containment thresholds or decompositions."
+    },
+    {
+     "clause": "The pieces' embeddings need not agree on shared vertices.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Graph-Decompositions-at-the-Integral-Expectation-Threshold-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4090: the separate embeddings of the pieces need not agree on shared vertices."
+     ],
+     "note": "A qualifier of the unlinked graph-decomposition clause."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Integral-and-fractional-expectation-thresholds-are-equivalent-September-23-2026",
+    "Talagrands-discrete-convexity-conjecture-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Both September-23 results are stated. The graph-decomposition application comes from the October-5 manuscript, which the note does not link. The first reader called it UNDECLARED before amendment 3; the gap they found is the same."
+  },
+  {
+   "family": "195",
+   "word": "SUPPORT-ONLY",
+   "firstWord": "SUPPORT-ONLY",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Constructs a three-dimensional complete Noetherian normal local domain over ℂ with no nonzero finitely generated maximal Cohen–Macaulay module.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "A-Complete-Local-Domain-Without-a-Small-Cohen-Macaulay-Module-September-23-2026",
+     "evidence": [
+      "lean/docs/195.md:9: The linked formalization verifies only the ring-theoretic candidate",
+      "lean/docs/195.md:11: It does not prove that this ring lacks a nonzero finitely generated maximal Cohen–Macaulay module, or the paper's counterexample essentially of finite type.",
+      "lean/ComparatorChallenges/README.md:21: - `SurfaceConeCandidateSupport.json`: ring-theoretic properties of the completed"
+     ],
+     "note": "The support theorem asserts only that SOME 3-dimensional complete Noetherian integrally closed local ℂ-domain with residue field ℂ exists. ℂ[[x,y,z]] witnesses it, so it carries nothing specific to the counterexample. OpenAI says so: it is declared support."
+    },
+    {
+     "clause": "A three-dimensional local domain essentially of finite type over ℂ has the same property, disproving the domain form of the small Cohen–Macaulay module conjecture.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "A-Complete-Local-Domain-Without-a-Small-Cohen-Macaulay-Module-September-23-2026",
+     "evidence": [
+      "lean/docs/195.md:11: or the paper's counterexample essentially of finite type."
+     ],
+     "note": "Declared in the same sentence."
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-Complete-Local-Domain-Without-a-Small-Cohen-Macaulay-Module-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The family's only challenge is on the README's list of supporting results, and the note names both omissions, so the family is SUPPORT-ONLY with every clause DECLARED. Agrees with the first reader."
+  },
+  {
+   "family": "218",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Weak finite-range square-symmetric even multispin perturbations of the square-lattice Ising model preserve critical bulk spin and energy limits",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Conformal-universality-of-bulk-Ising-correlations-under-weak-interactions-September-23-2026",
+     "evidence": [
+      "lean/docs/218.md:5: - [Buffered comparison and stopping-band resolution in critical Ising](../../preprints/Buffered-comparison-and-stopping-band-resolution-in-critical-Ising-September-23-2026/paper.pdf)",
+      "CONTENTS.md:5136: We prove conformal universality of mixed bulk spin and energy correlations for the square-lattice Ising model with sufficiently small, square-symmetric, finite-range even multispin perturbations of either sign."
+     ],
+     "note": "No scaling limit, correlation function, lattice or multispin perturbation appears in BufferedIsing."
+    },
+    {
+     "clause": "weak square-symmetric contour interactions also yield chordal SLE3 interface limits.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "SLE3-universality-for-weak-finite-range-Ising-interactions-September-23-2026",
+     "evidence": [
+      "lean/docs/218.md:5: - [Buffered comparison and stopping-band resolution in critical Ising]",
+      "CONTENTS.md:5145: We prove that every sufficiently small, square-symmetric finite-range perturbation of the planar Ising contour energy has a domain-independent inverse temperature at which its spin interface converges to chordal SLE<sub>3</sub>."
+     ],
+     "note": "No SLE, interface or curve law appears."
+    },
+    {
+     "clause": "With sufficiently weak iid bond disorder of any fixed bounded nondegenerate mean-zero law, critical spin interfaces converge to the same law in probability over environments.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Quenched-SLE3-limits-for-general-weak-random-bond-Ising-models-October-5-2026",
+     "evidence": [
+      "lean/docs/218.md:5: - [Buffered comparison and stopping-band resolution in critical Ising]",
+      "CONTENTS.md:5109: where the <i>ξ</i><sub><i>e</i></sub> have any fixed bounded, nondegenerate, mean-zero iid law, we prove quenched chordal SLE<sub>3</sub> convergence for sufficiently small <i>ε</i> &gt; 0."
+     ],
+     "note": "No random environment or quenched convergence appears. The symmetric two-valued special case is the also-unlinked Quenched-SLE3-Universality-for-the-Weak-Random-Bond-Ising-Model-October-5-2026."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Buffered-comparison-and-stopping-band-resolution-in-critical-Ising-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated. The one challenge is a finite-graph Ising likelihood-ratio inequality (exp(±4 artanh q₀), q₀ a zero-field FK connection probability) from the linked buffered-comparison paper: it neither implies nor is implied by any headline clause, so the family is DIFFERENT. In fairness, every headline clause comes from a manuscript the note does not link, and docs/218.md:9 describes exactly what it formalizes (it also declares the stopping-band theorem out). The DIFFERENT comes from the CONTENTS headline, not from an inaccurate note. Agrees with the first reader. Junk checks pass: all denominators are positive, and q₀ < 1 because the empty FK configuration never joins I to J."
+  },
+  {
+   "family": "247",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "answering the finitely presented Burnside problem negatively",
+     "status": "stated",
+     "coveredBy": [
+      "PeriodicGroup"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/PeriodicGroup.lean:45: ∃ (G : Type) (_ : Group G), Infinite G ∧ Group.IsFinitelyPresented G ∧ Periodic G",
+      "lean/ComparatorChallenges/PeriodicGroup.lean:41: Infinite (Steinberg 12 R) ∧ Group.IsFinitelyPresented (Steinberg 12 R) ∧",
+      "lean/ComparatorChallenges/PeriodicGroup.lean:51: theorem thm_main : MainStatement ∧ BurnsideStatement := by"
+     ],
+     "note": "An infinite, finitely presented, periodic group exists, realized as St₁₂(R) for a ring R that is a ZMod 2-algebra. Periodic means every element has some finite order. Not trivially witnessed: St₁₂(𝔽₂) is finite and St₁₂(𝔽₂[t]) is not periodic."
+    },
+    {
+     "clause": "Constructs an infinite finitely presented residually finite group whose elements all have finite 2-power order",
+     "status": "unlinked",
+     "coveredBy": [
+      "PeriodicGroup"
+     ],
+     "manuscript": "An-infinite-finitely-presented-residually-finite-2-group-October-5-2026",
+     "evidence": [
+      "lean/docs/247.md:5: - [An infinite finitely presented periodic group](../../preprints/An-infinite-finitely-presented-periodic-group-September-23-2026/paper.pdf)",
+      "lean/ComparatorChallenges/PeriodicGroup.lean:37: def Periodic (G : Type u) [Group G] : Prop := ∀ g : G, ∃ m : ℕ, 0 < m ∧ g ^ m = 1",
+      "CONTENTS.md:6119: is infinite, ordinarily finitely presented, and residually finite, and every element of <i>G</i> has finite 2-power order."
+     ],
+     "note": "Infinite + finitely presented + periodic is stated; 'residually finite' and 'finite 2-power order' (and so 'even in this class') are not. Both come from the October-5 manuscript, which the note does not link. The linked September-23 paper claims neither (its build has no 'residually finite' or '2-power'). docs/247.md:9 says only 'no common exponent is asserted', which names a different omission."
+    },
+    {
+     "clause": "The construction also yields an infinite-dimensional finitely presented nil associative 𝔽2-algebra and a finitely presented infinite-dimensional algebraic unitization, giving negative answers to the corresponding nilpotence and Kurosh finiteness questions.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "An-infinite-finitely-presented-periodic-group-September-23-2026",
+     "evidence": [
+      "lean/docs/247.md:9: The paper's separate nil-algebra and radical-algebra conclusions are outside these selected statements."
+     ],
+     "note": "The algebraic unitization (Kurosh) is the nil algebra's unitization, and its algebraicity is a consequence of nilness, so 'nil-algebra ... conclusions' covers it."
+    }
+   ],
+   "scopeNoteLinks": [
+    "An-infinite-finitely-presented-periodic-group-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The negative Burnside answer is stated, and the nil-algebra/Kurosh clause is declared out. Residual finiteness and 2-power orders come from the unlinked October-5 manuscript, so the family is UNLINKED. The first reader had the same gap as UNDECLARED, before amendment 3."
+  },
+  {
+   "family": "267",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves Bose–Einstein condensation for the exact canonical Gibbs state of the three-dimensional hard-sphere gas: each fixed exclusion distance and sufficiently small fixed density admit a strictly positive temperature, independent of volume, with positive condensate fraction in the thermodynamic limit.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Bose-Einstein-condensation-at-positive-temperature-in-the-dilute-hard-sphere-gas-October-5-2026",
+     "evidence": [
+      "lean/docs/267.md:11: It is uniform in the gas parameter within this range and concerns ground states, without a positive-temperature assertion.",
+      "lean/docs/267.md:5: - [Ground-state condensation in the dilute hard-sphere gas](../../preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/paper.pdf)",
+      "CONTENTS.md:6704: there is a strictly positive temperature, independent of the volume, at which the exact canonical Gibbs state has a positive condensate fraction in the thermodynamic limit."
+     ],
+     "note": "Both DECLARED and UNLINKED fit: the note names the omission ('without a positive-temperature assertion'), and the clause comes from an October-5 manuscript the note does not link. I record the less severe, more informative DECLARED. No Gibbs state or temperature appears in HardSphere."
+    },
+    {
+     "clause": "At zero temperature, proves the Bogoliubov leading quantum-depletion law for hard spheres and fixed bounded nonnegative radial finite-range potentials of positive scattering length, taking the thermodynamic limit before the dilute limit.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Quantum-Depletion-and-Momentum-Distribution-in-the-Dilute-Hard-Sphere-Bose-Gas-October-5-2026 (hard spheres); Quantum-Depletion-for-Fixed-Bounded-Repulsive-Potentials-October-5-2026 (bounded potentials)",
+     "evidence": [
+      "lean/docs/267.md:5: - [Ground-state condensation in the dilute hard-sphere gas]",
+      "CONTENTS.md:6713: giving the depletion fraction $`\\frac{8}{3\\sqrt\\pi}\\sqrt{\\rho a^3}+o(\\sqrt{\\rho a^3})`$ for density <i>ρ</i> and hard-sphere exclusion distance <i>a</i>.",
+      "CONTENTS.md:6722: We prove the Bogoliubov quantum-depletion asymptotic for the ground state of a three-dimensional Bose gas with a fixed bounded, nonnegative, radial interaction of finite range and positive scattering length <i>a</i>.",
+      "preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/build/sections/introduction.tex:65: We prove a positive fraction; we do not",
+      "preprints/Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026/build/sections/introduction.tex:66: estimate the optimal depletion or show that the fraction tends to one",
+      "lean/ComparatorChallenges/HardSphere.lean:380: c₀≤liminf (fun k ↦ occupation (hN k) (Ψ k).1) atTop) ∧"
+     ],
+     "note": "Stated is only a uniform ground-state lower bound liminf (condensate fraction) ≥ c₀ for ρa³ < ε₀, for hard spheres, pure and ground-supported mixed states. The hard-sphere depletion law implies this (for small ρa³ the depleted fraction is < 1/2), so the challenge is a strict weakening, not something DIFFERENT. Nothing is stated for soft potentials. The linked paper itself disclaims the depletion law, and both depletion manuscripts are unlinked."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Ground-state-condensation-in-the-dilute-hard-sphere-gas-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Neither headline sentence is stated. The challenge is the linked September-24 ground-state condensation theorem, which the depletion law implies (so NARROWER, not DIFFERENT). The positive-temperature omission is declared in docs/267.md:11, and the depletion law comes from two unlinked October-5 manuscripts, so the family is UNLINKED. The first reader had the depletion gap as UNDECLARED, before amendment 3."
+  },
+  {
+   "family": "291",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves equivariant Jiang–Su stability for every countable discrete amenable group action on a simple separable unital infinite-dimensional nuclear stably finite Jiang–Su-stable C∗-algebra, resolving this case of Szabó's conjecture without restrictions on trace dynamics.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Equivariant-Jiang-Su-Stability-for-Amenable-Actions-in-the-Unital-Stably-Finite-Case-October-5-2026",
+     "evidence": [
+      "lean/docs/291.md:5: - [Tracial projection methods and uniform property $\\Gamma$](../../preprints/Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026/paper.pdf)",
+      "CONTENTS.md:7259: absorbs the trivial action on the Jiang–Su algebra up to cocycle conjugacy. No restriction is imposed on the action on the tracial-state simplex."
+     ],
+     "note": "No group action, cocycle conjugacy or Jiang–Su algebra appears in UniformGamma."
+    },
+    {
+     "clause": "The family also proves the unital Toms–Winter conjecture, equating strict comparison, finite nuclear dimension and Jiang–Su stability in the simple separable unital infinite-dimensional nuclear setting.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026",
+     "evidence": [
+      "CONTENTS.md:7286: Independently, strict comparison implies Jiang–Su absorption for simple, separable, unital, infinite-dimensional nuclear algebras, resolving the unital Toms–Winter conjecture.",
+      "lean/docs/291.md:11: The linked comparison results also prove Jiang–Su absorption and uniform property $\\Gamma$ for simple separable unital infinite-dimensional nuclear algebras with strict comparison",
+      "lean/OAI/Analysis/JiangSu/Main.lean:107: theorem unital_main"
+     ],
+     "note": "The linked manuscript claims the unital Toms–Winter resolution (strict comparison ⇒ Z-stability; the other legs are prior literature, and the nuclear-dimension leg is also in the unlinked Nuclear-dimension-and-Jiang-Su-stability-without-elementary-subquotients-September-23-2026). No challenge states it. Far from declaring the omission, docs/291.md:11 credits it to 'the linked comparison results', which appear to be a solution-tree theorem (lean/OAI/Analysis/JiangSu/Main.lean:107) outside every Comparator closure. Flag: CREDIT OUTSIDE THE CLOSURE."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Tracial-projection-methods-and-uniform-property-Gamma-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated. UniformGamma states a different theorem from the linked paper (tracial real rank zero of the uniform tracial ultrapower ⇒ uniform property Γ, via a single halving projection, with five Prop-valued construction classes existentially proved, not assumed). It neither implies nor is implied by the headline, hence DIFFERENT; the Toms–Winter clause is also an undeclared gap inside a linked manuscript. Flags: CREDIT OUTSIDE THE CLOSURE (docs/291.md:11, and the file's line-9 comment citing a solution-side main_iff_original for 'statement preservation'). Agrees with the first reader."
+  },
+  {
+   "family": "348",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Classifies closed connected Einstein four-manifolds with positive Einstein constant and nonnegative sectional curvature: up to scaling, their universal Riemannian covers are the round S4, Fubini–Study $`\\mathbb{CP}^2`$, or a product of equal round two-spheres.",
+     "status": "unlinked",
+     "coveredBy": [
+      "EinsteinFour"
+     ],
+     "manuscript": "Zero-Plane-Rigidity-for-Einstein-Four-Manifolds-October-4-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/EinsteinFour.lean:83: 0 < sectionalNumerator g c (chartAt FourSpace c c) u v",
+      "lean/ComparatorChallenges/EinsteinFour.lean:211: (hEinstein : IsEinstein g) (hpositive : HasPositiveSectionalCurvature g) :",
+      "lean/docs/348.md:5: - [Positively curved Einstein four-manifolds](../../preprints/Positively-curved-Einstein-four-manifolds-September-23-2026/paper.pdf)",
+      "CONTENTS.md:8458: We prove that a closed Einstein four-manifold with positive Einstein constant, nonnegative sectional curvature, and a zero-curvature plane has universal Riemannian cover isometric to a product of two round two-spheres."
+     ],
+     "note": "The strictly-positive subcase is stated, and more strongly (M itself is, up to scaling, S⁴, CP² or RP⁴, so its cover is S⁴ or CP²). The nonnegative case with a zero-curvature plane, the S²×S² alternative, is not stated; it comes from the October-4 zero-plane manuscript, which the note does not link."
+    },
+    {
+     "clause": "A closed simply connected nonnegatively curved four-manifold is diffeomorphic to one of these whenever the scale-invariant L2 norm of its trace-free Ricci curvature lies below a universal positive constant.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "An-L2-Einstein-Gap-for-Nonnegatively-Curved-Four-Manifolds-October-5-2026",
+     "evidence": [
+      "lean/docs/348.md:5: - [Positively curved Einstein four-manifolds]",
+      "CONTENTS.md:8467: If the trace-free Ricci energy is sufficiently small, the manifold is diffeomorphic to <i>S</i><sup>4</sup>, $`\\mathbb{CP}^2`$, or $`S^2\\times S^2`$."
+     ],
+     "note": "No L² norm, trace-free Ricci energy or diffeomorphism conclusion appears."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Positively-curved-Einstein-four-manifolds-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The positive-curvature classification (the linked paper) is stated. Both missing pieces (the zero-plane S²×S² case and the L² gap) come from the October manuscripts, which the note does not link. Flag: META COMMAND IN STATEMENT (two `run_cmd Lean.modifyEnv … auxLemmasExt` lines at EinsteinFour.lean:98 and :133), for lane K. The definitions are not holes. The first reader had the same gap as UNDECLARED, before amendment 3."
+  }
+ ]
+}

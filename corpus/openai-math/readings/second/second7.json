@@ -1,0 +1,676 @@
+{
+ "reader": "second",
+ "batch": 7,
+ "families": [
+  {
+   "family": "058",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the Kollár–Pardon conjecture: the semialgebraic universal covers of connected normal projective complex varieties are exactly products $`D\\times\\mathbb C^m\\times F`$, with D bounded symmetric and F simply connected, normal, and projective.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:1522: [Semialgebraic universal covers of normal projective varieties](preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/paper.pdf)",
+      "CONTENTS.md:1524: We prove the Kollár–Pardon conjecture: the universal cover of a connected normal projective complex variety is biholomorphic to a semialgebraic open subset of a projective variety if and only if it is a product of a bounded symmetric domain, a complex affine space, and a simply connected normal projective variety.",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/main.tex:92: \\begin{theorem}[The Koll\\'ar--Pardon classification]\\label{thm:main}",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/main.tex:102: \\widetilde X\\simeq D\\times\\C^m\\times F.",
+      "lean/docs/058.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/058.md:5: - [Symmetry of semialgebraic bounded domains with compact quotient](../../preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/paper.pdf)",
+      "lean/docs/058.md:9: The formalized result answers the paper's symmetry question affirmatively.",
+      "lean/ComparatorChallenges/SymmetricDomains.lean:47: theorem main {n : ℕ} (V U : Set (Affine n))",
+      "lean/ComparatorChallenges/SymmetricDomains.lean:56: IsSmooth U ∧ ∃ (m : ℕ) (D : Set (Affine m)),",
+      "lean/ComparatorChallenges/SymmetricDomains.lean:57: IsBoundedSymmetricDomain D ∧ Nonempty (Biholomorph U D) := by"
+     ],
+     "note": "No universal cover, projective variety, affine factor or product decomposition occurs in the challenge."
+    },
+    {
+     "clause": "A universal cover is quasi-projective exactly when the bounded symmetric factor is absent.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026",
+     "evidence": [
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:10: \\begin{corollary}[Quasi-projective covers]\\label{cor:quasiprojective}",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:14: \\item \\(U\\) is biholomorphic to a quasi-projective variety.",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:18: \\item For some integer \\(m\\geq0\\) and some simply connected projective",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:21: U\\simeq\\C^m\\times F.",
+      "lean/docs/058.md:5: - [Symmetry of semialgebraic bounded domains with compact quotient](../../preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/paper.pdf)",
+      "lean/docs/058.md:9: The formalized result answers the paper's symmetry question affirmatively."
+     ],
+     "note": "The quasi-projectivity criterion is the KP manuscript's Corollary cor:quasiprojective; not stated."
+    },
+    {
+     "clause": "In particular, a smooth projective variety covered by ℂn has a finite étale cover by an abelian variety.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026",
+     "evidence": [
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:54: \\begin{corollary}[Projective affine-space uniformization]",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:57: \\(n\\geq0\\). If its ordinary universal cover is biholomorphic to \\(\\C^n\\),",
+      "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/sections/quasiprojective.tex:58: then there is a finite \\'etale Galois cover \\(A\\to X\\) with \\(A\\) an",
+      "lean/docs/058.md:5: - [Symmetry of semialgebraic bounded domains with compact quotient](../../preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/paper.pdf)",
+      "lean/docs/058.md:9: The formalized result answers the paper's symmetry question affirmatively."
+     ],
+     "note": "The KP manuscript's Corollary cor:affine-uniformization; not stated."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated, and the one challenge states the linked symmetry paper's Theorem 1.1 (a bounded semialgebraic domain, relatively open in a possibly singular affine algebraic set, with a proper cocompact holomorphic discrete action, is smooth and biholomorphic to a bounded symmetric domain), which neither implies the Kollár–Pardon classification nor follows from it as stated (U need not be simply connected, the action need not be free, the ambient set may be singular; the KP manuscript derives the symmetry of its bounded factor inside its own argument, main.tex:213-214) — so DIFFERENT by the precedence rule. Every headline clause comes from the KP manuscript, which docs/058.md does not link: the formalization never claimed the headline; the DIFFERENT word records that the headline OpenAI wrote and its only statement are about different theorems, not an undeclared gap. Agree with the first reader.",
+   "familyEvidence": [
+    "CONTENTS.md:1515: Proves the Kollár–Pardon conjecture: the semialgebraic universal covers of connected normal projective complex varieties are exactly products",
+    "preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/build/paper.tex:77: \\begin{theorem}\\label{thm:main}",
+    "preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/build/paper.tex:78: Let \\(U\\) be a nonempty connected semialgebraic bounded open subset of a",
+    "preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/build/paper.tex:81: \\(U/\\Gamma\\) is compact. Then \\(U\\) is smooth and is biholomorphic to a",
+    "preprints/Symmetry-of-semialgebraic-bounded-domains-with-compact-quotient-September-24-2026/build/paper.tex:82: bounded symmetric domain.",
+    "lean/ComparatorChallenges/SymmetricDomains.lean:48: (hV : IsAffineAlgebraic V) (hUV : U ⊆ V)",
+    "lean/ComparatorChallenges/SymmetricDomains.lean:53: [MulAction Γ U] [ProperSMul Γ U]",
+    "lean/ComparatorChallenges/SymmetricDomains.lean:54: [CompactSpace (Quotient (MulAction.orbitRel Γ U))]",
+    "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/main.tex:213: These are the steps of Section~\\ref{grp:section}; transverse",
+    "preprints/Semialgebraic-universal-covers-of-normal-projective-varieties-September-24-2026/build/main.tex:214: symmetry is derived within this argument."
+   ]
+  },
+  {
+   "family": "090",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that the triangular lattice minimizes the lower limit of energy per particle for every nonnegative completely monotone potential of squared distance among locally finite planar configurations of centered-disk density one.",
+     "status": "stated",
+     "coveredBy": [
+      "TriangularEnergy"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TriangularEnergy.lean:66: theorem universal_energy_minimum (g : ℝ → ℝ) (C : Set Plane)",
+      "lean/ComparatorChallenges/TriangularEnergy.lean:67: (hg : AdmissiblePotential g) (hC : LocallyFinite C) (hd : DensityOne C) :",
+      "lean/ComparatorChallenges/TriangularEnergy.lean:68: latticeEnergy g ≤ energy g C ∧ latticeEnergy g = energy g A := by"
+     ],
+     "note": "Encoding: energies in ℝ≥0∞ (infinite energies included); lower energy per particle = liminf over radii of ordered-pair averages on closed disks at 0; complete monotonicity via (-1)^r g^(r) ≥ 0 on (0,∞) for a C^∞ g; A = covolume-one triangular lattice. AtomicGaussian and TriangularGaussian state the sharp Gaussian minorants the proof route uses; PlanarPacking (Cohn–Elkies sharpness) is outside the headline."
+    },
+    {
+     "clause": "It also minimizes unit-background renormalized Riesz energies for $`0\\lt s\\lt 2`$",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Universal-optimality-of-the-triangular-lattice-September-23-2026",
+     "evidence": [
+      "CONTENTS.md:2227: [Universal optimality of the triangular lattice](preprints/Universal-optimality-of-the-triangular-lattice-September-23-2026/paper.pdf)",
+      "CONTENTS.md:2229: We also prove triangular minimality for planar logarithmic and Riesz renormalized energies, with $`0\\lt s\\lt 2`$ in the Riesz case, and the corresponding jellium minima.",
+      "lean/docs/090.md:5: - [An atomic certificate for triangular-lattice universal optimality](../../preprints/An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026/paper.pdf)",
+      "lean/docs/090.md:6: - [A sharp Fourier certificate for planar circle packing](../../preprints/A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026/paper.pdf)"
+     ],
+     "note": "No challenge mentions a renormalized, Riesz, jellium or Coulomb energy."
+    },
+    {
+     "clause": "and Coulomb energy",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Triangular-minimality-for-planar-Coulomb-renormalized-energy-September-23-2026",
+     "evidence": [
+      "CONTENTS.md:2245: [Triangular minimality for planar Coulomb renormalized energy](preprints/Triangular-minimality-for-planar-Coulomb-renormalized-energy-September-23-2026/paper.pdf)",
+      "CONTENTS.md:2247: We prove the Sandier–Serfaty conjecture: the triangular lattice of covolume one minimizes planar Coulomb renormalized energy over all admissible curl-free fields with a unit uniform background.",
+      "lean/docs/090.md:5: - [An atomic certificate for triangular-lattice universal optimality](../../preprints/An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026/paper.pdf)",
+      "lean/docs/090.md:6: - [A sharp Fourier certificate for planar circle packing](../../preprints/A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026/paper.pdf)"
+     ],
+     "note": "Also the logarithmic case of the (equally unlinked) universal-optimality manuscript."
+    },
+    {
+     "clause": "resolving Sandier–Serfaty and the two-dimensional Brauchart–Hardin–Saff conjecture on the linear term of optimal spherical logarithmic energy.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Triangular-minimality-for-planar-Coulomb-renormalized-energy-September-23-2026",
+     "evidence": [
+      "CONTENTS.md:2247: Combined with Bétermin and Sandier's asymptotic formula, this also proves the Brauchart–Hardin–Saff conjecture for the linear term of optimal ordered-pair logarithmic energy on the unit two-sphere.",
+      "lean/docs/090.md:5: - [An atomic certificate for triangular-lattice universal optimality](../../preprints/An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026/paper.pdf)",
+      "lean/docs/090.md:6: - [A sharp Fourier certificate for planar circle packing](../../preprints/A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026",
+    "A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Clause 1 is stated (TriangularEnergy). The Riesz, Coulomb, Sandier–Serfaty and Brauchart–Hardin–Saff clauses come from two manuscripts docs/090.md does not link (it links only the atomic-certificate and circle-packing papers), so the missing part was never claimed: NARROWER — UNLINKED. The first reader recorded the same gap and evidence as UNDECLARED before amendment 3 split the word; the difference is the amendment, not the reading."
+  },
+  {
+   "family": "116",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "a polynomial-dimensional matrix tuple detecting every nonzero division-free noncommutative formula of bounded size over any field of that characteristic.",
+     "status": "stated",
+     "coveredBy": [
+      "FormulaHitting"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/FormulaHitting.lean:46: def dimension (n s : ℕ) : ℕ := if n = 1 ∧ s = 1 then 1 else 2 * n * s ^ 2",
+      "lean/ComparatorChallenges/FormulaHitting.lean:57: theorem universal_hitting (n s : ℕ) (hn : 1 ≤ n) (hs : 1 ≤ s)",
+      "lean/ComparatorChallenges/FormulaHitting.lean:58: (F : Type u_2) [Field F] [CharZero F] (f : Formula F n)",
+      "lean/ComparatorChallenges/FormulaHitting.lean:59: (hsize : f.size ≤ s) (hf : ∃ w, f.coeff w ≠ 0) :",
+      "lean/ComparatorChallenges/FormulaHitting.lean:60: f.eval (Matrix.scalar (Fin (dimension n s)))",
+      "lean/ComparatorChallenges/FormulaHitting.lean:61: (fun i r q => (generator n s i r q : F)) ≠ 0 := by"
+     ],
+     "note": "Read for characteristic ZERO only: one explicit rational tuple of dimension 2ns² (1 when n = s = 1) detects every nonzero division-free formula of size ≤ s over every characteristic-zero field (size counts leaves and gates; nonzero = some word coefficient nonzero)."
+    },
+    {
+     "clause": "constructs in deterministic polynomial bit time",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "One-Rational-Matrix-Hitting-Point-for-Noncommutative-Formulas-September-24-2026",
+     "evidence": [
+      "lean/docs/116.md:12: The selected theorem states this universal hitting property. The paper's deterministic polynomial bit-construction bound and matrix-dimension bound $O(ns^2)$ are not separately asserted in it."
+     ],
+     "note": "Characteristic zero: the tuple is explicit, but no complexity statement is made for it; the note names the omission."
+    },
+    {
+     "clause": "For each characteristic",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-Matrix-Hitting-Points-in-Every-Positive-Characteristic-October-4-2026",
+     "evidence": [
+      "CONTENTS.md:2854: [Uniform Matrix Hitting Points in Every Positive Characteristic]",
+      "CONTENTS.md:2856: We construct a single matrix substitution that detects every nonzero size-<i>s</i> division-free noncommutative formula in <i>n</i> variables over every field of a given positive characteristic.",
+      "lean/ComparatorChallenges/FormulaHitting.lean:58: [CharZero F]",
+      "lean/docs/116.md:5: - [One Rational Matrix Hitting Point for Noncommutative Formulas](../../preprints/One-Rational-Matrix-Hitting-Point-for-Noncommutative-Formulas-September-24-2026/One-Rational-Matrix-Hitting-Point-for-Noncommutative-Formulas-September-24-2026.pdf)",
+      "lean/docs/116.md:6: - [Polynomial Hitting Lists for Noncommutative Rational Formulas](../../preprints/Polynomial-Hitting-Lists-for-Noncommutative-Rational-Formulas-September-24-2026/Polynomial-Hitting-Lists-for-Noncommutative-Rational-Formulas-September-24-2026.pdf)"
+     ],
+     "note": "Every positive characteristic (the whole first sentence read for char p, including its polynomial-time construction over 𝔽_p) is unstated; it comes from the October-4 manuscript the note does not link."
+    },
+    {
+     "clause": "Rational formulas over ℚ also admit polynomial-size hitting lists whenever they have a defined rational-matrix evaluation.",
+     "status": "stated",
+     "coveredBy": [
+      "RationalHitting"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/RationalHitting.lean:95: def Hits {n : ℕ} (s : ℕ) (H : Output n) : Prop :=",
+      "lean/ComparatorChallenges/RationalHitting.lean:96: ∀ f : Formula n, f.size ≤ s → Admissible f → Nonzero f →",
+      "lean/ComparatorChallenges/RationalHitting.lean:97: ∃ X ∈ H.tuples, ∃ v, Evaluates f X v ∧ IsUnit v",
+      "lean/ComparatorChallenges/RationalHitting.lean:102: ∃ (m : ℕ) (G : Machine m) (C k : ℕ), 0 < C ∧ 0 < k ∧",
+      "lean/ComparatorChallenges/RationalHitting.lean:106: OutputsWithin G s (C * (n + s + 1) ^ k) H ∧ Hits s H"
+     ],
+     "note": "One fixed TM0 machine on unary (n, s); dimension, binary output length and step count all ≤ C(n+s+1)^k; inverse gates evaluated relationally (a genuine two-sided inverse), so no junk inverse."
+    }
+   ],
+   "scopeNoteLinks": [
+    "One-Rational-Matrix-Hitting-Point-for-Noncommutative-Formulas-September-24-2026",
+    "Polynomial-Hitting-Lists-for-Noncommutative-Rational-Formulas-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Characteristic zero and the ℚ rational-formula lists are stated; the char-0 bit-time bound is declared (docs/116.md:12); every positive characteristic comes from the October-4 manuscript docs/116.md does not link (it links the two September-24 papers). Most severe clause: unlinked. The first reader found the same gap and called it UNDECLARED before amendment 3; the difference is the amendment."
+  },
+  {
+   "family": "162",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Disproves Ryser's covering conjecture by constructing intersecting $`(q+1)`$-partite, $`(q+1)`$-uniform hypergraphs with covering number $`q+1`$, rather than the predicted bound q, for every sufficiently large prime q.",
+     "status": "stated",
+     "coveredBy": [
+      "BalancedRyser"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/BalancedRyser.lean:33: ∃ H : PartiteHypergraph (q + 1) (q + 1),",
+      "lean/ComparatorChallenges/BalancedRyser.lean:34: H.Intersecting ∧ H.Nonisolated ∧ H.HasCoverNumber (q + 1)",
+      "lean/ComparatorChallenges/BalancedRyser.lean:37: ∃ q₀ : ℕ, ∀ q : ℕ, q₀ ≤ q → q.Prime → BalancedCounterexample q"
+     ],
+     "note": "Edges are functions Fin (q+1) → Fin (q+1) (one vertex per part, hence (q+1)-partite and (q+1)-uniform); HasCoverNumber k = a cover of size k exists and every cover has size ≥ k."
+    },
+    {
+     "clause": "A separate construction over extension fields also disproves Gyárfás's monochromatic tree-cover conjecture.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026",
+     "evidence": [
+      "preprints/A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026/build/paper.tex:168: \\begin{corollary}\\label{cor:tree-cover}",
+      "preprints/A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026/build/paper.tex:171: put $r=s^n+1$. There is a finite simple complete graph with an",
+      "preprints/A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026/build/paper.tex:172: $r$-edge-coloring for which the minimum number of monochromatic trees",
+      "preprints/A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026/build/paper.tex:201: Thus Gy\\'arf\\'as's cover conjecture fails at these extension-field ranks.",
+      "lean/docs/162.md:6: - [A counterexample to Ryser's covering conjecture](../../preprints/A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026/paper.pdf)",
+      "lean/docs/162.md:12: Equal part sizes and numerical thresholds are not asserted.",
+      "lean/ComparatorChallenges/RyserOddExtensions.lean:66: Specification.ExplicitFailureAt (prime ^ degree + 1)) ∧",
+      "lean/ComparatorChallenges/RyserCovering.lean:52: CounterexampleRank (p ^ n + 1) := by"
+     ],
+     "note": "The extension-field hypergraph counterexamples (ranks p^n+1) ARE stated by RyserCovering and RyserOddExtensions; the Gyárfás tree-cover disproof is not — it follows only through Gyárfás's hypergraph–edge-colouring correspondence (the manuscript's Corollary cor:tree-cover, paper.tex:168-199), which is not formalized. Both manuscripts are linked, and the note names only equal part sizes and numerical thresholds as not asserted, never tree covers or Gyárfás."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Balanced-Counterexamples-to-Rysers-Conjecture-at-Prime-Orders-September-27-2026",
+    "A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Ryser is stated (BalancedRyser, plus RyserCovering/RyserOddExtensions for the extension-field ranks); the Gyárfás monochromatic tree-cover clause is a few-line corollary of the stated hypergraphs via Gyárfás's correspondence, unformalized, from a linked manuscript, and the note is silent on it: NARROWER — UNDECLARED. Agree with the first reader; the gap is small in content (an elementary reduction proved in the paper) but it is a separate disproof the headline names."
+  },
+  {
+   "family": "186",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves the Friedgut–Kalai threshold-width conjectures for graphs",
+     "status": "stated",
+     "coveredBy": [
+      "SharpThreshold"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/SharpThreshold.lean:53: 2 ≤ n → VertexInvariant f → IncreasingGraphProperty f →",
+      "lean/ComparatorChallenges/SharpThreshold.lean:55: graphQuantile (1 - ε) f - graphQuantile ε f ≤",
+      "lean/ComparatorChallenges/SharpThreshold.lean:56: ((2 : ℝ) ^ 19 / (Real.log (n : ℝ)) ^ 2) * Real.log (1 / (2 * ε)) := by"
+     ]
+    },
+    {
+     "clause": "and fixed-uniformity hypergraphs.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-uniform-influence-bound-for-hypergraph-properties-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4309: [A uniform influence bound for hypergraph properties]",
+      "CONTENTS.md:4311: For every fixed integer <i>r</i> ≥ 3, we prove that every relabeling-invariant Boolean property of simple <i>r</i>-uniform hypergraphs on <i>n</i> vertices satisfies",
+      "lean/docs/186.md:5: - [A Sharp Threshold Bound for Monotone Graph Properties](../../preprints/A-Sharp-Threshold-Bound-for-Monotone-Graph-Properties-September-25-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "For fixed $`0\\lt \\varepsilon\\lt 1/2`$, every nontrivial increasing relabeling-invariant property crosses from probability ε to $`1-\\varepsilon`$ within width $`O((\\log n)^{-2})`$ for graphs",
+     "status": "stated",
+     "coveredBy": [
+      "SharpThreshold"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/SharpThreshold.lean:54: NontrivialGraphProperty f → 0 < ε → ε < (1 / 2 : ℝ) →",
+      "lean/ComparatorChallenges/SharpThreshold.lean:49: sInf {p : ℝ | p ∈ Set.Icc (0 : ℝ) 1 ∧ graphMean p f ≥ a}"
+     ],
+     "note": "Stronger than O((log n)^{-2}) for fixed ε: the explicit bound 2^19·log(1/(2ε))/(log n)^2 for every n ≥ 2. The quantile is an sInf over [0,1] of a nonempty set for a nontrivial increasing property (mean 0 at p=0, 1 at p=1), so no junk value."
+    },
+    {
+     "clause": "and $`O_r((\\log n)^{-r/(r-1)})`$ for r-uniform hypergraphs, r ≥ 3.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-uniform-influence-bound-for-hypergraph-properties-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4309: [A uniform influence bound for hypergraph properties]",
+      "CONTENTS.md:4311: For every fixed integer <i>r</i> ≥ 3, we prove that every relabeling-invariant Boolean property of simple <i>r</i>-uniform hypergraphs on <i>n</i> vertices satisfies",
+      "CONTENTS.md:4311: For increasing properties, it gives the corresponding threshold-width bound with exponent $`r/(r-1)`$, proving the hypergraph threshold-width conjecture of Friedgut and Kalai.",
+      "lean/docs/186.md:5: - [A Sharp Threshold Bound for Monotone Graph Properties](../../preprints/A-Sharp-Threshold-Bound-for-Monotone-Graph-Properties-September-25-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "The hypergraph influence bound also applies to nonmonotone properties.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-uniform-influence-bound-for-hypergraph-properties-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4311: the bound holds uniformly for all $`0\\lt p\\lt 1`$ without a monotonicity assumption.",
+      "lean/docs/186.md:5: - [A Sharp Threshold Bound for Monotone Graph Properties](../../preprints/A-Sharp-Threshold-Bound-for-Monotone-Graph-Properties-September-25-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-Sharp-Threshold-Bound-for-Monotone-Graph-Properties-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The graph conjecture is stated with an explicit constant; the whole hypergraph half (threshold width for r ≥ 3 and the nonmonotone influence bound) comes from the October-5 manuscript docs/186.md does not link (it links only the September-25 graph paper): NARROWER — UNLINKED. The first reader found the same gap and called it UNDECLARED before amendment 3; the difference is the amendment."
+  },
+  {
+   "family": "212",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that planar first-passage percolation has no doubly infinite geodesic for iid nonnegative nonatomic edge weights when the minimum of four weights has finite second moment.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "No-bigeodesics-in-planar-first-passage-percolation-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:4891: [No bigeodesics in planar first-passage percolation]",
+      "CONTENTS.md:4893: We prove that planar first-passage percolation with independent identically distributed nonnegative nonatomic edge weights has almost surely no doubly infinite geodesic, provided the minimum of four independent weights has finite second moment.",
+      "lean/docs/212.md:5: - [Strict convexity and differentiability of the planar exponential first-passage limit shape](../../preprints/Strict-convexity-and-differentiability-of-the-planar-exponential-first-passage-limit-shape-September-24-2026/main.pdf)",
+      "lean/docs/212.md:1: # Planar first-passage geometry and the absence of bigeodesics"
+     ],
+     "note": "No challenge mentions geodesics; the note's title names bigeodesics, but a title alone does not declare, and the only linked paper is the strict-convexity/differentiability one."
+    },
+    {
+     "clause": "For exponential weights, the limit shape is strictly convex",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Strict-convexity-and-differentiability-of-the-planar-exponential-first-passage-limit-shape-September-24-2026",
+     "evidence": [
+      "lean/docs/212.md:11: The paper also claims strict convexity for the exponential limit shape. Strict convexity is outside these selected differentiability statements."
+     ]
+    },
+    {
+     "clause": "with C1 boundary.",
+     "status": "stated",
+     "coveredBy": [
+      "PlanarFirstPassage"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/PlanarFirstPassage.lean:62: marginal : ∀ e, Measure.map (τ e) P = expMeasure 1",
+      "lean/ComparatorChallenges/PlanarFirstPassage.lean:94: DifferentiableAwayFromOrigin μ ∧ UniqueNormalizedSupports μ ∧ C1UnitSphere μ ∧",
+      "lean/ComparatorChallenges/PlanarFirstPassage.lean:97: (∀ v ∈ frontier {z | μ z ≤ 1}, HasC1CurveChart (frontier {z | μ z ≤ 1}) v) := by"
+     ],
+     "note": "Encoding: rate-1 exponential weights (other rates by scaling, and GammaPassage with shape 1 covers every rate); the limit shape is the unit ball of the a.s. radial time constant μ."
+    },
+    {
+     "clause": "Differentiability also holds for every Gamma law with positive shape and rate.",
+     "status": "stated",
+     "coveredBy": [
+      "GammaPassage"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/GammaPassage.lean:97: ∀ (shape rate : ℝ), 0 < shape → 0 < rate →",
+      "lean/ComparatorChallenges/GammaPassage.lean:103: DifferentiableAwayFromOrigin μ ∧"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Strict-convexity-and-differentiability-of-the-planar-exponential-first-passage-limit-shape-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "C¹ boundary (exponential) and Gamma differentiability are stated; strict convexity is declared (docs/212.md:11); the no-bigeodesics theorem comes from a manuscript docs/212.md does not link: NARROWER — UNLINKED. The first reader recorded the same three facts and called the bigeodesics gap UNDECLARED before amendment 3; the difference is the amendment."
+  },
+  {
+   "family": "230",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Resolves Schramm’s Hausdorff-measure question for chordal SLEκ, $`0\\lt \\kappa\\lt 8`$.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026",
+     "evidence": [
+      "CONTENTS.md:5566: This gives an explicit solution to Schramm's Hausdorff-measure problem in this parameter range.",
+      "lean/docs/230.md:6: - [An explicit exact Hausdorff gauge for SLE: A regular formula from quantitative tails and dense visits](../../preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026.pdf)",
+      "lean/docs/230.md:10: almost surely assigns positive measure to every nontrivial compact positive-time segment of ordinary chordal $\\mathrm{SLE}_\\kappa$.",
+      "lean/docs/230.md:16: | Positivity of the explicit gauge on every positive-time segment |",
+      "lean/ComparatorChallenges/SLELowerPositivity.lean:76: 0 < hausdorffGauge h (segment (γ ω) s t)"
+     ],
+     "note": "Schramm's question asks for positive AND finite measure; only positivity is stated."
+    },
+    {
+     "clause": "The explicit gauge $`r^d(\\log\\log(1/r))^{(2-d)/2}`$, $`d=1+\\kappa/8`$, gives almost surely positive",
+     "status": "stated",
+     "coveredBy": [
+      "SLELowerPositivity"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/SLELowerPositivity.lean:57: r ^ dimension κ * (Real.log (Real.log (1 / r))) ^ (codimension κ / ((2 : ℕ) : ℝ))",
+      "lean/ComparatorChallenges/SLELowerPositivity.lean:74: ∀ h : ℝ → ℝ, IsGauge h → HasSmallRadiusFormula h (hFormula κ) →",
+      "lean/ComparatorChallenges/SLELowerPositivity.lean:75: ∀ᵐ ω ∂P, ∀ s t : ℝ≥0, 0 < s → s < t →",
+      "lean/ComparatorChallenges/SLELowerPositivity.lean:76: 0 < hausdorffGauge h (segment (γ ω) s t)"
+     ],
+     "note": "POSITIVE half only, a.s. simultaneously for all 0 < s < t, for every continuous nondecreasing gauge agreeing with the formula near 0+. SLE is encoded as a Loewner trace driven by √κ·B (capacity-two witness); the gauge measure is Measure.mkMetric, whose value at infinite diameter cannot raise a lower bound."
+    },
+    {
+     "clause": "finite measure to every trace segment $`\\gamma([s,t])`$",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026",
+     "evidence": [
+      "CONTENTS.md:5566: almost surely gives positive finite Hausdorff measure to every nontrivial positive-time compact segment of chordal SLE<sub><i>κ</i></sub>.",
+      "lean/docs/230.md:6: - [An explicit exact Hausdorff gauge for SLE: A regular formula from quantitative tails and dense visits](../../preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026.pdf)",
+      "lean/docs/230.md:10: almost surely assigns positive measure to every nontrivial compact positive-time segment of ordinary chordal $\\mathrm{SLE}_\\kappa$.",
+      "lean/docs/230.md:16: | Positivity of the explicit gauge on every positive-time segment |"
+     ],
+     "note": "No upper bound on hausdorffGauge appears in the challenge."
+    },
+    {
+     "clause": "and finite expected measure to the trace in every bounded disk.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026",
+     "evidence": [
+      "CONTENTS.md:5566: The entire trace has finite expected measure in every bounded disk.",
+      "CONTENTS.md:5557: The entire trace has finite expected gauge measure in each bounded box.",
+      "lean/docs/230.md:6: - [An explicit exact Hausdorff gauge for SLE: A regular formula from quantitative tails and dense visits](../../preprints/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026/An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026.pdf)",
+      "lean/docs/230.md:10: almost surely assigns positive measure to every nontrivial compact positive-time segment of ordinary chordal $\\mathrm{SLE}_\\kappa$.",
+      "lean/docs/230.md:16: | Positivity of the explicit gauge on every positive-time segment |"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "An-exact-Hausdorff-gauge-for-SLE-September-25-2026",
+    "An-explicit-exact-Hausdorff-gauge-for-SLE-September-26-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only the lower (positivity) half of the exact-gauge theorem is stated; finiteness on segments, finite expected measure in disks, and hence the resolution of Schramm's question are not, although both manuscripts claiming them are linked and the note only describes the positive half (its table title says \"Positivity\", which describes the selection without naming the omission): NARROWER — UNDECLARED. Agree with the first reader."
+  },
+  {
+   "family": "262",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves the sharp one-dimensional Lieb–Thirring inequality for $`1/2\\lt \\gamma\\lt 3/2`$",
+     "status": "stated",
+     "coveredBy": [
+      "LiebThirring"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/LiebThirring.lean:82: ∀ γ : ℝ, 1 / 2 < γ → γ < 3 / 2 →",
+      "lean/ComparatorChallenges/LiebThirring.lean:83: (∀ W : ℝ → ℝ, Admissible γ W →",
+      "lean/ComparatorChallenges/LiebThirring.lean:84: negativeMoment γ W ≤ ENNReal.ofReal (sharpConstant γ) * potentialMass γ W) ∧"
+     ],
+     "note": "Scalar potentials (matrix size 1) only: W : ℝ → ℝ, a.e. ≥ 0, in L^{γ+1/2}; the full negative-eigenvalue moment as a supremum over finite orthonormal eigenfamilies in ℝ≥0∞."
+    },
+    {
+     "clause": "and arbitrary finite-matrix potentials W ≥ 0 with $`\\int\\mathop{\\mathrm{tr}}\\nolimits (W^{\\gamma+1/2})\\lt \\infty`$",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Sharp-one-dimensional-Lieb-Thirring-inequalities-for-matrix-potentials-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6561: We prove the sharp one-dimensional Lieb–Thirring inequality for every finite matrix size and every exponent $`1/2\\lt \\gamma\\lt 3/2`$.",
+      "lean/ComparatorChallenges/LiebThirring.lean:57: (∀ᵐ x : ℝ, 0 ≤ W x) ∧ MemLp W (ENNReal.ofReal (γ + 1 / 2)) volume",
+      "lean/docs/262.md:5: - [Sharp one-dimensional Lieb–Thirring constants](../../preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/paper.pdf)",
+      "preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/build/sections/introduction.tex:53: The theorem concerns scalar potentials on the line;"
+     ]
+    },
+    {
+     "clause": "the optimal constant is the scalar one-bound-state value",
+     "status": "stated",
+     "coveredBy": [
+      "LiebThirring"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/LiebThirring.lean:85: optimalConstant γ = ENNReal.ofReal (sharpConstant γ) ∧",
+      "lean/ComparatorChallenges/LiebThirring.lean:86: oneStateConstant γ = ENNReal.ofReal (sharpConstant γ) ∧"
+     ],
+     "note": "Scalar case; attainment at (r+1)sech²(rx) is also stated (lines 87-90)."
+    },
+    {
+     "clause": "independent of matrix size.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Sharp-one-dimensional-Lieb-Thirring-inequalities-for-matrix-potentials-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6561: The optimal constant is the scalar one-bound-state constant, independently of the matrix size.",
+      "lean/docs/262.md:5: - [Sharp one-dimensional Lieb–Thirring constants](../../preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "All equality cases are direct sums, in one constant unitary basis, of scalar sech2 solitons with independent scales and centers, and zero channels.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Equality-cases-in-the-sharp-one-dimensional-matrix-Lieb-Thirring-inequality-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6552: equality holds precisely for direct sums, in one constant unitary basis, of scalar one-bound-state solitons and zero channels.",
+      "lean/docs/262.md:5: - [Sharp one-dimensional Lieb–Thirring constants](../../preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/paper.pdf)",
+      "preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/build/sections/introduction.tex:54: Its sharpness assertion",
+      "preprints/Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026/build/sections/introduction.tex:55: exhibits an equality potential without classifying all optimizers."
+     ],
+     "note": "Not stated even for scalars (only attainment at one explicit potential), and the linked scalar paper itself says it does not classify optimizers, so the whole classification belongs to the unlinked October-5 manuscript."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Sharp-One-Dimensional-Lieb-Thirring-Constants-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The scalar sharp inequality, both optimal constants and attainment are stated; the finite-matrix inequality, size-independence and the classification of equality cases come from the two October-5 manuscripts docs/262.md does not link (it links only the September-23 scalar paper): NARROWER — UNLINKED. The first reader found the same gap and called it UNDECLARED before amendment 3; the difference is the amendment. Note the family TITLE (matrix inequalities, all equality cases) names exactly what is not stated."
+  },
+  {
+   "family": "289",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that sufficiently close unital von Neumann algebras on the same Hilbert space are conjugate by a unitary arbitrarily close to the identity, with a universal tolerance in the operator-norm distance between unit balls.",
+     "status": "stated",
+     "coveredBy": [
+      "StrongKadisonKastler"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/StrongKadisonKastler.lean:20: Metric.hausdorffDist (unitBall M) (unitBall N)",
+      "lean/ComparatorChallenges/StrongKadisonKastler.lean:32: ∀ ε : ℝ, 0 < ε → ∃ δ : ℝ, 0 < δ ∧",
+      "lean/ComparatorChallenges/StrongKadisonKastler.lean:33: ∀ (H : Type u) [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H],",
+      "lean/ComparatorChallenges/StrongKadisonKastler.lean:35: kkDistance M N < δ → NearConjugacy M N ε"
+     ],
+     "note": "Encoding: δ is chosen before H, uniformly over Hilbert spaces in one universe u (the theorem is universe-polymorphic); unit balls are nonempty and bounded, so hausdorffDist is the true distance, not a junk value; Mathlib von Neumann algebras contain the identity."
+    },
+    {
+     "clause": "Counterexamples show that near-identity conjugacy fails for one-sided near inclusions",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Near-Inclusions-of-von-Neumann-Algebras-Without-Small-Spatial-Embeddings-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:7207: [Near Inclusions of von Neumann Algebras Without Small Spatial Embeddings]",
+      "CONTENTS.md:7209: Spatial embeddings of the source into the target exist, but every implementing unitary stays a fixed positive distance from the identity.",
+      "lean/docs/289.md:5: - [Universal strong Kadison–Kastler stability](../../preprints/Universal-strong-Kadison-Kastler-stability-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "and that arbitrarily close norm-separable C∗-algebras need not be ambiently unitarily conjugate.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Close-Separable-Cstar-Algebras-Without-Spatial-Conjugacy-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:7216: [Close Separable C*-Algebras Without Spatial Conjugacy]",
+      "CONTENTS.md:7218: that are not conjugate by any unitary.",
+      "lean/docs/289.md:5: - [Universal strong Kadison–Kastler stability](../../preprints/Universal-strong-Kadison-Kastler-stability-September-23-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Universal-strong-Kadison-Kastler-stability-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The stability theorem is stated as headlined; both counterexample clauses come from the two October-5 manuscripts docs/289.md does not link (it links only the stability paper): NARROWER — UNLINKED. The first reader found the same gap and called it UNDECLARED before amendment 3; the difference is the amendment."
+  },
+  {
+   "family": "326",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Resolves the cotype–cotype conjecture for real Banach spaces with the approximation property.",
+     "status": "stated",
+     "coveredBy": [
+      "Cotype"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/Cotype.lean:47: def MainTarget [CompleteSpace E] [Nontrivial E] : Prop :=",
+      "lean/ComparatorChallenges/Cotype.lean:53: theorem mainTarget_proved [Nontrivial X] : MainTarget X := by"
+     ]
+    },
+    {
+     "clause": "Such a nonzero space is K-convex if and only if both it and its dual have finite Rademacher cotype, with possibly different exponents.",
+     "status": "stated",
+     "coveredBy": [
+      "Cotype"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/Cotype.lean:48: ApproximationProperty E →",
+      "lean/ComparatorChallenges/Cotype.lean:49: (KConvex E ↔ FiniteCotype E ∧ FiniteCotype (E →L[ℝ] ℝ))",
+      "lean/ComparatorChallenges/Cotype.lean:40: def FiniteCotype : Prop := ∃ q : ℝ, HasCotype E q"
+     ],
+     "note": "Each side has its own ∃ q, so the exponents may differ; K-convexity as a uniform bound on the Rademacher projection over finite cubes; real scalars; Nontrivial = nonzero."
+    },
+    {
+     "clause": "Equivalently, these cotype assumptions force nontrivial Rademacher type.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026",
+     "evidence": [
+      "preprints/The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026/build/introduction.tex:65: The classical theorems of Maurey--Pisier and Pisier",
+      "preprints/The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026/build/introduction.tex:66: \\cite{MP76,Pis82K} identify \\(K\\)-convexity with nontrivial type:",
+      "preprints/The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026/build/introduction.tex:71: X\\text{ has Rademacher type }p\\text{ for some }p>1\\\\",
+      "lean/docs/326.md:5: - [The cotype–cotype conjecture under the approximation property](../../preprints/The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026/paper.pdf)",
+      "lean/docs/326.md:9: The formalized result establishes this equivalence for every nonzero real Banach space with the approximation property: $X$ is $K$-convex exactly when both $X$ and $X^*$ have finite cotype."
+     ],
+     "note": "Rademacher type is not defined in the challenge; the clause follows from the stated equivalence only through Pisier's K-convexity theorem (Maurey–Pisier 1976, Pisier 1982: K-convex ⇔ nontrivial type), which is not formalized. The manuscript is linked and the note does not mention type."
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-cotype-cotype-conjecture-under-the-approximation-property-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The cotype–cotype equivalence is stated exactly; only the \"Equivalently … nontrivial Rademacher type\" reformulation is missing, and it needs Pisier's unformalized classical theorem: NARROWER — UNDECLARED under the brief's rule (a clause reached only through an unformalized classical theorem is not stated). Agree with the first reader. The gap is a named classical bridge, not new mathematics."
+  },
+  {
+   "family": "365",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Zero-frequency measurements on any nonempty open boundary patch determine a smooth metric and smooth unitary connection on a trivial Hermitian rank-two bundle over a compact connected manifold of dimension at least three, up to diffeomorphism and gauge fixed on that patch.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Determination-of-a-metric-and-a-unitary-connection-from-one-boundary-patch-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:8845: [Determination of a metric and a unitary connection from one boundary patch]",
+      "CONTENTS.md:8847: We prove that zero-frequency boundary measurements on any nonempty open boundary patch determine both a smooth Riemannian metric and a smooth unitary connection on the trivial Hermitian rank-two bundle over a compact connected smooth manifold of dimension at least three with smooth boundary.",
+      "lean/docs/365.md:5: - [Nonuniqueness for Bounded Measurable Scalar Conductivities in Three Dimensions](../../preprints/Nonuniqueness-for-Bounded-Measurable-Scalar-Conductivities-in-Three-Dimensions-September-23-2026/paper.pdf)",
+      "lean/docs/365.md:1: # Joint metric and connection recovery from one boundary patch"
+     ],
+     "note": "The family's lead claim; no metric, connection, manifold or boundary patch occurs in the challenge. The note's title names it, but a title alone does not declare; the note links only the scalar nonuniqueness paper. The metric-only part also comes from the unlinked September-24 smooth anisotropic uniqueness manuscript (CONTENTS.md:8856)."
+    },
+    {
+     "clause": "Inputs and observations use the same patch.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Determination-of-a-metric-and-a-unitary-connection-from-one-boundary-patch-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:8847: Both inputs and observations are restricted to the same patch.",
+      "lean/docs/365.md:5: - [Nonuniqueness for Bounded Measurable Scalar Conductivities in Three Dimensions](../../preprints/Nonuniqueness-for-Bounded-Measurable-Scalar-Conductivities-in-Three-Dimensions-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "In contrast, distinct uniformly positive bounded measurable scalar conductivities on a three-dimensional ball can have identical full-boundary data.",
+     "status": "stated",
+     "coveredBy": [
+      "Conductivity"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/Conductivity.lean:13: def ball : Set R3 := Metric.ball 0 3",
+      "lean/ComparatorChallenges/Conductivity.lean:71: (∀ᵐ x ∂ballMeasure, c ≤ γ₀ x ∧ γ₀ x ≤ C) ∧",
+      "lean/ComparatorChallenges/Conductivity.lean:74: 0 < ballMeasure {x | γ₀ x ≠ γ₁ x} ∧",
+      "lean/ComparatorChallenges/Conductivity.lean:75: IsDirichletToNeumann γ₀ Λ ∧ IsDirichletToNeumann γ₁ Λ"
+     ],
+     "note": "On B(0,3) ⊂ ℝ³; H¹ as the closure of smooth jets, the trace space as H¹/H¹₀, the weak DN map with unique weak solutions built into IsDirichletToNeumann."
+    }
+   ],
+   "scopeNoteLinks": [
+    "Nonuniqueness-for-Bounded-Measurable-Scalar-Conductivities-in-Three-Dimensions-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only the \"In contrast\" scalar nonuniqueness example is stated; the headline's lead theorem (joint metric and connection recovery from one patch) comes from the October-5 manuscript docs/365.md does not link, so it was never claimed: NARROWER — UNLINKED (not DIFFERENT, because one clause is stated). The first reader found the same gap and called it UNDECLARED before amendment 3; the difference is the amendment. Worth showing on the page: the formalization covers the family's side remark, not its title claim."
+  }
+ ]
+}

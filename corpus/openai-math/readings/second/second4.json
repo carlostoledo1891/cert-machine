@@ -1,0 +1,588 @@
+{
+ "reader": "second",
+ "batch": 4,
+ "families": [
+  {
+   "family": "033",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves Campana's orbifold Iitaka subadditivity conjecture for smooth Fujiki-class-$`\\mathcal C`$ manifolds with rational simple-normal-crossing boundaries.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Orbifold-and-logarithmic-Iitaka-subadditivity-September-26-2026",
+     "evidence": [
+      "CONTENTS.md:816: We prove Campana's orbifold Iitaka subadditivity conjecture for rational simple normal crossing boundaries on compact manifolds in Fujiki class $`\\mathcal C`$, including coefficient one.",
+      "lean/docs/033.md:5: - [The reverse logarithmic Kodaira inequality and additivity](../../preprints/The-reverse-logarithmic-Kodaira-inequality-and-additivity-September-26-2026/paper.pdf)",
+      "lean/ComparatorChallenges/LogKodairaFiberNegative.lean:237: ∀ F : FiberModel f.toBoundaryFibration y, F.boundary.kodaira = ⊥ →"
+     ]
+    },
+    {
+     "clause": "For projective fibrations $`f:U\\to V`$ of smooth complex quasi-projective varieties with connected fibers, general fiber F, and $`\\bar\\kappa(V)\\ge0`$, proves Popa's inequality $`\\bar\\kappa(U)\\ge\\kappa(F)+\\max\\{\\bar\\kappa(V),\\mathop{\\mathrm{Var}}\\nolimits (f)\\}`$, where variation measures the whole geometric generic fiber.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Logarithmic-Kodaira-dimension-and-whole-fiber-variation-September-26-2026",
+     "evidence": [
+      "CONTENTS.md:825: We prove the logarithmic Iitaka–Viehweg inequality for projective surjective morphisms with connected fibers between smooth complex quasi-projective varieties whose base has nonnegative logarithmic Kodaira dimension.",
+      "lean/docs/033.md:5: - [The reverse logarithmic Kodaira inequality and additivity](../../preprints/The-reverse-logarithmic-Kodaira-inequality-and-additivity-September-26-2026/paper.pdf)",
+      "lean/ComparatorChallenges/LogKodairaFiberNegative.lean:238: E.kodaira = D.kodaira + F.boundary.kodaira ∧"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-reverse-logarithmic-Kodaira-inequality-and-additivity-September-26-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Neither headline sentence is stated, and both come from manuscripts the scope note does not link. The single challenge states the linked third paper's negative-fibre branch of log Kodaira additivity (for very general y off D: κ̄(F)=−∞ ⇒ κ̄(X,E)=κ̄(Y,D)+κ̄(F)=−∞ and every positive-degree log pluriform vanishes), an upper-bound/vanishing statement that neither implies nor is implied by the two lower-bound (subadditivity) clauses, so DIFFERENT by the pre-registered definition. Agree with the first reader; under amendment 3 both clauses are UNLINKED, so the DIFFERENT records that the headline describes papers the formalization never claimed, not a silence of the note about its linked paper."
+  },
+  {
+   "family": "082",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves maximal and annular r-variation bounds, for every r > 2, from complex $`L^3(\\mathbb R^2)\\times L^3(\\mathbb R^2)`$ to $`L^{3/2}(\\mathbb R^2)`$.",
+     "part": "the maximal bound",
+     "status": "stated",
+     "coveredBy": [
+      "TriangularHilbert"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TriangularHilbert.lean:45: maximalNorm F G ≤ (C : ℝ≥0∞) * eLpNorm F 3 volume * eLpNorm G 3 volume"
+     ],
+     "encoding": [
+      "L^{3/2} norm written as (∫⁻ maximal^(3/2))^(2/3)",
+      "maximal set to 0 off GoodPoint, which is required to hold a.e."
+     ]
+    },
+    {
+     "clause": "Proves maximal and annular r-variation bounds, for every r > 2, from complex $`L^3(\\mathbb R^2)\\times L^3(\\mathbb R^2)`$ to $`L^{3/2}(\\mathbb R^2)`$.",
+     "part": "the annular r-variation bounds, every r > 2",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Annular-variation-of-the-triangular-Hilbert-transform-at-the-symmetric-point-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2029: We prove the annular <i>r</i>-variation estimate for the triangular Hilbert transform from complex $`L^3\\times L^3`$ to <i>L</i><sup>3/2</sup> for every <i>r</i> &gt; 2.",
+      "lean/docs/082.md:5: - [The maximal triangular Hilbert transform at the symmetric point](../../preprints/The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "The maximal estimate controls both hard truncation endpoints",
+     "status": "stated",
+     "coveredBy": [
+      "TriangularHilbert"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/TriangularHilbert.lean:35: ⨆ E : Endpoints, ENNReal.ofReal ‖truncation F G E z‖ else 0"
+     ]
+    },
+    {
+     "clause": "and gives almost-everywhere and norm convergence",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:2047: The estimate yields joint almost-everywhere and <i>L</i><sup>3/2</sup> convergence as the lower endpoint tends to zero and the upper endpoint tends to infinity.",
+      "preprints/The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026/build/sections/consequences.tex:72: \\begin{theorem}[Joint bilinear principal values]\\label{thm:bilinear-pv}",
+      "preprints/The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026/build/sections/consequences.tex:78: exists almost everywhere and in $L^{3/2}(\\R^2)$, with",
+      "lean/docs/082.md:9: It also establishes a common full-measure set on which the truncated integrals are defined and almost-everywhere measurability of the maximal output.",
+      "lean/ComparatorChallenges/TriangularHilbert.lean:43: (∀ᵐ z ∂volume, GoodPoint F G z) ∧"
+     ],
+     "why": "MainEstimate states no limit of truncations. Convergence follows from main_estimate only with Banach's principle plus convergence on a dense class (compactly supported smooth inputs), and dominated convergence for the L^{3/2} limit, none of which is in the statement. The note describes the a.e. definedness and measurability it does cover and never says the principal value is left out."
+    },
+    {
+     "clause": "Pairing with a third input settles the triangular Hilbert transform estimate at the symmetric $`L^3\\times L^3\\times L^3`$ point.",
+     "status": "stated",
+     "coveredBy": [
+      "TriangularHilbert"
+     ],
+     "evidence": [
+      "preprints/The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026/build/sections/consequences.tex:161: H\\\"older's inequality in $(x,y)$ bounds the absolute integral by",
+      "preprints/The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026/build/sections/consequences.tex:165: Theorem~\\ref{thm:main} gives its endpoint-uniform bound, and"
+     ],
+     "why": "The endpoint-uniform trilinear bound sup_{ε<R}|L_{ε,R}(F0,F1,F2)| ≤ C‖F0‖3‖F1‖3‖F2‖3 follows from main_estimate by Hölder and Fubini (both in Mathlib), exactly as the paper's Corollary derives it; the simplex form needs one determinant-one change of variables. The scalar principal value is not stated: it rides on the convergence clause above."
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-maximal-triangular-Hilbert-transform-at-the-symmetric-point-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only the maximal bound (both endpoints) is stated. The annular r-variation bound comes from the unlinked October 5 paper (UNLINKED), but the a.e. and L^{3/2} convergence is the linked paper's own Theorem (bilinear-pv), claimed in its abstract and the headline, absent from the statement, and not named by the note, so the family is NARROWER — UNDECLARED. Agree with the first reader on the word; I read the pairing clause as stated (Hölder + Fubini from the maximal bound, as in the paper), where the first reader did not, which does not change the word."
+  },
+  {
+   "family": "104",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Gives deterministic algorithms using $`2^{O((\\log(L+2))^2)}`$ bit operations, for complete binary input length L, for ordinary mean-payoff games",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Deterministic-quasipolynomial-time-mean-payoff-games-September-25-2026",
+     "evidence": [
+      "CONTENTS.md:2597: We give a deterministic algorithm that computes the complete zero-threshold winning set of a finite mean-payoff game with arbitrary signed integer edge weights encoded in binary.",
+      "lean/docs/104.md:5: - [Deterministic quasipolynomial-time mean-payoff games](../../preprints/Deterministic-quasipolynomial-time-mean-payoff-games-September-25-2026/paper.pdf)",
+      "lean/docs/104.md:12: The formalized result gives one randomized algorithm for the complete zero-threshold winning set of every finite mean-payoff game with signed binary weights.",
+      "lean/ComparatorChallenges/RandomizedMeanPayoff.lean:118: 7 * 2 ^ T ≤ 8 * (Finset.univ.filter"
+     ],
+     "why": "The statement is randomized (correct on ≥ 7/8 of random tapes); a deterministic algorithm implies it, not conversely. The note links the deterministic paper, describes only the randomized result and the Truffet counterexample, and never says the deterministic algorithm is left out."
+    },
+    {
+     "clause": "and two separate extensions",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Turn-Based-Stochastic-Mean-Payoff-Games-in-Deterministic-Quasipolynomial-Time-October-5-2026; Mean-payoff-parity-games-in-quasipolynomial-time-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2579: We give a uniform deterministic quasipolynomial-time algorithm for finite turn-based stochastic mean-payoff games",
+      "CONTENTS.md:2588: We give a uniform deterministic quasipolynomial-time algorithm for mean-payoff parity games.",
+      "lean/docs/104.md:6: - [Randomized quasipolynomial-time mean-payoff games](../../preprints/Randomized-quasipolynomial-time-mean-payoff-games-September-25-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "They compute exact values and optimal positional strategies in ordinary games",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Deterministic-quasipolynomial-time-mean-payoff-games-September-25-2026",
+     "evidence": [
+      "CONTENTS.md:2597: A reduction also computes the exact rational value at every vertex and globally optimal positional strategies for both players within the same quasipolynomial bound.",
+      "lean/ComparatorChallenges/RandomizedMeanPayoff.lean:109: (∀ v : Fin G.n, c.tape 2 (v.val : ℤ) = some true ↔ Winning G v) ∧",
+      "lean/docs/104.md:12: The formalized result gives one randomized algorithm for the complete zero-threshold winning set of every finite mean-payoff game with signed binary weights."
+     ],
+     "why": "The machine's output is the zero-threshold winning set only; no value and no strategy is output. The note is silent on values and strategies."
+    },
+    {
+     "clause": "the nonnegative expectation-of-liminf value set in turn-based stochastic games",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Turn-Based-Stochastic-Mean-Payoff-Games-in-Deterministic-Quasipolynomial-Time-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2579: It computes exactly the vertices of nonnegative value, including value zero, for the expectation of the pathwise liminf mean payoff."
+     ]
+    },
+    {
+     "clause": "and the winning set for nonnegative liminf mean payoff conjoined with parity",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Mean-payoff-parity-games-in-quasipolynomial-time-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2588: It computes all vertices from which a player can enforce both nonnegative liminf mean payoff and the parity condition"
+     ]
+    },
+    {
+     "clause": "Signed rewards",
+     "part": "signed rewards, unrestricted and binary-encoded (ordinary games)",
+     "status": "stated",
+     "coveredBy": [
+      "RandomizedMeanPayoff"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/RandomizedMeanPayoff.lean:47: decide (z < 0) :: encodeNat z.natAbs"
+     ],
+     "encoding": [
+      "stated for the randomized algorithm's input encoding (Game.weight : Fin m → ℤ, encodeInt)"
+     ]
+    },
+    {
+     "clause": "rational chance probabilities, and parity priorities are unrestricted and binary-encoded.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Turn-Based-Stochastic-Mean-Payoff-Games-in-Deterministic-Quasipolynomial-Time-October-5-2026; Mean-payoff-parity-games-in-quasipolynomial-time-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:2579: with signed integer rewards and rational chance-transition probabilities encoded in binary",
+      "CONTENTS.md:2588: with arbitrary signed binary rewards and unrestricted binary priorities"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Deterministic-quasipolynomial-time-mean-payoff-games-September-25-2026",
+    "Randomized-quasipolynomial-time-mean-payoff-games-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated in full, but the headline implies RandomizedMeanPayoff (a deterministic quasipolynomial algorithm for values gives the winning set with probability 1, up to a polynomial machine-model translation), so NARROWER, not DIFFERENT. The stochastic and parity clauses are UNLINKED; the deterministic algorithm and the values/positional strategies come from a paper the note links, and the note only describes the randomized result, so NARROWER — UNDECLARED. Agree with the first reader. TruffetCounterexample covers no headline clause."
+  },
+  {
+   "family": "143",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Resolves the uniform boundedness assertion in Hilbert's sixteenth problem: the number of isolated periodic orbits of a real planar polynomial vector field is bounded by a finite constant depending only on its degree.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "uniform-bounds-for-planar-polynomial-limit-cycles-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:3443: Resolves the uniform boundedness assertion in Hilbert's sixteenth problem: the number of isolated periodic orbits of a real planar polynomial vector field is bounded by a finite constant depending only on its degree. For classical quintic Liénard systems, the exact maximum is two limit cycles. ([Lean](lean/docs/143.md))",
+      "CONTENTS.md:3452: For every degree, we prove that the number of isolated periodic orbits of a real planar polynomial vector field is bounded by a finite constant depending only on that degree.",
+      "lean/docs/143.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/143.md:5: - [Two limit cycles for quintic Liénard systems](../../preprints/two-limit-cycles-for-quintic-lienard-systems-September-24-2026/two-limit-cycles-for-quintic-lienard-systems-September-24-2026.pdf)",
+      "lean/docs/143.md:1: # Hilbert's sixteenth problem: uniform bounds for limit cycles",
+      "lean/formalization.yaml:844: id: ../preprints/two-limit-cycles-for-quintic-lienard-systems-September-24-2026/two-limit-cycles-for-quintic-lienard-systems-September-24-2026.pdf",
+      "preprints/two-limit-cycles-for-quintic-lienard-systems-September-24-2026/build/sections/introduction.tex:28: The problem is a restricted instance of the second part of",
+      "lean/ComparatorChallenges/QuinticLienard.lean:10: (z.2 - F.eval z.1, -z.1)",
+      "lean/ComparatorChallenges/QuinticLienard.lean:40: (∀ F : Polynomial ℝ, F.degree ≤ 5 → {C : Set Plane | IsLimitCycle F C}.encard ≤ 2) ∧"
+     ],
+     "why": "No challenge states it: of the 416 statements only QuinticLienard.lean defines periodic orbits or limit cycles, and only for x'=y−F(x), y'=−x with deg F ≤ 5; that theorem does not imply a bound for general planar polynomial fields, and no Lean declaration in the solution library's LienardCycles tree does either. The clause's only source is the uniform-bounds manuscript; the linked Liénard paper calls its own problem 'a restricted instance' and claims no uniform bound. The scope note links only the Liénard paper (formalization.yaml likewise lists only it). The note's title names the uniform bound, but under the rules a title neither declares an omission nor links a paper."
+    },
+    {
+     "clause": "For classical quintic Liénard systems, the exact maximum is two limit cycles.",
+     "status": "stated",
+     "coveredBy": [
+      "QuinticLienard"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/QuinticLienard.lean:40: (∀ F : Polynomial ℝ, F.degree ≤ 5 → {C : Set Plane | IsLimitCycle F C}.encard ≤ 2) ∧",
+      "lean/ComparatorChallenges/QuinticLienard.lean:41: (∃ F : Polynomial ℝ, F.degree ≤ 5 ∧ {C : Set Plane | IsLimitCycle F C}.encard = 2) := by"
+     ],
+     "encoding": [
+      "'quintic' = Polynomial.degree ≤ 5 (the manuscript's 'degree at most five'), lower degrees included",
+      "limit cycle = range of a global nonconstant periodic solution with an open neighbourhood containing no other periodic-orbit image (isolated among periodic orbits; centres excluded)",
+      "count = Set.encard of the set of images (geometrically distinct orbits)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "two-limit-cycles-for-quintic-lienard-systems-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Read with particular care, the first reader's finding holds: the headline's lead claim, a resolution of the uniform-boundedness part of Hilbert's sixteenth problem, is stated by no challenge in the release, and only the quintic Liénard count is. The difference is the word, not the finding: the clause comes only from the uniform-bounds manuscript, which the note does not link, so under amendment 3 it is UNLINKED (the first reader had no UNLINKED). The UNLINKED should not be read as benign: the note's own title, and the CONTENTS.md ([Lean]) link placed right after the uniform-bound sentence, put the unformalized claim at the head of the Lean scope page, and no sentence of the note says it is outside. Both manuscripts were in the release's initial commit, dated the same day, so this is not a late addition."
+  },
+  {
+   "family": "182",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "For every fixed intersective integer polynomial h of degree k ≥ 2 with positive leading coefficient, proves that a subset of $`\\{1,\\ldots,N\\}`$ avoiding nonzero values $`h(1),h(2),\\ldots`$ as differences has size $`O_h(N^{1-c_k})`$, with $`c_k\\gt 0`$ depending only on degree.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-power-saving-for-intersective-polynomial-differences-with-an-exponent-depending-only-on-the-degree-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4220: An integer polynomial is intersective if it has a root modulo every positive integer. For each degree <i>k</i> ≥ 2, we prove that there is an exponent $`c_k\\gt 0`$",
+      "lean/docs/182.md:5: - [A power saving for square-difference-free sets](../../preprints/A-power-saving-for-square-difference-free-sets-September-24-2026/paper.pdf)",
+      "lean/ComparatorChallenges/SquareDifference.lean:8: ∀ a ∈ A, ∀ b ∈ A, ∀ m : ℕ, 1 ≤ m → a - b ≠ (m : ℤ) ^ 2"
+     ],
+     "why": "Only the instance h(x)=x² is stated (absolute c and C, every N ≥ 1); it is implied by the clause (x² is intersective, degree 2, positive leading coefficient), not conversely. The general intersective result is the October 5 manuscript's; the linked square-difference paper does not claim it."
+    },
+    {
+     "clause": "Here intersective means having a root modulo every modulus.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-power-saving-for-intersective-polynomial-differences-with-an-exponent-depending-only-on-the-degree-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4220: An integer polynomial is intersective if it has a root modulo every positive integer."
+     ],
+     "why": "Definitional gloss on the clause above; no intersectivity notion occurs in the statement."
+    },
+    {
+     "clause": "For prime arguments, a power saving also holds when h has a unit root modulo every modulus, with exponent allowed to depend on h.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-Power-Saving-for-Polynomial-Differences-at-Prime-Arguments-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:4229: We prove that any set $`A\\subseteq\\{1,\\ldots,N\\}`$ whose differences avoid all nonzero values $`h(p)`$ at primes satisfies $`|A|\\le C_hN^{1-c_h}`$",
+      "lean/docs/182.md:5: - [A power saving for square-difference-free sets](../../preprints/A-power-saving-for-square-difference-free-sets-September-24-2026/paper.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-power-saving-for-square-difference-free-sets-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The headline speaks only of the two October 5 generalizations, both unlinked; the linked paper's square-difference theorem is stated exactly and is the h(x)=x² instance of the first clause, so the statement is implied by the headline: NARROWER — UNLINKED, not DIFFERENT. I differ from the first reader (UNDECLARED) only because UNLINKED did not exist for them; their evidence is the same."
+  },
+  {
+   "family": "206",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Some finite lattices are not congruence lattices of any finite algebra, answering the finite lattice representation problem negatively.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Finite-Congruence-Lattices-Characterization-and-Undecidability-September-24-2026 (also, and primarily, the unlinked A-Negative-Solution-to-the-Finite-Lattice-Representation-Problem-September-24-2026)",
+     "evidence": [
+      "CONTENTS.md:4707: and prove that deciding this representation property is undecidable. In particular, the finite lattice representation problem has a negative answer.",
+      "preprints/Finite-Congruence-Lattices-Characterization-and-Undecidability-September-24-2026/build/sections/introduction.tex:78: Part~\\textup{(ii)} resolves the finite lattice representation problem",
+      "lean/docs/206.md:9: This selected theorem is the equivalence with the graph criterion; the paper's undecidability and subgroup-interval conclusions are outside it.",
+      "CONTENTS.md:4716: We prove that there is a finite nonempty lattice that is not the full congruence lattice of any finite nonempty algebra of any finite signature.",
+      "lean/ComparatorChallenges/FiniteCongruenceGraph.lean:58: Representable Lat ↔ HasGraphWitness Lat := by"
+     ],
+     "why": "Not stated: the criterion exhibits no lattice without a graph witness. In the linked paper the negative answer is drawn from the undecidability ('Part (ii) resolves ... negatively'; the abstract's 'In particular'), which the note names as outside; I read that as declaring it. Its explicit minimum non-representable lattice (Theorem part (iii)) is not separately named, and the clause's other source, the Negative-Solution paper, is unlinked; a stricter reader would write undeclared or unlinked. The family word does not depend on this."
+    },
+    {
+     "clause": "Moreover, no algorithm decides whether a finite lattice has such a representation, or whether it is a full subgroup interval of a finite group.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Finite-Congruence-Lattices-Characterization-and-Undecidability-September-24-2026",
+     "evidence": [
+      "lean/docs/206.md:9: This selected theorem is the equivalence with the graph criterion; the paper's undecidability and subgroup-interval conclusions are outside it."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Finite-Congruence-Lattices-Characterization-and-Undecidability-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No headline clause is stated, and the one statement, the colored-graph characterization (representable ⇔ graph witness), neither implies nor is implied by non-representability or by either undecidability claim, so DIFFERENT by the pre-registered definition. Agree with the first reader. The note does name the omissions, so this DIFFERENT is not a silence: the headline announces the paper's corollaries and the formalization chose its characterization theorem."
+  },
+  {
+   "family": "222",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Determines finite-temperature variational free energies for Gaussian Ising perceptrons with bounded Borel log-potentials",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "The-free-energy-of-the-Ising-random-perceptron-September-24-2026",
+     "evidence": [
+      "lean/docs/222.md:12: This is a supporting well-definedness result. It does not assert convergence of the finite-system pressure or the paper's extension to all bounded Borel log-potentials.",
+      "lean/ComparatorChallenges/IsingFiniteness.lean:88: ∃ p : ℝ, variationalValue α f = (p : EReal) := by"
+     ],
+     "why": "IsingFiniteness states only that the variational value is finite (bounded continuous f, α ≥ 0); the note names both omissions."
+    },
+    {
+     "clause": "and Gaussian spherical perceptrons with bounded continuous potentials, at every positive pattern density.",
+     "status": "stated",
+     "coveredBy": [
+      "PerceptronFreeEnergy"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/PerceptronFreeEnergy.lean:99: (α β : ℝ) (hα : 0 < α) (hβ : 0 < β) (φ : ℝ →ᵇ ℝ) :",
+      "lean/ComparatorChallenges/PerceptronFreeEnergy.lean:101: Tendsto (fun N : ℕ => expectedPressure α β φ (N + 1)) atTop (𝓝 p) ∧"
+     ],
+     "encoding": [
+      "finite temperature = every β > 0",
+      "iid N(0,1) patterns, ⌊αN⌋ of them; spins uniform on the sphere of radius √N",
+      "pressure = (1/N) log ∫ exp(β Σ_a φ(⟨g_a,x⟩/√N)); convergence in expectation and in probability to a real variational value p"
+     ]
+    },
+    {
+     "clause": "A spherical extension treats bi-orthogonally invariant disorder with compact limiting singular-value distributions and no outliers.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-spherical-perceptron-with-bi-orthogonally-invariant-disorder-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:5267: We determine the limiting free energy of a spherical perceptron with a bounded continuous activation and a bi-orthogonally invariant disorder matrix.",
+      "lean/docs/222.md:5: - [The free energy of the Ising random perceptron](../../preprints/The-free-energy-of-the-Ising-random-perceptron-September-24-2026/The-free-energy-of-the-Ising-random-perceptron-September-24-2026.pdf)",
+      "lean/docs/222.md:6: - [The free energy of the spherical random perceptron](../../preprints/The-free-energy-of-the-spherical-random-perceptron-September-24-2026/The-free-energy-of-the-spherical-random-perceptron-September-24-2026.pdf)"
+     ]
+    },
+    {
+     "clause": "At margin −1, the quadratic-penalty spherical model has a sharp feasibility threshold and limiting gap and force laws, with system size, zero temperature, and critical density taken in that order.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Microscopic-jamming-in-the-negative-spherical-perceptron-September-24-2026",
+     "evidence": [
+      "CONTENTS.md:5254: We prove a sharp feasibility threshold and limiting gap and force laws for the spherical perceptron with margin −1 and quadratic penalty.",
+      "lean/docs/222.md:6: - [The free energy of the spherical random perceptron](../../preprints/The-free-energy-of-the-spherical-random-perceptron-September-24-2026/The-free-energy-of-the-spherical-random-perceptron-September-24-2026.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-free-energy-of-the-Ising-random-perceptron-September-24-2026",
+    "The-free-energy-of-the-spherical-random-perceptron-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The spherical free energy is stated in full; the Ising gap is declared by the note; the bi-orthogonal and jamming clauses come only from the two manuscripts the note does not link. So NARROWER — UNLINKED. My clause reading is the first reader's; the word differs only because UNLINKED did not exist for them. SphericalField (a supporting dual formula, not on the README support list) covers no headline clause."
+  },
+  {
+   "family": "256",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that every finite system of equations over an arbitrary group whose exponent-sum matrix has full row rank over ℚ has a simultaneous solution in an overgroup, resolving Howie's conjecture.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Nonsingular-systems-of-equations-over-arbitrary-groups-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6317: Every finite nonsingular system of equations over an arbitrary group has a simultaneous solution in an overgroup. This proves Howie's conjecture on nonsingular systems.",
+      "lean/docs/256.md:5: - [The Kervaire theorem for groups](../../preprints/The-Kervaire-Theorem-for-Groups-September-24-2026/The-Kervaire-Theorem-for-Groups-September-24-2026.pdf)",
+      "lean/ComparatorChallenges/Kervaire.lean:17: exponentSum w = 1 ∨ exponentSum w = -1"
+     ],
+     "why": "Only one equation in one unknown with exponent sum ±1 is stated; even the one-equation nonsingular case (exponent sum ≠ 0) is not."
+    },
+    {
+     "clause": "The coefficient group embeds in the presented quotient.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Nonsingular-systems-of-equations-over-arbitrary-groups-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:6317: Every finite nonsingular system of equations over an arbitrary group has a simultaneous solution in an overgroup.",
+      "lean/ComparatorChallenges/Kervaire.lean:32: (hw : Unimodular w) : Function.Injective (coefficientMap w) := by"
+     ],
+     "why": "In the headline this sentence is the conclusion of the nonsingular-systems theorem (the Howie paper's). Only its single-relator, exponent-sum ±1 instance is stated (Kervaire.coefficient_injective, the linked paper's main theorem)."
+    },
+    {
+     "clause": "A companion proves Kervaire's conjecture: adjoining one generator and one relation cannot trivialize a nontrivial group.",
+     "status": "stated",
+     "coveredBy": [
+      "Kervaire"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/Kervaire.lean:32: (hw : Unimodular w) : Function.Injective (coefficientMap w) := by",
+      "preprints/The-Kervaire-Theorem-for-Groups-September-24-2026/build/sections/introduction.tex:43: For every other integer $d=p(w)$, the map $p$ induces a surjection from",
+      "preprints/The-Kervaire-Theorem-for-Groups-September-24-2026/build/sections/introduction.tex:44: the quotient onto the nontrivial group $\\Z/d\\Z$, where $\\Z/0\\Z=\\Z$."
+     ],
+     "encoding": [
+      "adjoining one generator and one relation = (A ∗ ℤ) ⧸ normalClosure {w} (Monoid.Coprod A (Multiplicative ℤ)); A in any universe"
+     ],
+     "why": "Implied by an elementary step, not a classical theorem: if the exponent sum d of w is ±1, injectivity embeds A ≠ 1 in the quotient; otherwise the exponent-sum map induces a surjection of the quotient onto ℤ/d (ℤ for d = 0), which is nontrivial. This is the paper's own two-line corollary."
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-Kervaire-Theorem-for-Groups-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Kervaire's conjecture is stated (via the stronger unimodular coefficient injectivity plus the exponent-sum step); Howie's nonsingular-systems theorem and its embedding conclusion come only from the October 5 paper, which the note does not link. So NARROWER — UNLINKED. I read the clauses as the first reader did; the word differs only because UNLINKED did not exist for them."
+  },
+  {
+   "family": "273",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the entropy photon-number inequality for beam-splitter mixing of two independent finite-energy bosonic inputs in any finite number of modes: the output's entropy photon number is at least the transmissivity-weighted average of the inputs'.",
+     "status": "stated",
+     "coveredBy": [
+      "EntropyPhotonNumber"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/EntropyPhotonNumber.lean:104: η * gInv (entropy ρA / n) + (1 - η) * gInv (entropy ρB / n) ≤"
+     ],
+     "encoding": [
+      "n ≥ 1 modes on the untruncated Fock space ℓ²(ℕⁿ)",
+      "states = positive operators with diagonal summing to 1",
+      "finite energy = summable Σ N_k ρ_kk",
+      "the reduced output ρC is a hypothesis given by its number-basis blocks (HasSum)",
+      "entropy = Σ' diagonal of cfc(−t log t)(ρ), finite here because every state involved has finite energy",
+      "g⁻¹ = sInf{t ≥ 0 | s ≤ g t}"
+     ]
+    },
+    {
+     "clause": "Arbitrary entanglement within each input is allowed",
+     "status": "stated",
+     "coveredBy": [
+      "EntropyPhotonNumber"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/EntropyPhotonNumber.lean:100: (n : ℕ) (hn : 1 ≤ n) (ρA ρB ρC : State n)"
+     ]
+    },
+    {
+     "clause": "and product thermal inputs attain equality even when their entropies differ.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-entropy-photon-number-inequality-September-24-2026",
+     "evidence": [
+      "preprints/The-entropy-photon-number-inequality-September-24-2026/build/sections/00-introduction.tex:30: Thermal inputs with a common mean photon number within each port give equality, even when the means at the two ports differ.",
+      "lean/docs/273.md:11: The thermal-attenuator minimum-output-entropy and broadcast-capacity consequences in the paper are outside this selected inequality.",
+      "lean/ComparatorChallenges/EntropyPhotonNumber.lean:105: gInv (entropy ρC / n) := by"
+     ],
+     "why": "The statement has only the inequality; no thermal state and no equality case. The note names two other omissions but not this one."
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-entropy-photon-number-inequality-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The inequality itself is stated in full. The only gap is the equality (sharpness) sentence, a remark in the single linked paper, absent from the statement and not named by the note, so NARROWER — UNDECLARED. Agree with the first reader. The gap is small (a computation for product thermal states), but it is a headline claim."
+  },
+  {
+   "family": "301",
+   "word": "SUPPORT-ONLY",
+   "firstWord": "SUPPORT-ONLY",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Classifies separable nuclear complex C∗-algebras after tensoring with the Razak–Jacelon algebra and the compact operators, using their full topological cones of extended lower-semicontinuous tracial weights.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "The-trace-cone-classifies-Razak-Jacelon-stabilizations-September-25-2026",
+     "evidence": [
+      "lean/docs/301.md:11: Spatial classification, existence of the stabilization models, norm uniqueness, and final intertwining are outside this supporting comparison.",
+      "lean/ComparatorChallenges/README.md:23: - `TraceIdealTransportSupport.json`: transport of finite and zero ideals, with"
+     ]
+    },
+    {
+     "clause": "This answers Robert’s trace-cone question, including algebras with arbitrary ideal structure and both finite and infinite subquotients.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "The-trace-cone-classifies-Razak-Jacelon-stabilizations-September-25-2026",
+     "evidence": [
+      "lean/docs/301.md:11: Spatial classification, existence of the stabilization models, norm uniqueness, and final intertwining are outside this supporting comparison."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-trace-cone-classifies-Razak-Jacelon-stabilizations-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The family's only challenge, TraceIdealTransportSupport, is on the README's list of supporting results, and the note names the classification's missing parts. So SUPPORT-ONLY. Agree with the first reader. The statement imports only Mathlib, and its 17 theorem names are all inside the closure the note credits."
+  },
+  {
+   "family": "353",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves that every smooth locally uniformly convex affine-maximal graph of dimension three through nine, complete for its induced Euclidean metric, is an elliptic paraboloid.",
+     "status": "stated",
+     "coveredBy": [
+      "AffineBernstein"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/AffineBernstein.lean:76: (hΩconvex : Convex ℝ Ω) (u : Space n → ℝ)",
+      "preprints/The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026/build/main.tex:68: Let \\(\\Omega\\subset\\R^n\\) be a nonempty open convex domain, and let"
+     ],
+     "encoding": [
+      "the graph is over a nonempty open convex Ω: the manuscript's standing assumption (main.tex:68), which the headline and abstract leave implicit; for Euclidean-complete locally strictly convex graphs it is automatic by the Hadamard–Sacksteder theorem, which is not in the statement",
+      "locally uniformly convex = positive-definite Hessian at every point",
+      "Euclidean completeness = sequential completeness of the intrinsic C¹-path distance of g = δ + Du⊗Du",
+      "elliptic paraboloid = Ω = ℝⁿ, u = ½xᵀAx + b·x + c with A positive definite, and an affine image of the standard paraboloid"
+     ]
+    },
+    {
+     "clause": "A smooth entire nonquadratic example in dimension ten makes this range sharp.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Smooth-Nonquadratic-Affine-Maximal-Graph-in-Dimension-Ten-October-5-2026",
+     "evidence": [
+      "CONTENTS.md:8592: We construct a smooth nonquadratic entire graph in dimension ten that solves the classical affine maximal equation and has positive-definite Hessian everywhere.",
+      "lean/docs/353.md:5: - [The affine Bernstein theorem in dimensions three through nine](../../preprints/The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026/main.pdf)",
+      "preprints/The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026/build/main.tex:150: It is not smooth and does not furnish a counterexample under the",
+      "lean/docs/353.md:1: # Affine Bernstein rigidity through dimension nine and a smooth dimension-ten counterexample"
+     ],
+     "why": "The linked paper does not claim a smooth dimension-ten example (it says Trudinger–Wang's is not smooth); the claim is only the unlinked October 5 paper's. The note's title names it, which neither declares nor links."
+    },
+    {
+     "clause": "In dimensions three through nine, the paraboloid classification also holds for connected open locally uniformly convex affine-maximal hypersurfaces complete for the affine Berwald–Blaschke metric.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026",
+     "evidence": [
+      "lean/docs/353.md:11: The paper's extension to immersed hypersurfaces without an initial graph assumption is outside this selected statement.",
+      "preprints/The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026/build/main.tex:51: The same conclusion holds, without an initial graph assumption, for connected"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-affine-Bernstein-theorem-in-dimensions-three-through-nine-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The Euclidean-complete graph theorem is stated as the linked paper states it (convex domain named as its encoding). The affine-complete hypersurface extension is declared by the note, and the dimension-ten counterexample comes only from the unlinked October 5 paper. So NARROWER — UNLINKED. I read the clauses as the first reader did; the word differs only because UNLINKED did not exist for them."
+  }
+ ]
+}

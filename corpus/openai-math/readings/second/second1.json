@@ -1,0 +1,610 @@
+{
+ "reader": "second",
+ "batch": 1,
+ "families": [
+  {
+   "family": "009",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Reconstructs function fields of transcendence degree at least two over algebraically closed constants from $`K^{\\mathrm M}_1/\\ell`$, $`K^{\\mathrm M}_2/\\ell`$, and their product.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Reconstruction-of-Function-Fields-from-Mod-ell-Milnor-K-Theory-October-5-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:5496: \"dir\": \"Reconstruction-of-Function-Fields-from-Mod-ell-Milnor-K-Theory-October-5-2026\"",
+      "corpus/openai-math/release.json:5498: together with their full bilinear product, determine the perfect closure and its constant field.",
+      "lean/docs/009.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/009.md:5: - [The Bogomolov-Pop reconstruction theorem](../../preprints/The-Bogomolov-Pop-reconstruction-theorem-September-23-2026/paper.pdf)",
+      "lean/ComparatorChallenges/BogomolovPopInjectivity.lean: no Milnor K-group appears; the only challenge of the family is Galois-theoretic (lines 117-124)"
+     ]
+    },
+    {
+     "clause": "These data recover the perfect closure and constants when ℓ differs from the characteristic,",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Reconstruction-of-Function-Fields-from-Mod-ell-Milnor-K-Theory-October-5-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:5498: over arbitrary algebraically closed fields of characteristic different from ℓ.",
+      "lean/docs/009.md:5: - [The Bogomolov-Pop reconstruction theorem](../../preprints/The-Bogomolov-Pop-reconstruction-theorem-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "and the original field and its named base in equal characteristic.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Reconstruction-from-Milnor-K-theory-modulo-the-characteristic-October-5-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:5507: \"dir\": \"Reconstruction-from-Milnor-K-theory-modulo-the-characteristic-October-5-2026\"",
+      "corpus/openai-math/release.json:5509: We prove that every isomorphism of their first Milnor K-groups modulo p preserving the degree-two Steinberg relations is a nonzero scalar multiple of the map induced by a unique field isomorphism.",
+      "lean/docs/009.md:5: - [The Bogomolov-Pop reconstruction theorem](../../preprints/The-Bogomolov-Pop-reconstruction-theorem-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "Also proves Bogomolov–Pop reconstruction from abelian-by-central pro-ℓ Galois data away from the characteristic.",
+     "status": "declared",
+     "coveredBy": [
+      "BogomolovPopInjectivity"
+     ],
+     "manuscript": "The-Bogomolov-Pop-reconstruction-theorem-September-23-2026",
+     "evidence": [
+      "lean/docs/009.md:11: The selected statement proves this uniqueness; existence of a field isomorphism for every admissible Galois-data isomorphism is outside it.",
+      "lean/ComparatorChallenges/BogomolovPopInjectivity.lean:123: ∀ (a a' : IsomF k K l L) (b : IsomCUnits ell K L),",
+      "lean/ComparatorChallenges/BogomolovPopInjectivity.lean:124: PhiGraph a b → PhiGraph a' b → a = a'  := by"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-Bogomolov-Pop-reconstruction-theorem-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only the injectivity half of Bogomolov–Pop is stated (existence declared out at 009.md:11); both Milnor K-theory clauses come from the two October-5 manuscripts the scope note does not link, so the most severe status is UNLINKED. I differ from the first reader only because amendment 3 split UNLINKED from UNDECLARED; on the facts we agree."
+  },
+  {
+   "family": "066",
+   "word": "SUPPORT-ONLY",
+   "firstWord": "SUPPORT-ONLY",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the finite-rational-coefficient form of Shokurov’s bounded-klt-complement conjecture for ϵ-lc complex Fano-type pairs with nef anti-log-canonical divisor.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Bounded-klt-complements-for-Fano-contractions-September-25-2026",
+     "evidence": [
+      "lean/docs/066.md:11: Uniform Cartier sections, bounded klt complements, and the paper's real-boundary and companion conclusions are outside this supporting statement.",
+      "lean/docs/066.md:5: - [Uniform Cartier sections for Fano type contractions](../../preprints/Uniform-Cartier-sections-for-Fano-type-contractions-September-25-2026/Uniform-Cartier-sections-for-Fano-type-contractions-September-25-2026.pdf)",
+      "corpus/openai-math/release.json:6807: This proves the finite-rational-coefficient form of Shokurov's bounded-klt-complement conjecture.",
+      "lean/ComparatorChallenges/README.md:14: These setups verify supporting results, not the corresponding papers’ main",
+      "lean/ComparatorChallenges/README.md:19: - `CartierChartCompactnessSupport.json`: compactness of normalized chart-field",
+      "lean/ComparatorChallenges/README.md:20: retractions."
+     ]
+    },
+    {
+     "clause": "For ϵ-lc Fano contractions over any algebraically closed characteristic-zero field, it gives klt complements near every base point, with index bounded only by dimension and positive rational ϵ.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Bounded-klt-complements-for-Fano-contractions-September-25-2026",
+     "evidence": [
+      "lean/docs/066.md:11: bounded klt complements, and the paper's real-boundary and companion conclusions are outside this supporting statement.",
+      "corpus/openai-math/release.json:6807: admits, near each closed base point, a klt complement of index bounded only by d and ϵ."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Uniform-Cartier-sections-for-Fano-type-contractions-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The family's only challenge, CartierChartCompactnessSupport, is on the README's list of supporting results (README.md:19-20), so SUPPORT-ONLY; the scope note also names bounded klt complements as outside (066.md:11), so both clauses are declared even though their manuscript (Bounded-klt-complements) is not linked. Flag: STATEMENT IMPORTS THE SOLUTION LIBRARY (CartierChartCompactnessSupport.lean:1-2 import OAI.AlgebraicGeometry.CartierSections.*); no definition hole."
+  },
+  {
+   "family": "091",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the logarithmic Brunn–Minkowski inequality for origin-symmetric convex bodies in every dimension,",
+     "status": "stated",
+     "coveredBy": [
+      "LogBrunnMinkowski"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:30: theorem main (n : ℕ) (hn : 1 ≤ n) (K L : Set (Space n))",
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:31: (hK : IsConvexBody K) (hL : IsConvexBody L)",
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:32: (hsK : OriginSymmetric K) (hsL : OriginSymmetric L)",
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:33: (t : ℝ) (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :",
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:34: (volume K) ^ (1 - t) * (volume L) ^ t ≤ volume (logCombination K L t) := by"
+     ]
+    },
+    {
+     "clause": "and the scalar-dilation B-conjecture for all even log-concave Radon measures.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-logarithmic-Brunn-Minkowski-conjecture-September-23-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:7335: Combined with Saroglou's transfer theorem and a support-subspace reduction, it yields the logarithmic inequality for every even log-concave Radon measure and the scalar-dilation $`(B)`$-conjecture.",
+      "lean/docs/091.md:5: - [The logarithmic Brunn–Minkowski conjecture](../../preprints/The-logarithmic-Brunn-Minkowski-conjecture-September-23-2026/paper.pdf)",
+      "lean/docs/091.md:9: The logarithmic Brunn–Minkowski conjecture asserts that logarithmic interpolation of origin-symmetric convex bodies preserves the geometric-mean lower bound for volume. The formalized result proves, for every dimension $n\\ge1$, such bodies $K,L\\subset\\mathbb R^n$, and $0\\le t\\le1$, that their logarithmic Wulff combination has volume at least $|K|^{1-t}|L|^t$. It assumes neither boundary smoothness nor coordinatewise unconditionality.",
+      "lean/ComparatorChallenges/LogBrunnMinkowski.lean:34: (volume K) ^ (1 - t) * (volume L) ^ t ≤ volume (logCombination K L t) := by"
+     ]
+    },
+    {
+     "clause": "For Lebesgue volume it also proves the additive Lp Brunn–Minkowski inequality for full-dimensional origin-symmetric convex bodies throughout $`0\\lt p\\lt 1`$.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-logarithmic-Brunn-Minkowski-conjecture-September-23-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:7335: The theorem also gives the symmetric Lp Brunn–Minkowski inequality for every $`0\\\\lt p\\\\lt 1`$.",
+      "lean/docs/091.md:9: The logarithmic Brunn–Minkowski conjecture asserts that logarithmic interpolation of origin-symmetric convex bodies preserves the geometric-mean lower bound for volume. The formalized result proves, for every dimension $n\\ge1$, such bodies $K,L\\subset\\mathbb R^n$, and $0\\le t\\le1$, that their logarithmic Wulff combination has volume at least $|K|^{1-t}|L|^t$. It assumes neither boundary smoothness nor coordinatewise unconditionality.",
+      "lean/docs/091.md:1: # Logarithmic and <i>L</i><sub><i>p</i></sub> Brunn–Minkowski inequalities and the B-conjecture"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-logarithmic-Brunn-Minkowski-conjecture-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Only the log-BM inequality for Lebesgue volume is stated. The B-conjecture for even log-concave measures needs Saroglou's transfer theorem and a support-subspace reduction, and the additive Lp-BM for 0<p<1 needs the Böröczky–Lutwak–Yang–Zhang (2012) implication log-BM ⇒ Lp-BM (p-mean ≥ geometric mean plus a homogeneity argument); neither is formalized, and the scope note (091.md:9) describes only the log inequality — its title (091.md:1) names Lp and the B-conjecture but a title does not declare. Agree with the first reader."
+  },
+  {
+   "family": "119",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves the Courtade–Kumar conjecture: among Boolean functions of independent uniform bits, a single coordinate retains the most mutual information after independent bit-flip noise.",
+     "status": "stated",
+     "coveredBy": [
+      "CourtadeKumar",
+      "SoftChannel204"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/CourtadeKumar.lean:55: def CourtadeKumarStatement : Prop :=",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:56: ∀ (n : ℕ), 1 ≤ n →",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:57: ∀ ε : ℝ, 0 ≤ ε → ε ≤ (1 : ℝ) / 2 →",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:58: ∀ f : Cube n → Bool, mutualInformation ε f ≤ 1 - binaryEntropy ε",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:60: def DictatorAttainmentStatement : Prop :=",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:61: ∀ (n : ℕ), 1 ≤ n →",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:62: ∀ ε : ℝ, 0 ≤ ε → ε ≤ (1 : ℝ) / 2 →",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:63: ∀ i : Fin n,",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:64: mutualInformation ε (dictator i) = 1 - binaryEntropy ε ∧",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:65: mutualInformation ε (complementDictator i) = 1 - binaryEntropy ε",
+      "lean/ComparatorChallenges/CourtadeKumar.lean:69: theorem courtadeKumarAndAttainment : FullStatement := by"
+     ]
+    },
+    {
+     "clause": "A stronger theorem treats randomized binary summaries at fixed initial information.",
+     "status": "stated",
+     "coveredBy": [
+      "SoftChannel204"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/SoftChannel204.lean:77: def SoftContraction : Prop := ∀ (n : ℕ) (u : Cube n → ℝ), Closed u →",
+      "lean/ComparatorChallenges/SoftChannel204.lean:78: ∀ ρ ∈ Set.Icc (-1 : ℝ) 1,",
+      "lean/ComparatorChallenges/SoftChannel204.lean:79: info (noise ρ u) ≤ psi (|ρ| * psiInv (info u))",
+      "lean/ComparatorChallenges/SoftChannel204.lean:86: def SoftInformationIdentity : Prop := ∀ (n : ℕ) (u : Cube n → ℝ), Closed u →",
+      "lean/ComparatorChallenges/SoftChannel204.lean:87: ∀ ρ ∈ Set.Icc (-1 : ℝ) 1,",
+      "lean/ComparatorChallenges/SoftChannel204.lean:88: mutualInformation (softJoint ρ u) = info (noise ρ u)"
+     ]
+    },
+    {
+     "clause": "The Hellinger conjecture is also proved for every Boolean output bias and noise correlation.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:7916: \"dir\": \"Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026\"",
+      "corpus/openai-math/release.json:7918: We prove the Hellinger conjecture for Boolean functions on the uniform discrete cube, with arbitrary output bias.",
+      "lean/docs/119.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/119.md:5: - [Sharp binary-information contraction on the discrete cube](../../preprints/Sharp-binary-information-contraction-on-the-discrete-cube-September-24-2026/main.pdf)",
+      "lean/docs/119.md:1: # The Courtade–Kumar and Hellinger conjectures",
+      "lean/ComparatorChallenges/CourtadeKumar.lean, SoftChannel204.lean: no Hellinger functional (no sqrt(1-m^2) term) in either statement"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Sharp-binary-information-contraction-on-the-discrete-cube-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The two information-contraction clauses are stated (CourtadeKumar; SoftChannel204 SoftContraction/SoftAttainment/SoftInformationIdentity). The Hellinger clause is not stated and comes from the Hellinger manuscript, which the scope note does not link (only its title mentions Hellinger), hence UNLINKED; I differ from the first reader only through amendment 3."
+  },
+  {
+   "family": "172",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Classifies finite point configurations that occur monochromatically, at their original scale, in every finite coloring of sufficiently high-dimensional Euclidean space.",
+     "status": "stated",
+     "coveredBy": [
+      "EuclideanRamsey"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:14: def Ramsey {s d : ℕ} (a : Fin s → Space d) : Prop :=",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:15: ∀ r : ℕ, 2 ≤ r → ∃ D : ℕ, 1 ≤ D ∧",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:16: ∀ c : Space D → Fin r, ∃ b : Fin s → Space D,",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:17: Congruent a b ∧ ∃ k : Fin r, ∀ i, c (b i) = k",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:42: theorem classification {s d : ℕ} (a : Fin s → Space d)",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:43: (hs : 2 ≤ s) (hd : 1 ≤ d) (ha : Function.Injective a)",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:44: (hspan : affineSpan ℝ (Set.range a) = ⊤) :",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:45: Ramsey a ↔ FieldCriterion a := by",
+      "encoding: stated for injective configurations of at least 2 points with full affine span; Ramsey depends only on pairwise distances (Congruent, EuclideanRamsey.lean:11-12), so any finite configuration is congruent to a full-span one and singletons are trivially Ramsey",
+      "lean/OAI/Combinatorics/EuclideanRamsey/Main.lean:78: theorem full_affine_representative {s D : ℕ} (a : Fin s → Space D)",
+      "lean/OAI/Combinatorics/EuclideanRamsey/Congruence.lean:13: theorem singleton_ramsey {d : ℕ} (a : Fin 1 → Space d) : Ramsey a := by"
+     ]
+    },
+    {
+     "clause": "The characterization is an algebraic condition over the coordinate field.",
+     "status": "stated",
+     "coveredBy": [
+      "EuclideanRamsey"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:19: def coordinateField {s d : ℕ} (a : Fin s → Space d) : IntermediateField ℚ ℝ :=",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:20: IntermediateField.adjoin ℚ (Set.range (fun ij : Fin s × Fin d => a ij.1 ij.2))",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:35: def FieldCriterion {s d : ℕ} (a : Fin s → Space d) : Prop :=",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:36: ∃ P : Matrix (Option (Fin d)) (Option (Fin d)) (TensorRing a),",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:37: (∀ i : Fin s, ∑ α, ∑ β,",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:38: ((augmented a i α) ⊗ₜ[ℚ] (1 : Coeff a)) * P α β *",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:39: ((1 : Coeff a) ⊗ₜ[ℚ] (augmented a i β)) = 0) ∧",
+      "lean/ComparatorChallenges/EuclideanRamsey.lean:40: (∀ α β : Fin d, multiply a (P (some α) (some β)) = if α = β then 1 else 0)"
+     ]
+    },
+    {
+     "clause": "It also disproves the Leader–Russell–Walters conjecture that every such configuration is a subset of a finite transitive set.",
+     "status": "undeclared",
+     "coveredBy": [
+      "EuclideanRamseyCircle"
+     ],
+     "manuscript": "A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026",
+     "evidence": [
+      "preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/build/sections/07-consequences.tex:130: is Ramsey and is not subtransitive.",
+      "preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/build/sections/07-consequences.tex:135: Leader, Russell and Walters proved that $K_a$ does not embed in any",
+      "preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/build/sections/07-consequences.tex:136: finite transitive Euclidean set \\cite[Corollary~2]{lrw-kites}.",
+      "lean/ComparatorChallenges/EuclideanRamseyCircle.lean:21: theorem at_most_five_circle_points_ramsey {s : ℕ} (a : Fin s → Space 2)",
+      "lean/ComparatorChallenges/EuclideanRamseyCircle.lean:22: (hs : 0 < s) (hs5 : s ≤ 5) (ha : Function.Injective a)",
+      "lean/ComparatorChallenges/EuclideanRamseyCircle.lean:23: (hsphere : ∃ c : Space 2, ∃ r : ℝ, ∀ i, dist (a i) c = r) : Ramsey a := by",
+      "lean/docs/172.md:5: - [A classification of finite Euclidean Ramsey configurations](../../preprints/A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026/paper.pdf)",
+      "lean/docs/172.md:9: It also proves that every nonempty subset of a finite transitive configuration and every nonempty set of at most five points on a circle is Ramsey.",
+      "lean/docs/172.md: no mention of Leader–Russell–Walters, subtransitivity of the kites, or the disproof"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-classification-of-finite-Euclidean-Ramsey-configurations-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The classification is stated (full-affine-span normalization named as an encoding). The LRW disproof needs a Ramsey set that is NOT subtransitive: Lean states only the Ramsey half (≤5 concyclic points), and the non-subtransitivity of the kites K_a is Leader–Russell–Walters 2011 (J. Comb. 2(3), Cor. 2), cited by the paper and not formalized; the scope note is silent, so UNDECLARED. Flag CREDIT OUTSIDE THE CLOSURE: 172.md:9 credits the formalization with the singleton and affine-span reductions, whose theorems (singleton_ramsey, full_affine_representative) are in OAI/ but in no challenge. Agree with the first reader."
+  },
+  {
+   "family": "194",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves $`e(R)\\le e(S)`$ for every flat local homomorphism of nonzero Noetherian local rings, where e is Hilbert–Samuel multiplicity.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Lechs-multiplicity-conjecture-September-23-2026",
+     "evidence": [
+      "lean/docs/194.md:11: This selected statement is the complete-domain Dutta comparison. The paper's full flat-local result in arbitrary characteristic is outside it.",
+      "lean/ComparatorChallenges/DuttaDomain.lean:62: def DuttaDomainClaim : Prop :=",
+      "lean/ComparatorChallenges/DuttaDomain.lean:63: ∀ (D : Type u) [CommRing D] [IsNoetherianRing D] [IsLocalRing D] [IsDomain D]",
+      "lean/ComparatorChallenges/DuttaDomain.lean:64: [IsAdicComplete (IsLocalRing.maximalIdeal D) D]",
+      "lean/ComparatorChallenges/DuttaDomain.lean:65: (p : ℕ) [Fact p.Prime] [CharP D p]",
+      "lean/ComparatorChallenges/DuttaDomain.lean:66: (F : CochainComplex (ModuleCat.{u} D) ℤ), IsShortComplex D F →",
+      "lean/ComparatorChallenges/DuttaDomain.lean:67: (∀ n i,IsFiniteLength D ((frobeniusComplex D p n F).homology i)) ∧",
+      "lean/ComparatorChallenges/DuttaDomain.lean:68: Tendsto (duttaSequence D p F) atTop (𝓝 (duttaMultiplicity D p F)) ∧",
+      "lean/ComparatorChallenges/DuttaDomain.lean:69: multiplicity D ≤ duttaMultiplicity D p F"
+     ]
+    },
+    {
+     "clause": "This resolves Lech's conjecture in every dimension and characteristic.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Lechs-multiplicity-conjecture-September-23-2026",
+     "evidence": [
+      "lean/docs/194.md:11: The paper's full flat-local result in arbitrary characteristic is outside it.",
+      "lean/docs/194.md:9: The linked formalization covers a supporting characteristic-$p$ comparison over a complete Noetherian local domain $D$"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Lechs-multiplicity-conjecture-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No clause is stated: DuttaDomain is a char-p comparison e(D) ≤ Dutta multiplicity for one complete local domain, which neither implies Lech's inequality nor is implied by it, so DIFFERENT by the precedence rule — although every clause is declared (194.md:11) and the note itself calls the statement supporting. It is not on the README's supporting list (README.md:17-26), so not SUPPORT-ONLY. Agree with the first reader."
+  },
+  {
+   "family": "215",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Constructs the canonical continuum limit of the two-dimensional nearest-neighbor $`O(3)`$ model: a non-Gaussian local relativistic theory with a unique vacuum and a positive mass gap.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-canonical-massive-continuum-limit-of-the-two-dimensional-O3-model-October-4-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:9555: \"dir\": \"The-canonical-massive-continuum-limit-of-the-two-dimensional-O3-model-October-4-2026\"",
+      "corpus/openai-math/release.json:9557: We construct a canonical interacting massive continuum limit of the two-dimensional nearest-neighbor $`O(3)`$ model",
+      "corpus/openai-math/release.json:9557: Their reconstructed theory has a unique vacuum, a nonzero vacuum complement, and a positive Hamiltonian gap on that entire complement.",
+      "lean/docs/215.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/215.md:5: - [Exponential decay in two-dimensional classical $O(n)$ models](../../preprints/Exponential-decay-in-two-dimensional-classical-On-models-September-23-2026/paper.pdf)",
+      "lean/docs/215.md:9: The infinite-volume limit and the separate $O(4)$ spectral-gap claim are not included."
+     ]
+    },
+    {
+     "clause": "For the square-lattice $`O(4)`$ model, determines the exact leading asymptotic of the full transfer gap, $`m_{\\mathrm{lat}}(\\beta)\\sim32e^{\\pi/4-1/2}\\sqrt\\beta\\,e^{-\\pi\\beta}`$.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Exact-mass-asymptotics-for-the-two-dimensional-O4-lattice-model-October-5-2026",
+     "evidence": [
+      "lean/docs/215.md:9: The infinite-volume limit and the separate $O(4)$ spectral-gap claim are not included.",
+      "corpus/openai-math/release.json:9577: \"dir\": \"Exact-mass-asymptotics-for-the-two-dimensional-O4-lattice-model-October-5-2026\"",
+      "corpus/openai-math/release.json:9579: Here the mass is the gap of the full Osterwalder–Schrader transfer operator"
+     ]
+    },
+    {
+     "clause": "The family also proves exponential spin-correlation decay for two-dimensional nearest-neighbor $`O(n)`$ models with n ≥ 3 at every positive temperature.",
+     "status": "stated",
+     "coveredBy": [
+      "ClassicalON"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/ClassicalON.lean:46: def ExponentialDecay : Prop :=",
+      "lean/ComparatorChallenges/ClassicalON.lean:47: ∀ (n : ℕ), 3 ≤ n → ∀ (β : ℝ), 0 < β →",
+      "lean/ComparatorChallenges/ClassicalON.lean:48: ∃ A m : ℝ, 0 < m ∧ ∀ (G : LatticeGraph) (b : G.edges → ℝ),",
+      "lean/ComparatorChallenges/ClassicalON.lean:49: (∀ e, 0 ≤ b e ∧ b e ≤ β) → ∀ x y : G.vertices,",
+      "lean/ComparatorChallenges/ClassicalON.lean:50: 0 ≤ correlation n G b x y ∧",
+      "lean/ComparatorChallenges/ClassicalON.lean:51: correlation n G b x y ≤ A * Real.exp (-m * siteDistance x.val y.val)",
+      "encoding: uniform over finite square-lattice subgraphs with free boundary and edge strengths in [0, β], as in the manuscript; the infinite-volume limit is declared out (215.md:9)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Exponential-decay-in-two-dimensional-classical-On-models-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The O(n) decay clause is stated (finite-volume, uniform). The O(4) mass asymptotic is declared out by name (215.md:9) although its manuscript is unlinked; the O(3) continuum-limit clause is neither stated nor named and comes from unlinked manuscripts, hence UNLINKED. I differ from the first reader only through amendment 3."
+  },
+  {
+   "family": "237",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the diameter form of Nienhuis's predicted three-quarter exponent: a uniformly chosen n-step self-avoiding walk on the honeycomb lattice has diameter $`n^{3/4+o(1)}`$.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Mass-and-covering-exponents-for-fixed-length-honeycomb-walks-September-26-2026",
+     "evidence": [
+      "lean/docs/237.md:18: It does not state the paper's small-force exponent, near-critical correlation scale, or the $3/4$ spatial and moment laws.",
+      "corpus/openai-math/release.json:10314: \"dir\": \"Mass-and-covering-exponents-for-fixed-length-honeycomb-walks-September-26-2026\"",
+      "corpus/openai-math/release.json:10316: For uniform self-avoiding walks of every sufficiently large integer length on the honeycomb lattice, we prove diameter exponent 3/4",
+      "lean/docs/237.md:5: - [Polynomial vacuum representations and bridge mass for honeycomb walks](../../preprints/Polynomial-vacuum-representations-and-bridge-mass-for-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:6: - [Renewal and changes of law for critical honeycomb walks](../../preprints/Renewal-and-changes-of-law-for-critical-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:7: - [Critical strip-crossing mass on the honeycomb lattice](../../preprints/Critical-strip-crossing-mass-on-the-honeycomb-lattice-September-26-2026/main.pdf)",
+      "lean/docs/237.md:8: - [Critical honeycomb chords with prescribed boundary endpoints](../../preprints/Critical-honeycomb-chords-with-prescribed-boundary-endpoints-September-26-2026/main.pdf)"
+     ]
+    },
+    {
+     "clause": "Its local mass and covering numbers have exponent 4/3.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Mass-and-covering-exponents-for-fixed-length-honeycomb-walks-September-26-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:10316: simultaneous local-mass and covering exponent 4/3",
+      "lean/docs/237.md:14: The paper's $h^{4/3+o(1)}$ mean-length law and its central-visit and hexagonal-chord exponents are outside them.",
+      "lean/docs/237.md:5: - [Polynomial vacuum representations and bridge mass for honeycomb walks](../../preprints/Polynomial-vacuum-representations-and-bridge-mass-for-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:6: - [Renewal and changes of law for critical honeycomb walks](../../preprints/Renewal-and-changes-of-law-for-critical-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:7: - [Critical strip-crossing mass on the honeycomb lattice](../../preprints/Critical-strip-crossing-mass-on-the-honeycomb-lattice-September-26-2026/main.pdf)",
+      "lean/docs/237.md:8: - [Critical honeycomb chords with prescribed boundary endpoints](../../preprints/Critical-honeycomb-chords-with-prescribed-boundary-endpoints-September-26-2026/main.pdf)"
+     ]
+    },
+    {
+     "clause": "These estimates hold at every sufficiently large fixed length, simultaneously across scales, with arbitrarily high polynomial probability.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Mass-and-covering-exponents-for-fixed-length-honeycomb-walks-September-26-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:10316: with arbitrary positive exponent slack and arbitrary polynomial failure probability.",
+      "lean/docs/237.md:5: - [Polynomial vacuum representations and bridge mass for honeycomb walks](../../preprints/Polynomial-vacuum-representations-and-bridge-mass-for-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:6: - [Renewal and changes of law for critical honeycomb walks](../../preprints/Renewal-and-changes-of-law-for-critical-honeycomb-walks-September-26-2026/main.pdf)",
+      "lean/docs/237.md:7: - [Critical strip-crossing mass on the honeycomb lattice](../../preprints/Critical-strip-crossing-mass-on-the-honeycomb-lattice-September-26-2026/main.pdf)",
+      "lean/docs/237.md:8: - [Critical honeycomb chords with prescribed boundary endpoints](../../preprints/Critical-honeycomb-chords-with-prescribed-boundary-endpoints-September-26-2026/main.pdf)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Polynomial-vacuum-representations-and-bridge-mass-for-honeycomb-walks-September-26-2026",
+    "Renewal-and-changes-of-law-for-critical-honeycomb-walks-September-26-2026",
+    "Critical-strip-crossing-mass-on-the-honeycomb-lattice-September-26-2026",
+    "Critical-honeycomb-chords-with-prescribed-boundary-endpoints-September-26-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The whole headline is the Mass-and-covering manuscript, which the note does not link; the four challenges state ingredients (bridge-sum finiteness, free energy, strip mass ~ N^{-1/4} with displacement moment ~ N^{3/4}, strict-bridge mass ~ (1+h)^{-1/4}) that neither imply nor follow from it, so DIFFERENT. Clause 1 is recorded declared because 237.md:18 names \"the 3/4 spatial ... laws\" as not stated (phrased for the linked Renewal paper, whose 3/4 laws are weaker than the headline's every-length form). Only HoneycombBridgeMassSupport is on the README list, so not SUPPORT-ONLY. Agree with the first reader. Lane-K note: HoneycombBridgeMassSupport.lean:71 docstring reads \"Trusted reference hole only; missing necessary main obligation.\""
+  },
+  {
+   "family": "263",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "For the full nonrelativistic Coulomb model with two electron spin states, proves that a molecule with M fixed nuclei of charges at least one and total charge Z strictly binds at most $`Z+CM`$ electrons.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-excess-charge-for-Coulomb-molecules-and-the-outer-radius-of-neutral-atoms-September-24-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:11106: \"dir\": \"Uniform-excess-charge-for-Coulomb-molecules-and-the-outer-radius-of-neutral-atoms-September-24-2026\"",
+      "corpus/openai-math/release.json:11108: We prove that a molecule with M fixed nuclei of real charges at least one and total nuclear charge Z strictly binds at most $`Z+CM`$ electrons, where C is universal.",
+      "lean/docs/263.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/263.md:5: - [Generalized ionization energies for full Coulomb atoms](../../preprints/Generalized-ionization-energies-for-full-Coulomb-atoms-September-24-2026/paper.pdf)",
+      "lean/docs/263.md:6: - [Generalized outer-electron radii of neutral Coulomb atoms](../../preprints/Generalized-outer-electron-radii-of-neutral-Coulomb-atoms-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "Neutral-atom first ionization energies and radii containing all but an expected half-electron have universal positive upper and lower bounds.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Uniform-excess-charge-for-Coulomb-molecules-and-the-outer-radius-of-neutral-atoms-September-24-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:11108: the first ionization energy and, for every ground state, the radius outside which one half of an electron remains are each bounded above and below by positive universal constants.",
+      "lean/docs/263.md:5: - [Generalized ionization energies for full Coulomb atoms](../../preprints/Generalized-ionization-energies-for-full-Coulomb-atoms-September-24-2026/paper.pdf)",
+      "lean/docs/263.md:6: - [Generalized outer-electron radii of neutral Coulomb atoms](../../preprints/Generalized-outer-electron-radii-of-neutral-Coulomb-atoms-September-24-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "The energy cost of removing m electrons has Thomas–Fermi asymptotics as $`m\\to\\infty`$ and $`Z/m\\to\\infty`$;",
+     "status": "stated",
+     "coveredBy": [
+      "CoulombIonization"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/CoulombIonization.lean:72: def TFCharacterization (a : ℝ) : Prop :=",
+      "lean/ComparatorChallenges/CoulombIonization.lean:73: ∀ m : ℝ, 0 < m →",
+      "lean/ComparatorChallenges/CoulombIonization.lean:74: Tendsto (tfIonization m) atTop (𝓝 (a * m ^ (7 / 3 : ℝ)))",
+      "lean/ComparatorChallenges/CoulombIonization.lean:75: ",
+      "lean/ComparatorChallenges/CoulombIonization.lean:76: def JointLimit (a : ℝ) : Prop :=",
+      "lean/ComparatorChallenges/CoulombIonization.lean:77: ∀ m Z : ℕ → ℕ, (∀ j, 1 ≤ m j ∧ m j < Z j) →",
+      "lean/ComparatorChallenges/CoulombIonization.lean:78: Tendsto m atTop atTop →",
+      "lean/ComparatorChallenges/CoulombIonization.lean:79: Tendsto (fun j => (Z j : ℝ) / (m j : ℝ)) atTop atTop →",
+      "lean/ComparatorChallenges/CoulombIonization.lean:80: Tendsto (fun j => ionization (m j) (Z j) / (m j : ℝ) ^ (7 / 3 : ℝ))",
+      "lean/ComparatorChallenges/CoulombIonization.lean:81: atTop (𝓝 a)",
+      "lean/ComparatorChallenges/CoulombIonization.lean:89: def MainStatement : Prop :=",
+      "lean/ComparatorChallenges/CoulombIonization.lean:90: ∃ a : ℝ, 0 < a ∧ TFCharacterization a ∧ JointLimit a ∧ IteratedLimits a"
+     ]
+    },
+    {
+     "clause": "neutral-atom outer radii have the corresponding iterated-limit asymptotics, taking $`Z\\to\\infty`$ first.",
+     "status": "stated",
+     "coveredBy": [
+      "CoulombRadii"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/CoulombRadii.lean:77: theorem generalized_outer_radii",
+      "lean/ComparatorChallenges/CoulombRadii.lean:78: (Ψ : ∀ N : ℕ, Wavefunction (N + 1))",
+      "lean/ComparatorChallenges/CoulombRadii.lean:79: (hΨ : ∀ N : ℕ, IsNormalizedGroundState (N + 1) (Ψ N)) :",
+      "lean/ComparatorChallenges/CoulombRadii.lean:80: Tendsto (fun m : ℕ => (((m : ℝ) ^ (1 / 3 : ℝ) : ℝ) : EReal) * upperRadius Ψ m)",
+      "lean/ComparatorChallenges/CoulombRadii.lean:81: atTop (𝓝 (bTF : EReal)) ∧",
+      "lean/ComparatorChallenges/CoulombRadii.lean:82: Tendsto (fun m : ℕ => (((m : ℝ) ^ (1 / 3 : ℝ) : ℝ) : EReal) * lowerRadius Ψ m)",
+      "lean/ComparatorChallenges/CoulombRadii.lean:83: atTop (𝓝 (bTF : EReal)) := by",
+      "encoding: ground states are hypotheses (hΨ, CoulombRadii.lean:79); their existence is Zhislin's theorem, not formalized, and the note says so",
+      "lean/docs/263.md:13: Ground states are inputs to the statement; their existence is not asserted separately."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Generalized-ionization-energies-for-full-Coulomb-atoms-September-24-2026",
+    "Generalized-outer-electron-radii-of-neutral-Coulomb-atoms-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The two generalized-ionization clauses are stated (radii with ground states as named inputs, declared at 263.md:13). The excess-charge bound Z+CM and the universal first-ionization / half-electron-radius bounds — the ionization conjecture of the family title — come from the uniform-excess-charge manuscript, which the note does not link, hence UNLINKED. I differ from the first reader only through amendment 3."
+  },
+  {
+   "family": "290",
+   "word": "DIFFERENT",
+   "firstWord": "DIFFERENT",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves Connes' bicentralizer conjecture for every type III1 factor with separable predual and every faithful normal state.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Bounded-recovery-for-modular-spectral-averages-September-23-2026",
+     "evidence": [
+      "lean/docs/290.md:9: The absolute bicentralizer conjecture is not included.",
+      "corpus/openai-math/release.json:11680: obtain an alternative proof of bicentralizer triviality for type III1 factors with separable predual."
+     ]
+    },
+    {
+     "clause": "More generally, for every inclusion $`N\\subset M`$ of von Neumann algebras with separable preduals admitting a faithful normal conditional expectation, constructs an amenable expected subalgebra $`P\\subset N`$ with $`P'\\cap c(M)=N'\\cap c(M)`$, resolving the relative bicentralizer conjecture.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Expected-amenable-subalgebras-preserving-core-commutants-September-23-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:11667: \"dir\": \"Expected-amenable-subalgebras-preserving-core-commutants-September-23-2026\"",
+      "corpus/openai-math/release.json:11669: This resolves the relative bicentralizer conjecture in this setting.",
+      "lean/docs/290.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/290.md:5: - [Bounded recovery for modular spectral averages](../../preprints/Bounded-recovery-for-modular-spectral-averages-September-23-2026/Bounded-recovery-for-modular-spectral-averages-September-23-2026.pdf)",
+      "lean/docs/290.md:9: The absolute bicentralizer conjecture is not included."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Bounded-recovery-for-modular-spectral-averages-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "No clause is stated: BoundedRecovery is a spectral-recovery lemma that neither implies nor is implied by either bicentralizer statement, so DIFFERENT; the absolute conjecture is declared out, the relative one is from an unlinked manuscript. Not on the README support list. The first reader's VACUITY? is cleared here: H = ℂ, M = B(ℂ), xi = 1, calculus f ↦ f(0)·id, J = conj inhabits StandardModularData with ScalarCentralizer, and s = 0, T = id, h n = 1 meet every hypothesis. Agree with the first reader."
+  },
+  {
+   "family": "337",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves generalized Cartan–Hadamard isoperimetry in every dimension: in a complete simply connected manifold with sectional curvature at most κ ≤ 0, every finite-volume finite-perimeter set satisfies the sharp comparison with the equal-volume model ball.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Generalized-Cartan-Hadamard-isoperimetry-and-Euclidean-equality-rigidity-September-23-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:12470: \"dir\": \"Generalized-Cartan-Hadamard-isoperimetry-and-Euclidean-equality-rigidity-September-23-2026\"",
+      "corpus/openai-math/release.json:12472: In a complete simply connected smooth manifold with sectional curvature at most κ ≤ 0, every finite-volume set of finite ambient perimeter has perimeter at least that of the equal-volume ball in curvature κ.",
+      "lean/docs/337.md:3: The following describes the scope of the Lean formalization related to the following accompanying paper(s):",
+      "lean/docs/337.md:5: - [Sharp integral fillings in $\\mathrm{CAT}(0)$ spaces](../../preprints/Sharp-integral-fillings-in-CAT(0)-spaces-September-23-2026/paper.pdf)",
+      "lean/docs/337.md:11: This yields the selected integral-current form of the Cartan–Hadamard isoperimetric conjecture."
+     ]
+    },
+    {
+     "clause": "Bounded positive-volume equality regions for κ = 0 are Euclidean balls.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Generalized-Cartan-Hadamard-isoperimetry-and-Euclidean-equality-rigidity-September-23-2026",
+     "evidence": [
+      "corpus/openai-math/release.json:12472: For bounded positive-volume sets, equality in the Euclidean comparison holds precisely when the set agrees up to null sets with an open region isometric, with its induced metric, to a round Euclidean ball.",
+      "lean/docs/337.md:5: - [Sharp integral fillings in $\\mathrm{CAT}(0)$ spaces](../../preprints/Sharp-integral-fillings-in-CAT(0)-spaces-September-23-2026/paper.pdf)"
+     ]
+    },
+    {
+     "clause": "Also proves sharp Euclidean filling bounds for compactly supported integral n-cycles, n ≥ 2, in arbitrary proper CAT$`(0)`$ spaces.",
+     "status": "stated",
+     "coveredBy": [
+      "SharpCAT0Filling",
+      "FillingCoefficient"
+     ],
+     "evidence": [
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:135: theorem sharp_integral_filling",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:136: (X : Type u) [MetricSpace X] [MeasurableSpace X] [BorelSpace X] [ProperSpace X]",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:137: (hX : IsCAT0 X) (n : ℕ) (hn : 2 ≤ n) (T : IntegralCurrent X n)",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:138: (hTc : CompactlySupported T.val) (hTz : IsCycle T.val) :",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:139: ∃ S : IntegralCurrent X (n + 1), CompactlySupported S.val ∧",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:140: boundarySucc S.val = T.val ∧",
+      "lean/ComparatorChallenges/SharpCAT0Filling.lean:141: mass S.val ≤ fillingCoefficient n * (mass T.val) ^ fillingPower n := by",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:120: theorem coefficient_optimal (n : ℕ) (hn : 2 ≤ n) :",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:121: ∃ T : IntegralCurrent (Euc (n + 1)) n,",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:122: CompactlySupported T.val ∧ IsCycle T.val ∧ 0 < mass T.val ∧",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:123: ∀ S : IntegralCurrent (Euc (n + 1)) (n + 1),",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:124: CompactlySupported S.val → boundarySucc S.val = T.val →",
+      "lean/ComparatorChallenges/FillingCoefficient.lean:125: fillingCoefficient n * (mass T.val) ^ fillingPower n ≤ mass S.val := by",
+      "encoding: Ambrosio–Kirchheim metric currents as functionals with integer-rectifiable charts (SharpCAT0Filling.lean:36-103); CAT(0) via geodesic segments with the comparison inequality (lines 116-124); C_n = 1/((n+1)|S^n|^{1/n}), the Euclidean ball constant (lines 128-133)"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Sharp-integral-fillings-in-CAT(0)-spaces-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The CAT(0) filling clause is stated, with sharpness. The Riemannian κ ≤ 0 isoperimetry and κ = 0 rigidity are the generalized Cartan–Hadamard manuscript, which the note does not link, hence UNLINKED. Nuance: the linked filling paper also claims the Euclidean (κ = 0, dim ≥ 3) Cartan–Hadamard conjecture, which would follow only through unformalized bridges (Hadamard manifolds are CAT(0), finite-perimeter sets as integral currents, the constancy theorem); 337.md:11 calls what is stated \"the selected integral-current form\", which I read as naming the form, not the omission. I differ from the first reader only through amendment 3."
+  }
+ ]
+}

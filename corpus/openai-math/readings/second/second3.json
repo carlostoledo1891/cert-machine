@@ -1,0 +1,597 @@
+{
+ "reader": "second",
+ "batch": 3,
+ "families": [
+  {
+   "family": "027",
+   "word": "SUPPORT-ONLY",
+   "firstWord": "SUPPORT-ONLY",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Resolves the determinant-one curve case of Litt's integral-density question.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Integral-points-on-character-varieties-of-curves-September-25-2026",
+     "evidence": [
+      "lean/docs/027.md:11: This is conditional compatibility of the produced solution. Potential integral density, including the prescribed-boundary and all-component conclusions, remains outside the selected statement.",
+      "lean/ComparatorChallenges/README.md:14: These setups verify supporting results, not the corresponding papers’ main",
+      "lean/ComparatorChallenges/README.md:17: - `CharacterVarietiesAllSeamsSupport.json`: compatibility of the produced marked"
+     ]
+    },
+    {
+     "clause": "For every smooth connected complex algebraic curve and every rank, integral points become Zariski dense in every component of its SLr character variety over the full ring of integers of one number field.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Integral-points-on-character-varieties-of-curves-September-25-2026",
+     "evidence": [
+      "lean/docs/027.md:11: Potential integral density, including the prescribed-boundary and all-component conclusions, remains outside the selected statement."
+     ]
+    },
+    {
+     "clause": "Prescribed quasi-unipotent boundary conjugacy classes are allowed, including nonsemisimple classes.",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Integral-points-on-character-varieties-of-curves-September-25-2026",
+     "evidence": [
+      "lean/docs/027.md:11: including the prescribed-boundary and all-component conclusions, remains outside the selected statement."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Integral-points-on-character-varieties-of-curves-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The only challenge (CharacterVarietiesAllSeamsSupport: the produced marked values satisfy every seam equation) is on the README's supporting-result list, and the scope note names every headline clause as outside the statement; SUPPORT-ONLY, agreeing with the first reader. Flag STATEMENT IMPORTS THE SOLUTION LIBRARY: the challenge's line 1 imports OAI.AlgebraicGeometry.CharacterVarieties.Seams.ProducedEquations, so its definitions are the claimant's own (lean/ComparatorChallenges/CharacterVarietiesAllSeamsSupport.lean:1)."
+  },
+  {
+   "family": "076",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Constructs polynomials with N consecutive coefficients in $`\\{-1,1\\}`$ whose modulus is $`(1+o(1))\\sqrt N`$ uniformly on the entire unit circle, for every sufficiently large integer length N.",
+     "status": "unlinked",
+     "coveredBy": [
+      "AsymptoticallyMinimalLittlewood"
+     ],
+     "manuscript": "Ultraflat-real-Littlewood-polynomials-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/AsymptoticallyMinimalLittlewood.lean:16: ∀ z : ℂ, ‖z‖ = 1 → ‖littlewoodValue ε z‖ ≤ (1 + η) * Real.sqrt N",
+      "preprints/Ultraflat-real-Littlewood-polynomials-October-5-2026/build/sections/introduction.tex:20: (1-\\varepsilon)\\sqrt N",
+      "preprints/Ultraflat-real-Littlewood-polynomials-October-5-2026/build/sections/introduction.tex:21: \\le\\left|\\sum_{k=0}^{N-1}\\varepsilon_k z^k\\right|",
+      "preprints/Asymptotically-minimal-maxima-of-real-Littlewood-polynomials-September-23-2026/build/introduction.tex:36: It gives no uniform lower bound for $|P(z)|$ and hence does",
+      "preprints/Asymptotically-minimal-maxima-of-real-Littlewood-polynomials-September-23-2026/build/introduction.tex:37: not assert two-sided uniform ultraflatness.",
+      "lean/docs/076.md:5: - [Asymptotically minimal maxima of real Littlewood polynomials]"
+     ]
+    },
+    {
+     "clause": "Thus real Littlewood polynomials are ultraflat, including at the real endpoints.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Ultraflat-real-Littlewood-polynomials-October-5-2026",
+     "evidence": [
+      "preprints/Ultraflat-real-Littlewood-polynomials-October-5-2026/build/sections/introduction.tex:13: can be ultraflat, through every sufficiently large integer length.",
+      "preprints/Ultraflat-real-Littlewood-polynomials-October-5-2026/build/sections/introduction.tex:28: same polynomial on the entire circle, including the real points",
+      "lean/docs/076.md:9: whose maximum modulus on the unit circle is at most $(1+\\eta)\\sqrt N$ for any fixed $\\eta>0$.",
+      "lean/docs/076.md:1: # Real ultraflat Littlewood polynomials and unbounded binary merit factors"
+     ]
+    },
+    {
+     "clause": "Their binary merit factors tend to infinity, disproving Turyn's bounded-merit-factor conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "AsymptoticallyMinimalLittlewood",
+      "LittlewoodFiniteFlatness"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/AsymptoticallyMinimalLittlewood.lean:14: ∀ η : ℝ, 0 < η → ∃ N₀ : ℕ, 1 ≤ N₀ ∧ ∀ N : ℕ, N₀ ≤ N →",
+      "preprints/Asymptotically-minimal-maxima-of-real-Littlewood-polynomials-September-23-2026/build/merit-morse.tex:39: Parseval, and the elementary fourth-moment"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Asymptotically-minimal-maxima-of-real-Littlewood-polynomials-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Merit factor appears in no Lean file, but the clause follows from AsymptoticallyMinimalLittlewood by an elementary, Mathlib-formalized step (named encoding/derivation): with F = N²/(‖P‖₄⁴ − N²) (Parseval for the aperiodic autocorrelations, orthonormality of the characters) and ‖P‖₄⁴ ≤ ‖P‖∞²‖P‖₂² ≤ (1+η)²N², F ≥ 1/((1+η)²−1) → ∞ through all lengths; LittlewoodFiniteFlatness at p = 4 gives it too. The two-sided (ultraflat) clauses come only from the October 5 'Ultraflat' manuscript, which the note does not link, and the one linked paper says in words that it does not assert them; so NARROWER — UNLINKED. I differ from the first reader only by the amendment-3 word (the first reader's gap is the same: the uniform lower bound)."
+  },
+  {
+   "family": "097",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves that any finite sequence in the Euclidean unit ball of ℝd admits signs keeping every partial sum within $`C\\sqrt d`$, independently of length.",
+     "status": "stated",
+     "coveredBy": [
+      "SteinitzBergstrom"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/SteinitzBergstrom.lean:24: theorem main : ∃ C : ℝ, SignedPrefixBound C ∧ OrderingPrefixBound C := by"
+     ]
+    },
+    {
+     "clause": "Consequently every zero-sum family can be reordered with the same bound on unsigned partial sums.",
+     "status": "stated",
+     "coveredBy": [
+      "SteinitzBergstrom"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/SteinitzBergstrom.lean:19: ∀ (v : Fin N → Vector d), (∀ i, ‖v i‖ ≤ 1) → (∑ i, v i) = 0 →"
+     ]
+    },
+    {
+     "clause": "A matching lower bound gives the optimal order $`S_2(d)=\\Theta(\\sqrt d)`$.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-Euclidean-Steinitz-Bergstrom-theorem-September-24-2026",
+     "evidence": [
+      "preprints/The-Euclidean-Steinitz-Bergstrom-theorem-September-24-2026/build/consequences.tex:52: For the lower bounds, let $1\\le p\\le2$. The ordered standard basis",
+      "preprints/The-Euclidean-Steinitz-Bergstrom-theorem-September-24-2026/build/main.tex:46: $S_2(d)=\\Theta(\\sqrt d)$, and resolves the Euclidean",
+      "lean/docs/097.md:9: The formalized result gives the Euclidean Steinitz–Bergström bound with one absolute constant $C$.",
+      "lean/docs/097.md:9: The result is existential and does not supply an online algorithm."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-Euclidean-Steinitz-Bergstrom-theorem-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Both upper bounds are stated with one absolute C quantified before d and N. The Θ clause needs the lower bound S_2(d) ≥ c√d, which no challenge states; it comes from the one linked manuscript (an elementary few-line example, consequences.tex:52-68), and the note describes only the upper bounds without naming the omission. The gap is formal rather than substantive. Agrees with the first reader."
+  },
+  {
+   "family": "132",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Constructs total Boolean functions with block sensitivity $`\\mathop{\\mathrm{bs}}\\nolimits (f)\\ge s(f)^\\alpha`$ for a fixed α > 2",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "A-superquadratic-separation-between-sensitivity-and-block-sensitivity-September-25-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/SensitivitySeparation.lean:34: (2 : ℝ) ^ d / (4 * ((d : ℝ) + 2) ^ 2) ≤",
+      "lean/ComparatorChallenges/SensitivitySeparation.lean:35: (blockSensitivity f : ℝ) / (sensitivity f : ℝ) ^ 2 := by",
+      "lean/ComparatorChallenges/SensitivitySeparation.json:5: \"OAI.Paper320.quantitative_separation\"",
+      "lean/OAI/Combinatorics/Sensitivity/Separation.lean:36: theorem fixed_power_separation :",
+      "lean/docs/132.md:9: The formalization also gives a fixed exponent $\\alpha>2$ and a sequence with $s(f)^\\alpha\\le\\mathrm{bs}(f,0)$ while the latter tends to infinity"
+     ]
+    },
+    {
+     "clause": "disproving the quadratic strengthening of the Sensitivity Conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "SensitivitySeparation"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/SensitivitySeparation.lean:33: (∃ x y : Fin n → Bool, f x ≠ f y) ∧"
+     ]
+    },
+    {
+     "clause": "Here $`s(f)`$ counts influential individual-bit flips, while block sensitivity allows disjoint groups of bits to change together.",
+     "status": "stated",
+     "coveredBy": [
+      "SensitivitySeparation"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/SensitivitySeparation.lean:15: (Finset.univ.filter fun i => f (flip x {i}) ≠ f x).card",
+      "lean/ComparatorChallenges/SensitivitySeparation.lean:23: if (∀ A ∈ blocks, ∀ B ∈ blocks, A ≠ B → Disjoint A B) ∧"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-superquadratic-separation-between-sensitivity-and-block-sensitivity-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The one theorem gives bs(f)/s(f)² ≥ 2^d/(4(d+2)²) for each d (ratio unbounded, refuting bs ≤ C·s²; s ≥ 1 because f is nonconstant, so no x/0 junk), but nothing bounds s(f) in terms of d, so no fixed α > 2 follows. Flag CREDIT OUTSIDE THE CLOSURE: the note credits 'the formalization' with the α > 2 sequence, which is OAI.Paper320.fixed_power_separation in the solution library, not in the challenge's theorem_names, so Comparator never checks it. A credit is the opposite of naming an omission, so the clause is undeclared. Agrees with the first reader."
+  },
+  {
+   "family": "180",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves that every finite simple cubic bipartite planar 3-vertex-connected graph has a Hamiltonian cycle, resolving Barnette's conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "BarnetteHamiltonian"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/BarnetteHamiltonian.lean:45: G.IsRegularOfDegree 3 → G.IsBipartite → Planar G →",
+      "lean/ComparatorChallenges/BarnetteHamiltonian.lean:46: ThreeVertexConnected G → HasHamiltonianCycle G"
+     ]
+    },
+    {
+     "clause": "Equivalently, every three-edge path in a finite simple cubic 3-vertex-connected bipartite Pfaffian graph lies in a Hamiltonian cycle.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Paired-states-and-Hamiltonian-cycles-in-cubic-bipartite-planar-graphs-September-24-2026",
+     "evidence": [
+      "preprints/Paired-states-and-Hamiltonian-cycles-in-cubic-bipartite-planar-graphs-September-24-2026/build/paper.tex:111: through their published equivalence \\cite[Theorem~4.16]{GSW2023}:",
+      "preprints/Paired-states-and-Hamiltonian-cycles-in-cubic-bipartite-planar-graphs-September-24-2026/build/paper.tex:812: \\begin{corollary}[Prescribed paths in Pfaffian graphs]\\label{cor:pfaffian-paths}",
+      "preprints/Paired-states-and-Hamiltonian-cycles-in-cubic-bipartite-planar-graphs-September-24-2026/build/paper.tex:821: Gorsky, Steiner, and Wiederrecht \\cite[Theorem~4.16]{GSW2023} proved",
+      "lean/docs/180.md:9: The formalization proves this statement for every such graph. The selected result is the existence of a cycle visiting every vertex exactly once."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Paired-states-and-Hamiltonian-cycles-in-cubic-bipartite-planar-graphs-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Barnette is stated (topological plane embedding with simple arcs; 3-connected = at least 4 vertices and connected after deleting any 2). The Pfaffian P4-Hamiltonicity clause follows only through Gorsky–Steiner–Wiederrecht 2023, Theorem 4.16 (not formalized), so it is not stated; it is the linked manuscript's Corollary cor:pfaffian-paths, and 'The selected result is …' describes the formalized part without naming the corollary as left out. The gap is a published equivalence, not new mathematics. Agrees with the first reader."
+  },
+  {
+   "family": "197",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Constructs a finitely presented … group whose group algebra … is not directly finite, disproving Kaplansky's conjecture",
+     "status": "stated",
+     "coveredBy": [
+      "KaplanskyFinitelyPresented",
+      "KaplanskyDirectFiniteness"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:8: ∃ (K : Type) (_ : Field K) (_ : Fintype K) (_ : CharP K 2),",
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:9: ∃ (G : Type) (_ : Group G) (_ : Group.IsFinitelyPresented G),",
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:11: ∃ a_out b_out : MonoidAlgebra K G, a_out * b_out = 1 ∧ b_out * a_out ≠ 1 := by"
+     ]
+    },
+    {
+     "clause": "torsion-free",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:10: (∃ (ℓ : ℕ) (_ : ℓ.Prime) (_ : Odd ℓ) (g : G), orderOf g = ℓ) ∧",
+      "lean/docs/197.md:11: the more detailed construction gives a finitely presented group with an element of odd prime order.",
+      "preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/build/sections/introduction.tex:14: There exist a finitely presented torsion-free group $G$ and elements",
+      "preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/build/sections/01-introduction.tex:18: The construction uses odd-order torsion and does not assert that $K=\\F_2$.",
+      "lean/docs/197.md:1: # A torsion-free group algebra that is not directly finite",
+      "lean/docs/197.md:5: - [A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two]",
+      "lean/docs/197.md:6: - [A Counterexample to the Group-Ring Determinant Conjecture]",
+      "lean/docs/197.md:7: - [A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic]"
+     ]
+    },
+    {
+     "clause": "nonsofic",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026",
+     "evidence": [
+      "lean/docs/197.md:13: The further conclusion that the group is nonsofic is outside these statements."
+     ]
+    },
+    {
+     "clause": "over 𝔽2",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:8: ∃ (K : Type) (_ : Field K) (_ : Fintype K) (_ : CharP K 2),",
+      "preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/build/sections/introduction.tex:49: Theorem~\\ref{thm:main} uses the prime field $\\Ftwo$ and a torsion-free group.",
+      "preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/build/sections/01-introduction.tex:18: does not assert that $K=\\F_2$"
+     ]
+    },
+    {
+     "clause": "even without torsion",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026",
+     "evidence": [
+      "preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/build/sections/introduction.tex:9: group is finitely presented and torsion-free.",
+      "lean/ComparatorChallenges/KaplanskyFinitelyPresented.lean:10: (∃ (ℓ : ℕ) (_ : ℓ.Prime) (_ : Odd ℓ) (g : G), orderOf g = ℓ) ∧"
+     ]
+    },
+    {
+     "clause": "Companion examples give injective nonsurjective cellular automata on all configurations, refuting Gottschalk's surjunctivity conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "OddKaplansky"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/OddKaplansky.lean:14: d.coeff.sum fun u c => c * x (g * u)",
+      "lean/ComparatorChallenges/OddKaplansky.lean:18: ∃ (K : Type) (_ : Field K) (_ : Fintype K) (_ : CharP K sourcePrime),",
+      "lean/ComparatorChallenges/OddKaplansky.lean:24: Function.Injective (cellular b) ∧ ¬ Function.Surjective (cellular b)"
+     ]
+    },
+    {
+     "clause": "Another counterexample is an integral group-ring matrix, invertible over the rational group ring, with Fuglede–Kadison determinant strictly between zero and one, disproving the unrestricted Determinant Conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "GroupRingDeterminant"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/GroupRingDeterminant.lean:28: Real.exp ((groupTrace (CFC.log (star T * T))).re / 2)",
+      "lean/ComparatorChallenges/GroupRingDeterminant.lean:49: IsUnit (rationalMatrix A) ∧ IsRegularOperator A T ∧ IsUnit T ∧",
+      "lean/ComparatorChallenges/GroupRingDeterminant.lean:50: 0 < fkDet T ∧ fkDet T < 1"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026",
+    "A-Counterexample-to-the-Group-Ring-Determinant-Conjecture-September-23-2026",
+    "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The five clause entries above partition the headline's first sentence. The finitely presented Lean example is REQUIRED to carry an element of odd prime order (KaplanskyFinitelyPresented.lean:10), over an unspecified finite field of characteristic 2; no challenge states a torsion-free group or the field 𝔽2 (passing from F_{2^k} to 𝔽2 would need the block decomposition of 𝔽2[C_{2^k−1}] plus a corner argument, not formalized, and still gives a group with torsion). Those clauses come only from the October 4 manuscript, which the note does not link; the linked September 23 paper says in words that it uses odd-order torsion and does not assert K = 𝔽2. Nonsoficity is declared (197.md:13). Gottschalk is stated by OddKaplansky (a finite-alphabet linear cellular automaton, G-equivariant with finite memory supp b; the characteristic-two example's automaton is not separately stated, but one stated example carries the clause). The determinant clause is stated (FK determinant of an invertible operator as exp(½ tr log T*T); left-regular convention, equivalent under g ↦ g⁻¹ and transposition; no junk: a missing CFC instance would give fkDet = 1, excluded by fkDet < 1). Word NARROWER — UNLINKED; I differ from the first reader by the amendment-3 word only. The first reader's facts are confirmed, and one is sharper here: the scope note's own heading (197.md:1) is the torsion-free title, sitting above a body that says the formal group has odd-prime-order torsion (197.md:11). A heading does not declare an omission, but a reader who stops at it is told the opposite of what the statements cover."
+  },
+  {
+   "family": "220",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "On ℤd, d ≥ 3, directional escape has probability zero or one for iid strictly elliptic nearest-neighbor environments",
+     "status": "stated",
+     "coveredBy": [
+      "DirectionalWalk"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/DirectionalWalk.lean:88: annealed μ 0 (escape ℓ) = 0 ∨ annealed μ 0 (escape ℓ) = 1 := by sorry"
+     ]
+    },
+    {
+     "clause": "and for stationary ergodic finite-range-dependent environments under uniform ellipticity.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "A-directional-zero-one-law-for-finite-range-dependent-random-environments-October-5-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/DirectionalWalk.lean:32: Measure.infinitePi (fun _ => μ)",
+      "lean/ComparatorChallenges/DirectionalBallisticity.lean:22: Measure (Environment d) := Measure.infinitePi (fun _ => ν)",
+      "lean/ComparatorChallenges/VelocityHemisphere.lean:22: Measure (Environment d) := Measure.infinitePi (fun _ => ν)",
+      "preprints/A-directional-zero-one-law-for-finite-range-dependent-random-environments-October-5-2026/build/manuscript/main.tex:38: random walks in stationary, ergodic, finite-range-dependent environments on",
+      "lean/docs/220.md:5: - [A directional zero–one law under strict ellipticity]",
+      "lean/docs/220.md:6: - [Directional transience implies ballisticity]",
+      "lean/docs/220.md:1: # Directional zero–one laws beyond iid environments and iid ballisticity"
+     ]
+    },
+    {
+     "clause": "In iid uniformly elliptic environments with d ≥ 2, almost-sure directional transience implies a deterministic limiting velocity with positive projection in that direction, resolving the ballisticity conjecture.",
+     "status": "stated",
+     "coveredBy": [
+      "DirectionalBallisticity",
+      "VelocityHemisphere"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/DirectionalBallisticity.lean:90: ∀ (d : ℕ), 2 ≤ d → ∀ (ν : Measure (Row d)), IsProbabilityMeasure ν →",
+      "lean/ComparatorChallenges/DirectionalBallisticity.lean:93: ∃ v : Vector d, 0 < dot v ℓ ∧ HasVelocity ν v"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "A-directional-zero-one-law-under-strict-ellipticity-September-23-2026",
+    "Directional-transience-implies-ballisticity-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "All three statements build the environment as an i.i.d. product (Measure.infinitePi of one row law), so the finite-range-dependent clause has no counterpart; it is the October 5 manuscript, which the note does not link (the note's heading says 'beyond iid environments', but a heading does not declare, and its body describes only i.i.d. laws). Every clause from the two linked papers is stated (annealed law from the origin, environment sampled once and kept; unit ℓ in the ballisticity statement). NARROWER — UNLINKED; I differ from the first reader by the amendment-3 word only."
+  },
+  {
+   "family": "251",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Resolves Dixmier's problem for all discrete groups: amenability is equivalent to every uniformly bounded Hilbert-space representation being similar to a unitary representation.",
+     "status": "stated",
+     "coveredBy": [
+      "DixmierAllDiscrete",
+      "Dixmier"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/DixmierAllDiscrete.lean:36: (Amenable G ↔ Unitarizable.{u, max u v} G) ∧"
+     ]
+    },
+    {
+     "clause": "For countable discrete groups, amenability is also equivalent to strong Ulam stability: sufficiently accurate unitary approximate representations are uniformly close in operator norm to genuine representations on the same, possibly infinite-dimensional, Hilbert space.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Strong-Ulam-Stability-Characterizes-Amenability-October-5-2026",
+     "evidence": [
+      "preprints/Strong-Ulam-Stability-Characterizes-Amenability-October-5-2026/build/strong-ulam-stability.tex:43: A countable discrete group is amenable if and only if it is strongly Ulam",
+      "lean/docs/251.md:5: - [Unitarizability implies amenability for discrete groups]",
+      "lean/docs/251.md:9: The formalization establishes this equivalence for every discrete group.",
+      "lean/docs/251.md:1: # Amenability, unitarizability, and strong Ulam stability"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Unitarizability-Implies-Amenability-for-Countable-Groups-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The Dixmier equivalence is stated for every discrete group (invariant mean on bounded functions; similar to unitary = an invertible S making every S π(g) S⁻¹ isometric; encoding: Hilbert spaces in universe max u v). No approximate representation appears in either challenge; strong Ulam stability is the October 5 manuscript, which the note does not link (only its heading names it). NARROWER — UNLINKED; I differ from the first reader by the amendment-3 word only."
+  },
+  {
+   "family": "271",
+   "word": "NARROWER — UNLINKED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": false,
+   "clauses": [
+    {
+     "clause": "Proves Bloch's T3/2 law with its exact coefficient for three-dimensional quantum Heisenberg ferromagnets at every positive quantum spin, allowing nonnegative symmetric finite-range couplings whose support generates ℤ3.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Blochs-Law-for-Finite-Range-Heisenberg-Ferromagnets-in-Three-Dimensions-October-5-2026",
+     "evidence": [
+      "preprints/Blochs-Law-for-Finite-Range-Heisenberg-Ferromagnets-in-Three-Dimensions-October-5-2026/build/main.tex:43: We prove Bloch's $T^{3/2}$ law for the spontaneous magnetization of",
+      "preprints/Blochs-Law-for-Finite-Range-Heisenberg-Ferromagnets-in-Three-Dimensions-October-5-2026/build/main.tex:45: quantum spin. The result holds for every nonnegative symmetric finite-range",
+      "lean/ComparatorChallenges/Heisenberg.lean:160: ∑ i : Fin d, |x i - y i| = (1 : ℤ)",
+      "lean/docs/271.md:5: - [Spontaneous magnetization in the quantum Heisenberg ferromagnet]",
+      "lean/docs/271.md:1: # Bloch's law, its lattice correction, and the spherical magnetization law"
+     ]
+    },
+    {
+     "clause": "The thermodynamic limit precedes the zero-field derivative and low-temperature limit.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "Blochs-Law-for-Finite-Range-Heisenberg-Ferromagnets-in-Three-Dimensions-October-5-2026",
+     "evidence": [
+      "preprints/Blochs-Law-for-Finite-Range-Heisenberg-Ferromagnets-in-Three-Dimensions-October-5-2026/build/main.tex:49: The thermodynamic limit is taken before the right field derivative at zero,",
+      "preprints/The-first-lattice-correction-to-Blochs-law-October-5-2026/build/main.tex:56: thermodynamic pressure; the volume limit precedes the field derivative,"
+     ]
+    },
+    {
+     "clause": "The family also proves spontaneous magnetization for nearest-neighbor models in every dimension d ≥ 3",
+     "status": "stated",
+     "coveredBy": [
+      "Heisenberg"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/Heisenberg.lean:206: theorem spontaneous_magnetization (d ℓ : ℕ) (hd : 3≤d) (hℓ : 1≤ℓ) :",
+      "lean/ComparatorChallenges/Heisenberg.lean:211: (ℓ:ℝ)/8≤(ω.functional (spinZ d ℓ 0)).re := by"
+     ]
+    },
+    {
+     "clause": "and determines the first lattice correction for three-dimensional nearest-neighbor couplings.",
+     "status": "unlinked",
+     "coveredBy": [],
+     "manuscript": "The-first-lattice-correction-to-Blochs-law-October-5-2026",
+     "evidence": [
+      "preprints/The-first-lattice-correction-to-Blochs-law-October-5-2026/build/main.tex:49: We prove the first lattice correction to Bloch's law for the",
+      "lean/docs/271.md:9: The formalization proves spontaneous magnetization for the nearest-neighbor isotropic quantum Heisenberg ferromagnet"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Spontaneous-magnetization-in-the-quantum-Heisenberg-ferromagnet-September-24-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "The one statement is the September 24 result: for d ≥ 3 and spin S = ℓ/2, the box dynamics converge and at every large β there is a translation-invariant β-KMS state on the quasi-local algebra with ω(S^z_0) ≥ S/4 (encoding: quasi-local algebra = norm closure of local matrix units acting on ℓ² of finitely supported configurations, faithful because the algebra is simple; dynamics is a limUnder, but its convergence is asserted). Bloch's law, the limit order and the lattice correction (the family's title and lead) come from two October 5 manuscripts the note does not link; its heading names them, its body does not. NARROWER — UNLINKED; I differ from the first reader by the amendment-3 word only."
+  },
+  {
+   "family": "299",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "A nonzero unital separable complex C∗-algebra is Jiang–Su stable exactly when its norm central-sequence algebra has no characters, for every free ultrafilter.",
+     "status": "stated",
+     "coveredBy": [
+      "CharacterCriterion"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/CharacterCriterion.lean:2129: (A : Type) [CStarAlgebra A] [Nontrivial A] [TopologicalSpace.SeparableSpace A]",
+      "lean/ComparatorChallenges/CharacterCriterion.lean:2130: (ω : Ultrafilter ℕ) (hω : (ω : Filter ℕ)≤Filter.cofinite) :",
+      "lean/ComparatorChallenges/CharacterCriterion.lean:2131: OAI.KirchbergRordam.HasNoCharacters (NormUltrapower.CentralAlgebra A ω) ↔",
+      "lean/ComparatorChallenges/CharacterCriterion.lean:2132: Nonempty (A ≃⋆ₐ[ℂ] MinTensor.Algebra A JiangSu.Algebra) := by sorry",
+      "lean/ComparatorChallenges/CharacterCriterion.lean:2116: def Algebra : Type := CStarInductiveLimit.Algebra StandardPrimeModel.presentation.system"
+     ]
+    },
+    {
+     "clause": "This answers the Kirchberg–Rørdam character question.",
+     "status": "stated",
+     "coveredBy": [
+      "CharacterCriterion"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/docs/299.md:9: No nuclearity, simplicity, trace, or comparison hypothesis is imposed."
+     ]
+    },
+    {
+     "clause": "Also, the infinite minimal tensor power of every such algebra without characters is Jiang–Su stable, answering the Dadarlat–Toms question.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "The-Kirchberg-Rordam-character-criterion-September-25-2026",
+     "evidence": [
+      "preprints/The-Kirchberg-Rordam-character-criterion-September-25-2026/build/sections/introduction.tex:70: \\begin{corollary}[Infinite minimal tensor powers]\\label{cor:infinite-tensor}",
+      "preprints/The-Kirchberg-Rordam-character-criterion-September-25-2026/build/sections/introduction.tex:78: Then $B\\cong B\\otmin\\Z$, and $B$ contains a unital copy of $\\Z$.",
+      "lean/docs/299.md:1: # The Kirchberg–Rørdam character criterion and infinite tensor-power Jiang–Su stability",
+      "lean/docs/299.md:9: The formalized result proves that, for every nonzero unital separable complex $C^*$-algebra $A$ and every free ultrafilter on $\\mathbb N$, the norm central-sequence algebra has no nonzero character exactly when $A\\cong A\\otimes_{\\min}\\mathcal Z$.",
+      "lean/docs/299.md:15: | Kirchberg–Rørdam character criterion | [CharacterCriterion.lean](../ComparatorChallenges/CharacterCriterion.lean) |"
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "The-Kirchberg-Rordam-character-criterion-September-25-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "LARGE STATEMENT (2,138 lines, one theorem): I read through the definitions the theorem reaches (norm ultrapower and centralizer F_ω(A) = A_ω ∩ A', HasNoCharacters, MinTensor as the sup over unital representation pairs of the spatial norm, the C*-inductive limit, the prime dimension-drop stages I(2^{7^n}, 2^{7^n}+1) with eigenvalue paths t/2, (t+1)/2 and 1/2, the multiplicities). None of them carries the conclusion. Named encoding: Z is one explicit presentation, and calling it the Jiang–Su algebra rests on Jiang–Su's uniqueness theorem (a simple monotracial limit of prime dimension-drop algebras is Z), which is not formalized; the contracting, dyadic-dense eigenvalue paths make the limit simple and monotracial on an informal reading. The criterion is stated; the per-ω iff implies both readings of 'for every free ultrafilter'. The infinite-tensor-power corollary (Dadarlat–Toms) is stated by no challenge: it is in the linked manuscript, and the note names it only in its heading. Agrees with the first reader."
+  },
+  {
+   "family": "350",
+   "word": "NARROWER — UNDECLARED",
+   "firstWord": "NARROWER — UNDECLARED",
+   "agree": true,
+   "clauses": [
+    {
+     "clause": "Proves the sharp $`C\\sqrt\\lambda`$ upper bound for nodal length on every fixed smooth closed surface",
+     "status": "stated",
+     "coveredBy": [
+      "NodalLength"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/NodalLength.lean:50: nodalLength u ≤ ENNReal.ofReal (C * Real.sqrt lam)",
+      "lean/ComparatorChallenges/NodalLength.lean:52: theorem Main [CompactSpace M] [ConnectedSpace M]"
+     ]
+    },
+    {
+     "clause": "completing Yau's conjecture there",
+     "status": "declared",
+     "coveredBy": [],
+     "manuscript": "Sharp-nodal-length-on-smooth-surfaces-September-23-2026",
+     "evidence": [
+      "lean/docs/350.md:11: The known lower bound is not part of this selected statement."
+     ]
+    },
+    {
+     "clause": "The upper bound fails for fixed smooth metrics in dimensions three and four, including metrics on S3 arbitrarily close to round.",
+     "status": "stated",
+     "coveredBy": [
+      "SmoothYau"
+     ],
+     "manuscript": null,
+     "evidence": [
+      "lean/ComparatorChallenges/SmoothYau.lean:135: IsSmoothNeighborhood gRound N →",
+      "lean/ComparatorChallenges/SmoothYau.lean:136: ∃ g ∈ N, HasUnboundedNodalRatio g 3 := by",
+      "lean/ComparatorChallenges/SmoothYau.lean:141: HasUnboundedNodalRatio g 4 := by"
+     ]
+    },
+    {
+     "clause": "In dimension five, nodal measure can grow faster than $`\\lambda^{1/2+\\varepsilon_0}`$ for some fixed $`\\varepsilon_0\\gt 0`$, ruling out even arbitrarily small power losses.",
+     "status": "undeclared",
+     "coveredBy": [],
+     "manuscript": "Power-law-violations-of-Yaus-nodal-upper-bound-September-23-2026",
+     "evidence": [
+      "lean/ComparatorChallenges/YauCounterexample.lean:62: Tendsto (fun k ↦ nodalMeasure g (u k) / ENNReal.ofReal (Real.sqrt (lam k)))",
+      "preprints/Power-law-violations-of-Yaus-nodal-upper-bound-September-23-2026/build/main.tex:77: $\\lambda^{1/2+\\epsilon_0}$ for one fixed $\\epsilon_0>0$.",
+      "preprints/Power-law-violations-of-Yaus-nodal-upper-bound-September-23-2026/build/sections/introduction.tex:36: {\\lambda_j^{1/2+\\epsilon_0}}\\longrightarrow\\infty.",
+      "lean/docs/350.md:15: while the intrinsic four-dimensional nodal measures divided by the square roots of the eigenvalues tend to infinity."
+     ]
+    }
+   ],
+   "scopeNoteLinks": [
+    "Sharp-nodal-length-on-smooth-surfaces-September-23-2026",
+    "Smooth-counterexamples-to-Yaus-nodal-upper-bound-in-dimensions-three-and-four-September-23-2026",
+    "Power-law-violations-of-Yaus-nodal-upper-bound-September-23-2026"
+   ],
+   "conditionalOnLaneK": false,
+   "note": "Surface upper bound stated (compact connected smooth surface, metric = Riemannian distance via IsRiemannianManifold; connectedness is needed and is in the abstract). The lower bound behind 'sharp/completing Yau' is declared (350.md:11). Dimensions 3 and 4 are stated. IsRound is a satisfiable hypothesis, so sphere_three is not vacuous. Dimension five states only nodal/√λ → ∞, not the λ^{1/2+ε₀} rate or the refutation of every power loss, and the note describes the weaker statement without naming the rate as omitted: undeclared. The first reader's JUNK question is answered: YauCounterexample has no finiteness guard, so a nodal measure of ⊤ would make the ratio ⊤, but Hardt–Simon (1989) gives finite H⁴ nodal measure for every nonzero eigenfunction of a smooth metric on a compact manifold. The route cannot be used, and the statement is not trivialized. Agrees with the first reader."
+  }
+ ]
+}
