@@ -120,6 +120,13 @@ for (const r of rows.values()) {
   const st = r.runs.filter((x) => x.strict && x.strict.word !== 'NOT RUN'); r.strict = st.length ? st[st.length - 1].strict : last.strict;
   /* the latest run that ran the transfer check decides it */
   const tr = r.runs.filter((x) => x.transfer); r.transfer = tr.length ? tr[tr.length - 1].transfer : null;
+  /* does the theorem prove the statement the challenge DISPLAYS? Settled by the strict run when the bodies are the
+     same constants, or by the transfer check when they differ; anything else leaves it open */
+  if (r.definitionHoles) {
+    r.displayed = r.strict && r.strict.word === 'SAME BODIES' ? { word: 'PROVED', by: 'the strict run: every hole is, constant for constant, the displayed definition' }
+      : r.transfer && r.transfer.word === 'TRANSFERS' ? { word: 'PROVED', by: 'the transfer check: Lean accepts the theorem for the displayed statement, red control rejected' }
+      : { word: 'OPEN', by: 'neither the strict run nor the transfer check settles it' };
+  }
 }
 const list = [...rows.values()].filter((r) => r.word !== 'NOT RUN').sort((a, b) => a.challenge.localeCompare(b.challenge));
 const notRun = [...rows.values()].filter((r) => r.word === 'NOT RUN').map((r) => r.challenge).sort();
@@ -131,7 +138,7 @@ const ledger = {
   declaredChanges: prereg.lanes.K.declaredChanges,
   trustBase: prereg.lanes.K.trustBase,
   notRunYet: notRun,
-  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)) },
+  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)), displayed: tally(list.filter((r) => r.displayed).map((r) => r.displayed.word)) },
   rows: list,
 };
 writeStable(OUT, ledger);

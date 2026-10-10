@@ -117,7 +117,7 @@ B.push(C.section({
     { b: 'The proofs that were run hold.', text: (kDecided ? n(kCert) + ' of the ' + n(kDecided) + ' challenges run so far are accepted by Lean\'s kernel and by nanoda, a kernel written independently in Rust; ' + (cnt(kw, 'REFUTED') ? n(cnt(kw, 'REFUTED')) + ' rejected' : 'none was rejected') + '. ' : '') + 'OpenAI had enabled the second kernel for ' + cnt(R.counted.enableNanoda, 'true') + ' of its ' + n(R.counted.challenges) + ' challenges.' },
     { b: 'A check that reads only types.', text: 'Comparator compares a declared "definition hole" by its type, never its body. Ten challenges declare holes; ' + holesDisplayed.displayedWithBody + ' of their ' + holesDisplayed.declared + ' holes are displayed with a full body a reader will take as the definition. '
       + (kStrict.length ? 'Run with the holes emptied, ' + kStrict.filter((r) => r.strict.word === 'SAME BODIES').length + ' of ' + kStrict.length + ' match body for body and ' + kStrict.filter((r) => r.strict.word === 'BODIES DIFFER').length + ' do not, though their source reads the same. ' : '')
-      + (Object.keys(K.counts.transfer || {}).length ? 'A transfer check in Lean (§2) settles whether each theorem proves the displayed statement: ' + Object.entries(K.counts.transfer).map(([w, c]) => c + ' ' + w).join(', ') + '.' : 'A transfer check in Lean (§2), which settles whether each theorem proves the displayed statement, is running.') },
+      + (K.counts.displayed ? 'Together with a transfer check in Lean (§2), ' + cnt(K.counts.displayed, 'PROVED') + ' of the ' + kStrict.length + ' are now shown to prove the statement their file displays; ' + cnt(K.counts.displayed, 'OPEN') + ' remain open.' : 'A transfer check in Lean (§2), which settles whether each theorem proves the displayed statement, is running.') },
     { b: 'Headlines that say more than the Lean.', text: cnt(sw, 'NARROWER — UNDECLARED') + ' families state less than a manuscript their scope note links claims, with nothing saying so, and ' + cnt(sw, 'DIFFERENT') + ' state a different theorem from their headline — ' + plain(f260.title) + ', for one, states no Penrose inequality at all. '
       + 'Another ' + cnt(sw, 'NARROWER — UNLINKED') + ' headlines lead with results from manuscripts the formalization never linked: ' + plain(f143.title) + ' (the uniform bound is in no challenge; only a quintic Liénard count is); ' + plain(f197.title) + ' (the Lean group is required to have odd-prime torsion); ' + plain(f307.title) + ' (the Lean speaks of the reduced Roe algebra).' },
     { b: 'Finite claims, decided here.', text: fCert.length + ' finite cores certified by code written here, ' + fWhole.length + ' of them the whole headline (' + wholeTitles.join('; ') + '); none refuted. ' + fNeeds.length + ' headline witnesses are asserted and not published in checkable form, among them the counterexamples to Hadwiger\'s, Sidorenko\'s, Ryser\'s and Kaplansky\'s conjectures.' },
@@ -154,15 +154,19 @@ B.push(C.section({
       + 'files declare, ' + R.counted.definitionHoles.displayedWithBody + ' are displayed with a full body and ' + R.counted.definitionHoles.sorried + ' are left sorried: a reader '
       + 'of the challenge sees ' + R.counted.definitionHoles.displayedWithBody + ' definitions the check does not compare. Lane K runs each of these configs twice: as '
       + 'published, and with the holes emptied, which compares every body constant by constant.'),
-    C.table({ cols: [{ h: 'challenge' }, { h: 'holes (displayed)' }, { h: 'bodies, decided' }, { h: 'transfer' }],
+    C.table({ cols: [{ h: 'challenge' }, { h: 'holes (displayed)' }, { h: 'bodies, decided' }, { h: 'transfer' }, { h: 'displayed statement' }],
       rows: holes.map((c) => { const k = K.rows.find((r) => r.challenge === c.name); return [{ raw: C.m(c.name) }, { raw: C.m(c.definitionNames.length + ' (' + c.holeBodies.filter((h) => h.displayed).length + ')') },
         { raw: k && k.strict ? C.tag(k.strict.word, k.strict.word === 'SAME BODIES' ? 'held' : 'dep') + (k.strict.constants ? ' ' + C.esc(k.strict.constants.join(', ')) : '') : C.esc('not yet run') },
-        { raw: k && k.transfer ? C.tag(k.transfer.word, k.transfer.word === 'TRANSFERS' ? 'held' : k.transfer.word === 'NOT DECIDED' ? 'open' : 'dep') : C.esc('not yet run') }]; }) }),
+        { raw: k && k.transfer ? C.tag(k.transfer.word, k.transfer.word === 'TRANSFERS' ? 'held' : k.transfer.word === 'NOT DECIDED' ? 'open' : 'dep') : C.esc('not yet run') },
+        { raw: k && k.displayed ? C.tag(k.displayed.word, k.displayed.word === 'PROVED' ? 'held' : 'open') : C.esc('—') }]; }) }),
     C.pRaw('The transfer column (pre-registration amendment 9) asks Lean itself whether each theorem proves the statement the file displays. The '
       + 'challenge file\'s skeleton is kept; its holes, and every declaration tied to them, are copied under new names; every other name resolves to '
       + 'the solution\'s constant, which Comparator has already matched to the challenge\'s. A guard computed in Lean refuses the check if a copy '
       + 'reaches an original hole or a constant Comparator never compared, and each solution theorem is then offered as a proof of the copied '
-      + 'statement. TRANSFERS needs Lean\'s kernel to accept it AND a red control — one displayed body replaced by sorry — to be rejected.'),
+      + 'statement. TRANSFERS needs Lean\'s kernel to accept it AND a red control — one displayed body replaced by sorry — to be rejected. The copy is '
+      + 'elaborated in the solution\'s environment, where an instance or a reducibility setting can differ from the challenge\'s alone, so a NOT '
+      + 'DEFINITIONAL can be the method\'s limit rather than a difference; the last column therefore counts a statement as proved when the strict run '
+      + 'found the same bodies OR the transfer holds, and leaves it open otherwise.'),
     (() => { const diff = K.rows.filter((r) => r.strict && r.strict.word === 'BODIES DIFFER');
       return diff.length ? C.pRaw('Where the strict run names a constant whose bodies differ (' + diff.map((r) => C.m(r.strict.constants.join(', '))).join(', ') + '), '
         + 'the source text of that definition in the challenge file and in the solution reads the same, line for line, on our reading; the kernel terms '

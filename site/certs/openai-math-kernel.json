@@ -7,7 +7,8 @@
  "decider": "Comparator (leanprover/comparator d03acab1 = tag v4.34.0, built with the release's toolchain v4.34.1), lean4export 076e8e57, landrun 811cfff5, nanoda_lib 3a240721 — on GitHub's Linux runners (.github/workflows/openai-math-kernel.yml), one job per challenge, the config and statement bytes sha256-checked against the census before the run",
  "declaredChanges": [
   "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
-  "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays"
+  "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
+  "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11"
  ],
  "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
  "notRunYet": [
@@ -15,16 +16,19 @@
   "CycleCliqueRamsey"
  ],
  "counts": {
-  "decided": 217,
+  "decided": 292,
   "of": 416,
   "cancelledBeforeComparator": 2,
   "words": {
-   "CERTIFIED": 207,
-   "REFUSED": 10
+   "CERTIFIED": 279,
+   "REFUSED": 13
   },
   "strict": {
    "SAME BODIES": 7,
    "BODIES DIFFER": 3
+  },
+  "transfer": {
+   "TRANSFERS": 3
   }
  },
  "rows": [
@@ -53,13 +57,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "AffineBernstein",
@@ -86,13 +92,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ArnoldCounterexample",
@@ -119,13 +127,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ArtinCAT0",
+   "families": [
+    "254"
+   ],
+   "statementLines": 78,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 250,
+     "cacheSeconds": 199,
+     "maxRssKB": 7085072,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "AsymptoticallyMinimalLittlewood",
@@ -152,13 +197,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "AuslanderReiten",
@@ -183,7 +230,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -201,13 +249,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BackwardIntertwiners",
@@ -234,13 +284,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BalancedBoxRouting",
+   "families": [
+    "376"
+   ],
+   "statementLines": 97,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 174,
+     "cacheSeconds": 208,
+     "maxRssKB": 7023792,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BalancedRyser",
@@ -267,13 +354,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BallPacking",
@@ -298,7 +387,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -316,13 +406,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BallPackingNecessity",
@@ -349,13 +441,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BarnetteHamiltonian",
@@ -382,13 +476,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BernoulliNonflatInSeven",
+   "families": [
+    "367"
+   ],
+   "statementLines": 87,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 894,
+     "cacheSeconds": 216,
+     "maxRssKB": 7523108,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BinaryEditLower",
@@ -415,13 +546,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BinaryMatching",
+   "families": [
+    "113"
+   ],
+   "statementLines": 77,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 478,
+     "cacheSeconds": 191,
+     "maxRssKB": 7013208,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BinarySweep",
+   "families": [
+    "238"
+   ],
+   "statementLines": 103,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 630,
+     "cacheSeconds": 174,
+     "maxRssKB": 7164128,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BipartiteCrossing",
@@ -448,13 +651,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BooneHigman",
@@ -481,13 +686,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BorsukNine",
@@ -514,13 +721,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BoundedRecovery",
+   "families": [
+    "290"
+   ],
+   "statementLines": 103,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 491,
+     "cacheSeconds": 193,
+     "maxRssKB": 7046440,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BoundedTreewidthL1",
@@ -547,13 +791,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Brenier",
@@ -583,6 +829,75 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 190,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": 0,
+     "seconds": 548,
+     "cacheSeconds": 190,
+     "maxRssKB": 7067404,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "SAME BODIES",
+      "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": {
+      "word": "NOT DECIDED",
+      "why": "the transfer was accepted but its red control did not fire (forge: exit 1, 2 rejection(s) at the example lines, guard ABSENT)"
+     }
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T11:53:56Z",
+     "exit": 0,
+     "seconds": 387,
+     "cacheSeconds": 180,
+     "maxRssKB": 7064636,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "SAME BODIES",
+      "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 17 constants walked from the copies, 8 matched by Comparator, no original hole reached); the red control (the body of OAI.Problem358.uniformMeasure replaced by sorry) is rejected",
+      "redControl": "fired: the body of OAI.Problem358.uniformMeasure replaced by sorry"
      }
     }
    ],
@@ -592,6 +907,11 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
+   },
+   "transfer": {
+    "word": "TRANSFERS",
+    "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 17 constants walked from the copies, 8 matched by Comparator, no original hole reached); the red control (the body of OAI.Problem358.uniformMeasure replaced by sorry) is rejected",
+    "redControl": "fired: the body of OAI.Problem358.uniformMeasure replaced by sorry"
    }
   },
   {
@@ -619,13 +939,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "BrennanSharp",
@@ -652,13 +974,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "BufferedIsing",
+   "families": [
+    "218"
+   ],
+   "statementLines": 114,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 101,
+     "cacheSeconds": 178,
+     "maxRssKB": 6980592,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "C0Absorption",
@@ -685,13 +1044,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "C1EntropyCounterexample",
@@ -718,13 +1079,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CannonGeometricAction",
+   "families": [
+    "246"
+   ],
+   "statementLines": 100,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 802,
+     "cacheSeconds": 185,
+     "maxRssKB": 7581212,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CartierChartCompactnessSupport",
@@ -751,13 +1149,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CayleyPercolation",
+   "families": [
+    "214"
+   ],
+   "statementLines": 85,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 710,
+     "cacheSeconds": 201,
+     "maxRssKB": 7180632,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CharacterVarietiesAllSeamsSupport",
@@ -782,7 +1217,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -800,13 +1236,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CHObstruction",
+   "families": [
+    "240"
+   ],
+   "statementLines": 108,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 109,
+     "cacheSeconds": 183,
+     "maxRssKB": 7239684,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CirculantHadamard",
@@ -833,13 +1306,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ClassicalON",
@@ -866,13 +1341,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CliqueFreeLog",
@@ -899,13 +1376,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CoboundaryExpanders",
+   "families": [
+    "177"
+   ],
+   "statementLines": 99,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 489,
+     "cacheSeconds": 199,
+     "maxRssKB": 8204520,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CommutingDerivations",
@@ -932,13 +1446,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CompactBanach",
@@ -965,13 +1481,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CompleteCrouzeix",
@@ -998,13 +1516,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ComplexCancellation",
@@ -1031,13 +1551,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "Conductivity",
+   "families": [
+    "365"
+   ],
+   "statementLines": 84,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2161,
+     "cacheSeconds": 197,
+     "maxRssKB": 8487172,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ConjugatePoints",
+   "families": [
+    "358"
+   ],
+   "statementLines": 117,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 711,
+     "cacheSeconds": 183,
+     "maxRssKB": 7258644,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ContinuousCircleWeight",
@@ -1064,13 +1656,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ContinuumTransition",
@@ -1095,7 +1689,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1113,13 +1708,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Cotype",
@@ -1146,13 +1743,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CoulombCounterexample",
@@ -1179,13 +1778,120 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CoulombIonization",
+   "families": [
+    "263"
+   ],
+   "statementLines": 100,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2559,
+     "cacheSeconds": 187,
+     "maxRssKB": 7646572,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CoulombRadii",
+   "families": [
+    "263"
+   ],
+   "statementLines": 90,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1697,
+     "cacheSeconds": 217,
+     "maxRssKB": 7614272,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CourtadeKumar",
+   "families": [
+    "119"
+   ],
+   "statementLines": 77,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 308,
+     "cacheSeconds": 218,
+     "maxRssKB": 7052116,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CriticalPercolation",
@@ -1210,7 +1916,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1228,13 +1935,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CriticalSKMixing",
+   "families": [
+    "227"
+   ],
+   "statementLines": 80,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2390,
+     "cacheSeconds": 188,
+     "maxRssKB": 10374760,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CriticalStripMass",
+   "families": [
+    "237"
+   ],
+   "statementLines": 83,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1272,
+     "cacheSeconds": 201,
+     "maxRssKB": 8391556,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CriticalZ3",
@@ -1261,13 +2040,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "CubicTorus",
+   "families": [
+    "354"
+   ],
+   "statementLines": 99,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2420,
+     "cacheSeconds": 188,
+     "maxRssKB": 7728424,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "CycleDecomposition",
@@ -1294,13 +2110,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "DaugavetModuli",
+   "families": [
+    "331"
+   ],
+   "statementLines": 109,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 317,
+     "cacheSeconds": 186,
+     "maxRssKB": 6992408,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DefocusingNLS",
@@ -1325,7 +2178,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1349,7 +2203,42 @@
        "OAI.DefocusingNLS.sobolevOddPower"
       ],
       "why": "Comparator names the constants whose bodies differ; each is read in lane S"
-     }
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 196,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 219,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -1361,7 +2250,8 @@
      "OAI.DefocusingNLS.sobolevOddPower"
     ],
     "why": "Comparator names the constants whose bodies differ; each is read in lane S"
-   }
+   },
+   "transfer": null
   },
   {
    "challenge": "DegreeRigidity",
@@ -1386,7 +2276,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1404,13 +2295,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DilutedSpin",
@@ -1435,7 +2328,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1453,13 +2347,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DimensionTenChannel",
@@ -1484,7 +2380,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1502,13 +2399,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DirectCrouzeix",
@@ -1533,7 +2432,8 @@
       "stage": "cancelled",
       "why": "its run was cancelled before Comparator ran"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -1551,13 +2451,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DirectedFeedback",
@@ -1584,13 +2486,85 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "DirectionalBallisticity",
+   "families": [
+    "220"
+   ],
+   "statementLines": 101,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1448,
+     "cacheSeconds": 193,
+     "maxRssKB": 7541096,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "DirectionalWalk",
+   "families": [
+    "220"
+   ],
+   "statementLines": 93,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 534,
+     "cacheSeconds": 225,
+     "maxRssKB": 7047204,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DirichletSevenEighths",
@@ -1617,13 +2591,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DiscreteLipschitzFree",
@@ -1650,13 +2626,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DiskMaximal",
@@ -1683,13 +2661,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Dixmier",
@@ -1716,13 +2696,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DixmierAllDiscrete",
@@ -1749,13 +2731,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DoublingHilbert",
@@ -1782,13 +2766,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "DuttaDomain",
+   "families": [
+    "194"
+   ],
+   "statementLines": 82,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1812,
+     "cacheSeconds": 171,
+     "maxRssKB": 8622672,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "DyadicAvoidance",
@@ -1815,13 +2836,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EditDistance",
@@ -1848,13 +2871,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EilenbergGanea",
@@ -1881,13 +2906,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ElasticityUniqueness",
+   "families": [
+    "372"
+   ],
+   "statementLines": 111,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 805,
+     "cacheSeconds": 188,
+     "maxRssKB": 7519868,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ElementaryPositivity",
@@ -1917,7 +2979,8 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -1926,7 +2989,78 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
+  },
+  {
+   "challenge": "EntangledGames",
+   "families": [
+    "277"
+   ],
+   "statementLines": 81,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 360,
+     "cacheSeconds": 207,
+     "maxRssKB": 7084524,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "EntropyPhotonNumber",
+   "families": [
+    "273"
+   ],
+   "statementLines": 113,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 841,
+     "cacheSeconds": 183,
+     "maxRssKB": 7417948,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ErdosReciprocal",
@@ -1951,13 +3085,15 @@
       "stage": "not run",
       "why": "the job stopped before Comparator ran (see the run log)"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "the job stopped before Comparator ran (see the run log)",
    "stage": "not run",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanFiveColor",
@@ -1987,7 +3123,8 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -1996,7 +3133,8 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamsey",
@@ -2023,13 +3161,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamseyCircle",
@@ -2056,13 +3196,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamseyNine",
@@ -2089,13 +3231,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamseyQuadratic",
@@ -2122,13 +3266,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamseySpherical",
@@ -2155,13 +3301,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EuclideanRamseyTransitive",
@@ -2188,13 +3336,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "EvenBarker",
@@ -2221,13 +3371,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ExactFourier",
@@ -2254,13 +3406,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FactorGeneration",
@@ -2287,13 +3441,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FalconerAllDimensions",
@@ -2320,13 +3476,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FiniteCongruenceGraph",
@@ -2353,13 +3511,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FiniteFactor",
@@ -2386,13 +3546,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FinitisticAsymmetry",
@@ -2419,13 +3581,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FixedClauseThreshold",
@@ -2452,13 +3616,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FormulaHitting",
@@ -2485,13 +3651,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FoulkesHowe",
@@ -2518,13 +3686,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FourierLLogL",
@@ -2551,13 +3721,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "FourRowPermanent",
@@ -2584,13 +3756,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "FreeIsing",
+   "families": [
+    "236"
+   ],
+   "statementLines": 96,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1579,
+     "cacheSeconds": 189,
+     "maxRssKB": 7326932,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "GammaPassage",
+   "families": [
+    "212"
+   ],
+   "statementLines": 113,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 513,
+     "cacheSeconds": 216,
+     "maxRssKB": 3646744,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GaussianMoat",
@@ -2617,13 +3861,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GaussianPropeller",
@@ -2650,13 +3896,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GeneralizedStarHeight",
@@ -2683,13 +3931,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GeneralMahler",
@@ -2716,13 +3966,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GotsmanLinial",
@@ -2749,13 +4001,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GrahamSpherical",
@@ -2782,13 +4036,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "GroupRingDeterminant",
@@ -2815,13 +4071,34 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048720541,
+     "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
+     "at": "2026-10-10T11:32:58Z",
+     "exit": 0,
+     "seconds": 970,
+     "cacheSeconds": 210,
+     "maxRssKB": 7226156,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "strict": null
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HadamardCubeFiber",
@@ -2848,13 +4125,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HadwigerCounterexample",
@@ -2881,13 +4160,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HalvingLines",
@@ -2914,13 +4195,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HarmonicArtin",
@@ -2947,13 +4230,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HarmonicGrowth",
@@ -2980,13 +4265,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HeilbronnTriangle",
@@ -3013,13 +4300,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Heisenberg",
@@ -3046,13 +4335,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HenonEmden",
@@ -3079,13 +4370,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HoneycombBridgeFiniteness",
@@ -3112,13 +4405,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HoneycombBridgeMassSupport",
@@ -3145,13 +4440,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HoneycombFreeEnergy",
@@ -3178,13 +4475,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HotSpots",
@@ -3211,13 +4510,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "HyperbolicCones",
+   "families": [
+    "095"
+   ],
+   "statementLines": 82,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 451,
+     "cacheSeconds": 204,
+     "maxRssKB": 7032360,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "HyperinvariantSubspaces",
@@ -3244,13 +4580,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "IndependentProducts",
+   "families": [
+    "331"
+   ],
+   "statementLines": 121,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 295,
+     "cacheSeconds": 181,
+     "maxRssKB": 6988556,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "IndependentSets",
+   "families": [
+    "106"
+   ],
+   "statementLines": 85,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 1,
+     "seconds": 1029,
+     "cacheSeconds": 192,
+     "maxRssKB": 10852460,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "InfiniteMatroid",
@@ -3277,13 +4685,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "InfiniteMatroidCorollaries",
@@ -3310,13 +4720,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "InterpolatedFactors",
@@ -3343,13 +4755,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "IsingFiniteness",
+   "families": [
+    "222"
+   ],
+   "statementLines": 95,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 451,
+     "cacheSeconds": 217,
+     "maxRssKB": 7096452,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "IsometricImmersion",
@@ -3376,13 +4825,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Jacobsthal",
@@ -3409,13 +4860,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "JacobsthalImproved",
@@ -3442,13 +4895,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "JointDickman",
@@ -3475,13 +4930,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "KadisonRingrose",
@@ -3508,13 +4965,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "KaplanskyDirectFiniteness",
@@ -3541,13 +5000,34 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048720541,
+     "workflowSha": "32739df1a7e9b09f6b56216444fa32927ffdeaad",
+     "at": "2026-10-10T11:32:58Z",
+     "exit": 0,
+     "seconds": 890,
+     "cacheSeconds": 194,
+     "maxRssKB": 7360960,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
-   "word": "REFUSED",
-   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
-   "stage": "export or replay",
-   "strict": null
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "KaplanskyFinitelyPresented",
@@ -3574,13 +5054,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "KaplanskyQuasitrace",
@@ -3607,13 +5089,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Kervaire",
@@ -3640,13 +5124,120 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "KLInvariance",
+   "families": [
+    "168"
+   ],
+   "statementLines": 100,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1097,
+     "cacheSeconds": 179,
+     "maxRssKB": 7354256,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "KMedianRecovery",
+   "families": [
+    "125"
+   ],
+   "statementLines": 108,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1632,
+     "cacheSeconds": 187,
+     "maxRssKB": 9163108,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "KoebeCircleDomains",
+   "families": [
+    "071"
+   ],
+   "statementLines": 80,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 4115,
+     "cacheSeconds": 186,
+     "maxRssKB": 8121960,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "KServer",
@@ -3676,7 +5267,47 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 190,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": 0,
+     "seconds": 298,
+     "cacheSeconds": 194,
+     "maxRssKB": 7193540,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "NOT RUN",
+      "why": "no second run in this job"
+     },
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -3685,7 +5316,183 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
+  },
+  {
+   "challenge": "Laughlin",
+   "families": [
+    "269"
+   ],
+   "statementLines": 67,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 1,
+     "seconds": 6128,
+     "cacheSeconds": 185,
+     "maxRssKB": 7108288,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LaughlinFock",
+   "families": [
+    "269"
+   ],
+   "statementLines": 67,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 1,
+     "seconds": 6487,
+     "cacheSeconds": 187,
+     "maxRssKB": 9097516,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LaughlinGap",
+   "families": [
+    "269"
+   ],
+   "statementLines": 84,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 5436,
+     "cacheSeconds": 187,
+     "maxRssKB": 8776628,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LaughlinPlanar",
+   "families": [
+    "269"
+   ],
+   "statementLines": 83,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 1,
+     "seconds": 6149,
+     "cacheSeconds": 196,
+     "maxRssKB": 7116084,
+     "kernels": [
+      "Lean default kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
+   "stage": "export or replay",
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LiebThirring",
+   "families": [
+    "262"
+   ],
+   "statementLines": 101,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 547,
+     "cacheSeconds": 217,
+     "maxRssKB": 7130200,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "LipschitzEquivalence",
@@ -3712,13 +5519,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LipschitzHilbert",
+   "families": [
+    "083"
+   ],
+   "statementLines": 81,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2106,
+     "cacheSeconds": 200,
+     "maxRssKB": 6913600,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ListHadwiger",
@@ -3745,13 +5589,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "LittleFinitistic",
@@ -3778,13 +5624,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "LittlewoodFiniteFlatness",
@@ -3811,13 +5659,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "LogBrunnMinkowski",
@@ -3844,13 +5694,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "LogConcaveQuery",
+   "families": [
+    "139"
+   ],
+   "statementLines": 94,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1360,
+     "cacheSeconds": 208,
+     "maxRssKB": 7323784,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "LogspaceEquality",
@@ -3880,7 +5767,25 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 213,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -3889,7 +5794,8 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
   },
   {
    "challenge": "MahlerConjecture",
@@ -3916,13 +5822,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MarkovType",
+   "families": [
+    "327"
+   ],
+   "statementLines": 80,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 310,
+     "cacheSeconds": 219,
+     "maxRssKB": 6939424,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MassAction",
@@ -3949,13 +5892,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MatchingAffineLift",
@@ -3982,13 +5927,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MatchingEntropy",
@@ -4015,13 +5962,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MatchingEntropyBounds",
+   "families": [
+    "113"
+   ],
+   "statementLines": 85,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 332,
+     "cacheSeconds": 190,
+     "maxRssKB": 7617660,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MatchingFPRAS",
+   "families": [
+    "113"
+   ],
+   "statementLines": 111,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1207,
+     "cacheSeconds": 214,
+     "maxRssKB": 8504464,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MatchingPSD",
@@ -4048,13 +6067,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MatrixRemoval",
+   "families": [
+    "190"
+   ],
+   "statementLines": 78,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 222,
+     "cacheSeconds": 201,
+     "maxRssKB": 7873432,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "MatroidProphet",
+   "families": [
+    "111"
+   ],
+   "statementLines": 95,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 277,
+     "cacheSeconds": 226,
+     "maxRssKB": 6986820,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MetricEntropyDuality",
@@ -4081,13 +6172,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MetricKMedian",
@@ -4114,13 +6207,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "MinUncut",
@@ -4147,13 +6242,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Naimark",
@@ -4183,7 +6280,42 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 193,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 184,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -4192,7 +6324,8 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
   },
   {
    "challenge": "NodalLength",
@@ -4219,13 +6352,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OccupiedOverlap",
@@ -4258,6 +6393,92 @@
        "OAI.RowColumn.OccupiedOverlapEndpoint"
       ],
       "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": 0,
+     "seconds": 424,
+     "cacheSeconds": 177,
+     "maxRssKB": 7110396,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.RowColumn.OccupiedOverlapEndpoint"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "NOT DECIDED",
+      "why": "the guard refused: AuditTransfer.lean:232:0: error: AUDIT-GUARD UNVERIFIED: the copies reach constants Comparator never matched: [OAI.RowColumn.lineGroup_auditDisplayed._proof_3,"
+     }
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": 0,
+     "seconds": 601,
+     "cacheSeconds": 183,
+     "maxRssKB": 7116916,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.RowColumn.OccupiedOverlapEndpoint"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "NOT DECIDED",
+      "why": "the guard refused: AuditTransfer.lean:269:0: error: AUDIT-GUARD UNVERIFIED: the copies reach constants Comparator never matched: [OAI.CubeShuffle.Specht.instFintypeTabloid_auditDisplayed,"
+     }
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T11:53:56Z",
+     "exit": 0,
+     "seconds": 397,
+     "cacheSeconds": 177,
+     "maxRssKB": 7113280,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.RowColumn.OccupiedOverlapEndpoint"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 84 constants walked from the copies, 1 matched by Comparator, no original hole reached); the red control (the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry) is rejected",
+      "redControl": "fired: the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry"
      }
     }
    ],
@@ -4270,6 +6491,11 @@
      "OAI.RowColumn.OccupiedOverlapEndpoint"
     ],
     "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+   },
+   "transfer": {
+    "word": "TRANSFERS",
+    "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 84 constants walked from the copies, 1 matched by Comparator, no original hole reached); the red control (the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry) is rejected",
+    "redControl": "fired: the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry"
    }
   },
   {
@@ -4297,13 +6523,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OneTapeSpace",
@@ -4330,13 +6558,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "OneWayLiveness",
+   "families": [
+    "129"
+   ],
+   "statementLines": 106,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 100,
+     "cacheSeconds": 208,
+     "maxRssKB": 6989800,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OptimalMaxCut",
@@ -4363,13 +6628,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OrdinaryElliott",
@@ -4396,13 +6663,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OrdinaryTwoPointCorrelations",
@@ -4429,13 +6698,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OstmannComplete",
@@ -4462,13 +6733,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "OstmannPrimes",
@@ -4495,13 +6768,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "PartialPermutation",
+   "families": [
+    "238"
+   ],
+   "statementLines": 117,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 348,
+     "cacheSeconds": 196,
+     "maxRssKB": 6976612,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "PerceptronFreeEnergy",
+   "families": [
+    "222"
+   ],
+   "statementLines": 112,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1242,
+     "cacheSeconds": 219,
+     "maxRssKB": 7604244,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PeriodicGroup",
@@ -4528,13 +6873,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PeriodicTilingThree",
@@ -4561,13 +6908,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PermanentCubic",
@@ -4594,13 +6943,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PettyProjectionVolume",
@@ -4627,13 +6978,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PiExponent",
@@ -4660,13 +7013,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PinnedDistances",
@@ -4693,13 +7048,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PlanarAndersonSpectrum",
@@ -4726,13 +7083,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PlanarFalconer",
@@ -4759,13 +7118,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "PlanarFirstPassage",
+   "families": [
+    "212"
+   ],
+   "statementLines": 103,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 505,
+     "cacheSeconds": 208,
+     "maxRssKB": 3721152,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PlanarL1",
@@ -4792,13 +7188,48 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "PlanarPacking",
+   "families": [
+    "090"
+   ],
+   "statementLines": 41,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 211,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job stopped before Comparator ran (see the run log)"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "the job stopped before Comparator ran (see the run log)",
+   "stage": "not run",
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PlanarUnitDistances",
@@ -4825,13 +7256,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PlaneColoring",
@@ -4858,13 +7291,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PowerFreeValues",
@@ -4891,13 +7326,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "PrimeGaps",
@@ -4924,13 +7361,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ProjectionCounterexample",
@@ -4957,13 +7396,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ProjectionVolume",
@@ -4990,13 +7431,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "QACParity",
+   "families": [
+    "274"
+   ],
+   "statementLines": 77,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 245,
+     "cacheSeconds": 217,
+     "maxRssKB": 6970956,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "QuadricBundles",
@@ -5023,13 +7501,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "QuantitativeVanDerWaerden",
@@ -5056,13 +7536,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "QuasiRiemannHypothesis",
@@ -5087,7 +7569,8 @@
       "stage": "setup",
       "why": "error: build failed | uncaught exception: Child exited with 1 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     },
     {
      "run": 38019899278,
@@ -5105,13 +7588,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "QuinticLienard",
@@ -5138,13 +7623,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RadialDensityInterval",
@@ -5171,13 +7658,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RadialTransition",
@@ -5204,13 +7693,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RamseyFive",
@@ -5237,13 +7728,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "RationalHitting",
+   "families": [
+    "116"
+   ],
+   "statementLines": 114,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 628,
+     "cacheSeconds": 211,
+     "maxRssKB": 7485044,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RealL1Renorming",
@@ -5270,13 +7798,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ReflexiveFixedPoints",
@@ -5303,13 +7833,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RegularParity",
@@ -5336,13 +7868,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RieszQuantitative",
@@ -5369,13 +7903,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Rokhlin",
@@ -5405,7 +7941,25 @@
      "strict": {
       "word": "SAME BODIES",
       "why": "with definition_names emptied, every declared definition matched body and all"
-     }
+     },
+     "transfer": null
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 205,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "NOT RUN",
+      "stage": "cancelled",
+      "why": "its run was cancelled before Comparator ran"
+     },
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
@@ -5414,7 +7968,8 @@
    "strict": {
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
-   }
+   },
+   "transfer": null
   },
   {
    "challenge": "RyserCovering",
@@ -5441,13 +7996,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "RyserOddExtensions",
@@ -5474,13 +8031,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SATComputability",
@@ -5507,13 +8066,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SATSharpness",
+   "families": [
+    "235"
+   ],
+   "statementLines": 79,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 177,
+     "cacheSeconds": 176,
+     "maxRssKB": 7015668,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SATVariance",
@@ -5540,13 +8136,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SecondKahnKalai",
@@ -5573,13 +8171,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SelfSimilar",
@@ -5606,13 +8206,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SelfSimilarCorollaries",
+   "families": [
+    "148"
+   ],
+   "statementLines": 91,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 526,
+     "cacheSeconds": 213,
+     "maxRssKB": 7058152,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SensitivitySeparation",
@@ -5639,13 +8276,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SeparableQuotientNegative",
@@ -5672,13 +8311,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SeymourSecondNeighborhood",
@@ -5705,13 +8346,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SharpLogRamsey",
@@ -5738,13 +8381,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SharpThreshold",
@@ -5771,13 +8416,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ShortEgyptianFractions",
@@ -5804,13 +8451,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SidorenkoCounterexample",
@@ -5837,13 +8486,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SiegelZeros",
@@ -5870,13 +8521,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SignedFiniteBand",
@@ -5903,13 +8556,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SimpleAmenable",
@@ -5936,13 +8591,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SimpleOvergroups",
@@ -5969,13 +8626,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SingleFold",
@@ -6002,13 +8661,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SingleLatticeCovering",
@@ -6035,13 +8696,190 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SKBarriers",
+   "families": [
+    "227"
+   ],
+   "statementLines": 93,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1307,
+     "cacheSeconds": 219,
+     "maxRssKB": 7264548,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SKFullSupport",
+   "families": [
+    "281"
+   ],
+   "statementLines": 99,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 510,
+     "cacheSeconds": 212,
+     "maxRssKB": 7097716,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SKHighTemperature",
+   "families": [
+    "227"
+   ],
+   "statementLines": 77,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 2130,
+     "cacheSeconds": 187,
+     "maxRssKB": 10302592,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SKRatio",
+   "families": [
+    "227"
+   ],
+   "statementLines": 75,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 0,
+     "seconds": 8967,
+     "cacheSeconds": 204,
+     "maxRssKB": 7530288,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SLELowerPositivity",
+   "families": [
+    "230"
+   ],
+   "statementLines": 86,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 718,
+     "cacheSeconds": 200,
+     "maxRssKB": 7441384,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SmoothInitialForm",
@@ -6068,13 +8906,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "SmoothObstruction",
+   "families": [
+    "152"
+   ],
+   "statementLines": 100,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 737,
+     "cacheSeconds": 183,
+     "maxRssKB": 7191212,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SnakyConditional",
@@ -6101,13 +8976,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SnakyTwentyOne",
@@ -6134,13 +9011,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SpinAngle",
@@ -6173,6 +9052,94 @@
        "OAI.SpinAngle.missingInRow"
       ],
       "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": null
+    },
+    {
+     "run": 38047056483,
+     "workflowSha": "efba85307f5bdcd8280c65da36e956695dede472",
+     "at": "2026-10-10T11:26:54Z",
+     "exit": 0,
+     "seconds": 311,
+     "cacheSeconds": 201,
+     "maxRssKB": 7355432,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.SpinAngle.missingInRow"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached); the red control (one displayed hole body replaced by sorry) is rejected",
+      "redControl": "fired: hole"
+     }
+    },
+    {
+     "run": 38048459332,
+     "workflowSha": "6af9417aaf9d8d66f27676dfd287f2c641dca8ff",
+     "at": "2026-10-10T11:53:43Z",
+     "exit": 0,
+     "seconds": 352,
+     "cacheSeconds": 186,
+     "maxRssKB": 7344848,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.SpinAngle.missingInRow"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached); the red control (one displayed hole body replaced by sorry) is rejected",
+      "redControl": "fired: hole"
+     }
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T11:53:56Z",
+     "exit": 0,
+     "seconds": 323,
+     "cacheSeconds": 211,
+     "maxRssKB": 7347248,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "BODIES DIFFER",
+      "constants": [
+       "OAI.SpinAngle.missingInRow"
+      ],
+      "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached); the red control (the body of OAI.SpinAngle.TypeAngle.row replaced by sorry) is rejected",
+      "redControl": "fired: the body of OAI.SpinAngle.TypeAngle.row replaced by sorry"
      }
     }
    ],
@@ -6185,6 +9152,11 @@
      "OAI.SpinAngle.missingInRow"
     ],
     "why": "Comparator names the constants whose bodies differ; each is read in lane S"
+   },
+   "transfer": {
+    "word": "TRANSFERS",
+    "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached); the red control (the body of OAI.SpinAngle.TypeAngle.row replaced by sorry) is rejected",
+    "redControl": "fired: the body of OAI.SpinAngle.TypeAngle.row replaced by sorry"
    }
   },
   {
@@ -6212,13 +9184,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SquareRootDegree",
@@ -6245,13 +9219,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "StableCoordinateFour",
@@ -6278,13 +9254,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "StandardMapComponents",
+   "families": [
+    "146"
+   ],
+   "statementLines": 111,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1892,
+     "cacheSeconds": 211,
+     "maxRssKB": 7768540,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "StandardMapEntropy",
@@ -6311,13 +9324,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "StandardMapLyapunov",
+   "families": [
+    "146"
+   ],
+   "statementLines": 111,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1358,
+     "cacheSeconds": 202,
+     "maxRssKB": 7749052,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SteinitzBergstrom",
@@ -6344,13 +9394,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "StrictMeans",
@@ -6377,13 +9429,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "StrongKadisonKastler",
@@ -6410,13 +9464,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "StrongThinTree",
@@ -6443,13 +9499,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SubpolynomialLp",
@@ -6476,13 +9534,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Superstring",
@@ -6509,13 +9569,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SurfaceConeCandidateSupport",
@@ -6542,13 +9604,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SurfaceImmersion",
@@ -6575,13 +9639,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SymmetricDomains",
@@ -6608,13 +9674,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SymmetricMahlerEquality",
@@ -6641,13 +9709,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "SymmetricPolar",
@@ -6674,13 +9744,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "Tachikawa",
@@ -6707,13 +9779,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TalagrandDiscreteConvexity",
@@ -6740,13 +9814,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TalagrandExpectationThreshold",
@@ -6773,13 +9849,85 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TamingCompatibility",
+   "families": [
+    "342"
+   ],
+   "statementLines": 69,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 0,
+     "seconds": 5143,
+     "cacheSeconds": 183,
+     "maxRssKB": 12379808,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ThompsonNonamenability",
+   "families": [
+    "248"
+   ],
+   "statementLines": 90,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 169,
+     "cacheSeconds": 196,
+     "maxRssKB": 3431896,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "ThorpWeightedCompatibility",
@@ -6806,13 +9954,155 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ThreeMachine",
+   "families": [
+    "124"
+   ],
+   "statementLines": 101,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 499,
+     "cacheSeconds": 188,
+     "maxRssKB": 7204084,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ThreeStateSupercritical",
+   "families": [
+    "229"
+   ],
+   "statementLines": 109,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 242,
+     "cacheSeconds": 209,
+     "maxRssKB": 7141428,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ThreeStateTreeClauses",
+   "families": [
+    "229"
+   ],
+   "statementLines": 105,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 237,
+     "cacheSeconds": 199,
+     "maxRssKB": 7115260,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ThreeTorus",
+   "families": [
+    "144"
+   ],
+   "statementLines": 90,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 368,
+     "cacheSeconds": 174,
+     "maxRssKB": 7165904,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TingleySphereIsometry",
@@ -6839,13 +10129,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TorsionFreeHyperbolic",
@@ -6872,13 +10164,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TorsionFreeZeroDivisors",
@@ -6905,13 +10199,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TotientCompanionZero",
+   "families": [
+    "024"
+   ],
+   "statementLines": 105,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1932,
+     "cacheSeconds": 205,
+     "maxRssKB": 7106168,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TraceIdealTransportSupport",
@@ -6938,13 +10269,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TraceReconstruction",
+   "families": [
+    "122"
+   ],
+   "statementLines": 92,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 478,
+     "cacheSeconds": 197,
+     "maxRssKB": 7215080,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TreeEdit",
@@ -6971,13 +10339,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TriangleRemoval",
@@ -7004,13 +10374,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TriangularCovering",
@@ -7037,13 +10409,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TriangularEnergy",
+   "families": [
+    "090"
+   ],
+   "statementLines": 75,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 0,
+     "seconds": 12229,
+     "cacheSeconds": 185,
+     "maxRssKB": 9052304,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TriangularHilbert",
@@ -7070,13 +10479,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TruffetCounterexample",
@@ -7103,13 +10514,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TwoWayComplementation",
@@ -7136,13 +10549,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "TwoWayDeterminization",
@@ -7169,13 +10584,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "UniformCommutator",
@@ -7202,13 +10619,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "UniformFourier",
@@ -7235,13 +10654,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "UniformSparsestCut",
@@ -7268,13 +10689,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "UniqueGamesTheorem",
@@ -7301,13 +10724,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "UniversalFInfinity",
@@ -7334,13 +10759,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "VelocityHemisphere",
+   "families": [
+    "220"
+   ],
+   "statementLines": 103,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 1702,
+     "cacheSeconds": 225,
+     "maxRssKB": 7647000,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "VertexCover",
@@ -7367,13 +10829,15 @@
       "stage": "export or replay",
       "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "REFUSED",
    "why": "fatal runtime error: stack overflow, aborting | uncaught exception: nanoda exited with 134 | Command exited with non-zero status 1",
    "stage": "export or replay",
-   "strict": null
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "VlasovMaxwell",
@@ -7400,13 +10864,50 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "WeakMTWGlobalSupport",
+   "families": [
+    "360"
+   ],
+   "statementLines": 80,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 885,
+     "cacheSeconds": 212,
+     "maxRssKB": 7239084,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
   },
   {
    "challenge": "YauCounterexample",
@@ -7433,13 +10934,15 @@
       "word": "CERTIFIED",
       "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
      },
-     "strict": null
+     "strict": null,
+     "transfer": null
     }
    ],
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
+   "strict": null,
+   "transfer": null
   }
  ]
 }
