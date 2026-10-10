@@ -83,12 +83,15 @@ for (const d of runDirs) {
     const ch = byName.get(f.challenge);
     if (!ch) { console.error('not a census challenge: ' + f.challenge); process.exit(1); }
     const r = rows.get(ch.name) || { challenge: ch.name, families: ch.families, statementLines: ch.statementLines, nanodaInRelease: ch.enableNanoda, definitionHoles: ch.definitionNames.length, runs: [] };
-    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: decide(f), strict: decideStrict(f, ch) });
+    /* a job that never reached Comparator because WE cancelled its run is not a decision of any kind */
+    const dec = !f.ran && meta.conclusion === 'cancelled' ? { word: 'NOT RUN', stage: 'cancelled', why: 'its run was cancelled before Comparator ran' } : decide(f);
+    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null });
     rows.set(ch.name, r);
   }
 }
 for (const r of rows.values()) {
-  const last = r.runs[r.runs.length - 1];
+  const ran = r.runs.filter((x) => x.decided.word !== 'NOT RUN');
+  const last = ran.length ? ran[ran.length - 1] : r.runs[r.runs.length - 1];
   r.word = last.decided.word;
   if (r.word === 'REFUTED?') {
     const agree = r.runs.filter((x) => x.decided.word === 'REFUTED?').length;
@@ -97,7 +100,8 @@ for (const r of rows.values()) {
   r.why = last.decided.why; r.stage = last.decided.stage || null;
   r.strict = last.strict;
 }
-const list = [...rows.values()].sort((a, b) => a.challenge.localeCompare(b.challenge));
+const list = [...rows.values()].filter((r) => r.word !== 'NOT RUN').sort((a, b) => a.challenge.localeCompare(b.challenge));
+const notRun = [...rows.values()].filter((r) => r.word === 'NOT RUN').map((r) => r.challenge).sort();
 const tally = (xs) => xs.reduce((o, x) => ((o[x] = (o[x] || 0) + 1), o), {});
 const ledger = {
   what: 'Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper\'s claim is proved: that is lane S.',
@@ -105,7 +109,8 @@ const ledger = {
   decider: prereg.lanes.K.decider,
   declaredChanges: prereg.lanes.K.declaredChanges,
   trustBase: prereg.lanes.K.trustBase,
-  counts: { decided: list.length, of: release.challenges.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)) },
+  notRunYet: notRun,
+  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)) },
   rows: list,
 };
 writeStable(OUT, ledger);

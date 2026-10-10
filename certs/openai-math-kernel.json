@@ -10,16 +10,30 @@
   "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays"
  ],
  "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
+ "notRunYet": [
+  "AuslanderReiten",
+  "BallPacking",
+  "Catalan",
+  "CharacterVarietiesAllSeamsSupport",
+  "ContinuumTransition",
+  "CriticalPercolation",
+  "CycleCliqueRamsey",
+  "DefocusingNLS",
+  "DegreeRigidity",
+  "DilutedSpin",
+  "DimensionTenChannel",
+  "DirectCrouzeix"
+ ],
  "counts": {
-  "decided": 48,
+  "decided": 36,
   "of": 416,
+  "cancelledBeforeComparator": 12,
   "words": {
    "CERTIFIED": 35,
-   "REFUSED": 13
+   "REFUSED": 1
   },
   "strict": {
-   "SAME BODIES": 2,
-   "NOT RUN": 1
+   "SAME BODIES": 2
   }
  },
  "rows": [
@@ -156,37 +170,6 @@
    "strict": null
   },
   {
-   "challenge": "AuslanderReiten",
-   "families": [
-    "199"
-   ],
-   "statementLines": 78,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 189,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
    "challenge": "BackwardIntertwiners",
    "families": [
     "293"
@@ -250,37 +233,6 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
-  },
-  {
-   "challenge": "BallPacking",
-   "families": [
-    "343"
-   ],
-   "statementLines": 44,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 187,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
    "strict": null
   },
   {
@@ -719,68 +671,6 @@
    "strict": null
   },
   {
-   "challenge": "Catalan",
-   "families": [
-    "005"
-   ],
-   "statementLines": 14,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 163,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
-   "challenge": "CharacterVarietiesAllSeamsSupport",
-   "families": [
-    "027"
-   ],
-   "statementLines": 26,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 204,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
    "challenge": "CirculantHadamard",
    "families": [
     "179"
@@ -1045,37 +935,6 @@
    "strict": null
   },
   {
-   "challenge": "ContinuumTransition",
-   "families": [
-    "228"
-   ],
-   "statementLines": 65,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 172,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
    "challenge": "Cotype",
    "families": [
     "326"
@@ -1142,37 +1001,6 @@
    "strict": null
   },
   {
-   "challenge": "CriticalPercolation",
-   "families": [
-    "213"
-   ],
-   "statementLines": 64,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 161,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
    "challenge": "CriticalZ3",
    "families": [
     "213"
@@ -1206,37 +1034,6 @@
    "strict": null
   },
   {
-   "challenge": "CycleCliqueRamsey",
-   "families": [
-    "189"
-   ],
-   "statementLines": 32,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 177,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
    "challenge": "CycleDecomposition",
    "families": [
     "181"
@@ -1267,167 +1064,6 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
-   "strict": null
-  },
-  {
-   "challenge": "DefocusingNLS",
-   "families": [
-    "371"
-   ],
-   "statementLines": 302,
-   "nanodaInRelease": false,
-   "definitionHoles": 3,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 165,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": {
-      "word": "NOT RUN",
-      "why": "no second run in this job"
-     }
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": {
-    "word": "NOT RUN",
-    "why": "no second run in this job"
-   }
-  },
-  {
-   "challenge": "DegreeRigidity",
-   "families": [
-    "241"
-   ],
-   "statementLines": 45,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 165,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
-   "challenge": "DilutedSpin",
-   "families": [
-    "221"
-   ],
-   "statementLines": 155,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 172,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
-   "challenge": "DimensionTenChannel",
-   "families": [
-    "272"
-   ],
-   "statementLines": 56,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 187,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
-   "strict": null
-  },
-  {
-   "challenge": "DirectCrouzeix",
-   "families": [
-    "325"
-   ],
-   "statementLines": 45,
-   "nanodaInRelease": false,
-   "definitionHoles": 0,
-   "runs": [
-    {
-     "run": 38017370880,
-     "workflowSha": "f860b6ef280a08e07484de2252589b64fd5d8139",
-     "at": "2026-10-10T03:12:38Z",
-     "exit": null,
-     "seconds": null,
-     "cacheSeconds": 177,
-     "maxRssKB": null,
-     "kernels": [],
-     "decided": {
-      "word": "REFUSED",
-      "stage": "not run",
-      "why": "the job stopped before Comparator ran (see the run log)"
-     },
-     "strict": null
-    }
-   ],
-   "word": "REFUSED",
-   "why": "the job stopped before Comparator ran (see the run log)",
-   "stage": "not run",
    "strict": null
   },
   {
