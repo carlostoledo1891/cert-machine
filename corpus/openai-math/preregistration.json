@@ -67,6 +67,18 @@
     "REFUTED": "the object, as published, does not have the claimed property — the failing check stated as a finite fact anyone can re-run",
     "REFUSED": "the check could not be completed here (cost, an ambiguity in the object's definition); the reason recorded",
     "NEEDS DATA": "the paper asserts a finite object it does not publish in checkable form; the row stays and says so"
+   },
+   "membershipFixed": {
+    "file": "corpus/openai-math/f-lane.json",
+    "rows": 66,
+    "manuscripts": 65,
+    "tiers": {
+     "A": 47,
+     "B": 4,
+     "C": 15
+    },
+    "abstractsRead": 719,
+    "nearMisses": 92
    }
   },
   "U": {
@@ -82,6 +94,12 @@
    "before": "any lane-S row was recorded",
    "what": "the LARGE STATEMENT flag reads the theorem statements' definitional closure rather than 'in full'; the S unit is the family; the vacuity/junk-value/quantifier checks are named",
    "why": "EditApproximation's statement is 19,170 lines, and only constants reachable from the theorem types can carry the conclusion. And the scouting's first read (2026-10-07) called QuasiRiemannHypothesis narrower than the claim from one file, while its family carries three more challenges covering the Dirichlet and Hecke parts — the unit of a statement reading is the family."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any lane-F row was decided",
+   "what": "lane F membership fixed: 66 rows over 65 manuscripts (47 tier A, 4 B, 15 C) from three readers' census of all 719 abstracts; 92 near-misses recorded with a reason each. Tier C rows are decided NEEDS DATA and stay; tier B rows are attempted and may be REFUSED for cost, with the cost stated.",
+   "why": "the rule of lanes.F: membership before decision"
   }
  ]
 }

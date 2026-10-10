@@ -1,0 +1,1792 @@
+{
+ "what": "Lane F membership of the openai/math audit, fixed by a census of all 719 abstracts by three readers over disjoint slices (2026-10-10), BEFORE any F row is decided. Tier A: the object is published and an exact check is feasible here; B: published but the check is expensive; C: a finite core exists but the object is not published in checkable form (decided NEEDS DATA, and the row stays). The census fields are the readers' words; the deciders re-read every source they use and pin its sha256.",
+ "fixed": "2026-10-10",
+ "release": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+ "readers": [
+  {
+   "reader": 1,
+   "slice": [
+    0,
+    239
+   ],
+   "abstractsRead": 240,
+   "candidates": 23,
+   "nearMisses": 38
+  },
+  {
+   "reader": 2,
+   "slice": [
+    240,
+    479
+   ],
+   "abstractsRead": 240,
+   "candidates": 26,
+   "nearMisses": 26
+  },
+  {
+   "reader": 3,
+   "slice": [
+    480,
+    718
+   ],
+   "abstractsRead": 239,
+   "candidates": 17,
+   "nearMisses": 28
+  }
+ ],
+ "abstractsRead": 719,
+ "counts": {
+  "rows": 66,
+  "manuscripts": 65,
+  "tiers": {
+   "A": 47,
+   "B": 4,
+   "C": 15
+  },
+  "nearMisses": 92
+ },
+ "rows": [
+  {
+   "id": "F-009",
+   "reader": 1,
+   "index": 9,
+   "dir": "Catalans-constant-is-irrational-September-24-2026",
+   "family": "005",
+   "title": "Catalan's constant is irrational",
+   "claim": "We prove that Catalan's constant G = sum_{j>=0} (-1)^j/(2j+1)^2 is irrational.",
+   "object": "Three finite certified components of a determinant method (Delta_N of size 48N): (1) exact rational trial sequences (kappa=2: d=10; kappa=1: d=8, lambda1=2.47405979; integer coefficients x 1e-8) giving the real-place bound limsup(log|Delta_N|/n^2 - (1/2)log 2) <= -2.290939875; (2) three fixed rational 48x48 matrices built from the 49x48 base matrix B(r,k) (eq:nonvanishing-base-matrix), certified invertible by modular pivots mod 101; (3) the arithmetic lower bound > -2.29084 via log 2 < 693149/10^6. The contradiction margin between the two constants is about 1e-4.",
+   "published": "preprints/Catalans-constant-is-irrational-September-24-2026/build/sections/certificate.tex (Prop prop:real-upper l.7-16, trial-sequence tables from l.18, root brackets l.121-249, candidate-value table tab:certificate-values l.326, suprema l.419-471); /build/sections/nonvanishing.tex (base matrix l.26, 'An exact certificate for the fixed matrices' l.278-390, pivot table tab:modular-pivots l.381); /build/sections/odd-primes.tex l.640-671 (final rational comparison). No ancillary data files; Lean proof tree lean/OAI/NumberTheory/Catalan/ (981 files, incl. FiniteMatrices/, FirstBarrier/).",
+   "size": "two short rational coefficient tables; three 48x48 rational matrices (entries from recurrences up to index 64); a handful of univariate polynomial root-bracketing checks",
+   "check": "Recompute from the published recurrences: (a) the 48x48 matrices exactly over Q and their determinants (or ranks mod 101 and over Q); (b) isolate every stationary point of the two one-variable barrier functions with the published trial sequences by exact Sturm/Descartes bracketing and bound the suprema with rational log enclosures, reproducing <= -2.290939875; (c) re-derive -10556055541/4608000000 > -2.29084. Minutes. The analytic reductions (energy duality, p-adic valuations) remain the paper's.",
+   "tier": "A",
+   "leanChallenges": [
+    "Catalan"
+   ]
+  },
+  {
+   "id": "F-045",
+   "reader": 1,
+   "index": 45,
+   "dir": "Squarefree-values-of-quartics-and-power-free-values-of-polynomials-September-24-2026",
+   "family": "020",
+   "title": "Squarefree values of quartics and power-free values of polynomials",
+   "claim": "We prove that every irreducible integer quartic with no fixed prime-square divisor takes squarefree values with the predicted positive Euler-product density. More generally, we obtain the corresponding (d-2)-power-free density in degrees 4 <= d <= 8.",
+   "object": "Exact parameter certificate: parameter intervals, endpoint derivative inequalities, stopping indices and gaps for degrees 4..8 (grid t = i/50, G = 100000 root grid, K = 3000).",
+   "published": "preprints/Squarefree-values-of-quartics-and-power-free-values-of-polynomials-September-24-2026/build/sections/10-parameters.tex (prescription eq:parameter-prescription, Table tab:parameter-certificate l.122), /build/sections/12-certificate.tex (complete Python program in a verbatim block, 129 lines).",
+   "size": "5 degrees x ~500 grid points of rational polynomial evaluations",
+   "check": "Re-implement the parameter prescription in exact rationals and verify each interval and gap. Seconds.",
+   "tier": "A",
+   "leanChallenges": [
+    "PowerFreeValues"
+   ]
+  },
+  {
+   "id": "F-103",
+   "reader": 1,
+   "index": 103,
+   "dir": "An-explicit-failure-of-complex-affine-space-cancellation-September-23-2026",
+   "family": "047",
+   "title": "An explicit failure of complex affine-space cancellation",
+   "claim": "We construct an explicit integral complex affine fourfold X with X x A^1 = A^5 but X not isomorphic to A^4.",
+   "object": "A = C[p,s,u,F,J]/(H), x = s^2+u^3+p^2F, H = x^2F - (1+2sx)J - p^2J^2 - pu; the isomorphism A[w] = C^[5] is explicit: Phi = exp(w*Delta) with Delta = -p^2 d/du (values eq:derivation), the unimodular change (F,J) -> (L,M), L* = pu - p^2 C, e0 from eq:e-polynomial, and coordinates Phi^-1(p), Phi^-1(s), Phi^-1(u), Phi^-1(M), Phi^-1(e0). Finite part: the cylinder isomorphism; A not = C^[4] is a graded/line-bundle rigidity argument (not finite).",
+   "published": "preprints/An-explicit-failure-of-complex-affine-space-cancellation-September-23-2026/build/sections/01-introduction.tex (eq:example, Theorem thm:main); /build/sections/02-construction.tex lines 97-256 (Prop prop:stabilization: eq:derivation l.116-122, eq:linear-coordinates l.145-148, eq:h-expansion l.166-169, eq:root l.180-186, eq:e-certificate l.205-208, final coordinates l.246-251). Lean: lean/ComparatorChallenges/ComplexCancellation.lean (defs x, H, MainStatement); proof lean/OAI/Algebra/AffineCancellation/ (55 files).",
+   "size": "one quintic-type relation in 5 variables; five explicit coordinate polynomials on A[w]",
+   "check": "Exact polynomial algebra over Q: verify Delta(H) = p^3, Delta^2(H) = 0; verify identity eq:e-certificate p^3 e0 - (L - L*) = (p^2 Q1(L) - 1)(H(L) + p^3 w); then construct psi: Q[p,s,u,M,e] -> P[w]/(H + p^3 w) and its inverse (w = W(e), L = L* + p^3 e) and check both composites are the identity modulo the relation. Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "ComplexCancellation"
+   ]
+  },
+  {
+   "id": "F-105",
+   "reader": 1,
+   "index": 105,
+   "dir": "A-stable-coordinate-that-is-not-a-coordinate-in-four-variables-October-5-2026",
+   "family": "049",
+   "title": "A stable coordinate that is not a coordinate in four variables",
+   "claim": "We construct an explicit degree-five polynomial over C that is not a coordinate in four variables but becomes one after adjoining a single variable.",
+   "object": "f = x1 - 2Q(Q(x2+x4) + x1*x4), Q = x2^2 - x4^2 + x1*x3 in C[x1..x4]; the stabilizing automorphism of C[x1..x4,w] is given explicitly as a composition (2x2 matrix change M' = (I - 2ne^T)M, exp(w*Delta) for the locally nilpotent Delta = -p d/du, the unimodular linear change (F,J) -> (L,N), and w' = w + Q0). Fibre isomorphisms A/(p - lambda) = C^[3] are explicit. Finite part: degree 5, one-stable coordinate, every fibre A^3. Non-coordinateness is a filtration/derivation argument (not finite).",
+   "published": "preprints/A-stable-coordinate-that-is-not-a-coordinate-in-four-variables-October-5-2026/build/source/sections/01-introduction.tex lines 8-16 (Theorem thm:main with f); /build/source/sections/02-construction.tex lines 10-16 (presentation), 22-69 (Prop prop:polynomial), 97-164 (Prop prop:stable, exp(w Delta), eq:linear-coordinates, eq:H-expansion), 176-195 (Prop prop:fibers). Lean: lean/ComparatorChallenges/StableCoordinateFour.lean (defs Q, f, PrincipalPackage); proof lean/OAI/AlgebraicGeometry/StableCoordinate/ (118 files).",
+   "size": "one degree-5 polynomial in 4 variables; a composite automorphism of a 5-variable polynomial ring",
+   "check": "Build the composite substitution phi: Q[x1..x4,w] -> Q[x1..x4,w] from the published steps, verify phi(f) = x1 (or the relabelled coordinate), and verify invertibility by composing with the published inverse steps (both composites = identity, exact polynomial arithmetic; Delta is nilpotent so exp is a finite sum). Fibre claim: check the explicit isomorphisms of A/(p-lambda) for lambda=0 and generic lambda (symbolic). Minutes. The 'not a coordinate' half is out of reach of a finite check.",
+   "tier": "A",
+   "leanChallenges": [
+    "AbhyankarSathaye",
+    "CommutingDerivations",
+    "StableCoordinateFour"
+   ]
+  },
+  {
+   "id": "F-106",
+   "reader": 1,
+   "index": 106,
+   "dir": "An-explicit-noncoordinate-polynomial-with-affine-three-space-zero-fibre-September-24-2026",
+   "family": "049",
+   "title": "An explicit noncoordinate polynomial with affine three-space zero fibre",
+   "claim": "We construct an explicit counterexample to the Abhyankar–Sathaye conjecture: a noncoordinate polynomial in four complex variables whose zero fibre is affine three-space.",
+   "object": "Explicit F = h - p(x,y,s) - 1 in C[h,u,v,w], with x = u^3+hv, y = -u^2+hw, s = 2u^3v+3u^4w+h(v^2-3u^2w^2)+h^2w^3, p = -2s^2x+3sy^2-3s^3y; plus explicit mutually inverse polynomial maps between R/(F) and C[X,Y,T] and the rational critical point P=(2,0,-1/2,1/2) on the fibre F=-1. The whole headline is finitely witnessed: a coordinate has nowhere-vanishing gradient, so grad F(P)=0 rules it out.",
+   "published": "preprints/An-explicit-noncoordinate-polynomial-with-affine-three-space-zero-fibre-September-24-2026/build/paper.tex: definition lines 85-100 (eq:xyz, eq:F), Theorem thm:main lines 103-110 (R/(F) = C^[3] and grad F(2,0,-1/2,1/2)=0), Appendix app:coordinates lines 342-375 (alpha, beta, Bezout certificate eq:certificate, fibre coordinates X,Y,T eq:fibercoords, explicit inverse eq:explicitinverse). Same F stated in lean/ComparatorChallenges/CommutingDerivations.lean (defs S, P, x, y, s, p, F); Lean proof under lean/OAI/AlgebraicGeometry/AbhyankarSathaye/ (15 files).",
+   "size": "one polynomial in 4 variables (total degree about 17) and two explicit polynomial maps",
+   "check": "Exact polynomial algebra over Q: (i) verify x^2+y^3 = h*s identically; (ii) verify the Bezout identity alpha*h + beta*y - 1 = (1+2s^2x)(h-1-p) - 4s^4(x^2+y^3-sh); (iii) compose the forward map R/(F) -> Q[X,Y,T] with the explicit inverse and check both composites are the identity (one direction modulo F, by substitution and division by F); (iv) evaluate F and grad F at (2,0,-1/2,1/2) exactly (expect F=-1, gradient 0). Seconds to minutes in any CAS or a hand-written sparse-polynomial kernel.",
+   "tier": "A",
+   "leanChallenges": [
+    "AbhyankarSathaye",
+    "CommutingDerivations",
+    "StableCoordinateFour"
+   ]
+  },
+  {
+   "id": "F-125",
+   "reader": 1,
+   "index": 125,
+   "dir": "Ambiently-homeomorphic-isolated-hypersurfaces-of-multiplicities-two-and-three-September-24-2026",
+   "family": "059",
+   "title": "Ambiently homeomorphic isolated hypersurfaces of multiplicities two and three",
+   "claim": "We construct two reduced hypersurface germs that are ambiently homeomorphic but have multiplicities two and three.",
+   "object": "Finite product relation (Lemma seed:product): d = 3^11, B = {0<b<d/2, 3 not| b}, A_b = (d-b)/b, R_b = (2d+b)(2d-b)/((3d-b)(d+b)); integers e_b with sum e_b > 0 and prod A_b^{e_b} = prod R_b^{e_b} = 1. An explicit relation with 849 nonzero entries (up to 140 digits) is shipped. Caveat: the germs f1, f2 themselves live in dimension N (divisible by 8) built from |e_b|, i.e. astronomically large (~10^141 variables); the homeomorphism is lattice/topology, not finite.",
+   "published": "preprints/Ambiently-homeomorphic-isolated-hypersurfaces-of-multiplicities-two-and-three-September-24-2026/build/sections/seeds.tex lines 7-76 (Lemma seed:product, cutoff/rank table, eq:seed:rank-certificate rank_F1009 = 868); /build/sections/certificate.tex (app:certificate, listing of verification/support/supplied_finite_rank.py); explicit relation in verification/support/explicit-relation.json (key 'relation', 849 {b,e} entries, sum_e and support_size recorded).",
+   "size": "a 1100-row x 1118-column valuation matrix (896 x 867 after deletions); 849-term integer relation with 140-digit coefficients",
+   "check": "Factor the six integers d-b, b, 2d+b, 2d-b, 3d-b, d+b (all < 6*10^5) for each b in the relation, sum e_b * v_p over both families for every prime p and check every sum is 0, and check sum e_b > 0 (BigInt). Optionally re-derive the rank 868 over F_1009. Seconds.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-135",
+   "reader": 1,
+   "index": 135,
+   "dir": "The-Campana-Peternell-conjecture-in-dimension-six-September-25-2026",
+   "family": "067",
+   "title": "The Campana–Peternell conjecture in dimension six",
+   "claim": "We prove that every smooth connected complex projective Fano sixfold with nef tangent bundle is rational homogeneous, resolving the Campana–Peternell conjecture in complex dimension six.",
+   "object": "Lemma lem:finite-ratio: for the explicitly defined rational matrices A, C1, N (characteristic-class relations in a weighted polynomial ring Q[h,x2..x6,l,r,s,t]), any xi in Q^11, eta in Q^18 with xi0=eta0=1 and N(xi_i eta_j)=0 forces 32 - 20 eta1 + 3 eta1^2 = 0. Certified by exact rational identities AK=0, NP=0, four modular ranks mod 10007, slice merging, and a nonzero 6x6 minor -16/5.",
+   "published": "preprints/The-Campana-Peternell-conjecture-in-dimension-six-September-25-2026/build/sections/05-arithmetic.tex (Lemma lem:finite-ratio, l.9-20 and the elimination that follows), /build/sections/04-characteristic-classes.tex (definitions of A, C1, N), /build/sections/08-certificate.tex (app:certificate, which lists verification/verify.py, 167 lines, SymPy+NumPy).",
+   "size": "polynomial-ring linear algebra with bases up to 6820 coordinates; ranks over F_10007",
+   "check": "Independently regenerate the recurrences (power sums p_i, D_i, Todd-like td_i) and the constraint rows from Section 4, then verify the kernel/annihilator identities over Q, the modular ranks, and the final quadratic in eta1. Minutes (exact linear algebra). The geometric reduction to these bilinear equations is the paper's.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-171",
+   "reader": 1,
+   "index": 171,
+   "dir": "The-Mahler-Conjecture-for-General-Convex-Bodies-September-22-2026",
+   "family": "087",
+   "title": "The Mahler Conjecture for General Convex Bodies",
+   "claim": "For every convex body K in R^n, n >= 1, with Santaló point s(K), |K| |(K-s(K))°| >= (n+1)^{n+1}/(n!)^2, with equality exactly for simplices.",
+   "object": "Finite certified one-variable inequalities for Gaussian profile functions (X = p/phi, Y = (1-p)/phi, d, g, K, C, ... with exact rational parameters b=.602, c=.365, r=.22, s=3.6, w=4.6, ...): node enclosures, interval sums, Bernstein polynomial bounds for middle widths, cubic bounds, tail bounds; used in the matrix argument and the strict segment inequality.",
+   "published": "preprints/The-Mahler-Conjecture-for-General-Convex-Bodies-September-22-2026/build/sections/07-scalar.tex (parameters l.12-30, Lemma lem:scalar-certificates l.138, interval rules l.234-267), /build/sections/08-segments.tex (Prop prop:segment-estimate l.16, Lemma lem:segment-auxiliary l.431); ten programs in verification/programs/ (scalar_intervals.py, scalar_algebra.py, segment-middle-polynomials.py, segment-middle-r-certificate.py, segment-large-check.py, ...), runner verification/reproduce.py (SymPy 1.14.0).",
+   "size": "ten finite checks over node grids (e.g. |t| in units of 1/40) and truncated series (45 terms)",
+   "check": "Re-derive the profile enclosures with an independent interval/rational kernel (erfc/Mills-ratio enclosures, outward rounding) and re-check every tabulated node bound, Bernstein coefficient sign and tail budget. Minutes to an hour. The convex-geometric reduction is the paper's.",
+   "tier": "A",
+   "leanChallenges": [
+    "GeneralMahler",
+    "MahlerConjecture",
+    "SymmetricMahlerEquality",
+    "SymmetricPolar"
+   ]
+  },
+  {
+   "id": "F-174",
+   "reader": 1,
+   "index": 174,
+   "dir": "A-product-counterexample-to-the-simplex-maximum-for-projection-body-volume-September-24-2026",
+   "family": "088",
+   "title": "A product counterexample to the simplex maximum for projection-body volume",
+   "claim": "The product of two ten-dimensional simplices has larger normalized projection-body volume than a twenty-dimensional simplex. This gives a counterexample to Brannen's proposed simplex maximum.",
+   "object": "K = T10 x T10 in R^20, T10 = conv(0, e1..e10); witness value R20(K)/c20 = 121*C(20,10)/(21*2^20) = 22355476/22020096 > 1, with integer certificate 121*184756 - 21*1048576 = 335380 > 0. The whole headline is a finite exact comparison.",
+   "published": "preprints/A-product-counterexample-to-the-simplex-maximum-for-projection-body-volume-September-24-2026/build/main.tex lines 90-100 (Theorem thm:counterexample), 136-304 (facet vectors, product identity Prop prop:product, Lemma lem:affine), 311-382 (Prop prop:simplex, simplex value), 388-409 (proof with the integer certificate). Lean: lean/ComparatorChallenges/ProjectionCounterexample.lean (theorem universal_simplex_upper_bound_false, defs simplex, projectionBody, ratio).",
+   "size": "two polytopes: K with 22 facets in R^20 and T20 with 21 facets",
+   "check": "Clean-room, without the paper's product formula: the projection body of a polytope is the zonotope sum_F [-a_F/2, a_F/2] with a_F = (facet area) x (unit normal), which is rational here; vol(zonotope) = sum over 20-subsets of generators of |det|. Compute vol(Pi K) (C(22,20)=231 determinants of 20x20 rational matrices) and vol(Pi T20) (21 determinants), vol(K) = (1/10!)^2, vol(T20) = 1/20!, and compare R20 = vol(Pi P)/vol(P)^19 exactly in BigInt rationals. Seconds.",
+   "tier": "A",
+   "leanChallenges": [
+    "PettyProjectionVolume",
+    "ProjectionCounterexample",
+    "ProjectionVolume"
+   ]
+  },
+  {
+   "id": "F-177",
+   "reader": 1,
+   "index": 177,
+   "dir": "An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026",
+   "family": "090",
+   "title": "An atomic certificate for triangular-lattice universal optimality",
+   "claim": "The proof constructs sharp Gaussian Fourier minorants using an atomic interpolation certificate.",
+   "object": "Finite atomic certificate: two 20x20 blocks of the value-and-slope interpolation system (modulo-36 nodes, twenty positive-node coordinates per block), a containing parameter polytope for the Gaussian data, envelope endpoint expressions, and Bernstein coefficient tables, all in outward-rational interval arithmetic.",
+   "published": "preprints/An-atomic-certificate-for-triangular-lattice-universal-optimality-September-26-2026/build/main.tex Section 'A finite atomic certificate' (from l.1057; atoms and finite system l.1077-1177; 'The finite inequalities' l.1178-1402); checker verification/check_certificate.py (stdlib, embeds its finite inputs), metadata verification/CERTIFICATE.json.",
+   "size": "two 20x20 interval matrices, one parameter polytope, degree-20 Taylor/Bernstein tables",
+   "check": "Re-derive the two blocks from the paper's formulas with an independent interval kernel, verify invertibility/norm bounds over the whole parameter polytope, and recheck all Bernstein row bounds. Minutes. Infinite interpolation and energy transfer are analytic.",
+   "tier": "A",
+   "leanChallenges": [
+    "AtomicGaussian",
+    "PlanarPacking",
+    "TriangularEnergy",
+    "TriangularGaussian"
+   ]
+  },
+  {
+   "id": "F-178",
+   "reader": 1,
+   "index": 178,
+   "dir": "Universal-optimality-of-the-triangular-lattice-September-23-2026",
+   "family": "090",
+   "title": "Universal optimality of the triangular lattice",
+   "claim": "We prove universal energy minimality for the triangular lattice in the plane ... The proof uses sharp Gaussian Fourier bounds, positive mixtures, and heat-kernel comparison.",
+   "object": "Finite matrix, Bernstein and tail inequalities of the quadrature construction (37,310 Bernstein comparisons and ten tail comparisons) plus scalar error and tail budgets.",
+   "published": "preprints/Universal-optimality-of-the-triangular-lattice-September-23-2026/build/sections/03-quadrature-finite-data.tex (subsection 'The complete finite certificate', l.477 ff.; numeric_balls formulas cited l.626), /build/sections/08-arithmetic-verification.tex; verification/numeric_balls.py, verification/arithmetic_bounds.py, verification/CERTIFICATE-INPUTS.json (python-flint 0.9.0).",
+   "size": "37,310 Bernstein comparisons, 10 tail comparisons, scalar budget assertions",
+   "check": "Independent ball-arithmetic recomputation of the quadrature arrays and all Bernstein/tail comparisons. Minutes to an hour. Note README: the 'floor-rounded matrix construction' is not executed by the shipped checkers.",
+   "tier": "A",
+   "leanChallenges": [
+    "AtomicGaussian",
+    "PlanarPacking",
+    "TriangularEnergy",
+    "TriangularGaussian"
+   ]
+  },
+  {
+   "id": "F-179",
+   "reader": 1,
+   "index": 179,
+   "dir": "A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026",
+   "family": "090",
+   "title": "A sharp Fourier certificate for planar circle packing",
+   "claim": "We construct a radial Schwartz certificate and prove its global sign conditions using rigorous interval arithmetic and analytic estimates.",
+   "object": "Cohn–Elkies auxiliary function for the planar packing bound, built from Gaussian Hermite-cardinal functions on 51 nodes (102 coordinates); approximate coefficient lists tabulated (x 1e-10), with finite certificates: ||(I - eta D)^-1|| < 32, ||(I-eta D)^-1 S_{J,E}|| < 3.7, ||S|| < .09, residuals < 1e-9, list norms < 2.29, plus Bernstein sign checks on half-gaps; a separate exact-rational 6x6 check.",
+   "published": "preprints/A-sharp-Fourier-certificate-for-planar-circle-packing-September-23-2026/build/sections/interpolation.tex l.204-241 (Lemma interpolation:finite); /build/sections/certificates.tex (interval certificate; Table tab:coefficients at l.56, its body in /build/data/coefficients.tex; also /build/data/W_plus.tex, W_minus.tex), /build/sections/rational-check.tex (exact 6x6); machine-readable verification/data/coefficients.tsv, W_plus.tsv, W_minus.tsv, certificate-inputs.json.",
+   "size": "102-coordinate interpolation system; tables of ~100 integer coefficients; Bernstein checks on finitely many half-gaps",
+   "check": "Independent ball/interval evaluation of the Gaussian cardinal kernels and their Fourier transforms at the nodes, recompute the finite matrix norms and residual bounds, and re-run the Bernstein sign certificates. Minutes. The infinite-tail inversion and quadrature remainder are analytic (paper).",
+   "tier": "A",
+   "leanChallenges": [
+    "AtomicGaussian",
+    "PlanarPacking",
+    "TriangularEnergy",
+    "TriangularGaussian"
+   ]
+  },
+  {
+   "id": "F-180",
+   "reader": 1,
+   "index": 180,
+   "dir": "Triangular-minimality-for-planar-Coulomb-renormalized-energy-September-23-2026",
+   "family": "090",
+   "title": "Triangular minimality for planar Coulomb renormalized energy",
+   "claim": "We prove the Sandier–Serfaty conjecture: the triangular lattice of covolume one minimizes planar Coulomb renormalized energy ... The proof uses a direct Voronoi-cell comparison with rigorous interval arithmetic.",
+   "object": "Finite scalar interval verification over Voronoi-sector meshes (six stages, three mesh levels, 22 saved integer pairs) for the dual-potential comparison.",
+   "published": "preprints/Triangular-minimality-for-planar-Coulomb-renormalized-energy-September-23-2026/build/sections/06-computation.tex (Section sec:computation 'The finite scalar verification'), /build/sections/04-calibration.tex (formula source); verification/certificate.cpp, core.hpp, grids.hpp, run-certificate.py; run record verification/data/certificate-record.txt.",
+   "size": "multi-precision (Boost, BP=144) interval sweeps; recorded run 72.6 s on 32 threads",
+   "check": "Re-implement the scalar enclosures from Sections 4-6 with an independent interval library and sweep the same meshes; compare the 22 integer pairs. Roughly 10-60 min on a laptop.",
+   "tier": "A",
+   "leanChallenges": [
+    "AtomicGaussian",
+    "PlanarPacking",
+    "TriangularEnergy",
+    "TriangularGaussian"
+   ]
+  },
+  {
+   "id": "F-189",
+   "reader": 1,
+   "index": 189,
+   "dir": "The-Gaussian-Propeller-Bound-in-Every-Dimension-September-24-2026",
+   "family": "096",
+   "title": "The Gaussian propeller bound in every dimension",
+   "claim": "We prove the Gaussian propeller conjecture: for every finite measurable partition of a Euclidean space, the sum of the squared lengths of its Gaussian first moments is at most 9/(8 pi).",
+   "object": "Rational enclosures for the numerical comparisons that exclude five or more active cells (radius confinement .066 < t < .12, c > 2.6t, parameters A = .929/.884), with pi and square-root enclosures and truncated exponential series. Caveat: the 4-cell case is imported from Heilman–Jagannath–Naor's computer-assisted theorem in R^3.",
+   "published": "preprints/The-Gaussian-Propeller-Bound-in-Every-Dimension-September-24-2026/build/sections/certificates.tex (appendix cert:arithmetic, enclosure formulas and tables), /build/sections/elimination.tex (Section elim:section, the finite comparisons).",
+   "size": "tens of rational inequalities",
+   "check": "Recheck each comparison in exact rationals with outward enclosures for pi, sqrt and exp. Seconds. The external HJN finite verification is not in this paper.",
+   "tier": "A",
+   "leanChallenges": [
+    "GaussianPropeller"
+   ]
+  },
+  {
+   "id": "F-195",
+   "reader": 1,
+   "index": 195,
+   "dir": "Finite-angular-cylinder-covers-below-the-half-area-bound-September-27-2026",
+   "family": "100",
+   "title": "Finite angular cylinder covers below the half-area bound",
+   "claim": "A regular tetrahedron admits a finite cylinder covering with compact triangular perpendicular bases whose total area is less than half its minimum orthogonal projection area.",
+   "object": "Explicit-by-formula cover (Prop prop:angular-cubic): for tilt tau, N = ceil(8/tau^2) and 2N triangular cylinders with secant axis coefficients and cutoffs T_j = 1/2 + tau^2 d_j + (25/4) tau^3; strict saving proved for 0 < tau <= 1/4000, i.e. 2*128,000,000 = 256,000,000 cylinders (the fixed-margin main construction is stated with eps <= 1/2000).",
+   "published": "preprints/Finite-angular-cylinder-covers-below-the-half-area-bound-September-27-2026/build/sections/cubic-buffer.tex l.17-91 (Prop prop:angular-cubic and proof), /build/sections/coverage.tex (Cor cor:quantitative-coverage ~l.128-150, threshold remark ~l.159), /build/sections/area.tex (area estimates). Lean: lean/ComparatorChallenges/CylinderCovering.lean / TriangularCovering.lean (defs K, A_min, TriCylinder, Covers, NormalizedCounterexample).",
+   "size": "~2.6e8 triangular cylinders at the smallest certified tilt (1.6e7 at eps = 1/2000 for the main construction)",
+   "check": "Area: sum of 2N exact triangle areas (needs max of d(q) per interval) versus A_min/2 = H/2 — feasible. Coverage: a semi-algebraic proof that the closed tetrahedron lies in the union of millions of cylinders; a direct exact check is a large geometric certification (expensive), unless one re-proves the paper's first-crossing argument symbolically for each sector.",
+   "tier": "B",
+   "leanChallenges": [
+    "CylinderCovering",
+    "RuledCovering",
+    "TriangularCovering"
+   ]
+  },
+  {
+   "id": "F-197",
+   "reader": 1,
+   "index": 197,
+   "dir": "Slope-field-perturbations-of-the-two-cylinder-covering-September-27-2026",
+   "family": "100",
+   "title": "Slope-field perturbations of the two-cylinder covering",
+   "claim": "The two-cylinder covering of a regular tetrahedron can be perturbed to give finite covers with total perpendicular base area strictly below half its minimum projection area.",
+   "object": "Perturbed two-cylinder covers parameterized by small epsilon (slope-field construction); thresholds are existential ('for small epsilon', contraction constants L_d), so no specific finite cover is pinned.",
+   "published": "NOT PUBLISHED as a specific instance; construction in preprints/Slope-field-perturbations-of-the-two-cylinder-covering-September-27-2026/build/sections/threshold.tex and dictionary.tex with non-explicit smallness thresholds.",
+   "size": "finite but unspecified number of cylinders",
+   "check": "Would need an explicit epsilon and partition; then area sum and coverage as for #195.",
+   "tier": "C",
+   "leanChallenges": [
+    "CylinderCovering",
+    "RuledCovering",
+    "TriangularCovering"
+   ]
+  },
+  {
+   "id": "F-198",
+   "reader": 1,
+   "index": 198,
+   "dir": "Finite-triangular-approximation-of-radial-sweeps-September-27-2026",
+   "family": "100",
+   "title": "Finite triangular approximation of radial sweeps",
+   "claim": "An explicit application covers every regular tetrahedron with total base area below half its minimum projection area.",
+   "object": "Finite triangular cylinder covers from tagged partitions whose mesh tends to zero; existence of a cover with cost below 1/2 for some sufficiently fine mesh (no explicit mesh threshold located).",
+   "published": "NOT PUBLISHED as a specific instance; preprints/Finite-triangular-approximation-of-radial-sweeps-September-27-2026/build/beams.tex l.292 ('For every zeta > 0, the tetrahedron K has a finite cylinder cover ...'), coordinates.tex.",
+   "size": "finite, unspecified",
+   "check": "As #195 once a mesh is fixed.",
+   "tier": "C",
+   "leanChallenges": [
+    "CylinderCovering",
+    "RuledCovering",
+    "TriangularCovering"
+   ]
+  },
+  {
+   "id": "F-199",
+   "reader": 1,
+   "index": 199,
+   "dir": "A-sharp-entropy-bound-and-the-simplex-inequality-for-isotropic-constants-October-5-2026",
+   "family": "101",
+   "title": "A sharp entropy bound and the simplex inequality for isotropic constants",
+   "claim": "We prove the strong isotropic constant conjecture: in each dimension, simplices are the unique maximizers of the isotropic constant among convex bodies.",
+   "object": "Scalar certificate: rational bounds for Mills alternating integrals, Gaussian ODE error comparisons, a quartic Bernstein enclosure, integral tail estimates and multi-affine corner checks.",
+   "published": "preprints/A-sharp-entropy-bound-and-the-simplex-inequality-for-isotropic-constants-October-5-2026/build/manuscript/certificate.tex (Section cert:verification, eq cert:identities l.20 ff.); verification/verify_scalar.py (stdlib Fractions).",
+   "size": "a few dozen rational enclosures and corner evaluations",
+   "check": "Recompute every rational enclosure and corner comparison with independent exact arithmetic. Seconds.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-209",
+   "reader": 1,
+   "index": 209,
+   "dir": "Randomized-quasipolynomial-time-mean-payoff-games-September-25-2026",
+   "family": "104",
+   "title": "Randomized quasipolynomial-time mean-payoff games",
+   "claim": "A polynomial-time check certifies the winning regions and positional strategies ... [Appendix: a two-variable counterexample to the variable-selection rule printed in Truffet's arXiv:2603.26423v4.]",
+   "object": "Tropical program: min x1 s.t. max(x1,x2) >= 0, x1 >= max(x2+1,-2); true optimum 0 at (0,-1); the printed substitution rule forces x2 = h then x1 = h+1, returning 1. Side result (appendix), not the paper's main theorem.",
+   "published": "preprints/Randomized-quasipolynomial-time-mean-payoff-games-September-25-2026/build/source/sections/09-comparison.tex l.1-82 (eq:substitution-example l.12-17). Lean: lean/ComparatorChallenges/TruffetCounterexample.lean; proof lean/OAI/Optimization/Tropical/TruffetCounterexample.lean.",
+   "size": "2 variables, 2 constraint rows",
+   "check": "Exact: verify the optimum 0 by case analysis; simulate the cited rule (eqs 53a/53b of the third-party paper) to confirm it saturates x2 = h and ends at value 1. Seconds, but requires reading the external v4 rule.",
+   "tier": "A",
+   "leanChallenges": [
+    "RandomizedMeanPayoff",
+    "TruffetCounterexample"
+   ]
+  },
+  {
+   "id": "F-213",
+   "reader": 1,
+   "index": 213,
+   "dir": "Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026",
+   "family": "107",
+   "title": "Complex Matrix Multiplication Below 2.258 and Rectangular Bounds",
+   "claim": "Over every field of characteristic zero, we prove that the square matrix-multiplication exponent satisfies omega < 2.258, the dual exponent satisfies alpha > 0.465, and omega(1,0.709,1) < 2.092.",
+   "object": "Rational certificate (Theorem thm:certificate): beta = 1129/500, F_beta(alpha*) >= 1.098619383270680538 > log 3 at alpha* = (p,p,p,1/3-p,1/3-p,1/3-p), p = round(2^500 * 0.18623)/2^500; 52 exact decimal barrier coefficients and two integer coefficient charts; rectangular bounds via separate rational witnesses.",
+   "published": "preprints/Complex-Matrix-Multiplication-Below-2.258-and-Rectangular-Bounds-September-24-2026/build/tex/certificate.tex (Theorem thm:certificate l.20 ff., interior lemma l.380), /build/tex/reproducibility.tex (hashes of inputs), /build/rectangular/07-certificates.tex; data verification/certificate/inputs/newc22 (52 coefficients), qP420_gmp (1.7 MB), qP780_gmp (18.3 MB); rectangular checks verification/certificates/checks/verify_rational.py, verify_construction.py. Lean: lean/ComparatorChallenges/MatrixMultiplication.lean states omega <= 9/4, alpha > 93/200, omega(1,0.709,1) < 523/250.",
+   "size": "18 MB integer chart + 52-coefficient barrier; branch-and-bound to depth 28",
+   "check": "Re-derive the construction class F_beta and its grid-to-continuum error allowances from the manuscript, then replay the chart and interior-sector bounds in exact arithmetic. Expensive mainly in re-derivation (the shipped replay needs C++17/GMP/int128); compute likely hours. Rectangular bounds: re-check the rational witnesses (minutes).",
+   "tier": "B",
+   "leanChallenges": [
+    "MatrixFields",
+    "MatrixMultiplication"
+   ]
+  },
+  {
+   "id": "F-214",
+   "reader": 1,
+   "index": 214,
+   "dir": "Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026",
+   "family": "107",
+   "title": "Staggered extraction for exact matrix multiplication over every field",
+   "claim": "We prove that the arithmetic exponent of square matrix multiplication over every fixed field satisfies omega < 2.371054886006746. This includes every positive characteristic.",
+   "object": "One explicit choice of distributions for the paper's staggered-extraction construction, given by five integer arrays (17 initial entries a_0..a_16, 118 Stage A, 54 Stage B, terminal and binary-parameter arrays) decoded by rational rules with weight F(n) = (sum_{j<=16} (n/640000)^j/j!)^64 over 223 arguments; certified yield rate, capacity positivity, balance conditions, S* > 0 and the exponent ratio < 2.371054886006746.",
+   "published": "preprints/Staggered-extraction-for-exact-matrix-multiplication-over-every-field-September-24-2026/build/sections/parameters.tex (Section sec:parameters, decoding rules from l.1, final bound l.328), /build/sections/parameter-tables.tex (Appendix app:parameter-tables, the integer arrays); machine-readable copies verification/data/parameter-assignments.tsv, parameters.json, certificate-interval.json, certificate-interval-series.json. Lean: lean/ComparatorChallenges/MatrixFields.lean (omega_lt_source_constant).",
+   "size": "~200 integers in five arrays; a few hundred rational weights; entropy-type sums over shapes of size 16",
+   "check": "Re-implement the decoding rules and the rate formulas of Section 'Exact parameters' in exact rationals plus outward-rounded logarithms (intervals), and confirm each displayed inequality and the final ratio bound. Minutes. Note the check certifies the parameter step only; the tensor/extraction framework that turns rates into omega is proved in the manuscript.",
+   "tier": "A",
+   "leanChallenges": [
+    "MatrixFields",
+    "MatrixMultiplication"
+   ]
+  },
+  {
+   "id": "F-232",
+   "reader": 1,
+   "index": 232,
+   "dir": "Additive-hardness-and-unbounded-configuration-gaps-in-bin-packing-September-24-2026",
+   "family": "118",
+   "title": "Additive hardness and unbounded configuration gaps in bin packing",
+   "claim": "We disprove the Modified Integer Round-Up Conjecture for bin packing by constructing instances with arbitrarily large additive gaps between the configuration-LP value and the integral optimum.",
+   "object": "The reduction of Theorem thm:reduction applied to the four-vertex clique with k = 2, rho = 1/8, c = 1 gives a finite rational instance with LP = B and OPT > B + 1. It is deterministic but astronomically large: P0 = 100^11, K = 25(c+1)(1+5P0), d >= max(72K, 120K/rho) ~ 10^27, R = 100(P + nK + 1).",
+   "published": "preprints/Additive-hardness-and-unbounded-configuration-gaps-in-bin-packing-September-24-2026/build/source/consequences.tex l.9-24 (proof of Theorem thm:unbounded-gap), /build/source/instance.tex l.26-60 (parameters eq:parameters and geometry). Instance itself NOT PUBLISHED (only its prescription). Lean: lean/ComparatorChallenges/BinPackingGap.lean; proof lean/OAI/Computability/BinPacking/ (284 files).",
+   "size": ">= 10^27 items (5B items)",
+   "check": "Infeasible directly: LP = B needs the fractional witness over the type configuration LP, and OPT > B + 1 is a bin-packing infeasibility claim. A smaller explicit instance would be needed for any exact check.",
+   "tier": "C",
+   "leanChallenges": [
+    "BinPackingGap"
+   ]
+  },
+  {
+   "id": "F-234",
+   "reader": 1,
+   "index": 234,
+   "dir": "Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026",
+   "family": "119",
+   "title": "Hellinger contraction with arbitrary Boolean output bias",
+   "claim": "The proof combines asymmetric dimension induction, a calibrated noise-semigroup energy estimate, and finite exact arithmetic certificates.",
+   "object": "Finite scalar and profile certificates for the three output-bias ranges (central band, intermediate, large bias): Bernstein coefficients and interval/derivative enclosures in exact rational/int128 arithmetic, with tabulated profiles.",
+   "published": "preprints/Hellinger-contraction-with-arbitrary-Boolean-output-bias-September-24-2026/build/sections/arithmetic.tex (app:arithmetic: Bernstein coefficients l.6, intervals l.51, supplementary sources l.76), /build/sections/intermediate.tex Table mid:certificate-table (l.559); verification/interval_certificate.cpp, profile_certificate.py, central_band.py, intermediate_bias.py, large_bias.py, data/profile_tables.txt.",
+   "size": "three bias-range scans plus profile tables",
+   "check": "Independent exact-rational/interval re-evaluation of the scalar inequalities on each bias range and of the profile table. Minutes. Dimension induction is analytic.",
+   "tier": "A",
+   "leanChallenges": [
+    "CourtadeKumar",
+    "SoftChannel204"
+   ]
+  },
+  {
+   "id": "F-248",
+   "reader": 2,
+   "index": 248,
+   "dir": "An-explicit-power-saving-for-the-exact-discrete-Fourier-transform-September-25-2026",
+   "family": "130",
+   "title": "An explicit power saving for the exact discrete Fourier transform",
+   "claim": "We give a deterministic algorithm that computes the discrete Fourier transform at every length n in $`O(n(\\log n)^{1-10^{-13}})`$ operations.",
+   "object": "A finite tensor-saving certificate: an explicit invertible nonmonomial matrix C (eq. net:C), and a word that implements C^{⊗b} on 2^b coordinates with g<b*2^{b-1} forward C-calls. Also a 3-call word for I_2+E_12 using C and diagonal factors (Lemma syn:local-certificate).",
+   "published": "Interface and lemma in build/sections/synthesis.tex lines 18-60 (Lemma syn:local-certificate at lines 39-46), built from the network of build/sections/network.tex (matrix eq. net:C at line 6; Prop. net:finite-interface at line 370; parameters m=10^6, W_*=2^71 at network.tex line 470 and introduction.tex line 71). The 2^b-coordinate word is never printed and is astronomically large.",
+   "size": "W_*=2^71 arrays of length 2^{mf}, with m=10^6",
+   "check": "Only the two-coordinate identity (I_2+E_12 as three C-calls with diagonal factors) can be checked directly, exactly and in seconds. The saving word itself cannot be materialized.",
+   "tier": "C",
+   "leanChallenges": [
+    "ExactFourier",
+    "UniformFourier"
+   ]
+  },
+  {
+   "id": "F-262",
+   "reader": 2,
+   "index": 262,
+   "dir": "Subset-Sum-in-Time-2-power-0-49n-October-4-2026",
+   "family": "138",
+   "title": "Subset Sum in Time $`O(2^{0.49n})`$",
+   "claim": "We give a uniform randomized classical algorithm for Subset Sum with bounded error and worst-case running time $`O(2^{0.49n})`$ on polynomial-bit inputs in a word-RAM model, where n is the number of input integers.",
+   "object": "A numerical certificate for the 'filtering moments' (Prop. prop:filtering-moments), which fix the 0.49 exponent. Two circular convolutions of explicit trigonometric functions F and G are evaluated on a 64-point grid and enclosed by rational interval arithmetic, with explicit inner and outer quadrature error bounds (analytic strip beta=0.19).",
+   "published": "build/sections/numerical.tex (appendix app:numerical, 355 lines): reduction to two convolutions at lines 13-53; 'Finite arithmetic certificate' at line 54 (tabulated enclosures with errors <=5e-7 or 5e-6); inner quadratures at line 198; outer analytic strip at line 265. Statement Prop. prop:filtering-moments in build/sections/filtering.tex at line 90. No program file accompanies.",
+   "size": "64-point grid; 6 tabulated enclosures",
+   "check": "Recompute the 64-point sums in exact rational or interval arithmetic and verify the tabulated enclosures and both quadrature error bounds. Seconds to minutes. The algorithm analysis that uses these moments is theory.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-287",
+   "reader": 2,
+   "index": 287,
+   "dir": "Arithmetic-classification-and-non-Pisot-singularity-for-Bernoulli-convolutions-October-3-2026",
+   "family": "153",
+   "title": "Arithmetic classification and non-Pisot singularity for Bernoulli convolutions",
+   "claim": "singularity holds at the reciprocal of every quartic Salem number in $`(1,2)`$ and at the reciprocal of a specified non-Pisot root of an explicit degree-31 polynomial.",
+   "object": "p(t)=t^31-2t^30+sum_{j=0..9}(t^{3j+1}-t^{3j}), with (t^2+t+1)p(t)=t^33-t^32-t^31-t^30-1. The certificate gives 31 rational root disks of radius 10^-35 with centers (a+ib)/10^40. From them: all roots are simple, beta is in (1.8392,1.8393), and the roots outside the unit circle are exactly beta, alpha and conj(alpha), so beta is not Pisot. It also gives finite rational products with rounded coefficient arrays and an analytic tail bound for the predictor/moment estimates.",
+   "published": "build/certificate.tex (675 lines): root location §cert:roots at lines 16-97 (root table cert:root-table at lines 30-54); 'Rounded coefficient arrays and finite products' at line 98; uniform error bound at line 245; correlation/Gram sum at line 427; finite products at line 525; anisotropy bound at line 594. Polynomial and Theorem np:main in build/nonpisot.tex lines 14-30; Prop. np:roots at lines 32-40. Script verification/verify_degree31.py (20,637 bytes).",
+   "size": "one degree-31 integer polynomial; 31 disks; finite rational products",
+   "check": "Exact: a squarefree/discriminant check; certified root isolation (exact Rouche or verified Newton/Krawczyk on the 31 disks) giving beta's bracket and |alpha|>1; then recompute the §cert 98-675 rational products and confirm the stated bounds. Seconds for the roots, minutes for the products. The step from these bounds to singularity is theory, as are the quartic Salem cases.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-294",
+   "reader": 2,
+   "index": 294,
+   "dir": "A-counterexample-to-Hadwigers-conjecture-September-23-2026",
+   "family": "157",
+   "title": "A counterexample to Hadwiger's conjecture",
+   "claim": "We disprove Hadwiger's conjecture by constructing arbitrarily large graphs whose chromatic number exceeds their Hadwiger number.",
+   "object": "m-vertex graphs with alpha(G)<=2 and connected-matching number cm(G)<m/100, hence h(G)<26m/75+2/3<m/2<=chi_f(G). They come from a random construction that samples m raw vertices over coefficient spaces of dimension N=M_0 n, with every parameter taken 'sufficiently large'.",
+   "published": "NOT PUBLISHED. Theorem thm:main in build/sections/01-introduction.tex lines 20-27; sampling of raw vertices in build/sections/02-geometry.tex lines 258-320; parameter order in build/sections/14-parameters.tex.",
+   "size": "unspecified; the companion construction states a sampled order m=2^{1000gN}",
+   "check": "For an explicit G: alpha(G)<=2 by an O(m^3) triple check; an upper bound on cm(G) or h(G) is the hard part (minor exclusion). Infeasible at the stated scale.",
+   "tier": "C",
+   "leanChallenges": [
+    "HadwigerCounterexample",
+    "ListHadwiger"
+   ]
+  },
+  {
+   "id": "F-295",
+   "reader": 2,
+   "index": 295,
+   "dir": "A-counterexample-to-the-Colin-de-Verdiere-chromatic-conjecture-September-23-2026",
+   "family": "157",
+   "title": "A counterexample to the Colin de Verdière chromatic conjecture",
+   "claim": "We disprove the Colin de Verdière chromatic conjecture by constructing graphs whose chromatic number exceeds their Colin de Verdière invariant by more than one.",
+   "object": "Randomly constructed graphs with alpha<=2 and Colin de Verdiere invariant less than chi-1.",
+   "published": "NOT PUBLISHED. Theorem thm:main at build/sections/01-introduction.tex line 42; base graphs Theorem thm:base-graphs at line 147; 'm=2^{1000gN} is the sampled graph order' at lines 315-317.",
+   "size": "m=2^{1000gN}",
+   "check": "Infeasible: the witness is probabilistic and astronomically large.",
+   "tier": "C",
+   "leanChallenges": [
+    "HadwigerCounterexample",
+    "ListHadwiger"
+   ]
+  },
+  {
+   "id": "F-297a",
+   "reader": 2,
+   "index": 297,
+   "dir": "The-Euclidean-plane-is-not-five-colorable-September-23-2026",
+   "family": "158",
+   "title": "The Euclidean plane is not five-colorable",
+   "claim": "We prove that every coloring of the Euclidean plane with five colors has a monochromatic unit-distance pair, with no regularity assumption on the color classes.",
+   "object": "A component of the proof, not the headline witness. The Moser spindle is placed explicitly: G={0,A,B,T,uA,uB,uT} with A=(sqrt3+i)/2, B=(sqrt3-i)/2, T=sqrt3, u=(5+i*sqrt11)/6, and placement z_g=(35+12i)/37*(g+(-290+149i)/250). The 'Seven-point certificate' lemma asserts 0<|z_g|^2<4 and P=v^2(3x^2-v^2)^2 < P'=l^3(1-l/4)(l-1)^2 at every vertex, which puts all 7 vertices in the three-label region and excludes interface cycles of length three (Prop. angular-three).",
+   "published": "build/sections/angular.tex: Lemma angular-region with region eq:source-27 at lines 484-492; vertex set eq:angular-seven-vectors at lines 529-533; placement eq:angular-placement at lines 546-550; Lemma angular-certificate at lines 577-580; rational verification subsection at lines 619-773 (Table tab:angular-coordinates at about line 646, Table tab:angular-factors at about line 743).",
+   "size": "7 points in Q(i, sqrt3, sqrt11); 11 unit edges",
+   "check": "Exact arithmetic in Q(sqrt3, sqrt11): check the 11 unit distances, the non-3-colorability of the spindle (3^7 search), and the strict inequalities 0<|z_g|^2<4 and P<P' by exact sign decision in the real field. Seconds. The rest of the proof (measurable/spectral reduction, Props. angular-four and angular-five) is theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "EuclideanFiveColor",
+    "PlaneColoring"
+   ]
+  },
+  {
+   "id": "F-297b",
+   "reader": 2,
+   "index": 297,
+   "dir": "The-Euclidean-plane-is-not-five-colorable-September-23-2026",
+   "family": "158",
+   "title": "The Euclidean plane is not five-colorable",
+   "claim": "We prove that every coloring of the Euclidean plane with five colors has a monochromatic unit-distance pair, with no regularity assumption on the color classes.",
+   "object": "The headline witness: a finite unit-distance graph H in the plane that is not 5-colorable. The paper derives its existence from the theorem through de Bruijn-Erdos compactness, but never displays it.",
+   "published": "NOT PUBLISHED. build/sections/introduction.tex lines 31-36 ('an unrestricted lower bound can also be established without first displaying a finite graph witnessing it') and lines 309-313 ('Theorem~\\ref{thm:main} and graph compactness ... give a finite unit-distance graph H that is not five-colorable'). The proof goes through weak measurable colorings (build/sections/transfer.tex) and spectral/ergodic arguments.",
+   "size": "unknown; no bound stated",
+   "check": "If a graph were exhibited: exact unit-distance verification of every edge in its coordinate field, plus an UNSAT certificate (e.g. DRAT) for 5-colorability. Nothing is available to check today. This is the single most valuable unpublished witness in the slice.",
+   "tier": "C",
+   "leanChallenges": [
+    "EuclideanFiveColor",
+    "PlaneColoring"
+   ]
+  },
+  {
+   "id": "F-300",
+   "reader": 2,
+   "index": 300,
+   "dir": "A-counterexample-to-Sidorenkos-conjecture-September-23-2026",
+   "family": "161",
+   "title": "A counterexample to Sidorenko's conjecture",
+   "claim": "We disprove Sidorenko's conjecture with a bipartite graph on 35 vertices and 66 edges: its homomorphism density in some finite simple graph is smaller than the conjectured lower bound.",
+   "object": "The pattern H is PUBLISHED: the incidence graph of 22 triples on 13 points, with each of the 33 covered point pairs in exactly two triples. The host G with t(H,G)<p(G)^66 is NOT published: it is sampled from a finite kernel on a symplectic space whose even dimension D=2r and odd prime q are both taken 'sufficiently large'.",
+   "published": "H: build/sections/complex.tex Table tab:complex at lines 19-56 (Theorem thm:main in build/sections/introduction.tex lines 18-26; Lean ComparatorChallenges/SidorenkoCounterexample.lean def faces). Host: NOT PUBLISHED. build/sections/kernel.tex lines 19, 566 and 673-676 choose D and q 'sufficiently large'; the Lean solution module is OAI.Combinatorics.Sidorenko.RandomHost (existential).",
+   "size": "H: 35 vertices, 66 edges; G: unspecified",
+   "check": "With an explicit G (or a rational kernel W): compute hom(H,G) exactly by variable elimination over the 13+22 incidence structure and compare with p(G)^66 in exact rationals. Today only H's combinatorial properties can be checked (seconds).",
+   "tier": "C",
+   "leanChallenges": [
+    "SidorenkoCounterexample"
+   ]
+  },
+  {
+   "id": "F-301",
+   "reader": 2,
+   "index": 301,
+   "dir": "Balanced-Counterexamples-to-Rysers-Conjecture-at-Prime-Orders-September-27-2026",
+   "family": "162",
+   "title": "Balanced counterexamples to Ryser's conjecture at prime orders",
+   "claim": "For every sufficiently large prime q, we construct a finite intersecting $`(q+1)`$-partite $`(q+1)`$-uniform hypergraph with covering number $`q+1`$ and exactly $`q+1`$ nonisolated vertices in each part.",
+   "object": "An intersecting (q+1)-partite (q+1)-uniform hypergraph with tau=q+1, from random offsets plus local-lemma completion, for a non-effective 'sufficiently large' prime q.",
+   "published": "NOT PUBLISHED. Random choices in build/candidates.tex lines 75-140; the random selection procedure in build/selection.tex lines 20-35 ('All subsequent assertions concern sufficiently large q', line 93).",
+   "size": "unspecified (q non-effective)",
+   "check": "For an explicit instance: pairwise intersection is O(|E|^2), and tau=r needs an exact hitting-set/ILP certificate (feasible for moderate r). Nothing is published.",
+   "tier": "C",
+   "leanChallenges": [
+    "BalancedRyser",
+    "RyserCovering",
+    "RyserOddExtensions"
+   ]
+  },
+  {
+   "id": "F-302",
+   "reader": 2,
+   "index": 302,
+   "dir": "A-Counterexample-to-Rysers-Covering-Conjecture-September-23-2026",
+   "family": "162",
+   "title": "A counterexample to Ryser's covering conjecture",
+   "claim": "For every sufficiently large prime $`s\\equiv2\\pmod3`$ and every sufficiently large odd integer n, with the threshold depending on s, we construct an intersecting $`(s^n+1)`$-partite $`(s^n+1)`$-uniform hypergraph with covering number $`s^n+1`$.",
+   "object": "An intersecting r-partite r-uniform hypergraph with r=s^n+1 and tau=r, built with random independent shifts and a domination-certificate counting argument.",
+   "published": "NOT PUBLISHED. build/selection.tex lines 1-60 (independent random shifts; Lemma sel-domination at line 52).",
+   "size": "r=s^n+1 with s and n non-effective",
+   "check": "Infeasible as stated; no instance is given.",
+   "tier": "C",
+   "leanChallenges": [
+    "BalancedRyser",
+    "RyserCovering",
+    "RyserOddExtensions"
+   ]
+  },
+  {
+   "id": "F-336",
+   "reader": 2,
+   "index": 336,
+   "dir": "Snaky-in-21-Maker-moves-September-25-2026",
+   "family": "187",
+   "title": "Snaky in 21 Maker moves",
+   "claim": "We prove that Maker can achieve the Snaky hexomino within 21 actual Maker moves against arbitrary legal Breaker play on the initially empty infinite square board.",
+   "object": "A finite strategy certificate built from conditional winning templates: 6 base cards plus 722 numbered nonbase rows (4,089 references, 898 inline combinations, 1,620 combination nodes, 37,042 local Breaker-reply classes). The final card T_727 has a 251-cell envelope inside {0..16}^2 and height 21. Two independent re-encodings are also given: a 25-move reduced-envelope certificate with 2,010 rows and a 35-move letter-and-offset certificate with 610 rows.",
+   "published": "verification/certificate.txt (722 lines, 38,367 bytes; printed in full in build/certificate-appendix.tex §app:data, lines 1-13); semantics: build/templates.tex Lemma lem:combination (line 41), build/certificate-proof.tex (|T_727|=251, h_727=21 at line 138; Table tab:top at line 191), scope and counts in build/verification.tex lines 1-60; other encodings verification/supporting/route25/certificate.txt and route35/certificate.txt (prior-35/certificate.txt); authors' checkers verification/verify_certificate.py and supporting/verify_all.py. Lean: ComparatorChallenges/SnakyCertificate.lean encodes the entries (def entry_6, entry_7, ...).",
+   "size": "722 rows; 37,042 local reply classes; 251-cell board",
+   "check": "Re-implement the card grammar and the combination rule from scratch; reconstruct every card's required set, envelope and height; check every local reply class and the final 251-cell containment. Minutes. A rule-free alternative is to extract an explicit Maker policy and verify it against every Breaker line of 20 replies on the 251-cell board with symmetry and transposition reduction. That is a large game-tree search (B-scale), but it is the strongest independent check because it does not rely on the paper's combination lemma.",
+   "tier": "A",
+   "leanChallenges": [
+    "SnakyCertificate",
+    "SnakyConditional",
+    "SnakyTwentyOne"
+   ]
+  },
+  {
+   "id": "F-338",
+   "reader": 2,
+   "index": 338,
+   "dir": "Cycle-clique-Ramsey-numbers-September-25-2026",
+   "family": "189",
+   "title": "Cycle--clique Ramsey numbers",
+   "claim": "These arguments reduce the remaining cases to $`3{,}099`$ finite parameter-pattern instances, which are excluded by two exact implementations of proved inference rules.",
+   "object": "3,099 parameter-pattern instances (k,t) with 5<=k<=17 and max{3,floor(k/2)}<=t<=min{8,k} (Prop. finite:verified: no graph with no C_{k+1}, clique number t, alpha<=k and |N[I]|>=k|I|+1 for all independent I). Each instance carries a deduction trace: initial forbidden-path flags, rounds of added prohibitions, and a final packing contradiction (base vertex, radius, independence bound). 3,049 close at the initial packing test, 50 after added constraints, 0 unresolved.",
+   "published": "verification/data/certificates.jsonl (3,099 JSON lines, 4,253,650 bytes); expected per-k counts verification/data/expected-output.txt; domain build/sections/09-finite-patterns.tex Prop. finite:verified lines 11-25 (count 3099 at line 122); inference rules build/sections/09-finite-rules.tex (189 lines) and 09-finite-packing.tex (266 lines); results Table finite:results in 09-finite-results.tex lines 10-37; trace format 10-implementation.tex lines 91-110; authors' checkers verification/code/original_checker.py and independent_checker.py. A Lean proof also exists (OAI.Combinatorics.Ramsey.CycleClique, 443 files, ~2.8M lines, decide-based).",
+   "size": "3,099 instances over 42 (k,t) pairs; 4.25 MB of traces",
+   "check": "Clean-room: re-derive the pattern domain from the §9 definitions, implement the proved inference rules (outside-path prohibitions by length, the packing test), and reach a contradiction for every instance; separately validate each recorded trace step (the paper says the traces were not designed for a minimal validator, so a step-validator is new evidence). Integer and finite-set arithmetic only; minutes on a laptop. The reduction to these instances (§§2-8) is theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "CycleCliqueRamsey"
+   ]
+  },
+  {
+   "id": "F-339",
+   "reader": 2,
+   "index": 339,
+   "dir": "Polynomial-removal-fails-for-ordered-binary-matrices-September-25-2026",
+   "family": "190",
+   "title": "Polynomial removal fails for ordered binary matrices",
+   "claim": "We construct a fixed $`66\\times66`$ binary matrix for which ordered matrix removal has no polynomial bound.",
+   "object": "H=[[S,e1,e2],[e1^T,1,0],[e2^T,1,1]] with S in {0,1}^{64x64}, where S(u,v)=eta_{v-59}(u-33) (the 32 five-bit words) for 33<=u<=64 and 60<=v<=64, and 1[u≠v] otherwise. Host matrices A_h of order n_h=(386h+2)2^h are built on a binary tree (n_1=776, n_2=3,096). The theorem claims dist_H(A_h)>=eps_h and N_H(A_h)/n_h^132<=eps_h 2^-h with eps_h=(386h+2)^-2.",
+   "published": "build/sections/02-construction.tex lines 1-50 (pattern eq:pattern-definition), with the tree matrices A_h in the rest of §2; Theorem thm:main in build/sections/01-introduction.tex lines 33-45; finite lemmas in build/sections/03-pinning.tex (anchor properties at line 20, mode incidences at line 46, 'no five non-anchor columns are shattered' at line 73, anchor rigidity at line 106). Lean: ComparatorChallenges/MatrixRemoval.lean defines etaBit and anchor64.",
+   "size": "66×66 pattern; A_1 is 776×776, A_2 is 3,096×3,096",
+   "check": "Cheap: the anchor lemmas for S (distinct rows and columns, one-zero conditions, the 32-word block) take seconds. Expensive: at a fixed h the theorem needs the ordered-copy count N_H(A_h) (counting order-preserving 66×66 pattern embeddings in a 776×776 matrix) and a lower bound on the removal distance (a hitting-set problem over all copies). That is a hard search even with the paper's rigidity lemmas to prune it, and the headline is asymptotic in h, so any finite check is partial.",
+   "tier": "B",
+   "leanChallenges": [
+    "MatrixRemoval"
+   ]
+  },
+  {
+   "id": "F-345",
+   "reader": 2,
+   "index": 345,
+   "dir": "A-Torsion-Free-Group-Algebra-with-Zero-Divisors-September-23-2026",
+   "family": "196",
+   "title": "A Torsion-Free Group Algebra with Zero Divisors",
+   "claim": "We disprove Kaplansky's zero-divisor conjecture by constructing a finitely presented torsion-free group G for which $`\\mathbb F_2[G]`$ has nonzero zero divisors.",
+   "object": "A finite presentation of G and finite sums alpha, beta in F_2[G] with alpha*beta=0.",
+   "published": "NOT PUBLISHED. build/sections/factors.tex lines 31-35: 'The construction is probabilistic: it proves that suitable finite matchings exist, without specifying matchings from which a concrete presentation and zero-divisor factors can be read off.' The Lean solution (OAI.Algebra.GroupRing) is existential.",
+   "size": "unspecified",
+   "check": "Given a presentation and alpha, beta: expand alpha*beta and reduce it with a word-problem solution (the paper's small-cancellation geometry would supply one) to confirm it is 0 over F_2. That part is finite. Torsion-freeness and the 2-dimensional classifying space are theory.",
+   "tier": "C",
+   "leanChallenges": [
+    "TorsionFreeZeroDivisors"
+   ]
+  },
+  {
+   "id": "F-346",
+   "reader": 2,
+   "index": 346,
+   "dir": "A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026",
+   "family": "197",
+   "title": "A Torsion-Free Group Algebra That Is Not Directly Finite",
+   "claim": "We construct a finitely presented torsion-free counterexample to Kaplansky's direct finiteness conjecture over the field of two elements.",
+   "object": "A finite presentation and a,b in F_2[G] with ab=1 and ba≠1.",
+   "published": "NOT PUBLISHED; the construction is probabilistic. Section sections/random.tex (input at build/paper.tex line 44); build/sections/topology.tex line 3 ('The probabilistic argument has produced finite immersed graphs'); build/sections/assembly.tex line 7 ('sufficiently large').",
+   "size": "unspecified",
+   "check": "As for 345: ab=1 and ba≠1 are finite word-problem computations once an instance exists.",
+   "tier": "C",
+   "leanChallenges": [
+    "GroupRingDeterminant",
+    "KaplanskyDirectFiniteness",
+    "KaplanskyFinitelyPresented",
+    "OddKaplansky"
+   ]
+  },
+  {
+   "id": "F-347",
+   "reader": 2,
+   "index": 347,
+   "dir": "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026",
+   "family": "197",
+   "title": "A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two",
+   "claim": "We disprove Kaplansky's direct-finiteness conjecture by constructing a finite field K of characteristic two, a finitely presented group G, and finite sums $`a,b\\in K[G]`$ with $`ab=1`$ but $`ba\\ne1`$.",
+   "object": "K, G, a_out and b_out are 'specified by a terminating prescription' (Theorem thm:main), but the prescription has q=2^h for sufficiently large h, takes l as the least prime ≡ -1 mod q^100 (Linnik bound l<=c q^{100L}), and uses random three-dimensional slabs.",
+   "published": "Not in checkable form. build/sections/01-introduction.tex lines 8-15 (theorem and 'terminating prescription'); build/sections/04-hypergraph.tex lines 8-20 and 53 (parameters, random slabs, 'for all sufficiently large h').",
+   "size": "astronomical (q^100-scale primes)",
+   "check": "Infeasible to instantiate.",
+   "tier": "C",
+   "leanChallenges": [
+    "GroupRingDeterminant",
+    "KaplanskyDirectFiniteness",
+    "KaplanskyFinitelyPresented",
+    "OddKaplansky"
+   ]
+  },
+  {
+   "id": "F-349",
+   "reader": 2,
+   "index": 349,
+   "dir": "A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Odd-Characteristic-September-26-2026",
+   "family": "197",
+   "title": "A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Odd Characteristic",
+   "claim": "For one specified odd prime p, we obtain a field K of order p4, a finitely generated group G containing torsion, and finite sums $`a,b\\in K[G]`$ with $`ab=1`$ but $`ba\\ne1`$.",
+   "object": "p is the least divisor >1 of (m!)^2+1 with m=C(1200,600). K has order p^4; G is built from finitely many finite groups by explicit identifications; a and b are specified 'without solving the word problem'. The paper says: 'The construction is not claimed to have been evaluated as a practical computation.'",
+   "published": "Specified but infeasible. Theorem op:main in build/sections/01-introduction.tex lines 14-30; finite data in build/sections/02-finite-data.tex; explicit idempotent eq op:explicit-e in build/sections/03-modular.tex line 191.",
+   "size": "m is about 10^359, so p is the least prime factor of an integer far beyond computation",
+   "check": "Infeasible: p itself cannot be computed.",
+   "tier": "C",
+   "leanChallenges": [
+    "GroupRingDeterminant",
+    "KaplanskyDirectFiniteness",
+    "KaplanskyFinitelyPresented",
+    "OddKaplansky"
+   ]
+  },
+  {
+   "id": "F-351",
+   "reader": 2,
+   "index": 351,
+   "dir": "An-explicit-counterexample-to-the-Auslander-Reiten-conjecture-September-23-2026",
+   "family": "199",
+   "title": "An explicit counterexample to the Auslander-Reiten conjecture",
+   "claim": "We disprove the Auslander–Reiten conjecture for Artin algebras.",
+   "object": "The ten-dimensional F_2(q)-algebra C, given by structure constants: basis e,x,y,z,u,v,t,j,f,n and 11 nonzero product rules (xy=qz, yx=z, ..., un=v). Built from it: the 20-dimensional symmetric trivial extension T=C⋉DC; A=T⊗T (dim 400); an explicit degree-3 Hochschild cochain p on T given as a coefficient table; and Lambda=[[A,0],[F,A]] (dim 800+dim F) with the module Z.",
+   "published": "build/03-algebra.tex lines 10-60: corners alg:C-corners, products alg:C-products at line 31, and Lemma alg:C at line 35 with an associativity table. Lemma coc:data at line 166. Appendix app:cochain in build/09-cochain.tex: the complete cochain table at lines 13-40 and verification recurrences from line 47. Object/dimension table in build/01-introduction.tex lines 250-265.",
+   "size": "dim C=10, dim T=20, dim A=400, dim Lambda=800+dim F; cochain table of about 250 entries",
+   "check": "Finite exact checks over F_2[q] (then F_2(q,H_1,H_2)): associativity of C, (rad C)^5=0 with utut=q(1+q)z≠0, the symmetrizing trace on T, and the Hochschild cocycle and boundary identities of the cochain table. Seconds. The headline Ext vanishing 'for every i > 0' is proved by resolution and periodicity theory. A finite partial check (Ext^i for small i over the 800+-dimensional Lambda over a 3-variable function field) would be expensive.",
+   "tier": "A",
+   "leanChallenges": [
+    "AuslanderReiten",
+    "Tachikawa"
+   ]
+  },
+  {
+   "id": "F-352",
+   "reader": 2,
+   "index": 352,
+   "dir": "A-counterexample-to-Tachikawas-second-conjecture-September-23-2026",
+   "family": "199",
+   "title": "A counterexample to Tachikawa's second conjecture",
+   "claim": "We disprove Tachikawa's second conjecture by constructing a finite-dimensional symmetric algebra over $`k=\\mathbb F_2(q,H_1,H_2)`$ with a finite-dimensional nonprojective module whose self-extension groups vanish in every positive degree.",
+   "object": "The same ten-dimensional algebra C as the Auslander-Reiten companion (complete multiplication table re-printed), a finite-dimensional symmetric algebra built from it, and an explicitly described module Z: upper component X and lower component N_Z=(FX ⊕ Ep_f)/{(v~(x), i_X(x))}.",
+   "published": "build/sections/algebra.tex §'The ten-dimensional algebra' (corners a:corners and the complete multiplication table, lines 1-40 onward); explicit module eq t:explicit-module in build/sections/triangular.tex lines 184-190.",
+   "size": "dim C=10; the derived algebras are finite-dimensional over F_2(q,H_1,H_2)",
+   "check": "Exact algebra identities over F_2[q] as for the Auslander-Reiten paper (shared core), plus checking that the symmetric form is nondegenerate and associative on the constructed algebra. Seconds to minutes. Vanishing in every positive degree is theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "AuslanderReiten",
+    "Tachikawa"
+   ]
+  },
+  {
+   "id": "F-360",
+   "reader": 2,
+   "index": 360,
+   "dir": "Universal-Tensor-Squares-for-Symmetric-Groups-September-24-2026",
+   "family": "205",
+   "title": "Universal Tensor Squares for Symmetric Groups",
+   "claim": "For every positive integer n other than 2, 4, and 9, we prove that some irreducible complex representation of Sn has a tensor square containing every irreducible representation.",
+   "object": "For each n in {1,3,5,6,7,8,10,...,64}: a self-conjugate partition lambda of n with Kronecker coefficient g(lambda,lambda,nu)>0 for every nu of n, certified by a nonzero residue mod 1000000007 or 1000000009 of the character inner product. Also finite 'capacity' enumerations for the intermediate parameters of the fixed large-n family.",
+   "published": "Prop. prop:finite-check in build/sections/finite.tex lines 12-17; method at lines 19-200; recorded run at lines 200-240. Program printed in build/main.tex appendix app:smallcode (line 92), the same as verification/code/smallcode_submitted.cpp. Capacity code in appendix app:capacity-code (line 74), the same as verification/code/capacity_checks.py. Logs: verification/computation/character-61-degrees.log and RESULTS.json. The witnessing partitions lambda are NOT recorded: 'The record contains exit statuses rather than the selected partitions' (finite.tex about line 223).",
+   "size": "61 degrees; up to p(64)=1,741,630 targets nu; authors' wall time 116 s at n=64",
+   "check": "Clean-room: compute characters by Murnaghan-Nakayama and g(lambda,lambda,nu) exactly (or mod two primes with nonzero-residue certification), search the self-conjugate lambda for each n<=64, record the witnesses, and exhaustively confirm failure at n=2,4,9. About an hour or less. Re-run the capacity enumerations (n<=40). Large n is theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "Saxl",
+    "UniversalTensorSquares"
+   ]
+  },
+  {
+   "id": "F-369",
+   "reader": 2,
+   "index": 369,
+   "dir": "Foulkes-Conjecture-for-the-Sixth-Symmetric-Power-September-25-2026",
+   "family": "210",
+   "title": "Foulkes' conjecture for the sixth symmetric power",
+   "claim": "We prove the sixth-symmetric-power case of Foulkes' conjecture.",
+   "object": "A finite certificate computation that compares upper bounds on the plethysm multiplicities F(lambda) of Sym^6(Sym^b V) with lower bounds on Q(lambda) of Sym^b(Sym^6 V), over every six-part partition lambda of 6b, for 6<=b<=25 (e.g. b=25: 9,268 comparisons, 0 failures). Band checks continue from b=26 (b=26..29: 29,814 flags and 467,068 band coefficients, all differences nonnegative), and the programs extend to b<=149 for an independent route.",
+   "published": "build/sections/certificates.tex (195 lines); band.tex (251 lines); verification.tex ('Recorded computations and reproduction' at lines 145-228, with Tables tab:base and tab:band). Programs verification/programs/appendix-a.cpp and appendix-b.cpp; expected outputs verification/support/expected/appendix-a.stdout and appendix-b.stdout; verification/verify_computations.py.",
+   "size": "about 150k comparisons for 6<=b<=25; band rows up to about 4.8M coefficients (b=144)",
+   "check": "Re-implement the signed strip recurrence (upper bounds), the sumset/transport lower bounds and the seven truncated rational-function numerators of §band in exact integers, and reproduce the 62 table rows. For small b, also cross-check F and Q against plethysm coefficients computed independently. Minutes to hours; the main proof needs only 6<=b<=29. The reduction to six-part partitions and the large-degree range (Cor. quadratic-range) are theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "FoulkesHowe"
+   ]
+  },
+  {
+   "id": "F-409",
+   "reader": 2,
+   "index": 409,
+   "dir": "Microscopic-jamming-in-the-negative-spherical-perceptron-September-24-2026",
+   "family": "222",
+   "title": "Microscopic jamming in the negative spherical perceptron",
+   "claim": "A finite numerical certificate for these exponent intervals, together with its mathematical error bounds, is included.",
+   "object": "Certificates behind 0.4126930<gamma<0.4126934 and 0.4231063<theta<0.4231088. Integer polynomial certificates for the stationary ODE M''+2(qz+aM)M'-2pM=0 on cells of width h=1/100 (degree-18 polynomials scaled by D=10^36; integer residual bound <10^-23 per cell). Shooting tests with opposite signs of lambda(a)-a at the two final parameters (AD=10^7). Interval enclosures in routines checkA, checkV, Env.checkH, Env.coarse, nonlineartest and localcheck.",
+   "published": "build/main.tex: §sec:certificate at lines 8871-9669 (integer certificates from about line 8925; floating-point enclosures §cert:arithmetic at line 9208; reproduction and output §cert:execution at line 9464); the full executable listing §app:code at lines 9670-10354; stated bounds at lines 60-61 and 249-250. No separate ancillary file.",
+   "size": "about 685-line program; a grid of ODE cells; two final shooting parameters",
+   "check": "Re-run the residual inequalities in exact rational arithmetic (they are integer polynomial residuals), and redo the barrier and integral enclosures with rational or outward-rounded interval arithmetic in place of the padded floating point. Hours. The analytic tail and comparison inputs are theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "IsingFiniteness",
+    "PerceptronFreeEnergy",
+    "SphericalField"
+   ]
+  },
+  {
+   "id": "F-426",
+   "reader": 2,
+   "index": 426,
+   "dir": "Cutoff-throughout-the-high-temperature-Sherrington-Kirkpatrick-phase-September-24-2026",
+   "family": "227",
+   "title": "Cutoff throughout the high-temperature Sherrington–Kirkpatrick phase",
+   "claim": "We prove worst-case total-variation cutoff for the zero-field Gaussian Sherrington–Kirkpatrick heat-bath dynamics at every fixed inverse temperature $`0\\leq\\beta\\lt 1`$.",
+   "object": "Certified moments of the field law N(beta^2,beta^2) at five exact temperatures in [7/20,1/2]: trapezoidal quadrature with 41 nodes each, enclosed by directed integer arithmetic, with a whole-line complex-strip error bound (Lemma rcut:lem:scalar-trapezoid) and a transfer back to the continuous law (E_var<1.312e-5, E_sd<1.64e-4). These feed the scalar enclosures used for the rate lambda(beta).",
+   "published": "build/appendices/scalar-certificate.tex (418 lines): scope at lines 1-16; trapezoid lemma at about lines 18-35; error transfer at about lines 300-340. The tables it proves (rcut:tab:scalar-intervals, rcut:tab:scalar-finite-values) belong to the scalar section build/appendices/scalar.tex. No program file accompanies.",
+   "size": "5 temperatures × 41 nodes",
+   "check": "Recompute the 205 quadrature terms in rational or interval arithmetic and verify the tabulated enclosures and the stated error budget. Seconds. This supports a lemma, not the headline directly.",
+   "tier": "A",
+   "leanChallenges": [
+    "CriticalSK",
+    "CriticalSKMixing",
+    "SKBarriers",
+    "SKHighTemperature",
+    "SKRatio"
+   ]
+  },
+  {
+   "id": "F-433",
+   "reader": 2,
+   "index": 433,
+   "dir": "The-Reconstruction-Threshold-for-the-Ferromagnetic-Four-State-Potts-Model-October-5-2026",
+   "family": "229",
+   "title": "The Reconstruction Threshold for the Ferromagnetic Four-State Potts Model",
+   "claim": "The proof uses reproducible exact-arithmetic verification of polynomial inequalities.",
+   "object": "Two product inequalities over the product of two posterior simplices, reduced to sign conditions on rational coefficient arrays in barycentric (Bernstein-type) form. They are decided by recursive midpoint subdivision to depth at most 24, using a Type T test (coefficient nonnegativity) and a Type P test (remainder-corrected, M=2^32). Single-posterior scalar polynomial checks are also included.",
+   "published": "build/sections/05-polynomial-certificates.tex: eq:rational-rows at line 179; Lemma type-t at line 243; Lemma type-p at line 306; scalar Lemma lem:scalar-checks at line 105; Table tab:scalar-coefficients at line 140. Subdivision rule: build/sections/06-finite-verification.tex lines 1-149. Code appendix: 07-code-appendix.tex lines 1-135. Programs: verification/checks/certificate.cpp and small_polynomials.py. Recorded runs: verification/checks/full-runs.json (mode a 'done 4479 19 lp=2074 lt=166', 98 s; mode b 'done 1935 20 lp=871 lt=97', 1,288 s).",
+   "size": "two coefficient-array rows; authors' runs of about 100 s and about 21 min",
+   "check": "Re-derive the coefficient arrays from the §5 definitions in exact rationals, then run an independently written Bernstein-subdivision positivity certifier on the simplex product, with its own subdivision strategy. Tens of minutes to a few hours. The probabilistic reduction (§§3-4) is theory.",
+   "tier": "A",
+   "leanChallenges": [
+    "ThreeStateSupercritical",
+    "ThreeStateTreeClauses"
+   ]
+  },
+  {
+   "id": "F-435",
+   "reader": 2,
+   "index": 435,
+   "dir": "The-exact-reconstruction-threshold-for-the-three-state-symmetric-channel-September-25-2026",
+   "family": "229",
+   "title": "The exact reconstruction threshold for the three-state symmetric channel",
+   "claim": "Reconstruction occurs exactly when $`d\\lambda^2\\gt 1`$, with d = b in the regular model; there is non-reconstruction at equality for either sign of the channel parameter.",
+   "object": "Three computer-assisted certificates for the non-reconstruction direction. (1) An exact-integer 'grid' recursion on laws over the 469 sorted triples of sum H=72 (N=10^12, SCALE=10^15), run for 28 cases (-1..26) with specified stopping iterations. (2) An interval certificate. (3) Polynomial pair certificates.",
+   "published": "build/sections/06-grid.tex (outputs eq. grid:outputs at line 395); build/sections/appendix-grid.tex lines 1-164; appendix-interval.tex (469 lines); appendix-certificates.tex lines 1-176, which lists verification/pair.py, interval.cpp and grid.cpp; coverage Table tab:coverage in 07-conclusion.tex at line 21; driver verification/reproduce.py.",
+   "size": "28 grid cases on 469-orbit laws, plus the interval and pair programs",
+   "check": "Independently reimplement the grid recursion in exact integers following the rounding rules of §6 and the grid appendix, and compare stopping iterations; redo the interval certificate with outward-rounded or rational intervals; re-check the pair polynomials exactly. Minutes to hours.",
+   "tier": "A",
+   "leanChallenges": [
+    "ThreeStateSupercritical",
+    "ThreeStateTreeClauses"
+   ]
+  },
+  {
+   "id": "F-467",
+   "reader": 2,
+   "index": 467,
+   "dir": "Routing-densities-and-representation-contraction-for-Thorp-sweeps-September-26-2026",
+   "family": "238",
+   "title": "Routing densities and representation contraction for Thorp sweeps",
+   "claim": "For $`N=2^d`$ cards, we prove that an absolute number of coordinate sweeps of the Thorp shuffle brings the full permutation law to total-variation distance tending to zero from uniform.",
+   "object": "Five rational inequalities on an explicit greedy allocation H(rho), built from h_j=q/(2M)+1/(q+1), and an entropy correction: H(1/8)<.791402, H(13/50)<1.098069, H(1)<1.958069, and brackets below .904054 at rho=7/25 and below .515374 at rho=1. They are used in the 'independent route' section, not the main factorial proof.",
+   "published": "build/sections/04-certificate.tex lines about 255-295 (formula net:hj, the three H bounds, the series for -ln(1-x) and ln 2, and the two bracket bounds). The checker the text cites, 'support/network_bounds.py' (line 294), is NOT in the release directory.",
+   "size": "5 inequalities",
+   "check": "Exact rational evaluation; seconds. Low weight: it supports an alternative route.",
+   "tier": "A",
+   "leanChallenges": [
+    "BinarySweep",
+    "CoordinateSweeps",
+    "CoordinateTrace",
+    "FourRowPermanent",
+    "OccupiedOverlap",
+    "PartialPermutation",
+    "SignedSweepMoment",
+    "SpinAngle",
+    "ThorpFirstReciprocal",
+    "ThorpRemaining",
+    "ThorpRouting",
+    "ThorpWeightedCompatibility",
+    "WeightedSweepMoments"
+   ]
+  },
+  {
+   "id": "F-532",
+   "reader": 3,
+   "index": 532,
+   "dir": "The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026",
+   "family": "266",
+   "title": "The maximum number of mutually unbiased bases in dimension six",
+   "claim": "We prove that the maximum number of mutually unbiased orthonormal bases in C^6 is three, resolving Zauner's dimension-six MUB conjecture. The upper bound is computer-assisted: under the stated binary64 arithmetic and compiler conditions, a complete execution of the documented verification pipeline excludes four arbitrary complex bases.",
+   "object": "A finite branch-and-bound certificate: a symmetry-reduced cover of the nine free phases of the first two rows/columns of H by seed balls, a closed cover of U(2) for the 4x4 completion (Stage A), certified refinement (Stage B), and a vector cover with graph exclusion of two further bases (Stage C), with a binary64 rounding contract (Appendix sec:rounding).",
+   "published": "Algorithm and error analysis in build/sections/{seed,completion,phase-cover,refinement,exclusion,rounding,execution}.tex (5,886 tex lines). The code and data are NOT PUBLISHED in the clone: build/sections/execution.tex:16-20 names verification/code/ (seed.cpp, covout.cpp, ub.cpp, patchx.cpp, atlas.cpp, stageB.cpp, stageC.cpp, extraction.json) and execution.tex:380-387 an execution archive (verification/computation/README.md, full-run-01/...); neither exists anywhere in the clone at fd4aeeb2.",
+   "size": "100 program invocations (1 cover, 4 A shards, 2 B, 88 C batches, fallback); recorded wall time 4,470 s on the authors' multi-core platform (execution.tex:348-352)",
+   "check": "Reimplement the seed cover, U(2) completion cover, refinement and two-basis exclusion in outward-rounded interval (or exact) arithmetic and confirm every ball is excluded. Even with code in hand this is a hard exhaustive search (hours of multi-core time in binary64; slower in rigorous intervals).",
+   "tier": "C",
+   "leanChallenges": [
+    "HadamardCubeFiber",
+    "MUBSix"
+   ]
+  },
+  {
+   "id": "F-533",
+   "reader": 3,
+   "index": 533,
+   "dir": "Exact-Fourier-certificates-for-complex-Hadamard-matrices-of-order-six-September-24-2026",
+   "family": "266",
+   "title": "Exact Fourier certificates for complex Hadamard matrices of order six",
+   "claim": "every complex Hadamard matrix of order six outside Tao's cubic equivalence class has a vanishing character sum at every permutation of (1,1,1,-1,-1,-1). We also give an exact certificate excluding seven mutually unbiased bases in C^6; by Weiner's completion theorem, this yields an upper bound of five. Both certificates use only integer and rational arithmetic, and the complete verifier is included.",
+   "object": "Two finite rational identities in named invariant moments of a 6x6 Hadamard matrix: (i) the pair certificate (Prop. prop:pair-certificate), every coefficient of an expanded moment expression vanishing after substitution by a rational matrix P with WP=0 for an integer equation system W; (ii) the mixed-moment certificate (Prop. prop:mixed-certificate), constant coefficient plus absolute sum of remaining coefficients negative. Moments are indexed by integer arrays with zero row/column sums, canonicalized under axis permutations, negation and transposition. Tao's matrix T = omega^taoExponent (omega = exp(2 pi i/3)).",
+   "published": "build/sections/05-verification.tex (whole section, lines 1-401: exact-substitution Lemma lem:exact-elimination, pair equations, mixed equations); build/sections/02-pair-moments.tex:226 (prop:pair-certificate); build/sections/04-mixed.tex:277 (prop:mixed-certificate); verifier verification/verify.py (576 lines, sha256 104a7306205b8544c8f913f6afdb59603f2e04a207c9ac592c383b80eb0e2aa9, matches the digest pinned in verification/run.py; printed as the appendix listing build/paper.tex:273, whose lstinputlisting path certificate/verify.py is not in the clone). Lean: lean/ComparatorChallenges/MUBSix.lean states OAI.MUB6.fourier_and_family_bound with the explicit taoExponent matrix; proof tree lean/OAI/Analysis/MutuallyUnbiased (3,386 files, ~2.8M lines).",
+   "size": "6x6 complex Hadamard matrices; two finite linear systems in invariant moments (sizes are fixed by the printed program, not stated in the text); modular elimination at p=1000000007 plus CRT moduli, followed by an exact rational check",
+   "check": "Re-derive from scratch the moment expansions and canonical naming, rebuild the integer equation matrix W, verify exactly that the proposed substitution P satisfies WP=0 with P_{F,F}=I, P_{*,J}=0; then confirm all pair-certificate coefficients are 0 and that the mixed certificate's constant + sum|coeffs| < 0. Pure rational linear algebra; minutes to ~1 h in exact arithmetic.",
+   "tier": "A",
+   "leanChallenges": [
+    "HadamardCubeFiber",
+    "MUBSix"
+   ]
+  },
+  {
+   "id": "F-539",
+   "reader": 3,
+   "index": 539,
+   "dir": "The-periodic-spin-one-Haldane-gap-September-24-2026",
+   "family": "268",
+   "title": "The periodic spin-one Haldane gap",
+   "claim": "We prove a uniform positive spectral gap for the pure antiferromagnetic spin-one Heisenberg chain on even periodic rings, establishing the positive even-periodic formulation of the spin-one Haldane conjecture.",
+   "object": "Two finite initializations of a purity bootstrap (main theorem: gap > (4/105) log(80/79) for even L >= 60 and > log(20)/784 for even L >= 2304): (a) rational interval enclosures of twisted thermal traces Tr exp(-b H_n(g)) for small chains (b=49/4, 4<=n<=12, twists 1 and P; b=21/2, n=6,8,10, twists 1,P,C) via an integer Poisson-polynomial evaluation (J=280, Q=2^55); (b) one integer MPS triple (bond dimension 26, eight virtual types, D_alpha and P_alpha-beta tables) giving E_0(72) < -72a and E_0(120) < -120a with a = 700741/500000.",
+   "published": "build/thermal72.tex (enclosure eq:thermal72-enclosure, line 211), build/thermal120.tex (eq:thermal120-rational-enclosure, line 209), build/initialization.tex:26 (lem:thermal-inputs), build/trials.tex Tables tab:trial-diagonal (line 91) and tab:trial-pairs (line 107), lem:trial-inputs (line 211); data and code in verification/computations/ (trials/run_trial.py, original_trial.py, evidence/trials/matrix-data.json, certificate72.json, certificate120.json; source1/ and source2/ thermal programs with evidence/source2/runs/*.json; scalars/check-bootstrap-scalars.py; source-manifest.json; entry point verification/verify.py).",
+   "size": "Hilbert spaces up to 3^12 = 531,441 (sparse); MPS transfer contractions at L = 72 and 120 with bond dimension 26",
+   "check": "Independently build the twisted spin-1 Hamiltonians, enclose the thermal traces with an own validated exponential (exact integer/rational arithmetic), re-contract the integer MPS at lengths 72 and 120, and recheck the bootstrap scalar inequalities. The recorded source2 run (n<=10) took 288 CPU-s; the n=11,12 cases and a clean-room exact implementation put it at minutes to a few hours on a laptop.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-540",
+   "reader": 3,
+   "index": 540,
+   "dir": "A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026",
+   "family": "268",
+   "title": "A boundary-field gap for the spin-one Heisenberg chain",
+   "claim": "The field h=3/5 gives a gap greater than log(10)/392 on every chain of 2L+1 sites with L >= 960.",
+   "object": "Fifteen certified short-chain thermal traces for opposite-field open chains (n = 2..6) from an integer matrix approximation with an exact recurrence, plus exact trial vectors for opposite fields (a 162-dimensional invariant contraction with an integer row recurrence at four lengths), plus 67 exact scalar comparisons.",
+   "published": "build/sections/thermal.tex (Appendix app:thermal: Prop. appth:bounds line 7; fifteen traces section line 26; integer matrix line 77; exact recurrence line 133; rational intervals line 272); build/sections/trials.tex (Appendix app:trials: Prop. apptr:bound line 21; tensor and endpoint data line 34; 162-dim contraction line 203; integer comparisons line 290; file pointers lines 334-340); verification/scalar_checks.py, trial_verify.py, thermal_certificate_check.py with outputs scalar-certificate.json, trial-exact-matrices.json (984 KB), trial-exact-results.json, thermal_certificate_results.json, trial-direct-physical-crosscheck.json; verification/README.md.",
+   "size": "chains of at most 6 sites for the thermal part (3^6 = 729), a 162-dim contraction for trials, 67 scalar comparisons",
+   "check": "Recompute the 15 thermal enclosures and the 4 trial-vector energy bounds from the model definition with own exact arithmetic, then re-verify the recurrence/bootstrap scalars giving gap > log(10)/392 for L >= 960. Minutes.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-541",
+   "reader": 3,
+   "index": 541,
+   "dir": "Uniform-Stability-of-the-Spherical-Laughlin-Gap-October-5-2026",
+   "family": "269",
+   "title": "Uniform Stability of the Spherical Laughlin Gap",
+   "claim": "the fermionic Laughlin V1 Hamiltonian at filling 1/3 on expanding round spheres retains a unique ground state and a uniform spectral gap under sufficiently weak bounded real scalar one-body potentials ... The result uses the uniform unperturbed Fock-space gap and gives existential constants.",
+   "object": "The same seven-row rational certificate as index 542 (the unperturbed Fock-space gap is the stated input); the perturbative part has existential constants and no finite witness.",
+   "published": "verification/rows.txt (byte-identical to index 542's file, checked with cmp); restated in build/appendices/retained-blocks.tex:597-619 (subsection 'The finite rational certificate', lstinputlisting of ../verification/rows.txt).",
+   "size": "as index 542",
+   "check": "Identical to index 542; deciding 542 decides this component. Seconds.",
+   "tier": "A",
+   "leanChallenges": [
+    "Laughlin",
+    "LaughlinFock",
+    "LaughlinGap",
+    "LaughlinPlanar"
+   ]
+  },
+  {
+   "id": "F-542",
+   "reader": 3,
+   "index": 542,
+   "dir": "A-Fock-space-inequality-and-the-Laughlin-spectral-gap-September-24-2026",
+   "family": "269",
+   "title": "A Fock-space inequality and the Laughlin spectral gap",
+   "claim": "the gap above the Laughlin state at filling 1/3 on the round sphere is at least 1/25 for all sufficiently large systems. More generally, H_Q^2 >= gamma H_Q for some fixed gamma > 1/25 on the entire lowest-Landau-level Fock space for all sufficiently large flux Q",
+   "object": "Seven integer rows (t, l = 10^7 lambda, a_pj entries) defining a sum-of-squares comparison operator; the three-body certificate (eq:3certificate) is 13 exact rational margins m_z, z in {2,4,...,15}; the four-body certificate (eq:4certificate) is positive semidefiniteness of rational matrices M for 1 <= D <= 23, shown by sign patterns of det(xI+M) coefficients. Threshold gamma_* = 4616733319001/10^14 > 1/25.",
+   "published": "verification/rows.txt (1,436 bytes; printed verbatim by lstinputlisting in build/sections/08-arithmetic.tex:21); build/sections/08-arithmetic.tex (Appendix app:certificate: row decoding eq:alphadata, three-body formula eq:erational and floor table lines 25-56, four-body arithmetic from line 58, PSD argument to line 148); certificates stated at build/sections/04-comparison.tex:85 (eq:3certificate) and :168 (eq:4certificate); gamma_* at build/sections/01-introduction.tex:41. Lean: row data appear in lean/OAI/Analysis/Laughlin/Operators/Certificate.lean and lean/OAI/Analysis/Laughlin/FourBody/RowCompute.lean.",
+   "size": "7 rows, ~80 integer entries; 13 rational margins; 23 small rational matrices",
+   "check": "Decode rows, evaluate e_z exactly (radicals cancel), confirm all 13 margins positive; build each four-body matrix M and confirm det(xI+M) has nonnegative coefficients (no positive root), hence M >= 0. Seconds.",
+   "tier": "A",
+   "leanChallenges": [
+    "Laughlin",
+    "LaughlinFock",
+    "LaughlinGap",
+    "LaughlinPlanar"
+   ]
+  },
+  {
+   "id": "F-549",
+   "reader": 3,
+   "index": 549,
+   "dir": "Entanglement-with-zero-distillable-secret-key-in-local-dimension-ten-September-27-2026",
+   "family": "272",
+   "title": "Entanglement with zero distillable secret key in local dimension ten",
+   "claim": "We construct an entangled state on C^10 (x) C^10 with zero distillable secret key ... The construction also disproves the unrestricted two-map PPT-composition conjecture. A separate trace-preserving PPT channel on M_21(C) has a square that is not entanglement breaking.",
+   "object": "Four integer 6x4 matrices M_0..M_3 defining the PPT map L(E_ij) = M_i^T M_j on M_4 and the pencil M(x) = sum x_i M_i; from these, explicit PPT maps Phi_1, Phi_2 : M_10 -> M_10 (eq:phi-pair) whose composition's Choi matrix Z has no product vector in its range, and a trace-preserving PPT channel Theta on M_21 (eq:channel). The secret-key bound itself is analytic.",
+   "published": "build/source/sections/certificate.tex lines 14-30 (eq:explicit-matrices), Lemma lem:pencil-ppt line 39; build/source/sections/geometry.tex:106 (eq:phi-pair) with Prop. prop:tensor-criterion line 13; build/source/sections/applications.tex:78 (eq:channel); build/source/appendices/arithmetic.tex (program description: maximal minors over 4! permutations, elimination mod 41, 131, 139, Newton identities for a degree-20 characteristic polynomial); verification/exact_certificate.py, gadget_exact_check.py, combinatorics_exact_checks.py with certificate-output.txt and two JSON outputs. Lean: the same integer matrices are the definition OAI.DimensionTen.blocksZ in lean/ComparatorChallenges/DimensionTenPair.lean; the M_21 channel is OAI.DimensionTen.exists_channel_fin21 (lean/ComparatorChallenges/DimensionTenChannel.lean); proof tree lean/OAI/Analysis/Quantum/DimensionTen (75 files).",
+   "size": "4 integer 6x4 matrices; 10x10 and 21x21 maps; degree-20 polynomials mod three primes",
+   "check": "Exactly verify M_i^T M_j symmetric (PPT of L), recompute the maximal-minor ideal of the pencil and its singular directions, redo the finite-field and Galois argument that no product vector lies in range(Z), and check CP/PPT/trace preservation of Theta. Seconds to minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "DimensionTenChannel",
+    "DimensionTenPair"
+   ]
+  },
+  {
+   "id": "F-561",
+   "reader": 3,
+   "index": 561,
+   "dir": "Full-support-of-the-zero-temperature-Sherrington-Kirkpatrick-order-parameter-September-27-2026",
+   "family": "281",
+   "title": "Full support of the zero-temperature Sherrington-Kirkpatrick order parameter",
+   "claim": "every admissible integrable minimizer of the zero-temperature Parisi functional for the pure, zero-field Sherrington-Kirkpatrick model has full relative Stieltjes support on [0,1).",
+   "object": "An exact rational polynomial identity (a sum-of-squares-plus-divergence certificate): z^2 - 12 R v b^2 + 6 v^4 = (z+Q)^2 + S T + sum_{i=0..4} p_i P_i + W(F_2) + L(x_0 v^2 + h b v) + P_rem, with explicit rational constants (A,C,k,T_0,g_0,h), (x_0,y,m,n_0), (p_0..p_4), explicit F_2, P_0..P_4, and P_rem having 22 positive rational coefficients (v^4 coefficient 1661507/1521000000 > 1/1000), under the derivative rules shape:D-rules.",
+   "published": "build/certificate.tex (Section cert:section): constants eq cert:constants-first line 38, Q and T eq cert:QT line 44, constants eq cert:constants-second line 56, F_2 eq cert:polynomials line 62, P_i eq cert:squares line 98, p_i eq cert:constants line 108, Lemma cert:identity-lemma line 117, Table cert:table (all 22 coefficients) lines ~145-163; derivative rules at build/signs.tex:424 (eq shape:D-rules).",
+   "size": "polynomial in 5-6 variables of degree 4; 22 remainder coefficients",
+   "check": "Implement the operator W from the derivative rules, expand both sides over Q, confirm exact equality and that every coefficient of P_rem is positive. Seconds.",
+   "tier": "A",
+   "leanChallenges": [
+    "SKFullSupport",
+    "SKValue"
+   ]
+  },
+  {
+   "id": "F-605",
+   "reader": 3,
+   "index": 605,
+   "dir": "The-Kervaire-Invariant-Problem-at-the-Prime-Three-September-24-2026",
+   "family": "309",
+   "title": "The Kervaire invariant problem at the prime three",
+   "claim": "These classes survive precisely at indices 0, 2, and 3, and each surviving detection coset contains an element of additive order three. In particular, there is an order-three Kervaire element in stem 322.",
+   "object": "A finite F_3 linear-algebra computation in the Adams-Novikov E_2 page for S/3 (Ext over BP_*BP/3) near stem 322: cochain dimensions, kernel/image enclosures K^-, K^+, I^-, I^+ of an affine family of possible d_5 differentials on the grids G_60 and G_92 (0 <= f <= 32), and cancellation data. It is specified by a recurrence from the integral BP Hopf algebroid structure constants.",
+   "published": "build/sections/recurrence.tex (Appendix app:recurrence, 880 lines: structure-constant recursion lines 15-60, F_3 elimination and inconsistency certificates lines ~560-590, grid eq alg:finite-grid ~line 589, matrix enclosures eq alg:kernel-enclosures / alg:image-enclosures ~line 680, cross-check remark lines 863-879); result tables in build/sections/finite.tex (Table finite:low-ranks lines 218-229, finite:affine-ranks 324-336, finite:enclosures 398-414, finite:cancellation-data 601-611). No code or data files are supplied; the complexes exist only as a specification and their ranks as tables.",
+   "size": "cobar/resolution complexes in internal degree up to ~4 x 92 at p = 3; dimensions in the hundreds (e.g. 12 / 470 in weight 27, middle dimension 253 at (6,10))",
+   "check": "Implement BP_*BP mod 3 (Hazewinkel/Araki generators, right unit, coproduct) from scratch, build the stated resolution or the normalized cobar complex, and recompute the tabulated ranks and enclosures over F_3. Running time is moderate, but building the Hopf algebroid and matching conventions is a substantial independent implementation; it checks the algebraic tables, not the topological deductions.",
+   "tier": "B",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-664",
+   "reader": 3,
+   "index": 664,
+   "dir": "A-degenerate-counterexample-to-the-critical-number-Arnold-bound-September-23-2026",
+   "family": "347",
+   "title": "Three fixed points on the symplectic quadric threefold",
+   "claim": "We construct a smooth Hamiltonian diffeomorphism of the complex quadric threefold with exactly three fixed points, at least one of which is degenerate.",
+   "object": "The explicit function f(x,y) = e.x + (x - p).y on S^2 x S^2, p = (0,0,1), e = (1,0,0), asserted to have exactly three critical points (one degenerate at (p,-e)); it is placed on the fixed locus Q^2 of the involution [z_0:-z_1:-z_2:-z_3:-z_4]. The fixed-point count on Q^3 and the critical number 4 come from theory.",
+   "published": "build/sections/04-three-points.tex: Prop. prop:three-points line 15, eq:three-point-function line 19, hand proof following; involution in build/sections/00-introduction.tex ~line 139.",
+   "size": "a polynomial system in 6 variables plus 2 Lagrange multipliers",
+   "check": "Solve e + y = lambda x, x - p = mu y, |x| = |y| = 1 exactly (Groebner basis or resultants over Q) and confirm exactly three real solutions, with the Hessian at (p,-e) degenerate. Seconds. Decides one component only.",
+   "tier": "A",
+   "leanChallenges": [
+    "ArnoldCounterexample"
+   ]
+  },
+  {
+   "id": "F-665",
+   "reader": 3,
+   "index": 665,
+   "dir": "Zero-Plane-Rigidity-for-Einstein-Four-Manifolds-October-4-2026",
+   "family": "348",
+   "title": "Zero-Plane Rigidity for Einstein Four-Manifolds",
+   "claim": "a closed Einstein four-manifold with positive Einstein constant, nonnegative sectional curvature, and a zero-curvature plane has universal Riemannian cover isometric to a product of two round two-spheres.",
+   "object": "Explicit rational polynomials (quartic scalar certificates, two matrix certificates, boundary certificates and a potential polynomial F) whose positivity on intervals and triangles is certified by Bernstein coefficients, plus 53 polynomial identities and 24 exact values / rational volume margins.",
+   "published": "build/sections/07-certificates.tex (Bernstein conversion lemma line 22; lem:scalar-certificates line 84; matrix and boundary certificates line 180; lem:potential-certificate line 356); verification/verify.py (503 lines), polynomial.py (272 lines), results.json (447 KB: 53 identities, 21 interval and 12 triangle certificate rows), COVERAGE.md, manifest.json.",
+   "size": "quartic scalar, matrix and boundary polynomials; 21 interval-certificate rows and 12 triangle-certificate rows; results.json 447 KB",
+   "check": "Recompute Bernstein coefficients of each polynomial on each interval/triangle in exact rationals and confirm the sign bounds; re-verify the identities. Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "EinsteinFour"
+   ]
+  },
+  {
+   "id": "F-667",
+   "reader": 3,
+   "index": 667,
+   "dir": "Positively-curved-Einstein-four-manifolds-September-23-2026",
+   "family": "348",
+   "title": "Positively curved Einstein four-manifolds",
+   "claim": "Up to positive scaling and isometry, every such manifold is the round four-sphere, the complex projective plane with its Fubini-Study metric, or real projective four-space with its round metric.",
+   "object": "Same exact polynomial/Bernstein certificate package as index 665.",
+   "published": "build/sections/07-certificates.tex (Bernstein conversion line 31; lem:scalar-certificates line 93; matrix and boundary certificates line 189; lem:potential-certificate line 362; package pointer to verification/ at lines ~16-25); verification/verify.py, polynomial.py, results.json (same bytes as 665). Lean proof tree lean/OAI/Geometry/EinsteinFour (407 files).",
+   "size": "as index 665",
+   "check": "As index 665. Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "EinsteinFour"
+   ]
+  },
+  {
+   "id": "F-675",
+   "reader": 3,
+   "index": 675,
+   "dir": "A-finite-time-singularity-of-Calabi-flow-on-projective-space-September-24-2026",
+   "family": "352",
+   "title": "A finite-time singularity of Calabi flow on projective space",
+   "claim": "We construct a smooth Kahler metric in the Fubini-Study class of CP^10 whose Calabi flow develops unbounded scalar curvature in finite time.",
+   "object": "A validated shooting computation for the profile ODE (prof:ode): for every parameter z_* in [-R,R]^2, R = 5e-10, the origin solution extends to s in [0,56] with 1+p > 0 and endpoint jet coordinates |q| <= .25R, |(Re xi, Im xi) - z_*| <= .13R; uses blockwise integer interval Taylor enclosures, first-variation matrices, and the rational projection matrix Lambda.",
+   "published": "build/sections/certificate.tex (Prop. cert:shoot lines 10-24; integer interval arithmetic from line 60; script description lines 672-695); Lambda at build/sections/profile.tex eq prof:projection-approximation (~line 197); code verification/certificate.py (158 lines, 6,594 bytes; printed in full as build/main.tex Appendix app:code, line 28), verification/arithmetic_allowances.py, verification/tail-check.py.",
+   "size": "4-component ODE state, interval [1,56] in finitely many blocks, 2-parameter family",
+   "check": "Write an own validated ODE integrator (interval Taylor models with outward rounding) for the profile ODE, enclose the whole 2-parameter family including the nonlinear remainder bootstrap, and confirm the endpoint bounds. Minutes.",
+   "tier": "A",
+   "leanChallenges": []
+  },
+  {
+   "id": "F-678",
+   "reader": 3,
+   "index": 678,
+   "dir": "The-Isoperimetric-Conjecture-for-the-Cubic-Flat-Three-Torus-September-24-2026",
+   "family": "354",
+   "title": "The Isoperimetric Conjecture for the Cubic Flat Three-Torus",
+   "claim": "We prove the isoperimetric conjecture for the cubic flat three-torus and classify all minimizers, including the equality cases at the transition volumes 4 pi/81 and 1/pi.",
+   "object": "Certified scalar inequalities (Prop. num:scalar-positive): B(h) > 0 on [.64,1.02] U [1.62,2.25] and B(h)+S(h) > 0 on [1.02,1.62], for explicit layer-cake integrals B, S; proven by 24 tabulated knot bounds under an explicit outward-rounding prescription plus second-derivative bounds between knots.",
+   "published": "build/sections/numerics.tex (Prop. num:scalar-positive lines 10-16; layer-cake Lemma num:layer-cake ~line 41; second-derivative bound from line 103; reduction to arithmetic line 213; outward arithmetic prescription line 352; knot Table num:knot-table lines 433-455; certification between knots from line 479, second table lines 518-540). No code or data file is supplied.",
+   "size": "24 knots on [0.64, 2.25]; one-dimensional integrals of explicit elementary functions",
+   "check": "Interval-evaluate B and B+S at the knots (rigorous quadrature of the layer-cake integral) and certify positivity between knots via the stated second-derivative bounds (or by own adaptive interval subdivision). Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "CubicTorus"
+   ]
+  },
+  {
+   "id": "F-688",
+   "reader": 3,
+   "index": 688,
+   "dir": "A-counterexample-to-integer-degree-harmonic-dimension-comparison-September-25-2026",
+   "family": "361",
+   "title": "A counterexample to integer-degree harmonic dimension comparison",
+   "claim": "For some even n >= 8 and integer k >= 2, we construct a complete smooth metric on R^n with nonnegative Ricci curvature whose space of real harmonic functions of pointwise polynomial growth at most k has dimension larger than the Euclidean harmonic-polynomial dimension.",
+   "object": "A concrete finite spectral selection pinning the instance n = 16, k = 50000 (m=15, s=8, q_*=101/100, alpha_*^2 = 99853/100000): selected dimension 46785605044474340387088811257657817010714687366486217934111 versus h_50000(R^16) = 46779709349146362239266126538609505511855492134986686636251, strict surplus 5895695327978147822684719048311498859195231499531297860, from exact eigenvalue data num/den with Hopf multiplicities and isqrt upper bounds.",
+   "published": "build/sections/finite-selection.tex lines 1-95 (parameters, isqrt bound, eigenvalue data, the three integers); verification/counting-check.py and verification/counting-check-output.txt (recorded 3.4 s).",
+   "size": "degrees ~49,964-50,212 checked individually; 59-digit integers",
+   "check": "Recount the selected multiplicities with exact integers and compare against the Euclidean harmonic-polynomial dimension in R^16 at k = 50000. Seconds. Note: the paper calls this supplementary; the analytic existence argument does not depend on it, so it decides the concrete instance, not the proof.",
+   "tier": "A",
+   "leanChallenges": [
+    "HarmonicGrowth"
+   ]
+  },
+  {
+   "id": "F-699",
+   "reader": 3,
+   "index": 699,
+   "dir": "The-critical-dimension-for-one-phase-Bernoulli-minimizers-September-24-2026",
+   "family": "367",
+   "title": "The critical dimension for one-phase Bernoulli minimizers",
+   "claim": "every nonzero one-homogeneous global minimizer in dimensions at most six is flat, while a nonflat one-homogeneous global minimizer exists in dimension seven.",
+   "object": "A universal algebraic certificate (Prop. cert:universal): rational, orthogonally equivariant tensor polynomials f, U, K, M, P over trace-free tensors on R^5, with constants a = 29/50, Q = 250000, eps_* = 438907/12000000, delta_* = 6984137359/31250000000, satisfying an interior inequality I >= eps_*(z^2+|l|^2) whenever chi >= 0 and a boundary inequality S >= delta_*. It powers the flatness half (dimensions <= 6); the dimension-7 example is the known De Silva-Jerison cone.",
+   "published": "build/sections/certificate.tex (constants line 11, Prop. cert:universal line 33, eq cert:interior line 51, eq cert:boundary line 65); coefficient data build/appendices/tables.tex (decoding line 13, Table I line 58, Table II line 297, reproduction line 922; 1,714 nonzero keys); exact proof build/sections/certificate-proof.tex (eq cert:exact-interior-sums line 507, eq cert:upper-matrix line 529); code and data verification/checks/reproduce.py, generate_tables.py, original/checks/*, and an independent engine verification/independent-certificate/{engine.py,bounds.py,output/coefficients.json,results.json}.",
+   "size": "tensor polynomials on R^5 with 1,714 nonzero coefficient keys; final 4x4 rational matrix comparisons",
+   "check": "Decode Table I/II, re-expand the interior and boundary expressions symbolically over Q (equivariant tensor contractions on R^5), and recheck the Gram/PSD decomposition giving I >= eps_*(z^2+|l|^2) and S >= delta_*. Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "BernoulliNonflatInSeven"
+   ]
+  },
+  {
+   "id": "F-704",
+   "reader": 3,
+   "index": 704,
+   "dir": "Stable-Self-Similar-Blowup-for-a-Supercritical-Defocusing-Schrodinger-Equation-on-the-Torus-September-24-2026",
+   "family": "371",
+   "title": "Stable self-similar blowup for a supercritical defocusing Schrödinger equation on the torus",
+   "claim": "We prove stable self-similar finite-time blowup for a supercritical defocusing nonlinear Schrodinger equation on the twelve-dimensional torus.",
+   "object": "Exact integer/rational coefficient enclosures of truncated confluent-hypergeometric (Laguerre-recurrence) polynomials, with an integer box (H_0 = 10^8, B = 33477607, S = 270506819), used to count all low-angular roots and produce a nonzero profile-matching degree; positivity of comparison polynomials (e.g. 7 rational coefficients, all differences strictly positive) for the high-angular degrees.",
+   "published": "build/sections/certificates.tex (Appendix cert:arithmetic; coefficient enclosures and product rule eq cert:product-rule; integer box eq cert:integer-box ~line 38); verification/certificates/exact_verifier.py (428 lines), original_exact_certificates.py (245 lines), RESULTS.json, SHA256SUMS, README.md.",
+   "size": "polynomials of modest degree with big-integer coefficients; a handful of root counts and positivity tests",
+   "check": "Recompute the coefficient enclosures from the recurrences with own exact arithmetic, count real roots in the boxes (Sturm or exact sign changes), recompute the matching degree, and confirm the high-angular comparison polynomials are positive. Minutes.",
+   "tier": "A",
+   "leanChallenges": [
+    "DefocusingNLS"
+   ]
+  }
+ ],
+ "nearMisses": [
+  {
+   "reader": 1,
+   "index": 212,
+   "title": "An Upper Bound of 9/4 for the Matrix Multiplication Exponent",
+   "why": "omega <= 9/4 claimed by a character/entropy argument (build/paper.tex); no explicit tensor or numerical certificate is published — biggest claim in the slice with no finite witness (Lean MatrixMultiplication states it)."
+  },
+  {
+   "reader": 1,
+   "index": 104,
+   "title": "A singular normal affine surface with free tangent sheaf",
+   "why": "Analytic germ (genus-21 exceptional curve) algebraized by Artin/Hironaka approximation; no explicit equations to check."
+  },
+  {
+   "reader": 1,
+   "index": 126,
+   "title": "Ambiently homeomorphic isolated hypersurface germs in ℂ⁴ with multiplicities four and five",
+   "why": "Germs f4, f5 in C^4 depend on 'sufficiently large' a, b and small s, and the homeomorphism comes from Seifert-lattice strong approximation; no pinned instance."
+  },
+  {
+   "reader": 1,
+   "index": 111,
+   "title": "A high-arity counterexample to Pixton completeness in Chow",
+   "why": "Explicit tautological class but genus 10^60 with 3*C(10^60,3) markings; vanishing and non-membership are proved by theory, no feasible computation."
+  },
+  {
+   "reader": 1,
+   "index": 187,
+   "title": "A nonspectrahedral hyperbolicity cone",
+   "why": "Explicit degree-20 (reduced 16) polynomial in 23 variables, but non-spectrahedrality is a proof over all pencils; only side identities (degree reduction, p(e)=1) are finite. Note: abstract says degree 16, Theorem 1.1 says 20 (q = p/det X has degree 16)."
+  },
+  {
+   "reader": 1,
+   "index": 188,
+   "title": "An Exact Semidefinite Lift of a Nonspectrahedral Hyperbolicity Cone",
+   "why": "Explicit 100x100 pencil with 307 lifting variables (finite coefficient rule), but exactness of the lift is a universally quantified theorem, not a finite check."
+  },
+  {
+   "reader": 1,
+   "index": 186,
+   "title": "Hyperbolicity Cones Without Semidefinite Lifts",
+   "why": "Existence of hyperbolicity cones with no SDP lift — non-explicit obstruction."
+  },
+  {
+   "reader": 1,
+   "index": 101,
+   "title": "A projective fourfold with large fundamental group and non-Stein universal cover",
+   "why": "Constructed fourfold; non-Stein universal cover is a theoretical property."
+  },
+  {
+   "reader": 1,
+   "index": 102,
+   "title": "A surface counterexample to Shafarevich holomorphic convexity",
+   "why": "Constructed surface; failure of holomorphic convexity is theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 107,
+   "title": "Ample rank-two bundles on the quadric surface without Griffiths-positive metrics",
+   "why": "Explicit bundle G on P1xP1 (Lean QuadricBundles), but ampleness for all powers and nonexistence of Griffiths-positive metrics are analytic."
+  },
+  {
+   "reader": 1,
+   "index": 53,
+   "title": "Bounded-Step Walks on Gaussian Primes",
+   "why": "Finite periodic sieve obstruction is explicitly nonexplicit; component bound is non-effective."
+  },
+  {
+   "reader": 1,
+   "index": 4,
+   "title": "The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane $`\\Re s\\gt 7/8`$",
+   "why": "Zero-free half-plane by pure analytic number theory; no numerical zero verification."
+  },
+  {
+   "reader": 1,
+   "index": 5,
+   "title": "The Quasi-Riemann Hypothesis (alternate 11/12 proof)",
+   "why": "Same as #4 (11/12 version); purely analytic."
+  },
+  {
+   "reader": 1,
+   "index": 40,
+   "title": "The irrationality exponent of pi is 2",
+   "why": "Irrationality exponent of pi via determinant/interpolation analysis; no finite certificate located."
+  },
+  {
+   "reader": 1,
+   "index": 91,
+   "title": "Nagata's conjecture for plane curves",
+   "why": "Nagata via degeneration and limiting-matrix rank arguments for general (d,m); no finite instance."
+  },
+  {
+   "reader": 1,
+   "index": 152,
+   "title": "Ultraflat real Littlewood polynomials",
+   "why": "Ultraflat Littlewood polynomials exist for all large N; no explicit polynomial."
+  },
+  {
+   "reader": 1,
+   "index": 154,
+   "title": "Asymptotically minimal maxima of real Littlewood polynomials",
+   "why": "Asymptotic (1+o(1)) sqrt N; Turyn disproof is asymptotic."
+  },
+  {
+   "reader": 1,
+   "index": 147,
+   "title": "A strict inverse-first-power bound for univalent functions",
+   "why": "B_b(-1) < 1/4 by analytic bounds; no certified numerics."
+  },
+  {
+   "reader": 1,
+   "index": 183,
+   "title": "Translative covering densities of order n log n",
+   "why": "Random/existential construction for large n."
+  },
+  {
+   "reader": 1,
+   "index": 233,
+   "title": "Sharp binary-information contraction on the discrete cube",
+   "why": "Courtade–Kumar via explicit three-point optimizer and induction; no shipped finite certificate (companion #234 has one)."
+  },
+  {
+   "reader": 1,
+   "index": 170,
+   "title": "The symmetric Mahler conjecture and its equality cases",
+   "why": "Symmetric Mahler: theoretical (no certificate, unlike #171)."
+  },
+  {
+   "reader": 1,
+   "index": 172,
+   "title": "Symplectic Balls in Symmetric Polar Products",
+   "why": "Symplectic embeddings constructed analytically; no finite witness."
+  },
+  {
+   "reader": 1,
+   "index": 173,
+   "title": "Petty’s projection-volume conjecture in dimensions at least four",
+   "why": "Petty projection inequality in d >= 4, theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 7,
+   "title": "Hilbert’s tenth problem over the rational numbers",
+   "why": "Undecidability; explicit Diophantine definitions but no finite witness of the headline."
+  },
+  {
+   "reader": 1,
+   "index": 50,
+   "title": "Short Egyptian fractions",
+   "why": "O(log log b) Egyptian fractions; asymptotic."
+  },
+  {
+   "reader": 1,
+   "index": 163,
+   "title": "An L³ bound for the dyadic triangular Hilbert form",
+   "why": "Constant 40 in a dyadic form bound, proved analytically."
+  },
+  {
+   "reader": 1,
+   "index": 216,
+   "title": "Integer multiplication below n log n",
+   "why": "kappa = 2^-182 algorithmic exponent, theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 219,
+   "title": "One Sample Suffices for Matroid Prophet Inequalities against an Almighty Adversary",
+   "why": "Competitive ratio 2^-310, theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 210,
+   "title": "Perfect completeness for 2-to-1 games",
+   "why": "'explicitly listed multiset of constraints' is the reduction output; hardness is not a finite check."
+  },
+  {
+   "reader": 1,
+   "index": 222,
+   "title": "Entropy and Face Dimension of the Perfect-Matching Polytope",
+   "why": "Sharp face-dimension bound 3m-2 for all graphs; sharpness examples are families, not a finite headline witness."
+  },
+  {
+   "reader": 1,
+   "index": 166,
+   "title": "The geometric case of the Erdős similarity conjecture",
+   "why": "Constructed compact sets avoiding all affine copies of an infinite sequence; universal property."
+  },
+  {
+   "reader": 1,
+   "index": 167,
+   "title": "The dyadic case of the Erdős similarity conjecture",
+   "why": "Same as #166 (dyadic case)."
+  },
+  {
+   "reader": 1,
+   "index": 121,
+   "title": "Two-step monodromy of special quasi-projective varieties",
+   "why": "Constructs special open surfaces with non-special quasi-Albanese fibres; property theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 122,
+   "title": "A conditional abelianity theorem for special fourfold pairs with a half-weight divisor",
+   "why": "Constructs a special eightfold; property theoretical."
+  },
+  {
+   "reader": 1,
+   "index": 231,
+   "title": "Near-square-root logarithmic integrality gaps for uniform sparsest cut",
+   "why": "Integrality-gap instances along n -> infinity; asymptotic."
+  },
+  {
+   "reader": 1,
+   "index": 239,
+   "title": "Quantitative lower bounds for trace reconstruction",
+   "why": "Hard string pairs for trace reconstruction; asymptotic lower bound."
+  },
+  {
+   "reader": 1,
+   "index": 192,
+   "title": "Edit Distance in l1: Matching Bounds up to Constants in the Exponent",
+   "why": "Edit-distance distortion constructions (with #193, #194); asymptotic."
+  },
+  {
+   "reader": 1,
+   "index": 89,
+   "title": "The normalized-volume gap in dimension four",
+   "why": "Normalized-volume bound 162 in dimension 4; theoretical."
+  },
+  {
+   "reader": 2,
+   "index": 243,
+   "title": "Exponential PSD rank of positively shifted matching matrices",
+   "why": "PSD rank 2^Omega(n) of an infinite matrix family: asymptotic, no finite witness"
+  },
+  {
+   "reader": 2,
+   "index": 246,
+   "title": "An exponential state lower bound for two-way nondeterministic complementation",
+   "why": "explicit n-state automata family, but the exponential complement lower bound is a proof over all automata (asymptotic)"
+  },
+  {
+   "reader": 2,
+   "index": 247,
+   "title": "An exponential two-way deterministic state lower bound for one-way liveness",
+   "why": "same as 246 for one-way liveness; the lower bound quantifies over all 2DFAs"
+  },
+  {
+   "reader": 2,
+   "index": 249,
+   "title": "Finite tensor savings and exact Fourier circuits",
+   "why": "existence of a finite tensor saving is by contradiction ('no-win assumption'); no matrix or word is exhibited"
+  },
+  {
+   "reader": 2,
+   "index": 251,
+   "title": "A superquadratic separation between sensitivity and block sensitivity",
+   "why": "the seed function uses randomly chosen edge labels (Lemma lem:labelling) with huge parameters; the separation is asymptotic under composition"
+  },
+  {
+   "reader": 2,
+   "index": 256,
+   "title": "Finite Monoid Computations and a Uniform Generalized Star-Height Bound",
+   "why": "star-height bounds (256-258) are uniform constructions over all regular languages; no finite certificate"
+  },
+  {
+   "reader": 2,
+   "index": 274,
+   "title": "Two limit cycles for quintic Liénard systems",
+   "why": "quintic Lienard bound by analytic arc/transversality arguments; no computer-assisted step found"
+  },
+  {
+   "reader": 2,
+   "index": 285,
+   "title": "A C^1 Counterexample to the Entropy Conjecture",
+   "why": "C^1 self-map of a manifold: infinite object"
+  },
+  {
+   "reader": 2,
+   "index": 286,
+   "title": "A zero-entropy system without a smooth positive-volume model",
+   "why": "ergodic transformation of a standard probability space: infinite object"
+  },
+  {
+   "reader": 2,
+   "index": 292,
+   "title": "A translational tile with no fully periodic tiling in dimension three",
+   "why": "the tile is finite but sized by a 'sufficiently large odd prime q'; aperiodicity is not a finite computation"
+  },
+  {
+   "reader": 2,
+   "index": 293,
+   "title": "A nine-dimensional counterexample to Borsuk's covering assertion",
+   "why": "Borsuk counterexample is the continuous set of rank-one projectors, proved by a mod-2 degree argument, not a finite point set"
+  },
+  {
+   "reader": 2,
+   "index": 304,
+   "title": "The crossing number of complete graphs",
+   "why": "Harary-Hill crossing numbers by theory; the computer-assisted K_11/K_13 results are only cited as history"
+  },
+  {
+   "reader": 2,
+   "index": 314,
+   "title": "A classification of finite Euclidean Ramsey configurations",
+   "why": "the non-subtransitive Ramsey quadrilateral uses a transcendental parameter; no finite check"
+  },
+  {
+   "reader": 2,
+   "index": 324,
+   "title": "The circulant Hadamard conjecture",
+   "why": "circulant Hadamard by character/coset theory; the Barker lengths come from cited literature"
+  },
+  {
+   "reader": 2,
+   "index": 333,
+   "title": "A Counterexample to the Infinite Matroid Packing/Covering Conjecture",
+   "why": "infinite matroids on a countable ground set"
+  },
+  {
+   "reader": 2,
+   "index": 341,
+   "title": "Unbounded Violations of the Square-Root Degree Bound",
+   "why": "Gopalan-Servedio violation via limit/probabilistic amplification; no explicit Boolean function"
+  },
+  {
+   "reader": 2,
+   "index": 344,
+   "title": "A Complete Local Domain without a Small Cohen–Macaulay Module",
+   "why": "complete local domain: infinite object"
+  },
+  {
+   "reader": 2,
+   "index": 348,
+   "title": "A Counterexample to the Group-Ring Determinant Conjecture",
+   "why": "group-ring determinant: 'an existence theorem, not an executed numerical instance' (main.tex line 116); a Fuglede-Kadison determinant is analytic"
+  },
+  {
+   "reader": 2,
+   "index": 350,
+   "title": "An algebra of infinite little finitistic dimension",
+   "why": "the finite-dimensional algebra comes from a simulation/selection construction and the property quantifies over all modules; nothing small or explicit"
+  },
+  {
+   "reader": 2,
+   "index": 355,
+   "title": "A Counterexample to Kurosh’s Division-Ring Problem",
+   "why": "Kurosh counterexample is a countable division ring"
+  },
+  {
+   "reader": 2,
+   "index": 363,
+   "title": "A negative solution to the finite lattice representation problem",
+   "why": "the finite lattice is constructed, but non-representability quantifies over all finite groups/algebras (CFSG-based); not finitely checkable (also 362)"
+  },
+  {
+   "reader": 2,
+   "index": 367,
+   "title": "An integral counterexample to Gersten's conjecture",
+   "why": "Gersten counterexamples (367-368): explicit regular local ring, but K-theory kernels are not finite computations"
+  },
+  {
+   "reader": 2,
+   "index": 380,
+   "title": "Critical bond and site percolation on the cubic lattice",
+   "why": "the stray sentence 'The finite computations are not formal proof certificates.' (build/critical-percolation-z3.tex line 47) has no computation behind it; the proof is theoretical"
+  },
+  {
+   "reader": 2,
+   "index": 447,
+   "title": "Computing the Random 3-SAT Threshold",
+   "why": "3-SAT threshold computability: certificates exist in principle; no numerical value is computed or published"
+  },
+  {
+   "reader": 2,
+   "index": 473,
+   "title": "A strict four-row permanent inequality and permutation moments",
+   "why": "four-row permanent inequality by Taylor/compactness near the uniform law; no finite certificate"
+  },
+  {
+   "reader": 2,
+   "index": 479,
+   "title": "Single-fold Diophantine representations",
+   "why": "single-fold Diophantine representation is a uniform construction for all r.e. sets; no specific polynomial to check"
+  },
+  {
+   "reader": 3,
+   "index": 480,
+   "title": "Choiceless polynomial time with counting does not capture polynomial time",
+   "why": "separating query is a CFI-type infinite family over F_3; no single finite witness"
+  },
+  {
+   "reader": 3,
+   "index": 485,
+   "title": "An infinite finitely presented residually finite 2-group",
+   "why": "finite presentation of St_12(R) exists, but periodicity and residual finiteness are infinite properties proved by theory"
+  },
+  {
+   "reader": 3,
+   "index": 486,
+   "title": "An infinite finitely presented periodic group",
+   "why": "'explicit presentation' (paper.tex:189) built via a universal machine encoding; periodicity is not a finite check; the 'verifier/certificate' words in finite-rules.tex are internal to the construction"
+  },
+  {
+   "reader": 3,
+   "index": 487,
+   "title": "Thompson's group F is nonamenable",
+   "why": "proof by a Hilbert-space fixed-point argument; no finite paradoxical or SOS certificate"
+  },
+  {
+   "reader": 3,
+   "index": 494,
+   "title": "A torsion-free hyperbolic group that is not residually finite",
+   "why": "'certificate' is a tensor-rank argument over all finite quotients; no finite check"
+  },
+  {
+   "reader": 3,
+   "index": 497,
+   "title": "An Artin group with no geometric CAT(0) action",
+   "why": "explicit 116-generator Coxeter matrix (Definition def:matrix), but the non-CAT(0) property is quantified over all CAT(0) spaces and proved by theory"
+  },
+  {
+   "reader": 3,
+   "index": 505,
+   "title": "A group without fixed price",
+   "why": "explicit amalgam (free group of rank 100 with a direct product), but cost is a measure-theoretic invariant with no finite witness"
+  },
+  {
+   "reader": 3,
+   "index": 557,
+   "title": "A Coulomb ground-state density without Kohn-Sham ensemble representation",
+   "why": "nuclear charge is an explicit finite formula (D = 10^200; build/sections/06-parameters.tex:269-281), but the property is about continuum PDE ground states"
+  },
+  {
+   "reader": 3,
+   "index": 558,
+   "title": "Exact quantum factoring over a fixed finite gate set",
+   "why": "uniform algorithm family with polynomial bounds; no finite object to decide"
+  },
+  {
+   "reader": 3,
+   "index": 564,
+   "title": "A Nearly Quartic Separation Between Randomized and Quantum Query Complexity",
+   "why": "asymptotic family of total Boolean functions; 'certificate' means certificate complexity"
+  },
+  {
+   "reader": 3,
+   "index": 581,
+   "title": "An explicit obstruction to nuclear norm-ultrapower embeddings",
+   "why": "explicit group C*-algebra, but non-embeddability into ultrapowers is not finitely checkable"
+  },
+  {
+   "reader": 3,
+   "index": 588,
+   "title": "A finite-entropy separation of microstates and nonmicrostates free entropy",
+   "why": "large but fixed number of variables; the entropies are limits, not a finite computation"
+  },
+  {
+   "reader": 3,
+   "index": 604,
+   "title": "A finite Smith–Toda complex V(4) at the prime 1009",
+   "why": "the only numerics are sparseness arithmetic on degrees (05-final-obstruction.tex:841); the existence is homotopy theory"
+  },
+  {
+   "reader": 3,
+   "index": 616,
+   "title": "A rational obstruction to strong chromatic splitting at height three",
+   "why": "finite component is classical background (Chevalley-Eilenberg minors of sl_3, printed at 08-elementary-background.tex:33-55); support/r-ce/ce_certificate.py is cited but absent from the clone; the headline is not witnessed by it"
+  },
+  {
+   "reader": 3,
+   "index": 621,
+   "title": "A Counterexample to Wall's D(2) Problem",
+   "why": "explicit finite 3-complex with infinite fundamental group; the D(2)/homotopy-type property needs Z[G]-module theory, not a finite check"
+  },
+  {
+   "reader": 3,
+   "index": 631,
+   "title": "Counterexamples to the duality conjecture for metric entropy",
+   "why": "a family of convex bodies for every constant pair; asymptotic"
+  },
+  {
+   "reader": 3,
+   "index": 660,
+   "title": "Hamiltonian Fixed Points Below the Stable Morse Number in Dimension Twenty-Two",
+   "why": "the counts 80+1968m vs 80+1952m are homology arithmetic whose inputs come from theory (Morse theory, blowups); the arithmetic itself is trivial"
+  },
+  {
+   "reader": 3,
+   "index": 661,
+   "title": "Sharpness of the Cyclic Integral Floer Bound Below the Stable Morse Number",
+   "why": "1,872,232 vs 1,872,264 likewise follows from homology computed by theory; no independent finite object"
+  },
+  {
+   "reader": 3,
+   "index": 662,
+   "title": "Hamiltonian Fixed Points Below the Stable Morse Number",
+   "why": "deficit of 16 from torsion homology by theory"
+  },
+  {
+   "reader": 3,
+   "index": 663,
+   "title": "A nondegenerate counterexample to the Morse-number Arnold bound",
+   "why": "construction plus Morse-number theory; no finite certificate"
+  },
+  {
+   "reader": 3,
+   "index": 670,
+   "title": "Smooth counterexamples to Yau's nodal upper bound in dimensions three and four",
+   "why": "'sign certificates' are analytic constructions along sequences; asymptotic"
+  },
+  {
+   "reader": 3,
+   "index": 671,
+   "title": "Power-law violations of Yau's nodal upper bound",
+   "why": "sign certificates are a proof device for an asymptotic statement"
+  },
+  {
+   "reader": 3,
+   "index": 676,
+   "title": "A Smooth Nonquadratic Entire Affine Maximal Graph in Dimension Ten",
+   "why": "ODE continuation argument with no certified numerics"
+  },
+  {
+   "reader": 3,
+   "index": 679,
+   "title": "Uniqueness of tangent flows at the first singular time of embedded surface mean-curvature flow",
+   "why": "'finite real-radical certificates' exist abstractly in the proof; none is computed or published"
+  },
+  {
+   "reader": 3,
+   "index": 697,
+   "title": "Nonuniqueness for bounded measurable scalar conductivities in three dimensions",
+   "why": "analytic construction of two conductivities; the Dirichlet-to-Neumann equality is not finite"
+  },
+  {
+   "reader": 3,
+   "index": 706,
+   "title": "A counterexample to the Monge ansatz for the three-marginal Coulomb cost",
+   "why": "the 'certificate' is a local Kantorovich potential; only the trivial 2 + 1/sqrt2 > 5/2 is finite"
+  },
+  {
+   "reader": 3,
+   "index": 707,
+   "title": "Sharp One-Third Stability of Brenier Maps",
+   "why": "the three-atom family refutes Letrouit's conjecture asymptotically (as a parameter tends to zero), not by a fixed instance"
+  },
+  {
+   "reader": 3,
+   "index": 709,
+   "title": "Finite Instructions and Solenoidal Shear Flows (and companions 710-717)",
+   "why": "machine-to-fluid constructions for arbitrary Turing machines; the finite transition tables are inputs, not witnesses of a decidable claim"
+  }
+ ]
+}
