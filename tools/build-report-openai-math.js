@@ -37,6 +37,10 @@ const cnt = (o, k) => (o && o[k]) || 0;
 const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0) + '%';
 const sw = S.counts.words, fw = F.counts, kw = K.counts.words || {};
 const kDecided = K.rows.length, kCert = cnt(kw, 'CERTIFIED');
+/* why the kernel lane refused, derived from the recorded reasons — never asserted */
+const kRefused = K.rows.filter((r) => r.word === 'REFUSED');
+const kStack = kRefused.filter((r) => /stack overflow/.test(r.why || '')).length, kStopped = kRefused.filter((r) => /stopped before Comparator/.test(r.why || '')).length;
+const refusedWhy = [kStack ? kStack + ' nanoda stack overflow' + (kStack > 1 ? 's' : '') + ' on our runner (re-running with a larger stack)' : '', kStopped ? kStopped + ' job' + (kStopped > 1 ? 's' : '') + ' that hit the runner\'s time or memory limit' : '', kRefused.length - kStack - kStopped ? (kRefused.length - kStack - kStopped) + ' other' : ''].filter(Boolean).join(', ') || 'none';
 const fCert = F.rows.filter((r) => r.word === 'CERTIFIED'), fWhole = fCert.filter((r) => /^the whole headline/.test(r.decides || ''));
 const fNeeds = F.rows.filter((r) => r.word === 'NEEDS DATA'), fOpen = F.rows.filter((r) => r.word === 'NOT YET DECIDED');
 const fBad = F.rows.filter((r) => r.word === 'REFUTED' || r.word === 'REFUSED');
@@ -72,8 +76,8 @@ B.push(C.scope('The release: github.com/openai/math at commit ' + R.commit.slice
   + 'Issues and discussions are disabled on the repository; nothing has been sent to OpenAI. A reading is not a certificate, and this page keeps the two apart.'));
 
 const kLine = kDecided ? '<b>Kernel lane: ' + n(kCert) + ' of ' + n(kDecided) + ' challenges run so far CERTIFIED</b> by Comparator with both Lean\'s kernel and nanoda '
-  + '(the release had switched nanoda on for ' + cnt(R.counted.enableNanoda, 'true') + ' of ' + n(R.counted.challenges) + '); ' + n(R.counted.challenges - kDecided)
-  + ' still running. ' : '<b>Kernel lane:</b> running on GitHub\'s Linux runners; no row recorded yet. ';
+  + '(the release had switched nanoda on for ' + cnt(R.counted.enableNanoda, 'true') + ' of ' + n(R.counted.challenges) + '); ' + (cnt(kw, 'REFUTED') + cnt(kw, 'REFUTED — TO REPRODUCE') ? n(cnt(kw, 'REFUTED') + cnt(kw, 'REFUTED — TO REPRODUCE')) + ' rejected; ' : 'none rejected; ')
+  + n(R.counted.challenges - kDecided) + ' not yet decided while the runs continue; the ' + n(kRefused.length) + ' REFUSED are ' + refusedWhy + '. ' : '<b>Kernel lane:</b> running on GitHub\'s Linux runners; no row recorded yet. ';
 B.push(C.tldr({
   findingRaw: kLine
     + '<b>Statement lane: of the ' + S.rows.length + ' families with a Comparator challenge, ' + cnt(sw, 'MATCHES') + ' state their headline</b>; '

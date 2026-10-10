@@ -231,6 +231,7 @@ reports:
 	@$(NODE) tools/build-report-optconst.js
 	@$(PY) tools/run-countex-ledger.py
 	@$(NODE) tools/build-report-countex.js
+	@$(NODE) tools/build-report-openai-math.js
 	@$(PY) tools/run-horizonmath-ledger.py
 	@$(NODE) tools/build-report-horizonmath.js
 	@$(PY) tools/run-gnnw-ledger.py
