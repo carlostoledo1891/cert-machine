@@ -116,7 +116,8 @@ for (const r of rows.values()) {
     r.word = agree >= 2 ? 'REFUTED' : 'REFUTED — TO REPRODUCE';
   }
   r.why = last.decided.why; r.stage = last.decided.stage || null;
-  r.strict = last.strict;
+  /* the latest run whose strict run reached a decision decides it (a cancelled job's absent strict run says nothing) */
+  const st = r.runs.filter((x) => x.strict && x.strict.word !== 'NOT RUN'); r.strict = st.length ? st[st.length - 1].strict : last.strict;
   /* the latest run that ran the transfer check decides it */
   const tr = r.runs.filter((x) => x.transfer); r.transfer = tr.length ? tr[tr.length - 1].transfer : null;
 }

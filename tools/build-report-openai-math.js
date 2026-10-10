@@ -135,11 +135,10 @@ B.push(C.section({
       + 'external kernel it is given. The release enabled nanoda for ' + cnt(R.counted.enableNanoda, 'true') + ' challenges; here it is on for all. One job per challenge, '
       + 'on GitHub\'s Linux runners (Lake and Comparator abort at start on the desk\'s macOS; the sandbox is Linux-only). A CERTIFIED here says the Lean theorem is '
       + 'proved; whether that theorem is the paper\'s claim is §3.'),
-    kDecided ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'kernels' }, { h: 'minutes' }],
-      rows: kRows.map((r) => [{ raw: C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'REFUSED' ? 'open' : 'dep') }, { raw: C.m(r.challenge) },
-        { raw: C.esc(r.families.join(', ')) }, { raw: C.esc((r.runs[r.runs.length - 1].kernels || []).map((k) => k.split(' ')[0]).join(' + ') || '—') },
-        { raw: C.m(r.runs[r.runs.length - 1].seconds ? Math.round(r.runs[r.runs.length - 1].seconds / 60) : '—') }]) })
-      : C.pRaw('No job has been recorded yet.'),
+    kDecided ? C.pRaw('<b>' + n(kCert) + ' CERTIFIED</b>, each by Lean\'s kernel and nanoda: ' + kRows.filter((r) => r.word === 'CERTIFIED').map((r) => C.m(r.challenge)).join(' ') + '.') : C.pRaw('No job has been recorded yet.'),
+    kRows.some((r) => r.word !== 'CERTIFIED') ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'why' }],
+      rows: kRows.filter((r) => r.word !== 'CERTIFIED').map((r) => [{ raw: C.tag(r.word, r.word === 'REFUSED' ? 'open' : 'dep') }, { raw: C.m(r.challenge) },
+        { raw: C.esc(r.families.join(', ')) }, { raw: C.esc(short(r.why || '', 200)) }]) }) : '',
     C.pRaw('The trust base, as the pre-registration states it: ' + C.esc(P.lanes.K.trustBase))
   ].join('\n')
 }));

@@ -1,0 +1,138 @@
+{
+ "challenge": "SpinAngle",
+ "ran": true,
+ "exit": 0,
+ "seconds": 323,
+ "cacheSeconds": 211,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  8924,
+  8926
+ ],
+ "maxRssKB": 7347248,
+ "env": [
+  "kernel: 6.17.0-1022-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "lean4export rev: 076e8e57707e813375e8f9da8bf989799ace9680",
+  "stack: unlimited; RUST_MIN_STACK=1073741824"
+ ],
+ "logTail": [
+  "Building ComparatorChallenges.SpinAngle",
+  "⚠ [8924/8924] Built ComparatorChallenges.SpinAngle (9.9s)",
+  "warning: ComparatorChallenges/SpinAngle.lean:518:8: declaration uses `sorry`",
+  "Build completed successfully (8924 jobs).",
+  "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.SpinAngle.TypeAngle.one_sided_type_angle, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.SpinAngle.TypeAngle.row, OAI.SpinAngle.TypeAngle.column, OAI.SpinAngle.TypeAngle.phi] from ComparatorChallenges.SpinAngle",
+  "Building OAI.RepresentationTheory.SpinAngle.TypeAngle",
+  "✔ [8924/8926] Built OAI.RepresentationTheory.SpinAngle.Core (94s)",
+  "✔ [8925/8926] Built OAI.RepresentationTheory.SpinAngle.Compression (5.4s)",
+  "✔ [8926/8926] Built OAI.RepresentationTheory.SpinAngle.TypeAngle (5.3s)",
+  "Build completed successfully (8926 jobs).",
+  "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.SpinAngle.TypeAngle.one_sided_type_angle, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam, OAI.SpinAngle.TypeAngle.row, OAI.SpinAngle.TypeAngle.column, OAI.SpinAngle.TypeAngle.phi] from OAI.RepresentationTheory.SpinAngle.TypeAngle",
+  "Running nanoda kernel on solution",
+  "nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [
+  "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+  "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes",
+  "warning: PrimeNumberTheoremAnd: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/PrimeNumberTheoremAnd' has local changes",
+  "warning: belyi: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/belyi' has local changes",
+  "warning: formal-schemes: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/formal-schemes' has local changes",
+  "warning: elliptic-curves: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/elliptic-curves' has local changes",
+  "warning: tempered-fundamental-groups: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tempered-fundamental-groups' has local changes",
+  "warning: oka: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/oka' has local changes",
+  "warning: orbicurve-cores: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/orbicurve-cores' has local changes",
+  "warning: pi1: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/pi1' has local changes",
+  "warning: heights: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/heights' has local changes",
+  "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+  "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+  "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+  "warning: gromov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/gromov' has local changes",
+  "warning: SphereEversion: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/SphereEversion' has local changes",
+  "warning: schoenflies-lean: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/schoenflies-lean' has local changes",
+  "warning: ClassFieldTheory: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/ClassFieldTheory' has local changes",
+  "warning: AINTLIB: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AINTLIB' has local changes",
+  "warning: AbsorptionCutoff: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AbsorptionCutoff' has local changes",
+  "warning: StrongPNT: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/StrongPNT' has local changes",
+  "warning: carleson: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/carleson' has local changes",
+  "warning: rellich-kondrachov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/rellich-kondrachov' has local changes",
+  "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+  "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes"
+ ],
+ "strict": {
+  "what": "the same config with definition_names emptied: every definition compared body and all",
+  "exit": 1,
+  "okay": false,
+  "mismatches": [
+   "OAI.SpinAngle.missingInRow"
+  ],
+  "errTail": [
+   "warning: genl: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/genl' has local changes",
+   "warning: tate-curves-theta: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/tate-curves-theta' has local changes",
+   "warning: iut: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/iut' has local changes",
+   "warning: gromov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/gromov' has local changes",
+   "warning: SphereEversion: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/SphereEversion' has local changes",
+   "warning: schoenflies-lean: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/schoenflies-lean' has local changes",
+   "warning: ClassFieldTheory: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/ClassFieldTheory' has local changes",
+   "warning: AINTLIB: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AINTLIB' has local changes",
+   "warning: AbsorptionCutoff: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/AbsorptionCutoff' has local changes",
+   "warning: StrongPNT: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/StrongPNT' has local changes",
+   "warning: carleson: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/carleson' has local changes",
+   "warning: rellich-kondrachov: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/rellich-kondrachov' has local changes",
+   "warning: Zeta3Irrational: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/Zeta3Irrational' has local changes",
+   "warning: fixed-point-theorems: repository '/home/runner/work/cert-machine/cert-machine/math/lean/.lake/packages/fixed-point-theorems' has local changes",
+   "uncaught exception: Const does not match between challenge and target 'OAI.SpinAngle.missingInRow'"
+  ],
+  "logTail": [
+   "Building ComparatorChallenges.SpinAngle",
+   "⚠ [8924/8924] Replayed ComparatorChallenges.SpinAngle",
+   "warning: ComparatorChallenges/SpinAngle.lean:518:8: declaration uses `sorry`",
+   "Build completed successfully (8924 jobs).",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.SpinAngle.TypeAngle.one_sided_type_angle, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.SpinAngle",
+   "Building OAI.RepresentationTheory.SpinAngle.TypeAngle",
+   "Build completed successfully (8926 jobs).",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.SpinAngle.TypeAngle.one_sided_type_angle, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.RepresentationTheory.SpinAngle.TypeAngle"
+  ]
+ },
+ "transfer": {
+  "exit": 0,
+  "exampleLines": [
+   233
+  ],
+  "errors": [],
+  "errorsAtExamples": [],
+  "errorsInCopy": [],
+  "guard": "OK",
+  "guardLine": "AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached",
+  "redControl": "none"
+ },
+ "forge": {
+  "exit": 1,
+  "exampleLines": [
+   232
+  ],
+  "errors": [
+   {
+    "line": 232,
+    "text": "AuditTransferForge.lean:232:83: error: Type mismatch"
+   }
+  ],
+  "errorsAtExamples": [
+   {
+    "line": 232,
+    "text": "AuditTransferForge.lean:232:83: error: Type mismatch"
+   }
+  ],
+  "errorsInCopy": [],
+  "guard": "OK",
+  "guardLine": "AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached",
+  "redControl": "the body of OAI.SpinAngle.TypeAngle.row replaced by sorry"
+ }
+}
