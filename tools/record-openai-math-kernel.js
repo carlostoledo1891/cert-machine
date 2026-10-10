@@ -108,7 +108,11 @@ function decideStrict(f, ch) {
 
 const byName = new Map(release.challenges.map((c) => [c.name, c]));
 const rows = new Map();
-const runDirs = fs.existsSync(RUNS) ? fs.readdirSync(RUNS).filter((d) => /^\d+$/.test(d)).sort((a, b) => Number(a) - Number(b)) : [];
+/* GitHub runs (numeric ids) and RunPod runs (runpod-<pod>, amendment 14, tools/import-runpod-openai-math.js), in the
+   order they were created — the latest run of a challenge decides its row */
+const created = (d) => { try { return JSON.parse(fs.readFileSync(path.join(RUNS, d, '_run.json'), 'utf8')).createdAt || ''; } catch (e) { return ''; } };
+const runDirs = fs.existsSync(RUNS) ? fs.readdirSync(RUNS).filter((d) => /^(\d+|runpod-[a-z0-9]+)$/.test(d) && fs.existsSync(path.join(RUNS, d, '_run.json')))
+  .sort((a, b) => created(a).localeCompare(created(b)) || a.localeCompare(b)) : [];
 for (const d of runDirs) {
   const meta = JSON.parse(fs.readFileSync(path.join(RUNS, d, '_run.json'), 'utf8'));
   for (const file of fs.readdirSync(path.join(RUNS, d)).filter((x) => x.endsWith('.json') && x !== '_run.json')) {
