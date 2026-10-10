@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-09",
+  "recorded": "2026-10-10",
   "browser": "Chrome/154.0.8037.98",
   "viewports": [
     1440,
@@ -33,7 +33,7 @@
         "escapes": 0,
         "clipped": 4
       },
-      "sha": "43316ddd4d094463d5b1fcfdd9b01a882c1ff98a8a49d4a0d068ed5c428c9e32"
+      "sha": "1333b2647e06ca66883154e584915809ce794cec08b5c711768a572eca0a0595"
     },
     "site/about/index.html": {
       "390": {
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "27a82a05558a6d51f3042a553b8faaf61195837a93534bb6e83d94c17129bd64"
+      "sha": "d58c97fda1c92c48a21cbf8ed89058961d9595d38636fde0e9be22057c783e09"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -117,7 +117,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5f1cce62dbfc58371210a7372ef6b2c9d3e18107cbdf5813fc8a4dadc399c35b"
+      "sha": "44669c03ed579cadfcaa8d7362bb164fb657710ad73849735e7726e1171db6d1"
     },
     "site/decidivel/index.html": {
       "390": {
@@ -159,7 +159,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "04a75269730beba3ee34f3768db8d0041d9d0ff8539e994f8c17c20666bf40c2"
+      "sha": "4ce1a38f6b3a7775a39e7db328f93ea423ae6967825b9935244baf1a6396fbe7"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -348,7 +348,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f3d4694bc7d95612824b845e2845836d0e1b61a3009224d10a60f793e5281e72"
+      "sha": "5b88dd684dc25d380162ce5a8a0df85b03aae4900abf60932ff35d3ffdabaadc"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -516,7 +516,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "19c40a55a37f8f2f9e21f86eef70c83db6ec598a63e012c1a18b047f7ee93a6a"
+      "sha": "bc1674455accf3be95ca154b8962ccd8bf7db7087ac254dac1b74c686a130030"
     },
     "site/instruments/return-level-check/index.html": {
       "390": {
@@ -537,7 +537,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9cfb45a84f14cb68b226c8a6ffdf207079fb88e1e0ae55b7d076f29eaee47c98"
+      "sha": "a960bbc2dd0a8322545e138eeeb09ec3d21aa2cede8972c96d7aa78093bade74"
     },
     "site/instruments/rewire/index.html": {
       "390": {
@@ -621,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ab62158c3d8ee503fcbe53548f10c81a295f7b2acd3d010b22df9fa2b9ed13a4"
+      "sha": "321901e15e8bc7c6e14033ff48e6835f3fd90e42851111792df1d207f3a95f6e"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "885aed0084d1994f7b8cd4e81921c4924be10e2d0591e3589cf8b0925dba7ba4"
+      "sha": "f84d08168fb00b00e1d1b662e4072148632f8db3a76f97443b2cf60a54642c11"
     },
     "site/janela/metodo/index.html": {
       "390": {
@@ -684,28 +684,28 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "cbe4476b3fd8f3aebc18a0d5aa965ec1bb6c6a5795a7c1ad8c99defba7f091b3"
+      "sha": "27deca78fa0d28cc147204c7519847b776ba95b23c4d5fa2ea349028ed0dde89"
     },
     "site/machine/index.html": {
       "390": {
-        "spines": 6,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 7
+        "clipped": 10
       },
       "768": {
-        "spines": 12,
+        "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
       },
       "1440": {
-        "spines": 14,
+        "spines": 21,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "285d6ce53c6e04d3256aa6ed7ba4f2e6571a9507035918ab812e4b337c792e9e"
+      "sha": "aa88d4e2757cc59c8c991ab0fce5ece6c615c3e7ab5082394e96ed192c303016"
     },
     "site/oracle/index.html": {
       "390": {
@@ -726,14 +726,14 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "39f991dfcf34476a39ad7b3310e242e68205621f56d64fe42005091ee5cc3917"
+      "sha": "4187bbca0207d094707162a97a8fffc639fefeeb4a797483c0769b6dbca7f2c8"
     },
     "site/papers/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 6
+        "clipped": 7
       },
       "768": {
         "spines": 7,
@@ -742,12 +742,12 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 10,
+        "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e2e5fbed2ac96fbc653e18f9b511a0d11ee8a0768e51553890e2a9ed1a00fa57"
+      "sha": "911271aa7e8f04046d0ad1aae72a56a373ec7d8c7cb9234fb950616473c0395b"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -768,7 +768,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6bfc08d9f0de356d7c05ca25626eeffb5f890ce04070c5404571829fb7780957"
+      "sha": "1e08f31dbb5c2c58e0a37f9b10d5ef88a01af403a13c056b24de3eb2fb4baca9"
     },
     "site/reports/aag.html": {
       "390": {
@@ -894,7 +894,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5054b5878bfeea48318d2e763efdd313bc575221eba67b27632968d75727e699"
+      "sha": "6380b5919ec37bb6064183d94d0d2c23c03d2801675ecd131469b2c0da7388e0"
     },
     "site/reports/answer-key.html": {
       "390": {
@@ -915,7 +915,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "71014dc023c7cb06ed887fb2fc6f3b55f09cc2204606b7d2a263cc721bd3ee45"
+      "sha": "7769d48180695e1aedb2ad27d0de7fdefb867574e3bdc3564fb4118aad3c19f2"
     },
     "site/reports/breaking-geometry.html": {
       "390": {
@@ -1419,7 +1419,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "61e7c09fb33c816397dc83b35133eacd869279a91dd6f00bf50b1f81982a7d8e"
+      "sha": "1f37fa5e32dfdc83434b40444093ad27cda379144c69a851ffd926d4b5782290"
     },
     "site/reports/evtol-energy.html": {
       "390": {
@@ -1629,7 +1629,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4b73e87abda5a11262140165219c2b14c9826312a639674939665bd882eff030"
+      "sha": "c1cb7db14dca8c5cad01d1a46a3128714a4452a77f3345e7c6ec68264fdc40bf"
     },
     "site/reports/index.html": {
       "390": {
@@ -1650,7 +1650,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ec16bbbe03df8ec44c243ca83cc66833205d14f2d45c22bae381858344dba2ec"
+      "sha": "5c9ffd6873aaf552fbab0f8e35b190ec840d48264fece84be899bf5705b551f8"
     },
     "site/reports/keller.html": {
       "390": {
@@ -1671,7 +1671,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "674f689d2c4f9cff8bfca536b7e8ea4e09bb9ff03865a6285c9f0c9e5a4c86e9"
+      "sha": "047e3d5a561f15beba7dc002b7aa5fd68e5d970339ace40c146921533446715b"
     },
     "site/reports/kissing.html": {
       "390": {
@@ -1839,7 +1839,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8305696836487b393704abb424862e07bb4df8dc0ece967279b0c4a9b061f182"
+      "sha": "6191ee5a8e8d0b4fbebf9b169184fb0dd306d402cff4b5db331e674971b0a2ba"
     },
     "site/reports/methods-note.html": {
       "390": {
@@ -1860,7 +1860,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ef5b3ddaa53ea613f269194bab42d28b9abb3e0cbc4a2e78ddc6599ee1afe9fc"
+      "sha": "28d247911ac51203f9bd11aff8c04e0736e8ee760ad8c540f8e6fd2f24659e99"
     },
     "site/reports/mfg-cap.html": {
       "390": {
@@ -2175,7 +2175,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "8e5295f2c7a0b8f691c7126716c9b810e758bb23a6bcbf4a0c2793478df47f92"
+      "sha": "cf2483c1bbba6426daf670bffa2f65c6b811fe4ef6362ebbdd4c73afc825e98d"
     },
     "site/reports/rm-audit.html": {
       "390": {
@@ -2196,7 +2196,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "b50a4a0ff6d4f06b8ecba7a5697385403e0c34d156ef7c88b4c0c6a0f4f29936"
+      "sha": "544146e69b03a5bd5eb7541b9cca5a45cc31189b566a49aa2e71e9af17c979f6"
     },
     "site/reports/skyaudit.html": {
       "390": {
@@ -2406,7 +2406,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "13364aa4d7d6a3a79885ea73a8fb7e8bbd53bc56773e6906823a1634681badca"
+      "sha": "0a63a617e29c1036beb7335c1753c5405d26cfba47efb40c4505e979d5b2ff33"
     },
     "site/reports/zeta7-anand.html": {
       "390": {
@@ -2437,7 +2437,7 @@
         "clipped": 0
       },
       "768": {
-        "spines": 7,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
@@ -2448,7 +2448,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dec8a59fd13c5a243efbda108fd3210d703eabbd16725d57eafc6e4b1ac2bc24"
+      "sha": "ff87a63e738871b00818dc8ed447edcdc2dae9c9aadc82cdba25cb9e6ce20048"
     }
   }
 }

@@ -223,19 +223,19 @@ const BUGS = [
   {
     name: 'pow at exponents ≥ 2^31 returned [1,1]', where: 'interval.js',
     caught: 'code read',
-    broke: '`e & 1` and `e >>= 1` are 32-bit operations, so pow([1,2], 2^31) answered [1,1] — silently, like the negative-exponent trap the file header already records. No caller passed such an exponent. Fix: refused at |n| ≥ 2^31.',
+    broke: 'the bit operations e & 1 and e >>= 1 are 32-bit, so pow([1,2], 2^31) answered [1,1] — silently, like the negative-exponent trap the file header already records. No caller passed such an exponent. Fix: refused at |n| ≥ 2^31.',
     gate: 'interval battery X7'
   },
   {
     name: 'No NaN or infinity semantics in the kernel', where: 'interval.js, and a vacuous check in test-eqcert',
     caught: 'code read',
-    broke: 'mul([0,∞],[0,1]) returned [NaN,NaN]; division by [NaN,NaN] was not refused (NaN fails the straddle test); a consumer written `if (!(x[1] > c)) proved` would have certified on it; the batteries skipped non-finite results. Enforcing the domain then found that test-eqcert\'s S4 had been passing VACUOUSLY on [0.5, 0] boxes built by the Array.map arity trap. Fix: every primitive refuses a malformed operand or an indeterminate result by throw.',
+    broke: 'mul([0,∞],[0,1]) returned [NaN,NaN]; division by [NaN,NaN] was not refused (NaN fails the straddle test); a consumer written as "not proved above the bar, hence certified" would have certified on it; the batteries skipped non-finite results. Enforcing the domain then found that test-eqcert\'s S4 had been passing VACUOUSLY on [0.5, 0] boxes built by the Array.map arity trap. Fix: every primitive refuses a malformed operand or an indeterminate result by throw.',
     gate: 'interval battery X8; test-eqcert S4 now exercises real boxes'
   },
   {
     name: 'The radii linear branch, and a negative Z2', where: 'radii.js; the Certificate class',
     caught: 'code read',
-    broke: 'The Z2 = 0 branch returned ok on the float formula without the interval proof of p(r) < 0 that the other branch makes, and `!(Z2 > 0)` sent a NEGATIVE or NaN Z2 into it. The Certificate class accepted [\'\'] as a falsifier and {k: undefined} as evidence, then serialised a PROVED certificate with evidence {} — the object its constructor refuses. Fix: finite nonnegative bounds required; the linear branch proves p(r) < 0; empty and undefined fields refused.',
+    broke: 'The Z2 = 0 branch returned ok on the float formula without the interval proof of p(r) < 0 that the other branch makes, and the test "not (Z2 > 0)" sent a NEGATIVE or NaN Z2 into it. The Certificate class accepted [\'\'] as a falsifier and {k: undefined} as evidence, then serialised a PROVED certificate with evidence {} — the object its constructor refuses. Fix: finite nonnegative bounds required; the linear branch proves p(r) < 0; empty and undefined fields refused.',
     gate: 'test-eqcert R3b–R3e; the six Certificate users\' batteries'
   }
 ];

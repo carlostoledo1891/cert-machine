@@ -197,6 +197,14 @@ the running Chrome differs. A layout ruler is a browser measurement; Chrome auto
 from 152.0.7977.77 to .83 between the tenth session and this one, and without that field a
 whole-baseline shift is indistinguishable from a page regression.
 
+**A second unstable page, 2026-10-09:** `site/swell/index.html` @768 read 9 spines on three
+consecutive gate runs and 7 on the two `--accept` runs that followed, on bytes that did not
+change between them (and again after `apps/swell/build.js` re-rendered it). The baseline holds
+7; a control build that reads 9 goes red on that row alone. Same cause as the skyaudit pair
+(an app page measured before it settles); same closure (a settled-DOM wait). Until then: re-run
+`node tools/check-measure.js` alone and, if the flap persists, record the higher number with
+`--accept-worse` and this reason.
+
 
 ### 0 · THE GATE THAT DID NOT EXIST — now it does
 `tools/check-render.js`. The repository gated the registries, the type system,

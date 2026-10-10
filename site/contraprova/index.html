@@ -955,7 +955,7 @@ details.cp-why[open] > summary{margin-bottom:20px}
   </svg>
   </div>
   <figcaption>Vinte ajustes impressos (MQ mínimos quadrados, MV máxima verossimilhança, MM momentos) contra o ajuste decidido na célula pública mais próxima. Diferença de registros, não erro da tabela: é exatamente o que um certificado torna visível.</figcaption>
-</figure></div></div><div class="col sec-head cp-sub"><h3>Calibrado contra a IA de fronteira</h3></div><div class="col"><p>Antes da engenharia, o mesmo motor decidiu 87 afirmações matemáticas publicadas, produzidas com ou por modelos de fronteira — entre elas um certificado de GPT-5.4 Pro para o limite de Ramsey diagonal (benchmark HorizonMath, 2026), com veredito REFUTADO porque o verificador do próprio benchmark aceitava um par se uma orientação passasse e a definição exige as duas; a iteração de ChatGPT 5.6 Sol impressa por Gupta, Ndiaye, Norin e Wei para o mesmo limite, com veredito PROVADO por dois programas independentes, em duas linguagens; e a biblioteca de 14 contraexemplos encontrados por IA de S. Sra (9 inteiros, 5 parciais). Cada linha com o arquivo que a decidiu, em público e com data: <a href="../reports/horizonmath.html">HorizonMath</a> · <a href="../reports/diagonal-ramsey.html">Ramsey diagonal</a> · <a href="../reports/counterexample-machine.html">contraexemplos</a> · <a href="../reports/decided-2026-09.html">o registro de setembro</a>.</p></div></section>
+</figure></div></div><div class="col sec-head cp-sub"><h3>Calibrado contra a IA de fronteira</h3></div><div class="col"><p>Antes da engenharia, o mesmo motor decidiu 131 afirmações matemáticas publicadas, produzidas com ou por modelos de fronteira — entre elas um certificado de GPT-5.4 Pro para o limite de Ramsey diagonal (benchmark HorizonMath, 2026), com veredito REFUTADO porque o verificador do próprio benchmark aceitava um par se uma orientação passasse e a definição exige as duas; a iteração de ChatGPT 5.6 Sol impressa por Gupta, Ndiaye, Norin e Wei para o mesmo limite, com veredito PROVADO por dois programas independentes, em duas linguagens; e a biblioteca de 14 contraexemplos encontrados por IA de S. Sra (9 inteiros, 5 parciais). Cada linha com o arquivo que a decidiu, em público e com data: <a href="../reports/horizonmath.html">HorizonMath</a> · <a href="../reports/diagonal-ramsey.html">Ramsey diagonal</a> · <a href="../reports/counterexample-machine.html">contraexemplos</a> · <a href="../reports/decided-2026-09.html">o registro de setembro</a>.</p></div></section>
 
 <section class="col">
   <div class="sec-head">
@@ -1009,7 +1009,7 @@ details.cp-why[open] > summary{margin-bottom:20px}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/contraprova/build.js a partir de certs/hseva-atlas.json, certs/hseva-ledger.json, certs/design-table-audit.json, certs/claims-ledger.json e apps/contraprova/data/gate-ledger.json; bateria do portão 24 verificações, 9/9 controles vermelhos.</p><p>git b909759</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/contraprova/build.js a partir de certs/hseva-atlas.json, certs/hseva-ledger.json, certs/design-table-audit.json, certs/claims-ledger.json e apps/contraprova/data/gate-ledger.json; bateria do portão 24 verificações, 9/9 controles vermelhos.</p><p>git 1512627</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>(function (root) {
 "use strict";
 var SRC = {
@@ -1059,18 +1059,42 @@ function nextDown(x) { return -nextUp(-x); }
 const iv = (lo, hi) => [lo, hi === undefined ? lo : hi];
 const ZERO = iv(0), ONE = iv(1);
 
-function add(a, b) { return [nextDown(a[0] + b[0]), nextUp(a[1] + b[1])]; }
-function sub(a, b) { return [nextDown(a[0] - b[1]), nextUp(a[1] - b[0])]; }
+/* THE DOMAIN, ENFORCED (2026-10-09). The rigor model above is a statement about
+   finite, well-formed operands: a pair of non-NaN doubles with lo <= hi, where an
+   infinite endpoint is a sound (if useless) bound. Before this date nothing checked
+   it: mul([0, Infinity], [0, 1]) returned [NaN, NaN], div by [NaN, NaN] was not
+   refused (NaN fails the straddle test), and a consumer written as
+   `if (!(x[1] > c)) proved` would have certified on a NaN. The batteries skipped
+   non-finite results and so never saw it. Every arithmetic operation now refuses a
+   malformed operand or an indeterminate result (0·∞, ∞−∞) by THROW — a refusal,
+   never a decision — and the method paper states this domain beside its rounding
+   proposition. Cost: a few comparisons per operation. */
+function wf(a, op) {
+  if (!Array.isArray(a) || a.length !== 2 || typeof a[0] !== 'number' || typeof a[1] !== 'number'
+      || Number.isNaN(a[0]) || Number.isNaN(a[1]) || a[0] > a[1])
+    throw new Error('interval ' + op + ': malformed operand ' + JSON.stringify(a) + ' — refused, not decided');
+  return a;
+}
+function out(r, op) {
+  if (Number.isNaN(r[0]) || Number.isNaN(r[1]))
+    throw new Error('interval ' + op + ': indeterminate result (0·∞ or ∞−∞) — refused, not decided');
+  return r;
+}
+
+function add(a, b) { wf(a, 'add'); wf(b, 'add'); return out([nextDown(a[0] + b[0]), nextUp(a[1] + b[1])], 'add'); }
+function sub(a, b) { wf(a, 'sub'); wf(b, 'sub'); return out([nextDown(a[0] - b[1]), nextUp(a[1] - b[0])], 'sub'); }
 function mul(a, b) {
+  wf(a, 'mul'); wf(b, 'mul');
   const p = [a[0] * b[0], a[0] * b[1], a[1] * b[0], a[1] * b[1]];
-  return [nextDown(Math.min(p[0], p[1], p[2], p[3])),
-          nextUp(Math.max(p[0], p[1], p[2], p[3]))];
+  return out([nextDown(Math.min(p[0], p[1], p[2], p[3])),
+              nextUp(Math.max(p[0], p[1], p[2], p[3]))], 'mul');
 }
 function div(a, b) {
+  wf(a, 'div'); wf(b, 'div');
   if (b[0] <= 0 && b[1] >= 0) throw new Error('interval division by an interval containing 0');
   const q = [a[0] / b[0], a[0] / b[1], a[1] / b[0], a[1] / b[1]];
-  return [nextDown(Math.min(q[0], q[1], q[2], q[3])),
-          nextUp(Math.max(q[0], q[1], q[2], q[3]))];
+  return out([nextDown(Math.min(q[0], q[1], q[2], q[3])),
+              nextUp(Math.max(q[0], q[1], q[2], q[3]))], 'div');
 }
 function neg(a) { return [-a[1], -a[0]]; }
 /* A square is never negative, so the lower bound is clamped at 0. Without the clamp,
@@ -1080,6 +1104,7 @@ function neg(a) { return [-a[1], -a[0]]; }
    a true lower bound for x² always, so enclosure is preserved. The third branch below
    already did this; the first two did not. (2026-07-28, found by tests/test-interval.js.) */
 function sqr(a) {                       /* tighter than mul(a,a) across 0 */
+  wf(a, 'sqr');
   if (a[0] >= 0) return [Math.max(0, nextDown(a[0] * a[0])), nextUp(a[1] * a[1])];
   if (a[1] <= 0) return [Math.max(0, nextDown(a[1] * a[1])), nextUp(a[0] * a[0])];
   const m = Math.max(-a[0], a[1]);
@@ -1108,7 +1133,12 @@ const width = a => nextUp(a[1] - a[0]);
    trap, not a live wound; every certificate in `ledger/` predates and avoids it. */
 function pow(a, n) {
   if (!Number.isInteger(n)) throw new Error('interval pow: exponent must be an integer, got ' + n);
+  /* `e & 1` and `e >>= 1` are 32-bit operations: pow([1,2], 2^31) returned [1,1] and
+     pow([2,2], 2^53) returned [1,1] — silently, like the negative-exponent trap above.
+     Found 2026-10-09 by a code read, with 0 call sites beyond exponents 2 and 3. Refused. */
+  if (Math.abs(n) >= 2147483648) throw new Error('interval pow: exponent ' + n + ' is beyond 2^31 — refused (32-bit exponent arithmetic)');
   if (n < 0) return div(ONE, pow(a, -n));
+  wf(a, 'pow');
   let r = ONE, base = a, e = n;
   while (e > 0) { if (e & 1) r = mul(r, base); base = mul(base, base); e >>= 1; }
   return r;
@@ -1141,7 +1171,7 @@ function encloseFloat(x) {
 }
 
 module.exports = {
-  nextUp, nextDown, iv, ZERO, ONE,
+  nextUp, nextDown, iv, ZERO, ONE, wf,
   add, sub, mul, div, neg, sqr, abs, mag, mig,
   contains, subset, interior, width, pow,
   trigAbsPad, encloseCos, encloseSin, encloseFloat
