@@ -50,6 +50,11 @@ const kOverflowLean = kOverflowed.filter((r) => r.runs.some((x) => isOverflow(x)
 const kStack = kRefused.filter((r) => /stack overflow/.test(r.why || '')), kKilled = kRefused.filter((r) => /the runner terminated it/.test(r.why || ''));
 const kStopped = kRefused.filter((r) => /stopped before Comparator|was cancelled in the step/.test(r.why || ''));
 const kOther = kRefused.length - kStack.length - kKilled.length - kStopped.length;
+/* amendment 13: the re-runs with nanoda patched as ammkrn/nanoda_lib#44 proposes (the build each run printed) */
+const isI44 = (x) => /issue44/.test(x.nanodaBuild || '');
+const kI44 = K.rows.filter((r) => r.runs.some(isI44));
+const kI44Cert = kI44.filter((r) => r.word === 'CERTIFIED' && isI44(r.runs[r.runs.length - 1]));
+const kI44Stock = kI44.filter((r) => r.runs.some((x) => x.nanodaBuild === 'issue44' && x.decided.word === 'CERTIFIED'));
 const fCert = F.rows.filter((r) => r.word === 'CERTIFIED'), fWhole = fCert.filter((r) => /^the whole headline/.test(r.decides || ''));
 const fNeeds = F.rows.filter((r) => r.word === 'NEEDS DATA'), fOpen = F.rows.filter((r) => r.word === 'NOT YET DECIDED');
 const fRefuted = F.rows.filter((r) => r.word === 'REFUTED'), fRefused = F.rows.filter((r) => r.word === 'REFUSED');
@@ -82,6 +87,8 @@ const V = {
   'nanoda.true': cnt(R.counted.enableNanoda, 'true'), 'nanoda.false': cnt(R.counted.enableNanoda, 'false'), 'nanoda.absent': cnt(R.counted.enableNanoda, 'absent'),
   'K.decided': n(kDecided), 'K.certified': n(kCert), 'K.overflow': kOverflowed.length, 'K.overflowLean': kOverflowLean.length,
   'K.overflowCertified': kOverflowed.filter((r) => r.word === 'CERTIFIED').length, 'K.killed': kKilled.length,
+  'K.i44': kI44.length, 'K.i44Certified': kI44Cert.length, 'K.i44Stock': kI44Stock.length, 'K.i44Refused': kI44.length - kI44Cert.length,
+  'K.overflowCertifiedUnpatched': kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length,
   'F.needs': fNeeds.length, 'F.certified': fCert.length, 'F.refuted': fRefuted.length
 };
 for (const c of R.challenges) V['lines.' + c.name] = n(c.statementLines);
@@ -242,7 +249,8 @@ B.push(C.section({
       + 'on GitHub\'s Linux runners (4 vCPU, 16 GB; the sandbox is Linux-only). A CERTIFIED here says the Lean theorem is proved; whether that theorem is the paper\'s claim is §2.'),
     C.pRaw('<b>' + n(kCert) + ' of ' + n(kDecided) + ' CERTIFIED</b>, ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + ', ' + n(R.counted.challenges - kDecided) + ' still running. The ' + kRefused.length + ' REFUSED are ' + refusedWhy
       + '. Every one of the ' + kOverflowed.length + ' exports that overflowed nanoda\'s stack had already been accepted by Lean\'s kernel in the same run (' + kOverflowLean.length + ' of ' + kOverflowed.length + '); with the stack raised to 1 GiB (pre-registration amendment 11), '
-      + kOverflowed.filter((r) => r.word === 'CERTIFIED').length + ' have since been accepted by nanoda as well.'),
+      + kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length + ' were then accepted by nanoda as well.'
+      + (kI44.length ? ' The overflows and the memory exhaustion are the two symptoms traced in ammkrn/nanoda_lib#44 (open since 2026-10-06, with a patch that makes nanoda\'s definitional-equality checks follow Lean\'s reference kernel); re-run with that patch (pre-registration amendment 13), ' + kI44Cert.length + ' of the ' + kI44.length + ' refused challenges are accepted by both kernels' + (kI44Stock.length ? ', ' + kI44Stock.length + ' of them on nanoda\'s stock 16 MiB stack' : '') + '; every row accepted that way says so in the ledger.' : '')),
     kRows.some((r) => r.word !== 'CERTIFIED') ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'why' }],
       rows: kRows.filter((r) => r.word !== 'CERTIFIED').map((r) => [{ raw: C.tag(r.word, r.word === 'REFUSED' ? 'open' : 'dep') }, { raw: C.m(r.challenge) },
         { raw: C.esc(r.families.join(', ')) }, { raw: C.esc(short(r.why || '', 200)) }]) }) : '',
