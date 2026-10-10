@@ -50,8 +50,9 @@ done
 status _phase "building the tools at their pins (nanoda: $NANODA_BUILD)"
 curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none > /dev/null
 export PATH="$HOME/.elan/bin:/tools/bin:/usr/local/go/bin:$HOME/.cargo/bin:$PATH"
-(
-  set -e
+export GIT_TERMINAL_PROMPT=0 MATH_REPO MATH_PIN LEAN_TOOLCHAIN COMPARATOR_PIN LEAN4EXPORT_PIN LANDRUN_PIN NANODA_PIN ISSUE44_SHA256 GO_TGZ GO_SHA256 NANODA_BUILD
+# each block runs in its own `bash -e` (set -e is ignored inside a ( ... ) || ... list, so a failed step would go unnoticed)
+cat > /tmp/tools.sh <<'BLOCK'
   cd /src && git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
   echo "$LEAN_TOOLCHAIN" > lean-toolchain
   sed -i 's/"rev": "[0-9a-f]\{40\}"/"rev": "'"$LEAN4EXPORT_PIN"'"/' lake-manifest.json
@@ -73,15 +74,22 @@ export PATH="$HOME/.elan/bin:/tools/bin:/usr/local/go/bin:$HOME/.cargo/bin:$PATH
   git diff > /results/_nanoda.patch
   cargo build --release -q && cp target/release/nanoda_bin /tools/bin/
   echo "$NANODA_BUILD" > /tools/nanoda.build
-) || { status _phase "FAILED: building the tools (see _tools-comparator.log)"; sleep infinity; }
+BLOCK
+bash -euo pipefail /tmp/tools.sh < /dev/null || { status _phase "FAILED: building the tools (see _tools-comparator.log)"; sleep infinity; }
 
 status _phase "the release at its pin; lake update; the Mathlib cache"
-(
-  set -e
+cat > /tmp/release.sh <<'BLOCK'
   cd /src && git clone -q --filter=blob:none --no-checkout "$MATH_REPO" math
   cd math && git sparse-checkout set lean && git checkout -q "$MATH_PIN" && test "$(git rev-parse HEAD)" = "$MATH_PIN"
   cd lean && test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
-  lake update 2>&1 | grep -v '^warning: .* has local changes' | tail -15 > /results/_lake-update.log
+  # anonymous clones from a datacenter address are sometimes refused by GitHub for a while ("could not read
+  # Username"): retry with backoff; lake resumes the packages it has
+  ok=0
+  for t in 1 2 3 4 5 6; do
+    if lake update > /results/_lake-update.log 2>&1; then ok=1; break; fi
+    echo "attempt $t failed; retrying in $((t * 60)) s" >> /results/_lake-update-retries.log; sleep $((t * 60))
+  done
+  test "$ok" = 1
   python3 - <<'EOF'
 import json, sys
 rel = json.load(open('/audit/corpus/openai-math/release.json'))
@@ -90,8 +98,14 @@ got = {p['name']: p['rev'] for p in json.load(open('lake-manifest.json'))['packa
 moved = sorted(k for k in want if got.get(k) != want[k])
 if moved: sys.exit('lake update moved a pinned dependency: ' + ', '.join(moved))
 EOF
-  lake exe cache get > /results/_cache.log 2>&1
-) || { status _phase "FAILED: preparing the release (see _lake-update.log, _cache.log)"; sleep infinity; }
+  ok=0
+  for t in 1 2 3 4 5; do
+    if lake exe cache get > /results/_cache.log 2>&1; then ok=1; break; fi
+    sleep $((t * 60))
+  done
+  test "$ok" = 1
+BLOCK
+bash -euo pipefail /tmp/release.sh < /dev/null || { status _phase "FAILED: preparing the release (see _lake-update.log, _cache.log)"; sleep infinity; }
 for s in $(seq 1 "$SLOTS"); do cp -a /src/math "/src/slot$s"; done
 
 run_one() {  # $1 slot, $2 challenge — the check job's steps, verbatim in substance

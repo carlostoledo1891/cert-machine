@@ -55,6 +55,10 @@ const isI44 = (x) => /issue44/.test(x.nanodaBuild || '');
 const kI44 = K.rows.filter((r) => r.runs.some(isI44));
 const kI44Cert = kI44.filter((r) => r.word === 'CERTIFIED' && isI44(r.runs[r.runs.length - 1]));
 const kI44Stock = kI44.filter((r) => r.runs.some((x) => x.nanodaBuild === 'issue44' && x.decided.word === 'CERTIFIED'));
+/* amendment 14: the rows sent to one RunPod pod (run ids runpod-<pod>) */
+const isPod = (x) => /^runpod-/.test(String(x.run));
+const kPod = K.rows.filter((r) => r.runs.some(isPod));
+const kPodCert = kPod.filter((r) => r.word === 'CERTIFIED' && isPod(r.runs[r.runs.length - 1]));
 const fCert = F.rows.filter((r) => r.word === 'CERTIFIED'), fWhole = fCert.filter((r) => /^the whole headline/.test(r.decides || ''));
 const fNeeds = F.rows.filter((r) => r.word === 'NEEDS DATA'), fOpen = F.rows.filter((r) => r.word === 'NOT YET DECIDED');
 const fRefuted = F.rows.filter((r) => r.word === 'REFUTED'), fRefused = F.rows.filter((r) => r.word === 'REFUSED');
@@ -87,6 +91,7 @@ const V = {
   'nanoda.true': cnt(R.counted.enableNanoda, 'true'), 'nanoda.false': cnt(R.counted.enableNanoda, 'false'), 'nanoda.absent': cnt(R.counted.enableNanoda, 'absent'),
   'K.decided': n(kDecided), 'K.certified': n(kCert), 'K.overflow': kOverflowed.length, 'K.overflowLean': kOverflowLean.length,
   'K.overflowCertified': kOverflowed.filter((r) => r.word === 'CERTIFIED').length, 'K.killed': kKilled.length,
+  'K.pod': kPod.length, 'K.podCertified': kPodCert.length,
   'K.i44': kI44.length, 'K.i44Certified': kI44Cert.length, 'K.i44Stock': kI44Stock.length, 'K.i44Refused': kI44.length - kI44Cert.length,
   'K.overflowCertifiedUnpatched': kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length,
   'F.needs': fNeeds.length, 'F.certified': fCert.length, 'F.refuted': fRefuted.length
@@ -250,7 +255,8 @@ B.push(C.section({
     C.pRaw('<b>' + n(kCert) + ' of ' + n(kDecided) + ' CERTIFIED</b>, ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + ', ' + n(R.counted.challenges - kDecided) + ' still running. The ' + kRefused.length + ' REFUSED are ' + refusedWhy
       + '. Every one of the ' + kOverflowed.length + ' exports that overflowed nanoda\'s stack had already been accepted by Lean\'s kernel in the same run (' + kOverflowLean.length + ' of ' + kOverflowed.length + '); with the stack raised to 1 GiB (pre-registration amendment 11), '
       + kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length + ' were then accepted by nanoda as well.'
-      + (kI44.length ? ' The overflows and the memory exhaustion are the two symptoms traced in ammkrn/nanoda_lib#44 (open since 2026-10-06, with a patch that makes nanoda\'s definitional-equality checks follow Lean\'s reference kernel); re-run with that patch (pre-registration amendment 13), ' + kI44Cert.length + ' of the ' + kI44.length + ' refused challenges are accepted by both kernels' + (kI44Stock.length ? ', ' + kI44Stock.length + ' of them on nanoda\'s stock 16 MiB stack' : '') + '; every row accepted that way says so in the ledger.' : '')),
+      + (kI44.length ? ' The overflows and the memory exhaustion are the two symptoms traced in ammkrn/nanoda_lib#44 (open since 2026-10-06, with a patch that makes nanoda\'s definitional-equality checks follow Lean\'s reference kernel); re-run with that patch (pre-registration amendment 13), ' + kI44Cert.length + ' of the ' + kI44.length + ' refused challenges are accepted by both kernels' + (kI44Stock.length ? ', ' + kI44Stock.length + ' of them on nanoda\'s stock 16 MiB stack' : '') + '; every row accepted that way says so in the ledger.' : '')
+      + (kPod.length ? ' The ' + kPod.length + ' that GitHub\'s 16 GB runners still could not finish were run on one RunPod CPU pod (32 vCPU, 256 GB; pre-registration amendment 14: the same steps at the same pins, only the hardware changed): ' + kPodCert.length + ' of ' + kPod.length + ' accepted by both kernels there.' : '')),
     kRows.some((r) => r.word !== 'CERTIFIED') ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'why' }],
       rows: kRows.filter((r) => r.word !== 'CERTIFIED').map((r) => [{ raw: C.tag(r.word, r.word === 'REFUSED' ? 'open' : 'dep') }, { raw: C.m(r.challenge) },
         { raw: C.esc(r.families.join(', ')) }, { raw: C.esc(short(r.why || '', 200)) }]) }) : '',
