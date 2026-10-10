@@ -28,7 +28,13 @@
    "BODIES DIFFER": 3
   },
   "transfer": {
-   "TRANSFERS": 3
+   "TRANSFERS": 4,
+   "NOT DEFINITIONAL": 1,
+   "NOT DECIDED": 1
+  },
+  "displayed": {
+   "PROVED": 9,
+   "OPEN": 1
   }
  },
  "rows": [
@@ -877,7 +883,7 @@
     {
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
-     "at": "2026-10-10T11:53:56Z",
+     "at": "2026-10-10T12:25:11Z",
      "exit": 0,
      "seconds": 387,
      "cacheSeconds": 180,
@@ -912,6 +918,10 @@
     "word": "TRANSFERS",
     "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 17 constants walked from the copies, 8 matched by Comparator, no original hole reached); the red control (the body of OAI.Problem358.uniformMeasure replaced by sorry) is rejected",
     "redControl": "fired: the body of OAI.Problem358.uniformMeasure replaced by sorry"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
    }
   },
   {
@@ -2251,7 +2261,11 @@
     ],
     "why": "Comparator names the constants whose bodies differ; each is read in lane S"
    },
-   "transfer": null
+   "transfer": null,
+   "displayed": {
+    "word": "OPEN",
+    "by": "neither the strict run nor the transfer check settles it"
+   }
   },
   {
    "challenge": "DegreeRigidity",
@@ -2990,7 +3004,11 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": null,
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "EntangledGames",
@@ -3134,7 +3152,11 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": null,
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "EuclideanRamsey",
@@ -5308,6 +5330,31 @@
       "why": "no second run in this job"
      },
      "transfer": null
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T12:25:11Z",
+     "exit": 0,
+     "seconds": 459,
+     "cacheSeconds": 185,
+     "maxRssKB": 7190928,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "SAME BODIES",
+      "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": {
+      "word": "NOT DEFINITIONAL",
+      "why": "Lean does not accept the solution theorem for the displayed statement by definitional unfolding: AuditTransfer.lean:116:63: error: Type mismatch"
+     }
     }
    ],
    "word": "CERTIFIED",
@@ -5317,7 +5364,14 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": {
+    "word": "NOT DEFINITIONAL",
+    "why": "Lean does not accept the solution theorem for the displayed statement by definitional unfolding: AuditTransfer.lean:116:63: error: Type mismatch"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "Laughlin",
@@ -5786,6 +5840,31 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T12:25:11Z",
+     "exit": 0,
+     "seconds": 517,
+     "cacheSeconds": 184,
+     "maxRssKB": 9661968,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "SAME BODIES",
+      "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": {
+      "word": "NOT DECIDED",
+      "why": "the guard refused: AuditTransfer.lean:121:0: error: AUDIT-GUARD FAILED: a copy reaches the original hole OAI.ExactDerandomization.Machine.acceptanceProbability"
+     }
     }
    ],
    "word": "CERTIFIED",
@@ -5795,7 +5874,14 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": {
+    "word": "NOT DECIDED",
+    "why": "the guard refused: AuditTransfer.lean:121:0: error: AUDIT-GUARD FAILED: a copy reaches the original hole OAI.ExactDerandomization.Machine.acceptanceProbability"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "MahlerConjecture",
@@ -6325,7 +6411,11 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": null,
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "NodalLength",
@@ -6455,7 +6545,7 @@
     {
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
-     "at": "2026-10-10T11:53:56Z",
+     "at": "2026-10-10T12:25:11Z",
      "exit": 0,
      "seconds": 397,
      "cacheSeconds": 177,
@@ -6496,6 +6586,10 @@
     "word": "TRANSFERS",
     "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 84 constants walked from the copies, 1 matched by Comparator, no original hole reached); the red control (the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry) is rejected",
     "redControl": "fired: the body of OAI.RowColumn.OccupiedOverlapEndpoint replaced by sorry"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the transfer check: Lean accepts the theorem for the displayed statement, red control rejected"
    }
   },
   {
@@ -7960,6 +8054,32 @@
      },
      "strict": null,
      "transfer": null
+    },
+    {
+     "run": 38050007619,
+     "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
+     "at": "2026-10-10T12:25:11Z",
+     "exit": 0,
+     "seconds": 820,
+     "cacheSeconds": 207,
+     "maxRssKB": 7577704,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": {
+      "word": "SAME BODIES",
+      "why": "with definition_names emptied, every declared definition matched body and all"
+     },
+     "transfer": {
+      "word": "TRANSFERS",
+      "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 5 constants walked from the copies, 2 matched by Comparator, no original hole reached); the red control (the body of OAI.Rokhlin.IsMixing replaced by sorry) is rejected",
+      "redControl": "fired: the body of OAI.Rokhlin.IsMixing replaced by sorry"
+     }
     }
    ],
    "word": "CERTIFIED",
@@ -7969,7 +8089,15 @@
     "word": "SAME BODIES",
     "why": "with definition_names emptied, every declared definition matched body and all"
    },
-   "transfer": null
+   "transfer": {
+    "word": "TRANSFERS",
+    "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 5 constants walked from the copies, 2 matched by Comparator, no original hole reached); the red control (the body of OAI.Rokhlin.IsMixing replaced by sorry) is rejected",
+    "redControl": "fired: the body of OAI.Rokhlin.IsMixing replaced by sorry"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the strict run: every hole is, constant for constant, the displayed definition"
+   }
   },
   {
    "challenge": "RyserCovering",
@@ -9116,7 +9244,7 @@
     {
      "run": 38050007619,
      "workflowSha": "f686c3a323e8eebc1af5b19dc2f57de8ae603ccd",
-     "at": "2026-10-10T11:53:56Z",
+     "at": "2026-10-10T12:25:11Z",
      "exit": 0,
      "seconds": 323,
      "cacheSeconds": 211,
@@ -9157,6 +9285,10 @@
     "word": "TRANSFERS",
     "why": "Lean accepts every solution theorem for the statement the challenge displays (guard: AUDIT-GUARD OK: 110 constants walked from the copies, 105 matched by Comparator, no original hole reached); the red control (the body of OAI.SpinAngle.TypeAngle.row replaced by sorry) is rejected",
     "redControl": "fired: the body of OAI.SpinAngle.TypeAngle.row replaced by sorry"
+   },
+   "displayed": {
+    "word": "PROVED",
+    "by": "the transfer check: Lean accepts the theorem for the displayed statement, red control rejected"
    }
   },
   {
