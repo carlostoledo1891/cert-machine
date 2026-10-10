@@ -37,7 +37,8 @@ PARTIAL = {
     'F-435': 'the interval certificate is decided only for q <= 4/5; q > 4/5, which holds the near-uniform corner where P ~ 2e-5, is not (extending band 2 to q <= 9/10 alone took 84,610 boxes and 1,916 s); the pair certificate (all 14 polynomials) and the grid certificate (all 28 stopping iterations) are decided whole',
     'F-369': 'the base range is decided for b = 6..12 in the ledger run (b = 6..15 in a separate run of this session); b = 13..25 (estimated 8-12 CPU-hours) and the partitions outside the band at b = 26..29 (the certificate/flag pipeline, not re-implemented) are not; the band at b = 26..29 is decided whole (467,068 coefficients, none negative)',
 }
-ROW_ARGS = {'F-360': {'n_max': 64}}
+ROW_ARGS = {'F-360': {'n_max': 64},   # the full Proposition prop:finite-check: all 61 eligible degrees (about an hour)
+            'F-539': {'nmax49': 12}}  # the two 3^12-state W totals too (about 2 h on 3 workers)
 
 
 def partial_reason(row_id, decides):

@@ -35,7 +35,12 @@
     "GENUINE HOLE": "the challenge leaves the definition sorried (a witness the solution must supply), so there is no displayed body to compare"
    },
    "order": "first the families OpenAI chose to release reasoning summaries for (007, 017, 087, 102, 159, 197, 221, 271, 287, 362), the 40 challenges in counterexample families, the 10 definition-hole configs and the 11 challenges added at fd4aeeb2; then the rest, smallest statement first",
-   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so."
+   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
+   "transferWords": {
+    "TRANSFERS": "Lean accepts every solution theorem as a proof of the statement the challenge file displays: a verbatim copy of the challenge under namespace AuditCopy is elaborated beside the solution, and `example : type_of% @AuditCopy.T := @OAI.T` type-checks for each theorem T (definitional agreement, re-checked by Lean's kernel). The copy is elaborated in the solution's environment, and the record says so.",
+    "NOT DEFINITIONAL": "Lean does not accept it by definitional unfolding; whether the statements are nevertheless equivalent is a reading, and the errors are recorded",
+    "NOT DECIDED": "the check did not finish (its 60-minute limit) or could not be built"
+   }
   },
   "S": {
    "name": "the statement lane",
@@ -130,6 +135,12 @@
    "before": "lane K's second batch (B2) and any re-run",
    "what": "lane K's runner gives nanoda an unlimited main-thread stack (ulimit -s) and 1 GiB Rust thread stacks (RUST_MIN_STACK); the setting is recorded in each job's env.txt. No word or rule changes.",
    "why": "nine jobs of run 38019899278 (the Unique Games family, both Kaplansky challenges, GroupRingDeterminant, SquareDifference) ended REFUSED with nanoda aborting on a stack overflow — a resource limit of our runner, not a kernel rejection; they are re-run."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any transfer check was run",
+   "what": "lane K adds a TRANSFER check for the 10 definition-hole configs (tools/openai-math-transfer.py, run in the same job after Comparator): it decides whether each solution theorem proves the statement the challenge file DISPLAYS, which Comparator's hole rule leaves open and the strict run cannot settle when the kernel terms differ by elaboration (3 of 10: OccupiedOverlap, DefocusingNLS, SpinAngle).",
+   "why": "the strict run found the named definitions' source text identical while their kernel terms differ; a definitional-agreement check in Lean decides the question the reader actually has, where comparing terms cannot."
   }
  ]
 }
