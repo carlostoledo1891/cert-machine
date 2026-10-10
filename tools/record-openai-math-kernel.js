@@ -80,7 +80,7 @@ function decideTransfer(f, ch) {
   if (t.exit !== 0) return { word: 'NOT DECIDED', why: 'lean exited ' + t.exit + ' with no error located' };
   /* the transfer holds; it counts only if its red control fired */
   if (g.exit === 'genuine') return { word: 'TRANSFERS', why: 'Lean accepts every solution theorem for the displayed statement; every hole is sorried in the challenge, so there is no displayed body to forge', redControl: 'none possible' };
-  if (g.errorsAtExamples && g.errorsAtExamples.length && !(g.errorsInCopy || []).length && g.guard === 'OK') return { word: 'TRANSFERS', why: 'Lean accepts every solution theorem for the statement the challenge displays (guard: ' + t.guardLine + '); the red control — one displayed hole body replaced by sorry — is rejected', redControl: 'fired' };
+  if (g.errorsAtExamples && g.errorsAtExamples.length && !(g.errorsInCopy || []).length && g.guard === 'OK') return { word: 'TRANSFERS', why: 'Lean accepts every solution theorem for the statement the challenge displays (guard: ' + t.guardLine + '); the red control (' + (g.redControl || 'one displayed hole body replaced by sorry') + ') is rejected', redControl: 'fired: ' + (g.redControl || 'hole') };
   return { word: 'NOT DECIDED', why: 'the transfer was accepted but its red control did not fire (forge: exit ' + g.exit + ', ' + ((g.errorsAtExamples || []).length) + ' rejection(s) at the example lines, guard ' + g.guard + ')' };
 }
 function decideStrict(f, ch) {

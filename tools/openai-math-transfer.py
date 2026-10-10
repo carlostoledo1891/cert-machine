@@ -168,6 +168,28 @@ def rewrite(text):
     return text
 
 
+# the red control's target: a displayed (unsorried) hole that some listed theorem's statement names directly and that no
+# other copied declaration's text refers to — so replacing its body by sorry cannot break a copied proof; when there is
+# none, the red control negates the statement instead (`example : ¬ type_of% @T' := @T`), which must fail as well
+def stmt_text(t):
+    k = decl_by_full[t][0]
+    joined = '\n'.join(segs[k])
+    pos = joined.rfind(':=')
+    return joined[:pos] if pos >= 0 else joined
+
+
+forge_target = None
+for h in holes_full:
+    hk = decl_by_full[h][0]
+    if re.search(r'\bsorry\b', text_of[hk]):
+        continue
+    named = any(pat_of[h].search(stmt_text(t)) for t in theorems_full)
+    used_elsewhere = any(pat_of[h].search(text_of[k]) for k, f, _ in decls if f and f in copy and f != h) or \
+        any(pat_of[h].search(text_of[k]) for k in copied_anon)
+    if named and not used_elsewhere:
+        forge_target = h
+        break
+forge_kind = None if not forge else ('hole' if forge_target else 'negation')
 out_lines = []
 first_hole_forged = False
 for k, seg in enumerate(segs):
@@ -184,7 +206,7 @@ for k, seg in enumerate(segs):
         name = m.group(2)
         cut = m.end(2)                                   # the declared name ends here; rename it, rewrite what follows
         body = [seg[0][:m.start(2)] + name + '_auditDisplayed' + rewrite(seg[0][cut:])] + [rewrite(l) for l in seg[1:]]
-        if forge and not first_hole_forged and full in holes_full and not re.search(r'\bsorry\b', '\n'.join(seg)):
+        if forge and not first_hole_forged and full == forge_target:
             joined = '\n'.join(body)
             pos = joined.find(':=')
             if pos >= 0 and 'where' not in joined[:pos]:
@@ -198,7 +220,7 @@ for k, seg in enumerate(segs):
         head_len = len(seg[0][:m.start(2)] + name + '_auditDisplayed')
         stmt = joined[:head_len] + rewrite(joined[head_len:pos] if pos >= 0 else joined[head_len:])
         out_lines.extend((stmt + ':= by sorry').split('\n'))
-if forge and not first_hole_forged:
+if forge and all(re.search(r'\bsorry\b', text_of[decl_by_full[h][0]]) for h in holes_full):
     sys.stderr.write('no displayed hole body to forge: every hole is left sorried in the challenge (a genuine hole)\n')
     sys.exit(3)
 
@@ -248,7 +270,8 @@ run_cmd do
     if seen.contains c then continue
     seen := seen.insert c
     if holes.contains c then throwError m!"AUDIT-GUARD FAILED: a copy reaches the original hole {c}"
-    if !(copies.any (·.isPrefixOf c)) && !V.contains c then unverified := unverified.push c
+    let isCopy := copies.any (·.isPrefixOf c) || (c.toString.splitOn "_auditDisplayed").length > 1
+    if !isCopy && !V.contains c then unverified := unverified.push c
     let some ci := env.find? c | throwError m!"AUDIT-GUARD: unknown constant {c}"
     todo := todo ++ ((deps ci false).filter fun u => isOAI u && !seen.contains u)
   if unverified.size > 0 then throwError m!"AUDIT-GUARD UNVERIFIED: the copies reach constants Comparator never matched: {unverified}"
@@ -257,7 +280,11 @@ run_cmd do
 lean += G.replace('HOLES', hole_names).replace('THMS', thm_names).replace('COPIES', copy_names).rstrip('\n').split('\n')
 lean.append('')
 lean.append('-- does each solution theorem prove the DISPLAYED statement? (accepted iff the two agree definitionally)')
+lean.append('-- red control: ' + ('none' if not forge else ('the body of ' + forge_target + ' replaced by sorry' if forge_kind == 'hole' else 'each statement negated')))
 for t in theorems_full:
-    lean.append('example : type_of% @' + renamed[t] + ' := @' + t)
+    if forge_kind == 'negation':
+        lean.append('example : ¬ (type_of% @' + renamed[t] + ') := @' + t)
+    else:
+        lean.append('example : type_of% @' + renamed[t] + ' := @' + t)
 lean.append('')
 sys.stdout.write('\n'.join(lean))

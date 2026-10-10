@@ -64,7 +64,8 @@ def lean_facts(prefix, file_name):
         return None
     ex = ex.strip()
     log, err, lean_src = read(prefix + '.log') or '', read(prefix + '.err') or '', read(file_name) or ''
-    example_lines = [i + 1 for i, l in enumerate(lean_src.split('\n')) if l.startswith('example : type_of%')]
+    example_lines = [i + 1 for i, l in enumerate(lean_src.split('\n')) if l.startswith('example : type_of%') or l.startswith('example : ¬ (type_of%')]
+    red = next((l[len('-- red control: '):] for l in lean_src.split('\n') if l.startswith('-- red control: ')), None)
     errors = []
     for m in re.finditer(r'^[^\n:]*\.lean:(\d+):\d+: error[^\n]*', log + '\n' + err, re.M):
         errors.append({'line': int(m.group(1)), 'text': m.group(0)[:300]})
@@ -77,6 +78,7 @@ def lean_facts(prefix, file_name):
         'errorsInCopy': [e for e in errors if e['line'] not in example_lines][:10],
         'guard': guard,
         'guardLine': next((l for l in (log + '\n' + err).splitlines() if 'AUDIT-GUARD' in l), None),
+        'redControl': red,
     }
 
 

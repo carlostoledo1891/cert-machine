@@ -38,7 +38,7 @@
    "order": "first the families OpenAI chose to release reasoning summaries for (007, 017, 087, 102, 159, 197, 221, 271, 287, 362), the 40 challenges in counterexample families, the 10 definition-hole configs and the 11 challenges added at fd4aeeb2; then the rest, smallest statement first",
    "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
    "transferWords": {
-    "TRANSFERS": "Lean accepts every solution theorem as a proof of the statement the challenge file displays, AND the red control fires (the same file with one displayed hole body replaced by sorry is rejected at the example lines). The file keeps the challenge's skeleton and copies, renamed, the holes, every declaration whose text refers to a copied name and every declaration a copied text refers to (never theorems or nominal types); a guard proves no copy reaches an original hole or a constant Comparator never matched.",
+    "TRANSFERS": "Lean accepts every solution theorem as a proof of the statement the challenge file displays, AND the red control fires: the same file with a displayed hole body replaced by sorry (a hole that a theorem statement names directly and no other copied text uses), or, when there is no such hole, each statement negated, is rejected at the example lines. The file keeps the challenge's skeleton and copies, renamed, the holes, every declaration whose text refers to a copied name and every declaration a copied text refers to (never theorems or nominal types); a guard proves no copy reaches an original hole or a constant Comparator never matched.",
     "NOT DEFINITIONAL": "the copy elaborates and the guard passes, but Lean does not accept the solution theorem for the displayed statement by definitional unfolding; the errors are recorded and whether the statements are nevertheless equivalent is a reading",
     "NOT DECIDED": "the copy does not elaborate beside the solution, the guard refuses, the check hits its 60-minute limit, or the red control does not fire — the reason recorded"
    }
@@ -166,6 +166,12 @@
    "before": "any re-run of the stack-overflow refusals",
    "what": "nanoda is built with its worker-thread stack constant raised from 16 MiB to 1 GiB (one line of src/lib.rs; the build refuses if the diff is anything else) and the 14 challenges it aborted on are re-run",
    "why": "amendment 6 raised the process and RUST_MIN_STACK limits, but nanoda spawns its checking threads with an explicit 16 MiB stack (tc.rs, thread::Builder::stack_size(STACK_SIZE)) and Comparator asks for 4 threads, so the overflow persisted (IndependentSets, LaughlinPlanar in run 38040214623 with 'stack: unlimited'). A stack size is a resource, not a rule of the kernel."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "the re-runs of OccupiedOverlap, Brenier and the others not yet transferred",
+   "what": "(1) the guard counts every constant named from copied text (an anonymous instance of a copy is auto-named …_auditDisplayed) as a copy; (2) the red control forges a hole that a theorem statement names directly and no other copied text uses, and falls back to negating each statement when there is no such hole — the forge file must elaborate exactly as the transfer file does except at the forged point",
+   "why": "OccupiedOverlap's guard flagged instFintypeTabloid_auditDisplayed, an auto-named copy; Brenier transferred but its first forge broke ten copied proofs that unfolded the forged hole, so its red control said nothing."
   }
  ]
 }
