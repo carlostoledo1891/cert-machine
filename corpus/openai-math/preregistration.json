@@ -153,6 +153,12 @@
    "before": "any run of the redesigned transfer check",
    "what": "the TRANSFER check re-enters (tools/openai-math-transfer.py, redesigned after amendment 8): the challenge's skeleton is kept and only the holes and the declarations tied to them are copied (renamed), so non-hole constants resolve to the solution's ones Comparator matched; a guard computed in Lean refuses any copy that reaches an original hole or an unmatched constant; every transfer must be accompanied by a red control that fires. Words in lanes.K.transferWords.",
    "why": "amendment 8 withdrew the first design because copied nominal types can never be definitionally equal; this design copies no nominal type, and its guard closes the other way a check of this kind can pass vacuously (through the solution's own definition)."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any transfer run with the refinement; the two earlier transfer results (SpinAngle TRANSFERS, OccupiedOverlap NOT DECIDED) stand as recorded under amendment 9",
+   "what": "the transfer file also copies the helper lemmas that state something about a copied name (the proofs inside copied definitions need them), and the guard counts a copy's auxiliary constants (X._proof_3, X.match_1, ...) as the copy. Nothing else changes; a TRANSFERS still needs the guard and the red control.",
+   "why": "OccupiedOverlap's copy did not elaborate: a copied structure field's `simp` needed the challenge's own simp lemma about the copied function, and the guard flagged the copy's auxiliary proof constants as unmatched."
   }
  ]
 }

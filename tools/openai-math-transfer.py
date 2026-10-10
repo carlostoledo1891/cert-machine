@@ -9,13 +9,16 @@ THE FILE THIS WRITES, checked by `lake env lean` on the runner after Comparator 
   * it imports the solution module, so every non-hole constant the challenge names resolves to the solution's
     constant — the ones Comparator's ordinary run has already matched to the challenge's, constant for constant;
   * it keeps the challenge file's skeleton (namespace / section / end / open / variable / universe / set_option /
-    local notation) and DROPS every declaration except: the declared holes, every declaration whose text refers to a
-    hole (to a fixpoint), and the listed theorems — each kept one renamed `<name>_auditDisplayed`, with every
-    reference to a copied name rewritten to the renamed one, theorems re-proved by `sorry`;
+    local notation) and DROPS every declaration except, to a fixpoint: the declared holes; every declaration whose
+    text refers to a copied name (helper lemmas included, so the proofs inside copied definitions find their simp
+    lemmas); every non-lemma declaration a copied text refers to; and the listed theorems (re-proved by `sorry`) —
+    each kept one renamed `<name>_auditDisplayed`, every reference to a copied name rewritten. Nominal types are
+    never copied;
   * a GUARD (a `run_cmd`) first computes V, the OAI constants Comparator's ordinary run matched to the challenge (from
     the theorems' types, through every non-hole constant's type and value, through holes' types only), then walks
     everything the copies reach: it fails if a copy reaches an ORIGINAL hole (the check would pass vacuously through
-    the solution's own definition) or a constant that is neither a copy nor in V (one Comparator never compared);
+    the solution's own definition) or a constant that is neither a copy (nor one of a copy's auxiliary constants,
+    such as X._proof_3) nor in V (one Comparator never compared);
   * then, for each theorem T: `example : type_of% @T_auditDisplayed := @T` — Lean accepts it exactly when the
     displayed statement and the proved statement agree up to definitional unfolding, and its kernel re-checks it.
 With `--forge` the first displayed (unsorried) hole's body is replaced by `sorry` — a red control that must NOT
@@ -134,13 +137,19 @@ while changed:
     copied_texts = [text_of[k] for k, full, _ in decls if (full and full in copy) or k in copied_anon]
     copied_texts += [text_of[decl_by_full[t][0]] for t in theorems_full]
     for k, full, kind in decls:
-        if kind in ('theorem', 'lemma', 'example') or kind in NOMINAL:
+        if kind == 'example' or kind in NOMINAL or full in theorems_full:
             continue
         if (full and full in copy) or (not full and k in copied_anon):
             continue
         refers_to_copy = any(pat_of[c].search(text_of[k]) for c in copy)
+        if kind in ('theorem', 'lemma'):
+            # a helper lemma is copied only as a DEPENDENT (it states something about a copied name): the proofs inside
+            # copied definitions use such lemmas, and a statement about a copy must exist about the copy
+            if refers_to_copy and full:
+                copy.add(full); changed = True
+            continue
         referred_by_copy = bool(full) and any(pat_of[full].search(t) for t in copied_texts if t is not text_of[k])
-        if refers_to_copy or (referred_by_copy and full not in theorems_full):
+        if refers_to_copy or referred_by_copy:
             # a dependency is copied only when a HOLE-side text refers to it: theorem statements alone do not pull one in
             if refers_to_copy or any(pat_of[full].search(text_of[kk]) for kk, ff, _ in decls if (ff and ff in copy) or kk in copied_anon):
                 if full:
@@ -239,7 +248,7 @@ run_cmd do
     if seen.contains c then continue
     seen := seen.insert c
     if holes.contains c then throwError m!"AUDIT-GUARD FAILED: a copy reaches the original hole {c}"
-    if !copies.contains c && !V.contains c then unverified := unverified.push c
+    if !(copies.any (·.isPrefixOf c)) && !V.contains c then unverified := unverified.push c
     let some ci := env.find? c | throwError m!"AUDIT-GUARD: unknown constant {c}"
     todo := todo ++ ((deps ci false).filter fun u => isOAI u && !seen.contains u)
   if unverified.size > 0 then throwError m!"AUDIT-GUARD UNVERIFIED: the copies reach constants Comparator never matched: {unverified}"
