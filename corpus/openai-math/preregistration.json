@@ -124,6 +124,12 @@
    "before": "the lane-F ledger was published (made after the deciders reported; it can only lower lane F's CERTIFIED count)",
    "what": "a lane-F row is CERTIFIED only when the WHOLE finite certificate its paper states is decided; a row decided in part, with the rest left undone for cost, is REFUSED, the decided parts kept as checks and the undone part and its cost named (tools/run-openai-math-finite.py, PARTIAL). A dependency on another paper's certificate, or on a cited outside theorem, is named in the row and does not by itself refuse it.",
    "why": "four deciders (F-180, F-433, F-435, F-369) decided their certificates in part and reported CERTIFIED for the part; a word that means 'all of it' in one row and 'some of it' in another is the drift the house grammar exists to prevent."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "lane K's second batch (B2) and any re-run",
+   "what": "lane K's runner gives nanoda an unlimited main-thread stack (ulimit -s) and 1 GiB Rust thread stacks (RUST_MIN_STACK); the setting is recorded in each job's env.txt. No word or rule changes.",
+   "why": "nine jobs of run 38019899278 (the Unique Games family, both Kaplansky challenges, GroupRingDeterminant, SquareDifference) ended REFUSED with nanoda aborting on a stack overflow — a resource limit of our runner, not a kernel rejection; they are re-run."
   }
  ]
 }

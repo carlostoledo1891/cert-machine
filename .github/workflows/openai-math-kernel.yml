@@ -186,6 +186,11 @@ jobs:
             lean --version; comparator --version 2>/dev/null || true
             echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
           } > ~/out/env.txt 2>&1
+          # nanoda recurses deeply on some exports (9 jobs of run 38019899278 aborted with "stack overflow"): give the
+          # main thread an unlimited stack and Rust's spawned threads 1 GiB
+          ulimit -s unlimited || ulimit -s 4194304 || true
+          export RUST_MIN_STACK=1073741824
+          echo "stack: $(ulimit -s); RUST_MIN_STACK=$RUST_MIN_STACK" >> ~/out/env.txt
           start=$(date +%s)
           /usr/bin/time -v lake env comparator audit-config.json > ~/out/comparator.log 2> ~/out/comparator.err
           echo $? > ~/out/exit.txt

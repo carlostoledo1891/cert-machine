@@ -130,7 +130,13 @@ B.push(C.section({
       + 'published, and with the holes emptied, which compares every body constant by constant.'),
     C.table({ cols: [{ h: 'challenge' }, { h: 'holes (displayed)' }, { h: 'bodies, decided' }],
       rows: holes.map((c) => { const k = K.rows.find((r) => r.challenge === c.name); return [{ raw: C.m(c.name) }, { raw: C.m(c.definitionNames.length + ' (' + c.holeBodies.filter((h) => h.displayed).length + ')') },
-        { raw: k && k.strict ? C.tag(k.strict.word, k.strict.word === 'SAME BODIES' ? 'held' : 'dep') + (k.strict.constants ? ' ' + C.esc(k.strict.constants.join(', ')) : '') : C.esc('not yet run') }]; }) })
+        { raw: k && k.strict ? C.tag(k.strict.word, k.strict.word === 'SAME BODIES' ? 'held' : 'dep') + (k.strict.constants ? ' ' + C.esc(k.strict.constants.join(', ')) : '') : C.esc('not yet run') }]; }) }),
+    (() => { const diff = K.rows.filter((r) => r.strict && r.strict.word === 'BODIES DIFFER');
+      return diff.length ? C.pRaw('Where the strict run names a constant whose bodies differ (' + diff.map((r) => C.m(r.strict.constants.join(', '))).join(', ') + '), '
+        + 'the source text of that definition in the challenge file and in the solution reads the same, line for line, on our reading; the kernel terms '
+        + 'differ through elaboration — auxiliary constants, binders, instances — which is presumably why the definitions were declared holes. Comparator '
+        + 'alone therefore checks those theorems against a type, and whether the two elaborations mean the same thing is a reading this audit has not yet '
+        + 'finished. It is not a finding that anything is wrong.') : ''; })()
   ].join('\n')
 }));
 

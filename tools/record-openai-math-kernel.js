@@ -32,7 +32,9 @@ if (!args.length) { console.error('usage: record-openai-math-kernel.js <run-id> 
    the facts only (result.json), with the run's own metadata beside them */
 for (const run of args.filter((a) => /^\d+$/.test(a))) {
   const meta = JSON.parse(cp.execSync(`gh run view ${run} -R ${REPO} --json databaseId,headSha,createdAt,updatedAt,status,conclusion,url`, { encoding: 'utf8' }));
-  if (meta.status !== 'completed') { console.error('run ' + run + ' is ' + meta.status + '; record it when it completes'); process.exit(1); }
+  /* --partial records the jobs of a run still in progress (their artifacts exist once each job ends); the run's
+     directory is rewritten whole when it is recorded again after it completes */
+  if (meta.status !== 'completed' && !args.includes('--partial')) { console.error('run ' + run + ' is ' + meta.status + '; record it when it completes, or pass --partial'); process.exit(1); }
   const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'omk-'));
   cp.execSync(`gh run download ${run} -R ${REPO} -D ${tmp} --pattern 'kernel-*'`, { stdio: 'inherit' });
   const dir = path.join(RUNS, String(run));
@@ -46,7 +48,7 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
     fs.writeFileSync(path.join(dir, ch + '.json'), JSON.stringify(fact, null, 1) + '\n');
     n++;
   }
-  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, conclusion: meta.conclusion, url: meta.url, jobs: n }, null, 1) + '\n');
+  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, null, 1) + '\n');
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log('run ' + run + ': ' + n + ' challenge results');
 }
