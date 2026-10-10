@@ -1,0 +1,356 @@
+{
+ "what": "The claim under check: the Lonely Runner Conjecture for fifteen runners, LRC(14) (J. Allikvere, \"Fifteen lonely runners\", arXiv:2609.02604 v2, 2026-09), with its certificates on Zenodo. Pinned 2026-10-10 before any line of a decider was written. The manuscript sources and the per-gate record gates.json are copied here (CC-BY-4.0, the record's licence); the author's scripts and C++ sources are NOT copied and are not read until our clean-room decider has recorded its results (the lane-F rule of the openai/math audit). The 71 evidence archives (about 7 GB) stay on Zenodo, pinned by the record's checksums.",
+ "claim": {
+  "arxiv": "2609.02604",
+  "version": "v2 (adds fifteen runners)",
+  "theorem": "The Lonely Runner Conjecture holds for fifteen runners (LRC(14)).",
+  "conditionalOn": "LRC(m) for m <= 13: Rosenfeld (LRC(7)), Trakulthongchai (LRC(8), LRC(9)), Sungkawichai-Trakulthongchai arXiv:2604.23906 (LRC(10..12)), Allikvere Zenodo 10.5281/zenodo.22066772 (LRC(13), about 31,872 vCPU-hours, not re-checked here)",
+  "gates": 71,
+  "gateMassLB": 408.8233,
+  "target": "14 log(A_14/28) - log 360360 = 401.9845... (Theorem 3.8, Lemma 3.9)",
+  "reportedCpuHours": 2137
+ },
+ "zenodo": {
+  "record": "10.5281/zenodo.22667683",
+  "published": "2026-09-09",
+  "license": "cc-by-4.0",
+  "creators": [
+   "Allikvere, Jaan"
+  ],
+  "files": {
+   "evidence_173_s0.tgz": {
+    "size": 46744714,
+    "zenodoChecksum": "md5:89affd0084a57cf6d9359fcd1b79aaa5"
+   },
+   "evidence_211_s0.tgz": {
+    "size": 224084167,
+    "zenodoChecksum": "md5:390ff381fe8a0b98bba85abe8c9c0c3e"
+   },
+   "evidence_227_s0.tgz": {
+    "size": 134239313,
+    "zenodoChecksum": "md5:6937ac326963354e3ea296ad491473cd"
+   },
+   "evidence_157_s0.tgz": {
+    "size": 574902875,
+    "zenodoChecksum": "md5:5374bd012fdb43f60f999a5fa998656d"
+   },
+   "evidence_163_s0.tgz": {
+    "size": 45958324,
+    "zenodoChecksum": "md5:db3548125f8a693787ad3ecbd9efe7ab"
+   },
+   "evidence_193_s0.tgz": {
+    "size": 178739377,
+    "zenodoChecksum": "md5:f86e23a6cf8dbbabcc090c29dde1a5f6"
+   },
+   "LRC15_AUDIT_SUMMARY.json": {
+    "size": 46526,
+    "zenodoChecksum": "md5:bde8c1d7765e37c97c01cee93405c4a2",
+    "sha256": "09558624b92dff9a40cb8cec28b6c575d2c32fe142eceb98feb60d8eb15e8590"
+   },
+   "fifteen_runners_manuscript_source.zip": {
+    "size": 49771,
+    "zenodoChecksum": "md5:da7f0b85d00402e02aa41e03161a25a5",
+    "sha256": "54e0fa471c103e4b26f7e8d940bb7552de65a6d69bd7ac9d6256133eb0af10f6"
+   },
+   "evidence_311_s0.tgz": {
+    "size": 1008515,
+    "zenodoChecksum": "md5:f0f82004d2f2cff01095097237892471"
+   },
+   "evidence_313_s0.tgz": {
+    "size": 560434,
+    "zenodoChecksum": "md5:ac487aca3f87fc097fd8758b02e0be34"
+   },
+   "evidence_317_s0.tgz": {
+    "size": 4195282,
+    "zenodoChecksum": "md5:afd9377d23c687057225f52ae33b3278"
+   },
+   "evidence_331_s0.tgz": {
+    "size": 3559993,
+    "zenodoChecksum": "md5:7e90641c68ad9f26936b729d8f23f3a1"
+   },
+   "evidence_397_s0.tgz": {
+    "size": 156675,
+    "zenodoChecksum": "md5:0b7ec75b5c5f9027a7193324e3647262"
+   },
+   "evidence_421_s0.tgz": {
+    "size": 170301,
+    "zenodoChecksum": "md5:c6262135a9ae409dc3edb651a4683f14"
+   },
+   "evidence_337_s0.tgz": {
+    "size": 645970,
+    "zenodoChecksum": "md5:e5fbfc4eda21df73cf756c6f6052e573"
+   },
+   "evidence_347_s0.tgz": {
+    "size": 705375,
+    "zenodoChecksum": "md5:7e1a52cbded7e84136e03bef373c201d"
+   },
+   "evidence_461_s0.tgz": {
+    "size": 141337,
+    "zenodoChecksum": "md5:babe5fe1d3b0ac649c7664f1273849e0"
+   },
+   "evidence_349_s0.tgz": {
+    "size": 371498,
+    "zenodoChecksum": "md5:8afdbebde5ffc5004ba5fa572d102dac"
+   },
+   "evidence_467_s0.tgz": {
+    "size": 152238,
+    "zenodoChecksum": "md5:647e31d157cf836cd0eeb9ce9ee7cd0f"
+   },
+   "evidence_353_s0.tgz": {
+    "size": 200523,
+    "zenodoChecksum": "md5:cc795b1b13487859b95824938d10b4a3"
+   },
+   "evidence_373_s0.tgz": {
+    "size": 166991,
+    "zenodoChecksum": "md5:aedadf7cf3ee2cbf7975e29a6806b339"
+   },
+   "evidence_367_s0.tgz": {
+    "size": 356283,
+    "zenodoChecksum": "md5:ba84051a8a361a49ec042571bf30dd22"
+   },
+   "evidence_379_s0.tgz": {
+    "size": 206393,
+    "zenodoChecksum": "md5:a450a6b8f6533090906882b45ce8cf0e"
+   },
+   "evidence_409_s0.tgz": {
+    "size": 152777,
+    "zenodoChecksum": "md5:5d62b0870294b33af18e67fc0b0b3854"
+   },
+   "evidence_383_s0.tgz": {
+    "size": 149069,
+    "zenodoChecksum": "md5:306b9432ae7195b9a86b6c1867dedc02"
+   },
+   "evidence_431_s0.tgz": {
+    "size": 128152,
+    "zenodoChecksum": "md5:6ca3d890a7db1b0ec85b80125a84075a"
+   },
+   "evidence_433_s0.tgz": {
+    "size": 120857,
+    "zenodoChecksum": "md5:3a0f3d1a81173fc4bbc710778b62d853"
+   },
+   "evidence_149_s0.tgz": {
+    "size": 137075725,
+    "zenodoChecksum": "md5:9cf5eac7906885f1cbd44b4b217ec4c8"
+   },
+   "evidence_439_s0.tgz": {
+    "size": 143221,
+    "zenodoChecksum": "md5:58e823c914f8a8e125aa8f43580ccb14"
+   },
+   "evidence_443_s0.tgz": {
+    "size": 132048,
+    "zenodoChecksum": "md5:d664dcc5b6bbc11082c3e11dcc27974b"
+   },
+   "README.md": {
+    "size": 7133,
+    "zenodoChecksum": "md5:fb0072458e941efdb7a6f7b061de0487",
+    "sha256": "cfb5869b4ed5aa7b03c14d08ae648a3386bc376136f2e6e49c62ab043da7f86c"
+   },
+   "evidence_523_s0.tgz": {
+    "size": 171441,
+    "zenodoChecksum": "md5:30955b1d7f26cfcc4110db389249a486"
+   },
+   "SHA256SUMS.txt": {
+    "size": 6105,
+    "zenodoChecksum": "md5:af065125ff540d262da160b1cb461062",
+    "sha256": "be0a3c76602113916615b4bbbfccaed0add8161d0683a9d113bfaa0059ce2cba"
+   },
+   "evidence_541_s0.tgz": {
+    "size": 188104,
+    "zenodoChecksum": "md5:bb7fd5e5f189a2c798a41bb809be2cb1"
+   },
+   "evidence_547_s0.tgz": {
+    "size": 199263,
+    "zenodoChecksum": "md5:9069202667be33a142489a9276711e73"
+   },
+   "evidence_557_s0.tgz": {
+    "size": 208465,
+    "zenodoChecksum": "md5:3e45eb1e3ee05f659adec977cfcae52b"
+   },
+   "evidence_199_s0.tgz": {
+    "size": 132520211,
+    "zenodoChecksum": "md5:3f2185f34c2263e256cb428d592c6348"
+   },
+   "evidence_277_s0.tgz": {
+    "size": 15079046,
+    "zenodoChecksum": "md5:d55c2d85b3bab3120cfd713cb6af053d"
+   },
+   "evidence_197_s0.tgz": {
+    "size": 242403848,
+    "zenodoChecksum": "md5:c48ec77d8200b6fc987b879cb3bba8b6"
+   },
+   "evidence_89_s0.tgz": {
+    "size": 24303240,
+    "zenodoChecksum": "md5:a71df9419172ecd6c25e1ef4e568a6a7"
+   },
+   "fifteen_lonely_runners.pdf": {
+    "size": 562135,
+    "zenodoChecksum": "md5:086c50833d24418109ae28658c3acccc",
+    "sha256": "a1e47e5750e4c6753506c3792ec01efa7c417fc8b819c6fc11bb3c6990501237"
+   },
+   "evidence_131_s0.tgz": {
+    "size": 303160523,
+    "zenodoChecksum": "md5:607b0be6c5cb8db122ced53e39f14acc"
+   },
+   "evidence_281_s0.tgz": {
+    "size": 3028055,
+    "zenodoChecksum": "md5:1489607f2939b3504a4bd7b327e0e575"
+   },
+   "evidence_229_s0.tgz": {
+    "size": 96079848,
+    "zenodoChecksum": "md5:fe6900f8367980c7758e358882ca7271"
+   },
+   "evidence_233_s0.tgz": {
+    "size": 29968924,
+    "zenodoChecksum": "md5:5447952d0ac6433793f8cf8f25014d56"
+   },
+   "evidence_251_s0.tgz": {
+    "size": 11786458,
+    "zenodoChecksum": "md5:077735a4ee2a2ddcb9f7de7d4c9d3faf"
+   },
+   "evidence_263_s0.tgz": {
+    "size": 4713744,
+    "zenodoChecksum": "md5:5921fe1c8d33209ef8df8cc68f0ffb08"
+   },
+   "fifteen_runners_code_and_logs.zip": {
+    "size": 34540446,
+    "zenodoChecksum": "md5:9301266431756ef179bb0a98781a18fa"
+   },
+   "evidence_167_s0.tgz": {
+    "size": 349347756,
+    "zenodoChecksum": "md5:b44d5bc07088362efc3e8eb19c811ab2"
+   },
+   "evidence_181_s0.tgz": {
+    "size": 1622125612,
+    "zenodoChecksum": "md5:392c40130d845b0a3113c2f43066d596"
+   },
+   "evidence_191_s0.tgz": {
+    "size": 401484389,
+    "zenodoChecksum": "md5:f17bea67615490f4c59fb30279e813f1"
+   },
+   "evidence_239_s0.tgz": {
+    "size": 7161898,
+    "zenodoChecksum": "md5:083f3a8ba7c0a9aef4dbe0eaa7f8fcf8"
+   },
+   "audit_lrc14_gates.py": {
+    "size": 9841,
+    "zenodoChecksum": "md5:1e7d3515a83c177ebb6459fd1bb8afc9"
+   },
+   "evidence_569_s0.tgz": {
+    "size": 205554,
+    "zenodoChecksum": "md5:0dfc9fef9cd14d32dad0450822caba56"
+   },
+   "evidence_283_s0.tgz": {
+    "size": 2593578,
+    "zenodoChecksum": "md5:98833cb12282d651134e8b859971c098"
+   },
+   "evidence_293_s0.tgz": {
+    "size": 1690917,
+    "zenodoChecksum": "md5:597c48abf75872b283fe3f2eaa4f829b"
+   },
+   "evidence_257_s0.tgz": {
+    "size": 29735530,
+    "zenodoChecksum": "md5:244e423c150b3150e39dd10e980f8c8e"
+   },
+   "evidence_307_s0.tgz": {
+    "size": 4996695,
+    "zenodoChecksum": "md5:cd83c868a9fdfac8bd83f3fb20fd471b"
+   },
+   "evidence_563_s0.tgz": {
+    "size": 212741,
+    "zenodoChecksum": "md5:e117d3b224e7d0ab22597cb4de8618a8"
+   },
+   "evidence_457_s0.tgz": {
+    "size": 142946,
+    "zenodoChecksum": "md5:f78334146f65a5b680936a56a1ddf294"
+   },
+   "evidence_463_s0.tgz": {
+    "size": 133484,
+    "zenodoChecksum": "md5:302ef16f96d92e04348a6fe238a4a1ad"
+   },
+   "evidence_479_s0.tgz": {
+    "size": 147252,
+    "zenodoChecksum": "md5:d5e4364b43b8a79860d5b9693f77e065"
+   },
+   "evidence_491_s0.tgz": {
+    "size": 153334,
+    "zenodoChecksum": "md5:732013ab200421c1069c84b4eb07ab3f"
+   },
+   "evidence_499_s0.tgz": {
+    "size": 173227,
+    "zenodoChecksum": "md5:10f5b753b064a86541f6224c3a4af846"
+   },
+   "evidence_503_s0.tgz": {
+    "size": 165755,
+    "zenodoChecksum": "md5:e4b6fa2d35e9d117dd74bc76f704eaef"
+   },
+   "evidence_241_s0.tgz": {
+    "size": 107444344,
+    "zenodoChecksum": "md5:2d429c6e76116520e5035fea2e966486"
+   },
+   "evidence_509_s0.tgz": {
+    "size": 169011,
+    "zenodoChecksum": "md5:b9d14525525ebad2129121584e88a686"
+   },
+   "evidence_521_s0.tgz": {
+    "size": 174581,
+    "zenodoChecksum": "md5:f4b7e5f2c0889eaef67753b0245bf657"
+   },
+   "evidence_269_s0.tgz": {
+    "size": 1225959,
+    "zenodoChecksum": "md5:cd150b00d1801cb4ac31d6a99965c6b7"
+   },
+   "evidence_271_s0.tgz": {
+    "size": 51398700,
+    "zenodoChecksum": "md5:fc5e312fb2bdc3f581abf965d817969b"
+   },
+   "evidence_487_s0.tgz": {
+    "size": 152962,
+    "zenodoChecksum": "md5:19930487d53848881414f2c4c1ef948a"
+   },
+   "evidence_449_s0.tgz": {
+    "size": 129110,
+    "zenodoChecksum": "md5:8c1707cd021cc5519ad45ec9fc0394a3"
+   },
+   "evidence_359_s0.tgz": {
+    "size": 112692,
+    "zenodoChecksum": "md5:903042900381b846c5c132f6a1dcb9b1"
+   },
+   "evidence_389_s0.tgz": {
+    "size": 106724,
+    "zenodoChecksum": "md5:3425a6a77245c1b1a13a341d236e0099"
+   },
+   "evidence_419_s0.tgz": {
+    "size": 110115,
+    "zenodoChecksum": "md5:24172401be9b33d91a3006b7b72f0e4d"
+   },
+   "evidence_401_s0.tgz": {
+    "size": 115360,
+    "zenodoChecksum": "md5:78aef68964dba21cdd31cd20d4c26480"
+   },
+   "evidence_223_s0.tgz": {
+    "size": 14442372,
+    "zenodoChecksum": "md5:6354dd0cea8fbb9a85fb9745c2d099bb"
+   },
+   "evidence_179_s0.tgz": {
+    "size": 10782322,
+    "zenodoChecksum": "md5:523c26bfd1c497197c0feeab5ecc8a24"
+   }
+  }
+ },
+ "context": {
+  "lrc13": "10.5281/zenodo.22066772 (Fourteen lonely runners, 2026-08-23)",
+  "framework": [
+   "arXiv:2604.23906 (Sungkawichai, Trakulthongchai)",
+   "Malikiosis, Santos, Schymura, Forum Math. Sigma 13 (2025) e164, doi:10.1017/fms.2025.10107"
+  ]
+ },
+ "copied": {
+  "SHA256SUMS.txt": "be0a3c76602113916615b4bbbfccaed0add8161d0683a9d113bfaa0059ce2cba",
+  "ZENODO-README.md": "cfb5869b4ed5aa7b03c14d08ae648a3386bc376136f2e6e49c62ab043da7f86c",
+  "constants.tex": "b8046ad012b896994d9be5cded7bb79aa951df22adbb218348cead372561199d",
+  "cost_table_v2.tex": "082fb94be7959487b7fbbd60cb8f916d2f572cf7b196462190ef766fdaa8fb1a",
+  "gates.json": "1e18143c8ddcd99d3ec93e16c675ee8c81c89e437e284c2349ec540400b25279",
+  "gates_table_v2.tex": "91960295c4bb957a6fac4ede67d5888a32ebda56ff501d1a978f28e7efc9c643",
+  "paper_v2.tex": "5c4ade983f6d2fe0c89fd5a328e19004a1e23981a957786e6768d826a78cbcd3"
+ }
+}

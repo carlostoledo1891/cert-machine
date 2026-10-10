@@ -868,22 +868,24 @@
   {
    "id": "sidorenko-explicit-host",
    "name": "An explicit, exactly certified counterexample to Sidorenko's conjecture: a finite host G (or a small rational kernel W) with t(H,G) < p(G)^66 for OpenAI's H (the incidence graph of 22 triples on 13 points, 35 vertices, 66 edges)",
-   "verdict": "OPEN — recommended 2026-10-10 as the compute ('brute force') target; not built",
+   "verdict": "OPEN — Phase 0 done 2026-10-10; small explicit hosts look unlikely (see measured); awaiting the operator's choice between dropping it and a ~$10 measurement",
    "scouted": "2026-10-10",
    "finding": "OpenAI's disproof (openai/math family 161, preprints/A-counterexample-to-Sidorenko*) specifies H explicitly but proves the host only exists: its kernel lives on symmetric D-by-D matrices over F_q with D >= D_0 and q a sufficiently large prime (kernel.tex), with a gap of order eps^13, then a sampled host. Lean (SidorenkoCounterexample) is kernel-checked here but existential; DeepMind formal-conjectures PR #6898 marks the finite form refuted and leaves the graphon form's step reduction unformalized. Our audit records the host as NEEDS DATA (F-300, gap G10). A third party (github.com/rohanarun/sidorenko-template-refinements) reports exact certificates for refinements of the construction and a second 35-vertex finite certificate, not claimed as a new counterexample.",
    "fit": "Exactly the house shape: a finite object, exact rational arithmetic, a one-line inequality anyone can re-check; it would be the first counterexample a reader can hold, and it closes our own published gap.",
    "cost": "t(H,W) for a kernel on n x m points is a tensor-network contraction over 13 point variables and 22 triple factors — GPU-friendly at n ~ 8-24; the search (gradient and annealing restarts seeded from small rank-layer kernels, D in {2,4,6}, q in {3,5,7,11}) is embarrassingly parallel on RunPod; float screen, exact certify. Pilot ~$50-200 with a pre-registered kill criterion.",
-   "next": "Scout first: read rohanarun's repository and the formal-conjectures PR; compute the contraction order of H's triple system; pre-register the search space and the kill criterion before any run."
+   "next": "Scout first: read rohanarun's repository and the formal-conjectures PR; compute the contraction order of H's triple system; pre-register the search space and the kill criterion before any run.",
+   "measured": "Phase 0 (2026-10-10): H contains 33 four-cycles (each of its 33 covered point pairs lies in exactly two faces), and every kernel close to constant satisfies the inequality, so a counterexample kernel must be far from constant; OpenAI's kernel lives on symmetric D-by-D matrices over F_q with D in the hundreds (the third-party refinement lowers one counting step to D >= 190; other thresholds may dominate). The density itself is cheap — the triple system has treewidth at most 5, so t(H,U) costs about N^6 for an N-point kernel — but a small explicit host now looks unlikely. Recommendation: drop, or spend at most ~$10 on a measurement pilot that records the best margin by N."
   },
   {
    "id": "lonely-runner-16",
    "name": "The lonely runner conjecture for 16 runners (and an independent re-verification of the 14- and 15-runner claim)",
-   "verdict": "OPEN — second choice for a compute target, 2026-10-10",
+   "verdict": "BUILDING 2026-10-10 (operator: \"Ok, let's do it. No rush, let's do it right.\"): track A, an independent clean-room re-verification of LRC(14), pinned in corpus/lonely-runner/lrc14-allikvere/ — Phase 0 done, decider not yet written",
    "scouted": "2026-10-10",
    "finding": "The frontier moves by computer-assisted finite checks: 8 runners (Rosenfeld, arXiv 2509.14111, Math. Comp. 2026), 9 and 10 (Trakulthongchai, arXiv 2511.22427, EJC 33 P2.46), 11-13 (Sungkawichai and Trakulthongchai, arXiv 2604.23906, code on GitHub), 14 and 15 claimed (arXiv 2609.02604, September 2026, not yet verified by anyone else).",
    "fit": "An independent exact re-verification of the newest claim is the house's audit product; 16 runners is a scaling problem (sieves, modular symmetry) where compute is the lever.",
    "cost": "Re-verification: cluster-hours to days depending on the sieve; 16 runners: unknown until the 15-runner code's scaling is measured.",
-   "next": "Read 2609.02604 and its code; measure how the verification cost grew from 13 to 15."
+   "next": "Read 2609.02604 and its code; measure how the verification cost grew from 13 to 15.",
+   "measured": "Phase 0 found the cost higher than the first estimate: the paper reports 2,137 CPU-hours for the 71 gates (Table cost: irredundant generation 5.8 M CPU-s, level 15 1.35 M CPU-s, all on 16-vCPU Hetzner machines; cost per gate grows about as p^6), so a full independent re-run is about $65 at RunPod's cpu3c price if our code is as fast, $130-200 if it is two to three times slower. The result is conditional on LRC(13) (Allikvere, Zenodo 22066772), whose campaign used about 31,872 vCPU-hours (~$1,000 to redo) and is not in scope. gates.json gives per-gate counts (irredundant orbits, km1 covers, persistent rows, surviving orbits) that a clean-room implementation can be compared against after it decides; the paper's framework-only run at p = 233 (GATE_FAIL, 13,456 orbits unresolved) is a ready red control for the few-exception shift lemma."
   },
   {
    "id": "hadamard-668",

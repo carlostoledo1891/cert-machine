@@ -1,0 +1,1396 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\hypersetup{
+  pdftitle={Fifteen lonely runners},
+  pdfauthor={Jaan Allikvere}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vct}[1]{\mathbf{#1}}
+\newcommand{\nearest}[1]{\left\lVert #1\right\rVert}
+\newcommand{\Enorm}[1]{\left\lVert #1\right\rVert_{E}}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\covol}{covol}
+
+% ---- verification constants (filled from the certified data) ----
+% \GateCount, \GateMassLB (rounded DOWN), \NoNearGcdCount, \NearGcdCount,
+% \CostExponent, \TotalCpuHours, \MassMargin are generated from the certified
+% data by inputs/make_tables.py.
+\input{constants.tex}
+% Thresholds are rounded UP, so every strict inequality below survives the rounding.
+\newcommand{\RawThreshUB}{414.7794}       % 14 log(A_14/28) rounded up
+\newcommand{\DivisorLogLB}{12.7948}       % log 360360 rounded down
+\newcommand{\TargetUB}{401.9846}          % RawThreshUB - DivisorLogLB, rounded up
+\newcommand{\OldThresh}{810.0740}         % log B_14 of the MSS/ST bound, rounded up
+
+\title{Fifteen lonely runners and a lattice flag bound for finite checking}
+\author{Jaan Allikvere\\
+\small Independent researcher, Tallinn, Estonia\\
+\small ORCID: \href{https://orcid.org/0009-0003-5228-7015}{0009-0003-5228-7015}}
+\date{September 2026 --- draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We prove the Lonely Runner Conjecture for fifteen runners.  The proof
+combines a new finite-checking bound with exhaustive computations for
+\GateCount{} primes.  Motivated by Giri and Kravitz, we study the
+projection of $\Z^n$ onto the orthogonal complement of a primitive speed
+tuple.  We extend their two-dimensional density argument along a full
+flag of rational subtori, and nearest-plane
+rounding turns the resulting estimates into simultaneous inequalities for
+a Korkine--Zolotarev basis.  An exact covolume formula then bounds the
+product of the speeds.  For $n=14$, the logarithm of this bound is
+$414.779\ldots$, compared with $810.074\ldots$ for the bound used in the
+preceding computer-assisted proofs.  A simple forced-divisor argument
+reduces the logarithmic sum required from the verified primes to
+$\TargetUB$.
+
+The modular computation begins with a complete two-branch covering search.
+It treats the terminal level $15=3\cdot5$ through its factors and uses a
+few-exception shift lemma for the residual classes left by the modular
+framework.  The verified primes have
+logarithmic sum greater than $\GateMassLB$, which exceeds the required
+threshold.  Code, certificates, and exact checks of the constants accompany
+the proof.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords.}
+Lonely Runner Conjecture; finite checking; Korkine--Zolotarev reduction;
+nearest-plane rounding; computer-assisted proof; exhaustive computation.
+
+\section{Introduction}
+
+For a real number $x$, let $\nearest{x}$ denote its distance to the nearest
+integer.  The Lonely Runner Conjecture $LRC(k)$ asserts that for every
+$\vct{v}=(v_1,\ldots,v_k)\in(\Z\setminus\{0\})^k$ there is a real time $t$
+with
+\begin{equation}\label{eq:lrc}
+  \nearest{t v_i}\geq \frac{1}{k+1}\qquad(1\leq i\leq k).
+\end{equation}
+This is the statement for $k+1$ runners after one runner is made
+stationary; since $\nearest{-x}=\nearest{x}$, the speeds may be taken
+positive.  We call $\vct{v}$ a \emph{speed tuple}.  If such a time $t$
+exists, the tuple has the \emph{LR property}, and $t$ is a \emph{witness}.
+
+The problem goes back to work of Wills in the 1960s~\cite{Wills1967}.
+Rosenfeld proved $LRC(7)$~\cite{Rosenfeld25}; Trakulthongchai proved
+$LRC(8)$ and $LRC(9)$~\cite{Trakulthongchai26}; Sungkawichai and
+Trakulthongchai proved $LRC(k)$ for $10\leq k\leq12$~\cite{ST26}; and the
+author proved $LRC(13)$~\cite{Allikvere26}.
+
+\begin{theorem}\label{thm:main}
+The Lonely Runner Conjecture holds for fifteen runners.
+\end{theorem}
+
+The recent cases use the same prime-divisibility strategy.  A
+finite-checking theorem bounds the product of the speeds in a primitive
+counterexample.  For each verified prime $p$, a modular computation shows
+that $p$ divides this product.  Once the product of the verified primes
+exceeds the finite-checking bound, no counterexample can exist.
+
+For $LRC(14)$, however, the earlier bound would require primes extending to
+about $970$.  Our measurements indicate that the cost at a prime $p$ grows
+roughly as $p^6$, so this direct continuation would be expensive.  The
+proof therefore has two parts.  First, we improve the finite-checking bound
+by studying the projected lattice in a norm adapted to the speed tuple.
+Lower-dimensional cases of the conjecture give an inequality for every
+prefix of a Korkine--Zolotarev basis, rather than only the top-dimensional
+inequality used previously.  For fourteen speeds this gives
+\[
+  \log(v_1\cdots v_{14})<414.779\ldots,
+\]
+compared with $810.074\ldots$ from the earlier bound.  The elementary
+divisibility $360360=\lcm(2,\ldots,15)\mid v_1\cdots v_{14}$ reduces the
+logarithmic sum required from the verified primes to $\TargetUB$.
+
+Second, we verify the required divisibility for \GateCount{} primes.  A
+complete two-branch covering search generates the level-$1$ improper
+tuples.  Successive binary lifting removes most of them.  At the terminal
+level we factor $15=3\cdot5$, and a few-exception shift lemma supplies the
+remaining divisibility argument when the covering number is low.  The logarithms of
+the verified primes sum to more than $\GateMassLB$.
+
+\medskip
+\noindent\textbf{Outline of the proof.}
+Section~\ref{sec:framework} recalls the modular framework and proves the
+prime-divisibility criterion used here.  Section~\ref{sec:flag} proves the
+lattice flag bound and the forced-divisor lemma.  Section~\ref{sec:pipeline}
+gives the verification for a fixed prime, including completeness proofs for
+the new steps.  Section~\ref{sec:gateset} lists the verified primes and
+deduces Theorem~\ref{thm:main}.  The final main-text sections discuss
+reproducibility, the surviving orbits, and the next case.  The appendices
+give two complete examples, the detailed verification record,
+computational costs, and the source check for the $LRC(9)$ input.
+
+\medskip
+\noindent\textbf{What is new.}
+The analytic contribution is a finite-checking theorem based on the full
+flag of prefix inequalities and an exact covolume in a speed-adapted
+ellipsoidal norm.  On the computational side, the two-branch generator of
+\cite{Allikvere26} is extended by a proved general variant, while the
+factorisation of level $15$ and the few-exception shift lemma replace a
+prohibitively large direct search.  Each verified prime has a certificate,
+and separate scripts check the certificates and recompute the analytic
+constants.  The final prime-product deduction uses the framework
+of~\cite{ST26} and takes the known cases through $LRC(13)$ as input.
+
+\subsection*{Relation to earlier work}
+
+Two earlier finite-checking arguments are especially relevant.
+Malikiosis, Santos, and Schymura~\cite{MSS25} obtain the product bound used
+in the preceding computer-assisted proofs; Blanco, Criado, and
+Santos~\cite{BCS26} recover the same bound in a broader setting.  Giri and
+Kravitz~\cite{GK26} instead use density in a two-dimensional rational
+subtorus, where the $LRC(n-1)$ case---equivalently, the case of $n$
+runners---applies.  Our argument follows this geometric approach along a
+complete flag of rational subtori.  Nearest-plane rounding turns the
+density statements into prefix inequalities for a Korkine--Zolotarev
+basis, while the adapted ellipsoid gives the covolume exactly.  The full
+comparison appears after Theorem~\ref{thm:flag}.
+
+\section{Proof strategy and the prime-divisibility criterion}\label{sec:framework}
+
+We recall the definitions of Sungkawichai and
+Trakulthongchai~\cite{ST26} in the form needed here, then isolate the
+prime-divisibility step used in the final argument.
+
+Let $p$ be prime and $l$ a positive integer, and write
+$\Z_{p,l}=\Z_{pl}\setminus p\Z_l$, so that a vector in $\Z_{p,l}^k$ has no
+coordinate divisible by $p$.  A vector $\vct{v}\in\Z_{p,l}^k$ is
+\emph{$(k,p,l)$-proper} if either (a) for some $i$,
+$\gcd(l,v_1,\ldots,\widehat{v_i},\ldots,v_k)>1$, or (b) for some
+$t\in(lp)^{-1}\Z$, $\nearest{tv_i}\geq1/(k+1)$ for every $i$.  The set of
+improper vectors is $I(k,p,l)$.  A vector $\vct{v}\in\Z_{p,1}^k$ is
+\emph{eventually $(k,p)$-proper} if some level $l$ has no improper lift of
+$\vct{v}$, where a lift to level $l$ is a vector
+$\vct{w}\equiv\vct{v}\pmod p$ with coordinates in $\Z_{pl}$; the set of
+vectors that are not eventually proper is $J(k,p)$.  By Lemma~2.4
+of~\cite{ST26}, $J(k,p)=\varnothing$ if and only if $I(k,p,l)=\varnothing$
+for some $l$.  The equivalence uses the following monotonicity: a witness,
+or a divisor from the gcd condition, remains valid at every multiple of
+the level.  By Proposition~5.1 of~\cite{ST26}, permutations,
+sign changes of coordinates, and multiplication by a unit modulo $p$
+preserve eventual properness (for the unit case see also Remark~2.3
+of~\cite{Allikvere26}).
+
+For an integer $c\geq2$, the $c$-lifts of $\vct{v}\in\Z_{p,l}^k$ to level
+$cl$ are the $c^k$ vectors $w_i=v_i+a_ilp$, $a_i\in\{0,\ldots,c-1\}$; these
+vectors form the full lift fiber of $\vct{v}$.  For a level-$1$ vector $r$
+and a level $l$ write
+$F_l(r)=\{\vct{w}\in I(k,p,l):\vct{w}\equiv r\bmod p\}$.  The computation
+carries exactly this improper part of the fiber for every generated $r$
+and every level it reaches.  This is true at level $1$ and propagates
+through each lifting stage by monotonicity, since every element of
+$F_{cl}(r)$ reduces to an element of $F_l(r)$.  If $F_l(r)=\varnothing$ at
+some level, $r$ is eventually proper, and so is its unit orbit.
+
+\begin{lemma}[Prime-divisibility criterion]\label{lem:gate}
+Let $k\geq3$, assume $LRC(m)$ for all $m<k$, and let $\vct{v}\in\Z_{>0}^k$
+be a primitive counterexample to $LRC(k)$ with pairwise distinct
+coordinates.  Let $p$ be a prime.
+\begin{enumerate}[leftmargin=*,label=(\roman*)]
+\item If $J(k,p)=\varnothing$, then $p\mid v_1\cdots v_k$.
+\item More generally, suppose that for every $\vct{u}\in\Z_{p,1}^k$
+  either $\vct{u}$ is eventually proper, or there is a level $l$ such
+  that every lift $\vct{w}$ of $\vct{u}$ to level $l$ is proper or
+  satisfies the following: every integer vector congruent to $\vct{w}$
+  modulo $lp$ with pairwise distinct positive coordinates has the
+  lonely-runner property~\eqref{eq:lrc}.  Then $p\mid v_1\cdots v_k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (i) is Lemma~2.2 of~\cite{ST26} combined with Lemma~2.4 there.  We
+recall the mechanism, since (ii) extends it.  Suppose $p\nmid v_i$ for all
+$i$ and let $\vct{u}$ be the reduction of $\vct{v}$ modulo $p$.  Take a
+level $l$ as in the hypothesis and let $\vct{w}$ be the reduction of
+$\vct{v}$ modulo $lp$, a lift of $\vct{u}$.  If $\vct{w}$ has a witness
+$t\in(lp)^{-1}\Z$, then $\nearest{tv_i}=\nearest{tw_i}\geq1/(k+1)$ for
+all $i$, so $\vct{v}$ is not a counterexample.  If
+$g=\gcd(l,w_j:j\neq i)>1$, then $g$ divides $v_j$ for all $j\neq i$, and
+$g\nmid v_i$ because $\vct{v}$ is primitive.  The $k-1$ speeds $v_j$,
+$j\neq i$, take $m\leq k-1$ distinct values, so $LRC(m)$ gives $t_0$ with
+$\nearest{t_0v_j}\geq1/(m+1)\geq1/k$ for all $j\neq i$.  The shifted
+times $t_0+q/g$, $q=0,\ldots,g-1$, leave every $t_0v_j$ ($j\neq i$) fixed
+modulo one and move $t_0v_i$ through the $g'$ equally spaced points of a
+grid with $g'=g/\gcd(g,v_i)\geq2$.  Such a grid cannot lie inside an open
+arc of length $2/(k+1)\leq\frac12$: the shortest closed arc containing the
+grid has length $1-1/g'\geq\frac12$, and equality is harmless because the
+bad arc is open.  Thus some shift has
+$\nearest{(t_0+q/g)v_i}\geq1/(k+1)$; at that shift every coordinate is at
+distance $\geq1/(k+1)$ and $\vct{v}$ is not a counterexample.  In case
+(ii), the third alternative applies directly to
+$\vct{v}$ itself, which is congruent to $\vct{w}$ modulo $lp$ and has
+pairwise distinct positive coordinates.  In every case $\vct{v}$ has the
+lonely-runner property, contradicting the assumption; so some $v_i$ is
+divisible by $p$.
+\end{proof}
+
+Part~(i) handles primes with $J(14,p)=\varnothing$; for the others,
+part~(ii) and Lemma~\ref{lem:neargcd} handle the residue classes left after
+lifting.  Both give $p\mid v_1\cdots v_k$.
+
+\begin{remark}[Unit orbits]
+If $\vct{v}\equiv a r\pmod p$ with $a\in\Z_p^\times$, the Chinese
+remainder theorem gives $b>0$ with $b\equiv a^{-1}\pmod p$ and
+$b\equiv1\pmod l$, since $\gcd(l,p)=1$.  Then $(b\vct{v}\bmod lp)$ lifts
+$r$, while $b\vct{v}$ remains positive and pairwise distinct, has the same
+divisibility by divisors of $l$, and is a counterexample if and only if
+$\vct{v}$ is.  Thus one orbit representative suffices.
+\end{remark}
+
+\section{The lattice flag bound and the forced divisor}\label{sec:flag}
+
+Throughout this section $n\geq2$, $\vct{v}=(v_1,\ldots,v_n)\in\Z_{>0}^n$ is
+primitive ($\gcd(v_1,\ldots,v_n)=1$), and ``counterexample'' means: for
+every real $t$ some $i$ has $\nearest{tv_i}<1/(n+1)$.  We write
+\[
+  S=\sum_iv_i,\quad x_i=\frac{v_i}{S},\quad
+  u_i=\frac{v_i}{\max_jv_j},\quad
+  q_i=1+2u_i-u_i^2\in(1,2],\quad Q=\operatorname{diag}(q_1,\ldots,q_n).
+\]
+Let $H=\vct{v}^{\perp}\subset\R^n$, let $P$ be the orthogonal projection
+onto $H$, and let
+\[
+  \Lambda=P\Z^n,\qquad D=P[-1,1]^n,\qquad E=P\,Q^{1/2}B_2^n,
+\]
+where $B_2^n$ is the Euclidean unit ball.  $\Lambda$ is a lattice of rank
+$d=n-1$ in $H$, with Euclidean covolume $\det\Lambda=1/\lVert\vct{v}\rVert_2$
+(for primitive $\vct{v}$ the lattice $\Z^n\cap H$ has covolume
+$\lVert\vct{v}\rVert_2$, and $P\Z^n$ is its dual in $H$).  $D$ is a zonotope
+and $E$ is an origin-symmetric ellipsoid; we write $\Enorm{\cdot}$ for the
+Euclidean norm on $H$ whose unit ball is $E$ and
+$\langle\cdot,\cdot\rangle_E$ for its inner product.  Finally put
+\begin{equation}\label{eq:F}
+  F_n(\vct{x})^2=\prod_iq_i\cdot\sum_i\frac{x_i^2}{q_i},
+  \qquad
+  R_n(\vct{x})=\frac{n\,(\prod_ix_i)^{1/n}}{F_n(\vct{x})}.
+\end{equation}
+
+\subsection{The ellipsoid and the covolume}
+
+\begin{lemma}[Inclusion]\label{lem:incl}
+$E\subseteq D$.
+\end{lemma}
+
+\begin{proof}
+For $\vct{y}\in H$ the support functions are $h_D(\vct{y})=\sum_i|y_i|$
+(the support function of a projection is the restriction of the support
+function) and $h_E(\vct{y})=\sup_{|\vct{b}|\leq1}\langle
+\vct{y},PQ^{1/2}\vct{b}\rangle=|Q^{1/2}\vct{y}|=(\sum_iq_iy_i^2)^{1/2}$,
+since $P\vct{y}=\vct{y}$.  It suffices to show $\sum_iq_iy_i^2\leq1$ on
+the polytope $\{\vct{y}\in H:\sum|y_i|\leq1\}$, and since the left side
+is convex, at its vertices.  These are the points where the edges of the
+cross-polytope meet $H$; an edge from $e_i$ to $-e_j$ meets $H$ at
+$(v_je_i-v_ie_j)/(v_i+v_j)$, and edges between two vectors of equal sign
+do not meet $H$ because $\vct{v}$ is positive.  At such a vertex,
+\[
+  \sum_kq_ky_k^2=\frac{q_iv_j^2+q_jv_i^2}{(v_i+v_j)^2}\leq1
+  \iff (q_i-1)v_j^2+(q_j-1)v_i^2\leq2v_iv_j .
+\]
+With $q_i-1=u_i(2-u_i)$ and $v_i=Mu_i$, $M=\max_jv_j$, dividing by
+$M^2u_iu_j$ turns the right-hand inequality into
+$u_j(2-u_i)+u_i(2-u_j)\leq2$, that is, $(1-u_i)(1-u_j)\geq0$.
+\end{proof}
+
+\begin{lemma}[Covolume in the ellipsoidal norm]\label{lem:det}
+The covolume of $\Lambda$ with respect to $\langle\cdot,\cdot\rangle_E$ is
+\[
+  \covol_E(\Lambda)=\frac{1}{S\,F_n(\vct{x})}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $U$ be an $n\times(n-1)$ matrix whose columns form an orthonormal
+basis of $H$ and put $\tilde{\vct{v}}=\vct{v}/\lVert\vct{v}\rVert_2$.  In
+the coordinates $\vct{y}=U^{\mathsf T}\vct{h}$ on $H$, the polar body
+$\{\vct{h}\in H:h_E(\vct{h})\leq1\}$ has Gram matrix $U^{\mathsf T}QU$ by
+the computation of $h_E$ above, so $E$ itself has Gram matrix
+$(U^{\mathsf T}QU)^{-1}$ and
+$\covol_E(\Lambda)=\det\Lambda\cdot\det(U^{\mathsf T}QU)^{-1/2}$.  The
+orthogonal matrix $O=[U\mid\tilde{\vct{v}}]$ gives
+$\det Q=\det(O^{\mathsf T}QO)
+ =\det(U^{\mathsf T}QU)\cdot\bigl(\tilde{\vct{v}}^{\mathsf T}Q\tilde{\vct{v}}
+ -\tilde{\vct{v}}^{\mathsf T}QU(U^{\mathsf T}QU)^{-1}U^{\mathsf T}Q\tilde{\vct{v}}\bigr)$
+by the Schur complement, and the bracket is the reciprocal of the
+$(n,n)$ entry of $(O^{\mathsf T}QO)^{-1}=O^{\mathsf T}Q^{-1}O$, namely
+$1/(\tilde{\vct{v}}^{\mathsf T}Q^{-1}\tilde{\vct{v}})$.  Hence
+$\det(U^{\mathsf T}QU)=\det Q\cdot\tilde{\vct{v}}^{\mathsf T}Q^{-1}\tilde{\vct{v}}
+=\prod_iq_i\cdot\sum_iv_i^2/q_i\big/\lVert\vct{v}\rVert_2^2$, and
+\[
+  \covol_E(\Lambda)^2
+  =\frac{1}{\lVert\vct{v}\rVert_2^2}\cdot
+   \frac{\lVert\vct{v}\rVert_2^2}{\prod_iq_i\sum_iv_i^2/q_i}
+  =\frac{1}{S^2\prod_iq_i\sum_ix_i^2/q_i}
+  =\frac{1}{S^2F_n(\vct{x})^2}.\qedhere
+\]
+\end{proof}
+
+\subsection{Points with all coordinates far from integers}
+
+The following lemma is Lemma~3.3 of Giri and Kravitz~\cite{GK26} in a
+different normalization: in their notation it says
+$\max\mathcal S_q(n)=\max\mathcal S_1(n+1-q)$, and $LRC(n+1-q)$ bounds
+the right-hand side.  We include a short proof along their lines, since
+the statement is used with every $q$ below.
+
+\begin{lemma}[Separated points on rational subspaces]\label{lem:safe}
+Let $1\leq q\leq n$ and assume $LRC(m)$ for every $m\leq n+1-q$.  Let
+$V\subseteq\R^n$ be a rational subspace of dimension $q$ on which no
+coordinate functional vanishes identically.  Then $V$ contains a point
+$\vct{s}$ with
+\[
+  \nearest{s_i}\geq\frac{1}{n+2-q}\qquad(1\leq i\leq n).
+\]
+\end{lemma}
+
+\begin{proof}
+Induction on $q$, simultaneously for all $n$.  For $q=1$, $V=\R\vct{a}$
+with $\vct{a}\in\Z^n$ primitive and all $a_i\neq0$.  The values $|a_i|$
+are $m\leq n$ distinct positive integers;
+$LRC(m)$ gives $t$ with $\nearest{ta_i}\geq1/(m+1)\geq1/(n+1)$, and
+$\vct{s}=t\vct{a}$ works.
+
+Let $q\geq2$.  The restrictions of the coordinate functionals to $V$ are
+nonzero vectors $\vct{a}_1,\ldots,\vct{a}_n\in V$ (identify $V^{*}$ with
+$V$ through the Euclidean inner product); they span $V^{*}$, so not all of
+them are proportional.  Among all non-proportional pairs choose $(i,j)$
+minimizing the angle between the lines $\R\vct{a}_i$ and $\R\vct{a}_j$,
+and replace $\vct{a}_j$ by $-\vct{a}_j$ if necessary so that
+$\langle\vct{a}_i,\vct{a}_j\rangle\geq0$; this amounts to changing the
+sign of the $j$-th coordinate, which does not affect $\nearest{\cdot}$.
+Put $\vct{h}=\vct{a}_i+\vct{a}_j\neq0$.  The line $\R\vct{h}$ makes a
+strictly smaller angle with $\R\vct{a}_i$ than $\R\vct{a}_j$ does, so by
+minimality $\vct{h}$ is proportional to no $\vct{a}_k$.  Let
+$V'=\{\vct{y}\in V:\langle\vct{h},\vct{y}\rangle=0\}$, a rational
+subspace of dimension $q-1$ on which $y_i=-y_j$ (after the sign change).
+No coordinate vanishes on $V'$: the functional $\vct{a}_k$ vanishes on
+$V'=\vct{h}^{\perp}\cap V$ only if $\vct{a}_k\in\R\vct{h}$.  Deleting the
+$j$-th coordinate maps $V'$ injectively onto a rational subspace
+$V''\subseteq\R^{n-1}$ of dimension $q-1$ with no vanishing coordinate.
+The induction hypothesis (with $n-1$ in place of $n$; it requires
+$LRC(m)$ for $m\leq(n-1)+1-(q-1)=n+1-q$) gives $\vct{s}''\in V''$ with all
+coordinates at distance $\geq1/((n-1)+2-(q-1))=1/(n+2-q)$; its preimage
+$\vct{s}\in V'$ has $\nearest{s_j}=\nearest{-s_i}=\nearest{s_i}$, so all
+$n$ coordinates satisfy the bound.
+\end{proof}
+
+\subsection{Prefix inequalities for the Gram--Schmidt lengths}
+
+Let $\vct{b}_1,\ldots,\vct{b}_d$ be any basis of $\Lambda$ ($d=n-1$), let
+$\vct{b}_i^{*}$ be its Gram--Schmidt vectors with respect to
+$\langle\cdot,\cdot\rangle_E$, and put $t_i=\Enorm{\vct{b}_i^{*}}^2>0$.
+Then $\prod_it_i=\covol_E(\Lambda)^2$.
+
+\begin{proposition}[Prefix inequalities]\label{prop:prefix}
+Assume $LRC(m)$ for all $m<n$ and let $\vct{v}$ be a counterexample.  Then
+for every $r=1,\ldots,d$,
+\begin{equation}\label{eq:prefix}
+  t_1+\cdots+t_r\;>\;B_r,\qquad
+  B_r:=\Bigl(\frac{2r}{(n+1)(n+1-r)}\Bigr)^{2}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Fix $r$ and choose $\vct{z}_i\in\Z^n$ with $P\vct{z}_i=\vct{b}_i$
+($1\leq i\leq r$).  The subspace $V=\spn(\vct{v},\vct{z}_1,\ldots,\vct{z}_r)$
+is rational and has dimension $r+1$: if
+$a\vct{v}+\sum a_i\vct{z}_i=0$, applying $P$ gives $\sum a_i\vct{b}_i=0$,
+so all $a_i=0$ and then $a=0$.  No coordinate vanishes on $V$, since
+$\vct{v}\in V$ has positive coordinates.  Lemma~\ref{lem:safe} with
+$q=r+1$ (it needs $LRC(m)$ for $m\leq n-r\leq n-1$) gives
+$\vct{s}=a\vct{v}+\sum_ia_i\vct{z}_i\in V$ with
+$\nearest{s_k}\geq1/(n+1-r)$ for all $k$.
+
+Apply nearest-plane rounding to the coefficients: choose integers
+$k_r,k_{r-1},\ldots,k_1$ in this order so that
+$\vct{e}:=\sum_{i\leq r}(a_i-k_i)\vct{b}_i=\sum_{i\leq r}\theta_i\vct{b}_i^{*}$
+has $|\theta_i|\leq\frac12$ for all $i$ (at step $i$ the coefficient of
+$\vct{b}_i^{*}$ is $a_i-k_i$ plus a quantity already fixed by
+$k_{i+1},\ldots,k_r$, so $k_i$ can be chosen to bring it into
+$[-\frac12,\frac12]$).  By orthogonality,
+\begin{equation}\label{eq:round}
+  \varepsilon:=\Enorm{\vct{e}}\leq\tfrac12\sqrt{t_1+\cdots+t_r}.
+\end{equation}
+By Lemma~\ref{lem:incl}, $\vct{e}\in\varepsilon E\subseteq\varepsilon D$,
+so $\vct{e}=P\vct{y}$ for some $\vct{y}\in\R^n$ with $|y_k|\leq\varepsilon$
+for all $k$.  The vector $\sum_i(a_i-k_i)\vct{z}_i-\vct{y}$ has projection
+$\vct{e}-\vct{e}=0$, hence equals $c\vct{v}$ for some real $c$.  Therefore
+\[
+  \vct{s}-\sum_ik_i\vct{z}_i-\vct{y}=(a+c)\vct{v}=:t\vct{v},
+\]
+and since $\sum_ik_i\vct{z}_i\in\Z^n$,
+\[
+  \nearest{tv_k}=\nearest{s_k-y_k}\geq\nearest{s_k}-|y_k|
+  \geq\frac{1}{n+1-r}-\varepsilon\qquad(1\leq k\leq n).
+\]
+If $\varepsilon\leq\frac1{n+1-r}-\frac1{n+1}=\frac{r}{(n+1)(n+1-r)}$,
+then $t$ is a witness for $\vct{v}$, contradicting that $\vct{v}$ is a
+counterexample.  So $\varepsilon>r/((n+1)(n+1-r))$, and
+\eqref{eq:round} gives $t_1+\cdots+t_r\geq4\varepsilon^2>B_r$.
+\end{proof}
+
+For $r=1$ this is the finite-checking argument of Giri and
+Kravitz~\cite[\S7]{GK26} in a sharper form: the geodesic
+$t\mapsto t\vct{v}$ comes within $\varepsilon$ of every point of the
+two-dimensional subtorus spanned by $\vct{v}$ and $\vct{z}_1$, in every
+coordinate, and the $LRC(n-1)$ case---equivalently, the case of $n$
+runners---applies to that subtorus.  For $r=d$ the inequality reads
+$\sum_it_i>((n-1)/(n+1))^2$ and concerns the whole lattice.  The content
+of \eqref{eq:prefix} is that an inequality of the same kind holds
+simultaneously in every prefix of the flag, with a right-hand side that
+grows with $r$.
+
+\subsection{Korkine--Zolotarev bases and the product minimization}
+
+\begin{lemma}[KZ bases]\label{lem:kz}
+$\Lambda$ has a basis $\vct{b}_1,\ldots,\vct{b}_d$ whose Gram--Schmidt
+lengths satisfy $t_{i+1}\geq\frac34t_i$ for $1\leq i<d$.
+\end{lemma}
+
+\begin{proof}
+Construct the basis recursively (Korkine--Zolotarev~\cite{KZ1873}; see
+\cite{LLS90}).  Let $\vct{b}_1$ be a shortest nonzero vector of $\Lambda$;
+it is primitive.  Having chosen $\vct{b}_1,\ldots,\vct{b}_i$ spanning a
+primitive sublattice, let $\pi_i$ be the orthogonal projection onto
+$\{\vct{b}_1,\ldots,\vct{b}_i\}^{\perp}$, choose a shortest nonzero vector
+of the projected lattice $\pi_i\Lambda$ (of rank $d-i$), and let
+$\vct{b}_{i+1}\in\Lambda$ be any preimage; then $\vct{b}_{i+1}^{*}$ is that
+shortest vector, and $\vct{b}_1,\ldots,\vct{b}_{i+1}$ again span a
+primitive sublattice, so after $d$ steps we have a basis.  For the
+inequality, note that $\vct{b}_i^{*}$ is a shortest vector of
+$\pi_{i-1}\Lambda$, which also contains
+$\pi_{i-1}(\vct{b}_{i+1}-m\vct{b}_i)=\vct{b}_{i+1}^{*}+(\mu-m)\vct{b}_i^{*}$
+for every integer $m$, where $\mu$ is the Gram--Schmidt coefficient.
+Choosing $m$ with $|\mu-m|\leq\frac12$ gives a nonzero vector of squared
+length at most $t_{i+1}+\frac14t_i$, so $t_i\leq t_{i+1}+\frac14t_i$.
+\end{proof}
+
+Put $\rho=\frac34$, $B_0=0$, and $c_i=B_i-B_{i-1}$ for $1\leq i\leq d$.
+
+\begin{lemma}[Product minimization]\label{lem:minimize}
+Suppose $c_{i+1}/c_i>1/\rho$ for $1\leq i<d$.  If positive reals
+$t_1,\ldots,t_d$ satisfy $t_{i+1}\geq\rho t_i$ for all $i<d$ and
+$t_1+\cdots+t_r\geq B_r$ for all $r\leq d$, then
+$\prod_it_i\geq\prod_ic_i$, with equality at $t_i=c_i$.
+\end{lemma}
+
+\begin{proof}
+Put $w_i=\rho^{i-1}$ and $z_i=t_i/w_i$.  The constraints become
+$z_1\leq z_2\leq\cdots\leq z_d$ and $\sum_{i\leq r}w_iz_i\geq B_r$
+($1\leq r\leq d$); they define a polyhedron $\Pi\subset\R^d$ contained in
+the open positive orthant ($z_1\geq B_1>0$).  The objective
+$f(\vct{z})=\sum_i\log(w_iz_i)$ is concave on $\Pi$ and nondecreasing in
+every coordinate, and the recession cone of $\Pi$,
+$\{0\leq z_1\leq\cdots\leq z_d\}$, lies in the nonnegative orthant.
+$\Pi$ contains no line, so every point of $\Pi$ is a convex combination of
+vertices plus a recession vector, and $f$ is at least its minimum over the
+vertices.  It remains to show $f\geq\sum\log c_i$ at every vertex.
+
+At a vertex, $d$ linearly independent constraints are active.  The active
+monotonicity constraints $z_i=z_{i+1}$ partition $\{1,\ldots,d\}$ into
+maximal blocks of constant $z$; if there are $\beta$ blocks, then
+$d-\beta$ monotonicity constraints are active and at least $\beta$ prefix
+constraints must be active.  No prefix constraint is active at an index
+$r$ strictly inside a block $\{a+1,\ldots,b\}$ ($a<r<b$) on which $z$
+equals $\zeta$: feasibility at $a$ and activity at $r$ give
+$\zeta\sum_{a<i\leq r}w_i\leq B_r-B_a=\sum_{a<i\leq r}c_i$, so $\zeta$
+is at most a weighted average of the $c_i/w_i$ over $a<i\leq r$, hence
+$\zeta\leq c_r/w_r$ because $c_i/w_i$ is strictly increasing; but
+activity at $r$ and feasibility at $r+1$ give $w_{r+1}\zeta\geq c_{r+1}$,
+i.e.\ $\zeta\geq c_{r+1}/w_{r+1}>c_r/w_r$, a contradiction.  Thus the
+active prefixes are at block ends, there are at most $\beta$ of them, so
+every block end is active, and on each block $\{a+1,\ldots,b\}$ the
+$t_i=w_i\zeta$ form a geometric sequence with ratio $\rho$ whose sum is
+$B_b-B_a=\sum_{a<i\leq b}c_i$.
+
+Compare, within one block of length $L$, the decreasing geometric
+sequence $\vct{g}=(t_{a+1},\ldots,t_b)$ with the sequence
+$\vct{c}^{\downarrow}=(c_b,c_{b-1},\ldots,c_{a+1})$, both positive with
+the same sum.  Consecutive ratios satisfy
+$c^{\downarrow}_{j+1}/c^{\downarrow}_j<\rho=g_{j+1}/g_j$, so for $j\leq
+k<l$ we have $c^{\downarrow}_l/c^{\downarrow}_j\leq g_l/g_j$ and
+$c^{\downarrow}_j/c^{\downarrow}_k\geq g_j/g_k$, whence
+\[
+  \frac{\sum_{l>k}c^{\downarrow}_l}{\sum_{j\leq k}c^{\downarrow}_j}
+  \leq\frac{\sum_{l>k}g_l/g_k}{\sum_{j\leq k}g_j/g_k}
+  =\frac{\sum_{l>k}g_l}{\sum_{j\leq k}g_j}
+  \qquad(1\leq k<L),
+\]
+and with equal totals, $\sum_{j\leq k}c^{\downarrow}_j\geq\sum_{j\leq
+k}g_j$ for all $k$: $\vct{c}^{\downarrow}$ majorizes $\vct{g}$.  Since
+$\sum\log$ is Schur-concave, $\prod_{a<i\leq b}c_i\leq\prod_{a<i\leq
+b}t_i$.  Multiplying over the blocks gives $\prod_it_i\geq\prod_ic_i$ at
+every vertex.  Finally $t_i=c_i$ is feasible ($c_{i+1}>c_i/\rho>\rho
+c_i$ and all prefixes are equalities), so the bound is attained.
+\end{proof}
+
+For $n=14$ the minimum of the ratios $c_{i+1}/c_i$ is
+$847/513>4/3$; for $n=15$ it is $3751/2349$, and for $n=13$ it is
+$1175/688$.
+
+\subsection{The shape factor}
+
+\begin{lemma}[Shape bound]\label{lem:shape}
+For $n=14$ and every $\vct{x}\in\R_{>0}^{14}$ with $\sum x_i=1$,
+$R_{14}(\vct{x})<\frac12$.
+\end{lemma}
+
+\begin{proof}
+Write $n=14$.  Passing from $x_i$ to $u_i=x_i/\max_jx_j$ cancels the
+common scale in \eqref{eq:F}: with
+\[
+  q(u)=1+2u-u^2,\qquad a(u)=\frac{q(u)}{u^{2/n}},\qquad
+  w(u)=\frac{u^2}{q(u)},\qquad
+  H(\vct{u})=\Bigl(\sum_iw(u_i)\Bigr)\prod_ia(u_i),
+\]
+one has $R_n(\vct{x})^2=n^2/H(\vct{u})$, so it suffices to prove
+$H>4n^2=784$ on the domain $\vct{u}\in(0,1]^n$ with some $u_i=1$.  Since
+$w(1)=\frac12$, $w\geq0$, and $a(u)\to\infty$ as $u\to0$, $H$ tends to
+infinity when any coordinate tends to $0$, so $H$ attains its minimum.
+
+\emph{Interior coordinates.}  Fix all coordinates but one interior
+coordinate $u\in(0,1)$ and put $C=\sum_{j\neq i}w(u_j)\in(0,\frac{n-1}2]$.
+Up to a positive factor the objective is $\phi(u)=a(u)(C+w(u))$, and a
+direct computation gives
+\begin{equation}\label{eq:phi}
+  \tfrac n2\,u^{1+2/n}\,\phi'(u)
+  =-\bigl[C\{(n-1)u^2-(n-2)u+1\}-(n-1)u^2\bigr]=:-\beta(u).
+\end{equation}
+Let $\alpha$ be the smaller root of $(n-1)u^2-(n-2)u+1$ ($\alpha_{14}
+=0.0926\ldots$).  Then $\beta(0)=C>0$ and $\beta(\alpha)=-(n-1)\alpha^2<0$.
+If $C\leq1$, $\beta$ is concave with $\beta(0)>0$ and has exactly one
+positive root; if $C>1$, $\beta$ is convex with $\beta(1)=2C-(n-1)\leq0$,
+so its second root is $\geq1$.  In both cases $\beta$ has exactly one
+root $u_0\in(0,\alpha)$ in $(0,1)$, and $\phi$ decreases on $(0,u_0)$ and
+increases on $(u_0,1)$.  Hence at a minimizer every interior coordinate is
+a critical point in $(0,\alpha)$.  At such a point, with
+$A=C+w(u)=\sum_iw(u_i)$, the equation $\beta(u)=0$ is equivalent to
+\begin{equation}\label{eq:crit}
+  \frac{q(u)\{1-(n-2)u+(n-1)u^2\}}{n\,u^2(1+u)}=\frac1A .
+\end{equation}
+The derivative of the left side has the sign of
+$-(13u^5+26u^4-50u^3-20u^2-7u+2)$, and the polynomial is positive on
+$(0,\alpha)$ (drop its positive terms and use $\alpha<0.1$), so the left
+side is strictly decreasing there.  Since $A$ is the same for every
+coordinate, all interior coordinates of a minimizer share one value $t$.
+
+\emph{Two or more coordinates equal to one.}  We use $a(u)>\frac85$ on
+$(0,1]$: the logarithmic derivative of $a$ vanishes exactly at the roots
+$(6\pm\sqrt{23})/13$ of $13u^2-12u+1$, so $a$ decreases from $+\infty$
+to a local minimum at $u_1=(6-\sqrt{23})/13\in(0.092,0.093)$, increases
+to a local maximum, and decreases to $a(1)=2$; hence
+$a\geq\min(a(u_1),2)$ and $a(u_1)>q(0.092)/0.093^{1/7}>1.65$.  If $k\geq2$
+coordinates equal one, then $\sum_iw(u_i)\geq k/2$ and
+$H\geq\frac k2\,2^k(\tfrac85)^{n-k}$, which increases with $k$ and at
+$k=2$ equals $4\cdot(8/5)^{12}>1125>784$.
+
+\emph{Exactly one coordinate equal to one.}  Then the other thirteen equal
+$t\in(0,\alpha)$ and
+\[
+  H(t)=\Bigl(\tfrac12+\tfrac{13t^2}{q(t)}\Bigr)\cdot2\cdot\frac{q(t)^{13}}{t^{26/14}}
+  =\frac{(1+2t+25t^2)\,q(t)^{12}}{t^{13/7}} .
+\]
+On this interval its logarithmic derivative has the same sign as
+$325t^3+23t^2+9t-1$, since all remaining factors are positive.  Thus $H$
+decreases until the unique root
+$t_0\in(0.0782,0.0783)$ of the increasing cubic and increases afterwards.
+As $q$ and $1+2t+25t^2$ increase and $t^{-13/7}$ decreases,
+\[
+  H(t_0)\geq\frac{(1+2\cdot0.0782+25\cdot0.0782^2)\,q(0.0782)^{12}}{0.0783^{13/7}}
+  >796.4>784 ,
+\]
+an exact rational comparison after raising to the seventh power.  So
+$H>784$ in every case, and $R_{14}<14/28=\frac12$.
+\end{proof}
+
+The same argument gives $R_{15}<\frac12$ and $R_{13}<\frac{101}{200}$
+(the corresponding cubics are $378t^3+25t^2+10t-1$ and
+$276t^3+21t^2+8t-1$, and the constants $900$ and $(2600/101)^2$).  The
+$n=14$ estimate is used in the proof, while the $n=15$ estimate is used
+only in the outlook below.
+
+\subsection{The theorem and its constants}
+
+\begin{theorem}[Flag bound]\label{thm:flag}
+Assume $LRC(m)$ for all $m<n$, let $\vct{v}\in\Z^n_{>0}$ be a primitive
+counterexample to $LRC(n)$, and suppose $c_{i+1}/c_i>4/3$ for
+$1\leq i<n-1$.  Put
+\[
+  K_n=\prod_{i=1}^{n-1}c_i,\qquad A_n=K_n^{-1/2}.
+\]
+Then $S\,F_n(\vct{x})\leq A_n$, and if moreover $R_n<\frac12$ on the
+simplex, then
+\[
+  v_1\cdots v_n<\Bigl(\frac{A_n}{2n}\Bigr)^{n}.
+\]
+In particular, for $n=14$, using $LRC(13)$~\cite{Allikvere26} and
+$LRC(m)$, $m\leq12$~\cite{ST26},
+\[
+  K_{14}=\frac{2289670297}{97243124257250844122250000000000000000},\qquad
+  A_{14}=206083383792625.44\ldots,
+\]
+\[
+  \log(v_1\cdots v_{14})<14\log\frac{A_{14}}{28}
+  =414.77936455669981\ldots<\RawThreshUB .
+\]
+\end{theorem}
+
+\begin{proof}
+Take a KZ basis (Lemma~\ref{lem:kz}).  Its Gram--Schmidt lengths satisfy
+the hypotheses of Lemma~\ref{lem:minimize} by Proposition~\ref{prop:prefix},
+so $\covol_E(\Lambda)^2=\prod_it_i\geq K_n$, and Lemma~\ref{lem:det} gives
+$(SF_n(\vct{x}))^{-2}\geq K_n$, i.e.\ $SF_n(\vct{x})\leq A_n$.  By the
+definition \eqref{eq:F} of $R_n$,
+\[
+  n\,(v_1\cdots v_n)^{1/n}=n\,S\,(\textstyle\prod_ix_i)^{1/n}
+  =S\,F_n(\vct{x})\,R_n(\vct{x})<\tfrac12A_n ,
+\]
+which is the product bound.  For $n=14$ the ratio hypothesis holds with
+minimum $847/513$, the shape bound is Lemma~\ref{lem:shape}, and the
+constants are the exact rational and algebraic numbers displayed.
+\end{proof}
+
+\begin{remark}[Comparison]\label{rem:compare}
+The bound of Malikiosis--Santos--Schymura~\cite{MSS25} in the form used
+in~\cite{ST26,Allikvere26} is $\sum_iv_i<\binom{n+1}{2}^{n-1}$, hence
+$\log(v_1\cdots v_{14})<14(13\log105-\log14)=810.07\ldots$; the
+reworking in~\cite{BCS26} gives the same bound, and the bound
+of~\cite{GK26} is weaker.  Theorem~\ref{thm:flag} lowers the threshold
+to $414.78$.  Three ingredients account for the gain.  Using all $n-1$
+prefix inequalities of a flag, rather than a single density statement, is
+the largest step: with the successive minima of the projected cube in
+place of $t_i$ and Minkowski's second theorem in place of
+Lemma~\ref{lem:det}, the same prefix inequalities already give
+$\sum_iv_i<(n+1)!\,n!/2^n$ and a threshold of $570.46$
+(Table~\ref{tab:thresholds}).  Passing from successive minima to the
+Gram--Schmidt lengths of a KZ basis makes the covolume exact and removes
+Minkowski's factor $2^{n-1}$ together with any Hermite-type constant.
+The adapted ellipsoid $E$ removes the $\sqrt n$-type loss of converting a
+Euclidean estimate back into the sum of the speeds; its shape factor is
+controlled by Lemma~\ref{lem:shape}.  For $n=13$ the theorem gives
+$13(\log A_{13}-\log13+\log\frac{101}{200})=341.03\ldots$ against
+$670.35$, so the first $59$ verified primes in increasing order
+of~\cite{Allikvere26} (through $p=523$, with logarithmic sum
+$341.17\ldots$) already suffice for fourteen runners.
+\end{remark}
+
+\begin{table}[ht]\centering
+\caption{Logarithmic finite-checking thresholds for $\log(v_1\cdots v_n)$,
+assuming $LRC(m)$ for $m<n$.  Column two is the bound of~\cite{MSS25} in
+the form $B_n=(\binom{n+1}{2}^{n-1}/n)^n$ used in~\cite{ST26,Allikvere26};
+column three uses the prefix inequalities~\eqref{eq:prefix} with
+successive minima and Minkowski's second theorem; column four is
+Theorem~\ref{thm:flag}.  The forced divisor of Lemma~\ref{lem:divisor} is
+not included.}
+\label{tab:thresholds}
+\begin{tabular}{@{}cccc@{}}\toprule
+$n$ & $\log B_n$~\cite{MSS25} & successive minima & Theorem~\ref{thm:flag}\\
+\midrule
+$13$ & $670.35$ & $470.18$ & $341.03$\\
+$14$ & $810.07$ & $570.46$ & $414.78$\\
+$15$ & $964.75$ & $681.99$ & $497.03$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The forced divisor}
+
+\begin{lemma}[Forced divisor]\label{lem:divisor}
+If $\vct{v}\in\Z_{>0}^{n}$ is a counterexample to $LRC(n)$, then the
+integer $\lcm(2,3,\ldots,n+1)$ divides $v_1\cdots v_n$.  For $n=14$,
+\[
+  \lcm(2,\ldots,15)=360360=2^3\cdot3^2\cdot5\cdot7\cdot11\cdot13,\qquad
+  \log360360=12.79485\ldots>\DivisorLogLB .
+\]
+\end{lemma}
+
+\begin{proof}
+Fix $2\leq d\leq n+1$.  If no $v_i$ is divisible by $d$, then at
+$t=1/d$ every $\nearest{v_i/d}$ is a nonzero multiple of $1/d$, hence
+$\geq1/d\geq1/(n+1)$, and $t$ is a witness.  So every $d\leq n+1$
+divides some $v_i$.  For each prime $r\leq n+1$, let $q_r$ be the largest
+power of $r$ not exceeding $n+1$.  Then $q_r$ divides the speed product.
+The numbers $q_r$ are pairwise coprime, and their product is
+$\lcm(2,\ldots,n+1)$.
+\end{proof}
+
+\begin{corollary}[Sufficient logarithmic prime sum]\label{cor:mass}
+Let $\mathcal P$ be a set of primes $p>13$ such that, for every $p\in
+\mathcal P$, every primitive counterexample
+$\vct{v}\in\Z_{>0}^{14}$ to $LRC(14)$ with distinct coordinates has
+$p\mid v_1\cdots v_{14}$.  If
+$\sum_{p\in\mathcal P}\log p>\TargetUB$, then $LRC(14)$ holds.
+\end{corollary}
+
+\begin{proof}
+Let $\vct{v}$ be a counterexample.  As in~\cite{Allikvere26}, we may take
+the coordinates positive, pairwise distinct (if two coincide, at most
+thirteen distinct speeds occur and $LRC(13)$ gives a witness with
+$\nearest{tv_i}\geq\frac1{14}>\frac1{15}$), and primitive (scaling
+preserves the lonely-runner property).  Then $360360\prod_{p\in\mathcal
+P}p$ divides $v_1\cdots v_{14}$, the factors being pairwise coprime, so
+\[
+  \log(v_1\cdots v_{14})\geq\log360360+\sum_{p\in\mathcal P}\log p
+  >\DivisorLogLB+\TargetUB=\RawThreshUB>14\log\frac{A_{14}}{28},
+\]
+contradicting Theorem~\ref{thm:flag}.
+\end{proof}
+
+\section{Verification for one prime}\label{sec:pipeline}
+
+Fix a prime $p$ and set $k=14$.  The verification has four stages.  We
+generate $I(14,p,1)$ up to units, apply successive binary lifts, examine
+the surviving orbits exactly at level $15$, and record whether the
+prime-divisibility criterion holds.
+
+We call the elements of $\Z_p^{\times}/\{\pm1\}$ \emph{classes} and
+represent them by $1,\ldots,(p-1)/2$.  A \emph{row} is a $14$-multiset of
+classes representing an element of $I(14,p,1)$ up to permutation and sign
+changes.  A speed class $v$ \emph{covers} a time class $a$ when
+$15\,d_p(av)<p$, where $d_p(x)=\min(r,p-r)$ for
+$x\equiv r\pmod p$ and $0\leq r<p$.
+
+The binary-lifting stages compute $F_l(r)$ for $l=2,4,\ldots,32$.  We say
+that a unit orbit \emph{survives the binary lifts} if
+$F_{32}(r)\neq\varnothing$.  The final stage determines $F_{15}(r)$
+exactly for each surviving orbit.
+
+\subsection{The \texorpdfstring{level-$1$}{level-1} family}\label{sec:basefamily}
+
+At level one a row is improper exactly when its fourteen classes jointly
+cover every time class.  Every improper row either consists of fourteen
+distinct classes none of which can be removed (\emph{irredundant
+branch}), or contains a cover on at most thirteen distinct classes
+(\emph{reducible branch}).  Let $n=(p-1)/2$, let
+$m=\lfloor(p-1)/15\rfloor$ be the number of time classes covered by one
+speed class, and let $\tau(p)$ be the smallest number of speed classes
+that cover all time classes.
+
+\begin{lemma}[Private times]\label{lem:quota}
+In any cover of the $n$ time classes by at most $s$ speed classes, some
+speed class covers at least $q_s=\lceil\max(0,2n-sm)/s\rceil$ time
+classes that no other class of the cover covers (\emph{private} times).
+If the cover is the support of a row on at most $13$ distinct classes,
+such a class can be chosen with multiplicity at most two in the row, and
+$q_{13}\geq1$.
+\end{lemma}
+
+\begin{proof}
+As in Lemma~3.1 of~\cite{Allikvere26}: if $n_j$ time classes are covered
+exactly $j$ times and the cover has $s'\leq s$ classes, then
+$s'm\geq n_1+2(n-n_1)$, so $n_1\geq2n-sm$ private times are shared among
+$s'$ classes.  For the second statement let $h$ be the number of support
+classes of multiplicity $\geq3$; then $3h+(s'-h)\leq14$, so
+$s'+h\leq\lfloor(14+s')/2\rfloor\leq13$ for $s'\leq13$.  Since
+$13m\leq\frac{13}{15}(p-1)<2n$, we have $2n-13m>0$; the $h$ heavy classes
+own at most $hm$ private times, so the classes of multiplicity $\leq2$ own
+at least $2n-s'm-hm\geq2n-13m>0$ of them, and one of these $s'-h\leq13$
+classes owns at least $q_{13}$.
+\end{proof}
+
+\paragraph{Decomposition variant ($\tau(p)\geq13$).}
+If no cover on $\leq12$ classes exists, every $13$-class cover is minimal,
+and the reducible branch is enumerated as the irredundant $13$-class
+covers containing the class $1$ (mode \texttt{km1root}), each extended by
+one arbitrary class.  The precondition $\tau(p)\geq13$ is verified before
+generation by an exhaustive search for covers on $\leq12$ classes (mode
+\texttt{km1low 12}), pruned by Lemma~\ref{lem:quota}: in a cover on
+$s\leq12$ classes some class has $q_{12}$ private times, and a unit moves
+it to class~$1$.  The node count and the verdict of this search are part
+of the certificate.
+
+\paragraph{General variant ($\tau(p)\leq12$).}
+If \texttt{km1low 12} finds covers, non-minimal $13$-class covers exist
+and the decomposition is incomplete.  The generator then runs the mode
+\texttt{km1all}: all supports on $\leq13$ classes containing class $1$
+that pass the quota $q_{13}$, with class $1$ of multiplicity one, all
+multiplicity vectors, and all single-class extensions.
+
+\begin{lemma}[Completeness of the general variant]\label{lem:km1all}
+Every improper row $M$ is produced by the irredundant branch or by
+\texttt{km1all}, up to the action of units.
+\end{lemma}
+
+\begin{proof}
+If $M$ has fourteen distinct classes none of which is removable, it lies
+in the irredundant branch.  If $M$ has support on $s'\leq13$ classes, let
+$c$ be the class of multiplicity $\leq2$ with $\geq q_{13}$ private times
+given by Lemma~\ref{lem:quota}; remove one copy of $c$ if its
+multiplicity is two, otherwise one copy of any repeated class.  The
+result is a $13$-multiset $C$ with the same support in which $c$ has
+multiplicity one and $\geq q_{13}$ private times; a unit moves $c$ to
+class $1$, so $C$ is enumerated, and one extension restores $M$.  If $M$
+has fourteen distinct classes and a removable class, remove it; the
+remaining $13$-class cover has a class with $\geq q_{13}$ private times by
+the first part of Lemma~\ref{lem:quota} and all multiplicities one, so it
+is enumerated after that class is normalized to $1$, and adding the
+removed class recovers $M$.
+\end{proof}
+
+The inclusion \texttt{km1low}$\subseteq$\texttt{km1all}, checked by the
+verification script, is a consistency test rather than the completeness
+proof.  The precondition fails at the \NearGcdCount{} verified primes with
+$\tau(p)\leq12$ in Table~\ref{tab:gates}, where the general variant is used.  It
+holds at the other \NoNearGcdCount{} primes, where the decomposition
+variant is used.  Appendix~\ref{app:audit} records the corresponding
+certificate labels and additional covering-number checks.
+
+\paragraph{Generation up to units.}
+The irredundant branch emits one representative per orbit of
+$\Z_p^{\times}$, the lexicographic minimum among the normalizations to
+class $1$ that pass the quota; by Lemma~\ref{lem:quota} every orbit has
+such a normalization, and by Proposition~5.1 of~\cite{ST26} one
+representative suffices.  The reducible branch may emit several
+representatives of one orbit; before the level-$15$ step, rows that survive
+the binary lifts are reduced to the lexicographically least element of
+their unit orbit
+(in parallel, since there are millions of rows when $\tau(p)\leq12$).
+
+\subsection{Successive binary lifting}
+
+Each row has $2^{14}$ lifts from level $1$ to level $2$; the filter tests
+every lift exactly (witnesses in $(2p)^{-1}\Z$ by bit masks, and the gcd
+condition), retains the improper ones, and repeats with $c=2$ through
+levels $4,8,16,32$.  By the invariant of Section~\ref{sec:framework} the
+set carried at level $l$ is $F_l(r)$, so the row is discarded when its
+improper fiber $F_l(r)$ is empty.  At every verified prime with
+$\tau(p)\geq13$, the only orbit that survives through level $32$ is
+represented by
+\[
+  \vct{a}=(1,2,\ldots,14)
+\]
+and every other row has empty improper fiber by level $8$.  When
+$\tau(p)\leq12$, between $8{,}011$ and $8{,}235{,}157$ unit orbits survive
+through level $32$, so binary lifting alone is not enough.  The detailed
+histograms and exceptional rows are recorded in Appendix~\ref{app:audit}.
+
+\subsection{\texorpdfstring{Level-$15$ elimination by factoring
+$15=3\cdot5$}{Level-15 elimination by factoring 15=3*5}}
+
+By Remark~3.2 of~\cite{ST26} a level divisible by $k+1=15$ is unavoidable
+for $\vct{a}$.  We therefore examine every orbit representative surviving
+the binary lifts at level $15$, where its fiber consists of the $15^{14}$ lifts
+$w_i=v_i+a_ip$, $a_i\in\{0,\ldots,14\}$.  Coordinatewise branch-and-bound,
+the method of~\cite{Allikvere26} for $7^{13}$ lifts, would face a fiber
+$3.0\times10^5$ times larger and would have to be repeated for the
+$10^4$--$10^7$
+orbits arising when $\tau(p)\leq12$.  Instead, we exploit the
+factorisation $15=3\cdot5$.
+
+\begin{lemma}[Witnesses lift along divisors of the level]\label{lem:factor}
+Let $f\mid15$, let $\vct{w}$ be a lift of $r$ to level $15$, and let
+$\vct{w}'\equiv\vct{w}\pmod{fp}$ be its reduction to level $f$.  If
+$\vct{w}'$ has a witness $t\in(fp)^{-1}\Z$, then $t$ is a witness for
+$\vct{w}$.  Consequently every witness-free level-$15$ lift of $r$
+reduces to a witness-free level-$3$ lift and a witness-free level-$5$
+lift, and is determined by them through the Chinese remainder theorem on
+the digits $a_i$.
+\end{lemma}
+
+\begin{proof}
+$t(w_i-w_i')\in t\cdot fp\Z\subseteq\Z$, so
+$\nearest{tw_i}=\nearest{tw_i'}\geq\frac1{15}$, and
+$(fp)^{-1}\Z\subseteq(15p)^{-1}\Z$.  The digits satisfy
+$a_i\equiv a_i'\pmod f$, and $(a_i\bmod3,a_i\bmod5)$ determines $a_i$.
+\end{proof}
+
+The witness-free lifts at levels $3$ and $5$ are found by depth-first
+searches over $3^{14}$ and $5^{14}$ digit vectors, branching on the time
+class with fewest remaining options; each Chinese-remainder candidate is
+then tested at level $15$ against the full grid $(15p)^{-1}\Z$ and the
+gcd condition $\gcd(15,w_j:j\neq i)>1$ for some $i$.  Thus $F_{15}(r)$ is determined
+exactly.  For $\vct{a}$, the level-$3$ and level-$5$ searches leave three
+and five witness-free lifts, respectively.  They combine to fifteen
+Chinese-remainder candidates, seven of which remain witness-free at level
+$15$; all seven satisfy the gcd condition.  Four have every coordinate
+divisible by $3$, two have every coordinate divisible by $5$, and the last
+is $15$ times a unit multiple of $\vct{a}$.  This calculation takes about
+one second.  Appendix~\ref{app:audit} records the independent checks of the
+final stage.
+
+\subsection{The few-exception shift lemma when \texorpdfstring{$\tau(p)\leq12$}{tau(p) <= 12}}
+
+At the primes with $\tau(p)\leq12$, successive binary lifting still leaves
+between $8{,}011$ and $8{,}235{,}157$ surviving unit orbits.  A typical
+orbit comes from a $12$-class cover.  Its witness-free level-$15$ lifts
+have twelve coordinates divisible by $15$ and two unrestricted
+coordinates; the gcd condition can disregard only one coordinate and
+therefore need not make such a lift proper.  The following lemma supplies
+the remaining step in the direct divisibility argument.
+
+\begin{lemma}[Few-exception shift]\label{lem:neargcd}
+Let $u_1,\ldots,u_{14}$ be positive integers, let $d$ be a prime, let
+$e=\#\{i:d\nmid u_i\}$, and put $m_d=\lceil2d/15\rceil$.  Assume
+$LRC(m)$ for all $m\leq12$.  If $2\leq e$ and $e\,m_d<d$, then there is a
+rational $t$ with $\nearest{tu_i}\geq\frac1{15}$ for all $i$.  In
+particular, for a vector that does not satisfy the level-$15$ gcd condition,
+these hypotheses hold when at least twelve coordinates are divisible by
+$3$, or at least ten are divisible by $5$.
+\end{lemma}
+
+\begin{proof}
+Let $B$ be the block of the $14-e\leq12$ speeds divisible by $d$.  After
+repetitions are removed, these speeds take $m\leq14-e\leq12$ distinct
+values.  The statement $LRC(m)$ gives $t_0$ with
+$\nearest{t_0u_i}\geq\frac1{13}>\frac1{15}$ on $B$.  Consider
+$t_q=t_0+q/d$, $q=0,\ldots,d-1$.  Every $u_i\in B$ is fixed modulo one by
+these shifts.  For an exceptional $u$, the positions $t_0u+qu/d$
+($q=0,\ldots,d-1$) form a full $d$-point grid because $d$ is prime and
+$d\nmid u$; an open arc of length $2/15$ contains at most
+$\lceil2d/15\rceil=m_d$ points of a $d$-grid.  So each exception forbids
+at most $m_d$ shifts, all $e$ exceptions forbid at most $em_d<d$, and some
+$t_q$ is good for every speed.  The set of good $t_0$ is a finite union of
+intervals with rational endpoints, so $t_0$, hence $t_q$, may be taken
+rational.  In the two cases stated in the last sentence of the lemma,
+$m_3=m_5=1$, with $e\leq2$ and $e\leq4$, respectively.
+\end{proof}
+
+The level-$15$ program applies Lemma~\ref{lem:neargcd} with $d=3$ and
+$d=5$ to every witness-free lift left improper by the gcd condition.
+Divisibility by $3$ and $5$ is constant on a residue class modulo $15p$,
+so the conclusion holds for every integer vector in that class.  This is
+the last alternative in Lemma~\ref{lem:gate}(ii).  It proves the required
+divisibility by $p$, but not necessarily $J(14,p)=\varnothing$.  The input
+$LRC(m)$ for $m\leq12$ is Theorem~1.3 of~\cite{ST26}.
+
+\begin{proposition}[Verified prime-divisibility computations]\label{prop:closure}
+For every prime $p$ in Table~\ref{tab:gates}, every primitive
+counterexample $\vct{v}\in\Z_{>0}^{14}$ to $LRC(14)$ with distinct
+coordinates has $p\mid v_1\cdots v_{14}$.  For the primes in the second
+block of Table~\ref{tab:gates}, moreover $J(14,p)=\varnothing$.
+\end{proposition}
+
+\begin{proof}
+Every element of $I(14,p,1)$ lies in the unit orbit of a generated row
+(Lemmas~\ref{lem:quota} and~\ref{lem:km1all}, with the precondition
+verified where the decomposition variant was used).  A row with
+$F_l(r)=\varnothing$ at some binary level is eventually proper.  For a
+row that survives the binary lifts, Lemma~\ref{lem:factor} shows that the
+level-$15$ search finds every witness-free lift.  If all such lifts satisfy
+the gcd condition, then $F_{15}(r)=\varnothing$, and
+Lemma~\ref{lem:gate}(i) applies; equivalently,
+$I(14,p,480)=\varnothing$ at the common level $\lcm(32,15)$.  If some
+residue classes are handled only by Lemma~\ref{lem:neargcd}, they satisfy
+the third alternative of Lemma~\ref{lem:gate}(ii) at level $15$.  In both
+cases Lemma~\ref{lem:gate} gives $p\mid v_1\cdots v_{14}$.
+\end{proof}
+
+Appendix~\ref{app:examples} gives one complete example of each generator
+variant, including the recorded counts and running times.
+
+\section{The verified primes and the proof of \texorpdfstring{$LRC(14)$}{LRC(14)}}\label{sec:gateset}
+
+Let $P$ be the set of \GateCount{} verified primes listed in
+Table~\ref{tab:gates}.
+
+\input{gates_table_v2.tex}
+
+Evaluated at fifty-digit precision,
+\begin{equation}\label{eq:mass}
+  \sum_{p\in P}\log p>\GateMassLB>\TargetUB .
+\end{equation}
+The margin above the target is \MassMargin{},
+more than $\log p$ for any single $p\in P$.
+
+\subsection{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+The cases $m\leq7$ are known, with $LRC(7)$ proved by
+Rosenfeld~\cite{Rosenfeld25}; $LRC(8)$ and $LRC(9)$ are proved
+in~\cite{Trakulthongchai26}.\footnote{The chain passes through $LRC(9)$.
+The verification program published with~\cite{Trakulthongchai26} forms
+the intersection of two lifted families with a key that depends on the
+coordinate order, so the set it passes to the final check may be a proper
+subset of the full intersection; the author has been informed, and a
+corrected version is forthcoming.  The emptiness of $J(9,p)$ is
+established independently, without an intersection step, by the
+successive-lifting code accompanying~\cite{ST26};
+Appendix~\ref{app:source} records our check of that computation.}  The
+cases $10\leq m\leq12$ follow from Theorem~1.3 of~\cite{ST26}, and
+$LRC(13)$ from~\cite{Allikvere26}.  By
+Proposition~\ref{prop:closure} and~\eqref{eq:mass}, the hypotheses of
+Corollary~\ref{cor:mass} are satisfied.  Hence $LRC(14)$ holds.
+\end{proof}
+
+\section{Computation and reproducibility}
+
+Each verified prime has a certificate recording the generator variant,
+the covering-search counts, every binary-lifting stage, and the exact
+level-$15$ calculation.  A separate script checks these records against
+the claimed conclusion, verifies the retained files by SHA-256, and
+recomputes the logarithmic prime sum.  Two further scripts derive the
+analytic constants from their definitions.  The code, certificates, and
+verification reports are archived at the DOI given below.  The appendices
+give one complete example of each generator variant, the detailed checks
+and their limits, and the computational cost.
+
+\section{Discussion}\label{sec:universality}
+
+\subsection{Orbits surviving the binary lifts}
+
+A speed tuple of length $k$ is \emph{tight} if
+$\max_{t\in\R}\min_i\nearest{t v_i}=1/(k+1)$.
+
+At each of the \NoNearGcdCount{} verified primes with $\tau(p)\geq13$, the
+only unit orbit to survive the binary lifts is that of
+$\vct{a}=(1,\ldots,14)$.  Its seven witness-free level-$15$ lifts are all
+proper by the gcd condition.  In the $k=13$ computation, two orbits survived
+at every verified prime: $(1,\ldots,13)$ and the Goddyn--Wong tight set
+$(1,\ldots,11,13,24)$~\cite{GW06,Allikvere26}.
+
+For the verified $k=14$ primes with $\tau(p)\geq13$, every other row has
+$F_8(r)=\varnothing$.  This includes
+$\vct{c}=(1,\ldots,11,13,14,24)$.  At $t=12/29$, every coordinate of
+$\vct{c}$ is at distance at least $2/29$ from an integer.  Since
+$2/29>1/15$, this tuple is not tight.  The survival of $\vct{a}$ through
+the binary levels is forced by Remark~3.2 of~\cite{ST26}: modulo one, its
+witness times are $s/15$ with $\gcd(s,15)=1$, whereas none of the levels
+$2,4,8,16,32$ is divisible by $15$.  The computational observation is
+that no other orbit survives at these primes.
+
+This resembles Proposition~7.1 of~\cite{ST26}, although that result
+concerns level-$1$ witnesses for all sufficiently large primes; we make no
+asymptotic claim here.  When $\tau(p)\leq12$, the family surviving the
+binary lifts is much larger and is handled by the direct divisibility
+argument of Lemma~\ref{lem:neargcd}, rather than by emptying an improper
+fiber at a grid level.
+
+\subsection{Outlook: sixteen runners}\label{sec:outlook}
+
+Theorem~\ref{thm:flag} applies to $n=15$ now that $LRC(14)$ is available.
+The ratio hypothesis holds with minimum $3751/2349$, and the proof of the
+shape estimate also gives $R_{15}<\frac12$.  Thus
+$15\log(A_{15}/30)=497.03\ldots$.  Since
+$\log\lcm(2,\ldots,16)=\log720720$, the logarithmic sum required from
+verified primes is
+\[
+  497.03\ldots-\log720720=483.54\ldots.
+\]
+The verification programs are
+generic in $K$, but the terminal level $16=2^4$ is itself a binary level,
+so the factorisation used for level $15$ does not apply directly.  We
+record these bounds as a starting point; the computation is future work.
+
+\section{Conclusion}
+
+The full flag of prefix inequalities gives a substantially smaller
+finite-checking bound.  For fourteen speeds the logarithmic threshold
+falls from $810.07$ to $414.78$, and the forced divisor reduces the
+required logarithmic prime sum further to $\TargetUB$.  The
+\GateCount{} verified primes exceed this threshold and prove $LRC(14)$,
+equivalently the Lonely Runner Conjecture for fifteen runners.
+
+\section*{Data availability}
+
+The certificates, evidence packages, source code, checker scripts, and
+verification reports are archived on Zenodo,
+\url{https://doi.org/10.5281/zenodo.22667683}.
+
+\section*{Use of artificial intelligence}
+
+The author used large language models for code development, drafting,
+proof exploration, and internal adversarial readings.  No model output is
+mathematical evidence:
+proofs are given in full, and exact scripts and archived certificates
+support the numerical and computational claims.  The author checked the
+arguments, code, and data and takes full responsibility.
+
+\appendix
+
+\section{Two complete verification examples}\label{app:examples}
+
+\paragraph{$p=547$ (decomposition variant).}
+The precondition search \texttt{km1low 12} visited $453{,}242{,}538$ nodes
+in $774$ seconds and found no cover on at most $12$ classes.  The
+irredundant branch ran $1{,}032$ jobs, visited
+$1{,}425{,}111{,}896{,}802$ nodes, and produced two rows; the $36$
+\texttt{km1root} jobs found no $13$-class cover.  During binary lifting,
+the improper fiber of $(1,\ldots,11,13,14,24)$ is empty at level $4$,
+whereas $\vct{a}$ survives through level $32$.  The level-$3$ and level-$5$
+searches for $\vct{a}$ produce three and five witness-free lifts,
+respectively, hence $15$ Chinese-remainder candidates.  Seven remain
+witness-free at level $15$, and all seven are proper by the gcd condition.
+Generation used $453{,}624$ CPU-seconds, or $126.0$ CPU-hours, and took
+$7.9$ hours on one sixteen-vCPU machine.  Of the $1{,}032$ jobs, $297$
+were repeated on other hosts with identical rows and node counts.  Thus
+the computation verifies $J(14,547)=\varnothing$.
+
+\paragraph{$p=233$ (general variant).}
+Here $\tau(233)=12$: \texttt{km1low 12} found $24$ covers on $12$ classes
+up to units.  The irredundant branch ran $178$ jobs, visited
+$7{,}408{,}758{,}267$ nodes, and produced $5{,}767{,}782$ rows in $1{,}861$
+CPU-seconds.  The \texttt{km1all} search found $6{,}746$ covers in $238$
+CPU-seconds and produced $782{,}536$ extended rows.  Of the $85{,}616$ rows
+with $F_2\neq\varnothing$, $58{,}229$ have $F_4=\varnothing$ and $81$ more
+have $F_8=\varnothing$.  The remaining $27{,}306$ rows represent
+$13{,}457$ unit orbits that survive through level $32$.
+
+At level $15$, these orbits have $3{,}674{,}453$ witness-free lifts.
+The gcd condition leaves $1{,}056{,}768$ of them improper, and every one
+of the corresponding integer residue classes satisfies
+Lemma~\ref{lem:neargcd}.  The orbit of $\vct{a}$ is handled by the gcd
+condition alone; the other $13{,}456$ orbits use the lemma.  The
+level-$15$ stage used $881$ CPU-seconds, and the complete verification took
+about $0.85$ CPU-hours and ten minutes on one machine.  Thus the computation
+verifies the divisibility conclusion $233\mid v_1\cdots v_{14}$ required
+by Lemma~\ref{lem:gate}(ii).
+
+\section{Detailed verification record}\label{sec:audit}\label{app:audit}
+
+\subsection{Certificates}
+Each verified prime has an evidence package \texttt{evidence\_P\_s0.tgz}.
+Its \texttt{SUMMARY.json} records the prime, generator variant,
+precondition result and node count, the job, node, and row counts for both
+branches, the binary-lifting histogram, and the surviving orbit
+representatives with their multiplicities.  For each orbit it also records
+the level-$3$, level-$5$, and Chinese-remainder counts, the number of
+witness-free level-$15$ lifts, and the two final counters
+\texttt{improper\_after\_gcd} and
+\texttt{improper\_after\_neargcd}.  The second name is implementation
+shorthand: it counts residue classes not handled by
+Lemma~\ref{lem:neargcd}, rather than membership in another modular
+improper set.
+
+The same package contains a SHA-256 manifest, the precondition output,
+per-job generator output and statistics, the row files from both branches,
+the binary-lifting output, every level-$15$ log, and the run log
+\texttt{run\_P.log}.  A \texttt{SHA256SUMS.txt} covers the packages made on
+each machine.  The archive also includes the source of the generator,
+binary-lifting program, level-$15$ program, driver, and checker for the
+analytic constants.  Every manifest records the SHA-256 hashes of the
+three executables used for the computation; these hashes are the same for
+all \GateCount{} primes.  A fresh build on a machine of the same type
+produced byte-identical executables.
+
+The Python standard-library script \texttt{audit\_lrc14\_gates.py} checks
+each certificate against its claim, re-hashes its manifest, and recomputes
+the prime sum at sixty-digit precision.  The decomposition precondition
+fails for the \NearGcdCount{} primes through $241$ in the first block of
+Table~\ref{tab:gates}; a separate search gives $\tau(p)=12$ for every
+prime $139\leq p\leq233$.  The variant labels are \texttt{general} and
+\texttt{decomposition}; the final claim labels are \texttt{divisibility}
+and \texttt{J(K,p) empty}.
+
+\subsection{Binary-lifting summary}
+
+For the primes with $\tau(p)\geq13$, the number of generated rows with
+$F_2(r)\neq\varnothing$ ranges from one (for most primes above $480$) to
+$26{,}773$ at $p=271$.  Every such row except $\vct{a}$ has
+$F_4(r)=\varnothing$, apart from one row at each of
+$p=239,271,311,317,331,337,349,421$; these eight rows have
+$F_8(r)=\varnothing$.  No row other than $\vct{a}$ reaches level $16$.
+The row $(1,\ldots,11,13,14,24)$ is the level-$8$ row at $p=239$ and the
+only other row with $F_2(r)\neq\varnothing$ at $p=547$, where
+$F_4(r)=\varnothing$.
+
+For the primes with $\tau(p)\leq12$, the number of unit orbits surviving
+through level $32$ ranges from $8{,}011$ at $p=179$ to $8{,}235{,}157$ at
+$p=181$.  A few additional rows reach level $16$ before their improper
+fibers become empty.
+
+\subsection{Checks}
+\begin{enumerate}[leftmargin=*,label=(\roman*)]
+\item \emph{Analytic constants.}  \texttt{kz\_flag\_check.py} recomputes
+  $B_r$, $c_i$, the ratios $c_{i+1}/c_i$, $K_{14}$, $A_{14}$, the
+  threshold, and the divisor credit in exact rational arithmetic and at
+  fifty digits; an optional mode enumerates the $4096$ vertices of the
+  polyhedron of Lemma~\ref{lem:minimize} and confirms the minimum; a
+  second script re-derives the same numbers from the definitions.  Every
+  strict inequality between displayed decimal values in the article is
+  checked at fifty-digit precision.  The
+  polynomial identities in the proof of Lemma~\ref{lem:shape} were checked
+  symbolically.  As a numerical consistency check, four hundred random
+  starts found no value of $H$ below $802.5$, while the proof gives the
+  lower bound $784$.
+\item \emph{Generator.}  The engine is the generator of~\cite{Allikvere26}
+  compiled at $K=14$, with a faster search kernel and an additional mode
+  for the reducible branch.  Against the build without the new kernel it produces
+  identical rows and node counts at $p=83$ (full census, $101{,}974$ rows)
+  and $p=431$ (all $616$ irredundant jobs).
+  At $p=239$, a separately written probe reproduces the recorded level-$1$
+  and level-$2$ counts on both branches.
+\item \emph{Binary lifting.}  The $K$-generic lifting program compiled at $K=13$
+  reproduces the output of the audited $k=13$ filter on the $p=239$ rows
+  of~\cite{Allikvere26} byte for byte; the $K=14$ build passes a self-test
+  of $300$ exact cover cases, the lookups for $\vct{a}$ at three primes,
+  and the lift kernel on $4{,}000$ rows from the verified computations.
+\item \emph{Level $15$.}  The program agrees with exhaustive enumeration
+  for $k=2,\ldots,6$ and reproduces the $k=13$, $p=239$ result.
+\item \emph{Repetition.}  $297$ of the $1{,}032$ generation jobs at
+  $p=547$ were run twice, on different hosts, with identical node counts
+  and rows; $p=233$ was run
+  with and without Lemma~\ref{lem:neargcd}, the framework-only run leaving
+  $13{,}456$ orbits unresolved, as predicted.
+\item \emph{Packages.}  Every package was hash-verified on collection.
+\end{enumerate}
+
+\subsection{Limits}
+These checks do not constitute a formal proof verification or a fully
+independent implementation.  Completeness of generation rests on
+Lemmas~\ref{lem:quota} and~\ref{lem:km1all}, together with the verified
+precondition where the decomposition variant is used.  Completeness of
+the terminal search rests on Lemma~\ref{lem:factor} and the exhaustive
+checks described above.  The two accompanying scripts recompute the
+analytic constants directly from their definitions.
+
+\section{Computational cost}\label{sec:cost}
+
+\input{cost_table_v2.tex}
+
+At the primes with $\tau(p)\geq13$ the irredundant level-$1$ branch
+accounts for at least $94\%$ of the CPU time ($p=239$) and for more than
+$97\%$ for the verified primes $p>400$; its node count grows like $p^{\CostExponent}$
+over the verified set, while binary lifting takes seconds and the
+level-$15$ step about a second.  At the primes with $\tau(p)\leq12$,
+generation takes minutes, whereas binary lifting and the level-$15$
+processing of the $10^4$--$10^7$ surviving unit orbits account for most
+of the running time; these tasks run in
+parallel.  Each prime was processed on one sixteen-vCPU Hetzner cpx62
+machine.  Five machines handled disjoint prime lists, so the wall time was
+that of the longest list, about three days.  The total CPU time is
+\TotalCpuHours{} hours, or about \TotalCpuYears{} CPU-years.  The machines
+supplied no more than $5{,}800$ vCPU-hours of aggregate wall-clock
+capacity.  For comparison, the
+$LRC(13)$ computation of~\cite{Allikvere26} used $111$ primes with
+logarithmic sum $681.5$ and took $27$ days with $31{,}872$ vCPU-hours of
+machine capacity.  With the earlier finite-checking threshold, the prime
+set would have extended to about $970$; extrapolating the measured growth
+gives roughly twenty times the cost of the present computation.
+
+\section{Check of the \texorpdfstring{$LRC(9)$}{LRC(9)} input}\label{app:source}
+
+The chain of lower-dimensional results used in Theorem~\ref{thm:main}
+passes through $LRC(9)$.  The program published with
+\cite{Trakulthongchai26}, \texttt{lrc\_for\_ten\_runners.cpp} at commit
+\texttt{6789649} of~\cite{TrakulthongchaiCode}, forms the intersection of
+two lifted families using a key that depends on coordinate order.  Because
+the tuples at levels $2p$ and $5p$ are sorted by value rather than by
+residue, this step need not form the full intersection.  The author of
+\cite{Trakulthongchai26} has been informed and is preparing a corrected
+version of the program.
+
+The emptiness of $J(9,p)$ is established independently, without an
+intersection step, by the successive-lifting code accompanying~\cite{ST26}
+at commit \texttt{755b116} of~\cite{STcode}, in the log
+\texttt{results/result\_10}.  That log verifies $J(9,p)=\varnothing$ for
+$51$ primes in the range $19\leq p\leq317$.  Their logarithms sum to
+$257.87$, which exceeds the finite-checking threshold
+$\log B_9=254.30$.  We inspected both programs and checked this
+logarithmic sum.  Thus the independent computation accompanying~\cite{ST26}
+supplies the $LRC(9)$ input used here.
+
+\begin{thebibliography}{99}
+\small
+\setlength{\itemsep}{1pt}
+
+\bibitem{Allikvere26}
+J. Allikvere,
+\emph{Fourteen lonely runners},
+\href{https://arxiv.org/abs/2609.02604}{arXiv:2609.02604} (2026);
+verification package
+\href{https://doi.org/10.5281/zenodo.22066772}{doi:10.5281/zenodo.22066772}.
+
+\bibitem{BCS26}
+M. Blanco, F. Criado, and F. Santos,
+\emph{Coloopless zonotopes and counterexamples to the Shifted Lonely
+Runner Conjecture},
+\href{https://arxiv.org/abs/2603.24784}{arXiv:2603.24784} (2026).
+
+\bibitem{GK26}
+V. Giri and N. Kravitz,
+\emph{The structure of Lonely Runner spectra},
+Math.\ Proc.\ Cambridge Philos.\ Soc.\ \textbf{180} (2026), no.~2,
+343--361; arXiv:2304.01462.
+
+\bibitem{GW06}
+L. Goddyn and E. B. Wong,
+\emph{Tight instances of the lonely runner},
+Integers \textbf{6} (2006), Paper No.~A38.
+
+\bibitem{KZ1873}
+A. Korkine and G. Zolotareff,
+\emph{Sur les formes quadratiques},
+Math.\ Ann.\ \textbf{6} (1873), 366--389.
+
+\bibitem{LLS90}
+J. C. Lagarias, H. W. Lenstra, Jr., and C. P. Schnorr,
+\emph{Korkin--Zolotarev bases and successive minima of a lattice and its
+reciprocal lattice},
+Combinatorica \textbf{10} (1990), no.~4, 333--348.
+
+\bibitem{MSS25}
+R. D. Malikiosis, F. Santos, and M. Schymura,
+\emph{Linearly exponential checking is enough for the lonely runner
+conjecture and some of its variants},
+Forum of Mathematics, Sigma \textbf{13} (2025), e164,
+\href{https://doi.org/10.1017/fms.2025.10107}{doi:10.1017/fms.2025.10107}.
+
+\bibitem{Rosenfeld25}
+M. Rosenfeld,
+\emph{The lonely runner conjecture holds for eight runners},
+Math.\ Comp.\ (2026), electronically published,
+\href{https://doi.org/10.1090/mcom/4243}{doi:10.1090/mcom/4243};
+arXiv:2509.14111.
+
+\bibitem{Trakulthongchai26}
+T. Trakulthongchai,
+\emph{Nine and ten lonely runners},
+Electron.\ J.\ Combin.\ \textbf{33} (2026), no.~2, Paper No.~P2.46,
+\href{https://doi.org/10.37236/14972}{doi:10.37236/14972}.
+
+\bibitem{TrakulthongchaiCode}
+T. Trakulthongchai,
+\emph{Nine and ten lonely runners: source code},
+GitHub repository,
+\href{https://github.com/t-tanupat/nine-and-ten-lonely-runners/commit/6789649}%
+{commit \texttt{6789649}} (accessed 9 September 2026).
+
+\bibitem{ST26}
+T. Sungkawichai and T. Trakulthongchai,
+\emph{Eleven, twelve, and thirteen lonely runners},
+\href{https://arxiv.org/abs/2604.23906}{arXiv:2604.23906v2} (2026).
+
+\bibitem{STcode}
+T. Sungkawichai,
+\emph{LRC holds for 11, 12, 13 runners: source code},
+GitHub repository,
+\href{https://github.com/vzsky/13-lonely-runners/tree/755b116}%
+{commit \texttt{755b116}} (accessed 9 September 2026).
+
+\bibitem{Wills1967}
+J. M. Wills,
+\emph{Zwei S\"atze \"uber inhomogene diophantische Approximation von
+Irrationalzahlen},
+Monatshefte f\"ur Mathematik \textbf{71} (1967), no.~3, 263--269,
+\href{https://doi.org/10.1007/BF01298332}{doi:10.1007/BF01298332}.
+
+\end{thebibliography}
+
+\end{document}

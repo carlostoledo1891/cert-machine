@@ -1,0 +1,23 @@
+\begin{table}[ht]\centering\caption{Cost by stage, in CPU-seconds summed over the jobs of that stage (irredundant branch, reducible branch, precondition, binary lifting, orbit reduction, and level $15$).  Jobs ran in parallel on a sixteen-vCPU machine.  The final column is the total wall time for the prime, in seconds.  For $p=181$ and $p=233$, binary lifting resumed from files written by an interrupted run, so its time was not recorded.}\label{tab:cost}\small
+\begin{tabular}{@{}rrrrrrrr@{}}\toprule $p$ & irredundant & reducible & precond. & binary & orbits & level 15 & wall\\ \midrule
+89 & 1 & 1 & 0 & 3,514 & 3 & 16,741 & 1,299\\
+131 & 32 & 20 & 2 & 148,269 & 54 & 179,778 & 21,504\\
+149 & 48 & 12 & 1 & 24,207 & 0 & 77,469 & 7,386\\
+181 & 1,206 & 304 & 10 & --- & 252 & 503,678 & ---\\
+191 & 512 & 89 & 4 & 63,530 & 0 & 115,568 & 14,303\\
+199 & 927 & 119 & 6 & 5,556 & 0 & 9,003 & 1,376\\
+233 & 1,862 & 238 & 11 & --- & 0 & 881 & ---\\
+239 & 1,301 & 58 & 7 & 15 & 0 & 0.3 & 131\\
+241 & 4,566 & 548 & 25 & 683 & 1 & 741 & 1,021\\
+307 & 14,558 & 517 & 56 & 10 & 0 & 0.3 & 1,027\\
+353 & 24,185 & 746 & 84 & 1 & 0 & 0.3 & 1,668\\
+397 & 57,216 & 1,545 & 159 & 1 & 0 & 0.3 & 3,872\\
+449 & 70,074 & 1,577 & 173 & 2 & 0 & 0.3 & 4,675\\
+499 & 260,613 & 5,611 & 516 & 2 & 0 & 0.3 & 17,237\\
+521 & 236,244 & 4,668 & 473 & 2 & 0 & 0.3 & 15,614\\
+547 & 444,985 & 8,639 & 774 & 3 & 0 & 0.3 & 29,340\\
+557 & 573,547 & 10,928 & 982 & 3 & 0 & 0.3 & 37,681\\
+563 & 499,447 & 9,125 & 881 & 3 & 0 & 0.3 & 32,842\\
+569 & 351,085 & 6,072 & 737 & 3 & 0 & 0.3 & 23,149\\
+\midrule all 71 primes & 5,808,889 & 127,590 & 12,382 & 389,957 & 355 & 1,354,166 & \\
+\bottomrule\end{tabular}\end{table}
