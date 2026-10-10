@@ -16,12 +16,12 @@
   "CycleCliqueRamsey"
  ],
  "counts": {
-  "decided": 286,
+  "decided": 292,
   "of": 416,
   "cancelledBeforeComparator": 2,
   "words": {
-   "CERTIFIED": 274,
-   "REFUSED": 12
+   "CERTIFIED": 279,
+   "REFUSED": 13
   },
   "strict": {
    "SAME BODIES": 7,
@@ -1578,6 +1578,41 @@
      "seconds": 2161,
      "cacheSeconds": 197,
      "maxRssKB": 8487172,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "ConjugatePoints",
+   "families": [
+    "358"
+   ],
+   "statementLines": 117,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 711,
+     "cacheSeconds": 183,
+     "maxRssKB": 7258644,
      "kernels": [
       "Lean default kernel accepts the solution",
       "nanoda kernel accepts the solution"
@@ -4556,6 +4591,41 @@
    "transfer": null
   },
   {
+   "challenge": "IndependentProducts",
+   "families": [
+    "331"
+   ],
+   "statementLines": 121,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 295,
+     "cacheSeconds": 181,
+     "maxRssKB": 6988556,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
    "challenge": "IndependentSets",
    "families": [
     "106"
@@ -6709,6 +6779,41 @@
    "transfer": null
   },
   {
+   "challenge": "PartialPermutation",
+   "families": [
+    "238"
+   ],
+   "statementLines": 117,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 348,
+     "cacheSeconds": 196,
+     "maxRssKB": 6976612,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
    "challenge": "PerceptronFreeEnergy",
    "families": [
     "222"
@@ -7090,6 +7195,39 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "PlanarPacking",
+   "families": [
+    "090"
+   ],
+   "statementLines": 41,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": null,
+     "seconds": null,
+     "cacheSeconds": 211,
+     "maxRssKB": null,
+     "kernels": [],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "not run",
+      "why": "the job stopped before Comparator ran (see the run log)"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "REFUSED",
+   "why": "the job stopped before Comparator ran (see the run log)",
+   "stage": "not run",
    "strict": null,
    "transfer": null
   },
@@ -7582,6 +7720,41 @@
      "seconds": 1862,
      "cacheSeconds": 185,
      "maxRssKB": 7652152,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "RationalHitting",
+   "families": [
+    "116"
+   ],
+   "statementLines": 114,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38040214623,
+     "workflowSha": "6cbba3c6d1f69c45f2dd616648c5bcc247b74df1",
+     "at": "2026-10-10T09:06:43Z",
+     "exit": 0,
+     "seconds": 628,
+     "cacheSeconds": 211,
+     "maxRssKB": 7485044,
      "kernels": [
       "Lean default kernel accepts the solution",
       "nanoda kernel accepts the solution"
@@ -10228,6 +10401,41 @@
      "seconds": 206,
      "cacheSeconds": 212,
      "maxRssKB": 7078760,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "nanoda kernel accepts the solution"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     },
+     "strict": null,
+     "transfer": null
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null,
+   "strict": null,
+   "transfer": null
+  },
+  {
+   "challenge": "TriangularEnergy",
+   "families": [
+    "090"
+   ],
+   "statementLines": 75,
+   "nanodaInRelease": false,
+   "definitionHoles": 0,
+   "runs": [
+    {
+     "run": 38019899278,
+     "workflowSha": "21968eb61b34368ac4b17cdb0ccdbbc69c66935b",
+     "at": "2026-10-10T08:37:27Z",
+     "exit": 0,
+     "seconds": 12229,
+     "cacheSeconds": 185,
+     "maxRssKB": 9052304,
      "kernels": [
       "Lean default kernel accepts the solution",
       "nanoda kernel accepts the solution"
