@@ -22,7 +22,8 @@
    "decider": "Comparator (leanprover/comparator d03acab1 = tag v4.34.0, built with the release's toolchain v4.34.1), lean4export 076e8e57, landrun 811cfff5, nanoda_lib 3a240721 — on GitHub's Linux runners (.github/workflows/openai-math-kernel.yml), one job per challenge, the config and statement bytes sha256-checked against the census before the run",
    "declaredChanges": [
     "enable_nanoda: true on every config — the independent Rust kernel replays every solution, where the release enabled it for 2 of 416 (412 false, 2 absent)",
-    "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays"
+    "for the 10 configs that declare definition_names: a SECOND run with definition_names emptied. Comparator compares a definition hole's name, universe levels, type and safety, never its body (Comparator/Compare.lean, definitionHoleMatches, at d03acab1); the second run compares those definitions as ordinary constants, body included, and so decides whether the theorem is proved about the definitions the challenge file displays",
+    "nanoda's worker-thread stack (src/lib.rs STACK_SIZE, a hard-coded 16 MiB) raised to 1 GiB — the only byte of the independent kernel changed, its diff kept in the tools artifact (nanoda.patch); amendment 11"
    ],
    "words": {
     "CERTIFIED": "Comparator exits 0 and prints 'Your solution is okay!', with 'nanoda kernel accepts the solution' and 'Lean default kernel accepts the solution' both printed: every listed theorem states exactly the challenge's statement, uses no axiom beyond propext, Quot.sound, Classical.choice, and is accepted by two kernels written independently. It says nothing about whether the Lean statement is the paper's claim — that is lane S.",
@@ -159,6 +160,12 @@
    "before": "any transfer run with the refinement; the two earlier transfer results (SpinAngle TRANSFERS, OccupiedOverlap NOT DECIDED) stand as recorded under amendment 9",
    "what": "the transfer file also copies the helper lemmas that state something about a copied name (the proofs inside copied definitions need them), and the guard counts a copy's auxiliary constants (X._proof_3, X.match_1, ...) as the copy. Nothing else changes; a TRANSFERS still needs the guard and the red control.",
    "why": "OccupiedOverlap's copy did not elaborate: a copied structure field's `simp` needed the challenge's own simp lemma about the copied function, and the guard flagged the copy's auxiliary proof constants as unmatched."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any re-run of the stack-overflow refusals",
+   "what": "nanoda is built with its worker-thread stack constant raised from 16 MiB to 1 GiB (one line of src/lib.rs; the build refuses if the diff is anything else) and the 14 challenges it aborted on are re-run",
+   "why": "amendment 6 raised the process and RUST_MIN_STACK limits, but nanoda spawns its checking threads with an explicit 16 MiB stack (tc.rs, thread::Builder::stack_size(STACK_SIZE)) and Comparator asks for 4 threads, so the overflow persisted (IndependentSets, LaughlinPlanar in run 38040214623 with 'stack: unlimited'). A stack size is a resource, not a rule of the kernel."
   }
  ]
 }

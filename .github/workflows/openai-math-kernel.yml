@@ -66,7 +66,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/kernel-tools
-          key: kernel-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}
+          key: kernel-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g
       - if: steps.cache.outputs.cache-hit != 'true'
         name: build comparator, lean4export, landrun, nanoda at their pins
         run: |
@@ -84,6 +84,11 @@ jobs:
           cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
           go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
           cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          # amendment 11: the ONE change to nanoda — its worker threads' stack, a hard-coded 16 MiB (src/lib.rs), raised
+          # to 1 GiB; deep exports overflowed it (14 jobs). No other byte of the kernel changes; the diff is printed.
+          sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+          git diff --stat; git diff | tee ~/kernel-tools/nanoda.patch
+          test "$(git diff --numstat | awk '{print $1+$2}')" = "2"
           cargo build --release -q
           cp target/release/nanoda_bin ~/kernel-tools/bin/
           ls -la ~/kernel-tools/bin
