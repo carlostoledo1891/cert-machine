@@ -56,4 +56,32 @@ if s_exit is not None:
         'errTail': [l for l in (s_err or '').splitlines() if l.strip()][-15:],
         'logTail': [l for l in (s_log or '').splitlines() if l.strip()][-10:],
     }
+def lean_facts(prefix, file_name):
+    """the facts of one `lake env lean` run of a transfer file: exit, errors with their lines, the guard's verdict, and
+    which errors sit on the `example` lines (the transfer itself) rather than in the copy"""
+    ex = read(prefix + '-exit.txt')
+    if ex is None:
+        return None
+    ex = ex.strip()
+    log, err, lean_src = read(prefix + '.log') or '', read(prefix + '.err') or '', read(file_name) or ''
+    example_lines = [i + 1 for i, l in enumerate(lean_src.split('\n')) if l.startswith('example : type_of%')]
+    errors = []
+    for m in re.finditer(r'^[^\n:]*\.lean:(\d+):\d+: error[^\n]*', log + '\n' + err, re.M):
+        errors.append({'line': int(m.group(1)), 'text': m.group(0)[:300]})
+    guard = 'OK' if 'AUDIT-GUARD OK' in log else 'FAILED' if 'AUDIT-GUARD FAILED' in log + err else 'UNVERIFIED' if 'AUDIT-GUARD UNVERIFIED' in log + err else 'ABSENT'
+    return {
+        'exit': ex if not ex.lstrip('-').isdigit() else int(ex),
+        'exampleLines': example_lines,
+        'errors': errors[:30],
+        'errorsAtExamples': [e for e in errors if e['line'] in example_lines][:10],
+        'errorsInCopy': [e for e in errors if e['line'] not in example_lines][:10],
+        'guard': guard,
+        'guardLine': next((l for l in (log + '\n' + err).splitlines() if 'AUDIT-GUARD' in l), None),
+    }
+
+
+tr = lean_facts('transfer', 'AuditTransfer.lean')
+if tr is not None:
+    fact['transfer'] = tr
+    fact['forge'] = lean_facts('forge', 'AuditTransferForge.lean') or {'exit': (read('forge-exit.txt') or '').strip()}
 print(json.dumps(fact, indent=1))

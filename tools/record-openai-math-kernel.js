@@ -67,6 +67,22 @@ function decide(f) {
   const stage = /Building .*\n(?![\s\S]*Exporting)/.test(text) ? 'build' : /Exporting/.test(text) ? 'export or replay' : 'setup';
   return { word: 'REFUSED', stage, why: (f.errTail || []).slice(-3).join(' | ') || 'exit ' + f.exit };
 }
+/* amendment 9 — the TRANSFER check of a definition-hole challenge, with its red control (the forge) */
+function decideTransfer(f, ch) {
+  if (!ch.definitionNames.length || !f.transfer) return null;
+  const t = f.transfer, g = f.forge || {};
+  if (t.exit === 97) return { word: 'NOT DECIDED', why: 'the transfer file could not be generated from the challenge text' };
+  if (t.exit === 124) return { word: 'NOT DECIDED', why: 'the transfer check hit its 60-minute limit' };
+  if (t.guard === 'FAILED' || t.guard === 'UNVERIFIED') return { word: 'NOT DECIDED', why: 'the guard refused: ' + t.guardLine };
+  if (t.errorsInCopy.length) return { word: 'NOT DECIDED', why: 'the copied challenge did not elaborate beside the solution: ' + t.errorsInCopy.slice(0, 2).map((e) => e.text).join(' | ') };
+  if (t.guard !== 'OK') return { word: 'NOT DECIDED', why: 'the guard did not report' };
+  if (t.errorsAtExamples.length) return { word: 'NOT DEFINITIONAL', why: 'Lean does not accept the solution theorem for the displayed statement by definitional unfolding: ' + t.errorsAtExamples.slice(0, 2).map((e) => e.text).join(' | ') };
+  if (t.exit !== 0) return { word: 'NOT DECIDED', why: 'lean exited ' + t.exit + ' with no error located' };
+  /* the transfer holds; it counts only if its red control fired */
+  if (g.exit === 'genuine') return { word: 'TRANSFERS', why: 'Lean accepts every solution theorem for the displayed statement; every hole is sorried in the challenge, so there is no displayed body to forge', redControl: 'none possible' };
+  if (g.errorsAtExamples && g.errorsAtExamples.length && !(g.errorsInCopy || []).length && g.guard === 'OK') return { word: 'TRANSFERS', why: 'Lean accepts every solution theorem for the statement the challenge displays (guard: ' + t.guardLine + '); the red control — one displayed hole body replaced by sorry — is rejected', redControl: 'fired' };
+  return { word: 'NOT DECIDED', why: 'the transfer was accepted but its red control did not fire (forge: exit ' + g.exit + ', ' + ((g.errorsAtExamples || []).length) + ' rejection(s) at the example lines, guard ' + g.guard + ')' };
+}
 function decideStrict(f, ch) {
   if (!ch.definitionNames.length) return null;
   if (!f.strict) return { word: 'NOT RUN', why: 'no second run in this job' };
@@ -87,7 +103,7 @@ for (const d of runDirs) {
     const r = rows.get(ch.name) || { challenge: ch.name, families: ch.families, statementLines: ch.statementLines, nanodaInRelease: ch.enableNanoda, definitionHoles: ch.definitionNames.length, runs: [] };
     /* a job that never reached Comparator because WE cancelled its run is not a decision of any kind */
     const dec = !f.ran && meta.conclusion === 'cancelled' ? { word: 'NOT RUN', stage: 'cancelled', why: 'its run was cancelled before Comparator ran' } : decide(f);
-    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null });
+    r.runs.push({ run: meta.run, workflowSha: meta.workflowSha, at: meta.updatedAt, exit: f.exit, seconds: f.seconds, cacheSeconds: f.cacheSeconds, maxRssKB: f.maxRssKB, kernels: f.kernels, decided: dec, strict: f.ran ? decideStrict(f, ch) : null, transfer: f.ran ? decideTransfer(f, ch) : null });
     rows.set(ch.name, r);
   }
 }
@@ -101,6 +117,8 @@ for (const r of rows.values()) {
   }
   r.why = last.decided.why; r.stage = last.decided.stage || null;
   r.strict = last.strict;
+  /* the latest run that ran the transfer check decides it */
+  const tr = r.runs.filter((x) => x.transfer); r.transfer = tr.length ? tr[tr.length - 1].transfer : null;
 }
 const list = [...rows.values()].filter((r) => r.word !== 'NOT RUN').sort((a, b) => a.challenge.localeCompare(b.challenge));
 const notRun = [...rows.values()].filter((r) => r.word === 'NOT RUN').map((r) => r.challenge).sort();
@@ -112,7 +130,7 @@ const ledger = {
   declaredChanges: prereg.lanes.K.declaredChanges,
   trustBase: prereg.lanes.K.trustBase,
   notRunYet: notRun,
-  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)) },
+  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)) },
   rows: list,
 };
 writeStable(OUT, ledger);

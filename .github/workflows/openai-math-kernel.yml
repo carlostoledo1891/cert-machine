@@ -110,6 +110,7 @@ jobs:
           sparse-checkout: |
             corpus/openai-math/release.json
             tools/openai-math-kernel-result.py
+            tools/openai-math-transfer.py
           sparse-checkout-cone-mode: false
           path: audit
       - uses: actions/download-artifact@v4
@@ -202,6 +203,29 @@ jobs:
             echo $? > ~/out/strict-exit.txt
             echo $(( $(date +%s) - start )) > ~/out/strict-seconds.txt
             tail -20 ~/out/strict.log; tail -20 ~/out/strict.err
+            # amendment 9: the TRANSFER check — does each solution theorem prove the statement the challenge file
+            # DISPLAYS? (tools/openai-math-transfer.py), and its red control, the same file with one displayed hole
+            # body replaced by sorry, which must NOT transfer
+            T="$GITHUB_WORKSPACE/audit/tools/openai-math-transfer.py"
+            if python3 "$T" "ComparatorChallenges/$CH.lean" "ComparatorChallenges/$CH.json" > AuditTransfer.lean 2> ~/out/transfer.err; then
+              cp AuditTransfer.lean ~/out/AuditTransfer.lean
+              timeout 3600 lake env lean AuditTransfer.lean > ~/out/transfer.log 2>> ~/out/transfer.err
+              echo $? > ~/out/transfer-exit.txt
+            else
+              echo 97 > ~/out/transfer-exit.txt
+            fi
+            python3 "$T" "ComparatorChallenges/$CH.lean" "ComparatorChallenges/$CH.json" --forge > AuditTransferForge.lean 2> ~/out/forge.err
+            fe=$?
+            if [ $fe -eq 0 ]; then
+              cp AuditTransferForge.lean ~/out/AuditTransferForge.lean
+              timeout 3600 lake env lean AuditTransferForge.lean > ~/out/forge.log 2>> ~/out/forge.err
+              echo $? > ~/out/forge-exit.txt
+            elif [ $fe -eq 3 ]; then
+              echo genuine > ~/out/forge-exit.txt
+            else
+              echo 97 > ~/out/forge-exit.txt
+            fi
+            tail -15 ~/out/transfer.log; tail -8 ~/out/forge.log 2>/dev/null
           fi
           exit 0
       - name: result

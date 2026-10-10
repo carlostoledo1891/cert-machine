@@ -35,7 +35,12 @@
     "GENUINE HOLE": "the challenge leaves the definition sorried (a witness the solution must supply), so there is no displayed body to compare"
    },
    "order": "first the families OpenAI chose to release reasoning summaries for (007, 017, 087, 102, 159, 197, 221, 271, 287, 362), the 40 challenges in counterexample families, the 10 definition-hole configs and the 11 challenges added at fd4aeeb2; then the rest, smallest statement first",
-   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so."
+   "trustBase": "the two kernels, lean4export, Comparator's comparison code, landrun's Landlock sandbox on the runner (recorded per job; Comparator calls landrun with --best-effort, so the job records the kernel's LSM list), the Mathlib cache fetched by lake exe cache get, and GitHub's runners. Comparator's README also asks for systemd-run with AF_UNIX restricted; GitHub's runners have no user systemd session, so that guard is NOT applied, and the page says so.",
+   "transferWords": {
+    "TRANSFERS": "Lean accepts every solution theorem as a proof of the statement the challenge file displays, AND the red control fires (the same file with one displayed hole body replaced by sorry is rejected at the example lines). The file keeps the challenge's skeleton and copies, renamed, the holes, every declaration whose text refers to a copied name and every declaration a copied text refers to (never theorems or nominal types); a guard proves no copy reaches an original hole or a constant Comparator never matched.",
+    "NOT DEFINITIONAL": "the copy elaborates and the guard passes, but Lean does not accept the solution theorem for the displayed statement by definitional unfolding; the errors are recorded and whether the statements are nevertheless equivalent is a reading",
+    "NOT DECIDED": "the copy does not elaborate beside the solution, the guard refuses, the check hits its 60-minute limit, or the red control does not fire — the reason recorded"
+   }
   },
   "S": {
    "name": "the statement lane",
@@ -142,6 +147,12 @@
    "before": "any transfer result was recorded",
    "what": "amendment 7's TRANSFER check is WITHDRAWN as designed and its run (38045858023) cancelled; no transfer result enters the ledger. tools/openai-math-transfer.py is removed.",
    "why": "its first result showed the design cannot decide the question: the copy re-declares the challenge's structures and inductives under AuditCopy, and nominal types are never definitionally equal to the solution's, so every challenge that declares a structure would read NOT DEFINITIONAL whatever its holes say (SpinAngle: AuditCopy.SpinAngle.TypeLabel vs OAI.SpinAngle.TypeLabel). A sound version copies only the hole definitions and the theorem statements, resolving every other name to the solution's constants (which Comparator has already matched); that is owed, not built."
+  },
+  {
+   "date": "2026-10-10",
+   "before": "any run of the redesigned transfer check",
+   "what": "the TRANSFER check re-enters (tools/openai-math-transfer.py, redesigned after amendment 8): the challenge's skeleton is kept and only the holes and the declarations tied to them are copied (renamed), so non-hole constants resolve to the solution's ones Comparator matched; a guard computed in Lean refuses any copy that reaches an original hole or an unmatched constant; every transfer must be accompanied by a red control that fires. Words in lanes.K.transferWords.",
+   "why": "amendment 8 withdrew the first design because copied nominal types can never be definitionally equal; this design copies no nominal type, and its guard closes the other way a check of this kind can pass vacuously (through the solution's own definition)."
   }
  ]
 }
