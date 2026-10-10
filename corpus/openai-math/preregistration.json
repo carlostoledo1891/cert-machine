@@ -52,9 +52,11 @@
     "DEFINITION HOLE": "definition_names non-empty (10 configs): Comparator's README itself requires an additional verifier for these; lane K's strict run decides the bodies",
     "AXIOM IN STATEMENT": "the challenge declares an axiom (HarmonicGrowth's mainStatement); lane K decides whether the solution's theorem uses it",
     "STALE LINK": "the scope note links an earlier edition of a manuscript that OpenAI has since revised (families 342 and 376 at the pin)",
-    "LARGE STATEMENT": "over 1,000 lines (8 challenges): a large statement is a large place for a definition to carry the conclusion; read in full, not sampled"
+    "LARGE STATEMENT": "over 1,000 lines (8 challenges): a large statement is a large place for a definition to carry the conclusion; read through every definition the theorem statements reach, transitively (the closure Comparator itself compares), not sampled — a declaration outside that closure cannot carry the conclusion"
    },
-   "discipline": "every NARROWER — UNDECLARED and DIFFERENT row quotes both texts verbatim with file and line, and is read a second time, independently, before it is stated on the page. The first reading of QuasiRiemannHypothesis (scouting, 2026-10-07: the challenge states riemannZeta s ≠ 0 for Re s > 7/8 while the family claims every Dirichlet L-function) is re-read under this rule like any other row."
+   "discipline": "every NARROWER — UNDECLARED and DIFFERENT row quotes both texts verbatim with file and line, and is read a second time, independently, before it is stated on the page. The first reading of QuasiRiemannHypothesis (scouting, 2026-10-07: the challenge states riemannZeta s ≠ 0 for Re s > 7/8 while the family claims every Dirichlet L-function) is re-read under this rule like any other row.",
+   "unit": "the FAMILY: the union of a family's challenges is read against the family's headline, because OpenAI splits one headline across several challenges (family 003's headline is covered by QuasiRiemannHypothesis + DirichletSevenEighths + HeckeSevenEighths + SiegelZeros). Each challenge row also says which part of the headline it covers.",
+   "alsoRead": "for every family: vacuity risk (hypotheses that may be unsatisfiable, a structure that may be uninhabited), junk-value risk (Lean's total division, log 0, sSup of an unbounded set, a Bochner integral of a non-integrable function), and quantifier order against the prose"
   },
   "F": {
    "name": "the finite-core lane",
@@ -73,5 +75,13 @@
    "word": "UNDECIDED HERE — counted, never called unverified, wrong or doubtful: an unformalized deep proof is outside what an exact certifier can decide, and the page says exactly that"
   }
  },
- "sends": "none. Issues and discussions are disabled on openai/math; anything outward (a page pointer, a message) is the operator's, per item."
+ "sends": "none. Issues and discussions are disabled on openai/math; anything outward (a page pointer, a message) is the operator's, per item.",
+ "amendments": [
+  {
+   "date": "2026-10-10",
+   "before": "any lane-S row was recorded",
+   "what": "the LARGE STATEMENT flag reads the theorem statements' definitional closure rather than 'in full'; the S unit is the family; the vacuity/junk-value/quantifier checks are named",
+   "why": "EditApproximation's statement is 19,170 lines, and only constants reachable from the theorem types can carry the conclusion. And the scouting's first read (2026-10-07) called QuasiRiemannHypothesis narrower than the claim from one file, while its family carries three more challenges covering the Dirichlet and Hecke parts — the unit of a statement reading is the family."
+  }
+ ]
 }
