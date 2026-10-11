@@ -1,0 +1,87 @@
+{
+ "gate": 307,
+ "k": 14,
+ "n": 153,
+ "m": 20,
+ "quota": 2,
+ "neargcd": true,
+ "decider": {
+  "lr.c": "f2124afa481afa1be1bf61430b2682571b0b80f0d5d25161e26f4f2434efbb0a",
+  "binary": "7b21ce0c80113fc2e08c5b7db5b124f9aa537926f301926b0ad0a2759e6252ab",
+  "jobs": 32,
+  "split": 3
+ },
+ "machine": {
+  "label": "runpod-3f8fcc632346",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+  "cpus": 256
+ },
+ "stages12": {
+  "nodes": 279113288977,
+  "minimalCoverOrbitsBySize": {
+   "13": 125,
+   "14": 785226
+  },
+  "rows": 804351,
+  "rowsWithF2": 184,
+  "diedAt": {
+   "2": 804167,
+   "4": 183,
+   "8": 0,
+   "16": 0,
+   "32": 0
+  },
+  "survivingRows": 1,
+  "liftNodes": 59777719,
+  "cpuSeconds": 98837.42000000001
+ },
+ "survivingOrbits": 1,
+ "terminal": {
+  "level": 15,
+  "factors": [
+   3,
+   5
+  ],
+  "orbits": [
+   {
+    "row": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "factorWitnessFree": [
+     3,
+     5
+    ],
+    "witnessFree": 7,
+    "improperAfterGcd": 0,
+    "improperAfterNearGcd": 0
+   }
+  ],
+  "orbitsListedMax": 50,
+  "orbitCount": 1,
+  "witnessFree": 7,
+  "improperAfterGcd": 0,
+  "improperAfterNearGcd": 0,
+  "orbitsClosedByGcdAlone": 1,
+  "openOrbits": 0,
+  "seconds": 0.11
+ },
+ "verdict": "CLOSED",
+ "jEmpty": true,
+ "cpuSeconds": 98837.53,
+ "wallSeconds": 4100.3,
+ "decidedAt": "2026-10-11T14:17:51Z",
+ "pod": "phrz9q8r8w3a6x"
+}
