@@ -23,6 +23,8 @@
 
 static int K, K1, P, NCL, M, Q;   /* speeds, threshold denominator, prime, classes, cover size, quota */
 static int NEARGCD = 1;
+static long JOBS = 1, JOB = 0, SPLITD = 3, split_counter = 0;   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
+static const char *SURV_OUT = NULL;                                /* --survivors FILE: write the level-32 orbits, skip the terminal */
 static int nw;                    /* words actually used for class bitsets */
 
 typedef uint64_t word;
@@ -86,6 +88,8 @@ static void found_cover(void) {
 
 static void search(word *allowed) {
   nodes++;
+  if (depth == SPLITD && (split_counter++ % JOBS) != JOB) return;
+  if ((nodes & ((1L << 32) - 1)) == 0) fprintf(stderr, "stage1: %ld nodes, %ld covers, %ld subtrees at depth %ld\n", nodes, ncov, split_counter, SPLITD);
   if (dead || priv[1] < Q) return;
   int unc = 0, best = -1, bestc = 1 << 30;
   for (int w = 0; w < nw; w++) {
@@ -97,7 +101,7 @@ static void search(word *allowed) {
       if (c < bestc) { bestc = c; best = t; }
     }
   }
-  if (unc == 0) { found_cover(); return; }
+  if (unc == 0) { if (depth > SPLITD || JOB == 0) found_cover(); return; }   /* a cover above the split depth: job 0 keeps it */
   if (depth == K || bestc == 0 || unc > (K - depth) * M) return;
   word next[CW]; memcpy(next, allowed, nw * sizeof(word));
   for (int w = 0; w < nw; w++) for (word b = who[best][w] & allowed[w]; b; b &= b - 1) {
@@ -237,7 +241,17 @@ static void extras(const uint16_t *T, int s, int need, int from, uint16_t *row, 
 int main(int argc, char **argv) {
   if (argc < 3) { fprintf(stderr, "usage: lr <k> <p> [--no-neargcd] [--k1 K1]\n"); return 2; }
   K = atoi(argv[1]); P = atoi(argv[2]); K1 = K + 1;
-  for (int i = 3; i < argc; i++) { if (!strcmp(argv[i], "--no-neargcd")) NEARGCD = 0; else if (!strcmp(argv[i], "--k1") && i + 1 < argc) K1 = atoi(argv[++i]); }
+  const char *term_in[64]; int nterm = 0;
+  for (int i = 3; i < argc; i++) {
+    if (!strcmp(argv[i], "--no-neargcd")) NEARGCD = 0;
+    else if (!strcmp(argv[i], "--k1") && i + 1 < argc) K1 = atoi(argv[++i]);
+    else if (!strcmp(argv[i], "--jobs") && i + 1 < argc) JOBS = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--job") && i + 1 < argc) JOB = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--split") && i + 1 < argc) SPLITD = atol(argv[++i]);
+    else if (!strcmp(argv[i], "--survivors") && i + 1 < argc) SURV_OUT = argv[++i];
+    else if (!strcmp(argv[i], "--terminal-from") && i + 1 < argc) { while (i + 1 < argc && nterm < 64) term_in[nterm++] = argv[++i]; }
+    else { fprintf(stderr, "unknown option %s\n", argv[i]); return 2; }
+  }
   if (K < 2 || K > MAXK || P < 5 || (P - 1) / 2 > MAXN) { fprintf(stderr, "out of range\n"); return 2; }
   for (long d = 2; d * d <= P; d++) if (P % d == 0) { fprintf(stderr, "p is not prime\n"); return 2; }
   NCL = (P - 1) / 2; M = (P - 1) / K1; nw = (NCL + 63) / 64;
@@ -248,21 +262,38 @@ int main(int argc, char **argv) {
   /* stage 1 */
   word allowed[CW]; memset(allowed, 0, sizeof allowed);
   for (int v = 2; v <= NCL; v++) allowed[(v - 1) / 64] |= (word)1 << ((v - 1) % 64);
-  depth = 0; add_class(1); search(allowed); remove_class(1);
-  double t1 = (double)(clock() - t0) / CLOCKS_PER_SEC;
-  /* rows: every minimal cover orbit, extended by every multiset of the remaining size */
-  for (long i = 0; i < ncov; i++) { uint16_t row[MAXK]; memcpy(row, covs[i].c, covs[i].s * sizeof row[0]); extras(covs[i].c, covs[i].s, K - covs[i].s, 1, row, covs[i].s); }
-  double t2 = (double)(clock() - t0) / CLOCKS_PER_SEC;
+  double t1 = 0, t2 = 0;
+  if (nterm == 0) {
+    depth = 0; add_class(1); search(allowed); remove_class(1);
+    t1 = (double)(clock() - t0) / CLOCKS_PER_SEC;
+    /* rows: every minimal cover orbit, extended by every multiset of the remaining size */
+    for (long i = 0; i < ncov; i++) { uint16_t row[MAXK]; memcpy(row, covs[i].c, covs[i].s * sizeof row[0]); extras(covs[i].c, covs[i].s, K - covs[i].s, 1, row, covs[i].s); }
+    t2 = (double)(clock() - t0) / CLOCKS_PER_SEC;
+  } else {
+    /* the terminal stage on the union of the level-32 orbits written by --survivors runs (one orbit per line) */
+    for (int f = 0; f < nterm; f++) {
+      FILE *fp = fopen(term_in[f], "r"); if (!fp) { fprintf(stderr, "cannot read %s\n", term_in[f]); return 2; }
+      uint16_t c[MAXK]; int v;
+      for (;;) { int i; for (i = 0; i < K; i++) { if (fscanf(fp, "%d", &v) != 1) break; c[i] = (uint16_t)v; } if (i < K) break; hinsert(c); }
+      fclose(fp);
+    }
+  }
+  if (SURV_OUT) {
+    FILE *fp = fopen(SURV_OUT, "w"); if (!fp) { fprintf(stderr, "cannot write %s\n", SURV_OUT); return 2; }
+    for (long h = 0; h < hcap; h++) if (ht[h].used) { for (int i = 0; i < K; i++) fprintf(fp, "%s%d", i ? " " : "", ht[h].c[i]); fputc('\n', fp); }
+    fclose(fp);
+  }
   /* terminal level L = K1 (always k+1, never the --k1 override): its prime-power factors */
   long L = K + 1, fac[8]; int nf = 0;
   { long x = L; for (long d = 2; d <= x; d++) if (x % d == 0) { long pw = 1; while (x % d == 0) { x /= d; pw *= d; } fac[nf++] = pw; } }
   long orbits = 0, wf_total = 0, after_gcd_total = 0, after_ng_total = 0, open_orbits = 0, gcd_only_orbits = 0;
-  printf("{\"k\":%d,\"p\":%d,\"K1\":%d,\"n\":%d,\"m\":%d,\"quota\":%d,\"neargcd\":%s,", K, P, K1, NCL, M, Q, NEARGCD ? "true" : "false");
+  printf("{\"k\":%d,\"p\":%d,\"K1\":%d,\"n\":%d,\"m\":%d,\"quota\":%d,\"neargcd\":%s,\"jobs\":%ld,\"job\":%ld,\"split\":%ld,\"mode\":\"%s\",", K, P, K1, NCL, M, Q, NEARGCD ? "true" : "false", JOBS, JOB, SPLITD, nterm ? "terminal" : SURV_OUT ? "stages-1-2" : "full");
   printf("\"stage1\":{\"nodes\":%ld,\"minimalCoverOrbitsBySize\":{", nodes);
   { int first = 1; for (int s = 1; s <= K; s++) if (covs_by_size[s]) { printf("%s\"%d\":%ld", first ? "" : ",", s, covs_by_size[s]); first = 0; } }
   printf("},\"seconds\":%.2f},", t1);
   printf("\"stage2\":{\"rows\":%ld,\"rowsWithF2\":%ld,\"diedAt\":{\"2\":%ld,\"4\":%ld,\"8\":%ld,\"16\":%ld,\"32\":%ld},\"survivingRows\":%ld,\"survivingOrbits\":%ld,\"liftNodes\":%ld,\"seconds\":%.2f},",
          rows_total, rows_f2, died_at[0], died_at[1], died_at[2], died_at[3], died_at[4], surv_rows, hn, lift_nodes_total, t2 - t1);
+  if (SURV_OUT) { printf("\"cpuSeconds\":%.2f}\n", (double)(clock() - t0) / CLOCKS_PER_SEC); return 0; }
   printf("\"terminal\":{\"level\":%ld,\"factors\":[", L); for (int j = 0; j < nf; j++) printf("%s%ld", j ? "," : "", fac[j]); printf("],\"orbits\":[");
   int printed = 0;
   for (long h = 0; h < hcap; h++) if (ht[h].used) {
