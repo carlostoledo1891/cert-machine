@@ -4991,8 +4991,116 @@
    "dim": 43,
    "claimed": 2553792,
    "previous": 2545056,
-   "verdict": "NEEDS DATA",
-   "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form."
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-11 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11); the rows span exactly a 43-dimensional subspace of Q^48, all 2553792 squared norms are 576, all rows distinct, and all 3260925512736 pairs have inner product <= 288: 4467331098 contacts at exactly 60 degrees, none closer; the largest non-contact inner product is 192 (cos 0.333333). Their own verification checked norms, subspace, membership and distinctness and recorded \"pairwise_inner_products_checked\": false \u2014 this is the pairwise check.",
+   "facts": [
+    "2553792 rows, every squared norm 576, all distinct",
+    "the rows span exactly 43 dimensions of Q^48: a sample of rank 43 over Q, every row orthogonal to the 5 integer vectors of its null space",
+    "every pair by float32 BLAS, exact: each partial sum is bounded by |x||y| = 576 < 2^24",
+    "a 600-row sample in plain Python integers: 241 contacts, 0 violations, equal to the bulk path"
+   ],
+   "bulk": {
+    "pairs": 3260925512736,
+    "violations": 0,
+    "contacts": 4467331098,
+    "maxDot": 288,
+    "nearestNonContactDot": 192,
+    "nearestNonContactCos": 0.3333333333333333,
+    "tiles": 778128,
+    "tile": 2048,
+    "seconds": 2419.2,
+    "exactness": "float32 BLAS; every partial sum of products is bounded by sum|x_i y_i| <= |x||y| = 576 < 2^24"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 241,
+    "bulkViolations": 0,
+    "bulkContacts": 241,
+    "agree": true,
+    "how": "plain Python integers, no numpy, no BLAS"
+   },
+   "bytes": {
+    "section43.i8.gz": "482660ef7fe595bd069d55d609c736bd54acaa786a6a5cab16581639260b7cbd",
+    "section43.i8.gz (decompressed, = their verification input)": "101491f3864debc2c778ebbe370fe80b033cc9039802de59c54575ea3d4bf4bd",
+    "section43.csv.gz": "5ce70aae76603bdd825c558c3a848989073c505ce14c5528c22535d28b760337"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-11T14:12:32Z",
+   "jsCheck": {
+    "n": 672,
+    "pairs": 225456,
+    "bulkContacts": 289,
+    "jsContacts": 289,
+    "jsVerdict": "CERTIFIED",
+    "agree": true,
+    "seed": 11,
+    "jsMs": 193,
+    "how": "a seeded sample decided whole by basis.js in JavaScript and by the bulk path; no code shared"
+   },
+   "csvCheck": {
+    "file": "section43.csv.gz",
+    "sha256": "5ce70aae76603bdd825c558c3a848989073c505ce14c5528c22535d28b760337",
+    "rows": 2553792,
+    "identicalToBinary": true
+   },
+   "sectionFacts": {
+    "rows": 2553792,
+    "rowsClaimed": 2553792,
+    "allNormsEqual": true,
+    "norm": 576,
+    "maxAbsCoordinate": 24,
+    "distinctRows": 2553792,
+    "sampleRankOverQ": 43,
+    "complementVectors": 5,
+    "allRowsInTheSpan": true,
+    "spanDimension": 43
+   },
+   "engine": {
+    "n": 2553792,
+    "dim": 43,
+    "norm": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "normShow": "576",
+    "verdict": "CERTIFIED",
+    "pairs": 3260925512736,
+    "contacts": 4467331098,
+    "violations": 0,
+    "maxDot": [
+     288,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "288",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.3333333333333333,
+    "seconds": 2419.2,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "section",
+      "n": 2553792,
+      "path": "gemm (float32)",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     }
+    ]
+   },
+   "seconds": 2419.2
   },
   {
    "id": "qiushi-45",
@@ -5001,8 +5109,116 @@
    "dim": 45,
    "claimed": 7380090,
    "previous": 7379838,
-   "verdict": "NEEDS DATA",
-   "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form."
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-11 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11); the rows span exactly a 45-dimensional subspace of Q^48, all 7380090 squared norms are 4416, all rows distinct, and all 27232860514005 pairs have inner product <= 2208: 19832543736 contacts at exactly 60 degrees, none closer; the largest non-contact inner product is 2112 (cos 0.478261). Their own verification checked norms, subspace, membership and distinctness and recorded \"pairwise_inner_products_checked\": false \u2014 this is the pairwise check.",
+   "facts": [
+    "7380090 rows, every squared norm 4416, all distinct",
+    "the rows span exactly 45 dimensions of Q^48: a sample of rank 45 over Q, every row orthogonal to the 3 integer vectors of its null space",
+    "every pair by float32 BLAS, exact: each partial sum is bounded by |x||y| = 4416 < 2^24",
+    "a 600-row sample in plain Python integers: 136 contacts, 0 violations, equal to the bulk path"
+   ],
+   "bulk": {
+    "pairs": 27232860514005,
+    "violations": 0,
+    "contacts": 19832543736,
+    "maxDot": 2208,
+    "nearestNonContactDot": 2112,
+    "nearestNonContactCos": 0.4782608695652174,
+    "tiles": 6496210,
+    "tile": 2048,
+    "seconds": 32765.0,
+    "exactness": "float32 BLAS; every partial sum of products is bounded by sum|x_i y_i| <= |x||y| = 4416 < 2^24"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 136,
+    "bulkViolations": 0,
+    "bulkContacts": 136,
+    "agree": true,
+    "how": "plain Python integers, no numpy, no BLAS"
+   },
+   "bytes": {
+    "section45.i8.gz": "68a8f5bafe44ee15c13ccda2d3489dbbe03bd3d5c5904fe4944c9cafca04a5e4",
+    "section45.i8.gz (decompressed, = their verification input)": "4675bf0522e866c0090e856bce9fd7f903191cf0bb017103ad238227c96ae80c",
+    "section45.csv.gz": "2d6c7c701c137da310d0c9b5b93d43fdc8a331c4ef1f3dd80af656edc072a6e4"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-11T23:19:22Z",
+   "sectionFacts": {
+    "rows": 7380090,
+    "rowsClaimed": 7380090,
+    "allNormsEqual": true,
+    "norm": 4416,
+    "maxAbsCoordinate": 49,
+    "distinctRows": 7380090,
+    "sampleRankOverQ": 45,
+    "complementVectors": 3,
+    "allRowsInTheSpan": true,
+    "spanDimension": 45
+   },
+   "engine": {
+    "n": 7380090,
+    "dim": 45,
+    "norm": [
+     4416,
+     0,
+     0,
+     0
+    ],
+    "normShow": "4416",
+    "verdict": "CERTIFIED",
+    "pairs": 27232860514005,
+    "contacts": 19832543736,
+    "violations": 0,
+    "maxDot": [
+     2208,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "2208",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.4782608695652174,
+    "seconds": 32765.0,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "section",
+      "n": 7380090,
+      "path": "gemm (float32)",
+      "freeNorm": false,
+      "maxAbsCoefficient": 49
+     }
+    ]
+   },
+   "seconds": 32765.0,
+   "jsCheck": {
+    "n": 672,
+    "pairs": 225456,
+    "bulkContacts": 160,
+    "jsContacts": 160,
+    "jsVerdict": "CERTIFIED",
+    "agree": true,
+    "seed": 11,
+    "jsMs": 104,
+    "how": "a seeded sample decided whole by basis.js in JavaScript and by the bulk path; no code shared"
+   },
+   "csvCheck": {
+    "file": "section45.csv.gz",
+    "sha256": "2d6c7c701c137da310d0c9b5b93d43fdc8a331c4ef1f3dd80af656edc072a6e4",
+    "rows": 7380090,
+    "identicalToBinary": true
+   }
   },
   {
    "id": "kravatsky-49",
