@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-11T18:01:14.522Z",
- "git": "092e83fc",
+ "generated": "2026-10-11T23:21:36.004Z",
+ "git": "99d99939",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -31,7 +31,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 3
+   "ms": 1
   },
   {
    "id": "cal-e8-240",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 24
+   "ms": 9
   },
   {
    "id": "alphaevolve-593",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 202,
+   "ms": 104,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 125,
+   "ms": 64,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 118,
+   "ms": 61,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 108,
+   "ms": 57,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -172,7 +172,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 108,
+   "ms": 57,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -200,7 +200,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 102,
+   "ms": 51,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors",
    "date": "1980-01-01",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 119,
+   "ms": 65,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 125,
+   "ms": 65,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 2084
+     "ms": 1077
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 406
+     "ms": 208
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 419
+     "ms": 210
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 195
+    "ms": 94
    }
   },
   {
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 220
+    "ms": 108
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 405
+    "ms": 187
    }
   }
  ],
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 7464,
+    "ms": 3533,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -2463,27 +2463,56 @@
     "claimed": 7380090,
     "previous": 7379838,
     "gain": 252,
-    "verdict": "NEEDS DATA",
+    "verdict": "WITNESSED",
     "ours": false,
-    "pairs": null,
-    "contacts": null,
-    "violations": null,
-    "maxCos": null,
-    "maxDotShow": null,
-    "norm": null,
-    "nearestNonContactCos": null,
-    "seconds": null,
+    "pairs": 27232860514005,
+    "contacts": 19832543736,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "2208",
+    "norm": "4416",
+    "nearestNonContactCos": 0.4782608695652174,
+    "seconds": 32765,
     "bigintFallbacks": null,
-    "spotCheck": null,
-    "jsCheck": null,
-    "families": [],
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "bulkContacts": 160,
+     "jsContacts": 160,
+     "jsVerdict": "CERTIFIED",
+     "agree": true,
+     "seed": 11,
+     "jsMs": 104,
+     "how": "a seeded sample decided whole by basis.js in JavaScript and by the bulk path; no code shared"
+    },
+    "families": [
+     {
+      "name": "section",
+      "n": 7380090,
+      "path": "gemm (float32)"
+     }
+    ],
     "delta": null,
     "decode": null,
     "choices": [],
-    "facts": [],
+    "facts": [
+     "7380090 rows, every squared norm 4416, all distinct",
+     "the rows span exactly 45 dimensions of Q^48: a sample of rank 45 over Q, every row orthogonal to the 3 integer vectors of its null space",
+     "every pair by float32 BLAS, exact: each partial sum is bounded by |x||y| = 4416 < 2^24",
+     "a 600-row sample in plain Python integers: 136 contacts, 0 violations, equal to the bulk path"
+    ],
     "scale": null,
-    "bytes": null,
-    "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form.",
+    "bytes": {
+     "section45.i8.gz": "68a8f5bafe44ee15c13ccda2d3489dbbe03bd3d5c5904fe4944c9cafca04a5e4",
+     "section45.i8.gz (decompressed, = their verification input)": "4675bf0522e866c0090e856bce9fd7f903191cf0bb017103ad238227c96ae80c",
+     "section45.csv.gz": "2d6c7c701c137da310d0c9b5b93d43fdc8a331c4ef1f3dd80af656edc072a6e4"
+    },
+    "detail": "every point published on 2026-10-11 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11); the rows span exactly a 45-dimensional subspace of Q^48, all 7380090 squared norms are 4416, all rows distinct, and all 27232860514005 pairs have inner product <= 2208: 19832543736 contacts at exactly 60 degrees, none closer; the largest non-contact inner product is 2112 (cos 0.478261). Their own verification checked norms, subspace, membership and distinctness and recorded \"pairwise_inner_products_checked\": false — this is the pairwise check.",
     "status": null,
     "package": null,
     "addedPoints": null

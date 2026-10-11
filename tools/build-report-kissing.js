@@ -531,8 +531,9 @@ B.push(C.section({
     + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on the one chosen. The Leech shell itself '
     + 'is built here, from the Golay code spanned by the claimants\' own published owner vectors.')
   + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: ' + WHO.kravatsky + '\'s dimensions '
-    + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim)) + ' and the Qiushi Engine\'s '
-    + span(wNeeds.filter((r) => r.claimant === 'qiushi').map((r) => r.dim)) + ' publish counts — from lattices, class-size '
+    + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim))
+    + (wNeeds.some((r) => r.claimant === 'qiushi') ? ' and the Qiushi Engine\'s ' + span(wNeeds.filter((r) => r.claimant === 'qiushi').map((r) => r.dim)) : '')
+    + ' publish counts — from lattices, class-size '
     + 'tables, moment identities — and no vector list. Each row names what would decide it.') : '')
   + (wQueued.length ? C.pRaw('<strong>QUEUED</strong>, ' + wQueued.length + ' rows: ' + wQueued.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ')
     + '. ' + (wQueued.some((r) => r.claimant === 'takhanov-yun') ? 'Takhanov and Yun publish dimensions 26–31 as float64 arrays whose lifted block is turned by a generic rotation; '

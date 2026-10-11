@@ -138,14 +138,39 @@ def js_only(d, k=672, seed=11):
 
 
 def csv_only(d):
-    """the CSV (48 comma-separated integers per line) holds exactly the rows of the binary file, in order"""
+    """the CSV (48 comma-separated integers per line) holds exactly the rows of the binary file, in order — parsed in
+       line-aligned chunks so the 7,380,090-row file never needs more than a chunk in memory"""
+    import warnings
     name, sha = PINS[d]['csv']
     Xi = load_rows(d)
-    txt = gzip.decompress(fetch(name, sha))
-    C = np.array(txt.replace(b'\n', b',').rstrip(b',').split(b','), dtype=np.int32).reshape(-1, 48)
-    same = C.shape == Xi.shape and bool(np.array_equal(C, Xi))
-    update_row(d, {'csvCheck': {'file': name, 'sha256': sha, 'rows': int(C.shape[0]), 'identicalToBinary': same}})
-    print('qiushi-%d: %s has %d rows, identical to the binary rows: %s' % (d, name, C.shape[0], same))
+    fetch(name, sha)
+    same, row0, rest = True, 0, b''
+    with gzip.open(os.path.join(CACHE, name), 'rb') as f:
+        while True:
+            blk = f.read(64 << 20)
+            if not blk and not rest:
+                break
+            buf = rest + blk
+            cut = buf.rfind(b'\n') + 1 if blk else len(buf)
+            chunk, rest = buf[:cut], buf[cut:]
+            if not chunk.strip():
+                if not blk:
+                    break
+                continue
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore')
+                v = np.fromstring(chunk.replace(b'\n', b',').rstrip(b','), dtype=np.int32, sep=',')
+            if v.size % 48:
+                same = False; break
+            C = v.reshape(-1, 48)
+            if row0 + C.shape[0] > Xi.shape[0] or not np.array_equal(C, Xi[row0:row0 + C.shape[0]]):
+                same = False; break
+            row0 += C.shape[0]
+            if not blk:
+                break
+    same = same and row0 == Xi.shape[0]
+    update_row(d, {'csvCheck': {'file': name, 'sha256': sha, 'rows': row0, 'identicalToBinary': same}})
+    print('qiushi-%d: %s has %d rows, identical to the binary rows: %s' % (d, name, row0, same))
     if not same:
         sys.exit(1)
 
