@@ -41,7 +41,7 @@ for f in sorted(glob.glob(os.path.join(sys.argv[1], '*.json'))):
         ('irredundant 14-cover orbits', o['stages12']['minimalCoverOrbitsBySize'].get('14', 0), t.get('ir_rows')),
         ('13-cover orbits (decomposition variant)', o['stages12']['minimalCoverOrbitsBySize'].get('13', 0), t.get('km1_covers') if t.get('variant') == 'decomposition' else None),
         ('rows generated', o['stages12']['rows'], (t.get('ir_rows') or 0) + (t.get('ext_rows') or 0) if t.get('variant') == 'decomposition' else None),
-        ('rows with F_2 nonempty', o['stages12']['rowsWithF2'], t.get('l2_surv')),
+        ('rows with F_2 nonempty', o['stages12']['rowsWithF2'], t.get('l2_surv') if t.get('variant') == 'decomposition' else None),
         ('rows dying at level 4', o['stages12']['diedAt'].get('4'), (t.get('died') or {}).get('died_l4')),
         ('rows dying at level 8', o['stages12']['diedAt'].get('8'), (t.get('died') or {}).get('died_l8')),
         ('orbits surviving level 32', o['survivingOrbits'], t.get('orbits')),
@@ -51,7 +51,10 @@ for f in sorted(glob.glob(os.path.join(sys.argv[1], '*.json'))):
     ]
     claim_ours = 'J(K,p) empty' if o['jEmpty'] else ('divisibility' if o['verdict'] == 'CLOSED' else 'OPEN')
     claim_theirs = 'J(K,p) empty' if 'empty' in (t.get('claim_type') or '') else ('divisibility' if t.get('status') == 'GATE_CLOSED' else t.get('status'))
-    rows.append({'p': p, 'pairs': [{'what': w, 'ours': a, 'theirs': b, 'agree': a == b} for w, a, b in pairs],
+    # a None on their side: the quantity depends on how the reducible rows were generated (the general variant), so it
+    # is not compared; every other quantity is a property of the mathematical sets
+    pairs = [x for x in pairs if x[2] is not None]
+    rows.append({'p': p, 'variant': t.get('variant'), 'pairs': [{'what': w, 'ours': a, 'theirs': b, 'agree': a == b} for w, a, b in pairs],
                  'claim': {'ours': claim_ours, 'theirs': claim_theirs, 'agree': claim_ours == claim_theirs}})
 if '--json' in sys.argv:
     print(json.dumps(rows, indent=1))

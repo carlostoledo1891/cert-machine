@@ -59,12 +59,40 @@ for d in parts:
     for lv, c in d['stage2']['diedAt'].items():
         agg['diedAt'][lv] = agg['diedAt'].get(lv, 0) + c
     agg['cpuSeconds'] += d['cpuSeconds']
-term = subprocess.run([lr, str(k), str(p), '--terminal-from'] + [sf for sf, _ in procs] + extra, capture_output=True, text=True)
-if term.returncode:
-    sys.exit('terminal failed: ' + term.stderr)
-T = json.loads(term.stdout)
+# the terminal stage, in parallel: the union of the surviving orbits (each job wrote its own, canonical, one per line)
+# dealt round robin to J files, one lr --terminal-from per file, the counts summed
+orbits = set()
+for sf, _ in procs:
+    with open(sf) as f:
+        orbits.update(line.strip() for line in f if line.strip())
+orbits = sorted(orbits)
+chunks = [os.path.join(out, '%s.t%d.txt' % (tag, j)) for j in range(jobs)]
+for j, cf in enumerate(chunks):
+    with open(cf, 'w') as f:
+        f.write(''.join(o + '\n' for o in orbits[j::jobs]))
+tprocs = [subprocess.Popen([lr, str(k), str(p), '--terminal-from', cf] + extra, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) for cf in chunks]
+parts_t = []
+for pr in tprocs:
+    o_, e_ = pr.communicate()
+    if pr.returncode:
+        sys.exit('terminal failed: ' + e_)
+    parts_t.append(json.loads(o_))
+T = {'terminal': {'level': parts_t[0]['terminal']['level'], 'factors': parts_t[0]['terminal']['factors'], 'orbits': [],
+                  'orbitsListedMax': 50, 'orbitCount': 0, 'witnessFree': 0, 'improperAfterGcd': 0, 'improperAfterNearGcd': 0,
+                  'orbitsClosedByGcdAlone': 0, 'openOrbits': 0, 'seconds': 0.0}, 'cpuSeconds': 0.0}
+for d in parts_t:
+    for key in ('orbitCount', 'witnessFree', 'improperAfterGcd', 'improperAfterNearGcd', 'orbitsClosedByGcdAlone', 'openOrbits'):
+        T['terminal'][key] += d['terminal'][key]
+    T['terminal']['seconds'] += d['terminal']['seconds']
+    T['cpuSeconds'] += d['cpuSeconds']
+    T['terminal']['orbits'].extend(d['terminal']['orbits'][:max(0, 50 - len(T['terminal']['orbits']))])
+assert T['terminal']['orbitCount'] == len(orbits), 'the terminal jobs did not cover every surviving orbit'
+T['verdict'] = 'OPEN' if T['terminal']['openOrbits'] else 'CLOSED'
+T['jEmpty'] = T['terminal']['improperAfterGcd'] == 0 and T['verdict'] == 'CLOSED'
 for sf, _ in procs:
     os.remove(sf)
+for cf in chunks:
+    os.remove(cf)
 rec = {
     'gate': p, 'k': k, 'n': parts[0]['n'], 'm': parts[0]['m'], 'quota': parts[0]['quota'], 'neargcd': neargcd,
     'decider': {'lr.c': sha(os.path.join(HERE, 'lr.c')), 'binary': sha(lr), 'jobs': jobs, 'split': split},
