@@ -24,7 +24,7 @@
 static int K, K1, P, NCL, M, Q;   /* speeds, threshold denominator, prime, classes, cover size, quota */
 static int NEARGCD = 1;
 static long JOBS = 1, JOB = 0, SPLITD = 3, split_counter = 0;
-static int BOUND = 1, PACK = 1;   /* PACK: uncovered times no single class covers two of need that many more classes */   /* the coverage bound: the r best new coverages of admissible classes must reach the uncovered count */   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
+static int BOUND = 1, PACK = 0;   /* PACK: uncovered times no single class covers two of need that many more classes */   /* the coverage bound: the r best new coverages of admissible classes must reach the uncovered count */   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
 static const char *SURV_OUT = NULL;                                /* --survivors FILE: write the level-32 orbits, skip the terminal */
 static int nw;                    /* words actually used for class bitsets */
 
@@ -87,9 +87,30 @@ static void found_cover(void) {
   covs[ncov].s = s; memcpy(covs[ncov].c, me, s * sizeof me[0]); ncov++; covs_by_size[s]++;
 }
 
+static int FINISH = 1, CUT = 1, CUTDEAD = 0;   /* CUTDEAD: measured slower at p = 239; off */   /* CUT: a child whose bound fails is not entered (counted as a node, as if entered and cut) */
+/* the first entry equal to the child's own coverage is skipped once (it is the child itself, or an equal stand-in) */
+static int skip_flag;
+static inline int skip_once(int v, int self, int *sum) { (void)sum; if (!skip_flag && v == self) { skip_flag = 1; return 1; } return 0; }   /* one slot left: the last class must cover every uncovered time — intersect, do not branch */
 static void search(word *allowed) {
   nodes++;
   if (depth == SPLITD && (split_counter++ % JOBS) != JOB) return;
+  if (FINISH && depth == K - 1 && depth > SPLITD && !dead && priv[1] >= Q) {
+    word cand[CW]; int any = 0;
+    for (int v = 0; v < nw; v++) cand[v] = allowed[v];
+    for (int w = 0; w < nw; w++) {
+      word u = ~covered[w];
+      if (w == nw - 1 && NCL % 64) u &= ((word)1 << (NCL % 64)) - 1;
+      for (; u; u &= u - 1) { int t = w * 64 + __builtin_ctzll(u) + 1; any = 1; for (int v = 0; v < nw; v++) cand[v] &= who[t][v]; }
+    }
+    if (!any) { found_cover(); return; }                 /* already a cover with K-1 classes */
+    for (int w = 0; w < nw; w++) for (word b = cand[w]; b; b &= b - 1) {
+      int y = w * 64 + __builtin_ctzll(b) + 1;
+      add_class(y);
+      if (!dead && priv[1] >= Q) found_cover();          /* a cover now; irredundant and with the quota, or not kept */
+      remove_class(y);
+    }
+    return;
+  }
   if ((nodes & ((1L << 32) - 1)) == 0) fprintf(stderr, "stage1: %ld nodes, %ld covers, %ld subtrees at depth %ld\n", nodes, ncov, split_counter, SPLITD);
   if (dead || priv[1] < Q) return;
   int unc = 0, best = -1, bestc = 1 << 30;
@@ -106,13 +127,15 @@ static void search(word *allowed) {
   }
   if (unc == 0) { if (depth > SPLITD || JOB == 0) found_cover(); return; }   /* a cover above the split depth: job 0 keeps it */
   if (depth == K || bestc == 0 || unc > (K - depth) * M) return;
-  if (BOUND && K - depth >= 1) {
+  int r = K - depth, top[MAXK + 1], ncv[MAXN + 1];
+  if (BOUND && r >= 1) {
     /* each class still admissible adds at most its new coverage; the r = K - depth largest must reach unc */
-    int r = K - depth, top[MAXK]; for (int i = 0; i < r; i++) top[i] = 0;
+    for (int i = 0; i <= r; i++) top[i] = 0;
     for (int w = 0; w < nw; w++) for (word b = allowed[w]; b; b &= b - 1) {
       int y = w * 64 + __builtin_ctzll(b) + 1, nc = 0;
       for (int v = 0; v < nw; v++) nc += popc(cover[y][v] & ~covered[v]);
-      if (nc > top[r - 1]) { int i = r - 1; while (i > 0 && top[i - 1] < nc) { top[i] = top[i - 1]; i--; } top[i] = nc; }
+      ncv[y] = nc;
+      if (nc > top[r]) { int i = r; while (i > 0 && top[i - 1] < nc) { top[i] = top[i - 1]; i--; } top[i] = nc; }
     }
     int sum = 0; for (int i = 0; i < r; i++) sum += top[i];
     if (sum < unc) return;
@@ -134,9 +157,40 @@ static void search(word *allowed) {
     if (kept > r) return;
   }
   word next[CW]; memcpy(next, allowed, nw * sizeof(word));
+  /* the private times of every chosen class: a child that covers all of them kills that class (the child would be
+     cut on entry as redundant), and a child taking class 1 below its quota is cut too */
+  word privset[MAXK][CW]; int npc = CUTDEAD ? depth : 0;
+  for (int c = 0; c < npc; c++) {
+    int x = chosen[c];
+    for (int v = 0; v < nw; v++) privset[c][v] = 0;
+    for (int w2 = 0; w2 < nw; w2++) for (word b2 = cover[x][w2]; b2; b2 &= b2 - 1) {
+      int t = w2 * 64 + __builtin_ctzll(b2) + 1;
+      if (cnt[t] == 1) privset[c][(t - 1) / 64] |= (word)1 << ((t - 1) % 64);
+    }
+  }
   for (int w = 0; w < nw; w++) for (word b = who[best][w] & allowed[w]; b; b &= b - 1) {
     int y = w * 64 + __builtin_ctzll(b) + 1;
     next[w] &= ~((word)1 << (y - 1 - w * 64));   /* y is chosen now and forbidden in every later branch of this node */
+    if (CUTDEAD) {
+      int kills = 0;
+      for (int c = 0; c < npc && !kills; c++) {
+        int all = 1, left = 0;
+        for (int v = 0; v < nw; v++) { word rest = privset[c][v] & ~cover[y][v]; if (rest) all = 0; if (chosen[c] == 1) left += popc(rest); }
+        if (all) kills = 1;                                  /* every private time of chosen[c] is covered by y */
+        else if (chosen[c] == 1 && left < Q) kills = 1;       /* class 1 would drop below its quota */
+      }
+      if (kills) { nodes++; continue; }
+    }
+    if (BOUND && CUT) {
+      /* the child's bound, over-estimated from here: its admissible classes are ours minus y and earlier siblings,
+         each with at most the new coverage it has here; if even this fails, the child would be cut on entry */
+      int uc_child = unc - ncv[y], rc = r - 1; skip_flag = 0;
+      if (rc == 0) { if (uc_child > 0) { nodes++; continue; } }
+      else {
+        int sum = 0, used = 0; for (int i = 0; i <= rc && used < rc; i++) { if (!skip_once(top[i], ncv[y], &sum)) { sum += top[i]; used++; } }
+        if (sum < uc_child) { nodes++; continue; }
+      }
+    }
     add_class(y);
     search(next);
     remove_class(y);
@@ -337,6 +391,10 @@ int main(int argc, char **argv) {
     else if (!strcmp(argv[i], "--survivors") && i + 1 < argc) SURV_OUT = argv[++i];
     else if (!strcmp(argv[i], "--no-bound")) BOUND = 0;
     else if (!strcmp(argv[i], "--no-pack")) PACK = 0;
+    else if (!strcmp(argv[i], "--pack")) PACK = 1;
+    else if (!strcmp(argv[i], "--no-finish")) FINISH = 0;
+    else if (!strcmp(argv[i], "--no-cut")) CUT = 0;
+    else if (!strcmp(argv[i], "--cut-dead")) CUTDEAD = 1;
     else if (!strcmp(argv[i], "--terminal-from") && i + 1 < argc) { while (i + 1 < argc && nterm < 64) term_in[nterm++] = argv[++i]; }
     else { fprintf(stderr, "unknown option %s\n", argv[i]); return 2; }
   }
