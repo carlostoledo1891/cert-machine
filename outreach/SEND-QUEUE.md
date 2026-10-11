@@ -55,7 +55,7 @@ here on request.
   ("Make the public posting linking"); paste by hand (no social access from here).
 - O4: the email to OpenAI — READY; the operator sends it and picks the recipient (issues and discussions are disabled
   on openai/math, and the release names no contact).
-- O5: a comment on ammkrn/nanoda_lib#44 (the patch's effect on 25 real exports, and a configurable worker stack) — APPROVED by the operator ("Send on nanoda's as well when we finish all tasks"), staged in outreach/nanoda-issue44-comment.md; post once the RunPod rows (pod mkkyh9bvl5o7au) are imported and the page is updated.
+- O5: POSTED 2026-10-11 ~03:45 UTC on the operator's word — https://github.com/ammkrn/nanoda_lib/issues/44#issuecomment-6105207190 (the #44 patch on 25 real exports from the openai/math kernel lane, and the ask for a configurable worker stack; text in outreach/nanoda-issue44-comment.md). Any follow-up is a new send.
 
 ## LANE P — PRIME INTELLECT (2026-10-05)
 

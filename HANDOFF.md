@@ -28,7 +28,7 @@ target asked for → "Ok, let's do it. No rush, let's do it right."; "$30 cap" f
 the next chat").
   UPDATE 2026-10-11 ~03:30 UTC — LANE K CLOSED: the operator chose "Stop here" — no retry of the 18; the page says they
      stay REFUSED for resources (with the 256 GB out-of-memory event), G9 carries the final nanoda numbers, and the APPROVED
-     nanoda#44 comment is posted with the GitHub data (outreach/nanoda-issue44-comment.md; SEND-QUEUE O5).
+     nanoda#44 comment is POSTED (https://github.com/ammkrn/nanoda_lib/issues/44#issuecomment-6105207190; SEND-QUEUE O5).
      LONELY RUNNER: the clean-room decider (instruments/lonelyrunner: lr.c + ref.py + battery.py + gate.py + compare.py +
      threshold.py) passes 49 brute-force agreements and both red controls; lane M recomputes 414.7794/401.9845 exactly; p = 239
      DECIDED on the desk (corpus/lonely-runner/runs/desk-m2/239.json) and, compared afterwards, agrees with the author's record
