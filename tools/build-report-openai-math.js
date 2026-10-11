@@ -80,6 +80,8 @@ const holes = R.challenges.filter((c) => c.definitionNames.length);
 const holeRows = K.rows.filter((r) => r.definitionHoles);
 const sGap = cnt(sw, 'DIFFERENT') + cnt(sw, 'NARROWER — UNDECLARED');
 const pin8 = R.commit.slice(0, 8);
+const kAll = kDecided === R.counted.challenges;   /* every challenge has a recorded run */
+const soFar = kAll ? '' : ' run so far';
 
 /* ---- the gaps: validated against the ledgers, numbers filled from them ---- */
 const V = {
@@ -156,7 +158,7 @@ B.push(C.tldr({
     + cnt(sw, 'NARROWER — UNLINKED') + ' more headlines lead with results no challenge links. Comparator was configured to compare ' + R.counted.definitionHoles.displayedWithBody
     + ' displayed definitions by type alone; the independent kernel was switched on for ' + cnt(R.counted.enableNanoda, 'true') + ' of ' + n(R.counted.challenges) + ' challenges; '
     + fNeeds.length + ' headline witnesses are asserted and not published. <b>Nothing was found false:</b> '
-    + (kDecided ? n(kCert) + ' of the ' + n(kDecided) + ' proofs run so far are accepted by two kernels and ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + '; ' : '')
+    + (kDecided ? n(kCert) + ' of the ' + n(kDecided) + ' proofs' + soFar + ' are accepted by two kernels and ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + (kAll && kRefused.length ? ' (the other ' + kRefused.length + ' exceeded the runners\' memory or time)' : '') + '; ' : '')
     + fCert.length + ' finite cores certified and ' + (fRefuted.length ? fRefuted.length + ' refuted' : 'none refuted') + '.',
   mechanismRaw: 'Three lanes on one pinned commit. K: Comparator, the Lean FRO\'s judge, re-run on Linux with nanoda — a kernel written in Rust, independently of '
     + 'Lean\'s — switched on for every challenge, a second run that compares the bodies of declared "definition holes", and a transfer check in Lean. S: every '
@@ -169,7 +171,7 @@ B.push(C.tldr({
 B.push(C.stats([
   { k: 'statements short of the claim', v: sGap + ' / ' + S.rows.length, n: 'Formalized families whose Lean states a different theorem from the headline, or less than a manuscript its scope note links — with nothing saying so. ' + cnt(sw, 'NARROWER — UNLINKED') + ' more lead with unlinked results.' },
   { k: 'definitions not compared', v: R.counted.definitionHoles.displayedWithBody + ' / ' + R.counted.definitionHoles.declared, n: 'Definition holes displayed with a body Comparator never compares. Settled here for ' + cnt(K.counts.displayed, 'PROVED') + ' of ' + holes.length + ' challenges.' },
-  { k: 'second kernel switched on', v: cnt(R.counted.enableNanoda, 'true') + ' / ' + n(R.counted.challenges), n: 'In the release. Here it is on for all: ' + n(kCert) + ' of ' + n(kDecided) + ' run so far accepted by both kernels.' },
+  { k: 'second kernel switched on', v: cnt(R.counted.enableNanoda, 'true') + ' / ' + n(R.counted.challenges), n: 'In the release. Here it is on for all: ' + n(kCert) + ' of ' + n(kDecided) + soFar + ' accepted by both kernels.' },
   { k: 'witnesses not published', v: String(fNeeds.length), n: 'Headline objects asserted with no checkable instance; ' + (fRefuted.length ? fRefuted.length : 'no') + ' finite claim refuted, ' + fCert.length + ' certified.' }
 ]));
 
@@ -246,15 +248,16 @@ const refusedWhy = [kStack.length ? kStack.length + ' nanoda stack overflow' + (
   kKilled.length ? kKilled.length + ' job' + (kKilled.length > 1 ? 's' : '') + ' the runner terminated in Comparator (1 GiB stack, 16 GB machine)' : '',
   kStopped.length ? kStopped.length + ' job' + (kStopped.length > 1 ? 's' : '') + ' that hit the runner\'s time limit' : '', kOther ? kOther + ' other' : ''].filter(Boolean).join(', ') || 'none';
 B.push(C.section({
-  lab: '§4 · the kernel lane', title: 'What holds: two kernels, every challenge run so far', wide: true,
+  lab: '§4 · the kernel lane', title: kAll ? 'What holds: two kernels, every challenge' : 'What holds: two kernels, every challenge run so far', wide: true,
   bodyRaw: [
     C.pRaw('Comparator builds a challenge and its solution in a sandbox, exports both, checks that each listed theorem has exactly the challenge\'s statement and '
       + 'uses no axiom beyond ' + C.m('propext') + ', ' + C.m('Quot.sound') + ' and ' + C.m('Classical.choice') + ', and replays the proof through Lean\'s kernel and any '
       + 'external kernel it is given. The release enabled nanoda for ' + cnt(R.counted.enableNanoda, 'true') + ' challenges; here it is on for all. One job per challenge, '
       + 'on GitHub\'s Linux runners (4 vCPU, 16 GB; the sandbox is Linux-only). A CERTIFIED here says the Lean theorem is proved; whether that theorem is the paper\'s claim is §2.'),
-    C.pRaw('<b>' + n(kCert) + ' of ' + n(kDecided) + ' CERTIFIED</b>, ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + ', ' + n(R.counted.challenges - kDecided) + ' still running. The ' + kRefused.length + ' REFUSED are ' + refusedWhy
+    C.pRaw('<b>' + n(kCert) + ' of ' + n(kDecided) + ' CERTIFIED</b>, ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + (kAll ? '' : ', ' + n(R.counted.challenges - kDecided) + ' still running') + '. The ' + kRefused.length + ' REFUSED are ' + refusedWhy
       + '. Every one of the ' + kOverflowed.length + ' exports that overflowed nanoda\'s stack had already been accepted by Lean\'s kernel in the same run (' + kOverflowLean.length + ' of ' + kOverflowed.length + '); with the stack raised to 1 GiB (pre-registration amendment 11), '
       + kOverflowed.filter((r) => r.word === 'CERTIFIED' && !isI44(r.runs[r.runs.length - 1])).length + ' were then accepted by nanoda as well.'
+      + (G.lanekNote ? ' ' + C.esc(G.lanekNote) : '')
       + (kI44.length ? ' The overflows and the memory exhaustion are the two symptoms traced in ammkrn/nanoda_lib#44 (open since 2026-10-06, with a patch that makes nanoda\'s definitional-equality checks follow Lean\'s reference kernel); re-run with that patch (pre-registration amendment 13), ' + kI44Cert.length + ' of the ' + kI44.length + ' refused challenges are accepted by both kernels' + (kI44Stock.length ? ', ' + kI44Stock.length + ' of them on nanoda\'s stock 16 MiB stack' : '') + '; every row accepted that way says so in the ledger.' : '')
       + (kPod.length ? ' The ' + kPod.length + ' that GitHub\'s 16 GB runners still could not finish were run on one RunPod CPU pod (32 vCPU, 256 GB; pre-registration amendment 14: the same steps at the same pins, only the hardware changed): ' + kPodCert.length + ' of ' + kPod.length + ' accepted by both kernels there.' : '')),
     kRows.some((r) => r.word !== 'CERTIFIED') ? C.table({ cols: [{ h: 'verdict' }, { h: 'challenge' }, { h: 'family' }, { h: 'why' }],

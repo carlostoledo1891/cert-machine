@@ -26,6 +26,16 @@ RUNPOD; OUTREACH DRAFTED; LONELY RUNNER STARTED (operator, in order: "Make the p
 "Send on nanoda's as well when we finish all tasks"; "can we run on runpod?" → "Bigger pod, leftovers" ($1.76/h); a brute-force
 target asked for → "Ok, let's do it. No rush, let's do it right."; "$30 cap" for a first lonely-runner phase; "handoff and start on
 the next chat").
+  UPDATE 2026-10-11 ~03:30 UTC — LANE K CLOSED: the operator chose "Stop here" — no retry of the 18; the page says they
+     stay REFUSED for resources (with the 256 GB out-of-memory event), G9 carries the final nanoda numbers, and the APPROVED
+     nanoda#44 comment is posted with the GitHub data (outreach/nanoda-issue44-comment.md; SEND-QUEUE O5).
+     LONELY RUNNER: the clean-room decider (instruments/lonelyrunner: lr.c + ref.py + battery.py + gate.py + compare.py +
+     threshold.py) passes 49 brute-force agreements and both red controls; lane M recomputes 414.7794/401.9845 exactly; p = 239
+     DECIDED on the desk (corpus/lonely-runner/runs/desk-m2/239.json) and, compared afterwards, agrees with the author's record
+     in ALL TEN quantities (1,342,843 irredundant orbits, 836 13-covers, 1,442,327 rows, 2,036 F_2, 2,034/1 dying at 4/8, one
+     survivor, 7 witness-free, J empty). Speed: ~4-5x the author's stage-1 time after two exact optimizations (the bound cut at
+     the parent, cached per-level good-time tables, a time-driven terminal search); the $30 calibration (89, 199, 233 ±lemma,
+     241, 307, 353, 397, 449) fits; the full run needs more speed or a larger budget — the second go is the operator's.
   UPDATE 2026-10-11 ~03:15 UTC: the pod mkkyh9bvl5o7au ran OUT OF MEMORY (RunPod's notice, relayed by the operator) running four
      challenges at once on 256 GB and was TERMINATED; no result was recovered (~$11 spent). Nothing is billing now. The 18 stay
      REFUSED by resources until the operator chooses how (or whether) to retry.
