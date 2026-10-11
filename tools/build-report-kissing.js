@@ -447,6 +447,20 @@ const ours = WR.filter((r) => r.ours);
 const wChoice = wDecided.filter((r) => r.choices && r.choices.length);
 const ty31 = WR.find((r) => r.id === 'takhanov-yun-31');
 const q25 = WR.find((r) => r.id === 'qiushi-25');
+/* ---- the Qiushi section rows (dimensions 43, 45): every point published on request, read from the release, the
+   claimant's own verification pinned (it records no pairwise check); and H. Cohn's table as read 2026-10-11 (an extract
+   of facts, the page pinned by hash) — the world's current bounds, which this page's "decided here" must not be read as */
+const QSEC = WR.filter((r) => r.claimant === 'qiushi' && (r.dim === 43 || r.dim === 45) && (r.verdict === 'WITNESSED' || r.verdict === 'UNWITNESSED'));
+const QVER = {};
+for (const d of [43, 45]) {
+  const f = 'kissing/qiushi-section' + d + '-verification_2026-10-11.json';
+  const v = PIN.verify(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why);
+  QVER[d] = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8'));
+  if (QVER[d].pairwise_inner_products_checked !== false) die('the claimant\'s dimension-' + d + ' verification now records a pairwise check — rewrite the sentence');
+}
+const COHN_F = 'kissing/cohn-table-extract_2026-10-11.json';
+{ const v = PIN.verify(COHN_F); if (!v.ok) die('pinned source ' + COHN_F + ': ' + v.why); }
+const COHN = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', COHN_F), 'utf8'));
 const qMoved = q25 && q25.families ? q25.families.find((f) => f.name === 'moved') : null;
 B.push(C.section({
   lab: '§4 · the September wave', title: 'Three claimants, ' + dimsDecided.length + ' dimensions, every pair decided',
@@ -485,6 +499,20 @@ B.push(C.section({
     + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + C.m(r.delta.toExponential(1)))).join(', ') + ': '
     + 'a decode, not a correction. '
     + 'A slip in a witness would not have refuted any bound, and none occurred.')
+  + (QSEC.length ? C.pRaw('<strong>The Qiushi Engine\'s dimensions 43 and 45.</strong> Their counts came from spherical-design moment identities '
+    + 'over lattice sections, with no point list, so the rows read NEEDS DATA. At our request (their issue #1) the claimant published every point on '
+    + '2026-10-11 as integer coordinates in R<sup>48</sup>; the files are pinned by sha256 and equal the digests GitHub reports. The claimant\'s own '
+    + 'verification checks norms, the subspace, lattice membership and distinctness, and records '
+    + C.m('"pairwise_inner_products_checked": false') + '. ' + QSEC.map((r) => 'K(' + r.dim + ') ≥ ' + fmt(r.claimed) + ' is ' + r.verdict
+      + ' here: the rows span exactly ' + r.dim + ' dimensions and all ' + fmt(r.pairs) + ' pairs were decided, ' + fmt(r.contacts) + ' touching, none closer')
+      .join('; ') + ' — to our knowledge the first pairwise check of these configurations.') : '')
+  + C.pRaw('<strong>The current table.</strong> &ldquo;Decided here&rdquo; is not &ldquo;the record&rdquo;: H. Cohn\'s table of kissing bounds, read '
+    + COHN.readAt + ', lists ' + [25, 26, 27, 28, 29, 30, 31].filter((d) => COHN.rows[d] && best.find((r) => r.dim === d) && COHN.rows[d].lower > best.find((r) => r.dim === d).claimed)
+      .map((d) => 'K(' + d + ') ≥ ' + fmt(COHN.rows[d].lower) + ' (' + COHN.citedFor[d] + ')').join(', ')
+    + ' — above the bounds decided here in those dimensions, from constructions this page has not decided'
+    + ([43, 45].some((d) => COHN.rows[d] && QSEC.find((r) => r.dim === d && r.claimed === COHN.rows[d].lower))
+      ? '; in dimension' + (QSEC.length > 1 ? 's ' : ' ') + QSEC.filter((r) => COHN.rows[r.dim] && COHN.rows[r.dim].lower === r.claimed).map((r) => r.dim).join(' and ') + ' the table\'s bound is the one decided here' : '')
+    + '. The extract is pinned in ' + C.m('corpus/sources/' + COHN_F) + '.')
   + C.pRaw('<strong>Who else has checked these.</strong> B. Lindow, a collaborator on dimensions 25–31, publishes exact '
     + 'verifiers for them that share no code with Kravatskiy\'s (<a href="https://github.com/btlindow/KissingNumbers">btlindow/KissingNumbers</a>, '
     + C.m('tools/kravatskiy/') + '). Their recorded runs reach '

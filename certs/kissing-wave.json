@@ -4993,18 +4993,12 @@
    "previous": 2545056,
    "verdict": "WITNESSED",
    "detail": "every point published on 2026-10-11 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11); the rows span exactly a 43-dimensional subspace of Q^48, all 2553792 squared norms are 576, all rows distinct, and all 3260925512736 pairs have inner product <= 288: 4467331098 contacts at exactly 60 degrees, none closer; the largest non-contact inner product is 192 (cos 0.333333). Their own verification checked norms, subspace, membership and distinctness and recorded \"pairwise_inner_products_checked\": false \u2014 this is the pairwise check.",
-   "facts": {
-    "rows": 2553792,
-    "rowsClaimed": 2553792,
-    "allNormsEqual": true,
-    "norm": 576,
-    "maxAbsCoordinate": 24,
-    "distinctRows": 2553792,
-    "sampleRankOverQ": 43,
-    "complementVectors": 5,
-    "allRowsInTheSpan": true,
-    "spanDimension": 43
-   },
+   "facts": [
+    "2553792 rows, every squared norm 576, all distinct",
+    "the rows span exactly 43 dimensions of Q^48: a sample of rank 43 over Q, every row orthogonal to the 5 integer vectors of its null space",
+    "every pair by float32 BLAS, exact: each partial sum is bounded by |x||y| = 576 < 2^24",
+    "a 600-row sample in plain Python integers: 241 contacts, 0 violations, equal to the bulk path"
+   ],
    "bulk": {
     "pairs": 3260925512736,
     "violations": 0,
@@ -5037,7 +5031,76 @@
     "platform": "macOS-27.0-arm64-arm-64bit",
     "cpus": 8
    },
-   "decidedAt": "2026-10-11T14:12:32Z"
+   "decidedAt": "2026-10-11T14:12:32Z",
+   "jsCheck": {
+    "n": 672,
+    "pairs": 225456,
+    "bulkContacts": 289,
+    "jsContacts": 289,
+    "jsVerdict": "CERTIFIED",
+    "agree": true,
+    "seed": 11,
+    "jsMs": 193,
+    "how": "a seeded sample decided whole by basis.js in JavaScript and by the bulk path; no code shared"
+   },
+   "csvCheck": {
+    "file": "section43.csv.gz",
+    "sha256": "5ce70aae76603bdd825c558c3a848989073c505ce14c5528c22535d28b760337",
+    "rows": 2553792,
+    "identicalToBinary": true
+   },
+   "sectionFacts": {
+    "rows": 2553792,
+    "rowsClaimed": 2553792,
+    "allNormsEqual": true,
+    "norm": 576,
+    "maxAbsCoordinate": 24,
+    "distinctRows": 2553792,
+    "sampleRankOverQ": 43,
+    "complementVectors": 5,
+    "allRowsInTheSpan": true,
+    "spanDimension": 43
+   },
+   "engine": {
+    "n": 2553792,
+    "dim": 43,
+    "norm": [
+     576,
+     0,
+     0,
+     0
+    ],
+    "normShow": "576",
+    "verdict": "CERTIFIED",
+    "pairs": 3260925512736,
+    "contacts": 4467331098,
+    "violations": 0,
+    "maxDot": [
+     288,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "288",
+    "maxCos": 0.5,
+    "nearestNonContactCos": 0.3333333333333333,
+    "seconds": 2419.2,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "section",
+      "n": 2553792,
+      "path": "gemm (float32)",
+      "freeNorm": false,
+      "maxAbsCoefficient": 24
+     }
+    ]
+   },
+   "seconds": 2419.2
   },
   {
    "id": "qiushi-45",

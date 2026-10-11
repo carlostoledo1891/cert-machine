@@ -19,7 +19,10 @@ What is decided, exactly, from the pinned bytes (sha256 in PINS, equal to their 
 WITNESSED if all of it holds; otherwise UNWITNESSED with what failed. The row replaces the NEEDS DATA row of
 certs/kissing-wave.json (run-kissing-wave.py keeps decided rows).
 
-    python3 tools/run-kissing-sections.py 43 [--procs 8] [--tile 2048]
+    python3 tools/run-kissing-sections.py 43 [--procs 8] [--tile 2048]   decide every pair (fetches the release files if missing)
+    python3 tools/run-kissing-sections.py 43 --js-only      a seeded sample decided by basis.js in JavaScript (no code shared)
+                                                            against the bulk path on the same rows; recorded as jsCheck
+    python3 tools/run-kissing-sections.py 43 --csv-only     the CSV the claimant points readers to holds exactly the rows checked
 """
 import gzip, hashlib, json, os, sys, time, random, platform
 for _v in ("VECLIB_MAXIMUM_THREADS", "OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
@@ -45,6 +48,106 @@ X = None   # the rows, shared with the workers by fork
 
 def arg(name, default):
     return type(default)(sys.argv[sys.argv.index(name) + 1]) if name in sys.argv else default
+
+
+def fetch(name, sha):
+    """the release file, downloaded once into the git-ignored cache and refused unless it matches its pin"""
+    import urllib.request
+    path = os.path.join(CACHE, name)
+    if not os.path.exists(path):
+        os.makedirs(CACHE, exist_ok=True)
+        url = REL.replace('/releases/tag/', '/releases/download/') + '/' + name
+        print('fetching %s' % url, flush=True)
+        with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'cert-machine-kissing-ledger'})) as r, open(path + '.part', 'wb') as f:
+            while True:
+                b = r.read(1 << 20)
+                if not b:
+                    break
+                f.write(b)
+        os.replace(path + '.part', path)
+    blob = open(path, 'rb').read()
+    if hashlib.sha256(blob).hexdigest() != sha:
+        sys.exit('SECTIONS REFUSED: %s does not match its pin' % name)
+    return blob
+
+
+def load_rows(d):
+    pin = PINS[d]
+    raw = gzip.decompress(fetch(pin['file'], pin['sha256']))
+    if hashlib.sha256(raw).hexdigest() != pin['raw_sha256']:
+        sys.exit('SECTIONS REFUSED: the decompressed rows differ from the bytes their verification hashed')
+    return np.frombuffer(raw, dtype=np.int8).reshape(-1, 48).astype(np.int32)
+
+
+def update_row(d, fields):
+    rec = json.load(open(OUT))
+    for r_ in rec['rows']:
+        if r_['id'] == 'qiushi-%d' % d:
+            r_.update(fields)
+            break
+    else:
+        sys.exit('no decided row qiushi-%d to update' % d)
+    tmp = OUT + '.tmp'
+    json.dump(rec, open(tmp, 'w'), indent=1); os.replace(tmp, OUT)
+
+
+def reshape(d):
+    """give the row the wave record's shape (an engine block like run-kissing-wave.py's), so the kissing ledger and
+       page read it unchanged; the section-specific facts move to sectionFacts"""
+    rec = json.load(open(OUT))
+    r_ = next(x for x in rec['rows'] if x['id'] == 'qiushi-%d' % d)
+    b, f, sec = r_['bulk'], r_.get('sectionFacts') or r_['facts'], r_['second']
+    N = f['norm']
+    r_['sectionFacts'] = f
+    r_['facts'] = ['%d rows, every squared norm %d, all distinct' % (f['rows'], N),
+                   'the rows span exactly %d dimensions of Q^48: a sample of rank %d over Q, every row orthogonal to the %d integer vectors of its null space' % (f['spanDimension'], f['sampleRankOverQ'], f['complementVectors']),
+                   'every pair by float32 BLAS, exact: each partial sum is bounded by |x||y| = %d < 2^24' % N,
+                   'a 600-row sample in plain Python integers: %d contacts, %d violations, equal to the bulk path' % (sec['pythonContacts'], sec['pythonViolations'])]
+    r_['engine'] = {'n': f['rows'], 'dim': d, 'norm': [N, 0, 0, 0], 'normShow': str(N), 'verdict': 'CERTIFIED' if r_['verdict'] == 'WITNESSED' else 'REFUTED',
+                    'pairs': b['pairs'], 'contacts': b['contacts'], 'violations': b['violations'], 'maxDot': [b['maxDot'], 0, 0, 0], 'maxDotShow': str(b['maxDot']),
+                    'maxCos': b['maxDot'] / N, 'nearestNonContactCos': b['nearestNonContactCos'], 'seconds': b['seconds'],
+                    'spotCheck': {'pairs': sec['pairs'], 'disagreements': 0 if sec['agree'] else 1, 'how': sec['how']},
+                    'families': [{'name': 'section', 'n': f['rows'], 'path': 'gemm (float32)', 'freeNorm': False, 'maxAbsCoefficient': f['maxAbsCoordinate']}]}
+    r_['seconds'] = b['seconds']
+    tmp = OUT + '.tmp'
+    json.dump(rec, open(tmp, 'w'), indent=1); os.replace(tmp, OUT)
+    print('qiushi-%d reshaped for the ledger' % d)
+
+
+def js_only(d, k=672, seed=11):
+    """basis.js (instruments/kissing/basis.js, via wave/jscheck.js) decides a seeded sample whole; the bulk path's float32
+       products must give the same pairs, contacts and verdict on the same rows"""
+    import subprocess, tempfile
+    Xi = load_rows(d); N, T = PINS[d]['N'], PINS[d]['N'] // 2
+    idx = sorted(random.Random(seed).sample(range(Xi.shape[0]), k))
+    S = Xi[idx]
+    vecs = [[[int(x) for x in S[i]], [0] * 48, [0] * 48, [0] * 48] for i in range(k)]
+    tmp = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False); json.dump({'vectors': vecs}, tmp); tmp.close()
+    out = subprocess.check_output(['node', os.path.join(ROOT, 'instruments', 'kissing', 'wave', 'jscheck.js'), tmp.name]).decode()
+    os.unlink(tmp.name)
+    js = json.loads(out.strip().splitlines()[-1])
+    Sf = S.astype(np.float32); G = Sf @ Sf.T; iu = np.triu_indices(k, 1)
+    bulk_c, bulk_v = int(np.count_nonzero(G[iu] == T)), int(np.count_nonzero(G[iu] > T))
+    agree = js['verdict'] == 'CERTIFIED' and bulk_v == 0 and js['pairs'] == len(iu[0]) and js['contacts'] == bulk_c
+    res = {'n': k, 'pairs': len(iu[0]), 'bulkContacts': bulk_c, 'jsContacts': js['contacts'], 'jsVerdict': js['verdict'], 'agree': agree,
+           'seed': seed, 'jsMs': js['ms'], 'how': 'a seeded sample decided whole by basis.js in JavaScript and by the bulk path; no code shared'}
+    update_row(d, {'jsCheck': res})
+    print('qiushi-%d js cross-check on %d rows: %d pairs, bulk %d / js %d contacts, js %s -> %s' % (d, k, res['pairs'], bulk_c, js['contacts'], js['verdict'], 'AGREE' if agree else 'DISAGREE'))
+    if not agree:
+        sys.exit(1)
+
+
+def csv_only(d):
+    """the CSV (48 comma-separated integers per line) holds exactly the rows of the binary file, in order"""
+    name, sha = PINS[d]['csv']
+    Xi = load_rows(d)
+    txt = gzip.decompress(fetch(name, sha))
+    C = np.array(txt.replace(b'\n', b',').rstrip(b',').split(b','), dtype=np.int32).reshape(-1, 48)
+    same = C.shape == Xi.shape and bool(np.array_equal(C, Xi))
+    update_row(d, {'csvCheck': {'file': name, 'sha256': sha, 'rows': int(C.shape[0]), 'identicalToBinary': same}})
+    print('qiushi-%d: %s has %d rows, identical to the binary rows: %s' % (d, name, C.shape[0], same))
+    if not same:
+        sys.exit(1)
 
 
 def rank_and_nullspace(rows):
@@ -102,14 +205,7 @@ def run(d):
     global X
     pin = PINS[d]
     N, T = pin['N'], pin['N'] // 2
-    path = os.path.join(CACHE, pin['file'])
-    blob = open(path, 'rb').read()
-    if hashlib.sha256(blob).hexdigest() != pin['sha256']:
-        sys.exit('SECTIONS REFUSED: %s does not match its pin' % pin['file'])
-    raw = gzip.decompress(blob)
-    if hashlib.sha256(raw).hexdigest() != pin['raw_sha256']:
-        sys.exit('SECTIONS REFUSED: the decompressed rows differ from the bytes their verification hashed')
-    Xi = np.frombuffer(raw, dtype=np.int8).reshape(-1, 48).astype(np.int32)
+    Xi = load_rows(d)
     t0 = time.time()
     facts = {'rows': int(Xi.shape[0]), 'rowsClaimed': pin['n']}
     norms = (Xi * Xi).sum(axis=1)
@@ -176,9 +272,18 @@ def run(d):
     rec['rows'].sort(key=lambda r_: (r_['dim'], r_['claimant']))
     tmp = OUT + '.tmp'
     json.dump(rec, open(tmp, 'w'), indent=1); os.replace(tmp, OUT)
+    reshape(d)
     print('qiushi-%d %s: %d pairs, %d violations, %d contacts, max %d, nearest non-contact %d; second implementation %s (%.0f s)' % (
         d, row['verdict'], pairs, viol, cont, int(mx), int(nbm), 'agrees' if second['agree'] else 'DISAGREES', time.time() - t0), flush=True)
 
 
 if __name__ == '__main__':
-    run(int(sys.argv[1]))
+    dd = int(sys.argv[1])
+    if '--reshape' in sys.argv:
+        reshape(dd)
+    elif '--js-only' in sys.argv:
+        js_only(dd)
+    elif '--csv-only' in sys.argv:
+        csv_only(dd)
+    else:
+        run(dd)

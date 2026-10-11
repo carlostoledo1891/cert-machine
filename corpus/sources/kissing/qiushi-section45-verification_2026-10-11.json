@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checks": {
+    "expected_row_count": true,
+    "all_squared_norms": true,
+    "all_orthogonal": true,
+    "all_lattice_and_fibre_memberships": true,
+    "all_unique": true,
+    "input_unchanged_during_verification": true,
+    "expected_fibre_counts": true
+  },
+  "dimension": 45,
+  "format": "raw signed int8; 48 columns; no header",
+  "input": "section45.i8",
+  "input_bytes": 354244320,
+  "sha256": "4675bf0522e866c0090e856bce9fd7f903191cf0bb017103ad238227c96ae80c",
+  "rows": 7380090,
+  "unique_rows": 7380090,
+  "expected_rows": 7380090,
+  "squared_norm": 4416,
+  "invalid_norm_rows": 0,
+  "nonorthogonal_rows": 0,
+  "invalid_membership_rows": 0,
+  "fibre_rows": [
+    2460030,
+    2460030,
+    2460030
+  ],
+  "expected_rows_per_fibre": 2460030,
+  "integer_arithmetic": "int32",
+  "pairwise_inner_products_checked": false,
+  "completeness_basis": "exact membership, distinctness, and proved cardinalities"
+}
