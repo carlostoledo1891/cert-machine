@@ -4991,8 +4991,53 @@
    "dim": 43,
    "claimed": 2553792,
    "previous": 2545056,
-   "verdict": "NEEDS DATA",
-   "detail": "the count comes from spherical-design moment identities over a lattice section; no vector list is published. What would decide it: the vectors, or the section generators and the selected sets in exact form."
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-11 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11); the rows span exactly a 43-dimensional subspace of Q^48, all 2553792 squared norms are 576, all rows distinct, and all 3260925512736 pairs have inner product <= 288: 4467331098 contacts at exactly 60 degrees, none closer; the largest non-contact inner product is 192 (cos 0.333333). Their own verification checked norms, subspace, membership and distinctness and recorded \"pairwise_inner_products_checked\": false \u2014 this is the pairwise check.",
+   "facts": {
+    "rows": 2553792,
+    "rowsClaimed": 2553792,
+    "allNormsEqual": true,
+    "norm": 576,
+    "maxAbsCoordinate": 24,
+    "distinctRows": 2553792,
+    "sampleRankOverQ": 43,
+    "complementVectors": 5,
+    "allRowsInTheSpan": true,
+    "spanDimension": 43
+   },
+   "bulk": {
+    "pairs": 3260925512736,
+    "violations": 0,
+    "contacts": 4467331098,
+    "maxDot": 288,
+    "nearestNonContactDot": 192,
+    "nearestNonContactCos": 0.3333333333333333,
+    "tiles": 778128,
+    "tile": 2048,
+    "seconds": 2419.2,
+    "exactness": "float32 BLAS; every partial sum of products is bounded by sum|x_i y_i| <= |x||y| = 576 < 2^24"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 241,
+    "bulkViolations": 0,
+    "bulkContacts": 241,
+    "agree": true,
+    "how": "plain Python integers, no numpy, no BLAS"
+   },
+   "bytes": {
+    "section43.i8.gz": "482660ef7fe595bd069d55d609c736bd54acaa786a6a5cab16581639260b7cbd",
+    "section43.i8.gz (decompressed, = their verification input)": "101491f3864debc2c778ebbe370fe80b033cc9039802de59c54575ea3d4bf4bd",
+    "section43.csv.gz": "5ce70aae76603bdd825c558c3a848989073c505ce14c5528c22535d28b760337"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/section-vectors-2026-10-11",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-11T14:12:32Z"
   },
   {
    "id": "qiushi-45",
