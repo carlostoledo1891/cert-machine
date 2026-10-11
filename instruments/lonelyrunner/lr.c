@@ -23,7 +23,8 @@
 
 static int K, K1, P, NCL, M, Q;   /* speeds, threshold denominator, prime, classes, cover size, quota */
 static int NEARGCD = 1;
-static long JOBS = 1, JOB = 0, SPLITD = 3, split_counter = 0;   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
+static long JOBS = 1, JOB = 0, SPLITD = 3, split_counter = 0;
+static int BOUND = 1;   /* the coverage bound: the r best new coverages of admissible classes must reach the uncovered count */   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
 static const char *SURV_OUT = NULL;                                /* --survivors FILE: write the level-32 orbits, skip the terminal */
 static int nw;                    /* words actually used for class bitsets */
 
@@ -103,6 +104,17 @@ static void search(word *allowed) {
   }
   if (unc == 0) { if (depth > SPLITD || JOB == 0) found_cover(); return; }   /* a cover above the split depth: job 0 keeps it */
   if (depth == K || bestc == 0 || unc > (K - depth) * M) return;
+  if (BOUND && K - depth >= 1) {
+    /* each class still admissible adds at most its new coverage; the r = K - depth largest must reach unc */
+    int r = K - depth, top[MAXK]; for (int i = 0; i < r; i++) top[i] = 0;
+    for (int w = 0; w < nw; w++) for (word b = allowed[w]; b; b &= b - 1) {
+      int y = w * 64 + __builtin_ctzll(b) + 1, nc = 0;
+      for (int v = 0; v < nw; v++) nc += popc(cover[y][v] & ~covered[v]);
+      if (nc > top[r - 1]) { int i = r - 1; while (i > 0 && top[i - 1] < nc) { top[i] = top[i - 1]; i--; } top[i] = nc; }
+    }
+    int sum = 0; for (int i = 0; i < r; i++) sum += top[i];
+    if (sum < unc) return;
+  }
   word next[CW]; memcpy(next, allowed, nw * sizeof(word));
   for (int w = 0; w < nw; w++) for (word b = who[best][w] & allowed[w]; b; b &= b - 1) {
     int y = w * 64 + __builtin_ctzll(b) + 1;
@@ -249,6 +261,7 @@ int main(int argc, char **argv) {
     else if (!strcmp(argv[i], "--job") && i + 1 < argc) JOB = atol(argv[++i]);
     else if (!strcmp(argv[i], "--split") && i + 1 < argc) SPLITD = atol(argv[++i]);
     else if (!strcmp(argv[i], "--survivors") && i + 1 < argc) SURV_OUT = argv[++i];
+    else if (!strcmp(argv[i], "--no-bound")) BOUND = 0;
     else if (!strcmp(argv[i], "--terminal-from") && i + 1 < argc) { while (i + 1 < argc && nterm < 64) term_in[nterm++] = argv[++i]; }
     else { fprintf(stderr, "unknown option %s\n", argv[i]); return 2; }
   }
