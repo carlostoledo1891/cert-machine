@@ -1,0 +1,88 @@
+{
+ "gate": 239,
+ "k": 14,
+ "n": 119,
+ "m": 15,
+ "quota": 2,
+ "neargcd": true,
+ "decider": {
+  "lr.c": "2b1ce1c8df6134a9700b967d57184fee42aa3a8b909d7aec0cf3c305671535d3",
+  "binary": "ed388f5c918a3da033287d393fd74b3f9da7ec619f1003ca74be349f9415b20d",
+  "jobs": 8,
+  "split": 3,
+  "commit": "ec38ace8",
+  "note": "built from lr.c at ec38ace8 (the coverage bound, before the per-level cache and the time-driven terminal search, which change speed, not results: the battery and the k = 14, p = 89 slices agree)"
+ },
+ "machine": {
+  "label": "desk-m2",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "cpus": 8
+ },
+ "stages12": {
+  "nodes": 24128681695,
+  "minimalCoverOrbitsBySize": {
+   "13": 836,
+   "14": 1342843
+  },
+  "rows": 1442327,
+  "rowsWithF2": 2036,
+  "diedAt": {
+   "2": 1440291,
+   "4": 2034,
+   "8": 1,
+   "16": 0,
+   "32": 0
+  },
+  "survivingRows": 1,
+  "liftNodes": 152431614,
+  "cpuSeconds": 13004.760000000002
+ },
+ "survivingOrbits": 1,
+ "terminal": {
+  "level": 15,
+  "factors": [
+   3,
+   5
+  ],
+  "orbits": [
+   {
+    "row": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "factorWitnessFree": [
+     3,
+     5
+    ],
+    "witnessFree": 7,
+    "improperAfterGcd": 0,
+    "improperAfterNearGcd": 0
+   }
+  ],
+  "orbitsListedMax": 50,
+  "orbitCount": 1,
+  "witnessFree": 7,
+  "improperAfterGcd": 0,
+  "improperAfterNearGcd": 0,
+  "orbitsClosedByGcdAlone": 1,
+  "openOrbits": 0,
+  "seconds": 0.2
+ },
+ "verdict": "CLOSED",
+ "jEmpty": true,
+ "cpuSeconds": 13004.96,
+ "wallSeconds": 2072.0,
+ "decidedAt": "2026-10-11T02:59:18Z"
+}

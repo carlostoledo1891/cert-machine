@@ -24,7 +24,7 @@
 static int K, K1, P, NCL, M, Q;   /* speeds, threshold denominator, prime, classes, cover size, quota */
 static int NEARGCD = 1;
 static long JOBS = 1, JOB = 0, SPLITD = 3, split_counter = 0;
-static int BOUND = 1;   /* the coverage bound: the r best new coverages of admissible classes must reach the uncovered count */   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
+static int BOUND = 1, PACK = 1;   /* PACK: uncovered times no single class covers two of need that many more classes */   /* the coverage bound: the r best new coverages of admissible classes must reach the uncovered count */   /* --jobs J --job j: the subtrees at depth SPLITD, round robin */
 static const char *SURV_OUT = NULL;                                /* --survivors FILE: write the level-32 orbits, skip the terminal */
 static int nw;                    /* words actually used for class bitsets */
 
@@ -93,12 +93,14 @@ static void search(word *allowed) {
   if ((nodes & ((1L << 32) - 1)) == 0) fprintf(stderr, "stage1: %ld nodes, %ld covers, %ld subtrees at depth %ld\n", nodes, ncov, split_counter, SPLITD);
   if (dead || priv[1] < Q) return;
   int unc = 0, best = -1, bestc = 1 << 30;
+  int ut[MAXN], uc[MAXN];
   for (int w = 0; w < nw; w++) {
     word u = ~covered[w];
     if (w == nw - 1 && NCL % 64) u &= ((word)1 << (NCL % 64)) - 1;
     for (; u; u &= u - 1) {
-      int t = w * 64 + __builtin_ctzll(u) + 1; unc++;
+      int t = w * 64 + __builtin_ctzll(u) + 1;
       int c = 0; for (int v = 0; v < nw; v++) c += popc(who[t][v] & allowed[v]);
+      ut[unc] = t; uc[unc] = c; unc++;
       if (c < bestc) { bestc = c; best = t; }
     }
   }
@@ -114,6 +116,22 @@ static void search(word *allowed) {
     }
     int sum = 0; for (int i = 0; i < r; i++) sum += top[i];
     if (sum < unc) return;
+  }
+  if (PACK && bestc > 0) {
+    /* a packing: uncovered times taken in order of fewest candidates, kept when no admissible class covers it and
+       an earlier kept time — each kept time needs its own new class, so more than r of them is impossible */
+    int r = K - depth, kept = 0; word used[CW]; memset(used, 0, nw * sizeof(word));
+    for (int pass = 1; pass <= bestc + 64 && kept <= r; pass++) {   /* buckets by candidate count, small first */
+      int any = 0;
+      for (int i = 0; i < unc && kept <= r; i++) {
+        if (uc[i] < pass) continue;
+        if (uc[i] > pass) { any = 1; continue; }
+        int clash = 0; for (int v = 0; v < nw; v++) if (who[ut[i]][v] & allowed[v] & used[v]) { clash = 1; break; }
+        if (!clash) { for (int v = 0; v < nw; v++) used[v] |= who[ut[i]][v] & allowed[v]; kept++; }
+      }
+      if (!any) break;
+    }
+    if (kept > r) return;
   }
   word next[CW]; memcpy(next, allowed, nw * sizeof(word));
   for (int w = 0; w < nw; w++) for (word b = who[best][w] & allowed[w]; b; b &= b - 1) {
@@ -318,6 +336,7 @@ int main(int argc, char **argv) {
     else if (!strcmp(argv[i], "--split") && i + 1 < argc) SPLITD = atol(argv[++i]);
     else if (!strcmp(argv[i], "--survivors") && i + 1 < argc) SURV_OUT = argv[++i];
     else if (!strcmp(argv[i], "--no-bound")) BOUND = 0;
+    else if (!strcmp(argv[i], "--no-pack")) PACK = 0;
     else if (!strcmp(argv[i], "--terminal-from") && i + 1 < argc) { while (i + 1 < argc && nterm < 64) term_in[nterm++] = argv[++i]; }
     else { fprintf(stderr, "unknown option %s\n", argv[i]); return 2; }
   }
