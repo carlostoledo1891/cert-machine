@@ -10,7 +10,8 @@
 # port 8000, which tools/import-runpod-openai-math.js downloads into corpus/openai-math/kernel-runs/runpod-<pod>/.
 #
 # env: AUDIT_SHA (this repository's commit), CHALLENGES (space-separated), NANODA_BUILD (stack1g | issue44 |
-#      issue44-stack1g; default issue44-stack1g), SLOTS (challenges at once; default 3)
+#      issue44-stack1g; default issue44-stack1g), SLOTS (challenges at once; default 3), LEAN_GLIBC_TUNABLES (optional,
+#      amendment 15: exported as GLIBC_TUNABLES for the Comparator run — the release README's workaround)
 set -uo pipefail
 : "${AUDIT_SHA:?}" "${CHALLENGES:?}"
 NANODA_BUILD="${NANODA_BUILD:-issue44-stack1g}"
@@ -137,6 +138,9 @@ EOF
   (
     ulimit -s unlimited || true
     export RUST_MIN_STACK=1073741824
+    # amendment 15: the release's own README workaround for Lean crashing (exit 139) when vm.max_map_count is too low
+    if [ -n "${LEAN_GLIBC_TUNABLES:-}" ]; then export GLIBC_TUNABLES="$LEAN_GLIBC_TUNABLES"; echo "GLIBC_TUNABLES=$GLIBC_TUNABLES" >> "$out/env.txt"; fi
+    echo "vm.max_map_count: $(cat /proc/sys/vm/max_map_count 2>/dev/null)" >> "$out/env.txt"
     echo "stack: $(ulimit -s); RUST_MIN_STACK=$RUST_MIN_STACK" >> "$out/env.txt"
     start=$(date +%s)
     /usr/bin/time -v lake env comparator "audit-config-$CH.json" > "$out/comparator.log" 2> "$out/comparator.err"

@@ -185,6 +185,12 @@
    "before": "any challenge is run on RunPod",
    "what": "the challenges GitHub's hosted runners (4 vCPU, 16 GB, 6 h) cannot finish after amendment 13's two steps are run on ONE RunPod CPU pod (Memory-Optimized, 32 vCPU, 256 GB; the operator approved it at $1.76/h) by tools/runpod-openai-math.sh: the check job's steps, at the same pins (Comparator d03acab1 with Lean v4.34.1, lean4export 076e8e57, landrun 811cfff5, nanoda 3a240721 built as amendment 13 says), the same census byte checks, lake update with the same dependency check, the same result script; three challenges at a time, no job time limit. The pod holds no credential and serves the facts read-only; tools/import-runpod-openai-math.js brings them into the run store as runpod-<pod>, and each row records the machine. Only the hardware changes. If the container does not offer Landlock, landrun runs best-effort (Comparator passes --best-effort): the statement comparison, the axiom walk and both kernel replays are unchanged, and process isolation is weaker — recorded per run in env.txt.",
    "why": "every challenge still refused after amendment 13 failed for a resource of the hosted runner — memory (the runner terminated the job) or the 350-minute limit — never for anything a kernel said; a resource is not a rule of the check."
+  },
+  {
+   "date": "2026-10-11",
+   "before": "any re-run of a challenge whose Lean build crashed",
+   "what": "a challenge whose build crashes Lean with exit code 139 is re-run with GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 exported for the Comparator run (tools/runpod-openai-math.sh, LEAN_GLIBC_TUNABLES) — the workaround the release itself prescribes in lean/README.md (\"Compiling the entire library may fail if Linux's vm.max_map_count is too low\"); each run records vm.max_map_count and the setting in env.txt",
+   "why": "on the RunPod pod, PlanarPacking's solution build crashed Lean with code 139 in two certificate modules (OAI.Analysis.PlanarPacking.Certificate.HighMoments1_7 after 551 s, TableMoments48 after 2,395 s), the symptom the release documents; the run did not reach Comparator, so nothing was decided."
   }
  ]
 }
