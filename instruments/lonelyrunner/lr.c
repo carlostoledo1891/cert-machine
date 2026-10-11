@@ -162,6 +162,41 @@ static void lift_dfs(int i, const word *viable) {
   }
 }
 
+/* the witness-free lifts by a search driven by the times (the paper's terminal stage: "branching on the time class
+   with fewest remaining options"): a time still good for every assigned coordinate must be killed by some unassigned
+   coordinate taking a digit for which it is bad; the search branches on the killers of the time with the fewest, and
+   forbids in branch j the killers 1..j-1, so every witness-free lift is reached through exactly one first killer of
+   that time. When no time is left, the unassigned coordinates take every digit not forbidden. */
+static int assigned[MAXK], forb[MAXK];
+static void wf_emit(int i) {
+  if (i == K) { vpush(outv, cur); return; }
+  if (assigned[i] >= 0) { cur[i] = base[i] + (long)assigned[i] * LP_old; wf_emit(i + 1); return; }
+  for (int a = 0; a < F; a++) if (!(forb[i] >> a & 1)) { cur[i] = base[i] + (long)a * LP_old; wf_emit(i + 1); }
+}
+static void wf_search(const word *viable) {
+  stage_nodes++;
+  int best_t = -1, best_k = 1 << 30;
+  for (int w = 0; w < TW; w++) for (word b = viable[w]; b; b &= b - 1) {
+    int t = w * 64 + __builtin_ctzll(b), kc = 0;
+    for (int i = 0; i < K && kc < best_k; i++) if (assigned[i] < 0)
+      for (int a = 0; a < F; a++) if (!(forb[i] >> a & 1) && !(good[(i * F + a) * TW + t / 64] >> (t % 64) & 1)) kc++;
+    if (kc < best_k) { best_k = kc; best_t = t; if (kc == 0) break; }
+  }
+  if (best_t < 0) { wf_emit(0); return; }        /* no time left: every completion is witness-free */
+  if (best_k == 0) return;                        /* a time no remaining coordinate can kill: every completion has it */
+  int added_i[MAXK * 16], added_a[MAXK * 16], nadded = 0;
+  word nv[TW];
+  for (int i = 0; i < K; i++) if (assigned[i] < 0)
+    for (int a = 0; a < F; a++) if (!(forb[i] >> a & 1) && !(good[(i * F + a) * TW + best_t / 64] >> (best_t % 64) & 1)) {
+      assigned[i] = a;
+      for (int w = 0; w < TW; w++) nv[w] = viable[w] & good[(i * F + a) * TW + w];
+      wf_search(nv);
+      assigned[i] = -1;
+      forb[i] |= 1 << a; added_i[nadded] = i; added_a[nadded++] = a;   /* killer (i, a) is excluded from later branches */
+    }
+  for (int j = 0; j < nadded; j++) forb[added_i[j]] &= ~(1 << added_a[j]);
+}
+
 /* times new at level f*l, folded by c <-> N-c: c in 1..N/2 with the level of c/N not among `known` (levels where no
    witness can exist: the previous level, or the factor levels at the terminal stage) */
 static long *tlist; static int ntimes;
@@ -215,7 +250,8 @@ static void lift_one(const long *v, long l, int f, const long *known, int nk, in
   if (ntimes % 64) vi[TW - 1] = ((word)1 << (ntimes % 64)) - 1;
   if (ntimes == 0) vi[0] = 0;
   memcpy(base, v, K * sizeof(long)); want_wf = wf; outv = out;
-  lift_dfs(0, vi);
+  if (wf) { for (int i = 0; i < K; i++) { assigned[i] = -1; forb[i] = 0; } wf_search(vi); }
+  else lift_dfs(0, vi);
 }
 
 /* ------------------------------------------------------------------ survivors: canonical orbits */
@@ -337,7 +373,7 @@ int main(int argc, char **argv) {
     for (int j = 0; j < nf; j++) { long known[1] = {1}; lift_one(r, 1, (int)fac[j], known, 1, 1, &W[j]); wcount[j] = W[j].n; }
     /* combine by the Chinese remainder theorem and test at level L on the times new to every factor */
     long known[9]; known[0] = 1; for (int j = 0; j < nf; j++) known[j + 1] = fac[j];
-    long Nl = L * P; make_times(Nl, L, known, nf + 1);
+    long Nl = L * P; gcache_t *g15 = cache_for(Nl, L, known, nf + 1);   /* the times new to every factor level, cached */
     long wf = 0, ag = 0, ang = 0; long idx[8] = {0};
     long total = 1; for (int j = 0; j < nf; j++) total *= W[j].n;
     for (long comb = 0; comb < total; comb++) {
@@ -352,8 +388,10 @@ int main(int argc, char **argv) {
         }
         w[i] = r[i] + a * P;
       }
-      int wit = 0;
-      for (int t = 0; t < ntimes && !wit; t++) { int ok = 1; for (int i = 0; i < K; i++) if ((long)K1 * dist(tlist[t] * w[i], Nl) < Nl) { ok = 0; break; } if (ok) wit = 1; }
+      int wit = 0;   /* a witness: a time good for every coordinate — the AND of the coordinates' good-time bitsets */
+      { word acc[g15->tw]; memcpy(acc, good_of(g15, w[0] % Nl), g15->tw * sizeof(word));
+        for (int i = 1; i < K; i++) { const word *gi = good_of(g15, w[i] % Nl); for (int x = 0; x < g15->tw; x++) acc[x] &= gi[x]; }
+        for (int x = 0; x < g15->tw; x++) if (acc[x]) { wit = 1; break; } }
       if (wit) continue;
       wf++;
       if (gcd_proper(w, L)) continue;
