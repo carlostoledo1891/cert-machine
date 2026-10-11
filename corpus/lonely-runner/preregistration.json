@@ -37,11 +37,40 @@
   "the orbit of a = (1,...,14) must survive the binary lifts at every gate with tau(p) >= 13 and close at level 15 by the gcd condition alone — a property the paper states and our decider must re-derive, not assume"
  ],
  "phases": [
-  {"phase": 0, "what": "pin the claim and its sources; read Sections 2 and 4; this pre-registration", "cost": "$0", "state": "done 2026-10-10"},
-  {"phase": 1, "what": "the decider (C, plus the Python reference) and its red controls; completeness arguments for the search written beside the code", "cost": "$0 (desk)"},
-  {"phase": 2, "what": "the cheap gates on the desk (p = 89, 199, 239, 307 and others below 10 CPU-hours in the paper's cost table) to measure our speed against the paper's; extrapolate the full run by the measured growth", "cost": "$0 (desk)"},
-  {"phase": 3, "what": "GATE: the operator approves the full run at the measured price; then all 71 gates on RunPod CPU pods (cpu3c, $0.03 per vCPU-hour; the paper reports 2,137 CPU-hours, so about $65 at equal speed, $130-200 at two to three times slower). Budget cap $250 unless the operator raises it.", "cost": "estimated $65-200, cap $250"},
-  {"phase": 4, "what": "the ledger certs/lonely-runner-lrc14.json, the page /reports/lonely-runner.html, and the comparison with the author's records", "cost": "$0"}
+  {
+   "phase": 0,
+   "what": "pin the claim and its sources; read Sections 2 and 4; this pre-registration",
+   "cost": "$0",
+   "state": "done 2026-10-10"
+  },
+  {
+   "phase": 1,
+   "what": "the decider (C, plus the Python reference) and its red controls; completeness arguments for the search written beside the code",
+   "cost": "$0 (desk)"
+  },
+  {
+   "phase": 2,
+   "what": "the cheap gates on the desk (p = 89, 199, 239, 307 and others below 10 CPU-hours in the paper's cost table) to measure our speed against the paper's; extrapolate the full run by the measured growth",
+   "cost": "$0 (desk)"
+  },
+  {
+   "phase": 3,
+   "what": "GATE: the operator approves the full run at the measured price; then all 71 gates on RunPod CPU pods (cpu3c, $0.03 per vCPU-hour; the paper reports 2,137 CPU-hours, so about $65 at equal speed, $130-200 at two to three times slower). Budget cap $250 unless the operator raises it.",
+   "cost": "estimated $65-200, cap $250"
+  },
+  {
+   "phase": 4,
+   "what": "the ledger certs/lonely-runner-lrc14.json, the page /reports/lonely-runner.html, and the comparison with the author's records",
+   "cost": "$0"
+  }
  ],
- "sends": "none without the operator's explicit approval per item; the author may be told the result once it is recorded and the operator agrees"
+ "sends": "none without the operator's explicit approval per item; the author may be told the result once it is recorded and the operator agrees",
+ "amendments": [
+  {
+   "date": "2026-10-11",
+   "before": "any paid compute",
+   "what": "the calibration (phase 2) runs on one RunPod CPU pod (cpu3c, 32 vCPU, $0.96/h) by tools/runpod-lonely-runner.sh — the same lr.c and gate.py, fetched at a fixed commit and compiled there — within the operator's $30 cap; gates 233 (with and without the shift lemma), 241, 199, 89, 149, 191, 307, 353, 397, 449; p = 239 was decided on the desk. Each gate's record is committed before compare.py reads the author's record of that gate.",
+   "why": "the desk is a fanless laptop on battery; the larger gates take hours on 32 vCPU"
+  }
+ ]
 }
