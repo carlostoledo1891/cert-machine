@@ -18,13 +18,15 @@ must agree) or an artefact of how it was enumerated:
 import glob
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 G = json.load(open(os.path.join(HERE, '..', '..', 'corpus', 'lonely-runner', 'lrc14-allikvere', 'gates.json')))
 theirs = {}
 for k, v in G.items():
-    p = int(os.path.basename(v['src']).split('_')[1]) if 'src' in v else int(k)
+    mt = re.search(r'evidence_(\d+)_', v.get('src', ''))
+    p = int(mt.group(1)) if mt else int(k)
     theirs[p] = v
 rows = []
 for f in sorted(glob.glob(os.path.join(sys.argv[1], '*.json'))):
@@ -37,6 +39,11 @@ for f in sorted(glob.glob(os.path.join(sys.argv[1], '*.json'))):
     T = o['terminal']
     pairs = [
         ('irredundant 14-cover orbits', o['stages12']['minimalCoverOrbitsBySize'].get('14', 0), t.get('ir_rows')),
+        ('13-cover orbits (decomposition variant)', o['stages12']['minimalCoverOrbitsBySize'].get('13', 0), t.get('km1_covers') if t.get('variant') == 'decomposition' else None),
+        ('rows generated', o['stages12']['rows'], (t.get('ir_rows') or 0) + (t.get('ext_rows') or 0) if t.get('variant') == 'decomposition' else None),
+        ('rows with F_2 nonempty', o['stages12']['rowsWithF2'], t.get('l2_surv')),
+        ('rows dying at level 4', o['stages12']['diedAt'].get('4'), (t.get('died') or {}).get('died_l4')),
+        ('rows dying at level 8', o['stages12']['diedAt'].get('8'), (t.get('died') or {}).get('died_l8')),
         ('orbits surviving level 32', o['survivingOrbits'], t.get('orbits')),
         ('witness-free level-15 lifts', T['witnessFree'], t.get('kills_wf')),
         ('improper after gcd', T['improperAfterGcd'], t.get('kills_improper_gcd')),
