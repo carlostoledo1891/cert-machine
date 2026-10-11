@@ -174,18 +174,38 @@ static void make_times(long Nn, long lev, const long *known, int nk) {
   }
 }
 
+/* the good-time bitset of every residue x modulo N at one (level, known-levels) setting, computed on first use: the
+   time set depends only on the level, so the same table serves every vector lifted to that level */
+typedef struct { long N, key; int tw, nt; word *tab; uint8_t *done; long *times; } gcache_t;
+static gcache_t gc[16]; static int ngc = 0;
+static gcache_t *cache_for(long Nn, long lev, const long *known, int nk) {
+  long key = lev; for (int j = 0; j < nk; j++) key = key * 1000003 + known[j];
+  for (int i = 0; i < ngc; i++) if (gc[i].N == Nn && gc[i].key == key) return &gc[i];
+  gcache_t *g = &gc[ngc++];
+  make_times(Nn, lev, known, nk);
+  g->N = Nn; g->key = key; g->nt = ntimes; g->tw = (ntimes + 63) / 64; if (g->tw == 0) g->tw = 1;
+  g->times = malloc((ntimes + 1) * sizeof(long)); memcpy(g->times, tlist, ntimes * sizeof(long));
+  g->tab = calloc((size_t)Nn * g->tw, sizeof(word)); g->done = calloc(Nn, 1);
+  return g;
+}
+static const word *good_of(gcache_t *g, long x) {
+  word *row = g->tab + (size_t)x * g->tw;
+  if (!g->done[x]) {
+    for (int j = 0; j < g->nt; j++) if ((long)K1 * dist(g->times[j] * x, g->N) >= g->N) row[j / 64] |= (word)1 << (j % 64);
+    g->done[x] = 1;
+  }
+  return row;
+}
+
 /* lift one vector v (modulo l*P) by factor f; collect into out */
 static void lift_one(const long *v, long l, int f, const long *known, int nk, int wf, vecs_t *out) {
   F = f; LEV = l * f; N = LEV * P; LP_old = l * P;
-  make_times(N, LEV, known, nk);
-  TW = (ntimes + 63) / 64; if (TW == 0) TW = 1;
+  gcache_t *g = cache_for(N, LEV, known, nk);
+  ntimes = g->nt; TW = g->tw;
   good = realloc(good, (size_t)K * F * TW * sizeof(word)); allg = realloc(allg, (size_t)K * TW * sizeof(word));
   suff = realloc(suff, (size_t)(K + 1) * TW * sizeof(word));
-  memset(good, 0, (size_t)K * F * TW * sizeof(word));
-  for (int i = 0; i < K; i++) for (int a = 0; a < F; a++) {
-    long x = (v[i] + (long)a * LP_old) % N;
-    for (int j = 0; j < ntimes; j++) if ((long)K1 * dist(tlist[j] * x, N) >= N) good[(i * F + a) * TW + j / 64] |= (word)1 << (j % 64);
-  }
+  for (int i = 0; i < K; i++) for (int a = 0; a < F; a++)
+    memcpy(good + (size_t)(i * F + a) * TW, good_of(g, (v[i] + (long)a * LP_old) % N), TW * sizeof(word));
   for (int i = 0; i < K; i++) for (int w = 0; w < TW; w++) { word g = ~(word)0; for (int a = 0; a < F; a++) g &= good[(i * F + a) * TW + w]; allg[i * TW + w] = g; }
   for (int w = 0; w < TW; w++) suff[K * TW + w] = 0;               /* nothing to complete: no universal time */
   for (int i = K - 1; i >= 0; i--) for (int w = 0; w < TW; w++) suff[i * TW + w] = (i == K - 1 ? allg[i * TW + w] : allg[i * TW + w] & suff[(i + 1) * TW + w]);
