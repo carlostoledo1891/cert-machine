@@ -734,13 +734,31 @@ const numword = (k) => NUMWORD[k] || String(k);
 const gatesRec = (() => { const p = path.join(ROOT, 'batteries.json'); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null; })();
 const gatesCount = gatesRec && gatesRec.ran !== undefined ? { ran: gatesRec.ran, green: gatesRec.green } : null;
 
+/* OpenAI's math release (reports/openai-math.html), featured on the landing on the operator's word 2026-10-12: the header
+   and the lead card read these, and each refuses on a number that stops closing */
+const oai = (() => {
+  const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'release.json'), 'utf8'));
+  const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-kernel.json'), 'utf8'));
+  const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-statements.json'), 'utf8'));
+  const F = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'findings.json'), 'utf8'));
+  const w = K.counts.words;
+  const out = { manuscripts: R.counted.manuscriptLinks, challenges: R.counted.challenges, decided: K.counts.decided,
+    certified: w.CERTIFIED || 0, refused: w.REFUSED || 0, rejected: w.REJECTED || 0, gaps: F.findings.length,
+    short: (S.counts.words.DIFFERENT || 0) + (S.counts.words['NARROWER — UNDECLARED'] || 0), families: S.rows.length };
+  if (out.decided !== out.challenges || out.certified + out.refused + out.rejected !== out.challenges)
+    fail('the OpenAI kernel record does not account for every challenge — the landing would misstate it');
+  if (out.rejected) fail('the landing says no OpenAI challenge was rejected; the kernel record holds ' + out.rejected);
+  return out;
+})();
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine',
   title: 'The machine proves it — or breaks it',
   deck: 'AI produces mathematical claims faster than anyone can read them, and the graders that check those claims '
     + 'mostly compare decimals. This machine decides claims — other people\'s and its own — in exact arithmetic, '
-    + 'without ever running the claimant\'s code. It refuted a published constant at its twelfth digit, measured '
+    + 'without ever running the claimant\'s code. It re-checked OpenAI\'s math release under a second proof kernel ('
+    + oai.certified + ' of its ' + oai.challenges + ' formal challenges pass both kernels, none is rejected), refuted a '
+    + 'published constant at its twelfth digit, measured '
     + 'what an ordinary tolerance grader actually accepts ('
     + (100 * envsTol.falseAccept).toFixed(1) + '% of submissions that are provably wrong), and settled two values '
     + 'of a sequence conjectured open since 2019. Every verdict is a re-runnable certificate: proved, disproved, or '
@@ -809,6 +827,21 @@ const hz0 = (() => {
   return out;
 })();
 const LEAD = [
+  /* 2026-10-12, on the operator's word ("can we feature the OpenAI verification on the homepage?"): OpenAI's math
+     release takes the FIRST slot, and erdos852.html's card goes back to the shelf — its story is still told on this
+     page twice, in the header and in "the refutation, in full" below, so the front loses nothing. erdos852 stays fully
+     ranked in REPORTS and rejoins shelfHead automatically. Revert by restoring the erdos852 card in second place. */
+  { f: 'openai-math.html', k: 'an audit · OpenAI\u2019s math release',
+    title: 'OpenAI\u2019s math release, checked from outside',
+    desc: 'OpenAI published ' + fmt(oai.manuscripts) + ' machine-generated mathematics manuscripts with ' + oai.challenges
+      + ' formal challenges in Lean. Every challenge was re-run here under a second, independent proof kernel: '
+      + oai.certified + ' pass both kernels, none is rejected, and ' + oai.refused + ' could not be finished on the machines '
+      + 'available (stack, memory or time) and stay refused, never counted against the release. Every formal statement was '
+      + 'read against the theorem it claims, and every finite witness re-decided in exact arithmetic. Nothing was found '
+      + 'false. What the audit found is the distance between what the release claims and what it checks: ' + oai.gaps
+      + ' gaps, ranked and pinned to file and line.',
+    n: oai.certified + ' of ' + oai.challenges + ' certified by two kernels · ' + oai.gaps + ' gaps · ' + oai.short + ' of '
+      + oai.families + ' formal statements short of their claim' },
   /* THE PORTFOLIO LEAD, set 2026-09-03. Under the position — independent exact certification, with
      refusal as a verdict — the audits lead and one theorem calibrates them. ember.html and
      lambda4.html moved back to the shelf the same day: they are not weaker, they are older, and the
@@ -822,13 +855,6 @@ const LEAD = [
       + 'by hand: a certified enclosure mints it without limit, which is why the certificates had to exist first. '
       + 'One of the canaries is not synthetic — it is a number a real problem thread published.',
     n: fmt(envsRec.corpus.length) + ' facts, each sha-pinned to its certificate · measured offline' },
-  { f: 'erdos852.html', k: 'a refutation · erdős #852',
-    title: 'The constant that was a rounding error',
-    desc: 'A constant for an open Erdős problem, published with frontier-model help, quoted to ' + csPubDigits
-      + ' decimal places, with no error bound. It is wrong from digit ' + csWrongAt + ' — and the wrong digits are exactly '
-      + 'what an ordinary floating-point loop prints. The constant was not near-right with unlucky endings. It was the '
-      + 'bug, published. The corrected value is certified here and the correction is now public in the problem’s own thread.',
-    n: 'refuted at digit ' + csWrongAt + ' · correction certified and public' },
   { f: 'ai-claims-audit.html', k: 'six theorems · re-verified',
     title: 'We checked the AI’s homework',
     desc: 'Six mathematical results produced with frontier-model help — among them a counterexample to a bound of '
@@ -881,8 +907,8 @@ B.push(C.section({
   bodyRaw: '<div class="col">' + C.pRaw('<strong>Only a machine that can prove a theorem should be trusted to '
     + 'refuse one.</strong> The audits are what the instruments are for; the theorems below them are the evidence '
     + 'that the instruments are strong enough for their refusals to count.')
-    + C.pRaw('The first of them ships as a package anyone can install: '
-      + C.m('prime env install ' + gymHub.owner + '/' + gymHub.name) + ' puts the environment behind the first '
+    + C.pRaw('One of them ships as a package anyone can install: '
+      + C.m('prime env install ' + gymHub.owner + '/' + gymHub.name) + ' puts the environment behind the second '
       + 'card on your own machine, where its forgery battery runs before it will score anything. '
       + '<a href="reports/gym.html">What it measured</a>.') + '</div>'
     + C.cards(LEAD.map((l) => ({ href: 'reports/' + l.f, k: l.k, title: l.title, desc: l.desc, n: l.n })))
