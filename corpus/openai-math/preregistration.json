@@ -191,6 +191,12 @@
    "before": "any re-run of a challenge whose Lean build crashed",
    "what": "a challenge whose build crashes Lean with exit code 139 is re-run with GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 exported for the Comparator run (tools/runpod-openai-math.sh, LEAN_GLIBC_TUNABLES) — the workaround the release itself prescribes in lean/README.md (\"Compiling the entire library may fail if Linux's vm.max_map_count is too low\"); each run records vm.max_map_count and the setting in env.txt",
    "why": "on the RunPod pod, PlanarPacking's solution build crashed Lean with code 139 in two certificate modules (OAI.Analysis.PlanarPacking.Certificate.HighMoments1_7 after 551 s, TableMoments48 after 2,395 s), the symptom the release documents; the run did not reach Comparator, so nothing was decided."
+  },
+  {
+   "date": "2026-10-12",
+   "before": "the three challenges that never reached Comparator (ErdosReciprocal, MUBSix, PlanarPacking) are run again",
+   "what": "they run ONE AT A TIME (SLOTS=1) on one RunPod CPU pod, cpu3c (32 vCPU, 64 GB, $0.96/h), within a $10 cap the operator approved on 2026-10-12 (\"go the Proposed use of the $59.34\"), by the same tools/runpod-openai-math.sh at the same pins, nanoda build issue44-stack1g as on the first pod; amendment 15's GLIBC_TUNABLES workaround is exported for all three (the release's own README prescribes it for full builds). The 15 challenges the runners terminated for memory or nanoda refused are NOT re-run: they stay REFUSED for resources (the operator's choice of 2026-10-11 stands). At the cap the pod is terminated and whatever did not finish stays REFUSED.",
+   "why": "these three stopped in the build step on GitHub's 6-hour runners and on the 256 GB pod (which ran out of memory running four at once), so they were never decided by either kernel; one at a time on a pod with no job time limit is the cheapest machine that can finish a build"
   }
  ]
 }
