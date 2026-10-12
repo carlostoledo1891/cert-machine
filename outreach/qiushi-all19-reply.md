@@ -1,4 +1,6 @@
-# Reply on Oxelra-AI/Qiushi-Engine-Kissing-Number-Research issue #1 — all 19 dimensions — DRAFT, NOT SENT
+# Reply on Oxelra-AI/Qiushi-Engine-Kissing-Number-Research issue #1 — all 19 dimensions — POSTED 2026-10-12 on the operator's "Ok, post it"
+
+https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/issues/1#issuecomment-6133731693 (the paste block below, verbatim, with the Gram-form sentence the operator agreed to add).
 
 Answers Cherish0925's two comments of 2026-10-12 (04:42 and 05:22 UTC: the README credit for 25/27/43/45; the complete
 32–39 and 49–55 releases). Supersedes outreach/qiushi-gram-form-reply.md (their format question is answered by their own
@@ -42,6 +44,7 @@ How, briefly:
 - **49–55** on one rented GPU, by a fused kernel that computes and reduces each 128 × 128 block of products in registers (fp16 inputs, fp32 accumulation; every partial sum is at most 192, so every value is an exact integer). Before deciding anything, the GPU path re-decided 32 and 39 and had to reproduce the laptop's contact counts exactly; it did.
 - **Cross-checks:** in every dimension a seeded sample was decided again in plain Python integers and by a separate JavaScript implementation in BigInt; all agree.
 - **43 and 45, a second way:** from your lattice data in `constructions/sections` (B Bᵀ = 96 G and 12 G exactly), every exported row is an integer combination of your basis satisfying your section and fibre conditions (2,460,030 per fibre in 45), and every pair decided again from the coefficients gives the same contacts.
+- **For anything new,** the checker also takes your native form directly: integer coefficient rows, the exact Gram matrix, and a common denominator for projections, with every file pinned by sha256. No Cartesian export is needed.
 
 Re-derive: `python3 tools/run-kissing-configs.py 32` (any of 32–37, 39), `python3 tools/run-kissing-config38.py`, and `tools/runpod-qiushi-lifting.sh` for 49–55, all in https://github.com/carlostoledo1891/cert-machine. Each tool downloads your release files and refuses them unless they match the sha256 pins. Write-up: https://carlostoledo.co/reports/kissing.html §4.
 
