@@ -1,0 +1,81 @@
+{
+ "what": "Pre-registration of a measurement pilot: how small can the Sidorenko margin of OpenAI's H be made on explicit small kernels, by size N? Committed before any real run; the only runs before it are the desk smoke tests listed under smokeTest, which are not results.",
+ "registered": "2026-10-12",
+ "operatorGo": "the operator chose the ~$10 measurement pilot over dropping the target (2026-10-12), after the Phase 0 recommendation in corpus/targets.json row sidorenko-explicit-host",
+ "target": "sidorenko-explicit-host",
+ "question": "For the 35-vertex, 66-edge bipartite graph H of OpenAI's disproof of Sidorenko's conjecture, and a nonnegative kernel W on [N] x [N] (uniform measure, points of H sampled from the first factor and faces from the second), how small can margin(W) = log t(H,W) - 66 log p(W) be made, by N and by the kernel's distance from constant? margin < 0 would be an explicit counterexample kernel.",
+ "H": {
+  "definition": "the incidence graph of 22 triples on 13 points; t(H,W) = E_{x in [N]^13} prod_T f(x_T), f(a,b,c) = E_y W[a,y] W[b,y] W[c,y]; p(W) = E W",
+  "faces": [[0,1,3],[0,1,9],[0,2,3],[0,2,9],[1,3,10],[1,7,10],[1,7,12],[1,9,12],[2,3,4],[2,4,9],[3,4,11],[3,10,11],[4,8,9],[4,8,11],[5,6,7],[5,6,11],[5,7,10],[5,10,11],[6,7,12],[6,8,11],[6,8,12],[8,9,12]],
+  "source": {
+   "repository": "github.com/openai/math at fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb (the commit pinned in corpus/openai-math/release.json; local clone /Users/carlostoledo/Projects/openai-math, clean, read as text only)",
+   "lean": {"path": "lean/ComparatorChallenges/SidorenkoCounterexample.lean", "definition": "faces : Fin 22 -> Finset (Fin 13)", "sha256": "489688f5c4eb60c6dd8cfe0ef69663aaf11e795d6252e9626972764a50187de9"},
+   "tex": {"path": "preprints/A-counterexample-to-Sidorenkos-conjecture-September-23-2026/build/sections/complex.tex", "definition": "Table tab:complex, columns i1 i2 i3", "sha256": "b7023c77ec390b3392617c51b1ca3d3ee70d707af6c71e82b0b56547513bbe8a"},
+   "agreement": "the Lean table and the tex table give the same 22 triples in the same order; instruments/sidorenko/battery.py re-reads both (as text) when the clone is present and checks both sha256 values"
+  },
+  "checkedFacts": "22 faces, 13 points, 66 incidences, 33 covered point pairs each in exactly two faces, connected (the preprint's Prop. prop:complex (1)); primal graph of treewidth 5 — the plan's widest pairwise contraction touches 6 point indices and keeps 5"
+ },
+ "instrument": {
+  "code": "instruments/sidorenko/pilot.py (search, certify, time) and instruments/sidorenko/battery.py; written here from the definitions above, no code from the claimant or any third party",
+  "floatScreen": "W = sigmoid(Z) (symmetric arm: Z symmetrised), U = W / mean W, margin = log t(H,U) (scale invariance: p(U) = 1); bucket elimination along an exact-DP elimination order, per-step max rescaling with a log accumulator; torch autograd on the pod (float32, TF32 off), numpy float64 with a hand-written reverse pass on a CPU fallback; every final kernel re-read in numpy float64",
+  "exactCertify": "the best kernel of each cell is rationalised to A / Q (A = rint(Q W / max W), integers 0..Q); S = sum_x prod_T F(x_T), F = sum_y A A A, is computed modulo primes small enough that every pairwise contraction stays below 2^53 in float64 (so every residue is exact), recombined by the CRT under the bound S <= N^13 prod_T (M max(A)^3) and re-checked against one extra prime; the sign is the integer comparison t < p^66 <=> S N^53 M^44 < (sum A)^66 (M = N here). On the pod the residues run in float64 on the GPU; every saved kernel is decided again on the desk with `pilot.py certify DIR` (numpy on the CPU), and a cell counts as decided only when both readings give the same S",
+  "never": "a float margin decides nothing; a negative float margin with a nonnegative exact margin is recorded as a slip, never a refutation"
+ },
+ "searchSpace": {
+  "N": [4, 6, 8, 10, 12, 16, 20, 24, 32],
+  "M": "M = N",
+  "arms": ["bipartite", "symmetric"],
+  "armsWhy": "bipartite: a general N x N kernel, the kernel notion of the preprint's theorem (two finite probability spaces); symmetric: W = W^T, the form that samples to a simple graph host",
+  "deltas": [0.125, 0.25, 0.5, 1.0, 2.0],
+  "deltasWhy": "delta = rms(U - 1) = the coefficient of variation of W. The constant kernel has margin exactly 0 (red control a), so an unconstrained minimum is the trivial 0; each cell minimises the margin at a fixed distance from constant. Near constant, a doubly-centred perturbation leaves the four-cycles (H has 33) as the first nonzero term, so margin/delta^4 is reported as the scale-free reading",
+  "deltaPenalty": {"form": "objective = margin + lambda_t ((delta - delta0)/delta0)^2, lambda_t geometric from lambda0 to lambda1 over the restart", "lambda0": 10.0, "lambda1": 3000.0, "accept": 0.1, "acceptWhy": "a restart competes in its cell only if |delta/delta0 - 1| <= 0.1; the actual delta is recorded"},
+  "stepsPerRestart": 500,
+  "adam": {"lr": 0.05},
+  "anneal": {"noise0": 0.05, "form": "Gaussian noise of scale noise0 (1 - t/(0.8 S)) added to Z after each step for the first 80% of the steps"},
+  "inits": ["gauss", "block", "lowrank"],
+  "initsDetail": "per restart, uniformly: gauss (c + s g, s in {0.5,1,2,4}, c in {-2,0,2}), block (random 2-4 x 2-4 row/column partitions with Gaussian block values, plus 0.1 noise), lowrank (c + s u v^T / sqrt(r), r in {1,2,3})",
+  "seed": 0,
+  "seedRule": "round seed = first 60 bits of sha256('arm|N|delta0|round|seed'); restarts run in batches (as many as GPU memory allows, at most 64), every restart of a round derives from that seed",
+  "cellOrder": "by N, then arm, then delta",
+  "timeSlices": "each cell gets (remaining budget - reserve) / (cells left); time a cell does not use passes to the cells after it",
+  "reserveFraction": 0.1,
+  "plateau": {"rounds": 8, "abs": 0.001, "rel": 0.01, "floor": 0.001, "rule": "a cell stops early when its best float margin improved by no more than max(abs, rel |old|) over the last 8 rounds AND is above floor; a cell whose best margin is within floor of 0 keeps searching to the end of its slice"},
+  "exact": {"Q": [1024], "Qfine": [16384], "fineBelow": 0.001, "rule": "every cell's best kernel is decided at Q = 1024; when its float margin is below 0.001 it is decided again at Q = 16384. Q = 1024 rather than 64 because the smoke test showed rounding to 1/64 moves the margin by up to ~30% at delta = 0.125"}
+ },
+ "budget": {
+  "cap": "$10 of RunPod GPU time, approved by the operator 2026-10-12",
+  "hourlyPrice": "set at launch from the chosen GPU's price; BUDGET_HOURS = (10 - 0.3 x price) / price, the 0.3 h covering image pull, battery and start-up",
+  "enforcement": "pilot.py stops searching at BUDGET_HOURS (10% of it reserved for exact checks and writes); the parent session terminates the pod when the pod's billed cost reaches $10, finished or not",
+  "pod": "tools/runpod-sidorenko.sh on a runpod/pytorch image (CUDA, torch, numpy): fetches the pilot, battery and this file at a fixed commit, runs the battery (must exit 0, else phase FAILED and nothing is searched), then the search; serves results read-only on port 8000 with _status.json"
+ },
+ "projection": {
+  "deskTimings": "MacBook Air M2 (fanless), 4 threads. One forward+backward per kernel: numpy 2.4 ms (N=4), 8.6 ms (N=8), 66 ms (N=12); torch-cpu batch 4: 2.7 ms (N=8), 11.7 ms (N=12), 28 ms (N=16), 84 ms (N=20) per kernel. Exact certificate at Q = 64 (Q = 1024 needs about 1.5x the primes): numpy 0.35 s (N=8), 2.9 s (N=12), 12 s (N=16), 38 s (N=20); torch-cpu float64 4.1 s (N=16), 7.4 s (N=20); 24-29 primes",
+  "flopsPerKernelStep": "about 32 N^6 (forward multiply-adds x 2 x 3): 0.54 GFLOP at N=16, 6.0 at N=24, 33 at N=32, 126 at N=40",
+  "gpuAssumption": "5 TFLOP/s sustained fp32 on the batched contractions and at least 1.5 ms per batched step at small N (kernel launches) — an assumption until the pod's first cells report; the slices are time-based, so a slower GPU means fewer restarts, never a larger bill",
+  "coverage": "at 12 GPU-hours and 90 cells (~7 min each before reallocation): N <= 12 is launch-bound (thousands of restarts per cell; most will stop on the plateau rule and pass their time on), N = 16 about 8,000 restarts per cell, N = 20 about 2,000, N = 24 about 700, N = 32 about 130 (about 3.5 GB per kernel, batch about 3 on a 24 GB card). N = 40 would cost about 13 s and 10 GB per restart and is not registered",
+  "deskCertifyCost": "re-deciding every saved kernel on the desk is about 90 kernels at Q = 1024; the N = 32 ones take roughly three minutes each with torch-cpu float64"
+ },
+ "killCriterion": [
+  "stop at the budget cap — the pilot's deadline and the pod's billed $10, whichever comes first",
+  "per cell: the plateau rule above (stop early when the best margin has stopped moving and sits above 0.001)",
+  "stop at once and report if the battery fails on the pod, or if the pod's exact reading and the desk's disagree on any S"
+ ],
+ "result": {
+  "what": "a table, per arm, N and delta: the best float margin, the exact margin of its rationalised kernel (sign decided by integers), margin/delta^4, restarts, rounds, seconds, stop reason, and the kernel itself (integers A and Q, saved)",
+  "expected": "no explicit small kernel violates the inequality within this search: every exact margin positive. That outcome is stated as a measurement of this search ('no kernel with N <= 32 found by these restarts has a negative margin; the smallest exact margins by N were ...'), never as a theorem that no small host exists",
+  "ifNegative": "any exact margin < 0 is a counterexample kernel: pilot.py writes COUNTEREXAMPLE-CANDIDATE-*.json and prints it loudly; it is claimed only after the desk's independent re-decision (pilot.py certify) agrees, the kernel's integers are published, and a second exact route (a brute-force or a different elimination order) agrees at that N",
+  "slip": "a negative float margin with a nonnegative exact margin is recorded as a slip and counted as nothing"
+ },
+ "redControls": {
+  "a": "a constant kernel gives exact margin exactly 0 (N x M in {4x4, 5x3, 6x6}, and W = 1/2 with Q = 2), and float margin 0 to 1e-12",
+  "b": "a malformed H is refused (a triple with a repeated point; a moved point breaking 'every covered pair lies in exactly two faces'); a wrong exponent (65) breaks the constant-kernel identity at W = 1/2; a contraction that drops a face disagrees with brute force",
+  "c": "the contraction agrees exactly with brute force: H itself at N = 2 (M = 2, 3; integers), 8 faces of H at N = 3, a mixed-arity hypergraph and a path over every map of all vertices (Fractions), and K_{2,2} against tr((W W^T)^2)/(N^2 M^2)",
+  "d": "the exact machinery can fail loudly: a starved CRT is refused, a corrupted residue is caught by the extra prime, and the sign path reports a negative margin when one exists (C4 against p^3 on a 2-regular 6 x 6 kernel)",
+  "battery": "python3 instruments/sidorenko/battery.py — 25 checks + 7 red controls with numpy, 28 + 7 with torch (torch margin, autograd and float64 residues against numpy); about 15 s on the desk"
+ },
+ "smokeTest": {
+  "status": "desk only, CPU, not results — run to test the code path before registration; parameters differed (300 steps, N in {4,6,8}, deltas {0.25,0.5,1,2}, budgets of 2-3 minutes)",
+  "observed": "every exact margin positive (a last 70-second run with this file's own parameters, N in {4,5}, 20 cells, also all positive: best exact margins 0.003-0.006 at delta 0.125, 0.036-0.046 at 0.25, 12-15 at 1, 50-60 at 2); best margins at delta 0.25 fell from about 0.047 (N=4) to 0.027-0.032 (N=6) to 0.022-0.024 (N=8); at delta 1 from about 14.6 (N=4) to 7.8 (N=8); the desk re-decision (pilot.py certify, numpy) agreed with all 15 torch-run certificates"
+ },
+ "notDoing": "no sampled host graph, no F_q matrix-model construction, no D in the hundreds, no N above 32, no second budget without a new go from the operator"
+}
