@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-12T13:12:01.676Z",
- "git": "6371ba3d",
+ "generated": "2026-10-12T21:24:48.221Z",
+ "git": "a8aee8d8",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 11
+   "ms": 10
   },
   {
    "id": "alphaevolve-593",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 106,
+   "ms": 103,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 65,
+   "ms": 63,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 62,
+   "ms": 61,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 59,
+   "ms": 58,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -200,7 +200,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 52,
+   "ms": 51,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors",
    "date": "1980-01-01",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 65,
+   "ms": 64,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 66,
+   "ms": 65,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1086
+     "ms": 1063
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 209
+     "ms": 208
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 211
+     "ms": 214
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 95
+    "ms": 91
    }
   },
   {
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 109
+    "ms": 108
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 189
+    "ms": 191
    }
   }
  ],
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3555,
+    "ms": 3482,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -3136,6 +3136,69 @@
     "addedPoints": null
    },
    {
+    "id": "qiushi-49",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 49,
+    "claimed": 52430156,
+    "previous": 52430140,
+    "gain": 16,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1374460602877090,
+    "contacts": 965197554294,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 3172.7,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 180901,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 602,
+     "pairs": 180901,
+     "jsContacts": 127,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 127,
+     "agree": true,
+     "jsMs": 135,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52430156,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52430156 rows in 51 integer columns, squared norms {\"48\": 2, \"144\": 52401846, \"192\": 28308} (counts as published)",
+     "the rows span exactly 49 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 602-row sample in plain Python integers: 127 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration49.i8.gz": "2df566e092bf06747f858cda1478528b6a2436de005b137b7ee877abed7c0894",
+     "configuration49.i8.gz (decompressed, = their verification input)": "3aede955c2c8b6fb54dcff471b4850cb7990d252aad8bdc1970a3cf6bcbccaa4"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52430156 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 49 dimensions; all 1374460602877090 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 965197554294 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
     "id": "kravatsky-50",
     "claimant": "kravatsky",
     "claimantName": "A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)",
@@ -3168,6 +3231,69 @@
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
     "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-50",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 50,
+    "claimed": 52458468,
+    "previous": 52458418,
+    "gain": 50,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1375945406224278,
+    "contacts": 964169164800,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 3177.7,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 183315,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 606,
+     "pairs": 183315,
+     "jsContacts": 144,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 144,
+     "agree": true,
+     "jsMs": 124,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52458468,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52458468 rows in 57 integer columns, squared norms {\"48\": 6, \"144\": 52373538, \"192\": 84924} (counts as published)",
+     "the rows span exactly 50 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 606-row sample in plain Python integers: 144 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration50.i8.gz": "313a179b4698f310007271cb6be7d18c217fdbab9eabfa19e23e715566b89512",
+     "configuration50.i8.gz (decompressed, = their verification input)": "21a351c558f7be5b3d0822a43c62165d953421436d71a628ffd08b4fbd2d8b80"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52458468 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 50 dimensions; all 1375945406224278 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 964169164800 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
     "addedPoints": null
    },
    {
@@ -3206,6 +3332,69 @@
     "addedPoints": null
    },
    {
+    "id": "qiushi-51",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 51,
+    "claimed": 52500930,
+    "previous": 52500816,
+    "gain": 114,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1378173799181985,
+    "contacts": 962629120340,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 3184.3,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 186966,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 612,
+     "pairs": 186966,
+     "jsContacts": 155,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 155,
+     "agree": true,
+     "jsMs": 124,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52500930,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52500930 rows in 57 integer columns, squared norms {\"48\": 12, \"144\": 52331082, \"192\": 169836} (counts as published)",
+     "the rows span exactly 51 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 612-row sample in plain Python integers: 155 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration51.i8.gz": "276f9f4884ee137404552d17e80f7a28d8da5ea970a2f53ba7b6a5a314e84126",
+     "configuration51.i8.gz (decompressed, = their verification input)": "33ff8880a23386904b00b7273cc4e234731d3a5fafe82c39638371ab641ff413"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52500930 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 51 dimensions; all 1378173799181985 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 962629120340 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
     "id": "kravatsky-52",
     "claimant": "kravatsky",
     "claimantName": "A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)",
@@ -3238,6 +3427,69 @@
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
     "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-52",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 52,
+    "claimed": 52585772,
+    "previous": 52585516,
+    "gain": 256,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1382631682125106,
+    "contacts": 959560825568,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 3190.6,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 194376,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 624,
+     "pairs": 194376,
+     "jsContacts": 225,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 225,
+     "agree": true,
+     "jsMs": 130,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52585772,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52585772 rows in 60 integer columns, squared norms {\"48\": 24, \"144\": 52246252, \"192\": 339496} (counts as published)",
+     "the rows span exactly 52 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 624-row sample in plain Python integers: 225 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration52.i8.gz": "aaac1d74e2622c0f6b1e066d1b960378490aee817034c24e7500d73a0c1470eb",
+     "configuration52.i8.gz (decompressed, = their verification input)": "4058041900101185ea443fdf5aa3764359ef5ba2c4f9fe3156745dfd1390749e"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52585772 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 52 dimensions; all 1382631682125106 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 959560825568 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
     "addedPoints": null
    },
    {
@@ -3276,6 +3528,69 @@
     "addedPoints": null
    },
    {
+    "id": "qiushi-53",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 53,
+    "claimed": 52698696,
+    "previous": 52698222,
+    "gain": 474,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1388576253700860,
+    "contacts": 955491412444,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 3199.6,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 204480,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 640,
+     "pairs": 204480,
+     "jsContacts": 362,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 362,
+     "agree": true,
+     "jsMs": 132,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52698696,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52698696 rows in 63 integer columns, squared norms {\"48\": 40, \"144\": 52133344, \"192\": 565312} (counts as published)",
+     "the rows span exactly 53 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 640-row sample in plain Python integers: 362 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration53.i8.gz": "a90af9452e5f9a207ce82575895ef307bcd908a08c90621e0a74f1da6a6d4429",
+     "configuration53.i8.gz (decompressed, = their verification input)": "bd2e44bb11638fe8537c94e235ffa761a8b1f4e33ea99d52e257a6ee1e8a537a"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52698696 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 53 dimensions; all 1388576253700860 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 955491412444 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
     "id": "kravatsky-54",
     "claimant": "kravatsky",
     "claimantName": "A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)",
@@ -3311,6 +3626,69 @@
     "addedPoints": null
    },
    {
+    "id": "qiushi-54",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 54,
+    "claimed": 52923774,
+    "previous": 52922906,
+    "gain": 868,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1400462900739651,
+    "contacts": 947433469328,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 4238.1,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 225456,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "jsContacts": 852,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 852,
+     "agree": true,
+     "jsMs": 145,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 52923774,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "52923774 rows in 72 integer columns, squared norms {\"48\": 72, \"144\": 51908298, \"192\": 1015404} (counts as published)",
+     "the rows span exactly 54 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 672-row sample in plain Python integers: 852 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration54.i8.gz": "9f677d79ff0166702757bdd9aac24b548d806dd0086ee01cfa307d9131307786",
+     "configuration54.i8.gz (decompressed, = their verification input)": "45e065493879502ef09be584f9c95be2bea387a8a3844814edd36eaf28c73751"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 52923774 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 54 dimensions; all 1400462900739651 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 947433469328 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
     "id": "kravatsky-55",
     "claimant": "kravatsky",
     "claimantName": "A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)",
@@ -3343,6 +3721,69 @@
     "detail": "no vector list is published: the count is computed from a lattice, class-size tables or a moment LP (RESULTS.md status `classes`). What would decide it: the configuration's vectors in any exact form, or a generator file this lab can run without the claimant's code.",
     "status": "classes",
     "package": "verifications/improved/dim49-63-p48-caps/",
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-55",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 55,
+    "claimed": 53301140,
+    "previous": 53299730,
+    "gain": 1410,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 1420505735999230,
+    "contacts": 934069080624,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "192 / 144 / 48 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 4291.5,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 263175,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 726,
+     "pairs": 263175,
+     "jsContacts": 2164,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 2164,
+     "agree": true,
+     "jsMs": 155,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 53301140,
+      "path": "Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "53301140 rows in 72 integer columns, squared norms {\"48\": 126, \"144\": 51530986, \"192\": 1770028} (counts as published)",
+     "the rows span exactly 55 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by Triton fused kernel, fp16 tensor cores, fp32 accumulation (NVIDIA L40S), exact: each partial sum is bounded by 192",
+     "a 726-row sample in plain Python integers: 2164 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration55.i8.gz": "59927928b54ffc1e398e5d9884960a132ee27edee6884892bb8ec89a508ce73e",
+     "configuration55.i8.gz (decompressed, = their verification input)": "8a466a374f9b5835263c16fbf736b5c1573b5925b89b42218d84be006008e00a"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/lifting-vectors-2026-10-12); 53301140 rows of squared norm 192 / 144 / 48 (each normalised by its own length), spanning exactly 55 dimensions; all 1420505735999230 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 934069080624 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
     "addedPoints": null
    },
    {
