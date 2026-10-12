@@ -487,7 +487,7 @@ B.push(C.section({
     b: 'K(' + r.dim + ') ≥ ' + fmt(r.claimed),
     raw: esc(WHO[r.claimant] + (r.ours ? ' (ours)' : '')) + (r.previous ? ' · over their stated previous ' + fmt(r.previous) + ' by +' + fmt(r.claimed - r.previous) : '')
       + ' · ' + C.tag(r.verdict, r.verdict === 'WITNESSED' ? 'cert' : 'held') + ' · ' + C.m(fmt(r.pairs)) + ' pairs, ' + C.m(fmt(r.contacts)) + ' exact contacts'
-      + (r.nearestNonContactCos ? ', nearest non-contact ' + C.m(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + Math.round(r.seconds) + ' s',
+      + (r.nearestNonContactCos ? ', nearest non-contact ' + C.m(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + Math.round(r.seconds) + ' s' + (r.wallNote ? ' (' + esc(r.wallNote) + ')' : ''),
   })))
   + '</div>'
   + '<div class="col">'

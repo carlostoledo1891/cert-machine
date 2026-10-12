@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-11T23:21:36.004Z",
- "git": "99d99939",
+ "generated": "2026-10-11T23:46:43.946Z",
+ "git": "337a836c",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 9
+   "ms": 10
   },
   {
    "id": "alphaevolve-593",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 104,
+   "ms": 102,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 65,
+   "ms": 64,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 65,
+   "ms": 64,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1077
+     "ms": 1062
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 210
+     "ms": 208
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 94
+    "ms": 93
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 187
+    "ms": 186
    }
   }
  ],
@@ -443,7 +443,7 @@
     "n": 12,
     "pairs": 66,
     "contacts": 0,
-    "seconds": 0.001
+    "seconds": 0
    }
   ],
   "reds": [
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3533,
+    "ms": 3487,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -1201,6 +1201,7 @@
     "norm": "288",
     "nearestNonContactCos": 0.4776709006307398,
     "seconds": 0.6,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3931,
@@ -1281,6 +1282,7 @@
     "norm": "1152",
     "nearestNonContactCos": 0.4910687750670014,
     "seconds": 29,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 5400,
@@ -1376,6 +1378,7 @@
     "norm": "4608",
     "nearestNonContactCos": 0.49984298862787674,
     "seconds": 36.6,
+    "wallNote": null,
     "bigintFallbacks": 1118436,
     "spotCheck": {
      "pairs": 13194,
@@ -1487,6 +1490,7 @@
     "norm": "128",
     "nearestNonContactCos": 0.4375,
     "seconds": 25.9,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 2185,
@@ -1561,6 +1565,7 @@
     "norm": "1152",
     "nearestNonContactCos": 0.46650635094610965,
     "seconds": 25.8,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3933,
@@ -1643,6 +1648,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -1676,6 +1682,7 @@
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 27,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3964,
@@ -1761,6 +1768,7 @@
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 27,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3966,
@@ -1849,6 +1857,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -1882,6 +1891,7 @@
     "norm": "1152",
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 78.5,
+    "wallNote": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3972,
@@ -1962,6 +1972,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -1995,6 +2006,7 @@
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 116.3,
+    "wallNote": null,
     "bigintFallbacks": 1000054,
     "spotCheck": {
      "pairs": 3987,
@@ -2076,6 +2088,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2109,6 +2122,7 @@
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 197.4,
+    "wallNote": null,
     "bigintFallbacks": 3477000,
     "spotCheck": {
      "pairs": 3996,
@@ -2190,6 +2204,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2223,6 +2238,7 @@
     "norm": "10368",
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 312.4,
+    "wallNote": null,
     "bigintFallbacks": 11089006,
     "spotCheck": {
      "pairs": 3994,
@@ -2304,6 +2320,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2345,6 +2362,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2378,6 +2396,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2411,6 +2430,7 @@
     "norm": "576",
     "nearestNonContactCos": 0.3333333333333333,
     "seconds": 2419.2,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": {
      "pairs": 179700,
@@ -2473,6 +2493,7 @@
     "norm": "4416",
     "nearestNonContactCos": 0.4782608695652174,
     "seconds": 32765,
+    "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger",
     "bigintFallbacks": null,
     "spotCheck": {
      "pairs": 179700,
@@ -2535,6 +2556,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2568,6 +2590,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2601,6 +2624,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2634,6 +2658,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2667,6 +2692,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2700,6 +2726,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2733,6 +2760,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2766,6 +2794,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2799,6 +2828,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2832,6 +2862,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2865,6 +2896,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2898,6 +2930,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2931,6 +2964,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2964,6 +2998,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2997,6 +3032,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3030,6 +3066,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3063,6 +3100,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3096,6 +3134,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3129,6 +3168,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3162,6 +3202,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3195,6 +3236,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3228,6 +3270,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3261,6 +3304,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3294,6 +3338,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3327,6 +3372,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3360,6 +3406,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3393,6 +3440,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3426,6 +3474,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3459,6 +3508,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3492,6 +3542,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3525,6 +3576,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3558,6 +3610,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3591,6 +3644,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3624,6 +3678,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3657,6 +3712,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3690,6 +3746,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3723,6 +3780,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3756,6 +3814,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3789,6 +3848,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3822,6 +3882,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3855,6 +3916,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3888,6 +3950,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3921,6 +3984,7 @@
     "norm": null,
     "nearestNonContactCos": null,
     "seconds": null,
+    "wallNote": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,

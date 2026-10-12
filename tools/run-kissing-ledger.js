@@ -210,7 +210,7 @@ let wave = null;
           id: r.id, claimant: r.claimant, claimantName: r.claimantName, dim: r.dim, claimed: r.claimed, previous: show(r.previous),
           gain: r.previous ? r.claimed - r.previous : null, verdict: r.verdict, ours: !!r.hunt,
           pairs: show(e.pairs), contacts: show(e.contacts), violations: show(e.violations), maxCos: show(e.maxCos), maxDotShow: show(e.maxDotShow),
-          norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), bigintFallbacks: show(e.bigintFallbacks),
+          norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), wallNote: show(r.wallNote), bigintFallbacks: show(e.bigintFallbacks),
           spotCheck: e.spotCheck || null, jsCheck: r.jsCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
           delta: show(r.delta), decode: r.decode ? r.decode.how : null, choices: r.choices || [], facts: r.facts || [], scale: show(r.scale),
           bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package), addedPoints: r.addedPoints || null,
