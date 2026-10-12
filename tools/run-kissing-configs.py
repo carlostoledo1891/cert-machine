@@ -207,6 +207,86 @@ def bulk_torch(Xs, blocks, tile, log):
             'path': 'CUDA fp16 tensor cores (%s)' % torch.cuda.get_device_name(0), 'maxDot': float(mx)}
 
 
+_TRITON = {}
+
+
+def _triton_kernel():
+    """the fused tile: a 128 x 128 block of products computed and reduced in registers, never written to memory"""
+    if 'k' in _TRITON:
+        return _TRITON['k']
+    import triton
+    import triton.language as tl
+
+    @triton.jit
+    def pair_kernel(X, stride, a0, a1, b0, b1, diag, t, c, omax, ocnt, ovio, K: tl.constexpr, BM: tl.constexpr, BN: tl.constexpr):
+        pm = tl.program_id(0)
+        pn = tl.program_id(1)
+        pid = pm * tl.num_programs(1) + pn
+        rm = a0 + pm * BM + tl.arange(0, BM)
+        rn = b0 + pn * BN + tl.arange(0, BN)
+        rk = tl.arange(0, K)
+        A = tl.load(X + rm.to(tl.int64)[:, None] * stride + rk[None, :], mask=rm[:, None] < a1, other=0).to(tl.float16)
+        B = tl.load(X + rn.to(tl.int64)[:, None] * stride + rk[None, :], mask=rn[:, None] < b1, other=0).to(tl.float16)
+        P = tl.dot(A, tl.trans(B))                     # fp32 accumulation; every partial sum an integer of magnitude <= 192
+        valid = (rm[:, None] < a1) & (rn[None, :] < b1)
+        valid = valid & ((diag == 0) | (rn[None, :] > rm[:, None]))
+        mx = tl.max(tl.max(tl.where(valid, P, -1.0e9), axis=1), axis=0)
+        cnt = tl.sum(tl.sum(tl.where(valid & (P == c), 1, 0), axis=1), axis=0)
+        vio = tl.sum(tl.sum(tl.where(valid & (P > t), 1, 0), axis=1), axis=0)
+        tl.store(omax + pid, mx)
+        tl.store(ocnt + pid, cnt)
+        tl.store(ovio + pid, vio)
+
+    _TRITON['k'] = pair_kernel
+    return pair_kernel
+
+
+def bulk_triton(Xs, blocks, log, S=1 << 16, BM=128):
+    """every pair on the GPU in a fused Triton kernel: int8 rows cast to fp16 in registers, products accumulated in fp32
+       (exact: every partial sum is bounded by the largest squared norm, 192), reduced per 128 x 128 block to the largest
+       product, the contacts and the violations; per-program partials summed in int64 on the device"""
+    import torch
+    kern = _triton_kernel()
+    dev = 'cuda'
+    n, cols = Xs.shape
+    KP = 16
+    while KP < cols:
+        KP *= 2
+    Xg = torch.zeros((n, KP), dtype=torch.int8, device=dev)
+    for c0 in range(0, n, 1 << 22):
+        Xg[c0:c0 + (1 << 22), :cols] = torch.from_numpy(np.ascontiguousarray(Xs[c0:c0 + (1 << 22)])).to(dev)
+    g = (S + BM - 1) // BM
+    omax = torch.empty(g * g, dtype=torch.float32, device=dev)
+    ocnt = torch.empty(g * g, dtype=torch.int32, device=dev)
+    ovio = torch.empty(g * g, dtype=torch.int32, device=dev)
+    rmax = torch.full((), -1.0e9, dtype=torch.float32, device=dev)
+    rcnt = torch.zeros((), dtype=torch.int64, device=dev)
+    rvio = torch.zeros((), dtype=torch.int64, device=dev)
+    jobs = []
+    for a, (A, a0, a1) in enumerate(blocks):
+        for b, (B, b0, b1) in enumerate(blocks):
+            if b < a:
+                continue
+            t, c = thresholds(A, B)
+            for i0 in range(a0, a1, S):
+                for j0 in range(b0 if b > a else i0, b1, S):
+                    jobs.append((i0, min(a1, i0 + S), j0, min(b1, j0 + S), 1 if (b == a and j0 == i0) else 0, float(t), float(c) if c is not None else 1.0e9))
+    t0 = time.time(); last = t0
+    for k, (i0, i1, j0, j1, diag, t, c) in enumerate(jobs):
+        gm, gn = (i1 - i0 + BM - 1) // BM, (j1 - j0 + BM - 1) // BM
+        kern[(gm, gn)](Xg, KP, i0, i1, j0, j1, diag, t, c, omax, ocnt, ovio, K=KP, BM=BM, BN=BM, num_warps=8)
+        m = gm * gn
+        rmax = torch.maximum(rmax, omax[:m].max())
+        rcnt += ocnt[:m].sum(dtype=torch.int64)
+        rvio += ovio[:m].sum(dtype=torch.int64)
+        if time.time() - last > 300:
+            torch.cuda.synchronize(); last = time.time()
+            log('  %d / %d super-tiles, %.0f s, %d violations so far' % (k + 1, len(jobs), last - t0, int(rvio)))
+    torch.cuda.synchronize()
+    return {'violations': int(rvio), 'contacts': int(rcnt), 'tiles': len(jobs), 'seconds': round(time.time() - t0, 1),
+            'path': 'Triton fused kernel, fp16 tensor cores, fp32 accumulation (%s)' % torch.cuda.get_device_name(0), 'maxDot': float(rmax)}
+
+
 def decide(d, X, backend='numpy', procs=None, tile=None, log=print):
     t0 = time.time()
     n, cols = X.shape
@@ -234,13 +314,15 @@ def decide(d, X, backend='numpy', procs=None, tile=None, log=print):
              'normCountsClaimed': {str(k): v for k, v in sorted(pin[6].items())}, 'spanDimension': rank, 'maxAbsCoordinate': int(np.abs(X).max()),
              'partialSumBound': maxA}
     log('d=%d: %d rows in %d columns, norms %s, rank %d (%.0f s)' % (d, n, cols, normCounts, rank, time.time() - t0))
-    if backend == 'torch':
+    if backend == 'triton':
+        b = bulk_triton(Xs, blocks, log)
+    elif backend == 'torch':
         b = bulk_torch(Xs, blocks, tile or 16384, log)
     else:
         b = bulk_numpy(Xs, blocks, tile or 4096, procs or os.cpu_count() or 1, log)
     b['pairs'] = n * (n - 1) // 2
     b['exactness'] = ('every partial sum of products is bounded by |x||y| <= max squared norm = %d (Cauchy-Schwarz), so every value '
-                      'is an integer held exactly in %s' % (maxA, 'fp16 (exact to 2^11)' if backend == 'torch' else 'float32 (exact to 2^24)'))
+                      'is an integer held exactly in %s' % (maxA, 'fp16/fp32 on the GPU (fp16 holds integers to 2^11)' if backend in ('torch', 'triton') else 'float32 (exact to 2^24)'))
     # the second implementation, on a seeded sample plus every row of the small blocks
     rng = random.Random(7)
     idx = set(rng.sample(range(n), min(600, n)))
@@ -255,8 +337,9 @@ def decide(d, X, backend='numpy', procs=None, tile=None, log=print):
     sblocks = []
     for v in sorted(set(int(x) for x in Sn2), reverse=True):
         a0 = int(np.searchsorted(-Sn2, -v, side='left')); a1 = int(np.searchsorted(-Sn2, -v, side='right')); sblocks.append((v, a0, a1))
-    if backend == 'torch':                                     # the bulk path actually used, on the same rows
-        sb = bulk_torch(S2, sblocks, 1 << 14, lambda *a: None); bv, bc = sb['violations'], sb['contacts']
+    if backend in ('torch', 'triton'):                         # the bulk path actually used, on the same rows
+        sb = (bulk_triton(S2, sblocks, lambda *a: None) if backend == 'triton' else bulk_torch(S2, sblocks, 1 << 14, lambda *a: None))
+        bv, bc = sb['violations'], sb['contacts']
     else:
         global _X
         _X = S2.astype(np.float32)
