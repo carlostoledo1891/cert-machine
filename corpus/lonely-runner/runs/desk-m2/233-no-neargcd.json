@@ -1,0 +1,38 @@
+{
+ "gate": 233,
+ "k": 14,
+ "neargcd": false,
+ "redControl": "the shift lemma off: the paper says 233 then stays open with 13,456 orbits (pre-registered)",
+ "stages12": {
+  "where": "RunPod pod phrz9q8r8w3a6x (lr.c f2124afa, gate.py 6be9f33f, 32 vCPU), 2026-10-12",
+  "survivingOrbits": 13457,
+  "orbitsFileSha256": "f6f187d74aed336cbabc131da44f3764b711ebe0083641a16b8c29f1ba8dbe00",
+  "note": "the stage counts were not recorded: gate.py passed --no-neargcd after --terminal-from, which lr.c read as an orbit file, so the pod run stopped at the terminal stage; the 13,457 surviving orbits (the union of the per-job files, the same count as the with-lemma run of 1elx5p4ca8chch) were downloaded before the pod was terminated. gate.py now passes the option first."
+ },
+ "terminal": {
+  "orbitCount": 13457,
+  "witnessFree": 3674453,
+  "improperAfterGcd": 1056768,
+  "improperAfterNearGcd": 1056768,
+  "orbitsClosedByGcdAlone": 1,
+  "openOrbits": 13456,
+  "level": 15,
+  "factors": [
+   3,
+   5
+  ],
+  "chunks": 4,
+  "cpuSeconds": 481.01,
+  "where": "desk (M2, 4 processes)"
+ },
+ "verdict": "OPEN",
+ "decider": {
+  "lr.c": "f2124afa481afa1be1bf61430b2682571b0b80f0d5d25161e26f4f2434efbb0a",
+  "binary": "1adb532f6cdea66dd2597c38dc6c550e2c9a79cdbccd2624f2d2727208783876"
+ },
+ "machine": {
+  "label": "desk-m2",
+  "platform": "macOS-27.0-arm64-arm-64bit"
+ },
+ "decidedAt": "2026-10-12T03:56:39Z"
+}

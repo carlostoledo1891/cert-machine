@@ -70,7 +70,8 @@ chunks = [os.path.join(out, '%s.t%d.txt' % (tag, j)) for j in range(jobs)]
 for j, cf in enumerate(chunks):
     with open(cf, 'w') as f:
         f.write(''.join(o + '\n' for o in orbits[j::jobs]))
-tprocs = [subprocess.Popen([lr, str(k), str(p), '--terminal-from', cf] + extra, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) for cf in chunks]
+tprocs = [subprocess.Popen([lr, str(k), str(p)] + extra + ['--terminal-from', cf],   # extra first: lr.c reads every argument after --terminal-from as an orbit file
+           stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True) for cf in chunks]
 parts_t = []
 for pr in tprocs:
     o_, e_ = pr.communicate()
