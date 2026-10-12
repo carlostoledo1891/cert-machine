@@ -12,8 +12,8 @@
    "kissing-number-d12-842": "8bb3b293d6585a6cfac7026681876ff1293ad91266368e4d4d50900aae8b2bc3"
   }
  },
- "generated": "2026-10-11T23:46:43.946Z",
- "git": "337a836c",
+ "generated": "2026-10-12T13:12:01.676Z",
+ "git": "6371ba3d",
  "rows": [
   {
    "id": "cal-d4-24",
@@ -49,7 +49,7 @@
     "j": 4,
     "cos2Approx": 0.25
    },
-   "ms": 10
+   "ms": 11
   },
   {
    "id": "alphaevolve-593",
@@ -67,7 +67,7 @@
     "j": 325,
     "cos2Approx": 0.2499999999997728
    },
-   "ms": 102,
+   "ms": 106,
    "upstream_sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
    "form": "integer vectors, entries up to ~8.7e12",
    "date": "2025-05-14",
@@ -89,7 +89,7 @@
     "j": 22,
     "cos2Approx": 0.25
    },
-   "ms": 64,
+   "ms": 65,
    "upstream_sha256": "bceb47d0a5721fa151f85bf062404813ee5df60b206fcfbd6d4a7a1fb3965f73",
    "form": "decimal literals read as exact rationals",
    "date": "2026-04-10",
@@ -116,7 +116,7 @@
     "j": 15,
     "cos2Approx": 0.25
    },
-   "ms": 61,
+   "ms": 62,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -144,7 +144,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 57,
+   "ms": 59,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -172,7 +172,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 57,
+   "ms": 58,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "(a + b*sqrt2)/6 entries, shell norm exactly 4",
    "date": "2026-08-24",
@@ -200,7 +200,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 51,
+   "ms": 52,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors",
    "date": "1980-01-01",
@@ -222,7 +222,7 @@
     "j": 1,
     "cos2Approx": 0.25
    },
-   "ms": 64,
+   "ms": 65,
    "upstream_sha256": "61b3a572ad194a3b97d8bcae8694d57ae676328a81ef0e4db95e57a2c9d44f37",
    "form": "integer vectors in R^12"
   },
@@ -242,7 +242,7 @@
     "j": 16,
     "cos2Approx": 0.25
    },
-   "ms": 64,
+   "ms": 66,
    "upstream_sha256": "0bde9ca2c434d7beb5af63a64a291498e8c264d9a5718b738e92dd70b9ba7761",
    "upstream_commit": "c388c6f7408c886311940896713339a1a70c2394",
    "form": "p + q*sqrt2 integer pairs (22 integers per vector), shell norm exactly 36",
@@ -269,7 +269,7 @@
      "nodes": 11,
      "refines": 24,
      "edgeColours": 22,
-     "ms": 1062
+     "ms": 1086
     },
     "station-604-2": {
      "verdict": "NOT CONGRUENT",
@@ -277,7 +277,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 28,
-     "ms": 208
+     "ms": 209
     },
     "station-604-3": {
      "verdict": "NOT CONGRUENT",
@@ -285,7 +285,7 @@
      "nodes": 1,
      "refines": 3,
      "edgeColours": 29,
-     "ms": 208
+     "ms": 211
     }
    },
    "integerVectors": 496,
@@ -338,7 +338,7 @@
      "i": 601,
      "j": 604
     },
-    "ms": 93
+    "ms": 95
    }
   },
   {
@@ -366,7 +366,7 @@
      "i": 0,
      "j": 840
     },
-    "ms": 108
+    "ms": 109
    }
   },
   {
@@ -394,7 +394,7 @@
      "i": 510,
      "j": 547
     },
-    "ms": 186
+    "ms": 189
    }
   }
  ],
@@ -443,7 +443,7 @@
     "n": 12,
     "pairs": 66,
     "contacts": 0,
-    "seconds": 0
+    "seconds": 0.001
    }
   ],
   "reds": [
@@ -483,7 +483,7 @@
      0
     ],
     "norm": 288,
-    "ms": 3487,
+    "ms": 3555,
     "bigintFallbacks": 0,
     "how": "basis.js: every pair re-decided in JavaScript from the pinned JSON (integers held in doubles under a 2^50 guard; BigInt tower for hard signs)"
    }
@@ -1202,6 +1202,7 @@
     "nearestNonContactCos": 0.4776709006307398,
     "seconds": 0.6,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3931,
@@ -1283,6 +1284,7 @@
     "nearestNonContactCos": 0.4910687750670014,
     "seconds": 29,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 5400,
@@ -1379,6 +1381,7 @@
     "nearestNonContactCos": 0.49984298862787674,
     "seconds": 36.6,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 1118436,
     "spotCheck": {
      "pairs": 13194,
@@ -1491,6 +1494,7 @@
     "nearestNonContactCos": 0.4375,
     "seconds": 25.9,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 2185,
@@ -1566,6 +1570,7 @@
     "nearestNonContactCos": 0.46650635094610965,
     "seconds": 25.8,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3933,
@@ -1649,6 +1654,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -1683,6 +1689,7 @@
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 27,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3964,
@@ -1769,6 +1776,7 @@
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 27,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3966,
@@ -1858,6 +1866,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -1892,6 +1901,7 @@
     "nearestNonContactCos": 0.4927992798267444,
     "seconds": 78.5,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 0,
     "spotCheck": {
      "pairs": 3972,
@@ -1973,6 +1983,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2007,6 +2018,7 @@
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 116.3,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 1000054,
     "spotCheck": {
      "pairs": 3987,
@@ -2089,6 +2101,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2123,6 +2136,7 @@
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 197.4,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 3477000,
     "spotCheck": {
      "pairs": 3996,
@@ -2205,6 +2219,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2239,6 +2254,7 @@
     "nearestNonContactCos": 0.4927992798267443,
     "seconds": 312.4,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": 11089006,
     "spotCheck": {
      "pairs": 3994,
@@ -2321,6 +2337,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2345,6 +2362,384 @@
     }
    },
    {
+    "id": "qiushi-32",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 32,
+    "claimed": 347584,
+    "previous": 346944,
+    "gain": 640,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 60407144736,
+    "contacts": 358430976,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 44.8,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 992,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 992,
+     "agree": true,
+     "jsMs": 61,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 347584,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "347584 rows in 32 integer columns, squared norms {\"32\": 347584} (counts as published)",
+     "the rows span exactly 32 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 992 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration32.i8.gz": "f30dfb6fbab85188e294c3350880f37827e08b31f086de45eb3b71f5bd4616f7",
+     "configuration32.i8.gz (decompressed, = their verification input)": "76103625c490916aa29f3f9f479b7bc5499a5effa52a23a7a20bb952af1b1782"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 347584 rows of squared norm 32 (each normalised by its own length), spanning exactly 32 dimensions; all 60407144736 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 358430976 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-33",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 33,
+    "claimed": 363968,
+    "previous": 362048,
+    "gain": 1920,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 66236170528,
+    "contacts": 368310912,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 51.5,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 978,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 978,
+     "agree": true,
+     "jsMs": 61,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 363968,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "363968 rows in 33 integer columns, squared norms {\"32\": 363968} (counts as published)",
+     "the rows span exactly 33 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 978 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration33.i8.gz": "40a6ce91a87fcb1bbc709fe6818fb42350dd5b944d8bb44b46093af75ef27dc0",
+     "configuration33.i8.gz (decompressed, = their verification input)": "1d128d943434c96b965f795fbc169a97f8b73149caded21102258f383a0b949f"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 363968 rows of squared norm 32 (each normalised by its own length), spanning exactly 33 dimensions; all 66236170528 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 368310912 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-34",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 34,
+    "claimed": 384196,
+    "previous": 381124,
+    "gain": 3072,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 73803091110,
+    "contacts": 380481792,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 59.3,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 919,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 919,
+     "agree": true,
+     "jsMs": 67,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 384196,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "384196 rows in 34 integer columns, squared norms {\"32\": 384196} (counts as published)",
+     "the rows span exactly 34 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 919 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration34.i8.gz": "e3e8500d8f420bd95738ba3b30fc5c187edd4b29a66c66dce7a6533b63be8ecd",
+     "configuration34.i8.gz (decompressed, = their verification input)": "eed9400cdf4a74a262ee95221607fd1321c6a8dd097dac71287218422250284c"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 384196 rows of squared norm 32 (each normalised by its own length), spanning exactly 34 dimensions; all 73803091110 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 380481792 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-35",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 35,
+    "claimed": 409676,
+    "previous": 409548,
+    "gain": 128,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 83917007650,
+    "contacts": 315579800,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 64.8,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 631,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 631,
+     "agree": true,
+     "jsMs": 74,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 409676,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "409676 rows in 35 integer columns, squared norms {\"32\": 409676} (counts as published)",
+     "the rows span exactly 35 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 631 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration35.i8.gz": "8dc1a68c61ab6ff39cd11a567b7df2f4388e9fff0ddee44b605f12170936dc12",
+     "configuration35.i8.gz (decompressed, = their verification input)": "6c3669733ec4de732f3469dcd9440783733b63155ffa46224ef358c8c874a5ac"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 409676 rows of squared norm 32 (each normalised by its own length), spanning exactly 35 dimensions; all 83917007650 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 315579800 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-36",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 36,
+    "claimed": 484760,
+    "previous": 484568,
+    "gain": 192,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 117495886420,
+    "contacts": 404388832,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 81.8,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 599,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 599,
+     "agree": true,
+     "jsMs": 83,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 484760,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "484760 rows in 36 integer columns, squared norms {\"32\": 484760} (counts as published)",
+     "the rows span exactly 36 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 599 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration36.i8.gz": "7f15909a028fcf1b05d1af4d494c8625cc4da5e589f5525b9bf60ea68e18065d",
+     "configuration36.i8.gz (decompressed, = their verification input)": "591313b09ca6c4f4f437337807f3054f0d9ca5bd7a5880141a04ca16143e20be"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 484760 rows of squared norm 32 (each normalised by its own length), spanning exactly 36 dimensions; all 117495886420 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 404388832 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-37",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 37,
+    "claimed": 498024,
+    "previous": 496232,
+    "gain": 1792,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 124013703276,
+    "contacts": 392397168,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 85.5,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 554,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 554,
+     "agree": true,
+     "jsMs": 75,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 498024,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "498024 rows in 37 integer columns, squared norms {\"32\": 498024} (counts as published)",
+     "the rows span exactly 37 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+     "a 600-row sample in plain Python integers: 554 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration37.i8.gz": "97cd948a35314c4aa014b5ba689803f9a6587248331758dafaa2c480bca93d25",
+     "configuration37.i8.gz (decompressed, = their verification input)": "9e1fe7c2c6b06dbe9f22c0d0327d925f6f0e6954feac790c195ab362c1f58671"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 498024 rows of squared norm 32 (each normalised by its own length), spanning exactly 37 dimensions; all 124013703276 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 392397168 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
+    "addedPoints": null
+   },
+   {
     "id": "kravatsky-38",
     "claimant": "kravatsky",
     "claimantName": "A. Kravatskiy — github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25–31 joint work in progress with H. Cohn and B. Lindow)",
@@ -2363,6 +2758,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2376,6 +2772,69 @@
     "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25–31 first).",
     "status": "exhausted",
     "package": "verifications/improved/dim38-leech-large-codimension/",
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-38",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 38,
+    "claimed": 591900,
+    "previous": 591612,
+    "gain": 288,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 175172509050,
+    "contacts": 379853270,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "48 / 394674026743945636732262714818942096 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 163.9,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 244650,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 700,
+     "pairs": 244650,
+     "jsContacts": 1918,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 1918,
+     "agree": true,
+     "jsMs": 131,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 591900,
+      "path": "float32 BLAS (norm-48 rows), exact int64 (against the rotated axes), Python integers (axis pairs)"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "591900 rows in 52 integer columns, squared norms {\"48\": 589968, \"394674026743945636732262714818942096\": 1932} (counts as published)",
+     "the rows span exactly 38 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by float32 BLAS (norm-48 rows), exact int64 (against the rotated axes), Python integers (axis pairs), exact: each partial sum is bounded by 48",
+     "a 700-row sample in plain Python integers: 1918 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration38.i64.gz": "0117193cfe67b4ef369aa4c9b8f9f1b42ec38602af7f96de0df8300632063eca",
+     "configuration38.i64.gz (decompressed, = their verification input)": "e7277970c50525ce00d2138a508c72d420919d883c11ab54f3cc4c8d257f6a16"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 591900 rows of squared norm 394674026743945636732262714818942096 / 48 (each normalised by its own length), spanning exactly 38 dimensions; all 175172509050 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 379853270 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
     "addedPoints": null
    },
    {
@@ -2397,6 +2856,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2410,6 +2870,69 @@
     "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25–31 first).",
     "status": "external",
     "package": "verifications/improved/dim39-ers-constant-weight/",
+    "addedPoints": null
+   },
+   {
+    "id": "qiushi-39",
+    "claimant": "qiushi",
+    "claimantName": "Qiushi Engine (Oxelra-AI) — arXiv:2609.35051",
+    "dim": 39,
+    "claimed": 763668,
+    "previous": 756116,
+    "gain": 7552,
+    "verdict": "WITNESSED",
+    "ours": false,
+    "pairs": 291594025278,
+    "contacts": 325490632,
+    "violations": 0,
+    "maxCos": 0.5,
+    "maxDotShow": "cos <= 1/2",
+    "norm": "39 / 32 (per row)",
+    "nearestNonContactCos": null,
+    "seconds": 154.4,
+    "wallNote": null,
+    "gramCheck": null,
+    "bigintFallbacks": null,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "jsCheck": {
+     "n": 600,
+     "pairs": 179700,
+     "jsContacts": 179,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 179,
+     "agree": true,
+     "jsMs": 77,
+     "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 763668,
+      "path": "numpy float32 BLAS"
+     }
+    ],
+    "delta": null,
+    "decode": null,
+    "choices": [],
+    "facts": [
+     "763668 rows in 39 integer columns, squared norms {\"32\": 435988, \"39\": 327680} (counts as published)",
+     "the rows span exactly 39 dimensions: the rank over Q of the exact Gram matrix X^T X",
+     "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 39",
+     "a 600-row sample in plain Python integers: 179 contacts, 0 violations, equal to the bulk path"
+    ],
+    "scale": null,
+    "bytes": {
+     "configuration39.i8.gz": "02591a7a0082e5463898b5c5497dd39818c1ab7f9b8f42597aa2660dcd26b60e",
+     "configuration39.i8.gz (decompressed, = their verification input)": "0a0f0d6fb50324d6a1f562ce52478c1c48cecb5a6451e97f5a8b0d83e3baabf1"
+    },
+    "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 763668 rows of squared norm 39 / 32 (each normalised by its own length), spanning exactly 39 dimensions; all 291594025278 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 325490632 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+    "status": null,
+    "package": null,
     "addedPoints": null
    },
    {
@@ -2431,6 +2954,23 @@
     "nearestNonContactCos": 0.3333333333333333,
     "seconds": 2419.2,
     "wallNote": null,
+    "gramCheck": {
+     "verdict": "WITNESSED",
+     "agreesWithCartesian": true,
+     "pairs": 3260925512736,
+     "contacts": 4467331098,
+     "nearestNonContactCos": "1/3",
+     "path": "float32",
+     "norm": "6",
+     "scale": 1,
+     "membership": {
+      "what": "z G z^T = 6 (checked as the norm below) and T5 G z^T = 0 for every row",
+      "sectionConditionsHold": true
+     },
+     "basisIdentity": "B B^T = 96 G",
+     "jsAgree": true,
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1"
+    },
     "bigintFallbacks": null,
     "spotCheck": {
      "pairs": 179700,
@@ -2494,6 +3034,28 @@
     "nearestNonContactCos": 0.4782608695652174,
     "seconds": 32765,
     "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger",
+    "gramCheck": {
+     "verdict": "WITNESSED",
+     "agreesWithCartesian": true,
+     "pairs": 27232860514005,
+     "contacts": 19832543736,
+     "nearestNonContactCos": "11/23",
+     "path": "float32",
+     "norm": "23/4",
+     "scale": 8,
+     "membership": {
+      "what": "n = 8 z - (e_i + 1) T for exactly one fibre i, z integer, z G z^T = 6, z G T^T = e_i",
+      "everyRowInOneFibre": true,
+      "fibreCounts": [
+       2460030,
+       2460030,
+       2460030
+      ]
+     },
+     "basisIdentity": "B B^T = 12 G",
+     "jsAgree": true,
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1"
+    },
     "bigintFallbacks": null,
     "spotCheck": {
      "pairs": 179700,
@@ -2557,6 +3119,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2591,6 +3154,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2625,6 +3189,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2659,6 +3224,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2693,6 +3259,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2727,6 +3294,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2761,6 +3329,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2795,6 +3364,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2829,6 +3399,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2863,6 +3434,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2897,6 +3469,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2931,6 +3504,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2965,6 +3539,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -2999,6 +3574,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3033,6 +3609,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3067,6 +3644,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3101,6 +3679,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3135,6 +3714,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3169,6 +3749,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3203,6 +3784,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3237,6 +3819,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3271,6 +3854,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3305,6 +3889,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3339,6 +3924,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3373,6 +3959,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3407,6 +3994,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3441,6 +4029,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3475,6 +4064,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3509,6 +4099,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3543,6 +4134,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3577,6 +4169,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3611,6 +4204,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3645,6 +4239,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3679,6 +4274,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3713,6 +4309,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3747,6 +4344,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3781,6 +4379,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3815,6 +4414,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3849,6 +4449,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3883,6 +4484,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3917,6 +4519,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3951,6 +4554,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,
@@ -3985,6 +4589,7 @@
     "nearestNonContactCos": null,
     "seconds": null,
     "wallNote": null,
+    "gramCheck": null,
     "bigintFallbacks": null,
     "spotCheck": null,
     "jsCheck": null,

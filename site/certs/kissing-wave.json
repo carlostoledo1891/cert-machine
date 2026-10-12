@@ -4961,6 +4961,702 @@
    }
   },
   {
+   "id": "qiushi-32",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 32,
+   "claimed": 347584,
+   "previous": 346944,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 347584 rows of squared norm 32 (each normalised by its own length), spanning exactly 32 dimensions; all 60407144736 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 358430976 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "347584 rows in 32 integer columns, squared norms {\"32\": 347584} (counts as published)",
+    "the rows span exactly 32 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 992 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 347584,
+    "dim": 32,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 60407144736,
+    "contacts": 358430976,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 44.8,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 347584,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 347584,
+    "rowsClaimed": 347584,
+    "columns": 32,
+    "normCounts": {
+     "32": 347584
+    },
+    "normCountsClaimed": {
+     "32": 347584
+    },
+    "spanDimension": 32,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 358430976,
+    "tiles": 3655,
+    "seconds": 44.8,
+    "path": "numpy float32 BLAS",
+    "pairs": 60407144736,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 992,
+    "bulkViolations": 0,
+    "bulkContacts": 992,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 347584
+    }
+   ],
+   "bytes": {
+    "configuration32.i8.gz": "f30dfb6fbab85188e294c3350880f37827e08b31f086de45eb3b71f5bd4616f7",
+    "configuration32.i8.gz (decompressed, = their verification input)": "76103625c490916aa29f3f9f479b7bc5499a5effa52a23a7a20bb952af1b1782"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:49:22Z",
+   "seconds": 44.8,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 992,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 992,
+    "agree": true,
+    "jsMs": 61,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
+   "id": "qiushi-33",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 33,
+   "claimed": 363968,
+   "previous": 362048,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 363968 rows of squared norm 32 (each normalised by its own length), spanning exactly 33 dimensions; all 66236170528 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 368310912 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "363968 rows in 33 integer columns, squared norms {\"32\": 363968} (counts as published)",
+    "the rows span exactly 33 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 978 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 363968,
+    "dim": 33,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 66236170528,
+    "contacts": 368310912,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 51.5,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 363968,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 363968,
+    "rowsClaimed": 363968,
+    "columns": 33,
+    "normCounts": {
+     "32": 363968
+    },
+    "normCountsClaimed": {
+     "32": 363968
+    },
+    "spanDimension": 33,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 368310912,
+    "tiles": 4005,
+    "seconds": 51.5,
+    "path": "numpy float32 BLAS",
+    "pairs": 66236170528,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 978,
+    "bulkViolations": 0,
+    "bulkContacts": 978,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 363968
+    }
+   ],
+   "bytes": {
+    "configuration33.i8.gz": "40a6ce91a87fcb1bbc709fe6818fb42350dd5b944d8bb44b46093af75ef27dc0",
+    "configuration33.i8.gz (decompressed, = their verification input)": "1d128d943434c96b965f795fbc169a97f8b73149caded21102258f383a0b949f"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:50:15Z",
+   "seconds": 51.5,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 978,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 978,
+    "agree": true,
+    "jsMs": 61,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
+   "id": "qiushi-34",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 34,
+   "claimed": 384196,
+   "previous": 381124,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 384196 rows of squared norm 32 (each normalised by its own length), spanning exactly 34 dimensions; all 73803091110 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 380481792 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "384196 rows in 34 integer columns, squared norms {\"32\": 384196} (counts as published)",
+    "the rows span exactly 34 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 919 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 384196,
+    "dim": 34,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 73803091110,
+    "contacts": 380481792,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 59.3,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 384196,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 384196,
+    "rowsClaimed": 384196,
+    "columns": 34,
+    "normCounts": {
+     "32": 384196
+    },
+    "normCountsClaimed": {
+     "32": 384196
+    },
+    "spanDimension": 34,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 380481792,
+    "tiles": 4465,
+    "seconds": 59.3,
+    "path": "numpy float32 BLAS",
+    "pairs": 73803091110,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 919,
+    "bulkViolations": 0,
+    "bulkContacts": 919,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 384196
+    }
+   ],
+   "bytes": {
+    "configuration34.i8.gz": "e3e8500d8f420bd95738ba3b30fc5c187edd4b29a66c66dce7a6533b63be8ecd",
+    "configuration34.i8.gz (decompressed, = their verification input)": "eed9400cdf4a74a262ee95221607fd1321c6a8dd097dac71287218422250284c"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:51:16Z",
+   "seconds": 59.3,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 919,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 919,
+    "agree": true,
+    "jsMs": 67,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
+   "id": "qiushi-35",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 35,
+   "claimed": 409676,
+   "previous": 409548,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 409676 rows of squared norm 32 (each normalised by its own length), spanning exactly 35 dimensions; all 83917007650 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 315579800 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "409676 rows in 35 integer columns, squared norms {\"32\": 409676} (counts as published)",
+    "the rows span exactly 35 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 631 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 409676,
+    "dim": 35,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 83917007650,
+    "contacts": 315579800,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 64.8,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 409676,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 409676,
+    "rowsClaimed": 409676,
+    "columns": 35,
+    "normCounts": {
+     "32": 409676
+    },
+    "normCountsClaimed": {
+     "32": 409676
+    },
+    "spanDimension": 35,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 315579800,
+    "tiles": 5151,
+    "seconds": 64.8,
+    "path": "numpy float32 BLAS",
+    "pairs": 83917007650,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 631,
+    "bulkViolations": 0,
+    "bulkContacts": 631,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 409676
+    }
+   ],
+   "bytes": {
+    "configuration35.i8.gz": "8dc1a68c61ab6ff39cd11a567b7df2f4388e9fff0ddee44b605f12170936dc12",
+    "configuration35.i8.gz (decompressed, = their verification input)": "6c3669733ec4de732f3469dcd9440783733b63155ffa46224ef358c8c874a5ac"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:52:22Z",
+   "seconds": 64.8,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 631,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 631,
+    "agree": true,
+    "jsMs": 74,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
+   "id": "qiushi-36",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 36,
+   "claimed": 484760,
+   "previous": 484568,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 484760 rows of squared norm 32 (each normalised by its own length), spanning exactly 36 dimensions; all 117495886420 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 404388832 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "484760 rows in 36 integer columns, squared norms {\"32\": 484760} (counts as published)",
+    "the rows span exactly 36 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 599 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 484760,
+    "dim": 36,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 117495886420,
+    "contacts": 404388832,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 81.8,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 484760,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 484760,
+    "rowsClaimed": 484760,
+    "columns": 36,
+    "normCounts": {
+     "32": 484760
+    },
+    "normCountsClaimed": {
+     "32": 484760
+    },
+    "spanDimension": 36,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 404388832,
+    "tiles": 7140,
+    "seconds": 81.8,
+    "path": "numpy float32 BLAS",
+    "pairs": 117495886420,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 599,
+    "bulkViolations": 0,
+    "bulkContacts": 599,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 484760
+    }
+   ],
+   "bytes": {
+    "configuration36.i8.gz": "7f15909a028fcf1b05d1af4d494c8625cc4da5e589f5525b9bf60ea68e18065d",
+    "configuration36.i8.gz (decompressed, = their verification input)": "591313b09ca6c4f4f437337807f3054f0d9ca5bd7a5880141a04ca16143e20be"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:53:46Z",
+   "seconds": 81.8,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 599,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 599,
+    "agree": true,
+    "jsMs": 83,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
+   "id": "qiushi-37",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 37,
+   "claimed": 498024,
+   "previous": 496232,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 498024 rows of squared norm 32 (each normalised by its own length), spanning exactly 37 dimensions; all 124013703276 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 392397168 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "498024 rows in 37 integer columns, squared norms {\"32\": 498024} (counts as published)",
+    "the rows span exactly 37 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 32",
+    "a 600-row sample in plain Python integers: 554 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 498024,
+    "dim": 37,
+    "norm": [
+     32,
+     0,
+     0,
+     0
+    ],
+    "normShow": "32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 124013703276,
+    "contacts": 392397168,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 85.5,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 498024,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 498024,
+    "rowsClaimed": 498024,
+    "columns": 37,
+    "normCounts": {
+     "32": 498024
+    },
+    "normCountsClaimed": {
+     "32": 498024
+    },
+    "spanDimension": 37,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 32
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 392397168,
+    "tiles": 7503,
+    "seconds": 85.5,
+    "path": "numpy float32 BLAS",
+    "pairs": 124013703276,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 32 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 554,
+    "bulkViolations": 0,
+    "bulkContacts": 554,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 32,
+     "rows": 498024
+    }
+   ],
+   "bytes": {
+    "configuration37.i8.gz": "97cd948a35314c4aa014b5ba689803f9a6587248331758dafaa2c480bca93d25",
+    "configuration37.i8.gz (decompressed, = their verification input)": "9e1fe7c2c6b06dbe9f22c0d0327d925f6f0e6954feac790c195ab362c1f58671"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:55:13Z",
+   "seconds": 85.5,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 554,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 554,
+    "agree": true,
+    "jsMs": 75,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
    "id": "kravatsky-38",
    "claimant": "kravatsky",
    "claimantName": "A. Kravatskiy \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25\u201331 joint work in progress with H. Cohn and B. Lindow)",
@@ -4973,6 +5669,149 @@
    "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25\u201331 first)."
   },
   {
+   "id": "qiushi-38",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 38,
+   "claimed": 591900,
+   "previous": 591612,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 591900 rows of squared norm 394674026743945636732262714818942096 / 48 (each normalised by its own length), spanning exactly 38 dimensions; all 175172509050 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 379853270 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "591900 rows in 52 integer columns, squared norms {\"48\": 589968, \"394674026743945636732262714818942096\": 1932} (counts as published)",
+    "the rows span exactly 38 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by float32 BLAS (norm-48 rows), exact int64 (against the rotated axes), Python integers (axis pairs), exact: each partial sum is bounded by 48",
+    "a 700-row sample in plain Python integers: 1918 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 591900,
+    "dim": 38,
+    "norm": [
+     48,
+     0,
+     0,
+     0
+    ],
+    "normShow": "48 / 394674026743945636732262714818942096 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 175172509050,
+    "contacts": 379853270,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 163.9,
+    "spotCheck": {
+     "pairs": 244650,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 591900,
+      "path": "float32 BLAS (norm-48 rows), exact int64 (against the rotated axes), Python integers (axis pairs)",
+      "freeNorm": true,
+      "maxAbsCoefficient": 5
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 591900,
+    "rowsClaimed": 591900,
+    "columns": 52,
+    "normCounts": {
+     "48": 589968,
+     "394674026743945636732262714818942096": 1932
+    },
+    "normCountsClaimed": {
+     "48": 589968,
+     "394674026743945636732262714818942096": 1932
+    },
+    "spanDimension": 38,
+    "maxAbsCoordinate": 372851426900487720,
+    "partialSumBound": 48
+   },
+   "bulk": {
+    "pairs": 175172509050,
+    "violations": 0,
+    "contacts": 379853270,
+    "parts": {
+     "small x small": {
+      "pairs": 174030825528,
+      "violations": 0,
+      "contacts": 379694006,
+      "path": "numpy float32 BLAS, bound 48"
+     },
+     "small x axis": {
+      "pairs": 1139818176,
+      "violations": 0,
+      "contacts": 0,
+      "threshold": "2176255573439697739",
+      "largestProduct": "2140738107783614152",
+      "path": "numpy int64, every partial sum bounded by sqrt(48 N) < 2^63"
+     },
+     "axis x axis": {
+      "pairs": 1865346,
+      "violations": 0,
+      "contacts": 159264,
+      "path": "Python integers"
+     }
+    },
+    "seconds": 163.9,
+    "path": "float32 BLAS (norm-48 rows), exact int64 (against the rotated axes), Python integers (axis pairs)",
+    "exactness": "float32 partial sums bounded by 48; int64 partial sums bounded by sqrt(48 N) < 4.4e18 < 2^63; axis pairs in Python integers"
+   },
+   "second": {
+    "rows": 700,
+    "pairs": 244650,
+    "pythonViolations": 0,
+    "pythonContacts": 1918,
+    "bulkViolations": 0,
+    "bulkContacts": 1918,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 48,
+     "rows": 589968
+    },
+    {
+     "squaredNorm": "394674026743945636732262714818942096",
+     "rows": 1932
+    }
+   ],
+   "bytes": {
+    "configuration38.i64.gz": "0117193cfe67b4ef369aa4c9b8f9f1b42ec38602af7f96de0df8300632063eca",
+    "configuration38.i64.gz (decompressed, = their verification input)": "e7277970c50525ce00d2138a508c72d420919d883c11ab54f3cc4c8d257f6a16"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T13:03:47Z",
+   "seconds": 163.9,
+   "jsCheck": {
+    "n": 700,
+    "pairs": 244650,
+    "jsContacts": 1918,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 1918,
+    "agree": true,
+    "jsMs": 131,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
+  },
+  {
    "id": "kravatsky-39",
    "claimant": "kravatsky",
    "claimantName": "A. Kravatskiy \u2014 github.com/alexlegeartis/KissingNumbers (no arXiv paper; the write-up, paper/kissing46.pdf, is in the repository and calls dimensions 25\u201331 joint work in progress with H. Cohn and B. Lindow)",
@@ -4983,6 +5822,128 @@
    "status": "external",
    "package": "verifications/improved/dim39-ers-constant-weight/",
    "detail": "the package ships data a configuration can be rebuilt from; not decided in this wave (dimensions 18 and 25\u201331 first)."
+  },
+  {
+   "id": "qiushi-39",
+   "claimant": "qiushi",
+   "claimantName": "Qiushi Engine (Oxelra-AI) \u2014 arXiv:2609.35051",
+   "dim": 39,
+   "claimed": 763668,
+   "previous": 756116,
+   "verdict": "WITNESSED",
+   "detail": "every point published on 2026-10-12 at our request (https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12); 763668 rows of squared norm 39 / 32 (each normalised by its own length), spanning exactly 39 dimensions; all 291594025278 pairs decided by the exact test p <= 0 or 4p^2 <= AB: 325490632 contacts at exactly 60 degrees, none closer. Their own verification checks membership, norms, distinctness and counts and records that the pairs were not checked exhaustively.",
+   "facts": [
+    "763668 rows in 39 integer columns, squared norms {\"32\": 435988, \"39\": 327680} (counts as published)",
+    "the rows span exactly 39 dimensions: the rank over Q of the exact Gram matrix X^T X",
+    "every pair by numpy float32 BLAS, exact: each partial sum is bounded by 39",
+    "a 600-row sample in plain Python integers: 179 contacts, 0 violations, equal to the bulk path"
+   ],
+   "engine": {
+    "n": 763668,
+    "dim": 39,
+    "norm": [
+     39,
+     0,
+     0,
+     0
+    ],
+    "normShow": "39 / 32 (per row)",
+    "verdict": "CERTIFIED",
+    "pairs": 291594025278,
+    "contacts": 325490632,
+    "violations": 0,
+    "maxDot": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "maxDotShow": "cos <= 1/2",
+    "maxCos": 0.5,
+    "nearestNonContactCos": null,
+    "seconds": 154.4,
+    "spotCheck": {
+     "pairs": 179700,
+     "disagreements": 0,
+     "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+    },
+    "families": [
+     {
+      "name": "blocks of equal norm",
+      "n": 763668,
+      "path": "numpy float32 BLAS",
+      "freeNorm": true,
+      "maxAbsCoefficient": 4
+     }
+    ]
+   },
+   "sectionFacts": {
+    "rows": 763668,
+    "rowsClaimed": 763668,
+    "columns": 39,
+    "normCounts": {
+     "32": 435988,
+     "39": 327680
+    },
+    "normCountsClaimed": {
+     "32": 435988,
+     "39": 327680
+    },
+    "spanDimension": 39,
+    "maxAbsCoordinate": 4,
+    "partialSumBound": 39
+   },
+   "bulk": {
+    "violations": 0,
+    "contacts": 325490632,
+    "tiles": 17578,
+    "seconds": 154.4,
+    "path": "numpy float32 BLAS",
+    "pairs": 291594025278,
+    "exactness": "every partial sum of products is bounded by |x||y| <= max squared norm = 39 (Cauchy-Schwarz), so every value is an integer held exactly in float32 (exact to 2^24)"
+   },
+   "second": {
+    "rows": 600,
+    "pairs": 179700,
+    "pythonViolations": 0,
+    "pythonContacts": 179,
+    "bulkViolations": 0,
+    "bulkContacts": 179,
+    "agree": true,
+    "how": "plain Python integers, the test p <= 0 or 4p^2 <= AB written out; no numpy, no BLAS"
+   },
+   "blocks": [
+    {
+     "squaredNorm": 39,
+     "rows": 327680
+    },
+    {
+     "squaredNorm": 32,
+     "rows": 435988
+    }
+   ],
+   "bytes": {
+    "configuration39.i8.gz": "02591a7a0082e5463898b5c5497dd39818c1ab7f9b8f42597aa2660dcd26b60e",
+    "configuration39.i8.gz (decompressed, = their verification input)": "0a0f0d6fb50324d6a1f562ce52478c1c48cecb5a6451e97f5a8b0d83e3baabf1"
+   },
+   "source": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/releases/tag/configuration-vectors-2026-10-12",
+   "machine": {
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "cpus": 8
+   },
+   "decidedAt": "2026-10-12T12:57:49Z",
+   "seconds": 154.4,
+   "jsCheck": {
+    "n": 600,
+    "pairs": 179700,
+    "jsContacts": 179,
+    "jsViolations": 0,
+    "jsVerdict": "CERTIFIED",
+    "pythonContacts": 179,
+    "agree": true,
+    "jsMs": 77,
+    "how": "the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared"
+   }
   },
   {
    "id": "qiushi-43",
@@ -5100,7 +6061,103 @@
      }
     ]
    },
-   "seconds": 2419.2
+   "seconds": 2419.2,
+   "gramCheck": {
+    "verdict": "WITNESSED",
+    "agreesWithCartesian": true,
+    "source": {
+     "repository": "Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1",
+     "files": {
+      "parent": {
+       "path": "kissing/qiushi-lattice-d43-parent-section_2026-10-11.txt",
+       "sha256": "13e59993e5b5818a920cef381ae6910fec96a5ef2abc68c6b5ade555f4c5d2c9"
+      },
+      "basis": {
+       "path": "kissing/qiushi-lattice-d43-euclidean-basis_2026-10-11.json",
+       "sha256": "5881f02bf48c859dc2b54f5df76756b84d9546c3892be9be3d9cc9cee5803d06"
+      }
+     }
+    },
+    "lattice": {
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "basisMatchesGram": true,
+     "basisIdentity": "B B^T = 96 G",
+     "everyRowInTheLattice": true,
+     "membership": {
+      "what": "z G z^T = 6 (checked as the norm below) and T5 G z^T = 0 for every row",
+      "sectionConditionsHold": true
+     }
+    },
+    "facts": {
+     "rows": 2553792,
+     "m": 48,
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "den": 1,
+     "scale": 1,
+     "norm": "6",
+     "normInteger": 6,
+     "allNormsEqual": true,
+     "maxAbsCoefficient": 21,
+     "partialSumBound": 1449,
+     "path": "float32",
+     "distinctRows": 2553792,
+     "sampleRankOverQ": 43,
+     "complementVectors": 5,
+     "allRowsInTheSpan": true,
+     "spanDimension": 43
+    },
+    "bulk": {
+     "pairs": 3260925512736,
+     "violations": 0,
+     "contacts": 4467331098,
+     "maxDot": 3,
+     "nearestNonContactDot": 2,
+     "nearestNonContactCos": "1/3",
+     "tiles": 778128,
+     "tile": 2048,
+     "seconds": 3813.3,
+     "exactness": "float32 BLAS on W = Z num (int64, exact) against Z; every partial sum is bounded by max ||W_i||_1 * max|z| = 1449 < 2^24"
+    },
+    "second": {
+     "rows": 600,
+     "pairs": 179700,
+     "pythonViolations": 0,
+     "pythonContacts": 241,
+     "bulkViolations": 0,
+     "bulkContacts": 241,
+     "how": "plain Python integers, no numpy, no BLAS",
+     "agree": true
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "jsContacts": 289,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 289,
+     "agree": true,
+     "seed": 11,
+     "jsMs": 158,
+     "how": "a seeded sample decided whole by gramcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "machine": {
+     "platform": "macOS-27.0-arm64-arm-64bit",
+     "cpus": 8
+    },
+    "seconds": 3825.7,
+    "decidedAt": "2026-10-12T02:07:19Z"
+   }
   },
   {
    "id": "qiushi-45",
@@ -5219,7 +6276,130 @@
     "rows": 7380090,
     "identicalToBinary": true
    },
-   "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger"
+   "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger",
+   "gramCheck": {
+    "verdict": "WITNESSED",
+    "agreesWithCartesian": true,
+    "source": {
+     "repository": "Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1",
+     "files": {
+      "gram": {
+       "path": "kissing/qiushi-lattice-d45-gram_2026-10-11.json",
+       "sha256": "c9a02fb8eefe3422bb6a0b4b4bfc550325c79f85d5ac8b6086b87e6b7d98d18d"
+      },
+      "compact": {
+       "path": "kissing/qiushi-lattice-d45-compact_2026-10-11.json",
+       "sha256": "ef12e69416889190f1f9f2978e9942de86d1c5fba912d8b7766260d8f1526267"
+      },
+      "parent": {
+       "path": "kissing/qiushi-lattice-d45-parent_2026-10-11.json",
+       "sha256": "17933b7a518d75ecf8aa8d6dc6d4485770ff23125d436aed534c1b514ea91994"
+      }
+     }
+    },
+    "lattice": {
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "basisMatchesGram": true,
+     "basisIdentity": "B B^T = 12 G",
+     "everyRowInTheLattice": true,
+     "H": [
+      [
+       6,
+       -2,
+       -2
+      ],
+      [
+       -2,
+       6,
+       -2
+      ],
+      [
+       -2,
+       -2,
+       6
+      ]
+     ],
+     "HisEightIMinusTwoJ": true,
+     "membership": {
+      "what": "n = 8 z - (e_i + 1) T for exactly one fibre i, z integer, z G z^T = 6, z G T^T = e_i",
+      "everyRowInOneFibre": true,
+      "fibreCounts": [
+       2460030,
+       2460030,
+       2460030
+      ]
+     }
+    },
+    "facts": {
+     "rows": 7380090,
+     "m": 48,
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "den": 1,
+     "scale": 8,
+     "norm": "23/4",
+     "normInteger": 368,
+     "allNormsEqual": true,
+     "maxAbsCoefficient": 402,
+     "partialSumBound": 265320,
+     "path": "float32",
+     "distinctRows": 7380090,
+     "sampleRankOverQ": 45,
+     "complementVectors": 3,
+     "allRowsInTheSpan": true,
+     "spanDimension": 45
+    },
+    "bulk": {
+     "pairs": 27232860514005,
+     "violations": 0,
+     "contacts": 19832543736,
+     "maxDot": 184,
+     "nearestNonContactDot": 176,
+     "nearestNonContactCos": "11/23",
+     "tiles": 6496210,
+     "tile": 2048,
+     "seconds": 22486.2,
+     "exactness": "float32 BLAS on W = Z num (int64, exact) against Z; every partial sum is bounded by max ||W_i||_1 * max|z| = 265320 < 2^24"
+    },
+    "second": {
+     "rows": 600,
+     "pairs": 179700,
+     "pythonViolations": 0,
+     "pythonContacts": 136,
+     "bulkViolations": 0,
+     "bulkContacts": 136,
+     "how": "plain Python integers, no numpy, no BLAS",
+     "agree": true
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "jsContacts": 160,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 160,
+     "agree": true,
+     "seed": 11,
+     "jsMs": 173,
+     "how": "a seeded sample decided whole by gramcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "machine": {
+     "platform": "macOS-27.0-arm64-arm-64bit",
+     "cpus": 8
+    },
+    "seconds": 22529.4,
+    "decidedAt": "2026-10-12T08:23:31Z"
+   }
   },
   {
    "id": "kravatsky-49",
