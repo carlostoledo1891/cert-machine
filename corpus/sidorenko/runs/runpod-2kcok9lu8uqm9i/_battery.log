@@ -1,0 +1,41 @@
+H as stated
+  pass  H: 22 faces, 13 points, 66 edges, 33 pairs each in two faces, connected
+  skip  source files (no clone at /nonexistent; the pinned sha256 values are in pilot.SOURCE)
+  pass  plan: width 6 (no pairwise contraction touches more than 6 indices, none keeps more than 5)
+  pass  plan: every point summed exactly once
+contraction against brute force (exact)
+  pass  H, N=2 M=2 Q=3: CRT contraction S = brute-force S (6 primes)
+  pass  H, N=2 M=3 Q=5: CRT contraction S = brute-force S (9 primes)
+  pass  H, N=2 M=2 Q=1: CRT contraction S = brute-force S (2 primes)
+  pass  first 8 faces of H on 13 points, N=3 M=2: S = brute force
+  pass  mixed-arity hypergraph, every vertex map (Fractions) = contraction
+  pass  K_{2,2}: contraction = tr((W W^T)^2)/(N^2 M^2) exactly
+  pass  path (7 vertices): contraction = every vertex map (Fractions)
+the exact certificate
+  pass  constant kernel 4x4: exact margin is exactly 0 (sign 0)
+  pass  constant kernel 5x3: exact margin is exactly 0 (sign 0)
+  pass  constant kernel 6x6: exact margin is exactly 0 (sign 0)
+  pass  scale invariance: A and 2A give the same exact margin
+  pass  random 4x4 kernel: exact sign is +1 (Sidorenko holds there)
+  pass  exact sign = sign(t - p^66) evaluated in Fractions
+  pass  exact margin value = log t - 66 log p from Fractions
+float screen
+  pass  float64 margin = exact margin (|diff| < 1e-9) at 5x5
+  pass  numpy gradient of the objective = central differences (rel < 1e-5)
+  pass  constant kernel: float margin 0 to 1e-12
+  pass  torch float64 margin = numpy margin
+  pass  torch autograd = numpy gradient
+  pass  exact S: torch float64 residues = numpy residues (6x6)
+  pass  CUDA float32 margin = numpy float64 margin (|diff| < 1e-4)
+  pass  exact S: CUDA float64 residues = numpy residues (8x8, Q=64)
+  pass  exact S: CUDA float64 residues = numpy residues (12x12, Q=1024)
+red controls (each must fire)
+  red   a triple with a repeated point is refused — fired
+  red   a moved point (a pair no longer in exactly two faces) is refused — fired
+  pass  constant kernel W = 1/2: exact margin 0 with the true exponent
+  red   a wrong exponent (65) breaks the constant-kernel identity at W = 1/2 — fired
+  red   a contraction that drops a face disagrees with brute force — fired
+  red   a starved CRT (too few primes for the bound) is refused — fired
+  red   a corrupted residue is caught by the extra prime — fired
+  red   the exact check reports a negative margin when there is one (C4 vs p^3 on a 2-regular 6x6) — fired
+sidorenko battery: 27 pass, 0 fail, 7/7 red controls fired, 1 skipped
