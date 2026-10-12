@@ -314,14 +314,14 @@ def write_row(row):
 def js_check(sample_rows):
     """mixedcheck.js decides the sample in BigInt; it must agree with plain Python on the same rows"""
     import subprocess, tempfile
-    tmp = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False); json.dump({'rows': sample_rows}, tmp); tmp.close()
+    tmp = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False); json.dump({'rows': [[str(int(v)) for v in r] for r in sample_rows]}, tmp); tmp.close()   # strings: exact past 2^53
     try:
         out = subprocess.check_output(['node', os.path.join(ROOT, 'instruments', 'kissing', 'wave', 'mixedcheck.js'), tmp.name]).decode()
     finally:
         os.unlink(tmp.name)
     js = json.loads(out.strip().splitlines()[-1])
-    S = np.array(sample_rows, dtype=np.int64)
-    pv, pc = python_pairs(S, (S * S).sum(axis=1))
+    S = [[int(v) for v in r] for r in sample_rows]
+    pv, pc = python_pairs(S, [sum(v * v for v in r) for r in S])
     return {'n': len(sample_rows), 'pairs': js['pairs'], 'jsContacts': js['contacts'], 'jsViolations': js['violations'], 'jsVerdict': js['verdict'],
             'pythonContacts': pc, 'agree': js['pairs'] == len(sample_rows) * (len(sample_rows) - 1) // 2 and js['contacts'] == pc and js['violations'] == pv,
             'jsMs': js['ms'], 'how': 'the recorded sample decided whole by mixedcheck.js (BigInt) and by plain Python integers; no code shared'}

@@ -20,6 +20,13 @@ status starting
 (cd $R && nohup python3 -m http.server 8000 --bind 0.0.0.0 > /dev/null 2>&1 &)
 curl -fsSL "https://raw.githubusercontent.com/carlostoledo1891/cert-machine/$AUDIT_SHA/tools/run-kissing-configs.py" -o /w/run-kissing-configs.py || { status "FAILED: fetch"; sleep infinity; }
 { sha256sum /w/run-kissing-configs.py; nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader; python3 -c "import torch, numpy; print('torch', torch.__version__, 'cuda', torch.version.cuda, 'numpy', numpy.__version__)"; nproc; free -g | head -2; } > $R/_build.txt 2>&1
+# the GPU must answer before anything is decided: retried, with the device state logged (two hosts failed CUDA init)
+for k in 1 2 3 4 5 6 7 8 9 10; do
+  if python3 -c "import torch; torch.zeros(1, device='cuda'); print('cuda ok', torch.cuda.get_device_name(0))" >> $R/_gpu.log 2>&1; then break; fi
+  { echo "attempt $k failed"; env | grep -i -E "cuda|nvidia" ; ls -l /dev/nvidia* ; nvidia-smi -L; } >> $R/_gpu.log 2>&1
+  [ $k = 10 ] && { status "FAILED: CUDA does not initialise (see _gpu.log)"; sleep infinity; }
+  sleep 20
+done
 status "calibrating on dimension 32"
 python3 /w/run-kissing-configs.py 32 --backend torch --out /w/cal --cache $D > $R/_cal.log 2>&1
 got=$(python3 -c "import json; print(json.load(open('/w/cal/32.json'))['bulk']['contacts'])" 2>/dev/null)
