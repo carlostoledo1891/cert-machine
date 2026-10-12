@@ -216,6 +216,7 @@ def _triton_kernel():
         return _TRITON['k']
     import triton
     import triton.language as tl
+    globals()['tl'] = tl                             # the JIT resolves names in the module's globals, not the closure
 
     @triton.jit
     def pair_kernel(X, stride, a0, a1, b0, b1, diag, t, c, omax, ocnt, ovio, K: tl.constexpr, BM: tl.constexpr, BN: tl.constexpr):
