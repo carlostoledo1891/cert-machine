@@ -5315,7 +5315,130 @@
     "rows": 7380090,
     "identicalToBinary": true
    },
-   "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger"
+   "wallNote": "wall clock, including a pause: the run was stopped (SIGSTOP) while the laptop was on battery and resumed on the charger",
+   "gramCheck": {
+    "verdict": "WITNESSED",
+    "agreesWithCartesian": true,
+    "source": {
+     "repository": "Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1",
+     "files": {
+      "gram": {
+       "path": "kissing/qiushi-lattice-d45-gram_2026-10-11.json",
+       "sha256": "c9a02fb8eefe3422bb6a0b4b4bfc550325c79f85d5ac8b6086b87e6b7d98d18d"
+      },
+      "compact": {
+       "path": "kissing/qiushi-lattice-d45-compact_2026-10-11.json",
+       "sha256": "ef12e69416889190f1f9f2978e9942de86d1c5fba912d8b7766260d8f1526267"
+      },
+      "parent": {
+       "path": "kissing/qiushi-lattice-d45-parent_2026-10-11.json",
+       "sha256": "17933b7a518d75ecf8aa8d6dc6d4485770ff23125d436aed534c1b514ea91994"
+      }
+     }
+    },
+    "lattice": {
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "basisMatchesGram": true,
+     "basisIdentity": "B B^T = 12 G",
+     "everyRowInTheLattice": true,
+     "H": [
+      [
+       6,
+       -2,
+       -2
+      ],
+      [
+       -2,
+       6,
+       -2
+      ],
+      [
+       -2,
+       -2,
+       6
+      ]
+     ],
+     "HisEightIMinusTwoJ": true,
+     "membership": {
+      "what": "n = 8 z - (e_i + 1) T for exactly one fibre i, z integer, z G z^T = 6, z G T^T = e_i",
+      "everyRowInOneFibre": true,
+      "fibreCounts": [
+       2460030,
+       2460030,
+       2460030
+      ]
+     }
+    },
+    "facts": {
+     "rows": 7380090,
+     "m": 48,
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "den": 1,
+     "scale": 8,
+     "norm": "23/4",
+     "normInteger": 368,
+     "allNormsEqual": true,
+     "maxAbsCoefficient": 402,
+     "partialSumBound": 265320,
+     "path": "float32",
+     "distinctRows": 7380090,
+     "sampleRankOverQ": 45,
+     "complementVectors": 3,
+     "allRowsInTheSpan": true,
+     "spanDimension": 45
+    },
+    "bulk": {
+     "pairs": 27232860514005,
+     "violations": 0,
+     "contacts": 19832543736,
+     "maxDot": 184,
+     "nearestNonContactDot": 176,
+     "nearestNonContactCos": "11/23",
+     "tiles": 6496210,
+     "tile": 2048,
+     "seconds": 22486.2,
+     "exactness": "float32 BLAS on W = Z num (int64, exact) against Z; every partial sum is bounded by max ||W_i||_1 * max|z| = 265320 < 2^24"
+    },
+    "second": {
+     "rows": 600,
+     "pairs": 179700,
+     "pythonViolations": 0,
+     "pythonContacts": 136,
+     "bulkViolations": 0,
+     "bulkContacts": 136,
+     "how": "plain Python integers, no numpy, no BLAS",
+     "agree": true
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "jsContacts": 160,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 160,
+     "agree": true,
+     "seed": 11,
+     "jsMs": 173,
+     "how": "a seeded sample decided whole by gramcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "machine": {
+     "platform": "macOS-27.0-arm64-arm-64bit",
+     "cpus": 8
+    },
+    "seconds": 22529.4,
+    "decidedAt": "2026-10-12T08:23:31Z"
+   }
   },
   {
    "id": "kravatsky-49",
