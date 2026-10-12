@@ -7,9 +7,9 @@ rows of certs/kissing-wave.json — re-check before posting. Post ONLY on the op
 `gh issue comment 1 -R Oxelra-AI/Qiushi-Engine-Kissing-Number-Research -F <paste block>`, then SEND-QUEUE + GITHUB-OUTREACH.
 
 Pre-send checks:
-- [x] all 19 qiushi rows WITNESSED, committed and pushed (abf48d78, d61427cd); the kissing page LIVE with "every one of the 19 bounds … holds" (checked 2026-10-12 ~22:35 UTC)
+- [x] all 19 qiushi rows WITNESSED, committed and pushed (abf48d78, d61427cd); the kissing page LIVE with "every one of the 19 bounds … holds" (checked 2026-10-12 ~22:14 UTC)
 - [x] all 15 release digests equal the pins in tools/run-kissing-configs.py / run-kissing-config38.py (re-read ~21:50 UTC)
-- [x] the thread re-read ~22:35 UTC: 6 comments, the last Cherish0925's at 05:22 UTC, open
+- [x] the thread re-read ~22:14 UTC: 6 comments, the last Cherish0925's at 05:22 UTC, open
 
 ---- PASTE BELOW THIS LINE ----
 
