@@ -5100,7 +5100,103 @@
      }
     ]
    },
-   "seconds": 2419.2
+   "seconds": 2419.2,
+   "gramCheck": {
+    "verdict": "WITNESSED",
+    "agreesWithCartesian": true,
+    "source": {
+     "repository": "Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+     "commit": "33fe9c1fe73b473a13dcd4a2870dbcb480728ab1",
+     "files": {
+      "parent": {
+       "path": "kissing/qiushi-lattice-d43-parent-section_2026-10-11.txt",
+       "sha256": "13e59993e5b5818a920cef381ae6910fec96a5ef2abc68c6b5ade555f4c5d2c9"
+      },
+      "basis": {
+       "path": "kissing/qiushi-lattice-d43-euclidean-basis_2026-10-11.json",
+       "sha256": "5881f02bf48c859dc2b54f5df76756b84d9546c3892be9be3d9cc9cee5803d06"
+      }
+     }
+    },
+    "lattice": {
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "basisMatchesGram": true,
+     "basisIdentity": "B B^T = 96 G",
+     "everyRowInTheLattice": true,
+     "membership": {
+      "what": "z G z^T = 6 (checked as the norm below) and T5 G z^T = 0 for every row",
+      "sectionConditionsHold": true
+     }
+    },
+    "facts": {
+     "rows": 2553792,
+     "m": 48,
+     "gram": {
+      "m": 48,
+      "symmetric": true,
+      "positiveDefinite": true,
+      "det": "1"
+     },
+     "den": 1,
+     "scale": 1,
+     "norm": "6",
+     "normInteger": 6,
+     "allNormsEqual": true,
+     "maxAbsCoefficient": 21,
+     "partialSumBound": 1449,
+     "path": "float32",
+     "distinctRows": 2553792,
+     "sampleRankOverQ": 43,
+     "complementVectors": 5,
+     "allRowsInTheSpan": true,
+     "spanDimension": 43
+    },
+    "bulk": {
+     "pairs": 3260925512736,
+     "violations": 0,
+     "contacts": 4467331098,
+     "maxDot": 3,
+     "nearestNonContactDot": 2,
+     "nearestNonContactCos": "1/3",
+     "tiles": 778128,
+     "tile": 2048,
+     "seconds": 3813.3,
+     "exactness": "float32 BLAS on W = Z num (int64, exact) against Z; every partial sum is bounded by max ||W_i||_1 * max|z| = 1449 < 2^24"
+    },
+    "second": {
+     "rows": 600,
+     "pairs": 179700,
+     "pythonViolations": 0,
+     "pythonContacts": 241,
+     "bulkViolations": 0,
+     "bulkContacts": 241,
+     "how": "plain Python integers, no numpy, no BLAS",
+     "agree": true
+    },
+    "jsCheck": {
+     "n": 672,
+     "pairs": 225456,
+     "jsContacts": 289,
+     "jsViolations": 0,
+     "jsVerdict": "CERTIFIED",
+     "pythonContacts": 289,
+     "agree": true,
+     "seed": 11,
+     "jsMs": 158,
+     "how": "a seeded sample decided whole by gramcheck.js (BigInt) and by plain Python integers; no code shared"
+    },
+    "machine": {
+     "platform": "macOS-27.0-arm64-arm-64bit",
+     "cpus": 8
+    },
+    "seconds": 3825.7,
+    "decidedAt": "2026-10-12T02:07:19Z"
+   }
   },
   {
    "id": "qiushi-45",

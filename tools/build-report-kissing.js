@@ -505,7 +505,13 @@ B.push(C.section({
     + 'verification checks norms, the subspace, lattice membership and distinctness, and records '
     + C.m('"pairwise_inner_products_checked": false') + '. ' + QSEC.map((r) => 'K(' + r.dim + ') ≥ ' + fmt(r.claimed) + ' is ' + r.verdict
       + ' here: the rows span exactly ' + r.dim + ' dimensions and all ' + fmt(r.pairs) + ' pairs were decided, ' + fmt(r.contacts) + ' touching, none closer')
-      .join('; ') + ' — to our knowledge the first pairwise check of these configurations.') : '')
+      .join('; ') + ' — to our knowledge the first pairwise check of these configurations.'
+    + ((QG) => QG.length ? ' ' + (QG.length === QSEC.length && QG.length > 1 ? 'Both were' : QG.map((r) => 'K(' + r.dim + ')').join(' and ') + ' was')
+      + ' then decided a second time in the form the construction states: integer coefficient rows over the claimant\'s published lattice basis and its exact Gram matrix ('
+      + QG.map((r) => 'dimension ' + r.dim + ': ' + C.m(r.gramCheck.basisIdentity) + (r.gramCheck.scale > 1 ? ', rows over the common denominator ' + r.gramCheck.scale : '')).join('; ')
+      + '), every row checked to be a point of the section or projected fibre the construction defines, the Gram matrix proved positive definite, and every pair '
+      + 'decided again from the coefficients — the same pairs and the same contacts. That form, coefficient rows and a Gram matrix, is the one this page now '
+      + 'accepts from any lattice construction (' + C.m('instruments/kissing/wave/gram.py') + ').' : '')(QSEC.filter((r) => r.gramCheck && r.gramCheck.verdict === 'WITNESSED' && r.gramCheck.agreesWithCartesian))) : '')
   + C.pRaw('<strong>The current table.</strong> &ldquo;Decided here&rdquo; is not &ldquo;the record&rdquo;: H. Cohn\'s table of kissing bounds, read '
     + COHN.readAt + ', lists ' + [25, 26, 27, 28, 29, 30, 31].filter((d) => COHN.rows[d] && best.find((r) => r.dim === d) && COHN.rows[d].lower > best.find((r) => r.dim === d).claimed)
       .map((d) => 'K(' + d + ') ≥ ' + fmt(COHN.rows[d].lower) + ' (' + COHN.citedFor[d] + ')').join(', ')

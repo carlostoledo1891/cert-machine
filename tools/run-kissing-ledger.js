@@ -178,6 +178,8 @@ let wave = null;
       if (e.pairs !== e.n * (e.n - 1) / 2) die('wave row ' + r.id + ' decided ' + e.pairs + ' pairs of ' + e.n * (e.n - 1) / 2);
       if (e.spotCheck.disagreements) die('wave row ' + r.id + ': the plain-integer spot check disagreed');
       if (!r.jsCheck || !r.jsCheck.agree) die('wave row ' + r.id + ': no agreeing JavaScript cross-check on its sample');
+      if (r.gramCheck && (r.gramCheck.verdict !== 'WITNESSED' || !r.gramCheck.agreesWithCartesian || r.gramCheck.bulk.pairs !== e.pairs || r.gramCheck.bulk.contacts !== e.contacts))
+        die('wave row ' + r.id + ': the Gram-form decision does not agree with the Cartesian one');
       const want = e.verdict === 'CERTIFIED' ? (r.decode ? 'REPAIRED' : 'WITNESSED') : 'UNWITNESSED';
       if (r.verdict !== want) die('wave row ' + r.id + ' says ' + r.verdict + ', its decision says ' + want);
     }
@@ -210,7 +212,7 @@ let wave = null;
           id: r.id, claimant: r.claimant, claimantName: r.claimantName, dim: r.dim, claimed: r.claimed, previous: show(r.previous),
           gain: r.previous ? r.claimed - r.previous : null, verdict: r.verdict, ours: !!r.hunt,
           pairs: show(e.pairs), contacts: show(e.contacts), violations: show(e.violations), maxCos: show(e.maxCos), maxDotShow: show(e.maxDotShow),
-          norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), wallNote: show(r.wallNote), bigintFallbacks: show(e.bigintFallbacks),
+          norm: show(e.normShow), nearestNonContactCos: show(e.nearestNonContactCos), seconds: show(e.seconds), wallNote: show(r.wallNote), gramCheck: r.gramCheck ? { verdict: r.gramCheck.verdict, agreesWithCartesian: r.gramCheck.agreesWithCartesian, pairs: r.gramCheck.bulk.pairs, contacts: r.gramCheck.bulk.contacts, nearestNonContactCos: r.gramCheck.bulk.nearestNonContactCos, path: r.gramCheck.facts.path, norm: r.gramCheck.facts.norm, scale: r.gramCheck.facts.scale, membership: r.gramCheck.lattice.membership, basisIdentity: r.gramCheck.lattice.basisIdentity, jsAgree: r.gramCheck.jsCheck.agree, commit: r.gramCheck.source.commit } : null, bigintFallbacks: show(e.bigintFallbacks),
           spotCheck: e.spotCheck || null, jsCheck: r.jsCheck || null, families: (e.families || []).map((f) => ({ name: f.name, n: f.n, path: f.path })),
           delta: show(r.delta), decode: r.decode ? r.decode.how : null, choices: r.choices || [], facts: r.facts || [], scale: show(r.scale),
           bytes: r.bytes || null, detail: show(r.detail), status: show(r.status), package: show(r.package), addedPoints: r.addedPoints || null,
