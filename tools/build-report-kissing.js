@@ -451,6 +451,9 @@ const q25 = WR.find((r) => r.id === 'qiushi-25');
    claimant's own verification pinned (it records no pairwise check); and H. Cohn's table as read 2026-10-11 (an extract
    of facts, the page pinned by hash) — the world's current bounds, which this page's "decided here" must not be read as */
 const QSEC = WR.filter((r) => r.claimant === 'qiushi' && (r.dim === 43 || r.dim === 45) && (r.verdict === 'WITNESSED' || r.verdict === 'UNWITNESSED'));
+const QREST = WR.filter((r) => r.claimant === 'qiushi' && ((r.dim >= 32 && r.dim <= 39) || (r.dim >= 49 && r.dim <= 55)) && (r.verdict === 'WITNESSED' || r.verdict === 'UNWITNESSED'))
+  .sort((x, y) => x.dim - y.dim);
+const QALL = WR.filter((r) => r.claimant === 'qiushi' && (r.verdict === 'WITNESSED' || r.verdict === 'UNWITNESSED'));
 const QVER = {};
 for (const d of [43, 45]) {
   const f = 'kissing/qiushi-section' + d + '-verification_2026-10-11.json';
@@ -512,6 +515,17 @@ B.push(C.section({
       + '), every row checked to be a point of the section or projected fibre the construction defines, the Gram matrix proved positive definite, and every pair '
       + 'decided again from the coefficients — the same pairs and the same contacts. That form, coefficient rows and a Gram matrix, is the one this page now '
       + 'accepts from any lattice construction (' + C.m('instruments/kissing/wave/gram.py') + ').' : '')(QSEC.filter((r) => r.gramCheck && r.gramCheck.verdict === 'WITNESSED' && r.gramCheck.agreesWithCartesian))) : '')
+  + (QREST.length ? C.pRaw('<strong>The rest of the Qiushi Engine\'s table.</strong> On 2026-10-12, after the checks above, the claimant '
+    + 'published every remaining configuration of its paper (dimensions 32–39 and 49–55, releases ' + C.m('configuration-vectors-2026-10-12') + ' and '
+    + C.m('lifting-vectors-2026-10-12') + ', pinned by sha256) and linked these checks from its README. In several of them the rows have different lengths '
+    + '(squared norms 32 and 39 in dimension 39; 48 and a 36-digit norm in dimension 38; 144, 192 and 48 in 49–55), so every row is normalised by its own '
+    + 'length and each pair is decided by the exact test p ≤ 0 or 4p² ≤ AB, which also catches a repeated or parallel row. '
+    + QREST.map((r) => 'K(' + r.dim + ') ≥ ' + fmt(r.claimed) + ' is ' + r.verdict + ' (' + fmt(r.pairs) + ' pairs, ' + fmt(r.contacts) + ' touching)').join('; ') + '. '
+    + (QREST.some((r) => r.dim >= 49) ? 'Dimensions 49–55, about 1.4 × 10¹⁵ pairs each, were decided on one rented GPU by a kernel that never writes a product to memory, '
+      + 'calibrated first against the desk on dimensions 32 and 39 (the same contact counts); exactness there rests on the same bound — every partial sum of '
+      + 'products is at most the largest squared norm, 192, far inside what half precision holds exactly. ' : '')
+    + (QALL.length >= 19 && QALL.every((r) => r.verdict === 'WITNESSED') ? 'With these, every one of the ' + QALL.length + ' bounds in the Qiushi Engine\'s paper is decided here, pair by pair, and every one holds.' : ''))
+    : '')
   + C.pRaw('<strong>The current table.</strong> &ldquo;Decided here&rdquo; is not &ldquo;the record&rdquo;: H. Cohn\'s table of kissing bounds, read '
     + COHN.readAt + ', lists ' + [25, 26, 27, 28, 29, 30, 31].filter((d) => COHN.rows[d] && best.find((r) => r.dim === d) && COHN.rows[d].lower > best.find((r) => r.dim === d).claimed)
       .map((d) => 'K(' + d + ') ≥ ' + fmt(COHN.rows[d].lower) + ' (' + COHN.citedFor[d] + ')').join(', ')
