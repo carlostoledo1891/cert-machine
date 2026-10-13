@@ -21,6 +21,25 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-12, QIUSHI: ALL 19 BOUNDS DECIDED AND THE REPLY POSTED; OPENAI ON THE LANDING; GRAM FORM; SIDORENKO MEASURED
+(operator, in order: "feature the OpenAI verification on the homepage"; "go" (Gram form); "go" + "go the Proposed use of the
+$59.34" + "I agree with all"; "Ok, post it" (Qiushi, with the Gram-form sentence); "Draft the message" (Cohn)).
+  QIUSHI: they linked our checks from both READMEs and published 32-39 and 49-55. All decided, all WITNESSED: 32-37, 39 on
+     the desk (tools/run-kissing-configs.py, mixed norms by p <= 0 or 4p^2 <= AB), 38 on the desk (tools/run-kissing-config38.py,
+     exact int64/Python ints for the 1,932 huge rows), 49-55 on one L40S (fused Triton kernel, calibrated on 32 and 39 first;
+     9,720,756,380,848,200 pairs). 43/45 also re-decided in GRAM FORM from their lattice data (instruments/kissing/wave/gram.py,
+     gram_battery.py in make test). Page live: "every one of the 19 bounds ... holds". Reply POSTED (issuecomment-6133731693).
+     NEXT: the Cohn note (outreach/cohn-kissing-checks.md) is DRAFTED, NOT SENT — the operator's.
+  OPENAI: the landing leads with the audit (first card + a header clause). Amendment 16: the three never-run challenges on a
+     cpu3c pod at the $10 cap — MUBSix killed by memory (exit 137), ErdosReciprocal unfinished after ~9 h, PlanarPacking never
+     started: all stay REFUSED (kernel-runs/runpod-33i26wzcgh4lc5/NOTE.md). Outreach O1-O4 still the operator's.
+  SIDORENKO: pilot pre-registered and run (7.9 GPU-h): no cell N = 4..32 has a negative exact margin (desk: 98 agree);
+     margins shrink with N. targets.json: MEASURED, open beyond 32.
+  ALSO: the Allocation Proof plan (notes/allocation-proof-plan-2026-10-12.md, LOCAL ONLY) awaits D1-D5 (the operator said
+     "I agree with all" to the budget, not explicitly to D1-D5 — ask). RunPod spend 10-12: about $26 of $59.34; NO POD RUNNING.
+     The janela method figure's ink varies with the day's data and can trip check-render's ratchet (re-recorded today).
+
+────────────────────────────────────────────────────────────────────────────
 2026-10-11 (~04:00 → ~23:55 UTC), QIUSHI 43/45 DECIDED; LONELY-RUNNER CALIBRATION (operator, in order: "make sure the latest
 version is live ... review the response I received on github"; "What we need to check before send the response to Qiushi?";
 "Ok, finish this part and update me when ready to respond"; "is the response to Qiushi a good collab?" → add the offer for
