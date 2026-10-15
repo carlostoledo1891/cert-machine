@@ -58,6 +58,9 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
   TRAP (hit three times today): `node tools/build-site.js` alone PRUNES site/swell/* (the swell app builds after it in
      `make site`); restore with `git checkout -- site/swell` before the gates, or run `make site`. The three ratchets (measure,
      render, style) each need `--accept` for a new page, in that order, with every page present.
+  OUTREACH PLAN: outreach/outreach-plan-2026-10-15.md — goals per venue, tone rules, the two-day sequence (confirmations first,
+     the #210 refusal last), week-2 follow-ups (AE-PR needs the CLA; T-PR after merges), what we offer if they answer, and the
+     new drafts (F1 Bandeira follow-up, P1-P5, AE-PR, T-PR, POST). Threads re-read 2026-10-15 ~23:30 UTC: unchanged since the pins.
   SCOUT REPORTS (the agents' briefs and what they found) are in the session scratchpad only; what matters is in the ledgers,
      the preregistrations and the targets rows (aerp-community-certificates, wowii-formal-conjectures-witnesses,
      optconst-pr-queue-2026-10).

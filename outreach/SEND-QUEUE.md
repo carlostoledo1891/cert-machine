@@ -11,12 +11,16 @@ here on request.
 
 ---
 
-## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (outreach/three-campaigns-2026-10-15.md) — DRAFTED, NOT SENT
+## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (plan: outreach/outreach-plan-2026-10-15.md; comments: outreach/three-campaigns-2026-10-15.md) — DRAFTED, NOT SENT
 AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 (answers #11 too), #5, #4: each a short
     exact-decision note with the page; the sofa (#8) gets none. W1-W5. formal-conjectures #7304/#7305/#7306/#7308/#7330: the
     witness decided, the Lean note where there is one, the shared tail about the vanished fork commits. T1-T5. optimization-
     problems PRs #225, #221, #226, #217 (optional), #210 (the refusal of Mosaic's package — the operator reads it first).
     Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
+    ALSO DRAFTED in the plan: F1 the Bandeira axiom-list follow-up on Oxelra#1; P1-P5 one-liners on the five formal-conjectures PRs
+    (after B1-B5); AE-PR a minimal pull request to DeepMind's repository (week 2; the operator must sign Google's CLA first);
+    T-PR the registry follow-up after #225/#221 merge; POST the operator's own 500-character post. Sequence in the plan:
+    confirmations first (A1, C1-C3, B1-B5, F1), the refusal C5 last and only after the operator has read it.
 
 ## LANE B — THE BANDEIRA 0.2(a) AUDIT (2026-10-15; outreach/bandeira-oxelra-issue.md) — B1 POSTED 2026-10-15 ~05:00 UTC on the operator's word: https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1; watch the thread; the Lean build record is the follow-up
 B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none open; pinned commit c4137344): the finite core
