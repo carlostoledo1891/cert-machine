@@ -1,0 +1,25 @@
+{
+  "artifact": "exact_rational_farkas_certificate_v2",
+  "session": "session_20260531_231420",
+  "status": "verified_exact_python_rational_arithmetic",
+  "standard_form": "Lai-Lim (m,n)=(5,5) reconstructed SDP, full size 187 with one scalar coordinate plus six 31x31 blocks",
+  "certificate_npz": "Sessions/session_20260531_231420/workspace/data/certified_block_farkas_v2_den10000.npz",
+  "verification_summary": "Sessions/session_20260531_231420/workspace/data/certified_block_farkas_v2_den10000_verified.txt",
+  "verifier_script": "Sessions/session_20260531_231420/workspace/scripts/verify_certified_block_farkas_v2.py",
+  "verification_command": "python3 Sessions/session_20260531_231420/workspace/scripts/verify_certified_block_farkas_v2.py",
+  "verification_exit_code": 0,
+  "exact_values": {
+    "y0": "-146/2061",
+    "c00_y": "702/9917",
+    "m00": "-1060/20438937",
+    "scalar_120_y0_plus_bTy": "1417280/1417281"
+  },
+  "block_certificate": {
+    "support": "scalar coordinate plus six independent 31x31 blocks; no cross-block terms",
+    "method": "exact SymPy LDL decomposition over rationals for each 31x31 block of -M",
+    "min_pivot_approx_blocks_1_to_4": "1.348803966717e-04",
+    "min_pivot_approx_block_5": "1.359543519849e-04",
+    "min_pivot_approx_block_6": "5.341849869065e-05"
+  },
+  "remaining_formalization_gap": "The certificate is exact and independently verified in Python, but not yet encoded/proved in Lean. The separate PSD spectral norm identity ||S^k||_2=||S||_2^k remains the main Lean formalization blocker."
+}

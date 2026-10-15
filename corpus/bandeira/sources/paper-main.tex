@@ -1,0 +1,1014 @@
+% Disproving Bandeira's Matrix AM-GM Open Problem 0.2(a):
+% An Exact Rational Certificate and Formal Verification
+%
+% Compile: latexmk -pdf -interaction=nonstopmode main.tex
+
+\begin{filecontents*}{refs.bib}
+@inproceedings{RechtRe2012,
+  author    = {Benjamin Recht and Christopher R{\'e}},
+  title     = {Beneath the Valley of the Noncommutative Arithmetic--Geometric Mean Inequality: Conjectures, Case-studies, and Consequences},
+  booktitle = {Proceedings of the 25th Annual Conference on Learning Theory},
+  series    = {PMLR},
+  volume    = {23},
+  pages     = {11.1--11.24},
+  year      = {2012}
+}
+@inproceedings{LaiLim2020,
+  author    = {Zehua Lai and Lek-Heng Lim},
+  title     = {Recht--R{\'e} Noncommutative Arithmetic--Geometric Mean Conjecture is False},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning},
+  series    = {PMLR},
+  volume    = {119},
+  pages     = {5608--5617},
+  year      = {2020}
+}
+@misc{Bandeira2015,
+  author       = {Afonso S. Bandeira},
+  title        = {Ten Lectures and Forty-Two Open Problems in the Mathematics of Data Science},
+  howpublished = {MIT 18.S096 Lecture Notes},
+  year         = {2015},
+  note         = {Open Problem 0.2}
+}
+@article{Helton2002,
+  author  = {J. William Helton},
+  title   = {{``Positive''} noncommutative polynomials are sums of squares},
+  journal = {Annals of Mathematics},
+  volume  = {156},
+  number  = {2},
+  pages   = {675--694},
+  year    = {2002}
+}
+@article{IsraelKrahmerWard2016,
+  author  = {Arie Israel and Felix Krahmer and Rachel Ward},
+  title   = {An arithmetic--geometric mean inequality for products of three matrices},
+  journal = {Linear Algebra and its Applications},
+  volume  = {488},
+  pages   = {1--12},
+  year    = {2016}
+}
+@article{Sturm1999,
+  author  = {Jos F. Sturm},
+  title   = {Using {SeDuMi} 1.02, a {MATLAB} toolbox for optimization over symmetric cones},
+  journal = {Optimization Methods and Software},
+  volume  = {11--12},
+  pages   = {625--653},
+  year    = {1999}
+}
+@inproceedings{moura2021lean4,
+  author    = {Leonardo de Moura and Sebastian Ullrich},
+  title     = {The {Lean}~4 Theorem Prover and Programming Language},
+  booktitle = {Automated Deduction -- {CADE} 28},
+  pages     = {625--635},
+  year      = {2021}
+}
+@misc{mathlib4,
+  author       = {{Mathlib Community}},
+  title        = {Mathlib4: the math library for {Lean}~4},
+  howpublished = {\url{https://github.com/leanprover-community/mathlib4}},
+  year         = {2024}
+}
+@article{Lasserre2001,
+  author  = {Jean B. Lasserre},
+  title   = {Global optimization with polynomials and the problem of moments},
+  journal = {SIAM Journal on Optimization},
+  volume  = {11},
+  number  = {3},
+  pages   = {796--817},
+  year    = {2001}
+}
+@article{Fujii2016,
+  author  = {Jun Ichi Fujii and Masatoshi Fujii and Yuki Seo and Hongliang Zuo},
+  title   = {Recent developments of matrix versions of the arithmetic--geometric mean inequality},
+  journal = {Annals of Functional Analysis},
+  volume  = {7},
+  number  = {1},
+  pages   = {102--117},
+  year    = {2016}
+}
+\end{filecontents*}
+
+\documentclass[11pt]{amsart}
+
+%% ── wider margins ────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  citecolor=blue!60!black,
+  urlcolor=blue!60!black
+}
+
+%% ── theorem environments ─────────────────────────────────────────
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+%% ── macros ───────────────────────────────────────────────────────
+\newcommand{\RR}{\mathrm{RR}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Wrd}{\mathrm{Wrd}}
+\newcommand{\PSD}{\succeq 0}
+\newcommand{\NSD}{\preceq 0}
+\newcommand{\Loewner}{\preceq}
+\newcommand{\Sn}{S_n}
+\DeclarePairedDelimiter{\opnorm}{\lVert}{\rVert}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Tr}{\operatorname{tr}}
+
+%% ── title ────────────────────────────────────────────────────────
+\title[Disproof of Bandeira's Problem 0.2(a)]{%
+  Disproving Bandeira's Matrix AM--GM Open Problem~0.2(a):\\[4pt]
+  An Exact Rational Certificate and Formal Verification}
+
+\author{Anonymous}
+
+\subjclass[2020]{15A45, 15A60, 47A63, 68V20, 90C22}
+\keywords{Matrix AM--GM inequality, Recht--R\'{e} conjecture,
+  semidefinite programming, Farkas certificate, formal verification, Lean~4}
+
+\begin{document}
+
+%% ═════════════════════════════════════════════════════════════════
+\begin{abstract}
+Bandeira's Open Problem~0.2(a) asks whether a matrix
+arithmetic--geometric mean inequality holds in spectral norm for all
+positive semidefinite matrices.  We give a complete mathematical
+disproof by establishing that the problem is exactly the $m{=}n$
+instance of the Recht--R\'e noncommutative AM--GM conjecture, and
+invoking the Lai--Lim obstruction at $(m,n)=(5,5)$.
+
+Our main contribution beyond the identification of the equivalence is
+a fully reproducible verification chain.  Starting from Lai--Lim's
+SDP data, we independently construct an exact rational Farkas-type
+dual infeasibility certificate whose dual-vector entries have
+denominator bound~$10^4$.  The $187{\times}187$ dual slack matrix
+decomposes into one scalar coordinate and six independent
+$31{\times}31$ blocks, each certified positive semidefinite by exact
+rational LDL decomposition.  The entire finite
+arithmetic---3\,906 constraint reconstructions, scalar contradiction,
+six block LDL checks, and block-diagonal assembly---is
+machine-checked in Lean~4 with Mathlib.  The only external
+mathematical input is the equivalence chain established in
+Lai--Lim~\cite[\S\,3]{LaiLim2020} (their Conjectures~1A--1C, proved
+therein) from the Recht--R\'e inequality to the SDP standard form
+via the noncommutative Positivstellensatz for bounded linear
+matrix-inequality domains.
+
+Supplementary material describes the Lean formalization in detail.
+\end{abstract}
+
+\maketitle
+\tableofcontents
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Introduction}\label{sec:intro}
+%% ═════════════════════════════════════════════════════════════════
+
+The classical arithmetic--geometric mean (AM--GM) inequality
+\[
+  \frac{1}{n}\sum_{i=1}^n a_i
+  \;\ge\;
+  \Bigl(\prod_{i=1}^n a_i\Bigr)^{1/n},
+  \qquad a_i \ge 0,
+\]
+admits many matrix analogues, several of which have proven
+surprisingly subtle and have driven substantial activity at the
+interface of matrix analysis, free probability, and randomised
+algorithms; see~\cite{Fujii2016} for a survey.  The particular
+variant that motivates the present paper was posed by
+Bandeira~\cite{Bandeira2015} as Open Problem~0.2 in his 2015 lecture
+notes \emph{Ten Lectures and Forty-Two Open Problems in the
+Mathematics of Data Science}.
+
+For a tuple of positive semidefinite (PSD) matrices
+$A_1,\dots,A_n \in \C^{d\times d}$ and the spectral (operator~$2$)
+norm $\opnorm{\cdot}$, Bandeira asks whether the following two
+inequalities always hold:
+\begin{align}
+  \label{eq:bandeira-a}
+  \opnorm[\bigg]{\frac{1}{n!}\sum_{\sigma \in \Sn}
+    \prod_{j=1}^n A_{\sigma(j)}}
+    &\;\le\;
+    \opnorm[\bigg]{\frac{A_1+\cdots+A_n}{n}}^{\!n},
+    \tag{0.2a}\\[0.3em]
+  \label{eq:bandeira-b}
+  \frac{1}{n!}\sum_{\sigma \in \Sn}
+    \opnorm[\big]{\prod_{j=1}^n A_{\sigma(j)}}
+    &\;\le\;
+    \frac{1}{n^n}\sum_{k_1,\dots,k_n=1}^{n}
+    \opnorm[\big]{\prod_{j=1}^n A_{k_j}}.
+    \tag{0.2b}
+\end{align}
+The cases $n=2$ are direct consequences of submultiplicativity and the
+scalar AM--GM inequality.  The cases $n=3$ were established by
+Israel, Krahmer, and Ward~\cite{IsraelKrahmerWard2016} via a
+permutation variant of the Araki--Lieb--Thirring inequality, and
+independently by Zhang.  Both inequalities have remained open for
+general $n\ge 4$ since.
+
+A separate but closely related line of work originates with Recht
+and R\'e~\cite{RechtRe2012}, who introduced a noncommutative analogue
+of AM--GM motivated by stochastic gradient descent (SGD) under
+without-replacement sampling.  Their conjecture is the spectral-norm
+inequality
+\begin{equation}
+  \label{eq:rrm}
+  \frac{1}{n^{m}}
+  \opnorm[\bigg]{\sum_{1\le j_1,\dots,j_m\le n}
+    A_{j_1}\cdots A_{j_m}}
+  \;\ge\;
+  \frac{(n-m)!}{n!}
+  \opnorm[\bigg]{\sum_{\substack{1\le j_1,\dots,j_m\le n\\
+    j_1,\dots,j_m \;\text{distinct}}}
+    A_{j_1}\cdots A_{j_m}},
+  \tag{$\RR_{m,n}$}
+\end{equation}
+which compares the operator norm of the with-replacement matrix product
+average to the without-replacement average.  The conjecture was
+proven for $m=2$ and $m=3$ by Recht and R\'e, and strengthened by
+Israel, Krahmer, and Ward~\cite{IsraelKrahmerWard2016} to general
+unitarily invariant norms.  Lai and Lim~\cite{LaiLim2020}
+subsequently proved the conjecture false by reducing it, via a
+noncommutative Positivstellensatz~\cite{Helton2002}, to a semidefinite
+program (SDP) and producing a dual infeasibility certificate at
+$(m,n)=(5,5)$.
+
+\subsection*{Contributions}
+This paper makes the following contributions.
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+  \item We give a short, elementary proof
+    (\cref{thm:equivalence}) that Bandeira's
+    inequality~\eqref{eq:bandeira-a} for $n$ matrices is exactly the
+    Recht--R\'e conjecture~\eqref{eq:rrm} at $m=n$ in spectral norm.
+    The reduction relies on the identity
+    $\opnorm{S^n}=\opnorm{S}^n$ for PSD~$S$.
+  \item As a corollary (\cref{cor:main}), Bandeira's
+    Problem~0.2(a) is \emph{false} for $n=5$: there exists a
+    finite-dimensional PSD tuple
+    $(A_1,\dots,A_5)$ for which~\eqref{eq:bandeira-a} fails.
+  \item Starting from the Lai--Lim SDP data, we independently
+    construct an \emph{exact rational} Farkas-type dual infeasibility
+    certificate whose dual-vector entries have denominator bound~$10^4$.
+    The $187{\times}187$ dual slack matrix decomposes into one scalar
+    coordinate and six independent $31{\times}31$ blocks, each
+    certified positive semidefinite by exact rational LDL decomposition
+    (\cref{sec:exact}).
+  \item We provide a machine-checked verification of the entire
+    certificate in Lean~4 with Mathlib: no \texttt{sorry}, no
+    \texttt{admit}, and no project-local axioms, covering the algebraic
+    equivalence, the PSD spectral-norm power identity, the abstract
+    Farkas contradiction, all 5\,766 standard-form block entries,
+    six $31{\times}31$ exported PSD certificates, and the
+    block-diagonal assembly into a single $(-M)\PSD$ theorem
+    (\cref{sec:verification}).  All Lean details are deferred to
+    the Supplementary Material.
+  \item We identify the single formalization boundary: Lai--Lim's
+    Section~3 equivalence chain (their Conjectures~1A--1C, proved
+    therein) via the noncommutative Positivstellensatz is cited as a
+    theorem from the literature (\cref{sec:boundary}).
+  \item We disentangle Bandeira's parts~(a) and~(b), showing that
+    the average-of-norms version~\eqref{eq:bandeira-b} is not
+    equivalent to~\eqref{eq:rrm} and is not resolved by the present
+    argument (\cref{sec:partb}).
+\end{enumerate}
+
+\smallskip
+\noindent\textbf{Positioning.}\enspace
+The counterexample is due to Lai and Lim~\cite{LaiLim2020}; our
+contribution is the exact rational reconstruction of the certificate,
+the machine-checked verification chain, and the precise separation of
+the external reduction boundary.  This paper should be read as a
+formal reconstruction and verification, not as a claim of a new
+matrix counterexample.
+
+\subsection*{Organisation}
+\Cref{sec:setting} fixes notation and records the spectral-norm
+statement of the Recht--R\'e conjecture.
+\Cref{sec:equivalence} states and proves the equivalence with
+Bandeira~0.2(a).
+\Cref{sec:disproof} summarises the Lai--Lim reduction.
+\Cref{sec:exact} presents the exact rational certificate and
+its block structure.
+\Cref{sec:verification} summarises the Lean verification
+(details in Supplementary Material).
+\Cref{sec:boundary} states the formalization boundary.
+\Cref{sec:witnesses} discusses witness extraction.
+\Cref{sec:partb} treats the companion inequality~0.2(b).
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Setting and the spectral-norm Recht--R\'e conjecture}
+\label{sec:setting}
+%% ═════════════════════════════════════════════════════════════════
+
+Throughout the paper, $\opnorm{\cdot}$ denotes the spectral
+(operator~$2$) norm on matrices, $\PSD$ denotes positive
+semidefiniteness, $\Loewner$ denotes the Loewner partial order on
+Hermitian matrices, and $\Sn$ is the symmetric group on~$n$ elements.
+All matrices are complex unless stated otherwise.
+
+\begin{definition}[Symmetric and word averages]\label{def:averages}
+Let $n,d\in\N$ and $A_1,\dots,A_n\in\C^{d\times d}$ with $A_i\PSD$.
+For $1\le m\le n$, define
+\begin{align}
+  \Sym_m(A_1,\dots,A_n)
+    &:= \frac{(n{-}m)!}{n!}
+        \!\!\sum_{\substack{j_1,\dots,j_m\in[n]\\\text{distinct}}}
+        \!\! A_{j_1}\cdots A_{j_m},
+    \label{eq:sym}\\[4pt]
+  \Wrd_m(A_1,\dots,A_n)
+    &:= \frac{1}{n^m}
+        \sum_{j_1,\dots,j_m=1}^{n} A_{j_1}\cdots A_{j_m}.
+    \label{eq:wrd}
+\end{align}
+\end{definition}
+
+\begin{remark}\label{rem:telescope}
+For $m=n$, $\Sym_n$ averages over the $n!$ permutations and
+$\Wrd_n$ averages over all $n^n$ length-$n$ words in
+$\{1,\dots,n\}$.  The word sum telescopes:
+$\sum_{j_1,\dots,j_n}A_{j_1}\cdots A_{j_n}=(A_1+\cdots+A_n)^{n}$,
+hence $\Wrd_n(A_1,\dots,A_n)
+= \bigl(\tfrac{A_1+\cdots+A_n}{n}\bigr)^{n}$.
+\end{remark}
+
+\begin{definition}[Recht--R\'e conjecture; spectral-norm form]
+\label{def:rr}
+Conjecture~$(\RR_{m,n})$ asserts that for every PSD tuple
+$A_1,\dots,A_n$ in any finite dimension,
+\[
+  \opnorm{\Wrd_m(A_1,\dots,A_n)}
+  \;\ge\;
+  \opnorm{\Sym_m(A_1,\dots,A_n)}.
+\]
+\end{definition}
+
+The original formulation of Recht and R\'e~\cite{RechtRe2012} uses the
+Loewner order rather than the spectral norm; Lai and
+Lim~\cite{LaiLim2020} record both versions and prove that the
+conjecture in spectral norm is equivalent to a two-sided Loewner
+statement (their Conjecture~1A) under the normalisation
+$A_1+\cdots+A_n\Loewner nI$.
+
+\begin{theorem}[{Recht--R\'e~\cite{RechtRe2012}; Israel--Krahmer--Ward~\cite{IsraelKrahmerWard2016}}; case $m\le 3$]
+\label{thm:m23}
+$(\RR_{m,n})$ holds for all $n$ when $m\le 3$.
+\end{theorem}
+
+\begin{theorem}[{Lai--Lim~\cite{LaiLim2020}}; main disproof]
+\label{thm:lailim}
+$(\RR_{m,n})$ is false at $m=n=5$.  Specifically, the smallest
+constant $\lambda\ge 0$ for which the lower Loewner inequality
+\[
+  \sum_{\substack{j_1,\dots,j_5 \in [5] \\ \text{distinct}}}
+  A_{j_1}\cdots A_{j_5} \;\succeq\; -\lambda\, I
+\]
+(under the normalisation $A_1+\cdots+A_5\Loewner 5I$) admits a
+degree-$2$ noncommutative sum-of-squares certificate is
+$\lambda_2 = 144.6488\ldots > 120 = 5!$.
+\end{theorem}
+
+\begin{remark}[Complex-to-real transfer]\label{rem:realification}
+The equivalence in \cref{thm:equivalence} below is proved without
+reference to the underlying field, so its conclusion holds over either
+$\R$ or $\C$; when we appeal to Lai--Lim's disproof, we inherit their
+setting, which is complex Hermitian.  Bandeira's original problem is
+stated over real PSD matrices; the realification map
+$\mathcal{R}(H+iK) :=
+  \bigl(\begin{smallmatrix} H & -K \\ K & H \end{smallmatrix}\bigr)$
+sends a complex Hermitian PSD matrix on $\C^d$ to a real symmetric
+PSD matrix on $\R^{2d}$, preserves products
+($\mathcal{R}(AB)=\mathcal{R}(A)\mathcal{R}(B)$), and preserves the
+spectral norm (the singular values of $\mathcal{R}(A)$ are those
+of~$A$, each with doubled multiplicity).  Consequently any finite-dimensional
+complex PSD counterexample to~\eqref{eq:bandeira-a} yields a real PSD
+counterexample of twice the dimension, and the disproof transfers to
+Bandeira's original real-PSD formulation.
+\end{remark}
+
+%% ═════════════════════════════════════════════════════════════════
+\section{The equivalence between Bandeira~0.2(a) and $(\RR_{n,n})$}
+\label{sec:equivalence}
+%% ═════════════════════════════════════════════════════════════════
+
+The key observation is the following elementary identity.
+
+\begin{lemma}[Norm of a PSD power]\label{lem:psdpower}
+If $S\in\C^{d\times d}$ is positive semidefinite and $k\in\N$, then
+$\opnorm{S^{k}} = \opnorm{S}^{k}$.
+\end{lemma}
+
+\begin{proof}
+For any Hermitian matrix $M$,
+$\opnorm{M}=\max_i \lvert\lambda_i(M)\rvert$.
+For $S\PSD$, $\lambda_i(S)\ge 0$ and
+$\lambda_i(S^{k})=\lambda_i(S)^{k}\ge 0$.  Hence
+$\opnorm{S^{k}}
+ =\max_i \lambda_i(S)^{k}
+ =(\max_i \lambda_i(S))^{k}
+ =\opnorm{S}^{k}$.
+\end{proof}
+
+\cref{lem:psdpower} fails without positivity: a nilpotent
+matrix $N\ne 0$ has $\opnorm{N}>0$ but $\opnorm{N^{k}}=0$ for $k$
+large enough.
+
+\begin{lemma}[Word-sum identity]\label{lem:wordsum}
+For elements $A_1,\dots,A_n$ in any (possibly noncommutative) semiring,
+\[
+  \sum_{j_1,\dots,j_n=1}^{n}
+    A_{j_1}\cdots A_{j_n}
+  = (A_1+\cdots+A_n)^n.
+\]
+\end{lemma}
+
+\begin{proof}
+Expand the power by the distributive law; each term corresponds to a
+choice of indices $(j_1,\dots,j_n)\in[n]^n$.
+\end{proof}
+
+\begin{lemma}[Injection--permutation bijection]\label{lem:perm}
+The set of injective functions $[n]\to[n]$ is exactly the set of
+permutations $\Sn$, and its cardinality is $n!$.
+\end{lemma}
+
+\begin{theorem}[Main equivalence]\label{thm:equivalence}
+For each $n\ge 1$, Bandeira's Open Problem~0.2(a) for $n$ matrices is
+equivalent to $(\RR_{n,n})$.  More precisely, the inequalities
+\eqref{eq:bandeira-a} and $(\RR_{n,n})$ in spectral norm are the same
+inequality, for every PSD tuple $(A_1,\dots,A_n)$.
+\end{theorem}
+
+\begin{proof}
+Fix $n\ge 1$ and $A_1,\dots,A_n\in\C^{d\times d}$ with $A_i\PSD$, and
+set $S:=A_1+\cdots+A_n$.
+
+\emph{Right-hand side of $(\RR_{n,n})$.}  The distinct-index
+sum has exactly $n!$ terms, each corresponding to a permutation
+$\sigma\in\Sn$ (\cref{lem:perm}); the coefficient is
+$(n{-}n)!/n!=1/n!$.  Hence
+\begin{equation}
+  \frac{(n{-}n)!}{n!}
+  \opnorm[\bigg]{\sum_{\text{distinct}}A_{j_1}\cdots A_{j_n}}
+  = \frac{1}{n!}
+    \opnorm[\bigg]{\sum_{\sigma\in\Sn}A_{\sigma(1)}\cdots A_{\sigma(n)}}.
+  \label{eq:rhs}
+\end{equation}
+
+\emph{Left-hand side of $(\RR_{n,n})$.}  The word sum
+telescopes (\cref{lem:wordsum}):
+\[
+  \sum_{j_1,\dots,j_n=1}^n A_{j_1}\cdots A_{j_n}
+  = \prod_{r=1}^n \Bigl(\sum_{j_r=1}^n A_{j_r}\Bigr) = S^{n}.
+\]
+Since each $A_i\PSD$, $S\PSD$.  By \cref{lem:psdpower},
+$\opnorm{S^{n}}=\opnorm{S}^{n}$, hence
+\begin{equation}
+  \frac{1}{n^{n}}
+  \opnorm[\bigg]{\sum_{j_1,\dots,j_n}A_{j_1}\cdots A_{j_n}}
+  = \frac{\opnorm{S}^n}{n^n}
+  = \opnorm[\bigg]{\frac{A_1+\cdots+A_n}{n}}^{\!n}.
+  \label{eq:lhs}
+\end{equation}
+
+\emph{Combining}~\eqref{eq:rhs} and~\eqref{eq:lhs}, the inequality
+$(\RR_{n,n})$ at the tuple $(A_1,\dots,A_n)$ reads
+\[
+  \opnorm[\bigg]{\frac{A_1+\cdots+A_n}{n}}^{\!n}
+  \;\ge\;
+  \frac{1}{n!}
+  \opnorm[\bigg]{\sum_{\sigma\in\Sn}
+    A_{\sigma(1)}\cdots A_{\sigma(n)}},
+\]
+which after reversing the direction of inequality is
+exactly~\eqref{eq:bandeira-a}.
+\end{proof}
+
+\begin{corollary}[Main result]\label{cor:main}
+Bandeira's Open Problem~0.2(a) is \emph{false} for $n=5$.
+
+Quantitatively, there exists a finite-dimensional PSD tuple
+$(A_1,\dots,A_5)$ satisfying $A_1+\cdots+A_5 \Loewner 5I$ for which
+the spectral-norm inequality~\eqref{eq:bandeira-a} fails.  The
+Lai--Lim Loewner constant at $m=n=5$ is
+$\lambda_2 = 144.6488\ldots > 120 = 5!$, which gives
+$\lambda_2/5!\approx 1.2054$ as a strict upper bound on the smallest
+constant $C$ for which a relaxed inequality could hold; we do not
+claim a tuple attaining this gap.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:equivalence}, \eqref{eq:bandeira-a} at $n=5$ is
+equivalent to $(\RR_{5,5})$.  By \cref{thm:lailim}, $(\RR_{5,5})$ is
+false.  Therefore Bandeira's inequality~\eqref{eq:bandeira-a} is false
+for $n=5$.  The quantitative bound is read off from $\lambda_2/5!$.
+\end{proof}
+
+\begin{remark}[Status of the literature connection]\label{rem:literature}
+The connection between Bandeira's Problem~0.2 and the Recht--R\'e
+conjecture is recognised in the literature: the Lai--Lim paper is
+widely cited in the random-reshuffling SGD literature, and Lai--Lim
+themselves cite both Israel--Krahmer--Ward and Recht--R\'e.  We are
+however not aware of a published statement of the \emph{exact}
+equivalence in spectral norm at $m=n$ (\cref{thm:equivalence});
+the literature describes the relationship variously as a
+``special case'', ``related but distinct'', or as a partial overlap.
+\Cref{lem:psdpower} renders it an identity, not merely a special case.
+\end{remark}
+
+%% ═════════════════════════════════════════════════════════════════
+\section{The Lai--Lim reduction at $m=n=5$}
+\label{sec:disproof}
+%% ═════════════════════════════════════════════════════════════════
+
+We summarise the structure of Lai--Lim's disproof, both for
+self-containment and to fix the SDP that underlies the exact
+certificate of \cref{sec:exact}.  The argument has four stages.
+
+\paragraph{(i) Loewner reformulation.}
+Lai and Lim~\cite[Conjecture~1A]{LaiLim2020} show that $(\RR_{m,n})$
+in spectral norm is equivalent to the two-sided Loewner inequality
+\begin{equation}
+  -\frac{n!}{(n-m)!}\,I
+  \;\Loewner\;
+  \sum_{\substack{j_1,\dots,j_m\\\text{distinct}}}
+    A_{j_1}\cdots A_{j_m}
+  \;\Loewner\;
+  \frac{n!}{(n-m)!}\,I,
+  \label{eq:loewner}
+\end{equation}
+under the constraint $A_1+\cdots+A_n \Loewner nI$.  The upper bound
+is the natural one; the lower bound is the one that fails at $m=n=5$.
+
+\paragraph{(ii) Sum-of-squares certificate.}
+Following the constrained noncommutative Positivstellensatz
+framework~\cite{Helton2002,LaiLim2020}, the lower Loewner
+inequality in~\eqref{eq:loewner}---i.e., that
+$\sum_{\text{distinct}}A_{j_1}\cdots A_{j_m}\succeq -\lambda I$
+under $\sum A_i\Loewner nI$---holds
+(uniformly in dimension and matrix realisation) if and only if the
+noncommutative polynomial
+\[
+  \lambda + \sum_{\text{distinct}} X_{j_1}\cdots X_{j_m}
+\]
+admits a constrained sum-of-squares representation
+\[
+  \lambda + \sum_{\text{distinct}} X_{j_1}\cdots X_{j_m}
+  \;=\; \sigma_0 + \sum_{i=1}^{n+1} \sum_{l} h_{i,l}^{*}\, g_i\, h_{i,l},
+\]
+where $g_1,\dots,g_n := X_1,\dots,X_n$ are the PSD constraints,
+$g_{n+1} := nI-\sum_j X_j$ encodes the normalisation, $\sigma_0$ is a
+noncommutative sum of squares, and the total degree is at most
+$2\lfloor m/2\rfloor+1$.
+
+\paragraph{(iii) Semidefinite program.}
+With the monomial basis $\beta$ of all noncommutative monomials of
+degree $\le \lfloor m/2\rfloor$ in $X_1,\dots,X_n$ and the slack
+variable $X_{n+1}:=n - \sum_i X_i$, matching coefficients
+monomial-by-monomial yields the SDP of
+\cite[Conjecture~1C]{LaiLim2020}.  At $m=n=5$ this SDP has six
+$31\times 31$ moment matrices $Y_1,\dots,Y_6\PSD$.  The basis size is
+\[
+  \lvert\beta\rvert
+  \;=\;\sum_{\ell=0}^{\lfloor m/2\rfloor} n^{\ell}
+  \;=\;1+5+25\;=\;31,
+\]
+and the number of monomial-matching equality constraints is
+\[
+  \sum_{\ell=0}^{2\lfloor m/2\rfloor+1} n^{\ell}
+  \;=\;1+5+25+125+625+3125\;=\;3906.
+\]
+The block-diagonal variable matrix has dimension
+$1 + 6\cdot 31 = 187$; accounting for the symmetry of each
+$31{\times}31$ block, the number of independent scalar
+variables is $1 + 6\cdot 31\cdot 32/2 = 2977$, while the
+total count of displayed block entries (used in the standard-form
+reconstruction) is $6\cdot 31^{2} = 5766$.
+
+\paragraph{(iv) Numerical verdict and Farkas certificate.}
+Lai and Lim solve the SDP with SeDuMi~\cite{Sturm1999} and obtain
+$\lambda_2\approx 144.6488$ at $m=n=5$.  To rule out numerical error,
+they produce a Farkas dual certificate $y$ satisfying
+$120\,y_0 + b^{\mathsf{T}}y > 0$, which by the Farkas lemma for
+semidefinite programs~\cite{Lasserre2001} proves that the feasibility
+problem at $\lambda=120$ is \emph{infeasible}, hence $\lambda_2>120$.
+
+\begin{remark}[External boundary]\label{rem:external}
+The reduction from \eqref{eq:loewner} to the SDP (stages
+(i)--(iii) above) is the equivalence chain established in
+\cite[\S\,3]{LaiLim2020} (their Conjectures~1A--1C, proved
+therein), whose mathematical engine is the noncommutative
+Positivstellensatz for bounded linear matrix-inequality
+domains~\cite{Helton2002}.  This structural reduction---together
+with the identification of the concrete standard-form coefficient
+matrices $C_i$ and right-hand-side vector $b$ from Lai--Lim's
+monomial-matching procedure---is the sole component of the
+disproof that our Lean formalization does \emph{not} cover.
+The identification of $C_i,b$ is reproduced and audited by
+independent Python scripts (see \cref{sec:exact} and the
+Supplementary Material).  We return to the formalization boundary
+in \cref{sec:boundary}.
+\end{remark}
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Exact rational certificate}\label{sec:exact}
+%% ═════════════════════════════════════════════════════════════════
+
+Starting from the Lai--Lim SDP data, we independently construct an
+exact rational Farkas-type dual infeasibility certificate.  This
+section describes the mathematical structure; exact numerical values
+are given in \cref{tab:cert}.
+
+\subsection{Certificate structure}\label{sec:cert-structure}
+
+A dual infeasibility certificate for the bound $\lambda=120$
+consists of a vector $y=(y_0,\dots,y_{3905})\in\R^{3906}$
+satisfying:
+\begin{enumerate}[label=(\alph*),itemsep=2pt]
+  \item \emph{Cone condition:} the dual slack matrix
+    $M = y_0 C_0 + \sum_{i=1}^{3905} y_i C_i$
+    satisfies $-M\PSD$.
+  \item \emph{Scalar contradiction:}
+    $120\,y_0 + b^{\mathsf{T}} y > 0$.
+\end{enumerate}
+Together these yield the contradiction
+\[
+  0
+  \;<\; 120\,y_0 + b^{\mathsf{T}} y
+  \;\le\; \langle M,Y\rangle
+  \;\le\; 0,
+\]
+for any feasible $Y\PSD$, where the second inequality uses the
+linear constraints $\langle C_i,Y\rangle = b_i$ and the last uses
+$\tr(MY)\le 0$ for $M\NSD$ and $Y\PSD$.
+
+\subsection{Rationalization and block decomposition}
+
+Our construction proceeds as follows:
+\begin{enumerate}[label=\arabic*.,itemsep=3pt]
+  \item \emph{Numerics.}  We solve the Lai--Lim SDP independently
+    using \texttt{cvxpy}+SCS, obtaining the optimal dual vector $z$
+    with $\lambda^*\approx 144.649$.  We set $y = -z$ and
+    $y_0 = -z_0$.
+
+  \item \emph{Rationalization.}  Each $y_i$ is rounded to the nearest
+    rational $p/q$ with $|q|\le 10^4$.  The resulting exact rational
+    vector is denoted~$\hat{y}$.
+
+  \item \emph{Block structure.}  The support graph of the constraint
+    matrices $\{C_i\}$ has exactly seven connected components:
+    one scalar coordinate ($m_{00}$) and six independent
+    $31\times 31$ blocks.  The matrix $-M$ inherits this structure,
+    with zero cross-block entries.
+
+  \item \emph{Scalar verification.}  We verify in exact rational
+    arithmetic:
+    \[
+      120\,\hat{y}_0 + b^{\mathsf{T}}\hat{y}
+      = \frac{1\,417\,280}{1\,417\,281} > 0,
+      \qquad
+      m_{00} = -\frac{1\,060}{20\,438\,937} < 0.
+    \]
+
+  \item \emph{Block PSD certification.}  For each $31\times 31$ block
+    $Q_b$ of $-M$, we compute the exact rational LDL decomposition
+    $Q_b = L_b\diag(d_b)L_b^{\mathsf{T}}$ with all pivots
+    $d_{b,k}>0$, certifying $Q_b\PSD$.
+\end{enumerate}
+
+\begin{table}[ht]
+\centering
+\caption{Key values of the exact rational certificate.  All have been
+  verified in exact rational arithmetic and checked by Lean~4.}
+\label{tab:cert}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Quantity} & \textbf{Exact value} \\
+\midrule
+$y_0$ & $-146\,/\,2061$ \\[2pt]
+$120\,y_0 + b^{\mathsf{T}} y$
+  & $1\,417\,280\;/\;1\,417\,281 > 0$ \\[2pt]
+$m_{00}$ (scalar block of $M$)
+  & $-1\,060\;/\;20\,438\,937 < 0$ \\[2pt]
+Block structure of $-M$
+  & $1$ scalar $+$ $6$ blocks of $31{\times}31$ \\[2pt]
+Each $31{\times}31$ block $Q_b$
+  & LDL decomposition, all pivots ${>}\,0$ \\[2pt]
+Denominator bound (entries of $\hat{y}$)
+  & $10^4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Independent Python verification}
+
+An independent Python verifier (using the \texttt{sympy} exact
+rational library) reloads the certificate from disk and confirms:
+(i)~the scalar positivity and negativity assertions;
+(ii)~zero cross-block entries;
+(iii)~exact LDL positive-definiteness for all six blocks.
+The verifier runs in approximately 3~seconds and exits successfully.
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Lean formalization overview}\label{sec:verification}
+%% ═════════════════════════════════════════════════════════════════
+
+The exact rational certificate obligations of \cref{sec:exact}, once
+the standard-form matrices are fixed, and the algebraic equivalence of
+\cref{sec:equivalence} have been verified in Lean~4~\cite{moura2021lean4}
+with Mathlib~\cite{mathlib4}.  All theorem files compile with no
+\texttt{sorry}, no \texttt{admit}, and no project-local axioms; only
+standard Lean/Mathlib axioms are used.
+
+\cref{tab:lean} summarises the formalization.  The detailed
+file-by-file description, compilation commands, and the three-layer
+split compilation strategy used for the $31\times 31$ blocks are
+given in the Supplementary Material.
+
+\begin{table}[ht]
+\centering
+\caption{Summary of the Lean~4 formalization.  ``Declarations''
+  counts theorem and structure declarations.}
+\label{tab:lean}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{0.56\linewidth}rc@{}}
+\toprule
+\textbf{Component} & \textbf{Declarations} & \textbf{Status} \\
+\midrule
+Algebraic backbone
+  (\cref{lem:wordsum,lem:perm,thm:equivalence})
+                           & 14  & proved \\
+PSD spectral-norm power (\cref{lem:psdpower})
+                           &  9  & proved \\
+Abstract Farkas chain      & 18  & proved \\
+Standard-form reconstruction
+                           & 191 & proved \\
+LDL block checks ($6\times 64$)
+                           & 384 & proved \\
+Exported block PSD ($6\times 63+6$)
+                           & 384 & proved \\
+Block-diagonal assembly    &   3 & proved \\
+\midrule
+  \textbf{Total}
+  & $\mathbf{>1{,}000}$
+  & \textbf{clean} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The formalization has four layers:
+\begin{enumerate}[label=(\roman*),leftmargin=2em,itemsep=3pt]
+  \item \emph{Algebraic layer.}  Lean proofs of the word-sum identity,
+    the injection--permutation bijection, the equivalence
+    $\text{0.2(a)}\Leftrightarrow\RR_{n,n}$, and the integer bound
+    $144>120$ (\texttt{ConcreteIdentities.lean}).  The PSD
+    spectral-norm power identity is proved via a Hermitian
+    conjugation identity, eigenvector preservation, and a
+    characteristic polynomial bridge
+    (\texttt{SpectralNormPSD.lean}).
+
+  \item \emph{Abstract Farkas layer.}  Five files prove the scalar
+    Farkas contradiction, the LDL-to-quadratic-form PSD bridge,
+    the trace inner-product lemma $\tr(AB)\ge 0$ for $A,B\PSD$,
+    an SDP infeasibility semantic bridge, and a Mathlib-native
+    adapter connecting $(-M)\PSD$ to the scalar contradiction.
+
+  \item \emph{Finite arithmetic layer.}  A generated file
+    (\texttt{FarkasStandardFull.lean}, 191 theorems) verifies all
+    5\,766 standard-form block entries by \texttt{norm\_num}.
+    Six generated files (384 theorems total) verify the LDL
+    row equalities and pivot positivity for all six $31\times 31$
+    blocks.
+
+  \item \emph{Exported PSD and assembly layer.}  For each of the six
+    blocks, a three-layer split compilation pipeline
+    (shared definitions $\to$ row arithmetic $\to$ row assembly
+    $\to$ final assembly) proves $Q_b\PSD$ for the \emph{explicit
+    exported} certificate matrices, not merely product-defined
+    placeholders.  A final block-diagonal assembly file chains
+    the scalar block and six $31\times 31$ PSD facts into a
+    single theorem $(-M)_{\text{block-diag}}\PSD$ for the full
+    $187\times 187$ dual slack matrix.
+\end{enumerate}
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Formalization boundary}\label{sec:boundary}
+%% ═════════════════════════════════════════════════════════════════
+
+All components described above---the algebraic equivalence, the
+spectral-norm identity, the abstract Farkas chain, the finite
+arithmetic, the six block PSD certificates, and the block-diagonal
+assembly---are machine-checked in Lean with no \texttt{sorry},
+no \texttt{admit}, and no project-local axioms (only Lean/Mathlib
+standard axioms).
+
+The \textbf{sole external input} is the equivalence chain
+established in \cite[\S\,3]{LaiLim2020} (their
+Conjectures~1A--1C, proved therein), which reduces the
+Recht--R\'e inequality to the standard-form SDP via the
+noncommutative Positivstellensatz for bounded linear
+matrix-inequality domains~\cite{Helton2002}.
+The identification of the concrete standard-form coefficient
+matrices~$C_i$ and right-hand-side vector~$b$ with Lai--Lim's
+monomial-matching SDP is reproduced by independent Python scripts
+and verified by audit trails (see Supplementary Material), but is
+not itself a Lean theorem.
+We use the Lai--Lim reduction as a theorem from the literature;
+once the SDP standard-form matrices are fixed, every numerical
+component of the certificate---dual variables, scalar
+contradiction, block decomposition, LDL pivots, and matrix
+positive semidefiniteness---is verified by exact rational
+arithmetic inside Lean.
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Toward explicit witness matrices}\label{sec:witnesses}
+%% ═════════════════════════════════════════════════════════════════
+
+A natural strengthening of \cref{cor:main} would be to exhibit
+explicit PSD matrices $A_1,\dots,A_5\in M_d(\C)$ that achieve the
+violation.  Lai and Lim themselves note that ``it would be difficult
+to find $A_1,\dots,A_5$ explicitly as one does not even know the
+smallest dimensions required for these matrices to give a
+counterexample''~\cite[\S\,3]{LaiLim2020}.
+
+The standard route toward explicit witnesses is the
+Gelfand--Naimark--Segal (GNS) construction.  In the moment-SDP
+convention, an optimal or separating moment functional
+$L\colon \R\langle X_1,\dots,X_5\rangle_{\le 5} \to \R$
+that is positive on constrained sums of squares would be the
+natural starting point.
+The Hilbert space
+$H := \R\langle X_1,\dots,X_5\rangle_{\le 2} / N_L$
+(where $N_L$ is the kernel of the bilinear form
+$\langle p,q\rangle = L(p^{*}q)$) is finite-dimensional, of dimension
+at most~$31$.  Defining the candidate witnesses
+$\pi(X_i)[p] := [X_i p]$ requires a \emph{flat-extension} condition
+on~$L$: that the rank of the moment matrix stabilises at degree~$2$,
+so that multiplication by $X_i$ descends to a well-defined
+self-adjoint operator on~$H$.
+
+The Farkas infeasibility certificate verified in the present
+work proves that the feasibility problem at $\lambda=120$ has no
+solution; it does not by itself provide the moment functional
+required for witness extraction.  Obtaining such a functional
+would require solving the explicit dual problem and verifying the
+flat-extension condition, which we leave to future work.
+We emphasise that the \emph{absence} of explicit witnesses does not
+affect the truth of \cref{cor:main}: the disproof via
+$\lambda_2 > 120$ is rigorous, and the existence of
+finite-dimensional witnesses is guaranteed by the Positivstellensatz
+\emph{a fortiori}.
+
+%% ═════════════════════════════════════════════════════════════════
+\section{The status of Bandeira's Problem~0.2(b)}\label{sec:partb}
+%% ═════════════════════════════════════════════════════════════════
+
+\Cref{thm:equivalence} concerns part~(a) only.  The companion
+inequality~\eqref{eq:bandeira-b} places the norm inside the average:
+\[
+  \frac{1}{n!}\sum_{\sigma\in\Sn}
+    \opnorm{A_{\sigma(1)}\cdots A_{\sigma(n)}}
+  \;\le\;
+  \frac{1}{n^n}\sum_{k_1,\dots,k_n=1}^{n}
+    \opnorm{A_{k_1}\cdots A_{k_n}}.
+\]
+This is a \emph{scalar} inequality between two averages of
+nonneg\-ative real numbers and is structurally different from the
+matrix inequality~\eqref{eq:bandeira-a}.  It cannot be reduced to a
+spectral-norm conjecture on a single PSD matrix-valued operator and
+is therefore not covered by~$(\RR_{n,n})$.
+
+\begin{lemma}[Commuting case]\label{lem:commuting}
+If $A_1,\dots,A_n$ pairwise commute, then~\eqref{eq:bandeira-b} holds.
+\end{lemma}
+
+\begin{proof}
+Commuting Hermitian operators admit a simultaneous spectral
+decomposition $A_i = \sum_k \lambda_i^{(k)} e_k e_k^{*}$ with
+$\lambda_i^{(k)}\ge 0$.  For a permutation $\sigma\in\Sn$,
+\[
+  \prod_{j=1}^{n} A_{\sigma(j)}
+  =\sum_k\Bigl(\prod_{i=1}^{n}\lambda_i^{(k)}\Bigr)e_k e_k^{*},
+\]
+so the left side of~\eqref{eq:bandeira-b} equals
+$L:=\max_k\prod_i\lambda_i^{(k)}$.  For a word
+$w=(w_1,\dots,w_n)\in[n]^n$,
+\[
+  \opnorm[\big]{\prod_{r=1}^{n}A_{w_r}}
+  =\max_k\prod_{r=1}^{n}\lambda_{w_r}^{(k)}.
+\]
+Choose $k_*$ attaining $L$.  Then
+\begin{align*}
+  \frac{1}{n^n}\sum_{w\in[n]^n}
+    \max_k\prod_{r=1}^{n}\lambda_{w_r}^{(k)}
+  &\ge
+  \frac{1}{n^n}\sum_{w\in[n]^n}
+    \prod_{r=1}^{n}\lambda_{w_r}^{(k_*)} \\
+  &=\left(\frac{1}{n}\sum_{i=1}^{n}\lambda_i^{(k_*)}\right)^{\!n}
+  \ge \prod_{i=1}^{n}\lambda_i^{(k_*)}=L,
+\end{align*}
+where the last inequality is the scalar AM--GM inequality.
+\end{proof}
+
+Any counterexample to~\eqref{eq:bandeira-b} at $n\ge 4$ must
+therefore exploit a genuinely non-commuting configuration.
+The present argument does not resolve part~(b); to our knowledge
+it remains open.
+
+\begin{remark}[Obstruction to a Positivstellensatz approach]
+The spectral norm $\opnorm{A_{w_1}\cdots A_{w_n}}$ is not polynomial
+in the matrix entries: $\opnorm{P}$ is the square root of the largest
+eigenvalue of $P^{*}P$.  This is the obstruction to a direct
+Lai--Lim-style Positivstellensatz attack on~\eqref{eq:bandeira-b}.
+A natural substitute is the analogous statement for the Schatten
+$p$-norm at finite even~$p$, where
+$\opnorm{P}_{p}^{p}=\Tr\bigl((P^{*}P)^{p/2}\bigr)$ is a trace
+polynomial; resolving the polynomial variant and taking the
+$p\to\infty$ limit is a possible route.
+\end{remark}
+
+%% ═════════════════════════════════════════════════════════════════
+\section{Conclusion}\label{sec:concl}
+%% ═════════════════════════════════════════════════════════════════
+
+We have shown that Bandeira's Open Problem~0.2(a) is identical to the
+spectral-norm Recht--R\'e conjecture at $m=n$, via the elementary
+identity $\opnorm{S^n}=\opnorm{S}^n$ for PSD~$S$, and is therefore
+\emph{false} for $n=5$ by Lai and Lim's noncommutative
+Positivstellensatz disproof.  The present argument does not resolve
+the companion inequality~0.2(b); to our knowledge it remains open.
+
+Our main contribution is the reproducible verification
+infrastructure:
+\begin{itemize}[itemsep=3pt]
+  \item An exact rational Farkas-type dual infeasibility certificate
+    (dual-vector denominator bound $10^4$), exploiting a
+    seven-component block decomposition of the $187\times 187$ dual
+    slack matrix.
+  \item Machine-checked verification of all certificate arithmetic
+    in Lean~4 with Mathlib, covering the algebraic equivalence,
+    the spectral-norm power identity, the abstract Farkas chain,
+    all standard-form reconstructions, six exported block PSD
+    theorems, and the block-diagonal assembly
+    (details in Supplementary Material).
+  \item A single clearly identified external input: the equivalence
+    chain established in Lai--Lim~\cite[\S\,3]{LaiLim2020}
+    (Conjectures~1A--1C, proved therein) via the noncommutative
+    Positivstellensatz.
+\end{itemize}
+
+The substantive remaining question is constructive: produce explicit
+small-dimensional PSD matrices $A_1,\dots,A_5$ realising the
+violation.  This requires solving the explicit noncommutative
+moment-problem dual and verifying the flat-extension condition.
+
+\subsection*{Code and data availability}
+
+The source code, Lean~4 formalization, exact certificate data, and
+verification scripts are organised in the accompanying repository
+with the following structure:
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Directory} & \textbf{Contents} \\
+\midrule
+\texttt{lean/}
+  & Lean~4 proof files and \texttt{lakefile.lean} \\
+\texttt{scripts/}
+  & SDP reconstruction, certificate export, verification \\
+\texttt{data/certificates/}
+  & Exact rational certificate (\texttt{.npz}, \texttt{.json.gz}) \\
+\texttt{paper/}
+  & \LaTeX{} sources for this paper \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+\end{document}

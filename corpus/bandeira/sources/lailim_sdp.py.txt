@@ -1,0 +1,300 @@
+#!/usr/bin/env python3
+"""Lai-Lim 2020 noncommutative-Positivstellensatz SDP for the Recht-Re /
+Bandeira 0.2(a) noncommutative AM-GM conjecture.
+
+Implements Lai-Lim Conjecture 1C (the SDP form of the conjecture) via
+cvxpy + SCS. For (m,n) parameters:
+
+  Basis beta = all noncommutative monomials in X_1,...,X_n of degree
+  <= floor(m/2). For m=5: basis size = 1 + 5 + 25 = 31.
+
+  Variables: scalar lambda, PSD matrices Y_1,...,Y_n,Y_{n+1} each of
+  size |beta| x |beta|.
+
+  Constraint X_{n+1} := n * 1 - X_1 - ... - X_n  (encodes sum X_i <= nI).
+
+  SDP_1 (sign = +1):
+    minimize lambda
+    subject to lambda - sum_{distinct (j_1,...,j_m)} X_{j_1}...X_{j_m}
+                  = sum_{i=1}^{n+1} tr(beta * X_i * beta^T * Y_i)
+               Y_i >= 0 (PSD)
+
+  SDP_2 (sign = -1):
+    minimize lambda
+    subject to lambda + sum_{distinct (j_1,...,j_m)} X_{j_1}...X_{j_m}
+                  = sum_{i=1}^{n+1} tr(beta * X_i * beta^T * Y_i)
+               Y_i >= 0 (PSD)
+
+  Lai-Lim Theorem: Recht-Re Conjecture 1 (spectral norm form) at (m,n)
+  holds iff both lambda_1, lambda_2 <= n!/(n-m)!. For m=n=5,
+  lambda_2 ~ 144.6488 > 120 = 5! is the disproof.
+
+Usage:
+  python lailim_sdp.py --m 2 --n 2 --sign -1
+  python lailim_sdp.py --m 3 --n 3 --sign -1
+  python lailim_sdp.py --m 4 --n 4 --sign -1
+  python lailim_sdp.py --m 5 --n 5 --sign -1   # the disproof case
+  python lailim_sdp.py --selftest
+"""
+from __future__ import annotations
+
+import argparse
+import itertools
+import json
+import time
+from pathlib import Path
+from typing import Dict, List, Tuple
+
+import numpy as np
+
+Monomial = Tuple[int, ...]
+Polynomial = Dict[Monomial, float]
+
+
+# ----------------------------------------------------------------------
+# Noncommutative polynomial arithmetic
+# ----------------------------------------------------------------------
+
+def monomial_basis(n_vars: int, max_degree: int) -> List[Monomial]:
+    """All noncommutative monomials of degree <= max_degree in n_vars variables."""
+    basis: List[Monomial] = [()]
+    for d in range(1, max_degree + 1):
+        for tup in itertools.product(range(n_vars), repeat=d):
+            basis.append(tup)
+    return basis
+
+
+def beta_Xi_beta_T_polys(beta: List[Monomial], i: int, n_vars: int) -> List[List[Polynomial]]:
+    """Return matrix of polynomials M[j][k] = beta_j * X_i * beta_k.
+
+    For i < n_vars: X_i is the i-th noncommutative variable.
+    For i == n_vars: X_{n+1} := n_vars - sum_l X_l (the slack variable).
+    """
+    sz = len(beta)
+    M: List[List[Polynomial]] = [[{} for _ in range(sz)] for _ in range(sz)]
+    for j, mj in enumerate(beta):
+        for k, mk in enumerate(beta):
+            poly: Polynomial = {}
+            if i < n_vars:
+                mono = mj + (i,) + mk
+                poly[mono] = 1.0
+            else:
+                # X_{n+1} = n_vars * 1 - sum_l X_l
+                mono_const = mj + mk
+                poly[mono_const] = float(n_vars)
+                for l in range(n_vars):
+                    mono_l = mj + (l,) + mk
+                    poly[mono_l] = poly.get(mono_l, 0.0) - 1.0
+            poly = {m: c for m, c in poly.items() if c != 0.0}
+            M[j][k] = poly
+    return M
+
+
+def sum_distinct_indices(n_vars: int, m: int) -> Polynomial:
+    """Polynomial = sum over distinct (j_1,...,j_m) in [n_vars] of X_{j_1}...X_{j_m}."""
+    out: Polynomial = {}
+    for tup in itertools.permutations(range(n_vars), m):
+        out[tup] = out.get(tup, 0.0) + 1.0
+    return out
+
+
+# ----------------------------------------------------------------------
+# SDP builder via cvxpy
+# ----------------------------------------------------------------------
+
+def build_sdp(n: int, m: int, sign: int):
+    """Build the Lai-Lim SDP for (n, m, sign). sign in {+1, -1}.
+
+    Returns a cvxpy.Problem and references to the variables.
+    """
+    import cvxpy as cp  # local import so module loads even if cvxpy missing
+
+    assert sign in (+1, -1)
+    max_basis_degree = m // 2
+    beta = monomial_basis(n, max_basis_degree)
+    sz = len(beta)
+    n_Y = n + 1  # Y_1, ..., Y_n, Y_{n+1}
+
+    # Pre-compute beta * X_i * beta^T polynomials for i = 0, ..., n
+    Bs = [beta_Xi_beta_T_polys(beta, i, n) for i in range(n_Y)]
+
+    sd = sum_distinct_indices(n, m)
+
+    # Collect all monomials needed for the constraint
+    monos = set()
+    monos.add(())
+    monos.update(sd.keys())
+    for i in range(n_Y):
+        for j in range(sz):
+            for k in range(sz):
+                monos.update(Bs[i][j][k].keys())
+    all_monos = sorted(monos, key=lambda x: (len(x), x))
+    n_monos = len(all_monos)
+
+    # cvxpy variables
+    Lambda = cp.Variable(name="lambda")
+    Y = [cp.Variable((sz, sz), symmetric=True, name=f"Y_{i+1}") for i in range(n_Y)]
+
+    # Build LHS = lambda * 1[mono=()] - sign * sum_distinct[mono]
+    # Build RHS = sum_i sum_{j,k} Bs[i][j][k][mono] * Y[i][j,k]
+    # Constraint: LHS == RHS for all monomials.
+
+    # Pre-build sparse RHS structure: for each monomial, list of (i, j, k, coef)
+    rhs_structure: Dict[Monomial, List[Tuple[int, int, int, float]]] = {w: [] for w in all_monos}
+    for i in range(n_Y):
+        for j in range(sz):
+            for k in range(sz):
+                for w, coef in Bs[i][j][k].items():
+                    rhs_structure[w].append((i, j, k, coef))
+
+    constraints = []
+    for w in all_monos:
+        lhs = 0
+        if w == ():
+            lhs = lhs + Lambda
+        # sum_distinct contribution: -sign * sd[w]
+        if w in sd:
+            lhs = lhs + (-sign) * sd[w]
+        # RHS
+        rhs_terms = []
+        for (i, j, k, coef) in rhs_structure[w]:
+            rhs_terms.append(coef * Y[i][j, k])
+        if rhs_terms:
+            rhs = sum(rhs_terms)
+        else:
+            rhs = 0
+        constraints.append(lhs == rhs)
+
+    # PSD constraints
+    for i in range(n_Y):
+        constraints.append(Y[i] >> 0)
+
+    objective = cp.Minimize(Lambda)
+    problem = cp.Problem(objective, constraints)
+
+    return problem, Lambda, Y, beta, all_monos, n_monos
+
+
+def run_sdp(n: int, m: int, sign: int = -1, solver: str = "SCS",
+            verbose: bool = False, **solver_kwargs):
+    print(f"Building Lai-Lim SDP for n={n}, m={m}, sign={sign:+d}")
+    t_build = time.time()
+    problem, Lambda, Y, beta, all_monos, n_monos = build_sdp(n, m, sign)
+    print(f"  basis size = {len(beta)}; PSD matrix size = {len(beta)}x{len(beta)} per Y_i (n+1 = {n+1} of them)")
+    print(f"  number of equality constraints = {n_monos}")
+    print(f"  number of scalar variables = {1 + (n+1) * len(beta) * (len(beta) + 1) // 2}")
+    print(f"  build time = {time.time()-t_build:.2f}s")
+    t_solve = time.time()
+    # SCS solver with tight tolerances
+    default_solver_kwargs = dict(eps=1e-7, max_iters=200000)
+    if solver == "SCS":
+        default_solver_kwargs.update(solver_kwargs)
+        problem.solve(solver=solver, verbose=verbose, **default_solver_kwargs)
+    else:
+        problem.solve(solver=solver, verbose=verbose, **solver_kwargs)
+    solve_time = time.time() - t_solve
+    lam = float(Lambda.value) if Lambda.value is not None else None
+    print(f"  status = {problem.status}")
+    print(f"  optimal lambda = {lam}")
+    print(f"  solve time = {solve_time:.2f}s")
+    expected_bound = None
+    try:
+        from math import factorial
+        if m <= n:
+            expected_bound = factorial(n) // factorial(n - m)
+            print(f"  conjectured bound n!/(n-m)! = {expected_bound}")
+            if lam is not None:
+                if lam > expected_bound + 1e-3:
+                    print(f"  *** CONJECTURE VIOLATION: lambda = {lam} > {expected_bound} ***")
+                else:
+                    print(f"  conjecture holds at this (n,m): lambda <= {expected_bound}")
+    except Exception:
+        pass
+    Y_vals = []
+    if all(Yi.value is not None for Yi in Y):
+        Y_vals = [np.array(Yi.value) for Yi in Y]
+    return {
+        "n": n, "m": m, "sign": sign,
+        "basis_size": len(beta),
+        "n_monomials": n_monos,
+        "status": problem.status,
+        "lambda": lam,
+        "expected_bound": expected_bound,
+        "violates": (lam is not None and expected_bound is not None and lam > expected_bound + 1e-3),
+        "build_time_sec": float(time.time() - t_build - solve_time),
+        "solve_time_sec": float(solve_time),
+        "basis": [list(b) for b in beta],
+        "Y_matrices": Y_vals,
+    }
+
+
+# ----------------------------------------------------------------------
+# Self test on small known cases
+# ----------------------------------------------------------------------
+
+def selftest_basis_arithmetic():
+    # Basis sizes
+    assert len(monomial_basis(2, 0)) == 1
+    assert len(monomial_basis(2, 1)) == 3   # 1 + 2
+    assert len(monomial_basis(2, 2)) == 7   # 1 + 2 + 4
+    assert len(monomial_basis(5, 2)) == 31  # 1 + 5 + 25 (Lai-Lim basis for m=5)
+    # sum_distinct_indices
+    sd = sum_distinct_indices(3, 2)
+    assert len(sd) == 6  # 3*2 ordered pairs
+    sd5 = sum_distinct_indices(5, 5)
+    assert len(sd5) == 120  # 5!
+    # beta * X_i * beta^T for n=2 with X_{n+1} expansion
+    beta = monomial_basis(2, 1)
+    M = beta_Xi_beta_T_polys(beta, 2, 2)
+    # X_{n+1} = 2 - X_0 - X_1; entry (0,0) = X_{n+1} = {() : 2, (0,): -1, (1,): -1}
+    assert M[0][0] == {(): 2.0, (0,): -1.0, (1,): -1.0}
+    print("selftest_basis_arithmetic OK")
+
+
+def selftest_small_sdp():
+    """Test on (m, n) = (2, 2) and (3, 3) — both true cases, lambda <= n!/(n-m)!."""
+    import cvxpy as cp
+    print("\n=== Test SDP for (m,n) = (2,2) [sign=-1, lambda_2 should be <= 2] ===")
+    r = run_sdp(2, 2, sign=-1, solver="SCS")
+    assert r["lambda"] is not None and r["lambda"] <= 2.5, f"Expected lambda <= 2 (= 2!), got {r['lambda']}"
+
+    print("\n=== Test SDP for (m,n) = (2,2) [sign=+1, lambda_1 should be <= 2] ===")
+    r = run_sdp(2, 2, sign=+1, solver="SCS")
+    assert r["lambda"] is not None and r["lambda"] <= 2.5, f"Expected lambda <= 2 (= 2!), got {r['lambda']}"
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--n", type=int, default=2)
+    ap.add_argument("--m", type=int, default=2)
+    ap.add_argument("--sign", type=int, default=-1, help="+1 for upper Loewner (lambda_1), -1 for lower (lambda_2)")
+    ap.add_argument("--solver", default="SCS")
+    ap.add_argument("--verbose", action="store_true")
+    ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--out-dir", default="workspace/data/lailim_sdp_results")
+    ap.add_argument("--save-Y", action="store_true")
+    args = ap.parse_args()
+    if args.selftest:
+        selftest_basis_arithmetic()
+        selftest_small_sdp()
+        print("\nALL SELFTESTS PASSED")
+        return
+    out = Path(args.out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    result = run_sdp(args.n, args.m, sign=args.sign, solver=args.solver, verbose=args.verbose)
+    summary = {k: v for k, v in result.items() if k not in ("Y_matrices", "basis")}
+    print("\nSUMMARY:", json.dumps(summary, indent=2))
+    out_json = out / f"sdp_n{args.n}_m{args.m}_sign{args.sign:+d}.json"
+    out_json.write_text(json.dumps({
+        "summary": summary,
+        "basis": result["basis"],
+    }, indent=2))
+    print(f"Saved summary to {out_json}")
+    if args.save_Y and result["Y_matrices"]:
+        out_npz = out / f"sdp_n{args.n}_m{args.m}_sign{args.sign:+d}_Y.npz"
+        np.savez(out_npz, **{f"Y_{i+1}": Yi for i, Yi in enumerate(result["Y_matrices"])})
+        print(f"Saved moment matrices to {out_npz}")
+
+
+if __name__ == "__main__":
+    main()

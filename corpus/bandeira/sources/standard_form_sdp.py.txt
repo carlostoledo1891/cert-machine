@@ -1,0 +1,107 @@
+"""
+Build and solve the Lai--Lim (5,5) SDP in the exact standard form of paper
+Section 4, equations (7)--(10): one full 187x187 PSD variable
+Y = diag(lambda, Y1,...,Y6) but WITHOUT enforcing block diagonal constraints.
+
+Convention used here for sign=-1 (lambda_2):
+  lambda + sum_distinct = sum_i tr(beta X_i beta^T Y_i).
+Move to standard equality tr(C_w Y_full)=b_w:
+  delta_empty(w)*lambda - RHS_w(Y_blocks) = -s_w,
+where s_w is coefficient of sum_distinct.
+Thus:
+  C_w has +1 at scalar block if w=empty and -RHS coefficient blocks,
+  b_w = -s_w.
+Objective C0 = E_00, minimize tr(C0 Y)=lambda.
+
+For fixed lambda0=120, Farkas certificate in Lai's Lemma form:
+  y0*C0 + sum_w y_w*C_w <= 0 and 120*y0 + sum_w b_w*y_w > 0.
+If optimization dual z satisfies A^*z <= C0 and b^T z=lambda*, then
+choose y0=-1, y_w=z_w to get A^*z-C0 <=0 and b^Tz-120>0.
+"""
+from __future__ import annotations
+import sys
+from pathlib import Path
+import numpy as np
+
+sys.path.insert(0, str(Path("Sessions/session_20260526_202823/workspace/scripts")))
+from lailim_sdp import monomial_basis, beta_Xi_beta_T_polys, sum_distinct_indices
+
+OUT = Path("Sessions/session_20260531_231420/workspace/data")
+
+
+def build_standard(n=5, m=5):
+    beta = monomial_basis(n, m // 2)
+    q = len(beta)
+    nY = n + 1
+    N = 1 + nY * q
+    Bs = [beta_Xi_beta_T_polys(beta, i, n) for i in range(nY)]
+    sd = sum_distinct_indices(n, m)
+    monos = {()}
+    monos.update(sd.keys())
+    for i in range(nY):
+        for j in range(q):
+            for k in range(q):
+                monos.update(Bs[i][j][k].keys())
+    all_monos = sorted(monos, key=lambda x: (len(x), x))
+    idx = {w: t for t, w in enumerate(all_monos)}
+    C = [np.zeros((N, N), dtype=float) for _ in all_monos]
+    b = np.zeros(len(all_monos), dtype=float)
+    for t, w in enumerate(all_monos):
+        if w == ():
+            C[t][0, 0] = 1.0
+        b[t] = -float(sd.get(w, 0.0))
+    # C_w = delta lambda - RHS. For trace orientation, coefficient for Y[j,k]
+    # goes at full[k,j]. Symmetrize later because Y is symmetric.
+    for block in range(nY):
+        off = 1 + block * q
+        for j in range(q):
+            for k in range(q):
+                for w, coef in Bs[block][j][k].items():
+                    C[idx[w]][off + k, off + j] += -float(coef)
+    # Symmetric variable: only symmetric part matters in trace(CY).
+    C = [(A + A.T) / 2.0 for A in C]
+    C0 = np.zeros((N, N), dtype=float); C0[0, 0] = 1.0
+    return beta, all_monos, C0, C, b
+
+
+def main():
+    import cvxpy as cp
+    beta, all_monos, C0, C, b = build_standard()
+    N = C0.shape[0]
+    print("="*72)
+    print("Lai--Lim standard-form SDP diagnostic")
+    print("="*72)
+    print(f"basis q={len(beta)}, full PSD size N={N}, constraints={len(C)}")
+    Y = cp.Variable((N, N), symmetric=True, name="Yfull")
+    cons = [cp.trace(C[t] @ Y) == b[t] for t in range(len(C))]
+    cons.append(Y >> 0)
+    prob = cp.Problem(cp.Minimize(cp.trace(C0 @ Y)), cons)
+    print("Solving full standard-form optimization SDP...")
+    prob.solve(solver="SCS", eps=1e-7, max_iters=200000, verbose=False)
+    lam = float(prob.value)
+    print(f"status={prob.status}; objective lambda={lam:.12f}; gap={lam-120:.12f}")
+    z = np.array([float(cons[t].dual_value) if cons[t].dual_value is not None else 0.0 for t in range(len(C))])
+    print(f"dual z: ||z||inf={np.max(np.abs(z)):.6e}; b.z={float(np.dot(b,z)):.12f}")
+    M = sum(z[t] * C[t] for t in range(len(C))) - C0
+    M = (M + M.T) / 2
+    ev = np.linalg.eigvalsh(M)
+    print("Certificate candidate y0=-1, y=z:")
+    print(f"  scalar = b.z - 120 = {float(np.dot(b,z)-120):.12f}")
+    print(f"  M=A*z-C0: mineig={ev[0]:.6e}, maxeig={ev[-1]:.6e}")
+    print(f"  negative semidefinite at tol 1e-5? {ev[-1] <= 1e-5}")
+    # Also inspect opposite sign.
+    M2 = -sum(z[t] * C[t] for t in range(len(C))) - C0
+    M2 = (M2 + M2.T)/2
+    ev2 = np.linalg.eigvalsh(M2)
+    print("Opposite y=-z diagnostic:")
+    print(f"  scalar = -b.z - 120 = {float(-np.dot(b,z)-120):.12f}")
+    print(f"  M=-A*z-C0: mineig={ev2[0]:.6e}, maxeig={ev2[-1]:.6e}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    np.savez(OUT/"standard_form_dual.npz", z=z, b=b, lambda_opt=np.array([lam]), eig_max=np.array([ev[-1]]))
+    (OUT/"standard_form_summary.txt").write_text(
+        f"lambda={lam}\nscalar=bz-120={float(np.dot(b,z)-120)}\nM_maxeig={ev[-1]}\nM_mineig={ev[0]}\n"
+    )
+    print(f"Saved {OUT/'standard_form_dual.npz'} and summary")
+
+if __name__ == "__main__":
+    main()

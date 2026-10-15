@@ -1,0 +1,18 @@
+{
+ "what": "FLOAT SCREEN, never a verdict: Lai--Lim's SDP (Conjecture 1C) built by instruments/bandeira/sdp.py from its definition and solved with cvxpy/SCS (eps 1e-8) under each transpose convention, against Lai--Lim's Table 1; and at (5,5), the disproof case",
+ "ran": "2026-10-15",
+ "solver": "cvxpy 1.7.5, SCS 3.3.1, numpy 2.0.2, in a scratch virtual environment (not in the trust path)",
+ "conventions": {"leftT": "beta_a^T X_i beta_b (Helton's sum-of-squares form f^T l f)", "rightT": "beta_a X_i beta_b^T", "none": "beta_a X_i beta_b (the claimant's export)"},
+ "table1": [
+  {"m": 2, "n": 2, "lambda1": {"leftT": 2.0000, "rightT": 2.0000, "none": 2.0000}, "lambda2": {"leftT": 0.5000, "rightT": 0.5000, "none": 0.5000}, "laiLim": [2.0000, 0.5000], "bound": 2},
+  {"m": 2, "n": 3, "lambda1": {"leftT": 6.0000, "rightT": 6.0000, "none": 6.0000}, "lambda2": {"leftT": 1.5000, "rightT": 1.5000, "none": 1.5000}, "laiLim": [6.0000, 1.5000], "bound": 6},
+  {"m": 3, "n": 3, "lambda1": {"leftT": 6.0000, "rightT": 6.0000, "none": 6.0000}, "lambda2": {"leftT": 3.4113, "rightT": 3.4113, "none": 3.4113}, "laiLim": [6.0000, 3.4113], "bound": 6},
+  {"m": 4, "n": 4, "lambda1": {"leftT": 24.0000, "rightT": 24.0000, "none": 24.0000}, "lambda2": {"leftT": 22.4746, "rightT": 22.4746, "none": 22.4746}, "laiLim": [24.0000, 22.4746], "bound": 24}
+ ],
+ "case55": [
+  {"convention": "none", "sign": -1, "status": "optimal", "lambda2": 144.64875348561657, "seconds": 3.7},
+  {"convention": "leftT", "sign": -1, "status": "optimal", "lambda2": 144.64875346800687, "seconds": 4.5}
+ ],
+ "laiLim55": 144.6488,
+ "reading": "every convention gives the same optimum on every case, to the printed digits; the sum-of-squares SDP at (5,5) has lambda_2 = 144.6488 > 120 in floating point, as Lai--Lim report — a measurement that motivated the search for an exact certificate of the sum-of-squares SDP (instruments/bandeira/certify.py), which is the verdict"
+}
