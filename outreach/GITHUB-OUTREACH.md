@@ -337,3 +337,14 @@ are at the boundary their paper declares external; the conclusion stands. The Le
 - google-deepmind/formal-conjectures issues #7304/#7305/#7306/#7308/#7330 (RhudeJJJJ): certs/wowii-ledger.json (5/5 CERTIFIED), /reports/wowii-counterexamples.html; the fork's cited commits vanished the same evening (lane W).
 - teorth/optimizationproblems PRs #210/#217/#221/#225/#226: certs/optq-ledger.json, /reports/optconst-queue.html; the #210 refusal comment is the sensitive one (lane T). Our own PR #216 there is still open.
 
+BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's word:
+- A1 — https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/6#issuecomment-6204214972
+- C1 — https://github.com/teorth/optimizationproblems/pull/225#issuecomment-6204215887
+- C2 — https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6204216751
+- C3 — https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690
+- B1 — https://github.com/google-deepmind/formal-conjectures/issues/7304#issuecomment-6204218882
+- B2 — https://github.com/google-deepmind/formal-conjectures/issues/7305#issuecomment-6204220227
+- B3 — https://github.com/google-deepmind/formal-conjectures/issues/7306#issuecomment-6204221183
+- B4 — https://github.com/google-deepmind/formal-conjectures/issues/7308#issuecomment-6204222207
+- B5 — https://github.com/google-deepmind/formal-conjectures/issues/7330#issuecomment-6204223248
+- F1 — https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1#issuecomment-6204224336

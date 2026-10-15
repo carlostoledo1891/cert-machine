@@ -1,4 +1,16 @@
-# Three audits, fifteen comments — DRAFTED 2026-10-15, NOT SENT (the operator's word, item by item)
+# Three audits, fifteen comments — BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's "Proceed batch one outreach" (A1, C1, C2, C3, B1-B5; F1 from the plan); A2-A5, C4, C5 and the PR one-liners NOT SENT
+
+Posted:
+- A1 https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/6#issuecomment-6204214972
+- C1 https://github.com/teorth/optimizationproblems/pull/225#issuecomment-6204215887
+- C2 https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6204216751
+- C3 https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690
+- B1 https://github.com/google-deepmind/formal-conjectures/issues/7304#issuecomment-6204218882
+- B2 https://github.com/google-deepmind/formal-conjectures/issues/7305#issuecomment-6204220227
+- B3 https://github.com/google-deepmind/formal-conjectures/issues/7306#issuecomment-6204221183
+- B4 https://github.com/google-deepmind/formal-conjectures/issues/7308#issuecomment-6204222207
+- B5 https://github.com/google-deepmind/formal-conjectures/issues/7330#issuecomment-6204223248
+- F1 https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1#issuecomment-6204224336
 
 Pages (all re-derived at build from their ledgers): /reports/alphaevolve-community.html (certs/aerp-ledger.json),
 /reports/wowii-counterexamples.html (certs/wowii-ledger.json), /reports/optconst-queue.html (certs/optq-ledger.json).

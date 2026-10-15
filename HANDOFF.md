@@ -58,6 +58,9 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
   TRAP (hit three times today): `node tools/build-site.js` alone PRUNES site/swell/* (the swell app builds after it in
      `make site`); restore with `git checkout -- site/swell` before the gates, or run `make site`. The three ratchets (measure,
      render, style) each need `--accept` for a new page, in that order, with every page present.
+  BATCH ONE POSTED 2026-10-15 ~23:50 UTC (operator: "Proceed batch one outreach"): A1 on alphaevolve#6, C1-C3 on optimizationproblems
+     #225/#221/#226, B1-B5 on formal-conjectures #7304/#7305/#7306/#7308/#7330, F1 on Oxelra Bandeira#1 — URLs in
+     outreach/three-campaigns-2026-10-15.md. WATCH THE TEN THREADS. Day 2 (A2-A4, C5 the Mosaic refusal, P1-P5) waits for the operator.
   OUTREACH PLAN: outreach/outreach-plan-2026-10-15.md — goals per venue, tone rules, the two-day sequence (confirmations first,
      the #210 refusal last), week-2 follow-ups (AE-PR needs the CLA; T-PR after merges), what we offer if they answer, and the
      new drafts (F1 Bandeira follow-up, P1-P5, AE-PR, T-PR, POST). Threads re-read 2026-10-15 ~23:30 UTC: unchanged since the pins.
