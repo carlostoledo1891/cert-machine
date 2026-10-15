@@ -21,6 +21,20 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-14, THE METHOD PAPER RESTRUCTURED (v0.2, 18064059, live at /paper/cert-machine-method.pdf) on the reviewing
+group's suggestions (operator: "follow all suggestions"; decisions F1–F6 answered: example 3 = graders + the OpenAI gap
+table, KAUST dropped; the Qiushi relation is an "exchange"; "gaps, nothing refuted", 719 not 714; venue and authors left
+open; the title shortened). Shape: 1 Introduction · 2 Materials and methods (materials: the claims, the machines, the
+records; then the grammar, arithmetic, certifiers, discipline) · 3 Benchmark exercise (3.1 the Qiushi Engine's 19 kissing
+bounds, Table 3; 3.2 the Navier–Stokes Lean certificate; 3.3 four graders vs 4,000 provably wrong, Table 4, + the 14-gap
+table of openai/math, Table 5; 3.4 the wider record) · 4 Discussion · 5 Conclusions and recommendations. 90 macros
+from the records (tools/paper-numbers/cert-machine-method.js; new record corpus/kissing/wave/qiushi-gpu-2026-10-12/pod.json
+for the GPU cost). The ToDo list is LOCAL (notes/method-paper-restructure-todo-2026-10-14.md, git-excluded — it quotes the
+reviewer's message): NEXT the three figures, the BibTeX conversion + a citation-verification battery + the added prior art,
+the Elsevier form (elsarticle, highlights, CRediT, AI declaration, data availability, reproducibility appendix), the
+operator's read, then v0.3 to the group. The Allocation Proof plan's D1–D5 still await the operator.
+
+────────────────────────────────────────────────────────────────────────────
 2026-10-12, QIUSHI: ALL 19 BOUNDS DECIDED AND THE REPLY POSTED; OPENAI ON THE LANDING; GRAM FORM; SIDORENKO MEASURED
 (operator, in order: "feature the OpenAI verification on the homepage"; "go" (Gram form); "go" + "go the Proposed use of the
 $59.34" + "I agree with all"; "Ok, post it" (Qiushi, with the Gram-form sentence); "Draft the message" (Cohn)).
