@@ -1,0 +1,121 @@
+{
+  "REAL_lift": "BANKED738, externally754; balanced710/725",
+  "active_rejections": 25,
+  "allindex782_audit": false,
+  "audited_memory": 774,
+  "auditor": "functional_astra",
+  "candidate": false,
+  "checks": 1701309,
+  "complete_raw_cells": 690988,
+  "complete_weight_cells": 157940,
+  "coverage": {
+    "all_RIGHT_walls_by_identity": true,
+    "closed_index": [
+      [
+        690988,
+        791551
+      ],
+      [
+        791551,
+        892114
+      ],
+      [
+        892114,
+        992677
+      ],
+      [
+        992677,
+        1093240
+      ],
+      [
+        1093240,
+        1193803
+      ],
+      [
+        1193803,
+        1294366
+      ],
+      [
+        1294366,
+        1394929
+      ],
+      [
+        1394929,
+        1495493
+      ],
+      [
+        1495493,
+        1596056
+      ],
+      [
+        1596056,
+        1696619
+      ],
+      [
+        1696619,
+        1797182
+      ],
+      [
+        1797182,
+        1897746
+      ],
+      [
+        1897746,
+        2098872
+      ],
+      [
+        2098872,
+        2299999
+      ]
+    ],
+    "entry_count": 1609011,
+    "entry_index_sum": 2406266296434,
+    "t_closed": [
+      "4/25",
+      "3/16"
+    ],
+    "target_count": 1609012,
+    "terminal2300000": "OPEN",
+    "wall_controls": 102,
+    "x_closed": [
+      6000000185827,
+      66476100549959
+    ],
+    "y": 0
+  },
+  "eventual_RH_margin": "350479773/2",
+  "final_composition_audit": false,
+  "heat_proof": "BANKED744, externally754",
+  "lift_surplus": "22375198391999/32000000000000000",
+  "minimum_sufficient_expression": {
+    "CEIL12": "0.011185589490",
+    "FLOOR12": "0.011185589489",
+    "L": 1897746,
+    "U": 2098872,
+    "hi": "881469332723357805000963128915443338148824182961305227787076783710330058963875025629763072733716944851419685952493/78804012392788958424558080200287227610159478540930893335896586808491443542994421222828532509769831281613255980613632",
+    "lo": "881469332723357805000963128915443338148824182961305227787076783710330058963875025629763072733716944851415194789125/78804012392788958424558080200287227610159478540930893335896586808491443542994421222828532509769831281613255980613632"
+  },
+  "natural_source_stability": "BANKED720, externally733",
+  "new_Lambda": false,
+  "new_source_phase_search": false,
+  "new_tail": false,
+  "official_attestation": false,
+  "original_failed_parents": 13,
+  "original_leaves": 14,
+  "original_point_controls": 8,
+  "original_scalar_slots": 277,
+  "outputs": {
+    "CONTROL_AUDIT.json": "39fdf9e1cd79785c0363905eaab42022e3794e32ef0da8cbe29f8f6331b90f0e",
+    "OWN_BINS.txt": "94d0610a407a302ee18a2330cf48ebc94cbf34c74fc20f6545de41de667f8f1e",
+    "PRIMARY_AUDIT.json": "9ee09b82fb2a774a0b4e0f3529b18986f248061f7dfa452163ff4fe6953ec0c7",
+    "SECONDARY_AUDIT.json": "d1a252a82d9e82a7d2a9bbbffc0aa2b96bc61503dca9f6efc1bf12f24edcf1c6"
+  },
+  "physical_COVER_export": false,
+  "positive_bins": 224,
+  "producer": "ladder_astra",
+  "snapshot": 791,
+  "source_phase_proof": "BANKED767, externally789; NOT_REAUDITED",
+  "status": "EXTERNAL_GRAM_SPATIAL_RECOVERY_AUDIT_PASS",
+  "synthetic_bins": 1,
+  "universal_lemma": "AUDIT.md section2 with explicit closed-polydisc, strict Gram, positive-normalized/synthetic weights"
+}

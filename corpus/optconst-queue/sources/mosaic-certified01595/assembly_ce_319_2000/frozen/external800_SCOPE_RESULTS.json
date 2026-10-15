@@ -1,0 +1,1488 @@
+{
+  "checks": 1231,
+  "coverage": {
+    "excess_cell_representatives": [],
+    "missing_cell_representatives": [],
+    "z3_excess": "unsat",
+    "z3_missing": "unsat"
+  },
+  "dependencies": [
+    {
+      "line": 526,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "34b0583350e5ae37f1bc7b4bcf92f4e5d315e0c21f8956f2197a98f9c325ab33"
+    },
+    {
+      "line": 549,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "06136e3c9af7d86229e4c2b0a12a458428b09cbe8c7bef0bf7613bcfc82693d7"
+    },
+    {
+      "line": 588,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "62faa2c31879375ada8532786eb14a1db98b50fe831df89af71e24e67b3d5025"
+    },
+    {
+      "line": 590,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "86765e25429f0eca426332509aa2f4d3fdbabe3b65af39e474d2664ea9ca866a"
+    },
+    {
+      "line": 596,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "6c81b4588b3b9c82addae1798e78fcae22709a26366516d852ba1da06a624c28"
+    },
+    {
+      "line": 599,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "1431f8452f64ad49044ae6349caae18f187748cd5880402cd2e6cfa0635c500c"
+    },
+    {
+      "line": 616,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "9fb0e3500d50a35de48c78644d74a59f8fe3de7dda4d4d9750111b2d5724ef80"
+    },
+    {
+      "line": 617,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "0859ddd2d8c5003c2f0a23246145d7eacf1cf6c4fdf58348b30e05d06a7f90b5"
+    },
+    {
+      "line": 710,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "44bda963baf23ec38dc3f73e277b7ac81d975913f5a14a2cd3243c84dd9757b9"
+    },
+    {
+      "line": 720,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "1d900cbfb0bfb2813477c63fd8a3e19010cd800bf0c7d8d33212055b67e2f9be"
+    },
+    {
+      "line": 725,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "0f2903a1e53d90013b1cb8610ab0b60d629778f54a129f3ca568577e258680b8"
+    },
+    {
+      "line": 733,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "e458a96b475568ef9eb40b9ed07f02296b8e2001d6862fa813532aeb231c3cf0"
+    },
+    {
+      "line": 744,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "97a60539940f5fb6157b33d4843f7a0901e7392c006f804c24d3168df937a2ed"
+    },
+    {
+      "line": 754,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "e5bc9cef0c821164806240110c4acfc34fabb3e78590cb54cc594afed76d14a8"
+    },
+    {
+      "line": 767,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "97d78eb2f4a973142a0f82f10a3b40a195f64df21f3a42264a187542f8b885ec"
+    },
+    {
+      "line": 771,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "5cb004d56d857e599b4b27fe26573d93b2a1ee684407846beb94d7f6f06c7eb6"
+    },
+    {
+      "line": 774,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "b792c313ff1bd1b85d08b8c2720300b34ad081c6b393206dc2805ccc753b1703"
+    },
+    {
+      "line": 779,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "e18a4dbd379d1e977026a906593745d2a0fa6555c8f4b4bdf3227cd5975e3f23"
+    },
+    {
+      "line": 782,
+      "role": "typed mathematical premise or its audit",
+      "sha256": "9697aa1abb95023134997535ab7553e89300f105889e9adf401022c96983024f"
+    },
+    {
+      "line": 786,
+      "role": "context/predecessor only",
+      "sha256": "076bc7325cb326fdcf31fe5939a42f22d579190a56b40748ff5b7a9fa22c4aa3"
+    }
+  ],
+  "exact": {
+    "RH_height": "3000175332800",
+    "RH_margin": "350479773/2",
+    "RH_required_initial": "6000000185827/2",
+    "RH_source": "PT2021 arXiv:2004.09765",
+    "X": "6000000185827",
+    "a": "319/2000",
+    "anchor": "V1-H-213/V1-H-220",
+    "b": "3/16",
+    "excess_components": 0,
+    "full_boundary_squared_clearance": 3,
+    "missing_components": 0,
+    "positive_axis_boxes": 2,
+    "release_authorization": false,
+    "remaining_external_continuation_audits": [
+      774,
+      782
+    ],
+    "source_audit_consumed": 789,
+    "tail_exponent": "512000/319",
+    "tail_r": "319/4000",
+    "uniform_time_collar": "319/8000"
+  },
+  "index_coverage": {
+    "finite_integer_gaps": [],
+    "universal_wall_proof": "symbolic identities plus complete [n^2,(n+1)^2) partition",
+    "wall_controls": [
+      {
+        "index": 690987,
+        "n": 690988,
+        "r": "1909857664575/4",
+        "side": "left"
+      },
+      {
+        "index": 690988,
+        "n": 690988,
+        "r": "477464416144",
+        "side": "wall"
+      },
+      {
+        "index": 690988,
+        "n": 690988,
+        "r": "1909857664577/4",
+        "side": "right"
+      },
+      {
+        "index": 690988,
+        "n": 690989,
+        "r": "1909863192483/4",
+        "side": "left"
+      },
+      {
+        "index": 690989,
+        "n": 690989,
+        "r": "477465798121",
+        "side": "wall"
+      },
+      {
+        "index": 690989,
+        "n": 690989,
+        "r": "1909863192485/4",
+        "side": "right"
+      },
+      {
+        "index": 741268,
+        "n": 741269,
+        "r": "2197918921443/4",
+        "side": "left"
+      },
+      {
+        "index": 741269,
+        "n": 741269,
+        "r": "549479730361",
+        "side": "wall"
+      },
+      {
+        "index": 741269,
+        "n": 741269,
+        "r": "2197918921445/4",
+        "side": "right"
+      },
+      {
+        "index": 791550,
+        "n": 791551,
+        "r": "2506211942403/4",
+        "side": "left"
+      },
+      {
+        "index": 791551,
+        "n": 791551,
+        "r": "626552985601",
+        "side": "wall"
+      },
+      {
+        "index": 791551,
+        "n": 791551,
+        "r": "2506211942405/4",
+        "side": "right"
+      },
+      {
+        "index": 841831,
+        "n": 841832,
+        "r": "2834724464895/4",
+        "side": "left"
+      },
+      {
+        "index": 841832,
+        "n": 841832,
+        "r": "708681116224",
+        "side": "wall"
+      },
+      {
+        "index": 841832,
+        "n": 841832,
+        "r": "2834724464897/4",
+        "side": "right"
+      },
+      {
+        "index": 892113,
+        "n": 892114,
+        "r": "3183469555983/4",
+        "side": "left"
+      },
+      {
+        "index": 892114,
+        "n": 892114,
+        "r": "795867388996",
+        "side": "wall"
+      },
+      {
+        "index": 892114,
+        "n": 892114,
+        "r": "3183469555985/4",
+        "side": "right"
+      },
+      {
+        "index": 942394,
+        "n": 942395,
+        "r": "3552433344099/4",
+        "side": "left"
+      },
+      {
+        "index": 942395,
+        "n": 942395,
+        "r": "888108336025",
+        "side": "wall"
+      },
+      {
+        "index": 942395,
+        "n": 942395,
+        "r": "3552433344101/4",
+        "side": "right"
+      },
+      {
+        "index": 992676,
+        "n": 992677,
+        "r": "3941630505315/4",
+        "side": "left"
+      },
+      {
+        "index": 992677,
+        "n": 992677,
+        "r": "985407626329",
+        "side": "wall"
+      },
+      {
+        "index": 992677,
+        "n": 992677,
+        "r": "3941630505317/4",
+        "side": "right"
+      },
+      {
+        "index": 1042957,
+        "n": 1042958,
+        "r": "4351045559055/4",
+        "side": "left"
+      },
+      {
+        "index": 1042958,
+        "n": 1042958,
+        "r": "1087761389764",
+        "side": "wall"
+      },
+      {
+        "index": 1042958,
+        "n": 1042958,
+        "r": "4351045559057/4",
+        "side": "right"
+      },
+      {
+        "index": 1093239,
+        "n": 1093240,
+        "r": "4780694790399/4",
+        "side": "left"
+      },
+      {
+        "index": 1093240,
+        "n": 1093240,
+        "r": "1195173697600",
+        "side": "wall"
+      },
+      {
+        "index": 1093240,
+        "n": 1093240,
+        "r": "4780694790401/4",
+        "side": "right"
+      },
+      {
+        "index": 1118379,
+        "n": 1118380,
+        "r": "5003095297599/4",
+        "side": "left"
+      },
+      {
+        "index": 1118380,
+        "n": 1118380,
+        "r": "1250773824400",
+        "side": "wall"
+      },
+      {
+        "index": 1118380,
+        "n": 1118380,
+        "r": "5003095297601/4",
+        "side": "right"
+      },
+      {
+        "index": 1143520,
+        "n": 1143521,
+        "r": "5230561109763/4",
+        "side": "left"
+      },
+      {
+        "index": 1143521,
+        "n": 1143521,
+        "r": "1307640277441",
+        "side": "wall"
+      },
+      {
+        "index": 1143521,
+        "n": 1143521,
+        "r": "5230561109765/4",
+        "side": "right"
+      },
+      {
+        "index": 1168661,
+        "n": 1168662,
+        "r": "5463083480975/4",
+        "side": "left"
+      },
+      {
+        "index": 1168662,
+        "n": 1168662,
+        "r": "1365770870244",
+        "side": "wall"
+      },
+      {
+        "index": 1168662,
+        "n": 1168662,
+        "r": "5463083480977/4",
+        "side": "right"
+      },
+      {
+        "index": 1193802,
+        "n": 1193803,
+        "r": "5700662411235/4",
+        "side": "left"
+      },
+      {
+        "index": 1193803,
+        "n": 1193803,
+        "r": "1425165602809",
+        "side": "wall"
+      },
+      {
+        "index": 1193803,
+        "n": 1193803,
+        "r": "5700662411237/4",
+        "side": "right"
+      },
+      {
+        "index": 1218942,
+        "n": 1218943,
+        "r": "5943288148995/4",
+        "side": "left"
+      },
+      {
+        "index": 1218943,
+        "n": 1218943,
+        "r": "1485822037249",
+        "side": "wall"
+      },
+      {
+        "index": 1218943,
+        "n": 1218943,
+        "r": "5943288148997/4",
+        "side": "right"
+      },
+      {
+        "index": 1244083,
+        "n": 1244084,
+        "r": "6190979996223/4",
+        "side": "left"
+      },
+      {
+        "index": 1244084,
+        "n": 1244084,
+        "r": "1547744999056",
+        "side": "wall"
+      },
+      {
+        "index": 1244084,
+        "n": 1244084,
+        "r": "6190979996225/4",
+        "side": "right"
+      },
+      {
+        "index": 1269224,
+        "n": 1269225,
+        "r": "6443728402499/4",
+        "side": "left"
+      },
+      {
+        "index": 1269225,
+        "n": 1269225,
+        "r": "1610932100625",
+        "side": "wall"
+      },
+      {
+        "index": 1269225,
+        "n": 1269225,
+        "r": "6443728402501/4",
+        "side": "right"
+      },
+      {
+        "index": 1294365,
+        "n": 1294366,
+        "r": "6701533367823/4",
+        "side": "left"
+      },
+      {
+        "index": 1294366,
+        "n": 1294366,
+        "r": "1675383341956",
+        "side": "wall"
+      },
+      {
+        "index": 1294366,
+        "n": 1294366,
+        "r": "6701533367825/4",
+        "side": "right"
+      },
+      {
+        "index": 1319505,
+        "n": 1319506,
+        "r": "6964384336143/4",
+        "side": "left"
+      },
+      {
+        "index": 1319506,
+        "n": 1319506,
+        "r": "1741096084036",
+        "side": "wall"
+      },
+      {
+        "index": 1319506,
+        "n": 1319506,
+        "r": "6964384336145/4",
+        "side": "right"
+      },
+      {
+        "index": 1344646,
+        "n": 1344647,
+        "r": "7232302218435/4",
+        "side": "left"
+      },
+      {
+        "index": 1344647,
+        "n": 1344647,
+        "r": "1808075554609",
+        "side": "wall"
+      },
+      {
+        "index": 1344647,
+        "n": 1344647,
+        "r": "7232302218437/4",
+        "side": "right"
+      },
+      {
+        "index": 1369787,
+        "n": 1369788,
+        "r": "7505276659775/4",
+        "side": "left"
+      },
+      {
+        "index": 1369788,
+        "n": 1369788,
+        "r": "1876319164944",
+        "side": "wall"
+      },
+      {
+        "index": 1369788,
+        "n": 1369788,
+        "r": "7505276659777/4",
+        "side": "right"
+      },
+      {
+        "index": 1394928,
+        "n": 1394929,
+        "r": "7783307660163/4",
+        "side": "left"
+      },
+      {
+        "index": 1394929,
+        "n": 1394929,
+        "r": "1945826915041",
+        "side": "wall"
+      },
+      {
+        "index": 1394929,
+        "n": 1394929,
+        "r": "7783307660165/4",
+        "side": "right"
+      },
+      {
+        "index": 1420069,
+        "n": 1420070,
+        "r": "8066395219599/4",
+        "side": "left"
+      },
+      {
+        "index": 1420070,
+        "n": 1420070,
+        "r": "2016598804900",
+        "side": "wall"
+      },
+      {
+        "index": 1420070,
+        "n": 1420070,
+        "r": "8066395219601/4",
+        "side": "right"
+      },
+      {
+        "index": 1445210,
+        "n": 1445211,
+        "r": "8354539338083/4",
+        "side": "left"
+      },
+      {
+        "index": 1445211,
+        "n": 1445211,
+        "r": "2088634834521",
+        "side": "wall"
+      },
+      {
+        "index": 1445211,
+        "n": 1445211,
+        "r": "8354539338085/4",
+        "side": "right"
+      },
+      {
+        "index": 1470351,
+        "n": 1470352,
+        "r": "8647740015615/4",
+        "side": "left"
+      },
+      {
+        "index": 1470352,
+        "n": 1470352,
+        "r": "2161935003904",
+        "side": "wall"
+      },
+      {
+        "index": 1470352,
+        "n": 1470352,
+        "r": "8647740015617/4",
+        "side": "right"
+      },
+      {
+        "index": 1495492,
+        "n": 1495493,
+        "r": "8945997252195/4",
+        "side": "left"
+      },
+      {
+        "index": 1495493,
+        "n": 1495493,
+        "r": "2236499313049",
+        "side": "wall"
+      },
+      {
+        "index": 1495493,
+        "n": 1495493,
+        "r": "8945997252197/4",
+        "side": "right"
+      },
+      {
+        "index": 1520632,
+        "n": 1520633,
+        "r": "9249298882755/4",
+        "side": "left"
+      },
+      {
+        "index": 1520633,
+        "n": 1520633,
+        "r": "2312324720689",
+        "side": "wall"
+      },
+      {
+        "index": 1520633,
+        "n": 1520633,
+        "r": "9249298882757/4",
+        "side": "right"
+      },
+      {
+        "index": 1545773,
+        "n": 1545774,
+        "r": "9557669036303/4",
+        "side": "left"
+      },
+      {
+        "index": 1545774,
+        "n": 1545774,
+        "r": "2389417259076",
+        "side": "wall"
+      },
+      {
+        "index": 1545774,
+        "n": 1545774,
+        "r": "9557669036305/4",
+        "side": "right"
+      },
+      {
+        "index": 1570914,
+        "n": 1570915,
+        "r": "9871095748899/4",
+        "side": "left"
+      },
+      {
+        "index": 1570915,
+        "n": 1570915,
+        "r": "2467773937225",
+        "side": "wall"
+      },
+      {
+        "index": 1570915,
+        "n": 1570915,
+        "r": "9871095748901/4",
+        "side": "right"
+      },
+      {
+        "index": 1596055,
+        "n": 1596056,
+        "r": "10189579020543/4",
+        "side": "left"
+      },
+      {
+        "index": 1596056,
+        "n": 1596056,
+        "r": "2547394755136",
+        "side": "wall"
+      },
+      {
+        "index": 1596056,
+        "n": 1596056,
+        "r": "10189579020545/4",
+        "side": "right"
+      },
+      {
+        "index": 1621195,
+        "n": 1621196,
+        "r": "10513105881663/4",
+        "side": "left"
+      },
+      {
+        "index": 1621196,
+        "n": 1621196,
+        "r": "2628276470416",
+        "side": "wall"
+      },
+      {
+        "index": 1621196,
+        "n": 1621196,
+        "r": "10513105881665/4",
+        "side": "right"
+      },
+      {
+        "index": 1646336,
+        "n": 1646337,
+        "r": "10841702070275/4",
+        "side": "left"
+      },
+      {
+        "index": 1646337,
+        "n": 1646337,
+        "r": "2710425517569",
+        "side": "wall"
+      },
+      {
+        "index": 1646337,
+        "n": 1646337,
+        "r": "10841702070277/4",
+        "side": "right"
+      },
+      {
+        "index": 1671477,
+        "n": 1671478,
+        "r": "11175354817935/4",
+        "side": "left"
+      },
+      {
+        "index": 1671478,
+        "n": 1671478,
+        "r": "2793838704484",
+        "side": "wall"
+      },
+      {
+        "index": 1671478,
+        "n": 1671478,
+        "r": "11175354817937/4",
+        "side": "right"
+      },
+      {
+        "index": 1696618,
+        "n": 1696619,
+        "r": "11514064124643/4",
+        "side": "left"
+      },
+      {
+        "index": 1696619,
+        "n": 1696619,
+        "r": "2878516031161",
+        "side": "wall"
+      },
+      {
+        "index": 1696619,
+        "n": 1696619,
+        "r": "11514064124645/4",
+        "side": "right"
+      },
+      {
+        "index": 1721758,
+        "n": 1721759,
+        "r": "11857816216323/4",
+        "side": "left"
+      },
+      {
+        "index": 1721759,
+        "n": 1721759,
+        "r": "2964454054081",
+        "side": "wall"
+      },
+      {
+        "index": 1721759,
+        "n": 1721759,
+        "r": "11857816216325/4",
+        "side": "right"
+      },
+      {
+        "index": 1746899,
+        "n": 1746900,
+        "r": "12206638439999/4",
+        "side": "left"
+      },
+      {
+        "index": 1746900,
+        "n": 1746900,
+        "r": "3051659610000",
+        "side": "wall"
+      },
+      {
+        "index": 1746900,
+        "n": 1746900,
+        "r": "12206638440001/4",
+        "side": "right"
+      },
+      {
+        "index": 1797181,
+        "n": 1797182,
+        "r": "12919452564495/4",
+        "side": "left"
+      },
+      {
+        "index": 1797182,
+        "n": 1797182,
+        "r": "3229863141124",
+        "side": "wall"
+      },
+      {
+        "index": 1797182,
+        "n": 1797182,
+        "r": "12919452564497/4",
+        "side": "right"
+      },
+      {
+        "index": 1847463,
+        "n": 1847464,
+        "r": "13652492925183/4",
+        "side": "left"
+      },
+      {
+        "index": 1847464,
+        "n": 1847464,
+        "r": "3413123231296",
+        "side": "wall"
+      },
+      {
+        "index": 1847464,
+        "n": 1847464,
+        "r": "13652492925185/4",
+        "side": "right"
+      },
+      {
+        "index": 1897745,
+        "n": 1897746,
+        "r": "14405759522063/4",
+        "side": "left"
+      },
+      {
+        "index": 1897746,
+        "n": 1897746,
+        "r": "3601439880516",
+        "side": "wall"
+      },
+      {
+        "index": 1897746,
+        "n": 1897746,
+        "r": "14405759522065/4",
+        "side": "right"
+      },
+      {
+        "index": 1948026,
+        "n": 1948027,
+        "r": "15179236770915/4",
+        "side": "left"
+      },
+      {
+        "index": 1948027,
+        "n": 1948027,
+        "r": "3794809192729",
+        "side": "wall"
+      },
+      {
+        "index": 1948027,
+        "n": 1948027,
+        "r": "15179236770917/4",
+        "side": "right"
+      },
+      {
+        "index": 1998308,
+        "n": 1998309,
+        "r": "15972955437923/4",
+        "side": "left"
+      },
+      {
+        "index": 1998309,
+        "n": 1998309,
+        "r": "3993238859481",
+        "side": "wall"
+      },
+      {
+        "index": 1998309,
+        "n": 1998309,
+        "r": "15972955437925/4",
+        "side": "right"
+      },
+      {
+        "index": 2098871,
+        "n": 2098872,
+        "r": "17621054689535/4",
+        "side": "left"
+      },
+      {
+        "index": 2098872,
+        "n": 2098872,
+        "r": "4405263672384",
+        "side": "wall"
+      },
+      {
+        "index": 2098872,
+        "n": 2098872,
+        "r": "17621054689537/4",
+        "side": "right"
+      },
+      {
+        "index": 2199434,
+        "n": 2199435,
+        "r": "19350057276899/4",
+        "side": "left"
+      },
+      {
+        "index": 2199435,
+        "n": 2199435,
+        "r": "4837514319225",
+        "side": "wall"
+      },
+      {
+        "index": 2199435,
+        "n": 2199435,
+        "r": "19350057276901/4",
+        "side": "right"
+      },
+      {
+        "index": 2299997,
+        "n": 2299998,
+        "r": "21159963200015/4",
+        "side": "left"
+      },
+      {
+        "index": 2299998,
+        "n": 2299998,
+        "r": "5289990800004",
+        "side": "wall"
+      },
+      {
+        "index": 2299998,
+        "n": 2299998,
+        "r": "21159963200017/4",
+        "side": "right"
+      },
+      {
+        "index": 2299998,
+        "n": 2299999,
+        "r": "21159981600003/4",
+        "side": "left"
+      },
+      {
+        "index": 2299999,
+        "n": 2299999,
+        "r": "5289995400001",
+        "side": "wall"
+      },
+      {
+        "index": 2299999,
+        "n": 2299999,
+        "r": "21159981600005/4",
+        "side": "right"
+      },
+      {
+        "index": 2299999,
+        "n": 2300000,
+        "r": "21159999999999/4",
+        "side": "left"
+      },
+      {
+        "index": 2300000,
+        "n": 2300000,
+        "r": "5290000000000",
+        "side": "wall"
+      },
+      {
+        "index": 2300000,
+        "n": 2300000,
+        "r": "21160000000001/4",
+        "side": "right"
+      },
+      {
+        "index": 2300000,
+        "n": 2300001,
+        "r": "21160018400003/4",
+        "side": "left"
+      },
+      {
+        "index": 2300001,
+        "n": 2300001,
+        "r": "5290004600001",
+        "side": "wall"
+      },
+      {
+        "index": 2300001,
+        "n": 2300001,
+        "r": "21160018400005/4",
+        "side": "right"
+      },
+      {
+        "index": 999999999,
+        "n": 1000000000,
+        "r": "3999999999999999999/4",
+        "side": "left"
+      },
+      {
+        "index": 1000000000,
+        "n": 1000000000,
+        "r": "1000000000000000000",
+        "side": "wall"
+      },
+      {
+        "index": 1000000000,
+        "n": 1000000000,
+        "r": "4000000000000000001/4",
+        "side": "right"
+      },
+      {
+        "index": 99999999999999999999,
+        "n": 100000000000000000000,
+        "r": "39999999999999999999999999999999999999999/4",
+        "side": "left"
+      },
+      {
+        "index": 100000000000000000000,
+        "n": 100000000000000000000,
+        "r": "10000000000000000000000000000000000000000",
+        "side": "wall"
+      },
+      {
+        "index": 100000000000000000000,
+        "n": 100000000000000000000,
+        "r": "40000000000000000000000000000000000000001/4",
+        "side": "right"
+      }
+    ]
+  },
+  "mutations": [
+    {
+      "name": "wrong_RH_initial_height",
+      "reason": "exact physical site and split",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "unaccepted_RH_height",
+      "reason": "sole permitted RH height and initial map",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "initial_simplicity",
+      "reason": "initial simplicity not consumed",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "separator_missing_zero_time",
+      "reason": "separator time equals certified closed [0,b]",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "separator_only_upper_ordinate",
+      "reason": "separator ordinate and padded full boundary",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "zero_time_simple",
+      "reason": "no zero-time simplicity or late-time extension",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "only599_illustrative_COVER",
+      "reason": "physical box lies inside its supplier",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "old774_finite_time_domain",
+      "reason": "physical box lies inside its supplier",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "scalar_source_promotion",
+      "reason": "scalar floor is not weighted recovery input",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "smooth_only_polydisc",
+      "reason": "entire closed prime polydisc",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "finite_terminal_N",
+      "reason": "all natural indices no terminal cut",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "left_index_at_wall",
+      "reason": "right index chosen before differentiation",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "differentiate_floor_selector",
+      "reason": "right index chosen before differentiation",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "open_infinite_joint",
+      "reason": "finite/infinite joint includes H",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "missing_finite_leaf",
+      "reason": "all finite leaves and weight bins",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "omitted_weight_bin",
+      "reason": "all finite leaves and weight bins",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "omitted_old_term",
+      "reason": "complete old and entrant charges",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "omitted_entrants",
+      "reason": "complete old and entrant charges",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "unpaid_reverse_heat",
+      "reason": "backtime paid before forward stability",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "stability_before_debit",
+      "reason": "backtime paid before forward stability",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "zero_clock_correction",
+      "reason": "positive adverse clock correction retained",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "old_first_moment_cap",
+      "reason": "unbounded REAL projection supplier",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "complex_raw_derivative",
+      "reason": "normalized physical derivative in elementary M gauge",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "exact_Gamma_substitution",
+      "reason": "normalized physical derivative in elementary M gauge",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "unlicensed_stronger_derivative",
+      "reason": "exact physical implication thresholds",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "real_axis_tail_substitution",
+      "reason": "real-axis no-double is NOT all-complex tail",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "pointwise_time_tail",
+      "reason": "tail uniform across a neighbourhood",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "omitted_all_imaginary_parts",
+      "reason": "real-axis no-double is NOT all-complex tail",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "lost_first_partial_cell",
+      "reason": "tail radius exact fixed parameter",
+      "rejected": true,
+      "type": "typed-interface"
+    },
+    {
+      "name": "isolated_X_hole",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [],
+        "missing_cell_representatives": [
+          [
+            "319/2000",
+            "6000000185827"
+          ],
+          [
+            "347/2000",
+            "6000000185827"
+          ],
+          [
+            "3/16",
+            "6000000185827"
+          ]
+        ],
+        "z3_excess": "unsat",
+        "z3_missing": "sat"
+      }
+    },
+    {
+      "name": "isolated_lower_time_hole",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [],
+        "missing_cell_representatives": [
+          [
+            "319/2000",
+            "0"
+          ],
+          [
+            "319/2000",
+            "6000000185827/2"
+          ],
+          [
+            "319/2000",
+            "6000000185827"
+          ],
+          [
+            "319/2000",
+            "6000000185828"
+          ]
+        ],
+        "z3_excess": "unsat",
+        "z3_missing": "sat"
+      }
+    },
+    {
+      "name": "anchor_time_hole",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [],
+        "missing_cell_representatives": [
+          [
+            "3/16",
+            "0"
+          ],
+          [
+            "3/16",
+            "6000000185827/2"
+          ],
+          [
+            "3/16",
+            "6000000185827"
+          ],
+          [
+            "3/16",
+            "6000000185828"
+          ]
+        ],
+        "z3_excess": "unsat",
+        "z3_missing": "sat"
+      }
+    },
+    {
+      "name": "omitted_infinite_ray",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [],
+        "missing_cell_representatives": [
+          [
+            "319/2000",
+            "6000000185829"
+          ],
+          [
+            "347/2000",
+            "6000000185829"
+          ],
+          [
+            "3/16",
+            "6000000185829"
+          ]
+        ],
+        "z3_excess": "unsat",
+        "z3_missing": "sat"
+      }
+    },
+    {
+      "name": "unlicensed_negative_box",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [
+          [
+            "319/2000",
+            "-1"
+          ],
+          [
+            "319/2000",
+            "-1/2"
+          ],
+          [
+            "347/2000",
+            "-1"
+          ],
+          [
+            "347/2000",
+            "-1/2"
+          ],
+          [
+            "3/16",
+            "-1"
+          ],
+          [
+            "3/16",
+            "-1/2"
+          ]
+        ],
+        "missing_cell_representatives": [],
+        "z3_excess": "sat",
+        "z3_missing": "unsat"
+      }
+    },
+    {
+      "name": "unlicensed_earlier_time",
+      "rejected": true,
+      "type": "exact-union",
+      "witnesses": {
+        "excess_cell_representatives": [
+          [
+            "159/1000",
+            "6000000185827"
+          ],
+          [
+            "159/1000",
+            "6000000185828"
+          ],
+          [
+            "637/4000",
+            "6000000185827"
+          ],
+          [
+            "637/4000",
+            "6000000185828"
+          ]
+        ],
+        "missing_cell_representatives": [],
+        "z3_excess": "sat",
+        "z3_missing": "unsat"
+      }
+    },
+    {
+      "name": "missing_interval",
+      "reason": "integer finite-branch census",
+      "rejected": true,
+      "type": "integer-coverage"
+    },
+    {
+      "name": "first_endpoint_shift",
+      "reason": "integer finite-branch census",
+      "rejected": true,
+      "type": "integer-coverage"
+    },
+    {
+      "name": "last_endpoint_shift",
+      "reason": "integer finite-branch census",
+      "rejected": true,
+      "type": "integer-coverage"
+    }
+  ],
+  "smt_queries": [
+    {
+      "result": "unsat",
+      "sha256": "05fa47dde3561e0e92eaab36cf301415e6b0b50a938ba5b515bfe7fef98a9af6",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "9362e6652aa1186701bbc3a2ec9451dcd4717575ff3b9c602b4036a142fa21b3",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "4c679bbac9e2fc649b02600f54692c3389c1810c1ac4afdb84a3ccb417a4238b",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (< x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (< 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "d66af79d938494b0f678b0b35a9d1ccd049c5263d49f42700693536935436d7a",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (< x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (< 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "9cfa98a3f7d0dd37290a2436bc9d11aa1fb0cdce574aecd678438a23c702253e",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (< (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (< (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "fe6efcb7895ad30a1625cada3531e9d39f096a7d42206a90c513d4c058f84194",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (< (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (< (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "e9ec9a444a0e70d8638722f1cbad4a5e564e261b97fd269a0eedc9e219d654ab",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (< t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (< t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "2642e0b1c9a9893852cbc35f50bc502d995e7395da86f2ca7400e72b424e22d5",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (< t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (< t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "66aa0f4d4b1b5da1eaf35cd061d78f26e84c72cbf35fdf176982dd66f3ded70e",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 6000000185827 x) (<= x 6000000185828)))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "e9e4ee2dc925e9c217983c099c83bfd022be06113eedbdeb6e491708907c5c2a",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 6000000185827 x) (<= x 6000000185828)))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "7a6cee86f92082afa95a7069d07756e7d48143a6b9e6ad978f8c0e9288017ab3",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= (- 1) x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "3151f1ba9be5b079fe1a938d1145158fe18005d08fc2047daba203e7cfbf1970",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= (- 1) x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "4a816aff2f57d1f47e2354559c8e5e901a904f21749e2a306a7198575c7270ec",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 159 1000) t) (<= t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "sat",
+      "sha256": "7dbd6ac98482b7e761072ab710071303c56e21a16f31eab362d2306dc298c9aa",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 159 1000) t) (<= t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "c476f908e5d6c3d6d10467608ad07a11a758d46b9b7e49916ff5049ae57f03f8",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (< x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "27fea0177fb639faade555382243db419f5660efd6dae942ba688721c46f2397",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (< x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "119c3bd98bf4caf1c5280564194f25511b5533af01f367b1d201f44909d58177",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)) (not (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (< 6000000185827 x))))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "09161b0b216e674a254e28913c2f21e2840cd848a40e1ecdc2feab2a800b13a6",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(declare-const x Real)\n(assert (and (or (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (and (<= 0 x) (<= x 6000000185827))) (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (< 6000000185827 x))) (not (and (and (<= (/ 319 2000) t) (<= t (/ 3 16))) (<= 0 x)))))\n(check-sat)\n"
+    },
+    {
+      "result": "unsat",
+      "sha256": "75b5a68ee03a141f20ef983f4a207ab314b5ec3457cbd0a18fa4525fb80ac875",
+      "smtlib": "(set-logic QF_LRA)\n(declare-const t Real)\n(assert (and (<= (/ 319 2000) t) (<= t (/ 3 16)) (not (and (<= (/ 319 2000) t) (<= t (/ 3 16))))))\n(check-sat)\n"
+    }
+  ],
+  "symbolic_countermodels": {
+    "generic_torus": "P(z)=2z has torus modulus2 and interior zero at0",
+    "heat_axis_vs_complex": "F_t(z)=z^2+1-2t: solves backward heat; no real zero on [a,b], nonreal pair persists",
+    "initial_simplicity": "F_t(z)=z^2-2t: initial real double, positive-time simple",
+    "reverse_heat": "P=1-z/2,c=1/2,h=-4log2 evolves to1-z",
+    "scalar_vs_Gram": "P=11/100, delta=1/10, fake weight ratio1, rough r=2,s=1 gives (11/100)^2 < (1/10)^2*(1+3/4)"
+  }
+}

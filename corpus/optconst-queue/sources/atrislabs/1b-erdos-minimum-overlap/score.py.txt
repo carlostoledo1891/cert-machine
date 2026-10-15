@@ -1,0 +1,41 @@
+"""Original mathematical overlap: h,g=1-h on [0,2], both zero outside.
+
+Reject unequal mass. Source-prescribed normalization is explicit and reserved
+for replaying the published raw incumbent, never silently applied to a pick.
+"""
+from fractions import Fraction
+from arithmetic import cli, describe, integers, product
+
+
+def normalize_source(values):
+    if min(values) < 0 or max(values) > 1 or not sum(values):
+        raise ValueError("raw source heights must lie in [0,1] and have positive sum")
+    scale = Fraction(len(values), 2) / sum(values)
+    normalized = [scale * value for value in values]
+    if max(normalized) > 1:
+        raise ValueError("source normalization violates upper bound 1")
+    return normalized, scale
+
+
+def score(values):
+    n, total = len(values), sum(values)
+    if min(values) < 0 or max(values) > 1:
+        raise ValueError("overlap requires every height in [0,1]")
+    if total != Fraction(n, 2):
+        raise ValueError(f"sum must equal n/2 exactly; excess = {total - Fraction(n, 2)}")
+    a, denominator = integers(values)
+    complement_reversed = [denominator - v for v in reversed(a)]
+    correlation = product(a, complement_reversed)
+    peak = max(correlation)
+    return {"valid": True, "length": n, "sum": str(total),
+            "mass": describe(Fraction(2, n) * total),
+            "height_min": str(min(values)), "height_max": str(max(values)),
+            "score": describe(Fraction(2 * peak, n * denominator**2)),
+            "peak_shift_in_bins": correlation.index(peak) - (n - 1),
+            "constraints": {"nonempty": True, "finite_rational": True,
+                            "box_0_1": True, "exact_mass_1": True,
+                            "both_shift_signs": True, "zero_extension": True}}
+
+
+if __name__ == "__main__":
+    cli(score)

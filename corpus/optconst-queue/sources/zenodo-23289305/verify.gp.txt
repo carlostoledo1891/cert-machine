@@ -1,0 +1,107 @@
+\\ Check a lower bound for C_3c = SD({0,1,2,oo}; -1) with PARI/GP (independent of the Python check).
+\\
+\\ C_3c (problem 3c of Tao's optimization-constants repository), entropy formulation: the least constant C with
+\\ H(X - Y) <= C max(H(X), H(Y), H(X + Y), H(X + 2Y)) for all pairs of discrete random variables X, Y.
+\\
+\\ The certificate (JSON) gives a base B, positive integer counts a_1..a_K and K laws (points (x, y) in Z^2 with
+\\ positive rational weights).  (X, Y) = sum_i B^i (x_i, y_i) with n = a_1 + ... + a_K independent digits, a_k of
+\\ them distributed according to law k.  If every law has distinct points, weights summing to 1 and x - y injective
+\\ on its points, and 2|L(x, y)| < B for the five forms L = x - y, x, y, x + y, x + 2y, then
+\\ H(L(X, Y)) = sum_k a_k H(L(law k)) (balanced base-B digits), and H(X - Y) = sum_k a_k H(law k).
+\\ This script checks those conditions exactly (rational arithmetic) and recomputes the ratio
+\\ H(X - Y) / max(H(X), H(Y), H(X + Y), H(X + 2Y)) with natural logarithms at 250 significant digits.
+\\
+\\ Usage, in the folder of the certificate:   gp -q verify.gp
+\\ (another file: echo 'CERT = "other.json"; read("verify.gp")' | gp -q)
+
+default(realprecision, 250);
+if (type(CERT) == "t_POL", CERT = "certificate.json");
+
+\\ Minimal JSON reader, enough for this certificate (no escaped characters in strings, no true/false/null):
+\\ objects become Maps (string keys), arrays become vectors, integers stay exact.
+json_to_gp(s) =
+{
+  my(v = Vecsmall(s), n = #v, out = List(), st = List(), i = 1, c, j);
+  while (i <= n,
+    c = v[i];
+    if (c == 34,                                          \\ "string": copied unchanged
+      j = i + 1;
+      while (v[j] != 34, if (v[j] == 92, error("json_to_gp: escapes not supported")); j++);
+      listput(out, Strchr(v[i..j])); i = j + 1,
+    if (c == 123, listput(st, 123); listput(out, "Map(["); i++,      \\ {
+    if (c == 125, listpop(st); listput(out, "])"); i++,              \\ }
+    if (c == 91, listput(st, 91); listput(out, "["); i++,            \\ [
+    if (c == 93, listpop(st); listput(out, "]"); i++,                \\ ]
+    if (c == 58, listput(out, ","); i++,                             \\ :  (key, value)
+    if (c == 44, listput(out, if (st[#st] == 123, ";", ",")); i++,  \\ ,  (between pairs: new row)
+    if (c == 32 || c == 9 || c == 10 || c == 13, i++,
+      listput(out, Strchr(c)); i++)))))))));    \\ closes the eight if's and the while
+  eval(concat(Vec(out)));
+}
+
+\\ image of a law (points P, weights W) under the form (a, b): the vector of masses of the values a x + b y
+image(P, W, a, b) =
+{
+  my(M = Map(), k, old);
+  for (i = 1, #P,
+    k = a * P[i][1] + b * P[i][2];
+    if (mapisdefined(M, k, &old), mapput(M, k, old + W[i]), mapput(M, k, W[i])));
+  Mat(M)[, 2]~;
+}
+
+entropy(p) = -sum(i = 1, #p, p[i] * log(p[i]));
+
+verify_certificate(CERT) =
+{
+  my(C = json_to_gp(strjoin(readstr(CERT), " ")), B, A, laws, cl, claim, F, names, S, bad = 0, maxL = 0, P, W, Wv,
+     m, K, n, den, jmax, r);
+  B = mapget(C, "base"); A = mapget(C, "counts"); laws = mapget(C, "laws"); cl = mapget(C, "claimed_lower_bound");
+  F = [[1, -1], [1, 0], [0, 1], [1, 1], [1, 2]];
+  names = ["X-Y", "X", "Y", "X+Y", "X+2Y"];
+  K = #laws; S = vector(5);
+  if (type(B) != "t_INT" || B < 2, print("FAIL: base"); bad++);
+  if (type(cl[1]) != "t_INT" || type(cl[2]) != "t_INT" || cl[2] <= 0, print("FAIL: claimed bound"); bad++);
+  claim = cl[1] / cl[2];
+  if (#A != K, print("FAIL: number of counts"); bad++);
+  for (k = 1, #A, if (type(A[k]) != "t_INT" || A[k] <= 0, print("FAIL: count ", k, " is not a positive integer"); bad++));
+  n = vecsum(A);
+  for (k = 1, K,
+    P = mapget(laws[k], "points");
+    Wv = mapget(laws[k], "weights");
+    for (i = 1, #Wv, if (#Wv[i] != 2 || type(Wv[i][1]) != "t_INT" || type(Wv[i][2]) != "t_INT" || Wv[i][2] <= 0,
+      print("FAIL: law ", k, ": a weight is not a fraction of integers"); bad++));
+    W = vector(#Wv, i, Wv[i][1] / Wv[i][2]);
+    if (#P != #W, print("FAIL: law ", k, ": lengths"); bad++);
+    for (i = 1, #P, if (#P[i] != 2 || type(P[i][1]) != "t_INT" || type(P[i][2]) != "t_INT",
+      print("FAIL: law ", k, ": a point is not a pair of integers"); bad++));
+    if (#Set(P) != #P, print("FAIL: law ", k, ": repeated point"); bad++);
+    for (i = 1, #W, if (W[i] <= 0, print("FAIL: law ", k, ": weight ", i, " is not positive"); bad++));
+    if (vecsum(W) != 1, print("FAIL: law ", k, ": weights do not sum to 1"); bad++);
+    if (#Set(vector(#P, i, P[i][1] - P[i][2])) != #P, print("FAIL: law ", k, ": x - y not injective"); bad++);
+    m = vecmax(vector(5, j, vecmax(vector(#P, i, abs(F[j][1] * P[i][1] + F[j][2] * P[i][2])))));
+    maxL = max(maxL, m);
+    if (2 * m >= B, print("FAIL: law ", k, ": max |L| = ", m, " but base ", B); bad++));
+  print("certificate: ", CERT);
+  print("laws: ", K, "; points per law: ", vector(K, k, #mapget(laws[k], "points")), "; counts: ", A,
+        "; n = ", n, " digits; base ", B, "; max |L| = ", maxL);
+  print("exact checks: ", if (bad, "FAILED", "all passed"));
+  if (bad, print("RESULT: NOT confirmed"); return(0));
+  \\ the entropies: H(L(X, Y)) = sum_k a_k H(L(law k)) (see the header)
+  for (k = 1, K,
+    P = mapget(laws[k], "points");
+    Wv = mapget(laws[k], "weights");
+    W = vector(#Wv, i, Wv[i][1] / Wv[i][2]);
+    for (j = 1, 5, S[j] += A[k] * entropy(image(P, W, F[j][1], F[j][2]))));
+  print("entropies per digit (divided by n), natural log:");
+  for (j = 1, 5, printf("   H(%s)/n = %.45g\n", names[j], S[j] / n));
+  den = vecmax(S[2..5], &jmax);
+  r = S[1] / den;
+  printf("ratio H(X-Y)/max(...) = %.70g (largest denominator: H(%s))\n", r, names[jmax + 1]);
+  printf("claimed lower bound %d/%d; ratio - claim = %.12g\n", cl[1], cl[2], r - claim);
+  print("RESULT: ", if (r > claim, Str("confirmed (PARI/GP, 250 digits), C_3c >= ", cl[1], "/", cl[2]),
+                       "NOT confirmed"));
+  r > claim;
+}
+
+verify_certificate(CERT);
+quit;

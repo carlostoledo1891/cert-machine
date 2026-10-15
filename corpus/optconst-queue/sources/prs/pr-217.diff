@@ -1,0 +1,33 @@
+diff --git a/README.md b/README.md
+index 634a0e4..5250d0a 100644
+--- a/README.md
++++ b/README.md
+@@ -61,7 +61,7 @@ Bounds for which the level of available verification is currently at minimal lev
+ | [26b](https://teorth.github.io/optimizationproblems/constants/26b.html) | Multilinear Bohnenblust--Hille constant (real) | $2$ | $\infty$ |
+ | [27a](https://teorth.github.io/optimizationproblems/constants/27a.html) | Chromatic number of the plane | 5 | 7 |
+ | [27b](https://teorth.github.io/optimizationproblems/constants/27b.html) | Maximum Chromatic Number of Biplanar Graphs | 9 | 12 |
+-| [28](https://teorth.github.io/optimizationproblems/constants/28a.html) | Smallest dimension in which Borsuk’s conjecture fails | 4 | 63 |
++| [28](https://teorth.github.io/optimizationproblems/constants/28a.html) | Smallest dimension in which Borsuk’s conjecture fails | 4 | 9 |
+ | [29](https://teorth.github.io/optimizationproblems/constants/29a.html) | Kissing number in dimension $5$ | 40 | 44 |
+ | [30](https://teorth.github.io/optimizationproblems/constants/30a.html) | Stanley–Wilf limit for the permutation pattern $1324$ | 10.27 | 13.5 |
+ | [31](https://teorth.github.io/optimizationproblems/constants/31a.html) | Chvátal–Sankoff constant for a binary alphabet | 0.792665992 (0.79970*) | 0.826280 |
+diff --git a/constants/28a.md b/constants/28a.md
+index 824e80d..0c3ca46 100644
+--- a/constants/28a.md
++++ b/constants/28a.md
+@@ -62,6 +62,7 @@ If Borsuk’s conjecture were true in all dimensions, we would set $C_{28}=\inft
+ | $65$ | [[Bon2014](#Bon2014)] | Two-distance counterexample (416 points on $S^{64}\subset \mathbb{R}^{65}$); cannot be partitioned into $83$ smaller-diameter sets (so needs $\ge 84$). <a href="#Bon2014-ub-65">[Bon2014-ub-65]</a> |
+ | $64$ | [[JB2014](#JB2014)] | A 352-point two-distance subset giving a counterexample in $\mathbb{R}^{64}$; cannot be partitioned into $70$ smaller-diameter sets (so needs $\ge 71$). <a href="#JB2014-ub-64">[JB2014-ub-64]</a> |
+ | $63$ | [[Gri2026](#Gri2026)] | Current best: a $321$-point subset of $\mathbb{R}^{63}$ whose smaller-diameter subsets have size at most $5$, so at least $65>64$ parts are required. |
++| $9$| [[OAI2026](#OAI2026)] | |
+ 
+ ## Known lower bounds
+ 
+@@ -178,6 +179,7 @@ If Borsuk’s conjecture were true in all dimensions, we would set $C_{28}=\inft
+ 	  **quote:** “K. Borsuk [1] proved that the inequality $b(X) \le 3$ holds for any bounded set $X \subseteq E^2$. For $n = 3$, Borsuk’s conjecture was confirmed by H. G. Eggleston [4] in 1955.”
+ 
+ - <a id="Zon2021"></a>**[Zon2021]** Zong, Chuanming. *Borsuk’s partition conjecture.* Japanese Journal of Mathematics **16** (2021), 185–201. DOI: [10.1007/s11537-021-2007-7](https://doi.org/10.1007/s11537-021-2007-7)
++- <a id="OAI2026"></a>**[OAI2026]** OpenAI. *A nine-dimensional counterexample to Borsuk's covering assertion.* [OpenAI Math Release preprint](https://github.com/openai/math/blob/main/preprints/A-nine-dimensional-counterexample-to-Borsuks-covering-assertion-September-23-2026/paper.pdf), [Lean files](https://github.com/openai/math/tree/main/lean/OAI/Geometry/Borsuk)
+ 
+ ## Contribution notes
+ 

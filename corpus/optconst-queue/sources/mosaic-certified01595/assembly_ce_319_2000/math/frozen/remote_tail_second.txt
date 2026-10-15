@@ -1,0 +1,152 @@
+# Remote N-free tail: external analytic and arithmetic second line
+
+FOUNDATION. numerics_astra iteration 4. This is a clean second-line audit of the mathematical statement in prover_astra's `ce_remote_tail_stall_v1`, frozen by the reviewed hashes in SNAPSHOT.json. It is not adoption of an unbanked theorem: we give an independent proof below, use only the published Polymath input, and re-derive every live constant with our own code. The producer's scripts are neither copied nor executed. The producer's theorem was read as the object of the audit. No assertion is made about revisions with different hashes.
+
+**Result under review.** For every real `0<a<=1/2`, all `t in [a,1/2]`, and every zero z of H_t with
+
+`|Re z| >= 4*pi*exp(128/a)+1`,
+
+z is real and simple. Consequently, if the de Bruijn–Newman constant is positive, H_Lambda has a multiple real zero at a finite abscissa. Neither assertion has an RH-height hypothesis. This does not supply the affordable tail wall for a numerical record. The only reference to PT2021 here is contextual arithmetic for the existing V1-H-213 anchor; no zero from it is consumed by these lemmas.
+
+## A. Input audit, not source-token inference
+
+The only external file read is the immutable, sha256-pinned published Polymath source in the v1 archive. The proof uses its Theorem 1.3 on `0<t<=1/2, x>=200, 0<=y<=1`, with the following definitions. These were checked against the complete displays, not merely the presence of constants. V1-H-018 is the earlier banked transcription audit; it is not interpreted as extrapolation from its test points.
+
+For `q=x/(4*pi)`, `L=log(q)`, `N=floor(sqrt(q+t/16))`, and `b_n=exp(t log(n)^2/4)`, set
+
+```
+alpha(s) = 1/(2s)+1/(s-1)+Log(s/(2*pi))/2
+M_t(s) = M_0(s)*exp(t*alpha(s)^2/4)
+M_0(s) = sqrt(2*pi)/16 * s(s-1) * pi^(-s/2)
+         * exp((s/2-1/2)*Log(s/2)-s/2).
+```
+
+For `z=x+iy`, let `u=(1+iz)/2`, `v=(1-iz)/2`, `A=M_t(u)`, `B=M_t(v)`, `gamma=A/B`, `sstar=v+t*alpha(v)/2`, `sigma=Re(sstar)`, and `kappa=t*(alpha(u)-alpha(conj(v)))/2`. The published finite approximation to `H_t/B` is
+
+`sum b_n*n^(-sstar) + gamma*sum n^y*b_n*n^(-conj(sstar)-kappa)`.
+
+It is important that the whole complex saddle is present. There is no flat-phase replacement and no derivative of a Riemann–Siegel remainder. The n=1 term is exactly `1+gamma`, at every cutoff.
+
+The input estimates are
+
+```
+|gamma| <= exp(y/50)*q^(-y/2)
+sigma >= (1+y)/2+t*L/4
+          -t/(2*x^2)*(1-3*y+4*y*(1+y)/x^2)_+
+|kappa| <= t*y/(2*(x-6))
+eAB <= sum (1+|gamma|*N^|kappa|*n^y)*b_n*n^(-sigma)
+          * expm1(((t^2/16)*log(q/n^2)^2+313/500)/(x-333/50))
+eC <= q^(-(1+y)/4)*exp(-t*L^2/16
+       +(31/25)*(3^y+3^(-y))/(N-1/8)
+       +(3*|L+i*pi/2|+261/25)/(x-12)).
+```
+
+All rational constants match the published displays. There is no rounded-decimal assumption here. The effective error is for `H_t/B`, so multiplying by |B| and then relaxing to `max(|A|,|B|)` is in the correct direction. Reflection to the lower half strip is performed after the analytic model `G=A+B` has been selected; no unsupported reflection of a frozen-cutoff approximation is needed.
+
+## B. Uniform analytic reduction, in independent order
+
+Fix any allowed a and t and put `W=4*pi*exp(128/a)`. On `x>=W`, one has `L>=256` and `t*L>=128`. The lower bound `x>exp(L)>2^256` makes the input region and every denominator valid. Since `N<=sqrt(exp(L)+1/32)`,
+
+`log N <= L/2+1`, and `log(q/n^2)>=-log(1+1/(32*q))>-1` for n<=N.
+
+The latter lower bound uses the exact cutoff inequality, not the looser log-N estimate. This distinction protects the squared logarithm in eAB.
+
+For `0<=y<=1`, the sigma correction is smaller than `1/8`. Thus the logarithmic exponent of `b_n*n^(-sigma)` is bounded by
+
+`-log(n)*[(1+y)/2+t*L/8-t/4-1/8] <= -(65/4+y/2)*log(n)`.
+
+It follows that the coefficient magnitude is at most `n^(-16)`, with no cutoff dependence. The gamma factor splits into `exp(y/50)<2` and `(n/sqrt(q))^y<2`. Moreover
+
+`|kappa|*log(N) <= (L+2)/(4*x) <1/2`,
+
+so its exponential is <2. Both chiralities together have the factor bound `1+2*2*2=9`. Therefore the discarded terms n>=2 cost at most
+
+`9*S`, where `S=2^(-16)*(1+2/15)`.
+
+This is the integral test for the decreasing function u^(-16), retaining n=2 and bounding the remaining tail by its integral from 2.
+
+For eAB, the exponent is at most
+
+`U(L)=2*(L^2/64+1)*exp(-L)`.
+
+The derivative of `p(L)*exp(-L)` is `(p'(L)-p(L))*exp(-L)`. Our exact-polynomial checker translates L to `256+h` and verifies every coefficient of the derivative polynomial is negative. It does so independently for all four functions used here, so the reduction is a proof for every L>=256, not sampled endpoint evidence. In particular `U(L)<2050/2^256`. Since U<1/2, `expm1(U)<=2U`, and `9*(1+S)<10`, hence `eAB <=20*2050/2^256`.
+
+For eC, `3^y+3^(-y)<=4` follows from monotonicity on [0,1] and the even hyperbolic-cosine expression. Since N>=16 and `|L+i*pi/2|<=L+2`, its positive exponent is at most
+
+`(31/25)*4/(16-1/8)+(6*L+34)*exp(-L) <1`.
+
+Drop only the negative `-t*L^2/16`; retaining `q^(-(1+y)/4)<=exp(-L/4)` gives `eC<3/2^64`. Again the L-dependent positive correction is decreasing by an exact shifted-polynomial certificate.
+
+Define
+
+`epsilon=9*(2^(-16)+2^(-15)/15)+20*2050/2^256+3/2^64`.
+
+Our checker re-derives this rational and proves `epsilon<1/1024`. The whole analytic inequality is
+
+`|H_t-G| <= epsilon*max(|A|,|B|)`
+
+on x>=W and |y|<=1. It first holds for y>=0 and then for y<=0 because H and G are real-type, while A and B swap under conjugation. The value estimate is pointwise at every RS cutoff, including the endpoint. Both H and G are analytic independently of N. No index transition, differentiated discontinuity, or unverified analytic interpolation has entered the argument.
+
+## C. Independent phase proof and branch audit
+
+Use the logarithmic prefactor obtained by adding principal logs of s and s-1 in the fixed upper or lower half planes. Those domains contain every contour in question and a neighbourhood of it: the imaginary part of u or v stays bounded away from zero. Thus M_t is holomorphic, nonzero and conjugation-compatible, and a single logarithm of it is available on each relevant half plane.
+
+Let `m_t=log(M_0)+t*alpha^2/4` on these branches and set
+
+`K=(m_t(u)+m_t(v))/2`, `Theta=(m_t(u)-m_t(v))/(2i)`.
+
+Then `G=2*exp(K)*cos(Theta)`. Direct differentiation gives
+
+`Theta'=[beta(u)+beta(v)]/4`, `beta=alpha+(t/2)*alpha*alpha'`,
+
+where `alpha'=-1/(2s^2)-1/(s-1)^2+1/(2s)`. The signs of the two chain factors are both positive after division by 2i. Our local automatic-differentiation checks form logarithmic prefactors as Arb complex power series and differentiate them, a representation independent of the producer's symbolic helper and pointwise beta formula. These are only normalization tests; the following inequalities give universality.
+
+For `s=(h +/- i*x)/2`, `0<=h<=2`, write the leading logarithm as `L +/- i*pi/2`. Its difference from `Log(s/(2*pi))` is `Log(1+w)` with |w|<=2/x. The absolutely convergent logarithm series gives error <=4/x. The rational terms of alpha cost at most 1/x and 2/x. Hence
+
+`|alpha-(L/2 +/- i*pi/4)|<=5/x`, `|alpha|<=L/2+2`, and `|alpha'|<=2/x`.
+
+As t/2<=1/4, each beta differs from its respective leading value by at most `(L/4+6)/x`. Averaging the two cancels the opposite leading imaginary terms and yields
+
+`|Theta'(x+iy)-L/4| <= (L/8+3)/x <= (L/8+3)*exp(-L) <1/8`.
+
+The last function is decreasing on L>=256, certified in the exact-polynomial layer. Therefore `Re Theta'>=511/8` on the closed strip. On the real axis Theta is real, strictly increasing and unbounded. Every next phase node `Theta(x_k)=k*pi` exists uniquely. Its gap from a preceding point before that next level is at most `pi/(511/8)<1`. The checker additionally verifies the sharper bound below one twentieth, but this sharper bound is not needed for the theorem.
+
+## D. Contour quantifiers, including the first partial cell
+
+Let x_0 be the first phase node at or to the right of W, then enumerate all later consecutive nodes. The positive derivative implies `W<=x_0<W+1` and x_k tends to infinity. For each k use the rectangle `[x_k,x_(k+1)]+i[-1,1]`.
+
+On a vertical side, integrating `dTheta/dy=i*Theta'` gives a change in Re Theta of magnitude at most 1/8 from k*pi. This uses the imaginary part of Theta', not its real part. If Theta=theta+i*eta and `r=exp(-2*|eta|)`, direct normalization gives
+
+`|G|^2/max(|A|,|B|)^2=1+r^2+2*r*cos(2*theta)`.
+
+Here cos(2*theta)>0 on those sides; the model dominates max(|A|,|B|). On the horizontal sides, integrating Re Theta' from the real axis gives `|eta|>=511/8`. The reverse triangle inequality then bounds the same model ratio below `1-exp(-511/4)>1/2`. All four edge comparisons exceed epsilon strictly, including the corners.
+
+Rouche applies to H and G because both are analytic on a neighbourhood of the full closed rectangle. G has exactly one simple zero there: Im Theta has the strict sign of y off the real axis, and Theta runs strictly through exactly one zero value of cosine on the real segment. Its derivative does not vanish. H therefore also has exactly one zero counted with multiplicity. Real-type symmetry of H and conjugation invariance of the rectangle force this unique zero to be real; count one forces simplicity.
+
+The boundaries are zero-free, so adjacent closed rectangles glue without a vertical-edge gap. Their union covers all real parts >=W+1. The earlier partial cell is NOT claimed; the explicit +1 pays for it. Zeros outside |Im z|<=1 are excluded by the classical de Bruijn strip bound for t>=0. Evenness gives the negative real half-plane. This proves the stated remote tail for every real a,t, with unbounded N and all imaginary parts. There is no grid extrapolation.
+
+## E. Stall implication checked independently
+
+At positive Lambda the real-zero property holds by the threshold characterization, or by Hurwitz/Rouche and local uniform convergence from larger t. The limiting function is not zero identically, since its Fourier-kernel representation has H_Lambda(0)>0.
+
+Choose a=Lambda/2. De Bruijn's classical upper bound gives Lambda<=1/2. The remote theorem then supplies the SINGLE explicit radius
+
+`R=4*pi*exp(256/Lambda)+1`
+
+for every t in `[Lambda/2,1/2]`, including a whole left neighbourhood of Lambda. If all zeros at Lambda were simple, choose B>R avoiding their real abscissae. The rectangle `|Re z|<=B, |Im z|<=1` has only finitely many zeros, all real and simple, and none on its boundary. Disjoint small real-centred disks isolate those zeros. The complement of the disk interiors in the rectangle is compact and zero-free, so H_t remains zero-free there for all t sufficiently near Lambda. Rouche preserves count one in each disk; conjugation makes each continued zero real.
+
+For a t strictly between Lambda/2 and Lambda and sufficiently close to Lambda, every remaining zero outside the compact rectangle is real by the uniform tail, and the de Bruijn strip excludes larger imaginary parts. Thus H_t would have only real zeros below Lambda, a contradiction. The upper endpoint Lambda=1/2 causes no difficulty: only the left neighbourhood is used. Initial simplicity from RH is not used anywhere.
+
+## F. Adversarial findings and sufficient rung
+
+- The derivative and logarithm directions, lower-half reflection, cutoff endpoint, real/complex phase normalization, first discarded cell, and closed time endpoints were audited explicitly above. No load-bearing defect was found in this snapshot.
+- The producer has a final `check(..., True)` after calling its independent audit. It is a completion marker rather than the arithmetic gate: the preceding checker raises on failed comparisons. We did NOT treat it as evidence and independently reconstructed the inequalities. It is not by itself a demonstrated soundness failure. Our checker contains no such marker gate.
+- Source-token and source-hash gates are provenance only. The analytic input and all-a proof have been restated explicitly; a green provenance gate is not a theorem proof.
+- Rung requested: (b), an external zero-shared-code line for new analytic machinery, with separate constant derivations, exact rational-polynomial monotonicity instead of the producer's SymPy routines, Arb complex power-series differentiation instead of producer phase routines, and a complete independent contour/compactness proof audit. The independent verifier decides the rung it accepts.
+- Old geometry anchors V1-H-017 and V1-H-064 validate normalization in different regimes but are not offered as sufficient validation of this new analytic theorem.
+
+## G. Replay and scope
+
+Run `/usr/bin/python3 verify.py` in this directory or a fresh copy. Every gate is exact Fraction/integer arithmetic or an outward Arb comparison. Digits are obtained by FLOOR/CEIL from exact rational or dyadic endpoints; both negative-direction cases are self-tested. Source hashes pin this release. The checker imports no producer helpers and reads no producer workspace, live bank, or third-party package.
+
+The proof covers all `0<a<=1/2`, `t in [a,1/2]`, all indices and all y, beyond the stated remote radius. It leaves the entire economical exterior/transition/tail joint OPEN. No separator and no Lambda improvement are certified. The finite RH-height contextual margin is the accepted `350479773/2`; it is not an assumption of the tail or stall theorem.

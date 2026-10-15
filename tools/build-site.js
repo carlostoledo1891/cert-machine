@@ -387,6 +387,30 @@ const REPORTS = [
     desc: 'OpenAI\'s 719 machine-generated manuscripts and 416 Comparator challenges, audited three ways — a second kernel, every Lean statement read against its claim, every finite witness re-decided exactly — and the gaps between what is claimed and what is checked, ranked and pinned to file and line at the commit audited, found before any fix.',
     n: (() => { const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'findings.json'), 'utf8')), S = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-statements.json'), 'utf8'));
       return G.findings.length + ' gaps found ' + G.found + ' · ' + ((S.counts.words.DIFFERENT || 0) + (S.counts.words['NARROWER — UNDECLARED'] || 0)) + ' of ' + S.rows.length + ' formalized families short of their claim · nothing refuted'; })() },
+  { g: 'ai', f: 'optconst-queue.html', k: 'audit · the constants registry\'s PR queue',
+    title: 'Five pull requests to the constants registry, decided where decidable',
+    desc: 'Tao\'s optimization-constants registry has fifteen open, mostly machine-assisted pull requests and no review since September. Five read from their submissions: two exact step functions tightening C₁a and C₁b, '
+      + 'a two-law entropy certificate for C₃c, five one-line bounds, OpenAI\'s Borsuk counterexample, and a de Bruijn–Newman "certified record package" at 0.1595 whose scorer compares rationals and hashes while its analysis cites a bank outside the bundle — '
+      + 'every finite object holds, the proofs read hold, the package is refused.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'optq-ledger.json'), 'utf8'));
+      if (L.counts.REFUTED !== 0) fail('the PR-queue card would misstate the record');
+      return L.counts.CERTIFIED + ' certified · ' + L.counts.REFUSED + ' refused · C₁a ≤ 1.5027435 · C₃c ≥ 1.674894 · Λ ≤ 0.1595 refused'; })() },
+  { g: 'ai', f: 'wowii-counterexamples.html', k: 'audit · five Graffiti.pc conjectures',
+    title: 'Written on the Wall II: five counterexamples, decided',
+    desc: 'One account filed sixty Graffiti.pc conjectures with disproofs on formal-conjectures in a day. The five with explicit witness graphs — total domination in trees, 2-domination in bridged cliques — '
+      + 'rebuilt from the author\'s own Lean tables and decided in exact arithmetic from the archive\'s definitions: all five refute their conjectures by the stated margins; two notes on the Lean statements; '
+      + 'the cited fork commits vanished the same evening, the copies decided are pinned.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'wowii-ledger.json'), 'utf8'));
+      if (L.counts.CERTIFIED !== 5) fail('the WOWII card would misstate the record');
+      return '5 of 5 witnesses certified · trees of 25, 41, 150 vertices · clique graphs of 39 and 15'; })() },
+  { g: 'ai', f: 'alphaevolve-community.html', k: 'audit · a registry\'s unanswered claims',
+    title: 'The AlphaEvolve repository\'s community certificates, decided',
+    desc: 'Eight issues on DeepMind\'s repository of problems offer explicit objects beating its recorded bests — sphere-free grid sets to n = 40, two 58-point isosceles-free sets where the literature says 56 is optimal, '
+      + 'ring loading at 47/42 and 9/8, a sum-difference set past Penman–Wells — most found by language-model searches, none answered. Every finite object decided here in integers from the notebooks\' definitions; '
+      + 'the two claims with nothing finite to decide refused and named.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'aerp-ledger.json'), 'utf8'));
+      if (L.counts.REFUTED !== 0) fail('the AlphaEvolve community card would misstate the record');
+      return L.counts.CERTIFIED + ' claims certified · ' + L.counts.REFUSED + ' refused · C(40) ≥ ' + L.p60BestCertifiedPerN['40'] + ' · C(32) ≥ 58 · 9/8'; })() },
   { g: 'ai', f: 'bandeira.html', k: 'audit · a disproof of an open problem',
     title: 'Bandeira\'s Open Problem 0.2(a): the disproof, decided',
     desc: 'An autonomous research system published a disproof of Bandeira\'s matrix AM–GM problem at n = 5 — an exact rational Farkas certificate for Lai–Lim\'s semidefinite program and a Lean proof. '

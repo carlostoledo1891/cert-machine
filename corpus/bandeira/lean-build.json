@@ -1,0 +1,92 @@
+{
+ "status": "BUILT",
+ "what": "the default Lake target of Oxelra-AI/Bandeira-0.2a-open-source at c4137344 built at its pins (lean-toolchain v4.29.1, Mathlib from lake-manifest.json via lake exe cache get); then the axioms of its main theorems asked of the kernel with #print axioms from a scratch file imported against the built oleans",
+ "jobs": 3759,
+ "start": "2026-10-15T03:37:44Z",
+ "cacheDone": "2026-10-15T03:42:01Z",
+ "end": "2026-10-15T20:38:04Z",
+ "note": "the three NativePSD native_decide modules dominated the wall time (one SIGSTOP pause of ~40 min on battery is included); the Blocks compiled in minutes once they ran",
+ "slowestModules": [
+  [
+   "Formalization.Certificate.NativePSD.NativeSplitB1Entry30_30",
+   53734
+  ],
+  [
+   "Formalization.Certificate.NativePSD.NativeSplitB1Entry00_00",
+   53381
+  ],
+  [
+   "Formalization.Tests.SplitTestAssembly",
+   53381
+  ],
+  [
+   "Formalization.Certificate.NativePSD.NativePSDProbeB1K31",
+   27224
+  ]
+ ],
+ "axioms": {
+  "QiushiFarkasChain.negM_full_posSemidef": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "QiushiFarkasNativeAdapter.no_native_farkas_feasible": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "QiushiFarkas.no_lailim_feasible_from_certificate_semantics": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "QiushiFarkas.no_generated_certificate_adapter": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "QiushiB1.block1_Q_posSemidef": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "Qiushi.BandeiraAMGM.rrnn_iff_bandeira02a": [],
+  "Qiushi.BandeiraAMGM.exists_not_bandeira02a_of_exists_not_rrnn": [],
+  "spectralNormPSD_pow_full": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "QiushiFarkasStandardFull.m00_reconstructed": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ],
+  "Qiushi.BandeiraAMGM.qiushi_lailim_int_bound": [
+   "Qiushi.BandeiraAMGM.qiushi_lailim_int_bound._native.native_decide.ax_1_1"
+  ],
+  "Qiushi.BandeiraAMGM.qiushi_rrnn_iff_bandeira": []
+ },
+ "axiomsSummary": "every theorem of the -M chain and the Farkas files uses only propext, Classical.choice and Quot.sound; the two Core equivalence theorems use no axiom at all; the one native_decide on the default target is the integer bound 144 > 5! (ConcreteIdentities.lean), which is not load-bearing",
+ "structuresPrinted": {
+  "NativeFarkasFeasible": {
+   "M": "Matrix n n \u211d",
+   "Y": "Matrix n n \u211d",
+   "c0": "\u211d",
+   "lin": "\u211d",
+   "pairM": "\u211d",
+   "hY": "self.Y.PosSemidef",
+   "hNSD": "(-self.M).PosSemidef",
+   "hTrace": "self.pairM = (self.M * self.Y).trace",
+   "hBound": "self.c0 \u2264 120",
+   "hStandard": "self.pairM = -146 / 2061 * self.c0 + self.lin",
+   "hScalar": "120 * (-146 / 2061) + self.lin > 0"
+  }
+ },
+ "reading": "the kernel confirms the statements read in row bandeira-02a-lean-reading: NativeFarkasFeasible carries hNSD, hTrace, hStandard, hBound, hScalar as FIELDS; no SDP is defined and negM_full_posSemidef is never supplied to the contradiction",
+ "summary": "BUILT: 3759 jobs, every main theorem on the standard three axioms (the Core equivalence on none; the integer bound 144 > 120 on native_decide). The structures printed by the kernel carry the pairing as fields, as read.",
+ "logs": {
+  "build": "e4aaf4bc82dbe7f4406d02c6d3bdeca681d5b078664515194ea3305c851d4c3a",
+  "axioms": "3db45b3cdf2f51c55f2b51fb518ea2dbd8a2099202335175d88ac4a7c6635d4d"
+ }
+}

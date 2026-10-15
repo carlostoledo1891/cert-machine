@@ -116,6 +116,9 @@ test:
 	@printf "%-30s " "kissing gram form"; $(PY) instruments/kissing/wave/gram_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "aerp (AlphaEvolve community)"; $(PY) instruments/aerp/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "wowii (Graffiti.pc witnesses)"; $(PY) instruments/wowii/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "optq (constants PR queue)"; $(PY) instruments/optq/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -236,6 +239,12 @@ reports:
 	@$(NODE) tools/build-report-countex.js
 	@$(PY) -I tools/run-bandeira-ledger.py
 	@$(NODE) tools/build-report-bandeira.js
+	@$(PY) -I tools/run-aerp-ledger.py
+	@$(NODE) tools/build-report-aerp.js
+	@$(PY) -I tools/run-wowii-ledger.py
+	@$(NODE) tools/build-report-wowii.js
+	@$(PY) -I tools/run-optq-ledger.py
+	@$(NODE) tools/build-report-optq.js
 	@$(NODE) tools/build-report-openai-math.js
 	@$(PY) tools/run-horizonmath-ledger.py
 	@$(NODE) tools/build-report-horizonmath.js

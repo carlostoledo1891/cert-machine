@@ -1,0 +1,84 @@
+# FOUNDATION — CE_INTERIOR_PT2021
+
+## 1. Statement and quantifier audit
+
+Set X=6000000185827 and A=3/16. For every **real** t in the **closed** interval [0,A] and every complex z satisfying |Re z|<=X,
+
+    H_t(z)=0  ==>  Im z=0.
+
+If also t>0, that zero is simple: H'_t(z)!=0. In particular, for every real ell with 0<ell<=A, there is no pair (t,x) in the **closed** rectangle [ell,A] x [-X,X] with H_t(x)=H'_t(x)=0. At x=+X or -X the stronger boundary nonvanishing applies. The assertion at t=0 is reality only; initial simplicity is neither assumed nor concluded.
+
+The working record interface is the positive-half-axis rectangle
+
+    COVER module=interior t=[333/2000,3/16] x=[0,6000000185827]
+
+with y=0 for collision exclusion. Reflection supplies the negative half-axis. The intermediate analytic rectangle has all t in [0,A], all |x|<=X and all |y|<=2. The final zero-location assertion covers **all** imaginary parts, not just this rectangle. There is no Riemann–Siegel index restriction in this analytic conclusion. The consumed vertical-line certificate uses N=690988; its fixed index is not extended to the interior.
+
+RH-height dependency: only the existing PT2021 theorem at T=3000175332800, consumed at T_required=X/2=6000000185827/2, with exact positive margin 350479773/2. No higher-height RH verification, zero isolation, or initial simplicity is required. No exterior statement or new Lambda upper bound follows from the interior module alone.
+
+## 2. Consumed bank snapshot, not new claims
+
+CITATIONS.json freezes the session-opening verified facts. Their fact strings and snapshot metadata are hashed; the verifier, not a local hash test, authenticates banked status.
+
+- **Memory line 596, rh_astra-s4, STATIONARY FULL-STRIP SEPARATOR.** For every t in closed [0,A], H_t(+/-X+i*y) is nonzero for all |y|<=1. It supplies |H_t(X+i*y)/B_t(X+i*y)|>7/800 for y in [0,1], symmetry, and the initial PT2021 interface. Consume only its boundary nonvanishing, its exact site/time range, and its stated initialization. No new numerical evaluation is asserted.
+- **Memory line 590, prover_astra-s4, compact moving-separator lemma.** A jointly analytic real-type backward-heat solution, nonzero on each time slice, with zero-free full boundary of a compact continuous moving rectangle and all initial interior zeros real, has all interior zeros real on [0,A] and simple on (0,A]. It explicitly does not assume initial simplicity, differentiable motion or monotone motion.
+- **V1-H-017, criterion_theorem, normalization and published strip theorem.** H_0(z)=xi(1/2+i*z/2)/8; x=2*T and y=1-2*sigma. The published de Bruijn theorem, together with the initial xi strip, gives |Im z|<=sqrt(1-2*t) for every zero at 0<=t<=A. This is unconditional in RH. The pinned published excerpts retain the actual strict exclusion outside the closed strip.
+- **V1-H-213, assembly_1875.** Its PT2021 input authenticates the common-site height and margin. Its numerical window/tail/barrier legs are not consumed here. Its Lambda anchor is not needed to prove this interior statement.
+
+SNAPSHOT: the two mosaic2 facts mean exactly those lines in the frozen snapshot, not a claim that no later successor exists. The boundary fact retains its explicit qualification that a separately authored full-domain numerical second line is required before record use. This composition neither removes that qualification nor presents its arithmetic checker as such a numerical second line. The generic compact-separator theorem has its own accepted analytic proofs and checks.
+
+Novelty: line 596 explicitly stops before interior propagation; line 590 is a generic theorem without a supplied numerical separator. This package supplies the full-boundary join and instantiates the theorem, producing the closed positive-time interior collision module. It does not re-claim either input.
+
+## 3. Structural device: pad the rectangle, not the computation
+
+Let
+
+    K={z: |Re z|<=X, |Im z|<=Y},   Y=2,
+    s(t)=X for 0<=t<=A.
+
+This is stationary, continuous, positive and compact. The numerical separator itself remains exactly the banked one; there is no change in X, no offset, no slope, and no new numerical height sweep.
+
+For all real t in [0,A], the global strip bound implies every zero lies in |Im z|<=sqrt(1-2*t)<=1. The boundary of K is therefore zero-free, as follows.
+
+1. **Vertical middle:** at x=+/-X and |y|<=1 use line 596, including y=+/-1 and t=0,A.
+2. **Vertical extensions:** at x=+/-X and 1<|y|<=2, the global strip excludes zeros. This extension is open at |y|=1; the preceding numerical piece covers that exact joint.
+3. **Horizontal edges:** at y=+/-2 and all |x|<=X, the global strip excludes zeros. The squared clearance is
+
+       Y^2-(1-2*t)=3+2*t>=3>0.
+
+   This works at t=0 as well as t>0. All four corners are covered by the same strict exclusion.
+
+Padding avoids a separate horizontal-endpoint argument at |y|=1,t=0. It does not strengthen the de Bruijn strip theorem or rely on a sampled grid. In particular, an inequality |Im z|<=1 by itself would not exclude zeros on the unpadded horizontal boundary; the strict gap at height 2 is deliberate.
+
+## 4. Initialization and analytic hypotheses
+
+The integral H_t(z)=integral_0^infinity exp(t*u^2)*Phi(u)*cos(z*u) du is jointly entire in complex t,z: on any compact t,z set its derivatives are dominated by a fixed polynomial/exponential factor times the super-exponentially decreasing kernel. Hence differentiation under the integral gives d_t H=-d_z^2 H. For real t the function is real-type and even in z. These are the standard analytic hypotheses already used in line 590 and stated in the published source. The checker separately verifies the kernel differential identity and its even/conjugate symmetries.
+
+No time slice is identically zero, because line 596 supplies H_t(X)!=0 at every t in [0,A]. This uses no positivity estimate or new function evaluation.
+
+At t=0, every H_0 zero with |Re z|<=X maps under s=1/2+i*z/2 to a nontrivial completed-zeta zero with |Im s|<=X/2. If Re z<0, conjugation reduces to the nonnegative height. PT2021, in the already banked interface of lines 596 and V1-H-213, puts it at Re s=1/2 and hence Im z=0. Multiplicities are not used. The identities
+
+    Im s=Re z/2,   Re s=(1-Im z)/2,
+    T_PT-X/2=350479773/2>0
+
+are re-derived exactly. Zeros outside |Im z|<=1 do not arise by the initial xi-strip statement; padding adds no initialization obligation. The fact that completed xi has the usual nontrivial zeros is part of V1-H-017's consumed normalization interface, not an assertion that the raw factors s(s-1) contribute zeros at their removable endpoints.
+
+Thus every hypothesis of memory line 590 holds for H on K and t in [0,A]. It gives reality of the interior zeros for the closed band and simplicity for the positive-time band (0,A]. There are no boundary zeros, and every H_t zero is inside the horizontal strip |y|<=1<Y. This extends the conclusion to every zero with |Re z|<=X, including the empty vertical boundary, and proves Section 1.
+
+## 5. Closed time joins and what the cover does not say
+
+Simplicity at all t>0 licenses [ell,A] for every positive ell<=A, including t=A. On x=0 the same theorem applies without a special one-sided argument, because x=0 is inside K. At x=X the numerical boundary is zero-free; an exterior certificate beginning at X therefore shares the exact x endpoint.
+
+The script deliberately rejects ell=0 in its COVER emitter. The printed record-contract example beginning at zero must not be used as a simplicity claim on the basis of an initialization that supplies only reality. Using the strictly positive working ell loses no part of the collision band.
+
+Only `interior` is printed. The residual half-line (X,infinity) for every t in [333/2000,A] is **not certified here**. The exterior and tail must separately certify no real double zero, with every spatial/time joint and true-function charge covered. The positive-stall theorem and a proved anchor are also necessary for any Lambda conclusion. This package does not emit RECORD lines and is not a record candidate.
+
+## 6. Verification and second-line scope
+
+Run `/usr/bin/python3 verify.py` from a copy of this directory. The main line uses exact Fractions and symbolic polynomial identities. It authenticates the pinned published source excerpts and frozen bank fact texts, checks the consumed intervals, verifies exact closed/open coverage, and emits the single licensed interior box. `second_line.py` independently checks the same coordinate/range arithmetic by doubled integer heights, cross-products, and a different interval subdivision implementation.
+
+FOUNDATION ladder: rung (a) for this composition's established arithmetic, reproducing both the V1-H-017 published-site height/margin and the V1-H-213 campaign-site height/margin. The padding inequality is also checked symbolically for all t, not sampled. No new numerical H_t machinery or new all-m Hermite theorem is asserted, so neither is purportedly calibrated by these two arithmetic anchors. The banked theorem proofs and the separator's record-use qualification remain the load-bearing inputs.
+
+Adverse tests reject an ell=0 collision cover, an ell beyond A, a site outside PT2021, an uncovered vertical joint, and an artificial loss of the separator's final time. The checker reads only its own directory and one sha256-pinned immutable published-source file under the allowed v1 archive. It never executes producer code or reads a live bank/workspace.
+
+Credit Daniel Martin Kornaus for the collision/separator architecture. No PR #180 theorem, constant, code or artifact is consumed.

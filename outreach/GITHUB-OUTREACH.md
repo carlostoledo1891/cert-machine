@@ -331,3 +331,9 @@ Lean proves (-M) PSD for their matrices and IsEmpty of structures that assume th
 are at the boundary their paper declares external; the conclusion stands. The Lean build at their pins runs on the laptop
 (scratchpad bandeira-lean.log); record corpus/bandeira/lean-build.json before citing the kernel's axioms.
 
+## §C The three audits of 2026-10-15 (nothing sent; drafts in outreach/three-campaigns-2026-10-15.md)
+
+- google-deepmind/alphaevolve_repository_of_problems issues #4-#12: certs/aerp-ledger.json (70 CERTIFIED, 2 REFUSED), /reports/alphaevolve-community.html. The owners have answered no issue; our comments would be the first replies (lane AE).
+- google-deepmind/formal-conjectures issues #7304/#7305/#7306/#7308/#7330 (RhudeJJJJ): certs/wowii-ledger.json (5/5 CERTIFIED), /reports/wowii-counterexamples.html; the fork's cited commits vanished the same evening (lane W).
+- teorth/optimizationproblems PRs #210/#217/#221/#225/#226: certs/optq-ledger.json, /reports/optconst-queue.html; the #210 refusal comment is the sensitive one (lane T). Our own PR #216 there is still open.
+

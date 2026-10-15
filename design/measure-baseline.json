@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
   "recorded": "2026-10-15",
-  "browser": "Chrome/155.0.8059.79",
+  "browser": "Chrome/155.0.8059.80",
   "viewports": [
     1440,
     768,
@@ -159,7 +159,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "bc0b2152e9620cf65cd9a78c24f600b69044102d74ec5743b8fbd0b1a68cc581"
+      "sha": "4cb91f5db9f46a3a4b707e14222ada114028723e383bb4f5d253d3e4b71205a4"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -726,7 +726,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "fe753da59f34feba8ae4fe369f2d7d38f7e1f2e0b1bcdfa0ece787b928f8d7e0"
+      "sha": "113ecb6a0fbaa529a438dfb99e7d073560ec0a59ebf2b960add458566e83dafd"
     },
     "site/papers/index.html": {
       "390": {
@@ -747,7 +747,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a3e31ec17378af487d98d9156f6889d520e0dfe5847fc1dde79c7cc94ac33a38"
+      "sha": "20c69663be31842c0f0c82645a163ec3579e34aa48a2025b7ceeb8713437539a"
     },
     "site/portfolio/index.html": {
       "390": {
@@ -875,6 +875,27 @@
       },
       "sha": "d304e6f89fd63cd697d92bdeeb40a7814d1ac6c24d0b55c9c6e38b5b35fca85a"
     },
+    "site/reports/alphaevolve-community.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 3
+      },
+      "768": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "1440": {
+        "spines": 10,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "2e5ac80298b9f87831090baf934d5fe87590404b598600ffc969348d1cd817f7"
+    },
     "site/reports/alphaevolve.html": {
       "390": {
         "spines": 3,
@@ -936,7 +957,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3f2573f6d299b17ddc137bd53207eb0877741c3928c914b40182654c33e1f0e7"
+      "sha": "c27d46c9c7770d46b0e56fe67592350d547361b20a062983a3f76c8a7ba88107"
     },
     "site/reports/breaking-geometry.html": {
       "390": {
@@ -1671,7 +1692,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3fcfeb3201c79a88a1ab539f6ed9d9b27b321ad5db58d3227d117fdc46eca777"
+      "sha": "4003345509ec99d85037cf587212db9ba557a164ed0f0bbb78940f30297db559"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2051,6 +2072,27 @@
       },
       "sha": "b11159f8ce366834ab88e0c151ac2b56d4cb24811a7548f55b0d18d41f5345e6"
     },
+    "site/reports/optconst-queue.html": {
+      "390": {
+        "spines": 5,
+        "pageOverflow": 285,
+        "escapes": 0,
+        "clipped": 5
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "7cd7452ebeeb9a2c349dd3942eaca980514f042a549830a6910b55b6528d741d"
+    },
     "site/reports/optimization-constants.html": {
       "390": {
         "spines": 5,
@@ -2408,6 +2450,27 @@
       },
       "sha": "5871e716afb61e990b77744fb2453a481d32d3704ca1e138505cb8a0afb02327"
     },
+    "site/reports/wowii-counterexamples.html": {
+      "390": {
+        "spines": 4,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 1
+      },
+      "768": {
+        "spines": 7,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 8,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "b4e6724f98e5ac1af992455397dffdde3e54a7291d237554833fbdff2d109148"
+    },
     "site/reports/zeta-hankel.html": {
       "390": {
         "spines": 6,
@@ -2479,7 +2542,7 @@
         "clipped": 0
       },
       "768": {
-        "spines": 9,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0

@@ -1,0 +1,267 @@
+{
+ "what": "the open pull-request queue of teorth/optimizationproblems on 2026-10-15 \u2014 #210, #217, #221, #225, #226 \u2014 decided where a finite exact object exists, read where the claim is a short proof, refused where the evidence is not in the submission",
+ "preregistration": "corpus/optconst-queue/preregistration.json",
+ "pins": "corpus/optconst-queue/PINS.json",
+ "registryCommit": "2c1968cd",
+ "rows": [
+  {
+   "id": "optq-225-1a",
+   "pr": 225,
+   "constant": "C_1a",
+   "claim": "C_1a <= 1.5027435 (an upper bound exhibited by an explicit 65,536-step function with exact rational heights; Atris records @ 1fa857a0)",
+   "definition": "the autocorrelation constant (registry 1a: the largest C with max (f*f) >= C (\u222b_{-1/4}^{1/4} f)^2 for every f >= 0)",
+   "verdict": "CERTIFIED",
+   "value": "645423412969467179759478160871915520/429496729600000035389440000000000729",
+   "valueDecimal": "1.502743486709583379743219592078",
+   "slack": "11416380946843545535536171151000023/858993459200000070778880000000001458000000",
+   "n": 65536,
+   "lag": 25072,
+   "how": "the 65,536 heights as integers over one denominator; the autoconvolution computed as ONE exact integer product by Kronecker substitution and the maximum taken over every grid shift (piecewise linearity puts the supremum on the grid); value 1.502743486709583379743219592078, claimed 1.5027435",
+   "registryBefore": "1.502862 (upper)",
+   "claimantPrinted": "1.502743486709583379743219592079"
+  },
+  {
+   "id": "optq-225-1b",
+   "pr": 225,
+   "constant": "C_1b",
+   "claim": "C_1b <= 0.38085856 (an upper bound exhibited by an explicit 114,688-step function with exact rational heights; Atris records @ 1fa857a0)",
+   "definition": "Erd\u0151s's minimum overlap constant (registry 1b: the largest C with sup_x \u222b f g(x + \u00b7) >= C for f + g = 1 on an interval of length 2, \u222bf = 1)",
+   "verdict": "CERTIFIED",
+   "value": "10919976354672639675467789613614419/28672000000000000000000000000000000",
+   "valueDecimal": "0.380858550316428560109786189090",
+   "slack": "277647360324532210386385581/28672000000000000000000000000000000",
+   "n": 114688,
+   "lag": 36048,
+   "how": "the 114,688 heights as integers over one denominator; the correlation with 1 - h computed as ONE exact integer product by Kronecker substitution and the maximum taken over every grid shift (piecewise linearity puts the supremum on the grid); value 0.380858550316428560109786189090, claimed 0.38085856",
+   "registryBefore": "0.380868 (upper)",
+   "claimantPrinted": "0.380858550316428560109786189091"
+  },
+  {
+   "id": "optq-221-3c",
+   "pr": 221,
+   "constant": "C_3c",
+   "claim": "C_3c >= 1.674894211307116 from two laws on 51 and 47 points of Z^2 (weights multiples of 10^-50) mixed in counts 39041372760532870645 : 60958627239467129355 of 10^20 base-55 digits (Jaswal, Zenodo 23289305)",
+   "definition": "the entropy formulation of registry 3c: C_3c >= H(X-Y) / max(H(X), H(Y), H(X+Y), H(X+2Y)) for any finitely supported law; for independent digits the entropies add when the digit map is injective, which max |L| = 27 <= (55-1)/2 guarantees",
+   "verdict": "CERTIFIED",
+   "rho": [
+    [
+     "1.674894211307116228764343737060",
+     "1.674894211307116228764343737061"
+    ]
+   ],
+   "precisionBits": 128,
+   "maxAbsForm": "27",
+   "injective": true,
+   "laws": [
+    51,
+    47
+   ],
+   "how": "per-law pushforwards exact; entropies as directed-rounding intervals at 128 bits (instruments/sumdiff + bigfloat, no code of the claimant's); the mixture by rational weights; \u03c1 enclosed in [1.674894211307116228764343737060, 1.674894211307116228764343737061] against 1.674894211307116",
+   "registryBefore": "1.6747338950414058* (upper 1.75)",
+   "claimantPrinted": "1.674894211307116228764343737060957..."
+  },
+  {
+   "id": "optq-226-20a",
+   "pr": 226,
+   "constant": "C_20a",
+   "claim": "C_20a >= 8: X = E - 1 (E standard exponential) is isotropic log-concave with Var(X^2) = 8, and products of independent copies give Var(|X|^2) = 8n (Patankar)",
+   "definition": "registry 20a: the smallest C with Var(|X|^2) <= C n for every isotropic log-concave X in every dimension",
+   "verdict": "CERTIFIED",
+   "values": {
+    "claim": "Var(X^2) = 8 for X = E - 1, E standard exponential; hence C_20a >= 8",
+    "mean": "0",
+    "variance": "1",
+    "E[(E-1)^4]": "9",
+    "Var(X^2)": "8",
+    "logConcave": "the density e^{-t} 1_{t>=0}: log-linear on its support, hence log-concave (by definition)",
+    "verdict": "CERTIFIED"
+   },
+   "how": "E[E^k] = k! exactly; E[(E-1)^4] = 9, E[(E-1)^2] = 1, mean 0: Var(X^2) = 8; independence adds variances. Log-concavity of e^{-t} on [0, \u221e) is the definition (log-linear)",
+   "registryBefore": "2 (lower)"
+  },
+  {
+   "id": "optq-226-20c",
+   "pr": 226,
+   "constant": "C_20c",
+   "claim": "C_20c >= sqrt(3): mu uniform on [-sqrt3, sqrt3] is isotropic log-concave and A = (-inf, 0] has mu(A) = 1/2, mu+(A) = 1/(2 sqrt3) (Patankar)",
+   "definition": "registry 20c: the KLS constant, sup over n of the worst inverse Cheeger constant mu+(A)/min(mu(A), 1 - mu(A)) over isotropic log-concave mu and Borel A",
+   "verdict": "CERTIFIED",
+   "values": {
+    "claim": "psi_mu >= sqrt(3) for mu uniform on [-sqrt3, sqrt3] and A = (-inf, 0]; hence C_20c >= sqrt(3)",
+    "variance": "1",
+    "mu(A)": "1/2",
+    "cheegerRatioSquared": "1/3",
+    "psiSquared": "3",
+    "logConcave": "a uniform density on an interval is log-concave (constant on its support)",
+    "verdict": "CERTIFIED"
+   },
+   "how": "in Q(sqrt3) through squares: variance 3/3 = 1, (mu+(A)/min(mu(A), 1-mu(A)))^2 = 1/3, so the inverse Cheeger constant of this A is sqrt3 and psi >= sqrt3",
+   "registryBefore": "sqrt(pi/2) \u2248 1.2533 (lower)"
+  },
+  {
+   "id": "optq-226-23b",
+   "pr": 226,
+   "constant": "C_23b",
+   "claim": "C_23b <= 1/2: for odd n every off-diagonal entry of G = A^T A is odd, \u03a3(\u03bb_k \u2212 n) = 0 and \u03a3(\u03bb_k \u2212 n)^2 >= n(n\u22121); Bhatia--Davis gives (\u03bb_max \u2212 n)(n \u2212 \u03bb_min) >= n \u2212 1, whence \u03ba(A)^2 >= 1 + 2 sqrt(n\u22121)/n and \u03ba(n) >= 1 + (2 \u2212 sqrt2)/sqrt n for odd n >= 3 (Patankar)",
+   "definition": "registry 23b: with \u03ba(n) the least condition number of an n \u00d7 n \u00b11 matrix and \u03ba(n) = 1 + f(n)/n^\u03b1, the exponent constant",
+   "verdict": "CERTIFIED",
+   "scope": "BY READING, not computed: each step is a standard inequality applied correctly \u2014 the parity of a sum of n terms \u00b11 for odd n; trace of G \u2212 nI zero since diagonal entries equal n; the Frobenius norm bound from n(n\u22121) odd entries of absolute value >= 1; Bhatia--Davis (the variance of numbers in [\u03bb_min, \u03bb_max] with mean n is at most (\u03bb_max \u2212 n)(n \u2212 \u03bb_min)); the last two lines are algebra. A reading, held as such",
+   "how": "the five sentences of the PR text read against the definition; no number is computed",
+   "registryBefore": "1 (upper)"
+  },
+  {
+   "id": "optq-226-16a",
+   "pr": 226,
+   "constant": "C_16a",
+   "claim": "C_16a >= 2.156224 from a truncated BDZ2013 extremal on the 2-torus (sums over 0 < |k|^2 <= 4000^2 with c_k = 1/(|k|^2(|k|^2 + 41/5)); \u03b4(u) = S_2/S_1 and the \u2016u\u2016 bounds of the PR)",
+   "verdict": "REFUSED",
+   "scope": "not decided in this campaign",
+   "how": "a 50-million-term sum with the PR's own derivation from the BDZ2013 extremal; deciding it needs an interval computation of S_0, S_1, S_2 with a forward error bound and a reading of the derivation \u2014 not built in this campaign"
+  },
+  {
+   "id": "optq-226-70a",
+   "pr": 226,
+   "constant": "C_70a",
+   "claim": "C_70a >= 1.201927 from a cube and a ball in n = 300,000 (Sz\u00e1sz's inequality, AM--GM, Steiner's formula, a binomial-\u03ba_{n\u2212j} sum)",
+   "verdict": "REFUSED",
+   "scope": "not decided in this campaign",
+   "how": "a 300,000-term sum of binomial coefficients times volumes of balls with three cited inequalities in the derivation; an interval evaluation with the cited steps read is a later campaign"
+  },
+  {
+   "id": "optq-217-28a",
+   "pr": 217,
+   "constant": "C_28a",
+   "claim": "C_28a <= 9: Borsuk's covering assertion fails in dimension 9 \u2014 OpenAI's BorsukNine (rank-one projectors onto lines of R^4 under the Frobenius metric; Lean OAI.BorsukNine.main_theorem), recorded by kleinwaks",
+   "definition": "registry 28a: the smallest dimension in which Borsuk's conjecture fails; a counterexample in dimension d gives C_28a <= d",
+   "verdict": "CERTIFIED",
+   "scope": "by this repository's own earlier record: certs/openai-math-kernel.json (the openai/math audit, lane K, 2026-10-10: the Lean project rebuilt here and checked by two kernels, the statement read MATCHES against the paper's claim with no definition holes); the PR text re-read today against that row",
+   "kernelRow": {
+    "challenge": "BorsukNine",
+    "word": "CERTIFIED",
+    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+    "definitionHoles": 0,
+    "statementLines": 35
+   },
+   "how": "nothing new computed: the certificate is the Lean development already decided; the PR's wording (\"counterexample to Borsuk's covering assertion\", dimension 9) agrees with the theorem as read then",
+   "registryBefore": "4 <= C_28a <= 63"
+  },
+  {
+   "id": "optq-210-lambda",
+   "pr": 210,
+   "constant": "\u039b (de Bruijn--Newman, registry 21a)",
+   "claim": "\u039b <= 319/2000 = 0.1595 by a \"certified record package\" (Mosaic Intelligence, 2026-10-03; the registry records 0.2 (PT2021) with Mosaic's own 0.1875* row; the route: collision exclusion with an interior zero-free check at X = 6000000185827 and an exterior polydisc floor for a 690,988-term Dirichlet polynomial, carried by a \"circular heat\" lemma and a \"real projection\" lemma)",
+   "definition": "registry 21a: the de Bruijn--Newman constant; \u039b <= c is a theorem about the zeros of H_t for t >= c",
+   "verdict": "REFUSED",
+   "scope": "the evidence is not in the submission",
+   "inventory": {
+    "files": 104,
+    "frozenFiles": 63,
+    "scripts": [
+     "verify/confine.py.txt",
+     "verify/record_score.py.txt",
+     "assembly_ce_319_2000/verify.py.txt",
+     "assembly_ce_319_2000/math/verify.py.txt",
+     "assembly_ce_319_2000/math/second_line.py.txt"
+    ],
+    "imports": {
+     "verify/confine.py.txt": [
+      "__future__",
+      "os",
+      "re",
+      "runpy",
+      "shutil",
+      "sys",
+      "sysconfig",
+      "threading"
+     ],
+     "verify/confine.py.txt:defs": 4,
+     "verify/record_score.py.txt": [
+      "__future__",
+      "argparse",
+      "fractions",
+      "hashlib",
+      "json",
+      "os",
+      "pathlib",
+      "re",
+      "shutil",
+      "subprocess",
+      "sys",
+      "time"
+     ],
+     "verify/record_score.py.txt:defs": 20,
+     "assembly_ce_319_2000/verify.py.txt": [
+      "copy",
+      "fractions",
+      "pathlib"
+     ],
+     "assembly_ce_319_2000/verify.py.txt:defs": 17,
+     "assembly_ce_319_2000/math/verify.py.txt": [
+      "flint",
+      "fractions",
+      "json",
+      "pathlib",
+      "sympy"
+     ],
+     "assembly_ce_319_2000/math/verify.py.txt:defs": 26,
+     "assembly_ce_319_2000/math/second_line.py.txt": [
+      "fractions",
+      "json",
+      "mpmath",
+      "pathlib"
+     ],
+     "assembly_ce_319_2000/math/second_line.py.txt:defs": 24
+    },
+    "bankCitations": [
+     "713",
+     "729",
+     "744",
+     "745",
+     "755",
+     "767",
+     "774",
+     "786",
+     "791"
+    ],
+    "mentions": {
+     "zeta": 16,
+     "Dirichlet": 7,
+     "H_t": 171,
+     "Polymath": 24,
+     "PT2021": 222,
+     "bank": 1370
+    },
+    "scorerGates": [
+     "_report_ok",
+     "anchor_ok",
+     "cover_ok",
+     "coverage_ok",
+     "criterion_ok",
+     "frozen_ok",
+     "line_ok",
+     "lint_ok",
+     "record_lines_ok",
+     "rh_ok",
+     "script_ok",
+     "torus_ok"
+    ],
+    "totalChecksRunPrinted": "168846"
+   },
+   "how": "the package read file by file (nothing run): the scorer (verify/record_score.py, 20 defs) and the two math checkers (math/verify.py with python-flint arb, math/second_line.py with mpmath.iv) evaluate auxiliary inequalities on FROZEN coefficient tables (walls, clocks, norms, debits, Taylor leaves) and compare rationals, hashes and box covers; no function of the three evaluates \u03b6, H_t or the Dirichlet polynomial itself \u2014 the torus floor, the separator at X and the Polymath15 error constants enter as 63 frozen outputs whose derivations cite a private \"bank\" (713, 729, 744, 745, 755, 767, 774, 786, 791) that is not in the bundle. The anchor \u039b <= 3/16 is the claimant's own earlier row, merged unreviewed. What an outside computation could decide first: the torus-floor inequality of bank767 (|F_1| \u2212 \u03a3_{r>1} |F_r| > 1/10 on T^4) by an interval cover; the separator at x = X for t in [0, 3/16] including y = 0; the error constants p, q from Polymath15 Theorem 1.3 \u2014 each a campaign of its own",
+   "registryBefore": "0.2 (PT2021); 0.1875* (Mosaic, merged 2026-07-17)"
+  }
+ ],
+ "counts": {
+  "CERTIFIED": 7,
+  "REFUTED": 0,
+  "REFUSED": 3
+ },
+ "decider": {
+  "stepfun.py": "01be053114a8899abf909e06584e23ac0f659a89471329d36420c59b30cb6c57",
+  "twolaw.js": "ad15c46f2469dc9ca944ae0450d40d7045871a52c047abdab2d9d954f86391f5",
+  "exact226.py": "47d486f23ef0edb1cf5ac3410ff5f5daf1829209ce2cc728c919f5b5b6bd12f6"
+ },
+ "python": "3.9.6",
+ "seconds": 140.1,
+ "generated": "2026-10-15T21:10:07Z"
+}

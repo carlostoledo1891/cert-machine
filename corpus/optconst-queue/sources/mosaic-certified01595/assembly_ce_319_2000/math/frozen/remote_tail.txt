@@ -1,0 +1,312 @@
+# A remote N-free real-simple tail and the positive-stall theorem
+
+FOUNDATION. prover_astra, iteration 4. This is an analytic lemma package,
+NOT a record assembly. All intervals in the theorem below are closed unless
+explicitly marked otherwise. Fractions, not decimal approximations, are primary.
+
+## 1. Statements and honesty block
+
+**Theorem T (explicit uniform tail).** For every real a with 0<a<=1/2,
+define
+
+    W(a) = 4*pi*exp(128/a),       R(a) = W(a)+1.
+
+For every real t in [a,1/2] and every zero z of H_t with
+|Re z|>=R(a), z is real and is a simple zero. The same fixed R(a) works
+for the ENTIRE closed time interval. No RH assumption is used.
+
+**Theorem S (positive stall).** If the de Bruijn-Newman constant Lambda is
+positive, H_Lambda has a multiple real zero at a finite abscissa.
+The tail used in this implication is explicit: with a=Lambda/2 it is
+
+    |Re z| >= 4*pi*exp(256/Lambda)+1,
+    t in [Lambda/2,1/2].
+
+No RH assumption or finite-height verification is used in this theorem.
+The classical de Bruijn bound Lambda<=1/2 suffices. In particular the
+conclusion can be consumed by the collision-exclusion route with the
+banked anchor [V1-H-213]; that anchor, not this lemma, consumes PT2021 at
+X=6000000185827, height X/2, margin 350479773/2 below T_PT=3000175332800.
+No new numerical upper bound on Lambda is asserted here.
+
+The remote cutoff is intentionally uneconomical. It closes the compactness
+step in the stall argument, NOT the finite exterior-to-tail gap in a record.
+In particular it is NOT a replacement at the much smaller wall proposed
+in third-party collision-exclusion work. No corner, separator, or exterior
+no-double-zero certificate is claimed in this package.
+
+Credit: Daniel Martin Kornaus's PR #180 motivated separating collision
+exclusion from an off-axis barrier and using a positive-stall reduction.
+The tail proof here instead uses an unmollified two-term analytic model,
+an infinite p-series bound and rectangular Rouche cells. No theorem,
+constant certificate, source code or data from that unrefereed release
+is an input. The peer-reviewed Polymath effective approximation is the
+analytic input. The proof below is ours.
+
+## 2. Input theorem and normalization
+
+Use the standard H_t defined by the Riemann-Jacobi Fourier integral.
+It is jointly entire in (t,z), even in z, real-type for real t, and
+H_t(0)>0. Indeed the kernel's n-th summand for u>=0 factors as
+pi*n^2*exp(5u)*(2*pi*n^2*exp(4u)-3)*exp(-pi*n^2*exp(4u))>0,
+and super-exponential decay justifies differentiation on every compact
+complex (t,z) set. Also H_t has no zero with |Im z|>1 when t>=0, by
+the classical de Bruijn strip theorem and the xi strip at t=0.
+These basic properties and the normalization are also used in [V1-H-017].
+
+Here is the exact peer-reviewed input (Polymath 15, arXiv:1904.12438,
+Theorem 1.3, displays (20)--(24), transcription audited in [V1-H-018]).
+This is use of the published theorem, NOT extrapolation of the five
+numerical test points in the banked audit. Our bound is derived for all
+parameters below, not tested on a grid.
+
+For 0<t<=1/2, x>=200, 0<=y<=1, set q=x/(4*pi), L=log q,
+N=floor(sqrt(q+t/16)), b_n=exp((t/4)*log(n)^2),
+
+    alpha(s)=1/(2s)+1/(s-1)+(1/2)*Log(s/(2*pi)),
+    M_t(s)=M_0(s)*exp(t*alpha(s)^2/4),
+    M_0(s)=(sqrt(2*pi)/16)*s*(s-1)*pi^(-s/2)
+              *exp((s/2-1/2)*Log(s/2)-s/2).
+
+On the upper/lower half planes these functions are holomorphic and M_t
+is nonzero. Principal logarithms give conjugate values in conjugate
+half planes. For z=x+iy put u=(1+iz)/2, v=(1-iz)/2,
+A(z)=M_t(u), B(z)=M_t(v), gamma=A/B, s*=v+(t/2)*alpha(v),
+kappa=(t/2)*(alpha(u)-alpha(conjugate(v))). Then
+
+    H_t/B = sum_(n<=N) b_n/n^(s*)
+            + gamma*sum_(n<=N) n^y*b_n/n^(conjugate(s*)+kappa)
+            + error,       |error| <= eAB+eC.
+
+Write sigma=Re s*. The explicit bounds are
+
+    |gamma| <= exp(y/50)*q^(-y/2),
+    sigma >= (1+y)/2+t*L/4
+                   -t/(2*x^2)*(1-3*y+4*y*(1+y)/x^2)_+,
+    |kappa| <= t*y/(2*(x-6)),
+    eAB <= sum_(n<=N) (1+|gamma|*N^|kappa|*n^y)*b_n*n^(-sigma)
+        *[exp(((t^2/16)*log(q/n^2)^2+313/500)/(x-333/50))-1],
+    eC <= q^(-(1+y)/4)*exp(-t*L^2/16
+        +(31/25)*(3^y+3^(-y))/(N-1/8)
+        +(3*|L+i*pi/2|+261/25)/(x-12)).
+
+The pinned immutable v1 source and banked transcription are checked for
+integrity, and the coefficients are listed in INPUT.json. The numerical
+constant 261/25 is used only via the relaxed bound 3*L+17 below, so an
+increase to 21/2 would also be harmless; no sharp cancellation of that
+published constant is used.
+
+## 3. Uniform N-free approximation
+
+Fix a in (0,1/2] and t in [a,1/2]. For x>=W(a), we have L>=128/a>=256,
+t*L>=128, q=exp L, and x=4*pi*exp L>=exp L. In particular x>=200,
+N>=16, and all denominators below are positive.
+
+For every 1<=n<=N,
+
+    log n <= (1/2)*log(q+t/16) <= L/2+1.
+
+The positive-part correction in sigma is at most 1/8: use
+(1-3y+4y(1+y)/x^2)_+<=1+8/x^2<=2, t<=1/2, x>=200.
+Consequently
+
+    sigma-(t/4)*log n
+       >= (1+y)/2 + t*L/8 - t/4 - 1/8
+       >= 65/4 + y/2 > 16,
+
+and hence b_n*n^(-sigma)<=n^(-16). The same bound holds for n=1.
+
+Next,
+
+    exp(y/50)<2,
+    q^(-y/2)*n^y <= (1+1/(32*q))^(y/2) <2,
+    |kappa|*log N <= (L+2)/(4*x) <1/2,
+
+so N^|kappa|<=2 and
+
+    1+|gamma|*N^|kappa|*n^y <=9.                    (E1)
+
+The third inequality follows from x-6>=x/2, the log-N bound, and the
+monotone decrease of (L+2)*exp(-L) for L>=256. The first and third
+exponentials can be bounded without a transcendental approximation by
+exp(r)<=1/(1-r) for 0<=r<1. Thus all n>=2 contributions are at most
+
+    Eseries = 9*S16,
+    S16 = 2^(-16) + integral_2^infinity v^(-16) dv
+        = 2^(-16) + 2^(-15)/15.                   (E2)
+
+For the published eAB, -1<=log(q/n^2)<=L, so its square is <=L^2.
+The exponent in its summand is at most
+
+    U(L)=2*(L^2/64+1)*exp(-L) <= 2050/2^256 = U0. (E3)
+
+To see the uniform direction, the derivative of U has sign equal to
+-L^2+2L-64 = -(L-1)^2-63 <0, and exp(256)>2^256.
+Since U0<1/2, exp(U)-1<=2*U. Also 9*(1+S16)<10, so
+
+    eAB <= 20*U0.                                 (E4)
+
+For eC use 3^y+3^(-y)<=4, N>=16, pi<4, x-12>=x/2. Its positive
+exponent corrections are at most
+
+    992/3175 + (6*L+34)*exp(-L)
+          <= 992/3175 + 1570/2^256 <1.             (E5)
+
+Here (6L+34)*exp(-L) is decreasing for L>=256. Dropping the negative
+term -tL^2/16 and using exp(1)<3 gives
+
+    eC <= 3*exp(-L/4) < 3/2^64.                   (E6)
+
+The elementary bounds 2<exp(1)<3 follow from its positive series and
+n!>=2^(n-1) for n>=1, with strictness in the tail. They are independently
+checked with outward balls as normalization tests, but the proof is
+not conditional on an evaluation of exp at a sample point.
+
+Define the analytic, cutoff-free model G=A+B. The n=1 terms in the
+published formula are exactly 1+gamma, so E1--E6 give
+
+    |H_t(z)-G(z)| <= epsilon*max(|A(z)|,|B(z)|),
+    epsilon = 9*S16 + 20*2050/2^256 + 3/2^64 <1/1024,       (E7)
+
+for all x>=W(a), 0<=y<=1. Reflection in the real axis gives the same
+statement on -1<=y<=0: G is real-type too. Neither H nor G depends on
+N; the pointwise bound E7 is valid on either side of every cutoff and
+at the cutoff itself. Therefore NO transition homotopy is required
+for this remote-tail proof.
+
+## 4. A holomorphic phase with explicit derivative control
+
+Write m_t(s)=log M_0(s)+t*alpha(s)^2/4 using the branches in section 2.
+The logarithmic derivative is beta_t(s)=alpha(s)+(t/2)*alpha(s)*alpha'(s).
+Set
+
+    K(z)=(m_t(u)+m_t(v))/2,
+    Theta(z)=(m_t(u)-m_t(v))/(2i).
+
+Then A=exp(K+i*Theta), B=exp(K-i*Theta),
+G=2*exp(K)*cos Theta and
+
+    Theta'(z)=(beta_t(u)+beta_t(v))/4.             (P1)
+
+On the real axis Theta is real. Uniformly for x>=W(a), |y|<=1,
+
+    |Theta'(x+iy)-L/4| <= (L/8+3)/x <1/8.         (P2)
+
+Here is an explicit proof, to avoid an asymptotic big-O hypothesis.
+Both u and v have real part in [0,1], and imaginary part +/-x/2.
+For s=(h+/-ix)/2, 0<=h<=2, use
+
+    |Log(s/(2*pi))-(L+/-i*pi/2)|
+       <= (2/x)/(1-2/x) <=4/x,
+    |1/(2s)|<=1/x,       |1/(s-1)|<=2/x,
+    |alpha(s)-(L/2+/-i*pi/4)|<=5/x,
+    |alpha'(s)|<=1/x+6/x^2<=2/x,
+    |alpha(s)|<=L/2+2.
+
+The log estimate follows by the absolutely convergent series for
+Log(1+w), |w|<=2/x; the principal branches match since s stays in its
+fixed half plane. Since t/2<=1/4, the beta error is <=(L/4+6)/x.
+Adding the two errors in P1 proves the first inequality P2. The second
+uses monotonicity of (L/8+3)*exp(-L), whose value at 256 is bounded by
+35/2^256<1/8. Every derivative-sign direction used in sections 3--4 is
+stated symbolically and checked in verify.py.
+
+In particular Re Theta'>=L/4-1/8>=511/8>0. Hence Theta(x) is strictly
+increasing and unbounded as x increases on the real ray. Its real
+phase nodes x_k are the unique solutions Theta(x_k)=k*pi. The first
+node at or to the right of W(a) occurs before W(a)+1, because the
+phase advance over a unit is >=511/8>pi. Consecutive nodes likewise
+have gap <=8*pi/511<1. This statement does not require computing an
+astronomically large phase or its integer part.
+
+## 5. Rectangular Rouche cells; exhaustive tail coverage
+
+Take consecutive nodes x_k,x_(k+1)>=W(a) and the rectangle
+[x_k,x_(k+1)] + i[-1,1]. All functions are analytic on an open
+neighbourhood of it. If Theta=theta+i*eta, then
+
+    |G|^2 / max(|A|,|B|)^2
+       = 1 + r^2 + 2*r*cos(2*theta),
+    r=exp(-2*|eta|).                              (R1)
+
+On a vertical side x=x_k, integrate P2 in y. It gives
+|theta-k*pi|<=1/8. Hence cos(2*theta)>0, so |G|>=max(|A|,|B|).
+On a horizontal side y=+/-1, integrate Re Theta' to get
+|eta|>=511/8. Thus
+
+    |G|/max(|A|,|B|) >= 1-exp(-2*|eta|) >1/2.     (R2)
+
+Comparison with E7 is strict on every edge, including corners.
+Rouche therefore says H_t and G have the same number of zeros in
+this rectangle, counted with multiplicity.
+
+That number is exactly one: for y>0, Im Theta(x+iy)>0, and for y<0
+it is negative, so a zero of cos Theta must have y=0. Along the real
+segment Theta runs strictly from k*pi to (k+1)*pi and takes the one
+zero value (k+1/2)*pi exactly once. Its derivative is nonzero by P2,
+so this model zero is simple. Since H_t is real-type, its unique
+zero in this conjugation-invariant rectangle is real and simple too.
+The boundary contains no zero by the strict edge comparison.
+
+The first node is <W(a)+1; the consecutive rectangles cover every
+real part >=W(a)+1. The earlier partial cell is deliberately discarded.
+No gap remains between rectangles or on their vertical boundaries.
+Outside |Im z|<=1 the de Bruijn strip excludes zeros. Evenness gives
+the identical statement at negative real parts. This proves Theorem T
+for every a,t in the stated ranges, not just rational or sampled times.
+
+## 6. Positive stall, with the left-neighbourhood quantifier explicit
+
+Let 0<Lambda<=1/2. The real-zero property holds at Lambda: this is
+part of the threshold characterization, or follows by locally uniform
+continuity and Rouche from t descending to Lambda with t>Lambda.
+The limiting function is not identically zero since H_Lambda(0)>0.
+
+Set a=Lambda/2 and use Theorem T with R=4*pi*exp(256/Lambda)+1.
+Every zero with |Re z|>=R is real and simple for ALL
+ t in [Lambda/2,1/2], including times strictly below Lambda.
+Assume for contradiction every zero at time Lambda is simple.
+Choose B>R which is not the abscissa of a zero of H_Lambda. In the
+compact rectangle |Re z|<=B, |Im z|<=1 there are finitely many zeros,
+all real and simple, and none on its boundary. Put disjoint small
+conjugation-invariant disks around them, lying strictly inside the
+rectangle. On the compact complement of the disks H_Lambda is bounded
+away from zero. Joint continuity and Rouche on the disks imply that
+for ALL real t sufficiently close to Lambda, the complement remains
+zero-free and each disk contains exactly one zero. Reflection forces
+that zero to be real, and multiplicity one is part of the count.
+
+Choose such a t with Lambda/2<t<Lambda. Zeros outside the rectangle
+are real by Theorem T, unless |Im z|>1 where there are no zeros.
+Zeros inside are real by the finite-disk argument. Hence H_t has
+only real zeros at a time t<Lambda, contradicting the definition.
+The contradiction proves Theorem S. No unquantified pointwise-in-time
+tail or compactness at infinity was used.
+
+## 7. Quantifier audit, verification, and independent-line status
+
+The proof covers every real 0<a<=1/2, every t in [a,1/2], every complex
+z with |Re z|>=R(a), all RS indices (unbounded), and all imaginary
+parts. Its only numerical threshold is an explicit parameter function.
+The finite gates certify constants after reducing to L>=256 and
+t*L>=128 analytically. Sampling L or N is not a proof step.
+
+`verify.py`: exact Fractions + SymPy universal identities, outward
+mpmath intervals at 240 bits for the two banked normalization anchors,
+and a separately implemented Arb/integer boundary audit. Reads only
+this bundle and sha256-pinned immutable v1 sources. Exit zero requires
+all gates; proofs of holomorphy, Rouche and compactness are written
+above for adversarial mathematical review. The script is not advertised
+as a formal theorem prover.
+
+New analytic machinery requires an independent proof/arithmetic audit
+(rung b), not merely the two old geometry anchors. The independent
+numeric seat must second-line this stable package before any record
+assembly consumes it. The local dual arithmetic scripts are supplied
+for audit; an external second-line verdict is NOT claimed here.
+
+Digit law: all displayed decimals in generated output use self-tested
+FLOOR/CEIL truncation of exact rationals or outward endpoints, never
+nearest-rounded Arb printers. Both negative-direction truncations are
+tested. The theorem's statements use only exact fractions and symbolic
+exponentials. Run `/usr/bin/python3 verify.py` from a clean copy.

@@ -1,0 +1,35 @@
+# Independent analytic line
+
+The quantifiers and coefficients are those explicitly defined in PROOF.md: SINGLETON(t,x,N,y)=(4/25,6000000185827,690988,0), EVERY complete prime character, and CLOSED phase boxes.
+
+## Schur-complement version of the scalar implication
+
+Write f=(f_r) for the rough and synthetic values, D=diag(w_r), with w_r>0 and sum w_r=1. Positive T implies E!=0 and |f_1|^2-f^*D^(-1)f>0. Completing the square shows the Hermitian matrix
+
+       [ |f_1|^2   f^* ]
+       [    f       D  ]
+
+is positive definite: its quadratic form equals
+ ||D^(1/2)b + D^(-1/2)f*a||^2
+   + (|f_1|^2-f^*D^(-1)f)|a|^2.
+Choose a=1 and b_r=-exp(i arg(f_r))*rho (zero values assigned arbitrary argument). Then the resulting quadratic in real rho is
+ |f_1|^2 - 2*rho*sum|f_r| + rho^2*sum w_r.
+It is strictly positive at rho=sum|f_r|, whence |f_1|>sum|f_r|. The synthetic value is delta, so reverse triangle gives the complete raw modulus>delta. This also isolates the normalization: without sum w=1, the inference changes.
+
+## Independent Fourier factorization
+
+Construct G by collecting each smooth pair(s,u) and summing over ALL rough integers r<=N/max(s,u). The raw r=1 contribution is positive; each other rough contribution has its OWN positive coefficient W/v_r. This is algebraic expansion of the displayed Schur complement. Multiplication by E and then conjugate E shifts each frequency by e(d) and then -e(q); no resultant frequency is dropped. This differs from first forming the inverse autocorrelation. It includes ALL convolution products above N.
+
+## Directional Taylor bound, independently counted
+
+For fixed v in a CLOSED leaf and theta(s)=theta0+s*v,
+ (d/ds)^j cos(k.theta(s))=(k.v)^j cos(k.theta(s)+j*pi/2).
+Expand (k.v)^j by the multinomial theorem. Integrating the fourth derivative against (1-s)^3/6 gives each total-degree-four coefficient (4!/alpha!)*(1/24)=1/alpha!. Absolute values of v_j are at most h_j. Coefficients excluded from this polynomial contribute their whole l1 norm directly, not a derivative estimate. For the retained polynomial, the midpoint-radii implementation encloses all jets independently.
+
+At scale2^57 the coefficient midpoint is m and radius is rad. At scale2^41 the trigonometric midpoint is z, and its certified error is at most terr. Since the TRUE sine/cosine is <=1 in modulus,
+ |a*cos - m*z/2^98| <= (|m|*terr+rad*2^41)/2^98.
+The same holds for sine. This is the secondary error formula, not a copy of first-line interval multiplication. Multiplication by the signed integer frequency monomial and reverse summation gives every derivative enclosure. The fourth moment is bounded by (|m|+rad)/2^57. Rational Machin and alternating arctangent bounds plus Taylor remainders generate all phase-table enclosures without Arb; the Taylor completion uses Arb256 with separately calculated Machin pi. Arb itself is disclosed shared infrastructure.
+
+## Coverage without a tree premise
+
+Each leaf is an exact product of dyadic subintervals in[0,1]^4. The pairwise algorithm rejects any positive-volume intersection and sums exact normalized volumes to1. The finite union of leaves is CLOSED, its complement is relatively open, and any nonempty relatively open subset of this cube has positive four-dimensional measure. Therefore the complement is empty. All seams are included. This proof is independent of the elementary-cell occupancy algorithm and of the screen's claimed COMPLETE status.

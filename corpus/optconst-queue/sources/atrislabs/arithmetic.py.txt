@@ -1,0 +1,169 @@
+"""Independent exact arithmetic. No imports from the candidate authors' code.
+
+Only the Python standard library is used. Polynomial products use balanced
+base-B digits: every coefficient is strictly smaller than B/2 in magnitude.
+This is exact integer multiplication, never an FFT or a rounding heuristic.
+"""
+import json
+from fractions import Fraction
+from math import lcm
+from pathlib import Path
+
+
+def _pairs(items):
+    out = {}
+    for key, value in items:
+        if key in out:
+            raise ValueError(f"duplicate JSON key: {key}")
+        out[key] = value
+    return out
+
+
+def _constant(token):
+    raise ValueError(f"non-finite JSON token: {token}")
+
+
+def read_json(path):
+    return parse_json(Path(path).read_text())
+
+
+def parse_json(text):
+    return json.loads(text, parse_float=str, parse_constant=_constant,
+                      object_pairs_hook=_pairs)
+
+
+def rational(token):
+    if isinstance(token, bool) or not isinstance(token, (int, str)):
+        raise ValueError(f"expected finite rational literal, got {token!r}")
+    try:
+        return Fraction(token)
+    except (ValueError, ZeroDivisionError) as error:
+        raise ValueError(f"invalid rational: {token!r}") from error
+
+
+def read_array(path, key):
+    data = read_json(path)
+    if not isinstance(data, dict) or set(data) != {key}:
+        raise ValueError(f"expected an object containing only {key!r}")
+    values = data[key]
+    if not isinstance(values, list) or not values:
+        raise ValueError(f"{key} must be a nonempty one-dimensional list")
+    return [rational(value) for value in values]
+
+
+def integers(values):
+    denominator = lcm(*(v.denominator for v in values))
+    return [v.numerator * (denominator // v.denominator) for v in values], denominator
+
+
+def product(a, b):
+    """Return every coefficient of two signed integer polynomials.
+
+    |c_k| <= min(len(a),len(b))*max|a|*max|b| = H.
+    Select B=256**width > 2H. Pack positive and negative parts separately,
+    evaluate each polynomial at B, multiply, and decode balanced digits.
+    Negative low digits borrow from the next digit; carry propagation restores
+    them exactly. The final remaining carry must match the product's sign.
+    """
+    if not a or not b:
+        raise ValueError("empty polynomial")
+    bound = min(len(a), len(b)) * max(map(abs, a)) * max(map(abs, b))
+    length = len(a) + len(b) - 1
+    if not bound:
+        return [0] * length
+    width = max(1, ((2 * bound).bit_length() + 7) // 8)
+    base = 1 << (8 * width)
+    assert base > 2 * bound
+
+    def pack(coefficients):
+        positive = b"".join(max(v, 0).to_bytes(width, "little") for v in coefficients)
+        negative = b"".join(max(-v, 0).to_bytes(width, "little") for v in coefficients)
+        return int.from_bytes(positive, "little") - int.from_bytes(negative, "little")
+
+    left = pack(a)
+    z = left * left if a is b else left * pack(b)
+    # Fixed-length two's-complement residue also supports negative products.
+    modulus = 1 << (8 * width * length)
+    raw = (z % modulus).to_bytes(width * length, "little")
+    coefficients, carry = [], 0
+    for offset in range(0, len(raw), width):
+        digit = int.from_bytes(raw[offset:offset + width], "little") + carry
+        carry = int(digit >= base // 2)
+        coefficient = digit - carry * base
+        assert abs(coefficient) <= bound
+        coefficients.append(coefficient)
+    assert z // modulus == -carry
+    # Whole-polynomial identity and parity-weighted identity independently
+    # catch packing/decoding mistakes without trusting a displayed score.
+    assert sum(coefficients) == sum(a) * sum(b)
+    assert sum(v * (-1 if i % 2 else 1) for i, v in enumerate(coefficients)) == (
+        sum(v * (-1 if i % 2 else 1) for i, v in enumerate(a)) *
+        sum(v * (-1 if i % 2 else 1) for i, v in enumerate(b)))
+    probes = {0, length-1, length//2,
+              coefficients.index(max(coefficients)), coefficients.index(min(coefficients))}
+    for k in probes:
+        direct = sum(a[i] * b[k-i] for i in range(max(0,k-len(b)+1), min(k,len(a)-1)+1))
+        assert coefficients[k] == direct, f"direct coefficient check failed at {k}"
+    return coefficients
+
+
+def interval(q, digits=30):
+    """Rigorous decimal enclosure by floor division, including negative q."""
+    scale = 10 ** digits
+    floor, remainder = divmod(q.numerator * scale, q.denominator)
+
+    def render(n):
+        sign = "-" if n < 0 else ""
+        whole, tail = divmod(abs(n), scale)
+        return f"{sign}{whole}.{tail:0{digits}d}"
+
+    return [render(floor), render(floor + bool(remainder))]
+
+
+def describe(q):
+    return {"exact": str(q), "interval": interval(q)}
+
+
+def autoconvolution(values, absolute=False, nonnegative=False, platform=False):
+    n, mass = len(values), sum(values) / (2 * len(values))
+    if nonnegative and min(values) < 0:
+        raise ValueError("C1 requires all heights >= 0")
+    if not mass:
+        raise ValueError("integral must be nonzero")
+    if platform and mass * mass < Fraction(1, 10**9):
+        raise ValueError("source stability constraint: integral squared < 1e-9")
+    if absolute and max(map(abs, values)) > 10**10:
+        raise ValueError("SimpleTES validation bound: height magnitude > 1e10")
+    a, denominator = integers(values)
+    convolution = product(a, a)
+    high, low = max(convolution), min(convolution)
+    peak = max(high, -low) if absolute else high
+    assert high > 0  # sum(c_k)=(sum a_i)^2 > 0
+    score = Fraction(2 * n * peak, sum(a)**2)
+    return {
+        "valid": True, "length": n, "mass": describe(mass),
+        "height_min": str(min(values)), "height_max": str(max(values)),
+        "score": describe(score), "positive_peak_index": convolution.index(high),
+        "negative_peak_index": convolution.index(low),
+        "positive_peak": str(Fraction(high, 2 * n * denominator**2)),
+        "negative_peak": str(Fraction(low, 2 * n * denominator**2)),
+        "signed_score": describe(Fraction(2 * n * high, sum(a)**2)),
+        "absolute_score": describe(Fraction(2 * n * max(high, -low), sum(a)**2)),
+        "unit_mass_scale": str(1 / mass),
+        "constraints": {"nonempty": True, "finite_rational": True,
+                        "nonzero_mass": True, "nonnegative_required": nonnegative,
+                        "stability_required": platform},
+    }
+
+
+def cli(scorer, key="values"):
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("candidate")
+    args = parser.parse_args()
+    try:
+        result = scorer(read_array(args.candidate, key))
+    except ValueError as error:
+        print(json.dumps({"valid": False, "reason": str(error)}))
+        raise SystemExit(1)
+    print(json.dumps(result, indent=2))

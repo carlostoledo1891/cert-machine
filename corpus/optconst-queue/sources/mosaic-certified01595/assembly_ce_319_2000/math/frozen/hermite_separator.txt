@@ -1,0 +1,184 @@
+# FOUNDATION: compact moving-separator and closed-band CE assembly lemma
+
+This is the package's assembly-facing theorem. Its tail and positive-stall
+inputs are independently proved in THEOREM.md, not cited from another seat's
+in-flight work. It completes the logical reduction, NOT the numerical inputs.
+
+## 1. Hermite collision orientation, in our normalization
+
+Let F(t,z) be jointly holomorphic near a real point (tau,b), real-type for
+real t, and satisfy partial_t F = -partial_z^2 F. Suppose F(tau,.) has a
+zero of exact multiplicity m>=2 at b, with leading coefficient c!=0.
+For every fixed bounded w-domain and positive h approaching zero,
+
+    F(tau+h,b+sqrt(h)*w) = c*h^(m/2)*(P_m(w)+O(sqrt(h))),
+    F(tau-h,b+sqrt(h)*w) = c*h^(m/2)*(Q_m(w)+O(sqrt(h))),
+    P_m(w) = m!*sum_(0<=j<=floor(m/2))
+                  (-1)^j*w^(m-2*j)/(j!*(m-2*j)!),
+    Q_m(w) = i^(-m)*P_m(i*w).
+
+The O bounds are locally uniform in w. This follows directly from the
+convergent joint Taylor series: partial_t^j partial_z^k F =
+(-1)^j partial_z^(2j+k) F, so terms with 2j+k<m vanish and those with
+2j+k=m give the displayed polynomials. Set h=r^2; on a compact w-domain
+all remaining powers of r have degree at least m+1, so the convergent
+series divided by r^m has a uniform O(r) remainder. This also explains
+why both signs of time must be considered before drawing a conclusion.
+
+The polynomials satisfy P_0=1, P_1=w and
+
+    P_(m+1)=w*P_m-2*m*P_(m-1),     P'_m=m*P_(m-1).       (H1)
+
+Their roots are all real and simple. Here is a proof by the recurrence,
+not a finite list of checked degrees. Inductively assume the monic P_m
+and P_(m-1) have real simple interlacing roots. At each root r_j of P_m,
+P_(m+1)(r_j)=-2m P_(m-1)(r_j), so consecutive signs alternate and give a
+root between each consecutive pair. At the rightmost root the sign is
+negative, while the leading monic term is positive at positive infinity;
+there is one more root to the right. The corresponding leftmost sign
+and the monic parity give one more to the left. These m+1 disjoint
+intervals contain all roots by degree, each with multiplicity one, and
+interlace the old ones. The base m=1 has P2=w^2-2. Thus the induction
+holds for all integers, not just the symbolic anchors in verify.py.
+
+P_m(-w)=(-1)^m P_m(w); simplicity implies a zero at 0 occurs exactly
+when m is odd. Therefore Q_m has simple imaginary roots, with at least
+one nonreal conjugate pair whenever m>=2.
+
+Choose disjoint small disks about the roots of P_m. Rouche transfers
+one zero counted with multiplicity to each disk in the scaled forward
+cluster for ALL sufficiently small h>0. Since each disk is invariant
+under conjugation and F is real-type, the zero is real and simple.
+A fixed small disk around b has exactly m zeros for small h by Rouche
+at h=0, so none of the original cluster is omitted by scaling. Backward,
+disks about a nonzero imaginary root pair of Q_m stay away from the
+axis and yield a nonreal conjugate pair for ALL sufficiently small h>0.
+This proves both collision orientations without assuming generic
+multiplicity two. The integral definition of H_t ensures the required
+joint holomorphy and PDE by differentiation under the integral.
+
+Credit: the local normal form is classical (also in Polymath's published
+zero-dynamics proposition); Kornaus's PR #180 suggested its use for a
+moving-separator collision-exclusion record. It is re-proved here. No
+unrefereed statement is treated as a leg.
+
+## 2. Moving-separator theorem; continuity suffices
+
+Let A>0, Y>0, and s:[0,A]->(0,infinity) be CONTINUOUS (not necessarily
+monotone or differentiable). Assume F is jointly holomorphic on a
+neighbourhood of the compact set
+
+    {(t,z): 0<=t<=A, |Re z|<=s(t), |Im z|<=Y},
+
+is real-type and solves F_t=-F_zz. Suppose F is not identically zero
+on any time slice, F(t,z)!=0 on the ENTIRE moving rectangular boundary
+for every t in [0,A], and every zero inside at t=0 is real, with arbitrary
+finite multiplicity. Then:
+
+**For every t in [0,A] all interior zeros are real; for every t in (0,A]
+they are also simple.** No assumption about exterior zeros is made.
+
+Proof details that a first-collision slogan can hide:
+
+1. At any fixed time u, finitely many zeros lie in the compact rectangle.
+   The boundary is nonvanishing. Put mutually disjoint small disks around
+   the interior zeros. The complement and a thin collar of the moving
+   boundary are compact and zero-free at u. Continuity of s and uniform
+   continuity of F allow one common time neighbourhood on which there
+   are no zeros outside the disks but inside the moving rectangle, and
+   each disk retains its multiplicity by Rouche. Thus zeros cannot enter
+   through an unsampled change in s(t); the full time continuum matters.
+2. If at u all zeros are real, every simple zero stays real by conjugation
+   and its local count one. Every multiple zero resolves into real simple
+   zeros at all times just above u by section 1. The finite common time
+   neighbourhood from step 1 prevents any other zeros appearing. In
+   particular reality holds on some initial interval [0,delta], even
+   if F(0,.) has multiple roots.
+3. Let b be the supremum of times r such that reality holds throughout
+   [0,r]. Reality also holds at b: a nonreal interior zero at b would
+   persist in a small disk disjoint from the real axis for times just
+   below b, contradicting the definition. Boundary zero-freeness rules
+   out a zero escaping that argument. Step 2 extends reality rightwards
+   at b if b<A. Thus b=A.
+4. If a multiple zero occurs at any u in (0,A], choose a sufficiently
+   small time decrement h with u-h>=0. The backwards orientation yields
+   a nonreal pair near it. By continuity of s the nearby cluster remains
+   in the interior. This contradicts reality just proved. This argument
+   includes the closed endpoint u=A; positive-time simplicity follows.
+
+The disk/collar construction can also be phrased by an argument-principle
+count on the moving contour. The proof above needs no derivative of s and
+never tracks billions of labeled zeros numerically.
+
+## 3. Application to H_t within PT2021
+
+For H_t choose Y=1. The two horizontal edges are zero-free: at t>0 the
+de Bruijn strip has width sqrt(max(1-2t,0))<1; at t=0 the xi boundary
+corresponds to Re s=0 or 1 and is zero-free by the standard zeta boundary
+theorem (the completed function removes the apparent real endpoints).
+Alternatively include these edges explicitly in the input certificate.
+
+Thus it suffices to give a continuous positive s(t) on [0,A] satisfying
+
+    H_t(+/-s(t)+iy)!=0 for all t in [0,A], |y|<=1,
+    s(0)/2<=T_PT=3000175332800.
+
+PT2021 plus H0(z)=xi(1/2+iz/2)/8 places every initial interior zero on
+the real axis. Multiplicities at t=0 need not have been certified as
+simple. Section 2 then proves all zeros with |Re z|<s(t) real and simple
+for t in (0,A]. The boundary itself has no zeros. No slope bound, affine
+form, or lower bound on gaps at t=0 is required. A future record must
+state the exact RH margin T_PT-s(0)/2. This package proves the conditional
+implication and does not supply s or its nonvanishing certificate.
+
+## 4. Closed-band collision-exclusion composition
+
+Let rational 0<l<A<=1/2. Suppose a proved unconditional anchor gives
+Lambda<=A and an s satisfying section 3 has been certified for [0,A].
+Suppose a finite positive wall function r(t) is specified for t in [l,A],
+and, for every such t, both of the following hold:
+
+* every real x with s(t)<=|x|<=r(t) has (H_t(x),H'_t(x))!=(0,0);
+* every zero z with |Re z|>=r(t) is real and simple.
+
+If r(t)<s(t), the first interval is empty and the interior/tail overlap
+covers the intervening real axis. No monotonicity of r is needed for
+this logical composition; its numerical certificate must of course
+cover the full stated domain. All real abscissae are covered by
+|x|<s(t), the zero-free boundary, the exterior, and the closed tail.
+Therefore H_t has no multiple real zero for all t in [l,A].
+
+If Lambda>=l, then 0<Lambda<=A and Theorem S in THEOREM.md supplies
+a multiple real zero at time Lambda. This contradicts the band
+certificate, including either endpoint. Hence **Lambda<l**.
+If Lambda<=0, the same conclusion holds trivially since l>0; no use
+of Rodgers--Tao is necessary for this upper-bound implication.
+
+RH-height dependency: the only finite-height input is the separator's
+initialization s(0)/2<=T_PT and any RH dependency already discharged
+by the anchor. For the chosen banked anchor A=3/16 [V1-H-213;
+second line V1-H-220], its height is 6000000185827/2 and its exact margin
+350479773/2. Under PT2021 and the explicitly stated certificates this
+implication is unconditional in RH. It is still CONDITIONAL ON THOSE
+CERTIFICATES, which this lemma does not claim to provide.
+
+## 5. Coverage contract and nonclaims
+
+The t axis is [0,A] for the separator, [l,A] for the exclusion and
+practical tail, and a positive LEFT neighbourhood for the stall tail.
+The x/N axis is all real x, with every RS cell and transition in the
+finite exterior explicitly charged by that future certificate; the
+remote stall-tail proof uses no RS transition leg. The y axis is the
+entire separator segment [-1,1], the real axis for the exterior pair,
+and ALL complex zeros in the tail. No y0^2/2 penalty is present.
+
+The logic remains valid at s(t)=r(t) since the endpoint belongs to both
+closed pieces. A gap between supplied certificate domains cannot be
+excused by this theorem. Off-axis nonvanishing at a positive y-floor
+is not a tail-real-simplicity or a real-double-zero certificate.
+
+No numerical separator, practical tail, exterior corner, selected l,
+new record or claim of a published bound is made. This is one lemma
+package: the mathematical proofs, a standalone verification script,
+the independent arithmetic audit and clean-copy logs. Its externally
+accepted second-line rung must be recorded before a record consumes it.

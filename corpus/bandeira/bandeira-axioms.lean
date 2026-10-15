@@ -1,0 +1,20 @@
+import Formalization.Farkas.AllBlocksFarkasChain
+import Formalization.Bridges.NativeFarkasAdapter
+import Formalization.Farkas.SDPFarkasSemantics
+import Formalization.Core.BandeiraAMGM
+import Formalization.Core.SpectralNormPSD
+import Formalization.Certificate.FarkasStandard.FarkasStandardFull
+
+#print axioms QiushiFarkasChain.negM_full_posSemidef
+#print axioms QiushiFarkasNativeAdapter.no_native_farkas_feasible
+#print axioms QiushiFarkas.no_lailim_feasible_from_certificate_semantics
+#print axioms QiushiFarkas.no_generated_certificate_adapter
+#print axioms QiushiB1.block1_Q_posSemidef
+#check @QiushiFarkasNativeAdapter.NativeFarkasFeasible
+#print QiushiFarkasNativeAdapter.NativeFarkasFeasible
+#print QiushiFarkas.LaiLimFeasibleSemantic
+#print QiushiFarkas.GeneratedFarkasTheoremShape
+#print axioms Qiushi.BandeiraAMGM.rrnn_iff_bandeira02a
+#print axioms Qiushi.BandeiraAMGM.exists_not_bandeira02a_of_exists_not_rrnn
+#print axioms spectralNormPSD_pow_full
+#print axioms QiushiFarkasStandardFull.m00_reconstructed

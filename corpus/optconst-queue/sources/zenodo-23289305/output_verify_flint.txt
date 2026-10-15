@@ -1,0 +1,16 @@
+certificate: certificate.json
+laws: 2; points per law: [51, 47]; counts: [39041372760532870645, 60958627239467129355]; n = 100000000000000000000 digits; base 55; max |L| = 27
+exact checks: all passed
+entropies per digit (divided by n), natural log, as balls:
+   H(X-Y)/n = [1.901440925560701110457484265407281972200 +/- 3.97e-40]
+   H(X)/n = [1.135260312397153687844396449540066594355 +/- 4.29e-40]
+   H(Y)/n = [1.135260312397153687844592888597243878965 +/- 3.36e-40]
+   H(X+Y)/n = [1.135260312397153687844257617360514392570 +/- 2.66e-40]
+   H(X+2Y)/n = [1.135260312397153687844610788463418675851 +/- 3.98e-40]
+ratio H(X-Y)/max(H(X),H(Y),H(X+Y),H(X+2Y)) lies in [lo, hi] (endpoints shown to 45 digits; the
+comparison with the claim below uses the exact endpoint lo):
+   lo = 1.67489421130711622876434373706095716777944039
+   hi = 1.67489421130711622876434373706095716777944039
+   hi - lo = 5.69e-179
+claimed lower bound: 1674894211307116/1000000000000000; certified lower endpoint - claim = [2.28764343737e-16 +/- 6.10e-29]
+RESULT: certified, C_3c >= 1.674894211307116

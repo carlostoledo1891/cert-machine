@@ -1,0 +1,87 @@
+# Shared-weight Gram source (complete first channel)
+
+## Exact quantified claim and scope
+
+Fix t=4/25, X=6000000185827, N=690988 and y=0. Define
+
+ c(X)= (1/4) log(sqrt(1+X^2)/(4*pi)) - 1/(2*(1+X^2)),
+ a_n=exp((t/4)*log(n)^2-(1/2+t*c(X))*log(n)),
+ A(chi)=sum_{1<=n<=N} a_n chi(n).
+
+For EVERY completely multiplicative character chi with |chi(p)|=1 at EVERY prime p, the certificate proves |A(chi)|>1/10. All n<=N are present. The phase convention may be conjugated: the assertion quantifies the entire torus, not a particular physical orbit. The parameters t,x,N are SINGLETONS. This SOURCE MODULE is not a natural-cell x interval or a time slab. COMPOSITION.md separately derives a physical H_t corollary by citing EXACT memories744/754; it is not an official TORUS_CERT attestation.
+
+The claim is RH-free. Bank744/754 are conditional consumers of exactly this source premise; their domains are not enlarged by the separate corollary. External record-use adoption of this new source remains open. There is no new Lambda bound in this artifact. The collision-exclusion architecture was inspired by Kornaus's PR180, but no upstream file or assertion is consumed. All Gram arithmetic and proofs here are our own.
+
+## Complete smooth/rough decomposition
+
+Let P={2,3,5,7}. Let S be the P-smooth positive integers <=N, including1. Every n<=N has UNIQUE n=r*s, with s in S and r coprime to210. For theta in the CLOSED box[0,2*pi]^4 define
+
+ F_r(theta)=sum_{s in S, r*s<=N} a_(r*s) exp(i*e(s).theta).
+
+Here e(s) is the vector of four nonnegative prime exponents. Then
+ A(chi)=F_1(theta)+sum_{r>1, (r,210)=1, r<=N} chi(r) F_r(theta).
+There is NO identification or pooling of distinct rough characters. Their dependencies can only make the triangle envelope conservative.
+
+Add the synthetic fibre F_*=delta=1/10. For EVERY nonunit rough r and for *, choose the exact positive weights
+
+ v_r=sqrt((8/9)*|F_r(0)/F_1(0)|^2
+              +(1/9)*|F_r(pi,pi,pi,pi)/F_1(pi,pi,pi,pi)|^2),
+ W=sum_{r including *} v_r,   w_r=v_r/W.
+
+The directed builders check the TWO denominators are strictly positive. Every actual F_r(0) is positive, and delta>0, so v_r>0, W>0 and sum w_r=1. No optimization assertion is used: the rational8/9 was fixed before the directed reconstruction, per PREREG_REFINE.md.
+
+## Universal scalar Gram lemma
+
+For ANY finite family of complex values f_1,f_r, ANY delta>0, ANY positive weights w_r on the rough fibres plus synthetic f_*=delta with sum w_r=1, and ANY complex E, put
+
+ T=|E|^2*(|f_1|^2-sum_{r including *}|f_r|^2/w_r).
+
+If T>0, then E!=0 and the parenthesis is positive. Weighted Cauchy gives
+ (sum_{r>1}|f_r|+delta)^2
+ <= (sum w_r)*(sum |f_r|^2/w_r)
+ < |f_1|^2.
+Consequently |f_1+sum z_r f_r| >= |f_1|-sum|f_r| > delta for ALL |z_r|<=1. Positivity itself supplies local nonvanishing of E before division. A prior global stability theorem for E is not assumed or needed. The synthetic fibre and the normalization sum w_r=1 are essential.
+
+## The complete inverse and Fourier identity
+
+Use the finite smooth Dirichlet inverse
+ E(theta)=sum_{d P-smooth, d<=128} lambda_d exp(i*e(d).theta),
+ lambda_1=1, lambda_d=-sum_{q|d, q<d} lambda_q a_(d/q).
+Only smooth q occur. The SECOND construction computes the finite formal series sum_{j=0}^7 (-(F_1-1))^j at d<=128, which is exact since every nonunit factor is>=2. This is not an inverse approximation premise: E is just an explicitly defined finite polynomial.
+
+Let G=|F_1|^2-W*sum_{r>1}|F_r|^2/v_r-W*delta^2/v_*.
+Its coefficient of exp(i*k.theta) is the FULL autocorrelation
+ sum_{s,u in S, e(s)-e(u)=k} [a_s a_u
+    -sum_{r>1, (r,210)=1, r*max(s,u)<=N} (W/v_r)*a_(r*s)*a_(r*u)]
+ minus W*delta^2/v_* at k=0.
+The full T=|E|^2 G is a finite REAL Fourier polynomial. Every inverse product, including integers above N, is retained. Both signs of every frequency are present and T_-k=T_k is real. No raw-index cutoff is imposed after multiplication.
+
+The primary builder scatters the complete rough-fibre pairs into G, then convolves with the autocorrelation of E. The independent builder gathers each smooth pair over ALL admissible rough r, then multiplies separately by E and conjugate E. They regenerate and compare EVERY raw coefficient, positive weight, inverse coefficient and final Fourier coefficient's outward56-bit dyadic enclosure. Identical enclosures are a regression check, not a substitute for either derivation.
+
+## Closed-box Taylor certificate
+
+For a real Fourier polynomial with symmetric real coefficients, group k and -k:
+ T(theta)=b_0+sum_{k in Kplus} b_k cos(k.theta).
+Here Kplus chooses the first nonzero component positive and b_k=2*T_k. All coefficients remain interval-enclosed. A frequency is dropped from the Taylor part ONLY when max(|lo|,|hi|)/2^56<1/10^10. Its COMPLETE magnitude (including the factor2) is added to a global l1 debit tau. Thus |T-T_keep|<=tau on the WHOLE torus, without bounding any derivative of the dropped part.
+
+For a CLOSED leaf with centre theta0 and halfwidth h_j=pi/2^d_j, let J_alpha enclose the exact derivative of T_keep at theta0 for every multi-index |alpha|<=3. Let
+ M_alpha=sum_kept max|b_k| * product_j |k_j|^alpha_j for |alpha|=4.
+The one-variable Taylor theorem on the segment theta0+s*v, |v_j|<=h_j, gives
+
+ T(theta0+v) >= J_0.lower - tau
+  - sum_{1<=|alpha|<=3} max|J_alpha| * h^alpha/alpha!
+  - sum_{|alpha|=4} M_alpha * h^alpha/alpha!.
+
+This is valid on the entire CLOSED leaf. In particular the multinomial coefficients in the one-dimensional fourth derivative divided by4! give EXACTLY1/alpha!, with no missing dimension factor. The primary line computes signed integer interval jets at96-bit scale and completes this formula in Arb192. The secondary line computes reverse-summed rational midpoint jets at98-bit scale, independently charges coefficient and trigonometric radii, and completes the same theorem in Arb256. It uses its own coefficient output and an independently generated rational Machin/Taylor phase table. The two finite sufficient lower expressions need not have identical digits; both are strictly above1/1000000 and their derivative enclosures intersect.
+
+No floating-point optimizer, screen value, sampled corner or leaf count is used as a proof premise. LEAVES.json supplies only exact geometry. It was frozen before the directed evaluation. All3524 leaves are replayed; NONE are silently accepted from discovery logs.
+
+## Full torus and seam coverage
+
+A coordinate (d,m) denotes the CLOSED arc [2*pi*m/2^d,2*pi*(m+1)/2^d], 0<=m<2^d. The maximum depth is5. An exact integer occupancy proof marks EVERY elementary four-dimensional depth5 cell. It rejects any repeated occupancy and any missing cell. A second algorithm checks all leaf interiors are pairwise disjoint by exact dyadic comparisons and that their exact rational volumes sum to1. Finite closedness then covers every seam (an uncovered seam would have an uncovered open neighborhood). Both algorithms include all boundary faces; periodicity identifies0 and2*pi without dropping either endpoint. The partition is the ENTIRE torus, not a symmetry half. Combined with every CLOSED-leaf inequality, T>1/1000000 holds everywhere. The scalar lemma proves the claimed complete full-prime-torus source floor.
+
+## Foundation ladder and representation boundaries
+
+Rung(a): the actual amplitude and inverse code paths freshly reproduce two DISTINCT accepted regimes: memory745's aligned k4 sufficient floor at t=13/80 and memory755's COMPLETE signed inverse-core second moment and ratio at t=4/25, both at X,N above. The byte-identical accepted output fixtures are shipped and hash pinned; BANK_CONTEXT.json identifies their snapshot lines. These are arithmetic calibration statements, not a false assertion that the whole745 conditional plan or755 local phase-box theorem is replayed here.
+
+Rung(b) is supplied for the genuinely new Gram/Fourier and full-torus machinery: independent complete scatter versus gather/factored convolution; interval signed-product versus midpoint-plus-radius jets; exact occupancy versus pairwise disjointness/volume; Cauchy proof versus the separate Schur-complement proof; independent exact rational toy-family identity and adverse controls. Arb/FLINT is SHARED infrastructure and not advertised as two separate libraries. All coefficient and trigonometric rounding boundaries are additionally checked as exact integers; integer-overflow bounds are derived before compiled accumulation. External verifier approval, not a green script alone, decides acceptance.

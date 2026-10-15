@@ -1,0 +1,61 @@
+# Independent proof organization — perturb the contracted vector, then dominate the entire index tail
+
+## A. Source and backward step without a reverse-stability assumption
+
+Consume exactly767/774's vector-ball theorem with delta=1/10. In its normalized notation let V=sum v_r+v_*, w=v/V, and k=delta^2/w_*. After an arbitrary inward substitution p^(-s), s>=0, the vector of rough fibre ratios and synthetic ratio remains in the open Euclidean unit ball. If B=|F1| and Q=sum w_r*r^(-2s), minimizing B-sqrt(Q)*sqrt(B^2-k) over B>=sqrt(k) gives sqrt(k*(1-Q)). This is exactly the increasing expression m_exact(s) in the primary proof. Binning by the MINIMUM rough integer reduces it, never enlarges it. The source production and the lemma are already accepted; this paragraph identifies the stronger consumed premise.
+
+At lower time t_*=a-h, keep the spatial exponent s=t_*(c(x)-c0). The old coefficient multiplier from the contracted source is exp(h*(c0*log n-log(n)^2/4)). Its positive difference from1 is paid in absolute norm. This is a finite perturbation proof, not an application of a negative-duration heat map to a stable polynomial. The constant term has no debit. On each disjoint inclusive bin[L,U], a_n(a,X)n^(-s)<=a_L(a,X)L^(-s), while the multiplier increase is at most exp(h*q(U))-1. Opposite endpoint choices follow from separate derivatives; neither a sampled coefficient nor an assumed monotonic product is used. The bin census includes all C-1 terms.
+
+Now add ALL C<n<=K. Their positive coefficients are bounded by a decreasing-density integral starting at C. If the resulting closed-polydisc floor is positive, stability follows immediately, irrespective of whether K was a natural cutoff at the lower time. Only at this stage use forward heat for the fixed polynomial. This alternative order makes clear why the usual full-torus/non-natural-cutoff objection does not apply.
+
+## B. A direct infinite-integral bound without an ODE comparison
+
+Set t=t_*, l=log C, v=log H, and alpha=1/2+t*epsilon. In the tail proxy of PROOF.md,
+
+ J(z)=integral_l^z exp(t*y^2/4+(alpha-t*z/2)*y)dy,
+ g(z)=exp(-t*z^2/4+alpha*z), k=t*l/2.
+
+For z>=v, split J(z) at v. The first part is
+
+ integral_l^v exp(t*y^2/4+(alpha-t*v/2)*y)*exp(-t*(z-v)*y/2)dy
+ <=exp(-k*(z-v))*J(v).
+
+For the second part, write the integrand at y as
+
+                 g(y)*exp(-t*(z-y)*y/2).
+
+The scalar gate alpha-t*v/2<0 makes g decreasing on[v,infinity), so g(y)<=g(v). Since y>=l, the second part is at most
+
+ g(v)*integral_v^z exp(-k*(z-y))dy
+       =(g(v)/k)*(1-exp(-k*(z-v))).
+
+Therefore
+
+ J(z)<=exp(-k*(z-v))*J(v)+(g(v)/k)*(1-exp(-k*(z-v)))
+       <=g(v)/k,
+
+using the freshly certified J(v)<g(v)/k. This proves every real log-index z>=v directly; there is no derivative exchange, first crossing, grid, asymptotic extrapolation, or finite truncation of the index range. The proof explicitly exhibits the entire remainder beyond v and its nonnegative weight.
+
+The spatial clock estimate uses log(1-r)>=-r/(1-r) with r=beta/K^2, then charges1/(2*w_K^2). These two decreasing corrections are checked at H. Dropping both because they are small would make the inequality go the wrong way; the adverse controls exhibit a strict positive loss. The Gram expression grows and the complete reverse debit decreases with the lower spatial shift. Thus the same source/infinite-entry bound works for all K>=H.
+
+## C. Independent outward integral evaluator
+
+Secondary.py uses only the included dyadic.py rational/integer routines. Set y=l+u, 0<=u<=d=log(U/C). For a target clock c and positive time t,
+
+ integral_C^U a_v(t,c)dv
+ =exp(K0)*integral_0^d exp(D*u+A*u^2)du,
+ A=t/4, D=2*A*l+1/2-t*c, K0=A*l^2+(1/2-t*c)*l.
+
+Every evaluated target and calibration row explicitly checks D>0 and0<D*d+A*d^2<1. The entire series exp(D*u+A*u^2)=sum e_j*u^j has nonnegative coefficients, e0=1,e1=D and j*e_j=D*e_(j-1)+2*A*e_(j-2). Terms through degree100 are integrated exactly in outward dyadic arithmetic. A monomial of degree>100 must originate in expansion order at least51 of exp(D*u+A*u^2). For0<=D*u+A*u^2<1,
+
+ sum_(r>=51) (D*u+A*u^2)^r/r! <=e/51!<3/51!.
+
+Hence the omitted integral is in[0,3*d/51!]. This is a bound for the ENTIRE positive remainder, including the contributions of lower expansion orders correctly included by the recurrence; it does not assume a geometric ratio in the final monomial degree. The factor exp(K0) is then enclosed separately. Primary.py uses Arb erfi and no recurrence, so the two representations audit the special-function/series boundary.
+
+The independent 220-bit engine computes logarithms by atanh series after rational range reduction, exponentials by a positive Taylor series plus an explicit geometric factorial tail and squaring, pi by rational Machin series, and square roots with exact integer roots. Signed arithmetic and both decimal-rounding directions are tested. Both complete target lines regenerate the inherited distinct767/774 anchors through these production functions, not from hard-coded printed digits.
+
+## D. Natural indices, time, and physical implication
+
+Finite geometry covers[C,H] by exact event counts; the analytic branch starts at the SAME CLOSED H. The wall formula is affine and strictly decreasing in time. The checked source endpoint gaps therefore place X in natural C throughout[t_*,b], and every subsequent half-open cell has the right wall owned by its RIGHT index. For each final target, fix K and x, establish the lower-time polynomial floor on its entire polydisc by A--C, verify actual weighted support log K<=4*c(x), then apply GENERAL744 for nonnegative duration t-t_*. No upper degree estimate is required uniformly in K because each polynomial is finite and its own support gate holds. EXACT771's real-projection theorem then applies on its all-index half-line domain. No derivative of K(t,x), source-dependent constants, or the test character is inserted into the physical derivative slot.
+
+The no-double-zero conclusion is only on the REAL axis. It does not imply a uniform off-axis real-simple tail for the stall theorem, and it does not by itself make a new Lambda record. External audit/record registration remain open.

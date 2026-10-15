@@ -1,0 +1,22 @@
+{
+ "what": "The open pull-request queue of teorth/optimizationproblems (the optimization-constants registry, main at 2c1968cd, unchanged since 2026-09-26) as of 2026-10-15: #210 (Mosaic Intelligence, de Bruijn--Newman Λ ≤ 0.1595 'certified record package'), #217 (kleinwaks, Borsuk C_28a ≤ 9 from OpenAI's BorsukNine), #221 (Jaswal, C_3c ≥ 1.674894211307116 from two digit laws), #225 (Atris, C_1a ≤ 1.5027435 and C_1b ≤ 0.38085856 as exact step functions), #226 (Patankar, 16a ≥ 2.156224, 20a ≥ 8, 20c ≥ √3, 70a ≥ 1.201927, 23b ≤ 1/2) — decided where a finite exact object exists, read where the claim is a short proof, refused where the evidence is not in the submission.",
+ "registered": "2026-10-15",
+ "operatorGo": "2026-10-15: 'Agreed, build 1, 2 and 3' (this is 2)",
+ "claims": {
+  "#225 1a": "C_1a ≤ 1.5027435 by a 65,536-step function with exact rational heights: the registry's C_1a is the largest constant with max (f*f) ≥ C (∫_{-1/4}^{1/4} f)^2, so the function's exact ratio is an upper bound; decided by exact autoconvolution (Kronecker product) in instruments/optq/stepfun.py",
+  "#225 1b": "C_1b ≤ 0.38085856 by a 114,688-step h on [0,2], 0 ≤ h ≤ 1, ∫h = 1 (the registry's f on [-1,1], translated): sup_s ∫ h g(·+s) with g = 1 − h, exact",
+  "#221": "C_3c ≥ 1.674894211307116 from two laws on 51 and 47 points, counts 39041372760532870645 and 60958627239467129355 of n = 10^20 base-55 digits: ρ = mixture of per-law entropies (injectivity of the digit map needs max |L| ≤ 27 on both supports), decided by instruments/optq/twolaw.js on instruments/sumdiff + bigfloat intervals",
+  "#226 20a, 20c": "exact: Var((E−1)^2) = 8 by the exponential's moments; the uniform on [−√3, √3] with A = (−∞, 0] has inverse Cheeger ratio √3",
+  "#226 23b": "a short proof (odd n, off-diagonal entries of AᵀA odd, Bhatia--Davis): read step by step, not computed",
+  "#226 16a, 70a": "interval sums over ~50M lattice points and n = 300,000 binomial terms with cited inequalities (BDZ2013; Szász, Steiner): NOT decided here — would need the interval instrument and a reading of the derivation; recorded as such",
+  "#217": "C_28a ≤ 9: OpenAI's BorsukNine, already CERTIFIED in certs/openai-math-kernel.json (2026-10-10: Lean kernel + nanoda, statement read MATCHES); the row cites that record and re-reads the PR's wording",
+  "#210": "Λ ≤ 319/2000: the package (104 files, 2.9 MB) is inventoried — what its scorer computes, what is frozen, what is cited to a 'bank' outside the bundle; nothing in it is re-derived here; the row is REFUSED with the inventory as the reason, and the one piece an independent computation could decide (the torus floor inequality of bank767) is named for a later campaign"
+ },
+ "rules": [
+  "No claimant code runs (scorers kept as .py.txt); constructions are read as data; the registry's definitions (constants/*.md at 2c1968cd) are the definitions.",
+  "The record (certs/optq-ledger.json) is committed before the write-up compares with the claimants' printed values.",
+  "CERTIFIED iff the exact object gives the bound under the registry's definition; REFUTED iff it does not; REFUSED where there is no finite object or the evidence is not in the submission; a proof read is marked 'by reading'."
+ ],
+ "redControls": ["a step function with a negative height refused", "Σh ≠ n/2 refused for 1b", "a two-law certificate whose laws' weights do not sum to 1 refused", "a law with max |L| above (base−1)/2 refused (the entropies would not add)", "a claimed C_3c above the enclosure REFUTED", "the exponential replaced by a distribution with Var ≠ 1 fails 20a's premise"],
+ "cost": "laptop: 1a 40 s, 1b 100 s, the rest seconds"
+}

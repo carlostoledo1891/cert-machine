@@ -1,0 +1,166 @@
+# FOUNDATION — GRAM_ALLINDEX_BACKTIME
+
+## 0. Exact theorem, scope and consumed versions
+
+Snapshot774. Set
+
+ a=4/25, t_*=319/2000, b=3/16, h=a-t_*=1/2000,
+ X=6000000185827, C=690988, H=2299999, epsilon=1/10^12,
+ c(x)=log(sqrt(1+x^2)/(4*pi))/4-1/(2*(1+x^2)),
+ a_n(t,x)=exp(t*log(n)^2/4-(1/2+t*c(x))*log(n)),
+ A_(t,x,K)(z)=sum_(1<=n<=K) a_n(t,x) z^v(n).
+
+The coordinates of z run over EVERY prime through K. Every raw term is retained; K is finite at each target but there is NO global upper cutoff. For EVERY t in CLOSED[t_*,b], EVERY x in CLOSED[X,infinity), y=0, let
+
+                  K=floor(sqrt(x/(4*pi)+t/16)).
+
+For EVERY point of the CLOSED prime polydisc, the complete polynomial satisfies
+
+                         |A_(t,x,K)|>1/250000.             (T)
+
+Consuming EXACT771 REAL_PROJECTION_NEWTON, (T) implies that whenever u=H_t(x)/|M_t((1+i*x)/2)|=0, one has |u_x|>1/400000. In particular (H_t(x),H'_t(x))!=(0,0). EVERY natural RIGHT-index wall is included and differentiated with that index frozen. There is NO terminal finite wall. This is a real-axis statement, NOT reality or simplicity of all complex zeros of H_t.
+
+The strong source is EXACT767, and its arbitrary-contraction recovery lemma and complete positive weight bins are EXACT774. GENERAL744, externally audited754, is used only FORWARD in time. The physical implication is EXACT771, including its stated EXACT710/725 balanced REAL errors. This artifact does not derive new H_t remainder estimates. Frozen accepted proofs/outputs are byte-identical, locally hash-pinned inputs in INPUT_PINS.json. Complete source-coefficient/weight production and source torus coverage are CONSUMED, not re-claimed or replaced by a hash. BANK_CONTEXT.json states every exact fact/version consumed.
+
+The new result is an actual all-index exterior after these accepted premises, not an unsupplied-source plan. It supplies no official floating-checker attestation, record-harness COVER registration, separator, remote all-complex stall-tail replacement, candidate, or new Lambda bound. External record-use adoption of the source, recovery, projection interface and THIS continuation remains open.
+
+## 1. What is retained from the Gram source
+
+Write c0=c(X), and use the smooth primes2,3,5,7. At(a,X,C), let F_r be the complete smooth fibre at rough r, as defined in767/774. Put delta=1/10 and retain EVERY exact positive weight v_r and the synthetic weight v_*. The normalized weights are w_r=v_r/(v_*+sum v_r). The accepted stronger source, not merely its scalar modulus, is
+
+       |F_1|^2 > sum_(r>1)|F_r|^2/w_r + delta^2/w_*.
+
+It holds on the whole smooth torus; F_1 is stable on the CLOSED smooth polydisc, and the holomorphic vector ball argument in774 extends it to that polydisc. For EVERY real s>=0 and every complete prime-polydisc point,
+
+ |sum_(n<=C) a_n(a,X)n^(-s)z^v(n)|
+  > m_exact(s)
+  :=delta*sqrt(1+sum_(r>1)v_r*(1-r^(-2s))/v_*).          (1)
+
+The inequality is strict even at s=0. This is774's UNIVERSAL contraction lemma; the parameter s is not required to equal a particular time times a spatial clock. The synthetic component is essential. For each of774's224 complete positive rough bins, let rho_g be its EXACT minimum rough integer and V_g its exact weight sum. Then
+
+ m(s):=delta*sqrt(1+sum_g V_g*(1-rho_g^(-2s))/v_*)
+                                                  <=m_exact(s). (2)
+
+All weights are positive, so m is increasing on s>=0. No rough mass is dropped. The 100-bit dyadic bins consumed here are EXACT774's accepted p_bins.txt, not freshly asserted coefficients. Their enclosures are propagated outward by both lines.
+
+## 2. New reverse-time perturbation before forward heat
+
+Put q(n)=c0*log(n)-log(n)^2/4. The machine proves2*c0>log C, so q is positive for2<=n<=C and strictly increasing there. For ANY x>=X put
+
+                         s=t_* (c(x)-c0)>=0.
+
+The coefficient identity is EXACT:
+
+ a_n(t_*,x)=a_n(a,X)*exp(h*q(n))*n^(-s).                 (3)
+
+It uses t_* in the spatial contraction, NOT a. Let
+
+ D(s)=sum_(2<=n<=C) a_n(a,X)*(exp(h*q(n))-1)*n^(-s).
+
+Thus (1), (2) and the complete perturbation triangle inequality give
+
+                         |A_(t_*,x,C)|>m(s)-D(s).       (4)
+
+This does NOT use reverse heat as a stability-preserving operator. Every reverse-time coefficient increase is paid, and n=1 has exactly zero increase.
+
+To bound D, partition EVERY integer2..C into the following1240 disjoint inclusive bins. Start L=2; if L<256 let U=L, otherwise U=min(C,floor(129*L/128)); continue with L=U+1. For each bin,
+
+ B_(L,U)(s)=(U-L+1)*a_L(a,X)*(exp(h*q(U))-1)*L^(-s).
+
+The function a_v(a,X)*v^(-s) decreases on1<=v<=C because its logarithmic derivative is -1/2+a*(log(v)/2-c0)-s<0. Meanwhile exp(h*q(v))-1 increases. Bounding these two factors in their OPPOSITE directions gives
+
+                   D(s)<=Dbar(s):=sum_bins B_(L,U)(s). (5)
+
+No monotonicity of the product is assumed. The complete census has C-1 old nonconstant terms; both independently generated partitions are checked for gaps, overlaps and exact cardinality. Dbar is nonincreasing in s. This simple complete-bin bound avoids another full torus or coefficient-wave computation.
+
+## 3. Every entrant and the finite-index proof
+
+For an adaptive CLOSED integer interval[L,U] inside[C,H], define
+
+ x_L=X if L=C, otherwise4*pi*(L^2-b/16),
+ c_L=c(x_L), s_L=t_*(c_L-c0).
+
+A target with natural K in[L,U], t in[t_*,b], x>=X has x>=x_L, since its natural left wall is4*pi*(K^2-t/16). The old source lower bound therefore improves from m(s_L)-Dbar(s_L) as x increases.
+
+For every enlarged cutoff C<=K<=U, pay ALL entrants, including smooth ones and all new primes:
+
+ sum_(C<n<=K) a_n(t_*,x)
+ <= integral_C^U exp(t_* log(v)^2/4-(1/2+t_*c_L)log(v))dv
+ =: I(L,U).                                             (6)
+
+The density is decreasing on[C,U]; its maximum logarithmic derivative occurs at U and is explicitly proved negative on each accepted interval. The lower integration endpoint is the predecessor C, not C+1. Combining(4)--(6) on the ENTIRE closed prime polydisc gives
+
+                    |A_(t_*,x,K)|>m(s_L)-Dbar(s_L)-I(L,U). (7)
+
+Arb adaptive bisection from[C,H] produces42 CLOSED leaves,83 tested nodes. EVERY sufficient expression in(7) exceeds1/250000. The independent integer-series line evaluates the frozen geometry afresh and proves exact event coverage of[C,H]. Failed parent intervals are only failures of that coarse sufficient expression, not raw-polynomial counterexamples. All shared integer endpoints are included.
+
+The driver explicitly derives the minimum among ALL sufficient leaf expressions; it is at[1998309,2098872], FLOOR12 0.000014025687, CEIL12 0.000014025688. This is NOT a physical or torus infimum. No count is asserted to be a runtime or speed ratio.
+
+## 4. New analytic branch for EVERY index K>=H
+
+There is no extrapolation from a sampled large index. Put beta=b/16, z=log K, l=log C. For K>=H, naturality and c'(x)>0 give x>=w_K:=4*pi*(K^2-beta). The elementary inequalities log(1-r)>=-r/(1-r) and sqrt(1+x^2)>=x show
+
+ c(x)>=z/2-beta/(4*(K^2-beta))-1/(2*w_K^2)
+       >=z/2-epsilon.                                   (8)
+
+Both positive error terms decrease with K. Both lines prove their sum at H is <epsilon. The exact proxy loss z_H/2-c(w_H) is positive, so simply setting this correction to zero would be invalid.
+
+Define s_H=t_*(log(H)/2-epsilon-c0)>0. From(2),(5),(8), at EVERY K>=H the old part has modulus lower expression at least m(s_H)-Dbar(s_H). The complete entrant density is decreasing on[C,K] because
+
+ -1/2+t_*(log(v)/2-c(x))<=-1/2+t_*epsilon<0.
+
+It is therefore bounded by the integral with c=log(K)/2-epsilon. In logarithmic coordinates this is
+
+ J(z)=integral_l^z exp(t_*y^2/4+(1/2+t_*epsilon-t_*z/2)*y)dy.
+
+Set
+
+ g(z)=exp(-t_*z^2/4+(1/2+t_*epsilon)*z),
+ kappa=t_*l/2>0, z_H=log H.
+
+Differentiation under the finite integral yields
+
+ J'(z)=g(z)-(t_*/2)*integral_l^z y*exp(...)dy
+       <=g(z)-kappa*J(z).                               (9)
+
+Since g'(z)/g(z)=1/2+t_*epsilon-t_*z/2 is already NEGATIVE at z_H, g(z)<=g(z_H) for EVERY z>=z_H. The independently checked seam gate is J(z_H)<g(z_H)/kappa. The integrating-factor inequality in(9) gives the SINGLE constant supersolution
+
+              J(z)<=g(z_H)/kappa=:B_inf for ALL z>=z_H. (10)
+
+SECOND_PROOF.md derives(10) directly by splitting the integral at z_H, without differentiating it or invoking an ODE comparison theorem. Every entrant beyond C is charged; neither(9) nor(10) has an upper index or infinity cutoff.
+
+The complete infinite-branch sufficient lower expression is
+
+                m(s_H)-Dbar(s_H)-B_inf>1/250000,
+
+with FLOOR12 0.020604571428, CEIL12 0.020604571429. This is a certified expression, not the true tail infimum. It overlaps the finite branch at the CLOSED index H. Unlike774's finite rectangle, every terminal wall is now covered by the analytic branch.
+
+## 5. Correct order of stability, time and natural-index adoption
+
+Fix an arbitrary target(t,x) and its natural K. Sections3--4 FIRST prove a positive uniform closed-polydisc floor for A_(t_*,x,K), even if K is oversized relative to the natural cutoff at time t_*. No natural-source winding theorem is invoked at that oversized cutoff.
+
+The actual weighted support for prime weights log p is log K. On finite leaves, the scripts check4*c_L>log U. On the infinite branch,(8) gives4*c(x)-log K>=log K-4*epsilon>=log H-4*epsilon>0. Hence the GENERAL heat map744, audited754, applies at this FIXED x,K to
+
+ A_(t,x,K)=T_(t-t_*,c(x)) A_(t_*,x,K),  t-t_*>=0.
+
+It preserves the SAME closed-polydisc minimum, proving(T) for EVERY time endpoint and every intermediate time. Only then choose the target's natural RIGHT index. This order is indispensable: a positive full-torus value at a nonnatural cutoff is not by itself a generic stability theorem, whereas the closed-polydisc perturbation inequality here directly supplies stability.
+
+The source site lies in natural C for every t in[t_*,b]: both lines prove w_C(t_*)<X<w_(C+1)(b). All other walls satisfy the exact identities
+
+ w_(K+1)(t)-w_K(t)=4*pi*(2*K+1)>0,
+ d w_K/dt=-pi/4,
+ w_K(t)/(4*pi)+t/16=K^2.
+
+The LEFT-CLOSED/RIGHT-OPEN cells thus join with RIGHT-hand index K, including EVERY wall. There is no far terminal wall to exclude. Finite[C,H] and infinite[H,infinity) overlap exactly as licensed; x has CLOSED left endpoint X and no upper bound. The only imaginary coordinate in the physical consequence is y=0.
+
+Finally[t_*,b] is a subset of771's[7/50,3/16]. With m=1/250000, p=1/800000, q=1600001/40000000000, EXACT771 gives at u=0 the strict lower derivative floor1/400000. The driver rechecks its rational squared gate144*(m^2-p^2)>(q+2/400000)^2. No complex-remainder derivative is substituted for a REAL projection, and no artificial source shift is differentiated.
+
+## 6. Second lines, calibration, and release
+
+New transport arithmetic is complete on TWO lines. Primary uses Arb224, including exact erfi antiderivatives. Secondary uses220-bit outward integer/dyadic intervals with its own rational Machin/log/exp/sqrt series and a positive-coefficient recurrence for the entire entrant integral. It imports no Arb, mpmath, primary helper or primary numerical output; only the exact geometry is shared. The recurrence's ENTIRE infinite remainder is bounded, not discarded. Both lines independently form EVERY reverse bin and every target expression.
+
+Production c/heat amplitude functions reproduce EXACT767's accepted head/interface fields; production norm/integral functions reproduce DISTINCT774's intermediate and far-index accepted expressions, including its formerly binding leaf. New reverse-time and infinite-index machinery use the separate arithmetic/proof line and adverse exact controls, not synthetic fixtures masquerading as banked anchors. Complete source-bin production itself remains consumed. Shared finite geometry, accepted bins and the inherited dyadic library are disclosed; there is no claim of two new independent source convolutions.
+
+The original registered lower endpoint799/5000 and modest15999/100000 pass by exact inclusion. The stronger319/2000 endpoint was explicitly POST-SCREEN; it is not a confirmed ex-ante prediction. Gates use exact rationals or outward intervals; every displayed decimal is derived live and labelled FLOOR/CEIL, with signed rounding self-tests.
+
+Local theorem and physical exterior are RH-free. An eventual Lambda application still requires PT2021 T=3000175332800 solely at INITIAL X/2, exact margin350479773/2, anchorV1-H-213, the separator/interior, and a uniform all-complex real-simple remote tail for the stall theorem. None is replaced by this real-axis result. Kornaus PR180 is credited for collision-exclusion motivation only; no upstream file, constant, theorem or code is consumed. No publishing action is taken.

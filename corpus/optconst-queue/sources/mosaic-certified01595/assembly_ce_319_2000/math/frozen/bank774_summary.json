@@ -1,0 +1,98 @@
+{
+  "RH_local": "NONE",
+  "adaptive_nodes": 27,
+  "candidate": false,
+  "checks": 663,
+  "complete_entrants": 1609011,
+  "consumed_memories": [
+    720,
+    729,
+    733,
+    738,
+    744,
+    745,
+    754,
+    767
+  ],
+  "controls": 6594508,
+  "eventual_RH_context": {
+    "anchor": "V1-H-213",
+    "height": 3000175332800,
+    "initial_X_half": "6000000185827/2",
+    "margin": "350479773/2",
+    "source": "PT2021"
+  },
+  "external_record_use_audit": "OPEN",
+  "fresh_products": {
+    "CONTROLS_RESULT.json": "76c16108dfc35e1c59bbe5467363115809a9caaed417910d0e2a3c1545424f83",
+    "GEOMETRY.json": "1d6a6dc0577e18dd4c6bb49b8b746e353f7bf40490368ea032a3c24019a497d5",
+    "PRIMARY_RESULT.json": "a83bcadbd63c5ba04be0a98ffa628d6b666616af944343de5b5a86a38e600137",
+    "SECONDARY_RESULT.json": "2d7227cd3797de39934feaae909d6c69cceecad457c9acafeadde115f12a0c8b",
+    "p_bins.txt": "94d0610a407a302ee18a2330cf48ebc94cbf34c74fc20f6545de41de667f8f1e",
+    "p_raw.txt": "3214e765a0bf40afdbce81a9c4fab4feaf5e026da0be45734b808a8636145ee1",
+    "p_summary.txt": "3c75ed8bbf75b234fa69831b60abecaa2e4c715d09457c294a2a67a81601be34",
+    "p_weights.txt": "af3c450c22bb181afa4c3bbaad854664fe83382705f6c3864cc3fbb585690d6f",
+    "s_bins.txt": "94d0610a407a302ee18a2330cf48ebc94cbf34c74fc20f6545de41de667f8f1e",
+    "s_raw.txt": "3214e765a0bf40afdbce81a9c4fab4feaf5e026da0be45734b808a8636145ee1",
+    "s_summary.json": "4c42051445e570c750ff68352347e75857bf5c9d0e944a98934a4181af81ad55",
+    "s_weights.txt": "af3c450c22bb181afa4c3bbaad854664fe83382705f6c3864cc3fbb585690d6f"
+  },
+  "index_leaves": 14,
+  "minimum_sufficient_leaf_expressions": [
+    {
+      "CEIL12": "0.011185589490",
+      "FLOOR12": "0.011185589489",
+      "L": 1897746,
+      "U": 2098872,
+      "hi": "37695362008504105097490132295886635957911030524460814649840059437/3369993333393829974333376885877453834204643052817571560137951281152",
+      "lo": "37695362008504105097490132193801156005728707876027168435035391021/3369993333393829974333376885877453834204643052817571560137951281152"
+    },
+    {
+      "CEIL12": "0.011185589490",
+      "FLOOR12": "0.011185589489",
+      "L": 1897746,
+      "U": 2098872,
+      "hi": "18847681004252052548745066147942533616387338413973564392507682805/1684996666696914987166688442938726917102321526408785780068975640576",
+      "lo": "588990031382876642148283315528167579533213224455416395167806781/52656145834278593348959013841835216159447547700274555627155488768"
+    }
+  ],
+  "new_Lambda_bound": false,
+  "new_source_trees": 0,
+  "new_tail": false,
+  "new_transport_line2": "zero-Arb exact dyadic positive-series complete integral",
+  "official_TORUS_CERT_attestation": false,
+  "raw_modulus_strict": "1/100",
+  "record_harness_COVER": false,
+  "rough_bins": 224,
+  "snapshot": 767,
+  "source": {
+    "N": 690988,
+    "X": 6000000185827,
+    "complete_accepted_weights": true,
+    "memory": 767,
+    "strong_Gram_not_scalar_summary": true,
+    "t": "4/25"
+  },
+  "source767_replayed_as_new_claim": false,
+  "source_builder_shared_infrastructure": "Arb/FLINT disclosed",
+  "status": "ALL_PASS_ACTUAL_FINITE_GRAM_RECOVERY",
+  "target": {
+    "N_natural_closed": [
+      690988,
+      2299999
+    ],
+    "all_internal_RIGHT_walls": true,
+    "all_prime_polydisc": true,
+    "t_closed": [
+      "4/25",
+      "3/16"
+    ],
+    "terminal2300000_wall": "EXCLUDED",
+    "x_closed": [
+      6000000185827,
+      66476100549959
+    ],
+    "y": 0
+  },
+  "true_multiple_real_zeros_excluded": true
+}

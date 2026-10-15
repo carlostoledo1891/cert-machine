@@ -1,0 +1,56 @@
+# Self-checking certificate for AlphaEvolve Problem 42 ("Sum-difference problem I").
+# Builds an explicit finite set A of integers and prints |A|, |A+A|, |A-A| and
+#     g(A) = ln(|A+A|/|A|) / ln(|A-A|/|A|),
+# a lower bound for the constant C (least C with |A+A|/|A| <= (|A-A|/|A|)^C for all finite A).
+# Requires: python 3 + numpy. Runs in seconds. Counts are exact: the FFT product of 0/1
+# vectors is checked to be integer-valued before counting its support.
+#
+# Design ("far block"): a dense interval [0,L], a thin additive basis spanning [0, hL] (h = 7/5),
+# a far translated copy of that basis whose self-differences hide in the same central band,
+# and five isolated points. As L -> infinity, g -> ln 12 / ln 8.4 = 1.16759...
+# Best previously published lower bound: 1.1259444 (Penman & Wells, INTEGERS 13 (2013), Thm 21).
+from math import log
+import numpy as np
+
+L = 100000            # size parameter (must be divisible by 5); larger L -> g closer to 1.16759
+h_num, h_den = 7, 5   # h = 7/5
+
+def two_scale_basis(K, q):
+    """{0..q-1} u {multiples of q in [0,K]} u {K-q+1..K}: a thin set C with C + C = [0, 2K]."""
+    C = set(range(0, min(q, K + 1)))
+    C.update(range(max(0, K - q + 1), K + 1))
+    C.update(range(0, K + 1, q))
+    C.add(K)
+    return C
+
+assert L % h_den == 0
+K = h_num * L // h_den                       # core basis span (= h*L)
+q = max(2, int((K // 2) ** 0.5))
+C = two_scale_basis(K, q)
+x = L - 3 * K                               # far-block offset ((1 - 3h) L; negative)
+core   = set(range(0, L + 1))               # dense interval [0, L]
+block  = {c for c in C if c > L}            # basis part above the interval
+far    = {x + c for c in C}                 # far translated copy of the basis
+points = {L - K, x - K + L, 2 * K, 2 * K + L, 4 * K - L}   # (1-h)L, (2-4h)L, 2hL, (2h+1)L, (4h-1)L
+A = np.array(sorted(core | block | far | points), dtype=np.int64)
+
+lo, hi = A.min(), A.max()
+f = np.zeros(hi - lo + 1); f[A - lo] = 1.0
+def support_size(u, v):
+    n = 1
+    while n < len(u) + len(v) - 1: n *= 2
+    conv = np.fft.irfft(np.fft.rfft(u, n) * np.fft.rfft(v, n), n)[: len(u) + len(v) - 1]
+    r = np.rint(conv)
+    assert np.max(np.abs(conv - r)) < 1e-3, "integrality check failed - do not trust these counts"
+    return int(np.count_nonzero(r > 0.5))
+
+n     = len(A)
+sums  = support_size(f, f)                  # |A + A|
+diffs = support_size(f, f[::-1])            # |A - A|
+g     = log(sums / n) / log(diffs / n)
+
+print("|A|   =", n)
+print("|A+A| =", sums)
+print("|A-A| =", diffs)
+print("g(A)  = %.10f   ->   C >= %.10f" % (g, g))
+print("previous best 1.1259444 (Penman-Wells 2013) beaten:", g > 1.1259444)

@@ -1,0 +1,113 @@
+# EXTERNAL_782_ALLINDEX_CONTINUATION_AUDIT
+
+## 1. Scope and provenance (snapshot792)
+
+The audited theorem is EXACT memory782 GRAM_ALLINDEX_BACKTIME, not a new extension. The external auditor is rh_astra; ladder_astra produced782. No producer executable source is included, imported or run. The only frozen producer material is proofs, exact geometry and accepted numerical/data records. `INPUT_PINS.json` binds them to accepted782 and its frozen767/774 dependencies. `BANK_CONTEXT.json` gives exact statement versions. Existing source767, its external audit789, universal recovery774 (separate external owner), GENERAL forward heat744/754, and real projection771/779 are **consumed**; this is not another source or recovery audit or a global composition claim. It audits their precise interface use in782.
+
+Our own `audit.py` reconstructs every target expression, every old debit bin, every positive rough-bin contribution and every entrant charge. It imports only standard Python and public FLINT/Arb/Acb. Shared numerical-library infrastructure is disclosed. No producer program, cached target scalar, erfi antiderivative, producer recurrence or accepted result is used to compute a new target. Frozen results are comparison targets only. The log-affine entire-function Acb quadrature is different from both producer integral implementations. The same new functions first reproduce the accepted767 head interface and accepted774 intermediate, far and binding regimes; these are anchors, not a re-certification of their complete sources. The new proof/representation controls are exact and adverse tests, not purported certified anchors.
+
+### Complete quantified target
+
+Set a=4/25, tau=319/2000, b=3/16, h=a-tau=1/2000, X=6000000185827, C=690988 and H=2299999. For **every real** t in **CLOSED**[tau,b], **every real** x in **CLOSED**[X,infinity), y=0, choose the **natural RIGHT** integer K=floor(sqrt(x/(4*pi)+t/16)). For **every point** z of the **CLOSED full-prime polydisc through K**, the COMPLETE polynomial
+
+ P(t,x,K;z)=sum_(1<=n<=K) exp(-log(n)/2+t*(log(n)^2/4-c(x)*log(n))) z^v(n),
+ c(x)=log(1+x^2)/8-log(4*pi)/4-1/(2*(1+x^2)),
+
+has |P|>1/250000. Consequently, using exactly771's all-index real projection with its banked real error charges, every real zero of u=H_t/|M_t| there has |u_x|>1/400000. Both time endpoints and x=X are included; every internal and former terminal right-index wall is included. The finite part covers CLOSED integer[C,H] and the analytic part covers CLOSED integer[H,infinity); they overlap at H. There is no terminal upper cutoff. The proof addresses only y=0, not off-axis reality or a uniform all-complex stall tail.
+
+Local proof and audit need no RH input. A future global Lambda application still requires only PT2021 T=3000175332800 at INITIAL X/2, margin350479773/2, and anchorV1-H-213, plus its separate interior and stall-tail legs. Neither global Lambda<319/2000 nor record acceptance is claimed here.
+
+## 2. Identification of the retained strong premise
+
+The source is NOT replaced by its scalar |P|>1/10. EXACT767 establishes the complete weighted Gram inequality, and774 supplies its universal vector-ball consequence. Write v_* for the strictly positive synthetic weight of the delta=1/10 component and v_r for every positive nonunit rough weight. The arbitrary inward contraction s>=0 yields the strict old-polynomial floor
+
+ m_exact(s)=delta*sqrt(1+sum_(r>1) v_r*(1-r^(-2s))/v_*).
+
+Every coefficient, rough fibre and the synthetic component are retained. For a bin g, its least rough integer rho_g satisfies 1-r^(-2s)>=1-rho_g^(-2s). Hence the supplied224 exact bins give the conservative floor
+
+ m(s)=delta*sqrt(1+sum_g V_g*(1-rho_g^(-2s))/v_*).
+
+Both the positive direction and the MINIMUM rough endpoint are essential; maximum endpoints would raise a claimed lower bound unsoundly. This audit re-enumerates every rough integer coprime to210 to check every bin id, minimum, maximum, count and integer sum. It evaluates all224 accepted positive weight intervals at every finite-leaf contraction and at the infinite contraction; the exact weight construction itself remains the consumed774 interface. The synthetic weight is separately interval-enclosed, never silently normalized away. Positivity makes m nondecreasing on s>=0.
+
+## 3. Reverse-time perturbation: correct exponent and every old term
+
+For l=log n define q(n)=c(X)*l-l^2/4. At a fixed x>=X use s=tau*(c(x)-c(X)), NOT a*(c(x)-c(X)). Direct cancellation of exponents gives
+
+ a_n(tau,x)=a_n(a,X)*exp(h*q(n))*n^(-s).
+
+No theorem of reverse heat stability is used. The full coefficient-l1 difference D(s) is paid before any forward stability theorem:
+
+ D(s)=sum_(2<=n<=C) a_n(a,X)*(exp(h*q(n))-1)*n^(-s).
+
+For n=1 the difference is exactly zero. The code proves c(X)-log C/2>0, so q is positive and increasing on[2,C]. It separately proves the source coefficient times n^(-s) decreases on[1,C]. On each inclusive bin[L,U], their product is therefore bounded by
+
+ (U-L+1)*a_L(a,X)*(exp(h*q(U))-1)*L^(-s).
+
+These are OPPOSITE endpoint choices for separate factors; the proof does not assume the complete product is monotone. The1240-bin partition is independently constructed from the recurrence in782 and checked by an occupancy census to cover **exactly all690987** nonconstant old indices, with neither duplication nor omission. Every term of this majorant is positive and nonincreasing in s. Thus m(s)-Dbar(s) is nondecreasing in s. `ALL_BIN_CELLS.tsv` records directed rational cells for every contribution at every leaf and the infinite branch; the audit does not compare only the final minimum.
+
+## 4. Entire finite region, all entrants, closed joints
+
+For each frozen CLOSED integer[L,U], use x_L=X if L=C and otherwise x_L=4*pi*(L^2-b/16). Naturality at any target time t<=b gives x>=x_L, hence c(x)>=c(x_L), as c'(x)=x/(4*(1+x^2))+x/(1+x^2)^2>0 for x>0. Therefore s>=s_L=tau*(c(x_L)-c(X)). The worst old-polynomial floor on this entire region is at s_L.
+
+For EVERY C<n<=K<=U, include its complete positive raw coefficient, without smooth/rough filtering and without excluding new primes. At time tau and the adverse clock c_L, f(v)=a_v(tau,c_L) has logarithmic derivative -1/2+tau*(log v/2-c_L). The program proves this is strictly negative at U, which proves it negative throughout[C,U]. On EACH[n-1,n], f(v)>=f(n). Thus all entrants are paid by
+
+ sum_(C<n<=K) a_n(tau,x) <= integral_C^U f(v) dv = I(L,U).
+
+The lower endpoint is C, not C+1. The finite proof includes all H-C possible entrants and every shared endpoint. The independent event-sweep audit covers every integer in[C,H]; ordered shared closed boundaries also prove there is no real index-parameter gap. The count is not a sampled proof of the continuum.
+
+At every prime-polydisc point, triangle inequality now gives
+
+ |P(tau,x,K;z)| > m(s_L)-Dbar(s_L)-I(L,U).
+
+The external line evaluates all42 such sufficient expressions; every one exceeds1/250000. It reconstructs every scalar field and checks agreement with BOTH accepted782 target records, not only their minimum. Known-anchor regimes are regenerated before these targets through the same implementation. The aggregate minimum is freshly compared against every other finite expression and against the infinite branch. It is a minimum of sufficient formulas, NOT the physical or torus infimum.
+
+### Independent rigorous entrant integration
+
+For l=log C, d=log(U/C), v=exp(l+d*r), r in[0,1], the integral is
+
+ integral_0^1 d*exp(tau*(l+d*r)^2/4+(1/2-tau*c_L)*(l+d*r))dr.
+
+This integrand is entire in r; there is no branch cut or hidden restriction for the Acb analyticity flag. Validated adaptive complex quadrature bounds the WHOLE integral with explicit outward balls and a checked small radius. No finite series remainder is discarded. The external evaluator uses neither erfi nor the producer positive-coefficient recurrence. Entire exponentials plus their quadrature are public library operations; sharing FLINT/Arb is stated rather than called an independent library. Agreement with accepted774's two regimes exercises this actual integral path.
+
+## 5. Infinite branch is an analytic proof, not extrapolation
+
+Let beta=b/16, epsilon=1/10^12, z=log K, l=log C, v=log H. Every natural K>=H obeys x>=w_K=4*pi*(K^2-beta). Applying log(1-r)>=-r/(1-r) for0<=r<1 and dropping only a positive square-root correction gives
+
+ c(x)>=z/2-beta/(4*(K^2-beta))-1/(2*w_K^2)>=z/2-epsilon.
+
+Both subtracted positive terms decrease for K>=H; the external line re-evaluates their sum at H and proves it is below epsilon. It also verifies z_H/2-c(w_H)>0: dropping the correction entirely reverses the required inequality. This adverse boundary is explicitly tested.
+
+Set s_H=tau*(v/2-epsilon-c(X))>0. Since m grows and Dbar decreases, the old-polynomial floor for every larger K is at least m(s_H)-Dbar(s_H). The entrant density is decreasing over[C,K], because its logarithmic derivative is at most -1/2+tau*epsilon<0. Changing to logarithmic coordinates bounds the ENTIRE entrant sum by
+
+ J(z)=integral_l^z exp(tau*y^2/4+(alpha-tau*z/2)*y)dy,
+ alpha=1/2+tau*epsilon.
+
+Define g(z)=exp(-tau*z^2/4+alpha*z) and k=tau*l/2>0. Since g'/g=alpha-tau*z/2 is strictly negative at v and decreases, g is decreasing for all z>=v. For z>=v split J at v. On the initial segment l<=y<=v,
+
+ exp(-tau*(z-v)*y/2)<=exp(-k*(z-v)),
+
+so the old piece is at most exp(-k*(z-v))*J(v). On the entire remaining segment v<=y<=z write the integrand as g(y)*exp(-tau*(z-y)*y/2). Since g(y)<=g(v) and y>=l, its integral is at most (g(v)/k)*(1-exp(-k*(z-v))). The freshly evaluated seam inequality J(v)<g(v)/k therefore yields
+
+ J(z)<=g(v)/k for EVERY real z>=v.
+
+This direct integral proof does not use a finite set of large indices, truncation at infinity, an assumed first crossing, or ignored entrants. As a separate symbolic check, differentiating the definition gives J'<=g-kJ and the same constant supersolution. Every positive bin and every old debit bin also enters the infinite expression m(s_H)-Dbar(s_H)-g(v)/k, which the external line proves strictly above1/250000. CLOSED H is shared with the finite proof; there is no terminal wall to omit.
+
+## 6. Forward heat only AFTER the complete stable lower-time polynomial
+
+Fix any eventual physical target(t,x,K). The preceding steps first give the same positive floor on the whole closed polydisc for its complete fixed-cutoff polynomial at tau, regardless of whether K would be natural at tau. No natural-index winding theorem is applied to that potentially oversized cutoff. The actual weighted Newton support for weights log p is log K. The scripts prove4*c(x_L)>log U on each finite interval; in the infinite branch4*c(x)-log K>=log K-4*epsilon>=log H-4*epsilon>0.
+
+Only now apply GENERAL744/754 with duration t-tau>=0 at fixed x,K. It preserves the complete closed-polydisc minimum, so every endpoint and every intermediate time in[tau,b] follows. Afterwards choose K to be the target's natural RIGHT index. Each individual target polynomial is finite; the theorem does not require a globally finite index cap.
+
+The source X is in natural C for the entire time band, by w_C(tau)<X<w_(C+1)(b). Exact identities w_(j+1)-w_j=4*pi*(2*j+1)>0, partial_t w_j=-pi/4, and w_j/(4*pi)+t/16=j^2 prove the half-open physical cells join with RIGHT index j. Frozen differentiation is at that natural index. The joint at H, and every wall entering any larger index, lies in the analytic branch.
+
+Finally[tau,b] is within771's CLOSED[7/50,3/16] domain, with no upper index cutoff. Use its exact constants m=1/250000, p=1/800000, q=1600001/40000000000. The external rational check verifies
+
+ 144*(m^2-p^2)>(q+2/400000)^2.
+
+This gives its strict |u_x|>1/400000 at u=0. It does not differentiate the auxiliary polydisc character, an index function, a artificial source shift or source-dependent coefficients instead of the physical frozen-index jet. Memory771/779 real-error and weighted-support proofs remain consumed, not re-proved here.
+
+## 7. Independence, controls and deliverable limits
+
+The pre-data prediction was reproduction of the already accepted782 continuation. No post-audit time improvement is asserted. All quoted decimals in the fact are reconstructed with signed FLOOR/CEIL helpers; Arb's nearest printer is never the source of their digits. Fresh output contains exact rational endpoints. Adverse arithmetic and coverage controls detect wrong-time contraction, maximum rough endpoint, omitted debit mass, wrong debit multiplier endpoint, wrong entrant predecessor and missing analytic correction; mathematical scope controls reject an open H seam, finite terminal replacement, off-axis conclusion and negative-duration heat. These exercise the new evaluator/assembler rather than merely violating a file digest.
+
+Known-anchor validation is requested for the external numerical machinery; the new continuous/infinite quantifiers are audited explicitly above. An independent verifier must decide the accepted foundation rung. Source767's whole phase-tree audit is already789 and is not duplicated; functional_astra owns the external universal774 recovery audit; wildcard_astra owns791's final composition. This artifact addresses only782's remaining continuation hold. It is not an official TORUS_CERT receipt, record candidate, publication action, source sweep or replacement for the all-complex remote tail.

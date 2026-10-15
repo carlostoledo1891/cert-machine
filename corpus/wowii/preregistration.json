@@ -1,0 +1,23 @@
+{
+ "what": "Five Written-on-the-Wall-II (Graffiti.pc, DeLaViña) conjectures — 353, 360, 373 (trees, total domination; 18 Feb 2009) and 395b, 396 (connected graphs, 2-domination; Jan 2010), all listed open in the archive — and the explicit counterexamples posted against them on google-deepmind/formal-conjectures on 2026-10-14 by RhudeJJJJ (self-identified Jonas J. Gebendorfer; OpenAI Codex assistance stated), as issues #7304, #7305, #7306, #7308, #7330 and PRs #7310, #7321, #7322, #7320, #7337 (each `sorry`, tagged research solved, formal_proof linking the author's fork).",
+ "registered": "2026-10-15",
+ "operatorGo": "2026-10-15: 'Agreed, build 1, 2 and 3' (this is 3)",
+ "claims": {
+  "353": "a 25-vertex tree with gamma_t = 10 < c(T[D_2]) + k_M/2 = 9 + 3/2",
+  "360": "a 41-vertex tree with gamma_t = 6 < c(T[S u L]) + dist_avg(C,V)/2 = 4 + 321/160",
+  "373": "a 150-vertex tree with gamma_t = 12 < (2/3) dist_avg(B,V) = 19676/1639",
+  "396": "a 39-vertex connected graph (K4..K9 + five bridges) with gamma_2 = 12 > dd_mode + |M| + |E(A_3, V - A_3)| = 2 + 8 + 0",
+  "395b": "a 15-vertex connected graph (K4, K5, K6 + seven bridges) with gamma_2 = 6 > |M| + delta(G[V - A]) + |V - A_3| = 4 + 1 + 0"
+ },
+ "definitions": "the archive's (corpus/wowii/sources/archive: open.html snapshots 2010-07-17 and 2016-10-09, wowIIdefs.js): definition 94 total domination, 90 2-domination (members exempt), 38 and 95 the averages over positive distances with denominator |S|(n-1), 45 the modes and dd_mode, 56 minimum degree, 112 edges between two sets. The Lean statements of the PRs are read against these and any difference named (the 395b nonemptiness hypothesis; dd_mode on a unique mode).",
+ "graphs": "built from the witness tables of the claimant's Lean proofs (fork/*.lean, read as text) and checked against the issues' prose counts (vertices, edges); the 395b graph exists only in the Lean.",
+ "deciders": "instruments/wowii/decide.py, standard library: gamma_t by an exact tree DP, sandwiched by an explicit total dominating set and vertices with pairwise disjoint open neighbourhoods; gamma_2 by exhaustion (2^15) or by the private-vertex argument (each clique keeps two vertices with no outside neighbour) met by an explicit set; components, eccentricities, centres, periphery, degree modes and averages as Fractions.",
+ "rules": [
+  "No claimant code or Lean is executed or built; the fork files are data.",
+  "The record (certs/wowii-ledger.json) is committed before any comparison with the author's prose values is written up.",
+  "A row is CERTIFIED iff the graph is as described (tree / connected, the stated order) and the archive's inequality fails on it by exact arithmetic; REFUTED iff it holds.",
+  "Controls: the tree DP must equal brute force on small random trees; the deciders must reproduce the author's stated side values exactly."
+ ],
+ "redControls": ["a tree where the DP must equal brute force", "a set that is not total dominating is not accepted as an upper certificate", "vertices whose open neighbourhoods meet are not accepted as a lower certificate", "a non-2-dominating set is rejected", "the 395b graph with one bridge removed is disconnected and refused", "the 360 right side computed with the half dropped still exceeds the left"],
+ "cost": "laptop, seconds"
+}

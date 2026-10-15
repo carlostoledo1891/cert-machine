@@ -15,10 +15,52 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-15 ~04:40 UTC: NO POD RUNNING; the Bandeira Lean build runs on the laptop, see the top block)
+## TASKS BACKLOG — the standing menu (updated 2026-10-15 ~22:30 UTC: NO POD RUNNING; the Bandeira Lean build is DONE; three new audits built, see the top block)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-15 (~05:00 → ~22:30 UTC), THREE AUDITS BUILT ON THE OPERATOR'S "Agreed, build 1, 2 and 3" (the menu of 2026-10-15:
+famous venues, unanswered exact claims, the Qiushi pattern). Each: scouted by an agent, pinned by sha256, pre-registered,
+decided by standard-library deciders written from the definitions, a ledger re-derived at build, a page, the batteries
+in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment drafts in outreach/three-campaigns-2026-10-15.md
+(lanes AE / W / T in SEND-QUEUE), each the operator's.
+  1. THE ALPHAEVOLVE REPOSITORY'S COMMUNITY CERTIFICATES (issues #4-#12 of google-deepmind/alphaevolve_repository_of_problems,
+     none answered by the owners): certs/aerp-ledger.json — 70 CERTIFIED, 0 REFUTED, 2 REFUSED (the 3-D sofa is a float cube
+     count; the 1.6269 sum-difference instance has an 86-digit modulus). No-5-on-a-sphere: 61 sets from four contributors,
+     n = 13..40, decided by the 4-subset hyperplane key (instruments/aerp/p60.py; O(N^4) exact, numpy optional) with the
+     5-subset determinants cross-checking up to 45 points — best certified C(40) >= 104 where the repository stops at n = 12.
+     No isosceles: both 58-point sets at n = 32 (PatternBoost says "56, SAT-optimal"). Ring loading: 47/42 under either
+     k-range; 9/8 under k = 1..m, and under the notebook's k = 1..m-1 only padded or at m = 17 — the one definitional seam.
+     Sums-differences: the far-block set rebuilt from its rule, g = 1.16334 > 1.163; the 23,646-integer set beats the strong
+     form by 89. Page /reports/alphaevolve-community.html (tools/build-report-aerp.js; the ledger takes ~7 min).
+  2. THE OPTIMIZATION-CONSTANTS PR QUEUE (teorth/optimizationproblems #210, #217, #221, #225, #226): certs/optq-ledger.json —
+     #225's two step functions decided EXACTLY (instruments/optq/stepfun.py: Kronecker-substitution products on 65,536 and
+     114,688 steps; C_1a <= 1.5027434867..., C_1b <= 0.3808585503..., the claimants' fractions digit for digit); #221's two-law
+     C_3c certificate CERTIFIED (instruments/optq/twolaw.js on sumdiff + bigfloat; injectivity max |L| = 27 <= 27 checked);
+     #226: 20a (Var = 8) and 20c (sqrt3) exact, 23b read, 16a and 70a NOT ATTEMPTED (REFUSED, said so); #217 by the
+     openai-math kernel record (BorsukNine CERTIFIED 10-10); #210 (Mosaic, Lambda <= 0.1595) REFUSED: the package's checkers
+     decide assembly (rationals, hashes, box covers, auxiliary inequalities on frozen tables), not analysis; the analysis
+     cites a private "bank"; the anchor 3/16 is the claimant's own merged row. Page /reports/optconst-queue.html.
+     NEXT candidates there: 16a/70a interval sums; the bank767 T^4 floor by an interval cover (hours of CPU).
+  3. WRITTEN ON THE WALL II (google-deepmind/formal-conjectures issues #7304/#7305/#7306/#7308/#7330, PRs #7310/#7321/#7322/
+     #7320/#7337 by RhudeJJJJ = Jonas J. Gebendorfer, Codex-assisted; 60 issues + 23 PRs in a day): certs/wowii-ledger.json —
+     5 of 5 witnesses CERTIFIED as counterexamples (gamma_t by an exact tree DP sandwiched by certificates; gamma_2 by
+     exhaustion or the private-vertex argument), by the author's stated margins; two notes on the Lean statements (395b's
+     added nonemptiness hypothesis; 396's dd_mode on a unique mode); the 360 "½" is original (0xBD in the 2010/2016 archive
+     snapshots). PROVENANCE: the fork's cited commits were rewritten the same evening (404 by 20:45 UTC); the copies decided
+     were fetched 17:14 UTC and are pinned (corpus/wowii/sources/fork/NOTE.md). Page /reports/wowii-counterexamples.html.
+  BANDEIRA (from the night block): the Lean build FINISHED (3,759 jobs; 03:37 → 20:38 UTC, the native_decide probes ~15 h);
+     corpus/bandeira/lean-build.json: every main theorem on propext/Classical.choice/Quot.sound, the Core equivalence on no
+     axiom, the 144 > 120 bound on native_decide; the kernel printed NativeFarkasFeasible's fields as read. Page §4 updated.
+     Issue #1 on their repo is POSTED (04:48 UTC); a follow-up with the axiom list would be a send (the operator's).
+  TRAP (hit three times today): `node tools/build-site.js` alone PRUNES site/swell/* (the swell app builds after it in
+     `make site`); restore with `git checkout -- site/swell` before the gates, or run `make site`. The three ratchets (measure,
+     render, style) each need `--accept` for a new page, in that order, with every page present.
+  SCOUT REPORTS (the agents' briefs and what they found) are in the session scratchpad only; what matters is in the ledgers,
+     the preregistrations and the targets rows (aerp-community-certificates, wowii-formal-conjectures-witnesses,
+     optconst-pr-queue-2026-10).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-15 (~00:30 → ~04:40 UTC), BANDEIRA'S OPEN PROBLEM 0.2(a): THE QIUSHI ENGINE'S DISPROOF AUDITED (operator: "Start

@@ -1,0 +1,174 @@
+{
+ "what": "five Written-on-the-Wall-II (Graffiti.pc) conjectures, open since 2009/2010, and the explicit counterexamples posted against them on google-deepmind/formal-conjectures on 2026-10-14 (author RhudeJJJJ, self-identified as Jonas J. Gebendorfer, Codex-assisted), decided in exact arithmetic from the archive's definitions",
+ "preregistration": "corpus/wowii/preregistration.json",
+ "pins": "corpus/wowii/PINS.json",
+ "rows": [
+  {
+   "id": "wowii-353",
+   "conjecture": "WOWII 353 (18 Feb 2009, open): for a tree T on n > 2 vertices, gamma_t(T) >= c(T[D_2]) + (1/2) k_M, D_2 the degree-2 vertices, M the maximum-degree vertices, k_M the order of a largest component of T[M]",
+   "claim": "the 25-vertex tree of #7304 / PR #7310 (Gebendorfer) is a counterexample: gamma_t = 10 < 21/2",
+   "graph": {
+    "n": 25,
+    "m": 24,
+    "tree": true,
+    "source": "fork/WOWII353Proof.lean parent table; the issue: edges 01,12,13,34 plus four pendant gadgets"
+   },
+   "lhs": 10,
+   "rhs": "21/2",
+   "c_D2": 9,
+   "k_M": 3,
+   "maxDegree": 3,
+   "explicitSetTotalDominating": true,
+   "explicitSetSize": 10,
+   "supports": 9,
+   "verdict": "CERTIFIED",
+   "how": "gamma_t by exact tree DP = 10 (the claimant's set of 10 is total dominating; 9 support vertices force >= 9); c(T[D_2]) = 9, k_M = 3, so the right side is 21/2",
+   "leanReading": "the Lean (PR #7310) states c(T[D_2]) + k_M/2 <= gamma_t over rationals with largestComponentOrder = sup of component orders: the archive's statement"
+  },
+  {
+   "id": "wowii-360",
+   "conjecture": "WOWII 360 (18 Feb 2009, open): for a tree T on n > 2 vertices, gamma_t(T) >= c(T[S u L]) + (1/2) dist_avg(C, V), L the leaves, S their neighbours, C the centre (minimum eccentricity), dist_avg over the positive distances with denominator |C|(n-1) (definition 38)",
+   "claim": "the 41-vertex tree of #7305 / PR #7321 is a counterexample: gamma_t = 6 < 4 + 321/160",
+   "graph": {
+    "n": 41,
+    "m": 40,
+    "tree": true,
+    "source": "fork/WOWII360Proof.lean parent rule; the issue: path 0..9, leaves 10 at 3 and 11 at 6, 29 leaves at 1"
+   },
+   "lhs": 6,
+   "rhs": "961/160",
+   "c_SL": 4,
+   "centre": [
+    4,
+    5
+   ],
+   "distAvgC": "321/80",
+   "rhsWithoutTheHalf": "641/80",
+   "explicitSetTotalDominating": true,
+   "disjointNeighbourhoodsLower": true,
+   "verdict": "CERTIFIED",
+   "how": "gamma_t by exact tree DP = 6 (the set {1,2,3,6,7,8} is total dominating; six vertices with pairwise disjoint open neighbourhoods give >= 6); c(T[S u L]) = 4, centre [4, 5], dist_avg(C,V) = 321/80, right side 961/160; without the half (the 2026 archive copy lost the byte) the right side is 641/80 and the inequality fails too",
+   "leanReading": "the Lean (PR #7321) ranges centres over minimum eccentricity and averages over |C|(n-1): definition 38; the half is in the 2010 and 2016 archive snapshots (byte 0xBD) and dropped from the 2026 copy"
+  },
+  {
+   "id": "wowii-373",
+   "conjecture": "WOWII 373 (18 Feb 2009, open): for a tree T on n > 2 vertices, gamma_t(T) >= (2/3) dist_avg(B, V), B the vertices of maximum eccentricity, dist_avg over positive distances with denominator |B|(n-1) (definition 95)",
+   "claim": "the 150-vertex tree of #7306 / PR #7322 is a counterexample: gamma_t = 12 < 19676/1639",
+   "graph": {
+    "n": 150,
+    "m": 149,
+    "tree": true,
+    "source": "fork/WOWII373Proof.lean parent rule; the issue: path v0..v21, 10 leaves at v0, one at v21, 117 at v20"
+   },
+   "lhs": 12,
+   "rhs": "19676/1639",
+   "diameter": 23,
+   "periphery": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+   ],
+   "distAvgB": "29514/1639",
+   "explicitSetTotalDominating": true,
+   "verdict": "CERTIFIED",
+   "how": "gamma_t by exact tree DP = 12 (the 12-vertex set is total dominating); periphery of 11 vertices at eccentricity 23, transmission sum 29514 over 1639 positive pairs, dist_avg = 29514/1639, (2/3) of it = 19676/1639",
+   "leanReading": "the Lean (PR #7322): periphery = maximum eccentricity, denominator |B|(n-1): definition 95"
+  },
+  {
+   "id": "wowii-396",
+   "conjecture": "WOWII 396 (Jan 2010, open): for a connected graph on n > 2 vertices, gamma_2(G) <= dd_mode + |M| + |E(A_3, V - A_3)|, M the vertices of the smallest modal degree, A_3 the vertices of degree >= 3, dd_mode the number of distinct modes (definition 45), gamma_2 the 2-domination number (definition 90: members exempt)",
+   "claim": "the 39-vertex graph of #7308 / PR #7320 (six cliques K4..K9 and five bridges) is a counterexample: gamma_2 = 12 > 10",
+   "graph": {
+    "n": 39,
+    "m": 121,
+    "connected": true,
+    "source": "fork/WOWII396Proof.lean block + bridge tables; the issue: K4..K9 with bridges b4,0-b5,0; b5,1-b6,0; b6,1-b9,0; b9,1-b7,0; b9,2-b8,0"
+   },
+   "lhs": 12,
+   "rhs": 10,
+   "degreeFrequencies": {
+    "3": 3,
+    "4": 4,
+    "5": 6,
+    "6": 8,
+    "7": 8,
+    "8": 7,
+    "9": 3
+   },
+   "modes": [
+    6,
+    7
+   ],
+   "maxFrequency": 8,
+   "boundaryEdges": 0,
+   "privateVerticesPerClique": {
+    "0": 3,
+    "1": 3,
+    "2": 4,
+    "3": 6,
+    "4": 7,
+    "5": 6
+   },
+   "verdict": "CERTIFIED",
+   "how": "every clique keeps >= 2 vertices with no outside neighbour, so a 2-dominating set has >= 2 in each of the 6 cliques (12); two per clique 2-dominate (12): gamma_2 = 12. Degree frequencies {3: 3, 4: 4, 5: 6, 6: 8, 7: 8, 8: 7, 9: 3}, modes [6, 7] (dd_mode = 2), |M| = 8, boundary edges 0: right side 10",
+   "leanReading": "the Lean (PR #7320) writes |M| as maximumFrequency (equal: M is the class of the smallest mode, whose size is the maximum frequency) and dd_mode as the number of modes; definition 45 leaves dd_mode undefined for a unique mode \u2014 the witness has two"
+  },
+  {
+   "id": "wowii-395b",
+   "conjecture": "WOWII 395b (Jan 2010, open): for a connected graph on n > 2 vertices, gamma_2(G) <= |M| + delta(G[V - A]) + |V - A_3|, M the vertices of the smallest modal degree, A the minimum-degree vertices, A_3 the vertices of degree >= 3 (the Lean adds the hypothesis that V - A is nonempty)",
+   "claim": "the 15-vertex graph of #7330 / PR #7337 (K4, K5, K6 and seven bridges) is a counterexample: gamma_2 = 6 > 5",
+   "graph": {
+    "n": 15,
+    "m": 38,
+    "connected": true,
+    "source": "fork/WOWII395bProof.lean block + bridge tables (the issue gives no graph; its zip attachment was not opened)"
+   },
+   "lhs": 6,
+   "rhs": 5,
+   "degreeFrequencies": {
+    "3": 3,
+    "4": 3,
+    "5": 2,
+    "6": 4,
+    "7": 3
+   },
+   "modes": [
+    6
+   ],
+   "M": 4,
+   "minDegree": 3,
+   "deltaOfRest": 1,
+   "verticesBelow3": 0,
+   "minimumSet": [
+    0,
+    1,
+    4,
+    5,
+    9,
+    10
+   ],
+   "verdict": "CERTIFIED",
+   "how": "gamma_2 = 6 by exhaustion over all 2^15 subsets (a minimum set: [0, 1, 4, 5, 9, 10]); modes [6], |M| = 4, minimum degree 3, delta(G[V - A]) = 1, vertices of degree < 3: 0; right side 5",
+   "leanReading": "the Lean (PR #7337) adds the hypothesis (remaining G).Nonempty \u2014 the archive's delta(G[V - A]) is undefined on regular graphs \u2014 which weakens the universal statement; the witness satisfies it (minimum degree 3, twelve vertices above it)"
+  }
+ ],
+ "counts": {
+  "CERTIFIED": 5,
+  "REFUTED": 0,
+  "REFUSED": 0
+ },
+ "decider": {
+  "decide.py": "c11497239fe5f61b20cb93069f340549ab3e2df17e6d20e7cf5e027676eedeec"
+ },
+ "python": "3.9.6",
+ "seconds": 0.0,
+ "generated": "2026-10-15T21:10:29Z"
+}

@@ -1,0 +1,49 @@
+{
+  "all_deterministic_outputs_identical": true,
+  "all_stdout_identical": true,
+  "copies": [
+    {
+      "copy": "scratch/allindex_release_s32_clean1",
+      "exit": 0,
+      "input_count": 85,
+      "products": {
+        "RELEASE_RESULT.json": "58e649fdedef10ba96c75f2ba107bfcb00164d1c8b3d25d464882da0c69813da",
+        "math/RESULT.json": "ef9ed138d4d4fa9631e8a3dd1994ae1db272fe2291b2b6b2d42ec2324b219a68",
+        "math/SECOND_RESULT.json": "36ed01720c7f95d569448db688e8607323bca676c91bb581af4c424b7dc8753e",
+        "math/second_line.log": "a0259f763dcecb9cdab3a12da3edf463472bc4736a7eccb94c50c22d2d1f485e",
+        "math/second_line_stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mathematics.log": "223c479b5c96612c63da07b06b388228e2ade6e9c42548875186d10a7360c6f1",
+        "mathematics_stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout_sha256": "263cfb4ee002937f91190b5f9f7216244c500879e1fc61c4a494030d3d36ef86",
+      "without_RECORD": true,
+      "without_prior_outputs": true
+    },
+    {
+      "copy": "scratch/allindex_release_s32_clean2",
+      "exit": 0,
+      "input_count": 85,
+      "products": {
+        "RELEASE_RESULT.json": "58e649fdedef10ba96c75f2ba107bfcb00164d1c8b3d25d464882da0c69813da",
+        "math/RESULT.json": "ef9ed138d4d4fa9631e8a3dd1994ae1db272fe2291b2b6b2d42ec2324b219a68",
+        "math/SECOND_RESULT.json": "36ed01720c7f95d569448db688e8607323bca676c91bb581af4c424b7dc8753e",
+        "math/second_line.log": "a0259f763dcecb9cdab3a12da3edf463472bc4736a7eccb94c50c22d2d1f485e",
+        "math/second_line_stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mathematics.log": "223c479b5c96612c63da07b06b388228e2ade6e9c42548875186d10a7360c6f1",
+        "mathematics_stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout_sha256": "263cfb4ee002937f91190b5f9f7216244c500879e1fc61c4a494030d3d36ef86",
+      "without_RECORD": true,
+      "without_prior_outputs": true
+    }
+  ],
+  "products_checked": [
+    "RELEASE_RESULT.json",
+    "mathematics.log",
+    "mathematics_stderr.log",
+    "math/RESULT.json",
+    "math/SECOND_RESULT.json",
+    "math/second_line.log",
+    "math/second_line_stderr.log"
+  ]
+}

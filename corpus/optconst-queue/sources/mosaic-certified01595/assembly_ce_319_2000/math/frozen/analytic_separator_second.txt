@@ -1,0 +1,258 @@
+# FOUNDATION — external analytic separator/interior chain second line
+
+## 1. Object, exact scopes, dependencies
+
+This is an external proof and rational-joint audit of:
+- prover_astra `ce_remote_tail_stall_v1/SEPARATOR.md`, sha256
+  `70cc54cfc3932efaa495687dc3565f9af090594deca67b65faa88dde853cc196`,
+  banked memory **590**;
+- rh_astra `ce_interior_pt2021/PROOF.md`, sha256
+  `bdc313246fb5927e7605ba048deca2c2b0566eda9fb98a2a12cae8f53c9d1842`,
+  banked memory **599**.
+
+Snapshot: 606 verified-memory lines. Mathematical bank inputs are named in
+CITATIONS.json. The generic theorem is re-proved here, not inferred from
+its success marker. Its producer checker/helpers were not read, imported,
+or executed. There is no shared proof code. The new structural line is a
+Rodrigues/Gaussian orthogonality proof of the all-m local model, rather than
+the producer's interlacing or Jacobi-matrix proof. Exact finite-degree
+controls test the transcription, but the all-m argument below is the proof.
+Requested FOUNDATION rung **(b)** for this external analytic line.
+
+**Generic quantifiers.** For every A>0,Y>0, every continuous function
+s:[0,A]->(0,infinity), and every jointly holomorphic real-type F on a
+neighborhood of the moving compact rectangles, assume F_t=-F_zz, no
+identically-zero time slice, nonzero F on the **entire** boundary at every
+real t in **closed [0,A]**, and all initial interior zeros real, with
+arbitrary finite multiplicity. Then at every t in closed [0,A] all interior
+zeros are real, and at every t in **(0,A]** they are simple. No exterior
+zero-location hypothesis, derivative of s, monotonicity of s, or initial
+simplicity is assumed.
+
+**H_t instantiation.** Consume only banked memory **596** for the numerical
+nonvanishing on |Re z|=X=6000000185827, |Im z|<=1, t in [0,3/16], and
+V1-H-017/V1-H-213 for the published strip/normalization and accepted PT2021
+initialization. The conclusion is exactly memory 599's: every H_t zero
+with |Re z|<=X is real on [0,3/16] and simple on (0,3/16]. The closed
+collision COVER is [333/2000,3/16] x [0,X], y=0. N is unrestricted in the
+analytic interior theorem; the **consumed numerical boundary alone** has
+N=690988. Exterior x>X is explicitly not covered.
+
+RH dependency of this instantiation: **PT2021 T=3000175332800**, required
+X/2=6000000185827/2, positive margin **350479773/2**. The generic analytic
+lemma is RH-free. No new RH computation, zero count, initial simplicity,
+or Lambda bound is asserted. The separate numerical second-line obligation
+of line 596/599 remains logically separate; this audit is not presented as
+numerical boundary verification. This session's diagonal artifact addresses
+that numerical obligation independently and is not an unbanked premise of
+this analytic audit.
+
+## 2. All-m parabolic leading term from the PDE
+
+Let a real zero of F at (tau,b) have exact multiplicity m>=2 with leading
+coefficient c != 0 in its z Taylor expansion. Differentiating F_t=-F_zz
+repeatedly gives
+
+    partial_t^j partial_z^k F=(-1)^j partial_z^(2j+k) F.
+
+Set h=r^2 and z=b+r*w. All terms in the convergent joint Taylor series
+with 2j+k<m vanish. The terms of degree m in r are therefore
+
+    F(tau+r^2,b+r*w)=c*r^m*(P_m(w)+O(r)),
+    F(tau-r^2,b+r*w)=c*r^m*(Q_m(w)+O(r)),
+    P_m(w)=m!*sum_j (-1)^j*w^(m-2j)/(j!*(m-2j)!),
+    Q_m(w)=m!*sum_j w^(m-2j)/(j!*(m-2j)!).
+
+The O(r) is uniform on every fixed compact w set: after substitution the
+convergent analytic series is divisible by r^m, with the displayed constant
+coefficient; Cauchy convergence controls the remainder. This is an all-m
+identity, not extrapolation from m<=12. Symbolic controls use the finite
+heat exponential applied to an arbitrary polynomial germ with coefficients
+in degrees m through m+3; each lower parabolic degree is checked zero and
+the leading coefficient matched independently.
+
+The exact relation is Q_m(w)=i^(-m)*P_m(i*w). The normalization matters:
+changing the sign of the PDE swaps the forward/backward orientations.
+
+## 3. Different universal proof: Rodrigues and Gaussian orthogonality
+
+Let G(w)=exp(-w^2/4) and define
+
+    R_m(w)=(-2)^m*G(w)^(-1)*d^m/dw^m G(w).
+
+The generating-function identity is
+
+    sum_(m>=0) R_m(w)*u^m/m! = G(w-2u)/G(w) = exp(w*u-u^2).
+
+Comparison with the explicit coefficient formula in section 2 gives
+R_m=P_m for **every m**. In particular P_m is real monic of degree m and
+has parity (-1)^m. For each real polynomial q of degree less than m,
+
+    integral_R P_m(w)*q(w)*G(w) dw
+      =(-2)^m integral_R q(w)*G^(m)(w) dw = 0.
+
+This is integration by parts m times. Every boundary term vanishes because
+it is a polynomial times a derivative of the Gaussian; at the end q^(m)=0.
+All integrals converge absolutely. Thus no unresolved numerical integral
+or finite-degree induction is being used as an all-m premise.
+
+Here is the root argument in full. Let a_1,...,a_k be the distinct real
+roots of P_m of odd multiplicity, and put q(w)=product_(j=1)^k(w-a_j).
+If k<m then deg q<m. Factor P_m over the reals: each nonreal conjugate pair
+contributes a strictly positive quadratic on the real line, each remaining
+real-root factor after multiplying q has even exponent, and the leading
+coefficient is positive. Therefore P_m(w)*q(w)>=0 everywhere and is positive
+on a nonempty open interval. Since G(w)>0, its integral is strictly positive,
+contradicting orthogonality. Hence k=m. By degree there are exactly m distinct
+real roots, each of multiplicity one, and there are no other roots.
+
+For m>=2, at least two roots are nonzero: parity pairs the nonzero roots,
+and simplicity permits at most one root at zero. Thus Q_m has a nonreal
+conjugate pair of imaginary simple roots. This proves the two collision
+orientations for all multiplicities using positivity, not the producer's
+recurrence/interlacing proof.
+
+The checker evaluates Gaussian moments by the independent exact formula
+
+    integral w^(2j)*G(w) / integral G(w) = (2j)!/j!,
+    odd moments = 0.
+
+For m=2,...,12 it checks every lower moment vanishes and the norm is
+2^m*m!>0; it also compares Rodrigues with the finite heat exponential,
+checks squarefreeness and the imaginary rotation. These are anchor/control
+calculations, not the universal proof.
+
+## 4. From leading polynomial to true local clusters
+
+Fix small pairwise disjoint disks centered at the real roots of P_m,
+invariant under conjugation. Uniform O(r) convergence and Rouche give
+exactly one zero counted with multiplicity in each scaled forward disk for
+all sufficiently small r>0. Invariance under conjugation forces that one
+zero to be real; its count one proves simplicity. A fixed disk around b
+contains exactly m zeros for nearby t, again by Rouche on its fixed
+zero-free boundary, so no additional cluster roots have been omitted.
+
+For Q_m, choose disks around a nonzero imaginary conjugate root pair,
+strictly separated from the real line. For all sufficiently small negative
+time increments the true cluster has nonreal zeros in those disks. This
+holds at any positive time, including t=A when moving backwards stays in
+the permitted band. It forbids a positive-time multiple real zero once
+reality has been established throughout the earlier times.
+
+## 5. Compact moving-domain argument, without differentiating s
+
+At a fixed time v, the rectangle K_v has no boundary zero and the slice is
+not identically zero. Its zeros are finite. Enclose all interior zeros by
+finitely many disjoint disks compactly inside K_v, and choose a small
+closed collar around its boundary contained in the analytic neighborhood.
+Outside the disks, K_v plus a sufficiently thin collar is compact and
+zero-free at v. Because s is continuous, K_t for all t near v is contained
+in that thickening and still contains the disks. Uniform continuity of F
+preserves a positive modulus minimum on the compact remainder. Rouche
+preserves the local multiplicity in each disk. Consequently, there are
+no new interior zeros outside the disks, including no zeros imported by
+motion of the boundary. No derivative or Lipschitz bound on s is needed.
+
+Let R be the set of r in [0,A] for which all interior zeros are real at
+every time in [0,r]. At t=0, all zeros are real by assumption. Every simple
+zero stays real and each multiple zero splits forward into real simple
+zeros by section 4. Finitely many disks give one common time interval, so
+R contains an initial positive interval unless A=0 (excluded here).
+
+Let b=sup R. For each t<b, reality holds by the definition of supremum.
+A nonreal interior zero at b would persist, within a small disk disjoint
+from the real axis and inside the nearby rectangles, at times just below
+b, a contradiction. Thus reality also holds at b. If b<A, section 4 and
+the disk/collar construction extend reality to a right neighborhood, another
+contradiction. Therefore b=A. Finally, a multiple zero at any v in (0,A]
+would yield a backward nonreal pair at v-h>=0 still within the rectangle,
+contradicting the reality just proved. This includes both the final time
+and any time arbitrarily near zero; no simplicity statement at zero follows.
+
+## 6. Independent H_t join, all endpoints and the exact RH price
+
+Use the stationary rectangle |x|<=X, |y|<=2. The global de Bruijn strip gives
+all H_t zeros in |y|<=sqrt(1-2t)<=1 on t in [0,3/16]. Its whole boundary is
+covered as follows:
+
+- vertical middle: |x|=X, |y|<=1, **closed** at 1, by line 596;
+- vertical extensions: 1<|y|<=2, **open** at 1, by the strict exclusion
+  outside the closed global strip;
+- horizontal sides: |y|=2 for all |x|<=X, including every corner, since
+  4-(1-2t)=3+2t>=3>0.
+
+The numerical part is not extended beyond its statement; the global strip
+supplies the open extension. The checker partitions every interval at its
+breakpoints and tests each open component and singleton endpoint. Because
+the input is a finite union of intervals, these exact finite tests prove
+set containment, not point-sampled containment of a function inequality.
+An unpadded horizontal line at |y|=1 cannot be certified from the closed
+strip alone at t=0 and is deliberately rejected.
+
+H_t is jointly entire by its super-exponentially decaying integral kernel;
+differentiation gives partial_t H=-partial_z^2 H. Real type and
+evenness follow from the real kernel and cosine. Line 596 ensures no time
+slice is identically zero. The joint entire property is the published
+analytic hypothesis, not inferred from symbolic manipulation of a finite
+polynomial.
+
+The normalization H_0(z)=xi((1+i*z)/2)/8 gives
+
+    rho=(1-y)/2+i*x/2, z=2*Im(rho)+i*(1-2*Re(rho)).
+
+It is an invertible affine map, preserving multiplicity but not asserting
+it is one. PT2021 puts all corresponding nontrivial zeta zeros with
+|Im rho|<=X/2 at Re rho=1/2. The accepted banked interface includes the
+usual completed-xi zeros and symmetry. Only reality is needed. Exact
+arithmetic gives T-X/2=350479773/2>0. Padding adds no higher-height input:
+it changes y, not the bound on x/2, and there are no zeros in the added
+horizontal region anyway.
+
+Applying the generic theorem now gives reality for every t in [0,3/16]
+and simplicity for t in (0,3/16] inside the rectangle. The vertical
+boundary contains no zeros, and the global strip excludes all points
+outside its horizontal range. Hence the asserted zero location covers
+all imaginary parts with |Re z|<=X. A positive left endpoint 333/2000
+licenses exactly the closed COVER in section 1, including x=0 and x=X.
+The checker emits no exterior or tail COVER and no RECORD lines.
+
+## 7. Nonvacuous countermodels for tempting weakenings
+
+1. Time-zero simplicity cannot be added: F(t,z)=z^2-2t on [0,1/4] has a
+   double real zero at t=0 and real simple roots afterward. On |x|<=3,
+   |y|<=2 its entire boundary is zero-free and all initial zeros are real.
+   It satisfies the generic theorem but contradicts the strengthened claim.
+2. Endpoint boundary checks are insufficient even when the initial interior
+   has only real zeros (vacuously). Let
+
+       F(t,z)=(z-2)^2+1-2t, s(t)=1+8t, Y=2, t in [0,1/4].
+
+   This real-type backward-heat polynomial has roots
+   2+/-i*sqrt(1-2t). They are outside initially, inside at the final time,
+   and all four rectangle sides are zero-free at both time endpoints.
+   At t=1/8, however, s(t)=2 and the roots are exactly on its vertical
+   boundary. An endpoint-only test would import a nonreal pair. The checker
+   verifies the actual crossing polynomial value exactly.
+
+Further adverse arithmetic tests reject an uncovered |y|=1 singleton,
+a vertical gap above it, a lost final separator time, a collision band
+starting at zero, and X=2*T_PT+1. These illustrate the exact hypotheses;
+they are not claims of a defect in the pinned producer theorems.
+
+## 8. Verdict and replay
+
+No discrepancy is found in the two pinned analytic manuscripts under their
+stated hypotheses and banked inputs. This is a proof-level external second
+line, not merely an endorsement of producer PASS markers. Its numerical
+boundary premise remains precisely line 596, with its record-use
+qualification preserved. The generic theorem's remote-tail/stall sections
+are outside this audit (already separately audited in memory 588); no new
+full record coverage is inferred.
+
+Run `/usr/bin/python3 check.py` from the self-contained directory. It uses
+only its own source/data plus one sha256-pinned immutable published source.
+The full universal proofs above are for independent verifier review;
+finite symbolic controls are explicitly labeled as such. Fresh-copy replay
+and strict lint are required before submission. No producer code, remote
+endpoint, compiler, solver, or subprocess is needed. No publication action
+is taken.

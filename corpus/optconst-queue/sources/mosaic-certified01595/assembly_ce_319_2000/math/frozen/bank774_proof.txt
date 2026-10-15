@@ -1,0 +1,115 @@
+# FOUNDATION NEW_MATH — GRAM_SPATIAL_RECOVERY
+
+## 1. Statement and dependency snapshot
+
+All statements consume EXACT snapshot767. The banked source is memory767 SHARED_WEIGHT_GRAM_SOURCE_AND_FIRST_HALO, not its rejected s24 precursor. Let
+
+ a=4/25, b=3/16, X=6000000185827, C=690988,
+ H=2299999, W=66476100549959,
+ c(x)=log(sqrt(1+x^2)/(4*pi))/4-1/(2*(1+x^2)),
+ a_n(t,x)=exp(t*log(n)^2/4-(1/2+t*c(x))*log(n)),
+ A_(t,x,K)(z)=sum_(n=1)^K a_n(t,x) z^v(n),
+
+where the coordinates run over ALL primes <=K, with v(n) their exponent vector. EVERY raw term is included. At EVERY t in CLOSED[a,b], EVERY x in CLOSED[X,W], its NATURAL index N=floor(sqrt(x/(4*pi)+t/16)) is in CLOSED[C,H], and for EVERY point of the CLOSED prime polydisc,
+
+                         |A_(t,x,N)|>1/100.                 (1)
+
+Consequently (H_t(x),partial_x H_t(x))!=(0,0), y=0, on this exact CLOSED finite rectangle. The physical implication consumes EXACT memory738 NEWTON_BAND_MODULUS_ONLY, with its EXACT710/725 balanced REAL-gauge errors, externally audited as part of754. It is not a new derivative-error estimate. Forward heat consumes EXACT744's GENERAL polynomial theorem, audited754; natural-source stability is EXACT720, audited733. All natural internal walls use the RIGHT index. The terminal wall entering2300000 lies strictly ABOVE W even at b and is NOT included in (1). The CLOSED W joint meets EXACT729's tail, but we assert no new tail theorem or Lambda bound here.
+
+## 2. Strong input retained from the accepted source
+
+Use four smooth primes2,3,5,7. For P-smooth s and rough r coprime to210, define at (a,X,C)
+
+ F_r(z)=sum_(s smooth, rs<=C) a_(rs)(a,X) z^v(s),
+ delta=1/10, F_*=delta.
+
+For EVERY nonunit rough r<=C and *, use EXACT memory767 weights
+
+ v_r=sqrt((8/9)*(F_r(1)/F_1(1))^2
+              +(1/9)*(F_r(-1,-1,-1,-1)/F_1(-1,-1,-1,-1))^2),
+ V=sum_(r plus *)v_r, w_r=v_r/V.
+
+The signs in the second profile are retained. Both denominators are positive. EVERY v_r>0, w_r>0, and sum w_r=1. Memory767 proves on the ENTIRE four-prime torus the stronger Gram inequality
+
+ |F_1|^2 > sum_(r>1)|F_r|^2/w_r + delta^2/w_*.             (2)
+
+Precisely, its complete polynomial T=|E|^2 times the difference is >1/1000000 on all3524 CLOSED leaves covering the torus; positive T implies E!=0 before division. Thus (2) is an explicit theorem proved inside the accepted source, not an inference from its modulus-only scalar summary. We do not infer (2) from an unverified output label. BANK_CONTEXT.json identifies the exact accepted fact and proof digest; SOURCE_PINS.json binds regenerated EVERY raw coefficient and weight dyadic cell to the accepted run. No upstream file is consumed. If only the scalar |A|>1/10 were available, this new transport would NOT follow.
+
+F_1 is zero-free on the CLOSED smooth polydisc. Indeed memory767 supplies full-prime-torus |A_(a,X,C)|>1/10; natural index at X is C. GENERAL720/733 therefore gives closed-polydisc stability. Set all rough-prime coordinates to zero, retaining exactly F_1. This proves the required nonvanishing without presupposing any global property of E.
+
+Divide (2) by |F_1|^2. The vector with coordinates F_r/(sqrt(w_r)F_1) and delta/(sqrt(w_*)F_1) is holomorphic on a neighbourhood of the CLOSED smooth polydisc. Its squared Euclidean norm is <1 on the compact distinguished boundary. Coordinatewise subharmonic maximum principle, or the scalar maximum principle for every constant unit dual vector, extends the SAME strict inequality to the whole CLOSED polydisc. Finitely many coordinates and compactness give a strict uniform gap. This step retains the synthetic component and all rough fibres.
+
+## 3. Universal recovering-modulus lemma
+
+For ANY such finite polynomials and weights, ANY s>=0, evaluate at the inward smooth point (p^{-s}z_p). Let B=|F_1| at that point, and put
+
+ Q(s)=sum_(r>1) w_r r^{-2s}, k=delta^2/w_*.
+
+For arbitrary rough factors |z_r|<=1 (dependencies from prime multiplicativity can only restrict this set), weighted Cauchy and the strict ball inequality give
+
+ |sum_(r>1) r^{-s} z_r F_r|
+ <= sqrt(Q(s))*sqrt(B^2-k),
+
+with strictness when Q(s)>0. When Q(s)=0 the rough sum is zero and B>sqrt(k) supplies the final strict bound directly.
+
+Here B^2>k and 0<=Q(s)<1. Consequently the spatially contracted COMPLETE old polynomial obeys
+
+ |A_(a,x,C)| > B-sqrt(Q(s))*sqrt(B^2-k)
+             >= sqrt(k*(1-Q(s)))
+              = delta*sqrt(1+sum_(r>1) v_r*(1-r^{-2s})/v_*). (3)
+
+The last equality uses V=v_*+sum v_r and is important numerically. It avoids cancellation from subtracting a nearly unit normalized mass. For s=0 the floor is exactly delta. To prove the scalar inequality, for B>=sqrt(k) and q in[0,1), squaring or minimizing the convex function B-sqrt(q)*sqrt(B^2-k) gives minimum sqrt(k*(1-q)) at B^2=k/(1-q). Endpoints q=0 and B=sqrt(k) follow by continuity. The strictness comes from (2), not from assuming this minimum is unattained.
+
+The physical spatial identity is exact with s=a*(c(x)-c(X)):
+ a_n(a,x)=a_n(a,X)*n^{-s}.
+Since c'(x)=x/(4*(1+x^2))+x/(1+x^2)^2>0 for x>0, s>=0 and the recovered floor is NONDECREASING in x. The support includes all source products; there is no cutoff after a mollifier or rough aggregation.
+
+## 4. Complete entrant charge and compressed index intervals
+
+Partition the rough integers into224 exact groups: for e=floor(log_2 r), k=floor(16*r/2^e)-16, group index16*e+k. The builders independently enumerate ALL rough r and the exact minimum rho_g, maximum, count, sum and V_g=sum v_r. For s>=0,
+
+ sum v_r*(1-r^{-2s}) >= sum_g V_g*(1-rho_g^{-2s}).           (4)
+
+No positive mass is deleted. This lower moment bound gives m(s), the right side of (3) using the grouped sum. This is a rigorous conservative floor, not a measured torus minimum. Bins are only a complete positive arithmetic compression; no phase sampling occurs.
+
+For each CLOSED index interval [L,U] with C<=L<U<=H, put
+ x_L=X if L=C; otherwise x_L=4*pi*(L^2-b/16),
+ s_L=a*(c(x_L)-c(X)).
+
+Every physical target whose natural index K lies in[L,U] has x>=x_L: naturality gives x>=4*pi*(K^2-t/16)>=4*pi*(L^2-b/16), and x>=X separately. At time a, its complete entrants C<n<=K obey
+
+ sum_(C<n<=K) a_n(a,x)
+ <= sum_(C<n<=U) a_n(a,x_L)
+ <= I(L,U):=integral_C^U exp(a*log(v)^2/4
+                          -(1/2+a*c(x_L))*log(v)) dv.      (5)
+
+The LAST inequality is the decreasing-function integral bound on EACH[n-1,n]. Its log derivative is -1/2+a*(log(v)/2-c(x_L)); the program checks it is strictly negative at U, hence throughout[C,U]. Every entrant, including smooth entrants, is paid. There are H-C=1609011 possible entrants in the full range. The count is not a count of sampled summands. Combining (3)--(5) yields, on the ENTIRE closed prime polydisc at time a,
+
+                       |A_(a,x,K)|>m(s_L)-I(L,U).          (6)
+
+The adaptive Arb proof starts with[C,H], bisects only when this sufficient expression does not clear1/100, and terminates in14 CLOSED index intervals (27 tested nodes). EVERY leaf has the lower expression>1/100. Adjacent leaves share an endpoint, so there is neither an integer gap nor a seam omission. An independent exact event-sweep proof checks the same coverage without relying on the discovery tree. Failed parents are only failures of the interval sufficient test, not raw-model counterexamples. The primary and secondary compute and compare the MINIMUM of their sufficient leaf expressions explicitly; these are not infima over the physical or phase domain.
+
+## 5. Forward heat and exact natural walls
+
+At each fixed physical target x and integer K, (6) first establishes stability at time a, even if K exceeds the natural index at (a,x). No natural-index stability theorem is applied at that potentially oversized cutoff. The complete perturbation inequality on the polydisc supplies the premise directly. The actual weighted support is log K, and4*c(x)>=4*c(x_L)>log U>=log K is checked. GENERAL744's semigroup then gives for EVERY t>=a
+
+ A_(t,x,K)=T_(t-a,c(x))A_(a,x,K),
+ min|A_(t,x,K)|>=min|A_(a,x,K)|>1/100.
+
+In particular this includes BOTH endpoints of[a,b]. Take K to be the target's natural index, with the correct RIGHT convention. This proves (1). This order (spatial recovery, all entrants, forward heat at the target x) differs from744's fixed-X uniform entrant debit.
+
+Write W_j(t)=4*pi*(j^2-t/16). Exact identities W_(j+1)-W_j=4*pi*(2*j+1)>0, dW_j/dt=-pi/4, and W_j/(4*pi)+t/16=j^2 show the half-open cells join with RIGHT index j. The two numerical lines prove
+
+ W_C(a)<X<W_(C+1)(b),  W_H(a)<W<W_(H+1)(b).
+
+Thus x in CLOSED[X,W], t in CLOSED[a,b] has C<=N<=H. All internal RIGHT walls are included, and the terminal2300000 wall is excluded with positive gap. These displayed monotonic identities prove the continuum; exact side-of-wall controls audit the arithmetic boundary but are not a sampled continuum argument. The terminal W belongs to predecessorH at BOTH time endpoints and every intermediate t. W is the EXACT closed start of729's banked tail.
+
+## 6. Foundation ladder and independent arithmetic
+
+Both actual source-weight builders reproduce the accepted745 aligned t=13/80 full-sum floor through their own coefficient paths. At t=a they regenerate EVERY raw and weight56-bit dyadic cell of accepted767 byte-identically, including the synthetic fibre. Every new100-bit bin cell also agrees between the complete n-first Arb192 division organization and rough-first Arb256 recursive smooth organization. Complete support counts and integer sums reject omissions. The two source builders share FLINT/Arb, disclosed; neither calls the other.
+
+The target transport is fully re-evaluated on two genuinely separate lines: Arb224 special-function erfi antiderivative versus a fixed-dyadic220 integer/rational/Machin log-exp-sqrt implementation and positive coefficient recurrence for the ENTIRE entrant integral. The latter imports no Arb or mpmath. Both lines reproduce DISTINCT accepted767 head interface and729 far-predecessor gap fields using their SAME functions, not fixture-only assertions. All scalar enclosures intersect and their directed digits agree. Exact rational toy-family and adverse tests audit the new scalar/ball identities; these are controls, not full phase coverage. The proof of the universal new lemma is in sections2--3 and SECOND_PROOF.md; existing full source phase coverage is consumed only from767.
+
+## 7. Scope, credit, and remaining adoption
+
+The new result is an ACTUAL finite collision-free rectangle after consuming767, not another unsupplied-source plan. It is RH-free locally. It supplies neither a new official TORUS_CERT receipt nor an official record-harness COVER line; the alternative Gram mechanism did not execute the official checker. External record-use adoption of this new recovery theorem and the source remains for the designated external line. No separator, tail coefficient wave, candidate, publication or new Lambda bound is claimed. A future assembled bound still initializes solely with PT2021 T=3000175332800 at INITIAL X/2=6000000185827/2, margin350479773/2, and banked anchorV1-H-213. The collision-exclusion architecture is credited to Kornaus PR180; no unrefereed upstream statement or file is a dependency.

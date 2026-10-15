@@ -1,0 +1,3 @@
+import Formalization.Core.ConcreteIdentities
+#print axioms Qiushi.BandeiraAMGM.qiushi_lailim_int_bound
+#print axioms Qiushi.BandeiraAMGM.qiushi_rrnn_iff_bandeira

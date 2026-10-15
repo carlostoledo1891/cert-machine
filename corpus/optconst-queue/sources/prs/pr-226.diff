@@ -1,0 +1,163 @@
+diff --git a/README.md b/README.md
+index 634a0e4..373622f 100644
+--- a/README.md
++++ b/README.md
+@@ -42,18 +42,18 @@ Bounds for which the level of available verification is currently at minimal lev
+ | [14](https://teorth.github.io/optimizationproblems/constants/14a.html) | Smallest $n$ for which the value of $BB(n)$ is undecidable | 6 | 432 |
+ | [15a](https://teorth.github.io/optimizationproblems/constants/15a.html) | Matrix multiplication exponent | 2 | 2.371177 |
+ | [15b](https://teorth.github.io/optimizationproblems/constants/15b.html) | Dual matrix multiplication exponent | >0.321334 | 1 |
+-| [16](https://teorth.github.io/optimizationproblems/constants/16a.html) | Brezis–Gallouet–Wainger remainder constant on the 2D torus | $\frac{\beta + \pi}{\pi} \approx 1.82283$ | $\approx 2.15627$ |
++| [16](https://teorth.github.io/optimizationproblems/constants/16a.html) | Brezis–Gallouet–Wainger remainder constant on the 2D torus | $2.156224$ | $\approx 2.15627$ |
+ | [17](https://teorth.github.io/optimizationproblems/constants/17a.html) | Exponential growth constant of diagonal Ramsey numbers | $\sqrt{2} \approx 1.4142$ | 3.7919936995 |
+ | [18](https://teorth.github.io/optimizationproblems/constants/18a.html) | Marton's conjecture constant (PFR) | 1 | 9 |
+ | [19](https://teorth.github.io/optimizationproblems/constants/19a.html) | Berry–Esseen constant | 0.4097321837 | 0.4690 (0.423*) |
+-| [20a](https://teorth.github.io/optimizationproblems/constants/20a.html) | Thin shell conjecture constant | 2 | $< \infty$ |
++| [20a](https://teorth.github.io/optimizationproblems/constants/20a.html) | Thin shell conjecture constant | 8 | $< \infty$ |
+ | [20b](https://teorth.github.io/optimizationproblems/constants/20b.html) | Isotropic constant of a log-concave probability measure | $1/e$ | $< \infty$ |
+-| [20c](https://teorth.github.io/optimizationproblems/constants/20c.html) | KLS constant for log-concave probability measures | $\sqrt{\pi/2} \approx 1.25331$ | $\infty$ |
++| [20c](https://teorth.github.io/optimizationproblems/constants/20c.html) | KLS constant for log-concave probability measures | $\sqrt{3} \approx 1.73205$ | $\infty$ |
+ | [21](https://teorth.github.io/optimizationproblems/constants/21a.html) | de Bruijn–Newman constant | 0 | 0.2 (0.1875*) |
+ | [22a](https://teorth.github.io/optimizationproblems/constants/22a.html) | Tight knot constant | 1.105 | 10.76 (10.02*) |
+ | [22b](https://teorth.github.io/optimizationproblems/constants/22b.html) | Tight alternating knot constant | 0.017 | 7.31 |
+ | [23a](https://teorth.github.io/optimizationproblems/constants/23a.html) | Smallest unsolved instance of the Hadamard conjecture | 668 | $\infty$ |
+-| [23b](https://teorth.github.io/optimizationproblems/constants/23b.html) | Minimal condition number decay for sign matrices | $\frac{17}{92}$ | 1 |
++| [23b](https://teorth.github.io/optimizationproblems/constants/23b.html) | Minimal condition number decay for sign matrices | $\frac{17}{92}$ | $1/2$ |
+ | [23c](https://teorth.github.io/optimizationproblems/constants/23c.html) | Asymptotic counting exponent for partial Hadamard matrices | 1 | 3 |
+ | [24](https://teorth.github.io/optimizationproblems/constants/24a.html) | Komlós discrepancy constant | $1+\sqrt{2}$ | $\infty$ |
+ | [25](https://teorth.github.io/optimizationproblems/constants/25a.html) | Mahler volume product constant | $\pi$ | 4 |
+@@ -108,7 +108,7 @@ Bounds for which the level of available verification is currently at minimal lev
+ | [67](https://teorth.github.io/optimizationproblems/constants/67a.html) | Brennan's conjecture exponent | 3.422 | 4 |
+ | [68](https://teorth.github.io/optimizationproblems/constants/68a.html) | Korenblum's constant | 0.3554 | 0.6778994 |
+ | [69](https://teorth.github.io/optimizationproblems/constants/69a.html) | Sendov radius constant | 1 | 2 |
+-| [70](https://teorth.github.io/optimizationproblems/constants/70a.html) | Reverse Brunn-Minkowski constant | 1 | $<\infty$ |
++| [70](https://teorth.github.io/optimizationproblems/constants/70a.html) | Reverse Brunn-Minkowski constant | $1.201927$ | $<\infty$ |
+ | [71](https://teorth.github.io/optimizationproblems/constants/71a.html) | Fourier Entropy-Influence constant | 6.278 (6.521845710923046575*) | $\infty$ |
+ | [72](https://teorth.github.io/optimizationproblems/constants/72a.html) | Polya-Vinogradov best constant (squarefree asymptotic) | 0 | $\frac{1}{4\pi}\approx 0.07958$ |
+ | [73](https://teorth.github.io/optimizationproblems/constants/73a.html) | Flatness constant in dimension 3 | $2+\sqrt{2}$ | $<3.972$ |
+@@ -176,6 +176,11 @@ Bounds for which the level of available verification is currently at minimal lev
+ - [47](https://teorth.github.io/optimizationproblems/constants/47a.html) **improved upper bound:** $C_{47} \leq 3.879$ by [Y. Lin](https://github.com/CoolRmal/centered-maximal-constant), 20 Sep 2026, formalized in Lean 4.
+ - [45](https://teorth.github.io/optimizationproblems/constants/45a.html) **presentation:** the printed certificate is Griego's $0.490249407811155$, not Yoo's record $0.490180063290061$.
+ - [10c](https://teorth.github.io/optimizationproblems/constants/10c.html) **upper bound correction:** $C_{10c}\le 4.1$ by [Pesenti–Vladu](https://arxiv.org/abs/2211.05509) v2 (14 Apr 2026), replacing the withdrawn $3\sqrt{3/2}$ constant in Theorem 4.5.
++- [16](https://teorth.github.io/optimizationproblems/constants/16a.html) **improved lower bound:** $C\_{16} \geq 2.156224$ (rigorous) by [V. Patankar](https://github.com/vidigoat/optimization-records), 14 Oct 2026.
++- [20a](https://teorth.github.io/optimizationproblems/constants/20a.html) **improved lower bound:** $C\_{20a} \geq 8$ by [V. Patankar](https://github.com/vidigoat/optimization-records), 14 Oct 2026.
++- [20c](https://teorth.github.io/optimizationproblems/constants/20c.html) **improved lower bound:** $C\_{20c} \geq \sqrt{3}$ by [V. Patankar](https://github.com/vidigoat/optimization-records), 14 Oct 2026.
++- [70](https://teorth.github.io/optimizationproblems/constants/70a.html) **improved lower bound:** $C\_{70} \geq 1.201927$ (rigorous) by [V. Patankar](https://github.com/vidigoat/optimization-records), 14 Oct 2026.
++- [23b](https://teorth.github.io/optimizationproblems/constants/23b.html) **improved upper bound:** $C\_{23b} \leq 1/2$ by [V. Patankar](https://github.com/vidigoat/optimization-records), 15 Oct 2026.
+ 
+ ## Maintainers
+ 
+diff --git a/constants/16a.md b/constants/16a.md
+index 4a8fc68..35b4826 100644
+--- a/constants/16a.md
++++ b/constants/16a.md
+@@ -33,6 +33,7 @@ where $\Theta(\delta) := \sup\lbrace|u(0)|^2 : \lVert\nabla u\rVert_2^2 = 1,\, \
+ | Bound | Reference | Comments |
+ |---|---|---|
+ | $\frac{\beta + \pi}{\pi} \approx 1.82283$ | [BDZ2013] |  |
++| $2.156224$ | [Pat2026] | Rigorous. Truncated conditional extremal of [BDZ2013] on $\mathbb{T}^2=[0,2\pi]^2$: $u(x)=\sum c\_k e^{ik\cdot x}$ over $0<\lvert k\rvert^2\le 4000^2$ with $c\_k = 1/(\lvert k\rvert^2(\lvert k\rvert^2+\mu))$, $\mu=41/5$. With $S\_0=\sum c\_k$, $S\_1=\sum\lvert k\rvert^2c\_k^2$, $S\_2=\sum\lvert k\rvert^4c\_k^2$: $\delta(u)=S\_2/S\_1\approx 3.93181$ and, using $\lVert u\rVert\_\infty\ge u(0)=S\_0$, $L\ge S\_0^2/(\pi S\_1)-\ln\delta-\ln(1+\ln\delta)=2.1562247\ldots$, evaluated in interval arithmetic. Increasing the cutoff approaches the numerical value $2.15627$. |
+ 
+ Here $\beta = \pi(2\gamma + 2\log 2 + 3\log\pi - 4\log\Gamma(1/4))$, where $\gamma$ is the Euler–Mascheroni constant.
+ 
+@@ -51,7 +52,9 @@ Here $\beta = \pi(2\gamma + 2\log 2 + 3\log\pi - 4\log\Gamma(1/4))$, where $\gam
+ 
+ For related results in Hölder space settings, see:
+ - [MSW2010] Morii, K.; Sato, T.; Wadade, H. *Brézis–Gallouët–Wainger type inequality with a double logarithmic term in the Hölder space: Its sharp constants and extremal functions.* Nonlinear Anal. 73 (2010), 1747–1766.
++- <a id="Pat2026"></a>**[Pat2026]** Patankar, V. *Rigorous lower bounds for constants 16a, 20a, 20c and 70a, and an upper bound for 23b,* with verification scripts. GitHub repository (2026): [https://github.com/vidigoat/optimization-records/tree/main/tao](https://github.com/vidigoat/optimization-records/tree/main/tao).
+ 
+ ## Contribution notes
+ 
+ This entry was prepared with LLM assistance (Claude) for literature synthesis and formatting.
++The bound from [Pat2026] was found with search and proof assistance from Claude (Anthropic); its value is recomputed by the scripts linked in that reference.
+diff --git a/constants/20a.md b/constants/20a.md
+index 12eea8f..403b401 100644
+--- a/constants/20a.md
++++ b/constants/20a.md
+@@ -68,6 +68,7 @@ where the supremum is over isotropic log-concave $X$ in $\mathbb R^n$. Any bound
+ | $0$ | Trivial | By definition. |
+ | $4/5 = 0.8$ | [KL2025] | Achieved by the cube (for the variance formulation). |
+ | $2$ | [KL2025] | Achieved by the standard Gaussian: if $X\sim N(0,\mathrm{Id})$ then $\mathrm{Var}(\lvert X\rvert^2)=2n$, so $C_{20a}\ge 2$. |
++| $8$ | [Pat2026] | $n=1$, $X=E-1$ with $E$ a standard exponential variable: log-concave, mean $0$, variance $1$, and $\mathrm{Var}(X^2)=\mathbb{E}(E-1)^4-1=9-1=8$. Products of independent copies give $\mathrm{Var}(\lvert X\rvert^2)=8n$ in every dimension. |
+ 
+ ## Additional comments and links
+ 
+@@ -92,7 +93,12 @@ where the supremum is over isotropic log-concave $X$ in $\mathbb R^n$. Any bound
+ - [KL2025] Klartag, B.; Lehec, J. *Thin-shell bounds via parallel coupling.* Preprint (2025). [arXiv:2507.15495](https://arxiv.org/abs/2507.15495)
+ - [LV2017] Lee, Y. T.; Vempala, S. *Eldan’s stochastic localization and the KLS hyperplane conjecture: an improved lower bound for expansion.* In: FOCS 2017, 998–1007.
+ - [Pao2006] Paouris, G. *Concentration of mass on convex bodies.* Geom. Funct. Anal. **16** (2006), no. 5, 1021–1049.
++- <a id="Pat2026"></a>**[Pat2026]** Patankar, V. *Rigorous lower bounds for constants 16a, 20a, 20c and 70a, and an upper bound for 23b,* with verification scripts. GitHub repository (2026): [https://github.com/vidigoat/optimization-records/tree/main/tao](https://github.com/vidigoat/optimization-records/tree/main/tao).
+ 
+ # Acknowledgements
+ 
+-Prepared with ChatGPT 5.2 Pro.
+\ No newline at end of file
++Prepared with ChatGPT 5.2 Pro.
++
++## Contribution notes
++
++The bound from [Pat2026] was found with search and proof assistance from Claude (Anthropic); its value is recomputed by the scripts linked in that reference.
+diff --git a/constants/20c.md b/constants/20c.md
+index 801e581..2be0d45 100644
+--- a/constants/20c.md
++++ b/constants/20c.md
+@@ -69,6 +69,7 @@ Since a dimension-free upper bound is not known, bounds are stated for $\psi_n$
+ | Bound | Reference | Comments |
+ | ----- | --------- | -------- |
+ | $\sqrt{\pi/2} \approx 1.25331$ | Classical | For the standard Gaussian measure, isoperimetric minimizers are half-spaces and $h_\gamma=\sqrt{2/\pi}$, hence $\psi_\gamma=\sqrt{\pi/2}$. |
++| $\sqrt{3}\approx 1.732051$ | [Pat2026] | $n=1$, $\mu$ uniform on $[-\sqrt3,\sqrt3]$ (isotropic, log-concave), $A=(-\infty,0]$: $\mu(A)=1/2$ and $\mu^+(A)=1/(2\sqrt3)$, so $\psi\_\mu\ge\sqrt3$. |
+ 
+ ## Additional comments and links
+ 
+@@ -93,7 +94,9 @@ Since a dimension-free upper bound is not known, bounds are stated for $\psi_n$
+ - [LV2018] Yin Tat Lee, Santosh S. Vempala, *The Kannan–Lovász–Simonovits conjecture*, preprint (2018).  [arXiv:1807.03465](https://arxiv.org/abs/1807.03465).
+ 
+ - [LV2024] Yin Tat Lee, Santosh S. Vempala, *Eldan’s stochastic localization and the KLS hyperplane conjecture: an improved lower bound for expansion*, Annals of Mathematics **199** (2024), no. 1, 1–104.  (Conference version: FOCS 2017.)
++- <a id="Pat2026"></a>**[Pat2026]** Patankar, V. *Rigorous lower bounds for constants 16a, 20a, 20c and 70a, and an upper bound for 23b,* with verification scripts. GitHub repository (2026): [https://github.com/vidigoat/optimization-records/tree/main/tao](https://github.com/vidigoat/optimization-records/tree/main/tao).
+ 
+ ## Contribution notes
+ 
+ This page was prepared with the assistance of ChatGPT 5.2 Pro.
++The bound from [Pat2026] was found with search and proof assistance from Claude (Anthropic); its value is recomputed by the scripts linked in that reference.
+diff --git a/constants/23b.md b/constants/23b.md
+index 367f8ba..f9db018 100644
+--- a/constants/23b.md
++++ b/constants/23b.md
+@@ -35,6 +35,7 @@ Define $C_{23b}$ to be the largest $\alpha$ for which such a representation hold
+ | Bound on $\alpha$ | Reference | Comments |
+ | ----- | --------- | -------- |
+ | $1$ | <a href="#AJM2025">[AJM2025]</a> | Stated in the discussion of Problem 11. <a href="#AJM2025-prob11">[AJM2025-prob11]</a> (A supporting mechanism is the lower bound $\kappa(n)\ge 1+c\frac{\log n}{n}$ for $n\not\equiv 0 \pmod 4$.) <a href="#AJM2025-thm6">[AJM2025-thm6]</a> |
++| $1/2$ | [Pat2026] | For odd $n$ every off-diagonal entry of $G=A^TA$ is odd, so with $\lambda\_k$ the eigenvalues of $G$: $\sum(\lambda\_k-n)=0$ and $\sum(\lambda\_k-n)^2\ge n(n-1)$. The Bhatia–Davis inequality gives $(\lambda\_{\max}-n)(n-\lambda\_{\min})\ge n-1$, hence $\kappa(A)^2\ge 1+2\sqrt{n-1}/n$ and $\kappa(n)\ge 1+(2-\sqrt2)/\sqrt n$ for every odd $n\ge3$. So $\kappa(n)=1+f(n)/n^\alpha$ with subpolynomial $f$ forces $\alpha\le 1/2$. |
+ 
+ ## Known lower bounds
+ 
+@@ -102,7 +103,9 @@ Define $C_{23b}$ to be the largest $\alpha$ for which such a representation hold
+ 	  **quote:** “**Problem 11.** What is the largest $\alpha$ for which $\kappa(n)=1+\frac{f(n)}{n^\alpha}$ for some subpolynomial $f$?
+ 	  
+ 	  We currently know that $\frac{17}{92}\le \alpha \le 1$. Better upper bounds on gaps between Hadamard matrices will increase this lower bound, but with our proof technique, the Hadamard conjecture only increases the lower bound to $\frac{1}{4}$. Meanwhile, our explicit construction involving symmetric conference matrices suggests taking $\alpha$ to be $\frac{1}{2}$.”
++- <a id="Pat2026"></a>**[Pat2026]** Patankar, V. *Rigorous lower bounds for constants 16a, 20a, 20c and 70a, and an upper bound for 23b,* with verification scripts. GitHub repository (2026): [https://github.com/vidigoat/optimization-records/tree/main/tao](https://github.com/vidigoat/optimization-records/tree/main/tao).
+ 
+ ## Contribution notes
+ 
+ Prepared with assistance from ChatGPT 5.2 Pro.
++The bound from [Pat2026] was found with search and proof assistance from Claude (Anthropic); its value is recomputed by the scripts linked in that reference.
+diff --git a/constants/70a.md b/constants/70a.md
+index 539faec..927c486 100644
+--- a/constants/70a.md
++++ b/constants/70a.md
+@@ -51,6 +51,7 @@ $$
+ | Bound | Reference | Comments |
+ | ----- | --------- | -------- |
+ | $1$ |  | Trivial scaling lower bound. |
++| $1.201927$ | [Pat2026] | Cube $B\_1=[0,a]^n$ and ball $B\_2=rB$ with $n=300000$, $a/r=0.013$. For $\lvert\det u\rvert=1$, $u(B\_1)$ is a parallelotope; its intrinsic volumes are sums of $j$-face volumes, and Szász's inequality on its Gram matrix with AM–GM gives $V\_j(u(B\_1))\ge\binom{n}{j}a^j$, so by Steiner's formula $\lvert u(B\_1)+rB\rvert\ge\sum\_j\binom{n}{j}a^j\kappa\_{n-j}r^{n-j}$ for every $u$. Hence $C\_{70}\ge(\sum\_j\binom{n}{j}a^j\kappa\_{n-j}r^{n-j})^{1/n}/(a+\kappa\_n^{1/n}r)$; evaluated in interval arithmetic. ($n=2$ gives $\sqrt{1/2+1/\sqrt\pi}\approx1.0316$; the value increases with $n$.) |
+ 
+ ## Additional comments and links
+ 
+@@ -88,7 +89,9 @@ $$
+ - <a id="Pis1989"></a>**[Pis1989]** Pisier, Gilles. *The Volume of Convex Bodies and Banach Space Geometry.* Cambridge Tracts in Mathematics, vol. 94, Cambridge University Press (1989). DOI: https://doi.org/10.1017/CBO9780511662454. [Google Scholar](https://scholar.google.com/scholar?q=Pisier+The+Volume+of+Convex+Bodies+and+Banach+Space+Geometry)
+ 
+ - <a id="Pis1989b"></a>**[Pis1989b]** Pisier, Gilles. *A new approach to several results of V. Milman.* Journal fur die reine und angewandte Mathematik **393** (1989), 115-131. DOI: https://doi.org/10.1515/crll.1989.393.115. [Google Scholar](https://scholar.google.com/scholar?q=Pisier+A+new+approach+to+several+results+of+V.+Milman)
++- <a id="Pat2026"></a>**[Pat2026]** Patankar, V. *Rigorous lower bounds for constants 16a, 20a, 20c and 70a, and an upper bound for 23b,* with verification scripts. GitHub repository (2026): [https://github.com/vidigoat/optimization-records/tree/main/tao](https://github.com/vidigoat/optimization-records/tree/main/tao).
+ 
+ ## Contribution notes
+ 
+ Prepared with assistance from ChatGPT 5.2 Pro.
++The bound from [Pat2026] was found with search and proof assistance from Claude (Anthropic); its value is recomputed by the scripts linked in that reference.

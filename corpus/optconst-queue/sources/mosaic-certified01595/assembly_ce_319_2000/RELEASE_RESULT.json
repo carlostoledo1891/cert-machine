@@ -1,0 +1,377 @@
+{
+  "audit_joins": {
+    "audits_compared": [
+      799,
+      800
+    ],
+    "complete_source_audit": 789,
+    "finite_leaves_per_audit": 42,
+    "physical_infimum_claimed": false,
+    "universal_recovery_audit": 798
+  },
+  "candidate_accepted": false,
+  "current_snapshot": 805,
+  "delivery_checks": 5418,
+  "frozen_files": 82,
+  "historical_hold_preserved": true,
+  "historical_math_snapshot": 786,
+  "math_checks": 159823,
+  "math_second_checks": 3605,
+  "mathematical_target": 791,
+  "mathematics_fresh": true,
+  "new_mathematical_fact": false,
+  "official_attestation": false,
+  "publication_approved": false,
+  "qualification": {
+    "accepted_edges": [
+      [
+        789,
+        767
+      ],
+      [
+        798,
+        774
+      ],
+      [
+        799,
+        782
+      ],
+      [
+        800,
+        791
+      ]
+    ],
+    "missing": [],
+    "mutations": [
+      [
+        0,
+        "target"
+      ],
+      [
+        0,
+        "audit"
+      ],
+      [
+        0,
+        "target_proof_sha256"
+      ],
+      [
+        0,
+        "audit_fact_sha256"
+      ],
+      [
+        0,
+        "obligations"
+      ],
+      [
+        1,
+        "target"
+      ],
+      [
+        1,
+        "audit"
+      ],
+      [
+        1,
+        "target_proof_sha256"
+      ],
+      [
+        1,
+        "audit_fact_sha256"
+      ],
+      [
+        1,
+        "obligations"
+      ],
+      [
+        2,
+        "target"
+      ],
+      [
+        2,
+        "audit"
+      ],
+      [
+        2,
+        "target_proof_sha256"
+      ],
+      [
+        2,
+        "audit_fact_sha256"
+      ],
+      [
+        2,
+        "obligations"
+      ],
+      [
+        3,
+        "target"
+      ],
+      [
+        3,
+        "audit"
+      ],
+      [
+        3,
+        "target_proof_sha256"
+      ],
+      [
+        3,
+        "audit_fact_sha256"
+      ],
+      [
+        3,
+        "obligations"
+      ]
+    ],
+    "subsets": [
+      {
+        "bits": [
+          false,
+          false,
+          false,
+          false
+        ],
+        "missing": [
+          767,
+          774,
+          782,
+          791
+        ]
+      },
+      {
+        "bits": [
+          false,
+          false,
+          false,
+          true
+        ],
+        "missing": [
+          767,
+          774,
+          782
+        ]
+      },
+      {
+        "bits": [
+          false,
+          false,
+          true,
+          false
+        ],
+        "missing": [
+          767,
+          774,
+          791
+        ]
+      },
+      {
+        "bits": [
+          false,
+          false,
+          true,
+          true
+        ],
+        "missing": [
+          767,
+          774
+        ]
+      },
+      {
+        "bits": [
+          false,
+          true,
+          false,
+          false
+        ],
+        "missing": [
+          767,
+          782,
+          791
+        ]
+      },
+      {
+        "bits": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "missing": [
+          767,
+          782
+        ]
+      },
+      {
+        "bits": [
+          false,
+          true,
+          true,
+          false
+        ],
+        "missing": [
+          767,
+          791
+        ]
+      },
+      {
+        "bits": [
+          false,
+          true,
+          true,
+          true
+        ],
+        "missing": [
+          767
+        ]
+      },
+      {
+        "bits": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "missing": [
+          774,
+          782,
+          791
+        ]
+      },
+      {
+        "bits": [
+          true,
+          false,
+          false,
+          true
+        ],
+        "missing": [
+          774,
+          782
+        ]
+      },
+      {
+        "bits": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "missing": [
+          774,
+          791
+        ]
+      },
+      {
+        "bits": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "missing": [
+          774
+        ]
+      },
+      {
+        "bits": [
+          true,
+          true,
+          false,
+          false
+        ],
+        "missing": [
+          782,
+          791
+        ]
+      },
+      {
+        "bits": [
+          true,
+          true,
+          false,
+          true
+        ],
+        "missing": [
+          782
+        ]
+      },
+      {
+        "bits": [
+          true,
+          true,
+          true,
+          false
+        ],
+        "missing": [
+          791
+        ]
+      },
+      {
+        "bits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "missing": []
+      }
+    ]
+  },
+  "record": {
+    "CEIL10": "0.1595000000",
+    "FLOOR10": "0.1595000000",
+    "RH_margin": "350479773/2",
+    "RH_required": "6000000185827/2",
+    "X": "6000000185827",
+    "anchor_upper": "3/16",
+    "boxes": [
+      {
+        "module": "interior",
+        "node": "interior",
+        "t": [
+          "319/2000",
+          "3/16"
+        ],
+        "t_closed": [
+          true,
+          true
+        ],
+        "x": [
+          "0",
+          "6000000185827"
+        ],
+        "x_closed": [
+          true,
+          true
+        ]
+      },
+      {
+        "module": "exterior",
+        "node": "exterior",
+        "t": [
+          "319/2000",
+          "3/16"
+        ],
+        "t_closed": [
+          true,
+          true
+        ],
+        "x": [
+          "6000000185827",
+          "inf"
+        ],
+        "x_closed": [
+          true,
+          false
+        ]
+      }
+    ],
+    "excess": 0,
+    "improvement_exact": "1/2000",
+    "lambda_upper": "319/2000",
+    "missing": 0,
+    "t_hi": "3/16",
+    "t_lo": "319/2000"
+  }
+}

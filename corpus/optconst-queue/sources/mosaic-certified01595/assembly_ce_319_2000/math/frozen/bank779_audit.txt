@@ -1,0 +1,386 @@
+# FOUNDATION — EXTERNAL_REAL_PROJECTION_AUDIT
+
+## 0. Object, novelty, frozen versions, and scope
+
+This is the external record-use audit of EXACT snapshot772 memory771,
+REAL_PROJECTION_NEWTON, prover_astra-s26. It is not a new claim to that
+producer's theorem. Memory771 explicitly leaves this external audit open.
+Earlier external754 audits the old moment-dependent modulus admission and
+heat theorem;758 audits the independent-error robust pencil. Neither is an
+audit of the new REAL-zero-specific projection argument. Memory763's sharp
+four-entry minimum-summary obstruction is not contradicted: the input
+information and the adapter are different.
+
+The target manuscripts, scope, quantifier inventory, and BOTH original
+numeric outputs are local immutable comparison inputs, individually pinned
+in INPUT_PINS.json. CITATIONS.json records memory line and fact hashes for
+snapshot772. There is no assumption about the absence of later successors.
+All checks use only local files. No producer executable, helper, source
+module, prior receipt, or unrefereed upstream file is copied or executed.
+The sole inherited arithmetic helper is this seat's own qinterval.py from
+accepted772. Its origin hash is checked. The new production calculations
+use integer endpoints and explicit rational-series remainders, not Arb or
+mpmath.iv. Separate symbolic and complex-Arb controls import no production
+arithmetic helper. Those controls share the Arb library with the producer;
+this is disclosed and not advertised as library-level independence.
+
+Claimed rung(a): the SAME new-line coefficient/c(x)/wall routines reproduce
+accepted720's source and head regime, accepted729's remote-seam regime,
+and738's old exact Hermitian surplus before the new scalar gates. These
+exercise inherited scalar machinery, not the new universal projection
+argument. Claimed rung(b): the independent proof below and independently
+implemented arithmetic audit that new theorem and its physical adoption.
+The verifier decides which rung it accepts.
+
+### Quantifier inventory being audited
+
+* Universal projection: EVERY finite complex polynomial P, EVERY positive
+  real weight vector w, with |P|>=m>p>=0 on the ENTIRE CLOSED polydisc;
+  q>=0, real ell>L=max_actual_support(w.alpha); EVERY closed-polydisc point,
+  real carrier theta, and REAL errors |e0|<=p, |e1|<=q. At V=0,
+
+      V=2*(Re(exp(i theta)P)+e0),
+      W=-(Im(exp(i theta)*(ell P-2D_w P))+e1)/2,
+      |W| >= ((ell-L)*sqrt(m*m-p*p)-q)/2.              (U)
+
+  A nonpositive right side is only a vacuous lower bound. This is a
+  zero-specific REAL projection theorem, not a global corrected-pair norm.
+* Physical pointwise implication: EVERY real t in CLOSED[7/50,3/16],
+  x in CLOSED[X,infinity), X=6000000185827, y=0, and its natural RIGHT
+  index N=floor(sqrt(x/(4*pi)+t/16)), with NO upper index cutoff. The
+  COMPLETE full-prime-torus floor |A_N|>=1/250000 implies
+  |u_x|>1/400000 at every u=H_t(x)/|Mt((1+i*x)/2)|=0.
+  The hypothesis must hold at every point where this implication is used.
+* First-channel sufficient premise: EXACT713/764 domain t in
+  CLOSED[3/20,3/16], x>=X, natural N in CLOSED[690988,2300000], y=0,
+  first k primes with k in CLOSED[1,10]. ALL rough fibres must obey
+  RF<=(24999/25000)|F1| for EVERY smooth phase. Terminal2300001 is OPEN.
+  This audit does not supply those first-channel inequalities.
+* Singleton-source implication: a=4/25, b=3/16, C=690988, B=809988.
+  If the COMPLETE source |A_(a,X,C)|>=1/10 holds for EVERY prime phase,
+  the zero-derivative conclusion holds for EVERY t in CLOSED[a,b],
+  X<=x<4*pi*((B+1)^2-t/16), natural N in CLOSED[C,B], y=0.
+  All119000 entrants are prepaid; every internal RIGHT wall is included;
+  the wall entering809989 is OPEN. The sufficient CLOSED rectangle ends
+  R=8244571828877. The tail seam Wtail=66476100549959 lies farther right.
+
+All bounds here are RH-free local implications. Any eventual Lambda
+inference still initializes ONLY from PT2021 T=3000175332800 at INITIAL
+X/2=6000000185827/2, margin350479773/2, with anchorV1-H-213. The tail seam
+is not an initial RH height. No new Lambda bound or record package is
+asserted by this audit.
+
+## 1. Independent root-factor proof of the projection theorem
+
+Fix the evaluation point z and theta, and let
+exp(i theta)P(z)=a0+i b0. If V=0, then a0=-e0 and |a0|<=p.
+Choose the single constant delta=-a0 exp(-i theta) and put Q=P+delta
+as a polynomial on the WHOLE polydisc. For every point there,
+|Q|>=m-|delta|>=m-p>0. Its weighted derivative is exactly D_wP.
+Its weighted support is at most L: adding or cancelling a constant can
+add only weight0, while weights and exponents are nonnegative.
+
+We rederive the support bound without either target numerical line. For
+positive integer weights k_j and the chosen closed-polydisc z, let
+h(v)=Q(z_1 v^k1,...,z_d v^kd). It is a zero-free polynomial on the CLOSED
+disk. If constant, h'(1)=0. Otherwise factor it over C, with its actual
+roots r_1,...,r_n counted with multiplicity; all |r_i|>1. At v=1,
+
+ Re(h'/h)=sum_i Re(1/(1-r_i))
+        =sum_i [1/2-(|r_i|^2-1)/(2|1-r_i|^2)] <= n/2.
+
+No root simplicity is required. Leading coefficient cancellations only
+reduce n, so n<=max_actual_support(k.alpha). Rational weights follow by
+common-denominator scaling, dividing the derivative bound by that SAME
+denominator. Positive real weights follow by rational approximation:
+D_wQ(z) and the maximum of finitely many support weights are continuous.
+This includes all boundary faces, zero coordinates, and constant Q.
+Thus Re(D_wQ/Q)<=L/2 for every chosen point.
+
+Since ell is REAL, multiplying by |Q|^2 gives
+
+ Re(conj(Q)*(ell Q-2D_wP)) >= (ell-L)|Q|^2.
+
+At our chosen point, exp(i theta)Q=i b0. The rotated companion of Q
+is the companion of P minus ell*a0, a REAL change. Their imaginary parts
+are identical; call this part v0. The preceding inequality is exactly
+
+                b0*v0 >= (ell-L)*b0^2.                (1)
+
+Here b0^2=|P(z)|^2-a0^2>=m*m-p*p>0. Equation(1) handles BOTH signs of b0:
+v0 has its sign and |v0|>=(ell-L)|b0|. Subtract at most q from v0 for the
+real companion error and divide by2. This proves(U), including allowed
+equality, arbitrary q, constant P, repeated roots, cancellations, and
+positive real weights.
+
+The chosen delta depends on the selected point, but is a CONSTANT within
+each application of the universal support theorem. It is never a field to
+be differentiated. Nor is the carrier phase differentiated in this algebraic
+step. Making ell complex adds an unwanted imaginary term ell*a0. Replacing
+the closed-polydisc premise by generic torus nonvanishing allows positive
+winding and invalidates the argument. These are exact adverse controls.
+
+The constant fixture P=3/5+4i/5, ell=5, L=0, m=1, p=3/5, q=1,
+e0=-3/5, e1=-1 attains |W|=3/2. It is an algebraic sharpness example,
+not an extremal physical heat remainder. The controls separately exercise
+positive and negative b0, interior/boundary points, sparse multivariate
+support, repeated factors, rational weights and cancelling monomials.
+Finite examples do not replace this universal proof.
+
+## 2. All-halfline physical gap without a first-moment estimate
+
+The raw heat amplitude is
+
+ a_n(t,x)=exp(-log(n)/2+t*(log(n)^2/4-c(x)*log(n))),
+ c(x)=log(sqrt(1+x*x)/(4*pi))/4-1/(2*(1+x*x)),
+ A_N=sum_(n<=N) a_n z^v(n), D_wA_N=sum a_n log(n) z^v(n), w_p=log p.
+
+Every coefficient is nonzero; by unique prime factorization its actual
+weighted support is L=log N (L=0 for N=1). Let D=1+x*x,
+
+ beta=atan(x)/2-3*x/D,
+ d=(7*x*x-5)/D^2, e=-x*(x*x+5)/D^2.
+
+From s=(1+i*x)/2, alpha=1/(2s)+1/(s-1)+Log(s/(2*pi))/2,
+alpha'=-1/(2s^2)-1/(s-1)^2+1/(2s), one obtains
+
+ Re(alpha)=2c, Im(alpha)=beta, Re(alpha')=d, Im(alpha')=e,
+ ell=2Re(alpha)+t Re(alpha alpha')=4c+t*(2c*d-beta*e).
+
+For x>=X, c>0, d>0, e<0. Also atan(x)/2>=pi/8 and3x/D<3/X;
+the explicit positive pi/8-3/X budget proves beta>0. Hence ell>=4c
+for every t>=0 in the domain. For the natural index and t<=b,
+
+ log N <= (1/2)log(x/(4*pi)+b/16)
+       <= (1/2)log(x/(4*pi))+pi*b/(8*x).
+
+Meanwhile4c>=log(x/(4*pi))-2/x^2: discard the nonnegative
+log(1+x^-2)/2, and replace -2/(1+x^2) by its smaller lower bound.
+Thus ell-log N>=G(x), where
+
+ G(x)=(1/2)log(x/(4*pi))-2/x^2-pi*b/(8*x),
+ G'(x)=1/(2*x)+4/x^3+pi*b/(8*x^2)>0.
+
+The independent endpoint G(X)>12 therefore proves the gap on the ENTIRE
+unbounded halfline, not merely through B or a sampled maximum index.
+No absolute first moment or upper ell ceiling appears. The dimension
+increases with N but is finite at every point; the universal proof does
+not require one finite dimension to work simultaneously at all x.
+
+## 3. REAL-gauge conversion; fixed index at every wall
+
+EXACT710 and external725 provide on tCLOSED[7/50,3/16], x>=X, ALL
+natural indices, at y=0,
+
+ u=2Re(exp(i Theta)A_N)+r,
+ u_x=-(1/2)Im(exp(i Theta)*(S+Delta))+r_x,
+ |r|<1/400000, |r_x|<1/50000, |Delta|<1/40000000000,
+ S=ell A_N-2D_w A_N.
+
+The amplitude is evaluated at the physical shifted character
+chi(n)=exp(-i*Im(s+t alpha(s)/2)*log n). r and r_x are REAL. In(U),
+
+ e0=r/2, e1=Im(exp(i Theta)Delta)-2r_x,
+ p=1/800000, q=2/50000+1/40000000000=1600001/40000000000.
+
+These expressions rederive both factors2 and the exact-partner debit.
+The r_x cap is never substituted into a COMPLEX raw remainder derivative.
+At u=0, u_x=H_t'/|Mt| since the derivative of the denominator multiplies
+H_t=0; thus its nonvanishing rules out a true multiple real zero.
+
+If only a full-torus floor for the physical heat polynomial is given,
+EXACT720 and its external733 winding audit extend it to the CLOSED
+polydisc for EVERY natural/subnatural N, tCLOSED[0,1/2], x>=X. This
+special heat theorem cannot be replaced by a generic torus maximum-
+modulus statement. Once stable, iterated maximum modulus for1/A_N
+preserves the same floor. That domain contains the entire pointwise
+physical domain. Under the required m=1/250000, all sufficient gates are
+exact rationals:
+
+ m>p,
+ q+2/400000>0,
+ 144*(m*m-p*p)-(q+2/400000)^2
+            =86396399999/1600000000000000000000>0.
+
+Together with ell-logN>12 this gives |u_x|>1/400000 at u=0.
+This is the same pointwise implication as771, now externally audited.
+The threshold sqrt(p*p+(q/12)^2) printed by the artifact is only for a
+strictly POSITIVE derivative; the stronger squared gate proves the
+specified derivative floor. These two thresholds are not conflated.
+
+At an exact Riemann--Siegel wall the RIGHT index is selected first.
+The analytic error theorem holds with that finite N frozen on its
+neighborhood. Differentiating a floor selector would be invalid, but
+is not done. Both time endpoints and x=X are closed.
+
+## 4. Narrow first-channel corollary with complete fibres
+
+Only on EXACT713's own domain stated in Section0 does its stable core
+F1 have |F1|>1/10 throughout the closed smooth polydisc. External764
+covers its complete coefficient sweep. Write the COMPLETE raw amplitude
+as F1(z)+sum_(rough r>1)Fr(z)*w^v(r). On the full distinguished torus,
+the hypothesized RF<=rho|F1| with rho=24999/25000 implies
+|(A-F1)/F1|<=rho, by summing EVERY rough fibre, without identifying its
+character with any other. The quotient is holomorphic near the closed
+polydisc; iterated maximum modulus extends that inequality throughout.
+It follows
+
+               |A| >= (1-rho)|F1| >1/250000.
+
+No companion channel or hybrid angle is needed. This proves the premise
+of the projection theorem directly. It neither extends713 below3/20,
+nor above natural2300000, nor supplies its EVERY-smooth-phase rough
+inequality. The wall entering2300001 is excluded. Local760 phase boxes
+and763's stipulated minimum summaries are not substitutes for this
+complete first-channel hypothesis.
+
+## 5. Entire entrant family paid before any heat evolution
+
+At (a,X), put f(u)=a_u(a,X), extending the formula to positive real u.
+On[C,B] the logarithmic derivative is
+
+ u*f'(u)/f(u)=-1/2+a*(log(u)/2-c(X)),
+
+increasing with u. Its value at B is strictly negative, so f decreases
+throughout. Let s0=log(B/C)>0 and beta0=a*(log(C)/2-c(X))<0.
+For u=C exp(v),0<=v<=s0,
+
+ f(u)/f(C)=exp(-v/2+beta0*v+a*v*v/4)
+         <=exp(-v/2+a*s0*s0/4).
+
+The decreasing-sum comparison and exact power integral give
+
+ (B-C)f(B) <= J=sum_(C<n<=B)f(n)
+             <=integral_C^B f(u)du
+             <=2*C*f(C)*exp(a*s0*s0/4)*(sqrt(B/C)-1)=Jhi. (2)
+
+The upper integral starts at the PREDECESSOR C. No entrant, new prime,
+or smooth term is omitted. The checker proves Jhi<1/10-1/250000 and
+(B-C)f(B)>9/100. A separate complex-Arb calculation sums EVERY119000
+term and confirms(2); that sum is a control, not the all-cutoff proof.
+
+The lower inequality kills only the old SAME-source sufficient triangle
+subtraction retaining1/100 on THIS block. It is neither a counterexample
+to the heat polynomial nor an optimal halo statement. In particular it
+says nothing about methods that charge entrants at another x or take
+advantage of contraction gain.
+
+Under the singleton full-torus source,720/733 first extend the floor1/10
+to the complete closed polydisc at its NATURAL C. For EACH integer K in
+[C,B], add every C<n<=K at that SAME source. Extra prime coordinates do
+not alter the old floor, and the total added modulus is<=Jhi. This proves
+|A_(a,X,K)|>=1/10-Jhi>1/250000 over each enlarged polydisc BEFORE time
+transport. We do not apply natural-source winding to the nonnatural K>C.
+
+The general744 heat operator, externally audited754, preserves the same
+minimum under the multipliers exp((t-a)*((log n)^2/4-c(X)*log n)). Its
+conditions hold: t-a>=0, all polynomials are finite and stable, and
+4c(X)>log B>=actual support for every K. That banked norm theorem uses
+constant preservation in its own proof. Here transport is applied to the
+UNSHIFTED A_K; the point-dependent constant is chosen only at the final
+zero-specific admission, never transported as a variable field.
+At each t, increase x from X by the inward substitution
+
+            z_p -> p^(-t*(c(x)-c(X)))*z_p.
+
+Indeed c'(x)=x*(x*x+5)/(4*(1+x*x)^2)>0, and the coefficient change is
+exactly n^(-t*(c(x)-c(X))). Therefore the floor survives at every x>=X
+for each prepaid cutoff. Choose the natural RIGHT cutoff only at the
+final target; Section3 then gives the physical zero-derivative implication.
+
+## 6. Closed/open joints and honest remaining gap
+
+Write w_j(t)=4*pi*(j*j-t/16). It decreases in t, increases in j, and
+w_(j+1)-w_j=4*pi*(2j+1)>0. The independent source endpoint comparisons
+are w_C(a)<X<w_(C+1)(b), so X has natural C throughout[a,b]. Thus for
+any such t the exact union of the natural cells for C<=N<=B, intersected
+with x>=X, is [X,w_(B+1)(t)). Every interior wall w_j(t),C<j<=B,
+is included with right index j. The last wall requires B+1, which was
+NOT prepaid, so is open.
+
+Because the last wall is minimal at b, its integer floor R works at
+all times provided it is strictly below the wall. The live enclosure
+establishes 0<w_(B+1)(b)-R<1. Consequently [a,b]x[X,R],y=0 is a closed
+rectangle in the conditional region, NOT a replacement for its curved
+open endpoint. The exact uncovered gap from this rectangle to the audited
+tail seam is Wtail-R=58231528721082. A source-independent FULL exterior
+or a record cannot be inferred from this module.
+
+The exact endpoint census checks every internal wall plus the terminal
+wall at both a and b,238002 cases. Each case checks the at/left/right
+natural index by integer square roots of rational radicands. Its transcript
+is streamed into a deterministic digest, with boundary rows retained;
+no bulky table is shipped. The polynomial identities and monotonicity
+argument above, not the endpoint census, cover EVERY real time.
+
+## 7. Current source status versus historical conditional status
+
+Memory771 was frozen on snapshot763 and correctly described its source
+as UNSUPPLIED there. At our snapshot772, memories767 and769 have banked
+complete singleton floors. In particular769's defining c(x), a_n and
+A=sum_(n<=690988)a_n chi(n), at EXACT(t,x,y)=(4/25,X,0), are IDENTICAL
+to771's source; every prime phase is universally quantified and its
+|A|>1/10 is stronger than the needed >=1/10. No off-axis coordinate,
+time interval, extra cutoff, or source-carrier rotation is assumed.
+The symbolic exponent identity and parameter/domain checks in the bundle
+confirm that exact interface. This is a version/type audit, not a fresh
+proof of769's new coefficient/pooling/box machinery.
+
+This artifact closes771's external theorem/arithmetic audit only. It does
+NOT claim the external numerical source audit of767 or769, run a source
+sweep, certify an official TORUS_CERT output, or export a harness COVER.
+The exact source t/X/N/y, full-torus quantifier and RAW strict floor are
+compared against769's pinned SUMMARY/BUILD manifests. Those manifests are
+version/type checks, not substitutes for the banked proof or a new sweep.
+Source truth is already banked, but an independent source record-use audit
+remains a separate standing task before shipment. The new s27 contraction-
+credit idea noticed during this session is not consumed: it is not our
+frozen target, and this audit does not cover it. No newer pending source
+or transport proof is silently adopted.
+
+## 8. Numerical completeness, attacks, and release contract
+
+All23 original directed scalar pairs and17 exact fields are independently
+re-derived and compared to BOTH pinned target lines after production.
+The independent values themselves, not decimal coincidences, decide every
+strict mathematical gate. Original output intervals are consistency checks,
+not inputs to a forward calculation. The separate Arb line agrees on all
+new scalars and all20 retained physical inputs. These consist of16
+proof-hash-seeded rational(time,x/pi,index) tuples and4 exact RIGHT walls;
+the tuples themselves, not just hashes or objective values, are shipped
+as reproducible generated artifacts.
+
+The exact symbolic controls establish the real-coordinate projection,
+root bound, c/beta/alpha' derivatives, monotone G derivative, entrant change
+of variables, physical error factors and all-wall equations. Twelve stable
+polynomials give24 retained complete-coefficient controls, including actual
+support, rational weights and both imaginary signs. Thirty-seven scope
+mutations and18 mathematical mutations reject; mathematical controls
+include torus-only winding, complex ell, nonconstant shift, negative
+weights, understated support, backward heat, wrong error factors, incomplete
+entrants, and closed terminal promotion. Scope metadata guards are TYPE
+controls, not substitutes for analytic proof.
+
+Read-only review of both target scripts found ONE inert producer smoke
+rejection, reject("unsupplied source releases record",False). That call
+passes regardless of source flags. It is not load-bearing: the producer
+separately validates source_supplied, physical_cover and record_release in
+its active scope predicate, and mutates them. PRODUCER_READ_REVIEW.json
+records the exact original line and source hash without shipping or running
+producer code. We do NOT count that inert call as an effective attack; our
+static check demonstrates its rejection and our own source/status mutations
+exercise the live predicates. It is a disclosure, not a mathematical hole.
+
+No load-bearing discrepancy was found in the audited theorem, scalar inventory,
+or joints. Check.py also rejects constant-True numerical gates, unexpected
+imports, altered pinned inputs, and a non-regenerated output path. Both
+source-only clean-copy replays must succeed before release. Intake ships
+no binary, symlink or bulky scratch output, and the evidence remains below
+the operator's size cap. Everything is single-core and synchronous; no
+pod, network, background process, signer, or publication operation occurs.
+A green script is evidence, not the independent verifier's verdict.
+
+Credit prover_astra for REAL_PROJECTION_NEWTON and the audited interfaces;
+functional_astra for769's banked source; Daniel Martin Kornaus for the
+collision-exclusion motivation only. No third-party theorem or file is a
+premise in this audit.

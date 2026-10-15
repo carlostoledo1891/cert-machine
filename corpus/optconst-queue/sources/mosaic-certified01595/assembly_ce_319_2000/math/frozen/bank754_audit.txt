@@ -1,0 +1,375 @@
+# FOUNDATION — EXTERNAL_HEAT_MODULUS_COMPOSITION
+
+## 0. What is and is not second-lined
+
+This is an external record-use audit of the two pinned producer modules:
+
+* memory738, modulus-only Newton-support admission;
+* memory744, forward circular-heat singleton-source composition.
+
+It is NOT a new claim to their theorems. Memory740 already has the general
+semigroup; its extra pair-sector result and source layouts are NOT audited
+here. The producer proof, independent proof, output, scope and quantifier
+files are frozen separately for738/744, with their artifact hashes in
+INPUT_PINS.json. CITATIONS.json records memory line/fact hashes, not copied
+bank entries. The snapshot has747 entries. No claim about future successors
+is made.
+
+The audit's complete conditional physical conclusion is the SAME as744:
+write a=4/25, b=3/16, X=6000000185827, N0=690988, N1=790988. If the COMPLETE
+heat polynomial at the SINGLETON(t,x,N)=(a,X,N0) has modulus at least1/10
+for EVERY character on the full prime torus, then for EVERY real
+
+    a<=t<=b, X<=x<4*pi*(790989^2-t/16), y=0,
+    N=floor(sqrt(x/(4*pi)+t/16)) in[N0,N1],
+
+there is no simultaneous zero of H_t and its real-x derivative. Every
+internal RIGHT-index wall is included. The last wall entering790989 is
+EXCLUDED. The lower spatial endpoint and both time endpoints are included.
+There is NO assertion for nonreal y or for all x beyond this finite region.
+The source is UNSUPPLIED; this artifact gives no physical COVER.
+
+The broader LIFT alone in738 applies on the CLOSED rectangle
+
+    t in[a,b], x in[X,W], N NATURAL in[N0,H], y=0,
+    W=66476100549959, H=2299999,
+
+conditional on the pointwise full-torus floor>=1/100. We independently
+re-derive its every live numerical envelope and charge. Its optional
+first-core corollary uses exactly713's core floor and remains conditional;
+this audit checks that implication algebra but does NOT second-line713's
+large core computation. The744 specialization does not need713.
+
+## 1. Independent support bound and circular-heat proof audit
+
+Throughout this section all polynomials are finite, complex, and nonzero;
+all disks/polydiscs include their boundaries. For positive real weights w,
+let D_w=sum w_j z_j partial_j and L=max{w.alpha:a_alpha!=0}. Actual supported
+monomials determine L; a rectangular coordinate-degree estimate is not
+silently substituted. P is required zero-free on the CLOSED polydisc.
+In particular P(0)!=0. The zero polynomial and a polynomial with an interior
+zero are not admissible even if their distinguished-torus values are nonzero.
+
+### 1.1 Re-deriving the logarithmic-derivative upper bound
+
+Take integer weights k_j>0 and any fixed polydisc point z. The auxiliary
+q(v)=P(z_1 v^k1,...,z_d v^kd) has no zero in the closed disk. If constant,
+q'(1)=0. Otherwise let n be its actual degree, counting all cancellations;
+its n roots r_j are all strictly outside. Repeated roots cause no problem
+for the logarithmic derivative sum. At v=1,
+
+ Re(q'/q)=sum_j Re(1/(1-r_j))
+         =sum_j [1/2-(|r_j|^2-1)/(2|1-r_j|^2)] <= n/2.
+
+The chain rule and n<=max k.alpha give Re(D_k P/P)<=max k.alpha/2.
+Divide integer weights by their common denominator for positive rationals.
+For positive reals use continuity of a finite weighted sum and of a finite
+support maximum. No argument limits the number of prime variables except
+that it is finite. The conclusion holds at all boundary faces as well as
+interior points, and remains an UPPER real-part bound, not an absolute-value
+bound or a reversed inequality.
+
+A separate audit of the producer's reciprocal proof gives the same sign:
+q#(v)=v^n conjugate(q(1/conjugate(v))), B=q#/q. On the circle |B|=1; inside
+|B|<=1 by maximum modulus. At v=1 the outward radial derivative of log|B|
+is nonnegative. Direct differentiation on the circle gives
+Re(B'/B)=n-2 Re(q'/q), yielding the same bound. There is no assumption that
+q# is zero-free in the disk. The derivative is at a nonzero boundary value.
+controls.py uses exact Gaussian-rational coefficient arrays to check this
+identity independently on complete finite examples, including repeated
+outside roots, constants and complex coefficients.
+
+### 1.2 Re-deriving preservation under circular heat
+
+For univariate q of degree n set q_h=exp(h*(D^2/4-C*D))q, where h>=0 and
+C>=n/4. The leading and constant coefficients remain nonzero for finite h.
+At a simple root r_i,
+
+ q_h,h=(v^2/4)q_h''+(1/4-C)*v*q_h',
+ (log|r_i|)'=C-1/4-(1/2)sum_(j!=i)Re(r_i/(r_i-r_j)).
+
+For a MINIMUM-modulus root, |r_j/r_i|>=1, so the identity in1.1 gives each
+summand<=1/2. Thus its radial logarithmic velocity is>=C-n/4>=0. At an
+arbitrary root this sign need not hold: minimum selection is essential.
+Between collisions the finite minimum of the analytic branch log moduli
+is locally Lipschitz, with almost-everywhere derivative from an active
+branch; it is nondecreasing.
+
+For a distinct-root start the discriminant is an analytic function of h
+in a neighborhood of every compact real-time interval, and is nonzero at
+h=0. Its zeros are therefore isolated and finite on each such interval.
+No root can reach zero or infinity at finite time because constant and
+leading coefficients are nonzero. Continuity of the finite multiset of
+roots joins the nondecreasing minimum through those isolated collisions.
+For a repeated start, first perturb all roots to distinct roots with their
+moduli bounded below by a common rho_* strictly between1 and the original
+minimum radius. At fixed h the finite coefficients converge. The perturbed
+solutions retain radius>=rho_*, so the limit does too; then increase rho_*
+to the original radius. This handles repeated roots and every finite h.
+
+This proves stability, but stability alone is NOT yet a modulus estimate.
+For m=min_D|q|, every q-lambda with |lambda|<m is still stable and has degree
+at most n. The SAME operator is linear and fixes constants; hence q_h avoids
+every such lambda on D. Consequently min_D|q_h|>=m, including the equality
+floor at the boundary. The argument applies to ALL constant perturbations,
+not merely to the one original q. No lower floor is extracted from an angle.
+
+### 1.3 Rechecking the independent pair-damping proof
+
+The second producer proof has a genuinely different stability mechanism.
+For a stable multi-affine slice f=a+bz+cw+dzw, put
+A=|a|^2-|d|^2, B=|b|^2-|c|^2, C=conjugate(a)b-conjugate(c)d.
+Closed bidisk stability gives |a|>|b| and, from solving in w on |z|=1,
+A+B>2|C|. Reversing the two variables and integrating the squared boundary
+inequality gives A-B>0, hence A>|B|. Scaling the two linear coefficients
+by r in[0,1] leaves the circle squared-gap at least
+
+ A+r^2 B-2r|C|
+   =r(A+B-2|C|)+(1-r)(A-rB)>0.
+
+The denominator a+rbz remains zero-free; its quotient extends the strict
+bound to the disk by maximum modulus. This proves full bidisk stability,
+including r=0 and r=1 and degree drops. Freeze other variables at ARBITRARY
+closed-disk values to obtain the multivariate assertion. Constant avoidance
+again gives preservation of the same norm for this linear map.
+
+Polarization is not taken on faith. For |u|,|v|<1 the polarization of
+(1+uz)(1+vz) has the strict circle gap bounded below by
+(1-|uv|)(1-|u|)(1-|v|)>0. Thus averaging any pair of variables in a stable
+multi-affine polynomial preserves stability, by first restricting to the
+diagonal and factoring its degree-at-most-two slice. It also preserves a
+positive norm by constant avoidance. Cyclic averaging over a finite set of
+transpositions generating all permutations converges to full symmetrization:
+in coefficient space the averages are orthogonal projections, and their
+product contracts strictly on the orthogonal complement of their common
+fixed space. Equality of norms would force equality at every projection,
+contradicting membership in that complement. Finite dimensionality makes
+this contraction uniform. The positive norm survives the coefficient limit.
+
+Starting with the product of the outside-root linear factors therefore
+gives a stable polarization. Damping every clone pair by exp(-h/4) weights
+each subset of k out of n variables by exp(-h*k*(n-k)/4). On the diagonal
+this is exactly the heat multiplier at C=n/4. An additional inward
+substitution supplies C>n/4. Constant avoidance on the FINAL univariate
+operator restores the original q minimum, not just the auxiliary product
+minimum during polarization. This last distinction is load-bearing.
+Our exact ring identities and complete labelled-subset controls separately
+check the algebra; the argument above, not the finite controls, proves the
+universal statement.
+
+### 1.4 Positive real weights, including the closed threshold
+
+For integer weights and a fixed polydisc point specialize as in1.1, use
+C>=max k.alpha/4, and evaluate the evolved univariate polynomial at1.
+Cancellations only lower its degree; grouping equal weighted exponents
+commutes EXACTLY with the multiplier. Its initial norm is at least the
+full-polydisc norm. For rational w=k/Q use time h/Q^2 and drift cQ.
+For positive real w choose positive rational w_m->w and let
+L_m=max w_m.alpha, c_m=c+max(0,L_m-L)/4. Then4c_m>=L_m and c_m->c.
+Finite coefficient convergence is uniform on the compact polydisc, so the
+SAME norm floor passes to the limit. This argument includes4c=L and does
+not round real weights onto the unsafe side of the threshold.
+
+This audits BOTH mechanisms supporting744. We make no claim of uniqueness
+or priority: the statement itself is already banked in740/744.
+
+## 2. Complete model and whole-rectangle LIVE constants
+
+Define, for EVERY integer n<=N,
+
+ c(x)=log(sqrt(1+x^2)/(4*pi))/4-1/(2*(1+x^2)),
+ a_n(t,x)=exp(-log(n)/2+t*log(n)*(log(n)/4-c(x))),
+ A=sum a_n z^v(n), L_N=sum a_n log(n) z^v(n), S=ell*A-2*L_N.
+
+The prime list contains EVERY prime through N, and v(n) is its complete
+valuation vector. The logarithmic-prime weighted support maximum is log N
+because the coefficient of the top monomial is strictly positive. No
+independent phase for a composite n is introduced.
+
+c'(x)=x/(4*(1+x^2))+x/(1+x^2)^2>0. Since
+1/2+a*(c(X)-log H/4)>49/50 and c(X)>log H/4, increasing t or x, or decreasing
+n, improves the coefficient exponent. Thus a_n<=n^(-49/50) on the entire
+closed rectangle, not merely at its corners. For f(v)=log(v)v^(-49/50),
+f decreases on[3,H]. For n>=4, f(n)<=integral_(n-1)^n f(v)dv. Therefore
+
+ sum_(n=1)^N a_n log n <= f(2)+f(3)+integral_3^H f(v)dv <200.
+
+The lower integration endpoint3 is essential. We re-derive the primitive
+v^(1/50)*(50 log v-2500) and evaluate it outward. All n are covered by this
+monotonic integral bound; no partial sum or sampled support is substituted.
+
+For s=(1+ix)/2, alpha=1/(2s)+1/(s-1)+Log(s/(2pi))/2, put
+
+ beta=atan(x)/2-3x/(1+x^2),
+ d=(7x^2-5)/(1+x^2)^2, e=-x(x^2+5)/(1+x^2)^2.
+
+Direct real/imaginary rationalization gives alpha=2c+i beta and alpha'=d+ie.
+Consequently ell=4c+t*(2cd-beta*e). At x>=X,0<beta<1,0<d<7/x^2,
+0<-e<2/x and0<c<log x/4. The endpoint test(log X)/X<2/7, with log x/x
+strictly decreasing here, implies0<2cd-beta*e<3/x. Hence the adverse corners
+are exactly
+
+ ell-log N >=4c(X)-log H>12,
+ ell <=4c(W)+3b/X<30.
+
+The first inequality also makes ell positive, so using ell rather than
+|ell| in the subsequent upper bound on |S| is licensed. These bounds are
+uniform in all t,x,N in the stated natural rectangle. Ell is not frozen
+at its lower endpoint in a place needing an upper bound.
+
+## 3. Independent balanced REAL-jet adoption of738
+
+The pinned710 theorem and external725 audit apply for ALL real
+7/50<=t<=3/16, x>=X, at the NATURAL index, on y=0. Our whole target is a
+subset. The exact physical character is the heat-shifted character
+n^(-i Im(s+t alpha(s)/2)), not an assumed n^(-ix/2). A full prime-torus
+premise includes the former. Both sides of every index wall are treated
+with their own frozen natural cutoff; no derivative of a floor is taken.
+
+710/725 use the positive REAL normalization u=H/|Mt| and give
+
+ A_true=A+e_A, B_true=S+e_B,
+ |e_A|<p=1/800000,
+ |e_B|<q=1/25000+1/40000000000,
+ u=2 Re(exp(iTheta) A_true),
+ u_x=-(1/2) Im(exp(iTheta) B_true).
+
+Here p is half the real value-error bound, q includes TWICE the real
+remainder derivative and the exact-to-flat companion discrepancy.
+A raw COMPLEX derivative includes the phase carrier times the value error;
+it is NOT bounded merely by that smaller real derivative. The audited
+composition never makes that substitution. The exact rational controls
+actively falsify it with a nonzero value residual and phase carrier.
+
+Closed-polydisc stability and Section1 give
+Re(conjugate(A)S)>=(ell-log N)|A|^2. Write r=|A|. The complete moment bound
+implies |S|<=ell*r+400. Expanding the perturbed product and paying all three
+adverse terms gives
+
+ Re(conjugate(A_true)B_true)
+   >12r^2-(30p+q)r-400p-pq =: Q(r).
+
+Q is increasing for r>=1/100. Its value there is re-derived exactly,
+not parsed from a decimal:22375198391999/32000000000000000>1/2000.
+The product pq and the absolute-moment term400p are both retained. At a
+simultaneous true zero, the rotated first coordinate is purely imaginary
+and the rotated second coordinate real, giving zero real Hermitian product.
+This contradicts the strict positive bound. Nonzero smooth normalization
+preserves simultaneous vanishing of H and H_x.
+
+This proves the738 physical admission with no companion modulus or angle
+premise. To infer stability from a bare full-torus floor one MUST use the
+GENERAL natural-index winding theorem720, externally audited733. The
+arbitrary-polynomial torus-only inference is false and is actively rejected.
+The optional first-core corollary uses713's supplied stable core |F1|>1/10:
+if ALL rough fibres satisfy RF<=9|F1|/10 for EVERY smooth phase, the analytic
+ratio(A-F1)/F1 has modulus<=9/10 on the distinguished torus and then throughout
+the closed polydisc. It supplies |A|>1/100. Neither that RF premise nor the
+core computation is manufactured by this audit;744 does not consume it.
+
+## 4. Compose the singleton source without a time-grid debit
+
+At(t,x,N)=(a,X,N0), the exact adjacent-square inequalities prove N0 is
+natural. The hypothetical full-torus norm>=1/10 allows720/733 to supply
+closed-polydisc stability. Repeated maximum modulus for1/A extends the
+SAME norm to the whole polydisc. Enlarging the prime list alone preserves
+that old polynomial and its floor.
+
+For EVERY intermediate K in[N0,N1], add ALL terms N0<n<=K at(t,x)=(a,X).
+The derivative in log n of the coefficient exponent is
+-1/2+a*(log n/2-c(X)); its adverse value at N1 is strictly negative.
+Thus all these terms are bounded by a_N0(a,X). Their complete sum is at most
+
+ J=(N1-N0)*a_N0(a,X)<9/100.
+
+So EVERY enlarged polynomial has floor>=1/10-J>1/100 on the complete closed
+prime polydisc. The winding theorem is NOT invoked at an enlarged source
+cutoff outside the natural-source domain; direct norm control licenses it.
+Exactly100000 possible entrants are charged, including each right-wall
+entrant later selected as the physical top term.
+
+Now fix this K. Its actual weighted support is log K, and
+4c(X)-log N1>12. The coefficient ratio from a to t is exactly
+exp((t-a)*(log(n)^2/4-c(X)log n)), so Section1 preserves the SAME floor for
+EVERY t>=a at fixed X,K. The old-coefficient time debit is identically zero
+because of the proved operator, not because an error estimate was omitted.
+
+Next fix t and increase x>=X. The coefficient ratio is
+n^(-t*(c(x)-c(X))). It is the complete prime substitution
+z_p -> p^(-t*(c(x)-c(X)))*z_p, inward on EVERY closed disk. The same floor
+persists. Only AFTER source entrants, fixed-cutoff time transport, and
+fixed-time spatial contraction do we select K equal to the target's natural
+index. Section3 then applies. No absolute norm is inferred from a sector,
+including from the accepted corner replay747. That replay's input/output
+bookkeeping is a separate already banked outcome, not part of this claim.
+
+## 5. Exact coverage inventory and adversarial seams
+
+The walls are w_j(t)=4*pi*(j^2-t/16). They decrease in t and strictly
+increase in j, with w_(j+1)-w_j=4*pi*(2j+1)>0. Independent outward tests give
+w_N0(a)<X<w_(N0+1)(b), and w_H(a)<W<w_(H+1)(b). Therefore the entire closed
+rectangle used by738 has natural N in[N0,H]. W is inside the predecessor
+cell H=2299999, not at the nominal2300000 wall.
+
+For744, x<w_(N1+1)(t) makes N<=N1; x>=X gives N>=N0 for both time endpoints
+and all intermediate t. The maximum of the terminal wall occurs at a;
+w_(N1+1)(a)<W. Thus the whole curved target lies within738's licensed CLOSED
+rectangle. At x=w_j(t) the natural radicand is exactly j^2, selecting j,
+not j-1. These identities hold for EVERY real t, so the continuum is not
+being inferred from two endpoint computations.
+
+The mechanical representation boundary is nevertheless fully attacked:
+WALL_CENSUS.tsv records EVERY internal wall plus the terminal wall at BOTH
+closed time endpoints, with exact rational pi coefficient, at/left/right
+indices and inclusion flag. The generator uses integer-square-root floor;
+the independent parser uses cross-multiplied adjacent-square inequalities.
+They each reject the predecessor at equality and reject terminal inclusion.
+The file is a regression census, not a sampled replacement for the above
+all-t proof. Missing/reordered rows or a membership mismatch are fatal.
+
+Coverage summary:
+* source t={4/25}, x={6000000185827}, N={690988}, y={0}; norm UNSUPPLIED;
+* conditional target t=CLOSED[4/25,3/16], real x=LEFT-CLOSED/RIGHT-OPEN
+  [X,w_790989(t)), natural N=CLOSED[690988,790988], y={0};
+* no extension of that actual conditional region to W, the tail, or other y;
+* no physical COVER while the source is missing.
+
+## 6. Arithmetic, independence, anchors, and release limitations
+
+independent.py uses only exact rationals, own integer dyadic intervals and
+explicit rational series remainders. It derives ALL reference scalar and
+exact fields before opening the frozen output tables. The own kernel is
+from our s19 external audit, not the producer's Arb/interval implementations.
+No producer executable/helper is copied, imported or run. Frozen prose and
+outputs are audit subjects, not an executable second line.
+
+Both named anchor regimes pass through the SAME new production functions:
+720's source/complete entrant calculation and729's distant predecessor seam.
+Their directed digits are regenerated, with exact enclosures compared. This
+is L3(a) only for arithmetic. The independent analytic derivation of the
+new support/time/norm composition above is the requested L3(b) external
+record-use line. The verifier chooses the accepted rung.
+
+controls.py implements its own rational polynomial ring and Gaussian
+rationals. For a separate numerical control it uses complex Arb alpha/alpha'
+at every original input selected by the pinned proof hashes, independently
+of the dyadic code. The full input(t,x,n), prime factorization, and each
+outward enclosure are retained. These controls exercise exact coefficient
+identities and the model phase; they are NOT phase-box or source certificates.
+No whole floating-checker error proof is inferred from them.
+
+Arbitrary coefficient damping, backward time, under-threshold drift,
+interior/boundary roots, a smaller support degree, lost residual terms,
+wrong derivative type, omitted entrants, an outward substitution, wrong
+wall index, absent source and signed-rounding errors are tested adversely.
+Sufficient-condition refusals are distinguished from explicit counterexample
+polynomials. No accepted banked mathematical theorem is refuted by those
+controls; no defect in the pinned738/744 implication was found.
+
+RH dependency: none for these local model/transport implications. Any eventual
+Lambda assembly still owes the accepted anchor V1-H-213 and only PT2021
+T=3000175332800 for initialization at X/2=6000000185827/2, with exact margin
+350479773/2. No larger RH height is assumed, no RH computation is made, and
+there is NO new Lambda bound here. The official checker is unchanged;
+source production, the rest of the finite exterior, tail audit/adoption,
+full assembly audit, and operator restart are separate obligations.

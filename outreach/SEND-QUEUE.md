@@ -11,6 +11,13 @@ here on request.
 
 ---
 
+## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (outreach/three-campaigns-2026-10-15.md) — DRAFTED, NOT SENT
+AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 (answers #11 too), #5, #4: each a short
+    exact-decision note with the page; the sofa (#8) gets none. W1-W5. formal-conjectures #7304/#7305/#7306/#7308/#7330: the
+    witness decided, the Lean note where there is one, the shared tail about the vanished fork commits. T1-T5. optimization-
+    problems PRs #225, #221, #226, #217 (optional), #210 (the refusal of Mosaic's package — the operator reads it first).
+    Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
+
 ## LANE B — THE BANDEIRA 0.2(a) AUDIT (2026-10-15; outreach/bandeira-oxelra-issue.md) — B1 POSTED 2026-10-15 ~05:00 UTC on the operator's word: https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1; watch the thread; the Lean build record is the follow-up
 B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none open; pinned commit c4137344): the finite core
     re-decided with our own certificate (CERTIFIED), the two gaps named (their certificate decides the no-transpose SDP; their

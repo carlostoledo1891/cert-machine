@@ -1,0 +1,22 @@
+{
+ "what": "The community certificate issues on google-deepmind/alphaevolve_repository_of_problems (the AlphaEvolve repository of problems, commit 8f44745, 2026-07-11; the issues #4-#12, 2026-06-13 to 2026-10-13, none answered by the repository's owners), decided one by one in exact arithmetic from the problems' definitions as the pinned notebooks state them.",
+ "registered": "2026-10-15",
+ "operatorGo": "2026-10-15: 'Agreed, build 1, 2 and 3' (this is 1)",
+ "claims": {
+  "P59 no isosceles triangles": "#10 (hashkanna): two 58-point subsets of the 32 x 32 grid with no isosceles triangle, C(32) >= 58, where the paper and PatternBoost state 56.",
+  "P60 no 5 on a sphere": "#4 (Harmenszoon) C(13) >= 36; #6 (milesandmistakes, release v1.1.1) C(14..20) >= 38, 40, 41, 44, 45, 49, 50 and the stepping stones; #6 (0thernet, hraness/algal-lab d881f970) C(17..26) >= 45, 48, 50, 53, 55, 58, 59, 62, 65, 67; #6 (hashkanna, mendel-evolve 5a3b9668) C(15..40) >= 42 .. 104 (40 certificate files, the largest per n is the claim); #7 (Ganador1) is structural (asymmetric 36-point sets at n = 13) and is read, not decided.",
+  "P61 ring loading": "#11 (VividhDesign) C >= 47/42 with m = 15; #12 (Maks23) C >= 9/8 with m = 14 under k = 1..m and m = 16 padded under the notebook's k = 1..m-1, plus the m = 15 and m = 17 (denominator 560) instances of its zip and karldaeubel's 12-pair instance from the thread.",
+  "P42 sums and differences": "#5 (there4iam): the finite parts only — the far-block set rebuilt from the rule its certificate script states (g > 1.163 at L = 100000) and the explicit 23,646-integer set of its section 5 (|A+A| + |A| > |A-A| + D + 1). Its C = 2 is a theorem of Lin--Li (arXiv:2607.27199), cited; its C >= 1.6269 instance has an 86-digit modulus and is not enumerable here: REFUSED.",
+  "P64 3-D moving sofa": "#8 (Lomnus-ai) volume >= 1.8558: a floating-point cube-counting pipeline with stated tolerances; no exact object to decide: REFUSED, with what an interval instrument would need."
+ },
+ "definitions": "taken from the pinned notebooks only (corpus/aerp/sources/notebooks/*.ipynb, sha256 in PINS.json): P59 — three distinct points with two equal distances, the collinear midpoint case included; P60 — five points with zero lifted 5 x 5 determinant, planes included; P61 — the notebook's compute_alpha_exact (k = 1..m-1) and the thread's k = 1..m, both decided; P42 — the notebook's get_score, log(|A+A|/|A|) / log(|A-A|/|A|).",
+ "deciders": "instruments/aerp/p59.py (every triple, integer squared distances), p60.py (two exact methods: every 5-subset's integer determinant, and every 4-subset's primitive hyperplane key — equal predicates, the first cross-checks the second up to 60 points), p61.py (every sign pattern, integers scaled by the lcm of the denominators), p42.py (bitset sumsets, the comparison g > c decided as an integer inequality). Standard library; numpy only as an optional accelerator of the identical int64 computation in p60, with the bound argument written in the file.",
+ "rules": [
+  "Nothing of the claimants' is executed: certificate files are read as data (JSON, text), scripts as text; the far-block set is rebuilt from the rule, not by running the script.",
+  "The record (certs/aerp-ledger.json) is committed before any comparison with the claimants' own verification outputs is written into prose.",
+  "A claim is CERTIFIED iff the object is in the grid / admissible AND the exact predicate holds; REFUTED iff it fails, with the witness; REFUSED where there is no finite exact object to decide, with the reason.",
+  "Controls: the repository's own constructions (P59 sol_64 and sol_100; P60 n = 7..12; P42 best_list; P61 the float solution's exact rationalisation is NOT a control, the notebook gives floats) must decide as the notebook reports; red controls plant one violation of each kind and must be caught."
+ ],
+ "redControls": ["five coplanar points planted in a sphere-free set", "a midpoint planted in an isosceles-free set", "a pair with u + v > 1 in a ring-loading instance", "a ring-loading instance claimed at a value it does not attain", "a point outside the grid", "a repeated point", "the far-block rule with one gadget removed, claimed at the same g"],
+ "cost": "laptop; seconds per set with numpy, minutes per large set without"
+}

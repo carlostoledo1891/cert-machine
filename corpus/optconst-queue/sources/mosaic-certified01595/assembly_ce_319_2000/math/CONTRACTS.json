@@ -1,0 +1,179 @@
+{
+  "emitted_boxes": [
+    {
+      "module": "interior",
+      "node": "interior",
+      "t": [
+        "319/2000",
+        "3/16"
+      ],
+      "t_closed": [
+        true,
+        true
+      ],
+      "x": [
+        "0",
+        "6000000185827"
+      ],
+      "x_closed": [
+        true,
+        true
+      ]
+    },
+    {
+      "module": "exterior",
+      "node": "exterior",
+      "t": [
+        "319/2000",
+        "3/16"
+      ],
+      "t_closed": [
+        true,
+        true
+      ],
+      "x": [
+        "6000000185827",
+        "inf"
+      ],
+      "x_closed": [
+        true,
+        false
+      ]
+    }
+  ],
+  "global": {
+    "C": 690988,
+    "H": 2299999,
+    "X": "6000000185827",
+    "a": "319/2000",
+    "anchor_source": "V1-H-213",
+    "anchor_upper": "3/16",
+    "b": "3/16",
+    "rh_height": "3000175332800",
+    "rh_source": "PT2021"
+  },
+  "nodes": {
+    "boundary": {
+      "initial_reality_only": true,
+      "padding_y": [
+        "-2",
+        "2"
+      ],
+      "second_lines": [
+        616
+      ],
+      "source": 596,
+      "t": [
+        "0",
+        "3/16"
+      ],
+      "t_closed": [
+        true,
+        true
+      ],
+      "y": [
+        "-1",
+        "1"
+      ]
+    },
+    "exterior": {
+      "N": [
+        690988,
+        null
+      ],
+      "all_entrants": true,
+      "both_index_branches_closed": true,
+      "cell": "left-closed-right-open",
+      "clock_epsilon": "1/1000000000000",
+      "debit_before_stability": true,
+      "finite_N": [
+        690988,
+        2299999
+      ],
+      "finite_leaves": 42,
+      "gauge": "elementary-Polymath-absMt",
+      "heat_audit": 754,
+      "heat_duration": "nonnegative",
+      "heat_memory": 744,
+      "infinite_N": [
+        2299999,
+        null
+      ],
+      "kind": "real-axis-no-double",
+      "modulus_floor": "1/250000",
+      "no_first_moment_cap": true,
+      "old_bins": 1240,
+      "old_nonconstant_terms": 690987,
+      "polydisc": "CLOSED-all-primes-through-naturalN",
+      "projection_audit": 779,
+      "projection_memory": 771,
+      "recovery_memory": 774,
+      "rough_bins": 224,
+      "source": 782,
+      "source_kind": "strong-normalized-Gram",
+      "source_memory": 767,
+      "t": [
+        "319/2000",
+        "3/16"
+      ],
+      "t_closed": [
+        true,
+        true
+      ],
+      "terminal_cutoff": null,
+      "wall_index": "right-frozen",
+      "x": [
+        "6000000185827",
+        "inf"
+      ],
+      "x_closed": [
+        true,
+        false
+      ],
+      "y": "0",
+      "zero_derivative_floor": "1/400000"
+    },
+    "interior": {
+      "N": null,
+      "generic_second": 617,
+      "kind": "real-simple-interior",
+      "source": 599,
+      "t": [
+        "0",
+        "3/16"
+      ],
+      "t_closed": [
+        false,
+        true
+      ],
+      "x": [
+        "0",
+        "6000000185827"
+      ],
+      "x_closed": [
+        true,
+        true
+      ],
+      "y": "0"
+    },
+    "stall_tail": {
+      "kind": "all-complex-real-simple-uniform-tail",
+      "r": "319/4000",
+      "radius": "4*pi*exp(128/r)+1",
+      "radius_exponent": "512000/319",
+      "second_lines": [
+        588
+      ],
+      "source": 590,
+      "t": [
+        "319/4000",
+        "1/2"
+      ],
+      "t_closed": [
+        true,
+        true
+      ],
+      "y": "all"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+# Stationary full-strip separator, direct-factor revision
+
+**FOUNDATION.** This is a numerical boundary certificate and its initialization interface, not a Lambda bound or an interior-propagation theorem. The previous submission received **NO VERDICT because of verifier timeout**. This revision removes the derivative-transport enclosure of gamma, evaluates the exact cancelled prefactor directly on every closed box, and strengthens the banked-anchor and phase checks. No unbanked verifier output is a proof input.
+
+Credit Daniel Martin Kornaus for the separator/collision-exclusion architecture. No PR #180 file, numerical output, or unrefereed lemma is consumed.
+
+## 1. Exact quantifiers and interface
+
+Set
+
+    X = 6000000185827, N = 690988, A = 3/16,
+    s = (1-y+iX)/2, h = 1-s, B_t(X+iy) = M_t(h).
+
+Then, for **every real t in the CLOSED interval [0,A] and every real y in the CLOSED interval [0,1]**,
+
+    |H_t(X+iy)/B_t(X+iy)| > 7/800.
+
+Since B_t is nonzero, evenness and conjugation imply H_t(+X+iy) and H_t(-X+iy) are nonzero for all t in [0,A] and all real y in [-1,1]. The normalized lower bound is asserted only for positive X and nonnegative y. There is exactly one RS index, N=690988, throughout; no transition or hidden N joint occurs here. The separator has slope zero and offset zero relative to X. This is a feasible inexpensive shape, not a claim of global shape optimality.
+
+**RH dependency:** the boundary inequality has none. The initial interior reality uses only the already banked PT2021 input, detailed in section 8. No RH above its accepted endpoint, no additional zero counting, and no simplicity hypothesis at t=0 is used. The boundary applies to any collision sub-band of [0,A], including the working band [333/2000,3/16]. It does not establish that band's exterior or a new Lambda bound.
+
+## 2. Banked ingredients and novelty audit
+
+Snapshot: this session's opening verified memory. Mathematical inputs:
+
+- **V1-H-027**, complete campaign moment re-march: exact rational endpoints for S_k, k=0,...,183, in two contiguous integer summation chunks. We use their enclosures, not the printed matrix centers. Local `part1.json` and `part2.json` have the original banked sha256 values.
+- **V1-H-061**, two independently reconstructed winding regimes: supplies reconstruction anchors at its two recorded times. We reproduce the first complex sample and the minimum-corner modulus in each regime. The old minimum is at x=X+1, y=1; its geometry and printed precision halo are checked. Reproduction concerns these numerical anchor quantities, NOT a reproof of winding or new slab coverage.
+- **V1-H-018**, audited Polymath 15 Theorem 1.3 formulas (20)-(24): consumed as formulas, not as point estimates enlarged beyond their domains. Section 6 derives fresh uniform majorants.
+- Initialization is the **existing** PT2021 interface of **V1-H-213**, with the same X and exact margin. Its arithmetic is reproduced, not claimed as a new RH fact.
+
+The printed matrix is only a representation-boundary regression check. It is not an input to the numerical polynomial: all coefficients are formed from the exact S_k endpoint sums. The two short anchor excerpts are authenticated on every run against their sha256-pinned immutable v1 logs. These are the only external reads. All other data, scripts and this proof ship in the directory; there are no binary data, compiled executables or archive files.
+
+This is not a semantically repeated bank fact: the prior separator never banked. **V1-H-197** killed a modulus-one winding safety guard, not this direct boundary criterion with an explicitly charged smaller error. There is no consumed corridor floor and no assertion that a snapshot has no successor. No use is made of the abandoned conditional-row counterexample.
+
+## 3. Exact phases and the moment reconstruction
+
+For w off the logarithm cut, define
+
+    alpha(w) = 1/(2w) + 1/(w-1) + Log(w/(2pi))/2,
+    M_0(w) = [w(w-1)/16] pi^(-w/2) sqrt(2pi)
+             * exp((w/2-1/2)Log(w/2)-w/2),
+    M_t(w) = M_0(w) exp(t alpha(w)^2/4),
+    D(w) = sum_(n=1)^N exp(t log(n)^2/4) n^(-w-t alpha(w)/2),
+    gamma = M_t(s)/M_t(h).
+
+Polymath's finite approximation is exactly f_t=D(h)+gamma D(s). Indeed s_*=h+t alpha(h)/2 and kappa=t[alpha(s)-alpha(conj(h))]/2, so
+
+    conj(s_*) + kappa - y = s + t alpha(s)/2.
+
+This identity is checked symbolically with independent alpha symbols, rather than tested numerically. The code always uses full complex alpha. On the real axis, if eta=(t/2)Im(alpha((1+iX)/2)), the two chirality phases are **plus and minus (X/2+eta)log(n)**, not plus and minus (X/2)log(n). Neither eta nor its derivative is dropped. At the working lower time the checker also gates a nonzero eta as a representation check; this sample is not a continuum proof.
+
+Put n0=N/2=345494, l=log(n0), theta=(X+1/2)/2, L_n=log(n/n0). The banked exact moments are
+
+    S_k = sum_(n=1)^N n^(-1/2) exp(i theta log(n)) L_n^k,
+    C[e,j] = S_(e+2j)/(e! j! 4^j),  0<=e,j<=61.
+
+Their two chunks cover every integer 1<=n<=N exactly once. The script forms interval coefficients by exact rational endpoint addition and division. For each of the 7688 real/imaginary components, the banked printed leading-digit identity is rechecked; the printed value never replaces the coefficient interval.
+
+Define
+
+    P_t(z) = sum_(e=0)^61 sum_(j=0)^61 C[e,j] z^e t^j,
+    b = -y/2 - i/4 - t alpha(h)/2,
+    a =  y/2 - i/4 - t alpha(conj(s))/2,
+    Btilde = exp((b+t*l/4)*l) P_t(b+t*l/2),
+    Atilde = exp((a+t*l/4)*l) P_t(a+t*l/2),
+    ftilde = Btilde + gamma conj(Atilde).
+
+The -i/4 shift is the exact difference from the stored moment center X+1/2. Symbolic gates establish both chirality offsets and the log(n)=l+L_n quadratic expansion. Replacing P_t by the full double exponential series gives D(h) and D(conj(s)); conjugation then gives D(s), since t is real. For the historical anchor check at x=X+1 only, the shift is +(i/4); the code's exact formula is i(x-X-1/2)/2. Claim coverage remains at x=X.
+
+## 4. Structural simplification: direct whole-box gamma
+
+The polynomial prefactors cancel identically: s(s-1)=h(h-1). Thus
+
+    gamma = exp(-(s-h)(log(pi)+1)/2
+                +(s/2-1/2)Log(s/2)-(h/2-1/2)Log(h/2)
+                +t(alpha(s)^2-alpha(h)^2)/4).
+
+This is the ratio of the two explicitly defined M_t factors, not a choice of a global logarithm of gamma. It is valid with their original principal logarithms; s/2 and h/2 stay far into opposite open half-planes, away from the cuts. All variables in this expression range over the **whole closed input box**. Acb outward arithmetic supplies an inclusion enclosure, including cancellation loss. If the enclosure is too broad, the box is bisected exactly. There is no mean-value or gamma-derivative lemma in this revision.
+
+## 5. Uniform Taylor error
+
+For 0<=t<=A and 0<=y<=1, the checker encloses
+
+    |b+t*l/2| < 2/3, |a+t*l/2| < 2/3,
+    Re(alpha(h))/2 > l/4, Re(alpha(conj(s)))/2 > l/4.
+
+Since 1<=n<=2n0 and n0>=2, |L_n|<=l. The external B factor has modulus <=1. The external A factor has modulus <=sqrt(n0), using 0<=y<=1. Formula (20) and log(X/(4pi))/2>1/50 give |gamma|<=1. Set U=2l/3, V=A*l^2/4. For the exponential Taylor polynomial T_61,
+
+    |exp(u+v)-T_61(u)T_61(v)|
+      <= exp(|u|+|v|)(|u|^62+|v|^62)/62!.
+
+After summing n^(-1/2)<=1, both omitted double-series parts together cost at most
+
+    E_T = N(1+sqrt(n0))exp(U+V)(U^62+V^62)/62! < 1/10^10.
+
+Moment interval radii are already included in every box; they are not silently absorbed into E_T.
+
+## 6. Uniform true-function error from (20)-(24)
+
+Let Q=X/(4pi), ell=log(Q). The checker proves
+
+    N^2 < Q,  Q+A/16 < (N+1)^2,
+    delta=A(1+8/X^2)/(2X^2), k=A/(2(X-6)),
+    u=(A^2*ell^2/16+313/500)/(X-333/50).
+
+In particular N is fixed on the closed time band, N<=sqrt(Q), and 0<=log(Q/n^2)<=ell for every n<=N. Equation (21) gives Re(s_*) >= (1+y)/2 + t ell/4 - delta. The t-dependent factor exp[t(log(n)^2-ell log(n))/4] is <=1. Equations (20),(22) yield
+
+    |gamma| N^|kappa| n^y <= exp(1/50+k log(N)),
+
+because n^y Q^(-y/2)<=1 and y<=1. Together with sum_(n=1)^N n^(-1/2)<=2sqrt(N), equation (23) implies
+
+    e_A+e_B <= 2sqrt(N)(1+exp(1/50+k log(N)))
+                    *exp(delta log(N))*expm1(u).
+
+Equation (24) gives, dropping only nonpositive exponents and using 3^y+3^(-y)<=4,
+
+    e_C0 <= Q^(-1/4) exp((31/25)*4/(N-1/8)
+                 +(3sqrt(ell^2+(pi/2)^2)+261/25)/(X-12)).
+
+Every denominator is positive and is used in the conservative direction. These are our own uniform majorants of the published displays, not the unrefereed separator allowance or a decimal imported from a sample. The checker proves
+
+    e_A+e_B+e_C0+E_T < 1/800.
+
+A separate mpmath.iv script, using real intervals and a log-space expression for e_C0, re-evaluates these same analytic bounds. This is a cross-engine **charge check only**, not a full numerical second line for the boundary.
+
+Theorem 1.3 is stated for t>0. H_t, B_t, and the fixed-N finite sum are continuous as t decreases to zero. The above common strict bound is independent of positive t. Taking limits gives the same non-strict approximation error bound at t=0; the strictly positive reserve below therefore applies at that endpoint too.
+
+## 7. Exact coverage and conclusion
+
+The text file boxes.json specifies seed boxes by integer quadruples (a,b,c,d):
+
+    t in [3a/32768,3b/32768], y in [c/2048,d/2048].
+
+It contains no claimed values. Exact integer masks prove a tiling of [0,A]x[0,1], with no missing area and all seams included as closed boundaries. Each seed is freshly evaluated. If it is inconclusive, the checker splits one rational interval at its exact midpoint and recursively evaluates both closed children; induction preserves coverage. Terminal boxes require |ftilde|>1/100. A failed depth or count budget exits nonzero instead of discarding an unresolved box.
+
+Thus, everywhere on the entire closed rectangle,
+
+    |H_t/B_t| >= |ftilde|-(E_T+e_A+e_B+e_C0)
+               > 1/100 - 1/800 = 7/800.
+
+Reflections use H_t(-z)=H_t(z) and H_t(conj(z))=conj(H_t(z)). They assert nonvanishing, not equality of differently normalized moduli.
+
+## 8. PT2021 initialization and why a zero cannot cross
+
+The accepted published input is Platt--Trudgian, *The Riemann hypothesis is true up to 3*10^12*, Bull. London Math. Soc. (2021), arXiv:2004.09765, at the campaign's banked exact endpoint T_PT=3000175332800. Its consumed statement, already an input of V1-H-213, is:
+
+    every nontrivial zeta zero beta+i*gamma with 0<gamma<=T_PT
+    has beta=1/2.
+
+Negative ordinates follow by conjugation; there is no nontrivial zero of ordinate zero. Only reality is needed; we assert or consume no simplicity or zero-count supplement. This package does not re-run or newly audit the PT computation. The exact endpoint above is the accepted banked interface, not a rounding of the paper title's height.
+
+Polymath's normalization is H_0(z)=xi((1+iz)/2)/8. For a nontrivial zero rho=beta+i*gamma, the inverse coordinate is
+
+    z=2*gamma+i*(1-2*beta).
+
+It is real exactly when beta=1/2, and |Re(z)|<=X implies |gamma|<=X/2. The affine map has nonzero derivative, so multiplicities are preserved but need not be one. The code symbolically verifies both coordinate components and checks
+
+    X/2 = 6000000185827/2 < T_PT,
+    T_PT-X/2 = 350479773/2 > 0.
+
+Hence all H_0 zeros with |Re(z)|<=X are real, without any RH input above PT2021. At x=0 there is also the direct positivity H_0(iy)>0 from the positive kernel.
+
+A continuous zero trajectory can cross a stationary vertical line only by having a zero on that line at the crossing time, which the certificate excludes for |y|<=1. This is not an assumption that labeled zeros remain simple: local clusters have continuous locations by Weierstrass preparation. The usual de Bruijn strip theorem puts all H_t zeros in |Im(z)|<=1 for t>=0, so there is no route around the strip endpoints. Equivalently, take horizontal sides at y=+-2: they and the extensions of the two vertical sides are zero-free by the strip theorem, giving a compact zero-free boundary. Its zero count cannot gain a cluster through that boundary. **This does not by itself prove reality or simplicity inside**; the separately proved forward Hermite/no-collision propagation lemma is still consumed by an assembly.
+
+## 9. Validation rung, exact scope, and entry point
+
+Requested FOUNDATION ladder rung: **(a), known-anchor validation**. The exact banked moment components are checked in full; at both V1-H-061 time regimes the complex sample is reproduced and the known minimum-corner modulus has the same FLOOR10 value. The two different regimes and the independent V1-H-027 moment machinery exercise the reconstruction. New uniform coverage uses only direct outward arithmetic, exact closed bisection, and the elementary Taylor/error inequalities above. The verifier decides whether this rung suffices; no claim of a separately authored full-domain second line is made. Such a second line remains required before record use.
+
+Run `/usr/bin/python3 verify.py` in this directory or a clean copy. It reruns both error engines and the full continuum coverage. All decision gates use exact rationals or outward balls. FLOOR/CEIL truncations are derived from exact ball endpoints after positive and negative direction self-tests. `run.log` is an example, not a proof input.
+
+Not certified: interior propagation, any exterior resultant, any x>N transition family, any tail or stall theorem, any global shape optimum, any bound for Lambda, or any higher RH height. All these are outside this boundary fragment's quantifiers.

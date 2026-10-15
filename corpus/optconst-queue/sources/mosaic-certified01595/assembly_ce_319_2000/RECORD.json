@@ -1,0 +1,67 @@
+{
+  "X": "6000000185827",
+  "anchor_source": "V1-H-213 assembly_1875; independent V1-H-220",
+  "anchor_upper": "3/16",
+  "conditional": false,
+  "coverage": {
+    "N": "interior unrestricted; exterior EVERY natural RIGHT N>=690988; finite branch CLOSED690988..2299999, infinite branch everyN>=2299999, CLOSED overlap and NO terminal cutoff",
+    "t": "collision CLOSED[319/2000,3/16]; separator CLOSED[0,3/16]; interior simplicity(0,3/16]; uniform stall tail CLOSED[319/4000,1/2]",
+    "y": "collision exactly0; separator|y|<=1 padded to2; separate remote stall tail ALL imaginary parts"
+  },
+  "lambda_upper": "319/2000",
+  "legs": [
+    {
+      "cites": "memory590 + independent588",
+      "consumes": "ALL complex zeros beyond4*pi*exp(512000/319)+1 real-simple uniformly on CLOSED[319/4000,1/2]; compactness at hypothetical Lambda in CLOSED[319/2000,3/16].",
+      "hypothesis": "positive stall => finite real collision"
+    },
+    {
+      "cites": "V1-H-213 + V1-H-220",
+      "consumes": "unconditional Lambda<=3/16 with same sole PT2021 initialization.",
+      "hypothesis": "anchor"
+    },
+    {
+      "cites": "memory596 + complete external616",
+      "consumes": "EVERY t in CLOSED[0,3/16],x=+/-6000000185827,|y|<=1; strip pads full boundary to|y|=2.",
+      "hypothesis": "stationary separator"
+    },
+    {
+      "cites": "memory590/617 + GENERAL599",
+      "consumes": "INITIAL reality only from PT2021 atX/2; general simplicity on(0,3/16] restricts to CLOSED[319/2000,3/16] x CLOSED[0,X].",
+      "hypothesis": "Hermite positive-time interior"
+    },
+    {
+      "cites": "memory767 + COMPLETE external789",
+      "consumes": "Singleton t4/25,x6000000185827,N690988,y0; complete normalized weighted Gram with synthetic fibre, every phase, inverse-product and discarded Fourier charge, every3524 CLOSED source leaf.",
+      "hypothesis": "complete strong weighted Gram source"
+    },
+    {
+      "cites": "memory774 + COMPLETE external798",
+      "consumes": "UNIVERSAL finite stable-core weighted-Gram vector-ball recovery on CLOSED polydisc for all inward contractions; all224 positive bins retained. NOT extrapolation of774 finite physical corollary.",
+      "hypothesis": "universal spatial recovery"
+    },
+    {
+      "cites": "memory782 + COMPLETE external799; source767/774 and forward heat744/754",
+      "consumes": "EVERY t CLOSED[319/2000,3/16],x>=X,EVERY natural RIGHT N>=690988,y0 and EVERY closed prime-polydisc point: raw floor>1/250000. ALL42 finite leaves,ALL1240 old bins/690987 old terms,ALL224 rough bins,ALL entrants; closed2299999 joint to analytic unbounded branch; no terminal cutoff.",
+      "hypothesis": "all-index exterior and every transition"
+    },
+    {
+      "cites": "memory771 + COMPLETE external779, errors710/725 and stability720/733",
+      "consumes": "Audited domain CLOSED[7/50,3/16] contains this band; half-line support gap>12 without upperN/moment cap yields |u_x|>1/400000 at u=H_t/|Mt|=0.",
+      "hypothesis": "balanced REAL physical lift"
+    },
+    {
+      "cites": "memory791 + COMPLETE external800",
+      "consumes": "Exact original ASSEMBLY hash 70b7411e2129ab4a182935e6be7a1772bc152b66a630e80f1594f409e8c34025; two CLOSED positive-axis boxes [0,X] and[X,infinity) cover full band exactly; reflection covers negative x; separate all-complex stall tail and anchor imply STRICT Lambda<319/2000.",
+      "hypothesis": "exact global composition and reflection"
+    }
+  ],
+  "release_status": "Candidate delivery of EXACT791 with accepted789/798/799/800. Historical hold unchanged in math/. No record acceptance or publication permission claimed.",
+  "rh_height": "3000175332800",
+  "rh_source": "PT2021 (Platt-Trudgian, arXiv:2004.09765); ONLY INITIAL X/2, exact margin350479773/2",
+  "route": "collision_exclusion",
+  "t_hi": "3/16",
+  "t_lo": "319/2000",
+  "verify_script": "verify.py",
+  "writeup": "ASSEMBLY.md"
+}

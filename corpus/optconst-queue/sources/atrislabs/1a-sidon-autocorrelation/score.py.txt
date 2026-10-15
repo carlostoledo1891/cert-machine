@@ -1,0 +1,10 @@
+"""EinsteinArena original C1: nonnegative heights, dx=0.5/n, max(conv)."""
+from arithmetic import autoconvolution, cli
+
+
+def score(values):
+    return autoconvolution(values, nonnegative=True)
+
+
+if __name__ == "__main__":
+    cli(score)

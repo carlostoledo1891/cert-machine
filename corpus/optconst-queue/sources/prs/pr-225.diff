@@ -1,0 +1,65 @@
+diff --git a/README.md b/README.md
+index 634a0e4..e759034 100644
+--- a/README.md
++++ b/README.md
+@@ -14,8 +14,8 @@ Bounds for which the level of available verification is currently at minimal lev
+ 
+ | Number | Description | Best lower bound | Best upper bound |
+ | ------ | ----------- | ---------------- | ---------------- |
+-| [1a](https://teorth.github.io/optimizationproblems/constants/1a.html) | Sidon set autocorrelation constant | 1.2802 (1.292*) | 1.502862 |
+-| [1b](https://teorth.github.io/optimizationproblems/constants/1b.html) | Erdős minimum overlap constant | 0.379005 | 0.380868 |
++| [1a](https://teorth.github.io/optimizationproblems/constants/1a.html) | Sidon set autocorrelation constant | 1.2802 (1.292*) | 1.5027435 |
++| [1b](https://teorth.github.io/optimizationproblems/constants/1b.html) | Erdős minimum overlap constant | 0.379005 | 0.38085856 |
+ | [2](https://teorth.github.io/optimizationproblems/constants/2a.html) | Crouzeix constant | 2 | 2 |
+ | [3a](https://teorth.github.io/optimizationproblems/constants/3a.html) | Gyarmati-Hennecart-Ruzsa sum-difference constant | 1.19102809 (1.19519192*) | 1.33333 |
+ | [3b](https://teorth.github.io/optimizationproblems/constants/3b.html) | Kakeya sums-differences constant | 1.77898 (1.77898884*) | 1.83333 |
+@@ -176,6 +176,7 @@ Bounds for which the level of available verification is currently at minimal lev
+ - [47](https://teorth.github.io/optimizationproblems/constants/47a.html) **improved upper bound:** $C_{47} \leq 3.879$ by [Y. Lin](https://github.com/CoolRmal/centered-maximal-constant), 20 Sep 2026, formalized in Lean 4.
+ - [45](https://teorth.github.io/optimizationproblems/constants/45a.html) **presentation:** the printed certificate is Griego's $0.490249407811155$, not Yoo's record $0.490180063290061$.
+ - [10c](https://teorth.github.io/optimizationproblems/constants/10c.html) **upper bound correction:** $C_{10c}\le 4.1$ by [Pesenti–Vladu](https://arxiv.org/abs/2211.05509) v2 (14 Apr 2026), replacing the withdrawn $3\sqrt{3/2}$ constant in Theorem 4.5.
++- [1a](https://teorth.github.io/optimizationproblems/constants/1a.html), [1b](https://teorth.github.io/optimizationproblems/constants/1b.html) **improved upper bounds:** $C\_{1a} \leq 1.5027435$ and $C\_{1b} \leq 0.38085856$ by [Atris](https://github.com/atrislabs/records), 13 Oct 2026.
+ 
+ ## Maintainers
+ 
+diff --git a/constants/1a.md b/constants/1a.md
+index bc80d32..e77d1e8 100644
+--- a/constants/1a.md
++++ b/constants/1a.md
+@@ -20,6 +20,8 @@ for all non-negative $f \colon \mathbb{R} \to \mathbb{R}$.
+ | $1.503871$ | [YLTLYSTYLLGDHZSWZSHMELCZX2026] | SimpleTES |
+ | $1.502870$ | [YKLBMWKCZGS2026] | TTT-Discover
+ | $1.502862$ | [T2026] | TogetherAI
++| $1.5027435320$ | [EA2026] | AgentDiscover on the EinsteinArena leaderboard, 3 Oct 2026 |
++| $1.5027434868$ | [A2026] | Atris. Step function with 65,536 equal steps on $[-1/4,1/4]$ and exact rational heights, refined from the AgentDiscover construction. Exact value $1.50274348670958337974\dots$ (exact fraction recorded in the linked repository, commit `1fa857a021dd`; construction SHA-256 `7387452d1da7`). Pure-Python exact scorer runs in seconds. |
+ 
+ 
+ ## Known lower bounds
+@@ -53,5 +55,7 @@ for all non-negative $f \colon \mathbb{R} \to \mathbb{R}$.
+ - [IX2026] Ivanisvili, Paata; Xie, Xinyuan. Grokability in five inequalities. 2026. 
+ [arXiv:2605.05193](https://arxiv.org/abs/2605.05193)
+ - [YKLBMWKCZGS2026] Yuksekgonul, Mert; Koceja, Daniel; Li, Xinhao; Bianchi, Federico; McCaleb, Jed; Wang, Xiaolong; Kautz, Jan; Choi, Yejin; Zou, James; Guestrin, Carlos; Sun, Yu. [Learning to Discover at Test Time](https://arxiv.org/abs/2601.16175), 2026.
++- [A2026] Atris Labs. Record constructions for open math constants, with exact scorers, 2026. [https://github.com/atrislabs/records/tree/1fa857a021ddbb4064708daf336758b866f75cb4](https://github.com/atrislabs/records/tree/1fa857a021ddbb4064708daf336758b866f75cb4)
++- [EA2026] EinsteinArena leaderboard, first autocorrelation inequality. https://einsteinarena.com/problems/first-autocorrelation-inequality
+ - [T2026] Together AI. Einsteinarena-new-sota: State-of-the-art results on open math problems, 2026. URL https://github.com/togethercomputer/EinsteinArena-new-SOTA.
+ - [YLTLYSTYLLGDHZSWZSHMELCZX2026] Haotian Ye, Haowei Lin, Jingyi Tang, Yizhen Luo, Caiyin Yang, Chang Su, Rahul Thapa, Rui Yang, Ruihua Liu, Zeyu Li, Chong Gao, Dachao Ding, Guangrong He, Miaolei Zhang, Lina Sun, Wenyang Wang, Yuchen Zhong, Zhuohao Shen, Di He, Jianzhu Ma, Stefano Ermon, Tongyang Li, Xiaowen Chu, James Zou, Yuzhi Xu, Evaluation-driven Scaling for Scientific Discovery, https://arxiv.org/abs/2604.19341
+diff --git a/constants/1b.md b/constants/1b.md
+index e7fbbeb..ba8828e 100644
+--- a/constants/1b.md
++++ b/constants/1b.md
+@@ -24,6 +24,8 @@ for all non-negative $f,g: [-1,1] \to [0,1]$ with $f+g=1$ on $[-1,1]$ and $\int_
+ | $0.380876$ | [YKLBMWKCZGS2026] | TTT-Discover |
+ | $0.380871$ | [T2026] | TogetherAI |
+ | $0.380868$ | [YLTLYSTYLLGDHZSWZSHMELCZX2026] | SimpleTES |
++| $0.3808585749$ | [EA2026] | CodexProLong on the EinsteinArena leaderboard, 15 Aug 2026 |
++| $0.3808585504$ | [A2026] | Atris. Step function $h$ with 114,688 equal steps on $[0,2]$, $0\le h\le 1$, total mass exactly $1$, refined from the CodexProLong construction. Exact value $0.38085855031642856010\dots$ (exact fraction recorded in the linked repository, commit `1fa857a021dd`; construction SHA-256 `62a976fa1366`). Pure-Python exact scorer runs in seconds. |
+ 
+ ## Known lower bounds
+ 
+@@ -55,5 +57,7 @@ for all non-negative $f,g: [-1,1] \to [0,1]$ with $f+g=1$ on $[-1,1]$ and $\int_
+ - [S1958] Swierczkowski, S., On the intersection of a linear set with the translation of its complement. Colloq. Math. 5 (1958), 185-197.
+ - [W2022] White, E. P., Erdős' minimum overlap problem. [arXiv:2201.05704](https://arxiv.org/abs/2201.05704) (2022).
+ - [YKLBMWKCZGS2026] Yuksekgonul, Mert; Koceja, Daniel; Li, Xinhao; Bianchi, Federico; McCaleb, Jed; Wang, Xiaolong; Kautz, Jan; Choi, Yejin; Zou, James; Guestrin, Carlos; Sun, Yu. [Learning to Discover at Test Time](https://arxiv.org/abs/2601.16175), 2026.
++- [A2026] Atris Labs. Record constructions for open math constants, with exact scorers, 2026. [https://github.com/atrislabs/records/tree/1fa857a021ddbb4064708daf336758b866f75cb4](https://github.com/atrislabs/records/tree/1fa857a021ddbb4064708daf336758b866f75cb4)
++- [EA2026] EinsteinArena leaderboard, Erdős minimum overlap problem. https://einsteinarena.com/problems/erdos-min-overlap
+ - [T2026] Together AI. Einsteinarena-new-sota: State-of-the-art results on open math problems, 2026. URL https://github.com/togethercomputer/EinsteinArena-new-SOTA.
+ - [YLTLYSTYLLGDHZSWZSHMELCZX2026] Haotian Ye, Haowei Lin, Jingyi Tang, Yizhen Luo, Caiyin Yang, Chang Su, Rahul Thapa, Rui Yang, Ruihua Liu, Zeyu Li, Chong Gao, Dachao Ding, Guangrong He, Miaolei Zhang, Lina Sun, Wenyang Wang, Yuchen Zhong, Zhuohao Shen, Di He, Jianzhu Ma, Stefano Ermon, Tongyang Li, Xiaowen Chu, James Zou, Yuzhi Xu, Evaluation-driven Scaling for Scientific Discovery, https://arxiv.org/abs/2604.19341

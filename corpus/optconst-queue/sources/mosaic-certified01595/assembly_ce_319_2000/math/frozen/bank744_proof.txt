@@ -1,0 +1,284 @@
+# FOUNDATION — CIRCULAR_HEAT_TIME_TRANSPORT
+
+## 0. The exact theorem and quantifiers
+
+Let P be ANY finite complex polynomial in d variables, zero-free on the
+CLOSED unit polydisc D^d. Let w_j>0 be ANY real weights and put
+
+  L=max{w.alpha : the coefficient a_alpha of P is nonzero},
+  D_w=sum_j w_j*z_j*d/dz_j,
+  T_(h,c)P=sum_alpha a_alpha*exp(h*((w.alpha)^2/4-c*w.alpha))*z^alpha.
+
+For EVERY real h>=0 and c with 4*c>=L,
+
+  min_(z in D^d)|T_(h,c)P(z)| >= min_(z in D^d)|P(z)| >0.       (T)
+
+The constant polynomial case includes L=0; the operator fixes constants.
+The support maximum is the ACTUAL weighted Newton support, NOT the sum
+of the separate coordinate degrees. No coefficient positivity is assumed
+in(T). Neither backward time nor arbitrary coordinatewise coefficient
+shrinkage is asserted. The boundary 4*c=L is included.
+
+### Physical specialization, conditional on ONE singleton source
+
+Set X=6000000185827, a=4/25, b=3/16, N0=690988, N1=790988,
+H=2299999, W=66476100549959, y=0. Use EXACTLY memories720/733's
+COMPLETE positive heat polynomial
+
+  c(x)=log(sqrt(1+x^2)/(4*pi))/4-1/(2*(1+x^2)),
+  a_n(t,x)=exp(t*log(n)^2/4-(1/2+t*c(x))*log(n)),
+  A_(t,x,N)(z)=sum_(n=1)^N a_n(t,x)*z^v(n).
+
+IF at the SINGLETON (t,x,N)=(a,X,N0), for EVERY prime-torus phase,
+
+                         |A_(a,X,N0)|>=1/10,                 (SOURCE)
+
+THEN for EVERY t in CLOSED[a,b], EVERY real
+
+                X<=x<4*pi*(790989^2-t/16),                  (REGION)
+
+and its NATURAL index N=floor(sqrt(x/(4*pi)+t/16)), at y=0,
+there is no true multiple real zero: (H_t(x),H_t'(x))!=(0,0).
+All internal RIGHT natural-index walls are included; the terminal wall
+entering790989 is OPEN. SOURCE is UNSUPPLIED. This theorem certifies no
+actual torus point, physical COVER or new Lambda bound. In contrast to
+memory738's source hypothesis, SOURCE has only ONE time, not a time slab.
+The time ceiling here reaches the whole closed band through3/16.
+
+More generally, at any fixed x,N, a supplied closed-polydisc modulus is
+nondecreasing as t increases whenever4*c(x)>=log N. This is a FIXED-cutoff
+statement; entrants are a separate debit. No companion norm or sector is
+claimed to persist by(T). Memory738, not a preserved companion sector,
+provides the physical collision lift after the single modulus transports.
+
+## 1. A univariate circular heat lemma by root dynamics
+
+Write D=z*d/dz. Let q have degree n, no zero in |z|<=1, and let C>=n/4.
+For h>=0 put q_h=exp(h*(D^2/4-C*D))q, coefficientwise; thus it has the
+same degree and constant term for finite h. We prove all roots stay
+outside |z|<=1. First suppose q has distinct roots; write those roots
+locally as r_i(h), with their multiplicities initially all one. Since
+
+  partial_h q_h=(z^2/4)q_h''+(1/4-C)z*q_h',
+
+implicit differentiation at a simple root gives
+
+  r_i'=(C-1/4)*r_i-(r_i^2/2)*sum_(j!=i)1/(r_i-r_j),
+  d/dh log|r_i|=C-1/4-(1/2)*sum_(j!=i)Re(r_i/(r_i-r_j)).       (R)
+
+If |r_i| is the MINIMUM root modulus, then for every other root
+v=r_j/r_i, |v|>=1 and v!=1. The exact identity
+
+   Re(1/(1-v))=1/2-(|v|^2-1)/(2*|1-v|^2)<=1/2
+
+implies
+
+                    d/dh log|r_i| >= C-n/4 >=0.             (Rmin)
+
+On any compact time interval where all roots are distinct, finitely many
+analytic root branches are available. Their log moduli are differentiable;
+the minimum is locally Lipschitz, and its derivative almost everywhere is
+a derivative of an active minimum branch. Thus(Rmin) makes the minimum
+nondecreasing. No assertion is made for a branch that is not minimal.
+
+There are only FINITELY many root-collision times on any compact h interval
+for this distinct-start polynomial. Its discriminant is a finite linear
+combination of exponentials in h, hence real analytic on a neighbourhood
+of that compact interval and nonzero at h=0. Its zeros there are isolated
+and finite. The constant coefficient stays nonzero, and the leading
+coefficient stays nonzero, so no root is zero or infinite at finite h.
+Roots as a multiset, and their minimum modulus, are continuous through
+collision times. The nondecrease on each intervening interval joins
+through those finitely many times. This proves the assertion for all h.
+
+For repeated roots at the starting time, perturb the FINITELY many roots
+slightly to distinct points. If the original minimum radius is rho>1,
+choose every perturbed radius at least some fixed rho_* with1<rho_*<rho.
+The coefficients of these q^(m) tend to q, and the same is true after
+applying the fixed finite-dimensional multiplier. Their evolved roots
+stay of modulus>=rho_*. Continuity of roots (degree and leading coefficient
+are unchanged in the limit) gives the same bound for q_h. Since rho_*
+can increase to rho, the original minimum root radius cannot decrease.
+This also proves the lemma for lower-than-n actual degree by using that
+actual degree; a constant has no roots and is fixed.
+
+### Preservation of the MINIMUM MODULUS, not just stability
+
+Let m=min_(|z|<=1)|q(z)|>0. For EVERY complex lambda with |lambda|<m,
+q-lambda has no zero in the closed disk and degree<=n. The preceding
+stability theorem applies at the SAME C. The multiplier fixes constants,
+so exp(h*(D^2/4-C*D))(q-lambda)=q_h-lambda. Thus q_h avoids EVERY value
+of modulus<m on the entire closed disk. Therefore |q_h|>=m there.
+No limiting boundary zero, qualitative Hurwitz exception or loss in m
+is hidden in this argument. This constant-perturbation trick is essential:
+stability alone would give only an unspecified positive final modulus.
+
+## 2. Weighted support without paying rectangular degree
+
+First take positive integer weights k_j and fix ANY z in D^d. Form
+
+  q(zeta)=P(z_1*zeta^k1,...,z_d*zeta^kd).
+
+It has no zero for |zeta|<=1, and its ACTUAL degree n is at most
+M=max_support k.alpha. Cancellations can only decrease this degree.
+Its constant term is P(0), nonzero because0 lies in the polydisc.
+For EVERY z and |zeta|<=1, the substituted point stays in D^d, so
+|q(zeta)|>=m=min_D^d|P|. The preceding univariate lemma, at C>=M/4,
+yields |exp(h*(D^2/4-C*D))q(1)|>=m. Grouping the finitely many terms
+with equal k.alpha identifies this value EXACTLY as T_(h,C)P(z).
+This proves(T) for integer weights, including all mixed boundary faces.
+
+If w_j=k_j/Q are positive rationals, take
+h'=h/Q^2, C'=c*Q. Then
+
+ h'*(j^2/4-C'*j)=h*((j/Q)^2/4-c*(j/Q)),
+ 4*C'>=max k.alpha iff4*c>=max w.alpha.
+
+The integer argument therefore gives(T) for positive rational weights.
+For arbitrary strictly positive real w, choose positive rational vectors
+w^(m)->w and put L_m=max_support w^(m).alpha,
+c_m=c+max(0,L_m-L)/4. Then4*c_m>=L_m and c_m->c.
+Each finite polynomial T_(h,c_m)^(w^(m))P has modulus>=m at EVERY point
+of the same compact polydisc. Its coefficients converge, hence it converges
+UNIFORMLY on the polydisc to T_(h,c)^(w)P. The lower modulus bound persists.
+This proves every real weight, INCLUDING the equality case4*c=L. The
+approximation adjusts the threshold in the safe direction rather than
+silently assuming a rounded weight lies below L.
+
+## 3. Independent proof arrangement
+
+SECOND_PROOF.md proves the univariate result by polarization into
+multi-affine clones and elementary pair damping, without root dynamics,
+discriminants, or tracking root branches. It proves the needed
+polarization statement from pair symmetrization rather than importing
+a stability-preserver oracle. It then performs its own support
+specialization and constant-perturbation argument.
+
+The scripts verify the differential identities, pair-root algebra,
+support substitutions, semigroup identities and independent exact/ball
+finite fixtures. Those are proof CONTROLS. The universal conclusion rests
+on the proofs above and the separate analytic proof, not numerical samples.
+
+## 4. Complete finite entrants at the ONE early-time source
+
+Memory720's GENERAL theorem, independently audited733, applies to
+(a,X,N0): the checker certifies its natural index is EXACTLY690988.
+Under SOURCE, it proves closed-polydisc stability and extends the source
+floor1/10 to the full polydisc. It is NOT applied directly at cutoffN1,
+which exceeds the natural source index.
+
+Let c0=c(X). For each integer690988<n<=790988, at t=a,
+
+ a_n(a,X)<=f0=exp(a*log(N0)^2/4-(1/2+a*c0)*log(N0)).
+
+Indeed differentiation with respect to log n gives
+-1/2+a*(log n/2-c0)<0 on the entire closed support interval; its adverse
+endpoint is log N1. Thus for EACH intermediate cutoff K in[N0,N1],
+ALL added terms cost at most
+
+  J=(N1-N0)*f0<9/100,
+  |A_(a,X,K)|>=1/10-J>1/100                              (E)
+
+on the complete CLOSED prime polydisc. Enlarging the variable list by
+new primes does not change the original bound. Every entrant is included,
+not just a terminal term or a sampled subset. This directly establishes
+stability for each larger SOURCE cutoff, without using a theorem outside
+its natural-index premise.
+
+The scripts freshly rederive the accepted738 J and its lower retained
+modulus, reproducing its directed digits; no change of cutoff or source
+threshold is made. The complete entrant proof is deliberately simple and
+costs a scalar enclosure, not a coefficient sweep.
+
+## 5. Forward time followed by spatial contraction
+
+Fix ANY K in[N0,N1]. The weighted support of A_(a,X,K) is EXACT log K:
+each monomial encodes an integer n<=K with log-prime weights, and its top
+coefficient is positive. The script certifies
+
+       4*c(X)-log(790988)>12,
+       4*c(X)-log(2299999)>12.                            (F)
+
+The first inequality suffices for ALL K in this application; the second
+checks the full licensed finite-rectangle support condition for future
+sources without claiming any such source. At fixed X,K the exact
+coefficient identity is
+
+   A_(t,X,K)=T_(t-a,c(X)) A_(a,X,K),    t>=a.              (I)
+
+Applying(T) to(E) preserves its SAME modulus at EVERY t in[a,b], with
+ZERO old-coefficient time debit. Only that fixed source's supplied norm
+was consumed. No source at intermediate times is assumed or sampled.
+
+Next fix this t and any x>=X. Direct differentiation gives c'(x)>0:
+c'(x)=x/(4*(1+x^2))+x/(1+x^2)^2. Put delta=t*(c(x)-c0)>=0.
+Every coefficient is multiplied by n^(-delta), exactly the simultaneous
+prime substitution z_p -> p^(-delta)*z_p. It maps the closed polydisc
+into itself and preserves the same floor. Thus EVERY fixed cutoffK in
+the prescribed range has |A_(t,x,K)|>1/100 for EVERY prime phase.
+
+For a physical point in REGION choose K to be ITS natural index. The
+exact wall w_j(t)=4*pi*(j^2-t/16) decreases in t and increases in j.
+The source joint and terminal condition give N0<=K<=N1; at every
+internal wall x=w_j(t) the chosen index is j, the RIGHT one. The strict
+terminal inequality excludes index790989. Also w_790989(a)<W, so the
+whole REGION lies in memory738's EXACT closed rectangle
+[a,b]x[X,W], N in[N0,H],y=0. That banked theorem consumes exactly710/725's
+balanced REAL-gauge errors and gives true collision exclusion from the
+floor>1/100. No complex-raw derivative is substituted. All argument,
+companion and absolute-moment error budgets are those ALREADY proved738;
+we do not re-claim or silently strengthen them.
+
+## 6. Adverse controls, honest scope, and dependency audit
+
+The threshold is sharp for this class: for P(z)=1-r*z^n,0<r<1,
+the evolved coefficient of z^n is r*exp(h*(n^2/4-c*n)). If4*c<n,
+it crosses1 at positive h and the polynomial has a unit-circle zero.
+Our exact control n=4,c=1/2,r=1/2,h=log2/2 makes that coefficient1.
+Backward time is also not licensed: P=1-z/2, c=1/2, h=-4*log2
+becomes1-z. General coefficientwise damping is not(T): the stable
+P=(1+3*z/4)^2 loses its quadratic term under the arbitrary damping
+(1,1,0) and becomes1+3*z/2, with a zero strictly inside the disk.
+The equal-threshold case can genuinely improve its minimum modulus:
+(1+q*z)^2 at c=1/2 has middle coefficient2*q*exp(-h/4), not2*q.
+The scripts compute its exact full-circle minimum from a quadratic in
+cos(theta), not a phase grid. General multivariate support fixtures
+have actual weighted degree strictly less than rectangular degree.
+
+Memory734 is NOT contradicted: it rules out inventing a full-pair modulus
+from an angle/core summary. SOURCE explicitly assumes a positive absolute
+full-model modulus. The heat semigroup result would preserve a tiny
+synthetic source minimum as tiny; it cannot manufacture1/10. A sector-only
+official receipt remains insufficient for SOURCE unless its stronger
+hybrid data are separately adopted with their actual norms/radii. The
+operator's v1.1 checker is not modified, copied into this lemma, or run.
+No claim of official compatibility, leaf count, runtime saving, source
+existence or feasible source count is made.
+
+Snapshot738 dependencies are frozen under frozen/, with byte hashes in
+INPUTS.sha256 and pinned in verify.py. Primary uses Sympy plus Arb256;
+second_line.py uses separately written exact polynomial algebra and
+mpmath.iv90 with rational Machin pi, no primary helper or output imports.
+Two production arithmetic anchors rederive720's source/entrant regime
+and729's distant predecessor seam, matched to complete pinned output
+files. They are NOT represented as banked instances of the new time
+semigroup theorem. Rung(b) is requested for that genuinely new theorem:
+two independent analytic arrangements and separate exact/interval lines.
+The independent verifier decides the rung; external numerics_astra
+record-use audit is still OPEN.
+
+Every output decimal is generated from an exact rational or outward ball
+with FLOOR18/CEIL18 labels, after both signed truncation directions are
+self-tested. No binary float decides a proof gate. Clean-copy instructions:
+`/usr/bin/python3 -B verify.py` from a copy of this directory. All reads
+and writes stay inside it; its only child is the same Python interpreter
+running second_line.py. No installs, network, binary, source sweep or pod.
+
+RH dependency: NONE for(T) and the conditional local theorem. Any eventual
+Lambda inference retains solely PT2021 T=3000175332800 at INITIAL
+X/2=6000000185827/2, margin350479773/2, anchorV1-H-213. These are context,
+not premises of the new polynomial result. Kornaus PR#180 is credited for
+collision-exclusion motivation only, never cited as a leg or read by the
+check. The held4/25 assembly is unchanged. Memory730's missing finite
+region remains OPEN. No actual source, physical COVER, practical-tail
+extension, official receipt, candidate, publication or new Lambda bound.

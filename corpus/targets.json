@@ -912,6 +912,33 @@
    "finding": "The audit's shape: the certificate's npz holds pickled object arrays — read inertly with pklread.py, never unpickled; the SDP rebuilt from Lai--Lim's definition (3906 monomials, 31-monomial basis, six 31 x 31 blocks) in exact rationals; the one convention taken from the claimant (the monomial order) tested by the scalar value. Lai--Lim's 'beta X_i beta^T' hides the polynomial transposes that make the Gram form a sum of squares; the claimant's code reproduces the notation literally.",
    "fit": "exact rational, finite, a claimed disproof of a listed open problem: the house shape",
    "cost": "laptop: the decisions in seconds; the Lean build hours"
+  },
+  {
+   "id": "aerp-community-certificates",
+   "name": "The community certificate issues on google-deepmind/alphaevolve_repository_of_problems (#4-#12: no-5-on-a-sphere grids to n = 40, two 58-point isosceles-free sets at n = 32, ring loading 47/42 and 9/8, a sum-difference set past Penman--Wells, a 3-D sofa) — decided",
+   "verdict": "BUILT 2026-10-15 (certs/aerp-ledger.json, /reports/alphaevolve-community.html): 70 CERTIFIED, 0 REFUTED, 2 REFUSED (the sofa is a float cube count; the 1.6269 instance has an 86-digit modulus). C(40) >= 104 where the repository stops at n = 12; C(32) >= 58 against PatternBoost's \"56, SAT-optimal\"; 9/8 holds under k = 1..m and, under the notebook's k = 1..m-1, padded or at m = 17. The owners have answered none of the issues.",
+   "scouted": "2026-10-15",
+   "finding": "The notebooks' float verifiers sit at min |det| = 2; the ring-loading notebook and its prompt range k over 1..m-1 while the thread ranges over 1..m — the one definitional seam, named on the page. The 4-subset hyperplane key decides \"no 5 on a sphere\" in O(N^4) exactly (92M 5-subsets at N = 104 avoided).",
+   "fit": "exact, finite, unanswered claims on a famous registry: the house shape",
+   "cost": "laptop: ~7 min per ledger without numpy"
+  },
+  {
+   "id": "wowii-formal-conjectures-witnesses",
+   "name": "Five Written-on-the-Wall-II (Graffiti.pc) conjectures (353, 360, 373, 395b, 396) and the explicit counterexamples filed on google-deepmind/formal-conjectures 2026-10-14 by RhudeJJJJ (60 issues, 23 PRs in a day) — decided",
+   "verdict": "BUILT 2026-10-15 (certs/wowii-ledger.json, /reports/wowii-counterexamples.html): 5 of 5 witnesses CERTIFIED as counterexamples, by the author's stated margins; two notes on the Lean statements (395b adds a nonemptiness hypothesis; 396's dd_mode on a unique mode); the fork's cited commits were rewritten the same evening — the copies decided are pinned with their fetch-time sha256.",
+   "scouted": "2026-10-15",
+   "finding": "The 2026 archive copy of 360 lost the \"½\" byte (0xBD in the 2010/2016 snapshots); the witness refutes both readings. The author's other 55 issues are unexamined.",
+   "fit": "small explicit graphs, exact invariants, a visible venue",
+   "cost": "laptop: seconds"
+  },
+  {
+   "id": "optconst-pr-queue-2026-10",
+   "name": "teorth/optimizationproblems open PRs (2026-10): #210 de Bruijn--Newman Λ ≤ 0.1595 'certified record package' (Mosaic Intelligence), #217 Borsuk C_28a ≤ 9 (OpenAI's BorsukNine), #221 C_3c ≥ 1.674894 from two digit laws, #225 C_1a ≤ 1.5027435 / C_1b ≤ 0.38085856 (exact step functions), #226 (16a, 70a, 20a, 20c, 23b)",
+   "verdict": "BUILT 2026-10-15 (certs/optq-ledger.json, /reports/optconst-queue.html): #225 both step functions CERTIFIED exactly (Kronecker products; the claimants' fractions digit for digit); #221 two-law C_3c CERTIFIED (sumdiff + rational mixture, injectivity checked); #226 20a/20c exact, 23b read, 16a/70a not attempted; #217 by the kernel record; #210 REFUSED — its checkers decide assembly, the analysis cites a private bank, the anchor is the claimant's own merged row. Scouting notes: #210: the package's 168,846 \"checks\" are rational comparisons and hash matches; no line evaluates ζ, H_t or a Dirichlet sum; the heavy numerics (torus floor, separator, error constants) are frozen outputs citing a private \"bank\" not in the bundle; anchor Λ ≤ 3/16 is the claimant's own merged row. Decidable here: the T^4 polydisc floor inequality by interval arithmetic (hours); the rest REFUSED for evidence not in the bundle. #217: BorsukNine already CERTIFIED (certs/openai-math-kernel.json, 2026-10-10); a faithfulness re-read. #221: our sumdiff instrument with a two-law mixture, an afternoon. #225: exact rational step functions, minutes with the easota instrument. #226: 20a/20c/23b one-paragraph proofs (read correct by the scout), 16a/70a interval sums recomputable in minutes.",
+   "scouted": "2026-10-15",
+   "finding": "Tao merged Mosaic's 0.1965 and 0.1875 rows silently; the registry HEAD is unchanged since 09-26 with #180, #208, #210 and our #216 pending. Verification theatre (byte-identical logs, hash manifests, a sandbox) decides no mathematics.",
+   "fit": "the most-read registry; a verdict on Λ travels",
+   "cost": "#225/#226/#221 hours; #210 days to weeks"
   }
  ]
 }

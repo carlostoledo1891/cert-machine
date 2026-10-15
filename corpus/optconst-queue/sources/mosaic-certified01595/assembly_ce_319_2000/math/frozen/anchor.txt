@@ -1,0 +1,105 @@
+# ASSEMBLY_1875 — FOUNDATION. The unconditional record assembly Λ ≤ 3/16 = 0.1875 EXACTLY
+
+Package: `packages/assembly_1875/` (this writeup + `verify_assembly_1875.py`,
+standalone `/usr/bin/python3`, mpmath.iv prec 220 + sympy exact + exact
+rationals, **reads NO files**, 58/58 checks, RESULT: ALL PASS, exit 0 in
+≈ 21 s on one core; logs `verify_log.txt`, `verify_run_log_tmpcopy.txt`,
+`verify_run_log_tmpcopy2.txt`, the latter two from a standalone /tmp copy).
+Author: dbn_prover (loop dbn21a), s37, 2026-07-03.
+
+## The statement
+
+> **Λ ≤ t₀ + y₀²/2 = 1680/10⁴ + (39/1000)/2 = 1875/10⁴ = 3/16 = 0.1875
+> EXACTLY** (terminating decimal; floor truncation = exact value),
+> **unconditionally**, at the campaign site X = 6000000185827,
+> t₀ = 1680/10⁴ EXACT, y₀ = √(39/1000) EXACT, N₀ = 690988,
+> Nmid = 2745000, ymax² = 1 − 2t₀ = 664/1000 EXACT.
+
+Strictly below the verified assembly_1891 record 1891/10⁴ by exactly
+1/625 = 0.0016 (gate A6), and below the verified assembly_1965 record
+(gate G2).
+
+## Structure (the verified assembly_1965/assembly_1891 pattern, with one leg LIVE)
+
+Every hypothesis of the verified instantiated criterion (dbn_prover-s1
+criterion_theorem, arXiv:1904.12438 Thm 1.2, doctrine-2 parameter
+substitution) is discharged by a named banked VERIFIED fact — EXCEPT the
+hypothesis-(ii) tail leg N ≥ Nmid, which is **re-derived LIVE inside the
+script** (§T) so this assembly cites no unbanked fact:
+
+- **(i)** PT2021 (arXiv:2004.09765) T_PT = 3000175332800 ≥ X/2 =
+  3000000092913.5, exact margin 350479773/2 (gates B1–B3; anchor B4:
+  published 0.2-row identities). The assembly's ONLY RH input.
+- **(iii)** the VERIFIED wildcard-s32 FOUNDATION windslab165_v2 winding
+  certificate (boundary-winding 0 on [X, X+1] × [33/200, 1] for ALL real
+  t ∈ [0, 1809/10⁴]; nv-s39 corner-audit second line) + the VERIFIED
+  wildcard-s12 site_glue N-constancy, re-derived at prec 220 with both
+  FLOOR4 strings reproducing the banked literals 5377392.8789 /
+  11989041.1415 (gates C4e/C4g, rung-(a) anchor regime). The
+  slab→(iii) implication is the SAME binding accepted in the verified
+  assembly_1965/assembly_1891 packages at the SAME slab, consumed for the
+  strictly smaller t-range [0, 1680/10⁴]. Joints gated exactly: slab
+  floor (33/200)² ≤ y₀² margin 471/40000; lower edge q(t) = y₀²+2(t₀−t)
+  decreasing, q(0) = 3/8 ≤ 1 (sympy); t₀ ≤ 1809/10⁴.
+- **(ii-a)** N ∈ [690988, 2745000], ALL real y ∈ [√(39/1000), √(1−2t)] =
+  the VERIFIED dbn_prover-s35 FOUNDATION lwin2_compose, tile k=8 =
+  [1680/10⁴, 1685/10⁴] CLOSED with block bottom Nc = 690988 (t₀ is its
+  left endpoint, membership exact, gate Da1; composite floor
+  134320455/10¹⁰ FLOOR10 > 0 re-gated, gate Da4; no uncovered sub-block
+  since Nc = N₀ on tiles k ≥ 8, gate Da2).
+- **(ii-b = §T, LIVE)** N ≥ 2745000: the P1113 tail closure at cutoff
+  N₁' = Nmid = 2745000 on the band [1680/10⁴, 1696/10⁴] ∋ t₀, full
+  y-range [√(39/1000), √(1−2t)] — box enclosure on the y-hull
+  [19748/10⁵, 19750/10⁵] at head depth M = 50000 + termwise
+  y-monotonicity above (YG1 CEIL6 −7.392645 < 0), all 28 Lemma M-C1'
+  monotonicity constants (binding sideA CEIL6 −0.033771) and all cap side
+  conditions re-gated at N₁' on the extended hull [19748/10⁵, 8149/10⁴];
+  D CEIL10 0.9854851520 < 1, flow FLOOR10 0.0091331338, err CEIL18
+  0.000000013676437397, tail slack FLOOR10 0.0091331201 > 0 (gate T6).
+  The machinery is the verified dbn_prover-s20..s32 optcoeff_ytail device
+  with the tail cutoff as a parameter, anchored bit-identically at the
+  banked dbn_prover-s20 regime (N₁ = 5e6, M = 20000: D CEIL10
+  0.7334562057, flow FLOOR10 0.1747906321 — gates T-A1/T-A2).
+
+The two (ii)-legs meet at the single split point Nmid = 2745000, covered
+by BOTH (gate F3); coverage of every real x ≥ X is gated by the exact
+window boundary identity + window ordering (gates F1/F2/F4/C4c). No
+second split at N = 5·10⁶ is needed: the live §T leg covers the middle
+window and the deep tail in one certificate. The banked WYBOX
+middle-window citation was impossible here anyway (its t-hull starts at
+1696/10⁴ > t₀) — that blocker is exactly what §T removes.
+
+## Honesty block
+
+- The operator-targeted 0.18634552 pathway (y₀' = 413/2500 at
+  t₀' = 1727/10⁴) would be 14431/12500000 = 0.00115448 EXACT deeper and
+  REMAINS BLOCKED: the verified s34/s35 gate-R2 residual rectangle
+  y ∈ [413/2500, √(39/1000)) × N ∈ [690988, 2745000) is still open —
+  every banked finite-window certificate below N = 2745000 has y-floor
+  √(39/1000) > 413/2500. This assembly descends in t₀ at the SAME y₀
+  instead (gate A7).
+- t₀ = 1680/10⁴ is the DEEPEST t the banked finite-window inventory
+  supports at y₀ = √(39/1000) with no uncovered sub-block: on lwin2
+  tiles k ≤ 7 (t < 0.1680) the staircase bottom Nc(tile) > 690988 leaves
+  N ∈ [690988, Nc) open.
+- NOT claimed: any deeper Λ; selection/design-point values; coverage
+  below y = √(39/1000) for N < 2745000.
+
+## RH-height dependency
+
+EXPLICIT AND SOLE — hypothesis (i) via PT2021 (X/2 ≤ T_PT, gate G3).
+Every cited leg's fact text certifies NO RH dependency in its own
+inequalities; the live §T leg is finite Dirichlet sums in interval
+arithmetic (no zero of ζ consumed).
+
+## Digit law
+
+Every quoted decimal machine-derived in-script by FLOOR (lower bounds) /
+CEIL (upper bounds) truncation of exact binary interval endpoints or an
+exact terminating decimal; truncation self-tests E0a–E0e (both
+negative-direction cases) run first.
+
+## Verify
+
+    cp -r packages/assembly_1875 /tmp/x && cd /tmp/x
+    /usr/bin/python3 verify_assembly_1875.py   # exit 0, 58 checks, ~21 s

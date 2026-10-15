@@ -1,0 +1,46 @@
+# Second analytic and arithmetic line
+
+The quantified domains and banked inputs are EXACTLY those in PROOF.md. This line does not claim an independent new source: source767 is consumed. It rederives the NEW source-to-space lemma and numerically covers EVERY new index interval.
+
+## A. Vector ball without a multivariable subharmonic oracle
+
+Let h(z)=(F_r/(sqrt(w_r)F_1),delta/(sqrt(w_*)F_1)). Source767's stronger Gram inequality says ||h||<1 on the distinguished torus, and720/733 give F_1 nonvanishing on the closed polydisc. Compactness yields eta<1 bounding this norm on that torus. For every constant vector u with ||u||=1, the scalar holomorphic function u^*h obeys |u^*h|<=eta on the torus. Repeated one-coordinate maximum-modulus principles give the same bound at every point of the closed polydisc. At a fixed point choose u=h/||h|| (or arbitrary if h=0); then ||h||<=eta<1. No claim that phases are independent or that an inverse polynomial is stable enters this argument.
+
+## B. A support-function proof of the recovering constant
+
+At an inward smooth point let b=|F_1|, v_r=|F_r|/sqrt(w_r) and h=delta/sqrt(w_*). Then
+
+                     b>sqrt(h^2+sum v_r^2).
+
+Write d_r=sqrt(w_r)*r^{-s}, so q=sum d_r^2<1, and z=(v_r). A direct Cauchy inequality in an EXTRA synthetic coordinate gives
+
+ sqrt(1-q)*h + d.z <= sqrt((1-q)+sum d_r^2)*sqrt(h^2+||z||^2)
+                     = sqrt(h^2+||z||^2) < b.
+
+Hence b-d.z>h*sqrt(1-q), and reverse triangle gives exactly (3). This proof needs neither calculus nor minimization, and incorporates the synthetic norm fibre as the extra coordinate. It also shows why deleting that fibre or failing to normalize sum w=1 breaks the inference. The sharp scalar optimizer used in the first line is not needed here.
+
+Under spatial contraction the smooth arguments move inward and rough coefficients carry r^{-s}. Taking unrestricted rough multipliers in the closed unit disk only enlarges the actual set of completely multiplicative characters. The complete positive bin inequality follows from r>=rho_g and s>=0. No one-dimensional physical orbit is substituted for the full polydisc.
+
+## C. Independent complete entrant integral
+
+The first line integrates exp(A*y^2+B*y), y=log(v), by an erfi formula. This line does NOT evaluate erfi, import Arb, or read the first line's scalar outputs. It receives only exact index geometry and its own regenerated weight bins. Put l=log(C), h=log(U)-l, A=a/4=1/25, B=1/2-a*c(X)-s. Then
+
+ I=exp(A*l^2+B*l)*integral_0^h exp(D*v+A*v^2)dv,
+ D=2*A*l+B.
+
+Every target has D>0, h>=0, and D*h+A*h^2<1, all checked by directed integer intervals. Define d_0=1, d_1=D,
+ d_j=(D*d_(j-1)+2*A*d_(j-2))/j.
+
+These are EXACT coefficients of exp(D*v+A*v^2) and are nonnegative. The sum through j=100 integrates to sum d_j*h^(j+1)/(j+1). Terms of v-degree>100 can only come from Taylor order>50 in exp(D*v+A*v^2); terms of lower degree from those orders may have already been included, which only makes the following upper bound conservative. For 0<=z<1,
+
+ sum_(m>=51) z^m/m! <= exp(1)/51! <3/51!.
+
+Thus a positive upper remainder h*3/51! encloses the ENTIRE infinite integral tail. This proves both an independent lower bound from the positive partial sum and an independent upper bound after the remainder. No quadrature sample or empirical special-function accuracy estimate is used.
+
+The fixed220-bit dyadic arithmetic uses exact integer outward rounding after EVERY operation. Logs are reduced to a power of2 and the positive atanh series at |y|<=1/3 with a closed-form infinite tail. Exp is reduced to |u|<=1/16, summed with a factorial remainder, and squared outward. Negative arguments use reciprocal intervals. Sqrt uses integer square roots with exact endpoint checks. Pi uses Machin's identity and alternating arctangent series. Analytic selftests include exact positive and negative rational operations; precision is not a floating gate.
+
+## D. Coverage and transport order
+
+The second line verifies exact end events of the CLOSED index intervals: active coverage is one on every open interval between adjacent events, with all event points retained. It does not trust the adaptive tree's labels. At each interval it proves the complete coefficient is decreasing on[C,U], and that the weighted support fits744's general heat threshold. The entrants are included BEFORE forward heat. At any physical target, set K=N(t,x), keep x fixed, and apply forward heat from a to t to that stable cutoff. The possible fact that K is one larger than N(a,x) is harmless because the perturbation proof, not a natural-cutoff theorem, supplied stability of the enlarged polynomial.
+
+All natural-cell equalities and endpoint conventions are exact. The two numerical lines freshly reproduce the accepted head and far-seam regimes with their production log/exp/pi paths. This supplies the required inherited arithmetic rung; the analytic support-function proof and no-Arb complete transport evaluator provide the new machinery's second line. Source-weight construction still shares Arb infrastructure between its two distinct complete organizations, explicitly disclosed.

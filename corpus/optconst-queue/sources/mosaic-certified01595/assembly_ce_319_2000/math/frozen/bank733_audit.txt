@@ -1,0 +1,271 @@
+# FOUNDATION — External winding / positive-norm transport second line
+
+## 1. Object, novelty and actual scope
+
+Snapshot726. The audited object is EXACTLY memory720
+WINDING_STABLE_TRANSPORT, producer THEOREM.md SHA256
+249aa74644189dd15c0e5bf9e6fcddcfd576e242bb2660542c844f8c0fe4bff3.
+Its statement and frozen outputs ship byte-identically with explicit hash
+checks. Memory710's exact real-jet lift and caps are consumed with the
+external audit725; their proof files and statements are pinned. Memory713
+is context only: this audit uses NO smooth-core floor, hence does not claim
+to have externally recomputed713's core sweep. The two RAW arithmetic
+anchors are605 and649, in their distinct own time/derivative regimes.
+Nothing is read from another workspace during a check. Producer code was
+inspected for audit, but NO producer executable/helper is copied, imported,
+or run. The own qinterval.py engine is byte-identical to this seat's
+accepted725; it is not shared with either of720's arithmetic lines.
+
+This fact is a second-line audit of a named new module, not a second claim
+of ownership of its theorem. Credit prover_astra for the winding/norm
+transport; the general polydisc escape was earlier identified by
+ladder_astra in703. Kornaus's PR180 inspired the overarching collision route,
+not a cited or imported leg here. No upstream files occur in this bundle.
+
+The primary independent arithmetic uses only integer endpoints and bounded
+rational series, rather than producer Arb/Sympy or mpmath.iv/Machin helpers.
+The secondary control script has its OWN polynomial arithmetic and directly
+differentiates complex alpha using Arb; it imports neither primary nor
+qinterval code. Its samples corroborate, not prove, universal assertions.
+
+Rung(a): production qinterval calculations freshly reproduce raw605 and649
+value/derivative enclosures and directed digits; original complete output
+files and proofs are hash-pinned. Synthetic rational polynomials are NOT
+banked anchors. Rung(b): the new multi-variable winding and retained-norm
+implication cannot be exercised by prior scalar, restricted-slice, or
+generic-polydisc-escape anchors. It needs the full external topological
+proof below plus independent arithmetic. The verifier selects its rung.
+
+## 2. Independent analytic proof of the winding implication
+
+Let P be a polynomial nonzero on the distinguished torus T^d. For each
+coordinate, the argument-principle count of zeros in the open unit disk is
+constant as the other torus coordinates vary: its contour is nonzero,
+its integral is continuous, its value is an integer, and T^(d-1) is
+connected. A zero count at ONE reference setting therefore fixes it at all
+such settings. The count uses multiplicities and does not require a fixed
+nonzero leading coefficient. A slice cannot become identically zero while
+its boundary is nonzero.
+
+Here is an induction on the number of released disk variables, including
+all faces. Suppose P is nonzero on D^k x T^(d-k), and the still-circular
+coordinate counts are zero there. Initially k=0 and the preceding paragraph
+gives those counts. Fix the first k disk coordinates and all but one circle
+coordinate. The remaining one-variable argument principle, zero boundary
+count, and boundary nonvanishing imply no zeros on its CLOSED disk.
+This proves nonvanishing on D^(k+1) x T^(d-k-1). Counts for every remaining
+circle coordinate remain zero: move the newly released coordinate to1
+through its disk, where the just-proved boundary condition holds; the
+integer count cannot change. Iterating gives the CLOSED polydisc. For d=0,
+P is a nonzero constant. This proof does not rely on radial homotopies alone
+and covers mixed faces and slices of changing degree.
+
+For the heat class, set D=1+x^2 and
+
+  c=log(sqrt(D)/(4*pi))/4-1/(2D), sigma=1/2+t*c,
+  a_n=exp(t*log(n)^2/4-sigma*log(n)),
+  A=sum_(1<=n<=N) a_n*z^v(n), L=sum a_n*log(n)*z^v(n).
+
+All terms are positive before phases and support is EVERY integer through N.
+Put eta=sigma-(t/2)log N. The natural or subnatural constraint gives
+
+  c-(log N)/2 >= -1/(2*x^2)-t*pi/(16*x),
+  eta >=1/2-t/(2*x^2)-t^2*pi/(16*x)
+       >=1/2-1/(4*X^2)-pi/(64*X)>49/100,
+
+for CLOSED t=[0,1/2], x>=X=6000000185827 and
+1<=N<=floor(sqrt(x/(4*pi)+t/16)). To see the first inequality directly,
+write log N <= [log(x/(4*pi))+log(1+t*pi/(4*x))]/2;
+use log(1+u)<=u, discard the nonnegative log(1+x^-2)/8,
+and replace -1/(2D) by the smaller -1/(2x^2). Both negative debits are largest
+at t=1/2,x=X. No finite enumeration is used to cover unbounded N or x.
+
+For pn<=N, with v=log p, u=log n,
+
+  log(a_(pn)/a_n)=-v*(sigma-t*u/2-t*v/4)
+               <=-v*(eta+t*v/4)<=-eta*v.
+
+Fix all variables other than prime p to1. Its reference slice has positive
+coefficients b_j=sum_(p does not divide m, p^j*m<=N) a_(p^j*m).
+The support for b_(j+1) is a SUBSET of that for b_j. Hence
+b_(j+1)<=rho*b_j for rho=p^(-eta)<1. Omitted positive tail terms strengthen,
+not weaken, this inequality. Write b_j=rho^j*c_j with c_j nonincreasing.
+For |w|<1 the identity
+
+ (1-w)*sum c_j*w^j
+   =c_0-sum_(j>=1)(c_(j-1)-c_j)*w^j-c_J*w^(J+1)
+
+has nonnegative subtracted coefficients with total c_0 and final c_J>0.
+Their modulus sum is STRICTLY<c_0. At w=rho*z, |z|<=1, this proves the
+reference slice has no closed-disk zero. Its count is zero. The FULL torus
+nonvanishing premise permits the induction and proves stability of A.
+At N=1, A=1 and there are no phase variables.
+
+This condition is not a torus certificate. P=1+(3/5)(z+w) has the reference
+ratio property but a torus zero at conjugate phases with real part-5/6.
+P=1+2z is torus-nonzero but has winding1 and an interior zero. Both are
+exact controls. Thus neither703 nor706 is contradicted.
+
+## 3. Both norms and the exact sector survive contraction
+
+Stability on the compact closed polydisc gives a zero-free neighbourhood.
+Iterated maximum modulus for1/A transports ANY torus floor |A|>=a>0.
+Set S=ell*A-2L, F=S/A. The full-torus premises are
+
+  |A|>=a>0, |S|>=s>0,
+  |Arg(F)|<=pi/2-mu, 0<mu<=pi/2.
+
+Compactness bounds |A| above by some finite M. Therefore on the torus
+Re F>=s*sin(mu)/M>0. Two rotated real parts
+Re(exp(+i*mu)F), Re(exp(-i*mu)F) are nonnegative. Iterated harmonic
+minimum principles on the disks extend all three inequalities. These are
+the desired closed sector; at mu=pi/2 the two rotated forms enforce
+Im F=0, and the strict positive real part selects the positive ray.
+Thus S never vanishes and maximum modulus for1/S extends the SECOND floor
+unchanged. In particular an angle alone was not used to invent a norm.
+
+At FIXED t,N and x>=x0, set delta=t*(c(x)-c(x0))>=0. Every coefficient
+is exactly multiplied by n^(-delta), i.e. by substituting
+z_p -> p^(-delta)*z_p. The map is inward (identity when t=0) and preserves
+the entire support. Let S_old denote the source partner evaluated at that
+new polydisc point; it uses the source ell. The target partner is
+
+  S_new=S_old+(ell(t,x)-ell(t,x0))*A_new.
+
+If Delta ell>=0, the quotient is F_old+Delta ell. It stays in the same
+sector and |F_old+Delta ell|^2-|F_old|^2
+=2*Delta ell*Re F_old+(Delta ell)^2>=0. Multiplying by the SAME |A_new|
+gives |S_new|>=|S_old|>=s, not a claim that a ratio floor is a numerator
+floor. This proves zero old-coefficient spatial debit with BOTH norms.
+A change of t has a quadratic log(n)^2 exponent and is not a prime
+contraction. A change of N introduces new terms and is not this theorem.
+
+## 4. Physical phase monotonicity — a whole-half-line proof
+
+For s=(1+i*x)/2, alpha=1/(2s)+1/(s-1)+Log(s/(2pi))/2, use
+
+ c as above, beta=atan(x)/2-3x/D,
+ d=(7x^2-5)/D^2, e=-x*(x^2+5)/D^2.
+
+Directly Re alpha=2c, Im alpha=beta, Re alpha'=d, Im alpha'=e,
+so ell=2Re alpha+t Re(alpha alpha')=4c+t*(2cd-beta e).
+Differentiation gives
+
+ c'=-e/4, beta'=d/2,
+ d'=-2x*(7x^2-17)/D^3, e'=(x^4+12x^2-5)/D^3,
+ ell_x=4c'+t*(-ed+2c*d'-beta*e').
+
+These rational identities are checked with a new coefficient-list algebra,
+and direct complex alpha/alpha'/alpha'' controls independently test the
+phase derivatives, including t=0 and1/2 at the campaign x and logged large x.
+On x>=X, c>0,c<log x/4,0<beta<1,d>0,e<0. The first two c bounds follow
+from its explicit expression, c'>0, and log(1+x^-2)<=x^-2. Beta bounds
+follow from atan x>pi/4,3/x<pi/8 and pi/4<1. Rational positive-polynomial
+residuals prove
+
+ 4c'>1/x, |d'|<14/x^3, 0<e'<2/x^2,
+ d<7/x^2, |e|<2/x.
+
+For the e' upper residual x^6-6x^4+11x^2+2, the substitution x^2=9+v
+has all positive coefficients. All signs hold from X onwards, not only at
+sample points. Drop the positive -ed term, use t<=1/2 and beta<1:
+
+ ell_x > 1/x-14c/x^3-1/x^2
+       > [1-1/x-(7/2)*log x/x^2]/x >1/(2x)>0.
+
+The last debit decreases for log x>1/2 and is certified at X. At t=0,
+ell_x=4c'>1/x directly. Also
+
+ 0<2cd-beta e<14c/x^2+2/x<3/x,
+
+because log x/x<2/7 at X and decreases thereafter. This upper envelope
+licenses the entrant phase-factor price. There is no assumed finite
+upper bound on c or log x over the infinite half-line.
+
+## 5. All entrants, all natural walls and correct H-errors
+
+Assume the FULL torus source premises with a=1/4,s=1,mu=1/10 at X,
+N0=690988, for EVERY t in CLOSED[31/200,3/16]. This assumption is UNSUPPLIED.
+The source natural index is N0 for the whole band; monotonicity in t means
+two exact outward endpoint tests suffice. Let N1=700988,
+xplus=4pi*(N1+1)^2. Set c0=c(X) and
+
+  Eminus=4c0, Eplus=4c(xplus)+3*(3/16)/X,
+  f(n)=exp((31/200)*log(n)^2/4-(1/2+(31/200)*c0)*log(n)),
+  J_A=(N1-N0)*f(N0),
+  kappa=max(Eplus-2log(N0+1),2log(N1)-Eminus), J_S=kappa*J_A.
+
+For x in CLOSED_OPEN[X,4pi*((N1+1)^2-t/16)), its natural N is in[N0,N1].
+Section3 transports the old terms. Every entrant N0<n<=N is retained.
+Because log N1<4c0, a_n decreases in t throughout the band and does not
+increase in x. Also f'(n)<0 on[1,N1]. Thus a_n<=f(n)<=f(N0).
+The exact phase lies in[Eminus,Eplus]. The absolute value of the affine
+factor ell-2log n is bounded by kappa, with BOTH signed endpoints included.
+There are at most N1-N0 terms, so |Delta A|<=J_A,|Delta S|<=J_S at EVERY
+phase. No top coefficient, phase relation, or moving-index term is dropped.
+
+The natural cells are LEFT-CLOSED/RIGHT-OPEN. To avoid using a tautological
+wall marker as a numerical gate, independent.py stores each wall in the
+exact symbolic form x=pi*c_j(t). Substitution gives the rational radicand
+j^2. A rational-square-root classifier checks the floor via
+m^2<=q<(m+1)^2, tests points offset by half a radicand unit on each side,
+and checks the supplied model range. The second script reclassifies EVERY
+row. This enumerates all internal j and the terminal j at both time
+endpoints and the midpoint; the formula itself, valid for ALL real t,
+proves continuum coverage. All internal walls have RIGHT index j and are
+included. The terminal wall has j=N1+1 and is EXCLUDED. A predecessor
+model at that wall is actively rejected. This independently repairs the
+weakness of the producer marker j*j==j**2, without alleging a hole in its
+written theorem or in a banked record.
+
+Consume710's REAL analytic gauge on its broader band[7/50,3/16]:
+|r|<1/400000,|r_x|<1/50000,|B-S|<1/40000000000, at every natural point
+including all walls.725 has independently audited those caps and the
+whole-domain proof. The lift is
+A_true=A+r*exp(-iTheta)/2,
+B_true=B-2i*r_x*exp(-iTheta).
+These are NOT a complex raw derivative cap. The exact identity cancels
+the carrier term in 4h*(r exp(-iTheta)/2)-4i*d_x(r exp(-iTheta)/2).
+The total disks around the transported old pair have radii
+
+  J_A+1/800000, J_S+1/25000+1/40000000000.
+
+Both relative radii are<1. Their sum of arcsines is certified<1/20,
+so the corrected angle retains margin>1/20. Since
+u=2Re(exp(iTheta)A_true), u_x=-Im(exp(iTheta)B_true)/2,
+u=u_x=0 would make their Hermitian real product zero, contradicting the
+positive corrected sector. The exact physical heat-shifted character is
+included by the FULL torus premise; no unshifted phase substitution occurs.
+
+## 6. Audit inventory / honesty
+
+The scope exactly reproduced is:
+* stability and ell direction: EVERY t in CLOSED[0,1/2], EVERY x>=X,
+  EVERY integer1<=N<=natural; no upper x/N cutoff;
+* fixed-cutoff transport: EVERY x>=x0 at the SAME t,N, full-torus
+  two-norm+sector source required, closed-polydisc targets;
+* conditional H-exclusion: EVERY t in CLOSED[31/200,3/16],
+  x in CLOSED_OPEN[X,4pi*(700989^2-t/16)), all natural N690988..700988,
+  y=0. Every internal right wall included; terminal open.
+
+No discrepancy was found in the pinned mathematical implication. The new
+numerical line compares every frozen scalar field only AFTER deriving its
+own endpoints. No frozen field enters a new bound. Hash-selected inputs
+are logged as exact t,x,p,n,target_x, not merely hashes: the missing-phase
+failure in s16's rejected profile is not repeated. The hash seed is the
+pinned theorem. Samples are regression controls, not universal coverage.
+
+The first development point run exposed width inflation when a fixed-scale
+reciprocal of a very large denominator was evaluated before multiplication.
+It failed closed at a large-x derivative test. Rewriting the SAME exact
+rational functions in inverse-x form removed that conditioning loss; no
+precision, parameter, source premise or analytic bound was retuned. Both
+versions' development logs remain for transparency. This was not a
+mathematical counterexample. Release script outputs are rebuilt from source.
+
+No official checker attestation, corner block, torus source, physical COVER,
+new tail, separator, pod outcome or Lambda bound is asserted. Results are
+RH-free. Eventual Lambda initialization remains only PT2021 T=3000175332800
+at INITIAL X/2=6000000185827/2, margin350479773/2, anchor V1-H-213.
+The future full source premise is a separate load-bearing theorem, not
+an inference from this clean audit.
