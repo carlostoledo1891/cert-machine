@@ -1,0 +1,13 @@
+{
+ "what": "the RunPod pod that decided the Qiushi Engine's dimensions 49-55 pair by pair (tools/runpod-qiushi-lifting.sh); the result files beside this one were downloaded from it and the pod was terminated once they were read",
+ "podId": "89rlhjinp2h01r",
+ "gpu": "NVIDIA L40S (46,068 MiB), driver 580.126.09",
+ "cloud": "RunPod secure cloud",
+ "pricePerHourUSD": 1.09,
+ "createdAt": "2026-10-12T13:03:13Z",
+ "terminatedAt": "2026-10-12T21:2xZ (after the results were read; the pod idled about 1.3 h after completing at 20:03 UTC)",
+ "billedUSD": 8.15,
+ "billedReadFrom": "RunPod pod billing, read 2026-10-12 ~21:25 UTC (gpu 8.08 + disk 0.06)",
+ "software": "torch 2.4.1+cu124, cuda 12.4, numpy 1.26.3, triton (bundled with torch)",
+ "auditCommit": "6371ba3d7e289110a6b5dcd9735461d34f5adf05"
+}

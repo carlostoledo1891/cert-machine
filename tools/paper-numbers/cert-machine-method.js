@@ -93,6 +93,100 @@ const EXT = J('corpus/external-reruns.json');
 need(Array.isArray(EXT) && EXT.length > 0, 'no outside rerun is recorded');
 def('MtOutsideReruns', String(EXT.length));
 
+
+/* ---- the three benchmark exercises of the restructured paper (v0.2, 2026-10-14) ---------------------------
+   Each number below is read from the record that decided it; macro names start with Mt so nothing collides with
+   the companion papers' macro files (certified-evaluation and navier-stokes-audit share seven names with the
+   register's file, so they cannot be \input beside it). */
+const esc = (t) => String(t).replace(/[&%$#_{}]/g, (c) => '\\' + c).replace(/—/g, '---').replace(/–/g, '--');
+const hours = (sec) => (sec >= 3600 ? (sec / 3600).toFixed(1) + '~h' : sec >= 60 ? Math.round(sec / 60) + '~min' : Math.round(sec) + '~s');
+
+/* B1: the Qiushi Engine's kissing configurations, every pair decided (certs/kissing-wave.json) */
+const WAVE = J('certs/kissing-wave.json');
+const kw = WAVE.rows.filter((r) => r.claimant === 'qiushi').sort((x, y) => x.dim - y.dim);
+need(kw.length === 19, 'the wave record holds ' + kw.length + ' Qiushi rows, not the 19 the paper describes');
+for (const r of kw) need(r.verdict === 'WITNESSED' && r.engine && r.engine.violations === 0 && r.engine.pairs === r.engine.n * (r.engine.n - 1) / 2
+  && r.jsCheck && r.jsCheck.agree, 'Qiushi row ' + r.id + ' is not a whole WITNESSED decision with an agreeing JavaScript check');
+const kwPairs = kw.reduce((s, r) => s + r.engine.pairs, 0), kwContacts = kw.reduce((s, r) => s + r.engine.contacts, 0);
+const kwGpu = kw.filter((r) => /Triton|CUDA/.test(r.engine.families[0].path)), kwDesk = kw.filter((r) => !/Triton|CUDA/.test(r.engine.families[0].path));
+need(kwGpu.length === 7 && kwGpu.every((r) => r.dim >= 49), 'the GPU-decided rows are not the seven of 49-55');
+const kwGram = kw.filter((r) => r.gramCheck && r.gramCheck.verdict === 'WITNESSED' && r.gramCheck.agreesWithCartesian);
+need(kwGram.length === 2, 'the Gram-form re-decisions are not the two of 43 and 45');
+const POD = J('corpus/kissing/wave/qiushi-gpu-2026-10-12/pod.json');
+const CAL32 = J('corpus/kissing/wave/qiushi-gpu-2026-10-12/_cal-32.json'), CAL39 = J('corpus/kissing/wave/qiushi-gpu-2026-10-12/_cal-39.json');
+const d32 = kw.find((r) => r.dim === 32), d39 = kw.find((r) => r.dim === 39);
+need(CAL32.bulk.contacts === d32.engine.contacts && CAL39.bulk.contacts === d39.engine.contacts && /Triton/.test(CAL32.bulk.path), 'the GPU calibration on 32 and 39 does not reproduce the desk\'s contact counts');
+def('MtKwRows', String(kw.length));
+def('MtKwDims', '25, 27, 32--39, 43, 45 and 49--55');
+def('MtKwPairs', int(kwPairs));
+def('MtKwPairsSci', (kwPairs / 1e15).toFixed(2) + ' \\times 10^{15}');
+def('MtKwContacts', int(kwContacts));
+def('MtKwDeskRows', String(kwDesk.length));
+def('MtKwGpuRows', String(kwGpu.length));
+def('MtKwGpuPairs', int(kwGpu.reduce((s, r) => s + r.engine.pairs, 0)));
+def('MtKwGpuHours', (kwGpu.reduce((s, r) => s + r.engine.seconds, 0) / 3600).toFixed(1));
+def('MtKwGpuCost', POD.billedUSD.toFixed(2));
+def('MtKwGpuName', esc(POD.gpu.replace(/ \(.*$/, '')));
+def('MtKwGpuPrice', POD.pricePerHourUSD.toFixed(2));
+def('MtKwCalContacts', int(d32.engine.contacts) + ' and ' + int(d39.engine.contacts));
+def('MtKwDeskSeconds', int(kwDesk.reduce((s, r) => s + r.engine.seconds, 0)));
+def('MtKwMaxDim', String(Math.max(...kw.map((r) => r.dim))));
+def('MtKwMaxPoints', int(Math.max(...kw.map((r) => r.claimed))));
+const d38 = kw.find((r) => r.dim === 38);
+def('MtKwAxisRows', int(d38.blocks.find((b) => String(b.squaredNorm).length > 10).rows));
+def('MtKwAxisDigits', String(String(d38.blocks.find((b) => String(b.squaredNorm).length > 10).squaredNorm).length));
+const kwPath = (r) => /Triton/.test(r.engine.families[0].path) ? 'fused GPU kernel' : r.dim === 38 ? 'float32 BLAS, exact int64, integers'
+  : /gemm|BLAS/.test(r.engine.families[0].path) ? 'float32 BLAS' : esc(r.engine.families[0].path);
+def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(r.engine.pairs) + ' & ' + int(r.engine.contacts) + ' & ' + kwPath(r) + ' & ' + hours(r.engine.seconds)).join(' \\\\\n'));
+
+/* B2: the Navier--Stokes certificate (corpus/navier-stokes/*; the commits and dates come from the register's macros) */
+const NSB = J('corpus/navier-stokes/build.json'), NSL = J('corpus/navier-stokes/lean-repo.json'), NSA = J('corpus/navier-stokes/audit.json');
+const NSU = J('corpus/navier-stokes/upstream-f9e8bc5b.json'), NSM = J('corpus/navier-stokes/MANIFEST.json'), NSN = J('corpus/navier-stokes/nonvacuity.json');
+need(NSB.exitCode === 0 && NSB.jobsBuilt > 0 && NSU.decided && NSU.decided.atPin && NSU.decided.atPin.formal === false && NSU.decided.atHead && NSU.decided.atHead.formal === true,
+  'the Navier-Stokes records no longer say: built clean at the pin, the energy clause formal only at the head');
+need(NSN.errors === 0 && NSN.declarations.length > 0, 'the non-vacuity check is not clean');
+def('MtDeskCpus', String(NSB.machine.cpus)); def('MtDeskMemory', String(NSB.machine.memoryGB));
+def('MtNsFiles', int(NSM.files.length));
+def('MtNsLeanFiles', int(NSL.files)); def('MtNsLeanLines', int(NSL.lines));
+def('MtNsJobsBuilt', int(NSB.jobsBuilt)); def('MtNsJobsTotal', int(NSB.jobsTotal)); def('MtNsBuildMinutes', String(Math.round(NSB.buildSeconds / 60)));
+def('MtNsSlips', String(NSA.slips.length)); def('MtNsWeakPoints', String(NSA.weakPoints.length)); def('MtNsByHand', String(NSA.verifiedByHand.length));
+def('MtNsNonVacuity', String(NSN.declarations.length));
+def('MtNsUpstreamChecked', NSU.checkedOn);
+def('MtNsUpstreamFiles', int(NSU.diff.files)); def('MtNsUpstreamInsertions', int(NSU.diff.insertions));
+def('MtNsFetched', NSM.fetched);
+
+/* B3: the graders graded (certs/envs-record.json) and the openai/math release audited (corpus/openai-math, certs/openai-math-*) */
+const ENV = J('certs/envs-record.json');
+const g = (re) => { const x = ENV.graders.find((q) => re.test(q.name)); need(x, 'no grader matches ' + re); return x; };
+const gAbs = g(/^absolute/), gRel = g(/^relative/), gEx = g(/^exact/), gEnc = g(/^enclosure/);
+need(gEnc.falseAccept === 0 && gEnc.falseReject === 0 && gAbs.wrongSubmissions === ENV.provablyWrong, 'the grader record no longer says the enclosure grader is exact on every submission');
+const pct = (x) => (100 * x).toFixed(1) + '\\%';
+def('MtGrFacts', int(ENV.corpus.length)); def('MtGrWrong', int(ENV.provablyWrong)); def('MtGrRight', int(ENV.provablyRight));
+def('MtGrAbsAccept', pct(gAbs.falseAccept)); def('MtGrRelAccept', pct(gRel.falseAccept)); def('MtGrExactReject', pct(gEx.falseReject));
+def('MtGrAbsReject', pct(gAbs.falseReject)); def('MtGrEncAccept', pct(gEnc.falseAccept)); def('MtGrEncReject', pct(gEnc.falseReject));
+def('MtGrForgeriesPlanted', String(ENV.forgeries.planted !== undefined ? ENV.forgeries.planted : ENV.forgeries.length));
+def('MtGrForgeriesLeaked', String(ENV.forgeries.leaked !== undefined ? ENV.forgeries.leaked : 0));
+def('MtGrLedgerRows', int(ENV.ledgerRows));
+def('MtGrLedgerModels', String(Array.isArray(ENV.ledgerModels) ? ENV.ledgerModels.length : String(ENV.ledgerModels).split(',').filter(Boolean).length));   // the record lists the models by name
+def('MtGrTableRows', ENV.graders.map((q) => esc(q.name.replace(/\s*<-.*$/, '')) + ' & ' + pct(q.falseAccept) + ' & ' + pct(q.falseReject)).join(' \\\\\n'));
+
+const OR = J('corpus/openai-math/release.json'), OK = J('certs/openai-math-kernel.json'), OS = J('certs/openai-math-statements.json');
+const OF = J('certs/openai-math-finite.json'), OG = J('corpus/openai-math/findings.json');
+const ow = OK.counts.words, sw = OS.counts.words;
+need(OK.counts.decided === OR.counted.challenges && (ow.REJECTED || 0) === 0, 'the kernel record does not decide every challenge with none rejected');
+const oShort = (sw.DIFFERENT || 0) + (sw['NARROWER — UNDECLARED'] || 0);
+def('MtOaCommit', OR.commit.slice(0, 8)); def('MtOaManuscripts', int(OR.counted.manuscriptLinks)); def('MtOaFamilies', int(OR.stated.families));
+def('MtOaChallenges', int(OR.counted.challenges)); def('MtOaCertified', int(ow.CERTIFIED)); def('MtOaRefused', int(ow.REFUSED || 0));
+def('MtOaStatements', int(OS.rows.length)); def('MtOaShort', int(oShort)); def('MtOaMatches', int(sw.MATCHES)); def('MtOaDifferent', int(sw.DIFFERENT || 0));
+def('MtOaNarrowerUndeclared', int(sw['NARROWER — UNDECLARED'] || 0)); def('MtOaNarrowerDeclared', int(sw['NARROWER — DECLARED'] || 0)); def('MtOaUnlinked', int(sw['NARROWER — UNLINKED'] || 0));
+def('MtOaFiniteTotal', int(OF.counts.CERTIFIED + OF.counts.REFUSED + OF.counts['NEEDS DATA'])); def('MtOaFiniteCertified', int(OF.counts.CERTIFIED)); def('MtOaFiniteRefused', int(OF.counts.REFUSED)); def('MtOaFiniteNeedsData', int(OF.counts['NEEDS DATA']));
+def('MtOaGaps', String(OG.findings.length)); def('MtOaGapsSevOne', String(OG.findings.filter((x) => x.severity === 1).length)); def('MtOaFound', OG.found);
+def('MtOaNanodaOn', String(OR.counted.enableNanoda.true)); def('MtOaHolesDisplayed', int(OR.counted.definitionHoles.displayedWithBody));
+const V = { 'S.gap': oShort, families: OS.rows.length, 'holes.displayed': OR.counted.definitionHoles.displayedWithBody, 'nanoda.true': OR.counted.enableNanoda.true,
+  challenges: OR.counted.challenges, 'F.needs': OF.counts['NEEDS DATA'] };
+const fill = (t) => String(t).replace(/\{\{([^}]+)\}\}/g, (_, k) => (k in V ? String(V[k]) : die('unknown placeholder {{' + k + '}} in a finding title')));
+def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title))).join(' \\\\\n'));
+
 def('MtCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('wrote ' + path.relative(ROOT, OUT) + ' (' + (M.length - 1) + ' macros)');
