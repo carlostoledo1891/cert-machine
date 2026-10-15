@@ -1,0 +1,26 @@
+{
+ "what": "Pre-registration of the audit of Oxelra-AI/Bandeira-0.2a-open-source (the Qiushi Engine's disproof of Bandeira's Open Problem 0.2(a) at n = 5), written before any verdict is recorded",
+ "registered": "2026-10-15",
+ "operatorGo": "Start Bandeira's Open Problem (2026-10-15)",
+ "claim": "Bandeira's Open Problem 0.2(a) is false for n = 5: by the paper's Theorem 4.4 it is equivalent to Recht--Re's (RR_{5,5}); by Lai--Lim 2020 (RR_{5,5}) is false because the sum-of-squares SDP of their Conjecture 1C is infeasible at lambda = 120 (lambda_2 = 144.6488 > 120 = 5!); the repository supplies an exact rational Farkas certificate for that infeasibility and a Lean 4 formalization of the equivalence, the spectral-norm facts, the Farkas chain and the certificate arithmetic; the Positivstellensatz reduction (Lai--Lim's Conjectures 1A-1C) and the identification of the SDP's matrices are declared external to the Lean.",
+ "pinned": "the repository at commit c41373447abfadabc30afeebc3c4de74e1ccf8dc (2026-06-16); the certificate npz (sha256 a0aec258f9b1bbb9...) read INERTLY by instruments/kissing/wave/pklread.py into corpus/bandeira/certificate-v2.json; the paper main.tex and the Lean sources read as text; Lai--Lim 2020 (PMLR 119) read as text. None of the claimant's programs is run.",
+ "lanes": {
+  "C (the certificate)": "instruments/bandeira/verify.py builds the SDP's constraints from the definition (monomials of degree <= 5, the 31-monomial basis, the six linear constraints, the standard form) and decides, in exact rationals, whether the published (y0, y) is a Farkas certificate: -M PSD by exact LDL^T with positive pivots on each of the six 31 x 31 blocks and m00 < 0, and 120 y0 + b^T y > 0. The ONE convention taken from the claimant is the order of the 3906 monomials; it is tested by the scalar value. Three transpose conventions for the Gram form are decided separately: leftT (Helton's f^T l f, the sum-of-squares form), rightT, none (the claimant's export). The verdict names the convention under which the certificate holds.",
+  "S (the SDP)": "instruments/bandeira/sdp.py solves the SDP in floating point under each convention for (m,n) = (2,2), (2,3), (3,3), (4,4) against Lai--Lim's Table 1 (a theorem for m <= 3, so lambda_1, lambda_2 <= n!/(n-m)! must hold under the correct convention) and then at (5,5). A FLOAT SCREEN: it measures which SDP the certificate belongs to and whether the sum-of-squares SDP proper has lambda_2 > 120; it issues no verdict.",
+  "L (the Lean)": "the repository's default Lake target built at its pinned toolchain (v4.29.1) and Mathlib revision; the axioms of the main theorems asked of the kernel; what each theorem states read against the paper's claim (in particular whether the generated certificate files and the abstract Farkas chain are connected to a single theorem, and whether the SDP's matrices C_i, b are stated in Lean or only their reconstructed entries).",
+  "R (the reading)": "the paper's chain read against Bandeira's Open Problem 0.2(a) as stated in his notes (2015) and against Lai--Lim's Conjecture 1C as written: every step either decided here, cited as a published theorem, or named as not decided."
+ },
+ "rules": [
+  "a verdict is written to certs/bandeira-ledger.json and committed BEFORE the claimant's reported values (their verified.txt, manifest, Lean statements) are compared with ours; the comparison is a separate, later commit",
+  "float results (lane S) are measurements and never a verdict; a verdict rests on exact arithmetic or a kernel",
+  "if the certificate holds only under a convention that is not the sum-of-squares form, that is recorded as a finding about what the certificate decides, not as a refutation of the claim: whether the two SDPs are equivalent is then the question, decided or refused on its own",
+  "nothing is sent to the claimant without the operator; the record and page come first"
+ ],
+ "redControls": [
+  "a y with one entry's sign flipped must lose a block's positive definiteness or the scalar",
+  "y0 moved to 0 must lose the scalar inequality",
+  "the monomials in a shuffled order must not reproduce the scalar",
+  "the (2,2) SDP under the correct convention must give lambda_2 <= 2 (Lai--Lim: 0.5) and lambda_1 = 2"
+ ],
+ "cost": "laptop only; the Lean build is hours of one machine; no rented compute planned"
+}
