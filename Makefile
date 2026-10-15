@@ -115,6 +115,7 @@ test:
 	@printf "%-30s " "kissing wave (Q(sqrt2,sqrt3))"; $(PY) instruments/kissing/wave/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "kissing gram form"; $(PY) instruments/kissing/wave/gram_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -233,6 +234,8 @@ reports:
 	@$(NODE) tools/build-report-optconst.js
 	@$(PY) tools/run-countex-ledger.py
 	@$(NODE) tools/build-report-countex.js
+	@$(PY) -I tools/run-bandeira-ledger.py
+	@$(NODE) tools/build-report-bandeira.js
 	@$(NODE) tools/build-report-openai-math.js
 	@$(PY) tools/run-horizonmath-ledger.py
 	@$(NODE) tools/build-report-horizonmath.js

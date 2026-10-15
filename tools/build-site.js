@@ -387,6 +387,14 @@ const REPORTS = [
     desc: 'OpenAI\'s 719 machine-generated manuscripts and 416 Comparator challenges, audited three ways — a second kernel, every Lean statement read against its claim, every finite witness re-decided exactly — and the gaps between what is claimed and what is checked, ranked and pinned to file and line at the commit audited, found before any fix.',
     n: (() => { const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'findings.json'), 'utf8')), S = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-statements.json'), 'utf8'));
       return G.findings.length + ' gaps found ' + G.found + ' · ' + ((S.counts.words.DIFFERENT || 0) + (S.counts.words['NARROWER — UNDECLARED'] || 0)) + ' of ' + S.rows.length + ' formalized families short of their claim · nothing refuted'; })() },
+  { g: 'ai', f: 'bandeira.html', k: 'audit · a disproof of an open problem',
+    title: 'Bandeira\'s Open Problem 0.2(a): the disproof, decided',
+    desc: 'An autonomous research system published a disproof of Bandeira\'s matrix AM–GM problem at n = 5 — an exact rational Farkas certificate for Lai–Lim\'s semidefinite program and a Lean proof. '
+      + 'The finite core re-decided here with a certificate of our own, in exact rationals; the claimant\'s certificate decides the program its code wrote, without the polynomial transposes that make the Gram form a sum of squares, '
+      + 'and the two programs agree in floating point on every case — the conclusion stands, the gap sits exactly where the paper declares its boundary.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'bandeira-ledger.json'), 'utf8')); const o = L.decisions.ours.leftT, c = L.decisions.claimant;
+      if (o.verdict !== 'CERTIFIED' || c.none.verdict !== 'CERTIFIED' || c.leftT.verdict === 'CERTIFIED') fail('the Bandeira card would misstate the record');
+      return L.rows.filter((r) => r.verdict === 'CERTIFIED').length + ' of ' + L.rows.length + ' rows certified · our certificate: denominators ≤ ' + Number(o.maxDenominator).toLocaleString('en-US') + ' · the claimant\'s holds for its own program only'; })() },
   { g: 'ai', f: 'counterexample-machine.html', k: 'audit · AI-found counterexamples',
     title: 'The counterexample machine, decided',
     desc: 'Suvrit Sra\'s open library of counterexamples, most found by language models, decided case by case by programs that read the published '

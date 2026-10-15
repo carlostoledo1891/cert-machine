@@ -11,6 +11,13 @@ here on request.
 
 ---
 
+## LANE B — THE BANDEIRA 0.2(a) AUDIT (2026-10-15; outreach/bandeira-oxelra-issue.md) — DRAFTED, NOT SENT
+B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none open; pinned commit c4137344): the finite core
+    re-decided with our own certificate (CERTIFIED), the two gaps named (their certificate decides the no-transpose SDP; their
+    Lean checks the certificate's arithmetic, not an SDP's infeasibility), two questions, the offer of our certificate. Gate: the
+    page live at /reports/bandeira.html with the five rows; the Lean lane either recorded or the "still building" sentence kept;
+    the repository re-read for new commits/issues. The operator's word, item by item, as every send.
+
 ## LANE G — THE GITHUB MAP'S P1 ITEMS (2026-10-05; outreach/github-p1-2026-10-05.md; map outreach/GITHUB-OUTREACH.md)
 
 - **POSTED on the operator's "Proceed all needed":**

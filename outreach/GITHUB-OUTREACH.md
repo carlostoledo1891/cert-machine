@@ -319,3 +319,15 @@ Also:
 - Topic counts (public repos) via api.github.com/search/repositories?q=topic:X: interval-arithmetic 155, computer-assisted-proof 106, rigorous-numerics 14, exact-arithmetic 120, certified-computation 22, ai4math 54, ai-for-math 28, erdos-problems 105, alphaevolve 34, mathematical-discovery 8, rl-environments 42, rlvr 172, reward-hacking 161, llm-evaluation 6,703, llm-benchmark 374, reproducibility 4,954, automated-reasoning 162, number-theory 1,651, combinatorics 961, tensor-decomposition 163, gsm8k 98, sphere-packing 18, kissing-number 3, oeis 156
 - Profile READMEs of seewoo5, pitmonticone, Agnuxo1, codelion
 - app.primeintellect.ai/dashboard/environments/carlos-toledo/{break-the-grader, blind-spot, lattice-claims} (200)
+
+## §B Bandeira 0.2(a) — the Qiushi Engine's disproof, audited 2026-10-15 (nothing sent)
+
+Venue: Oxelra-AI/Bandeira-0.2a-open-source (MIT, 2026-06, commit c4137344; issues enabled, none open; no discussions).
+Record: certs/bandeira-ledger.json (five rows, all CERTIFIED with their scopes); page reports/bandeira.html; the audit
+pre-registered in corpus/bandeira/preregistration.json. What is sendable: outreach/bandeira-oxelra-issue.md (SEND-QUEUE lane B).
+What it says: the sum-of-squares SDP is infeasible at λ = 120 by OUR certificate (y0 = -1, denominators <= 10^4, m00 = -19/8568);
+the claimant's certificate holds for the SDP its builder wrote (no basis transpose) and not for the sum-of-squares form; the
+Lean proves (-M) PSD for their matrices and IsEmpty of structures that assume the pairing — no SDP is defined in Lean. Both gaps
+are at the boundary their paper declares external; the conclusion stands. The Lean build at their pins runs on the laptop
+(scratchpad bandeira-lean.log); record corpus/bandeira/lean-build.json before citing the kernel's axioms.
+
