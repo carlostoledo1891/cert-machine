@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~00:05 UTC: NO POD RUNNING; nothing building; three audits live, batch one of their outreach POSTED; day-2 and week-2 items wait for the operator)
+## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~00:30 UTC: NO POD RUNNING; nothing building; three audits live, outreach days 1 and 2 POSTED (19 comments); week-2 items wait for the operator)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -58,9 +58,10 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
   TRAP (hit three times today): `node tools/build-site.js` alone PRUNES site/swell/* (the swell app builds after it in
      `make site`); restore with `git checkout -- site/swell` before the gates, or run `make site`. The three ratchets (measure,
      render, style) each need `--accept` for a new page, in that order, with every page present.
-  NEXT, IN ORDER (each the operator's word): day 2 = A2 (#10), A3 (#12), A4 (#5), A5 optional, C5 (the Mosaic refusal — the operator
-     reads it first; post only with C1-C3 visible), P1-P5 (one-liners on the five formal-conjectures PRs; replace {ISSUE-URL} with
-     the B1-B5 URLs); week 2 = AE-PR (needs Google's CLA), T-PR (after #225/#221 merge), POST (by hand). If any of the ten threads
+  DAY TWO POSTED 2026-10-16 ~00:30 UTC (operator: "go day 2"): A2 (#10), A3 (#12), A4 (#5), P1-P5 (the five formal-conjectures PRs), C5 (the
+     Mosaic refusal on optimizationproblems#210, with "five scripts") — URLs in outreach/three-campaigns-2026-10-15.md. NINETEEN
+     THREADS TO WATCH. A5 and C4 optional, not sent.
+  NEXT (each the operator's word): week 2 = AE-PR (needs Google's CLA), T-PR (after #225/#221 merge), POST (by hand). If any of the ten threads
      answers: reply with facts from the ledgers only; what we offer is listed in the plan. Silence two weeks: one short follow-up.
   BATCH ONE POSTED 2026-10-15 ~23:50 UTC (operator: "Proceed batch one outreach"): A1 on alphaevolve#6, C1-C3 on optimizationproblems
      #225/#221/#226, B1-B5 on formal-conjectures #7304/#7305/#7306/#7308/#7330, F1 on Oxelra Bandeira#1 — URLs in

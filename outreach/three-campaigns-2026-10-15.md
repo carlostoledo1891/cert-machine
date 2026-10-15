@@ -1,6 +1,17 @@
-# Three audits, fifteen comments — BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's "Proceed batch one outreach" (A1, C1, C2, C3, B1-B5; F1 from the plan); A2-A5, C4, C5 and the PR one-liners NOT SENT
+# Three audits, fifteen comments — BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's "Proceed batch one outreach" (A1, C1, C2, C3, B1-B5; F1 from the plan); DAY TWO POSTED 2026-10-16 ~00:30 UTC on "go day 2" (A2, A3, A4, P1-P5, C5 — with "five scripts" in C5); A5 and C4 (both optional) NOT SENT
 
-Posted:
+Posted (day 2):
+- A2 https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/10#issuecomment-6204608656
+- A3 https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/12#issuecomment-6204609699
+- A4 https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/5#issuecomment-6204610760
+- P1 https://github.com/google-deepmind/formal-conjectures/pull/7310#issuecomment-6204611732
+- P2 https://github.com/google-deepmind/formal-conjectures/pull/7321#issuecomment-6204612722
+- P3 https://github.com/google-deepmind/formal-conjectures/pull/7322#issuecomment-6204613709
+- P4 https://github.com/google-deepmind/formal-conjectures/pull/7320#issuecomment-6204614697
+- P5 https://github.com/google-deepmind/formal-conjectures/pull/7337#issuecomment-6204615715
+- C5 https://github.com/teorth/optimizationproblems/pull/210#issuecomment-6204616687
+
+Posted (day 1):
 - A1 https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/6#issuecomment-6204214972
 - C1 https://github.com/teorth/optimizationproblems/pull/225#issuecomment-6204215887
 - C2 https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6204216751

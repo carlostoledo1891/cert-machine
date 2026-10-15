@@ -1,6 +1,6 @@
 # Outreach plan for the three audits (and the Bandeira follow-up) — 2026-10-15
 
-STATUS: Day-1 batch POSTED 2026-10-15 ~23:50 UTC (A1, C1, C2, C3, B1-B5, F1 — URLs in three-campaigns-2026-10-15.md) on the operator's "Proceed batch one outreach"; every thread was unchanged since its pin at posting. Day-2 items (A2-A5, C5, P1-P5) and week-2 items NOT SENT; each on the operator's word.
+STATUS: Day-1 batch POSTED 2026-10-15 ~23:50 UTC (A1, C1, C2, C3, B1-B5, F1 — URLs in three-campaigns-2026-10-15.md) on the operator's "Proceed batch one outreach"; every thread was unchanged since its pin at posting. Day-2 items POSTED 2026-10-16 ~00:30 UTC on "go day 2" (A2, A3, A4, P1-P5, C5; A5 optional, not sent). Week-2 items (AE-PR after the CLA, T-PR after #225/#221 merge, POST) NOT SENT; each on the operator's word.
 The fifteen thread comments are in `three-campaigns-2026-10-15.md` (blocks A1–A5, B1–B5, C1–C5); the drafts that are
 NEW in this plan (a PR to DeepMind's repository, five PR one-liners, the Bandeira follow-up, the registry follow-up PR,
 the operator's own post) are written out below.

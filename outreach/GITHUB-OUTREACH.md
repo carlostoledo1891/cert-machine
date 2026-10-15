@@ -348,3 +348,14 @@ BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's word:
 - B4 — https://github.com/google-deepmind/formal-conjectures/issues/7308#issuecomment-6204222207
 - B5 — https://github.com/google-deepmind/formal-conjectures/issues/7330#issuecomment-6204223248
 - F1 — https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1#issuecomment-6204224336
+
+DAY TWO POSTED 2026-10-16 ~00:30 UTC on the operator's "go day 2":
+- A2 — https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/10#issuecomment-6204608656
+- A3 — https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/12#issuecomment-6204609699
+- A4 — https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/5#issuecomment-6204610760
+- P1 — https://github.com/google-deepmind/formal-conjectures/pull/7310#issuecomment-6204611732
+- P2 — https://github.com/google-deepmind/formal-conjectures/pull/7321#issuecomment-6204612722
+- P3 — https://github.com/google-deepmind/formal-conjectures/pull/7322#issuecomment-6204613709
+- P4 — https://github.com/google-deepmind/formal-conjectures/pull/7320#issuecomment-6204614697
+- P5 — https://github.com/google-deepmind/formal-conjectures/pull/7337#issuecomment-6204615715
+- C5 — https://github.com/teorth/optimizationproblems/pull/210#issuecomment-6204616687

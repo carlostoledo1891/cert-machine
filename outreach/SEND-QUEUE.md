@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (plan: outreach/outreach-plan-2026-10-15.md; comments: outreach/three-campaigns-2026-10-15.md) — BATCH ONE POSTED 2026-10-15 ~23:50 UTC (A1, C1-C3, B1-B5, F1; URLs in three-campaigns-2026-10-15.md); the rest NOT SENT
+## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (plan: outreach/outreach-plan-2026-10-15.md; comments: outreach/three-campaigns-2026-10-15.md) — BATCH ONE POSTED 2026-10-15 ~23:50 UTC (A1, C1-C3, B1-B5, F1) and DAY TWO POSTED 2026-10-16 ~00:30 UTC (A2-A4, P1-P5, C5); URLs in three-campaigns-2026-10-15.md; week-2 items NOT SENT
 AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 (answers #11 too), #5, #4: each a short
     exact-decision note with the page; the sofa (#8) gets none. W1-W5. formal-conjectures #7304/#7305/#7306/#7308/#7330: the
     witness decided, the Lean note where there is one, the shared tail about the vanished fork commits. T1-T5. optimization-
