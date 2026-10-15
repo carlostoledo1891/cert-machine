@@ -1,0 +1,616 @@
+{
+ "what": "every entry of paper/tex/cert-machine-method.bib resolved at its source (Crossref / DataCite / the arXiv API / a fetch); the offline check refuses an entry without an ok row whose title matched",
+ "verified": "2026-10-15",
+ "entries": {
+  "Abramowitz64": {
+   "kind": "url",
+   "id": "https://personal.math.ubc.ca/~cbm/aands/",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://personal.math.ubc.ca/~cbm/aands/",
+   "resolvedTitle": "Abramowitz and Stegun: Handbook of Mathematical Functions",
+   "titleMatch": true,
+   "bibTitle": "Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables"
+  },
+  "Bastounis26": {
+   "kind": "arxiv",
+   "id": "2610.08144",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Navier-Stokes lost in translation: Why Lean verification of AI autoformalisation does not guarantee correct natural language proofs",
+   "titleMatch": true,
+   "bibTitle": "{Navier--Stokes} lost in translation: why {Lean} verification of {AI} autoformalisation does not guarantee correct natural language proofs"
+  },
+  "CertEval": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/certified-evaluation.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/certified-evaluation.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "Certificate-grounded evaluation: when the answer key is a proof"
+  },
+  "Cobbe21": {
+   "kind": "arxiv",
+   "id": "2110.14168",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Training Verifiers to Solve Math Word Problems",
+   "titleMatch": true,
+   "bibTitle": "Training verifiers to solve math word problems"
+  },
+  "CohnTable": {
+   "kind": "url",
+   "id": "https://cohn.mit.edu/kissing-numbers",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://cohn.mit.edu/kissing-numbers/",
+   "resolvedTitle": "Kissing numbers &#8211; Henry Cohn",
+   "titleMatch": true,
+   "bibTitle": "Kissing numbers"
+  },
+  "Comparator": {
+   "kind": "url",
+   "id": "https://github.com/leanprover/comparator",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/leanprover/comparator",
+   "resolvedTitle": "GitHub - leanprover/comparator · GitHub",
+   "titleMatch": true,
+   "bibTitle": "{Comparator}"
+  },
+  "ConwaySloane99": {
+   "kind": "doi",
+   "id": "10.1007/978-1-4757-6568-7",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Sphere Packings, Lattices and Groups",
+   "titleMatch": true,
+   "year": 1999,
+   "bibTitle": "Sphere Packings, Lattices and Groups"
+  },
+  "CoreMath22": {
+   "kind": "doi",
+   "id": "10.1109/ARITH54963.2022.00014",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "The CORE-MATH Project",
+   "titleMatch": true,
+   "year": 2022,
+   "bibTitle": "The {CORE-MATH} project"
+  },
+  "Dekker71": {
+   "kind": "doi",
+   "id": "10.1007/BF01397083",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A floating-point technique for extending the available precision",
+   "titleMatch": true,
+   "year": 1971,
+   "bibTitle": "A floating-point technique for extending the available precision"
+  },
+  "Delta3": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/delta3.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/delta3.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "The twelve-block colouring is optimal: $\\delta_3 = 117/2192$ --- a computer-assisted proof, its certificates re-decided by two programs that share no code"
+  },
+  "FormalConjectures": {
+   "kind": "url",
+   "id": "https://github.com/google-deepmind/formal-conjectures",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/google-deepmind/formal-conjectures",
+   "resolvedTitle": "GitHub - google-deepmind/formal-conjectures: A collection of formalized statements of conjectures in Lean. · GitHub",
+   "titleMatch": true,
+   "bibTitle": "Formal conjectures: a collection of formalized conjectures in {Lean}"
+  },
+  "Fefferman00": {
+   "kind": "url",
+   "id": "https://www.claymath.org/millennium/navier-stokes-equation/",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://www.claymath.org/millennium/navier-stokes-equation/",
+   "resolvedTitle": "Navier-Stokes Equation - Clay Mathematics Institute",
+   "titleMatch": true,
+   "bibTitle": "Existence and smoothness of the {Navier--Stokes} equation"
+  },
+  "Fortune96": {
+   "kind": "doi",
+   "id": "10.1145/231731.231735",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Static analysis yields efficient exact integer arithmetic for computational geometry",
+   "titleMatch": true,
+   "year": 1996,
+   "bibTitle": "Static analysis yields efficient exact integer arithmetic for computational geometry"
+  },
+  "Goldberg91": {
+   "kind": "doi",
+   "id": "10.1145/103162.103163",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "What every computer scientist should know about floating-point arithmetic",
+   "titleMatch": true,
+   "year": 1991,
+   "bibTitle": "What every computer scientist should know about floating-point arithmetic"
+  },
+  "Hales17": {
+   "kind": "doi",
+   "id": "10.1017/fmp.2017.1",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A FORMAL PROOF OF THE KEPLER CONJECTURE",
+   "titleMatch": true,
+   "year": 2017,
+   "bibTitle": "A formal proof of the {Kepler} conjecture"
+  },
+  "Hendrycks21": {
+   "kind": "arxiv",
+   "id": "2103.03874",
+   "ok": true,
+   "source": "arxiv abs page",
+   "status": 200,
+   "resolvedTitle": "Measuring Mathematical Problem Solving With the MATH Dataset",
+   "titleMatch": true,
+   "bibTitle": "Measuring mathematical problem solving with the {MATH} dataset"
+  },
+  "Higham02": {
+   "kind": "doi",
+   "id": "10.1137/1.9780898718027",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Accuracy and Stability of Numerical Algorithms",
+   "titleMatch": true,
+   "year": 2002,
+   "bibTitle": "Accuracy and Stability of Numerical Algorithms"
+  },
+  "IEEE754": {
+   "kind": "doi",
+   "id": "10.1109/IEEESTD.2019.8766229",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "IEEE Standard for Floating-Point Arithmetic",
+   "titleMatch": true,
+   "year": null,
+   "bibTitle": "{IEEE} standard for floating-point arithmetic"
+  },
+  "IEEE1788": {
+   "kind": "doi",
+   "id": "10.1109/IEEESTD.2018.8277144",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "IEEE Standard for Interval Arithmetic (Simplified)",
+   "titleMatch": true,
+   "year": null,
+   "bibTitle": "{IEEE} standard for interval arithmetic (simplified)"
+  },
+  "Immler18": {
+   "kind": "doi",
+   "id": "10.1007/s10817-017-9448-y",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A Verified ODE Solver and the Lorenz Attractor",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "A verified {ODE} solver and the {Lorenz} attractor"
+  },
+  "Johansson17": {
+   "kind": "doi",
+   "id": "10.1109/TC.2017.2690633",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Arb: Efficient Arbitrary-Precision Midpoint-Radius Interval Arithmetic",
+   "titleMatch": true,
+   "year": 2017,
+   "bibTitle": "{Arb}: efficient arbitrary-precision midpoint-radius interval arithmetic"
+  },
+  "Kapela21": {
+   "kind": "doi",
+   "id": "10.1016/j.cnsns.2020.105578",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "CAPD::DynSys: A flexible C++ toolbox for rigorous numerical analysis of dynamical systems",
+   "titleMatch": true,
+   "year": 2021,
+   "bibTitle": "{CAPD::DynSys}: a flexible {C++} toolbox for rigorous numerical analysis of dynamical systems"
+  },
+  "Krawczyk69": {
+   "kind": "doi",
+   "id": "10.1007/BF02234767",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Newton-Algorithmen zur Bestimmung von Nullstellen mit Fehlerschranken",
+   "titleMatch": true,
+   "year": 1969,
+   "bibTitle": "{Newton}-{Algorithmen} zur {Bestimmung} von {Nullstellen} mit {Fehlerschranken}"
+  },
+  "Lambda4": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.22225861",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "The value of lambda(4): a machine-derived proof completing Mercer's Section-5 program (Chowla's cosine problem, finite front)",
+   "titleMatch": true,
+   "year": 2026,
+   "bibTitle": "The value of $\\lambda(4)$: a machine-derived proof completing {Mercer}'s {Section-5} program"
+  },
+  "Lambda4Audit": {
+   "kind": "url",
+   "id": "https://github.com/rainrzk/erdos510-lambda4-audit",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/rainrzk/erdos510-lambda4-audit",
+   "resolvedTitle": "GitHub - rainrzk/erdos510-lambda4-audit: Independent audit of the λ(4) proof for Erdős Problem #510 (teorth/erdosproblems#392). · GitHub",
+   "titleMatch": true,
+   "bibTitle": "erdos510-lambda4-audit: an independent re-certification of the $\\lambda(4)$ argument with no shared code"
+  },
+  "Lean4": {
+   "kind": "doi",
+   "id": "10.1007/978-3-030-79876-5_37",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "The Lean 4 Theorem Prover and Programming Language",
+   "titleMatch": true,
+   "year": 2021,
+   "bibTitle": "The {Lean} 4 theorem prover and programming language"
+  },
+  "LMEval": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.10256836",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "EleutherAI/lm-evaluation-harness: Major refactor",
+   "titleMatch": true,
+   "year": 2023,
+   "bibTitle": "{EleutherAI}/lm-evaluation-harness: major refactor"
+  },
+  "MartinDorel16": {
+   "kind": "doi",
+   "id": "10.1007/s10817-015-9350-4",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Proving Tight Bounds on Univariate Expressions with Elementary Functions in Coq",
+   "titleMatch": true,
+   "year": 2015,
+   "bibTitle": "Proving tight bounds on univariate expressions with elementary functions in {Coq}"
+  },
+  "Mathlib20": {
+   "kind": "doi",
+   "id": "10.1145/3372885.3373824",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "The lean mathematical library",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "The {Lean} mathematical library"
+  },
+  "MathVerify": {
+   "kind": "url",
+   "id": "https://github.com/huggingface/Math-Verify",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/huggingface/Math-Verify",
+   "resolvedTitle": "GitHub - huggingface/Math-Verify · GitHub",
+   "titleMatch": true,
+   "bibTitle": "{Math-Verify}: a mathematical expression evaluation system for {LLM} benchmarks"
+  },
+  "MethodsNote": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/reports/methods-note.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/reports/methods-note.html",
+   "resolvedTitle": "How the bugs were found · cert-machine",
+   "titleMatch": true,
+   "bibTitle": "How the bugs were found: the methods note"
+  },
+  "Moore09": {
+   "kind": "doi",
+   "id": "10.1137/1.9780898717716",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Introduction to Interval Analysis",
+   "titleMatch": true,
+   "year": 2009,
+   "bibTitle": "Introduction to Interval Analysis"
+  },
+  "Nanoda": {
+   "kind": "url",
+   "id": "https://github.com/ammkrn/nanoda_lib",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/ammkrn/nanoda_lib",
+   "resolvedTitle": "GitHub - ammkrn/nanoda_lib: Library implementing type inference/checking functionality based on the Lean theorem prover · GitHub",
+   "titleMatch": true,
+   "bibTitle": "nanoda\\_lib: a type checker for {Lean} 4 export files"
+  },
+  "Neumaier90": {
+   "kind": "doi",
+   "id": "10.1017/CBO9780511526473",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Interval Methods for Systems of Equations",
+   "titleMatch": true,
+   "year": 1991,
+   "bibTitle": "Interval Methods for Systems of Equations"
+  },
+  "Novikov25": {
+   "kind": "arxiv",
+   "id": "2506.13131",
+   "ok": true,
+   "source": "arxiv abs page",
+   "status": 200,
+   "resolvedTitle": "AlphaEvolve: A coding agent for scientific and algorithmic discovery",
+   "titleMatch": true,
+   "bibTitle": "{AlphaEvolve}: a coding agent for scientific and algorithmic discovery"
+  },
+  "NSAudit": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/reports/navier-stokes.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/reports/navier-stokes.html",
+   "resolvedTitle": "The Navier–Stokes claim, read to the last hypothesis",
+   "titleMatch": true,
+   "bibTitle": "An audit of the 2026 {Navier--Stokes} finite-time blowup claim: the formal statement read against {Clay}'s wording and {Mathlib}'s definitions, the {Lean} proof built and its axioms asked of the kernel"
+  },
+  "OberkampfRoy10": {
+   "kind": "doi",
+   "id": "10.1017/CBO9780511760396",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Verification and Validation in Scientific Computing",
+   "titleMatch": true,
+   "year": 2010,
+   "bibTitle": "Verification and Validation in Scientific Computing"
+  },
+  "Ogita05": {
+   "kind": "doi",
+   "id": "10.1137/030601818",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Accurate Sum and Dot Product",
+   "titleMatch": true,
+   "year": 2005,
+   "bibTitle": "Accurate sum and dot product"
+  },
+  "OpenAIMath": {
+   "kind": "url",
+   "id": "https://github.com/openai/math",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/openai/math",
+   "resolvedTitle": "GitHub - openai/math · GitHub",
+   "titleMatch": true,
+   "bibTitle": "math: manuscripts and {Lean} challenges"
+  },
+  "OpenAIMathAudit": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/reports/openai-math.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/reports/openai-math.html",
+   "resolvedTitle": "OpenAI&#39;s math release: the gaps · cert-machine",
+   "titleMatch": true,
+   "bibTitle": "{OpenAI}'s math release: what it claims beyond what it checks"
+  },
+  "OpenAINS": {
+   "kind": "url",
+   "id": "https://github.com/openai/NavierStokesAndEuler",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/openai/NavierStokesAndEuler",
+   "resolvedTitle": "GitHub - openai/NavierStokesAndEuler: Lean certificates accompanying Navier-Stokes and Euler results · GitHub",
+   "titleMatch": true,
+   "bibTitle": "{NavierStokesAndEuler}"
+  },
+  "P1": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/p1-return-levels.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/p1-return-levels.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "Certified extreme-value analysis of significant wave height: maximum-likelihood fits and return levels over a public global hindcast, and environmental contours decided exactly"
+  },
+  "P2": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/p2-decision-procedure.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/p2-decision-procedure.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "A decision procedure for machine-proposed engineering numbers: three-valued verdicts over a declared uncertainty envelope, with witnesses and the threshold that decides"
+  },
+  "Parrilo03": {
+   "kind": "doi",
+   "id": "10.1007/s10107-003-0387-5",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Semidefinite programming relaxations for semialgebraic problems",
+   "titleMatch": true,
+   "year": 2003,
+   "bibTitle": "Semidefinite programming relaxations for semialgebraic problems"
+  },
+  "PeyrlParrilo08": {
+   "kind": "doi",
+   "id": "10.1016/j.tcs.2008.09.025",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Computing sum of squares decompositions with rational coefficients",
+   "titleMatch": true,
+   "year": 2008,
+   "bibTitle": "Computing sum of squares decompositions with rational coefficients"
+  },
+  "Positioning": {
+   "kind": "url",
+   "id": "https://github.com/carlostoledo1891/cert-machine",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/carlostoledo1891/cert-machine",
+   "resolvedTitle": "GitHub - carlostoledo1891/cert-machine: Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. · GitHub",
+   "titleMatch": true,
+   "bibTitle": "Positioning: the decisions"
+  },
+  "Prentice74": {
+   "kind": "doi",
+   "id": "10.1093/biomet/61.3.539",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A log gamma model and its maximum likelihood estimation",
+   "titleMatch": true,
+   "year": 1974,
+   "bibTitle": "A log gamma model and its maximum likelihood estimation"
+  },
+  "QiushiRelease": {
+   "kind": "url",
+   "id": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research",
+   "resolvedTitle": "GitHub - Oxelra-AI/Qiushi-Engine-Kissing-Number-Research: Qiushi Engine autonomous mathematical research: new kissing-number lower bounds in 19 dimensions, with proofs, exact constructions and reproducible verification. Preprint: arXiv:2609.35051. · GitHub",
+   "titleMatch": true,
+   "bibTitle": "{Qiushi-Engine-Kissing-Number-Research}: the complete point sets"
+  },
+  "Raayoni21": {
+   "kind": "doi",
+   "id": "10.1038/s41586-021-03229-4",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Generating conjectures on fundamental constants with the Ramanujan Machine",
+   "titleMatch": true,
+   "year": 2021,
+   "bibTitle": "Generating conjectures on fundamental constants with the {Ramanujan} {Machine}"
+  },
+  "Register": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/register.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/register.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "Independent exact certification of machine-generated mathematics: the first register"
+  },
+  "RevolRouillier05": {
+   "kind": "doi",
+   "id": "10.1007/s11155-005-6891-y",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Motivations for an Arbitrary Precision Interval Arithmetic and the MPFI Library",
+   "titleMatch": true,
+   "year": 2005,
+   "bibTitle": "Motivations for an arbitrary precision interval arithmetic and the {MPFI} library"
+  },
+  "RomeraParedes24": {
+   "kind": "doi",
+   "id": "10.1038/s41586-023-06924-6",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Mathematical discoveries from program search with large language models",
+   "titleMatch": true,
+   "year": 2023,
+   "bibTitle": "Mathematical discoveries from program search with large language models"
+  },
+  "Rump99": {
+   "kind": "doi",
+   "id": "10.1007/978-94-017-1247-7_7",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "INTLAB — INTerval LABoratory",
+   "titleMatch": true,
+   "year": 1999,
+   "bibTitle": "{INTLAB} --- {INTerval} {LABoratory}"
+  },
+  "Rump10": {
+   "kind": "doi",
+   "id": "10.1017/S096249291000005X",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Verification methods: Rigorous results using floating-point arithmetic",
+   "titleMatch": true,
+   "year": 2010,
+   "bibTitle": "Verification methods: rigorous results using floating-point arithmetic"
+  },
+  "Shewchuk97": {
+   "kind": "doi",
+   "id": "10.1007/PL00009321",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Adaptive Precision Floating-Point Arithmetic and Fast Robust Geometric Predicates",
+   "titleMatch": true,
+   "year": 1997,
+   "bibTitle": "Adaptive precision floating-point arithmetic and fast robust geometric predicates"
+  },
+  "SolovyevHales13": {
+   "kind": "doi",
+   "id": "10.1007/978-3-642-38088-4_26",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Formal Verification of Nonlinear Inequalities with Taylor Interval Approximations",
+   "titleMatch": true,
+   "year": 2013,
+   "bibTitle": "Formal verification of nonlinear inequalities with {Taylor} interval approximations"
+  },
+  "Tucker02": {
+   "kind": "doi",
+   "id": "10.1007/s002080010018",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A Rigorous ODE Solver and Smale’s 14th Problem",
+   "titleMatch": true,
+   "year": 2002,
+   "bibTitle": "A rigorous {ODE} solver and {Smale}'s 14th problem"
+  },
+  "Yang26": {
+   "kind": "arxiv",
+   "id": "2609.35051",
+   "ok": true,
+   "source": "arxiv abs page",
+   "status": 200,
+   "resolvedTitle": "Large-Scale Autonomous Discovery of Kissing Number Constructions",
+   "titleMatch": true,
+   "bibTitle": "Large-scale autonomous discovery of kissing number constructions"
+  },
+  "Yap97": {
+   "kind": "doi",
+   "id": "10.1016/0925-7721(95)00040-2",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Towards exact geometric computation",
+   "titleMatch": true,
+   "year": 1997,
+   "bibTitle": "Towards exact geometric computation"
+  }
+ }
+}

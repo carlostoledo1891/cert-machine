@@ -121,6 +121,7 @@ def('MtKwDims', '25, 27, 32--39, 43, 45 and 49--55');
 def('MtKwPairs', int(kwPairs));
 def('MtKwPairsSci', (kwPairs / 1e15).toFixed(2) + ' \\times 10^{15}');
 def('MtKwContacts', int(kwContacts));
+def('MtKwContactsSci', (kwContacts / 1e12).toFixed(2) + ' \\times 10^{12}');
 def('MtKwDeskRows', String(kwDesk.length));
 def('MtKwGpuRows', String(kwGpu.length));
 def('MtKwGpuPairs', int(kwGpu.reduce((s, r) => s + r.engine.pairs, 0)));
@@ -168,7 +169,7 @@ def('MtGrForgeriesPlanted', String(ENV.forgeries.planted !== undefined ? ENV.for
 def('MtGrForgeriesLeaked', String(ENV.forgeries.leaked !== undefined ? ENV.forgeries.leaked : 0));
 def('MtGrLedgerRows', int(ENV.ledgerRows));
 def('MtGrLedgerModels', String(Array.isArray(ENV.ledgerModels) ? ENV.ledgerModels.length : String(ENV.ledgerModels).split(',').filter(Boolean).length));   // the record lists the models by name
-def('MtGrTableRows', ENV.graders.map((q) => esc(q.name.replace(/\s*<-.*$/, '')) + ' & ' + pct(q.falseAccept) + ' & ' + pct(q.falseReject)).join(' \\\\\n'));
+def('MtGrTableRows', ENV.graders.map((q) => esc(q.name.replace(/\s*<-.*$/, '').split(' (')[0]) + ' & ' + esc('(' + q.name.replace(/\s*<-.*$/, '').split(' (').slice(1).join(' (')) + ' & ' + pct(q.falseAccept) + ' & ' + pct(q.falseReject)).join(' \\\\\n'));
 
 const OR = J('corpus/openai-math/release.json'), OK = J('certs/openai-math-kernel.json'), OS = J('certs/openai-math-statements.json');
 const OF = J('certs/openai-math-finite.json'), OG = J('corpus/openai-math/findings.json');
