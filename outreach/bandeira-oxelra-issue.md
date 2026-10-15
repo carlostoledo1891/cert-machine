@@ -1,4 +1,6 @@
-# New issue on Oxelra-AI/Bandeira-0.2a-open-source — DRAFT 2026-10-15, NOT SENT
+# New issue on Oxelra-AI/Bandeira-0.2a-open-source — POSTED 2026-10-15 ~05:00 UTC on the operator's "after push live send create the github issue. All approved."
+
+https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1 (issue #1; the paste block below, verbatim). Pre-send checks all passed at posting: page live with the five rows, repository at c4137344 with no issue, the Lean "still building" sentence kept.
 
 Opens a new issue (the repository has issues enabled and none open; pinned commit c4137344). Every number is a field of
 certs/bandeira-ledger.json — re-run `python3 -I tools/run-bandeira-ledger.py` and re-read the page before posting. Post

@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANE B — THE BANDEIRA 0.2(a) AUDIT (2026-10-15; outreach/bandeira-oxelra-issue.md) — DRAFTED, NOT SENT
+## LANE B — THE BANDEIRA 0.2(a) AUDIT (2026-10-15; outreach/bandeira-oxelra-issue.md) — B1 POSTED 2026-10-15 ~05:00 UTC on the operator's word: https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1; watch the thread; the Lean build record is the follow-up
 B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none open; pinned commit c4137344): the finite core
     re-decided with our own certificate (CERTIFIED), the two gaps named (their certificate decides the no-transpose SDP; their
     Lean checks the certificate's arithmetic, not an SDP's infeasibility), two questions, the offer of our certificate. Gate: the

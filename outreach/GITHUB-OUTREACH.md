@@ -320,7 +320,7 @@ Also:
 - Profile READMEs of seewoo5, pitmonticone, Agnuxo1, codelion
 - app.primeintellect.ai/dashboard/environments/carlos-toledo/{break-the-grader, blind-spot, lattice-claims} (200)
 
-## §B Bandeira 0.2(a) — the Qiushi Engine's disproof, audited 2026-10-15 (nothing sent)
+## §B Bandeira 0.2(a) — the Qiushi Engine's disproof, audited 2026-10-15 — ISSUE #1 POSTED 2026-10-15 ~05:00 UTC (https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1)
 
 Venue: Oxelra-AI/Bandeira-0.2a-open-source (MIT, 2026-06, commit c4137344; issues enabled, none open; no discussions).
 Record: certs/bandeira-ledger.json (five rows, all CERTIFIED with their scopes); page reports/bandeira.html; the audit

@@ -48,8 +48,10 @@ Bandeira's Open Problem"; "when finished, draft a comment to the github reposito
      (expect propext/Classical.choice/Quot.sound, plus Lean.ofReduceBool only where native_decide is on the path); write
      corpus/bandeira/lean-build.json {status, built, oleans, axioms, seconds, log tail}; re-run the ledger and `make reports
      control`; the page's §4 build paragraph then says what came back. If the build dies, record that (REFUSED: resources).
-  THE DRAFT: outreach/bandeira-oxelra-issue.md — a NEW ISSUE on Oxelra-AI/Bandeira-0.2a-open-source (SEND-QUEUE lane B,
-     GITHUB-OUTREACH §B), NOT SENT; its pre-send checks listed in the file; the operator's word.
+  THE ISSUE: POSTED 2026-10-15 ~05:00 UTC on the operator's word ("after push live send create the github issue. All approved"):
+     https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1 (outreach/bandeira-oxelra-issue.md, SEND-QUEUE lane B, GITHUB-OUTREACH §B).
+     Pre-send checks passed (page live, five rows, repository at c4137344, no issue). WATCH THE THREAD; when the Lean build
+     ends, the kernel's axiom list goes on the page first and then, if they answer, in the thread.
   NEXT (menu): the Lean record above; the operator's send; later Qiushi targets from oxelra.com/en/results/applications
      (phase-retrieval 19(a) Lean read; the matmul 21 audit) — the operator chose Bandeira first.
 
