@@ -108,6 +108,8 @@ Our own repo has 7 releases (lambda4-v1.0 … v2026.10), 0 issues, 0 stars and 0
 
 ---
 
+- WOWII PRs (#7310/#7320/#7321/#7322/#7337) — author's commits after our 10-15 comments, read 2026-10-16: (12:26 UTC) docstrings link the source archive directly instead of the intake issue; (12:38) the retired answer macro replaced (repo-wide refactor by mo271); (15:20) #7320 adds a docstring paragraph answering our unique-mode note (the certificate's graph has two tied modes, 6 and 7, so the convention does not bear on it) and #7337 one answering our Nonempty note (framed as a domain restriction; the 15-vertex certificate has a nonempty remainder, so the archive's bound falls on that domain). Both consistent with certs/wowii-ledger.json; Lean statements unchanged; no reply addressed to us; nothing to send. Three PRs still carry bocowgill's 10-14/15 approvals; none merged.
+
 ## §2 Candidate sends, ranked (none sent)
 
 Every row was checked against §1 for duplicates; R1–R5, M4 and P2 of SEND-QUEUE are done and not repeated. The "re-derive" command is run from a clone.
