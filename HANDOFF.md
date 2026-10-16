@@ -38,10 +38,16 @@ shelf card, certs-shelf row; `make reports` runs both). RESULT: 99.17% REPRODUCE
      2023-12-26 (ledger adoption window). The 887 OFF cluster on quotation days whose next business day is a São Paulo
      holiday B3 observed (25 Jan, 9 Jul, 20 Nov) or 24/31 Dec: the settlement calendar is B3's, which is not pinned — named
      as the phase-B hypothesis, left OFF. Prior art (tesouroemfoco) had 99.71% with 922 unexplained failures and no method.
-  PHASE B (next, on the go): pin B3's historical trading calendar (settlement), decide NTN-B/LFT (VNA, pro-rata projection →
-     NEEDS DATA), ANBIMA's 6-dp prices once republication terms are settled, the daily Actions feed (the Janela pattern), the
-     browser instrument (a rate + a date → the exact PU with its enclosure), and a note to the Treasury's data team about the
-     dated-calendar effect (a SEND — operator's).
+  PHASE B STARTED (operator: "Start Phase B on PU"; pre-registered as preregistration.json `phaseB`): B4 the daily feed —
+     tools/pu-feed.js (admits the published CSV only if every pinned row is present byte for byte and new rows carry later
+     dates; a restatement is REFUSED and logged in corpus/pu/feed-log.json; the pin chain kept in PINS.json history; four red
+     controls in the battery, now 14 checks / 10 red), tools/pu-push.sh (allowlist of feed paths), .github/workflows/pu-feed.yml
+     (hourly gate on the CSV's Last-Modified vs the pinned one; a hand dispatch always runs; re-decides whole, rebuilds the
+     page, pushes the feed paths alone) — NOT YET DISPATCHED: run it once by hand and read the log before trusting the cron.
+     B5 the instrument — /instruments/pu (playground/pu): decide.js inlined byte for byte (shebang dropped, sha printed), the
+     pinned calendar, a rate + settlement + maturity → PU with enclosure and every step; pasted CSV rows decided to the
+     ledger's conventions; a toggle for the calendar as of the quotation. B1 (B3's settlement calendar) and B2/B3 (LFT, NTN-B)
+     wait on the data scout (sources, licences, what is not public); the Treasury note is a SEND (operator's).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (afternoon), THE FINANCE LANE — scouted, nothing built (operator: "explore financial companies on the job

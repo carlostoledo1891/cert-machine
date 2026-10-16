@@ -18,8 +18,7 @@
    usage: node instruments/pu/decide.js            run the methodology's worked examples (the calibration)
           require(...).decideLTN / decideNTNF / calendar                                                   */
 'use strict';
-const fs = require('fs');
-const path = require('path');
+/* no Node requires at module level: the same bytes run in the browser (playground/pu) */
 
 const P = 48n;                      /* fixed-point digits */
 const S = 10n ** P;                 /* the scale */
@@ -201,10 +200,13 @@ function fxMargin(m) { return [fx(m[0], 15), fx(m[1], 15)]; }
 const trunc2 = (pu6) => pu6 / 10000n;
 const round2 = (pu6) => (pu6 + 5000n) / 10000n;
 
-module.exports = { calendar, decideLTN, decideNTNF, factor, lnOnePlus, expInterval, truncDecision, roundDecision, coupon, couponDates, dec, trunc2, round2, ratePercentToRational, P, S };
+const PU_API = { calendar, decideLTN, decideNTNF, factor, lnOnePlus, expInterval, truncDecision, roundDecision, coupon, couponDates, dec, trunc2, round2, ratePercentToRational, P, S };
+if (typeof module !== 'undefined' && module.exports) module.exports = PU_API;
+else if (typeof globalThis !== 'undefined') globalThis.PU = PU_API;
 
 /* ---- the calibration: the methodology's own worked examples ---------------------------------------- */
-if (require.main === module) {
+if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main === module) {
+  const fs = require('fs'), path = require('path');
   const ROOT = path.resolve(__dirname, '..', '..');
   const cal = calendar(JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'pu', 'holidays.json'), 'utf8')));
   const ltn = decideLTN('14,3600', '2008-05-21', '2010-07-01', cal);

@@ -42,6 +42,7 @@ const EC = require(path.join(HERE, 'contours', 'build.js'));
 const SR = require(path.join(HERE, 'stereo-reach', 'build.js'));
 const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
 const RLC = require(path.join(HERE, 'return-level-check', 'build.js'));
+const PUI = require(path.join(HERE, 'pu', 'build.js'));
 const RLA = require(path.join(HERE, 'return-level-atlas', 'build.js'));
 const RLA_CELLS = RLA.exists() ? JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'hseva-atlas.json'), 'utf8')).cells.length : 0;
 /* the affect card's numbers, read out of the record rather than typed. A card
@@ -115,7 +116,7 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js' };
+const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js', pu: 'instruments/pu/battery.js' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
@@ -134,6 +135,7 @@ const MANIFEST = [
   { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
   { id: 'stereo-reach', title: 'How far can two cameras bound a wave?', blurb: 'The error budget of a stereo-video wave rig as enclosures \u2014 the pixel cell, the lag, the slope \u2014 computed in interval arithmetic in your tab; dial the rig and read the range at which the bound first exceeds a tolerance. Two published low-cost rigs re-read: at Caparica the area-minus-point Hs excess is inside the rig\u2019s own cell.', backing: 'exact', art: () => SR.cardArt(), scale: `${(SR.facts.bestAtGauge * 100).toFixed(1)}\u2013${(SR.facts.worstAtGauge * 100).toFixed(0)} cm at ${SR.facts.gauge} m` },
   ...(RLA_CELLS ? [{ id: 'return-level-atlas', title: 'Every cell a certificate.', blurb: 'The paper\u2019s global map of which family fits significant wave height best, with every cell of its own hindcast certified: the choice DECIDED or REFUSED, the paper\u2019s regional claims decided as boxes, a seventh family beside the six, the sampling width drawn apart as statistical, and any cell certified again in your tab from the pinned data.', backing: 'exact', art: () => RLA.cardArt(), scale: RLA_CELLS.toLocaleString('en-US') + ' cells' }] : []),
+  { id: 'pu', title: 'Price the bond the Treasury\u2019s way, to the last truncation.', blurb: 'A rate, a settlement date and a maturity give a Tesouro Direto LTN or NTN-F price under the Treasury\u2019s own rule table, in your tab: the one irrational step as an enclosure, every truncation a decision. Paste rows of the published file and each is decided to the ledger\u2019s verdict.', backing: 'exact', art: () => PUI.cardArt(), scale: 'rate T-6 \u00b7 exponent T-14 \u00b7 price T-6' },
   { id: 'return-level-check', title: 'Certify a return level. Your file never leaves this page.', blurb: 'Bring a wave-height record: six families fitted and certified in your tab \u2014 each a box proved to hold one maximum of the likelihood, or a refusal \u2014 four criteria and the 100- and 1000-year levels as enclosures, and a certificate that carries your file\u2019s digest, never the data. Then decide a fit someone printed.', backing: 'exact', art: () => RLC.cardArt(), scale: 'six families \u00b7 four criteria' },
   { id: 'contours', title: 'Every hour of sea, against every contour.', blurb: 'Nine groups\u2019 environmental contours over the hourly sea states they were scored on, every count re-decided exactly, and any sea state you click decided inside, outside or on \u2014 by the code that decided the ledger.', backing: 'exact', art: () => EC.cardArt(), scale: `${EC.facts.exact} of ${EC.facts.comparisons} printed counts exact` },
   { id: 'census', title: 'Unique totals, and the split nobody can see.', blurb: 'Two populations on one network: the equilibrium fixes the totals and not the split. The face of splits it cannot tell apart, its dimension decided in your tab.', backing: 'exact', art: () => CE.cardArt(), scale: `k = ${CE.facts.paper.face.k}` },
@@ -360,7 +362,18 @@ const body = `
     </div>
   </a>
 
-  ` : ''}<a class="card" href="return-level-check/index.html">
+  ` : ''}<a class="card" href="pu/index.html">
+    <figure class="card-art">
+      ${plate(PUI.cardArt(), 'rate T-6 &middot; exponent T-14 &middot; price T-6')}
+    </figure>
+    <div class="card-body">
+      <h2>Price the bond the Treasury&rsquo;s way, to the last truncation.</h2>
+      <p class="sub">Tesouro Direto publishes a price for every bond every day and the Treasury publishes the formula, down to which step is truncated at how many decimals. This page runs that formula exactly in your tab &mdash; a rate, a settlement date, a maturity &mdash; and shows the enclosure of the one step that is irrational and every truncation as a decision. Paste rows of the published file and each gets the verdict the report gives it: reproduced, off by so many centavos, or refused.</p>
+      <span class="go">price a bond <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
+
+  <a class="card" href="return-level-check/index.html">
     <figure class="card-art">
       ${plate(RLC.cardArt(), 'six families &middot; four criteria &middot; your file')}
     </figure>
@@ -480,6 +493,7 @@ const ec = EC.build(OUT);
 const sr = SR.build(OUT);
 const ns = NS.build(OUT);
 const rlc = RLC.build(OUT);
+const pui = PUI.build(OUT);
 const rla = RLA.build(OUT);
 
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
@@ -504,6 +518,7 @@ console.log(`site/instruments/transit/           ${(tr.bytes / 1024).toFixed(0)}
 console.log(`site/instruments/stereo-reach/      ${(sr.bytes / 1024).toFixed(0)} KB  ·  Leme 2020 cell at the gauge ${(sr.bestAtGauge * 100).toFixed(1)} cm best, ${(sr.worstAtGauge * 100).toFixed(0)} cm worst corner`);
 console.log(`site/instruments/contours/          ${(ec.bytes / 1024).toFixed(0)} KB  ·  ${ec.contours} contours, ${ec.exact}/${ec.comparisons} printed counts exact, ${ec.notSimple} not simple, ${ec.clipped} hours clipped to the drawing's edge`);
 if (rla) console.log(`site/instruments/return-level-atlas/ ${(rla.bytes / 1024).toFixed(0)} KB + ${(rla.data / 1024).toFixed(0)} KB data  ·  ${rla.sea} cells certified, ${rla.ice} sea-ice cells shown, ${rla.claims.length} claims (${rla.claims.map((q) => q.split(':')[1]).join(', ')}), cells served ${rla.served ? 'from ' + rla.served : 'not yet'}`);
+console.log(`site/instruments/pu/                 ${(pui.bytes / 1024).toFixed(0)} KB  ·  decide.js inlined (sha256 ${pui.decideSha256.slice(0, 12)}…), the pinned ANBIMA calendar`);
 console.log(`site/instruments/return-level-check/ ${(rlc.bytes / 1024).toFixed(0)} KB  ·  ${rlc.modules} modules inlined byte for byte, preset ${rlc.preset ? 'the Campos Basin hindcast' : 'absent (corpus/ww3-points incomplete)'}`);
 console.log(`site/instruments/census/            ${(ce.bytes / 1024).toFixed(0)} KB  ·  k = ${ce.k} on the published network, ${ce.tested} networks in the census, ${ce.failures} fool the shortcut`);
 console.log(`@ git ${git}`);

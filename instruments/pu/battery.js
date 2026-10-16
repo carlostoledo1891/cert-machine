@@ -66,6 +66,14 @@ else {
   RED('reading the printed centavos as a rounding instead of a truncation would turn rows OFF (' + tOnly + ' rows reproduce under TRUNC-2 only)', tOnly > 0);
   ok('13 no NEEDS DATA row in phase A (fixed-rate titles need no projection)', (L.counts.byVerdict['NEEDS DATA'] || 0) === L.needsData.length);
 }
+/* the feed's growth rule (tools/pu-feed.js compare): a restatement, a backfill and a header change must each refuse; an append admits */
+{ const F = require(path.join(ROOT, 'tools', 'pu-feed.js'));
+  const oldT = 'Tipo Titulo;Data Vencimento;Data Base;Taxa Compra Manha;Taxa Venda Manha;PU Compra Manha;PU Venda Manha;PU Base Manha\nTesouro Prefixado;01/01/2027;15/10/2026;13,00;13,10;900,00;899,00;899,00\nTesouro Prefixado;01/01/2027;14/10/2026;13,00;13,10;900,10;899,10;899,10\n';
+  const app = F.compare(oldT, 'Tipo Titulo;Data Vencimento;Data Base;Taxa Compra Manha;Taxa Venda Manha;PU Compra Manha;PU Venda Manha;PU Base Manha\nTesouro Prefixado;01/01/2027;16/10/2026;13,00;13,10;900,20;899,20;899,20\n' + oldT.split('\n').slice(1).join('\n'));
+  ok('14 the feed admits a file that grew by one later day', app.ok && app.added.length === 1 && app.addedDates[0] === '2026-10-16');
+  RED('a restated pinned row refuses the feed', !F.compare(oldT, oldT.replace('900,00', '900,01')).ok);
+  RED('a row inserted before the pinned last day refuses the feed', !F.compare(oldT, oldT + 'Tesouro Prefixado;01/01/2027;13/10/2026;13,00;13,10;900,30;899,30;899,30\n').ok);
+  RED('a changed header refuses the feed', !F.compare(oldT, oldT.replace('PU Base Manha', 'PU Base')).ok); }
 /* the second decider disagreeing is caught: the comparison the runner makes, on a tampered answer */
 { const mine = D.dec(ltn.pu6, 6), theirs = '753.315324'; RED('a one-digit disagreement between the deciders is a disagreement', mine !== theirs); }
 

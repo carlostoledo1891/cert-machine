@@ -1,0 +1,76 @@
+# PU Verificado's daily feed: when Tesouro Direto rewrites its price history, admit the new day only if the
+# history GREW (tools/pu-feed.js: every pinned row still present byte for byte, new rows only after the pinned
+# last date — a restatement is refused and logged), re-pin, re-decide every price (tools/run-pu-ledger.js,
+# ~10 min on a runner), run the battery, rebuild the page, and push the feed paths alone (tools/pu-push.sh,
+# an allowlist). The publisher posts the file in the morning BRT; the schedule asks every hour behind a cheap
+# gate (a HEAD request against the pinned Last-Modified), because scheduled runs on this account fire late
+# (see janela-feed.yml). A hand dispatch always runs.
+name: pu-feed
+on:
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: pu-feed
+  cancel-in-progress: false
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      todo: ${{ steps.g.outputs.todo }}
+    steps:
+      - name: did the publisher rewrite the file since the pin?
+        id: g
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then echo "todo=true" >> "$GITHUB_OUTPUT"; echo "dispatched by hand: run"; exit 0; fi
+          lm=$(curl -sI -L --max-time 60 "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv" | grep -i '^last-modified:' | tail -1 | cut -d' ' -f2- | tr -d '\r')
+          pinned=$(gh api "repos/${GITHUB_REPOSITORY}/contents/corpus/pu/PINS.json?ref=main" --jq '.content' | base64 -d | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).files["precotaxatesourodireto.csv"].lastModified))')
+          echo "published: $lm · pinned: $pinned"
+          if [ -z "$lm" ]; then echo "todo=false" >> "$GITHUB_OUTPUT"; echo "no Last-Modified header: nothing to do"; exit 0; fi
+          if [ "$lm" = "$pinned" ]; then echo "todo=false" >> "$GITHUB_OUTPUT"; echo "unchanged: nothing to do"; else echo "todo=true" >> "$GITHUB_OUTPUT"; fi
+  feed:
+    needs: gate
+    if: needs.gate.outputs.todo == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: fetch the file and admit it only if the history grew
+        id: feed
+        run: |
+          set +e
+          node tools/pu-feed.js; code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "2" ]; then echo "nothing new"; exit 0; fi
+          if [ "$code" != "0" ]; then echo "refused — the log line is committed below, the pin stays"; fi
+      - name: decide every price against the new pin (both deciders; the battery)
+        if: steps.feed.outputs.code == '0'
+        run: |
+          node tools/run-pu-ledger.js
+          node instruments/pu/battery.js
+      - name: rebuild the page and the site
+        if: steps.feed.outputs.code == '0'
+        run: |
+          node tools/build-report-pu.js
+          node tools/build-site.js
+      - name: push the day (the feed paths only)
+        if: steps.feed.outputs.code == '0'
+        run: |
+          n=$(node -e 'const L=require("./certs/pu-ledger.json");const v=L.counts.byVerdict;console.log(L.scope.pairsDecided+" prices · "+(v.REPRODUCED||0)+" reproduced · "+(v.OFF||0)+" off · "+(v.REFUSED||0)+" refused · last day "+L.scope.lastDate)')
+          bash tools/pu-push.sh "PU feed $(date -u +%F): Tesouro Direto's history grew and was re-pinned; every fixed-rate price re-decided — $n"
+      - name: push the refusal log (a restated history is a finding, not a day)
+        if: steps.feed.outputs.code == '1'
+        run: bash tools/pu-push.sh "PU feed $(date -u +%F): REFUSED — the published file did not grow from the pin (see corpus/pu/feed-log.json); the pin stays"
