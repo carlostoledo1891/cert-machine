@@ -129,15 +129,26 @@ for (const r of rows) {
       }
     }
     const prim = out.hyp[PRIMARY[side]];
-    /* CONSISTENT (amendment 5, 2026-10-16): not reproduced under any hypothesis, but the printed centavos lie inside the
-       interval of prices the printed rate's own precision allows — rate ± half a unit of its last printed decimal — under
-       the primary hypothesis. The LFT's published rates (2 decimals, ágio/deságio) are roundings of the rate actually used. */
-    if (!matches.length && prim.decided) {
+    /* CONSISTENT (amendment 5, 2026-10-16; widened by amendment 6 the same night): not reproduced under any hypothesis, but
+       the printed centavos lie inside the interval of prices the printed rate's own precision allows — rate ± half a unit of
+       its last printed decimal — under one of the settlement hypotheses decided for the row. The primary is tried first and
+       every hypothesis that holds is recorded by its code (as REPRODUCED records its matches), so the census can say under
+       which settlement each CONSISTENT row sits. The LFT's published rates (2 decimals, ágio/deságio) are roundings of the
+       rate actually used; until September 2021 the sell side settled D+1, which the primary (D+0) alone never sees. */
+    if (!matches.length) {
       const dp = (taxa.split(/[,.]/)[1] || '').length; const unit = 5n * 10n ** BigInt(Math.max(0, 6 - dp - 1));   /* half a unit of the last decimal, at 10^-6 % */
       const [pn] = D.ratePercentToRational(taxa); const asPct = (x) => { const neg = x < 0n; const a = (neg ? -x : x).toString().padStart(7, '0'); return (neg ? '-' : '') + a.slice(0, -6) + ',' + a.slice(-6); };
-      const lo = decide(r.kind, asPct(pn - unit), settles[PRIMARY[side]], r.maturity, cal, r.date), hi = decide(r.kind, asPct(pn + unit), settles[PRIMARY[side]], r.maturity, cal, r.date);
-      if (lo.decided && hi.decided) { const a = lo.pu6 < hi.pu6 ? lo.pu6 : hi.pu6, b = lo.pu6 < hi.pu6 ? hi.pu6 : lo.pu6;
-        if (printed >= D.trunc2(a) && printed <= D.round2(b)) { out.consistent = { rateBox: [asPct(pn - unit), asPct(pn + unit)], puRange: [D.dec(a, 6), D.dec(b, 6)] }; } }
+      const keys = Object.keys(out.hyp).sort((a, b) => (a === PRIMARY[side] ? -1 : b === PRIMARY[side] ? 1 : 0));
+      for (const key of keys) {
+        const rec = out.hyp[key]; if (!rec.decided) continue;
+        const lo = decide(r.kind, asPct(pn - unit), rec.settle, r.maturity, CALS[rec.calendar], r.date), hi = decide(r.kind, asPct(pn + unit), rec.settle, r.maturity, CALS[rec.calendar], r.date);
+        if (!(lo.decided && hi.decided)) continue;
+        const a = lo.pu6 < hi.pu6 ? lo.pu6 : hi.pu6, b = lo.pu6 < hi.pu6 ? hi.pu6 : lo.pu6;
+        if (printed >= D.trunc2(a) && printed <= D.round2(b)) {
+          if (!out.consistent) out.consistent = { codes: [], under: key, rateBox: [asPct(pn - unit), asPct(pn + unit)], puRange: [D.dec(a, 6), D.dec(b, 6)] };
+          out.consistent.codes.push(key);
+        }
+      }
     }
     if (matches.length) { out.verdict = 'REPRODUCED'; out.codes = matches; }
     else if (out.consistent) { out.verdict = 'CONSISTENT'; }
@@ -225,9 +236,11 @@ const readings = {}; for (const x of results) if (x.codes) for (const c of x.cod
 const offRows = results.filter((x) => x.verdict === 'OFF').map((x) => ({ kind: x.row.kind, maturity: x.row.maturity, date: x.row.date, side: x.side, taxa: x.taxa, printed: D.dec(x.printed, 2),
   primary: PRIMARY[x.side], settle: x.hyp[PRIMARY[x.side]].settle, du: x.hyp[PRIMARY[x.side]].du, pu6: x.hyp[PRIMARY[x.side]].pu6, diffCents: x.diffCents, implied: x.implied,
   others: Object.fromEntries(Object.entries(x.hyp).filter(([h]) => h !== PRIMARY[x.side]).map(([h, v]) => [h, { settle: v.settle, pu6: v.pu6 || null }])) }));
-const consistentByKindYear = {}; let consistentSample = [];
+const consistentByKindYear = {}, consistentByCode = {}, consistentBySideYearUnder = {}; let consistentSample = [];
 for (const x of results) if (x.verdict === 'CONSISTENT') { const k = x.row.kind + '|' + x.row.date.slice(0, 4); consistentByKindYear[k] = (consistentByKindYear[k] || 0) + 1;
-  if (consistentSample.length < 40 && Math.random() < 0.02) consistentSample.push({ kind: x.row.kind, maturity: x.row.maturity, date: x.row.date, side: x.side, taxa: x.taxa, printed: D.dec(x.printed, 2), primaryPu6: x.hyp[PRIMARY[x.side]].pu6, rateBox: x.consistent.rateBox, puRange: x.consistent.puRange }); }
+  const code = x.consistent.codes.join('+'); consistentByCode[code] = (consistentByCode[code] || 0) + 1;
+  const u = x.row.kind + '|' + x.side + '|' + x.row.date.slice(0, 4); consistentBySideYearUnder[u] = consistentBySideYearUnder[u] || {}; consistentBySideYearUnder[u][x.consistent.under] = (consistentBySideYearUnder[u][x.consistent.under] || 0) + 1;
+  if (consistentSample.length < 40 && Math.random() < 0.02) consistentSample.push({ kind: x.row.kind, maturity: x.row.maturity, date: x.row.date, side: x.side, taxa: x.taxa, printed: D.dec(x.printed, 2), under: x.consistent.under, codes: x.consistent.codes, pu6: x.hyp[x.consistent.under].pu6, rateBox: x.consistent.rateBox, puRange: x.consistent.puRange }); }
 const refusedRows = results.filter((x) => x.verdict === 'REFUSED').map((x) => ({ kind: x.row.kind, maturity: x.row.maturity, date: x.row.date, side: x.side, taxa: x.taxa, printed: D.dec(x.printed, 2), straddle: x.hyp[PRIMARY[x.side]].refused }));
 const needsData = results.filter((x) => x.verdict === 'NEEDS DATA').map((x) => ({ kind: x.row.kind, maturity: x.row.maturity, date: x.row.date, side: x.side, why: x.why }));
 const needsDataByWhy = {}; for (const n of needsData) needsDataByWhy[n.why] = (needsDataByWhy[n.why] || 0) + 1;
@@ -244,7 +257,7 @@ const ledger = {
   counts: { byVerdict, readings, baseEqualsSell, offByYear, offByCents, needsDataByWhy },
   census, adoption, sellSwitch, impliedSettlements: impliedByDate,
   crossCheck: { sampled: sample.length, agree, offAndRefusedIncluded: Math.min(offs.length, 1500), python: 'instruments/pu/decide.py (decimal, 60 digits, directed rounding)', javascript: 'instruments/pu/decide.js (BigInt fixed point 10^-48)' },
-  offRows, refusedRows, needsData, consistent: { byKindYear: consistentByKindYear, sample: consistentSample, definition: 'not REPRODUCED under any hypothesis; the printed centavos lie within [trunc2(PU(rate − ½ unit)), round2(PU(rate + ½ unit))] under the primary hypothesis — the printed rate is a rounding of the one used' },
+  offRows, refusedRows, needsData, consistent: { byKindYear: consistentByKindYear, byCode: consistentByCode, bySideYearUnder: consistentBySideYearUnder, sample: consistentSample, definition: 'not REPRODUCED under any hypothesis; the printed centavos lie within [trunc2(PU(rate − ½ unit)), round2(PU(rate + ½ unit))] under one of the settlement hypotheses decided for the row (amendment 6; `under` is the first that holds, the primary first; `codes` every one) — the printed rate is a rounding of the one used' },
   atlas: { origin: ORIGIN, codes: { R: 'REPRODUCED under TRUNC-2', r: 'REPRODUCED under ROUND-2 only', x: 'REPRODUCED only under D+1x (24/31 December skipped)', k: 'REPRODUCED only under the calendar as of the quotation (no 20 November holiday after 2023)', b: 'REPRODUCED only with settlement on B3\'s calendar (a São Paulo holiday or 24/31 December skipped; /r when the skipped day is rule-only)', c: 'CONSISTENT: inside the price interval the printed rate\'s precision allows, not reproduced exactly', O: 'OFF', X: 'REFUSED', '.': 'no row' }, side: 'compra, settlement D+1 (D+1x where it differs)', bonds: atlas }
 };
 fs.mkdirSync(path.join(ROOT, 'certs'), { recursive: true });

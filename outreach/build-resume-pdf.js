@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-/* build-pdf.js — outreach/primeintellect/resume.md -> resume.pdf, through the repo's one
-   headless-Chrome client (design/cdp.js).
+/* build-resume-pdf.js — outreach/<dir>/resume.md -> resume.pdf in the same directory, through the repo's one
+   headless-Chrome client (design/cdp.js). One builder for every resume variant (moved out of
+   outreach/primeintellect/ on 2026-10-16, when the v3 base in outreach/resume/ was written).
 
    The source is a small markdown subset with a resume's grammar:
      # Name                         the name (anything from " — resume" on is dropped)
@@ -24,14 +25,17 @@
    some viewers render soft. The build REFUSES if Inter has not loaded, rather than ship the
    fallback face.
 
-   usage: node outreach/primeintellect/build-pdf.js            -> resume.pdf beside this file */
+   usage: node outreach/build-resume-pdf.js outreach/resume          -> outreach/resume/resume.pdf
+          node outreach/build-resume-pdf.js outreach/primeintellect   -> the 2026-10-05 variant */
 'use strict';
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { withChrome, settle } = require('../../design/cdp.js');
+const { withChrome, settle } = require('../design/cdp.js');
 
-const HERE = __dirname;
+if (!process.argv[2]) { console.error('usage: node outreach/build-resume-pdf.js <dir with resume.md>'); process.exit(2); }
+const HERE = path.resolve(process.argv[2]);
+if (!fs.existsSync(path.join(HERE, 'resume.md'))) { console.error('no resume.md in ' + HERE); process.exit(2); }
 let md = fs.readFileSync(path.join(HERE, 'resume.md'), 'utf8');
 const cut = md.lastIndexOf('\n---\n');
 if (cut > 0) md = md.slice(0, cut);

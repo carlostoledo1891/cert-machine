@@ -100,5 +100,5 @@ Notes for the sender: every figure above is in a record. The sources:
 The Petrobras pages are already public; the university group stays unnamed until it agrees.
 
 The personal lines (phone, availability, prior employment, education) live in resume.private.md beside this
-file, which is git-ignored; build-pdf.js substitutes them for the [OPERATOR FILLS name] marks, and any mark
+file, which is git-ignored; outreach/build-resume-pdf.js substitutes them for the [OPERATOR FILLS name] marks, and any mark
 left unfilled prints on a yellow highlight.

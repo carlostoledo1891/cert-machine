@@ -11,6 +11,28 @@ here on request.
 
 ---
 
+## LANE J — THE OCTOBER APPLICATIONS (2026-10-16; plan notes/job-search-2026-10-16.md §8, local; resume base outreach/resume/) — FOUR PACKETS DRAFTED, NOTHING SENT; every send is the operator's
+
+The bar (operator, 2026-10-16): remote from Brazil at international pay, or on-site with sponsorship. The resume v3
+(verification accent) is outreach/resume/resume.md; personal lines in the git-ignored resume.private.md beside it;
+`node outreach/build-resume-pdf.js outreach/resume` renders resume.pdf (no mark may print yellow). Each packet pins the
+posting as read on 2026-10-16, names the form's fields, holds the free-text answers and lists the gaps to state plainly.
+
+### J1. Epoch AI — Researcher / Senior Researcher, Benchmarking Reviews — DRAFTED (outreach/epoch/packet.md)
+  Lever; no cover letter by their rule; the one free-text box carries the team choice and ~190 words; sample = openai-math.
+### J2. FAR.AI — Research Engineer, evals and red-teaming pod — DRAFTED (outreach/far-ai/packet.md)
+  Ashby; Remote (International) explicit, EOR or contractor; ~210 words; samples = openai-math, kissing, envs; the ML-training gap stated.
+### J3. Nous Research — ML Engineer, Evals — DRAFTED (outreach/nous/packet.md)
+  Ashby; Americas (US time zones); the five responsibilities answered one by one; Harbor/Nemo NOT used — said.
+### J4. Cohere — MTS, Data Analysis and Evaluation — DRAFTED (outreach/cohere/packet.md)
+  Ashby; no location restriction; the statistics/evaluation half claimed, the distributed-training and top-venue-paper
+  requirements stated as not met.
+### J5. The second-wave packets (Pydantic after its door-opener; Elicit; Gray Swan; Prime Intellect Evals & Data; the
+  contractor asks to Surge/Snorkel/Fireworks) — NOT DRAFTED. METR MTS Evaluation Execution and Nubank US Model Risk
+  (on-site, sponsorship) wait on a relocation decision; the METR packet of 2026-09-22 still stands (lane M3).
+
+---
+
 ## LANES AE / W / T — THE THREE AUDITS OF 2026-10-15 (plan: outreach/outreach-plan-2026-10-15.md; comments: outreach/three-campaigns-2026-10-15.md) — BATCH ONE POSTED 2026-10-15 ~23:50 UTC (A1, C1-C3, B1-B5, F1) and DAY TWO POSTED 2026-10-16 ~00:30 UTC (A2-A4, P1-P5, C5); URLs in three-campaigns-2026-10-15.md; week-2 items NOT SENT
 AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 (answers #11 too), #5, #4: each a short
     exact-decision note with the page; the sofa (#8) gets none. W1-W5. formal-conjectures #7304/#7305/#7306/#7308/#7330: the

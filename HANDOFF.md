@@ -15,22 +15,65 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~19:10 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (pu-feed.yml, hourly gate) and makes its first real commit on the next publication morning — read corpus/pu/feed-log.json and that commit before trusting it; site repositioned (titles, landing, Method, apps, instruments) and live; PU Verificado phases A+B1+B2 live; #226 replied; 20 threads to watch)
+## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~23:30 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (pu-feed.yml, hourly gate) and makes its first real commit on the next publication morning — read corpus/pu/feed-log.json and that commit before trusting it; site repositioned and live; PU Verificado phases A+B1+B2 live with amendment 6 (OFF 966 → 237); resume v3 + four job packets DRAFTED, nothing sent; the Treasury note DRAFTED; 20 threads to watch)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER (operator asked "what are the next steps" 2026-10-16 evening; the recommendation was 7 → 8 with 1 between):
-  7. Resume v3 (verification accent) with PU Verificado + the openai/math audit as the two samples (personal lines only in resume.private.md).
-  8. Packets in outreach/<employer>/ for the roles that clear the bar (notes/job-search-2026-10-16.md §8, local): Epoch, FAR.AI, Nous,
-     Cohere first; METR and Nubank US Model Risk second. Every send is the operator's; the "US-remote only" contractor asks (Surge,
-     Snorkel, Fireworks) are one email each, the operator's.
-  1. PU: the 2020–2021 LFT sell-side OFF cluster (559 rows; typical diff ≈ two days of accrual at a 2% Selic): probe settlement/VNA
-     variants on a sample; a documented convention becomes a dated amendment, an undocumented one stays OFF and named.
+NEXT SESSION, IN ORDER (the 2026-10-16 evening order, with 7, 8 and 1 DONE this session):
+  7. DONE — resume v3 (verification accent): outreach/resume/resume.md, two pages, every figure from a record; the personal
+     lines in the git-ignored resume.private.md beside it; `node outreach/build-resume-pdf.js outreach/resume`. NOT WRITTEN:
+     the product + verification accent (Pydantic, Elicit) and the Portuguese version (no Brazilian role clears the bar).
+  8. DONE (drafts) — packets in outreach/epoch, far-ai, nous, cohere (SEND-QUEUE lane J): posting pinned as read, the form's
+     fields, the free text, the gaps to state. EVERY SEND IS THE OPERATOR'S. Next packets: Pydantic (after a door-opener
+     issue/PR on pydantic-evals), Elicit, Gray Swan, Prime Intellect Evals & Data; the contractor asks (Surge, Snorkel,
+     Fireworks) are one email each, the operator's.
+  1. DONE — the 2020–2021 LFT sell-side OFF cluster was the verdict CONSISTENT decided under the primary settlement only;
+     amendment 6 (corpus/pu/preregistration.json) decides it under every pre-registered settlement: OFF 966 → 237.
   2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
   3. PU: the LFT in /instruments/pu (the Selic series in-page); 4. watch the feed's first real day; 5. ANBIMA's prices (terms first).
   6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; October outreach rows into corpus/outreach.json.
-  OPERATOR: the Treasury note (dated-calendar effect + LFT rate precision; I draft, you send); ANBIMA bytes yes/no; paper venue + authors.
+  9. PU: the 237 OFF rows that remain (LTN 90, NTN-F 103, LFT 44, all with an implied settlement or none) — the next probe, no hypothesis yet.
+  OPERATOR: the Treasury note — DRAFTED, outreach/tesouro-nota-2026-10-16.md (Portuguese; channel and send yours); ANBIMA bytes
+     yes/no; paper venue + authors; the four packets (fill the marks, build the PDF, submit).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-16 (late night), THE QUEUED TRIO — 7, 8, 1 (operator: "Proceed the tasks queued for this session").
+  7. RESUME V3, the verification accent — outreach/resume/resume.md (the base for the October applications), two pages
+     through the builder, which moved to outreach/build-resume-pdf.js and takes the directory (`node outreach/build-resume-pdf.js
+     outreach/resume`; the Prime Intellect variant still builds with its own directory; .gitignore now covers
+     outreach/*/resume.private.md and resume.pdf). The two lead samples are the openai/math audit and PU Verificado; every
+     figure is read from a record and the sender notes list them. The private file beside it holds the phone, the
+     availability line rewritten for the remote-international shape, employment and education; the "selected live sites"
+     paragraph of the 10-05 variant was dropped from this accent to hold two pages (it stays in primeintellect/).
+  8. FOUR PACKETS, nothing sent (SEND-QUEUE lane J): outreach/epoch (Lever; Benchmarking Reviews; no cover letter by their
+     rule; the one free-text box drafted), outreach/far-ai (Ashby; Remote International explicit, EOR or contractor;
+     $150–250K), outreach/nous (Ashby; Americas; the five responsibilities answered one by one), outreach/cohere (Ashby;
+     no location restriction; the statistics half claimed, the training and top-venue-paper requirements stated as not
+     met). Each pins the posting as read on 2026-10-16 (Lever/Ashby public APIs; the Ashby pages render nothing to a
+     plain fetch) and lists the gaps to state plainly. The operator fills the marks, builds the PDF, submits.
+  1. THE LFT 2020–2021 SELL-SIDE OFF CLUSTER — NOT a new convention. A probe of the implied rate behind every Tesouro
+     Selic price of 2019–2022 under D+0 and D+1 showed the LFT sell side settling D+1 until September 2021 and D+0 after,
+     exactly the switch the ledger's own sellSwitch census records for the fixed-rate titles; the verdict CONSISTENT
+     (amendment 5) had been decided under the PRIMARY settlement alone (D+0 sell), so every 2020–21 sell row whose box
+     holds only under D+1 fell to OFF. AMENDMENT 6 (preregistration.json, written before the re-run, its `result` recorded
+     after): CONSISTENT is decided under every settlement hypothesis the row was decided under, the primary first, with
+     `under` and `codes` recorded and the ledger counting by code and by side/year/hypothesis (consistent.byCode,
+     bySideYearUnder). RESULT: 145,439 prices — 132,362 REPRODUCED (unchanged), 12,779 CONSISTENT (from 12,050), 237 OFF
+     (from 966; LFT 746 → 44, all 2008–2018; LTN 90, NTN-F 103), 0 REFUSED, 61 NEEDS DATA; Python cross-check 1,737/1,737.
+     A suspicion the probe raised (Nov–Dec 2021/2022 sell rows 0.0051 pp past the half-unit, a truncated-rate signature)
+     was WITHDRAWN BY THE RECORD: those rows are CONSISTENT on the calendar in force at the quotation (D0/pre); the probe
+     had counted business days on today's calendar. Lessons: a verdict that accepts any pre-registered hypothesis must
+     do so for every verdict class; a probe must use the decision's calendar. The run now takes ~17 min (the box is
+     decided under every hypothesis for non-reproduced rows). Report rebuilt (the CONSISTENT paragraph says under which
+     settlement), battery 17/12 green, `make site` run; measure, render, style and copy gates green on the first pass. FOUND ON THE WAY: the first
+     `make site` REFUSED at the control build — the PU battery had been filed in build-control.js's PYTHON list since
+     c8586b6e (10-16 afternoon), so every control build since then died at "wrong interpreter" and no one read the exit
+     line (the 2026-10-02 lesson, again; the handoff of that commit said "in make test + build-control"); moved to the
+     Node list, description updated to 12 red controls; second `make site` green (every battery, the six apps), measure/render/style/copy gates green, committed.
+  THE TREASURY NOTE DRAFTED (operator item): outreach/tesouro-nota-2026-10-16.md, Portuguese — the dated-calendar effect
+     (17,911 prices; adoption 2023-12-22 → 26) and the LFT rate precision (12,779 CONSISTENT), one ask each, the B3
+     settlement calendar as a third observation; channel and send are the operator's.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (evening), PU VERIFICADO BUILT — PHASE A (operator: "Build the experiment in our visual grammar"): every fixed-rate

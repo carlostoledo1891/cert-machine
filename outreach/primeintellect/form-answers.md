@@ -39,6 +39,6 @@ Lab.
 ---
 Before sending: the "optimize for" answer and the operator's word. The resume is complete: its personal
 lines (phone, availability, prior employment, education) live in the git-ignored resume.private.md, and
-`node outreach/primeintellect/build-pdf.js` renders resume.pdf (two pages) with them. The pre-registration note stands in for a write-up page; a
+`node outreach/build-resume-pdf.js outreach/primeintellect` renders resume.pdf (two pages) with them. The pre-registration note stands in for a write-up page; a
 page can follow as an update. Filing the verifiers/prime-sandboxes issue on GitHub is a separate send; the draft text is
 in verifiers-issue.md.
