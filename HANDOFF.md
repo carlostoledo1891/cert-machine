@@ -21,6 +21,29 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-16 (evening), PU VERIFICADO BUILT — PHASE A (operator: "Build the experiment in our visual grammar"): every fixed-rate
+Tesouro Direto price (LTN, NTN-F; both sides; 55,588 rows, 111,101 prices, 2004-12-31 → 2026-10-15) re-decided from the STN
+methodology's Tabela 3 in exact arithmetic. corpus/pu/ (PINS.json: the ODbL CSV, the ANBIMA holiday xls → holidays.json, the
+three methodology PDFs; preregistration.json with TWO dated amendments), instruments/pu/decide.js (BigInt fixed point 10^-48,
+ln/exp with bounded remainders; every truncation a decision or a refusal) + decide.py (decimal 60 digits, directed rounding; no
+shared code) — both reproduce the methodology's worked examples (753.315323; 903.075616 with its twelve flows) — + battery.js
+(13 checks, 7 red controls; in make test + build-control); tools/run-pu-ledger.js → certs/pu-ledger.json (~7 min; Python
+cross-check on every OFF/REFUSED row + a seeded sample); tools/build-report-pu.js → reports/pu-verificado.html (titles.json row,
+shelf card, certs-shelf row; `make reports` runs both). RESULT: 99.17% REPRODUCED, 887 OFF, 0 REFUSED, 38 NEEDS DATA.
+  FINDINGS (all measured, none assumed): buy settles D+1 throughout; the sell side settled D+1 in the early years and D+0 later
+     (the switch date is in the ledger's sellSwitch); centavos are the T-6 price TRUNCATED, never rounded; 17,911 prices
+     reproduce only under the calendar in force on the quotation day — Lei 14.759 made 20 November a national holiday on
+     2023-12-21, today's ANBIMA file carries it from 2024 on, and every earlier quotation maturing after 2024 was priced
+     without it (du + 1 per weekday 20 November to maturity); the publisher adopted the new calendar between 2023-12-22 and
+     2023-12-26 (ledger adoption window). The 887 OFF cluster on quotation days whose next business day is a São Paulo
+     holiday B3 observed (25 Jan, 9 Jul, 20 Nov) or 24/31 Dec: the settlement calendar is B3's, which is not pinned — named
+     as the phase-B hypothesis, left OFF. Prior art (tesouroemfoco) had 99.71% with 922 unexplained failures and no method.
+  PHASE B (next, on the go): pin B3's historical trading calendar (settlement), decide NTN-B/LFT (VNA, pro-rata projection →
+     NEEDS DATA), ANBIMA's 6-dp prices once republication terms are settled, the daily Actions feed (the Janela pattern), the
+     browser instrument (a rate + a date → the exact PU with its enclosure), and a note to the Treasury's data team about the
+     dated-calendar effect (a SEND — operator's).
+
+────────────────────────────────────────────────────────────────────────────
 2026-10-16 (afternoon), THE FINANCE LANE — scouted, nothing built (operator: "explore financial companies on the job
 searching and build reports/instruments to that area… a high impact experiment"). Two scouts: (1) jobs — 47 open rows in
 notes/job-search-raw-2026-10-16/finance.md (local), top: Stone model validation (remote), C6, ANBIMA Preços & Índices,

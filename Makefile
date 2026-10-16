@@ -120,6 +120,7 @@ test:
 	@printf "%-30s " "aerp (AlphaEvolve community)"; $(PY) instruments/aerp/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "wowii (Graffiti.pc witnesses)"; $(PY) instruments/wowii/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "optq (constants PR queue)"; $(PY) instruments/optq/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "pu (Tesouro Direto prices)"; $(NODE) instruments/pu/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -246,6 +247,8 @@ reports:
 	@$(NODE) tools/build-report-wowii.js
 	@$(PY) -I tools/run-optq-ledger.py
 	@$(NODE) tools/build-report-optq.js
+	@$(NODE) tools/run-pu-ledger.js
+	@$(NODE) tools/build-report-pu.js
 	@$(NODE) tools/build-report-openai-math.js
 	@$(PY) tools/run-horizonmath-ledger.py
 	@$(NODE) tools/build-report-horizonmath.js

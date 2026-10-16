@@ -1,0 +1,34 @@
+{
+ "what": "PU Verificado — the bytes every decision reads, pinned by sha256 at fetch time (2026-10-16). Re-hashed by the battery; a changed digest refuses the run.",
+ "fetched": "2026-10-16",
+ "files": {
+  "precotaxatesourodireto.csv": {
+   "sha256": "f4f9b0fb9a1850da4cbca47d5b896464c04b21b302cf591de178726a426e2972",
+   "url": "https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv",
+   "licence": "ODbL (CKAN license_id odc-odbl)",
+   "lastModified": "Fri, 16 Oct 2026 10:34:14 GMT",
+   "rows": 177434,
+   "what": "Tesouro Direto: every title, every business day since 2002 — buy/sell rate (% a.a., 2 dp) and buy/sell/base PU (R$, 2 dp)"
+  },
+  "feriados_nacionais.xls": {
+   "sha256": "e3070152bfbdd733a27977adc82b799e973d3ea003d2aa25b0e7e5bdae63aa17",
+   "url": "https://www.anbima.com.br/feriados/arqs/feriados_nacionais.xls",
+   "what": "ANBIMA national holidays 2001–2099; read into corpus/pu/holidays.json"
+  },
+  "stn-metodologia-de-calculo-2024-04-29.pdf": {
+   "sha256": "1dca58d55be1fadcfdd039faf83cbab429026c87c6f7bd31847f2ce8d3ae536d",
+   "url": "https://cdn.tesouro.gov.br/sistemas-internos/apex/producao/sistemas/thot/arquivos/publicacoes/26310_1658601/Metodologia%20de%20Calculo%20-%20290424.pdf",
+   "what": "STN, Metodologia de Cálculo dos Títulos Públicos Federais Ofertados nos Leilões Primários, 29/04/2024 — Tabela 3 \"Regras para o Cálculo Preciso\" is the rule table"
+  },
+  "anbima-metodologias-de-precificacao-2021-05-05.pdf": {
+   "sha256": "9391a49f706bddbe32128baaf910af73e7bdfe48e87ebf68e75f9529673de3f1",
+   "url": "https://www.anbima.com.br/data/files/5D/92/EC/E7/E82F971013C70F976B2BA2A8/Metodologias-ANBIMA-de-precificacao.pdf",
+   "what": "ANBIMA, Metodologias ANBIMA de Precificação, 05/05/2021 — §22 reproduces the same rule table (joint ANBIMA/STN/BCB/B3)"
+  },
+  "b3-metodologia-aprecamento-titulos-publicos-2023-05-30.pdf": {
+   "sha256": "28265766c8a8345b7ff0121c8e41b5830bdd5990533d8ef49cd3743ac1fd0ade",
+   "url": "(B3 — Metodologia de Apreçamento de Títulos Públicos, 30/05/2023; fetched by the scout 2026-10-16)",
+   "what": "the same formulas, no truncation rule stated — a publisher silent on the rule"
+  }
+ }
+}

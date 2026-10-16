@@ -234,6 +234,8 @@ const zhs = (v) => (v > 0 ? '+' : '−') + Math.abs(v).toFixed(2);
    Erdős lane's flagship is ranked into the head of the shelf and therefore
    sits inside the ai block below. Lanes are drawn with filter(), which
    preserves this order, so a lane is always ranked like the shelf. */
+/* PU Verificado (2026-10-16): the shelf card reads the ledger the page reads */
+const PU = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'pu-ledger.json'), 'utf8'));
 const REPORTS = [
   /* group 'ai': the AI-verification shelf — the audience-facing work */
   { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
@@ -558,6 +560,10 @@ const REPORTS = [
     n: zh.headline.map((h) => h.constant + ' ' + zhs(h.margin)).join(' · ') + ' · ' + zh.counts.agree + '/' + zh.counts.rowsRerun + ' re-run rows agree' },
   /* group 'applied': the new fronts — certified applications with live
      external stakes (aerospace, energy) */
+  { g: 'applied', f: 'pu-verificado.html', k: 'finance · Tesouro Direto, every price',
+    title: 'PU Verificado',
+    desc: 'Every fixed-rate Tesouro Direto price since ' + PU.scope.firstDate.slice(0, 4) + ' re-decided from the Treasury\u2019s own rule table in exact arithmetic — the settlement and rounding conventions measured, every OFF price listed with the exact value and the difference in centavos, a second decider sharing no code on every exception.',
+    n: fmt(PU.scope.pairsDecided) + ' prices decided · ' + (100 * (PU.counts.byVerdict.REPRODUCED || 0) / PU.scope.pairsDecided).toFixed(2) + '% the rule\u2019s value to the centavo · ' + fmt(PU.counts.byVerdict.OFF || 0) + ' off' },
   { g: 'applied', f: 'skyaudit.html', k: 'aerospace · the app, cited',
     title: 'SkyAudit: the helicopter day, decided',
     desc: 'One pinned day of New York helicopter traffic, re-flown on paper by four eVTOLs’ own published numbers under the FAA reserve rule — every flight decided: E-FLYABLE, BEYOND RANGE with an exact witness, or NEEDS DATA where public specs cannot say. The citable methodology behind the live app.',

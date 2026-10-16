@@ -1,0 +1,51 @@
+{
+ "what": "PU Verificado — pre-registration, written 2026-10-16 before any price was decided at scale (a scout had reproduced 3 ANBIMA LTN rows and 5 of 6 Tesouro Direto rows by hand on 2026-10-16; nothing else was looked at). Phase A: the fixed-rate titles of Tesouro Direto.",
+ "claim": "Every published Tesouro Direto unit price (PU) of a fixed-rate title is the value its own methodology gives for the published rate, the official holiday calendar and the rule table — digit for digit at the precision the publisher prints.",
+ "scope": {
+  "source": "corpus/pu/sources/precotaxatesourodireto.csv (sha256 in PINS.json), every row whose Tipo Titulo is 'Tesouro Prefixado' (LTN) or 'Tesouro Prefixado com Juros Semestrais' (NTN-F), both sides (compra, venda) and the base PU, 2004-12-31 to the file's last day",
+  "outOfScope": "Tesouro Selic (LFT), IPCA+ (NTN-B / NTN-B Principal), IGPM+ (NTN-C), Educa+, Renda+ — phase B (they need VNA and the pro-rata projection, which carries a NEEDS DATA where the projection used is not recorded); ANBIMA's secondary-market file (republication terms unsettled); B3's prices",
+  "calendar": "corpus/pu/holidays.json read from the pinned ANBIMA feriados_nacionais.xls; weekends are not business days; du = business days from the settlement date (inclusive) to the payment date (exclusive), as the STN methodology defines"
+ },
+ "rules": {
+  "source": "STN, Metodologia de Cálculo dos Títulos Públicos Federais Ofertados nos Leilões Primários, 29/04/2024, Tabela 3 'Regras para o Cálculo Preciso' (= ANBIMA Metodologias de Precificação 2021 §22). A = round, T = truncate, at the stated decimals.",
+  "LTN": "PU = 1000 / (1 + taxa)^(du/252); taxa in % a.a. T-6; the exponent du/252 T-14; PU T-6",
+  "NTN-F": "coupon = 1000 × ((1.10)^(1/2) − 1) A-5 (= 48.80885); each discounted flow coupon_k / (1 + taxa)^(du_k/252 T-14) A-9, the last flow carrying 1000 + coupon; PU = Σ flows T-6; coupons on 1 January and 1 July, the last at maturity",
+  "printed": "the CSV prints PU at 2 decimals (R$ and centavos). The rule table's 'Valor Financeiro T-2' is the only 2-decimal rule it states. Two readings are pre-registered and both are recorded per row: TRUNC-2 (the printed PU equals the T-6 PU truncated at 2 decimals) and ROUND-2 (equals it rounded at 2 decimals). Which reading each publisher side follows, by year, is a CENSUS the record reports; the verdict REPRODUCED needs one of the two readings to hold and the record says which.",
+  "settlement": "the CSV's 'Data Base' is the quotation day. Settlement hypotheses pre-registered: for the buy side D+1 (the next business day) and D+0; for the sell side D+0 and D+1. Each row is decided under both and the record keeps both; the CENSUS says which hypothesis reproduces each side in each year. A row that reproduces under neither is OFF."
+ },
+ "verdicts": {
+  "REPRODUCED": "the T-6 PU is decided (the enclosure does not straddle the truncation boundary) and the printed 2-decimal PU equals its TRUNC-2 or its ROUND-2 under one of the pre-registered settlement hypotheses; the record says which reading and which hypothesis",
+  "OFF": "the T-6 PU is decided and the printed PU equals neither reading under any pre-registered hypothesis; the record carries the exact T-6 value, the printed value, the difference in centavos, and the nearest hypothesis",
+  "REFUSED": "the enclosure of the T-6 PU straddles a truncation boundary at the precision computed (the decision would need a wider enclosure); the row is not claimed either way",
+  "NEEDS DATA": "an input the decision needs is not in the pinned sources (phase A expects none for LTN/NTN-F; reserved for phase B's projections)"
+ },
+ "arithmetic": "exact rationals for every step the rule defines; the one irrational step (1 + taxa)^(exponent) as an enclosure — JavaScript BigInt fixed point with explicit series remainders (instruments/pu/decide.js) and, sharing no code, Python decimal at 60 digits with directed rounding around correctly rounded ln/exp (instruments/pu/decide.py); the two must agree on every decided digit on the cross-checked sample or the run refuses",
+ "calibration": "before any CSV row is decided, both deciders must reproduce the methodology's own worked examples: LTN taxa 14.3600, du 532 → 753.315323; the NTN-F example in the same document; and a planted holiday must change du by one",
+ "redControls": [
+  "a planted extra holiday on a settlement date must move du by one and turn a REPRODUCED row OFF",
+  "rounding the exponent instead of truncating it (A-14 for T-14) must turn at least one row OFF or REFUSED on the sample",
+  "rounding the PU at 6 decimals instead of truncating must turn at least one row OFF on the sample",
+  "a shifted settlement (D+2) must turn the buy-side census away from REPRODUCED",
+  "a corrupted CSV byte must refuse the run (the pin)",
+  "the two deciders disagreeing on one digit must refuse the run"
+ ],
+ "whatCountsAsAResult": "the census of conventions per side and year; the count of REPRODUCED / OFF / REFUSED rows per title and year; every OFF row with its exact value and difference; every REFUSED row with its enclosure. All green is a result and gets the same page. A difference is a 'slip' in the publisher's number as printed, never a refutation of the publisher's methodology, and is stated as such.",
+ "notClaimed": "that any publisher erred — a convention the publisher used and did not publish (a calendar, a settlement rule, a rounding of the rate before truncation) is a NEEDS DATA reading, named; that the ANBIMA or B3 prices agree or disagree (phase B)",
+ "cost": "laptop minutes; no paid compute",
+ "amendments": [
+  {
+   "date": "2026-10-16",
+   "after": "the first 4,000 rows (the most recent, 2026 → late 2025) were decided; 7,979 of 8,000 (row, side) pairs REPRODUCED, 21 OFF",
+   "seen": "all 21 OFF are buy-side rows quoted on 2025-12-23 and 2025-12-30. The printed prices are HIGHER than the D+1 value by 23–55 centavos on the LTNs, and LOWER by one coupon (≈ R$ 48.3) on the NTN-Fs quoted 2025-12-30 — the signature of a settlement on 2025-12-26 and 2026-01-02: the business days 24 December and 31 December skipped, and the 1 January coupon gone ex. The pinned ANBIMA calendar says in its own notes that it does not list the last business day of the year (Resolução 2.596/99) and lists only days that close bank reserves; 24 December is a B3 half-day without settlement.",
+   "change": "a third settlement hypothesis is added for the buy side, D+1x = the next business day that is neither 24 December nor 31 December, and recorded per row like the others. The PRIMARY hypothesis stays D+1 as pre-registered; a row that reproduces only under D+1x is classed REPRODUCED with the code D1x and counted apart in the census, so the reader sees how many prices need the unlisted non-settlement days. This is a convention the publisher follows and the pinned calendar documents only by omission; it is named, not assumed.",
+   "notChanged": "the readings (TRUNC-2, ROUND-2), the sell-side hypotheses, the verdict definitions, the rule table"
+  },
+  {
+   "date": "2026-10-16",
+   "after": "the full run of 55,588 rows (111,101 (row, side) pairs): 92,265 REPRODUCED, 18,798 OFF, 38 NEEDS DATA (settlement on or after maturity). The OFF rows are 2014–2023 quotations of titles maturing 2025 and later, spread over every month and weekday, both sides.",
+   "seen": "on a seeded sample of 30 OFF LTN rows, the printed price is reproduced exactly when du is increased by 1 for maturity 2025-01-01, by 2 for 2026-01-01 and by 4 for 2029-01-01 — the number of weekday 20 Novembers between settlement and maturity (20 Nov 2027 is a Saturday). 20 November became a national holiday by Lei 14.759 of 21 December 2023; the pinned ANBIMA file lists it from 2024 on. The publisher priced each quotation with the calendar in force on the day of the quotation, in which no future 20 November was a holiday; the file pinned today carries them, so today's calendar re-counts every earlier quotation.",
+   "change": "a second calendar hypothesis is added: CALENDAR-AS-OF-QUOTE, the pinned list minus the 20 Novembers of 2024 and later for quotations before the publisher adopted the new holiday. Every pair is decided under today's calendar and under the as-of-quote calendar; a row that reproduces only under the as-of-quote calendar is REPRODUCED with the code suffix /pre and counted apart. The adoption date is NOT assumed: it is read from the census as the first quotation date from which today's calendar reproduces and the as-of-quote one does not.",
+   "notChanged": "the readings, the settlement hypotheses (D+0, D+1, D+1x), the verdict definitions, the rule table. The primary hypothesis for an OFF row's reported difference stays today's calendar, D+1 buy / D+0 sell."
+  }
+ ]
+}
