@@ -21,6 +21,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-16 (afternoon), THE FINANCE LANE — scouted, nothing built (operator: "explore financial companies on the job
+searching and build reports/instruments to that area… a high impact experiment"). Two scouts: (1) jobs — 47 open rows in
+notes/job-search-raw-2026-10-16/finance.md (local), top: Stone model validation (remote), C6, ANBIMA Preços & Índices,
+Santander FRTB; plan §7 of notes/job-search-2026-10-16.md. (2) prior art + data for three instruments, rows written to
+corpus/targets.json: tesouro-anbima-pu-2026-10 OPEN — BUILD-NOW (TD history ODbL + ANBIMA daily file + holidays/VNA/
+SGS/SIDRA all open; one rule table STN 29/04/2024 = ANBIMA 2021 §22; prior art tesouroemfoco 328,953 rows, 922
+unexplained cent-slips, closed source; PYield implements, decides nothing); exchange-margin-span-core DEAD; focus-scoring
+DEAD (per-institution forecasts confidential). The schematic UI (atlas · digit ladder · certificate · instrument · two
+clocks · slips strip) is a private artifact "PU Verificado". NEXT, on the operator's go: pre-register, pin, build the
+fixed-rate deciders (LTN/NTN-F) in two languages, the atlas; then NTN-B/LFT; then a daily Actions feed (the Janela pattern).
+ANBIMA republication terms to settle before that slice goes public.
+
+────────────────────────────────────────────────────────────────────────────
 2026-10-16, THE POSITIONING AND STORYTELLING REBUILD (operator: "the website positioning is outdated… present me the plan";
 then "Proceed following your recommendations"). The plan and its eight rulings: notes/positioning-plan-2026-10-16.md
 (§1 the measured diagnosis, §2 the three lines of work, §3 the structure, §4 the paper's vocabulary, §8 the fit with the

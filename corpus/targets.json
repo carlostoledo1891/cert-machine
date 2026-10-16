@@ -939,6 +939,34 @@
    "finding": "Tao merged Mosaic's 0.1965 and 0.1875 rows silently; the registry HEAD is unchanged since 09-26 with #180, #208, #210 and our #216 pending. Verification theatre (byte-identical logs, hash manifests, a sandbox) decides no mathematics.",
    "fit": "the most-read registry; a verdict on Λ travels",
    "cost": "#225/#226/#221 hours; #210 days to weeks"
+  },
+  {
+   "id": "tesouro-anbima-pu-2026-10",
+   "scouted": "2026-10-16",
+   "class": "decidable-claims observatory (finance)",
+   "name": "Tesouro Direto + ANBIMA federal-bond unit prices (LTN, NTN-F, LFT, NTN-B) re-decided from the STN/ANBIMA truncation table (taxa T-6, exponente de dias T-14, cotação T-4, VNA/PU T-6, fator Selic A-16, fator índice T-16) in exact arithmetic, every published PU a verdict",
+   "verdict": "OPEN — BUILD-NOW (scouted 2026-10-16, nothing built)",
+   "priorArt": "tesouroemfoco.com/backtest (closed, ~mid-2026): 328,953 TD rows 2002–2026 compared to the cent, 99.71% pass, 922 failures, worst R$5.57 (NTN-F 2014, 2006-11-09), clusters 2005/06, 2007-07, 2010–11, NONE explained, LFT excluded; crdcj/PYield (MIT): implements the STN truncations in Decimal, decides nothing; pyettj, GetTDData, bizdays, QuantLib Brazil calendar: plumbing. Nobody issues a per-row three-valued verdict, names whose arithmetic the cent-slips are, or measures STN vs ANBIMA vs B3 (whose 2023 note states the formulas with no truncation at all).",
+   "note": "Data all public, no credentials (verified live 2026-10-16): TD history CKAN ODbL precotaxatesourodireto.csv (2 dp rates and PUs); ANBIMA msYYMMDD.txt open (4 dp taxa, 6 dp PU) — republication terms unsettled, verdicts about them ours; VNA/IPCA projections (anbima.com.br/informacoes/vna), BCB ASEL007, feriados_nacionais.xls to 2099, SGS 11, SIDRA 1737. Rules one table: STN Metodologia de Cálculo 29/04/2024 Tabela 3 = ANBIMA Metodologias de Precificação 2021 §22 (joint ANBIMA/STN/BCB/B3). Scout reproduced 3 ANBIMA LTN rows of 2026-10-15 to 6 dp and 5/6 TD Prefixado rows to the cent (D+1 buy, D+0 sell; the sixth missed on a scratch holiday list). The irrational step is (1+i)^(du/252): enclosure + decision of the T-14/T-6 truncations, REFUSED when the enclosure straddles a boundary — the return-level grammar.",
+   "product": "an atlas (bond × day, verdict per cell), the step-by-step certificate per price, an instrument that prices from a rate and a date with the enclosure, the 922 slips explained or NEEDS DATA",
+   "worth": "compelled buyers: administradores fiduciários under CVM 175 (ANBIMA AGRT Regras de Apreçamento 01/2019: registered manual de apreçamento), their auditors, ~2,000 RPPS under Portaria MTP 1.467/2022 art. 143, B3 collateral; the audience of the finance job lane (model validation / model risk).",
+   "cost": "LTN/NTN-F: days; NTN-B/LFT (VNA, pro-rata, Selic factor): about a week; the 922 as a report"
+  },
+  {
+   "id": "exchange-margin-span-core-2026-10",
+   "scouted": "2026-10-16",
+   "class": "decidable-claims observatory (finance)",
+   "name": "Exchange margin (CME SPAN, B3 CORE) recomputed from the exchange's own published parameters",
+   "verdict": "DEAD (scouted 2026-10-16)",
+   "killedBy": "no exactness problem to certify — SPAN is piecewise-linear arithmetic over published arrays and is retiring for SPAN 2 whose spec is not public (parameter files behind DataMine login / sFTP); B3 CORE's closeout is an LP optimizer under a patent application over 10,000 scenarios not published as such, so the optimum is not reproducible from public inputs; replication is a served vendor market (OpenGamma, ICE IRM2 reference implementation)."
+  },
+  {
+   "id": "focus-scoring-2026-10",
+   "scouted": "2026-10-16",
+   "class": "forecast evaluation (finance)",
+   "name": "BACEN Focus survey per-institution forecasts scored with proper rules, an ORDERED / NOT DECIDED ranking certificate",
+   "verdict": "DEAD (scouted 2026-10-16)",
+   "killedBy": "individual forecasts are confidential (BCB FAQ13 Q17: 'Não. O sigilo das informações é garantido'); the Olinda per-institution resource is disabled for confidentiality; only aggregates (ODbL) and the monthly Top 5 PDFs are public — no per-forecaster series, so no ranking certificate; scoring the median is literature (BCB WP 310)."
   }
  ]
 }
