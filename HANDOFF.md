@@ -32,8 +32,21 @@ method paper, §9 the outreach-safety check — 59 sent URLs, none moved). The D
      rebuilt as five series read from the registry (finding line = the page's own description; kicker carries the first-
      commit month from git); design/COPY.md (titles, tone, the paper's vocabulary); SEO.md amended. Frozen H1s: openai-math,
      methods-note (quoted by the method paper's .bib). Found and fixed on the way: a bare build-site.js pruned site/swell/.
-  PHASE 2 NEXT: the homepage (≤ 900 words, six blocks, the sentence visible, a who and a contact), About with Portfolio
-     folded in (bio limited to what /about/ already says), the glossary on Method, tools/check-copy.js + baseline.
+  PHASE 2 DONE (second commit): the homepage rebuilt — six blocks (the sentence as the H1; three stats that are the
+     method paper's highlights, each read from its record with a gate: the 19 Qiushi bounds, the Navier–Stokes
+     certificate, the graders' 89.5%; the three lines of work; the register's five latest decisions; what came back
+     from outside; the method in four sentences; who + the address) — 939 words, 31 links, 5 sections, from 4,550 /
+     57 / 14. About retitled "About", given the three lines (#lines), the third-party re-derivation listed first under
+     #outside, a "working together" section (#work) holding the four former portfolio artifacts with their gates, and
+     #contact; /portfolio/ no longer built, 301 → /about/#work (vercel.json). C.section takes `id`. corpus/outreach.json:
+     the three answered threads (#64, #392, #164) say so now; lastChecked 2026-10-05; the October sends are NOT yet rows
+     (TODO below). tools/check-copy.js + design/copy-baseline.json: the census of the words COPY.md keeps off the
+     hubs and report leads, ratcheted (in make test and the control build); today: landing 0, reports 0, about 2,
+     instruments 8, papers 4, machine 54 — the last three fall in phases 3–4. measure-baseline: re-recorded with
+     --accept-worse for ONE row, site/swell/index.html @768 spines 7→9: the committed swell page was stale against
+     apps/swell (rebuilt today) and the row varies with the map's load timing (8, 9, 9 over three runs); not this work's.
+  TODO (data, operator-reviewable): fold the October sends (SEND-QUEUE lanes of 10-05, 10-06, 10-11/12, 10-15/16) into
+     corpus/outreach.json as rows with URLs and exact status words, then re-check every thread and set lastChecked.
   PHASE 3: /machine/ → Method (≤ 1,200 words, mirrors the paper's §2; the errata list REQUIRED there), the 22.5k-word
      control page kept as /machine/log.html, nav label Method, Papers renamed + linked, /apps/ index.
   PHASE 4: instruments lead + retitles, OG image, sitemap, /portfolio/ 301, the measurement table in the plan.

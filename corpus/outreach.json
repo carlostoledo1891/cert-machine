@@ -8,9 +8,10 @@
   "live, no reply": "a comment visible in the thread, unanswered",
   "posted, visibility unconfirmed": "submitted, and we have not verified it appeared",
   "submitted, awaiting moderation": "in a queue, not yet visible",
-  "still in the moderation queue": "submitted and confirmed not yet visible"
+  "still in the moderation queue": "submitted and confirmed not yet visible",
+  "answered": "the other party replied in the thread; what came back is in the note"
  },
- "lastChecked": "2026-09-03",
+ "lastChecked": "2026-10-05",
  "rows": [
   {
    "id": "erdos852-thread",
@@ -54,8 +55,8 @@
    "where": "teorth/erdosproblems issue 164",
    "url": "https://github.com/teorth/erdosproblems/issues/164",
    "sent": "2026-08-31",
-   "status": "live, no reply",
-   "note": "Superseded on the mathematics five days later by arXiv:2609.00104, which proves the liminf exactly; our bracket is now the certified numeric value of that constant rather than one end of a range, and the page says so. A follow-up comment is written and unsent."
+   "status": "answered",
+   "note": "Superseded on the mathematics five days later by arXiv:2609.00104, which proves the liminf exactly; our bracket is now the certified numeric value of that constant rather than one end of a range, and the page says so. Woett answered 2026-09-08 with the theorem; the follow-up with the 1/(1+c) bracket was posted 2026-10-06."
   },
   {
    "id": "gh-179",
@@ -72,8 +73,8 @@
    "where": "teorth/erdosproblems issue 392",
    "url": "https://github.com/teorth/erdosproblems/issues/392",
    "sent": "2026-09-02",
-   "status": "open, no comments",
-   "note": ""
+   "status": "answered",
+   "note": "Answered 2026-09-30: rainrzk re-certified the whole argument with independent code (erdos510-lambda4-audit), same verdict, three write-up findings folded in; our reply is the last post."
   },
   {
    "id": "forum-1038",
@@ -99,8 +100,8 @@
    "where": "vinid/einstein-arena issue 64",
    "url": "https://github.com/vinid/einstein-arena/issues/64",
    "sent": "2026-09-03",
-   "status": "open, no comments",
-   "note": "The ask is offer-shaped: the certification is already built and waiting on the bytes."
+   "status": "answered",
+   "note": "The ask is offer-shaped: the certification is already built and waiting on the bytes. Answered 2026-09-07: the maintainer gave the path to the vectors; the two 604-point configurations were decided congruent (a signed coordinate permutation) and the issue was closed 2026-09-08."
   }
  ]
 }

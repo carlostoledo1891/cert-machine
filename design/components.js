@@ -102,9 +102,10 @@ function stats(items) {
 const scope = (text) => '<p class="scope">' + esc(text) + '</p>';
 
 /* A section. `wide` puts the body in the 900px track instead of 64ch. */
-function section({ lab, title, bodyRaw, wide }) {
-  const cls = wide ? 'section' : 'col';
-  return '<section class="' + (wide ? '' : 'col') + '">\n'
+function section({ lab, title, bodyRaw, wide, id }) {
+  /* `id` (2026-10-16): an anchor, so a hub can point at one series or one
+     section of another hub (/reports/#audits, /about/#contact) */
+  return '<section class="' + (wide ? '' : 'col') + '"' + (id ? ' id="' + escAttr(id) + '"' : '') + '>\n'
     + '  <div class="' + (wide ? 'col ' : '') + 'sec-head">\n'
     + (lab ? '    <div class="lab">' + esc(lab) + '</div>\n' : '')
     + '    <h2>' + esc(title) + '</h2>\n'
