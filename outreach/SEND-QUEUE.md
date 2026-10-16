@@ -16,6 +16,7 @@ AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 
     exact-decision note with the page; the sofa (#8) gets none. W1-W5. formal-conjectures #7304/#7305/#7306/#7308/#7330: the
     witness decided, the Lean note where there is one, the shared tail about the vanished fork commits. T1-T5. optimization-
     problems PRs #225, #221, #226, #217 (optional), #210 (the refusal of Mosaic's package — the operator reads it first).
+    · C3 FOLLOW-UP POSTED 2026-10-16 ~11:58 UTC on the operator's word ("push the site live and proceed the response to vidigoat"): https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6214990536 — 16a and 70a decided CERTIFIED after his reply of 03:25 UTC; record outreach/replies-2026-10-16/optimizationproblems-226.md.
     Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
     ALSO DRAFTED in the plan: F1 the Bandeira axiom-list follow-up on Oxelra#1; P1-P5 one-liners on the five formal-conjectures PRs
     (after B1-B5); AE-PR a minimal pull request to DeepMind's repository (week 2; the operator must sign Google's CLA first);

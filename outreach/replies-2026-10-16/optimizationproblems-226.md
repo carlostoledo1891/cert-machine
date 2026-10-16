@@ -1,4 +1,6 @@
-# Reply draft — teorth/optimizationproblems PR #226 (Patankar / vidigoat) — NOT POSTED
+# Reply — teorth/optimizationproblems PR #226 (Patankar / vidigoat) — POSTED 2026-10-16 ~11:58 UTC on the operator's "push the site live and proceed the response to vidigoat"
+
+Posted as https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6214990536 after: site pushed (4ad4e9b4) and live, the two ledger rows served CERTIFIED with the enclosures quoted below, the thread re-read (no comment newer than 6207378455), the paste block below verbatim.
 
 Thread: https://github.com/teorth/optimizationproblems/pull/226
 Our comment (C3, posted 2026-10-15T23:12:52Z): https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690
@@ -52,4 +54,4 @@ https://carlostoledo.co/reports/optconst-queue.html (§4; records certs/optq-led
 - [ ] Framing held: a flipped verdict from REFUSED-not-attempted to CERTIFIED; nothing was refuted; the cutoff-50 line is a slip in prose, named as such; "published, not peer-reviewed, not independently rerun" still applies to the claim as a whole (the PR is unmerged).
 - [ ] Our own PR #216 on that repository is unrelated and stays as is.
 
-Nothing here goes out without the operator's word.
+Sent on the operator's word, 2026-10-16. Checklist items 1–7 held at posting time; the thread is now ours to watch.

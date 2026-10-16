@@ -92,7 +92,7 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
      C_3c certificate CERTIFIED (instruments/optq/twolaw.js on sumdiff + bigfloat; injectivity max |L| = 27 <= 27 checked);
      #226: 20a (Var = 8) and 20c (sqrt3) exact, 23b read, 16a and 70a REFUSED as not attempted on 10-15 and DECIDED 10-16
      after the claimant pointed to his derivations (instruments/optq/bgw16a.py, rbm70a.py, standard library, his scripts
-     pinned as text): both CERTIFIED; reply drafted, NOT POSTED (outreach/replies-2026-10-16/optimizationproblems-226.md);
+     pinned as text): both CERTIFIED; reply POSTED 2026-10-16 ~11:58 UTC on the operator's word — https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6214990536 (outreach/replies-2026-10-16/optimizationproblems-226.md); WATCH THE THREAD;
      PINS.json amended — the 35 atrislabs/.git/* pins were never tracked and were gone from disk, so the committed ledger
      could not re-derive from the committed tree until 10-16 (removed, declared); #217 by the
      openai-math kernel record (BorsukNine CERTIFIED 10-10); #210 (Mosaic, Lambda <= 0.1595) REFUSED: the package's checkers
