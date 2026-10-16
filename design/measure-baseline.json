@@ -1,2538 +1,2580 @@
 {
-  "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-16",
-  "browser": "Chrome/155.0.8059.80",
-  "viewports": [
-    1440,
-    768,
-    390
-  ],
-  "metrics": [
-    "spines",
-    "pageOverflow",
-    "escapes",
-    "clipped"
-  ],
-  "pages": {
-    "site/abatimento/index.html": {
-      "390": {
-        "spines": 20,
-        "pageOverflow": 237,
-        "escapes": 0,
-        "clipped": 12
-      },
-      "768": {
-        "spines": 24,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "1440": {
-        "spines": 39,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "sha": "702c22e2dbbc2617f69e6c493e2220dcc2e39e1a3f4ce13c76f1fcafefd9e0e2"
-    },
-    "site/about/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e4969a3d98f5ce87c9552b1a31f06748ab8b75410e319d65d4a98fd558d4adbf"
-    },
-    "site/apps/skyaudit/index.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "b97409850dfd5ba8c35ca4f962f5deca5d9ef3d3a6a62236178c36fc53eb70d2"
-    },
-    "site/apps/skyaudit/sp/index.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "99f34aa30d029efd96c53229821cd12a5c2b346f6c3c185d08f685e445ac2a6b"
-    },
-    "site/contraprova/index.html": {
-      "390": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 7
-      },
-      "768": {
-        "spines": 25,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 38,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "cbb23ab21313b795fe2057932a3bd87d21d169733ecfe3d56f72e8e8e19199c7"
-    },
-    "site/decidivel/index.html": {
-      "390": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 9
-      },
-      "768": {
-        "spines": 26,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "1440": {
-        "spines": 37,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "9a3e9bee365af2cf42257f7a9aba72df4e7f6518b82e96995feb87caccfde87f"
-    },
-    "site/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "4e165e8c17c621ad7a93b650ed952874b6c3e9fbcbe96a2e4f623c476bf5df92"
-    },
-    "site/instruments/affect/index.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 8
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 19,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e7968e8d48b25e7c1c159fc0612f01e5ddbf78f7c3b96a6c309619b48079167d"
-    },
-    "site/instruments/answer-shape/index.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 18,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "baefc5dd671eae6434317639c99d36f674400925415668bac7dbd79fe6dec5f0"
-    },
-    "site/instruments/blind-spot/index.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "be334acc71c7cbe0d65b24613255fef7403ef9088d3a178daa066ee0582105d6"
-    },
-    "site/instruments/census/index.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "f4f249a676a310e1a1194acd10eb2a5e80d5415e2848c981702b7d10a28d93ba"
-    },
-    "site/instruments/contours/index.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "d49eb12c5b1dd5bbb3aea0c0460dd4e8ea610b1fb8f8164092a1bc4a634bba37"
-    },
-    "site/instruments/curveset/index.html": {
-      "390": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 19,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "128fb12ed986ec723f52c34b2706564aabfe7296abae8b01e8bcf33d806061c8"
-    },
-    "site/instruments/exact-geometry/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "98d31d31c8f1f98590585e2e3e866c051a19ff69b6747e0efaff97e6b83988a3"
-    },
-    "site/instruments/graph/index.html": {
-      "390": {
-        "spines": 1,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6f567895c3af80c6d5ce21886d464c7c48f074602df1252e8be43bcac1e27674"
-    },
-    "site/instruments/index.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 15,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a9737ab67f8736e6bf55ec86c7baa2a417d2096cf8a456e58cfed33afb51b804"
-    },
-    "site/instruments/interferometer/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a67ab0147d85691d8ca61852d566af68a082a88528d97a10c2ac351fbdc72a11"
-    },
-    "site/instruments/lattice-claims/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c7eae2165552db400037a03c652364f8e6a3bd3f0499de56343832c181de7dd7"
-    },
-    "site/instruments/navier-stokes/index.html": {
-      "390": {
-        "spines": 2,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "430d93272a7ed06f55473a82be2519479a17834e5fc25c0d4224709248b22b66"
-    },
-    "site/instruments/neural-geometry/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "3db251eaf6be769a52294d9f46c8a500ef43a0515f321b0d81ea64a75b3b0a72"
-    },
-    "site/instruments/occultation/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "b5ef2d7ce532b3ce90ae3d0702c8da2d7e4c92cce9598c51b4d08a2d1581388a"
-    },
-    "site/instruments/plates/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e2c9a1dc83ea89f2bbde214e974659b763b7620d3d0de649964f8ba015dc778c"
-    },
-    "site/instruments/pqc/index.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "aa4999098e84936f7fbc00492ee18160917119772e16b9d6aea408f2a76ee09b"
-    },
-    "site/instruments/return-level-atlas/index.html": {
-      "390": {
-        "spines": 2,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "dc98dcf37b07c5f6f10c269ab3f50d2abf22f647872cd2a5a372930e578643d8"
-    },
-    "site/instruments/return-level-check/index.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "72ac37d3da4b12c38c4ba0c364e70a04b6317be22a277797bf61f7b9331cc662"
-    },
-    "site/instruments/rewire/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "8c524416257057ccf897d8eb93a415efea628167e03476eeea54345364b8845e"
-    },
-    "site/instruments/shape-hunt/index.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 15,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "1f8ab9071fc98689186b4310e162aaafbc625668c3fa99f917f74f2e0151e4ce"
-    },
-    "site/instruments/simplex/index.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "24cd604bdb97aaf9e8de0855a12f8b725260e9e08b31d9007a5817671945ecff"
-    },
-    "site/instruments/stereo-reach/index.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "1abb1ccd755c72ecf240570bd5dc7a929f0e1f702dc8642f3cdc5116313af29a"
-    },
-    "site/instruments/transit/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "2b5309ef046255cd770e7aecd32ebbb52b57d8a9931e2ce3170acaac84efe7e0"
-    },
-    "site/janela/index.html": {
-      "390": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0147d75c4c22ed339dd2274b15fb6837a08a7a2dba07358790969338a50a5f18"
-    },
-    "site/janela/metodo/index.html": {
-      "390": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 27
-      },
-      "768": {
-        "spines": 21,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 14
-      },
-      "1440": {
-        "spines": 32,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "5fbddbfa34d398b954f0d56b888a2284c532d7348a9f6e9aad6b2e510ce6862c"
-    },
-    "site/machine/index.html": {
-      "390": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 10
-      },
-      "768": {
-        "spines": 15,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 21,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "9040f005cc7c8ef12cd0ef3009d9bab61e108a275e91e1b727cc5b8ddceef58a"
-    },
-    "site/oracle/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "97b1d9478cbb3c16f0b95e0c60c09b0b9d0769ad3565ee56a8ee8fd1f18c1444"
-    },
-    "site/papers/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 7
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "3162ce8d62dad3e0be3b7647a25351eeb11a19a4c5847f3817569cadf6871dff"
-    },
-    "site/reports/aag.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "f4b439163e9456f69c175d205fa13ce0027987566706d21d400457b30583cdfd"
-    },
-    "site/reports/afg.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "5803232c368d714c893ed507a1c790c08044312790eceb9545cb060667443b0b"
-    },
-    "site/reports/agtable.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "f36609c394e732b2ea3b460eeb773abcc420f83344379e9b27c4e9a58d52e4ae"
-    },
-    "site/reports/ai-claims-audit.html": {
-      "390": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "85cfbead2538ffca4e131c426fffb765d01569f2bf99177b5c6d7c5d7fee4cbb"
-    },
-    "site/reports/alien-science.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "1409be1861682c2a9b4738391d682d70d0398cccc27759449ea7c0a3d3631241"
-    },
-    "site/reports/alphaevolve-community.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c06a7e36715f27c3b2628fa2e7a26299d7b8b286e0b75b7e1b9ef5a80dd9f982"
-    },
-    "site/reports/alphaevolve.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "4ca5d518bb5d92ff18df15fb48103d395747c8af3237ede6d4c947017a8d6eaf"
-    },
-    "site/reports/answer-key.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6da0603516d6ffd4162a361752eadec29a850b19d42bc51968211996e4a0155b"
-    },
-    "site/reports/bandeira.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 12,
-        "escapes": 0,
-        "clipped": 7
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c79dcf2291736c7f5aff08e5b4a810130dba74969240c42addad91d022a076cf"
-    },
-    "site/reports/breaking-geometry.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "bcb017a528e47e9715718b96c1460885808f5c48602158c524f4699b96d1596a"
-    },
-    "site/reports/claim-korenblum.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 10
-      },
-      "768": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 18,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "88f5880cacd806b2168b711aebf918dd4518250e7f0c12d57fa9e2761aeb5b45"
-    },
-    "site/reports/claim-lemniscate.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "dd327f5a49814f4b7ca1a81f050b2a8ea57df0a4edd04608c03dbeb44d87bff6"
-    },
-    "site/reports/claim-mathieu.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "69cd2be43e6f303e675ea4dead67a8d20b79d8e7f71500abaabc20f55ef831ba"
-    },
-    "site/reports/claim-maxwell.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 7
-      },
-      "768": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 16,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0619bb69f012aa057fc44bbaa6228e71afb57584f021ae158dedca10375ff2ba"
-    },
-    "site/reports/claim-poisson.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "89f414191ac1072ea8208cb6c596f1b054a39482c84f832991f403fa0cd74e50"
-    },
-    "site/reports/claim-ranteng.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 11
-      },
-      "768": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 19,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0199ff8a9dcc7259aaed744907f23e4ead51dc2931f23ad21382f0225b637f86"
-    },
-    "site/reports/claims.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "d73e2de515eace4a8e5722b35d77b6a1e5e04adeddb0378803d9208dcd7966e1"
-    },
-    "site/reports/counterexample-machine.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "f795e4d9f54cead5e85edf17611962b6f87d6415f7574851ef192af10c4db945"
-    },
-    "site/reports/decided-2026-09.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "ec8dd2d3fb567a8ca4a019530dd5539f6b6739634e5f81d4cf78a01e631a84bd"
-    },
-    "site/reports/decided-2026-10.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "05bc4c87df44eb2ea8f071a7b0e0882b163791df1b382c301df1777228081b1d"
-    },
-    "site/reports/delta3.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "f301f03dddc93a86f90cd7b5fb936715f3c4210734f1095dbed62225295ab953"
-    },
-    "site/reports/diagonal-ramsey.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "03ac10995a4908af6f1dd5ce0bcca0ae706c75619af252af02d3b4306c575504"
-    },
-    "site/reports/easota.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a79caf6954cbe5ed4412342acc8ac7d493eff7625f13361cff02f9e8dde42c6f"
-    },
-    "site/reports/ec-benchmark.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6de8210e54aa773b898e740bb774560995b4a01f4236879bfb1289a7ba40479f"
-    },
-    "site/reports/ember.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "971ecb2164cdd35cbd57bca42a4273b3412ff1cc36c06a469216b924b450d10f"
-    },
-    "site/reports/entropy.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "098d0bf6725d073d8b1c443956de29073079e311d99cf97be57c746f3ee5c9e1"
-    },
-    "site/reports/envs.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a28db4aec1d7a8163152c16e67720fd5a588c08f8811c66b2a2bb08367c22192"
-    },
-    "site/reports/erdos1.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e747018a4f2c32624f81bd6ca16f1817328ddf9168ad7dde390b3572d135ceb6"
-    },
-    "site/reports/erdos1038-inf.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a4fd7d75fb98f8d313c277278481ff237e7c0e0d210ce113cac7903820c3314c"
-    },
-    "site/reports/erdos1038-sup.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "58b4f6b7a0edd5e9cad438ca7da1a007b850b91b74347dc48a99d72eb246d7d9"
-    },
-    "site/reports/erdos290.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "26d0a4673b5c23b1b67e54f86976a949afe516ba97956bc7154cbf796af9aadb"
-    },
-    "site/reports/erdos852-h.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "1582809f6cd79923aa5c4199821d399aac82b4bcb498d66011f72951f72db34f"
-    },
-    "site/reports/erdos852.html": {
-      "390": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "aace0f898c445dd3912ea4be4ac861fcbf4724c7b505c1fc575fad1d4ad953fd"
-    },
-    "site/reports/evtol-energy.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e9a9bdba4603bf58147a7a70f05aef695a4300775b3af3ef4bc0067cae319a50"
-    },
-    "site/reports/forecast-gym.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "225140a4c6d4fdc73330e8f5026a9c82985f433049c75312194b86b22ca3eb16"
-    },
-    "site/reports/frontier.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "5713dd5ece5d2488c544a1d8b962e294803c645b534ae278c999b9f53c48bfb9"
-    },
-    "site/reports/glide-band.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "54f2a0fcee51d7ecd0202070c41d5c46e8e7af6d2af99e04935a7efdeea43ded"
-    },
-    "site/reports/gsm8k-audit.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "15aafcf2c34395d141e48640f5000385d9f8d386701da2e4977af238577c1e61"
-    },
-    "site/reports/gym.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "8c0f9d60516ccccb40794b38f428a2011375ad523328de3d19f4524701242dd9"
-    },
-    "site/reports/harbor-proof.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "333d75d98f29ae42a8dc6ef95d2ea09a4d046690f6f617eba10f10dd5f18d849"
-    },
-    "site/reports/hbar.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "895751d42cfa5834dbb667dedce42b9b4af0939f407659789707fd9e60dfb65d"
-    },
-    "site/reports/horizonmath.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e1602609dd3327c66263e75d2c8191fe1bfeda385c7a987d80431d5efbfb6c84"
-    },
-    "site/reports/impostors.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a9820fa46c84b6f7091dc70a0dc6031ef5876b81096bbaa2d7e32312e6feac17"
-    },
-    "site/reports/index.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e0c21105f7fea98609ef1772348b98e9a4f8336332c08f60936bccfb585fc4a7"
-    },
-    "site/reports/keller.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6315c0f999e0df2f95770e4af7708801162f458200713c3b6815a2fc9df51add"
-    },
-    "site/reports/kissing.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "b97002c8cde95f0edf35e83c9c7f4700809807d4a05b9269ede06ebfbe2f9d72"
-    },
-    "site/reports/lambda4.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c51ad9043fc002c7672bb1b73e7f8f052974e9bfbc5d444cbd41eb122662abb8"
-    },
-    "site/reports/lambda5.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c75eeed56f3cb5be04184a7f05a94b0ae89ec401bdbdabfb429c72c19b5d2b17"
-    },
-    "site/reports/mathbench.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "34ca6c77112e8c8aec481c9ca400618649765d3304fdde71068eebf45db1fad0"
-    },
-    "site/reports/matmul-additions.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "9b254d52fe04275eb5f39a36eec256dcd5246df606c8533abba268bb19db2dca"
-    },
-    "site/reports/matmul-eval.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 7
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 6
-      },
-      "1440": {
-        "spines": 15,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "sha": "97679a1a6f57f7f168475192bc0a2da6c42b9f352da63f174600f9d70c842d18"
-    },
-    "site/reports/maxval.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "972a947899ba6a8966fc2012bab070b2b84e77ac72ddea21be4e0360cd525314"
-    },
-    "site/reports/mercer-program.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 5
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "1440": {
-        "spines": 11,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "d83b21c3b233c1c36e8fd3904ad46aaf5c27b343e00563dcfd1fa3406b929cac"
-    },
-    "site/reports/methods-note.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "9b6fc4f84dbe22c56c7e8fbfc738d85af998c6bf3b8eb02a23d0d0c9a551dd83"
-    },
-    "site/reports/mfg-cap.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "659253713d49bea4f01a3cceb05e67fc46e346ffcc2685a7eb6d9dedc99c4b0c"
-    },
-    "site/reports/mfg-congest.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "61a5aec7bcd760805e83c6d52400dadf65b1108a835e7ea6b88531993ab98727"
-    },
-    "site/reports/mfg-lab.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "48009427d7d1e3d3149a43eb2eb157da6b483ae406e3f16f955267dbd750be4e"
-    },
-    "site/reports/mfg-observatory.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0a317beada28b7140d3bb7c4474fcf966cd0ad2b70a61572544aeab3fc8761df"
-    },
-    "site/reports/mfg-two-population.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0c8368b07fe25cc4ed2d96ac67ce0013284d02db1b91719217c2749a98228140"
-    },
-    "site/reports/monoflow.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "7111b74904a759c3b2317e3ce38bc5f6651427b0acbc282d527c28557fbcb4f2"
-    },
-    "site/reports/navier-stokes.html": {
-      "390": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 10
-      },
-      "768": {
-        "spines": 16,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 5
-      },
-      "1440": {
-        "spines": 19,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "847b8d1f0203eafbb923c0159a37310ac0e06a826bfdda5f15b2a3932f128357"
-    },
-    "site/reports/openai-math.html": {
-      "390": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 6
-      },
-      "768": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "b1ddf43da54050347184d0d98d9bc0e5306a0d1f903a13e670ea7b89f717ca34"
-    },
-    "site/reports/optconst-queue.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 285,
-        "escapes": 0,
-        "clipped": 5
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "ad711feb792ed4d37ce48d84b2253900ac6aeae42929755055d3714b5ba9c5d0"
-    },
-    "site/reports/optimization-constants.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "488114e041eeef900e2d0a9e4207b94e67be30c621b138d23f128f6139ad5ebf"
-    },
-    "site/reports/polymaps.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "1ca507144eb8be2141ad0ee214a1a4ce22edc08f7a66b90972fa3f0b6042b725"
-    },
-    "site/reports/polynomial-multiplication.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "3358bc47592f045313a64304e920e4394a80fffad9d7217d72ae8afd0b17f072"
-    },
-    "site/reports/price.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6e7df83d4024a60a03848972ba776fad66b53535928c219a903eafa6ae873a68"
-    },
-    "site/reports/refusals.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "dac5d0ed0fad13bbef9372b5a49c1435b74378b30178124d7b69ac6485da7df2"
-    },
-    "site/reports/regatlas.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "307663752840062baf200c4ff234797b9635e084a29b7f6e93b2e6d990c7e9d9"
-    },
-    "site/reports/rerun.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "c85d27ce3144fc4794f55aa737a580bdf2f9133768d4a23dcd990729b0edab26"
-    },
-    "site/reports/return-levels.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 8
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 5
-      },
-      "1440": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "7b4cd0de8c16c78466bc8d565f0df7caeca483faebeb34efd5599d48494fb2e2"
-    },
-    "site/reports/rm-audit.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "sha": "6ff72c719300762e18a816610921791df1e290a126eb4369231ab6daf0c7a279"
-    },
-    "site/reports/skyaudit.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "0fa8b4b8e6bc1af1e7f5ec4832640ac1c9f1becc1f37dbf7fb2f65bb495b6d41"
-    },
-    "site/reports/tensor-rank-bounds.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "15b92524f076d3c0673683607a2aaffe1665eb8000877651f551941e0170b572"
-    },
-    "site/reports/terra.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "1a2f7bb0e8ed6b32be36779aa48fc143e8fba55c6d4980b9e32bd53032fb11ee"
-    },
-    "site/reports/time-horizon.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "8590145817f9bbdc9ee2983977914cfeed91dddeb79d21624c67089b889059de"
-    },
-    "site/reports/verifier-loop.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 10
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 10
-      },
-      "1440": {
-        "spines": 14,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "e20a4b0f6cbcfe7a6ca826cb074a38491754687ef8490154d7a3310b6dc0eab1"
-    },
-    "site/reports/verify-lemniscate.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "22a5cbdb5e9e0b32b7db42e0b36724607f248c2a6894a018eb684035c2d09287"
-    },
-    "site/reports/wardrop-repro.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "59525a7277d8fba6bae13e12872e521d2667ed6ae7579e6f22bbee0e6ade6e68"
-    },
-    "site/reports/water-value.html": {
-      "390": {
-        "spines": 3,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "a63fdb1c9acb8fd71eb93b05e3c4ca4279fa216e830786a74be892df017ebc6e"
-    },
-    "site/reports/wowii-counterexamples.html": {
-      "390": {
-        "spines": 4,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 8,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "6f060144fe135049f15ab1705730251dd4797811c98ade5d9eafb9eac545e4e9"
-    },
-    "site/reports/zeta-hankel.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 3
-      },
-      "768": {
-        "spines": 9,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 12,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "74aaa7c2ec74701454d74164f8a2d161c5185aea082d21619f5fb824f13892cc"
-    },
-    "site/reports/zeta3-audit.html": {
-      "390": {
-        "spines": 5,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 1
-      },
-      "1440": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "23b6bfba9105c41cb217231f4e0a3f08cbe3b615fa706c054ab3b12190856b02"
-    },
-    "site/reports/zeta7-anand.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 4
-      },
-      "768": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 2
-      },
-      "1440": {
-        "spines": 13,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "802712275fb58967e96d066526d966698f8e97641d0102793c771d6566448492"
-    },
-    "site/swell/index.html": {
-      "390": {
-        "spines": 6,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "768": {
-        "spines": 7,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "1440": {
-        "spines": 10,
-        "pageOverflow": 0,
-        "escapes": 0,
-        "clipped": 0
-      },
-      "sha": "3158d160732992b5bd26890588d4592279ede743581182b99116d969ee970979"
-    }
+ "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
+ "recorded": "2026-10-16",
+ "browser": "Chrome/155.0.8059.80",
+ "viewports": [
+  1440,
+  768,
+  390
+ ],
+ "metrics": [
+  "spines",
+  "pageOverflow",
+  "escapes",
+  "clipped"
+ ],
+ "pages": {
+  "site/abatimento/index.html": {
+   "390": {
+    "spines": 20,
+    "pageOverflow": 237,
+    "escapes": 0,
+    "clipped": 12
+   },
+   "768": {
+    "spines": 24,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "1440": {
+    "spines": 39,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "sha": "c7984f2b267652e1a2da1690beda641574d60b13ee28cfca0145f9db7bdc6548"
+  },
+  "site/about/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "672ecafff6e96594b7e52d5b8f3055a5eb39451dcad580aafdadd90ec44e03b1"
+  },
+  "site/apps/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "61f0b115b993d7483b7e10d83d3b52966f68b6897fa4375aed51d2a7a86af87e"
+  },
+  "site/apps/skyaudit/index.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "b97409850dfd5ba8c35ca4f962f5deca5d9ef3d3a6a62236178c36fc53eb70d2"
+  },
+  "site/apps/skyaudit/sp/index.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "99f34aa30d029efd96c53229821cd12a5c2b346f6c3c185d08f685e445ac2a6b"
+  },
+  "site/contraprova/index.html": {
+   "390": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 7
+   },
+   "768": {
+    "spines": 25,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 38,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "32477f1e7e7276a83b42e3da6c16b489e62de00f72ed1fc07ceda9b94700ee02"
+  },
+  "site/decidivel/index.html": {
+   "390": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 9
+   },
+   "768": {
+    "spines": 26,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "1440": {
+    "spines": 37,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "bc0656dd31fb1545481bd12ea8a50fa449b0f93fc3bda4bb07b3fb8ba6771087"
+  },
+  "site/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "17eb22d4c23ab1ff4a6f7b337b21c3fd53113f78abb634b034130cd300f4aefb"
+  },
+  "site/instruments/affect/index.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 8
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 19,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e22faf0157dffd74df22a10d52c0d01842b7bfc32051c43be6a470fda600be6f"
+  },
+  "site/instruments/answer-shape/index.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 18,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "20d8b00e704a3c9417b5602a86c3172ee3462413e5e779c842b8085f40b6e0df"
+  },
+  "site/instruments/blind-spot/index.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "d2a59e96c7b33846e32758e701aceb8c62a6daa3496c4ad06319301895fd474a"
+  },
+  "site/instruments/census/index.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "10ea6c3a44b49ff41b673a6dcba484d7b00d7a3ae1f6b539e9375992755f819e"
+  },
+  "site/instruments/contours/index.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "405dd9b902b2d94aba7ac3935ebabb667c219008bd0fe8fb9645cbcbb39d65be"
+  },
+  "site/instruments/curveset/index.html": {
+   "390": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 19,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "576adf576eefa4a21fe36ff5fecd76b4b8b5121059203c066769515fa445745a"
+  },
+  "site/instruments/exact-geometry/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "8a2fafb739529729d5e3a75f0078b91bcc3b4661671fa42cc7ab226127a733a9"
+  },
+  "site/instruments/graph/index.html": {
+   "390": {
+    "spines": 1,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "94e0e2c2c25a91aa5a875e5903c702184acb49849e917ee3ad8dbf24d4d8ca86"
+  },
+  "site/instruments/index.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 15,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "60cf6f40f788fe66e94e48c5b7316f497c445e993ed1f19debdbeb5e4d148e3a"
+  },
+  "site/instruments/interferometer/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "1b1c87ba4ec600ebc523b04a6ad49ce5cc0414f33e825d4615779acf0304e8c3"
+  },
+  "site/instruments/lattice-claims/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "732212a520a2f3977a8448e10aed2123f55e63e22af3958468a10d8a3fd0ad13"
+  },
+  "site/instruments/navier-stokes/index.html": {
+   "390": {
+    "spines": 2,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "1bb7a2b96a99c697ba58faa2cb708d76ecaadc219b1cfefdb89244607ed81602"
+  },
+  "site/instruments/neural-geometry/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "be61dd86815d0f40298d804414b7a422bcf2a1144927ed2ae4a8df604242d3c1"
+  },
+  "site/instruments/occultation/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "95db8ada9275d51f79db0cfebc9dd4a32e5fa09d80967cee72ed82460ec8c505"
+  },
+  "site/instruments/plates/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "6cc0585a610a419d970f965c7ff335ffb2e14ddc72eedec481f7ea321ba53842"
+  },
+  "site/instruments/pqc/index.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "74b4a3493a24d703d8b756a4edbcfe1556ba37d372e7ef20602ffdfd8c413dd0"
+  },
+  "site/instruments/return-level-atlas/index.html": {
+   "390": {
+    "spines": 2,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "734cbd744084b811063089a4f7f631f984f26562012c563d3153b14e5bf927e5"
+  },
+  "site/instruments/return-level-check/index.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "d56c5d20c3382df0d5df8b6ee11ce37e981fd86413164e0bc101c1a622cbce8a"
+  },
+  "site/instruments/rewire/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "b31949dd133c943587e4e6748922de2a7ef64bfa8236a0a0f142e1168c0a3c9e"
+  },
+  "site/instruments/shape-hunt/index.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 15,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "71ad3d9c986ab770a186d6db605e4cd6d66b64f70e80bf89d56cc47e0f68086e"
+  },
+  "site/instruments/simplex/index.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "29f058bf32adb1536b5df4ad7d086bb152c32ccdbc4411e6a606a171dd53c28b"
+  },
+  "site/instruments/stereo-reach/index.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "0b131d0c6a359107c7348a2b0589bb3468a6f82c050662a9cb165c7e26cfb102"
+  },
+  "site/instruments/transit/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "57d25c3dd130d6513d2c2c1c8192d9c477d3ad81968cd0b7cbf1c606921422e5"
+  },
+  "site/janela/index.html": {
+   "390": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "424f7dfa3a1dd6a3c080adcbb16d216498fb878a2ba318cbe576a0fc7a5a3bfe"
+  },
+  "site/janela/metodo/index.html": {
+   "390": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 27
+   },
+   "768": {
+    "spines": 21,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 14
+   },
+   "1440": {
+    "spines": 32,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "7957f8b8cfe57f3b8e09daa204cdc736f57919fb269160b4f72d0317b281029b"
+  },
+  "site/machine/index.html": {
+   "390": {
+    "spines": 2,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "de6b71d45a4828b3de3a96e0a91297ab23f1132bae3e2e33f4fd3a0bec2448f5"
+  },
+  "site/machine/log.html": {
+   "390": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 10
+   },
+   "768": {
+    "spines": 15,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 21,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "1a74601c17d54e1843b9394ee2a0ae9ad1bac7e3110589ddd5bc512066f5ca34"
+  },
+  "site/oracle/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "03644c8cd46b5c2277833f9f618cd5490878f28aecee4cf89364f6fa99bab7aa"
+  },
+  "site/papers/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 7
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "c6ec9ea13bb821f311740cbb44472cd8a6616aef45e49edf8bcda76b3610309c"
+  },
+  "site/reports/aag.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "db598b044b176c1056bae3b480d61f110d2f78222632f4e1bac774dd3eff9085"
+  },
+  "site/reports/afg.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "4e3366da8f7ca23633fd21918b5362025f900d26113d2a30fe1fb928c6f2cfad"
+  },
+  "site/reports/agtable.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "86355f42973ca683a15b45842afac483e3afc9a2031e9103a39dfb66e8d5939b"
+  },
+  "site/reports/ai-claims-audit.html": {
+   "390": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "33c9e82fcf0fd4a8baf86f36481691b83c8bf142a7eb605cb6a89e8995377330"
+  },
+  "site/reports/alien-science.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "90552fb76db0a0cd901b058f1c6e08a9b42fe8f0ab25908500a2e51449960319"
+  },
+  "site/reports/alphaevolve-community.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "60578e4d70058a9afedaf892e3310a77bb05de456c0bb921ead89c4b7fd91d60"
+  },
+  "site/reports/alphaevolve.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "067b946f2a5ddeccacc3e812fb80c724ec9c592a6328d4f2fbc56babeb8e79ef"
+  },
+  "site/reports/answer-key.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "b258dd72fb2c80ae6b27cfb6429bc8c955fa8fb47a7cbb7718dccc964951b808"
+  },
+  "site/reports/bandeira.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 12,
+    "escapes": 0,
+    "clipped": 7
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "7dd0bbda6d68449976ac400165dc95c0f679b49760fc5f7dfaed1d9f6962d43b"
+  },
+  "site/reports/breaking-geometry.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f586d630fcffdb718bd28b146ea40a7601ff58ae4fa902b4d044527412d54e73"
+  },
+  "site/reports/claim-korenblum.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 10
+   },
+   "768": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 18,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "543f7f61954f41e6816a90f91e3b2336a39e20217480bbaab745f5eb7a2d2bff"
+  },
+  "site/reports/claim-lemniscate.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "becd919a63b74df9bcdb9f1b1bf22d06297aca8d1a3297cd70bca04026ea3ab2"
+  },
+  "site/reports/claim-mathieu.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "1481019038cda01f14087f4542165a8ad6967fbbd872cebd4eee3cbfacd66f09"
+  },
+  "site/reports/claim-maxwell.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 7
+   },
+   "768": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 16,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "4e82caee6238084450482e902a777cee966c7e65e0660f4e61d85ee59da0c860"
+  },
+  "site/reports/claim-poisson.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "8b0389849738b94dc51bdee140dc19424129381f025becacb6fd3cf6f94bc2e2"
+  },
+  "site/reports/claim-ranteng.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 11
+   },
+   "768": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 19,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e8bf1bfa9d086dac26c43d30ca42f0f2f0f696f9d481c788ae98a31efdff32da"
+  },
+  "site/reports/claims.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "83944396f26dfd5d82a6d2e7be5c1aaed92eedb1bd3cfd5f506177b13c885b5c"
+  },
+  "site/reports/counterexample-machine.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e429c30bdb9ec3fe2b2ec6cd176545d84e949b16ab9e6647fead0ad6192f40fd"
+  },
+  "site/reports/decided-2026-09.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "2aa0615cad76216e17c6afc17d0f553721be864385e9d74620dc9381f3f5eb58"
+  },
+  "site/reports/decided-2026-10.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "61243d0d414dcc56841ea6d9b6cdba3e3e7043b1a4f34ecbcbb3a71543cce35e"
+  },
+  "site/reports/delta3.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "eae7f4fcc3c73ac85534df260b026f0822ca053e3560b32c511b59dea6454215"
+  },
+  "site/reports/diagonal-ramsey.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "45932958e21a388248788184ae56e55c12470c668d714cbbbe2546f8c5b8a384"
+  },
+  "site/reports/easota.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "48e75b6c3255dc0831e7591c6f02af46c208d05d45daf7a4de1944a4ac5dc28b"
+  },
+  "site/reports/ec-benchmark.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "3c93aeecfdee6e64a51ed3f74fde1e5a2ae79bc2dc08b20956dc18532aa58d63"
+  },
+  "site/reports/ember.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f8642521c32de8fc03602a5f117963b8df149c260294388070e50b520663c983"
+  },
+  "site/reports/entropy.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f46d882a2434f2056fad33f3ddfe649967709338b5f43fb9a443de3e80144d01"
+  },
+  "site/reports/envs.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "bdf6c6d7318ffbd818a4c61b9db919799921e462bfb850e24fb2278c68f60bc8"
+  },
+  "site/reports/erdos1.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "ba193add4de4eb51b943dbea63cd3b3b920b4073c3244bd562197a5d102bfe6e"
+  },
+  "site/reports/erdos1038-inf.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "93487710eb762e2cfb4571015a501b58c2f470f53f16a1f3b765b58798ef8cb1"
+  },
+  "site/reports/erdos1038-sup.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "fabc89c97e19f818ec3bec30d5fe418ed3491d6ba01bb14cc80227acfec30313"
+  },
+  "site/reports/erdos290.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e6a0c3dbd9526196a6c1ccae2bd87000fd707e237ee9d01f6743630e7af91cca"
+  },
+  "site/reports/erdos852-h.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "8944797d6d6811aa84ebc8ac172f5abafaaac7d273df581a05bc90835da7ead1"
+  },
+  "site/reports/erdos852.html": {
+   "390": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "9726245897df92270583f737172ebd24c81e637943bad0f9345f19c1bb36a6b8"
+  },
+  "site/reports/evtol-energy.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "172f3fda0e7c41c26cdeaaaeb26995221daddde727c00fb2691058ba50bb91fe"
+  },
+  "site/reports/forecast-gym.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e318a0a2033b668bd16dbc95d3c308a7388ff0c0b2adb32dfb562156819f3ba8"
+  },
+  "site/reports/frontier.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "8a0924db8ae1f118ce47f58aa037fe297b8a5056c0ac2d222f88ad71369628ca"
+  },
+  "site/reports/glide-band.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e8900681fa321e9b5f661a8ad3d9aa0df0a4befc8662ac9f92a2aca327058d73"
+  },
+  "site/reports/gsm8k-audit.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "350c1cf11824f0eae8467ae6e82d8735dcc1dda676a0ec590e72e5fe71f7e334"
+  },
+  "site/reports/gym.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "6d8e5da02c3b8e267b6cc14148024233ead3843343748a14941d6b5053291bd3"
+  },
+  "site/reports/harbor-proof.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "665be43a258c72e39c9bf9d38ec37526d5d73714c97e4d5903d03ee17d41e593"
+  },
+  "site/reports/hbar.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f7ec57c961ea9e5bea98c1079d1ed25df3d6556590351616cc109fc34f3f49e1"
+  },
+  "site/reports/horizonmath.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "5220574f300ab586f6b8d3240b7714c76e7ea07b879404aa5e6e4f7823404645"
+  },
+  "site/reports/impostors.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "5b5f9e5e3fd9b35dc1a2fc2b766f769f132987587685b153321a7e0876ce7eb5"
+  },
+  "site/reports/index.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "142bcb246080244a6e2087e0c9905a4a8020c3be08ad9c68f8785adcd9de407c"
+  },
+  "site/reports/keller.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "c16b452169477542eac1b7fad40b4500d22c8e35642ec4f57fe79b7eba4107b3"
+  },
+  "site/reports/kissing.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "5e49adee346b0aeaa180ff04fa7139002c80cd7302651732831d3ebbca21aeee"
+  },
+  "site/reports/lambda4.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "0458931c57e1ec33c33c466baf86758de794a6f86e6d3be1996f21d45d50ffe2"
+  },
+  "site/reports/lambda5.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "3139b64983930e5fc101f34c686b7f8bb39544ad48f6409a1f8a1665892a4c3f"
+  },
+  "site/reports/mathbench.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f8f39e9fe2462f32f745813d9a82f60917e30f1044a3eaa3e8d47c96f6ab1a36"
+  },
+  "site/reports/matmul-additions.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "ccce9486ae4605199b1ce4aaf64eae9a6198b569b58c464f2757459a45515802"
+  },
+  "site/reports/matmul-eval.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 7
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 6
+   },
+   "1440": {
+    "spines": 15,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "sha": "21473e656f39582da82b09479d81ede1774a52665ae35a5a392b1cb2b73a2914"
+  },
+  "site/reports/maxval.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "adce78a4956645725c4da404fe0f72ca365c7d89d80da5816c8d397d0774b9ee"
+  },
+  "site/reports/mercer-program.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 5
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "1440": {
+    "spines": 11,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "21e310a60edfac4a3024f09532c0c6ecb42a6b8484bb1f395b90f334b2b2c34d"
+  },
+  "site/reports/methods-note.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "b5550099990f2b17353a06c23aa8880519e5507157dd5d0477e680d7c867dc25"
+  },
+  "site/reports/mfg-cap.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e07ced08165e9eefa8349f5d8df07f800c317a3ee9fc8f79e5f0d72eafbee040"
+  },
+  "site/reports/mfg-congest.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "9d9a317998ca658a26991eb964152a0a1970123bdad184f30050987a2cb3539a"
+  },
+  "site/reports/mfg-lab.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "73bf9b5684e4f2f87d8cffd6ab0edf26b672eed05be72bd1203e225fcac79133"
+  },
+  "site/reports/mfg-observatory.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f431f2bba765d94edd2076340ae7ba760bef59dd6547dc380bddbf2b413071f9"
+  },
+  "site/reports/mfg-two-population.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "94a1be921461a7b32aa251d6ea30332a67b58db066ca787d36ca7d00afc84866"
+  },
+  "site/reports/monoflow.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "84de2699b280918710b7d93f5875ba385f0fbb3d41b30d9e8eb67a72f0020b1e"
+  },
+  "site/reports/navier-stokes.html": {
+   "390": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 10
+   },
+   "768": {
+    "spines": 16,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 5
+   },
+   "1440": {
+    "spines": 19,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "5531e08f8575f8ca415d4bb01ce26375a4d4614deb9be703902b4de3bcd229b1"
+  },
+  "site/reports/openai-math.html": {
+   "390": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 6
+   },
+   "768": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f5efb221ebbc8011830b0788f28b831af04c11d75bfdbd82f98c7464fea68f3b"
+  },
+  "site/reports/optconst-queue.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 285,
+    "escapes": 0,
+    "clipped": 5
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "a6e00945bf01da5506c1cc7d76a079165b9f8ecac1e7f84a23394617b25b66aa"
+  },
+  "site/reports/optimization-constants.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "139569d7b7fd02a0b9b592539d340492982f152eace8e24f5156ba8d49241553"
+  },
+  "site/reports/polymaps.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "2cef85d9ab9a59f15fe785bb017b4fb600c4197861c6bdc62b4c0a45d452a21b"
+  },
+  "site/reports/polynomial-multiplication.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "533dd4ddc3a828e96eaea855f0acfa1ef56c93a48d435072d431189e21523c55"
+  },
+  "site/reports/price.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "d16969255d4674695e6b3d4768f5ae01927f92668ba01be3547d5570298b3f07"
+  },
+  "site/reports/refusals.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "ebb7d85c9a29f024f184aa851cbcb90003a9d887b56fb0107a7fb2ce56846fd3"
+  },
+  "site/reports/regatlas.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "b93e5d0fe119e37da65b5e186306654c8d24a1b6e1bdab5daa4ae6892e2f5b44"
+  },
+  "site/reports/rerun.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "93b3394a8d461c1d86247056e768846de08e8127859857b972e2ad085b1a5a8d"
+  },
+  "site/reports/return-levels.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 8
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 5
+   },
+   "1440": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "fdaacdb9dd7c940d14216e7b70a1594a2213e80bcb255d47db2264c94f5da49f"
+  },
+  "site/reports/rm-audit.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "sha": "b19c9ea0c3c52a63c54ceab6aec57910be03e9ce2c14399d9f9eb4c3c41f34d2"
+  },
+  "site/reports/skyaudit.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "9b418c8df06b7de75218d028d01727773f33f9c76861b0fef2b8a231d7b9c27d"
+  },
+  "site/reports/tensor-rank-bounds.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "e20f769ea7b25043a1fc399b7012ca9c4cc364699bb01e089c2edaf522289ca1"
+  },
+  "site/reports/terra.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "f7997ab1cd828e808b08c4228b1bc4032574486dc1b8ea598f25a5813002b96f"
+  },
+  "site/reports/time-horizon.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "643fc612c0e7d640d53ef3ecb65f3706262ef2f774cc75900f5747897f1bcca4"
+  },
+  "site/reports/verifier-loop.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 10
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 10
+   },
+   "1440": {
+    "spines": 14,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "d5f3098c0e616b604e0eb59a4d6da39f4e10916a392c75b4db95bb116f94b27f"
+  },
+  "site/reports/verify-lemniscate.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "02d0538a545e03ea68e9eed1ef2f390c6fd37c9c9711ad9ee39e46675bcaa369"
+  },
+  "site/reports/wardrop-repro.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "825d8fc762b16683a090deb42f808385a0203626c083bfb2c5fc454fc5a5c60f"
+  },
+  "site/reports/water-value.html": {
+   "390": {
+    "spines": 3,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "fdf2f9da1379795e5b24abe3332b67ec3d5548032bb4bae9dd5bae1d14c6fa0d"
+  },
+  "site/reports/wowii-counterexamples.html": {
+   "390": {
+    "spines": 4,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 8,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "2b10f65d0998c1deef4426ae98f7236cf48eb5aabac60651d10dab5953b8e2bd"
+  },
+  "site/reports/zeta-hankel.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 3
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 12,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "bbafa10659fbd7c908ef1a40bdda629056df984df76a85e68eb0817f9ec588eb"
+  },
+  "site/reports/zeta3-audit.html": {
+   "390": {
+    "spines": 5,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "768": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 1
+   },
+   "1440": {
+    "spines": 7,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "1c09825cd5deb6c921ee73617d3b11ce8d8590dde1c9bd9c9796c6481e56a5b8"
+  },
+  "site/reports/zeta7-anand.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 4
+   },
+   "768": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 2
+   },
+   "1440": {
+    "spines": 13,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "ca0a2ff68ff9c76c7a65987b5238fdac9a70c539ed8e971466447b9240ad032b"
+  },
+  "site/swell/index.html": {
+   "390": {
+    "spines": 6,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "768": {
+    "spines": 9,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "1440": {
+    "spines": 10,
+    "pageOverflow": 0,
+    "escapes": 0,
+    "clipped": 0
+   },
+   "sha": "7cfb788366d51a9a6a390d573a2c4a26b0d05035b7ff7422309a8cddccaf959b"
   }
+ }
 }

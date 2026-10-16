@@ -35,7 +35,7 @@ const GITHUB = 'https://github.com/carlostoledo1891/cert-machine';
 const LINKS = [
   { t: 'Reports', to: 'reports/', here: 'reports' },
   { t: 'Instruments', to: 'instruments/', here: 'instruments' },
-  { t: 'Machine', to: 'machine/', here: 'machine' },
+  { t: 'Method', to: 'machine/', here: 'machine' },   /* 2026-10-16: /machine/ is the method; the control page is /machine/log.html */
   { t: 'About', to: 'about/', here: 'about' },
 ];
 

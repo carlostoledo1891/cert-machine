@@ -47,9 +47,29 @@ method paper, §9 the outreach-safety check — 59 sent URLs, none moved). The D
      apps/swell (rebuilt today) and the row varies with the map's load timing (8, 9, 9 over three runs); not this work's.
   TODO (data, operator-reviewable): fold the October sends (SEND-QUEUE lanes of 10-05, 10-06, 10-11/12, 10-15/16) into
      corpus/outreach.json as rows with URLs and exact status words, then re-check every thread and set lastChecked.
-  PHASE 3: /machine/ → Method (≤ 1,200 words, mirrors the paper's §2; the errata list REQUIRED there), the 22.5k-word
-     control page kept as /machine/log.html, nav label Method, Papers renamed + linked, /apps/ index.
-  PHASE 4: instruments lead + retitles, OG image, sitemap, /portfolio/ 301, the measurement table in the plan.
+  PHASES 3 + 4 DONE (third commit): /machine/ is METHOD — the paper's §2 in the paper's words (materials · the
+     decision grammar with the register's composed words as a table · the arithmetic · the certifiers · the discipline
+     as eight rules), the glossary (#glossary: the ten terms defined once), the errata (#errata, from
+     certs/erratum-2026-10-09.json with the before/after counts), the links and the citation from CITATION.cff;
+     1,746 words (the plan said ≤ 1,200; the table and the glossary are the excess — trim or accept). The control
+     page is /machine/log.html (build-control renders it at that path; sitemap lists it). Nav label Machine → Method.
+     design/refresh.js: title registry + nav + footer line applied to every rendered page AND to every committed
+     report at sync — so a nav or footer change no longer waits for 76 builders to re-run. /apps/ index built from
+     the heads the app builds wrote (8 apps, language tagged); the footer gains "papers"; Papers retitled "Papers"
+     with exact status words. Instruments: H1 "Instruments", one truthful computed lead (the stale contradicting
+     paragraphs gone), the 22 cards' H2s from design/titles.json `_instruments` (formal title + the editorial line
+     as a standfirst; `was` gates), description fixed ("nothing here is certified" was false). App zones rebuilt
+     (skyaudit, contraprova, decidivel, abatimento, janela, swell) so their nav says Method.
+     Copy census after: landing 0 · reports 0 · about 2 · instruments 0 · papers 2 · method 2 (from 1/7/3/16/8/123).
+     Baselines re-recorded for the new pages (style, render, measure); the standfirst rules are token-only because the
+     style gate counts literals. design/measure-baseline.json: site/swell/index.html @768 set to 9 BY HAND — the page
+     measures 7–9 at 768 and 9–10 at 1440 depending on the map's load, acceptMerge keeps an old row whenever a page
+     with an unchanged sha measures lower anywhere, so the worse 768 number could never be recorded by the tool;
+     the row now holds the observed maxima (768: 9, 1440: 10). The ruler is green; a run that measures swell above
+     those is a real regression. OG image rebuilt from the new landing (design/assets/og.png).
+  NOT DONE from the plan: the two external readers' 20-second test (operator's send); folding the October sends into
+     corpus/outreach.json; the instruments' individual page H1s (only the index cards were retitled); Method at 1,746
+     words against the 1,200 planned.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-15 (~05:00 → ~22:30 UTC), THREE AUDITS BUILT ON THE OPERATOR'S "Agreed, build 1, 2 and 3" (the menu of 2026-10-15:
@@ -70,7 +90,11 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
      #225's two step functions decided EXACTLY (instruments/optq/stepfun.py: Kronecker-substitution products on 65,536 and
      114,688 steps; C_1a <= 1.5027434867..., C_1b <= 0.3808585503..., the claimants' fractions digit for digit); #221's two-law
      C_3c certificate CERTIFIED (instruments/optq/twolaw.js on sumdiff + bigfloat; injectivity max |L| = 27 <= 27 checked);
-     #226: 20a (Var = 8) and 20c (sqrt3) exact, 23b read, 16a and 70a NOT ATTEMPTED (REFUSED, said so); #217 by the
+     #226: 20a (Var = 8) and 20c (sqrt3) exact, 23b read, 16a and 70a REFUSED as not attempted on 10-15 and DECIDED 10-16
+     after the claimant pointed to his derivations (instruments/optq/bgw16a.py, rbm70a.py, standard library, his scripts
+     pinned as text): both CERTIFIED; reply drafted, NOT POSTED (outreach/replies-2026-10-16/optimizationproblems-226.md);
+     PINS.json amended — the 35 atrislabs/.git/* pins were never tracked and were gone from disk, so the committed ledger
+     could not re-derive from the committed tree until 10-16 (removed, declared); #217 by the
      openai-math kernel record (BorsukNine CERTIFIED 10-10); #210 (Mosaic, Lambda <= 0.1595) REFUSED: the package's checkers
      decide assembly (rationals, hashes, box covers, auxiliary inequalities on frozen tables), not analysis; the analysis
      cites a private "bank"; the anchor 3/16 is the claimant's own merged row. Page /reports/optconst-queue.html.

@@ -36,7 +36,8 @@ const { balancedGrid } = require('./grid.js');
 const NAVJS = require('./nav.js');
 const BASE = require('./base.js');
 const FOOT = require('./footer.js');
-const TITLES = require('./titles.js');   /* the title registry: applied to every rendered page, once */
+const TITLES = require('./titles.js');   /* the title registry: its standfirst rule is interpolated below */
+const REFRESH = require('./refresh.js'); /* title registry + nav + footer line, applied to every rendered page once */
 
 /* the relative prefix back to the site root, from the page's own path, so the
    nav resolves in a file:// preview as well as on the domain */
@@ -502,7 +503,7 @@ ${scriptRaw}
 `;
   /* the registry last: the formal title into <title>, the cards and the H1,
      the editorial line demoted to a standfirst, one suffix site-wide */
-  return TITLES.retitle(html, pagePath);
+  return REFRESH.refresh(html, pagePath);
 }
 
 module.exports = { render, css, headHtml, DEFAULT_DESC };

@@ -89,8 +89,8 @@ const SERIES_ORDER = ['audits', 'evaluation', 'theorems', 'decisions', 'record']
    every freshly rendered page; retitle() injects it into a committed page
    whose baked stylesheet predates it (the 83 reports were built before the
    registry existed), so a synced page and a re-rendered page style the line
-   the same way. 1.125rem is tokens.js SCALE.deck; 82ch is LAYOUT.read. */
-const STANDFIRST_CSS = '.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;'
-  + 'max-width:82ch;text-wrap:pretty}';
+   the same way. the values are the tokens' variables, never literals: the style gate counts those. */
+const STANDFIRST_CSS = '.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);'
+  + 'margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}';   /* tokens only: the style gate counts literals */
 
 module.exports = { retitle, entries, entryFor, fullTitle, SERIES, SERIES_ORDER, SUFFIX, STANDFIRST_CSS };

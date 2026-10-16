@@ -146,11 +146,9 @@ const COUNT = { all: MANIFEST.length, battery: MANIFEST.filter((m) => m.battery)
 
 const body = `
 <header class="hero"><div class="wrap">
-  <div class="eyebrow">cert-machine &middot; instruments</div>
-  <h1>${word(COUNT.all).charAt(0).toUpperCase() + word(COUNT.all).slice(1)} instruments, and each one says what decides it.</h1>
-  <p class="lede">The same arithmetic as the reports, without the gates. One engine feeds both: the reports are where a claim gets a verdict that a build can refuse to ship; these pages are where that arithmetic runs in your tab and every mark says what decided it. Of the ${word(COUNT.all)}, <b>${word(COUNT.battery)} run a battery in <code>make test</code></b>, ${word(COUNT.certificate)} draws a certificate straight from the shelf the rest of the site gates, ${word(COUNT.exact)} decide their headline number in exact integer or rational arithmetic, and ${word(COUNT.float)} are floats and say so beside the number. None of them can refuse a deploy, and that is the permission: a fact about ceremony, not about the mathematics.</p>
-  <p class="lede" hidden>This page used to open by saying that nothing here was certified. That was the wrong claim and it had stopped being true: two of these pages draw a certificate straight from the shelf the rest of the site gates, and five of them decide their headline number in exact integer or rational arithmetic. <b>What is true is that nothing here is gated</b> &mdash; no number on these pages has a certificate row the build checks, no page here can refuse a deploy, and none of them is covered by <code>make test</code>. That is a fact about ceremony, not about the mathematics, and the two are not the same thing.</p>
-  <p class="lede mt5">So instead of one disclaimer at the door, <b>every card below says what backs its headline number</b>, in the same words the pages use: exact rationals, exact integers, a record from the certificate shelf, or floats. Where it is floats, the page says so beside the number rather than at the bottom.</p>
+  <div class="eyebrow">Carlos Toledo &middot; instruments</div>
+  <h1>Instruments</h1>
+  <p class="lede">The same arithmetic as the reports, running in the browser. Of the ${word(COUNT.all)} instruments, <b>${word(COUNT.battery)} run a battery in the test suite</b>, ${word(COUNT.certificate)} ${COUNT.certificate === 1 ? 'draws its' : 'draw their'} headline number from a certificate the reports also read, ${word(COUNT.exact)} ${COUNT.exact === 1 ? 'decides' : 'decide'} it in exact integer or rational arithmetic, and ${word(COUNT.float)} ${COUNT.float === 1 ? 'is a float and says' : 'are floats and say'} so beside the number. None of these pages is a report: nothing here carries a verdict a build would refuse to publish, and every card below says what backs its headline number.</p>
 </div></header>
 
 <section class="projects"><div class="wrap">
@@ -421,10 +419,25 @@ const body = `
 </div></section>
 `;
 
+/* THE TITLE REGISTRY ON THE CARDS (2026-10-16; design/titles.json `_instruments`): the card's H2 becomes the formal
+   title — instrument, and what it decides — and the editorial line is demoted to a standfirst under it. The registry's
+   `was` is the gate: a card whose H2 is neither `was` nor the title refuses the page. */
+const REG = JSON.parse(fs.readFileSync(path.join(ROOT, 'design', 'titles.json'), 'utf8'))._instruments || {};
+const unesc = (t) => t.replace(/&mdash;/g, '—').replace(/&rsquo;/g, '’').replace(/&amp;/g, '&').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const escT = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const titled = body.replace(/(<a class="card" href="([^"/]+)\/index\.html">[\s\S]*?<div class="card-body">\s*)<h2>([\s\S]*?)<\/h2>/g, (all, pre, id, h2) => {
+  const e = REG[id]; const text = unesc(h2);
+  if (!e) { console.error('instruments: ' + id + ' has no row in design/titles.json _instruments'); process.exit(1); }
+  if (text === e.title) return all;
+  if (text !== e.was) { console.error('instruments: ' + id + '\'s card says "' + text + '", the registry expects "' + e.was + '"'); process.exit(1); }
+  return pre + '<h2>' + escT(e.title) + '</h2>' + (e.standfirst ? '<p class="standfirst">' + escT(e.standfirst) + '</p>' : '');
+});
+for (const id of Object.keys(REG)) if (!titled.includes('href="' + id + '/index.html"')) { console.error('instruments: registry row ' + id + ' has no card'); process.exit(1); }
+
 const html = page({
-  title: 'instruments · cert-machine',
-  desc: 'Instruments made touchable. Nothing here is certified — that is the entire permission.',
-  path: '/instruments/', body,
+  title: 'Instruments',
+  desc: 'The instruments of cert-machine: ' + COUNT.all + ' pages where the same exact and interval arithmetic as the reports runs in the browser, each card saying what backs its headline number — a battery, a certificate, exact arithmetic, or floats.',
+  path: '/instruments/', body: titled,
   css: `${CSS}`,
 });
 
@@ -440,7 +453,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), html);
   fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
   fs.writeFileSync(path.join(HERE, 'out', 'manifest.json'), JSON.stringify({
     generatedBy: 'node playground/build.js', count: COUNT,
-    cards: MANIFEST.map((m) => ({ id: m.id, href: 'instruments/' + m.href, title: m.title, blurb: m.blurb, backing: m.backing, battery: m.battery, scale: m.scale, art: m.art() }))
+    cards: MANIFEST.map((m) => ({ id: m.id, href: 'instruments/' + m.href, title: (REG[m.id] || {}).title || m.title, standfirst: m.title, blurb: m.blurb, backing: m.backing, battery: m.battery, scale: m.scale, art: m.art() }))
   }, null, 1) + '\n');
 }
 

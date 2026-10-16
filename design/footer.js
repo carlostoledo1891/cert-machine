@@ -25,6 +25,7 @@ function footerHtml({ innerRaw = '', root = '' } = {}) {
     + '<div class="foot-line">'
     + '<span>Carlos Toledo · cert-machine</span>'
     + '<a href="' + root + 'index.html">home</a>'
+    + '<a href="' + root + 'papers/index.html">papers</a>'
     + '<a href="' + GITHUB + '">source</a>'
     + '<a href="' + CONCEPT_DOI + '">doi 10.5281/zenodo.22225860</a>'
     + '</div></div></footer>';

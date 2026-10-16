@@ -178,3 +178,5 @@ p { margin: 0; }
 .backs .bv { font-family: var(--font-mono); font-size: var(--text-small); color: var(--ink); }
 .backs .bn { font-size: 11px; color: var(--ink-4); line-height: 1.45; }
 .card:hover .backs { border-left-color: var(--ink-3); }
+/* the standfirst under a card's formal title: the former editorial line (design/titles.json, 2026-10-16) */
+.card-body .standfirst { margin-top: var(--s-2); color: var(--ink-4); font-style: italic; font-size: var(--text-small); line-height: var(--leading-snug); }
