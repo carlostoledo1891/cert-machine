@@ -15,10 +15,22 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~01:45 UTC: NO POD RUNNING; nothing building; caffeinate holds the laptop until 07:00 local; three audits live, outreach days 1+2 POSTED (19 threads to watch); the job search ranked — packets next)
+## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~19:10 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (pu-feed.yml, hourly gate) and makes its first real commit on the next publication morning — read corpus/pu/feed-log.json and that commit before trusting it; site repositioned (titles, landing, Method, apps, instruments) and live; PU Verificado phases A+B1+B2 live; #226 replied; 20 threads to watch)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
+
+NEXT SESSION, IN ORDER (operator asked "what are the next steps" 2026-10-16 evening; the recommendation was 7 → 8 with 1 between):
+  7. Resume v3 (verification accent) with PU Verificado + the openai/math audit as the two samples (personal lines only in resume.private.md).
+  8. Packets in outreach/<employer>/ for the roles that clear the bar (notes/job-search-2026-10-16.md §8, local): Epoch, FAR.AI, Nous,
+     Cohere first; METR and Nubank US Model Risk second. Every send is the operator's; the "US-remote only" contractor asks (Surge,
+     Snorkel, Fireworks) are one email each, the operator's.
+  1. PU: the 2020–2021 LFT sell-side OFF cluster (559 rows; typical diff ≈ two days of accrual at a 2% Selic): probe settlement/VNA
+     variants on a sample; a documented convention becomes a dated amendment, an undocumented one stays OFF and named.
+  2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
+  3. PU: the LFT in /instruments/pu (the Selic series in-page); 4. watch the feed's first real day; 5. ANBIMA's prices (terms first).
+  6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; October outreach rows into corpus/outreach.json.
+  OPERATOR: the Treasury note (dated-calendar effect + LFT rate precision; I draft, you send); ANBIMA bytes yes/no; paper venue + authors.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (evening), PU VERIFICADO BUILT — PHASE A (operator: "Build the experiment in our visual grammar"): every fixed-rate
