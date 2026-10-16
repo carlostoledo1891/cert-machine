@@ -2,7 +2,7 @@
 .panel{margin-top:var(--s-7)}
 .form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s-3);margin-top:var(--s-3)}
 .form label{display:flex;flex-direction:column;gap:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
-.form input,.form select,textarea{font-family:var(--f-mono);font-size:var(--text-body);padding:var(--s-2) var(--s-3);background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-sm,6px);color:var(--ink);min-width:0;width:100%}
+.form input,.form select,textarea{font-family:var(--f-mono);font-size:var(--text-body);padding:var(--s-2) var(--s-3);background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);color:var(--ink);min-width:0;width:100%}
 textarea{margin-top:var(--s-3);line-height:var(--leading-body)}
 .form input:focus,.form select:focus,textarea:focus{outline:2px solid var(--sig);outline-offset:1px}
 .out{margin-top:var(--s-4)}

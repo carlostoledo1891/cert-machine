@@ -73,4 +73,5 @@ jobs:
           bash tools/pu-push.sh "PU feed $(date -u +%F): Tesouro Direto's history grew and was re-pinned; every fixed-rate price re-decided — $n"
       - name: push the refusal log (a restated history is a finding, not a day)
         if: steps.feed.outputs.code == '1'
-        run: bash tools/pu-push.sh "PU feed $(date -u +%F): REFUSED — the published file did not grow from the pin (see corpus/pu/feed-log.json); the pin stays"
+        run: |
+          bash tools/pu-push.sh "PU feed $(date -u +%F) REFUSED — the published file did not grow from the pin (see corpus/pu/feed-log.json); the pin stays"
