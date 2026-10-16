@@ -124,7 +124,7 @@ B.push(C.header({
 }));
 B.push(C.scope('The pinned history precotaxatesourodireto.csv (Tesouro Transparente, ODbL; ' + fmt(L.scope.rows) + ' rows of Tesouro Prefixado = LTN and Tesouro Prefixado com Juros Semestrais = NTN-F, '
   + L.scope.firstDate + ' to ' + L.scope.lastDate + ', ' + L.scope.bonds + ' titles), the ANBIMA national-holiday file to 2099, and the STN methodology of 29/04/2024 whose Tabela 3 is the rule '
-  + '(= ANBIMA 2021 §22), every byte sha256-pinned in corpus/pu/PINS.json. Pre-registered in corpus/pu/preregistration.json, with one dated amendment. '
+  + '(= ANBIMA 2021 §22), every byte sha256-pinned in corpus/pu/PINS.json. Pre-registered in corpus/pu/preregistration.json, with ' + (PRE.amendments.length === 1 ? 'one dated amendment' : PRE.amendments.length + ' dated amendments') + '. '
   + 'Both sides of every row (compra, venda) under the pre-registered settlement hypotheses and printed readings. Phase A: fixed-rate titles only; the indexed titles (Selic, IPCA+), '
   + 'ANBIMA’s secondary-market prices and B3’s are phase B.'));
 B.push(C.tldr({
