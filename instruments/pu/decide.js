@@ -52,8 +52,12 @@ const fxLo = (p, q) => floorDiv(p * S, q), fxHi = (p, q) => ceilDiv(p * S, q);
 /* ln(1 + p/q) as [lo, hi] at scale S, for 0 ≤ p/q < 1. 2·atanh(z), z = p/(2q + p); K terms; remainder
    R ≤ 2 z^(2K+3) / ((2K+3)(1 − z²)) bounded above with z ≤ zMax. */
 function lnOnePlus(p, q) {
-  if (p < 0n) throw new Error('ln: negative rate');
   if (p === 0n) return [0n, 0n];
+  if (p < 0n) {                                      /* ln(1 − x) = −ln(1/(1 − x)) = −ln(1 + x/(q − x)): reflect, negate, swap */
+    if (-p >= q) throw new Error('ln: rate at or below −100%');
+    const [lo, hi] = lnOnePlus(-p, q + p);
+    return [-hi, -lo];
+  }
   const zp = p, zq = 2n * q + p;                     /* z = zp/zq */
   const K = 60;
   let lo = 0n, hi = 0n;
@@ -76,7 +80,8 @@ function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b
 
 /* exp of an interval [ylo, yhi] (scale S), y ≥ 0: halve m times until y/2^m < 1/64, Taylor N terms, square back */
 function expInterval(ylo, yhi) {
-  if (ylo < 0n) throw new Error('exp: negative exponent not needed here');
+  if (yhi < 0n) { const [a, b] = expInterval(-yhi, -ylo); return [floorDiv(S * S, b), ceilDiv(S * S, a)]; }
+  if (ylo < 0n) { const [a] = expInterval(0n, -ylo); const [, b] = expInterval(0n, yhi); return [floorDiv(S * S, a), b]; }
   let m = 0n;
   const limit = S / 64n;
   let a = ylo, b = yhi;
@@ -101,6 +106,7 @@ function factor(taxaPct, du) {
   const key = taxaPct + '|' + du;
   if (factorCache.has(key)) return factorCache.get(key);
   const [p, q] = ratePercentToRational(taxaPct);     /* i = p/q */
+  if (p === 0n) { factorCache.set(key, [S, S]); return [S, S]; }   /* a zero rate: the power is exactly 1 — no slack, no false straddle */
   /* exponent E = trunc14(du/252) = floor(du·10^14/252) / 10^14 */
   const En = (BigInt(du) * 10n ** 14n) / 252n, Ed = 10n ** 14n;
   const [l1, l2] = lnOnePlus(p, q);
@@ -112,10 +118,10 @@ function factor(taxaPct, du) {
 /* "14,36" → i = 1436/10000 (fraction of one); the rule's T-6 on the percent is applied (truncate past 6 decimals) */
 function ratePercentToRational(s) {
   const t = String(s).trim().replace(',', '.');
-  const m = /^(\d+)(?:\.(\d+))?$/.exec(t);
+  const m = /^([+-]?)(\d+)(?:\.(\d+))?$/.exec(t);
   if (!m) throw new Error('rate: not a decimal: ' + s);
-  let frac = (m[2] || '').slice(0, 6);               /* T-6 on the percent */
-  const digits = BigInt(m[1] + frac.padEnd(6, '0'));  /* percent × 10^6 */
+  let frac = (m[3] || '').slice(0, 6);               /* T-6 on the percent */
+  const digits = BigInt(m[2] + frac.padEnd(6, '0')) * (m[1] === '-' ? -1n : 1n);  /* percent × 10^6, signed (an LFT deságio) */
   return [digits, 100n * 10n ** 6n];                 /* i = percent/100 */
 }
 
@@ -192,6 +198,51 @@ function decideNTNF(taxaPct, settleIso, maturityIso, cal) {
   return { kind: 'NTN-F', decided: true, pu6, flows, sum9: dec(sum9, 9), couponDates: dates.length };
 }
 
+/* ---- LFT ------------------------------------------------------------------------------------------ */
+/* The Selic index: VNA(t) = 1000 × Π_{d < t} (1 + selic_d/100), the accumulated factor rounded half up at 16 decimals at
+   every step (Tabela 3: Fator Acumulado Taxa Selic A-16), VNA truncated at 6. `series` is SGS 11 as [{iso, pct6}] with
+   pct6 the published % per day as an integer at 10^-6 (e.g. 0.063204 → 63204), ascending, from 2000-07-03. */
+function selicIndex(series) {
+  const F = 10n ** 16n; const acc = new Map(); let a = F;      /* the factor at scale 10^16 */
+  const dates = [];
+  for (const r of series) {
+    if (r.iso < '2000-07-01') continue;
+    /* × (1 + v/10^8), rounded half up to 16 decimals: a·(10^8 + v) / 10^8 */
+    const num = a * (10n ** 8n + BigInt(r.pct6)); const den = 10n ** 8n;
+    a = (num + den / 2n) / den;
+    acc.set(r.iso, a); dates.push(r.iso);
+  }
+  /* vna(t): the factor accumulated over all days strictly before t */
+  return {
+    vna6(t) { let last = null; for (const d of dates) { if (d >= t) break; last = d; } if (!last) return null; const f = acc.get(last); return (1000n * f) / 10n ** 10n; },   /* 1000·f/10^16 at 10^-6 → trunc */
+    factorAt(t) { let last = null; for (const d of dates) { if (d >= t) break; last = d; } return last ? acc.get(last) : null; },
+    last: dates[dates.length - 1]
+  };
+}
+/* VNA projetado for a settlement after the quotation: VNA(quote) × (1 + meta/100)^(trunc14(1/252)), truncated at 6;
+   the factor is an enclosure at full precision (the worked example admits no truncation of it) */
+function vnaProjetado(vna6, metaPct, k) {
+  const [p, q] = ratePercentToRational(metaPct);
+  const kk = BigInt(k === undefined ? 1 : k);
+  const En = (kk * 10n ** 14n) / 252n, Ed = 10n ** 14n;      /* trunc14(k/252): k business days of projection (the example has k = 1) */
+  const [l1, l2] = lnOnePlus(p, q);
+  const f = expInterval(floorDiv(l1 * En, Ed), ceilDiv(l2 * En, Ed));
+  const lo = floorDiv(vna6 * f[0], 10n ** 6n), hi = ceilDiv(vna6 * f[1], 10n ** 6n);   /* scale S, value = vna · factor */
+  const t = truncDecision(lo, hi, 6);
+  return t.ok ? { ok: true, vna6: t.value } : { ok: false, straddle: [t.lo.toString(), t.hi.toString()] };
+}
+/* LFT: cotação = 100 / (1 + taxa)^(trunc14(du/252)) T-4; PU = cotação × VNA / 100, T-6. `vnaSettle6` is the VNA at the
+   settlement date at 10^-6 (the exact index for D+0, the projected one for D+1). */
+function decideLFT(taxaPct, settleIso, maturityIso, cal, vnaSettle6) {
+  const du = cal.du(settleIso, maturityIso);
+  const [flo, fhi] = factor(taxaPct, du);
+  const cLo = floorDiv(100n * S * S, fhi), cHi = ceilDiv(100n * S * S, flo);
+  const c = truncDecision(cLo, cHi, 4);
+  if (!c.ok) return { kind: 'LFT', du, decided: false, straddle: [c.lo.toString(), c.hi.toString()], at: 'cotação' };
+  /* PU = cotação/100 × VNA — both exact now: cotação at 10^-4, VNA at 10^-6 → product at 10^-10 / 100 → truncate to 10^-6 */
+  return { kind: 'LFT', du, decided: true, cotacao4: c.value, pu6: (c.value * vnaSettle6) / 10n ** 6n, margin: fxMargin(c.margin) };
+}
+
 /* ---- formatting ------------------------------------------------------------------------------------ */
 function dec(intVal, d) { const neg = intVal < 0n; let s = (neg ? -intVal : intVal).toString().padStart(d + 1, '0'); return (neg ? '-' : '') + s.slice(0, -d) + '.' + s.slice(-d); }
 function fx(v, d) { return dec(v / 10n ** (P - BigInt(d)), d); }
@@ -200,7 +251,7 @@ function fxMargin(m) { return [fx(m[0], 15), fx(m[1], 15)]; }
 const trunc2 = (pu6) => pu6 / 10000n;
 const round2 = (pu6) => (pu6 + 5000n) / 10000n;
 
-const PU_API = { calendar, decideLTN, decideNTNF, factor, lnOnePlus, expInterval, truncDecision, roundDecision, coupon, couponDates, dec, trunc2, round2, ratePercentToRational, P, S };
+const PU_API = { calendar, decideLTN, decideNTNF, decideLFT, selicIndex, vnaProjetado, factor, lnOnePlus, expInterval, truncDecision, roundDecision, coupon, couponDates, dec, trunc2, round2, ratePercentToRational, P, S };
 if (typeof module !== 'undefined' && module.exports) module.exports = PU_API;
 else if (typeof globalThis !== 'undefined') globalThis.PU = PU_API;
 

@@ -1,0 +1,888 @@
+{
+ "what": "B3 non-trading / non-settlement days that the national bank calendar (the pinned ANBIMA file) counts as business days, 2004–2026, derived by tools/pu-b3-calendar.js from B3's own circulars and the exchange's calendar pages as captured by the Wayback Machine (corpus/pu/sources/b3/). Each date carries its rule and the documents covering its year that name the holiday; a date with none is rule-only and is used apart.",
+ "rules": {
+  "R1": "25 January non-trading through 2021",
+  "R2": "9 July non-trading through 2021 except 2020",
+  "R3": "20 November non-trading 2006–2021 except 2020",
+  "R4": "24 December non-trading",
+  "R5": "31 December non-trading, or the preceding Friday when it falls on a weekend",
+  "R6": "2014 World Cup: 12, 17 and 23 June per the exchange's 2014 calendar page; 4 and 8 July (Brazil's matches) by the same rule, rule-only"
+ },
+ "generated": "2026-10-16T16:21:31.543Z",
+ "documents": [
+  {
+   "file": "oc/B3-PREGOES.txt",
+   "sha256": "94ebb5c8292fab75720cfaa1dac750d220e6bfa9f8ec71e341432ad7b0798b43",
+   "years": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/CE-001-2021-VPF-antecipacao-feriados-2021.txt",
+   "sha256": "6699113c791a49b7c4ac3aa1b1d141605d9efa72c1424a85924beafa333cae78",
+   "years": [
+    "2021"
+   ]
+  },
+  {
+   "file": "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+   "sha256": "8fcb1689ebb12e857d329dd89c6d5bd3ca27c9517a2132f6b422f07b67185fb9",
+   "years": [
+    "2020",
+    "2021",
+    "2022"
+   ]
+  },
+  {
+   "file": "oc/OC-003-2020-VOP-feriados-2020.txt",
+   "sha256": "8143b22c82f3534d3843b242a955b1d1c8a9a4202c8f10f42ce11ec12902fde2",
+   "years": [
+    "2019",
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-021-2017-DO-feriados-2018.txt",
+   "sha256": "f4ec49ec8c23923670df55dbe0f1434d42eb1f64e0115c713e893f7497ad4343",
+   "years": [
+    "2017",
+    "2018",
+    "2019"
+   ]
+  },
+  {
+   "file": "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+   "sha256": "89bf1f6ad80e37bf540d06eb1ed4f5b7ad6ea92d6aa5329219598d7447e71c07",
+   "years": [
+    "2022",
+    "2024",
+    "2025"
+   ]
+  },
+  {
+   "file": "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+   "sha256": "31d9aad3023aaf352b939a94f2c83196b64e2d373bfb4f7afadb243b393040d7",
+   "years": [
+    "2022",
+    "2025",
+    "2026"
+   ]
+  },
+  {
+   "file": "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+   "sha256": "b027c5f7739368e649cca9fc6160d9d5a0b324ae9346d0686081cc49ae52edc5",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/OC-049-2018-VOP-feriados-2019.txt",
+   "sha256": "803d25dc43bbc9036b3cad7491f50253a3b01f0f0b1ecd38d27919937034905d",
+   "years": [
+    "2018",
+    "2019",
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-054-2025-VNC-calendario-2026.txt",
+   "sha256": "4843e4bc10d076db157291278c00d441dc95173a077afd81221cf109f4f68aaa",
+   "years": [
+    "2022",
+    "2025",
+    "2026"
+   ]
+  },
+  {
+   "file": "oc/OC-068-2020-PRE-funcionamento-19-05.txt",
+   "sha256": "945681da67a0e6e9608724a95500594985bf0745d726c3d2934a3830b9692b1a",
+   "years": [
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-072-2020-PRE-funcionamento-11-06-09-07-20-11.txt",
+   "sha256": "bca4bc626ceed772b44d26ba0cb6596c857d387b2724e7f03cb8d33118350dcc",
+   "years": [
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+   "sha256": "c4a0f3495ed7d04b42aebf50715d5be3d6bc029c497f076d207351b5e8b31205",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+   "sha256": "164652bdf270abe38d9bdea7e822d4093b7187d1ac7c96bf871bbe53135b3333",
+   "years": [
+    "2016",
+    "2017",
+    "2018"
+   ]
+  },
+  {
+   "file": "oc/OC-151-2022-PRE-calendario-2023.txt",
+   "sha256": "fb6999e4f3c88633d5319fb4b2fa67f141065f1406c87b21d3a7feb670ca49c9",
+   "years": [
+    "2022",
+    "2023"
+   ]
+  },
+  {
+   "file": "oc/OC-182-2023-PRE-retificacao-2023.txt",
+   "sha256": "aff8f9d0eac1c128ba5fcaa52965e03b388a082debc8620f9f09c28a5a351681",
+   "years": [
+    "2022",
+    "2023"
+   ]
+  },
+  {
+   "file": "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt",
+   "sha256": "d10d34f289704645980c51679cf70a3dfff10a5936491e355350bcabd27cea5e",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-2004.html",
+   "sha256": "9c4142feea0d5e23034cf6afd62e53b3576472de64c504aa0b674802b76776ae",
+   "years": [
+    "2004"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20050308164852.html",
+   "sha256": "ea4a3b45fc7081915c477d71f936b254b00035670a86785c82fb046b4f5c4218",
+   "years": [
+    "2005"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20051213210207.html",
+   "sha256": "6842d038c7a8e508b54c9d0dd67722f766bac3857fa0ecf58ff1ed3509d63417",
+   "years": [
+    "2005"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20060519190613.html",
+   "sha256": "bfe3bab224ba1612e627da33abb09e38a2d9e193c6d7b2584c57fd282d5d46a7",
+   "years": [
+    "2005",
+    "2006"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2009.decoded.html",
+   "sha256": "5fde0e2e4d0486351ce42a29254ae81f2b1b77584f322cfd774ef57befa35ddc",
+   "years": [
+    "2009"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2009.html",
+   "sha256": "730ded99566801f43c04d229d89c17245a326c096a739801273099a61f3bb61c",
+   "years": []
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2010.html",
+   "sha256": "e1ae1ddfeffaeed829b4a5677cbd7b14a6a2218c0a09594bb4215238fda75d0b",
+   "years": [
+    "2010"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20111121042035.html",
+   "sha256": "47ca33b8358df1403c24d023ca1400d833aaf3493a0a520ca6aaf4562b45ac31",
+   "years": [
+    "2011"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20120428002450.html",
+   "sha256": "8d31d6a44736ed24ab6a4f752613dead03c70c5595a077ea34096fb623704969",
+   "years": [
+    "2012"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20130216100707.html",
+   "sha256": "27a1f72c6e4d0e328ec84ea3762b54626c4a2e9f1665fcaa9086ac7fbae9a06a",
+   "years": [
+    "2013",
+    "2014"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20140124021007.html",
+   "sha256": "8a38246bd2a6c23a93fb782f29c3b7707d70b223afd444e9fd5e14a82e2f1aec",
+   "years": [
+    "2014",
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20140624003521.html",
+   "sha256": "d212013a5e31ed1d1cf4b1294dc83de04e464cd36f87ef8d6cac7eafdd1ed73a",
+   "years": [
+    "2014",
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20151109213821.html",
+   "sha256": "8402f60d5f9e328bbde34bb2cd90ebc1f118917614048f9ad0f11ff1ac0e52a6",
+   "years": [
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20160114195245.html",
+   "sha256": "9952a202026eafb9a0ecfacf715139b0cef8e11aa852d3a158f56e7ab00f90aa",
+   "years": [
+    "2016",
+    "2017"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-exchange-holidays-2010.html",
+   "sha256": "a80b9fa680b5b3488ed38c64fb215bbbdee34c76d175e9b4e1f2ef0a502544af",
+   "years": []
+  },
+  {
+   "file": "wayback/bmfbovespa-market-calendar-2010.html",
+   "sha256": "3386bf5771c20fb9115493ff324b18898560707e87b61570301d337bfb3947ed",
+   "years": [
+    "2010"
+   ]
+  },
+  {
+   "file": "feriados-page.html",
+   "sha256": "7d2f41a0553898a39f9693be855531e0e14478c32e5b5d32da5e7344db9d1298",
+   "years": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ]
+  }
+ ],
+ "crosscheck": "crosscheck/brazil.cpp (QuantLib Brazil::Exchange, BSD): the same rules R1–R5 except 2006-11-20 (QuantLib starts 20 November in 2007; the BM&F 2006 page lists it) and 2020 (QuantLib keeps 9 July and 20 November; OC 072/2020 says normal operation)",
+ "counts": {
+  "days": 80,
+  "documented": 56,
+  "ruleOnly": 24
+ },
+ "days": {
+  "2004-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2004-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2004-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2005-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2005-12-30": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2006-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2006-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2006-12-29": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2007-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2007-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2007-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2007-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2007-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2008-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2008-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2008-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2008-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2008-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2009-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2009-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2009-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2009-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2009.decoded.html"
+   ]
+  },
+  "2010-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2011-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20111121042035.html"
+   ]
+  },
+  "2011-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20111121042035.html"
+   ]
+  },
+  "2012-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2013-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2014-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2015-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2016-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2016-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2017-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2017-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2017-12-29": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2018-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2018-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2018-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2018-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2018-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2020-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2020-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2021-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2021-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "feriados-page.html"
+   ]
+  },
+  "2021-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "feriados-page.html"
+   ]
+  },
+  "2021-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2022-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt"
+   ]
+  },
+  "2023-12-29": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-151-2022-PRE-calendario-2023.txt",
+    "oc/OC-182-2023-PRE-retificacao-2023.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2024-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2024-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt"
+   ]
+  },
+  "2025-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2025-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt"
+   ]
+  },
+  "2026-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2026-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt"
+   ]
+  },
+  "2014-06-12": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-06-17": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-06-23": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-07-04": {
+   "rule": "R6",
+   "documented": false,
+   "sources": []
+  },
+  "2014-07-08": {
+   "rule": "R6",
+   "documented": false,
+   "sources": []
+  }
+ }
+}

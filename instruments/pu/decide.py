@@ -62,6 +62,8 @@ def ulp(x):
 
 def factor_enclosure(i: Fraction, E: Fraction):
     """[lo, hi] Decimals with lo <= (1+i)^E <= hi"""
+    if i == 0:
+        return Decimal(1), Decimal(1)                  # a zero rate: the power is exactly 1 (no slack, no false straddle)
     one_plus_lo = LO.add(Decimal(1), LO.divide(Decimal(i.numerator), Decimal(i.denominator)))
     one_plus_hi = HI.add(Decimal(1), HI.divide(Decimal(i.numerator), Decimal(i.denominator)))
     ln_lo = LO.ln(one_plus_lo)
@@ -81,9 +83,11 @@ def factor_enclosure(i: Fraction, E: Fraction):
 
 def rate_fraction(taxa_pct: str) -> Fraction:
     t = taxa_pct.strip().replace(',', '.')
+    sign = -1 if t.startswith('-') else 1
+    t = t.lstrip('+-')
     whole, _, frac = t.partition('.')
     frac = frac[:6]                                   # T-6 on the percent
-    pct = Fraction(int(whole + frac.ljust(6, '0')), 10 ** 6)
+    pct = Fraction(sign * int(whole + frac.ljust(6, '0')), 10 ** 6)
     return pct / 100
 
 
@@ -168,6 +172,55 @@ def decide_ntnf(taxa: str, settle: str, maturity: str, cal: Calendar):
     return {'pu6': format(pu6, 'f'), 'flows': flows}
 
 
+# ---- LFT ------------------------------------------------------------------------------------------------
+def selic_index(series):
+    """series: list of (iso, pct_str) ascending, SGS 11 (% per day). Accumulated factor rounded half up at 16 decimals
+    at every step (A-16); returns a function vna6(t) → Decimal VNA at 10^-6 (truncated) over days strictly before t."""
+    acc = Decimal(1)
+    table = []
+    q16 = Decimal('1e-16')
+    for iso_d, pct in series:
+        if iso_d < '2000-07-01':
+            continue
+        acc = (acc * (1 + Decimal(pct) / 100)).quantize(q16, rounding=ROUND_HALF_UP)
+        table.append((iso_d, acc))
+
+    def vna6(t):
+        last = None
+        for d, a in table:
+            if d >= t:
+                break
+            last = a
+        return None if last is None else (Decimal(1000) * last).quantize(Decimal('0.000001'), rounding=ROUND_DOWN)
+    return vna6
+
+
+def vna_projetado(vna6: Decimal, meta_pct: str, k: int = 1):
+    """VNA × (1 + meta)^(trunc14(k/252)), the factor as an enclosure at full precision, result truncated at 6"""
+    i = rate_fraction(meta_pct)
+    E = Fraction((k * 10 ** 14) // 252, 10 ** 14)
+    f_lo, f_hi = factor_enclosure(i, E)
+    lo = LO.multiply(vna6, f_lo)
+    hi = HI.multiply(vna6, f_hi)
+    return decide_trunc(lo, hi, 6)
+
+
+def decide_lft(taxa: str, settle: str, maturity: str, cal: Calendar, vna_settle6: Decimal):
+    du = cal.du(iso(settle), iso(maturity))
+    f_lo, f_hi = factor_enclosure(rate_fraction(taxa), exponent(du))
+    c_lo = LO.divide(Decimal(100), f_hi)
+    c_hi = HI.divide(Decimal(100), f_lo)
+    c4 = decide_trunc(c_lo, c_hi, 4)
+    if c4 is None:
+        return {'du': du, 'pu6': None, 'refused_at': 'cotação'}
+    pu = (c4 * vna_settle6 / 100).quantize(Decimal('0.000001'), rounding=ROUND_DOWN)   # exact: both operands are finite decimals
+    return {'du': du, 'cotacao4': format(c4, 'f'), 'pu6': format(pu, 'f')}
+
+
+def rate_fraction_signed(taxa_pct: str) -> Fraction:
+    return rate_fraction(taxa_pct)
+
+
 def load_calendar():
     h = json.loads((ROOT / 'corpus' / 'pu' / 'holidays.json').read_text(encoding='utf-8'))
     return Calendar(h['holidays'])
@@ -177,9 +230,20 @@ def main():
     cal = load_calendar()
     if '--batch' in sys.argv:
         cases = json.load(sys.stdin)
+        import glob
+        rows = []
+        for f in sorted(glob.glob(str(ROOT / 'corpus' / 'pu' / 'sources' / 'bcb' / 'sgs11-*.json'))):
+            rows += json.load(open(f))
+        VNA6 = selic_index(sorted(((lambda d: f"{d[6:]}-{d[3:5]}-{d[:2]}")(r['data']), r['valor']) for r in rows))
         out = []
         for c in cases:
-            r = decide_ltn(c['taxa'], c['settle'], c['maturity'], cal) if c['kind'] == 'LTN' else decide_ntnf(c['taxa'], c['settle'], c['maturity'], cal)
+            if c['kind'] == 'LFT':
+                v = VNA6(c['quote'])
+                if c['settle'] != c['quote']:
+                    v = vna_projetado(v, c['meta'], int(c['k']))
+                r = {'pu6': None} if v is None else decide_lft(c['taxa'], c['settle'], c['maturity'], cal, v)
+            else:
+                r = decide_ltn(c['taxa'], c['settle'], c['maturity'], cal) if c['kind'] == 'LTN' else decide_ntnf(c['taxa'], c['settle'], c['maturity'], cal)
             out.append({'pu6': r['pu6']})
         json.dump(out, sys.stdout)
         return
@@ -189,7 +253,19 @@ def main():
     print('NTN-F PU', b['pu6'], 'flows', len(b['flows']), 'expected 903.075616 · 12')
     for f in b['flows']:
         print('  ', f['date'], 'du', f['du'], 'PV', f['pv'])
-    ok = a['du'] == 532 and a['pu6'] == '753.315323' and b['pu6'] == '903.075616' and len(b['flows']) == 12 and b['flows'][0]['du'] == 28
+    # LFT: the Selic index from the pinned SGS 11 files, the projected VNA, the price
+    import glob
+    rows = []
+    for f in sorted(glob.glob(str(ROOT / 'corpus' / 'pu' / 'sources' / 'bcb' / 'sgs11-*.json'))):
+        rows += json.load(open(f))
+    ser = sorted(((lambda d: f"{d[6:]}-{d[3:5]}-{d[:2]}")(r['data']), r['valor']) for r in rows)
+    vna6 = selic_index(ser)
+    v = vna6('2008-05-20')
+    vp = vna_projetado(v, '11,75')
+    l = decide_lft('-0,0200', '2008-05-21', '2014-03-07', cal, vp)
+    print('LFT  VNA', v, 'proj', vp, 'du', l['du'], 'cotação', l.get('cotacao4'), 'PU', l['pu6'], 'expected 3449.694215 · 3451.215345 · 1459 · 100.1158 · 3455.211852')
+    ok_lft = format(v, 'f') == '3449.694215' and format(vp, 'f') == '3451.215345' and l['pu6'] == '3455.211852' and l['du'] == 1459
+    ok = ok_lft and a['du'] == 532 and a['pu6'] == '753.315323' and b['pu6'] == '903.075616' and len(b['flows']) == 12 and b['flows'][0]['du'] == 28
     print('CALIBRATION OK' if ok else 'CALIBRATION FAILED')
     sys.exit(0 if ok else 1)
 

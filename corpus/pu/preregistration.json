@@ -46,6 +46,27 @@
    "seen": "on a seeded sample of 30 OFF LTN rows, the printed price is reproduced exactly when du is increased by 1 for maturity 2025-01-01, by 2 for 2026-01-01 and by 4 for 2029-01-01 — the number of weekday 20 Novembers between settlement and maturity (20 Nov 2027 is a Saturday). 20 November became a national holiday by Lei 14.759 of 21 December 2023; the pinned ANBIMA file lists it from 2024 on. The publisher priced each quotation with the calendar in force on the day of the quotation, in which no future 20 November was a holiday; the file pinned today carries them, so today's calendar re-counts every earlier quotation.",
    "change": "a second calendar hypothesis is added: CALENDAR-AS-OF-QUOTE, the pinned list minus the 20 Novembers of 2024 and later for quotations before the publisher adopted the new holiday. Every pair is decided under today's calendar and under the as-of-quote calendar; a row that reproduces only under the as-of-quote calendar is REPRODUCED with the code suffix /pre and counted apart. The adoption date is NOT assumed: it is read from the census as the first quotation date from which today's calendar reproduces and the as-of-quote one does not.",
    "notChanged": "the readings, the settlement hypotheses (D+0, D+1, D+1x), the verdict definitions, the rule table. The primary hypothesis for an OFF row's reported difference stays today's calendar, D+1 buy / D+0 sell."
+  },
+  {
+   "date": "2026-10-16 (evening)",
+   "after": "the phase-A ledger (887 OFF) and the phase-B data scout",
+   "seen": "the OFF rows cluster on quotation days whose next bank business day is a day B3 did not trade: 25 January and 9 July through 2021, 20 November 2006–2021 (not 2020), 24 and 31 December (the Friday before when 31 December is a weekend), the 2014 World Cup days, and 2 January 2018 (the Treasury asked for the first settlement of 2018 on the second business day, OC 111/2016). B3's own circulars (2017–2026) and Wayback captures of the exchange's calendar pages (2004–2016) state the rules; the 2007, 2008 and 2014-July pages were not found.",
+   "change": "B1 as pre-registered in phaseB: tools/pu-b3-calendar.js derives corpus/pu/b3-settlement.json from the pinned documents — seven rules, each date citing the documents covering its year that name the holiday; a date no document names is RULE-ONLY and a settlement path through it is coded /r and counted apart. Hypotheses D1b3 (buy) and D0b3, D1b3 (sell): settlement on the next day B3 traded. The July 2014 match days are NOT in the table (no document captured): those rows stay OFF. QuantLib's Brazil::Exchange is the cross-check, not the authority.",
+   "notChanged": "everything else; the primary hypothesis for an OFF row's reported difference stays D+1 buy / D+0 sell on today's bank calendar"
+  },
+  {
+   "date": "2026-10-16 (evening)",
+   "after": "the LFT deciders were written against the methodology's worked example, before any LFT row of the CSV was decided",
+   "seen": "the example (maturity 07/03/2014, settlement 21/05/2008, taxa −0,0200%, Meta Selic 11,75%) reproduces only if the projection factor (1 + meta)^(trunc14(1/252)) multiplies the VNA at full precision — truncating that factor at 4, 6 or 8 decimals gives a different VNA projetado; the accumulated Selic factor rounded at 16 decimals at each daily step and rounded once at the end both give the printed VNA 3.449,694215.",
+   "change": "B2 reads the projection factor as an enclosure at full precision (the result truncated at 6, as the table says for VNA projetado), and the accumulated factor as A-16 at each step (the primary; the once-at-the-end reading is recorded where the two differ at the printed digits). SGS 432 (the Selic target) is pinned beside SGS 11 as the meta input. For the sell side at D+0 the VNA of the quotation day is the exact index; for any settlement after the quotation the projected VNA from the meta of the quotation day.",
+   "notChanged": "the verdicts, the settlement and calendar hypotheses, the reading of the printed centavos"
+  },
+  {
+   "date": "2026-10-16 (night)",
+   "after": "the first run with the LFT rows (77,053 rows) — 13,026 OFF or REFUSED, almost all LFT; then a probe of 400 LFT buy-side rows from 2020 on under the primary hypothesis",
+   "seen": "(a) a zero rate (0,00 — common for the LFT) was REFUSED by the enclosure's outward slack although (1 + 0)^E is exactly 1: fixed, the power of a zero rate is exact. (b) Of 400 recent LFT rows, 14 reproduce exactly, 386 lie inside the interval of prices the printed rate's own precision allows (rate ± half a unit of its last printed decimal) and 0 lie outside: Tesouro Direto prints the LFT ágio/deságio at 2 decimals and prices with more. The early years (2006–2019 in the probe) reproduce exactly.",
+   "change": "the verdict CONSISTENT (the grammar of the return-levels paper) is added: a row not REPRODUCED under any hypothesis whose printed centavos lie within [trunc2(PU(rate − ½ unit)), round2(PU(rate + ½ unit))] under the primary hypothesis. It is counted apart from REPRODUCED and from OFF, for every title; a row outside that interval stays OFF. It states what the published rate's precision allows and nothing more.",
+   "notChanged": "everything else"
   }
  ],
  "phaseB": {

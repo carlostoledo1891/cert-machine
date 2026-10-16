@@ -35,6 +35,15 @@ ok('3  LTN worked example: du 532, PU 753.315323', ltn.du === 532 && ltn.decided
 const ntnf = D.decideNTNF('13,6600', '2008-05-21', '2014-01-01', cal);
 ok('4  NTN-F worked example: 12 flows, PU 903.075616, first du 28, last du 1415', ntnf.decided && D.dec(ntnf.pu6, 6) === '903.075616' && ntnf.flows.length === 12 && ntnf.flows[0].du === 28 && ntnf.flows[11].du === 1415);
 ok('5  coupon 1000·(1.1^½ − 1) A-5 = 48.80885', D.dec(D.coupon(), 5) === '48.80885');
+/* LFT: the Selic index from the pinned SGS 11, the projected VNA from the meta, the price — the methodology's example */
+const SELIC = (() => { let rows = []; for (const f of fs.readdirSync(path.join(ROOT, 'corpus', 'pu', 'sources', 'bcb')).filter((x) => /^sgs11-/.test(x)).sort()) rows = rows.concat(J('corpus/pu/sources/bcb/' + f));
+  return rows.map((r) => { const [d, m, y] = r.data.split('/'); return { iso: y + '-' + m + '-' + d, pct6: Math.round(Number(r.valor) * 1e6) }; }).sort((a, b) => (a.iso < b.iso ? -1 : 1)); })();
+const IDX = D.selicIndex(SELIC);
+const vna = IDX.vna6('2008-05-20'), vp = D.vnaProjetado(vna, '11,75');
+const lft = vp.ok ? D.decideLFT('-0,0200', '2008-05-21', '2014-03-07', cal, vp.vna6) : null;
+ok('6a LFT worked example: VNA 3449.694215, projected 3451.215345, du 1459, cotação 100.1158, PU 3455.211852',
+  D.dec(vna, 6) === '3449.694215' && vp.ok && D.dec(vp.vna6, 6) === '3451.215345' && lft && lft.decided && lft.du === 1459 && D.dec(lft.cotacao4, 4) === '100.1158' && D.dec(lft.pu6, 6) === '3455.211852');
+{ const tampered = SELIC.map((r) => (r.iso === '2004-03-15' ? Object.assign({}, r, { pct6: r.pct6 + 1 }) : r)); const v2 = D.selicIndex(tampered).vna6('2008-05-20'); RED('one Selic day altered by 10^-6 % changes the VNA', v2 !== vna); }
 const py = cp.spawnSync('python3', ['-I', path.join(__dirname, 'decide.py')], { encoding: 'utf8' });
 ok('6  the Python decider (decimal, no shared code) reproduces both examples', py.status === 0 && /CALIBRATION OK/.test(py.stdout));
 /* a planted holiday inside the LTN example's life must move du by one and change the price */
@@ -57,14 +66,23 @@ else {
   ok('8  the verdict counts sum to the pairs decided', sum === L.scope.pairsDecided, '[' + JSON.stringify(L.counts.byVerdict) + ']');
   ok('9  every OFF and REFUSED row is listed', L.offRows.length === (L.counts.byVerdict.OFF || 0) && L.refusedRows.length === (L.counts.byVerdict.REFUSED || 0));
   const censusSum = Object.values(L.census).reduce((a, m) => a + Object.values(m).reduce((x, y) => x + y, 0), 0);
-  ok('10 the convention census counts every decided pair once', censusSum === (L.counts.byVerdict.REPRODUCED || 0) + (L.counts.byVerdict.OFF || 0) + (L.counts.byVerdict.REFUSED || 0));
+  ok('10 the convention census counts every decided pair once', censusSum === (L.counts.byVerdict.REPRODUCED || 0) + (L.counts.byVerdict.CONSISTENT || 0) + (L.counts.byVerdict.OFF || 0) + (L.counts.byVerdict.REFUSED || 0));
   const atlasO = L.atlas.bonds.reduce((a, b) => a + (b.codes.match(/O/g) || []).length, 0), compraOff = L.offRows.filter((r) => r.side === 'C').length;
   ok('11 the atlas carries every buy-side OFF cell', atlasO === compraOff, '[' + atlasO + ']');
   ok('12 the Python cross-check agreed on every sampled row, every OFF and REFUSED row included', L.crossCheck.agree === L.crossCheck.sampled && L.crossCheck.sampled > 0, '[' + L.crossCheck.agree + '/' + L.crossCheck.sampled + ']');
   /* ROUND-2 as the only reading would turn rows OFF: the census must hold rows that reproduce under T and not R */
   const tOnly = Object.values(L.census).reduce((a, m) => a + Object.entries(m).filter(([k]) => /\/T$/.test(k) && !/\/R/.test(k)).reduce((x, [, v]) => x + v, 0), 0);
   RED('reading the printed centavos as a rounding instead of a truncation would turn rows OFF (' + tOnly + ' rows reproduce under TRUNC-2 only)', tOnly > 0);
-  ok('13 no NEEDS DATA row in phase A (fixed-rate titles need no projection)', (L.counts.byVerdict['NEEDS DATA'] || 0) === L.needsData.length);
+  ok('13 every NEEDS DATA row is listed with its reason', (L.counts.byVerdict['NEEDS DATA'] || 0) === L.needsData.length && L.needsData.every((n) => n.why));
+  /* phase B, B1: the B3 settlement table the ledger used is the one on disk, derived from the pinned documents */
+  const B3P = path.join(ROOT, 'corpus', 'pu', 'b3-settlement.json');
+  if (fs.existsSync(B3P) && L.b3Settlement) {
+    const B3 = J('corpus/pu/b3-settlement.json');
+    ok('15 the ledger decided against the B3 settlement table on disk', B3.counts.days === L.b3Settlement.days && B3.counts.documented === L.b3Settlement.documented && B3.counts.ruleOnly === L.b3Settlement.ruleOnly, '[' + B3.counts.days + ' days, ' + B3.counts.documented + ' documented]');
+    const docsOk = B3.documents.every((d) => { const f = path.join(ROOT, 'corpus', 'pu', 'sources', 'b3', d.file); return fs.existsSync(f) && sha(fs.readFileSync(f)) === d.sha256; });
+    ok('16 every document the B3 table cites re-hashes to its digest', docsOk, '[' + B3.documents.length + ' documents]');
+    RED('a weekend date never enters the B3 table', !Object.keys(B3.days).some((d) => { const w = new Date(d + 'T00:00:00Z').getUTCDay(); return w === 0 || w === 6; }));
+  }
 }
 /* the feed's growth rule (tools/pu-feed.js compare): a restatement, a backfill and a header change must each refuse; an append admits */
 { const F = require(path.join(ROOT, 'tools', 'pu-feed.js'));

@@ -1,0 +1,519 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="ctl00_Head1"><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Calendar/Skins/SiteBmfBovespa/Calendar.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Calendar/Skins/SiteBmfBovespa/RadTimePicker.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Combobox/Skins/SiteBmfBovespa/Styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Controles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/datepicker.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Estrutura.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid.SiteBmfBovespa.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/Skins/SiteBmfBovespa/Styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Grid/styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Home.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Input/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/jquery-ui-1.8.17.custom.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Lumis.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Menu/Scripts/4_4_4/menu.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Menu/Skins/SiteBmfBovespa/Styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Menu/Skins/SiteBmfBovespa_Esp/Styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Menu/Skins/SiteBmfBovespa_Ing/Styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Panelbar/Scripts/4_3_4/panelbar.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Panelbar/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Scripts/3_6_4/tabstrip.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Scripts/3_6_4/vtabstrip.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/Tabstrip/Skins/SiteBmfBovespa/styles.css" type="text/css" rel="stylesheet" /><link href="../../../aspnet_client/system_web/2_0_50727/Themes/SiteBmfBovespa/thickbox.css" type="text/css" rel="stylesheet" /><meta name="google-site-verification" content="UGLGgb5TdJT9W1ix_yv2wY6TaWJcWQyhA-peb0RmHbw" />
+
+    <script type="text/javascript" src="/shared/js/ferramentas.js"></script>
+
+    <script type="text/javascript" src="/shared/js/GlobalizacaoMsgValidacao.js"></script>
+
+    <script type="text/javascript" src="/shared/js/menu.js"></script>
+
+    <script type="text/javascript" src="/shared/js/rodape.js"></script>
+
+    <script type="text/javascript" src="/shared/js/jquery-1.4.2.min.js"></script>
+
+    <script type="text/javascript" src="/shared/js/thickbox.js"></script>
+
+    <script type="text/javascript" src="/shared/js/DicionarioFinanceiro.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="WT.cg_n" content="VS_PORTUGUES" />
+    <meta name="keywords" content="Calendário do mercado calendário BM&FBOVESPA feriados" />
+    <meta name="description" content="Calendário de feriados com a lista de datas onde não haverá negociação na BM&FBOVESPA." />
+    <meta http-equiv="Cache Control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Calendário do Mercado – BM&FBOVESPA</title>
+    <link href="css/calendario-do-mercado.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="/shared/js/thickbox.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".listaAcessos li:even").addClass("corAlternada");
+        });
+    
+    </script>
+    
+<link rel="shortcut icon" href="/img/favicon.ico" />
+
+    <script type="text/javascript"></script>
+
+    <!--[if (gte IE 5.5)&(lte IE 8)]>
+    <script type="text/javascript" src="/shared/js/ie-css3.js"></script>
+    <![endif]-->
+
+<link href='/shared/css/menu_pt.css' rel='stylesheet' type='text/css' /><link type="text/css" rel="stylesheet" href="/WebResource.axd?d=QyrvqXtvC2z_xH4oOIkifs6ZGWQ51JHAtGyroqq1C7wOzOLRpy5OoKyx08wCEdsq6g4fjYwa0b7Y7jqUnP-rRHJHcXg38MsD4q3s2yeUj2BT8iit9FnL9oYjRP9lYu0E6ZIw4UoWszjnqYavn6tlRA2&amp;amp;t=634530947347626580" /><link type="text/css" rel="stylesheet" href="/RadControls/Panelbar/Skins/SiteBmfBovespa/styles.css" /><title>
+	Calendário do Mercado | BM&FBOVESPA
+</title></head>
+<body id="ctl00_bovespa">
+    <div id="estruturaPrincipal">
+        <form name="aspnetForm" method="post" action="calendario-do-mercado.aspx?WT.ac=PT_FullBanner-Horario-Carnaval&amp;idioma=pt-br" id="aspnetForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTQ3Njk5Mjk3MA9kFgJmDw8WCB4Ebm9kZQUkMWY2M2ZiNzEtMjRjNC00YzQwLWFmOWItZDZjNzU5YWRkZDMzHgpQYXJlbnROb2RlBTExZjYzZmI3MS0yNGM0LTRjNDAtYWY5Yi1kNmM3NTlhZGRkMzM/SWRpb21hPXB0LWJyHgtDdXJyZW50Tm9kZQVOL3B0LWJyL3JlZ3VsYWNhby9jYWxlbmRhcmlvLWRvLW1lcmNhZG8vY2FsZW5kYXJpby1kby1tZXJjYWRvLmFzcHg/SWRpb21hPXB0LWJyHgpDdXJyZW50VXJsBU4vcHQtYnIvcmVndWxhY2FvL2NhbGVuZGFyaW8tZG8tbWVyY2Fkby9jYWxlbmRhcmlvLWRvLW1lcmNhZG8uYXNweD9JZGlvbWE9cHQtYnJkFgICAw9kFgICAQ9kFggCAQ9kFggCBw8WAh4HVmlzaWJsZWhkAhcPFgYeB29uY2xpY2sFEHRoaXMudmFsdWUgPSAnJzseBm9uYmx1cgUxaWYodGhpcy52YWx1ZSA9PSAnJykge3RoaXMudmFsdWU9IG5vbWVUZXh0QnVzY2E7fR4Kb25rZXlwcmVzcwUkcmV0dXJuIGtleVByZXNzUGVzcXVpc2EodGhpcyxldmVudCk7ZAIZDw8WAh4NT25DbGllbnRDbGljawUccmV0dXJuIFZlcmlmaWNhckNhbXBvQnVzY2EoKWRkAhsPFgIeBFRleHQFwzA8ZGl2IGlkPSdtZW51Jz48dWwgaWQ9J21lbnVIb3Jpeic+PGxpIGlkPSdhYm1mYm92ZXNwYSc+PGEgaHJlZj0nIycgY2xhc3M9J2FibWZib3Zlc3BhJyBpZD0nbGlua0FibWYnPjxpbWcgc3JjPScvc2hhcmVkL2Nzcy9pbWcvdHJhbnNwLmdpZicgLz48L2E+PHVsIG9ubW91c2VvdmVyPSJsaW5rQWJtZi5jbGFzc05hbWU9J2FibWZib3Zlc3BhaG92ZXInOyIgb25tb3VzZW91dD0ibGlua0FibWYuY2xhc3NOYW1lPSdhYm1mYm92ZXNwYSc7Ij48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1zb2JyZS1hLWJvbHNhLmFzcHgnIHRhcmdldD0nJz5Tb2JyZSBhIEJvbHNhPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9hLWJtZmJvdmVzcGEvc3VzdGVudGFiaWxpZGFkZS9zdXN0ZW50YWJpbGlkYWRlLmFzcHgnIHRhcmdldD0nJz5TdXN0ZW50YWJpbGlkYWRlPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9hLWJtZmJvdmVzcGEvdmlzaXRhcy1hLWJvbHNhL3Zpc2l0YXMtYS1ib2xzYS5hc3B4JyB0YXJnZXQ9Jyc+VmlzaXRhcyDDoCBCb2xzYTwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvYS1ibWZib3Zlc3BhL2FnZW5kYS1kZS1ldmVudG9zL2FnZW5kYS1kZS1ldmVudG9zLmFzcHgnIHRhcmdldD0nJz5BZ2VuZGEgZGUgRXZlbnRvczwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLXB1YmxpY2Fjb2VzLWVkdWNhdGl2YXMuYXNweCcgdGFyZ2V0PScnPlB1YmxpY2HDp8O1ZXM8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2EtYm1mYm92ZXNwYS9vbWJ1ZHNtYW4vb21idWRzbWFuLmFzcHgnIHRhcmdldD0nJz5PbWJ1ZHNtYW48L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL3RyYWJhbGhlLWNvbm9zY28vdHJhYmFsaGUtY29ub3Njby5hc3B4JyB0YXJnZXQ9Jyc+VHJhYmFsaGUgQ29ub3NjbzwvYT48L2xpPjwvdWw+PC9saT48bGkgaWQ9J21lcmNhZG8nPjxhIGhyZWY9JyMnIGNsYXNzPSdtZXJjYWRvcycgaWQ9J2xpbmtNZXJjYWRvJz48aW1nIHNyYz0nL3NoYXJlZC9jc3MvaW1nL3RyYW5zcC5naWYnIC8+PC9hPjx1bCBvbm1vdXNlb3Zlcj0ibGlua01lcmNhZG8uY2xhc3NOYW1lPSdtZXJjYWRvc2hvdmVyJzsiIG9ubW91c2VvdXQ9ImxpbmtNZXJjYWRvLmNsYXNzTmFtZT0nbWVyY2Fkb3MnOyI+PGxpPjxhIGhyZWY9Jy9wdC1ici9tZXJjYWRvcy9hY29lcy5hc3B4JyB0YXJnZXQ9Jyc+QcOnw7VlcyA8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL21lcmNhZG9zL21lcmNhZG9yaWFzLWUtZnV0dXJvcy5hc3B4JyB0YXJnZXQ9Jyc+TWVyY2Fkb3JpYXMgZSBGdXR1cm9zPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9pbnRyb3MvaW50cm8tY2FtYmlvLmFzcHgnIHRhcmdldD0nJz5Dw6JtYmlvPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9pbnRyb3MvaW50cm8tYXRpdm9zLmFzcHgnIHRhcmdldD0nJz5BdGl2b3M8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1mdW5kb3MuYXNweCcgdGFyZ2V0PScnPkZ1bmRvcyAvIEVURnM8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL21lcmNhZG9zL21lcmNhZG8tZGUtY2FyYm9uby9tZXJjYWRvLWRlLWNhcmJvbm8uYXNweCcgdGFyZ2V0PScnPk1lcmNhZG8gZGUgQ2FyYm9ubzwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLWxlaWxvZXMuYXNweCcgdGFyZ2V0PScnPkxlaWzDtWVzPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9SZW5kYS1GaXhhL1JlbmRhRml4YS5hc3B4JyB0YXJnZXQ9Jyc+UmVuZGEgRml4YTwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLW91dHJvcy10aXR1bG9zLmFzcHgnIHRhcmdldD0nJz5PdXRyb3MgVMOtdHVsb3M8L2E+PC9saT48L3VsPjwvbGk+PGxpIGlkPSdjZW50cm9kZWluZm9ybWFjb2VzJz48YSBocmVmPScjJyBjbGFzcz0nY2VudHJvZGVpbmZvcm1hY29lcycgaWQ9J2xpbmtDZW50cm8nPjxpbWcgc3JjPScvc2hhcmVkL2Nzcy9pbWcvdHJhbnNwLmdpZicgLz48L2E+PHVsIG9ubW91c2VvdmVyPSJsaW5rQ2VudHJvLmNsYXNzTmFtZT0nY2VudHJvZGVpbmZvcm1hY29lc2hvdmVyJzsiIG9ubW91c2VvdXQ9ImxpbmtDZW50cm8uY2xhc3NOYW1lPSdjZW50cm9kZWluZm9ybWFjb2VzJzsiPjxsaT48YSBocmVmPScvcHQtYnIvZWR1Y2FjaW9uYWwvaW5pY2lhbnRlcy9tZXJjYWRvLWRlLWFjb2VzL21lcmNhZG8tZGUtYWNvZXMuYXNweCcgdGFyZ2V0PScnPlBhcmEgSW5pY2lhbnRlczwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLWpvdmVucy1lLWNyaWFuY2FzLmFzcHgnIHRhcmdldD0nJz5QYXJhIGpvdmVucyBlIGNyaWFuw6dhczwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvZWR1Y2FjaW9uYWwvY3Vyc29zL2N1cnNvcy5hc3B4JyB0YXJnZXQ9Jyc+Q3Vyc29zPC9hPjwvbGk+PGxpPjxhIGhyZWY9J2h0dHA6Ly93d3cudHZidm1mLmNvbS5ici9WaWRlb3MuYXNweD9DYXRlZ29yeUlEPTEmVmlldz1nJyB0YXJnZXQ9J19ibGFuayc+VsOtZGVvczwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvZWR1Y2FjaW9uYWwvc2ltdWxhZG9yZXMvc2ltdWxhZG9yZXMuYXNweCcgdGFyZ2V0PScnPlNpbXVsYWRvcmVzPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9zaGFyZWQvaWZyYW1lLmFzcHg/aWRpb21hPXB0LWJyJnVybD1odHRwOi8vd3d3LmJtZmJvdmVzcGEuY29tLmJyL3B0LWJyL2VkdWNhY2lvbmFsL2VkdWNhci9Gb3JtSW5zY3JpY2FvUGFsZXN0cmFBY2Vzc29JbnN0LmFzcCcgdGFyZ2V0PScnPlBhbGVzdHJhcyBJbnN0aXR1Y2lvbmFpczwvYT48L2xpPjxsaT48YSBocmVmPSdodHRwOi8vd3d3Mi5ibWYuY29tLmJyL2NpbS9pbmRleC5hc3AnIHRhcmdldD0nX2JsYW5rJz5CaWJsaW90ZWNhPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9pbnRyb3MvaW50cm8tcXVlci1zZXItc29jaW8uYXNweCcgdGFyZ2V0PScnPlF1ZXIgc2VyIHPDs2Npbz88L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL3BhcG8tZGUtYm9sc2EvcGFwby1kZS1ib2xzYS5hc3B4JyB0YXJnZXQ9Jyc+UGFwbyBkZSBCb2xzYTwvYT48L2xpPjwvdWw+PC9saT48bGkgaWQ9J2FiYXNlcnZpY29zJz48YSBocmVmPScjJyBjbGFzcz0nYWJhc2Vydmljb3MnIGlkPSdsaW5rU2Vydmljbyc+PGltZyBzcmM9Jy9zaGFyZWQvY3NzL2ltZy90cmFuc3AuZ2lmJyAvPjwvYT48dWwgb25tb3VzZW92ZXI9ImxpbmtTZXJ2aWNvLmNsYXNzTmFtZT0nc2Vydmljb3Nob3Zlcic7IiBvbm1vdXNlb3V0PSJsaW5rU2Vydmljby5jbGFzc05hbWU9J2FiYXNlcnZpY29zJzsiPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLXNlcnZpY29zLWRlLWluZm9ybWFjYW8uYXNweCcgdGFyZ2V0PScnPlNlcnZpw6dvcyBkZSBJbmZvcm1hw6fDo288L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1zb2x1Y29lcy1wYXJhLW5lZ29jaWFjYW8uYXNweCcgdGFyZ2V0PScnPlNvbHXDp8O1ZXMgcGFyYSBOZWdvY2lhw6fDo288L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1zZXJ2aWNvcy1kZS1wb3MtbmVnb2NpYWNhby5hc3B4JyB0YXJnZXQ9Jyc+U2VydmnDp29zIGRlIFDDs3MtbmVnb2NpYcOnw6NvPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9pbnRyb3MvaW50cm8tY2VydGlmaWNhY2FvLmFzcHgnIHRhcmdldD0nJz5DZXJ0aWZpY2HDp8OjbzwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLXNvbHVjb2VzLXBhcmEtZW1wcmVzYXMuYXNweCcgdGFyZ2V0PScnPlNvbHXDp8O1ZXMgcGFyYSBFbXByZXNhczwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLWVtcHJlc3RpbW8tZGUtYXRpdm9zLmFzcHgnIHRhcmdldD0nJz5FbXByw6lzdGltbyBkZSBBdGl2b3M8L2E+PC9saT48bGk+PGEgaHJlZj0naHR0cDovL3d3dy5ibWZib3Zlc3BhLmNvbS5ici9iYW5jbycgdGFyZ2V0PSdfYmxhbmsnPkJhbmNvIEJNJkZCT1ZFU1BBPC9hPjwvbGk+PC91bD48L2xpPjxsaSBpZD0ncmVndWxhY2FvJz48YSBocmVmPScjJyBjbGFzcz0ncmVndWxhY2FvaG92ZXInIGlkPSdsaW5rUmVndWxhY2FvJz48aW1nIHNyYz0nL3NoYXJlZC9jc3MvaW1nL3RyYW5zcC5naWYnIC8+PC9hPjx1bD48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1jdXN0b3MtZS10cmlidXRvcy5hc3B4JyB0YXJnZXQ9Jyc+Q3VzdG9zIGUgVHJpYnV0b3M8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1ob3Jhcmlvcy1kZS1uZWdvY2lhY2FvLmFzcHgnIHRhcmdldD0nJz5Ib3LDoXJpb3MgZGUgTmVnb2NpYcOnw6NvPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9wdC1ici9yZWd1bGFjYW8vY2FsZW5kYXJpby1kby1tZXJjYWRvL2NhbGVuZGFyaW8tZG8tbWVyY2Fkby5hc3B4JyB0YXJnZXQ9Jyc+Q2FsZW5kw6FyaW8gZG8gTWVyY2FkbzwvYT48L2xpPjxsaT48YSBocmVmPScvcHQtYnIvaW50cm9zL2ludHJvLXJlZ3VsYW1lbnRvcy1lLW5vcm1hcy5hc3B4JyB0YXJnZXQ9Jyc+UmVndWxhbWVudG9zIGUgTm9ybWFzPC9hPjwvbGk+PGxpPjxhIGhyZWY9J2h0dHA6Ly93d3cuYnNtLWF1dG9ycmVndWxhY2FvLmNvbS5ici9ob21lLmFzcCcgdGFyZ2V0PSdfYmxhbmsnPlN1cGVydmlzw6NvIGRlIE1lcmNhZG8gLSBCU008L2E+PC9saT48bGk+PGEgaHJlZj0nL29maWNpb3NDb211bmljYWRvcy9vZmljaW9zQ29tdW5pY2Fkb3MuYXNweD9pZGlvbWE9cHQtYnInIHRhcmdldD0nJz5Db211bmljYWRvcyBhbyBNZXJjYWRvPC9hPjwvbGk+PC91bD48L2xpPjxsaSBpZD0ncGFydGljaXBhbnRlcyc+PGEgaHJlZj0nIycgY2xhc3M9J3BhcnRpY2lwYW50ZXMnIGlkPSdsaW5rUGFydGljaXBhbnRlcyc+PGltZyBzcmM9Jy9zaGFyZWQvY3NzL2ltZy90cmFuc3AuZ2lmJyAvPjwvYT48dWwgb25tb3VzZW92ZXI9ImxpbmtQYXJ0aWNpcGFudGVzLmNsYXNzTmFtZT0ncGFydGljaXBhbnRlc2hvdmVyJzsiIG9ubW91c2VvdXQ9ImxpbmtQYXJ0aWNpcGFudGVzLmNsYXNzTmFtZT0ncGFydGljaXBhbnRlcyc7Ij48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby1jb3JyZXRvcmFzLmFzcHgnIHRhcmdldD0nJz5Db3JyZXRvcmFzPC9hPjwvbGk+PGxpPjxhIGhyZWY9Jy9BZ2VudGVzL2FnZW50ZXMuYXNweCcgdGFyZ2V0PScnPkFnZW50ZXMgZGUgQ3VzdMOzZGlhIGUgQ29tcGVuc2HDp8OjbzwvYT48L2xpPjxsaT48YSBocmVmPScvc2hhcmVkL2lmcmFtZS5hc3B4P2FsdHVyYT0xMTAwJmlkaW9tYT1wdC1iciZ1cmw9d3d3Mi5ibWYuY29tLmJyL3BhZ2VzL3BvcnRhbC9ibWZib3Zlc3BhL2Fzc29jaWFkb3MxL2Fzc29jaWFkb3NQZXNxdWlzYTEuYXNwJyB0YXJnZXQ9Jyc+T3V0cm9zIFBhcnRpY2lwYW50ZXM8L2E+PC9saT48bGk+PGEgaHJlZj0naHR0cDovL3d3dy5ibWZib3Zlc3BhLmNvbS5ici9jb3JyZXRvcmFzLXBxby9EZWZhdWx0LmFzcHg/aWRpb21hPXB0LWJyJyB0YXJnZXQ9J19ibGFuayc+UHJvZ3JhbWEgZGUgUXVhbGlmaWNhw6fDo28gT3BlcmFjaW9uYWw8L2E+PC9saT48bGk+PGEgaHJlZj0nL3NoYXJlZC9pZnJhbWUuYXNweD9hbHR1cmE9NDAwJmlkaW9tYT1wdC1iciZ1cmw9aHR0cDovL3d3dy5ibWZib3Zlc3BhLmNvbS5ici9wdC1ici9tZXJjYWRvcy9tZXJjYWRvcmlhcy1lLWZ1dHVyb3MvcGFydGljaXBhbnRlcy9kb2N1bWVudGFjYW8tY2FkYXN0cmFsLmFzcCcgdGFyZ2V0PScnPkRvY3VtZW50YcOnw6NvIENhZGFzdHJhbDwvYT48L2xpPjwvdWw+PC9saT48bGkgaWQ9J2ludmlzdGFqYSc+PGEgaHJlZj0nIycgY2xhc3M9J2ludmlzdGFqYScgaWQ9J2xpbmtpbnZpc3RhamEnPjxpbWcgc3JjPScvc2hhcmVkL2Nzcy9pbWcvdHJhbnNwLmdpZicgLz48L2E+PHVsIG9ubW91c2VvdmVyPSJsaW5raW52aXN0YWphLmNsYXNzTmFtZT0naW52aXN0YWphaG92ZXInOyIgb25tb3VzZW91dD0ibGlua2ludmlzdGFqYS5jbGFzc05hbWU9J2ludmlzdGFqYSc7Ij48bGk+PGEgaHJlZj0nL2NvbW8taW52ZXN0aXItbmEtYm9sc2EuYXNweCcgdGFyZ2V0PScnPkNvbW8gaW52ZXN0aXIgZW0gYcOnw7VlcyA8L2E+PC9saT48bGk+PGEgaHJlZj0nL3B0LWJyL2ludHJvcy9pbnRyby10aXBvcy1kZS1pbnZlc3RpbWVudG9zLmFzcHgnIHRhcmdldD0nJz5UaXBvcyBkZSBpbnZlc3RpbWVudG9zPC9hPjwvbGk+PC91bD48L2xpPjwvdWw+PC9kaXY+ZAIJD2QWAgIFD2QWAgIDDw9kFgIfBQWvAXdpbmRvdy5vcGVuKCdodHRwOi8vd3d3LmJtZmJvdmVzcGEuY29tLmJyL3B0LWJyL3JlZ3VsYWNhby9jYWxlbmRhcmlvLWRvLW1lcmNhZG8vY2FsZW5kYXJpby1kby1tZXJjYWRvLmFzcHg/V1QuYWM9UFRfRnVsbEJhbm5lci1Ib3JhcmlvLUNhcm5hdmFsJmlkaW9tYT1wdC1iciZ2ZXJzYW89aW1wcmVzc2FvJylkAg0PD2QWAh8FBRxoaXN0b3J5LmJhY2soKTsgcmV0dXJuIGZhbHNlZAITDw8WAh8EZ2RkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBRtjdGwwMCRtZW51Qk9WRVNQQVNlY3VuZGFyaW8FHiwYT7JanbBUC6ajI9aqDWt4iw==" />
+
+<script type='text/javascript'> var nomeTextBusca ='Busca';</script>
+<script type="text/javascript">
+//<![CDATA[
+function ConsultaServicoDicionario(chavePesquisa){WebForm_DoCallback('ctl00$DicionarioFinancas',chavePesquisa,ResultadoExecucaoClientCallBack,null,null,false)}//]]>
+</script>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgLN6ey6DAKatY+lDgLz2ISXCALR05XvBgKWjICHCwK0s+TyDhDsyF8z/tHqDRKVtED9IhGzIjDU" />
+            <noindex>
+
+<div id="topo">
+  <div id="sitesGrupo">
+    <div id="carregar"><img src="/img/load_sites-grupo.gif" /></div>
+  </div>
+  <!-- LOGO BmfBovespa -->
+  <img src="/img/LogoBmfBovespaImpressao-pt-br.gif" class="logoImpressao" alt="" />
+  <h1 id="ctl00_ucTopo_H1" class="logoBmfBovespa-pt-br">
+    <a id="ctl00_ucTopo_acessoLogoBmfBovespa" href="../../../home.aspx">BM&FBOVESPA - A Nova Bolsa</a>
+  </h1>
+  <div id="agrupador">
+    <!-- MENU SECUNDÁRIO TOPO -->
+    <div id="menuBmfBovespaAuxiliar">
+      <ul id="selecaoIdiomas">
+        <li id="idiomaChines"> <a href="/zh-cn/home.asp" onclick="dcsMultiTrack('DCS.dcssip','www.bmfbovespa.com.br','DCS.dcsuri','/zh-cn/home.asp','WT.ti','BM&FBOVESPA','WT.cg_n','band-chines');" class="acessoIdiomaChines">Chinese</a></li>
+        <li id="ctl00_ucTopo_idiomaEspanhol">
+          <a onclick="dcsMultiTrack('DCS.dcssip','www.bmfbovespa.com.br','DCS.dcsuri','/es-es/home.aspx','WT.ti','BM&amp;FBOVESPA - Bolsa de Valores, Mercaderías y Futuros','WT.cg_n','band-espanha');" id="ctl00_ucTopo_acessoIdiomaEspanhol" title="Español" class="acessoIdiomaEspanhol" href="javascript:__doPostBack('ctl00$ucTopo$acessoIdiomaEspanhol','')">Español</a>
+        </li>
+        <li id="ctl00_ucTopo_idiomaIngles">
+          <a onclick="dcsMultiTrack('DCS.dcssip','www.bmfbovespa.com.br','DCS.dcsuri','/en-us/home.aspx','WT.ti','BM&amp;FBOVESPA - Securities, Commodities and Futures Exchange','WT.cg_n','band-ingles');" id="ctl00_ucTopo_acessoIdiomaIngles" title="English" class="acessoIdiomaIngles" href="javascript:__doPostBack('ctl00$ucTopo$acessoIdiomaIngles','')">English</a>
+        </li>
+        
+      </ul>
+      <div id="linksMenuAuxiliar">
+        <!-- SITES DO GRUPO -->
+        <div id="contLinkSitesGrp">
+          <a id="ctl00_ucTopo_lnkSitesDoGrupo" class="sitesgrupo" href="javascript:SitesDoGrupo('pt-br')">sites do grupo</a>
+        </div>
+        <div id="contLinkFAQ">
+          <a id="ctl00_ucTopo_lnkPerguntasFrequentes" href="/pt-br/perguntas-frequentes.aspx">FAQ</a>
+        </div>      
+        <div>
+          <a id="ctl00_ucTopo_lnkEmpresasListadas" href="/RedirecionaBanner.asp?BN=topo-home&amp;CP=destaque-Empresaslista&amp;LK=http://www.bmfbovespa.com.br/cias-listadas/empresas-listadas/BuscaEmpresaListada.aspx?idioma=pt-br">Empresas Listadas</a>
+        </div>
+        <div>
+          <a id="ctl00_ucTopo_lnkAberturaCapital" href="http://www.bmfbovespa.com.br/empresas/pages/empresas_abertura_capital_como_abrir.asp" target="_blank">abertura de capital</a>
+        </div>
+        <div>
+          <a id="ctl00_ucTopo_lnkRelacaoInvestidores" href="/RedirecionaBanner.asp?BN=topo-home&amp;CP=Destaque-RI&amp;LK=http://ri.bmfbovespa.com.br/" target="_blank">relações com investidores</a>
+        </div>
+        <div>
+          <a id="ctl00_ucTopo_lnkContato" href="http://www.bmfbovespa.com.br/RedirecionaBanner.asp?BN=menuinferiorhome&amp;CP=contato&amp;LK=http://www.bmfbovespa.com.br/Contato/Contatos.aspx?idioma=pt-br" target="_self">contato</a>
+        </div>
+	  <div class="first">
+          <a id="ctl00_ucTopo_lnkCorretoras" href="/pt-br/intros/intro-corretoras.aspx">Corretoras</a>
+        </div>        
+      </div>
+    </div>
+    <!-- SELEÇÃO DE IDIOMAS -->
+  </div>
+  <!-- ÁREA DE BUSCA -->
+  <div id="busca">
+    <fieldset>
+    <input name="ctl00$ucTopo$btnBusca" type="text" id="ctl00_ucTopo_btnBusca" value="Busca" onclick="this.value = '';" onblur="if(this.value == '') {this.value= nomeTextBusca;}" onkeypress="return keyPressPesquisa(this,event);" />
+    <input type="submit" name="ctl00$ucTopo$btnPesquisa" value="ok" onclick="return VerificarCampoBusca();" id="ctl00_ucTopo_btnPesquisa" class="botaoOk" />
+    </fieldset>
+  </div>
+  <!-- MENU PRINCIPAL -->
+  <div id="areaMenuBmfBovespa">
+    <div id='menu'><ul id='menuHoriz'><li id='abmfbovespa'><a href='#' class='abmfbovespa' id='linkAbmf'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkAbmf.className='abmfbovespahover';" onmouseout="linkAbmf.className='abmfbovespa';"><li><a href='/pt-br/intros/intro-sobre-a-bolsa.aspx' target=''>Sobre a Bolsa</a></li><li><a href='/pt-br/a-bmfbovespa/sustentabilidade/sustentabilidade.aspx' target=''>Sustentabilidade</a></li><li><a href='/pt-br/a-bmfbovespa/visitas-a-bolsa/visitas-a-bolsa.aspx' target=''>Visitas à Bolsa</a></li><li><a href='/pt-br/a-bmfbovespa/agenda-de-eventos/agenda-de-eventos.aspx' target=''>Agenda de Eventos</a></li><li><a href='/pt-br/intros/intro-publicacoes-educativas.aspx' target=''>Publicações</a></li><li><a href='/pt-br/a-bmfbovespa/ombudsman/ombudsman.aspx' target=''>Ombudsman</a></li><li><a href='/pt-br/trabalhe-conosco/trabalhe-conosco.aspx' target=''>Trabalhe Conosco</a></li></ul></li><li id='mercado'><a href='#' class='mercados' id='linkMercado'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkMercado.className='mercadoshover';" onmouseout="linkMercado.className='mercados';"><li><a href='/pt-br/mercados/acoes.aspx' target=''>Ações </a></li><li><a href='/pt-br/mercados/mercadorias-e-futuros.aspx' target=''>Mercadorias e Futuros</a></li><li><a href='/pt-br/intros/intro-cambio.aspx' target=''>Câmbio</a></li><li><a href='/pt-br/intros/intro-ativos.aspx' target=''>Ativos</a></li><li><a href='/pt-br/intros/intro-fundos.aspx' target=''>Fundos / ETFs</a></li><li><a href='/pt-br/mercados/mercado-de-carbono/mercado-de-carbono.aspx' target=''>Mercado de Carbono</a></li><li><a href='/pt-br/intros/intro-leiloes.aspx' target=''>Leilões</a></li><li><a href='/Renda-Fixa/RendaFixa.aspx' target=''>Renda Fixa</a></li><li><a href='/pt-br/intros/intro-outros-titulos.aspx' target=''>Outros Títulos</a></li></ul></li><li id='centrodeinformacoes'><a href='#' class='centrodeinformacoes' id='linkCentro'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkCentro.className='centrodeinformacoeshover';" onmouseout="linkCentro.className='centrodeinformacoes';"><li><a href='/pt-br/educacional/iniciantes/mercado-de-acoes/mercado-de-acoes.aspx' target=''>Para Iniciantes</a></li><li><a href='/pt-br/intros/intro-jovens-e-criancas.aspx' target=''>Para jovens e crianças</a></li><li><a href='/pt-br/educacional/cursos/cursos.aspx' target=''>Cursos</a></li><li><a href='http://www.tvbvmf.com.br/Videos.aspx?CategoryID=1&View=g' target='_blank'>Vídeos</a></li><li><a href='/pt-br/educacional/simuladores/simuladores.aspx' target=''>Simuladores</a></li><li><a href='/shared/iframe.aspx?idioma=pt-br&url=http://www.bmfbovespa.com.br/pt-br/educacional/educar/FormInscricaoPalestraAcessoInst.asp' target=''>Palestras Institucionais</a></li><li><a href='http://www2.bmf.com.br/cim/index.asp' target='_blank'>Biblioteca</a></li><li><a href='/pt-br/intros/intro-quer-ser-socio.aspx' target=''>Quer ser sócio?</a></li><li><a href='/pt-br/papo-de-bolsa/papo-de-bolsa.aspx' target=''>Papo de Bolsa</a></li></ul></li><li id='abaservicos'><a href='#' class='abaservicos' id='linkServico'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkServico.className='servicoshover';" onmouseout="linkServico.className='abaservicos';"><li><a href='/pt-br/intros/intro-servicos-de-informacao.aspx' target=''>Serviços de Informação</a></li><li><a href='/pt-br/intros/intro-solucoes-para-negociacao.aspx' target=''>Soluções para Negociação</a></li><li><a href='/pt-br/intros/intro-servicos-de-pos-negociacao.aspx' target=''>Serviços de Pós-negociação</a></li><li><a href='/pt-br/intros/intro-certificacao.aspx' target=''>Certificação</a></li><li><a href='/pt-br/intros/intro-solucoes-para-empresas.aspx' target=''>Soluções para Empresas</a></li><li><a href='/pt-br/intros/intro-emprestimo-de-ativos.aspx' target=''>Empréstimo de Ativos</a></li><li><a href='http://www.bmfbovespa.com.br/banco' target='_blank'>Banco BM&FBOVESPA</a></li></ul></li><li id='regulacao'><a href='#' class='regulacaohover' id='linkRegulacao'><img src='/shared/css/img/transp.gif' /></a><ul><li><a href='/pt-br/intros/intro-custos-e-tributos.aspx' target=''>Custos e Tributos</a></li><li><a href='/pt-br/intros/intro-horarios-de-negociacao.aspx' target=''>Horários de Negociação</a></li><li><a href='/pt-br/regulacao/calendario-do-mercado/calendario-do-mercado.aspx' target=''>Calendário do Mercado</a></li><li><a href='/pt-br/intros/intro-regulamentos-e-normas.aspx' target=''>Regulamentos e Normas</a></li><li><a href='http://www.bsm-autorregulacao.com.br/home.asp' target='_blank'>Supervisão de Mercado - BSM</a></li><li><a href='/oficiosComunicados/oficiosComunicados.aspx?idioma=pt-br' target=''>Comunicados ao Mercado</a></li></ul></li><li id='participantes'><a href='#' class='participantes' id='linkParticipantes'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkParticipantes.className='participanteshover';" onmouseout="linkParticipantes.className='participantes';"><li><a href='/pt-br/intros/intro-corretoras.aspx' target=''>Corretoras</a></li><li><a href='/Agentes/agentes.aspx' target=''>Agentes de Custódia e Compensação</a></li><li><a href='/shared/iframe.aspx?altura=1100&idioma=pt-br&url=www2.bmf.com.br/pages/portal/bmfbovespa/associados1/associadosPesquisa1.asp' target=''>Outros Participantes</a></li><li><a href='http://www.bmfbovespa.com.br/corretoras-pqo/Default.aspx?idioma=pt-br' target='_blank'>Programa de Qualificação Operacional</a></li><li><a href='/shared/iframe.aspx?altura=400&idioma=pt-br&url=http://www.bmfbovespa.com.br/pt-br/mercados/mercadorias-e-futuros/participantes/documentacao-cadastral.asp' target=''>Documentação Cadastral</a></li></ul></li><li id='invistaja'><a href='#' class='invistaja' id='linkinvistaja'><img src='/shared/css/img/transp.gif' /></a><ul onmouseover="linkinvistaja.className='invistajahover';" onmouseout="linkinvistaja.className='invistaja';"><li><a href='/como-investir-na-bolsa.aspx' target=''>Como investir em ações </a></li><li><a href='/pt-br/intros/intro-tipos-de-investimentos.aspx' target=''>Tipos de investimentos</a></li></ul></li></ul></div>
+  </div>
+  <script type="text/javascript">
+
+        function VerificarCampoBusca() 
+            {
+                if(document.getElementById('ctl00_ucTopo_btnBusca').value == nomeTextBusca)
+                {
+                    return false;
+                }
+            }
+
+            function keyPressPesquisa(object, evt) {
+                if (evt.which || evt.keyCode) 
+                {
+                    if ((evt.which == 13) || (evt.keyCode == 13)) {
+                        document.getElementById('ctl00_ucTopo_btnPesquisa').click();
+                        return false;
+                    }
+                }
+            }
+    </script>
+</div>
+</noindex>
+            <div id="estruturaConteudo">
+
+                <script language="javascript" type="text/javascript">
+               // substituír a classe css quando o elemento não tiver post back        
+               function onClicking(sender, eventArgs) {
+                   var mylist = document.getElementById("ctl00_menuBOVESPASecundario")
+                   var listitems = mylist.getElementsByTagName("A")
+
+                   for (i = 0; i < listitems.length; i++) {
+
+                       if (listitems[i].className.indexOf("clicadoNivel1") >= 0
+						    || listitems[i].className.indexOf("clicadoNivel2") >= 0) {
+
+                           listitems[i].className = "link";
+                       }
+
+
+                   }
+
+               } 
+
+                </script>
+
+                
+                <noindex><div id="ctl00_menuBOVESPASecundario" class="panelbar RadPanelbar_SiteBmfBovespa ">
+	<!-- 4.3.4 --><script type="text/javascript" src="/WebResource.axd?d=QyrvqXtvC2z_xH4oOIkifs6ZGWQ51JHAtGyroqq1C7wOzOLRpy5OoKyx08wCEdsq6g4fjYwa0b7Y7jqUnP-rRHJHcXg38MsD4q3s2yeUj2BolKzqmMuf762r7X1xgPE0Da01B1quSWzwrBh6CviD9g2&amp;t=634530947347626580"></script><span id="ctl00_menuBOVESPASecundarioStyleSheetHolder" style="display:none;"></span><ul class="rootGroup">
+		<li class="item first last"><a href="#" id="ctl00_menuBOVESPASecundario_p0" title="Calendário do Mercado" class="link"><span class="text">Calendário do Mercado</span></a></li>
+	</ul><input type="hidden" id="ctl00_menuBOVESPASecundario_Hidden" name="ctl00$menuBOVESPASecundario" /><script type="text/javascript">window["ctl00_menuBOVESPASecundario"] = new RadPanelbar("ctl00_menuBOVESPASecundario");window["ctl00_menuBOVESPASecundario"].Initialize({"CookieName":"ctl00_menuBOVESPASecundario","CausesValidation":false,"Enabled":true,"Skin":"SiteBmfBovespa","ExpandAnimation":{"Type":"OutCubic"},"CollapseAnimation":{"Type":"InCubic"},"ExpandMode":1,"OnClientItemClicking":"onClicking"},{"ctl00_menuBOVESPASecundario_p0":{"Value":"Calendário do Mercado","NavigateAfterClick":false}});</script>
+</div></noindex>
+                
+                <div id="estruturaConteudoInterna">
+                    <noindex><div class="agrupadorHistNavegacaoFerrConteudo">
+						
+						<div id="breadcrumb" class="areaHistoricoNavegacao">
+							<span id="ctl00_historicoNavegacao" class="areaHistoricoNavegacao"><a href="#ctl00_historicoNavegacao_SkipLink"><img alt="Skip Navigation Links" height="0" width="0" src="/WebResource.axd?d=D9IOA5bYAvxBgQ0NyYw64w2&amp;t=633863926155156250" border="0" /></a><span>
+                                <a href="/home.aspx" id="ctl00_historicoNavegacao_ctl00_A1">
+                                Home
+                                </a>
+                                
+                                </span><span class="separador">/</span><span>
+                                <a id="ctl00_historicoNavegacao_ctl02_A1">
+                                Regulação
+                                </a>
+                                
+                                </span><span class="separador">/</span><span>
+                                <a href="/pt-br/regulacao/calendario-do-mercado/calendario-do-mercado.aspx" id="ctl00_historicoNavegacao_ctl04_A1">
+                                Calendário do Mercado
+                                </a>
+                                
+                                </span><a id="ctl00_historicoNavegacao_SkipLink"></a></span>
+							<p></p>
+						</div>
+
+						
+						<div id="ctl00_ferramentasConteudo" class="ferramentasConteudo">
+							<ul>
+								
+								
+								
+								
+								
+								
+                            
+								<script language="javascript" type="text/javascript">
+								    
+								    gstrUrlPagina = window.location.href;
+								    gstrNomeArquivo = window.location.pathname.split("/")[4];
+								    gstrTitulo = window.document.title.split("|")[0];
+								   							   
+								    
+								    $(document).ready(function() {
+								        if (typeof gstrUrlEncurtada != 'undefined') {
+								            document.getElementById("socialBookmarking").style.display = 'inline-block';
+								        }
+								    });
+								    
+								    function limitadorCaracteres(gstrTitulo) {
+								        if (gstrTitulo.length >= 105) {
+								            return gstrTitulo.substr(0, 105) + "...";
+								        } else {
+								            return gstrTitulo.substr(0, 105);
+								        }
+								    }
+								    
+								    function EnviarViaRedeSocial(gstrNomeRedeSocial, gstrTitulo, gstrNomeArquivo, gstrUrlPagina) {
+								        switch (gstrNomeRedeSocial) {
+								            case 'Twitter':
+								                window.open('http://twitter.com/home?status=' + encodeURIComponent(limitadorCaracteres(gstrTitulo)) + ' ' + gstrUrlEncurtada + encodeURIComponent(' #BMFBOVESPA'));
+								                break;
+								            case 'Facebook':
+								                window.open('http://www.facebook.com/sharer.php?t=' + encodeURIComponent(gstrTitulo) + '?' + "" + '&u=' + 'http://www.bmfbovespa.com.br' + window.location.pathname);
+								                break;
+								            case 'Orkut':
+								                window.open('http://promote.orkut.com/preview?nt=orkut.com&tt=' + encodeURIComponent(document.title) + '&du=' + 'http://www.bmfbovespa.com.br' + window.location.pathname);
+								                break;
+								                
+								            //exemplo para abertura do compartilhamento por email
+								            case 'Email':
+								                var tituloFormatado = gstrTitulo;
+								                tituloFormatado = tituloFormatado.replace("&","||");								                								                
+								                window.open('/NoticiasHome/EnvioNoticiaEmail.aspx?url='+ gstrUrlPagina + "&titulo=" + tituloFormatado, 'BMFBOVESPA', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=480,height=380');								                
+								                break;
+								        }
+								    }
+								    
+                                </script>
+                                
+								<div id="socialBookmarking">
+                                      <p>compartilhe:</p>
+                                      <ul>
+                                        <li>
+                                          <a href="javascript:;" onclick="EnviarViaRedeSocial('Twitter', gstrTitulo, gstrNomeArquivo, gstrUrlPagina);" id="tweeter" title="Twitter">
+                                            <span>Twitter</span>&nbsp;
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="javascript:;" onclick="EnviarViaRedeSocial('Facebook',gstrTitulo, gstrNomeArquivo,'');" id='facebook' title='Facebook'>
+                                            <span>Facebook</span>&nbsp;
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a href="javascript:;" onclick="EnviarViaRedeSocial('Email', gstrTitulo, gstrNomeArquivo, gstrUrlPagina);" id='sendByMail' title='E-mail'>
+                                            <span>E-mail</span>&nbsp;
+                                          </a>
+                                        </li>                                        
+                                      </ul>
+                                </div>
+                                
+							</ul>							
+							
+							
+
+<div id="divDicionario">
+	<a href="javascript:DicionarioFechar();" class="closeDic"><span>x</span></a>
+	<p class="titulo">Busca por:</p>
+	<input type="text" id="txtCampoBuscaDicionarioFinanceiro" onkeydown="TeclaEspecial(event);" class="campoBuscaDic" maxlength="90" />
+	<div id="resAutoCompletar"></div>
+	<div id="DicResult">					
+		<div class="container">
+			<div id="painelResultadoConsultaVerbete" class="interna"></div>
+		</div>
+		<p><a href="http://www.edicoeseletronicas.com.br/" target="_blank">Copyright © Edições Eletrônicas</a></p>
+	</div>
+</div>
+							
+						</div>
+						
+					</div>
+					</noindex>
+                    <div id="conteudo" class="conteudo">
+                            
+    <h1>Calendário do Mercado</h1>
+
+    <?xml version="1.0" encoding="utf-8"?><script language="javascript" type="text/javascript">
+
+      function ExibirMes(idMes){
+
+      //Feriados
+      $(".mesFeriado").css("display","none");
+      $("#mesFeriado" + idMes).css("display","block");
+
+      switch(idMes)
+      {
+      case '01':
+      $(".mesAtual").html('Janeiro');
+      break;
+      case '02':
+      $(".mesAtual").html('Fevereiro');
+      break;
+      case '03':
+      $(".mesAtual").html('Março');
+      break;
+      case '04':
+      $(".mesAtual").html('Abril');
+      break;
+      case '05':
+      $(".mesAtual").html('Maio');
+      break;
+      case '06':
+      $(".mesAtual").html('Junho');
+      break;
+      case '07':
+      $(".mesAtual").html('Julho');
+      break;
+      case '08':
+      $(".mesAtual").html('Agosto');
+      break;
+      case '09':
+      $(".mesAtual").html('Setembro');
+      break;
+      case '10':
+      $(".mesAtual").html('Outubro');
+      break;
+      case '11':
+      $(".mesAtual").html('Novembro');
+      break;
+      case '12':
+      $(".mesAtual").html('Dezembro');
+      break;
+      }
+      }
+
+      $(document).ready(function() {
+
+      var data = new Date();
+
+      var stringValue = "0" + String(data.getMonth()+1);
+
+      // $("#selMeses option")[data.getMonth()].selected = true;
+
+      // $("#selMeses option")[0].selected = true;
+
+      // ExibirMes(data.getMonth()+1);
+
+      // ExibirMes('01');
+
+      ExibirMes(stringValue);
+
+      });
+    </script><div class="colunaEsquerda"><div class="subTituloColuna01">Dias em que não haverá negociação na Bolsa em 2013</div><div class="containerMesTamanho2"><div class="mesTamanho2Invert">Jan</div><div class="imgMesTamanho2"><img src="img/ic_01.gif" class="imgPos" /><img src="img/ic_25.gif" class="imgPos" /></div><div class="mesDescricaoTamanho2a">Confraternização Universal</div><div class="mesDescricaoTamanho2b"><b>Aniversário de São Paulo</b> (feriado municipal)
+        </div></div><div class="containerMesTamanho2"><div class="mesTamanho2">
+          Fev
+        </div><div class="imgMesTamanho2"><img src="img/ic_11.gif" class="imgPos" /><img src="img/ic_12.gif" class="imgPos" /></div><div class="mesDescricaoTamanho2a">Carnaval</div><div class="mesDescricaoTamanho2b">Carnaval</div></div><div class="containerMesTamanho1"><div class="mesTamanho1">Mar</div><div class="imgMesTamanho1"><img src="img/ic_29.gif" /></div><div class="mesDescricaoTamanho1"><b>Paixão de Cristo</b></div></div><div class="containerMesTamanho2"><div class="mesTamanho2">
+          Mai
+        </div><div class="imgMesTamanho2"><img src="img/ic_01.gif" class="imgPos" /><img src="img/ic_30.gif" class="imgPos" /></div><div class="mesDescricaoTamanho2a">Dia do Trabalho</div><div class="mesDescricaoTamanho2b">Corpus Christi</div></div><div class="containerMesTamanho1"><div class="mesTamanho1Invert">Jul</div><div class="imgMesTamanho1"><img src="img/ic_09.gif" /></div><div class="mesDescricaoTamanho1"><b>Revolução Constitucionalista</b> (feriado estadual)
+        </div></div><div class="containerMesTamanho2"><div class="mesTamanho2">
+          Nov
+        </div><div class="imgMesTamanho2"><img src="img/ic_15.gif" class="imgPos" /><img src="img/ic_20.gif" class="imgPos" /></div><div class="mesDescricaoTamanho2a">Proclamação da República</div><div class="mesDescricaoTamanho2b">Consciência Negra</div></div><div class="containerMesTamanho3"><div class="mesTamanho3Invert">Dez</div><div class="imgMesTamanho3"><img src="img/ic_24.gif" class="imgPos" /><img src="img/ic_25_1.gif" class="imgPos" /><img src="img/ic_31.gif" class="imgPos" /></div><div class="mesDescricaoTamanho3a">Véspera de Natal</div><div class="mesDescricaoTamanho3b">Natal</div><div class="mesDescricaoTamanho3c">Véspera de Ano Novo</div></div><div class="linhaDivMais"></div><div class="boxMais"><div class="itemMais">mais</div></div><div class="txtBox1"><a href="download/Numero-Mensal-de-Pregoes.pdf" target="_blank">Número Mensal de Pregões acumulados desde 1968.</a></div><div class="txtBox1"><a href="/opcoes/opcoes.aspx?idioma=pt-br&amp;aba=tabVctoOpcoes" target="_blank">Calendário de Vencimentos de Opções sobre Ações e Índices</a></div><div class="txtBox1"><a href="/shared/iframe.aspx?altura=2300&amp;idioma=pt-br&amp;url=www.bmf.com.br/bmfbovespa/pages/boletim1/bd_manual/calendarioMercadosFinanceiros1.asp" target="_blank">Calendário de Vencimentos de Contratos Financeiros</a></div><div class="txtBox1"><a href="/shared/iframe.aspx?altura=3500&amp;idioma=pt-br&amp;url=www.bmf.com.br/bmfbovespa/pages/boletim1/bd_manual/calendarioMercadosAgropecuarios1.asp" target="_blank">Calendário de Vencimentos de Contratos Agropecuários</a></div></div><div class="colunaDireita"><div class="subTituloColuna02">Horários especiais e outras informações</div><div class="containerMesAtual"><div class="mesAtual"></div><div class="anoAtual">  / 2013</div><div class="areaCombo"><select name="selMeses" id="selMeses" onchange="javascript:(this.value!=0)?ExibirMes(this.value):'void';" class="comboMeses"><option value="01">Janeiro/2013</option><option value="02">Fevereiro/2013</option><option value="03">Março/2013</option><option value="04">Abril/2013</option><option value="05">Maio/2013</option><option value="06">Junho/2013</option><option value="07">Julho/2013</option><option value="08">Agosto/2013</option><option value="09">Setembro/2013</option><option value="10">Outubro/2013</option><option value="11">Novembro/2013</option><option value="12">Dezembro/2013</option></select></div></div><div class="areaDescricaoMesAtual"><div class="mesFeriado" id="mesFeriado01"><div class="containerDia"><div class="boxMes">01</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Confraternização Universal</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.                </div><div class="bordaDescricaoMes"></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior.         </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.          </div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">21</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Birthday of Martin Luther King, Jr.</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior.                 </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.          </div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">24</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">A negociação do Tesouro Direto iniciará às 9:00 neste dia e fechará às 5:00 da manhã do dia 28/01/2013 (quinta-feira). As confirmações de compras deverão ser feitas normalmente em 28/01/2013.  </div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">25</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Aniversário de São Paulo (feriado municipal) </div></div></div><div class="descMes">Haverá negociação e registro de operações de câmbio pronto, registro no mercado de balcão e negociação de títulos públicos federais (Sisbex).                 </div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá expediente no Tesouro Direto. Neste dia, os investidores poderão acessar o sistema normalmente e não será necessária a realização dos procedimentos convencionais pelos agentes de custódia.  </div><div class="bordaDescricaoMes"></div><div class="descMes">Em feriados municipais (cidade de São Paulo) ou estaduais (estado de São Paulo), haverá contratação na Clearing de Câmbio e liquidação de operações nas Clearings de Ativos e de Câmbio. </div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado02"><div class="containerDia"><div class="boxMes">11</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">12</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">13</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Horário especial de negociação</div></div></div><div class="descMes">(Quarta-feira de cinzas) a negociação nos mercados da BM&amp;FBOVESPA terá início às 13:00.</div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá alteração das grades de horário de liquidação das Clearings, devendo ser cumpridos os horários para atendimento das margens requeridas e para liquidação financeira na forma e nos prazos estabelecidos para cada uma.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">18</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Washington’s Birthday</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado03"><div class="containerDia"><div class="boxMes">29</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado04"><div class="textoSemConteudo">Não há conteúdo para o mês selecionado.</div></div><div class="mesFeriado" id="mesFeriado05"><div class="containerDia"><div class="boxMes">01</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">27</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Memorial Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">30</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante </div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado06"><div class="textoSemConteudo">Não há conteúdo para o mês selecionado.</div></div><div class="mesFeriado" id="mesFeriado07"><div class="containerDia"><div class="boxMes">04</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Independence Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">08</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">A negociação do Tesouro Direto iniciará às 9:00 e fechará às 5:00 da manhã do dia 10/07/2013 (quinta-feira). As confirmações de compras deverão ser feitas normalmente em 10/07/2013.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">09</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="descMes">Haverá negociação e registro de operações de câmbio pronto, registro no mercado de balcão e negociação de títulos públicos federais (Sisbex). </div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá expediente no Tesouro Direto. Neste dia, os investidores poderão acessar o sistema normalmente e não será necessária a realização dos procedimentos convencionais pelos agentes de custódia.</div><div class="bordaDescricaoMes"></div><div class="descMes">Em feriados municipais (cidade de São Paulo) ou estaduais (estado de São Paulo), haverá contratação na Clearing de Câmbio e liquidação de operações nas Clearings de Ativos e de Câmbio. </div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado08"><div class="textoSemConteudo">Não há conteúdo para o mês selecionado.</div></div><div class="mesFeriado" id="mesFeriado09"><div class="containerDia"><div class="boxMes">02</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Labor Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado10"><div class="containerDia"><div class="boxMes">14</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Columbus Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado11"><div class="containerDia"><div class="boxMes">11</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Veterans Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">15</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">19</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">A negociação do Tesouro Direto iniciará às 9:00 neste dia e fechará às 5:00 da manhã do dia 21/11/2013 (quinta-feira). As confirmações de compras deverão ser feitas normalmente em 21/11/2013.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">20</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="descMes">Haverá negociação e registro de operações de câmbio pronto, registro no mercado de balcão e negociação de títulos públicos federais (Sisbex). </div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá expediente no Tesouro Direto. Neste dia, os investidores poderão acessar o sistema normalmente e não será necessária a realização dos procedimentos convencionais pelos agentes de custódia.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">28</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Thanksgiving Day  </div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.</div><div class="bordaDescricaoMes"></div></div><div class="mesFeriado" id="mesFeriado12"><div class="containerDia"><div class="boxMes">20</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Horário especial de negociação</div></div></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+2.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">23</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+1.</div><div class="bordaDescricaoMes"></div><div class="descMes">A negociação do Tesouro Direto iniciará às 9:00 neste dia e fechará às 5:00 da manhã do dia 26/12/2013 (quinta-feira). As confirmações de compras deverão ser feitas normalmente em 26/12/2013.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">24</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="descMes">Haverá negociação e registro de operações de câmbio pronto e registro no mercado de balcão.</div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá expediente no Tesouro Direto. Neste dia, os investidores poderão acessar o sistema normalmente e não será necessária a realização dos procedimentos convencionais pelos agentes de custódia.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">24</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Horário especial de negociação</div></div></div><div class="descMes">O registro de operações com produtos negociados no PUMA Trading System e a negociação de dólar pronto serão aceitos até as 11h30.</div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+0.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">25</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Christmas Day</div><img src="img/FlagUSA.gif" class="FlagUsa" /></div></div><div class="descMes">Em feriados bancários na Praça de Nova Iorque a liquidação das obrigações referentes a operações com derivativos agropecuários será efetuada no dia útil, em Nova Iorque, imediatamente posterior. </div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio efetuará apenas o registro de operações, nos termos da regulamentação em vigor, uma vez que a liquidação ocorre somente em dias simultaneamente úteis nas praças de Brasília e de Nova Iorque.  </div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">25</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">27</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Horário especial de negociação</div></div></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+2.</div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">30</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+1.</div><div class="bordaDescricaoMes"></div><div class="descMes">A negociação do Tesouro Direto iniciará às 9:00 neste dia e fechará às 5:00 da manhã do dia 02/01/2014 (quinta-feira). As confirmações de compras deverão ser feitas normalmente em 02/01/2014.   </div><div class="bordaDescricaoMes"></div><div class="containerDia"><div class="boxMes">31</div><div class="divMes"><img src="img/divMes.gif" class="imgPos" /></div><div class="ContainertituloDia"><div class="tituloDia">Informação importante</div></div></div><div class="descMes">Não haverá negociação nos segmentos de renda variável, de renda fixa privada e de derivativos.</div><div class="bordaDescricaoMes"></div><div class="descMes">A Clearing de Câmbio não aceitará operações para liquidação em D+0. </div><div class="bordaDescricaoMes"></div><div class="descMes">Não haverá expediente no Tesouro Direto. Neste dia, os investidores poderão acessar o sistema normalmente e não será necessária a realização dos procedimentos convencionais pelos agentes de custódia.</div><div class="bordaDescricaoMes"></div></div></div><div id="CaixaCompartilhe" style="display: none;"><div class="containerCompartilhe"><h3>Calendário Compartilhado</h3><div class="containerTexto"><p>Você pode registrar todas as datas importantes do calendário do mercado na agenda de eventos de seu computador ou smartphone. É rápido e fácil. Basta fazer a configuração uma vez para se manter atualizado durante todo o ano. Se a BM&amp;FBOVESPA fizer alguma alteração no calendário, sua agenda também será alterada automaticamente.</p><p><a href="webcal://www.bmfbovespa.com.br/pt-br/download/BVMF-Calendario-do-Mercado.ics">Importe agora as informações do calendário do mercado.</a></p><p>Identificaremos automaticamente o sistema que você utiliza para controlar sua agenda.</p><p><strong>Importe também os calendários de vencimentos dos seguintes produtos da Bolsa:</strong></p><div class="listaAcessos"><ul><li><a href="webcal://www.bmfbovespa.com.br/pt-br/download/BVMF-Calendario-de-Vencimento-Mercado-Opcoes.ics">Opções sobre Ações e Índices </a></li><li><a href="webcal://www.bmfbovespa.com.br/pt-br/download/BVMF-Calendario-de-Vencimentos-Mercados-Financeiros.ics">Contratos Financeiros </a></li><li><a href="webcal://www.bmfbovespa.com.br/pt-br/download/BVMF-Calendario-de-Vencimentos-Mercados-Agropecuarios.ics">Contratos Agropecuários</a></li></ul></div></div></div></div></div><script language="javascript">var data1 = new Date();ExibirMes((data1.getMonth()+1).toString());</script>
+
+    
+                        
+                    </div>
+                    <fieldset class="agrupadorBotoesNavegacao">
+                        <input type="submit" name="ctl00$botaoNavegacaoVoltar" value="Voltar" onclick="history.back(); return false;" id="ctl00_botaoNavegacaoVoltar" class="botaoNavegacaoVoltar" />
+                    </fieldset>
+                </div>
+            </div>
+            
+            
+            
+            
+
+  <div id="cleaner"></div>
+  <div class="rodapeContainer PTBR">
+    <div class="ColunasRodape">
+      <div id="Left">
+        <div id="LeftDentro">
+          <div class="logoCEI"></div>
+          <div class="loginCEIOrdemAlfabetica comboCEIOrdemAlfabetica" onclik="javascript:CarregarAgenteCorretora();"> <strong>Acesse sua conta. Escolha:</strong><br />
+            <select name="cboAgentesCorretorasNome" id="cboAgentesCorretorasNome" onchange="SelecionarCombo(this);" onmousedown="CarregarAgenteCorretora(0,this);" >
+              <option value="#" selected="selected">Nome do agente/corretora</option>
+            </select>
+          </div>
+          <div class="loginCEI comboCEI" onclik="javascript:CarregarAgenteCorretora();">
+            <select name="cboAgentesCorretorasCodigo" id="cboAgentesCorretorasCodigo" onchange="SelecionarCombo(this);" onmousedown="CarregarAgenteCorretora(1,this)">
+              <option value="#" selected="selected">Número do agente/corretora</option>
+            </select>
+          </div>
+          <div class="linksCEI"> <a class="itemBullet" href="http://www.bmfbovespa.com.br/RedirecionaBanner.asp?BN=oqueecei&CP=canaleletronicoinvestidor&LK=http://www.bmfbovespa.com.br//pt-br/intros/intro-canal-eletronico-do-investidor.aspx" title="O que é o CEI?">O que é o CEI?</a> <a class="divisor" href="/pt-br/intros/intro-canal-eletronico-do-investidor.aspx?aba=tabItem1#abaSenha" title="Esqueci minha senha">Esqueci minha senha</a> </div>
+          <!--div id="logoFicaMais"><a href="http://www.ficamais.com.br " target="_blank" title="Programa Fica Mais"><span>Fica Mais</span></a></div-->
+        </div>
+      </div>
+      <div id="Right">
+        <div id="coluna1"> <span>Sobre o Mercado: </span>
+          <ul>
+            <li><a href="/pt-br/intros/intro-horarios-de-negociacao.aspx" title="Horários de negociação">Horários de negociação</a></li>
+            <li><a href="/pt-br/regulacao/calendario-do-mercado/calendario-do-mercado.aspx" title="Calendário do mercado">Calendário do mercado</a></li>
+            <li><a href="/shared/iframe.aspx?altura=1700&amp;idioma=pt-br&amp;url=www.bmf.com.br/bmfbovespa/pages/boletim1/bd_manual/calendarioMercadosFinanceiros1.asp" title="Calendário de vencimentos">Calendário de vencimentos</a></li>
+            <li><a href="/pt-br/intros/intro-boletim-diario.aspx" title="Boletim Diário (BD)">Boletim Diário (BD)</a></li>
+            <li><a href="/pt-br/regulacao/custos-e-tributos/tributacao/tributacao.aspx" title="Tributação dos investimentos">Tributação dos investimentos</a></li>
+            <li><a href="/indices/BuscarIndices.aspx" title="Tributação dos investimentos">Índices</a></li>
+          </ul>
+          
+          <p>&nbsp;</p>
+          <span>TRABALHE CONOSCO:</span>
+          <ul>
+            <li><a href="/pt-br/trabalhe-conosco/trabalhe-conosco.aspx" title="Trabalhe Conosco">Cadastre o seu currículo</a></li>
+          </ul>
+          
+        </div>
+        <div id="coluna2"> <span>Para empresas:</span>
+          <ul>
+            <li><a href="http://www.bmfbovespa.com.br/empresas/pages/empresas_abertura_capital_como_abrir.asp" title="Como abrir capital?" target="_blank">Como abrir capital?</a></li>
+            <li><a href="http://www.bmfbovespa.com.br/empresas/pages/empresas_AgendaAtividades.asp" title="Cursos de formação e treinamentos" target="_blank">Cursos de formação e treinamentos</a></li>
+            <li><a href="/shared/iframe.aspx?idioma=pt-br&url=http://www.bmfbovespa.com.br/pt-br/educacional/educar/FormInscricaoPalestraAcessoInst.asp" title="Palestras institucionais" target="_blank">Palestras institucionais</a></li>
+            <li><a href="http://www.bmfbovespa.com.br/empresas" title="Outras informações" target="_blank">Outras informações</a></li>
+          </ul>
+          <p>&nbsp;</p>
+          <span>Sobre o site:</span>
+          <ul>
+            <li><a href="/pt-br/MapaSite.aspx" title="Mapa do site">Mapa do site</a></li>
+
+            <li>
+            <a href="http://www.bmfbovespa.com.br/RedirecionaBanner.asp?BN=Sua-Opiniao&CP=Pagina-home-rodape&LK=https://www.research.net/s/SuaOpiniao-Home-BMFBOVESPA?KeepThis=true&TB_iframe=true&height=326&width=600" class="thickbox">Sua Opinião</a>
+
+            </li>            
+            <li><a href="/pt-br/termos-e-condicoes-de-uso.aspx" title="Termos e condições de uso">Termos e condições de uso</a></li>
+          </ul>
+          
+        </div>
+        <div id="coluna3"> <span>Informações para:</span>
+          <ul>
+            <li><a href="http://www.bmfbovespa.com.br/imprensa" title="Jornalistas (Sala de Imprensa)">Jornalistas (Sala de Imprensa)</a></li>
+            <li><a href="/pt-br/navegue-por-perfil/profissionais-do-mercado.aspx" title="Profissionais do Mercado">Profissionais do Mercado</a></li>
+            <li><a href="http://www.bmfbovespa.com.br/mulheres" title="Mulheres">Mulheres</a></li>
+            <li><a href="/pt-br/intros/intro-jovens-e-criancas.aspx" title="Jovens e Crianças">Jovens e Crianças</a></li>
+          </ul>
+           <p>&nbsp;</p>
+           <ul class="partnership">
+            <span>Parceiro:</span>
+            <li><a href="/pt-br/a-bmfbovespa/sobre-a-bolsa/parceria-estrategica-cmegroup/parceria-estrategica-cmegroup.aspx" target="_self" title="Parceiro: CMEGroup"><img src="/img/imgLogoCMEGroup_2011.gif" border="0" alt="CMEGroup"/></a></li>
+          </ul>
+          
+        </div>
+        <!-- div id="coluna4"> 
+         
+        </div -->
+      </div>
+    </div>
+  </div>
+  <!-- XXXXXXXXXX FIM COLUNAS DO RODAPE -->
+  <div class="rodapeTVBookmarks">
+    <!-- XXXXXXXXXX RODAPE SOCIAL BOOKMARKING -->
+    <div id="RadioTVMobile">
+      <ul>
+        <li><a href="/RedirecionaBanner.asp?BN=tvbmf&CP=rodape_tvbvmf&LK=http://www.tvbvmf.com.br/" id="tvbvmf" title="TVBVMF" target="_blank">Vídeos</a></li>
+        <li><a href="/RedirecionaBanner.asp?BN=mobile&CP=rodape_mobile&LK=http://www.bmfbovespa.com.br/pt-br/intros/intro-mobile.aspx?idioma=pt-br" id="Mobile" title="Mobile">Mobile</a></li>
+      </ul>
+    </div>
+    <div id="social">    
+      <ul>
+        <li><a href="/RedirecionaBanner.asp?BN=facebook&CP=RedesSociais_Facebook&LK=http://www.facebook.com/pages/BMFBOVESPA-A-Nova-Bolsa/180911050859?ref=3Dnf" id="facebook" title="Facebook" target="_blank"><span>Facebook</span></a></li>
+        <!--<li><a href="/RedirecionaBanner.asp?BN=orkut&CP=RedesSociais_Orkut&LK=http://www.orkut.com.br/Main#Profile?uid=15680758574282413451" id="orkut" title="Orkut" target="_blank"><span>Orkut</span></a></li>-->
+        <li><a href="/RedirecionaBanner.asp?BN=twitter&CP=RedesSociais_Twitter&LK=http://twitter.com/info_bmfbovespa" id="twitter" title="Twitter" target="_blank"><span>Twitter</span></a></li>
+        <li><a href="/RedirecionaBanner.asp?BN=linkedin&CP=RedesSociais_Linkedin&LK=http://www.linkedin.com/company/bm&fbovespa" id="linkedin" title="Linkedin" target="_blank"><span>Linkedin</span></a></li>
+        <!--<li><a href="/RedirecionaBanner.asp?BN=flickr&CP=RedesSociais_Flickr&LK=http://www.flickr.com/photos/bmfbovespa/" id="flickr" title="Flickr" target="_blank"><span>Flickr</span></a></li>-->
+        <li><a href="/RedirecionaBanner.asp?BN=youtube&CP=RedesSociais_Youtube&LK=http://www.youtube.com/bmfbovespa" id="youtube" title="Youtube" target="_blank"><span>Youtube</span></a></li>
+        <li><a href="/RedirecionaBanner.asp?BN=msn&CP=RedesSociais_Msn&LK=http://video.br.msn.com/browse/bmfbovespa" id="msn" title="msn" target="_blank"><span>MSN</span></a></li>
+		<li><a href="/RedirecionaBanner.asp?BN=googlechrome&CP=rodape-google-chrome&LK=http://www.bmfbovespa.com.br/pt-br/servicos/servicos-de-informacao/aplicativo/aplicativo-google-chrome.aspx" id="Chrome" title="Aplicativo Google Chrome"><span>Chrome</span></a></li>
+        <li><a href="/RedirecionaBanner.asp?BN=foursquare&CP=RedesSociais_Foursquare&LK=https://pt.foursquare.com/info_bmfbovespa" id="foursquare" title="Foursquare" target="_blank"><span>Foursquare</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+        </form>
+    </div>
+    
+<!-- START OF SmartSource Data Collector TAG -->
+<!-- Copyright (c) 1996-2010 WebTrends Inc.  All rights reserved. -->
+<!-- Version: 8.6.2 -->
+<!-- Tag Builder Version: 3.0  -->
+<!-- Created: 3/30/2010 4:35:15 PM -->
+<script src="/shared/js/webtrends.js" type="text/javascript"></script>
+<!-- ----------------------------------------------------------------------------------- -->
+<!-- Warning: The two script blocks below must remain inline. Moving them to an external -->
+<!-- JavaScript include file can cause serious problems with cross-domain tracking.      -->
+<!-- ----------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+//<![CDATA[
+var _tag=new WebTrends();
+_tag.dcsGetId();
+//]]>>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+// Add custom parameters here.
+//_tag.DCSext.param_name=param_value;
+_tag.dcsCollect();
+//]]>>
+</script>
+<noscript>
+<div><img alt="DCSIMG" id="DCSIMG" width="1" height="1" src="http://sdcbov.bovespa.com.br/dcs7cxucm10000g0rpvv97ynr_2s8b/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=8.6.2"/></div>
+</noscript>
+<!-- END OF SmartSource Data Collector TAG -->
+</body>
+</html>

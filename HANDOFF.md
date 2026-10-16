@@ -48,8 +48,31 @@ shelf card, certs-shelf row; `make reports` runs both). RESULT: 99.17% REPRODUCE
      publication day — read corpus/pu/feed-log.json and the commit it makes before trusting the cron.
      B5 the instrument — /instruments/pu (playground/pu): decide.js inlined byte for byte (shebang dropped, sha printed), the
      pinned calendar, a rate + settlement + maturity → PU with enclosure and every step; pasted CSV rows decided to the
-     ledger's conventions; a toggle for the calendar as of the quotation. B1 (B3's settlement calendar) and B2/B3 (LFT, NTN-B)
-     wait on the data scout (sources, licences, what is not public); the Treasury note is a SEND (operator's).
+     ledger's conventions; a toggle for the calendar as of the quotation (LTN/NTN-F only; the LFT needs the Selic series in-page — next).
+  B1 DONE — THE SETTLEMENT CALENDAR IS B3's: corpus/pu/sources/b3/ (B3 circulars 2017–2026, Wayback captures of the
+     exchange's calendar pages 2004–2016, QuantLib's Brazil::Exchange as cross-check; 61 files pinned), tools/pu-b3-calendar.js
+     → corpus/pu/b3-settlement.json (seven rules; each date cites the documents covering its year that name the holiday;
+     dates no captured document names are rule-only and a settlement path through them is coded /r, counted apart; the
+     July-2014 match days rule-only; R7 'first settlement of the year on the second business day' WITHDRAWN — the circulars
+     say it for 2018/2019 but the published prices of 28 Dec 2017/2018 follow the FIRST business day, while 2014–2016's
+     year-end prices follow the second: a circular-vs-prices disagreement, reported, not assumed). Hypotheses D1b3/D0b3.
+     Result on LTN+NTN-F: OFF 887 → 233 (99.79%); for every OFF row the ledger records the settlement that WOULD reproduce
+     it (never used). Amendment 3 in preregistration.json.
+  B2 BUILT — LFT (Tesouro Selic): decide.js/decide.py gained signed rates, the Selic index (SGS 11, A-16 each step), the
+     projected VNA (meta SGS 432; the factor at FULL precision — the worked example admits no truncation of it; amendment 4),
+     decideLFT (cotação T-4, PU T-6); both reproduce the methodology's LFT example (3449.694215 → 3451.215345 → 100.1158 →
+     3455.211852); battery 17 checks / 12 red (a Selic day altered must move the VNA). The runner decides 'Tesouro Selic'
+     rows (21,465) with the VNA at D+0 exact and projected over k business days otherwise; the Python cross-check computes
+     its own VNA from the pinned series. THE FULL RUN (77,053 rows, 145,439 prices) DONE 2026-10-16 night: 132,362 REPRODUCED
+     (91.0%), 12,050 CONSISTENT, 966 OFF, 0 REFUSED, 61 NEEDS DATA (settlement on/after maturity). The verdict CONSISTENT
+     (amendment 5): the printed centavos lie inside the interval the printed rate's half-unit allows under the primary
+     hypothesis — Tesouro Direto prints the LFT ágio/deságio at 2 decimals and prices with more (2020 on: nearly every LFT
+     row; before 2020 the LFT reproduces exactly). Two zero-rate false refusals fixed in BOTH deciders (a zero rate's power
+     is exactly 1; the outward slack had straddled 100.0000). LFT OFF rows: 746, of which 559 are 2020–2021 SELL-side rows
+     (neither D+0 nor D+1 nor the rate box reproduces them; typical diff 80–190 centavos ≈ two days of accrual at a 2% Selic)
+     and the 2025-12-30 buy rows (≈ R$ 10 ≈ one extra day of projection over the year end) — NOT UNDERSTOOD, carried in the
+     record with every hypothesis, no new hypothesis tried; the next probe starts there. The NTN-B/IGPM+ slice is NEEDS DATA
+     by construction (no public archive of the daily projection) and is next; the Treasury note is a SEND (operator's).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (afternoon), THE FINANCE LANE — scouted, nothing built (operator: "explore financial companies on the job
