@@ -341,7 +341,7 @@ BATCH ONE POSTED 2026-10-15 ~23:50 UTC on the operator's word:
 - A1 — https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/6#issuecomment-6204214972
 - C1 — https://github.com/teorth/optimizationproblems/pull/225#issuecomment-6204215887
 - C2 — https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6204216751
-- C3 — https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690
+- C3 — https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690 — ANSWERED 2026-10-16 (vidigoat, #issuecomment-6207378455: his derivations for 16a/70a); both decided here 10-16, CERTIFIED (certs/optq-ledger.json rows optq-226-16a/70a); reply DRAFTED, not posted: outreach/replies-2026-10-16/optimizationproblems-226.md
 - B1 — https://github.com/google-deepmind/formal-conjectures/issues/7304#issuecomment-6204218882
 - B2 — https://github.com/google-deepmind/formal-conjectures/issues/7305#issuecomment-6204220227
 - B3 — https://github.com/google-deepmind/formal-conjectures/issues/7306#issuecomment-6204221183

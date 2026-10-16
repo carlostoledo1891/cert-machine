@@ -22,7 +22,9 @@ if (!bm || bm[2] !== bm[3]) die('the battery did not pass whole');
 const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'optq-ledger.json'), 'utf8'));
 const rows = L.rows, R = (id) => rows.find((r) => r.id === id);
 const r1a = R('optq-225-1a'), r1b = R('optq-225-1b'), r3c = R('optq-221-3c'), r20a = R('optq-226-20a'), r20c = R('optq-226-20c'), r23b = R('optq-226-23b'), r217 = R('optq-217-28a'), r210 = R('optq-210-lambda');
-if ([r1a, r1b, r3c, r20a, r20c, r217].some((r) => !r || r.verdict !== 'CERTIFIED') || r210.verdict !== 'REFUSED') die('the record is not what the page describes — rewrite it');
+const r16a = R('optq-226-16a'), r70a = R('optq-226-70a');
+if ([r1a, r1b, r3c, r20a, r20c, r217, r16a, r70a].some((r) => !r || r.verdict !== 'CERTIFIED') || r210.verdict !== 'REFUSED' || L.counts.REFUSED !== 1) die('the record is not what the page describes — rewrite it');
+const enc = (r, d) => '[' + C.esc(r.values.enclosure[0].slice(0, d)) + ', ' + C.esc(r.values.enclosure[1].slice(0, d)) + ']';
 const tag = (v) => C.tag(v, v === 'CERTIFIED' ? 'held' : v === 'REFUTED' ? 'fail' : 'dep');
 const inv = r210.inventory;
 
@@ -37,19 +39,21 @@ B.push(C.header({
 }));
 B.push(C.scope('teorth/optimizationproblems at 2c1968cd (main; unchanged since 2026-09-26) and its open PRs #210, #217, #221, #225, #226 as fetched 2026-10-15, with the constructions they link (Atris records @ 1fa857a0, '
   + 'Zenodo 23289305, Mosaic\'s fork @ cc810785, OpenAI\'s BorsukNine through this repository\'s own kernel record), every byte pinned by sha256 in corpus/optconst-queue/PINS.json; the claimants\' scorers kept as text and never run. '
-  + 'Definitions are the registry\'s constants/*.md. Pre-registered in corpus/optconst-queue/preregistration.json. Two of #226\'s five bounds (16a, 70a) are not decided in this campaign and say so.'));
+  + 'Definitions are the registry\'s constants/*.md. Pre-registered in corpus/optconst-queue/preregistration.json. Two of #226\'s five bounds (16a, 70a) were refused on 2026-10-15 as not attempted and decided on 2026-10-16, after the claimant pointed to his derivations (pinned as text with his scripts; nothing of his runs here).'));
 B.push(C.tldr({
   findingRaw: '<b>Decided and holding:</b> C₁a ≤ ' + C.esc(r1a.valueDecimal.slice(0, 20)) + '… and C₁b ≤ ' + C.esc(r1b.valueDecimal.slice(0, 20)) + '… — the exact values of the two step functions (' + r1a.n.toLocaleString('en-US') + ' and ' + r1b.n.toLocaleString('en-US')
     + ' steps), equal to the claimants\' printed fractions digit for digit, below the registry\'s 1.502862 and 0.380868; C₃c ≥ 1.674894211307116 from the two-law certificate, ρ enclosed in [' + C.esc(r3c.rho[0][0].slice(0, 22)) + ', ' + C.esc(r3c.rho[0][1].slice(0, 22)) + '] at ' + r3c.precisionBits + ' bits (the registry holds 1.67473389*); '
     + 'C₂₀a ≥ 8 and C₂₀c ≥ √3 by exact moments; C₂₈a ≤ 9 by the Lean development this repository rebuilt and kernel-checked on 10-10. <b>Read and holding:</b> C₂₃b ≤ ½, five sentences of standard inequalities. <b>Refused:</b> Λ ≤ 0.1595 — '
     + 'the package\'s scorer and checkers (' + inv.scripts.length + ' scripts; the two mathematical ones on python-flint and mpmath) evaluate auxiliary inequalities on ' + inv.frozenFiles + ' frozen coefficient tables and compare rationals, hashes and box covers; nothing in them evaluates ζ, H_t or the Dirichlet polynomial, and the derivations of the frozen numbers cite banks '
-    + C.esc(inv.bankCitations.join(', ')) + ' that are not in the bundle. The anchor Λ ≤ 3/16 is the claimant\'s own earlier merged row. <b>Not decided:</b> 16a and 70a (interval sums with cited inequalities).',
+    + C.esc(inv.bankCitations.join(', ')) + ' that are not in the bundle. The anchor Λ ≤ 3/16 is the claimant\'s own earlier merged row. <b>Decided 2026-10-16, holding:</b> C₁₆a ≥ 2.156224 — the truncated BDZ2013 extremal\'s bound enclosed in ' + enc(r16a, 14) + ' (width ' + C.esc(r16a.values.width) + '); '
+    + 'C₇₀a ≥ 1.201927 — the cube-and-ball Steiner sum at n = 300,000 enclosed in ' + enc(r70a, 14) + '; both in the standard library, their derivations read.',
   mechanismRaw: 'Step functions: heights as integers over one denominator, the autoconvolution or the correlation with 1 − h as one exact integer product (Kronecker substitution), the maximum over every grid shift, the bound as a fraction. Entropy certificate: exact pushforwards per law, directed-rounding interval entropies '
-    + '(instruments/sumdiff + bigfloat), rational mixture, injectivity of the digit map checked (max |L| = ' + r3c.maxAbsForm + ' ≤ 27). Moments: E[Eᵏ] = k! and arithmetic in Q(√3) through squares. The Borsuk row cites the kernel record. The package: read file by file.',
+    + '(instruments/sumdiff + bigfloat), rational mixture, injectivity of the digit map checked (max |L| = ' + r3c.maxAbsForm + ' ≤ 27). Moments: E[Eᵏ] = k! and arithmetic in Q(√3) through squares. 16a: the three lattice sums as fixed-point floors and ceilings over ' + r16a.values.latticePoints.toLocaleString('en-US') + ' points, π by Machin in integers, ln correctly rounded. '
+    + '70a: κ_m, the binomials and tʲ by outward-rounded decimal recurrences, the n-th root through ln and exp. The Borsuk row cites the kernel record. The package: read file by file.',
   checkRaw: C.m('python3 -I tools/run-optq-ledger.py') + ' · ' + C.m('python3 -I instruments/optq/battery.py') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls.'
 }));
 B.push(C.stats([
-  { k: 'decided', v: String(L.counts.CERTIFIED), n: L.counts.REFUTED + ' refuted · ' + L.counts.REFUSED + ' refused (one for evidence not submitted, two not attempted).' },
+  { k: 'decided', v: String(L.counts.CERTIFIED), n: L.counts.REFUTED + ' refuted · ' + L.counts.REFUSED + ' refused (evidence not submitted). 16a and 70a joined the decided on 10-16.' },
   { k: 'C₁a ≤', v: r1a.valueDecimal.slice(0, 10), n: 'From the registry\'s 1.502862; a 65,536-step function, exact.' },
   { k: 'C₃c ≥', v: '1.674894', n: 'From 1.674734*; two laws, 10²⁰ digits, the entropies add because the digit map is injective.' },
   { k: 'Λ ≤ 0.1595', v: 'refused', n: 'The scorer decides assembly, not analysis; the analysis cites a private bank.' }
@@ -80,7 +84,14 @@ B.push(C.section({
     { b: 'C₂₀c ≥ √3 (CERTIFIED).', text: 'The uniform law on [−√3, √3] has variance 1 and is log-concave; the half-line A = (−∞, 0] has μ(A) = ½ and boundary measure 1/(2√3), so its inverse Cheeger ratio is √3 — computed in Q(√3) through squares (1/3 and 3). The registry held √(π/2).' },
     { b: 'C₂₃b ≤ ½ (CERTIFIED by reading).', text: r23b.scope.replace(/^BY READING, not computed: /, '') },
     { b: 'C₂₈a ≤ 9 (CERTIFIED, by the earlier record).', text: 'OpenAI\'s BorsukNine is the Lean development this repository rebuilt and checked under two kernels on 2026-10-10 (certs/openai-math-kernel.json; the statement read MATCHES against the paper\'s claim). The PR adds nothing to decide and its wording agrees with the theorem.' },
-    { b: 'C₁₆a ≥ 2.156224 and C₇₀a ≥ 1.201927 (REFUSED: not attempted).', text: 'Fifty-million-term and 300,000-term sums with cited inequalities in their derivations (BDZ2013; Szász, Steiner). An interval evaluation with a reading of each step is a campaign of its own; nothing is said against them.' }
+    { b: 'C₁₆a ≥ 2.156224 (CERTIFIED 2026-10-16; refused as not attempted the day before).', text: 'The registry\'s L is max over δ ≥ 1 of 4πΘ(δ) − ln δ − ln(1 + ln δ), with Θ(δ) the largest |u(0)|² over zero-mean u on the torus with ‖∇u‖² = 1 and ‖Δu‖² = δ; the torus is 2π × 2π, fixed by BDZ2013 (2.4) and (3.14), whose numerical 2.15627 is the registry\'s own row. '
+      + 'The PR\'s u is the truncated BDZ conditional extremal, c_k = 1/(|k|²(|k|² + 41/5)) over 0 < |k|² ≤ 4000², a real zero-mean trigonometric polynomial, so Parseval gives ‖∇u‖² = 4π² S₁, ‖Δu‖² = 4π² S₂, u(0) = S₀, and after normalising, L ≥ S₀²/(π S₁) − ln δ − ln(1 + ln δ) with δ = S₂/S₁ — provided δ ≥ 1. '
+      + 'Every sum is finite (no tail). Computed here with no code of the claimant\'s: r₂(n) from a sieve over the octant (' + r16a.values.latticePoints.toLocaleString('en-US') + ' points, equal to Gauss\'s circle count), each term\'s floor and ceiling at scale 2²⁰⁰, π by Machin in integers, the logarithms from the decimal module\'s correctly rounded ln widened one unit each way. '
+      + 'δ ∈ ' + enc({ values: { enclosure: r16a.values.delta } }, 12) + ' ≥ 1; the bound ∈ ' + enc(r16a, 22) + ', width ' + C.esc(r16a.values.width) + ' — above 2.156224 (the claimant prints 2.1562247…). The registry held (β + π)/π ≈ 1.82283. One note for the claimant: his cutoff-50 figure (2.15174) is not what μ = 41/5 gives here (2.151390); his 200, 800 and 4000 figures agree.' },
+    { b: 'C₇₀a ≥ 1.201927 (CERTIFIED 2026-10-16; refused as not attempted the day before).', text: 'The registry\'s C₇₀ is the least C such that every pair of centrally symmetric convex bodies in every dimension has a linear u with |det u| = 1 and |u(B₁) + B₂|^{1/n} ≤ C(|B₁|^{1/n} + |B₂|^{1/n}); a pair that no such u improves below c is a lower bound. '
+      + 'The PR\'s pair is the cube of side a and the ball of radius r. Read and holding: u(B₁) is a parallelotope of volume aⁿ; Steiner\'s formula writes |u(B₁) + rB| through its intrinsic volumes; for a zonotope V_j is the sum of its j-face parallelotope volumes; Szász\'s inequality on the Gram matrix bounds the product of those volumes below by a^{n·C(n−1, j−1)}; AM–GM over the C(n, j) faces gives V_j ≥ C(n, j) aʲ. '
+      + 'So the cube is already in its worst position and C₇₀ ≥ (Σ_j C(n, j) aʲ κ_{n−j} r^{n−j})^{1/n}/(a + κ_n^{1/n} r). The number at n = 300,000, a/r = 13/1000 computed here by outward-rounded decimal recurrences (κ_m = κ_{m−2}·2π/m from κ₀ = 1, κ₁ = 2; the binomials and tʲ step by step; the n-th roots through correctly rounded ln and exp): '
+      + enc(r70a, 22) + ', width ' + C.esc(r70a.values.width) + ' — above 1.201927. At n = 2 the same code equals the closed form √(t² + 4t + π)/(t + √π). The registry held the trivial 1.' }
   ])
 }));
 B.push(C.section({
@@ -94,7 +105,7 @@ B.push(C.section({
   lab: '§6 · limits', title: 'What is not decided here',
   bodyRaw: C.plainList([
     { b: 'The registry\'s definitions.', text: 'Taken as written at 2c1968cd; whether 1b\'s interval of length 2 matches the literature\'s normalisation is the registry\'s business.' },
-    { b: 'The two reading rows.', text: '23b is a proof read, not a computation; 28a rests on the earlier kernel record. Both are marked so.' },
+    { b: 'The two reading rows.', text: '23b is a proof read, not a computation; 28a rests on the earlier kernel record. Both are marked so. 16a and 70a are each a computation plus a reading: the number is enclosed, the derivation (Parseval; Steiner, Shephard\'s zonotope formula, Szász, AM–GM) is read, not re-proved.' },
     { b: 'Mosaic\'s mathematics.', text: 'Refusal is a verdict on the evidence submitted, not on Λ; Mosaic\'s three earlier certificates (C₃b, C₃c, C₇₁) were all true when decided here in September.' },
     { b: 'Same-author second implementation.', text: 'The Kronecker product is checked against schoolbook multiplication on random sequences and on closed-form functions (the constant function gives exactly 2; the half-step exactly 1); the claimants\' printed values are the outside check.' }
   ])

@@ -17,6 +17,24 @@
   "The record (certs/optq-ledger.json) is committed before the write-up compares with the claimants' printed values.",
   "CERTIFIED iff the exact object gives the bound under the registry's definition; REFUTED iff it does not; REFUSED where there is no finite object or the evidence is not in the submission; a proof read is marked 'by reading'."
  ],
- "redControls": ["a step function with a negative height refused", "Σh ≠ n/2 refused for 1b", "a two-law certificate whose laws' weights do not sum to 1 refused", "a law with max |L| above (base−1)/2 refused (the entropies would not add)", "a claimed C_3c above the enclosure REFUTED", "the exponential replaced by a distribution with Var ≠ 1 fails 20a's premise"],
- "cost": "laptop: 1a 40 s, 1b 100 s, the rest seconds"
+ "redControls": [
+  "a step function with a negative height refused",
+  "Σh ≠ n/2 refused for 1b",
+  "a two-law certificate whose laws' weights do not sum to 1 refused",
+  "a law with max |L| above (base−1)/2 refused (the entropies would not add)",
+  "a claimed C_3c above the enclosure REFUTED",
+  "the exponential replaced by a distribution with Var ≠ 1 fails 20a's premise"
+ ],
+ "cost": "laptop: 1a 40 s, 1b 100 s, the rest seconds",
+ "amendments": [
+  {
+   "date": "2026-10-16",
+   "what": "#226 16a, 70a: decided after the claimant pointed (pull/226#issuecomment-6207378455) to his derivations in tao/PROOFS.md. Registered before the numbers were seen here: 16a is decided from the registry's definition with T² = [0, 2π]² as fixed by BDZ2013 (2.4)/(3.14) — the three lattice sums as fixed-point enclosures over 0 < |k|² ≤ 4000², μ = 41/5, the formula L ≥ S_0²/(π S_1) − ln δ − ln(1 + ln δ) derived here from Parseval, δ ≥ 1 checked; 70a from the registry's definition — the four-step chain (Steiner, zonotope faces, Szász, AM–GM) read, the Steiner sum at n = 300,000, a/r = 13/1000 enclosed by outward-rounded decimal recurrences. Standard library only; the claimant's scripts pinned as text and not run. CERTIFIED iff the lower end of the enclosure is at or above the claimed figure; REFUTED iff the upper end is below; REFUSED otherwise or if δ ≥ 1 is not established.",
+   "redControls": [
+    "K = 1 for 16a has the closed form 4/π and must be enclosed",
+    "n = 2 for 70a has the closed form √(t² + 4t + π)/(t + √π) and must agree",
+    "a claimed figure above either enclosure is REFUTED"
+   ]
+  }
+ ]
 }

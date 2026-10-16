@@ -116,6 +116,7 @@ Decided with no code of yours: exact pushforwards per law, directed-rounding int
 ---- END ----
 
 ### C3 — PR #226 (Patankar)
+ANSWERED 2026-10-16T03:25Z by vidigoat (pointer to tao/PROOFS.md and his two scripts for 16a/70a). Both bounds decided here the same day with no code of his (instruments/optq/bgw16a.py, rbm70a.py): 16a CERTIFIED (L ≥ 2.15622475379…, width 1.4e-52), 70a CERTIFIED (≥ 1.20192714257…, width 1.7e-48); ledger rows flipped from REFUSED. Reply drafted, NOT POSTED: outreach/replies-2026-10-16/optimizationproblems-226.md.
 ---- PASTE ----
 Three of the five decide here exactly and hold: 20a (E[Eᵏ] = k!, so E[(E−1)⁴] = 9 and Var(X²) = 8), 20c (the uniform on [−√3, √3] with A = (−∞, 0]: inverse Cheeger ratio √3, computed through squares), and 23b read step by step (the parity, the trace, the Frobenius bound from odd entries, Bhatia–Davis, the algebra) — all as written. 16a and 70a we did not attempt (interval sums with cited inequalities in the derivation; an afternoon each, not done). https://carlostoledo.co/reports/optconst-queue.html (§4).
 ---- END ----
