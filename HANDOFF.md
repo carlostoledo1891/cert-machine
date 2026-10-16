@@ -43,7 +43,9 @@ shelf card, certs-shelf row; `make reports` runs both). RESULT: 99.17% REPRODUCE
      dates; a restatement is REFUSED and logged in corpus/pu/feed-log.json; the pin chain kept in PINS.json history; four red
      controls in the battery, now 14 checks / 10 red), tools/pu-push.sh (allowlist of feed paths), .github/workflows/pu-feed.yml
      (hourly gate on the CSV's Last-Modified vs the pinned one; a hand dispatch always runs; re-decides whole, rebuilds the
-     page, pushes the feed paths alone) — NOT YET DISPATCHED: run it once by hand and read the log before trusting the cron.
+     page, pushes the feed paths alone) — DISPATCHED BY HAND 2026-10-16 ~15:52 UTC (run 38927376256): gate and fetch green,
+     'nothing new' (today's file is the pin), the deciding steps skipped as designed; the first real admit is the next
+     publication day — read corpus/pu/feed-log.json and the commit it makes before trusting the cron.
      B5 the instrument — /instruments/pu (playground/pu): decide.js inlined byte for byte (shebang dropped, sha printed), the
      pinned calendar, a rate + settlement + maturity → PU with enclosure and every step; pasted CSV rows decided to the
      ledger's conventions; a toggle for the calendar as of the quotation. B1 (B3's settlement calendar) and B2/B3 (LFT, NTN-B)
