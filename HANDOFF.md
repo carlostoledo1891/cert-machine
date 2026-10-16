@@ -66,6 +66,11 @@ in make test + build-control, a targets.json row. NOTHING SENT; fifteen comment 
   BATCH ONE POSTED 2026-10-15 ~23:50 UTC (operator: "Proceed batch one outreach"): A1 on alphaevolve#6, C1-C3 on optimizationproblems
      #225/#221/#226, B1-B5 on formal-conjectures #7304/#7305/#7306/#7308/#7330, F1 on Oxelra Bandeira#1 — URLs in
      outreach/three-campaigns-2026-10-15.md. WATCH THE TEN THREADS. Day 2 (A2-A4, C5 the Mosaic refusal, P1-P5) waits for the operator.
+  JOB SEARCH (operator 2026-10-16, "not only hyped AI labs"): three scouts, ~130 boards; the ranked list and the application plan are
+     LOCAL in notes/job-search-2026-10-16.md (+ raw tables in notes/job-search-raw-2026-10-16/, git-excluded). Tier 1 = Epoch AI
+     (Benchmark Reviews), Pydantic evals, FAR.AI RE (international), Nous evals (Americas), Cohere evaluation MTS, Stone (model
+     validation, remote; GenAI Core, hybrid Floripa), Surge, Elicit, Eldorado, Gray Swan. NEXT: resume v3 with the October work;
+     door-openers (pydantic-evals issue/PR; the Mercor Lean placement); packets in outreach/<employer>/; every send the operator's.
   OUTREACH PLAN: outreach/outreach-plan-2026-10-15.md — goals per venue, tone rules, the two-day sequence (confirmations first,
      the #210 refusal last), week-2 follow-ups (AE-PR needs the CLA; T-PR after merges), what we offer if they answer, and the
      new drafts (F1 Bandeira follow-up, P1-P5, AE-PR, T-PR, POST). Threads re-read 2026-10-15 ~23:30 UTC: unchanged since the pins.
