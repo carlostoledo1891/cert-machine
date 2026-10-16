@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A free search against forty-year-old multiplication bounds</title>
+<title>Polynomial multiplication over F₂: a certified search against the bounds · Carlos Toledo</title>
 <meta name="description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/polynomial-multiplication.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/polynomial-multiplication.html">
-<meta property="og:title" content="A free search against forty-year-old multiplication bounds">
+<meta property="og:title" content="Polynomial multiplication over F₂: a certified search against the bounds · Carlos Toledo">
 <meta property="og:description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="A free search against forty-year-old multiplication bounds">
+<meta name="twitter:title" content="Polynomial multiplication over F₂: a certified search against the bounds · Carlos Toledo">
 <meta name="twitter:description" content="The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"A free search against forty-year-old multiplication bounds","description":"The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.","url":"https://carlostoledo.co/reports/polynomial-multiplication.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Polynomial multiplication over F₂: a certified search against the bounds","description":"The best known ways to multiply polynomials over F2 are hand constructions from the 1980s. Every lower bound under them moved in 2026. A free flip-graph walk, certified exactly, against the gap.","url":"https://carlostoledo.co/reports/polynomial-multiplication.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · the generation front · polynomial multiplication over F2</div>
-  <h1>A free search against forty-year-old multiplication bounds</h1>
+  <h1>Polynomial multiplication over F₂: a certified search against the bounds</h1>
+<p class="standfirst">A free search against forty-year-old multiplication bounds</p>
   <p class="deck">How many multiplications does it take to multiply two polynomials over F2? For the truncated and cyclic products the best known answers are still hand constructions from the 1980s and 2009, and in March 2026 every lower bound underneath them moved. Modern search has been pointed at exactly one of them, once, in a footnote — and it won. The free search did not beat a single published upper bound. It reproduced 3 of them from scratch at no cost, which is the honest result and is why the calibration below is worth more than the headline would have been.</p>
 </header>
 

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>δ₃ = 117/2192: the twelve blocks are optimal · cert-machine</title>
+<title>δ₃ = 117/2192: the twelve-block colouring is optimal · Carlos Toledo</title>
 <meta name="description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/delta3.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/delta3.html">
-<meta property="og:title" content="δ₃ = 117/2192: the twelve blocks are optimal · cert-machine">
+<meta property="og:title" content="δ₃ = 117/2192: the twelve-block colouring is optimal · Carlos Toledo">
 <meta property="og:description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="δ₃ = 117/2192: the twelve blocks are optimal · cert-machine">
+<meta name="twitter:title" content="δ₃ = 117/2192: the twelve-block colouring is optimal · Carlos Toledo">
 <meta name="twitter:description" content="Graham&#39;s $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"δ₃ = 117/2192: the twelve blocks are optimal · cert-machine","description":"Graham's $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.","url":"https://carlostoledo.co/reports/delta3.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"δ₃ = 117/2192: the twelve-block colouring is optimal","description":"Graham's $100 question answered: the least number of monochromatic three-term progressions in a two-colouring of {1,…,n} is (117/2192 + o(1))n². A computer-assisted proof whose five exact certificates are re-decided by a second verifier sharing no code with the first. Not refereed, not formalised.","url":"https://carlostoledo.co/reports/delta3.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · erdős #1186, the case k = 3 · a theorem, machine-verified twice</div>
-  <h1>Graham&#39;s $100 question: the twelve blocks are optimal</h1>
+  <h1>δ₃ = 117/2192: the twelve-block colouring is optimal</h1>
+<p class="standfirst">Graham's $100 question: the twelve blocks are optimal</p>
   <p class="deck">Colour 1, …, n red and blue; how few monochromatic progressions a, a+d, a+2d can there be? A random colouring gives about n²/16. In 2008 Parrilo, Robertson and Saracino found a colouring in twelve blocks that does better, 117/2192·n², proved nothing can go below 1675/32768·n², and conjectured their colouring optimal — the value Graham had offered $100 for in 1999. The conjecture is true: δ₃ = 117/2192. The proof is two pages of mathematics and five exact certificates; the certificates were made and checked in a sandbox, and are re-decided here by a second program written from the mathematics alone, sharing no code with the first. Not refereed, not formalised — what that leaves open is stated below, in full.</p>
 </header>
 

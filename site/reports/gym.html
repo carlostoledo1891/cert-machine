@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>break-the-grader · cert-machine</title>
+<title>break-the-grader: an RL environment with no answer key · Carlos Toledo</title>
 <meta name="description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,366 forgeries planted and none leaked.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/gym.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/gym.html">
-<meta property="og:title" content="break-the-grader · cert-machine">
+<meta property="og:title" content="break-the-grader: an RL environment with no answer key · Carlos Toledo">
 <meta property="og:description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,366 forgeries planted and none leaked.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="break-the-grader · cert-machine">
+<meta name="twitter:title" content="break-the-grader: an RL environment with no answer key · Carlos Toledo">
 <meta name="twitter:description" content="An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,366 forgeries planted and none leaked.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"break-the-grader · cert-machine","description":"An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,366 forgeries planted and none leaked.","url":"https://carlostoledo.co/reports/gym.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"break-the-grader: an RL environment with no answer key","description":"An RL environment with no answer key: break a grader, or prove it cannot be broken. Adversarial submissions are generated from certified enclosures — provably wrong, infinite, and with difficulty set by one number with a closed form. Zero dependencies, 1,366 forgeries planted and none leaked.","url":"https://carlostoledo.co/reports/gym.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · environments · break-the-grader</div>
-  <h1>Break the grader, or prove it cannot be broken</h1>
+  <h1>break-the-grader: an RL environment with no answer key</h1>
+<p class="standfirst">Break the grader, or prove it cannot be broken</p>
   <p class="deck">An RL environment with no answer key: the model is shown a certified interval and a grader, and must produce a value the grader accepts and the certificate refutes — or say NO_ATTACK when none exists. The negatives carry proofs, the difficulty is one number with a closed form, and the task set is infinite because the parameter space is continuous.</p>
 </header>
 

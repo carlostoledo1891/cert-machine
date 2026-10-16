@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A ζ(7) proof, audited · cert-machine</title>
+<title>A claimed proof that ζ(7) is irrational, audited · Carlos Toledo</title>
 <meta name="description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/zeta7-anand.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/zeta7-anand.html">
-<meta property="og:title" content="A ζ(7) proof, audited · cert-machine">
+<meta property="og:title" content="A claimed proof that ζ(7) is irrational, audited · Carlos Toledo">
 <meta property="og:description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="A ζ(7) proof, audited · cert-machine">
+<meta name="twitter:title" content="A claimed proof that ζ(7) is irrational, audited · Carlos Toledo">
 <meta name="twitter:description" content="Anand&#39;s &quot;Zeta 7 is Irrational&quot; (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)&#39;s irrationality is untouched.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"A ζ(7) proof, audited · cert-machine","description":"Anand's \"Zeta 7 is Irrational\" (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)'s irrationality is untouched.","url":"https://carlostoledo.co/reports/zeta7-anand.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"A claimed proof that ζ(7) is irrational, audited","description":"Anand's \"Zeta 7 is Irrational\" (Zenodo 22920911 v1) audited in exact arithmetic: its outer integral is +1.576, not −15.28, so A₂₀₀ + U, which must be negative, is +4.86. The reader who reported it (issue #1, @huntrontrakkr) is right. The proof fails; ζ(7)'s irrationality is untouched.","url":"https://carlostoledo.co/reports/zeta7-anand.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · ζ(7) · a claimed proof, audited · generated from the record</div>
-  <h1>A claimed proof that ζ(7) is irrational: the inequality it rests on fails</h1>
+  <h1>A claimed proof that ζ(7) is irrational, audited</h1>
+<p class="standfirst">A claimed proof that ζ(7) is irrational: the inequality it rests on fails</p>
   <p class="deck">A preprint posted on 23 September 2026 claims that ζ(7) is irrational, by adapting the Hankel-determinant argument that settled ζ(5) a week earlier. The proof rests on one number, A₂₀₀ + U, being negative; the paper prints −11.99. On 3 October a reader, GitHub user @huntrontrakkr, reported that one of its integrals does not follow from the paper&#39;s own formulas. We recomputed it in exact arithmetic, with code written here. The reader is right: the number is positive, under every reading of the paper and every correction in its favour that we could decide. That breaks this proof. It does not show that ζ(7) is rational — whether ζ(7) is irrational remains open.</p>
 </header>
 

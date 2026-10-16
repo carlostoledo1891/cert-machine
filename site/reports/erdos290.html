@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Erdős #290: the 4k(k+1) theorem · cert-machine</title>
+<title>Erdős #290: the 4k(k+1) law as exact integer identities · Carlos Toledo</title>
 <meta name="description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos290.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos290.html">
-<meta property="og:title" content="Erdős #290: the 4k(k+1) theorem · cert-machine">
+<meta property="og:title" content="Erdős #290: the 4k(k+1) law as exact integer identities · Carlos Toledo">
 <meta property="og:description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Erdős #290: the 4k(k+1) theorem · cert-machine">
+<meta name="twitter:title" content="Erdős #290: the 4k(k+1) law as exact integer identities · Carlos Toledo">
 <meta name="twitter:description" content="Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #290: the 4k(k+1) theorem · cert-machine","description":"Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.","url":"https://carlostoledo.co/reports/erdos290.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #290: the 4k(k+1) law as exact integer identities","description":"Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.","url":"https://carlostoledo.co/reports/erdos290.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · every number recomputed at build</div>
-  <h1>A digit that was a guess is now a theorem</h1>
+  <h1>Erdős #290: the 4k(k+1) law as exact integer identities</h1>
+<p class="standfirst">A digit that was a guess is now a theorem</p>
   <p class="deck">Someone asked, in an open GitHub issue, what number to put in the OEIS for Erdős problem #290 — and guessed its third digit. That digit is now PROVED. The constant is 0.546…, with no assumption about the tail — the one input taken as given is the Magma computation in the proof of van Doorn&#39;s Lemma 32 (arXiv:2411.03073: G_d ≅ S_l⁺ for every even d ≤ 60 except 8, 24, 48) — where every previous horizon could pin only 0.54…. It took closing 250 consecutive degrees of a computation nobody had run past d = 120.</p>
 </header>
 

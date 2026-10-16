@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Diagonal Ramsey below 3.7992 · cert-machine</title>
+<title>Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified · Carlos Toledo</title>
 <meta name="description" content="The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ 3.77213076…^(k+o(k)). The paper&#39;s own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/diagonal-ramsey.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/diagonal-ramsey.html">
-<meta property="og:title" content="Diagonal Ramsey below 3.7992 · cert-machine">
+<meta property="og:title" content="Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified · Carlos Toledo">
 <meta property="og:description" content="The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ 3.77213076…^(k+o(k)). The paper&#39;s own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Diagonal Ramsey below 3.7992 · cert-machine">
+<meta name="twitter:title" content="Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified · Carlos Toledo">
 <meta name="twitter:description" content="The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ 3.77213076…^(k+o(k)). The paper&#39;s own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Diagonal Ramsey below 3.7992 · cert-machine","description":"The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ 3.77213076…^(k+o(k)). The paper's own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.","url":"https://carlostoledo.co/reports/diagonal-ramsey.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified","description":"The iteration Gupta, Ndiaye, Norin and Wei print as preliminary and unverified, decided on their own Theorem 14 by two independent programs: it holds (3.7823); five further rounds reach R(k,k) ≤ 3.77213076…^(k+o(k)). The paper's own iteration, not the record: 3.769 (Lean-checked by its authors) and 3.69507 (arXiv 2609.14525) are lower and not checked here.","url":"https://carlostoledo.co/reports/diagonal-ramsey.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · decided · diagonal Ramsey numbers</div>
-  <h1>Diagonal Ramsey below 3.7992: 3.7823, then 3.77213…</h1>
+  <h1>Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified</h1>
+<p class="standfirst">Diagonal Ramsey below 3.7992: 3.7823, then 3.77213…</p>
   <p class="deck">Gupta, Ndiaye, Norin and Wei prove R(k, k) ≤ 3.7992^(k+o(k)) and print one more round of their optimisation, proposed by ChatGPT 5.6 Sol, as &quot;preliminary, unverified&quot;: 3.78233. Decided here on the paper&#39;s own Theorem 14, by two independent programs: it holds. The paper adds that &quot;further improvements by performing additional iterations are possible&quot;; five more rounds, each proposed here by a float optimiser and each decided in the region the round before it establishes, reach R(k, k) ≤ 3.7721307629…^(k+o(k)). Both numbers decide the paper&#39;s own iteration; neither is the best known bound — lower ones appeared in September 2026 and are not checked here (§5).</p>
 </header>
 

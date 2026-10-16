@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Five asterisks, replayed · cert-machine</title>
+<title>The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo</title>
 <meta name="description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/optimization-constants.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/optimization-constants.html">
-<meta property="og:title" content="Five asterisks, replayed · cert-machine">
+<meta property="og:title" content="The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo">
 <meta property="og:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Five asterisks, replayed · cert-machine">
+<meta name="twitter:title" content="The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo">
 <meta name="twitter:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Five asterisks, replayed · cert-machine","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C42 \u003c= 0.6906538 holds in its limiting inequality; C84b \u003c= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The optimization-constants registry: five asterisked bounds replayed","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C42 \u003c= 0.6906538 holds in its limiting inequality; C84b \u003c= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · the registry&#39;s asterisks</div>
-  <h1>Five asterisks, replayed</h1>
+  <h1>The optimization-constants registry: five asterisked bounds replayed</h1>
+<p class="standfirst">Five asterisks, replayed</p>
   <p class="deck">The optimization-constants registry marks a bound with an asterisk when its verification is &quot;at minimal levels&quot;. Five of its bounds rest on arithmetic small enough to decide exactly. Three hold as printed — two entropy laws and one Boolean function on 18 variables. For Turán&#39;s power sums the limiting certificate holds and the passage to it is the author&#39;s argument. The sum–product row quotes a constant its own source calls only &quot;suggested&quot;, and the source&#39;s calculation cannot reach it; what that source proves holds. One of the checkers published with the entropy laws would also have accepted a false bound.</p>
 </header>
 

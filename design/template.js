@@ -36,6 +36,7 @@ const { balancedGrid } = require('./grid.js');
 const NAVJS = require('./nav.js');
 const BASE = require('./base.js');
 const FOOT = require('./footer.js');
+const TITLES = require('./titles.js');   /* the title registry: applied to every rendered page, once */
 
 /* the relative prefix back to the site root, from the page's own path, so the
    nav resolves in a file:// preview as well as on the domain */
@@ -101,6 +102,9 @@ h2{font-size:${SCALE.h2};line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;f
 h3{font-size:${SCALE.h3};line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:${SCALE.deck};line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:${LAYOUT.read};text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+${TITLES.STANDFIRST_CSS}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -478,7 +482,7 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
   const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss())
     + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
   const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
-  return `<!doctype html>
+  const html = `<!doctype html>
 <html lang="${lang}">
 <head>
 ${headHtml({ title, desc, path: pagePath, og })}
@@ -496,6 +500,9 @@ ${scriptRaw}
 </body>
 </html>
 `;
+  /* the registry last: the formal title into <title>, the cards and the H1,
+     the editorial line demoted to a standfirst, one suffix site-wide */
+  return TITLES.retitle(html, pagePath);
 }
 
 module.exports = { render, css, headHtml, DEFAULT_DESC };

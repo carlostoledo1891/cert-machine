@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>We graded the graders · cert-machine</title>
+<title>Tolerance graders measured against provably wrong answers · Carlos Toledo</title>
 <meta name="description" content="A certified enclosure is a canary factory: if a quantity is pinned to width w and a grader accepts anything within tol of a stored decimal, every value in the surrounding band is provably not the quantity and passes anyway. Measured here — tolerance graders accept 89.5% of provably-wrong submissions, a certificate grader accepts none — with three environments built on it, including one that rewards breaking a grader rather than satisfying it.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/envs.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/envs.html">
-<meta property="og:title" content="We graded the graders · cert-machine">
+<meta property="og:title" content="Tolerance graders measured against provably wrong answers · Carlos Toledo">
 <meta property="og:description" content="A certified enclosure is a canary factory: if a quantity is pinned to width w and a grader accepts anything within tol of a stored decimal, every value in the surrounding band is provably not the quantity and passes anyway. Measured here — tolerance graders accept 89.5% of provably-wrong submissions, a certificate grader accepts none — with three environments built on it, including one that rewards breaking a grader rather than satisfying it.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="We graded the graders · cert-machine">
+<meta name="twitter:title" content="Tolerance graders measured against provably wrong answers · Carlos Toledo">
 <meta name="twitter:description" content="A certified enclosure is a canary factory: if a quantity is pinned to width w and a grader accepts anything within tol of a stored decimal, every value in the surrounding band is provably not the quantity and passes anyway. Measured here — tolerance graders accept 89.5% of provably-wrong submissions, a certificate grader accepts none — with three environments built on it, including one that rewards breaking a grader rather than satisfying it.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"We graded the graders · cert-machine","description":"A certified enclosure is a canary factory: if a quantity is pinned to width w and a grader accepts anything within tol of a stored decimal, every value in the surrounding band is provably not the quantity and passes anyway. Measured here — tolerance graders accept 89.5% of provably-wrong submissions, a certificate grader accepts none — with three environments built on it, including one that rewards breaking a grader rather than satisfying it.","url":"https://carlostoledo.co/reports/envs.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Tolerance graders measured against provably wrong answers","description":"A certified enclosure is a canary factory: if a quantity is pinned to width w and a grader accepts anything within tol of a stored decimal, every value in the surrounding band is provably not the quantity and passes anyway. Measured here — tolerance graders accept 89.5% of provably-wrong submissions, a certificate grader accepts none — with three environments built on it, including one that rewards breaking a grader rather than satisfying it.","url":"https://carlostoledo.co/reports/envs.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · environments</div>
-  <h1>We graded the graders</h1>
+  <h1>Tolerance graders measured against provably wrong answers</h1>
+<p class="standfirst">We graded the graders</p>
   <p class="deck">A grader that checks a number against a stored decimal within a tolerance accepts values that are provably wrong — and we can mint those values by the thousand from certificates we already hold. Here is the measurement, three environments built on it, and the one canary in the set that is not synthetic: a number a real problem thread actually published.</p>
 </header>
 

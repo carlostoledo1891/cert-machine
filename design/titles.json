@@ -1,0 +1,608 @@
+{
+ "_what": "THE TITLE REGISTRY (2026-10-16). One formal title per report page: object + what was decided. `was` is the H1 the builder writes today and is the gate: design/titles.js refuses a page whose H1 is neither `was` nor `title`. `standfirst` is the demoted editorial line (null = none). `frozen`: the H1 is quoted by the method paper's bibliography and does not change. File names and URLs never change.",
+ "_series": {
+  "audits": {
+   "title": "Audits of machine-generated mathematics",
+   "lede": "Claims produced by AI systems and autonomous discovery platforms — releases, registries, manuscripts, announced records — re-decided from their published bytes, by programs that share no code with the claimant."
+  },
+  "evaluation": {
+   "title": "Evaluation whose ground truth is a proof",
+   "lede": "Graders measured against provably wrong answers, answer keys re-decided, and environments and benchmarks in which a certificate replaces the answer key."
+  },
+  "theorems": {
+   "title": "Theorems and exact values",
+   "lede": "Results proved here in exact rational or outward-rounded interval arithmetic — the calibration of the instruments, and some values that were not known."
+  },
+  "decisions": {
+   "title": "Certified decisions for operations",
+   "lede": "Engineering and operational numbers decided over declared envelopes: aviation, maritime, energy, ocean statistics. Each page names what it does not claim."
+  },
+  "record": {
+   "title": "The record",
+   "lede": "What was decided month by month, what was refused and why, how to re-run any of it, and how a claim is submitted."
+  }
+ },
+ "pages": {
+  "aag.html": {
+   "title": "A first-order mean-field game with entry and exit: the empty region decided",
+   "standfirst": "The empty region, painted by standing",
+   "was": "The empty region, painted by standing",
+   "series": "theorems",
+   "frozen": false
+  },
+  "afg.html": {
+   "title": "The Almulla–Ferreira–Gomes game: the case without a closed form, enclosed",
+   "standfirst": "A first-order mean-field game, enclosed by its current",
+   "was": "A first-order mean-field game, enclosed by its current",
+   "series": "theorems",
+   "frozen": false
+  },
+  "agtable.html": {
+   "title": "The Ashrafyan–Gomes error tables, re-decided cell by cell",
+   "standfirst": null,
+   "was": "Their tables, re-decided",
+   "series": "theorems",
+   "frozen": false
+  },
+  "ai-claims-audit.html": {
+   "title": "Six AI-assisted results re-verified from their manuscripts",
+   "standfirst": "We checked the AI's homework",
+   "was": "We checked the AI's homework",
+   "series": "audits",
+   "frozen": false
+  },
+  "alien-science.html": {
+   "title": "Scoring AI-generated science: a certificate, not a score",
+   "standfirst": "Alien science needs a disposition, not a sermon",
+   "was": "Alien science needs a disposition, not a sermon",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "alphaevolve-community.html": {
+   "title": "The AlphaEvolve repository's community certificates, decided",
+   "standfirst": null,
+   "was": "The AlphaEvolve repository's community certificates, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "alphaevolve.html": {
+   "title": "AlphaEvolve and AlphaTensor matrix multiplication, certified",
+   "standfirst": "The AI-discovered algorithms, certified",
+   "was": "The AI-discovered algorithms, certified",
+   "series": "audits",
+   "frozen": false
+  },
+  "answer-key.html": {
+   "title": "When the answer key is wrong: three certified specimens",
+   "standfirst": null,
+   "was": "When the answer key is wrong",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "bandeira.html": {
+   "title": "Bandeira's Open Problem 0.2(a): the disproof, decided",
+   "standfirst": null,
+   "was": "Bandeira's Open Problem 0.2(a): the disproof, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "breaking-geometry.html": {
+   "title": "The geometry of 16,369 Black Sea breaking waves, decided",
+   "standfirst": "Sixteen thousand breaking waves, decided against the laboratory — and against the paper",
+   "was": "Sixteen thousand breaking waves, decided against the laboratory — and against the paper.",
+   "series": "decisions",
+   "frozen": false
+  },
+  "claim-korenblum.html": {
+   "title": "The Korenblum constant c₂ ≥ 0.4263: re-verified from the manuscript",
+   "standfirst": null,
+   "was": "The Korenblum constant",
+   "series": "audits",
+   "frozen": false
+  },
+  "claim-lemniscate.html": {
+   "title": "Erdős #1038, the Darvas–Peng–Tao value: the computational fragment re-verified",
+   "standfirst": null,
+   "was": "Erdős Problem #1038",
+   "series": "audits",
+   "frozen": false
+  },
+  "claim-mathieu.html": {
+   "title": "The Mathieu property for Lie groups: supporting identities re-verified",
+   "standfirst": null,
+   "was": "The Mathieu property for Lie groups",
+   "series": "audits",
+   "frozen": false
+  },
+  "claim-maxwell.html": {
+   "title": "Maxwell's point-charge bound: the 24-critical-point configuration re-verified",
+   "standfirst": null,
+   "was": "Maxwell's point-charge bound",
+   "series": "audits",
+   "frozen": false
+  },
+  "claim-poisson.html": {
+   "title": "The rank-two Poisson conjecture: the explicit counterexample re-verified",
+   "standfirst": null,
+   "was": "The rank-two Poisson conjecture",
+   "series": "audits",
+   "frozen": false
+  },
+  "claim-ranteng.html": {
+   "title": "Ran–Teng Conjecture 20: the machine-checkable fragment re-verified",
+   "standfirst": null,
+   "was": "Ran–Teng Conjecture 20",
+   "series": "audits",
+   "frozen": false
+  },
+  "claims.html": {
+   "title": "Submitting a claim for certification",
+   "standfirst": "Send us a claim",
+   "was": "Send us a claim",
+   "series": "record",
+   "frozen": false
+  },
+  "counterexample-machine.html": {
+   "title": "Sra's library of AI-found counterexamples, decided case by case",
+   "standfirst": "The counterexample machine, decided",
+   "was": "The counterexample machine, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "decided-2026-09.html": {
+   "title": "Decided, September 2026: the monthly register",
+   "standfirst": null,
+   "was": "Decided, September 2026",
+   "series": "record",
+   "frozen": false
+  },
+  "decided-2026-10.html": {
+   "title": "Decided, October 2026: the monthly register",
+   "standfirst": null,
+   "was": "Decided, October 2026",
+   "series": "record",
+   "frozen": false
+  },
+  "delta3.html": {
+   "title": "δ₃ = 117/2192: the twelve-block colouring is optimal",
+   "standfirst": "Graham's $100 question: the twelve blocks are optimal",
+   "was": "Graham's $100 question: the twelve blocks are optimal",
+   "series": "theorems",
+   "frozen": false
+  },
+  "diagonal-ramsey.html": {
+   "title": "Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified",
+   "standfirst": "Diagonal Ramsey below 3.7992: 3.7823, then 3.77213…",
+   "was": "Diagonal Ramsey below 3.7992: 3.7823, then 3.77213…",
+   "series": "audits",
+   "frozen": false
+  },
+  "easota.html": {
+   "title": "The EinsteinArena SOTA table, decided construction by construction",
+   "standfirst": "Their table, re-decided to the last digit",
+   "was": "Their table, re-decided to the last digit.",
+   "series": "audits",
+   "frozen": false
+  },
+  "ec-benchmark.html": {
+   "title": "The environmental-contour benchmark, re-decided exactly",
+   "standfirst": "Their contours, re-decided to the last point",
+   "was": "Their contours, re-decided to the last point.",
+   "series": "decisions",
+   "frozen": false
+  },
+  "ember.html": {
+   "title": "Hot spots on a convex trapezoid: the extrema stay on the boundary",
+   "standfirst": null,
+   "was": "The hot spot stays on the boundary",
+   "series": "theorems",
+   "frozen": false
+  },
+  "entropy.html": {
+   "title": "The Hénon map: a certified lower bound on topological entropy",
+   "standfirst": null,
+   "was": "Entropy, with a certificate",
+   "series": "theorems",
+   "frozen": false
+  },
+  "envs.html": {
+   "title": "Tolerance graders measured against provably wrong answers",
+   "standfirst": "We graded the graders",
+   "was": "We graded the graders",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "erdos1.html": {
+   "title": "Erdős #1: the Astra disproof made effective, with explicit sets",
+   "standfirst": "The swarm proved the set exists. Here is the set",
+   "was": "The swarm proved the set exists. Here is the set.",
+   "series": "audits",
+   "frozen": false
+  },
+  "erdos1038-inf.html": {
+   "title": "Erdős #1038: a certified unconditional bracket for the infimum",
+   "standfirst": null,
+   "was": "A certified bracket for the Erdős–Herzog–Piranian infimum",
+   "series": "theorems",
+   "frozen": false
+  },
+  "erdos1038-sup.html": {
+   "title": "Erdős #1038, supremum side: Tao's theorem re-decided degree by degree",
+   "standfirst": "How shallow can a lemniscate stay?",
+   "was": "How shallow can a lemniscate stay?",
+   "series": "theorems",
+   "frozen": false
+  },
+  "erdos290.html": {
+   "title": "Erdős #290: the 4k(k+1) law as exact integer identities",
+   "standfirst": "A digit that was a guess is now a theorem",
+   "was": "A digit that was a guess is now a theorem",
+   "series": "theorems",
+   "frozen": false
+  },
+  "erdos852-h.html": {
+   "title": "Erdős #852: the conjectured constant c₀ against the OEIS record",
+   "standfirst": "A conjecture nobody had checked against the numbers",
+   "was": "A conjecture nobody had checked against the numbers",
+   "series": "theorems",
+   "frozen": false
+  },
+  "erdos852.html": {
+   "title": "Erdős #852: a published constant refuted at its twelfth digit",
+   "standfirst": "The constant that was a rounding error",
+   "was": "The constant that was a rounding error",
+   "series": "audits",
+   "frozen": false
+  },
+  "evtol-energy.html": {
+   "title": "eVTOL energy reserves: feasibility certificates under the FAA rule",
+   "standfirst": "The reserve, provable: energy-feasibility certificates for eVTOL missions",
+   "was": "The reserve, provable: energy-feasibility certificates for eVTOL missions",
+   "series": "decisions",
+   "frozen": false
+  },
+  "forecast-gym.html": {
+   "title": "The Forecast Gym: a forecasting eval that cannot leak",
+   "standfirst": null,
+   "was": "The Forecast Gym: the test set that cannot leak",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "frontier.html": {
+   "title": "The congestion-MFG certifier's frontier, measured",
+   "standfirst": null,
+   "was": "The concentration frontier, as a measurement",
+   "series": "theorems",
+   "frozen": false
+  },
+  "glide-band.html": {
+   "title": "The engine-out glide ring as a certified band",
+   "standfirst": "The ring shows you one answer. There are three",
+   "was": "The ring shows you one answer. There are three.",
+   "series": "decisions",
+   "frozen": false
+  },
+  "gsm8k-audit.html": {
+   "title": "GSM8K's answer key, re-decided",
+   "standfirst": null,
+   "was": "GSM8K’s answer key, re-decided to the last step.",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "gym.html": {
+   "title": "break-the-grader: an RL environment with no answer key",
+   "standfirst": "Break the grader, or prove it cannot be broken",
+   "was": "Break the grader, or prove it cannot be broken",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "harbor-proof.html": {
+   "title": "HarborProof: the EU-MRV fleet under FuelEU Maritime's penalty formula",
+   "standfirst": "Re-sail the fleet's real year under the rule, and decide it",
+   "was": "Re-sail the fleet's real year under the rule, and decide it",
+   "series": "decisions",
+   "frozen": false
+  },
+  "hbar.html": {
+   "title": "The effective Hamiltonian of a one-dimensional MFG, enclosed as a band",
+   "standfirst": null,
+   "was": "The effective Hamiltonian band",
+   "series": "theorems",
+   "frozen": false
+  },
+  "horizonmath.html": {
+   "title": "HorizonMath's discoveries, decided",
+   "standfirst": null,
+   "was": "HorizonMath's discoveries, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "impostors.html": {
+   "title": "The impostor catalog: published constants that match closed forms",
+   "standfirst": null,
+   "was": "The impostor catalog",
+   "series": "audits",
+   "frozen": false
+  },
+  "keller.html": {
+   "title": "Eleven Jacobian and Hessian counterexamples, decided exactly",
+   "standfirst": "The Jacobian conjecture, audited",
+   "was": "The Jacobian conjecture, audited",
+   "series": "audits",
+   "frozen": false
+  },
+  "kissing.html": {
+   "title": "Kissing number in dimension 11: K(11) ≥ 604, one configuration",
+   "standfirst": "Two platforms announced 604. It is one configuration",
+   "was": "Two platforms announced 604. It is one configuration.",
+   "series": "audits",
+   "frozen": false
+  },
+  "lambda4.html": {
+   "title": "Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved",
+   "standfirst": "λ(4), settled",
+   "was": "λ(4), settled",
+   "series": "theorems",
+   "frozen": false
+  },
+  "lambda5.html": {
+   "title": "Chowla's cosine problem: λ(5) = −L(1,2,4,5,6), and λ(6) < λ(5)",
+   "standfirst": "λ(5), settled — and the sequence turns down",
+   "was": "λ(5), settled — and the sequence turns down",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mathbench.html": {
+   "title": "Certified MathBench v0: three models on 46 constructions, decided exactly",
+   "standfirst": null,
+   "was": "Certified MathBench v0",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "matmul-additions.html": {
+   "title": "3×3 matrix multiplication: the 55-addition claim re-derived",
+   "standfirst": "Rank is not the cost: checking 55 additions for 3×3",
+   "was": "Rank is not the cost: checking 55 additions for 3×3",
+   "series": "audits",
+   "frozen": false
+  },
+  "matmul-eval.html": {
+   "title": "The matmul eval: ground truth is a proof",
+   "standfirst": "The matmul eval: model proposes, the machine certifies",
+   "was": "The matmul eval: model proposes, the machine certifies",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "maxval.html": {
+   "title": "The Gomes–Üçer maximal value function, enclosed",
+   "standfirst": "The maximal value function, drawn",
+   "was": "The maximal value function, drawn",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mercer-program.html": {
+   "title": "The Mercer program: Chowla's cosine problem and Newman's minima, certified",
+   "standfirst": "The Mercer program: mu, lambda, and a 40-year bracket",
+   "was": "The Mercer program: mu, lambda, and a 40-year bracket",
+   "series": "theorems",
+   "frozen": false
+  },
+  "methods-note.html": {
+   "title": "How the bugs were found",
+   "standfirst": null,
+   "was": "How the bugs were found",
+   "series": "record",
+   "frozen": true
+  },
+  "mfg-cap.html": {
+   "title": "A non-monotone mean-field game: two equilibria, certified in disjoint balls",
+   "standfirst": "Two solutions, provably: certified multiplicity for a non-monotone MFG",
+   "was": "Two solutions, provably: certified multiplicity for a non-monotone MFG",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mfg-congest.html": {
+   "title": "A congestion mean-field game, enclosed",
+   "standfirst": null,
+   "was": "A congestion mean-field game, enclosed",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mfg-lab.html": {
+   "title": "The MFG laboratory: a published Wardrop table reproduced and proved",
+   "standfirst": null,
+   "was": "The MFG laboratory, certified",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mfg-observatory.html": {
+   "title": "The MFG regime observatory: the coupling–potential plane decided",
+   "standfirst": null,
+   "was": "The MFG regime observatory",
+   "series": "theorems",
+   "frozen": false
+  },
+  "mfg-two-population.html": {
+   "title": "A two-population mean-field game: the coupling plane decided",
+   "standfirst": "The attack–defense regime map",
+   "was": "The attack–defense regime map",
+   "series": "theorems",
+   "frozen": false
+  },
+  "monoflow.html": {
+   "title": "A monotone mean-field-game flow, provably not a gradient flow",
+   "standfirst": "Monotone, and provably not a gradient",
+   "was": "Monotone, and provably not a gradient",
+   "series": "theorems",
+   "frozen": false
+  },
+  "navier-stokes.html": {
+   "title": "The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement",
+   "standfirst": "Their theorem, read to the last hypothesis",
+   "was": "Their theorem, read to the last hypothesis.",
+   "series": "audits",
+   "frozen": false
+  },
+  "openai-math.html": {
+   "title": "OpenAI's math release: what it claims beyond what it checks",
+   "standfirst": null,
+   "was": "OpenAI's math release: what it claims beyond what it checks",
+   "series": "audits",
+   "frozen": true
+  },
+  "optconst-queue.html": {
+   "title": "Five pull requests to the constants registry, decided where decidable",
+   "standfirst": null,
+   "was": "Five pull requests to the constants registry, decided where decidable",
+   "series": "audits",
+   "frozen": false
+  },
+  "optimization-constants.html": {
+   "title": "The optimization-constants registry: five asterisked bounds replayed",
+   "standfirst": "Five asterisks, replayed",
+   "was": "Five asterisks, replayed",
+   "series": "audits",
+   "frozen": false
+  },
+  "polymaps.html": {
+   "title": "Gao's Keller maps and a Markus–Yamabe field, decided",
+   "standfirst": null,
+   "was": "Gao's Keller maps and a Markus–Yamabe field, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "polynomial-multiplication.html": {
+   "title": "Polynomial multiplication over F₂: a certified search against the bounds",
+   "standfirst": "A free search against forty-year-old multiplication bounds",
+   "was": "A free search against forty-year-old multiplication bounds",
+   "series": "theorems",
+   "frozen": false
+  },
+  "price.html": {
+   "title": "The Gomes–Saúde electricity price as a proved band",
+   "standfirst": null,
+   "was": "The clearing price, as a proved band",
+   "series": "decisions",
+   "frozen": false
+  },
+  "refusals.html": {
+   "title": "Refusals on record, by kind",
+   "standfirst": "What the machine would not decide",
+   "was": "What the machine would not decide",
+   "series": "record",
+   "frozen": false
+  },
+  "regatlas.html": {
+   "title": "The p-Laplacian regularization of a first-order MFG, measured",
+   "standfirst": null,
+   "was": "The regularization, measured",
+   "series": "theorems",
+   "frozen": false
+  },
+  "rerun.html": {
+   "title": "The rerun kit: re-derive any decided claim",
+   "standfirst": null,
+   "was": "Re-run any decided claim",
+   "series": "record",
+   "frozen": false
+  },
+  "return-levels.html": {
+   "title": "Significant-wave-height return levels as certificates",
+   "standfirst": "The return-level table as a certificate",
+   "was": "The return-level table as a certificate.",
+   "series": "decisions",
+   "frozen": false
+  },
+  "rm-audit.html": {
+   "title": "The Ramanujan Machine's continued-fraction sheets, audited",
+   "standfirst": null,
+   "was": "The Ramanujan Machine, audited",
+   "series": "audits",
+   "frozen": false
+  },
+  "skyaudit.html": {
+   "title": "SkyAudit: one day of New York helicopter traffic, decided flight by flight",
+   "standfirst": null,
+   "was": "SkyAudit: one real helicopter day, decided flight by flight",
+   "series": "decisions",
+   "frozen": false
+  },
+  "tensor-rank-bounds.html": {
+   "title": "The rank of 3×3 matrix multiplication, audited from both sides",
+   "standfirst": null,
+   "was": "The rank of 3x3 matrix multiplication, audited from both sides",
+   "series": "audits",
+   "frozen": false
+  },
+  "terra.html": {
+   "title": "Congestion mean-field games beyond the uniqueness wall: certified splitting",
+   "standfirst": "The crowd splits — mean-field games beyond the uniqueness wall",
+   "was": "The crowd splits — mean-field games beyond the uniqueness wall",
+   "series": "theorems",
+   "frozen": false
+  },
+  "time-horizon.html": {
+   "title": "METR's time horizon, re-derived as certificates",
+   "standfirst": "METR’s time horizon, certified to the last bit",
+   "was": "METR’s time horizon, certified to the last bit.",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "verifier-loop.html": {
+   "title": "The verified reward channel in closed loop",
+   "standfirst": "The verifier in the loop",
+   "was": "The verifier in the loop",
+   "series": "evaluation",
+   "frozen": false
+  },
+  "verify-lemniscate.html": {
+   "title": "Erdős #1038: thirty published decimals verified, the last a rounding",
+   "standfirst": null,
+   "was": "Erdős #1038: thirty decimals, and the last one is a rounding",
+   "series": "theorems",
+   "frozen": false
+  },
+  "wardrop-repro.html": {
+   "title": "A Wardrop equilibrium enclosed, not only converged to",
+   "standfirst": "A convergent flow finds the equilibrium. A certificate encloses it",
+   "was": "A convergent flow finds the equilibrium. A certificate encloses it.",
+   "series": "theorems",
+   "frozen": false
+  },
+  "water-value.html": {
+   "title": "The water value in a hydro grid: a martingale, proved by LP duality",
+   "standfirst": "The water value, certified",
+   "was": "The water value, certified",
+   "series": "decisions",
+   "frozen": false
+  },
+  "wowii-counterexamples.html": {
+   "title": "Written on the Wall II: five counterexamples, decided",
+   "standfirst": null,
+   "was": "Written on the Wall II: five counterexamples, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "zeta-hankel.html": {
+   "title": "The Hankel-determinant method past ζ(5), measured",
+   "standfirst": "The method that proved ζ(5) irrational stops at ζ(5): measured",
+   "was": "The method that proved ζ(5) irrational stops at ζ(5): measured",
+   "series": "theorems",
+   "frozen": false
+  },
+  "zeta3-audit.html": {
+   "title": "The Ramanujan Machine's ζ(3) sheet, decided",
+   "standfirst": null,
+   "was": "The ζ(3) sheet, decided",
+   "series": "audits",
+   "frozen": false
+  },
+  "zeta7-anand.html": {
+   "title": "A claimed proof that ζ(7) is irrational, audited",
+   "standfirst": "A claimed proof that ζ(7) is irrational: the inequality it rests on fails",
+   "was": "A claimed proof that ζ(7) is irrational: the inequality it rests on fails",
+   "series": "audits",
+   "frozen": false
+  }
+ }
+}

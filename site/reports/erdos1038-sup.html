@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The supremum side of Erdős #1038 · cert-machine</title>
+<title>Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo</title>
 <meta name="description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos1038-sup.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos1038-sup.html">
-<meta property="og:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta property="og:title" content="Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo">
 <meta property="og:description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta name="twitter:title" content="Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo">
 <meta name="twitter:description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The supremum side of Erdős #1038 · cert-machine","description":"Erdős #1038, supremum side: Tao's theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.","url":"https://carlostoledo.co/reports/erdos1038-sup.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038, supremum side: Tao's theorem re-decided degree by degree","description":"Erdős #1038, supremum side: Tao's theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.","url":"https://carlostoledo.co/reports/erdos1038-sup.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">erdős #1038 · the supremum side · teorth/erdosproblems #179</div>
-  <h1>How shallow can a lemniscate stay?</h1>
+  <h1>Erdős #1038, supremum side: Tao's theorem re-decided degree by degree</h1>
+<p class="standfirst">How shallow can a lemniscate stay?</p>
   <p class="deck">On 16 December 2025 Tao reformulated Erdős #1038 over discrete probability measures, asked for the supremum of |{U_μ &lt; 0}|, and conjectured 2√2 — “this may be hard to prove completely.” Within the week the problem&#39;s forum had a proof, written up by Tao with its equality case. For rational weights the question is about root-constrained polynomials, decidable degree by degree; this machine re-decided degrees 3 to 8 in exact arithmetic, sharing no idea and no code with the proof: the odd ones stay below 2.82, and the even ones are placed in [2√2, 2.82845]. Re-decisions of a known theorem, not progress on it.</p>
 </header>
 

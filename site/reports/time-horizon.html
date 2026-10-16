@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>METR’s time horizon, certified</title>
+<title>METR's time horizon, re-derived as certificates · Carlos Toledo</title>
 <meta name="description" content="METR’s Time Horizon 1.1 re-decided as certificates: for 23 models the penalised logistic fit proved to hold exactly one optimum in a box below 10⁻¹⁰, the 50 % horizon as an enclosure, the printed coefficients its rounding for 22 of 23, the point estimates within a solver’s tolerance and never inside, the post-2023 doubling time re-derived as 128.74 days to the printed digit, and the January post’s numbers dated against the May chart.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/time-horizon.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/time-horizon.html">
-<meta property="og:title" content="METR’s time horizon, certified">
+<meta property="og:title" content="METR's time horizon, re-derived as certificates · Carlos Toledo">
 <meta property="og:description" content="METR’s Time Horizon 1.1 re-decided as certificates: for 23 models the penalised logistic fit proved to hold exactly one optimum in a box below 10⁻¹⁰, the 50 % horizon as an enclosure, the printed coefficients its rounding for 22 of 23, the point estimates within a solver’s tolerance and never inside, the post-2023 doubling time re-derived as 128.74 days to the printed digit, and the January post’s numbers dated against the May chart.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="METR’s time horizon, certified">
+<meta name="twitter:title" content="METR's time horizon, re-derived as certificates · Carlos Toledo">
 <meta name="twitter:description" content="METR’s Time Horizon 1.1 re-decided as certificates: for 23 models the penalised logistic fit proved to hold exactly one optimum in a box below 10⁻¹⁰, the 50 % horizon as an enclosure, the printed coefficients its rounding for 22 of 23, the point estimates within a solver’s tolerance and never inside, the post-2023 doubling time re-derived as 128.74 days to the printed digit, and the January post’s numbers dated against the May chart.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"METR’s time horizon, certified","description":"METR’s Time Horizon 1.1 re-decided as certificates: for 23 models the penalised logistic fit proved to hold exactly one optimum in a box below 10⁻¹⁰, the 50 % horizon as an enclosure, the printed coefficients its rounding for 22 of 23, the point estimates within a solver’s tolerance and never inside, the post-2023 doubling time re-derived as 128.74 days to the printed digit, and the January post’s numbers dated against the May chart.","url":"https://carlostoledo.co/reports/time-horizon.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"METR's time horizon, re-derived as certificates","description":"METR’s Time Horizon 1.1 re-decided as certificates: for 23 models the penalised logistic fit proved to hold exactly one optimum in a box below 10⁻¹⁰, the 50 % horizon as an enclosure, the printed coefficients its rounding for 22 of 23, the point estimates within a solver’s tolerance and never inside, the post-2023 doubling time re-derived as 128.74 days to the printed digit, and the January post’s numbers dated against the May chart.","url":"https://carlostoledo.co/reports/time-horizon.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · audit · the time horizon · re-decided at this build</div>
-  <h1>METR’s time horizon, certified to the last bit.</h1>
+  <h1>METR's time horizon, re-derived as certificates</h1>
+<p class="standfirst">METR’s time horizon, certified to the last bit</p>
   <p class="deck">The 50 % time horizon is the length of task, measured in the time a human takes, that a model completes half the time; METR reads it off a logistic fit of run success on log2 human minutes and publishes a point estimate with a bootstrap interval, and the doubling time of that number is the most-quoted trend in AI forecasting. This page takes METR’s own Time Horizon 1.1 evidence — the raw runs of its public repository and the per-task file behind its live chart — and, for every model, proves that the fit has exactly one optimum inside a box, states the horizon as an enclosure over that box, reads every number METR printed against it, and re-derives the doubling time as an interval.</p>
 </header>
 

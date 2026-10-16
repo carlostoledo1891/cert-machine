@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Navier–Stokes claim, read to the last hypothesis</title>
+<title>The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement · Carlos Toledo</title>
 <meta name="description" content="OpenAI&#39;s 2026-09-08 Navier–Stokes blowup claim audited: the formal statement read against Clay&#39;s wording and Mathlib&#39;s definitions hypothesis by hypothesis, the 618,762-line Lean proof built on a laptop with its axioms asked of the kernel, the paper mapped onto the certificate (one clause of Theorem 1.1 — finite energy through the singularity — was not formal at the announced commit 8937a8f4 and is at upstream f9e8bc5b, built here), the writeup dissected by six readers with 13 asserted-not-displayed points ranked, and every printed identity re-run.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/navier-stokes.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/navier-stokes.html">
-<meta property="og:title" content="The Navier–Stokes claim, read to the last hypothesis">
+<meta property="og:title" content="The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement · Carlos Toledo">
 <meta property="og:description" content="OpenAI&#39;s 2026-09-08 Navier–Stokes blowup claim audited: the formal statement read against Clay&#39;s wording and Mathlib&#39;s definitions hypothesis by hypothesis, the 618,762-line Lean proof built on a laptop with its axioms asked of the kernel, the paper mapped onto the certificate (one clause of Theorem 1.1 — finite energy through the singularity — was not formal at the announced commit 8937a8f4 and is at upstream f9e8bc5b, built here), the writeup dissected by six readers with 13 asserted-not-displayed points ranked, and every printed identity re-run.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Navier–Stokes claim, read to the last hypothesis">
+<meta name="twitter:title" content="The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement · Carlos Toledo">
 <meta name="twitter:description" content="OpenAI&#39;s 2026-09-08 Navier–Stokes blowup claim audited: the formal statement read against Clay&#39;s wording and Mathlib&#39;s definitions hypothesis by hypothesis, the 618,762-line Lean proof built on a laptop with its axioms asked of the kernel, the paper mapped onto the certificate (one clause of Theorem 1.1 — finite energy through the singularity — was not formal at the announced commit 8937a8f4 and is at upstream f9e8bc5b, built here), the writeup dissected by six readers with 13 asserted-not-displayed points ranked, and every printed identity re-run.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The Navier–Stokes claim, read to the last hypothesis","description":"OpenAI's 2026-09-08 Navier–Stokes blowup claim audited: the formal statement read against Clay's wording and Mathlib's definitions hypothesis by hypothesis, the 618,762-line Lean proof built on a laptop with its axioms asked of the kernel, the paper mapped onto the certificate (one clause of Theorem 1.1 — finite energy through the singularity — was not formal at the announced commit 8937a8f4 and is at upstream f9e8bc5b, built here), the writeup dissected by six readers with 13 asserted-not-displayed points ranked, and every printed identity re-run.","url":"https://carlostoledo.co/reports/navier-stokes.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement","description":"OpenAI's 2026-09-08 Navier–Stokes blowup claim audited: the formal statement read against Clay's wording and Mathlib's definitions hypothesis by hypothesis, the 618,762-line Lean proof built on a laptop with its axioms asked of the kernel, the paper mapped onto the certificate (one clause of Theorem 1.1 — finite energy through the singularity — was not formal at the announced commit 8937a8f4 and is at upstream f9e8bc5b, built here), the writeup dissected by six readers with 13 asserted-not-displayed points ranked, and every printed identity re-run.","url":"https://carlostoledo.co/reports/navier-stokes.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -670,6 +670,7 @@ ul.plain b{color:var(--ink);font-weight:480}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:1.125rem;line-height:1.45;font-style:italic;color:var(--ink-4);margin:18px 0 0;max-width:82ch;text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -679,7 +680,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · the registry · a machine-generated proof, independently read</div>
-  <h1>Their theorem, read to the last hypothesis.</h1>
+  <h1>The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement</h1>
+<p class="standfirst">Their theorem, read to the last hypothesis</p>
   <p class="deck">On 2026-09-08 OpenAI published a 166-page proof that a smooth force can drive a viscous fluid from rest to infinite speed in finite time, with a Lean formalisation, and said it resolves the Navier–Stokes Millennium problem by its breakdown alternatives (C) and (D). This page does not take that on trust and does not take it on the priority dispute. It reads the formal statement against Clay&#39;s wording hypothesis by hypothesis and against Mathlib&#39;s own definitions, builds the 618,762-line Lean proof on an ordinary laptop and asks the kernel what it rests on, maps the paper onto the certificate, dissects the writeup section by section, and re-runs every identity the paper prints that a computer can decide. It was written against 8937a8f4, the commit the announcement shipped. Upstream has moved once since, to f9e8bc5b (2026-09-10), and that commit closes the one gap this page found; §4b reads it.</p>
 </header>
 

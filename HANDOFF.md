@@ -21,6 +21,24 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 ────────────────────────────────────────────────────────────────────────────
+2026-10-16, THE POSITIONING AND STORYTELLING REBUILD (operator: "the website positioning is outdated… present me the plan";
+then "Proceed following your recommendations"). The plan and its eight rulings: notes/positioning-plan-2026-10-16.md
+(§1 the measured diagnosis, §2 the three lines of work, §3 the structure, §4 the paper's vocabulary, §8 the fit with the
+method paper, §9 the outreach-safety check — 59 sent URLs, none moved). The D1 sentence is untouched.
+  PHASE 1 DONE (this commit): design/titles.json — one formal title per report (object + what was decided), the editorial
+     title demoted to a standfirst, series assigned (audits 30 · evaluation 10 · theorems 28 · decisions 9 · record 6);
+     design/titles.js applies it to every rendered page in ONE function (template render + the site sync; idempotent;
+     refuses a builder whose H1 drifted from the registry's `was`); the suffix is "· Carlos Toledo" site-wide; /reports/
+     rebuilt as five series read from the registry (finding line = the page's own description; kicker carries the first-
+     commit month from git); design/COPY.md (titles, tone, the paper's vocabulary); SEO.md amended. Frozen H1s: openai-math,
+     methods-note (quoted by the method paper's .bib). Found and fixed on the way: a bare build-site.js pruned site/swell/.
+  PHASE 2 NEXT: the homepage (≤ 900 words, six blocks, the sentence visible, a who and a contact), About with Portfolio
+     folded in (bio limited to what /about/ already says), the glossary on Method, tools/check-copy.js + baseline.
+  PHASE 3: /machine/ → Method (≤ 1,200 words, mirrors the paper's §2; the errata list REQUIRED there), the 22.5k-word
+     control page kept as /machine/log.html, nav label Method, Papers renamed + linked, /apps/ index.
+  PHASE 4: instruments lead + retitles, OG image, sitemap, /portfolio/ 301, the measurement table in the plan.
+
+────────────────────────────────────────────────────────────────────────────
 2026-10-15 (~05:00 → ~22:30 UTC), THREE AUDITS BUILT ON THE OPERATOR'S "Agreed, build 1, 2 and 3" (the menu of 2026-10-15:
 famous venues, unanswered exact claims, the Qiushi pattern). Each: scouted by an agent, pinned by sha256, pre-registered,
 decided by standard-library deciders written from the definitions, a ledger re-derived at build, a page, the batteries

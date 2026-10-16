@@ -30,9 +30,11 @@ eval ground truth*. The searchable topic terms per cluster:
 | Decidable-claims apps | skyaudit (+app), harbor-proof, evtol-energy, glide-band, water-value | eVTOL energy reserve audit · FuelEU Maritime penalty calculation · certified enclosure |
 
 Rule of thumb: the **description** carries the searchable noun phrases (the
-problem's name, the technique's name, the number); the **title** stays the
-operator's editorial voice. Answer engines quote descriptions and tl;dr
-blocks nearly verbatim — write both as complete, checkable sentences.
+problem's name, the technique's name, the number); the **title** names the
+object and what was decided (design/COPY.md, 2026-10-16 — it used to say
+"the operator's editorial voice", and that voice now lives in the standfirst
+under the H1). Answer engines quote descriptions and tl;dr blocks nearly
+verbatim — write both as complete, checkable sentences.
 
 ## What is implemented (all in the generators — pages are born with it)
 
@@ -59,8 +61,9 @@ blocks nearly verbatim — write both as complete, checkable sentences.
   claim and its named object; no marketing adjectives; verdicts and exact
   numbers welcome. Never restate the default positioning sentence — the
   meta gate refuses it.
-- Titles: editorial voice is fine; when the title carries no searchable
-  term, the description must carry all of them.
+- Titles: object + what was decided, from the registry design/titles.json
+  (design/COPY.md); the editorial line is the standfirst. The description
+  still carries every searchable term.
 - One canonical home per page; every alternate URL is a 301 in vercel.json.
 
 ## Noted, deliberately not done (keep the machine lean)
