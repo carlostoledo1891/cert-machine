@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~00:30 UTC: NO POD RUNNING; nothing building; three audits live, outreach days 1 and 2 POSTED (19 comments); week-2 items wait for the operator)
+## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~01:45 UTC: NO POD RUNNING; nothing building; caffeinate holds the laptop until 07:00 local; three audits live, outreach days 1+2 POSTED (19 threads to watch); the job search ranked — packets next)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
