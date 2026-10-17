@@ -28,8 +28,10 @@
         by the operator; shout + snapshot when it shows.
      3e. gmDevi/zeta-7-21-lean issue #1 — our reply posted 2026-10-05; a new
         comment, or a new Zenodo version of Anand's preprint, is a finding.
-     3f. the GitHub sends of 2026-10-05 (verifiers, METR, the three re-run asks):
-        a new comment on any of them is a finding.
+     3f. the GitHub sends of 2026-10-05 → 10-16 (verifiers, METR, the re-run asks,
+        the P1–P3 threads, nanoda, Bandeira, the three audits): a new comment on
+        any of them is a finding. corpus/outreach.json is the public record of
+        the same threads; a finding here updates its row.
      4. arXiv — recent entries mentioning the Ramanujan Machine (new
         proofs of audited rows, or new sheets' papers).
 
@@ -206,7 +208,13 @@ for (const [repo, num, label] of [
   ['google-deepmind/formal-conjectures', 6874, 'formal-conjectures #6874 (hot spots)'],
   ['mo271/Zeta5', 3, 'Zeta5 #3 (the ζ(7) wall, measured)'],
   ['incrediblecrab/erdos-1186', 1, 'the #1186 tracker (δ₃, δ₄)'],
-  ['google-deepmind/formal-conjectures', 6882, 'formal-conjectures #6882 (Erdős 1186)']]) {
+  ['google-deepmind/formal-conjectures', 6882, 'formal-conjectures #6882 (Erdős 1186)'],
+  /* the sends of 2026-10-11 → 10-16 (added 2026-10-17; until then the October threads were watched by hand) */
+  ['ammkrn/nanoda_lib', 44, 'nanoda #44 (the kernel patch measured)'],
+  ['Oxelra-AI/Bandeira-0.2a-open-source', 1, 'Bandeira 0.2(a) #1 (the finite core re-decided)'],
+  ...[6, 10, 12, 5].map((n) => ['google-deepmind/alphaevolve_repository_of_problems', n, 'AlphaEvolve problems #' + n]),
+  ...[7304, 7305, 7306, 7308, 7330, 7310, 7320, 7321, 7322, 7337].map((n) => ['google-deepmind/formal-conjectures', n, 'formal-conjectures #' + n + ' (WOWII)']),
+  ...[225, 221, 226, 210].map((n) => ['teorth/optimizationproblems', n, 'optimizationproblems PR #' + n])]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

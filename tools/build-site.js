@@ -83,6 +83,16 @@ const outreach = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'outreach.
 if (!outreach.rows.length) fail('the outreach record is empty — the about page would claim nothing has left the building');
 for (const r of outreach.rows) if (!r.status || !r.sent || !outreach.statusWords[r.status])
   fail('an outreach row carries a status word that is not defined in the record: ' + r.id);
+/* what came back leads; the rest newest first (55 rows by 2026-10-17 — record order had stopped meaning anything) */
+const outreachCameBack = (r) => r.status === 'answered' || r.status === 'merged';
+const byNewest = (a, b) => (a.sent < b.sent ? 1 : a.sent > b.sent ? -1 : 0);
+const outreachBack = outreach.rows.filter(outreachCameBack).sort(byNewest);
+const outreachRest = outreach.rows.filter((r) => !outreachCameBack(r)).sort(byNewest);
+const outreachItem = (r) => ({
+  b: r.status.charAt(0).toUpperCase() + r.status.slice(1) + ' — sent ' + longDate(r.sent) + '.',
+  raw: C.esc(r.what) + ' <em>(' + (r.url ? '<a href="' + C.escAttr(r.url) + '">' + C.esc(r.where) + '</a>' : C.esc(r.where)) + ')</em>.'
+    + (r.note ? ' ' + C.esc(r.note) : '')
+});
 if (claimsLedger.rows.filter((r) => r.origin === 'submitted').length !== claimsLedger.submitted)
   fail('the claims ledger submitted count disagrees with its rows');
 if (l5audit.refuters !== 0) fail('the lambda(5) audit records refuters — no card may call the theorem audited');
@@ -1384,16 +1394,13 @@ const aboutBody = [
     bodyRaw: [
       C.plainList(externalReruns.map((r) => ({ b: 'Independently re-derived, no shared code — ' + longDate(r.date) + '.', raw: C.esc(r.who) + ': ' + C.esc(r.what) + ' Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' }))),
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
-        + 'leaves. The record, with the status words meant exactly:'),
-      C.plainList(outreach.rows.map((r) => ({
-        b: r.status.charAt(0).toUpperCase() + r.status.slice(1) + ' — sent ' + longDate(r.sent) + '.',
-        raw: C.esc(r.what) + ' <em>(' + (r.url ? '<a href="' + C.escAttr(r.url) + '">' + C.esc(r.where) + '</a>' : C.esc(r.where)) + ')</em>.'
-          + (r.note ? ' ' + C.esc(r.note) : '')
-      }))),
+        + 'leaves. The record, with the status words meant exactly: first what has come back (' + outreachBack.length + ' of '
+        + outreach.rows.length + '), then everything else, newest first.'),
+      C.plainList(outreachBack.map(outreachItem)),
+      C.plainList(outreachRest.map(outreachItem)),
       C.pRaw('Status words mean exactly what they say and nothing more: '
         + Object.entries(outreach.statusWords).map(([k, v]) => '<em>' + C.esc(k) + '</em> — ' + C.esc(v)).join(' · ')
         + '. Last checked ' + C.esc(longDate(outreach.lastChecked)) + '.'),
-      C.pRaw('The threads opened since October 2026 — on the AlphaEvolve repository of problems, the optimization-constants registry, formal-conjectures, the Qiushi Engine, the Navier–Stokes proof\u2019s second kernel and Bandeira\u2019s problem — are logged with their URLs in <a href="' + GITHUB + '/blob/main/outreach/SEND-QUEUE.md">outreach/SEND-QUEUE.md</a> and are being folded into this record; the ones that have come back are listed first above.'),
       C.pRaw('<strong>Filed is not accepted; posted is not replied.</strong> ' + (externalReruns.length === 1 ? 'One result' : externalReruns.length + ' results') + ' on this site '
         + (externalReruns.length === 1 ? 'has' : 'have') + ' been independently re-derived by a third party sharing no code (above); none has been peer-reviewed. '
         + 'That is the plain state of it, and it is why the pages ship their own falsifiers rather than asking for trust.'),

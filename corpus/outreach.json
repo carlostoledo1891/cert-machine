@@ -9,7 +9,9 @@
   "posted, visibility unconfirmed": "submitted, and we have not verified it appeared",
   "submitted, awaiting moderation": "in a queue, not yet visible",
   "still in the moderation queue": "submitted and confirmed not yet visible",
-  "answered": "the other party replied in the thread; what came back is in the note"
+  "answered": "the other party replied in the thread; what came back is in the note",
+  "merged": "accepted into the other party's repository",
+  "posted, hidden by the venue": "published, then hidden by the venue's own moderation; not visible to readers"
  },
  "lastChecked": "2026-10-17",
  "rows": [
@@ -17,16 +19,16 @@
    "id": "erdos852-thread",
    "what": "A correction to a GPT-published constant on Erdős #852 — refuted at its 12th significant digit, certified replacement attached.",
    "where": "the problem's discussion thread on erdosproblems.com",
-   "url": "https://www.erdosproblems.com/852",
-   "sent": "2026-08-27",
+   "url": "https://www.erdosproblems.com/forum/thread/852",
+   "sent": "2026-08-26",
    "status": "public, no reply",
-   "note": "It cleared moderation and stands visible. The thread as it stands is pinned in this repository as evidence bytes. Visible is not endorsed: nobody has answered it, no author has amended anything, and clearing a moderation queue is not peer review and not an independent rerun."
+   "note": "It cleared moderation and stands visible (the thread dates it 00:06 on 26 Aug 2026, and it is still the last post there). The thread as it stands is pinned in this repository as evidence bytes. Visible is not endorsed: nobody has answered it, no author has amended anything, and clearing a moderation queue is not peer review and not an independent rerun."
   },
   {
    "id": "dpt-appendix",
    "what": "An independent confirmation of the computational appendix of a claimed proof of Erdős #1038 — all 30 printed decimals verified by a different route, Krawczyk rather than bisection.",
-   "where": "an issue on the claiming authors' own repository",
-   "url": null,
+   "where": "Pengbinghui/pipeline-math issue 5, the claiming authors' own repository",
+   "url": "https://github.com/Pengbinghui/pipeline-math/issues/5",
    "sent": "2026-08-05",
    "status": "filed, no reply",
    "note": "To my knowledge still the only independent verification of any part of any of the three claimed proofs of that problem."
@@ -34,8 +36,8 @@
   {
    "id": "anthropic-sandbox",
    "what": "An evaluation note on a public automated-alignment sandbox whose authors invited stress-testing.",
-   "where": "an issue on that repository",
-   "url": null,
+   "where": "safety-research/automated-w2s-research issue 2",
+   "url": "https://github.com/safety-research/automated-w2s-research/issues/2",
    "sent": "2026-08-04",
    "status": "posted, no reply",
    "note": ""
@@ -46,8 +48,8 @@
    "where": "erdosproblems.com and OEIS",
    "url": null,
    "sent": "2026-08-04",
-   "status": "submitted, awaiting moderation",
-   "note": ""
+   "status": "still in the moderation queue",
+   "note": "Not visible on erdosproblems.com/forum/thread/290 on 2026-10-17: five posts, none of them this one."
   },
   {
    "id": "gh-164",
@@ -61,11 +63,11 @@
   {
    "id": "gh-179",
    "what": "Both ends of Erdős #1038: per-degree theorems on the supremum side, then a certified lower bound inf ≥ 1.828 with no tail estimate and no assumed minimizer.",
-   "where": "teorth/erdosproblems issue 179 (two comments)",
+   "where": "teorth/erdosproblems issue 179 (three comments)",
    "url": "https://github.com/teorth/erdosproblems/issues/179",
    "sent": "2026-09-03",
    "status": "live, no reply",
-   "note": "The second comment was edited after posting to fix rendering: GitHub's KaTeX rejects \\\\operatorname and renders \\\\, as a visible comma."
+   "note": "The second comment was edited after posting to fix rendering: GitHub's KaTeX rejects \\\\operatorname and renders \\\\, as a visible comma. A third comment (2026-10-06) corrected our own figure on #1038; nobody has answered any of the three."
   },
   {
    "id": "gh-392",
@@ -82,17 +84,17 @@
    "where": "the erdosproblems.com forum, thread 1038",
    "url": "https://www.erdosproblems.com/forum/thread/1038",
    "sent": "2026-09-03",
-   "status": "posted, visibility unconfirmed",
-   "note": "The site queues comments for moderation and I have not confirmed this one visible."
+   "status": "public, no reply",
+   "note": "Visible on the thread (dated 14:39 on 3 Sep 2026) and still its last post on 2026-10-17."
   },
   {
    "id": "forum-510",
-   "what": "A note on Chowla's cosine problem (#510) and the λ(4) result.",
+   "what": "The certified table of λ(n) for Chowla's cosine problem (#510), with the λ(4) result.",
    "where": "the erdosproblems.com forum",
-   "url": null,
-   "sent": "2026-09-02",
-   "status": "still in the moderation queue",
-   "note": "Checked by tools/sweep-claims.js, which watches for it appearing."
+   "url": "https://www.erdosproblems.com/forum/thread/510",
+   "sent": "2026-08-26",
+   "status": "public, no reply",
+   "note": "Visible on the thread since it was posted (dated 21:32 on 26 Aug 2026); it was first seen there on 2026-10-06, because the watch had been reading the problem page, where comments do not render. Still the last post on 2026-10-17."
   },
   {
    "id": "einstein-604",
@@ -101,7 +103,7 @@
    "url": "https://github.com/vinid/einstein-arena/issues/64",
    "sent": "2026-09-03",
    "status": "answered",
-   "note": "The ask is offer-shaped: the certification is already built and waiting on the bytes. Answered 2026-09-07: the maintainer gave the path to the vectors; the two 604-point configurations were decided congruent (a signed coordinate permutation) and the issue was closed 2026-09-08."
+   "note": "The ask is offer-shaped: the certification is already built and waiting on the bytes. Answered 2026-09-07: the maintainer gave the path to the vectors; the two 604-point configurations were decided congruent (a signed coordinate permutation) and the issue was closed 2026-09-08. Two later posts in the same thread: the re-run kit offered (2026-10-05), and a correction of our own figure for the best n = 841 submission, 41,128 exact contacts to 40,992 over its 840 distinct directions (2026-10-06)."
   },
   {
    "id": "awesome-ai-proofs-2",
@@ -110,7 +112,403 @@
    "url": "https://github.com/subroy13/awesome-ai-proofs/issues/2",
    "sent": "2026-10-06",
    "status": "answered",
-   "note": "Answered 2026-10-17: the maintainer added both records in commit 852a8fac (data/problems/core.yaml, data/problems/carlostoledo1891.yaml; the registry's README now lists the matmul row as ⚑ verified with Claude among the models and a new diagonal-Ramsey row as self-reported · disputed) and closed the issue. Two words softened on their side: the audit event's 'debunked' became 'disputed' and the caveat's 'refuted' became 'contested', pending their source review. Our reply, saying what the record says (REFUTED by an explicit witness; 'disputed' fair until their review), POSTED 2026-10-17 on the operator's word: https://github.com/subroy13/awesome-ai-proofs/issues/2#issuecomment-6235076477"
+   "note": "Answered 2026-10-17: the maintainer added both records in commit 852a8fac (data/problems/core.yaml, data/problems/carlostoledo1891.yaml; the registry's README now lists the matmul row as ⚑ verified with Claude among the models and a new diagonal-Ramsey row as self-reported · disputed) and closed the issue. Two words softened on their side: the audit event's 'debunked' became 'disputed' and the caveat's 'refuted' became 'contested', pending their source review. Our reply, saying what the record says (REFUTED by an explicit witness; 'disputed' fair until their review), posted 2026-10-17: https://github.com/subroy13/awesome-ai-proofs/issues/2#issuecomment-6235076477 The maintainer answered the same day (issuecomment-6235146613): 'disputed' stays until HorizonMath issue 10 has a comment from its authors, and the issue is to be reopened when it does. On 2026-10-17 HorizonMath issue 10 had no comment."
+  },
+  {
+   "id": "gh-verifiers-2775",
+   "what": "A reproducible construction failure of the legacy SandboxEnv in verifiers 0.3.1: no prime-sandboxes release it accepts can build it.",
+   "where": "PrimeIntellect-ai/verifiers issue 2775",
+   "url": "https://github.com/PrimeIntellect-ai/verifiers/issues/2775",
+   "sent": "2026-10-05",
+   "status": "answered",
+   "note": "Closed 2026-10-09 by a maintainer: verifiers v0 was deprecated and removed, and the legacy 0.3.x line will not get a backport."
+  },
+  {
+   "id": "gh-eval-analysis-public-43",
+   "what": "The Time Horizon 1.1 logistic fits re-derived in standard-library Python, each optimum certified by Krawczyk's method instead of refitted.",
+   "where": "METR/eval-analysis-public issue 43",
+   "url": "https://github.com/METR/eval-analysis-public/issues/43",
+   "sent": "2026-10-05",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-erdos510-lambda4-audit-1",
+   "what": "After the λ(4) audit, three more rows offered for re-running, from the re-run registry.",
+   "where": "rainrzk/erdos510-lambda4-audit issue 1",
+   "url": "https://github.com/rainrzk/erdos510-lambda4-audit/issues/1",
+   "sent": "2026-10-05",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-station_data_v2-2",
+   "what": "The 604-point kissing configuration in dimension 11 certified in exact arithmetic and congruent to the EinsteinArena one; two more configurations decided.",
+   "where": "dualverse-ai/station_data_v2 issue 2 (two posts)",
+   "url": "https://github.com/dualverse-ai/station_data_v2/issues/2",
+   "sent": "2026-10-05",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-count-ex-machina-1",
+   "what": "The counterexample library decided case by case, and the one case whose verdict depends on its reading (feasible Picard steps for DPP likelihood).",
+   "where": "suvrit/count-ex-machina issue 1",
+   "url": "https://github.com/suvrit/count-ex-machina/issues/1",
+   "sent": "2026-10-05",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-zeta-7-21-lean-1",
+   "what": "A third-party report on Anand's ζ(7) preprint confirmed with exact values: I_out in Table 5 does not follow from (59).",
+   "where": "gmDevi/zeta-7-21-lean issue 1",
+   "url": "https://github.com/gmDevi/zeta-7-21-lean/issues/1#issuecomment-6004122031",
+   "sent": "2026-10-05",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-horizonmath-10",
+   "what": "The diagonal-Ramsey certificate of Appendix A.3 refuted: its λ = 1 pair lies outside the region Theorem 14 requires, and the validator accepts it by taking a min where membership needs both inequalities.",
+   "where": "ewang26/HorizonMath issue 10",
+   "url": "https://github.com/ewang26/HorizonMath/issues/10",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": "The awesome-ai-proofs registry keeps its entry \"disputed\" until this thread has a comment from the authors."
+  },
+  {
+   "id": "gh-optimizationproblems-216",
+   "what": "Certificates for C3b, C3c and C71 replayed independently, so the asterisk can come off under the repository's stated rule.",
+   "where": "teorth/optimizationproblems pull request 216",
+   "url": "https://github.com/teorth/optimizationproblems/pull/216",
+   "sent": "2026-10-06",
+   "status": "filed, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-kissingnumbers-2",
+   "what": "K(18) ≥ 8,358 checked exactly from the published data, and the dimensions 25–31 with it.",
+   "where": "alexlegeartis/KissingNumbers issue 2",
+   "url": "https://github.com/alexlegeartis/KissingNumbers/issues/2",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-leech_lifting-1",
+   "what": "K(25) ≥ 197,058 checked exactly; in dimension 31 the stored added points differ from the README.",
+   "where": "k-nic/Leech_lifting issue 1",
+   "url": "https://github.com/k-nic/Leech_lifting/issues/1",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-optimizationproblems-184",
+   "what": "An independent check of the C42 half of a pull request, read as exact rationals.",
+   "where": "teorth/optimizationproblems pull request 184",
+   "url": "https://github.com/teorth/optimizationproblems/pull/184#issuecomment-6008360251",
+   "sent": "2026-10-06",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-qiushi-engine-kissing-number-research-1",
+   "what": "K(25) ≥ 197,580 and K(27) ≥ 201,567 checked exactly, and a request for the coordinates of the other dimensions.",
+   "where": "Oxelra-AI/Qiushi-Engine-Kissing-Number-Research issue 1 (three posts)",
+   "url": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/issues/1",
+   "sent": "2026-10-06",
+   "status": "answered",
+   "note": "The authors published every remaining configuration within days (2026-10-11 and -12). All nineteen bounds in their paper were then checked pair by pair here, every one holds, and they linked the check beside their results table."
+  },
+  {
+   "id": "gh-awesome-ai-scientist-5",
+   "what": "This repository proposed for the list's peer-review and verification section.",
+   "where": "Omni-Scientist/Awesome-AI-Scientist pull request 5",
+   "url": "https://github.com/Omni-Scientist/Awesome-AI-Scientist/pull/5",
+   "sent": "2026-10-06",
+   "status": "merged",
+   "note": "Merged 2026-10-06."
+  },
+  {
+   "id": "gh-einsteinarena-new-sota-14",
+   "what": "One table row needs an update: the circles-in-a-rectangle solution (n = 21), read exactly, has 44 overlapping pairs and is rejected by today's verifier.",
+   "where": "togethercomputer/EinsteinArena-new-SOTA issue 14",
+   "url": "https://github.com/togethercomputer/EinsteinArena-new-SOTA/issues/14",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-discover-19",
+   "what": "The 600-step Erdős construction re-decided in exact arithmetic, in a thread asking whether the published score can be verified.",
+   "where": "test-time-training/discover issue 19",
+   "url": "https://github.com/test-time-training/discover/issues/19#issuecomment-6008677748",
+   "sent": "2026-10-06",
+   "status": "live, no reply",
+   "note": "The thread had been closed since July; the comment answers its question."
+  },
+  {
+   "id": "gh-erdos-1186-1",
+   "what": "δ₃ = 117/2192 claimed optimal for k = 3 of Erdős #1186, and why the exact value of the published δ₄ blocks the next step.",
+   "where": "incrediblecrab/erdos-1186 issue 1",
+   "url": "https://github.com/incrediblecrab/erdos-1186/issues/1",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-6882",
+   "what": "Erdős #1186 proposed for formalization, with the δ₃ result as context.",
+   "where": "google-deepmind/formal-conjectures issue 6882",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/6882",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-ramseylean-1",
+   "what": "Remark 17's iteration checked against Theorem 14 on all of (0, 1] in interval arithmetic: it holds, given the paper.",
+   "where": "snorin239/RamseyLean issue 1",
+   "url": "https://github.com/snorin239/RamseyLean/issues/1",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-6874",
+   "what": "The hot spots conjecture (Rauch, 1974) proposed for formalization, with a certified family of trapezoids.",
+   "where": "google-deepmind/formal-conjectures issue 6874",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/6874",
+   "sent": "2026-10-06",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-zeta5-3",
+   "what": "The Hankel-determinant method measured past ζ(5) by a separate engine: it does not reach ζ(7).",
+   "where": "mo271/Zeta5 issue 3",
+   "url": "https://github.com/mo271/Zeta5/issues/3#issuecomment-6009183430",
+   "sent": "2026-10-06",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-nanoda_lib-44",
+   "what": "Measurements of a kernel patch on 25 real exports from OpenAI's math release, and a request for a configurable worker stack.",
+   "where": "ammkrn/nanoda_lib issue 44",
+   "url": "https://github.com/ammkrn/nanoda_lib/issues/44#issuecomment-6105207190",
+   "sent": "2026-10-11",
+   "status": "live, no reply",
+   "note": "The patch it measured was merged the same day (pull request 45) and the issue closed on 2026-10-12; the comment itself has no answer."
+  },
+  {
+   "id": "gh-bandeira-0.2a-open-source-1",
+   "what": "The finite core of the Bandeira 0.2(a) disproof re-decided with our own certificate (it holds), and the two gaps at its declared boundary named.",
+   "where": "Oxelra-AI/Bandeira-0.2a-open-source issue 1 (two posts)",
+   "url": "https://github.com/Oxelra-AI/Bandeira-0.2a-open-source/issues/1",
+   "sent": "2026-10-15",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "gh-alphaevolve-6",
+   "what": "Problem 60 (no five points on a sphere): every point set in the thread re-decided in exact integer arithmetic.",
+   "where": "google-deepmind/alphaevolve_repository_of_problems issue 6",
+   "url": "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/6#issuecomment-6204214972",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-alphaevolve-10",
+   "what": "Problem 59 (no isosceles triangles): both 58-point sets decided exactly; zero isosceles triples, and both maximal.",
+   "where": "google-deepmind/alphaevolve_repository_of_problems issue 10",
+   "url": "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/10#issuecomment-6204608656",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-alphaevolve-12",
+   "what": "Problem 61 (ring loading): the m = 14 and m = 15 instances decided over every sign pattern, under both index ranges.",
+   "where": "google-deepmind/alphaevolve_repository_of_problems issue 12",
+   "url": "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/12#issuecomment-6204609699",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-alphaevolve-5",
+   "what": "Problem 42 (sum-difference constant): the finite parts of the note decided by exact sumsets.",
+   "where": "google-deepmind/alphaevolve_repository_of_problems issue 5",
+   "url": "https://github.com/google-deepmind/alphaevolve_repository_of_problems/issues/5#issuecomment-6204610760",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7304",
+   "what": "WOWII 353: the 25-vertex counterexample decided from the archive's definitions.",
+   "where": "google-deepmind/formal-conjectures issue 7304",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/7304#issuecomment-6204218882",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7305",
+   "what": "WOWII 360: the 41-vertex counterexample decided under both readings of the ½.",
+   "where": "google-deepmind/formal-conjectures issue 7305",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/7305#issuecomment-6204220227",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7306",
+   "what": "WOWII 373: the 150-vertex counterexample decided.",
+   "where": "google-deepmind/formal-conjectures issue 7306",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/7306#issuecomment-6204221183",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7308",
+   "what": "WOWII 396: the 39-vertex counterexample decided.",
+   "where": "google-deepmind/formal-conjectures issue 7308",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/7308#issuecomment-6204222207",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7330",
+   "what": "WOWII 395b: the 15-vertex counterexample decided by exhaustion.",
+   "where": "google-deepmind/formal-conjectures issue 7330",
+   "url": "https://github.com/google-deepmind/formal-conjectures/issues/7330#issuecomment-6204223248",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7310",
+   "what": "The pull request for WOWII 353: the witness decided independently, with a pinned copy of it.",
+   "where": "google-deepmind/formal-conjectures pull request 7310",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7310#issuecomment-6204611732",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7320",
+   "what": "The pull request for WOWII 396: the witness decided, with a note on a unique mode.",
+   "where": "google-deepmind/formal-conjectures pull request 7320",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7320#issuecomment-6204614697",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7321",
+   "what": "The pull request for WOWII 360: the witness decided under both readings.",
+   "where": "google-deepmind/formal-conjectures pull request 7321",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7321#issuecomment-6204612722",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7322",
+   "what": "The pull request for WOWII 373: the witness decided.",
+   "where": "google-deepmind/formal-conjectures pull request 7322",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7322#issuecomment-6204613709",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-formal-conjectures-7337",
+   "what": "The pull request for WOWII 395b: the witness decided, with a note on a hypothesis the archive does not carry.",
+   "where": "google-deepmind/formal-conjectures pull request 7337",
+   "url": "https://github.com/google-deepmind/formal-conjectures/pull/7337#issuecomment-6204615715",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-optq-225",
+   "what": "Both constructions for C1a and C1b re-decided exactly; the bounds hold.",
+   "where": "teorth/optimizationproblems pull request 225",
+   "url": "https://github.com/teorth/optimizationproblems/pull/225#issuecomment-6204215887",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-optq-221",
+   "what": "The C3c lower bound decided with interval entropies at 128 bits; it holds.",
+   "where": "teorth/optimizationproblems pull request 221",
+   "url": "https://github.com/teorth/optimizationproblems/pull/221#issuecomment-6204216751",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-optq-226",
+   "what": "Three of the five bounds in a pull request decided exactly, and two left open for want of a written derivation.",
+   "where": "teorth/optimizationproblems pull request 226 (two posts)",
+   "url": "https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6204217690",
+   "sent": "2026-10-15",
+   "status": "answered",
+   "note": "The author answered 2026-10-16 with his derivations for 16a and 70a. Both were decided here the same day, from the written derivation and with no code of his run: CERTIFIED. Our follow-up is the last post."
+  },
+  {
+   "id": "gh-optq-210",
+   "what": "A record package for the de Bruijn–Newman constant read file by file: what an outside party can and cannot decide from it.",
+   "where": "teorth/optimizationproblems pull request 210",
+   "url": "https://github.com/teorth/optimizationproblems/pull/210#issuecomment-6204616687",
+   "sent": "2026-10-15",
+   "status": "live, no reply",
+   "note": ""
+  },
+  {
+   "id": "gh-erdos1-tadamcz",
+   "what": "Erdős #1 made effective: the explicit sets and their certificates, offered to the project tracking the problem.",
+   "where": "tadamcz/erdos1 issue 2",
+   "url": "https://github.com/tadamcz/erdos1/issues/2",
+   "sent": "2026-09-16",
+   "status": "open, no comments",
+   "note": ""
+  },
+  {
+   "id": "forum-1",
+   "what": "Erdős #1 made effective: explicit sets for which the conjecture's bound fails at stated sizes, with the certificates.",
+   "where": "the erdosproblems.com forum, thread 1",
+   "url": "https://www.erdosproblems.com/forum/thread/1",
+   "sent": "2026-09-16",
+   "status": "public, no reply",
+   "note": "Visible (dated 14:25 on 16 Sep 2026). One post came after it, building on the thread's earlier suggestion rather than answering this one."
+  },
+  {
+   "id": "erdos1186-claim",
+   "what": "A partial proof claim for Erdős #1186: δ₃ = 117/2192 for three-term progressions, with an exact lower-bound certificate.",
+   "where": "the proof claims of erdosproblems.com/1186",
+   "url": "https://www.erdosproblems.com/forum/thread/1186",
+   "sent": "2026-10-05",
+   "status": "public, no reply",
+   "note": "Accepted by the moderators and shown on the problem from 2026-10-06; no comment on it by 2026-10-17."
+  },
+  {
+   "id": "hn-curveseeds",
+   "what": "Two comments on the Hacker News thread about Anthropic's curve-seeds post, pointing to the independent re-decision.",
+   "where": "Hacker News, items 50129567 and 50130247",
+   "url": "https://news.ycombinator.com/item?id=50129567",
+   "sent": "2026-10-17",
+   "status": "posted, hidden by the venue",
+   "note": "The first was flagged and the second killed by the site's software, as happens to a new account's link-carrying comments; neither shows in the thread."
   }
  ]
 }
