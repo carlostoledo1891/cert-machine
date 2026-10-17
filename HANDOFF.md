@@ -75,8 +75,26 @@ target for us?" → scouted OPEN, BUILD-NOW; then "All focus on the first indepe
      default(parisizemax) — `gp -f` is fast-start, not file, and the first attempts ran nothing). Launched ~01:00 UTC
      under caffeinate for P-256 (1,842 candidates, 960 viable, ~2.4 s each), then P-224, the 1997-05-18 group
      (P-192/prime192v2/v3 share one scan) and the 1997-05-15 group (prime239v1–v3); writes corpus/curveseeds/scan.json
-     after each group; the report builder folds `scan.summary.text` into §4 when the file exists. NOT in the
-     certificate; if it dies, nothing above changes.
+     after each group; the report builder folds the lane into §4 when the file exists. NOT in the certificate; if it
+     dies, nothing above changes. MOVED TO A POD 02:45 UTC (the laptop run crashed once on a PARI warning and was then
+     stopped): RunPod 388ayba4b1pnhk, cpu3c 8 vCPU, PARI 2.15.4 + seadata 20090618, EPYC 7713P. FIRST RESULT (P-256,
+     7 min on 8 cores): the published candidate 1842 is prime-order under the '+' root of b (the lane's calibration
+     holds); under THAT root exactly one earlier candidate is prime-order — 876, the post's number; under either root
+     five are (81, 276, 876, 1049, 1383) — the post's "chosen the same way" is the published-root reading. THEN (by
+     03:30 UTC): P-224 (3,545 viable of 7,026; p ≡ 1 mod 4 so the two roots are isomorphic) — 11 earlier prime-order
+     candidates (77, 777, 1485, 2232, 2328, 2938, 2954, 3191, 3199, 5736, 5861) where the post says three; the
+     1997-05-18 run (6,013 candidates, 3,061 viable; P-192 = 139, prime192v3 = 5228, prime192v2 = 6013): 9 skipped
+     under the published root besides the run's own three curves (1006, 2198, 2678, 2771, 5242, 5405, 5674, 5701,
+     5964), 18 under either; the 1997-05-15 run (3,048; 1,555 viable; prime239v1/v2/v3 = 2185/2320/3048): 5 skipped
+     (36, 1562, 2491, 2682, 2863), 13 under either — the post says seven for the two X9.62 runs together. Every
+     published candidate is prime-order and the published b is the +√(−27/c) root wherever p ≡ 3 mod 4 (the root a
+     program computes first). THE POST'S CRITERION IS NOT STATED ("of the right size and with parameters chosen the
+     same way"); the page says so and lists the counts as the lane's, under its own definition — a candidate for the
+     difference, TESTED on the pod's partial record at 04:40 UTC: both the curve and its twist prime (twist-secure) is
+     NOT it — the published P-256 curve itself is not twist-prime, and under that criterion the X9.62 runs skip
+     nothing; the criterion stays unknown and the page says so. P-384 (not in the post): 1,337 viable of 2,688, the
+     published 2688 prime-order, 2 skipped under the published root (1497, 1626), 6 under either; 65 min on 8 cores.
+     P-521 (584 viable of 1,136) started 04:36 UTC — hours at 521 bits; a second poller imports at "complete".
   TOOLING: Ashby and Lever job pages (earlier today) and this post both render to a plain fetch; the post's HTML did
      carry its text and code; the Ashby/Lever JSON APIs are the way to pin postings.
   OUTREACH DRAFTED, NOT SENT: outreach/curveseeds-note-2026-10-16.md — a note to Filippo Valsorda (the bounty's

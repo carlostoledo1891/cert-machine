@@ -68,9 +68,8 @@ https://carlostoledo.co/reports/curve-seeds.html · github.com/carlostoledo1891/
 Carlos Toledo
 
 ---
-Before sending: re-read certs/curveseeds-ledger.json (34 CERTIFIED) and, if the optional PARI lane has run, decide
-whether its skipped-candidate counts belong in the note (they are counted apart on the page). The operator's word per
-note.
+Before sending: re-read certs/curveseeds-ledger.json (34 CERTIFIED) and corpus/curveseeds/scan.json (the lane; the HN
+comment above quotes it — if P-521 or a re-import changed a number, fix the comment first). The operator's word per note.
 
 ## 3 · Hacker News — the live thread (691 points, 274 comments at 02:10 UTC 10-17; https://news.ycombinator.com/item?id=50122800)
 
@@ -97,9 +96,13 @@ Top-level comment (plain text; HN has no markdown):
     (FIPS's printed c shows it), and the base-point reading needs FreeLIP's SINGLE_MUL build (26-bit limbs; the default
     30-bit build does not reproduce Gx).
 
-    What the page does not decide, and says so: the skipped-candidate statement (candidate 876 of P-256 etc.) needs
-    point counting and is listed apart; the 1/5810 is a null-model number; "much less plausible" is interpretation;
-    B-163 and most base points remain open, as the post says. That a 32-bit srand48 argument regenerates 160 published
+    The skipped-candidate statement is outside the certificate and counted apart, with PARI/GP point counts over
+    every candidate below each published index: on P-256 the one earlier prime-order candidate under the published
+    root of b is 876, the post's number (four more under the other root: 81, 276, 1049, 1383); on P-224 the lane finds
+    11 where the post says three, and on the two X9.62 runs 14 where the post says seven, with every published
+    candidate prime-order — the post's criterion ("chosen the same way") is not stated, and the difference is the
+    criterion, not the arithmetic. The 1/5810 is a null-model number; "much less plausible" is interpretation; B-163
+    and most base points remain open, as the post says. That a 32-bit srand48 argument regenerates 160 published
     bits fourteen times is the computation; that it was a wall clock in 1997 is the reader's inference.
 
     Page with the pins, the pre-registration and both deciders: https://carlostoledo.co/reports/curve-seeds.html

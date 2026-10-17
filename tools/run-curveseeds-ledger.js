@@ -102,7 +102,7 @@ const out = {
   redControls: { fired: redFired.length, of: Object.keys(redsJs).length, names: redFired, python: 'all fired' },
 };
 const scanPath = path.join(ROOT, 'corpus', 'curveseeds', 'scan.json');   /* the lane's record — a derived file beside the corpus, not a certificate */
-if (fs.existsSync(scanPath)) { const S = JSON.parse(fs.readFileSync(scanPath, 'utf8')); out.scan = S.summary || S; out.scan.what = (S.what || '') + ' — the optional lane, PARI/GP point counting; counted apart from the certificate above'; }
+if (fs.existsSync(scanPath)) { const S = JSON.parse(fs.readFileSync(scanPath, 'utf8')); out.scan = { what: (S.what || '') + ' — the optional lane, PARI/GP point counting; counted apart from the certificate above', runs: (S.summary || {}).runs || {}, text: (S.summary || {}).text || '', pod: S.pod || null }; }
 
 fs.writeFileSync(path.join(ROOT, 'certs', 'curveseeds-ledger.json'), JSON.stringify(out, null, 1) + '\n');
 console.log('certs/curveseeds-ledger.json written:', JSON.stringify(byVerdict), 'rows', rows.length, '· reds', redFired.length + '/' + Object.keys(redsJs).length, '· cross-check fields', fieldsCompared, '· readings', readings.length);
