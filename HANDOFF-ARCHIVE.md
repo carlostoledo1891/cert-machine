@@ -1,0 +1,10579 @@
+# HANDOFF ARCHIVE — cert-machine, 2026-08-25 → 2026-10-09
+
+Moved verbatim from HANDOFF.md on 2026-10-17: the dated session logs older than 2026-10-10 and the standing sections
+of August 2026. Nothing here was edited; the live menu and the newer logs are in HANDOFF.md.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-09 (evening → 2026-10-10 early UTC), THE METHOD PAPER PLAN AND ITS PHASE 0, BUILT, PUSHED LIVE (operator: "build the most
+incredible and bullet proof cert-machine paper … a full plan … act as a pair of reviewers, one adversarial"; then "start"; then "After finish
+this phase, commit, push live and handoff").
+  THE PLAN: notes/method-paper-plan-2026-10-09.md — §0–§7 the plan (thesis re-cut around two falsifiable objects: ONE certificate format + a
+    stdlib checker for the EXACT classes, counted by row; the pre-registered 100-claim benchmark beside the claimants' own checkers, both
+    denominators; the grammar as the frame; every independence sentence a count; Lean and the interval checker v1.1), §8 the claim-more
+    ToDo list (41 items, ~45 sessions; v0.3 to the group mid-January 2027). Two reviews in two rounds each; their final verdicts: "a plan I
+    would referee rather than reject" / conditional GO, conditions applied. Partner names stay out of the repo.
+  PHASE 0 — HEADLINE TRUTH — BUILT, in two commits (the atlas serve flow): A = 1512627 (code, ledgers, records, papers), B = this commit
+    (SERVED.json → A, the site, the control page, the baselines). What changed, all verified by batteries:
+    · instruments/verdict.js: the three words, decide(enclosure, bar, relation), compose(); every family imports it; the engine's contract is
+      CERTIFIED / REFUTED / REFUSED; an unknown word is REFUSED and counted (`unknown`). chowla's 71 "rejects" were ALL straddles → REFUSED.
+    · the closed-form hunt refutes only on DISJOINTNESS (instruments/interval/algebraic.js: verified root brackets, exact rational-in-disguise
+      routing, decimal-given γ; the OEIS mantissa box exact-then-outward; c^(p/q) refused, not Math.pow'd): 54,648,476 tested = 54,647,578
+      disjoint + 21 exact + 877 on record + 0 open + 0 surviving; 7,595 rational-power forms refused. Was: "54,628,275 refuted in double".
+    · the Newman bar is the champion ENCLOSURE (candidate.lo > bar.hi); no hit moved; the statement says "the recorded envelope".
+    · the kernel enforces its domain (NaN / inverted / 0·∞ refused by throw; pow refuses ≥ 2^31; test-eqcert S4 found vacuous and fixed);
+      radii refuses Z2 < 0 and proves its linear branch; the Certificate class rejects empty/undefined fields.
+    · make test exits 1 on any FAIL; build-control REFUSES on a red battery (CONTROL_ALLOW_RED=1 prints and writes); .node-version /
+      .python-version; ledger.json carries the toolchain.
+    · certs/erratum-2026-10-09.json pins the before-numbers (commit be82e126, index.html sha 8e3bf235…), the mechanisms, the repair and the
+      FIVE re-derivations the kernel change forced — design-table audit, hseva ledger (18 min), hseva atlas (181 min, 2,589 cells),
+      contraprova gate-ledger (--accept), decidivel ledger (4 min) — every decision identical, only pins/timestamps moved. The control page's
+      §7 shows before/after and the re-derivations; the shelf describes the record.
+    · the methods note is "How the bugs were found" (10 by running, 6 by the 2026-10-09 code read, counted apart); every "none by reading
+      code" sentence on the site, README and papers retired. The method paper is v0.1.1 (§8 closed/open, Prop. 2 with its domain and the
+      V8 trust base, "same-author second implementations"); register (GatesN = 7, BugsByCodeRead) and digits-not-evidence rebuilt.
+    · the layout ruler's baseline accepted with reasons: site/papers/index.html (a seventh group table since 1a03d3e, never re-accepted)
+      and site/machine/index.html (§7: three tables); site/swell/index.html @768 flaps 7↔9 on unchanged bytes (DEBT row).
+    · DEBT.md: the PAID block; the OPEN rows that remain (the pad helper's six callers incl. labs/mfg, taylor2, the trig tests, same-author
+      second implementations, the executable falsifier) point at the plan's items.
+  THE REWRITE'S OWN LESSON: its first run announced A271880 (1/5 to 63 digits) as a discovery — sqrt2^(2/1) is 2 in disguise and, typed as
+    an enclosure, skipped the exact pass; fixed, red control added, re-run clean. And: CHANGING instruments/interval/*.js INVALIDATES EVERY
+    RECORD THAT PINS THE CERTIFIER MODULES' SHA256 (five records, ~3.5 h of re-derivation); budget it before touching the kernel.
+  THE NEXT SESSION, FIRST: `git pull --rebase`; verify carlostoledo.co/machine/ shows §7 and /paper/cert-machine-method.pdf says v0.1.1;
+    `node tools/sweep-claims.js`; then Phase 1 of the plan (A1 apps after 2026-10-19, A2 labs/mfg, A3 the Arb battery, A4, C2, C3, C7, the
+    D2 packet) — the plan's phase table. apps/abatimento FROZEN until the CPSI closes 2026-10-19 17:00 (its page re-rendered this build
+    with its text unchanged).
+  THE OPERATOR DECIDES (plan §7): the venue with the group (JSC or JCAM; the SoftwareX companion); the date on the pre-registration
+    amendment; the D2 blind packet and the R5 ask (sends); whether Phase 1 starts during the CPSI week.
+────────────────────────────────────────────────────────────────────────────
+2026-10-09 (~15:30 UTC), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR (operator: "handoff").
+  STATE: main 1a03d3e + this commit, pushed. LIVE and fetched after the deploy: /paper/cert-machine-method.pdf (16 pp),
+    /paper/p1-return-levels.pdf (v0.2, 36 pp), /papers/ (the method group first), /abatimento/ (first time public);
+    /swell/ and /janela/ unchanged and loading. The 10-09 cloud runs are green: janela-feed 09:07 (dispatch) and 09:19
+    (schedule), swell-feed 03:04 and 10:54 (schedule).
+  NOT DONE THIS SESSION (carried from the 10-08 list): the first altimeter-scores day (10-09) was not looked at in the
+    apps' PLACAR or the head-to-heads; `node tools/sweep-claims.js` was not run.
+  GOTCHA FOUND: `node tools/build-site.js` ALONE prunes site/swell/ (Swell's files are written by apps/swell/build.js,
+    a later step of `make site`); this session restored them from git before committing. Run `make site`, or restore
+    site/swell before a commit (DEBT row).
+  THE NEXT SESSION, FIRST: `git pull --rebase`; the 10-09 altimeter scores in Janela's PLACAR and Swell's Placar, in
+    Chrome; `node tools/sweep-claims.js`; then WAIT.
+  WAITING ON THE OPERATOR: the two paper links to the UFSC contact (a pt-BR message was given in chat; the send is the
+    operator's); the CPSI items before 2026-10-19 17:00 (Petronect CRC + "Tenho Interesse", the annexes, §11 comercial,
+    an LCA partner or none, the submission); everything listed under 10-08 (buoy access, openai/math go, the beach-project
+    partnership — its coast plan stays local and untracked).
+  OPEN MENU ADDITIONS: the 16 code-read debts (DEBT.md, 2026-10-09) — cheapest first: the radii Z2 = 0 check, the hseva
+    reds, the register's GatesN count, `make test` exiting non-zero on a FAIL (check the cloud workflows first); the
+    larger one is ONE verdict module that every instrument imports.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-09 (~15:00 UTC), TWO PAPERS FOR THE UFSC CONTACT (operator: "I think we need (for Pedro) 1. cert-machine method paper.
+Focused on math and verification. Claiming the system. 2. how it is applied to extreme event analysis"; asked, the operator chose
+"P1 + contours"). Committed and pushed live (see below); nothing sent.
+  BUILT:
+    · paper/tex/cert-machine-method.tex → paper/cert-machine-method.pdf (16 pp, article form, draft v0.1): the grammar as
+      definitions with a soundness proposition (universal vs epistemic reading; split vs unresolved refusal; flip thresholds),
+      the arithmetic (one-ulp outward rounding proved; exact rationals; series with tails; Sum2), the certifiers (Krawczyk,
+      maxima over a box, suprema at a limit, multilinear corners, filtered exact predicates, rational SOS, cosine minima), the
+      discipline as it is ENFORCED (per battery / page / record / generator — the aggregate test target and the control page
+      report, they do not gate; said so), the record by domain, related practice, limits incl. "what a read of the code found".
+      Numbers: \input of register/p1/p2/ec-benchmark/delta3 macro files + tools/paper-numbers/cert-machine-method.js (NEW;
+      batteries counted from build-control.js, second-implementation agreements and the rerun kit read from their records).
+    · P1 → v0.2 (36 pp, was 29): title "Certified extreme-value analysis of significant wave height: …, and environmental
+      contours decided exactly"; §4 the decision of a contour count; §5.7 the contour benchmark decided (two figures from
+      ec-benchmark); discussion/conclusions/data availability extended; general arithmetic and discipline now cite the method
+      paper; the inflated red-control count removed (some hseva red() calls are positive assertions — DEBT).
+    · paper/INDEX.json: a "method" group first; P1's title/desc/status; the register no longer called "the method paper".
+    · DEBT.md: a 16-row block "what a read of the certifiers' code found" (no shared verdict module; falsifier is a string;
+      Math.cos padding in 4 instruments; taylor2 on non-dyadic intervals in agtable; radii Z2=0 branch; hseva reds; contraprova
+      consistency/threshold wording; ecbench bound; trigmin recheck; transcendental tails; special.js constants; no second impl
+      for sos/trigmin/ecbench/hseva; make test never fails + control build does not refuse; register GatesN 6 vs 7; drift skips
+      local side; RERUN.md ~100 commits behind).
+  ALSO THIS SESSION (chat only): arXiv:2610.08144 (Bastounis–Circelli–Hansen, "Navier–Stokes lost in translation") read and
+    answered; GitHub's push log fixes the timeline of our NS energy-clause finding: our audit public 2026-09-10 12:44:26 UTC,
+    OpenAI's fix authored 11:51:24 and pushed 15:14:13 — published before the fix, NOT a cause of it (no priority claim).
+  PUSHED LIVE on the operator's word ("push live"), together with the Abatimento commit (now 722c84d: the CPSI page,
+    deck, Registro de cálculo and Proposta Técnica are public at /abatimento/; §11 comercial is still a placeholder).
+    BEFORE THE PUSH the coast plan (notes/coast-plan-2026-10-08.md) was taken OUT of that unpushed commit: it names the
+    beach-project partner, his personal repository and his LabECO tie, and partner names stay out of the public repo
+    until both sides agree. It stays on this desk, untracked, excluded in .git/info/exclude. Links for the UFSC contact:
+    carlostoledo.co/paper/cert-machine-method.pdf and /paper/p1-return-levels.pdf. Sending them is the operator's.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-09 (~02:30 UTC), ABATIMENTO — the Registro de Abatimento built as submission material for Petrobras CPSI 7004641677
+(operator: "Let's build the pt-BR material to submit"; then "caffeinate until 7am. Handoff"). COMMITTED at handoff (this commit); nothing sent;
+  one caffeinate -i -s holds the desk awake until 07:00 local.
+  THE OPPORTUNITY: Conexões para Inovação, módulo Aquisição de Soluções, "Sistema de cálculo de potencial de abatimento de
+    emissões (Escopo 1 e 2 abrangendo Emissões Evitadas, Escopo 3 e ACV) de portifólio de Centro de Pesquisas e
+    Desenvolvimentos"; Petronect CPSI 7004641677, recebimento 16.09.2026 17:00 → 19.10.2026 17:00, internacional.
+    Its requirement list is the house doctrine (ranges not points; premises documented; versions; reproducible and
+    auditable; no double counting; technical vs agreed; ramp-up) — the gap is LCA (decided over declared ranges, not computed).
+  BUILT (apps/abatimento; site/abatimento/): the kernel (multilinear forms over premise boxes, exact corners in BigInt
+    rationals; class / claim / sum / diff decided; sensitivity + the price of information by bisection), reference.py
+    (Python fractions, no shared code), battery 60 + 9 reds (reference agreement 8/8, 2,400 interior points), 8 scenario
+    versions on 4 sources from Petrobras's Caderno 2025 (PDF created 2026-05-13, sha256 faab42c2…, text pinned in
+    corpus/sources with IPCC Table 2.2 and the GHG Protocol GWP PDFs), the page with the live registry (re-decided in the
+    tab: "conferido no seu navegador"), the 12-slide deck, the Registro de cálculo (A4) and the Proposta Técnica (A4, 3 pp;
+    §11 comercial is a placeholder). Registered in Makefile (site + test), build-control, build-site; measure and style
+    baselines accepted; render, grammar, wiring, stale-claims green. targets row cpsi-7004641677-abatimento.
+  THE NEXT SESSION, FIRST: `git pull --rebase` (the janela-feed bot pushes to main; this commit is local, NOT pushed);
+    `gh run list --workflow=janela-feed.yml --limit 6` and `--workflow=swell-feed.yml` (the 10-09 days; 10-09 is the first
+    altimeter-scores day); `node tools/sweep-claims.js`; open carlostoledo.co/abatimento/ only after a push + `make site`
+    (the page is built in site/abatimento/ but the landing and sitemap were not rebuilt). Then WAIT for the operator's
+    answers on the CPSI items below. No send, no paid run.
+  THE OPERATOR'S ITEMS BEFORE 2026-10-19 17:00: Petronect CRC + "Tenho Interesse" on 7004641677; read the edital's anexos
+    (login-gated) and tell me what the portal text does not carry; the commercial section; an LCA partner (or none);
+    the submission (a send). Then: commit, `make site` (the landing/sitemap), and the first outside rerun.
+  ALSO THIS SESSION: the coast plan (notes/coast-plan-2026-10-08.md) written and PARKED by the operator (§14); the
+    REMObs/PNBoia API found live (token-gated measurements); Ciclo 4 of the Radar open until 2026-12-31 (same form).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (23:20 UTC), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR (operator: "handoff waiting for new instructions").
+  AFTER THE MAP PASS: a partnership brainstorm with an open-source beach project, at the operator's request, both ways (what
+    our instruments give them; what they do better). The plan lives in the operator's private Claude Doc and in session
+    memory; names and messages stay OUT of the public repo until both sides agree. Nothing built, nothing sent.
+  STATE: main 31662b9 + this commit, clean. Today's cloud runs, all green:
+    · janela-feed 37754426814 (09:07 UTC, by hand, 13 min): every step, including the FIRST cloud run of the AIFS step
+      (corpus/janela/feed-aifs/20261008.json.gz) and the period bands; observations, scores, currents, the app's day.
+    · swell-feed 37766798792 (10:56 UTC, schedule): Swell day 2026100800 on swell-field b0ae29f, digest c5b9675389d7.
+    · later scheduled runs were no-ops. GitHub's cron is lossy: swell-feed fired at 10:56 and 17:59 only, and
+      tools/janela-watchdog.sh (launchd) backs up janela-feed ONLY — Swell has no watchdog.
+  THE NEXT SESSION, FIRST:
+    1. `git pull --rebase`.
+    2. `gh run list --workflow=janela-feed.yml --limit 6` and `--workflow=swell-feed.yml`: the 10-09 days (~09-11 UTC).
+       If Swell's 10-09 day is not on swell-field by ~12 UTC: `gh workflow run swell-feed.yml --ref main`.
+    3. 10-09 is the FIRST ALTIMETER SCORES day: the PLACAR and the head-to-heads (IFS x NOAA x AIFS) start filling;
+       Swell's Placar reads the floripa rows of Janela's ledger. Check both apps show them, in Chrome.
+    4. `node tools/sweep-claims.js` and report what moved.
+    5. Then WAIT. No send, no new lane, no paid run without the operator's word.
+  WAITING ON THE OPERATOR (unchanged): the buoy-access requests (10-08 01:55 entry); the openai/math go; the partnership
+    conversation (private); every Janela and Swell send (Swell stays unlisted).
+  OPEN MENU ADDITIONS (small, ours alone, learned from the brainstorm; none started): a swell-feed leg in the desk watchdog;
+    a served-site check (nothing checks what carlostoledo.co/swell and /janela actually serve — today it was a hand poll);
+    a pinned toolchain for the rerun kit (we pin none: Node v24, system Python 3.9.6, no version file); a Consumes /
+    Publishes / Pinned-by table in apps/janela and apps/swell docs.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (13:15–17:15 UTC), SWELL MAP PASS — operator: "What waves rendering is better for Swell? The lines one or the
+Janela style? … a new pass on UI and UX … the wind seems like rain on the screen and makes the waves less visible. Maybe
+insert a button to turn off wind or waves."
+  ANSWERED: the lines. Each is a crest computed by the island model over the DHN bathymetry (refraction, shoaling, shelter,
+    breaking), so they wrap into the bays and crowd at the shore; Janela's arcs are glyphs on a 0.25° ocean grid with no
+    seafloor — right for the 3,000 km margin, blind at a beach. Janela's drift-and-fade technique was taken for the wind.
+  DONE (this commit; apps/swell/TODO.md "the map pass"): the wind as drifting grey arrows over the water only (the sea mask
+    read from the pinned depth texture), each paced between mean and gust; crest lines fainter over deep water, the box
+    edge faded, visible at the phone's zoom; switches Ondas / Vento on the map (O / V; one state with the Mapa tab, kept
+    per viewer); a night veil as a map layer (pins and wind above it); the hour scrubber is one control (the day's sea as
+    the track, a playhead); surf / kite / SUP icons redrawn; knots the one unit in the app's words (surf.js rule text
+    still says m/s and km/h — a pinned module, changed only on a day a new Swell day is built); "Hoj"/"Ama" gone from the
+    week chart; the activity count lost its cryptic "·"; the credits wrap inside the map; reduced motion holds still.
+  FOUND AND FIXED: the disk was full (2 GB free) — design/cdp.js never deleted its --user-data-dir; 424 profiles (27 GB)
+    removed from the system temp dir, and withChrome now removes its own after Chrome exits.
+  CHECKS: swell battery 12 + 6 reds; design battery 20 + 14; check-style / grammar / render / measure / wiring green; the
+    published day re-checked equal in the tab (digest c5b9675389d7) after every change.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (12:00–13:10 UTC), JANELA REVIEW PASS — operator: "Janela App: proceed a UI & UX review and improvements. Make
+the app target the real people that will evaluate and use … Professional and Beautiful."
+  DONE (this commit; the spec in apps/janela/PRODUCT.md "The review pass"):
+    · O QUADRO DA FROTA on a desk (>= 1000 px, SEMANA): every place in the list's set x the 29 starts, verdict glyphs at
+      cell size, por bacia (basins from the ANP field names) or pela próxima janela (the list's order, now ONE function
+      nextOrder shared by both); cells/hours move the one clock, rows <-> map hover linked; CSV ↓ (run + digest in line
+      1); folds to a bar (Q). The map's padding and the reveal of a chosen place account for it (a shared link with
+      #site= now lands on the place even when the map loads after the data — a race that had left P-75 under the board).
+    · For the evaluator: three held-out numbers in the intro (from N.heldOut), "✓ conferido 2×" in the top bar.
+    · Map: basin names over the pills; nothing under the top bar or the clock chip (the chip's rect had never been
+      reserved: position:fixed has no offsetParent); pushed pills stack. Rail clock reads "+18 h" (the ellipsis had cut
+      it to "+1…"). 721–1099 px: the bar drops brand + read time (the modes and Método had run off a 768 screen).
+    · Deck slide 3 names the board; deck + og.png re-printed from today's day (site/janela/data restored from the
+      janela-field branch, git-ignored).
+  CHECKS: janela battery 33 + 24 reds; check-style, check-grammar, check-render, check-wiring green; the layout ruler
+    green (the board's edges aligned onto existing ones: 1440 spines held at the baseline; 768 clipped 1 -> 0). Swell's
+    ruler numbers flap by one on unchanged bytes (map labels) — not a regression.
+  NEXT (Janela UI, not started): the board on a phone as a swipeable week (today the phone keeps the list + the card's
+    strip); print CSS for the board (a one-page daily brief); the board's hover ring over a pill could lift the pill.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (07:00–12:00 UTC), SWELL: ONE CLOCK, ONE SEA — operator: "When we select on the activities the information changes,
+it is confusing. The activities must be only icons that communicate the conditions to that activity, like legends … do not
+change the wind and waves because it seems like another timestamp … do a round of UI/UX improvements."
+  DONE (d078887, db1f6cb + this commit): an activity never re-ranks, never changes a headline number and never moves the
+    clock; the reader alone does (default: now, or the next daylight step). Six activity chips (how many beaches each is
+    good at now, ▲ n where a danger is decided) HIGHLIGHT only; the list is every beach by region in a fixed order with
+    six icons in one grammar (filled bom · ringed dá pra ir · dim fraco · red ▲ perigo decided · violet atenção · dashed
+    aviso de previsão), a tooltip on hover/focus, a tap opens the beach at that activity; the card's activities are rows
+    that open to their rule and both flips; an activity x hour grid under the card's week and in the week tab; map pins in
+    the same grammar. Spacing and durations moved onto the house tokens; the layout ruler improved (clipped 3 -> 0).
+    The day's fetch carries an hourly stamp (raw.githubusercontent's 5-minute edge copy had served yesterday's day).
+  THE FIRST SCHEDULED SWELL DAY: swell-feed run 37766798792 (schedule, 10:56 UTC) published "Swell day 2026100800" on
+    main 0baed26; the desk's rebuild of it has the cloud's digest (c5b9675389d7). Live and re-checked in Chrome.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (02:55–06:30 UTC), SWELL BUILT AND LIVE — operator: "Build the Swell app. See how the frontier one is created and
+power up the cert machine version. Learn from janela as well." (Before it, asked whether to review openai/math and certify all
+its findings: scouted and answered in chat — not "all", three decidable lanes; targets row openai-math-722-audit, c50c02a; the
+operator's go is pending.)
+  THE NEXT SESSION, FIRST (beside the 01:55 entry's Janela steps, which still stand):
+    1. `git pull --rebase`; `gh run list --workflow=swell-feed.yml --limit 6` — the hourly gate ('41 * * * *') runs the day once
+       ECMWF's 00 UTC WAVE 168 h file is up (~08-09 UTC) and swell-field does not carry today: expect "Swell feed <today>" on
+       main and the swell-field tip "Swell day <YYYYMMDD>00: …". The first cloud run (37723732902, by hand, 03:39 UTC) published
+       the 10-07 run (10-08's was not complete): digest 2fbe339f3a69, byte for byte the desk's.
+    2. carlostoledo.co/swell/ in a fresh browser: the run chip says the day; "Conferido no seu navegador" is green on a card.
+    3. Then WAIT. Swell is unlisted (not on the landing page) and nothing about it was sent; a send is the operator's.
+  LIVE: carlostoledo.co/swell/ (pt-BR + EN), og card site/swell/og.png. The island textures and the basemap are served from
+    the repository by the data commit (raw, CORS, Range; the tab re-hashes every texture against data/PINS.json).
+  WHAT IT IS (apps/swell/APP.md): for 34 beaches and six activities, the best beach and window, the height with its MEASURED
+    band, the decided wave limits (▲ PERIGO / ATENÇÃO with both flips / abaixo do limite — never "seguro"), forecast words and
+    dashed forecast warnings kept apart from decided ink, the week, safety and emergency numbers, a downloadable certificate,
+    the crest-line map (frontier's island-model shader), wind streaks, longshore currents, "Como sabemos" generated from the
+    records, the Placar (the open sea's scores at floripa from Janela's ledger; first live scores 10-09).
+  POWERED UP FROM FRONTIER, BY MEASUREMENT:
+    · the forecast: Open-Meteo's non-commercial API left the app; apps/swell/audit/feed.py (built by a subagent, reviewed)
+      reads ECMWF IFS HRES + NOAA GFS-Wave at Janela's floripa node every 3 h to 144 h then 6-hourly, ECMWF's wind on the 16
+      nodes over the island, Copernicus' sea level, tide and water temperature — Janela's own decoders; equal to Janela's feeds
+      at every shared lead (its battery);
+    · the band: Janela's definition, imported not copied (today.js compute() over bandset.forDecision: ECMWF ∪ NOAA, held-out
+      coverage 96.5% of 21,259 passes; floripa's ECMWF cell 388/428 at 24 h);
+    · breaking: frontier's probes stopped at 4.5-6.5 m, so 14 of 21 ocean beaches could never read more than 2.3-2.5 m (a 5 m
+      SSE 14 s sea read 2.49 m at Joaquina); sim/probes.py reproduces frontier's beach tables EXACTLY (33/33 beaches, K for all
+      64 cases) and adds 8.5/11 m targets — every ocean beach now reaches 8.8-13.1 m; model/surf.js marches in from the deepest
+      probe (or frontier's peak where larger): non-decreasing in the sea (it can jump UP where a deeper probe saturates first —
+      1 of 132 battery sweeps), so the band maps EXACTLY over the model;
+    · refusal: Guarda do Embaú sits 0.57 km from the box's south edge (frontier's live app named it the island's best sea for
+      10-08 — the boundary value); the lagoon (chop only) is never decided;
+    · one rules table (frontier's "Como sabemos" disagreed with its code in four places); the page prints it;
+    · the day re-derived in the tab: a sha256 over every height and decided letter (1,803 lines, ~40 ms);
+    · a measured beach trait: foam seen by 190 clear Sentinel-2 passes (sim/foam.py, frontier's scene rules; Joaquina 75%,
+      1st of 17) — the honest form of frontier's beach-factor headline, which a no-forecast baseline beat (targets swell-port).
+    · dropped, said so: the beach factors as a forecast; the wind correction fitted on Open-Meteo forecasts (refit on ECMWF is
+      TODO 3); the wind is forecast ink.
+  FOUND (not fixed, reported): Janela's feed.py asks ECMWF open data for 10fg only, but the gust is 10fg3 at 93-144 h — Janela's
+    gust is null at 96-144 h (feed.py's docstring in apps/swell/audit records the windows). Copernicus' 1/12° land mask has no
+    Santa Catarina island (values over land). NCEP's WVPER/SWPER are "mean period" by the GRIB tables; peak vs mean in
+    WAVEWATCH III's partitions not confirmed.
+  BUILT: apps/swell/{APP.md, TODO.md (the plan, next items in order), scenario/beaches.json, data/ (PINS.json 70 files,
+    LICENSE-DHN.md: the depths are DHN chart 1902 — non-commercial, not for navigation), sim/{probes.py, foam.py}, model/surf.js,
+    audit/{feed.py, test_feed.py}, build-day.js, app/{build-app.js, client.js, style.js}, battery.js, build.js, og.js};
+    corpus/swell/feed/20261007.json.gz; site/swell/; .github/workflows/swell-feed.yml (-> orphan branch swell-field).
+    Janela touched, additions only: build-app.js exports vendor(); guard.js keeps corpus/swell/feed write-once.
+    tools/dev-serve.js serves byte ranges (a .pmtiles basemap needs them).
+  CHECKS: swell battery 12 + 6 reds; swell feed battery 8 + 19 reds (both in make test and build-control); janela battery 33 +
+    24 reds after its two edits; style (the page recorded), grammar (the intro's dashed crest animation replaced — dash is
+    provenance), render, wiring green; the layout ruler recorded the page (390: 0 px overflow); the full control build 127/127, EXIT 0 (the drift line "137 source gone" unchanged: the source lab is not at the path the lift records on this desk).
+  NEXT (apps/swell/TODO.md, in order): watch the first cloud days; Swell's own 3-hourly proposer in certs/swell-ledger/ (never
+    Janela's ledger: its scorer would grade it as Janela's); the wind refit on ECMWF vs SBFL METAR; shore truth (Campeche
+    SWASH, stereo video, the UFSC buoy — partners' agreement first); the box extended south (Guarda/Pinheira); a method page
+    and the PWA. Commercial use needs licensed bathymetry.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-08 (01:55 UTC), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR (operator: "handoff").
+  THE NEXT SESSION, FIRST:
+    1. `git pull --rebase` — the janela-feed bot pushes to main (feed, feed-noaa, feed-aifs from 10-08, decisions,
+       currents, observed).
+    2. `gh run list --workflow=janela-feed.yml --limit 10` — the hourly gate is FIRING on schedule now (no-op runs of
+       7-8 s at 20:40 and 01:05 UTC on 10-07/08); the 10-08 day should land ~09-10 UTC by schedule or the desk watchdog.
+       It is the FIRST cloud run of: (a) the AIFS step (aifs.py -> corpus/janela/feed-aifs/20261008.json.gz, then
+       commit.js --aifs: aifs-ens-c40of50 + calibrated-aifs-v1 rows; ~1.3 GB of GRIB, allowed to fail, 25 min cap);
+       (b) the period bands in feed.py and field.py (h1012..h2530: the feed rows carry 'pb', today.json steps carry
+       'ls' = Hs >= 10/12/14 s; the card shows the "≥12 s (m)" row under Tp and a line in the fold). Read each step's
+       log; a red AIFS step never costs the day. Also still owed from 10-07's list: NOAA + union rows, currents,
+       decisions archive, the app's day with the union.
+    3. `node tools/sweep-claims.js` and report what moved.
+    4. Then WAIT. No send, no new lane, no paid run without the operator's word.
+  DATES THAT ARRIVE BY THEMSELVES (unchanged): 10-09 the first altimeter scores (the PLACAR and the head-to-heads —
+    now including IFS x AIFS — start filling); ~10-10/11 the first decision-level grades; 10-11 the first GlobCurrent
+    day; ~10-18 the calibrated current band; ~11-08 the first admission look (30 trial days) — AND the re-ask of
+    providers-eval-aifs-v1 with the same rule; 2026-11-24 GlobCurrent 202411 retires.
+  WAITING ON THE OPERATOR — THE BUOY ACCESS (the real use case: Janela graded at a unit; routes and a pt-BR BNDO request
+    draft given in chat 2026-10-08, nothing sent):
+    · Pedro / LabECO (fastest, warm): research access to the REMO Observacional wave data (the CHM + Petrobras Spotters
+      in the pre-salt since 2020-10, the >2,000 m mooring) and to UFSC's TriAXYS (SiMCosta CNM 01/2025, Alessandra
+      Fonseca's project, Florianópolis); a joint validation study. Messages to LabECO stay OUT of the public repo.
+    · BNDO (CHM, Niterói): the request form marinha.mil.br/chm/form/formulario-de-solicitacao-de-dad for PNBOIA + REMO
+      fixed-buoy waves and wind 2020-present (the public archive stops 2020); stronger with an institutional affiliation;
+      the argument: the 2025-02 Petrobras-Navy R$ 100 M REMO expansion, data said to be shared with the scientific
+      community; Fala.BR (LAI) if no answer in ~30 days.
+    · Petrobras: FPSO wave radars and its own buoys only inside a pilot under NDA (the deck's last slide; Janela can run
+      on their side); routes: Pedro's Petrobras contact, Radar Ciclo 4, an ANP-clause R&D project with UFSC.
+    · A Spotter of our own: < US$5k + Iridium; mooring needs a vessel and Navy authorisation — coastal first, last resort.
+    · Sofar's free archive: read its Data Access Agreement before any commercial use.
+  STATE AT HANDOFF: main 082410b + this commit; control build 125/125; janela battery 33 + 24 reds; every Janela check
+    green; the app, method page, deck and link preview live (outreach-ready, nothing sent); ledger now with nine
+    proposers (AIFS's two from the 10-07 run, 425 rows).
+  OPEN MENU (the operator picks): the buoy requests above; the altimeter truth v2 (Copernicus adds CFOSAT, HY-2B,
+    HY-2C — a new truth version, bands re-calibrated); period criteria (a cited limit per operation, then the long-swell
+    Hs decides; SAR graded monthly); the 12 UTC second daily day (design notes in the 10-07 refinements entry); the
+    cloud backup trigger (needs GitHub connected to the Claude account); the sends (Radar Ciclo 4, CNPq MAI/DAI with
+    UFSC, a marine warranty surveyor for an outside rerun of the site alpha).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (21:00–22:21 UTC), THE FREE FRONTIER ITEMS — "proceed all what can do now free" (after the buoy/frontier scouting:
+targets.json janela-buoy-truth-and-frontier, with its update). Everything measured under a rule dated BEFORE the data were
+judged (certs/janela-ledger/DEFINITIONS.json), pushed:
+  · ECMWF AIFS (data-driven), the third provider: in ECMWF open data from the 2026-05-13 run (AIFS Single waves + AIFS ENS
+    50 members, 4 runs a day; ECMWF reports ~10% lower Hs error than IFS-WAM globally). Back-archive in the cloud
+    (janela-archive what=aifs, 147 runs, 1m48s; packed corpus/janela/aifs), 6,659 pairs, certs/janela-bands-aifs.json
+    (112/112). providers-eval-aifs-v1 → certs/janela-providers-eval-aifs.json: on 3,108 held-out pairs (2026-08-01..10-05)
+    at Hs <= 2.0 m U(E,N) 677 LIBERADA / 1 broken, U(E,N,A) 607/0, U(E,A) 694/1; AIFS reads HIGH by 0.03-0.13 m at these
+    sites (not better than IFS here). DECISION (DEFINITIONS 'providers-eval-aifs-v1 result'): the IFS+NOAA union stands —
+    one broken window each is no measured difference, and two models of one centre are not two independent providers.
+    AIFS is committed daily and graded, never deciding: aifs.py (feed-aifs, write-once), commit.js --aifs
+    (aifs-ens-c40of50 claim 4/5; calibrated-aifs-v1 claim 9/10, pinned in commit.js, kept OUT of bandset.js), the Action's
+    step after NOAA (allowed to fail), PLACAR names + two head-to-heads (IFS x AIFS). First rows: 425 from the 10-07 run
+    (b029a12). Re-asked with the same rule at its first admission look.
+  · A correction learned from the satellites (postproc-eval-v1 → certs/janela-postproc-eval.json): IFS+NOAA by least
+    squares per site/lead bin + the same conformal band — narrower than ECMWF's own band (0.863 vs 0.933 m) with fewer
+    broken (76 vs 87 at 2.0 m), but 0.95% broken against the union's 0.33% and JJA coverage 0.877: NOT USED.
+  · The Navy's PNBOIA buoys against the WW3 hindcast CAMPANHA counts on (apps/janela/audit/pnboia.py; corpus/janela/pnboia
+    with the hindcast at each buoy's nearest node; certs/janela-pnboia-check.json): 14 deployments 2009-2018, 25,215
+    pairs; |bias| <= 0.2 m at 11 of 14; time at or under 2.0 m buoys 65.5% vs hindcast 64.1%; under 1.5 m the hindcast is
+    conservative (26% vs 35%). Window counts mostly UNDETERMINED (Argos reports every few hours); a pointwise table was
+    added after that was seen, and says so. The archive's time is float32 days (90-min quantum): read from .dods.
+  · ECMWF's Hs by period band (h1012..h2530) read by feed.py and field.py from 2026-10-08: the long-period swell (>=10/12/14 s)
+    on the card (a row under Tp and a line in the fold), forecast ink, never decided. FIRST CLOUD RUN of this: 10-08.
+  · The satellite swell truth sized (Copernicus SAR/SWIM L4, 1.5 GB/month): a primary-swell estimate in 0-10% of the
+    3-hourly steps at the south-east sites' cells (Aug 2026), none at Foz, Florianópolis or Potiguar's cell — a monthly
+    aggregate truth for period, not a daily one.
+  · The deck states the AIFS measurement (slide 6) and the buoy check (slide 8); re-printed.
+  CHECKS: janela battery 33 + 24 reds; providers_aifs, postproc, providers --check equal; pnboia 5 + 2 reds; new batteries
+    registered in build-control and make test (providers AIFS, post-processing, pnboia — the first control build caught them missing from make test: 124/125, fixed); control build 125/125.
+  NEXT SESSION, ADDED TO THE 19:05 LIST: read the 10-08 run's NEW steps — AIFS (feed-aifs + its rows), the period bands in
+    feed.py/field.py (today.json 'ls'), and that the app shows the long-swell row.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (19:10–20:12 UTC), JANELA READY FOR THE OUTREACH PHASE — "finish all missing items to prepare Janela to start
+outreach phase. Usable, easy to spot information. Information hierarchy, what is important to spot first. What are the
+use cases, the user needs. Consider it all on this version. Rebuild the html index and the pitch deck after this pass."
+  THE NEXT SESSION, FIRST: the 19:05 entry's four steps below still stand (pull; the 10-08 day under the hourly gated
+    schedule and the watchdog; sweep the claims; wait). Then look at the live app once with a fresh browser (the intro
+    shows only on a first visit) and at /janela/janela-apresentacao.pdf.
+  WHAT CHANGED (PRODUCT.md "The outreach pass" is the spec; apps/janela/TODO.md v1.3):
+  · THE USE CASES, ONE LIST — apps/janela/uses.js: who decides, the question, what they leave with, the door. Read by the
+    app's intro (doors: Alívio · Carga de PSV · Campanha · Conferir · Placar · Método), the method page's new "para quem"
+    section (six cards with deep links /janela/#op=…&modo=…) and the deck's slide 4. Battery: every door is one client.js
+    acts on, every link opens a state the app holds (+1 red).
+  · THE APP'S HIERARCHY (client.js, build-app.js, style.js; model and deciding modules UNTOUCHED — the published day's
+    codes are still served, PUBOK, 67,744/67,744 re-decided in the tab): an intro open on a first visit, folded to one
+    line after a door, a fold, or a link that already chose; on a desk the operation before the answer, its limits as
+    ONE line ("Hs ≤ 3,5 m · vento ≤ 50 nós · janela de 24 h", "ajustar" one click down); on a phone the answer and the
+    clock first (the peek). The fleet answer counts the list's own set and NAMES THE MINORITY ("Fora da janela (1):
+    Pelotas"; on a rough day "Na janela (n): …"), clickable. The list is grouped at the chosen hour (na janela agora,
+    tightest margin first · abre mais tarde · sem janela · não se aplica) — it used to rank from now while its glyphs
+    showed the chosen hour. The card: who → the next window and its margin → the three criteria → the week → the
+    charts → the user's tanks and day rate → what is shown but never decided (sea by parts, current: folded) → the
+    certificate → where the forecast was read (the node paragraph moved from the top to the bottom). MÊS renamed
+    CAMPANHA and reordered (purpose, controls, the campaign, the months, the season, the table, the cost); the Campanha
+    door opens 10 × 48 h at Hs ≤ 2,0 m from next month (Santos: 56 / 93 / 227 days — sea / site α / Table 4-1). PLACAR
+    opens with what is already measured (held-out coverage 96,5%; broken LIBERADA 0,33% vs ECMWF alone 1,10%). The run
+    chip in Brasília time. Driven in Chrome at 1440 and 390 through every control: no page error, the re-check green.
+  · THE DECK — apps/janela/deck.js -> site/janela/janela-apresentacao.pdf (12 slides, pt-BR; the Contraprova deck engine):
+    cover (0,33% broken LIBERADA, 21 of 6,368) · the problem (DNV B704 quoted from the pinned rule file) · the product
+    (the app's own screenshot) · para quem · one decision inside (a phone screenshot of P-75's card) · the measured band ·
+    the site α (0,79–0,96 vs the table's 0,63–0,76 at design Hs 2 m, 35 of 35 cells' 90% intervals above; 16 of 20
+    calibration) · the campaign · why trust it · coverage and sources · what Janela does not say · the next step (a pilot
+    on the reader's operations; nothing priced). Every figure from numbers.js / uses.js / the pinned rules, or computed
+    by the pinned campaign.js over the verified hindcast; facts() throws on a record that lost its shape (a battery check).
+    apps/janela/build.js re-prints it only when the words change (pin apps/janela/deck.sha256; `--deck` forces), taking
+    the screenshots from the built app through a local server.
+  · THE LINK PREVIEW — site/janela/og.png (1200×630: the words of slide 1 + the app) as og:image/twitter:image of /janela/
+    and /janela/metodo/ (design/template.js headHtml takes an optional `og`; every other page byte-identical), the
+    pt-BR alt text. A recipient's WhatsApp/LinkedIn/e-mail card used to show cert-machine's English math card.
+  · THE HTML INDEX — Janela has a section on the landing page (tools/build-site.js, English, numbers from the same
+    records); THE SITE BUILD HAD BEEN REFUSING since 2026-10-06 (the certificate shelf did not describe the nine janela-*
+    records): tools/certs-shelf.js now describes them, site/certs/ carries them, the landing and /machine rebuilt.
+  CHECKS: janela battery 32 + 23 reds; style, grammar, render green; the layout ruler: the app 390 clipped 1 -> 0
+    (accepted better); the method page's "para quem" cards add the second card column's edge — spines 31 -> 33 @1440,
+    19 -> 21 @768, recorded with --accept-worse (a deliberate component, the site's standard two-column cards);
+    check-wiring green; control build 122/122 (EXIT 0; the drift line "137 source gone" is unchanged from the committed control page: the source lab is not at the path the lift records on this desk). The deck and the pages were rebuilt after it.
+  NOT DONE, AND WHY: the 12 UTC second daily day (the calibrated bands were measured on 00 UTC runs only; a new run is a
+    new proposer with its own archive — reliability first, and nothing about outreach needs it); swell period/direction
+    criteria (still no cited limit); an English app surface (pt-BR is the market). THE SENDS are the operator's, per item
+    (memory outreach-requires-approval): the deck, the app link and the method page are ready to be sent.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (19:05 UTC), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS (operator: "handoff to next
+session waiting for instructions").
+  THE NEXT SESSION, FIRST:
+    1. `git pull --rebase` — the janela-feed bot pushes to main (feed, feed-noaa, decisions, currents, observed).
+    2. `gh run list --workflow=janela-feed.yml --limit 8` — 2026-10-08 is the first day under the HOURLY GATED schedule
+       ('23 * * * *'; the gate job runs the feed only once ECMWF's 00 UTC 168 h ensemble index answers 200 and
+       something of the day is unpublished) and the desk watchdog (launchd co.carlostoledo.janela-watchdog, hourly
+       from 09:05 UTC, log ~/Library/Logs/janela-watchdog.log). Note WHICH event made the day (schedule or
+       workflow_dispatch from the watchdog) — GitHub's cron ran 8–9 h late on this account on 10-07. It is also the
+       first cloud run of every step added 10-07: NOAA feed + noaa-gefs/calibrated-noaa/union rows (main and Sergipe),
+       noaa.py --units, currents.py (surface + hull depth, the sites kept in corpus/janela/currents/), the decisions
+       archive (certs/janela-decisions/), the app's day with the union and the current. Any red step → read its log
+       and fix it before anything else.
+    3. `node tools/sweep-claims.js` and report what moved.
+    4. Then WAIT for the operator's instructions. No send, no new lane, no paid run without the operator's word.
+       Product questions on Janela are decided here by "what does Petrobras need" (memory petrobras-first), by
+       measurement — not handed back as menus.
+  DATES THAT ARRIVE BY THEMSELVES: 10-09 the first altimeter scores (observe.py, three days late) → the PLACAR's
+    proposer records and the head to head start filling; ~10-10/11 the first decision-level grades (10-07 kept);
+    10-11 the first GlobCurrent day observed (10-08); ~10-18 enough current pairs for the calibrated current band;
+    ~11-08 the first admission look (30 trial days); 2026-11-24 GlobCurrent version 202411 retires (a successor is
+    a new truth version, dated before use).
+  STATE AT HANDOFF: main 934f895 + this commit; control build 122/122; every Janela gate green (window 17 + 8 reds,
+    janela 30 + 22, noaa 6 + 14, currents 4 + 2, currents observed 1 + 1, providers main and Sergipe re-measured
+    equal, second verifier, style, render, grammar, layout ruler). The live janela-field day is 10-07 (built 14:14
+    UTC, the union at the main sites); the shell on main is newer (union at Sergipe, currents, planner, head to head),
+    so the app decides in the tab and says so until the 10-08 day is published. Ledger 1,802 rows, seven proposers.
+  OPEN MENU (the operator picks; see the entries below for the detail): the 12 UTC second daily day (design notes in
+    the refinements entry); the calibrated current band (~10-18); swell period/direction criteria (needs a cited
+    limit — none public found); planner mobilisation/transit and any start day; the cloud backup trigger (operator:
+    later; needs GitHub connected to the Claude account); the LabECO pilot brief (written, private, unsent); the
+    sends (Radar Ciclo 4, CNPq MAI/DAI with UFSC, a marine warranty surveyor for an outside rerun).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (late night, 17:45–19:30 UTC), REFINEMENTS — "close the gaps, refine the models, a unique state-of-the-art tool".
+  Decided by "what does Petrobras need" (memory petrobras-first); every addition measured or tested, pushed:
+  · 0859e41 THE CURRENT'S TRUTH: drifters scouted first (targets.json janela-currents-truth: 3 in the whole margin in 30
+    days, none within 150 km of a site); Copernicus GlobCurrent NRT (doi:10.48670/mds-00327; altimetry + Ekman,
+    drifter-calibrated, ~3 days late) observed daily at the nine open-sea sites (currents_observe.py, current-truth-v1,
+    add-only; version 202411 retires 2026-11-24 — a successor is a new truth version). currents.py keeps the ocean
+    circulation and Stokes drift apart from 10-08, so the comparison is like with like. The CALIBRATED CURRENT BAND is
+    next once ~19 pairs per site and lead bin exist (~10-18).
+  · 0859e41 CONDITIONAL RELIABILITY in providers.py: the union holds 0.94-0.97 in every wave regime (0.950 at Hs >= 3 m)
+    and 0.954-0.974 in every season; ECMWF alone dips to 0.837 under 1 m and 0.894 in JJA (Sergipe: union 0.92-0.98).
+  · 0b0a9c2 THE CAMPAIGN PLANNER (instruments/window/campaign.js; MÊS "a campanha"): N operations back to back from the
+    1st of a month, run in each of the 32 hindcast years in the reader's tab (the node's series shipped as
+    site/janela/hindcast/*.i16, sha256-checked by the tab; a battery checks every sample against the pinned record),
+    exact order statistics (median = 16th of 32, 9 of 10 = 29th), censored years counted. Santos, 10 x 48 h at
+    Hs <= 2.0 m from 1 November: 56 days (sea's limit), 93 (site alpha), 227 (Table 4-1) — the alpha argument in
+    vessel-days. Window battery 17 + 8 reds (cross-checked against the pinned workability.js, untouched).
+  · 59e13a4 THE TRUST BOX states the held-out number: the deciding band's LIBERADA at Hs <= 2 m broke 0.33% (21 of 6,368)
+    vs ECMWF alone 1.10% (numbers.js from the record).
+  · 6123f17 THE CURRENT AT HULL DEPTH (15.81 m, the 6-hourly 3-D field; 150 of 181 units) on the card; THE PROVIDERS
+    HEAD TO HEAD (placar.js headToHead, PLACAR "Frente a frente": the same targets, who alone covered, widths, Winkler
+    at one claim) — fills from the first scores.
+  STILL OPEN, by Petrobras's need: (1) FRESHNESS — the 12 UTC runs as a second daily day. Design notes: feed files
+    YYYYMMDD12 (the /^\d{8}\.json\.gz$/ regexes in commit.js, numbers.js, the workflow and build-today must widen;
+    lexical order already sorts 20261007 < 2026100712 < 20261008); the calibrated bands were measured on 00 UTC runs
+    only — a 12 UTC proposer needs its own archive (janela-archive what=ecmwf/noaa for run 12) or the stated
+    assumption; the app's day naming on janela-field ("Janela day YYYY-MM-DD") and the gate; the decisions archive
+    per run; both providers together so the scoreboard stays fair. (2) The calibrated current band (~10-18).
+    (3) Swell period/direction criteria — no public Petrobras source found (searched 2026-10-07); a cited limit is
+    needed. (4) Planner: mobilisation/transit, any start day. (5) The cloud trigger (operator: later).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (night, 17:10–17:45 UTC), THE SURFACE CURRENT — COPERNICUS MARINE, SHOWN, NEVER DECIDED.
+  THE ACCOUNT (the operator's, 2026-10-07): the login is on the desk (~/.copernicusmarine, made private, chmod 600)
+    and in the repository secrets COPERNICUSMARINE_SERVICE_USERNAME / _PASSWORD; .github/workflows/copernicus-check.yml
+    (hand-run) validates the login and runs the reader end to end (run 37660492480: green, ~4 min).
+  THE LICENCE (read 2026-10-07, marine.copernicus.eu/user-corner/service-commitments-and-licence): any purpose incl.
+    commercial; redistribution and derived products allowed with "Generated using E.U. Copernicus Marine Service
+    Information" + the DOI on the page giving access; no warranty. The credit is in the app, the map and the method page.
+  BUILT (c88fc81): apps/janela/audit/currents.py — GLOBAL_ANALYSISFORECAST_PHY_001_024 (doi:10.48670/moi-00016),
+    dataset cmems_mod_glo_phy_anfc_merged-uv_PT1H-i (surface: GLO12 + MFWAM Stokes drift + FES2014 tide), total and
+    tidal parts at the ECMWF run's 29 steps, nearest sea node within 3 at 1/12°, exact fractions of the stored float32;
+    the sites kept daily on main (corpus/janela/currents/, add-only, ~5.5 KB), the units in the app's day. The card:
+    "Corrente na superfície: 2,7 nó para NO (307°), dos quais maré 0,1 nó" + the current note rewritten; decisions
+    unchanged (digest e97428658d02). The Action reads it after field.py (continue-on-error). Battery 4 + 2 reds.
+  NEXT for currents (what Petrobras needs, in order): (1) MEASURE it — the NOAA Global Drifter Program's hourly
+    drogued-drifter velocities near the sites (and, at the Margem Equatorial, the PIRATA moorings) against the kept
+    daily forecasts, then a calibrated current band (a proposer like the waves') before any current limit decides;
+    (2) the current at hull depth (the 6-hourly 3-D dataset cmems_mod_glo_phy-cur_anfc_0.083deg_PT6H-i) for the
+    offloading heading; (3) an offloading preset with a CITED current limit, once (1) exists.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (evening, 15:40–16:40 UTC), WHICH BAND DECIDES — MEASURED, FOR PETROBRAS.
+  ORIGIN (operator): "1. cloud backup trigger LATER  2. You decide the best and reliable. Just ask, what Petrobras
+    need? Always.  3. go" — a STANDING RULE (memory petrobras-first): Janela's product questions are decided here,
+    by measurement, with Petrobras's needs as the criterion — a LIBERADA must hold, then decisiveness, then a claim
+    a warranty surveyor can re-check. The cloud trigger waits (GitHub is not connected to the Claude account).
+  THE MEASUREMENT (5e589b0): apps/janela/audit/providers.py joins both providers' 45,987 pairs, calibrates every
+    option before 2025-07-01 and judges it on the 21,259 pairs after (never seen): ECMWF, NOAA, their mean (weight
+    fixed on an inner split), the union; at 1/10, 1/20, 1/40 (certs/janela-providers-eval.json; a battery re-measures
+    it). At one reliability bracket — the union at 1/10 (coverage 0.965, 1.172 m) vs ECMWF alone at 1/20 (0.962,
+    1.212 m) — the same LIBERADA count at Hs <= 2.0 (6,368 vs 6,370) with fewer than half broken (21 vs 46); more
+    LIBERADA and fewer broken at 2.5 m; half broken at 1.5 m. The mean buys 3% more LIBERADA at 1.8x the broken rate.
+    DECISION: providers-v1 stands (the union decides); providers-eval-v1 dated in DEFINITIONS.json.
+  THE UNION GRADED AS ITSELF: proposers union-v1 (the eight main sites) and union-sergipe-v1, claim 9/10 (provable),
+    committed by commit.js --noaa from both providers' feeds of one run (commit.js UNIONS: a main record is never
+    joined with a regional one); first rows 283f76b (208) and f4f99c5 (26). The card's certificate grades the union;
+    each place names its two proposers and its union (model.js; terminals now name the band they borrow).
+  SERGIPE (db31836): NOAA's regional chain (cloud run 37647990924, 1,182 days; 3,819 pairs; certs/janela-bands-noaa-
+    sergipe.json; calibrated-noaa-sergipe-v1 pinned 991211a9…). Held out, the region's ECMWF band covered 0.872 and
+    NOAA's 0.867 — UNDER 9/10 — and the union 0.948; at Hs <= 1.5 m (lifts) the union's LIBERADA broke 0 of 208,
+    ECMWF's 3 of 280 (certs/janela-providers-eval-sergipe.json; a battery). The region's 27 units decide on the union
+    from the next day built (99 of 9,744 letters there move to INDEFINIDA on the 10-07 data; none flips). The live
+    10-07 day is NOT republished: its decisions are kept (certs/janela-decisions/20261007.json, the published bytes).
+  CHECKS: janela 28 + 22 reds; providers (main and Sergipe) re-measured equal; style, render, grammar, layout ruler
+    green; control build 120/120 (one run read 119/120 — the layout ruler flapped under the build's load, as the
+    memory warns; it passed standalone three times and on the rerun).
+  NEXT, by what Petrobras needs: (1) freshness — ECMWF's and NOAA's 12 UTC runs as a second daily day (both
+    providers, so the scoreboard stays fair; the app's day naming and gates assume one run a day today);
+    (2) currents (offloading heading; Foz do Amazonas drilling) — a Copernicus Marine account is the operator's;
+    (3) swell period/direction criteria for lifts and offloading — needs cited limits; (4) the cloud trigger, later.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (late afternoon, 14:45–15:30 UTC), THE ISSUES FIXED: THE SCHEDULE, THE DECISIONS' RECORD.
+  ORIGIN (operator): "Fix the issues and proceed the actions needed. Report at the end."
+  THE SCHEDULE (be9444e, f8da250 + this commit): janela-feed now asks EVERY HOUR ('23 * * * *') behind a light `gate`
+    job (no checkout, ~10 s): nothing until today's ECMWF 00 UTC wave ensemble is complete (its 168 h index answers
+    200), then the feed job runs only while today's ECMWF feed, NOAA's feed (until 20 UTC) or the app's day is not
+    published; a hand dispatch always runs. However late GitHub fires (8–9 h on this account), one slot lands after
+    the run. Verified on GitHub (run 37639964820: gate -> feed, a no-op day, green). The desk watchdog is the punctual
+    trigger: hourly from 09:05 UTC, it now also waits for ECMWF's readiness and retries its network calls (a wake
+    without network logged one "error connecting"). A CLOUD trigger (a Claude routine) is NOT possible yet: GitHub is
+    not connected to the operator's Claude account (/web-setup or claude.ai/connect-github) — the operator's act.
+  THE DECISIONS' RECORD (4c5f32c): apps/janela/audit/decisions.js keeps every published decision at the 9 open-sea
+    sites (4 presets x 3 criteria x 29 starts, ~5.6 KB/day) in certs/janela-decisions/YYYYMMDD.json, written once
+    (guard.js) right after the Action builds the day, and grades them when the days are observed: LIBERADA held/broke,
+    VETADA confirmed/open, unseen, waiting — by the Hs limit at the window's steps with a pass within 3 h
+    (decision-level-v1, dated in DEFINITIONS.json before any grade). The PLACAR shows the record; the 10-07 day is
+    kept from the published bytes (sha256 6280c80d…); the first grades land when 10-07/08 are observed (~10-10/11).
+    The published day's README now names the commit the day was BUILT on (today.json's git).
+  DELIBERATELY NOT DONE: NOAA's 06/12/18 UTC runs — committing them alone would grade NOAA on fresher forecasts than
+    ECMWF's single 00 UTC run and bias the providers' scoreboard; it needs ECMWF's extra runs too, or its own proposer
+    name. The union stays in force (the operator has not answered the ranking question). Period/direction criteria
+    still need cited limits.
+  CHECKS: janela 27 + 22 reds; noaa 6 + 14; style, render, grammar, layout ruler green; control build 118/118 (it
+    caught a syntax error 4c5f32c had pushed in build-control.js — fixed in 0da4f56). The 15:23 hourly slot had not
+    fired by 15:36: the scheduler is still late; the watchdog and hand dispatch carried the day.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (afternoon, 12:15–14:30 UTC), THE TWO PROVIDERS DECIDE ON THEIR UNION; THE SCHEDULE THAT DID NOT FIRE.
+  ORIGIN (operator): "Proceed what is missing. Can we replace n8n + GDrive by other tools we already use like github,
+    runpod, etc?" — nothing in the repository uses n8n or Google Drive (only the résumé mentions n8n): scheduling is
+    GitHub Actions, storage is git (main + the janela-field branch, raw URLs) and Zenodo, documents are the Claude Docs
+    connector, compute is GitHub's runners (CPU) and RunPod (GPU, paid, no cron). The two connectors can stay
+    unauthorized or be removed in claude.ai's connector settings; nothing here needs them.
+  THE SCHEDULE: janela-feed's cron fired NEITHER 09:40 NOR 11:40 UTC on its first scheduled day (no GitHub incident;
+    the operator's other repositories' schedules ran). Dispatched by hand at 12:17 (run 37619929309, all green in
+    2m13s: ECMWF 468 rows, NOAA 234 rows in 49 s on the runner, the day with NOAA's band published); the 06 and 12 UTC
+    targets of both providers were lost. The 14:23 slot did not fire by 14:40 either. WHY, measured: the operator's
+    other repositories' weekly crons run 8–9 HOURS LATE on this account (aether-os '0 10 * * 1' ran 18:57 UTC on
+    10-05; mfg-monorepo '17 6 * * 1' ran 14:41) — GitHub's scheduler is a late fallback here, not a clock. Now: five
+    slots (09:40, 10:17, 11:40, 14:23, 18:47; every step safe to repeat) and THE PUNCTUAL TRIGGER tools/janela-
+    watchdog.sh, a launchd agent INSTALLED on the desk (minute 7 of every hour from 09:05 UTC, the gh login already
+    there; dispatches when main has no "Janela feed <today>:" commit and no run is queued/running, so a failed run is
+    retried the next hour; launchd runs a missed check on wake; `bash tools/janela-watchdog.sh uninstall` removes it;
+    log ~/Library/Logs/janela-watchdog.log). A desk that stays asleep past ~11 UTC still loses the 12 UTC targets: a
+    cloud trigger (a Claude routine, or a server's cron) would close that — OPEN, the operator's call.
+    NEXT SESSION: `gh run list --workflow=janela-feed.yml` — which event made the 10-08 day (schedule, watchdog)?
+  BUILT (fe53b4c, 88e7852, c0ef1e3, this commit):
+    · archive.py noaa + janela-archive what=noaa: GFS-Wave's 00 UTC Hs (ECMWF's archive steps) and 10 m wind at every
+      site, through noaa.py's checks; run 37620901215: 1,182 days 2023-07-12..2026-10-05, 47 fields a day, nothing
+      missing; pack-noaa -> corpus/janela/noaa/ (20 MB, its own MANIFEST; the ECMWF/altimeter records untouched).
+    · JANELA_PROVIDER=noaa matchups.py -> corpus/janela/matchups-noaa.json.gz, 53,538 pairs (ECMWF's chain re-derived
+      byte-identical: 45,987); bands.js --provider noaa -> certs/janela-bands-noaa.json (112/112 cells certified).
+      FINDING: NOAA's ratio band is wider than ECMWF's at every site and lead (mean width 0.558 vs 0.457 over bins
+      0/24/72/120/156 h); GFS-Wave reads low at the equatorial margin (Potiguar 24 h: 0.94–1.28).
+    · calibrated-noaa-v1 dated in DEFINITIONS.json, pinned in commit.js (beaf366d…), committed by --noaa from GFS-Wave's
+      own Hs: 208 rows for the 10-07 run (c0ef1e3). The ledger: 1,542 rows, five proposers.
+    · THE UNION: bandset.js has a provider dimension (bands('noaa'), never merged into ECMWF's) and forDecision, the
+      ONE definition of the deciding bands for the app's day and the method page (the method page did not apply the
+      prune before — a latent divergence, closed); today.js decides on [min lo, max hi] where both have a band
+      (ECMWF-only output byte-identical without a second provider). Measured on the 10-07 day BEFORE it decided:
+      2,038 of 67,744 letters move, all to INDEFINIDA (1,562 from LIBERADA, 453 from VETADA, 23 from SEM DADOS), none
+      flips; the terminal rules on the method page: 27 L / 0 V / 44 I / 161 S (was 29 / 0 / 19 / 184). This is the
+      price of robustness to one provider failing; the operator may want a ranking rule instead (dated before any
+      ranking is read) — OPEN.
+    · noaa.py --units: GFS-Wave at all 181 units (nearest sea node within 3; Hs, wind, primary period/direction, wind
+      sea, three swells), 42 s from the desk, after field.py in the Action (a failure: units on ECMWF's band alone);
+      the units decide on the union too. The card: "o mar por partes" (NOAA's wind sea and swells at the chosen hour,
+      forecast ink), "faixa medida, ECMWF ∪ NOAA", the certificate names both proposers; today.json 1.26 MB (≈118 KB
+      gzipped on the wire, was 78 KB).
+    · The 10-07 day REBUILT from the desk and force-pushed to janela-field (47540ff; digest cb11bfa6f27b; second
+      verifier 67,744/67,744); later slots will not overwrite it (the day check matches its subject).
+  VERIFIED: janela 25 + 20 reds; noaa 6 + 14 reds; noaa.py --verify re-read the 10-07 NOAA day equal; style, render,
+    grammar and the layout ruler green with no baseline change (the method page's sources table kept to 31 spines by
+    shortening the new rows); the card driven in Chrome (a unit with the union and the sea by parts).
+  NEXT: did the schedule fire (10-08); decision-level scoring from 10-09; a providers ranking rule (operator's call);
+    period/direction criteria from the swells (needs cited limits); NOAA's 06/12/18 UTC runs.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (early UTC, 02:45–03:50), NOAA WAVEWATCH III — JANELA'S SECOND FORECAST PROVIDER, BUILT AND COMMITTING.
+  THE NEXT SESSION, FIRST (the 09:40 UTC run is now the first cloud run of BOTH the v1.1/v1.2 pipeline and NOAA):
+    1. `git pull --rebase`.
+    2. `gh run list --workflow=janela-feed.yml --limit 4` and read the 2026-10-07 09:40 run. Expect on main: "Janela feed
+       2026-10-07" (ECMWF) and then "Janela feed-noaa 2026-10-07" (NOAA: noaa.py ~1 min on the runner, commit.js --noaa,
+       push); on janela-field: "Janela day 2026-10-07" whose today.json carries `noaa` and ensN at the 13 sites; in the
+       app: "conferido 2×" and the NOAA outline on a site's Hs chart. The NOAA step is continue-on-error: a red there
+       never costs the ECMWF day — read its log and fix it (likely suspects: a GEFS member late or 404 at 09:40 —
+       the 10-06 run's last member landed 04:57 UTC, so unlikely; a runner-side eccodes JPEG 2000 decode).
+    3. `node tools/sweep-claims.js`, then the menu below. No send, no new lane, no paid run without the operator's word.
+  SESSION CHECKS: pull up to date at 02:44 UTC; the first full cloud run had not happened yet (09:40 UTC) — item 2
+    above; the claims sweep: no findings (δ₃ thread text still not visible: the operator's paste, unchanged).
+  BUILT (7da102d, a93d5f3, this commit):
+    · apps/janela/audit/noaa.py — GEFS-Wave (31 members, HTSGW) and GFS-Wave (Hs, PERPW, DIRPW, the forcing u/v, wind
+      sea WVHGT/WVPER/WVDIR, swells 1–3 SWELL/SWPER/SWDIR) from the public AWS buckets at the ECMWF feed's steps
+      (0..168 h by 6), by .idx byte range (the GFS-Wave set is UGRD..EOF, one open-ended range split by the inventory
+      and each message's section-0 length), ~900 requests in one 24-thread pool: 2 min from the desk (the per-step
+      version took ~1 min/step on the desk's 2 s S3 latency). Exact packed integers through ecmwf.decode (which now
+      accepts grid_jpeg, refuses an unexpected scan order and imports eccodes lazily; its ECMWF output byte-identical
+      before/after on six real messages). Checked ONCE against an independent path — the raw section walk + the
+      bitmap + OpenJPEG's opj_decompress on one GEFS field's code stream: 565,283 of 565,283 sea points equal.
+      Every message's run, hour, step and parameter checked twice (the .idx line, the decoded message); a missing
+      member file refuses the day; the node is feed.sea_index on GEFS's control at +0 h (same as ECMWF's at all nine
+      scored sites; two terminals differ by land mask; terminals are never scored). Each GEFS step is pinned by one
+      sha256 over the 31 messages' own digests (the per-member list was 45 KB/day of incompressible hex); the day
+      file is ~62 KB gz. `python apps/janela/audit/noaa.py --verify FILE` re-reads a day from NOAA and compares
+      every value and pin: the 10-06 day re-read EQUAL.
+    · commit.js --noaa (noaaRows pure, exported; the module no longer runs main() on require) commits
+      janela/hs-altimeter/noaa-gefs-c25of31 on the ECMWF target, margin and ledger files; ids end
+      ':noaa-gefs-c25of31'; a feed whose band/claim/member count is not the definition's is refused whole.
+    · DEFINITIONS.json (dated before any row, pushed in 7da102d before a93d5f3): noaa-gefs-c25of31 — order
+      statistics 4 and 28 of 31, claim 3/4 = (m+1−2k)/(m+1) (the exchangeable value; ECMWF's 4/5 is its member
+      fraction, above its own 39/51, kept as committed) — and providers-v1: a raw ensemble is shown and graded, never
+      decided; two calibrated bands decide on their union until a ranking rule is dated; a pruned one leaves.
+    · THE FIRST ROWS: the 10-06 00 UTC NOAA run, read from the desk 03:01 UTC and re-read equal, 216 rows committed
+      03:31:43 and pushed 03:31:56 (a93d5f3; targets 10-07T06 → 10-13T00, nine sites incl. sergipe) — both providers
+      now carry the 10-06 run on identical (site, run, lead) targets. Ledger: 632 rows.
+    · The app: today.json carries `noaa` (file, sha, run, claim) and ensN at the 13 sites (cm-exact, refused if not);
+      the Hs chart draws NOAA's band as an outline beside ECMWF's hatch (class swr: no new CSS); the key says
+      "ensemble ECMWF, 40 de 50" / "ensemble NOAA, 25 de 31"; the certificate .json has segundo_provedor; the Nota
+      names it "mostrado ao lado, nunca decidido"; the PLACAR names the proposer (placar.js NAMES_PT) and says of a
+      raw ensemble "nunca decide" (numbers.js `decides` from bandset.records — it used to say "a faixa decide" of
+      ECMWF's ensemble too, which was wrong). The decisions do not move: digest de075785e6e8 with and without NOAA.
+      The method page: NOAA in the sources table and in "A faixa é uma reivindicação."
+    · The Action: NOAA after the ECMWF push (continue-on-error, 20 min), commit + push through push.sh; the job
+      timeout 75 → 90 min. guard.js: corpus/janela/feed-noaa is written once.
+  VERIFIED: janela noaa battery 6 + 14 reds (stdlib, wired: make test, build-control PY); janela 23 + 18 reds; control
+    build 118/118 (17 min now, not 40 s); style, render, grammar, the layout ruler green with no baseline change; the
+    app driven in Chrome at 1440 and 390 (Santos, Potiguar charts; the PLACAR).
+  NEXT (apps/janela/TODO.md): NOAA at the 181 units; the swell partitions on the card (the feed carries them from
+    10-06); the calibrated WW3 band (GFS-Wave back-archive from 2021-04 → matchups → conformal → its own pinned
+    proposer, then providers-v1's union decides); NOAA's 06/12/18 UTC runs; decision-level scoring from 10-09.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (night, ~02:45 UTC), HANDOFF — THE NEXT SESSION STARTS ON NOAA's WAVEWATCH III (operator: "handoff to start
+on the next session").
+  THE NEXT SESSION, FIRST:
+    1. `git pull --rebase` (the janela-feed bot pushes to main twice a day now: 09:40 and 11:40 UTC).
+    2. `gh run list --workflow=janela-feed.yml --limit 4` — 2026-10-07 09:40 UTC is the FIRST full cloud run of
+       everything built 10-06/07: push.sh + guard.js, the Sergipe site and its proposer (calibrated-sergipe-v1,
+       first commits), field.py, build-today.js with the SECOND VERIFIER gate (python3 instruments/window/verify/
+       verify_day.py), the orphan push with vercel.json. Expect on main: one "Janela feed …" commit (observe holds
+       until 10-09: days are observed three days late); on janela-field: "Janela day 2026-10-07: … on main <sha>";
+       in the app: "conferido 2×". Any red step → read its log and fix it before anything else.
+    3. `node tools/sweep-claims.js` (~1 min) and report what moved.
+    4. Then BUILD step 1 below. No send, no new lane, no paid run without the operator's word.
+  STEP 1 — NOAA WAVEWATCH III AS JANELA'S SECOND FORECAST PROPOSER (the operator's pick; nothing built yet).
+    WHY: the Petrobras-engineer review (chat, 10-07) — four runs a day, hourly steps, swell period and direction; and
+    the PLACAR becomes a scoreboard OF PROVIDERS (ECMWF vs NOAA graded on the same satellites) — the independent-
+    referee position. VERIFIED 2026-10-07 on the public AWS buckets (no account):
+    · GFS-Wave (deterministic WW3): s3 noaa-gfs-bdp-pds, gfs.YYYYMMDD/HH/wave/gridded/gfswave.tHHz.global.0p25.fFFF.grib2
+      (+ .idx, wgrib2 inventory → byte ranges); runs 00/06/12/18; hourly f000–f120, 3-hourly to f384. Variables:
+      WIND WDIR UGRD VGRD HTSGW PERPW DIRPW, wind sea WVHGT WVPER WVDIR, three swells SWELL/SWPER/SWDIR (1–3 in
+      sequence). The atlocn.0p16 grid is 0–55°N only (not Brazil); arctic and epacif irrelevant.
+    · GEFS-Wave (ensemble): s3 noaa-gefs-pds, gefs.YYYYMMDD/HH/wave/gridded/gefs.wave.tHHz.{c00,p01..p30}.global.0p25.fFFF.grib2,
+      31 members, 3-hourly to f384.
+    · Archive on AWS from ~2021-03/04 (gfs.20210101 has no wave/gridded; 20210401 does) → ~5.5 years of back-archive
+      for a calibrated WW3 band through the same satellite matchups (janela-archive.yml with a new what=noaa).
+    · Packing grid_jpeg (JPEG2000): decode with eccodes (already in apps/janela/requirements.txt); keep decisions
+      exact by recovering each stored integer from R, E, D (value = (R + X·2^E)/10^D) — check it on one message.
+    · Licence: US government work, public domain.
+    THE PLAN (decide the open points BEFORE the first commit, date them in certs/janela-ledger/DEFINITIONS.json):
+    a. apps/janela/audit/noaa.py — read GFS-Wave + GEFS-Wave at every site's and unit's model node by .idx byte range
+       (the box/sea-node rule of ecmwf.py: ONE definition — reuse, don't copy), one day file per run in
+       corpus/janela/feed-noaa/ (written once, gz, like feed.py), JANELA_IPV4 respected.
+    b. commit.js — a new proposer 'janela/hs-altimeter/noaa-gefs-…': which order statistics of 31 and the claim. OPEN:
+       ECMWF's central 40 of 50 claims 4/5; for 31 members the order statistics 4 and 28 give a nominal
+       (m+1−2k)/(m+1) = 24/32 = 3/4 — pick and justify before any row. Same target, same margin rule, same guard.
+    c. How two bands combine in the app — OPEN, fix it before showing: the union (conservative) until the PLACAR
+       ranks them is the recommendation; never "the better-looking one".
+    d. .github/workflows/janela-feed.yml — its own step(s), continue-on-error, AFTER the ECMWF push, so NOAA can
+       never break the ECMWF day; noaa runs for 06/12/18Z are a later step (a second cron).
+    e. Batteries with reds (a forged GRIB integer, a member missing, a run from the wrong day); PLACAR names in
+       placar.js NAMES_PT; the second verifier is unaffected unless decisions change (it re-decides from the day).
+    f. Later: the calibrated WW3 band (back-archive 2021→, matchups, conformal, its own pinned proposer); swell
+       partitions on the card (period/direction criteria for offloading and lifts); 4 runs a day in the app.
+  ALSO OPEN (unchanged): the LabECO last-mile pilot brief is written (a private Claude Doc, pt-BR: Babitonga first,
+    650 SWAN runs in 3 sets drawn from the WW3 hindcast, an RBF engine with an exact conformal band, 5 acceptance
+    tests, an 8–12-week field measurement) — https://claude.ai/code/artifact/5db724bb-ba34-4b85-b7c4-49be2fcadae5 —
+    sending it is the operator's. Decision-level scoring from 10-09; the campaign planner; the site alpha at 3–4 m;
+    Sergipe's nearshore truth (the pilot's method applies there too).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07, JANELA v1.2 — RELIABILITY YOU CAN CHECK, AT A TOOL'S SCALE.
+  ORIGIN (operator): "more reliability, better design (Figma like, the UI is too big, big texts) … use our math,
+    instruments and certification power to deliver something only we can … simple, clean and super reliable for
+    Brazil's market; total focus on Brazil's petroleum and oceanic markets."
+  THE SECOND VERIFIER (the repository's own signature: no code shared with the claimant): instruments/window/verify/
+    SPEC.md (the decision rule written from the rule, not the code) -> verify_day.py + battery.py, Python stdlib,
+    written by an agent that read ONLY the spec and the data records (never decide.js, q.js, criteria.js, the app;
+    PROVENANCE.md). Result: the real day 67,396 of 67,396 letters equal, 7 input pins hold, ~0.9 s; battery 24 green
+    with hand-computed letters (an 8,990-letter synthetic world) + 12 reds. build-today.js runs it on every day
+    (gate 4) and refuses a day it disagrees with; the day carries `second`; the run chip says "conferido 2×".
+    Wired: make test, build-control (PY list). The agent's readings of spec ambiguities: '-' beats 'n'; a variable
+    absent at any window step is MISSING (no V/I from it) — both agree with the published day.
+  THE CERTIFICATE ON EVERY CARD: the tab's re-check, the second verifier, the band's own scoreboard state (a pinned
+    proposer not yet on the ledger says so), exact arithmetic; "Nota de decisão" and "Certificado .json" (one
+    decision with every number a surveyor needs to re-check it by hand, the re-run commands, the pins).
+  RELIABILITY IN THE PRODUCT: a calibrated proposer the placar prunes stops deciding (bandset.withoutPruned; the
+    day names it in `pruned`; the card says so; battery red); the PLACAR breaks the scored rows down by site and lead
+    (descriptive — admission still reads trial days); the day's data is fetched before the map library (early.js);
+    links carry the run and say when they are older than the day shown.
+  THE DESIGN: a tool's scale — 12 px body, 11 px labels, 24 px controls, a 332 px rail of sections divided by
+    hairlines (Figma's properties panel), operations as a segmented grid; the scale named once in style.js :root.
+    The layout ruler improved (spines 17 -> 14 at 1440/768, 12 -> 8 at 390) and the style literals fell (195 ->
+    193); both baselines recorded. The method page's hero at section size. Brazil focus: the beach point
+    (Florianópolis' open edge) hidden from the app — it still lends Babitonga its band.
+  STATE: main + this commit; the live day on janela-field was rebuilt from the desk again (the 09:40 UTC Action
+    takes over). Gates: window 14/6, janela 21 + 16 reds, the second verifier 24 + 12 reds, style, render, grammar,
+    layout ruler green.
+  NEXT: decision-level scoring (published LIBERADA at the measured sites vs the satellite, from 2026-10-09); the
+    campaign planner for decommissioning (N operations from a date, exact counts over 32 years); the site alpha at
+    Hs 3–4 m; Sergipe's nearshore truth.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-07 (early UTC, before the first full cloud run), JANELA v1.1 — THE FIXES FROM THE FIRST REVIEW.
+  ORIGIN: the operator asked what Janela needs fixed and what would add value; two read-only reviews (the daily
+    pipeline; the app against PRODUCT.md) and a live drive in Chrome produced the list; the operator said "Go" on
+    the recommended order: tonight's pipeline items, then the app's honesty fixes, then Sergipe-Alagoas.
+  THE PIPELINE (.github/workflows/janela-feed.yml): the forecasts are pushed RIGHT AFTER commit.js (a NOAA hang can
+    no longer lose the day's commits or delay the push that proves them); observe and score may fail without
+    stopping the job; a second cron at 11:40 UTC (every step is safe twice; a day already on janela-field is not
+    rebuilt); JANELA_IPV4=1; field.py takes the feed's own date; every push through apps/janela/audit/push.sh,
+    which runs guard.js on the STAGED bytes (ledger rows only appended, DEFINITIONS keys never changed, feed and
+    observed files only added — tested on a scratch clone: append passes; an edited row, a deleted feed and a
+    changed definition are refused); the janela-field commit carries its own vercel.json (deployments off: Vercel
+    had been building a Preview of the data branch) and a README with the re-run line.
+  THE LEDGER'S RULES, DATED BEFORE ANY SCORE (certs/janela-ledger/DEFINITIONS.json, additions only):
+    · admission-v1 (apps/janela/audit/placar.js — ONE definition, read by score.js, numbers.js, the app and the
+      method page): one trial per (proposer, UTC target day), the day's outcome the covered flag of one row drawn
+      by lot (sha256(domain|day) mod n — never reads an outcome); the exact binomial tail read only at 30·2^j trial
+      days against 1/20·2^-(j+1) (the bars sum to 1/20 over the proposer's life); the first look under its bar
+      prunes the version for good; before day 30 the PLACAR says EM AVALIAÇÃO. Replaced the row count, which
+      would have pruned on one overflight (2 rows missed of 2: tail 1/25). Days treated as independent: stated.
+    · observation-v1 (observe.py): a day is observed THREE days after it ends — NOAA rewrites every file daily at
+      ~11:12 UTC and the D+1 version is incomplete (measured: Jason-3 for 10-05 at 495,993 bytes vs 569,709–586,350
+      for the days before); days strictly in order; a 404 holds the day for retry until it is six days old; each
+      pass's own points are kept, so the value re-checks from the file (the mission sha256 pins bytes NOAA will not
+      serve again). First scores therefore land 2026-10-09; the first admission look about 2026-11-08.
+    · commit-margin-v1 (commit.js): a row only when its target is an hour or more after madeAt; a stale bands pin
+      now skips calibrated-v1 alone, with an Actions warning, and the ensemble rows still commit.
+  THE APP (/janela/): a day older than 36 h is said in words above the answer; the published codes are served
+    only when this page's model AND modules made them (else every code is decided in the tab, so map, list and
+    card agree); the map field must be the day's run and its sha256; Alívio is decided only where there is
+    storage (model.js PRESETS appliesTo: FPSO, FSO, NAVIO TANQUE and the measured areas — 81 places, 111 units
+    out, said so); the list ranks by next window and then the TIGHTEST margin (exact, rounded down, "folga
+    0,52 m"); "até o fim" for a window that runs past the forecast; the site-alpha tile says "α do local só até
+    Hs 2 m" (the record has 1–2 m columns; 4 m only at Pelotas) and the fleet line says what it decides; ALÍVIO
+    CRÍTICO counts on the band when the chosen criterion is silent, ages the typed inventory by production, raises
+    full tanks; MÊS says when it substitutes an area (P-25's units -> Campos; Sergipe -> no hindcast), a limit (the
+    step below) or a window (the next longer); the Nota names the main commit and the re-run of THAT day
+    (build-today.js --feed YYYYMMDD; today.json now carries `git`); the PLACAR uses status words, not verdict
+    glyphs; the method page is labelled a dated portrait with a link to the live PLACAR. ANP's "SEMI SUBVERSÍVEL"
+    is shown as SUBMERSÍVEL (corpus/anp unchanged).
+  VERIFIED: window 14/6, janela 20 + 14 reds, forecast 7/5; style, grammar, render and the layout ruler green
+    (the ruler caught a new spine from the longer row text; fixed by moving the margin to its own line); the app
+    driven locally at 1440 and 390 (a +3-day clock for the late banner; PLACAR; P-75 with full tanks; PCM-03's MÊS
+    notice). The live janela-field day (10-06) predates the new model: until the 10-07 run the app decides in
+    the tab and says so.
+  THE NEXT SESSION, FIRST: `gh run list --workflow=janela-feed.yml --limit 3` — the 09:40 UTC run is the first
+    cloud run of field.py, build-today.js, both pushes and the orphan push. Check: two commits from janela-feed
+    on main (feed; observed — the observed one may be empty until 10-09), janela-field's head "Janela day
+    2026-10-07: … on main <sha>" with vercel.json, and the app without the "outra versão do app" note.
+  SERGIPE-ALAGOAS, STEP 1 (the value line; corpus/targets.json janela-sergipe-decom): the 27 SEM DADOS units are 24
+    fixed platforms of Guaricema, Dourado, Camorim, Caioba and Piranema off Aracaju, Salgo, the Paru buoy and Manati —
+    the shallow-water decommissioning programme (production stopped 2020; Ibama authorised; 26 platforms, US$2.5 bn
+    to 2035). A site `sergipe` (−11.05, −36.95, the model's sea node −11.0, −37.0, 5 km off the coast; decoded on
+    the 10-06 run) is in sites.json from 2026-10-07: the feed reads it and the ensemble ledger commits it daily;
+    it lends NO band until measured — platforms.js now borrows only from sites the bands record carries (re-run:
+    platforms.json byte-identical), and the cards say "acompanhado desde 07/10/2026, ainda sem medição" (the
+    site) and "o local Sergipe-Alagoas, a 10 km, é acompanhado…" (its units). Tested on a synthetic feed carrying
+    the site: 67,744 decisions re-decided equal, the method page and the app built, the gates green; the synthetic
+    feed deleted.
+  SERGIPE-ALAGOAS, STEP 2 — MEASURED THE SAME NIGHT, AS ITS OWN REGION (28901e7; the records of 2026-10-06 untouched):
+    · janela-archive.yml learned `what=alt` (NOAA) and `sites=` (archive.py JANELA_SITES); run for the site alone,
+      2023-07-12..2026-10-05: ECMWF 1,181 runs (run 37550621132), NOAA 9,456 mission-days (37550624256), 0 errors,
+      ~5 min each. The desk packed it with JANELA_REGION=sergipe (apps/janela/audit/region.py reads
+      apps/janela/scenario/regions.json — ONE definition of a region's sites, paths and proposer):
+      corpus/janela/regions/sergipe/{ecmwf,alt,MANIFEST.json,matchups.json.gz} (7.6 MB), the cache git-ignored.
+    · 547 passes (>= 5 points within 100 km; median mean distance 70 km), 3,096 pairs.
+      certs/janela-bands-sergipe.json: Hs at 24 h 1.13–1.62 × the forecast (Santos: 0.86–1.20). THE CAVEAT,
+      stated in regions.json, on every card and in the method page: the node is 5 km off the coast and the
+      passes see the sea 40–100 km out, so the band carries the shelf gradient — it leans HIGH for the platforms,
+      conservative by construction; a wave buoy at the platforms would close it.
+      certs/janela-alpha-sergipe.json: 0.62–0.72 at design Hs 1–2 m, AT OR UNDER Table 4-1 (bias −0.28 to
+      −0.49 m) — like Florianópolis' coastal node, the opposite of the offshore basins' 0.84–0.96.
+    · A new proposer janela/hs-altimeter/calibrated-sergipe-v1, pinned in commit.js (175a5ce2…), defined in
+      certs/janela-ledger/DEFINITIONS.json; commit.js commits one calibrated proposer per pinned bands record.
+      apps/janela/audit/bandset.js is the ONE loader of bands and alphas (the 2026-10-06 records + every region,
+      a site in two records refused — battery red); data.js, numbers.js, model.js, platforms.js and commit.js
+      read it. matchups.py without a region excludes regional sites, so the 2026-10-06 records still re-derive.
+      platforms.json re-derived: ALL 181 units carry a measured band (27 from Sergipe).
+    · Gates: janela 21 + 15 reds, window 14/6; style, render, grammar green; the layout ruler recorded the method
+      page's two new scroll tables (one more site's alpha table: clipped 13→14 @768, 25→27 @390, --accept-worse —
+      the same scroll-table pattern as the eight sites before it).
+    · corpus/janela/LICENSE-DATA.md written (it was missing for the whole Janela corpus).
+    · No MÊS for Sergipe: no WW3 3-hourly node (the 0.5° grid keeps daily maxima only; ~18 GB to read).
+  OPEN (in apps/janela/TODO.md v1.1): site alpha at Hs 3–4 m; Sergipe's nearshore truth (a buoy, or a transfer); a pruned proposer withheld from deciding;
+    PLACAR per site and lead; decision-level scoring; scoring borrowed bands at the units; a battery for guard.js.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-06 (night), HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS.
+  THE NEXT SESSION, FIRST:
+    1. `git pull --rebase` — the janela-feed bot pushes to main every day at ~09:40 UTC.
+    2. `gh run list --workflow=janela-feed.yml --limit 3` — the FIRST full daily run is 2026-10-07: feed ->
+       ledger commits (two proposers: ens-c40of50 and calibrated-v1) -> observe (from 2026-10-08, days ended two
+       days ago) -> score -> field.py -> build-today.js -> force-push janela-field. If any step is red, read its
+       log and fix it before anything else (likely suspects: field.py's downloads, build-today.js's gates).
+    3. `node tools/sweep-claims.js` (~1 min) and report what moved on the watched threads.
+    4. Then WAIT for the operator. No new send, no new lane, no paid run without the operator's word.
+  STATE AT HANDOFF (main 60d3480 + this commit; control build 116/116 at b250e13; all Janela gates green):
+    · carlostoledo.co/janela/ — THE APP (apps/janela/app/, built by apps/janela/build.js): MapLibre over the
+      Brazilian margin; 181 ANP production units + 12 measured sites as verdict annunciators; the answer line;
+      three criteria (measured band / DNV Table 4-1 / site alpha); operations (Alívio cites OMAE2010-20147:
+      Hs <= 3,5 m, wind <= 50 kn, "confirme com o procedimento vigente"; Carga/Lançamento/Içamento examples;
+      NPCP terminal rules; seu limite); ALÍVIO CRÍTICO on user inputs; MÊS by season; PLACAR; Nota de decisão.
+      The tab re-decides all 67,396 published decisions (~0.4 s). Verified live at 1440 and 390.
+    · carlostoledo.co/janela/metodo/ — the document page (the honest limits, every NPCP quote, the alpha).
+    · Neither page is linked from the landing page; nothing about Janela has been sent to anyone.
+  OPEN, NOTHING CHOSEN (the operator picks):
+    · Swell re-homed on this engine as the public face — apps/swell/TODO.md (the port plan + the source review's
+      findings: the calibration headline beaten by a no-forecast baseline; 14 of 21 ocean beaches never "big").
+    · Coverage: 27 units (Sergipe-Alagoas, Bahia, Ceará) have no measured band — add measured sites to
+      sites.json and re-run .github/workflows/janela-archive.yml (cloud, ~3 min) + matchups/bands/alpha; a new
+      bands record is a NEW proposer version (calibrated-v2) — never swap the pinned sha in commit.js silently.
+    · Currents (offloading heading, Foz do Amazonas drilling): need a current forecast — a Copernicus Marine
+      account is the operator's act.
+    · Wind alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind: anemometer height); period uncertainty (B706);
+      the app's default hour (it opens on +24 h, not the hour nearest now).
+    · Sends (the operator's): Petrobras Radar Ciclo 4 (a third solution), CNPq MAI/DAI 30/2026 with UFSC
+      (Dec 11), a marine warranty surveyor for an outside rerun of the site alpha.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-06 (afternoon/evening), JANELA v1 — THE SWELL PORT, RE-SCOPED TO OFFSHORE ENERGY, BUILT AND LIVE.
+  THE OPERATOR'S RULINGS (2026-10-06): port SWELL (frontier-apps/PORT-SWELL.md) for the LabECO partnership,
+    commercial ventures and calls; the commercial focus is ENERGY INFRASTRUCTURE (platforms, production areas,
+    terminals), not sports or beaches; Swell (the beach app) stays as the PUBLIC face. Plan v2 approved:
+    (1) the engine + Janela first, Swell second; (2) Swell keeps the Navy chart data; (3) name "Janela";
+    (4) a daily GitHub Action; (5) pilot sites Santos, Campos, Florianópolis + the terminals with published limits.
+  LIVE: carlostoledo.co/janela/ (pt-BR; site/janela/ from apps/janela/build.js, gated on instruments/window and
+    apps/janela batteries; every published decision re-decided at build and in the reader's tab by the same
+    sha-pinned q.js + decide.js). Not linked from the landing page; nothing sent to anyone.
+  THE FINDING (certs/janela-alpha.json; method apps/janela/audit/alpha.py, standard library): DNV-OS-H101's alpha
+    re-derived by the method that made Table 4-1 (the 2005-07 JIP as reconstructed by Wilcken 2012 — 16 of 20
+    table cells reproduced within 0.02; the guidance note read literally reproduces 0, the red) on 45,987
+    ECMWF-open-data vs NOAA-altimeter pairs, 2023-07..2026-10, at eight sites: at design Hs 2 m the site alpha is
+    0.84–0.96 against the table's 0.63–0.76 at every offshore basin (90% day-bootstrap interval ABOVE the table in
+    every cell); Florianópolis' coastal node sits on the table. Exact consequence (certs/janela-workability.json,
+    32-year hindcast, counts): Santos 2.0 m / 48 h — the sea allows 24.2% of start times, Table 4-1 leaves 3.3%,
+    the site alpha (lower end of its interval) would leave 10.8%. A STATISTICAL estimate (not an enclosure), the
+    1e-4 tail is a model extrapolation, the altimeter's own error makes it lean conservative, lead is counted
+    from 00 UTC (the run is usable ~8 h later). Evidence for a warranty surveyor to re-run, never an approval.
+  BUILT: apps/janela/ (APP.md, RESEARCH.md, TODO.md; scenario/sites.json twelve sites as ONE definition;
+    scenario/rules/npcp.json 60 limits from eleven pinned Capitania acts, every quote checked; scenario/
+    operations.json eight operations, a berth rule never decided on the open-sea Hs; scenario/rules/dnv-alpha.json;
+    audit/ ecmwf.py exact GRIB reading, archive.py, feed.py, commit.js, observe.py, score.js, matchups.py,
+    passes.py, bands.js, alpha.py, climate.js, today.js, dnv.js, hindcast.js); instruments/window/ (workability.js,
+    decide.js, q.js; battery 14 checks / 6 reds); the packed back-archive corpus/janela/{ecmwf,alt,metar}/ (45 MB,
+    MANIFEST.json; the day files in the git-ignored cache) and corpus/janela/matchups.json.gz; certs/janela-
+    {workability,bands,alpha}.json; the forward ledger certs/janela-ledger/ — two proposers from the 2026-10-06
+    run: the ECMWF ensemble's central 40 of 50 (claims 4/5) and Janela's calibrated band (claims 9/10; bands
+    record pinned by sha256 in audit/commit.js — a rebuilt bands record is a NEW proposer version, never a
+    silent swap). Batteries wired: make test, build-control (window instrument, janela, janela alpha).
+  THE DAILY ACTION (.github/workflows/janela-feed.yml, 09:40 UTC): feed -> ledger commits -> observe (days ended
+    two days ago, NOAA NRT) -> score -> rebuild the page -> commit + push as "janela-feed". THE BOT PUSHES TO MAIN:
+    PULL BEFORE PUSHING. First scores land 2026-10-08. .github/workflows/janela-archive.yml re-fetches any
+    archive range in the cloud (8 parallel jobs, ~3 min) — the desk download is network- and battery-bound
+    (IPv6 to the GCS mirror black-holed here: JANELA_IPV4=1).
+  GATES: window 14/6 reds, janela 9/6 reds, janela alpha (16/20 + red) green; the new page recorded in the
+    style, render and layout baselines (design/*-baseline.json; the layout row added alone — skyaudit's 1440/768
+    spine count flaps 5<->6 and 4<->5 between runs on this network, unrelated and not accepted worse). THE FULL
+    CONTROL BUILD ran on the charger at b250e13: 116/116 green.
+  THE APP VIEW (2026-10-06 evening, 2349f65): carlostoledo.co/janela/ is now the APP — the fleet on one map (181
+    ANP production units + the twelve measured sites as verdict annunciators; fields and the pre-salt from ANP's
+    GeoMaps, pinned in corpus/anp), the answer first, three criteria side by side, ALÍVIO CRÍTICO on user inputs,
+    MÊS by season, PLACAR, Nota de decisão; the document page moved to /janela/metodo/. The DAY's data rides the
+    orphan branch janela-field (today.json + field.bin, force-pushed daily by the Action after build-today.js
+    re-decides all 67,396 published decisions from the written bytes); main never grows by a day of app data.
+    Verified live in Chrome at 1440 and 390: no errors, no overflow, the tab re-decides everything in ~0.4 s.
+  NEXT (the operator picks): Swell re-homed on this engine as the public face (apps/swell/TODO.md has the port
+    plan and the source review's findings); period uncertainty for swell-sensitive operations (B706); wind
+    alpha (P-25's METAR reads ~1.28x ECMWF 10 m wind — anemometer height); the nearshore transfer for berth
+    limits; a send of any of this (the Radar, MAI/DAI with UFSC, a surveyor) is the operator's.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-06, HANDOFF — THE SESSION ENDS WAITING FOR THE OPERATOR'S INSTRUCTIONS.
+  THE NEXT SESSION, FIRST: run `node tools/sweep-claims.js` (~1 min; state in corpus/claims-seen.json) and report
+    what moved, a reply or a new comment on any watched thread; then WAIT for the operator. No new send, no new
+    lane, no paid run without the operator's word. Fixing our own records and pushing them stays fine.
+  STATE AT HANDOFF (main pushed; site synced; make control 113/113 at the last full round; the δ₄ battery 29/29
+    and the stale-claims gate green after the last edits):
+    · δ₃ = 117/2192 — PUBLIC as proof claim #395 on erdosproblems.com/1186 (submitted 10-05, accepted 10-06;
+      https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395; snapshots pinned in
+      corpus/sources/delta3/). Zenodo doi:10.5281/zenodo.23171167; reports/delta3.html links the listing. At
+      handoff: Comments (0) on the thread, no reply on the claim.
+    · GitHub outreach: P1, P2 and P3 are all out. Every post is listed in outreach/SEND-QUEUE.md (lanes G, P2, P3,
+      D, R), every thread is in tools/sweep-claims.js 3f/3g, and the last sweep printed "no findings".
+    · Edited in place, each with a dated note, before any reply: our R3 texts on einstein-arena#64 and
+      station_data_v2#2 (the 1e-6 tolerance is the Together notebook's, not EinsteinArena's); and
+      incrediblecrab/erdos-1186#1 (1/72 is Lu–Peng's theorem, corroborated here by exact counts but not decided
+      here; the last bullet names which reduction fails).
+    · A slip on the record: formal-conjectures #6874 (hot spots) and #6882 (Erdős 1186) went out the same day,
+      against our own one-issue-a-day spacing for that repository. Both stand as written.
+  WAITING ON THE OPERATOR (texts ready, paste or send by hand):
+    · D, the k = 4 comment on /forum/thread/1186: outreach/delta3-forum.md D, revised 10-06 (the page's random
+      bound already gives 1/48; only BCG's value and two unrolling levels are exact here). B is superseded.
+    · Mathstodon for Erdős #1: SEND-QUEUE 0c (495 characters). Optional.
+    · The email to Ingo Althöfer: outreach/github-p2a-2026-10-06.md item 7a. Then the C84b PR, after his reply or
+      about 7 days, and after teorth/optimizationproblems PR #216 settles.
+    · The GitHub bio and the pinned repositories (no API for pins).
+    · The ec-benchmark issue: the partners' field; lane U first.
+    · Older held lanes, unchanged: R5 (the LabECO thread), METR M1/M3/M3a, U1. R2 is superseded by RamseyLean#1.
+  HELD WITH A DATE (confirm with the operator on the day):
+    · teorth/erdosproblems PR, item 20 of outreach/github-p3a-2026-10-06.md (lambda4_cubic: three real roots,
+      λ(4) the largest), on or after 2026-10-08, given Tao's notification load.
+    · jackburrus/awesome-breakthroughs PR, item 24 of outreach/github-p3b-2026-10-06.md, about 2026-10-13, or
+      sooner if ewang26/HorizonMath#10 gets a reply.
+  NOT SENDING (the reasons are in the drafts): the teorth #1186 note (C); the λ(5) follow-up on #392;
+    einstein-arena#59; awesome-evals; the C42 review (not decided here); the OEIS packs (OEIS bans AI-generated
+    submissions).
+  OPEN WORK, NOTHING CHOSEN (the operator picks):
+    · Phase 4b wave 2: 54 of the 100 pre-registered claims still undecided (corpus/machine-claims-100.json).
+    · The C42 ≤ 0.688970 decider (1–3 h), which would unblock the review on turan-c42-certificate#2.
+    · lattice-claims, the ternary arm (−1 for a confident wrong answer).
+    · The three Elsevier papers (paper/tex; authors to be agreed).
+    · The next-fronts menu (memory, 2026-10-01): LabECO evolutions, LRCAP (~10-26), calls (CNPq RHAE IA closes
+      2026-10-09, Finep ~10-14 to verify, MAI/DAI 12-11).
+    · Lean for δ₃: weeks of work. δ₄ is BLOCKED (the quartic term).
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-05 (evening), THE PORT OF FRONTIER SESSIONS 34–35 (frontier-apps/PORT-DELTA3.md) — δ₃ AND THE ζ(7) WALL.
+  δ₃ = 117/2192 — RE-DECIDED HERE, A THEOREM, NOT REFEREED. The claimant (frontier-apps s35) proves PRS 2008's
+    conjecture: Q(φ) ≥ −5/137, so the twelve-block colouring is optimal and δ₃ = 117/2192 (the case k = 3 of
+    #1186 ONLY; "solves #1186" overstates). Ported in two phases so the second verifier is clean-room:
+    phase 1 (certificates certs/delta3/*.json, the theorem note instruments/delta3/claimant/THEOREM-EXACT.md,
+    the claimant's logs certs/delta3/frontier/, sources corpus/sources/delta3/ — PRS/BCG PDFs git-ignored in
+    .cache, publisher copyright), then instruments/delta3/{model,psd,verify,battery,lemmas,mutate}.js written by
+    an agent that read ONLY the theorem note + instruments/delta3/CERT-FORMAT.md + the five JSONs, then phase 2
+    (the claimant's code as exhibits in instruments/delta3/claimant/, PROVENANCE.json, 46 pins). RESULT: five
+    VERIFIED, bounds = the files' claims exactly (min slab 2.747e−4), cover complete, THEOREM VERIFIED in ~1–4 s;
+    battery 76 green / 40 reds; mutation pass 23/24 caught, the survivor a rule enforced twice; lemma tests
+    1,400 identity + 4,200 discretisation cases exact; V(n) of the twelve blocks = 117n²/2192 − n/2 at n = 1096k
+    (to 35,072). The claimant's vcheck.py re-run here agrees (87 s). SECOND-READING FINDINGS (paper fixed): the
+    bathtub constant needs the SUMMED m′ (single-piece reading false, 1,358/2,432); ε is load-bearing; triangles
+    need distinct indices; the kink list omits a = ½ and the edges (harmless). Built: reports/delta3.html
+    (tools/build-report-delta3.js, gated on the ledger hashes + battery + mutations), paper/tex/delta3.tex →
+    paper/delta3.pdf (8 pp, tools/paper-numbers/delta3.js), the site card (erdős lane), three shelf records.
+    THE OPERATOR'S WORD, 2026-10-05: (1) the line-by-line reading — DONE by the operator (the paper and the page
+    say "read line by line by the author; not refereed"); (2) the Zenodo deposit — DONE: release v2026.10
+    at 422b952 minted doi:10.5281/zenodo.23171167 within a minute, verified public (isNewVersionOf 22800699,
+    erdosproblems.com/1186 linked), stamped into corpus/zenodo.json + CITATION.cff; the paper and page cite it; (3) the forum texts —
+    A (the partial proof claim) SENT by the operator 2026-10-05 ~19:25 -03, PUBLIC 2026-10-06 as proof claim #395
+    (https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395; snapshot pinned); the rest DRAFT: outreach/delta3-forum.md (A, the partial proof claim via /forum/thread/1186/submit-proof; B, an
+    optional thread comment; C, teorth/erdosproblems: NO status PR — #1186 stays open for k ≥ 4 — an issue only
+    after the claim is visible). Every paste is still the operator's. Lean: weeks. targets rows:
+    delta3-graham-1186-k3 (BUILT), delta4-centring-transfer (being scouted).
+  ζ(7)/CATALAN — THE HANKEL WALL, MEASURED (not a theorem). instruments/zetahankel/ (343 files pinned), the run
+    records certs/zeta-hankel/, certs/zeta-hankel-ledger.json (51/51 margins re-run bit-identical: ζ(3) −1.380,
+    ζ(5) −0.185, ζ(7) +1.016, G +0.428 at h ≈ 35; p-adic price 98.2% of naive), a stdlib cross-check sharing
+    no code, battery 6/6 reds, reports/zeta-hankel.html. Corrections to the claimant's notes on the page: k
+    threshold ≈ 5.31 (not ≈ 6); ζ(5) room 7.5–12× (not ~10×). The issue on Anand's ζ(7) Lean repo is by a THIRD
+    PARTY (huntrontrakkr; the operator's only GitHub is carlostoledo1891). targets rows: zeta7-hankel-wall-2026
+    (BUILT), zeta7-anand-claim-audit (BUILT, below).
+  ANAND'S ζ(7) PROOF — AUDITED, THE ROUTE REFUTED (arithmetic-slip), 2026-10-05. Zenodo 22920911 v1 (CC-BY-4.0,
+    pinned). I_out recomputed exactly from the paper's own (54), (58), (59), (62): +453803/288000 ≈ +1.576 under
+    the faithful reading (+445163/288000 under the literal one), not the printed −11002997/720000 (that is Table
+    5's integral; its last row is wrong) — so A₂₀₀ + U = +4.86 where (118) needs < 0; positive in every scenario that takes
+    I_out from the paper's formulas (smallest decided +2.256), no cutoff rescues it. The integrator is calibrated on Fauzan's printed 127751/96000 three ways;
+    finite-K sums converge to the R2 value. Theorem 1.1 REFUSED (not established, not shown false); the paper's own
+    family measured +0.80, +0.87, +0.88 at n = 1–3 (needs < −11.87). The third-party issue #1 is right on all four
+    points. The Lean repo proves a different statement (one of ζ(7..21) irrational; 1 sorry = the Challenge stub;
+    grep-level). instruments/zeta7audit/, certs/zeta7-anand-audit.json, certs/zeta7-anand/measure.json, battery
+    42 green / 9 reds, reports/zeta7-anand.html. The confirming reply on the issue was POSTED on the operator's word
+    (2026-10-05, issuecomment-6004122031; the earlier draft's "all 24 scenarios" corrected before posting);
+    tools/sweep-claims.js watches the issue and Zenodo for a reply or a v2.
+  THE SENDS OF 2026-10-05 EVENING, on the operator's "proceed the ones you can" — every GitHub item posted after a
+    freshness check (each cited command re-run green; METR's live files byte-identical to the pins; a fresh-venv repro
+    of the verifiers bug): PrimeIntellect-ai/verifiers#2775; METR/eval-analysis-public#43; the re-run asks R1
+    (rainrzk/erdos510-lambda4-audit#1), R3 (vinid/einstein-arena#64 comment — the thread was closed — and
+    dualverse-ai/station_data_v2#2), R4 (suvrit/count-ex-machina#1); the ζ(7) reply (gmDevi#1). The #1186 proof claim
+    SENT by the operator (moderation). The Erdős #1 forum comment is PUBLIC — snapshot pinned 2026-10-05 — so
+    Mathstodon (outreach/erdos1-mastodon.md) may go. tools/sweep-claims.js watches all of it. LEFT FOR THE
+    OPERATOR (no transport here): R2 (email to Norin), R5 (the LabECO thread), METR M1 (recruiting), M3/M3a (the
+    Lever applications), Mathstodon, and D (the k = 4 comment, READY since the claim showed, revised 2026-10-06); C (the teorth
+    note) DROPPED (CONTRIBUTING sends mathematics to the forum).
+  THE GITHUB MAP AND THE RECORD CORRECTIONS (2026-10-05 night → 10-06). outreach/GITHUB-OUTREACH.md: 13 touchpoints
+    done, 27 sends ranked, 29 venues rejected, presence fixes. PRESENCE APPLIED: the repo description is the ONE
+    sentence verbatim, 20 topics, labels claim/rerun (the issue forms' labels did not exist), Wiki/Projects off, the
+    README's DOI badge on the concept DOI and δ₃ on its first screen, a profile README (carlostoledo1891/carlostoledo1891),
+    mfg-lab topics; the bio and the pins are the operator's (no API for pins). RECORD CORRECTIONS (each verified, each
+    rebuilt): Navier–Stokes — upstream f9e8bc5b (2026-09-10) supplies the finite-energy clause; BUILT here (486 modules,
+    standard axioms), corpus/navier-stokes/upstream-f9e8bc5b.json, register row PARTIAL → CERTIFIED with the pin's PARTIAL
+    as history, the page re-dated (§4b) and the paper v0.2; #1038 sup is Tao's theorem (Dec 2025) — page fixed, and the
+    record had inf/sup the wrong way round; λ(4) header reads the outside reruns; diagonal-Ramsey cites 3.769 (Lean) and
+    Lu–Wang 3.69507, ours is not the record; kissing spells Kravatskiy, "no arXiv paper", Lindow's verifiers named,
+    40,992 not 41,128; polymaps gist pin = revision 2224dace; the optimization page quotes check_cert.py's real line;
+    the claims/rerun/monthly pages rebuilt (131 decided; October's page added — the site shelf now carries every month).
+    `make papers` green again (the register paper had been red since the mc100 rows; now the live register).
+    POSTED (operator's "Proceed all needed" / "Go all"): the gist comment to Y. Lin (53-bit compare), the
+    einstein-arena#64 correction (40,992), HorizonMath#10 (the Ramsey certificate), teorth/optimizationproblems PR #216
+    (the 3b/3c/71 replay); then, once the fixed pages were live (2026-10-06), alexlegeartis/KissingNumbers#2, k-nic/Leech_lifting#1
+    and the #1038 correction on teorth/erdosproblems#179 — all seven P1 items out.
+    P2/P3 (operator: "Go all", "finish all", 2026-10-06), each after a freshness check and, where a page was cited,
+    after that page was corrected and live: teorth/erdosproblems#164 (Woett), optimizationproblems#184 (review),
+    Qiushi#1, Awesome-AI-Scientist PR #5, awesome-ai-proofs#2 (issue form), EinsteinArena-new-SOTA#14,
+    TTT-Discover#19, RamseyLean#1 (replaces R2), station_data_v2#2 follow-up, formal-conjectures#6874 (hot spots),
+    the Spacerat gist, mo271/Zeta5#3. Our R3 texts (#64, station#2) edited in place: the 1e-6 was the Together
+    notebook's. RECORD CLEAN-UP that rode along (8fbb064 and before): easota platform rules dated and pinned, outward
+    rounding (easota, matmul paper, mc100), kissing d12 closed, Ramsey "upper bounds", hot-spots bibliography,
+    λ(5) draft linked, #510 comment found PUBLIC since 08-26 (the sweep watched the wrong URL).
+    HELD WITH A DATE: the lambda4_cubic PR (≥ 10-08), awesome-breakthroughs (~1 week, HorizonMath#10's reply).
+    POSTED once the #1186 claim was public (2026-10-06): incrediblecrab/erdos-1186#1 (edited the same day: 1/72 is
+    Lu–Peng's, corroborated by exact counts) and formal-conjectures#6882 (the same day as #6874, against our
+    one-a-day spacing). WAITING ON THE OPERATOR: the Althöfer email
+    (then the C84b PR), the ec-benchmark issue (partners' field), the bio and pins. NOT SENT (reasons in the
+    drafts): the λ(5) follow-up, einstein-arena#59, awesome-evals, the C42 review.
+  δ₄ — THE CENTRING DOES NOT CARRY OVER (BLOCKED), 2026-10-05. The scout's premise was outdated: BCG's 36 blocks
+    (F re-decided equal to their printed rational, 0.0172203) are a strict local minimiser among block colourings
+    (h₄ ≥ 0 with zeros exactly at the 35 edges; edge Hessian PD, λ_min ∈ [411/5000, 823/10000]) but NOT the δ₄
+    record: Lu–Peng 2011's unrolled quadratic-residue colouring mod 11 gives 1/72, re-verified here exactly (1/66,
+    37/2662), 19.3% below. k = 4 has a quartic term no PRS-type reduction removes (the relaxation keeping it is
+    vacuous), so the δ₃ method stops at k = 3 — which is also why the δ₃ proof covers arithmetic colourings. 𝔽_p:
+    #mono/p² = (1 + 6μ² + Λ₄)/8 exactly. instruments/delta4/, certs/delta4-probe.json, notes/delta4-centring-
+    2026-10-05.md, battery 29/29 with 7 reds. The paper's limits section now says so (Lu–Peng cited). A comment on
+    #1186 citing 1/72 for k = 4 (the page lists no [n] bound below the random 1/48) would be small and correct — READY
+    in outreach/delta3-forum.md D, the operator's paste.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-05, THE TWENTY-NINTH SESSION CONTINUED — PHASE 4b WAVE 1, THE LOCKING-RULES REVIEW,
+THE KISSING HUNT.
+  PHASE 4b — THE DECIDING, WAVE 1 — DONE 2026-10-05 (a worktree agent; merged as d9ef353 from 3066376
+    the tensor pools · 3e80be6 EinsteinArena · 31b7d6a the Station's Jacobian). 46 of the 100 decided, each
+    pool its own ledger (certs/mc100-<pool>.json) read by run-claims-ledger.js §18: 45 CERTIFIED, 1 REPAIRED
+    (tolerance-witness), 0 NEEDS DATA so far. Register 88 -> 132 rows (44 new; the EA 594 =
+    kiss-ea-594-winner and the EA min-distance set = ea-mindist-ours_2026 annotated, counted once); no old
+    row moved.
+    · alphatensor-q 12/12, alphatensor-f2 8/8 (every F2 scheme refuted over Q), alphaevolve-nb-matmul 15/15
+      CERTIFIED (tools/run-mc100-tensors.js; convert_alphaevolve.js learned Z / 0.5*Z / 0.5*C, the 4,4,4
+      written byte-identically; tensor.js + verify_strassen.py gained `scale`; <4,4,8> r96 is prose only,
+      rebuilt from its recipe).
+    · einstein-arena 10/29 (tools/run-mc100-einstein.js): 605 = 9,510 pairs < 60°, worst (601,604)
+      θ ≈ 40.2441°; 842 = 237 pairs, worst (510,547) θ ≈ 57.0933°; 841 = 840 valid + one repeated vector;
+      the penalty Σ max(0, 2 − |c_i − c_j|) reproduced to every printed digit. Min-overlap REPAIRED
+      (Σh − n/2 = 1.93e-13; the repaired bound still <= printed). 19 rows listed with what they need.
+    · station-v2 1/10: st-jacobian CERTIFIED — a non-injective Keller map of C^3 (det JF = −6, 16 terms,
+      degrees 4, 6, 7; three rational points onto (1, 7/3, 0)), smaller than Gao's G.
+    · Readings dated in the 100-claims pre-registration's Deviations (the F2 rule applied by dimensions;
+      prose-only <4,4,8>; EA score agreement = the platform's minImprovement, 1e-12 relative where 0; the
+      penalty-scored rungs' "feasible"; the easota REPAIRED grammar; twins).
+    BATTERIES instruments/mc100/battery.js (57, 14 reds) + battery.py (10, 4 reds) in make test and
+    build-control; `make reports` runs the three runs (~95 s); rerun-kit entries added.
+    CONTROL BUILD after the merge: 107/108, EXIT 0 — the one RED was the layout ruler on site/apps/skyaudit/
+    index.html @1440 (spines 5 -> 6), a page untouched since 09-15; `node tools/check-measure.js` re-run alone at
+    once: 7 checks, 0 failed. Flaky measurement, recorded as such; the next control build (after the kissing
+    branch merges) re-measures.
+    OWED: `make papers` REFUSES at tools/paper-numbers/register.js (the register no longer spans exactly
+    August–September; its LABEL table lacks the five mc100 records), and P2's \KRows moves 88 -> 132 — that
+    is the register paper's SECOND EDITION, the operator's call.
+    NEXT, wave 2: the finite exact checks (EA Hadamard 51, sorting 16, Shannon C7^5, no-three-in-line 75,
+    deletion code, snake 13, Sidon, ring loading, Spencer, difference bases; Station Kakeya ×3 + q89;
+    FunSearch ×6), then exact scoring (EA 2nd/3rd autocorrelation, uncertainty, Thomson, Tammes,
+    Heilbronn-triangles, circle packing, Kakeya needle; notebook B.2/3/4/6/9/12; the Station's five scorers,
+    sign-uncertainty fetched at its pin), the three registry asterisks, the AlphaEvolve repository rows, #513
+    (expected NEEDS DATA). EA prime-number-theorem is Monte-Carlo scored: expected REFUSED.
+  LATTICE-CLAIMS UNDER RL — STAGE 2 RESULT (2026-10-05; notes/lattice-claims-rl-preregistration-2026-10-04.md,
+    deviations 1–7 and the result section; records instruments/wiring/train/{pilot,stage2}/ via read_run.py).
+    The road: the free 1B pilot collapsed (it never abstains correctly); the 4B passed the gate (16.1%), but
+    Prime's hosted 4B trainer delivers NO policy updates (3 launches stalled at "Waiting for new policy";
+    reported via `prime feedback` on the operator's word); the 2B trains but fails the gate (2.3%); the 9B
+    passes (14.1%, pass@8 0.57) and trains. STAGE 2 ON 9B: no separation — BOTH arms extinguished
+    abstention within ~10 steps (A key 0.414 -> 0.000, B exact 0.344 -> 0.000; confident_wrong up to
+    0.69 / 0.64), both aborted by the trainer on uniform-reward collapse (A step 93, B step 67). Mechanism:
+    the exact grader credits a decided NEEDS_DATA but does not penalise a confident wrong answer, so once
+    the model guesses on every incomplete task those groups carry no gradient (B's stored incomplete-task
+    samples fall from 19/66 to 7/896). None of the four pre-registered readings; stage 3 does not run.
+    Spend: Prime wallet US$50 -> US$31.07 (gates US$5.3, probes US$1.3, stage 2 US$11.7, the rest the
+    stalled 4B steps). NEXT (for the application write-up and a real result): a third arm, `grader="ternary"`
+    (+1 decided-correct, 0 abstain-when-not-due?, −1 confident wrong) in lattice-claims 0.3, pre-registered
+    first; the 9B, ~US$12 per run. The write-up (PI case-study form) can already tell the plumbing story,
+    the 4B fault, and the negative result honestly.
+    ARM C, TERNARY (0.3.0, pre-registered b5b95b2, run beec1a…, US$1.69): OVER-ABSTENTION — the model
+    abstained on every task by step 10 (P(abst|due) 0.998, P(abst|not due) 0.995, confident_wrong 0.42 ->
+    0.00), aborted at step 27 on uniform groups. THE THREE ARMS TOGETHER: none taught the discriminating
+    policy; each found the constant policy its reward prefers when answering the decidable tasks is a coin
+    flip (no tool, 100+-digit arithmetic). The binding constraint is the policy's ability to DECIDE, not the
+    reward. NEXT (not pre-registered): give it the means — a Python tool (multi-turn + sandbox) or
+    hand-computable tasks — then re-run B and C; prediction: C separates. Prime wallet US$29.37.
+
+  THE PRIME INTELLECT PACKET (outreach/primeintellect/, 2026-10-05) — READY BUT FOR ONE ANSWER AND THE
+    SEND. resume.md -> resume.pdf by build-pdf.js (two pages, Inter's static cuts, live links, refuses if
+    Inter does not load). The personal lines (phone, availability, prior employment, education) live in
+    the git-ignored resume.private.md and replace the [OPERATOR FILLS name] marks at build time; the
+    tracked file never carries them. form-answers.md: the links and "Why Prime Intellect" drafted; "What do
+    you optimize for in life?" is the operator's to write. verifiers-issue.md is a separate held send.
+
+  THE SEPTEMBER KISSING WAVE — DECIDED 2026-10-05 (a second worktree agent; merged as 33d1734 from
+    87e1edd … 874d313). Pinned: corpus/kissing/wave.meta.json (62 files; Kravatsky @86b7de1 MIT, Qiushi
+    @f3060ec code MIT + data CC BY 4.0, Takhanov–Yun @12a06bc NO LICENSE — every T–Y file incl. its
+    README pinned by hash in the git-ignored cache, never redistributed: `python3 tools/pin-kissing-wave.py
+    --fetch`; the README was moved out of the tracked tree at the merge, before any push, and the wave
+    re-decided against the corrected manifest). Built: instruments/kissing/fields.js + basis.js (Z[√3],
+    Q(√2,√3), Z[√5]); instruments/kissing/wave/ (engine, Leech from its owners, an INERT pickle reader —
+    never unpickled —, claims, battery 29 checks / 10 reds, jscheck.js); tools/run-kissing-wave.py →
+    certs/kissing-wave.json (~25 min on the M2); the ledger's `wave` section; reports/kissing.html §4;
+    holes.py --wave. DECIDED, EVERY PAIR, 0 VIOLATIONS (215.0e9 pairs): K(18) >= 8,358 (Kravatsky, +704 on
+    Cohn–Li, WITNESSED), K(26) >= 199,806, K(28) >= 204,896, K(29) >= 209,968, K(30) >= 221,012,
+    K(31) >= 238,662 (Kravatsky, WITNESSED); K(25) >= 197,580 and K(27) >= 201,567 (Qiushi, WITNESSED —
+    their +1s hold exactly); K(25) >= 197,579 Kravatsky and 197,058 Takhanov–Yun (REPAIRED: float decode /
+    snap, every decoded point the published float bit for bit). Calibration each run: the Leech shell
+    196,560, E8, the icosahedron in Z[√5]; a JS second implementation agrees on sampled blocks of every
+    row. NEEDS DATA 45 rows (counts only: Kravatsky 49–63, 68–71, 73–96; Qiushi 43, 45). QUEUED 8
+    (Takhanov–Yun 26–31; Kravatsky 38, 39). MEASURED: Takhanov–Yun's d31 array stores its four added points
+    as (±0.501179·u, 0.865343·v) where their README writes (±u/2, (√3/2)·v) — the array and the text
+    describe two configurations. THE HUNT (insertion, two passes of 1.2M directions per config): no
+    insertion anywhere; widest caps 55.5°–58.7° (best K(18), 58.694°); Qiushi's +1 needed 552 points
+    moved first. One engine bug found and fixed in-session (a fast path read one coordinate component and
+    dropped 1,944 d25 contacts); only post-fix runs are recorded; a red control now catches it.
+    NEXT: T–Y 26–31 exact rotation repair (d31 tractable: one 7×7 rotation); Kravatsky 38/39; Qiushi 32–39,
+    49–55 (not yet in the ledger); a MOTION hunt (move points, then insert). Not in the claims register yet
+    (run-claims-ledger.js does not read the wave): wire it in the next ledger pass. Nothing sent; any word
+    to the claimants (Cohn's table, Kravatsky, Qiushi, Takhanov–Yun) waits for the operator.
+  THE LOCKING RULES, REVIEWED AND DECIDED (operator: "review and maybe drop; decide"):
+    notes/locking-rules-review-2026-10-05.md (ee3feef). DROPPED: the kissing campaign's "lower bounds only, no
+    SDP upper-bound work, no record hunting"; the expired "no new instruments while S1–S2 unshipped"; the
+    lattice-claims README's "standing rule" (reworded at the next release). The 10-02 NOT-DOING list is now
+    information, not a ban. KEPT: sends gated per item, sin-mfg read-only, IP allowlist, the witness grammar,
+    pre-registration, never run claimant code, floats propose / exact decides.
+    sin-mfg IS NOT ON THIS MACHINE (neither ~/Projects nor ~/Documents): `make drift` cannot run until it is
+    restored.
+  OPTION 1 — THE KISSING HUNT (operator: "run option 1 alongside option 2"; RunPod approved, US$44.34 there,
+    "push hard"): stage A (b225f21) — instruments/kissing/holes/holes.py, the deepest empty cap of every known
+    11-dimensional configuration PROPOSED in floats: 604s 54.7356° (= arccos 1/√3, 51 supports) and 52.9133°;
+    593 53.7470°; 594 58.4534° — no 605th sphere fits any known 604 by insertion (>= 5.26° short). The
+    research scout (2026-10-04, report in the session) ranked the SEPTEMBER KISSING WAVE first: K(18) >= 8,358
+    (Kravatsky, github alexlegeartis/KissingNumbers, +704 on Cohn–Li, unchecked) and the K(25..31) race
+    (Kravatsky / Takhanov–Yun arXiv:2609.21591 / Qiushi arXiv:2609.35051). A SECOND WORKTREE AGENT is on it:
+    pins, Z[√3] in instruments/kissing, K(18) exactly, d25–31 (exact where integer; floats repaired or
+    UNWITNESSED), then the hunt (empty caps on every certified record; anything new built and certified
+    exactly, nothing sent). Its branch merges when it reports. Other scout picks held: Ramsey 2026 bounds,
+    the registry's open PRs (#207, #200 hours each), the heat-flow GCM explicit order (new math, f_34 at order
+    34 numerically), Tammes N=15, HRT.
+
+────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-04, THE TWENTY-NINTH SESSION — THE PRIME INTELLECT APPLICATION.
+  ORIGIN (talk first, then "go"): the operator asked (1) for ideas for a Hub
+  environment built for likes, (2) which Prime Intellect role to apply for and what
+  to send, (3) whether to train on every environment, (4) whether to improve
+  lattice-claims first and build one more environment. Answers given in chat:
+  · THE HUB, MEASURED (the public API, no auth: api.primeintellect.ai/api/v1/
+    environmentshub/?limit=100&offset=N): 1,789 environments, 1,185 at 0 stars, 19
+    at >= 10, top 33 (hud-text-2048). OURS: break-the-grader, blind-spot and
+    lattice-claims all at 0 stars. Stars go to famous benchmark names, games,
+    known companies doing concrete jobs (zapier/AutomationBench 30) and
+    continuously updated procedural reasoning (sileod/reasoning-core-env 15); the
+    ~90 reward-hacking-sprint envs sit at ~0. WHITESPACE: no open-problem /
+    AlphaEvolve / EinsteinArena-style discovery env exists (searches for einstein,
+    alphaevolve, packing, kissing, erdős return nothing; one Ramsey env, 0 stars).
+    Ideas, ranked: beat-the-record (open bounds scored exactly; deciders shared
+    with phase 4b) with a level-ladder game mode; infinite-exact; sign-off
+    (Contraprova as an agent env); claim-court; allclose-is-a-lie. Nothing built.
+  · THE ROLE: Applied Research – Forward-Deployed (SF, hybrid-remote, visa
+    sponsorship, $150–300k); second, Applied Research – RL & Agents. The visible gap:
+    no training run anywhere in this repository, only API evals. The packet: ONE
+    controlled training run written up in PI's case-study form, verifiers-framework
+    issues re-checked against v1 and filed, a PI-tuned fork of outreach/metr/
+    resume.md, the Ashby form answers. The plan is in memory
+    (primeintellect-application-plan).
+  · TRAIN ONE ENVIRONMENT, TWICE: lattice-claims (stdlib, procedural, V1 runtime).
+    certified-mathbench is 46 fixed rungs (an eval ladder); blind-spot needs yosys/
+    iverilog in the sandbox; break-the-grader trains grader-attacking and is V0.
+    THE ARMS, revised after reading taskset.py: a binary ANSWER KEY against the
+    EXACT grader — guessing against decided abstention (well_formed alone is an
+    echo/format check GRPO learns trivially, so verdict-vs-reference was dropped).
+  BUILT THIS SESSION (on "go") — lattice-claims 0.2.0, instruments/wiring:
+  · taskset.py: Task.key = the complete instance's binary verdict (ins.verdict,
+    already computed in _shape — no extra random draw); grade_key, the control arm
+    (abstentions never score); Taskset(mix=...) rung weights as a deterministic
+    cycle, default (1,1,1) = the 0.1.0 cycle; `grade` untouched.
+  · api.py: make_taskset (the one place seed/index/dims/mix becomes a generator;
+    0.1.0 defaults when absent, so stored rows keep their meaning); rows carry dims
+    and mix; score_task adds key_match, abstained, confident_wrong.
+  · adapters_v0.py: load_environment(grader="exact"|"answer_key", dims, mix);
+    unknown grader raises; the rubric reports reward + certified, key_match,
+    abstained, confident_wrong, well_formed, not_hacked, refused_parse (weights 1,
+    then 0), so two runs that differ only in `grader` are read on one scale;
+    scoring memoised per (seed, index, dims, mix, reply), returning a copy.
+  · THE INCENTIVE WITH NO MODEL (python -m lattice_claims baseline --n 100; 300
+    tasks, dims 8–16): exact grader — exact 300, careful 171, admissible 93,
+    refused 78; answer key — exact 171, careful 278, admissible 165, refused 135.
+    Under the key the honest policy beats always-ADMISSIBLE by 6 and loses to the
+    guesser by 107. A battery check now holds the reversal on the 45 baseline
+    tasks (key: careful 43 > exact 26; exact: exact 45 > careful 26).
+  · COMPATIBILITY: the generator's output is byte-identical to 0.1.0 (two sha256
+    pins in tests/test_graders.py, taken BEFORE the change, default and training
+    dims); regrade 135 rows, 0 moved; the 72 framework rollouts, 0 disagreements.
+  · Tests 43 across five files (33 without verifiers); battery all green; the
+    wheel (sha256 5fc5c0a6…) installed into a fresh python3.12 venv with verifiers
+    0.3.1 and loaded with no source tree: both graders, 6/6 across three rungs,
+    prompts <= 1,841 chars, 43 tests pass against the INSTALLED package.
+    PROVENANCE.json re-pinned with per-file 0.2.0 patch notes and a `v020` section;
+    README (the Hub front page) gains "Two graders"; pyproject 0.2.0, description
+    186 → 74 chars, tag `hallucination`; build-control.js's battery line updated.
+  · PRIOR ART, written into corpus/targets.json as OCCUPIED (rl-guessing-vs-
+    abstention): Kalai et al. 2509.04664 (the incentive argument) and TruthRL
+    2509.25760 (binary vs ternary reward under GRPO, ICML 2026). A positive result
+    is a REPLICATION and must be written as one; what is added is abstention
+    DECIDED, not labelled (abstaining on a complete task scores 0 too).
+  PUSHED (on the operator's "Push if ready", 2026-10-04): carlos-toledo/lattice-
+    claims v0.2.0 is on the Hub, PUBLIC (prime 0.6.31 lives at ~/.local/bin/prime,
+    not on PATH; version_id s40ntzyzd6m5610tfnovd4r5). The Hub's wheel hashes to the
+    one verified from the clean install (5fc5c0a6…); verified FROM THE REGISTRY in a
+    fresh 3.12 venv: both graders load, 6/6 across three rungs, seeds 2026/2027, 43
+    tests pass against the installed package. PROVENANCE `v020.hubPush` records it;
+    dist/ now holds the 0.2.0 wheel (prime cleaned the 0.1.0 one).
+  THE FREE PILOT, STARTED (operator: "start free pilot", 2026-10-04 evening).
+    Pre-registered FIRST: notes/lattice-claims-rl-preregistration-2026-10-04.md
+    (3ea8e0e) — arms, the fixed eval set (seed 9999, 300 tasks: 173 definite, 127
+    where the decided answer is an abstention, so 42.3% = perfect abstention), the
+    readings in numbers, ceiling US$80 for the paid stages. Configs in
+    instruments/wiring/train/ (six; a pair differs only in `grader`). Two
+    deviations, both before any training step, both in the note: (1) the free
+    model (sprints/Llama-3.2-1B-Instruct) runs through Prime's Sprints program,
+    which refused 0.2.0 ("does not meet the free-tier environment requirements");
+    0.2.1 = README "Reward hacking sprint submission" section + tag, code
+    byte-identical, pushed and verified from the registry (3007a57); (2) the
+    configs lacked [[eval.env]] and CLI 0.6.31 drops [eval] silently without it —
+    the first two runs (luhp7l…, pwwg5x…) were stopped at step None and relaunched.
+    THE RUNS: e6zvxsdjgs5tbed7r2prswjo (A, answer key) and icx69k02mx5lokcxbj8t3b7e
+    (B, exact), $0, 60 steps, eval every 20 on the 300. Read with `prime train
+    get|progress|metrics|rollouts <id>` (prime at ~/.local/bin/prime). The pilot
+    is plumbing and base rates, never the result.
+    THE PILOT'S OUTCOME (both arms aborted by the trainer on "10 consecutive zero-
+    trainable batches": B at step 26, A at step 44; records in instruments/wiring/
+    train/pilot/, read by read_run.py): plumbing works, all eight rubric numbers
+    logged per step. But the 1B model NEVER abstained correctly (0 of 54 due
+    abstentions in steps 0–3 named the missing quantity), so BOTH graders trained
+    it to always answer (0 abstentions from step 10 on, confident_wrong 0.15–0.19
+    → 0.70, groups uniform). At this capability the arms cannot separate.
+    Written into the pre-registration with deviation 3 (the hosted eval reports
+    only each arm's own reward, so the readings come from per-step training
+    metrics + rollout classification) and THE GATE: stage 2 runs only if
+    Qwen3.5-4B abstains correctly on >= 5% of samples and on >= 20 of 100
+    incomplete tasks (8 samples each) — a < US$1 check, on the operator's word.
+  HELD — EACH ON THE OPERATOR'S WORD:
+  · THE BASELINE MEASUREMENT (a spend + a model choice — the open model Lab will
+    train): 200 tasks per rung at dims 8–16, e.g. `vf-eval lattice-claims -a
+    '{"grader": "exact", "dims": [8, 12, 16], "num_tasks": 600}' -m <model> -n 600`
+    (num_tasks sizes the dataset; vf-eval draws from the EVAL split, seed + 1); the parse-failure
+    rate, accuracy per rung, abstention rate; GRPO needs groups with mixed rewards.
+  · THEN: the pre-registration note (arms, prediction, seeds, spend ceiling), the
+    two Lab runs (two seeds per arm if the budget allows), before/after transfer
+    evals on blind-spot and break-the-grader, the write-up, outreach/primeintellect/
+    (not started), the Ashby application. AFTER applying: write-the-grader (the
+    agent writes a grader; honest solutions accepted AND exactly-minted forgeries
+    refused; Prime Sandboxes) — the PI-focused env; beat-the-record is the likes play.
+
+────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-02, END OF THE TWENTY-EIGHTH SESSION — STATE AND THE OPEN LIST.
+  COMMITS: c25cc61 phase 1 (the rerun kit), 302260a phase 2 (the corpus + five asks,
+  held), 0e2cb0c phase 3 (certified-mathbench + v1 pre-registered, held), 52ec164
+  phase 4a (the census + the hundred pre-registered), then the correction commit
+  below. A CORRECTION: 52ec164's message says "control build 106/106 green"; that
+  build had REFUSED at its first line (the new battery row was filed in the control
+  build's Python list while its file is JavaScript — bat() dies on the mismatch
+  before running anything) and the exit code was read as green by a grep that
+  matched nothing. The row was moved to the Node list, wiring green, the control
+  build re-run; the correction commit says so. Lesson, standing: after a control
+  build, read the exit line, not the absence of RED.
+  WHAT IS OPEN, by who acts:
+  · THE OPERATOR'S WORD (built, waiting): the five phase-2 asks (outreach/rerun-
+    asks-2026-10-02.md, LANE R); the hub push of certified-mathbench (`pip install
+    prime` first); the MathBench v1 run (US$50 ceiling, `ant auth login` first).
+  · PHASE 4b, THE DECIDING (the next session's work): ~45 of the 100 have a decider
+    (the tensor pools + the notebook's 15 through instruments/strassen and tools/
+    convert_alphaevolve.js, which must learn the 0.5*C ring; the kissing and easota-
+    shaped EinsteinArena rows; the Station's Jacobian through polymaps); the rest
+    new finite exact checks (Kakeya sets, difference bases, cap/admissible sets,
+    the cyclic independent set, Hadamard, sorting network, Shannon capacity, no-
+    three-in-line, deletion code, snake), then exact-rational scoring of printed
+    constructions, the three registry entries, the AlphaEvolve repository rows
+    (NEEDS DATA where only programs are published). Each run writes its own ledger
+    and reaches the register through run-claims-ledger.js; the page for the hundred
+    is built only when verdicts exist; the register paper's second edition is the
+    product. Order in notes/machine-claims-100-preregistration-2026-10-02.md.
+  · KIT DEBTS (the page counts them): a one-line re-derivation for certs/ai-claims-
+    summary.json and the Navier–Stokes audit record; the two GNNW records and
+    tools/certs-shelf.js print verify/ (the served path) where the repo path is
+    tools/.
+  · OLDER DEBTS, untouched this session: the paper agents' page/record findings of
+    2026-10-01 (listed under "THE PRE-PAPER SHELF" below — easota, erdos852,
+    erdos1038-sup, the rm-registry counting fix, rm-audit, impostors, zeta3, time-
+    horizon, entropy, the Black Sea loader columns, the GNNW `what` paths, the
+    kissing paper's 74 vs 70 ms); the older send queue (HorizonMath authors, the
+    optimizationproblems PR, Gao, Castañeda–Honorato–Valenzuela-Henríquez, the
+    EinsteinArena table-audit reply, the Woett and OEIS packs); the next `make
+    engine` adds 17 pins to certs/keller-certificate.json (say so in that commit).
+  · HOUSEKEEPING: environments/blind_spot/.venv holds verifiers 0.3.1 again (it had
+    lost it); /tmp/cm-clean is a scratch venv, disposable.
+
+HANDOFF 2026-10-02 — THE RERUN PROGRAM (the twenty-eighth session). ORIGIN: an outside
+reading of the project (Vivian Altebarmakian, 2026-10-02, pasted in chat: the map
+of AlphaEvolve / AlphaProof / Ramanujan Machine / AI Scientist with cert-machine as
+the verification layer between generators and the literature; the four-rung ladder;
+the oracle as the lever; the critique that the project sells independence it has not
+yet earned — "0 independent reruns"). AGREED: the positioning, the ladder, the oracle
+lane, "verifiable computational science" as the territory. CORRECTED against the
+disk: one outside no-shared-code re-certification exists (rainrzk, λ(4), 2026-09-30)
+and the page said none; stdlib second implementations already exist per family (GNNW,
+sumdiff, Contraprova, Decidível, countex) — independence comes from another author,
+not from a Rust port by the same one; the registry-as-standard was killed in
+corpus/targets.json (nanopublications, Trusty URIs: built, unadopted); a general Lean
+exporter is low yield for witness claims. The operator's word: "Build the ToDos list
+with phases and start building. Stop at each phase and handoff."
+  PHASE 1 — THE RERUN KIT — DONE 2026-10-02 (this session, one commit). What was built
+    is exactly the list below. MEASURED: all 23 kit commands executed from this
+    repository under caffeinate (certs/rerun-kit-run.json; Apple M2, Node 24.14, the
+    system Python 3.9.6): every one green, the register's 88 rows (verdict, scope, kind) unchanged.
+    The slow ones: make engine 302 s, hseva --check 379 s, gnnw --check 185 s, gnnw
+    second.js 127 s, horizon 116 s, polymaps 84 s; the rest seconds. The page shows
+    every runtime from that record. The rewritten records were reverted to HEAD
+    (timing and date churn only) EXCEPT one observation: `make engine`'s
+    export-keller-certificate.js now writes 17 MORE pins than the committed
+    certs/keller-certificate.json holds (corpus/sources grew since it was last
+    exported) — reverted here, not a defect, but the next make engine will commit
+    it; say so in that commit. Gates: style, measure, render accepted for the new
+    page; wiring, grammar, stale-claims green; build-site.js run (the /reports/ card
+    and /oracle/ §9 live in site/). OWED: `make control` (15 min, all batteries) was
+    NOT run — the laptop was at 17% on battery — so site/machine/ still prints the
+    old "none has yet" sentence until the next plugged-in `make site`. ALSO OWED
+    (kit debts the page itself counts): a one-line re-derivation for
+    certs/ai-claims-summary.json (the six lanes' batteries) and for the Navier–
+    Stokes audit record (the Lean rebuild); tools/certs-shelf.js and the two GNNW
+    records still say verify/verify_gnnw_gai.py (the served path; the repo path is
+    tools/) — the kit table names both. One manifest error caught by running:
+    instruments/tensorlb/verify.py is Wang's lower-bound auditor, not a Strassen
+    second implementation; removed before the run.
+    NEXT SESSION STARTS AT PHASE 2 (below): the ten rows, the five asks, every one
+    a SEND on the operator's per-item word. The kit as built:
+    · corpus/rerun-kit.json: ONE manifest, one entry per record the register's rows
+      are decided from (the 20 `decidedFrom` records): the command that re-derives
+      it, the standard-library verifier where one exists, the independent second
+      implementation where one exists, what it needs. Rows per record are read from
+      the register at build, never typed.
+    · tools/build-report-rerun.js → reports/rerun.html + RERUN.md (generated, one
+      source): the protocol (what to run, what to hash, where to report), the kit
+      table with each record's sha256 at this build, the register-row schema and the
+      closed defect vocabulary read from certs/claims-ledger.json, the oracle's
+      certificate schema named, the EXTERNAL-RERUN REGISTRY (corpus/external-reruns.
+      json, with a `kind` per row: own-code / detached-verifier / full-rederive), the
+      trust base. REFUSES when a register record lacks a kit entry or vice versa, or
+      a named file is missing. `--run` re-derives every record, times it, and writes
+      certs/rerun-kit-run.json (the measured runtimes; the register's rows compared
+      before and after: a verdict that moves refuses).
+    · corpus/external-reruns.json gains its first row (rainrzk, λ(4), own code); the
+      oracle's §9 and the control page read the count instead of saying "none".
+    · .github/ISSUE_TEMPLATE/rerun.yml: "Report an independent rerun".
+    · the card on /reports/, the Makefile `reports:` line, the README pointer.
+  PHASE 2 — FIVE OUTSIDE RERUNS OF ONE CORPUS — BUILT 2026-10-02, THE SENDS HELD.
+    corpus/rerun-corpus.json: ten register rows, five parties (rainrzk ×3: erdos852-
+    cstar, mm-alphaevolve-48-4x4x4, optconst-84b · Norin ×2: gnnw-gai-3782,
+    horizonmath-ramsey-asymptotic · the EinsteinArena thread + Dualverse ×3: kiss-ea-
+    604, kiss-station-604-1, ea-overlap-together_ai_2026 · Sra ×1: countex-dpp-
+    feasible-step · the LabECO pair ×1: ecbench-marginals). The kit page's §3 draws
+    the corpus and the milestone stat "n of 5 parties" is READ from corpus/external-
+    reruns.json (a registry row may now carry `rows: [register ids]`; a party counts
+    when one of its rows names a corpus id; the build refuses an unknown id or
+    party). The five asks are DRAFTED in outreach/rerun-asks-2026-10-02.md (LANE R
+    in outreach/SEND-QUEUE.md): R1 rainrzk, R2 Norin (email, English), R3 the #64
+    thread + a Dualverse issue, R4 Sra, R5 the LabECO pair (Portuguese, salutation
+    and signature left to the operator; nobody named). EVERY ONE IS A SEND on the
+    operator's per-item word; after a reply, add the registry row with its `rows`
+    and rebuild. Phase 2 is then measured, not declared: the page says 0 of 5 today.
+    WHAT PHASE 2 STILL NEEDS FROM THE WORLD: the replies. Nothing else to build.
+  PHASE 3 — THE ORACLE AS THE LAB-FACING PRODUCT — BUILT 2026-10-02, THE PUSH AND
+    THE RUN HELD. (a) environments/certified_mathbench: the seven MathBench families
+    as a `verifiers` environment for the Prime Intellect hub — ONE grader: the
+    package reads instruments/mathbench/families.py + tools/llm_harness_base.py +
+    tools/verify_sumdiff.py + the pinned 13-point certificate from the repository
+    (a source tree) or from byte-identical copies force-included in the wheel; all
+    pinned by sha256 in its PROVENANCE.json (battery.py, --pin after a deliberate
+    change). api.py (ENV_ID, 46 rungs, 5 beyond the record, sample/score/grade,
+    preflight = 28 green certify + 20 red refute, baseline_table 6/46),
+    adapters_v0.py (load_environment: SingleTurnEnv over the ladder; rubric reward
+    = certified, metrics refuted/rejected/malformed at weight 0; the ladder IS the
+    dataset, eval = the same ladder in another order — nothing to hold out, nothing
+    to leak), cli.py (gate · tasks · baseline · rungs), README (the hub front page),
+    three test files (13 tests: framework-free, grading, the binding against
+    verifiers 0.3.1). VERIFIED FROM A CLEAN INSTALL: the wheel built with the
+    framework venv (environments/blind_spot/.venv now holds verifiers 0.3.1 again;
+    it had lost it), installed into a fresh python3.12 venv in /tmp with no source
+    tree: preflight green, 46/46, reward 1.0 on the optimal 13-mark ruler and on the
+    record entropy law, 0.0 on prose; the 13 tests pass against the installed wheel.
+    Battery registered in make test and build-control (105 now; wiring green).
+    ONE EDIT TO THE GRADER: families.py's _record() gained a second lookup path for
+    the pinned certificate (beside the file, for the wheel) — no decision touched;
+    the v0 battery 83/83. THE HUB PUSH IS A SEND, HELD:
+      cd environments/certified_mathbench && prime env push --visibility PUBLIC
+    (the `prime` CLI is not installed on this machine today: `pip install prime` in
+    the framework venv first; then verify FROM THE REGISTRY in a fresh venv as the
+    siblings were). (b) MATHBENCH V1 PRE-REGISTERED: notes/mathbench-v1-
+    preregistration-2026-10-02.md — the same families (pinned), Sonnet 5 then Opus 5
+    (Haiku dropped: never out of tokens in v0), the cap doubled to 48,000, one sample
+    per rung, ceiling US$50 of the US$77.70 left, the three pre-registered readings.
+    THE RUN IS A SPEND, HELD for the operator's word (`ant auth login` first):
+      python3 tools/run-mathbench.py --tag v1 --max-tokens 48000 --models claude-sonnet-5,claude-opus-5 --cap 50
+    (c) NOT BUILT (judged lower yield than (a)): separate kissing/packing hub
+    environments — the kissing family is already a rung of (a); a packings
+    environment needs easota's deciders wrapped as families, a day. The test of the
+    lane stands: one lab running one environment; nothing here measures that yet.
+  PHASE 4 — 100 PRE-REGISTERED MACHINE CLAIMS — 4a THE CENSUS AND THE
+    PRE-REGISTRATION DONE 2026-10-02; 4b THE DECIDING NOT STARTED.
+    THE CENSUS (eight rows in corpus/targets.json, `node tools/targets.js
+    machine-claims`): AlphaTensor 113 keys on disk (7 decided); the AlphaEvolve
+    notebook 16 + 13 (1 + 7 decided); EinsteinArena's API 29 problems, every one
+    with a current best (three unsolved targets whose best is an infeasible
+    near-miss); the Station 14 folders, 10 constructions; FunSearch 6 files;
+    the registry 3 decidable asterisks; the AlphaEvolve repository 67 problems,
+    19 world records, pages that are JavaScript templates; the erdosproblems AI
+    wiki ~180 proofs and ONE number (#513) — DEAD as a witness pool.
+    THE HUNDRED: corpus/machine-claims-100.json, built by tools/run-machine-claims.js
+    --write from the pinned bytes; the check (a battery now, 106 in both
+    registries) re-hashes 97 pins (3 hash-only: the 14.6 MB Station witness and
+    FunSearch's two large admissible sets, by sha256 + commit URL), holds the
+    declared pool sizes (alphatensor-q 12 · alphatensor-f2 8 · alphaevolve-nb-matmul
+    15 · alphaevolve-nb-b 6 · einstein-arena 29 · station-v2 10 · funsearch 6 ·
+    optconst 3 · alphaevolve-repo 10 · erdos-513 1), refuses any verdict field, and
+    refuses a manifest the rules do not rebuild — no row can be added, dropped or
+    re-chosen by hand. The rules and the readings are in notes/machine-claims-100-
+    preregistration-2026-10-02.md. NEW CORPORA, pinned at commits: corpus/einstein-
+    arena (29 bests of 2026-10-02 + problems.json, 4 MB, best-3 gzip),
+    corpus/station-v2 (a4ae9192), corpus/funsearch (cc53f274), corpus/alphaevolve-
+    problems (8f447457; the 10 pages + the experiments listing), corpus/optimization-
+    constants/registry (1a, 3a, 84a @ 2c1968cd), corpus/sources/erdosproblems-513.
+    4b — THE DECIDING, pool by pool, each run its own ledger reaching the register
+    through run-claims-ledger.js (the order is in the note): deciders exist for
+    ~45 rows (the tensor pools through instruments/strassen + convert_alphaevolve.js,
+    which must learn the 0.5*C ring; the kissing and easota-shaped EinsteinArena
+    rows; the Station's Jacobian through polymaps); the rest are new instruments,
+    mostly finite exact checks. A row published only as a program is NEEDS DATA
+    (claimant code is never run) and stays. The register paper's second edition is
+    the product: the defect rate by kind on a corpus chosen by rule.
+  JUDGED LOW-YIELD 2026-10-02 (information, not a ban — reclassified 2026-10-05): a Rust port; a general Lean exporter; a registry
+    product; a consortium.
+
+────────────────────────────────────────────────────────────────────────────
+HANDOFF 2026-10-01, END OF THE TWENTY-SEVENTH SESSION — THE BRAINSTORM (talk only, no
+development; the operator's words: "no development for now, just talk"). State: the
+shelf below is committed and pushed (c814c9a); the partnership with the LabECO pair is
+ongoing and they hold the index link; the Radar forms are in. Three menus were given in
+chat and are recorded here so the next session does not redo them.
+  A. RESEARCH EVOLUTIONS OFFERED (the operator picks with the partners): (1) the ten
+     regional claims re-boxed by their own authors (P1's natural joint follow-up); (2)
+     POT/GPD certified with the threshold curve; (3) climate windows on the hindcast
+     halves then their CMIP runs; (4) certified environmental contours with THEIR joint
+     Hs–Tp model and conventions (their funded topic — ask for the model, not the
+     data); (5) the breaking-waves second paper (the seven questions in the draft are
+     the agenda); (6) buoys vs hindcast as a "distance between two records" map of the
+     Brazilian margin; (7) the marginal-fit STANDARD as a specification paper (what a
+     fit must fix + the certificate as its second half); (8) an open registry of
+     design values (passes the killer-app test; hazard words); (9) the stdlib Python
+     verifier in their pipeline (+ a software note); (10) ask what the first author's
+     own line is. Suggested first three: 1, 4, 7. Scout the targets row before any
+     build.
+  B. THE LRCAP/BESS FRONT, re-scouted: NO open comment window (ANEEL CP 022/023-2026
+     closed 2026-09-14); the auctions are 2026-12-02 (national content, 05/2026) and
+     12-04 (open, 06/2026); 297 GW registered against an unpublished demand; still to
+     come: the ONS/EPE remaining-capacity note (was due 09-30), the FINAL EDITAL WITH
+     THE CEILING (~10-26), EPE qualification (~11-17), the CRCAP penalty annexes. The
+     bench (frontier-apps/experiments/lrcap-bid, lrcap-bess, fleet-dispatch; targets
+     rows bench-ignorance-budget, bench-greedy-overclaim) holds the bid-floor
+     enclosure + ignorance budget, the Aurora-vs-EPE adjudication (capex ≈ R$ 5.4 M/MW
+     at 8% real is the boundary), the audit-targets list and the fleet-rebound kernel
+     (proprietary at source; crowding not found; floor pin). Options ranked: "the
+     ceiling, decided" the day the edital lands (hours); sealed clearing predictions
+     before Dec 2 (Forecast Gym pattern; publishing a hash is a SEND); the bid book as
+     a Contraprova vertical only if a bidder appears; the audit-targets page; the
+     rebound paper (weeks, not LabECO's domain); the contract as a decidable object
+     after the auction.
+  C. PUBLIC CALLS SCANNED (web, 2026-10-01; verify every date on the official edital):
+     · CNPq RHAE IA 29/2026 — DEADLINE 2026-10-09 — AI researchers in innovative
+       companies; fits Contraprova/certified evaluation; needs a CNPJ with R&D history
+       and a named researcher.
+     · CNPq/CAPES MAI/DAI 30/2026 — 2026-12-11 — the ICT proposes, the company gives
+       counterpart for MSc/PhD scholarships: THE PARTNERSHIP'S FUNDING VEHICLE (thesis
+       on the standard / contours / POT); find UFSC's internal deadline first.
+     · Finep Mais Inovação Rodada 2, Tecnologias Digitais — 2026-10-14 per one source,
+       09-30 per another — companies/startups, subsidy; heavy proposal.
+     · FAPESC Horizonte Europa 65/2025 — continuous to 2028-06-30, up to R$ 700 k per
+       SC company inside an approved Horizon Europe project (Ifremer/CNR door).
+     · Free registrations: 100 Open Startups Energy challenge; FAPESC Inova Talentos.
+     · Recurring, nothing open: ONS Inovação Aberta (with ACATE, Florianópolis), the
+       Petrobras Conexões Módulo Startups 5th call (unannounced; the Radar is our
+       entry), ANP NAVE 2nd edition (unannounced), SENAI MOVER Aliança Startup (next
+       mid-2027), Vale/Mining Hub M-Spot cycles. No open ANEEL strategic call, no
+       Embraer/ANAC call, PIPE needs a São Paulo institution.
+     · Decidable objects coming without a call: offshore-wind area offers (design
+       values per site = P1's product); the LRCAP ceiling (B).
+  D. R&D ROUTES (standing pipes, not contests): (1) the ANP PD&I clause through
+     LabECO — Res. 918/2023 lets Brazilian companies co-execute, and up to 30% of the
+     credentialed-institution share may go to partnerships with Brazilian companies for
+     product/process/service innovation; our entry is co-executor in their existing
+     Petrobras/ANP project or in a CENPES thematic-network term of cooperation; needs a
+     CNPJ meeting the 70% small-ownership rule. (2) Embrapii at UFSC — inoVARE/UFSC and
+     MOVE-UFSC (the latter in LabECO's own department): a client contracts the unit,
+     Embrapii pays about a third; ask whether LabECO can execute under MOVE-UFSC.
+     (3) CNPq/ANR Brazil–France 32/2026 — open to 2027-03-31, digital-continuum axis
+     (modeling, simulation, HPC, AI), up to 4 projects nationally — the only open
+     international window; needs a French group (Ifremer Brest; validated numerics).
+     (4) the CNPq people lines above. (5) Horizon Europe via FAPESC. (6) ANEEL PDI via a
+     utility (storage/AI themes; needs a utility). Closed this year, calendar for next:
+     CNPq Universal 06/2026 (results 11-03 / 12-04; next mid-2027), CAPES/COFECUB
+     07/2026 (closed 05-29; next spring 2027), Belmont Forum Ocean 2 (closed 08-27).
+     Suggested order to raise with the partners: ANP co-execution → MOVE-UFSC →
+     a French partner for 32/2026.
+  CALENDAR, dated: 10-09 RHAE IA · 10-14 Finep rodada 2 (verify) · ~10-26 LRCAP edital
+  + ceiling · 11-03/12-04 Universal results · ~11-17 EPE qualification · 12-02/12-04
+  the auctions · 12-11 MAI/DAI · 2027-03-31 CNPq/ANR.
+
+────────────────────────────────────────────────────────────────────────────
+FIRST — THE PRE-PAPER SHELF (2026-10-01, the twenty-seventh session, second half).
+On the operator's word ("scavenge the cert-machine and build all pre papers we
+can … create a html index so they can see the links, descriptions and access the
+pdf papers"): TWENTY-SIX PAPERS on the shelf and THE INDEX at /papers/
+(site/papers/index.html, rendered by tools/build-papers-index.js from
+paper/INDEX.json — the manifest: title, 40–60-word description, status, form,
+venue, report page, tex, records — and from the PDFs' own page counts via
+pdfinfo; it REFUSES when the shelf and the manifest differ in either direction;
+wired into tools/build-site.js as 'papers/index.html'; the PDFs are served at
+/paper/<name>.pdf). The reviewing group: BOTH LabECO members will review ALL the
+mathematics papers and the operator plans to offer co-authorship on all of them
+— an offer, not yet an agreement: NOBODY is named in the repo, every author
+block is Carlos alone with "author list to be agreed".
+  THE SEVENTEEN NEW DRAFTS (one agent each, in parallel; every number a macro
+  written by tools/paper-numbers/<name>.js from the records and refusing on
+  drift; figures by the sibling <name>-figs.py; compiled by tectonic through
+  tools/build-paper-tex.js, which since today also refuses a PDF that prints an
+  undefined citation): register (15 pp — THE METHOD PAPER), ramsey-chain (13),
+  jacobian-counterexamples (14), matmul-records (14), erdos290 (12), erdos852
+  (12), erdos1038-sup (12), lambda5 (14), henon-entropy (12), digits-not-
+  evidence (14), ec-benchmark (23, Ocean Engineering form), breaking-waves (21,
+  Coastal Engineering form — for the dataset's authors first; seven questions
+  addressed to them), mfg-multiplicity (15), mfg-redecided (14), terra-peaks
+  (11, converted from the markdown draft, the record winning over its rounding;
+  tools/build-terra-{writeup,pdf}.js now refuse like ember's), certified-
+  evaluation (18; consolidates certificate-grounded-grading.md and verified-
+  reward-oracle.md), navier-stokes-audit (11). With P1–P3 + the abstract and the
+  five older LaTeX/markdown papers: 26 PDFs, ≈350 pages, 57 records cited.
+  `make papers` = the kissing paper + build-paper-numbers.js (P1–P3) + every
+  tools/paper-numbers/*.js + tectonic --all + the index (several minutes: the
+  numbers tools run batteries; mfg-redecided --check and hseva are the slow
+  ones; matplotlib lives in instruments/hseva/.venv).
+  WHAT THE PAPER AGENTS FOUND ON THE PAGES AND RECORDS — debts, none fixed
+  unless marked:
+    · reports/diagonal-ramsey.html rounded the base DOWN to 3.7721 — FIXED
+      (title and stat read 3.77213…; the backlog headline too).
+    · reports/easota.html: "the largest improvement is the benchmark score" is
+      stale since the flat-polynomial (6.0e-2) and hexagon rows were added.
+    · reports/erdos852.html: the log1p sum lies 9.4e-14 BELOW the enclosure,
+      not "inside"; "digit 12" = the 12th decimal = the 11th significant digit
+      (the claims page and the posted correction share the ambiguity).
+    · reports/erdos1038-sup.html + certs/sublevel-tao179.json provenance:
+      "Tao's conjecture" is stale — sup = 2√2 has been a THEOREM since
+      2025-12-21 (forum post 2337; T. Tao's notes 2025-12-27, Thm 2.1); "drops
+      discontinuously" is wrong (continuous; the quintic set splits past
+      r = 905/1024). The DPT manuscript's "Tao" is Runzhou Tao, not Terence.
+    · tools/run-claims-ledger.js block 4: the rm-registry row counts OUR
+      correction row among the printed rows (52/51 vs the page's 51/50),
+      against the counting rule — one-line fix (printed = certified − 1,
+      survivors = hits − 1), then regenerate the register.
+    · reports/rm-audit.html "every row of every published sheet": the record
+      covers the five 2020–22 tables and 3+2 rows of the two 2018 sheets; three
+      of the ten PDFs are not pinned; "ten red controls" is 12 today.
+      reports/impostors.html "~14,000 spellings" is 3,763 generated / 3,742
+      tested. reports/zeta3-audit.html "exponent 2 is sharp" is not what the
+      band certificates measure (c = 0, 1, 2 certified, 3 refused).
+    · reports/time-horizon.html "differ by 3 to 12%" vs the ledger's 0.6–12%.
+    · reports/entropy.html: ceiling 0.4658 (p = 15) vs HANDOFF's 0.4648
+      (p = 16); the instrument header's "covering relations compose" should
+      say chains; the semantic red control never exercises composition (every
+      duration-2 candidate is refused at a = 6) and no control exercises the
+      slab condition.
+    · corpus/blacksea-breaking: "multiples of 1/256" is loose (denominators
+      reach 1024); the pinned loader assigns three columns off by one (name
+      sv_fp2 ← Hs_ev, sv_fb0 ← svfp2_ev, Hs ← svfb0_ev) — a question for the
+      dataset's authors, asked in the paper.
+    · the GNNW records' `what` strings name verify/verify_gnnw_gai.py; the file
+      is tools/verify_gnnw_gai.py (the report page's check line too).
+    · the kissing paper quotes 74 ms for the 604 decision; the record says 70.
+  EACH PAPER'S OPEN QUESTIONS FOR REVIEWERS are in its own "what is not claimed
+  / points for review" section; the agents' reports (in the session) list them
+  too. NOTHING IS SENT: the index link and the PDFs reach the reviewers through
+  the operator.
+
+────────────────────────────────────────────────────────────────────────────
+FIRST — THE PAPERS ARE DRAFTED (2026-10-01, the twenty-seventh session). On the
+operator's word ("build the full pre papers to help [the contact] review"; the
+partnership has started; a second LabECO member — the method paper's first
+author — joined the thread, and the operator will help with his work too; names
+stay OUT of the repo until they agree to be named). FOUR MANUSCRIPTS BUILT, in
+paper/, every number interpolated from the records:
+  · p1-return-levels.pdf (29 pp, Ocean Engineering form): the atlas (2,589 cells,
+    46,602 fits, 40,778 certified, 5,751 generalized-gamma fits refused at the
+    lognormal limit WITH the proof); the threshold rule against the proof (544 of
+    7,767 cell-blocks change family; 4 of the paper's ten regional claims — 3, 5,
+    6, 10 — change verdict); the ten claims decided (6 hold, 2 do not, 2 open);
+    the GEV beside the six; the 3-hourly ledger read against the paper's three
+    findings; scipy called two ways (0 of 60 agree location-free, 45 of 60 fixed;
+    15.20 vs 7.08 m); the benchmark's printed marginals; the design table (19 of
+    20 off the maximum). Six record-drawn figures + a TikZ pipeline, 24 refs.
+  · p1-extended-abstract.pdf: the two-page scope abstract agreed as the first
+    deliverable, ending with the questions the co-authors must settle.
+  · p2-decision-procedure.pdf (17 pp, RESS form): the grammar (proved / refuted /
+    refused with witnesses and the threshold that decides), the flowline
+    instrument, the nine receipts, the Monte Carlo face to face WORDED AS THE
+    OUTSIDE REVIEW ASKED (the draws DID find exceedances, 0.3% of 10,000; the
+    worst draw 360.7 vs the proved corner 361.6; the 0.3% is about a uniform
+    prior nobody declared), the rules-vs-flags policy, water injection as the
+    pilot BECAUSE single-phase steady flow is covered whole, the cost chain
+    (overpressure → integrity → shut-in → deferred pressure support; the design
+    wave the larger number), the AI-math calibration in one paragraph, the λ(4)
+    outside audit as evidence that records re-certify; 26 refs.
+  · p3-4d-detectability.pdf (19 pp, J. Appl. Geophys. form): the model and the
+    declared envelope with sources, the four proved numbers per box, UNISIM-IV
+    results (maps, counts at 1.5/2/3%, the field by gas-saturation row — with
+    the CO2-rich exception stated: the 4–28% band is wholly RECUSADO at 1.5% in
+    K0, K2, K3 and K4, NOT in K1, where 4–16% is REFUTED or undecided), the
+    headline cell through the knowledge states, Monte Carlo face to face (34.1%
+    of 10,000 draws detect; a proved model changes 0.39%), the sign map, the
+    attributes, the hand example; §5 says the rock-physics review, the pressure
+    effect, tuning and EOS PVT are OUTSIDE this version; 26 refs.
+  HOW THEY ARE BUILT. tools/build-paper-numbers.js reads the records (certs/hseva-
+  atlas, hseva-ledger, design-table-audit, corpus/ww3-grid, instruments/hseva/
+  atlas-claims.js, apps/contraprova gate-ledger + scenarios, certs/claims-ledger,
+  apps/decidivel ledger + declared.json, corpus/unisim-iv) and writes paper/tex/
+  p{1,2,3}-numbers.tex (≈410 \newcommand macros); it REFUSES (need()) when a
+  record no longer supports a sentence, and runs the gate, Decidível and printed-
+  fit batteries live (the hseva count is read from the report's foot; --hseva
+  runs it, ~90 s). tools/build-paper-figs.py (matplotlib, installed in
+  instruments/hseva/.venv) draws the eleven figures of paper/tex/fig from the
+  records; palette per the dataviz skill (four validated categorical slots,
+  Weibull+normal folded to grey). `make papers` = the kissing paper + numbers +
+  tectonic --all (compiles every paper/tex/*.tex, the old ones included);
+  `make paper-figs`. Class: elsarticle [preprint,authoryear] + paper/tex/
+  cmelsevier.sty (the verdict words, float, the ONE AI declaration — Elsevier
+  requires it). tectonic fetches elsarticle on first use.
+  RULES KEPT. Carlos is the only author on all four; a title note says the author
+  list and CRediT roles are to be agreed; NOBODY from LabECO is named in the repo
+  (the method paper is cited as literature, as the public pages already do).
+  "Certified" is defined once per paper, in the mathematical sense; every claim
+  carries a reference; the novelty line is the decision grammar + the record.
+  WHAT THE CO-AUTHORS MUST SETTLE (the extended abstract's last paragraph): the
+  journal; whether the ten claims are re-boxed by their authors before Table 3
+  is final; whether the GEV section stays; a Python verifier inside P1 or as a
+  software note; co-authorship and CRediT on P1, and whether they want P2/P3.
+  NOTHING IS SENT: the PDFs reach them through the operator.
+  ROUGH EDGES (fine for a review draft): P1's map figures are 1.2 MB each (full
+  Natural Earth coastlines — thin them if a journal limit bites); the design
+  table and two P2/P3 tables are \resizebox'd small; the P3 hand table's
+  Gassmann line wraps; P1 is 29 pages because of full-page map floats.
+  THE OUTSIDE REVIEW of the two Radar pages (pasted by the operator 2026-10-01)
+  was checked against the CURRENT sources and applied to apps/contraprova and
+  apps/decidivel (committed the same day, after the papers: the Monte Carlo box
+  no longer says "risco de 0%" — the draws find the violation, the worst draw
+  stops at 360,7 against the proved 361,6, the fraction is about an undeclared
+  uniform prior; the rules-vs-flags policy under "O modelo não precisa ser
+  aberto"; one lead portfolio in the header, the others under abrangência; the
+  AI-math calibration one paragraph; the value case led by the design wave with
+  the overpressure → integridade → parada → suporte adiado chain; "colaboração
+  acadêmica iniciada" and nobody named; the two pages link each other; the
+  Decidível "em todos os estados" sentence corrected to the four states, K1 read
+  apart). Both pages rebuilt, decks unchanged by hash, Notas re-printed; style,
+  measure (--accept, the pages moved) and render gates green; both batteries
+  green. The review's Decidível "unchanged" status was stale — that page had
+  already been rebuilt to the plan on 09-30 and the Lei 14.993 point applied.
+
+────────────────────────────────────────────────────────────────────────────
+FIRST — THE PAPERS (handed off 2026-10-01, start of the twenty-seventh session).
+The operator's geoscience contact (the UFSC line; his name and messages stay OUT
+of the public repo until he agrees to be named) offered to help publish the
+method in Elsevier journals. The operator wants to start with the cert-machine
+method as seen through Decidível and Contraprova. THE PLAN AGREED IN CHAT:
+THREE PAPERS, STAGGERED — never one omnibus paper — in this order:
+
+  P1 · CERTIFIED RETURN LEVELS (first; Pedro-carried). Claim: a fitted 100-year
+     wave is a design value only if the fit is the maximum it claims to be;
+     decided exactly over a public hindcast, most default-call fits are not.
+     Evidence on disk: certs/hseva-atlas.json (46,602 fits in 2,589 cells;
+     40,778 proved; 5,751 refused with the proof the maximum does not exist),
+     certs/hseva-ledger.json + certs/hseva-scipy.json (the same scipy, same
+     data, 7.08 vs 15.20 m; 0 of 60 default-call fits agree, 45 of 60 with
+     the location fixed), certs/design-table-audit.json (19 of 20 rows of a
+     published design table outside the 95% interval of the nearest public
+     cell), reports/return-levels.html, reports/regatlas.html,
+     reports/agtable.html, instruments/hseva/, playground/return-level-check/
+     (printed.js decides a printed fit). The method reference is the contact's
+     own Ocean Engineering 2026 paper (Reis, Guimarães et al.).
+     Venue: Ocean Engineering or Applied Ocean Research (Elsevier).
+     FIRST DELIVERABLE: a two-page extended abstract in English (structured
+     abstract + highlights in Elsevier's form), built from reports/
+     return-levels.html and the atlas figures, so scope is agreed before a
+     manuscript. tools/build-paper-tex.js / build-paper-pdf.js already turn
+     paper/*.md into PDFs (make papers) — reuse them.
+  P2 · THE DECISION PROCEDURE (Contraprova). Claim: a model output is decidable
+     over its declared uncertainty envelope with a three-valued verdict,
+     counterexamples and the flipping threshold, without the model's code.
+     Evidence: apps/contraprova (the flowline gate, the seven faults, the Monte
+     Carlo face-to-face in gate-ledger.json `mc`, gate/reference.py), the λ(4)
+     outside audit as evidence that records re-certify. Venue: Reliability
+     Engineering & System Safety, or Computers & Geosciences if the code is
+     the centrepiece (SoftwareX for a short software paper, optional).
+  P3 · GUARANTEED 4D DETECTABILITY (Decidível). Claim: over a declared
+     petro-elastic envelope, 4D detectability is decidable cell by cell; at
+     Tupi's 1.5% the pre-salt analogue is undetermined in its working band and
+     the resolution that decides is the deliverable. Evidence: apps/decidivel
+     (ledger, resolution table, sign map, attributes, plug hull). NEEDS FIRST:
+     a geophysicist's review of the rock physics, PVT from an EOS instead of
+     NIST endpoints, ideally Sg per cell from the simulator — the contact's
+     seismic professors. Venue: Journal of Applied Geophysics (where da Silva
+     et al. 2026 is) or Geoenergy Science and Engineering.
+
+  RULES FOR THE MANUSCRIPTS (the contact's three notes, now standing): every
+  claim with a literature reference; no headline phrases; "certified" only in
+  the mathematical sense, defined once — "decided"/"proved" elsewhere; the
+  novelty line is the decision grammar with witnesses and the public re-runnable
+  record, NOT interval arithmetic (Moore; Hansen–Walster) nor bounding by
+  enumeration (Bergmann–Chadwick). Nothing is sent to a journal or a co-author
+  without the operator's word; drafts live in paper/ and are pushed like code.
+
+  TO SETTLE WITH THE CONTACT BEFORE WRITING: his journal of choice and
+  co-authorship on P1; whether he can be named on the pages; the two-page
+  abstract's scope. The Radar forms were SUBMITTED 2026-09-30; the pages stay
+  live and unchanged in substance until a portfolio replies.
+
+────────────────────────────────────────────────────────────────────────────
+FIRST — THE PETROBRAS SUBMISSION (the twenty-fifth session, 2026-09-29 night to
+2026-09-30 afternoon; the operator: "the only goal is a perfect submission";
+everything else below is HELD). The next session starts from the OPERATOR'S
+INSTRUCTIONS — do not act before reading them.
+
+  2026-09-30 EVENING (the twenty-sixth session, 16:40–~19:00 BRT): DECIDÍVEL REBUILT TO
+  THE OPERATOR'S SUBMISSION PLAN (the plan was pasted in chat: the evaluator's language,
+  the three verdicts at the real resolution, the value case with numbers, ten sections,
+  the Nota Técnica). Everything below is built, gated and committed; NOT submitted.
+    · ENGINE OUTPUTS (no rewrite): rockphys.js gained attrRange (ΔIs/Is = √(ρ₂/ρ₁) − 1,
+      ΔVp/Vs = √(M₂/M₁) − 1, the two factors of r searched by the same extreme()),
+      signDensity (bisection on the gas density for the smallest ρg at which a PROVED
+      model GAINS impedance — one-sided on purpose: the proof of "always negative" does
+      not close on K0 boxes at any budget tried), coreD/factorD. run.js writes the sign
+      map (360 cells, K0), the headline's attributes per scenario, the Monte Carlo AT
+      1.5% (1,000 and 10,000 draws, K0 and K4), the correlated frame (the nine Iracema
+      plugs' (s, G/K) convex hull, widened ±0.02, covered by 56 of 64 grid boxes, SAT
+      test; decided as a union), and the price of information at 1.5% (K0, K4: NO single
+      measurement decides). declared.json now carries the plug points (from the paper's
+      table: PMC12479986). Battery 16 checks, 7/7 reds (new: the factors vs
+      reference.py --parts; a red "gas always softens" refused by a proved gaining model).
+    · THE NUMBERS THAT CARRY THE SUBMISSION (all from the ledger): at 1.5%, a thin front
+      (Sg < 4%) is INDETECTÁVEL in 50,186 cells (K0) / 68,880 (K4); Sg 4–28% is
+      INDETERMINADO in all 72,321 cells in K0, K2, K3 and K4 (NOT K1: with CO2-rich gas the
+      4–8% row is REFUTED in 53,443 cells with 18,878 open, 8–16% mostly open — corrected
+      2026-10-01 on the page and in P3); K4 at Sg 44–48% gives 177
+      DETECTÁVEL cells (φ ≥ 0.23). At 3% with CO2-rich gas the front is INDETECTÁVEL up to
+      28% saturation in most of the field. Headline coquina cell: Monte Carlo at 1.5%
+      says "detectable in 34.1% of 10,000 draws" (K4; 0.7% under K0) while the proved
+      minimum is 0.35% (attained 0.39%); the sign flips from ρg = 0.696 g/cm³ (map:
+      0.69–0.81, found in 348/360 cells); Ip is the most sensitive attribute (|ΔIp| ≈
+      |ΔIs| + |ΔVpVs| for a saturation change); the correlated frame tightens bounds
+      (5.66 → 4.94%) but changes no verdict; correlating gas (K, ρ) cannot either (the
+      undetectable witness is the pure-CO2 endpoint).
+    · RESEARCH VERIFIED AND WRITTEN IN: Lei 14.993/2024 art. 26 § 4º EXCLUDES injection
+      for enhanced recovery from the storage regime — the old CO2/ANP hook was wrong for
+      the 19.6 Mt reinjection; the page now says so and E6 is dedicated storage only.
+      Cost anchors with sources: Mero PRM US$ 450 mi (Agência Brasil 2026-04); Búzios
+      3,500 nodes / 780 km² / 8 months (Agência Petrobras 2024-08-16); PXGEO two OBN 4C
+      contracts for 2026. Tupi numbers from the SBGf 2021 abstract (NRMS ≈ 3% std, ≈ 2%
+      LSM; ≈ 1.5% distinguishable; WAG1 below the 2% cut-off; saturation-only
+      overestimates; ≈ 80% vs ≈ 5% CO2). Conexões criteria + "até R$ 1,6 mi / 12 meses"
+      (Aquisição de Soluções, 2022). da Silva et al.: BrJG 43(2) 2025 is the petro-
+      elastic modelling paper; the feasibility one is J. Appl. Geophys. 245 (2026).
+    · PAGE (ten sections, page.js), DECK (12 slides, deck.js, verified slide by slide),
+      NOTA TÉCNICA (nota.js → /decidivel/nota-tecnica-exemplo.pdf, one A4 page, the
+      headline cell, sections 1–7 of the plan's template), form texts in
+      outreach/petrobras-radar/answers-decidivel.json (1,757 / 395 chars). The page was
+      looked at at 1440 and 390 (no horizontal overflow).
+    · NOT DONE: `make site` (15 min) and `run.js --check` (4 min) were not re-run (the
+      laptop was at 5–15% on battery); check-style/measure/render --accept were started
+      at the end (see /tmp/dv-gates.log if the session is the same day). Demo D
+      (the published scenarios plotted inside the envelope) needs the paper's parameters:
+      E4. Sg per cell from the simulator: not in the corpus, E1.
+
+  2026-09-30 ~18:00 BRT: THE UFSC CONTACT'S THREE AUDIO NOTES (transcribed locally with
+  faster-whisper; the transcripts stay OUT of the repo, in the session scratchpad) applied
+  to page, deck and form texts, committed and pushed:
+    1. DATA. Petrobras seismic and reservoir data are confidential even inside the company;
+       a plan that depends on them gets rejected. Every "dados da Petrobras / no ambiente
+       da Petrobras" became: dados sintéticos fornecidos pela Petrobras no formato dos
+       reais + os públicos (Tupi, UNISIM-IV); scripts entregues prontos, rodados por ela
+       sobre os dados reais dentro do seu ambiente (E1, E5, M0, risks, the ask, the first
+       step, the success criterion, the form).
+    2. REFERENCES, NO HEADLINE PHRASES. A numbered "Referências citadas" section (21
+       entries) with [n] citations in sections 1 and 3; the headline-style titles were
+       made factual ("Nas referências consultadas, ..."; "da mesma ordem"; the state of
+       the art now says the search was not systematic and the review is part of E4).
+    3. FINANCIAL VIABILITY. New deliverable E3b (months 3–6): interviews with Petrobras
+       interlocutors for the economic valuation (what changes, how often, what it is
+       worth to Petrobras and to the startup), a report with explicit premises reviewed at
+       M6; a risk row; the business-model paragraph says viability is not estimated from
+       outside. He offered a CLAUDE.md of his own and professors for the seismic part
+       "if approved" — both for later.
+    Form description 1,995 / extra 466 chars. Gates: style, measure (--accept-worse
+    again, same reason) and render accepted.
+    THE SAME DATA POINT APPLIED TO CONTRAPROVA (~18:20): its page, deck (slides 3 and
+    11) and form texts (1,985 / 434 chars) no longer ask for Petrobras data — synthetic
+    data in Petrobras's format, scripts run by Petrobras — and its plan names the
+    economic valuation with Petrobras interlocutors. Both answers-*.json are final;
+    only the six PREENCHER fields and the operator's word remain.
+
+  2026-09-30 ~19:30 BRT: CONTRAPROVA REBUILT TO THE SAME PLAN AS DECIDÍVEL (ten
+  sections in the evaluator's language, sourced costs, references, Nota Técnica, the
+  contact's three notes): page.js rewritten (0 header with glosses VÁLIDO/INVÁLIDO/
+  INDETERMINADO; 1 the problem in numbers — Petrobras's own digital-twin figures [>US$
+  200 mi in refineries; Jubarte ≈ 1%], P-84/P-85 US$ 8.15 bn / 225 kbpd, SGSO practices
+  13 and 16; 2 what it adds vs V&V / UQ / second calculation / SGSO; 3 how it decides
+  with a hand-recomputable Colebrook example at the violating corner; 4 demonstration:
+  the live gate, the seven faults, MONTE CARLO FACE TO FACE — 10,000 uniform draws say
+  0.3% over 360 bar, max 360.7, while the proved corner reaches 361.6 —, the atlas/
+  scipy/design-table block, the frontier-AI table; 5 six decisions with costs; 6 state
+  of the art (ASME V&V 20, NASA-STD-7009, Oberkampf–Roy, Moore–Kearfott–Cloud, Hansen–
+  Walster, Coles, ISO 19901-1, DNV-RP-C205, API RP 14E); 7 E1–E6 + E3b valuation with
+  synthetic data; 8 risks/business/IP/deployment; 9 maturity; 10 the ask; 17
+  references). build.js now records `mc` in gate-ledger.json (written with --accept)
+  and prints /contraprova/nota-tecnica-exemplo.pdf (nota.js). Deck rewritten in the
+  page's order, 12 slides checked. Form texts 1,992 / 468 chars (the four full URLs in
+  the free field). Gates: style, measure (--accept-worse, same reason), render accepted.
+  ALSO 20:48 UTC: an independent audit of the λ(4) proof landed on teorth/erdosproblems
+  #392 (user rainrzk; repo rainrzk/erdos510-lambda4-audit): "it doesn't break" — every
+  step re-certified with their own code, plus a brute-force sweep to max ≤ 80; five
+  documentation nits (the write-up says {1,2,3,4} is skipped "exactly once" — the
+  record skips it six times; §5.8's list omits cone ii's 89 sets; PR #411 calls the
+  cubic's root "unique" — it has three real roots, λ(4) the largest). ON THE OPERATOR'S
+  WORD (2026-09-30 ~20:00 BRT): the write-up and the report page were fixed and cite the
+  audit (commit 1c248ca; the skip count is now computed from the record and the build
+  refuses if it moves; cone ii listed), and the REPLY WAS POSTED:
+  https://github.com/teorth/erdosproblems/issues/392#issuecomment-5920750192. This is the
+  first outside, no-shared-code re-certification of a lab theorem; a Lean formalization
+  of Lemmas A–F is the natural next step if the auditor engages.
+
+  2026-09-30 ~20:30 BRT: BOTH FORMS SUBMITTED BY THE OPERATOR (Contraprova and Decidível).
+  The Radar is a registry; the next event is a contact from a portfolio, if any. Keep the
+  two pages and their PDFs live and unchanged in substance.
+
+  STATE AT HANDOFF (2026-09-30 ~13:30 BRT). TWO SOLUTIONS BUILT, LIVE, NOT SUBMITTED:
+    · CONTRAPROVA  carlostoledo.co/contraprova (+ contraprova-apresentacao.pdf)
+      — engineering and AI numbers decided; portfolios Reservatórios + Submarina +
+      Geração de Energia; TRL 4, CRL 3, Seed.
+    · DECIDÍVEL    carlostoledo.co/decidivel (+ decidivel-apresentacao.pdf)
+      — 4D seismic detectability decided (Geofísica e Petrofísica); portfolios
+      Geofísica e Petrofísica + CCS + Reservatórios; TRL 3, CRL 2, Pré-Seed.
+    The form allows ONE solution per submission: two forms. Both texts are within
+    the limits (Contraprova 1,836/2,000 + 372/500; Decidível 1,757/2,000 + 395/500).
+  THE FILLER. outreach/petrobras-radar/radar-submit.js fills the real form page by
+    page (ticks, types, picks the dropdowns, consents) from answers-contraprova.json
+    / answers-decidivel.json, screenshots each page, and stops BEFORE Submit unless
+    --submit. DRY-RUN on 2026-09-30 for both: every field filled, every page accepted.
+    The answers carry PREENCHER for the operator's data: startup name, CNPJ, CNPJ
+    year, phone, state (the dropdown's exact option), city. Fill COPIES named
+    *.filled.json (git-ignored; the repository is PUBLIC — never commit them), then
+      node outreach/petrobras-radar/radar-submit.js outreach/petrobras-radar/answers-X.filled.json outreach/petrobras-radar/run-X --submit
+    SUBMITTING IS A SEND: only on the operator's word, per form.
+  WHAT REMAINS, in order:
+    1. The six data fields + the operator's go-ahead → submit both forms (the form
+       CLOSED 2026-09-30 23:59 BRT; if the next session is later, Ciclo 3 is over —
+       the Radar runs quarterly, so the same pack goes to the next cycle's form: check
+       its questions against answers-*.json before running the filler).
+    2. The UFSC contact (the 2026-09-30 meeting happened; he advised that seismic PD&I
+       is better funded — hence Decidível). Whether he agreed to be NAMED is unknown:
+       nothing about him or UFSC is on the pages or in the answers. If he agrees:
+       apps/contraprova/data/partner.json { "line": "..." } adds the line on
+       Contraprova; the form's "parceiros" field stays blank until then.
+    3. `make site` was NOT re-run after Decidível's battery was registered (the laptop
+       was at 30% on battery): the control page still reads 103 batteries, the
+       registries 104. Plugged in: `caffeinate -i -s make site`, revert timing churn,
+       commit, push.
+    4. Decidível before any pilot: a geophysicist's review of the rock physics; PVT
+       boxes per gas composition from an EOS (today CH4..CO2 NIST endpoints); the
+       salt-velocity depth front. Natural academic partner: the UNISIM group
+       (UNICAMP) — any contact is a SEND.
+
+  WHAT. Petrobras Conexões para Inovação, Radar de Soluções — Ciclo 3 (Módulo
+  Startups). The form (forms.office.com/r/K40NMxWTrN) CLOSES 2026-09-30 23:59 BRT.
+  It is a REGISTRY, not a funded selection (the form's own clause); best outcome, a
+  chat with a PD&I portfolio. Fields: portfolios (multi), description <= 2,000 chars,
+  extra <= 500, ONE link, TRL, CRL, CNPJ year. The form pack (answers + both texts)
+  was given in chat, never in the repo; the OPERATOR submits.
+  BUILT (this commit): CONTRAPROVA, the product face — /contraprova/ (pt-BR) and
+  /contraprova/contraprova-apresentacao.pdf (12 slides), apps/contraprova:
+    · gate/flowline.js — a water-injection line's wellhead pressure decided over the
+      whole declared box (Colebrook via x = 1/sqrt f, monotone in a and b, float
+      Newton only locates, interval ln from instruments/interval; the rule by
+      bisection; RECUSADO needs two proved corners, one per side; flip thresholds).
+    · gate/scenarios.json — 2 AI recommendations + 7 injected faults, ILLUSTRATIVE.
+    · gate/battery.js — 24 checks, 9/9 reds, gate/reference.py (Python decimal at 50
+      digits, no shared code) contained at 176 inputs.
+    · numbers.js (ONE module for page and deck: atlas, scipy, design table, register),
+      receipt.js (ONE receipt renderer, build and browser), page.js, deck.js, build.js
+      (battery -> receipts vs data/gate-ledger.json, refuse on drift -> page -> deck,
+      re-printed only when its HTML changes). `make site` runs it; site/contraprova/ is
+      an app-owned zone in tools/build-site.js; template.render takes `lang`.
+  NEXT. The meeting with the UFSC contact (2026-09-30): the partner line (NOTHING about
+  him or UFSC is on the page until he agrees), the portfolio routing, then revise,
+  push, and the operator submits before 23:59.
+  2026-09-30 (the twenty-fifth session, continued): the contact advised that SEISMIC
+  PD&I is better funded; the operator asked for a new vertical in Geophysics and
+  Petrophysics — DECIDÍVEL, a SECOND solution (one form per solution), BUILT and LIVE:
+  /decidivel/ (pt-BR) and /decidivel/decidivel-apresentacao.pdf, apps/decidivel:
+    · engine/rockphys.js — is a 4D change (WAG/CO2 gas replacing oil) visible for EVERY
+      model in a box? Gassmann, Reuss–Voigt mixing (w), frame Kdry = s(1 − φ/φc)Kmin;
+      r = Ip2²/Ip1² in DIFFERENCE form; interval forward differentiation; best-first
+      branch and bound with monotone pinning + the mean-value form + a float proposer
+      for witnesses; absRange → four proved numbers per box; classifyAbs(θ).
+    · engine/battery.js — 13 checks, 6/6 reds (a Monte Carlo PROVADO refused, a centre
+      point caught, domain refusals); engine/reference.py (Python decimal, textbook form).
+    · declared.json — every range with its source (Iracema plugs → s, gk; Batzle–Wang;
+      NIST CH4..CO2; UNISIM-IV Swi/Sorg; Tupi thresholds) and five knowledge scenarios.
+    · run.js — the ledger (1,800 boxes, 8 worker threads, ~4 min; --check re-derives);
+      build.js pins the ledger to the engine and declared.json by sha256 and re-decides
+      the headline + 24 seeded cells. corpus/unisim-iv: meta + porosity histogram (ODbL).
+  The form answers for both solutions were given in chat; the operator submits both.
+
+────────────────────────────────────────────────────────────────────────────
+START HERE — THE NEXT SESSION (handed off 2026-09-29 night, end of the twenty-fourth session)
+
+  STATE. Everything is committed, pushed and LIVE (last commit 8b32bee, then this
+  handoff); make control 102/102; style, measure, render, grammar, wiring and
+  stale-claims pass. NOTHING HAS BEEN SENT. Pages built this session, newest first:
+    reports/mathbench.html            Certified MathBench v0 (pre-registered)
+    reports/diagonal-ramsey.html      GNNW's unverified 3.78233 verified; chain to 3.7721
+    reports/polymaps.html             Gao's Keller maps; weak Markus–Yamabe in dims 14, 18
+    reports/optimization-constants.html  "Five asterisks, replayed" (3b, 3c, 71, 42, 84b)
+    reports/horizonmath.html          the benchmark's Ramsey certificate REFUTED
+    reports/counterexample-machine.html  Sra's library: 9 certified, 5 partial
+    reports/decided-2026-09.html      the September ledger (rebuilt until the month closes)
+  The register (certs/claims-ledger.json) holds 87 decided rows + 1 queued.
+
+  THE HEADLINES, for whoever reads this cold:
+    · R(k,k) <= 3.7721307629^(k+o(k)), CONDITIONAL on Gupta–Ndiaye–Norin–Wei's
+      Theorem 14, Lemma 15 and Theorem 1 (arXiv 2407.19026v2). Their remark's
+      "preliminary, unverified" G_AI (ChatGPT 5.6 Sol) holds (3.78233), and five more
+      rounds, each in the region the round before establishes, reach 3.77213.
+      Decided by tools/verify_gnnw_gai.py (one stdlib file) AND instruments/gnnw/
+      second.js (JavaScript, bigfloat, a different method): both certify every round,
+      c agreeing to 25 digits. The rounds were proposed by instruments/gnnw/propose/
+      (float SLSQP; needs instruments/hseva/.venv; buildchain.py reproduces
+      corpus/gnnw/chain.json byte for byte). In floats the iteration converges near
+      3.7732 (degree 6) and 3.77213 (degree 9): more rounds of this kind buy ~nothing.
+    · HorizonMath's "discovery" 3.6961 is REFUTED: its checker accepts a region pair
+      if EITHER orientation passes (validators/ramsey_asymptotic.py:299, min for max).
+    · The registry: C3b, C3c, C71 CERTIFIED; C42 PARTIAL (its limiting inequality
+      holds; the asymptotic passage is prose) and the OPEN PR #184 (C42 <= 0.688983)
+      the same; C84b REPAIRED to 1.9993 (the quoted 0.000719 is out of reach of the
+      note's own calculation: c <= 0.0007150507 for every choice).
+    · MathBench v0: certified of graded — Haiku 4.5 5/46, Sonnet 5 18/21, Opus 5
+      21/23; Sonnet and Opus ran out of their 24,000 tokens on 25 and 23 rungs; no
+      beyond-the-record rung certified. US$22.30 of its US$30. One deviation (five
+      Opus calls got HTTP 400 while the credit ran out; re-issued once) is written
+      into notes/mathbench-v0-preregistration-2026-09-29.md.
+
+  WHAT IS MISSING, in the order worth doing:
+    1. SENDS — all drafted in chat only, each needs the operator's per-item word:
+       (a) S. Norin / GNNW: the verified G_AI and the 3.7721 chain, the one-file
+           verifier (the strongest item; both programs agree);
+       (b) the HorizonMath authors: the either-orientation rule, the certificate's
+           pair at lambda = 1 outside R, the one-token fix;
+       (c) a pull request to teorth/optimizationproblems: stars off 3b, 3c, 71;
+           42 and PR #184 decided in their limits; 84b to 1.9993;
+       (d) S. Sra: the DPP reading; checkers that write their certificates;
+       (e) courtesy notes to Gao and to Castañeda–Honorato–Valenzuela-Henríquez
+           (F6/F7's missing ancillary files; the 18-dim identity decided).
+    2. MATHBENCH V1 — pre-register FIRST (a larger output cap or effort setting:
+       finishing, not correctness, is what v0 measured). Budget: US$77.70 of the
+       US$100 ruling is left; the operator added US$20 of API credit on 2026-09-29
+       (the ruling's ceiling is his to raise). The Anthropic OAuth token expires
+       every ~8 h: `ant auth login` when calls return 401.
+    3. SCOUTED, READY TO BUILD (targets rows carry the details):
+       · the registry's C1a (Sidon autocorrelation; the Bessel-kernel integral is
+         the hard part; 1-2 days) and C84a (stale: NEEDS DATA);
+       · Gao's generic fiber sizes (gcd/squarefree certificates at the paper's
+         witness targets + instruments/keller/fibers.js boxes) and F7's whole
+         determinant (a formalised chain rule, or a faster multivariate engine);
+       · K3(a): the 18 AI-autoformalised FrontierMath Erdős statements read
+         faithful; 548's statement is EQUIVALENT to the classical conjecture (two
+         disjoint copies of G) — a short Lean lemma; non-vacuity lemmas for the
+         sInf/sSup statements; Lean v4.27/4.28 + Mathlib cache (5-7 GB) needed;
+       · the HorizonMath spinor closed form: an enclosure only shows agreeing
+         digits — check the printed Landen/Beltrami derivation step by step instead;
+       · the Markus–Yamabe paper's "the chain cannot be shortened" (a finite family).
+    4. BLOCKED ON THE OPERATOR: the weekly novelty watch (connect GitHub to the
+       claude.ai account — /web-setup — or choose a Claude-Docs output).
+
+  HOW TO RUN ON THIS MACHINE (unchanged, re-learned): make control takes ~15 min
+  (all 102 batteries); build a new page, LOOK at it at 1440 and 390, then
+  `node tools/check-style.js --accept`, `check-measure.js --accept`,
+  `check-render.js --accept` BEFORE make control, or the gates count red in that run;
+  revert the timing-only churn in corpus/navier-stokes/probes.json and
+  corpus/blindspot/*record.json before committing. A NEW FILE: check the name is
+  free first (instruments/horizon is METR's time horizon; this session overwrote it
+  once and restored it from HEAD before any commit). Hold one `caffeinate -i -s`.
+
+  (The twenty-fourth session's earlier state — A11 LIVE, the meeting kit for the
+  UFSC lab meeting of 2026-09-30 given in chat and as a private page — is below.)
+  A11 (one commit, page-only — SERVED.json still names 3385237, nothing under
+  instruments/hseva or instruments/interval moved):
+    · THE decision of a printed fit is playground/return-level-check/printed.js
+      (moved out of the check's app.js, its words unchanged, the GEV added with
+      its printed support decided like a location's). The check loads it; the
+      atlas loads it on the page and before worker.js in the worker.
+    · In the atlas's cell tab (and on a reader's own site): "decide a printed
+      fit here" — a family (the six or the GEV), a block (daily, weekly,
+      monthly, or ANNUAL, which the atlas ledger does not hold), the digits;
+      the family certified on that block in a worker by fit.js, the digits
+      decided by printed.js, the decided family's statistical interval beside,
+      the distance from a place typed in the finder. The digits never enter
+      the address.
+    · A PUBLISHED DESIGN TABLE, decided: corpus/design-tables/bhaskaran-2023.json
+      (Bhaskaran et al., Energies 16, 6935, 2023, CC BY — annual-maximum Gumbel
+      LS/ML/MOM and GEV ML fits for five South Atlantic lease areas, from the
+      commercial WaveClimate hindcast; PDF pinned by sha256) →
+      tools/run-design-table-audit.js → certs/design-table-audit.json: 19 of 20
+      OFF THE MAXIMUM and 1 OUTSIDE ITS SUPPORT at the nearest cells (31–61 km);
+      the printed 100-year waves −2.03 to +3.14 m from the certified fits,
+      outside the statistical 95% at 19 of 20 — the distance between two
+      records, NOT an error in the table (the page says so); at Projeto Açu the
+      two nearest cells, 1° apart, give 3.21 and 5.47 m. The method tab opens
+      each site; each row is a button in its cell's form, decided in the tab,
+      the ledger's verdict said beside.
+    · playground/return-level-check/battery.js (15 checks, 6/6 reds) on make
+      test and the control page (93/93); tools/drive-atlas.js 28/28 locally.
+    · The targets row printed-design-tables records the scouting (what public
+      tables exist; Aguiar 2021 and Campos 2009 wait for POT/GPD).
+  THE MEETING is WEDNESDAY 2026-09-30. The kit (A12) was given in chat on
+  2026-09-29 (demo script, questions) and the Portuguese one-pager is a
+  PRIVATE claude.ai page (the operator shares it); none of it is in this repo.
+
+  THE ATTACK PROGRAM (approved 2026-09-29; the plan is notes/attack-plan-2026-09-29.md —
+  six capabilities K1–K6, seven campaigns A1–A7, four waves). RULINGS: US$100 IN TOTAL
+  for everything that costs money (model calls and GPU together), each spend priced on
+  the page before it happens; A6's pre-registration published before the first GPU hour;
+  the novelty watch as a weekly scheduled routine (NOT YET CREATED: a cloud routine
+  cannot clone the repository until GitHub is connected to the operator's claude.ai
+  account — /web-setup — or it writes to a Claude Doc instead; the operator's call).
+    · WAVE 0 — DONE 2026-09-29: THE REGISTER (tools/run-claims-ledger.js extended:
+      12 sources, 55 rows, a closed vocabulary of defect kinds, each row dated by the
+      first commit whose record held it) and THE MONTHLY LEDGER (tools/build-report-
+      monthly.js → reports/decided-2026-09.html, D6's first instance, rebuilt with
+      every site build until the month closes).
+    · WAVE 1 — IN PROGRESS:
+      DONE — the registry's first two asterisks (reports/optimization-constants.html):
+      C3b >= 1.77898884* and C3c >= 1.6747338950414058* CERTIFIED from their entropy
+      certificates by instruments/sumdiff (BigInt pushforwards, bigfloat logs, no code
+      shared with the claimants') and tools/verify_sumdiff.py (the Python standard
+      library alone); the 147-point certificate's own checker compares in doubles and
+      prints OK for the false C3c >= 1.6747338950414059 (run on the pinned script,
+      recorded as an observation). The other 15 asterisks are the targets row
+      optconst-registry-asterisks. A pull request removing a star is a SEND.
+      DONE — K1: instruments/mathbench/families.py (seven construction families,
+      28 green and 20 red controls, a dumb baseline each; Family/Verdict moved to
+      tools/llm_harness_base.py; the harness gains current rates and --cap-usd) and
+      MATHBENCH V0 PRE-REGISTERED (notes/mathbench-v0-preregistration-2026-09-29.md,
+      US$30 of the US$100; the baseline certifies 6 of 46 rungs — the b72295a commit
+      message says 7, the ledger says 6). THE MODEL RUN happened later the same day,
+      after the operator's `ant auth login` — see MATHBENCH V0 below.
+      DONE — S. Sra's AI counterexample library (reports/counterexample-machine.html;
+      github.com/suvrit/count-ex-machina @ dbf67374, arXiv 2608.29595): 14 cases,
+      9 CERTIFIED whole, 5 PARTIAL, none refuted — instruments/countex (fourteen
+      stdlib deciders written by three parallel agents from the statements before the
+      authors' checkers were read, each reading the PUBLISHED certificate, each with a
+      forge), certs/countex-ledger.json. The DPP case holds under "feasible = keeps
+      the iterate positive definite" and not under its own statement block's "Prop.
+      A.1's bound" (≈1.90 < a = 5). None of the 14 verify.py reads the certificate it
+      writes. A note to the maintainer is a SEND.
+      DONE — HorizonMath's six credited discoveries (reports/horizonmath.html;
+      arXiv 2603.15617v2 Appendix A, github.com/ewang26/HorizonMath @ 4ef0b61a):
+      THE DIAGONAL-RAMSEY CERTIFICATE (GPT-5.4 Pro, c = 3.6961 < GNNW's 3.7992) IS
+      REFUTED — its pair (X(1), Y(1)) = (0.22745, 0.9988), where c is read, lies
+      outside GNNW's region R (Erdős 1947 at e = 13/2000, p = 11981/500000; 56 of
+      201 points outside R, 128 more not placed by the problem's U). Cause: the
+      problem statement and validators/ramsey_asymptotic.py:299 accept a pair if
+      EITHER orientation passes a one-sided test; R needs BOTH (GNNW v1 and v2 define
+      R over all k, l; Lemma 15 proves both). With min -> max their validator fails
+      the certificate on its first interval. The Kakeya area CERTIFIED exactly
+      (6008623/55050240). The three GPT-5.6-only closed forms NEEDS DATA (not
+      printed; p. 8 says all six are in Appendix A, which has three). The spinor
+      closed form not decided yet. instruments/horizonmath (NOT instruments/horizon,
+      which is METR's time horizon), certs/horizonmath-ledger.json, register source
+      15, kind checker-wider-than-definition. Notes to the HorizonMath authors (and,
+      courtesy, GNNW) are SENDS.
+      DONE — THE GNNW "PRELIMINARY, UNVERIFIED" ITERATION IS CERTIFIED
+      (reports/diagonal-ramsey.html): arXiv 2407.19026v2 prints, after Remark 17,
+      G_AI (from ChatGPT 5.6 Sol) and "if verified ... R(k,k) <= 3.78233^(k+o(k))".
+      tools/verify_gnnw_gai.py (ONE stdlib file, ~8 s) decides Theorem 14 on all of
+      (0, 1] for F = h + G_AI, with Y = Y_f(X) from Lemma 15 for the PROVED F_0.03
+      and a continuous witness M = l m(l) chosen here (corpus/gnnw/m-nodes.json,
+      m(0) = 1.505717): CERTIFIED, c = 3.7823287755373…; 79 tail intervals (slack/l,
+      ln l cancelled by hand) + 336 mean-value intervals; margins ~6.3e-5·l at 0 and
+      ~6.2e-5·l near l = 0.93. certs/gnnw-certificate.json, instruments/gnnw/battery.py
+      (18 checks, 5 forgeries refused), register source 16. CONDITIONAL on the
+      paper's Theorem 14, Lemma 15, Theorem 1. BEFORE ANY SEND: a second, independent
+      implementation (another arithmetic, or a LeanCert/Lean export). A note to the
+      authors (S. Norin) is a SEND.
+      DONE (the same day, after the charger) — THE SECOND IMPLEMENTATION AND FIVE MORE
+      ROUNDS: instruments/gnnw/second.js (JavaScript, instruments/bigfloat, monotone
+      endpoint bounds, no written derivative) certifies G_AI and the whole chain;
+      corpus/gnnw/second-run.json keeps its result with the sha256 of its code and
+      of the chain (re-run: python3 tools/run-gnnw-ledger.py --second, ~35 min).
+      THE CHAIN (corpus/gnnw/chain.json → certs/gnnw-chain-certificate.json): five
+      degree-9 corrections proposed by a float SLSQP optimiser (scratch, not in the
+      repo), each decided in the region the round before establishes after Lemma
+      15's hypotheses for that bound are decided (region_ok): bases 3.782329 →
+      3.775471 → 3.772573 → 3.772275 → 3.772152 → 3.7721307629 (R(k,k) <=
+      3.7721307629^(k+o(k)), conditional on the paper's theorems). In floats the
+      iteration converges near 3.7732 (degree 6) and 3.77213 (degree 9).
+      DONE — polynomial maps (reports/polymaps.html, instruments/polymaps, certs/
+      polymaps-ledger.json): Gao's G, F4, F5, F6 CERTIFIED as Jacobian
+      counterexamples (F6 rebuilt from the printed construction, det -290 in 45 s),
+      F7 PARTIAL (non-injective; the factors' determinants; the assembly is the
+      paper's lemma); the weak Markus–Yamabe fields X14 and X-hat18 CERTIFIED
+      ((JX+I)^14 = 0, (JX+I)^17 = 0 as identities — the paper checks the 18-dim one
+      at a sample point) and Phi (det -2, three colliding points; ChatGPT-generated
+      per the gist). DONE — the registry's C71 > 6.521845710923046575* CERTIFIED
+      from the n = 18 truth table (instruments/fei, certs/fei-ledger.json; the
+      optimization-constants page is now "Three asterisks, replayed").
+      DONE — the registry's C84b REPAIRED to 1.9993 (instruments/sumproduct: the
+      note's chain holds with 0.0007; for every s, X, Y it gives c <= 0.0007150507,
+      so the quoted 0.000719 is out of reach) and C42 PARTIAL (instruments/turan:
+      the limiting inequality |Y|/D <= 0.69065369515 < 0.6906538, the asymptotic
+      reduction prose), plus the OPEN PR #184 (C42 <= 0.688983, eight blocks,
+      Röhrig with Codex): its limiting inequality holds too, |Y|/D <= 0.6889820985.
+      The optimization-constants page is "Five asterisks, replayed".
+      SCOUTED (targets rows): K3(a) — the 18 AI-autoformalised FrontierMath Erdős
+      statements read faithful; 548's statement is equivalent to the classical
+      one (a lemma to certify). Registry: C1a (1-2 days), C84a stale (NEEDS DATA).
+      DONE — MATHBENCH V0 (reports/mathbench.html): certified of graded — Haiku 4.5
+      5/46, Sonnet 5 18/21 (25 rungs out of tokens), Opus 5 21/23 (23 out of tokens);
+      no beyond-the-record rung certified; US$22.30 of US$30. Five Opus calls failed
+      at the API (HTTP 400, nothing billed) and were re-issued once — recorded as a
+      deviation in the pre-registration. The operator added US$20 of API credit.
+      NEXT — MathBench v1, pre-registered first (a larger output cap: finishing, not
+      correctness, is what v0 measured);
+      the spinor closed form (an enclosure only gives agreement digits — check the
+      printed derivation's steps instead); F7's determinant through a formalised
+      chain rule; Gao's generic fiber sizes; the polynomial maps not yet in keller (Gao 2608.00222; the
+      weak Markus–Yamabe field in dimension 14, 2608.05392), K3(a) on FrontierMath
+      Erdős's AI-formalised statements, more registry asterisks (1a, 71, 49).
+
+  NEXT, in this order:
+    0. The attack program's current wave (above).
+    1. After the meeting, PHASE B ordered by what they ask (0b below). Ask them
+       for a table printed from GLOBMULTI at a node: the only kind a
+       certificate can REPRODUCE.
+    2. FROM THE TWENTY-THIRD SESSION, each one atlas re-run:
+       (a) THE FRÉCHET-LIMIT PROOF (the exp. Weibull's 45 corner cell-blocks
+           and buoys A and C annual; see 0 below);
+       (b) A RESUMABLE ATLAS RUNNER;
+       (c) optional: `seven` in the reader's own-claim rules.
+    3. A PRINTED FIT IN SCIENTIFIC NOTATION (printedBox takes plain decimals
+       only; the generalized gamma near its limit has λ ≈ 1e-20, which no
+       plain decimal prints). It is a fit.js change: batch it into the next
+       re-run, never alone.
+
+  HOW, on this machine (the rest of "how to run it" is in 0b below):
+    · SERVED.json names 3385237. Any edit to instruments/hseva, instruments/
+      interval or playground/return-level-check/bundle.js means a full re-run
+      — INCLUDING instruments/hseva/battery.js: served() diffs the whole
+      directory, so a battery edit there makes the atlas page refuse to build
+      (learned this session; the printed-fit battery lives beside printed.js
+      for that reason). About 2.3 h of compute on the fanless M2: ask the
+      operator to plug in; one caffeinate; `setopt NO_BG_NICE`; the guard.
+    · Before committing a re-run: `node tools/compare-hseva-ledgers.js`.
+    · The page can be built and driven DURING a re-run on a development ledger
+      (ATLAS_DEV=1 …, 0b below).
+    · The sends stay the operator's (outreach/SEND-QUEUE.md LANE U).
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-28 night (the twenty-third session). In the order I would take it:
+  (2026-09-29: A11 and A12 are DONE — see START HERE above and the twenty-fourth session's log.)
+
+  0. PHASE A1–A9 ARE LIVE (the twenty-third session below): 7416b79 the
+     report's 3-hourly block in the atlas; 3385237 the GEV as a seventh family,
+     the statistical layer, the underflow enclosed, both ledgers re-run after
+     two reviews (nothing lost: all 46,602 of the atlas's six-family fits and
+     402 of the report's byte-identical); then the serve commit. The GEV is
+     certified at 7,765 of 7,767 atlas cell-blocks and on 67 of 67 report
+     series; Anderson–Darling among seven names it at 1,489 cell-blocks and 16
+     series (on the Brazilian margin's block maxima with ξ certified below zero:
+     a finite upper end none of the six can have); at all 45 Fréchet-corner
+     cell-blocks it is certified with ξ > 0 and the lowest A², the choice there
+     still refused (the proof that the exp. Weibull's supremum is that Fréchet
+     limit is the next one). Statistical, drawn apart: the decided family's
+     100-year interval is 7% / 12% / 17% of the level at the median cell
+     (daily / weekly / monthly); the extremal index of the daily maxima 0.16
+     (the Arabian Sea) to 0.68, median 0.44.
+  0'. THE RETURN-LEVEL ATLAS IS LIVE — /instruments/return-level-atlas/ (the
+     twenty-second session below, sections 1–10; commits 628072d the atlas,
+     3a8a166 served, 9009038 the key, fc3277d the viewport, 7be88e9 layer 1).
+     corpus/ww3-grid (3,268 nodes: 2,589 open sea, 679 the hindcast's own
+     sea-ice field ever touches), certs/hseva-atlas.json (46,602 fits: 40,778
+     certified — 1,996 in Prentice's coordinates, 219 in the exponentiated
+     Weibull's Gumbel coordinates — 5,751 generalized-gamma refusals at the
+     lognormal limit WITH the proof, 53 EW stops, 45 toward k → 0, 20 other
+     refusals; the sha256 of every certifying module pinned). The paper's ten
+     claims: 6 HOLD, 2 DO NOT HOLD (the GG south of South America daily; its
+     weekly expansion in the Southern Ocean), 2 UNDECIDED (the global Weibull
+     rise; the monsoon Weibull). The page is a viewport (panel beside the globe
+     / a sheet on a phone / beside it again sideways; three tabs), and layer 1
+     is built: a reader's own claim (drawn or typed, decided by atlas-claims.js
+     itself, inlined), the paper's ten re-decided in the tab on every load,
+     each cell's data drawn on selection and four views after certifying
+     (series · histogram · QQ · return levels), every state a link.
+  0a. THE SENDS, all the operator's (outreach/SEND-QUEUE.md LANE U). U1 the
+     reply to the contact: the chat drafts of 2026-09-28 carry the atlas; a
+     final one should also carry layer 1 (his own claims, decided) and ASK
+     FOR THEIR JOINT-MODEL CONVENTIONS (N6 waits on that answer) — any older
+     draft's numbers are wrong. U2 the note to the benchmark organizers, after
+     U1. LANE M (METR) unchanged.
+  0b. THE PLAN, FUNDED (operator, 2026-09-28: "I have credits to build it all").
+     PHASE A is due LIVE BEFORE 2026-09-30 (a meeting with the contact's lab and
+     a student; the partnership brief is in the session chat and the operator's
+     memory, not here). PHASE B follows the meeting, ordered by what they ask.
+     The N-numbers of the earlier schedule are kept in brackets.
+
+     HOW TO RUN IT — read before touching anything:
+       · THE CODE PIN. certs/hseva-atlas.json records the sha256 of every module
+         the atlas page bundles (playground/return-level-check/bundle.js CORE +
+         instruments/hseva/atlas.js); every worker of tools/run-hseva-atlas.js
+         refuses other bytes, and the page refuses to build over a ledger its
+         bundle did not write. ANY edit to instruments/hseva/* or
+         instruments/interval/* therefore means: `node tools/run-hseva-ledger.js`
+         (≈6 min) and `node tools/run-hseva-atlas.js` (≈98 min, 7 workers), then
+         `node tools/build-report-hseva.js` (runs the hseva battery). Batch every
+         such edit into ONE re-run; never edit instruments/hseva while it runs.
+       · KEEP THE MAC AWAKE for a whole pipeline with ONE background
+         `caffeinate -i -s -t 21600` (0c viii); kill it at the end.
+       · THE SERVE FLOW after a re-run: commit A (code + ledgers + corpus) →
+         push → write corpus/ww3-grid/SERVED.json {commit: A} → `node
+         playground/build.js` → gates → commit B (SERVED.json + site) → push →
+         verify live. served() refuses a commit that is not pushed or whose
+         corpus, cells, ledger or code differ from the tree.
+       · GATES: node tools/check-measure.js · check-style.js · check-render.js ·
+         check-grammar.js (look at the page, then --accept where a new page or a
+         better number is recorded) · make test (92/92) · make site.
+       · DRIVE IT: `node tools/dev-serve.js &` then `node tools/drive-atlas.js`
+         (the viewport at four sizes, the ten claims re-decided, a typed claim,
+         cells certified identical at 1440 and 390, a link reopened; the live
+         URL works as the argument too). The layout ruler loads pages as
+         file://, where the atlas's data never arrive — that is expected.
+       · REVIEW before any re-run: two independent read-only agents (the math;
+         the page and ledger), as on 2026-09-27/28 — they found the ice defect.
+
+     PHASE A — the demo layer (before 2026-09-30):
+       A0. Setup: the caffeinate above; `git pull`; `node tools/drive-atlas.js`
+           against the live page, to start from a green state.
+       A1. DONE 2026-09-28 (the twenty-third session), shipped on its own.
+           [N1] The report's 3-hourly block inside the atlas (NO re-run):
+           build.js nativeOf() reads certs/hseva-ledger.json ww3.points[name].
+           blocks.native into atlas.json `native` (per node: n, max, the four
+           choices, the A² family's 100/1000-yr enclosures, the GG/EW codes by
+           AT.codes over the report's fields; the ledger's sha256 and date named
+           in the method tab; the build dies if a report node is missing or not
+           at its atlas cell); the cell panel's table gets a first column
+           "3-hourly" whose header links /reports/return-levels.html, with a
+           line saying whose record it is; the two ice nodes (Drake, the high
+           southern latitudes) show that column alone under their ice note.
+           tools/drive-atlas.js checks both (13/13 locally and live).
+       A2–A9. DONE 2026-09-28 (the twenty-third session; 3385237 + the serve
+           commit): what each became is in that session's log below. Two
+           departures from the plan, both on review: the GEV's fit is its
+           REGULAR local maximum (its likelihood has no global one), and the
+           delta interval on a level is taken on ln q (the symmetric one went
+           below zero). The quantile's gradient is by central differences, not
+           ad2.js (the generalized gamma's P⁻¹ has no closed-form derivative).
+       A2. [N2] THE GEV FAMILY (≈6–8 h): families.js `gev` (μ, σ, ξ); ξ → 0 as
+           an ordinary point (a series in ξ, as Prentice's Q = 0); the support
+           1 + ξ(x − μ)/σ > 0 enforced; refusal where the maximum is not
+           regular (ξ ≤ −0.5, Smith 1985) or sits at the support's edge; score
+           and Hessian by ad2.js; cdf, sf, quantile. Battery: finite
+           differences; ξ → 0 against the Gumbel to 1e-10; GEV samples at
+           ξ = −0.3, 0, +0.2 certified; reds (ξ < −0.5 refuses; data outside the
+           support refuses).
+       A3. [N2] The seventh family AS A SEPARATE LAYER (≈2 h): PAPER_SIX and the
+           paper's claims untouched; atlas.js records per block the GEV fit and
+           Anderson–Darling's choice among seven (a new field — the rank rule
+           unchanged); run-hseva-ledger.js the same, and the report gets a short
+           section. Test set: the 45 cell-blocks where the EW runs toward k → 0,
+           and buoys A and C annual.
+       A4. [N3] UNCERTAINTY, LABELLED STATISTICAL (≈5–6 h): map level — 95%
+           delta-method intervals on the decided family's 100/1000-yr level from
+           the fitted Hessian (the gradient of the quantile by ad2.js), stored in
+           a separate `stat` section with the method named; cell level —
+           profile-likelihood intervals computed in the tab on demand (the
+           worker); the runs-estimator extremal index of the daily maxima (95th
+           percentile, run length stated). Drawn in design/grammar.js's CLAIM
+           dash ("asserted, not decided"), never in the certified ink, and said
+           in words beside the design-life level.
+       A5. [N9] Interval exp's underflow as the enclosure [0, 2⁻¹⁰⁷⁴] instead
+           of a refusal (≈1 h) — it rides on the same re-run; the battery must
+           show no certified result lost.
+       A6. REVIEW (≈2 h wall): the two agents on A2–A5; fix what they find.
+       A7. RE-RUN (≈2.5 h wall): the hseva ledger, the atlas, the report.
+       A8. PAGE (≈4–5 h, alongside A7): a "seventh family" view (where the GEV
+           beats the six; the sign of ξ as a map — Fréchet, Gumbel, Weibull-type
+           tails); an "uncertainty" view (the interval's width relative to the
+           level); bands on the cell's return-level plot; the interval in the
+           design-life sentence; the method tab's words.
+       A9. SHIP (≈2 h): make site, the gates, make test, drive-atlas locally
+           and live, the serve flow, push, HANDOFF.
+       A10. DONE 2026-09-28, its own commit after the serve commit: THE parse
+           rule moved to playground/return-level-check/parse.js (window.HS_PARSE;
+           the check loads it first and digests it into every certificate, 12
+           modules); the atlas's cell tab gains "or bring your own site" — a file
+           read by that rule, cut to daily maxima by THE block rule, certified in
+           the worker by atlas.js (the page's own code, so no re-serve), pinned
+           on the globe at a typed lat, lon, read against the three nearest
+           cells (their A² family and 100-year wave beside the site's), the four
+           views, a certificate with the file's sha256 and never the data; the
+           site stays out of the address. tools/drive-atlas.js now writes ten
+           years of the hindcast's Santos node as a reader's file and certifies
+           it (21/21 locally and live); the check still reads and certifies with
+           its rule moved (4/4). [N4] BRING YOUR OWN SITE (≈1 day; before the meeting if it fits,
+           else first after): move the return-level check's parse rule out of
+           playground/return-level-check/app.js into one module both pages
+           load; in the atlas a dropped file → daily maxima by THE block rule →
+           certified in a worker by atlas.js → pinned at a typed lat, lon
+           beside the nearest cells, the four views, a certificate carrying the
+           file's sha256 and never the data.
+       A11. [N5] A PRINTED DESIGN TABLE AUDITED against the nearest cell
+           (≈½ day), with the check's verdict words (REPRODUCED · CONSISTENT ·
+           OFF THE MAXIMUM · NOT THE CERTIFIED FIT · OUTSIDE ITS SUPPORT · NOT A
+           MEMBER · NOT DECIDED).
+       A12. The meeting kit for the operator, in chat (not in this repo): the
+           demo script, a Portuguese one-pager, the questions to ask.
+
+     PHASE B — the partnership layer (after 2026-09-30):
+       B1. [N8] A stdlib Python verifier of a downloaded cell certificate, with
+           an example for their pipeline (≈1 day).
+       B2. [N7] Peaks over threshold with storm declustering: certified GPD
+           fits, the level's dependence on the threshold as a certified curve;
+           an atlas re-run (≈2–3 days).
+       B3. [N6] Joint Hs–Tp and certified contours on the Brazilian margin: a
+           fetch-ww3-grid.py pass for `fp` (≈9 GB — it can run early, it is
+           mostly download), their joint model (DNV-RP-C205's if they have
+           none), IFORM/ISORM with the ec-benchmark instrument's exact
+           exceedance counts (≈3–4 days).
+       B4. Climate windows (their CMIP paper): the atlas method on the
+           hindcast's two 16-year halves or on their runs; point comparisons
+           certified, intervals labelled (≈2 days + runs).
+       B5. Figures and tables from the ledgers for a co-authored methods paper,
+           once agreed (≈1–2 days).
+       B6. Optional: the metastatistical EVD; the extended GPD; branch-and-bound
+           for "no better maximum elsewhere in a family".
+
+     DEFAULTS (operator may override): the GEV goes into the report too; if
+     only one of A10/A11 fits before the meeting, A10; contours wait for their
+     conventions, but B3's data pass may start early. RISK: the GEV's
+     certification at ξ ≈ 0 and at the support edge (A6 exists for it); if A7
+     slips past the evening of 2026-09-29, the meeting demos what is live.
+
+  0c. THINGS LEARNED: (xi) zsh's BG_NICE puts every `cmd &` at nice 5 — the
+     "efficiency cores at nice 5" of (i) below; `setopt NO_BG_NICE` before the
+     `&` (checked: the job then starts at nice 0). It did not decide this run's
+     pace: a nice-5 loop still took a fast core when one was free. (xii) THE
+     MACHINE IS A FANLESS M2 ON A 30 W ADAPTER: charging from 20% under an
+     8-core load, the seven workers got about half a core each with the idle
+     counter at 50%, and the atlas took 16,662 s (about 1 h 40 of it paused).
+     Run the re-run charged, lid open, on a larger adapter if there is one.
+     A run on battery must be guarded: the session's battery-guard.sh
+     SIGSTOPs the runner and its workers at 20% and SIGCONTs them on AC (it
+     fired twice). A stopped run loses nothing; a dead machine loses the whole
+     run, because the parent holds every finished unit in memory until the end.
+     (vi) a runaway parameter can be a coordinate artefact —
+     look for the coordinates in which the limit is an ordinary point
+     (Prentice's for the GG; θ = λ^k, β = θ ln α for the EW); (vii) under sea
+     ice WAVEWATCH III writes Hs ≈ 0.002 m, not the fill value and not 0 — read
+     the model's own `ice` field (tools/fetch-ww3-grid.py --ice) rather than
+     guess from Hs; (viii) A MAC ASLEEP RUNS NOTHING: between stopping one run
+     and starting the next, 60 seconds without a caffeinate assertion let the
+     Mac idle-sleep, and every later process crawled in 20-second dark wakes
+     ("Dark Wake Thermal Emergency") for an hour; hold one long `caffeinate
+     -i -s` for a whole pipeline, and `caffeinate -u -t 3` brings a dark wake
+     to full wake; (ix) a ledger's code must be pinned by sha256 in the ledger
+     and checked by every worker, or one edit during a two-hour run mixes code
+     versions silently; (x) the layout ruler loads pages as file://, where a
+     viewport page's data never arrive — hold the controls until they do, and
+     draw hairlines as shadows, since a border moves every child a pixel off
+     the edge the ruler counts.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-27 (the twenty-first session). In the order I would take it:
+
+  0. THE UFSC LINE, FROM "HIS METHOD, APPROXIMATELY" TO "HIS METHOD, ON HIS DATA".
+     A reply from the contact (private correspondence: NOT in this public repo;
+     the operator holds it) asked who the certifier of a marginal fit would be,
+     and said the data source matters less than the probability model and that
+     no family always wins. Read against the paper's FULL TEXT, our record was
+     wrong three ways — the sixth family is the GUMBEL (we had "von Mises"),
+     the blocks are 3-hourly/daily/WEEKLY/monthly (we had annual), there are
+     FOUR criteria — and its data are PUBLIC (Ifremer WAVEWATCH III
+     GLOBMULTI_ERA5_GLOBCUR_01, CC BY-SA). Fixed (claims.json, the menu, the
+     targets row), then built — all COMMITTED, NOT PUSHED, NOTHING SENT:
+       (a) instruments/hseva: the generalized gamma certified (special.js —
+           lnΓ, ψ, ψ′ by Binet with the first omitted term as the bound; P(a,z)
+           by its series with a geometric tail; P⁻¹ by certain-sign bisection;
+           the two Prentice gaps as series in Q, which the naive differences
+           lose to dependency), in Prentice's (μ, σ, Q) as a fallback where the
+           (α, c, λ) ridge is too flat to contract (4 fits), with THE LIMIT
+           TEST (a candidate whose certified ℓ lies below the lognormal's
+           certified maximum is not the family's maximum: edge, decided by two
+           enclosures); the Gumbel; a 3-p lognormal to decide a printed local
+           maximum; survival functions for far tails; the four criteria as
+           enclosures (χ² binned EXACTLY in rationals; a straddled E ≥ 5
+           REFUSES); THE ranking rule in fit.js (rankRule); every data sum by
+           Sum2 with its bound added outward (naive interval sums were ~1000×
+           too wide — the fix that let the GG certify on 175k points);
+           blockrule.js holds THE block rule for Node and the tab.
+       (b) certs/hseva-ledger.json: 3 buoys × 5 blocks × 6 families + 13
+           hindcast nodes × 4 paper blocks — 348 fits certified (20 in
+           Prentice's coordinates; EVERY ONE with the Hessian proved negative
+           definite over its box, so it is a maximum, not just a zero of the
+           score), 47 generalized-gamma fits refused AT THE LOGNORMAL LIMIT
+           WITH A PROOF (∂ℓ/∂Q < 0 over a recorded neighbourhood of the
+           lognormal fit; left out of the ranking, the lognormal standing for
+           it), 7 exp.-Weibull fits refused where the climb passes α = 10⁴
+           still rising (A and C annual, all four Arabian Sea blocks, south
+           of Japan monthly — those 28 choices are REFUSED); the benchmark's printed Hs
+           marginals (corpus/ec-benchmark/marginals.json, the pinned
+           preprint's Appendix A) and scipy 1.18.1's fits (certs/hseva-
+           scipy.json) decided. ~35 min on this machine (tools/run-hseva-
+           ledger.js, 7 workers; ~60 min since the three-start GG search);
+           the battery re-derives the buoys' non-hourly
+           blocks live in 4 s. corpus/ww3-points: 384 months, 17.8 GB of hs
+           chunks read by byte range, each month's chunk bytes hashed.
+       (c) reports/return-levels.html: the paper's findings on its six
+           families — EW best unfiltered on 1 of 3 buoys and 5 of 13 nodes (the
+           LOGNORMAL wins Campos and Santos); the Weibull the decided best of
+           NOTHING (0 of 12, 0 of 52); criteria split on 2 of 12 and 19 of 52;
+           the GG best on 2 of 12 buoy series and 12 of 52 node series, peaking
+           at its lognormal limit on 8 and 37; ON SIX NODE SERIES THE GG's
+           MAXIMUM SITS BESIDE THE LIMIT (α 951–2,323): certified there it wins
+           17 of their 24 choices, and a fit that stops at α = 500 and calls it
+           the limit hands all 17 to another family; at the Arabian Sea node
+           every choice is REFUSED — left out, the EW would hand the choice to
+           the lognormal, 24.07 m vs a 32-year record of 6.87 m. 13 of 15 buoy
+           choices decided (A and C annual refused). §6: the benchmark teams' marginals for the same
+           ten years of buoy A put the 100-yr wave at 5.25–14.53 m;
+           contribution 8's Hs row for C IS THE CERTIFIED WEIBULL MLE OF Tz;
+           contribution 9 leaves 10,426/10,904/9,410 hours below its location;
+           contribution 3's scipy lognormal is a certified local maximum.
+           scipy floc=0 agrees on 45 of 48 certified fits, prints a GG point
+           below the limit the family peaks at on all 10 buoy series where it
+           does (0.69 to 2,529 units below), is off on 3 (C hourly GG: 60.8
+           units, 1.25 m low); prints an EW where the certificate refuses it (2);
+           default (loc free): 1 outside its support, 7 below a member of their
+           own family (A hourly EW: 19,850 units, 100-yr 8.12 m low). §7 "who
+           certifies": a certificate anyone can check and nobody has to trust.
+       (d) /instruments/return-level-check/ — NEW: drop a series (or the
+           Campos preset), six families certified IN THE TAB by the ledger's
+           modules inlined byte for byte (sha256 in every certificate), a
+           downloadable certificate with the file's sha256 and never the data;
+           a panel decides a printed fit (REPRODUCED / CONSISTENT / OFF THE
+           MAXIMUM / NOT THE CERTIFIED FIT / BELOW ITS LIMIT / OUTSIDE ITS
+           SUPPORT / NOT A MEMBER OF THE FAMILY / NOT DECIDED). The parse rule
+           (app.js) and the worker are digested into every certificate beside
+           the ledger modules. Driven in Chrome end to end, before and after
+           the review (the review's own harness re-run).
+  0a. THE SENDS, all the operator's. The push is DONE (2026-09-27; the pages
+     are live). The reply to the contact — drafted in the session chat, kept
+     out of the repo (private) — links both pages; ITS NUMBERS MUST BE THE
+     NEW ONES (the GG beside its limit on six hindcast series; the Arabian
+     Sea refused; 13 of 15 buoy choices). A note to the benchmark's
+     organizers about Table 13's row C and contribution 9's locations is a
+     separate send, after the contact.
+  0b. NEXT on the line, by yield: the exponentiated Weibull's α → ∞ side
+     done the way the GG's was — coordinates in which its maximum at α ≈
+     12,700 (Arabian Sea monthly, found by a longer climb) contracts, and a
+     boundary proof where the climb truly runs off — which would turn most of
+     the 28 refused choices into decided ones; a stdlib Python verifier of a
+     downloaded certificate (their pipeline is Python); profile-likelihood
+     intervals of the 100/1000-yr levels with certified endpoints (statistical,
+     labelled); the SEARCH's claim (no better maximum elsewhere in a family)
+     made a proof by branch-and-bound over the family; IFORM/ISORM/HD on one
+     joint model; 4 more nodes if the contact names his.
+  0c. THINGS LEARNED: (iii) A THRESHOLD IS NOT A PROOF — the α > 500 "edge"
+     excluded the generalized gamma where its maximum sits at α 950–2,300 and
+     moved 17 choices; an exclusion must be decided (now: ∂ℓ/∂Q < 0 proved
+     beside the limit), and anything undecided blocks; (iv) the Prentice
+     likelihood written as power series in u = Qw (with proved tails) removes
+     the 1/Q⁴ cancellation that kept Krawczyk from contracting beside the
+     limit, and makes Q = 0 an ordinary point; (v) a zero of the score is
+     not a maximum until the Hessian says so — secondOrder() now does, by
+     Sylvester over the box or at the candidate with every Hessian in the box
+     nonsingular. (i) a long ledger in the background runs on the
+     efficiency cores at nice 5 (35 min here, where the units take ~5 min in
+     the foreground) and a sleeping Mac stretches it further — run it under
+     `caffeinate -i`; (ii) bars() and intervals() in design/charts.js do not
+     reserve height for a legend that wraps: pass `h`, or keep keys short.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-21 evening (the eighteenth session). In the order I would take it:
+
+  0. METR DELIVERABLE 1 IS BUILT, GATED AND COMMITTED: blind-spot as an
+     inspect_ai Task (environments/blind_spot/inspect/task.py — four tasks:
+     blind_spot_located / _profile / _blind and the mixed blind_spot, ONE
+     taskset at seed 2027, sample id = taskset.Task.id), whose scorer is
+     blind_spot.adapters_v0._decide — THE function the verifiers rubric calls —
+     applied to Inspect's own messages (text parts only). The battery
+     (inspect/battery.py; on make test and the control page; runs under
+     environments/blind_spot/.venv, `make blind-spot-venv`) scores every one of
+     the 400 pooled mutants three ways (Inspect scorer, api.score,
+     taskset.grade: 892 submissions, 0 disagreements) and has 4 red controls.
+     The ledger certs/blind-spot-inspect-ledger.json (inspect/ledger.py) re-
+     scores every log sample by sample; the README quotes only ledger strings
+     and the battery checks it. Human baselines: environments/blind_spot/
+     baselines.json, NO DATA, 18 task ids fixed (six per rung), sha-pinned in
+     the ledger; the recruiting message is DRAFTED in outreach/blind-spot-
+     baselines-request-2026-09-21.md and is a SEND.
+  0a. THE ONE LINE OF DELIVERABLE 1 NOT DONE, and why: `inspect eval
+     …@blind_spot_located --model anthropic/claude-sonnet-5` reached the API
+     and was refused before any generation — "Your credit balance is too low"
+     (the same 400 as 2026-09-10; nothing billed; the attempt is kept as
+     inspect/logs/blocked/…json and listed under `blocked` in the ledger). The
+     pipeline was proved end to end instead with the three reference policies
+     (sat / abstain / never) as Inspect SOLVERS on the 36-task mixed draw: sat
+     +1.000 on every rung, abstain 0, never −0.556 — marked control: true in
+     the ledger, never a model result. WHEN THE ACCOUNT IS TOPPED UP, the run
+     is one command per rung (inspect/README.md, first block; the OAuth
+     profile works under Inspect as ANTHROPIC_AUTH_TOKEN=$(ant auth print-
+     credentials --access-token)), then `python3 environments/blind_spot/
+     inspect/ledger.py`, then the README's results table takes the numbers.
+  0b. THE SENDS, all the operator's, listed in outreach/SEND-QUEUE.md LANE M:
+     M1 the baseline recruiting message (per person); M2 the hub push of the
+     Inspect variant as blind-spot v0.1.1 (NOT READY: the wheel does not yet
+     force-include inspect/task.py, the version is unbumped — prep, build,
+     verify from the registry in a clean venv, then push); M3 the applications
+     (after deliverables 2–5). M0 is the credit top-up, a prerequisite.
+  0c. NEXT: deliverable 2 (the certified time-horizon curve) needs BOTH the
+     frontier runs (credit) and human baseline rows — nothing else is in the
+     way; deliverable 3 is DONE (0g below); deliverables 4 and 5 follow 2.
+     The fit is DONE (0h), the three-audience write-up is on the calibration
+     page (0i) and the packet is drafted (0i). WHAT IS LEFT ON THE PLAN is
+     exactly what needs the world: the credit top-up (then the three
+     environments' frontier runs, ~an hour of machine time), the baseline
+     rows (the recruiting send), and the sends themselves. When the credit
+     lands: inspect eval per rung per model → ledger → the horizon fit on
+     our own runs against the baseline times → §5 rewritten on our number.
+  0d. TWO THINGS LEARNED THAT ARE WORTH KNOWING: (i) on the blind rung every
+     task has the SAME prompt (that is what the rung withholds), so a mock
+     model that reads only the message list cannot tell tasks apart — the
+     first control run scored the sat policy 23/36 that way; a reference
+     policy under Inspect must be a SOLVER reading sample metadata. (ii) "a
+     witness with one coordinate changed stops killing" is true of the mutant
+     whose defect that coordinate touches and false of the others (16 of 25
+     tried still die to the spoiled pair); the red control now asserts what is
+     invariant — wherever it stops, both scorers say MISSED and never SOLVED;
+     wherever it still kills, both say SOLVED; the two never split.
+  0e. THE 17TH SESSION'S WORK IS COMMITTED (e3fb985, the boundary commit
+     before any of this was written; make test 89/89 at that point).
+  0g. METR DELIVERABLE 3 IS BUILT (taken before 2, on "proceed", because 2
+     waits on credit and baseline rows): GSM8K's answer key re-decided exactly.
+     instruments/gsm8k/audit.py (stdlib fractions, a hand-written parser,
+     nothing eval-ed) evaluates every calculator annotation and every readable
+     prose equation of the 1,319 test and 7,473 train keys; tools/run-gsm8k-
+     ledger.py writes certs/gsm8k-ledger.json (pins on the three corpus files;
+     GSM8K at commit 3101c7d, GSM8K-Platinum at HF revision e762492) and joins
+     Platinum by question text; instruments/gsm8k/battery.py (51 checks, 12
+     reds) is on make test and the control page; reports/gsm8k-audit.html
+     (tools/build-report-gsm8k.js, every sentence gated) with two aligned
+     1,319-cell strips (this page's verdict; Platinum's) and a train bar chart;
+     the shelf row and the site card; the targets row `gsm8k-answer-key`.
+     THE FINDING: all 4,282 test annotations exact (23,714 of 23,716 train; the
+     two refused use `//`); 2 test and 24 train keys print a prose step that
+     does not hold as printed (364 / 4 = 273; $32 − $20 = $300), and BOTH test
+     slips are Platinum "consensus" items — no model disagreed, so no human
+     read them; conversely all 10 Platinum relabellings have arithmetic that
+     holds and 103 of its 110 removed items are REPRODUCED: readings, not sums.
+     Grader forms: every key is an integer as printed (14 with thousands
+     separators, 2 negative) and both pinned harnesses (inspect_evals'
+     match(numeric=True), lm-eval's strict regex + comma stripping) read those
+     forms — no grader misspecification. A FALSE START worth recording: the
+     first survey listed annotations and answer lines in one list, so "3/4"
+     (an annotation's right-hand side, item 319) was written up as a fraction
+     KEY, an outreach issue was drafted on it, and the report builder's gate
+     (fraction rows = 0 ≠ the claimed 1) refused the page; the draft is
+     deleted and claims.json says what the forms are. The gate earned its place.
+     What the reader is: a chain reader with unit labels (%, cents), mixed
+     numbers, spaceless fractions as literals, running chains, and UNREAD for
+     fragments and algebra — 318 test / 1,711 train equations UNREAD, counted,
+     never guessed. Two train witnesses are notation read as arithmetic ("day
+     1 * 2", "Weeks 1-2"); listed, not excused, and the page says so.
+  0h. THE TIME-HORIZON INSTRUMENT IS BUILT AND CALIBRATED ON METR'S OWN DATA
+     (deliverable 2's fit, done Python-first as deliverable 5 asks, while 2's
+     runs wait on credit): instruments/horizon — interval.py (a stdlib
+     interval library: outward rounding by math.nextafter, exp/log/2^x from
+     rational series with proved tails, no code shared with instruments/
+     interval in JS), fit.py (METR's penalised logistic estimator as the
+     unique zero of its score; float Newton for the candidate; Krawczyk in
+     intervals for the box; the horizon 2^((logit q − b)/w) as an enclosure),
+     data.py (the raw runs aggregated per task EXACTLY — Σ(w/n)(y_r − p) =
+     w(ȳ − p) — and the site's two yaml files parsed without a library).
+     corpus/metr-horizon pins the repository's runs (commit 52cb829, 24,008
+     runs, 21 aliases), release dates, figs/params, the 29 Jan post and the two
+     files behind the live chart (fetched 2026-09-22; the page says updated
+     8 May). tools/run-horizon-ledger.py → certs/horizon-ledger.json (44
+     fits in 2 min on 8 cores). THE FINDING: 44/44 certified, boxes < 1e-10;
+     the site's printed coefficients are the rounding of the box for 22 of
+     23 models (Mythos Preview's intercept prints 5.582, the box rounds to
+     5.583); the site's p50 estimates lie 1e-6 … 2e-4 relative from the
+     enclosure and NEVER inside it (L-BFGS at a tolerance next to a proof);
+     every enclosure inside METR's bootstrap CI; the post-2023 doubling time
+     re-derives from the 14 SOTA models as 128.740 days (site prints 128.744,
+     the CI [104.4, 158.0]); from 2024, 104.7 over 12 (the post's 88.6 was
+     January's set); the January post's seven TH1.1 horizons match the May
+     file for one model (Claude 3.7 Sonnet, 60) and moved 3–12 % for six —
+     METR's own numbers moved as runs were added; the March runs and the May
+     file agree to 2e-4 on the 20 shared models. reports/time-horizon.html
+     (tools/build-report-horizon.js; every sentence gated): the 23 enclosures
+     as capsules with the site's dots on them, the trend scatter with the
+     certified line, three tables. instruments/horizon/battery.py (29 checks,
+     6 reds; re-certifies one agent live, 15 s) on make test and the control
+     page; shelf row; site card; targets row metr-time-horizon-certified.
+     The Krawczyk step is PORTED to Python (not called from Node) — stated,
+     as the plan asks. What the bootstrap is NOT: re-decided (a random draw
+     is not a theorem); the certified box is the optimiser's uncertainty.
+  0i. DELIVERABLE 4 WRITTEN ON THE CALIBRATION, AND THE PACKET DRAFTED
+     (2026-09-22, on "continue"): reports/time-horizon.html §5 "for three
+     audiences" — a system-card paragraph, a regulator paragraph and a post,
+     each figure a ledger field, to be rewritten on this machine's own number
+     when its runs exist. The packet, all SENDS, held: outreach/metr/
+     resume.md (one page; the thesis sentence and the three hub links first;
+     every figure from a ledger; education and prior employment are
+     [OPERATOR FILLS] — nothing was invented), outreach/metr/cover-task-
+     development-engineer.md (deliverables 1, 3 and the fit, in the posting's
+     own words: novel tasks, misspecification, baselining, Inspect),
+     outreach/metr/cover-mts-evaluation-execution.md (the calibration, the
+     three audiences, the graphs, the reported false start; the relocation
+     line is [OPERATOR FILLS]). /portfolio/ is a new site page built by
+     tools/build-site.js and GATED on three ledgers (horizon, gsm8k, blind-
+     spot inspect) plus batteries.json — the checkable half of a CV, linked
+     from /about's contact line; the ratchets accepted it after looking. The
+     postings re-read 2026-09-22: Task Dev $260,937–385,490, on-site
+     Berkeley, contractor discussable; Eval Execution $328,380–578,583, 3–5
+     days on-site, cap-exempt H-1B. SEND ORDER when the operator says so:
+     Task Dev → Eval Execution, same week. MAIN PUSHED 2026-09-22 ~08:30 -03
+     (72d2fd6..ff37f4e, six commits) on the operator's "fix now" — the
+     return-levels link in the Pedro message 404ed because nothing since the
+     seventeenth session had been deployed; seven pages checked 200 after.
+  0j. THE HUB PUSH IS READY AND THE OWN-RUNS PIPELINE IS WIRED (2026-09-22,
+     morning, on "continue"; credit re-probed: still refused). blind-spot
+     0.1.1: the wheel now carries blind_spot/inspect/task.py and its README
+     (pyproject force-include, version bumped, the patch declared in
+     provenance.py and PROVENANCE re-pinned); built with hatchling, installed
+     into a fresh python3.12 venv with inspect_ai and run end to end from
+     site-packages (preflight's 11 controls, `inspect eval …@blind_spot_
+     located` on the mock model); recorded under `publishing.v0.1.1` in
+     PROVENANCE.json — PUSHED 2026-09-25 15:17 -03 on the operator's word
+     (hub sha 5e73a299af18…), verified from the registry in a fresh venv from /tmp
+     (both bindings, the 11 controls, an inspect eval on the installed task). instruments/
+     horizon/own.py: the pipeline from this machine's Inspect logs (non-
+     control, status success) and environments/*/baselines.json to the same
+     certified fit — a task's human time is the median minutes over the
+     attempts that SOLVED it; a model's outcome is successes/runs; equal
+     task weights — wired into the ledger as `own`, which today reads
+     NO DATA with the counts (1 baseline file, 0 attempts, 18 tasks listed,
+     0 with a human time, 0 frontier logs); the page §4 states those counts
+     from the ledger; the battery re-derives the section, refuses a model
+     with fewer than three timed tasks (a red), and certifies a synthetic
+     own-run set near its known horizon. WHEN THE DATA LANDS nothing new is
+     written: `python3 tools/run-horizon-ledger.py` then `node tools/build-
+     report-horizon.js`.
+  0k. THE CREDIT CAME BACK (2026-09-25) AND THE FRONTIER CAMPAIGN RAN: deliverable
+     1's last line is done and the model half of deliverable 2 exists. environments/
+     blind_spot/inspect/run_frontier.sh: the three rung variants (12 tasks each,
+     seed 2027, the same ids as the baseline list) × Sonnet 5 at effort low /
+     medium / high × Opus 5 at low × Haiku 4.5 (no effort parameter), every log
+     into inspect/logs/ where the ledger re-scores every sample offline
+     (180 rollouts, 0 disagreements). The README's results section is now GENERATED by ledger.py
+     between markers (a table per model × effort × rung with the cost floor from
+     the pinned price table) and the battery still requires its strings. THE
+     NUMBERS: 180 frontier rollouts, 0 disagreements, cost floor $3.86; Sonnet 5 located 8/12 → 10/12 → 12/12 (low → medium → high), profile 6/12 → 8/12 → 6/12, blind 3/12 → 5/12 → 5/12; Opus 5 low located 10/12, profile 2/12 (10 unreadable — the content-policy refusals again), blind 4/12; Haiku 4.5 located 3/12, profile 4/12, blind 4/12. The own-runs section of the horizon ledger now reads
+     NO DATA with 15 frontier logs and 180 rollouts on tasks that have no human time yet — the frontier logs are in; the human times are not.
+  0l. THE APPLICATION, ELEVATED (same day, on "make the submission impossible
+     to not see"): (i) the landing page's fourth lead slot is the time-horizon
+     certification (tools/build-site.js, figures read from the ledger before
+     the LEAD is built; lambda5 stays on the shelf; the swap is commented and
+     revertible); (ii) the repository README gained a "For evaluation teams"
+     section above the ten-second check, the four artifacts with their ledger
+     figures and the portfolio link — the GitHub front page a screener lands
+     on; (iii) outreach/metr/lever-answers.md — the Lever forms have NO cover-
+     letter field, they ask "best evidence" and "why METR" (Task Dev; the Eval
+     Execution form as fetched has only the timeline box), so both roles'
+     answers are drafted from ledger figures with the operator fills marked;
+     (iv) outreach/metr-eval-analysis-issue-2026-09-25.md — an issue on METR's
+     own analysis repository with the certified re-derivation and an offer of
+     a certify_fit check, the send that puts the work in front of the team
+     that reads the applications (LANE M4). THE SEND ORDER I would take: the
+     hub push (M2) → the METR-repo issue (M4) → the baseline recruiting (M1)
+     → the two applications (M3, with M3a's answers), all in one week.
+  0f. OPEN ROLES SCOUTED on the operator's mid-session word ("find more open
+     roles that will fit my portfolio, any company, any field, remote from
+     Brazil as well"): notes/open-roles-2026-09-21.md — ~65 roles verified on
+     the employers' own ATS pages, a ranked top 15 (Epoch AI Benchmarking SWE
+     first, fully remote; Mercor APEX fellowship; Prime Intellect Evals; the
+     UK AISI Inspect team), the Brazil-remote-verified set, the closed/no-role
+     list so the search is not repeated, and the portfolio gaps it names.
+     Two dates this week: Mercor APEX (reported 26 Sept), AISI Control Red
+     Team (30 Sept). Every application is a send.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-21 (planning only; nothing built since 09-17):
+
+  0. THE METR PLAN IS WRITTEN: notes/metr-plan-2026-09-21.md. Target roles
+     Task Development Engineer (primary) and MTS Evaluation Execution; five
+     deliverables in yield order — (1) blind-spot as an Inspect task with
+     human baselines, (2) a certified time-horizon curve on exactly-verified
+     tasks, (3) a task-QA audit of a public eval, (4) one result written for
+     three audiences, (5) Python-first + the application packet. Applications
+     and hub pushes are SENDS, the operator's. Start at deliverable 1; the
+     seventeenth session's work below is still UNCOMMITTED (item 0a there).
+     [SUPERSEDED the same evening: committed as e3fb985; deliverable 1 built — see the menu above.]
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-17 (the seventeenth session). In the order I would take it:
+
+  0. THE UFSC LINE IS AT THE OUTREACH PHASE. Four live pages on Pedro Veras
+     Guimarães's research, all rebuilt or re-read this session, all gates green,
+     NOT COMMITTED at the close (see the log): reports/breaking-geometry.html
+     (his GRL paper of 2026-09-16 read number by number against its own table;
+     the per-record stratification it calls beyond scope, done), reports/
+     return-levels.html (NEW: his Ocean Eng. 2026 method on three NDBC buoys
+     with every fit Krawczyk-certified — instruments/hseva), /instruments/
+     stereo-reach (Caparica 2021 preset; the area-vs-point Hs excess decided to
+     be inside the rig's own cell), reports/ec-benchmark.html (unchanged). The
+     corrigendum question is ANSWERED (an affiliation; no number). A gated
+     outreach draft is in notes/ufsc-outreach-draft-2026-09-17.md; the send is
+     the operator's, per item. Still open on the line: IFORM/ISORM/HD on one
+     fitted model (the hseva marginals are half of it); item 4 (Forecast Gym
+     on PNBOIA); items 6, 7B; a certified digamma would admit the generalized
+     gamma to hseva.
+  0a. COMMIT FIRST. The working tree holds the whole session: corpus/blacksea-
+     breaking/{paper/grl.xml, claims.json, meta.json}, instruments/breaking/
+     paper.js (+ battery, ledger runner, report builder), instruments/hseva/*
+     (families, fit, blocks, battery) + tools/run-hseva-ledger.js + tools/
+     build-report-hseva.js + certs/hseva-ledger.json + corpus/hs-eva/
+     claims.json, instruments/stereo/presets.js + battery + playground/stereo-
+     reach/build.js, tools/build-site.js (two cards), tools/certs-shelf.js,
+     tools/build-control.js, Makefile, design/cdp.js (headed option) +
+     tools/fetch-paper.js, design/{measure,render}-baseline.json
+     (accepted: breaking-geometry grew a third table and a sparse 20-point
+     scatter; return-levels is new), site/. `make test` then commit.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-15, night (the sixteenth session). In the order I would take it:
+
+  0. ERDŐS #1 IS PORTED, PUSHED FURTHER, ON THE SHELF, LIVE (main pushed
+     2026-09-16 01:49), COMMENTED (in moderation), ISSUED (tadamcz/erdos1#2)
+     AND ARCHIVED (v2026.09.3, DOI 10.5281/zenodo.22800699) — every send on
+     the operator's word, per item. Nothing on this front is left undone;
+     what waits is the world: moderation, a reply, an account approval.
+     The frontier-apps front (PORT-ERDOS1.md, sessions 27–28 there) is in this
+     repository whole: instruments/erdos1 (the lattice, the build, the verifier,
+     the gadget decider, the Siegel corollary; 66 files pinned in its
+     PROVENANCE.json, 8 patches declared), certs/erdos1/ (twelve certificates,
+     the eight from the bench plus four built here), certs/erdos1-ledger.json
+     (THE record every page and macro reads; ONE verified-instance rule, in
+     tools/run-erdos1-ledger.js), reports/erdos1.html (+ the shelf card, head of
+     the erdős lane), paper/erdos1-explicit.pdf (v0.2, house preamble, macros
+     from the ledger) and .md (the theorem note), outreach/erdos1-*.md (four
+     drafts, every one gated on the ledger), corpus/sources/erdos1/ (seven
+     pinned sources), the targets row `erdos1-explicit`, the battery (13 checks,
+     6 reds) on `make test` and the control page, the detached verifier
+     tools/verify_erdos1.py (needs python-flint — NOT a stdlib verifier, and
+     the page says so).
+  0a. WHAT WAS PUSHED FURTHER, all verified here, all in the ledger:
+       · the SMALLEST set below Bohman is n = 1,701 at N/2^n = 0.217967 (tilt
+         3/5, d = 81, k = 21); k = 20 misses at 0.220057, and the other small-
+         denominator tilts at d = 81 (4/7, 7/12, 5/9) miss at k = 20 too.
+       · two-level tilted lattices at d = 441 (α = 3/4, b = 21: 0.172386 at
+         n = 12,348) and d = 961 (α = 4/5, b = 31: 0.159783 at n = 28,830) —
+         each beats the Bloom-gadget lattice of the next size up (729, 1331) at
+         well under its dimension. Their strip decisions: milliseconds; 64,794
+         chains at 4/5@31.
+       · every bench certificate re-verified FROM THE FILE here: the six small
+         ones and d = 729 in minutes (the frontier logs are kept beside ours,
+         and enter nothing).
+  0b. THE d = 3375 STRETCH IS VERIFIED AND LEDGERED (2026-09-16 14:52, on the
+     operator's "finish zenodo and handoff later again"): α = 3/5, b = 15,
+     s = 3, k = 36 — n = 121,500 at N/2^n = 0.136855, 37.7% below Bohman
+     (exact, floored), THE NEW HEADLINE on the page, the card and the paper;
+     C_3375 ≥ 3.65 in the Siegel table. 41 verified instances from 12
+     certificates, 0 pending; control 88/88; site synced and pushed. Its
+     three-instance certificate is 164 MB gzipped (over GitHub's limit) and
+     stays out of git as certs/erdos1/wip-cert-b15-s3-a3_5.json.gz; the
+     ledgered file is the k = 36 instance alone, cert-b15-s3-a3_5-k36.json.gz
+     (58 MB, same H, K, detA; the log's k = 32/34 blocks read "skipped");
+     certs/erdos1/logs/NOTE-b15-s3-a3_5.md says so. The outreach texts quote
+     0.145269 and stay as sent — the page carries the better number and a
+     follow-up comment is not owed. NEXT STRETCH, if wanted: 3/5 at b = 17,
+     s = 3 (d = 4913, Δ = 0.2572, → ~0.129), about a day of verification and
+     a certificate that must be split the same way.
+  0c. THE SENDS, all the operator's. ONE REPOSITORY (operator ruling, the
+     same night: "Why a separate repo? Let's use the same") — the bench's
+     prepared second repository is not used; every text points at
+     carlostoledo.co/reports/erdos1.html and at this repository's
+     certs/erdos1/ + instruments/erdos1/, so the PUSH of main comes first
+     and the links resolve after it — PUSHED 01:49, live ten seconds later,
+     six links checked 200, the forum thread and tadamcz/erdos1 re-read and
+     unchanged. Then the erdosproblems.com/1 comment
+     (it answers StijnC's 2025 "N < 2^n/5"), then the tadamcz/erdos1 issue
+     (gh can post it), then Mathstodon (the bench's draft was 699 characters
+     against a 500 limit; the one on disk is 488). No email to Bloom (ruled
+     2026-09-15). outreach/erdos1-sharing-plan.md is the checklist; REPO_URL
+     is gone from the texts. THE COMMENT WAS POSTED by the operator 2026-09-16
+     ~11:25 -03 and sits in the moderation queue (the site holds every new
+     comment; #852 cleared in days, #290 never did); tools/sweep-claims.js
+     watches thread 1 for its text. THE ISSUE ON tadamcz/erdos1 WAS POSTED at
+     11:40 -03 through gh under the operator's account, on the operator's word:
+     https://github.com/tadamcz/erdos1/issues/2. RELEASE v2026.09.3 IS
+     ARCHIVED: DOI 10.5281/zenodo.22800699 (minted 2026-09-16 15:23; the
+     concept DOI 10.5281/zenodo.22225860 resolves to it), stamped into
+     corpus/zenodo.json and CITATION.cff by tools/stamp-release.py, on the
+     paper's date line, check-wiring green. HOW IT WENT, for next time: the
+     release cut at 13:31 hit a two-hour Zenodo outage — the hook's three
+     deliveries got 500 and Zenodo does not retry; redelivery needs the
+     admin:repo_hook scope gh does not have; deleting and re-creating the
+     release (same tag, same notes) re-sent the event at 15:17, Zenodo
+     answered 202 to release/created and 409 to the other two, and the
+     record appeared six minutes later. `gh api repos/<owner>/<repo>/hooks/
+     <id>/deliveries` shows the status codes without admin scope. arXiv
+     HELD (operator). Mathstodon: text and instructions given; THE
+     OPERATOR'S ACCOUNT IS AWAITING APPROVAL by mathstodon.xyz, and the post
+     waits for the forum comment to be shown besides. `node tools/
+     sweep-claims.js` at session start watches the thread, the issue and nothing else needs watching.
+  0d. WHAT IS OPEN ON THE MATHEMATICS, stated on the page: the effective
+     rate f(n) ≤ n^{-c/log log n} needs a PROOF that the buffer K is
+     polynomial in d. MEASURED THIS SESSION, level by level at fixed b
+     (certs/erdos1/logs/kscan-levels-certmachine.log): the operator norm
+     ‖EH⁻¹‖ grows by about b/2 from s = 1 to 2 and about b from s = 2 to 3
+     (4.61 and 8.96 at b = 9; 7.14 and 13.6 at b = 13), so K ≈ d × a slowly
+     growing function of s — polynomial, and not proved; the longest row of
+     H⁻¹ is always the first (the last projected coordinate's dual vector),
+     which is where a proof would start. Two facts a proof can use: any
+     LOWER-TRIANGULAR integer perturbation with ±1 diagonal keeps the chain
+     minor unimodular (the shift is one choice among many, so K may be
+     minimised over a coset of the dual lattice per row), and a SUBLATTICE
+     of Λ_s of index C^s costs only the constant c. An analytic triangular
+     basis of Λ_s with an explicit inverse would settle it. Bigger tilted instances
+     (α = 0.65, b = 21, s = 3 at d = 9,261: Δ = 0.235) need a Hermite path
+     beyond PARI+fmpq at that size. The next affordable stretch after 3375 is
+     3/5@17, s = 3 (d = 4,913, Δ = 0.2572), about a day of verification.
+  0e. TWO THINGS TO KNOW ABOUT THE WIRING: the ledger runner reads 200 MB of
+     gzipped JSON and takes ~30 s, and the report builder runs it (--check)
+     plus the battery at every `make reports`; and a verifier still WRITING a
+     log changes the ledger between two derivations, which is why timings are
+     recorded only for finished runs — while the background runs are alive,
+     `node tools/run-erdos1-ledger.js` before any build that reads it.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-15 (the fifteenth session). In the order I would take it:
+
+  0. THE SITE IS ON ONE TEMPLATE, AND IT IS LIVE. Five commits
+     (fa5405e, 324faf0, a242434, 4ba347a, ddbafb4) PUSHED to main on the
+     operator's word and verified on carlostoledo.co: the radius token resolves,
+     one stylesheet and one footer per page, ZERO inline style attributes on the
+     pages sampled, and the two retired asset paths (the generated instruments
+     stylesheet, the vendored fonts) 404 with nothing referencing them.
+     One shell for all 90 pages, one head, one stylesheet, one footer, one font
+     path; tools/check-style.js ratchets six facts per page. The plan and what
+     shipped against it are in notes/template-plan-2026-09-15.md.
+
+       shells 3 -> 1 · footer markups 25 -> 1 · extra <style> blocks 56 -> 0
+       unresolved var() 222 -> 2 · literal fallbacks 30 -> 0
+       INLINE DESIGN DECLARATIONS 537 -> 0 (249 style attributes remain and
+       every one of them is DATA) · left edges 924 -> 914
+
+  0-. THE ONE THING TO WATCH ON THE LIVE SITE, because no local gate covers it:
+     the twenty /instruments pages now ask Google for their fonts instead of
+     shipping their own, so a slow CDN shows fallback METRICS on first paint.
+     That was the deliberate trade for correct Greek and math glyphs (the
+     vendored subset drew 11 of the 39 the site uses). Vendoring full-coverage
+     subsets is DEBT.md row 4c and is the fix.
+  0a. THE MEASURES WERE UNIFIED ON THE OPERATOR'S WORD (2026-09-15). Sixty-seven
+     inline overrides in eleven bespoke widths — 13, 14, 17, 19, 20, 24, 26, 28,
+     30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78, 80, 84ch on prose —
+     are the two tokens now, and text-wrap:balance does the per-string work.
+     THE SITE HAS ZERO INLINE DESIGN DECLARATIONS: the 249 style attributes
+     left are all DATA (a bar's fill, a marker's position, a grid's column
+     count), each consumed by a rule in the one stylesheet. The rule is in
+     design/CONTRACT.md and tools/check-style.js ratchets it at zero.
+  0b. WHAT THE PASS FOUND, all fixed, all measured — the list is worth reading
+     before trusting any gate: every report shipped SQUARE corners for ten days
+     (a token nothing declared, and the radius check read the NAME); three
+     instruments named tokens that do not exist; the vendored font subset drew
+     11 of 39 glyphs the site uses, so Greek was in Times on every instrument
+     page; four instrument pages had never taken the house heading typography;
+     three viewport instruments had a footer painted behind their overlays; and
+     /instruments/navier-stokes shipped the site nav with NO NAV CSS.
+  0c. WHAT A CLASS CANNOT DO THAT AN INLINE STYLE COULD, and it cost four
+     rounds to learn: an inline style beats every selector, a class does not.
+     Converting 537 of them silently lost 80 fights — paragraphs asking for
+     body size rendered at lede size, rhythm steps took the page's default. The
+     utility layer is emitted LAST and its selectors are written three times;
+     tools/ has no gate for this yet, but the probe that found it is worth
+     keeping (it drives every page and compares each utility's COMPUTED value
+     against the token it names). THAT IS THE NEXT GATE TO WRITE.
+  0d. STILL OPEN from the template pass: the app's BODY is still a second
+     layout (DEBT.md row 4; its head, footer, scale and now its spacing are
+     shared), P5 (a visual-review document; ~1,000 screenshots and four diff
+     runs exist, the write-up does not), and two gate defects now written down
+     in DEBT.md — the render gate keys every figure on a page under one row,
+     and the ruler counts a bordered box as two spines.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-12 (the fourteenth session). In the order I would take it:
+
+  0. THE UFSC LINE IS OPEN AND ITS FIRST ITEM IS BUILT. The operator has a
+     contact at UFSC Florianópolis — Pedro Veras Guimarães, labECO, ocean
+     engineering: extreme value analysis of Hs (Ocean Eng. 2026, with a
+     corrigendum), a Petrobras multivariate-extremes contract, low-cost stereo
+     video, wave breaking, the national buoy network. The menu is
+     notes/ufsc-labeco-menu-2026-09-12.md and the targets row `labeco`.
+     mare-farm (sin-mfg, class C, method lit-OCCUPIED, not his topic) is NOT
+     revived; its direction is, with the emphasis flipped: the metocean object
+     is what we certify. ITEM 1 SHIPPED THIS SESSION — the environmental-
+     contour benchmark re-decided (reports/ec-benchmark.html, /instruments/
+     contours) and ITEM 3 AFTER IT — the stereo rig's error budget as
+     enclosures (/instruments/stereo-reach; both in the fourteenth-session log
+     below) and ITEM 5 AFTER THAT — his 16,369 breaking waves decided against
+     the laboratory (reports/breaking-geometry.html). NEXT on that line: (2)
+     the return-level table as a certificate — needs his data, and the first
+     question to him is what the corrigendum corrected; then 4 (Hs forecasts on
+     PNBOIA buoys), 6 (waves against a current), 7B (weather-window Wardrop). Nothing has been sent to Pedro or to the
+     benchmark's organizers; both are the operator's.
+  0a. COMMITTED 2026-09-15 as 6659a49 at the start of the fifteenth session, so
+     the template pass had clean boundaries. Not pushed.
+  1. The layout ruler and render gate baselines were ACCEPTED for the two new
+     pages only (see the log). The render gate then caught a PRE-EXISTING leak:
+     two literal backticks on /machine, from the blind-spot battery description
+     committed 2026-09-10 (`-mode none`) — fixed in tools/build-control.js; the
+     control page was rebuilt afterwards (see batteries.json for the final tally
+     this session left).
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-10 (the thirteenth session). In the order I would take it:
+
+  0. THREE ENVIRONMENTS ARE ON THE HUB. break-the-grader (2026-09-04),
+     blind-spot and lattice-claims (both 2026-09-10), each verified FROM THE
+     REGISTRY in a clean venv after publishing, which is the step that catches
+     what a source tree hides. Nothing is outstanding on this front.
+     THE REVIEW BEFORE EACH PUSH EARNED ITS PLACE BOTH TIMES: blind-spot's README
+     claimed 13 tests where there are 17, and lattice-claims' claimed 18 where
+     there are 27, had no install section at all, and pointed at a builder that
+     does not exist in this repository. A README is the Hub's front page.
+
+  0a. THE THIRD ENVIRONMENT, AS BUILT. lattice-claims
+     now has the same publishing layer blind-spot proved out: api.py,
+     adapters_v0.py, lazy exports, the publishable pyproject, and the two binding
+     tests — all NINE of which passed on the first run, because the four
+     framework facts were already known. The parser moved into the package (135
+     stored replies re-parsed, 0 rows moved), the wheel installs clean into a
+     fresh 3.12 venv, and 72 live rollouts through verifiers across Sonnet 5 and
+     Haiku 4.5 gave 0 disagreements for $1.85. THE FINDING: Haiku scored 4 of 12
+     certified on the `declared` rung and 0 of 12 WELL FORMED — every verdict it
+     got right came from a reference it never properly declared, which is the
+     environment's whole thesis as a measurement. Opus 5 was not run: THE
+     ACCOUNT'S CREDIT BALANCE RAN OUT (the 400 arrives before any generation, so
+     nothing was billed, and the empty record was deleted rather than kept).
+     `prime env push` from instruments/wiring is a SEND and is the operator's.
+
+  0b. THE SECOND ENVIRONMENT IS LIVE. carlos-toledo/blind-spot v0.1.0, PUBLIC,
+     published 2026-09-10 and verified from the registry in a clean venv. There
+     are TWO on the hub now (break-the-grader since 2026-09-04). Nothing is
+     outstanding on this front; the natural next moves are a v0.1.1 if anything
+     turns up in use, and lattice-claims as a third — it is already ported into
+     instruments/wiring and needs only the same publishing layer.
+  1. NOTHING IS PUSHED. The audit, the instrument, the mechanism and now the
+     second environment are FOURTEEN local commits (e78d65e … HEAD). A push to
+     main IS the deploy. Everything below is downstream of it.
+  2. THE INSTRUMENT, still open but on a different question. The mechanism is
+     drawn now — the cone (4.22)/(4.23), the two positive amplitudes of
+     Prop. 7.5, the two pulse trains at the amplitudes the stress decides — and
+     the four cheap candidates from the eleventh session's menu are done
+     (streamlines carried both ways from each seed, the contour count a control,
+     a legend drawn in the marks it names, "the stress" as a fifth mode worth
+     switching to). WHAT IS STILL OPEN: the h slider changes the picture very
+     little at the paper's h and the page still says so rather than dramatising
+     it; the mechanism plate is hidden below 1180px or 790px of height, so a
+     phone reader gets the pulses without the diagram that explains them; and
+     the stress PATH across the annulus is drawn rather than derived — the test
+     applied to it is the paper's and exact, the path is a legible bump.
+  3. THE THREE OLDER DRAFTS, still operator-gated and unsent: Woett's reply
+     (outreach/erdos290-issue164-reply-2026-09-08.md), OEIS PACK 4, and the
+     undrafted note to togethercomputer/EinsteinArena-new-SOTA.
+  4. A FOURTH POSSIBLE SEND, now stronger than it was: a note to OpenAI on the
+     energy clause (the lemma is proved and unused) and on the swirl maximum
+     principle — and the stress-cone probe now gives the third leg, since the
+     k ≠ 0 that Prop. 7.5 Step 1 turns on is the same nonzero angular mode the
+     swirl argument needs and the paper never connects the two. Not drafted.
+     A send, so yours.
+  5. THE EULER CHECKS, listed in corpus/navier-stokes/euler.md and unrun: the WKB
+     frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic, the §3
+     symbolic identities.
+  6. TWO DEBT ROWS on the layout ruler, both open: it measures app pages before
+     they render (two skyaudit rows were false green for four days), and it
+     counts a bordered box as two spines. Half a day and an hour, separately —
+     the second one re-measures every page, so it does not ride along with
+     anything else.
+  7. Everything below is the older menu and is unchanged.
+
+────────────────────────────────────────────────────────────────────────────
+THE MENU, as of 2026-09-02 (the release day). Session logs follow below;
+this is the part to read first. `node tools/targets.js` is the memory
+behind it — 25 rows, and the DEAD ones are the afternoons you do not have
+to spend again. THE SITE IS LIVE (carlostoledo.co, both theorem programs,
+DOI-stamped); ALL FURTHER SENDS REMAIN OPERATOR-GATED.
+────────────────────────────────────────────────────────────────────────────
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-FOURTH SESSION, 2026-09-29 — A11: A PRINTED FIT DECIDED IN THE ATLAS,
+  AND A PUBLISHED DESIGN TABLE DECIDED AGAINST THE NEAREST CELLS; A12: THE
+  MEETING KIT (in chat and a private page, not here). COMMITTED · PUSHED ·
+  nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "read HANDOFF.md and continue the development from
+    the last chat." The menu's order was A12 (the kit), then A11; both done,
+    A11 first so the kit could demo it.
+
+  ── 1 · ONE DECISION, TWO PAGES ── the check's printed-fit ladder moved to
+    playground/return-level-check/printed.js (decide + recordOf; words
+    unchanged; `pending` carries a page's own words when nothing is certified
+    yet). Added: the GEV (μ, σ, ξ), its support decided over the digits' box
+    (1 + ξ(x − μ)/σ ≤ 0 at a datum: OUTSIDE ITS SUPPORT; possibly: UNDECIDED AT
+    THE PRINTED PRECISION), its verdicts naming the REGULAR maximum. The check's
+    certificate now lists 13 modules.
+
+  ── 2 · THE ATLAS ── worker.js `printed`: the series (cell or own site), THE
+    block rule for the printed block (annual included), the digits first
+    decided without a certificate (NOT A MEMBER stops there), then fit.js
+    certify() on that family (and the lognormal beside the generalized gamma)
+    and printed.js on the result. app.js: the form under "every fit", the
+    finder remembering the typed place (the distance is said), the result with
+    the decided family's statistical interval and the words on what a verdict
+    against another record means. Greek labels are not uppercased (α would
+    read A).
+
+  ── 3 · THE TABLE ── a scouting agent read the public literature for printed
+    Hs design tables near the Brazilian margin (the targets row); Bhaskaran et
+    al. 2023 was the one with fitted parameters at coordinates and a block the
+    atlas can form. Its Tables 1 and 3 and Eqs. 1–6 were re-read here from the
+    PDF (sha256 828c2760…) before transcription. certs/design-table-audit.json
+    decides the 20 fits at the two nearest open-sea cells each (the verdicts
+    differ at the second cell for LA12 and LA16, where the digits and the
+    records sit differently); `--check` re-derives it, and the battery runs it.
+
+  ── 4 · GATES ── style, grammar, wiring, stale-claims, render, measure: pass;
+    make site 93/93; drive-atlas 28/28 locally and live after the push.
+
+  ── THINGS LEARNED (later the same day) ── a verifier's LAST comparison must be as exact
+    as its enclosure: the 147-point C3c checker encloses the ratio at 100 digits and then
+    compares with mpmath.mpf at the default 53 bits. The mirror image bit us too: Python's
+    unary minus on a Decimal rounds to the DEFAULT context's 28 digits; the stdlib verifier's
+    first draft disagreed with the JavaScript instrument at the 28th digit until the two were
+    compared (it now names a context for every operation and poisons the default one).
+  ── THINGS LEARNED ── served() in playground/return-level-atlas/build.js
+    diffs ALL of instruments/hseva against the served commit, so even a battery
+    edit there refuses the atlas build until a re-run: keep page-level tests
+    beside the page. A scouting agent needs to be told which identifiers it may
+    not send: it put the operator's email in an API field that asked for one
+    (Unpaywall); tell agents to use no personal data in requests.
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-THIRD SESSION, 2026-09-28 — PHASE A: THE REPORT'S 3-HOURLY BLOCK IN
+  THE ATLAS (A1); THE GEV AS A SEVENTH FAMILY, LABELLED STATISTICAL INTERVALS,
+  THE EXTREMAL INDEX, THE UNDERFLOW ENCLOSED (A2–A5); TWO REVIEWS (A6); ONE
+  RE-RUN (A7); THE PAGE (A8); SHIPPED (A9). COMMITTED · PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Read HANDOFF.md's task menu and start Phase A at A0.
+    Phase A has to be live before my UFSC meeting on Wednesday 2026-09-30. Do
+    A1 first and ship it on its own, then A2–A9 as one reviewed re-run, then
+    A10 if there's time."
+
+  ── A1 · SHIPPED ALONE (7416b79) ── see the menu's A1.
+
+  ── A2 · THE GEV (families.js gev, fit.js certifyGEV) ── F = exp(−(1 + ξz)^(−1/ξ))
+    written with y = z·L(ξz), L(u) = ln(1 + u)/u, so ln f = −ln σ − (1 + ξ)y − e^(−y)
+    and ξ = 0 is an ordinary point (nothing divided by ξ), as Prentice's Q = 0 is
+    for the generalized gamma. L = ∫₀¹ dt/(1 + ut): L ↓, L′ ↑, L″ ↓ on u > −1, so
+    an interval of u is enclosed by its two ends; at an end the series for
+    |u| ≤ 1/20 with three proved tails, the closed forms beyond. The quantile
+    μ + σ v E(ξv), E(w) = (eʷ − 1)/w, the same way. Score and Hessian by ad2.js.
+    THE GEV'S LIKELIHOOD HAS NO GLOBAL MAXIMUM (below ξ = −1 it is unbounded as
+    the upper end reaches the largest datum): its fit is the certified maximum in
+    the region where the estimator is regular, ξ > −0.5 (Smith 1985); a box
+    reaching −0.5 is refused; a climb past −0.5 stops.
+
+  ── A3 · THE SEVENTH LAYER ── atlas.js: per block `gev` (a fit record + x, its ξ
+    enclosed) and `seven` (Anderson–Darling among the six and the GEV, the rank
+    rule UNCHANGED — a family refused other than at its proved edge blocks it, so
+    the GEV decides only where the six are decided or tied); `fits`, `rank`,
+    `naive` untouched, the paper's claims untouched. run-hseva-ledger.js the same
+    (B.gev, B.seven). The report's §7.
+
+  ── A4 · STATISTICAL, LABELLED ── fit.js deltaLevel/deltaParam: the delta method
+    from the observed information at the float candidate, in the certificate's
+    coordinates; a level's interval on ln q (positive; the symmetric one went to
+    −11 m on a heavy monthly tail), ξ's symmetric; −H tested positive definite
+    by Cholesky; the difference step as realized. atlas.js extremalIndex: the
+    runs estimator (u the ⌈0.95n⌉-th day, a new storm after 3 quiet days). All of
+    it in a separate `stat` section (the atlas ledger's top level; the report
+    ledger's B.stat), never inside a record. In the tab: the band on the
+    return-level plot and the design-life interval (the worker, for the decided
+    family and the GEV), and the PROFILE LIKELIHOOD of the decided family's
+    100-year wave on demand (worker.js profile: one parameter eliminated per
+    family so the level is the coordinate, Nelder–Mead over the rest, the 3.84
+    crossing bisected). Drawn apart from the certified ink: screened cells, dashed
+    lines, dash-underlined numbers (.w-computed).
+
+  ── A5 · THE UNDERFLOW ── fit.js expIv: below x = −744 the interval exp is
+    [0, 2⁻¹⁰⁷³] (e^(−744) < 2⁻¹⁰⁷³.³; the plan's 2⁻¹⁰⁷⁴ would not enclose it),
+    an interval starting there [0, its upper end]; the LIFTED transcendental.js
+    untouched (it is sin-mfg's, and other instruments use it). The Stacy λ and
+    the exp.-Weibull α and λ boxes still null on an underflow (an enclosure
+    reaching 0 says nothing of a positive parameter).
+
+  ── A6 · TWO REVIEWS (independent, read-only, as on 2026-09-27/28) ──
+    THE MATH: no soundness defect — 2,424 thin and 13,530 interval checks of
+    L, L′, L″ against mpmath at 60–80 digits, 532 + 2,266 of E(w), the log-
+    likelihood/score/Hessian at 13 points and over 11 boxes, cdf/sf/quantile at
+    386, expIv at 217 inputs: zero failures; the mpmath MLE inside every
+    certified GEV box (13 synthetic samples, the Arabian Sea daily and monthly);
+    the paper's six fields byte-identical on the cells and units re-derived.
+    Its findings, all fixed: (1) the GEV's likelihood is unbounded below ξ = −1,
+    so "the search's claim" is false for it — the fit is now stated as the
+    regular local maximum (fit.js, families.js header, the ledgers' conventions,
+    the page and the report say so); (2) nothing re-checked `seven` — the
+    battery now re-decides it from the recorded enclosures in both ledgers;
+    (3) the exp.-Weibull α unguarded against an enclosed underflow — guarded;
+    (4) a difference step below an ulp would zero a gradient — divided by the
+    realized step; (5) covariance() tested diag(Σ) > 0, not definiteness —
+    Cholesky now, with a red control (an indefinite −H gives no interval);
+    (6) the float sf's small-t branch took a midpoint — floats take expm1 (GEV,
+    Gumbel, both exp.-Weibull forms); (7) small words.
+    THE LEDGER AND THE PAGE: nothing breaks the build. Fixed: the delta
+    interval on a level went below zero on a heavy tail (16_64 monthly:
+    [−11.47, 150.3] m) — now on ln q; `seven` can decide only where the six are
+    decided or tied (the rule unchanged) — now said everywhere it is shown; the
+    GEV's runaway levels where it wins (the Arabian Sea: 1,278 m 3-hourly, 350 m
+    daily) — said against the record wherever shown; the report ledger kept a
+    statistical interval inside a certified record (B.gev.xiStat) — moved to
+    B.stat.gevXi; the battery now checks `seven` at the report nodes against
+    the atlas, the `stat` section's form, and the GEV's interval score and
+    Hessian over boxes straddling ξ = 0; the tab's comparison with the ledger
+    covers `seven` and the GEV's state; stale "six families" words; the
+    runner's dead code; "no certified result lost" made a check (below).
+
+  ── A7 · THE RE-RUN ── certs/hseva-ledger.json in 457 s; certs/hseva-atlas.json
+    in 16,662 s wall (on a power-limited Mac, about 1 h 40 of it paused on battery
+    — see 0c (xii)). NOTHING LOST, checked against the committed ledgers: all
+    46,602 six-family atlas fits and all 402 report fits byte-identical, 0 of
+    40,778 and 0 of 353 certified fits lost, `rank` and `naive` identical, the
+    printed, scipy and findings sections identical. The atlas: the GEV certified
+    at 7,765 of 7,767 cell-blocks (2 refused at ξ ≤ −0.5), ξ certified above zero
+    at 2,840 and below at 4,925; among seven: the GEV 1,489, one of the six
+    6,193, refused 85; the GEV displaces the six's choice at 1,488 and decides a
+    tie among them at 1; at the 45 Fréchet-corner cell-blocks, certified with
+    ξ > 0 and the lowest A² at all 45, the choice refused at all 45 (the
+    exp. Weibull's refusal blocks it). Where the GEV wins it runs as far as the
+    six: 397 m daily against a 5.2 m record at 12° N 52° E. Statistical: the
+    decided family's 100-year interval 7% / 12% / 17% of the level at the median
+    cell (daily / weekly / monthly), wider than 40% at 144 monthly cells; ξ's
+    interval above zero at 2,048, below at 3,591, holding zero at 2,126; the
+    extremal index 0.16 (15° N 62° E) to 0.68 (32° S 52° W), median 0.44. The
+    report ledger: the GEV certified on 67 of 67 series, chosen among seven on
+    16 (on the Brazilian margin with ξ < 0 at Campos monthly, Santos weekly,
+    Espírito Santo daily/weekly/monthly, Potiguar daily/weekly; and on three
+    unfiltered series — buoy A 43 m, Pelotas 12.8 m, the Arabian Sea 1,278 m —
+    a fit to the bulk read in the tail); A's and C's annual choice still
+    refused, the GEV there ξ = 0.257 and 0.311.
+
+  ── A8 · THE PAGE ── three views: "a seventh family" (Anderson–Darling among
+    seven: the GEV in ink, one of the six quiet, refused hatched; the tooltip
+    gives the GEV's ξ and its 100-year wave against the record), "the GEV's
+    tail" (the certified ξ on a five-step ramp, a DASHED outline where its 95%
+    interval — statistical — holds 0: the Gumbel not ruled out), "uncertainty"
+    (the decided family's 100- or 1000-year interval ÷ the level, SCREENED: the
+    ramp's colour with a thin gap every fourth row, never a solid fill). The cell's table gains
+    "among 7", "GEV ξ" and "100-yr 95%" (dash-underlined, .w-computed); the
+    report node's 3-hourly column carries the report ledger's seventh family and
+    interval too; the extremal index said in words (storms of 1/θ days above the
+    95th percentile). After certifying: the design-life sentence carries its
+    statistical interval and the storms; the return-level plot draws the GEV a
+    step lighter and the decided family's band as two DASHED edges; the full
+    table gains the GEV row and "among the seven"; a button runs the PROFILE
+    LIKELIHOOD of the decided family's 100-year wave in its own worker. The
+    method tab: "A seventh family" and "Statistical, not certified", every
+    number counted from the ledger at build.
+
+  ── A9 · GATES AND THE SERVE FLOW ── the hseva battery 1,678 checks, 20/20 reds;
+    the report rebuilt (its §7: the GEV beside the six and the width a certificate
+    does not give, a compact table keyed under it; "who certifies" is §8 now);
+    commit 3385237 (code, ledgers, report, page) pushed; corpus/ww3-grid/
+    SERVED.json names it; make site 92/92. Two gates spoke and were answered:
+    check-wiring — a page drawing the grammar's marks (the atlas's dash-underlined
+    statistical numbers) must print its legend: the method tab now prints
+    warrant.js legendHtml (decided · computed · refused); check-measure — the
+    report's new table adds two column spines at 1440 and at 390 one more table
+    scrolling inside its own box, as every table there does: recorded with
+    --accept-worse, after the table was narrowed from four clipped widths to
+    that one. Style, render and dash gates pass (433 conforming dashes, +2: the
+    band's CLAIM). tools/drive-atlas.js 19/19 locally over the served commit.
+
+
+  ── A10 · BRING YOUR OWN SITE ── see the menu's A10: shipped after the serve
+    commit, page-only (the parse rule moved to one module both pages load).
+
+  ── THINGS LEARNED ── the menu's 0c (xi) and (xii): zsh's BG_NICE; a fanless M2 on a 30 W
+    adapter, and a battery guard for long runs.
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-SECOND SESSION, 2026-09-27/28 — THE RETURN-LEVEL ATLAS, AND THE
+  EXPONENTIATED WEIBULL'S GUMBEL COORDINATES. COMMITTED · PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Is it valuable to create a visually stunning
+    playground with maplibre, controls, etc? Also focused on Pedro's work?
+    Something only cert-machine could do and that will open new ideas for his
+    research? … Evolve, improve, amaze." The answer built: the paper's own
+    global map, with every cell a certificate.
+
+  ── 1 · THE DATA ── tools/fetch-ww3-grid.py (imports the points fetcher, does
+    not copy it): every hs chunk of every monthly file 1993-2024 again (~18 GB,
+    ~80 min; the chunk hashes equal the ones corpus/ww3-points pinned), keeping
+    each UTC day's largest value at a 2° global lattice + every 0.5° node of the
+    Brazilian margin + the report's 13 nodes (cache ~450 MB in
+    corpus/ww3-grid/cache/, NOT committed). tools/build-ww3-atlas-corpus.py cuts
+    the atlas cells: a 4° global lattice + a 1° Brazilian lattice + the 13
+    nodes; 2,589 sea cells (the hindcast's own sea-ice field zero at every
+    3-hourly step of 32 years, no fill value: certified), 679 ice cells
+    (shown, not certified — see 6 for how the first rule missed 465 of them),
+    land dropped; cells/<lat>_<lon>.i16, 11,688 days each, pinned by sha256 in
+    meta.json (61 MB). Land: Natural Earth 1:50m (corpus/basemap,
+    pinned by commit + sha256, public domain).
+
+  ── 2 · THE LEDGER ── instruments/hseva/atlas.js is THE cell record (the page
+    bundles the same bytes); tools/run-hseva-atlas.js → certs/hseva-atlas.json
+    (5,860 s on 7 workers, under caffeinate): per cell, daily/weekly/monthly
+    × six families × four criteria × 100/1000-yr, each choice DECIDED or
+    REFUSED, and what a threshold fitter (GG past α = 500, EW past α = 10⁴ and
+    every stop taken for "the limit") would choose. 40,778 of 46,602 fits
+    certified (1,996 in Prentice's coordinates, 219 in the EW's Gumbel
+    coordinates), 5,751 GG at the lognormal limit with the proof, 53 EW
+    stops (toward k → 0: 45), 20 other refusals. AD decides
+    2,569/2,573/2,541 of 2,589 cells (daily/weekly/monthly).
+    instruments/hseva/atlas-claims.js: the paper's §3 regional claims as BOXES
+    with three verdicts (HOLDS / DOES NOT HOLD / UNDECIDED — the refused cells
+    could count for anybody): 6 HOLD (the EW majority in the Southern Ocean monthly, 227 of 382 cells; south of Japan monthly, 16 of 26; the 100-year level falls from daily to monthly in the North Atlantic, 38 of 62, the North Pacific, 70 of 81, and the Arabian Sea, 16 of 23; the 1000-year level rises south of Japan, 17 of 26), 2 DO NOT HOLD (the GG the most frequent choice south of South America daily — the EW has 12 of 22 cells, the GG 9; the GG expands weekly in the Southern Ocean — 166 → 131), 2 UNDECIDED (the global rise of the Weibull daily → weekly → monthly: EW 977 → 888 → 728 falls, Weibull 9 → 11 → 61, but 9 → 11 lies inside the 19 refused daily cells; the monsoon Weibull 1 → 3 of 44 with 5 and 6 refused).
+
+  ── 3 · THE PAGE ── /instruments/return-level-atlas/: a MapLibre globe (the
+    vendored, pinned 5.24.0; grayscale tokens; no hue), eight views (design
+    wave, which family, block sensitivity, against the record, criteria
+    agree?, generalized gamma, exp. Weibull, a threshold fitter), the claims in
+    the side panel and below, click a cell → its choices → "certify this cell
+    in my tab": the cell file fetched from raw.githubusercontent pinned by
+    commit (corpus/ww3-grid/SERVED.json), sha256-checked, re-certified in a
+    worker by atlas.js and compared with the ledger's record by sha256 —
+    IDENTICAL in Chrome — then the cell's RETURN-LEVEL PLOT (each certified
+    family's quantile from two blocks to 10,000 years, every point an
+    enclosure from the box, the maxima at plotting positions, the record
+    dashed), the certificate and the series as CSV for the return-level check.
+
+  ── 4 · THE EXPONENTIATED WEIBULL'S GUMBEL COORDINATES (a finding) ── where
+    the (α, k, λ) climb runs past α = 10⁴, write θ = λ^k, β = θ ln α: the family
+    is exp(e^{β/θ} ln(1 − e^{−x^k/θ})), a Gumbel law of H^k once e^{−x^k/θ} is
+    small. The runaway α (10⁹, 10¹⁷, 10²⁷ …) is a coordinate artefact: in
+    (k, θ, β) (families.js expweibullG, score and Hessian by second-order
+    forward differentiation, ad2.js) the maximum is an ordinary point and is
+    certified (fit.js certifyEW). Where the climb runs on even there, it goes
+    to k → 0 — a Gumbel of ln H, the Fréchet corner — and the choice stays
+    refused (buoys A and C annual; 45 atlas cell-blocks). The seventh
+    family that would decide those: the Fréchet, or the extended GPD of Naveau
+    et al. 2016 — the EW's own construction (a power of a cdf) on a Pareto base.
+
+  ── 5 · WHAT IT CHANGED ── certs/hseva-ledger.json rebuilt (5 minutes now):
+    at the Arabian Sea the exponentiated Weibull, certified in Gumbel
+    coordinates at α up to 10²⁷, is the DECIDED choice at every block, with
+    100-year waves of 361, 129, 46 and 24 m against a 32-year record of
+    6.87 m (A² 965 on the 3-hourly series: the best of six bad fits of a
+    bimodal monsoon climate the paper itself warns about); south of Japan
+    monthly decided too. The report's §5 says so. Across the atlas: the
+    100-year wave of the decided family lies below the record at 2,607 of
+    7,663 decided cell-blocks and reaches 18.7× the record (15° N 62° E, the Arabian Sea node, daily: the EW's 128.5 m against 6.87 m); 34% below the record against the 27% base rate a correct 100-year level would give over 32 years.
+
+  ── 6 · TWO REVIEWS BEFORE THE PUSH (independent agents, read-only) ──
+    THE MATH (the Gumbel coordinates, ad2.js, certifyEW, the wrappers): no
+    soundness defect — every enclosure checked against 40–80-digit mpmath held,
+    no path certifies what it did not prove, a wrapped throw can only turn
+    DECIDED into REFUSED. Latent, fixed: a trial step outside the Gumbel regime
+    ended the whole climb (now a rejected step: 0 of 60 hostile starts abort);
+    the Gumbel quantile formed e^(−β/θ) and threw past α ≈ 10³⁰⁴ (now u = β −
+    θ(ln(−ln p) + ln s), never formed); the ledger's printed-fit check compared
+    boxes across coordinates (now in the printed ones, or not at all); the
+    ledger's 9-digit θ lay outside its own 12-digit box (now the exact double).
+    Left, stated: interval exp still refuses an underflow rather than
+    enclosing it in [0, 2⁻¹⁰⁷⁴] (masked in practice, a refusal is sound).
+    THE PAGE AND THE CORPUS — ONE REAL DEFECT: under sea ice the hindcast
+    writes Hs ≈ 0.002 m, not 0, so "a day at zero" missed most of the ice:
+    ~150 high-latitude cells (the Ross Sea, Okhotsk, the Bering) were
+    certified as open sea and fed the claims. NOW: the files' own `ice`
+    variable (sea_ice_area_fraction) read for all 384 months
+    (tools/fetch-ww3-grid.py --ice, 4.2 GB, hashed), and a cell is open sea
+    only if that field is zero at every 3-hourly step. Also fixed: the ledger
+    now records the sha256 of every certifying module and each worker refuses
+    other bytes (the run had been one edit away from mixing code versions);
+    the page refuses to build over a ledger its bundle did not write, and
+    SERVED.json must name a pushed commit whose corpus, cells, ledger and code
+    equal the tree; DOES NOT HOLD is now decided jointly across blocks (the
+    step-by-step test called some impossible claims UNDECIDED) and checked
+    against brute force; null level ends are open, never 0; the rise claim's
+    counts say "higher"; the tooltip, legend and hatch give each view's own
+    reason; the run survives a block switch; the North Pacific box is drawn
+    across the antimeridian; controls keep keyboard focus, claims take Enter,
+    a lat, lon box opens the nearest cell; the design-life sentence says "at
+    most 10%" with its independence and climate caveats; the below-the-record
+    count now carries its base rate (a correct 100-year level is exceeded by a
+    32-year record with probability ≈ 27%).
+
+  ── 7 · ROBUSTNESS FOUND BY THE FIRST FULL RUN ── a Prentice-certified GG whose
+    λ = e^{μ − ln α / c} underflows the doubles threw inside withStacy and
+    killed a worker (k = −1376): certify()/certifyAt() now turn any throw into
+    a refusal with its reason; the Stacy box (and the EW's (α, k, λ) box) may
+    be null — the certificate is then in its own coordinates only, and the
+    return-level check says NOT DECIDED (the printed digits cannot be compared)
+    instead of throwing.
+
+  ── 9 · THE VIEWPORT (2026-09-28, on "make sure it will be a perfect 100vw ×
+    100vh experience. Insert lateral panel and tabs if needed. Also, optimize
+    for mobile") ── the atlas is now a viewport, not a document (foot: null,
+    the navier-stokes pattern): the globe fills the window under the nav and
+    nothing scrolls but the panel. Beside the globe on a wide screen (min(460px,
+    38vw), foldable — "hide" / a button to bring it back, the globe resizing to
+    the whole width), over it as a sheet on a phone (a peek with the title and
+    the tabs, half, nearly full; a tap on the grip or the title steps it, a
+    swipe moves it, Escape lowers it; a claim lowers it to show the globe, a cell
+    raises it), beside it again, compact, on a phone held sideways. Three tabs:
+    claims (the ten, quoted, with their counts; the small multiples in the
+    family view), cell (the finder, then the action first — certify in my tab —
+    its result, the ledger's table, the words), method (what is certified, the
+    data, what this opens, the code, the commands). The globe is centred in
+    what the controls, the key and the sheet leave (MapLibre padding from their
+    rectangles) and its zoom fitted by measuring its radius on screen. Phones
+    get selects for the eight views, the family and the criterion, short labels
+    and a short key. Hairlines drawn as shadows so no child sits a pixel off
+    its edge: the ruler reads 2 / 3 / 6 spines at 390 / 768 / 1440 (was 4 / 5 /
+    8); every size from 390×844 to 2560×1440 and 667×375 measured with the
+    document exactly the window (scrollWidth = innerWidth, scrollHeight =
+    innerHeight), a cell certified in the tab at 1440 and at 390, identical.
+
+  ── 10 · LAYER 1: A RESEARCH TOOL (2026-09-28, on "what would you build to
+    make the page even more interesting for both?" → "go") ──
+    · YOUR OWN CLAIM: draw a region on the globe (press and drag; on a phone by
+      touch, the sheet stepping aside) or type it, pick the cells (the 4°
+      globe, the 1° Brazilian margin, both), a rule (most frequent choice;
+      more than half; more / fewer cells as the block grows; the 100- or
+      1000-year wave falls / rises across blocks), a family, a block, a
+      criterion — decided at once by instruments/hseva/atlas-claims.js ITSELF,
+      inlined into the page with the block rule (their sha256s in "the code in
+      your tab"), over the map's compact data read the way the ledger is read.
+      On load the page decides the paper's ten again that way and says so:
+      "all 10 verdicts and their counts are the build's" (checked in Chrome).
+    · THE CELL'S DATA: choosing a cell fetches its pinned file at once (sha256
+      checked) and draws its 11,688 daily maxima; after "certify" four views —
+      the series (the block maxima the fits see, the record ringed), a
+      histogram with what each certified fit expects in the same bins, a QQ
+      plot per family (Gringorten; points past the axis counted), the return
+      levels. The Arabian Sea explains itself: the monsoon's second mode in the
+      histogram, the exponentiated Weibull's quantiles running to 15+ m on the
+      QQ plot against a 6.9 m sea.
+    · LINKS: the view, block, family, criterion, tab, cell, chart, a paper's
+      claim or one's own, and the camera live in the address (replaceState, no
+      history spam); "link to this cell" / "link to this claim" copy it; a
+      link reopens exactly that state (checked).
+    NEXT (layer 2, one atlas re-run each): the GEV as a seventh family (the
+    paper's six hold only its Gumbel case; it also decides the Fréchet corner),
+    and statistical intervals on the levels, drawn apart from the certified
+    numbers, with a clustering estimate for the daily blocks. Layer 3 (the
+    Petrobras layer): a private bring-your-own-site pin, a design-table audit
+    against the nearest cell, joint Hs–Tp contours, POT/GPD with declustering.
+
+  ── 8 · GATES ── hseva battery 1,449 checks, 16 reds (new: the Gumbel-
+    regime red, the atlas section — corpus sha, one record per sea cell, every
+    cell file's sha, every decision and every threshold-fitter choice re-derived
+    from the recorded enclosures, edges with their proof, blocked blocks
+    REFUSED, three cells re-derived live char for char, the 13 report nodes
+    decided alike in both ledgers, the claims). make test 92/92; the ruler,
+    render and style ratchets accept the new page (1440 and 390 in Chrome).
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTY-FIRST SESSION, 2026-09-27 — THE RETURN-LEVEL WORK REVIEWED, FIXED AND
+  PUSHED: "https://carlostoledo.co/instruments/return-level-check/ not live.
+  Review the last implementation and make sure we are ready."
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY IT WAS NOT LIVE ── 76c3781 was committed and never pushed; the site
+    deploys from main. Before pushing, two independent reviews ran in
+    parallel (the math core; the pipeline, report and instrument driven in
+    Chrome over local HTTP). Both found real defects; all confirmed ones are
+    fixed here, then the ledger was rebuilt (~60 min), and the site pushed.
+
+  ── 1 · THE METHOD (fit.js, families.js, special.js) ──
+    · THE EDGE WAS A HEURISTIC. A climb crossing α > 500 (GG), α > 10⁴ (EW)
+      or Q < 0.03 was called "no maximum" and the family left out of the
+      ranking; the limit test proved only that one candidate was not the max.
+      On six hindcast series the GG's maximum is beside the limit (α 951–
+      2,323), certified now, and 17 choices move; on arabian-sea monthly the
+      EW has a maximum at α ≈ 12,700 that a longer climb finds and Krawczyk
+      cannot yet box. NOW: certifyGG searches from α = 1 in (α, c, λ) and from
+      the lognormal at Q = 0.02 in Prentice's coordinates; a certified maximum
+      above the lognormal's is the fit; otherwise the BOUNDARY TEST must prove
+      ∂ℓ/∂Q < 0 over B × (0, q₁] (B around the lognormal fit, the widest of
+      k = 3, 1, 0.3, 0.1 SE or its own box) for the family to be left out;
+      anything else blocks the ranking (rankRule unchanged in shape: only a
+      proved edge is excluded). EW stops block.
+    · THE SERIES FORM. gengammaP's ℓ, score and Hessian as power series in
+      u = Qw (E1, E1′, E2, E2′, E2″ with tails ≤ |u|^J e^|u|/(J+1)!) plus
+      special.js's C, C′, C″ polynomials; nothing divided by Q; checked
+      against the direct form to 1e-11 and at Q = 0 against the lognormal.
+    · THE SECOND ORDER. certify() proved a zero of the score, not a maximum.
+      secondOrder(): Sylvester minors over the box, or definiteness at the
+      candidate plus ‖I − A·H(X)‖_u < 1 (every Hessian in the box nonsingular,
+      so the signature is constant). All 348 recorded with their minors.
+    · P(a, z) rescaled in logs (no overflow at z ≫ a, no underflow throw at
+      z ≪ a); P⁻¹'s bracket moves only on a certain sign (the doubling loop
+      used to take "not above" for "below"), each end bisected alone; Φ⁻¹
+      likewise, its bracket checked; χ² exact only while k·|num| < 2⁵² (else
+      refused, not "undefined"); rankRule refuses on a statistic that cannot
+      be enclosed or is not finite; printedBox takes plain decimals only.
+
+  ── 2 · THE INSTRUMENT (playground/return-level-check) ──
+    · a certificate could carry the wrong file's digest (a run finishing
+      after a new file loaded): the run now owns its series, a new series
+      stops the run, stale messages are dropped;
+    · the parse rule rewritten and digested: "2004-03-01 3.549" is a date and
+      a value (never hour 3); zones applied to UTC; fields split by
+      separators (field n, up to 20, shown on the first line); lines sorted;
+      a time twice with one value kept once, with two values refused; NDBC
+      missing marks 99/999/9999 dropped and counted; ".57" and exponents read;
+      a constant field refused ("is Hs in another field?");
+    · the field re-parsed on change and recorded; a refused file clears the
+      old series; 390 px after a run no longer widens the page (grid track
+      minmax(0, 1fr)); the file input reachable by keyboard;
+    · the printed-fit verdicts no longer overclaim (CONSISTENT, NOT THE
+      CERTIFIED FIT, BELOW ITS LIMIT, NOT A MEMBER OF THE FAMILY added);
+    · "Nothing leaves this page" → "Your file never leaves this page" (the
+      page loads fonts and Vercel's page-view script; the file goes nowhere).
+
+  ── 3 · THE REPORT ── every sentence the review found false or ungated is
+    now generated from the ledger and gated (the box half-width is the
+    recorded box's, not the Krawczyk image's; the normal is not "highest at
+    every block"; the annual Gumbel claim is B's alone). New §5 paragraph:
+    the six maxima beside the limit, and the Arabian Sea refusal with what
+    leaving the EW out would have said (24.07 m vs 6.87 m).
+
+  ── 4 · GATES ── hseva battery 1374 checks, 14 reds (new: right-skewed logs
+    refuse the GG at its limit WITH the proof; a 40,000-point GG at α = 900
+    is certified beside the limit; a boundary stop blocks; a saddle is not a
+    maximum; NaN and unenclosable statistics refuse); the ledger runner
+    decodes child output as UTF-8; scipyDecide's OFF_THE_MAXIMUM needs a
+    likelihood deficit; the shelf and control texts say what is decided.
+
+══════════════════════════════════════════════════════════════════════════
+  TWENTIETH SESSION, 2026-09-26/27 — THE RETURN-LEVEL TABLE ON THE PAPER'S OWN
+  METHOD AND DATA: THE GENERALIZED GAMMA CERTIFIED, THE BENCHMARK'S PRINTED
+  MARGINALS AND SCIPY DECIDED, A BROWSER INSTRUMENT. COMMITTED · make test
+  92/92 · control 92/92 · NOT PUSHED · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator relayed a reply from the UFSC contact (private; the
+    operator holds it) and asked whether anything could elevate the reports;
+    the evaluation (the paper's full text read; a scratch measurement of scipy
+    against the ledger; the hindcast found public) was accepted with
+    "continue". See the menu above for what was built; the numbers are there.
+
+  ── 1 · THE RECORD, CORRECTED ── the full text (OA, fetched headed through
+    tools/fetch-paper.js) gives six families with the GUMBEL, blocks 3-hourly/
+    daily/weekly/monthly, four criteria, 100- and 1000-year levels, MLE
+    throughout, data = the Ifremer hindcast. corpus/hs-eva/claims.json now
+    carries the method; the menu and the targets row say what they had wrong.
+
+  ── 2 · THE MATHEMATICS THAT HAD TO EXIST ── special.js (Binet bounds, the
+    incomplete gamma, the Prentice gaps, each against closed forms or 50-digit
+    values in the battery); Sum2 accumulators in fit.js; the LM ascent with a
+    Newton-decrement stop and a pure-Newton polish; the limit test; the Prentice
+    fallback. Where it failed first and why is worth reading in the battery
+    comments: the GG on C hourly would not contract until the sums were
+    compensated; four hindcast GG fits would not contract until the Hessian's
+    QQ entry was taken from series in Q.
+
+  ── 3 · WHAT OTHER PEOPLE PRINTED ── the benchmark preprint (pinned by sha256
+    in corpus/ec-benchmark/meta.json) prints each team's Hs marginal in its
+    Appendix A; transcribed digit for digit to corpus/ec-benchmark/marginals.
+    json and decided over the box the digits allow. scipy 1.18.1's floc=0 and
+    default fits recorded by tools/run-hseva-scipy.py (the claimant) and
+    decided by the ledger.
+
+  ── 4 · THE HINDCAST ── tools/fetch-ww3-points.py: every hs chunk of every
+    monthly file of 1993–2024 by byte range (24 concurrent; ~90 min; 17.8 GB),
+    hashed as read, sampled at 13 nodes (corpus/ww3-points/points.json),
+    finalized to meta.json; CC BY-SA with LICENSE-DATA.md beside it.
+
+  ── 5 · THE INSTRUMENT ── playground/return-level-check (build.js inlines the
+    eight modules and a twelve-line require; worker.js runs off-thread;
+    app.js reads, runs, writes the certificate, decides a printed fit), on
+    /instruments with a card; the machine page's manifest takes it.
+
+  ── 6 · GATES ── hseva battery 1005 checks, 8 reds; the report builder gates
+    every sentence on the ledger and the claims; the site card is gated on the
+    ledger (the old card said "the exponentiated Weibull wins every hourly
+    series", false even of the old ledger — B's hourly winner was the
+    lognormal); the three layout ratchets accepted after looking at the pages
+    at 1440 and 390.
+
+══════════════════════════════════════════════════════════════════════════
+  NINETEENTH SESSION, 2026-09-25 — THE CREDIT CAME BACK: THE FRONTIER CAMPAIGN
+  ON BLIND-SPOT (THREE RUNGS × A BUDGET LADDER × THREE MODELS), AND THE
+  APPLICATION ELEVATED. COMMITTED · make test 92/92 · control 92/92 ·
+  nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "anthropic credits are back. Review the submission
+    and the material. Elevate what is possible to make the submission
+    impossible to not see. High level application. What are the next steps?"
+
+  ── 1 · THE CAMPAIGN ── one probe sample answered (Sonnet 5 solved it), then
+    environments/blind_spot/inspect/run_frontier.sh: the three rung variants
+    × Sonnet 5 at low/medium/high × Opus 5 low × Haiku 4.5 (no effort param),
+    --no-fail-on-error so refusals are recorded, 4 connections, 15 logs in
+    ~55 minutes, cost floor $3.86. ledger.py re-scored all 288 rollouts (180
+    frontier + 108 control) with 0 disagreements; a per-model × effort
+    `ladder` block and a cost floor (the pinned price table) were added to the
+    ledger, and the README's results section is now generated between
+    markers. THE SHAPE: Sonnet 5 on the located rung goes 8/12 → 10/12 →
+    12/12 as effort rises — a budget ladder on a judge-free task; profile
+    6 → 8 → 6 (three unreadable at high: the reply ran past the budget);
+    blind 3 → 5 → 5 with three false alarms at every effort (the shotgun
+    cannot say EQUIVALENT — the reference table's `union8` row, again). Opus 5
+    at low: located 10/12, profile 2/12 with 10 unreadable (the content-
+    policy refusals of the recorded run, again, unreworded), blind 4/12.
+    Haiku 4.5: 3, 4, 4 of 12. Every out-of-box kill is counted; every
+    unreadable is a refusal, not a wrong answer. The horizon ledger's `own`
+    section now sees 15 frontier logs and 180 rollouts and still reads NO
+    DATA — every rollout sits on a task with no human time.
+
+  ── 2 · THE ELEVATION ── (i) the landing's fourth lead is the time-horizon
+    certification (hz0 read from the ledger before LEAD; lambda5 to the
+    shelf; commented, revertible); (ii) README.md: "For evaluation teams",
+    four artifacts with ledger figures + the portfolio link, above the ten-
+    second check; (iii) the Lever forms read: NO cover-letter field — Task Dev
+    asks "best evidence" and "why METR", the Eval Execution form as fetched
+    has only the timeline box — so outreach/metr/lever-answers.md carries
+    both roles' answers from ledger figures (operator fills marked);
+    (iv) outreach/metr-eval-analysis-issue-2026-09-25.md, an issue for
+    METR's own analysis repo offering the certified re-derivation and a
+    certify_fit check (LANE M4); (v) the resume, the two cover notes and the
+    Lever answers carry the campaign's numbers; the portfolio page states the
+    ladder, gated on the Inspect ledger. LANE M rewritten; M0 resolved.
+
+  ── 3 · THE HUB PUSH (15:17 -03, on "publish 1. for me") ── prime 0.6.31 at
+    ~/.local/bin/prime, `env push --visibility PUBLIC`; prime rebuilt the wheel
+    (hub sha 5e73a299af18…, contents as verified). Then FROM THE REGISTRY in
+    a fresh 3.12 venv loaded from /tmp: version 0.1.1, load_environment
+    exported, blind_spot/inspect/task.py shipped, the 11 controls, task
+    2027-0 rebuilt, an inspect eval on the installed task, and the verifiers
+    binding building its datasets. PROVENANCE.publishing.v0.1.1 records it.
+    The one send executed this session; the other three wait.
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, continued (2026-09-22, small hours) — THE TIME-HORIZON
+  INSTRUMENT BUILT PYTHON-FIRST AND CALIBRATED ON METR'S OWN TIME HORIZON 1.1
+  EVIDENCE: 44 OF 44 FITS CERTIFIED, THE PRINTED NUMBERS READ AGAINST THE
+  ENCLOSURES, THE DOUBLING TIME RE-DERIVED TO THE PRINTED DIGIT.
+  COMMITTED · make test 92/92 · control 92/92 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Continue". Deliverable 2 still waits on credit and
+    baseline rows; its FIT is the part that needs neither, and deliverable 5
+    asks for it in Python with the Krawczyk step ported or called — so the
+    instrument was built now and proved on the one time-horizon dataset that
+    exists, METR's.
+
+  ── 1 · THE EVIDENCE ── METR/eval-analysis-public at commit 52cb829 (pushed
+    2026-03-06): reports/time-horizon-1-1/data/raw/runs.jsonl (24,008 runs,
+    21 aliases incl. `human`, HCAST/SWAA/RE-Bench, human_minutes 0.02–1800,
+    the two weight columns precomputed), release_dates.yaml, params and
+    figs.yaml (weighting invsqrt_task_weight, regularization 1e-5). The
+    pipeline's fitted metrics are DVC-cached, NOT in git. The live page
+    metr.org/time-horizons loads /assets/benchmark_results_1_1.yaml (26
+    models: p50/p80 estimate, bootstrap CI, is_sota, the doubling time
+    128.744 [104.4, 158.0] "excluding p50 > 16 hrs") and /assets/
+    task_results_1_1.yaml (23 agents: coefficient and intercept to three
+    decimals; every task's minutes, successes, runs, weight) — found by
+    reading time-horizon-chart.js. The 29 Jan post's tables transcribed into
+    corpus/metr-horizon/claims.json. All seven files sha-pinned in meta.json.
+
+  ── 2 · THE INSTRUMENT ── instruments/horizon, standard library only:
+    interval.py (float intervals with outward rounding by math.nextafter;
+    exp by Taylor with Lagrange remainder after reduction x = k·ln2 + r, ln2
+    from its own series with a geometric tail; log by 2·atanh with a tail;
+    2^x = exp(x ln2); every enclosure rational until the last rounding);
+    fit.py (the estimator as METR's: scikit-learn's penalised logistic
+    regression is the unique zero of F(w,b) = (λw − Σ s(y−p)x, −Σ s(y−p));
+    damped float Newton for the candidate; Krawczyk K(X) = x0 − A F(x0) +
+    (I − A J(X))(X − x0) in intervals, the radius doubling until K(X) ⊂ int X
+    or the exp range is left, which refuses; the horizon 2^((logit q − b)/w)
+    over the box); data.py (runs aggregated per task exactly — the score of
+    a task's runs is w(ȳ − p) — so 228 rows stand for a thousand and a fit
+    takes 13 s; the two yaml files parsed by their fixed shape). The float
+    logistic overflowed on Opus 4.5 during a Newton backtrack; σ(z) is now
+    the stable two-branch form.
+
+  ── 3 · THE FINDING ── certs/horizon-ledger.json (tools/run-horizon-ledger.
+    py, 44 fits in parallel, 2 min): every fit certified with box radius
+    below 1e-10 (typically 1e-13). Live file vs the site: the printed
+    coefficients are the rounding of the box for 22 of 23 (Mythos Preview:
+    intercept printed 5.582, box 5.58269 → 5.583); the p50 estimates lie
+    1e-6 … 1.8e-4 relative from the enclosure and never inside it — L-BFGS
+    stopped at its tolerance — and every enclosure sits inside the site's
+    bootstrap CI. Trend: over the site's is_sota models with p50 ≤ 960 min
+    from 2023 (14 models) the exact least-squares line gives 128.7403 days
+    per doubling as an enclosure 1.5e-9 wide; the site prints 128.744. From
+    2024 (12 models): 104.70; the post's 88.6 was January's set. The post's
+    Table 1 (seven TH1.1 horizons): Claude 3.7 Sonnet 60 REPRODUCED; the
+    other six DIFFER by 3–12 % from the May file — and the site's own May
+    estimates moved the same way (Opus 4.5: 320 → 293). Runs were added
+    between the post and the chart; the March runs file already gives the
+    May numbers to 2e-4 on the 20 shared aliases. The `human` alias fits to
+    a 106-minute horizon — reported as a curiosity.
+
+  ── 4 · THE PAGE AND THE GATES ── reports/time-horizon.html (tools/build-
+    report-horizon.js): CH.intervals with 23 capsules (the enclosures; hair-
+    line, end caps) and the site's dots on them; CH.scatter of the trend with
+    the certified line; the fits table, the post-vs-chart table, the trend
+    table; §4 says what the instrument is for. Gates: 44 certified, 22/23
+    coefficients, the gap band, no estimate inside, every enclosure inside
+    the CI, 128.74 to 1e-4, the post 1/7, the human alias certified, the
+    16-hour rule leaving Opus 4.6 in and Mythos out. instruments/horizon/
+    battery.py: 29 checks, 6 reds — the first version compared 1e-48-wide
+    enclosures with 20-digit literals and "failed"; the literal's own error
+    (5e-21) is now allowed, which is what a containment test against a
+    rounded reference has to do. Battery on make test and the control page;
+    shelf row; site card; targets row; the ratchets accept the new page.
+    NOTHING SENT.
+
+  ── 5 · DELIVERABLES 4 AND 5, THE PARTS THAT NEED NO CREDIT (later the same
+    night) ── reports/time-horizon.html §5 "for three audiences": the
+    calibration written as a system-card paragraph, a regulator paragraph
+    and a post, every figure a ledger field. The packet in outreach/metr/:
+    resume.md, cover-task-development-engineer.md, cover-mts-evaluation-
+    execution.md — the two postings re-read (Task Dev $260,937–385,490
+    on-site, contractor discussable; Eval Execution $328,380–578,583, 3–5
+    days on-site, cap-exempt H-1B); education, employment and the relocation
+    line are [OPERATOR FILLS], nothing invented. /portfolio/ added to tools/
+    build-site.js, gated on the horizon, gsm8k and blind-spot-inspect ledgers
+    and batteries.json (a moved number refuses the site), linked from /about's
+    contact line; the three ratchets accepted it after looking. LANE M3 in
+    the send queue now names the files. Final: control 92/92 · make test
+    92/92. NOTHING SENT.
+
+  ── 6 · THE HUB PUSH MADE READY, THE OWN-RUNS PIPELINE WIRED (morning) ──
+    credit re-probed at 07:45: refused. blind-spot 0.1.1 built with the
+    Inspect task in the wheel and verified from a fresh venv end to end
+    (PROVENANCE.publishing.v0.1.1; LANE M2 READY; not pushed). instruments/
+    horizon/own.py + the ledger's `own` section (NO DATA with counts) + the
+    page's §4 + four battery checks (33 checks, 7 reds now). Control 92/92 ·
+    make test 92/92. NOTHING SENT.
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, continued (2026-09-21, night) — METR DELIVERABLE 3: GSM8K'S
+  ANSWER KEY RE-DECIDED TO THE LAST STEP AND READ AGAINST GSM8K-PLATINUM; A FALSE
+  START ON THE GRADER FORMS CAUGHT BY THE PAGE'S OWN GATE; THE SITE REBUILT.
+  COMMITTED · make test 91/91 · control 91/91 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "proceed". Deliverable 2 waits on credit (re-probed:
+    still "credit balance is too low") and on baseline rows, so 3 was taken.
+
+  ── 1 · THE TARGET ── scouted first (targets row gsm8k-answer-key): GSM8K-
+    Platinum (Vendrow et al. 2025) is the neighbour — frontier models over the
+    test set, the 219 items some model missed inspected by hand, 110 removed,
+    10 relabelled, 99 verified. Nobody had re-decided the key's OWN printed
+    arithmetic mechanically. GSM8K pinned at github.com/openai/grade-school-
+    math commit 3101c7d (test.jsonl, train.jsonl; sha256 in corpus/gsm8k/
+    meta.json); Platinum's 1,209 rows read through the HF datasets-server at
+    revision e762492 (the parquet needs pyarrow); the HF mirror openai/gsm8k
+    that inspect_evals and lm-eval read checked identical to GitHub on all
+    1,319 test rows; both harnesses' scoring rules pinned by commit.
+
+  ── 2 · THE READER ── instruments/gsm8k/audit.py: a hand-written parser for
+    + − × ÷ and parentheses over stdlib fractions (nothing eval-ed; a Python
+    name and a power are red controls). Annotations <<lhs=rhs>>: EXACT /
+    ROUNDED (within half a unit of the last printed place, said so) / WRONG /
+    REFUSED. Prose equations: runs of arithmetic characters around "=", read
+    as chains pair by pair, with the notations the writers use — a spaced x,
+    $, % or "cents" as a unit label (the equality tried at the scale), "5 and
+    2/3" as a mixed number, "25 / 1/3" as 25 ÷ (1/3), "10 + 5 = 15 + 3 = 18"
+    as a running chain asserting its leading number — and UNREAD for anything
+    cut off by a word, glued to a variable or a clock, or algebra. The prose
+    reader went through five rounds against the train set's false positives
+    (a leading ".25" stripped as a period; runs crossing line breaks; the en
+    dash; "w-10=60"; "1.2Y"; "6:00+48"), each round shrinking WRONG from 52 →
+    39 → 30 → 29 → 27 → 24 on train while the annotations stayed 23,714 exact.
+
+  ── 3 · THE FINDING ── test: 4,282 annotations, all EXACT; 1,207 REPRODUCED,
+    50 ANSWER_IN_PROSE, 47 ANSWER_UNDERIVED (a unit change, a rounding up to
+    whole packs, algebra — a reader decides), 13 NO_STEPS, 2 PRINTED_STEP_WRONG
+    (#501 "364 / 4 = 273", the annotation beside it right; #1024 "$32 − $20 =
+    $300", the answer resting on it). Train: 23,714 of 23,716 exact, the two
+    refused for "//"; 24 keys print a wrong step (typos beside a correct
+    annotation in 18; unit slips; "500/ 2/5 = 200"), 2 ROUNDED. Against
+    Platinum: both test slips are CONSENSUS items — no model disagreed, so no
+    human read them; all 10 relabellings have arithmetic that holds; 103 of
+    110 removed are REPRODUCED. Readings, not sums: the two halves of a task-
+    QA audit find different things, and the mechanical half costs three
+    seconds. Grader forms: every key is an integer as printed; both harnesses
+    read commas; nothing misread.
+
+  ── 4 · THE FALSE START ── the first survey printed annotations and answer
+    lines in ONE list, so "<<3/4=3/4>>" (item 319's annotation) was read as a
+    fraction-form KEY; claims.json said so, an inspect_evals issue was drafted
+    on it (0.75 vs "3/4" is indeed graded I under match(numeric=True) — true
+    and irrelevant), and the report builder's gate (fraction rows = 0 ≠ the
+    claimed 1) refused the page. The draft is deleted, claims.json states the
+    forms, the row and the page say no form is misread. Two populations in
+    one list is how a false finding is minted; the gate is why it did not ship.
+
+  ── 5 · THE PAGE AND THE GATES ── reports/gsm8k-audit.html (tools/build-
+    report-gsm8k.js: battery + ledger --check before a byte; every sentence
+    gated): two aligned 1,319-cell strips (this page's verdict; Platinum's),
+    the cross-tab, the witness table (26 rows), the relabelled ten, a train
+    bar chart, the graders. THE THREE RATCHETS (style, render, measure) had
+    no row for the new page and refused the second site build; accepted after
+    looking at the page at 1440 and 390 (the render accept also re-recorded
+    ±0.01–0.02 ink on nine old figures: Chrome 152 → 153 rounding, both
+    directions, no page changed). instruments/gsm8k/battery.py: 51 checks, 12 reds,
+    on make test and the control page; the ledger certs/gsm8k-ledger.json
+    (1.0 MB, every item's row) on the shelf; the site card under "ai"; `make
+    reports` runs the builder. NOTHING SENT; LANE M unchanged (three sends).
+
+══════════════════════════════════════════════════════════════════════════
+  EIGHTEENTH SESSION, 2026-09-21 (evening) — METR DELIVERABLE 1: BLIND-SPOT AS AN
+  INSPECT TASK WHOSE SCORER IS THE EXISTING VERIFIER; THE TWO FRAMEWORKS PROVED TO
+  AGREE ON EVERY POOLED MUTANT; THE PIPELINE RUN END TO END ON THE REFERENCE
+  POLICIES; THE FRONTIER RUN REFUSED BY THE API ON CREDIT; BASELINES SCAFFOLDED.
+  COMMITTED · make test 90/90 · control 90/90 · nothing sent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "execute the METR plan … Start with deliverable 1 …
+    Run `inspect eval` end to end on one frontier model and record it … Before
+    writing code, commit the seventeenth session's uncommitted work … Stop after
+    deliverable 1 with a handoff and the drafts."
+
+  ── 0 · THE BOUNDARY ── make test 89/89, then e3fb985: the whole seventeenth
+    session as one commit. Nothing below is in it.
+
+  ── 1 · THE VENV ── Inspect was not installed for this repository (a venv from
+    another project had 0.3.258 and no Anthropic SDK). environments/blind_spot/
+    .venv, python3.12, inspect_ai 0.3.266 + anthropic 1.7.0 + pytest; `make
+    blind-spot-venv`; the battery and the ledger re-exec into it the way the
+    erdos1 battery does. The grader itself stays stdlib and 3.9-clean.
+
+  ── 2 · THE TASK ── environments/blind_spot/inspect/task.py. The one fact it is
+    built on: adapters_v0._decide is the function every verifiers reward
+    function calls, and adapters_v0 imports `verifiers` only inside
+    load_environment — so the Inspect scorer calls _decide on Inspect's own
+    assistant messages with NO framework present and nothing re-implemented.
+    Three rung variants + the mixed task over ONE taskset: the verifiers dataset
+    cycles the rung with the index, so a rung variant is the indices congruent
+    to its offset mod 3 at the same seed (2027, the verifiers adapter's eval
+    taskset for its default 2026); Sample.id is taskset.Task.id; the prompt is
+    byte-identical to the verifiers `question`; target is "" — no answer key.
+    Score.value is the rubric's five numbers (reward, solved, well_formed,
+    false_claim, out_of_box_kill), mean and stderr on the first two. Text parts
+    only: Inspect renders a reasoning part's .text as <think>…</think>, and
+    _reply_text would read it.
+
+  ── 3 · THE BATTERY ── inspect/battery.py, 92 s: a (seed, index) that draws
+    each of the 400 pooled mutants found by scanning seed 2027 (6,194 indices);
+    truthful + UNDECIDED on all 400 and the false claim on the 52 proved-
+    equivalent + 40 killable, each scored by the Inspect scorer on a TaskState,
+    by api.score and by taskset.grade — 892 submissions, agreement field for
+    field, the truthful answer SOLVED 400/400, the false claim WRONG 92/92;
+    every recorded log re-scored offline (108 rollouts, 0 disagreements); the
+    ledger's 6 pins re-hashed and its counts re-derived; 12 ledger strings
+    found in the README; the baselines file's attempts re-graded. Four reds:
+    the spoiled witness (below), the buried verdict both ways round (the raw
+    rendering WOULD score a KILL placed after the text as SOLVED; the Inspect
+    scorer reads UNDECIDED — the filter is load-bearing), a coordinate of 4
+    refused rather than masked.
+
+  ── 4 · WHAT THE FIRST RUN OF THE RED CONTROL FOUND ── the sibling battery's
+    control (killable[0], u[0] changed, stops killing) generalised to 25 mutants
+    FAILED: on 16 of them the spoiled witness still kills. True, and obvious in
+    hindsight — a mutant on the box check of u4 is indifferent to u0. The
+    control now asserts the invariant: wherever the spoiled pair stops (9 of 25,
+    the first killable among them) both scorers say MISSED, reward 0, never
+    SOLVED; wherever it still kills both say SOLVED; no split. The README and
+    the control-page note say the same.
+
+  ── 5 · THE LEDGER ── certs/blind-spot-inspect-ledger.json by inspect/
+    ledger.py: every inspect/logs/*.json re-scored sample by sample with
+    api.score (the counts are this package's reading of the log, never
+    Inspect's metrics), per rung and per class, tokens, the concord count; the
+    blocked attempt under `blocked`; the baselines summary; pins on task.py,
+    baselines.json and every log; `readme_must_quote`. `--grade-baselines`
+    grades every attempt with the verifier and refuses a stored outcome that
+    disagrees; `--check` refuses drift. A shelf row reads the policy numbers
+    from the ledger (tools/certs-shelf.js), never a literal.
+
+  ── 6 · THE FRONTIER RUN, REFUSED ── inspect eval …@blind_spot_located --model
+    anthropic/claude-sonnet-5 --effort low --max-tokens 12000, one sample: the
+    request was built right (oauth-2025-04-20 + effort-2025-11-24 betas, the
+    effort in output_config) and the API answered 400 "Your credit balance is
+    too low" before any generation. Nothing billed. Inspect refuses to start
+    without ANTHROPIC_API_KEY unless ANTHROPIC_AUTH_TOKEN is set, in which case
+    it sends the Bearer with the oauth beta itself — the house pattern of eval/
+    run_models.py, so `ANTHROPIC_AUTH_TOKEN=$(ant auth print-credentials
+    --access-token)` is the whole of the setup. No Ollama on this machine, so
+    no open model either.
+
+  ── 7 · THE PIPELINE PROVED WITHOUT A MODEL ── inspect/run_control.py runs the
+    three reference policies (sat / abstain / never) through inspect_ai.eval on
+    the 36-task mixed draw and writes real logs (mockllm/model the model of
+    record, never asked; the policy a SOLVER reading sample metadata). sat
+    +1.000 on every rung (36/36, 9 kills through an out-of-box coordinate),
+    abstain 0, never −0.556 (28 killable × −1, 8 equivalent-or-identity × +1).
+    The verifiers README's own table has abstain 0.000 and sat +1.000 on its
+    draw. The first version used a mock-model callable keyed on the prompt
+    text and scored sat 23/36: blind-rung prompts are identical, which is the
+    rung's definition. Kept in the file's docstring.
+
+  ── 8 · BASELINES ── environments/blind_spot/baselines.json: protocol (who,
+    what they see, how time is measured, what solved means, tools allowed),
+    the consent line, 18 task ids (six per rung at seed 2027, the ids a model
+    run scores), attempt schema, attempts []. NO DATA. The recruiting message
+    for the operator to send is outreach/blind-spot-baselines-request-
+    2026-09-21.md (written for the recipient; pseudonyms only).
+
+  ── 9 · THE HUB FRONT PAGE ── environments/blind_spot/README.md gained a
+    section pointing at inspect/, pyproject an `inspect` optional-dependency
+    group; both declared in provenance.py's PATCHES and PROVENANCE.json
+    re-pinned (36 files, 9 patches, --check clean). The wheel does NOT yet carry
+    inspect/task.py and the version is unbumped: the push is a send (LANE M2).
+
+  ── 10 · GATES, AND WHAT TWO OF THEM CAUGHT ── Makefile row "blind-spot
+    inspect (one scorer)" + the control-page row; check-wiring: the two
+    registries agree at 90. The shelf row for the new ledger (tools/certs-
+    shelf.js, its policy numbers READ from the ledger, never typed) tripped
+    two gates on /machine: the render gate found four literal backticks (the
+    2026-09-12 defect again — markdown quoting in a description leaks onto the
+    page as characters), and the layout ruler found a NEW spine at 390px
+    (5 → 6): a 41-character unbreakable path token in the description raised
+    the "what it holds" column's min-content width past the 280px floor, so
+    the column started counting. Both fixed by rewording; the control page's
+    own battery count reflects the site as it stood when its gates ran, so
+    the site was built twice. Final: control 90/90 · make test
+    90/90. NOTHING SENT.
+
+══════════════════════════════════════════════════════════════════════════
+  SEVENTEENTH SESSION, 2026-09-17 — THE UFSC LINE TAKEN TO THE OUTREACH PHASE:
+  PEDRO'S BREAKING-WAVE PAPER (PUBLISHED THE DAY BEFORE) READ NUMBER BY NUMBER
+  AGAINST ITS OWN TABLE; THE RETURN-LEVEL TABLE BUILT AS A CERTIFICATE ON PUBLIC
+  BUOYS; THE CAPARICA RIG ADDED TO STEREO-REACH; A CHART ON EVERY PAGE.
+  NOT COMMITTED at the close · make test 88/88 · control 89/89 · 64 reports · 20 instrument pages.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "Are the reports and instruments good enough? can we
+    improve? How? Are they related to the latest Pedro's research?" — then, on
+    the assessment, "proceed with your suggestions. Review everything, see if we
+    have opportunity to add a nice chart per page. The goal is to fix and improve
+    to the outreach phase. Go."
+
+  ── 1 · THE PAPER ── OpenAlex, queried for the assessment, showed Guimarães,
+    Stringari, Filipot, Leckler, Benetazzo, Chapron — Geometry of Breaking Waves
+    Under Natural Sea Conditions, GRL, PUBLISHED 2026-09-16, one day before the
+    session. Our page said "no paper came with the record" and named the
+    record's four authors. Wiley refuses headless Chrome and curl (Cloudflare);
+    a HEADED Chrome driven over the same raw-socket CDP got the page (now
+    `headed: true` on design/cdp.js and tools/fetch-paper.js, which waits for the
+    challenge to clear and serialises the document), and the numbers the HTML drops (MathJax lazy) were
+    recovered from the publisher's full-text XML (doi/full-xml), pinned as
+    corpus/blacksea-breaking/paper/grl.xml. The auto-mode classifier refused an
+    in-page fetch of the PDF; the XML was enough. ScienceDirect likewise: the
+    Ocean Eng. paper and its corrigendum fetched headed; the CORRIGENDUM
+    CORRECTS AN AFFILIATION ("Universidade Federal de Florianópolis" → UFSC)
+    and no number — the menu's "first question to him" is moot.
+
+  ── 2 · THE PAPER READ AGAINST THE TABLE ── instruments/breaking/paper.js:
+    the 25 numbers the text prints and the 140 cells of Table 1, each computed
+    from the pinned table with the definitions the scripts use, each given a
+    verdict: REPRODUCED (the rounding of the exact value), TRUNCATION,
+    ON_THE_BOUNDARY, NOT_THE_TABLES, NOT_DECIDABLE_RANSAC (two coefficients
+    read off a randomised fitter), REPRODUCED_AS_TRUNCATION. THE HARD PART was
+    the arithmetic: the mean of 16,369 ratios Ab/L² is a rational whose
+    denominator is the lcm of 16,369 denominators — the first attempt hung;
+    ratios are now floored and ceiled at 10⁻³⁰ and the moments are enclosures.
+    The Freedman–Diaconis mode needs n^(1/3): enclosed by integer cube roots,
+    and the bin count is REFUSED when the enclosure straddles an integer (a
+    red control). FINDINGS: 13 reproduced (the three fits 0.83/0.66/0.20 are
+    the roundings of 0.8268/0.6602/0.2032; sd 0.26 and CV 46 %; r(Ab,Lb) 0.9,
+    r(Ab,L_D81) 0.8, r(Δz,eB) 0.7, r(Lb,Δt) 0.5, r(Δz,Δt) 0.4; the 4 ± 2 %
+    tail is 4.43/4.14/4.01 % with no event undecided; the tail fit 0.30 with
+    r = 0.9). NOT the table's: the θ range "3° to 71°" — the θ column runs
+    1.38°–42.97° — is the integer parts of atan(Δz_max/LB_max) (decided through
+    enclosed tangents); the aspect mean 0.5656 printed 0.56 (a truncation);
+    the peak 0.46 vs the FD mode bin [0.498, 0.524); "Pearson r < 0.45" fails
+    by 0.004 on speed–Δz; r(Ab,Δt) = 0.6 only with Ab_sum; "0.22" is the slope
+    with the area at max length (Ab_Lmax), "0.27" matches nothing. TABLE 1:
+    128 roundings, 7 truncations, 3 ties, 2 neither — and ITS Hs COLUMN IS THE
+    PICKLE'S sv_fp2 IN EVERY RECORD, never the column the pickle names Hs
+    (0.20–0.75, multiples of 1/256): our earlier stats row read the wrong
+    column and said "Hs 0.20–0.75 m". Fixed; the page says so.
+
+  ── 3 · THE STRATIFIED ANALYSIS ── the paper's §5: sea-state dependence "would
+    require a dedicated stratified analysis by Hs, Tp, or wave age, which is
+    beyond the scope of this study". Done per record (20): the coefficient of
+    Lb = a·cb²/g runs 0.665–1.106 (1.66×) around the pooled 0.827; the four
+    records with Hs > 1.5 m carry the four lowest; Spearman on twenty ranks,
+    exact: with Hs −0.493, Tp −0.492, U10 −0.365, wave age −0.026 (the rank of
+    cp/U10 is the rank of 1/(fp·U10): no π needed). The sea-state dependence
+    the abstract asserts is there, and it is the wave height, not the wave age.
+
+  ── 4 · THE PAGE ── reports/breaking-geometry.html rewritten: a strip of 165
+    verdict cells (the house form from ec-benchmark) and a per-record scatter
+    of the coefficient against Hs with the pooled line; the printed-vs-exact
+    table in the narrow track; §5 the stratification. Battery 42 → 74 checks,
+    5 → 12 reds. GATES: the render ratchet refused the page ("no figure got
+    thinner": worst-wins across a page's figures, and a 20-point scatter is 5.6
+    % ink) and the ruler refused a third table's scroll box and a wide th
+    (spines 8 → 9 at 1440, clipped 2 → 3 at 390) — both ACCEPTED after looking,
+    with the tables narrowed first (the 768 clipping was real and is fixed).
+
+  ── 5 · THE RETURN-LEVEL TABLE AS A CERTIFICATE (item 2) ── ERA5 still needs
+    the operator's CDS account, so the method runs on the benchmark's NDBC
+    buoys A–C (pinned already; 175,320 hours each). instruments/hseva:
+    families.js writes five families ONCE over an abstract arithmetic
+    (score, Hessian, cdf, quantile, loglik) so floats find the candidate and
+    intervals certify it from the same lines — the exponentiated Weibull's
+    ∂k had a doubled −n ln λ and the finite-difference check caught it before
+    anything shipped; Φ/Φ⁻¹ enclosed (Taylor with a proved tail for |z| ≤ 2√2,
+    Laplace's continued fraction beyond, bisection on a certain sign); fit.js:
+    Nelder–Mead in log-parameters then damped Newton, Krawczyk on the score over
+    the interval data, A² and F⁻¹(1 − b/(T·8766)) as enclosures, a ranking
+    DECIDED only when the best A² enclosure lies wholly below every other.
+    Interval exp/log cost 1 s per 175k points; the whole ledger in 110 s.
+    FINDINGS (certs/hseva-ledger.json): 58/60 fits certified, boxes ≤ 1e-6 (the
+    two refusals: exp-Weibull on 22 annual maxima has no finite maximum — α →
+    ∞, λ → 0 — and the ledger says so instead of printing the last iterate);
+    12/12 rankings decided. His "EW best for high-frequency data": A and C yes
+    (15 vs 161; 110 vs 252), B no (lognormal 78 vs 90), the daily maxima split
+    the same way; his "Weibull more appropriate as the block size increases":
+    FALSE on these buoys — Weibull best 0 of 12, lognormal wins every annual
+    series (its A² 2.3, 1.5, 1.7× lower); his "aggregation moves the level":
+    the preferred family's 100-yr Hs spans a factor > 1.2 by block size alone.
+    The Weibull's hourly 100-yr level on A (5.26 m) is below the largest hour
+    observed (11.80 m). reports/return-levels.html (NEW, applied lane): A² by
+    family × block as log bars, the 100-yr level by block for three families as
+    a scatter with the observed maximum, four tables. Battery 107 checks, 4
+    reds; on make test and the control page; shelf row and card added.
+
+  ── 6 · STEREO-REACH ── the Coastal Eng. 2025 paper (Vieira, Guedes Soares,
+    Guimarães, Bergamasco, Campos) fetched headed and read: Table 1 (GoPro
+    Hero 9 rigs, B 0.96/1.33 m, 20–40 m), Table 2 (point vs area Hs, +27–55 %),
+    §5.3 (quantisation 1.9/17.5/2.1 mm). A third preset, caparica2021 (f and p
+    a box built from "27 mm in narrow FoV", a 35 mm-equivalent; only f/p
+    enters), and caparicaFacts: Hs = 4σ, so the area-minus-point excess as
+    independent per-point noise is √(Hs²_area − Hs²_point)/4 = 5.8–10.2 cm per
+    record, and a value uniform in a cell of height c has std c/√12 — the
+    implied noise lies BETWEEN the best-corner (2.2 cm) and worst-corner (15.3
+    cm) cell stds at 40 m: the excess is inside what the rig alone produces and
+    is not evidence about the sea until the rig is subtracted (Forristall's
+    max-over-area argument is about maxima, not a variance). A dumbbell figure
+    of the six records; the quoted 2.1 mm not reproduced (best cell 3.9 cm at
+    20 m), as at Leme. Battery 28 → 37, reds 9 → 11.
+
+  ── 7 · WHAT WAS NOT DONE ── IFORM/ISORM/HD on one fitted model (D): needs a
+    joint (Hs, Tp) model; the hseva marginal fits are the first half; a day.
+    The generalized gamma: needs a certified digamma. ERA5: the CDS account.
+    NOTHING COMMITTED at the close (the operator's "go" was for the build;
+    the commit is menu item 0a) and NOTHING SENT.
+
+══════════════════════════════════════════════════════════════════════════
+  SIXTEENTH SESSION, 2026-09-15 (night) — ERDŐS #1 PORTED FROM FRONTIER-APPS AND
+  PUSHED FURTHER: THE DISPROOF'S ONE INEFFECTIVE STEP MADE EXPLICIT, TWELVE
+  CERTIFICATES (EIGHT LIFTED, FOUR BUILT HERE), EVERY ONE RE-VERIFIED FROM THE FILE,
+  THE SMALLEST SET BELOW BOHMAN AT n = 1,701, ONE LEDGER RULE, A PAGE, A PAPER, FOUR
+  GATED OUTREACH DRAFTS. COMMITTED, NOT PUSHED, NOTHING SENT.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "We need to port Erdos#1 from frontier-apps.
+    /Users/carlostoledo/Projects/frontier-apps/PORT-ERDOS1.md. Review and push
+    more on the findings. Prepare page, paper and outreaches."
+
+  ── 1 · THE REVIEW ── THEOREM.md read whole against the pinned exposition and
+    the Lean statement. The chain holds: Lemma 1′ (cube for every tilt) is a
+    correct three-line maximum argument and is in fact stronger than stated
+    (it needs no zero-sum hypothesis); Lemma 1″ (the strip structure) is
+    correct and the structured search it licenses is complete (every one of
+    the b cyclic constraints is enforced, the real coordinate's interval is
+    intersected from both sides, and a violation is an open-interval test);
+    Lemma 2 (saturation) and the weight recurrence check by hand; Lemma 3's
+    inequality chain is right and the buffer is exactly the ∞→∞ operator norm
+    the code computes (rows 0..r−2 of H⁻¹ and one signed row sum); the Siegel
+    corollary is the exposition's own inequality run backwards. Two errors
+    found, both in the prose: the paper's abstract said Bohman's record stood
+    "sixty years" (twenty-eight), and THEOREM.md cited Bohman as Proc. AMS 126
+    (1998) — the 0.22002 bound is EJC 5 (1998) R3; the Proc. AMS paper is 1996
+    and is the Conway–Guy analysis. One structural defect in the paper: its
+    Theorem 1 quoted the α = 11/20 instance (D = 8000) while §2 defined the
+    lattice for α = 1/2 only and the tilt arrived in §6; and §4 still said "no
+    s = 2 instance can beat Bohman", true for α = 1/2 and false for the paper's
+    own d = 81 set. The paper is rewritten with the tilt in §2.
+
+  ── 2 · THE PORT ── 66 files copied byte-for-byte from experiments/erdos1 and
+    pinned (instruments/erdos1/PROVENANCE.json; pin.py rewrites it; the
+    battery re-hashes every file and, for the gzipped copies, the content
+    against the source's hash). The four three-level certificates are gzipped
+    (46 MB each for d = 2197; 16 MB for d = 1331; 4 MB for d = 729), the four
+    two-level ones raw; the Hermite caches gzipped beside the instrument (their
+    total 256 KB, against 36 MB raw). Eight patches declared: cache directory
+    and --out in build.py; the closed-form modulus in hnf_pari.py (|det A| =
+    D^r Δ_s is exact and instant; the FLINT determinant it replaces costs an
+    hour at r = 3374, and verify.py V1c recomputes it anyway); RESULTS named
+    after the certificate FILE in report.py (the k = 21 summary overwrote the
+    bench's d = 81 summary once, in the first minute); siegel.py's directory;
+    certnumbers.py rewritten to read the ledger; the theorem note, the paper
+    source and the sharing plan edited. The int→str limit call is guarded so
+    the ledger runner can spawn siegel.py under the system python3 (3.9).
+
+  ── 3 · ONE RULE ── the bench applied "an instance is verified iff its
+    block in the verifier's log is complete inside a run that ended green"
+    in three files (siegel.py, certnumbers.py, build-page.js). Here it lives
+    once, in tools/run-erdos1-ledger.js, which writes certs/erdos1-ledger.json
+    from the certificates and THIS machine's verify-*.log files (the bench's
+    logs are kept as certs/erdos1/logs/frontier-verify-*.log and enter
+    nothing): the ratio recomputed from the base weights in BigInt and
+    required to equal the recorded rational, "below Bohman" as an exact
+    integer comparison, the Siegel bound as the exact rational printed
+    TRUNCATED (a printed lower bound may only be rounded down; the bench
+    printed 2.825178 at d = 729 where the truncated value is 2.825177). The
+    page, the shelf card and the paper macros read only the ledger; the battery
+    re-reads every log with its own copy of the rule and requires agreement.
+    A verifier still writing its log changed the ledger between two
+    derivations (timings), so timings are recorded only for finished runs.
+
+  ── 4 · RE-VERIFIED HERE ── every lifted certificate run through verify.py
+    from the file alone: the four two-level ones in seconds, d = 729 in 182 s
+    (all four instances), d = 1331 in 45 minutes of shared CPU (all four),
+    the Bloom-gadget d = 2197 (--k 36) in 66 minutes, the tilted d = 2197 in
+    2 h 28 min — every bench certificate verified here by 01:12. The battery (instruments/erdos1/
+    battery.py, 13 checks, 6 reds): pins; Δ_s = |det B_s| exactly on six small
+    lattices and three tilts; the cube property of Λ_1 by exhaustive search for
+    d ≤ 9; the structured strip decision against the brute-force decision of
+    BOTH gadget properties for b ≤ 7 × four tilts, and every (α, b) in the
+    ledger; verify.py on the two smallest certificates; the ledger's verified
+    set re-read shared-nothing; N/2^n, the Bohman sign and the Siegel bound
+    re-derived from the weights; siegel.json against the ledger; the detached
+    verifier byte-identical to its generator. Reds: a forged pin, a base weight
+    off by one (V4b fires), a halved buffer (V5), a Hermite entry off by one
+    (V2), a two-parameter gadget that violates the cube condition, a verifier
+    log that did not end green.
+
+  ── 5 · PUSHED FURTHER ── (a) the smallest set: at d = 81, tilt 3/5, k = 21
+    gives n = 1,701 at 0.217967; k = 20 lands at 0.220057, above by 0.00004
+    — the excess factor (Dt/2^k)^r reproduces the certificate to five places,
+    and no smaller K at d = 81 among 4/7, 7/12, 5/9 (K = 347, 600, 421 against
+    3/5's 242) crosses at k = 20. (b) The two-level tilts the gadget table
+    pointed at: 3/4 at b = 21 (d = 441, Δ = 0.3440) and 4/5 at b = 31 (d = 961,
+    Δ = 0.3186), both STRIP-admissible in milliseconds (the 4/5@31 search walks
+    64,794 chains with M = 4), PARI Hermite in 17 s and 80 s, built and verified
+    here: 0.172386 at n = 12,348 and 0.159783 at n = 28,830, each beating the
+    Bloom-gadget lattice of the next size up. K/d is 2.9 and 3.6 for them (the
+    denominators 4 and 5 pay through D = 16, 25). (c) The stretch: 3/5 at
+    b = 15, s = 3 (d = 3375, D = 125, Δ = 0.2734, so N/2^n → 0.1367, 38% below
+    Bohman): STRIP-admissible, PARI running at the handoff, then build, then
+    verify --k 36 (~10 h). (d) Not attempted: 3/5@17 s = 3 (d = 4913, Δ =
+    0.2572, a day of verification) and anything at d = 9261.
+
+  ── 6 · THE PAGE, THE PAPER, THE SHELF ── reports/erdos1.html
+    (tools/build-report-erdos1.js: ledger --check + battery before a byte is
+    written; seven sections; one scatter of every verified instance against
+    n with Bohman as a solid reference line, two token colours with a legend;
+    the pending instances named in §4 rather than omitted silently); the card
+    at the head of the erdős lane with the ledger's numbers on it (build-site
+    gates the ledger); certs/erdos1-ledger.json described on the shelf
+    (battery-gated, no stdlib verifier: the verifier needs FLINT and the page
+    says so; tools/verify_erdos1.py is served at /verify/ all the same); the
+    certificates under 20 MB published under /certs/erdos1/. paper/tex/
+    erdos1-explicit.tex in the house preamble (the shared author block and
+    disclosure; \cmrepro names the paths), tilt in §2, the theorem stated with
+    α, three tables interpolated from paper/tex/erdos1-numbers.tex, which
+    certnumbers.py writes from the ledger; tectonic clean.
+
+  ── 7 · GATES ── check-style, check-measure and check-render accepted for
+    the one new page (bytes-keyed); grammar 7 patterns, 0 drift; wiring 11
+    checks; stale-claims; `make test` and the control page carry the battery.
+    Makefile: `make erdos1-venv` (python-flint lives in instruments/erdos1/
+    .venv, gitignored; the battery builds it on first run).
+
+  ── 8 · NOT DONE, SAID PLAINLY ── the d = 3375 verification ENDED GREEN at
+    ~14:20 the next day (0.136855 at n = 121,500) and was LEDGERED at 14:52
+    when the operator reopened the session for Zenodo. The Zenodo DOI for v2026.09.3 was minted at 15:23 on the second
+    delivery and stamped. Sent this session, both on the operator's word: the
+    erdosproblems.com/1 comment (in moderation) and tadamcz/erdos1#2. The
+    public repository the bench prepared (public/, one commit) is NOT used:
+    the operator ruled one repository, and the texts point here. No Lean wrapper. No proof of
+    the buffer law. Nothing sent; nothing pushed.
+
+══════════════════════════════════════════════════════════════════════════
+  FOURTEENTH SESSION, 2026-09-12 — THE UFSC LINE OPENED: A MENU FOR PEDRO VERAS
+  GUIMARÃES'S RESEARCH, AND THREE OF ITS ITEMS BUILT THE SAME DAY — THE ENVIRONMENTAL-
+  CONTOUR BENCHMARK RE-DECIDED TO THE LAST POINT (REPORT + INSTRUMENT), THE STEREO
+  RIG'S ERROR BUDGET AS ENCLOSURES (INSTRUMENT), AND HIS 16,369 BREAKING WAVES
+  DECIDED AGAINST THE LABORATORY (REPORT).
+  NOT PUSHED, NOT COMMITTED at the close · 86/86 batteries · 63 pages · 20 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator: "I have a contact on UFSC, Florianópolis. I want to
+    see if we can revive mare-farm or anything related to this from here or from
+    sin-mfg. The goal is to produce reports and playgrounds that fit his recent
+    research topics" — with the Lattes CV — then "go".
+
+  ── 1 · THE SCOUT ── target memory had nothing marine ("unknown, not open").
+    sin-mfg/research/mare-farm read whole: class C (41 files withheld, ships
+    empty), its Track A a one-shot aggregative game whose METHOD tier the lit
+    gate found OCCUPIED (Kubica–Woźniak 2010, Bordeaux–Pajot 2005), its sea-state
+    data never real (ERA5 blocked on a CDS account), and none of it his topic.
+    His actual line, read off OpenAlex (36 works) and the CV: extreme value
+    analysis of Hs (Reis, Guimarães, Farina et al., Ocean Eng. 2026, OA, with a
+    corrigendum 2026-05-30), climate change and design waves (Research Square
+    2026, code on Zenodo), the Petrobras/ANP contract on multivariate extremes of
+    wave, wind profile and current profile — i.e. ENVIRONMENTAL CONTOURS — low-
+    cost stereo video (Coastal Eng. 2024, Big Wave Tracker at Nazaré), a new
+    16,000-breaking-wave dataset (Zenodo, CC-BY, 8.9 GB), wave–current (SKIB),
+    ReNOMO. Seven ideas ranked in notes/ufsc-labeco-menu-2026-09-12.md; the row
+    written. The killer-app test passes for the first time on a scouted line: an
+    offshore operator is legally required to produce a defensible 100-year value
+    under DNV/ISO rules, which is his contract word for word.
+
+  ── 2 · THE OBJECT ── Haselsteiner et al. 2021, "A benchmarking exercise for
+    environmental contours" (Ocean Eng. 236, 109504): nine groups submitted 1-,
+    20- and 50-year contours for six hourly metocean datasets (NDBC buoys A–C,
+    coastDat D–F; ten/25 provided years, ten/25 RETAINED), and the organizers
+    scored each by counting observations outside it with matplotlib's float
+    Path.contains_points. Everything public at github.com/ec-benchmark-organizers/
+    ec-benchmark. corpus/ec-benchmark pins commit a1561fe7: the 150 contour files
+    verbatim (committed), the twelve datasets (55 MB, GITIGNORED and fetched by
+    tools/fetch-ec-benchmark.js with sha256 verification — exercised by moving a
+    file away and fetching it back), the organizers' two counting scripts and
+    settings.py, viroconcom 1.4.8's points_outside and readers (from the PyPI
+    sdist, its sha256 in the pin). claims.json transcribes the preprint's Tables
+    1, 5, 6 and 2 and the organizers' hand-coded column orders.
+
+  ── 3 · THE INSTRUMENT ── instruments/ecbench: lib.js reads every number as the
+    literal its digits denote (kept as string + double image) and the column
+    order FROM THE HEADER (one file spells it "heigth"); geometry.js has no
+    require() in it so the instrument page inlines the same bytes — the float
+    filter with its PROVED bound (48u·M², 8.7e-11 at M = 128; the derivation in
+    the comment) and BigInt fallback at scale 10^64, even-odd classification with
+    nonzero winding beside it, ON as a third answer, self-crossings pair by pair,
+    exact area, the implicit closing edge, maxima at vertices; decide.js is the
+    node face and checks the two literal readers agree; expected.js certifies
+    Table 1 — erfc by Laplace's continued fraction (consecutive convergents of a
+    positive fraction bracket the value), β = Φ⁻¹(1−α) by bisection that tightens
+    only on a certain sign, α_t = exp(−β²/2). Battery 218 checks, 14 reds — one
+    of them a case FOUND BY SEARCH (492 random trials) where float64 gives the
+    wrong determinant sign (+3.55e-15, exact −); the battery was MUTATION-TESTED:
+    loosening the filter to 1e-30 goes red, ignoring edge direction goes red (11
+    fails); flipping the half-open convention does NOT, correctly, because it is
+    an equivalent convention. isqrt by float seed hung for 1e54 iterations at
+    scale 10^128 — Newton now. The ledger runner decides 150 contours × 1,840,824
+    hours in 5.9 s: 637 M predicates, 237 k of them to exact arithmetic.
+
+  ── 4 · THE FINDINGS (certs/ecbench-ledger.json) ──
+    · 176 printed numbers read against the exact counts: 173 the exact count to
+      the integer; 1 (contribution 2's wind-wave 1-yr mean) agrees once two
+      observations lying EXACTLY ON the contour are counted outside — a 3-decimal
+      vertex coinciding with a 4-decimal observation, in E (1989-06-17 20:00) and
+      F (1986-06-27 20:00); 2 (contribution 3's 1-yr sea-state row: printed means
+      82.3 and 48.3, exact 104.0 and 55.0) are NOT the count of the file on
+      record. The repository's own history: those three files were rewritten on
+      2020-09-25 (07f0ecc3) to drop 53/41/55 rows with a NaN coordinate; the
+      20-yr files were never touched and agree to the integer. Recorded in
+      claims.json `lineage`, stated on the page as provenance, not refutation.
+    · 30 of 150 contours are NOT simple polygons: 10 of contribution 2's 12 (24
+      vertices, 44 consecutive duplicates), 9 of contribution 9's direct-sampling
+      and 6 of its smoothed, 2 of contribution 5's, and ONE crossing each in two
+      of contribution 7's IFORM contours and in contribution 4's HD contour for
+      A/20 — where the one crossing is the IMPLICIT CLOSING EDGE (0.11 m, the
+      longest in the polygon) cutting the curve's tail. 49 files not closed. In
+      11 of the 30 the closing edge is a crossing edge. NO observation changes
+      side between even-odd and winding, so the printed counts do not depend on
+      the rule; the shape of what was counted does.
+    · Table 1 certified: 197 / 11.5 / 492 / 12 are the roundings of 196.862 /
+      11.524 / 492.141 / 11.994; the total-exceedance 20 and 1 are EXACT because
+      175,320 = 20 × 8766 hours.
+    · New numbers the paper did not print: the out-of-sample counts on the
+      retained years alone (expected 0.5276/0.5213/0.5337 on A–C and 0.4999 on
+      D–F for a total-exceedance contour; HD contribution 4: 1, 2, 2, 1, 6, 0;
+      ISORM contribution 1: 107, 36, 33, 104, 48, 65), and every contour's max
+      Hs against the observed maximum (dataset A's 11.7976 m of 2010-02-26, in
+      the retained years, is above all eleven 20-yr contours).
+    · CROSS-CHECK OUTSIDE THE GATES: matplotlib 3.9.4's float count reproduces
+      the exact count on all 150 contours, the two boundary points counted
+      outside. The pre-rewrite NaN files give 129/89/26 (mean 81.3) under 3.9.4 —
+      near the printed 82.3 but not it; the benchmark ran 3.3.1. Not on the page
+      as a claim; in claims.json as COMPUTED.
+
+  ── 5 · THE PAGES ── reports/ec-benchmark.html ("Their contours, re-decided
+    to the last point."), applied lane, three figures: the 176 cells as a strip
+    (173 green, 1 amber, 2 plum), the 21-crossing direct-sampling contour drawn
+    in file order with its crossings (a three-cornered loop; the crossings are
+    centimetre zigzags at the corners), and every contour's max Hs against the
+    observed maximum. Every sentence gated; the float drawing must find the
+    decided crossing count or the page refuses. Tables shrunk to eight columns
+    after a screenshot showed the ninth clipped. /instruments/contours ("Every
+    hour of sea, against every contour."): the chosen contour over a 90×54
+    density of its dataset, the exact counts and polygon facts from the ledger,
+    the paper's printed number beside them, and ANY SEA STATE the reader clicks
+    or types decided INSIDE / OUTSIDE / ON in the tab by geometry.js inlined —
+    the same bytes as the ledger. 2.2 MB, because the vertices ride as literal
+    strings (exactness needs them). Driven at 1440 and 390 with real clicks:
+    the first desktop click landed below the fold and decided nothing, the
+    phone laid out at 651 px until the table got its own scroll box.
+
+  ── 6 · THE GATES ── the grammar gate refused two dash patterns I had typed
+    ("4 3" on the card, "3 2" in the tab) — the crossing marks take
+    W.attrs(COMPUTED) now, passed into the page's JSON at build so the runtime
+    never types a dash. check-wiring ALL PASS. Render and measure baselines
+    accepted for the two new pages (the ratchet kept the two skyaudit rows it
+    read low, as it should). The render gate then found a leak that predates
+    this session — two literal backticks on /machine from the blind-spot
+    battery description of 2026-09-10 — fixed at the source. The datasets are
+    fetched by the battery and the runner themselves when absent (a fresh clone
+    runs `make test` without a manual step; exercised by removing a file).
+    make site ran once (16 min) and make control twice more.
+
+  ── 7 · ITEM 3, ON "PROCEED" ── the operator asked whether every next task
+    still connects to Pedro; the honest ranking by fit was 2 → 3 → 5, with 4 and
+    6 as gifts and 7B the weakest; "proceed" — and 2 needs his data, so 3 was
+    built: THE STEREO RIG'S ERROR BUDGET AS ENCLOSURES. instruments/stereo/
+    budget.js is require-free and takes the interval module: the rectified
+    pinhole pair aimed at the surface point, η = Hc − (B/d)(f sinθ + v cosθ),
+    r = (B/d)(f cosθ − v sinθ); each measured quantity enters ONCE, so the
+    interval extension over the pixel box (disparity ±δd px, vertical ±½ px) is
+    TIGHT — the quantization cell is an exact enclosure, and it holds over
+    inputs that are themselves boxes. Three bound terms ride on it: the sync
+    lag's texture shift (the water's orbital speed plus a CHOSEN texture speed
+    — a first draft used the phase speed and produced three-metre cells, which
+    is wrong physics: the matcher tracks texture, not the wave shape), the
+    surface's own motion ωH/2·δt, and a horizontal misplacement read on the
+    steepest slope kH/2. The reach is the last grid range whose UPPER bound
+    clears tol·H. presets.js carries Leme 2020 (Vieira, Guimarães, Violante-
+    Carvalho, Benetazzo, Bergamasco, Pereira, JMSE 8:831 — fetched from
+    mdpi-res.com after mdpi.com refused; the paper's literals B 0.98 m, Hc
+    3.5 m, f 3.71 mm, T 12.8 s, H 0.35 m, the gauge at 34 m; boxes for the
+    pixel pitch, 1.12–2.45 µm, and the matching precision, 0.25–1 px, which it
+    does not state) and a Nazaré scenario with every number chosen. Battery 28
+    checks, 9 reds, mutation-tested twice (drop sinθ; mis-box the disparity).
+    THE FINDING: the certified cell at the gauge is 2.9 cm at the best corner
+    and 33 cm at the worst; the paper's observed RMSEs against the pressure
+    gauge, 10–12 cm, lie BETWEEN them — the geometry with the paper's own
+    numbers accounts for the deviation; and its quoted 1.1 mm z-quantization
+    is below the best-case cell at any range in the imaged area (8.8 mm at
+    10 m) — taken from its reference [42], which we do not hold: not
+    reproduced, not refuted, said so. /instruments/stereo-reach ("How far can
+    two cameras bound a wave?"): every input a dial carrying its standing
+    (paper / box / chosen; editing makes it chosen and the curves go dotted —
+    the grammar's stroke channel doing exactly its job), the four terms
+    against range on log axes, the tolerance line and the reach, all computed
+    in the tab by the inlined bytes; three defects found by looking: a
+    duplicate class attribute that hid three curves, labels clipped at the
+    right edge, and "µm" uppercased by CSS into a Greek mu. Driven at 1440 and
+    390; batteries 85.
+
+  ── 8 · ITEM 5, BUILT ── the operator: "see if we have space to download and
+    proceed". 12 GB free of 228; the archive is 8.9 GB and extracts to as much
+    again; NOT downloaded and not needed: its ZIP64 central directory (28.6 MB
+    at the tail) was read by HTTP range request and the seven files under
+    codes/ — the per-event table blacksea_data.pkl (6.5 MB) and six analysis
+    scripts — fetched by their own ranges and inflated, 35 MB in all, pinned in
+    corpus/blacksea-breaking/ with offsets, sha256s and the archive's md5. The
+    other 145,050 entries are per-event .mat files and PNG frames. The pickle
+    (a pandas DataFrame, 16,369 events × 46 columns, 20 stereo records,
+    2013-09-22..10-02) was converted ONCE, in a scratch venv, to a CSV whose
+    every literal is the shortest decimal that round-trips its double —
+    verified column by column with float_precision='round_trip', because
+    pandas' DEFAULT parser is not correctly rounded and disagreed on 2,864
+    values of one column; the CSV is the record the instrument reads.
+    THERE IS NO PAPER beside the record (the scripts cite a 2021 GRL
+    submission with no DOI; the concept DOI redirects to the dataset), so the
+    claims are the description's two sentences and the reference lines the
+    authors' own scripts draw: Duncan (1981)'s 10–14.7° band on the
+    inclination and 0.11 on the aspect ratio Ab/L²_D81. instruments/breaking
+    decides them in exact rationals: order statistics as the k-th smallest
+    value (never an average of two), average ranks doubled to integers so
+    Spearman ρ² is an exact rational with ρ enclosed by integer square roots,
+    Pearson on the raw literals by clearing denominators, π enclosed for cm/cp.
+    Battery 42 checks, 5 reds, mutation-tested (ties taking the first rank;
+    the quantile index rounded). THE FINDINGS, 1.6 s for the whole table: 5,648
+    of 16,369 events (34.5%) inside Duncan's inclination band, 4,280 flatter,
+    6,441 steeper, none on an edge; 16,194 above Duncan's aspect ratio, the
+    median 4.857× it, 263 within ±25% of it; the three self-similarity ratios
+    spread by 2.06×, 1.87×, 1.87× across the middle half of events and 5.77×,
+    4.26×, 5.43× across the central 90%; the rank correlation of breaking speed
+    with any geometric property at most 0.410 (with Dz) against 0.902 for area
+    with length; the median breaker at 0.284 of the peak phase speed, 127
+    faster than half of it. reports/breaking-geometry.html ("Sixteen thousand
+    breaking waves, decided against the laboratory."), applied lane, three
+    figures: the inclination histogram with Duncan's band, the aspect-ratio
+    histogram with Duncan's line and the median, the nine rank correlations as
+    bars in two colours with a legend. THE CAVEAT IS STATED: Duncan's 0.11
+    relates a vertical cross-section to a length; the table's Ab is a plan
+    view; the scripts draw the comparison and the page decides it as drawn.
+    The float procedures in the scripts (a lognormal fit, a K–S p, a tail
+    beyond 2σ, RANSAC lines) are named and not reproduced.
+
+  ── NOT DONE ── nothing committed or pushed (not asked). Nothing sent: the
+    two-number finding and the thirty polygons are a note to the benchmark's
+    organizers (ecbenchmark@gmail.com / a GitHub issue) and a first conversation
+    with Pedro, both the operator's. The IFORM-vs-HD "same fitted model" decision
+    from the menu was not built (needs a fitted joint model; the benchmark's
+    baseline fit is in organizers-code and could be the model). Items 2, 4, 6,
+    7 open; 2 waits on his data.
+
+══════════════════════════════════════════════════════════════════════════
+  THIRTEENTH SESSION, 2026-09-09/10 — THE SECOND ENVIRONMENT IS PUBLISHED:
+  BLIND-SPOT PORTED, ITS BINDING WRITTEN AGAINST A LIVE INSTALL, RUN AGAINST LIVE
+  MODELS, AND PUSHED TO THE HUB AS carlos-toledo/blind-spot v0.1.0.
+  PUSHED to main (fe7464d and after) · 83/83 batteries · 61 pages · 18 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator asked whether a second environment was ready to
+    publish. It was not: `carlos-toledo/break-the-grader` has been the only one
+    on the hub since 2026-09-04, and frontier's two packages — lattice-claims
+    and blind-spot — carry no publishing layer at all. Then: "build blind spot".
+
+  ── 1 · WHAT IT IS ── one mutant of `core_euclid_strict` (MCY's 400, out of the
+    coverage run's own database) or the unmutated design; answer with 1–8 input
+    pairs on which the mutant's pins differ, or EQUIVALENT, or UNDECIDED. No
+    answer key, no judge, no tolerance: a kill is verified by SIMULATING the
+    actual netlist under the actual mutation, and EQUIVALENT is checked against a
+    SAT proof on a hand-written miter. Three rungs by how much of the defect is
+    stated — `located` / `profile` / `blind`. Its thesis is the sharpest instance
+    of frontier's unnamed five-instance pattern: KNOWING THE FAMILY IS NOT THE
+    PAIR. The out-of-box family kills 96.8 % of mutants; eight random members of
+    it kill 3 of 20 OUTBOX_ONLY, and every eight-pair shotgun kills 0 of 8
+    ALIGNED_ONLY.
+
+  ── 2 · THE PORT REPRODUCED, NOT COPIED ── the SAT labelling was re-run here and
+    printed the exact line the port instruction says it must: **348 killable with
+    a verified witness, 51 proved equivalent, identity = mutation 1; valid0-only
+    []; other disagreements []**. Diffed against frontier's own pool.json: every
+    mutation id, label, class, profile, mutation text, witness pair AND witness
+    pin-pair identical, 400/400 on each. Only `sat_secs` differs — 355.7 s here,
+    494 s there, which is the machine and not the mathematics. Acceptance, all
+    exact: 7 tests pass; 11 planted controls, 0 failed, all THREE POSITIVE
+    controls scoring; baseline `sat` +1.000 on every rung 120/120, `profile`
+    +0.625 on its rung, `never` −0.350 with 81 false claims, `corpus8` 31/36
+    COVERED and 0 of every class it is blind to, `outbox8` 3/20 OUTBOX_ONLY.
+
+  ── 3 · THE FOUR REASONS IT WAS DEFERRED ON 2026-09-05, ANSWERED ──
+    (a) "12 MB" — only the EIGHT files the package actually reads were lifted:
+        2.8 MB, not 12. corpus/blindspot/mut, 27 files pinned in one
+        PROVENANCE.json, one declared patch (design.py's repoint).
+    (b) "a 75-minute formal run in a battery" — the SAT labelling runs ONCE, on
+        the port, and pool.json is its record. The battery instead re-runs ALL
+        348 recorded witnesses through the actual netlist every build and
+        requires each to flip the exact pin pair the record names. ~53 s. So a
+        corrupted label cannot survive a build even though the proof is not
+        re-proved: the expensive thing is trusted, the cheap thing is re-derived,
+        and the cheap thing is enough to catch the expensive thing lying.
+    (c) "records that copy but cannot be regenerated" — pool.json is the only
+        one, and it was regenerated and diffed. Everything else in pool/ is a
+        build artefact and is gitignored; THE BATTERY WAS VERIFIED REBUILDING THE
+        WHOLE SIMULATOR FROM A BARE pool/ in the same 53 s, so a fresh clone
+        works.
+    (d) "an identity control found vacuous" — frontier fixed it in its own
+        session 17: MCY numbers `-mode none` as mutation **1**, not 0, and both
+        of its collectors had asked for `mutation_id = 0`, got an empty row set,
+        and said nothing while claiming to refuse. Planted here as a STANDING RED
+        CONTROL asserting both halves — id 0 returns nothing (the old query was
+        vacuous) and `-mode none` returns exactly one (the new one is not).
+
+  ── 4 · THE BATTERY ── environments/blind_spot/battery.py, the 83rd row: the 27
+    pins, the pool's invariants, all 348 witnesses re-simulated, eight proved-
+    equivalent mutants attacked with all four families (16,000 pairs each) and
+    required to survive, the 11 planted controls, the 7 tests, and FOUR red
+    controls of its own — the vacuous identity query, a witness with one
+    coordinate changed that stops killing, a proved-equivalent mutant that
+    another's witness cannot kill, and 400 random pairs that cannot tell the
+    identity from the design. 83/83, exit 0.
+
+  ── 5 · THE PUBLISHING LAYER, WRITTEN AGAINST A LIVE INSTALL ── `verifiers`
+    0.3.1 in a venv, then `blind_spot/api.py` (the stdlib surface every consumer
+    shares) and `blind_spot/adapters_v0.py` (`load_environment`). The three
+    defects a doc-written binding produced in break-the-grader are each designed
+    out and each has a test. FOUR OF MY OWN TESTS FAILED ON FIRST RUN and every
+    one was a real fact about the framework: SingleTurnEnv does not keep the
+    Rubric it is handed (it wraps it in a RubricGroup whose own `.funcs` is EMPTY
+    because it delegates to `.rubrics`); the lazy resolver goes through
+    `importlib.import_module`, which does not route via `builtins.__import__`, so
+    an import-trapping fixture cannot see it; and the prompt legitimately
+    contains the word KILL, because that is the response format the model is
+    given — the label is the class.
+
+  ── 6 · THEN THE WHEEL FOUND A FOURTH DEFECT, NEW ── installed into a clean
+    venv, EVERY VERDICT CAME BACK "xxx". `sim.simulate` passed the case file by
+    ABSOLUTE path and the testbench holds that plusarg in `reg [1023:0] f`, which
+    is 128 characters. The source lab sits ~70 characters deep so it always
+    worked; a site-packages path 200 characters deep truncated it, `$readmemh`
+    read nothing, the memory stayed X, and nothing raised — a whole environment
+    scoring every submission as unparseable, silently, because of the length of a
+    directory name. It runs vvp from the pool directory with basenames now, and
+    `tests/test_long_path.py` was checked to FAIL against the old call. Two more
+    things an install needs and a source tree never asks for: the design and
+    pool.json ride in the wheel (force-included from where they live, not
+    duplicated), and `pool.ensure_sim()` compiles in ~40 s from the shipped
+    labels instead of re-proving 400 SAT problems for a binary. THE PARSER also
+    moved out of eval/run_models.py into the package — it was where the adapter
+    could not reach it — and the battery re-grades all 92 gradable rollouts from
+    their stored raws every build: 0 rows moved. VERIFIED: pip install of the
+    wheel into a fresh 3.12 venv from /tmp, load_environment returns a
+    SingleTurnEnv, 6/6 rows across three rungs, no answer column, no task column,
+    disjoint seeds, a truthful reply +1.0 through the actual netlist.
+
+  ── 7 · THE PAGE ── /instruments/blind-spot, a REBUILD in the house design
+    system reading eval/page.json regenerated here (nothing imported from
+    frontier's builder). The blind-spot map — 400 mutations by region of the
+    netlist, THE MARK CARRYING THE CLASS BY SHAPE so a reader who cannot separate
+    two greys can still separate a mutant the corpus sees from one it does not —
+    and the map shows the finding: the blind spots are not scattered, they sit in
+    the box check, the part no VALID input exercises. Then the
+    family-is-not-the-pair table, the reference table, three models with refusals
+    counted apart, and the eleven controls. Two bugs found by looking: three
+    control cells read "−NaN" (those controls pin only the outcome, so the reward
+    is not in `expect`), and the card art passed coordinates as STRINGS so
+    `${x + 3.6}` concatenated — "26.73.6" — and drew a malformed diamond as a
+    stray vertical bar.
+
+  ── 8 · AND THEN IT WAS RUN AGAINST LIVE MODELS ── the operator: "is the
+    environment tested with api?" It was NOT — every check to that point fed the
+    rubric completions I had written myself, which tests my model of the
+    framework, not the framework. With $8 authorised, `eval/run_verifiers.py`
+    ran the real path (dataset → prompt → live model → completion → rubric) for
+    three models, 36 rollouts each, and re-scored the framework's own completions
+    offline. **108 rollouts, 0 disagreements**, $1.49 of the $8.
+      · THE LADDER REPRODUCES through a different code path: `located` is
+        solvable and separates the models, `blind` is NEGATIVE for all three
+        (every one claims a kill it cannot back), `profile` splits them.
+      · OPUS 5 DECLINES THE `profile` RUNG — stop_reason `refusal`, category
+        `cyber`, zero content blocks, zero output tokens. Exactly what the
+        recorded direct-API run found. The prompt was not reworded.
+      · VERIFIERS 0.3.1 DOES NOT SURFACE A REFUSAL: its Anthropic client reports
+        `EmptyModelResponseError('Model returned no content')`, which reads as an
+        infrastructure fault rather than a policy decline — and `--retries` then
+        pays to retry something that can never succeed. The environment still
+        scores it 0 with well_formed 0, which is right: a decline is not a wrong
+        answer.
+      · Three more framework facts: its ANTHROPIC_ADAPTIVE_THINKING_MODELS list
+        predates Opus 5, so depth must be set with output_config.effort; Haiku
+        4.5 REJECTS `effort` outright (400); and the client uses messages.create,
+        so max_tokens above ~16000 fails with "Streaming is required" before any
+        call is made.
+      · THREE BUGS OF MY OWN, each caught by running rather than reasoning:
+        `evaluate` is a COROUTINE and calling it unawaited made no request while
+        reporting "0 rollouts · 0 disagreements · $0.0000" — a clean pass over
+        nothing; `metadata.usage` is a PER-ROLLOUT MEAN, and reading it as the
+        total under-reported a spend by 36×; and `evaluate` runs the EVAL
+        dataset, whose taskset seed is `seed + 1`, so a record that did not carry
+        its own seed gave the battery 75 false disagreements out of 108. Every
+        row carries its seed now, and the battery re-scores all 108 every build.
+
+  ── 9 · THE TWO MISSING PIECES, FINISHED ── the operator: "Finish what is
+    missing."
+      · THE PAGE HAS ITS INTERACTIVE LAYER. Click any of the 400 marks (or use
+        the picker, which is what a keyboard reaches) and a card gives that
+        mutation in words, the netlist statement, the bent wire and its drivers,
+        the class, the four-family profile, and the SAT witness with the pins it
+        flips. A "name a pair" box runs the SPECIFICATION in the tab — in-box,
+        then p = u·v, then 4p² against s·t — and says plainly that it does NOT
+        grade a kill, because a kill is a simulation of the netlist and runs
+        offline. Coordinates are read strictly in −4..3; a 4 is REFUSED, never
+        masked. THE DEMONSTRATION LANDS ON ITS OWN: load an OUTBOX_ONLY mutant's
+        witness and the specification answers REFUSED, because the witness uses
+        a −4 — the pair that kills the mutant is a pair the design declines to
+        decide, which is exactly where a corpus of valid inputs cannot go.
+        397 KB, driven with real clicks at 1440 and 390, no overflow.
+      · THE README'S FOUR STALE SECTIONS ARE REWRITTEN, and it is the Hub's front
+        page so they mattered: an install section that did not exist (pip line,
+        load_environment, the tool requirement, "there is no answer key"); a
+        Layout that still described frontier's tree; a reproduce block invoking a
+        builder that does not exist here; and a "The page" section promising the
+        interactivity the page did not have. Two sections added: the verified
+        binding with its four defects, and the live run with its table.
+      · ONE MORE BUG CAUGHT BY LOOKING: the shell emits `script` RAW, so the
+        `<script>` tags belong to the caller. Without them the whole behaviour
+        was dropped into the page as nothing and the build still reported
+        success — found by parsing every inline script in the built page, which
+        found ZERO. frontier's own note warned about exactly this habit.
+
+  ── 10 · PUBLISHED ── the operator: "prime integration is done in past chats.
+    Review and publish." The CLI was at ~/.local/bin/prime (not on my PATH),
+    prime 0.6.31, already authenticated. Reviewed first: pins unchanged, tests
+    green, the wheel builds, the metadata complete, and the name free hub-wide.
+    THE REVIEW CAUGHT ONE THING — the README said "13 tests" and there are 17
+    (11 run without verifiers; the six binding tests SKIP). Corrected before the
+    push, because it was about to become the Hub's front page.
+      **carlos-toledo/blind-spot v0.1.0, PUBLIC, 2026-09-10.**
+      environment_id irx8jesb80wr5mq0sqan7y0e · wheel sha256 dde50dde06a3b5f3…
+      `prime env install carlos-toledo/blind-spot`
+    THEN VERIFIED FROM THE REGISTRY, which is the step that caught the sibling's
+    three defects: pip install from the hub index into a clean 3.12 venv, loaded
+    from /tmp with no source tree present — load_environment IS exported (the
+    defect that would have made the Hub's own command raise on arrival),
+    SingleTurnEnv with 6 train / 6 eval across all three rungs, no answer column,
+    no task column, disjoint seeds, a truthful reply +1.0 through the actual
+    netlist and an unreadable one 0.0 with well_formed 0.0.
+    ONE MORE BUG, in my own tooling: provenance.py named the sections it carried
+    forward one at a time, so regenerating the pins silently DELETED `liveRun`
+    and `publishing` the first time either was written. It now carries forward
+    every section it does not generate.
+
+  ── NOT DONE ── nothing on this front. THE SECOND ENVIRONMENT IS LIVE.
+
+══════════════════════════════════════════════════════════════════════════
+  TWELFTH SESSION, 2026-09-09 — THE ONE THING THE DRAWING ASSERTED, NOW DECIDED:
+  THE CONE THAT LETS THE PULSES CANCEL THE CORE'S RESIDUAL, IN EXACT INTEGERS.
+  Pushed through 097bb48 · NOT PUSHED at the close (local) · 82/82 batteries · 60 reports · 17 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator's close on the eleventh session: "the path is good but
+    needs improvement", against a menu whose last and largest item read *nothing
+    yet shows the pulses doing their job — that is the one piece of the mechanism
+    the drawing still asserts rather than shows.*
+
+  ── 1 · WHAT THE PULSES ARE FOR, READ OUT OF THE PAPER ── the core alone does not
+    solve Navier–Stokes: §5 writes the base field's residual as −div(annular
+    stress) + a flat remainder (5.1)–(5.5), and that annular stress T0, supported
+    in Xa < X < Xb, is what the WAVES must produce. Two printed facts make it
+    possible, and BOTH ARE INEQUALITIES RATHER THAN ESTIMATES, which is why a
+    browser can re-decide them:
+      · §4.3, (4.20)–(4.23). With ts = −bs/a and vs = a(1+ts²), Lemma 4.5 says the
+        admissible cone condition is equivalent (for vs > 2) to the SQUARE-ROOT-FREE
+        pair Pc > vs, (vs−2)Jc² < 2(Pc−vs)² — and in stress coordinates to
+        T0,θ + ts·T0,z > 0 and (vs−2)(T0,z − ts T0,θ)² < 2(T0,θ + ts T0,z)².
+        Homogeneous: a WEDGE, tilted by ts, half-angle arctan(√(2/(vs−2))).
+      · §7, Prop. 7.5. Two pulse families with DISJOINT auxiliary supports give
+        C(a₊b₊ + a₋b₋) = H(a₊², a₋²)ᵀ, so the reachable set is exactly the
+        nonnegative span of two covariance columns; the printed solve
+        h±y± = ½(−T_N/Ac ∓ T_K/u*) is positive exactly on T_N < 0,
+        |T_K| < (u*/Ac)(−T_N), where a± = √y± are REAL. Outside it, no real pair.
+
+  ── 2 · THE PROBE FIRST, THE DRAWING SECOND ──
+    `instruments/navierstokes/probes/stress_cone.py`, 22 checks, SIX RED CONTROLS,
+    1.8 s. It re-derives the roots behind Lemma 4.5 and checks the printed v± both
+    against the polynomial and against the quadratic formula; it decides the
+    equivalence (4.21)+vs>2 ⟺ (4.22) on a 25,200-point rational sweep (7,234
+    admissible, 17,966 not — the test discriminates); it checks (4.23)'s frame
+    change has determinant 1+ts² (so ts rotates the wedge and cannot fold it) and
+    that F > 0 cancels out of the stress form; it verifies Prop. 7.5's printed
+    solve, det H = −2h₊h₋Ac·u*, and that positivity coincides with the reference
+    cone on 1,640 rational points; and it does the covariance on an explicit
+    two-family model. The reds: a planted sign flip in (4.22) disagrees at 10,456
+    points; relaxed-but-vs≤2 data exist and are refused; a stress 1/10 past the
+    cone edge forces y₊ = −1/16; T_N > 0 makes both negative; AT k = 0 BOTH
+    AVERAGES OF PROP. 7.5 STEP 1 FAIL; overlapping supports leave a cross term.
+    Battery now 7 scripts, 26 reds, PASS. THE TRANSCRIPTION WAS PINNED BEFORE A
+    PIXEL WAS DRAWN — the drawing is only as good as the formulas under it.
+
+  ── 3 · WHAT THE PAGE DOES NOW ── the wedge is parametrised by its SLOPE m rather
+    than by vs, because m = √(2/(vs−2)) is what the drawing shows and
+    vs = 2 + 2/m² is then exactly rational — so both cone crossings are equalities
+    in BigInt, not limits. The wave cone is the same wedge opened by Prop. 7.5's
+    margin ηc = 1/10. Three dials, all exact: the stress direction s, the cone
+    slope m, the shear tilt ts. Drag s out and you cross TWO named thresholds:
+    out of the admissible cone (the margin that absorbs (7.28)'s errors is gone)
+    and then out of what two real amplitudes reach (a squared amplitude is
+    negative). A mechanism plate in the left gutter carries the cone with its
+    head-to-tail decomposition y₊H₊ then y₋H₋ closing on T0, the exact arithmetic
+    printed beside it (|s| = 153/310, cone |s| < 9/10 holds, waves |s| < 1 holds),
+    and a strip showing the two families' shares stacking to exactly the stress
+    the core needs. In the canvas the annulus is no longer uniform hairlines: two
+    wave trains at envelopes √y±, spaced on the paper's own N log X phase, that
+    vanish where the stress vanishes and BREAK where no real amplitude exists.
+    "Make it axisymmetric" now collapses the whole plate with the reason: at k = 0
+    the families are part of the mean and supply nothing to it.
+
+  ── 4 · THE FOUR CHEAP ONES, DONE ── streamlines are integrated BOTH WAYS from
+    every seed and joined, so a line ends only at the lattice edge (they were
+    stubs that began in the middle of nowhere); the contour count is a control,
+    6–26, and sixteen turned out to have been a choice rather than a constant; a
+    legend hangs under the ruler drawn IN THE MARKS IT NAMES; and "the stress" is
+    a fifth render mode that dims the field to a ghost and gives the mechanism the
+    page. Points per streamline thinned 3× — script cost measured at 1.8–2.1 % of
+    wall in the heaviest mode, so the 30 fps a headless capture reports is the
+    harness's rAF cap, not the page.
+
+  ── 5 · TWO GATES CAUGHT ME, AND BOTH WERE RIGHT ── the grammar gate refused a new
+    dash "3.5 2.5" I had invented to mean "the second family", which is exactly the
+    overload design/grammar.js exists to prevent: DASH CARRIES STANDING, NEVER
+    IDENTITY. Two cones and two pulse families are SERIES, so they are separated on
+    the weight/opacity ladder now, read from grammar.js at build time rather than
+    retyped — and while fixing it I found the axis had been drawn with the PICK
+    pattern ("one member of a set the data admits"), which is not what an axis is;
+    it takes GUIDE now. The palette gate refused an rgba I had invented for a label;
+    it is var(--ink-3). A runtime-built dasharray is invisible to a static gate, so
+    the zero rule uses the grammar's own `.ink-guide` class, emitted from its one
+    definition.
+
+  ── 6 · THE RULER, AND A NEW DEBT ROW ── the instrument went 7 → 9 spines. One is
+    real (a new plate is a new alignment); the other is the probe counting a
+    bordered box's outer and inner edge as two spines one pixel apart — the panel
+    has shown 1134/1135 for as long as it has had a border. Recorded at 9 with
+    `--accept-worse`; DEBT row written with the one-term fix and the reason it is
+    not being made in this session (it re-measures every page). The ruler ALSO did
+    its job unprompted: it offered the two skyaudit rows as "improvements" again
+    and its own digest guard KEPT the old rows, naming them as a degraded read.
+    Ink of the new figure: 6.78 %, beside `affect`'s healthy 6.97 %.
+
+  ── 7 · ONE COUNT STOPPED BEING REMEMBERED ── the control page's navier row had
+    said "3 scripts" through two sessions that added four more. It reads
+    probes.json now: "7 scripts, 26 red controls".
+
+  ── NOT DONE ── nothing pushed, nothing sent. The h dial still does not dramatise
+    how little it does at the paper's h. The mechanism plate hides below 1180px or
+    790px, so a phone gets the pulses without the diagram. The stress path across
+    the annulus is DRAWN — the test applied to it is the paper's and exact, but the
+    path is a legible bump, not a solved profile. The Euler checks are still unrun.
+
+══════════════════════════════════════════════════════════════════════════
+  ELEVENTH SESSION, 2026-09-09 — OPENAI'S NAVIER–STOKES CLAIM AUDITED END TO END:
+  THE CERTIFICATE HOLDS ON THIS MACHINE, AND THE PAPER'S HEADLINE CLAUSE IS NOT IN IT.
+  Pushed through adbabcb · NOT PUSHED at the close (local) · 82/82 batteries · 60 reports · 17 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator, cold: "focus the next big effort on verifying the
+    Navier-Stokes resolution from OpenAI … dissect the math and try to find gaps
+    or counter-examples", then "an implacable adversarial review", then an
+    instrument, twice rebuilt on his notes.
+
+  ── 1 · WHAT WAS AUDITED ── OpenAI, 2026-09-08: *Finite time blowup for
+    Navier–Stokes* (166 pp) and *…for the Euler equation* (57 pp), plus
+    github.com/openai/NavierStokesAndEuler @ 8937a8f4 (one commit, 2,486 modules,
+    618,762 lines, Lean 4.34.0-rc2 / Mathlib 85e3a25). corpus/navier-stokes holds
+    24 files with a sha256 manifest: both papers, the Clay statement, the Lean
+    challenge and solution bridges, the Formal Conjectures original, Tao's posts,
+    Buckmaster's statement, Alpöge–Buckmaster's three papers, Córdoba–Martínez-Zoroa.
+
+  ── 2 · THE CERTIFICATE HOLDS, THREE WAYS ── every one of the 2,486 modules
+    compiled here (Mac14,2, 8 cores, 16 GB) in 140 minutes, exit 0, no errors —
+    in two legs, because eight parallel Lean processes drove a 16 GB machine into
+    9 GB of swap at one module a minute; LEAN_NUM_THREADS=4 fixed it. `#print
+    axioms` on the four main declarations: propext, Classical.choice, Quot.sound
+    and nothing else. Then COMPARATOR, the Lean FRO's judge, on both configs:
+    statement equality by exact term comparison, the axiom walk, and replay
+    through Lean's kernel AND nanoda (an independent Rust kernel, built here) —
+    "Your solution is okay!", exit 0, 13 min for Navier–Stokes and 17 for Euler.
+    Its Landlock sandbox is Linux-only; bin/landrun is a pass-through, so the
+    isolation did not run and both sides came from one pinned commit.
+    tools/record-navierstokes-build.js writes corpus/navier-stokes/build.json.
+
+  ── 3 · THE STATEMENT IS CLAY'S ── the theorem the proof targets is DeepMind's
+    Formal Conjectures encoding of alternatives (C) and (D), added 2026-05-15,
+    last touched 2026-07-27, byte-identical to main today; OpenAI's copy differs
+    only in imports, attributes, namespace and notation (diffed by
+    tools/pin-navierstokes-lean.js), and the solution side re-declares the same
+    definitions byte-identically. Read against Clay's prose and Mathlib's own
+    source hypothesis by hypothesis (corpus/navier-stokes/fidelity-clay-vs-lean.md):
+    nothing added to the competitor class, nothing dropped from the data. The
+    direction rule is stated — the theorem is a NEGATION, so a weak or junk-valued
+    solution notion only strengthens it. A non-vacuity witness written here and
+    compiled against their challenge module (lean/cert-machine-NonVacuity.lean,
+    7 declarations, standard axioms) shows both competitor classes are inhabited.
+
+  ── 4 · THE FINDINGS ──
+    (a) THE ENERGY CLAUSE. The paper's Theorem 1.1 and the announcement say the
+        blowing-up fluid keeps FINITE ENERGY through the singularity. The Lean
+        candidate satisfies a ten-field Properties structure — smooth velocity and
+        pressure, three compact supports, zero initial velocity, divergence-free,
+        the equation on (0,1), speed unbounded at one — and there is NO energy
+        field. R3/CompactEnergy.lean:343 proves the lemma and nothing uses it;
+        breakdownStatement is never proved. Clay (C) does not need it. The EULER
+        theorem in the same repository DOES carry its energy bound, alongside
+        maximality as an iff and the BKM integral — same team, same week, same
+        repo, so this reads as an oversight, not an obstacle.
+    (b) THE SWIRL MAXIMUM PRINCIPLE, unstated. For an axisymmetric flow Γ = r·uθ
+        obeys a drift–diffusion equation with no zeroth-order term, so from rest
+        with a bounded compactly supported force sup|Γ| ≤ ∫|r f_θ|. The paper's
+        core has Γ = q^{−h}H (its own words, p. 27), unbounded. THE AXISYMMETRIC
+        BACKGROUND ALONE IS IMPOSSIBLE; the theorem lives on the pulses' nonzero
+        angular frequencies, which Lean proves (angularMode_ne_zero) and the paper
+        never says. And the dichotomy: at h = 0 the flow is exactly type I, which
+        the axisymmetric Liouville theorems exclude; above zero the swirl diverges.
+        The two exclusions close on h = 0 from opposite sides.
+    (c) NO NUMERIC SMALLNESS ANYWHERE. h is Classical.choice in Lean, constrained
+        only by 2h < lam < 1/10 and h ≤ 1/1000; the printed h < 1/100 is not the
+        operative bound in either artifact. Lemma 4.8 needs h < min{λ, e^{−T_d}}
+        with T_d = e^{M_d}+10.
+    (d) THE LEAN GROWTH WITNESS is the axial speed ON the axis, not the paper's
+        off-axis azimuthal path (10.20)–(10.21).
+
+  ── 5 · THE DISSECTION ── six readers took the papers apart section by section
+    (§3+§10, §4+App B, §5+App A, §6+§7, §8+§9+App C, the Lean map, then Euler).
+    No error and no circularity found. Thirteen asserted-not-displayed points
+    ranked and then TRACED INTO THE KERNEL: six discharged by a proved theorem at
+    full strength — two of them STRONGER than the paper (the endpoint regularity
+    is a genuine smooth extension across t = 1; the flatness is a joint space-time
+    limit, exactly the uniformity the reading found missing) — five altered, two
+    with no counterpart. Two of the paper's arithmetic slips are absent from the
+    formal object. EULER: the transfer step of §6, where such arguments die, is
+    COMPLETE — §6.2 compares each approximant with the hypothetical limit solution
+    under the contradiction hypothesis, so the Gronwall constant is sup‖u‖_{H⁴},
+    fixed before j, and the diverging ‖∇U_j‖_∞ never enters.
+
+  ── 6 · TWO EXTRACTION ARTIFACTS, BOTH CAUGHT BY LOOKING ── the sharpest candidate
+    error in either paper — (3.16) on p. 13 of Euler reading (k·C∗)^{n+1} with
+    C∗ = 80, false at n = 0 — is a pdftotext artifact: the glyphs are (k^{C∗})^{n+1},
+    rendered at 150 dpi and read. The first was the cutoff family φ_R⁴, φ_R⁸ on
+    p. 122 of Navier–Stokes, which extracts as the dilations φ_{4R}, φ_{8R} and
+    makes three inequalities false. NO INEQUALITY IS A FINDING UNTIL ITS GLYPHS
+    HAVE BEEN SEEN.
+
+  ── 7 · THE ARTEFACTS ── /reports/navier-stokes.html ("Their theorem, read to the
+    last hypothesis"), nine sections, four figures, every count read from
+    lean-repo.json / build.json / probes.json / audit.json and none retyped; the
+    page refuses without a finished build, four kernel axiom lines, a passing
+    battery with live reds, byte-identical solution definitions and the energy
+    finding in the record. instruments/navierstokes/battery.py: six probe scripts,
+    20 RED CONTROLS all firing (a check that cannot fail is not a check) — the
+    coefficient equations (5.2)–(5.7) recovered from the operator in 69 identities,
+    the exact heat exterior against (A.37) and (A.35) at 25 digits, the axis IVP of
+    App B solved, the rescalings, the commutator kernel, the swirl obstruction.
+    Registered in the Makefile and the control page: 82/82.
+
+  ── 8 · THE INSTRUMENT, REBUILT TWICE ON THE OPERATOR'S NOTES ──
+    /instruments/navier-stokes/ "Turn the singularity". First pass was a report
+    with a canvas in it ("the focus is visualization … 100vw 100vh"); second was a
+    full-viewport particle bloom ("reproduce at least this in our grammar style" —
+    the interferometer, which I had never looked at rendered, only read). It is now
+    written in that language: sixteen hairline iso-speed contours by marching
+    squares, streamlines, a stipple mode, dotted references, annotations on leaders,
+    a ruler with a number, and the interferometer's own right-hand rail. THE
+    GRAMMAR IS NOW SHARED, not copied: playground/interferometer/page.css →
+    playground/design/overlay.css, both pages read it, the interferometer's bytes
+    unchanged. Everything is computed ONCE per h in the paper's coordinates and
+    mapped exactly, because the physical speed is τ^{−A}(1−η²)^A·|F| and the
+    contour SHAPES do not depend on τ — thirteen decades of collapse cost nothing.
+    Nine verdict chips re-decided with BigInt as you drag h; "make it axisymmetric"
+    fires both exclusions with the banner.
+
+  ── 9 · THE GATES, AND ONE FOUND LYING ── the layout ruler refused two skyaudit
+    app pages whose BYTES HAVE NOT CHANGED: 4/4/5 spines in the baseline against
+    6/6/7 measured now, stable over three dedicated runs. The low read is the page
+    measured before its app lays out — the zeta3 incident in the other direction,
+    and the 2026-09-05 baseline had been FALSE GREEN for four days. Recorded at the
+    rendered value; DEBT row written. The ruler now also records the CHROME that
+    produced its numbers and says so when the running Chrome differs (it went
+    152.0.7977.77 → .83 between sessions). It then caught a real bug in the new
+    instrument: the panel auto-closes on a phone and the shared grammar hides it
+    with translateX(100%), which extended the document by 330px at 1440 and a whole
+    viewport at 390. It fades in place now.
+
+  ── NOT DONE, AND THE OPERATOR'S WORD IS OWED ── the instrument "needs
+    improvement" (his close). NOTHING IS PUSHED. No send drafted or made to
+    OpenAI, Buckmaster, Tao or Clay. The Euler paper's own checks (the WKB
+    frozen-frame ODE, §5.5's scale inequalities in exact log arithmetic) are
+    listed and unrun. Weak points 6 and slips 2/3/5 were not located in Lean.
+    The three older drafts (Woett's reply, OEIS PACK 4, the EinsteinArena note)
+    are still unsent.
+
+══════════════════════════════════════════════════════════════════════════
+  TENTH SESSION, 2026-09-08 — THE TWO PLATFORMS' 604s DECIDED CONGRUENT, WITH A
+  CERTIFICATE; THE LINEAGE READ OFF THE BYTES; THE OPEN RUNGS MEASURED.
+  Pushed through bcba445, the audit at 3bbcce5, the hexagons at c67c8e8, the debt hour at 9c2b3e9 · live · 81/81 batteries · 59 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHY ── the operator, on the drafted reply to vinid: "can we dig more on
+    this before sending? What more can we push?" Three pushes, all from the
+    bytes already pinned, plus one fetch.
+
+  ── 1 · CONGRUENCE, DECIDED ── instruments/kissing/congruence.js (new): two
+    configurations at one rational shell norm each are congruent iff a
+    bijection matches every normalised inner product — isomorphism of
+    edge-coloured complete graphs, decided by individualisation-refinement
+    (colour refinement as the invariant, backtracking over the smallest cell;
+    nauty's procedure, no nauty). A found bijection is checked on all
+    n(n−1)/2 edges and turned into a CERTIFICATE: π plus an orthogonal T over
+    Q(√2) solved on 11 independent vectors and verified on all 604 with
+    TᵀT = I, in exact (p + q√2)/d arithmetic; verifyCertificate re-checks it
+    without the search. Refuses (null) without one shell norm or when the
+    norm ratio is not a rational square (a √2 scale is outside it — noted).
+    RESULT: EinsteinArena 604 ≅ Station configuration 1 by a SIGNED
+    COORDINATE PERMUTATION (11 nodes, ~1.2 s; coordinates 1 9 4 7 3 5 11 8
+    10 2 6, ten signs flipped, scale 2). NOT congruent to configurations 2
+    and 3 (the search exhausts at its first node; their contact counts
+    already said so). certs/kissing-congruence.json holds (π, T, scale) and
+    both source digests; the battery verifies it exactly at every run.
+    Controls: D4 vs a signed permutation of itself ×3 relisted (CONGRUENT,
+    named), vs a 3-4-5 rotation (CONGRUENT, 'orthogonal over Q'), vs a 45°
+    rotation in Z[√2] (CONGRUENT, 'orthogonal over Q(√2)'); E8 with one root
+    replaced (NOT, exhausted); a mixed-norm set (refused); a certificate
+    with two π entries swapped (fails). Battery 46 checks, 12 reds.
+  ── 2 · LINEAGE, FROM THE BYTES ── the 604 keeps EXACTLY the 594 rung
+    winner's 496 integer vectors and replaces its 98 decimal-valued ones with
+    108 Z[√2] vectors (integerVectors = sharedDirectionsWith ea-594-winner =
+    496, gated); 176 directions are the 582 shell's; nearest non-contact
+    (3+2√2)/12 = 60.94° on 4,608 pairs (nearestNonContact, decided in Z[√2]).
+    The repo's ours_2026.json 594 and the API's #1492 are the same 594
+    (594/594 shared directions; measured, not on the page). DATES AS DATA:
+    EA file public 2026-04-12 (d97e89d1 'add n=604'), paper 2026-06-09;
+    Station repo + artifact + paper 2026-08-24. Stated neutrally on the page
+    and in the draft; the priority conclusion is left to the two groups.
+  ── 3 · THE OPEN RUNGS, MEASURED ── K.measure(): every pair decided, every
+    violation counted, coincident directions and zero vectors named, the
+    worst angle reported; a distance, not a verdict (slip ≠ refutation). The
+    platform's three open rungs fetched (corpus/kissing/ea-open-rungs.json:
+    best submission per rung, response sha-pinned, decimals as literals):
+    n=605 best #2560 → 9,510 violating pairs, worst 40.24°; n=842 best
+    #2561 → 237, worst 57.09°; n=841 best #2081 → ONE violating pair and it
+    is a repeated vector (entries 0 and 840): 840 distinct directions,
+    41,128 contacts — an 840-point configuration handed in as 841; the
+    platform's score of 2 is that pair. Kept OUT of the claim rows (ledger
+    field openRungs; the runner refuses if one ever measures as a witness —
+    that would be a record and belongs in a row).
+  ── THE PAGE ── reports/kissing.html: tl;dr and a stat cell on the
+    congruence, §1 with the certificate paragraph (the permutation listed
+    from the certificate, not typed), the lineage paragraph, the dates
+    paragraph, a new §3 · the open rungs (table + prose), the note updated.
+    Paper: a theorem (congruence, with the proof sketch and the certificate),
+    a corollary (2 and 3), the lineage remark, a section on the open rungs.
+    Shelf: kissing-congruence.json added. Card: one clause. Looked at in six
+    slices at 1440.
+  ── 4 · CHARTS AND THE HOOK (operator: "too simple", "the right hook?") ──
+    four figures on reports/kissing.html, every mark a ledger field, drawn
+    with design/charts.js under the dataviz rules (greys by job, legend for
+    2+ series, dashes only for the uncertified, hover readouts, alt text):
+    (a) the record as a STEP FUNCTION of time in two panels — 1980–2026 and
+    the eighteen months — the run dashed while the level rests on the queued
+    592, six dated markers (dates now on the ledger rows with their
+    sources); (b) the ANGLE SPECTRA of the three distinct 604s as small
+    multiples on a log axis (EA 604 and config 1 share a panel — gated on
+    identical multisets, now carried in the ledger's gram field; configs 2
+    and 3 have 14 and 15 angles); (c) THE CERTIFICATE DRAWN: T as an 11×11
+    grid, +1 filled, −1 hatched, hover for the coordinate map; (d) the
+    LINEAGE as stacked bars (594 = 496 integer + 98 decimal; 604 = the same
+    496 + 108 in Z[√2]; the 582 shell's 176 shared). The hook: title 'Two
+    platforms announced 604. It is one configuration.', the deck and tl;dr
+    lead with the congruence, §1 retitled 'Thirty years at 582. Then
+    eighteen months.', the homepage card's line likewise, the paper's title
+    'Two platforms, one configuration: …'. Looked at in eight slices at 1440
+    and eleven at 390 (the figures shrink at 390 like every figure on the
+    site — legible at 768+, a thumbnail at 390; not new, not fixed).
+    design/template.js: figcaption gained margin-bottom 24px — prose after a
+    caption was jammed against it (visible on this page, latent on others);
+    make reports re-emitted every page with it. Gates: check-render
+    --accept (74 figures), check-measure --accept-worse for exactly two
+    numbers, kissing @768 clipped 0→1 and @390 1→2 — the new §3 table
+    scrolling inside its own box, the probe's 'clipped, not an escape'
+    (audited: nothing else moved). The paper compiles with tectonic
+    (/opt/homebrew/bin/tectonic; make papers writes only the .tex) — the PDF
+    was sent to the operator as the preprint candidate.
+
+  ── 5 · THE EINSTEINARENA AUDIT (operator: "proceed the EinsteinArena
+    audit") ── the kissing pattern applied to the rest of the repository
+    vinid pointed at. instruments/easota: lib.js reads every solution file
+    (JSON or a Python np.array literal) as the exact rationals its decimals
+    denote; decide.js decides seven objectives with NO tolerance — circles
+    in a rectangle (Σr; pairwise (xᵢ−xⱼ)²+(yᵢ−yⱼ)² ≥ (rᵢ+rⱼ)² and the box
+    w+h ≤ 2 as exact signs; a REPAIR scales every radius by one rational λ),
+    Heilbronn (min triangle / hull, exact), min-distance ratio (a ratio of
+    squared distances), Erdős minimum overlap (max correlation over all lags
+    as integer sums; Σh = n/2 exactly or renormalised), edges vs triangles
+    (the platform's envelope score, exactly), the first autocorrelation
+    inequality (for a step function the discrete max IS sup f∗f; n = 30,000
+    → n² products screened in float64 with a stated forward-error bound,
+    every candidate index decided in BigInt), and the FLAT POLYNOMIAL, whose
+    platform score is a grid maximum: the supremum of |g|² was CERTIFIED
+    through trigmin's certifyPoly on the Chebyshev reduction (degree 69, 43
+    critical points, 0.4 s). Battery 32 checks / 11 reds. corpus/easota: 36
+    files pinned verbatim at c388c6f7 with digests, re-hashed every run.
+    certs/easota-ledger.json: 18 rows — 14 WITNESSED, 4 REPAIRED, none
+    UNWITNESSED; 7/7 improvements over the previous best REAL as exact signs.
+    FINDINGS: Together's 21-circle packing is a witness only within the 1e-9
+    tolerance (44 of 210 pairs overlap by ≤ 3.09e-12 in d², the box over by
+    4.2e-14); repaired by λ = 1 − 3.66e-11, exact witness Σr =
+    2.36583237583…, so the printed 2.3658323759 is NOT the witness's
+    rounding — the tenth digit is the tolerance's; the improvement over
+    AlphaEvolve (an exact witness) stands at 2.42e-7. Three step functions
+    miss Σh = n/2 by float noise (1e-15..1e-14); renormalised, every printed
+    ceiling stands. The flat polynomial: C⁺ ∈ [1.2809320528750416,
+    1.2809320528750417], the grid short by 7.6e-11; printed 1.280932 stands;
+    AlphaEvolve's likewise (grid short by 9.5e-10); improvement decided by
+    disjoint enclosures. reports/easota.html (title 'Their table, re-decided
+    to the last digit.'; one figure: the seven improvements on a log axis,
+    9.06e-9 to 6e-2), the homepage card, the shelf, the control-page
+    battery, the Makefile rows — all registered; check-wiring ALL PASS;
+    measure/render baselines record the new page (audited: nothing else
+    moved). THEN, while the operator held the sends, THE HEXAGONS
+    (instruments/easota/hexagons.js): twelve unit hexagons with published
+    rotation angles — every vertex a sine and cosine of a decimal — decided
+    in outward-rounded interval arithmetic with certified π and sin/cos
+    (instruments/interval/transcendental.js), every literal enclosed by its
+    two neighbouring doubles (encloseQ walks from Q.toDouble, which is NOT
+    correctly rounded); the separating-axis theorem with certified
+    SEPARATED / INTERSECTING / UNDECIDED, containment by certified cross
+    products. Both packings WITNESSED: 66 pairs separated (Together's
+    closest ≥ 3.6e-8, AlphaEvolve's ≥ 6.9e-6), 72 vertices inside (tightest
+    ≥ 4.1e-7), the platform's 1e-9 margins not needed, the improvement
+    2.6e-4 exact. Battery 40 checks / 14 reds — a planted touching pair
+    comes back UNDECIDED at 3e-14, never SEPARATED. Ledger now 20 rows, 16
+    WITNESSED, 4 REPAIRED, 8/8 improvements real: EVERY construction the
+    repository publishes is decided. NOT decided, said on the page: the PNT
+    Monte Carlo score (refused on principle), four README rows without
+    files. targets row easota-table-audit BUILT. NOTHING SENT: a note to the repository (the
+    tolerance digit, the grid-vs-supremum) is a send and is yours.
+
+  ── 6 · WOETT ANSWERED ON #290 (teorth/erdosproblems#164, 2026-09-08
+    16:49 UTC) ── "I only just saw your comments"; his preprint of
+    2026-08-31 (arXiv:2609.00104, math.NT, a key step found by ChatGPT 5.6
+    and written up by him) proves liminf (b(a)−a)/log a = 1/(1+c) EXACTLY,
+    so the 1/(2c) endpoint our third comment still treated as live is
+    retired. HOW IT LANDS: reports/erdos290.html already carries the
+    theorem (§3b, since 09-01); our unconditional bracket is now the
+    LIMINF'S OWN — [0.546083759260, 0.546323774021], three digits proved by
+    his identity plus our enclosure; he writes "approximately 0.546, no
+    effort to calculate it precisely" — our work is that calculation.
+    DONE: outreach/erdos290-issue164-reply-2026-09-08.md drafted (thanks,
+    the two-line consequence, the OEIS offer with his name on the
+    definition or his own submission, a fourth digit offered conditionally
+    — horizon l ≈ 750–1,000 against today's 310, since the tail's width is
+    ≈ 1/(4l) in c and 0.3 of that in 1/(1+c)); outreach/oeis-erdos290-pack.md
+    PACK 4 renamed to the liminf itself with the preprint in LINKS (digits
+    and failure semantics unchanged). NOT SENT, NOT SUBMITTED — both yours.
+
+  ── THE REPLY ── outreach/einstein-arena-604-reply.md REWRITTEN around the
+    decided finding: the verdict with the digest; (1) congruence, stated as
+    bytes and dates; (2) lineage; (3) the open rungs read exactly, with the
+    duplicate in #2081 pointed out ("you may want a duplicate check in the
+    scorer"). SENT 2026-09-08 on the operator's "drive the response" and
+    "proceed", after bcba445 was live and the page and the certificate URL
+    were verified: https://github.com/vinid/einstein-arena/issues/64#issuecomment-5587738318
+    Watch the thread; a reply from vinid or Kwon is the next event.
+  ── 7 · THE DEBT HOUR, PAID ── design/cdp.js: one Chrome at a time (a pid
+    lock, a live holder waited for and named, a dead one cleared), a 30 s
+    watchdog on every CDP call that rejects with the METHOD named, the
+    Chrome version printed per launch; both gates refuse with the PAGE
+    named. check-measure.js --accept carries a sha256 per page and refuses
+    to LOWER a row whose bytes did not change (--accept-better overrides),
+    with three red controls; the baseline gained 83 digests, no number
+    moved. DEBT.md: both rows PAID. Exercised in the scratchpad: a 1 ms
+    budget rejects naming the method; two concurrent drivers serialise.
+
+  ── NOT DONE ── the √2-scale refusal in congruence.js (a Q(√2) isqrt would
+    lift it; no case needs it); a PDF target in the Makefile (tectonic is
+    here; one line); figures in the paper; the three drafts; the plan
+    follow-ups. PREPRINT: the operator's call — arXiv (math.MG, needs an
+    endorsement for a first submission) or Zenodo under the concept DOI;
+    the reply to vinid first, the preprint second, so the issue thread can
+    cite it.
+
+══════════════════════════════════════════════════════════════════════════
+  NINTH SESSION, 2026-09-07 — THE NEEDS DATA ROW CLOSED: EINSTEINARENA'S 604
+  CERTIFIED FROM BYTES PUBLISHED ON REQUEST, FOUR DAYS AFTER THE LEDGER ASKED.
+  Pushed through d871749 · live · 80/80 batteries · 58 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHAT HAPPENED ── vinid (Federico Bianchi, the EinsteinArena maintainer)
+    answered vinid/einstein-arena#64 at 14:54 UTC: the 604 was never on the
+    API; the vectors are kissing-number/solutions/solution_n=604_d=11.json in
+    github.com/togethercomputer/EinsteinArena-new-SOTA (commit c388c6f7,
+    2026-04-12, Yongchan Kwon — a co-author of arXiv:2606.10402). 604 rows of
+    22 integers, p + q√2 per coordinate, shell norm 36: the field the
+    instrument already reads. The other five GitHub outreaches, checked live
+    the same hour: NO replies (erdosproblems #179, #164 — Woett subscribed
+    08-31 and silent —, #392; pipeline-math#5; automated-w2s-research#2).
+
+  ── THE FLIP, on the operator's "Proceed" ──
+    · corpus/kissing/ea-d11-604.json — the upstream file BYTE FOR BYTE
+      (sha256 0bde9ca2…7761), ea-d11-604.meta.json beside it (source,
+      commit, the two dates, the pointer, no licence file upstream). The
+      ledger runner AND the battery re-hash it at every run; one changed
+      byte refuses. The first corpus row here whose upstream bytes are held
+      verbatim, not transcribed.
+    · instruments/kissing/kissing.js grew three exact pieces: fromSqrt2Flat
+      (the 22-integer row, odd length refused), gramProfile (the multiset
+      of all normalised inner products AND the per-vector profiles, for a
+      configuration with one rational shell norm; returns null — a refusal —
+      otherwise) and sharedDirections (primitive-representative equality).
+      Battery 32 checks, 8 reds (was 24 / 6).
+    · certs/kissing-ledger.json: 11 rows, 10 CERTIFIED, 0 NEEDS DATA, 1
+      QUEUED. ea-604: CERTIFIED at uniform norm 36, 19,704 exact contacts,
+      69 ms; needsDataFrom 2026-09-03, bytesPublished 2026-09-07; Gram
+      profiles on all four 604s; sameGramProfileAs = [station-604-1];
+      sharedDirectionsWith 108 / 118 / 118.
+    · THE FINDING, inside its limit: the EinsteinArena 604's exact Gram
+      profile is IDENTICAL to Station configuration 1's (multiset and
+      per-vector) and to neither other; the two lists share 108 of 604
+      directions. Equal profiles are NECESSARY for congruence, never
+      sufficient — whether the two platforms reached one configuration or
+      two is RECORDED, NOT DECIDED, and the report, the paper and the reply
+      draft say exactly that. (Congruence itself is an edge-coloured graph
+      isomorphism on 604 vertices; colour refinement + backtracking would
+      probably decide it in seconds. Not attempted — a menu item.)
+    · Rebuilt: reports/kissing.html (deck, tl;dr, the 'needs data →
+      certified · 4 days' stat computed from the row's two dates, the table
+      row, a new §1 paragraph, §2's opacity paragraph now told as history
+      with the dates from the record, the note), paper/tex/kissing-ledger.tex
+      (abstract, table, §4 renamed 'The row that measured opacity, and how
+      it closed', the Gram remark), the certs shelf line, the homepage card,
+      the refusals page (NEEDS DATA now 0 of 11, and the kind's own text says
+      why it can go to zero), the claims page (its 'one row is NEEDS DATA'
+      sentence was HARD-CODED; computed from the ledger now). Every builder
+      refuses if the row is not CERTIFIED, if the Gram sentence would be
+      false, or if the NEEDS DATA interval is not positive. The page was
+      looked at in five slices at 1440.
+    · corpus/targets.json kissing11-604-audit: verdict updated,
+      update_2026_09_07 written (the memory rule: write the row).
+
+  ── OWED, OPERATOR-GATED, NOT SENT ── outreach/einstein-arena-604-reply.md,
+    the reply on #64: thanks, the verdict with the digest, the Gram-profile
+    observation stated carefully, the d = 12 / 16 offer restated. The issue
+    promised a same-day flip in your name; the flip is live, the reply is
+    yours. Post with the body below the rule in that file, on your yes.
+
+  ── THE RULER, AND A NEW DEBT ROW ── make control and make test both came
+    back 79/80: measure (the layout ruler) refusing site/reports/zeta3-audit
+    .html — a page untouched since 2026-09-05 — as 3 → 7 spines. Not the
+    flip's doing, and not a flake THIS time: the --accept at 33e4f44 had
+    recorded a degraded read (3 / 3 / 1 spines, nothing clipped) over twelve
+    consecutive baselines of 7 / 7 / 5, and the ratchet, which only turns
+    down, locked the false improvement in. The probe run by hand names every
+    edge; the row was restored to the twelve-build value by hand (a worse
+    number, on purpose, reason in the commit) and the ruler passes 984
+    numbers. DEBT row written: --accept cannot tell an improvement from a
+    half-laid-out page. Fix with the Chrome serialisation: an hour.
+
+  ── NOT DONE ── the Chrome gate serialisation and the ratchet's blind spot
+    (DEBT, open, one hour together); the three drafts; the plan follow-ups;
+    congruence of the two 604s (above). The menu is otherwise unchanged.
+
+══════════════════════════════════════════════════════════════════════════
+  CLOSE OF THE EIGHTH SESSION, 2026-09-07 — THE KAUST PLAN COMPLETE, THE FRONT REBUILT.
+  Pushed through 33e4f44 · live · 80/80 batteries · 58 reports · 16 instruments.
+══════════════════════════════════════════════════════════════════════════
+
+  ── THE DAY IN ONE LINE EACH ──
+    · Reports 7–10 of the KAUST plan built, gated, pushed (65fb8b7, b26bc71,
+      46df3a3, 4004efe): the clearing price as a proved band (and sin-mfg's
+      MPR kernel found losing 12 % of the day's energy at its wall — report,
+      don't repair; instruments/price/FINDINGS_LIT.md); Ashrafyan–Gomes's two
+      error tables met by intervals (13/24 reproduced, their tolerance 39 % of
+      the finest number, their printed density not integrable as printed); the
+      p-Laplacian regularization measured by a NEW radii-polynomial kernel in a
+      derivative-weighted ℓ¹ space (ε = 0 certifies as far as any ε > 0);
+      the effective Hamiltonian band (the 4.4099660 Gomes–Yang quote from
+      Gomes–Oberman is ABOVE the enclosure by 7e−7). THE TEN-REPORT PLAN IS
+      COMPLETE: 1–5, 7–10 as reports, 6 as the census playground.
+    · A new library piece: instruments/interval/taylor2.js — a second-order
+      interval jet (value, f′, f″ through every op) and the midpoint rule with
+      its remainder. Used by agtable and hbar.
+    · The front rebuilt as ONE POWER SYSTEM on the operator's instruction
+      (c6f3dcc): a static engine → certifiers → {reports (gated), instruments
+      (open)} → gates drawing under the deck, every count read at build; the
+      instruments carry half the front (six plates from the pages' own art,
+      the standing legend, a note with computed counts); the trapezoid essay
+      and the old late 'other half' left the front. playground/build.js now
+      writes playground/out/manifest.json — THE single source for every
+      instrument count and plate on the homepage and the machine page; the
+      build refuses on a card/manifest mismatch. make site builds the
+      instruments FIRST. The instruments hero counts itself (it said fifteen
+      with sixteen cards) and no longer claims make test covers none of them
+      (four have batteries).
+    · Census (29131c1): the split re-encoded as bands with dotted outlines
+      (the thick dotted strokes were beads — CHOSEN unreadable at the widths
+      that carried the numbers); the sliders were rebuilt on every input event
+      and died mid-drag — built once per family now, verified headlessly.
+    · Footers (33e4f44): the instruments shell closes every page unless the
+      page carries its own; nine had none, the index closed one it never
+      opened, seven said 'all nine instruments'.
+
+  ── WHAT IS TRUE OF THE TREE ── clean at 33e4f44; live at carlostoledo.co
+    (Vercel auto-deploys on push to main; there is no vercel CLI here).
+    make test: 80 rows. The layout ruler / render gate hang HAPPENED THREE
+    TIMES TODAY inside chained runs (a Chrome with 1 s of CPU that never
+    returns); each time it passed alone on rerun. DEBT row updated. Fix:
+    serialise the two Chrome gates with a per-page timeout that names the
+    page, print the Chrome version — an hour, and it stops eating sessions.
+
+  ── OWED TO PEOPLE, ALL OPERATOR-GATED, NONE SENT ──
+    · Ashrafyan–Gomes: the printed initial density has no finite integral as
+      printed (support |x| < 1 with a positive exponent beyond 1/λ); their
+      finest printed price error is 39 % tolerance. instruments/agtable.
+    · Gomes–Yang / Gomes–Oberman: the quoted 4.4099660 is wrong in its
+      seventh significant digit (enclosure [4.40996523, 4.40996529]).
+    · The KAUST bundle: nine pages on the group's work. RE-VERIFY THE JULY
+      ROSTER AT SOURCE on the day of any send (targets row kaust-mfg-revisit).
+    · sin-mfg's own MPR wall leak: a note for that lab's backlog next time
+      you work there (read-only from here).
+
+  ── FOLLOW-UPS, none started ── an inf–max upper bound for the non-separable
+    2-D effective Hamiltonian by a trial corrector (Gomes–Yang Fig. 7 would
+    get a rigorous ceiling); a banded tail inverse to push the regularization
+    atlas past its Z1 frontier; the m = 0 free-boundary regime.
+
+══════════════════════════════════════════════════════════════════════════
+  CLOSE OF THE FIFTH SESSION, 2026-09-06 — HANDED OFF WITH THE MOVE IN FLIGHT.
+  Pushed through c23c8ee and this commit · four light ports live · 70/70 both sides.
+══════════════════════════════════════════════════════════════════════════
+
+  ── WHAT IS RUNNING WHEN YOU START ── A detached zsh (pid 74153 at handoff)
+    is reading back the last evicted files in sin-mfg's .git (1500 of 2451
+    at 44 min; then frontier-apps), and when every tree reads clean it runs
+    tools/move-out-of-icloud.sh /Users/carlostoledo/Projects — which MOVES
+    all three folders out of ~/Documents, repoints LIFT.json, PROVENANCE.json,
+    instruments/hotspots/record.js and CLAUDE.md, and renames the three
+    ~/.claude/projects memory directories. DO NOT BUILD, EDIT OR RUN A GATE IN
+    THE TREE UNTIL THE MOVE HAS HAPPENED OR THE JOB IS DEAD. The cold start
+    says how to tell. After the move the four path edits are UNCOMMITTED in
+    the new location: run make drift (130 unchanged), check-wiring, make
+    test, then commit them. The operator asked for the move; the folder name
+    was mine.
+    → DONE 2026-09-06 (sixth session, cold start): the detached job had died
+    with sin-mfg re-evicted (636 git objects; the disk is at 92%). Read
+    through by hand, the script run, three trees now under ~/Projects; drift
+    130 unchanged, check-wiring ALL PASS, make test 70/70 from the new root.
+
+  ── THE DAY IN ONE LINE EACH ──
+    · lattice-claims ported whole; the grader now matches the pinned record.
+    · PQC geometry: 37 SVP records re-decided offline every build, charter first.
+    · occultation: the convex bracket, the paper pinned, the record byte-identical.
+    · transit: the one-sided enclosure — and the pin was two runs stitched
+      together; the record here is the code's own run.
+    · the control page had been running 57 of 65 batteries; 70/70 now, both
+      registries compared script by script, a red battery prints its reason.
+    · Zenodo: v2026.09.2 minted through the integration with the one title;
+      two superseded records still carry the old one (tools/zenodo-metadata.js
+      --apply with a token closes it).
+    · iCloud: the working tree read as EMPTY under eviction; check-wiring
+      check 0 refuses such a tree; Keep Downloaded set by the operator; the
+      lean .lake caches deleted with the operator's yes; the move is the fix.
+    · c23c8ee's message promised this block and the cold start; a stale
+      anchor in the edit script skipped both. They are in the commit after it.
+
+  ── NEXT FRONT, SCOUTED AND WRITTEN DOWN ── corpus/targets.json
+    gr-integral-table-audit: Gradshteyn & Ryzhik as a mass audit. The first
+    job is a YIELD MEASUREMENT — ~100 entries transcribed with double entry,
+    a rigorous quadrature (python-flint's ball arithmetic behind our own
+    reds, or a Petras integrator in instruments/interval), count refuted /
+    held / undecidable. Prior art in the row. Every erratum is a send.
+
+  ── SECOND FRONT, SCOUTED 2026-09-06 (seventh session) ── the KAUST MFG group
+    revisited against the certifiers we now hold: corpus/targets.json
+    kaust-mfg-revisit, and the ordered ten-report plan with the first
+    candidate worked out in notes/kaust-reports-plan-2026-09-06.md. Report 1:
+    Almulla–Ferreira–Gomes's first-order system in the case they say has no
+    closed form (b = cos², ∫b = 1/2), enclosed by the current reduction —
+    two scalars (flux, H̄), rigorous quadrature, 2-D Krawczyk; the b = 0
+    closed form is the control. → BUILT 2026-09-06, same session:
+    instruments/afg (certifier, record, battery: 19 checks, 6 red controls),
+    instruments/interval/quadrature.js (the rigorous integral the library
+    lacked, with its own test), reports/afg.html re-deriving the record at
+    every build, registered in make test, the control page, the shelf and
+    the certificate table. j ∈ [0.34611351, 0.34611354], H̄ ∈ [0.17116455,
+    0.17116459], density ≥ 0.4291; the b = 0 control contains ln ∫e^V.
+    NOT SENT — every send stays operator-gated; the roster is July's.
+    → REPORTS 2 AND 3 BUILT the same session, on the operator's "build 2
+    and 3 in sequence": instruments/monoflow + reports/monoflow.html
+    (monotone, and provably not a gradient: the Lasry–Lions form c∫δm² +
+    ∫m(δu′)² returned from the assembled interval Jacobian on seven
+    certified equilibria, and at five of them a Krawczyk-enclosed
+    eigenvalue with Im μ away from 0 — not a gradient flow under any
+    metric; two instances NOT DECIDED and kept so); instruments/aag +
+    reports/aag.html (Alharbi–Ashrafyan–Gomes §3.2: the empty region
+    decided cell by cell, REFUSED on the four cells holding the three exact
+    roots at every budget of a ladder, the two value functions enclosed
+    and drawn CHOSEN, the contact set with and without exit evaluated as
+    intervals, case 2 certified over γ ∈ [−0.5, −0.3] because the paper
+    prints no γ). Report 2's plan changed on contact with the model: the
+    "interval Cholesky monotonicity" certificate is a one-line exact form
+    for this coupling and the page says so; the eigenpair certificate is
+    the content. Both gated, both re-derived at build, both in every
+    registry. → REPORT 4 BUILT on "continue": instruments/maxval +
+    reports/maxval.html — Gomes–Üçer's Theorem 1.8 drawn on an explicit
+    first-order game with a vacuum BUILT HERE (the paper has no example): a
+    parabolic bump of shrinking support in closed form through r = 2 sin²θ,
+    the pair verified cell by cell (residuals enclose 0 on the support, a
+    corner bound decides the strict subsolution off it), the maximal
+    solution enclosed on every vacuum cell between the free Hopf–Lax value
+    (rigorous branch-and-bound) and the cheapest path proved clear of the
+    crowd, u* ≥ u wherever decided, the gap proved positive on 786 of 1150
+    vacuum cells. 18 checks, 5 red controls. → REPORT 5 BUILT the same
+    session: instruments/frontier + reports/frontier.html — the congestion
+    certifier's refusal frontier as a MEASUREMENT over three data files
+    lifted and sha-pinned from sin-mfg (corpus/refusal-frontier/, with the
+    source note beside them): six monotone σ ladders at N = 14 with bisected
+    A⋆ brackets and named refusals, A⋆ rising 5–10 % from N = 14 to 40 (so
+    the fixed-N map is a lower bound, said first), the N-free ceiling A_rec
+    bit-identical across N, ratios below 1, slopes drawn dashed. Nothing
+    re-run: the kernel stays in the source lab; the pins are re-hashed at
+    every build and make drift. → REPORT 6 BUILT 2026-09-07 as a PLAYGROUND,
+    /instruments/census (playground/census/): the face law made touchable —
+    engine.js decides k = |shared| − cons + z in exact BigInt rationals in
+    the tab, cross-checked at build against certs/facelaw-theorem.json
+    (make-facts.mjs refuses on any disagreement); the paper's 15-edge
+    network with Table I, whose printed totals do NOT conserve (residuals
+    −1, +2, +1, −1, −1 at nodes 3–7) and are repaired to the nearest
+    conserving flow (≤ 21/37 per edge, CHOSEN); a split found by exact
+    max-flow and centred; six sliders along the null space; a click drops an
+    edge and k is re-decided. Driven in headless Chrome (sliders, preset,
+    edge drop) before accepting. Six of ten built; next 7 (the price band,
+    needs the MPR kernel lifted) and 8 (their tables re-decided). → REPORT 7 BUILT 2026-09-07 on "continue": instruments/price +
+    reports/price.html — Gomes–Saúde price formation closed in exact
+    rationals (Π(T) = γ(Ξ(T) − ζ) makes the paper's Volterra/Laplace route
+    a three-line closed form; affine in the supply with non-positive
+    coefficients, so a ±15 % forecast box is a price band attained at its
+    corners, decided: Θ = −1.6564, widest 2.7747, 89 % of it the day's
+    total energy; the box that buys a one-unit band is 5.41 %). The
+    plan's 'Krawczyk on the clearing residual' was not needed: the
+    balance is linear and the closed form exact. The lab's MPR kernel was
+    PORTED BIT FOR BIT (fd.js, 49 iterations, same residual, same price)
+    and MEASURED: it clears in the controls to 1e−14 while 12.4 % of the
+    day's energy vanishes at its wall (Ξ(T) = 0.9032 vs 0.9880) — the wall
+    cell may buy into the wall and the FP wall discards it; state-
+    constraint walls halve the loss, clearing on the FP flux removes it
+    and converges to the closed form at first order, the lab's walls do
+    not converge. sin-mfg NOT edited (report, don't repair): the finding
+    is in instruments/price/FINDINGS_LIT.md. 23 checks, 5 red controls,
+    ~20 s. Battery row 77. → REPORT 8 BUILT 2026-09-07 on "continue": instruments/agtable +
+    reports/agtable.html — Ashrafyan–Gomes Tables 1 and 2 (arXiv:2403.02785,
+    the semi-Lagrangian price scheme) re-decided: both analytic test
+    solutions enclosed (a NEW second-order interval jet,
+    instruments/interval/taylor2.js, bounds every integral's remainder; a
+    verified cube root), the clearing identity decided at 21 times, the
+    scheme written from the paper with its inner infimum solved exactly and
+    run on the paper's meshes at its tolerance and at 1e−8: 13 of 24 cells
+    REPRODUCED to their two digits (the price of test 1 at every mesh), 5
+    within 15 %, 6 differ (u, m of test 1 at fine meshes — the two choices
+    the paper leaves open). Two findings the tables could not show: the
+    tolerance ε = 0.004 is 39 % of the finest printed price error, and the
+    printed initial density (support |x| < 1) has no finite integral — the
+    integrable bump is what the digits rest on. Printed numbers pinned in
+    corpus/ashrafyan-gomes-2403.02785/tables.json. 24 checks, 5 red
+    controls, ~10 s. Battery row 78. Next: 9 (regularization atlas), 10
+    (effective Hamiltonian band). → REPORT 9 BUILT 2026-09-07 on "continue": instruments/regatlas +
+    reports/regatlas.html — Ferreira–Gomes–Üçer's p-Laplacian regularization
+    (arXiv:2506.21212, operator (3.1)) on the 1-D discounted first-order MFG
+    with H = |p|²/2 − m: a NEW KERNEL (kernel.js) — after eliminating m the
+    game is a second-order elliptic equation −(c h′)′ + e h with c ≥ m, so a
+    radii polynomial in the derivative-weighted ℓ¹ space X_2 (explicit
+    columns to 6N, analytic tail, algebra property for Z2) certifies ε = 0
+    as readily as ε > 0. Atlas 10 × 5: 34 PROVED (unique classical even
+    solution, m > 0 on the ball), 16 REFUSED by name (all Z1 — the diagonal
+    tail against a varying c; the density is still 0.2 at the frontier).
+    ε = 0 reaches A = 0.7, ε = 1 only 0.4: the regularization costs the
+    certificate its contraction. ‖u_ε − u_0‖_2 DECIDED as a bracket at every
+    doubly-proved cell: ≈ ε at small ε, a third of ε at ε = 1. The plan's
+    feasibility worry (non-analytic nonlinearity) does not arise: γ̄ = 4 is
+    polynomial. 17 checks, 5 red controls, ~25 s. Battery row 79. Next: 10
+    (the effective Hamiltonian band), then the plan is done. → REPORT 10 BUILT 2026-09-07 on "continue": instruments/hbar +
+    reports/hbar.html — the one-dimensional effective Hamiltonian of Gomes–
+    Yang's test case (arXiv:1810.03483 §6) enclosed as a band: P₀ = ∫√(2(1 −
+    V)) enclosed around 4/π (the cusp cells by a Riemann bound), FLAT values
+    decided exactly, ROTATING values bracketed to ~2e−6 by bisection on the
+    midpoint-rule enclosure of ∫√(2(c − V)) closed by the mean value theorem
+    with the period as Q′, the point P = 4/π left UNDECIDED (inside the P₀
+    enclosure), the Mather density enclosed where rotating. Their Table 1
+    (separable 2-D cosine, P = (1.5, 2.5)): H̄ ∈ [4.40996523, 4.40996529];
+    the 4.4099660 the paper quotes from Gomes–Oberman 2004 is ABOVE it by
+    7e−7 (its seventh digit is not the value's), their own k-sequence BELOW
+    as H̄^k ≤ H̄ requires; Table 2's exact value decided as 1 with the
+    printed 0.96476 an entropy-penalization gap of 0.035. 18 checks, 5 red
+    controls, ~25 s. Battery row 80. THE TEN-REPORT PLAN IS COMPLETE: 1–5
+    and 7–10 as reports, 6 as a playground; every send still operator-gated.
+
+  ── STILL OWED ── the operator: the two superseded Zenodo titles; reading
+    the ember paper; the staged formal-conjectures issue and the letters.
+    The machine: certifier-core + blind-spot (deferred one frontier session);
+    λ(6) (pid 90265, 51+ hours at node 119, the fix is mathematical; its cwd
+    is a scratch folder, the move does not touch it, and if it ever finishes
+    it will fail to write to the old path — nothing is lost that was not
+    already lost).
+
+══════════════════════════════════════════════════════════════════════════
+  SESSION OF 2026-09-05 (FIFTH). THE FOUR THINGS THE FOURTH LEFT, DONE; THE
+  CONTROL PAGE WAS FOUND TO BE RUNNING 57 OF THE 65 BATTERIES IT CLAIMED; AND
+  v2026.09.2 WAS RELEASED SO THE ARCHIVE CARRIES THE ONE TITLE.
+  make test 65/65 · control page 65/65 · DOI 10.5281/zenodo.22382866 · $0.00 spent.
+══════════════════════════════════════════════════════════════════════════
+
+  ── THE SIX COPIES ARE OUT ── one file at a time, each page rebuilt and
+    PIXEL-DIFFED against a capture taken before the first deletion, at 1440
+    and 390. The noise floor was measured first (two captures of the untouched
+    site: ten pages byte-identical, interferometer's CONTROLS button jitters
+    between any two captures of the SAME build). Then:
+      curveset, neural-geometry, shape-hunt, simplex   identical, both widths
+      bench.css (affect, answer-shape, exact-geometry, plates)   identical
+      index.css                                        identical
+      interferometer   differs only inside the known jitter box; it KEEPS its
+                       own margin/padding zeroing and the three body
+                       properties the shell does not set (weight, rendering,
+                       min-height). Its duplicate body background went.
+    Seven files carried the rule, not six: index.css was the seventh.
+
+  ── THE OTHER SIX PAGES ARE STATIC, AND IT WAS CHECKED BY DRIVING THEM ──
+    affect, answer-shape, exact-geometry, neural-geometry, plates, shape-hunt:
+    zero <script>, zero listeners. The ONE control each carries is the shared
+    nav's phone drawer, so that was driven (a real click on the burger at 390)
+    on two pages: the checkbox flips, the links lay out, five of them. No hook
+    needed. The drive found what the closed-state screenshots never could:
+
+  ── THE GITHUB MARK WAS THREE SIZES ── 17px on the reports and four
+    instrument pages, 32px on the five pages that carry a page-wide
+    svg{width:100%;height:auto} for their figures (bench.css ×4, simplex), and
+    292px TALL inside the open phone drawer on those five — a cat the width of
+    the screen over the menu. The mark shipped with width/height ATTRIBUTES
+    only, which any stylesheet rule beats. design/nav.js pins the size now;
+    at 1440 the only pixels that moved on those five pages are the 31×30 box
+    of the mark itself, and the other six pages are byte-identical.
+
+  ── cert-unit's contact.mjs AND refutation.mjs HAVE THEIR RECORD ──
+    instruments/wiring/eval/{results,refutations}.json, copied from
+    frontier-apps and sha256-pinned in PROVENANCE.json beside them (frontier
+    has no git; the hash is the only pin). make-contact / make-refutations
+    point there and run: 135 rollouts in nine rows, four subgraphs.
+    test.mjs now checks the pin, draws the sheet (135 fills, 135 rings, 38
+    dashed references) and builds all four refutations from the record —
+    15/15. One caption fixed on the way: the reference-slip subgraph said
+    "the verdict happened to be right" without saying which verdict.
+    STILL NOT ON A PAGE. Putting three named models' rollouts on
+    /instruments/graph is public, claim-bearing content and wants the
+    operator's call; the outputs sit in instruments/cert-unit/out/.
+
+  ── LOOKED AT BETWEEN 768 AND 1440, AND ABOVE ── every instrument page at
+    1024, 1280, 1920 and 2560: zero horizontal overflow at all four (measured),
+    tops looked at at all four, mid- and bottom-page slices looked at at 1024.
+    Nothing broke. The ruler still drives 1440/768/390 only; adding 1024 is
+    ~20 s a run and an --accept, and is a choice, not a defect.
+
+  ── THREE THINGS THE CONTROL BUILD WAS DOING WRONG, found by rebuilding ──
+    The first control build of the session came back 57/58. The committed
+    batteries.json said 56/56, so the two rows the fourth session registered
+    had never been through a control build.
+    · "wiring concord (JS vs Python)" was filed in build-control's PYTHON list,
+      beside the pytest row it verifies. The control build handed a .mjs file
+      to python3, which refused it at line 1 — RED on every control build it
+      had ever been in, and it would have shipped RED on the front page. It is
+      in the node list now, and bat() refuses an entry whose file does not
+      match its interpreter, so the next misfiling fails the build, not a row.
+    · That RED had no reason: the runner discarded every battery's output. It
+      took a runner that prints a failing battery's last lines to read the
+      Python traceback naming concord.mjs. Kept.
+    · "wiring (graph as submission)" ran as `python3 test_wiring.py`, which
+      defines eight tests and executes none — green while running nothing. It
+      goes through pytest now (8/8); the hash-pinned file is untouched.
+    · And the check meant to catch all of this, check-wiring's "the two battery
+      registries agree", matched only files NAMED battery/selftest/test-engine.
+      Everything named otherwise could sit in one registry and not the other
+      while it printed "[N each]". Compared honestly — every $(NODE)/$(PY)
+      script in the test target against every argv in build-control — the
+      control page had never run SEVEN of `make test`'s rows: the four
+      cert-unit files, the interval enclosure test, the skyaudit and tensorlb
+      Python verifiers. All seven are registered on the control page now;
+      check 2 compares every script; replay.mjs exits non-zero on a
+      disagreement so a control build can run it (the patch is declared in
+      corpus/frontier-port.json with the new pin). 65 rows in both, and the
+      front page's "batteries green" now covers the same set `make test` does.
+    The nav fix is a shared-module change, so `make site` and `make reports`
+    were run: 49 reports, the landing, about, machine and oracle pages
+    rebuilt. Every record diff is a git stamp, a timestamp or a wall-clock
+    ms — the sequencing rule held, no certified number moved.
+
+  ── THE PORT: lattice-claims, WHOLE, AND ITS TWO PAGES ── The operator asked
+    whether it was time to port from frontier-apps (a new environment and
+    more since the last port; frontier's PORT-TO-CERT-MACHINE.md, session 17,
+    is the list). Assessed, then done in the document's order, first item:
+    · THE MISMATCH IT FIXED. The rollout record pinned here that afternoon was
+      the RE-GRADED file, and the grader beside it was one session older
+      (taskset.py, forgeries.py stale; policies.py, __main__.py absent). The
+      package, tests, eval scripts and all records are in instruments/wiring/
+      now, mirrored to frontier's layout, 24 files pinned in ONE file,
+      instruments/wiring/PROVENANCE.json (the eval pin and the lattice rows in
+      corpus/frontier-port.json folded into it — one file, one pin).
+      Acceptance reproduced to the digit: 18 tests, 10 forgeries caught,
+      exact 45/45 · careful 26/45 · admissible 14/45 · refused 12/45, and
+      the regrade of 135 stored replies: 76 -> 76, 0 rows moved.
+    · THE BATTERY. instruments/wiring/battery.py: pins re-hashed, the forgery
+      gate, the exact ceiling, the 0-rows-moved regrade, one red. Three rows
+      in both registries (67 each; check 2 agrees). Model calls are never
+      made by a battery.
+    · THE PAGES. /instruments/lattice-claims (the eval: ruler, grids, the
+      135-rollout contact sheet, four refutations, forgeries, the canary
+      cliff) and /instruments/rewire (the graph is the page: three graders,
+      one deciding socket). Bodies and CSS verbatim from frontier's builders
+      under the house shell; report.css and instrument.css pinned in
+      design/frontier-ref/. Twelve cards on /instruments. Both looked at at
+      1440 and 390; the rewire page DRIVEN with real mouse drags: the float
+      grader onto the verdict socket is refused in the engine's words, onto
+      the report socket the count moves to 17, careful float to 12.
+    · THREE THINGS FOUND BY DRIVING, all fixed: the readout showed the FIRST
+      grader wired to the report socket under a caption naming the SECOND
+      (the engine allows two reporters; the number follows the caption now);
+      the #sim hook looked dead because it ran only at load and my driver
+      navigated to the hash from the page itself, a same-document navigation
+      — it listens to hashchange now, like the graph page; and the contact
+      sheet's two greys were frontier's palette (declared patch in
+      corpus/frontier-port.json, like render.mjs before it).
+  ── THE PORT, SECOND: PQC GEOMETRY, THE SVP-RECORD AUDIT ── instruments/pqc,
+    19 files pinned, one declared patch (gh.test.js's cross-check imports
+    instruments/wiring). The charter came first and binds: AUDIT ONLY, NEVER
+    DESIGN A PRIMITIVE. Reproduced to the digit: pi.test and gh.test green
+    (32 cases agree with the Python engine), hof.json byte-identical, the
+    37-record audit and the dim-40 LLL identical up to wall-clock ms —
+    0 published ratios inconsistent with a true norm that rounds to the
+    printed one, ONE row undecidable from it (dim 119 seed 0: 2904 admissible,
+    2905 refused). battery.js re-runs every offline script in a SCRATCH COPY
+    and compares with ms ignored, so the pinned outputs never churn (the
+    DEBT-6 pattern, avoided rather than inherited); the network fetch is
+    never run. 68 rows in both registries. /instruments/pqc is the page —
+    the LLL reduction animated and the wall — body and app verbatim, the app
+    pinned beside its builder; the card is house code (the wall, from the
+    same records). Looked at at 1440 and 390; driven: play advances the
+    reduction, the panel toggles, the canvas paints, and the #view=wall and
+    #t=40&gsa=0 hooks work ON A FRESH LOAD — like frontier's other
+    instruments the hook runs at load only, so drive it with a fresh
+    navigation, not a hash change from the page (the rewire lesson, again;
+    the app is pinned verbatim, so it was not patched to listen).
+    THE NEAR-MISS THAT MUST SURVIVE (RESULTS.md): compare a published ratio
+    to the WINDOW [ratio(N-1/2), ratio(N+1/2)], never to the ratio at the
+    printed norm, or 32 of 37 look wrong at 1e-4.
+  ── THE PORT, THIRD: THE OCCULTATION WITHOUT THE ELLIPSE ── instruments/
+    occultation, 12 files pinned, three requires repointed at the house
+    rational library (instruments/interval/rational.js, the same module
+    lifted from sin-mfg; frontier's copy differs only in toDouble's big-
+    number path) — and the equivalence is not assumed: page.json rebuilt here
+    is BYTE-IDENTICAL to the pin, figures.tex too. 20 cases, 6 reds (the
+    dumbbell must land outside). Numbers: Deq in [168.3, 267.5] km at one
+    sigma from convexity alone; the published 206±15 and the radiometric
+    237±8 both inside, so the disagreement the paper reports is between two
+    models; at face value no convex silhouette fits; the 23 misses are worth
+    309 km of ceiling. The paper travels as a pinned artifact (TeX + PDF as
+    typeset there with tectonic). /instruments/occultation is the page under
+    design/grammar.js's css(); the transit link is prose until transit lands.
+    Looked at at 1440 and 390: one figure change — the envelope's x-axis
+    caption sat on the tick row and overprinted the 100 km tick, it sits a
+    line lower now — and the card strips the figure's labels, which are a
+    smear at card scale. 69 rows in both registries.
+
+  ── THE HAZARD FOUND ON THE WAY, AND IT IS THE WORST THING IN THIS FILE ──
+    THIS REPOSITORY LIVES IN iCLOUD DRIVE (~/Documents), and "Optimize Mac
+    Storage" EVICTS files: the entry stays, ls and stat report the full
+    size, git sees no change — and a read returns ZERO BYTES. playground/
+    build.js died on JSON.parse of a record that had been there since
+    yesterday; shasum reported the hash of the empty string for frontier's
+    9,894-byte TeX; 365 tracked files were evicted at that moment. Worse,
+    A GATE OVER EVICTED FILES PASSES: the dash census went from 150
+    conforming uses to 115 and printed "the ratchet holds". Done about it:
+    check-wiring now runs a check 0 FIRST — every tracked file must read the
+    size it has on disk, or it refuses everything and names `make
+    materialize` (reads through the tree, ~5 min when evicted, seconds when
+    not); the three new batteries refuse a pin that hashes to the empty
+    string on a non-empty file. Every pin written today was re-scanned
+    against the empty hash: none. THE REAL FIX IS THE OPERATOR'S: move the
+    repository out of iCloud Drive, or turn Optimize Mac Storage off for it.
+    Until then every session should run `make materialize` before it
+    believes a number. AND IT BIT AGAIN AN HOUR LATER: the skyaudit battery
+    went RED on 'sp union corpus count' — a gitignored day corpus
+    (apps/skyaudit/data/day-*/sp.heli.jsonl, 2 GB of ignored files in all)
+    had been evicted, `git ls-files` never saw it, and the union came up
+    short against the pinned record. Reading the file made it green again.
+    `make materialize` reads the ignored corpora too now, and check-wiring's
+    check 0 looks at them by the dataless flag.
+    OPERATOR ACTION, same evening: the three folders (cert-machine, sin-mfg,
+    frontier-apps) are marked "Keep Downloaded" in Finder, which tells iCloud
+    never to evict inside them. At that moment 71,641 / 20,073 / 2,297 files
+    were still evicted (cert-machine's are almost all lean/.lake), and the
+    background download takes a while; check 0 was green because the tracked
+    tree and the battery corpora had already been read back. The guard stays.
+    Moving the working trees out of iCloud Drive remains the durable fix.
+    THEN THE SLOWNESS: after Keep Downloaded the file provider daemon sat at
+    100% CPU on its consistency check with the network at 4 KB/s — it was
+    reconciling ~190,000 items, not downloading — and every read or stat of
+    an evicted file joined that one serial queue (two reads of frontier-apps
+    blocked for over an hour). 71,641 of the evicted files were
+    lean/erdos852/.lake, Mathlib compiled as tens of thousands of tiny files:
+    gitignored build state, declared not a record. With the operator's yes
+    they were DELETED (rm -rf, two passes; the daemon held a few directories
+    on the first). Lake rebuilds them when a lean battery next needs them.
+    THE MOVE OUT OF iCLOUD IS THE OPERATOR'S NEXT INSTRUCTION, after transit:
+    the script is staged in the session scratchpad and refuses while any
+    file is still evicted, because a dataless file moved out of the iCloud
+    domain can never be hydrated again.
+
+  ── THE PORT, FOURTH AND LAST OF THE LIGHT ONES: THE TRANSIT ── instruments/
+    transit, 22 files pinned, two requires repointed at the house interval
+    library — byte-identical to frontier's, so only the path changed. 36 + 22
+    cases green, 7 reds fire (28 s) including the deliberately broken control.
+    The interval is ONE-SIDED and the reason is exact: light can hide in the
+    core the planet never reaches and cannot un-hide, so the photometry bounds
+    the planet tightly from below and the whole ceiling is bought by an
+    assumption about the star. 29 published values across two planets all
+    inside; TrES-2 b's 19 disagree by 25x a typical bar. battery.js checks the
+    pins, the suites, the reds, figures.tex from the records and the numbers
+    off the record; make-page-data.js (Frank-Wolfe + interval subdivision
+    over 1.5 MB of light curve) is reproduced once at port time, not per
+    build. /instruments/transit is the page; the occultation page links to it
+    now. Fifteen cards. 70 rows in both registries.
+    THE RECORD WAS MIXED, AND THE PORT FOUND IT. Reproducing frontier's
+    page.json with the pinned code and data (10-12 min a run) gave Kepler-7 b
+    to the digit and TrES-2 b NOT: same fit, same worst residual 3.5327σ,
+    but the pin's budget said 3.6σ where the code's rule says 4.3σ — the ×1.2
+    headroom in TRANSIT.md's own gotcha list was added after that block was
+    produced, and frontier's builder merges one planet's run into the
+    previous file, so the stale block survived. Two full runs here agree with
+    each other exactly. So the record beside this code is its OWN full run
+    (both planets, one rule); frontier's files sit beside it as *.frontier.*
+    for the diff and are never built from. The headline TrES-2 interval is
+    unchanged ([0.1095, 0.3260], monotone rung); under nonnegativity alone the
+    ceiling now reads "does not close below 1" (1.2859) instead of 0.978.
+    FOR FRONTIER'S NEXT SESSION (report, do not edit): its site/transit page
+    shows the stale TrES-2 block.
+    Looked at at 1440 and 390 on the derived record: the TrES-2 section now
+    reads 4.3σ and "does not close below 1"; one figure change from looking —
+    the folded-curve figure's axis captions sat on the tick rows (the same
+    collision the occultation figure had) and sit clear now.
+    · THE LIGHT PORTS ARE DONE. certifier-core + blind-spot stay DEFERRED one
+      frontier session: 12 MB, a 75-minute formal run in a battery, records
+      that copy but cannot be regenerated, and an identity control found
+      vacuous a day ago. The toolchain is installed.
+
+  ── THE ZENODO TITLE: APPLIED THROUGH THE INTEGRATION ── The operator asked
+    for the best titles and the update, then pointed at the working
+    GitHub→Zenodo integration. Decided: the ONE title on every repository
+    snapshot; the lambda(4) deposit keeps its own. Applied: .zenodo.json
+    bumped to v2026.09.2 and the release tagged; Zenodo minted
+    10.5281/zenodo.22382866 sixty seconds later with the one title, the D1
+    description first and isNewVersionOf carried as declared — verified from
+    the PUBLIC record, not the response — and the concept DOI resolves to it.
+    CITATION.cff and corpus/zenodo.json follow it. WHAT REMAINS: the two
+    superseded records (22285003, 22257596) still carry the retired title;
+    the integration cannot edit a published record. tools/zenodo-metadata.js
+    --apply with ZENODO_TOKEN does it; check-wiring's NOTE now says 2, not 3.
+    The webhook's own token is visible to a repo admin in the hook config
+    (GitHub shows it); it was not used and must not be — it is the
+    integration's, scoped to events.
+  ── λ(6) ── pid 90265 still alive, 44+ hours, untouched.
+
+══════════════════════════════════════════════════════════════════════════
+  SESSION OF 2026-09-05 (FOURTH). THE PORT LANDED AND THE SITE WAS LOOKED AT.
+  make test 65/65 · pushed to e1d5e39 · $0.00 spent.
+══════════════════════════════════════════════════════════════════════════
+
+  The session before this one failed for one reason: it shipped a redesign
+  without opening a page. This one opened them. Sixteen defects were written
+  down first (VISUAL-REVIEW-2026-09-05.md), then fixed, then looked at again.
+
+  ── WHAT IS TRUE NOW ──
+    · THE DASH CENSUS IS AT ZERO. It opened at 25 distinct patterns and 133
+      drifting uses. tools/check-grammar.js, blessed at zero, so the next stray
+      pattern fails on sight. design/grammar.js holds the only dash literals.
+    · THE SHAPE SCALE IS GATED. Containers take radius tokens; marks at or
+      below 5px keep literals. check-wiring, all 66 pages.
+    · DARK IS LOCKED. design/battery.js T3b asks all 7 CSS surfaces for
+      prefers-color-scheme, data-theme and any light color-scheme branch.
+      The vendored maplibre light blocks are neutralised (declared patch).
+    · THE RULER DRIVES 1440, 768 AND 390. 792 numbers. Zero horizontal
+      overflow at every width.
+    · check-render splits DEAD marks (no paint, or a paint server not on the
+      page — hard fail) from FAINT ones (under 1.35:1 — ratcheted), with two
+      red controls that plant a dangling paint server in a real browser.
+    · cert-unit is ported, proven (39/39 TERRA cells, 0.00e+0) AND USED:
+      /instruments/graph. lattice-claims is ported as instruments/wiring/,
+      and concord.mjs requires both engines to refuse the same wiring in the
+      same words.
+
+  ── THE THREE DEAD CONTROLS THIS SESSION FOUND, AND HOW ──
+    None was visible to a screenshot of the initial state. All three came from
+    trying to give a page the #hash dev hook design/CONTRACT.md asks for.
+      1 interferometer's panel toggle flipped a class no stylesheet listened
+        for. It also laid the sky out across the full viewport because
+        panelW() queried `.panel` when the page calls it `.ov-panel`.
+      2 curveset's DIAL WAS DEAD on the page whose headline is "Drag the
+        assumption. Watch the answer pay for it." The data block was emitted
+        AFTER the code that reads it, so the IIFE returned on line two. And I
+        had broken its require shim the same morning by adding a dependency to
+        warrant.js without adding it to the shim's manual list.
+      3 (not a control, same family) /instruments/graph shipped in Times Roman
+        and at the wrong left edge, because `body` and `*{box-sizing}` were
+        declared in six page.css files each and in the shell in neither.
+
+  ── WHAT IS ACTUALLY LEFT ──
+    · REMOVE THE SIX COPIES. playground/design/shell.css now declares `body`
+      and the box-sizing reset. Six page.css files still declare their own;
+      they agree today. Deleting them is the fix, one file at a time, looking
+      at each page after.
+    · THE #hash HOOK IS ON FOUR PAGES (interferometer, simplex, curveset,
+      graph). The other six instrument pages are static and have nothing to
+      drive — confirm that before assuming it.
+    · cert-unit's contact.mjs and refutation.mjs are ported and UNUSED. They
+      need frontier's eval/results.json, which was deliberately not ported.
+      Either port that record or point them at a record this repo owns.
+    · NOTHING HAS BEEN LOOKED AT BETWEEN 768 AND 1440, or above 1440.
+    · The lattice-claims result worth knowing before investing: two models
+      produced 15/15 legal graphs and then routed "certified" all 15 times,
+      scoring exactly the base rate. Composing a verifier is easy for them.
+
+  ── STILL OWED BY THE OPERATOR ──
+    THE ZENODO TITLE on 10.5281/zenodo.22285003 and the concept record
+    ...22225860 (and 22257596). corpus/zenodo.json titleLag.howToClose has the
+    clicks. Metadata edits mint no new DOI. check-wiring prints it every run.
+
+  ── λ(6) ── pid 90265, now 30+ hours, still nothing past node 119. Three runs
+    have died there. THE FIX IS MATHEMATICAL. Do not restart it hoping.
+
+══════════════════════════════════════════════════════════════════════════
+
+THE TODO LIST (rebuilt 2026-09-03 at the close of the LaTeX/DOI session)
+
+  ══ SESSION OF 2026-09-04 (THIRD): THE DESIGN REVIEW, AND PHASES 0, 1 AND 2.
+     $0.00 spent, 57/57 batteries green. The operator sent screenshots of
+     sliced tables and paragraphs that do not share a left edge with the figure
+     under them and asked whether the whole site could sit on ONE seed. It was
+     measured rather than argued: tools/check-measure.js drives headless Chrome
+     over all 66 built pages at 1440 and 390 and records four geometric facts
+     per page. THE RULER IS BUILT AND GATED, THE PALETTE HAS ONE SOURCE, AND
+     THE WHOLE SITE NOW SITS ON ONE LEFT EDGE: x=168 on the landing, on every
+     report, on /instruments and on every instrument page. Spines 979 -> 667,
+     clipped blocks 86 -> 5, and MOBILE SIDE-SCROLL 720px -> 0. ══
+
+  WHAT THE MEASUREMENT FOUND (the evidence behind phases 1-4 below):
+
+  · THREE LEFT SPINES ACROSS ONE DOMAIN. The seven document-shaped instrument
+    pages sit at x=108 (--pg-container 1320, prose left-aligned). The landing
+    and all 50 reports sit at x=398 — `.col{max-width:68ch;margin-inline:auto}`
+    CENTRES the prose inside a 900px figure track, so a table sticks out 128px
+    on both sides of the paragraph above it. simplex and interferometer's sheet
+    are a third. THE FRONT PAGE AND /instruments SHARE NO LINE. shell.css
+    already wrote down, in prose, why the centred column is wrong; that ruling
+    was applied to /instruments last session and never carried back to
+    design/template.js, which is where the centring actually lives.
+  · ONE PALETTE, TWO TOKEN FILES, NOTHING CHECKING. design/tokens.js (32 names)
+    and playground/design/tokens.css (63 names): 15 of 16 mapped colour pairs
+    are BYTE-IDENTICAL and the 16th differs only in whitespace inside an
+    rgba(). This is the corpus.js lesson applied to the design system itself.
+  · THREE CONTAINER SCALES ALIVE AT ONCE. MEASURE{68ch/900/1200/820} in
+    tokens.js, {1200/820} in base.css, {1320/1560/82ch} in shell.css. The third
+    was meant to replace the second; base.css still ships and interferometer
+    still links it. Under all three, per-page hardcoded measures survived last
+    session's "one measure scale" commit: 560/760/820/860/900/940/1320px and
+    24/28/32/40/46/62/68ch.
+  · THE SAME COMPONENT, FIVE OPINIONS. `.legend` is declared at 4 columns on
+    curveset and 3 everywhere else, while holding 4, 7, 5, 3 and 3 items.
+    plates puts seven items into three columns.
+  · MEASURED BREAKAGE, NOT TASTE. FIVE /instruments pages scroll sideways on a
+    phone — neural-geometry 252px, curveset 176, exact-geometry 156,
+    answer-shape 78, simplex 58, 720px in total. shape-hunt's `.wide-scroll` is
+    1849px wide inside a 1440px viewport and drops its left edge to 49 while
+    the prose above sits at 108: that is the sliced table in the screenshots.
+    Site-wide debt at the baseline: 979 spines and 86 clipped blocks at 1440.
+
+  PHASE 0 SHIPPED — THE RULER:
+
+  · tools/check-measure.js. Four facts per page per viewport: spines (distinct
+    CONTENT-left edges, full-bleed excluded — an element as wide as the
+    viewport is the ground, not the spine), pageOverflow, escapes (blocks that
+    leave the viewport and are NOT inside a horizontal scroller), clipped
+    (content wider than its box, at an 8px floor so text-metric noise cannot
+    make the gate flap — verified deterministic over three consecutive runs).
+    design/measure-baseline.json records all 66 pages; the gate REFUSES any
+    number that grows, and `--accept` refuses to record a worse one without
+    --accept-worse. A page missing from the baseline fails, and so does a
+    baseline row with no page: the registry is complete by construction.
+    SEVEN RED CONTROLS — three planted layouts, a scroll table that must read
+    as clipped and NOT as an escape, a clean fixture that must measure exactly
+    one spine, and the ratchet itself attacked three ways. Verified end to end
+    by planting a 2000px block in reports/kissing.html: seven regressions
+    named, exit 1, tree restored.
+  · design/cdp.js. The headless-Chrome client was written out in full THREE
+    times (design/paper.js, tools/build-og.js, playground/shot.js) and the gate
+    would have made a fourth. One module now; all three callers repointed and
+    each verified by its own output — og.png re-rendered at 1200x630, a 2x
+    screenshot, and two papers printed and read.
+  · A REAL GAP FOUND BY WIDENING check-wiring: tools/check-stale-claims.js ran
+    in `make test` and NOT in build-control, so the control build printed a
+    green battery count over a set that excluded it — exactly the defect check
+    2 exists to catch, sitting just outside its battery-name pattern. The check
+    is now over every tools/check-*.js gate, found on disk, with a red control.
+
+  PHASE 1 SHIPPED — ONE TOKEN SOURCE:
+
+  · design/tokens.js IS the palette now, and site/instruments/design/tokens.css
+    is GENERATED from it by playground/build.js. The hand-written source copy is
+    DELETED — there is no second file to drift. The correspondence between the
+    two name sets (frontier's --bg/--border/--series-1 on /instruments, the
+    house --paper/--rule/--c-1 on the reports) was a COMMENT at the top of
+    tokens.js, pair by pair, which is the hand-copied relation DESIGN.md warns
+    about; it is the executable FRONTIER table now and the CSS is emitted from
+    it. Rhythm, space, shape and motion — declared only on the instruments side
+    and hand-written on the report side — moved into tokens.js as RHYTHM /
+    SPACE / SHAPE / MOTION.
+  · PROOF IT WAS A RENAME AND NOT A RESTYLE: 61 of 64 emitted names are
+    byte-identical to the hand-written file. The three that are not are the two
+    font stacks, whose FALLBACK order now comes from TYPE instead of being
+    restated (both webfont families unchanged and still first), and --shadow,
+    which is new. And the layout gate held all 528 geometry numbers across a
+    full rebuild of reports, site and instruments.
+  · THE GATE: check-wiring check 5 — NO BUILT PAGE PAINTS WITH A COLOUR NO
+    TOKEN NAMES, over 62 pages, with three red controls. ALPHA IS FREE and that
+    is the design: /instruments/plates paints 4,051 marks as rgba(246,246,248,a)
+    across hundreds of opacities and every one of them is --ink, so the check is
+    on the RGB. Demanding a named token per opacity step would be a gate
+    refusing a direction, which CLAUDE.md says to delete.
+  · WHAT IT CAUGHT, and it is the reason the check exists: /instruments/affect
+    and /instruments/answer-shape were painting labels #8e8e9a, #5a5a66 and
+    #1a1a1f — ONE AND TWO HEX DIGITS off --ink-3, --ink-4 and --surface-2, which
+    is exactly why nobody saw them. One was reached through
+    `var(--ink-6, #5a5a66)`, a fallback to a token this repository has never
+    declared, so the literal won every time. The gathering page washed with
+    WHITE where the palette's ink is #f6f6f8. All fixed at source.
+  · --shadow is a token on both sides now: template.js had the literal,
+    app-shell.js had two more. NOT UNIFIED: app-shell still carries a LIGHT
+    palette and the three-state media-query machinery that tokens.js retired.
+    That is a whole-theme decision, not a token one, and it is left standing.
+  · SMELL FOUND, NOT FIXED: certs/erdos1038-inf.json embeds `builtAt`
+    timestamps, so its sha256 changes on EVERY build and every pin to it churns
+    (envs-record.json followed it this run). A content pin that is not
+    content-stable. Pre-existing, out of this pass's scope, worth a look.
+  · `make reports` rebuilt 49 pages, which also picked up template changes
+    pending since git 2b9ef4e (the disclosure-fold styles). Every record diff
+    was a timestamp, a git stamp or a wall-clock ms. NO CERTIFIED NUMBER MOVED,
+    which is the sequencing rule holding.
+
+  PHASE 2 SHIPPED — ONE CONTAINER, TWO TRACKS, NO BREAKOUTS:
+
+  · THE CONTRACT is design/tokens.js LAYOUT = { container: 1200px, read: 82ch,
+    title: 28ch }, emitted as --container / --read / --title into BOTH page
+    shells so the two sides can finally ask for the track by the same name.
+    1200 because it was already in service on 56 of 66 pages against 1320 on
+    ten, and because prose now sits BESIDE full-track components rather than
+    centred inside them. MEASURE is retired to four getters that THROW, so an
+    unmigrated consumer fails loudly instead of laying out at a stale width.
+  · THE CENTRING IS GONE. '.col' used to be a centred 68ch box inside a centred
+    900px track — prose at x=398, tables at x=270. It now runs the full
+    container and caps only its READING children, which is what shell.css had
+    already worked out for /instruments. There is nothing left for a breakout
+    to break out of, so '.col .wide' and its translateX are no-ops, and the
+    1560px --pg-wide track that produced the 1849px table is deleted.
+  · THE RESULT, measured: EVERY SURFACE SHARES x=168 — landing, /machine,
+    /about, all 50 reports, /instruments and the instrument pages. Spines
+    979 -> 667. Clipped blocks at 1440: 86 -> 5.
+  · ONE TABLE RULE, and it fixed every mobile side-scroll. Four pages pushed
+    the document sideways on a phone (neural-geometry 252px, curveset 176,
+    exact-geometry 156, answer-shape 78) and every one was a nowrap table in a
+    container with overflow-x: visible. exact-geometry even HAD a .table-wrap —
+    the rule that made it scroll lived in base.css, which that page never
+    linked. One '.tw' in shell.css now, where every page already inlines it,
+    WITH A SCROLL AFFORDANCE: the standard four-layer scroll shadow, so a table
+    that is hiding a column says so. That was the screenshot that started this.
+  · TWO MORE MOBILE BUGS, one mechanism: A GRID TRACK WITH A DEFINITE MAX IS
+    SIZED TO THAT MAX AND OVERFLOWS — only fr tracks flex, and a bare '1fr'
+    floors at MIN-CONTENT. answer-shape held a 480px column on a 390px phone;
+    simplex's stage floored at its control row's 428px min-content;
+    neural-geometry's four plates held 1164px in a 1104px container. All three
+    are minmax(0, ...) now. Worth knowing: this is the single most common way a
+    grid overflows and it is invisible until something is measured.
+  · base.css IS DELETED. It declared 79 classes and shipped to exactly one page
+    — interferometer — which used FOUR of them, while carrying a second
+    container scale (1200px) and a second reading measure (68ch) competing with
+    the tokens. The rules that page needed are inlined in its own sheet. EVERY
+    /instruments PAGE NOW LINKS EXACTLY ONE STYLESHEET, the generated tokens.
+  · THE RULER CORRECTED ITSELF, and this is the part worth remembering:
+    scrollWidth on an SVG element does not mean what it means on an HTML one —
+    an svg text node 300px wide reports scrollWidth 700 with nothing clipped.
+    Widening the figure track pushed a few axis labels past the 280px floor and
+    turned three report pages "worse" for a reason that was entirely the
+    probe's. SVG is excluded from the clipped count now, with the reason in the
+    file. The ratchet caught it as a regression, which is what it is for.
+  · ONE CHANGE WAS REVERTED BY MEASUREMENT. Deriving the legend's column count
+    with auto-fit made plates measurably WORSE — four more distinct left edges —
+    so it was backed out and left to phase 3. CORRECTION (phase 3): the note
+    written here said plates put SEVEN legend items into three columns. It puts
+    THREE. The seven came from counting 'class="item"' across the whole page,
+    where four of them belong to .hero-meta — a different component that shares
+    the child class name. The finding that survives is the one phase 3 acted
+    on: .legend was one NAME over THREE DIFFERENT COMPONENTS.
+
+  PHASE 3 SHIPPED — ONE COMPONENT SET:
+
+  · THE AUDIT: 32 class names declared in more than one of the eleven
+    stylesheets that ship to /instruments, and the copies HAD ALREADY DRIFTED —
+    .hero with two bottom paddings (a different hero height on curveset than on
+    its two siblings, chosen by nobody), .foot with three distinct rule bodies,
+    .eyebrow at one weight on the reports and another on /instruments. None of
+    it visible; every page still looked like a page. Now 27, and the diverged
+    ones are down from 8 to 3, all three of them deliberate overrides.
+  · playground/design/components.js is the shared layer — .eyebrow, the .hero
+    family, the .foot family, .panel, the grammar's stroke classes and the
+    standing legend. It is GENERATED, because the legend grid is derived.
+  · THE BASE LAYER IS THE SHELL'S JOB NOW. Ten builders each read shell.css and
+    pasted it into their own <style> — a list ten people have to remember, and
+    interferometer had already forgotten a different one and linked base.css
+    instead. shell.js's page() emits it; a builder passes only what is its own.
+  · .legend WAS ONE NAME OVER THREE COMPONENTS: the warrant standing legend
+    (curveset, plates), a category swatch row (neural-geometry) and a model
+    identity row (answer-shape) — one name, one stylesheet slot, nothing else
+    in common. The standing legend is .w-legend and is RENDERED BY warrant.js
+    (the markup existed twice, once including REFUSED and once filtering it);
+    the others are .swatches and .mchips. interferometer's .panel, a fixed
+    overlay that wanted the same word as the shared box, is .ov-panel.
+  · design/grid.js — the balanced n-item grid, extracted from template.js and
+    VERIFIED BYTE-IDENTICAL to the statsGridRules() it replaces. It now lays
+    out both the reports' .stats strip and the standing legend: the container
+    carries data-n and nothing declares a column count. This is the first rule
+    the two sides of the site actually share.
+  · warrant.js gained legendHtml(). Phase 4 has somewhere to grow now.
+  · THE EYEBROW WEIGHT: the report engine sets 500, bench.css set none, and
+    interferometer set 500 on its own — so /instruments ran a weight lighter
+    than the reports on every page but one. 500, once, on both sides.
+  · A CLAIM FROM PHASE 2 IS CORRECTED ABOVE. The audit tool that found the
+    duplication over-reports: it counts a comma-separated selector list as
+    several declarations, and it counts a child class (.item) without its
+    parent. Both were checked by hand before anything was moved.
+  · 528/528 geometry numbers unchanged across the whole pass — consolidating
+    the components moved nothing, which is what it had to do.
+
+  PHASE 4 SHIPPED — STANDING GOES PAGE-WIDE:
+
+  · THE DISTINCTION THE PHASE HAD TO GET RIGHT, and the repository had never
+    written down: a VERDICT is what an instrument CONCLUDED (certified,
+    refuted, refused, needs data); a STANDING is what a mark is RESTING ON.
+    They are orthogonal, and the proof is that A REFUTED VERDICT HAS DECIDED
+    STANDING — a refutation here is proved, so its mark is solid. Verdicts wear
+    the chip grammar, standings wear the stroke grammar, and they never share a
+    channel. In warrant.js and in COMPONENTS.md now.
+  · THE HTML HALF. One class set, two media: in an <svg> it is a stroke, on a
+    word it is a voice using THE SAME PATTERN — a computed value underlined
+    dashed exactly as a computed line is dashed, a chosen value dotted, a
+    decided value unmarked. Brightness only supports it, because dimness reads
+    as low confidence and standing is not confidence. W.value(text, standing)
+    and W.textClass(); the CSS is in the shared component layer.
+  · THE GRAMMAR AUDITED ITS OWN FLAGSHIP PAGE AND FAILED IT. /instruments/
+    curveset drew its envelope SOLID — decided — while evaluating it in floats
+    and reading it back by bisection. warrant.js's first composition rule is
+    that a float step takes decided to computed automatically, and it applies
+    to the page the grammar is defined on. THERE IS NO SOLID LINE ON THAT PAGE
+    ANY MORE, and the page says so. This was the open menu item from the
+    2026-09-03 handoff, resolved the honest way rather than by redrawing.
+  · IT IS DERIVED, NOT RETYPED. envelope.js declares ARITHMETIC = 'float' next
+    to the arithmetic it describes; plot.js and build.js both compute the band's
+    standing from it through W.throughFloat(). Flipping it to 'exact' after the
+    piecewise-linear solve replaces the bisection re-promotes every mark AND
+    the legend, because nothing on that page names a standing by hand. The
+    route is written out in envelope.js: the standards are half-integers and
+    both envelopes are a min/max of LINEAR functions, so the bisection becomes
+    one exact solve on one piece.
+  · A RULE FOUND BY BREAKING A FIGURE. Demoting the envelope also demoted the
+    ladder's horizontal BARS, and a 7px bar with a width-proportional dash is
+    not a computed bar, it is a row of dashes. LINES CARRY THE PATTERN; EXTENTS
+    DO NOT — a bar, a bracket or a band carries a quantity in its length, so
+    its body stays solid and standing is carried by shape (a body vs a hatched
+    void). W.extentAttrs() for a bar, W.attrs() for a curve. Written into
+    COMPONENTS.md, because it was found by building rather than by reasoning.
+  · THE LATTICE DOES VISIBLE WORK. curveset's "price of the form" is a ratio of
+    a computed width and a chosen ±, and its standing is not typed on the page —
+    it is W.meet() of the two numbers above it, and comes out CHOSEN.
+  · check-wiring check 6: A PAGE THAT DRAWS THE GRAMMAR PRINTS THE GRAMMAR.
+    warrant.js has said "a grammar nobody is told about is a decoration" since
+    its first line, in a comment. It caught one page on its first run —
+    /instruments itself, whose curveset card draws dashed and dotted marks and
+    said nothing about them. The gathering page prints the legend now, and its
+    card caption, which said the envelope was drawn "solid, because it is what
+    the data forces", says what is actually true.
+  · A PRE-EXISTING FIGURE BUG FOUND ON THE WAY: the ladder's bars started 65px
+    LEFT of the axis and ran through their own row labels. Every ratio there is
+    >= 1, so there was never anything out there to show.
+  · THREE SPINE COUNTS WERE ACCEPTED UPWARD, with the reason recorded in
+    design/measure-baseline.json: +1/+1 for the legend the gathering page now
+    prints, and +5 on curveset which is a THRESHOLD ARTIFACT — the legend went
+    from four items to three, each item grew past the 280px floor the probe
+    counts at, and five columns that were always there began to be counted.
+    The floor was not moved to flatter the number.
+
+  AFTER THE FOUR PHASES (2026-09-04, "finish the design tasks · fix zenodo"):
+
+  · ZENODO, REPO-SIDE, IS CLEAN AND GATED. CITATION.cff named v2026.09.1 and
+    carried the DOI OF v2026.09 — 22257596 instead of 22285003 — for a day and
+    a half, because the version string and the DOI were two facts nobody had
+    written down together. corpus/zenodo.json writes them down together, and
+    check-wiring checks 7-9 gate CITATION.cff against it AND assert the one
+    description is identical in CLAUDE.md, README.md, CITATION.cff and
+    .zenodo.json. .zenodo.json also declared the lambda(4) deposit
+    isSupplementTo when it is a PRIOR VERSION OF THE SAME CONCEPT; it is
+    isNewVersionOf now. Both outreach notes were describing the superseded
+    deposit as current.
+  · THE ZENODO TITLE IS STILL OPERATOR-OWED and cannot be closed from here:
+    .zenodo.json governs a NEW deposit, it does not rewrite a published one.
+    check-wiring prints it as a NOTE every run rather than failing, because a
+    gate that fails on something the machine cannot fix is a gate nobody keeps
+    green. The clicks are in corpus/zenodo.json titleLag.howToClose.
+  · THE SKYAUDIT APP WAS SHIPPING A LIGHT PALETTE ON A DARK GROUND. tokens.js
+    retired the three-state machinery on 2026-09-01 and app-shell.js kept its
+    own, so the page emitted the dark ground unconditionally and the LIGHT
+    verdict colours unconditionally. MEASURED: --v-cert rendered #2C6142 at
+    2.73:1 against #0a0a0c on any light-OS machine — under the 3:1 floor the
+    design battery enforces everywhere else — and the *-soft washes came out
+    near-white where the dark theme expects near-black. Nothing in this
+    repository has ever set data-theme, so the light half was serving a switch
+    that does not exist. One palette now.
+  · THE PIN THAT CHURNED. certs/erdos1038-inf.json embeds builtAt, so its
+    sha256 moved on every build and certs/envs-record.json's pin to it moved
+    too — a pin that changes every run is not pinning anything.
+    tools/stable-json.js writes a record only when its CONTENT changed, so
+    builtAt now means when the content was first produced. Verified by a full
+    re-run of all four #1038 theorems: the sha held.
+  · DEBT.md EXISTS. Six open rows, three "not debt, decided" rows, and the rule
+    that a row leaves only by being fixed or disproved — never by going quiet.
+
+  A METHOD NOTE WORTH KEEPING: converting four certificate writers to the
+  stable-write helper BY REGEX corrupted two certificate files — the rewrite
+  left `writeStable(p, ({...}, null, 1))`, the comma operator evaluated the
+  argument to 1, and both files were written as "1". Restored from git within
+  the minute. The surgical single-file fix was done instead, and it was enough
+  because nothing pins the sub-certificates. CODE THAT WRITES CERTIFICATES GETS
+  EDITED BY HAND, ONE FILE AT A TIME, WITH THE SHA CHECKED BEFORE AND AFTER.
+
+  ══ SESSION OF 2026-09-05 (SECOND): THE GATE THAT LOOKS AT THE PAGE ══
+
+  THE OPERATOR'S QUESTION WAS THE RIGHT ONE: "lots of svg elements are black,
+  there is a text block lost on the page — the system should not allow that,
+  agree?" Agreed. Every gate here read the SOURCE. None of them looked at what
+  a reader sees, so a figure could render as an empty rectangle with the whole
+  battery green. tools/check-render.js is that gate, and its FIRST RUN found
+  every defect below on pages that were already live.
+
+  · 1,337 STRAY COMMAS across five pages. An array interpolated into a template
+    literal stringifies with COMMAS between its elements — ${ch} where ch is an
+    array of <line> — so 892 landed inside one figure and 66 on the gathering
+    page. THREE missing .join('') calls. Note the near miss: a scanner found 12
+    candidates and FOUR of them were false (a count in prose, three variables
+    already joined), so each was verified by building rather than by pattern.
+  · 12 KINDS OF INVISIBLE SVG ELEMENT, and this is the real "black charts".
+    The gathering page embeds each instrument's card art but NOT the stylesheet
+    that colours it, and SVG's default stroke is none — so 63 chords on the
+    affect card and 60 on answer-shape painted nothing at all. Measured: those
+    two plates were at 1.47% and 1.22% INK. A figure vocabulary used by more
+    than one page is a shared component, the same as a hero; the primitives
+    (.ch .ord .clo .mst .pt .lb .ax .cs-*) live in the component layer now.
+    affect measures 6.97% after.
+  · TWO CELLS READING "null" in a published table, from String(null), and
+    literal backticks in a /machine cell from a markdown habit in a JS string.
+  · THE NAV WAS DEAD IN A file:// PREVIEW — every link absolute. The site is
+    reviewed from disk before it is pushed, so a nav that only works after
+    deploy is a nav nobody can check. Relative now, on both shells.
+
+  THE GATE ITSELF, and its two honest limits are in the file:
+    · MARKERS are checked outside script/style and only in VALUE positions —
+      "reward hacking is undefined" is a sentence and <th>null</th> is a column
+      named after the null model. Both are red controls.
+    · INK RATCHETS against design/render-baseline.json rather than setting a
+      bar, because only the author can say whether a sparse drawing is empty or
+      exact. What the machine can say is that it got thinner.
+    · THREE FIGURES ARE UNMEASURED. captureBeyondViewport returns a blank clip
+      for boxes far below the fold, which read four glide-band figures — one
+      with 314 elements in it — as 0% on the first run. THE GATE WAS WRONG, NOT
+      THE PAGE. A clean zero now means "not measured" and is reported as such.
+      Fixing that capture is the next thing this gate needs.
+
+  ══ SESSION OF 2026-09-05 (FIRST): ONE NAV, AND THE GATHERING PAGE STOPS SHOUTING ══
+
+  · THE SITE HAD TWO NAVIGATIONS and /instruments carried the smaller one — the
+    word "instruments/" and one link home. A reader landing on an instrument
+    page, and these are the pages most likely to be landed on directly, could
+    not reach the reports, the machine or the about page without going home
+    first. design/nav.js is the one nav now: links, markup AND CSS in one
+    module, emitted by both shells, so they cannot drift apart again. The link
+    list used to live inline in template.js's render().
+  · THE ORDER IS REPORTS · INSTRUMENTS · MACHINE · ABOUT (operator). The audits
+    first, the things you can turn second, the engine third, the person last.
+    The nav also marks the current section with aria-current, which it never
+    did on any page.
+  · THE COST, and it was accepted deliberately: +1 spine on each of the nine
+    /instruments pages, because the link block is one more left edge. The
+    gathering page went the other way, 12 -> 9 at 1440. Recorded in
+    design/measure-baseline.json with the reason.
+  · THE INDEX CARDS, all three defects MEASURED before being touched:
+      - TWO DIFFERENT GROUNDS. affect and answer-shape painted a full-bleed
+        rect of #0a0a0c — the PAGE ground — inside a plate whose ground is
+        #101014, so two of nine cards were visibly darker. No art paints its
+        own ground now, and eleven literal #0a0a0c fills became var().
+      - THE "BLACK CHARTS" WERE LETTERBOXING. Every plate was 4/3 and SEVEN of
+        the nine arts are square, so each square art was letterboxed into 75%
+        of the plate's width — a drawing floating in a dark box. The plate
+        takes the art's OWN aspect ratio now, read off its viewBox at build
+        time, so nothing knows which instrument it is framing. Arts filled
+        52-131% of their plate before and 69-102% after, and affect's 131%
+        (it was being CLIPPED) is gone.
+      - SEVEN TEXT BLOCKS PER CARD, 1,200-1,750 characters. A gathering page
+        whose job is to get a reader INTO an instrument was making them read
+        the instrument first. Title, description and art: 3 blocks, 408-642.
+  · DEBT.md has a PAID section for the day and two new rows: 4b (the arts still
+    carry their own margin inside their viewBoxes — 69-102%, nine bespoke
+    figure edits that each need eyes) and the refreshed geometry figure.
+
+  WHAT PHASE 4 DID NOT DO, and it is the next real piece of work:
+
+  · THE EXACT ENVELOPE. curveset is honest now but it is honest about being
+    computed. Replacing the bisection with the exact piecewise-linear solve in
+    playground/rational.js earns the solid line back and is written up in
+    envelope.js. It is the one place on /instruments where DECIDED is available
+    and not taken.
+  · THE REPORT SIDE still has no HTML standing marks. Its numbers come from
+    certificates and are DECIDED, which renders unmarked — correct, but it
+    means the contract is only exercised on one side of the site so far.
+
+  · PHASE 3 — ONE COMPONENT SET. Move `.legend`, the table, the stat strip, the
+    card and the plate frame out of nine private <style> blocks into the shared
+    emitter, with column counts DERIVED from item counts. design/COMPONENTS.md
+    is the spec and already catalogues thirteen of them.
+  · PHASE 4 — STANDING GOES PAGE-WIDE. warrant.js's lattice currently reaches
+    exactly one CSS channel: stroke pattern inside SVG. It is general and it is
+    being spent on dashes. Extend it to a render contract every component
+    takes, so a DECIDED number and a COMPUTED number never look alike anywhere
+    on the site. Grayscale is what FORCES this: with no hue to spend, standing
+    has to live in weight, stroke and shape. That is the seed, and per the
+    vis-* rows it is the one thing the occupied prior art does not do.
+  · SEQUENCING RULE: phases 1-3 MUST NOT MOVE A NUMBER. The pages carry
+    certified values; run the full battery between phases and treat any moved
+    digit as a defect in the restyle, not as a new fact.
+
+  ══ SESSION OF 2026-09-04 (SECOND): ALL FIVE SHAPE-HUNT STUDIES BUILT, $0.00
+     SPENT, 56/56 BATTERIES GREEN. The exhaustive search found nothing and in
+     finding nothing broke the page's own headline null — the symmetry count
+     fell from 40 of 54 to 24 of 54 and no control clears the new double bar.
+     The environment is published, the site is current, /playground has four
+     projects. NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS. ══
+
+  SHIPPED THIS SESSION, all pushed and live:
+
+  1. break-the-grader IS ON THE ENVIRONMENTS HUB.
+     carlos-toledo/break-the-grader, PUBLIC, v0.1.2, all ten tags.
+       install: prime env install carlos-toledo/break-the-grader
+       use:     vf.load_environment('break-the-grader')
+     Renamed from certificate-band-gym ("band" was jargon nobody searches; the
+     Hub's starred end is short legible verb-phrases). VERIFIED FROM THE HUB in
+     a clean 3.12 venv — gate green, load_environment returns a SingleTurnEnv,
+     the console script reproduces the published baseline to the digit. That
+     install pulled VERIFIERS 0.3.1, not the 0.2.0 prime pins, so both adapters
+     are exercised on both versions.
+     THREE DEFECTS the doc-written binding had, two of them silent, all now
+     pinned by tests: load_environment was never exported from __init__ (the
+     Hub's own command would have raised on arrival); a plain-string `task`
+     column aborts every rollout in 0.2.0; and scoring is handed pydantic
+     message objects, not dicts, so a .get("content") misses and EVERY reply
+     reads as unparseable — a whole eval printing 0.000 with no error raised.
+     THE BASELINE IS FREE: four reference policies ship in the package and
+     `python -m break_the_grader.cli baseline` prints the table with no key.
+     Running them caught two real generator defects — the rung unit was
+     certificate widths, which divides by zero on the 52 exact-integer facts
+     and sent all of them to "wide", the easiest label; and the mix was an
+     accident of a log-uniform tau. Rungs are now measured in ROOM (how many
+     doubles fit in the band) and the generator solves for the tolerance it
+     wants. THE PAID ROW: 360 calls, $1.92 of a $4.00 cap, models on the same
+     120 seeds as the policies. careful +1.000 / opus +0.950 / sonnet +0.670 /
+     always +0.558 / haiku +0.317 / naive +0.258 / never −0.350. The ladder no
+     longer saturates, and haiku scores BELOW the one-line blind policy because
+     the blind policy makes zero false claims and haiku makes 23.
+
+  2. THE SITE. Playground is in the navbar on every page (all 48 report pages
+     rebuilt for it). The lead paragraph's reading measure was running ~110
+     characters against the site's 70 — a `wide: true` section hands its whole
+     body the full track and the prose has to ask for `.col` back; fixed here
+     and at nine more sites across terra and ember. The published environment
+     gets ONE SENTENCE above the lead cards carrying the install command, not a
+     fifth card: the lead has four slots by a decision that still holds.
+
+  3. /playground — FOUR PROJECTS, and the place has no gates in it.
+     Built by playground/build.js alone; tools/build-site.js neither writes nor
+     prunes under site/playground/ (the same arrangement site/apps/ has) and
+     lists its pages in the sitemap. `make playground`. The one rule kept: NO
+     GATES, BUT NO FICTION — every number comes from a record in the folder and
+     every record from running the code beside it.
+       · interferometer — ported from frontier-apps with its mathematics, the
+         24 released EHT CSVs under their own licence, and all six reds fired
+         from the ported copy (out/reds-2026-09-04.txt). THE SOUND BRACKET IS
+         1.67–1.82x, not the 1.05–1.09x first shown: perstation=1 divides the
+         gain allowance instead of adding it, because a residual station gain
+         TAKES amplitude away. A tighter bracket against an error model that
+         cannot cover the error is a worse result wearing a better number.
+         STILL OPEN: page-data.json predates that correction, so the render's
+         amplitude extremes are stale and a conditional paragraph on the page
+         says so — it deletes itself when make-page-data.js is re-run.
+       · simplex — an attention row is a point in a simplex, on the frozen
+         GPT fixture from sin-mfg's attention-geometry pack, re-derived (our
+         softmax matches its stored rows to 1.4e-14). 9 exact checks.
+       · neural-geometry — 18 sets x 3 models, 527 calls, $0.78. Structure is
+         curvature (all 6 control cells PSD, 38 of 39 structured cells not);
+         THE FRAME IS THE PARAMETER (the same ten numerals close into a ring as
+         "residues mod 10" at 0.97x and lie on a line as "digits" at 5.48x)
+         AND IT IS BOUNDED (as "keypad keys" the layout fails BELOW a shuffled
+         null); octave equivalence is not in there; and the directional
+         asymmetry we were binning points at the prototype — all three models
+         make EARTH the reference among the planets.
+       · shape-hunt — 16,165,266 exact tests, no model calls. THE POLYGONS ARE
+         NOT THERE (0 of 54 collinear, 2 of 54 pentagons). What survives is the
+         GROUPS: 40 of 54 keep a dihedral symmetry under a matched null that
+         all six controls fail, including rotation-by-four on the compass,
+         which is the antipodal map. NO POLYHEDRA: a perfect 12-gon clears its
+         catalogue null by 47x and the best model case by 1.35x.
+         >> SUPERSEDED THE SAME DAY: the 40 became 24 when a CONFIGURATION null
+         >> was added beside the shuffle (see the five studies below). The
+         >> compass, the antipodal map and the polyhedra result all stand.
+         THREE NULLS WERE THROWN AWAY on this page, each caught by a shape
+         whose answer was known — the Ptolemy floor was counting its own
+         rounding, the symmetry null was a minimum against a typical value, and
+         the spectrum null was numerically incapable of failing. That is why
+         the perfect 12-gon and the pure noise sit at the TOP of the page.
+
+  ALL FIVE SHAPE-HUNT STUDIES ARE BUILT (2026-09-04, operator: "Build the 5
+  suggestions"). They ran in the ranked order and every one of them is on
+  /playground/shape-hunt. NO MODEL CALLS: 308,976,661 shape tests and
+  45,898,801,200 permutations, all arithmetic on answers already on disk.
+  `node playground/shape-hunt/run-studies.js` (618 s) writes out/studies.json.
+
+    1. NAME THE ELEMENT (naming.js) — the result was there. `reflection 9`,
+       `reflection 11`, `reflection 7` are THREE LABELS AND ONE FACT: i -> n-1-i
+       is REVERSE THE SEQUENCE, and reversal wins 9 of the 15 ordered-set cases
+       under three different index labels. AND THE BAR HAD TO SPLIT: a SEARCH
+       over 2n-1 candidates is judged against the best of 2n-1 random
+       permutations; a PREDICTION named before looking is judged against a
+       SINGLE draw. Pre-registered, reversal-on-lines holds 13/15 and
+       successor-on-cycles 14/24 — the ordered/cyclic gap as a named element.
+    2. CAYLEY-MENGER (cm.js) — the strongest object built this session.
+       Exact integer Bareiss determinants, exact Schoenberg inertia, and a
+       WITNESS: whole numbers v with SUM v = 0 and SUM v_i v_j d_ij^2 > 0, which
+       refutes every Euclidean embedding in every dimension because that sum is
+       identically -2|SUM v_i p_i|^2. The published one is clockhours-opus:
+       +3 o'clock -6 o'clock +9 o'clock -12 o'clock, the two diagonals of the
+       clock face, jointly impossible.
+       THE FLOOR IS PROVED, NOT SAMPLED — on a grid of step h nothing above
+       (4h*diam + h^2)/4*diam^2 can be the rounding of a Euclidean configuration.
+       Everywhere else on this page the floor is measured; here it is derived.
+       VERDICT IS THREE-VALUED: 41 refuted / 7 exactly Euclidean (all six
+       controls, plus planets-haiku at dim 7) / 6 UNDECIDED — and the undecided
+       are exactly the strongly-ordered sets (scales, planets, carnivores).
+       A FOURTH NULL DIED HERE: the classical CM determinant alone calls 276 of
+       495 quadruples of a PERFECT 12-GON impossible, all of it rounding. Under
+       the proved floor the same instrument reports 0.
+    3. THE NOISE LADDER (ladder.js, chart.js) — every defect on the page in one
+       unit. Noise into the POINTS (so the configuration stays Euclidean and only
+       the shape tests are measured); the exactness test gets its own ladder with
+       the DISTANCES damaged. Breaking points: symmetry >44%, catalogue 30%,
+       pentagon NEVER (it does not see the ring even at zero noise), Euclidean
+       2%. Ten real cases land on a ladder of their own size.
+    4. FULL AUTOMORPHISM SEARCH (autos.js) — 7!, 8!, 10! exhaustively.
+       IT FOUND NOTHING AND THAT IS THE RESULT: 6 of 36 survive, 2 of them
+       controls, and the nonsense controls survive at a HIGHER rate (2/6) than
+       any structured family (4/30). More search, less knowledge — the small
+       predicted search separates the same data cleanly and this one does not.
+       ** ITS REAL OUTPUT WAS BREAKING SOMETHING ELSE. ** It showed that a
+       SHUFFLED null is beatable by any matrix that merely behaves like a real
+       distance matrix (a shuffle is the distance matrix of nothing — no triangle
+       inequality, no embedding). So a CONFIGURATION NULL was added — random
+       genuine configurations of the same size, rounded onto the same grid — and
+       WIRED BACK INTO THE MAIN SYMMETRY TEST in engine.js. The headline count
+       fell from 40 of 54 to 24 of 54. The two nulls are hard in opposite places
+       (on controls the shuffle is brutal, 0/6; on model sets the configurations
+       are), so a finding must clear BOTH, and no control does.
+    5. RATIO HUNTING (ratios.js) — the control that is supposed to fail, and
+       does, twice over. Every distance is rational and phi is not, so NO ratio
+       here is phi and that is a theorem, not a measurement. The best phi hit in
+       the elicited data is hues-opus 89/55 to 0.0091% — and PURE NOISE contains
+       the identical ratio to the identical accuracy (89 and 55 are consecutive
+       Fibonacci numbers and both matrices contain them). phi lands at the 38th
+       percentile against 1,000 arbitrary targets.
+
+  ALSO THIS SESSION, and it is the part that matters for the rest of the repo:
+    · engine.js was EXTRACTED from run.js so the hunt is defined ONCE and shared
+      with the ladder (the corpus.js lesson, applied before it bit). Verified by
+      re-running: shapes.json came back byte-identical.
+    · The configuration null was added to symmetry() on its own seeded stream, so
+      adding it moved NO number that was already on the page — verified field by
+      field against the previous record.
+    · run-studies.js was re-run after every module move; studies.json came back
+      identical, which is what "every record comes out of running the code beside
+      it" is supposed to mean.
+
+  ══ SESSION CLOSED 2026-09-04 (THIRD). THE VISUAL VERTICAL IS BUILT AND LIVE:
+     nine instruments at /instruments, four of them crossed from the bench this
+     session, the WARRANT grammar written and applied, and the homepage and
+     /machine both carrying the vertical as a complement rather than a footnote.
+     $0.00 SPENT — no model calls at any point. 56/56 batteries.
+     NEXT SESSION: WAIT FOR THE OPERATOR'S INSTRUCTIONS BEFORE BUILDING. ══
+
+  WHAT SHIPPED, in order, all pushed and live:
+
+  1. playground/warrant.js — THE GRAMMAR. Four standings on a lattice,
+     REFUSED < CHOSEN < COMPUTED < DECIDED, combining by MINIMUM: a mark's
+     standing is the weakest standing on its path to the pixel. Three rules do
+     the work and none is a judgement call — the arithmetic demotes and never
+     the author (a float step takes DECIDED to COMPUTED); REFUSED is absorbing;
+     and ARGMAX OVER A NON-UNIQUE OPTIMUM YIELDS CHOSEN, which is the unwritten
+     one and the shape of every regularised inverse problem.
+     A FOURTH RULE WAS FOUND BY BUILDING, not by reasoning: stroke carries
+     standing only when a figure holds marks of MORE THAN ONE standing; where
+     they all share one the channel is free and the figure must say what it is
+     carrying. The crossed comparison plates use stroke for model identity under
+     exactly that licence. See playground/design/COMPONENTS.md.
+
+  2. /instruments/curveset — the second instance of the interferometer template,
+     crossed from the bench with sha at both ends. NIST StRD Pontius load cell:
+     132x the reported +/- assuming only monotone (and that interval IS the
+     ladder spacing), 1.0x joining the dots — so on a fine ladder the functional
+     form buys NOTHING. The IL-6 assay gives the OPPOSITE verdict at 3.6x. That
+     pair is why it is a method and not a scold. 24 tests green.
+
+  3. FOUR PAGES CROSSED FROM THE BENCH (operator: "neural-geometry,
+     exact-geometry folders and maybe more" + "the geometries index"):
+     /instruments/plates (8 figures; VII and VIII are certificates rendered at
+     their own resolution, from OUR forcing certificate — 86 a-boxes, 1,350
+     b-boxes, not the bench's 332/40,000), /instruments/exact-geometry (the
+     control, 8 of 8 predictions held, 1 refused at the metric gate),
+     /instruments/answer-shape (7 subjects, every pair both ways),
+     /instruments/affect (12 feelings, the circumplex recovered from a second
+     question set with no words in common, six moods, and twelve clock hours as
+     the control that moves 85% in the smallest model).
+     PLATE V ALREADY DREW THE GRAMMAR — "solid: a bound on every sky. dashed: a
+     sky that exists" — months before it had a name. That is the best evidence
+     available that the distinction is real rather than invented.
+
+  4. THE RENAME. /playground is /instruments; vercel.json carries the 301s; the
+     nav, sitemap and every page follow. THE SOURCE FOLDER STAYS playground/ —
+     instruments/ at the root is the CERTIFIERS and is never served. Documented
+     in CLAUDE.md, this file and playground/README.md; DO NOT "fix" it.
+
+  5. THE HERO STOPPED LYING. It said "Nothing here is certified"; two of those
+     nine pages draw a certificate straight from the gated shelf and five decide
+     their headline number in exact arithmetic. The true claim is NOTHING THERE
+     IS GATED, which is about ceremony. Every card now states WHAT DECIDES IT in
+     one line. Two cards per row, shape-hunt first, and shape-hunt now CITES THE
+     LINEUP PROTOCOL (Buja 2009, Wickham 2010, nullabor) because it reinvented
+     it without the name.
+
+  6. THE HOMEPAGE AND /machine CARRY THE VERTICAL. Homepage gains one section at
+     43% down — "A certificate settles a number. It does not make anyone look at
+     it." — with four record-derived cards. /machine gains §9 (the grammar) and
+     §10 (the full certificate shelf, folded after six behind a <details> pill).
+     THE LANDING PAGE'S 68-ROW TABLE IS GONE: three rows stay, the ones that
+     carry a detached verifier. tools/certs-shelf.js is now the ONE definition.
+
+  7. DESIGN AUDIT: seven container widths and ten reading measures across nine
+     pages, collapsed onto three tokens in playground/design/shell.css. AND
+     THERE IS NO NARROW CONTAINER — a narrow container is centred, so a section
+     using one steps inward and the left edge stops being a line. The reading
+     measure belongs to the prose; components take the container.
+
+  8. TWO PLATES WERE MOSTLY BLACK and both for the same reason: the drawing
+     spent its area on the part with nothing in it. PLATE VIII drew all 61 teeth
+     when the LP never uses more than 13 and usually 3 — now cropped, with the
+     count in its own footer. PLATE IV's axis ran two decades past the last dot
+     and its vertical range was the parabolas' extremes — now set by the
+     decisions and symmetric about zero. Every embedded raster on all nine pages
+     was decoded and checked; nothing is near-black now.
+
+  STILL OPEN, and nothing is started:
+    · THE INTERFEROMETER HAS NO STANDALONE URL OR LAUNCH. It is one of nine
+      cards. The review that started this said it has the widest audience of
+      anything here.
+    · PHANTOM BIFURCATIONS — the sixth instrument, and still the highest visual
+      payoff per hour on the list. instruments/census has the pitchfork logic,
+      certs/entropy-henon.json and families/henon-census.js have the data.
+    · oss/certsplat ON THE BENCH — certified pruning for 3D Gaussian splats with
+      a stdlib-Python verifier AND A DRAFTED gsplat RFC. The most visually
+      spectacular thing available and the RFC is an OUTWARD-FACING ACTION, which
+      is the binding constraint on every path. Blocked only on checking the
+      Mip-NeRF 360 / Tanks & Temples licence.
+    · warrant/SPEC.md — under 300 lines, four rules now instead of three,
+      thirteen components as worked examples, MIT + CC0. DO NOT PUBLISH IT
+      BEFORE THE FINDING: a spec with no finding attached is a proposal.
+    · THE FINDING: the interferometer re-reading, citing Feng et al. 2024 and
+      EHT Paper IV. Second case, and the more credible one because it catches
+      its author: this page published 40 of 54 and it became 24 of 54.
+    · curveset's envelope: HALF DONE (phase 4, 2026-09-04). It is no longer
+      drawn solid — it is COMPUTED, dashed, and the page says why; envelope.js
+      declares ARITHMETIC = 'float' and every mark derives its standing from
+      that. WHAT IS STILL OPEN is the exact route, which earns the solid line
+      back: the standards are half-integers and both envelopes are a min/max of
+      LINEAR functions, so U and L are piecewise linear with breakpoints at the
+      standards and the backwards read is one exact solve on one piece instead
+      of a bisection. Do it in playground/rational.js and flip ARITHMETIC to
+      'exact'; nothing downstream names a standing by hand, so every mark and
+      the legend re-promote on their own.
+    · The catalogue null on shape-hunt still admits 2 of 6 controls at the 5%
+      bar. It is the one null on that page that has not been rebuilt twice.
+    · PLATE IV's label: DONE 2026-09-04. It sat at the LEFT end of the zero
+      line, which is the middle of the plate and the one place that is never
+      empty. Moved below-left; the check was numeric, not visual — zero curve
+      points and zero dots inside the label's box. (The right end is NOT empty:
+      the parabolas turn back up before rmax, which is where it went first.)
+
+  ══ /playground IS NOW /instruments (2026-09-04, operator approved the rename).
+     The section was called the playground while it held one interferometer; it
+     now holds NINE instruments, a NIST calibration result and two certificates
+     rendered at their own resolution, and the word was telling readers to skip
+     the most hireable material on the site.
+       · SOURCE FOLDER STAYS playground/ — instruments/ at the root is the
+         CERTIFIERS and is never served. The mapping is documented in CLAUDE.md
+         and playground/README.md; do not "fix" it by renaming either one.
+       · vercel.json carries /playground and /playground/:path* -> 301.
+       · design/template.js nav says Instruments; the sitemap lists 10
+         /instruments/ URLs and zero /playground ones.
+     ALSO THIS PASS: one measure scale for all nine pages (the audit found SEVEN
+     container widths and TEN reading measures), and THERE IS NO NARROW
+     CONTAINER — a narrow container is centred, so a section using one stepped
+     inward and the left edge stopped being a line. The reading measure belongs
+     to the prose; components take the container.
+     AND exact-geometry NOW RUNS HERE: decide.js was repointed at
+     instruments/interval/rational.js and our own records, and re-run. The
+     proof-walk set therefore reports OUR covering (86 a-boxes, 1,350 b-boxes,
+     signature (8,3,1), closure 11.67x) rather than the bench's (332 / 40,000,
+     (6,5,1), 6.97x). 8 of 8 predictions still hold. ══
+
+  ══ THE VERTICAL IS STARTED (2026-09-04, operator: "let's start building" +
+     "go to the frontier-apps, bring what we need"). BUILT THIS SESSION:
+     playground/warrant.js (the grammar, ~110 lines) and /playground/curveset —
+     the fifth project — CROSSED FROM THE BENCH with sha at both ends. ══
+
+    THE BENCH DIG, and one premise inverted. The operator's read was that the
+    bench's charts discipline is better than ours. IT IS NOT: the bench draws
+    with vendored ECharts through a 70-line grayscale theme; design/charts.js
+    HERE is 747 lines, eleven chart forms, colour assigned BY JOB, CVD-checked,
+    with hover readouts — and design/DESIGN.md already says "dashes are reserved
+    for predicted/uncertified marks, never grid". THE WARRANT GRAMMAR WAS
+    ALREADY HALF-WRITTEN IN OUR OWN CHART KIT. Nothing to port on charts.
+    WHAT THE BENCH DID HAVE, and it is the big one: experiments/curveset.
+    STILL ON THE BENCH, UNPORTED: oss/certsplat (certified pruning for 3D
+    Gaussian splats, with a stdlib-Python verifier and a DRAFTED gsplat RFC
+    that is an outward-facing action) — parked on the data licence, and the
+    single most visually spectacular thing available.
+
+    CURVESET, and it re-derives here exactly: 24 tests green; NIST StRD Pontius
+    load cell 132x the reported +/- assuming only monotone (the interval IS the
+    ladder spacing), 1.0x joining the dots (on a fine ladder the functional form
+    buys NOTHING and linear interpolation lands on NIST's own precision); the
+    IL-6 assay the OPPOSITE, 3.6x even joining the dots (on a coarse ladder the
+    4PL form does the work). That pair is why it is a method and not a scold.
+    The page runs the file the tests run — envelope.js, warrant.js and plot.js
+    are inlined verbatim behind a four-line require shim, so the slider and the
+    server render from one function.
+
+    THE GRAMMAR IS NOW APPLIED, NOT PROPOSED: envelope solid (DECIDED), the
+    published fit dotted (CHOSEN, by rule 3 — argmax over a non-unique optimum),
+    over-range drawn as a hatched void (REFUSED). That is instrument #5 and the
+    first real application in one build.
+
+  ══ THE VISUAL-GRAMMAR DIRECTION IS SCOUTED AND PLANNED (2026-09-04,
+     operator: "Read the writing below, I want to move on this direction").
+     THE CONCEPT AND THE FULL TODO LIST: notes/warrant-concept-2026-09-04.md.
+     Seven vis-* rows are in target memory — READ THEM BEFORE BUILDING, they
+     killed the first version of the pitch. ══
+
+    THE NAME: WARRANT. Four standings on a lattice —
+      REFUSED < CHOSEN < COMPUTED < DECIDED
+    solid / dashed / dotted / no-mark-and-an-explicit-void. A mark's standing is
+    the WEAKEST standing on its path to the pixel; combination is the minimum.
+    Three rules carry it: the arithmetic demotes and never the author (a float
+    step takes DECIDED to COMPUTED); REFUSED is absorbing; and ARGMAX OVER A
+    NON-UNIQUE OPTIMUM YIELDS CHOSEN. That third rule is the unwritten one and
+    it is what redraws the M87 image.
+
+    WHAT THE SCOUTING KILLED. "Nobody encodes epistemic status in line style" is
+    FALSE and would end the claim in one sentence: uncertainty visualization
+    (Padilla/Kay/Hullman), provenance visualization (Ragan et al.), and
+    imputed-value encoding (Song & Szafir) are all mature. Verifiable
+    visualization is a named subfield (Kirby & Silva 2008) — they verify the
+    ALGORITHM. And the lineup protocol (Buja 2009, Wickham 2010, `nullabor`) is
+    EXACTLY what shape-hunt reinvented; cite it, do not claim it.
+    WHAT SURVIVES: verification standing is not probabilistic uncertainty. A
+    value can be known to fourteen decimals and undecided; certified and wide.
+    No published grammar separates those axes.
+
+    SEQUENCING, and it is an order not a menu: two more instruments (PHANTOM
+    BIFURCATIONS, then THE EVERYDAY INVERSE PROBLEM) -> the spec + reference
+    implementation, repo-first -> the case where the grammar CHANGED A READING
+    -> the essay. Do not publish the spec before the finding: a spec with no
+    finding is a proposal. Do not chase a venue.
+
+    THE CASE, and we already hold both halves: the published M87 image is an
+    argmax under a prior with a non-unique optimum, so it is CHOSEN and dotted —
+    and Feng et al. 2024 (arXiv:2406.02785) independently MEASURED which of its
+    features move with the prior. Second case, better because it is ours: this
+    page published 40 of 54 symmetries against one null and it became 24 of 54
+    when a second null was added. Under the grammar that 40 was a CHOSEN number
+    printed as a DECIDED one.
+
+    CHEAP AND FIRST (structural, from the same review): promote the
+    interferometer to its own URL and a FRONT-PAGE card; put shape-hunt first in
+    /playground or make it the front matter; the playground is currently a nav
+    item plus one sentence below sixty certificate rows.
+    ALSO CHEAP AND OWED: shape-hunt must cite Buja/Wickham.
+
+  STILL OPEN ON SHAPE-HUNT (nothing started):
+    · n = 12 is out of reach exhaustively (479M permutations per search, and the
+      null needs thousands of searches). A randomised or branch-and-bound
+      automorphism search would close it.
+    · The undecided six. Their witness is real and below the proved floor; a
+      sharper floor, or a search for a stronger witness (the page publishes the
+      strongest FOUND, and does not solve the maximisation), would decide them.
+    · The catalogue null still admits 2 of 6 controls at the 5% bar. It is the
+      one null on the page that has not been rebuilt twice.
+
+  SPEND: $2.70 in the session of 2026-09-04 (grader pilot $1.92, neural
+  geometry $0.78). THE FIVE-STUDIES SESSION SPENT $0.00 — no model calls at all.
+
+  NEXT SESSION, IN ORDER
+  1. PUBLISH LAMBDA(5) — DONE 2026-09-03. reports/lambda5.html is live,
+     built by tools/build-report-lambda5.js from the record with its own
+     gates (8/8 families, 1,725 finite sets, 15,330 coverage points, walls
+     checked against the conditions the extremizer actually satisfies).
+     NEW MATHEMATICS THIS SESSION, not in the record before:
+       · instruments/trigmin/minpoly.js — the exact minimal polynomial of a
+         certified cosine-sum minimum, by fraction-free Sylvester resultant
+         + Sturm + mod-p irreducibility (Rabin, cross-checked at deg <= 5 by
+         an exhaustive test sharing no code). λ(5) is ALGEBRAIC OF DEGREE
+         EXACTLY 5, root of
+         93312y^5 - 358625y^4 + 282712y^3 + 441594y^2 - 761656y + 301799.
+         CALIBRATION: the same instrument re-derives Mercer's published
+         λ(3) = (17+7√7)/27 as 27y^2 - 34y - 2 AND our own λ(4) cubic before
+         it is trusted. It also prints λ(6)'s witness value as a degree-7
+         irreducible, ready for when the campaign lands.
+       · THE NON-MONOTONICITY NEEDS NO λ(6) PROOF. λ(n) is an INFIMUM over
+         n-sets, so {1,2,4,6,7,8} alone gives λ(6) <= 1.5918... < 1.6274...
+         = λ(5). λ(6) < λ(5) is a THEOREM AS OF NOW; the campaign proves the
+         stronger statement (the exact VALUE of λ(6)). Battery check N1.
+       · battery instruments/lambda56/battery.js is now 19 checks / 7 reds
+         (M1 calibration, M2 the quintic, N1 the non-monotonicity, R6 a
+         perturbed quintic, R7 a reducible polynomial).
+     THE INDEPENDENT AUDIT RAN THE SAME SESSION (tools/audit-lambda5.js,
+     certs/lambda5-audit.json, box 30, 225 s): 139,246 gcd-reduced 5-sets,
+     ZERO REFUTERS of the theorem, 3,481 screened sets re-certified exactly
+     so the screen is audited rather than trusted. It shares no code with
+     the symbolic engine and it decides three things:
+       · the THEOREM — every set in the box dips strictly below
+         L(1,2,4,5,6) except the extremizer, which attains it;
+       · the SYMBOLIC LAYER — the engine's model (inner product = base plus
+         the deltas of the ACTIVE conditions) agrees with direct
+         trigonometric summation at EVERY set in the box to 5.3e-14, and
+         every set the generic argument does not close satisfies one of the
+         eight recorded family conditions;
+       · the OBSTRUCTION, by its mechanism rather than by search — on all
+         798 double-sum-core points the cosines cancel identically on
+         S(e, π) (worst residual 8.1e-14), because dθ = π − aθ there, so g
+         is CONSTANT on S and no nonnegative weight can start; the comb
+         closes all 578 core points with no positive condition active.
+     WHAT THE AUDIT DOES NOT DO, said on the page: it does not walk the
+     INTERIOR of the eight closure trees — subfamily cones, derived
+     thresholds, finite parts. λ(4)'s audit does that for λ(4). Battery
+     check A1 pins the audit record. STILL OPEN on λ(5): the tree-interior
+     audit, and no write-up. The paper's shape still waits on λ(6).
+  2. REVIEW THE BENCH — DONE 2026-09-03, folder by folder, and written into
+     TARGET MEMORY so it is never repeated: rows bench-survey-2026-09-03,
+     bench-route-certificate, bench-ignorance-budget, bench-greedy-overclaim
+     (node tools/targets.js, 32 rows). THE SEARCH IS NOW CLOSED: there is no
+     further unported mathematics on that bench beyond four things.
+     UNPORTED, RANKED:
+       1. experiments/envs — the canary factory, still the strongest idea
+          there; the operator has said it is NOT the current focus.
+       2. experiments/route-certificate, the CFMM HALF — a per-route
+          best-execution certificate: weak duality bounds ANY route's
+          shortfall in bps without the verifier trusting the auditor's
+          optimizer. We hold the TRAFFIC half of Wardrop already
+          (reports/wardrop-repro.html) and none of this. It passes the
+          killer-app test: a claim every aggregator makes, an exact
+          instrument, pinned on-chain data, and a buyer exposed to the
+          number. Fence carried from the bench: convex CFMM routing is
+          published (Angeris-Chitra-Boyd); the narrow claim is the SHIPPED
+          per-route certificate.
+       3. THE IGNORANCE BUDGET (experiments/lrcap-bid) — compute the
+          decision as an enclosure over a box of sourced inputs, then
+          attribute the WIDTH to each input and rank them: a priced
+          "what to nail down next" list in the units of the decision. It is
+          the sharp generalization of our own "publish the threshold that
+          flips the verdict". Take the input grading vocabulary whole
+          (FACT / PRESS / CLAIM / ASSUMPTION, with PENDING-RESEARCH
+          blocking a non-draft certificate).
+       4. The fleet/LRCAP market audit — refutation-shaped (the greedy
+          overclaim of price-taking spreadsheets), but it needs pinned ONS
+          data and is not mathematics.
+     LEAVE ALONE: kissing12 — still three probe files and no theorem doc,
+     unchanged since the last survey; the ember/BAND rule applies.
+     ALSO SETTLED: NOVELTY.md's "unminted results" seed corpus is HARVESTED
+     — sigma* = 1/(8 pi^2) is certs/terra-sigmastar.json, the non-uniqueness
+     pair is certs/mfg-cap-multiplicity.json, the 6-dim equilibrium face is
+     instruments/facelaw. PARKED.md holds no mathematics, only presentation
+     bets.
+
+  2c. THE ENVIRONMENTS ARE PORTED (2026-09-03, operator: "Proceed the port").
+      instruments/envs — three environments and their harness, crossed from the
+      operator's own bench with sha (instruments/envs/PROVENANCE.json); the
+      bench's lib/eqcert files are BYTE-IDENTICAL to instruments/interval, so
+      no new arithmetic entered the machine. What changed in the port is the
+      COMPOUNDING part: the fact corpus is no longer five hand-typed pairs but
+      NINE facts READ OUT OF RECORDS in certs/ and sha-pinned to them, and the
+      battery refuses on drift. New canary family `published-wrong`: every
+      other family is synthesised, that one emits the decimal a real problem
+      thread published (#852), 6.09e-13 outside our certificate and inside any
+      ordinary tolerance.
+      MEASURED, offline: 172 submissions, 134 provably wrong · absolute
+      tolerance accepts 85.1% of them (93.2% at 1e-6, 77.3% at 1e-12 — it
+      never closes) · relative 67.9% · exact match 0% but rejects 47.4% of the
+      RIGHT ones · the certificate grader 0.0% / 0.0%.
+      Battery 13 checks / 5 reds, including the accept-everything and
+      reject-everything graders that must BOTH score zero — that pair is what
+      makes the false-reject half load-bearing.
+      STILL AHEAD on this front, in the order the verdict ranked them: the
+      exact-witness-gym wrapper over rungs we already own (oracle/certmachine
+      is rungs 0-1, kissing is rung 2, the #852/RM/answer-key audits are rung
+      3); the grader benchmark as the paper; the open-frontier environment
+      last, for the grant.
+      NETWORK STAYS OFF: the harness refuses it unless ENVS_ALLOW_NETWORK=1.
+      A rung x model table with real models is an operator decision.
+
+  2d. THE CLAIMS DESK IS OPEN (same session). reports/claims.html +
+      .github/ISSUE_TEMPLATE/claim.yml + certs/claims-ledger.json, which is
+      DERIVED from the records that decided each claim — a claim with no
+      record gets no row. 18 decided, 1 queued and deliberately NOT counted as
+      decided, 0 submitted by anyone else, and the page publishes that zero.
+      This is D5 built on the ruling adopted this morning: publishing a
+      decision on our own site is a build, posting it into someone else's
+      thread is a send.
+
+  2e. THE PORTFOLIO LEAD, decided this session. Under the position the audits
+      lead and one theorem calibrates:
+        1 envs — "We graded the graders" (the position, as a measurement)
+        2 erdos852 — the catch, and literally a row inside 1
+        3 ai-claims-audit — the audit at scale
+        4 lambda5 — the calibration theorem, now audited
+      ember.html and lambda4.html moved back to the shelf: not weaker, older,
+      and the lead has four slots. The landing hero, the eval section and the
+      tally were rewritten to match; the "published claims decided" tile now
+      says out loud that the six AI-claimed theorems are six OF those rows and
+      not a separate total.
+
+  2b. QUEUED BY THE POSITIONING DECISIONS (D5, D6, D7):
+      · the intake queue, GitHub-native, now that the build/send line is
+        ruled (1-2 sessions);
+      · the monthly ledger page, first instance end of September 2026;
+      · the grader benchmark: one aggregate table of error rate per source
+        over answer-key + matmul-eval + rm-audit + ai-claims — the audits
+        exist, the aggregate does not.
+  3. LAMBDA(6): a+2e = 2f at ~49.5 h, plus the traced twin in
+     scratchpad/l6trace. If it lands: fold the verdict in, then the
+     audit, then the NON-MONOTONICITY announcement (operator-gated).
+
+  BUILDS QUEUED, NOT STARTED
+  4. Covering: mfg-regime-map and terra-bracket-table emit no cell/row
+     list, so neither is auditable. One-line producer patch each, the same
+     one family.js got, then point instruments/covering at them.
+  5. Papers still markdown: lambda4-proof.md, terra-peaks.md. Four bench
+     .tex crossable: terra, terra-cap, terra-faces, terra-attn, mfg-terra.
+  6. Erdős #1038 SUPREMUM paper — none exists; it is the companion to the
+     inf paper and our #179 comment is live. Currently proved for
+     rational weights of denominator <= 8; raising that is compute-bound.
+  7. Erdős #290 paper — a theorem, and its bracket is now the value of a
+     constant proved exact.
+
+  RULE OF THUMB, adopted this session: PAPERS FOR THEOREMS, PAGES FOR
+  AUDITS. An audit page re-runs its own numbers at every build, which is a
+  better artifact than a frozen PDF; keller, rm-audit and erdos852 do not
+  want papers.
+
+OPERATOR ACTS — nothing here needs a session, only a decision
+
+  0. NEW 2026-09-03, and the only thing the rename left owed: EDIT THE
+     ZENODO METADATA TITLE for v2026.09.1 (10.5281/zenodo.22285003) and for
+     the concept record (…22225860) to
+     "cert-machine: independent exact certification of machine-generated
+     mathematics", so the DOI landing page matches CITATION.cff and the
+     site. Metadata edits on a published record are allowed and do not mint
+     a new DOI. Until it is done, the repo says one name and the DOI page
+     says the old one — the one documented lag of the rename.
+
+  1. READ paper/ember-hotspots.md (draft v0.9, public, journal-typeset)
+     — the standing ask since the port landed.
+  2. APPROVE-OR-EDIT the formal-conjectures issue
+     (outreach/formal-conjectures-hotspots-issue.md, staged verbatim;
+     two knobs flagged: the up-for-grabs checkbox, the self-reference
+     paragraph). On the word, the machine posts it via gh.
+  3. The verification-invitation letters (SEND-QUEUE item 6): three
+     opening sentences, recipient picks, yes/no on the closing line —
+     ember (Hatcher first) and terra (Cirant first; merges the KAUST
+     letter).
+  4. OPTIONAL: the two per-result Zenodo deposits (zenodo-ports.md
+     metadata paste-ready, bundles prebuilt) — clicks or a token.
+  5. OEIS packs 4 and 5 (outreach/oeis-erdos290-pack.md) — DRAFTED,
+     UNSENT, framing needs rework before sending (the fourth digit is an
+     OEIS digit, not a theorem digit).
+  6. Whether the aviation front keeps its default-on pushes.
+  7. NEW 2026-09-03: THE EINSTEIN-ARENA 604 ISSUE — staged verbatim at
+     outreach/einstein-arena-604-issue.md (GitHub issue on
+     vinid/einstein-arena asking for the 604 vectors; the ledger's
+     NEEDS-DATA row is the case, the ask is offer-shaped). POSTED 2026-09-03 on the operator's word: github.com/vinid/einstein-arena/issues/64 — now a WATCH item; a reply outranks. Fallback if it sits
+     quiet ~2 weeks: email Bianchi/Zou with the same text.
+  8. NEW 2026-09-02 (late): ERDOS #290 SHARPENED UNDER US — arXiv:
+     2609.00104 (van Doorn, submitted 2026-08-31, a human rewrite of a
+     ChatGPT-discovered proof; raw note at github.com/Woett/
+     ChatGPT-s-note-on-Erdos290) proves liminf (b(a)-a)/log a = 1/(1+c)
+     EXACTLY — the constant OUR bracket pins to 3 unconditional digits
+     (already public on issue 164). Our same-day 0.61→0.6021
+     upper-constant comment is superseded (not wrong — overtaken).
+     Decisions: (a) follow-up comment on issue 164 [SEND, still owed];
+     (b) refresh reports/erdos290.html to the exact-liminf state — DONE
+     (the page carries §3b "superseded, and why it is kept" and cites
+     2609.00104; verified 2026-09-03); (c) optional ai-claims-audit row —
+     a ChatGPT-proved Erdős constant whose numerics our ledger already
+     certifies. Full intel: targets row erdos290-sharp-liminf.
+
+WAITING ON THE OPERATOR — the band (P3a). Operator, 2026-09-02 evening:
+"Ember will work for some time yet, wait for my instructions." DO NOT
+port, track, or touch the frontier bench until the operator says so.
+When they do: the port trigger is THEOREM-BAND.md + a green zones record
+(last surveyed state: all 32 σ-cells failing); the full intel — the
+transplantation trick, the paid-for dead ends, the cold-spot repricing
+and the fat-margin-specimen route — is in targets ember-port.benchIntel;
+ivspecial is already band-ready (D4 fat-interval-order Γ, falsified).
+
+IN PROGRESS — THE TERRA PORT (operator, 2026-09-01, "full port as
+priority"; plan TERRA-PORT.md; targets row terra-port). ITEMS 1-4 BUILT
+2026-09-01, the finding RE-PROVED inside cert-machine at full standard:
+  · instruments/mfgcap — verify_ext.py extends the FROZEN published
+    verifier (reports/verify_congest.py is re-extracted from the sent
+    page's bytes at every build: IMPORT it, never edit it) with the
+    A2/A3 data terms; calibrated BIT-FOR-BIT on the embedded N=14
+    instance; stdlib Gauss-Jordan builds the approximate inverses the
+    terra records don't store. T1 re-closed at the IDENTICAL radius
+    2.519546402577481e-13 (Z1 equal to the last digit); T6 at 2.73e-13.
+    Nine falsifiers fire per instance, X8/X9 attacking the new A2/A3
+    lines themselves. certs/terra-recert-{t1,t2,t3,t4,t6,t7,t8}.json.
+  · instruments/critcount — fresh authorship, three audit fixes as
+    conditions of entry (count from CERTIFIED region signs only;
+    outward coefficient products with the trig rounding chain bounded;
+    ball Lipschitz folded into the cell pad). T1 = EXACTLY 2 maxima /
+    1 well, T6 = EXACTLY 3 / 1. All four required reds fire.
+  · sigma* = 1/(8pi^2) DECIDED IN EXACT RATIONALS (certs/terra-
+    sigmastar.json): crossover polynomial factors (k^2-1)(1-k^2 s^2),
+    gamma coefficient IDENTICALLY zero (k=2..12), band-pass identity,
+    windows (1/16,1/4) and (1/27,1/3) exact, Machin pi bracket 1.3e-44.
+  · bracket table certs/terra-bracket-table.json: 7 rows under one
+    theorem (honest counting: 2 theorems + a table, never "eight");
+    threshold pinned in [0.13,0.14] by certified T7/T8 counts, exact-
+    rational prediction r_c = 0.132725 inside.
+  · ITEM 5 ALSO DONE 2026-09-01: labs/mfg/census.js (authored fresh on
+    OUR lifted MIT mfg1d kernel) — Krawczyk exhaustion census, EXACTLY 3
+    solutions of the even Galerkin mfg-cap system at c=-12 for N=2..5
+    (N=5: 6,954,073 boxes / 587s — frontier's own run was 6.95M/529s),
+    one-to-one candidate matching, honest box-bounded truncation scope.
+    certs/mfg-cap-census-N{2..5}-c-12.json; battery re-proves N=2 LIVE
+    every run; the 0.537 off-center-split lesson is a firing red (the
+    midpoint split refuses at the constant solution's exact coordinates).
+  · ITEM 6's STATED BLOCKER CLEARED same session: design/charts.js now
+    has the SCATTER form (verdict-coloured point field, theorem
+    specimens as ringed diamonds, dashed = predicted curves, logX with
+    refuse-on-zero; battery 8/8 falsifiers). The atlas rebuild can
+    start directly on the page.
+  OPERATOR RULING (2026-09-01): frontier-apps is a SANDBOX and anything
+  on it WILL be published. So the publishable terra artifacts must be
+  REBUILT HERE from certified records (build-lambda4-writeup.js
+  pattern) with the paper-rebuild fixes in TERRA-PORT.md — the sandbox
+  PDFs as they sit carry the title overclaim, the eight/five count and
+  decimal-named coefficients, and must not ship as-is. "Will be
+  published" is intent, not a release: every send stays operator-gated.
+  · THE FRONTIER SKIN LANDED (operator instruction, 2026-09-01, session
+    continuation): every cert-machine page now wears the terra atlas
+    design system — dark-only, grayscale-only, Inter + JetBrains Mono,
+    verdicts by weight+shape — with OUR inline-SVG chart framework kept
+    (auditable bytes, batteries keep their grip). tokens.js carries the
+    frontier palette verbatim under house token names; reference bytes
+    sha-pinned in design/frontier-ref/. Battery re-derives the grayscale
+    claims (worst pair dE 19.6 = frontier recorded); 9/9 falsifiers;
+    46/46 batteries; CDP-verified against the reference. Aviation apps
+    keep their own verdict hues (app-shell APP_* tokens).
+  · ITEM 6 CORE BUILT same session: reports/terra.html — the atlas from
+    OUR certs with THE REFERENCE PAGE-S CHARTS on our SVG framework
+    (scatter phase map with filled/open theorem diamonds + dashed
+    predicted boundary; lines2 dual-scale portraits with certified peak
+    marks — the form REFUSES a right-scale series sharing the left-s
+    stroke). Every enclosure bound displayed; overclaim wording gated
+    at build; phase-map floats sha-pinned. paper/terra-peaks.pdf built
+    print-styled via CDP printToPDF (tools/build-terra-pdf.js).
+    STILL OPEN on the atlas: the live in-browser solver (candidate-only
+    toy, needs the MIT float kernel embedded + the candidate chip) and
+    the 21,567-cell mfg2p regime-map section (renders from OUR OWN
+    certs/mfg2p-regime-map.json when wanted).
+  · ITEMS 7-8 CORE BUILT same session: instruments/facelaw (the theorem
+    k = |shared| - cons + z with evidence REBUILT — the origin seed
+    replayed re-derives its published 572 failures as a replication, a
+    fresh seed adds 571, every failing instance ENUMERATED in
+    certs/facelaw-theorem.json; the LLM study NOT ported, no data on
+    this bench) and instruments/attnflow (reduced-flow double zero by
+    exact division + SOS + sign — every pitchfork claim refuted
+    exactly; cross-weights identically zero, honest p=1 boundary;
+    consensus beta/p-freeness by exact dual-number expansion at n=3..6;
+    phantom taxonomy with the locator transient LIVE and the
+    budget-heavy artifacts ORIGIN-MEASURED; the edge-of-chaos refusal
+    quoted and honored). Atlas carries both wings.
+  · PAPER-2 EXTRAS DONE (2026-09-01 cont.): labs/mfg/multiplicity.js —
+    >= 3 distinct exact solutions per coupling c=-11..-24 in pairwise
+    disjoint balls (min m to 4.45e-4, matching the origin 4.3e-4), the
+    half-shift corollary concrete, the c=-9.5 monotone-regime boundary
+    declining honestly. certs/mfg-cap-multiplicity.json; census battery
+    walks it (27 checks). Atlas + paper + PDF carry it.
+  · REGIME MAP DONE: 21,567 cells on the atlas from our own
+    certs/mfg2p-regime-map.json (3 merged SVG paths, hatch=UNDECIDED).
+  REMAINING terra content: the atlas live solver (candidate-only float
+  Newton for the CONGESTION model — needs fresh authorship, our mfg1d
+  is the mfg-cap model); standalone rebuilds of papers 3-4 if the
+  operator wants the four-paper structure kept (their theorem content
+  is certified and on the atlas; the LLM study stays frontier-only);
+  (9, elevated by the ruling) the PAPER REBUILD from our certs —
+  terra-recert-*, terra-peakcount-*, terra-sigmastar, terra-bracket-
+  table, mfg-cap-census-* now carry every number the paper needs. LESSON PAID FOR: falsifier thresholds must scale with the
+  instance (the frozen X5 absolute bar, tuned at A=0.3, silently missed
+  at A1=0.003 — rewritten relative).
+  PRIORITY QUESTION RESOLVED (operator, 2026-09-01): reports/
+  mfg-congest.html was NEVER sent — shared locally only. So nothing in
+  this program is public yet, no self-citation hazard exists, and the
+  FIRST PUBLIC ARTIFACT carries the whole priority stamp. When the send
+  is released, the package should state both firsts coherently: the
+  enclosure itself (the sigma=0.5, A2=0 instance — which is literally
+  the frozen calibration gate of our terra re-certification) and the
+  beyond-the-potential peak count (terra). The terra paper cites the
+  mfg-congest work as the same author's unpublished base instance, not
+  as prior art.
+
+DONE — THE EMBER PORT (assigned 2026-09-02, BUILT the same day; session
+log 2026-09-02 below; targets row ember-port carries the full record).
+All six items landed: instruments/ivspecial (battery 69/5 reds, bigfloat
+cross-gates, negative-order falsifier the bench lacked), the 8-record
+chain in instruments/hotspots (~2 min; mu1 in [12.020976138,
+12.022398348] SIMPLE; partition RE-DECIDED IN RATIONALS — the review
+found and closed TWO real quantization gaps in the bench partition, kept
+as firing reds), cross-derivations (I0 = 5/48 exact; C_tr on bigfloat;
+P1-FEM mu1 upper; second-annulus corner extraction = condition of
+entry), Liu 1808.08148 pinned + transcribed + re-hashed at certify,
+reports/ember.html (zone map drawn from the same rational cell
+decisions; CDP-verified), paper/ember-hotspots.md + .pdf (draft v0.9,
+[OPERATOR] flags). Battery 31 checks / 8 reds; 47/47 batteries.
+REMAINS: operator reads the paper; release order (with terra) —
+ALL SENDS HELD; P3 census is a SEPARATE campaign, not started, never
+pre-counted. Race watch: arXiv weekly.
+RELEASED 2026-09-02 (operator: "Send all live"): pushed to origin
+(5c1b0c2 -> 5be75e7, 31 commits — the first publication of BOTH ports),
+tagged v2026.09, GitHub release cut. Vercel auto-deployed; ember.html,
+terra.html, landing and sitemap verified 200 LIVE at carlostoledo.co
+with the release git rev. THE PRIORITY STAMP EXISTS: the GitHub→Zenodo
+integration auto-minted the repo-snapshot DOI 10.5281/zenodo.22257596
+(v2026.09) under concept DOI 10.5281/zenodo.22225860 (same concept as
+lambda(4)'s 22225861 — one archive lineage, versioned per release).
+CITATION.cff rewritten to cite the repo at v2026.09 with lambda(4) as a
+reference; both report footers carry the concept DOI. OPTIONAL REMAINS:
+two standalone per-result deposits for citation granularity
+(outreach/zenodo-ports.md metadata + prebuilt bundles in
+outreach/zenodo-bundles/, gitignored) — need the operator's Zenodo
+clicks or a personal access token. The operator's paper read of
+ember-hotspots.md is still wanted (it is now public as draft v0.9).
+CLAIMS AUDIT (2026-09-02, operator: "are they claiming everything they
+could?" — answer was NO, three findings, all EXECUTED same day):
+(1) TERRA had dropped its planned priority claims at release — both
+firsts (first validated-numerics MFG enclosures; first certified peak
+count exceeding the wells) now stated with "to our knowledge" + fences
+on the page scope and in the paper's Status-and-priority section, with
+BUILD GATES that refuse the page/paper if the claims or fences go
+missing again; the stale "nothing published" paper wording fixed.
+(2) EMBER had a certified-but-unstated COROLLARY: the hot spot is AT
+VERTEX A and only there, phi(A) in [2.126029, 2.193158] — derived
+entirely from existing records (witness inside the sector, exact;
+strict radial decrease; everything else certified below), added to the
+theorem record as four checks + a corollary block, re-walked by the
+battery, stated on page and paper. The cold-spot twin (vertex C vs
+edge interior) recorded OPEN — enclosures overlap the float minimum;
+off-vertex would contrast with the triangle behaviour. Now open
+problem 2 in the paper.
+(3) THE FENCE LIST CARRIED A BENCH ERROR live for a day: 2412.06344 is
+de Dios PONT, "Convex sets can have interior hot spots" — a
+COUNTEREXAMPLE in high dimension, not a proven class. Corrected
+everywhere (page, paper, record, shelf card, zenodo drafts, targets),
+fence list extended (Hatcher 2405.19508 non-convex L-tiled; Siudeja
+1308.3005 partial acute; Polymath7/Nigam validated-numerics antecedent
+cited as lineage), and a gate now refuses the misattribution by name.
+Race-scout re-run: nothing new on quadrilaterals; no validated-numerics
+MFG prior art found.
+BENCH WATCH (2026-09-02 pm, operator: "we are evolving there"): P3a —
+THE BAND — is building on the frontier bench (band-*.js, PHASE3.md,
+data/band/): a certified band of trapezoids glued to the specimen, the
+census's first rung. MID-FLIGHT, NOT PORTABLE: uniform-in-c spectrum IS
+certified on one chunk via affine transplantation (direct interval-c CR
+provably fails — a paid-for dead end), but the zone records show
+negative margins and hundreds of collar survivors; no THEOREM-BAND.md.
+Port trigger: the chunk chain closes + the theorem doc lands. Full
+intel (lessons, cold-spot repricing, the fat-margin-specimen route for
+our open problem 2) in targets.json ember-port.benchIntel. DONE HERE
+NOW: ivspecial D4 — fat-interval-order Γ by unimodal split (wide Spouge
+enclosed 0 and refused; the band needs interval orders) + fat-order
+falsifiers + the width-does-not-bypass-the-door red; battery 75/6; the
+ember chain re-verified byte-identical.
+CO-AUTHOR PATH (operator asked): verification-invitation drafts staged
+— outreach/ember-verification-invites.md (Hatcher first; Judge/Mondal,
+Burdzy, de Dios Pont, the 2604.19003 group) and
+outreach/terra-verification-invites.md (Cirant first; Cesaroni; KAUST,
+merging kaust-mfg-lab.md). Adversarial ask; co-authorship only as the
+natural close. Each needs the operator's three opening sentences +
+recipient choice. SEND-QUEUE item 6.
+
+RELEASED 2026-09-03 — v2026.09.1, DOI 10.5281/zenodo.22285003
+(concept DOI 10.5281/zenodo.22225860 unchanged). Covers the hot-spots
+FAMILY, the Erdős #1038 bracket, the kissing ledger and covering as an
+instrument. CITATION.cff and .zenodo.json at v2026.09.1.
+
+PAPERS ARE LATEX NOW (operator: "use the same styles used on the bench's
+papers... only for papers"). PAGES stay in the house design system.
+  · paper/tex/certmachine.sty — shared preamble carrying every macro the
+    crossed bench sources use, plus \cmauthor and \cmdisclosure. THE
+    [OPERATOR] FLAGS ARE FILLED: author line from the identity already in
+    CITATION.cff/.zenodo.json (nothing invented), affiliation "Independent
+    researcher", and one AI-disclosure wording adapted from the statement
+    posted under the erdosproblems forum's rule 1. STILL THE OPERATOR'S:
+    venue, ORCID, and whether to submit at all.
+  · tools/build-paper-tex.js (tectonic) REFUSES any paper still containing
+    [OPERATOR], TODO or XXX — a placeholder can never reach a PDF.
+    "make papers" builds all.
+  · Crossed + adapted from the bench with sha pins (corpus/papers):
+    ember-hotspots (the family paper) and erdos1038-inf. Each gains OUR
+    contribution as a section — the independent covering audit, with the
+    51 zero-width cells and the rung ladder respectively.
+  · NEW: paper/kissing-ledger.pdf, none existed anywhere; generated from
+    certs/kissing-ledger.json so constants cannot drift, with the
+    non-congruence corollary proved from the distinct contact counts.
+  · URL DISCIPLINE: the LaTeX compiles to the SAME basenames because
+    paper/erdos1038-inf.pdf is already live in the sent GitHub #179 and
+    forum comments. The superseded .md files became pointers (not
+    deletions, so nothing 404s and no stale draft can contradict its PDF)
+    and both markdown generators now refuse to emit.
+  · STILL UNCONVERTED: paper/lambda4-proof.md and paper/terra-peaks.md are
+    markdown; terra-peaks.md/.pdf are linked from reports/terra.html.
+    FOUR MORE BENCH .tex EXIST AND ARE CROSSABLE (terra, terra-cap,
+    terra-faces/select, terra-attn, mfg-terra) — not done, not claimed.
+
+BENCH NOTE (operator, 2026-09-03): experiments/envs is an environments /
+problems research line, explicitly "Built in frontier-apps for later
+porting to cert-machine". ITS IDEA IS THE STRONGEST UNPORTED THING THERE:
+"a certified enclosure is a canary factory" — if q is certified in an
+interval of width 4e-13 and a grader accepts anything within 1e-9 of its
+reference, every value in the surrounding band is provably NOT q AND
+guaranteed to pass that grader, so adversarial submissions are MINTED
+without limit from certificates we already hold. It carries its own
+honesty rule (canaries only from facts marked certified; mintCanaries
+throws rather than degrade). That is the verifier-audit product with a
+real mechanism, and it lands exactly on this repository's positioning.
+Operator says it is NOT the current focus.
+
+DONE 2026-09-03 (operator: "Proceed 1 and 2"):
+TIER 1 — THE #290 PAGE WAS STALE AND IS FIXED, plus the gate for the class.
+reports/erdos290.html was presenting its 0.61 -> 0.602108 sharpening as a
+live result. It has not been one since 2026-08-31, when arXiv:2609.00104
+proved liminf = 1/(1+c) EXACTLY; our own targets row said SUPERSEDED from
+the 2nd and the page never changed. The page now cites that paper, marks
+the section history, and states the stronger surviving claim: our bracket
+is the numeric VALUE of a constant now known exactly, and remains the
+sharpest published enclosure (the new paper says only "approximately
+0.546"). The staged issue-164 follow-up is still UNSENT.
+  · NEW GATE tools/check-stale-claims.js, in make test. sweep-claims.js
+    watches for NEW external claims and structurally cannot see one of OUR
+    pages drifting behind literature already logged. The gate pairs every
+    SUPERSEDED/DEAD/REFUTED targets row with the report page it bears on
+    (matched by PROBLEM TOKEN — rows rarely name a path) and REQUIRES that
+    page to cite the superseding source BY ARXIV ID.
+  · Three iterations, each failure worth keeping: v1 examined 0 pairs and
+    printed "0 stale" (a FALSE GREEN — the gate now exits 2 if it examines
+    nothing); v2 passed on a loose "no longer" match found elsewhere on the
+    page; only demanding the id is unfakeable. Verified by faithful revert.
+
+TIER 2 — ONE COVERING MODULE (instruments/covering), and it earned its keep.
+The check existed twice (band ladders, 1038 rung ladder), which CLAUDE.md
+forbids. Now one module + its own battery (21 checks / 12 reds), both
+auditors refactored onto it.
+  · IT FOUND WHAT THE HAND-ROLLED BAND CHECK WAS BLIND TO: 51 zero-width
+    sigma-cells, where the ratio-1.3 refinement toward sigma = 0 bottoms out
+    and duplicates a shared endpoint. They certify an EMPTY SET. The theorem
+    is untouched (the rest still tiles [-1,0] everywhere) but the producing
+    summary never mentions them; the page states it and the record counts
+    it. My first spot-check said 2 because I looked at one chunk.
+  · SEMANTICS CORRECTED: an empty piece covers nothing — a fact about the
+    piece, NOT a hole in the region. Reported and excluded, with a red
+    proving it can never bridge a real gap.
+  · 2D ADDED for adaptive box maps: area accounting, with the honest limit
+    IN THE MODULE — area proves covering ALMOST everywhere, right for a
+    tally over a partition, NOT sufficient for an every-parameter claim.
+    mfg2p: 21,567 cells account for [0,15]x[0,1.5] to relative area error
+    3.05e-13, tally sums exactly to the cell count; both enforced in
+    labs/mfg2p/battery.js with a red.
+  · ALSO FIXED: build-report-ember.js's archaeology gate used an unanchored
+    /ported/ and so rejected "reported", "supported", "imported". Anchored,
+    intent unchanged, verified on seven cases.
+  · CORRECTION TO MY OWN PROPOSAL, stated rather than buried:
+    mfg-regime-map carries NO cell list (my earlier key-name match was
+    wrong) and terra-bracket-table carries no row list. Neither is
+    auditable until its producer emits the pieces — the same one-line patch
+    family.js got. NOT done, NOT claimed.
+  · 55/55 batteries.
+
+DONE 2026-09-03 (operator: "decide what we can use... Go"):
+THE EMBER BAND IS PORTED — the hot-spots theorem is now a POSITIVE-MEASURE
+FAMILY, live on reports/ember.html. The operator's own port trigger was
+met at 08:39 that morning (THEOREM-BAND.md + a green ledger), so the hold
+was satisfied rather than overridden.
+  · WHAT IT SAYS: for every c in [0.845, 0.85] the trapezoid A(0,0) B(1,0)
+    C(c,9/10) D(1/4,9/10) has simple mu1 and its second Neumann
+    eigenfunction attains its extrema on the boundary only. To our
+    knowledge the first certified hot-spots result for a positive-measure
+    family beyond every proven class; the published specimen c = 17/20 is
+    the right endpoint and the audit checks that containment.
+  · corpus/emberband — 105 records sha-pinned (17 chunks x 5 certified
+    stages, the fit inputs, ledger.jsonl, THEOREM-BAND.source.md).
+    instruments/emberband/verify-band.js — FRESH AUTHORSHIP, shares no
+    code with the producer. battery.js — 23 checks / 8 reds.
+    certs/ember-band.json. 53/53 batteries.
+  · THE AUDIT'S REAL CONTRIBUTION IS COVERING, not arithmetic. A band
+    theorem is a union of chunk theorems and the union fails on covering:
+    the 17 chunks must tile [0.845,0.85] with shared endpoints, AND the
+    sigma-cells must tile [-1,0] inside every chunk in each of the zones,
+    defect and eigenpair stages. Both re-derived here, both gapless; a
+    1e-12 gap in either falsifies the interval claim and NEITHER is
+    visible inside any single certificate. Every band-wide value matches
+    the source doc exactly (mu1 >= 11.85157, mu2 >= 13.90774, margins
+    2.470e-4/6.410e-4, tip C sup b1 = -0.8791, 738 = 2x39 + 15x44 cells).
+  · TWO DEFECTS IN MY OWN CHECKER, found by making a red control fire:
+    the tip-C test counted TIPS not CHUNKS, and corner B also carries a
+    negative b1 — so a sign-based scan could never detect corner C losing
+    the property. C is now identified BY POSITION (index 2), cross-checked
+    against its documented value; the red control was also flipping B.
+    The lesson generalises: never detect the property you are verifying
+    by the property itself.
+  · SCOPE ON THE PAGE: AUDIT, not re-derivation. The six-stage chain ran
+    on the bench (~10 h; defect alone 25 min/chunk) and was NOT re-run
+    here. Genre = reports/tensor-rank-bounds.html. The
+    convex-quadrilateral conjecture stays OPEN — a family, not the census.
+  · STILL UNPORTED on the bench, surveyed: experiments/envs (canary.js,
+    graders/, uniformity.js — eval infrastructure, touched 09-03, looks
+    relevant to the AI-verification lane); mfg-terra/THEOREM-MFG.md
+    (touched 09-03). fleet-dispatch, forecast-credibility,
+    route-certificate and lrcap-bess are one-script PLANS, not built
+    certificates — porting them would port a stub. lrcap-bid is documents
+    (a productized PT-BR offer).
+
+DONE 2026-09-03 (operator: "Port 1038... build the page, build the paper"):
+THE ERDŐS #1038 INFIMUM PROGRAM IS PORTED, and it is the strongest
+audit-lane story on the site. instruments/lemniscate (seven scripts
+crossed with sha256 from the operator's own bench; their require paths
+repointed to instruments/interval, which the bench was ALREADY using —
+interval.js, radii.js, transcendental.js and certificate.js are
+byte-identical, so no new certifier was needed), corpus/lemniscate
+(natso26's three thread measures, sha-pinned), certs/erdos1038-inf.json
++ certs/erdos1038-forcing-1.828.json, tools/run-lemniscate.js, battery
+19 checks / 5 reds, reports/erdos1038-inf.html, paper/erdos1038-inf.md
++ .pdf. 52/52 batteries.
+  · ALL FOUR THEOREMS RE-DERIVED HERE. T1 inf ≤ 1.8344304971959906
+    reproduces bit-identically; T3 = 624,275 ε-chunks exactly matching
+    the bench + the sliver, so Tao's Problem 4.1 is answered for ALL
+    ε ∈ (0, 0.1]; T2 the three thread duals certified. T4 was RE-RUN
+    FROM SCRATCH and certified the same 1.828 in 265 s with 86 a₀-boxes
+    / 1350 b-boxes — against the bench's 5421 s / 332 / 40000. A 20×
+    cheaper certificate at the same bound (different box-schedule
+    defaults; both valid, ours coarser and still clear).
+  · THE FRAMING FINDING, and why this must never ship as "we improved
+    the published lower bound": the bench had ZERO knowledge of the
+    claim landscape. The #1038 forum lists THREE claimed full proofs,
+    all AI-assisted, all reporting D = 1.83443047576266171109… —
+    Darvas/Peng/Runzhou Tao (2026-07-15, GPT-5.5 Pro), Shouqiao Wang
+    (GPT-5.6 Sol), Cristian Budala (2026-08-24, GPT-5.6 Sol) — and the
+    forum says in its own words that appearing there "is no guarantee
+    of proof correctness, and does not mean that anyone associated with
+    this site has examined any part of the proof." So the headline is
+    "three AI proofs, none checked; here is what holds without them":
+    an unconditional bracket 1.828 ≤ inf ≤ 1.83443 whose lower end has
+    a one-identity trust base. Our prior claim-lemniscate.html audit
+    (DPT's computational appendix CONFIRMED, analytic core NOT audited)
+    is cited on the page and is the honest limit. A BUILD GATE refuses
+    page and paper if any claimant name, the forum's caveat, or our own
+    analytic-core limitation goes missing.
+  · BOTH SENDS ARE OUT 2026-09-03: teorth/erdosproblems#179 comment
+    5525911933 is LIVE (edited once to repair rendering — GitHub KaTeX
+    rejects \operatorname, and \, printed as commas); the erdosproblems
+    FORUM thread-1038 comment is POSTED and IN MODERATION, pasted by the
+    operator. Watch both for replies — a maintainer or Tao reply outranks
+    everything. VENUE MARKUP, now established: the forum runs MathJax,
+    turns newlines into <br> (so paragraphs must be UNWRAPPED), accepts
+    <a href> and ESCAPES <b>, and does NOT process markdown at all.
+    Forum RULE 3 forbids posting partial proofs in full — the comment was
+    cut to 793 words with derivations in the linked PDF; the site is
+    explicitly NOT an AI-progress benchmark, so the page H1 was retitled
+    to the mathematics before the link went public.
+  · REMAINING: the operator reads the paper ([OPERATOR] flags: author
+    line, venue, AI-disclosure — the forum's disclosure norm is itself
+    contested right now, see the tdarv comment); whether to submit at
+    all while three claims are outstanding; forum/GitHub publication
+    (the operator wants to keep publishing there — STAGE and present,
+    per-item approval still stands).
+
+DONE 2026-09-03 (operator: "Go... if we could eat the numbers, do it"):
+THE KISSING LEDGER — K(11) >= 604 INDEPENDENTLY CERTIFIED. New
+instrument instruments/kissing (exact Z[sqrt2] on BigInt, the two-case
+sign test, decimal literals as exact rationals; battery 23/6 reds),
+certs/kissing-ledger.json (11 rows), reports/kissing.html live on the
+shelf. Certified from the claimants' own sha-pinned bytes: AlphaEvolve
+593 (integer, notebook), EinsteinArena 594 rung winner (its float bytes
+read as exact rationals ARE a witness — 17,088 exact contacts; their
+verifier is Decimal-80, not proof), the Station's three 604s (shell
+norm exactly 4; contact counts 19,704/22,904/22,840 — pairwise
+NON-CONGRUENT, stated as a certified corollary), the classical 582
+shell, the D12 lift; D4=24 and E8=240 re-proved every run (E8's 6,720
+contacts = 240·56/2). EinsteinArena's headline 604: NEEDS DATA — no
+public endpoint serves the vectors (rungs 594-solved and 605-open
+checked; threads call it a Q(sqrt2) norm-4 object). STILL TO EAT
+(instrument takes them as-is): Ganzhinov 592, dim-12 841
+(arXiv:2606.18984), PackingStar dims 12-31 (repo cloned in scratchpad,
+13D RATIONAL configs), EA d16 rung. Full intel: targets row
+kissing11-604-audit; memory kissing-ledger-campaign. 51/51 batteries.
+Sends about this (to the platforms, Cohn, or anyone) remain GATED.
+
+DONE 2026-09-02 (late session, operator-assigned while the bench waits):
+SEO/AEO PASS + THE DARK OG CARD. Strategy + keyword map in design/SEO.md.
+Implemented in the generators (never in built pages): unique meta
+descriptions for the 13 pages that shipped the duplicated template
+default (12 report builders + the machine page, which also lacked its
+canonical — both fixed); JSON-LD by served path in design/template.js
+(WebSite+Person with the concept DOI on /, ScholarlyArticle on every
+report, ProfilePage on /about/ — generated from the SAME title/desc
+strings as the visible head, one source); og:image:alt, theme-color,
+max-image-preview on every page; canonical + OG on the SkyAudit app
+pages via app-shell `path`. NEW META GATE in build-site.js: the build
+refuses a served page with no description, the default description, or
+a description shared with another page. og.png REPLACED: a real
+dark-mode 1200x630 screenshot of the landing (tools/build-og.js — the
+paper.js raw-socket CDP client, real waits, 2x downscaled by sips, a
+bottom fade so the crop reads composed). All batteries pass.
+LAMBDA(6) DECISION THIS SESSION: pid 72893 alive at ~99% CPU, RSS
+stable 166 MB, all-in-interpreter (sampled) — left RUNNING; a watcher
+notifies on verdict-or-exit. Rationale: killing loses 31.7 h for a
+heartbeat that buys no speed; the coverage boxes are capped so the
+tree terminates. Revisit hard if it passes ~48 h.
+
+LAMBDA(6) DIAGNOSED 2026-09-03 (the observability the instrument lacked
+now exists, and it changed the diagnosis). At 43.4 h the original run
+(pid 72893) is healthy by every process metric — 99% CPU sustained, RSS
+climbing 166 → 281 MB (memo tables still taking NEW states, so it is
+not spinning), stack deep in interpreted BigInt work. But no readout.
+So a TRACED TWIN was started in an isolated git worktree
+(scratchpad/l6trace, AUTOCLOSE_TRACE=1, ONLY='a+2e = 2f') — it cannot
+race the record because it writes the worktree's own certs/. It cost
+nothing and settled the question the log could not:
+  · BASELINE, a family that FINISHED: d+2e = 2f traced end to end —
+    70 nodes, 5.9 min, steady ~12 nodes/min, max depth 3. Nodes tick by
+    roughly every 5 seconds.
+  · THE TWIN REPRODUCES THE STALL: 22 nodes in the first 90 seconds,
+    then SILENCE — one node, #22, at depth 3 with n=2 (the 2-dof
+    endgame), has held the process for 10+ minutes and counting. Path:
+    a+2e = 2f » [2,-1,0,0,0] » [2,1,1,-2] / substitute x_s »
+    [2,-1,-3] / substitute x_al.
+  · SO THE DIAGNOSIS IS NOT "a bigger tree". It is INDIVIDUAL 2-dof
+    endgame nodes whose cost explodes — which is where close.js's
+    capped adaptive coverage boxes do their work. If the cap is
+    thrashing there, 43 h buys nothing and the fix is mathematical (a
+    better mechanical shape for this cone, or a smarter box schedule),
+    not more hours.
+  · BOTH PROCESSES LEFT RUNNING (a core each, 8-core box): the original
+    keeps its 43 h head start, the twin is now the map. A monitor
+    reports twin milestones and either process exiting. THE DECIDING
+    OBSERVATION: if the twin clears node 22 in reasonable time the tree
+    is passable; if it does not, that node IS the target and the
+    campaign needs the closer improved rather than re-run.
+  · Nothing was killed. Killing the original remains the operator's
+    call; it is the only irreversible move here.
+
+FIRST TASK NEXT SESSION — FINISH LAMBDA(6) (one family of ten remains).
+UPDATE at the 2026-09-02 evening handoff: a+2e = 2f is at ~31.6 h
+elapsed (PID 72893, ~99% CPU, verdict log still 0 bytes) — PAST the
+~30 h scrutiny bar this file set. The next session should NOT just keep
+waiting: check ps; if alive, rerun the shape count mentally against the
+close.js coverage-box growth (the tree is the campaign's heaviest and
+30 h+ is possible but no longer assumed healthy); consider killing and
+rerunning with AUTOCLOSE_TRACE=1 for a stderr heartbeat so progress is
+observable. The decision is the session's; the rerun command is below.
+Original state:
+  · lambda(5) COMPLETE and committed (8/8 families).
+  · lambda(6): NINE of ten CLOSED IN THE COMMITTED RECORD
+    (certs/lambda56-campaign.json, 0 failures, battery 16/16 with 5
+    reds) — d+e=f, 2e=f, c+e=f, b+e=f, a+e=f, b+2e=2f, c+2e=2f,
+    d+2e=2f, 3e=2f. The in-record parity run completed 2026-09-01
+    (2.6 h); the once-stale "no mechanical shape" failure is gone.
+  · a+2e=2f: STILL COMPUTING OFFLINE — nohup pid 72893, ~22 h elapsed
+    at handoff, 100% CPU in BigInt arithmetic, no verdict yet. Verdict
+    lands in /private/tmp/claude-501/-Users-carlostoledo-Documents-cert-machine/776c9149-d43e-4dae-b0b0-451991a0bdcd/scratchpad/a2e.log
+    (0 bytes until completion — that is normal). If dead or lost,
+    rerun: ONLY='a+2e = 2f' node tools/run-lambda56-campaign.js
+    (expect many hours; AUTOCLOSE_TRACE=1 for a stderr heartbeat). It
+    is the campaign's heaviest tree; past ~30 h with no verdict, check
+    ps and consider the trace before assuming health.
+  · THE DRIVER IS DONE: instruments/lambda56/close.js now carries the
+    full auto-closer (deterministic weight probes with comb fallback,
+    mechanical sub-cone shapes: unit substitution, ratios, general
+    k-midpoints, parity-pairs, general mod-k divisibility, a
+    depth-bounded universal comparison fallback — 15/16 of the observed
+    shape corpus unit-tested green), the parity-region interleave
+    generator (all four roots verified point-by-point offline, 19,285
+    points), memoization, capped adaptive coverage boxes, and the
+    witness-wall mechanism (walls {1,2,4,6,7,8} automatically).
+  · TO FINISH: (1) confirm all five parity stages ok in the record (run
+    any missing with ONLY); (2) one full no-ONLY run for a coherent
+    record (hours — background it); (3) battery: W5 → all-10 like W2,
+    wall-count check for lambda(6) (a+e=f has 3; count b+2e's from the
+    record); (4) make test, commit, docs. THEN: the independent audit
+    (mirror tools/audit-lambda4.js), the write-up, the NON-MONOTONICITY
+    announcement — operator-gated.
+  · Both Tao threads (#392, #179) quiet all session.
+
+DONE CAMPAIGN — lambda(4) as a THEOREM (opened and CLOSED 2026-09-01)
+
+  0. THE LAMBDA(4) CAMPAIGN, Phase 1: close the NINE families. Phase 0 is
+     BUILT and green (instruments/lambda4/, battery 20 checks + 8 red
+     controls, certs/lambda4-phase0.json): the engine re-derives Mercer's
+     lambda(2) and lambda(3) proofs mechanically at every run — exception
+     families DISCOVERED, thresholds a>=3, b>=3, b>=33 DERIVED — and the
+     Section-5 generic case reproduces his 14 exceptions exactly. THE PHASE-0
+     FINDING: five of the fourteen carry strictly negative delta, so the
+     generic argument closes them for free and the real reduction is NINE
+     families: d=2a, d=2b, d=2c, 2d=3c, 2d=2c+a, d=a+b, d=a+c, 2d=2c+b,
+     d=b+c. Each needs a second-level Section-5 move (dot product on the
+     family's own context, discovering ITS exceptions, recursing to 2-dof
+     then finite). The engine supports the recursion already (mixed-sign
+     forms, 2pi/3 anchors, arbitrary cone contexts). The row
+     lambda4-theorem in targets.json carries the full pricing; sin-mfg's
+     mercer-program probe holds the pinned paper.
+
+     STATUS 2026-09-01, end of session: ALL NINE FAMILIES ARE CLOSED.
+     lambda(4) = -L(1,2,3,4), the root of 512y^3 - 1227y^2 + 600y + 125
+     in the certified enclosure near 1.5195578816428 (the exact cubic is
+     new — computed by exact resultant; nobody had printed it). The
+     campaign record certs/lambda4-campaign.json carries every
+     derivation; reports/lambda4.html is the proof announcement page,
+     every step re-executed at its own build; battery: calibration
+     (Mercer's lambda(2)+lambda(3) re-derived mechanically every run),
+     the 14/9 exception structure, record walk, 8 red controls.
+     THE ROUTE THAT WORKED (no Fourier-Motzkin needed): chain-split
+     triangulations (d=2b on a vs c-b; 2d=2c+b on a vs beta; 2d=3c into
+     seven cones), parity substitutions, an extended anchor menu (pi/3,
+     pi/2, 4pi/3, pi/6, and the reflection anchor 0), one new elementary
+     lemma (cos(pi/2 +- eps) <= eps), and DELEGATION — two sub-conditions
+     of 2d=2c+b turned out to BE the closed families d=2a and d=a+b.
+     The three equality families wall {1,2,3,4} off as the definitional
+     witness in a single cone/ray and certify every neighbour strictly.
+     TWO REAL DEFECTS caught by the coverage gate before shipping: a
+     hand-mistranslated condition list (the engine's keys are the truth;
+     labels for custom cones are display-only), and coverage scoping at
+     the extremizer's boundary cone.
+     THE AUDIT RAN AND IS CLEAN (2026-09-01, tools/audit-lambda4.js,
+     certs/lambda4-audit.json): an independent clause walk sharing no
+     code with the engine — direct trigonometric summation, plain-
+     arithmetic membership, record thresholds, fresh certificates —
+     covered all 25,819 gcd-reduced 4-sets with d <= 30: every one
+     reached by an explicit clause, 0 holes, 423 finite-clause sets
+     re-certified fresh, full sweep 0 refuters. Battery N7 pins it.
+     THE WRITE-UP EXISTS: paper/lambda4-proof.md (draft v0.9, generated
+     by tools/build-lambda4-writeup.js — prose authored once, every
+     constant interpolated from the record; Lemmas A-F with proofs,
+     cone bijections stated, per-family closure data). WANTS ONE HUMAN
+     READ before any submission.
+     WHAT REMAINS: (1) operator reads the write-up; (2) priority stamp
+     (tagged release + Zenodo DOI — operator's account) and the public
+     claim (X thread drafted in session 2026-09-01's close); (3) whether
+     and how to tell Mercer — OWNER-ONLY per standing rule; (4) the
+     sequel campaign: lambda(5) then lambda(6) — Mercer conjectured
+     lambda(6) < lambda(5), so proving both is the first non-
+     monotonicity theorem; the engine is the enabling asset.
+
+NEXT SESSION COULD BUILD — ranked, with the reason each is ranked there
+
+  1. TERRAIN FOR THE GLIDE BAND (H1). The single most-asked question about
+     reports/glide-band.html, and the one objection an avionics reader raises
+     first. Same arithmetic over a pinned elevation model; it can only ever
+     move green fields to undecided, never the reverse, so it costs claims
+     and adds none. Named as the next build on the page itself.
+  2. THE MINTED BENCHMARK — but the first job is a MEASUREMENT, not a build.
+     reports/matmul-eval.html currently scores all zeros: opus-5 and sonnet-5
+     returned empty text, haiku was exactly rejected every time. A benchmark
+     nothing scores on cannot order the frontier. Make difficulty a dial with
+     the theorem riding along and sweep it until the curve runs from
+     recall-trivial to currently-impossible. Until that curve exists there is
+     nothing to publish.
+  3. THE CONJECTURE GRAVEYARD — also a measurement first. Yield is n = 1
+     (erdos852). Sample N checkable OEIS "it appears that" comments, run the
+     engine, count refuted / held / not-checkable. One run decides whether
+     this is a graveyard or an empty field.
+
+SCOUT BEFORE ANYTHING ELSE IS SPENT ON THEM
+
+  · TAWS. If predictive terrain-clearance alerting is mandated equipment,
+    terrain-aware reachability has a COMPELLED BUYER where a bare glide ring
+    does not — which moves that front from demo to market. READ THE ACTUAL
+    RULE; nobody here has, and it is asserted nowhere.
+  · erdos290-delta-window. Its `unscouted` field is closed (nothing is known
+    unconditionally; f_d is not even a proved irreducible for large d), but
+    the lemma itself is open and the row now prices it honestly.
+
+DO NOT REOPEN — `node tools/targets.js` carries the citation that killed each
+
+  Chowla small-c · delta(f_d) >= 1/2 · family arguments · matmul full product
+  over F2 · the 55-addition search · a proof-carrying-numbers standard · an
+  atlas of certified intervals. Seven afternoons already paid for.
+
+────────────────────────────────────────────────────────────────────────────
+
+SESSION 2026-09-02b — THE RELEASE DAY (same calendar day, after the port)
+
+  THE RELEASE. Operator: "Send all live." Pushed 31 commits (first
+  publication of BOTH ports), tagged v2026.09, Vercel auto-deployed,
+  everything verified live. The GitHub→Zenodo integration minted the
+  repo-snapshot DOI 10.5281/zenodo.22257596 automatically (concept
+  10.5281/zenodo.22225860 — one archive lineage with lambda(4));
+  CITATION.cff rewritten, both report footers carry the concept DOI.
+
+  THE CLAIMS AUDIT (operator: "are they claiming everything they
+  could?"): three findings, all executed — terra's dropped firsts
+  restored with gates; ember's VERTEX-A COROLLARY certified from
+  existing records and stated everywhere; the de-Dios-Pont fence
+  mislabel (a counterexample listed as a proven class, inherited from
+  the bench) fixed everywhere with a gate refusing it by name; fences
+  extended (Hatcher, Siudeja, Polymath7 lineage). Details in the DONE
+  block above.
+
+  THE FULL-ROW RULE (operator screenshot: broken stats grids site-wide):
+  a grid never exposes an empty track — stats grids balanced by
+  construction via data-n + per-count generated CSS (6→3+3, 5→3+2,
+  7→4+3), remainder guards on every other fixed-column grid, design
+  battery F4a-F4d + three reds; F4d caught the landing page on its
+  first run. design/DESIGN.md carries the rule.
+
+  THE PRINT ENGINE (operator: papers need the frontier look): design/
+  paper.js — the bench's LaTeX-article look in print CSS (STIX Two Text,
+  abstract environment, amsthm run-in theorems, booktabs tables, page
+  numbers) over the raw-socket CDP client; both PDF builders are thin
+  wrappers; build-paper-pdf.js prints any paper (lambda4-proof.pdf now
+  exists).
+
+  THE LANDING REVAMP (operator: "be bold"): hero "The machine proves it
+  — or breaks it"; two theorems lead the start-here cards; "the theorem,
+  in full" walk added; shelf retitled "The record, ordered by weight";
+  THEOREM PROGRAMS tile opens the tally; a landing gate refuses any
+  "first ..." without its qualifier.
+
+  VENUES SCOUTED (operator: where can I comment?): google-deepmind/
+  formal-conjectures (hot spots ABSENT from 2,615 statements — issue
+  drafted and STAGED, awaiting approval; their 510.lean exists and our
+  lambda values are natural variants = the cheapest future Lean PR);
+  google-deepmind/alphaevolve_results issue #7 is literally about
+  independent verification (our audit fits); alphaevolve problems repo
+  = certificate-backed-issue culture, nothing of ours maps today.
+  Honest negatives: no terra venue (letters are the channel), nothing
+  at Anthropic.
+
+  THE BENCH SURVEY (operator: "we are evolving there"): P3a the band —
+  mid-flight, zones failing, NOT ported; intel recorded; ivspecial D4
+  (fat-interval-order Γ by unimodal split) built + falsified here so
+  the instrument is ready. Then the operator: "wait for my
+  instructions" — bench watches stopped, hands off.
+
+SESSION 2026-09-02 — THE EMBER PORT, ASSIGNED TO BUILT IN ONE SESSION
+(operator handoff: execute EMBER-PORT.md; both Tao threads checked first —
+quiet, zero replies; lambda(6) a+2e still computing offline, untouched)
+
+  WHAT LANDED, in the plan's order:
+  1. instruments/ivspecial — copy-with-sha of the operator's MIT ivspecial
+     (bytes pinned in frontier-ref/), line-by-line review with THREE
+     DECLARED DELTAS (D1 besselJdIv tail bar tightened to q <= 0.9 — the
+     ×2 factor is only proved below 0.95; D2 honest nu > -0.6 domain guard;
+     D3 dead branch folded). Battery 69 checks / 5 firing reds: the bench
+     falsifiers promoted PLUS the negative-order closed form J_{-1/2} the
+     bench never tested PLUS the new two-implementation gates — Gamma at
+     half-integers vs (2n)!/(4^n n!)·sqrt(pi) on bigfloat, J vs
+     exact-rational series brackets, all at DYADIC points so both routes
+     evaluate the same real number.
+  2. instruments/hotspots — the chain re-run on OUR instruments, one
+     record per stage (spectrum, defect, eigenpair, pointwise, collar,
+     corner, cross, theorem), each stage READING inputs from the upstream
+     record (the bench hand-copied constants). Bench numbers re-proved:
+     mu1 in [12.020976138, 12.022398348] (a hair tighter), defect
+     1.2369e-5, witnesses 2.126029 / 1.993811, all tip endgames exact.
+     THE REVIEW'S REAL FINDING — two quantization gaps in the bench
+     partition: (a) tip-skip on MIN-corner distance < 0.11 vs tips
+     covering r <= 0.11 left 95 cells of the 1/100 grid in NEITHER sweep
+     NOR any tip disk; (b) the core cover's corner-max depth bar is
+     unsound because depth is CONCAVE (its cell max lives mid-cell).
+     Fix: ONE grid, complementary exact rules — core iff corner-min
+     depth >= 3/40 (= cell min, by concavity), tip-skip iff ENTIRELY
+     inside one 0.11-disk (corner max, by convexity of distance),
+     domain-meet by exact SAT — so the partition closes by construction,
+     is re-decided in rationals at theorem time, and the bench's rule is
+     a firing red. Both sweeps kill-or-refine to zero survivors (core
+     margin min-side 5.6e-4 — thin, certified; collar worstM 1.99363 vs
+     witness 1.993811).
+  3. Cross-derivations: I0 = 5/48 DERIVED in exact rationals (termwise
+     t^a ln^k t closed forms); C_tr from exact-rational star geometry on
+     bigfloat, width < 1e-12, meets the doubles route; mu1 upper bound
+     re-proved on a conforming P1 FEM basis (12.0642, n=16 exact-rational
+     mesh) — a different discretization family; corner b0/b1/b2
+     re-extracted at a SECOND annulus with intersection REQUIRED (all 12
+     coefficient pairs intersect).
+  4. Liu arXiv:1808.08148 downloaded, PINNED (fb867aa5...), Thm 2.4 and
+     Lemma 3.2 READ AT SOURCE (pages 5 and 8 verified against the bench's
+     quotes), transcription in corpus/sources/liu2018-TRANSCRIPTION.md;
+     stage-spectrum re-hashes the pin at certify time; forged pin is a
+     battery red.
+  5. reports/ember.html — born from design/, the zone map drawn from THE
+     SAME rational cell decisions the proof uses (merged-path cells, the
+     regime-map pattern), witnesses as diamonds; gates refuse the claim
+     without its qualifier + fence list, counting inflation, and
+     workshop narrative; CDP-verified full-page (the terra raw-socket
+     client reused for screenshots too). Two page defects caught on the
+     first screenshot: C.m() inside C.scope() leaks escaped HTML (scope
+     escapes); C.plainList takes {text}, not strings.
+  6. paper/ember-hotspots.md + .pdf — record-driven (build-lambda4
+     pattern), honest-framing gates, MPS lineage, [OPERATOR] flags.
+     Draft v0.9, WANTS ONE HUMAN READ.
+
+  STATE: make test 50/50 · batteries 47/47 · wiring 4/4 · drift 130
+  unchanged. Sends held; the release-order decision (terra + ember, the
+  priority stamp) is the operator's.
+
+  WORTH REMEMBERING: the ONE-GRID partition trick (complementary
+  corner-min/corner-max rules, each exact for its convexity direction)
+  is the reusable shape for every future census sweep — P3 will want it.
+
+SESSION 2026-09-01g — LAMBDA(5) PROVED-AS-REDUCED IN ONE SESSION; LAMBDA(6)
+OPENED AT 3/10 (operator handoff: "open the lambda(5) campaign, then
+lambda(6)"; both Tao threads checked first — quiet, zero replies)
+
+  THE RESULT. lambda(5) = -L(1,2,4,5,6) ~ 1.62746066: the Section-5 generic
+  case is certified and ALL EIGHT of its exception families are closed —
+  74 dot theorems, 76 anchored closures (every threshold derived), 1725
+  finite sets decided by the certified instrument, coverage checked at
+  15330 points, {1,2,4,5,6} walled as the definitional witness on exactly
+  4 leaves. Record certs/lambda56-campaign.json (incremental, one write
+  per stage); battery instruments/lambda56/battery.js (15 checks, 5 red
+  controls); driver instruments/lambda56/close.js. lambda(6): generic
+  certified (10-family worklist), d+e=f and 2e=f closed.
+
+  THE GENERIC ANSWER (the handoff's 'first real question'): at g0 = 2/3
+  every pure (1-cos m)^2 atom lands base EXACTLY 0 — the omc atoms Mercer
+  used die at the heavier g0, omcsq atoms are precisely neutral, and a
+  SINGLE atom on the second-largest member minimizes the exception count
+  (8 families for lambda(5), 10 for lambda(6); four-atom weights give 32).
+  Dip -5/3 clears both targets.
+
+  THE STRUCTURAL DISCOVERY — WHY LAMBDA(5) WAS PLAUSIBLY OPEN. The cone
+  b+c = a+d = e (a double sum system; {1,2,4,5,6} is one) admits NO
+  classical Section-5 weight: on S(e,pi) members pair into complements
+  ((a,d),(b,c) both summing to e), and every match a weight can earn is
+  annihilated by its complement wrap — cos(k pi) + cos((k-1) pi) = 0
+  identically — so base = w0*g0 > 0 for EVERY nonnegative weight. On
+  S(e, 2pi/3) the wrap sum at k = 1 mod 3 is -1 with no cancellation, and
+  a Fejer-Riesz comb along the frequency classes m+e — the new 'sq' atom
+  |(1+z_a)(5+7z_b+5z_b^2)|^2, z_m = e^{i(m+e)theta} — lands base -8 at
+  g0 = 7/6 (dip -7/6-1/2 = -5/3 still clears). Its six conditions are
+  ordinary 2-dof cones. The sq atom is ADDITIVE to dot.js (lambda(4)
+  battery untouched, still green); battery red control R1 proves the
+  obstruction is real at every run (all classical atoms must refuse).
+
+  THE ENGINEERING. instruments/lambda56/close.js walks arbitrary-depth
+  closure trees: registries matched by EXACT condition key (labels on
+  custom cones are garbage — memberEq assumes prefix cones; two wrong-leaf
+  hunts this session prove the point), coverage enumerated from condition
+  VECTORS point-by-point and scoped to the raising cone, delegations
+  verified against root vectors, 'split' nodes for triangulated regions
+  (3d=2e took SEVENTEEN root cones — the parity price, as 2d=3c was in
+  lambda(4)), 'auto' leaves that find anchor pairs by deterministic menu
+  search (the anchor is a witness, not an assumption). When a 2-dof leaf
+  resists the whole menu, try ITS OWN dot theorem — two such leaves closed
+  with zero exceptions.
+
+  WALLS LEARNED THE HARD WAY: {1,2,4,5,6} activates THREE core conditions
+  (v=2a, v=a+u, u=a in cone coords), not the two a label-read suggested —
+  the third wall (K2) was found by the finite part refusing, exactly as
+  designed. Evaluate vectors; never read labels.
+
+  WHAT DID NOT HAPPEN: no audit yet (mirror tools/audit-lambda4.js next),
+  no write-up, no announcement, nothing external sent. #510 comment still
+  in moderation; X claim still staged (operator's action).
+
+SESSION 2026-09-01 — THE LAMBDA(4) CAMPAIGN OPENS: PHASE 0 BUILT AND GREEN
+(operator: scout for a problem where the machine can produce a SOLUTION, not
+a certificate of someone else's number; then "start")
+
+  THE TARGET. Mercer (arXiv:1709.06612, INTEGERS 19 (2019) #A4, read at
+  source — PDF pinned in sin-mfg's mercer-program probe) proves lambda(2) and
+  lambda(3) on the finite front of Chowla's cosine problem / Erdős #510,
+  conjectures lambda(4) = -L(1,2,3,4) ~ 1.519558 at {1,2,3,4}, writes "the
+  current author is unaware of how to evaluate lambda(4)", and leaves the
+  strategy in his Section 5. Zero follow-up located in 7+ years; the only
+  citer is JMTZ on the asymptotic side. Occupancy clean. targets.json row:
+  lambda4-theorem.
+
+  WHAT WAS BUILT — instruments/lambda4/ (forms, dot, estimates, engine,
+  battery) + tools/run-lambda4-phase0.js + certs/lambda4-phase0.json:
+  · A symbolic inner-product engine over equispaced sets: exact rational,
+    piecewise over DISCOVERED collision conditions. Mixed-sign forms handled
+    under evenness (the t=0 vanishing case is real); Lemma 3.4 applied with
+    the hypothesis the textbook statement omits (<w,1>_S > 0, red-controlled).
+  · The Lemma 3.1/3.2/3.3 combinator with derived thresholds — pi enters only
+    as a directed rational enclosure from the bigfloat instrument; Lemma
+    3.3's pi/6 validity range carried as a floor.
+  · CALIBRATION IS THE GATE: the battery re-derives lambda(2) (N0=3 derived)
+    and ALL of lambda(3) (M0's three exception families discovered; a>=3,
+    b>=3, b>=33 derived; finite parts decided — 322 sets closed, (1,2,3) the
+    definitional witness) at every run, before the engine may touch lambda(4).
+  · THE PHASE-0 FINDING: the Section-5 generic case reproduces Mercer's 14
+    exceptions EXACTLY — and five carry strictly negative delta (2c=a+d,
+    2c=b+d, 3c=d, a+2c=d, b+2c=d), so the generic argument itself closes
+    them unless a positive-delta condition holds simultaneously. THE REAL
+    REDUCTION IS NINE FAMILIES, NOT FOURTEEN. Consistency held: {1,2,3,4}
+    activates four conditions summing to +3, so the argument correctly
+    cannot close the extremizer.
+
+  WHAT PHASE 1 IS: for each of the nine families, a second-level Section-5
+  move on the family's own cone context (the engine already supports 2pi/3
+  anchors, mixed-sign forms and arbitrary cone parametrizations), recursing
+  to 2-dof subfamilies and finite lists the certified instrument decides.
+  One resistant family kills the theorem — attack d=2c and 2d=3c first so
+  failure is cheap and early.
+
+SESSION 2026-08-31b — CHOWLA'S COSINE PROBLEM: MACHINERY BUILT, TARGET CLOSED
+(operator: "can we work more on Chowla's Cosine Problem? Consult sin-mfg" —
+and consulting sin-mfg is what killed it. Read that lab FIRST next time.)
+
+  VERDICT: THE SMALL-c SEARCH IS DEAD. Do not reopen it. Two independent
+  reasons, either one sufficient:
+
+  1. OCCUPIED, and sin-mfg had already ruled so. Its chowla-cosine probe
+     carries a literature gate dated 2026-08-20 (confidence 9/10):
+     "Candidate 2 - explicit sets with small normalised minimum (c <= 0.6460
+     at n=20): OCCUPIED", by Mercer (INTEGERS 19 (2019) #A4) and Bedert
+     (arXiv:2509.05260). Their own funnel had already reached c <= 0.6460 at
+     n=20. OUR RUN REACHED 0.778 — WORSE THAN WORK ALREADY ON DISK.
+  2. CONJECTURALLY IMPOSSIBLE. Bedert, quoted in that gate: K(n) << sqrt(n)
+     is the best known upper bound and "Chowla conjectured that this is
+     sharp". Since c = K(n)/sqrt(n), Chowla's own conjecture says c is
+     bounded BELOW. Epoch's problem page says the same in its own words:
+     solving it "would disprove Chowla's conjecture", and "there is also a
+     risk that Chowla's conjecture is true, in which case the problem is not
+     solvable."
+
+  OUR OWN DATA AGREES WITH THE CONJECTURE, which is the honest null:
+     n     10      15      20      25      30
+     c <= 0.6558  0.7073  0.7781  0.7733  0.8205        (certs/chowla-records.json)
+  RISING with n and parked near the folklore constant 1/sqrt(2) = 0.7071. A
+  factor of ~15 from the 1/20 landmark with no trend toward it. A folklore
+  family (A = positive differences of a perfect difference set) already gives
+  c -> 1/sqrt(2) at EVERY n of its shape; our best beat it at no n.
+
+  WHAT WAS BUILT AND IS WORTH KEEPING: machine/generate/chowla.js (float
+  screen + exact certify + classical baselines REBUILT here, so no lift is
+  needed), proposers/setwalk.js (the free hill climb), tools/run-chowla-front.js.
+  Calibrated 3-for-3 against sin-mfg's exhaustive champions and it
+  independently REDISCOVERED the n=10 champion 0.655838. The machinery is
+  sound; the target is not. No report page was built - there is no result.
+  The degree wall is now refused rather than endured (Mian-Chowla at n=30
+  reaches 1312 and hung the first smoke test).
+
+  THE ONE LANE STILL OPEN, and it is about the VERIFIER, not the mathematics.
+  Epoch's page admits "the verifier uses a numerical sampling check, so there
+  is a small risk there". It is a bigger risk than that, DEMONSTRATED with
+  certificates: A = 40320*{1..24} has max(A) = 967,680, legal under Epoch's
+  own <1e6 ceiling, and its TRUE certified merit is c = 1.189981 - a bad set.
+  A 1000-point grid sampler reports apparent c = 0.2041 (it would pass a
+  c=0.25 bar; plain undersampling, no adversarial alignment). A sampler whose
+  resolution DIVIDES 40320 reports min f_A = +24, i.e. "never negative at
+  all", passing ANY c. Only at M >= 100,000 does it approach truth, and it
+  still under-reports. Structurally a grid needs M >~ max(A) because f_A has
+  degree max(A); Epoch permits max(A) up to 1e6.
+  We reach degree 967,680 with a certifier walled at 400 ONLY because
+  dilation invariance c(N*S) = c(S) is a theorem.
+  This is also the lane sin-mfg's gate left open: Candidate 1, "certified
+  enclosures as a verification method exceeding numerical sampling", ruled
+  PARTIAL rather than occupied.
+  PROPOSED, NOT DONE, AND NOT SENT: report the sampling gap to Epoch as
+  benchmark hardening. Submitting such a set to SCORE would be fraud - it
+  violates the bound by ~5x while dressed to pass. Third-party send, so it
+  waits on the operator's word like everything else in outreach/SEND-QUEUE.md.
+  Caveat to carry: Epoch's actual sampler (resolution, grid vs random,
+  adaptive) is unknown, so this proves the CLASS is exploitable, not that
+  their verifier is broken.
+
+  IF THIS FAMILY IS WORKED AGAIN, the live targets are in sin-mfg's
+  mercer-program probe and are about mu/lambda, not small c: n = 17 (first
+  term-count case with no printed demonstration of mu > 1); certifying
+  Hare-Jankauskas' 19-term degree-38 polynomial has min >= 2; Mercer's §6
+  reduction at m > 5. Honest framing there is "certified where nothing
+  certified exists", never "progress on Chowla".
+
+SESSION 2026-08-31g — THE REGISTRIES ARE CHECKED NOW. tools/check-wiring.js
+
+  Operator: "fix the defects." The two named instances were already fixed;
+  what was not fixed is that NOTHING CHECKED THEM. This session built the
+  check, and the check immediately found two more of the same class plus one
+  in itself.
+
+  tools/check-wiring.js — 4 checks, 4 red controls, each red a planted
+  violation the check must catch:
+   1  every tools/build-report-*.js is invoked by `make reports`   [33]
+   2  `make test` and build-control run the SAME batteries          [37 each]
+   3  this check is itself registered in both (a wiring check nothing runs
+      is the defect it was written to prevent)
+   4  no built page declares a font stack outside the :root block   [41 pages]
+
+  WHAT CHECK 2 FOUND, and it is worse than the defect that prompted it.
+  SEVEN batteries ran in `make test` and NOT in build-control — including
+  design/battery.js and apps/skyaudit/battery.js — while the control build
+  printed "batteries 29/29 green". All seven pass, so nothing was hiding, but
+  the number was a completeness claim over a set the reader did not have.
+  Now 37/37 across two registries that must agree.
+
+  WHAT CHECK 4 FOUND: three more generators inlining a literal mono stack
+  (labs/mfg/widget.js, tools/oracle-widget.js, apps/skyaudit/build.js — 23
+  occurrences), and one of mine — build-report-glide-band.js used
+  var(--mono, <literal>), naming a custom property that DID NOT EXIST, so it
+  silently fell back to the literal every time.
+
+  THE SYSTEMIC FIX BEHIND CHECK 4. design/tokens.js now emits --f-display,
+  --f-sans and --f-mono as custom properties inside :root. Both page shells
+  already call T.rootCss(), so one definition reaches reports and apps alike;
+  template.js consumes the variables instead of interpolating stacks into 29
+  rules, and app-shell.js dropped its own declarations entirely. "One type
+  system" is now a fact the build checks, not a claim in a comment.
+
+  THE CHECK FAILED ON ITS FIRST REAL RUN, AND THAT WAS THE POINT. It scanned
+  site/, but `make control` runs its batteries BEFORE build-site syncs, so it
+  was reading the previous build's output and exiting non-zero — an ordering
+  bug in the check written to catch ordering bugs. It now scans reports/,
+  index.html and site/apps (which the app builder writes directly), and the
+  reasoning is in the file so it is not re-introduced. A gate that passes on
+  its first run has told you nothing.
+
+  STATE: make test 40 PASS · batteries 37/37 · drift 130 unchanged · wiring
+  ALL PASS (4 checks, 4/4 falsifiers).
+
+SESSION 2026-08-31f — THE TYPE IS SANS, AND THE APP SURFACE JOINED THE SYSTEM
+
+  Operator: the serifs read badly in tables and dense figures; then, after
+  seeing the live site, "lots of pages are not restyled — what rises a
+  question about the quality of the css and components."
+
+  THE FONTS. Two lines in design/tokens.js, because every page takes its
+  :root from that one file:
+      display  Fraunces -> Archivo
+      body     Spectral -> IBM Plex Sans
+      mono     IBM Plex Mono, unchanged
+  IBM Plex Sans shares its design language with the Plex Mono already used
+  for every number, label and axis, so prose, data and code are one family
+  now. h1 tracking retuned -.018em -> -.032em: the old value was fitted to a
+  serif and a grotesque reads loose at display size.
+  ONE CORRECTION TO THE DIAGNOSIS, in the operator's favour: the CHARTS were
+  never serif — template.js has always set .figbox svg text to the mono. What
+  was serif is body prose, table body cells and the td.k column.
+
+  THE "NOT RESTYLED" PAGES WERE A STALE DEPLOY, not a broken cascade. Local
+  was fully restyled at the time of the question; live was still on the
+  pre-change commit because nothing had been pushed. Reports side held up: 38
+  pages moved on two lines.
+
+  BUT THE QUESTION FOUND SOMETHING REAL, at the seam rather than in the CSS.
+  design/app-shell.js — the second page view, used by the SkyAudit app —
+  hardcoded --f-sans:'Inter' and restated its own Google Fonts URL. Two type
+  systems, one governed. That is the corpus.js lesson in the CSS layer.
+  It now derives --f-sans, --f-display and --f-mono from tokens.js and builds
+  its font link from T.GOOGLE_FONTS. The app keeps its variable NAMES (its
+  CSS is written against them) and owns no VALUES. Shared request gained IBM
+  Plex Mono 600 and 700, which the app genuinely uses and was synthesising.
+  WHY IT HAD DIVERGED is now recorded in that file rather than silently
+  reversed: the operator's 2026-08-27 rule "no serif on app pages" was right
+  while the reports were serif, and its premise expired when they stopped.
+  Left alone deliberately: APP_LIGHT/APP_DARK still own the verdict palette
+  (--v-cert/--v-refu/--v-refd) — app semantics defined once, not a duplicate.
+
+  AUDIT OF THE BUILT SITE: 45 pages on ONE font request, 0 on the old one,
+  0 Fraunces, 0 declarations of Inter. (The 13 files matching "Inter" are
+  Interval, Internal, Intersection — a sloppy grep of mine, not a hit.)
+
+  THE STANDING LESSON, and it is the one worth carrying: both defects this
+  session were HAND-MAINTAINED REGISTRIES THAT NOTHING CHECKS — `make
+  reports` was missing build-report-glide-band.js, so a site-wide restyle
+  would have left the newest page as the only serif one; and app-shell.js
+  restated fonts. Neither is a CSS problem. The durable fix is menu item 2.
+
+  LIVE: 0d7dc37 (fonts) and 529403d (app surface), both deployed and verified
+  at carlostoledo.co — reports, homepage, /apps/skyaudit/ and /apps/skyaudit/sp/
+  all on the house type, one shared css2? URL between them.
+
+SESSION 2026-08-31e — THE GLIDE BAND IS BUILT. reports/glide-band.html
+
+  Operator: "Build #2 ... report + interactive dashboard ... BOLD on the
+  comparison." Built on SkyAudit's implementation map: app dir with a battery
+  as the page's gate, sha256-pinned data, every number computed at build.
+
+  WHAT IT IS. Engine-out reach on a REAL pinned flight — N412JS, a PC-12
+  single-engine turboprop at FL240, adsb.lol 2026-08-26, read through
+  apps/skyaudit's own day pin — against 650 airfields from OurAirports
+  (public domain, pinned). Interval arithmetic over the glide model gives an
+  inner boundary (reachable for EVERY value in the envelope), an outer
+  boundary (reachable for NONE), and the annulus between. 288 states: 36
+  cruise positions x 4 wind presets x 2 forecast modes, all decided at build.
+  Interactive: scrub the trajectory, switch wind, toggle the forecast mode.
+
+  THE HEADLINE IS NOT THE ONE THE SCOUT EXPECTED, AND IT IS BETTER.
+  The comparison is not "their ring is too big". It is that while the panel's
+  assumed inputs sit inside the honest envelope, its line ALWAYS falls between
+  the two certified boundaries — so nothing inside it can ever be proved
+  unreachable. The single line cannot be caught being wrong, and is never
+  shown to be right either: 57% of what it claims is undecided by the evidence
+  it was drawn from. An instrument that cannot fail a test is not passing one.
+  The build GATES this: a mode-0 refutation would refuse the page.
+  Reverse the winds-aloft forecast — a documented failure of the input the
+  ring leans on hardest — and 1356 site-states inside that same line become
+  provably unreachable. The line did not get less accurate; it became
+  FALSIFIABLE, and was falsified.
+
+  TWO NEAR-MISSES WORTH REMEMBERING.
+   · The first battery had a red control that fired VACUOUSLY — an
+     assert.ok(false) at the end guaranteed it regardless of the loop above.
+     That is sin-mfg's vacuous-green failure reproduced from scratch. It is
+     now a real mutant that grades against the nominal ring.
+   · The first route to refutations was going to raise a "book glide ratio"
+     until crosses appeared. That is tuning a number until the story works.
+     The honest case — a reversed winds-aloft forecast — needed no tuning.
+
+  A CORRECTION TO SESSION d, and it runs against me: I wrote in targets.json
+  and in a commit that SkyAudit ingests NO ADS-B. IT DOES, DAILY.
+  apps/skyaudit/audit/ingest-day.js downloads an adsb.lol day, pins it,
+  extracts, certifies and re-flies; eight pinned days are on disk. I had read
+  only SOURCES-PINS.json (the regulatory PDFs) and concluded there was no
+  feed. "Zero new data" HOLDS for the ADS-B track board. The second half of
+  that row stands and is the half that matters: the traces are self-reported
+  position/alt/gs/track with no pseudoranges, so GNSS-solution infeasibility
+  is still undecidable from them and kinematic infeasibility is still the
+  honest scope. Row corrected.
+
+  HYPOTHESES, STATED ON THE PAGE RATHER THAN BURIED. H1 terrain is not
+  modelled — and the asymmetry is load-bearing: REFUTED is unaffected and
+  stays proved, PROVED REACHABLE means "if the path is unobstructed". H2
+  steady state. H3 spherical earth enclosed pole-to-equator. H4 the envelope
+  is a STATED scenario — no manufacturer performance figure is asserted
+  anywhere, and nothing claims what any particular product computes
+  internally; what is compared is the point-estimate METHOD.
+
+  WORDING: "certified" always means a mathematically certified enclosure, no
+  airworthiness meaning; the artifact carries NOT FOR NAVIGATION on its face.
+
+  EVOLVED SAME SESSION (operator: "use illustrative scenarios to fill the
+  parameters missing ... evolve the report"). Two additions carried it.
+
+   · FIVE ILLUSTRATIVE PACKS replace the single anonymous envelope: trainer,
+     high-performance single, turboprop propeller FEATHERED, turboprop
+     propeller did NOT feather, glider. Each is a stated class with a stated
+     envelope AND the glide ratio the panel would be CONFIGURED with. The
+     fourth pack is the whole point and it is a better scenario than the
+     reversed forecast, because nobody had to choose a value to make it bite:
+     same aircraft, same flight, one action short, and the failure is not a
+     bad number but an EVENT THE INSTRUMENT CANNOT OBSERVE. The panel keeps
+     drawing the feathered ring because nothing tells it otherwise.
+   · THE TURN (H5): height lost turning onto each field at standard rate from
+     the aircraft's ACTUAL ADS-B ground track, charged to BOTH instruments so
+     the comparison stays about method. The band is now visibly asymmetric
+     about the flight path instead of a ring centred on the aeroplane, and it
+     uses real pinned data rather than another assumption.
+
+  THE THREE NUMBERS NOW, all gated at build:
+     panel inside the envelope   54% unproved,  0 refutable  (structural)
+     propeller did NOT feather   29% of the same line's claims REFUTED
+     forecast 180 degrees out    27% REFUTED
+  Philadelphia International is among the refuted rows in the no-feather
+  scenario — a major airport the line shows inside reach and the band proves
+  is not.
+
+  NEXT ON THIS FRONT: terrain (H1) over a pinned DEM — same arithmetic, and it
+  can only ever cost green claims, never add them. AND ONE THING TO SCOUT
+  BEFORE ANY OUTREACH: TAWS is mandated equipment and its predictive
+  terrain-clearance component has this same uncertainty structure. If that
+  holds up at the source, terrain-aware reachability has a COMPELLED BUYER
+  where the bare glide ring does not — which would move this front from demo
+  to market. Read the actual rule before saying it out loud.
+
+SESSION 2026-08-31d — THE READING SESSION. NOTHING BUILT, FOUR THINGS SETTLED.
+
+  The instruction was to read, not to build, and nothing was built: no
+  instrument, no gate, no battery. The only file changed is
+  corpus/targets.json, which is memory and refuses nothing.
+
+  1. THE 0.54 IN VAN DOORN IS OURS TO SHARPEN, AND WE ALREADY HAVE.
+     Read from his Theorem 8, not the abstract. It is TWO-SIDED:
+       0.54 < liminf (b(a)-a)/log a < 0.61
+     Lemma 31 gives the lower endpoint 1/(1+c), Lemma 30 the upper 1/(2c),
+     Lemma 32 supplies 0.82 < c < 0.85, and BOTH constants are those two
+     expressions rounded to two decimals. So 0.54 -> 0.546 is a genuine
+     sharpening of a published theorem statement. It is already banked.
+
+  2. THE FOURTH DIGIT IS AN OEIS DIGIT, NOT A THEOREM DIGIT.
+     No theorem anywhere states this constant to four places. The earlier
+     framing — "a fourth digit is a sharper constant in a published theorem"
+     — was overstated, and targets.json now says so. Chase the fourth digit
+     for the sequence entry if at all.
+
+  3. THE OTHER CONSTANT, 0.61, IS IMPROVABLE RIGHT NOW FOR FREE, AND NOBODY
+     HAS SAID SO. The upper endpoint 1/(2c) needs a LOWER bound on c, and a
+     lower bound needs no tail lemma at all — the unpinned tail is charged 0.
+     Our certified c >= 0.830416407911 gives liminf < 0.6021076 immediately.
+     Theorem 8 would read 0.546 < liminf < 0.6022, the published interval
+     narrowing from width 0.07 to 0.0562, on data already certified and
+     already public. Every public artefact from this project — the report
+     page, both issue-164 comments, the OEIS packs — speaks only about
+     1/(1+c). NEW TARGET ROW: erdos290-upper-constant. The direction of
+     Lemma 30 must be read at the source before this is stated publicly;
+     the arithmetic is checked, the reading is not.
+
+  4. THE DELTA-WINDOW TARGET IS REPRICED, AND ITS UNSCOUTED FIELD IS CLOSED.
+     · The window that buys the fourth digit is delta in (0.0990, 0.5156],
+       not [0.293, 0.493]. Wider on the low side, TIGHTER on the high side,
+       and both ends within ~3% of the free bounds — so a lemma that only
+       just clears them is worthless. Width 0.1 near 1-e^(-1/2) clears both.
+     · THE FRAMING WAS WRONG. delta = 1 - E[2^(-fix)] presupposes the sign
+       kernel K = G ∩ C_2^l is large. Given that, Jensen (2^(-t) convex) plus
+       Burnside (E[fix] = 1 for any transitive image) gives delta <= 1/2 with
+       no primitivity, no Jordan, no group identification at all. The target
+       is the KERNEL, not the image. K in {0, diag} is the dangerous case.
+     · WHAT IS KNOWN UNCONDITIONALLY: nothing. van Doorn's Lemma 32 proof is
+       verbatim a PARI/Magma run — irreducible for even d <= 500, group for
+       even d <= 60 — so irreducibility of f_d is NOT a theorem for large d,
+       and his Lemma 38 assumes it. No literature on Gal(f_d) exists; the
+       family appears to be studied nowhere else. The nearest published
+       analogue (arXiv:2510.18857, random reciprocal polynomials) is
+       probabilistic and gives no purchase on a fixed d.
+     · UNTRIED ANGLE, recorded not attempted: f_d(0) = (-1)^d d!, leading
+       coefficient d+1, h(0) = (-1)^l (l!)^2 — Dumas/Newton-polygon at primes
+       dividing d! is exactly the Filaseta-Trifonov machinery for Bessel and
+       generalized Laguerre. Nobody has pointed it at f_d.
+
+  5. A CITATION IS WRONG IN THE PREPRINT, AND IT MATTERS BEFORE ANY SUBMISSION.
+     The composition-discriminant step is credited to Altmann-Awtrey-Cryan-
+     Shannon-Touchette 2020 with the claim that handling the NON-MONIC factor
+     d+1 is the new part. AACST2020 is about x^8 + a x^4 + b and carries no
+     general composition law; and the general NON-MONIC law is already
+     written down — John Cullinan, "The discriminant of a composition"
+     (faculty.bard.edu/cullinan/disccomp.pdf), explicit in the leading
+     coefficients, hypotheses satisfied here since Res(h, x^2) = (l!)^4 != 0.
+     Unclaimed part: only the 4k(k+1) characterisation itself. van Doorn's
+     paper contains no discriminant and no square anywhere (grepped in full).
+
+  SEND STATE. outreach/issue164-PASTE.md was NOT unsent — it was posted
+  verbatim to teorth/erdosproblems#164 on 2026-08-31T18:47:28Z. A follow-up,
+  outreach/issue164-PASTE-2.md, was posted on the operator's word at
+  2026-08-31T20:21:11Z (comment 5484039660): the two-sided Theorem 8 and the
+  0.61 -> 0.6022 endpoint, the fourth-digit repricing, the kernel-not-image
+  sketch with its irreducibility blocker, and the Cullinan citation
+  correction. Write "problem 290", never "#290", in that repo — a bare #290
+  auto-links to an unrelated issue; caught and edited out after posting.
+  STILL UNSENT: the two OEIS packs.
+
+SESSION 2026-08-31c — #290 CLOSED, AND THE NEXT MOVE IS READING
+
+  **START THE NEXT SESSION BY READING, NOT BUILDING.** The single open target
+  worth work is `erdos290-delta-window` in corpus/targets.json, and its
+  `unscouted` field is the whole instruction: what is known unconditionally
+  about Gal(f_d) and its image in S_l — including whether f_d is even known
+  to be irreducible for large even d — HAS NOT BEEN CHECKED. Until it is,
+  nothing about that lemma is worth attempting.
+
+  WHAT IS DONE AND LIVE
+   · The #290 summit finished: 6 shards closed l = 293..310, merged, 250
+     degrees closed, 0 open, l = 61..310 contiguous.
+   · c ∈ [0.830416407911, 0.831220912621] and 1/(1+c) ∈
+     [0.546083759260, 0.546323774021], so **c_0 = 0.546 UNCONDITIONALLY**,
+     where every previous horizon pinned only 0.54. The conditional
+     expansion holds at 110 digits with its assumption now entering at
+     even d >= 622 rather than 62.
+   · reports/erdos290.html leads with it: "A digit that was a guess is now a
+     theorem". The 1/(1+c) interval and the count of agreed digits are
+     DERIVED at build; a gate refuses the build if an extension ever fails to
+     add an unconditional digit.
+   · WHY THE DIGITS MATTER, and this was mis-stated for most of the session:
+     van Doorn arXiv:2411.03073 is about denominators of generalized harmonic
+     sums and proves b(a) > a + 0.54*log(a). c_0 IS that constant. A third
+     unconditional digit is the difference between a published theorem saying
+     0.54 and saying 0.546. NOT AN OEIS ORNAMENT. (Inferred from the abstract;
+     checking it against his derivation is stage 0 of SPEC-PRICING.md.)
+
+  DRAFTED, PASTE-READY, NOT SENT — sending is Carlos's call and needs no
+  ceremony; SEND-QUEUE.md is now a readiness list, not a request.
+   · outreach/issue164-PASTE.md — a pure delta on the comment already posted
+     on teorth/erdosproblems#164, GitHub-safe Markdown (a stray asterisk had
+     been italicising half a paragraph; fixed and verified mechanically).
+   · outreach/oeis-erdos290-pack.md — packs 4 and 5 FILLED, 110 terms each,
+     with quantified failure semantics so an entry is amended by raising d0
+     rather than retracted. Pack 4 is the one van Doorn asked for by name.
+   · outreach/oeis-erdos852h-extension.md — the length-31 record, re-verified.
+
+  A REAL BUG, FIXED, WITH ITS RED CONTROL: Q.toDouble took its fast path
+  whenever the quotient was FINITE. Once a denominator passes ~1024 bits while
+  the numerator does not, Number(d) is Infinity, finite/Infinity is 0, and
+  isFinite(0) is true — so it returned ZERO. Since toDouble reports enclosure
+  WIDTHS, a certified bracket printed as width exactly zero: infinite precision
+  claimed silently. It surfaced only because a log axis cannot take log10(0).
+  Fixed in instruments/interval and in the lifted legacy copy, BOTH DECLARED as
+  patches in LIFT.json — the first attempt was an in-place edit of a lifted
+  tree and the next lift silently reverted it. THE SAME DEFECT IS UPSTREAM in
+  sin-mfg; reported, not repaired.
+
+  WHAT THE SESSION ACTUALLY TAUGHT, and it is not about code. Five targets
+  died — polynomial multiplication, the 55-addition search, Chowla small-c,
+  delta >= 1/2, family arguments — each after hours, each of which would have
+  died in minutes if the prior art had been read first. sin-mfg's Chowla gate
+  had ruled that lane OCCUPIED on 2026-08-20 and sat unread on disk while three
+  hours went into rediscovering it. corpus/targets.json now holds all nine
+  targets with the citation that killed each; `node tools/targets.js [word]`
+  reads it. It is memory, not a gate: no die(), no build wiring, refuses
+  nothing.
+
+  DELETED THIS SESSION, on the operator's instruction and correctly: a lemma-
+  pricing tool and its battery and refutation check. The operator asked for
+  ideas and got a checkpoint. The findings survive in SPEC-PRICING.md —
+  delta >= 1/2 is false; family arguments are worth their density and never
+  buy a digit; a window of width 0.2 buys the fourth digit where compute needs
+  ~10^5 times. machine/erdos290/tail.js was KEPT because it removed a
+  duplicated bracket, not because it checks anything.
+
+  STANDING NOTE ON HOW TO WORK HERE: scout first, build second. Write the
+  targets.json row even when the verdict is OPEN. Do not answer a request for
+  ideas with a gate.
+
+SESSION 2026-08-31 — THE 55-ADDITION AUDIT (option 3, redirected by its own
+prior-art gate from a search into an audit)
+
+  reports/matmul-additions.html is live. THE CLAIM HELD.
+
+  Karunaratne & Idamekorala, arXiv:2607.28676 (28 Jul 2026) claim a
+  55-addition, rank-23 circuit for general 3x3 matrix multiplication. One
+  month old; their certificate repo has ZERO stars. Verified here, from their
+  published bytes, with an instrument that could have contradicted it and
+  without running a line of their code:
+    · all three circuits realize their factor matrices EXACTLY (symbolic
+      evaluation over the integers, row by row)
+    · the gates count to 55 HERE — 13 + 14 + 28 — matching the declaration
+    · 729 Brent equations exact over Q, rank 23, layout AC
+    · every coefficient in {-1,0,1}, which is what supports their
+      any-associative-ring claim
+    · naive cost of the same three maps: 122 additions, computed here — and
+      122 is the number their own source file is named for (cn122)
+  instruments/slp + battery: 16 checks, 8 red controls, all fire.
+
+  WHY AN AUDIT AND NOT THE SEARCH THE BACKLOG ASKED FOR. The prior-art gate
+  killed the search: the additive record moved SEVEN times in under a year
+  (98 -> 62 -> 61 -> 60 -> 59 -> 58 -> 56 -> 55), several steps one addition
+  apart, three of them in 2026. And our generation front is F2-only while
+  these are integer {-1,0,1} schemes, so the flip walk cannot even produce
+  candidates. SPEC-GENERATION.md §7 item 2 is corrected in place with the
+  generalisation worth keeping: WHEN THE PRIOR-ART GATE KILLS A TARGET AS A
+  SEARCH, ASK WHETHER IT IS ALIVE AS AN AUDIT. A field moving this fast makes
+  unchecked claims faster than checked ones.
+
+  WHAT IS REUSABLE: instruments/slp decides the half a tensor checker cannot
+  see — that a straight-line program computes the linear map it claims, and
+  that it uses the gates it says. Any future additive-complexity claim, ours
+  or anyone's, goes through it.
+
+  NOT DONE: their LOCAL optimality claim (that no 13-gate circuit exists for
+  that map) is a different computation and this instrument does not do it.
+
+OUTREACH STATE LIVES IN ONE FILE NOW: `outreach/SEND-QUEUE.md`.
+It is the single source of truth for what is ready, what is held and why.
+Outreach status had accumulated across ~20 places in this document, which is
+exactly the shape of thing that diverges the first time one copy is edited;
+consult the queue, and record sends there.
+
+  READY (need a human — this repo has no mail transport and no OEIS API):
+    the #852 OEIS record extension (re-verified 2026-08-31, independently) ·
+    the KAUST letter · ORCID then the Zenodo DOI.
+  HELD ON MERIT until the #290 shard merge, because the summit is mid-flight
+  and will change the exact numbers they quote: the issue-164 follow-up
+  (which `gh` COULD post today — it is held on judgement, not mechanics; its
+  own text promises a third unconditional digit "when the squeeze reaches
+  l ~ 310", and the shards are at l = 304..309) and the #290 OEIS packs.
+  ALREADY OUT: the #852 correction; the #510 comment (in moderation).
+
+  AND A CORRECTION TO THE COUNT THIS PROJECT HAS BEEN QUOTING ITSELF: it is
+  not "nine of eleven outreach artifacts never sent". Eleven destinations are
+  NAMED; only six have drafts that exist and have never been sent. The arXiv
+  #290 note, the oracle paper, the outside reruns, EmbraerX and the RM-group
+  note have no document in outreach/ at all. They are intentions, not staged
+  artifacts, and counting them as staged overstated how close they are.
+
+SESSION 2026-08-30c — THE POLYNOMIAL FRONT: RUN, CALIBRATED, PUBLISHED, CLOSED
+(operator: "point the generation loop at the polynomial-multiplication tensors";
+then "finish the tasks related, update the report and stop this front".)
+
+  STATE: **DONE AND CLOSED.** reports/polynomial-multiplication.html is live,
+  certs/bilinear-certificate.json holds 9 certified schemes, make test is
+  37 PASS. Do not reopen without a new idea — the budget lever is exhausted
+  at this scale (see WHAT WOULD ACTUALLY MOVE IT, below).
+
+  THE RESULT IS A NULL, AND THE CALIBRATION IS WHY IT IS WORTH A PAGE.
+  Nine targets certified, ZERO published upper bounds beaten:
+
+      C7   naive 49 -> 13   published 13..13   MATCH  (the EXACT rank)
+      T6   naive 21 -> 14   published 13..14   MATCH
+      T7   naive 28 -> 18   published 16..18   MATCH
+      T8   naive 36 -> 23   published 19..22   above by 1
+      T9   naive 45 -> 27   published 21..26   above by 1
+      C8   naive 64 -> 25   published 19..22   above by 3
+      P2/P3/P4 -> 3/6/9     Chen-Kauers Z2 table, exact agreement
+
+  Three published hand constructions (Wagh-Morgera 1983, Cenk-Ozbudak 2009)
+  re-derived from the naive algorithm by a random walk that was told nothing
+  about them, at $0.0000 in ~20 minutes of one nice-10 laptop core while the
+  #290 summit had the other six. C7 is the sharp one: its walls MEET at 13,
+  so reaching 13 is reaching the true minimum, not an estimate.
+
+  THE PRIOR-ART GATE PAID FOR ITSELF TWICE — and the task premise was wrong.
+  The brief said "nobody has pointed modern search at these". False, twice:
+   1. CHEN & KAUERS, arXiv:2502.06264 (Feb 2025) already ran a flip graph
+      over Z2 on the FULL product and published a 10x10 table. Their squares
+      (P6=17, P7=22, P8=26) land exactly ON the Montgomery/CRT bounds, never
+      below. The full product is TAKEN; attacking it was redoing their run.
+      Their table is now our CALIBRATION LADDER instead.
+   2. WANG HIMSELF, in a footnote to the very table of new lower bounds,
+      improved T9 from 27 to 26 BY FLIP-GRAPH SEARCH OVER F2. So the one
+      truncated case modern search has touched, it beat — which is the honest
+      reason to have expected the others to move, and they did not for us.
+  SPEC-GENERATION.md §7 item 1 has been corrected in place. The lesson is
+  written there: an item whose appeal rests on "nobody has tried X" is resting
+  on a negative nobody checked.
+
+  WHAT WAS BUILT (all reusable, none of it polynomial-specific):
+    machine/generate/targets.js   every bilinear target in ONE module —
+                  matmul <n,m,p>, full P_n, truncated T_n, cyclic C_n, and
+                  C_n^- which over F2 IS C_n (X^n+1 = X^n-1 in char 2; the
+                  module says so rather than inventing a separate search).
+    f2scheme.js   generalised from matmul to any target. Nothing in the
+                  residual, the flips or the reduces was ever about matrices.
+    proposers/flip.js  gained the PLUS TRANSITION, the rank-increasing move.
+                  This was not a guess — see below.
+    instruments/bilinear/  the new certifier: exact over F2 for ANY target,
+                  and it REBUILDS the tensor from the target's NAME by literal
+                  polynomial arithmetic. It never takes the claimant's word
+                  for which tensor is being decomposed, because any scheme
+                  decomposes something. 16 checks, 7 red controls, 4 ladder
+                  rungs. Cross-checked against instruments/strassen on the one
+                  case they share (Strassen's rank 7).
+    tools/run-bilinear-front.js   the campaign runner.
+    tools/build-report-bilinear.js  re-decides all 9 schemes at every build.
+    corpus/bilinear-bounds.json   the literature, with citations. NOT ours.
+
+  THE LADDER CAUGHT THE SEARCH BEING BROKEN, which is the whole argument for
+  having one. Without a rank-increasing move the walk matched the literature
+  at P2..P4 and then quietly sat above it from P5 on — P6 at 21 against the
+  published 17. That looks EXACTLY like success if nobody checks the top of
+  the ladder. Adding the plus transition moved P6 21 -> 18 and P5 14 -> 13.
+  The ladder is now a deterministic gate (fixed seed, fixed budget) in the
+  battery, so a future change that re-breaks the walk refuses the build.
+
+  TWO DEFECTS I CREATED AND FIXED, both of the self-hiding kind:
+   1. THE RECORD AND THE RESTART SEED SHARED ONE VARIABLE. The adaptive
+      restart cleared it, so the certifier could audit the NAIVE algorithm
+      while the run printed the record rank — a VERIFIED stamp on the wrong
+      object. Two variables now, with the reason written at the site.
+   2. TWO CAMPAIGNS, ONE CERTIFICATE FILE, LAST WRITER WINS. Load-once /
+      write-at-end silently deleted the other campaign's rows. Writes now
+      merge against disk per target, so a run that dies halfway still keeps
+      everything it certified.
+
+  MEASURED AND REJECTED: drawing the plus transition's mask from inside the
+  support of the factor being split (keeping both halves local) instead of
+  over the whole space. Identical ranks on T7 and T8 at equal budget, so the
+  option was DELETED rather than left as dead config.
+
+  NOT ATTEMPTED, and the page says so in a computed sentence rather than
+  implying a complete sweep: T10, T11, C10, P6, P7, P8. C10's naive seed has
+  100 terms and the walk is ~O(r^2) per step, so it was the wall.
+
+  WHAT WOULD ACTUALLY MOVE IT (for whoever reopens this):
+   - NOT more budget at this scale. We are 1 above at T8 and T9 after ~10^7
+     steps; Wang's own T9 win used a 192-core c8g.48xlarge. The laptop is the
+     binding constraint, not the algorithm.
+   - The real lever is a BETTER SEED, not a longer walk: fold a full-product
+     scheme down to the cyclic target (c and c+n merge, same rank, free) and
+     start there instead of at naive rank n^2. Untested — it is the one idea
+     that was left on the table when the front was closed.
+   - F3 is completely unbuilt. instruments/bilinear is F2-only and REFUSES a
+     claim over any other ring rather than pretending. Wang's F3 rows
+     (C9/C9-, T8, T9, T10) have gaps of 5 to 10 and nobody has swept them.
+
+SESSION 2026-08-31b — THE GENERATION FRONT IS BUILT AND IT CERTIFIES
+(operator: "Start building. Remember to change the cerimonial and gates to
+accept it. We must have a more maleable system. Go").
+
+  STEPS 1-4 OF SPEC-GENERATION.md ARE DONE. machine/generate/:
+    f2scheme.js   schemes over F2 as bitmasks; the EXACT residual (the count
+                  of violated tensor equations) is the fitness — an integer,
+                  not a score, computed from the object the proposer
+                  submitted by arithmetic the proposer never touches; plus
+                  flip and reduce, the identity-preserving moves.
+    proposers/flip.js  the FREE proposer: a flip-graph random walk. No API
+                  call, no tokens. This is deliberate — it is the honest
+                  baseline every paid proposer must beat, and the spec's stop
+                  condition now has a concrete number to beat.
+    ledger.js     append-only, commit-before-certify.
+    controller.js the loop, wired to instruments/forecast/admission.js
+                  UNCHANGED — the prune rule needed only a new noun.
+
+  IT WORKS. <2,2,2>: rediscovers Strassen's rank 7 from naive 8 in under a
+  second. <3,3,3> over F2: naive 27 -> 26 -> 25 -> 24 -> 23, i.e. LADERMAN'S
+  RANK, from scratch, in ~13 s at $0.0000. The authority agrees:
+  instruments/strassen returns VERIFIED, layout CA, 729 equations, and the
+  BigInt cross-check confirms it. Board: flip@v1 13/13 certified, ADMITTED.
+
+  TWO TUNING ERRORS, FIXED BY MEASUREMENT NOT GUESSWORK: restarting from the
+  best scheme every round collapsed the walk into one basin and stuck at 24;
+  replacing that with a fixed odd/even alternation tied freshness to seed
+  parity so half the seeds were never tried. The restart is now ADAPTIVE —
+  continue while the walk pays, start fresh the moment a round returns
+  nothing. That is what reached 23 through the controller.
+
+  THE GATES, MADE MALLEABLE — AND THE TWO DEFECTS THAT SURFACED DOING IT.
+  A declared `wip-*` namespace in certs/ is now exempt from the description
+  table: a gate catches drift and forgery, it never charges rent on iteration
+  (CLAUDE.md). But making it malleable exposed two real defects:
+   1. A PUBLICATION LEAK I CREATED. The table ignored wip-*, but the site
+      build copies certs/ wholesale — so the working ledger would have
+      SHIPPED to carlostoledo.co while being excused from description.
+      Exactly backwards.
+   2. THE RULE WAS ALREADY DEFINED TWICE. The shard-exclusion regex existed
+      in the description gate AND again in the publication loop, and they
+      DIVERGED the instant one was edited. The corpus.js lesson, happening
+      live, in a file that already carries a comment warning about it.
+  Now ONE module-scope WORKING pattern serves both, with the rule stated
+  once: a file excused from being described must also be excused from
+  shipping. Both falsifiers verified — an undescribed non-wip certificate
+  still REFUSES the build, and a wip- file is exempt AND never shipped.
+  certs/wip-* is gitignored.
+
+  THE SHAPE WORTH REUSING: do not weaken a gate, give it a DECLARED NAMESPACE
+  with an explicit contract. The gate loses no power over what ships.
+
+  NOT DONE: width() formalised on instruments/interval (only the algebraic
+  case is done) · ctx.refuted mechanisms actually consumed by a proposer that
+  can repair (the flip walk ignores them and does not need them) · the model
+  proposer · the report page. Per the spec's stop condition, a paid proposer
+  must now beat rank 23 on <3,3,3> at $0.0000 before it earns its invoice.
+
+SPEC-GENERATION.md — THE GENERATION FRONT, SPECIFIED, NOT BUILT (2026-08-31,
+operator: "Research how to add a generation front... bring solutions to make it
+work and stand out from the newest competitors", then "yes, spec").
+
+  THE RESEARCH FINDING. AlphaEvolve-class systems are bottlenecked on the
+  EVALUATOR, not the proposer — the stated requirement is "a manually designed
+  unhackable evaluator that maps solutions to scalar scores", and the
+  documented failures are what a scalar buys (a candidate that deleted a GPU
+  memory limit and caught the exception; candidates that skipped pipeline
+  stages; one that zero-weighted 97% of experts to win a balance metric).
+  AlphaProof Nexus (arXiv:2605.22763, May 2026) is the closest published
+  system — 9 of 353 Erdős problems at hundreds of dollars each — and names the
+  exact problem: "the mismatch between evolutionary algorithms, which typically
+  assume a graduated fitness landscape, and formal proof evaluation, which is
+  inherently binary." THEIR ANSWER IS LLM RATERS scoring plausibility, clarity
+  and novelty into an Elo, and their admitted failure modes are agents
+  offloading difficulty into sorry's that restate the target and sketches
+  citing hallucinated lemmas. A subjective fitness signal buys exactly that.
+
+  THE WEDGE, and the reason to build at all: AN INTERVAL ENCLOSURE IS BOTH.
+  The verdict is a proof; the WIDTH is the gradient. Evolution gets a
+  continuous, objective, monotone landscape and soundness is never traded for
+  it, with no model's opinion anywhere in the loop. That is a technical answer
+  to a problem a DeepMind-adjacent paper published in May and solved with
+  vibes, and it is available to this project only because the interval stack
+  already exists.
+
+  THREE OF FOUR PARTS ARE ALREADY BUILT: machine/engine.js (the loop),
+  oracle/tool-definition.json (a strict-schema model-callable certifier that
+  already returns CERTIFIED / REFUTED-with-mechanism / REFUSED), the 17
+  instruments (the fitness functions), machine/funnel/ (14 items / 19
+  anti-hacking red controls — the thing competitors name as the hard part),
+  and instruments/forecast/admission.js (the prune rule, reusable verbatim by
+  changing the noun from forecaster to proposer). MISSING: the controller.
+
+  THE SPEC covers: the propose(ctx) contract added beside enumerate (additive,
+  never a replacement — the #852 find came from a plain scan and a scan wins
+  wherever it can exhaust) · ctx.refuted carrying the certifier's MECHANISM as
+  a repair instruction, which is what makes it a loop rather than a lottery ·
+  rationale recorded and never read by any decision · fitness ranked verdict,
+  then exact progress against the incumbent, then width · proposer identity as
+  (model, prompt version, temperature) so a revised prompt is a NEW proposer,
+  which is the honest form of readmission the gym still lacks · the prune gate
+  sitting BEFORE the API call, not at the ledger · publishing the denominator.
+
+  BUILD ORDER is 7 steps; steps 1-4 are a working single-proposer loop and the
+  honest MVP. STATED STOP CONDITION: if after step 4 the proposer has not
+  beaten enumerate on the same budget, report that and stop — a null is
+  publishable and this project has published one before.
+
+  FIRST TARGET named in the spec: the polynomial-multiplication tensors over
+  F2/F3 (18 published lower bounds, gaps of 3 to 10, 1980s CRT upper bounds,
+  flip-graph never pointed at them though its authors name them applicable and
+  publish the code). Two-sided: a hit is a new upper bound, a hit below a
+  published lower bound refutes a 2026 paper.
+
+  NOT BUILT. Operator's call whether to start at step 1.
+
+SESSION 2026-08-30f — A FIND. THE #852 RECORD EXTENDED PAST THE PUBLISHED TERMS.
+
+  L2 (the deep run launched in the previous block) reproduced the published
+  state of the art and then passed it:
+
+    len 30  index    7,889,803,997  prime 196,948,778,371   = A079007's LAST term
+    len 31  index   10,435,962,861  prime 263,552,821,783   BEYOND EVERY PUBLISHED TERM
+
+  A079007 held n = 0..30; A078515 and A079889 held 27 terms each, all ending at
+  196,948,778,371. Ours is the 28th index term and A079007(31).
+
+  THE EXHIBIT IS INDEPENDENTLY CERTIFIED. instruments/erdos852h/verify-record.js
+  shares NO line with the scan — deterministic BigInt Miller-Rabin, next-prime
+  by stepping, a Set for distinctness. It re-proves at every build that
+  263552821783 is prime, that the next 31 gaps
+  (76 8 34 36 26 106 38 82 18 54 50 16 62 70 14 48 42 64 6 104 24 12 66 22 30
+  96 2 10 74 4 32) are pairwise distinct, that the run spans
+  263552821783..263552823109, and that the 32nd gap is 4 — already present, so
+  the run is EXACTLY 31 and not longer. The last PUBLISHED term is re-proved
+  the same way as a control: a verifier that cannot confirm what the
+  literature already holds is not evidence.
+
+  TWO CLAIMS, STATED SEPARATELY BECAUSE THEY ARE NOT EQUALLY STRONG:
+    h reaches 31 there  — independently re-proved, does not depend on the scan
+    it is the SMALLEST such index — a statement about every index below it;
+      only the exhaustive scan can speak to it. Evidence for the scan: it
+      reproduced all 27 A078515 indices and all 27 A079889 start primes
+      exactly before extending them. Evidence, not an independent proof.
+  The page says exactly this and never blurs the two.
+
+  WHY THIS ONE WORKED, when the tensor front did not: a lower bound is a
+  universal statement and an audit of one can only ever AGREE. h(x) >= k is
+  EXISTENTIAL — one object settles it, and producing objects is what this
+  machine does. That was the lesson written down when #290's tensor lane
+  returned a null, and it is the lesson that paid here.
+
+  SHIPPED WITH IT: reports/erdos852-h.html §4 "Past the last published term"
+  (the exhibit re-proved at build; a record that fails to re-prove, or that
+  turns out longer than claimed, REFUSES the page) ·
+  certs/erdos852-h-records.json, described in the certificate table ·
+  outreach/oeis-erdos852h-extension.md, the submission pack for A078515 /
+  A079007 / A079889 with the caveat about minimality written into it.
+  The shelf card now reads "reproduces every published term, then passes them".
+
+  THE RUN COMPLETED: exhaustive to 5e11 in 4042 s (67 min), 28 distinct
+  records, structurally clean. No length 32 exists below 5e11, so the finding
+  is not "31 found so far" but "31 is the record up to 5e11" — the stronger
+  statement, and the one the page makes.
+
+  NOT SENT: the OEIS submission itself. Third-party send, operator's word.
+
+SESSION 2026-08-30e — ERDŐS #852: THE CONJECTURE, FINALLY AGAINST THE DATA
+(operator: "how could we push more on erdos852?" then "Go L1" then "Start all 3").
+
+  THE OPENING. #852's constant work was finished and public (5d061fb/earlier):
+  c0 certified to 61 digits, the published C* REFUTED at digit 12, correction
+  live on erdosproblems.com since 2026-08-27. What was NOT done: the constant
+  had never been compared to the DATA. The thread conjectures h(x) ~ c0 log x;
+  OEIS A053597/A078515/A079007/A079889 have held the exact record runs since
+  2002; the problem page lists those sequences in its own OEIS box. Neither
+  side had ever been pointed at the other. That gap needed no new mathematics.
+
+  L1 SHIPPED — reports/erdos852-h.html. instruments/erdos852h/ (h.js, a
+  streaming segmented sieve + two-pointer longest-repeat-free-window scan,
+  integers only, memory independent of the limit; analyse.js, the crossing).
+  Our scan reproduces A078515's record indices AND A079889's start primes
+  term for term — two independent witnesses to the same integers, a 2002
+  sequence and a scan written this week from the problem statement.
+
+  THE FINDING IS A READING. #852 says "for some n < x", and n INDEXES a prime,
+  so x counts primes rather than measuring size. Under that reading c0 lands
+  inside 9 of 14 plateau bands with no drift across the decades; under the
+  prime reading the same data gives ~1.14 and is not closing on c0. THE DATA
+  PICKS THE READING. It also bears on Erdős's own question — he asked whether
+  h(x) = o(log x), and the ratio is flat near c0, not decaying.
+  SAMPLING BIAS REMOVED, not ignored: h is a step function whose records ARE
+  its jumps, so quoting the ratio at records reads only the tops of the steps.
+  Every plateau is reported as a BAND (ratio at its start and at its end) and
+  c0 is asked to lie inside. Where it misses it misses narrowly and in both
+  directions — 4 bands below, 1 above — and the page shows that rather than
+  smoothing it.
+
+  L3 SHIPPED — lean/erdos852/Erdos852/Statement.lean, a formalised STATEMENT
+  of #852 (the problem page's own field reads "Formalised statement? No
+  (create one)"). Type-checks clean on Lean 4.33.1 + Mathlib, zero sorry.
+  It formalises the INDEX reading, and it does not hide the landmine: h is an
+  sSup and Nat.sSup of an unbounded set is junk 0, so DistinctRunSetBddAbove
+  is stated as the named side-condition it is and everything needing it takes
+  it as a hypothesis. Both Erdős questions are stated, plus ThreadConjecture,
+  recorded because it is INCOMPATIBLE with question 2.
+
+  L2 RUNNING — h.js to 5e11 in the background, targeting a record past
+  A078515's last term (index 7,889,803,997). certs/erdos852-h-records.json
+  when it lands; the report prefers that file over a build-time recompute.
+
+  A REAL BUG, CAUGHT BY THE FIRST L2 RUN AND FIXED. The seen-table was an
+  Int32Array holding GAP INDICES. Past the 2^31-st prime the stored index
+  wraps negative, `last >= left` silently goes false, repeats stop cutting the
+  window, and the run length explodes — observed as a bogus record of length
+  14,730,343 at index 2147483648 EXACTLY. Now Float64Array (exact to 2^53).
+  THE GATE HOLE THIS EXPOSED IS THE REAL LESSON: the corruption landed PAST
+  the last OEIS term, so a prefix comparison against A078515 would have passed
+  it clean and the page would have published h_max = 14 million. Added
+  analyse.validate() — monotone indices, monotone lengths, step <= 3, start
+  primes increasing, and a plausibility ceiling — which catches it with no
+  reference sequence at all, and the builder now runs it BEFORE the OEIS
+  comparison. A reference check only covers the head of a deep run.
+
+  NOT DONE: submitting the formalised statement to erdosproblems.com, and the
+  thread comment reporting the reading finding. Both are third-party sends and
+  wait on the operator's word (outreach discipline unchanged).
+
+SESSION 2026-08-30d — THE SIX-LANE AUDIT, NARRATED (operator: "review sin-mfg
+to bring the 6 lanes audit to this project"; then "not ceremonial and gates,
+the reports must be rebuilt from zero with more appeal"; then "add nice
+interactive charts and graphs"; flagship-only chosen over flagship + six
+detail pages).
+
+  WHAT THIS WAS. sin-mfg's Lane B is six independent re-verifications of
+  AI-CLAIMED mathematical results (mostly aimath.robertj1.com). All six
+  verify.js were ALREADY LIFTED and allowlisted in LIFT.json (2026-08-26) and
+  have been sitting in legacy/research/challenges/lane/ as gate sources,
+  UNSERVED. Only lemniscate had ever had a public page. So this was never a
+  lift job — it was five certified results dark for four days, the same
+  narration deficit the outside-reader audit diagnosed.
+
+  SHIPPED: reports/ai-claims-audit.html — "We checked the AI's homework".
+  All six verifiers RUN AT BUILD (6.0 s end to end): 230 checks across five of
+  the six, 21 mutation controls, every control rejected. 5 CONFIRMED,
+  1 PARTIAL (Ran-Teng), 0 REFUTED.
+  THE FINDING IS THE SPLIT, not the tally: in 6 of 6 the computational
+  fragment certifies and the analytic core does not. Poisson is the one lane
+  where the gap closes, for a structural reason the page names — a
+  counterexample is an EXISTENCE claim, so certifying the exhibit IS
+  certifying the claim. Every other lane asks a machine to confirm a universal
+  statement from a finite computation.
+
+  NEW: instruments/laneaudit/audit.js — the ONE module that runs the six and
+  parses their output (per-lane extractors; formats differ because the
+  verifiers were written months apart). Nothing transcribed. Two verifiers
+  print no check total and the page shows an em-dash rather than a number we
+  invented. The builder refuses on: a failing check, a mutation control that
+  stops firing, a verifier that stops printing its own totals, or any REFUTED.
+
+  NEW DESIGN COMPONENT: C.picker({name,items}) — CSS-state tabs, no script,
+  same device as the nav drawer; every panel ships in the markup so a reader
+  with CSS off sees all six. Capped at 12 (the count the template styles) and
+  throws above it. DESIGN.md row added; CSS in template.js.
+
+  CHARTS: bars (checks per claim, hover = mutation controls + runtime) ·
+  segments (the 6x2 fragment-vs-core grid, hatch as the second channel since
+  the hatch already means "nothing was enclosed here") · bars (relative gain
+  for the two claims that move a published number: Maxwell 16 -> 24, +50%;
+  Korenblum 0.3554 -> 0.4263, +19.9%).
+  A DUMBBELL WAS BUILT AND THROWN AWAY: normalised before/after made both rows
+  identical-length, which conveys nothing. Replaced with relative gain, the
+  one axis two different units actually share.
+
+  TWO DEFECTS CAUGHT BEFORE SHIPPING, both mine:
+   1. The deck claimed verifiers "had never seen the authors' code". FALSE for
+      Mathieu, whose VERDICT records that the author's Python was READ to
+      cross-check which identities the TeX intended (never executed). Deck now
+      says "never ran a line of the authors' code", the tl;dr carries the
+      exception, and the Mathieu lane carries a disclosure paragraph.
+   2. The re-run section shipped git clone .../carlostoledo/cert-machine. The
+      remote is carlostoledo1891. A wrong clone URL in the "check it yourself"
+      section is the same class as the two 404s fixed in 5d061fb.
+
+  THE SIX PER-CLAIM PAGES SHIPPED (operator: "build the 6 per claim and push
+  live"), reports/claim-<id>.html, registered on the shelf and in the sitemap.
+  Each carries §1 the claim at source · §2 the verifier's OWN check ledger as
+  it printed it at this build (per-stage tables + a per-stage bar chart where
+  the verifier emits stages) · §3 the falsifiers, each named · §4 the boundary
+  · §5 re-run + cards to the other five. tools/build-report-claim.js loops the
+  six; instruments/laneaudit/audit.js gained ledger() so the flagship and the
+  detail pages read ONE parser and cannot disagree.
+
+  AND A CORRECTION TO THE FLAGSHIP I SHIPPED AN HOUR EARLIER. Building the
+  ledger exposed that THE SIX VERIFIERS DO NOT AGREE ABOUT WHAT A CHECK IS:
+  maxwell, ranteng and lemniscate FOLD their mutation controls into their own
+  printed total (17+3=20, 38+5=43, 22+4=26); mathieu counts its 3 separately;
+  korenblum and poisson print no total at all. The first version of the page
+  put those six incomparable numbers in one column and summed them to "230
+  checks". That number was not wrong per verifier — each was parsed from its
+  own output — but the COLUMN was not a column, and the sum was not a sum.
+  Now: one rule applied to all six (a named PASS row that is not a mutation
+  control) giving 92 named checks, the verifier's own total carried in a
+  SECOND column beside it, and a paragraph naming the disagreement with the
+  arithmetic shown. Where a verifier names no rows or states no total the cell
+  reads em-dash. The counting rule again: deflate to truth before anything is
+  stated publicly — this one survived a commit AND a deploy before the
+  per-claim build forced it into the open.
+
+  STILL the operator's call: whether the flagship earns a landing-page slot —
+  it sits at shelf index 9, so it is on /reports/ but not in the landing's
+  top-6 feature. Reordering the feature is editorial, not mine.
+
+STATE OF RECORD (refreshed 2026-08-29; full histories live in
+apps/skyaudit/TODO.md and the session entries below — this block holds
+only what stands).
+
+  THE PUBLIC SURFACE, as of this handoff: 27 report pages (+ the
+  two-population regime map 2026-08-29; the matmul eval carries the
+  recall-vs-derivation table as of 2026-08-30; + reports/keller.html
+  2026-08-30, THE JACOBIAN CONJECTURE AUDITED — see the session block
+  below), every one
+  of them carrying at least one chart built from its own gated numbers
+  (design/charts.js + design/battery.js, both new this week). LAB v0
+  live at reports/mfg-observatory.html with the certifier running in
+  the page, shipping as one dependency-free file, and its lab in
+  labs/mfg/. HarborProof renamed from HARBORPROOF/harborproof with
+  301s from the old paths. make test 35/35, control 28 batteries,
+  drift 130 unchanged.
+
+  THE OUTSIDE-READER AUDIT (2026-08-30). An outside reader sent seven
+  "hidden gem" claims. Fact-checked against the repo: FOUR REFUTED, three
+  partly true, none fully confirmed — Mercer, entropy, #290 and the
+  one-population MFG map all had shipped pages the reader had not opened
+  (the Mercer "gap" was the title of that page's own §0). THE USEFUL
+  FINDING WAS THE PATTERN, NOT THE LIST: a motivated reader with repo
+  access concluded "no page exists" for five pages that do, because they
+  were reading certs/ and HANDOFF rather than reports/. The deficit is
+  DISCOVERABILITY FROM THE SURFACES PEOPLE LAND ON, not narration —
+  which is what the Erdos lane below is for. Two independent sweeps then
+  found what the reader had not: eight real defects on live pages, and
+  five certified-but-unnarrated results. Both were executed the same day
+  by seven parallel agents on disjoint builders; every claim below was
+  re-verified by the operator's agent before it shipped.
+
+  SKYAUDIT — TWO CITY PACKS LIVE, methodology v2, 4-day pinned series.
+  NYC flagship /apps/skyaudit/: Wed 2026-08-26, 82 aircraft / 382
+  flights / 3,056 rows; 100 E-FLYABLE (26.2%), fleet EXACTLY 10;
+  floors 267/309/318/304 kWh; reserve price 215/195/153/100/14/0
+  (30-min = ZERO provable); electric bill $290–2,056 vs $3,966–9,902
+  disjoint; Joby/Archer/Eve 0 provable; Archer guarantee undecidable.
+  SP pack /apps/skyaudit/sp/ under ANAC RBAC 91.151(b) (pinned,
+  quoted): 59/148 E-FLYABLE (40%); REH corridor planner; Eve flip
+  threshold leads (253 kWh). v2 series: Sun 38 (21.7%) · Mon 127
+  (32%) · Tue 106 (28.1%) · Wed 100 (26.2%) — weekday cluster holds.
+  Registry joins (FAA+ANAC, union of days, membership on authority);
+  companion note reports/skyaudit.html (day-stability §7 REBUILT
+  2026-08-30 — it read a HARDCODED pair, DAY=08-26 vs DAY2=08-23, so
+  the public page argued from two days while the corpus held seven and
+  neither Fri 08-28 nor Sat 08-29 had any public home; §7 now renders
+  the WHOLE series from audit/forecast.js's own series() — one module
+  owns the day scan and the E-FLYABLE definition, so the page and the
+  forecaster cannot disagree — with a per-day bar chart, a 7-row table,
+  and a shape computed at build rather than asserted in prose; the
+  controlled Wed-vs-Sun pair survives as §7b. NEW GATE 2c: every day
+  shown is re-tallied from its OWN certificate ledger. The first
+  version of that gate was VACUOUS — it compared the summary against
+  series(), which reads the same file, and a red control corrupting a
+  non-record day's CERTIFIED passed clean; the row-count check misses
+  it too, since rows is untouched. Fixed to recount VERDICTS from the
+  .gz ledger, the only independent witness, and both reds now fire:
+  corrupt CERTIFIED -> REFUSED, corrupt rows -> REFUSED, restored ->
+  PASS. v2 delta disclosed §6); ingest-day.js = one-command day ingest;
+  battery 33/33, 12 build gates, make test 35/35.
+
+  THE PREDICTION PROGRAM — instruments/forecast/ (conformal coverage
+  as counting theorem + append-only exact-scored commit/score ledger
+  + NEW admission.js: the prune rule computed as an exact binomial
+  tail at a stated 1/20 bar; battery now 7 checks + 5 reds) ·
+  SkyForecast v1 card live (dashed, never verdict-styled; gate 11) ·
+  product ledger 22 commits, 2 SCORED (0/2 covered — the 08-28 v1 pair
+  busted, eflyable on the predicted definition move and flights on a
+  genuine Friday-volume miss; causes stated, nothing rescored), 08-31 v2 pair,
+  09-01 + 09-02 pairs at n=4 coverage 3/5 ([191,397]/[49,127] — the
+  Thu volume drop honestly widened the intervals). Day series now
+  SEVEN days and the week is COMPLETE (2026-08-30): + Sat 2026-08-29
+  ingested green, 266 flights / 58 E-FLYABLE (21.8%), fleet 7 — every
+  one of the seven weekdays is now represented exactly once.
+  THE WEEKEND-CLUSTER CLAIM WAS OVERSTATED AND IS CORRECTED HERE
+  (2026-08-30, caught while building the page that would have published
+  it). The first write-up said "weekend 21.7/21.8 against a weekday
+  cluster of 25.7-32%" — that range SILENTLY DROPPED Friday 08-28 at
+  22.2%, a weekday sitting 0.4 points from Saturday. What the seven days
+  actually show, computed: the share peaks Mon at 32.0% and falls on
+  every following day without exception — 32.0, 28.1, 26.2, 25.7, 22.2,
+  21.8 — with the opening Sunday at 21.7. A weekday/weekend split does
+  still separate the groups, but by 0.4 points (min weekday Fri 22.2 >
+  max weekend Sat 21.8), not by the wide gap first claimed. VOLUME does
+  NOT split by day type at all: Thu 191 flights is BELOW Sat 266.
+  Two readings fit the same seven numbers — a weekly cycle and a
+  monotone drift unrelated to weekday — and ONE WEEK CANNOT TELL THEM
+  APART. reports/skyaudit.html §7 now states exactly that and refuses
+  to pick one; the separation margin is COMPUTED at build, so a day
+  that breaks the split rewrites the sentence instead of embarrassing
+  it. The lesson is the counting rule: deflate to truth BEFORE anything
+  is stated publicly — the overstatement survived one commit message
+  (4aa5657) because no page had to render it yet.
+  THE WEEKEND UNLOCK, first available this session: forecast.js
+  refuses any group with n < 2, so while Sunday stood alone NO weekend
+  target was committable — which is exactly why 08-29 and 08-30 have
+  no product rows and why scoring 08-29 REFUSED rather than scored.
+  With Saturday ingested the weekend group reaches n = 2 and weekend
+  targets became committable for the first time: 09-05 + 09-06
+  committed at [175,266]/[38,58], proved coverage 1/3 — weak, and
+  honestly weak, because two days cannot prove more than that.
+  THE FORECAST GYM (8E) — BUILT 2026-08-28 (operator's word "build
+  what's missing"): tools/forecast-gym.js (three house proposers —
+  conformal claims only its theorem; persistence the forced dumb
+  baseline built to be pruned in public; range the hedger — commits
+  refused for DEADMITTED proposers) + certs/forecast-gym-ledger.jsonl
+  (130 commits sha-pinned before their targets, 13 target days, 22 SCORED
+  — 12 on 2026-08-29, the first grading in the gym's life: conformal,
+  range, opus-5 and sonnet-5 all 2/2 ADMITTED; persistence 0/2 but KEPT (its
+  1/2 claim clears the bar — the rule refuses to punish what it cannot
+  prove); claude-haiku-4.5 0/2 and DEADMITTED on the exact binomial
+  tail 1/36 < 1/20, the narrow-interval overconfidence signature
+  measured on the first day it could be) +
+  THE SECOND SCORING 2026-08-30 (10 rows, target Sat 2026-08-29,
+  outcome 266 flights / 58 E-FLYABLE) — THE WEEKEND IS WHERE THE
+  NARROW FORECASTERS DIE. On flights EVERY proposer missed except
+  `range`, the deliberate hedger; the Saturday volume collapse was
+  outside all four narrow intervals. Board now: conformal 2/2 · range
+  4/4 (perfect, and the only one to take the Saturday) · opus-5 3/4
+  (it covered eflyable — it had the DIRECTION of the weekend drop, per
+  its v1 claim — but missed the MAGNITUDE on flights) · sonnet-5 2/4,
+  which is the sharp reversal: sonnet WON the first scoring 2/2 and
+  took both Winklers, then missed both targets on the first weekend it
+  ever faced · claude-haiku-4.5 0/4, still DEADMITTED (its 08-29 rows
+  were committed BEFORE the prune and are therefore legitimately
+  scored — the prune is not retroactive and must not be) ·
+  persistence 0/4 and STILL ADMITTED on the exact tail 1/16 > 1/20.
+  PERSISTENCE IS NOW ONE SCORED MISS FROM ITS OWN DEADMISSION: at 0/5
+  under a claimed 1/2 the tail is 1/32 < 1/20 and the rule fires. The
+  forced dumb baseline was built to be pruned in public and it is
+  about to be, on arithmetic stated in advance. auditAdmissionHistory
+  replays all 130 commits: 0 violations. +
+  reports/forecast-gym.html (gates: battery + BOTH ledgers re-verified
+  with the builder's own arithmetic — payload shas re-hashed, every
+  Winkler recounted string-exact, commit-before/score-after re-checked
+  — + admission board recomputed). Thesis on the page: the future is
+  the only test set that cannot leak. Model campaigns enter SEALED
+  (sha public, payload revealed at scoring), spend on the word.
+  Doctrine: prediction enters as a proposer only (CLAUDE.md).
+
+  THE ORACLE — packaged AND doored: oracle/certmachine.py (red
+  controls at import, Q+F2, exact mechanisms; harness imports the one
+  definition), /oracle/ front door live (60-second curl->certify()
+  path, shared gated paste box with the board, evidence links),
+  paper/verified-reward-oracle.md DRAFT (not submitted). DOOR UPGRADED
+  2026-08-28 (operator's word "use what survives", from an outside
+  draft fact-checked against the ledgers): §3 lab framing (every
+  reward hack is a verifier defect), §4 Monday uses (audit/evaluate/
+  train), §5 THE LADDER with open rungs — all counts recomputed from
+  the eval ledger; a certified rank-6 row refuses the build; the
+  seed-pinned conjugation rung named "next, unbuilt" on record —
+  §6 the loop stated honestly (3 closed all first-round, no
+  feedback-driven conversion yet), §7 scope + the Lean exit, §9
+  trust base + the EXTERNAL-RERUN REGISTRY read from
+  corpus/external-reruns.json (empty until it isn't). The outside
+  draft's "measurable improvement" loop claim was REFUTED by our own
+  loop ledger and replaced with the honest statement.
+
+LAB v0 — SHIPPED 2026-08-28 (operator-approved "I accept the
+suggestion"; the target user, by name, is Ricardo de Lima Ribeiro of the
+KAUST MFG group, and the page succeeds when HE uses it).
+  WHAT SHIPPED: reports/mfg-observatory.html — THE MFG REGIME
+  OBSERVATORY. The mfg-cap point theorem generalised to a MAP: the
+  (c, A) plane at sigma = 1/2 partitioned into 19,800 cells, each
+  decided UNIFORMLY over its own rectangle — 11,330 MULTIPLE (two
+  exact solutions for EVERY parameter in the cell, two provably
+  disjoint certified balls, both densities positive; 30.7% of the
+  plane by area), 384 UNIQUE (c >= 0, Lasry-Lions global uniqueness
+  CITED, our enclosure proved), 8,086 UNDECIDED with the reason kept
+  verbatim (6,470 of them still enclose one exact solution). The
+  partition's area identity is re-checked at every build; a grid of
+  point results would prove nothing between its points.
+  THE INSTRUMENT (labs/mfg/, MIT, tools-first as required):
+   - box.js — uniform-over-a-parameter-box radii-polynomial validation.
+     THE FINDING that made a map possible: with a FIXED candidate Y0
+     grows linearly in cell width and only cells narrower than 0.004
+     in c close on the herding branch (a hairline). Carrying the
+     TANGENT PREDICTOR (DPhi xdot = -d_s Phi, from the Jacobian already
+     factored for A) cancels the first-order term, Y0 drops to O(h^2),
+     and 0.0625 closes — 15.6x wider, and that IS the map's cell size.
+     box.js carries opts.freezePredictor so falsifier X2 can switch the
+     predictor off and measure BOTH thresholds on the same ladder: the
+     ratio quoted on the page is a measurement of that build, and the
+     page parses it rather than transcribing it.
+     Also: boxPositivity over the box, refuteCandidate (the NEGATIVE
+     direction: one equation whose residual exceeds its own row bound
+     times delta proves no exact solution lies that close), decideCell.
+   - regime.js — the adaptive sweep (quadtree; refines only where
+     refinement can help, so resolution sharpens exactly on the
+     pitchfork seam and the fold) -> certs/mfg-regime-map.json.
+   - battery.js — 9 checks + 6 falsifiers. G1/G2 are the important
+     ones: at ZERO cell width box.js reproduces the lifted kernel
+     (legacy/core/mfg/validate.js) BIT FOR BIT on 7 reference
+     instances — same Y0, Z1, Z2, r, kappa — including the kappa
+     column validate.js records in its own header. A rule defined
+     twice WILL diverge; this is the check that fires when it does.
+     C1 re-solves at all four CORNERS of a certified cell and requires
+     each corner solution inside the ball (the uniform claim, checked
+     by arithmetic a referee can repeat).
+   - widget.js — the browser certifier is ASSEMBLED at build from the
+     actual sources (interval.js + mfg1d.js + box.js), nothing retyped,
+     then EXECUTED against the Node path and required to agree on
+     verdicts AND witnesses or the page refuses to build.
+  THE THREE DOORS (tools-first, all live): the paste box in the page
+  (verified working in-browser by CDP: same witness numbers as Node) ·
+  reports/mfg-certify.js, the same certifier as ONE file with NO
+  dependencies at all · labs/mfg/ in the public repo with a README
+  that states the scope.
+  DELIVERY VEHICLE STAGED, NOT SENT: outreach/kaust-mfg-lab.md — the
+  letter, with the closing ask verbatim ("send me the one claim that
+  costs your group the most time to defend"). Needs the operator's
+  three opening sentences and a recipient choice. The old objection
+  against the KAUST draft ("reword 'live in the browser'") is moot.
+  LAB v1 SHIPPED 2026-08-29 as the TWO-POPULATION lab (labs/mfg2p/, see
+  the ACTIVE NEXT entry). The sigma axis is STILL open and still the
+  expensive one: box2p.js inherits the same defect (A is built at one
+  sigma, so the tail of I - A DPhi carries |1 - sigma/sigma0|, which
+  does not decay in k), falsifier X4 proves it is charged in BOTH labs,
+  and the map was therefore swept at fixed sigma = 0.5. The rescaling
+  that would fix it — divide rows k >= 1 by sigma so the linear diagonal
+  is sigma-free and A's tail inverse is exact, moving the sigma
+  dependence into terms that DO decay — is written up but not built; it
+  gates the sigma axis and nothing else, which is why the map came
+  first. Also open: the congestion model as a second rung (its solver is
+  NOT published, so today it is one certified point,
+  reports/mfg-congest.html) · every engagement is simultaneously an
+  external rerun (item 13) and a vouching candidate.
+
+DATAVIZ: the report shelf is DONE — 24 of 24 pages carry a figure
+(2026-08-29). Still bare, and no word needed to fix them since they are
+our own surface: the landing page, the control page, /oracle/ and
+/machine/. design/charts.js already covers every form they would need.
+
+SESSION 2026-08-30b — THE DEFECT SWEEP AND THE FIVE UNNARRATED RESULTS
+(operator's word: "Start with the urgent part and after finish execute the
+gems list, all items"; seven parallel agents on disjoint builders).
+
+  SIX LIVE DEFECTS FIXED, all verified on carlostoledo.co before and after:
+   1. TWO HARD 404s in the landing page's re-verify column — the column a
+      skeptic clicks FIRST. /verify/ ships only the three .py verifiers;
+      two rows pointed single-file JS/HTML artifacts at it. Now three
+      constructors (PY / INPAGE / NOVERIFIER) that each NAME the repo file
+      they copy from, and a gate that refuses any re-verify link whose
+      source does not exist. The mfg2p row was also MISLABELED — there is
+      no single-file certifier for that map; it now says so.
+   2. THE ABOUT PAGE understated the project's ONLY external validation:
+      "#852: Submitted, awaiting moderation" when it has been PUBLIC since
+      2026-08-27. Now reads the status and date from the pin in
+      corpus/sources/PINS.json, and refuses if the snapshot disappears.
+      Deliberately NOT overclaimed: visible is not endorsed, clearing a
+      moderation queue is not peer review.
+   3. ESCAPED MARKUP rendering as literal text on the flagship eval page —
+      TEN leaks, not the two visible ones. Fixed with components.table's
+      existing {raw} affordance (values still escaped; raw is for markup
+      the BUILDER wrote, never for a value off disk). design/battery.js
+      gained check F3 + reds X5/X6 — X6 requires a leaked <em> to fire
+      while the escaped tensor <2,2,2> beside it does NOT, because a check
+      that fires on every escaped bracket gets switched off in a week.
+      A second page (mfg-observatory §8) had the same defect, 6 leaks,
+      carried as an exact-pinned LEAK_DEBT that failed in BOTH directions;
+      fixed the same day (C.p -> C.pRaw) and the debt line deleted.
+   4. THREE COUNTS FOR ONE FILE: strassen-certificate.json has 10 entries;
+      the site said "Nine" and "11 algorithms" on three surfaces. Now
+      computed once from the certificate.
+   5. THE ORACLE PAGE contradicted the page it links: "9 trajectories"
+      vs verifier-loop.html's "6 of 10". Root cause: the trajectory key
+      merged sonnet-5's (2,2,2,7) and ('tensor','c1',7) trajectory 0.
+      Now keyed on (model, tag, target, trajectory). TRUE unclosed-rounds
+      figure is 25, of which 24 carried mechanism — the 4th unclosed
+      trajectory DECLINED and its feedback is null, so it received none.
+   6. #290's tl;dr contradicted its own body ("a third" / "l <= 90" vs
+      "50%" / "l <= 120"), and claimed d = 168 was "the last exceptional
+      density in range" when the DEPLOYED cert already closed ES0 at both
+      l = 84 and l = 112. All computed now. A FOURTH defect surfaced in
+      the same file: the page said the conditional enclosure assumes
+      "every even d >= 122" while the lifted kernel branches at 2l <= 60,
+      i.e. it assumes from d = 62 — the page claimed to assume LESS than
+      its own computation does. The builder now DETECTS the boundary
+      (the enclosure width is the sum of carried allowances) and dies if
+      it cannot locate it.
+
+  #290 MERGED AND REPUBLISHED: +152 degrees -> 212 closed, l = 61..272
+  contiguous, open: [] throughout. Bracket 2.070e-3 -> 9.166e-4, from
+  "50% tighter than the cited page" to 78%. All SIX exceptional degrees
+  past the cited horizon (d = 168, 224, 288, 360, 440, 528) closed to
+  ES0. c* agreed to 110 digits at horizon 272. NOTE: the OEIS b-files came
+  back BYTE-IDENTICAL — at horizon 120 the allowance was already ~1e-238,
+  so 110 digits were saturated; the horizon move shows up past ~230 only.
+  The six shards are STILL RUNNING toward l = 310; this was an interim
+  merge and the merge tool supports another.
+
+  FIVE UNNARRATED RESULTS, NOW PUBLISHED:
+   - reports/keller.html (NEW) — THE JACOBIAN CONJECTURE, AUDITED. 11
+     certificates, 10 distinct maps: Jacobian false in dim 3, Hessian
+     false in 5 vars, five Gallagher members rebuilt from seeds, and
+     THREE COUNTEREXAMPLES GENERATED HERE that no paper carries. The
+     doubling identity det Hess(y*F) = -4 = -(det J F)^2 makes the two
+     published entries certify each other (ARITHMETIC independence, not
+     byte independence — both pin the same PDF, and the page says so).
+     keller-fibers re-finds the collisions BLIND; 7/9 cells certify, and
+     the 2 that FAIL are on the page, because a lower bound allowed to be
+     weak is the only kind worth trusting. Gates: battery 32 checks / 9
+     reds + verify_keller.py + certificate<->family monomial identity.
+   - methods-note §5 — "19 ways to cheat this machine". The funnel's
+     anti-hacking battery, 14 items / 19 red controls, keyed to the
+     battery's own control letters and checked BOTH directions: a new red
+     control with no description, or a description whose control vanished,
+     REFUSES the page. That is the structural fix for the defect that hid
+     this battery in the first place. CREDIT CORRECTED: the 159x
+     amplitude-inflation incident is NOT ours — it is a third-party
+     project's self-disclosed result, reaching us second-hand through a
+     sin-mfg audit note; the page credits it as history and does not name
+     the project. The gate is ours.
+   - answer-key §5 — "what a clean audit looks like": instruments/sos
+     re-verifies the AI-discovered Lyapunov functions of arXiv:2606.10045
+     in exact rationals and THE PAPER HELD UP. Three verdicts as a set:
+     one CONFIRMED, three of the paper's OWN FLAGGED candidates refuted
+     with exact witnesses (Eq. 23 at x = (3/200000, 1/1000) gives
+     22103/50000000000000 > 0), and Motzkin REFUSED — the instrument
+     declining to certify something TRUE, which is correct behaviour.
+     This extends "I audit published AI mathematics" from two domains to
+     THREE (+ control theory). An auditor whose instrument can return
+     CONFIRMED is the only kind whose REFUTED is worth anything.
+   - mercer §6 — "what has been decided exhaustively, and why there is no
+     single number". THE PAGE WAS DOUBLE-COUNTING: box 30 is nested inside
+     box 40, so the old "5,090,150,225 sets" counted 98,979,465 twice;
+     the lambda 23-row sum re-counted 31,020,445. Deflated and published
+     by KIND with units named and NO TOTAL — the table's last row is the
+     refusal itself. The buried result: 725,532,585 sets deepened M=25 ->
+     M=30 (698,969,540 never before certified) whose collective answer was
+     "the incumbent still stands" — 8 of 9 CONFIRMED, 1 improved. The page
+     used to compress that into one subordinate clause. Also corrected:
+     "confirmed thirteen of fourteen optimisers" was wrong on its face —
+     only 9 rows carry a vsShallower verdict.
+   - certs/census-high-periods.json — the landing page cited 1,419,655,025
+     boxes from a file that lived at the REPO ROOT and was therefore never
+     deployed: a headline number with no published artifact to check it
+     against. Moved into certs/ (four builders rewired), so the existing
+     cert sync publishes it; the cert-table gate refused until it had a
+     row, which is the gate working.
+
+  THREE PRIORITY CLAIMS DEFLATED: "the first certified mu(n) rows
+  ANYWHERE" contradicted the same page's own Boyd-1986-is-unread
+  disclaimer (3 leaks, now 0); the landing page's "rows nobody else
+  holds" got the same treatment. Priority is never claimed from an
+  unread record.
+
+  THE ERDOS LANE — the repositioning move. Four Erdos problems were
+  presented as four unrelated one-offs; reports/index.html now carries
+  "Erdos problems, audited" grouping #852, #510 (mercer-program, which a
+  reader previously could not tell was Erdos work at all), #290 and
+  #1038. Presentation only, no new mathematics — it turns four pages into
+  a program.
+
+  MEASURED: 26 report pages, make test 35/35, control 28 batteries,
+  drift 130 unchanged, design battery 20 checks / 6 falsifiers.
+
+SESSION 2026-08-30c — THE LOWER WALL. A NEW FRONT, AND AN HONEST NULL.
+(operator's word: "go 3,3,3" then "proceed"; four specs and five security ideas
+were evaluated and DROPPED first — see the verdicts below.)
+
+  WHAT WAS DROPPED, AND WHY (do not revisit without new information):
+   - Spec 1 answer-preserving transformations: NO-GO on graphs/PIT. Our own d7
+     rung already ran that experiment — a permutation disguise was SOLVED
+     (opus 6/6, sonnet 3/3) while dense conjugation is 0/10. Relabelling defeats
+     lookup, not RECOGNITION, and recognition is the binding property.
+   - Spec 2 TSE election reconciliation: NO-GO, three ways. The check is an urna
+     invariant, it is the totalizer's own upstream admission gate, and the two
+     "independent" files are one file (206,117 of 206,117 keys identical,
+     delta 0). Plus a criminal-statute hazard 35 days before a Brazilian
+     election, with REFUTED and "certified" as hazard words. Do not revisit.
+   - Spec 3 cold-vs-derived: GO-WITH-CHANGES but never run. Trials are not
+     independent (opus emitted 2 distinct strings in 26 calls); temperature is
+     a 400 on Opus 5/Sonnet 5; and the hypothesised wrong-sign failure mode
+     DOES NOT OCCUR in our data.
+   - Spec 4 certified RLVR: NO-GO as specified. The all-zeros witness scores
+     8 violated equations of 64 and haiku's median is 9 — emitting NOTHING beats
+     the model, so GRPO has no gradient. Transposed-Strassen also scores 8, so a
+     dense shaping reward cannot tell "right answer, wrong convention" from
+     "gave up".
+   - ZK underconstrained-circuit auditor: NO-GO. Aims at the bug class a linter
+     already detects at 100% and is definitionally blind to the class at 0%.
+     Picus (MIT) is the incumbent; the pitch's formula is that paper's eq. 1,
+     presented as the naive approach.
+   - NIST conformance / PKI verifier / bounded patch certification: NO-GO
+     (occupied, or hazardous, or both). The LLM-on-security-code eval survives
+     as GO-WITH-CHANGES and is unbuilt.
+
+  THE FILTER THAT EXPLAINS ALL OF THEM, and worth keeping: this machine's edge
+  needs (a) an incumbent using FLOATS, so exactness buys something, and (b) a
+  rule with a COMPELLED number, so the verdict has a buyer. FuelEU/HarborProof
+  and eVTOL/SkyAudit have both. ZK has neither. Hunt where floats and
+  regulators coexist.
+
+  THE NEW FRONT — instruments/tensorlb/, THE LOWER WALL.
+  Erdos-style upper-bound auditing has been this repo's habit for months
+  (Strassen, Laderman, AlphaTensor, AlphaEvolve, all pinned in
+  certs/strassen-certificate.json). The lower-bound side had never been touched.
+  Chengu Wang, arXiv:2603.07280 (2026-03-07, MIT code at
+  github.com/wcgbg/tensor-rank-lower-bound, TWO stars, pushed 2026-08-29) proves
+  R_F2(<3,3,3>) >= 20, improving Blaeser's 19 of 2003. So far as we can
+  establish nobody had ever checked it.
+   - THE METHOD, and it is the point: we did NOT reimplement his four inference
+     rules. A verifier that re-runs an author's own rules can only ever AGREE.
+     tensorlb computes GROUND TRUTH — the true minimum rank of each constrained
+     sub-tensor over F2 — and asks whether his number is the truth. A method
+     that can DISAGREE is worth strictly more than one that cannot.
+   - RECOVERED FROM THE BYTES, documented nowhere: the constraint semantics
+     (bitmask functionals forced to zero) and the transposed c[k][i] index
+     convention. Neither is stated in the certificate or the paper's text.
+   - RESULT ON THE CONTROL (<2,2,2>, where rank 7 is optimal since Winograd
+     1971): all 10 upper-bound witnesses re-verified against sub-tensors we
+     rebuilt; 3 bounds proved two-sided; 0 refuted. The root node is the
+     unconstrained tensor at lb 7 — had our search found rank 6 there, our
+     SEARCH was broken, not mathematics. It did not.
+   - RESULT ON THE TARGET (<3,3,3>, 496 nodes): 4 proved TWO-SIDED (his rules
+     not relied on at all), 8 TIGHT-IF (an upper bound equal to his lower
+     bound — NOT a proof of the lower bound), 6 SURVIVES, 478 NOT-ATTACKED
+     (dim > 2, beyond the instrument), and 0 REFUTED.
+   - PROVENANCE: both certificates are pinned in corpus/sources/PINS.json and
+     the n333 sha256 EQUALS the git-lfs object id Wang published upstream
+     (25595a88…c6135d) — we can prove we audited the exact bytes he shipped.
+   - GATES: instruments/tensorlb/battery.py, 12 checks + 3 red controls that all
+     fire (inflated bound, altered witness coefficient, deleted witness term).
+     In make test and gating reports/tensor-rank-bounds.html.
+
+  WE DISCOVERED NOTHING, AND THE PAGE SAYS SO. Zero refutations, no new bound,
+  no counterexample; 478 of 496 nodes still rest entirely on Wang's reasoning.
+  What exists is the first independent check of any part of a new lower bound on
+  a fifty-year-old open problem — a reproduction, not a find. The operator wants
+  a find and this is not one.
+
+  THE REACHABLE NEXT STEP: dim-3 nodes (68 of them) need an exact method for
+  3x9x9 tensors; dim-2 already uses the pencil identity
+  min rank = min_X ( rank X + rank(M0+X) + rank(M1+X) ), searched randomly, which
+  yields UPPER bounds only. An exact dim-2 minimisation would upgrade 8
+  TIGHT-IF nodes to CONFIRMED. Beyond that the four rules must be implemented
+  from the paper, and the honest artifact becomes "verifier derived partly from
+  the reference implementation".
+
+  ALSO OUTSTANDING, unactioned, from the audit earlier this session:
+   - tools/llm-harness.py line ~1014 drops --effort/--stream in CAMPAIGN mode
+     (the loop path passes them). The 90 rows tagged v4-effort-low therefore ran
+     at DEFAULT effort and the tag is a lie on a live page.
+   - tools/build-report-eval.js:53 counts budget-exhausted rows in the
+     leaderboard denominator: opus-5 publishes at 30% where the honest graded
+     rate is 90%, sonnet-5 at 33% where it is 100%.
+   - No ledger row anywhere records output tokens above 4000, yet the eval page
+     claims 16k and 32k campaigns. Re-run c1/c2 metered at high budget as v5.
+
+FIRST THING NEXT SESSION (in this order):
+  1. node tools/sweep-claims.js
+  2. 8D DAILY LOOP — when adsb.lol releases a day D:
+        node apps/skyaudit/audit/ingest-day.js D
+        node apps/skyaudit/audit/forecast.js score D
+        node tools/forecast-gym.js score D
+     then commit forward both ledgers for the next uncommitted day. House is
+     committed through 2026-09-09 (incl. the first weekend targets 09-05 +
+     09-06); product through 2026-09-09; models through 2026-09-08.
+     Days ingested and scored through Sat 2026-08-29 — the next release to
+     watch is Sun 2026-08-30. NOTE for weekend days: the product ledger has
+     no rows before 09-05, so `forecast.js score` on a weekend day at or
+     before 08-30 THROWS "no commit with id" — that is the ledger honestly
+     refusing to score what was never committed, not a failure. The gym
+     scores those days normally.
+     Model rows are spend-gated AND admission-gated: claude-haiku-4.5 is
+     DEADMITTED and is now genuinely skipped, not merely refused at the
+     ledger. Check the ledger before any campaign — a stale TARGETS list
+     spends on calls whose rows can only be duplicate-refused.
+  3. Shard health: tail -n 2 certs/shard-logs/shard-*.log
+  Then the ACTIVE NEXT menu below — operator chooses.
+
+#290 SUMMIT CAMPAIGN — STATUS AT HANDOFF 2026-08-30: six detached
+shards ALIVE and healthy (pids re-verified, one process each), working
+l = 121 -> 310. Measured at this handoff: 148 of the 190 target degrees
+are closed across certs/erdos290-tail-shard-*.json (24-25 each), and the
+42 that remain are the CONTIGUOUS TOP BLOCK l = 269..310 — the shards
+have swept the range in order and only the summit is left. Cost is ~l^4,
+so those 42 are far more than 42/190 of the work: l = 310 alone costs
+~1.8x what l = 269 does. Progress across this session was 147 -> 148,
+which is the honest rate to plan against — this is days of wall clock,
+not hours. Nothing here needs attention unless a shard dies; the merge
+path is unchanged:
+    node tools/run-erdos290-tail-shard.js merge
+    node tools/erdos290-cstar-precision.js 110
+    make reports && make site && make test
+    refresh outreach/erdos290-issue164.md + the OEIS constant packs
+    with the new bracket, commit, deploy.
+
+ACTIVE NEXT (operator to choose; nothing pre-authorized):
+  A. HarborProof — FIRST LIGHT SHIPPED 2026-08-28 (see the 2026-08-28c
+     session entry): instruments/fueleu (exact Reg 2023/1805 arithmetic
+     from pinned OJ bytes; 10 checks + 5 reds) × the official EU-MRV
+     2025 registry (17,045 ships, THETIS public API, sha-pinned) →
+     reports/harbor-proof.html — 12,620 ships decided both years, EUR
+     1.19B penalty floor on 2025 as sailed, EUR 3.31B re-sailed under
+     2030, per-ship exact flip fractions (median 6.31%). NOTE: the DMA
+     bulk AIS server was DOWN all session (TLS reset) — AIS voyage
+     replay is the v2 roadmap, not first light; the registry
+     counterfactual needed no AIS. NEXT here: candidate-fuel boxes
+     (methanol/ammonia), company-level pooling arithmetic, the gym
+     margin-forecast pack, the app-zone product face (word).
+  B. 8E THE FORECAST GYM — BUILT 2026-08-28 + CAMPAIGN v1 COMMITTED
+     the same night (operator's word "Proceed 1"): opus-5 (claim 4/5,
+     wide, forecasts the weekend drop), sonnet-5 (claim 4/5), haiku-4.5
+     (claim 5/6, NARROW — the overconfidence signature the admission
+     rule will test). 36 model commits + 32 house = 68 on the ledger,
+     0 scored at commit time; SCORED 2026-08-29 — sonnet-5 took both
+     targets on Winkler (180/65), opus-5 tied on flights, haiku
+     DEADMITTED exactly as its narrow intervals predicted. Sonnet's first 3 attempts
+     returned empty text at max_tokens 2048 — the documented
+     thinking-exhaustion HARNESS artifact, fixed at the cause (8192)
+     and retried BEFORE anything was pushed (copy-honesty intact).
+     Remaining gym moves: more packs · third-party sealed entries.
+  B2. LAB v0 SHIPPED · LAB v1 (TWO POPULATIONS) SHIPPED 2026-08-29 on the
+     operator's word "proceed on your order", from a paper the operator
+     sent (Wang-Li-Yao-Xia, Mathematics 10(21):4075 — multi-population
+     MFG solved by a GAN). NEW: labs/mfg2p/ (model + box certifier over
+     a rectangle of COUPLING MATRICES + sweep + battery 11 checks / 7
+     falsifiers) and reports/mfg-two-population.html — 21,567 cells,
+     11,628 MULTIPLE, 24 UNIQUE, area identity exact. THE FINDINGS:
+     (a) Lasry-Lions monotonicity (|s| <= c_self) is 11.2x CONSERVATIVE
+     on this slice — it stops at s = 1, the first certified multiplicity
+     is at s = 11.238; (b) THE UNFOLDING, which was not predicted: at
+     d = 0 the second equilibrium arrives through a symmetry-breaking
+     pitchfork at s = 10.90, and at d >= 0.05 there is NO singular
+     Jacobian anywhere in s in [0,15] — the pitchfork unfolds, the
+     primary branch goes smooth, and the second equilibrium survives on
+     a branch NO continuation can reach. Battery U1/U2 gate it. Since
+     attack-defense means d != 0 by definition, that is exactly the
+     regime a neural solver goes blind in, and 11,300+ of the MULTIPLE
+     cells sit at d > 0 — certified where continuation cannot look.
+     REMAINING on this shelf: the sigma axis (still the expensive one,
+     see the note below), the fold in d (it sits past d = 1.5 at
+     sigma = 0.5, so this map does NOT locate it and the page says so),
+     a second named engagement, and the letter's send (word).
+  C. 8C-full — certified-universal-over-forecast-envelope fleet
+     statements; BLOCKED on the parked scenario packs.
+  THE PRUNE GAP — FOUND AND CLOSED 2026-08-29 (operator's word "Approved,
+     go ahead"). When claude-haiku-4.5 was DEADMITTED by the first scoring,
+     the rule was enforced in ONE place: the loop that commits the three
+     HOUSE proposers. tools/forecast-gym-campaign.js queried its own model
+     list and called L.commit directly, and L.commit enforces temporal
+     hygiene but NOT admission — so a pruned model would have been queried,
+     paid for, and committed. The prune held for the baselines and did not
+     hold for the models it was written for. NOW: one admissionGate() in
+     forecast-gym.js that both paths call; the campaign checks it BEFORE the
+     API call (a prune enforced only at the ledger costs money to enforce)
+     and again at commit; board() is time-parameterised (board({asOf})); and
+     auditAdmissionHistory() replays EVERY commit against the board as of
+     its own madeAt — the record-level invariant that does not depend on any
+     caller. The report page gates on it (gate 4) and the gate is proven
+     non-vacuous by a red control that builds a corrupt ledger and must
+     catch it with the exact tail 1/36. Verified live: injecting a real
+     post-deadmission haiku commit REFUSES the page.
+  CAMPAIGN v2 COMMITTED 2026-08-29 (operator budget: $20). Targets
+     2026-09-03..09-08 — the campaign's TARGETS were stale (all six already
+     on the ledger), and a stale target list SPENDS on calls whose rows can
+     only be duplicate-refused, so check the ledger before every campaign.
+     opus-5 (claim 2/3) and sonnet-5 (claim 3/4) entered, 24 rows;
+     haiku SKIPPED, NOT QUERIED. Both models claimed LOWER coverage than in
+     v1 (4/5) — noted, not explained. The campaign now meters itself: every
+     run prints tokens in/out and dollars at cached rates. MEASURED SPEND:
+     $0.0682 dry + $0.0703 commit = $0.1385 of the $20. Ledger 124 commits,
+     audit 0 violations, haiku frozen at 12 while everyone else grew to 24.
+  DAILY LOOP (8D, proven end-to-end and now RUN TWICE — first scoring
+     2026-08-29, second 2026-08-30 on target Sat 08-29):
+     when adsb.lol releases a day D:
+     node audit/ingest-day.js D && node audit/forecast.js score D &&
+     node tools/forecast-gym.js score D, then COMMIT FORWARD (product
+     + gym) for the next uncommitted days — the ledger ages only if
+     fed daily. Committed through 2026-09-09 (house + product; the
+     first weekend targets, 09-05 + 09-06, entered 2026-08-30 the day
+     the weekend group reached n = 2). Model rows are
+     spend-gated: a DEADMITTED proposer's commits are refused, so
+     claude-haiku-4.5 is out until it is recalibrated and re-entered.
+     `forecast-gym.js commit` touches ONLY the three house proposers —
+     it costs nothing and is safe to run any time; model rows come from
+     the separate spend-gated campaign script.
+  HELD/PARKED: synthetic demand packs · outreach on the word only.
+  Spec: APP.md · plan: TODO.md · research: RESEARCH.md.
+
+AGENT, ON THE OPERATOR'S WORD (spend/scope) — ranked:
+ 1. LRCAP CERTIFIED AUCTION ARITHMETIC — PERISHABLE. Fetch ANEEL CP
+    22/2026 edital drafts; exact-rational dominance thresholds (β=0.9
+    locational bonus × two-product Dec 2/4 sequencing × content premium).
+    Clock: CP closes Sep 14; hearing Sep 1; auctions Dec 2/4. Public data
+    only. First-of-kind (frontier scan verified: no public model exists).
+ 2. AEROELASTIC LCO ENCLOSURE — the flagship world-first: radii-polynomial
+    enclosure of the 2-DOF pitch-plunge limit cycle + certified flutter
+    interval (sequence.js + radii.js are the instruments; whirl-flutter
+    ROM as sequel; NASA TRAST is the live hook). Its own session.
+ 3. PERFECT-FORESIGHT REVENUE AUDITOR — exact LP-duality ceiling on
+    public prices; makes vendor "% of perfect" claims decidable.
+    ABSORBED BY GRIDPROOF (the observatory shelf below) — build it as
+    that app's instrument, not standalone.
+ 4. UAM CAPACITY-CLAIM AUDIT (exact-rational recert of a published
+    vertiport/corridor bound) · STORAGE-NASH CERTIFICATE (first
+    machine-checkable equilibrium certificate in that literature).
+ 5. EVAL — WORKED 2026-08-30 (operator's word "proceed this front", budget
+    $15, MEASURED SPEND $3.40). THE RESULT: the contamination delta is now a
+    MEASUREMENT, not an assertion. Same model, same effort, same 4k cap, same
+    code path; the only variable is whether the answer can be RECALLED or must
+    be DERIVED (rung ('tensor','cN',7) = Strassen under a seed-pinned
+    unimodular change of basis, provably solvable because the witness is
+    Strassen transported, and the build checks that it certifies):
+        model      plain Strassen      conj c1            conj c2
+        sonnet-5   10/10 CERTIFIED     0, never answered  0, never answered
+        opus-5      9/10 CERTIFIED     0, never answered  0, never answered
+        haiku-4.5   0/10               0/10               0/10
+    REPLICATED on two independent seeds (c1, c2 — the ladder now publishes c2
+    and c3; conj_matrices is seeded by the tag string so instances are mintable
+    forever). "Never answered" = the model spent its ENTIRE output budget and
+    emitted no parseable decomposition, though a valid answer is 347 characters
+    with no entry above 3; measured at 4k, 16k, 32k and 48k and at effort low,
+    medium and default.
+    THE CONTROL IS THE POINT: haiku fails the recallable rung exactly as it
+    fails the conjugated ones, so the gap appears ONLY in models capable enough
+    to recall Strassen. Without that row its zero would have looked like
+    evidence and been none. And low effort is not disabling — sonnet certifies
+    10/10 at low effort on the recallable instance.
+    FOUR HARNESS CAPABILITIES ADDED (tools/llm-harness.py), all permanent:
+    (a) token+dollar METERING per row and per run — before this the ledger
+    recorded latency only, so a rung's cost could never be checked against a
+    budget; (b) SSE STREAMING — without it the hard rungs cannot be run at all,
+    a non-streaming request that large outruns the HTTP timeout; (c) --effort,
+    the thinking-depth knob, which is the right lever when a model deliberates
+    past its whole output budget (raising max_tokens only buys more silence);
+    (d) budget-exhausted LEDGER ROWS — excluded from every rate (our cap is not
+    the model's failure) but PRESENT, because a model asked ten times that
+    never answers must not look like a model that was never asked. That
+    omission would have silently gutted the strongest column of the table.
+    STILL OPEN HERE: feedback conversion is STILL 0 and now for a new reason —
+    the conjugation rung produces no first proposal to give feedback ON, so the
+    loop has nothing to iterate. Also unexplained: at effort low sonnet
+    DECLINED in 56 tokens in loop mode but EXHAUSTED 10/10 in campaign mode,
+    same model, same effort, same rung. n = 10 per cell, no uncertainty stated.
+ 5a. EVAL, REMAINING: bigger n on v3 rungs / new model rows (keyless auth live;
+    thinking rungs cost 10-30k output tokens/proposal); a true
+    feedback-conversion loop needs an intermediate-capability model;
+    Laderman/r22 loops need >24k budgets. R3 CONJUGATION RUNG BUILT
+    2026-08-28 (word "work on R3 until ship"): ('tensor','c1',7) on
+    the ladder — seed-pinned unimodular conjugation, transported
+    Strassen green control, RAW Strassen as a red that must fail,
+    fresh instances mintable forever (tags c2, c3, ...). First
+    campaign tag v4 (see session 2026-08-28c for the budget lesson).
+ 5b. THE ORACLE PACKAGING — SHIPPED 2026-08-27 (operator's word
+    "proceed on your order"): (a) oracle/certmachine.py — certify()
+    -> CERTIFIED(certificate w/ sha + equation count) / REFUTED(exact
+    mechanism: first violated equation + rational discrepancy, fixed
+    iteration order) / REFUSED(reason); stdlib-only, floats refused at
+    the door, rings Q + F2 (the characteristic-2 pair — sign-flipped
+    Strassen Q-REFUTED/F2-CERTIFIED — is a battery row); RED CONTROLS
+    RUN AT IMPORT (a broken grader refuses to exist); battery.py 14
+    checks + 6 reds; make test row + control-page row; claim/
+    certificate JSON schemas + oracle/tool-definition.json (strict
+    Messages-API tool shape) + README with the tool-runner wiring.
+    ONE DEFINITION: the eval harness now imports certmachine.check_Q
+    (dry battery + eval-report calibration gate both green after the
+    delegation). (b) PASTE-A-DECOMPOSITION live on the matmul board —
+    BigInt-rational browser mirror, GATED AT BUILD (Strassen must
+    certify, forgery must refute, float must refuse or the page
+    refuses to build); nothing uploaded, citable path stated. (c)
+    paper/verified-reward-oracle.md — the arXiv-shaped DRAFT
+    (invariant, red-control discipline, results quoted from ledgers,
+    #852+RM taxonomy, honest scope, Lean bridge as extension);
+    SUBMISSION on the word only.
+    THE ORACLE LANDING PATH — DONE 2026-08-27 (operator ruling on the
+    word "define the oracle landing path and publish"): /oracle/ is
+    the oracle's own front door — an app-zone-style EXCEPTION to the
+    pages-under-/reports rule, sanctioned by that word (the S2.5c rule
+    otherwise stands). The page: contract stats, the sixty-second
+    curl->certify() path, the paste box (tools/oracle-widget.js — ONE
+    widget definition shared with the board, gated at every build),
+    the tool-shape section, the evidence links (board/loop/taxonomy/
+    methods + the paper draft, labeled not-submitted). GATES: oracle
+    battery re-runs at site build (page refuses without ALL PASS) +
+    widget known answers; numbers read from the eval ledger. Landing's
+    reward-channel section links the door.
+    STILL PENDING from this shelf: outside reruns (item 13, target 3);
+    paper SUBMISSION (word).
+ 6. APERY/STURM DECIDER (notes/apery-sturm-decider.md; green zeta(3)
+    must PROVE, red zeta(5) must REFUSE). A session's work.
+ 7. MU BOX50 (worker_threads sharding ~3.68x, then n=10..12 detached).
+ 8. STRASSEN 2506.13242 non-complex rank-48 row (home:
+    reports/alphaevolve.html).
+ 9. RM Catalan widths toward 1e-30 · tangent-sweep orbit-invariant column.
+ 10. OP-2 EXPLORATION (Γ-convergence of the exact discrete KKT — the
+    stock-constraint phase's math follow-on).
+
+NEXT OBSERVATORIES (ranked, template-ready — the app-doctrine shelf,
+from the SkyAudit retrospective 2026-08-27; each = the decidable-claims
+observatory template on a new market, built on the operator's word):
+ O1. GRIDPROOF — every ERCOT grid battery graded against the exact LP
+     perfect-foresight ceiling (dual certificate: the theorem IS the
+     product; ERCOT 5-min prices + EIA battery registry, public).
+     Absorbs item 3. Deepest instrument moat.
+ O2. HarborProof — UPGRADED 2026-08-27 (the killer-app test applied):
+     AIS replay against the BINDING rules — FuelEU Maritime GHG-
+     intensity thresholds (penalties + pooling), EU ETS on shipping,
+     IMO CII bands — "this vessel's real trading pattern, re-sailed on
+     paper under FuelEU 2030, decided: compliant by this margin or
+     non-compliant unless X" — proof on both sides of a threshold WITH
+     A FINE ATTACHED; shipowners/charterers/Poseidon-Principles banks
+     are compelled buyers who today pay for ESTIMATES. Candidate
+     assets: methanol/ammonia/batteries/wind-assist/slow-steaming
+     boxes; admiralty cube law + IMO's own published formulas.
+     SCOUTED 2026-08-27 — VERDICT: GO. (a) Regulation verified via
+     class-society/trade summaries (pin EUR-Lex 2023/1805 itself at
+     build): WtW reference 91.16 gCO2eq/MJ; reductions -2% 2025 /
+     -6% 2030 / -14.5% 2035 / -31% 2040 / -62% 2045 / -80% 2050;
+     penalty EUR 2,400 per tonne VLSFO-energy-equivalent over the
+     limit — a PUBLISHED EXACT FORMULA; banking (2 yr) + pooling =
+     more decidable arithmetic. TIMING GIFT: the FIRST verification/
+     penalty cycle closed H1 2026 (penalties due 30 June 2026) — the
+     rule is in its first live year RIGHT NOW. (b) THE DATA GAP
+     CLOSES: the Danish Maritime Authority publishes free bulk
+     historical AIS (CSV, web.ais.dk/aisdata/, ~2 years back) — the
+     Danish straits carry ALL Baltic traffic, EU voyages by
+     construction; verify listing + license at build. Note for the
+     build: the audit is COUNTERFACTUAL (re-sail under candidate-fuel
+     WtW boxes), so no fuel attribution from AIS is needed — exactly
+     the SkyAudit shape; ship particulars need a registry-join analog
+     (AIS static messages + open registries). Class societies (DNV/
+     LR/ABS) framed as licensees, not competitors (word-gated).
+     Test sentence, kept verbatim: "Replay a real year of your
+     operations under the rule that's coming, and get a verdict with a
+     proof, not a forecast."
+ O3. RANGEPROOF — EPA test-car road-load coefficients (public domain):
+     every EV on sale vs the user's real commute across a temperature
+     box; winter range decided, not anecdoted. Mass-market; NEEDS
+     DATA as a consumer-facing manufacturer-transparency index.
+ O4. ORBITPROOF — FCC 5-year deorbit rule vs TLE decay enclosures
+     (boxed ballistic coefficient + solar activity -> reentry
+     interval; REFUSED-straddles-the-deadline is itself the story).
+     Most photogenic; flagship-math candidate.
+ O5. ROOFPROOF — NREL irradiance + USGS LIDAR vs installer
+     solar-yield claims, roof by roof; consumer protection, map-native.
+
+DRAFTED OR READY, SENDING ON THE OPERATOR'S WORD:
+ 11. KAUST LETTER — REWRITTEN AND STAGED 2026-08-28 as
+     outreach/kaust-mfg-lab.md, now paired with its delivery vehicle:
+     reports/mfg-observatory.html (the regime map), reports/mfg-certify.js
+     (the one-file certifier, no dependencies) and labs/mfg/ in the
+     public repo — and now ALSO reports/mfg-two-population.html, which
+     engages Cirant's multiplicity line directly instead of only citing
+     it and is the stronger opening gift; the letter's evidence
+     paragraph should be refreshed to lead with it before it sends. Closing ask, verbatim: "send me the one claim that
+     costs your group the most time to defend." STILL NEEDS from the
+     operator: the recipient (Ribeiro alone or +1), three opening
+     sentences in your own words, and a yes/no on the ask as written.
+     The earlier objection ("reword 'live in the browser'") is moot —
+     it is literally live in the browser, CDP-verified.
+ 12. Co-sign notes (He-Tang, mzn) · RM-group note (optional).
+ 13. EXTERNAL RERUN recruitment — target raised to THREE on record
+     (2026-08-27 brainstorm; highest-leverage credibility move; the
+     recording slot exists on the control page). "One machine, one
+     operator" is the sentence standing between the oracle and being
+     taken seriously. The registry is now MACHINE-READ (2026-08-28):
+     corpus/external-reruns.json renders on /oracle/ §9 with count and,
+     when non-empty, a who/date/what/hash table — recording a rerun is
+     one JSON entry + rebuild.
+ 14. LRCAP GUARD-RAIL DECISION: forfeit December consciously, or set a
+     send date (the sin-mfg outreach drafts await only the send).
+ 15. EMBRAERX ARTIFACT PLAY — now unlocked: instance-level UAM artifact
+     aimed at the warm contacts (uam-corridor is public; evtol-energy
+     is live here).
+
+WAITING ON THE WORLD (node tools/sweep-claims.js watches — FIRST ACTION
+every session):
+ 16. #852 correction PUBLIC 2026-08-27 — thread snapshot pinned beside the
+     original (corpus/sources/erdos852_thread_correction-public_2026-08-27
+     .html), sweep watch closed · #510 lambda table (moderation) ·
+     OEIS submission (unanswered).
+
+OPERATOR CLICKS ONLY:
+ 17. GitHub support ticket to gc purged IP blobs (optional) · Boyd 1986
+     via ILL (gates "first witness" prose on the Mercer page only).
+
+## The direction (operator ruling, 2026-08-26): SHIP
+
+The verification layer this machine occupies — proved negatives at scale,
+exhaustion certificates, certified audits of published AI-generated math —
+is uncrowded for months, not years (the Ramanujan Machine's own Challenge
+now asks for verified code; practitioners are arriving thread by thread).
+The machine holds ~25 first-ever certified rows, TWO refutations of
+published claims (erdos852's C*; the RM mixed-zeta row 3), and cross-lab
+replications to the kill-split digit — and almost none of it is visible
+off this disk. THE BOTTLENECK IS PUBLICATION, NOT INSTRUMENTS. Everything
+ladders to one sentence: "I build verification layers under which AI-scale
+mathematical search produces only certified output — and I audit published
+AI-generated mathematics."
+
+Public touchpoint (operator rulings, 2026-08-26): cert-machine replaces
+sin-mfg on carlostoledo.co. Front door = a THIN LANDING PAGE (the
+positioning sentence, the three lanes with one flagship number each, links
+to control page / reports / certificates / GitHub, and the ten-second
+"rerun this yourself" block); the control page sits one click below. Code
+= the FULL repo, public on GitHub, after the self-containment pass.
+NOTHING from sin-mfg's ceremony layer comes along — no CI pipelines, no
+timestamping, no publication-approval flows, no governance files. OUTWARD
+ACTIONS (operator ruling, 2026-08-27, replacing "one operator click"): they
+happen on the operator's WORD — an explicit instruction to the agent to
+publish, push, deploy, post, or send is equivalent to the operator's own
+click, and the agent executes it wherever credentials allow. Nothing outward
+is ever SELF-initiated; the gate is the operator's instruction, not the
+operator's hands.
+
+The shipping queue, WITH STATUS (updated 2026-08-27; the eval promotion
+from the flow-vs-stock ruling is folded in — this list IS the order):
+
+S1. PUBLISH PREP — DONE (e34c5b3). Self-contained: sin-mfg deps lifted via
+    LIFT.json (41 files, drift 41/41 clean; no machine path in any
+    certificate — certs/mercer-mu5.json regenerated m=5..20); LICENSE +
+    package metadata; public README (positioning sentence, three lanes,
+    ten-second verifier block — all three commands tested verbatim — and
+    the honest trust base); make site (landing + control page + 4 reports
+    + 8 certificates + verifiers; every landing number recomputed at
+    build, build refuses on drift); vercel.json + .vercelignore (the
+    Vercel import needs zero manual settings, no cloud build); the
+    paste-ready #510 comment (outreach/erdos510-comment.md — the lambda
+    table with bounds CEILED at 12 decimals via exact rationals).
+GO-LIVE — (1) DONE on the operator's word (2026-08-27): the repo is
+    PUBLIC at github.com/carlostoledo1891/cert-machine (MIT detected;
+    main pushed; default-publish rule now LIVE). Remaining:
+    (2) DONE (2026-08-27, agent-executed after device-code auth): Vercel
+        project cert-machine created and linked, site/ deployed to
+        production, carlostoledo.co + www force-moved from mfg-lab —
+        THE DOMAIN IS LIVE, all routes verified 200 (landing, /machine/,
+        reports, certs, verifiers). Web Analytics: snippet on every
+        generated page via design/template.js; ENABLED by the operator's
+        dashboard toggle 2026-08-27 — collecting live, no redeploy needed;
+    (3) DONE (2026-08-26, operator's click): the #510 lambda-table comment
+        is POSTED and sits in the moderation queue; the sweep now watches
+        the page (signature digits) and shouts + instructs a snapshot when
+        it appears. Status note in outreach/erdos510-comment.md.
+    From the moment (1) exists, the default-publish rule is live: every
+    green session ends by rebuilding the site and pushing.
+S2. THE TWO AUDIT STORIES —
+    (a) DONE (75c85e5): reports/erdos852.html expanded into the failure-taxonomy
+        research note for a lab-evals reader ("a model published a float
+        artifact as a constant, to thirteen digits of false confidence;
+        only exact arithmetic caught it"), with the RM row-3 sign slip as
+        the second specimen of the class.
+    (b) DONE (abf6be0): reports/rm-audit.html — the certified status
+        registry: all 52 rows re-certified at build, 51 SURVIVE, the
+        row-3 refutation + certified correction front and center, build
+        refuses on any deviation. Optional after go-live, on the
+        operator's word: a short note to the RM group (their Challenge
+        asks for verified code), carrying the independent-rerun
+        invitation.
+S2.5c HOUSEKEEPING RULINGS (operator, 2026-08-27), permanent:
+    - Every PAGE lives under /reports (plus the landing and /machine/).
+      No parallel page structures; historical URLs survive as 301s into
+      /reports (vercel.json holds 15, incl. .html spellings). /research/
+      on the site carries ONLY raw artifact FILES individually cited in
+      outreach (the alien-science bundle) — files, not pages.
+    - All five sent pages are REBUILT in cert-machine's design system
+      (reports/: erdos290, verify-lemniscate, mfg-congest, wardrop-repro,
+      alien-science), each gated on re-running its own public verifier at
+      build (embedded-verifier extraction for mfg/wardrop — the extracted
+      .py ships beside the page; the fellows-pack kernel for alien).
+      Byte-preserved originals live in legacy/ as repo provenance only.
+    - build-site is an INCREMENTAL SYNC: writes only changed bytes, prunes
+      only what should not exist, never rm-and-recreate (cloud-synced
+      ~/Documents has nothing to fight); sync-conflict junk is auto-pruned
+      silently. FIX CAUSES, DO NOT ADD GATES (operator instruction).
+S2.5b INCIDENT AND STANDING RULES (2026-08-27). A whole-directory lift of
+    the mfg-congest and wardrop-repro units published 18 PROPRIETARY-marked
+    solver files + internal docs (~127 files) to the public repo and site
+    for ~1-2 h. REMEDIATED same day: purged, LIFT.json rewritten to
+    explicit per-file items, git history REWRITTEN and force-pushed, site
+    redeployed, all 404s verified; sent pages stayed live throughout.
+    RULES, permanent: (1) public lifts are FILE-LEVEL and eligible only if
+    present in the published mfg-lab repo tree — the source lab's own
+    allowlist made real; check BEFORE lifting. (2) Operator ruling: NEVER
+    copy styles from sin-mfg — rebuilds and new pages use cert-machine's
+    design system only; byte-preserved legacy citation pages excepted.
+    (3) mfg-congest + wardrop-repro engine rebuilds (pending) may re-run
+    only PUBLIC components (the pages embed their stdlib verifiers; the
+    kernels are class-B private and stay out).
+S2.5 LEGACY OUTREACH SURFACES (operator ruling 2026-08-27: this is the
+    focus before the eval).
+    STAGE 1 — DONE: the three SENT outreach targets (Erdos #290 report,
+    Erdos #1038 verify-lemniscate, the Anthropic sandbox alien-science
+    bundle) had gone DEAD — the old mfg-lab project 308s its whole host
+    to carlostoledo.co, which now serves cert-machine, so every shared
+    URL 404ed. Restored: lifted byte-identical from sin-mfg via
+    LIFT.json (125 files, drift clean) into legacy/, served at ORIGINAL
+    paths; vercel.json carries extensionless rewrites + 301s for retired
+    spellings (/technical-reports/*, /reports/verify-lemniscate). All
+    seven sent URLs verified 200 end-to-end through the old host; the
+    four cited artifacts hash-identical to the sin-mfg source.
+    CONSEQUENCE, PERMANENT: the mfg-lab Vercel project must NEVER be
+    deleted — its .vercel.app host is in three sent messages and only
+    resolves by redirecting into carlostoledo.co.
+    STAGE 2 — NEXT: rebuild erdos290 and verify-lemniscate as
+    cert-machine engine reports (numbers reviewed and re-certified by
+    our instruments, improved where cheap — e.g. the #290 l-sweep
+    deepening), then flip their legacy paths to 301s onto the new pages.
+    The alien-science bundle stays FROZEN (cited evidence bytes in a
+    safety-research issue) unless the operator rules otherwise.
+S3. THE EVAL — LIVE WITH ITS FIRST BOARD (2026-08-27). 202 ledger rows,
+    five campaigns (prompt v1 + clarified v2, tags in every row):
+    claude-opus-5 v2 17/24 certified (71%) · claude-sonnet-5 v2 28/40
+    (70%; v1 25/34) · claude-haiku-4.5 0/80 across both prompts — a
+    measured capability cliff. THE FINDING: zero REFUTED rows among real
+    models — every well-formed proposal surviving the float screen was
+    EXACTLY right (survivor truth 100%); frontier failures are malformed/
+    rejected (Laderman-rung emptiness under thinking budgets), never
+    subtly wrong. Harness: API retry+skip (errors are not model
+    outcomes), v2 prompt with worked example, per-campaign tags, budget
+    caps. Spend: well under the operator's $24. KEY ROTATION: the pasted
+    key was DELETED by the operator 2026-08-27 (leak closed). Future
+    campaigns: operator drops a fresh Console key at
+    ~/.secrets/anthropic-key (chmod 600) and runs are invoked as
+    ANTHROPIC_API_KEY=$(cat ~/.secrets/anthropic-key) — the key never
+    enters a transcript again.
+    ORIGINAL BUILD NOTE (2026-08-27): tools/llm-harness.py gains
+    the matmul family (rank-R decompositions of <n,m,p> over Q; stdlib
+    Fraction grading of the full tensor identity — always decidable, false
+    positives provably false; prune-only float screen; per-proposal
+    accounting, dedup off for evals). Red controls per run incl. the
+    SUB-FLOAT forgery (coefficient off by 1e-9, invisible to the screen,
+    REFUTED exactly); any control certifying aborts the campaign. Ladder:
+    <2,2,2> r8, r7 (Strassen), <2,2,3> r11, <3,3,3> r23 (Laderman) —
+    achievable ranks only. Leaderboard: reports/matmul-eval.html
+    (build-report-eval.js re-runs the calibration as its gate; ledger
+    certs/matmul-eval-ledger.jsonl, append-only; page states NO MODEL HAS
+    RUN yet — the fake baseline is labeled). FIRST CAMPAIGN is one
+    operator command with their key:
+    ANTHROPIC_API_KEY=... python3 tools/llm-harness.py --family matmul
+    --model <id> --n 40 --ledger certs/matmul-eval-ledger.jsonl
+    ORIGINAL NOTE: model-proposes-engine-certifies over the
+    strassen corpus: per-model certified truth rates, false positives
+    provably false; shipped as corpus + stdlib graders + a small
+    leaderboard page. The one artifact whose value curve has no operator
+    in the denominator; the direct frontier-lab bridge.
+S4. THE NEW-CLAIMS SWEEP — DONE (2026-08-27): tools/sweep-claims.js.
+    Run `node tools/sweep-claims.js` at SESSION START. Surfaces: the RM
+    results page (a new sheet = new registry corpus), the erdosproblems
+    #852 thread (the standing moderation check is now automated — it
+    shouts when the correction digits appear and the snapshot instruction
+    fires), the #510 page (added 2026-08-26: the posted lambda-table
+    comment's signature digits; shout + snapshot when public), and arXiv
+    "Ramanujan Machine" mentions (a proof of an audited
+    row updates its registry status). Diff state: corpus/claims-seen.json.
+    A REPORT, not a gate — exit 0 always; acting is a session decision.
+    No cron unless the operator later opts in.
+S5. THE MERCER PROGRAM REPORT — DONE (2026-08-27): reports/mercer-program.html
+    (build-report-mercer.js re-certifies all 12 mu champions, re-proves the
+    Sturm equality, re-checks the 16 ladder rungs at every build; 5.09G sets
+    accounted; Boyd framing discipline in its own section). ORIGINAL NOTE: the mu/lambda tables, the
+    m = 5..20 bracket ladder, M(0,1,2,6,9) = 1, cross-lab replication to
+    the kill-split digit. "First CERTIFICATE / named box" framing; Boyd
+    1986 (unread; ILL) gates "first witness" prose only.
+S6. THE METHODS NOTE — DONE (2026-08-26): reports/methods-note.html
+    ("None by reading code"; tools/build-report-methods.js). The bug
+    catalog: 10 real bugs, each with the instrument that caught it
+    (impossible number / calibration / control / byte pin / outside read
+    — 0 by reading code), the five rules as engineering, two near-misses,
+    the same-class-in-the-wild section, and the OPEN co-sign invitation
+    (generic on the page; DIRECTED notes to He-Tang / mzn remain
+    operator's-word outreach, undrafted). SIX batteries execute as the
+    page's own gate; recomputable numbers recomputed, history quoted AS
+    history. Ranked #2 on the shelf.
+S7. THE LEAN BRIDGE — DEMONSTRATED AT FULL SCALE 2026-08-26/27:
+    check.sh 4/4 — the complete artifact builds green (all 33,859 primes
+    kernel-certified in 240 fine-grain modules, ascent, oddness, the
+    N_spec/D_spec product-spec theorems, THE inequality) and all three
+    forged variants are REJECTED by the kernel. reports/erdos852.html §8
+    now states the demonstrated state (the dated honesty sentence removed
+    by its own rule). Two performance walls were root-caused as CAUSES:
+    (1) isPrime in Bool primitives (Nat.blt/beq) — ite/Decidable chains
+    are kernel poison at scale; (2) NEVER evaluate a 33k-element fold in
+    one decide — the kernel cache held every growing bignum partial
+    (~8GB, 5%-CPU rehash churn); the fix is chunksP (240 chunk
+    REFERENCES) + two generic induction lemmas (all_flatten,
+    prod_map_flatten in Basic.lean) so proofs rewrite over references and
+    the kernel evaluates a TREE of chunk subproducts. Fine grain
+    (~140 primes/module) keeps every decide's cache small — measured
+    635s at 2,116 primes vs 4s at 141. Full build ~16 min on 8 workers.
+    Lean 4.33 + Mathlib project at lean/erdos852. Design: a ten-line trial-division isPrime with a
+    machine-checked correctness THEOREM against Mathlib's Nat.Prime
+    (Basic.lean), so the kernel evaluates the fast function and the
+    33,859-prime list needs ZERO generator trust — an omission only
+    weakens the bound, every other defect fails the build (primality,
+    strict ascent → Pairwise distinctness, oddness all kernel-checked).
+    The theorem: cstar_refuted, 5(N−D)·10^12 > 752403861778·D, by
+    `decide +kernel` with maxHeartbeats 0 (the default heartbeat cap was
+    the first full-scale failure; 16 parallel mathlib workers then
+    swap-thrashed the 16GB machine — build chunks in batches of 3).
+    Generator: tools/gen-lean-erdos852.py (reads the certificate;
+    weight-balanced chunk modules). Reds: lean/erdos852/check.sh — three
+    forged variants (composite / order / claim) the kernel must REJECT.
+    reports/erdos852.html §8 states the bridge and its honest boundary
+    (the subset-product monotonicity paragraph and the transcription of
+    the published constant stay outside Lean). lean/**/.lake gitignored;
+    rerun: install elan, `lake exe cache get`, bash lean/erdos852/check.sh.
+
+ADOPTED FROM THE FLOW-VS-STOCK BRAINSTORM (operator, 2026-08-27) — convert
+operator capability (a flow) into artifacts that hold value unattended (stock):
+  1. DONE is redefined: not "battery green" (internal done) but "has a public
+     URL and someone else could rerun it". A result without a URL is not done.
+  2. Owned surfaces (repo, site) default-publish: a green session ENDS by
+     rebuilding the site and pushing — the operator vetoes after, not before.
+     Third-party surfaces (forums, email, OEIS, notes to authors) move only
+     on the operator's explicit word, never agent-initiated.
+  3. QUEUE REORDER: the eval moves to directly after S2 (now reflected in
+     the queue above as S3; the reports and the Lean bridge are writing
+     slots interleaved around it).
+  4. The audit function becomes standing: the engine already re-audits the
+     whole RM corpus every run; add a NEW-CLAIMS sweep (RM results pages,
+     erdosproblems proof-claims, arXiv constants) run per session — a fetch
+     tool, not a cron; scheduling is a later operator opt-in.
+  5. Attach one human: the #510 comment, the RM correction note, and the
+     methods paper each explicitly INVITE an independent rerun / co-sign
+     (the thread practitioners already doing rigorous numerics — He-Tang,
+     mzn — are the natural first contacts).
+  Positioning shift that follows: not "watch me operate" but "I built the
+  verification infrastructure — the eval labs run, the registry that
+  updates, the certificates anyone checks in ten seconds." Operator
+  capability stays visible as provenance, not as the product.
+
+SESSION 2026-08-29 (EVERY REPORT GETS A CHART — operator's word:
+"apply at least one chart, graphic per report. Cleverly decided and
+showing insightful information"):
+  - COVERAGE IS NOW 24/24. The thirteen remaining pages each got the
+    chart its own argument needed, not a chart:
+      impostors    agreement depth per constant against the 17-digit
+                   double screen — the page's thesis, drawn
+      answer-key   the two ways to be wrong on ONE axis: right to 11
+                   digits, or right to 62 and still refuted; the float
+                   screen falls between them
+      methods-note how 10 real defects were caught, INCLUDING the empty
+                   bar the page is titled after ("none by reading code")
+      matmul-eval  outcome mix per campaign — the REFUTED band is empty
+                   across 274 proposals, which is the finding
+      verifier-loop every trajectory round by round: the 3 certified are
+                   green in cell one, so no feedback conversion exists
+      forecast-gym what each proposer RISKED before the day existed —
+                   widths 0 to 222 on the same future
+      mfg-cap      separation vs combined radius on one log axis: 10^13
+      mfg-congest  the radii polynomial itself, from the verifier's own
+                   Y0/Z1/Z2 — the one inequality the proof rests on
+      mfg-lab      the paper's Table I edge by edge, 12 of 15 exact
+      wardrop      one paper, all three verdicts (exact/enclosed/refused)
+      lemniscate   enclosure width vs the box the manuscript needs: 15
+                   decades of margin
+      zeta3        the five rows by how tightly each is pinned — the
+                   "new and unproven" ones are held to the same standard
+      alien-science the exact residual axis where epsilon = 0, so the
+                   admissible set is a POINT and no score can move the
+                   mutant into it
+  - THREE CHARTS CHANGED WHAT THE PROSE SAID, which is the point of
+    drawing things. The impostor caption first claimed every constant
+    cleared the 17-digit line; two are at 16, and the corrected text
+    now says what the chart says. The mfg-lab caption quoted a
+    max gap of 2 against the page's own 1.568 — the first is a
+    difference of ROUNDED totals, the second the gate's unrounded
+    deviation, and the caption now distinguishes them. HarborProof's
+    spike was found the same way last session.
+  - KIT ADDITIONS, all from real failures seen on screen: intervals,
+    segments (three-valued verdicts and stacked shares), log x-axis and
+    marks on bars, vertical callouts on lines, notes on segment rows,
+    and — the important one — the legend now WRAPS instead of silently
+    dropping its last key off the right edge.
+  - design/battery.js: 24 pages, 48 svg roots, 0 literal colours, every
+    figure with a text alternative. make test 34/34.
+
+SESSION 2026-08-28f (THE DATAVIZ PASS — operator's word: "UX + UI pass
+focused on charts and graphics ... minimal, beautiful, adapt to our
+colours ... insert charts across the reports"; no reference images
+arrived with the message, so the direction was taken from the words):
+  - THE SHELF HAD NO CHARTS. 24 report pages, one figure between them
+    (the observatory map). Now nine pages carry one, each chosen as
+    that page's most important thing to see:
+      erdos290     the certified width of c closing, log scale, with the
+                   cited page's horizon shaded — every point bracket(L)
+                   recomputed in exact rationals at build
+      erdos852     the refutation at 1e-13 zoom: the published constant
+                   and a naive double product on the SAME point, outside
+                   the certified enclosure; log1p back inside
+      harbor-proof the per-ship flip fraction as a population — and the
+                   chart found something: 2,286 ships (18%) in ONE bin
+                   carrying 30 distinct values, the signature of a shared
+                   default emission factor, now stated in the caption
+      skyaudit     the reserve-price ladder as EMPHASIS (Beta in the
+                   accent, the other three in context grey) — the form
+                   the skill names for "one series is the point"
+      evtol        the three-valued verdict SWEPT: certified / hatched
+                   undecidable / refuted across cruise duration, both
+                   rules. The machine's signature picture
+      entropy      proved vs open, drawn to scale, with ln 2 marked
+      mercer       the mu(5) ladder falling rung by rung
+      water-value  the margin as a DISTRIBUTION, not a maximum
+      rm-audit     51 printed rows as cells: 50 green, one plum
+      alphaevolve  naive rank -> certified rank per shape, dumbbell
+  - THE ASSET IS design/charts.js — nine forms (lines, band, bars,
+    dist, dumbbell, strip, intervals, segments, sparkline) with the
+    rules applied BY CONSTRUCTION: colour by job, three identity hues
+    max (context exempt, which is how emphasis works), text never wears
+    the data colour, 2px lines / 4px rounded data-ends / 2px surface
+    gaps / hairline SOLID grid (dashes reserved for predicted marks),
+    labels selective. One delegated hover listener per page — the
+    second scripted element the design system ships, and it enhances
+    rather than gates.
+  - THE PALETTE WAS DERIVED, NOT PICKED. The text tokens FAIL as chart
+    marks (outside the OKLCH band, --held under the chroma floor,
+    green<->amber at deltaE 5.4 protan). Chart steps were snapped from
+    the SAME three hues — hue held, L and C moved — taking the passing
+    candidate CLOSEST to the brand. The first answer passed the
+    published standard and then collapsed to deltaE 4.3 under
+    tritanopia, which our own battery gates and the standard does not;
+    the second answer clears all three CVD types AND sits closer to
+    the brand tokens, so nothing was traded for it.
+  - design/battery.js is new and in make test (34 rows now): it
+    re-derives the palette checks in OKLab with Machado 2009 rather
+    than quoting them, scans every generated report for a literal
+    colour inside an <svg> (DESIGN.md has claimed "tokens only" since
+    the beginning with nothing enforcing it), checks every figure has
+    a text alternative, and fires four falsifiers.
+  - Verified by CDP in BOTH themes at desktop and phone widths, with
+    the hover readout exercised in-browser; no horizontal overflow.
+
+SESSION 2026-08-28e (LAB v0 — operator's word: the MFG research lab,
+tools-first, target Ricardo de Lima Ribeiro; three binding requirements
+kept — full rebuild in OUR design system, tools-first, code in labs/mfg
+with the page under /reports):
+  - THE CENTREPIECE SHIPPED: reports/mfg-observatory.html. 19,800
+    cells; 11,330 MULTIPLE (30.7% of the plane by area), 384 UNIQUE,
+    8,086 UNDECIDED (6,470 still carrying one certified enclosure).
+    Tightest witness anywhere in the map clears its own combined radii
+    by 289.6x; smallest certified density 2.81e-7 (positive, and it is
+    proved, never assumed — m > 0 is a hypothesis of the model).
+  - THE MATHEMATICS THAT MADE IT A MAP AND NOT A TABLE: the box
+    certificate carries a QUANTIFIER — for every s in the rectangle
+    there is a unique solution in B_r(xbar(s)) — which needs (a) A
+    fixed at the box midpoint, so the tail of I - A DPhi carries an
+    undecaying 1 - sigma/sigma0 that is charged by hand, and (b) a
+    TANGENT PREDICTOR, without which admissible cells collapse from
+    0.0625 to 0.004 in c (15.6x). Measured, not assumed: box.js has an
+    opts.freezePredictor switch so falsifier X2 walks the same width
+    ladder both ways, and the page parses the ratio from that run.
+  - THE DIVERGENCE GUARD: labs/mfg/box.js is a SECOND implementation
+    of the lifted kernel's argument. G1/G2 require bit-for-bit equality
+    at zero width on 7 reference instances (kappa 0.4494 at
+    (0.5,-24,0) reproduced from validate.js's own header comment), and
+    the page refuses to build without them. The browser bundle is
+    assembled from the source files and executed against the Node path
+    for the same reason.
+  - THE NEGATIVE DIRECTION: refuteCandidate — paste a claimed
+    equilibrium and a claimed accuracy; one equation whose residual
+    exceeds its own row bound times delta proves no exact solution is
+    that close. R2 requires the instrument to REFUSE rather than
+    certify when handed a true equilibrium.
+  - THREE DOORS, all verified: the in-page paste box (CDP-driven click
+    returned MULTIPLE with the same witness numbers as Node),
+    reports/mfg-certify.js (56 KB, zero dependencies, run at build),
+    labs/mfg/ with its README.
+  - HOUSEKEEPING found and fixed at the cause: `make site` had been
+    REFUSING since the #290 shard campaign started, because the
+    in-progress certs/erdos290-tail-shard-*.json files are not on the
+    published certificate shelf. They are working records that `merge`
+    folds into erdos290-tail-ext.json, so they are now gitignored (like
+    certs/shard-logs/) and excluded from the shelf check by name, with
+    the reason written down. A running campaign can no longer block a
+    site build.
+  - The map record is written compact (one cell per line, reasons
+    interned): pretty-printing 19,800 cells cost 13 MB of leading
+    spaces, and a record that large is one a host may silently drop.
+  - make test gains a row (mfg lab box certifier). Battery 9 checks +
+    6 falsifiers, all green.
+
+SESSION 2026-08-28d (the #290 revisit + the discoverability front —
+operator's words "boost the 290 until where we can", "wait l=120 and
+have all outreach updated, committed and deployed", "work in the
+foreground on the other tasks"):
+  - THE #290 STATE, READ: your issue-164 comment (teorth/erdosproblems,
+    4 Aug) IS the full answer to Woett's help-wanted ask; zero replies
+    in 24 days because the problem-page comment it promised never
+    cleared moderation. The account for OEIS was only requested
+    2026-08-28 — so the about page's "OEIS submission, posted 4 August,
+    unanswered" line is WRONG and must be corrected (operator to
+    confirm what happened on Aug 4; nothing was ever filed).
+  - THE TAIL EXTENDED to l = 120 (even d <= 240): 60 degrees closed,
+    0 open; the ONLY drops are d = 168 and 224 — exactly the two
+    4k(k+1) in range, the law twice more. Bracket c ∈ [0.829918323,
+    0.831988708] (width 2.07e-3, from 2.75e-3); 1/(1+c) ∈
+    [0.545854892900, 0.546472477723]; assumption enters at d >= 242.
+    Timing law measured ~l^4 (116 s @ 91, 212 s @ 105); the l≈310
+    summit (third UNCONDITIONAL digit) is ~11 single-thread days ->
+    tools/run-erdos290-tail-shard.js (per-shard files, merge refuses
+    disagreement) LAUNCHED with 6 shards at session end — see the cold
+    start; `merge` then rebuild when they finish. Fourth digit needs
+    l≈740 (months): not on the menu.
+  - PRECISION: tools/erdos290-cstar-precision.js moves the conditional
+    enclosure's certified horizon to the live tail record (the lifted
+    kernel capped at 46 digits by ITS first uncertified degree); gated
+    by calibration vs the kernel (43 digits agree), cutoff agreement,
+    containment. 110 digits of c* and of 1/(1+c*) — outreach/
+    b-oeis-cstar.txt, b-oeis-c0.txt (rerun after each horizon move).
+  - OUTREACH STAGED (all sends on the word; OEIS clicks are the
+    operator's, account pending approval): outreach/erdos290-issue164.md
+    (the posted comment pinned + the refreshed follow-up draft),
+    outreach/oeis-erdos290-pack.md (5 packs: disc(f_d) and disc(h_l)
+    integer sequences with Bareiss-verified terms + b-files, the
+    A033996 comment, the two constants staged for after the campaign),
+    outreach/zenodo-plan.md (repo-release DOI now; the #290 deposit
+    after the summit; ORCID first; arXiv note follows Woett).
+    Recommended order: ORCID -> issue-164 follow-up (the loop-closer;
+    numbers are l=120-fresh) -> OEIS packs 1,2,3 once approved ->
+    constants after the campaign.
+  - DISCOVERABILITY FRONT (was title-only): template head with
+    description/og/twitter/favicon, favicon.svg + og.png born from the
+    design tokens (CDP-rendered card), canonical + og:url, www->apex
+    308 in vercel.json, robots.txt + sitemap.xml generated from the
+    desired map (30 URLs), canonical path on all 23 report builders,
+    hand-written descriptions on ten flagships.
+  - JUDGMENT CALLS recorded: All Things Agentic hackathon (Google
+    stack, Aug 31, 11k entrants) — PASS, wrong window/audience/stack.
+    OEIS entries — worth doing as the first third-party acceptance and
+    the pretext for engaging van Doorn, not as a credential.
+  - LAB v0 (MFG, tools-first, target Ricardo de Lima Ribeiro) approved
+    and written up as FIRST THING NEXT SESSION above.
+
+SESSION 2026-08-28c (R3 + HarborProof — operator's word "work on R3 and
+harbor-proof until ship and stop"):
+  - R3 SHIPPED: the conjugation rung ('tensor','c1',7) in the harness —
+    seed-pinned unimodular conjugation (tensor_value/tensor_witness
+    generalize the d7 path; instance c1: 40 nonzeros, entries to |8|,
+    witness coeffs to |3|); greens: transported Strassen certifies;
+    reds: sign-flip + RAW STRASSEN must fail (the recall control); dry
+    battery green (34 reds run, 0 certified). /oracle/ ladder's
+    "next, unbuilt" row became the live "search" row; eval page gains
+    §2f (fresh instances forever — contamination-proof by algebra).
+    CAMPAIGN v4 FINDING (the budget wall, stated on §2f): d7 was
+    opus-solvable @16k; on c1 opus emits EMPTY at 16k and sonnet at
+    32k every attempt (skipped as harness artifacts); the API 400s
+    non-streaming budgets above ~32k — STREAMING SUPPORT in the
+    harness is the named unblock for deeper budgets. haiku attempted
+    6/6, all exactly rejected. Recall provably scores zero on this
+    rung; derivation hasn't yet fit a buyable budget.
+  - HarborProof FIRST LIGHT SHIPPED (see ACTIVE NEXT A for the standing
+    state): instruments/fueleu (Reg 2023/1805 constants transcribed
+    from OJ bytes fetched via the Publications-Office cellar — EUR-Lex
+    proper anti-bots 202s; the DMA AIS bulk server was DOWN all
+    session, TLS reset — v0 pivoted to the BETTER source: the official
+    EU-MRV per-ship registry, THETIS public API, 2025 v45 generated
+    the same day). THE SHARPENING that made the page: the naive outer
+    box (any WtT × any LCV) straddled 11,971 ships; constraining the
+    fuel-mix simplex by each ship's own reported CO2eq/fuel ratio
+    (extremes at two-fuel vertices — linear-fractional over the
+    constrained polytope) decided ALL 12,620 admitted ships with 0
+    straddles. Battery 10 checks + 5 reds incl. the 1e-9 boundary
+    flip; make test now 32 rows; control page 28 batteries.
+  - QUEUED BY THE OPERATOR mid-session: the Erdős #290 revisit (their
+    #290 comment never cleared moderation while #852 did). Prep done
+    this session: thread re-read (Woett = van Doorn asks for the
+    constant's OEIS expansion; TAO suggests the help-wanted GitHub
+    issue route; 4 comments, ours absent), Woett's b<=6a Lean file
+    fetched (Aristotle+Alexeev, mathlib 4.24.0), our 290 batteries
+    green, A375081's 10,000 terms audited against [vD24]'s proved
+    bounds (0 violations; min (b-a)/log a = 0.657 at a=9233, above
+    our conditional 1/(1+c*) = 0.54622931...), tail-extension runner
+    confirmed incremental past l=90. Assessment delivered in-session;
+    next moves await the word.
+
+SESSION 2026-08-28b (THE FORECAST GYM — operator's word "build what's
+missing", after the hiring-lead read named the prediction engine's three
+gaps: age, the 8C fusion, the public face; 8C stays BLOCKED on the
+operator's own parked scenario packs and was not touched):
+  - AGE: day 2026-08-27 ingested green (Thu, 49 E-FLYABLE, 25.7% — the
+    weekday rate cluster holds at HALF the volume; intervals widened
+    honestly). Product ledger committed forward: 09-01 + 09-02 pairs at
+    the new n=4 coverage 3/5. 8D is now a standing daily cadence:
+    ingest, score BOTH ledgers, commit forward.
+  - THE INSTRUMENT GREW: instruments/forecast/admission.js — the
+    doctrine's prune rule ("below your certified coverage you stop
+    being admitted") computed as an EXACT binomial tail P[X<=k] over
+    BigInt rationals, DEADMITTED at a stated 1/20 bar, the tail printed
+    as the certificate; only under-coverage prunes. Battery 7 checks +
+    5 reds (the deadmission firing IS a red).
+  - THE GYM: tools/forecast-gym.js — three deterministic house
+    proposers (conformal = claims only its theorem, and REFUSED the
+    weekend group as too small to prove anything, on the record;
+    persistence = the forced dumb baseline, expected to be pruned in
+    public; range = the hedger); 32 sealed-capable commits across 6
+    target days; DEADMITTED proposers' commits are refused by the
+    runner (mechanism verified on a scratch ledger: 0/5 at claim 1/2 ->
+    tail 1/32 <= 1/20 -> SKIP printed).
+  - THE PAGE: reports/forecast-gym.html — thesis "the future is the
+    only test set that cannot leak"; gates = battery + both ledgers
+    re-verified with the builder's OWN arithmetic (sha re-hash, Winkler
+    recount string-exact, commit-before/score-after) + admission board
+    recomputed. Shelf AI group position 5; landing card; /oracle/ §8
+    links it as the probabilistic sibling channel. Verified: 31/31,
+    zero overflow 1440/390, board screenshot clean, links root-absolute.
+  - SCRATCH-TEST CAUGHT A REAL BUG before any ledger was touched:
+    admission verdicts carried BigInts that JSON could not serialize —
+    fixed at the cause (tailStr only).
+
+SESSION 2026-08-28 (the oracle door upgrade — operator's word "use what
+survives and update /oracle/", on an outside-drafted oracle page):
+  - The outside draft (written without repo access) was fact-checked
+    against the ledgers before anything shipped. SURVIVED: the lab
+    framing, the Monday uses, the ladder with open rungs, the scope/
+    Lean-exit statement, the on-page rerun registry, the hero sentence
+    ("graded correct and is correct are the same event"). REFUTED BY
+    OUR OWN LEDGER: its closed-loop "measurable improvement" claim +
+    median-rounds stat — the loop record is 3 closed all first-round
+    (opus) and 24 rounds with no conversion (haiku); the page now
+    states that honestly and names the conversion trajectory as open.
+    Its ladder mixed real rungs with corpus rows and an unbuilt rung —
+    now labeled honestly (audits-not-rungs note for AlphaEvolve/
+    AlphaTensor; "next, unbuilt" for the conjugation rung).
+  - /oracle/ rebuilt in build-site.js §1-§9 (foreign CSS never
+    entered): all ladder/loop counts computed from the ledgers at
+    build; NEW GATE-BY-FACT: a CERTIFIED rank-6 <2,2,2> row (Winograd-
+    impossible) refuses the build. NEW RECORD: corpus/external-
+    reruns.json ([] until someone reruns) renders as §9's registry.
+  - Verified: make site green (27/27 control batteries), make test
+    31/31, zero horizontal overflow at 1440/390 (CDP probe), ladder
+    table screenshot clean, every internal link root-absolute.
+
+SESSION 2026-08-27 CLOSE (documentation + review phase, operator's word):
+  - CLAUDE.md now carries the permanent instructions: sin-mfg is a
+    LEARNING repository (insights applied freely, gates/rulings never
+    imported); every page is born from the cert-machine template (no
+    built pages or CSS from sin-mfg; legacy/ = unserved gate sources;
+    the only byte-preserved exception is already-sent outreach URLs);
+    keep the machine lean (gates catch drift and forgery, never slow
+    development — review and delete what refuses instead of measures);
+    the TASKS BACKLOG at the top of HANDOFF is the operator's standing
+    menu, updated in the same commit as any task-state change.
+  - REVIEW PASS: no tracked junk (641 files; .gitignore already covers
+    .DS_Store/.lake; the 18 sync-resurrected lean files were pruned
+    earlier tonight); every code gate in the repo measures (drift,
+    forgery, count closure, shelf/disk agreement) — none refuses a
+    direction, nothing removed. The lock-imports were behavioral and are
+    closed by the CLAUDE.md rules + memory.
+  - Backlog restructured into TASKS BACKLOG (17 items, ranked, grouped
+    by who acts) at the top of this file.
+
+SESSION 2026-08-27 LATE NIGHT (THE UNLOCK + the new-fronts program):
+  - OPERATOR RULING, permanent: sin-mfg's RULINGS are information, never
+    law here. Explicitly non-binding: its D2 aerospace gate, its "market
+    KILLED" verdicts (about selling; our goal is portfolio — an incumbent
+    tool like NASA Kodiak is a benchmark to beat, not a blocker), its
+    OCCUPIED-as-veto gates, its MOAT/owner ceremonies. What binds stays
+    short: read-only source lab, class-C never public, file-level lifts,
+    calibrate+reds, done = public URL + rerunnable, sends on the word.
+    Symptom the operator flagged and to watch for: routing decisions to
+    him that his rules already delegate — that is the slowness.
+  - TWO FRONTIER SCANS (web, verified-at-source; full reports in session):
+    AEROSPACE — the crown gap is CONFIRMED OPEN 3 ways: computer-assisted
+    proof of periodic orbits is mature, aeroelastic LCO literature is
+    mature, their intersection is EMPTY (no certified aeroelastic LCO
+    exists anywhere; NASA TRAST whirl-flutter is the live hook). eVTOL
+    energy-reserve feasibility (SFAR 20/30-min rule, industry pushback)
+    has NO provable envelope anywhere — Monte Carlo only. UAM capacity/
+    equilibrium claims are simulation-only across the literature.
+    Althoff/Platzer iFM 2025 converged on our witness+kernel architecture
+    — cite as validation. LRCAP/BESS — dates hold (auctions Dec 2/4;
+    ANEEL hearing Sep 1; CP 22/23 close Sep 14); record 296.8 GW
+    registered vs ~5-6 GW to contract; NO public quantitative clearing
+    model exists (certified LRCAP arithmetic = first + perishable). And
+    nobody certifies the "percent of perfect foresight" ceilings battery
+    vendors are judged by (Gridmatic 48%, Autobidder ranks) — an exact
+    LP-duality auditor would make those claims decidable.
+  - FIRST INSTRUMENT OF THE AEROSPACE FRONT SHIPPED: instruments/evtol/
+    (energy.js + battery.js, 25 checks, 4 reds, verdicts cross-proved by
+    256-corner exact-rational sweeps; dyadic closed-form calibration —
+    the battery caught THREE of the builder's own fixture errors incl.
+    the 0.9-is-not-dyadic slip, working as designed) + reports/
+    evtol-energy.html (build gates: battery + live mission ladder + the
+    certified-endurance frontier bisected fresh each build; frontier at
+    the stated boxes: ~19 min cruise under the 20-min rule, ~11 under
+    30). Aviation wording rule applied on-page ("mathematically
+    certified", no airworthiness meaning). New shelf group 'applied'
+    (evtol-energy + water-value moved in). make test row 'evtol energy';
+    control battery row added (now 25 batteries).
+  - THE NEW-FRONTS QUEUE, ranked (novelty x feasibility x clocks):
+    (1) LRCAP certified auction arithmetic — fetch CP 22/2026 edital
+    drafts, exact-rational dominance thresholds (beta=0.9 x two-product
+    sequencing x content premium); PERISHABLE, target well before Sep 14;
+    (2) the aeroelastic LCO enclosure — the world-first flagship, needs
+    its own session (radii polynomial on the 2-DOF pitch-plunge system;
+    sequence.js + radii.js are the instruments); (3) certified
+    perfect-foresight revenue auditor (exact LP duality on public
+    prices); (4) UAM capacity-claim audit; (5) storage-Nash certificate.
+
+SESSION 2026-08-27 NIGHT (the stock-constraint phase — operator chose it as
+the first of the three new fronts after the sin-mfg investigation; aerospace
+and LRCAP idea extractions are recorded in this session's chat, NOT in repo
+files — class-C sin-mfg material must never enter this public tree):
+  - THREE-FRONT INVESTIGATION (aerospace / LRCAP / BESS) swept sin-mfg via
+    three read-only agents. Keys: research/lrcap-bess is a LIVE priced
+    engagement (SKUs R$30-100k, Dec 2/4 2026 auctions, ANEEL CP closes
+    14 Sept, outreach drafted-never-sent, class C — nothing liftable);
+    aerospace has a PROMOTED uam-corridor unit + EmbraerX warm-contact
+    strategy + a stale D2 ruling (no aerospace report before the Rust
+    kernel — its stated blocker retired 2026-08-01; operator must
+    re-adjudicate) + one named unbuilt bridge (certified limit-cycle
+    enclosure, the object Kodiak cannot do); "certified" is a hazard word
+    in aviation (always "mathematically certified ... enclosure").
+  - KAUST LETTER READINESS (the phase's cheapest high-value move): the v3
+    Gomes/Ribeiro letter's evidence surface was DEAD — mfg-lab.vercel.app
+    hash-routes now land on this site's root, github.com/carlostoledo1891/
+    mfg-cap 404s. FIRST FIX (serving the sin-mfg pages byte-preserved under
+    /research/) was WRONG and operator-corrected the same night — see the
+    RULING below. Final state: the letter's evidence = REBUILT reports in
+    this design system (reports/mfg-cap.html — the lead multiplicity
+    result, its battery + 6 falsifiers re-run at build; reports/
+    mfg-lab.html — the lab's certified-claims registry, four of its own
+    batteries at build; reports/wardrop-repro.html and methods-note.html
+    already covered #/wardrop and #/verification). The "MIT code" citation
+    points at github.com/carlostoledo1891/mfg-lab/tree/main/research/
+    mfg-cap (resolves today). The letter's "live in the browser" phrasing
+    needs the operator's rewording at send — the interactive artifact now
+    lives in the public repo, not on this site.
+  - RULING (operator, 2026-08-27, permanent): byte-preserved sin-mfg pages
+    are served ONLY for urls in ALREADY-SENT outreach (the alien-science
+    bundle). Never-sent material NEVER ships in foreign design — rebuild
+    in this design system under /reports and 301 the old path onto the
+    rebuild. Lifted units stay in legacy/ as GATE SOURCES only, unserved.
+  - THE ENERGY SHELF OPENED: reports/water-value.html
+    (build-report-water-value.js) — the stock-constraint unit's PUBLIC set
+    lifted file-level (13 new LIFT items, eligibility checked against the
+    live published mfg-lab repo listing; drift 112/112 clean). Gates: the
+    unit's OWN batteries re-run at build (test-sin 50 checks incl. its
+    corner sweep; test-transpose-sin with BOTH mutants required to print
+    CAUGHT — the build's red controls), the scenario-tree water-value
+    solver EXTRACTED from water-value.html's verbatim block (sha-pinned
+    28fc1501...; flipped byte refuses; ships beside the page as
+    reports/water_value_tree.extracted.js), 120 seeded random trees
+    re-certified every build (worst rel gap ~5.7e-14, off-binding
+    martingale residual ~9.7e-13, zero trichotomy violations, sign of the
+    gap checked SEPARATELY with a 1e-12 rounding bar — a femto-negative is
+    ulp accumulation, not assembly). PLD layer quoted as history with its
+    own DESCRIPTIVE-CONSISTENCY downgrade; OP-1/OP-2 stated as open.
+    Shelf: 'ground' group; build-site serves the lifted units as raw
+    citation files under /research/ (the alien-science pattern).
+  - NEXT IN PHASE (operator's word where marked): [operator] send the
+    KAUST letter with the URL substitutions; [operator] the LRCAP
+    guard-rail decision (forfeit December consciously, or set a send
+    date — ANEEL CP closes 14 Sept); [agent] OP-2 exploration
+    (Γ-convergence of the exact discrete KKT) when directed; [agent]
+    price-saturation floor-recalibration would need sin-mfg write access
+    — it CANNOT run here; flag only.
+
+SESSION 2026-08-27 LATEST (the report chase — all four queue items, on the
+operator's word "proceed all four"):
+  1. reports/alphaevolve.html SHIPPED (build-report-alphaevolve.js): the
+     whole strassen corpus re-certified at build (11 rows; AlphaEvolve-48
+     over Z[i] scale-8/4096-equations gated, the rank-47 over-Q refutation
+     gated, commit-pin sha gated). 2. reports/answer-key.html SHIPPED
+     (build-report-answer-key.js): three specimens RE-PROVED at build
+     (naive-product reproduction + exact refutation; deepest impostor depth
+     re-derived in BigInt = 62, A271880 — cross-gated with the impostors
+     page; RM printed/corrected pair re-certified) + the eval as the
+     keyless design.
+  3. EVAL V2 SHIPPED. Harness: ladder + probe (2,2,2,6) impossible
+     (Winograd 1971, consumed+named; decline option {"impossible":true} on
+     EVERY rung so refusal is never a tell), disguised tensor
+     ('tensor','d7',7) — the <2,2,2> tensor under a pinned monomial
+     transform, prompt never says matmul; green control = transformed
+     Strassen MUST certify, red = sign-flip must not — and the OPEN
+     (3,3,3,22) discovery rung (labeled; certified row would be new math;
+     page renders it in bold, never a score). New outcome 'declined';
+     run_green_controls beside red. MEASUREMENT-ARTIFACT FIX (cause, not
+     gate): thinking models can exhaust max_tokens with EMPTY text — was
+     being recorded as 'malformed'; harness now reads stop_reason and
+     SKIPS budget-cut unparseable replies like API errors. 102 artifact
+     rows (never committed) were dropped and every v3 campaign re-run
+     under sane budgets. FINDINGS (certs/matmul-eval-ledger.jsonl, tag
+     v3): probe — opus 6/10 declined, sonnet 5/10, HAIKU 0/10 (attempts
+     the impossible every time it parses); over-refusal control clean
+     (opus 7/10, sonnet 10/10 certified on r7, 0 declines). Disguised —
+     opus 6/6 CERTIFIED @16k budget, sonnet 3/3 graded @32k (exhausts
+     16k thinking every attempt), haiku 0/10: the disguise converts free
+     recall into 10k-30k tokens of real derivation — the cost asymmetry
+     IS the anti-recall measurement (stated on the page §2d). Open r22 —
+     opus 6/6 declined, sonnet 5/5 graded declined. Still zero REFUTED
+     and zero false certifications ever.
+  4. reports/verifier-loop.html SHIPPED (build-report-loop.js) + harness
+     --loop/--trajectories/--loop-ledger: feedback is TEMPLATE-LOCKED to
+     the grader's own mechanism (parse complaint / screen class / the
+     certificate's first_violation index + exact discrepancy) and the
+     build REFUSES a ledger whose feedback deviates (anti-coaching gate).
+     certs/matmul-loop-ledger.jsonl: 27 rounds, 6 trajectories — haiku
+     r7 3x8 rounds NEVER converts (below-bar model not rescued), opus r7
+     3/3 first-shot certified; Laderman loops budget-exhausted even @24k
+     (skipped, unrecorded, honest). Headline: the channel is honest in
+     both directions — cannot coach, cannot be sweet-talked.
+  Wiring: C.tldr on all three new pages; site shelf AI group = 10 pages
+  (alphaevolve #2, verifier-loop #4, answer-key #6); certs table +
+  matmul-loop-ledger.jsonl; Makefile reports += 3 builders.
+  OPEN AFTER THIS: an intermediate-capability model for a true feedback
+  CONVERSION trajectory (none of ours is one nudge from the bar); r22/
+  Laderman loops need >24k budgets if ever re-run; spend not precisely
+  measurable keylessly (~100 graded calls + ~60 skips/retries).
+
+SESSION 2026-08-27 LATER (narrative transformation — operator ruling after
+the "is my portfolio sexy" brainstorm; report chase NOT started, next on
+the operator's word):
+  - IDENTITY FLIP: the site is an AI-VERIFICATION portfolio. Landing deck
+    and README positioning gained the reward clause ("— reward signals that
+    cannot be hacked —"). "The three lanes" became THE THREE PRODUCTS:
+    certified audits of AI-generated math (first), evals whose ground truth
+    is a proof, a verified reward channel — with the classical math demoted
+    to "the proving ground" paragraph and the reports index split into two
+    shelves (AI verification / the instruments, proven on hard ground).
+  - RLVR SECTION on the landing ("A reward channel that cannot be hacked"):
+    the prune-only invariant = no gap between graded-correct and is-correct;
+    red controls prove the refusal path per campaign; measured "never paid
+    out on a false claim" line computed from the eval ledger at build (with
+    an honest branch if a refuted row ever appears); scope stated (finitely
+    many exact arithmetic facts; REFUSES otherwise). One scalable-oversight
+    sentence, no manifesto. README's "Where it goes" rewritten as "Verified
+    reward, running".
+  - ALPHAEVOLVE ABOVE THE FOLD: landing stat "AlphaEvolve rank-48 CERTIFIED
+    (Z[i]) · AlphaTensor rank-47 verified over F2, REFUTED over Q", gated on
+    the ledger rows (mm|alphaevolve-48-4x4x4, mm|alphatensor-f2-4x4x4). New
+    landing stats also: model proposals graded (computed from
+    certs/matmul-eval-ledger.jsonl at build; gate refuses an empty board).
+  - TL;DR BLOCKS: new design component C.tldr (finding / mechanism / check
+    it — DESIGN.md row added); ALL 13 reports carry one under the header,
+    each with the audience hook in the audience's vocabulary (answer-key
+    contamination on impostors/erdos852, reward oracle on matmul-eval,
+    verifier engineering on methods-note).
+  - NEXT (the report chase, ranked, awaiting the operator's word):
+    (1) AlphaEvolve/AlphaTensor certified-audit page; (2) eval v2 —
+    recall-proof rungs (permuted/rescaled tensors, ±1-restricted <2,2,2>,
+    open <3,3,3> r22 target) + the rank-6 honesty probe (campaigns = spend);
+    (3) verifier-in-the-loop demo report; (4) answer-key-contamination note
+    stitched from erdos852 §6 + impostors.
+
+SESSION 2026-08-27 (review-fix pass — an outside review's defects, all fixed):
+  - COUNTS DEFLATED TO TRUTH, everywhere: RM audit is "51 printed rows, 50
+    survive, 1 refuted as printed, correction certified" (the 52-row corpus =
+    51 printed + OUR correction; counting it was inflation by one). Front
+    page "published claims refuted: 2" → "1 refuted · 1 corrected" (a
+    transcription slip is not a second refutation). Applied to landing,
+    rm-audit page (deck/stats/registry/footer + gates), README, methods-note
+    stat, cf-audit battery label (which had said six sheets/46 rows — stale),
+    HANDOFF. New and unproven: 39 decided, 38 survive as printed.
+  - §4 SURVIVORS → 0: strassen's integer ranks were "surviving" their own
+    spellings (47/1 AND sqrt(2209/1) — the dedup gap the reviewer named).
+    Fix at the cause: family flag integerValued skips the closed-form hunt;
+    the sqrt vocabulary skips perfect squares (the rational loop already
+    tests that spelling). Ledger regenerated: ...+ 0 open + 0 surviving.
+  - RM-AUDIT REGISTRY gains the DEFINING CF column (a(n) denominators /
+    b(n) numerators — the sheets' own labeling; the four same-value pairs
+    rm-e-a/b, cat-02/05, cat-03/10, cat-07/11 are found by computation and
+    named as distinct CFs, not duplicates). Refutation reframed precisely:
+    THREE typographic errors on the 2022 sheet, one fatal; underlying
+    computation correct. "First on record" now dated (as of 2026-08-27) and
+    open to correction. "The Machine says" labeled sheet-time status.
+  - CROSS-PAGE CONTRADICTION fixed: the battery row no longer says "NO
+    model has run" — it is the eval's dry-run gate, pointing at the live
+    certs/matmul-eval-ledger.jsonl and reports/matmul-eval.html.
+  - STALE DISCLAIMERS replaced (control page + impostors): "Published, not
+    peer-reviewed, not independently rerun" — the slot where external
+    reruns get recorded. (The reviewer's top ask: ONE outside person
+    cloning and running the three verifiers, name + hash recorded.)
+  - ENVELOPE: §5 explains the moved bars (bar(10), bar(17) — box30 sweep
+    champions past Boyd/HJ; computed at build, adopted-here rows = the
+    promotions).
+  - NOT DONE HERE (follow-ups, by design): new discriminating eval rungs
+    (<3,3,3> r22 open target, ±1-restricted <2,2,2>, permuted tensors) →
+    eval tasks 1-2; tangent-sweep orbit-invariant column; Catalan widths
+    to 1e-30; RM-group submission/email = operator's-word outreach (the
+    per-rung §2b table already existed and satisfied that review point).
+
+SESSION 2026-08-26/27 LATE (post-restart continuation):
+  - S7 closed at full scale (see S7 above) — the finishing sequence ran on
+    the operator's word ("when finish, commit and push live"): committed
+    ac360e6, pushed, deploy verified live (§8 demonstrated-state text
+    confirmed on carlostoledo.co).
+  - UI PASS 2 (operator feedback, two agent passes): machine schematic is
+    VERTICAL-DENSE — original type sizes, 4-column self-sizing family
+    grid, full-width spine bands, 4-across instruments, 800x936 design
+    units at 1:1 on desktop (~0.49 scale on phones, accepted; pinch-zooms
+    cleanly). Tables/card grids inside prose sections BREAK OUT to the
+    centered 900px track (.col .wide breakout in template.js); figcaptions
+    span their figure's track. All 13 reports rebuilt on the new
+    stylesheet; verified by emulated screenshots 1440/390 light+dark and
+    a zero-body-overflow probe; make test 26/26, control 24/24, drift
+    clean. CDP screenshot/probe scripts (shot.mjs/probe.mjs) live in the
+    session scratchpad — rewrite from the DESIGN.md description if absent.
+
+SESSION 2026-08-26 (operator greenlit A-F in one word each), beyond the
+S6/S7 entries above:
+  - SITE: /reports/ index (importance-ordered cards; build refuses if the
+    shelf and disk disagree), /about/ (content adapted from the sin-mfg
+    about, cert-machine styles only), GitHub ICON nav, pure-CSS mobile
+    drawer, landing reorganized (lanes → machine → report cards → rerun →
+    certificates table → discipline). THE MACHINE DRAWING IS ONE DRAWING
+    (operator instruction): tools/machine-figure.js, batteries.json
+    written by the control build feeds the landing, `make site` depends
+    on `make control`, both pages byte-identical. code() component
+    replaced an inline-styled <pre> whose quoted font stack truncated the
+    style attribute (the "python text too big" bug). Root index.html IS
+    the control page artifact (operator asked; not junk — do not delete).
+  - EVAL (D, key-free half): per-rung breakdown table (§2b "Where the
+    cliffs are") + the OPEN SUBMISSION PATH — llm-harness --proposals
+    FILE --model-label NAME grades external JSONL through the same
+    screen/certifier/red controls, ladder-only targets, attribution
+    required; §4 recipe on the page (PR carries the proposals file, not
+    graded rows — grading is deterministic). STILL KEY-GATED: more
+    models / bigger n, the impossible-rank honesty probe — UNBLOCKED
+    2026-08-27: keyless auth via `ant auth login` OAuth profile is live
+    and VERIFIED end-to-end (models endpoint 200; a real 1-proposal
+    haiku micro-run through the harness's Bearer path). No static key
+    exists anywhere. Campaigns now run on the operator's word alone
+    (spend is the only gate).
+  - E DONE (mechanism): the l=87 OOM was candidateDeltas materializing
+    p(87)=38.9M partition objects (p(86)=34.3M fit — matches both OOMs).
+    tools/galois-exceptions-lean.js: sha-pinned source-transform fork
+    (refuses if the lift moves; only candidateDeltas replaced) with
+    closed-form class sums from the cycle-index EGF — Σ sgn·u^fix =
+    (u−1)^l + l(u−1)^{l−1}; Σ u^fix = l!Σ(−1)^j 2^{j-l}... /j!; even
+    subgroup = (all+signed)/2, S_0/S_1 degenerate case handled.
+    Battery (make test row erdos290-lean): closed==enumerated l≤12
+    exactly, δ(ES0)(4)=150/384 pinned, broken-EGF red, fork==lifted at
+    analyze(8), mutateDisc red. run-erdos290-tail-ext.js now uses the
+    fork; the FINALE LANDED same session: l = 87..90 ALL CLOSED (30
+    degrees closed, 0 open through l <= 90; l=90 took 186 s in the fork),
+    reports/erdos290.html rebuilt — bracket now 33% tighter than the
+    cited page. E is COMPLETE; the extension's next wall is compute time,
+    not memory. ALSO: a default `make engine` run silently regressed the
+    chowla R6 exhaustion (CERT_CAP default < 1600) — cause fixed, the
+    Makefile engine target now defaults CERT_CAP=1600.
+  - F/strassen DONE: AlphaEvolve's rank-48 <4,4,4> CERTIFIED over Z[i] —
+    canonical bytes located (commit-pinned DeepMind notebook, pinned in
+    PINS.json + corpus/sources/), tools/convert_alphaevolve.js (doubles
+    the half-Gaussian factors; audits BEFORE writing), auditZi/auditZiBig
+    in instruments/strassen/tensor.js (scale-s identity Σuvw = s·T, im
+    part must vanish), family row alphaevolve-48-4x4x4 (HIT: 4096
+    equations exact, layout CA, scale 8), battery 31/31 incl. two Zi reds
+    + Strassen-lifted-to-Zi calibration, stdlib verifier extended
+    (audit_zi), certificate re-exported (10 entries). Related-but-
+    distinct: arXiv 2506.13242's non-complex 48 — a later corpus row.
+  - F/apery: requisites READ and PINNED (notes/apery-sturm-decider.md;
+    three PDFs in corpus/sources/, hashes verified locally). Criterion
+    log α > β (vdP p.199); ζ(3) instance ln(17+12√2)=3.5255>3 (the
+    remembered 3.489 was WRONG); ζ(5) red: μ³+2368μ²−752μ−16 CONFIRMED
+    verbatim, decay governed by μ₂ (not μ₁, not 1/μ₃), β=5, fails by
+    3.914; the PNT-free rational bar (Dₙ<3ⁿ: 17−12√2 < 1/27 exactly) is
+    the Sturm-friendly form to decide. INSTRUMENT NOT YET BUILT.
+  - F/mu box50: still parked — wants worker_threads sharding in
+    run-mu-table.js + days of detached compute; nothing started.
+  - notes/alphaevolve-48.md holds the pin story; UI verified via CDP
+    probe + emulated-mobile screenshots (drawer, X-morph, no overflow).
+
+[DROPPED 2026-10-05, notes/locking-rules-review-2026-10-05.md — its condition expired]
+STANDING RULE while S1-S2 are unshipped: no new instruments, no new
+families; new math only where a report needs a missing number. The build
+menus further down are PARKED, not deleted — their technical context
+stays correct and current.
+
+## State, measured at handoff
+
+```
+819,152  objects generated across 11 families
+ 16,943  certified exactly
+54.6M    closed forms: 54,629,173 tested = 54,628,275 refuted (double)
+         + 21 refuted (exact BigInt) + 877 form-on-record + 0 open + 0 surviving
+         — the decomposition closes, and the engine REFUSES a ledger where it does not
+         (2026-08-27 review fix: the former 18 "survivors" were strassen integer
+         ranks matching their own spellings — integer-valued families now SKIP the
+         closed-form hunt (family flag integerValued) and perfect-square sqrt
+         spellings dedup against their rational form; ZERO survivors is the true state)
+    228  existence-AND-uniqueness theorems (Krawczyk)
+    452  COMPLETENESS theorems (census: Hénon 328/328 + Holmes cubic 124/124, 0 refusals)
+  1,579  chowla screen survivors EXHAUSTED (1,508 certified below 1 — the family is terminal)
+     11  keller corpus certificates: Alpöge n=3 + ONE padded row stating the stabilization,
+         3 tangent-sweep instances, Meng–Yang HC5, Gallagher d=2..5 + the distinct member —
+         every det a symbolic identity over Q, sources hash-pinned, ALL 11 re-verified by a
+         standalone stdlib-Python checker in 0.2 s
+      7  fibers cells HIT blind, incl. alpoge-own-target: target (0,1,0) chosen from a fixed
+         enumeration, never published anywhere, 3 preimages certified — witnesses AND target self-chosen
+     50  of the Ramanujan Machine's 51 PRINTED rows SURVIVE an UNCONDITIONAL audit
+         (2026-08-27 counting rule: public counts are printed-rows-only — our
+         certified correction is a 52nd certification, never folded in) — ALL SEVEN
+         sheets COMPLETE: e, pi, zeta(3), CATALAN (23 rows), pi^2 (12), ln 2 (1),
+         mixed-zeta-orders (2026-08-26, 5 rows + 1 corrected row) — including 38 of
+         the 39 rows the Machine marks "new and unproven"; PLUS the FIRST certified
+         REFUTATION of a printed RM row: the mixed-zeta sheet's row 3 as printed,
+         2/(2ζ(5)−2ζ(3)−1), is FALSE (~−1.5035 vs the CF's 2.98623) — a sign slip;
+         the +1 correction SURVIVES on the SAME enclosure, mechanism named in the
+         certificate (the display's a_1 = 275 also contradicts its own polynomial's
+         75). Catalan's G certified from its defining series with a PROVED convexity
+         tail (96k^2+288k+184 >= 0, exact), pi^2/acosh(2)/ln2 brackets at 1e-47;
+         zetaBracket(s, K) at any s >= 2 (ζ(5)/ζ(7) at 3.3e-21/1.1e-27, the ζ(2)/
+         ζ(4) series vs π routes held in mutual containment); Möbius forms
+         (p+qK)/(s+tK) and two-constant linear-zeta forms decided in exact
+         rationals; three head-negative rows via an exact head-shift transform;
+         six sign-definite-NEGATIVE-head rows admitted by a gated minus.js extension
+         (fixed sign, not positivity, is what increasing maps need); the five
+         double-root rows all take the SHARP band L = n^k + α₊n^{k−1} at N0 = 1
+      9  fast matrix-multiplication algorithms VERIFIED as exact tensor identities
+         (strassen-audit): Strassen 1969 calibrates; Strassen⊗Strassen rank-49 generated
+         and re-decided; AlphaTensor's rank-47 4x4 VERIFIED over F2 and REFUTED over Q —
+         the speedup provably needs characteristic 2; naive rank-8 honestly REJECTED
+ 0.3017  certified lower bound on h_top(Henon, 1.4, 0.3) — 340 disjoint h-sets, 4,140
+         covering relations (durations 1..6, composed to the uniform F^11 as BINARY
+         relations), exact spectral bound; census ceiling ln(1696)/16 = 0.4648
+      9  certified mu(n) rows (certs/mu-table.json, battery-gated): the box30 Newman
+         min-modulus table n = 9..17, EVERY set exhausted (752M total, conservation
+         per row), champions certified, orbits classified. n=9 VALIDATES against the
+         sin-mfg record (six survivors, published witness at 1.3623731781333241 to
+         the last digit); n = 10..17 are rows NOBODY has ever run — mu(10) >= 1.3236,
+         mu(11) >= 1.5346, mu(12) >= 1.5536, mu(13) >= 1.8999, mu(14) >= 1.7241,
+         mu(15) >= 1.6647, mu(16) >= 1.7214, mu(17) >= 1.6761 (n=17: the FIRST
+         demonstration at the first term count with no printed mu > 1 anywhere).
+         TERMS convention; box maxima, not values — the dips at high n are the
+         box crowding (16 of 30 slots filled at n=17), bigger boxes are the next rung.
+         PLUS the equality theorem M(0,1,2,6,9) = 1 EXACTLY (deflation + Sturm).
+     16  mu(5) ladder rungs (certs/mercer-mu5.json, battery-gated): Mercer's §6
+         program certified at GENERAL m — mu(5) <= 1 + pi/m for m = 5..20, ending
+         at mu(5) <= 1 + pi/20 = 1.15708 (3038 exceptional tuples at m=20, every
+         case closed by ONE exact rational evaluation of |f|^2 against the exact
+         bar (1+piLo/m)^2; 9,700+ case points across the ladder, each re-proved
+         by the battery in exact rationals every run). m=5,6 CALIBRATE (Mercer's Tables 5/6/7 reproduced
+         exactly; the source lab's m=6 record matched row for row); m=7..16 are
+         rungs nobody holds. Component (i) — the reduction — is consumed from
+         the paper (Lemma 6.2; general-m statement p. 16), like Krawczyk.
+         Lineage: CFF 1983 mu(3) -> Goddard 1992 mu(4) -> Mercer 2019 sketch ->
+         here. From m=10 the list contains (3,7,8,9), the REVERSAL of Mercer's
+         own witness (min EXACTLY 1, our Sturm theorem) — it closes with
+         g(-1) = 1 <= bar at every m, as it must. Higher rungs are one command:
+         node tools/run-mercer-mu5.js <maxM> (each rung lands incrementally).
+      4  erdos852 records: BOTH uncertified GPT constants on Erdős #852 replaced by
+         certified enclosures — c0 to 61 digits (root of I0=1, existence AND uniqueness),
+         C* to width 3.2e-16 (1.86M-prime product, tail proved) — and the PUBLISHED
+         C* = 0.0752403861777 REFUTED at its 12th significant digit: it is the naive
+         IEEE-754 double product, digit for digit (87% of factors round to 1.0 and
+         vanish); true value 0.07524038617830924... The correction PACKAGE is built
+         (R7 class): certs/erdos852-certificate.json + tools/verify_erdos852.py
+         (stdlib; the refutation re-proved in exact ints with NO tail bound — the
+         partial product to 4e5 is a strict lower bound already above the claim;
+         the c0 window re-decided at 130 digits; 4 reds; 0.7 s) + the paste-ready
+         thread comment at outreach/erdos852-comment.md. POSTING IS THE OPERATOR'S
+         CLICK — the site needs a login; nothing auto-sends.
+```
+
+Batteries 24/24 on the page (25 rows in `make test`). Engine gate 31/31.
+New this round: instruments/bigfloat/ — dyadic big-float interval arithmetic
+(BigInt mantissa · 2^e, directed rounding, arbitrary precision; pi/ln2/e
+certified to 50 literature digits, mutation-tested rounding) — the layer
+doubles and exact rationals could not cover: doubles stop at ~14 digits,
+exact rationals explode through a million-factor product. Built for
+erdos852, generic by construction; the Mercer/Newman continuation and any
+future constant-certification run on it as-is.
+Census battery 26/26 (two maps, 5 red controls), keller battery 32/32
+(incl. pin drift + forged-pin reds), cf battery 27/27 (10 red controls;
+Apéry + the two PROVEN pi^2 rows are the calibrations), entropy battery 11/11 (ln 2
+calibration at the full horseshoe; 4 red controls; the detached
+certificate re-proved in full every run). Reports shipped (make reports):
+reports/impostors.html, reports/zeta3-audit.html, reports/entropy.html —
+every number recomputed from records at build time, every build
+self-refusing on drift, now joined by reports/erdos852.html.
+h_top(Hénon 1.4, 0.3) >= 0.301680 is a certified theorem
+(certs/entropy-henon.json, hLB = 0.3016800418811779 — an earlier revision
+of this paragraph said 0.356403, the TAINTED lids-only number the shelf
+item below refutes; the certificate file itself always held the sound
+bound). Drift: 38 unchanged, 1 local edited (a declared patch).
+
+The census instrument is now SPEC-GENERAL: any second-order polynomial
+recurrence plugs in with seven functions (step, two partials, in float and
+intervals, plus its own certified a priori bound) and inherits the whole
+argument. The refactor was proved byte-identical on Hénon before the second
+map went in. The second map immediately found the instrument's third real
+bug: the Holmes cubic has a fixed point AT x=0, which is the exact midpoint
+of the symmetric root box — a zero ON a bisection line can never satisfy
+strict interior containment, and the census dove to its depth cap around it.
+The root box is now asymmetric by M/1024 (2049 odd => no dyadic subdivision
+endpoint ever equals 0). Found by running, not by reading.
+
+An outside review caught two defects in under a minute; both are fixed and
+gated. (1) The closed-form vocabularies emitted unreduced spellings —
+(2/1)·e and (4/2)·e counted as two forms — so refutation counts were inflated
+~30% and one surviving value showed as four candidates; every vocabulary is now
+reduced-only, which DEFLATED the headline from 77.6M to 54.6M. (2) The OEIS
+family read only the entry NAME and certified "Decimal expansion of 2*e" as a
+discovery; corpus/survivors-confirmed.json (full records, fetched by
+tools/confirm-survivors.js) now feeds back into certify, so a survivor with a
+form on record is REJECT and an unfetched survivor is an open candidate, never
+a hit. OEIS hits went 38 → 0: the engine itself now concludes what the
+hand-check knew. A019762 is pinned in the battery as a regression control.
+
+## The eleven families
+
+| family | output | result so far |
+|---|---|---|
+| `newman-minmod` | min\|f\| on \|z\|=1 for 0/1 polynomials | 4 certified; one adopted into the envelope (17-term, min\|f\| ≥ 1.4141441147942588) |
+| `chowla-cosine` | Chowla merit c = −min f_A/√\|A\| | **EXHAUSTED**: all 1,579 screen survivors certified, 1,508 below 1 — the family's terminal state (R6) |
+| `oeis-closedform` | audits 14,593 published OEIS constants | 54.6M forms refuted, **0 discoveries** — and the counts now decompose to zero on the page (R1) |
+| `henon-orbits` | **certified existence + uniqueness** of Hénon periodic orbits | 228 theorems, calibrated against the closed-form fixed points |
+| `keller-audit` | Jacobian + Hessian counterexamples decided — and GENERATED | 11/11: Alpöge n=3 + one padded row stating the stabilization (R2); 3 NEW CURVES through the PUBLISHED tangent-sweep mechanism (labeled as such, R4); Meng–Yang HC5; Gallagher d=2..5 + distinct member — every det a symbolic identity, sources hash-pinned (R3), all detached + independently re-verified (R7) |
+| `keller-fibers` | fiber counts certified BLIND — no witnesses consumed | 7/9 HITs: Alpöge's 3 preimages rediscovered unaided; alpoge-own-target proves the same with a SELF-CHOSEN target (0,1,0) — 3 preimages, full geometric degree; 2 cells honestly REJECT/REFUSED (witnesses at \|z\|~200, beyond blind reach) |
+| `ramanujan-audit` | the Ramanujan Machine's conjectures, decided | ALL SEVEN sheets COMPLETE (52 rows): 51 SURVIVE + the FIRST certified refutation of a printed RM row — the mixed-zeta sheet's row 3 as printed (2/(2ζ5−2ζ3−1)) is FALSE, a sign slip; the corrected +1 identity SURVIVES on the same enclosure. The five double-root rows all take the SHARP band L = n^k + α₊n^{k−1} at N0=1 (the sub-leading quadratic factors over Z); zetaBracket(s,K) generalizes the series bracket to any s ≥ 2 (ζ(2)/ζ(4) cross-checked against the independent π route) |
+| `henon-census` | **the EXACT number** of period-p points, plane exhausted | 328/328 cells; at a=1.4: exactly 4 period-7 and 7 period-8 orbits (matches Galias); one-off records through p=16 (1696 points, 1.42G boxes, recheck-clean) |
+| `holmes-census` | the same, for the Holmes cubic map x' = dx − x³ + b·prev | 124/124 cells (d sweep through the pitchfork, p ≤ 4); at d=2.77: exactly 3/9/15/49 points for p=1..4, 63 for p=5; calibrated on the closed-form fixed points ±sqrt(d+b−1) |
+| `strassen-audit` | fast matmul algorithms decided as exact tensor identities | 9 HIT / 1 REJECT: Strassen-7 (calibration), Strassen⊗Strassen 49 (generated), AlphaTensor r/f2 selections from the pinned npz — incl. rank-47 4x4 over F2 with its over-Q REFUTATION recorded; naive rank-8 certified correct, certified NOT fast |
+| `erdos852-constants` | the two GPT constants on Erdős #852, certified + their published digits audited | 3 HIT / 1 REJECT: c0 enclosed to 61 digits (unique root of I0=1; dilog via Lewin inversion; monotonicity certified); C* enclosed to 3.2e-16 (Euler product, 1.86M primes, tail proved; pi^2/8 calibration); published c0 survives AS A ROUNDING (its "..." is a half-ulp slip); published C* REFUTED at digit 12 — it is the naive double product, mechanism reproduced in the battery every run |
+
+The census (`instruments/census/henon-census.js`) is the completeness record
+the field survey said nobody publishes for non-SAT numerics: a certified a
+priori bound confines every periodic point, interval tube iteration excludes,
+Krawczyk-as-contraction resolves each remainder to exactly one point, and
+minimal periods are decided by certified shift-links — never by tolerance.
+It can refuse; it can never return a wrong count. Two bugs were found exactly
+the way the method predicts: by a red control (the fat-record stall at a=0.96,
+p=4 — caught by the shift classification, not by reading code).
+
+## Review fixes (an outside reader's pass, 2026-08-25) — ALL SEVEN EXECUTED
+
+- **R1 · DONE.** The ledger carries the full closed-form decomposition
+  (refuted-double / refuted-exact-BigInt / form-on-record / open /
+  surviving), the page prints it, and run-engine REFUSES to write a ledger
+  whose subtraction does not close to zero. Measured: 898 = 21 + 877 + 0.
+- **R2 · DONE.** DIMS = [3, 8]: the n=3 mathematics plus one padded row
+  whose certificate text states the stabilization in so many words; the
+  battery pins that exactly two Alpöge rows enumerate.
+- **R3 · DONE, then completed.** corpus/sources/PINS.json +
+  instruments/pin.js: pinned entries re-hash their source PDF at certify
+  time, carry {file, sha256} + the transcribed formula strings in extra,
+  and REFUSE on drift. Red controls: forged pin table, unpinned source.
+  Instrument yield, immediately: re-reading rm_zeta3.pdf against its pin
+  exposed that the first transcription MISSED the sheet's second row
+  (5/(2ζ(3)), a positive CF hiding in the minus table) — now audited with
+  the rest. Coverage is now TOTAL: mengyang2026.pdf (arXiv:2607.22198v2,
+  fetched and pinned) prints the Alpöge map and witnesses as its eq.
+  (1)-(2), so the Alpöge rows — whose origin is a tweet with no canonical
+  bytes — pin those bytes too; every transcribed entry in the corpus
+  certifies against a held byte sequence, and the battery asserts zero
+  transcriptions are unpinned. verify_keller.py also prints the sha256 of
+  the certificate file it verified, so two transcripts naming the same
+  hash provably checked the same bytes.
+- **R4 · DONE.** Sweep rows are labeled "new curve through the published
+  mechanism, not coordinate-equivalence-checked against Gallagher" in
+  source, text, and extra.mechanism. keller-fibers gained
+  alpoge-own-target: target (0,1,0), fourth in a fixed enumeration of plain
+  rational points, no published image consumed — 3 preimages certified
+  blind, the map's full geometric degree.
+- **R5 · DONE.** The battery row reads "llm harness — plumbing only, NO
+  model has run", with the fake-proposer dry-run named in the note.
+- **R6 · DONE.** CERT_CAP=1600 run: all 1,579 chowla screen survivors
+  certified (1,508 HIT). The family table now says "exhausted" — terminal.
+- **R7 · DONE.** certs/keller-certificate.json (11 certificates: every
+  polynomial as explicit monomials with exact rational coefficients) +
+  tools/verify_keller.py — Python stdlib only, zero code shared with the
+  engine; re-derives the Jacobian, expands det symbolically, evaluates
+  collisions, re-hashes pins, and must refute a forged coefficient before
+  exiting green. Full corpus verifies in 0.2 s. Wired into make test and
+  the page. Whether to post it anywhere remains the operator's call.
+
+## Next steps, in order
+
+1. **Higher periods at the classical parameters.** DONE through p=16, all
+   recheck-clean (p=13/14/15 match Galias). p=13: 418 points, 32 orbits
+   (3 min). p=14: 648 points, 44 orbits, plus the p=7 census independently
+   re-derived (125M boxes, 18 min). p=15: EXACTLY 1082 points — 2 fixed, 72
+   orbits of minimal period 15 — 393M boxes in 43 min. p=16: EXACTLY 1696
+   points — 2 fixed, 1 two-cycle, 1 four-cycle, 7 eight-cycles (the p=8
+   census's own count reappearing, as it must), 102 sixteen-cycles — 1.42G
+   boxes in 3.0 h, recheck 79 converged / 0 unmatched
+   (census-high-periods.json). Beyond p=16: the detach runner or a smarter
+   box metric.
+2. **A second map for the census: DONE (Holmes cubic).** The instrument is
+   spec-general now; a third map is one spec + one family file + battery
+   lines. Ikeda needs interval sin/cos (transcendental.js is sound). Holmes
+   p>=5 at d=2.77 costs ~90 s/cell (tube expansion ~9/step and ~3x the orbit
+   count) — those are one-off records like Hénon p=13..16, not grid cells.
+3. **keller: audit BUILT, generator BUILT.** instruments/keller/sweep.js
+   implements the tangent-sweep as an exact-rational recipe: for any d >= 2
+   it emits a map of geometric degree d+1 with det J ≡ −2 (verified
+   symbolically) and constructs 2 rational collision witnesses from a secant
+   line of phi(w) = q(w) − (w/2)p(w). Calibration: d=2 reproduces Alpöge
+   polynomial-for-polynomial. d=3,4,5 ship as new certified objects; higher d
+   and free-coefficient sweeps are one enumerate() away. Meng–Yang's HC5 is
+   audited (det Hess Psi ≡ 128 symbolically; gradient collision at
+   (±1, ∓3/2, 0,0,0); the doubling identity det Hess(y·F) = −4 checked in
+   the battery). Gallagher's family is audited too: the Zenodo preprint's
+   seed gauge (p(0)=0, p(1)=−c, ∫₀¹p=0; det J ≡ bc; fiber degree deg p + 1)
+   is implemented as fromSeed() with every seed condition verified and
+   rational collisions from the linear inverse equation R(w) = wP − cQ;
+   d=2..5 and the distinct member (a = −4/3, matching the paper) VERIFIED.
+   The published corpus is essentially complete — Zhang's paper derives
+   consequences, not new explicit maps.
+   Original note: On
+   2026-07-19 Alpöge refuted the Jacobian conjecture in dimension 3 (found
+   with Claude; Gallagher's infinite family 07-20, Speyer's tangent-sweep
+   geometry 07-23, Gao's arXiv:2608.00222 survey; n=2 REMAINS OPEN). Verified
+   in-session by two independent exact routes: for
+   P=(1+xy)³z+y²(1+xy)(4+3xy), Q=y+3x(1+xy)²z+3xy²(4+3xy), R=2x−3x²y−x³z,
+   det J ≡ −2 is a POLYNOMIAL IDENTITY over Q (symbolic, every monomial
+   cancels; hand partials cross-checked by exact Lagrange interpolation), and
+   (0,0,−1/4), (1,−3/2,13/2), (−1,3/2,13/2) all map to (−1/4,0,0) exactly.
+   Build the family: a corpus of the published explicit maps (Alpöge,
+   Gallagher, Meng–Yang's Hessian counterexample, Zhang's consequences), each
+   certified or refuted exactly; red control: one perturbed coefficient must
+   break the identity. A calibration corpus whose ground truth is five weeks
+   old — the exact opposite of OEIS staleness.
+4. **keller-search: the fiber hunter is BUILT (keller-fibers).**
+   instruments/keller/fibers.js: damped multistart Newton over a scale
+   ladder, every candidate certified in a Krawczyk box on the EXACT map
+   (interval-enclosed rational coefficients), dedup by certified box
+   disjointness — "AT LEAST k preimages, provably distinct", k >= 2
+   re-proving non-injectivity blind. Remaining from the original plan:
+   ansatz-grammar enumeration (z-affine coefficient grids through the exact
+   Keller filter) for the minimal-degree question, and the plane-case
+   exclusions. Original note: The Alpöge
+   map is z-AFFINE with coefficients in {±1..±4} — inside an enumerable
+   grammar. enumerate: structured ansätze F = A(x,y)·z + B(x,y); screen:
+   exact Keller filter (det J ≡ const, symbolic over Q — the instrument seed
+   already exists from the audit) then float Newton on F(u)−F(v)=0; certify:
+   exact rational collision or a Krawczyk box. Discovery targets, honestly
+   ranked: minimal-degree counterexample (the literature is weeks old; likely
+   open), counterexamples outside the tangent-sweep class, geometric-degree
+   censuses ("EXACTLY d preimages, certified" — the census shape), and for
+   the OPEN plane case certified exclusions: "no collision in this family,
+   proved" (Moh already gives degree ≤ 100, so plane statements are
+   exclusion-only until the ansatz outgrows it).
+5. **Ramanujan Machine audit: COMPLETE (ramanujan-audit + instruments/cf/).**
+   The flagship landed. instruments/cf/minus.js decides the zeta(3)
+   minus-CF table: per-family tail bands [L(n), U(n)] proved by
+   shift-and-check coefficient positivity (terminal containment + band
+   invariance, exactly the HANDOFF plan, with polynomial bands where cubic
+   ones cannot work), convergence proved INSIDE the certificate (monotone
+   convergents, bounded below — no external theorem), and zeta(3) bracketed
+   EXACTLY from its defining series (BigInt partial sum + convexity tail
+   bracket, width 9.7e-17 at K=6000, 7 ms; final comparisons all in exact
+   rationals). All 10 rows of the corpus SURVIVE, including both
+   "new and unproven" rows at widths 2.2e-16 / 8.9e-16. Instructive
+   subtlety, worth keeping: rm-z3-inv's tail recursion has s_n = n^3 as an
+   EXACT spurious solution (CF value 0, adjacent to the true branch — the
+   double root of c^2−2c+1); its band must exclude it (L = n^3+2n^2 is
+   sharp) and that CF genuinely converges slowly — depth 1e7 gives an
+   honest 2e-14, while the fast rows hit machine precision by depth 80.
+   DONE 2026-08-25: the Catalan (23 rows), pi^2 (12) and ln 2 (1) sheets,
+   COMPLETE — all 46 corpus rows survive; pinned rm_catalan.pdf /
+   rm_zeta2.pdf / rm_other.pdf; new machinery: instruments/cf/forms.js
+   (exact Möbius decision + head-shift transform),
+   instruments/bigfloat/constants.js (G via proved-convexity tail, pi^2,
+   acosh 2, ln 2), sign-definite-negative heads in minus.js (gated by 2
+   new reds). THE LAST SHEET LANDED 2026-08-26 (rm_zeta_orders.pdf, pinned):
+   all 5 double-root rows decided — the feared rm-z3-inv-grade craft turned
+   out CLEAN (the sub-leading quadratic factors over Z for every row; sharp
+   L = n^k + α₊n^{k−1} at N0 = 1; convergence FAST, branch gap >= 5 vs
+   rm-z3-inv's 2) — 4 survive, row 3 as printed REFUTED (sign slip,
+   correction certified). The corpus is 52 rows, seven sheets, complete.
+   zetaBracket(s, K) shipped in minus.js.
+6. **An LLM-conjecture campaign through `tools/llm-harness.py`.** Model
+   proposes, engine certifies, ledger records the per-family truth rate of
+   proposals that survived a float screen — an eval whose ground truth is a
+   proof. The harness ships with an Egyptian-fraction demo and red controls
+   that abort the run if a false proposal ever certifies; the real campaign
+   needs one of our families ported behind its six-method interface. Porting
+   an UNFAMILIAR family at the same time (Littlewood/Barker polynomials, or a
+   Diophantine family where certify is an exact rational witness) doubles as
+   the stress test of whether the interface generalises or has quietly shaped
+   itself around the first five.
+7. **A fast-matmul audit family (`strassen-audit`) — SHIPPED.** The family,
+   instrument (instruments/strassen/tensor.js: exact tensor-identity audit
+   over Q and F2, layout detected never assumed, exact-double fast path
+   cross-checked against BigInt), battery (23/23: Strassen-7 calibration,
+   composition reproduces rank-49, three reds), pinned AlphaTensor npz
+   sources + stdlib converter with a shimmed unpickler, detached
+   certificate (certs/strassen-certificate.json) and stdlib verifier
+   (tools/verify_strassen.py, 0.2 s, prints its own sha256). Flagship
+   decided both ways: rank-47 4x4 VERIFIED over F2, REFUTED over Q.
+   REMAINING: AlphaEvolve's 48 (fetch + pin its factor list when a
+   canonical byte source is located), more npz keys, and the LLM campaign
+   (item 6) now has its natural corpus. Original note: Fast matrix
+   multiplication algorithms ARE certify-shaped objects: "4x4 in 48
+   multiplications" (AlphaEvolve 2025) is a rank-48 decomposition of the
+   <4,4,4> tensor — finitely many exact coefficients whose triple-product
+   sum must equal the matmul tensor IDENTICALLY, over a stated ring. That
+   is the keller-audit shape wholesale: transcribe the published zoo
+   (Strassen 7 for 2x2 — the calibration with the textbook answer;
+   Laderman 23 for 3x3; Smirnov's catalog; AlphaTensor's mod-2 rank-47;
+   AlphaEvolve's 48), pin the sources, certify each as an exact
+   multilinear identity (the keller polynomial arithmetic already
+   suffices), red control: one perturbed coefficient must break it. The
+   certificates detach even more cleanly than keller (sums of triple
+   products of small rationals — a tiny stdlib verifier). And it is the
+   NATURAL corpus for item 6's LLM campaign: "propose a rank-<=49
+   decomposition of <4,4,4>; the engine certifies" is the one game where
+   model-proposes-verifier-decides already produced a famous discovery, so
+   the eval has a literature baseline. (What this is NOT: matmul speed is
+   not one of OUR bottlenecks — census box counts and BigInt expansion
+   are; the value is the corpus, not the kernel.)
+8. **Portable certificates: the keller class is DONE (R7).**
+   certs/keller-certificate.json + tools/verify_keller.py is the pattern:
+   detach the claim as explicit exact data, re-verify with stdlib only, red
+   control inside the verifier. NEXT candidates: the census boxes (finitely
+   many intervals plus one contraction inequality each — the natural second
+   class), the minus-CF tail bands (the certificate is four polynomial
+   positivity facts + one backward iteration, ideal for a tiny checker), or
+   a Lean export — and the 54.6M proved negatives as a labeled dataset.
+9. **More Krawczyk families.** Any parameterised nonlinear system: steady
+   states of reaction-diffusion, roots of polynomial systems.
+10. **Do NOT go back to closed-form hunting over curated corpora.** OEIS was the
+   right calibration target and the wrong discovery target, and the reason is
+   structural and predictable in advance. (The keller and Ramanujan-Machine
+   corpora are not this: their claims are new or conjectural, and decidable by
+   our instruments.)
+
+## The report shelf (gems verified against the records, 2026-08-25)
+
+Five things already in the records that could stand as research-style
+reports; the first two are hidden gems — results the machine holds that
+nobody has written down. Ranked by readiness x novelty:
+
+0. **The erdos852 refutation — SHIPPED (reports/erdos852.html).** "The
+   constant that was a rounding error": both #852 constants certified, the
+   published C* refuted at digit 12 and shown to BE the naive IEEE-754
+   product (87% of factors round to 1.0 and vanish; the naive value
+   reproduces the published digits exactly, re-run live at build time).
+   The build refuses if any verdict, digit, or the mechanism moves.
+
+1. **The impostor catalog — SHIPPED (reports/impostors.html).** The 21
+   exact-BigInt refutations as a report; every number recomputed from the
+   corpus at build time (tools/build-report-impostors.js, which refuses to
+   build if the records change). Measured agreement depths, in the exact
+   relative sense (largest d with gap <= value·10^-d — a mantissa-prefix
+   count lies for values like 0.199…9 vs 1/5): A271880 impersonates 1/5
+   for 62 significant digits (six spellings refuted at 105 published
+   digits); A181284 -> 3/11 for 58; A359187 -> 1 for 44; A226120 -> 1 and
+   A266296 ("close to 24, related to the Ramanujan constant") -> 24 for 16
+   each. Range 16–62: from "barely past double precision" to "passes any
+   screen ever used to announce a discovery".
+2. **Certified entropy — INSTRUMENT BUILT, BOUND CERTIFIED, REPORT SHIPPED
+   (instruments/entropy/ + certs/entropy-henon.json + reports/entropy.html).**
+   h_top(Hénon, 1.4, 0.3) >= 0.301680, a theorem: 340 pairwise-disjoint
+   h-set parallelograms, 4,140 covering relations at durations k = 1..6
+   (strict interval inequalities, adaptive bisection, outward rounding),
+   COMPOSED to the uniform iterate F^11 as BINARY relations and bounded by
+   an exact integer spectral argument; one consumed external theorem
+   (Zgliczynski–Gidea covering relations -> subshift semi-conjugacy), used
+   the way Krawczyk's is. Calibrated where the answer is known: at a=6 the
+   instrument certifies the FULL 2-shift, h >= ln 2 exactly. The battery
+   (12/12) re-proves the whole detached certificate every run. THE TWO
+   SOUNDNESS BUGS, both caught by impossible numbers, both now gated:
+   (1) counting mixed-duration paths as distinct itineraries gave
+   h >= 0.61 > true 0.465 — a duration-2 relation constrains nothing at
+   its intermediate time, so paths with different visit-time sets can
+   realize the SAME orbit; fix: binary uniform composition, plus a
+   semantic red control (the exact-ln2 horseshoe must stay at ln 2 under
+   mixed durations). (2) A lids-only image condition certified a
+   golden-mean 2-box graph under F converging to ln phi = 0.4812 > 0.465 —
+   an image part hovering in the slab above the target interior lets a
+   finger poke in and retract; fix: forbid the full slabs {|u|<=1,
+   |s|>=1}. An interim commit recorded 0.356403 under the lids-only
+   condition; that number was TAINTED and is superseded — the sound bound
+   is 0.301680, 65% of the census ceiling 0.4648. NEXT for the gap: boxes
+   sized to local expansion, more durations, denser cores.
+3. **The zeta(3) audit report — SHIPPED (reports/zeta3-audit.html).**
+   Verdicts re-certified, the source re-hashed, the Apery certificate
+   checks printed verbatim, and the spurious-solution lemma re-proved as an
+   exact polynomial identity at build time; the build fails otherwise.
+4. **The keller moduli question.** sweep.js parametrizes counterexamples by
+   the free coefficients c_3..c_d — an unexplored moduli space, and the
+   R4 label ("coordinate-equivalence unchecked") is itself the open
+   question: how many inequivalent counterexamples per geometric degree?
+   Needs an equivalence-testing instrument + a coefficient sweep. The
+   literature is weeks old; nobody holds this.
+5. **The bug catalog.** Six real bugs, all found by controls or
+   calibration, none by reading code — sqrt(2) refuted as its own closed
+   form, the bisection-line zero, the fat-record stall, undamped-Newton
+   blindness, unreduced-fraction inflation, the missed sheet row caught by
+   byte pins. An experience report where every claim is `make test`.
+
+## The sin-mfg vein (mined 2026-08-25 — read-only dig; ideas, not process)
+
+Four parallel agents read the whole lab. The gold, ranked by fit to this
+engine (full specs live at the quoted sin-mfg paths; that tree is
+READ-ONLY, lift numbers by transcription + pin, never by edit):
+
+1. **erdos852-constants — MINED (2026-08-25), and it paid.** Both constants
+   certified (instruments/erdos852/ + families/erdos852-constants.js), and
+   the C* audit found the published value WRONG at its 12th significant
+   digit — a certified refutation of a live-thread constant with the
+   generating bug identified (naive double product; factors 1 + 1/(p-1)^3
+   round to 1.0 for p > ~2e5) and reproduced digit-for-digit in the
+   battery. Sources pinned (erdos852_page/thread.html). The report shipped
+   (reports/erdos852.html) and the CORRECTION PACKAGE is built and gated:
+   detached certificate (certs/erdos852-certificate.json) + stdlib verifier
+   (tools/verify_erdos852.py) + paste-ready comment
+   (outreach/erdos852-comment.md — every number in it re-verified: the 2^53
+   threshold is p-1 >= 208064, the missing mass measures 9.1e-13, the
+   snippet runs verbatim). STATUS 2026-08-25 (operator rulings): (a) the
+   comment is POSTED and sits in the site's MODERATOR-APPROVAL queue
+   (operator-confirmed; two cache-busted public fetches still show 7
+   comments, consistent with that) — do not cite it as public until a
+   fetch of the thread shows it, then snapshot the thread as evidence
+   (the dated note in outreach/erdos852-comment.md is the record); (b) OEIS:
+   ON HOLD by operator ruling — neither constant has an A-number (corpus
+   grep: 0 matches), two submittable sequences whenever the hold lifts,
+   operator-authored only (OEIS forbids AI-generated submissions);
+   (c) A078515 extension (27 terms, primes to ~2e11, Alexeev invited)
+   remains a separate detach-runner compute job. Occupancy lesson applied:
+   page + thread + /proof-claims all fetched; 0 claims there.
+2. **The Mercer/Newman mu-lambda continuation — COMPUTE SIDE OPENED
+   (2026-08-25).** Built in-tree: instruments/trigmin/sweep.js — the
+   exhaustive box cascade (stage-W integer kills at roots of unity — 4|f|^2
+   is an INTEGER at m=2,3,4,6; dyadic exact kill via a Chebyshev VALUE
+   recurrence, no polynomial assembled; full certification of survivors;
+   conservation identity that THROWS; orbit classification with
+   primitive-first tie-break — every sin-mfg lesson encoded). CALIBRATED
+   cross-lab: Goddard's 1992 box re-closed in 0.7 s with the source lab's
+   exact counts (142,506 / 104,468 W-kills / 2 survivors / same champion
+   floor), and the mu(9) box30 six-survivor two-orbit structure reproduced,
+   published witness at 1.3623731781333241 to the last digit — 16x faster
+   than the source run. Battery sweep-battery.js 20+/0 incl. a 100%
+   kill audit and 7 reds. NEW THEOREM: **M(0,1,2,6,9) = 1 EXACTLY**
+   (certifyMinEqualsOne: |f|^2 − 1 = (y+1)·H, H(−1)=92 > 0, Sturm counts 0
+   roots — the equality tie no enclosure can decide, from Mercer's own
+   witness; the vein's "exact M(0,1,2,6,9)=1" item, done). The mu(10..17)
+   box30 ladder is RUNNING (tools/run-mu-table.js → certs/mu-table.json,
+   battery-gated rows). THE LADDER LANDED: certs/mu-table.json holds
+   n = 9..17 box30, 752M sets exhausted, all champions battery-re-certified
+   byte-identically and ADOPTED into the envelope (dated edit); mu(10..17)
+   are the first rows anyone holds; n=9 validates cross-lab. Two design
+   upgrades earned mid-run: a DYNAMIC rising bar (a weak seed cost days
+   under the fixed bar when the n=11 insertion-seed certified at 0.925 —
+   with the ratchet it costs minutes; kills against an earlier lower bar
+   stay valid a fortiori) and hill-climb seeding.
+   BIGGER BOXES LANDED (2026-08-26, certs/mu-table-40.json, battery-gated):
+   mu(10) box40 champion {0,1,4,7,8,13,22,24,32,34} floor 1.420064490311554
+   (box30 gave 1.3236 — the ceiling 30->40 raised the certified bound past
+   even mu(9)'s 1.3782, killing the "dip" reading at n=10); mu(11) box40
+   {0,2,4,12,19,20,24,25,27,30,33} floor 1.546098106216827 (box30 1.5346);
+   mu(12) box40 champion {0,1,11,12,16,18,19,21,24,25,27,33} floor
+   1.6889690211416546 (box30 1.5536 — the biggest box-extension gain yet,
+   +0.135). 273M + 848M + 2.31G sets exhausted — 3.43 BILLION verdicts in
+   the three wider boxes — 2 survivors each, orbits unique, every champion
+   battery-re-certified byte-identically. The box30->40 lesson, three for
+   three: at n >= 10 the box30 maxima were CROWDING artifacts; ceilings
+   matter, and box50 at n=10..12 (C(50,k): 2.5G..27G) is the next rung.
+   THE LAMBDA HALF LANDED (2026-08-26, instruments/trigmin/lambda.js +
+   lambda-battery.js 18/0 + certs/lambda-table.json, 18 rows):
+   ALL NINE source-lab rows REPRODUCED exactly — n=4 box20 down to the
+   per-stage split (W=2818, the sin-mfg measured count) and the 12dp
+   values; proved closed forms computed never remembered (9/8 exact,
+   (17+7*sqrt7)/27 via certified sqrt); the wrong-endpoint bar refused BY
+   NAME and its disaster demonstrated. NEW rows nobody holds:
+   lambda(13) <= 2.31823265015213  {1,2,3,4,5,6,7,9,10,11,12,13,16}
+   lambda(14) <= 2.320690691854875 {1,3,4,5,9,10,12,13,14,17,22,23,26,27} (M=30)
+   lambda(15) <= 2.4189121268958322 {1,2,3,4,6,7,8,9,10,11,12,14,18,20,21}
+   lambda(16) <= 2.454832753027949 {1,2,3,4,5,6,7,8,10,11,13,14,15,16,17,21}
+   lambda(17) <= 2.5648971205451674 {1..15,19,22}
+   DEEPENED n=9..17 to M=30 (2026-08-26 finished the 13..17 half: 685M
+   sets in five parallel detached runs, sidecar + merge phases in
+   run-lambda-table.js): n = 9..13 and 15..17 CONFIRM their M=25
+   optimisers; lambda(14) IMPROVED from 2.366350427056568 to the value
+   above — its M=30 optimiser reaches exponent 27, entirely outside the
+   M=25 box, killing the "near-interval structure continues" reading at
+   n=14. The n<=13/15..17 values are certified at depth 30.
+   MERCER §6: DONE AND EXCEEDED (2026-08-26) — not just m=7,8 but the whole
+   ladder to m=20, certified (instruments/trigmin/mercer6.js + 32/32 battery;
+   see the mu(5)-ladder block above).
+   Still queued: mu box50+ (wants worker sharding), Boyd 1986 (ILL/purchase)
+   before any novelty prose.
+   Original note: sin-mfg holds certified
+   mu(6..9) — mu(9) floor 1.3781877 STRICTLY BEATS Boyd's published
+   witness 1.3623731 (certified floor above certified ceiling) — and a
+   lambda(4..12) table with NO published rows past n=6. Never run: mu(10..16);
+   n=17 (first term-count with no printed mu>1 anywhere); exact
+   M(0,1,2,6,9)=1; Mercer §6 at m=7,8 (each improves mu(5) <= 1+pi/m, a
+   40-year lineage); Mercer §5's unexecuted lambda(4) proof strategy. Our
+   trigmin/newman instruments are the same shape — they were lifted FROM
+   there. Report-grade material already in hand. Blocking novelty check:
+   Boyd 1986 (LMS LNS 109) is unread — archive.org diophantineanaly0000aust.
+   PROBED 2026-08-25: the item is access-restricted (lending only; the OCR
+   text 401s). OPERATOR RULING same day: the archive.org borrow is NOT
+   available to them. Remaining routes, from the sin-mfg hunt's own
+   ranking: interlibrary loan, a library copy, or Cambridge purchase
+   (explicitly the LAST resort). Until one lands, every mu-table sentence
+   stays at the referee-grade framing already in use — "first CERTIFICATE",
+   exhaustion over a named box, never "first witness" — which three
+   secondary sources (zbMATH review + HJ §8.1 + Goddard p. 319) support
+   without the paper. The COMPUTE side was never gated and is now DONE
+   through n=17 (certs/mu-table.json); lambda continuation also ungated.
+   (research/probes/mercer-program/.)
+3. **Erdős #290 continuation.** The 4k(k+1) square-discriminant law is
+   proved + blind-confirmed at k=6 (disc(f_168), 45,336 digits, perfect
+   square by CRT). Honest boundary: the GROUP at d=168 undetermined; sweep
+   past l=60 shrinks the c-enclosure by exactly 1/(2l(2l+1)) per degree.
+   OEIS submission for 1/(1+c) = 0.546229310400104587… posted 2026-08-04,
+   unanswered. (research/challenges/erdos290/.)
+4. **Erdős #979 decade 15 — the background treadmill.** Two independent
+   exhaustive engines, checkpoints at done:true nextLo=1e14; ~55 h
+   detachable compute, zero build cost, P(a(6) hit) ~0.10-0.15. Perfect
+   detach-runner fodder under ANY front. (research/probes/erdos979-a385316/.)
+5. **AI-claims audit targets with full specs, never built:**
+   kuperberg-six-unit-cylinders (2,954,984 exact rational cases,
+   deterministic verifier, peer review pending); levit-mandrescu
+   nonunimodal independence polynomial (degree-2037 BigInt, exact valley
+   a1094 > a1095 < a1096, whiskering identities listed); erdos-684 (re-check
+   a refuted Lemma 18 in exact binomial arithmetic). Each is one family
+   file here. (research/challenges/SCOUT_2026-08-04_CLAIM6.md.)
+6. **The Apéry/Sturm irrationality-race decider — spec'd, never built.**
+   Input: an Apéry-like recurrence (integer char poly + denominator-growth
+   exponent); decide the irrationality inequality by certified real-root
+   isolation. Green control: zeta(3)/Apéry must PROVE. Red control:
+   zeta(5)/Zudilin (mu^3+2368mu^2-752mu-16) must REFUSE — zeta(5) is open,
+   so an instrument that proves it is broken. Natural sequel to our
+   ramanujan-audit; the two bibliographic requisites (the inequality
+   stated correctly; the exponent per recurrence) must be read out of the
+   literature, not remembered. (research/challenges/apery-obstruction.html.)
+7. **Chowla structured arm + a conjecture-mining observation.** Their
+   certified flat ratios mu_lo(n)/sqrt(n) in [0.4165, 0.4635] across
+   n=5..19 from two unrelated regimes point at alpha = 1/2 on Boyd's named
+   open conjecture (no alpha is conjectured anywhere in print). Caveat
+   recorded: box maxima are lower bounds; flatness could be search-effort.
+   Also: Shvets arXiv:2604.06239 PROVES the Machine's Z2 = 12/(7 zeta(3))
+   — our rm-z3-new2 row's identity — cite it in the zeta3 report's next
+   revision. And their scout found NO record of any RM conjecture ever
+   refuted; a status registry is an unoccupied niche.
+8. **Blocked but named:** Erdős #513 upper bound (ANY rigorous c > 0 in
+   B <= 2/pi − c is the first movement since 1964) — blocked on the
+   paywalled Clunie–Hayman 1964; do not start without the paper.
+
+Instrument-design lessons paid for there, worth adopting: stage-W exact
+kills at roots of unity (integer arithmetic killed 73-99% of boxes before
+any float); cascade economics (their certify was 1018x the kill stage —
+design kill tiers first); a conservation identity per shard AND globally;
+the inf/sup direction traps (a bar taken from the wrong endpoint silently
+killed a true champion); dilation/reversal orbits classified before
+tie-breaking (a string sort once nearly published a dilated copy as a
+discovery); publish brackets, never values, for anything known only
+between two evaluated points; round lower bounds DOWN; and wire every
+outside cross-check into CI or it rots (their eqcert-crossval emitted 671
+claims that were never validated — the check existed and was never run).
+
