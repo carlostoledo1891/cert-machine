@@ -1,0 +1,572 @@
+{
+ "what": "The NIST curve-seeds audit: Anthropic's 2026-10-16 claim that the 14 NIST / X9.62 curve seeds are lrand48 candidates seeded from Unix timestamps, and that six base points come from FreeLIP's generator — every checkable row re-decided from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code with each other or with the claimant; the claims beyond the checkable core listed as readings.",
+ "generated": "2026-10-17T01:17:07.060Z",
+ "git": "e9cd772d",
+ "claimant": "Anthropic, Frontier Red Team — \"Claude reveals ECDSA curve origins\", 2026-10-16 (corpus/curveseeds/sources/anthropic-ecdsa-curve-origins-2026-10-16.html, pinned). Authors as listed on the page. The post carries two Python blocks (CC0) that reproduce its numbers; they are pinned as evidence and NEVER executed here — every decision below is by code written from the POSIX specification of drand48, from ANSI X9.62's curve-derivation procedure as FIPS 186-2 prints its intermediates, and from FreeLIP's lip.c.",
+ "pins": {
+  "anthropic-ecdsa-curve-origins-2026-10-16.html": "afb5fba0659ff4b33f63514e8fbe67485385e928364f4ee316f8690d93f4f5ba",
+  "fips186-2.pdf": "7384ae9ddbf8e36e20ce0150b71d8b51b6ff4e75a52ed335ca0c456ee192c7ee",
+  "fips186-2.txt": "8d86310a45df4b31f50d155bc02d109b2900747755fb4e79d1d32def7a247a91",
+  "posix-drand48.html": "5182fd854b96e01e6486ad9bf59d37ec2695c74ee32d74b465e88553343c5a9c",
+  "openssl-ec_curve.c": "b5ed5738fe965af7893e3256718df28072329edd2432cef851d8bdec9ac72160",
+  "openssl-commit.txt": "bddb44c4e91cb1bcebd9e428f98c047181bb3c02084438c564f35d660e97bb05",
+  "freelip-lip.c": "46dc20471651d4fe78db17857224e34b2eb6bcfa8be87ce97e59e418907d206d",
+  "freelip-lip.h": "9918f9ac05af2ed7d7a4128330d2eba1fd88deeef6d0ce86f60664471990bd8b",
+  "freelip-README": "116ca0b96d28022bdc4fb22dd8f1f0a4d12fb42acf012c2f184ea4aab51eef43",
+  "freelip-commit.txt": "5c6ee28a4c0902f3c379077449ad2dcc882689af0db9916492b019441a40bc6c",
+  "freelip.html": "e2fca46baf571fadf74af9e7a645df7a31d28466f8383377da7261fbdc535be4"
+ },
+ "preregistration": "corpus/curveseeds/preregistration.json",
+ "amendments": 1,
+ "calibration": {
+  "P-256 c from FIPS seed": true,
+  "srand48 low 16 bits are 330E": true,
+  "B-233 normal-basis b from FIPS s": true
+ },
+ "conventions": [
+  "timestamps are UTC; the srand48 argument is the Unix time (the binary curves: its integer half)",
+  "candidate n is 1-based: the n-th block of 20 lrand48 calls (prime) or 5 calls (binary) — the post: \"the first 20 bytes are candidate 1\"",
+  "prime-curve byte = lrand48() >> 23, the top 8 bits of the 48-bit state; binary-curve word = lrand48(), 31 bits printed as a 32-bit word",
+  "the seed → curve step is ANSI X9.62-1998 A.3.3 as FIPS 186-2 prints its intermediates: the prime case clears the leftmost bit of the first SHA-1 block (amendment 1), the binary case does not; FIPS gives the binary seed and b in the normal basis",
+  "base points: FreeLIP zrstarts(seed) / zrandom / zrandomb as lip.c codes them, NBITS = 26 (the SINGLE_MUL build), seven zrandom draws discarded first (the post's reading of the generating program), the first x with x³ − 3x + b a quadratic residue"
+ ],
+ "rows": [
+  {
+   "claim": "S",
+   "curve": "prime239v1",
+   "kind": "prime",
+   "timestamp": "1997-05-15 15:49:03",
+   "unix": 863711343,
+   "candidate": 2185,
+   "produced": "e43bb460f0b80cc0c0b075798e948060f8321b7d",
+   "published": "e43bb460f0b80cc0c0b075798e948060f8321b7d",
+   "publishedFrom": "OpenSSL ec_curve.c (X9.62)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "prime239v2",
+   "kind": "prime",
+   "timestamp": "1997-05-15 15:49:03",
+   "unix": 863711343,
+   "candidate": 2320,
+   "produced": "e8b4011604095303ca3b8099982be09fcb9ae616",
+   "published": "e8b4011604095303ca3b8099982be09fcb9ae616",
+   "publishedFrom": "OpenSSL ec_curve.c (X9.62)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "prime239v3",
+   "kind": "prime",
+   "timestamp": "1997-05-15 15:49:03",
+   "unix": 863711343,
+   "candidate": 3048,
+   "produced": "7d7374168ffe3471b60a857686a19475d3bfa2ff",
+   "published": "7d7374168ffe3471b60a857686a19475d3bfa2ff",
+   "publishedFrom": "OpenSSL ec_curve.c (X9.62)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "P-192",
+   "kind": "prime",
+   "timestamp": "1997-05-18 14:45:34",
+   "unix": 863966734,
+   "candidate": 139,
+   "produced": "3045ae6fc8422f64ed579528d38120eae12196d5",
+   "published": "3045ae6fc8422f64ed579528d38120eae12196d5",
+   "publishedFrom": "FIPS 186-2",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "prime192v3",
+   "kind": "prime",
+   "timestamp": "1997-05-18 14:45:34",
+   "unix": 863966734,
+   "candidate": 5228,
+   "produced": "c469684435deb378c4b65ca9591e2a5763059a2e",
+   "published": "c469684435deb378c4b65ca9591e2a5763059a2e",
+   "publishedFrom": "OpenSSL ec_curve.c (X9.62)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "prime192v2",
+   "kind": "prime",
+   "timestamp": "1997-05-18 14:45:34",
+   "unix": 863966734,
+   "candidate": 6013,
+   "produced": "31a92ee2029fd10d901b113e990710f0d21ac6b6",
+   "published": "31a92ee2029fd10d901b113e990710f0d21ac6b6",
+   "publishedFrom": "OpenSSL ec_curve.c (X9.62)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "P-521",
+   "kind": "prime",
+   "timestamp": "1997-08-08 01:12:04",
+   "unix": 871002724,
+   "candidate": 1136,
+   "produced": "d09e8800291cb85396cc6717393284aaa0da64ba",
+   "published": "d09e8800291cb85396cc6717393284aaa0da64ba",
+   "publishedFrom": "FIPS 186-2",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "P-256",
+   "kind": "prime",
+   "timestamp": "1997-08-16 01:52:34",
+   "unix": 871696354,
+   "candidate": 1842,
+   "produced": "c49d360886e704936a6678e1139d26b7819f7e90",
+   "published": "c49d360886e704936a6678e1139d26b7819f7e90",
+   "publishedFrom": "FIPS 186-2",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "P-384",
+   "kind": "prime",
+   "timestamp": "1997-08-30 14:50:08",
+   "unix": 872952608,
+   "candidate": 2688,
+   "produced": "a335926aa319a27a1d00896a6773a4827acdac73",
+   "published": "a335926aa319a27a1d00896a6773a4827acdac73",
+   "publishedFrom": "FIPS 186-2",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "P-224",
+   "kind": "prime",
+   "timestamp": "1998-04-03 12:52:07",
+   "unix": 891607927,
+   "candidate": 7026,
+   "produced": "bd71344799d5c7fcdc45b59fa3b9ab8f6a948bc5",
+   "published": "bd71344799d5c7fcdc45b59fa3b9ab8f6a948bc5",
+   "publishedFrom": "FIPS 186-2",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "B-233",
+   "kind": "binary",
+   "timestamp": "1998-04-17 15:24:18",
+   "unix": 892826658,
+   "srand48Argument": 446413329,
+   "candidate": 155,
+   "produced": "74d59ff07f6b413d0ea14b344b20a2db049b50c3",
+   "published": "74d59ff07f6b413d0ea14b344b20a2db049b50c3",
+   "publishedFrom": "FIPS 186-2 (normal basis)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "B-283",
+   "kind": "binary",
+   "timestamp": "1998-04-17 15:27:44",
+   "unix": 892826864,
+   "srand48Argument": 446413432,
+   "candidate": 32,
+   "produced": "77e2b07370eb0f832a6dd5b62dfc88cd06bb84be",
+   "published": "77e2b07370eb0f832a6dd5b62dfc88cd06bb84be",
+   "publishedFrom": "FIPS 186-2 (normal basis)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "B-409",
+   "kind": "binary",
+   "timestamp": "1998-04-17 15:30:18",
+   "unix": 892827018,
+   "srand48Argument": 446413509,
+   "candidate": 60,
+   "produced": "4099b5a457f9d69f79213d094c4bcd4d4262210b",
+   "published": "4099b5a457f9d69f79213d094c4bcd4d4262210b",
+   "publishedFrom": "FIPS 186-2 (normal basis)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "S",
+   "curve": "B-571",
+   "kind": "binary",
+   "timestamp": "1998-04-17 15:32:08",
+   "unix": 892827128,
+   "srand48Argument": 446413564,
+   "candidate": 73,
+   "produced": "2aa058f73a0e33ab486b0f610410c53a7f132310",
+   "published": "2aa058f73a0e33ab486b0f610410c53a7f132310",
+   "publishedFrom": "FIPS 186-2 (normal basis)",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "prime239v1",
+   "c": "28b85ec1ecc19efe769eb741a6d1ba29476aa5a8f2610957d6efe78d3783",
+   "cMatchesPublished": null,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 239,
+   "cPublished": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "prime239v2",
+   "c": "1df491e44e7ccaf4d1ead8a6b90dae09e0d33f2c6cfe7a6ba76e86713d52",
+   "cMatchesPublished": null,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 239,
+   "cPublished": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "prime239v3",
+   "c": "3a4f9dc9a6cefd5f9d1193b9c9968c202430003c2819c2e498618dc58330",
+   "cMatchesPublished": null,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 239,
+   "cPublished": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "P-192",
+   "c": "3099d2bbbfcb2538542dcd5fb078b6ef5f3d6fe2c745de65",
+   "cMatchesPublished": true,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 192,
+   "cPublished": "3099d2bbbfcb2538542dcd5fb078b6ef5f3d6fe2c745de65",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "prime192v3",
+   "c": "25191f95024d839546d9a3375639a9967d52f1373bc4ee0b",
+   "cMatchesPublished": null,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 192,
+   "cPublished": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "prime192v2",
+   "c": "15038d1d2e1cafee0299f3011c1dc75b3c2a86e135db1e6b",
+   "cMatchesPublished": null,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 192,
+   "cPublished": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "P-521",
+   "c": "b48bfa5f420a34949539d2bdfc264eeeeb077688e44fbf0ad8f6d0edb37bd6b533281000518e19f1b9ffbe0fe9ed8a3c2200b8f875e523868c70c1e5bf55bad637",
+   "cMatchesPublished": true,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 521,
+   "cPublished": "b48bfa5f420a34949539d2bdfc264eeeeb077688e44fbf0ad8f6d0edb37bd6b533281000518e19f1b9ffbe0fe9ed8a3c2200b8f875e523868c70c1e5bf55bad637",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "P-256",
+   "c": "7efba1662985be9403cb055c75d4f7e0ce8d84a9c5114abcaf3177680104fa0d",
+   "cMatchesPublished": true,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 256,
+   "cPublished": "7efba1662985be9403cb055c75d4f7e0ce8d84a9c5114abcaf3177680104fa0d",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "P-384",
+   "c": "79d1e655f868f02fff48dcdee14151ddb80643c1406d0ca10dfe6fc52009540a495e8042ea5f744f6e184667cc722483",
+   "cMatchesPublished": true,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 384,
+   "cPublished": "79d1e655f868f02fff48dcdee14151ddb80643c1406d0ca10dfe6fc52009540a495e8042ea5f744f6e184667cc722483",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "P-224",
+   "c": "5b056c7e11dd68f40469ee7f3c7a7d74f7d121116506d031218291fb",
+   "cMatchesPublished": true,
+   "congruence": true,
+   "cNonzero": true,
+   "fourCplus27Nonzero": true,
+   "kind": "prime",
+   "bits": 224,
+   "cPublished": "5b056c7e11dd68f40469ee7f3c7a7d74f7d121116506d031218291fb",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "B-233",
+   "bNormal": "1a003e0962d4f9a8e407c904a9538163adb825212600c7752ad52233279",
+   "bMatchesPublished": true,
+   "kind": "binary",
+   "m": 233,
+   "fieldPolynomial": [
+    233,
+    74,
+    0
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "B-283",
+   "bNormal": "157261b894739fb5a13503f55f0b3f10c5601166633102201138cc180c0206bdafbc951",
+   "bMatchesPublished": true,
+   "kind": "binary",
+   "m": 283,
+   "fieldPolynomial": [
+    283,
+    12,
+    7,
+    5,
+    0
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "B-409",
+   "bNormal": "124d0651c3d3772f7f5a1fe6e715559e2129bdfa04d52f7b6ac7c532cf0ed06f610072d88ad2fdcc50c6fde72843670f8b3742a",
+   "bMatchesPublished": true,
+   "kind": "binary",
+   "m": 409,
+   "fieldPolynomial": [
+    409,
+    87,
+    0
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "D",
+   "curve": "B-571",
+   "bNormal": "3762d0d47116006179da35688eeaccf591a5cdea75000118d9608c59132d43426101a1dfb3774115f586623f75f00001ce611983c1275fa31f5bc9f4be1a0f467f01ca885c74777",
+   "bMatchesPublished": true,
+   "kind": "binary",
+   "m": 571,
+   "fieldPolynomial": [
+    571,
+    10,
+    5,
+    2,
+    0
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "P-192",
+   "lipSeed": 20000,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 2,
+   "producedX": "188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012",
+   "publishedGx": "188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": true,
+   "GyIsTheSmallerRoot": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "prime239v1",
+   "lipSeed": 20420,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 3,
+   "producedX": "ffa963cdca8816ccc33b8642bedf905c3d358573d3f27fbbd3b3cb9aaaf",
+   "publishedGx": "ffa963cdca8816ccc33b8642bedf905c3d358573d3f27fbbd3b3cb9aaaf",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": false,
+   "GyIsTheSmallerRoot": false,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "prime239v2",
+   "lipSeed": 20507,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 2,
+   "producedX": "38af09d98727705120c921bb5e9e26296a3cdcf2f35757a0eafd87b830e7",
+   "publishedGx": "38af09d98727705120c921bb5e9e26296a3cdcf2f35757a0eafd87b830e7",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": false,
+   "GyIsTheSmallerRoot": false,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "prime239v3",
+   "lipSeed": 20509,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 1,
+   "producedX": "6768ae8e18bb92cfcf005c949aa2c6d94853d0e660bbf854b1c9505fe95a",
+   "publishedGx": "6768ae8e18bb92cfcf005c949aa2c6d94853d0e660bbf854b1c9505fe95a",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": true,
+   "GyIsTheSmallerRoot": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "prime192v2",
+   "lipSeed": 20512,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 5,
+   "producedX": "eea2bae7e1497842f2de7769cfe9c989c072ad696f48034a",
+   "publishedGx": "eea2bae7e1497842f2de7769cfe9c989c072ad696f48034a",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": true,
+   "GyIsTheSmallerRoot": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "claim": "G",
+   "curve": "prime192v3",
+   "lipSeed": 20517,
+   "nbits": 26,
+   "skipped": 7,
+   "tries": 1,
+   "producedX": "7d29778100c65a1da1783716588dce2b8b4aee8e228f1896",
+   "publishedGx": "7d29778100c65a1da1783716588dce2b8b4aee8e228f1896",
+   "GySquaresToCurve": true,
+   "GyIsTheOddRoot": false,
+   "GyIsTheSmallerRoot": true,
+   "verdict": "CERTIFIED"
+  }
+ ],
+ "counts": {
+  "byClaim": {
+   "S": {
+    "CERTIFIED": 14
+   },
+   "D": {
+    "CERTIFIED": 14
+   },
+   "G": {
+    "CERTIFIED": 6
+   }
+  },
+  "byVerdict": {
+   "CERTIFIED": 34
+  },
+  "rows": 34
+ },
+ "readings": [
+  {
+   "id": "R1",
+   "what": "candidate 876 of the P-256 run, three P-224 candidates and seven X9.62 candidates also yield prime-order curves \"with parameters chosen the same way\"",
+   "status": "NOT DECIDED HERE",
+   "why": "needs the order of a 192–256-bit curve (Schoof–Elkies–Atkin), outside the standard library; the optional lane (tools/curveseeds-scan.py, PARI/GP) counts apart if run",
+   "wouldDecide": "a point count per candidate below the published index, under a stated root convention for b"
+  },
+  {
+   "id": "R2",
+   "what": "the 1/5810 chance that four of ten seeds have a zero top bit in all twenty 32-bit words",
+   "status": "READING",
+   "why": "a probability under a null model the post does not state; not a property of the published bytes",
+   "wouldDecide": "the null model, written down"
+  },
+  {
+   "id": "R3",
+   "what": "\"this makes a backdoor much less plausible\"",
+   "status": "INTERPRETATION",
+   "why": "not a computation; the post itself keeps the search-over-timestamps possibility open",
+   "wouldDecide": "nothing in the numbers"
+  },
+  {
+   "id": "R4",
+   "what": "the binary curves' clock halved (srand48(t/2))",
+   "status": "CONVENTION OF THE CLAIM",
+   "why": "the post calls it a reading (\"if that reading is right\"); under it the four seeds reproduce (S rows), under the unhalved clock they do not (red control)",
+   "wouldDecide": "the generating program"
+  },
+  {
+   "id": "R5",
+   "what": "B-163's seed; the base points of P-224, P-256, P-384, P-521 and of the binary curves",
+   "status": "OPEN, SAID SO",
+   "why": "the post states these as unexplained; nothing here changes that",
+   "wouldDecide": "a generator and parameters that reproduce them"
+  },
+  {
+   "id": "R6",
+   "what": "how many generation runs there were",
+   "status": "NEEDS DATA",
+   "why": "not recoverable from the published numbers; the post says so",
+   "wouldDecide": "the program's records"
+  }
+ ],
+ "unexplained": [
+  "B-163 (seed)",
+  "P-224, P-256, P-384, P-521 base points",
+  "B-233, B-283, B-409, B-571 base points"
+ ],
+ "crossCheck": {
+  "javascript": "instruments/curveseeds/decide.js (BigInt, crypto SHA-1)",
+  "python": "instruments/curveseeds/decide.py (int, hashlib)",
+  "fieldsCompared": 383,
+  "differences": 0
+ },
+ "redControls": {
+  "fired": 12,
+  "of": 12,
+  "names": [
+   "timestamp + 1 s",
+   "candidate + 1",
+   "lrand48 >> 22 instead of >> 23",
+   "binary: clock not halved",
+   "binary: mrand48 instead of lrand48",
+   "one seed byte flipped: c",
+   "one seed byte flipped: congruence",
+   "SHA-1(seed − i) chain",
+   "prime chain without the leftmost bit cleared",
+   "LIP seed 20001",
+   "NBITS 30",
+   "no outputs skipped"
+  ],
+  "python": "all fired"
+ }
+}

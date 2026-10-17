@@ -16,6 +16,7 @@ the additional-information box or wherever the form asks: **Benchmarking Reviews
 - `outreach/resume/resume.pdf` — the v3 base, verification accent (build: `node outreach/build-resume-pdf.js outreach/resume`;
   fill the marks from resume.private.md first; no mark may print yellow).
 - Links: carlostoledo.co · github.com/carlostoledo1891/cert-machine · linkedin.com/in/carlos-toledo.
+- FRESHEST SAMPLE (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — Anthropic's NIST curve-seeds claim re-decided from the standards the evening it appeared, 34 of 34 checkable rows, two no-shared-code deciders, the claims beyond the core listed as readings. A benchmark-review team will read this as "a release reviewed within a day"; lead with it if the form allows two links.
 - The writing sample, named in the box: https://carlostoledo.co/reports/openai-math.html (a release reviewed: what it
   claims beyond what it checks, 14 gaps pinned to file and line). Second and third, if asked:
   https://carlostoledo.co/reports/gsm8k-audit.html (an answer key re-decided) and

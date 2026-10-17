@@ -1,0 +1,121 @@
+{
+ "what": "The NIST curve-seeds audit — pre-registration, written 2026-10-16 (evening, Brazil) before any claim was decided at scale. A scout earlier the same evening had reproduced the nine NIST seeds from the man-page LCG in 40 lines (scratchpad; the red control ts+1 failed as it must) and nothing else; that scout is superseded by this record.",
+ "claimant": "Anthropic, Frontier Red Team — \"Claude reveals ECDSA curve origins\", 2026-10-16 (corpus/curveseeds/sources/anthropic-ecdsa-curve-origins-2026-10-16.html, pinned). Authors as listed on the page. The post carries two Python blocks (CC0) that reproduce its numbers; they are pinned as evidence and NEVER executed here — every decision below is by code written from the POSIX specification of drand48, from ANSI X9.62's curve-derivation procedure as FIPS 186-2 prints its intermediates, and from FreeLIP's lip.c.",
+ "claims": {
+  "S": "SEEDS (14): each published 160-bit seed is the n-th 20-byte candidate of the lrand48 stream started by srand48(t) — prime curves: candidate n = lrand48 calls 20(n−1)+1 … 20n, each call contributing the byte lrand48() >> 23 (the top 8 bits of the 48-bit state); binary curves: srand48(t/2) with t/2 an integer division, candidate n = calls 5(n−1)+1 … 5n, each call contributing lrand48() as a 32-bit word. (t, n) per curve are the post's table (claim.table below). UTC. 1-based candidate index.",
+  "D": "DERIVATIONS (14): each seed yields the published curve under the SHA-1 procedure of ANSI X9.62-1998 — prime case: with t = bitlength(p), s = ⌊(t−1)/160⌋, v = t − 160s, c = (rightmost v bits of SHA-1(seed)) ‖ SHA-1(seed+1) ‖ … ‖ SHA-1(seed+s), and the published b satisfies b²·c ≡ −27 (mod p) (a = −3); FIPS 186-2 prints c for the five NIST prime curves and the certificate requires equality with it; the X9.62 example curves print no c, the congruence alone decides. Binary case: b (in the normal basis FIPS uses for s and b) = (rightmost v bits of SHA-1(seed)) ‖ SHA-1(seed+1) ‖ … with t = m. This claim is the standard's, not the post's; it is decided so that the chain timestamp → seed → published curve is closed by one record.",
+  "G": "BASE POINTS (6): for P-192 (= prime192v1), prime192v2, prime192v3, prime239v1, prime239v2, prime239v3 the published Gx is the first x on the curve produced by FreeLIP's generator — zrstarts(seed) with the LIP seed of the post's table; state ← state · 3^121 mod (2^107 − 1); zrandom(2^NBITS) = state mod 2^NBITS after the rejection step lip.c codes; seven zrandom draws discarded (the post's reading of the generating program); then zrandomb(p): ⌈bitlength(p)/NBITS⌉ + 1 limbs, the first drawn most significant, reduced mod p; repeat until x³ − 3x + b is a quadratic residue (Euler criterion = 1); NBITS = 26, FreeLIP's SINGLE_MUL build (lip.h). Gy is checked to square to x³ − 3x + b and which root it is recorded as a reading.",
+  "R": "READINGS, not decided here (listed on the page with what would decide them): R1 candidate 876 of the P-256 run, three P-224 candidates and seven X9.62 candidates also yield prime-order curves 'with parameters chosen the same way' — needs point counting at 192–256 bits (PARI's SEA, outside the standard library; an optional lane, counted apart if run); R2 the 1/5810 chance of the all-zero top bits — a null-model number; R3 'makes a backdoor much less plausible' — interpretation; R4 the binary curves' clock halved — the post's own hypothesis; R5 B-163's seed and the base points of P-224/256/384/521 and of the binary curves — open, and said so by the post; R6 the number of generation runs — unknowable from the numbers."
+ },
+ "claim": {
+  "source": "the post's table (its first code block, read as data; its prose gives P-256's 1842 and the 'first 20 bytes are candidate 1' convention)",
+  "table": {
+   "prime": {
+    "prime239v1": [
+     "1997-05-15 15:49:03",
+     2185
+    ],
+    "prime239v2": [
+     "1997-05-15 15:49:03",
+     2320
+    ],
+    "prime239v3": [
+     "1997-05-15 15:49:03",
+     3048
+    ],
+    "P-192": [
+     "1997-05-18 14:45:34",
+     139
+    ],
+    "prime192v3": [
+     "1997-05-18 14:45:34",
+     5228
+    ],
+    "prime192v2": [
+     "1997-05-18 14:45:34",
+     6013
+    ],
+    "P-521": [
+     "1997-08-08 01:12:04",
+     1136
+    ],
+    "P-256": [
+     "1997-08-16 01:52:34",
+     1842
+    ],
+    "P-384": [
+     "1997-08-30 14:50:08",
+     2688
+    ],
+    "P-224": [
+     "1998-04-03 12:52:07",
+     7026
+    ]
+   },
+   "binary": {
+    "B-233": [
+     "1998-04-17 15:24:18",
+     155
+    ],
+    "B-283": [
+     "1998-04-17 15:27:44",
+     32
+    ],
+    "B-409": [
+     "1998-04-17 15:30:18",
+     60
+    ],
+    "B-571": [
+     "1998-04-17 15:32:08",
+     73
+    ]
+   },
+   "basePoints": {
+    "P-192": 20000,
+    "prime239v1": 20420,
+    "prime239v2": 20507,
+    "prime239v3": 20509,
+    "prime192v2": 20512,
+    "prime192v3": 20517
+   },
+   "unexplained": [
+    "B-163 (seed)",
+    "P-224, P-256, P-384, P-521 base points",
+    "B-233, B-283, B-409, B-571 base points"
+   ]
+  }
+ },
+ "published": "corpus/curveseeds/published.json — read from the pinned FIPS 186-2 text layer and OpenSSL's ec_curve.c by tools/read-curveseeds-published.py; the two sources must agree on every NIST field or the reader refuses.",
+ "verdicts": {
+  "CERTIFIED": "the computation written here reproduces the published object bit for bit (a seed, c, the congruence, the normal-basis b, Gx)",
+  "REFUTED": "it does not, under the conventions stated in the claim; the record carries what was produced instead",
+  "REFUSED": "the decision needs a tool or a convention the record does not have (point counting; an ambiguous convention the post does not fix) — stated with the reason",
+  "NEEDS DATA": "an input the decision needs is published nowhere (the generating program; the number of runs)"
+ },
+ "arithmetic": "integers only; Python's standard library (hashlib.sha1, int) in instruments/curveseeds/decide.py and, sharing no code, Node's BigInt with crypto's SHA-1 in instruments/curveseeds/decide.js; the two must agree on every field of every verdict or the run refuses.",
+ "calibration": "before any claim is decided both deciders must (i) regenerate FIPS 186-2's printed c for P-256 from its printed seed, (ii) reproduce the POSIX example semantics (srand48(0) then lrand48 — no example value is normative, so the check is internal consistency: the state after srand48(t) has low 16 bits 330E), (iii) reproduce the FIPS-printed b of B-233 in the normal basis from its printed s.",
+ "redControls": [
+  "the timestamp one second off must not reproduce the seed",
+  "the candidate index one off must not reproduce the seed",
+  "reading lrand48 as mrand48 (signed 32 bits) must not reproduce the seed",
+  "the binary clock not halved must not reproduce the seed",
+  "one seed byte flipped must break the derivation (c or the congruence)",
+  "SHA-1(seed − i) in place of SHA-1(seed + i) must not reproduce FIPS's c",
+  "a LIP seed one off must not reproduce Gx",
+  "NBITS = 30 in place of 26 must not reproduce Gx",
+  "a corrupted pin must refuse the run",
+  "the two deciders disagreeing on one field must refuse the run"
+ ],
+ "whatCountsAsAResult": "a verdict per claim row (14 S, 14 D, 6 G) with the object produced, the readings listed with what would decide each, and the optional point-counting lane's own counts if run. All CERTIFIED is a result and gets the same page.",
+ "notClaimed": "that the timestamps are the moment the NSA ran its program (a 32-bit srand48 argument that reads as a 1997 date is the claim; the inference is the reader's); that no other generator produces the same bytes; anything about the security of the curves; anything about why candidates were skipped.",
+ "cost": "laptop minutes for S, D, G; the optional lane hours of PARI on a laptop",
+ "amendments": [
+  {
+   "date": "2026-10-16 (minutes after the pre-registration, before any claim row was decided)",
+   "after": "the pre-registered calibration (i): regenerate FIPS 186-2's printed c for P-256 from its printed seed",
+   "seen": "the first attempt produced c = fefba166… where FIPS prints 7efba166…; for P-192, b099d2bb against 3099d2bb — the leftmost bit of the first SHA-1 block is cleared. That is ANSI X9.62-1998 A.3.3.1's own rule for the prime case (set the leftmost bit of W0 to 0), omitted from the claims text above; the binary case A.3.3.2 has no such step and B-233's normal-basis b reproduced without it.",
+   "change": "the prime derivation clears bit v−1 of the first block; a red control is added — the chain without the clearing must not reproduce c. Nothing else changes; the calibration against the standard's own printed intermediate is exactly what caught this.",
+   "notChanged": "the claims, the verdicts, the pins, the red controls already listed"
+  }
+ ]
+}

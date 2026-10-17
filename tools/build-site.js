@@ -405,6 +405,14 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'wowii-ledger.json'), 'utf8'));
       if (L.counts.CERTIFIED !== 5) fail('the WOWII card would misstate the record');
       return '5 of 5 witnesses certified · trees of 25, 41, 150 vertices · clique graphs of 39 and 15'; })() },
+  { g: 'ai', f: 'curve-seeds.html', k: 'audit · the NIST curve seeds',
+    title: 'NIST\u2019s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards',
+    desc: 'Anthropic\u2019s 16 October 2026 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and that six base points come from FreeLIP\u2019s generator, '
+      + 're-decided the same evening from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code with each other or with the claimant: every checkable row holds, FIPS\u2019s own printed intermediates reproduced; '
+      + 'the skipped candidates, the probabilities and "less plausible" listed as readings.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'curveseeds-ledger.json'), 'utf8'));
+      if (L.counts.byVerdict.CERTIFIED !== L.rows.length) fail('the curve-seeds card would misstate the record');
+      return L.rows.length + ' of ' + L.rows.length + ' checkable rows certified · 14 seeds, 14 derivations, 6 base points · ' + L.redControls.of + ' red controls · ' + L.readings.length + ' readings'; })() },
   { g: 'ai', f: 'alphaevolve-community.html', k: 'audit · a registry\'s unanswered claims',
     title: 'The AlphaEvolve repository\'s community certificates, decided',
     desc: 'Eight issues on DeepMind\'s repository of problems offer explicit objects beating its recorded bests — sphere-free grid sets to n = 40, two 58-point isosceles-free sets where the literature says 56 is optimal, '

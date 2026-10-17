@@ -15,6 +15,7 @@ authorization, and free-text fields.
 
 - `outreach/resume/resume.pdf` (v3, verification accent).
 - Links: carlostoledo.co · github.com/carlostoledo1891/cert-machine.
+- FRESHEST SAMPLE (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — a published claim reproduced independently from the specifications within hours, two implementations agreeing field for field, every forgery failing: the reproduction discipline the role asks for.
 - Writing samples: https://carlostoledo.co/reports/gsm8k-audit.html (dataset quality: an answer key audited item by
   item, with the error classes counted); https://carlostoledo.co/reports/openai-math.html (a release's statements
   read by two readers against their headlines — annotation with a second reader wherever the first found a gap);

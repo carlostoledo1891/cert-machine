@@ -1,0 +1,61 @@
+{
+ "what": "The NIST curve-seeds audit \u2014 every byte a decision reads, pinned by sha256 at fetch time (2026-10-16 evening). The battery re-hashes them; a changed digest refuses the run. The claimant's code is pinned as evidence and never executed.",
+ "fetched": "2026-10-16",
+ "files": {
+  "anthropic-ecdsa-curve-origins-2026-10-16.html": {
+   "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+   "what": "the claim as published (Anthropic Frontier Red Team, 2026-10-16), fetched 2026-10-16 ~21:43 -03; the two code blocks are the claimant's reproduction, never run here",
+   "sha256": "afb5fba0659ff4b33f63514e8fbe67485385e928364f4ee316f8690d93f4f5ba"
+  },
+  "fips186-2.pdf": {
+   "url": "https://csrc.nist.gov/files/pubs/fips/186-2/final/docs/fips186-2.pdf",
+   "what": "FIPS PUB 186-2 (2000-01-27): the NIST recommended curves \u2014 for each prime curve p, r, s (seed), c, b, Gx, Gy; for each binary curve the field polynomial, r, the polynomial-basis b/Gx/Gy and the normal-basis s, b, Gx, Gy",
+   "sha256": "7384ae9ddbf8e36e20ce0150b71d8b51b6ff4e75a52ed335ca0c456ee192c7ee"
+  },
+  "fips186-2.txt": {
+   "url": "(derived) pdftotext -layout fips186-2.pdf, poppler 2026-10-16; committed so the parse re-runs without pdftotext",
+   "what": "the text layer of the PDF above; tools/read-curveseeds-published.py reads the curve blocks from it",
+   "sha256": "8d86310a45df4b31f50d155bc02d109b2900747755fb4e79d1d32def7a247a91"
+  },
+  "posix-drand48.html": {
+   "url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/drand48.html",
+   "what": "IEEE Std 1003.1-2017: the drand48 family \u2014 X(n+1) = (aX(n) + c) mod 2^48, a = 5DEECE66D, c = B; srand48 sets the high 32 bits of X to the argument and the low 16 to 330E; lrand48 returns the high 31 bits",
+   "sha256": "5182fd854b96e01e6486ad9bf59d37ec2695c74ee32d74b465e88553343c5a9c"
+  },
+  "openssl-ec_curve.c": {
+   "url": "https://raw.githubusercontent.com/openssl/openssl/e074eab6c45587864f169a1c70bcaccae7517dc0/crypto/ec/ec_curve.c",
+   "what": "OpenSSL crypto/ec/ec_curve.c at commit e074eab6c45587864f169a1c70bcaccae7517dc0 (2026-09-09T13:12:46Z): the X9.62 example curves prime192v2/v3, prime239v1/v2/v3 (seed, p, a, b, x, y, order) \u2014 ANSI X9.62-1998 is paywalled \u2014 and the NIST curves as a second reading",
+   "sha256": "b5ed5738fe965af7893e3256718df28072329edd2432cef851d8bdec9ac72160"
+  },
+  "openssl-commit.txt": {
+   "url": "https://api.github.com/repos/openssl/openssl/commits?path=crypto/ec/ec_curve.c&per_page=1",
+   "what": "the commit the file above was fetched at",
+   "sha256": "bddb44c4e91cb1bcebd9e428f98c047181bb3c02084438c564f35d660e97bb05"
+  },
+  "freelip-lip.c": {
+   "url": "https://raw.githubusercontent.com/lrobot/freelip/00898a4814d2cc1244bf348682be6ed10dda35f0/lip.c",
+   "what": "FreeLIP 1.1 (Lenstra, Leyland 1997) lip.c, from the GitHub mirror lrobot/freelip at 00898a4814d2cc1244bf348682be6ed10dda35f0 (2019-03-17T06:07:27Z) \u2014 Bernstein's page links no tarball; zrstarts/zrandom/zrandomb are read from here for the base-point claim (non-commercial licence; read, not shipped)",
+   "sha256": "46dc20471651d4fe78db17857224e34b2eb6bcfa8be87ce97e59e418907d206d"
+  },
+  "freelip-lip.h": {
+   "url": "https://raw.githubusercontent.com/lrobot/freelip/00898a4814d2cc1244bf348682be6ed10dda35f0/lip.h",
+   "what": "FreeLIP lip.h: NBITS / RADIX \u2014 the limb width zrandomb draws (26 or 30 bits by platform)",
+   "sha256": "9918f9ac05af2ed7d7a4128330d2eba1fd88deeef6d0ce86f60664471990bd8b"
+  },
+  "freelip-README": {
+   "url": "https://raw.githubusercontent.com/lrobot/freelip/00898a4814d2cc1244bf348682be6ed10dda35f0/README",
+   "what": "FreeLIP README: release note dated 21 July 1997 (Paul Leyland)",
+   "sha256": "116ca0b96d28022bdc4fb22dd8f1f0a4d12fb42acf012c2f184ea4aab51eef43"
+  },
+  "freelip-commit.txt": {
+   "url": "https://api.github.com/repos/lrobot/freelip/commits?per_page=1",
+   "what": "the mirror commit the three files above were fetched at",
+   "sha256": "5c6ee28a4c0902f3c379077449ad2dcc882689af0db9916492b019441a40bc6c"
+  },
+  "freelip.html": {
+   "url": "https://cr.yp.to/speed/mult/freelip.html",
+   "what": "Bernstein's FreeLIP page (authorship note; timings; no download link today)",
+   "sha256": "e2fca46baf571fadf74af9e7a645df7a31d28466f8383377da7261fbdc535be4"
+  }
+ }
+}

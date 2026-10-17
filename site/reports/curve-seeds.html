@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards · Carlos Toledo</title>
+<meta name="description" content="Anthropic’s 2026-10-16 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and six base points FreeLIP’s generator draws, re-decided the same day from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code: 34 of 34 checkable rows hold; the claims beyond them listed as readings.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/reports/curve-seeds.html">
+<meta property="og:url" content="https://carlostoledo.co/reports/curve-seeds.html">
+<meta property="og:title" content="NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards · Carlos Toledo">
+<meta property="og:description" content="Anthropic’s 2026-10-16 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and six base points FreeLIP’s generator draws, re-decided the same day from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code: 34 of 34 checkable rows hold; the claims beyond them listed as readings.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards · Carlos Toledo">
+<meta name="twitter:description" content="Anthropic’s 2026-10-16 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and six base points FreeLIP’s generator draws, re-decided the same day from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code: 34 of 34 checkable rows hold; the claims beyond them listed as readings.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards","description":"Anthropic’s 2026-10-16 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and six base points FreeLIP’s generator draws, re-decided the same day from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code: 34 of 34 checkable rows hold; the claims beyond them listed as readings.","url":"https://carlostoledo.co/reports/curve-seeds.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">cert-machine · audit · a frontier lab’s claim, decided the day it was published</div>
+  <h1>NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards</h1>
+  <p class="deck">On 16 October 2026 Anthropic published that the fourteen seeds behind the NIST and ANSI X9.62 elliptic curves — a question open since 1997 and carrying a bounty — are outputs of the C library’s lrand48, seeded from Unix timestamps of May 1997 to April 1998, and that six base points come from FreeLIP’s random generator. Every row of that claim that a computation can decide is re-decided here, the same evening, from the POSIX specification of drand48, from ANSI X9.62’s derivation as FIPS 186-2 prints its intermediates, and from FreeLIP’s source — by two programs that share no code with each other or with the claimant’s. All 34 rows hold. The claims beyond the checkable core are listed as readings, each with what would decide it.</p>
+</header>
+
+<p class="scope">The claim: anthropic.com/research/ecdsa-curve-origins as fetched 2026-10-16 (sha256 afb5fba0659f…), its two code blocks pinned as evidence and never run. The published objects: FIPS PUB 186-2 (7384ae9ddbf8…) — for each prime curve p, r, the seed s, c, b, G; for each binary curve the field polynomial, r, and the seed and b in the normal basis — and OpenSSL’s crypto/ec/ec_curve.c at a pinned commit for the five X9.62 example curves, whose standard is paywalled; the two sources must agree on every NIST field or the reader refuses. The specifications: IEEE Std 1003.1 for the drand48 family; FreeLIP 1.1’s lip.c (Lenstra–Leyland, 1997) for zrstarts, zrandom and zrandomb. Pre-registered in corpus/curveseeds/preregistration.json with one dated amendment before any row was decided. Decided: that each published seed is the stated candidate of the stated srand48 run (14 rows); that each seed yields its published curve by X9.62’s SHA-1 procedure (14); that each of six base points is the first point FreeLIP’s generator draws from the stated seed (6). Not decided: the skipped-candidate claim, which needs point counting; the probabilities and the interpretation; anything about the security of the curves.</p>
+
+<div class="col"><div class="note">
+  <span class="lab">tl;dr</span>
+<ul class="plain"><li><b>The finding.</b> <b>34 of 34 checkable rows hold.</b> Each of the fourteen seeds is exactly the stated 20-byte candidate of the lrand48 stream that srand48 starts from the stated Unix time — the five NIST prime curves and five X9.62 example curves as the top byte of each output (lrand48() >> 23), the four binary curves as whole 31-bit words from a clock the claim reads as halved. Each seed then yields its published curve under ANSI X9.62’s procedure: for the five NIST prime curves the SHA-1 chain reproduces the intermediate c that FIPS 186-2 itself prints, and b²·c ≡ −27 (mod p) for all ten prime curves; for the four binary curves the chain is the published b in the normal basis, bit for bit. The six base points of May 1997 are the first x on the curve that FreeLIP’s generator — zrstarts(seed), state × 3¹²¹ mod 2¹⁰⁷ − 1, 26-bit limbs, seven draws discarded — produces from LIP seeds 20000 to 20517; each published Gy squares to the curve. <b>What the post claims beyond what it checks</b> is in §4: the skipped candidates (point counting), the 1/5810, the halved clock, and "less plausible", each named for what it is. A seed reproducing from a 32-bit srand48 argument and a small index is the computation; that the argument is the moment a program ran in 1997 is the reader’s inference, and the page does not make it for them.</li><li><b>The mechanism.</b> Integers only. The LCG from the man page (X ← 5DEECE66D·X + B mod 2⁴⁸; srand48 puts the argument in the high 32 bits over 330E; lrand48 is the high 31 bits); SHA-1 from the standard library; FreeLIP’s generator as lip.c codes it, including its rejection step. Two deciders — Python (int, hashlib) and Node (BigInt, crypto) — written separately, calibrated before any row on FIPS’s own printed c for P-256 and printed normal-basis b for B-233, agree on 383 fields; one difference refuses the run. 12 forgeries must fail and do: a timestamp one second off, a candidate one off, the wrong shift, the clock not halved, mrand48 for lrand48, a flipped seed byte, the chain run backwards, the prime chain without X9.62’s leftmost-bit rule, a LIP seed one off, 30-bit limbs, no outputs skipped.</li><li><b>Check it.</b> <span class="m">node tools/run-curveseeds-ledger.js</span> (seconds) · <span class="m">node instruments/curveseeds/battery.js</span> — 10 checks, 15 red controls · <span class="m">python3 -I instruments/curveseeds/decide.py</span> decides every row with nothing but the standard library.</li></ul>
+</div></div>
+
+<div class="wide">
+  <div class="stats" data-n="6">
+    <div class="stat"><div class="k">seeds</div><div class="v">14 of 14</div><div class="n">each the stated candidate of the stated srand48 run; ten prime-curve, four binary-curve</div></div>
+    <div class="stat"><div class="k">seed → curve</div><div class="v">14 of 14</div><div class="n">X9.62’s SHA-1 chain: FIPS’s printed c reproduced (5), b²c ≡ −27 (10), the normal-basis b (4)</div></div>
+    <div class="stat"><div class="k">base points</div><div class="v">6 of 6</div><div class="n">FreeLIP’s generator from the stated LIP seeds; first x on the curve after 2, 3, 2, 1, 5, 1 tries</div></div>
+    <div class="stat"><div class="k">deciders</div><div class="v">2 · 0</div><div class="n">383 fields compared, no shared code, no difference</div></div>
+    <div class="stat"><div class="k">red controls</div><div class="v">15</div><div class="n">forgeries that must fail; all fired</div></div>
+    <div class="stat"><div class="k">readings</div><div class="v">6</div><div class="n">claims beyond the checkable core, each with what would decide it</div></div>
+  </div>
+</div>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§1 · the seeds</div>
+    <h2>Fourteen seeds, each the stated candidate of the stated run</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>curve</th><th>srand48 clock (UTC)</th><th>srand48 argument</th><th>candidate</th><th>the published seed</th><th>source</th><th>verdict</th></tr></thead><tbody><tr><td>P-192</td><td>1997-05-18 14:45:34</td><td>863966734</td><td>139</td><td><span class="m">3045ae6f c8422f64 ed579528 d38120ea e12196d5</span></td><td>FIPS 186-2</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-224</td><td>1998-04-03 12:52:07</td><td>891607927</td><td>7026</td><td><span class="m">bd713447 99d5c7fc dc45b59f a3b9ab8f 6a948bc5</span></td><td>FIPS 186-2</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-256</td><td>1997-08-16 01:52:34</td><td>871696354</td><td>1842</td><td><span class="m">c49d3608 86e70493 6a6678e1 139d26b7 819f7e90</span></td><td>FIPS 186-2</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-384</td><td>1997-08-30 14:50:08</td><td>872952608</td><td>2688</td><td><span class="m">a335926a a319a27a 1d00896a 6773a482 7acdac73</span></td><td>FIPS 186-2</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-521</td><td>1997-08-08 01:12:04</td><td>871002724</td><td>1136</td><td><span class="m">d09e8800 291cb853 96cc6717 393284aa a0da64ba</span></td><td>FIPS 186-2</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v2</td><td>1997-05-18 14:45:34</td><td>863966734</td><td>6013</td><td><span class="m">31a92ee2 029fd10d 901b113e 990710f0 d21ac6b6</span></td><td>OpenSSL ec_curve.c (X9.62)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v3</td><td>1997-05-18 14:45:34</td><td>863966734</td><td>5228</td><td><span class="m">c4696844 35deb378 c4b65ca9 591e2a57 63059a2e</span></td><td>OpenSSL ec_curve.c (X9.62)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v1</td><td>1997-05-15 15:49:03</td><td>863711343</td><td>2185</td><td><span class="m">e43bb460 f0b80cc0 c0b07579 8e948060 f8321b7d</span></td><td>OpenSSL ec_curve.c (X9.62)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v2</td><td>1997-05-15 15:49:03</td><td>863711343</td><td>2320</td><td><span class="m">e8b40116 04095303 ca3b8099 982be09f cb9ae616</span></td><td>OpenSSL ec_curve.c (X9.62)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v3</td><td>1997-05-15 15:49:03</td><td>863711343</td><td>3048</td><td><span class="m">7d737416 8ffe3471 b60a8576 86a19475 d3bfa2ff</span></td><td>OpenSSL ec_curve.c (X9.62)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-233</td><td>1998-04-17 15:24:18</td><td>446413329 (= ⌊t/2⌋, t = 892826658)</td><td>155</td><td><span class="m">74d59ff0 7f6b413d 0ea14b34 4b20a2db 049b50c3</span></td><td>FIPS 186-2 (normal basis)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-283</td><td>1998-04-17 15:27:44</td><td>446413432 (= ⌊t/2⌋, t = 892826864)</td><td>32</td><td><span class="m">77e2b073 70eb0f83 2a6dd5b6 2dfc88cd 06bb84be</span></td><td>FIPS 186-2 (normal basis)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-409</td><td>1998-04-17 15:30:18</td><td>446413509 (= ⌊t/2⌋, t = 892827018)</td><td>60</td><td><span class="m">4099b5a4 57f9d69f 79213d09 4c4bcd4d 4262210b</span></td><td>FIPS 186-2 (normal basis)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-571</td><td>1998-04-17 15:32:08</td><td>446413564 (= ⌊t/2⌋, t = 892827128)</td><td>73</td><td><span class="m">2aa058f7 3a0e33ab 486b0f61 0410c53a 7f132310</span></td><td>FIPS 186-2 (normal basis)</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>A CERTIFIED row says: start the POSIX generator with srand48(argument), take the n-th block of twenty outputs (prime curves: the top byte of each, lrand48() >> 23) or of five outputs (binary curves: each whole 31-bit value as a 32-bit word), and the 160 bits are the published seed. The candidate index is 1-based, as the post defines it ("the first 20 bytes are candidate 1"). The published seeds are read from the pinned FIPS 186-2 text layer (the NIST curves; the binary seeds in the normal basis FIPS gives them in) and from OpenSSL’s table (the X9.62 example curves), never retyped. The four binary runs are 206 seconds apart on the same afternoon under the halved-clock reading; without the halving the srand48 arguments read as February 1984 and the red control shows no seed reproduces.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§2 · seed → curve</div>
+    <h2>Each seed yields its published curve by X9.62’s procedure</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>curve</th><th>field</th><th>the chain’s output</th><th>against the standard</th><th>verdict</th></tr></thead><tbody><tr><td>P-192</td><td>GF(p), 192 bits</td><td>c = <span class="m">3099d2bbbfcb2538…</span></td><td>equals FIPS 186-2’s printed c; b²c + 27 ≡ 0 (mod p)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-224</td><td>GF(p), 224 bits</td><td>c = <span class="m">5b056c7e11dd68f4…</span></td><td>equals FIPS 186-2’s printed c; b²c + 27 ≡ 0 (mod p)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-256</td><td>GF(p), 256 bits</td><td>c = <span class="m">7efba1662985be94…</span></td><td>equals FIPS 186-2’s printed c; b²c + 27 ≡ 0 (mod p)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-384</td><td>GF(p), 384 bits</td><td>c = <span class="m">79d1e655f868f02f…</span></td><td>equals FIPS 186-2’s printed c; b²c + 27 ≡ 0 (mod p)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>P-521</td><td>GF(p), 521 bits</td><td>c = <span class="m">b48bfa5f420a3494…</span></td><td>equals FIPS 186-2’s printed c; b²c + 27 ≡ 0 (mod p)</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v2</td><td>GF(p), 192 bits</td><td>c = <span class="m">15038d1d2e1cafee…</span></td><td>no c printed for this curve; b²c + 27 ≡ 0 (mod p) holds</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v3</td><td>GF(p), 192 bits</td><td>c = <span class="m">25191f95024d8395…</span></td><td>no c printed for this curve; b²c + 27 ≡ 0 (mod p) holds</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v1</td><td>GF(p), 239 bits</td><td>c = <span class="m">28b85ec1ecc19efe…</span></td><td>no c printed for this curve; b²c + 27 ≡ 0 (mod p) holds</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v2</td><td>GF(p), 239 bits</td><td>c = <span class="m">1df491e44e7ccaf4…</span></td><td>no c printed for this curve; b²c + 27 ≡ 0 (mod p) holds</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v3</td><td>GF(p), 239 bits</td><td>c = <span class="m">3a4f9dc9a6cefd5f…</span></td><td>no c printed for this curve; b²c + 27 ≡ 0 (mod p) holds</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-233</td><td>GF(2^233), t^233 + t^74 + 1</td><td>b (normal basis) = <span class="m">1a003e0962d4f9a8…</span></td><td>equals FIPS 186-2’s normal-basis b, bit for bit</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-283</td><td>GF(2^283), t^283 + t^12 + t^7 + t^5 + 1</td><td>b (normal basis) = <span class="m">157261b894739fb5…</span></td><td>equals FIPS 186-2’s normal-basis b, bit for bit</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-409</td><td>GF(2^409), t^409 + t^87 + 1</td><td>b (normal basis) = <span class="m">124d0651c3d3772f…</span></td><td>equals FIPS 186-2’s normal-basis b, bit for bit</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>B-571</td><td>GF(2^571), t^571 + t^10 + t^5 + t^2 + 1</td><td>b (normal basis) = <span class="m">3762d0d471160061…</span></td><td>equals FIPS 186-2’s normal-basis b, bit for bit</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>ANSI X9.62-1998 A.3.3 turns a seed into a curve: with t the field size in bits, s = ⌊(t − 1)/160⌋ and v = t − 160s, the chain is the rightmost v bits of SHA-1(seed) followed by SHA-1(seed + 1) … SHA-1(seed + s). In the prime case the leftmost bit of the first block is cleared and the result is c, with b any solution of b²c ≡ a³ (mod p), a = −3; FIPS 186-2 prints that c, and the calibration that regenerates it is what caught the leftmost-bit rule (amendment 1). In the binary case the chain is b itself, in the normal basis FIPS uses for s and b. This row is the standard’s own promise, not the post’s; it is decided so that one record closes the chain from a 32-bit clock value to the published curve. For the X9.62 example curves no c is printed anywhere open, so the congruence alone decides.</p>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">§3 · the base points</div>
+    <h2>Six base points from FreeLIP’s generator</h2>
+  </div>
+<div class="wide"><div class="tw"><table><thead><tr><th>curve</th><th>LIP seed</th><th>tries</th><th>x produced</th><th>Gy</th><th>verdict</th></tr></thead><tbody><tr><td>P-192</td><td>20000</td><td>2</td><td><span class="m">188da80eb03090f6…</span> = the published Gx</td><td>squares to x³ − 3x + b; the odd root, the smaller</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v1</td><td>20420</td><td>3</td><td><span class="m">ffa963cdca8816cc…</span> = the published Gx</td><td>squares to x³ − 3x + b; the even root, the larger</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v2</td><td>20507</td><td>2</td><td><span class="m">38af09d987277051…</span> = the published Gx</td><td>squares to x³ − 3x + b; the even root, the larger</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime239v3</td><td>20509</td><td>1</td><td><span class="m">6768ae8e18bb92cf…</span> = the published Gx</td><td>squares to x³ − 3x + b; the odd root, the smaller</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v2</td><td>20512</td><td>5</td><td><span class="m">eea2bae7e1497842…</span> = the published Gx</td><td>squares to x³ − 3x + b; the odd root, the smaller</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>prime192v3</td><td>20517</td><td>1</td><td><span class="m">7d29778100c65a1d…</span> = the published Gx</td><td>squares to x³ − 3x + b; the even root, the smaller</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>FreeLIP (lip.c): zrstarts(seed) sets the state to the seed and the multiplier to 3¹²¹ mod (2¹⁰⁷ − 1); zrandom(b) advances the state and returns it mod b, redrawing in the rare case the state falls in the top partial block; zrandomb(p) draws one limb more than p has, the first most significant, and reduces mod p. The limb is 26 bits (NBITS in the SINGLE_MUL build of lip.h; 30 bits fails the red control), seven single draws are discarded first (the post’s reading of the generating program; zero fails the red control), and the first x with x³ − 3x + b a quadratic residue is the base point’s abscissa. The post explains no other base point — P-224, P-256, P-384, P-521 and the binary curves stay open — and nothing here changes that.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§4 · beyond the checkable core</div>
+    <h2>What the post claims beyond what this page can decide</h2>
+  </div>
+<ul class="plain"><li><b>R1 · NOT DECIDED HERE.</b> candidate 876 of the P-256 run, three P-224 candidates and seven X9.62 candidates also yield prime-order curves &quot;with parameters chosen the same way&quot; — needs the order of a 192–256-bit curve (Schoof–Elkies–Atkin), outside the standard library; the optional lane (tools/curveseeds-scan.py, PARI/GP) counts apart if run. What would decide it: a point count per candidate below the published index, under a stated root convention for b.</li><li><b>R2 · READING.</b> the 1/5810 chance that four of ten seeds have a zero top bit in all twenty 32-bit words — a probability under a null model the post does not state; not a property of the published bytes. What would decide it: the null model, written down.</li><li><b>R3 · INTERPRETATION.</b> &quot;this makes a backdoor much less plausible&quot; — not a computation; the post itself keeps the search-over-timestamps possibility open. What would decide it: nothing in the numbers.</li><li><b>R4 · CONVENTION OF THE CLAIM.</b> the binary curves&#39; clock halved (srand48(t/2)) — the post calls it a reading (&quot;if that reading is right&quot;); under it the four seeds reproduce (S rows), under the unhalved clock they do not (red control). What would decide it: the generating program.</li><li><b>R5 · OPEN, SAID SO.</b> B-163&#39;s seed; the base points of P-224, P-256, P-384, P-521 and of the binary curves — the post states these as unexplained; nothing here changes that. What would decide it: a generator and parameters that reproduce them.</li><li><b>R6 · NEEDS DATA.</b> how many generation runs there were — not recoverable from the published numbers; the post says so. What would decide it: the program&#39;s records.</li></ul><p>The point-counting lane for R1 (every candidate below the published index, under a stated root convention for b, with Schoof–Elkies–Atkin in PARI/GP) is outside the standard library and not part of this certificate; if run, its counts will appear here, counted apart.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§5 · conventions</div>
+    <h2>The conventions every verdict above rests on</h2>
+  </div>
+<ul class="plain"><li><b>C1.</b> timestamps are UTC; the srand48 argument is the Unix time (the binary curves: its integer half)</li><li><b>C2.</b> candidate n is 1-based: the n-th block of 20 lrand48 calls (prime) or 5 calls (binary) — the post: &quot;the first 20 bytes are candidate 1&quot;</li><li><b>C3.</b> prime-curve byte = lrand48() &gt;&gt; 23, the top 8 bits of the 48-bit state; binary-curve word = lrand48(), 31 bits printed as a 32-bit word</li><li><b>C4.</b> the seed → curve step is ANSI X9.62-1998 A.3.3 as FIPS 186-2 prints its intermediates: the prime case clears the leftmost bit of the first SHA-1 block (amendment 1), the binary case does not; FIPS gives the binary seed and b in the normal basis</li><li><b>C5.</b> base points: FreeLIP zrstarts(seed) / zrandom / zrandomb as lip.c codes them, NBITS = 26 (the SINGLE_MUL build), seven zrandom draws discarded first (the post&#39;s reading of the generating program), the first x with x³ − 3x + b a quadratic residue</li></ul><p>One amendment to the pre-registration, dated before any row was decided. <b>Amendment 1.</b> the first attempt produced c = fefba166… where FIPS prints 7efba166…; for P-192, b099d2bb against 3099d2bb — the leftmost bit of the first SHA-1 block is cleared. That is ANSI X9.62-1998 A.3.3.1&#39;s own rule for the prime case (set the leftmost bit of W0 to 0), omitted from the claims text above; the binary case A.3.3.2 has no such step and B-233&#39;s normal-basis b reproduced without it. the prime derivation clears bit v−1 of the first block; a red control is added — the chain without the clearing must not reproduce c. Nothing else changes; the calibration against the standard&#39;s own printed intermediate is exactly what caught this.</p>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§6 · limits</div>
+    <h2>What is not claimed</h2>
+  </div>
+<ul class="plain"><li><b>That the clock values are moments in 1997.</b> The computation shows that a 32-bit srand48 argument and a small index regenerate 160 published bits, fourteen times. That the argument was the wall clock of a program is the natural reading and the post’s; it is not a computation.</li><li><b>Uniqueness.</b> That no other generator or convention produces the same bytes is not decided; the red controls show the nearby conventions do not.</li><li><b>Security.</b> Nothing here bears on the strength of any curve. The post’s &quot;much less plausible&quot; is interpretation and is listed as such.</li><li><b>The skipped candidates.</b> Whether candidate 876 of the P-256 run, three P-224 candidates and seven X9.62 candidates also yield prime-order curves needs point counting; it is R1, not a row of this certificate.</li><li><b>Same-evening work.</b> Built in the hours after the post appeared, from the standards, with the forgeries listed; nothing has been reviewed by anyone else yet. The pre-registration, the pins and the two deciders are in the repository for whoever wants to break it.</li></ul>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-curveseeds.js from certs/curveseeds-ledger.json (2026-10-17T01:17:07.060Z), re-derived at build; battery 10 checks, 15 red controls; @ git e9cd772d.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+
+</body>
+</html>

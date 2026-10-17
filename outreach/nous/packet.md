@@ -15,6 +15,7 @@ authorization, and usually a free-text field or two.
 - `outreach/resume/resume.pdf` (v3, verification accent).
 - Links: carlostoledo.co · github.com/carlostoledo1891/cert-machine ·
   app.primeintellect.ai/dashboard/environments/carlos-toledo/lattice-claims (an environment with three graders and QA).
+- FRESHEST SAMPLE (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — Anthropic's curve-seeds claim audited the evening it appeared (34/34 checkable rows; what the post claims beyond what it checks, as six readings): failure analysis and reproduction discipline in one page.
 - Writing samples: https://carlostoledo.co/reports/envs.html (grader calibration against ground truth that is a proof);
   https://carlostoledo.co/reports/openai-math.html (failure analysis of a release: 14 gaps categorized, ranked,
   each with what would close it); https://carlostoledo.co/reports/time-horizon.html (eval statistics: a published

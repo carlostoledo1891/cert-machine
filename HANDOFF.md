@@ -15,27 +15,74 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~23:30 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (pu-feed.yml, hourly gate) and makes its first real commit on the next publication morning — read corpus/pu/feed-log.json and that commit before trusting it; site repositioned and live; PU Verificado phases A+B1+B2 live with amendment 6 (OFF 966 → 237); resume v3 + four job packets DRAFTED, nothing sent; the Treasury note DRAFTED; 20 threads to watch)
+## TASKS BACKLOG — the standing menu (updated 2026-10-16 ~01:30 UTC 10-17: NO POD RUNNING; the PARI point-counting lane of the curve-seeds audit may still be running on the laptop (tools/curveseeds-scan.py, log in the session scratchpad; it writes corpus/curveseeds/scan.json) — if it finished, rebuild the curve-seeds report and re-sync; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 20 threads to watch)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
-NEXT SESSION, IN ORDER (the 2026-10-16 evening order, with 7, 8 and 1 DONE this session):
-  7. DONE — resume v3 (verification accent): outreach/resume/resume.md, two pages, every figure from a record; the personal
-     lines in the git-ignored resume.private.md beside it; `node outreach/build-resume-pdf.js outreach/resume`. NOT WRITTEN:
-     the product + verification accent (Pydantic, Elicit) and the Portuguese version (no Brazilian role clears the bar).
-  8. DONE (drafts) — packets in outreach/epoch, far-ai, nous, cohere (SEND-QUEUE lane J): posting pinned as read, the form's
-     fields, the free text, the gaps to state. EVERY SEND IS THE OPERATOR'S. Next packets: Pydantic (after a door-opener
-     issue/PR on pydantic-evals), Elicit, Gray Swan, Prime Intellect Evals & Data; the contractor asks (Surge, Snorkel,
-     Fireworks) are one email each, the operator's.
-  1. DONE — the 2020–2021 LFT sell-side OFF cluster was the verdict CONSISTENT decided under the primary settlement only;
-     amendment 6 (corpus/pu/preregistration.json) decides it under every pre-registered settlement: OFF 966 → 237.
+NEXT SESSION, IN ORDER:
+  0. CURVE SEEDS, the follow-through: (a) if corpus/curveseeds/scan.json exists, `node tools/build-report-curveseeds.js`
+     then `make site` and the three ratchets (the page's §4 gains the lane's counts; the ledger carries `scan`); if the
+     scan is still running or died, read the log before anything (it is NOT part of the certificate); (b) watch the post
+     for edits — the pins refuse a changed byte; re-fetch, re-pin, re-read if so; (c) the sends are the operator's
+     (outreach/curveseeds-note-2026-10-16.md: Valsorda, Weis); (d) B-163 and the unexplained base points are the post's
+     open items, not ours — do not hunt unless asked.
+  8. Packets (SEND-QUEUE lane J; outreach/epoch, far-ai, nous, cohere DRAFTED): the operator fills the marks, builds the PDF
+     (`node outreach/build-resume-pdf.js outreach/resume`), submits. Next packets: Pydantic (after a door-opener issue/PR on
+     pydantic-evals), Elicit, Gray Swan, Prime Intellect Evals & Data; the contractor asks (Surge, Snorkel, Fireworks).
+     Jane Street (Formal Methods Engineer, NYC/LDN, $250–300K; on-site with sponsorship) added to the local notes §8(b) —
+     a packet only after a relocation decision.
   2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
   3. PU: the LFT in /instruments/pu (the Selic series in-page); 4. watch the feed's first real day; 5. ANBIMA's prices (terms first).
   6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; October outreach rows into corpus/outreach.json.
-  9. PU: the 237 OFF rows that remain (LTN 90, NTN-F 103, LFT 44, all with an implied settlement or none) — the next probe, no hypothesis yet.
-  OPERATOR: the Treasury note — DRAFTED, outreach/tesouro-nota-2026-10-16.md (Portuguese; channel and send yours); ANBIMA bytes
-     yes/no; paper venue + authors; the four packets (fill the marks, build the PDF, submit).
+  9. PU: the 237 OFF rows that remain (LTN 90, NTN-F 103, LFT 44) — the next probe, no hypothesis yet.
+  OPERATOR: the curve-seeds notes (two, drafted); the Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes
+     yes/no; paper venue + authors.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-16 (night → 10-17 early), THE NIST CURVE-SEEDS AUDIT — built the evening the claim appeared (operator: "is it a
+target for us?" → scouted OPEN, BUILD-NOW; then "All focus on the first independent verification. Go").
+  THE CLAIM: Anthropic, Frontier Red Team, "Claude reveals ECDSA curve origins" (2026-10-16): the 14 NIST/X9.62 curve
+     seeds are lrand48 candidates from srand48(Unix timestamp) runs of May 1997–April 1998 (prime curves: 20 bytes of
+     lrand48()>>23 per candidate; binary curves: 5 words of lrand48() from a halved clock); six base points (P-192 and
+     the five X9.62 example curves) from FreeLIP's generator with LIP seeds 20000–20517; the $36,864 bounty claimed.
+  BUILT: corpus/curveseeds/ (PINS.json — 11 files: the post's HTML, FIPS 186-2 PDF + its pdftotext layer (committed),
+     the POSIX drand48 page, OpenSSL crypto/ec/ec_curve.c at commit e074eab6, FreeLIP lip.c/lip.h/README from the
+     lrobot/freelip mirror at 00898a48 — Bernstein's page links no tarball; preregistration.json — claims S (seeds),
+     D (seed→curve by X9.62), G (base points), readings R1–R6, 10 red controls, written before any row; published.json
+     — the published parameters READ from the pinned FIPS text and OpenSSL table by tools/read-curveseeds-published.py,
+     the two sources required to agree on every NIST field), instruments/curveseeds/decide.py (stdlib: int + hashlib)
+     and decide.js (BigInt + crypto SHA-1) sharing no code, battery.js (10 checks, 15 red controls),
+     tools/run-curveseeds-ledger.js → certs/curveseeds-ledger.json, tools/build-report-curveseeds.js →
+     reports/curve-seeds.html (titles.json row, series audits; the build-site card; Makefile reports + test; the
+     control build's Node list). The claimant's two code blocks are pinned as evidence and NEVER run.
+  RESULT: 34 of 34 checkable rows CERTIFIED — 14 seeds, 14 derivations, 6 base points; the two deciders identical on
+     383 fields; every red control fired (a timestamp one second off, a candidate one off, lrand48>>22, the binary
+     clock not halved, mrand48 for lrand48, a flipped seed byte against c and the congruence, SHA-1(seed−i), the prime
+     chain without the leftmost-bit rule, a LIP seed one off, NBITS 30, no outputs skipped, the Python reds, a
+     corrupted pin, one differing field). AMENDMENT 1 (minutes after the pre-registration): the calibration on FIPS's
+     own printed c caught X9.62 A.3.3.1's leftmost-bit rule for the prime case (3099d2bb vs SHA-1's b099d2bb); the
+     binary case has no such step (B-233's normal-basis b reproduced without it). FINDINGS WORTH A LINE TO THE
+     AUTHORS: FIPS 186-2 prints c for the prime curves (calibrate on the standard's intermediates, not only on b);
+     the base-point reading needs FreeLIP's SINGLE_MUL build (NBITS = 26 — 30 fails). READINGS, not decided: R1 the
+     skipped candidates (point counting — the optional lane below), R2 the 1/5810 (a null-model number), R3 "much less
+     plausible" (interpretation), R4 the halved clock (the post's own reading), R5 B-163 and the unexplained base
+     points (open, said so), R6 the number of runs (NEEDS DATA). The page does NOT infer that the srand48 arguments are
+     the wall clock of a 1997 program — it says that is the reader's inference.
+  THE OPTIONAL LANE (counted apart): tools/curveseeds-scan.py derives every candidate below the published index by
+     X9.62 (Tonelli–Shanks for b; the '−' root is the quadratic twist when p ≡ 3 mod 4, isomorphic when p ≡ 1) and
+     PARI/GP counts points (SEA; `brew install pari-seadata` done 2026-10-16; feed gp via stdin with
+     default(parisizemax) — `gp -f` is fast-start, not file, and the first attempts ran nothing). Launched ~01:00 UTC
+     under caffeinate for P-256 (1,842 candidates, 960 viable, ~2.4 s each), then P-224, the 1997-05-18 group
+     (P-192/prime192v2/v3 share one scan) and the 1997-05-15 group (prime239v1–v3); writes corpus/curveseeds/scan.json
+     after each group; the report builder folds `scan.summary.text` into §4 when the file exists. NOT in the
+     certificate; if it dies, nothing above changes.
+  TOOLING: Ashby and Lever job pages (earlier today) and this post both render to a plain fetch; the post's HTML did
+     carry its text and code; the Ashby/Lever JSON APIs are the way to pin postings.
+  OUTREACH DRAFTED, NOT SENT: outreach/curveseeds-note-2026-10-16.md — a note to Filippo Valsorda (the bounty's
+     organizer) and one to Steve Weis / the authors, each offer-shaped, each the operator's.
+  GATES: `make site` run after the page; measure/render/style accepted for the new page in that order (the new-page
+     rule); committed and pushed.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (late night), THE QUEUED TRIO — 7, 8, 1 (operator: "Proceed the tasks queued for this session").

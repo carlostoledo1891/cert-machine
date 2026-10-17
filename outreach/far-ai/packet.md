@@ -17,6 +17,7 @@ resume, LinkedIn, GitHub, website, work-authorization / location questions, and 
 
 - `outreach/resume/resume.pdf` (v3, verification accent).
 - Links: github.com/carlostoledo1891/cert-machine (the whole lab, MIT, no dependencies) · carlostoledo.co.
+- FRESHEST SAMPLE (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — a frontier lab's cryptographic claim (Anthropic, the NIST curve seeds) re-decided from POSIX/X9.62/FIPS/FreeLIP the same evening, 34/34 rows, red controls, readings named. For a pre-deployment-testing pod this is the shape of the work: fast, independent, scoped.
 - Writing samples, in this order: https://carlostoledo.co/reports/openai-math.html (a frontier release tested before
   anyone else did: two kernels, every statement read, 14 gaps); https://carlostoledo.co/reports/kissing.html (the
   GPU-scale campaign: 9.75 × 10¹⁵ pairs decided exactly on rented pods, the claimant publishing its points at the

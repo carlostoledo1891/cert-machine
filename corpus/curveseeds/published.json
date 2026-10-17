@@ -1,0 +1,444 @@
+{
+ "what": "The published curve parameters the certificate decides against, read by tools/read-curveseeds-published.py from the pinned bytes (never retyped). FIPS 186-2 is the standard; OpenSSL's table is the second reading of the NIST curves and the only open source for the X9.62 example curves (ANSI X9.62-1998 is paywalled).",
+ "sources": {
+  "fips186-2.pdf": "7384ae9ddbf8e36e20ce0150b71d8b51b6ff4e75a52ed335ca0c456ee192c7ee",
+  "fips186-2.txt": "8d86310a45df4b31f50d155bc02d109b2900747755fb4e79d1d32def7a247a91",
+  "openssl-ec_curve.c": "b5ed5738fe965af7893e3256718df28072329edd2432cef851d8bdec9ac72160",
+  "opensslCommit": "e074eab6c45587864f169a1c70bcaccae7517dc0"
+ },
+ "fips186_2": {
+  "prime": {
+   "P-192": {
+    "p": "6277101735386680763835789423207666416083908700390324961279",
+    "r": "6277101735386680763835789423176059013767194773182842284081",
+    "seed": "3045ae6fc8422f64ed579528d38120eae12196d5",
+    "c": "3099d2bbbfcb2538542dcd5fb078b6ef5f3d6fe2c745de65",
+    "b": "64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1",
+    "Gx": "188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012",
+    "Gy": "07192b95ffc8da78631011ed6b24cdd573f977a11e794811"
+   },
+   "P-224": {
+    "p": "26959946667150639794667015087019630673557916260026308143510066298881",
+    "r": "26959946667150639794667015087019625940457807714424391721682722368061",
+    "seed": "bd71344799d5c7fcdc45b59fa3b9ab8f6a948bc5",
+    "c": "5b056c7e11dd68f40469ee7f3c7a7d74f7d121116506d031218291fb",
+    "b": "b4050a850c04b3abf54132565044b0b7d7bfd8ba270b39432355ffb4",
+    "Gx": "b70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21",
+    "Gy": "bd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34"
+   },
+   "P-256": {
+    "p": "115792089210356248762697446949407573530086143415290314195533631308867097853951",
+    "r": "115792089210356248762697446949407573529996955224135760342422259061068512044369",
+    "seed": "c49d360886e704936a6678e1139d26b7819f7e90",
+    "c": "7efba1662985be9403cb055c75d4f7e0ce8d84a9c5114abcaf3177680104fa0d",
+    "b": "5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b",
+    "Gx": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296",
+    "Gy": "4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5"
+   },
+   "P-384": {
+    "p": "39402006196394479212279040100143613805079739270465446667948293404245721771496870329047266088258938001861606973112319",
+    "r": "39402006196394479212279040100143613805079739270465446667946905279627659399113263569398956308152294913554433653942643",
+    "seed": "a335926aa319a27a1d00896a6773a4827acdac73",
+    "c": "79d1e655f868f02fff48dcdee14151ddb80643c1406d0ca10dfe6fc52009540a495e8042ea5f744f6e184667cc722483",
+    "b": "b3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8a2ed19d2a85c8edd3ec2aef",
+    "Gx": "aa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760ab7",
+    "Gy": "3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5f"
+   },
+   "P-521": {
+    "p": "6864797660130609714981900799081393217269435300143305409394463459185543183397656052122559640661454554977296311391480858037121987999716643812574028291115057151",
+    "r": "6864797660130609714981900799081393217269435300143305409394463459185543183397655394245057746333217197532963996371363321113864768612440380340372808892707005449",
+    "seed": "d09e8800291cb85396cc6717393284aaa0da64ba",
+    "c": "0b48bfa5f420a34949539d2bdfc264eeeeb077688e44fbf0ad8f6d0edb37bd6b533281000518e19f1b9ffbe0fe9ed8a3c2200b8f875e523868c70c1e5bf55bad637",
+    "b": "051953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00",
+    "Gx": "c6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66",
+    "Gy": "11839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650"
+   }
+  },
+  "binary": {
+   "B-163": {
+    "r": "5846006549323611672814742442876390689256843201587",
+    "polynomialBasis": {
+     "b": "20a601907b8c953ca1481eb10512f78744a3205fd",
+     "Gx": "3f0eba16286a2d57ea0991168d4994637e8343e36",
+     "Gy": "0d51fbc6c71a0094fa2cdd545b11c5c0c797324f1"
+    },
+    "normalBasis": {
+     "s": "85e25bfe5c86226cdb12016f7553f9d0e693a268",
+     "b": "6645f3cacf1638e139c6cd13ef61734fbc9e3d9fb",
+     "Gx": "0311103c17167564ace77ccb09c681f886ba54ee8",
+     "Gy": "333ac13c6447f2e67613bf7009daf98c87bb50c7f"
+    },
+    "fieldPolynomial": [
+     163,
+     7,
+     6,
+     3,
+     0
+    ],
+    "m": 163
+   },
+   "B-233": {
+    "r": "6901746346790563787434755862277025555839812737345013555379383634485463",
+    "polynomialBasis": {
+     "b": "066647ede6c332c7f8c0923bb58213b333b20e9ce4281fe115f7d8f90ad",
+     "Gx": "0fac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b",
+     "Gy": "1006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052"
+    },
+    "normalBasis": {
+     "s": "74d59ff07f6b413d0ea14b344b20a2db049b50c3",
+     "b": "1a003e0962d4f9a8e407c904a9538163adb825212600c7752ad52233279",
+     "Gx": "18b863524b3cdfefb94f2784e0b116faac54404bc9162a363bab84a14c5",
+     "Gy": "04925df77bd8b8ff1a5ff519417822bfedf2bbd752644292c98c7af6e02"
+    },
+    "fieldPolynomial": [
+     233,
+     74,
+     0
+    ],
+    "m": 233
+   },
+   "B-283": {
+    "r": "7770675568902916283677847627294075626569625924376904889109196526770044277787378692871",
+    "polynomialBasis": {
+     "b": "27b680ac8b8596da5a4af8a19a0303fca97fd7645309fa2a581485af6263e313b79a2f5",
+     "Gx": "5f939258db7dd90e1934f8c70b0dfec2eed25b8557eac9c80e2e198f8cdbecd86b12053",
+     "Gy": "3676854fe24141cb98fe6d4b20d02b4516ff702350eddb0826779c813f0df45be8112f4"
+    },
+    "normalBasis": {
+     "s": "77e2b07370eb0f832a6dd5b62dfc88cd06bb84be",
+     "b": "157261b894739fb5a13503f55f0b3f10c5601166633102201138cc180c0206bdafbc951",
+     "Gx": "749468e464ee468634b21f7f61cb700701817e6bc36a2364cb8906e940948eaa463c35d",
+     "Gy": "62968bd3b489ac5c9b859da68475c315bafcdc4ccd0dc905b70f62446f49c052f49c08c"
+    },
+    "fieldPolynomial": [
+     283,
+     12,
+     7,
+     5,
+     0
+    ],
+    "m": 283
+   },
+   "B-409": {
+    "r": "661055968790248598951915308032771039828404682964281219284648798304157774827374805208143723762179110965979867288366567526771",
+    "polynomialBasis": {
+     "b": "021a5c2c8ee9feb5c4b9a753b7b476b7fd6422ef1f3dd674761fa99d6ac27c8a9a197b272822f6cd57a55aa4f50ae317b13545f",
+     "Gx": "15d4860d088ddb3496b0c6064756260441cde4af1771d4db01ffe5b34e59703dc255a868a1180515603aeab60794e54bb7996a7",
+     "Gy": "061b1cfab6be5f32bbfa78324ed106a7636b9c5a7bd198d0158aa4f5488d08f38514f1fdf4b4f40d2181b3681c364ba0273c706"
+    },
+    "normalBasis": {
+     "s": "4099b5a457f9d69f79213d094c4bcd4d4262210b",
+     "b": "124d0651c3d3772f7f5a1fe6e715559e2129bdfa04d52f7b6ac7c532cf0ed06f610072d88ad2fdcc50c6fde72843670f8b3742a",
+     "Gx": "0ceacbc9f475767d8e69f3b5dfab39813685262bcacf22b84c7b6dd981899e7318c96f0761f77c602c016ced7c548de830d708f",
+     "Gy": "199d64ba8f089c6db0e0b61e80bb95934afd0caf2e8be76d1c5e9affc7476df49142691ad30390288aa09bcc59c1573aa3c009a"
+    },
+    "fieldPolynomial": [
+     409,
+     87,
+     0
+    ],
+    "m": 409
+   },
+   "B-571": {
+    "r": "3864537523017258344695351890931987344298927329706434998657235251451519142289560424536143999389415773083133881121926944486246872462816813070234528288303332411393191105285703",
+    "polynomialBasis": {
+     "b": "2f40e7e2221f295de297117b7f3d62f5c6a97ffcb8ceff1cd6ba8ce4a9a18ad84ffabbd8efa59332be7ad6756a66e294afd185a78ff12aa520e4de739baca0c7ffeff7f2955727a",
+     "Gx": "303001d34b856296c16c0d40d3cd7750a93d1d2955fa80aa5f40fc8db7b2abdbde53950f4c0d293cdd711a35b67fb1499ae60038614f1394abfa3b4c850d927e1e7769c8eec2d19",
+     "Gy": "37bf27342da639b6dccfffeb73d69d78c6c27a6009cbbca1980f8533921e8a684423e43bab08a576291af8f461bb2a8b3531d2f0485c19b16e2f1516e23dd3c1a4827af1b8ac15b"
+    },
+    "normalBasis": {
+     "s": "2aa058f73a0e33ab486b0f610410c53a7f132310",
+     "b": "3762d0d47116006179da35688eeaccf591a5cdea75000118d9608c59132d43426101a1dfb3774115f586623f75f00001ce611983c1275fa31f5bc9f4be1a0f467f01ca885c74777",
+     "Gx": "0735e035def5925cc33173eb2a8ce7767522b466d278b650a2916127dfea9d2d361089f0a7a0247a184e1c70d417866e0fe0feb0ff8f2f3f9176418f97d117e624e2015df1662a8",
+     "Gy": "04a36420572616cdf7e606fccadaecfc3b76dab0eb1248dd03fbdfc9cd3242c4726be579855e812de7ec5c500b4576a24628048b6a72d880062eed0dd34b1096d3acbb6b01a4a97"
+    },
+    "fieldPolynomial": [
+     571,
+     10,
+     5,
+     2,
+     0
+    ],
+    "m": 571
+   }
+  }
+ },
+ "openssl": {
+  "prime192v2": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 24,
+   "cofactor": 1,
+   "seed": "31a92ee2029fd10d901b113e990710f0d21ac6b6",
+   "p": "fffffffffffffffffffffffffffffffeffffffffffffffff",
+   "a": "fffffffffffffffffffffffffffffffefffffffffffffffc",
+   "b": "cc22d6dfb95c6b25e49c0d6364a4e5980c393aa21668d953",
+   "x": "eea2bae7e1497842f2de7769cfe9c989c072ad696f48034a",
+   "y": "6574d11d69b6ec7a672bb82a083df2f2b0847de970b2de15",
+   "order": "fffffffffffffffffffffffe5fb1a724dc80418648d8dd31"
+  },
+  "prime192v3": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 24,
+   "cofactor": 1,
+   "seed": "c469684435deb378c4b65ca9591e2a5763059a2e",
+   "p": "fffffffffffffffffffffffffffffffeffffffffffffffff",
+   "a": "fffffffffffffffffffffffffffffffefffffffffffffffc",
+   "b": "22123dc2395a05caa7423daeccc94760a7d462256bd56916",
+   "x": "7d29778100c65a1da1783716588dce2b8b4aee8e228f1896",
+   "y": "38a90f22637337334b49dcb66a6dc8f9978aca7648a943b0",
+   "order": "ffffffffffffffffffffffff7a62d031c83f4294f640ec13"
+  },
+  "prime239v1": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 30,
+   "cofactor": 1,
+   "seed": "e43bb460f0b80cc0c0b075798e948060f8321b7d",
+   "p": "7fffffffffffffffffffffff7fffffffffff8000000000007fffffffffff",
+   "a": "7fffffffffffffffffffffff7fffffffffff8000000000007ffffffffffc",
+   "b": "6b016c3bdcf18941d0d654921475ca71a9db2fb27d1d37796185c2942c0a",
+   "x": "0ffa963cdca8816ccc33b8642bedf905c3d358573d3f27fbbd3b3cb9aaaf",
+   "y": "7debe8e4e90a5dae6e4054ca530ba04654b36818ce226b39fccb7b02f1ae",
+   "order": "7fffffffffffffffffffffff7fffff9e5e9a9f5d9071fbd1522688909d0b"
+  },
+  "prime239v2": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 30,
+   "cofactor": 1,
+   "seed": "e8b4011604095303ca3b8099982be09fcb9ae616",
+   "p": "7fffffffffffffffffffffff7fffffffffff8000000000007fffffffffff",
+   "a": "7fffffffffffffffffffffff7fffffffffff8000000000007ffffffffffc",
+   "b": "617fab6832576cbbfed50d99f0249c3fee58b94ba0038c7ae84c8c832f2c",
+   "x": "38af09d98727705120c921bb5e9e26296a3cdcf2f35757a0eafd87b830e7",
+   "y": "5b0125e4dbea0ec7206da0fc01d9b081329fb555de6ef460237dff8be4ba",
+   "order": "7fffffffffffffffffffffff800000cfa7e8594377d414c03821bc582063"
+  },
+  "prime239v3": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 30,
+   "cofactor": 1,
+   "seed": "7d7374168ffe3471b60a857686a19475d3bfa2ff",
+   "p": "7fffffffffffffffffffffff7fffffffffff8000000000007fffffffffff",
+   "a": "7fffffffffffffffffffffff7fffffffffff8000000000007ffffffffffc",
+   "b": "255705fa2a306654b1f4cb03d6a750a30c250102d4988717d9ba15ab6d3e",
+   "x": "6768ae8e18bb92cfcf005c949aa2c6d94853d0e660bbf854b1c9505fe95a",
+   "y": "1607e6898f390c06bc1d552bad226f3b6fcfe48b6e818499af18e3ed6cf3",
+   "order": "7fffffffffffffffffffffff7fffff975deb41b3a6057c3c432146526551"
+  },
+  "P-192": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 24,
+   "cofactor": 1,
+   "seed": "3045ae6fc8422f64ed579528d38120eae12196d5",
+   "p": "fffffffffffffffffffffffffffffffeffffffffffffffff",
+   "a": "fffffffffffffffffffffffffffffffefffffffffffffffc",
+   "b": "64210519e59c80e70fa7e9ab72243049feb8deecc146b9b1",
+   "x": "188da80eb03090f67cbf20eb43a18800f4ff0afd82ff1012",
+   "y": "07192b95ffc8da78631011ed6b24cdd573f977a11e794811",
+   "order": "ffffffffffffffffffffffff99def836146bc9b1b4d22831"
+  },
+  "P-224": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 28,
+   "cofactor": 1,
+   "seed": "bd71344799d5c7fcdc45b59fa3b9ab8f6a948bc5",
+   "p": "ffffffffffffffffffffffffffffffff000000000000000000000001",
+   "a": "fffffffffffffffffffffffffffffffefffffffffffffffffffffffe",
+   "b": "b4050a850c04b3abf54132565044b0b7d7bfd8ba270b39432355ffb4",
+   "x": "b70e0cbd6bb4bf7f321390b94a03c1d356c21122343280d6115c1d21",
+   "y": "bd376388b5f723fb4c22dfe6cd4375a05a07476444d5819985007e34",
+   "order": "ffffffffffffffffffffffffffff16a2e0b8f03e13dd29455c5c2a3d"
+  },
+  "P-256": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 32,
+   "cofactor": 1,
+   "seed": "c49d360886e704936a6678e1139d26b7819f7e90",
+   "p": "ffffffff00000001000000000000000000000000ffffffffffffffffffffffff",
+   "a": "ffffffff00000001000000000000000000000000fffffffffffffffffffffffc",
+   "b": "5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b",
+   "x": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296",
+   "y": "4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "order": "ffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551"
+  },
+  "P-384": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 48,
+   "cofactor": 1,
+   "seed": "a335926aa319a27a1d00896a6773a4827acdac73",
+   "p": "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff",
+   "a": "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000fffffffc",
+   "b": "b3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875ac656398d8a2ed19d2a85c8edd3ec2aef",
+   "x": "aa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760ab7",
+   "y": "3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5f",
+   "order": "ffffffffffffffffffffffffffffffffffffffffffffffffc7634d81f4372ddf581a0db248b0a77aecec196accc52973"
+  },
+  "P-521": {
+   "field": "NID_X9_62_prime_field",
+   "seedLen": 20,
+   "paramLen": 66,
+   "cofactor": 1,
+   "seed": "d09e8800291cb85396cc6717393284aaa0da64ba",
+   "p": "01ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+   "a": "01fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc",
+   "b": "0051953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00",
+   "x": "00c6858e06b70404e9cd9e3ecb662395b4429c648139053fb521f828af606b4d3dbaa14b5e77efe75928fe1dc127a2ffa8de3348b3c1856a429bf97e7e31c2e5bd66",
+   "y": "011839296a789a3bc0045c8a5fb42c7d1bd998f54449579b446817afbd17273e662c97ee72995ef42640c550b9013fad0761353c7086a272c24088be94769fd16650",
+   "order": "01fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffa51868783bf2f966b7fcc0148f709a5d03bb5c9b8899c47aebb6fb71e91386409"
+  },
+  "B-163": {
+   "field": "NID_X9_62_characteristic_two_field",
+   "seedLen": 0,
+   "paramLen": 21,
+   "cofactor": 2,
+   "p": "0800000000000000000000000000000000000000c9",
+   "a": "000000000000000000000000000000000000000001",
+   "b": "020a601907b8c953ca1481eb10512f78744a3205fd",
+   "x": "03f0eba16286a2d57ea0991168d4994637e8343e36",
+   "y": "00d51fbc6c71a0094fa2cdd545b11c5c0c797324f1",
+   "order": "040000000000000000000292fe77e70c12a4234c33"
+  },
+  "B-233": {
+   "field": "NID_X9_62_characteristic_two_field",
+   "seedLen": 20,
+   "paramLen": 30,
+   "cofactor": 2,
+   "seed": "74d59ff07f6b413d0ea14b344b20a2db049b50c3",
+   "p": "020000000000000000000000000000000000000004000000000000000001",
+   "a": "000000000000000000000000000000000000000000000000000000000001",
+   "b": "0066647ede6c332c7f8c0923bb58213b333b20e9ce4281fe115f7d8f90ad",
+   "x": "00fac9dfcbac8313bb2139f1bb755fef65bc391f8b36f8f8eb7371fd558b",
+   "y": "01006a08a41903350678e58528bebf8a0beff867a7ca36716f7e01f81052",
+   "order": "01000000000000000000000000000013e974e72f8a6922031d2603cfe0d7"
+  },
+  "B-283": {
+   "field": "NID_X9_62_characteristic_two_field",
+   "seedLen": 20,
+   "paramLen": 36,
+   "cofactor": 2,
+   "seed": "77e2b07370eb0f832a6dd5b62dfc88cd06bb84be",
+   "p": "0800000000000000000000000000000000000000000000000000000000000000000010a1",
+   "a": "000000000000000000000000000000000000000000000000000000000000000000000001",
+   "b": "027b680ac8b8596da5a4af8a19a0303fca97fd7645309fa2a581485af6263e313b79a2f5",
+   "x": "05f939258db7dd90e1934f8c70b0dfec2eed25b8557eac9c80e2e198f8cdbecd86b12053",
+   "y": "03676854fe24141cb98fe6d4b20d02b4516ff702350eddb0826779c813f0df45be8112f4",
+   "order": "03ffffffffffffffffffffffffffffffffffef90399660fc938a90165b042a7cefadb307"
+  },
+  "B-409": {
+   "field": "NID_X9_62_characteristic_two_field",
+   "seedLen": 20,
+   "paramLen": 52,
+   "cofactor": 2,
+   "seed": "4099b5a457f9d69f79213d094c4bcd4d4262210b",
+   "p": "02000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000001",
+   "a": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+   "b": "0021a5c2c8ee9feb5c4b9a753b7b476b7fd6422ef1f3dd674761fa99d6ac27c8a9a197b272822f6cd57a55aa4f50ae317b13545f",
+   "x": "015d4860d088ddb3496b0c6064756260441cde4af1771d4db01ffe5b34e59703dc255a868a1180515603aeab60794e54bb7996a7",
+   "y": "0061b1cfab6be5f32bbfa78324ed106a7636b9c5a7bd198d0158aa4f5488d08f38514f1fdf4b4f40d2181b3681c364ba0273c706",
+   "order": "010000000000000000000000000000000000000000000000000001e2aad6a612f33307be5fa47c3c9e052f838164cd37d9a21173"
+  },
+  "B-571": {
+   "field": "NID_X9_62_characteristic_two_field",
+   "seedLen": 20,
+   "paramLen": 72,
+   "cofactor": 2,
+   "seed": "2aa058f73a0e33ab486b0f610410c53a7f132310",
+   "p": "080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000425",
+   "a": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+   "b": "02f40e7e2221f295de297117b7f3d62f5c6a97ffcb8ceff1cd6ba8ce4a9a18ad84ffabbd8efa59332be7ad6756a66e294afd185a78ff12aa520e4de739baca0c7ffeff7f2955727a",
+   "x": "0303001d34b856296c16c0d40d3cd7750a93d1d2955fa80aa5f40fc8db7b2abdbde53950f4c0d293cdd711a35b67fb1499ae60038614f1394abfa3b4c850d927e1e7769c8eec2d19",
+   "y": "037bf27342da639b6dccfffeb73d69d78c6c27a6009cbbca1980f8533921e8a684423e43bab08a576291af8f461bb2a8b3531d2f0485c19b16e2f1516e23dd3c1a4827af1b8ac15b",
+   "order": "03ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe661ce18ff55987308059b186823851ec7dd9ca1161de93d5174d66e8382e9bb2fe84e47"
+  }
+ },
+ "agreement": {
+  "P-192": {
+   "seed": true,
+   "p": true,
+   "b": true,
+   "Gx": true,
+   "Gy": true,
+   "r": true,
+   "a": true
+  },
+  "P-224": {
+   "seed": true,
+   "p": true,
+   "b": true,
+   "Gx": true,
+   "Gy": true,
+   "r": true,
+   "a": true
+  },
+  "P-256": {
+   "seed": true,
+   "p": true,
+   "b": true,
+   "Gx": true,
+   "Gy": true,
+   "r": true,
+   "a": true
+  },
+  "P-384": {
+   "seed": true,
+   "p": true,
+   "b": true,
+   "Gx": true,
+   "Gy": true,
+   "r": true,
+   "a": true
+  },
+  "P-521": {
+   "seed": true,
+   "p": true,
+   "b": true,
+   "Gx": true,
+   "Gy": true,
+   "r": true,
+   "a": true
+  },
+  "B-163": {
+   "seed(normal basis s)": "OpenSSL carries no seed",
+   "b(polynomial basis)": true,
+   "Gx(polynomial basis)": true,
+   "r": true,
+   "fieldPolynomial": true
+  },
+  "B-233": {
+   "seed(normal basis s)": true,
+   "b(polynomial basis)": true,
+   "Gx(polynomial basis)": true,
+   "r": true,
+   "fieldPolynomial": true
+  },
+  "B-283": {
+   "seed(normal basis s)": true,
+   "b(polynomial basis)": true,
+   "Gx(polynomial basis)": true,
+   "r": true,
+   "fieldPolynomial": true
+  },
+  "B-409": {
+   "seed(normal basis s)": true,
+   "b(polynomial basis)": true,
+   "Gx(polynomial basis)": true,
+   "r": true,
+   "fieldPolynomial": true
+  },
+  "B-571": {
+   "seed(normal basis s)": true,
+   "b(polynomial basis)": true,
+   "Gx(polynomial basis)": true,
+   "r": true,
+   "fieldPolynomial": true
+  }
+ }
+}
