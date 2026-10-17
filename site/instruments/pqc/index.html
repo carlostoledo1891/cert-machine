@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Solid where it was proved · Carlos Toledo</title>
+<title>Lattice security records: the SVP challenge as enclosures · Carlos Toledo</title>
 <meta name="description" content="Lattice reduction watched in exact integers, and every published SVP-challenge record near the acceptance wall decided exactly. Solid where certified, dashed where assumed.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/instruments/pqc/">
 <meta property="og:url" content="https://carlostoledo.co/instruments/pqc/">
-<meta property="og:title" content="Solid where it was proved · Carlos Toledo">
+<meta property="og:title" content="Lattice security records: the SVP challenge as enclosures · Carlos Toledo">
 <meta property="og:description" content="Lattice reduction watched in exact integers, and every published SVP-challenge record near the acceptance wall decided exactly. Solid where certified, dashed where assumed.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Solid where it was proved · Carlos Toledo">
+<meta name="twitter:title" content="Lattice security records: the SVP challenge as enclosures · Carlos Toledo">
 <meta name="twitter:description" content="Lattice reduction watched in exact integers, and every published SVP-challenge record near the acceptance wall decided exactly. Solid where certified, dashed where assumed.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 
@@ -540,7 +540,8 @@ main { position: fixed; inset: 0; width: 100vw; height: 100vh; }
 .ov * { pointer-events: auto; }
 
 .ov-title { left: clamp(1rem, 3vw, 2.5rem); top: clamp(4.5rem, 9vh, 6.5rem); max-width: 32ch; }
-.ov-title h1 { font-size: clamp(1.6rem, 1rem + 1.9vw, 2.7rem); line-height: 1.06; letter-spacing: var(--track-display); font-weight: var(--weight-display); }
+/* the formal title (design/titles.json, 2026-10-17): the same rule as playground/design/overlay.css, of which this is a copy */
+.ov-title h1 { font-size: clamp(1.3rem, 0.85rem + 1.15vw, 1.95rem); line-height: 1.08; letter-spacing: var(--track-display); font-weight: var(--weight-display); }
 .ov-title p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-3); max-width: 40ch; }
 
 .ov-foot { left: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vh, 2rem); max-width: 46ch; }
@@ -676,6 +677,7 @@ body { padding-top: 0; }
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -686,7 +688,8 @@ body { padding-top: 0; }
 
 <div class="ov ov-title">
   <div class="eyebrow">post-quantum cryptography · the geometry underneath</div>
-  <h1 class="mt3 ti">Proved, or assumed</h1>
+  <h1 class="mt3 ti">Lattice security records: the SVP challenge as enclosures</h1>
+<p class="standfirst">Proved, or assumed</p>
   <p class="ti">Lattice security rests on how short a vector you can find. The searching is heuristic and always will be; the claims about what was found do not have to be. Solid here was decided in exact integers. Dashed was asserted.</p>
 </div>
 

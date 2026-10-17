@@ -38,7 +38,17 @@ const stripSuffix = (t) => { let s = t; for (const x of OLD_SUFFIXES) if (s.ends
 const same = (a, b) => a.replace(/\.$/, '').toLowerCase() === b.replace(/\.$/, '').toLowerCase();
 
 function entryFor(pagePath) {
-  if (!pagePath || !pagePath.startsWith('/reports/') || !pagePath.endsWith('.html')) return null;
+  if (!pagePath) return null;
+  /* an instrument's own page (2026-10-17): the card's formal title becomes the page's H1 as well. `pageWas` is the H1
+     its builder writes, and it is the gate; that editorial line is demoted to the standfirst unless `pageStandfirst`
+     says otherwise (null where the formal title already says it). */
+  const im = /^\/instruments\/([a-z0-9-]+)\/$/.exec(pagePath);
+  if (im) {
+    const e = (REG._instruments || {})[im[1]];
+    if (!e || !e.pageWas) return null;
+    return { title: e.title, was: e.pageWas, standfirst: e.pageStandfirst === undefined ? e.pageWas.replace(/\.$/, '') : e.pageStandfirst };
+  }
+  if (!pagePath.startsWith('/reports/') || !pagePath.endsWith('.html')) return null;
   return REG.pages[pagePath.slice('/reports/'.length)] || null;
 }
 

@@ -1,5 +1,5 @@
 {
- "_what": "THE TITLE REGISTRY (2026-10-16). One formal title per report page: object + what was decided. `was` is the H1 the builder writes today and is the gate: design/titles.js refuses a page whose H1 is neither `was` nor `title`. `standfirst` is the demoted editorial line (null = none). `frozen`: the H1 is quoted by the method paper's bibliography and does not change. File names and URLs never change. `_instruments`: the same for the 22 cards of /instruments/, keyed by id; playground/build.js applies it to the index.",
+ "_what": "THE TITLE REGISTRY (2026-10-16). One formal title per report page: object + what was decided. `was` is the H1 the builder writes today and is the gate: design/titles.js refuses a page whose H1 is neither `was` nor `title`. `standfirst` is the demoted editorial line (null = none). `frozen`: the H1 is quoted by the method paper's bibliography and does not change. File names and URLs never change. `_instruments`: the same for the 22 cards of /instruments/, keyed by id; playground/build.js applies it to the index; since 2026-10-17 the same row retitles the instrument's own page (`pageWas` is its builder's H1 and the gate; the line is demoted to the standfirst unless `pageStandfirst` is null).",
  "_series": {
   "audits": {
    "title": "Audits of machine-generated mathematics",
@@ -623,117 +623,144 @@
   "shape-hunt": {
    "title": "Shape hunt: exhaustive tests for geometry in elicited dissimilarities",
    "was": "Nothing here is a perfect circle.",
-   "standfirst": "Nothing here is a perfect circle"
+   "standfirst": "Nothing here is a perfect circle",
+   "pageWas": "Nothing here is a perfect circle. Some things are closer than luck."
   },
   "navier-stokes": {
    "title": "Navier–Stokes blowup: the certified proof, turned by hand",
    "was": "Turn the singularity.",
-   "standfirst": "Turn the singularity"
+   "standfirst": "Turn the singularity",
+   "pageWas": "Turn the singularity."
   },
   "interferometer": {
    "title": "The black-hole image: the set of skies the data allow",
    "was": "Not the picture. The set of pictures.",
-   "standfirst": "Not the picture. The set of pictures"
+   "standfirst": "Not the picture. The set of pictures",
+   "pageWas": "Not the picture. The set of pictures."
   },
   "curveset": {
    "title": "Calibration curves: the published line and every line that fits",
    "was": "The line they published, and the lines that fit.",
-   "standfirst": "The line they published, and the lines that fit"
+   "standfirst": "The line they published, and the lines that fit",
+   "pageWas": "The line they published, and the lines that fit."
   },
   "plates": {
    "title": "Plate series: stated manifolds, drawn from their rule",
    "was": "Manifolds we are handed.",
-   "standfirst": "Manifolds we are handed"
+   "standfirst": "Manifolds we are handed",
+   "pageWas": "Manifolds we are handed"
   },
   "affect": {
    "title": "Affect geometry, with a clock-hour control",
    "was": "The geometry of feeling, and the control that catches it.",
-   "standfirst": "The geometry of feeling, and the control that catches it"
+   "standfirst": "The geometry of feeling, and the control that catches it",
+   "pageWas": "The geometry of feeling"
   },
   "answer-shape": {
    "title": "The shape of an answer: when a distance table is a geometry",
    "was": "The shape of an answer.",
-   "standfirst": "The shape of an answer"
+   "standfirst": "The shape of an answer",
+   "pageWas": "The shape of an answer",
+   "pageStandfirst": null
   },
   "neural-geometry": {
    "title": "Neural geometry from the outside: the shapes a model admits without its weights",
    "was": "The shapes a model will admit to from the outside.",
-   "standfirst": "The shapes a model will admit to from the outside"
+   "standfirst": "The shapes a model will admit to from the outside",
+   "pageWas": "The shapes a model will admit to from the outside."
   },
   "exact-geometry": {
    "title": "Exact geometry: a shape already known, as the calibration",
    "was": "Point it at something whose shape is already known.",
-   "standfirst": "Point it at something whose shape is already known"
+   "standfirst": "Point it at something whose shape is already known",
+   "pageWas": "Point the instrument at something whose shape is already known"
   },
   "graph": {
    "title": "Wiring: verifier rules as conditions on a connection",
    "was": "The rule is a wire you cannot draw.",
-   "standfirst": "The rule is a wire you cannot draw"
+   "standfirst": "The rule is a wire you cannot draw",
+   "pageWas": "The rule is a wire you cannot draw."
   },
   "blind-spot": {
    "title": "blind-spot: an RTL mutation task the verdicts could not see",
    "was": "Fourteen million verdicts could not see it.",
-   "standfirst": "Fourteen million verdicts could not see it"
+   "standfirst": "Fourteen million verdicts could not see it",
+   "pageWas": "Fourteen million certified verdicts could not see this mutant."
   },
   "lattice-claims": {
    "title": "lattice-claims: decide it, or say what is missing",
    "was": "Decide it, or say what is missing.",
-   "standfirst": "Decide it, or say what is missing"
+   "standfirst": "Decide it, or say what is missing",
+   "pageWas": "Decide it, or say what is missing",
+   "pageStandfirst": null
   },
   "rewire": {
    "title": "Rewire: which grader may reach the deciding socket",
    "was": "Rewire it yourself.",
-   "standfirst": "Rewire it yourself"
+   "standfirst": "Rewire it yourself",
+   "pageWas": "Rewire it yourself"
   },
   "pqc": {
    "title": "Lattice security records: the SVP challenge as enclosures",
    "was": "Solid where it was proved.",
-   "standfirst": "Solid where it was proved"
+   "standfirst": "Solid where it was proved",
+   "pageWas": "Proved, or assumed"
   },
   "occultation": {
    "title": "A stellar occultation: the body’s size without the ellipse",
    "was": "The occultation, without the ellipse.",
-   "standfirst": "The occultation, without the ellipse"
+   "standfirst": "The occultation, without the ellipse",
+   "pageWas": "The occultation, without the ellipse."
   },
   "stereo-reach": {
    "title": "Stereo-video reach: how far two cameras bound a wave",
    "was": "How far can two cameras bound a wave?",
-   "standfirst": "How far can two cameras bound a wave?"
+   "standfirst": "How far can two cameras bound a wave?",
+   "pageWas": "How far can two cameras bound a wave?"
   },
   "return-level-atlas": {
    "title": "The return-level atlas: a certificate in every cell",
    "was": "Every cell a certificate.",
-   "standfirst": "Every cell a certificate"
+   "standfirst": "Every cell a certificate",
+   "pageWas": "Every cell a certificate.",
+   "pageStandfirst": null
   },
   "return-level-check": {
    "title": "Return-level check: certify a fit from your own file",
    "was": "Certify a return level. Your file never leaves this page.",
-   "standfirst": "Certify a return level. Your file never leaves this page"
+   "standfirst": "Certify a return level. Your file never leaves this page",
+   "pageWas": "Certify a return level. Your file never leaves this page."
   },
   "contours": {
    "title": "Environmental contours: every hour of sea against every contour",
    "was": "Every hour of sea, against every contour.",
-   "standfirst": "Every hour of sea, against every contour"
+   "standfirst": "Every hour of sea, against every contour",
+   "pageWas": "Every hour of sea, against every contour."
   },
   "census": {
    "title": "Two-population census: the splits an equilibrium cannot tell apart",
    "was": "Unique totals, and the split nobody can see.",
-   "standfirst": "Unique totals, and the split nobody can see"
+   "standfirst": "Unique totals, and the split nobody can see",
+   "pageWas": "Unique totals, and the split nobody can see."
   },
   "transit": {
    "title": "An exoplanet transit, without a law for the star",
    "was": "The transit, without a law for the star.",
-   "standfirst": "The transit, without a law for the star"
+   "standfirst": "The transit, without a law for the star",
+   "pageWas": "The transit, without a law for the star."
   },
   "simplex": {
    "title": "Attention rows as points of a simplex",
    "was": "An attention row is a point. Nobody draws it that way.",
-   "standfirst": "An attention row is a point. Nobody draws it that way"
+   "standfirst": "An attention row is a point. Nobody draws it that way",
+   "pageWas": "An attention row is a point. Nobody draws it that way."
   },
   "pu": {
    "title": "PU Verificado: a Tesouro Direto price under the Treasury’s rule table, in the browser",
    "was": "Price the bond the Treasury’s way, to the last truncation.",
-   "standfirst": "Price the bond the Treasury’s way, to the last truncation"
+   "standfirst": "Price the bond the Treasury’s way, to the last truncation",
+   "pageWas": "PU Verificado",
+   "pageStandfirst": null
   }
  }
 }

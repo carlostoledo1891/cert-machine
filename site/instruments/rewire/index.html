@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rewire it yourself · Carlos Toledo</title>
+<title>Rewire: which grader may reach the deciding socket · Carlos Toledo</title>
 <meta name="description" content="Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/instruments/rewire/">
 <meta property="og:url" content="https://carlostoledo.co/instruments/rewire/">
-<meta property="og:title" content="Rewire it yourself · Carlos Toledo">
+<meta property="og:title" content="Rewire: which grader may reach the deciding socket · Carlos Toledo">
 <meta property="og:description" content="Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,7 +19,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Rewire it yourself · Carlos Toledo">
+<meta name="twitter:title" content="Rewire: which grader may reach the deciding socket · Carlos Toledo">
 <meta name="twitter:description" content="Twenty-four lattice claims with exact answers, three graders, and one socket that only an exact one may reach. Drag a different certifier and watch the admitted count move.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 
@@ -540,7 +540,8 @@ main { position: fixed; inset: 0; width: 100vw; height: 100vh; }
 .ov * { pointer-events: auto; }
 
 .ov-title { left: clamp(1rem, 3vw, 2.5rem); top: clamp(4.5rem, 9vh, 6.5rem); max-width: 32ch; }
-.ov-title h1 { font-size: clamp(1.6rem, 1rem + 1.9vw, 2.7rem); line-height: 1.06; letter-spacing: var(--track-display); font-weight: var(--weight-display); }
+/* the formal title (design/titles.json, 2026-10-17): the same rule as playground/design/overlay.css, of which this is a copy */
+.ov-title h1 { font-size: clamp(1.3rem, 0.85rem + 1.15vw, 1.95rem); line-height: 1.08; letter-spacing: var(--track-display); font-weight: var(--weight-display); }
 .ov-title p { margin-top: var(--s-3); font-size: var(--text-small); color: var(--ink-3); max-width: 40ch; }
 
 .ov-foot { left: clamp(1rem, 3vw, 2.5rem); bottom: clamp(1rem, 3vh, 2rem); max-width: 46ch; }
@@ -684,6 +685,7 @@ body.panel-hidden #stage{right:0;}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 </style>
 </head>
 <body>
@@ -692,7 +694,8 @@ body.panel-hidden #stage{right:0;}
 <main>
 <div class="ov ov-title">
   <div class="eyebrow">environment &middot; the certifier is a wire</div>
-  <h1 class="mt3 ti">Rewire it yourself</h1>
+  <h1 class="mt3 ti">Rewire: which grader may reach the deciding socket</h1>
+<p class="standfirst">Rewire it yourself</p>
   <p class="ti">24 lattice claims, each with an exact answer. Three graders are offered and only one may reach the verdict socket. Drag a different one and watch the number move &mdash; or find out why it is refused.</p>
 </div>
 
