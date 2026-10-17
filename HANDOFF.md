@@ -11,39 +11,98 @@ Interval enclosures and exact rational decisions — a REFUTED here is proved.
 ```
 make engine    generate → screen → certify; writes ledger.json   (~4 min)
 make control   rebuild index.html from the ledger                (~40 s, runs batteries)
+make page R=x  one page: its builder, the sync, the page gates   (~4 min; MEASURE=0 ~2; no batteries)
 make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~15:30 UTC: NO POD RUNNING (388ayba4b1pnhk terminated 06:38 UTC, confirmed 404); nothing building; a `caffeinate -i -s` holds the laptop awake until ~17:00 UTC; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE with the point-counting lane folded in; awesome-ai-proofs#2 ANSWERED and our reply POSTED; the two HN comments are DEAD ([flagged], [dead]) — the moderator email is the operator's; 19 threads to watch)
+## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~19:45 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds all 55 sends; the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  0. CURVE SEEDS, the follow-through: (a) `make site` once — corpus/outreach.json gained the awesome-ai-proofs row and the
-     About page shows it only after a rebuild (nothing else is stale); (b) watch the post for edits — the pins refuse a
-     changed byte; re-fetch, re-pin, re-read if so; (c) watch subroy13/awesome-ai-proofs#2 for the maintainer's source
-     review ('disputed' → 'debunked' if he reproduces the witness); (d) B-163 and the unexplained base points are the
-     post's open items, not ours — do not hunt unless asked; (e) if HN restores a comment, nothing to do; if the operator
-     asks, re-read the thread (Carlos-Toledo; items 50129567 flagged, 50130247 dead).
-  1. A `make page` target (proposed 2026-10-17, NOT BUILT): rebuild one report + sync (build-site, with the swell guard)
-     WITHOUT the control build's 137 batteries, which stay in `make test`/`make site` and the end of a session. Tonight
-     four refused site builds cost ~1 h of waiting; the control build also measured the stale synced page before the
-     sync could replace it (chicken-and-egg — sync first). CLAUDE.md licenses it: gates measure facts, never slow development.
+  0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
+     corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
+     by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an
+     author comment (a send, the operator's); B-163 and the unexplained base points stay the post's open items.
+  1. PU, the OFF probe's next step (backlog 9, described 2026-10-17, nothing applied): of the 237 OFF rows, 86 are year-end
+     2014/2015/2016 quotes that reproduce only at the new year's SECOND business day — the withdrawn R7, which the 2014–16
+     prices follow and the 2017/18 prices contradict; 81 reproduce with one more skipped settlement day not in the B3
+     table (2008-06-20 · 28 rows, 2014-06-26 and 06-30 · 34, 2018-02-02 · 14, 2010-07-02 · 5); 70 reproduce under no
+     D+k (NTN-F sells on four June-2008 days, 7 each; 18 on 2010-07-01; five single LFT buys 2009-01-22…28; six NTN-F
+     sells 2006/07; four LTN 2011). Next: find a B3/BM&FBovespa document for each skipped day and for the 2014–16
+     year-end rule BEFORE any amendment; the 70 need a new idea.
+  2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
+  3. PU: watch the feed's first real day (Monday 10-19): read corpus/pu/feed-log.json and the commit it makes; ANBIMA's prices (terms first).
+  4. Site leftovers: Method toward 1,200 words (1,746 today; the cuts would come from §3 "Claims over boxes…" 356 words and
+     §6 "Rules stated as code that refuses" 300 — the paper's vocabulary page, so the operator reads the cuts first).
+     design/frontier-ref/instrument.css carries a copy of playground/design/overlay.css's overlay rules (rewire, pqc read
+     it) — fold the two into one.
   8. Packets (SEND-QUEUE lane J; outreach/epoch, far-ai, nous, cohere DRAFTED; each now points at the curve-seeds page as
      the freshest sample): the operator fills the marks, builds the PDF (`node outreach/build-resume-pdf.js outreach/resume`),
      submits. Next packets: Pydantic (after a door-opener issue/PR on pydantic-evals), Elicit, Gray Swan, Prime Intellect
      Evals & Data; the contractor asks (Surge, Snorkel, Fireworks). Jane Street (Formal Methods Engineer) only after a
      relocation decision.
-  2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
-  3. PU: the LFT in /instruments/pu (the Selic series in-page); 4. watch the feed's first real day; 5. ANBIMA's prices (terms first).
-  6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; the October outreach rows into corpus/outreach.json
-     (only awesome-ai-proofs#2 is a row so far).
-  9. PU: the 237 OFF rows that remain (LTN 90, NTN-F 103, LFT 44) — the next probe, no hypothesis yet.
   OPERATOR: the HN moderator email (hn@ycombinator.com, both permalinks; drafted in the chat of 2026-10-17); the
      curve-seeds notes to Valsorda and Weis (outreach/curveseeds-note-2026-10-16.md, the lane sentence included); the
-     Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes yes/no; paper venue + authors.
+     Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes yes/no; paper venue + authors; reopening
+     awesome-ai-proofs#2 when HorizonMath answers; the Method cuts.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-17 (~17:30 → ~20:00 UTC), THE LEFTOVERS AND HOUSEKEEPING (operator: "focused on the remaining tasks from the
+recent chats and housekeeping … $0 budget for external tools"). Nothing sent, no pod, no paid API.
+  SWEEP: two findings, one real — awesome-ai-proofs#2's maintainer (14:34 UTC, issuecomment-6235146613) keeps "disputed"
+     until HorizonMath#10 has an author comment, and asks us to reopen #2 then (recorded; the reopen is a send). Qiushi's
+     "3 new" was a stale state count (nothing after our 10-12 reply). Found by reading the threads: verifiers#2775 was
+     closed 10-09 (no backport to 0.3.x); nanoda#44's patch merged as #45 the day of our comment, the issue closed 10-12;
+     Awesome-AI-Scientist PR #5 was MERGED 10-06. The sweep now watches the October threads too (nanoda, Bandeira, the
+     4 AlphaEvolve, 10 formal-conjectures and 4 optimizationproblems threads of the three audits).
+  CURVE SEEDS: the post was EDITED by its publisher 2026-10-17 14:19 UTC (article:modified_time) — copy edits only, nine
+     text lines (serial commas, "1,842", "1/5,810", "on where", "Acknowledgments"); the two code blocks, their outputs and
+     the six figures byte-identical. The new bytes pinned beside the decided ones; the page's scope line says so.
+  `make page` BUILT (tools/make-page.js): R="<builders>" → the builders, the sync, then copy/style/render/measure on the
+     synced bytes — no battery runs (they stay in make test / make site). Measured: R=curveseeds 230 s, R=playground
+     246 s, against ~25 min for make site under today's load; MEASURE=0 skips the ruler (~130 s of it).
+  THE OUTREACH RECORD: corpus/outreach.json 11 → 55 rows, every one re-checked against its live surface (gh api; the
+     forum threads parsed): the 44 September–October sends folded in (3 answered: verifiers, Qiushi, optq#226; 1 merged;
+     the HN pair "posted, hidden by the venue" — two new status words); five stale rows corrected (#510 and #1038 are
+     PUBLIC and the last post in their threads; the #852 and #510 dates are the forum's own stamps, 08-26; the two
+     August URLs found by gh search: Pengbinghui/pipeline-math#5, safety-research/automated-w2s-research#2). /about/
+     lists what came back first, the rest newest first; the "being folded in" sentence is gone. The copy census caught
+     "operator" twice on /about/ (the awesome-ai-proofs note) — reworded.
+  INSTRUMENT H1s: every /instruments/<id>/ page's H1 is its formal title (the _instruments row the card already used),
+     the editorial line demoted to the standfirst; design/titles.js retitle() handles /instruments/<id>/ through
+     `pageWas` (the gate) and `pageStandfirst` (null where the title already says it: pu, lattice-claims, answer-shape,
+     return-level-atlas). Looked at in Chrome: the overlay pages' H1 (styled for two words) ran 4–6 lines over the
+     drawing — the overlay title is now sized for a sentence (playground/design/overlay.css AND its copy in
+     design/frontier-ref/instrument.css, which rewire and pqc read — fold them into one).
+  PU — THE LFT IN /instruments/pu, AND ONE ROW MODULE: the tab's paste path was a primary-only copy of the ledger's row
+     logic (no D1x/B3/pre hypotheses, no CONSISTENT), so it could call a row OFF that the report calls REPRODUCED or
+     CONSISTENT. The loop body moved VERBATIM into instruments/pu/rows.js; tools/run-pu-ledger.js and the page both call
+     decideRow. PROVED: the full ledger re-derived through the module is identical to the committed one in every field
+     but the timestamp and the 2% consistent.sample (852 s); a 3,000-row run of the old and new runners identical too.
+     The sample was Math.random() — every re-run and every feed day rewrote ~800 lines — now SEEDED (the ledger
+     re-derived once more for it, 1,537 s while another project's jobs held the cores; identical again but the sample). The page carries SGS 11 (gaps + runs) and SGS 432 (change points), decoded back
+     against the pinned series before it is written; the one-price form takes the LFT (quotation day → VNA, projected
+     at the target), each title opening on the methodology's worked example (the LFT: 3449.694215 → 3451.215345 →
+     100.1158 → 3455.211852, reproduced in Chrome). 52 sampled CSV prices (LTN, NTN-F, LFT, two known OFF rows, an
+     IPCA+ row refused by title) decided in Chrome = the module in Node, verdict and codes, 52/52. Battery 20 checks /
+     13 red (the three examples as rows REPRODUCED, two centavos off CONSISTENT, far off OFF, the page inlining rows.js
+     byte for byte). The report's "about ten minutes" → "about a quarter of an hour".
+  THE OFF PROBE (backlog 9, described, nothing applied): see the backlog's item 1.
+  THE FEED'S FIRST REAL DAY WOULD HAVE REFUSED: in the Action, build-site.js re-stamps the git hash into five hub pages
+     outside tools/pu-push.sh's allowlist (the 10-16 dispatch never reached that step — 'nothing new'). pu-push now
+     restores a non-feed file whose only change is that stamp and still refuses any other; tested in a clean worktree at
+     HEAD (five restored, the reports index staged) with the red control (a real edit to the landing REFUSED).
+  HOUSEKEEPING: HANDOFF.md 846 KB → ~85 KB — the logs before 2026-10-10 and the August standing sections moved verbatim
+     to HANDOFF-ARCHIVE.md (sorted-diff check: no line lost); tools/paper-numbers/lambda5.js reads both. Removed
+     tools/build-lemniscate-writeup.js (superseded, gates wired to nothing) and tools/move-out-of-icloud.sh (a done
+     one-off). Memory: curve-seeds-audit updated. The two frontier-apps Python processes (pids 17244, 99403) were still at
+     99% CPU at 17:30 UTC, 25+ h in — not ours; they are why every build ran ~2× slow.
+  GATES: `make site` at the end — 137/137 batteries, every app built, 1,945 s under the load above (the drift line's
+     "137 source gone" is the known one: sin-mfg is not at the lift's path on this machine). Every page touched went
+     through `make page` with copy/style/render/measure green, and was looked at in Chrome. Committed and pushed.
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-17 (morning → afternoon), OUTREACH OF THE CURVE-SEEDS AUDIT AND ONE ANSWERED THREAD.

@@ -15,6 +15,7 @@ interval enclosures and exact rational decisions. A REFUTED here is proved.
 ```
 make engine    generate → screen → certify; writes ledger.json
 make control   rebuild index.html from the ledger
+make page R=x  rebuild one page, sync, run the page gates (no batteries)
 make test      every battery
 make drift     re-hash the lift against the source lab
 ```
