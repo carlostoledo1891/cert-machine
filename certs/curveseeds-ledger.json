@@ -1,7 +1,7 @@
 {
  "what": "The NIST curve-seeds audit: Anthropic's 2026-10-16 claim that the 14 NIST / X9.62 curve seeds are lrand48 candidates seeded from Unix timestamps, and that six base points come from FreeLIP's generator — every checkable row re-decided from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code with each other or with the claimant; the claims beyond the checkable core listed as readings.",
- "generated": "2026-10-17T01:17:07.060Z",
- "git": "e9cd772d",
+ "generated": "2026-10-17T07:05:58.091Z",
+ "git": "0804f83b",
  "claimant": "Anthropic, Frontier Red Team — \"Claude reveals ECDSA curve origins\", 2026-10-16 (corpus/curveseeds/sources/anthropic-ecdsa-curve-origins-2026-10-16.html, pinned). Authors as listed on the page. The post carries two Python blocks (CC0) that reproduce its numbers; they are pinned as evidence and NEVER executed here — every decision below is by code written from the POSIX specification of drand48, from ANSI X9.62's curve-derivation procedure as FIPS 186-2 prints its intermediates, and from FreeLIP's lip.c.",
  "pins": {
   "anthropic-ecdsa-curve-origins-2026-10-16.html": "afb5fba0659ff4b33f63514e8fbe67485385e928364f4ee316f8690d93f4f5ba",
@@ -568,5 +568,287 @@
    "no outputs skipped"
   ],
   "python": "all fired"
+ },
+ "scan": {
+  "what": "The optional lane of the NIST curve-seeds audit: every candidate below the published index of a prime-curve run derived by X9.62 and point-counted with PARI/GP (SEA, seadata). Counted apart from the certificate; a candidate is prime-order under a root when that curve's order is prime. — the optional lane, PARI/GP point counting; counted apart from the certificate above",
+  "runs": {
+   "P-256": {
+    "publishedCandidate": 1842,
+    "viable": 960,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     876
+    ],
+    "skippedUnderEitherRoot": [
+     81,
+     276,
+     876,
+     1049,
+     1383
+    ],
+    "bits": 256,
+    "pMod4": 3,
+    "secondsForTheGroup": 428.4
+   },
+   "P-224": {
+    "publishedCandidate": 7026,
+    "viable": 3545,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "-",
+    "skippedUnderThePublishedRoot": [
+     77,
+     777,
+     1485,
+     2232,
+     2328,
+     2938,
+     2954,
+     3191,
+     3199,
+     5736,
+     5861
+    ],
+    "skippedUnderEitherRoot": [
+     77,
+     777,
+     1485,
+     2232,
+     2328,
+     2938,
+     2954,
+     3191,
+     3199,
+     5736,
+     5861
+    ],
+    "bits": 224,
+    "pMod4": 1,
+    "secondsForTheGroup": 1046.4
+   },
+   "P-192": {
+    "publishedCandidate": 139,
+    "viable": 74,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [],
+    "skippedUnderEitherRoot": [],
+    "bits": 192,
+    "pMod4": 3,
+    "secondsForTheGroup": 479
+   },
+   "prime192v3": {
+    "publishedCandidate": 5228,
+    "viable": 2663,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     139,
+     1006,
+     2198,
+     2678,
+     2771
+    ],
+    "skippedUnderEitherRoot": [
+     139,
+     338,
+     774,
+     1006,
+     1256,
+     1477,
+     1914,
+     2034,
+     2198,
+     2524,
+     2678,
+     2771,
+     2832,
+     3087,
+     3506,
+     4254,
+     4455,
+     4492
+    ],
+    "bits": 192,
+    "pMod4": 3,
+    "secondsForTheGroup": 479
+   },
+   "prime192v2": {
+    "publishedCandidate": 6013,
+    "viable": 3061,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     139,
+     1006,
+     2198,
+     2678,
+     2771,
+     5228,
+     5242,
+     5405,
+     5674,
+     5701,
+     5964
+    ],
+    "skippedUnderEitherRoot": [
+     139,
+     338,
+     774,
+     1006,
+     1256,
+     1477,
+     1914,
+     2034,
+     2198,
+     2524,
+     2678,
+     2771,
+     2832,
+     3087,
+     3506,
+     4254,
+     4455,
+     4492,
+     5228,
+     5242,
+     5405,
+     5674,
+     5701,
+     5964,
+     5976
+    ],
+    "bits": 192,
+    "pMod4": 3,
+    "secondsForTheGroup": 479
+   },
+   "prime239v1": {
+    "publishedCandidate": 2185,
+    "viable": 1120,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     36,
+     1562
+    ],
+    "skippedUnderEitherRoot": [
+     21,
+     36,
+     155,
+     765,
+     1280,
+     1562,
+     1670,
+     1769
+    ],
+    "bits": 239,
+    "pMod4": 3,
+    "secondsForTheGroup": 484.7
+   },
+   "prime239v2": {
+    "publishedCandidate": 2320,
+    "viable": 1183,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     36,
+     1562,
+     2185
+    ],
+    "skippedUnderEitherRoot": [
+     21,
+     36,
+     155,
+     765,
+     1280,
+     1562,
+     1670,
+     1769,
+     2185,
+     2228,
+     2285,
+     2311
+    ],
+    "bits": 239,
+    "pMod4": 3,
+    "secondsForTheGroup": 484.7
+   },
+   "prime239v3": {
+    "publishedCandidate": 3048,
+    "viable": 1555,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     36,
+     1562,
+     2185,
+     2320,
+     2491,
+     2682,
+     2863
+    ],
+    "skippedUnderEitherRoot": [
+     21,
+     36,
+     155,
+     765,
+     1280,
+     1562,
+     1670,
+     1769,
+     2185,
+     2228,
+     2285,
+     2311,
+     2320,
+     2491,
+     2682,
+     2863
+    ],
+    "bits": 239,
+    "pMod4": 3,
+    "secondsForTheGroup": 484.7
+   },
+   "P-384": {
+    "publishedCandidate": 2688,
+    "viable": 1337,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [
+     1497,
+     1626
+    ],
+    "skippedUnderEitherRoot": [
+     592,
+     1432,
+     1462,
+     1497,
+     1626,
+     1796
+    ],
+    "bits": 384,
+    "pMod4": 3,
+    "secondsForTheGroup": 3900.7
+   },
+   "P-521": {
+    "publishedCandidate": 1136,
+    "viable": 584,
+    "publishedIsPrimeOrder": true,
+    "publishedRoot": "+",
+    "skippedUnderThePublishedRoot": [],
+    "skippedUnderEitherRoot": [],
+    "bits": 521,
+    "pMod4": 3,
+    "secondsForTheGroup": 6450.4
+   }
+  },
+  "text": "P-256: 960 of 1842 candidates viable; the published candidate 1842 is prime-order; prime-order candidates skipped before it under the published root of b: 876; under either root: 81, 276, 876, 1049, 1383 · P-224: 3545 of 7026 candidates viable; the published candidate 7026 is prime-order; prime-order candidates skipped before it under the published root of b: 77, 777, 1485, 2232, 2328, 2938, 2954, 3191, 3199, 5736, 5861; under either root: 77, 777, 1485, 2232, 2328, 2938, 2954, 3191, 3199, 5736, 5861 · P-192: 74 of 139 candidates viable; the published candidate 139 is prime-order; prime-order candidates skipped before it under the published root of b: none; under either root: none · prime192v3: 2663 of 5228 candidates viable; the published candidate 5228 is prime-order; prime-order candidates skipped before it under the published root of b: 139, 1006, 2198, 2678, 2771; under either root: 139, 338, 774, 1006, 1256, 1477, 1914, 2034, 2198, 2524, 2678, 2771, 2832, 3087, 3506, 4254, 4455, 4492 · prime192v2: 3061 of 6013 candidates viable; the published candidate 6013 is prime-order; prime-order candidates skipped before it under the published root of b: 139, 1006, 2198, 2678, 2771, 5228, 5242, 5405, 5674, 5701, 5964; under either root: 139, 338, 774, 1006, 1256, 1477, 1914, 2034, 2198, 2524, 2678, 2771, 2832, 3087, 3506, 4254, 4455, 4492, 5228, 5242, 5405, 5674, 5701, 5964, 5976 · prime239v1: 1120 of 2185 candidates viable; the published candidate 2185 is prime-order; prime-order candidates skipped before it under the published root of b: 36, 1562; under either root: 21, 36, 155, 765, 1280, 1562, 1670, 1769 · prime239v2: 1183 of 2320 candidates viable; the published candidate 2320 is prime-order; prime-order candidates skipped before it under the published root of b: 36, 1562, 2185; under either root: 21, 36, 155, 765, 1280, 1562, 1670, 1769, 2185, 2228, 2285, 2311 · prime239v3: 1555 of 3048 candidates viable; the published candidate 3048 is prime-order; prime-order candidates skipped before it under the published root of b: 36, 1562, 2185, 2320, 2491, 2682, 2863; under either root: 21, 36, 155, 765, 1280, 1562, 1670, 1769, 2185, 2228, 2285, 2311, 2320, 2491, 2682, 2863 · P-384: 1337 of 2688 candidates viable; the published candidate 2688 is prime-order; prime-order candidates skipped before it under the published root of b: 1497, 1626; under either root: 592, 1432, 1462, 1497, 1626, 1796 · P-521: 584 of 1136 candidates viable; the published candidate 1136 is prime-order; prime-order candidates skipped before it under the published root of b: none; under either root: none",
+  "pod": {
+   "id": "388ayba4b1pnhk",
+   "audit": "9998a3f25679219543de20ee81b58a9589dd09b3",
+   "cpus": 8,
+   "build": "d2d10804fbeadac7207a3e1cba46ac86bbe209fb86e1b62716e9b8add5386586  /work/instruments/curveseeds/decide.py\n0d03ffc5f753031596f42d41796c2b8e6a52c7de9dd8961b4cc805bb4b346625  /work/corpus/curveseeds/published.json\ndad0a5a57e35745275923870a2020bdec4e1d1b58c3f25033a468399053455c0  /work/tools/curveseeds-scan.py\n2.15.4\nVersion: 0.20090618-3\nmodel name\t: AMD EPYC 7713P 64-Core Processor\n",
+   "imported": "2026-10-17T06:36:24.487Z"
+  }
  }
 }

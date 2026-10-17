@@ -11,7 +11,7 @@ const cp = require('child_process');
 const pod = process.argv[2];
 if (!pod || !/^[a-z0-9]+$/.test(pod)) { console.error('usage: import-runpod-curveseeds.js <pod-id>'); process.exit(2); }
 const BASE = 'https://' + pod + '-8000.proxy.runpod.net/';
-const get = (rel) => { const r = cp.spawnSync('curl', ['-fsS', '--max-time', '120', BASE + rel], { encoding: 'utf8' }); return r.status === 0 ? r.stdout : null; };
+const get = (rel) => { const r = cp.spawnSync('curl', ['-fsS', '--max-time', '120', BASE + rel], { encoding: 'utf8', maxBuffer: 1 << 28 });   /* the record is a few MB: spawnSync's default 1 MB buffer would drop it */ return r.status === 0 ? r.stdout : null; };
 const st = JSON.parse(get('_status.json') || 'null');
 if (!st) { console.error('no _status.json at ' + BASE); process.exit(1); }
 console.log('pod ' + pod + ': ' + st.phase + ' (audit ' + st.audit + ', ' + st.cpus + ' cpus, ' + st.updated + ')');

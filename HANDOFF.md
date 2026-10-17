@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~02:50 UTC: A POD IS BILLING — RunPod 388ayba4b1pnhk (US-CA-2, cpu3c 8 vCPU / 16 GB, $0.24/h, created 02:45 UTC @ 3fcfa280) runs the curve-seeds point-counting lane (tools/runpod-curveseeds.sh; RUNS P-256 P-224 prime192v2 prime239v3 P-384 P-521); status https://388ayba4b1pnhk-8000.proxy.runpod.net/_status.json ("complete" when done; then it IDLES AND BILLS); when complete: `node tools/import-runpod-curveseeds.js 388ayba4b1pnhk`, `node tools/build-report-curveseeds.js`, `make site`, the ratchets, commit, TERMINATE the pod (delete-pod) and confirm by a read; 32- and 16-vCPU creates were refused tonight and the `ports` field on create was the real blocker — create without ports, then PATCH ports; the laptop lane was stopped; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 20 threads to watch)
+## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~06:45 UTC: NO POD RUNNING — 388ayba4b1pnhk TERMINATED 06:38 UTC after its record was imported (get-pod → 404); the curve-seeds lane is in corpus/curveseeds/scan.json (10 runs) and folded into the page; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 20 threads to watch)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -94,7 +94,15 @@ target for us?" → scouted OPEN, BUILD-NOW; then "All focus on the first indepe
      NOT it — the published P-256 curve itself is not twist-prime, and under that criterion the X9.62 runs skip
      nothing; the criterion stays unknown and the page says so. P-384 (not in the post): 1,337 viable of 2,688, the
      published 2688 prime-order, 2 skipped under the published root (1497, 1626), 6 under either; 65 min on 8 cores.
-     P-521 (584 viable of 1,136) started 04:36 UTC — hours at 521 bits; a second poller imports at "complete".
+     P-521 (584 viable of 1,136): the published 1136 prime-order, nothing skipped under either root; the pod read
+     "complete" at 06:22 UTC (3 h 33 min of 8 vCPU, ≈ $0.90). IMPORTED 06:37 UTC (the importer's curl needed a 256 MB
+     buffer — spawnSync's 1 MB default silently dropped the 4.3 MB record and read as "not served"); the pod
+     TERMINATED 06:38 UTC, get-pod → 404. The page's §4 now carries the lane as a table (siblings set apart; the
+     published b is the (−27/c)^((p+1)/4) root wherever p ≡ 3 mod 4; no root convention claimed for P-224); the ledger
+     carries scan.runs/text/pod. SUMMARY OF THE LANE: every published candidate prime-order (10 of 10); skipped
+     prime-order candidates under the published root, the run's other published curves set apart — P-256: 876 (the
+     post's number); P-224: 11 (post: 3); the 1997-05-18 run: 9 and the 1997-05-15 run: 5 (post: 7 together); P-384: 2;
+     P-521: 0. The post's criterion is unstated; twist-security is NOT it (tested).
   TOOLING: Ashby and Lever job pages (earlier today) and this post both render to a plain fetch; the post's HTML did
      carry its text and code; the Ashby/Lever JSON APIs are the way to pin postings.
   OUTREACH DRAFTED, NOT SENT: outreach/curveseeds-note-2026-10-16.md — a note to Filippo Valsorda (the bounty's
