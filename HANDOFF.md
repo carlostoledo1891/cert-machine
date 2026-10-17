@@ -15,29 +15,58 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~06:45 UTC: NO POD RUNNING — 388ayba4b1pnhk TERMINATED 06:38 UTC after its record was imported (get-pod → 404); the curve-seeds lane is in corpus/curveseeds/scan.json (10 runs) and folded into the page; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 19 threads to watch — awesome-ai-proofs#2 ANSWERED 2026-10-17 (both audit records added, 'debunked' softened to 'disputed'; our reply POSTED 2026-10-17 on the operator's word — watch for their source review); corpus/outreach.json has the row and the About page shows it at the next `make site`)
+## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~15:30 UTC: NO POD RUNNING (388ayba4b1pnhk terminated 06:38 UTC, confirmed 404); nothing building; a `caffeinate -i -s` holds the laptop awake until ~17:00 UTC; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE with the point-counting lane folded in; awesome-ai-proofs#2 ANSWERED and our reply POSTED; the two HN comments are DEAD ([flagged], [dead]) — the moderator email is the operator's; 19 threads to watch)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  0. CURVE SEEDS, the follow-through: (a) if corpus/curveseeds/scan.json exists, `node tools/build-report-curveseeds.js`
-     then `make site` and the three ratchets (the page's §4 gains the lane's counts; the ledger carries `scan`); if the
-     scan is still running or died, read the log before anything (it is NOT part of the certificate); (b) watch the post
-     for edits — the pins refuse a changed byte; re-fetch, re-pin, re-read if so; (c) the sends are the operator's
-     (outreach/curveseeds-note-2026-10-16.md: Valsorda, Weis); (d) B-163 and the unexplained base points are the post's
-     open items, not ours — do not hunt unless asked.
-  8. Packets (SEND-QUEUE lane J; outreach/epoch, far-ai, nous, cohere DRAFTED): the operator fills the marks, builds the PDF
-     (`node outreach/build-resume-pdf.js outreach/resume`), submits. Next packets: Pydantic (after a door-opener issue/PR on
-     pydantic-evals), Elicit, Gray Swan, Prime Intellect Evals & Data; the contractor asks (Surge, Snorkel, Fireworks).
-     Jane Street (Formal Methods Engineer, NYC/LDN, $250–300K; on-site with sponsorship) added to the local notes §8(b) —
-     a packet only after a relocation decision.
+  0. CURVE SEEDS, the follow-through: (a) `make site` once — corpus/outreach.json gained the awesome-ai-proofs row and the
+     About page shows it only after a rebuild (nothing else is stale); (b) watch the post for edits — the pins refuse a
+     changed byte; re-fetch, re-pin, re-read if so; (c) watch subroy13/awesome-ai-proofs#2 for the maintainer's source
+     review ('disputed' → 'debunked' if he reproduces the witness); (d) B-163 and the unexplained base points are the
+     post's open items, not ours — do not hunt unless asked; (e) if HN restores a comment, nothing to do; if the operator
+     asks, re-read the thread (Carlos-Toledo; items 50129567 flagged, 50130247 dead).
+  1. A `make page` target (proposed 2026-10-17, NOT BUILT): rebuild one report + sync (build-site, with the swell guard)
+     WITHOUT the control build's 137 batteries, which stay in `make test`/`make site` and the end of a session. Tonight
+     four refused site builds cost ~1 h of waiting; the control build also measured the stale synced page before the
+     sync could replace it (chicken-and-egg — sync first). CLAUDE.md licenses it: gates measure facts, never slow development.
+  8. Packets (SEND-QUEUE lane J; outreach/epoch, far-ai, nous, cohere DRAFTED; each now points at the curve-seeds page as
+     the freshest sample): the operator fills the marks, builds the PDF (`node outreach/build-resume-pdf.js outreach/resume`),
+     submits. Next packets: Pydantic (after a door-opener issue/PR on pydantic-evals), Elicit, Gray Swan, Prime Intellect
+     Evals & Data; the contractor asks (Surge, Snorkel, Fireworks). Jane Street (Formal Methods Engineer) only after a
+     relocation decision.
   2. PU: NTN-B / IGPM+ decided where the realised index applies, NEEDS DATA where the publisher's daily projection (not public) is needed.
   3. PU: the LFT in /instruments/pu (the Selic series in-page); 4. watch the feed's first real day; 5. ANBIMA's prices (terms first).
-  6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; October outreach rows into corpus/outreach.json.
+  6. Site leftovers: Method toward 1,200 words; the instruments' own page H1s; the October outreach rows into corpus/outreach.json
+     (only awesome-ai-proofs#2 is a row so far).
   9. PU: the 237 OFF rows that remain (LTN 90, NTN-F 103, LFT 44) — the next probe, no hypothesis yet.
-  OPERATOR: the curve-seeds notes (two, drafted); the Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes
-     yes/no; paper venue + authors.
+  OPERATOR: the HN moderator email (hn@ycombinator.com, both permalinks; drafted in the chat of 2026-10-17); the
+     curve-seeds notes to Valsorda and Weis (outreach/curveseeds-note-2026-10-16.md, the lane sentence included); the
+     Treasury note (drafted, Portuguese); the four packets; ANBIMA bytes yes/no; paper venue + authors.
+
+────────────────────────────────────────────────────────────────────────────
+2026-10-17 (morning → afternoon), OUTREACH OF THE CURVE-SEEDS AUDIT AND ONE ANSWERED THREAD.
+  HN: the operator posted the drafted top-level comment (Carlos-Toledo, item 50129567, 09:58 UTC) — [flagged]; then the
+     shorter reply under the "independently verifiable" comment (50130247, 11:49 UTC) — [dead], killed by the software for
+     a karma-1 account whose previous comment was flagged (found through the Firebase API's dead items; neither appears
+     in the rendered thread or in Algolia). A third post would die the same way. The fix is the moderator email with both
+     permalinks (drafted in chat; the operator's). Lesson for the file: HN flags long, formal, two-link, first-person
+     comments from low-karma accounts as self-promotion; post short and conversational, one link, or from an account with
+     karma. The page itself is live and deployed with the lane.
+  GITHUB: no venue tied to the claim exists (no Anthropic repo; Valsorda's bounty and Weis's investigation are not on
+     GitHub; one dead bounty-attempt repo from 10-01; the rest bot digests) — the repository is the GitHub-native outreach.
+  ANSWERED: subroy13/awesome-ai-proofs#2 (our 10-06 submission) — the maintainer added both audit records (commit
+     852a8fac: the matmul audit event under matrix-multiplication, "⚑ verified"; a new diagonal-Ramsey entry with our
+     refutation event, listed "self-reported · disputed" — his softening of our 'debunked'/'refuted' pending his source
+     review) and closed the issue. Our reply (REFUTED by the explicit witness; 'disputed' fair until his review) POSTED
+     on the operator's word: issue 2, issuecomment-6235076477. Reach: 15 stars, 2 contributors — the citation, not the
+     audience. corpus/outreach.json row + lastChecked 2026-10-17; the About page shows it at the next `make site`.
+  WHY THE BUILDS WERE SLOW (operator asked): two Python processes of the frontier-apps session at 99% CPU each for 16+ h
+     (pids 17244, 99403, still running at 12:00 UTC — not ours to kill) on 4 P-cores; every battery ~2× slower (blind-spot
+     57 → 102 s, Inspect record 107 → 219 s); each `make site` = playground + 137 batteries + sync + six app builds
+     (10–15 min free, 25 under load); the ruler = ~90 pages × 3 widths in Chrome; the PU ledger 7 → 17 min by amendment 6;
+     and eight site builds tonight, four refused late. Proposal: a `make page` target (backlog 1).
 
 ────────────────────────────────────────────────────────────────────────────
 2026-10-16 (night → 10-17 early), THE NIST CURVE-SEEDS AUDIT — built the evening the claim appeared (operator: "is it a
