@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site papers playground materialize erdos1-venv zetahankel-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
+.PHONY: help engine control test drift lift clean reports site page papers playground materialize erdos1-venv zetahankel-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -11,6 +11,7 @@ help:
 	@echo "  make control  rebuild index.html from the ledger (runs the batteries)"
 	@echo "  make test     every battery: instruments, engine, funnel"
 	@echo "  make site     assemble the public site bundle (site/)"
+	@echo "  make page R=x rebuild one page (tools/build-report-x.js), sync, run the page gates — no batteries"
 	@echo "  make drift    re-hash the lift against the source lab"
 	@echo ""
 	@echo "  LIMIT=800000 CERT_CAP=600 make engine   to run wider"
@@ -37,6 +38,11 @@ site: playground control
 
 playground:
 	@$(NODE) playground/build.js
+
+# the edit loop (2026-10-17): the named builders, the sync, then the page gates on the synced bytes; no battery runs.
+# R="curveseeds pu" · R=playground · R=apps/janela · empty R syncs only · MEASURE=0 skips the ruler. tools/make-page.js says why.
+page:
+	@R="$(R)" MEASURE="$(MEASURE)" $(NODE) tools/make-page.js
 
 # instruments/erdos1 needs python-flint (FLINT: exact determinants, rational solves, integer nullspace),
 # which lives in its own venv; the battery builds it on first run, and this target does it explicitly.
