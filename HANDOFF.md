@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~19:45 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds all 55 sends; the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
+## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~19:45 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -64,9 +64,10 @@ recent chats and housekeeping … $0 budget for external tools"). Nothing sent, 
   `make page` BUILT (tools/make-page.js): R="<builders>" → the builders, the sync, then copy/style/render/measure on the
      synced bytes — no battery runs (they stay in make test / make site). Measured: R=curveseeds 230 s, R=playground
      246 s, against ~25 min for make site under today's load; MEASURE=0 skips the ruler (~130 s of it).
-  THE OUTREACH RECORD: corpus/outreach.json 11 → 55 rows, every one re-checked against its live surface (gh api; the
+  THE OUTREACH RECORD: corpus/outreach.json 11 → 54 rows, every one re-checked against its live surface (gh api; the
      forum threads parsed): the 44 September–October sends folded in (3 answered: verifiers, Qiushi, optq#226; 1 merged;
-     the HN pair "posted, hidden by the venue" — two new status words); five stale rows corrected (#510 and #1038 are
+     a new status word; the HN pair was a row for an hour and was REMOVED from the site on the operator's word —
+     "Remove HN info from website" — the record of it stays in this file and outreach/, never on a page); five stale rows corrected (#510 and #1038 are
      PUBLIC and the last post in their threads; the #852 and #510 dates are the forum's own stamps, 08-26; the two
      August URLs found by gh search: Pengbinghui/pipeline-math#5, safety-research/automated-w2s-research#2). /about/
      lists what came back first, the rest newest first; the "being folded in" sentence is gone. The copy census caught
