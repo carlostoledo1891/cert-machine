@@ -17,8 +17,8 @@ R=/results; W=/work; mkdir -p $R $W/instruments/curveseeds $W/corpus/curveseeds 
 export DEBIAN_FRONTEND=noninteractive
 status() { echo "{\"phase\":\"$1\",\"audit\":\"$AUDIT_SHA\",\"cpus\":$(nproc),\"updated\":\"$(date -u +%FT%TZ)\"}" > $R/_status.json; }
 status starting
-(cd $R && nohup python3 -m http.server 8000 --bind 0.0.0.0 > /dev/null 2>&1 &)
 apt-get update -qq && apt-get install -y -qq python3 pari-gp pari-seadata curl ca-certificates < /dev/null > /dev/null || { status "FAILED: apt"; sleep infinity; }
+(cd $R && nohup python3 -m http.server 8000 --bind 0.0.0.0 > /dev/null 2>&1 &)        # after apt: ubuntu:24.04 ships no python3, so the server could not start before it
 for f in instruments/curveseeds/decide.py corpus/curveseeds/preregistration.json corpus/curveseeds/published.json tools/curveseeds-scan.py; do
   curl -fsSL "$RAW/$f" -o "$W/$f" || { status "FAILED: fetch $f"; sleep infinity; }
 done
