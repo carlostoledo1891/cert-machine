@@ -92,6 +92,21 @@ else {
   RED('a restated pinned row refuses the feed', !F.compare(oldT, oldT.replace('900,00', '900,01')).ok);
   RED('a row inserted before the pinned last day refuses the feed', !F.compare(oldT, oldT + 'Tesouro Prefixado;01/01/2027;13/10/2026;13,00;13,10;900,30;899,30;899,30\n').ok);
   RED('a changed header refuses the feed', !F.compare(oldT, oldT.replace('PU Base Manha', 'PU Base')).ok); }
+/* the row module (instruments/pu/rows.js, 2026-10-17): the one function the ledger and /instruments/pu both call on a row.
+   Rows built on the methodology's own examples, quoted the day before the example's settlement (a purchase settles D+1). */
+{ const readSgs = (prefix) => { let rows = []; for (const f of fs.readdirSync(path.join(ROOT, 'corpus', 'pu', 'sources', 'bcb')).filter((x) => x.startsWith(prefix)).sort()) rows = rows.concat(J('corpus/pu/sources/bcb/' + f)); return rows.map((r) => { const [d, m, y] = r.data.split('/'); return { iso: y + '-' + m + '-' + d, valor: r.valor }; }).sort((a, b) => (a.iso < b.iso ? -1 : 1)); };
+  const R = require(path.join(__dirname, 'rows.js')).rowDecider({ PU: D, holidays: HOL, b3: J('corpus/pu/b3-settlement.json'),
+    selic: readSgs('sgs11-').map((r) => ({ iso: r.iso, pct6: Math.round(Number(r.valor) * 1e6) })), meta: new Map(readSgs('sgs432-').map((r) => [r.iso, r.valor.replace('.', ',')])) });
+  const one = (kind, mat, taxa, cents) => R.decideRow({ kind, maturity: mat, date: '2008-05-20', taxaC: taxa, taxaV: '0,00', puC: cents, puV: null })[0];
+  const a = one('LTN', '2010-07-01', '14,36', 75331n), b = one('NTN-F', '2014-01-01', '13,66', 90307n), c = one('LFT', '2014-03-07', '-0,02', 345521n);
+  ok('17 the row module decides the three worked examples, pasted as rows, REPRODUCED under the primary (D+1, truncated)',
+    [a, b, c].every((x) => x.verdict === 'REPRODUCED' && x.codes.includes('D1/T')), '[' + [a, b, c].map((x) => x.row.kind + ' ' + x.codes.join(',')).join(' · ') + ']');
+  const near = one('LTN', '2010-07-01', '14,36', 75333n);
+  ok('18 two centavos past the rule\'s value, inside the price interval the printed rate\'s half-unit allows, is CONSISTENT and not REPRODUCED', near.verdict === 'CONSISTENT', '[under ' + (near.consistent && near.consistent.under) + ', ' + (near.consistent && near.consistent.puRange.join(' – ')) + ']');
+  RED('a price far outside the rate box is OFF, neither REPRODUCED nor CONSISTENT', one('LTN', '2010-07-01', '14,36', 76000n).verdict === 'OFF');
+  const page = path.join(ROOT, 'site', 'instruments', 'pu', 'index.html');
+  if (fs.existsSync(page)) ok('19 /instruments/pu inlines rows.js byte for byte (the tab and the ledger run one function)', fs.readFileSync(page, 'utf8').includes(fs.readFileSync(path.join(__dirname, 'rows.js'), 'utf8')));
+}
 /* the second decider disagreeing is caught: the comparison the runner makes, on a tampered answer */
 { const mine = D.dec(ltn.pu6, 6), theirs = '753.315324'; RED('a one-digit disagreement between the deciders is a disagreement', mine !== theirs); }
 

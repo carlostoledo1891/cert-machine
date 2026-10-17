@@ -147,7 +147,7 @@ B.push(C.tldr({
     + 'the price truncated at 6. The one irrational step, (1 + taxa)^(du/252), is an enclosure — BigInt fixed point with every series remainder bounded — and each truncation is a decision from the two ends '
     + 'or a refusal. A second decider in Python (decimal, 60 digits, directed rounding; no shared code) re-derives every OFF and REFUSED row and a seeded sample (' + fmt(L.crossCheck.agree) + '/' + fmt(L.crossCheck.sampled) + ' agree). '
     + 'The methodology’s own worked examples (LTN 753.315323, NTN-F 903.075616 with its twelve flows, LFT 3455.211852 with its VNA and projection) are reproduced digit for digit before any row is decided.',
-  checkRaw: C.m('node tools/run-pu-ledger.js') + ' (about ten minutes on a laptop) · ' + C.m('node instruments/pu/battery.js') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls · ' + C.m('python3 -I instruments/pu/decide.py') + ' re-decides the worked examples with no engine present.'
+  checkRaw: C.m('node tools/run-pu-ledger.js') + ' (about a quarter of an hour on a laptop) · ' + C.m('node instruments/pu/battery.js') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls · ' + C.m('python3 -I instruments/pu/decide.py') + ' re-decides the worked examples with no engine present.'
 }));
 B.push(C.stats([
   { k: 'prices decided', v: fmt(N), n: 'LTN + NTN-F + LFT, buy and sell, ' + L.scope.firstDate.slice(0, 4) + ' → ' + L.scope.lastDate },

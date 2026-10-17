@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PU Verificado: a Tesouro Direto price under the Treasury’s rule table, in the browser · Carlos Toledo</title>
-<meta name="description" content="Price a Tesouro Direto LTN or NTN-F exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, and pasted rows of the published file decided to the ledger’s verdicts.">
+<meta name="description" content="Price a Tesouro Direto LTN, NTN-F or LFT exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, the Selic index from the pinned Central Bank series, and pasted rows of the published file decided by the ledger’s own module.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/instruments/pu/">
 <meta property="og:url" content="https://carlostoledo.co/instruments/pu/">
 <meta property="og:title" content="PU Verificado: a Tesouro Direto price under the Treasury’s rule table, in the browser · Carlos Toledo">
-<meta property="og:description" content="Price a Tesouro Direto LTN or NTN-F exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, and pasted rows of the published file decided to the ledger’s verdicts.">
+<meta property="og:description" content="Price a Tesouro Direto LTN, NTN-F or LFT exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, the Selic index from the pinned Central Bank series, and pasted rows of the published file decided by the ledger’s own module.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PU Verificado: a Tesouro Direto price under the Treasury’s rule table, in the browser · Carlos Toledo">
-<meta name="twitter:description" content="Price a Tesouro Direto LTN or NTN-F exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, and pasted rows of the published file decided to the ledger’s verdicts.">
+<meta name="twitter:description" content="Price a Tesouro Direto LTN, NTN-F or LFT exactly under the Treasury’s rule table, in the browser: the enclosure of the irrational step, every truncation as a decision, the Selic index from the pinned Central Bank series, and pasted rows of the published file decided by the ledger’s own module.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -615,15 +615,16 @@ ul.plain li b{color:var(--ink)}
 <header class="hero"><div class="wrap">
   <div class="eyebrow">Carlos Toledo &middot; instruments &middot; Tesouro Direto</div>
   <h1>PU Verificado: a Tesouro Direto price under the Treasury’s rule table, in the browser</h1>
-  <p class="lede">The price of a fixed-rate federal bond under the Treasury&rsquo;s own rule table, decided in your tab: a rate, a settlement date and a maturity give the LTN or NTN-F price with every truncation shown and the one irrational step as an enclosure. Paste rows of the published Tesouro Direto file and each is decided to the same verdict the <a href="../../reports/pu-verificado.html">report</a> gives it. Nothing leaves this page.</p>
+  <p class="lede">The price of a federal bond under the Treasury&rsquo;s own rule table, decided in your tab: a rate, a settlement date and a maturity give the LTN, NTN-F or LFT (Tesouro Selic) price with every truncation shown and the one irrational step as an enclosure; the LFT reads the Selic index from the Central Bank&rsquo;s own series, pinned and carried in the page. Paste rows of the published Tesouro Direto file and each is decided by the code that decided the <a href="../../reports/pu-verificado.html">report</a>, to the verdict the report gives it. Nothing leaves this page.</p>
 </div></header>
 
 <section class="wrap panel" id="price">
   <div class="eyebrow">one price</div>
   <form id="f" class="form" onsubmit="return false">
-    <label>title<select id="kind"><option value="LTN">Tesouro Prefixado (LTN)</option><option value="NTN-F">Tesouro Prefixado com Juros Semestrais (NTN-F)</option></select></label>
+    <label>title<select id="kind"><option value="LTN">Tesouro Prefixado (LTN)</option><option value="NTN-F">Tesouro Prefixado com Juros Semestrais (NTN-F)</option><option value="LFT">Tesouro Selic (LFT)</option></select></label>
     <label>maturity<input id="mat" type="date" value="2010-07-01"></label>
     <label>settlement<input id="settle" type="date" value="2008-05-21"></label>
+    <label id="quoteL" hidden>quotation (the Selic index day)<input id="quote" type="date" value="2008-05-20"></label>
     <label>rate, % a.a. (as published)<input id="rate" type="text" inputmode="decimal" value="14,3600"></label>
     <label>printed price, R$ (optional)<input id="printed" type="text" inputmode="decimal" placeholder="753,32"></label>
   </form>
@@ -632,7 +633,7 @@ ul.plain li b{color:var(--ink)}
 
 <section class="wrap panel" id="rows">
   <div class="eyebrow">rows of the published file</div>
-  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided under the conventions the ledger measured: a purchase settles on the next business day, a sale on the quotation day (D+1 until 2021-09-10), centavos truncated. Fixed-rate titles only; other titles are refused by name.</p>
+  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided by <span class="m">instruments/pu/rows.js</span>, the module the ledger calls, under every hypothesis it pre-registered: the primary settlement (a purchase on the next business day, a sale on the quotation day), D+1, D+1 skipping 24 and 31 December, B3&rsquo;s settlement calendar and the calendar as of the quotation; REPRODUCED names the hypothesis that holds, CONSISTENT the one under which the printed centavos lie inside the price interval the printed rate&rsquo;s own precision allows. LTN, NTN-F and LFT; other titles are refused by name.</p>
   <textarea id="paste" rows="5" spellcheck="false" placeholder="Tesouro Prefixado;01/01/2027;15/10/2026;14,32;14,44;945,46;942,02;942,02"></textarea>
   <div class="row"><button id="decide" type="button">Decide the rows</button><span id="rowsNote" class="note"></span></div>
   <div id="table" class="out"></div>
@@ -643,14 +644,16 @@ ul.plain li b{color:var(--ink)}
   <ul class="plain">
     <li><b>The same bytes.</b> <span class="m">instruments/pu/decide.js</span> is inlined here unchanged (sha256 <span class="m">ba82874dad297218&hellip;</span>); it is the decider of <span class="m">certs/pu-ledger.json</span> (145,439 prices, 132,362 reproduced, last day 2026-10-15).</li>
     <li><b>The calendar is pinned.</b> ANBIMA&rsquo;s national holidays, read once from the xls whose sha256 is <span class="m">e3070152bfbdd733&hellip;</span>. It is today&rsquo;s calendar: a price published before 2023-12-21 for a title maturing after 2024 was priced without the 20 November holiday — the report explains, and the toggle below re-decides under the calendar as of the quotation.</li>
+    <li><b>The Selic index is pinned.</b> SGS 11 (the daily rate, 2000-07-03 to 2026-10-15, 6,603 days) and SGS 432 (the target, which projects the VNA to a settlement after the quotation), read from the files whose sha256s <span class="m">corpus/pu/PINS.json</span> records; compacted for this page and decoded back against the pinned series before the page was written. The VNA accumulates the daily factor at 16 decimals, rounded half up, and truncates at 6 (Tabela 3).</li>
+    <li><b>One rule for a row.</b> A pasted row runs through <span class="m">instruments/pu/rows.js</span> (sha256 <span class="m">aca113d7fbef945a&hellip;</span>), the same function the ledger calls on each of its rows, so the tab and the report cannot disagree on a verdict.</li>
     <li><b>Exact where the rule is exact.</b> Rate T-6, exponent T-14, flows A-9, price T-6 in integer arithmetic; the power (1 + taxa)^(du/252) as an enclosure at 10<sup>&minus;48</sup> with every series remainder bounded. A truncation whose enclosure straddles the boundary is REFUSED, not rounded through.</li>
     <li><b>What is not claimed.</b> A difference from a printed price is a difference from the methodology&rsquo;s value for the printed rate on the pinned calendar; conventions the publisher follows and does not print (a settlement calendar, a day skipped) are named, not assumed.</li>
   </ul>
-  <label class="toggle"><input id="precal" type="checkbox"> use the calendar as of the quotation (no 20 November holiday from 2024 on)</label>
+  <label class="toggle"><input id="precal" type="checkbox"> one price: use the calendar as of the quotation (no 20 November holiday from 2024 on) — a pasted row tries both</label>
 </section>
 
 <footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
-<script id="pu-spec" type="application/json">{"decideSha256":"ba82874dad297218a1667b926105b294cdf745a71342341a29d112a2616d3d1c","holidaysSha256":"26975831cbfc4fe4dd24c86be66418c8ca377d6fa95c9c71ab72c6a346ebf525","holidaysSource":"e3070152bfbdd733a27977adc82b799e973d3ea003d2aa25b0e7e5bdae63aa17","ledger":{"generated":"2026-10-16T19:44:42.259Z","pairs":145439,"reproduced":132362,"off":237,"lastDate":"2026-10-15"}}</script>
+<script id="pu-spec" type="application/json">{"decideSha256":"ba82874dad297218a1667b926105b294cdf745a71342341a29d112a2616d3d1c","rowsSha256":"aca113d7fbef945a106c5c015329dbd8518ea74d64844db122f05eb6123ad350","holidaysSha256":"26975831cbfc4fe4dd24c86be66418c8ca377d6fa95c9c71ab72c6a346ebf525","holidaysSource":"e3070152bfbdd733a27977adc82b799e973d3ea003d2aa25b0e7e5bdae63aa17","selic":{"first":"2000-07-03","last":"2026-10-15","days":6603},"meta":{"first":"2000-07-01","last":"2026-11-04"},"ledger":{"generated":"2026-10-17T18:53:59.986Z","pairs":145439,"reproduced":132362,"off":237,"lastDate":"2026-10-15"}}</script>
 <script id="pu-holidays" type="application/json">{
  "what": "ANBIMA national holidays (feriados_nacionais.xls) as ISO dates, derived once by LibreOffice (soffice --headless --convert-to csv) from the pinned xls; the xls is the source, this file is its reading",
  "source": "corpus/pu/sources/feriados_nacionais.xls",
@@ -3192,6 +3195,897 @@ ul.plain li b{color:var(--ink)}
   "2099-12-25": "Natal"
  }
 }</script>
+<script id="pu-b3" type="application/json">{
+ "what": "B3 non-trading / non-settlement days that the national bank calendar (the pinned ANBIMA file) counts as business days, 2004–2026, derived by tools/pu-b3-calendar.js from B3's own circulars and the exchange's calendar pages as captured by the Wayback Machine (corpus/pu/sources/b3/). Each date carries its rule and the documents covering its year that name the holiday; a date with none is rule-only and is used apart.",
+ "rules": {
+  "R1": "25 January non-trading through 2021",
+  "R2": "9 July non-trading through 2021 except 2020",
+  "R3": "20 November non-trading 2006–2021 except 2020",
+  "R4": "24 December non-trading",
+  "R5": "31 December non-trading, or the preceding Friday when it falls on a weekend",
+  "R6": "2014 World Cup: 12, 17 and 23 June per the exchange's 2014 calendar page; 4 and 8 July (Brazil's matches) by the same rule, rule-only"
+ },
+ "generated": "2026-10-16T16:21:31.543Z",
+ "documents": [
+  {
+   "file": "oc/B3-PREGOES.txt",
+   "sha256": "94ebb5c8292fab75720cfaa1dac750d220e6bfa9f8ec71e341432ad7b0798b43",
+   "years": [
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/CE-001-2021-VPF-antecipacao-feriados-2021.txt",
+   "sha256": "6699113c791a49b7c4ac3aa1b1d141605d9efa72c1424a85924beafa333cae78",
+   "years": [
+    "2021"
+   ]
+  },
+  {
+   "file": "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+   "sha256": "8fcb1689ebb12e857d329dd89c6d5bd3ca27c9517a2132f6b422f07b67185fb9",
+   "years": [
+    "2020",
+    "2021",
+    "2022"
+   ]
+  },
+  {
+   "file": "oc/OC-003-2020-VOP-feriados-2020.txt",
+   "sha256": "8143b22c82f3534d3843b242a955b1d1c8a9a4202c8f10f42ce11ec12902fde2",
+   "years": [
+    "2019",
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-021-2017-DO-feriados-2018.txt",
+   "sha256": "f4ec49ec8c23923670df55dbe0f1434d42eb1f64e0115c713e893f7497ad4343",
+   "years": [
+    "2017",
+    "2018",
+    "2019"
+   ]
+  },
+  {
+   "file": "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+   "sha256": "89bf1f6ad80e37bf540d06eb1ed4f5b7ad6ea92d6aa5329219598d7447e71c07",
+   "years": [
+    "2022",
+    "2024",
+    "2025"
+   ]
+  },
+  {
+   "file": "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+   "sha256": "31d9aad3023aaf352b939a94f2c83196b64e2d373bfb4f7afadb243b393040d7",
+   "years": [
+    "2022",
+    "2025",
+    "2026"
+   ]
+  },
+  {
+   "file": "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+   "sha256": "b027c5f7739368e649cca9fc6160d9d5a0b324ae9346d0686081cc49ae52edc5",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/OC-049-2018-VOP-feriados-2019.txt",
+   "sha256": "803d25dc43bbc9036b3cad7491f50253a3b01f0f0b1ecd38d27919937034905d",
+   "years": [
+    "2018",
+    "2019",
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-054-2025-VNC-calendario-2026.txt",
+   "sha256": "4843e4bc10d076db157291278c00d441dc95173a077afd81221cf109f4f68aaa",
+   "years": [
+    "2022",
+    "2025",
+    "2026"
+   ]
+  },
+  {
+   "file": "oc/OC-068-2020-PRE-funcionamento-19-05.txt",
+   "sha256": "945681da67a0e6e9608724a95500594985bf0745d726c3d2934a3830b9692b1a",
+   "years": [
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-072-2020-PRE-funcionamento-11-06-09-07-20-11.txt",
+   "sha256": "bca4bc626ceed772b44d26ba0cb6596c857d387b2724e7f03cb8d33118350dcc",
+   "years": [
+    "2020"
+   ]
+  },
+  {
+   "file": "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+   "sha256": "c4a0f3495ed7d04b42aebf50715d5be3d6bc029c497f076d207351b5e8b31205",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+   "sha256": "164652bdf270abe38d9bdea7e822d4093b7187d1ac7c96bf871bbe53135b3333",
+   "years": [
+    "2016",
+    "2017",
+    "2018"
+   ]
+  },
+  {
+   "file": "oc/OC-151-2022-PRE-calendario-2023.txt",
+   "sha256": "fb6999e4f3c88633d5319fb4b2fa67f141065f1406c87b21d3a7feb670ca49c9",
+   "years": [
+    "2022",
+    "2023"
+   ]
+  },
+  {
+   "file": "oc/OC-182-2023-PRE-retificacao-2023.txt",
+   "sha256": "aff8f9d0eac1c128ba5fcaa52965e03b388a082debc8620f9f09c28a5a351681",
+   "years": [
+    "2022",
+    "2023"
+   ]
+  },
+  {
+   "file": "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt",
+   "sha256": "d10d34f289704645980c51679cf70a3dfff10a5936491e355350bcabd27cea5e",
+   "years": [
+    "2022",
+    "2023",
+    "2024"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-2004.html",
+   "sha256": "9c4142feea0d5e23034cf6afd62e53b3576472de64c504aa0b674802b76776ae",
+   "years": [
+    "2004"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20050308164852.html",
+   "sha256": "ea4a3b45fc7081915c477d71f936b254b00035670a86785c82fb046b4f5c4218",
+   "years": [
+    "2005"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20051213210207.html",
+   "sha256": "6842d038c7a8e508b54c9d0dd67722f766bac3857fa0ecf58ff1ed3509d63417",
+   "years": [
+    "2005"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados-20060519190613.html",
+   "sha256": "bfe3bab224ba1612e627da33abb09e38a2d9e193c6d7b2584c57fd282d5d46a7",
+   "years": [
+    "2005",
+    "2006"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2009.decoded.html",
+   "sha256": "5fde0e2e4d0486351ce42a29254ae81f2b1b77584f322cfd774ef57befa35ddc",
+   "years": [
+    "2009"
+   ]
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2009.html",
+   "sha256": "730ded99566801f43c04d229d89c17245a326c096a739801273099a61f3bb61c",
+   "years": []
+  },
+  {
+   "file": "wayback/bmf-calendarioFeriados2010.html",
+   "sha256": "e1ae1ddfeffaeed829b4a5677cbd7b14a6a2218c0a09594bb4215238fda75d0b",
+   "years": [
+    "2010"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20111121042035.html",
+   "sha256": "47ca33b8358df1403c24d023ca1400d833aaf3493a0a520ca6aaf4562b45ac31",
+   "years": [
+    "2011"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20120428002450.html",
+   "sha256": "8d31d6a44736ed24ab6a4f752613dead03c70c5595a077ea34096fb623704969",
+   "years": [
+    "2012"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20130216100707.html",
+   "sha256": "27a1f72c6e4d0e328ec84ea3762b54626c4a2e9f1665fcaa9086ac7fbae9a06a",
+   "years": [
+    "2013",
+    "2014"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20140124021007.html",
+   "sha256": "8a38246bd2a6c23a93fb782f29c3b7707d70b223afd444e9fd5e14a82e2f1aec",
+   "years": [
+    "2014",
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20140624003521.html",
+   "sha256": "d212013a5e31ed1d1cf4b1294dc83de04e464cd36f87ef8d6cac7eafdd1ed73a",
+   "years": [
+    "2014",
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20151109213821.html",
+   "sha256": "8402f60d5f9e328bbde34bb2cd90ebc1f118917614048f9ad0f11ff1ac0e52a6",
+   "years": [
+    "2015"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-calendario-20160114195245.html",
+   "sha256": "9952a202026eafb9a0ecfacf715139b0cef8e11aa852d3a158f56e7ab00f90aa",
+   "years": [
+    "2016",
+    "2017"
+   ]
+  },
+  {
+   "file": "wayback/bmfbovespa-exchange-holidays-2010.html",
+   "sha256": "a80b9fa680b5b3488ed38c64fb215bbbdee34c76d175e9b4e1f2ef0a502544af",
+   "years": []
+  },
+  {
+   "file": "wayback/bmfbovespa-market-calendar-2010.html",
+   "sha256": "3386bf5771c20fb9115493ff324b18898560707e87b61570301d337bfb3947ed",
+   "years": [
+    "2010"
+   ]
+  },
+  {
+   "file": "feriados-page.html",
+   "sha256": "7d2f41a0553898a39f9693be855531e0e14478c32e5b5d32da5e7344db9d1298",
+   "years": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+   ]
+  }
+ ],
+ "crosscheck": "crosscheck/brazil.cpp (QuantLib Brazil::Exchange, BSD): the same rules R1–R5 except 2006-11-20 (QuantLib starts 20 November in 2007; the BM&F 2006 page lists it) and 2020 (QuantLib keeps 9 July and 20 November; OC 072/2020 says normal operation)",
+ "counts": {
+  "days": 80,
+  "documented": 56,
+  "ruleOnly": 24
+ },
+ "days": {
+  "2004-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2004-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2004-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2005-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2005-12-30": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2006-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2006-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2006-12-29": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2007-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2007-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2007-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2007-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2007-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2008-01-25": {
+   "rule": "R1",
+   "documented": false,
+   "sources": []
+  },
+  "2008-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2008-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2008-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2008-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2009-07-09": {
+   "rule": "R2",
+   "documented": false,
+   "sources": []
+  },
+  "2009-11-20": {
+   "rule": "R3",
+   "documented": false,
+   "sources": []
+  },
+  "2009-12-24": {
+   "rule": "R4",
+   "documented": false,
+   "sources": []
+  },
+  "2009-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2009.decoded.html"
+   ]
+  },
+  "2010-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2010-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmf-calendarioFeriados2010.html"
+   ]
+  },
+  "2011-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20111121042035.html"
+   ]
+  },
+  "2011-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20111121042035.html"
+   ]
+  },
+  "2012-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2012-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20120428002450.html"
+   ]
+  },
+  "2013-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2013-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html"
+   ]
+  },
+  "2014-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20130216100707.html",
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2015-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2015-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140124021007.html",
+    "wayback/bmfbovespa-calendario-20140624003521.html",
+    "wayback/bmfbovespa-calendario-20151109213821.html"
+   ]
+  },
+  "2016-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2016-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2017-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2017-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2017-12-29": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt",
+    "wayback/bmfbovespa-calendario-20160114195245.html"
+   ]
+  },
+  "2018-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2018-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2018-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt",
+    "oc/OC-111-2016-DP-calendario-2017-feriados.txt"
+   ]
+  },
+  "2018-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2018-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-11-20": {
+   "rule": "R3",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2019-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-021-2017-DO-feriados-2018.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2020-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2020-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-003-2020-VOP-feriados-2020.txt",
+    "oc/OC-049-2018-VOP-feriados-2019.txt"
+   ]
+  },
+  "2021-01-25": {
+   "rule": "R1",
+   "documented": true,
+   "sources": [
+    "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2021-07-09": {
+   "rule": "R2",
+   "documented": true,
+   "sources": [
+    "feriados-page.html"
+   ]
+  },
+  "2021-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "feriados-page.html"
+   ]
+  },
+  "2021-12-31": {
+   "rule": "R5",
+   "documented": false,
+   "sources": []
+  },
+  "2022-12-30": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/CE-109-2021-VNC-calendario-feriados-2022.txt",
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt"
+   ]
+  },
+  "2023-12-29": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-151-2022-PRE-calendario-2023.txt",
+    "oc/OC-182-2023-PRE-retificacao-2023.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2024-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2024-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-048-2024-PRE-retificacao-calendario-2024.txt",
+    "oc/OC-085-2024-PRE-errata-calendario-2024.txt",
+    "oc/OC-215-2023-PRE-calendario-2024-feriado-20-11.txt"
+   ]
+  },
+  "2025-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2025-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-026-2025-PRE-retificacao-calendario-2025.txt",
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt"
+   ]
+  },
+  "2026-12-24": {
+   "rule": "R4",
+   "documented": true,
+   "sources": [
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt",
+    "feriados-page.html"
+   ]
+  },
+  "2026-12-31": {
+   "rule": "R5",
+   "documented": true,
+   "sources": [
+    "oc/OC-041-2026-VNC-errata-calendario-2026.txt",
+    "oc/OC-054-2025-VNC-calendario-2026.txt"
+   ]
+  },
+  "2014-06-12": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-06-17": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-06-23": {
+   "rule": "R6",
+   "documented": true,
+   "sources": [
+    "wayback/bmfbovespa-calendario-20140624003521.html"
+   ]
+  },
+  "2014-07-04": {
+   "rule": "R6",
+   "documented": false,
+   "sources": []
+  },
+  "2014-07-08": {
+   "rule": "R6",
+   "documented": false,
+   "sources": []
+  }
+ }
+}
+</script>
+<script id="pu-selic" type="application/json">{"first":"2000-07-03","gaps":"11113111131111311113111131111311113111131111311231111311113111131111311231111311113112311113121311113111131111311113111141114111311113111131111311113111131111311115113111131111311113111131111311141111311113211311113111131111311113111131123111131111311113111131111311113111131111311113111131111311141111311113111131111311141111311113111411113112311113111131111311113111132113211311113111131111311113111151131111311113111131111311113111411113111131111311113121311113111131111311231111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111411113111131111311113111131213121311113111131111311113111131111311113111151131111311113111131111311113111511131123111131111311113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131123112311113111131111311113111131111311115113111131111311113111131111311141111312131111311113111131111311113111131123111131111311113111131111311113111131111311113111131111311113211311113111131111311113211311113111132113111141113111131111311113111131111311113111131111311113111131111511311113111131111311113111131114111131111311113112311113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131213111131111311113111131213111131111312131111321131111311113111131111311113111131111311113111131111311113111131111311115113111131111311113111131111311141114111141113111131111311113111131111311231111311113111131111311113111131111311113111131111311113112311113111131111311113112311113111131123111131213111131111311113111131111411141113111131111311113111131111311115113111131111311113111131111311141111311113111132113111131111311113111131123111131111311113111131111311113111131111311113111131111311113111411113111131111311113111411113111131114111131123111131111311113111131111321132113111131111311113111151131111311113111131111311113111411113111131111311114111311231111311113112311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311231123111131111311113111131111311113111151131111311113111131111311113111411113211311141111311113111131111311113112311113111131111311113111131111311113111131111311113111131111411131111311113111131111411131111311114111311113111131111311113111131111311141114111131111311113111131111311115113111131111311113111131111311141111311113121311113111131111311113111131123111131111311113111131111311113111131111311113111131111311113111132113111131111311113111132113111131111321131111411131111311113111131111311113111131111311113111131111311113111131111311113111151131111311113111131111311113115111131111311113111131111311113111131111311231111311113111131111311113111131111311113111131111312131111311113111131111312131111311113121311113211311113111131111311113111131111311113111131111311113111131111311115113111131111311113111131111311141111311113111132113111131111311113111131123111131111311113111131111311113111131111311113111131111311113111411113111131111311113111411113111131114111131123111131111311113111131111321132113111131111311113111131111511311113111131111311113111131114111131111311113111131213111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131114111131111311113111131111312131213111131111311113111131111311113111131111511311113111131111311113111131115111311231111311113111131111311113111131123111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311231123111131111311113111131111311115113111131111311113111131111311141111311113211311141111311113111131111311231111311113111131111311113111131111311113111131111311113111131111411131111311113111131111411131111311114111311113111131111311113111131111311141114111131111311113111131111511311113111131111311113111131114111131111311113112311113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131213111131111311113111131213111131111312131111321131111311113111131111311113111131111311113111131111311113111131111311115113111131111311113111131111311141114111141113111131111311113111131111311231111311113111131111311113111131111311113111131111311113112311113111131111311113112311113111131123111131213111131111311113111131111411141113111131111311113111131111511311113111131111311113111131114111131111311113111132113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111411113111131111311113111411113111131114111131123111131111311113111131111321132113111131111311113111131111311113111131111511311113111131111311113111131114111131213111131111311113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131114111131111311113111131111312131213111131111311113111131111311113111151131111311113111131111311113111411113211311141111311113111131111311113112311113111131111311113111131111311113111131111311113111131111411131111311113111131111411131111311114111311113111131111311113111131111311141114111131111311113111131111311115113111131111311113111131111311141111311113121311113111131111311113111131123111131111311113111131111311113111131111311113111131111311113111132113111131111311113111132113111131111321131111411131111311113111131111311113111131111311113111131111311113111131111311115113111131111311113111131111311141123111131111311113111131111311113111131123111131111311113111131111311113111131111311113111131111312131111311113111131111312131111311113121311113211311113111131111311113111131111311113111131111311113111131111311115113111131111311113111131111311141111311141111411131111311113111131111311231111311113111131111311113111131111311113111131111311113111131123111131111311113111131123111131111311231111312131111311113111131111311114111411131111311113111131111311115113111131111311113111131111311141111311113111131111312131111311113111131123111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311141213111131111311113111131213121311113111131111311113111131111311113111151131111311113111131111311113111511131123111131111311113111131111311113112311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311113111131111311231111311113111131111311231123111131111311113111131111311115113111131111311113111131111311141111311113211311141111311113111131111311231111311113111131111311113111131111311113111131111311113111131111411131111311113111131111411","runs":[[1,63204],[1,63068],[1,63102],[2,63272],[1,62356],[1,62187],[1,62255],[1,62119],[2,62153],[1,62119],[1,62017],[1,60895],[1,60690],[1,60724],[2,60588],[1,60520],[1,60417],[1,60247],[1,60281],[1,60417],[1,60383],[1,60417],[1,60554],[1,60588],[1,60758],[1,60826],[2,60963],[1,60520],[1,60417],[1,60724],[1,60963],[1,60860],[1,60929],[1,60826],[4,60963],[1,60520],[1,60315],[2,60281],[1,60247],[1,60724],[1,60792],[1,60895],[1,60929],[4,60963],[1,60929],[5,60963],[2,60929],[1,60963],[1,60929],[1,60860],[1,60963],[1,60929],[1,60963],[2,60929],[13,60963],[1,60929],[1,60724],[1,60452],[1,60281],[1,60417],[1,60622],[1,60758],[6,60963],[1,60929],[1,60452],[1,60486],[1,60383],[1,60452],[1,60520],[1,60349],[2,60281],[1,60213],[2,60179],[2,60145],[1,60110],[1,60076],[1,60110],[1,60076],[1,60042],[1,60008],[2,59974],[2,58298],[1,58332],[1,58229],[2,58366],[1,58400],[1,58195],[1,58332],[3,58229],[1,57749],[4,57714],[1,57508],[1,56545],[1,56511],[1,56476],[1,56304],[1,56063],[1,56028],[2,55994],[1,55960],[2,55891],[2,55822],[1,55994],[1,56201],[1,56373],[1,56442],[1,56304],[1,55994],[1,55718],[1,56373],[1,56270],[1,56063],[1,56545],[2,56373],[1,56476],[1,55960],[1,55891],[1,55856],[1,56063],[1,55891],[1,56132],[1,56201],[1,55856],[1,55787],[2,55925],[1,55856],[1,56304],[1,56580],[2,56683],[5,58400],[2,58366],[1,58332],[2,58263],[1,58298],[1,58332],[1,58263],[1,58366],[1,58298],[3,58400],[1,58469],[1,60110],[2,59940],[1,59974],[1,59940],[1,59974],[1,59906],[1,59871],[1,59769],[1,59803],[1,59906],[1,59871],[1,59940],[1,59871],[1,59940],[1,59871],[3,59940],[1,59906],[3,59940],[1,60042],[1,61541],[5,61643],[1,61677],[1,61643],[1,61575],[1,61473],[1,61405],[1,61269],[1,61133],[1,61065],[1,61201],[1,61133],[1,61609],[1,61643],[1,61881],[1,66677],[1,66609],[2,66710],[2,66744],[2,66777],[1,66744],[1,66777],[1,66744],[1,66777],[1,66710],[1,66777],[1,66811],[2,66777],[1,66811],[1,66710],[1,66945],[2,69053],[1,68886],[1,68719],[1,68819],[1,68686],[1,68652],[1,68719],[3,68652],[1,68686],[1,68786],[1,69120],[3,69053],[2,69020],[1,68953],[1,69153],[1,69186],[1,69220],[1,69253],[4,69153],[1,69086],[1,69020],[1,69086],[3,69220],[2,69253],[1,69286],[2,69220],[7,69253],[2,69286],[1,69320],[1,69353],[2,69386],[2,69420],[1,69386],[1,69353],[1,69286],[1,69253],[17,69220],[1,69186],[1,69220],[2,69186],[68,69220],[5,68385],[1,68352],[13,68385],[1,68352],[1,67548],[1,67515],[2,67548],[1,67515],[1,67448],[1,67280],[13,67046],[1,67012],[1,66979],[1,66878],[1,66844],[1,66945],[1,66912],[1,66643],[1,66072],[1,66945],[1,66844],[1,66811],[1,66643],[1,66609],[1,66844],[1,66945],[1,67046],[1,67079],[2,67113],[2,67079],[1,67046],[1,66945],[1,67079],[1,67113],[2,67079],[1,66811],[1,66240],[1,63373],[1,58572],[1,61881],[1,65702],[1,66475],[1,66744],[1,66844],[1,66677],[1,66777],[1,66979],[3,67046],[8,67079],[2,67046],[2,67012],[2,67079],[2,67046],[4,67012],[4,65332],[3,65264],[1,65231],[1,65163],[1,65264],[1,65129],[1,65163],[2,65264],[1,65231],[3,65129],[1,65096],[2,65264],[2,65096],[2,65264],[1,65096],[3,65062],[1,65264],[1,65129],[1,65096],[3,65264],[1,65298],[1,65332],[26,65365],[26,75343],[20,78615],[23,88270],[5,89857],[1,89826],[2,89794],[1,89857],[1,89826],[1,89794],[1,89762],[1,89730],[1,89699],[1,89667],[1,89604],[1,89635],[1,89604],[1,89509],[1,89540],[1,92572],[1,92666],[1,92761],[1,92729],[1,92666],[1,92603],[1,92635],[1,92666],[1,92635],[2,92666],[2,92698],[2,92729],[2,92761],[2,92823],[1,92855],[2,92792],[1,92823],[1,92792],[3,92761],[2,92729],[30,92761],[2,92729],[1,92698],[1,92666],[2,92635],[2,92603],[4,92572],[4,92603],[4,92572],[1,92540],[12,90996],[4,90964],[3,90933],[2,90901],[1,90838],[1,90806],[1,90585],[2,86326],[4,86358],[1,86454],[1,86486],[2,86518],[3,86549],[2,86518],[1,86486],[2,86454],[1,86486],[1,86070],[1,78386],[4,78419],[4,78386],[10,78419],[1,78386],[7,71879],[2,71846],[2,71813],[13,71846],[1,71813],[15,68552],[3,68519],[1,68452],[1,68418],[4,63475],[2,63441],[1,63407],[1,63373],[1,63475],[3,63441],[2,63407],[1,63373],[1,63339],[3,63305],[1,63238],[1,59940],[6,60076],[2,60042],[3,60076],[2,60042],[3,60008],[2,59974],[3,59940],[1,59871],[3,60042],[2,60008],[1,59940],[3,59906],[2,59871],[2,59837],[1,59803],[1,59837],[1,59906],[1,60008],[4,60042],[2,60008],[1,59974],[1,59940],[2,59906],[1,59871],[1,59837],[1,59940],[2,59906],[1,59871],[1,59837],[1,59803],[1,59769],[1,59735],[1,59701],[1,58983],[1,59085],[1,59222],[1,59325],[1,59291],[1,59256],[1,59291],[1,59222],[1,59154],[1,59291],[1,59256],[2,59291],[2,59256],[2,59222],[1,59188],[1,59119],[2,58435],[2,58503],[1,58435],[1,58400],[1,58366],[1,58332],[1,58298],[2,58229],[2,58195],[1,58160],[1,58126],[1,58092],[1,58058],[1,58023],[1,57989],[1,58023],[1,58126],[1,58092],[1,58058],[1,57989],[1,58126],[1,58263],[1,58229],[1,58195],[1,58229],[1,58195],[3,58160],[1,58058],[1,58092],[1,58195],[1,58298],[1,58366],[1,58298],[1,58195],[1,58229],[1,58298],[1,58229],[2,58195],[1,58263],[1,58298],[2,58195],[1,58229],[2,58263],[2,58229],[1,58263],[2,58229],[1,58195],[2,58126],[2,58160],[1,58092],[1,58126],[3,58092],[5,58058],[1,58092],[1,58160],[3,58298],[1,58332],[1,58366],[2,58435],[1,58469],[5,58503],[1,58469],[1,58435],[1,58400],[1,58366],[1,58332],[1,58366],[1,58435],[1,58503],[2,58606],[4,58640],[2,58674],[1,58709],[1,58743],[2,58811],[1,59667],[1,59701],[7,59735],[1,59701],[1,59735],[1,59701],[1,59667],[1,59598],[1,59667],[1,59701],[8,59735],[8,61439],[3,61405],[7,61439],[2,63136],[2,63102],[1,63136],[1,63102],[2,63068],[1,63035],[3,63102],[7,63136],[1,63170],[10,64826],[2,64860],[12,64826],[1,64860],[9,66509],[5,66542],[4,66576],[7,68218],[5,68184],[8,68218],[6,69853],[4,69886],[14,69853],[3,70685],[4,70718],[4,70751],[7,70784],[1,70751],[1,71581],[6,71548],[2,71581],[10,71548],[11,71515],[1,71481],[9,71448],[1,71481],[8,71448],[1,71481],[2,71515],[2,71548],[8,71581],[1,71614],[1,71548],[7,71515],[3,71481],[1,71515],[2,71481],[6,71515],[1,70685],[1,70718],[2,70751],[1,70718],[1,70751],[3,70718],[2,70784],[1,70818],[1,70651],[1,70585],[10,70552],[10,68886],[1,68919],[1,68953],[1,69020],[1,69086],[1,69120],[2,69153],[1,69120],[1,69086],[1,69053],[2,68986],[1,68919],[1,67247],[1,67280],[1,67347],[1,67381],[1,67481],[1,67448],[1,67381],[1,67347],[7,67314],[1,65702],[1,65803],[8,65836],[2,65870],[2,65635],[1,65601],[1,65567],[9,65534],[4,63001],[1,63035],[1,63068],[4,63102],[1,63136],[1,63204],[1,63238],[1,63272],[19,63305],[17,60758],[11,60452],[1,60417],[1,57852],[3,57817],[1,57852],[2,57886],[2,57920],[3,58126],[1,57920],[1,57886],[1,58058],[1,58023],[1,58126],[2,57817],[2,57749],[1,57783],[1,57749],[1,57783],[1,57749],[1,57783],[2,57749],[1,56063],[1,56028],[5,56063],[1,56097],[1,56132],[6,56097],[1,56063],[5,56097],[1,56063],[9,56097],[1,56028],[1,56132],[1,56063],[1,54301],[1,54266],[4,54301],[1,54266],[3,54301],[1,54335],[5,54301],[1,54335],[1,54405],[1,54439],[2,54405],[1,54578],[1,54439],[1,54405],[1,54370],[1,54405],[1,54370],[2,54405],[1,54335],[1,52635],[2,52600],[1,52635],[7,52600],[1,52566],[2,52600],[1,52635],[6,52600],[4,52566],[1,52600],[7,52566],[1,50858],[1,50788],[1,50823],[1,50858],[2,50893],[1,50858],[3,50893],[1,50858],[3,50928],[1,50893],[1,50823],[1,50893],[1,50858],[2,50823],[2,50893],[1,50823],[1,50858],[2,50823],[2,50893],[3,49143],[1,49178],[3,49143],[1,49178],[1,49143],[2,49178],[1,49143],[6,49178],[1,49143],[3,49178],[1,49143],[6,49178],[1,49143],[7,49178],[1,49143],[1,48300],[1,48230],[14,48265],[4,48300],[8,48265],[3,47420],[17,47385],[1,47420],[6,47385],[2,47350],[34,46503],[29,44734],[17,42956],[1,42921],[17,42956],[36,42065],[1,42029],[44,42065],[2,42029],[8,42065],[1,42029],[2,42065],[1,42029],[13,42065],[1,42029],[11,42065],[1,42029],[9,42065],[1,42029],[9,42065],[1,41886],[10,42065],[1,43846],[1,43739],[2,43704],[1,43633],[1,43561],[7,43597],[1,43561],[2,43597],[1,43633],[2,43668],[13,43704],[3,45478],[1,45549],[30,45584],[1,45549],[1,48194],[12,48230],[2,48194],[12,48230],[1,48194],[4,48230],[1,48194],[2,48230],[12,50823],[1,50858],[2,50823],[10,50858],[9,50823],[2,50858],[5,50788],[5,50753],[3,50718],[1,50753],[2,50718],[4,50753],[2,50788],[20,50823],[2,50858],[11,50823],[2,50788],[1,47279],[1,47314],[1,47279],[30,47314],[32,41993],[1,41957],[7,38406],[1,38370],[20,38406],[1,38370],[28,34786],[1,34749],[3,32963],[1,32927],[1,32963],[104,32927],[1,32890],[18,32927],[1,32890],[58,32927],[4,32890],[1,35621],[16,35657],[1,35621],[3,35657],[2,35621],[6,35657],[12,38370],[18,38406],[101,40203],[1,40239],[9,40203],[3,40239],[1,40203],[1,40239],[1,40203],[1,40239],[8,40203],[5,41993],[3,42029],[1,41993],[21,42029],[33,43810],[33,44698],[29,45584],[25,46468],[5,46432],[11,44663],[21,44627],[1,44592],[28,42849],[21,41063],[1,41099],[13,41063],[33,39270],[29,36564],[16,33839],[12,33803],[1,33766],[20,31976],[1,32012],[8,31976],[35,30140],[29,28296],[40,27371],[3,27334],[2,27297],[4,27260],[1,27556],[1,27742],[1,27779],[1,27853],[1,27927],[37,27260],[1,27519],[2,27594],[1,27371],[2,27297],[1,27371],[1,27297],[2,27334],[1,27371],[1,27408],[24,27445],[2,28370],[27,28333],[29,30177],[35,32012],[30,33839],[34,35657],[6,37468],[1,37431],[26,37468],[30,39270],[23,40168],[92,41063],[1,41099],[2,41063],[2,41099],[49,41063],[25,41957],[33,43739],[28,45513],[35,47279],[1,47314],[2,47350],[24,49037],[39,50788],[308,52531],[28,51660],[30,50788],[30,48159],[33,45513],[32,41957],[39,38370],[30,34749],[33,31096],[28,28333],[43,26481],[28,25552],[341,24620],[35,22751],[30,20872],[29,18985],[38,17089],[28,16137],[32,14227],[29,11345],[35,8442],[153,7469],[33,10379],[29,13269],[35,16137],[34,19930],[24,23687],[28,29256],[40,34749],[28,40168],[33,43739],[30,47279],[34,49037],[250,50788],[34,49037],[29,47279],[28,45513],[33,43739],[33,41957],[33,40168],[94,39270],[35,40168],[23,41957],[33,45513],[33,49037],[32,52531],[30,54266],[189,55131],[28,54266],[33,53400],[35,52531],[29,51660],[20,50788]]}</script>
+<script id="pu-meta" type="application/json">[["2000-07-01","17,50"],["2000-07-10","17,00"],["2000-07-20","16,50"],["2000-12-21","15,75"],["2001-01-18","15,25"],["2001-03-22","15,75"],["2001-04-19","16,25"],["2001-05-24","16,75"],["2001-06-21","18,25"],["2001-07-19","19,00"],["2002-02-21","18,75"],["2002-03-21","18,50"],["2002-07-18","18,00"],["2002-10-15","21,00"],["2002-11-21","22,00"],["2002-12-19","25,00"],["2003-01-23","25,50"],["2003-02-20","26,50"],["2003-06-20","26,00"],["2003-07-24","24,50"],["2003-08-21","22,00"],["2003-09-18","20,00"],["2003-10-23","19,00"],["2003-11-20","17,50"],["2003-12-18","16,50"],["2004-03-18","16,25"],["2004-04-15","16,00"],["2004-09-16","16,25"],["2004-10-21","16,75"],["2004-11-18","17,25"],["2004-12-16","17,75"],["2005-01-20","18,25"],["2005-02-17","18,75"],["2005-03-17","19,25"],["2005-04-21","19,50"],["2005-05-19","19,75"],["2005-09-15","19,50"],["2005-10-20","19,00"],["2005-11-24","18,50"],["2005-12-15","18,00"],["2006-01-19","17,25"],["2006-03-09","16,50"],["2006-04-20","15,75"],["2006-06-01","15,25"],["2006-07-20","14,75"],["2006-08-31","14,25"],["2006-10-19","13,75"],["2006-11-30","13,25"],["2007-01-25","13,00"],["2007-03-08","12,75"],["2007-04-19","12,50"],["2007-06-08","12,00"],["2007-07-19","11,50"],["2007-09-06","11,25"],["2008-04-17","11,75"],["2008-06-05","12,25"],["2008-07-24","13,00"],["2008-09-11","13,75"],["2009-01-22","12,75"],["2009-03-12","11,25"],["2009-04-30","10,25"],["2009-06-12","9,25"],["2009-07-23","8,75"],["2010-04-29","9,50"],["2010-06-10","10,25"],["2010-07-22","10,75"],["2011-01-20","11,25"],["2011-03-03","11,75"],["2011-04-25","12,00"],["2011-06-09","12,25"],["2011-07-21","12,50"],["2011-09-01","12,00"],["2011-10-20","11,50"],["2011-12-01","11,00"],["2012-01-19","10,50"],["2012-03-08","9,75"],["2012-04-19","9,00"],["2012-05-31","8,50"],["2012-07-12","8,00"],["2012-08-30","7,50"],["2012-10-11","7,25"],["2013-04-18","7,50"],["2013-05-30","8,00"],["2013-07-11","8,50"],["2013-08-29","9,00"],["2013-10-10","9,50"],["2013-11-28","10,00"],["2014-01-16","10,50"],["2014-02-27","10,75"],["2014-04-03","11,00"],["2014-10-30","11,25"],["2014-12-04","11,75"],["2015-01-22","12,25"],["2015-03-05","12,75"],["2015-04-30","13,25"],["2015-06-04","13,75"],["2015-07-30","14,25"],["2016-10-20","14,00"],["2016-12-01","13,75"],["2017-01-12","13,00"],["2017-02-23","12,25"],["2017-04-13","11,25"],["2017-06-01","10,25"],["2017-07-27","9,25"],["2017-09-08","8,25"],["2017-10-26","7,50"],["2017-12-07","7,00"],["2018-02-08","6,75"],["2018-03-22","6,50"],["2019-08-01","6,00"],["2019-09-19","5,50"],["2019-10-31","5,00"],["2019-12-12","4,50"],["2020-02-06","4,25"],["2020-03-19","3,75"],["2020-05-07","3,00"],["2020-06-18","2,25"],["2020-08-06","2,00"],["2021-03-18","2,75"],["2021-05-06","3,50"],["2021-06-17","4,25"],["2021-08-05","5,25"],["2021-09-23","6,25"],["2021-10-28","7,75"],["2021-12-09","9,25"],["2022-02-03","10,75"],["2022-03-17","11,75"],["2022-05-05","12,75"],["2022-06-16","13,25"],["2022-08-04","13,75"],["2023-08-03","13,25"],["2023-09-21","12,75"],["2023-11-02","12,25"],["2023-12-14","11,75"],["2024-02-01","11,25"],["2024-03-21","10,75"],["2024-05-09","10,50"],["2024-09-19","10,75"],["2024-11-07","11,25"],["2024-12-12","12,25"],["2025-01-30","13,25"],["2025-03-20","14,25"],["2025-05-08","14,75"],["2025-06-19","15,00"],["2026-03-19","14,75"],["2026-04-30","14,50"],["2026-06-18","14,25"],["2026-08-06","14,00"],["2026-09-17","13,75"]]</script>
 <script>/* decide.js — PU Verificado: the unit price of a Brazilian fixed-rate federal bond, decided exactly.
    instruments/pu/ · cert-machine · 2026-10-16
 
@@ -3465,39 +4359,181 @@ if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.m
   process.exit(okL && okF ? 0 : 1);
 }
 </script>
-<script>/* app.js — PU Verificado in the tab. Uses globalThis.PU (instruments/pu/decide.js, inlined) and the pinned holidays. */
+<script>/* rows.js — PU Verificado: one row of the published file, decided to its verdict. ONE module, two consumers.
+   instruments/pu/ · cert-machine · 2026-10-17
+
+   WHY A MODULE. Until 2026-10-17 the ledger (tools/run-pu-ledger.js) decided a row under every pre-registered
+   hypothesis — D+0, D+1, D+1 skipping 24/31 December, B3's settlement calendar, the calendar as of the quotation —
+   with REPRODUCED, then CONSISTENT (the printed rate's half-unit box, amendments 5 and 6), then OFF; and the instrument
+   (/instruments/pu) decided the same pasted row under the primary settlement alone, so a row the report called
+   REPRODUCED under D1b3, or CONSISTENT, could read OFF in the tab. A rule defined twice diverges (the corpus.js
+   lesson). The loop body was moved here verbatim; both consumers call decideRow and the ledger re-derived identical.
+
+   rowDecider({ PU, holidays, b3, selic, meta }) — PU: instruments/pu/decide.js · holidays: corpus/pu/holidays.json ·
+   b3: corpus/pu/b3-settlement.json · selic: SGS 11 as [{iso, pct6}] ascending · meta: SGS 432 as a Map iso → '11,75'.
+   decideRow(row) — row: { kind: 'LTN'|'NTN-F'|'LFT', maturity, date, taxaC, taxaV, puC, puV } (ISO dates; the printed
+   prices as BigInt centavos, null when absent); returns one result per offered side, as the ledger records it. */
+'use strict';
+/* no Node requires at module level: the same bytes run in the browser (playground/pu) */
+
+function rowDecider({ PU: D, holidays: HOL, b3: B3, selic: SELIC, meta: META }) {
+  const cal = D.calendar(HOL);
+  /* CALENDAR-AS-OF-QUOTE (amendment 2026-10-16, amendments[1]): the pinned list without the 20 Novembers of 2024 and later —
+     the holiday Lei 14.759 created on 2023-12-21, which today's file carries and no earlier quotation could have known */
+  const calPre = D.calendar({ holidays: HOL.holidays.filter((h) => !(/-11-20$/.test(h) && Number(h.slice(0, 4)) >= 2024)) });
+  const CALS = { today: cal, pre: calPre };
+  /* B3's settlement days (phase B, B1): days B3 did not trade or settle that the bank calendar counts as business days;
+     a settlement path that crosses a rule-only (undocumented) day is marked so */
+  const b3day = (iso) => B3.days[iso] || null;
+  const nextSettleB3 = (iso) => { let d = cal.next(iso); let ruleOnly = false; for (;;) { const b = b3day(d); if (!b) break; if (!b.documented) ruleOnly = true; d = cal.next(d); } return { d, ruleOnly }; };
+  const sameOrNextB3 = (iso) => { const b = b3day(iso); if (!b) return { d: iso, ruleOnly: false }; const n = nextSettleB3(iso); return { d: n.d, ruleOnly: n.ruleOnly || !b.documented }; };
+
+  /* phase B, B2 — the LFT inputs: the Selic daily rate (SGS 11) as the index, the Selic target (SGS 432) as the projection's meta */
+  const IDX = SELIC ? D.selicIndex(SELIC) : null;
+  const metaAt = (iso) => { if (!META) return null; if (META.has(iso)) return META.get(iso); let best = null; for (const k of META.keys()) if (k < iso && (!best || k > best)) best = k; return best ? META.get(best) : null; };
+  /* the VNA at a settlement for a quotation: the exact index at D+0, the projection over k business days otherwise */
+  const vnaFor = (quote, settle) => { if (!IDX) return null; const v = IDX.vna6(quote); if (v === null) return null; if (settle === quote) return { vna6: v, k: 0, meta: null };
+    const k = cal.du(quote, settle); const meta = metaAt(quote); if (!meta) return null; const p = D.vnaProjetado(v, meta, k); return p.ok ? { vna6: p.vna6, k, meta } : { refused: p.straddle, k, meta }; };
+
+  const decide = (kind, taxa, settle, maturity, c, quote) => {
+    if (kind === 'LTN') return D.decideLTN(taxa, settle, maturity, c || cal);
+    if (kind === 'NTN-F') return D.decideNTNF(taxa, settle, maturity, c || cal);
+    const v = vnaFor(quote, settle); if (!v) return { kind: 'LFT', decided: false, needsData: 'no Selic index or meta for ' + quote };
+    if (v.refused) return { kind: 'LFT', decided: false, straddle: v.refused, at: 'VNA projetado' };
+    const r = D.decideLFT(taxa, settle, maturity, c || cal, v.vna6); r.vna6 = D.dec(v.vna6, 6); r.projectedDays = v.k; r.meta = v.meta; return r;
+  };
+  const PRIMARY = { C: 'D1', V: 'D0' };          /* pre-registered primary hypothesis per side */
+  /* D1x (amendment of 2026-10-16, preregistration.json amendments[0]): the next business day that is neither 24 nor 31
+     December — Tesouro Direto does not settle on those two days; the pinned calendar documents them only by omission */
+  const nextSettle = (iso) => { let d = cal.next(iso); while (/-12-(24|31)$/.test(d)) d = cal.next(d); return d; };
+  const HYPS = { C: ['D0', 'D1', 'D1x', 'D1b3'], V: ['D0', 'D1', 'D0b3', 'D1b3'] };
+
+  function decideRow(r) {
+    const results = [];
+    if (!cal.isBiz(r.date)) { results.push({ row: r, side: '-', verdict: 'NEEDS DATA', why: 'Data Base is not a business day on the pinned calendar' }); return results; }
+    const b1 = nextSettleB3(r.date), b0 = sameOrNextB3(r.date);
+    const settles = { D0: r.date, D1: cal.next(r.date), D1x: nextSettle(r.date), D1b3: b1.d, D0b3: b0.d };
+    const ruleOnly = { D1b3: b1.ruleOnly, D0b3: b0.ruleOnly };
+    for (const side of ['C', 'V']) {
+      const taxa = side === 'C' ? r.taxaC : r.taxaV, printed = side === 'C' ? r.puC : r.puV;
+      if (printed === null || printed === 0n || /^0+[,.]?0*$/.test(taxa)) continue;     /* the side was not offered that day */
+      if (settles.D1 >= r.maturity || settles.D0 >= r.maturity) { results.push({ row: r, side, verdict: 'NEEDS DATA', why: 'settlement on or after maturity' }); continue; }
+      const out = { row: r, side, printed, taxa, hyp: {} };
+      const matches = [];
+      for (const h of HYPS[side]) {
+        if (h === 'D1x' && settles.D1x === settles.D1) continue;          /* same day: nothing new to decide */
+        if (h === 'D1b3' && settles.D1b3 === settles.D1) continue;        /* B3 settles the same day: nothing new */
+        if (h === 'D0b3' && settles.D0b3 === settles.D0) continue;
+        for (const cn of ['today', 'pre']) {
+          /* the two calendars differ only when a 20 November of 2024+ lies in [settlement, maturity) */
+          if (cn === 'pre' && CALS.today.du(settles[h], r.maturity) === CALS.pre.du(settles[h], r.maturity)) continue;
+          const dres = decide(r.kind, taxa, settles[h], r.maturity, CALS[cn], r.date);
+          const key = (cn === 'today' ? h : h + '/pre') + (ruleOnly[h] ? '/r' : '');
+          const rec = { settle: settles[h], calendar: cn, decided: dres.decided, du: dres.du || (dres.flows && dres.flows[dres.flows.length - 1] && dres.flows[dres.flows.length - 1].du) };
+          if (dres.needsData) { rec.needsData = dres.needsData; }
+          else if (dres.decided) {
+            rec.pu6 = D.dec(dres.pu6, 6); rec.t2 = D.trunc2(dres.pu6); rec.r2 = D.round2(dres.pu6);
+            if (rec.t2 === printed) matches.push(key + '/T');
+            if (rec.r2 === printed) matches.push(key + '/R');
+            if (dres.margin) rec.margin = dres.margin;
+          } else { rec.refused = dres.straddle || dres.refused; }
+          out.hyp[key] = rec;
+        }
+      }
+      const prim = out.hyp[PRIMARY[side]];
+      /* CONSISTENT (amendment 5, 2026-10-16; widened by amendment 6 the same night): not reproduced under any hypothesis, but
+         the printed centavos lie inside the interval of prices the printed rate's own precision allows — rate ± half a unit of
+         its last printed decimal — under one of the settlement hypotheses decided for the row. The primary is tried first and
+         every hypothesis that holds is recorded by its code (as REPRODUCED records its matches), so the census can say under
+         which settlement each CONSISTENT row sits. The LFT's published rates (2 decimals, ágio/deságio) are roundings of the
+         rate actually used; until September 2021 the sell side settled D+1, which the primary (D+0) alone never sees. */
+      if (!matches.length) {
+        const dp = (taxa.split(/[,.]/)[1] || '').length; const unit = 5n * 10n ** BigInt(Math.max(0, 6 - dp - 1));   /* half a unit of the last decimal, at 10^-6 % */
+        const [pn] = D.ratePercentToRational(taxa); const asPct = (x) => { const neg = x < 0n; const a = (neg ? -x : x).toString().padStart(7, '0'); return (neg ? '-' : '') + a.slice(0, -6) + ',' + a.slice(-6); };
+        const keys = Object.keys(out.hyp).sort((a, b) => (a === PRIMARY[side] ? -1 : b === PRIMARY[side] ? 1 : 0));
+        for (const key of keys) {
+          const rec = out.hyp[key]; if (!rec.decided) continue;
+          const lo = decide(r.kind, asPct(pn - unit), rec.settle, r.maturity, CALS[rec.calendar], r.date), hi = decide(r.kind, asPct(pn + unit), rec.settle, r.maturity, CALS[rec.calendar], r.date);
+          if (!(lo.decided && hi.decided)) continue;
+          const a = lo.pu6 < hi.pu6 ? lo.pu6 : hi.pu6, b = lo.pu6 < hi.pu6 ? hi.pu6 : lo.pu6;
+          if (printed >= D.trunc2(a) && printed <= D.round2(b)) {
+            if (!out.consistent) out.consistent = { codes: [], under: key, rateBox: [asPct(pn - unit), asPct(pn + unit)], puRange: [D.dec(a, 6), D.dec(b, 6)] };
+            out.consistent.codes.push(key);
+          }
+        }
+      }
+      if (matches.length) { out.verdict = 'REPRODUCED'; out.codes = matches; }
+      else if (out.consistent) { out.verdict = 'CONSISTENT'; }
+      else if (prim.needsData) { out.verdict = 'NEEDS DATA'; out.why = prim.needsData; }
+      else if (!prim.decided) { out.verdict = 'REFUSED'; }
+      else { out.verdict = 'OFF'; out.diffCents = (printed - prim.t2).toString(); out.diffCentsR = (printed - prim.r2).toString(); }
+      results.push(out);
+    }
+    return results;
+  }
+  return { decideRow, decide, vnaFor, metaAt, IDX, cal, calPre, CALS, PRIMARY, HYPS, nextSettle, nextSettleB3, sameOrNextB3 };
+}
+
+const PU_ROWS = { rowDecider };
+if (typeof module !== 'undefined' && module.exports) module.exports = PU_ROWS;
+else if (typeof globalThis !== 'undefined') globalThis.PU_ROWS = PU_ROWS;
+</script>
+<script>/* app.js — PU Verificado in the tab. Uses globalThis.PU (instruments/pu/decide.js, inlined), globalThis.PU_ROWS
+   (instruments/pu/rows.js, inlined — the module the ledger calls on every row) and the pinned data in the page. */
 (function () {
   'use strict';
-  const SPEC = JSON.parse(document.getElementById('pu-spec').textContent);
-  const HOL = JSON.parse(document.getElementById('pu-holidays').textContent);
+  const J = (id) => JSON.parse(document.getElementById(id).textContent);
+  const SPEC = J('pu-spec'), HOL = J('pu-holidays'), B3 = J('pu-b3'), SELICP = J('pu-selic'), METAP = J('pu-meta');
   const PU = globalThis.PU;
-  const calToday = PU.calendar(HOL);
-  const calPre = PU.calendar({ holidays: HOL.holidays.filter((h) => !(/-11-20$/.test(h) && Number(h.slice(0, 4)) >= 2024)) });
+  /* the packed SGS 11, decoded exactly as playground/pu/build.js decodes it before writing the page */
+  const isoAdd = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') + n * 86400000).toISOString().slice(0, 10);
+  const unpackSelic = (p) => { const out = []; let iso = p.first, k = 0; for (const [n, v] of p.runs) for (let j = 0; j < n; j++) { if (out.length) iso = isoAdd(iso, parseInt(p.gaps[k++], 36)); out.push({ iso, pct6: v }); } return out; };
+  const DR = globalThis.PU_ROWS.rowDecider({ PU, holidays: HOL, b3: B3, selic: unpackSelic(SELICP), meta: new Map(METAP) });
+  const calToday = DR.cal, calPre = DR.calPre;
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const cal = () => ($('precal').checked ? calPre : calToday);
   const centsOf = (s) => { const t = String(s).trim().replace(/\./g, '').replace(',', '.'); const m = /^(\d+)(?:\.(\d{1,2}))?$/.exec(t); if (!m) return null; return BigInt(m[1]) * 100n + BigInt((m[2] || '0').padEnd(2, '0')); };
   const dec2 = (c) => PU.dec(c, 2);
+  /* the methodology's worked examples (STN 2024, Tabela 3 and its annex): each title opens on its own */
+  const EXAMPLE = { LTN: { mat: '2010-07-01', settle: '2008-05-21', rate: '14,3600' }, 'NTN-F': { mat: '2014-01-01', settle: '2008-05-21', rate: '13,6600' },
+    LFT: { mat: '2014-03-07', settle: '2008-05-21', quote: '2008-05-20', rate: '-0,0200' } };
 
   function one() {
-    const kind = $('kind').value, mat = $('mat').value, settle = $('settle').value, rate = $('rate').value.trim();
+    const kind = $('kind').value, mat = $('mat').value, settle = $('settle').value, rate = $('rate').value.trim(), quote = $('quote').value;
     const out = $('out');
+    $('quoteL').hidden = kind !== 'LFT';
     try {
       if (!mat || !settle) throw new Error('a settlement date and a maturity are needed');
       if (settle >= mat) throw new Error('settlement on or after maturity — the publisher’s rows there are NEEDS DATA');
       if (!cal().isBiz(settle)) throw new Error('the settlement date is not a business day on the pinned calendar');
-      const r = kind === 'LTN' ? PU.decideLTN(rate, settle, mat, cal()) : PU.decideNTNF(rate, settle, mat, cal());
+      let r, v = null;
+      if (kind === 'LFT') {
+        if (!quote) throw new Error('the LFT needs the quotation day: the VNA is the Selic index there, projected to the settlement');
+        if (quote > settle) throw new Error('the quotation comes after the settlement');
+        v = DR.vnaFor(quote, settle);
+        if (!v) throw new Error('NEEDS DATA — no Selic index or target for ' + quote + ' in the pinned series (' + SPEC.selic.first + ' to ' + SPEC.selic.last + ')');
+        if (v.refused) throw new Error('REFUSED — the projected VNA straddles its truncation boundary');
+        r = PU.decideLFT(rate, settle, mat, cal(), v.vna6);
+      } else r = kind === 'LTN' ? PU.decideLTN(rate, settle, mat, cal()) : PU.decideNTNF(rate, settle, mat, cal());
       let html = '';
       if (!r.decided) {
-        html += '<p class="verdict refused">REFUSED — the enclosure straddles a truncation boundary' + (r.refused ? ' at flow ' + esc(r.refused.date) : '') + '.</p>';
+        html += '<p class="verdict refused">REFUSED — the enclosure straddles a truncation boundary' + (r.refused ? ' at flow ' + esc(r.refused.date) : r.at ? ' at the ' + esc(r.at) : '') + '.</p>';
       } else {
         const pu6 = PU.dec(r.pu6, 6), t2 = dec2(PU.trunc2(r.pu6)), r2 = dec2(PU.round2(r.pu6));
         html += '<div class="big"><span class="k">PU T-6</span><span class="v m">' + esc(pu6) + '</span></div>';
         html += '<div class="grid">';
-        if (kind === 'LTN') {
+        if (kind === 'LTN' || kind === 'LFT') {
           html += '<div><span class="k">du</span><span class="m">' + r.du + '</span></div>';
           html += '<div><span class="k">exponent T-14</span><span class="m">' + esc(((BigInt(r.du) * 10n ** 14n) / 252n).toString().padStart(15, '0').replace(/^(\d+)(\d{14})$/, '$1.$2')) + '</span></div>';
+        }
+        if (kind === 'LTN') {
           html += '<div><span class="k">enclosure before T-6</span><span class="m">[' + esc(r.enclosure[0]) + ', ' + esc(r.enclosure[1]) + ']</span></div>';
+          html += '<div><span class="k">margin to the truncation boundaries</span><span class="m">' + esc(r.margin[0]) + ' · ' + esc(r.margin[1]) + '</span></div>';
+        } else if (kind === 'LFT') {
+          html += '<div><span class="k">VNA at ' + esc(quote) + ' (Selic index, T-6)</span><span class="m">' + esc(PU.dec(DR.IDX.vna6(quote), 6)) + '</span></div>';
+          html += '<div><span class="k">VNA at the settlement</span><span class="m">' + esc(PU.dec(v.vna6, 6)) + (v.k ? ' · projected ' + v.k + ' business day' + (v.k > 1 ? 's' : '') + ' at the ' + esc(v.meta) + '% target' : ' · the index itself (D+0)') + '</span></div>';
+          html += '<div><span class="k">cotação T-4</span><span class="m">' + esc(PU.dec(r.cotacao4, 4)) + '</span></div>';
           html += '<div><span class="k">margin to the truncation boundaries</span><span class="m">' + esc(r.margin[0]) + ' · ' + esc(r.margin[1]) + '</span></div>';
         } else {
           html += '<div><span class="k">coupon A-5</span><span class="m">' + esc(PU.dec(PU.coupon(), 5)) + '</span></div>';
@@ -3515,7 +4551,7 @@ if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.m
           else {
             const hit = c === PU.trunc2(r.pu6) ? 'TRUNC-2' : c === PU.round2(r.pu6) ? 'ROUND-2' : null;
             html += hit ? '<p class="verdict rep">REPRODUCED under ' + hit + ' — the printed ' + esc(dec2(c)) + ' is the rule’s value to the centavo.</p>'
-              : '<p class="verdict off">OFF — printed ' + esc(dec2(c)) + ', the rule’s value ' + esc(pu6) + ' (truncated ' + esc(t2) + '); difference ' + esc((c - PU.trunc2(r.pu6)).toString()) + ' centavos.</p>';
+              : '<p class="verdict off">OFF — printed ' + esc(dec2(c)) + ', the rule’s value ' + esc(pu6) + ' (truncated ' + esc(t2) + '); difference ' + esc((c - PU.trunc2(r.pu6)).toString()) + ' centavos. A pasted row is also tried under the other settlements and the rate’s half-unit box.</p>';
           }
         }
       }
@@ -3523,41 +4559,52 @@ if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.m
     } catch (e) { out.innerHTML = '<p class="verdict refused">' + esc(e.message) + '</p>'; }
   }
 
+  /* the ledger's own readings of a CSV row (tools/run-pu-ledger.js), so a pasted row is the row the ledger decided */
+  const KIND = { 'Tesouro Prefixado': 'LTN', 'Tesouro Prefixado com Juros Semestrais': 'NTN-F', 'Tesouro Selic': 'LFT' };
+  const toIso = (dmy) => { const [d, m, y] = dmy.split('/'); return `${y}-${m}-${d}`; };
+  const cents = (s) => { const t = s.trim().replace('.', '').replace(',', '.'); const m = /^(\d+)\.(\d{2})$/.exec(t) || /^(\d+)$/.exec(t); if (!m) return null; return BigInt(m[1]) * 100n + BigInt(m[2] || '0'); };
+  const CLS = { REPRODUCED: 'rep', CONSISTENT: 'rep', OFF: 'off', REFUSED: 'refused', 'NEEDS DATA': 'refused' };
+
   function rows() {
     const lines = $('paste').value.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
-    const KIND = { 'Tesouro Prefixado': 'LTN', 'Tesouro Prefixado com Juros Semestrais': 'NTN-F' };
-    const toIso = (dmy) => { const [d, m, y] = dmy.split('/'); return `${y}-${m}-${d}`; };
-    const c = cal(); let n = 0, rep = 0, off = 0, other = 0;
+    const tally = {}; let other = 0;
     const trs = [];
     for (const l of lines) {
       const f = l.split(';'); if (f.length < 7 || /^Tipo Titulo/.test(f[0])) continue;
       const kind = KIND[f[0]]; const mat = toIso(f[1]), date = toIso(f[2]);
-      if (!kind) { other++; trs.push('<tr><td>' + esc(f[0]) + '</td><td>' + esc(mat) + '</td><td>' + esc(date) + '</td><td colspan="4"><span class="verdict refused">REFUSED — not a fixed-rate title (phase B)</span></td></tr>'); continue; }
-      for (const side of ['C', 'V']) {
-        const rate = side === 'C' ? f[3] : f[4], printed = centsOf(side === 'C' ? f[5] : f[6]);
-        if (printed === null || printed === 0n || /^0+[,.]?0*$/.test(rate.trim())) continue;
-        let settle = side === 'C' ? c.next(date) : (date >= '2021-09-13' ? date : c.next(date));
-        n++;
-        let cell;
-        if (settle >= mat) cell = '<span class="verdict refused">NEEDS DATA — settlement on or after maturity</span>';
-        else {
-          const r = kind === 'LTN' ? PU.decideLTN(rate, settle, mat, c) : PU.decideNTNF(rate, settle, mat, c);
-          if (!r.decided) cell = '<span class="verdict refused">REFUSED — straddle</span>';
-          else {
-            const t2 = PU.trunc2(r.pu6), r2 = PU.round2(r.pu6);
-            if (printed === t2 || printed === r2) { rep++; cell = '<span class="verdict rep">REPRODUCED</span> <span class="m">' + esc(PU.dec(r.pu6, 6)) + '</span>'; }
-            else { off++; cell = '<span class="verdict off">OFF</span> <span class="m">' + esc(PU.dec(r.pu6, 6)) + '</span> · ' + esc((printed - t2).toString()) + ' ¢'; }
-          }
-        }
-        trs.push('<tr><td>' + esc(kind) + '</td><td>' + esc(mat) + '</td><td>' + esc(date) + ' → ' + esc(settle) + '</td><td>' + (side === 'C' ? 'buy' : 'sell') + '</td><td class="m">' + esc(rate) + '</td><td class="m">' + esc(dec2(printed)) + '</td><td>' + cell + '</td></tr>');
+      if (!kind) { other++; trs.push('<tr><td>' + esc(f[0]) + '</td><td>' + esc(mat) + '</td><td>' + esc(date) + '</td><td colspan="4"><span class="verdict refused">REFUSED — not decided here (the ledger decides LTN, NTN-F and LFT)</span></td></tr>'); continue; }
+      const row = { kind, maturity: mat, date, taxaC: f[3].trim(), taxaV: f[4].trim(), puC: cents(f[5]), puV: cents(f[6]) };
+      for (const x of DR.decideRow(row)) {
+        tally[x.verdict] = (tally[x.verdict] || 0) + 1;
+        const prim = x.hyp ? x.hyp[DR.PRIMARY[x.side]] : null;
+        let cell = '<span class="verdict ' + CLS[x.verdict] + '">' + esc(x.verdict) + '</span>';
+        if (x.verdict === 'REPRODUCED') { const h = x.hyp[x.codes[0].replace(/\/[TR]$/, '')]; cell += ' <span class="m">' + esc(h.pu6) + '</span> · ' + esc(x.codes.join(' ')); }
+        else if (x.verdict === 'CONSISTENT') cell += ' under ' + esc(x.consistent.under) + ' · rate box [' + esc(x.consistent.rateBox[0]) + ', ' + esc(x.consistent.rateBox[1]) + '] · <span class="m">' + esc(x.consistent.puRange[0]) + ' – ' + esc(x.consistent.puRange[1]) + '</span>';
+        else if (x.verdict === 'OFF') cell += ' <span class="m">' + esc(prim.pu6) + '</span> · ' + esc(x.diffCents) + ' ¢ under ' + esc(DR.PRIMARY[x.side]);
+        else if (x.why) cell += ' — ' + esc(x.why);
+        /* the settlement of the hypothesis that holds (REPRODUCED, CONSISTENT), the primary's otherwise */
+        const held = x.verdict === 'REPRODUCED' ? x.hyp[x.codes[0].replace(/\/[TR]$/, '')] : x.verdict === 'CONSISTENT' ? x.hyp[x.consistent.under] : prim;
+        const settles = held ? held.settle : '—';
+        const side = x.side === 'C' ? 'buy' : x.side === 'V' ? 'sell' : '—';
+        const rate = x.side === 'C' ? row.taxaC : x.side === 'V' ? row.taxaV : '';
+        const printed = x.side === 'C' ? row.puC : x.side === 'V' ? row.puV : null;
+        trs.push('<tr><td>' + esc(kind) + '</td><td>' + esc(mat) + '</td><td>' + esc(date) + ' → ' + esc(settles) + '</td><td>' + side + '</td><td class="m">' + esc(rate) + '</td><td class="m">' + (printed === null ? '' : esc(dec2(printed))) + '</td><td>' + cell + '</td></tr>');
       }
     }
-    $('rowsNote').textContent = n ? n + ' prices · ' + rep + ' reproduced · ' + off + ' off' + (other ? ' · ' + other + ' refused by title' : '') : 'no decidable row pasted';
+    const n = Object.values(tally).reduce((a, b) => a + b, 0);
+    $('rowsNote').textContent = n ? n + ' prices · ' + Object.entries(tally).map(([k, v]) => v + ' ' + k.toLowerCase()).join(' · ') + (other ? ' · ' + other + ' refused by title' : '') : 'no decidable row pasted';
     $('table').innerHTML = trs.length ? '<div class="tw"><table><thead><tr><th>title</th><th>maturity</th><th>quoted → settles</th><th>side</th><th>rate</th><th>printed</th><th>verdict · the rule’s value</th></tr></thead><tbody>' + trs.join('') + '</tbody></table></div>' : '';
   }
 
-  ['kind', 'mat', 'settle', 'rate', 'printed', 'precal'].forEach((id) => $(id).addEventListener('input', one));
-  $('precal').addEventListener('change', () => { one(); if ($('paste').value.trim()) rows(); });
+  function example() {
+    const e = EXAMPLE[$('kind').value];
+    $('mat').value = e.mat; $('settle').value = e.settle; $('rate').value = e.rate; $('printed').value = '';
+    if (e.quote) $('quote').value = e.quote;
+    one();
+  }
+  ['mat', 'settle', 'rate', 'printed', 'quote', 'precal'].forEach((id) => $(id).addEventListener('input', one));
+  $('kind').addEventListener('change', example);
+  $('precal').addEventListener('change', one);
   $('decide').addEventListener('click', rows);
   one();
 })();
