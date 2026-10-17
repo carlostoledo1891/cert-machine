@@ -8,7 +8,7 @@ link back to the issue). On the Ramsey entry two words were softened: the audit 
 `debunked` to `disputed`, and the caveat's "what is refuted is that certificate" became "what is contested". Their
 registry, their vocabulary; the note below says what our record says and leaves the word to them.
 
-STATUS: NOT SENT.
+STATUS: POSTED 2026-10-17 on the operator's word ("Proceed the response"): https://github.com/subroy13/awesome-ai-proofs/issues/2#issuecomment-6235076477
 
 ---
 

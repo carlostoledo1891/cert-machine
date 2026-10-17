@@ -15,7 +15,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~06:45 UTC: NO POD RUNNING — 388ayba4b1pnhk TERMINATED 06:38 UTC after its record was imported (get-pod → 404); the curve-seeds lane is in corpus/curveseeds/scan.json (10 runs) and folded into the page; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 19 threads to watch — awesome-ai-proofs#2 ANSWERED 2026-10-17 (both audit records added, 'debunked' softened to 'disputed'; reply drafted, the operator's); corpus/outreach.json has the row and the About page shows it at the next `make site`)
+## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~06:45 UTC: NO POD RUNNING — 388ayba4b1pnhk TERMINATED 06:38 UTC after its record was imported (get-pod → 404); the curve-seeds lane is in corpus/curveseeds/scan.json (10 runs) and folded into the page; the PU feed cron is live and makes its first real commit on the next publication morning; THE CURVE-SEEDS AUDIT IS LIVE (34/34) with two outreach notes drafted; resume v3 + four job packets DRAFTED; the Treasury note DRAFTED; 19 threads to watch — awesome-ai-proofs#2 ANSWERED 2026-10-17 (both audit records added, 'debunked' softened to 'disputed'; our reply POSTED 2026-10-17 on the operator's word — watch for their source review); corpus/outreach.json has the row and the About page shows it at the next `make site`)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
