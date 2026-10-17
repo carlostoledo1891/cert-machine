@@ -1,10 +1,11 @@
 {
  "what": "The NIST curve-seeds audit: Anthropic's 2026-10-16 claim that the 14 NIST / X9.62 curve seeds are lrand48 candidates seeded from Unix timestamps, and that six base points come from FreeLIP's generator — every checkable row re-decided from the POSIX, X9.62/FIPS 186-2 and FreeLIP specifications by two deciders sharing no code with each other or with the claimant; the claims beyond the checkable core listed as readings.",
- "generated": "2026-10-17T07:05:58.091Z",
- "git": "0804f83b",
+ "generated": "2026-10-17T17:53:05.797Z",
+ "git": "2bfc425a",
  "claimant": "Anthropic, Frontier Red Team — \"Claude reveals ECDSA curve origins\", 2026-10-16 (corpus/curveseeds/sources/anthropic-ecdsa-curve-origins-2026-10-16.html, pinned). Authors as listed on the page. The post carries two Python blocks (CC0) that reproduce its numbers; they are pinned as evidence and NEVER executed here — every decision below is by code written from the POSIX specification of drand48, from ANSI X9.62's curve-derivation procedure as FIPS 186-2 prints its intermediates, and from FreeLIP's lip.c.",
  "pins": {
   "anthropic-ecdsa-curve-origins-2026-10-16.html": "afb5fba0659ff4b33f63514e8fbe67485385e928364f4ee316f8690d93f4f5ba",
+  "anthropic-ecdsa-curve-origins-2026-10-17.html": "5f4b5b730c976cd35748780b803ef695df7fbc7eba2a32c3c3e3e925af63e28d",
   "fips186-2.pdf": "7384ae9ddbf8e36e20ce0150b71d8b51b6ff4e75a52ed335ca0c456ee192c7ee",
   "fips186-2.txt": "8d86310a45df4b31f50d155bc02d109b2900747755fb4e79d1d32def7a247a91",
   "posix-drand48.html": "5182fd854b96e01e6486ad9bf59d37ec2695c74ee32d74b465e88553343c5a9c",
