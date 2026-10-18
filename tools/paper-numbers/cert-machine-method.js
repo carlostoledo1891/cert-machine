@@ -289,7 +289,7 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title)
    named only once it exists; before that the note says the next release will hold it, under the concept DOI */
 { const Z = J('corpus/zenodo.json'); const v = Z.versions.find((x) => x.version === Z.latest);
   need(v && /^10\.5281\/zenodo\.\d+$/.test(v.doi) && /^10\.5281\/zenodo\.\d+$/.test(Z.conceptDoi), 'the deposit record has no current version');
-  def('MtArchiveNote', v.version === 'v2026.10.18' ? 'it is archived as release ' + esc(v.version) + ', doi:' + v.doi : 'it will be archived with the next release of the repository, under the concept doi:' + Z.conceptDoi); }
+  def('MtArchiveNote', v.version === 'v2026.10.18' ? 'its sources are archived as release ' + esc(v.version) + ', doi:' + v.doi : 'it will be archived with the next release of the repository, under the concept doi:' + Z.conceptDoi); }
 def('MtCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('wrote ' + path.relative(ROOT, OUT) + ' (' + (M.length - 1) + ' macros)');
