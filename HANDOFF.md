@@ -22,20 +22,25 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ★ METHOD PAPER v0.3 (2026-10-18, LIVE at /paper/cert-machine-method.pdf, 47 pp): the three exercises are now (1) Qiushi's
-     19 kissing bounds, (2) NEW §3.2 the optimization-constants registry — three asterisked certificates replayed, the
-     queue 9 CERTIFIED / 1 REFUSED, and the registry's response read from its pinned bytes (tools/read-optconst-registry.js
-     → corpus/optconst-queue/registry-2026-10-18/; the generator refuses unless --check re-derives and both stdlib
-     verifiers still certify), (3) OpenAI's release (Navier–Stokes + openai/math as one); graders in §3.4. 16 references
-     added (75/75 verified). Paper-wide fixes: doubled period after every \paragraph heading; \url commands lost their
-     spaces (obeyspaces); emergencystretch for long enclosures. The operator sends it to Pedro. IF #230 MERGES: the
-     snapshot's guard (PR 230 open) makes the generator refuse — re-run read-optconst-registry.js on a new dated dir,
-     point the generator at it, rewrite the "is open at the time of writing" sentence. Abstract ~315 words (Elsevier
-     journals often cap at 250) — the venue decides.
-  ★ TAO'S REGISTRY (2026-10-18): #216 MERGED — C3b, C3c and C71 lost their asterisks on our replay and each constant page
-     cites [T2026] Toledo, Carlos (3b.md, 3c.md, 71a.md); PR #230 POSTED (the J2026 C3c replay, second implementation
-     tools/verify_twolaw.py; also restores 3c.md's L2026 [T2026] note, which the #221 merge reverted). Watch #230; if merged,
-     the record's row goes to 'merged' and the optconst-queue report §3 says so.
+  ★ METHOD PAPER v0.4 (2026-10-18, LIVE, 49 pp; archived as release v2026.10.18, doi:10.5281/zenodo.23446020) — the two
+     outside readings acted on, on the operator's "Proceed your suggestions" (items 1–16 and 18; 17 venue undefined, 19
+     reviewing group ongoing, 20 arXiv wait, 21 replication asks and 22 an outside arithmetic expert ongoing):
+     A the readings DISCLOSED as AI-produced and unconfirmed (§2.4, §3.3 cost, §5.1, a limits paragraph, the AI
+       declaration); CERTIFIED in §3.1 ('witnessed' a display word); monotonicity established per use (nested boxes /
+       the additive discharge); §3.2's tone; lower-bound-only and red-control limits. OPERATOR TO CONFIRM: the Navier–
+       Stokes "six independent readers" were AI agents (the paper now says so), and what, if anything, you read yourself.
+     B abstract (~205 words, plain), highlights ≤85 chars, §3 rewritten in shorter sentences, a five-term glossary.
+     C three layers (Table 1), certification pathways (Table 3), §3.4 cut to a paragraph, NEW §4 the method evaluated,
+       a five-level evidence table and a comparison with existing practice (§5), Appendix A a reproduction table,
+       Appendix B the arithmetic's detail and three unused certifiers.
+     D tools/audit-kernel-arb.js(+.py): 946,146 cases, 19 ops, 0 violations, 12/12 malformed refused, 2 planted kernels
+       caught (certs/kernel-arb-audit.json; --check is a battery); tools/run-method-eval.js: 23 planted claims of known
+       truth all decided correctly (certs/method-eval.json; --check is a battery).
+     18 self-citations 10 → 6 under the archive's concept DOI; the release minted 23446020. ZENODO'S VERSION FIELD reads
+       v2026.10 (a stale .zenodo.json, now bumped) — fix it on Zenodo with your login or ZENODO_TOKEN=… node
+       tools/zenodo-metadata.js --apply. The operator sends the PDF to Pedro.
+     IF #230 MERGES: the generator refuses on purpose — re-snapshot the registry (tools/read-optconst-registry.js on a
+       new dated dir), point the generator at it, rewrite "is open at the time of writing".
   0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
      corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
      by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an
