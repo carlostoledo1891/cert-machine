@@ -15,7 +15,13 @@ const die = (m) => { console.error('OPTQ REPORT REFUSED: ' + m); process.exit(1)
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const py = (args) => cp.execFileSync('python3', ['-I'].concat(args), { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
 
-try { py(['tools/run-optq-ledger.py']); } catch (e) { die('the ledger does not re-derive: ' + (e.stdout || e.message)); }
+/* the ledger is re-derived before a word is written; when nothing but its wall-clock moved, the committed bytes are put
+   back, so a page build never churns the record the method paper reads (its seconds are quoted there) */
+const LEDGER = path.join(ROOT, 'certs', 'optq-ledger.json'), was = fs.readFileSync(LEDGER);
+const untimed = (b) => JSON.stringify(JSON.parse(b), (k, v) => (k === 'seconds' || k === 'generated' ? undefined : v));
+try { py(['tools/run-optq-ledger.py']); } catch (e) { fs.writeFileSync(LEDGER, was); die('the ledger does not re-derive: ' + (e.stdout || e.message)); }
+if (untimed(fs.readFileSync(LEDGER)) === untimed(was)) fs.writeFileSync(LEDGER, was);
+else console.log('optq ledger CHANGED beyond its timings — the new record stays; commit it and regenerate what reads it');
 let bat = ''; try { bat = py(['instruments/optq/battery.py']); } catch (e) { die('the battery did not pass: ' + (e.stdout || e.message)); }
 const bm = /optq battery: (\d+) pass, 0 fail, (\d+)\/(\d+) red controls fired/.exec(bat);
 if (!bm || bm[2] !== bm[3]) die('the battery did not pass whole');

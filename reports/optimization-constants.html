@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Five asterisks, replayed · cert-machine</title>
+<title>The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo</title>
 <meta name="description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/optimization-constants.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/optimization-constants.html">
-<meta property="og:title" content="Five asterisks, replayed · cert-machine">
+<meta property="og:title" content="The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo">
 <meta property="og:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Five asterisks, replayed · cert-machine">
+<meta name="twitter:title" content="The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo">
 <meta name="twitter:description" content="The optimization-constants registry&#39;s asterisked bounds C3b &gt;= 1.77898884, C3c &gt;= 1.6747338950414058 and C71 &gt; 6.521845710923046575 hold as printed; C42 &lt;= 0.6906538 holds in its limiting inequality; C84b &lt;= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Five asterisks, replayed · cert-machine","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C42 \u003c= 0.6906538 holds in its limiting inequality; C84b \u003c= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The optimization-constants registry: five asterisked bounds replayed","description":"The optimization-constants registry's asterisked bounds C3b >= 1.77898884, C3c >= 1.6747338950414058 and C71 > 6.521845710923046575 hold as printed; C42 \u003c= 0.6906538 holds in its limiting inequality; C84b \u003c= 1.999281 quotes a constant its source only suggests and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.","url":"https://carlostoledo.co/reports/optimization-constants.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -266,6 +266,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -673,13 +676,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · the registry&#39;s asterisks</div>
-  <h1>Five asterisks, replayed</h1>
+  <h1>The optimization-constants registry: five asterisked bounds replayed</h1>
+<p class="standfirst">Five asterisks, replayed</p>
   <p class="deck">The optimization-constants registry marks a bound with an asterisk when its verification is &quot;at minimal levels&quot;. Five of its bounds rest on arithmetic small enough to decide exactly. Three hold as printed — two entropy laws and one Boolean function on 18 variables. For Turán&#39;s power sums the limiting certificate holds and the passage to it is the author&#39;s argument. The sum–product row quotes a constant its own source calls only &quot;suggested&quot;, and the source&#39;s calculation cannot reach it; what that source proves holds. One of the checkers published with the entropy laws would also have accepted a false bound.</p>
 </header>
 
@@ -688,6 +692,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
 <ul class="plain"><li><b>The finding.</b> <b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as 1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; 0.6906536951…, and on an asymptotic argument in prose (§5). And C3b &ge; 1.77898884 and C3c &ge; 1.6747338950414058 are CERTIFIED from the certificates the registry cites: the ratios are <span class="m">1.7789888414206935498051…</span> and <span class="m">1.6747338950414058700631…</span>, each enclosed to 40 digits. The 147-point certificate's own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, 2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for <span class="m">C3c &gt;= 1.6747338950414059</span>, which is false</b>: it encloses the ratio at 100 digits, then compares in doubles.</li><li><b>The mechanism.</b> A law on Z&sup2; with rational weights gives C &ge; H(X&minus;Y) / max of the entropies of the other forms. The pushforwards are exact; each entropy term is an interval whose logarithm is rounded outward. Two implementations share no code with each other or with the claimants: instruments/sumdiff (JavaScript, BigInt and dyadic intervals at 128–1024 bits) and tools/verify_sumdiff.py (the Python standard library, decimal at 120 digits).</li><li><b>Check it.</b> <span class="m">python3 tools/verify_sumdiff.py</span> — standard library only, four CERTIFIED and one red control. <span class="m">node instruments/sumdiff/battery.js</span> — 22 checks, 7 red controls.</li></ul>
+</div></div>
+
+<div class="col"><div class="note">
+  <span class="lab">afterwards · 2026-10-18</span>
+<p>The registry's maintainer merged the replay on this page (<a href="https://github.com/teorth/optimizationproblems/pull/216">PR #216</a>, commit ad40c534): the asterisks on C₃b, C₃c and C₇₁ are gone, and each of the three pages cites this replay as [T2026], under the rule he had stated on #176 that an independent replay removes the mark. The registry's bytes after the merge are pinned in <span class="m">corpus/optconst-queue/registry-2026-10-18/</span>.</p>
 </div></div>
 
 <div class="wide">
@@ -754,7 +763,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-10-06), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json, certs/sumproduct-ledger.json and certs/turan-ledger.json re-derived, their batteries 7 + 8 + 11 checks, 4 + 4 + 5 red controls.</p><p>git 054078d</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-10-06), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json, certs/sumproduct-ledger.json and certs/turan-ledger.json re-derived, their batteries 7 + 8 + 11 checks, 4 + 4 + 5 red controls.</p><p>git 5a2aa5e7</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
