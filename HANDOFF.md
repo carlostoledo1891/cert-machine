@@ -22,6 +22,16 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ METHOD PAPER v0.3 (2026-10-18, LIVE at /paper/cert-machine-method.pdf, 47 pp): the three exercises are now (1) Qiushi's
+     19 kissing bounds, (2) NEW §3.2 the optimization-constants registry — three asterisked certificates replayed, the
+     queue 9 CERTIFIED / 1 REFUSED, and the registry's response read from its pinned bytes (tools/read-optconst-registry.js
+     → corpus/optconst-queue/registry-2026-10-18/; the generator refuses unless --check re-derives and both stdlib
+     verifiers still certify), (3) OpenAI's release (Navier–Stokes + openai/math as one); graders in §3.4. 16 references
+     added (75/75 verified). Paper-wide fixes: doubled period after every \paragraph heading; \url commands lost their
+     spaces (obeyspaces); emergencystretch for long enclosures. The operator sends it to Pedro. IF #230 MERGES: the
+     snapshot's guard (PR 230 open) makes the generator refuse — re-run read-optconst-registry.js on a new dated dir,
+     point the generator at it, rewrite the "is open at the time of writing" sentence. Abstract ~315 words (Elsevier
+     journals often cap at 250) — the venue decides.
   ★ TAO'S REGISTRY (2026-10-18): #216 MERGED — C3b, C3c and C71 lost their asterisks on our replay and each constant page
      cites [T2026] Toledo, Carlos (3b.md, 3c.md, 71a.md); PR #230 POSTED (the J2026 C3c replay, second implementation
      tools/verify_twolaw.py; also restores 3c.md's L2026 [T2026] note, which the #221 merge reverted). Watch #230; if merged,
