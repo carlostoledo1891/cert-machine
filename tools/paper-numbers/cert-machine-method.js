@@ -140,6 +140,73 @@ const kwPath = (r) => /Triton/.test(r.engine.families[0].path) ? 'fused GPU kern
   : /gemm|BLAS/.test(r.engine.families[0].path) ? 'float32 BLAS' : esc(r.engine.families[0].path);
 def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(r.engine.pairs) + ' & ' + int(r.engine.contacts) + ' & ' + kwPath(r) + ' & ' + hours(r.engine.seconds)).join(' \\\\\n'));
 
+/* B2 (v0.3, 2026-10-18): the optimization-constants registry — the asterisked bounds replayed (certs/sumdiff-ledger.json,
+   certs/fei-ledger.json), the open PR queue decided (certs/optq-ledger.json), and what the registry did next, read from
+   its pinned bytes (corpus/optconst-queue/registry-2026-10-18/, written by tools/read-optconst-registry.js). The two
+   standard-library verifiers are RUN here: the sentence "two implementations that share no code" is written only while
+   both still certify. */
+{
+  const SD = J('certs/sumdiff-ledger.json'), FE = J('certs/fei-ledger.json'), OQ = J('certs/optq-ledger.json');
+  const RG = J('corpus/optconst-queue/registry-2026-10-18/record.json').facts;
+  const chk = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'read-optconst-registry.js'), '--check'], { encoding: 'utf8' });
+  need(chk.status === 0, 'the registry record does not re-derive from its pins: ' + (chk.stderr || chk.stdout).slice(-300));
+  for (const v of ['verify_sumdiff.py', 'verify_twolaw.py']) {
+    const r = cp.spawnSync('python3', ['-I', path.join(ROOT, 'tools', v)], { encoding: 'utf8' });
+    need(r.status === 0 && /^CERTIFIED/m.test(r.stdout) && !/DID NOT FIRE/.test(r.stdout), 'the standard-library verifier ' + v + ' no longer certifies with its red controls firing');
+  }
+  const sd = (id) => { const r = SD.rows.find((x) => x.id === id); need(r && r.verdict === 'CERTIFIED', 'sumdiff row ' + id + ' is not CERTIFIED'); return r; };
+  const b3 = sd('3b'), c3 = sd('3c'), f71 = FE.rows.find((x) => x.id === '71');
+  need(f71 && f71.verdict === 'CERTIFIED' && f71.checks.every((c) => c.ok), 'the C71 replay is not CERTIFIED with every check passing');
+  const dig = (s, n) => { const [i, f] = String(s).split('.'); return i + '.' + f.slice(0, n - i.length); };      /* n significant digits, truncated */
+  def('MtRgCbBound', b3.claim.replace(/^.*>= /, '')); def('MtRgCbPoints', String(b3.certificate.points)); def('MtRgCbEnc', dig(b3.rho[0], 21));
+  def('MtRgCcBound', c3.claim.replace(/^.*>= /, '')); def('MtRgCcPoints', String(c3.certificate.points)); def('MtRgCcEnc', dig(c3.rho[0], 21));
+  def('MtRgCcDen', String(c3.certificate.denominatorDigits));
+  def('MtRgFeiBound', f71.claim.replace(/^.*> /, '')); def('MtRgFeiEnc', dig(f71.ratio[0], 21)); def('MtRgFeiN', String(f71.n)); def('MtRgFeiI', esc(f71.I));
+  def('MtRgFeiChecks', String(f71.checks.length));
+  def('MtRgBeforeCommit', SD.registry.commit.slice(0, 8));
+  /* the replays' wall-clock, from the one recorded execution of the rerun kit (certs/rerun-kit-run.json) */
+  const kr = (re) => { const r = RUN.runs.find((x) => re.test(x.command)); need(r && r.seconds > 0, 'the rerun kit run has no timing for ' + re); return r.seconds; };
+  def('MtRgSecSumdiff', kr(/run-sumdiff-ledger\.js --check/).toFixed(1)); def('MtRgSecVerify', kr(/verify_sumdiff\.py/).toFixed(1)); def('MtRgSecFei', kr(/run-fei-ledger\.py --check/).toFixed(1));
+  /* the 147-point certificate's own checker: what it printed on claims we decided */
+  const runs = SD.observed.runs; const okRuns = runs.filter((r) => r.printed === 'OK'), falseOk = okRuns.filter((r) => /REFUTED/.test(r.truth));
+  need(falseOk.length >= 1, 'the record no longer shows the 53-bit checker accepting a false bound');
+  def('MtRgCheckerOk', String(okRuns.length)); def('MtRgCheckerFalse', String(falseOk.length));
+  /* the rule, the merge, the citation (all from the pinned registry bytes) */
+  need(RG.rule.contributing && RG.rule.promise && RG.replay.merged && RG.replay.pagesCiting.length === 3, 'the registry record does not show the rule, the merge and the three citations');
+  def('MtRgRuleDate', RG.rule.stated); def('MtRgMergeDate', RG.replay.mergedAt.slice(0, 10)); def('MtRgMergeCommit', RG.replay.mergeCommit.slice(0, 8));
+  def('MtRgRegistryCommit', RG.registryCommit.slice(0, 8)); def('MtRgFetched', RG.fetched.slice(0, 10)); def('MtRgPages', String(RG.replay.pagesCiting.length));
+  need(RG.replay.rowNotes['3c'] === 0 && RG.queue[221].asteriskKept, 'the snapshot no longer shows #221 merged asterisked with the 3c row note reverted — rewrite the sentence');
+  need(RG.queue[230].state === 'open', 'PR 230 is no longer open in the snapshot — re-read the registry and rewrite the sentence');
+  def('MtRgOpenPrDate', RG.queue[230].createdAt.slice(0, 10)); def('MtRgStarRows', String(RG.queue[210].asteriskedRows));
+  /* the three merges' span, and the number of constants the registry's table holds (both from the pinned bytes) */
+  const mt = [RG.replay.mergedAt, RG.queue[221].mergedAt, RG.queue[210].mergedAt].map((t) => Date.parse(t));
+  def('MtRgMergeMinutes', String(Math.ceil((Math.max(...mt) - Math.min(...mt)) / 60000)));
+  const RM = fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-18', 'upstream', 'README.md'), 'utf8');
+  const nConst = RM.split('\n').filter((l) => /^\| \[\d+[a-z]?\]\(/.test(l)).length; need(nConst > 50, 'the pinned README lists ' + nConst + ' constants — the table format moved');
+  def('MtRgConstants', String(nConst));
+  /* the queue */
+  const qc = OQ.counts; need(qc.REFUTED === 0 && qc.CERTIFIED + qc.REFUSED === OQ.rows.length, 'the queue counts do not close');
+  def('MtRqRows', String(OQ.rows.length)); def('MtRqCertified', String(qc.CERTIFIED)); def('MtRqRefused', String(qc.REFUSED)); def('MtRqSeconds', String(Math.round(OQ.seconds)));
+  const prs = [...new Set(OQ.rows.map((r) => r.pr))].sort((x, y) => x - y); def('MtRqPrs', prs.map((n) => '\\#' + n).join(', ').replace(/, (\\#\d+)$/, ' and $1'));
+  const tl = OQ.rows.find((r) => r.id === 'optq-221-3c'); need(tl && tl.verdict === 'CERTIFIED' && tl.rhoPython, 'the two-law row lacks its second implementation');
+  const common = (a, b) => { let i = 0; while (i < a.length && a[i] === b[i]) i++; return a.slice(0, i); };
+  const agree = common(tl.rho[0][0], tl.rhoPython[0]); def('MtRqTwoLawEnc', agree.slice(0, 32)); def('MtRqTwoLawDigits', String(agree.replace('.', '').length));
+  def('MtRqTwoLawPoints', tl.laws.join(' and ')); def('MtRqTwoLawMax', String(tl.maxAbsForm));
+  const lam = OQ.rows.find((r) => r.id === 'optq-210-lambda'); need(lam && lam.verdict === 'REFUSED' && lam.inventory, 'the #210 row is not a REFUSED inventory');
+  def('MtRqLamFiles', String(lam.inventory.files)); def('MtRqLamFrozen', String(lam.inventory.frozenFiles)); def('MtRqLamScripts', String(lam.inventory.scripts.length));
+  def('MtRqLamBanks', String(lam.inventory.bankCitations.length));
+  const d226 = OQ.rows.filter((r) => r.pr === 226 && r.verdict === 'CERTIFIED'); def('MtRqTwoTwoSix', String(d226.length));
+  const ans = J('corpus/outreach.json').rows.find((r) => r.id === 'gh-optq-226'); need(ans && ans.status === 'answered', 'the #226 thread is not recorded as answered');
+  /* the table: the five bounds the exercise follows from certificate to registry */
+  const rowTex = [
+    ['$C_{3b} \\ge ' + b3.claim.replace(/^.*>= /, '') + '$', 'Mosaic Intelligence', b3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
+    ['$C_{3c} \\ge ' + c3.claim.replace(/^.*>= /, '') + '$', 'Y.~Lin', c3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
+    ['$C_{71} > ' + f71.claim.replace(/^.*> /, '').slice(0, 12) + '\\ldots$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', '\\vC, one program', 'asterisk removed; [T2026] cited'],
+    ['$C_{3c} \\ge 1.674894211307116$', 'M.~Jaswal', tl.laws.join(' and ') + '-point laws', '\\vC, two programs', 'merged with asterisk; replay offered (\\#230)'],
+    ['$C_{21} < 0.1595$', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as all ' + RG.queue[210].asteriskedRows + ' recent rows']];
+  def('MtRgTableRows', rowTex.map((r) => r.join(' & ')).join(' \\\\\n'));
+}
+
 /* B2: the Navier--Stokes certificate (corpus/navier-stokes/*; the commits and dates come from the register's macros) */
 const NSB = J('corpus/navier-stokes/build.json'), NSL = J('corpus/navier-stokes/lean-repo.json'), NSA = J('corpus/navier-stokes/audit.json');
 const NSU = J('corpus/navier-stokes/upstream-f9e8bc5b.json'), NSM = J('corpus/navier-stokes/MANIFEST.json'), NSN = J('corpus/navier-stokes/nonvacuity.json');

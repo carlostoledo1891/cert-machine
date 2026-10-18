@@ -1,6 +1,6 @@
 {
  "what": "every entry of paper/tex/cert-machine-method.bib resolved at its source (Crossref / DataCite / the arXiv API / a fetch); the offline check refuses an entry without an ok row whose title matched",
- "verified": "2026-10-15",
+ "verified": "2026-10-18",
  "entries": {
   "Abramowitz64": {
    "kind": "url",
@@ -38,7 +38,7 @@
    "kind": "arxiv",
    "id": "2110.14168",
    "ok": true,
-   "source": "arxiv api",
+   "source": "arxiv abs page",
    "status": 200,
    "resolvedTitle": "Training Verifiers to Solve Math Word Problems",
    "titleMatch": true,
@@ -318,7 +318,7 @@
    "source": "fetch",
    "status": 200,
    "finalUrl": "https://carlostoledo.co/reports/methods-note.html",
-   "resolvedTitle": "How the bugs were found · cert-machine",
+   "resolvedTitle": "How the bugs were found · Carlos Toledo",
    "titleMatch": true,
    "bibTitle": "How the bugs were found: the methods note"
   },
@@ -370,7 +370,7 @@
    "source": "fetch",
    "status": 200,
    "finalUrl": "https://carlostoledo.co/reports/navier-stokes.html",
-   "resolvedTitle": "The Navier–Stokes claim, read to the last hypothesis",
+   "resolvedTitle": "The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement · Carlos Toledo",
    "titleMatch": true,
    "bibTitle": "An audit of the 2026 {Navier--Stokes} finite-time blowup claim: the formal statement read against {Clay}'s wording and {Mathlib}'s definitions, the {Lean} proof built and its axioms asked of the kernel"
   },
@@ -412,7 +412,7 @@
    "source": "fetch",
    "status": 200,
    "finalUrl": "https://carlostoledo.co/reports/openai-math.html",
-   "resolvedTitle": "OpenAI&#39;s math release: the gaps · cert-machine",
+   "resolvedTitle": "OpenAI's math release: what it claims beyond what it checks · Carlos Toledo",
    "titleMatch": true,
    "bibTitle": "{OpenAI}'s math release: what it claims beyond what it checks"
   },
@@ -611,6 +611,173 @@
    "titleMatch": true,
    "year": 1997,
    "bibTitle": "Towards exact geometric computation"
+  },
+  "FriedgutKalai96": {
+   "kind": "doi",
+   "id": "10.1090/S0002-9939-96-03732-X",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Every monotone graph property has a sharp threshold",
+   "titleMatch": true,
+   "year": 1996,
+   "bibTitle": "Every monotone graph property has a sharp threshold"
+  },
+  "GGSWT25": {
+   "kind": "arxiv",
+   "id": "2511.02864",
+   "ok": true,
+   "source": "arxiv abs page",
+   "status": 200,
+   "resolvedTitle": "Mathematical exploration and discovery at scale",
+   "titleMatch": true,
+   "bibTitle": "Mathematical exploration and discovery at scale"
+  },
+  "JaswalC3c": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.23289305",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "Entropy certificate for the sums-differences constant C_3c: lower bound 1.674894211307116",
+   "titleMatch": true,
+   "year": 2026,
+   "bibTitle": "Entropy certificate for the sums-differences constant {$C_{3c}$}: lower bound 1.674894211307116"
+  },
+  "KatzTao99": {
+   "kind": "doi",
+   "id": "10.4310/MRL.1999.v6.n6.a3",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Bounds on arithmetic projections, and applications to the Kakeya conjecture",
+   "titleMatch": true,
+   "year": 1999,
+   "bibTitle": "Bounds on arithmetic projections, and applications to the {Kakeya} conjecture"
+  },
+  "LinC3c": {
+   "kind": "url",
+   "id": "https://gist.github.com/CoolRmal/5368357cd781d7e5c676c9d68ad24d22",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://gist.github.com/CoolRmal/5368357cd781d7e5c676c9d68ad24d22",
+   "resolvedTitle": "147-point entropy certificate for the 4-slope sum-difference constant C_3c (teorth/optimizationproblems 3c) · GitHub",
+   "titleMatch": true,
+   "bibTitle": "147-point entropy certificate for the 4-slope sum-difference constant {$C_{3c}$}"
+  },
+  "MosaicC3b": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.20794135",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "Certified sum-difference lower-bound certificates for C_3a, C_3b, and C_3c",
+   "titleMatch": true,
+   "year": 2026,
+   "bibTitle": "Certified sum-difference lower-bound certificates for {$C_{3a}$}, {$C_{3b}$}, and {$C_{3c}$}"
+  },
+  "MosaicLambda": {
+   "kind": "url",
+   "id": "https://github.com/teorth/optimizationproblems/pull/210",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/teorth/optimizationproblems/pull/210",
+   "resolvedTitle": "Improve upper bound for the de Bruijn–Newman constant to 0.1595 (certified record package) by 463464q435q43 · Pull Request #210 · teorth/optimizationproblems · GitHub",
+   "titleMatch": true,
+   "bibTitle": "Improve upper bound for the de {Bruijn}--{Newman} constant to 0.1595 (certified record package)"
+  },
+  "NumaroC71": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.21497769",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "Certificate archive: improved lower bound C_71 > 6.521845710923046575 for the Fourier Entropy-Influence constant (n = 18 explicit construction)",
+   "titleMatch": true,
+   "year": 2026,
+   "bibTitle": "Certificate archive: improved lower bound {$C_{71} > 6.521845710923046575$} for the {Fourier} Entropy-Influence constant (n = 18 explicit construction)"
+  },
+  "ODonnellTan13": {
+   "kind": "arxiv",
+   "id": "1304.1347",
+   "ok": true,
+   "source": "arxiv abs page",
+   "status": 200,
+   "resolvedTitle": "A composition theorem for the Fourier Entropy-Influence conjecture",
+   "titleMatch": true,
+   "bibTitle": "A composition theorem for the {Fourier} Entropy-Influence conjecture"
+  },
+  "OptConst": {
+   "kind": "url",
+   "id": "https://github.com/teorth/optimizationproblems",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/teorth/optimizationproblems",
+   "resolvedTitle": "GitHub - teorth/optimizationproblems: A collection of optimization problems in mathematics · GitHub",
+   "titleMatch": true,
+   "bibTitle": "A collection of optimization problems in mathematics"
+  },
+  "OptConstAudit": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/reports/optimization-constants.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/reports/optimization-constants.html",
+   "resolvedTitle": "The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo",
+   "titleMatch": true,
+   "bibTitle": "The optimization-constants registry: five asterisked bounds replayed"
+  },
+  "OptConstPR": {
+   "kind": "url",
+   "id": "https://github.com/teorth/optimizationproblems/pull/216",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/teorth/optimizationproblems/pull/216",
+   "resolvedTitle": "Remove the asterisk from C3b, C3c and C71: certificates independently replayed by carlostoledo1891 · Pull Request #216 · teorth/optimizationproblems · GitHub",
+   "titleMatch": true,
+   "bibTitle": "Remove the asterisk from {C3b}, {C3c} and {C71}: certificates independently replayed"
+  },
+  "OptConstRule": {
+   "kind": "url",
+   "id": "https://github.com/teorth/optimizationproblems/pull/176#issuecomment-5848109776",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://github.com/teorth/optimizationproblems/pull/176",
+   "resolvedTitle": "Drop the unverified asterisk on the C₃b record by Chessing234 · Pull Request #176 · teorth/optimizationproblems · GitHub",
+   "titleMatch": true,
+   "bibTitle": "Drop the unverified asterisk on the {C₃b} record"
+  },
+  "OptQueueAudit": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/reports/optconst-queue.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/reports/optconst-queue.html",
+   "resolvedTitle": "Five pull requests to the constants registry, decided where decidable · Carlos Toledo",
+   "titleMatch": true,
+   "bibTitle": "Five pull requests to the constants registry, decided where decidable"
+  },
+  "PlattTrudgian21": {
+   "kind": "doi",
+   "id": "10.1112/blms.12460",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "The Riemann hypothesis is true up to 3·1012",
+   "titleMatch": true,
+   "year": 2021,
+   "bibTitle": "The {Riemann} hypothesis is true up to $3\\cdot 10^{12}$"
+  },
+  "RodgersTao20": {
+   "kind": "doi",
+   "id": "10.1017/fmp.2020.6",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "THE DE BRUIJN–NEWMAN CONSTANT IS NON-NEGATIVE",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "The de {Bruijn}--{Newman} constant is non-negative"
   }
  }
 }
