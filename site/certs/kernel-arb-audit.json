@@ -1,6 +1,7 @@
 {
  "what": "The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.",
- "generated": "2026-10-18T03:55:04+00:00",
+ "generated": "2026-10-18T04:01:38+00:00",
+ "seconds": 54.9,
  "seed": 20261018,
  "perOp": 50000,
  "node": "v24.14.1",
