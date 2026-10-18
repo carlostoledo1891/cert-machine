@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """run-optq-ledger.py — the record of the optimization-constants PR-queue audit, certs/optq-ledger.json, re-derived
 from the pinned inputs every run: every pin re-hashed, the two step functions decided exactly (instruments/optq/
-stepfun.py), the two-law entropy certificate decided (instruments/optq/twolaw.js), the two #226 constructions decided
+stepfun.py), the two-law entropy certificate decided twice (instruments/optq/twolaw.js; tools/verify_twolaw.py, stdlib), the two #226 constructions decided
 exactly (exact226.py), the two #226 interval bounds enclosed (bgw16a.py, rbm70a.py — added 2026-10-16), the #217 row read
 from certs/openai-math-kernel.json, the #210 package inventoried from its pinned files, and the verdict composed by the
 grammar (CERTIFIED / REFUTED / REFUSED, with the scope beside it).
@@ -46,6 +46,14 @@ rows.append({'id': 'optq-221-3c', 'pr': 221, 'constant': 'C_3c', 'claim': 'C_3c 
              'how': 'per-law pushforwards exact; entropies as directed-rounding intervals at %s bits (instruments/sumdiff + bigfloat, no code of the claimant\'s); the mixture by rational weights; ρ enclosed in [%s, %s] against 1.674894211307116' % (tw['P'], tw['rho'][0][0], tw['rho'][0][1]),
              'registryBefore': '1.6747338950414058* (upper 1.75)', 'claimantPrinted': '1.674894211307116228764343737060957...'})
 if tw['verdict'] != 'CERTIFIED': die('#221 did not certify')
+# the second implementation (2026-10-17): tools/verify_twolaw.py, the Python standard library alone, sharing no code with
+# twolaw.js; the row stands only if both certify and their enclosures overlap
+pv = subprocess.run([sys.executable, '-I', os.path.join(ROOT, 'tools', 'verify_twolaw.py')], capture_output=True, text=True)
+m = re.search(r'ratio in \[([0-9.]+), ([0-9.]+)\]', pv.stdout)
+if pv.returncode != 0 or not pv.stdout.startswith('CERTIFIED') or not m: die('#221: the standard-library verifier did not certify\n' + pv.stdout + pv.stderr[-400:])
+if not (F(m.group(1)) <= F(tw['rho'][0][1]) and F(tw['rho'][0][0]) <= F(m.group(2))): die('#221: the two enclosures of the ratio do not overlap')
+rows[-1]['rhoPython'] = [m.group(1), m.group(2)]
+rows[-1]['how'] += '; again by tools/verify_twolaw.py (Python standard library, decimal at 120 digits, no code shared with twolaw.js): ρ in [' + m.group(1)[:34] + ', ' + m.group(2)[:34] + ']'
 
 # ---- #226 -------------------------------------------------------------------------------------------------------------------
 e = {'20a': exact226.decide_20a(), '20c': exact226.decide_20c()}
@@ -119,7 +127,7 @@ rows.append({'id': 'optq-210-lambda', 'pr': 210, 'constant': 'Λ (de Bruijn--New
 rec = {'what': 'the open pull-request queue of teorth/optimizationproblems on 2026-10-15 — #210, #217, #221, #225, #226 — decided where a finite exact object exists, read where the claim is a short proof, refused where the evidence is not in the submission; #226\'s 16a and 70a, refused as not attempted on 10-15, decided on 2026-10-16',
        'preregistration': 'corpus/optconst-queue/preregistration.json', 'pins': 'corpus/optconst-queue/PINS.json', 'registryCommit': '2c1968cd', 'rows': rows,
        'counts': {v: sum(1 for r in rows if r['verdict'] == v) for v in ('CERTIFIED', 'REFUTED', 'REFUSED')},
-       'decider': {f: sha('instruments/optq/' + f) for f in ('stepfun.py', 'twolaw.js', 'exact226.py', 'ivdec.py', 'bgw16a.py', 'rbm70a.py')}, 'python': sys.version.split()[0],
+       'decider': dict({f: sha('instruments/optq/' + f) for f in ('stepfun.py', 'twolaw.js', 'exact226.py', 'ivdec.py', 'bgw16a.py', 'rbm70a.py')}, **{'verify_twolaw.py': sha('tools/verify_twolaw.py')}), 'python': sys.version.split()[0],
        'seconds': round(time.time() - t0, 1), 'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}
 out = os.path.join(ROOT, 'certs', 'optq-ledger.json')
 json.dump(rec, open(out, 'w'), indent=1, default=str); open(out, 'a').write('\n')

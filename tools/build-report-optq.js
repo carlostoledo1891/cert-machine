@@ -75,7 +75,8 @@ B.push(C.section({
   lab: '§3 · the entropy certificate', title: '#221: two laws, one bound',
   bodyRaw: C.pRaw('A single law μ on Z² gives C₃c ≥ H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)); this certificate mixes two laws across the digits of a base-55 expansion, 39041372760532870645 digits from a 51-point law and 60958627239467129355 from a 47-point law. The entropies add digit by digit only if the map from digit values to L(X,Y) is injective, '
     + 'which holds when every |L(x,y)| on both supports is at most (55−1)/2 = 27 — checked: the maximum is ' + r3c.maxAbsForm + '. Each per-law entropy is an interval with directed rounding at ' + r3c.precisionBits + ' bits (no code of the claimant\'s; the single-law instrument that decided C₃b and C₃c in September, with the mixture by rational weights on top); '
-    + 'ρ ∈ [' + C.esc(r3c.rho[0][0]) + ', ' + C.esc(r3c.rho[0][1]) + '], above 1.674894211307116. The claimant\'s flint and PARI checkers print the same 16 digits.')
+    + 'ρ ∈ [' + C.esc(r3c.rho[0][0]) + ', ' + C.esc(r3c.rho[0][1]) + '], above 1.674894211307116. The claimant\'s flint and PARI checkers print the same 16 digits.'
+    + (r3c.rhoPython ? ' A second implementation, ' + C.m('tools/verify_twolaw.py') + ' — the Python standard library alone, decimal at 120 digits, sharing no code with the first — decides it again: ρ ∈ [' + C.esc(r3c.rhoPython[0].slice(0, 34)) + '…, ' + C.esc(r3c.rhoPython[1].slice(0, 34)) + '…], and its three red controls fire (the smallest 30-digit claim above ρ is REFUTED; base 53, where (53−1)/2 < 27, is REFUSED for injectivity; a weight one unit off is REFUSED).' : ''))
 }));
 B.push(C.section({
   lab: '§4 · one-line bounds', title: '#226 and #217: what a sentence can certify',

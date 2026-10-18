@@ -56,9 +56,13 @@
     51,
     47
    ],
-   "how": "per-law pushforwards exact; entropies as directed-rounding intervals at 128 bits (instruments/sumdiff + bigfloat, no code of the claimant's); the mixture by rational weights; \u03c1 enclosed in [1.674894211307116228764343737060, 1.674894211307116228764343737061] against 1.674894211307116",
+   "how": "per-law pushforwards exact; entropies as directed-rounding intervals at 128 bits (instruments/sumdiff + bigfloat, no code of the claimant's); the mixture by rational weights; \u03c1 enclosed in [1.674894211307116228764343737060, 1.674894211307116228764343737061] against 1.674894211307116; again by tools/verify_twolaw.py (Python standard library, decimal at 120 digits, no code shared with twolaw.js): \u03c1 in [1.67489421130711622876434373706095, 1.67489421130711622876434373706095]",
    "registryBefore": "1.6747338950414058* (upper 1.75)",
-   "claimantPrinted": "1.674894211307116228764343737060957..."
+   "claimantPrinted": "1.674894211307116228764343737060957...",
+   "rhoPython": [
+    "1.674894211307116228764343737060957167779440",
+    "1.674894211307116228764343737060957167779440"
+   ]
   },
   {
    "id": "optq-226-20a",
@@ -153,7 +157,7 @@
      "2.156224753793913363046130"
     ],
     "width": "1.4325148E-52",
-    "seconds": 7.0,
+    "seconds": 7.3,
     "torus": "[0, 2\u03c0]\u00b2 (BDZ2013 (2.4), (3.14); the registry's 2.15627 row is BDZ's)",
     "tail": "none: u is a trigonometric polynomial, every sum finite"
    },
@@ -194,7 +198,7 @@
      "-636701",
      "-636701"
     ],
-    "seconds": 1.0,
+    "seconds": 1.1,
     "read": "Steiner; V_j of a zonotope as the sum of its j-face parallelotope volumes; Sz\u00e1sz on the Gram matrix; AM\u2013GM \u2014 each applied as stated, so the cube is in its worst position for every |det u| = 1"
    },
    "decidedOn": "2026-10-16",
@@ -342,9 +346,10 @@
   "exact226.py": "47d486f23ef0edb1cf5ac3410ff5f5daf1829209ce2cc728c919f5b5b6bd12f6",
   "ivdec.py": "f4e514c49e79d8e082d825703d1efaf525eb543299f00fd4713b22b883b2f04f",
   "bgw16a.py": "b3a7eca375da5830058e88223582a4fe3f75acca9d57efbd4389fac4c432cda3",
-  "rbm70a.py": "2a773e559b0e1d6aac58d717a05ff8c235a4066b03cea1130b0408c4a52c63b5"
+  "rbm70a.py": "2a773e559b0e1d6aac58d717a05ff8c235a4066b03cea1130b0408c4a52c63b5",
+  "verify_twolaw.py": "3714b0026bb21b39039b009c78d375dded77cc79dffbc3d298ffa08af0ddc142"
  },
  "python": "3.9.6",
- "seconds": 156.5,
- "generated": "2026-10-16T04:35:21Z"
+ "seconds": 160.7,
+ "generated": "2026-10-18T02:14:06Z"
 }
