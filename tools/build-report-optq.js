@@ -85,11 +85,26 @@ B.push(C.section({
     rows: rows.map((r) => [{ raw: '#' + r.pr }, { raw: C.esc(r.constant) }, { raw: C.esc(r.claim.length > 170 ? r.claim.slice(0, 167) + '…' : r.claim) }, { raw: C.esc((r.scope ? r.scope.split(':')[0] + ' — ' : '') + r.how.slice(0, 160) + (r.how.length > 160 ? '…' : '')) }, { raw: tag(r.verdict) }])
   })
 }));
+/* the replay of the four C_1a/C_1b rows for the registry (certs/stepfun-replay.json, tools/replay-stepfun.js): written
+   only while the record is of the code on disk, both implementations agree and every red control fired */
+const SR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'stepfun-replay.json'), 'utf8'));
+const shaOf = (rel) => require('crypto').createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+if (SR.deciders.js !== shaOf('tools/replay-stepfun.js') || SR.deciders.py !== shaOf('instruments/optq/stepfun.py')) die('certs/stepfun-replay.json was written by other deciders — re-run tools/replay-stepfun.js');
+if (!SR.rows.every((r) => r.agree && r.verdict === 'CERTIFIED') || !SR.redControls.every((r) => r.fired)) die('the step-function replay is not four agreeing CERTIFIED rows with every red control fired');
+const sup = (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d], sci = (x) => { const [m, e] = x.toExponential(2).split('e'); return m + ' × 10' + (e[0] === '-' ? '⁻' : '') + e.replace(/^[-+]/, '').split('').map(sup).join(''); };
+const cdx = SR.rows.find((r) => r.id === '1b-codexprolong'), cdxRed = SR.redControls.find((r) => r.id === 'codexprolong-as-published');
+const replayRaw = C.pRaw('<b>Replayed for the registry, 2026-10-18.</b> When the maintainer merged #225 he marked its two rows and the two EinsteinArena rows beside them with the asterisk, as replayed only by the submitting team\'s own checker. All four are decided here by two implementations that share no code with each other or with the claimants — '
+    + C.m('instruments/optq/stepfun.py') + ' (Python, Fraction and int) and the decider in ' + C.m('tools/replay-stepfun.js') + ' (JavaScript BigInt) — from the pinned bytes, against the bounds the registry prints, read from its pinned pages: every one CERTIFIED, with the same fraction in both. '
+    + 'CodexProLong\'s heights are refused as published (Σh − n/2 = ' + sci(Number(/= ([0-9.]+)/.exec(cdxRed.jsWhy)[1])) + ', not 0); scaled down to Σh = n/2 exactly, the repair the platform\'s own verifier makes in floating point, they certify the bound. The EinsteinArena heights are read as the doubles the JSON numbers denote, as the platform parses them; an earlier record here read the same text as exact decimals and got '
+    + C.esc(cdx.otherReading.bound) + ', which certifies the bound too. Five red controls come out wrong in both implementations: a bound 10⁻¹⁵ below the exact value and a doubled height are REFUTED; a negative height, a height above one and CodexProLong\'s heights as published are REFUSED.')
+  + C.plainList(SR.rows.map((r) => ({ b: (r.constant === 'C_1a' ? 'C₁a' : 'C₁b') + ' · ' + r.producer.split(' (')[0] + ' [' + r.ref + ']',
+    raw: r.n.toLocaleString('en-US') + ' steps' + (r.rescaled ? ', scaled to Σh = n/2' : '') + ': the registry prints ' + C.esc(r.claim.replace(/^C_1[ab] <= /, '≤ ')) + '; the exact value is ' + C.m(r.js.decimal.slice(0, 22) + '…') + ' — ' + tag(r.verdict) })));
 B.push(C.section({
-  lab: '§2 · the step functions', title: '#225: two constants tightened, exactly',
+  lab: '§2 · the step functions', title: '#225: two constants tightened, exactly', id: 'step-functions',
   bodyRaw: C.pRaw('The registry\'s C₁a is the largest constant with max (f∗f) ≥ C (∫f)² over non-negative f on [−¼, ¼]; any explicit f is an upper bound. Atris\'s f has ' + r1a.n.toLocaleString('en-US') + ' equal steps with 13-digit rational heights; for a step function the autoconvolution is piecewise linear with its breakpoints on the grid, so its supremum is a grid value — '
-    + 'computed here as one exact integer product (the heights packed into a big integer, multiplied, unpacked) and maximised over every shift: ' + C.esc(r1a.value.length > 90 ? r1a.valueDecimal : r1a.value) + ' = ' + C.esc(r1a.valueDecimal) + '…, the claimant\'s own fraction to the last digit, below 1.5027435 by ' + C.esc(String(r1a.slack).slice(0, 12)) + '…. '
+    + 'computed here as one exact integer product (the heights packed into a big integer, multiplied, unpacked) and maximised over every shift: ' + C.esc(r1a.value.length > 90 ? r1a.valueDecimal : r1a.value) + ' = ' + C.esc(r1a.valueDecimal) + '…, the claimant\'s own fraction to the last digit, below 1.5027435 by ' + sci(Number(String(r1a.slack).split('/').map(BigInt).reduce((p, q) => (p * 10n ** 30n) / q)) / 1e30) + '. '
     + 'C₁b likewise: h on 114,688 steps with Σh = n/2 exactly and 0 ≤ h ≤ 1, correlated with 1 − h: ' + C.esc(r1b.valueDecimal) + '…, below 0.38085856. The registry\'s entries were 1.502862 and 0.380868.')
+    + replayRaw
 }));
 B.push(C.section({
   lab: '§3 · the entropy certificate', title: '#221: two laws, one bound',

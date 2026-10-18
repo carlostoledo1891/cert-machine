@@ -1,0 +1,204 @@
+{
+ "what": "The four step functions behind the optimization-constants registry's C_1a and C_1b rows of 2026-10-18, each decided exactly by two implementations that share no code (instruments/optq/stepfun.py; the JavaScript decider in tools/replay-stepfun.js), against the bounds the registry prints, read from its pinned pages. Written by tools/replay-stepfun.js.",
+ "generated": "2026-10-18T10:53:49Z",
+ "seconds": 301.6,
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "dd79699549374a9215bbcbaf4f35fc8425c66b548449ea4aa104acb5e61eedf6",
+  "py": "01be053114a8899abf909e06584e23ac0f659a89471329d36420c59b30cb6c57"
+ },
+ "registry": {
+  "snapshot": "corpus/optconst-queue/registry-2026-10-18b/",
+  "commit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+  "asteriskCommit": "3010f7ed33a7a7d99c5ffee710545f2c534a7a51"
+ },
+ "counts": {
+  "CERTIFIED": 4
+ },
+ "rows": [
+  {
+   "id": "1a-atris",
+   "constant": "C_1a",
+   "ref": "A2026",
+   "producer": "Atris (atrislabs/records @ 1fa857a0)",
+   "source": "corpus/optconst-queue/sources/atrislabs/1a-sidon-autocorrelation/construction.json",
+   "sha256": "7387452d1da74e043897ed6ea22b1453b036a8212feeaa43727aaa3f05f97abf",
+   "n": 65536,
+   "claim": "C_1a <= 1.5027434868",
+   "asteriskedAtPin": true,
+   "rescaled": false,
+   "reading": "the fractions as written",
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "645423412969467179759478160871915520/429496729600000035389440000000000729",
+    "decimal": "1.502743486709583379743219592078",
+    "at": 25072,
+    "n": 65536
+   },
+   "jsSeconds": 0.1,
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "645423412969467179759478160871915520/429496729600000035389440000000000729",
+    "valueDecimal": "1.502743486709583379743219592078"
+   },
+   "pySeconds": 38,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "slack": "0.000000000090416620256780407921"
+  },
+  {
+   "id": "1a-agentdiscover",
+   "constant": "C_1a",
+   "ref": "EA2026",
+   "producer": "AgentDiscover (EinsteinArena solution 2603, 2026-10-03)",
+   "source": "corpus/optconst-queue/ea-2026-10-18/solution-2603.json",
+   "sha256": "f05fb2a52b046f72a49dff28a0fe6275608f110950a16f3282e25e7dd4d16208",
+   "n": 65536,
+   "claim": "C_1a <= 1.5027435320",
+   "asteriskedAtPin": true,
+   "rescaled": false,
+   "reading": "the JSON numbers as the IEEE-754 doubles they denote, as the platform parses them",
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "24727713303152061233163878820797979734957310842262297383232635666432/16455045573212060568818620194766298702098006498515388046294816919529",
+    "decimal": "1.502743531953959699008438581755",
+    "at": 67555,
+    "n": 65536
+   },
+   "jsSeconds": 0.2,
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "24727713303152061233163878820797979734957310842262297383232635666432/16455045573212060568818620194766298702098006498515388046294816919529",
+    "valueDecimal": "1.502743531953959699008438581755"
+   },
+   "pySeconds": 77.8,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "slack": "0.000000000046040300991561418244"
+  },
+  {
+   "id": "1b-atris",
+   "constant": "C_1b",
+   "ref": "A2026",
+   "producer": "Atris (atrislabs/records @ 1fa857a0)",
+   "source": "corpus/optconst-queue/sources/atrislabs/1b-erdos-minimum-overlap/construction.json",
+   "sha256": "62a976fa1366a7320cbe293ee3047a109d080220b06b450d290cef411e79af02",
+   "n": 114688,
+   "claim": "C_1b <= 0.3808585504",
+   "asteriskedAtPin": true,
+   "rescaled": false,
+   "reading": "the fractions as written",
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "10919976354672639675467789613614419/28672000000000000000000000000000000",
+    "decimal": "0.380858550316428560109786189090",
+    "at": 36048,
+    "n": 114688
+   },
+   "jsSeconds": 0.2,
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "10919976354672639675467789613614419/28672000000000000000000000000000000",
+    "valueDecimal": "0.380858550316428560109786189090"
+   },
+   "pySeconds": 107.9,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "slack": "0.000000000083571439890213810909"
+  },
+  {
+   "id": "1b-codexprolong",
+   "constant": "C_1b",
+   "ref": "EA2026",
+   "producer": "CodexProLong (EinsteinArena solution 2507, 2026-08-15)",
+   "source": "corpus/einstein-arena/best-1.json",
+   "sha256": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6",
+   "n": 3584,
+   "claim": "C_1b <= 0.3808585749",
+   "asteriskedAtPin": true,
+   "rescaled": true,
+   "reading": "the JSON numbers as the IEEE-754 doubles they denote, as the platform parses them",
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "7861381506700753544763858135527493249966514233368364969629442615292/20641209167037213005036750567119056465821996396173017596892653073025",
+    "decimal": "0.380858574857858309144442333016",
+    "at": -192,
+    "n": 3584
+   },
+   "jsSeconds": 0,
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "7861381506700753544763858135527493249966514233368364969629442615292/20641209167037213005036750567119056465821996396173017596892653073025",
+    "valueDecimal": "0.380858574857858309144442333016"
+   },
+   "pySeconds": 0.4,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "slack": "0.000000000042141690855557666983",
+   "otherReading": {
+    "record": "certs/mc100-einstein-arena.json",
+    "how": "the JSON text of the heights read as exact decimals",
+    "bound": "0.38085857485785830932…",
+    "certifiesTheClaim": true
+   }
+  }
+ ],
+ "redControls": [
+  {
+   "id": "claim-below-the-value",
+   "what": "the Atris C_1a function against a bound 10^-15 below its exact value",
+   "claim": "1.502743486709582",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "1.502743486709583379743219592078",
+   "py": "REFUTED",
+   "pyWhy": "1.502743486709583379743219592078",
+   "fired": true
+  },
+  {
+   "id": "a-raised-height",
+   "what": "the Atris C_1a function with the height at half the maximising lag doubled",
+   "claim": "1.5027434868",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "1.502747487706476238297508881897",
+   "py": "REFUTED",
+   "pyWhy": "1.502747487706476238297508881897",
+   "fired": true
+  },
+  {
+   "id": "a-negative-height",
+   "what": "the Atris C_1a function with its first height made negative",
+   "claim": "1.5027434868",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "a negative height",
+   "py": "REFUSED",
+   "pyWhy": "a negative height",
+   "fired": true
+  },
+  {
+   "id": "a-height-above-one",
+   "what": "the Atris C_1b function with its first height above 1",
+   "claim": "0.3808585504",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "a height outside [0, 1]",
+   "py": "REFUSED",
+   "pyWhy": "a height outside [0, 1]",
+   "fired": true
+  },
+  {
+   "id": "codexprolong-as-published",
+   "what": "CodexProLong's C_1b heights as published, not rescaled (Σh ≠ n/2)",
+   "claim": "0.3808585749",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "Σh − n/2 = 0.000000000000191528089472, not 0",
+   "py": "REFUSED",
+   "pyWhy": "Σh ≠ n/2 exactly (slack 485581395159969471/2535301200456458802993406410752)",
+   "fired": true
+  }
+ ]
+}

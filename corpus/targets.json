@@ -983,6 +983,124 @@
    "cost": "seeds + seed→b + base points + page: one session, laptop; the skipped-candidate lane needs PARI/GP (a new dependency) and CPU hours (P-521 SEA per candidate is minutes) — optional, RunPod CPU or skip and say REFUSED (tool).",
    "next": "operator’s go; then pre-register (which conventions, which pins, the red controls: ts±1, candidate±1, drand48 instead of lrand48, a flipped seed byte), pin FIPS 186-2 (sha 7384ae9d… fetched today), OpenSSL ec_curve.c, FreeLIP lip.c, the post’s HTML; build instruments/curveseeds/ (stdlib Python + a JS twin), the ledger, the page; the PARI lane last.",
    "update_2026_10_16_night": "scouted and built within the evening of the post; outreach notes drafted (outreach/curveseeds-note-2026-10-16.md), the sends the operator's"
+  },
+  {
+   "id": "optconst-1a1b-replay-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay (optimization constants)",
+   "name": "C_1a <= 1.5027434868 (Atris) and 1.5027435320 (AgentDiscover), C_1b <= 0.3808585504 (Atris) and 0.3808585749 (CodexProLong): the four rows #225 brought in, asterisked by the maintainer in 3010f7ed as \"replayed only by the submitting team's own checker\"",
+   "verdict": "BUILT 2026-10-18 (certs/stepfun-replay.json, tools/replay-stepfun.js, /reports/optconst-queue.html §2): all four CERTIFIED by two implementations sharing no code (stepfun.py, JavaScript BigInt), the same fraction in both, 5/5 red controls in both; CodexProLong REFUSED as published (Σh − n/2 = 1.9e-13) and CERTIFIED scaled to Σh = n/2",
+   "finding": "Our 10-15 decision of the Atris rows was a COMMENT on #225 and moved no mark; the PR form (#216, #230) did. The heights of an EinsteinArena JSON can be read as doubles (the platform) or as exact decimals (our 10-02 record): different fractions, both certify.",
+   "next": "the PR in #230's form for the four rows (the operator's word given 2026-10-18)"
+  },
+  {
+   "id": "optconst-1c-barnard-steinerberger-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_1c >= 0.4103287* (#207, rozetyp): Barnard–Steinerberger autocorrelation lower bound = 21072342208353792/51354782902387969 from an integer step-function certificate (K = 6144, 6148 weights)",
+   "verdict": "OPEN — finite and exact, seconds; never replayed by a third party",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "certificate.json in github.com/rozetyp/barnard-steinerberger-lower-bound @ 19f39715 (sha256 62ac49dd…c1fd0e, matches the page); an earlier K = 3072 certificate in previous/",
+   "gap": "the page and README print the fraction's decimal as 0.41030287175…; the fraction is 0.41032871755… (the Bound column 0.4103287 is right) — scout's own exact pre-check, to be confirmed by a recorded decision",
+   "cost": "seconds (bound = K·min_k Σ w_i w_{i+k} / (Σw)², linear between grid points)",
+   "next": "a stepfun-family decider for the minimum autocorrelation; then a PR row note — a separate send"
+  },
+  {
+   "id": "optconst-1d-signed-autocorrelation-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_1d <= 1.463071582607559* (#224, maximusrufus): a 300-cell signed step function on [−1/4, 1/4], the bound an exact rational",
+   "verdict": "OPEN — trivial and exact (under a second); never replayed",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "the 300 values exist only in the PR #224 description (merge b7209dcf)",
+   "gap": "the claimed sha256 44f3f2b6…0f001e1c matches the JSON block only rebuilt with CRLF line endings and no trailing newline (as copied on Unix it hashes 79038573…); a replay record must say which bytes it decided",
+   "cost": "under a second",
+   "next": "pin the PR body, decide with the stepfun-family JS decider (signed heights: the admissibility differs from 1a)"
+  },
+  {
+   "id": "optconst-86-schur-siegel-smyth-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate (highest value of the batch)",
+   "name": "C_86 <= 1.8117251* (#227, rpinho): the Schur–Siegel–Smyth trace upper bound 144938007612277893/79999999999994000 via Smith's converse-Fekete theorem (Annals 2024) from a step measure and 11 integer polynomials",
+   "verdict": "OPEN — a small exact certificate (31.7 KB); never replayed; about half a day to a day of engineering",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "cert_n1200_A11.json in github.com/rpinho/c86-trace-certificate @ 116a58ff (sha256 722a287b…ffe53d): 1201 edges, 1200 densities, 11 polynomials of degree <= 5, 11 weights",
+   "cost": "exact parts (support, Σ b·deg < m, the bound equality) seconds; irreducible and totally real by Sturm; ∫log|Q| dμ > 0 (margin ~1e-4) by a closed form with outward rounding; U_μ − Σ b log|Q| >= 0 on the support (margin 7.4e-8) by interval bisection — each u·log|u| − u term monotone on (−1, 1)",
+   "bridge": "Smith's theorem, the minimum principle and resultants are analytic: the declared boundary, as in the Bandeira audit",
+   "next": "build after the 1a/1b PR lands; the first replay by anyone"
+  },
+  {
+   "id": "optconst-82-zhang-zagier-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_82 <= 0.2534449* (#229, rpinho): Doche's limit-point bound for the Zhang–Zagier essential minimum, majorant 0.25344468733 (margin ~2.1e-7)",
+   "verdict": "OPEN — a 21 KB certificate (7 denominator, 31 numerator polynomials); about a day of engineering, minutes of runtime",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "certificate.json in github.com/rpinho/c82-height-certificate @ 69d89640 (sha256 b33626f3…350fce)",
+   "cost": "B·D = ∫₀¹ max(log|Q∘T|, log|A∘T|) dt by Jensen: upper bounds of |poly| on arcs and interval quadrature; no root finding needed",
+   "gap": "the Épi row prints 0.2535744749*, Pinho's re-evaluation gives 0.25356893 (5.5e-6, the safe direction)",
+   "next": "one instrument decides both asterisked rows (Pinho, Épi), Grinsztajn's 0.2536331 as the control"
+  },
+  {
+   "id": "optconst-12-okeefe-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_12 (#222, devinokeefe): the TSP constant β < 0.8618* = 5A/(6^10·2^32·9·11), A = 4430997795015293889, from a cell computation specified by RECIPE.md",
+   "verdict": "OPEN — finite but heavy (k = 9: 262,144 cell sums over 60,466,176 cells; the author's C/Rust 65–98 min on 8 threads with three symmetry identities); the step from β to the integer is analytic (Edmundson–Madansky), unrefereed",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "github.com/devinokeefe/travelling-sales-person-constant-bounds @ f5d1842d (three claimant checkers in Python, C, Rust from the shared RECIPE; Lean via native_decide, 11.7 h)",
+   "cost": "days for a rewrite from the paper rather than the recipe; k = 5 (0.87882, already below Dong–Cao's 0.8810) under a minute — a cheap partial",
+   "next": "only after the cheap ones"
+  },
+  {
+   "id": "optconst-31-lueker-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_31 (#231, leandrejack-afk): Chvátal–Sankoff γ₂ <= 0.825101* (h = 9) and 0.824120* (h = 10) from certified sub-eigenvalue bounds of Lueker's automaton M_h",
+   "verdict": "OPEN — not on this machine: h = 9 has 51,425,006 states and 1.75 B transitions (7.4 GB), h = 10 400,253,317 states (64 GB); only table digests, λ/z and weights are published, eigenvectors \"on request\"",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "github.com/leandrejack-afk/chvatal-sankoff-bound @ cd99c689",
+   "cost": "any positive vector works, so ours could be computed — but M_h must be re-implemented from Lueker (JACM 2009, Fig. 7); h = 9 streaming and days of engineering, h = 10 a rented machine",
+   "next": "none now"
+  },
+  {
+   "id": "optconst-49a-sunflower-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "49a (#200/#220): 3-sunflower-free capacity >= 1.5666969* (five asterisked rows) from Sperner sunflower-free base families glued by a DEGKM chain, counted by a 2×2 transfer matrix",
+   "verdict": "OCCUPIED — the record rows were already replayed independently by @clavis-systems (Emanuele Rizzan) in a comment on 2026-10-16, with his own code; the maintainer asterisked them anyway (a comment again moved no mark)",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "#220: github.com/joshua17-create/sunflower-lower-bound @ 6e34d78a (75 sets on 10 points, 121 on Z_11); #200: github.com/Aspect5/sunflower-free-capacity tag v1.2 = e478c81d (6127/6150/6341-set families on 20 points)",
+   "cost": "seconds (#220), minutes (the 6341-set family)",
+   "next": "none — second place; the unreplayed v1.0/v1.2 rows are not the record"
+  },
+  {
+   "id": "optconst-84a-zeta-receipt-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_84a (#204, enaslund; marked unverified in 25de6759): 1.0427* and 1.04317*, a Lean proof conditional on a zeta inequality H_W checked by a Python receipt over L-functions of degree-512 and 8192 fields and prime censuses to 4e13",
+   "verdict": "OPEN — infeasible on this machine",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "next": "none"
+  },
+  {
+   "id": "optconst-3a-lean-2026-10",
+   "scouted": "2026-10-18",
+   "class": "registry replay candidate",
+   "name": "C_3a <= 1.31237330* (#198, kleinwaks): the first improvement on 4/3, formalized in Lean (20 modules; Lean v4.28.0, Mathlib 8f9d9cff)",
+   "verdict": "OPEN — a replay is a Lean build, #print axioms and a statement audit (1–2 h); this laptop's free disk (~7 GB) is unlikely to hold the Mathlib cache",
+   "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
+   "artifacts": "github.com/kleinwaks/sum-difference @ 3664fd11",
+   "gap": "the asterisk's reason says \"self-hosted, not registered or independently replayed\", while the same page cites PALOMAR-2026-09-30-000021 v1 (registered)",
+   "next": "a disk clean-up or a pod, then the statement audit"
+  },
+  {
+   "id": "einsteinarena-1b-budala-2026-10",
+   "scouted": "2026-10-18",
+   "class": "leaderboard claim not on the registry",
+   "name": "EinsteinArena Erdős minimum overlap: solution 2623 by CristianBudala, 0.38085658829748237 (2026-10-16) — below the registry's best 0.3808585504 [A2026] by 2e-6",
+   "verdict": "UNSCOUTED — seen in the 2026-10-18 fetch of GET /api/solutions/best?problem_id=1, not decided, not pinned",
+   "next": "pin it and decide it with tools/replay-stepfun.js's decider; recording it on the registry is the claimant's"
   }
  ]
 }
