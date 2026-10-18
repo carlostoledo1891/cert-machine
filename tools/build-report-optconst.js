@@ -71,6 +71,17 @@ B.push(C.tldr({
   checkRaw: C.m('python3 tools/verify_sumdiff.py') + ' — standard library only, four CERTIFIED and one red control. '
     + C.m('node instruments/sumdiff/battery.js') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls.'
 }));
+/* what the registry did with the replay, read from its pinned bytes (tools/read-optconst-registry.js) — never from memory */
+{
+  const RG = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-18', 'record.json'), 'utf8')).facts;
+  const RG2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-18b', 'record.json'), 'utf8')).facts;
+  const F = RG.replay;
+  if (!(F.merged && !F.asterisksNow['3b'] && !F.asterisksNow['71'] && F.asterisksNow['3cL2026'] && F.pagesCiting.length === 3 && RG2.firstReplayHolds['3b'] && RG2.firstReplayHolds['71'] && RG2.secondReplay.rowL2026.note))
+    die('the registry snapshots no longer say what the afterwards note says — rewrite it');
+  B.push('<div class="col">' + C.note({ lab: 'afterwards · ' + F.mergedAt.slice(0, 10), bodyRaw: C.pRaw('The registry\'s maintainer merged the replay on this page (<a href="https://github.com/teorth/optimizationproblems/pull/216">PR #216</a>, commit '
+    + C.esc(F.mergeCommit.slice(0, 8)) + '): the asterisks on C₃b, C₃c and C₇₁ are gone, and each of the three pages cites this replay as [T2026], under the rule he had stated on #176 that an independent replay removes the mark. '
+    + 'The registry\'s bytes after the merge are pinned in ' + C.m('corpus/optconst-queue/registry-2026-10-18/') + '.') }) + '</div>');
+}
 B.push(C.stats([
   { k: 'asterisked bounds decided', v: String(reg.length + 3), n: 'C3b, C3c and C71 CERTIFIED; C42 PARTIAL; C84b REPAIRED. The registry\'s table is pinned at commit ' + L.registry.commit.slice(0, 8) + '.' },
   { k: 'digits of each ratio', v: '40', n: 'Enclosed, not estimated; the 60-digit bound the 147-point certificate prints is decided at ' + A('1.674733895041405870063135756722213999136383713818148696811828').bits + ' bits.' },

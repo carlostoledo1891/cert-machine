@@ -1,0 +1,12 @@
+{
+ "sha": "3010f7ed33a7a7d99c5ffee710545f2c534a7a51",
+ "html_url": "https://github.com/teorth/optimizationproblems/commit/3010f7ed33a7a7d99c5ffee710545f2c534a7a51",
+ "author": "teorth",
+ "date": "2026-10-18T05:54:22Z",
+ "message": "Asterisk the C_1a and C_1b bounds from #225, and dedupe their rows\n\nBoth come from a self-archived repository and an EinsteinArena leaderboard\n-- no refereeing, no formalization, replayed only by the submitting team's\nown checker -- so all four new rows and the README cells carry the marker.\n\nAlso removes the duplicate 1a/1b table rows my conflict resolver created\nby keeping both sides of the table hunk, as it did for C_12 in 5999b98.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>",
+ "files": [
+  "README.md",
+  "constants/1a.md",
+  "constants/1b.md"
+ ]
+}

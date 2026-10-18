@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~02:40 UTC: Tao merged #216; PR #230 open; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
+## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~09:40 UTC: Tao merged #216, then #230 at 05:54 (the fourth asterisk off on our replay) and #225 (asterisked by him: "replayed only by the submitting team's own checker"); the method paper v0.4.1 records it; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -39,8 +39,18 @@ NEXT SESSION, IN ORDER:
      18 self-citations 10 → 6 under the archive's concept DOI; the release minted 23446020. ZENODO'S VERSION FIELD reads
        v2026.10 (a stale .zenodo.json, now bumped) — fix it on Zenodo with your login or ZENODO_TOKEN=… node
        tools/zenodo-metadata.js --apply. The operator sends the PDF to Pedro.
-     IF #230 MERGES: the generator refuses on purpose — re-snapshot the registry (tools/read-optconst-registry.js on a
-       new dated dir), point the generator at it, rewrite "is open at the time of writing".
+     v0.4.1 (2026-10-18 ~09:40 UTC): #230 MERGED 05:54 UTC — the registry re-snapshotted as
+       corpus/optconst-queue/registry-2026-10-18b/ (the morning snapshot kept: each supports the sentences about its
+       moment; `node tools/read-optconst-registry.js --check` re-reads both); §3.2 says merged, 3.5 h after filing, the
+       C₃c unmarked record moved to 1.674894211307116, and #225 asterisked by the maintainer though decided CERTIFIED
+       here in a comment; abstract, highlight and §5 count four marks. The archive note now names the release only when
+       its tag holds the commit built (v0.4.1 goes in the next release). Both registry reports carry a dated
+       "afterwards" note read from the snapshots.
+     NEXT ON THE REGISTRY (a send — the operator's word): a PR in #230's form asking the #225 asterisks off — Tao's
+       stated reason ("replayed only by the submitting team's own checker") is exactly what our 10-15 decision answers;
+       the two EinsteinArena rows (AgentDiscover 1a, CodexProLong 1b) would need deciding first if the PR is to clear all
+       four. Tao's 05:44–05:56 batch also asterisked new rows on C_1c, C_1d, C_12, C_31, C_82, C_86 and 49a: candidates
+       for replays, each to be SCOUTED (corpus/targets.json) before anything is built.
   0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
      corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
      by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an

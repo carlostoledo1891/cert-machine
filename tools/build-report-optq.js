@@ -32,7 +32,7 @@ const B = [];
 B.push(C.header({
   eyebrow: 'cert-machine · audit · the optimization-constants PR queue',
   title: 'Five pull requests to the constants registry, decided where decidable',
-  deck: 'Tao\'s optimization-constants registry has fifteen open pull requests, most of them machine-assisted, none reviewed since September. Five are read here from their submissions: two exact step functions '
+  deck: 'On 2026-10-15 Tao\'s optimization-constants registry had fifteen open pull requests, most of them machine-assisted, none reviewed since September. Five are read here from their submissions: two exact step functions '
     + 'that tighten the autocorrelation and minimum-overlap constants, a two-law entropy certificate for C₃c, five one-line bounds, OpenAI\'s nine-dimensional Borsuk counterexample, and a '
     + '"certified record package" for the de Bruijn–Newman constant at 0.1595. Every finite object decides and holds; the proofs read hold; and the package, 104 files whose scorer compares rationals '
     + 'and hashes while its analysis cites a bank outside the bundle, is refused — not wrong, undecidable from what was submitted.'
@@ -52,6 +52,20 @@ B.push(C.tldr({
     + '70a: κ_m, the binomials and tʲ by outward-rounded decimal recurrences, the n-th root through ln and exp. The Borsuk row cites the kernel record. The package: read file by file.',
   checkRaw: C.m('python3 -I tools/run-optq-ledger.py') + ' · ' + C.m('python3 -I instruments/optq/battery.py') + ' — ' + bm[1] + ' checks, ' + bm[3] + ' red controls.'
 }));
+/* what the registry did with the queue, read from its pinned bytes (tools/read-optconst-registry.js) — never from memory */
+{
+  const RG = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-18', 'record.json'), 'utf8')).facts;
+  const RG2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-18b', 'record.json'), 'utf8')).facts;
+  const S = RG2.secondReplay, P = RG2.stepFunctions;
+  if (!(RG.queue[221].merged && RG.queue[221].asteriskKept && RG.queue[210].merged && S.merged && !S.rowJ2026.star && S.citesT2026b && P.merged && P.rowA2026['1a'].star && P.rowA2026['1b'].star && !P.citesUs['1a'] && P.asteriskCommit.reason && RG2.open[226] === 'open'))
+    die('the registry snapshots no longer say what the afterwards note says — rewrite it');
+  const hrs = ((Date.parse(S.mergedAt) - Date.parse(S.createdAt)) / 3600000).toFixed(1);
+  B.push('<div class="col">' + C.note({ lab: 'afterwards · ' + S.mergedAt.slice(0, 10), bodyRaw: C.pRaw('The maintainer merged three of the five pull requests. '
+    + '<b>#221</b>\'s two-law certificate went in with its asterisk; the replay on this page, offered as <a href="https://github.com/teorth/optimizationproblems/pull/230">PR #230</a>, was merged '
+    + hrs + ' hours after it was filed (commit ' + C.esc(S.mergeCommit.slice(0, 8)) + '), the asterisk removed and the C₃c page citing it as [T2026b]. <b>#225</b>\'s step functions were merged and then marked with the asterisk by the maintainer, as \u201c'
+    + C.esc(P.asteriskCommit.reason.replace(/\s+/g, ' ')) + '\u201d (commit ' + C.esc(P.asteriskCommit.sha.slice(0, 8)) + '); the exact decision above was posted as a comment on that pull request and is not cited there. '
+    + '<b>#210</b>\'s package went in asterisked. #217 and #226 are open. The registry\'s bytes after each round are pinned in ' + C.m('corpus/optconst-queue/registry-2026-10-18/') + ' and ' + C.m('registry-2026-10-18b/') + '.') }) + '</div>');
+}
 B.push(C.stats([
   { k: 'decided', v: String(L.counts.CERTIFIED), n: L.counts.REFUTED + ' refuted · ' + L.counts.REFUSED + ' refused (evidence not submitted). 16a and 70a joined the decided on 10-16.' },
   { k: 'C₁a ≤', v: r1a.valueDecimal.slice(0, 10), n: 'From the registry\'s 1.502862; a 65,536-step function, exact.' },

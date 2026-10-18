@@ -142,12 +142,12 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
 
 /* B2 (v0.3, 2026-10-18): the optimization-constants registry — the asterisked bounds replayed (certs/sumdiff-ledger.json,
    certs/fei-ledger.json), the open PR queue decided (certs/optq-ledger.json), and what the registry did next, read from
-   its pinned bytes (corpus/optconst-queue/registry-2026-10-18/, written by tools/read-optconst-registry.js). The two
-   standard-library verifiers are RUN here: the sentence "two implementations that share no code" is written only while
+   its pinned bytes (corpus/optconst-queue/registry-2026-10-18/ after the first merges, registry-2026-10-18b/ after the
+   second; both written by tools/read-optconst-registry.js). The two standard-library verifiers are RUN here: the sentence "two implementations that share no code" is written only while
    both still certify. */
 {
   const SD = J('certs/sumdiff-ledger.json'), FE = J('certs/fei-ledger.json'), OQ = J('certs/optq-ledger.json');
-  const RG = J('corpus/optconst-queue/registry-2026-10-18/record.json').facts;
+  const RG = J('corpus/optconst-queue/registry-2026-10-18/record.json').facts, RG2 = J('corpus/optconst-queue/registry-2026-10-18b/record.json').facts;
   const chk = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'read-optconst-registry.js'), '--check'], { encoding: 'utf8' });
   need(chk.status === 0, 'the registry record does not re-derive from its pins: ' + (chk.stderr || chk.stdout).slice(-300));
   for (const v of ['verify_sumdiff.py', 'verify_twolaw.py']) {
@@ -175,9 +175,23 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   need(RG.rule.contributing && RG.rule.promise && RG.replay.merged && RG.replay.pagesCiting.length === 3, 'the registry record does not show the rule, the merge and the three citations');
   def('MtRgRuleDate', RG.rule.stated); def('MtRgMergeDate', RG.replay.mergedAt.slice(0, 10)); def('MtRgMergeCommit', RG.replay.mergeCommit.slice(0, 8));
   def('MtRgRegistryCommit', RG.registryCommit.slice(0, 8)); def('MtRgFetched', RG.fetched.slice(0, 10)); def('MtRgPages', String(RG.replay.pagesCiting.length));
+  def('MtRgSecondRegistryCommit', RG2.registryCommit.slice(0, 8)); need(RG2.fetched.slice(0, 10) === RG.fetched.slice(0, 10), 'the two registry snapshots were not read the same day — rewrite "read the same day"');
+  def('MtRgDirs', ['registry-2026-10-18', 'registry-2026-10-18b'].map((d) => 'corpus/optconst-queue/' + d + '/').join(' and '));
   need(RG.replay.rowNotes['3c'] === 0 && RG.queue[221].asteriskKept, 'the snapshot no longer shows #221 merged asterisked with the 3c row note reverted — rewrite the sentence');
-  need(RG.queue[230].state === 'open', 'PR 230 is no longer open in the snapshot — re-read the registry and rewrite the sentence');
-  def('MtRgOpenPrDate', RG.queue[230].createdAt.slice(0, 10)); def('MtRgStarRows', String(RG.queue[210].asteriskedRows));
+  def('MtRgStarRows', String(RG.queue[210].asteriskedRows));
+  /* the second merges: the two-law replay merged (#230), the queue's step functions asterisked by the maintainer (#225) */
+  const S2 = RG2.secondReplay, P2 = RG2.stepFunctions;
+  need(S2.merged && S2.mergedBy === 'teorth' && !S2.rowJ2026.star && S2.citesT2026b && S2.rowL2026.note, 'the second snapshot does not show #230 merged with the J2026 asterisk gone, [T2026b] cited and the L2026 note restored');
+  need(P2.merged && P2.rowA2026['1a'].star && P2.rowA2026['1b'].star && P2.asteriskCommit.author === 'teorth' && P2.asteriskCommit.reason, 'the second snapshot does not show #225 asterisked by the maintainer for the reason quoted');
+  need(Math.abs(Date.parse(S2.mergedAt) - Date.parse(P2.mergedAt)) < 60000, '#230 and #225 were not merged in the same minute');
+  need(['optq-225-1a', 'optq-225-1b'].every((id) => (OQ.rows.find((r) => r.id === id) || {}).verdict === 'CERTIFIED'), 'the queue no longer has #225\'s step functions CERTIFIED');
+  const posted225 = J('corpus/outreach.json').rows.find((r) => r.id === 'gh-optq-225'); need(posted225 && /#issuecomment-/.test(posted225.url), 'the #225 decision is not recorded as a comment on the pull request');
+  def('MtRgSecondCommit', S2.mergeCommit.slice(0, 8)); def('MtRgSecondHours', ((Date.parse(S2.mergedAt) - Date.parse(S2.createdAt)) / 3600000).toFixed(1));
+  def('MtRgSecondBound', S2.readme3c); def('MtRgStarCommit', P2.asteriskCommit.sha.slice(0, 8)); def('MtRgStarReason', P2.asteriskCommit.reason.replace(/\s+/g, ' '));
+  /* the marks removed on the replays: the first three (#216), then the two-law certificate's (#230) */
+  const marks = [!RG.replay.asterisksNow['3b'], !RG.replay.asterisksNow['71'], RG.replay.asterisksNow['3cL2026'], !S2.rowJ2026.star].filter(Boolean).length;
+  need(marks === 4 && RG2.firstReplayHolds['3b'] && RG2.firstReplayHolds['71'], 'the marks removed on the replays are not the four the paper counts');
+  def('MtRgMarksWord', ['no', 'one', 'two', 'three', 'four', 'five'][marks]);
   /* the three merges' span, and the number of constants the registry's table holds (both from the pinned bytes) */
   const mt = [RG.replay.mergedAt, RG.queue[221].mergedAt, RG.queue[210].mergedAt].map((t) => Date.parse(t));
   def('MtRgMergeMinutes', String(Math.ceil((Math.max(...mt) - Math.min(...mt)) / 60000)));
@@ -202,7 +216,7 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
     ['$C_{3b} \\ge ' + b3.claim.replace(/^.*>= /, '') + '$', 'Mosaic Intelligence', b3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
     ['$C_{3c} \\ge ' + c3.claim.replace(/^.*>= /, '') + '$', 'Y.~Lin', c3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
     ['$C_{71} > ' + f71.claim.replace(/^.*> /, '').slice(0, 12) + '\\ldots$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', '\\vC, one program', 'asterisk removed; [T2026] cited'],
-    ['$C_{3c} \\ge 1.674894211307116$', 'M.~Jaswal', tl.laws.join(' and ') + '-point laws', '\\vC, two programs', 'merged with asterisk; replay offered (\\#230)'],
+    ['$C_{3c} \\ge 1.674894211307116$', 'M.~Jaswal', tl.laws.join(' and ') + '-point laws', '\\vC, two programs', 'merged with asterisk, then removed on the replay (\\#230); [T2026b] cited'],
     ['$C_{21} < 0.1595$', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as all ' + RG.queue[210].asteriskedRows + ' recent rows']];
   def('MtRgTableRows', rowTex.map((r) => r.join(' & ')).join(' \\\\\n'));
 }
@@ -286,10 +300,13 @@ const fill = (t) => String(t).replace(/\{\{([^}]+)\}\}/g, (_, k) => (k in V ? St
 def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title))).join(' \\\\\n'));
 
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
-   named only once it exists; before that the note says the next release will hold it, under the concept DOI */
+   named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,
+   under the concept DOI, and names the release that holds the previous version */
 { const Z = J('corpus/zenodo.json'); const v = Z.versions.find((x) => x.version === Z.latest);
   need(v && /^10\.5281\/zenodo\.\d+$/.test(v.doi) && /^10\.5281\/zenodo\.\d+$/.test(Z.conceptDoi), 'the deposit record has no current version');
-  def('MtArchiveNote', v.version === 'v2026.10.18' ? 'its sources are archived as release ' + esc(v.version) + ', doi:' + v.doi : 'it will be archived with the next release of the repository, under the concept doi:' + Z.conceptDoi); }
+  const held = cp.spawnSync('git', ['merge-base', '--is-ancestor', 'HEAD', v.version], { cwd: ROOT }).status === 0;
+  def('MtArchiveNote', held ? 'its sources are archived as release ' + esc(v.version) + ', doi:' + v.doi
+    : 'it will be archived with the next release of the repository, under the concept doi:' + Z.conceptDoi + ' (the previous version is in release ' + esc(v.version) + ', doi:' + v.doi + ')'); }
 def('MtCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('wrote ' + path.relative(ROOT, OUT) + ' (' + (M.length - 1) + ' macros)');
