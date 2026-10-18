@@ -22,6 +22,17 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt (mail@felixschmidt.org) e-mailed a note claiming the
+     analytic bound on our buffer K (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1
+     @ 8564602b; pinned by digest only in corpus/erdos1/schmidt-2026-10-18/PINS.json; no code of his run). DECIDED on a
+     pre-registered grid of 48 (b, s) up to d = 3,125 (instruments/erdos1/structure.py → certs/erdos1/buffer-structure.json;
+     battery structure_battery.py in make test): H by PARI and, up to r = 400, FLINT — identical; his block recursion
+     (Thm 4.1), the b-independent column supports N_s = 3·2^(s-1)−1 (Thm 5.1), DAG depth s (5.2), min diagonal ≥ D/4
+     (6.2b), the s=2 column formula (6.1) and his bound all HOLD in all 48; FALSE as stated: supp(col H^-1) =
+     supp(col H) fails in all 7 cases with s ≥ 4 (entries cancel inside the support; never outside, so the bound
+     survives) and min diagonal = D/4 fails at s = 2 (it is D/2); his Table 1 has 8 of 11 K values and 6 of 11
+     column norms wrong; his Lean file proves none of the structure. The proofs of 4.1/5.1 are sketches — the open
+     part. A reply (and any collaboration) is the operator's; the record is ready to offer him.
   ★ METHOD PAPER v0.5 (2026-10-18 evening, 52 pp A4): a referee-style read by an AI agent ("major revision": 37 errors,
      15 overclaims, 13 structure items, 35 typography) APPLIED — the Navier–Stokes CERTIFIED scoped at f9e8bc5b (one
      kernel, Comparator not re-run, theorem_1_1 OpenAI's own and undeclared) and its 2026-09-10 commit date with no causal

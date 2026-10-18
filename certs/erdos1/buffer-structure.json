@@ -1,0 +1,2367 @@
+{
+ "what": "The Hermite basis H_s of the Erd\u0151s #1 construction (paper/erdos1-explicit.md \u00a73), decided against the structural statements of F. Schmidt's note of 2026-10-18 (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1 @ 8564602b; its code not run) over a pre-registered grid of (b, s); H by PARI and, up to r = 400, by FLINT, identical; K(b, s) exact in this repository's definition. Written by instruments/erdos1/structure.py.",
+ "generated": "2026-10-18T20:09:47Z",
+ "seconds": 2102.0,
+ "python": "3.12.13",
+ "decider": "b297b928a88272e85606df38dfc4bcda635b0e16e304b142bce968fc3ba96b99",
+ "grid": [
+  [
+   3,
+   1
+  ],
+  [
+   5,
+   1
+  ],
+  [
+   7,
+   1
+  ],
+  [
+   9,
+   1
+  ],
+  [
+   11,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   15,
+   1
+  ],
+  [
+   17,
+   1
+  ],
+  [
+   19,
+   1
+  ],
+  [
+   21,
+   1
+  ],
+  [
+   23,
+   1
+  ],
+  [
+   25,
+   1
+  ],
+  [
+   27,
+   1
+  ],
+  [
+   29,
+   1
+  ],
+  [
+   31,
+   1
+  ],
+  [
+   33,
+   1
+  ],
+  [
+   35,
+   1
+  ],
+  [
+   37,
+   1
+  ],
+  [
+   39,
+   1
+  ],
+  [
+   41,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   7,
+   2
+  ],
+  [
+   9,
+   2
+  ],
+  [
+   11,
+   2
+  ],
+  [
+   13,
+   2
+  ],
+  [
+   15,
+   2
+  ],
+  [
+   17,
+   2
+  ],
+  [
+   19,
+   2
+  ],
+  [
+   21,
+   2
+  ],
+  [
+   23,
+   2
+  ],
+  [
+   25,
+   2
+  ],
+  [
+   27,
+   2
+  ],
+  [
+   29,
+   2
+  ],
+  [
+   31,
+   2
+  ],
+  [
+   3,
+   3
+  ],
+  [
+   5,
+   3
+  ],
+  [
+   7,
+   3
+  ],
+  [
+   9,
+   3
+  ],
+  [
+   11,
+   3
+  ],
+  [
+   13,
+   3
+  ],
+  [
+   3,
+   4
+  ],
+  [
+   5,
+   4
+  ],
+  [
+   7,
+   4
+  ],
+  [
+   3,
+   5
+  ],
+  [
+   5,
+   5
+  ],
+  [
+   3,
+   6
+  ],
+  [
+   3,
+   7
+  ]
+ ],
+ "held": 41,
+ "cases": 48,
+ "rows": [
+  {
+   "b": 3,
+   "s": 1,
+   "d": 3,
+   "r": 2,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "10/3",
+   "K_float": 3.3333333333333335,
+   "K_over_d": 1.1111111111111112,
+   "maxColL1": "8/3",
+   "maxColL1_float": 2.6666666666666665,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "49fb52440317039b578deba2667b5ea461b3a868cfcb7a4bba9848e15a1140f6",
+   "noteTable": {
+    "maxColL1": "8/3",
+    "K": "10/3",
+    "maxColL1Matches": true,
+    "KMatches": true
+   }
+  },
+  {
+   "b": 5,
+   "s": 1,
+   "d": 5,
+   "r": 4,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "60/11",
+   "K_float": 5.454545454545454,
+   "K_over_d": 1.0909090909090908,
+   "maxColL1": "38/11",
+   "maxColL1_float": 3.4545454545454546,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "6f193e83fed1c5d4107f38e27da7ae9afc9334e3d5fa45c970ec6012f709aed6",
+   "noteTable": {
+    "maxColL1": "32/11",
+    "K": "60/11",
+    "maxColL1Matches": false,
+    "KMatches": true
+   }
+  },
+  {
+   "b": 7,
+   "s": 1,
+   "d": 7,
+   "r": 6,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "318/43",
+   "K_float": 7.395348837209302,
+   "K_over_d": 1.0564784053156147,
+   "maxColL1": "166/43",
+   "maxColL1_float": 3.86046511627907,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "e064e94a3aa989c942fd263293db225c637614675ad284c302e4fa7ff9ab3049",
+   "noteTable": {
+    "maxColL1": "128/43",
+    "K": "306/43",
+    "maxColL1Matches": false,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 3,
+   "s": 2,
+   "d": 9,
+   "r": 8,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "98/9",
+   "K_float": 10.88888888888889,
+   "K_over_d": 1.2098765432098766,
+   "maxColL1": "56/9",
+   "maxColL1_float": 6.222222222222222,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "a361b57f5d3c802a66a8d34ee28f075ce033eb09e1d852687846855f26e237c0",
+   "noteTable": {
+    "maxColL1": "56/9",
+    "K": "152/9",
+    "maxColL1Matches": true,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 9,
+   "s": 1,
+   "d": 9,
+   "r": 8,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "1600/171",
+   "K_float": 9.35672514619883,
+   "K_over_d": 1.0396361273554255,
+   "maxColL1": "226/57",
+   "maxColL1_float": 3.9649122807017543,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "29d2cc1598d5fb59b1af8e0559e7eb976b75602ffe6cec38053479330d765234",
+   "noteTable": {
+    "maxColL1": "512/171",
+    "K": "1602/171",
+    "maxColL1Matches": false,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 11,
+   "s": 1,
+   "d": 11,
+   "r": 10,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "7746/683",
+   "K_float": 11.341142020497804,
+   "K_over_d": 1.0310129109543458,
+   "maxColL1": "2726/683",
+   "maxColL1_float": 3.9912152269399708,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "c83e6a470244a91deb9153907b5179a3fc90a7fd8b431ce74924dbffa9534e28"
+  },
+  {
+   "b": 13,
+   "s": 1,
+   "d": 13,
+   "r": 12,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "36420/2731",
+   "K_float": 13.335774441596485,
+   "K_over_d": 1.0258288031997296,
+   "maxColL1": "10918/2731",
+   "maxColL1_float": 3.9978030025631637,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "4f3800dcfba8843f78bf12abcba6c2c6a233a237ca03388d7b60779ade91e058"
+  },
+  {
+   "b": 15,
+   "s": 1,
+   "d": 15,
+   "r": 14,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "167494/10923",
+   "K_float": 15.334065732857274,
+   "K_over_d": 1.0222710488571516,
+   "maxColL1": "14562/3641",
+   "maxColL1_float": 3.9994507003570448,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "4d474be39a2756ed62aea50d7721ab6172c07c3bd4d96d6be20d8453fae4f6bd"
+  },
+  {
+   "b": 17,
+   "s": 1,
+   "d": 17,
+   "r": 16,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "757320/43691",
+   "K_float": 17.333546954750407,
+   "K_over_d": 1.019620409102965,
+   "maxColL1": "174758/43691",
+   "maxColL1_float": 3.9998626719461674,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "cbecfac6e716c9d361848e80ccbd56acf81fcabf5d7cea0875e8f73720f5f429"
+  },
+  {
+   "b": 19,
+   "s": 1,
+   "d": 19,
+   "r": 18,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "3378762/174763",
+   "K_float": 19.333394368373167,
+   "K_over_d": 1.0175470720196405,
+   "maxColL1": "699046/174763",
+   "maxColL1_float": 3.999965667790093,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "aedd7eb460d3f684ed75f829b13d818852eadf2c0119f4740b226a2659c5cfa4"
+  },
+  {
+   "b": 21,
+   "s": 1,
+   "d": 21,
+   "r": 20,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "14913100/699051",
+   "K_float": 21.333350499462842,
+   "K_over_d": 1.0158738333077544,
+   "maxColL1": "932066/233017",
+   "maxColL1_float": 3.999991416935245,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "08001a7ef95f265ad4311482c57d6044e0b1cb0a06aa4700c630ef7aa58d0b73"
+  },
+  {
+   "b": 23,
+   "s": 1,
+   "d": 23,
+   "r": 22,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "65244750/2796203",
+   "K_float": 23.333338101704346,
+   "K_over_d": 1.0144929609436673,
+   "maxColL1": "11184806/2796203",
+   "maxColL1_float": 3.999997854233044,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "68cd6d444455c2c0ec040b08afc2e7399b6fa40edda664c0da150916e101084f"
+  },
+  {
+   "b": 5,
+   "s": 2,
+   "d": 25,
+   "r": 24,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "844/33",
+   "K_float": 25.575757575757574,
+   "K_over_d": 1.023030303030303,
+   "maxColL1": "224/33",
+   "maxColL1_float": 6.787878787878788,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "f69ca68cf3deb40fb842d8cb79f1fd2d1412f4375d2e598c999ae0969ad5534b",
+   "noteTable": {
+    "maxColL1": "224/33",
+    "K": "1712/33",
+    "maxColL1Matches": true,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 25,
+   "s": 1,
+   "d": 25,
+   "r": 24,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "25758960/1016801",
+   "K_float": 25.333334644635478,
+   "K_over_d": 1.0133333857854192,
+   "maxColL1": "44739238/11184811",
+   "maxColL1_float": 3.999999463558213,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.0,
+   "flintSeconds": 0.0,
+   "Hsha256": "f0e35da0b8e9bd3d231ce6419c559608965e13161cf86f6ae60163aa914f3e2a"
+  },
+  {
+   "b": 3,
+   "s": 3,
+   "d": 27,
+   "r": 26,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "304/9",
+   "K_float": 33.77777777777778,
+   "K_over_d": 1.2510288065843622,
+   "maxColL1": "322/27",
+   "maxColL1_float": 11.925925925925926,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "74b75dbc288170e191fdaec148c6dca1171e735835453ab160e6500eebcefd54",
+   "noteTable": {
+    "maxColL1": "376/27",
+    "K": "2336/27",
+    "maxColL1Matches": false,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 27,
+   "s": 1,
+   "d": 27,
+   "r": 26,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "1222872658/44739243",
+   "K_float": 27.3333336909612,
+   "K_over_d": 1.0123456922578222,
+   "maxColL1": "59652322/14913081",
+   "maxColL1_float": 3.99999986588955,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "7d17d9b874ccdde32abfa14369b93bcfc701e2d75d001697f85d5d86b378337c"
+  },
+  {
+   "b": 29,
+   "s": 1,
+   "d": 29,
+   "r": 28,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "5249404500/178956971",
+   "K_float": 29.33333343019088,
+   "K_over_d": 1.0114942562134785,
+   "maxColL1": "715827878/178956971",
+   "maxColL1_float": 3.9999999664723873,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "c02d48f3991f6814caab7833e3515c135ca6cec8577203451c42580588853076"
+  },
+  {
+   "b": 31,
+   "s": 1,
+   "d": 31,
+   "r": 30,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "22429273686/715827883",
+   "K_float": 31.333333359410364,
+   "K_over_d": 1.0107526890132374,
+   "maxColL1": "2863311526/715827883",
+   "maxColL1_float": 3.999999991618097,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "f07b16deb912b5e04f9cd661e549929dfb512d2a4c2b5217279ed51bcb00fbed"
+  },
+  {
+   "b": 33,
+   "s": 1,
+   "d": 33,
+   "r": 32,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "95443717720/2863311531",
+   "K_float": 33.333333340318255,
+   "K_over_d": 1.0101010103126744,
+   "maxColL1": "3817748706/954437177",
+   "maxColL1_float": 3.999999997904524,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "e11b924a593f64c39d58ffacabf1f4aef1ceeac028909fed0f87ebba7f257b6d"
+  },
+  {
+   "b": 35,
+   "s": 1,
+   "d": 35,
+   "r": 34,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "404681363034/11453246123",
+   "K_float": 35.33333333519598,
+   "K_over_d": 1.009523809577028,
+   "maxColL1": "45812984486/11453246123",
+   "maxColL1_float": 3.999999999476131,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "7f5507bc4efd6bd302b560af95bba846c1631255dece85fe9714c66c5536d91f"
+  },
+  {
+   "b": 37,
+   "s": 1,
+   "d": 37,
+   "r": 36,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "1710351421020/45812984491",
+   "K_float": 37.3333333338281,
+   "K_over_d": 1.009009009022381,
+   "maxColL1": "183251937958/45812984491",
+   "maxColL1_float": 3.9999999998690328,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "4af0d258011af7907323f51ad73d2cacc4d8fbc136a35c2ee70610fe0a8195e9"
+  },
+  {
+   "b": 39,
+   "s": 1,
+   "d": 39,
+   "r": 38,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "7207909559902/183251937963",
+   "K_float": 39.3333333334643,
+   "K_over_d": 1.0085470085503667,
+   "maxColL1": "244335917282/61083979321",
+   "maxColL1_float": 3.999999999967258,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "f69f28f8c4c60a15c9b94fd7ebf799844bdcd4a5b3ab9072077de0ef500a4d5b"
+  },
+  {
+   "b": 41,
+   "s": 1,
+   "d": 41,
+   "r": 40,
+   "D": 2,
+   "Ns": 2,
+   "maxColNnzH": 2,
+   "transitivelyClosed": true,
+   "depth": 1,
+   "minDiag": 1,
+   "maxColNnzHinv": 2,
+   "noFillIn": true,
+   "K": "30297653743200/733007751851",
+   "K_float": 41.3333333333679,
+   "K_over_d": 1.008130081301656,
+   "maxColL1": "2932031007398/733007751851",
+   "maxColL1_float": 3.9999999999918145,
+   "statements": {
+    "T3.1 H_1 closed form": true,
+    "T3.1 K(b,1) closed form": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "b1ebbdd6f4f2c9c92fbbfa988996654081f002b441d20095db21537aa159ef6b"
+  },
+  {
+   "b": 7,
+   "s": 2,
+   "d": 49,
+   "r": 48,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "6500/129",
+   "K_float": 50.3875968992248,
+   "K_over_d": 1.0283183040658124,
+   "maxColL1": "896/129",
+   "maxColL1_float": 6.945736434108527,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.1,
+   "flintSeconds": 0.0,
+   "Hsha256": "6265ed1275967b930d4c8417893a4d4ee83a501cd3fedeeeaea9713e13d4da15",
+   "noteTable": {
+    "maxColL1": "896/129",
+    "K": "13736/129",
+    "maxColL1Matches": true,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 3,
+   "s": 4,
+   "d": 81,
+   "r": 80,
+   "D": 16,
+   "Ns": 23,
+   "maxColNnzH": 23,
+   "transitivelyClosed": true,
+   "depth": 4,
+   "minDiag": 4,
+   "maxColNnzHinv": 23,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 34,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     2,
+     3,
+     5
+    ],
+    "H": [
+     [
+      2,
+      16
+     ],
+     [
+      3,
+      8
+     ],
+     [
+      5,
+      2
+     ]
+    ],
+    "columnsDiffering": 2
+   },
+   "K": "2780/27",
+   "K_float": 102.96296296296296,
+   "K_over_d": 1.2711476909007773,
+   "maxColL1": "2416/81",
+   "maxColL1_float": 29.82716049382716,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.3,
+   "flintSeconds": 0.1,
+   "Hsha256": "c87f72df4de6756d3785aa505a71b0dd41600ab664a0b182f44f58e08faab048",
+   "noteTable": {
+    "maxColL1": "2480/81",
+    "K": "35296/81",
+    "maxColL1Matches": false,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 9,
+   "s": 2,
+   "d": 81,
+   "r": 80,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "14756/171",
+   "K_float": 86.29239766081871,
+   "K_over_d": 1.0653382427261568,
+   "maxColL1": "3584/513",
+   "maxColL1_float": 6.98635477582846,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.3,
+   "flintSeconds": 0.1,
+   "Hsha256": "6bb08d6c4a3d9161c08f0f7f8a0346b1ad8ef8d8104807a2e59574131ee3f262",
+   "noteTable": {
+    "maxColL1": "3584/513",
+    "K": "93272/513",
+    "maxColL1Matches": true,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 11,
+   "s": 2,
+   "d": 121,
+   "r": 120,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "272452/2049",
+   "K_float": 132.96827720839434,
+   "K_over_d": 1.0989113818875564,
+   "maxColL1": "14336/2049",
+   "maxColL1_float": 6.996583699365544,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.6,
+   "flintSeconds": 0.8,
+   "Hsha256": "8f63474db9fa0afcb62004f52f95cd7c7247e70aa675fd345b4046cbc3b4930b"
+  },
+  {
+   "b": 5,
+   "s": 3,
+   "d": 125,
+   "r": 124,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "20066/99",
+   "K_float": 202.68686868686868,
+   "K_over_d": 1.6214949494949493,
+   "maxColL1": "134/9",
+   "maxColL1_float": 14.88888888888889,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 0.7,
+   "flintSeconds": 0.5,
+   "Hsha256": "691a4e784b3969a794e5960a15c4962b511fa100c7f64c80d7e3c3a306fc25eb",
+   "noteTable": {
+    "maxColL1": "1616/99",
+    "K": "46880/99",
+    "maxColL1Matches": false,
+    "KMatches": false
+   }
+  },
+  {
+   "b": 13,
+   "s": 2,
+   "d": 169,
+   "r": 168,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "1559276/8193",
+   "K_float": 190.31807640668865,
+   "K_over_d": 1.1261424639449031,
+   "maxColL1": "57344/8193",
+   "maxColL1_float": 6.999145612107897,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 1.3,
+   "flintSeconds": 4.5,
+   "Hsha256": "caf92420f096a33b63a597c488933bda0d4dd4e88a52ff2d5463cdb22a4a6951"
+  },
+  {
+   "b": 15,
+   "s": 2,
+   "d": 225,
+   "r": 224,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "2821708/10923",
+   "K_float": 258.32719948732034,
+   "K_over_d": 1.1481208866103125,
+   "maxColL1": "229376/32769",
+   "maxColL1_float": 6.999786383472184,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 2.2,
+   "flintSeconds": 24.0,
+   "Hsha256": "8db09e84bfab950bfb38d76b95b88007458081c62415260b5a2d22e708548bfb"
+  },
+  {
+   "b": 3,
+   "s": 5,
+   "d": 243,
+   "r": 242,
+   "D": 32,
+   "Ns": 47,
+   "maxColNnzH": 47,
+   "transitivelyClosed": false,
+   "depth": 5,
+   "minDiag": 8,
+   "maxColNnzHinv": 47,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 34,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     2,
+     3,
+     5
+    ],
+    "H": [
+     [
+      2,
+      32
+     ],
+     [
+      3,
+      16
+     ],
+     [
+      5,
+      4
+     ]
+    ],
+    "columnsDiffering": 10
+   },
+   "K": "8320/27",
+   "K_float": 308.14814814814815,
+   "K_over_d": 1.2680993750952598,
+   "maxColL1": "15502/243",
+   "maxColL1_float": 63.794238683127574,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 2.5,
+   "flintSeconds": 8.8,
+   "Hsha256": "6fb1f3526e727fca9e5284eb27a07a44034e569866b0636eb6564b2c600d1f94"
+  },
+  {
+   "b": 17,
+   "s": 2,
+   "d": 289,
+   "r": 288,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "44171308/131073",
+   "K_float": 336.9977646044571,
+   "K_over_d": 1.1660822304652494,
+   "maxColL1": "917504/131073",
+   "maxColL1_float": 6.999946594645732,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 3.3,
+   "flintSeconds": 105.4,
+   "Hsha256": "791f71f98ec5b3be32dbbf74880aa4923451e6918b032d6c00d45988755f870e"
+  },
+  {
+   "b": 7,
+   "s": 3,
+   "d": 343,
+   "r": 342,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "28142/43",
+   "K_float": 654.4651162790698,
+   "K_over_d": 1.9080615634958302,
+   "maxColL1": "5866/387",
+   "maxColL1_float": 15.157622739018088,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 5.1,
+   "flintSeconds": 29.7,
+   "Hsha256": "99bbcc89946eee7441986c8b8002b989bbd8b0294e7623558745540c39adad80"
+  },
+  {
+   "b": 19,
+   "s": 2,
+   "d": 361,
+   "r": 360,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "223521476/524289",
+   "K_float": 426.3325684879904,
+   "K_over_d": 1.1809766440110536,
+   "maxColL1": "3670016/524289",
+   "maxColL1_float": 6.999986648585036,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "FLINT hnf"
+   ],
+   "pariSeconds": 5.6,
+   "flintSeconds": 391.5,
+   "Hsha256": "2168de88172eff931573d67105f1236020575ffe01f31165fb8b53b0e000b974"
+  },
+  {
+   "b": 21,
+   "s": 2,
+   "d": 441,
+   "r": 440,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "122644556/233017",
+   "K_float": 526.3330829939447,
+   "K_over_d": 1.193499054408038,
+   "maxColL1": "14680064/2097153",
+   "maxColL1_float": 6.999996662141484,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 8.5,
+   "flintSeconds": null,
+   "Hsha256": "d189478f01b6c489059fb73707922d6fd9936693052cb17e8f8d5e35c9053d1b"
+  },
+  {
+   "b": 23,
+   "s": 2,
+   "d": 529,
+   "r": 528,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "5343543268/8388609",
+   "K_float": 636.9999207258319,
+   "K_over_d": 1.2041586403134819,
+   "maxColL1": "58720256/8388609",
+   "maxColL1_float": 6.999999165535073,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 11.6,
+   "flintSeconds": null,
+   "Hsha256": "9fb798cdfd32efc52da3270dcc99b9d319f6af28802879ec31795d482c4e5f84"
+  },
+  {
+   "b": 5,
+   "s": 4,
+   "d": 625,
+   "r": 624,
+   "D": 16,
+   "Ns": 23,
+   "maxColNnzH": 23,
+   "transitivelyClosed": true,
+   "depth": 4,
+   "minDiag": 4,
+   "maxColNnzHinv": 23,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 148,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     4,
+     5,
+     19
+    ],
+    "H": [
+     [
+      4,
+      64
+     ],
+     [
+      5,
+      32
+     ],
+     [
+      19,
+      2
+     ]
+    ],
+    "columnsDiffering": 4
+   },
+   "K": "126272/99",
+   "K_float": 1275.4747474747476,
+   "K_over_d": 2.0407595959595963,
+   "maxColL1": "10030/297",
+   "maxColL1_float": 33.77104377104377,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 16.6,
+   "flintSeconds": null,
+   "Hsha256": "682ecbc5164253dda5298a636ce04a79be81113f24d62a0480346bf3577401f7"
+  },
+  {
+   "b": 25,
+   "s": 2,
+   "d": 625,
+   "r": 624,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "25445444204/33554433",
+   "K_float": 758.3333088656274,
+   "K_over_d": 1.213333294185004,
+   "maxColL1": "234881024/33554433",
+   "maxColL1_float": 6.9999997913837495,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 16.2,
+   "flintSeconds": null,
+   "Hsha256": "8dfe55c85f315199babe1e521e6d9c0c3d7ff9434b85e1e8e78b299762f79445"
+  },
+  {
+   "b": 3,
+   "s": 6,
+   "d": 729,
+   "r": 728,
+   "D": 64,
+   "Ns": 95,
+   "maxColNnzH": 95,
+   "transitivelyClosed": false,
+   "depth": 6,
+   "minDiag": 16,
+   "maxColNnzHinv": 95,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 34,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     2,
+     3,
+     5
+    ],
+    "H": [
+     [
+      2,
+      64
+     ],
+     [
+      3,
+      32
+     ],
+     [
+      5,
+      8
+     ]
+    ],
+    "columnsDiffering": 36
+   },
+   "K": "65912/81",
+   "K_float": 813.7283950617284,
+   "K_over_d": 1.116225507629257,
+   "maxColL1": "97528/729",
+   "maxColL1_float": 133.7832647462277,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 23.4,
+   "flintSeconds": null,
+   "Hsha256": "8006fb240ec7de913181342f49ec371f8b13a29ea1567e3f3c906ce6cd7f18c1"
+  },
+  {
+   "b": 9,
+   "s": 3,
+   "d": 729,
+   "r": 728,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "793382/513",
+   "K_float": 1546.5536062378167,
+   "K_over_d": 2.1214727108886375,
+   "maxColL1": "24424/1539",
+   "maxColL1_float": 15.870045484080572,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 22.5,
+   "flintSeconds": null,
+   "Hsha256": "7950fae63a22b9adff4231eb0e39dd2c2f616e1a0720ebd54e12f6e2164b5da4"
+  },
+  {
+   "b": 27,
+   "s": 2,
+   "d": 729,
+   "r": 728,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "39832839020/44739243",
+   "K_float": 890.3333259349068,
+   "K_over_d": 1.2213077173318339,
+   "maxColL1": "939524096/134217729",
+   "maxColL1_float": 6.999999947845936,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 23.4,
+   "flintSeconds": null,
+   "Hsha256": "1d29a5f1ae544022f864ba14548c981c56649b6a3d4d8394ec9daa8e911d9c3f"
+  },
+  {
+   "b": 29,
+   "s": 2,
+   "d": 841,
+   "r": 840,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "554587651948/536870913",
+   "K_float": 1032.999997800216,
+   "K_over_d": 1.2282996406661308,
+   "maxColL1": "3758096384/536870913",
+   "maxColL1_float": 6.999999986961484,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 31.3,
+   "flintSeconds": null,
+   "Hsha256": "59e35aad58fd5f3548a951fe85e84cf69fc3a2fd4ea4eab75a4f1b2b587bbc76"
+  },
+  {
+   "b": 31,
+   "s": 2,
+   "d": 961,
+   "r": 960,
+   "D": 4,
+   "Ns": 5,
+   "maxColNnzH": 5,
+   "transitivelyClosed": true,
+   "depth": 2,
+   "minDiag": 2,
+   "maxColNnzHinv": 5,
+   "noFillIn": true,
+   "K": "2547631434212/2147483649",
+   "K_float": 1186.3333326883924,
+   "K_over_d": 1.2344779736611784,
+   "maxColL1": "15032385536/2147483649",
+   "maxColL1_float": 6.999999996740371,
+   "minDiagEqualsDOver4": false,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.1 max column l1 = 7 2^b/(2^b+1)": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 38.0,
+   "flintSeconds": null,
+   "Hsha256": "711750eb6f3df6abb5a7e73741637935d3b15dfac9e1ff8f9623c7a8b71efbd5"
+  },
+  {
+   "b": 11,
+   "s": 3,
+   "d": 1331,
+   "r": 1330,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "18343550/6147",
+   "K_float": 2984.146738246299,
+   "K_over_d": 2.2420336125066105,
+   "maxColL1": "98152/6147",
+   "maxColL1_float": 15.967463803481373,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 72.3,
+   "flintSeconds": null,
+   "Hsha256": "bdb360d6c350bf8cfcc4f64e3ef207c4419e978193e728f121487bd1a904422d"
+  },
+  {
+   "b": 3,
+   "s": 7,
+   "d": 2187,
+   "r": 2186,
+   "D": 128,
+   "Ns": 191,
+   "maxColNnzH": 191,
+   "transitivelyClosed": false,
+   "depth": 7,
+   "minDiag": 32,
+   "maxColNnzHinv": 191,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 34,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     2,
+     3,
+     5
+    ],
+    "H": [
+     [
+      2,
+      128
+     ],
+     [
+      3,
+      64
+     ],
+     [
+      5,
+      16
+     ]
+    ],
+    "columnsDiffering": 116
+   },
+   "K": "4836148/2187",
+   "K_float": 2211.315957933242,
+   "K_over_d": 1.0111184078341298,
+   "maxColL1": "603130/2187",
+   "maxColL1_float": 275.7796067672611,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 228.1,
+   "flintSeconds": null,
+   "Hsha256": "71440095ad9dc16d20a771dbb20d70750afcc551803cc70af9fe9613b0520c04"
+  },
+  {
+   "b": 13,
+   "s": 3,
+   "d": 2197,
+   "r": 2196,
+   "D": 8,
+   "Ns": 11,
+   "maxColNnzH": 11,
+   "transitivelyClosed": true,
+   "depth": 3,
+   "minDiag": 2,
+   "maxColNnzHinv": 11,
+   "noFillIn": true,
+   "K": "42266710/8193",
+   "K_float": 5158.880751861345,
+   "K_over_d": 2.34814781604977,
+   "maxColL1": "393064/24579",
+   "maxColL1_float": 15.991862972456161,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": true,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": true,
+   "hermite": [
+    "PARI mathnfmod",
+    "cache (an earlier run)"
+   ],
+   "pariSeconds": 216.5,
+   "flintSeconds": null,
+   "Hsha256": "6681b242fc76d5e158180405b80df3a9e9289b9b11061b1fcba2e6527a1750e9"
+  },
+  {
+   "b": 7,
+   "s": 4,
+   "d": 2401,
+   "r": 2400,
+   "D": 16,
+   "Ns": 23,
+   "maxColNnzH": 23,
+   "transitivelyClosed": true,
+   "depth": 4,
+   "minDiag": 4,
+   "maxColNnzHinv": 23,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 390,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     6,
+     7,
+     41
+    ],
+    "H": [
+     [
+      6,
+      256
+     ],
+     [
+      7,
+      128
+     ],
+     [
+      41,
+      2
+     ]
+    ],
+    "columnsDiffering": 6
+   },
+   "K": "7176596/1161",
+   "K_float": 6181.391903531438,
+   "K_over_d": 2.5745072484512446,
+   "maxColL1": "41080/1161",
+   "maxColL1_float": 35.3832902670112,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 269.4,
+   "flintSeconds": null,
+   "Hsha256": "94ba657785fb5035da4d35ed994c068d0607d32da0c671d0e2ea4934f0a49a66"
+  },
+  {
+   "b": 5,
+   "s": 5,
+   "d": 3125,
+   "r": 3124,
+   "D": 32,
+   "Ns": 47,
+   "maxColNnzH": 47,
+   "transitivelyClosed": false,
+   "depth": 5,
+   "minDiag": 8,
+   "maxColNnzHinv": 47,
+   "noFillIn": false,
+   "fillInWitness": {
+    "column": 148,
+    "inverseOutsideSupport": [],
+    "cancelledInsideSupport": [
+     4,
+     5,
+     19
+    ],
+    "H": [
+     [
+      4,
+      128
+     ],
+     [
+      5,
+      64
+     ],
+     [
+      19,
+      4
+     ]
+    ],
+    "columnsDiffering": 28
+   },
+   "K": "2074696/297",
+   "K_float": 6985.508417508418,
+   "K_over_d": 2.235362693602694,
+   "maxColL1": "65236/891",
+   "maxColL1_float": 73.21661054994388,
+   "minDiagEqualsDOver4": true,
+   "statements": {
+    "T4.1a Block 0 = 2 H_{s-1}": true,
+    "T4.1c Blocks 2..b-1 identical": true,
+    "T4.1c Blocks 2..b-1 uncoupled": true,
+    "T4.1d lower sub-blocks of G = 2 G_{s-2}": true,
+    "T4.1d lower sub-blocks uncoupled": true,
+    "T6.2b min diagonal >= D/4": true,
+    "T5.1 max column nnz of H = N_s": true,
+    "T5.1 max column nnz of H^-1 = N_s": true,
+    "T5.1 supp(col H^-1) = supp(col H)": false,
+    "T5.2 DAG depth = s": true,
+    "T6.2c max column l1 <= 4 N_s^s": true,
+    "T6.2c K <= 4 N_s^s (b^s-1)": true
+   },
+   "allHold": false,
+   "hermite": [
+    "PARI mathnfmod"
+   ],
+   "pariSeconds": 487.4,
+   "flintSeconds": null,
+   "Hsha256": "e82e2403b4c99154d2b3069a04fb1b5cbf4dc1d9b88e6f6464225ee02eb0eee4"
+  }
+ ],
+ "redControls": [
+  {
+   "id": "an entry planted outside the support",
+   "expect": "a structural statement fails",
+   "fired": true
+  },
+  {
+   "id": "an entry not reduced",
+   "expect": "not the canonical form",
+   "fired": true
+  },
+  {
+   "id": "a diagonal block doubled",
+   "expect": "T4.1c fails",
+   "fired": true
+  },
+  {
+   "id": "a top-row entry of H_1 moved",
+   "expect": "T3.1 fails",
+   "fired": true
+  }
+ ]
+}
