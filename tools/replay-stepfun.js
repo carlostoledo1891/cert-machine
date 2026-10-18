@@ -10,7 +10,7 @@
    bounds read from the registry's own pinned pages, red controls that must come out wrong.
 
    The two implementations: instruments/optq/stepfun.py (Python, Fraction and int, the decider of the 2026-10-15 queue)
-   and the decider in this file (JavaScript BigInt, written apart from it). Both compute the same exact rational:
+   and instruments/optq/stepfun-exact.js (JavaScript BigInt, written apart from it; the 1c/1d replay uses it too). Both compute the same exact rational:
      1a  f >= 0 a step function on [-1/4, 1/4] with n equal steps; f*f is piecewise linear with knots on the grid, so
          max (f*f) / (∫f)^2 = 2n · max_k Σ_i a_i a_{k-i} / (Σ a_i)^2, with a_i the heights over one common denominator;
      1b  h a step function on [0, 2] with n equal steps, 0 <= h <= 1, ∫h = 1 exactly (Σ h_i = n/2), g = 1 - h on [0, 2]
@@ -22,7 +22,7 @@
    exactly — the repair the platform's own verifier makes in floating point — which keeps 0 <= h <= 1.
 
    usage: node tools/replay-stepfun.js            both implementations, the red controls → certs/stepfun-replay.json
-          node tools/replay-stepfun.js --check    the battery: this file's decider re-derives every row and red control
+          node tools/replay-stepfun.js --check    the battery: the JavaScript decider re-derives every row and red control
                                                   and compares with the record; nothing written
    MIT */
 'use strict';
@@ -59,76 +59,9 @@ for (const s of SOURCES) {
   s.claim = m[1]; s.asterisked = m[2] === '*';
 }
 
-/* ---- the JavaScript decider (shares no code with stepfun.py) --------------------------------------------- */
-const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) [a, b] = [b, a % b]; return a; };
-const bitlen = (x) => (x === 0n ? 0 : x.toString(2).length);
-/* a double, exactly: sign · mantissa · 2^exponent, read from its IEEE-754 bits */
-function exactDouble(x) {
-  if (!Number.isFinite(x)) throw new Error('a non-finite height');
-  if (x === 0) return [0n, 1n];
-  const dv = new DataView(new ArrayBuffer(8)); dv.setFloat64(0, x);
-  const hi = dv.getUint32(0), lo = dv.getUint32(4), e = (hi >>> 20) & 0x7ff;
-  let m = (BigInt(hi & 0xfffff) << 32n) | BigInt(lo), ex;
-  if (e === 0) ex = -1074; else { m |= 1n << 52n; ex = e - 1075; }
-  if (hi >>> 31) m = -m;
-  return ex >= 0 ? [m << BigInt(ex), 1n] : [m, 1n << BigInt(-ex)];
-}
-/* "p/q", a decimal string, or a JSON number (a double) — each as a fraction of BigInts */
-function exact(v) {
-  if (typeof v === 'number') return exactDouble(v);
-  const s = String(v).trim();
-  if (s.includes('/')) { const [p, q] = s.split('/'); if (BigInt(q) <= 0n) throw new Error('a non-positive denominator'); return [BigInt(p), BigInt(q)]; }
-  const m = /^(-?)(\d+)(?:\.(\d+))?$/.exec(s); if (!m) throw new Error('not a number: ' + s.slice(0, 40));
-  const f = m[3] || '';
-  return [(m[1] ? -1n : 1n) * BigInt(m[2] + f), 10n ** BigInt(f.length)];
-}
-/* the heights over one common denominator D */
-function common(fr) {
-  let D = 1n;
-  for (const [, q] of fr) D = (D / gcd(D, q)) * q;
-  return { D, a: fr.map(([p, q]) => p * (D / q)) };
-}
-/* the coefficients of (Σ a_i x^i)(Σ b_j x^j), a_i, b_j >= 0, by Kronecker substitution: K bits per slot, K a multiple
-   of 4 so that the packing and the unpacking are plain hexadecimal strings */
-function product(a, b) {
-  let ma = 0n, mb = 0n; for (const x of a) if (x > ma) ma = x; for (const x of b) if (x > mb) mb = x;
-  const K = Math.ceil((bitlen(BigInt(Math.min(a.length, b.length)) * ma * mb) + 1) / 4) * 4, w = K / 4;
-  const pack = (s) => { const parts = new Array(s.length); for (let i = 0; i < s.length; i++) parts[s.length - 1 - i] = s[i].toString(16).padStart(w, '0'); return BigInt('0x' + (parts.join('') || '0')); };
-  const hex = (pack(a) * pack(b)).toString(16), L = a.length + b.length - 1;
-  if (hex.length > L * w) throw new Error('the product overran its slots: the packing bound was wrong');
-  const h = hex.padStart(L * w, '0'), out = new Array(L);
-  for (let k = 0; k < L; k++) out[k] = BigInt('0x' + h.slice((L - 1 - k) * w, (L - k) * w));
-  return out;
-}
-const reduce = ([p, q]) => { const g = gcd(p, q) || 1n; return [p / g, q / g]; };
-const dec = ([p, q], k) => { const ip = p / q, r = p - ip * q; return ip + '.' + ((r * 10n ** BigInt(k)) / q).toString().padStart(k, '0'); };
-/* decide one construction: heights → verdict and exact value */
-function decideJs(kind, heights, claim, { rescale, mutate } = {}) {
-  const fr = heights.map(exact);
-  if (mutate) fr[mutate.index] = mutate.value !== undefined ? exact(mutate.value) : [fr[mutate.index][0] * BigInt(mutate.scale), fr[mutate.index][1]];
-  let { D, a } = common(fr);
-  const n = a.length, S = a.reduce((s, x) => s + x, 0n);
-  if (kind === '1b' && rescale) {
-    /* h_i' = h_i · (n/2) / Σh: over the denominator 2S the numerators are a_i · n; a scale-down keeps h' <= h <= 1 */
-    if (!(2n * S > BigInt(n) * D)) return { verdict: 'REFUSED', why: 'the rescale is not a scale-down' };
-    a = a.map((x) => x * BigInt(n)); D = 2n * S;
-  }
-  let r;
-  if (kind === '1a') {
-    if (a.some((x) => x < 0n)) return { verdict: 'REFUSED', why: 'a negative height' };
-    const T = a.reduce((s, x) => s + x, 0n); if (T === 0n) return { verdict: 'REFUSED', why: 'the integral is zero' };
-    const conv = product(a, a); let best = 0n, at = 0; conv.forEach((c, k) => { if (c > best) { best = c; at = k; } });
-    r = { value: reduce([2n * BigInt(n) * best, T * T]), at };
-  } else {
-    if (a.some((x) => x < 0n || x > D)) return { verdict: 'REFUSED', why: 'a height outside [0, 1]' };
-    const T = a.reduce((s, x) => s + x, 0n); if (2n * T !== BigInt(n) * D) return { verdict: 'REFUSED', why: 'Σh − n/2 = ' + dec(reduce([2n * T - BigInt(n) * D, 2n * D]), 24) + ', not 0' };
-    const c = a.map((x) => D - x).reverse(), corr = product(a, c); let best = -1n, at = 0; corr.forEach((x, k) => { if (x > best) { best = x; at = k; } });
-    r = { value: reduce([2n * best, BigInt(n) * D * D]), at: at - (n - 1) };
-  }
-  const [cp_, cq] = exact(claim);
-  return { verdict: r.value[0] * cq <= cp_ * r.value[1] ? 'CERTIFIED' : 'REFUTED', value: r.value[0] + '/' + r.value[1], decimal: dec(r.value, 30), at: r.at, n };
-}
-
+/* ---- the JavaScript decider: instruments/optq/stepfun-exact.js (shares no code with stepfun.py) ------------- */
+const SE = require(path.join(ROOT, 'instruments', 'optq', 'stepfun-exact.js'));
+const { exact, reduce, dec } = SE, decideJs = SE.decide;
 /* ---- the Python decider, instruments/optq/stepfun.py, on the same bytes ------------------------------------ */
 const PY = `
 import json, sys
@@ -201,17 +134,17 @@ if (CHECK) {
   const was = J('certs/stepfun-replay.json');
   for (const r of rows) { const w = was.rows.find((x) => x.id === r.id); if (!w || w.js.value !== r.js.value || w.js.verdict !== r.js.verdict || w.claim !== r.claim || w.sha256 !== r.sha256) die(r.id + ' does not re-derive as recorded'); }
   if (!reds.every((r) => r.fired)) die('a red control did not fire');
-  if (was.deciders.js !== sha(rd('tools/replay-stepfun.js'))) console.log('  note: this file changed since the record was written — re-run without --check before citing it');
+  if (was.deciders.js !== sha(rd('tools/replay-stepfun.js')) || was.deciders.jsModule !== sha(rd('instruments/optq/stepfun-exact.js'))) console.log('  note: this file changed since the record was written — re-run without --check before citing it');
   console.log('stepfun replay: ' + rows.length + ' rows re-derived identical, ' + reds.length + '/' + reds.length + ' red controls fired (the JavaScript decider; the record holds both)');
 } else {
   if (!rows.every((r) => r.agree)) die('the two implementations disagree on ' + rows.filter((r) => !r.agree).map((r) => r.id).join(', '));
   if (!reds.every((r) => r.fired)) die('a red control did not fire in both implementations');
   const counts = rows.reduce((c, r) => ((c[r.verdict] = (c[r.verdict] || 0) + 1), c), {});
   const rec = {
-    what: 'The four step functions behind the optimization-constants registry\'s C_1a and C_1b rows of 2026-10-18, each decided exactly by two implementations that share no code (instruments/optq/stepfun.py; the JavaScript decider in tools/replay-stepfun.js), against the bounds the registry prints, read from its pinned pages. Written by tools/replay-stepfun.js.',
+    what: 'The four step functions behind the optimization-constants registry\'s C_1a and C_1b rows of 2026-10-18, each decided exactly by two implementations that share no code (instruments/optq/stepfun.py; instruments/optq/stepfun-exact.js), against the bounds the registry prints, read from its pinned pages. Written by tools/replay-stepfun.js.',
     generated: new Date().toISOString().replace(/\.\d+Z$/, 'Z'), seconds: +((Date.now() - T0) / 1000).toFixed(1), node: process.version,
     python: cp.execFileSync('python3', ['-I', '-c', 'import sys; print(sys.version.split()[0])'], { encoding: 'utf8' }).trim(),
-    deciders: { js: sha(rd('tools/replay-stepfun.js')), py: sha(rd('instruments/optq/stepfun.py')) },
+    deciders: { js: sha(rd('tools/replay-stepfun.js')), jsModule: sha(rd('instruments/optq/stepfun-exact.js')), py: sha(rd('instruments/optq/stepfun.py')) },
     registry: { snapshot: SNAP + '/', commit: J(SNAP + '/PINS.json').commit, asteriskCommit: J(SNAP + '/api/commit-3010f7ed.json').sha },
     counts, rows, redControls: reds
   };

@@ -1,0 +1,170 @@
+{
+ "what": "The registry's C_1c (rozetyp, #207) and C_1d (#224) step functions, decided exactly by two implementations that share no code (instruments/optq/autocorr.py; instruments/optq/stepfun-exact.js) against the bounds the registry prints, read from its pinned pages; the C_1d printed bound below its own certificate's value recorded with the bound the certificate does show. Written by tools/replay-autocorr.js.",
+ "generated": "2026-10-18T13:12:49Z",
+ "seconds": 115.4,
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "8df5ed57e96a6a2e9af47218078931c918611bde02db5f8ea4ebd23a7c5fd1d5",
+  "jsModule": "88480ec6a070e6ae31d5816027b0238c2032681f326bbc0ea8fd83b5b556ca5b",
+  "py": "07ac0527af37d1e25d372764d71542d276c2c7f8b2ee8c597e073f922db8cc86"
+ },
+ "pins": "corpus/optconst-queue/next-2026-10-18/PINS.json",
+ "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+ "counts": {
+  "CERTIFIED": 2,
+  "REFUTED": 1
+ },
+ "rows": [
+  {
+   "id": "1c-rozetyp",
+   "constant": "C_1c",
+   "ref": "R2026",
+   "producer": "rozetyp (barnard-steinerberger-lower-bound @ 19f39715), K = 6144",
+   "source": "corpus/optconst-queue/next-2026-10-18/rozetyp/certificate.json",
+   "sha256": "62ac49ddbbfc9aa1053406363d9df9c912022ab85b72a447cf73c94bb9c1fd0e",
+   "n": 6148,
+   "claim": "C_1c >= 0.4103287",
+   "asteriskedAtPin": true,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "21072342208353792/51354782902387969",
+    "decimal": "0.410328717549187414492658374747",
+    "at": 4665,
+    "n": 6148
+   },
+   "jsSeconds": 0,
+   "stated": {
+    "fraction": "21072342208353792/51354782902387969",
+    "decimal": "0.41030287175",
+    "fractionMatches": true,
+    "decimalMatches": false
+   },
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "21072342208353792/51354782902387969",
+    "at": 4665,
+    "valueDecimal": "0.410328717549187414492658374747"
+   },
+   "pySeconds": 44.1,
+   "agree": true,
+   "verdict": "CERTIFIED",
+   "gap": "the page prints the fraction 21072342208353792/51354782902387969 as 0.41030287175…; it is 0.410328717549…"
+  },
+  {
+   "id": "1c-rozetyp-k3072",
+   "constant": "C_1c",
+   "ref": "R2026",
+   "producer": "rozetyp, the earlier certificate (previous/certificate_K3072.json), K = 3072",
+   "source": "corpus/optconst-queue/next-2026-10-18/rozetyp/previous/certificate_K3072.json",
+   "sha256": "788527a6237837e8d5d441cfab3f8b39080165fc207ae6a69678cc5f3a0fdf58",
+   "n": 3584,
+   "claim": "C_1c >= 0.4103021",
+   "asteriskedAtPin": false,
+   "js": {
+    "verdict": "CERTIFIED",
+    "value": "92043155785589760/224330199426578281",
+    "decimal": "0.410302117239969943311614309629",
+    "at": 497,
+    "n": 3584
+   },
+   "jsSeconds": 0,
+   "py": {
+    "verdict": "CERTIFIED",
+    "value": "92043155785589760/224330199426578281",
+    "at": 497,
+    "valueDecimal": "0.410302117239969943311614309629"
+   },
+   "pySeconds": 17.1,
+   "agree": true,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "1d-cert2026",
+   "constant": "C_1d",
+   "ref": "CERT2026",
+   "producer": "the 300-cell certificate in the body of pull request 224 (CRLF bytes, sha256 44f3f2b6…)",
+   "source": "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c",
+   "n": 300,
+   "claim": "C_1d <= 1.463071582607559",
+   "asteriskedAtPin": true,
+   "js": {
+    "verdict": "REFUTED",
+    "value": "2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881",
+    "decimal": "1.463071582607559327461430576172",
+    "at": 414,
+    "n": 300
+   },
+   "jsSeconds": 0,
+   "stated": {
+    "fraction": "2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881",
+    "decimal": "1.4630715826075593",
+    "fractionMatches": true,
+    "decimalMatches": true
+   },
+   "py": {
+    "verdict": "REFUTED",
+    "value": "2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881",
+    "at": 414,
+    "valueDecimal": "1.463071582607559327461430576172"
+   },
+   "pySeconds": 0.5,
+   "agree": true,
+   "verdict": "REFUTED",
+   "repair": {
+    "claim": "C_1d <= 1.4630715826075594",
+    "how": "the exact value rounded up at 16 decimals",
+    "js": "CERTIFIED",
+    "py": "CERTIFIED"
+   },
+   "gap": "the printed bound 1.463071582607559 is below the certificate's exact value 1.46307158260755932746…: the certificate shows C_1d <= 1.4630715826075594, not the printed bound"
+  }
+ ],
+ "redControls": [
+  {
+   "id": "a-bound-above-the-value",
+   "what": "the C_1c function against a lower bound 2·10^-15 above its exact value",
+   "claim": "0.410328717549189",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "0.410328717549187414492658374747",
+   "py": "REFUTED",
+   "pyWhy": "0.410328717549187414492658374747",
+   "fired": true
+  },
+  {
+   "id": "a-negative-weight",
+   "what": "the C_1c function with its first weight made negative",
+   "claim": "0.4103287",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "a negative weight",
+   "py": "REFUSED",
+   "pyWhy": "a negative weight",
+   "fired": true
+  },
+  {
+   "id": "a-bound-below-the-value",
+   "what": "the C_1d function against an upper bound 10^-15 below its exact value",
+   "claim": "1.463071582607559",
+   "expect": "REFUTED",
+   "js": "REFUTED",
+   "jsWhy": "1.463071582607559327461430576172",
+   "py": "REFUTED",
+   "pyWhy": "1.463071582607559327461430576172",
+   "fired": true
+  },
+  {
+   "id": "a-zero-integral",
+   "what": "the C_1d function with its first value changed so that Σv = 0 exactly",
+   "claim": "1.463071582607559",
+   "expect": "REFUSED",
+   "js": "REFUSED",
+   "jsWhy": "the integral is zero",
+   "py": "REFUSED",
+   "pyWhy": "the integral is zero",
+   "fired": true
+  }
+ ]
+}

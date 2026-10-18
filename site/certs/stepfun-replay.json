@@ -1,11 +1,12 @@
 {
- "what": "The four step functions behind the optimization-constants registry's C_1a and C_1b rows of 2026-10-18, each decided exactly by two implementations that share no code (instruments/optq/stepfun.py; the JavaScript decider in tools/replay-stepfun.js), against the bounds the registry prints, read from its pinned pages. Written by tools/replay-stepfun.js.",
- "generated": "2026-10-18T10:53:49Z",
- "seconds": 301.6,
+ "what": "The four step functions behind the optimization-constants registry's C_1a and C_1b rows of 2026-10-18, each decided exactly by two implementations that share no code (instruments/optq/stepfun.py; instruments/optq/stepfun-exact.js), against the bounds the registry prints, read from its pinned pages. Written by tools/replay-stepfun.js.",
+ "generated": "2026-10-18T15:27:46Z",
+ "seconds": 8277.7,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
-  "js": "dd79699549374a9215bbcbaf4f35fc8425c66b548449ea4aa104acb5e61eedf6",
+  "js": "5caef0e84bf98719555d566446ac397c1988931e1bcb8d7510c3c72c3d49a1a1",
+  "jsModule": "88480ec6a070e6ae31d5816027b0238c2032681f326bbc0ea8fd83b5b556ca5b",
   "py": "01be053114a8899abf909e06584e23ac0f659a89471329d36420c59b30cb6c57"
  },
  "registry": {
@@ -42,7 +43,7 @@
     "value": "645423412969467179759478160871915520/429496729600000035389440000000000729",
     "valueDecimal": "1.502743486709583379743219592078"
    },
-   "pySeconds": 38,
+   "pySeconds": 39.1,
    "agree": true,
    "verdict": "CERTIFIED",
    "slack": "0.000000000090416620256780407921"
@@ -72,7 +73,7 @@
     "value": "24727713303152061233163878820797979734957310842262297383232635666432/16455045573212060568818620194766298702098006498515388046294816919529",
     "valueDecimal": "1.502743531953959699008438581755"
    },
-   "pySeconds": 77.8,
+   "pySeconds": 92.7,
    "agree": true,
    "verdict": "CERTIFIED",
    "slack": "0.000000000046040300991561418244"
@@ -96,13 +97,13 @@
     "at": 36048,
     "n": 114688
    },
-   "jsSeconds": 0.2,
+   "jsSeconds": 0.3,
    "py": {
     "verdict": "CERTIFIED",
     "value": "10919976354672639675467789613614419/28672000000000000000000000000000000",
     "valueDecimal": "0.380858550316428560109786189090"
    },
-   "pySeconds": 107.9,
+   "pySeconds": 1682.9,
    "agree": true,
    "verdict": "CERTIFIED",
    "slack": "0.000000000083571439890213810909"

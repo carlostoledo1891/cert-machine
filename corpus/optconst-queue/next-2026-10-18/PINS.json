@@ -1,0 +1,54 @@
+{
+ "what": "The bytes behind the registry's C_1c (#207, rozetyp) and C_1d (#224) rows, pinned 2026-10-18 for a replay: the registry pages at upstream main, the C_1c repository at the commit its row cites, and the C_1d certificate as the pull request body gives it. The claimants' scripts are kept as text (.txt) and never run. Nothing here is ours but the extraction of the C_1d block.",
+ "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+ "rozetypCommit": "19f397152222caaef2c838bdd9c41295adb94310",
+ "fetched": "2026-10-18T13:08:12.472Z",
+ "files": {
+  "upstream/README.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/README.md",
+   "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea"
+  },
+  "upstream/constants/1c.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/constants/1c.md",
+   "sha256": "14c6a69145eb5212616cce092240dd4aac9c30441e744b4d37cde4e94511af76"
+  },
+  "upstream/constants/1d.md": {
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/constants/1d.md",
+   "sha256": "962c9049af1d5e172635e19301ae7dded6dd5aefaa486a9d3463bc61fbd9a118"
+  },
+  "rozetyp/certificate.json": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/certificate.json",
+   "sha256": "62ac49ddbbfc9aa1053406363d9df9c912022ab85b72a447cf73c94bb9c1fd0e"
+  },
+  "rozetyp/previous/certificate_K3072.json": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/previous/certificate_K3072.json",
+   "sha256": "788527a6237837e8d5d441cfab3f8b39080165fc207ae6a69678cc5f3a0fdf58"
+  },
+  "rozetyp/README.md": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/README.md",
+   "sha256": "cf8c2e87183005967040b3f0dbb3f9bc9fd1029c28cb14fda4c5a89dad2e0d37"
+  },
+  "rozetyp/verify.py.txt": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/verify.py",
+   "sha256": "2c8179f3d3c92810ccebe57490bbccacef94be193ef0ef4c570e2b56489f2814"
+  },
+  "rozetyp/check_independent.py.txt": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/check_independent.py",
+   "sha256": "fd4825afddc46706aa7846fcee7a8d1368b6cf347cb3226a07cc0a6727972f2a"
+  },
+  "rozetyp/LICENSE": {
+   "url": "https://github.com/rozetyp/barnard-steinerberger-lower-bound/blob/19f397152222caaef2c838bdd9c41295adb94310/LICENSE",
+   "sha256": "ac1a9f97416ca5bb9b690dcf1c87d31e17cc997ee3cb5660ffd984be56648445"
+  },
+  "pr-224/pr-224.json": {
+   "url": "https://api.github.com/repos/teorth/optimizationproblems/pulls/224",
+   "sha256": "dc759472e9be2223b856168ae30ded66fda98a7576a503c7a8b6eb6ebaa3a86d",
+   "note": "the fields kept, as the API returned them on 2026-10-18; the body holds construction.json and verify.py"
+  },
+  "pr-224/construction.json": {
+   "url": "https://github.com/teorth/optimizationproblems/pull/224",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c",
+   "note": "the json block of the pull request body, with CRLF line endings and no trailing newline: the bytes whose SHA-256 the PR and the 1d page state (44f3f2b6…). With LF line endings and a trailing newline, as a Unix copy gives, the same text hashes 79038573…."
+  }
+ }
+}

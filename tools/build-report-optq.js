@@ -89,12 +89,12 @@ B.push(C.section({
    only while the record is of the code on disk, both implementations agree and every red control fired */
 const SR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'stepfun-replay.json'), 'utf8'));
 const shaOf = (rel) => require('crypto').createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
-if (SR.deciders.js !== shaOf('tools/replay-stepfun.js') || SR.deciders.py !== shaOf('instruments/optq/stepfun.py')) die('certs/stepfun-replay.json was written by other deciders — re-run tools/replay-stepfun.js');
+if (SR.deciders.js !== shaOf('tools/replay-stepfun.js') || SR.deciders.jsModule !== shaOf('instruments/optq/stepfun-exact.js') || SR.deciders.py !== shaOf('instruments/optq/stepfun.py')) die('certs/stepfun-replay.json was written by other deciders — re-run tools/replay-stepfun.js');
 if (!SR.rows.every((r) => r.agree && r.verdict === 'CERTIFIED') || !SR.redControls.every((r) => r.fired)) die('the step-function replay is not four agreeing CERTIFIED rows with every red control fired');
 const sup = (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d], sci = (x) => { const [m, e] = x.toExponential(2).split('e'); return m + ' × 10' + (e[0] === '-' ? '⁻' : '') + e.replace(/^[-+]/, '').split('').map(sup).join(''); };
 const cdx = SR.rows.find((r) => r.id === '1b-codexprolong'), cdxRed = SR.redControls.find((r) => r.id === 'codexprolong-as-published');
 const replayRaw = C.pRaw('<b>Replayed for the registry, 2026-10-18.</b> When the maintainer merged #225 he marked its two rows and the two EinsteinArena rows beside them with the asterisk, as replayed only by the submitting team\'s own checker. All four are decided here by two implementations that share no code with each other or with the claimants — '
-    + C.m('instruments/optq/stepfun.py') + ' (Python, Fraction and int) and the decider in ' + C.m('tools/replay-stepfun.js') + ' (JavaScript BigInt) — from the pinned bytes, against the bounds the registry prints, read from its pinned pages: every one CERTIFIED, with the same fraction in both. '
+    + C.m('instruments/optq/stepfun.py') + ' (Python, Fraction and int) and ' + C.m('instruments/optq/stepfun-exact.js') + ' (JavaScript BigInt), run by ' + C.m('tools/replay-stepfun.js') + ' — from the pinned bytes, against the bounds the registry prints, read from its pinned pages: every one CERTIFIED, with the same fraction in both. '
     + 'CodexProLong\'s heights are refused as published (Σh − n/2 = ' + sci(Number(/= ([0-9.]+)/.exec(cdxRed.jsWhy)[1])) + ', not 0); scaled down to Σh = n/2 exactly, the repair the platform\'s own verifier makes in floating point, they certify the bound. The EinsteinArena heights are read as the doubles the JSON numbers denote, as the platform parses them; an earlier record here read the same text as exact decimals and got '
     + C.esc(cdx.otherReading.bound) + ', which certifies the bound too. Five red controls come out wrong in both implementations: a bound 10⁻¹⁵ below the exact value and a doubled height are REFUTED; a negative height, a height above one and CodexProLong\'s heights as published are REFUSED.')
   + C.plainList(SR.rows.map((r) => ({ b: (r.constant === 'C_1a' ? 'C₁a' : 'C₁b') + ' · ' + r.producer.split(' (')[0] + ' [' + r.ref + ']',
@@ -146,6 +146,27 @@ B.push(C.section({
     { b: 'Same-author second implementation.', text: 'The Kronecker product is checked against schoolbook multiplication on random sequences and on closed-form functions (the constant function gives exactly 2; the half-step exactly 1); the claimants\' printed values are the outside check.' }
   ])
 }));
+/* §7 (2026-10-18): the registry's C_1c and C_1d, replayed (certs/autocorr-replay.json, tools/replay-autocorr.js) — appended
+   so the section numbers the registry already cites (§2, §3) stay where they are */
+{
+  const AR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'autocorr-replay.json'), 'utf8'));
+  if (AR.deciders.js !== shaOf('tools/replay-autocorr.js') || AR.deciders.jsModule !== shaOf('instruments/optq/stepfun-exact.js') || AR.deciders.py !== shaOf('instruments/optq/autocorr.py')) die('certs/autocorr-replay.json was written by other deciders — re-run tools/replay-autocorr.js');
+  const c = AR.rows.find((r) => r.id === '1c-rozetyp'), c0 = AR.rows.find((r) => r.id === '1c-rozetyp-k3072'), d = AR.rows.find((r) => r.id === '1d-cert2026');
+  if (!AR.rows.every((r) => r.agree) || c.verdict !== 'CERTIFIED' || c0.verdict !== 'CERTIFIED' || d.verdict !== 'REFUTED' || !d.repair || d.repair.js !== 'CERTIFIED' || d.repair.py !== 'CERTIFIED' || !AR.redControls.every((r) => r.fired) || !c.stated.fractionMatches || c.stated.decimalMatches || !d.stated.fractionMatches)
+    die('the C_1c/C_1d replay is not what §7 says — rewrite it');
+  B.push(C.section({
+    lab: '§7 · C₁c and C₁d', title: 'Two more step functions, and one bound printed below its own certificate', id: 'autocorr',
+    bodyRaw: C.pRaw('<b>Decided 2026-10-18.</b> Two family-1 constants entered the registry with asterisked bounds from step functions. Both are decided here from the pinned bytes, against the bounds the registry prints, by two implementations that share no code with each other or with the claimants\' verifiers (kept as text, never run): '
+      + C.m('instruments/optq/autocorr.py') + ' (Python, every lag summed term by term) and ' + C.m('instruments/optq/stepfun-exact.js') + ' (JavaScript BigInt, Kronecker products). Each gives the same fraction in both, and it is the claimant\'s own fraction.')
+      + C.plainList([
+        { b: 'C₁c ≥ ' + c.claim.split('>= ')[1] + ' — ' + 'CERTIFIED.', raw: 'Barnard–Steinerberger\'s constant is the smallest C with min over t ∈ [0, 1] of ∫f(x)f(x+t)dx ≤ C(∫f)²; rozetyp\'s step function (K = 6,144, ' + c.n.toLocaleString('en-US') + ' integer weights) has its autocorrelation linear between multiples of 1/K, so the minimum is a grid value: '
+          + C.m(c.js.decimal.slice(0, 22) + '…') + ', the stated fraction exactly. <b>A misprint:</b> the page and the claimant\'s README give its decimal as ' + C.esc(c.stated.decimal) + '…; it is ' + C.esc(c.js.decimal.slice(0, 13)) + '…. The bound column is right. The earlier K = 3,072 certificate holds too: ' + C.m(c0.js.decimal.slice(0, 14) + '…') + ' ≥ ' + C.esc(c0.claim.split('>= ')[1]) + '.' },
+        { b: 'C₁d ≤ ' + d.claim.split('<= ')[1] + ' — REFUTED as printed; C₁d ≤ ' + d.repair.claim.split('<= ')[1] + ' CERTIFIED.', raw: 'The signed third autocorrelation constant; the certificate is a 300-cell signed function given in the body of pull request 224 (its digest matches the bytes only with CRLF line endings, as pinned). Its exact ratio is '
+          + C.m(d.js.decimal.slice(0, 24) + '…') + ', the stated fraction exactly — and that is <b>above</b> the bound printed in the table and the README, ' + C.esc(d.claim.split('<= ')[1]) + '. An upper bound must round up: the certificate shows ' + C.esc(d.repair.claim.replace('<=', '≤').replace('C_1d', 'C₁d')) + ', not the printed number. What is refuted is that this certificate gives the printed bound; nothing here says the constant is above it.' }
+      ])
+      + C.pRaw('Red controls, which must come out wrong in both implementations: a C₁c bound 2·10⁻¹⁵ above the exact value and a C₁d bound 10⁻¹⁵ below it are REFUTED; a negative weight and a C₁d function changed to integral zero are REFUSED. Record ' + C.m('certs/autocorr-replay.json') + '; re-derive with ' + C.m('node tools/replay-autocorr.js') + ' (both, about two minutes) or ' + C.m('--check') + '.')
+  }));
+}
 const foot = '<p>' + C.esc('Generated by tools/build-report-optq.js from certs/optq-ledger.json (' + L.generated + ', ' + L.seconds + ' s), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; @ git ' + git + '.') + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'optconst-queue.html'), TPL.render({
   title: 'Five pull requests to the constants registry, decided where decidable · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
