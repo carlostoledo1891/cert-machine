@@ -207,6 +207,36 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   def('MtRgTableRows', rowTex.map((r) => r.join(' & ')).join(' \\\\\n'));
 }
 
+/* v0.4 (2026-10-18): the method evaluated — the kernel against Arb (certs/kernel-arb-audit.json) and planted claims of
+   known truth (certs/method-eval.json). The kernel audit must be of the kernel on disk: its module digests are compared. */
+{
+  const AR = J('certs/kernel-arb-audit.json'), EV = J('certs/method-eval.json');
+  const crypto = require('crypto');
+  for (const [m, h] of Object.entries(AR.modules)) need(crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, m))).digest('hex') === h, 'the Arb audit was run on a different ' + m + ' — re-run tools/audit-kernel-arb.js');
+  const c = AR.counts; need(c.violations === 0 && c.undecided === 0 && c.malformed === c.malformedRefused, 'the Arb audit is not clean');
+  const rr = Object.values(AR.redControls); need(rr.length === 2 && rr.every((r) => r.violationsCaught > 0), 'the Arb audit\'s red controls did not both fire');
+  def('MtArbCases', int(c.cases)); def('MtArbContained', int(c.contained)); def('MtArbOps', String(Object.keys(AR.byOp).length)); def('MtArbPerOp', int(AR.perOp));
+  def('MtArbMalformed', String(c.malformed)); def('MtArbInDomainRefused', int(c.refused)); def('MtArbPrec', String(AR.arbPrec[0]));
+  def('MtArbRedAdd', int(AR.redControls['red:add'].violationsCaught)); def('MtArbRedAddOf', int(AR.redControls['red:add'].cases));
+  def('MtArbRedExp', int(AR.redControls['red:exp'].violationsCaught)); def('MtArbRedExpOf', int(AR.redControls['red:exp'].cases));
+  const NAMES = { add: '$x + y$', sub: '$x - y$', mul: '$x \\times y$', div: '$x / y$', sqr: '$x^2$', abs: '$|x|$', pow: '$x^k$', exp: '$\\exp$', log: '$\\log$', sin: '$\\sin$', cos: '$\\cos$', tanh: '$\\tanh$',
+    encloseCos: 'the platform\'s $\\cos$, padded', encloseSin: 'the platform\'s $\\sin$, padded', lgamma: '$\\ln\\Gamma$', digamma: '$\\psi$', trigamma: '$\\psi\'$', gammaP: '$P(a, z)$', Phi: '$\\Phi$' };
+  const ORDER = ['add', 'sub', 'mul', 'div', 'sqr', 'abs', 'pow', 'exp', 'log', 'sin', 'cos', 'tanh', 'encloseCos', 'encloseSin', 'lgamma', 'digamma', 'trigamma', 'gammaP', 'Phi'];
+  need(ORDER.every((k) => AR.byOp[k]) && ORDER.length === Object.keys(AR.byOp).length, 'the Arb audit\'s operations are not the nineteen the table lists');
+  const med = (x) => (x === null ? '---' : x < 10 ? String(x) : int(x));
+  def('MtArbTableRows', ORDER.map((k) => { const r = AR.byOp[k]; return NAMES[k] + ' & ' + int(r.cases) + ' & ' + int(r.contained) + ' & ' + r.violations + ' & ' + int(r.refused) + ' & ' + med(r.thinWidthUlps.median); }).join(' \\\\\n'));
+  const P = EV.planted; need(P.falseAccepted === 0 && P.trueRejected === 0 && P.malformedDecided === 0, 'a planted claim was decided wrongly');
+  def('MtEvPlanted', String(P.rows.length)); def('MtEvFalse', String(P.falseClaims.planted)); def('MtEvTrue', String(P.trueClaims.planted)); def('MtEvMalformed', String(P.malformed.planted));
+  const fam = (f, t) => P.rows.filter((r) => r.family === f && r.truth === t);
+  const cell = (f, t) => { const x = fam(f, t); return x.filter((r) => r.correct).length + ' of ' + x.length; };
+  def('MtEvTableRows', [['kissing (E8, D4)', 'kissing'], ['entropy certificates (the registry\'s three)', 'entropy']].map(([label, f]) => label + ' & ' + cell(f, 'FALSE') + ' & ' + cell(f, 'TRUE') + ' & ' + cell(f, 'MALFORMED')).join(' \\\\\n'));
+  def('MtEvRedTotal', int(EV.redControls.total)); def('MtEvRedBatteries', String(EV.redControls.batteriesWithACount));
+  def('MtEvStraddles', String(EV.incompleteness.cosineStraddles)); def('MtEvResources', String(EV.incompleteness.openaiChallengesRefusedForResources)); def('MtEvChallenges', String(EV.incompleteness.openaiChallenges));
+  need(AR.seconds > 0 && EV.seconds >= 0, 'the evaluation records carry no run time');
+  def('MtArbSeconds', String(Math.round(AR.seconds))); def('MtEvSeconds', EV.seconds < 1 ? 'under a second' : Math.round(EV.seconds) + ' seconds');
+  def('MtEvCheckerFalse', String(EV.conventional.checker53bit.printedOkOnFalse)); def('MtEvCheckerRuns', String(EV.conventional.checker53bit.of));
+}
+
 /* B2: the Navier--Stokes certificate (corpus/navier-stokes/*; the commits and dates come from the register's macros) */
 const NSB = J('corpus/navier-stokes/build.json'), NSL = J('corpus/navier-stokes/lean-repo.json'), NSA = J('corpus/navier-stokes/audit.json');
 const NSU = J('corpus/navier-stokes/upstream-f9e8bc5b.json'), NSM = J('corpus/navier-stokes/MANIFEST.json'), NSN = J('corpus/navier-stokes/nonvacuity.json');
@@ -255,6 +285,11 @@ const V = { 'S.gap': oShort, families: OS.rows.length, 'holes.displayed': OR.cou
 const fill = (t) => String(t).replace(/\{\{([^}]+)\}\}/g, (_, k) => (k in V ? String(V[k]) : die('unknown placeholder {{' + k + '}} in a finding title')));
 def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title))).join(' \\\\\n'));
 
+/* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
+   named only once it exists; before that the note says the next release will hold it, under the concept DOI */
+{ const Z = J('corpus/zenodo.json'); const v = Z.versions.find((x) => x.version === Z.latest);
+  need(v && /^10\.5281\/zenodo\.\d+$/.test(v.doi) && /^10\.5281\/zenodo\.\d+$/.test(Z.conceptDoi), 'the deposit record has no current version');
+  def('MtArchiveNote', v.version === 'v2026.10.18' ? 'it is archived as release ' + esc(v.version) + ', doi:' + v.doi : 'it will be archived with the next release of the repository, under the concept doi:' + Z.conceptDoi); }
 def('MtCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('wrote ' + path.relative(ROOT, OUT) + ' (' + (M.length - 1) + ' macros)');

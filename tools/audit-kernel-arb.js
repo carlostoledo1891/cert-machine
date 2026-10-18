@@ -66,6 +66,7 @@ function box(x) {
 const pos = (lo, hi) => { const a = logU(lo, hi), b = rnd() < 0.5 ? a : a * (1 + logU(1e-12, 0.5)); return [Math.min(a, b), Math.max(a, b)]; };
 
 /* ---- run one case: the kernel's answer, or that it refused ---------------------------------------------------- */
+const T0 = Date.now();
 const out = fs.createWriteStream(CASES);
 let n = 0;
 function run(op, args, f, expectRefusal) {
@@ -119,7 +120,7 @@ const BAD = [
 for (const [op, args, f] of BAD) run(op, args, f, true);
 out.end();
 out.on('finish', () => {
-  const r = cp.spawnSync(PY, ['-I', path.join(ROOT, 'tools', 'audit-kernel-arb.py'), CASES, OUT, JSON.stringify({ seed: SEED, perOp: N, node: process.version, modules: Object.fromEntries(MODULES.map((m) => [m, sha(m)])) })], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  const r = cp.spawnSync(PY, ['-I', path.join(ROOT, 'tools', 'audit-kernel-arb.py'), CASES, OUT, JSON.stringify({ seed: SEED, perOp: N, node: process.version, t0: T0, modules: Object.fromEntries(MODULES.map((m) => [m, sha(m)])) })], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   fs.unlinkSync(CASES);
   if (CHECK && fs.existsSync(OUT)) fs.unlinkSync(OUT);
   process.stdout.write(r.stdout); process.stderr.write(r.stderr);

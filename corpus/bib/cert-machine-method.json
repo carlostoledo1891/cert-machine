@@ -23,22 +23,11 @@
    "titleMatch": true,
    "bibTitle": "{Navier--Stokes} lost in translation: why {Lean} verification of {AI} autoformalisation does not guarantee correct natural language proofs"
   },
-  "CertEval": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/paper/certified-evaluation.pdf",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/paper/certified-evaluation.pdf",
-   "resolvedTitle": "",
-   "titleMatch": true,
-   "bibTitle": "Certificate-grounded evaluation: when the answer key is a proof"
-  },
   "Cobbe21": {
    "kind": "arxiv",
    "id": "2110.14168",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "Training Verifiers to Solve Math Word Problems",
    "titleMatch": true,
@@ -163,7 +152,7 @@
    "kind": "arxiv",
    "id": "2103.03874",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "Measuring Mathematical Problem Solving With the MATH Dataset",
    "titleMatch": true,
@@ -311,17 +300,6 @@
    "titleMatch": true,
    "bibTitle": "{Math-Verify}: a mathematical expression evaluation system for {LLM} benchmarks"
   },
-  "MethodsNote": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/reports/methods-note.html",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/reports/methods-note.html",
-   "resolvedTitle": "How the bugs were found · Carlos Toledo",
-   "titleMatch": true,
-   "bibTitle": "How the bugs were found: the methods note"
-  },
   "Moore09": {
    "kind": "doi",
    "id": "10.1137/1.9780898717716",
@@ -357,22 +335,11 @@
    "kind": "arxiv",
    "id": "2506.13131",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "AlphaEvolve: A coding agent for scientific and algorithmic discovery",
    "titleMatch": true,
    "bibTitle": "{AlphaEvolve}: a coding agent for scientific and algorithmic discovery"
-  },
-  "NSAudit": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/reports/navier-stokes.html",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/reports/navier-stokes.html",
-   "resolvedTitle": "The 2026 Navier–Stokes blowup claim: the Lean proof read against its statement · Carlos Toledo",
-   "titleMatch": true,
-   "bibTitle": "An audit of the 2026 {Navier--Stokes} finite-time blowup claim: the formal statement read against {Clay}'s wording and {Mathlib}'s definitions, the {Lean} proof built and its axioms asked of the kernel"
   },
   "OberkampfRoy10": {
    "kind": "doi",
@@ -404,17 +371,6 @@
    "resolvedTitle": "GitHub - openai/math · GitHub",
    "titleMatch": true,
    "bibTitle": "math: manuscripts and {Lean} challenges"
-  },
-  "OpenAIMathAudit": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/reports/openai-math.html",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/reports/openai-math.html",
-   "resolvedTitle": "OpenAI's math release: what it claims beyond what it checks · Carlos Toledo",
-   "titleMatch": true,
-   "bibTitle": "{OpenAI}'s math release: what it claims beyond what it checks"
   },
   "OpenAINS": {
    "kind": "url",
@@ -468,17 +424,6 @@
    "titleMatch": true,
    "year": 2008,
    "bibTitle": "Computing sum of squares decompositions with rational coefficients"
-  },
-  "Positioning": {
-   "kind": "url",
-   "id": "https://github.com/carlostoledo1891/cert-machine",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://github.com/carlostoledo1891/cert-machine",
-   "resolvedTitle": "GitHub - carlostoledo1891/cert-machine: Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. · GitHub",
-   "titleMatch": true,
-   "bibTitle": "Positioning: the decisions"
   },
   "Prentice74": {
    "kind": "doi",
@@ -596,7 +541,7 @@
    "kind": "arxiv",
    "id": "2609.35051",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "Large-Scale Autonomous Discovery of Kissing Number Constructions",
    "titleMatch": true,
@@ -626,7 +571,7 @@
    "kind": "arxiv",
    "id": "2511.02864",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "Mathematical exploration and discovery at scale",
    "titleMatch": true,
@@ -698,7 +643,7 @@
    "kind": "arxiv",
    "id": "1304.1347",
    "ok": true,
-   "source": "arxiv abs page",
+   "source": "arxiv api",
    "status": 200,
    "resolvedTitle": "A composition theorem for the Fourier Entropy-Influence conjecture",
    "titleMatch": true,
@@ -715,28 +660,6 @@
    "titleMatch": true,
    "bibTitle": "A collection of optimization problems in mathematics"
   },
-  "OptConstAudit": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/reports/optimization-constants.html",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/reports/optimization-constants.html",
-   "resolvedTitle": "The optimization-constants registry: five asterisked bounds replayed · Carlos Toledo",
-   "titleMatch": true,
-   "bibTitle": "The optimization-constants registry: five asterisked bounds replayed"
-  },
-  "OptConstPR": {
-   "kind": "url",
-   "id": "https://github.com/teorth/optimizationproblems/pull/216",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://github.com/teorth/optimizationproblems/pull/216",
-   "resolvedTitle": "Remove the asterisk from C3b, C3c and C71: certificates independently replayed by carlostoledo1891 · Pull Request #216 · teorth/optimizationproblems · GitHub",
-   "titleMatch": true,
-   "bibTitle": "Remove the asterisk from {C3b}, {C3c} and {C71}: certificates independently replayed"
-  },
   "OptConstRule": {
    "kind": "url",
    "id": "https://github.com/teorth/optimizationproblems/pull/176#issuecomment-5848109776",
@@ -747,17 +670,6 @@
    "resolvedTitle": "Drop the unverified asterisk on the C₃b record by Chessing234 · Pull Request #176 · teorth/optimizationproblems · GitHub",
    "titleMatch": true,
    "bibTitle": "Drop the unverified asterisk on the {C₃b} record"
-  },
-  "OptQueueAudit": {
-   "kind": "url",
-   "id": "https://carlostoledo.co/reports/optconst-queue.html",
-   "ok": true,
-   "source": "fetch",
-   "status": 200,
-   "finalUrl": "https://carlostoledo.co/reports/optconst-queue.html",
-   "resolvedTitle": "Five pull requests to the constants registry, decided where decidable · Carlos Toledo",
-   "titleMatch": true,
-   "bibTitle": "Five pull requests to the constants registry, decided where decidable"
   },
   "PlattTrudgian21": {
    "kind": "doi",
@@ -778,6 +690,66 @@
    "titleMatch": true,
    "year": 2020,
    "bibTitle": "The de {Bruijn}--{Newman} constant is non-negative"
+  },
+  "Fousse07": {
+   "kind": "doi",
+   "id": "10.1145/1236463.1236468",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "MPFR",
+   "titleMatch": true,
+   "year": 2007,
+   "bibTitle": "{MPFR}: A multiple-precision binary floating-point library with correct rounding"
+  },
+  "McConnell11": {
+   "kind": "doi",
+   "id": "10.1016/j.cosrev.2010.09.009",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Certifying algorithms",
+   "titleMatch": true,
+   "year": 2011,
+   "bibTitle": "Certifying algorithms"
+  },
+  "Necula97": {
+   "kind": "doi",
+   "id": "10.1145/263699.263712",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Proof-carrying code",
+   "titleMatch": true,
+   "year": 1997,
+   "bibTitle": "Proof-carrying code"
+  },
+  "Rougier17": {
+   "kind": "doi",
+   "id": "10.7717/peerj-cs.142",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Sustainable computational science: the ReScience initiative",
+   "titleMatch": true,
+   "year": 2017,
+   "bibTitle": "Sustainable computational science: the {ReScience} initiative"
+  },
+  "Wetzler14": {
+   "kind": "doi",
+   "id": "10.1007/978-3-319-09284-3_31",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "DRAT-trim: Efficient Checking and Trimming Using Expressive Clausal Proofs",
+   "titleMatch": true,
+   "year": 2014,
+   "bibTitle": "{DRAT-trim}: Efficient checking and trimming using expressive clausal proofs"
+  },
+  "CMArchive": {
+   "kind": "doi",
+   "id": "10.5281/zenodo.22225860",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "cert-machine: independent exact certification of machine-generated mathematics",
+   "titleMatch": true,
+   "year": 2026,
+   "bibTitle": "cert-machine: independent exact certification of machine-generated mathematics"
   }
  }
 }

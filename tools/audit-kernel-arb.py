@@ -175,6 +175,7 @@ def main():
     rec = {
         'what': 'The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.',
         'generated': __import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat(timespec='seconds'),
+        'seconds': round(__import__('time').time() - meta['t0'] / 1000, 1),
         'seed': meta['seed'], 'perOp': meta['perOp'], 'node': meta['node'], 'pythonFlint': flint.__version__, 'arbPrec': list(PRECS),
         'modules': meta['modules'],
         'counts': {'cases': total, 'contained': sum(r['contained'] for r in summary.values()), 'violations': sum(r['violations'] for r in summary.values()),
