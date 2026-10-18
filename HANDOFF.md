@@ -22,6 +22,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ METHOD PAPER v0.5 (2026-10-18 evening, 52 pp A4): a referee-style read by an AI agent ("major revision": 37 errors,
+     15 overclaims, 13 structure items, 35 typography) APPLIED — the Navier–Stokes CERTIFIED scoped at f9e8bc5b (one
+     kernel, Comparator not re-run, theorem_1_1 OpenAI's own and undeclared) and its 2026-09-10 commit date with no causal
+     link; "sound under one hypothesis" scoped to the interval/exact pathways + a trust-base table (tab:trust); the
+     threshold theory split (translated: two thresholds; nested: one, isotonicity stated); Prop 2 proved; ~20 numbers
+     fixed or read from records (192 → 4,608; five releases → three; 946,146 contained → 944,642 + 1,504 refused; +4
+     support-only; Cohn 25, 27, 33; 3,582 of 4,000 pooled); threats to validity (new §5.4); related practice + Table 12
+     (SMT unknown, Why3, δ-decision, dReal, MetiTarski, cake_lpr, Rump 2009, Fasi 2021, Software Heritage, Reproducible
+     Builds, Knight–Leveson, DeMillo, Jia–Harman, Richardson, Hod — 88/88 verified; the first cake_lpr DOI was wrong and
+     check-bib caught it); unexercised certifiers moved to Appendix B; xurl dropped (paths no longer break mid-name);
+     A4; the version history out of the title note. NOT DONE (the operator's call or later): S3's full cut of the
+     engineering material, S5's planted Lean statements, S6's second C71 implementation, O2's Arb audit of bigfloat and
+     Decimal ln, S12's figure-to-table. The operator sends v0.5 to Pedro.
   ★ METHOD PAPER v0.4 (2026-10-18, LIVE, 49 pp; archived as release v2026.10.18, doi:10.5281/zenodo.23446020) — the two
      outside readings acted on, on the operator's "Proceed your suggestions" (items 1–16 and 18; 17 venue undefined, 19
      reviewing group ongoing, 20 arXiv wait, 21 replication asks and 22 an outside arithmetic expert ongoing):

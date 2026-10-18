@@ -92,6 +92,9 @@ def('RegRows', int(R.count)); def('RegDecided', int(R.decided)); def('RegPending
 def('RegSubmitted', int(R.submitted));
 const sources = [...new Set(R.rows.map((r) => r.decidedFrom))], pages = [...new Set(R.rows.map((r) => r.page))];
 def('RegSources', int(sources.length)); def('RegPages', int(pages.length));
+/* the claimants the rows name (a row generated here — a calibration, a composition — has no outside claimant) */
+const generated = R.rows.filter((r) => /generated here/.test(r.claimant));
+def('RegGenerated', int(generated.length)); def('RegClaimants', int(new Set(R.rows.filter((r) => !/generated here/.test(r.claimant)).map((r) => r.claimant)).size));
 def('RegKinds', int(Object.keys(R.kindsDefined).length));
 def('RegKindsUsed', int(Object.keys(R.byKind).filter((k) => k !== 'none').length));
 const V = (k) => R.byVerdict[k] || 0;

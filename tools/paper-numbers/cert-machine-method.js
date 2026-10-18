@@ -137,7 +137,37 @@ const d38 = kw.find((r) => r.dim === 38);
 def('MtKwAxisRows', int(d38.blocks.find((b) => String(b.squaredNorm).length > 10).rows));
 def('MtKwAxisDigits', String(String(d38.blocks.find((b) => String(b.squaredNorm).length > 10).squaredNorm).length));
 const kwPath = (r) => /Triton/.test(r.engine.families[0].path) ? 'fused GPU kernel' : r.dim === 38 ? 'float32 BLAS, exact int64, integers'
-  : /gemm|BLAS/.test(r.engine.families[0].path) ? 'float32 BLAS' : esc(r.engine.families[0].path);
+  : r.engine.families.some((f) => f.path === 'object') ? 'float32 BLAS + exact' : /gemm|BLAS/.test(r.engine.families[0].path) ? 'float32 BLAS' : esc(r.engine.families[0].path);
+/* v0.5 (the referee read of 2026-10-18): the numbers the text had typed by hand, now read from the records */
+{
+  need(kw.every((r) => Array.isArray(r.engine.norm) && r.engine.norm.slice(1).every((x) => x === 0)), 'a row carries a squared norm outside the integers');
+  const top = kwDesk.map((r) => ({ dim: r.dim, norm: Number(r.engine.norm[0]) })).sort((a, b) => b.norm - a.norm)[0];
+  need(top.norm < 2 ** 24, 'the largest laptop squared norm is not below 2^24');
+  def('MtKwDeskMaxNorm', int(top.norm)); def('MtKwDeskMaxNormDim', String(top.dim));
+  def('MtKwGpuMaxNorm', int(Math.max(...kwGpu.map((r) => Number(r.engine.norm[0])))));
+  const axis = d38.blocks.find((b) => String(b.squaredNorm).length > 10), N = Number(axis.squaredNorm), e = Math.floor(Math.log10(N));
+  def('MtKwAxisNormSci', (N / 10 ** e).toFixed(2) + '\\times 10^{' + e + '}'); def('MtKwAxisOther', String(d38.engine.norm[0]));
+  /* the points' sources: release tags, or constructions in the repository */
+  const tagOf = (r) => { const m = JSON.stringify(r).match(/releases\/(?:tag|download)\/([A-Za-z0-9._-]+)/); return m ? m[1] : null; };
+  const tags = [...new Set(kw.map(tagOf).filter(Boolean))].sort(), cons = kw.filter((r) => !tagOf(r)).map((r) => r.dim);
+  need(tags.length === 3 && cons.join() === '25,27', 'the sources are not three release tags and the two constructions of 25 and 27');
+  def('MtKwReleases', ['no', 'one', 'two', 'three', 'four', 'five'][tags.length]); def('MtKwFromReleases', String(kw.length - cons.length));
+  def('MtKwPointsDates', [...new Set(tags.map((t) => t.match(/\d{4}-\d{2}-\d{2}$/)[0]))].sort().join(' and '));
+  const d25 = kw.find((r) => r.dim === 25); def('MtKwObjFallbacks', int(d25.engine.bigintFallbacks));
+  const req = J('corpus/outreach.json').rows.find((r) => r.id === 'gh-qiushi-engine-kissing-number-research-1'); need(req && req.sent, 'the request for the points is not recorded');
+  def('MtKwRequestDate', req.sent);
+  const gp = kwGpu.map((r) => r.engine.pairs); def('MtKwGpuPairsEachSci', (gp.reduce((a, b) => a + b, 0) / gp.length / 1e15).toFixed(1) + '\\times10^{15}');
+  const idle = /idled about ([0-9.]+) h/.exec(POD.terminatedAt); need(idle, 'the pod record no longer states its idle time'); def('MtKwPodIdle', idle[1]);
+  /* the field's table beside the decided bounds */
+  const COHN = J('corpus/sources/kissing/cohn-table-extract_2026-10-11.json').rows;
+  need(kw.every((r) => !COHN[r.dim] || COHN[r.dim].lower >= r.claimed), 'a decided bound exceeds the field table — rewrite the sentence');
+  const span = (ds) => { const runs = []; for (const d of ds) { const last = runs[runs.length - 1]; if (last && d === last[1] + 1) last[1] = d; else runs.push([d, d]); }
+    const parts = runs.map(([a, b]) => (a === b ? String(a) : a + '--' + b)); return parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0]; };
+  def('MtKwCohnHigher', span(kw.filter((r) => COHN[r.dim] && COHN[r.dim].lower > r.claimed).map((r) => r.dim)));
+  def('MtKwCohnEqual', span(kw.filter((r) => COHN[r.dim] && COHN[r.dim].lower === r.claimed).map((r) => r.dim)));
+  def('MtKwCohnAbsent', span(kw.filter((r) => !COHN[r.dim]).map((r) => r.dim)));
+  def('MtKwCohnTop', String(Math.max(...Object.keys(COHN).map(Number))));
+}
 def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(r.engine.pairs) + ' & ' + int(r.engine.contacts) + ' & ' + kwPath(r) + ' & ' + hours(r.engine.seconds)).join(' \\\\\n'));
 
 /* B2 (v0.3, 2026-10-18): the optimization-constants registry — the asterisked bounds replayed (certs/sumdiff-ledger.json,
@@ -171,6 +201,7 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   const runs = SD.observed.runs; const okRuns = runs.filter((r) => r.printed === 'OK'), falseOk = okRuns.filter((r) => /REFUTED/.test(r.truth));
   need(falseOk.length >= 1, 'the record no longer shows the 53-bit checker accepting a false bound');
   def('MtRgCheckerOk', String(okRuns.length)); def('MtRgCheckerFalse', String(falseOk.length));
+  def('MtRgCheckerUndecided', String(okRuns.filter((r) => /not certified/.test(r.truth)).length));
   /* the rule, the merge, the citation (all from the pinned registry bytes) */
   need(RG.rule.contributing && RG.rule.promise && RG.replay.merged && RG.replay.pagesCiting.length === 3, 'the registry record does not show the rule, the merge and the three citations');
   def('MtRgRuleDate', RG.rule.stated); def('MtRgMergeDate', RG.replay.mergedAt.slice(0, 10)); def('MtRgMergeCommit', RG.replay.mergeCommit.slice(0, 8));
@@ -215,9 +246,9 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   const rowTex = [
     ['$C_{3b} \\ge ' + b3.claim.replace(/^.*>= /, '') + '$', 'Mosaic Intelligence', b3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
     ['$C_{3c} \\ge ' + c3.claim.replace(/^.*>= /, '') + '$', 'Y.~Lin', c3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
-    ['$C_{71} > ' + f71.claim.replace(/^.*> /, '').slice(0, 12) + '\\ldots$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', '\\vC, one program', 'asterisk removed; [T2026] cited'],
+    ['$C_{71} > ' + f71.claim.replace(/^.*> /, '') + '$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', '\\vC, one program', 'asterisk removed; [T2026] cited'],
     ['$C_{3c} \\ge 1.674894211307116$', 'M.~Jaswal', tl.laws.join(' and ') + '-point laws', '\\vC, two programs', 'merged with asterisk, then removed on the replay (\\#230); [T2026b] cited'],
-    ['$C_{21} < 0.1595$', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as all ' + RG.queue[210].asteriskedRows + ' recent rows']];
+    ['$\\Lambda < 0.1595$ (the registry\'s $C_{21}$)', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as are all ' + RG.queue[210].asteriskedRows + ' rows after 2021']];
   def('MtRgTableRows', rowTex.map((r) => r.join(' & ')).join(' \\\\\n'));
 }
 
@@ -243,7 +274,7 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   def('MtEvPlanted', String(P.rows.length)); def('MtEvFalse', String(P.falseClaims.planted)); def('MtEvTrue', String(P.trueClaims.planted)); def('MtEvMalformed', String(P.malformed.planted));
   const fam = (f, t) => P.rows.filter((r) => r.family === f && r.truth === t);
   const cell = (f, t) => { const x = fam(f, t); return x.filter((r) => r.correct).length + ' of ' + x.length; };
-  def('MtEvTableRows', [['kissing (E8, D4)', 'kissing'], ['entropy certificates (the registry\'s three)', 'entropy']].map(([label, f]) => label + ' & ' + cell(f, 'FALSE') + ' & ' + cell(f, 'TRUE') + ' & ' + cell(f, 'MALFORMED')).join(' \\\\\n'));
+  def('MtEvTableRows', [['kissing ($E_8$, $D_4$)', 'kissing'], ['entropy certificates (the registry\'s three)', 'entropy']].map(([label, f]) => label + ' & ' + cell(f, 'FALSE') + ' & ' + cell(f, 'TRUE') + ' & ' + cell(f, 'MALFORMED')).join(' \\\\\n'));
   def('MtEvRedTotal', int(EV.redControls.total)); def('MtEvRedBatteries', String(EV.redControls.batteriesWithACount));
   def('MtEvStraddles', String(EV.incompleteness.cosineStraddles)); def('MtEvResources', String(EV.incompleteness.openaiChallengesRefusedForResources)); def('MtEvChallenges', String(EV.incompleteness.openaiChallenges));
   need(AR.seconds > 0 && EV.seconds >= 0, 'the evaluation records carry no run time');
@@ -265,7 +296,16 @@ def('MtNsSlips', String(NSA.slips.length)); def('MtNsWeakPoints', String(NSA.wea
 def('MtNsNonVacuity', String(NSN.declarations.length));
 def('MtNsUpstreamChecked', NSU.checkedOn);
 def('MtNsUpstreamFiles', int(NSU.diff.files)); def('MtNsUpstreamInsertions', int(NSU.diff.insertions));
+need(NSU.comparator && NSU.comparator.ranAtHead === false && /not replayed through nanoda/.test(NSU.comparator.why) && NSU.formalizationYamlAtHead.theorem_1_1Declared === false && NSU.onlyStandardAxioms,
+  'the head record no longer says: one kernel, Comparator not re-run, theorem_1_1 not declared, the standard axioms — rewrite the scope');
+def('MtNsHeadRebuilt', int(NSU.build.built)); def('MtNsHeadReused', int(NSU.build.reused)); def('MtNsHeadMinutes', String(Math.round(NSU.build.buildSeconds / 60)));
+const wall = (Date.parse(NSB.finished.replace(/^\w+ (\w+) +(\d+) ([\d:]+) (-\d\d) (\d+)$/, '$1 $2 $5 $3 GMT$400')) - Date.parse(NSB.started.replace(/^\w+ (\w+) +(\d+) ([\d:]+) (-\d\d) (\d+)$/, '$1 $2 $5 $3 GMT$400'))) / 60000;
+need(wall > 0 && NSB.legs.length === 2, 'the pin build record no longer has its two legs and a wall-clock'); def('MtNsBuildWall', Math.floor(wall / 60) + '~h ' + Math.round(wall % 60) + '~min');
+def('MtNsBuildLegs', NSB.legs.map((l) => String(l.threads).replace(/ \(default\)/, '')).join(' and ')); def('MtNsNotRebuilt', int(NSB.jobsTotal - NSB.jobsBuilt));
 def('MtNsFetched', NSM.fetched);
+/* the erratum of 2026-10-09: the closed-form hunt's float "refutations" (certs/erratum-2026-10-09.json) */
+{ const ER = J('certs/erratum-2026-10-09.json').before.totals; need(ER.closedFormRefuted > ER.closedFormRefutedExact, 'the erratum no longer records the float refutations');
+  def('MtErrFloatMillions', ((ER.closedFormRefuted - ER.closedFormRefutedExact) / 1e6).toFixed(1)); }
 
 /* B3: the graders graded (certs/envs-record.json) and the openai/math release audited (corpus/openai-math, certs/openai-math-*) */
 const ENV = J('certs/envs-record.json');
@@ -274,7 +314,10 @@ const gAbs = g(/^absolute/), gRel = g(/^relative/), gEx = g(/^exact/), gEnc = g(
 need(gEnc.falseAccept === 0 && gEnc.falseReject === 0 && gAbs.wrongSubmissions === ENV.provablyWrong, 'the grader record no longer says the enclosure grader is exact on every submission');
 const pct = (x) => (100 * x).toFixed(1) + '\\%';
 def('MtGrFacts', int(ENV.corpus.length)); def('MtGrWrong', int(ENV.provablyWrong)); def('MtGrRight', int(ENV.provablyRight));
-def('MtGrAbsAccept', pct(gAbs.falseAccept)); def('MtGrRelAccept', pct(gRel.falseAccept)); def('MtGrExactReject', pct(gEx.falseReject));
+def('MtGrAbsAccept', pct(gAbs.falseAccept)); def('MtGrAbsAcceptN', int(Math.round(gAbs.falseAccept * gAbs.wrongSubmissions)));
+{ const t = Object.entries(gAbs.falseAcceptByTolerance).map(([k, v]) => [Number(k), v]).sort((a, b) => b[0] - a[0]);
+  const ex = (x) => '10^{' + Math.round(Math.log10(x)) + '}'; def('MtGrTolFrom', ex(t[0][0])); def('MtGrTolTo', ex(t[t.length - 1][0]));
+  const pr = (x) => (Math.round(1000 * x) / 10).toFixed(1) + '\\%'; const vs = t.map((x) => x[1]); def('MtGrAbsAcceptLo', pr(Math.min(...vs))); def('MtGrAbsAcceptHi', pr(Math.max(...vs))); } def('MtGrRelAccept', pct(gRel.falseAccept)); def('MtGrExactReject', pct(gEx.falseReject));
 def('MtGrAbsReject', pct(gAbs.falseReject)); def('MtGrEncAccept', pct(gEnc.falseAccept)); def('MtGrEncReject', pct(gEnc.falseReject));
 def('MtGrForgeriesPlanted', String(ENV.forgeries.planted !== undefined ? ENV.forgeries.planted : ENV.forgeries.length));
 def('MtGrForgeriesLeaked', String(ENV.forgeries.leaked !== undefined ? ENV.forgeries.leaked : 0));
@@ -291,13 +334,23 @@ def('MtOaCommit', OR.commit.slice(0, 8)); def('MtOaManuscripts', int(OR.counted.
 def('MtOaChallenges', int(OR.counted.challenges)); def('MtOaCertified', int(ow.CERTIFIED)); def('MtOaRefused', int(ow.REFUSED || 0));
 def('MtOaStatements', int(OS.rows.length)); def('MtOaShort', int(oShort)); def('MtOaMatches', int(sw.MATCHES)); def('MtOaDifferent', int(sw.DIFFERENT || 0));
 def('MtOaNarrowerUndeclared', int(sw['NARROWER — UNDECLARED'] || 0)); def('MtOaNarrowerDeclared', int(sw['NARROWER — DECLARED'] || 0)); def('MtOaUnlinked', int(sw['NARROWER — UNLINKED'] || 0));
+def('MtOaSupportOnly', int(sw['SUPPORT-ONLY'] || 0));
+need(Object.values(sw).reduce((a, b) => a + b, 0) === OS.rows.length, 'the statement words do not add up to the statements');
+def('MtOaSecondReadings', int(OS.counts.secondReadings)); def('MtOaDisagreements', int(OS.counts.disagreements)); def('MtOaFirstUndeclared', int(OS.counts.firstPassWords['NARROWER — UNDECLARED']));
+{ const OK2 = J('certs/openai-math-kernel.json'), byBuild = {}; OK2.rows.filter((r) => r.word === 'CERTIFIED').forEach((r) => { byBuild[r.nanodaBuild] = (byBuild[r.nanodaBuild] || 0) + 1; });
+  need(Object.keys(byBuild).sort().join() === 'issue44,stack1g,stock', 'the second kernel builds are not stock, a 1 GiB stack and the issue-44 patch');
+  def('MtOaNanodaStock', int(byBuild.stock)); def('MtOaNanodaStack', int(byBuild.stack1g)); def('MtOaNanodaPatched', int(byBuild.issue44));
+  const REL = J('corpus/openai-math/release.json').stated; def('MtOaStatedReview', esc(REL.review)); def('MtOaStatedScope', esc(REL.scope.replace(/\.$/, '')));
+  def('MtOaStatedFormalized', int(REL.formalizedTopLine.formalized)); def('MtOaStatedPercent', String(REL.formalizedTopLine.percentStated)); }
 def('MtOaFiniteTotal', int(OF.counts.CERTIFIED + OF.counts.REFUSED + OF.counts['NEEDS DATA'])); def('MtOaFiniteCertified', int(OF.counts.CERTIFIED)); def('MtOaFiniteRefused', int(OF.counts.REFUSED)); def('MtOaFiniteNeedsData', int(OF.counts['NEEDS DATA']));
 def('MtOaGaps', String(OG.findings.length)); def('MtOaGapsSevOne', String(OG.findings.filter((x) => x.severity === 1).length)); def('MtOaFound', OG.found);
 def('MtOaNanodaOn', String(OR.counted.enableNanoda.true)); def('MtOaHolesDisplayed', int(OR.counted.definitionHoles.displayedWithBody));
 const V = { 'S.gap': oShort, families: OS.rows.length, 'holes.displayed': OR.counted.definitionHoles.displayedWithBody, 'nanoda.true': OR.counted.enableNanoda.true,
   challenges: OR.counted.challenges, 'F.needs': OF.counts['NEEDS DATA'] };
 const fill = (t) => String(t).replace(/\{\{([^}]+)\}\}/g, (_, k) => (k in V ? String(V[k]) : die('unknown placeholder {{' + k + '}} in a finding title')));
-def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title))).join(' \\\\\n'));
+/* an opening quote is set as one: a straight ' after a space or a bracket becomes ` (LaTeX would print two closing quotes) */
+const quotes = (t) => t.replace(/(^|[\s(\[])'/g, '$1`').replace(/(^|[\s(\[])"/g, '$1``').replace(/"/g, "''");
+def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x.title)))).join(' \\\\\n'));
 
 /* v0.5 (2026-10-18): the registry's other step-function rows — the four C_1a/C_1b rows the maintainer asterisked, replayed
    and offered as pull request 232 (certs/stepfun-replay.json), and C_1c/C_1d (certs/autocorr-replay.json), where the

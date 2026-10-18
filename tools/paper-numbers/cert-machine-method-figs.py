@@ -59,8 +59,9 @@ fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.6, 2.4), gridspec_kw={'wspace': 0.
 seen = set()
 for i, r in enumerate(rows):
     k = path_of(r)
-    ax.bar(i, r['engine']['pairs'], color=col[k], width=0.7, label=lab[k] if k not in seen else None)
-    bx.bar(i, r['engine']['seconds'], color=col[k], width=0.7)
+    # points, not bars: a bar on a log axis has no meaningful base
+    ax.plot(i, r['engine']['pairs'], 'o', color=col[k], markersize=3.5, label=lab[k] if k not in seen else None)
+    bx.plot(i, r['engine']['seconds'], 'o', color=col[k], markersize=3.5)
     seen.add(k)
 for a, ylab, title in ((ax, 'pairs decided', '(a) every pair of each configuration'), (bx, 'wall-clock seconds', '(b) the time it took')):
     a.set_yscale('log')
@@ -70,9 +71,11 @@ for a, ylab, title in ((ax, 'pairs decided', '(a) every pair of each configurati
     a.set_ylabel(ylab)
     a.grid(True, axis='y', color='#e5e4e0', linewidth=0.3)
     a.set_title(title, fontsize=8, loc='left')
-ax.legend(frameon=False, fontsize=6.5, loc='upper left')
+ax.legend(frameon=False, fontsize=6, loc='upper left', bbox_to_anchor=(0, 1.0), handletextpad=0.3)
+ax.set_ylim(top=ax.get_ylim()[1] * 60)   # head room for the legend above the points
+bx.set_ylim(top=bx.get_ylim()[1] * 8)
 bx.annotate('includes a pause', xy=(rows.index(next(r for r in rows if r['dim'] == 45)), next(r for r in rows if r['dim'] == 45)['engine']['seconds']),
-            xytext=(0, 6), textcoords='offset points', fontsize=6, ha='center', color=C['ink2'])
+            xytext=(-10, 4), textcoords='offset points', fontsize=6, ha='right', va='center', color=C['ink2'], arrowprops=dict(arrowstyle='-', lw=0.4, color=C['ink2']))
 fig.savefig(os.path.join(OUT, 'cert-machine-method-kissing.pdf'), bbox_inches='tight')
 plt.close(fig)
 
@@ -97,21 +100,20 @@ short = {
     '2026-08-28': 'OpenAI begins training the model used',
     '2026-09-01': 'OpenAI launches the agent effort',
     '2026-09-03': "Tao's post; Buckmaster writes to OpenAI",
-    '2026-09-05': "the agents 'arrive at their resolution' (88 hours in)",
-    '2026-09-06': 'Lean formalisation complete (17 hours later)',
-    '2026-09-08': 'the repository, its one commit, the announcement',
+    '2026-09-05': 'the agents ‘arrive at their resolution’ (88 hours in)',
+    '2026-09-06': 'Lean formalization complete (17 hours later)',
+    '2026-09-08 03:58 UTC': 'Alpöge–Buckmaster publish their results, with Lean',
+    '2026-09-08 10:53 UTC': 'the repository, its one commit, the announcement',
 }
 events = []
-seen = set()
-for e in A['processDates']:
+for e in A['processDates']:      # every recorded event, two on 2026-09-08
     d = day(e['date'])
-    if d in seen:
-        continue
-    seen.add(d)
-    events.append((d, short.get(d.isoformat(), e['event'][:60]), 'claimant'))
+    events.append((d, short.get(e['date'], e['event'][:60]), 'claimant'))
+nxt = U['commits'][-1]
+events.append((day(nxt['authored']), 'the next upstream commit: theorem_1_1 added (the day after the pin)', 'claimant'))
 events.append((day(M['fetched']), 'the corpus pinned and built here; the reading: one clause absent — PARTIAL', 'audit'))
-events.append((day(U['checkedOn']), 'the next upstream commit decided: the clause proved — CERTIFIED', 'audit'))
-events.sort()
+events.append((day(U['checkedOn']), 'that commit decided: the clause proved, one kernel — CERTIFIED with its scope', 'audit'))
+events.sort(key=lambda e: (e[0], e[2] == 'audit'))
 fig, ax = plt.subplots(figsize=(6.6, 3.0))
 n = len(events)
 for k, (d, text, who) in enumerate(events):
