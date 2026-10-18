@@ -215,7 +215,8 @@ for (const [repo, num, label] of [
   ...[6, 10, 12, 5].map((n) => ['google-deepmind/alphaevolve_repository_of_problems', n, 'AlphaEvolve problems #' + n]),
   ...[7304, 7305, 7306, 7308, 7330, 7310, 7320, 7321, 7322, 7337].map((n) => ['google-deepmind/formal-conjectures', n, 'formal-conjectures #' + n + ' (WOWII)']),
   ...[225, 221, 226, 210].map((n) => ['teorth/optimizationproblems', n, 'optimizationproblems PR #' + n]),
-  ['teorth/optimizationproblems', 230, 'optimizationproblems PR #230 (the J2026 replay; #216 was merged 2026-10-18)']]) {
+  ['teorth/optimizationproblems', 230, 'optimizationproblems PR #230 (the J2026 replay; merged 2026-10-18)'],
+  ['teorth/optimizationproblems', 232, 'optimizationproblems PR #232 (the four C_1a/C_1b step functions replayed)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

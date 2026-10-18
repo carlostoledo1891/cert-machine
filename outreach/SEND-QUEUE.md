@@ -46,7 +46,10 @@ AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 
       merge had reverted it). MERGED 2026-10-18 05:54 UTC (commit 9938edd4), no comment: the asterisk off, [T2026b] cited,
       the L2026 note restored, a README recent-progress line naming the replay. In the same minute #225 was merged and
       Tao asterisked its rows himself (3010f7ed: "replayed only by the submitting team's own checker") — our 10-15
-      comment there is not cited. T-PR2 (NOT DRAFTED): the same form for #225's two rows; the operator's word first.
+      comment there is not cited. T-PR2 FILED 2026-10-18 11:26 UTC on the operator's "Review and Proceed the suggested
+      next steps": https://github.com/teorth/optimizationproblems/pull/232 — all four 1a/1b rows (Atris + the two
+      EinsteinArena rows), two implementations, record certs/stepfun-replay.json @ 5de570c. Watch the thread; any
+      follow-up is a new send. Scouted next (not drafted): C_1c, C_1d, C_86, C_82 — HANDOFF's registry line.
     Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
     ALSO DRAFTED in the plan: F1 the Bandeira axiom-list follow-up on Oxelra#1; P1-P5 one-liners on the five formal-conjectures PRs
     (after B1-B5); AE-PR a minimal pull request to DeepMind's repository (week 2; the operator must sign Google's CLA first);

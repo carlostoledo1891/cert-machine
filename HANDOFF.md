@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~09:40 UTC: Tao merged #216, then #230 at 05:54 (the fourth asterisk off on our replay) and #225 (asterisked by him: "replayed only by the submitting team's own checker"); the method paper v0.4.1 records it; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
+## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~11:40 UTC: Tao merged #216, then #230 at 05:54 (the fourth asterisk off on our replay) and #225 (asterisked by him: "replayed only by the submitting team's own checker"); the method paper v0.4.1 records it; PR #232 (the four 1a/1b rows replayed) FILED 11:26; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -46,11 +46,18 @@ NEXT SESSION, IN ORDER:
        here in a comment; abstract, highlight and §5 count four marks. The archive note now names the release only when
        its tag holds the commit built (v0.4.1 goes in the next release). Both registry reports carry a dated
        "afterwards" note read from the snapshots.
-     NEXT ON THE REGISTRY (a send — the operator's word): a PR in #230's form asking the #225 asterisks off — Tao's
-       stated reason ("replayed only by the submitting team's own checker") is exactly what our 10-15 decision answers;
-       the two EinsteinArena rows (AgentDiscover 1a, CodexProLong 1b) would need deciding first if the PR is to clear all
-       four. Tao's 05:44–05:56 batch also asterisked new rows on C_1c, C_1d, C_12, C_31, C_82, C_86 and 49a: candidates
-       for replays, each to be SCOUTED (corpus/targets.json) before anything is built.
+     T-PR2 FILED 2026-10-18 11:26 UTC on the operator's "Review and Proceed the suggested next steps":
+       https://github.com/teorth/optimizationproblems/pull/232 — all four C_1a/C_1b rows Tao asterisked in 3010f7ed
+       ("replayed only by the submitting team's own checker"), decided by tools/replay-stepfun.js (JS BigInt) +
+       instruments/optq/stepfun.py, the same fraction in both (certs/stepfun-replay.json @ 5de570c; battery in make test);
+       CodexProLong REFUSED as published (Σh − n/2 = 1.9e-13), CERTIFIED scaled to Σh = n/2; [T2026b] on these pages
+       ([T2026] is Together AI there); /reports/optconst-queue.html#step-functions. WATCH THE THREAD (sweep-claims).
+       IF #232 MERGES: a third registry snapshot (add it to SNAPS in tools/read-optconst-registry.js) before the paper
+       counts more than four marks.
+     NEXT ON THE REGISTRY, scouted 2026-10-18 (corpus/targets.json optconst-*; nothing built, each a separate send):
+       C_1c (#207) and C_1d (#224) — seconds with the step-function decider (1c's page misprints its decimal; 1d's digest
+       needs CRLF bytes); C_86 (#227) — the best value, a 31.7 KB exact certificate, ~a day; C_82 (#229) ~a day;
+       C_12, C_31, C_84a heavy or not on this machine; C_3a a Lean build (disk); 49a OCCUPIED (a comment replay exists).
   0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
      corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
      by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an
